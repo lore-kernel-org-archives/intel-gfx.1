@@ -4,96 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98938CA0FF7
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A945CA0FFF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36A6610E7F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4302F10E7F5;
 	Wed, 27 Aug 2025 12:28:10 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8559510E312;
- Wed, 27 Aug 2025 02:34:30 +0000 (UTC)
-X-UUID: 576dcd6482ee11f0b29709d653e92f7d-20250827
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:18f8ffd4-d9a9-4408-aab5-c35097565dc8, IP:0,
- U
- RL:0,TC:0,Content:32,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:32
-X-CID-META: VersionHash:6493067, CLOUDID:2dbac917d42042bb9e9a6bb17c01f6f1,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:4|50,EDM:-3
- ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
- :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 576dcd6482ee11f0b29709d653e92f7d-20250827
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 2130677979; Wed, 27 Aug 2025 10:34:22 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 790E8E008FAC;
- Wed, 27 Aug 2025 10:34:22 +0800 (CST)
-X-ns-mid: postfix-68AE6EAD-937581218
-Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id B441EE008FAC;
- Wed, 27 Aug 2025 10:34:16 +0800 (CST)
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-To: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Markus Mayer <mmayer@broadcom.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
- x86@kernel.org, kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-samsung-soc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-omap@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v2 11/18] cpufreq: tegra186: Use __free(put_cpufreq_policy)
- for policy reference
-Date: Wed, 27 Aug 2025 10:31:55 +0800
-Message-Id: <20250827023202.10310-12-zhangzihuan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
-References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="cyRse94l";
+	dkim-atps=neutral
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B2FF10E3AB
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 18:49:01 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-24611734e50so26095ad.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 Aug 2025 11:49:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1756234141; x=1756838941;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E/Ye7/SL7tqTx9oBx/tviBmGnvw5YMp+2zk7nWejWf0=;
+ b=cyRse94lhrN03tNoNUZne7hw9vNFcXBOYEf2gnA6S5HO/HsiFNSPHcsMQ3wWyViX/e
+ UzWloGD2348tmhXFSVbZb6tJAyMut4pkkdmRRIxDVK22SYagmpQ8ZkLsESwHCb/GC9k1
+ ho10tbNP9zMDhWg9yaFh/PpzeX7KQI5sFFQFhZlhNWeW3Ri8LpfBHOKTLVxFw9+opIkX
+ IAUFPdZB1mUYh7W2zwXlAZT1X8jAn+hxK5DcYnf7uCxcuguMV9euzWr9xFDb/L9cBion
+ yOaIQ5RsNmREfFwjytzA9wqzN3puRwZpGPRp0g5E1Ei7/sf8XhKsXZ53WX3jlZ6NDBZ6
+ X7Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756234141; x=1756838941;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=E/Ye7/SL7tqTx9oBx/tviBmGnvw5YMp+2zk7nWejWf0=;
+ b=tkzM7G1QI+Tk3G68j2iCVe0KN9smIsdfJTfoP0zNfziWvpZXF5nGjaNZIgTo0Q5HlV
+ vhhK4rZ1oo18z54nPxtEK78ufMkYtbZPRYCzeejhw7XkUgtmPbzd2PdUMYEl67fwUDAz
+ eeu3Fgd9xe8kjduicO3bYYWc+TmiE9m+zbkDpgfVvOfvTUmmZo1yX2RW9gqN6XnLJy2i
+ aYSdoDskGLLd/jBUMNViRgftRxtYVP3lH4QMQqcYUfxStl680jIM2S0yMqbLTYc3hXCp
+ thbUtdH6tM0fs46o8EDCmSoIzBUNmGHsIZgJYiOGVMlERk8/owktJle8JOC8DdACwggE
+ 9mTA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX/WCoUy+fRjgcjzqJ/Fkd/pM3ml0wVQ78LZIbpAiQ5QNMxMOJI34nYHTAPms4z952CpI1rcH7gkrc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzSjtfvSqpp/U9i9/S2/WnPRy3Us15pIsa83maPTRzipzNVMDds
+ VLIrKxc5e7QC6E30ZnUtfx/nPP+A8+JXcMux9DennVi+9bJMQi3tHj1x9ON83YR1QQ+cDukFlpp
+ p1hQfdrCarfdioU+LiBctIJKGGr/MHphcqvAHjrgC
+X-Gm-Gg: ASbGncvTjET2qqwzg+BMlfrGsY+vmoSwvEgnBPSAA8rXliNesWDouVgZ9InnOBuDUz4
+ DApfQbNBcZ/nX9zp2QdPnSrTP/pEUzuGQzges7cU8wFI2R1gmqVw5XP7lrAB9tf9477m18dw0IY
+ 71Fn9dKnCIf46vfuUgkBMfZ1UVGSJ9xszZY0XnYcjpokbXGBu1JPUdr4cSlKz/29m7AyLWT5+/1
+ puPd55o0TPrjkpOfPGFUfCrIEWnSWfa4D+Ds4QWfLuTbbHEW9OubJ+5JaVf/PWK
+X-Google-Smtp-Source: AGHT+IG+ollMBmiaOYcyGD4fK0EXbH34IwD2F+IqBBnZbD5S5EK8GUe1Cco16tj20beWZxJ5YP1hQInru/5q0vhDcUY=
+X-Received: by 2002:a17:903:228c:b0:243:afef:cd88 with SMTP id
+ d9443c01a7336-2486395f193mr4627105ad.11.1756234140425; Tue, 26 Aug 2025
+ 11:49:00 -0700 (PDT)
 MIME-Version: 1.0
+References: <cover.1755096883.git.robin.murphy@arm.com>
+ <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
+ <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
+ <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
+In-Reply-To: <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 26 Aug 2025 11:48:48 -0700
+X-Gm-Features: Ac12FXxL0fQGFTk6-3SCJz15Qd8Ums9V_bcQA6gIxaEwQacWk3scYfeQZZ7cYZQ
+Message-ID: <CAP-5=fXF2x3hW4Sk+A362T-50cBbw6HVd7KY+QEUjFwT+JL37Q@mail.gmail.com>
+Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@redhat.com, will@kernel.org, 
+ mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org, 
+ alexander.shishkin@linux.intel.com, jolsa@kernel.org, adrian.hunter@intel.com, 
+ kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org, 
+ linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-csky@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-s390@vger.kernel.org, linux-sh@vger.kernel.org, 
+ sparclinux@vger.kernel.org, linux-pm@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org, 
+ linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, coresight@lists.linaro.org, 
+ iommu@lists.linux.dev, linux-amlogic@lists.infradead.org, 
+ linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 27 Aug 2025 12:28:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -111,41 +104,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-annotation for policy references. This reduces the risk of reference
-counting mistakes and aligns the code with the latest kernel style.
+On Tue, Aug 26, 2025 at 8:32=E2=80=AFAM Robin Murphy <robin.murphy@arm.com>=
+ wrote:
+>
+> On 2025-08-26 2:03 pm, Peter Zijlstra wrote:
+> > On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
+> >> It may have been different long ago, but today it seems wrong for thes=
+e
+> >> drivers to skip counting disabled sibling events in group validation,
+> >> given that perf_event_enable() could make them schedulable again, and
+> >> thus increase the effective size of the group later. Conversely, if a
+> >> sibling event is truly dead then it stands to reason that the whole
+> >> group is dead, so it's not worth going to any special effort to try to
+> >> squeeze in a new event that's never going to run anyway. Thus, we can
+> >> simply remove all these checks.
+> >
+> > So currently you can do sort of a manual event rotation inside an
+> > over-sized group and have it work.
+> >
+> > I'm not sure if anybody actually does this, but its possible.
+> >
+> > Eg. on a PMU that supports only 4 counters, create a group of 5 and
+> > periodically cycle which of the 5 events is off.
 
-No functional change intended.
+I'm not sure this is true, I thought this would fail in the
+perf_event_open when adding the 5th event and there being insufficient
+counters for the group. Not all PMUs validate a group will fit on the
+counters, but I thought at least Intel's core PMU would validate and
+not allow this. Fwiw, the metric code is reliant on this behavior as
+by default all events are placed into a weak group:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/util/metricgroup.c?h=3Dperf-tools-next#n631
+Weak groups are really just groups that when the perf_event_open fails
+retry with the grouping removed. PMUs that don't fail the
+perf_event_open are problematic as the reads just report "not counted"
+and the metric doesn't work. Sometimes the PMU can't help it due to
+errata. There are a bunch of workarounds for those cases carried in
+the perf tool, but in general weak groups working is relied upon:
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/pmu-events/pmu-events.h?h=3Dperf-tools-next#n16
 
-Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
----
- drivers/cpufreq/tegra186-cpufreq.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Thanks,
+Ian
 
-diff --git a/drivers/cpufreq/tegra186-cpufreq.c b/drivers/cpufreq/tegra18=
-6-cpufreq.c
-index cbabb726c664..4d71e262a729 100644
---- a/drivers/cpufreq/tegra186-cpufreq.c
-+++ b/drivers/cpufreq/tegra186-cpufreq.c
-@@ -105,7 +105,7 @@ static unsigned int tegra186_cpufreq_get(unsigned int=
- cpu)
- {
- 	struct tegra186_cpufreq_data *data =3D cpufreq_get_driver_data();
- 	struct tegra186_cpufreq_cluster *cluster;
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
- 	unsigned int edvd_offset, cluster_id;
- 	u32 ndiv;
-=20
-@@ -117,7 +117,6 @@ static unsigned int tegra186_cpufreq_get(unsigned int=
- cpu)
- 	ndiv =3D readl(data->regs + edvd_offset) & EDVD_CORE_VOLT_FREQ_F_MASK;
- 	cluster_id =3D data->cpus[policy->cpu].bpmp_cluster_id;
- 	cluster =3D &data->clusters[cluster_id];
--	cpufreq_cpu_put(policy);
-=20
- 	return (cluster->ref_clk_khz * ndiv) / cluster->div;
- }
---=20
-2.25.1
-
+> > So I'm not against changing this, but changing stuff like this always
+> > makes me a little fearful -- it wouldn't be the first time that when it
+> > finally trickles down to some 'enterprise' user in 5 years someone come=
+s
+> > and finally says, oh hey, you broke my shit :-(
+>
+> Eww, I see what you mean... and I guess that's probably lower-overhead
+> than actually deleting and recreating the sibling event(s) each time,
+> and potentially less bother then wrangling multiple groups for different
+> combinations of subsets when one simply must still approximate a complex
+> metric that requires more counters than the hardware offers.
+>
+> I'm also not keen to break anything that wasn't already somewhat broken,
+> especially since this patch is only intended as cleanup, so either we
+> could just drop it altogether, or perhaps I can wrap the existing
+> behaviour in a helper that can at least document this assumption and
+> discourage new drivers from copying it. Am I right that only
+> PERF_EVENT_STATE_{OFF,ERROR} would matter for this, though, and my
+> reasoning for state <=3D PERF_EVENT_STATE_EXIT should still stand? As for
+> the fiddly discrepancy with enable_on_exec between arm_pmu and others
+> I'm not really sure what to think...
+>
+> Thanks,
+> Robin.
