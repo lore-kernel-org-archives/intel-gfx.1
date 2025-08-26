@@ -4,96 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A9AFCA0EFA
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 12:52:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5641DCA0FED
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 Aug 2025 12:52:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0727F10E00B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 122F710E64C;
 	Tue, 26 Aug 2025 12:52:03 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6124010E5A7;
- Tue, 26 Aug 2025 00:30:06 +0000 (UTC)
-X-UUID: cd72a7a4821311f0b29709d653e92f7d-20250826
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:ceaaac63-66e7-4386-900f-99b09cee1dbd, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:6493067, CLOUDID:73c0f838f0cb681a0e66fa356d1f9674,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102,TC:nil,Content:0|52,EDM:
- -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
- AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: cd72a7a4821311f0b29709d653e92f7d-20250826
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 266996130; Tue, 26 Aug 2025 08:30:01 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 2B004E008FA5;
- Tue, 26 Aug 2025 08:30:00 +0800 (CST)
-X-ns-mid: postfix-68AD0007-5837181
-Received: from [172.25.120.24] (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 830B3E008FA2;
- Tue, 26 Aug 2025 08:29:47 +0800 (CST)
-Message-ID: <c19b9a8c-bb7d-4d71-89d0-eb98c70a9a85@kylinos.cn>
-Date: Tue, 26 Aug 2025 08:29:46 +0800
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id DC21410E2E5;
+ Tue, 26 Aug 2025 10:46:09 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0AD2A1A00;
+ Tue, 26 Aug 2025 03:46:01 -0700 (PDT)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 93FC13F694;
+ Tue, 26 Aug 2025 03:46:01 -0700 (PDT)
+Date: Tue, 26 Aug 2025 11:45:58 +0100
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>,
+ Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
+Subject: Re: [PATCH RFC 21/35] mm/cma: refuse handing out non-contiguous page
+ ranges
+Message-ID: <aK2QZnzS1ErHK5tP@raptor>
+References: <20250821200701.1329277-1-david@redhat.com>
+ <20250821200701.1329277-22-david@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] cpufreq: use __free() for all cpufreq_cpu_get()
- references
-To: Gautam Menghani <gautam@linux.ibm.com>
-Cc: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, Markus Mayer
- <mmayer@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Krzysztof Kozlowski
- <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
- <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
- linux-pm@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20250825092833.42441-1-zhangzihuan@kylinos.cn>
- <aKxI8D5mgLRyydb3@li-c6426e4c-27cf-11b2-a85c-95d65bc0de0e.ibm.com>
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-In-Reply-To: <aKxI8D5mgLRyydb3@li-c6426e4c-27cf-11b2-a85c-95d65bc0de0e.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250821200701.1329277-22-david@redhat.com>
 X-Mailman-Approved-At: Tue, 26 Aug 2025 12:52:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,303 +72,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi David,
 
-=E5=9C=A8 2025/8/25 19:28, Gautam Menghani =E5=86=99=E9=81=93:
-> On Mon, Aug 25, 2025 at 05:28:33PM +0800, Zihuan Zhang wrote:
->> This patch replaces all remaining uses of cpufreq_cpu_get() with
->> the __free(cpufreq_cpu_put) annotation.
->>
->> Motivation:
->> - Ensures automatic cleanup of policy references when they go out of s=
-cope,
->>    reducing the risk of forgetting to call cpufreq_cpu_put() on early =
-return
->>    or error paths.
->> - Brings the code in line with the latest kernel coding style and best
->>    practices for managing reference-counted objects.
->> - No functional changes are introduced; behavior remains the same,
->>    but reference counting is now safer and easier to maintain.
->>
->> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
->> ---
->>   arch/arm64/kernel/topology.c                  |  9 +++----
->>   arch/x86/kvm/x86.c                            | 10 ++++----
->>   drivers/acpi/processor_thermal.c              | 13 ++++------
->>   drivers/cpufreq/brcmstb-avs-cpufreq.c         |  4 +---
->>   drivers/cpufreq/cppc_cpufreq.c                |  4 +---
->>   drivers/cpufreq/intel_pstate.c                |  3 +--
->>   drivers/cpufreq/longhaul.c                    |  3 +--
->>   drivers/cpufreq/mediatek-cpufreq.c            |  6 ++---
->>   drivers/cpufreq/powernv-cpufreq.c             |  6 ++---
->>   drivers/cpufreq/s5pv210-cpufreq.c             |  3 +--
->>   drivers/cpufreq/tegra186-cpufreq.c            |  3 +--
->>   drivers/devfreq/governor_passive.c            | 19 ++++-----------
->>   drivers/gpu/drm/i915/gt/intel_llc.c           |  3 +--
->>   drivers/macintosh/windfarm_cpufreq_clamp.c    |  4 +---
->>   drivers/powercap/dtpm_cpu.c                   | 24 ++++++-----------=
---
->>   drivers/thermal/imx_thermal.c                 |  7 ++----
->>   .../ti-soc-thermal/ti-thermal-common.c        |  5 +---
->>   kernel/power/energy_model.c                   |  7 ++----
->>   18 files changed, 40 insertions(+), 93 deletions(-)
->>
->> diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology=
-.c
->> index 5d07ee85bdae..e3cb6d54f35b 100644
->> --- a/arch/arm64/kernel/topology.c
->> +++ b/arch/arm64/kernel/topology.c
->> @@ -307,17 +307,16 @@ int arch_freq_get_on_cpu(int cpu)
->>   		 */
->>   		if (!housekeeping_cpu(cpu, HK_TYPE_TICK) ||
->>   		    time_is_before_jiffies(last_update + msecs_to_jiffies(AMU_SAMP=
-LE_EXP_MS))) {
->> -			struct cpufreq_policy *policy =3D cpufreq_cpu_get(cpu);
->> +			struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   			int ref_cpu;
->>  =20
->> +			policy =3D cpufreq_cpu_get(cpu);
->>   			if (!policy)
->>   				return -EINVAL;
->>  =20
->>   			if (!cpumask_intersects(policy->related_cpus,
->> -						housekeeping_cpumask(HK_TYPE_TICK))) {
->> -				cpufreq_cpu_put(policy);
->> +						housekeeping_cpumask(HK_TYPE_TICK)))
->>   				return -EOPNOTSUPP;
->> -			}
->>  =20
->>   			for_each_cpu_wrap(ref_cpu, policy->cpus, cpu + 1) {
->>   				if (ref_cpu =3D=3D start_cpu) {
->> @@ -329,8 +328,6 @@ int arch_freq_get_on_cpu(int cpu)
->>   					break;
->>   			}
->>  =20
->> -			cpufreq_cpu_put(policy);
->> -
->>   			if (ref_cpu >=3D nr_cpu_ids)
->>   				/* No alternative to pull info from */
->>   				return -EAGAIN;
->> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
->> index a1c49bc681c4..2a825f4ec701 100644
->> --- a/arch/x86/kvm/x86.c
->> +++ b/arch/x86/kvm/x86.c
->> @@ -9492,16 +9492,14 @@ static void kvm_timer_init(void)
->>   		max_tsc_khz =3D tsc_khz;
->>  =20
->>   		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
->> -			struct cpufreq_policy *policy;
->> +			struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   			int cpu;
->>  =20
->>   			cpu =3D get_cpu();
->>   			policy =3D cpufreq_cpu_get(cpu);
->> -			if (policy) {
->> -				if (policy->cpuinfo.max_freq)
->> -					max_tsc_khz =3D policy->cpuinfo.max_freq;
->> -				cpufreq_cpu_put(policy);
->> -			}
->> +			if (policy && policy->cpuinfo.max_freq)
->> +				max_tsc_khz =3D policy->cpuinfo.max_freq;
->> +
->>   			put_cpu();
->>   		}
->>   		cpufreq_register_notifier(&kvmclock_cpufreq_notifier_block,
->> diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor=
-_thermal.c
->> index 1219adb11ab9..8367a81c4842 100644
->> --- a/drivers/acpi/processor_thermal.c
->> +++ b/drivers/acpi/processor_thermal.c
->> @@ -64,17 +64,14 @@ static int phys_package_first_cpu(int cpu)
->>  =20
->>   static int cpu_has_cpufreq(unsigned int cpu)
->>   {
->> -	struct cpufreq_policy *policy;
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>  =20
->>   	if (!acpi_processor_cpufreq_init)
->>   		return 0;
->>  =20
->>   	policy =3D cpufreq_cpu_get(cpu);
->> -	if (policy) {
->> -		cpufreq_cpu_put(policy);
->> -		return 1;
->> -	}
->> -	return 0;
->> +
->> +	return !!policy;
->>   }
->>  =20
->>   static int cpufreq_get_max_state(unsigned int cpu)
->> @@ -95,7 +92,7 @@ static int cpufreq_get_cur_state(unsigned int cpu)
->>  =20
->>   static int cpufreq_set_cur_state(unsigned int cpu, int state)
->>   {
->> -	struct cpufreq_policy *policy;
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   	struct acpi_processor *pr;
->>   	unsigned long max_freq;
->>   	int i, ret;
->> @@ -127,8 +124,6 @@ static int cpufreq_set_cur_state(unsigned int cpu,=
- int state)
->>   		max_freq =3D (policy->cpuinfo.max_freq *
->>   			    (100 - reduction_step(i) * cpufreq_thermal_reduction_pctg)) /=
- 100;
->>  =20
->> -		cpufreq_cpu_put(policy);
->> -
->>   		ret =3D freq_qos_update_request(&pr->thermal_req, max_freq);
->>   		if (ret < 0) {
->>   			pr_warn("Failed to update thermal freq constraint: CPU%d (%d)\n",
->> diff --git a/drivers/cpufreq/brcmstb-avs-cpufreq.c b/drivers/cpufreq/b=
-rcmstb-avs-cpufreq.c
->> index 5940d262374f..71450cca8e9f 100644
->> --- a/drivers/cpufreq/brcmstb-avs-cpufreq.c
->> +++ b/drivers/cpufreq/brcmstb-avs-cpufreq.c
->> @@ -480,7 +480,7 @@ static bool brcm_avs_is_firmware_loaded(struct pri=
-vate_data *priv)
->>  =20
->>   static unsigned int brcm_avs_cpufreq_get(unsigned int cpu)
->>   {
->> -	struct cpufreq_policy *policy =3D cpufreq_cpu_get(cpu);
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq=
-_cpu_get(cpu);
->>   	struct private_data *priv;
->>  =20
->>   	if (!policy)
->> @@ -488,8 +488,6 @@ static unsigned int brcm_avs_cpufreq_get(unsigned =
-int cpu)
->>  =20
->>   	priv =3D policy->driver_data;
->>  =20
->> -	cpufreq_cpu_put(policy);
->> -
->>   	return brcm_avs_get_frequency(priv->base);
->>   }
->>  =20
->> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpu=
-freq.c
->> index 4a17162a392d..7183754b1f31 100644
->> --- a/drivers/cpufreq/cppc_cpufreq.c
->> +++ b/drivers/cpufreq/cppc_cpufreq.c
->> @@ -726,7 +726,7 @@ static int cppc_get_perf_ctrs_sample(int cpu,
->>   static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
->>   {
->>   	struct cppc_perf_fb_ctrs fb_ctrs_t0 =3D {0}, fb_ctrs_t1 =3D {0};
->> -	struct cpufreq_policy *policy =3D cpufreq_cpu_get(cpu);
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq=
-_cpu_get(cpu);
->>   	struct cppc_cpudata *cpu_data;
->>   	u64 delivered_perf;
->>   	int ret;
->> @@ -736,8 +736,6 @@ static unsigned int cppc_cpufreq_get_rate(unsigned=
- int cpu)
->>  =20
->>   	cpu_data =3D policy->driver_data;
->>  =20
->> -	cpufreq_cpu_put(policy);
->> -
->>   	ret =3D cppc_get_perf_ctrs_sample(cpu, &fb_ctrs_t0, &fb_ctrs_t1);
->>   	if (ret) {
->>   		if (ret =3D=3D -EFAULT)
->> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_ps=
-tate.c
->> index f366d35c5840..fb962140af56 100644
->> --- a/drivers/cpufreq/intel_pstate.c
->> +++ b/drivers/cpufreq/intel_pstate.c
->> @@ -1698,7 +1698,7 @@ static ssize_t store_no_turbo(struct kobject *a,=
- struct kobj_attribute *b,
->>   static void update_qos_request(enum freq_qos_req_type type)
->>   {
->>   	struct freq_qos_request *req;
->> -	struct cpufreq_policy *policy;
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   	int i;
->>  =20
->>   	for_each_possible_cpu(i) {
->> @@ -1710,7 +1710,6 @@ static void update_qos_request(enum freq_qos_req=
-_type type)
->>   			continue;
->>  =20
->>   		req =3D policy->driver_data;
->> -		cpufreq_cpu_put(policy);
->>  =20
->>   		if (!req)
->>   			continue;
->> diff --git a/drivers/cpufreq/longhaul.c b/drivers/cpufreq/longhaul.c
->> index ba0e08c8486a..ae5596919671 100644
->> --- a/drivers/cpufreq/longhaul.c
->> +++ b/drivers/cpufreq/longhaul.c
->> @@ -950,7 +950,7 @@ static int __init longhaul_init(void)
->>  =20
->>   static void __exit longhaul_exit(void)
->>   {
->> -	struct cpufreq_policy *policy =3D cpufreq_cpu_get(0);
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq=
-_cpu_get(0);
->>   	int i;
->>  =20
->>   	for (i =3D 0; i < numscales; i++) {
->> @@ -968,7 +968,6 @@ static void __exit longhaul_exit(void)
->>   		}
->>   	}
->>  =20
->> -	cpufreq_cpu_put(policy);
->>   	cpufreq_unregister_driver(&longhaul_driver);
->>   	kfree(longhaul_table);
->>   }
->> diff --git a/drivers/cpufreq/mediatek-cpufreq.c b/drivers/cpufreq/medi=
-atek-cpufreq.c
->> index f3f02c4b6888..1fae060e16d9 100644
->> --- a/drivers/cpufreq/mediatek-cpufreq.c
->> +++ b/drivers/cpufreq/mediatek-cpufreq.c
->> @@ -320,7 +320,7 @@ static int mtk_cpufreq_opp_notifier(struct notifie=
-r_block *nb,
->>   	struct dev_pm_opp *new_opp;
->>   	struct mtk_cpu_dvfs_info *info;
->>   	unsigned long freq, volt;
->> -	struct cpufreq_policy *policy;
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   	int ret =3D 0;
->>  =20
->>   	info =3D container_of(nb, struct mtk_cpu_dvfs_info, opp_nb);
->> @@ -354,11 +354,9 @@ static int mtk_cpufreq_opp_notifier(struct notifi=
-er_block *nb,
->>  =20
->>   			dev_pm_opp_put(new_opp);
->>   			policy =3D cpufreq_cpu_get(info->opp_cpu);
->> -			if (policy) {
->> +			if (policy)
->>   				cpufreq_driver_target(policy, freq / 1000,
->>   						      CPUFREQ_RELATION_L);
->> -				cpufreq_cpu_put(policy);
->> -			}
->>   		}
->>   	}
->>  =20
->> diff --git a/drivers/cpufreq/powernv-cpufreq.c b/drivers/cpufreq/power=
-nv-cpufreq.c
->> index 7d9a5f656de8..ea9d78bbeb38 100644
->> --- a/drivers/cpufreq/powernv-cpufreq.c
->> +++ b/drivers/cpufreq/powernv-cpufreq.c
->> @@ -892,7 +892,7 @@ static int powernv_cpufreq_reboot_notifier(struct =
-notifier_block *nb,
->>   				unsigned long action, void *unused)
->>   {
->>   	int cpu;
->> -	struct cpufreq_policy *cpu_policy;
->> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
-> There's a typo here. I got a compile error because of wrong variable na=
-me.
->
-> Thanks,
-> Gautam
+On Thu, Aug 21, 2025 at 10:06:47PM +0200, David Hildenbrand wrote:
+> Let's disallow handing out PFN ranges with non-contiguous pages, so we
+> can remove the nth-page usage in __cma_alloc(), and so any callers don't
+> have to worry about that either when wanting to blindly iterate pages.
+> 
+> This is really only a problem in configs with SPARSEMEM but without
+> SPARSEMEM_VMEMMAP, and only when we would cross memory sections in some
+> cases.
+> 
+> Will this cause harm? Probably not, because it's mostly 32bit that does
+> not support SPARSEMEM_VMEMMAP. If this ever becomes a problem we could
+> look into allocating the memmap for the memory sections spanned by a
+> single CMA region in one go from memblock.
+> 
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+> ---
+>  include/linux/mm.h |  6 ++++++
+>  mm/cma.c           | 36 +++++++++++++++++++++++-------------
+>  mm/util.c          | 33 +++++++++++++++++++++++++++++++++
+>  3 files changed, 62 insertions(+), 13 deletions(-)
+> 
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index ef360b72cb05c..f59ad1f9fc792 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -209,9 +209,15 @@ extern unsigned long sysctl_user_reserve_kbytes;
+>  extern unsigned long sysctl_admin_reserve_kbytes;
+>  
+>  #if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
+> +bool page_range_contiguous(const struct page *page, unsigned long nr_pages);
+>  #define nth_page(page,n) pfn_to_page(page_to_pfn((page)) + (n))
+>  #else
+>  #define nth_page(page,n) ((page) + (n))
+> +static inline bool page_range_contiguous(const struct page *page,
+> +		unsigned long nr_pages)
+> +{
+> +	return true;
+> +}
+>  #endif
+>  
+>  /* to align the pointer to the (next) page boundary */
+> diff --git a/mm/cma.c b/mm/cma.c
+> index 2ffa4befb99ab..1119fa2830008 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -780,10 +780,8 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  				unsigned long count, unsigned int align,
+>  				struct page **pagep, gfp_t gfp)
+>  {
+> -	unsigned long mask, offset;
+> -	unsigned long pfn = -1;
+> -	unsigned long start = 0;
+>  	unsigned long bitmap_maxno, bitmap_no, bitmap_count;
+> +	unsigned long start, pfn, mask, offset;
+>  	int ret = -EBUSY;
+>  	struct page *page = NULL;
+>  
+> @@ -795,7 +793,7 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  	if (bitmap_count > bitmap_maxno)
+>  		goto out;
+>  
+> -	for (;;) {
+> +	for (start = 0; ; start = bitmap_no + mask + 1) {
+>  		spin_lock_irq(&cma->lock);
+>  		/*
+>  		 * If the request is larger than the available number
+> @@ -812,6 +810,22 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  			spin_unlock_irq(&cma->lock);
+>  			break;
+>  		}
+> +
+> +		pfn = cmr->base_pfn + (bitmap_no << cma->order_per_bit);
+> +		page = pfn_to_page(pfn);
+> +
+> +		/*
+> +		 * Do not hand out page ranges that are not contiguous, so
+> +		 * callers can just iterate the pages without having to worry
+> +		 * about these corner cases.
+> +		 */
+> +		if (!page_range_contiguous(page, count)) {
+> +			spin_unlock_irq(&cma->lock);
+> +			pr_warn_ratelimited("%s: %s: skipping incompatible area [0x%lx-0x%lx]",
+> +					    __func__, cma->name, pfn, pfn + count - 1);
+> +			continue;
+> +		}
+> +
+>  		bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+>  		cma->available_count -= count;
+>  		/*
+> @@ -821,29 +835,25 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  		 */
+>  		spin_unlock_irq(&cma->lock);
+>  
+> -		pfn = cmr->base_pfn + (bitmap_no << cma->order_per_bit);
+>  		mutex_lock(&cma->alloc_mutex);
+>  		ret = alloc_contig_range(pfn, pfn + count, ACR_FLAGS_CMA, gfp);
+>  		mutex_unlock(&cma->alloc_mutex);
+> -		if (ret == 0) {
+> -			page = pfn_to_page(pfn);
+> +		if (!ret)
+>  			break;
+> -		}
+>  
+>  		cma_clear_bitmap(cma, cmr, pfn, count);
+>  		if (ret != -EBUSY)
+>  			break;
+>  
+>  		pr_debug("%s(): memory range at pfn 0x%lx %p is busy, retrying\n",
+> -			 __func__, pfn, pfn_to_page(pfn));
+> +			 __func__, pfn, page);
+>  
+>  		trace_cma_alloc_busy_retry(cma->name, pfn, pfn_to_page(pfn),
 
-Sorry about that.
+Nitpick: I think you already have the page here.
 
-Although we did compile-test it, some configs are not enabled by default=20
-so we missed this issue. I=E2=80=99ll fix it in the next version.
+>  					   count, align);
+> -		/* try again with a bit different memory target */
+> -		start = bitmap_no + mask + 1;
+>  	}
+>  out:
+> -	*pagep = page;
+> +	if (!ret)
+> +		*pagep = page;
+>  	return ret;
+>  }
+>  
+> @@ -882,7 +892,7 @@ static struct page *__cma_alloc(struct cma *cma, unsigned long count,
+>  	 */
+>  	if (page) {
+>  		for (i = 0; i < count; i++)
+> -			page_kasan_tag_reset(nth_page(page, i));
+> +			page_kasan_tag_reset(page + i);
 
-Thanks for catching this!
+Had a look at it, not very familiar with CMA, but the changes look equivalent to
+what was before. Not sure that's worth a Reviewed-by tag, but here it in case
+you want to add it:
 
+Reviewed-by: Alexandru Elisei <alexandru.elisei@arm.com>
 
+Just so I can better understand the problem being fixed, I guess you can have
+two consecutive pfns with non-consecutive associated struct page if you have two
+adjacent memory sections spanning the same physical memory region, is that
+correct?
 
+Thanks,
+Alex
+
+>  	}
+>  
+>  	if (ret && !(gfp & __GFP_NOWARN)) {
+> diff --git a/mm/util.c b/mm/util.c
+> index d235b74f7aff7..0bf349b19b652 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1280,4 +1280,37 @@ unsigned int folio_pte_batch(struct folio *folio, pte_t *ptep, pte_t pte,
+>  {
+>  	return folio_pte_batch_flags(folio, NULL, ptep, &pte, max_nr, 0);
+>  }
+> +
+> +#if defined(CONFIG_SPARSEMEM) && !defined(CONFIG_SPARSEMEM_VMEMMAP)
+> +/**
+> + * page_range_contiguous - test whether the page range is contiguous
+> + * @page: the start of the page range.
+> + * @nr_pages: the number of pages in the range.
+> + *
+> + * Test whether the page range is contiguous, such that they can be iterated
+> + * naively, corresponding to iterating a contiguous PFN range.
+> + *
+> + * This function should primarily only be used for debug checks, or when
+> + * working with page ranges that are not naturally contiguous (e.g., pages
+> + * within a folio are).
+> + *
+> + * Returns true if contiguous, otherwise false.
+> + */
+> +bool page_range_contiguous(const struct page *page, unsigned long nr_pages)
+> +{
+> +	const unsigned long start_pfn = page_to_pfn(page);
+> +	const unsigned long end_pfn = start_pfn + nr_pages;
+> +	unsigned long pfn;
+> +
+> +	/*
+> +	 * The memmap is allocated per memory section. We need to check
+> +	 * each involved memory section once.
+> +	 */
+> +	for (pfn = ALIGN(start_pfn, PAGES_PER_SECTION);
+> +	     pfn < end_pfn; pfn += PAGES_PER_SECTION)
+> +		if (unlikely(page + (pfn - start_pfn) != pfn_to_page(pfn)))
+> +			return false;
+> +	return true;
+> +}
+> +#endif
+>  #endif /* CONFIG_MMU */
+> -- 
+> 2.50.1
+> 
+> 
