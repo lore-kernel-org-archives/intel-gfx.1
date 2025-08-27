@@ -4,52 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD9C0CA0FF7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C8B2CA0EFF
 	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9560E10E7EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7539010E7EB;
 	Wed, 27 Aug 2025 12:28:09 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id CA42710E763;
- Wed, 27 Aug 2025 08:06:32 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 35FE122FC;
- Wed, 27 Aug 2025 01:06:24 -0700 (PDT)
-Received: from localhost (e132581.arm.com [10.1.196.87])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B8693F694;
- Wed, 27 Aug 2025 01:06:32 -0700 (PDT)
-Date: Wed, 27 Aug 2025 09:06:30 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: peterz@infradead.org, mingo@redhat.com, will@kernel.org,
- mark.rutland@arm.com, acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- irogers@google.com, adrian.hunter@intel.com,
- kan.liang@linux.intel.com, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-alpha@vger.kernel.org,
- linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 16/19] perf: Introduce positive capability for sampling
-Message-ID: <20250827080630.GC745921@e132581.arm.com>
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <ae81cb65b38555c628e395cce67ac6c7eaafdd23.1755096883.git.robin.murphy@arm.com>
- <20250826131124.GB745921@e132581.arm.com>
- <983df32a-ba74-421d-bc20-06e778b4d2c9@arm.com>
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8601310E312;
+ Wed, 27 Aug 2025 02:34:49 +0000 (UTC)
+X-UUID: 64b28ba482ee11f0b29709d653e92f7d-20250827
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:52727bdc-ad32-429b-8d99-7f62fc37f714, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:-25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:6493067, CLOUDID:a9bf6dc1b0f5efbb346cf6c5f383c995,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:1,
+ IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:
+ 0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: 64b28ba482ee11f0b29709d653e92f7d-20250827
+Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
+ (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1643766455; Wed, 27 Aug 2025 10:34:45 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id E063AE008FAB;
+ Wed, 27 Aug 2025 10:34:43 +0800 (CST)
+X-ns-mid: postfix-68AE6EC3-738925222
+Received: from localhost.localdomain (unknown [172.25.120.24])
+ by mail.kylinos.cn (NSMail) with ESMTPA id 6F1FDE008FB0;
+ Wed, 27 Aug 2025 10:34:38 +0800 (CST)
+From: Zihuan Zhang <zhangzihuan@kylinos.cn>
+To: "Rafael J . wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Markus Mayer <mmayer@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>,
+ Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
+ x86@kernel.org, kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-omap@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Zihuan Zhang <zhangzihuan@kylinos.cn>
+Subject: [PATCH v2 14/18] cpufreq: powerpc: macintosh: Use
+ __free(put_cpufreq_policy) for policy reference
+Date: Wed, 27 Aug 2025 10:31:58 +0800
+Message-Id: <20250827023202.10310-15-zhangzihuan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
+References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <983df32a-ba74-421d-bc20-06e778b4d2c9@arm.com>
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 27 Aug 2025 12:28:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,38 +111,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 04:53:51PM +0100, Robin Murphy wrote:
+Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
+annotation for policy references. This reduces the risk of reference
+counting mistakes and aligns the code with the latest kernel style.
 
-[...]
+No functional change intended.
 
-> > Genearlly, AUX events generate interrupts based on AUX ring buffer
-> > watermark but not the period. Seems to me, it is correct to set the
-> > PERF_PMU_CAP_SAMPLING flag for them.
-> 
-> This cap is given to drivers which handle event->attr.sample_period and call
-> perf_event_overflow() - or in a few rare cases, perf_output_sample()
-> directly - to do something meaningful with it, since the intent is to convey
-> "I properly handle events for which is_sampling_event() is true". My
-> understanding is that aux events are something else entirely, but I'm happy
-> to be corrected.
+Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+---
+ drivers/macintosh/windfarm_cpufreq_clamp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-If the discussion is based only on this patch, my understanding is
-that the PERF_PMU_CAP_SAMPLING flag replaces the
-PERF_PMU_CAP_NO_INTERRUPT flag for checking whether a PMU event needs
-to be re-enabled in perf_adjust_freq_unthr_context().
+diff --git a/drivers/macintosh/windfarm_cpufreq_clamp.c b/drivers/macinto=
+sh/windfarm_cpufreq_clamp.c
+index 28d18ef22bbb..f05e2167481f 100644
+--- a/drivers/macintosh/windfarm_cpufreq_clamp.c
++++ b/drivers/macintosh/windfarm_cpufreq_clamp.c
+@@ -62,7 +62,7 @@ static const struct wf_control_ops clamp_ops =3D {
+=20
+ static int __init wf_cpufreq_clamp_init(void)
+ {
+-	struct cpufreq_policy *policy;
++	struct cpufreq_policy *policy __free(put_cpufreq_policy);
+ 	struct wf_control *clamp;
+ 	struct device *dev;
+ 	int ret;
+@@ -79,8 +79,6 @@ static int __init wf_cpufreq_clamp_init(void)
+ 	ret =3D freq_qos_add_request(&policy->constraints, &qos_req, FREQ_QOS_M=
+AX,
+ 				   max_freq);
+=20
+-	cpufreq_cpu_put(policy);
+-
+ 	if (ret < 0) {
+ 		pr_err("%s: Failed to add freq constraint (%d)\n", __func__,
+ 		       ret);
+--=20
+2.25.1
 
-AUX events can trigger a large number of interrupts under certain
-conditions (e.g., if we set a very small watermark). This is why I
-conclude that we need to set the PERF_PMU_CAP_SAMPLING flag to ensure
-that AUX events are re-enabled properly after throttling (see
-perf_adjust_freq_unthr_events()).
-
-> Otherwise, perhaps this suggests it deserves to be named a little more
-> specifically for clarity, maybe PERF_CAP_SAMPLING_EVENTS?
-
-Seems to me, the naming is not critical. If without setting the
-PERF_PMU_CAP_SAMPLING flag, AUX events might lose chance to be
-re-enabled after throttling.
-
-Thanks,
-Leo
