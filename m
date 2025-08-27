@@ -4,63 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F228CA0FED
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 22:11:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6CFCA0FED
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 22:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0AFD10E903;
-	Wed, 27 Aug 2025 22:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD1910E907;
+	Wed, 27 Aug 2025 22:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MrlsuVIS";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ULZVZHmc";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FD810E903
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 22:11:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC4CE10E907
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 22:11:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756332666;
+ s=mimecast20190719; t=1756332670;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=uIthYg0x+2djveHghlw2Jb9wmVGYKVQz7R4ULrPQfiU=;
- b=MrlsuVISi2aPutnaNaV4eFNC0qPNYCB/E66YlHQ4uAMTLskobUZC48EcW4ZTkbnPl21Qrd
- myVugYhqOSz0Q/NSTmT9lhfKp/ICAT9bPy2rwGZXHmgMEUm3d1aDJA/8Zz1ZolynDSoP2V
- eO83bQyvjMAnR5zx0vbxRwqPbymf1Mg=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ bh=jRdNfj9ZJOGMCBURzHWfgI671U+1iCcASfBCX64ogeI=;
+ b=ULZVZHmcdQ83iU/rQm9legINaTYM+N14BlbEIYv5Yx0Cjps1VLyzTo0l2VuvaQT8uReLsm
+ syoYp3fHsUiV7/PQmKM2Jj3YSUUqGK2W44Cn3IulNdfIrW3XfOAI+e59ejFGozYQwGQN0l
+ DLDVPOabjszA1iyss3HUqs0+EAwdR7A=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-116-ssFK63pfMnq5S88UlMY_DQ-1; Wed,
- 27 Aug 2025 18:11:04 -0400
-X-MC-Unique: ssFK63pfMnq5S88UlMY_DQ-1
-X-Mimecast-MFC-AGG-ID: ssFK63pfMnq5S88UlMY_DQ_1756332659
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-552-hUo1S-tsOY-l5AExsMPNLg-1; Wed,
+ 27 Aug 2025 18:07:39 -0400
+X-MC-Unique: hUo1S-tsOY-l5AExsMPNLg-1
+X-Mimecast-MFC-AGG-ID: hUo1S-tsOY-l5AExsMPNLg_1756332454
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id C780E180035B; Wed, 27 Aug 2025 22:10:58 +0000 (UTC)
+ by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id DE2EB195608E; Wed, 27 Aug 2025 22:07:33 +0000 (UTC)
 Received: from t14s.redhat.com (unknown [10.22.80.195])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 10AB430001A1; Wed, 27 Aug 2025 22:10:40 +0000 (UTC)
+ id E10A430001A1; Wed, 27 Aug 2025 22:07:17 +0000 (UTC)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: David Hildenbrand <david@redhat.com>,
- Brett Creeley <brett.creeley@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Yishai Hadas <yishaih@nvidia.com>,
- Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
- Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex.williamson@redhat.com>,
+ Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
  Alexander Potapenko <glider@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
  Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- kasan-dev@googlegroups.com, kvm@vger.kernel.org,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
  linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
  linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -76,9 +71,9 @@ Cc: David Hildenbrand <david@redhat.com>,
  Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
  virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
  wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-Subject: [PATCH v1 31/36] vfio/pci: drop nth_page() usage within SG entry
-Date: Thu, 28 Aug 2025 00:01:35 +0200
-Message-ID: <20250827220141.262669-32-david@redhat.com>
+Subject: [PATCH v1 19/36] io_uring/zcrx: remove nth_page() usage within folio
+Date: Thu, 28 Aug 2025 00:01:23 +0200
+Message-ID: <20250827220141.262669-20-david@redhat.com>
 In-Reply-To: <20250827220141.262669-1-david@redhat.com>
 References: <20250827220141.262669-1-david@redhat.com>
 MIME-Version: 1.0
@@ -99,49 +94,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-It's no longer required to use nth_page() when iterating pages within a
-single SG entry, so let's drop the nth_page() usage.
+Within a folio/compound page, nth_page() is no longer required.
+Given that we call folio_test_partial_kmap()+kmap_local_page(), the code
+would already be problematic if the pages would span multiple folios.
 
-Cc: Brett Creeley <brett.creeley@amd.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Yishai Hadas <yishaih@nvidia.com>
-Cc: Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>
-Cc: Kevin Tian <kevin.tian@intel.com>
-Cc: Alex Williamson <alex.williamson@redhat.com>
+So let's just assume that all src pages belong to a single
+folio/compound page and can be iterated ordinarily. The dst page is
+currently always a single page, so we're not actually iterating
+anything.
+
+Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Pavel Begunkov <asml.silence@gmail.com>
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- drivers/vfio/pci/pds/lm.c         | 3 +--
- drivers/vfio/pci/virtio/migrate.c | 3 +--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ io_uring/zcrx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/vfio/pci/pds/lm.c b/drivers/vfio/pci/pds/lm.c
-index f2673d395236a..4d70c833fa32e 100644
---- a/drivers/vfio/pci/pds/lm.c
-+++ b/drivers/vfio/pci/pds/lm.c
-@@ -151,8 +151,7 @@ static struct page *pds_vfio_get_file_page(struct pds_vfio_lm_file *lm_file,
- 			lm_file->last_offset_sg = sg;
- 			lm_file->sg_last_entry += i;
- 			lm_file->last_offset = cur_offset;
--			return nth_page(sg_page(sg),
--					(offset - cur_offset) / PAGE_SIZE);
-+			return sg_page(sg) + (offset - cur_offset) / PAGE_SIZE;
- 		}
- 		cur_offset += sg->length;
- 	}
-diff --git a/drivers/vfio/pci/virtio/migrate.c b/drivers/vfio/pci/virtio/migrate.c
-index ba92bb4e9af94..7dd0ac866461d 100644
---- a/drivers/vfio/pci/virtio/migrate.c
-+++ b/drivers/vfio/pci/virtio/migrate.c
-@@ -53,8 +53,7 @@ virtiovf_get_migration_page(struct virtiovf_data_buffer *buf,
- 			buf->last_offset_sg = sg;
- 			buf->sg_last_entry += i;
- 			buf->last_offset = cur_offset;
--			return nth_page(sg_page(sg),
--					(offset - cur_offset) / PAGE_SIZE);
-+			return sg_page(sg) + (offset - cur_offset) / PAGE_SIZE;
- 		}
- 		cur_offset += sg->length;
- 	}
+diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
+index e5ff49f3425e0..18c12f4b56b6c 100644
+--- a/io_uring/zcrx.c
++++ b/io_uring/zcrx.c
+@@ -975,9 +975,9 @@ static ssize_t io_copy_page(struct io_copy_cache *cc, struct page *src_page,
+ 
+ 		if (folio_test_partial_kmap(page_folio(dst_page)) ||
+ 		    folio_test_partial_kmap(page_folio(src_page))) {
+-			dst_page = nth_page(dst_page, dst_offset / PAGE_SIZE);
++			dst_page += dst_offset / PAGE_SIZE;
+ 			dst_offset = offset_in_page(dst_offset);
+-			src_page = nth_page(src_page, src_offset / PAGE_SIZE);
++			src_page += src_offset / PAGE_SIZE;
+ 			src_offset = offset_in_page(src_offset);
+ 			n = min(PAGE_SIZE - src_offset, PAGE_SIZE - dst_offset);
+ 			n = min(n, len);
 -- 
 2.50.1
 
