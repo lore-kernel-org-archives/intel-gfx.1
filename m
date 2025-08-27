@@ -4,21 +4,22 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F7A0CA0FFF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8699BCA0FFE
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB84010E80F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B94810E80E;
 	Wed, 27 Aug 2025 12:28:32 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEF9D10E6EB;
- Wed, 27 Aug 2025 02:33:20 +0000 (UTC)
-X-UUID: 2f6b9d8c82ee11f0b29709d653e92f7d-20250827
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75B1910E6F8;
+ Wed, 27 Aug 2025 05:07:01 +0000 (UTC)
+X-UUID: a66d9060830311f0b29709d653e92f7d-20250827
+X-CID-CACHE: Type:Local,Time:202508271301+08,HitQuantity:2
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:99b22ede-9b36-4247-ac3d-ef957683800b, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:b7ef6e9a-902b-422c-af90-2b1db3b52361, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
  N:release,TS:-25
-X-CID-META: VersionHash:6493067, CLOUDID:87815dcdcd9cd6014cbe0eb001023f33,
+X-CID-META: VersionHash:6493067, CLOUDID:7871a2c7ca51f2bc02737c897857e02d,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +27,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:87815dcdcd9cd6014cbe0eb001023f33,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 2f6b9d8c82ee11f0b29709d653e92f7d-20250827
+X-UUID: a66d9060830311f0b29709d653e92f7d-20250827
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 460976248; Wed, 27 Aug 2025 10:33:15 +0800
+ with ESMTP id 1447545758; Wed, 27 Aug 2025 13:06:54 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id B0A0AE008FAC;
- Wed, 27 Aug 2025 10:33:14 +0800 (CST)
-X-ns-mid: postfix-68AE6E6A-525672206
+ by mail.kylinos.cn (NSMail) with SMTP id AE1AEE008FB6;
+ Wed, 27 Aug 2025 11:51:18 +0800 (CST)
+X-ns-mid: postfix-68AE80B6-481635499
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id C4075E008FAA;
- Wed, 27 Aug 2025 10:33:08 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id 49687E008FB2;
+ Wed, 27 Aug 2025 11:51:01 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -86,10 +87,10 @@ Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
  imx@lists.linux.dev, linux-omap@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v2 03/18] ACPI: processor: thermal: Use
- __free(put_cpufreq_policy) for policy reference
-Date: Wed, 27 Aug 2025 10:31:47 +0800
-Message-Id: <20250827023202.10310-4-zhangzihuan@kylinos.cn>
+Subject: [PATCH v2 15/18] powercap: dtpm_cpu: Use __free(put_cpufreq_policy)
+ for policy reference
+Date: Wed, 27 Aug 2025 11:50:56 +0800
+Message-Id: <20250827035056.353772-1-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
 References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
@@ -119,54 +120,85 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- drivers/acpi/processor_thermal.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/powercap/dtpm_cpu.c | 24 +++++++-----------------
+ 1 file changed, 7 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor_th=
-ermal.c
-index 1219adb11ab9..f99ed0812934 100644
---- a/drivers/acpi/processor_thermal.c
-+++ b/drivers/acpi/processor_thermal.c
-@@ -64,17 +64,13 @@ static int phys_package_first_cpu(int cpu)
-=20
- static int cpu_has_cpufreq(unsigned int cpu)
+diff --git a/drivers/powercap/dtpm_cpu.c b/drivers/powercap/dtpm_cpu.c
+index 99390ec1481f..65117569d0f3 100644
+--- a/drivers/powercap/dtpm_cpu.c
++++ b/drivers/powercap/dtpm_cpu.c
+@@ -144,19 +144,16 @@ static int update_pd_power_uw(struct dtpm *dtpm)
+ static void pd_release(struct dtpm *dtpm)
  {
+ 	struct dtpm_cpu *dtpm_cpu =3D to_dtpm_cpu(dtpm);
 -	struct cpufreq_policy *policy;
 +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
 =20
- 	if (!acpi_processor_cpufreq_init)
- 		return 0;
+ 	if (freq_qos_request_active(&dtpm_cpu->qos_req))
+ 		freq_qos_remove_request(&dtpm_cpu->qos_req);
 =20
- 	policy =3D cpufreq_cpu_get(cpu);
+ 	policy =3D cpufreq_cpu_get(dtpm_cpu->cpu);
 -	if (policy) {
++	if (policy)
+ 		for_each_cpu(dtpm_cpu->cpu, policy->related_cpus)
+ 			per_cpu(dtpm_per_cpu, dtpm_cpu->cpu) =3D NULL;
+=20
 -		cpufreq_cpu_put(policy);
--		return 1;
 -	}
--	return 0;
-+	return !!policy;
+-
+ 	kfree(dtpm_cpu);
  }
 =20
- static int cpufreq_get_max_state(unsigned int cpu)
-@@ -95,7 +91,7 @@ static int cpufreq_get_cur_state(unsigned int cpu)
-=20
- static int cpufreq_set_cur_state(unsigned int cpu, int state)
+@@ -192,7 +189,7 @@ static int cpuhp_dtpm_cpu_online(unsigned int cpu)
+ static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
  {
+ 	struct dtpm_cpu *dtpm_cpu;
 -	struct cpufreq_policy *policy;
 +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
- 	struct acpi_processor *pr;
- 	unsigned long max_freq;
- 	int i, ret;
-@@ -127,8 +123,6 @@ static int cpufreq_set_cur_state(unsigned int cpu, in=
-t state)
- 		max_freq =3D (policy->cpuinfo.max_freq *
- 			    (100 - reduction_step(i) * cpufreq_thermal_reduction_pctg)) / 100=
-;
+ 	struct em_perf_state *table;
+ 	struct em_perf_domain *pd;
+ 	char name[CPUFREQ_NAME_LEN];
+@@ -207,16 +204,12 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *p=
+arent)
+ 		return 0;
 =20
--		cpufreq_cpu_put(policy);
--
- 		ret =3D freq_qos_update_request(&pr->thermal_req, max_freq);
- 		if (ret < 0) {
- 			pr_warn("Failed to update thermal freq constraint: CPU%d (%d)\n",
+ 	pd =3D em_cpu_get(cpu);
+-	if (!pd || em_is_artificial(pd)) {
+-		ret =3D -EINVAL;
+-		goto release_policy;
+-	}
++	if (!pd || em_is_artificial(pd))
++		return -EINVAL;
+=20
+ 	dtpm_cpu =3D kzalloc(sizeof(*dtpm_cpu), GFP_KERNEL);
+-	if (!dtpm_cpu) {
+-		ret =3D -ENOMEM;
+-		goto release_policy;
+-	}
++	if (!dtpm_cpu)
++		return -ENOMEM;
+=20
+ 	dtpm_init(&dtpm_cpu->dtpm, &dtpm_ops);
+ 	dtpm_cpu->cpu =3D cpu;
+@@ -239,7 +232,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
+ent)
+ 	if (ret < 0)
+ 		goto out_dtpm_unregister;
+=20
+-	cpufreq_cpu_put(policy);
+ 	return 0;
+=20
+ out_dtpm_unregister:
+@@ -251,8 +243,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
+ent)
+ 		per_cpu(dtpm_per_cpu, cpu) =3D NULL;
+ 	kfree(dtpm_cpu);
+=20
+-release_policy:
+-	cpufreq_cpu_put(policy);
+ 	return ret;
+ }
+=20
 --=20
 2.25.1
 
