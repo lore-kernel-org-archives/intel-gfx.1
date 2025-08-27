@@ -4,56 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35C2CC8303F
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 06:08:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46D8ECA0EFF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 06:34:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 903DC10E0AC;
-	Wed, 27 Aug 2025 06:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEB1810E6FF;
+	Wed, 27 Aug 2025 06:34:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aXQapo8P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a9JgtiBX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2073610E0AC;
- Wed, 27 Aug 2025 06:08:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756274907; x=1787810907;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=i6Ji4FBvxXrSF/MMUBoJ5qTh8ekBT4Y0N1Z9ko9sOOw=;
- b=aXQapo8P47qyBhcmE05AsdZ5fk4rlKPDlGYW2SW7QSLp9RFR7dPY7aFo
- LOvYSUAVhsXQhEPLW1gXSdzespc61H64tjU9f7nY7jyezNExRDyt0fjHD
- 2Bed9Ht3QuSn0DIjUbGnMQI/nZnNzHk77A2AMzkTEx+QXJXZ+62TvkuB4
- oZ3Z6Ke5TogIypH2sxUIT66SJNPWnqchiA5ftQ4ZeoOoP1d/DKguYoW3b
- +bGz4Jg/H0MkZi6bMKo6Ql0BspU5y1mPxtsr7xgzDveQQ+FAdO7FluC+o
- anF2121O9hQG/5EbglpK1mCYpBJ4lXR4E32KMd8PLoTL+/L8lqgYfqrNX w==;
-X-CSE-ConnectionGUID: Vhc36b+VSO6woYsQyfBcAg==
-X-CSE-MsgGUID: JQsIT46KRLqshHLcjlk4lA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11534"; a="57724856"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="57724856"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2025 23:08:25 -0700
-X-CSE-ConnectionGUID: FliZPHgOSa+nhmsqz7wcFw==
-X-CSE-MsgGUID: yYN0RKn4TWSoaMu3v2OOzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="170591128"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO jhogande-mobl1..)
- ([10.245.244.83])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2025 23:08:23 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH] drm/i915/psr: Panel Replay SU cap dpcd read return value
-Date: Wed, 27 Aug 2025 09:08:09 +0300
-Message-ID: <20250827060809.2461725-1-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F93410E700;
+ Wed, 27 Aug 2025 06:34:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9251360254;
+ Wed, 27 Aug 2025 06:34:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05A1C4CEEB;
+ Wed, 27 Aug 2025 06:34:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1756276470;
+ bh=dOTckYvVImYjZpxv/z1LSXxh9jwhCh1JDe2QIDn/QlQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=a9JgtiBXRDvkjujnxJ63j3G2BMBZVXUoeQbzJbonwjIZLHPiuoODiOQnpyZfvAFSv
+ 2eeWEu4bPG9d3tqUKmy94/CaSdPvNzDmYgid7EqE5KZMs8ZhF1mOl+uQ0Rg8kv34rR
+ +JF2p+orkisruTV7t1/t8vri6wXXMA8EaCEU+rhWWND/ItO2jnsfY8MnkxdPMwJQXm
+ GoDw5Cz3c6E55kksuBZc4BsvgleH9LUm39UmPVpP8ixE8stafVx2ht4sV+IpXsQ1+M
+ efTdYxGKDj72P0jGMA/6sMEql96ydxNBxpBhJUBM8ifaJPEAJaVh8DH1uYqWuH90Wc
+ DN7o74Mp3X6Jg==
+Date: Wed, 27 Aug 2025 08:34:27 +0200
+From: "mripard@kernel.org" <mripard@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: "Kandpal, Suraj" <suraj.kandpal@intel.com>, 
+ "liviu.dudau@arm.com" <liviu.dudau@arm.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ "kernel-list@raspberrypi.com" <kernel-list@raspberrypi.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, 
+ "freedreno@lists.freedesktop.org" <freedreno@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "Nautiyal,
+ Ankit K" <ankit.k.nautiyal@intel.com>, 
+ "Murthy, Arun R" <arun.r.murthy@intel.com>, "Shankar,
+ Uma" <uma.shankar@intel.com>, "Nikula, Jani" <jani.nikula@intel.com>,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>, 
+ "siqueira@igalia.com" <siqueira@igalia.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>, 
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "robin.clark@oss.qualcomm.com" <robin.clark@oss.qualcomm.com>, 
+ "abhinav.kumar@linux.dev" <abhinav.kumar@linux.dev>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>, 
+ "jessica.zhang@oss.qualcomm.com" <jessica.zhang@oss.qualcomm.com>,
+ "sean@poorly.run" <sean@poorly.run>, 
+ "marijn.suijten@somainline.org" <marijn.suijten@somainline.org>,
+ "mcanal@igalia.com" <mcanal@igalia.com>, 
+ "dave.stevenson@raspberrypi.com" <dave.stevenson@raspberrypi.com>, 
+ "tomi.valkeinen+renesas@ideasonboard.com"
+ <tomi.valkeinen+renesas@ideasonboard.com>, 
+ "kieran.bingham+renesas@ideasonboard.com"
+ <kieran.bingham+renesas@ideasonboard.com>,
+ "louis.chauvet@bootlin.com" <louis.chauvet@bootlin.com>
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+Message-ID: <20250827-helpful-outgoing-capuchin-d2acc8@houat>
+References: <awtqznhquyn7etojonmjn7karznefsb7fdudawcjsj5g2bok3u@2iqcdviuiz2s>
+ <20250811111546.GA30760@pendragon.ideasonboard.com>
+ <2ah3pau7p7brgw7huoxznvej3djct76vgfwtc72n6uub7sjojd@zzaebjdcpdwf>
+ <DM3PPF208195D8D0E55A761A3C16B87BAEEE32AA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ <aJ4LQvqli36TlETu@e110455-lin.cambridge.arm.com>
+ <hc6f6wgsnauh72cowocpm55tikejhiha5z4mgufeq7v6gb2qml@kmgfd26bigos>
+ <wr76vyag2osox2xf7ducnkiaanzk2k5ehd2ahnoyqdm5qiywlk@penf4v5bvg5z>
+ <DM3PPF208195D8D87AECE8397914A67D9A1E33EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
+ <20250826-skinny-dancing-otter-de9be4@houat>
+ <76cmo6pqa534cdnckfgsnspczenzt7kiwkpgg4olxysjn2can7@g5dxteqi5jjs>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="2bcu3ttzioot2gyg"
+Content-Disposition: inline
+In-Reply-To: <76cmo6pqa534cdnckfgsnspczenzt7kiwkpgg4olxysjn2can7@g5dxteqi5jjs>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,40 +101,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently return value of drm_dpcd_readb is not checked when reading sink
-Panel Replay Selective Update capabilities.
 
-Fix this and switch to drm_dpcd_read_byte.
+--2bcu3ttzioot2gyg
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor drm_writeback_connector
+ structure
+MIME-Version: 1.0
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+On Tue, Aug 26, 2025 at 07:08:17PM +0300, Dmitry Baryshkov wrote:
+> On Tue, Aug 26, 2025 at 05:48:18PM +0200, mripard@kernel.org wrote:
+> > On Mon, Aug 25, 2025 at 06:26:48AM +0000, Kandpal, Suraj wrote:
+> > > > Subject: Re: [RFC PATCH 1/8] drm: writeback: Refactor
+> > > > drm_writeback_connector structure
+> > > >=20
+> > > > Hi,
+> > > >=20
+> > > > On Sat, Aug 16, 2025 at 01:20:53AM +0300, Dmitry Baryshkov wrote:
+> > > > > On Thu, Aug 14, 2025 at 05:13:54PM +0100, liviu.dudau@arm.com wro=
+te:
+> > > > > > Hi,
+> > > > > >
+> > > > > > On Wed, Aug 13, 2025 at 10:04:22AM +0000, Kandpal, Suraj wrote:
+> > > > > > > > > > };
+> > > > > > > > >
+> > > > > > > > > I still don't like that. This really doesn't belong here.=
+ If
+> > > > > > > > > anything, the drm_connector for writeback belongs to drm_=
+crtc.
+> > > > > > > >
+> > > > > > > > Why? We already have generic HDMI field inside drm_connecto=
+r. I
+> > > > > > > > am really hoping to be able to land DP parts next to it. In
+> > > > > > > > theory we can have a DVI- specific entry there (e.g. with t=
+he
+> > > > subconnector type).
+> > > > > > > > The idea is not to limit how the drivers subclass those str=
+uctures.
+> > > > > > > >
+> > > > > > > > I don't see a good case why WB should deviate from that des=
+ign.
+> > > > > > > >
+> > > > > > > > > If the issue is that some drivers need a custom drm_conne=
+ctor
+> > > > > > > > > subclass, then I'd rather turn the connector field of
+> > > > > > > > > drm_writeback_connector into a pointer.
+> > > > > > > >
+> > > > > > > > Having a pointer requires additional ops in order to get
+> > > > > > > > drm_connector from WB code and vice versa. Having
+> > > > > > > > drm_connector_wb inside drm_connector saves us from those o=
+ps
+> > > > (which don't manifest for any other kind of structure).
+> > > > > > > > Nor will it take any more space since union will reuse space
+> > > > > > > > already taken up by HDMI part.
+> > > > > > > >
+> > > > > > > > >
+> > > > > > >
+> > > > > > > Seems like this thread has died. We need to get a conclusion =
+on the
+> > > > design.
+> > > > > > > Laurent do you have any issue with the design given Dmitry's
+> > > > > > > explanation as to why this Design is good for drm_writeback_c=
+onnector.
+> > > > > >
+> > > > > > I'm with Laurent here. The idea for drm_connector (and a lot of=
+ drm
+> > > > > > structures) are to be used as base "classes" for extended
+> > > > > > structures. I don't know why HDMI connector ended up inside
+> > > > > > drm_connector as not all connectors have HDMI functionality, bu=
+t that's a
+> > > > cleanup for another day.
+> > > > >
+> > > > > Maybe Maxime can better comment on it, but I think it was made ex=
+actly
+> > > > > for the purpose of not limiting the driver's design. For example,=
+ a
+> > > > > lot of drivers subclass drm_connector via drm_bridge_connector. If
+> > > > > struct drm_connector_hdmi was a wrapper around struct drm_connect=
+or,
+> > > > > then it would have been impossible to use HDMI helpers for bridge
+> > > > > drivers, while current design freely allows any driver to utilize
+> > > > > corresponding library code.
+> > > >=20
+> > > > That's exactly why we ended up like this. With that design, we woul=
+dn't have
+> > > > been able to "inherit" two connector "classes": bridge_connector is=
+ one,
+> > > > intel_connector another one.
+> > > >=20
+> > > > See here for the rationale:
+> > > > https://lore.kernel.org/dri-devel/ZOTDKHxn2bOg+Xmg@phenom.ffwll.loc=
+al/
+> > > >=20
+> > > > I don't think the "but we'll bloat drm_connector" makes sense eithe=
+r.
+> > > > There's already a *lot* of things that aren't useful to every conne=
+ctor (fwnode,
+> > > > display_info, edid in general, scaling, vrr, etc.)
+> > > >=20
+> > > > And it's not like we allocate more than a handful of them during a =
+system's life.
+> > >=20
+> > > So Are we okay with the approach mentioned here with the changes that=
+ have been proposed here like
+> > > Having drm_writeback_connector in union with drm_hdmi_connector
+> >=20
+> > I don't think we need a union here. It artificially creates the same
+> > issue: we can't have two types for a connector if we do so.
+>=20
+> Well... What kind of connector would be both HDMI and WriteBack? I think
+> they are mutually exclusive already.
+>=20
+> > > Also one more thing I would like to clarify here is how everyone would
+> > > like the patches patches where each patch changes both the drm core
+> > > and all related drivers (ensures buildability but then review is tough
+> > > for each driver). Or patches where we have initial drm core changes
+> > > and then each patch does the all changes in a driver in its own
+> > > respective patch.
+> >=20
+> > The latter should be preferred, but if you can't maintain bisectability
+> > that way, then it's the most important and you should fall back to the
+> > former.
+>=20
+> I'd say, we should be trying our best in providing bisectability. It
+> really a PITA if one can not use `git bisect run`.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 8b4cdf9b30db..f2b9a733637a 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -494,12 +494,14 @@ static u8 intel_dp_get_su_capability(struct intel_dp *intel_dp)
- {
- 	u8 su_capability = 0;
- 
--	if (intel_dp->psr.sink_panel_replay_su_support)
--		drm_dp_dpcd_readb(&intel_dp->aux,
--				  DP_PANEL_REPLAY_CAP_CAPABILITY,
--				  &su_capability);
--	else
-+	if (intel_dp->psr.sink_panel_replay_su_support) {
-+		if (drm_dp_dpcd_read_byte(&intel_dp->aux,
-+					  DP_PANEL_REPLAY_CAP_CAPABILITY,
-+					  &su_capability) < 0)
-+			return 0;
-+	} else {
- 		su_capability = intel_dp->psr_dpcd[1];
-+	}
- 
- 	return su_capability;
- }
--- 
-2.43.0
+Yeah, I believe we are saying the same thing :)
 
+Maxime
+
+--2bcu3ttzioot2gyg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaK6m7wAKCRAnX84Zoj2+
+doq7AYCGPkzQsh6eK7sNZpx+oS1S0ulIy7SlWpjGFlx+gKw8CWeZ49ePtAl290cq
+u833Oa0BgLNM0z3GhbAuoZEIMj3lrg5ki7r3yNe4zG/aPbKJZ1ocfGrd2wTgY+q3
+3zMMttn/aw==
+=kBfE
+-----END PGP SIGNATURE-----
+
+--2bcu3ttzioot2gyg--
