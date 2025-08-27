@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00441CA0FFE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A92BCA0FFD
 	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341CF10E7F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9C210E7F1;
 	Wed, 27 Aug 2025 12:28:10 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 840A410E312;
- Wed, 27 Aug 2025 02:34:24 +0000 (UTC)
-X-UUID: 53f3f0e682ee11f0b29709d653e92f7d-20250827
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8614910E312;
+ Wed, 27 Aug 2025 02:34:06 +0000 (UTC)
+X-UUID: 494816fe82ee11f0b29709d653e92f7d-20250827
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:402b5ea1-4850-43c8-aef9-0e9f9ffe322a, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:17f27ccf-aa3b-47ba-9229-8fb68e226aa1, IP:0,
  U
- RL:0,TC:0,Content:34,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:34
-X-CID-META: VersionHash:6493067, CLOUDID:91a83f4c0018a27ed85fc5b2e75147d8,
+ RL:0,TC:0,Content:26,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:26
+X-CID-META: VersionHash:6493067, CLOUDID:f2398c8c5a1aca92091435c050f04d6d,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:4|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +26,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:91a83f4c0018a27ed85fc5b2e75147d8,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 53f3f0e682ee11f0b29709d653e92f7d-20250827
+X-UUID: 494816fe82ee11f0b29709d653e92f7d-20250827
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 811278835; Wed, 27 Aug 2025 10:34:17 +0800
+ with ESMTP id 586798460; Wed, 27 Aug 2025 10:33:59 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id AB75EE008FAB;
- Wed, 27 Aug 2025 10:34:16 +0800 (CST)
-X-ns-mid: postfix-68AE6EA8-504909217
+ by mail.kylinos.cn (NSMail) with SMTP id B78F2E008FAB;
+ Wed, 27 Aug 2025 10:33:58 +0800 (CST)
+X-ns-mid: postfix-68AE6E96-41491213
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 204CAE008FAE;
- Wed, 27 Aug 2025 10:34:11 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id C4296E008FAC;
+ Wed, 27 Aug 2025 10:33:52 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -86,10 +86,10 @@ Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
  imx@lists.linux.dev, linux-omap@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v2 10/18] cpufreq: s5pv210: Use __free(put_cpufreq_policy) for
- policy reference
-Date: Wed, 27 Aug 2025 10:31:54 +0800
-Message-Id: <20250827023202.10310-11-zhangzihuan@kylinos.cn>
+Subject: [PATCH v2 07/18] cpufreq: longhaul: Use __free(put_cpufreq_policy)
+ for policy reference
+Date: Wed, 27 Aug 2025 10:31:51 +0800
+Message-Id: <20250827023202.10310-8-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
 References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
@@ -119,33 +119,31 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- drivers/cpufreq/s5pv210-cpufreq.c | 3 +--
+ drivers/cpufreq/longhaul.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/cpufreq/s5pv210-cpufreq.c b/drivers/cpufreq/s5pv210-=
-cpufreq.c
-index 76c888ed8d16..95f1568e9530 100644
---- a/drivers/cpufreq/s5pv210-cpufreq.c
-+++ b/drivers/cpufreq/s5pv210-cpufreq.c
-@@ -555,7 +555,7 @@ static int s5pv210_cpufreq_reboot_notifier_event(stru=
-ct notifier_block *this,
- 						 unsigned long event, void *ptr)
- {
- 	int ret;
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
+diff --git a/drivers/cpufreq/longhaul.c b/drivers/cpufreq/longhaul.c
+index ba0e08c8486a..ae5596919671 100644
+--- a/drivers/cpufreq/longhaul.c
++++ b/drivers/cpufreq/longhaul.c
+@@ -950,7 +950,7 @@ static int __init longhaul_init(void)
 =20
- 	policy =3D cpufreq_cpu_get(0);
- 	if (!policy) {
-@@ -564,7 +564,6 @@ static int s5pv210_cpufreq_reboot_notifier_event(stru=
-ct notifier_block *this,
+ static void __exit longhaul_exit(void)
+ {
+-	struct cpufreq_policy *policy =3D cpufreq_cpu_get(0);
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(0);
+ 	int i;
+=20
+ 	for (i =3D 0; i < numscales; i++) {
+@@ -968,7 +968,6 @@ static void __exit longhaul_exit(void)
+ 		}
  	}
 =20
- 	ret =3D cpufreq_driver_target(policy, SLEEP_FREQ, 0);
 -	cpufreq_cpu_put(policy);
-=20
- 	if (ret < 0)
- 		return NOTIFY_BAD;
+ 	cpufreq_unregister_driver(&longhaul_driver);
+ 	kfree(longhaul_table);
+ }
 --=20
 2.25.1
 
