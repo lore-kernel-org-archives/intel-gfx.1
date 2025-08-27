@@ -4,58 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6CFCA0FED
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 22:11:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EBB5CA0EFF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 22:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FD1910E907;
-	Wed, 27 Aug 2025 22:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A02FB10E90C;
+	Wed, 27 Aug 2025 22:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ULZVZHmc";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BO/8mzvv";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC4CE10E907
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 22:11:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A133D10E90C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 22:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756332670;
+ s=mimecast20190719; t=1756332685;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=jRdNfj9ZJOGMCBURzHWfgI671U+1iCcASfBCX64ogeI=;
- b=ULZVZHmcdQ83iU/rQm9legINaTYM+N14BlbEIYv5Yx0Cjps1VLyzTo0l2VuvaQT8uReLsm
- syoYp3fHsUiV7/PQmKM2Jj3YSUUqGK2W44Cn3IulNdfIrW3XfOAI+e59ejFGozYQwGQN0l
- DLDVPOabjszA1iyss3HUqs0+EAwdR7A=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ bh=BOaasCb4pmSrDWTZ4dnyfdi01+ddZ5bW0CVKvkbWo5U=;
+ b=BO/8mzvvc8tT4ReSNMiweggQQbZQHLE6jCX1UOynNhMzwiGIgACjIb4fG0JGP/CfOE2phM
+ RE+i6wp7/HRtr5v0ekqMnhwl2SMRe11CbOUa8evEOL5wcsK6EOZcq1Su0B6aB/osVSld8u
+ 36xh3SE+RRpk1wrSClTuGE9x78TcG+I=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-552-hUo1S-tsOY-l5AExsMPNLg-1; Wed,
- 27 Aug 2025 18:07:39 -0400
-X-MC-Unique: hUo1S-tsOY-l5AExsMPNLg-1
-X-Mimecast-MFC-AGG-ID: hUo1S-tsOY-l5AExsMPNLg_1756332454
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-526-Y03DoB7kMGejm_4jhOvFCg-1; Wed,
+ 27 Aug 2025 18:11:23 -0400
+X-MC-Unique: Y03DoB7kMGejm_4jhOvFCg-1
+X-Mimecast-MFC-AGG-ID: Y03DoB7kMGejm_4jhOvFCg_1756332676
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id DE2EB195608E; Wed, 27 Aug 2025 22:07:33 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 1F89C195419F; Wed, 27 Aug 2025 22:11:16 +0000 (UTC)
 Received: from t14s.redhat.com (unknown [10.22.80.195])
  by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id E10A430001A1; Wed, 27 Aug 2025 22:07:17 +0000 (UTC)
+ id 61BFE30001A5; Wed, 27 Aug 2025 22:10:59 +0000 (UTC)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: David Hildenbrand <david@redhat.com>,
- Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
  Alexander Potapenko <glider@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
  Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Johannes Weiner <hannes@cmpxchg.org>,
- John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
- kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ kasan-dev@googlegroups.com, kvm@vger.kernel.org,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
  linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
  linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -71,9 +73,9 @@ Cc: David Hildenbrand <david@redhat.com>,
  Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
  virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
  wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-Subject: [PATCH v1 19/36] io_uring/zcrx: remove nth_page() usage within folio
-Date: Thu, 28 Aug 2025 00:01:23 +0200
-Message-ID: <20250827220141.262669-20-david@redhat.com>
+Subject: [PATCH v1 32/36] crypto: remove nth_page() usage within SG entry
+Date: Thu, 28 Aug 2025 00:01:36 +0200
+Message-ID: <20250827220141.262669-33-david@redhat.com>
 In-Reply-To: <20250827220141.262669-1-david@redhat.com>
 References: <20250827220141.262669-1-david@redhat.com>
 MIME-Version: 1.0
@@ -94,39 +96,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Within a folio/compound page, nth_page() is no longer required.
-Given that we call folio_test_partial_kmap()+kmap_local_page(), the code
-would already be problematic if the pages would span multiple folios.
+It's no longer required to use nth_page() when iterating pages within a
+single SG entry, so let's drop the nth_page() usage.
 
-So let's just assume that all src pages belong to a single
-folio/compound page and can be iterated ordinarily. The dst page is
-currently always a single page, so we're not actually iterating
-anything.
-
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: "David S. Miller" <davem@davemloft.net>
 Signed-off-by: David Hildenbrand <david@redhat.com>
 ---
- io_uring/zcrx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ crypto/ahash.c               | 4 ++--
+ crypto/scompress.c           | 8 ++++----
+ include/crypto/scatterwalk.h | 4 ++--
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
-index e5ff49f3425e0..18c12f4b56b6c 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -975,9 +975,9 @@ static ssize_t io_copy_page(struct io_copy_cache *cc, struct page *src_page,
+diff --git a/crypto/ahash.c b/crypto/ahash.c
+index a227793d2c5b5..dfb4f5476428f 100644
+--- a/crypto/ahash.c
++++ b/crypto/ahash.c
+@@ -88,7 +88,7 @@ static int hash_walk_new_entry(struct crypto_hash_walk *walk)
  
- 		if (folio_test_partial_kmap(page_folio(dst_page)) ||
- 		    folio_test_partial_kmap(page_folio(src_page))) {
--			dst_page = nth_page(dst_page, dst_offset / PAGE_SIZE);
-+			dst_page += dst_offset / PAGE_SIZE;
- 			dst_offset = offset_in_page(dst_offset);
--			src_page = nth_page(src_page, src_offset / PAGE_SIZE);
-+			src_page += src_offset / PAGE_SIZE;
- 			src_offset = offset_in_page(src_offset);
- 			n = min(PAGE_SIZE - src_offset, PAGE_SIZE - dst_offset);
- 			n = min(n, len);
+ 	sg = walk->sg;
+ 	walk->offset = sg->offset;
+-	walk->pg = nth_page(sg_page(walk->sg), (walk->offset >> PAGE_SHIFT));
++	walk->pg = sg_page(walk->sg) + (walk->offset >> PAGE_SHIFT);
+ 	walk->offset = offset_in_page(walk->offset);
+ 	walk->entrylen = sg->length;
+ 
+@@ -226,7 +226,7 @@ int shash_ahash_digest(struct ahash_request *req, struct shash_desc *desc)
+ 	if (!IS_ENABLED(CONFIG_HIGHMEM))
+ 		return crypto_shash_digest(desc, data, nbytes, req->result);
+ 
+-	page = nth_page(page, offset >> PAGE_SHIFT);
++	page += offset >> PAGE_SHIFT;
+ 	offset = offset_in_page(offset);
+ 
+ 	if (nbytes > (unsigned int)PAGE_SIZE - offset)
+diff --git a/crypto/scompress.c b/crypto/scompress.c
+index c651e7f2197a9..1a7ed8ae65b07 100644
+--- a/crypto/scompress.c
++++ b/crypto/scompress.c
+@@ -198,7 +198,7 @@ static int scomp_acomp_comp_decomp(struct acomp_req *req, int dir)
+ 		} else
+ 			return -ENOSYS;
+ 
+-		dpage = nth_page(dpage, doff / PAGE_SIZE);
++		dpage += doff / PAGE_SIZE;
+ 		doff = offset_in_page(doff);
+ 
+ 		n = (dlen - 1) / PAGE_SIZE;
+@@ -220,12 +220,12 @@ static int scomp_acomp_comp_decomp(struct acomp_req *req, int dir)
+ 			} else
+ 				break;
+ 
+-			spage = nth_page(spage, soff / PAGE_SIZE);
++			spage = spage + soff / PAGE_SIZE;
+ 			soff = offset_in_page(soff);
+ 
+ 			n = (slen - 1) / PAGE_SIZE;
+ 			n += (offset_in_page(slen - 1) + soff) / PAGE_SIZE;
+-			if (PageHighMem(nth_page(spage, n)) &&
++			if (PageHighMem(spage + n) &&
+ 			    size_add(soff, slen) > PAGE_SIZE)
+ 				break;
+ 			src = kmap_local_page(spage) + soff;
+@@ -270,7 +270,7 @@ static int scomp_acomp_comp_decomp(struct acomp_req *req, int dir)
+ 			if (dlen <= PAGE_SIZE)
+ 				break;
+ 			dlen -= PAGE_SIZE;
+-			dpage = nth_page(dpage, 1);
++			dpage++;
+ 		}
+ 	}
+ 
+diff --git a/include/crypto/scatterwalk.h b/include/crypto/scatterwalk.h
+index 15ab743f68c8f..83d14376ff2bc 100644
+--- a/include/crypto/scatterwalk.h
++++ b/include/crypto/scatterwalk.h
+@@ -159,7 +159,7 @@ static inline void scatterwalk_map(struct scatter_walk *walk)
+ 	if (IS_ENABLED(CONFIG_HIGHMEM)) {
+ 		struct page *page;
+ 
+-		page = nth_page(base_page, offset >> PAGE_SHIFT);
++		page = base_page + (offset >> PAGE_SHIFT);
+ 		offset = offset_in_page(offset);
+ 		addr = kmap_local_page(page) + offset;
+ 	} else {
+@@ -259,7 +259,7 @@ static inline void scatterwalk_done_dst(struct scatter_walk *walk,
+ 		end += (offset_in_page(offset) + offset_in_page(nbytes) +
+ 			PAGE_SIZE - 1) >> PAGE_SHIFT;
+ 		for (i = start; i < end; i++)
+-			flush_dcache_page(nth_page(base_page, i));
++			flush_dcache_page(base_page + i);
+ 	}
+ 	scatterwalk_advance(walk, nbytes);
+ }
 -- 
 2.50.1
 
