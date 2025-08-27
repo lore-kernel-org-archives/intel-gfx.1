@@ -4,53 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D72CA0FED
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 11:41:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D9CCA0EFF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9D4610E7DE;
-	Wed, 27 Aug 2025 11:41:46 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WHfe3YXl";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E287910E7E6
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 Aug 2025 11:41:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756294905; x=1787830905;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=udVoQTdkTcXIeNYGkLzg9TZjGXCs2NY3sd/JwstbJuU=;
- b=WHfe3YXlIhM5B+TCPD1MhcrvLWhu9rFaDWFRBKiBJzjNR7uFSan6Qwwo
- joLDNOJyj7feWp/TBbCBd4/bRlImNm5Rc/pzX4JJfACBxjMWCpIjOVTCP
- sdNFEm75NVXuxQkQUfRYik30rdhGjgoAkt3fpSbXcwqFjlLOw+uzRnvku
- r2RXMU1LPx1bkH/3goczem1ZxlbcSBeropaUZuV7NwA9Y747UHxjiNMCe
- BOj2gX3PzmVh4EOxW4K/8b3jf9dn86pm2O9xvXuv33Xc47VDZlRaDh1Os
- j3qv4Xiq/tY0XkYvf73gvzhG92bzM96zHZ9VxBTAoAbbi35cp+GNcVBna w==;
-X-CSE-ConnectionGUID: iK8nsbCTSJe0l+BeLY+CTA==
-X-CSE-MsgGUID: mYcv+F6oQ86mJlCiSvDG9w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11534"; a="68814513"
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="68814513"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2025 04:41:43 -0700
-X-CSE-ConnectionGUID: c2ZSD6xxRWO0EeNNOim9+A==
-X-CSE-MsgGUID: usp09K0fSwqPJGgjFzMBug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,214,1751266800"; d="scan'208";a="175119857"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.190])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2025 04:41:41 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Luca Coelho <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v2] drm/i915: use REG_BIT on FW_BLC_SELF_* macros
-In-Reply-To: <20250827111109.401604-1-luciano.coelho@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250827111109.401604-1-luciano.coelho@intel.com>
-Date: Wed, 27 Aug 2025 14:41:38 +0300
-Message-ID: <dda50e90d75d1d3f767be0c89857032c7bd91328@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2713C10E0FE;
+	Wed, 27 Aug 2025 12:28:09 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9CBC10E6EB;
+ Wed, 27 Aug 2025 02:32:39 +0000 (UTC)
+X-UUID: 1608347c82ee11f0b29709d653e92f7d-20250827
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:9ef84008-8d93-4efc-b22c-c01a63cd65b6, IP:0,
+ U
+ RL:0,TC:0,Content:30,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+ :release,TS:30
+X-CID-META: VersionHash:6493067, CLOUDID:9b84e483923621b91582f098a4e5a9f9,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|850,TC:nil,Content:4|50,EDM:-3,IP:ni
+ l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+ :1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 0
+X-CID-BAS: 0,_,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: 1608347c82ee11f0b29709d653e92f7d-20250827
+Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
+ (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
+ with ESMTP id 1094580345; Wed, 27 Aug 2025 10:32:33 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id 85EFFE008FAC;
+ Wed, 27 Aug 2025 10:32:32 +0800 (CST)
+X-ns-mid: postfix-68AE6E40-207889202
+Received: from localhost.localdomain (unknown [172.25.120.24])
+ by mail.kylinos.cn (NSMail) with ESMTPA id C0D71E008FAA;
+ Wed, 27 Aug 2025 10:32:14 +0800 (CST)
+From: Zihuan Zhang <zhangzihuan@kylinos.cn>
+To: "Rafael J . wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Markus Mayer <mmayer@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
+ Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
+ Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>,
+ Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
+ x86@kernel.org, kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-omap@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Zihuan Zhang <zhangzihuan@kylinos.cn>
+Subject: [PATCH v2 00/18] cpufreq: use __free() for all cpufreq_cpu_get()
+ references
+Date: Wed, 27 Aug 2025 10:31:44 +0800
+Message-Id: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Wed, 27 Aug 2025 12:28:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,50 +109,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 27 Aug 2025, Luca Coelho <luciano.coelho@intel.com> wrote:
-> Use REG_BIT() instead of open coding the shift in the FW_BLC_SELF_*
-> macro definitions to avoid potentially typing them as 'int'.
->
-> For example, this happens when we pass them to _MASKED_BIT_ENABLE(),
-> because of the typeof() construct there.  When we pass 1 << 15 (the
-> FW_BLC_SELF_EN macro), we get typeof(1 << 15), which is 'int'.  Then
-> the value becomes negative (-2147450880) and we try to assign it to a
-> 'u32'.
->
-> In practice this is not a problem though, because when we try to
-> assign -2147450880 to the u32, that becomes 0x80008000, which was the
-> intended result.
->
-> Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+This patchset converts all remaining cpufreq users to rely on the
+__free(put_cpufreq_policy) annotation for policy references, instead of
+calling cpufreq_cpu_put() manually.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Motivation:
+- Reduce the chance of reference counting mistakes
+- Make the code more consistent with the latest kernel style
+- behavior remains the same, but reference counting is now safer=20
+  and easier to maintain.
 
-> ---
->
-> In v2:
->    * changed to use REG_BIT() instead (Jani)
->
->
->  drivers/gpu/drm/i915/i915_reg.h | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-> index b283b25d8368..b4188e94c9a2 100644
-> --- a/drivers/gpu/drm/i915/i915_reg.h
-> +++ b/drivers/gpu/drm/i915/i915_reg.h
-> @@ -412,9 +412,9 @@
->  #define FW_BLC		_MMIO(0x20d8)
->  #define FW_BLC2		_MMIO(0x20dc)
->  #define FW_BLC_SELF	_MMIO(0x20e0) /* 915+ only */
-> -#define   FW_BLC_SELF_EN_MASK      (1 << 31)
-> -#define   FW_BLC_SELF_FIFO_MASK    (1 << 16) /* 945 only */
-> -#define   FW_BLC_SELF_EN           (1 << 15) /* 945 only */
-> +#define   FW_BLC_SELF_EN_MASK      REG_BIT((31)
-> +#define   FW_BLC_SELF_FIFO_MASK    REG_BIT(16) /* 945 only */
-> +#define   FW_BLC_SELF_EN           REG_BIT(15) /* 945 only */
->  #define MM_BURST_LENGTH     0x00700000
->  #define MM_FIFO_WATERMARK   0x0001F000
->  #define LM_BURST_LENGTH     0x00000700
+The changes are split into 18 patches as they touch different subsystems
+and are maintained by different people. There is no functional change.
 
--- 
-Jani Nikula, Intel
+V2:
+ - Fix compile error in powernv-cpufreq.c
+ - Split patch to separate logical changes
+
+Zihuan Zhang (18):
+  arm64: topology: Use __free(put_cpufreq_policy) for policy reference
+  KVM: x86: Use __free(put_cpufreq_policy) for policy reference
+  ACPI: processor: thermal: Use __free(put_cpufreq_policy) for policy
+    reference
+  cpufreq: brcmstb-avs-cpufreq: Use __free(put_cpufreq_policy) for
+    policy reference
+  cpufreq: CPPC: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: intel_pstate: Use __free(put_cpufreq_policy) for policy
+    reference
+  cpufreq: longhaul: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: mediatek: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: powernv: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: s5pv210: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: tegra186: Use __free(put_cpufreq_policy) for policy reference
+  PM / devfreq: Use __free(put_cpufreq_policy) for policy reference
+  drm/i915: Use __free(put_cpufreq_policy) for policy reference
+  cpufreq: powerpc: macintosh: Use __free(put_cpufreq_policy) for policy
+    reference
+  powercap: dtpm_cpu: Use __free(put_cpufreq_policy) for policy
+    reference
+  thermal: imx: Use __free(put_cpufreq_policy) for policy reference
+  thermal/drivers/ti-soc-thermal:  Use __free(put_cpufreq_policy) for
+    policy reference
+  PM: EM: Use __free(put_cpufreq_policy) for policy reference
+
+ arch/arm64/kernel/topology.c                  |  9 +++----
+ arch/x86/kvm/x86.c                            | 10 ++++----
+ drivers/acpi/processor_thermal.c              | 12 +++-------
+ drivers/cpufreq/brcmstb-avs-cpufreq.c         |  4 +---
+ drivers/cpufreq/cppc_cpufreq.c                |  4 +---
+ drivers/cpufreq/intel_pstate.c                |  3 +--
+ drivers/cpufreq/longhaul.c                    |  3 +--
+ drivers/cpufreq/mediatek-cpufreq.c            |  6 ++---
+ drivers/cpufreq/powernv-cpufreq.c             |  7 +++---
+ drivers/cpufreq/s5pv210-cpufreq.c             |  3 +--
+ drivers/cpufreq/tegra186-cpufreq.c            |  3 +--
+ drivers/devfreq/governor_passive.c            | 19 ++++-----------
+ drivers/gpu/drm/i915/gt/intel_llc.c           |  3 +--
+ drivers/macintosh/windfarm_cpufreq_clamp.c    |  4 +---
+ drivers/powercap/dtpm_cpu.c                   | 24 ++++++-------------
+ drivers/thermal/imx_thermal.c                 | 13 ++++------
+ .../ti-soc-thermal/ti-thermal-common.c        | 12 ++++------
+ kernel/power/energy_model.c                   |  7 ++----
+ 18 files changed, 46 insertions(+), 100 deletions(-)
+
+--=20
+2.25.1
+
