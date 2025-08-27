@@ -4,54 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78ACEC8303F
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 08:18:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB18BCA0EFF
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 09:23:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE71310E0AD;
-	Wed, 27 Aug 2025 08:18:50 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 44BAA10E0AD;
- Wed, 27 Aug 2025 08:18:50 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 875DD1515;
- Wed, 27 Aug 2025 01:18:41 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8D1A3F694;
- Wed, 27 Aug 2025 01:18:41 -0700 (PDT)
-Date: Wed, 27 Aug 2025 09:18:38 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Robin Murphy <robin.murphy@arm.com>,
- Peter Zijlstra <peterz@infradead.org>, mingo@redhat.com,
- will@kernel.org, acme@kernel.org, namhyung@kernel.org,
- alexander.shishkin@linux.intel.com, jolsa@kernel.org,
- adrian.hunter@intel.com, kan.liang@linux.intel.com,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-alpha@vger.kernel.org, linux-snps-arc@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- linux-csky@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, dmaengine@vger.kernel.org,
- linux-fpga@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, coresight@lists.linaro.org,
- iommu@lists.linux.dev, linux-amlogic@lists.infradead.org,
- linux-cxl@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 12/19] perf: Ignore event state for group validation
-Message-ID: <aK6_XrA_OaLnoFkr@J2N7QTR9R3>
-References: <cover.1755096883.git.robin.murphy@arm.com>
- <d6cda4e2999aba5794c8178f043c91068fa8080c.1755096883.git.robin.murphy@arm.com>
- <20250826130329.GX4067720@noisy.programming.kicks-ass.net>
- <6080e45d-032e-48c2-8efc-3d7e5734d705@arm.com>
- <CAP-5=fXF2x3hW4Sk+A362T-50cBbw6HVd7KY+QEUjFwT+JL37Q@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4785810E3C7;
+	Wed, 27 Aug 2025 09:23:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="ybSh3C85";
+	dkim-atps=neutral
+X-Greylist: delayed 548 seconds by postgrey-1.36 at gabe;
+ Wed, 27 Aug 2025 09:23:13 UTC
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B59D210E3C7;
+ Wed, 27 Aug 2025 09:23:13 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4cBf3Z2hMFz9tYW;
+ Wed, 27 Aug 2025 11:14:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1756286042;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=4ABfWD+wfQkBovVLN+RK7L89ALZTtXm1mXIS6lK+ex4=;
+ b=ybSh3C85V69ck1E4bv1d5QJITxmxxPsuKpam9r3ba3Es3XiJK8E92RnNG7dRnLAj5tngoU
+ PF9V53yjMH9wtgWIQVKGC3LdMyXag8Tfwj7bq76Qea6hiz3dQhMidHwaM/wT3D3oX4XcUY
+ gWsidi7QXwWrGc2rmEpuT+MhWZ5iUFijQCT/TVbNcsfgsv/La8FZzSCtOAuJi0tVXCWrEx
+ XGWLqkcyRTtXpTuGBW4dQBMRSheWlXGfBkq4y7R2YLfiY+f9yi/bZ2vrrT7hdJ3dqi/iFy
+ mY3auiVZ1SwbM/XV1q68PXd0hPkjl9C3gZbbVqYim/XpZlfYT1XTOVfs23mdPQ==
+Message-ID: <dabd1269-6223-4ceb-911f-22ae0aac4d5f@mailbox.org>
+Date: Wed, 27 Aug 2025 11:13:57 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Subject: Re: [PATCH 0/3] drm/ttm: ...
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Hildenbrand <david@redhat.com>, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, x86@kernel.org
+Cc: airlied@gmail.com, thomas.hellstrom@linux.intel.com,
+ matthew.brost@intel.com, dave.hansen@linux.intel.com, luto@kernel.org,
+ peterz@infradead.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+References: <20250820143739.3422-1-christian.koenig@amd.com>
+ <edf4aee5-54eb-4fad-aa89-4913d44371fe@redhat.com>
+ <4e5f4ef0-53f1-417e-8f3b-76fd7c64cd23@amd.com>
+ <f983521c-b43d-4245-93fc-fcb847908573@redhat.com>
+ <a1b95d23-1908-42c1-8ff6-da051fc140aa@amd.com>
+ <6591105b-969d-44d6-80e1-233c1b84b121@redhat.com>
+ <fc3e013c-e7f7-441d-a638-2ee3dd372775@amd.com>
+ <75aca34d-3557-49e9-a523-bd3244c28190@redhat.com>
+ <a01f7ca8-7930-4b04-b597-0ebf8500a748@amd.com>
+ <d32fa753-66a1-451a-8cef-95c1f78fc366@redhat.com>
+ <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <87050572-811e-4b0c-9ebd-8ebb05f3c617@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAP-5=fXF2x3hW4Sk+A362T-50cBbw6HVd7KY+QEUjFwT+JL37Q@mail.gmail.com>
+X-MBO-RS-META: rh178afm3jdodp3jdzxh5zce7ubd4f37
+X-MBO-RS-ID: 8987716fed8f81225e7
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,50 +79,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 26, 2025 at 11:48:48AM -0700, Ian Rogers wrote:
-> On Tue, Aug 26, 2025 at 8:32 AM Robin Murphy <robin.murphy@arm.com> wrote:
-> >
-> > On 2025-08-26 2:03 pm, Peter Zijlstra wrote:
-> > > On Wed, Aug 13, 2025 at 06:01:04PM +0100, Robin Murphy wrote:
-> > >> It may have been different long ago, but today it seems wrong for these
-> > >> drivers to skip counting disabled sibling events in group validation,
-> > >> given that perf_event_enable() could make them schedulable again, and
-> > >> thus increase the effective size of the group later. Conversely, if a
-> > >> sibling event is truly dead then it stands to reason that the whole
-> > >> group is dead, so it's not worth going to any special effort to try to
-> > >> squeeze in a new event that's never going to run anyway. Thus, we can
-> > >> simply remove all these checks.
-> > >
-> > > So currently you can do sort of a manual event rotation inside an
-> > > over-sized group and have it work.
-> > >
-> > > I'm not sure if anybody actually does this, but its possible.
-> > >
-> > > Eg. on a PMU that supports only 4 counters, create a group of 5 and
-> > > periodically cycle which of the 5 events is off.
-> 
-> I'm not sure this is true, I thought this would fail in the
-> perf_event_open when adding the 5th event and there being insufficient
-> counters for the group.
 
-We're talking specifically about cases where the logic in a pmu's
-pmu::event_init() callback doesn't count events in specific states, and
-hence the 5th even doesn't get rejected when it is initialised.
+Public Service Announcement from your friendly neighbourhood mailing list moderation queue processor:
 
-For example, in arch/x86/events/core.c, validate_group() uses
-collect_events(), which has:
+I recommend setting a non-empty subject in follow-ups to this thread, or I might accidentally discard them from the moderation queue (I just almost did).
 
-	for_each_sibling_event(event, leader) {
-		if (!is_x86_event(event) || event->state <= PERF_EVENT_STATE_OFF)
-			continue;
 
-		if (collect_event(cpuc, event, max_count, n))
-			return -EINVAL;
-
-		n++;
-	}
-
-... and so where an event's state is <= PERF_EVENT_STATE_OFF at init
-time, that event is not counted to see if it fits into HW counters.
-
-Mark.
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
