@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7CFDCA0EFF
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 491E9CA0FF6
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 Aug 2025 12:28:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5BF710E7F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D274810E7F8;
 	Wed, 27 Aug 2025 12:28:10 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2F310E6F8;
- Wed, 27 Aug 2025 05:01:58 +0000 (UTC)
-X-UUID: f37f2f18830211f0b29709d653e92f7d-20250827
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B9C110E312;
+ Wed, 27 Aug 2025 02:34:46 +0000 (UTC)
+X-UUID: 60e6774282ee11f0b29709d653e92f7d-20250827
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:1c415ba0-fb13-418e-8a8d-f939331ccbe2, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:1915f481-bedc-4d91-af15-505a74d14b94, IP:0,
  U
- RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:-25
-X-CID-META: VersionHash:6493067, CLOUDID:7871a2c7ca51f2bc02737c897857e02d,
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:6493067, CLOUDID:51706333029b611e5b79c72fb179c529,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +26,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:7871a2c7ca51f2bc02737c897857e02d,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: f37f2f18830211f0b29709d653e92f7d-20250827
+X-UUID: 60e6774282ee11f0b29709d653e92f7d-20250827
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 208371796; Wed, 27 Aug 2025 13:01:54 +0800
+ with ESMTP id 2025348349; Wed, 27 Aug 2025 10:34:38 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id C320CE008FAB;
- Wed, 27 Aug 2025 10:34:49 +0800 (CST)
-X-ns-mid: postfix-68AE6EC9-204746223
+ by mail.kylinos.cn (NSMail) with SMTP id 624CFE008FAE;
+ Wed, 27 Aug 2025 10:34:38 +0800 (CST)
+X-ns-mid: postfix-68AE6EBE-218835221
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id ECEDDE008FAC;
- Wed, 27 Aug 2025 10:34:43 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id E7FCBE008FAF;
+ Wed, 27 Aug 2025 10:34:27 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -86,10 +86,10 @@ Cc: zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
  imx@lists.linux.dev, linux-omap@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v2 15/18] powercap: dtpm_cpu: Use __free(put_cpufreq_policy)
- for policy reference
-Date: Wed, 27 Aug 2025 10:31:59 +0800
-Message-Id: <20250827023202.10310-16-zhangzihuan@kylinos.cn>
+Subject: [PATCH v2 13/18] drm/i915: Use __free(put_cpufreq_policy) for policy
+ reference
+Date: Wed, 27 Aug 2025 10:31:57 +0800
+Message-Id: <20250827023202.10310-14-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
 References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
@@ -119,85 +119,30 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- drivers/powercap/dtpm_cpu.c | 24 +++++++-----------------
- 1 file changed, 7 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_llc.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/powercap/dtpm_cpu.c b/drivers/powercap/dtpm_cpu.c
-index 99390ec1481f..65117569d0f3 100644
---- a/drivers/powercap/dtpm_cpu.c
-+++ b/drivers/powercap/dtpm_cpu.c
-@@ -144,19 +144,16 @@ static int update_pd_power_uw(struct dtpm *dtpm)
- static void pd_release(struct dtpm *dtpm)
+diff --git a/drivers/gpu/drm/i915/gt/intel_llc.c b/drivers/gpu/drm/i915/g=
+t/intel_llc.c
+index 1d19c073ba2e..53cef2ab133d 100644
+--- a/drivers/gpu/drm/i915/gt/intel_llc.c
++++ b/drivers/gpu/drm/i915/gt/intel_llc.c
+@@ -29,13 +29,12 @@ static struct intel_gt *llc_to_gt(struct intel_llc *l=
+lc)
+=20
+ static unsigned int cpu_max_MHz(void)
  {
- 	struct dtpm_cpu *dtpm_cpu =3D to_dtpm_cpu(dtpm);
 -	struct cpufreq_policy *policy;
 +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
+ 	unsigned int max_khz;
 =20
- 	if (freq_qos_request_active(&dtpm_cpu->qos_req))
- 		freq_qos_remove_request(&dtpm_cpu->qos_req);
-=20
- 	policy =3D cpufreq_cpu_get(dtpm_cpu->cpu);
--	if (policy) {
-+	if (policy)
- 		for_each_cpu(dtpm_cpu->cpu, policy->related_cpus)
- 			per_cpu(dtpm_per_cpu, dtpm_cpu->cpu) =3D NULL;
-=20
+ 	policy =3D cpufreq_cpu_get(0);
+ 	if (policy) {
+ 		max_khz =3D policy->cpuinfo.max_freq;
 -		cpufreq_cpu_put(policy);
--	}
--
- 	kfree(dtpm_cpu);
- }
-=20
-@@ -192,7 +189,7 @@ static int cpuhp_dtpm_cpu_online(unsigned int cpu)
- static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
- {
- 	struct dtpm_cpu *dtpm_cpu;
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
- 	struct em_perf_state *table;
- 	struct em_perf_domain *pd;
- 	char name[CPUFREQ_NAME_LEN];
-@@ -207,16 +204,12 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *p=
-arent)
- 		return 0;
-=20
- 	pd =3D em_cpu_get(cpu);
--	if (!pd || em_is_artificial(pd)) {
--		ret =3D -EINVAL;
--		goto release_policy;
--	}
-+	if (!pd || em_is_artificial(pd))
-+		return -EINVAL;
-=20
- 	dtpm_cpu =3D kzalloc(sizeof(*dtpm_cpu), GFP_KERNEL);
--	if (!dtpm_cpu) {
--		ret =3D -ENOMEM;
--		goto release_policy;
--	}
-+	if (!dtpm_cpu)
-+		return -ENOMEM;
-=20
- 	dtpm_init(&dtpm_cpu->dtpm, &dtpm_ops);
- 	dtpm_cpu->cpu =3D cpu;
-@@ -239,7 +232,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
-ent)
- 	if (ret < 0)
- 		goto out_dtpm_unregister;
-=20
--	cpufreq_cpu_put(policy);
- 	return 0;
-=20
- out_dtpm_unregister:
-@@ -251,8 +243,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm *par=
-ent)
- 		per_cpu(dtpm_per_cpu, cpu) =3D NULL;
- 	kfree(dtpm_cpu);
-=20
--release_policy:
--	cpufreq_cpu_put(policy);
- 	return ret;
- }
-=20
+ 	} else {
+ 		/*
+ 		 * Default to measured freq if none found, PCU will ensure we
 --=20
 2.25.1
 
