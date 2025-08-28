@@ -4,52 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 661F5C8303F
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 20:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72974CA0EED
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 20:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ACCE10EAB8;
-	Thu, 28 Aug 2025 20:06:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED2F610EAC8;
+	Thu, 28 Aug 2025 20:51:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eBVztVWb";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="LnDnbKmC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45B3610EAB8
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 20:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756411570; x=1787947570;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=x0gcTcohkq0r62ImEbrZFXaLUaAbaHlWUgGDanINzZI=;
- b=eBVztVWb9mvIByr4IjZSEZ8qE6oZhoIStYxfTgvIpQkKsVOvtJzdcoRh
- UGYDZipbeDGDGKCahu//8m/xl5b3iYbmr6PmhNtdX+QLBYSGGtKPsWKjF
- jwtk/UP8JmkK6jWBtKb/CBOmREIGqmk/bTH/DLJQFOQx+8yiJi3nEgwxD
- o82+jlczvtGwbtKZogMWvDzlzT67IRhV9eath+aG94WlfEU5WrqOn3jOx
- AOFzdDL0FF86bpduizmCdpzGG4ynxkTjuqHbZXKkVbok/5o3SvQrkhFzf
- 04WjVBk3rpLx26tKejm07Oz//H2Ah2rCZYrgNrkDCW0t5luNwPgceKDOC A==;
-X-CSE-ConnectionGUID: U0iIhzf3RNuQZdCO2zWz/Q==
-X-CSE-MsgGUID: tqoz7fX8S2aMngE6oDqOHQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11536"; a="58797609"
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="58797609"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2025 13:06:10 -0700
-X-CSE-ConnectionGUID: OzGLK9uCQlS+UF5i9oqwLg==
-X-CSE-MsgGUID: JsutoxIVTKegdffzYEI6Mw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,221,1751266800"; d="scan'208";a="174375011"
-Received: from bfilipch-desk.jf.intel.com ([10.165.21.204])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2025 13:06:09 -0700
-From: Julia Filipchuk <julia.filipchuk@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Julia Filipchuk <julia.filipchuk@intel.com>
-Subject: [CI v3] drm/i915/guc: Test GuC v70.49.4 for ADL-P, DG1, DG2, MTL, TGL
-Date: Thu, 28 Aug 2025 13:06:00 -0700
-Message-ID: <20250828200606.359583-2-julia.filipchuk@intel.com>
-X-Mailer: git-send-email 2.50.1
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD39110EAC8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 20:51:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1756414314;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=TWFVCA1eidbRWe4Mvk+B7obYKckT+mqN7M8LbBoJEjM=;
+ b=LnDnbKmCy2/YUzPjTsaiBoVqM1piA608572AGEvYZzom2KkhsoQr9hIiZabsAzGtvR+tqn
+ Av8HZtAXP/+2uqM1hha0i/cibf/CitQ+YH3pFVGJsH86kyZpimjlmOtN1mPrq58h+J7JG1
+ qAwnjv7u3f/ZVbOY6qdoMpyG+6E7NYo=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-538-tIuhlhdhMGy4fJJUqhCsfg-1; Thu, 28 Aug 2025 16:51:52 -0400
+X-MC-Unique: tIuhlhdhMGy4fJJUqhCsfg-1
+X-Mimecast-MFC-AGG-ID: tIuhlhdhMGy4fJJUqhCsfg_1756414311
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-45a1b0cb0aaso10125035e9.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 13:51:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756414311; x=1757019111;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TWFVCA1eidbRWe4Mvk+B7obYKckT+mqN7M8LbBoJEjM=;
+ b=OHj/3XKOBS1wUPC4pTUeUUAVf4y1alLzBP0kqIxuzMy/JowcYfX3iPA+gBJgz46mty
+ BuVCoA59AKVSy05hJ+BJsP+5ifUeU/TrSSxad4fvoqx87rFMq0Qj2Ss0Mn4sdfeevejo
+ AaKtYzJ/CT5+OEjYOsn8vT4m6KW2F7DAJ699I+m34r3U7+tA9LzkRtaqXHA6rD/96kkj
+ WYbzTuJZUzZati3v2g9rHsjdi6qc+KlcXlnVmyzwJpGOgX0Xve5eG22gn6+YyANDnNSK
+ tifVkehrA2G7/f5M7WGf8fh1FAAV88OcvZ5oILIRapWVz6OdZF9A0w7exy2r6uU6oIA4
+ hpbQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWYrihUSq3Lqr7+wl9zLgty1P9qn6mPfEkd6XQE4rKkZXFoHJvaZ8BTvkAsFxaUPZzzG1VohPaBk1o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzBXSwCT9bmvN+Pp770vpjIw3wNSYd0+Gt+KigocE1GOV2JkSZF
+ DhF42XP7bOj0tNICLRqjEQP89Vfbx69uxvyL8Y7QVXnAgMNeTc8b1A+VYjDObULPZQPw412+gdA
+ 9CbynAY7UIpHeOVwizCjHLJ8JXDAjA/uaeZjAuxxhnrfzi7MVvYJa8VpGDPxE+JCCEwjnaw==
+X-Gm-Gg: ASbGnctp/MWzEtiilZPYw46T4nMMROcfSOe6ZLdjqXK5aaxn1x12mJec8CCKNIvQGuB
+ sbs/Vp7xKpY6Ijd8t6bXBoEGvXTUFWYAInf4OF2/xzdMaKH+2zbXvjTvIkqkFwWI8Gy9ydhhASK
+ bshepSQXClBFuzKz4BujtRZIPpAnM07D7M2680VM1zywGJjtEUjpmwbRv8MfF6aEKt0Cy8Jif+n
+ pxsx4/A/4p9vfsriY34SWnAjKBZqGoTkR0OOfAT+j2CZ1lHrv24PQeXLoJtPK/ZX6N05ouMLq3i
+ ffE22vKrkvnoPTNufeuYI/GeFjX/9eZYobLfMqwrJsIa96IYaws9V6A/qzyx8zbsnvLnP/ZTHik
+ X4iLPrpJgapvh7EHtRom6/RnYsE6L1gvaDvHlGnLK7VLaWnaNpJV/kePpPwTmEO7ItdQ=
+X-Received: by 2002:a05:600c:c491:b0:45b:4d47:5559 with SMTP id
+ 5b1f17b1804b1-45b517dadd6mr212975795e9.36.1756414310767; 
+ Thu, 28 Aug 2025 13:51:50 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEBxEpIi+OizhCOrvRivNgDFtglg6ujTEy6gKjCh35xHRfgibjOrf5BEosBm4/LLfFcliwoKA==
+X-Received: by 2002:a05:600c:c491:b0:45b:4d47:5559 with SMTP id
+ 5b1f17b1804b1-45b517dadd6mr212975405e9.36.1756414310334; 
+ Thu, 28 Aug 2025 13:51:50 -0700 (PDT)
+Received: from ?IPV6:2003:d8:2f28:c100:2225:10aa:f247:7b85?
+ (p200300d82f28c100222510aaf2477b85.dip0.t-ipconnect.de.
+ [2003:d8:2f28:c100:2225:10aa:f247:7b85])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-45b7df3ff72sm8506805e9.1.2025.08.28.13.51.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 28 Aug 2025 13:51:49 -0700 (PDT)
+Message-ID: <2be7db96-2fa2-4348-837e-648124bd604f@redhat.com>
+Date: Thu, 28 Aug 2025 22:51:46 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 20/36] mips: mm: convert __flush_dcache_pages() to
+ __flush_dcache_folio_pages()
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-kernel@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
+ Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ kasan-dev@googlegroups.com, kvm@vger.kernel.org,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
+ linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
+References: <20250827220141.262669-1-david@redhat.com>
+ <20250827220141.262669-21-david@redhat.com>
+ <ea74f0e3-bacf-449a-b7ad-213c74599df1@lucifer.local>
+From: David Hildenbrand <david@redhat.com>
+Autocrypt: addr=david@redhat.com; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ea74f0e3-bacf-449a-b7ad-213c74599df1@lucifer.local>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: bcymiUnoQn_xVkOnr_NzrxeXDXzoxGfuoW1y_Y4AaAs_1756414311
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,42 +175,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-UAPI compatibility version 1.24.4
+On 28.08.25 18:57, Lorenzo Stoakes wrote:
+> On Thu, Aug 28, 2025 at 12:01:24AM +0200, David Hildenbrand wrote:
+>> Let's make it clearer that we are operating within a single folio by
+>> providing both the folio and the page.
+>>
+>> This implies that for flush_dcache_folio() we'll now avoid one more
+>> page->folio lookup, and that we can safely drop the "nth_page" usage.
+>>
+>> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+>> Signed-off-by: David Hildenbrand <david@redhat.com>
+>> ---
+>>   arch/mips/include/asm/cacheflush.h | 11 +++++++----
+>>   arch/mips/mm/cache.c               |  8 ++++----
+>>   2 files changed, 11 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/arch/mips/include/asm/cacheflush.h b/arch/mips/include/asm/cacheflush.h
+>> index 5d283ef89d90d..8d79bfc687d21 100644
+>> --- a/arch/mips/include/asm/cacheflush.h
+>> +++ b/arch/mips/include/asm/cacheflush.h
+>> @@ -50,13 +50,14 @@ extern void (*flush_cache_mm)(struct mm_struct *mm);
+>>   extern void (*flush_cache_range)(struct vm_area_struct *vma,
+>>   	unsigned long start, unsigned long end);
+>>   extern void (*flush_cache_page)(struct vm_area_struct *vma, unsigned long page, unsigned long pfn);
+>> -extern void __flush_dcache_pages(struct page *page, unsigned int nr);
+>> +extern void __flush_dcache_folio_pages(struct folio *folio, struct page *page, unsigned int nr);
+> 
+> NIT: Be good to drop the extern.
 
-This patch is for testing only. If testing is successful the binary
-blobs will replace the major versioned '*_guc_70.bin' files for given
-platforms.
+I think I'll leave the one in, though, someone should clean up all of 
+them in one go.
 
-Signed-off-by: Julia Filipchuk <julia.filipchuk@intel.com>
----
- drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Just imagine how the other functions would think about the new guy 
+showing off here. :)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-index e848a04a80dc..ff418aeb9429 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_uc_fw.c
-@@ -88,15 +88,15 @@ void intel_uc_fw_change_status(struct intel_uc_fw *uc_fw,
-  * security fixes, etc. to be enabled.
-  */
- #define INTEL_GUC_FIRMWARE_DEFS(fw_def, guc_maj, guc_mmp) \
--	fw_def(METEORLAKE,   0, guc_maj(mtl,  70, 12, 1)) \
--	fw_def(DG2,          0, guc_maj(dg2,  70, 12, 1)) \
--	fw_def(ALDERLAKE_P,  0, guc_maj(adlp, 70, 12, 1)) \
-+	fw_def(METEORLAKE,   0, guc_mmp(mtl,  70, 49, 4)) \
-+	fw_def(DG2,          0, guc_mmp(dg2,  70, 49, 4)) \
-+	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 49, 4)) \
- 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 70, 1, 1)) \
- 	fw_def(ALDERLAKE_P,  0, guc_mmp(adlp, 69, 0, 3)) \
--	fw_def(ALDERLAKE_S,  0, guc_maj(tgl,  70, 12, 1)) \
-+	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 49, 4)) \
- 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  70, 1, 1)) \
- 	fw_def(ALDERLAKE_S,  0, guc_mmp(tgl,  69, 0, 3)) \
--	fw_def(DG1,          0, guc_maj(dg1,  70, 5, 1)) \
-+	fw_def(DG1,          0, guc_mmp(dg1,  70, 49, 4)) \
- 	fw_def(ROCKETLAKE,   0, guc_mmp(tgl,  70, 1, 1)) \
- 	fw_def(TIGERLAKE,    0, guc_mmp(tgl,  70, 1, 1)) \
- 	fw_def(JASPERLAKE,   0, guc_mmp(ehl,  70, 1, 1)) \
+> 
+>>
+>>   #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
+>>   static inline void flush_dcache_folio(struct folio *folio)
+>>   {
+>>   	if (cpu_has_dc_aliases)
+>> -		__flush_dcache_pages(&folio->page, folio_nr_pages(folio));
+>> +		__flush_dcache_folio_pages(folio, folio_page(folio, 0),
+>> +					   folio_nr_pages(folio));
+>>   	else if (!cpu_has_ic_fills_f_dc)
+>>   		folio_set_dcache_dirty(folio);
+>>   }
+>> @@ -64,10 +65,12 @@ static inline void flush_dcache_folio(struct folio *folio)
+>>
+>>   static inline void flush_dcache_page(struct page *page)
+>>   {
+>> +	struct folio *folio = page_folio(page);
+>> +
+>>   	if (cpu_has_dc_aliases)
+>> -		__flush_dcache_pages(page, 1);
+>> +		__flush_dcache_folio_pages(folio, page, folio_nr_pages(folio));
+> 
+> Hmmm, shouldn't this be 1 not folio_nr_pages()? Seems that the original
+> implementation only flushed a single page even if contained within a larger
+> folio?
+
+Yes, reworked it 3 times and messed it up during the last rework. Thanks!
+
 -- 
-2.50.1
+Cheers
+
+David / dhildenb
 
