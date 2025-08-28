@@ -4,112 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75737CA0FFD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31E9CA0FFF
 	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D39FC10EAAB;
-	Thu, 28 Aug 2025 19:34:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59EF310EAAF;
+	Thu, 28 Aug 2025 19:34:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P/BEZEs1";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Ji8h1Cae";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EA1110E6BE;
- Thu, 28 Aug 2025 07:18:53 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-afebb6d4093so95912966b.1; 
- Thu, 28 Aug 2025 00:18:53 -0700 (PDT)
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8F7510E895
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 08:43:53 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-24456ce0b96so8419515ad.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 01:43:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756365532; x=1756970332; darn=lists.freedesktop.org;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ACPidqQG6DQZNVxh12NaJPKP3Jkf06hyqyPjQ1p5F2E=;
- b=P/BEZEs1Gp1r8lAk7Cwq+2yuudfNPTcNyQGMrPYdRLVJ0w5lRWatxgwgtf+/XkdDYc
- jZX0Ble8qa8PBEIFGc94tjbAU4lc3AyAlmhnNljIbUZ8MqqG/TBMJJ3ePl7zAztQzNPo
- 1CcFcmtVC/ITAXdToEdjai460Fz0e+CM7NftwRXP8afXpmlAYdEmPCgTuAqDpJZQJKZC
- LuVIxGhJUvj80FXnSyvrta8DflvvhEwmtIVqnrUB6pPgyHvl+SYDOcCn/yGDSWZo8fGJ
- GjCsBW5NHE334IiIFAajvMr1iBpQG9GtlbwdDg7xzSpRnrR5bacP17YfMoMK5lhy/qTB
- M/sQ==
+ d=google.com; s=20230601; t=1756370633; x=1756975433;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=jLT2osl3N94HJBBJWKPAk2avCo16Lo88yw1WJjz/wsM=;
+ b=Ji8h1CaeHE+GbhOjp2OORH2Q/7usRsG45Z+YUXeptmguTr8gGwdhFhi08tw924Otpm
+ l9hv2mf53X6bxk0ySDLRF9PjaExqr9HNItnJYcDc8JYF1wlnH6NPcnf9JS75sxXB3vti
+ edijMj/rEeGEUVaKQ4U/u/4mFBMinKPjTU9abH7gKGJoe3chg4Sqkhl2Tvj0jCyLLUO9
+ wthfOS0nePSK9c7cOVNNTAEHiDZq+KHQeZICtN9ZtbKBJuA5/v9YTlWroukwULAdwdsw
+ cgx9NTUAXw4BDxesud8+Y8+4p3dXW6qEB379DVnol2m29aZWKmpvpc09WCf/RN2aIkch
+ K2jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756365532; x=1756970332;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :reply-to:message-id:subject:cc:to:from:date:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ACPidqQG6DQZNVxh12NaJPKP3Jkf06hyqyPjQ1p5F2E=;
- b=m+5D+738Fv88i+G6BJqhahTZn/6faIcse5TaHVEORn5zInyLNPYZ0Y/2dQLv61NOWD
- mf6YuQKs5rCMPg37cyIKG7UBymrRh1KJKU67WOc5tCPGpwjeApqRC/ZNqtswTUBkzncj
- 32nGHg+mC0v55KW7nx7g0NTVvXdgWFYdK/lqT9DhwqDFHUXGVy7Ez9/9DYU4Ch10q3Nl
- VqKSd3nZajQQKDBauAv638dJZQ6taNVJRXFKYY+mnETXj+h1izZBArc5+8Bo63FbNXcm
- zG/02NFc63+s7ALEPMJ/qilc+fJqdRM+Wvqt235LAqygWmxOkVvtEpnDek4sS+1zsPzw
- 9JrQ==
+ d=1e100.net; s=20230601; t=1756370633; x=1756975433;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=jLT2osl3N94HJBBJWKPAk2avCo16Lo88yw1WJjz/wsM=;
+ b=J7TYjTE8XXkRZvl+0hF0WKwY/h+dDfwURuS3zBEfoUYCKPwTUOmQuIke5+KfNMuXDf
+ TXh5aWDPSJwmvDsZKcY3ZrB/SFg5B8m3Zgs6X+zClaVAatc9dbFBVx6pS2JGlMgCyKxg
+ AiPhlzRZAuWHgWRoWTF2CSAJyL//h0cFzjMnqORcP6DpXnItsr1UmRIruer/lKwMgR3S
+ RbvlKpHhopohn2Y7FV1gEUmyjXzLcyR4o28VIpj+eokafGtY3rIk5GdzRpTGeJR2iCn3
+ vfqbeWn8aqc2K6qz9bLCoSMbIK4KjJI12Vj/sA8r/EZRyw9W1V0MTA/3m0p9WFJTHG1H
+ j1jw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUL1PVRxCClDFUViv4sE/U5WpDE99iDS0bGHCwPPjK20SA9bx6pJnf67fZJr1vD7IE3fMtTZ6QPCf4T@lists.freedesktop.org,
- AJvYcCW7LpRJaGI+Hn21ixOqedgKIOYqUbA56t46p2qBICyRUh5BqqUjtqjO+kNXjTGJbBh0AJ5X7VxGkbA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWK/adrI9sWY2ojgcpgCUMExa5hVLgzKVuvTgfRcPoV4AEAP7/
- MBP/6RQgJpXhQE0ahaqU9V00l8I8lcH5ShZUukz1koK6xGzl2zrwaexs
-X-Gm-Gg: ASbGncs/+/WCuv7womVzPejyCM8aJrd6k5GLrQMy782/sbPIK1xBy1JXIRdlslsd+2s
- Y0vcbjk1fkxvmXmA2fF74wOQekngos1kBOUxh5fUn5K2t8GEjx1wgbSbyR6+znlBvNPFyA+9zAl
- zJQZDezbZfsmy35vCEVF1kjzHVVvYl4WlQCKhSBBqzApZaOrtcgFd59mLdCPb6pkbdxe5tgEygv
- 5eUSN/xcaZ878DFfuxuoxsvumW2AtWmVYXCV0BQzxCA/j+DhIpUFpoZ0DSU7fXyA3ZXTWu7oUFZ
- yhZ3Xs6iM1sByNhQfp/kXkKVhQVTp2OY9BvT2s7kvt/sa5PWscYQRvek/9UVEL93iWLu/lsChit
- /eCQM7PcbK9Bs1yXhBWoRv0PB91VER6K7R/WX
-X-Google-Smtp-Source: AGHT+IEf18QCG44U8jBJ4evHstdtd0oL4Hr6BpN08BPT0cHmsLXVki3gbBRZpXohq9eRx3IUTA8+0Q==
-X-Received: by 2002:a17:907:d2a:b0:afe:dbfb:b10e with SMTP id
- a640c23a62f3a-afedbfbb935mr140730666b.47.1756365531421; 
- Thu, 28 Aug 2025 00:18:51 -0700 (PDT)
-Received: from localhost ([185.92.221.13]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe98ade972sm616427066b.50.2025.08.28.00.18.50
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 28 Aug 2025 00:18:50 -0700 (PDT)
-Date: Thu, 28 Aug 2025 07:18:50 +0000
-From: Wei Yang <richard.weiyang@gmail.com>
+ AJvYcCXz8sBVBXzlQqpxi8LHo0SRk0DBROWgjgR+Q3uj+Y3Jwjv/J3xAgf5aTc4XcbAhHmJQzPFnxtik0EE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrkqWsj0YhBKBzkOh6Mto8awCALE6ssfLTs44nHMJGPL8IAT/F
+ 5KFm659uBBtCxdB1z/P4dQenISywBzrwCbR2ZdUam4snSYwXzFNQvK2nftnVPdLzFIi5JgfoU4G
+ mhd4mUSR3V22ohhfjlWlYAEQqkb1xQdzz9qKQ9l27
+X-Gm-Gg: ASbGncuwaEFjtlLX/+g7USZF1IsL+Y+eF6IIJXoJ3yMyUcy8BE/JZIcywfDgmxZosq0
+ upgP0lxmZpInPRm7X9FNRlM8b+89V4CtGn8z0iUbD0zb4CCZv7gN3ONjLHikn0TEklbb5Q4JXBp
+ Tr0+srLW7zyosLNkDvL8/lUu0RMPk/cClhGTHhLM/TCAOu/4Pkqv5U01QAmbh47bamjb3Eq81lf
+ vb9vdzPKzgxbnV6PDRQC/RFGpA=
+X-Google-Smtp-Source: AGHT+IGJmjz+YHPyNxr90AMhiQNNDQu9deq8PWwNfyq+zFWi/YcgUyPYkmS3VX3aACMgtkUmoKeOvBcyBRDmMb3NDeE=
+X-Received: by 2002:a17:903:3d06:b0:248:8063:a8b4 with SMTP id
+ d9443c01a7336-2488063abcbmr89508125ad.22.1756370632768; Thu, 28 Aug 2025
+ 01:43:52 -0700 (PDT)
+MIME-Version: 1.0
+References: <20250827220141.262669-1-david@redhat.com>
+ <20250827220141.262669-35-david@redhat.com>
+In-Reply-To: <20250827220141.262669-35-david@redhat.com>
+From: Marco Elver <elver@google.com>
+Date: Thu, 28 Aug 2025 10:43:16 +0200
+X-Gm-Features: Ac12FXwMzUnIHp_v7uH0kV3Hu6ram9vqgPmCMZ3TyuNNAlhDfe6K8rTgx1FpO8k
+Message-ID: <CANpmjNP8-dM-cizCfsVOUNDS2jBaY6d=0Wx8OGen5RbXgaqcfQ@mail.gmail.com>
+Subject: Re: [PATCH v1 34/36] kfence: drop nth_page() usage
 To: David Hildenbrand <david@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- SeongJae Park <sj@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- WANG Xuerui <kernel@xen0n.name>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- "David S. Miller" <davem@davemloft.net>,
- Andreas Larsson <andreas@gaisler.com>,
- Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Brendan Jackman <jackmanb@google.com>,
- Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
- Dmitry Vyukov <dvyukov@google.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, iommu@lists.linux.dev,
- io-uring@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
- Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+Cc: linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>, 
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
+ Dennis Zhou <dennis@kernel.org>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ iommu@lists.linux.dev, io-uring@vger.kernel.org, 
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, 
  John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
  kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-mm@kvack.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Marco Elver <elver@google.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
- netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, 
+ linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org, 
+ linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org, 
+ linux-mmc@vger.kernel.org, linux-mm@kvack.org, 
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, Michal Hocko <mhocko@suse.com>, 
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ netdev@vger.kernel.org, 
+ Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Tejun Heo <tj@kernel.org>, 
  virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
- wireguard@lists.zx2c4.com, x86@kernel.org
-Subject: Re: [PATCH v1 01/36] mm: stop making SPARSEMEM_VMEMMAP user-selectable
-Message-ID: <20250828071850.kl7clyh6e75horlk@master>
-References: <20250827220141.262669-1-david@redhat.com>
- <20250827220141.262669-2-david@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250827220141.262669-2-david@redhat.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+ wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 28 Aug 2025 19:34:39 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,78 +105,92 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Wei Yang <richard.weiyang@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 28, 2025 at 12:01:05AM +0200, David Hildenbrand wrote:
->In an ideal world, we wouldn't have to deal with SPARSEMEM without
->SPARSEMEM_VMEMMAP, but in particular for 32bit SPARSEMEM_VMEMMAP is
->considered too costly and consequently not supported.
+On Thu, 28 Aug 2025 at 00:11, 'David Hildenbrand' via kasan-dev
+<kasan-dev@googlegroups.com> wrote:
 >
->However, if an architecture does support SPARSEMEM with
->SPARSEMEM_VMEMMAP, let's forbid the user to disable VMEMMAP: just
->like we already do for arm64, s390 and x86.
+> We want to get rid of nth_page(), and kfence init code is the last user.
 >
->So if SPARSEMEM_VMEMMAP is supported, don't allow to use SPARSEMEM without
->SPARSEMEM_VMEMMAP.
+> Unfortunately, we might actually walk a PFN range where the pages are
+> not contiguous, because we might be allocating an area from memblock
+> that could span memory sections in problematic kernel configs (SPARSEMEM
+> without SPARSEMEM_VMEMMAP).
 >
->This implies that the option to not use SPARSEMEM_VMEMMAP will now be
->gone for loongarch, powerpc, riscv and sparc. All architectures only
->enable SPARSEMEM_VMEMMAP with 64bit support, so there should not really
->be a big downside to using the VMEMMAP (quite the contrary).
+> We could check whether the page range is contiguous
+> using page_range_contiguous() and failing kfence init, or making kfence
+> incompatible these problemtic kernel configs.
 >
->This is a preparation for not supporting
+> Let's keep it simple and simply use pfn_to_page() by iterating PFNs.
 >
->(1) folio sizes that exceed a single memory section
->(2) CMA allocations of non-contiguous page ranges
->
->in SPARSEMEM without SPARSEMEM_VMEMMAP configs, whereby we
->want to limit possible impact as much as possible (e.g., gigantic hugetlb
->page allocations suddenly fails).
->
->Acked-by: Zi Yan <ziy@nvidia.com>
->Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->Acked-by: SeongJae Park <sj@kernel.org>
->Cc: Huacai Chen <chenhuacai@kernel.org>
->Cc: WANG Xuerui <kernel@xen0n.name>
->Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
->Cc: Michael Ellerman <mpe@ellerman.id.au>
->Cc: Nicholas Piggin <npiggin@gmail.com>
->Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
->Cc: Paul Walmsley <paul.walmsley@sifive.com>
->Cc: Palmer Dabbelt <palmer@dabbelt.com>
->Cc: Albert Ou <aou@eecs.berkeley.edu>
->Cc: Alexandre Ghiti <alex@ghiti.fr>
->Cc: "David S. Miller" <davem@davemloft.net>
->Cc: Andreas Larsson <andreas@gaisler.com>
->Signed-off-by: David Hildenbrand <david@redhat.com>
+> Cc: Alexander Potapenko <glider@google.com>
+> Cc: Marco Elver <elver@google.com>
+> Cc: Dmitry Vyukov <dvyukov@google.com>
+> Signed-off-by: David Hildenbrand <david@redhat.com>
 
-Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
+Reviewed-by: Marco Elver <elver@google.com>
 
->---
-> mm/Kconfig | 3 +--
-> 1 file changed, 1 insertion(+), 2 deletions(-)
->
->diff --git a/mm/Kconfig b/mm/Kconfig
->index 4108bcd967848..330d0e698ef96 100644
->--- a/mm/Kconfig
->+++ b/mm/Kconfig
->@@ -439,9 +439,8 @@ config SPARSEMEM_VMEMMAP_ENABLE
-> 	bool
-> 
-> config SPARSEMEM_VMEMMAP
->-	bool "Sparse Memory virtual memmap"
->+	def_bool y
-> 	depends on SPARSEMEM && SPARSEMEM_VMEMMAP_ENABLE
->-	default y
-> 	help
-> 	  SPARSEMEM_VMEMMAP uses a virtually mapped memmap to optimise
-> 	  pfn_to_page and page_to_pfn operations.  This is the most
->-- 
->2.50.1
->
+Thanks.
 
--- 
-Wei Yang
-Help you, Help me
+> ---
+>  mm/kfence/core.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
+>
+> diff --git a/mm/kfence/core.c b/mm/kfence/core.c
+> index 0ed3be100963a..727c20c94ac59 100644
+> --- a/mm/kfence/core.c
+> +++ b/mm/kfence/core.c
+> @@ -594,15 +594,14 @@ static void rcu_guarded_free(struct rcu_head *h)
+>   */
+>  static unsigned long kfence_init_pool(void)
+>  {
+> -       unsigned long addr;
+> -       struct page *pages;
+> +       unsigned long addr, start_pfn;
+>         int i;
+>
+>         if (!arch_kfence_init_pool())
+>                 return (unsigned long)__kfence_pool;
+>
+>         addr = (unsigned long)__kfence_pool;
+> -       pages = virt_to_page(__kfence_pool);
+> +       start_pfn = PHYS_PFN(virt_to_phys(__kfence_pool));
+>
+>         /*
+>          * Set up object pages: they must have PGTY_slab set to avoid freeing
+> @@ -613,11 +612,12 @@ static unsigned long kfence_init_pool(void)
+>          * enters __slab_free() slow-path.
+>          */
+>         for (i = 0; i < KFENCE_POOL_SIZE / PAGE_SIZE; i++) {
+> -               struct slab *slab = page_slab(nth_page(pages, i));
+> +               struct slab *slab;
+>
+>                 if (!i || (i % 2))
+>                         continue;
+>
+> +               slab = page_slab(pfn_to_page(start_pfn + i));
+>                 __folio_set_slab(slab_folio(slab));
+>  #ifdef CONFIG_MEMCG
+>                 slab->obj_exts = (unsigned long)&kfence_metadata_init[i / 2 - 1].obj_exts |
+> @@ -665,10 +665,12 @@ static unsigned long kfence_init_pool(void)
+>
+>  reset_slab:
+>         for (i = 0; i < KFENCE_POOL_SIZE / PAGE_SIZE; i++) {
+> -               struct slab *slab = page_slab(nth_page(pages, i));
+> +               struct slab *slab;
+>
+>                 if (!i || (i % 2))
+>                         continue;
+> +
+> +               slab = page_slab(pfn_to_page(start_pfn + i));
+>  #ifdef CONFIG_MEMCG
+>                 slab->obj_exts = 0;
+>  #endif
+> --
+> 2.50.1
+>
+> --
+> You received this message because you are subscribed to the Google Groups "kasan-dev" group.
+> To unsubscribe from this group and stop receiving emails from it, send an email to kasan-dev+unsubscribe@googlegroups.com.
+> To view this discussion visit https://groups.google.com/d/msgid/kasan-dev/20250827220141.262669-35-david%40redhat.com.
