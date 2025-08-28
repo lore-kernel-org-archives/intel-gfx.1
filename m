@@ -4,27 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D53DECA0FF7
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 18:54:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F44FCA0EED
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D2310EA9F;
-	Thu, 28 Aug 2025 18:54:58 +0000 (UTC)
-Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D053F10EA9F;
- Thu, 28 Aug 2025 18:54:57 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2477769437931570683=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353F710EAA3;
+	Thu, 28 Aug 2025 19:34:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WMgAY7RS";
+	dkim-atps=neutral
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B05D10E6CD;
+ Thu, 28 Aug 2025 07:37:58 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-61cb9f6dbe7so1131551a12.0; 
+ Thu, 28 Aug 2025 00:37:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756366677; x=1756971477; darn=lists.freedesktop.org;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TVrt2ctwbXgHbo+Hn2TZ0gCxiv/sLljbJFjbqAY/TQU=;
+ b=WMgAY7RSZ48rQF9CxGJ1qXnOzw6U0P4GaHwBa9+EduNcJallioKhnj4jSIkYTbTwcI
+ l84sZTcQ5Z5uas9ZQzi+j76+0dGuFzWMjBcrkp833NuMHlkNTDdbx1xevTFBI28gakYy
+ QQoN+GaW4NVpZkwZ4BnXO8N9ev4xPg9YQol3088Azw9JUMjp0+k0oxkM6pVOzDvq44ta
+ lTdERaKgWznH0HJKqm9PRYL6wKBBR4qdwozYWsDaBVL9Vi2wNMahUGXeMEKlt93i6uMB
+ TlrTTq2hmL8gvFuGu94VGbibEkSooCVjJkeARQNVNJhZNf+u4x1u+scZsvwMtl4Hvve9
+ KXBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756366677; x=1756971477;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :reply-to:message-id:subject:cc:to:from:date:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TVrt2ctwbXgHbo+Hn2TZ0gCxiv/sLljbJFjbqAY/TQU=;
+ b=ZvYQPFR0zjSk20NnnZ6CywKA8dppTd2UHqClyikd2tLCSvnpIkRh8Wscc5EAEPmR3q
+ aOGJn8ekkUA60z/Qh/Iqlvdsj6WLpbtM6cF3smTUnBBk8J90ERjCKrBqjMbzl+vrJ1uL
+ 54nK/duR5J6+378bBO1uu1vWow7KPegq/My3hs2l7HD5320qPadf+5lAczE1d2b2/wvA
+ ZkIzm79fHTd9170HGVZ2doU98Nad2nBeOAiDDnTOlv3Fhix/mx87SW9mx4djG/XZXYmh
+ 50sqVyYRXz4wrHoWCAu+la3Q+hFKvnkD76P6AaH59NbZ0q0CfhHNfENW+/GXsFOepumY
+ VLww==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUj5Q2D9F/em6/a91ksWKVjAuLb4A58VeHSL94D2hL2bvyNrlqt5VeDWu77dIwo7m/XT/FSyiV5iCYj@lists.freedesktop.org,
+ AJvYcCVHSVYDOB/UGki5fisdn2V4FHyAoemiIDH/wH81V03Heutn19c4uJYdij25L2ml19vkYjdBmJubsQo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIUE3XZ3TpDy9qrgG9KJcwEA/xFW8W65LV9zyg0omAydHMwrCA
+ Cnue33T7sweJuUkAmzSj6lfwwl00rnErqvL5VCDjp84zbiaidReOJWZ1
+X-Gm-Gg: ASbGncve2s19361mDjkRDGMaJ5aYL4STvqGtBd5mUOCnHm5eBStRSLG/n3CZPtMPxpO
+ 9QxZgobxNKaCrljqWaSkHfyEIiMfFqaO/GutA6R9O58eXsNO5m8xNBZZRVO4qxi8QA/M+sHP/MX
+ 34gc+gsHokztxcUcWBOUQl+r2RhKbX+mXnflTezS0y4EjLxgAg2v+zrHxIBwBS3595t6twk0SBJ
+ gm6hZT+t5n+PqUlE+I/eAl2+bOlesQ3IWZVZBV2T6wVbgkcbTJPTMoNqikmeyttv+gLKswDNca9
+ NCjGiF5qH6OAfHuEXAjoWOk8pHdg94VyVwVC6A1HQOh8RZj61jdzzrRqtdu5Tg/rimyrAk3uuZw
+ 9XQDw/POFjg541N7IOPyVqh03Pm8AFb6G/6SMrzjazdOv03w=
+X-Google-Smtp-Source: AGHT+IHzpXzU7IRYTRL9u8s1GDWZ3U5CYmUtBakw/pIBZX/rgdseIwaMMauanPlQhlJ9DDnzYy2q2w==
+X-Received: by 2002:a05:6402:52c4:b0:607:28c9:c3c9 with SMTP id
+ 4fb4d7f45d1cf-61c1b453182mr20154119a12.6.1756366676733; 
+ Thu, 28 Aug 2025 00:37:56 -0700 (PDT)
+Received: from localhost ([185.92.221.13]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-61cdb00baf9sm715248a12.33.2025.08.28.00.37.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 28 Aug 2025 00:37:56 -0700 (PDT)
+Date: Thu, 28 Aug 2025 07:37:56 +0000
+From: Wei Yang <richard.weiyang@gmail.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>,
+ Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Muchun Song <muchun.song@linux.dev>,
+ netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org
+Subject: Re: [PATCH v1 11/36] mm: limit folio/compound page sizes in
+ problematic kernel configs
+Message-ID: <20250828073755.gyq5cyafrxb7lnw2@master>
+References: <20250827220141.262669-1-david@redhat.com>
+ <20250827220141.262669-12-david@redhat.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/guc=3A_Test_GuC_?=
- =?utf-8?q?v70=2E49=2E4_for_ADL-P=2C_DG1=2C_DG2=2C_MTL=2C_TGL_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Julia Filipchuk" <julia.filipchuk@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 28 Aug 2025 18:54:57 -0000
-Message-ID: <175640729784.280646.13347308842472612714@1538d3639d33>
-X-Patchwork-Hint: ignore
-References: <20250828180119.329382-2-julia.filipchuk@intel.com>
-In-Reply-To: <20250828180119.329382-2-julia.filipchuk@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250827220141.262669-12-david@redhat.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-Mailman-Approved-At: Thu, 28 Aug 2025 19:34:39 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,175 +115,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: Wei Yang <richard.weiyang@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2477769437931570683==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Aug 28, 2025 at 12:01:15AM +0200, David Hildenbrand wrote:
+>Let's limit the maximum folio size in problematic kernel config where
+>the memmap is allocated per memory section (SPARSEMEM without
+>SPARSEMEM_VMEMMAP) to a single memory section.
+>
+>Currently, only a single architectures supports ARCH_HAS_GIGANTIC_PAGE
+>but not SPARSEMEM_VMEMMAP: sh.
+>
+>Fortunately, the biggest hugetlb size sh supports is 64 MiB
+>(HUGETLB_PAGE_SIZE_64MB) and the section size is at least 64 MiB
+>(SECTION_SIZE_BITS == 26), so their use case is not degraded.
+>
+>As folios and memory sections are naturally aligned to their order-2 size
+>in memory, consequently a single folio can no longer span multiple memory
+>sections on these problematic kernel configs.
+>
+>nth_page() is no longer required when operating within a single compound
+>page / folio.
+>
+>Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+>Signed-off-by: David Hildenbrand <david@redhat.com>
 
-== Series Details ==
+Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
 
-Series: drm/i915/guc: Test GuC v70.49.4 for ADL-P, DG1, DG2, MTL, TGL (rev3)
-URL   : https://patchwork.freedesktop.org/series/153534/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_17082 -> Patchwork_153534v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/index.html
-
-Participating hosts (44 -> 42)
-------------------------------
-
-  Missing    (2): bat-adlp-9 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_153534v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@dmabuf@all-tests@dma_fence_chain:
-    - fi-bsw-nick:        [PASS][1] -> [ABORT][2] ([i915#12904]) +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-6:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-    - bat-mtlp-9:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-adlp-6:         [ABORT][7] -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-adlp-6/igt@i915_selftest@live.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-adlp-6/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@reset:
-    - bat-adlp-6:         [ABORT][9] ([i915#14365]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-adlp-6/igt@i915_selftest@live@reset.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-adlp-6/igt@i915_selftest@live@reset.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#12904]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904
-  [i915#14365]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14365
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_17082 -> Patchwork_153534v3
-
-  CI-20190529: 20190529
-  CI_DRM_17082: a59cf1d7fe0e19ce3a6e8cf2a20cfb24896baa97 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8512: 8512
-  Patchwork_153534v3: a59cf1d7fe0e19ce3a6e8cf2a20cfb24896baa97 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/index.html
-
---===============2477769437931570683==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/guc: Test GuC v70.49.4 for ADL-P, DG1, DG2, MTL, TGL (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/153534/">https://patchwork.freedesktop.org/series/153534/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_17082 -&gt; Patchwork_153534v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/index.html</p>
-<h2>Participating hosts (44 -&gt; 42)</h2>
-<p>Missing    (2): bat-adlp-9 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_153534v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
-<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/fi-bsw-nick/igt@dmabuf@all-tests@dma_fence_chain.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12904">i915#12904</a>) +1 other test abort</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-adlp-6/igt@i915_selftest@live.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-adlp-6/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@reset:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17082/bat-adlp-6/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14365">i915#14365</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_153534v3/bat-adlp-6/igt@i915_selftest@live@reset.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_17082 -&gt; Patchwork_153534v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_17082: a59cf1d7fe0e19ce3a6e8cf2a20cfb24896baa97 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8512: 8512<br />
-  Patchwork_153534v3: a59cf1d7fe0e19ce3a6e8cf2a20cfb24896baa97 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2477769437931570683==--
+-- 
+Wei Yang
+Help you, Help me
