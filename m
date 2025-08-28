@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805E8CA0FF2
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAD5CA0FFD
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429BB10EAA6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5903110EAA2;
 	Thu, 28 Aug 2025 19:34:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VVprN8U8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CEaL4I+i";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C2810E6BA;
- Thu, 28 Aug 2025 07:35:57 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-afec56519c4so72499866b.0; 
- Thu, 28 Aug 2025 00:35:56 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1BD10E6C5;
+ Thu, 28 Aug 2025 07:31:53 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-3c8fe6bd038so285005f8f.1; 
+ Thu, 28 Aug 2025 00:31:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1756366555; x=1756971355; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1756366311; x=1756971111; darn=lists.freedesktop.org;
  h=user-agent:in-reply-to:content-disposition:mime-version:references
  :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Q0BfjvXaX7EhpBrJcO9diF40ujDlSeO28TY40tQufFs=;
- b=VVprN8U8jYSaVS3eA+X8pmAaKeni5QtatXlmwzkATgF3acBdJkDAaS9hD+SId+TfJ2
- UPJqF38yxeSxw0Q1FwNNwP2Ji8FepDWgCLtXFRWwcHr0WwRXV/rd5maS1d8muHRRoiFH
- TlY8t/KcblzXdFdkYZmaMRKSsOP2aZY2zR5K1ModSzskH/X3ruUla43dddTg89bIVfbr
- 9/7dR1/+jxL9zMfafZwRmXIjOOJEgY/PQjXbw0BJlOH1N853A2hci8pjIaNxBci/15Iz
- HX86HZevCtOjJk6NKFImT45VeigCSihAA9eotOI6YxU5W4TRCTPHkT6dOJsex+hTIRq7
- weTw==
+ bh=EuV0vIwmYzbGp0NvCAEdvEWsqc4i4ounAUIZgXtsn78=;
+ b=CEaL4I+it9cgp57KMDikpt/a02qr5I6TTfPmP78VeShHL66kf7KILrF4OICBZn7KTN
+ 3FrNqS+Xe5cRsL6Vurl2WTkKXjCsPIA1CAMtUNEjcOxIQ2a+RADo7uOtGLy6LJhqtzCm
+ NhHqweT+cn1qH4S7UuukbQ8VVnFUImAFAHyD3F9WPzEzc4uBEOHzBjSTeXM3ysqoAgmj
+ QRXLIzyy1pta791ixE0oE1Zk+veM94gb/q4B4o3xfKuar1hz8jHb1MhV/QTyNYqVZ81T
+ 0tpqmmhAqLmZ6SvNxOdUsdupnxVblSs8bS5eDrjK3JeK+cZKcxnXFToa9qTMNd5SYivE
+ sAeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756366555; x=1756971355;
+ d=1e100.net; s=20230601; t=1756366311; x=1756971111;
  h=user-agent:in-reply-to:content-disposition:mime-version:references
  :reply-to:message-id:subject:cc:to:from:date:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Q0BfjvXaX7EhpBrJcO9diF40ujDlSeO28TY40tQufFs=;
- b=OH5cUQvE6m/D/bG/9z3SGMSKkimokWHc9u4POvJFrdGrrWmk/JhGti/PXqukiQCKws
- Wut3TnSl7fftu3GX3ogXMr6lm+EYr4oholU33aTu0qw5nVk0U1m7r/IYO3uT6yc+n5hl
- 1DEIPZdrzG6uUFE/Knf7hlGWZFOo8iUmZ13m30pCTo+VjjjPBBde1BgFCXYBgra0yibR
- p281Xa3aedlxjxnHPuXAVJ1CQWv8BI8GjsRlY4rNe4PXdxPkUgt7hLf+cYdZO+3jIKiG
- E12DSDUda7EWQAg3/5QkMTBuiZCCqmOXbAADogRnbEUZjecXldNt28F6WkhrfDso9W2u
- qyCw==
+ bh=EuV0vIwmYzbGp0NvCAEdvEWsqc4i4ounAUIZgXtsn78=;
+ b=v1KKOFTuFoIl94XLQ8zeQXbGzcHvDGxrg2klkZY4rwMkbxNIhSQFPFGgzze1+OeNQw
+ xy7mgy8a8CVOBa92qpml/rJG2O/F567gIJQc3QATqzLDbJsgBUGkU+Sf/D6UYVIYHc0n
+ zH5mS8Cdk6a1Ts8bnh46v8Tw3MqMQlIagHBDTzn7zO4S3jklvio6heHrcKoLUxAaRj9O
+ O/y1JwZwQcAciqZfBjC+kQWDxxmoDyj+m9Z4U6E6DckEizeIOH+n7ClsVNJSF617ITG2
+ GQiqSXUM5ZxCh/1slcM4xRzag0VgM/we181iujFbXpVGiIVUaZFPQ0C3vP8z7WUZz+kA
+ jm1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOUK7PzRMOffBAUzuVpapRSfoIoTSJr6O4n3QTxaxj8WuLBZlP/tHGQvcEKX0+FHmPxO3S719NW9Dp@lists.freedesktop.org,
- AJvYcCWPpXgoQhe6rNIRciySGOHYfOSrNK0OfHRGtjavJA50bEwPiCoqgxKXEZrRonr5/0jls1rzB7w7f28=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcwbX/Ou6TJtqSYxAegw+udeE3FO6/KJXNW0Fl9B2L/5EHGPsK
- P8TLHa11SlWa+/5jg8RzmkWRZ3jyzVWsTh4f/gBxAgp6T4gkzljkygEt
-X-Gm-Gg: ASbGncuzKHV1dgxYBV+PVRXPgV1Hvn6VdHMNPzL7fi3E4mEc7qDsT/Xh+WhZXRouLkb
- Plofc+ee0+EKKiukPyw/fn9aQhv7qIcNcViqPe5c7zeb99SUC6VCdceEBGyAc8EPUu7WRcYNRJQ
- icEXngZr+IbNlKZDnPKSTEdNEUKpI2Nj2Jke4O6Any+71/+Gq00n+PXcmnQgboPuvXAN8ncgnBW
- YQ17dOOFmzravNRR6fhJO00AMLYl9eKtas9tNB1m3kyVR4uCtc7qKHMeAAL/o+FB4pHyxkxTsqa
- Zq4kDqZfTQu1HLfDNbRF9k3UqW0Yu7thb9NJiwrCHZ60h/5zy5RRo5oxQo8Pu0drOnaQ+vqCHp/
- oM+2j0cT22s+LeA6iEbKgbC8Kxw==
-X-Google-Smtp-Source: AGHT+IETTLjGc3PPKg04ncd1zRzcObVAV207MWaWJmOCZt1EmbrBQuEK0aAe9NGL4LI6P2OcE9HkdQ==
-X-Received: by 2002:a17:907:fdc1:b0:afc:aa44:bda1 with SMTP id
- a640c23a62f3a-afe296bcae4mr2097332866b.54.1756366555363; 
- Thu, 28 Aug 2025 00:35:55 -0700 (PDT)
+ AJvYcCU2gR8KOBgVDHXs/Oq/C1z5QRrHpVcLWdPkFeoJxyn+Wo/mKjqg2rhjcCp6cUEfQmos2QVXB3NYh8JM@lists.freedesktop.org,
+ AJvYcCUFlUtpSq/e87MPX7nhd7YXVsD6ykxniNQKwT7NhQ24Qmx7RSAYzEaF+JhfCxYdcGRzIRPjgLwt1Sg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLymk4gUvLbl4eqAgv/l2U+2C0sPAyGq8SncuJ01jHezRnUq6t
+ XHAR9LSUnETFt37VGqj5CcdZWGELBy81xYXhlwRAVd237Ae+0TPM6EAZ
+X-Gm-Gg: ASbGncsINzZ86x1YekCHRgF35v39x39i6rH6Fc0+qeemsQDtN73X81WxCplU0XkIapO
+ PtBD06yjIaZ7j1oL4krEQzpmIZbzi4X6gGCTBdttys+xn/2O83Slgk4Z9/fePegXJH+PJMB+KsM
+ PdqagMZPj/XUCwo1cu+wenaOjC81uBLQP+IRWUIz3fn0lZdXaTb1GAw/1n77ARfvsppKuVDTTEB
+ z6tJTudsYJD5YPI6mNYdx/JQ5E2R9c6nfbh/C2ptj4xbHU7Uz1k0YL36HRcXyZxgDHCoknyUBSZ
+ 0a213neQRTUSTu+IvQK1GOA2usL0Qc+jDx/vRQEoc2WiZoR1gc3pzVQj0ctYBYDHCaBPDq5XL79
+ +ExJ9SqjjeeMfJs97uiRS5KQSo+PDQxyOX7tM
+X-Google-Smtp-Source: AGHT+IGYsCTFAB2u+mO+a+/7YQm7WCRYBnf/bqNrDbgJHuGpC+AeSLNYygCiHCIag3yJJPklKDadWQ==
+X-Received: by 2002:a05:6000:2891:b0:3cd:96bb:b948 with SMTP id
+ ffacd0b85a97d-3cd96bbc28fmr1837267f8f.47.1756366311260; 
+ Thu, 28 Aug 2025 00:31:51 -0700 (PDT)
 Received: from localhost ([185.92.221.13]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-afe68891cefsm988052566b.66.2025.08.28.00.35.54
+ ffacd0b85a97d-3c9c9324dc9sm14883755f8f.3.2025.08.28.00.31.50
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 28 Aug 2025 00:35:54 -0700 (PDT)
-Date: Thu, 28 Aug 2025 07:35:54 +0000
+ Thu, 28 Aug 2025 00:31:50 -0700 (PDT)
+Date: Thu, 28 Aug 2025 07:31:50 +0000
 From: Wei Yang <richard.weiyang@gmail.com>
 To: David Hildenbrand <david@redhat.com>
 Cc: linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
- Alexander Potapenko <glider@google.com>,
+ SeongJae Park <sj@kernel.org>, Alexander Potapenko <glider@google.com>,
  Andrew Morton <akpm@linux-foundation.org>,
  Brendan Jackman <jackmanb@google.com>,
  Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
@@ -92,15 +92,15 @@ Cc: linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
  Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
  virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
  wireguard@lists.zx2c4.com, x86@kernel.org
-Subject: Re: [PATCH v1 10/36] mm: sanity-check maximum folio size in
- folio_set_order()
-Message-ID: <20250828073554.evipmbkxrint3tbs@master>
+Subject: Re: [PATCH v1 06/36] mm/page_alloc: reject unreasonable
+ folio/compound page sizes in alloc_contig_range_noprof()
+Message-ID: <20250828073150.jyafkufvkjfqwp3f@master>
 References: <20250827220141.262669-1-david@redhat.com>
- <20250827220141.262669-11-david@redhat.com>
+ <20250827220141.262669-7-david@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250827220141.262669-11-david@redhat.com>
+In-Reply-To: <20250827220141.262669-7-david@redhat.com>
 User-Agent: NeoMutt/20170113 (1.7.2)
 X-Mailman-Approved-At: Thu, 28 Aug 2025 19:34:39 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -119,14 +119,15 @@ Reply-To: Wei Yang <richard.weiyang@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 28, 2025 at 12:01:14AM +0200, David Hildenbrand wrote:
->Let's sanity-check in folio_set_order() whether we would be trying to
->create a folio with an order that would make it exceed MAX_FOLIO_ORDER.
+On Thu, Aug 28, 2025 at 12:01:10AM +0200, David Hildenbrand wrote:
+>Let's reject them early, which in turn makes folio_alloc_gigantic() reject
+>them properly.
 >
->This will enable the check whenever a folio/compound page is initialized
->through prepare_compound_head() / prepare_compound_page().
+>To avoid converting from order to nr_pages, let's just add MAX_FOLIO_ORDER
+>and calculate MAX_FOLIO_NR_PAGES based on that.
 >
 >Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Acked-by: SeongJae Park <sj@kernel.org>
 >Signed-off-by: David Hildenbrand <david@redhat.com>
 
 Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
