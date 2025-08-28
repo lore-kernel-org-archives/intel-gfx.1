@@ -4,95 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED2AC8303F
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805E8CA0FF2
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 Aug 2025 19:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C23210EAA5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429BB10EAA6;
 	Thu, 28 Aug 2025 19:34:40 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54ABA10E041;
- Thu, 28 Aug 2025 01:18:22 +0000 (UTC)
-X-UUID: defba74c83ac11f0b29709d653e92f7d-20250828
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:d59eea18-fcea-466b-bc2a-36f0e350243f, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:6493067, CLOUDID:c6f976e3b311506ba46223fffa6aeed1,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102,TC:nil,Content:0|52,EDM:
- -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
- AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: defba74c83ac11f0b29709d653e92f7d-20250828
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 1952038486; Thu, 28 Aug 2025 09:18:14 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id D2552E008FAE;
- Thu, 28 Aug 2025 09:18:13 +0800 (CST)
-X-ns-mid: postfix-68AFAE55-102998148
-Received: from [172.25.120.24] (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id A869CE008FAB;
- Thu, 28 Aug 2025 09:18:00 +0800 (CST)
-Message-ID: <874d821e-8ea3-40ac-921b-c19bb380a456@kylinos.cn>
-Date: Thu, 28 Aug 2025 09:17:59 +0800
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VVprN8U8";
+	dkim-atps=neutral
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18C2810E6BA;
+ Thu, 28 Aug 2025 07:35:57 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-afec56519c4so72499866b.0; 
+ Thu, 28 Aug 2025 00:35:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1756366555; x=1756971355; darn=lists.freedesktop.org;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Q0BfjvXaX7EhpBrJcO9diF40ujDlSeO28TY40tQufFs=;
+ b=VVprN8U8jYSaVS3eA+X8pmAaKeni5QtatXlmwzkATgF3acBdJkDAaS9hD+SId+TfJ2
+ UPJqF38yxeSxw0Q1FwNNwP2Ji8FepDWgCLtXFRWwcHr0WwRXV/rd5maS1d8muHRRoiFH
+ TlY8t/KcblzXdFdkYZmaMRKSsOP2aZY2zR5K1ModSzskH/X3ruUla43dddTg89bIVfbr
+ 9/7dR1/+jxL9zMfafZwRmXIjOOJEgY/PQjXbw0BJlOH1N853A2hci8pjIaNxBci/15Iz
+ HX86HZevCtOjJk6NKFImT45VeigCSihAA9eotOI6YxU5W4TRCTPHkT6dOJsex+hTIRq7
+ weTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1756366555; x=1756971355;
+ h=user-agent:in-reply-to:content-disposition:mime-version:references
+ :reply-to:message-id:subject:cc:to:from:date:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Q0BfjvXaX7EhpBrJcO9diF40ujDlSeO28TY40tQufFs=;
+ b=OH5cUQvE6m/D/bG/9z3SGMSKkimokWHc9u4POvJFrdGrrWmk/JhGti/PXqukiQCKws
+ Wut3TnSl7fftu3GX3ogXMr6lm+EYr4oholU33aTu0qw5nVk0U1m7r/IYO3uT6yc+n5hl
+ 1DEIPZdrzG6uUFE/Knf7hlGWZFOo8iUmZ13m30pCTo+VjjjPBBde1BgFCXYBgra0yibR
+ p281Xa3aedlxjxnHPuXAVJ1CQWv8BI8GjsRlY4rNe4PXdxPkUgt7hLf+cYdZO+3jIKiG
+ E12DSDUda7EWQAg3/5QkMTBuiZCCqmOXbAADogRnbEUZjecXldNt28F6WkhrfDso9W2u
+ qyCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWOUK7PzRMOffBAUzuVpapRSfoIoTSJr6O4n3QTxaxj8WuLBZlP/tHGQvcEKX0+FHmPxO3S719NW9Dp@lists.freedesktop.org,
+ AJvYcCWPpXgoQhe6rNIRciySGOHYfOSrNK0OfHRGtjavJA50bEwPiCoqgxKXEZrRonr5/0jls1rzB7w7f28=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcwbX/Ou6TJtqSYxAegw+udeE3FO6/KJXNW0Fl9B2L/5EHGPsK
+ P8TLHa11SlWa+/5jg8RzmkWRZ3jyzVWsTh4f/gBxAgp6T4gkzljkygEt
+X-Gm-Gg: ASbGncuzKHV1dgxYBV+PVRXPgV1Hvn6VdHMNPzL7fi3E4mEc7qDsT/Xh+WhZXRouLkb
+ Plofc+ee0+EKKiukPyw/fn9aQhv7qIcNcViqPe5c7zeb99SUC6VCdceEBGyAc8EPUu7WRcYNRJQ
+ icEXngZr+IbNlKZDnPKSTEdNEUKpI2Nj2Jke4O6Any+71/+Gq00n+PXcmnQgboPuvXAN8ncgnBW
+ YQ17dOOFmzravNRR6fhJO00AMLYl9eKtas9tNB1m3kyVR4uCtc7qKHMeAAL/o+FB4pHyxkxTsqa
+ Zq4kDqZfTQu1HLfDNbRF9k3UqW0Yu7thb9NJiwrCHZ60h/5zy5RRo5oxQo8Pu0drOnaQ+vqCHp/
+ oM+2j0cT22s+LeA6iEbKgbC8Kxw==
+X-Google-Smtp-Source: AGHT+IETTLjGc3PPKg04ncd1zRzcObVAV207MWaWJmOCZt1EmbrBQuEK0aAe9NGL4LI6P2OcE9HkdQ==
+X-Received: by 2002:a17:907:fdc1:b0:afc:aa44:bda1 with SMTP id
+ a640c23a62f3a-afe296bcae4mr2097332866b.54.1756366555363; 
+ Thu, 28 Aug 2025 00:35:55 -0700 (PDT)
+Received: from localhost ([185.92.221.13]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-afe68891cefsm988052566b.66.2025.08.28.00.35.54
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 28 Aug 2025 00:35:54 -0700 (PDT)
+Date: Thu, 28 Aug 2025 07:35:54 +0000
+From: Wei Yang <richard.weiyang@gmail.com>
+To: David Hildenbrand <david@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Zi Yan <ziy@nvidia.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>,
+ Christoph Lameter <cl@gentwo.org>, Dennis Zhou <dennis@kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, iommu@lists.linux.dev,
+ io-uring@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>,
+ Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-arm-kernel@axis.com, linux-arm-kernel@lists.infradead.org,
+ linux-crypto@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org
+Subject: Re: [PATCH v1 10/36] mm: sanity-check maximum folio size in
+ folio_set_order()
+Message-ID: <20250828073554.evipmbkxrint3tbs@master>
+References: <20250827220141.262669-1-david@redhat.com>
+ <20250827220141.262669-11-david@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 02/18] KVM: x86: Use __free(put_cpufreq_policy) for
- policy reference
-To: Sean Christopherson <seanjc@google.com>
-Cc: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, Markus Mayer
- <mmayer@broadcom.com>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Krzysztof Kozlowski
- <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- zhenglifeng <zhenglifeng1@huawei.com>, "H . Peter Anvin" <hpa@zytor.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
- <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
- linux-pm@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-tegra@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
- <20250827023202.10310-3-zhangzihuan@kylinos.cn> <aK8Sd30K64mbN1Nt@google.com>
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-In-Reply-To: <aK8Sd30K64mbN1Nt@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250827220141.262669-11-david@redhat.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-Mailman-Approved-At: Thu, 28 Aug 2025 19:34:39 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,141 +115,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: Wei Yang <richard.weiyang@gmail.com>
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-=E5=9C=A8 2025/8/27 22:13, Sean Christopherson =E5=86=99=E9=81=93:
-> On Wed, Aug 27, 2025, Zihuan Zhang wrote:
->> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
->> annotation for policy references. This reduces the risk of reference
->> counting mistakes and aligns the code with the latest kernel style.
->>
->> No functional change intended.
->>
->> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
->> ---
->>   arch/x86/kvm/x86.c | 10 ++++------
->>   1 file changed, 4 insertions(+), 6 deletions(-)
->>
->> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
->> index a1c49bc681c4..2a825f4ec701 100644
->> --- a/arch/x86/kvm/x86.c
->> +++ b/arch/x86/kvm/x86.c
->> @@ -9492,16 +9492,14 @@ static void kvm_timer_init(void)
->>   		max_tsc_khz =3D tsc_khz;
->>  =20
->>   		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
->> -			struct cpufreq_policy *policy;
->> +			struct cpufreq_policy *policy __free(put_cpufreq_policy);
->>   			int cpu;
->>  =20
->>   			cpu =3D get_cpu();
->>   			policy =3D cpufreq_cpu_get(cpu);
->> -			if (policy) {
->> -				if (policy->cpuinfo.max_freq)
->> -					max_tsc_khz =3D policy->cpuinfo.max_freq;
->> -				cpufreq_cpu_put(policy);
->> -			}
->> +			if (policy && policy->cpuinfo.max_freq)
->> +				max_tsc_khz =3D policy->cpuinfo.max_freq;
->> +
->>   			put_cpu();
-> Hmm, this is technically buggy.  __free() won't invoke put_cpufreq_poli=
-cy() until
-> policy goes out of scope, and so using __free() means the code is effec=
-tively:
+On Thu, Aug 28, 2025 at 12:01:14AM +0200, David Hildenbrand wrote:
+>Let's sanity-check in folio_set_order() whether we would be trying to
+>create a folio with an order that would make it exceed MAX_FOLIO_ORDER.
 >
-> 		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
-> 			struct cpufreq_policy *policy;
-> 			int cpu;
+>This will enable the check whenever a folio/compound page is initialized
+>through prepare_compound_head() / prepare_compound_page().
 >
-> 			cpu =3D get_cpu();
-> 			policy =3D cpufreq_cpu_get(cpu);
-> 			if (policy && policy->cpuinfo.max_freq)
-> 				max_tsc_khz =3D policy->cpuinfo.max_freq;
-> 			put_cpu();
->
-> 			if (policy)
-> 				cpufreq_cpu_put(policy);
-> 		}
->
-> That's "fine" because the policy isn't truly referenced after preemptio=
-n is
-> disabled, the lifecycle of the policy doesn't rely on preemption being =
-disabled,
-> and KVM doesn't actually care which CPU is used to get the max frequenc=
-y, i.e.
-> this would technically be "fine" too:
->
-> 		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
-> 			struct cpufreq_policy *policy;
-> 			int cpu;
->
-> 			cpu =3D get_cpu();
-> 			policy =3D cpufreq_cpu_get(cpu);
-> 			put_cpu();
->
-> 			if (policy && policy->cpuinfo.max_freq)
-> 				max_tsc_khz =3D policy->cpuinfo.max_freq;
->
-> 			if (policy)
-> 				cpufreq_cpu_put(policy);
-> 		}
->
-> But given that the code we have today is perfectly readable, I don't se=
-e any
-> reason to switch to __free() given that's it's technically flawed.  So =
-I'm very
-> strongly inclined to skip this patch and keep things as-is.
+>Reviewed-by: Zi Yan <ziy@nvidia.com>
+>Signed-off-by: David Hildenbrand <david@redhat.com>
 
+Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
 
-Yes, this will indeed change the execution order.
-Can you accept that? Personally, I don=E2=80=99t think it=E2=80=99s ideal=
- either.
-
-		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
-  			int cpu;
-			cpu =3D get_cpu();
-			{
-				struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_=
-cpu_get(cpu);
-				if (policy && policy->cpuinfo.max_freq)
-					max_tsc_khz =3D policy->cpuinfo.max_freq;
-			}
-			put_cpu();
-
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 }
-
-Other places may also have the same issue,
-
-maybe we should consider introducing a macro to handle this properly,
-so that initialization and cleanup are well defined without changing
-the existing order unexpected.
-
-like this:
-
-#define WITH_CPUFREQ_POLICY(cpu) {\
-
-for(struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D  \
-			cpufreq_cpu_get(cpu);			\
-			policy;)
-
-Then Use it:
-
-		if (IS_ENABLED(CONFIG_CPU_FREQ)) {
-  			int cpu;
-			cpu =3D get_cpu();
-			WITH_CPUFREQ_POLICY(cpu){
-				if (policy->cpuinfo.max_freq)
-					max_tsc_khz =3D policy->cpuinfo.max_freq;
-			}
-			put_cpu();
-
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 }
-
+-- 
+Wei Yang
+Help you, Help me
