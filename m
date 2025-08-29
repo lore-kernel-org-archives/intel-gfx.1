@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C874FCA0FF0
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 14:12:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C08D0CA0FF9
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 14:12:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 264C810EBCE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 252B710EBCD;
 	Fri, 29 Aug 2025 14:12:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Rd4NlY8f";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ljMQi516";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE3810EB44
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:13:17 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-b4c9a6d3fc7so476144a12.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 23:13:17 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95CDD10EB48
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:26:27 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-327ae052173so958261a91.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 23:26:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756447997; x=1757052797; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=V3x6b/e3MpUD14LIMocrPRNaCjXydrgPTujas71bYH8=;
- b=Rd4NlY8fbk8XUeFtGpE2XtDuhOhndXL5pZjVxooUFfjpitJx61P1AmNwj+o1bqUNzt
- 21b0ExMSucmMJDYJmeTjlLRFbfpMkReysEOXepMJuZ/6RAjYpQ9/U+BVxqGShtNki2S2
- MKvNQ1k1RAT4DKhT3uSPGjXDSeVSgB81mPALxoptTjmp27snLTKmCErZcqnJIIkIkOn2
- cBRanGmevFEyKq45jn9wkeMXY9ErsVbn/YWs5wFPVXx5tOn+uHRGdge7ACFkWH8jNuoQ
- q/+kIP8TYMPQxmK4E9iUzCSlj5e7fJqssQ1GvkFBUhaX36ccxmfDq2BMPye3JN5Tp569
- CmAQ==
+ d=linaro.org; s=google; t=1756448787; x=1757053587; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=FcWNphyv+aV6VigruYXsycpBhyL4rRdrU3NDODM9P5A=;
+ b=ljMQi516JYBrdkhOEJECm+OO9kwBDxKfW8wQziLThuL18NDgPk6YD9Z/XGpuzIUeFa
+ wFf6tjNIT2rVzdfeqYa6BkkrOjA10nnN+/2Yr++7tBECg214tneYjD26oJgicu/dLTio
+ BGYRI5iuY2mi3vBXubWT+NytN5liks884i1cJj3Ondn5V/1ZKQ+SLJ0MgRpXCkJOZdkD
+ uQWFeD9kSaUCpN3OiVvfjmeBWVq9r1HAYVyjaGvT4PIWHQUgekHpvU/6Oz7X6/mHGXtI
+ HjAozgsVsIkjTowwFbgA72nanlvMSWM5Y7jVUMWHuGqDfTa9+P1HM7ZG3tf0PNHlQf6v
+ 9keA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756447997; x=1757052797;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=V3x6b/e3MpUD14LIMocrPRNaCjXydrgPTujas71bYH8=;
- b=kLu1G5ut4CD8Y4xMgINzb+Nyw7z4y1yV9jy+tmJADFDNs8xXPebZdlwC5t72pbkVu1
- YyQUyWDAapiZeyWyD7bG/kpnAb5vNoFINAbncNTm4W+HK7rIK6dm0/Yn24i6QpymMKS4
- mlysMiyt5fFDD3LBEV0BluJdF8rf4Sp2COOSnl8d273wemRAhgJWKwv2B3uQ2pWx8sj5
- SF4WtXDB0e11pUC4n6V1ACq4jP6UgYWX0r+M118y4ZRQLywCCyJcxB10F6yc/GOTrfsb
- 87iqJLBS5rfyqY2ab5EHUlcYVIU5NZtybgpexjPKS/Z8OpHpIzeQjmzz+9lrGdT+8Pdv
- 1BvQ==
+ d=1e100.net; s=20230601; t=1756448787; x=1757053587;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=FcWNphyv+aV6VigruYXsycpBhyL4rRdrU3NDODM9P5A=;
+ b=jseVWFdxlBeloGY1UBSrppUBTdhsl85oIcTnH1948u1CxgkmeRUZ1emDERRn6XwbEo
+ FLwC8DCdX0JfctlUKeyDkP9V81HR1c06OJi9gfcIoW13HwRUHd8NLY9V1boojmjCZmBM
+ Iq5IgkL0/khVftetIbyoB3CfC10KxgKVD+Z1OZjKbKf3Oa5ViWLYdlE+83vgjtW29Isk
+ +T5KrEbHF1/Y+kWkpZKK/Em9xFgZgtWC7fZsTrNPvsIQ8OPMBrEXIsk69ld06tTu/GRb
+ 0lgWOdYAmLQ9yGRiEk1rfXFNNcbGyolMtnKIkPsteFt7VUC7EfkWlTvuYS7YdXb71DSZ
+ UWfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU/sSENWPyQ4IGbZpXB4CThXUtACT/eTpNer7sxoO+PGuHm60/9vumqz4fqfX+tSJcjUwOpd674h6k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6cPccxrlFTdZMosFC8w84WIBiXHqacsdg3yr+6CNmfEByfiy6
- o6d6cC1qUMpHCp67BDCJ1Ogu3fG3D81+Xim42jJTD2ozzMl+XjKngynu9q6G3Fu176U=
-X-Gm-Gg: ASbGnctY2YtJRNTAxC0gvylcK0rK1NEYPiB5MABRadJdXBeTmu434TLcS4nIKUNa5Ab
- aW6CkT1tI7PNnBG4+UzIoKWs/7Bmf+tVHCLt9nNcIU8o6kheqECXQ9I7Nillwb6oxEXY/TyMft1
- 60oXP7iL9/ErntJSHBUiYMcRztqwoVr3MqvrOuvSFGKFYMxTuAiyMOW5JZzsFZNY/z/02uZDCQR
- 4RLnBapEzB8ASaS4moSAOtt6cHWcM74PiC1QvOZaFnft1lKcFrKj0gaspr2/CPjMC76QKiWCgBs
- +GmmA9KIACJ/UZ2i4o+24hPu0uOrh36GPUa5b277rBI5+wW4OMrZPSnbrC7653xDgO4Kf3riPoK
- ++p2amh4s+HUR7Vxh+r6iHgPnotoPtJp6DtQ=
-X-Google-Smtp-Source: AGHT+IFWh4jzpCyQazo33Du3vwJOQK6BMtgUKuJSYiyNvSKeAM+9t6q52OKXzZUwBWVIjDVwh5LnnA==
-X-Received: by 2002:a17:903:248:b0:248:7018:c739 with SMTP id
- d9443c01a7336-2487018c906mr177164055ad.28.1756447996693; 
- Thu, 28 Aug 2025 23:13:16 -0700 (PDT)
+ AJvYcCU4J3OtufDNcpayt3LWgxJ6m8a4Wdebg+/6Q3yErGggtrz6QowExxDVdL4ZQk7PQJdNOadIey+lT1Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx1tgl7d8r8cuzSBVoMfn3UBpgWwGIB45+Yyt6I3CacL6Vptq/4
+ L3GQsQ20/O3Int2YzbF7SBp/xEqL4Jx45zPUUVF1IJZvu61+M4uJlt2xfHtz9YFNPrY=
+X-Gm-Gg: ASbGncvB3V3JLGaal8HfCaIUoOt0+NNdm+ntq65oJCYTCTjmLna4e6cMW7GhMcCNc8b
+ lKLz0B0bGsa5SwEJAzxbQ7WgKiSOqPgj+3zY3z46ISoeaw7KQ6EYJBLYTrnKXiEpGBZABf5KZ4n
+ 3iomxEQACR8vDXUNLgEOHAhKpmri/rvupB8Q+MbsQIFmQcJ/t73CSHWINNP79XjoKkFf66JeOFF
+ hM7qUNTnwYYN1lb7sdl3g3mpAPNaPmummDplTKsj9K4Csk9NuUyGPJBNhP6E+RvrLG/IU/ZtpLE
+ EtyU59bI/IL2PQZm2c0NLd3dA8s/whCDPGZd4W6n7R+bImSP+xClHzcBoTTYlpveglfMvfHq3jB
+ A+wxzA8u4xjEMl5fWadIAUvsr
+X-Google-Smtp-Source: AGHT+IFHYb22k9tJefksk8Ol8WzLcbkUpFNWBPL7w5JQ2Y92t38N6cXrTs0utCYM4huh3xQWCdkxbA==
+X-Received: by 2002:a17:90b:57ce:b0:31f:210e:e34a with SMTP id
+ 98e67ed59e1d1-32515eacfddmr32147827a91.8.1756448787009; 
+ Thu, 28 Aug 2025 23:26:27 -0700 (PDT)
 Received: from localhost ([122.172.87.165]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2490658999fsm13362715ad.112.2025.08.28.23.13.15
+ 98e67ed59e1d1-3276fcd4bd6sm6984417a91.15.2025.08.28.23.26.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 23:13:16 -0700 (PDT)
-Date: Fri, 29 Aug 2025 11:43:13 +0530
+ Thu, 28 Aug 2025 23:26:26 -0700 (PDT)
+Date: Fri, 29 Aug 2025 11:56:24 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Zihuan Zhang <zhangzihuan@kylinos.cn>
 Cc: "Rafael J . wysocki" <rafael@kernel.org>,
@@ -109,15 +110,18 @@ Cc: "Rafael J . wysocki" <rafael@kernel.org>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  imx@lists.linux.dev, linux-omap@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 10/18] cpufreq: s5pv210: Use
+Subject: Re: [PATCH v2 04/18] cpufreq: brcmstb-avs-cpufreq: Use
  __free(put_cpufreq_policy) for policy reference
-Message-ID: <20250829061313.bloyct5htjym6b3j@vireshk-i7>
+Message-ID: <20250829062624.jalqqsigs7hanf7i@vireshk-i7>
 References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
- <20250827023202.10310-11-zhangzihuan@kylinos.cn>
+ <20250827023202.10310-5-zhangzihuan@kylinos.cn>
+ <20250829055944.ragfnh62q2cuew3e@vireshk-i7>
+ <4bd55a08-62bb-46c4-bfb6-a3375ce37e79@kylinos.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20250827023202.10310-11-zhangzihuan@kylinos.cn>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4bd55a08-62bb-46c4-bfb6-a3375ce37e79@kylinos.cn>
 X-Mailman-Approved-At: Fri, 29 Aug 2025 14:12:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,58 +138,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 27-08-25, 10:31, Zihuan Zhang wrote:
-> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-> annotation for policy references. This reduces the risk of reference
-> counting mistakes and aligns the code with the latest kernel style.
+On 29-08-25, 14:16, Zihuan Zhang wrote:
+> Thanks for applying the patch!
 > 
-> No functional change intended.
+> I’ve been thinking further — instead of using __free directly, maybe we
+> could introduce a small macro wrapper around it to make the release scope
+> more controllable and consistent.
 > 
-> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
-> ---
->  drivers/cpufreq/s5pv210-cpufreq.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+> Link:
+> https://lore.kernel.org/all/6174bcc8-30f5-479b-bac6-f42eb1232b4d@kylinos.cn/
 > 
-> diff --git a/drivers/cpufreq/s5pv210-cpufreq.c b/drivers/cpufreq/s5pv210-cpufreq.c
-> index 76c888ed8d16..95f1568e9530 100644
-> --- a/drivers/cpufreq/s5pv210-cpufreq.c
-> +++ b/drivers/cpufreq/s5pv210-cpufreq.c
-> @@ -555,7 +555,7 @@ static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
->  						 unsigned long event, void *ptr)
->  {
->  	int ret;
-> -	struct cpufreq_policy *policy;
-> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
->  
->  	policy = cpufreq_cpu_get(0);
->  	if (!policy) {
-> @@ -564,7 +564,6 @@ static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
->  	}
->  
->  	ret = cpufreq_driver_target(policy, SLEEP_FREQ, 0);
-> -	cpufreq_cpu_put(policy);
->  
->  	if (ret < 0)
->  		return NOTIFY_BAD;
+> Do you think this would be a better approach, or should we just stick with
+> the current use of __free?
 
-Merged with minor change:
-
-diff --git a/drivers/cpufreq/s5pv210-cpufreq.c b/drivers/cpufreq/s5pv210-cpufreq.c
-index 95f1568e9530..4215621deb3f 100644
---- a/drivers/cpufreq/s5pv210-cpufreq.c
-+++ b/drivers/cpufreq/s5pv210-cpufreq.c
-@@ -554,10 +554,9 @@ static int s5pv210_cpu_init(struct cpufreq_policy *policy)
- static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
-                                                 unsigned long event, void *ptr)
- {
-+       struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(0);
-        int ret;
--       struct cpufreq_policy *policy __free(put_cpufreq_policy);
-
--       policy = cpufreq_cpu_get(0);
-        if (!policy) {
-                pr_debug("cpufreq: get no policy for cpu0\n");
-                return NOTIFY_BAD;
+Lets keep it simple for now and use __free directly. And keep this
+similar with other parts of the kernel.
 
 -- 
 viresh
