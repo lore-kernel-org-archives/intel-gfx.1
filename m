@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42E2FCA1001
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 14:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D874CA1003
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 14:12:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6875F10EBD2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFFF710EBD4;
 	Fri, 29 Aug 2025 14:12:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="l/nC3x0P";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="DARvNZB9";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 981B110EB42
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:04:31 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-327f87275d4so10567a91.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 23:04:31 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1543510EB48
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:29:55 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-248a638dbbeso15830845ad.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 23:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1756447471; x=1757052271; darn=lists.freedesktop.org;
+ d=linaro.org; s=google; t=1756448994; x=1757053794; darn=lists.freedesktop.org;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KKw32u8ZnOL0uI6AwPEDfGz9pjVdeOgj9SolEPmlghw=;
- b=l/nC3x0P4MI0wOVNDxtTeFYlDT8eeVZ6NFQq5VrYecu95huXhqx/rishef2NNon1qB
- xRTrM7DOa9xcuZk5TrZnFcpujBUB29Cv6C0EUYuZn2kp/yNpWkASMdJNpaOmvU6HnP0n
- iltTOpN4AOu9qF9ko3MwX/7cqmv1q+EZVZBBa0OifNti49sf0WWNdf4UYvpB9FlMEWva
- W4oRu4TuCLl4cWUSeDlKt8ENS5vDFu517E7fJlfaG5hgybMqP/uMeO3lgFsnqBGLAYWd
- 87B2aBZVXd6PwhCZw0wEwOh13XhRbbSov4mO186tDyF5Hm3cdSjmJuYzhYbqClRoSfqJ
- T+xA==
+ bh=CokGLX1/yeX4DJMWAz1LmKt9I3G7o4FsQeoqSBuvVPY=;
+ b=DARvNZB971d7DkZjj7IYIkedXVM6735izRo0hh1B6xysWChc1jNATTN43de1yZNQIg
+ FURRPObKv317ltqlS3VGKQBVewPVjmlAcLD6/S4C3Hp8o19v/uFZVtR+IfgCv87moaLu
+ 0/QhDtOENWDh6UBvggUf9D0v0L4OLBIcB3YEt0TMXHjd+2ttZ/yl3+xNmbYV2qT+s9HI
+ fZHQvzOAevYnRXp4xA00Hoc6n1DWH7+3L2LRkn5cwHoPCs7oiUgdPEGVk5MzRrchtCjI
+ 525ajjSE0K8xrsjyHFGdQb4EaNPKY+TYCPkWOyjKw0v9NBTg5l44ncDh/Z5KPkRbvgpu
+ TYPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756447471; x=1757052271;
+ d=1e100.net; s=20230601; t=1756448994; x=1757053794;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=KKw32u8ZnOL0uI6AwPEDfGz9pjVdeOgj9SolEPmlghw=;
- b=HtfT3DDlfZaUWGfEN/L9SI0/Mt4sXoGBrkKz3SdEcZy8QYbVH3FvWrtkzonWxsQDVM
- sNyxFphp+xqRaNCJWNtLHyDASNquwmgJSPnJik4o5GRAlGPg4YCDZz7ZOS3BwORy7pw2
- vx3oSqHMV7FHCb7cqfcjbtMDgSRi9ZtoyvNGMhVtHJPG6E0oITOdrD2tokWpyyAP5uqC
- x4a4e6/4U4K19PKBcepszdfWNOD5FpSh/G15zIs2CJAwjFDAy7DZDAt3vi0P8K/uLr53
- FG7w1ZgBRzWTPevxK6aflNBwTIEd1tSuj/KSUMWjGj7AW0qDYcQIa/B+TDIQxqnw5Kvv
- 99TQ==
+ bh=CokGLX1/yeX4DJMWAz1LmKt9I3G7o4FsQeoqSBuvVPY=;
+ b=lgFtcIwkvVoMfVcAX11rMF6waK26kCjJtDPyKzY/pyCyuVN815SVTm8MpkA+xI4LXd
+ TsELfHPyl+DbeaktcKaEvwOwHwCqr96f50tcCTJgSRe8XuZSRko9Zrpe3iAUAKTVrLz5
+ wagByr85gCtkvPz9e0Hunmj+8DRFZBLLR2wGhiQYxnoi334HultjMBvh2fOHIVr2PpPr
+ rcHMjKj8CvoyduyLqxW/58sRweojZDTq/BLo+CSYIybEMtqAD3WKzKoNac+1TbZsQyKY
+ 9QDP0nrQ3MWg/mMY8RvFTOYdQ1f/K8fqDJiokR27mf3MV2WhxlRFgI60/8zkCmKTC/ir
+ YxtA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX098tbYcfyHgD+OLylnXrR+7TlHhykV1KuZT8U3uV+gzyy4fMfe+mgghDkVUX3VhXg/RscUxTAy0Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5kchOvMPewpqhC7ecAAdNoboXuL1wQ76yZMSw8A9oEjAj+G8o
- FEK8d0O1FyJsxBIODng3Njqz+qmyJQRyR63yPrDcF3/0ixNFDdm0sRrGzSgkTRxUKlg=
-X-Gm-Gg: ASbGncvCvMpirJc6Noh+LAJ5Xk7VLmyJ1fdNg1J6JDn5LfpyGNPOgLD4YNbf5J7B+Wx
- 3hbzBrTvdGNMYlDTWGqo6OoWHJMSSpCbEmnKMyk7du+S3TTxq2I+WwgstPwa+kxPfQnWAuFUg54
- LZZtM/TEkyJJtTp4uXkCyB3AX3Va+gbhmnh7sTe9hVpJ1zXVeXwUpyjBPAq2yMdaaAhppNZ8+co
- +KvLMSmS4Qgp1ToJp+rsVFgHdVWafG5ukIII+ABatdmGRVPF17YukGmqKzy8QjAXuPAcuRFbcR+
- IIV/4UEWUNRNDmjBikCFOL5R7uVL/2P6JskdEz9OZhgIvwhH6gCT3WHvGjVFejSAWUBtZMZpA3d
- nuqwLm/t82QAUMQjvgeMQiwKu
-X-Google-Smtp-Source: AGHT+IHJm0ouStNvxO+mrh5P3XbGCZbjhM83KCGZEDW+lDzAXYoH2OUF1pt2Xet0QmziR4vBgyThHQ==
-X-Received: by 2002:a17:90b:4ec7:b0:31f:42e8:a896 with SMTP id
- 98e67ed59e1d1-32518b8233amr31504637a91.34.1756447471082; 
- Thu, 28 Aug 2025 23:04:31 -0700 (PDT)
+ AJvYcCXMyu3YmJeOL0qEQ1voNYWm4kZLuHHlJiqXnasbk4a0AdfW11swo3SxEZ4/16ggcqguu4lvuxaS/Z4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzblnevWANRvl1lk+RhPLhwJU2W2xNLkNrDeNemPKZHFmCNaxXG
+ nAGT7ICXfWvTBPXp4qmKr23jNYKKy2dkGnF3IlK+9XB6KfZIexHlUv+TpbKrT5Z564Y=
+X-Gm-Gg: ASbGncvvTsOUzl1ApJd88GrfCy8f82q4Oy4DoO2+uktiUu4Svv0whOwLiqGAEWSXKZs
+ N+Bltfk6dj5CU6oqr+R3p5HRG6J9r3KCDp4kO5rQpt+Y4X5DBSIopjasLUBuv3v31cY50xcp2vu
+ +TFlg2smbPtvz7qWLzWUFFImMfRaAq/WLfQ9zBePrY0ZYD5rA6TSxNknkvphc0cq0T5QSnpqGS4
+ VZg6xRBgjLOYA7hmeIeWQ0hYH8yUZgBQV4ffrWQjsAubsWzlKMZXyZO0UCMsrDZqWKJaXc050Pu
+ txbQLBK+Yc1Ld6NXjIxYX3ZW2heWZUaLVZg6f63gB5JVM2YKoNP3DsBDJHKbCIwT0+CVPQaHmI2
+ o4ZZItIoUvFTFOb21La1xjwuF
+X-Google-Smtp-Source: AGHT+IFbX3s0aoe3pqEivfWfaakWxvchfFFbfgXfyIlcOqslqMMZIBk7FeaK/V2UaSwtVV106XuK4Q==
+X-Received: by 2002:a17:902:ec89:b0:245:fa00:6e25 with SMTP id
+ d9443c01a7336-2462ef1ea0bmr386065885ad.28.1756448994426; 
+ Thu, 28 Aug 2025 23:29:54 -0700 (PDT)
 Received: from localhost ([122.172.87.165]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3276f57ab9esm7074127a91.4.2025.08.28.23.04.29
+ d9443c01a7336-24903705be3sm14571325ad.18.2025.08.28.23.29.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Aug 2025 23:04:30 -0700 (PDT)
-Date: Fri, 29 Aug 2025 11:34:28 +0530
+ Thu, 28 Aug 2025 23:29:53 -0700 (PDT)
+Date: Fri, 29 Aug 2025 11:59:51 +0530
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: Zihuan Zhang <zhangzihuan@kylinos.cn>
 Cc: "Rafael J . wysocki" <rafael@kernel.org>,
@@ -109,15 +109,15 @@ Cc: "Rafael J . wysocki" <rafael@kernel.org>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  imx@lists.linux.dev, linux-omap@vger.kernel.org,
  linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/18] cpufreq: CPPC: Use __free(put_cpufreq_policy)
- for policy reference
-Message-ID: <20250829060428.aoo4wlp67celupv5@vireshk-i7>
+Subject: Re: [PATCH v2 11/18] cpufreq: tegra186: Use
+ __free(put_cpufreq_policy) for policy reference
+Message-ID: <20250829062951.ximauv2so442q4gv@vireshk-i7>
 References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
- <20250827023202.10310-6-zhangzihuan@kylinos.cn>
+ <20250827023202.10310-12-zhangzihuan@kylinos.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20250827023202.10310-6-zhangzihuan@kylinos.cn>
+In-Reply-To: <20250827023202.10310-12-zhangzihuan@kylinos.cn>
 X-Mailman-Approved-At: Fri, 29 Aug 2025 14:12:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,10 +143,51 @@ On 27-08-25, 10:31, Zihuan Zhang wrote:
 > 
 > Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 > ---
->  drivers/cpufreq/cppc_cpufreq.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  drivers/cpufreq/tegra186-cpufreq.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/tegra186-cpufreq.c b/drivers/cpufreq/tegra186-cpufreq.c
+> index cbabb726c664..4d71e262a729 100644
+> --- a/drivers/cpufreq/tegra186-cpufreq.c
+> +++ b/drivers/cpufreq/tegra186-cpufreq.c
+> @@ -105,7 +105,7 @@ static unsigned int tegra186_cpufreq_get(unsigned int cpu)
+>  {
+>  	struct tegra186_cpufreq_data *data = cpufreq_get_driver_data();
+>  	struct tegra186_cpufreq_cluster *cluster;
+> -	struct cpufreq_policy *policy;
+> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
+>  	unsigned int edvd_offset, cluster_id;
+>  	u32 ndiv;
+>  
+> @@ -117,7 +117,6 @@ static unsigned int tegra186_cpufreq_get(unsigned int cpu)
+>  	ndiv = readl(data->regs + edvd_offset) & EDVD_CORE_VOLT_FREQ_F_MASK;
+>  	cluster_id = data->cpus[policy->cpu].bpmp_cluster_id;
+>  	cluster = &data->clusters[cluster_id];
+> -	cpufreq_cpu_put(policy);
+>  
+>  	return (cluster->ref_clk_khz * ndiv) / cluster->div;
 
-Applied. Thanks.
+Merged with:
+
+diff --git a/drivers/cpufreq/tegra186-cpufreq.c b/drivers/cpufreq/tegra186-cpufreq.c
+index 4d71e262a729..4270686fc3e3 100644
+--- a/drivers/cpufreq/tegra186-cpufreq.c
++++ b/drivers/cpufreq/tegra186-cpufreq.c
+@@ -103,13 +103,12 @@ static int tegra186_cpufreq_set_target(struct cpufreq_policy *policy,
+ 
+ static unsigned int tegra186_cpufreq_get(unsigned int cpu)
+ {
++       struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(cpu);
+        struct tegra186_cpufreq_data *data = cpufreq_get_driver_data();
+        struct tegra186_cpufreq_cluster *cluster;
+-       struct cpufreq_policy *policy __free(put_cpufreq_policy);
+        unsigned int edvd_offset, cluster_id;
+        u32 ndiv;
+ 
+-       policy = cpufreq_cpu_get(cpu);
+        if (!policy)
+                return 0;
+ 
 
 -- 
 viresh
