@@ -4,164 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D152CA0FF9
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 13:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C874FCA0FF0
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 Aug 2025 14:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1458D10EBBE;
-	Fri, 29 Aug 2025 13:44:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 264C810EBCE;
+	Fri, 29 Aug 2025 14:12:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="BcUQemeY";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Rd4NlY8f";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2F3410E0EB
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 13:44:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1756475067;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=qjuXMBMcmzq+emhjc+4nz3INVtnsR/3o1W/HmfSMpGo=;
- b=BcUQemeYhjetjNTJr4lH9pVAIs3KejG+dlTqO360L73SgM1N9S7JketWLWXqEh/E6kDaBp
- ZcUzn4CRRs6DFx2pf+IQxVulP1b0DHh6D5LlFzwWcosekx4TIYp6LuazrnDpeq/rqKSOIF
- aYo2cFultMxxolU+d6+tVCWbGAeyA5A=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-381-GS2ITqBMOKiQB7huLvDw9g-1; Fri, 29 Aug 2025 09:44:26 -0400
-X-MC-Unique: GS2ITqBMOKiQB7huLvDw9g-1
-X-Mimecast-MFC-AGG-ID: GS2ITqBMOKiQB7huLvDw9g_1756475065
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-3c79f0a5ff1so948673f8f.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:44:26 -0700 (PDT)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AE3810EB44
+ for <intel-gfx@lists.freedesktop.org>; Fri, 29 Aug 2025 06:13:17 +0000 (UTC)
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-b4c9a6d3fc7so476144a12.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 28 Aug 2025 23:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1756447997; x=1757052797; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=V3x6b/e3MpUD14LIMocrPRNaCjXydrgPTujas71bYH8=;
+ b=Rd4NlY8fbk8XUeFtGpE2XtDuhOhndXL5pZjVxooUFfjpitJx61P1AmNwj+o1bqUNzt
+ 21b0ExMSucmMJDYJmeTjlLRFbfpMkReysEOXepMJuZ/6RAjYpQ9/U+BVxqGShtNki2S2
+ MKvNQ1k1RAT4DKhT3uSPGjXDSeVSgB81mPALxoptTjmp27snLTKmCErZcqnJIIkIkOn2
+ cBRanGmevFEyKq45jn9wkeMXY9ErsVbn/YWs5wFPVXx5tOn+uHRGdge7ACFkWH8jNuoQ
+ q/+kIP8TYMPQxmK4E9iUzCSlj5e7fJqssQ1GvkFBUhaX36ccxmfDq2BMPye3JN5Tp569
+ CmAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1756475065; x=1757079865;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=qjuXMBMcmzq+emhjc+4nz3INVtnsR/3o1W/HmfSMpGo=;
- b=ckSlYHrRN6JEoMVnXqNQryXzphA4bwV8LTg5Qp5L401REkc6yiSkLbUckzjyCnCZpO
- LoZemHGUdMyeYFdVz/dCXl58I9Wgh24wUuMKZfSqqHy8+NISzGQIiuWdChTmTeF32FqT
- GoCUSaGt2qdWNi7uelWmKxEKBI0UHwyFjCFNFFvUT25wOncpKq5yxWq7KK8oduEiErer
- 3z34+XvhceMeKIF5skwSMrl4INkF2TBzvh3MM0I5AAP4BJ3gnYVTnPGv1IFLo40PNBS1
- b8UjYuWCN5v4PEjtkMmhPDJG7vpLEbNwoMYE9A5XDffj7nyh1t1vZTOrxILAvklJUBSZ
- AqBA==
+ d=1e100.net; s=20230601; t=1756447997; x=1757052797;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=V3x6b/e3MpUD14LIMocrPRNaCjXydrgPTujas71bYH8=;
+ b=kLu1G5ut4CD8Y4xMgINzb+Nyw7z4y1yV9jy+tmJADFDNs8xXPebZdlwC5t72pbkVu1
+ YyQUyWDAapiZeyWyD7bG/kpnAb5vNoFINAbncNTm4W+HK7rIK6dm0/Yn24i6QpymMKS4
+ mlysMiyt5fFDD3LBEV0BluJdF8rf4Sp2COOSnl8d273wemRAhgJWKwv2B3uQ2pWx8sj5
+ SF4WtXDB0e11pUC4n6V1ACq4jP6UgYWX0r+M118y4ZRQLywCCyJcxB10F6yc/GOTrfsb
+ 87iqJLBS5rfyqY2ab5EHUlcYVIU5NZtybgpexjPKS/Z8OpHpIzeQjmzz+9lrGdT+8Pdv
+ 1BvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVRJONV661tP973aUWXRYvDYqylElVvUq2h/Fm6rlp/ILifjM6yvOoH8as+x5WOJU6L4ofT7JIJvHs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyL6TZVIUpM16mtJEFaU+IioOMqZZ1IfTq856DihYiyAS2WqHVE
- 9pSJx6DGehVwN5iGFqAqLgBoCFh56HdoSds2uZLrfvO4l9T1Oc+wfVnIj8ejo6wLkUASrl9iWvJ
- sfU5Y9p+mIBJSoc7Tq4gy6BihYUCpfI74cdTw0VJ0h79cUSAvJpQvlTS3nPBEDuqd//B+Bw==
-X-Gm-Gg: ASbGncvghNQaRI8FUrjyKRE3eRsPMzNGsTmlOvoqzgYq5Uz3xuBDyy9MypuB3GdxP1H
- /KPz3p/24ZnWdaaH3PWU+axLDt3Gvq8W3kpcX3Vn6QwPEQYy6JilBGGJ7qoVTEBpcg38uZZ+MA1
- 6v8HKCN/uDK7o+/bJXxAwBE34e3RlixqFRezMw98appM01nhaGubRGVws3qa+ipfGkbTsLAsrCn
- uVLQFkMu3HJh9P1ZU59wsPObbV8Gpr4I6aTon0xiptvH8KP33NlJcPhXkrPani/xY9LgKyfuGXv
- TxD2IDn5N76eRCP5LDezSXL9qPBWhXvie/hS8SFEWl0ZGYMWpNTYyiPdbDNAwAbabwMo8lgSBPj
- zsecnbala2FuBWkQvBYetTUsff3jJ+9JwR8w+VY7yH9dnAvFLIkhL50htXU2/Oefn
-X-Received: by 2002:a05:6000:4383:b0:3b7:882c:790 with SMTP id
- ffacd0b85a97d-3c5dc73625cmr21478725f8f.37.1756475064930; 
- Fri, 29 Aug 2025 06:44:24 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IE+LDG7SGqPVe42ftCg4HBC4EBVhYJgcuG7xRsE/56l9/NNaGo5xTMXjkE7lTdlBAQ5z49MkQ==
-X-Received: by 2002:a05:6000:4383:b0:3b7:882c:790 with SMTP id
- ffacd0b85a97d-3c5dc73625cmr21478675f8f.37.1756475064268; 
- Fri, 29 Aug 2025 06:44:24 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f1d:100:4f8e:bb13:c3c7:f854?
- (p200300d82f1d01004f8ebb13c3c7f854.dip0.t-ipconnect.de.
- [2003:d8:2f1d:100:4f8e:bb13:c3c7:f854])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b6f306c22sm121018675e9.13.2025.08.29.06.44.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Aug 2025 06:44:23 -0700 (PDT)
-Message-ID: <e877229a-ffd8-4459-a31b-ecabde28e07f@redhat.com>
-Date: Fri, 29 Aug 2025 15:44:20 +0200
+ AJvYcCU/sSENWPyQ4IGbZpXB4CThXUtACT/eTpNer7sxoO+PGuHm60/9vumqz4fqfX+tSJcjUwOpd674h6k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6cPccxrlFTdZMosFC8w84WIBiXHqacsdg3yr+6CNmfEByfiy6
+ o6d6cC1qUMpHCp67BDCJ1Ogu3fG3D81+Xim42jJTD2ozzMl+XjKngynu9q6G3Fu176U=
+X-Gm-Gg: ASbGnctY2YtJRNTAxC0gvylcK0rK1NEYPiB5MABRadJdXBeTmu434TLcS4nIKUNa5Ab
+ aW6CkT1tI7PNnBG4+UzIoKWs/7Bmf+tVHCLt9nNcIU8o6kheqECXQ9I7Nillwb6oxEXY/TyMft1
+ 60oXP7iL9/ErntJSHBUiYMcRztqwoVr3MqvrOuvSFGKFYMxTuAiyMOW5JZzsFZNY/z/02uZDCQR
+ 4RLnBapEzB8ASaS4moSAOtt6cHWcM74PiC1QvOZaFnft1lKcFrKj0gaspr2/CPjMC76QKiWCgBs
+ +GmmA9KIACJ/UZ2i4o+24hPu0uOrh36GPUa5b277rBI5+wW4OMrZPSnbrC7653xDgO4Kf3riPoK
+ ++p2amh4s+HUR7Vxh+r6iHgPnotoPtJp6DtQ=
+X-Google-Smtp-Source: AGHT+IFWh4jzpCyQazo33Du3vwJOQK6BMtgUKuJSYiyNvSKeAM+9t6q52OKXzZUwBWVIjDVwh5LnnA==
+X-Received: by 2002:a17:903:248:b0:248:7018:c739 with SMTP id
+ d9443c01a7336-2487018c906mr177164055ad.28.1756447996693; 
+ Thu, 28 Aug 2025 23:13:16 -0700 (PDT)
+Received: from localhost ([122.172.87.165]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2490658999fsm13362715ad.112.2025.08.28.23.13.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Aug 2025 23:13:16 -0700 (PDT)
+Date: Fri, 29 Aug 2025 11:43:13 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Zihuan Zhang <zhangzihuan@kylinos.cn>
+Cc: "Rafael J . wysocki" <rafael@kernel.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Markus Mayer <mmayer@broadcom.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ zhenglifeng <zhenglifeng1@huawei.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Zhang Rui <rui.zhang@intel.com>,
+ Len Brown <lenb@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>,
+ Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
+ x86@kernel.org, kvm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-omap@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 10/18] cpufreq: s5pv210: Use
+ __free(put_cpufreq_policy) for policy reference
+Message-ID: <20250829061313.bloyct5htjym6b3j@vireshk-i7>
+References: <20250827023202.10310-1-zhangzihuan@kylinos.cn>
+ <20250827023202.10310-11-zhangzihuan@kylinos.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 20/36] mips: mm: convert __flush_dcache_pages() to
- __flush_dcache_folio_pages()
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-kernel@vger.kernel.org,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
- Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- kasan-dev@googlegroups.com, kvm@vger.kernel.org,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
- linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, Marco Elver <elver@google.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
- wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-References: <20250827220141.262669-1-david@redhat.com>
- <20250827220141.262669-21-david@redhat.com>
- <ea74f0e3-bacf-449a-b7ad-213c74599df1@lucifer.local>
- <2be7db96-2fa2-4348-837e-648124bd604f@redhat.com>
- <549a60a6-25e2-48d5-b442-49404a857014@lucifer.local>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <549a60a6-25e2-48d5-b442-49404a857014@lucifer.local>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: zeXHj3V-DajkBM_H8GwcW-dfvX-1D_v8ZQEhFqV5mnw_1756475065
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20250827023202.10310-11-zhangzihuan@kylinos.cn>
+X-Mailman-Approved-At: Fri, 29 Aug 2025 14:12:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -177,47 +134,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 29.08.25 14:51, Lorenzo Stoakes wrote:
-> On Thu, Aug 28, 2025 at 10:51:46PM +0200, David Hildenbrand wrote:
->> On 28.08.25 18:57, Lorenzo Stoakes wrote:
->>> On Thu, Aug 28, 2025 at 12:01:24AM +0200, David Hildenbrand wrote:
->>>> Let's make it clearer that we are operating within a single folio by
->>>> providing both the folio and the page.
->>>>
->>>> This implies that for flush_dcache_folio() we'll now avoid one more
->>>> page->folio lookup, and that we can safely drop the "nth_page" usage.
->>>>
->>>> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
->>>> Signed-off-by: David Hildenbrand <david@redhat.com>
->>>> ---
->>>>    arch/mips/include/asm/cacheflush.h | 11 +++++++----
->>>>    arch/mips/mm/cache.c               |  8 ++++----
->>>>    2 files changed, 11 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/arch/mips/include/asm/cacheflush.h b/arch/mips/include/asm/cacheflush.h
->>>> index 5d283ef89d90d..8d79bfc687d21 100644
->>>> --- a/arch/mips/include/asm/cacheflush.h
->>>> +++ b/arch/mips/include/asm/cacheflush.h
->>>> @@ -50,13 +50,14 @@ extern void (*flush_cache_mm)(struct mm_struct *mm);
->>>>    extern void (*flush_cache_range)(struct vm_area_struct *vma,
->>>>    	unsigned long start, unsigned long end);
->>>>    extern void (*flush_cache_page)(struct vm_area_struct *vma, unsigned long page, unsigned long pfn);
->>>> -extern void __flush_dcache_pages(struct page *page, unsigned int nr);
->>>> +extern void __flush_dcache_folio_pages(struct folio *folio, struct page *page, unsigned int nr);
->>>
->>> NIT: Be good to drop the extern.
->>
->> I think I'll leave the one in, though, someone should clean up all of them
->> in one go.
+On 27-08-25, 10:31, Zihuan Zhang wrote:
+> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
+> annotation for policy references. This reduces the risk of reference
+> counting mistakes and aligns the code with the latest kernel style.
 > 
-> This is how we always clean these up though, buuut to be fair that's in mm.
+> No functional change intended.
 > 
+> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+> ---
+>  drivers/cpufreq/s5pv210-cpufreq.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/cpufreq/s5pv210-cpufreq.c b/drivers/cpufreq/s5pv210-cpufreq.c
+> index 76c888ed8d16..95f1568e9530 100644
+> --- a/drivers/cpufreq/s5pv210-cpufreq.c
+> +++ b/drivers/cpufreq/s5pv210-cpufreq.c
+> @@ -555,7 +555,7 @@ static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
+>  						 unsigned long event, void *ptr)
+>  {
+>  	int ret;
+> -	struct cpufreq_policy *policy;
+> +	struct cpufreq_policy *policy __free(put_cpufreq_policy);
+>  
+>  	policy = cpufreq_cpu_get(0);
+>  	if (!policy) {
+> @@ -564,7 +564,6 @@ static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
+>  	}
+>  
+>  	ret = cpufreq_driver_target(policy, SLEEP_FREQ, 0);
+> -	cpufreq_cpu_put(policy);
+>  
+>  	if (ret < 0)
+>  		return NOTIFY_BAD;
 
-Well, okay, I'll make all the other functions jealous and blame it on 
-you! :P
+Merged with minor change:
+
+diff --git a/drivers/cpufreq/s5pv210-cpufreq.c b/drivers/cpufreq/s5pv210-cpufreq.c
+index 95f1568e9530..4215621deb3f 100644
+--- a/drivers/cpufreq/s5pv210-cpufreq.c
++++ b/drivers/cpufreq/s5pv210-cpufreq.c
+@@ -554,10 +554,9 @@ static int s5pv210_cpu_init(struct cpufreq_policy *policy)
+ static int s5pv210_cpufreq_reboot_notifier_event(struct notifier_block *this,
+                                                 unsigned long event, void *ptr)
+ {
++       struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(0);
+        int ret;
+-       struct cpufreq_policy *policy __free(put_cpufreq_policy);
+
+-       policy = cpufreq_cpu_get(0);
+        if (!policy) {
+                pr_debug("cpufreq: get no policy for cpu0\n");
+                return NOTIFY_BAD;
 
 -- 
-Cheers
-
-David / dhildenb
-
+viresh
