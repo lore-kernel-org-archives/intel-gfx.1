@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A72FCA100C
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37CF1CA100F
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1E9710E6C5;
-	Tue,  2 Sep 2025 12:55:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B10810E6CA;
+	Tue,  2 Sep 2025 12:55:04 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97B4C10E3D4;
- Mon,  1 Sep 2025 08:59:11 +0000 (UTC)
-X-UUID: e86bfae4871111f0b29709d653e92f7d-20250901
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54A2510E3BE;
+ Mon,  1 Sep 2025 08:58:23 +0000 (UTC)
+X-UUID: cc00f31e871111f0b29709d653e92f7d-20250901
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:9856c3cb-6274-461f-bd60-bd9e3453544a, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:d6133662-2e5b-4c23-8ba5-17fca22ffc9e, IP:0,
  U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:6493067, CLOUDID:1f38d007408be91faa64e7344a36a8e5,
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:6493067, CLOUDID:71ad1ccc093c0f7fefa7e242163419af,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +26,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:1f38d007408be91faa64e7344a36a8e5,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: e86bfae4871111f0b29709d653e92f7d-20250901
+X-UUID: cc00f31e871111f0b29709d653e92f7d-20250901
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 1266094301; Mon, 01 Sep 2025 16:59:03 +0800
+ with ESMTP id 1338269176; Mon, 01 Sep 2025 16:58:15 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id B89CBE008FA7;
- Mon,  1 Sep 2025 16:59:02 +0800 (CST)
-X-ns-mid: postfix-68B56055-952872770
+ by mail.kylinos.cn (NSMail) with SMTP id 278F5E008FA6;
+ Mon,  1 Sep 2025 16:58:15 +0800 (CST)
+X-ns-mid: postfix-68B56026-958754737
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id C0DDDE008FA8;
- Mon,  1 Sep 2025 16:58:52 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id 572A7E008FA7;
+ Mon,  1 Sep 2025 16:58:11 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -72,9 +72,9 @@ Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v3 12/12] PM: EM: Use scope-based cleanup helper
-Date: Mon,  1 Sep 2025 16:57:48 +0800
-Message-Id: <20250901085748.36795-13-zhangzihuan@kylinos.cn>
+Subject: [PATCH v3 03/12] cpufreq: intel_pstate: Use scope-based cleanup helper
+Date: Mon,  1 Sep 2025 16:57:39 +0800
+Message-Id: <20250901085748.36795-4-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
 References: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
@@ -104,57 +104,50 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- kernel/power/energy_model.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
+ drivers/cpufreq/intel_pstate.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/power/energy_model.c b/kernel/power/energy_model.c
-index ea7995a25780..852d48039ce2 100644
---- a/kernel/power/energy_model.c
-+++ b/kernel/power/energy_model.c
-@@ -451,7 +451,7 @@ static void
- em_cpufreq_update_efficiencies(struct device *dev, struct em_perf_state =
-*table)
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
+e.c
+index f366d35c5840..4abc1ef2d2b0 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -1502,9 +1502,8 @@ static void __intel_pstate_update_max_freq(struct c=
+pufreq_policy *policy,
+=20
+ static bool intel_pstate_update_max_freq(struct cpudata *cpudata)
  {
- 	struct em_perf_domain *pd =3D dev->em_pd;
+-	struct cpufreq_policy *policy __free(put_cpufreq_policy);
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(cpudata->cpu);
+=20
+-	policy =3D cpufreq_cpu_get(cpudata->cpu);
+ 	if (!policy)
+ 		return false;
+=20
+@@ -1698,19 +1697,18 @@ static ssize_t store_no_turbo(struct kobject *a, =
+struct kobj_attribute *b,
+ static void update_qos_request(enum freq_qos_req_type type)
+ {
+ 	struct freq_qos_request *req;
 -	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy);
- 	int found =3D 0;
- 	int i, cpu;
+ 	int i;
 =20
-@@ -479,8 +479,6 @@ em_cpufreq_update_efficiencies(struct device *dev, st=
-ruct em_perf_state *table)
- 			found++;
- 	}
-=20
--	cpufreq_cpu_put(policy);
--
- 	if (!found)
- 		return;
-=20
-@@ -787,21 +785,20 @@ static void em_check_capacity_update(void)
-=20
- 	/* Check if CPUs capacity has changed than update EM */
- 	for_each_possible_cpu(cpu) {
--		struct cpufreq_policy *policy;
+ 	for_each_possible_cpu(i) {
+ 		struct cpudata *cpu =3D all_cpu_data[i];
+ 		unsigned int freq, perf_pct;
 +		struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
-+			cpufreq_cpu_get(cpu);
- 		struct em_perf_domain *pd;
- 		struct device *dev;
++			cpufreq_cpu_get(i);
 =20
- 		if (cpumask_test_cpu(cpu, cpu_done_mask))
+-		policy =3D cpufreq_cpu_get(i);
+ 		if (!policy)
  			continue;
 =20
--		policy =3D cpufreq_cpu_get(cpu);
- 		if (!policy) {
- 			pr_debug("Accessing cpu%d policy failed\n", cpu);
- 			schedule_delayed_work(&em_update_work,
- 					      msecs_to_jiffies(1000));
- 			break;
- 		}
+ 		req =3D policy->driver_data;
 -		cpufreq_cpu_put(policy);
 =20
- 		dev =3D get_cpu_device(cpu);
- 		pd =3D em_pd_get(dev);
+ 		if (!req)
+ 			continue;
 --=20
 2.25.1
 
