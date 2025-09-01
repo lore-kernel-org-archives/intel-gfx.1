@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7105CA1009
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7AA5CA1010
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28FAB10E6CE;
-	Tue,  2 Sep 2025 12:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA5310E6CF;
+	Tue,  2 Sep 2025 12:55:08 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66D4010E3D0;
- Mon,  1 Sep 2025 08:58:50 +0000 (UTC)
-X-UUID: dd0b02c6871111f0b29709d653e92f7d-20250901
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6819B10E3B9;
+ Mon,  1 Sep 2025 08:58:20 +0000 (UTC)
+X-UUID: c9b1c00c871111f0b29709d653e92f7d-20250901
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:46c283cc-b5bb-46ec-a1f7-907896491998, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:9c8abea4-fa85-4f70-8053-8228d0bd40fc, IP:0,
  U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:6493067, CLOUDID:d27fee2e8a6b06d9cbfaef5d3190c03b,
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:6493067, CLOUDID:af33568b0772d3dc82685951b3e91b37,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +26,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:d27fee2e8a6b06d9cbfaef5d3190c03b,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: dd0b02c6871111f0b29709d653e92f7d-20250901
+X-UUID: c9b1c00c871111f0b29709d653e92f7d-20250901
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 793860202; Mon, 01 Sep 2025 16:58:44 +0800
+ with ESMTP id 235447165; Mon, 01 Sep 2025 16:58:11 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 86233E008FA5;
- Mon,  1 Sep 2025 16:58:43 +0800 (CST)
-X-ns-mid: postfix-68B56043-381034747
+ by mail.kylinos.cn (NSMail) with SMTP id 4B3D7E008FA6;
+ Mon,  1 Sep 2025 16:58:11 +0800 (CST)
+X-ns-mid: postfix-68B56023-128246736
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id BDA8EE008FA7;
- Mon,  1 Sep 2025 16:58:39 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id F1DFEE008FA7;
+ Mon,  1 Sep 2025 16:58:06 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -72,9 +72,10 @@ Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v3 10/12] thermal: imx: Use scope-based cleanup helper
-Date: Mon,  1 Sep 2025 16:57:46 +0800
-Message-Id: <20250901085748.36795-11-zhangzihuan@kylinos.cn>
+Subject: [PATCH v3 02/12] ACPI: processor: thermal: Use scope-based cleanup
+ helper
+Date: Mon,  1 Sep 2025 16:57:38 +0800
+Message-Id: <20250901085748.36795-3-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
 References: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
@@ -104,62 +105,75 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- drivers/thermal/imx_thermal.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/acpi/processor_thermal.c | 18 ++++++------------
+ 1 file changed, 6 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.=
-c
-index 38c993d1bcb3..8d5fd5ca39da 100644
---- a/drivers/thermal/imx_thermal.c
-+++ b/drivers/thermal/imx_thermal.c
-@@ -201,7 +201,6 @@ static struct thermal_soc_data thermal_imx7d_data =3D=
- {
-=20
- struct imx_thermal_data {
- 	struct device *dev;
--	struct cpufreq_policy *policy;
- 	struct thermal_zone_device *tz;
- 	struct thermal_cooling_device *cdev;
- 	struct regmap *tempmon;
-@@ -541,22 +540,20 @@ MODULE_DEVICE_TABLE(of, of_imx_thermal_match);
- static int imx_thermal_register_legacy_cooling(struct imx_thermal_data *=
-data)
- {
- 	struct device_node *np;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
-u_get(0);
- 	int ret =3D 0;
-=20
--	data->policy =3D cpufreq_cpu_get(0);
--	if (!data->policy) {
-+	if (!policy) {
- 		pr_debug("%s: CPUFreq policy not found\n", __func__);
- 		return -EPROBE_DEFER;
- 	}
-=20
--	np =3D of_get_cpu_node(data->policy->cpu, NULL);
-+	np =3D of_get_cpu_node(policy->cpu, NULL);
-=20
- 	if (!np || !of_property_present(np, "#cooling-cells")) {
- 		data->cdev =3D cpufreq_cooling_register(data->policy);
--		if (IS_ERR(data->cdev)) {
-+		if (IS_ERR(data->cdev))
- 			ret =3D PTR_ERR(data->cdev);
--			cpufreq_cpu_put(data->policy);
--		}
- 	}
-=20
- 	of_node_put(np);
-@@ -567,7 +564,6 @@ static int imx_thermal_register_legacy_cooling(struct=
- imx_thermal_data *data)
- static void imx_thermal_unregister_legacy_cooling(struct imx_thermal_dat=
-a *data)
- {
- 	cpufreq_cooling_unregister(data->cdev);
--	cpufreq_cpu_put(data->policy);
+diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor_th=
+ermal.c
+index 1219adb11ab9..3c8b57df9619 100644
+--- a/drivers/acpi/processor_thermal.c
++++ b/drivers/acpi/processor_thermal.c
+@@ -62,19 +62,14 @@ static int phys_package_first_cpu(int cpu)
+ 	return 0;
  }
 =20
- #else
+-static int cpu_has_cpufreq(unsigned int cpu)
++static bool cpu_has_cpufreq(unsigned int cpu)
+ {
+-	struct cpufreq_policy *policy;
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(cpu);
+=20
+ 	if (!acpi_processor_cpufreq_init)
+ 		return 0;
+=20
+-	policy =3D cpufreq_cpu_get(cpu);
+-	if (policy) {
+-		cpufreq_cpu_put(policy);
+-		return 1;
+-	}
+-	return 0;
++	return !!policy;
+ }
+=20
+ static int cpufreq_get_max_state(unsigned int cpu)
+@@ -95,7 +90,6 @@ static int cpufreq_get_cur_state(unsigned int cpu)
+=20
+ static int cpufreq_set_cur_state(unsigned int cpu, int state)
+ {
+-	struct cpufreq_policy *policy;
+ 	struct acpi_processor *pr;
+ 	unsigned long max_freq;
+ 	int i, ret;
+@@ -111,6 +105,9 @@ static int cpufreq_set_cur_state(unsigned int cpu, in=
+t state)
+ 	 * frequency.
+ 	 */
+ 	for_each_online_cpu(i) {
++		struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
++			cpufreq_cpu_get(i);
++
+ 		if (topology_physical_package_id(i) !=3D
+ 		    topology_physical_package_id(cpu))
+ 			continue;
+@@ -120,15 +117,12 @@ static int cpufreq_set_cur_state(unsigned int cpu, =
+int state)
+ 		if (unlikely(!freq_qos_request_active(&pr->thermal_req)))
+ 			continue;
+=20
+-		policy =3D cpufreq_cpu_get(i);
+ 		if (!policy)
+ 			return -EINVAL;
+=20
+ 		max_freq =3D (policy->cpuinfo.max_freq *
+ 			    (100 - reduction_step(i) * cpufreq_thermal_reduction_pctg)) / 100=
+;
+=20
+-		cpufreq_cpu_put(policy);
+-
+ 		ret =3D freq_qos_update_request(&pr->thermal_req, max_freq);
+ 		if (ret < 0) {
+ 			pr_warn("Failed to update thermal freq constraint: CPU%d (%d)\n",
 --=20
 2.25.1
 
