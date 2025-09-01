@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDC5FCA100D
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61DE5CA0FFE
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 498B710E6BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52A2610E6C2;
 	Tue,  2 Sep 2025 12:55:01 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27D3810E3B2;
- Mon,  1 Sep 2025 08:58:11 +0000 (UTC)
-X-UUID: c4d74aac871111f0b29709d653e92f7d-20250901
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56DA410E3CF;
+ Mon,  1 Sep 2025 08:58:44 +0000 (UTC)
+X-UUID: d88a416c871111f0b29709d653e92f7d-20250901
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:f1e2aab6-178f-4d82-b846-3ad535999412, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:f0312209-cc58-49da-b2fe-bd1490843f15, IP:0,
  U
- RL:0,TC:0,Content:26,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:26
-X-CID-META: VersionHash:6493067, CLOUDID:16a24fa6142617347b8ddbaac62faf64,
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:6493067, CLOUDID:cb619b8137095f381006df9a56b13c38,
  BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850,TC:nil,Content:4|50,EDM:-3,IP:ni
- l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
- :1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
+ ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+ :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: c4d74aac871111f0b29709d653e92f7d-20250901
+X-UUID: d88a416c871111f0b29709d653e92f7d-20250901
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 920024082; Mon, 01 Sep 2025 16:58:03 +0800
+ with ESMTP id 155411594; Mon, 01 Sep 2025 16:58:36 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id CD288E008FA7;
- Mon,  1 Sep 2025 16:58:02 +0800 (CST)
-X-ns-mid: postfix-68B5601A-630246734
+ by mail.kylinos.cn (NSMail) with SMTP id EEA53E008FAB;
+ Mon,  1 Sep 2025 16:58:35 +0800 (CST)
+X-ns-mid: postfix-68B5603B-776156745
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 23964E008FA6;
- Mon,  1 Sep 2025 16:57:54 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id 344EFE008FA8;
+ Mon,  1 Sep 2025 16:58:32 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -72,11 +72,13 @@ Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v3 00/12] cpufreq: use __free() for all cpufreq_cpu_get()
- references
-Date: Mon,  1 Sep 2025 16:57:36 +0800
-Message-Id: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
+Subject: [PATCH v3 08/12] cpufreq: powerpc: macintosh: Use scope-based cleanup
+ helper
+Date: Mon,  1 Sep 2025 16:57:44 +0800
+Message-Id: <20250901085748.36795-9-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
+References: <20250901085748.36795-1-zhangzihuan@kylinos.cn>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 02 Sep 2025 12:55:00 +0000
@@ -95,61 +97,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patchset converts all remaining cpufreq users to rely on the
-__free(put_cpufreq_policy) annotation for policy references, instead of
-calling cpufreq_cpu_put() manually.
+Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
+annotation for policy references. This reduces the risk of reference
+counting mistakes and aligns the code with the latest kernel style.
 
-Motivation:
-- Reduce the chance of reference counting mistakes
-- Make the code more consistent with the latest kernel style
-- behavior remains the same, but reference counting is now safer=20
-  and easier to maintain.
+No functional change intended.
 
-The changes are split into 12 patches as they touch different subsystems
-and are maintained by different people. There is no functional change.
+Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+---
+ drivers/macintosh/windfarm_cpufreq_clamp.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-V3:
- - drop patch 'KVM: x86: Use __free(put_cpufreq_policy) for policy refere=
-nce'
- - removed 5 patches which has been applied
- - Consolidate CPUFreq policy assignments and allocations into one line,
-   suggested by Ben Horgan
- - Change cpu_has_cpufreq() return type to bool, following Rafael's sugge=
-stion
- - Change the title to 'Use scope-based cleanup helper'
-
-V2:
- - Fix compile error in powernv-cpufreq.c
- - Split patch to separate logical changes
-
-Zihuan Zhang (12):
-  arm64: topology: Use scope-based cleanup helper
-  ACPI: processor: thermal: Use scope-based cleanup helper
-  cpufreq: intel_pstate: Use scope-based cleanup helper
-  cpufreq: longhaul: Use scope-based cleanup helper
-  cpufreq: powernv: Use scope-based cleanup helper
-  PM / devfreq: Use scope-based cleanup helper
-  drm/i915: Use scope-based cleanup helper
-  cpufreq: powerpc: macintosh: Use scope-based cleanup helper
-  powercap: dtpm_cpu: Use scope-based cleanup helper
-  thermal: imx: Use scope-based cleanup helper
-  thermal/drivers/ti-soc-thermal: Use scope-based cleanup helper
-  PM: EM: Use scope-based cleanup helper
-
- arch/arm64/kernel/topology.c                  |  9 +++----
- drivers/acpi/processor_thermal.c              | 18 +++++--------
- drivers/cpufreq/intel_pstate.c                |  8 +++---
- drivers/cpufreq/longhaul.c                    |  3 +--
- drivers/cpufreq/powernv-cpufreq.c             | 11 ++++----
- drivers/devfreq/governor_passive.c            | 25 +++++++-----------
- drivers/gpu/drm/i915/gt/intel_llc.c           |  4 +--
- drivers/macintosh/windfarm_cpufreq_clamp.c    |  5 +---
- drivers/powercap/dtpm_cpu.c                   | 26 +++++--------------
- drivers/thermal/imx_thermal.c                 | 12 +++------
- .../ti-soc-thermal/ti-thermal-common.c        | 11 +++-----
- kernel/power/energy_model.c                   |  9 +++----
- 12 files changed, 46 insertions(+), 95 deletions(-)
-
+diff --git a/drivers/macintosh/windfarm_cpufreq_clamp.c b/drivers/macinto=
+sh/windfarm_cpufreq_clamp.c
+index 28d18ef22bbb..08558756990b 100644
+--- a/drivers/macintosh/windfarm_cpufreq_clamp.c
++++ b/drivers/macintosh/windfarm_cpufreq_clamp.c
+@@ -62,12 +62,11 @@ static const struct wf_control_ops clamp_ops =3D {
+=20
+ static int __init wf_cpufreq_clamp_init(void)
+ {
+-	struct cpufreq_policy *policy;
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(0);
+ 	struct wf_control *clamp;
+ 	struct device *dev;
+ 	int ret;
+=20
+-	policy =3D cpufreq_cpu_get(0);
+ 	if (!policy) {
+ 		pr_warn("%s: cpufreq policy not found cpu0\n", __func__);
+ 		return -EPROBE_DEFER;
+@@ -79,8 +78,6 @@ static int __init wf_cpufreq_clamp_init(void)
+ 	ret =3D freq_qos_add_request(&policy->constraints, &qos_req, FREQ_QOS_M=
+AX,
+ 				   max_freq);
+=20
+-	cpufreq_cpu_put(policy);
+-
+ 	if (ret < 0) {
+ 		pr_err("%s: Failed to add freq constraint (%d)\n", __func__,
+ 		       ret);
 --=20
 2.25.1
 
