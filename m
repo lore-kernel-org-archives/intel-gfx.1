@@ -4,46 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2966BCA1005
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 13:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8197BCA1005
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 13:45:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9424D10E32E;
-	Tue,  2 Sep 2025 13:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F211C10E719;
+	Tue,  2 Sep 2025 13:45:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fyBNLuGJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SADw5UHX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2BF610E3BF;
- Tue,  2 Sep 2025 13:45:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AB35A433BD;
- Tue,  2 Sep 2025 13:45:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABA6C4CEF7;
- Tue,  2 Sep 2025 13:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1756820709;
- bh=eQq2nAFZTeJhbDPDIK8nMD490iWJHQYNEtytL05rdMg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fyBNLuGJ0CmCTfvf/2kaTnPRehoW4JSV8PuPvAGJqsSCbH1BZN3dQ9xRWOFrKnBbP
- 2WniQ2tdylJJ3a5pM5Td+SoxIvlbnk5gEMWdgLJzeaYkTz5FaAWoWrgs3O7orOaSRm
- D9gjbvuIti7FE/h/LivRUz39DnFfxWHWunRWwozo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>, Imre Deak <imre.deak@intel.com>
-Subject: [PATCH 5.10 29/34] Revert "drm/dp: Change AUX DPCD probe address from
- DPCD_REV to LANE0_1_STATUS"
-Date: Tue,  2 Sep 2025 15:21:55 +0200
-Message-ID: <20250902131927.773792816@linuxfoundation.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20250902131926.607219059@linuxfoundation.org>
-References: <20250902131926.607219059@linuxfoundation.org>
-User-Agent: quilt/0.68
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29C9810E71D;
+ Tue,  2 Sep 2025 13:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1756820739; x=1788356739;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=x/XNvF6IqR/MecWWH0KLHYDw4Hfw3etXaanKwzHa18k=;
+ b=SADw5UHX0dh7f+5TmC8x6CHi2bHt6HginstRk8GfrBPU7pLbNYAc1PP+
+ xLAJ6PQjAcoBS0FE1jDnwoLzysXL9f+8onmzV/ja4Lw0kMyDYUayS6kDe
+ td2IDI6VO8D0fijbxJBHqZPYGqTe141BKJ0hztp2ImViWNex/odBUsyPe
+ lTQRB8KIIqZwx0PZJyGXWKYNqz0oRFQgyfCcZPzlwDsYBmjdhErYebH4x
+ zgcl+56jMq7GHIrvmXPxxNFRHsRHi4ZjKW2Gf8xyyMl50/QrPcwOB+Q5B
+ 9LOg49AyeiVAeHVniwUiLM5Mgj/gkHPJsg3QHpBsd0pVqkKk/xOVw5QbN Q==;
+X-CSE-ConnectionGUID: LIeowA3ETYOyV1+tDU8Oow==
+X-CSE-MsgGUID: AJ/xKqTtQi6xmQziaSUS8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11541"; a="58951549"
+X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="58951549"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2025 06:45:38 -0700
+X-CSE-ConnectionGUID: pPPsK/9dRBekcXaD/Tf1pA==
+X-CSE-MsgGUID: 6Nf0ZoUTSuew6d016Lojxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="171176319"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.193])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2025 06:45:36 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 1/8] drm/i915/dram: Populate PNV memory type accurately
+In-Reply-To: <20250902133113.18778-2-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250902133113.18778-1-ville.syrjala@linux.intel.com>
+ <20250902133113.18778-2-ville.syrjala@linux.intel.com>
+Date: Tue, 02 Sep 2025 16:45:33 +0300
+Message-ID: <abb27199cf65dc463113b71b3d0d23b10f5b4d5a@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,42 +71,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 02 Sep 2025, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> If PNV doesn't have DDR3 then it has DDR2. Add the appropriate memory
+> type for it.
+>
+> No functional change since we currently only care about the
+> DDR3 vs. not difference.
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-------------------
+Yeah, I dropped the ball at around here with my previous refactorings.
 
-From: Imre Deak <imre.deak@intel.com>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-This reverts commit 89d17a2d89a83c5b7643ca934651a3f9229e4734 which is
-commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f upstream.
+> ---
+>  drivers/gpu/drm/i915/soc/intel_dram.c | 10 ++++++----
+>  drivers/gpu/drm/i915/soc/intel_dram.h |  1 +
+>  2 files changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i915=
+/soc/intel_dram.c
+> index 3eb748ab44d9..7d8b8f81e215 100644
+> --- a/drivers/gpu/drm/i915/soc/intel_dram.c
+> +++ b/drivers/gpu/drm/i915/soc/intel_dram.c
+> @@ -35,6 +35,7 @@ static const char *intel_dram_type_str(enum intel_dram_=
+type type)
+>  {
+>  	static const char * const str[] =3D {
+>  		DRAM_TYPE_STR(UNKNOWN),
+> +		DRAM_TYPE_STR(DDR2),
+>  		DRAM_TYPE_STR(DDR3),
+>  		DRAM_TYPE_STR(DDR4),
+>  		DRAM_TYPE_STR(LPDDR3),
+> @@ -55,9 +56,10 @@ static const char *intel_dram_type_str(enum intel_dram=
+_type type)
+>=20=20
+>  #undef DRAM_TYPE_STR
+>=20=20
+> -static bool pnv_is_ddr3(struct drm_i915_private *i915)
+> +static enum intel_dram_type pnv_dram_type(struct drm_i915_private *i915)
+>  {
+> -	return intel_uncore_read(&i915->uncore, CSHRDDR3CTL) & CSHRDDR3CTL_DDR3;
+> +	return intel_uncore_read(&i915->uncore, CSHRDDR3CTL) & CSHRDDR3CTL_DDR3=
+ ?
+> +		INTEL_DRAM_DDR3 : INTEL_DRAM_DDR2;
+>  }
+>=20=20
+>  static unsigned int pnv_mem_freq(struct drm_i915_private *dev_priv)
+> @@ -252,8 +254,8 @@ static int i915_get_dram_info(struct drm_i915_private=
+ *i915, struct dram_info *d
+>  	if (dram_info->mem_freq)
+>  		drm_dbg(&i915->drm, "DDR speed: %d kHz\n", dram_info->mem_freq);
+>=20=20
+> -	if (IS_PINEVIEW(i915) && pnv_is_ddr3(i915))
+> -		dram_info->type =3D INTEL_DRAM_DDR3;
+> +	if (IS_PINEVIEW(i915))
+> +		dram_info->type =3D pnv_dram_type(i915);
+>=20=20
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.h b/drivers/gpu/drm/i915=
+/soc/intel_dram.h
+> index 97d21894abdc..7e3b3d961fcb 100644
+> --- a/drivers/gpu/drm/i915/soc/intel_dram.h
+> +++ b/drivers/gpu/drm/i915/soc/intel_dram.h
+> @@ -17,6 +17,7 @@ struct dram_info {
+>  	bool symmetric_memory;
+>  	enum intel_dram_type {
+>  		INTEL_DRAM_UNKNOWN,
+> +		INTEL_DRAM_DDR2,
+>  		INTEL_DRAM_DDR3,
+>  		INTEL_DRAM_DDR4,
+>  		INTEL_DRAM_LPDDR3,
 
-The upstream commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f ("drm/dp:
-Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS") the
-reverted commit backported causes a regression, on one eDP panel at
-least resulting in display flickering, described in detail at the Link:
-below. The issue fixed by the upstream commit will need a different
-solution, revert the backport for now.
-
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: Sasha Levin <sashal@kernel.org>
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14558
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/drm_dp_helper.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -299,7 +299,7 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_a
- 	 * monitor doesn't power down exactly after the throw away read.
- 	 */
- 	if (!aux->is_remote) {
--		ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_LANE0_1_STATUS,
-+		ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_DPCD_REV,
- 					 buffer, 1);
- 		if (ret != 1)
- 			goto out;
-
-
+--=20
+Jani Nikula, Intel
