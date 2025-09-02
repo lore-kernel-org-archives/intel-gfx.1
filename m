@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C795BCA1005
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:58:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C5B3CA1005
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 12:58:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AD1410E6D3;
-	Tue,  2 Sep 2025 12:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BC9810E6D6;
+	Tue,  2 Sep 2025 12:58:55 +0000 (UTC)
 Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7C610E6D4;
- Tue,  2 Sep 2025 12:58:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BBCF10E6D6;
+ Tue,  2 Sep 2025 12:58:53 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Patch_=22Revert_=22drm/dp?=
  =?utf-8?q?=3A_Change_AUX_DPCD_probe_address_from_DPCD=5FREV_to_LANE0=5F1=5F?=
- =?utf-8?q?STATUS=22=22_has_been_added_to_the_6=2E16-stable_tree?=
+ =?utf-8?q?STATUS=22=22_has_been_added_to_the_5=2E15-stable_tree?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: gregkh@linuxfoundation.org
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 02 Sep 2025 12:58:17 -0000
-Message-ID: <175681789731.293791.18083315873934016346@1538d3639d33>
+Date: Tue, 02 Sep 2025 12:58:53 -0000
+Message-ID: <175681793337.293791.1530026143217938405@1538d3639d33>
 X-Patchwork-Hint: ignore
-References: <2025090252-fall-embargo-d67c@gregkh>
-In-Reply-To: <2025090252-fall-embargo-d67c@gregkh>
+References: <2025090238-idealize-fading-cd62@gregkh>
+In-Reply-To: <2025090238-idealize-fading-cd62@gregkh>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,13 +44,13 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Patch "Revert "drm/dp: Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS"" has been added to the 6.16-stable tree
-URL   : https://patchwork.freedesktop.org/series/153862/
+Series: Patch "Revert "drm/dp: Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS"" has been added to the 5.15-stable tree
+URL   : https://patchwork.freedesktop.org/series/153864/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/153862/revisions/1/mbox/ not applied
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/153864/revisions/1/mbox/ not applied
 Patch is empty.
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
