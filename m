@@ -4,58 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23EA2CA0FFE
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 13:46:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D9B4CA1005
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 13:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6FF410E721;
-	Tue,  2 Sep 2025 13:46:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5D0F10E727;
+	Tue,  2 Sep 2025 13:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lTXyMvjM";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iAbbfz/B";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C4310E721;
- Tue,  2 Sep 2025 13:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756820788; x=1788356788;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=varB7XTQyQaxdmRUnlQ29tpwZcGJ8QkLbTFIl5Vyg6E=;
- b=lTXyMvjMmJ8GF0vdozPA63Hp/hnh5IuDtxGDRl2I4D2Tdy1o4rsJ8ks2
- kc8DBVpnjIblrvTJ33rOKhOF1Z/dLVRS3PDZPC+MYQeTIXILqvqAIgLUj
- pwSPWmNj+pPexTUgBlUHGfKp1lChZzdob1FgR0uGzz6dncbkwWlMcJWtq
- DGm2NbYqjH/gR1vURGuKyglYN2/oxFKODEaZVUDBHqeqrWFDML6Xp+5Fa
- tAz5BORWm24KQehX6wWh3l/MgOlrsiMFZwt5LMQzNnICuiku0qVDHHPUk
- SHpbOSfywV2UrEJ8KCW4WM+hdE1TaixZLWx1d4/yVts+xm3+E62qrX8/q Q==;
-X-CSE-ConnectionGUID: KHGXstUYQ6O4K7HcWVvvpg==
-X-CSE-MsgGUID: OrrSj6drROmshn8TPxw40A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11541"; a="69706048"
-X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="69706048"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2025 06:46:28 -0700
-X-CSE-ConnectionGUID: vhznDpT9Q/azpnTMqKFO0w==
-X-CSE-MsgGUID: I0iIZPWUQbu3/EUHgI8ogA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="175658835"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.193])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2025 06:46:26 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 3/8] drm/i915/dram: Pack dram_info better
-In-Reply-To: <20250902133113.18778-4-ville.syrjala@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250902133113.18778-1-ville.syrjala@linux.intel.com>
- <20250902133113.18778-4-ville.syrjala@linux.intel.com>
-Date: Tue, 02 Sep 2025 16:46:23 +0300
-Message-ID: <cda7d8ac5f158572bb4e6ae2606c545a4c4452e1@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9BE10E32F;
+ Tue,  2 Sep 2025 13:46:48 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C4EF160218;
+ Tue,  2 Sep 2025 13:46:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2446AC4CEED;
+ Tue,  2 Sep 2025 13:46:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1756820806;
+ bh=bAeXueErPR9FkS1aVpvm+MMOl2yBOa/fjOiWjXbDGL8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=iAbbfz/BfllIGjxeaTYvYWAtfCWDX8J3HPvG5zM3tReajV2NZ6EVmZRJlVzSqGBf8
+ Ysx/ACfbEwxMl66X9v3sRSpS3996sFtJXH+jw5fyvvuKMcdhFl5sYTkwdNIaR3pqyx
+ VixO4td4+eTl7xk/5qQLrBTvqQH2U9qw+bn0KQBE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>, Imre Deak <imre.deak@intel.com>
+Subject: [PATCH 5.4 23/23] Revert "drm/dp: Change AUX DPCD probe address from
+ DPCD_REV to LANE0_1_STATUS"
+Date: Tue,  2 Sep 2025 15:22:09 +0200
+Message-ID: <20250902131925.659286447@linuxfoundation.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20250902131924.720400762@linuxfoundation.org>
+References: <20250902131924.720400762@linuxfoundation.org>
+User-Agent: quilt/0.68
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,51 +59,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 02 Sep 2025, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->
-> struct dram_info has two holes in the middle. Shuffle things
-> around to plug them.
->
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+5.4-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+------------------
 
-> ---
->  drivers/gpu/drm/i915/soc/intel_dram.h | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.h b/drivers/gpu/drm/i915=
-/soc/intel_dram.h
-> index 846a77b1aa90..6212944d44aa 100644
-> --- a/drivers/gpu/drm/i915/soc/intel_dram.h
-> +++ b/drivers/gpu/drm/i915/soc/intel_dram.h
-> @@ -12,9 +12,6 @@ struct drm_i915_private;
->  struct drm_device;
->=20=20
->  struct dram_info {
-> -	bool wm_lv_0_adjust_needed;
-> -	u8 num_channels;
-> -	bool symmetric_memory;
->  	enum intel_dram_type {
->  		INTEL_DRAM_UNKNOWN,
->  		INTEL_DRAM_DDR2,
-> @@ -28,10 +25,13 @@ struct dram_info {
->  		INTEL_DRAM_GDDR_ECC,
->  		__INTEL_DRAM_TYPE_MAX,
->  	} type;
-> -	u8 num_qgv_points;
-> -	u8 num_psf_gv_points;
->  	unsigned int fsb_freq;
->  	unsigned int mem_freq;
-> +	u8 num_channels;
-> +	u8 num_qgv_points;
-> +	u8 num_psf_gv_points;
-> +	bool symmetric_memory;
-> +	bool wm_lv_0_adjust_needed;
->  };
->=20=20
->  void intel_dram_edram_detect(struct drm_i915_private *i915);
+From: Imre Deak <imre.deak@intel.com>
 
---=20
-Jani Nikula, Intel
+This reverts commit 2402adce8da4e7396b63b5ffa71e1fa16e5fe5c4 which is
+commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f upstream.
+
+The upstream commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f ("drm/dp:
+Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS") the
+reverted commit backported causes a regression, on one eDP panel at
+least resulting in display flickering, described in detail at the Link:
+below. The issue fixed by the upstream commit will need a different
+solution, revert the backport for now.
+
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14558
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/drm_dp_helper.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/drm_dp_helper.c
++++ b/drivers/gpu/drm/drm_dp_helper.c
+@@ -280,7 +280,7 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_a
+ 	 * We just have to do it before any DPCD access and hope that the
+ 	 * monitor doesn't power down exactly after the throw away read.
+ 	 */
+-	ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_LANE0_1_STATUS, buffer,
++	ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_DPCD_REV, buffer,
+ 				 1);
+ 	if (ret != 1)
+ 		goto out;
+
+
