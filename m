@@ -4,59 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C035CA0FFE
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 11:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5131BCA1005
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Sep 2025 11:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBFE810E66F;
-	Tue,  2 Sep 2025 11:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC90E10E67B;
+	Tue,  2 Sep 2025 11:44:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YxYmkKFy";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sRQkbhhY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9DA710E66E;
- Tue,  2 Sep 2025 11:32:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1756812762; x=1788348762;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=QoBna7Y+ZScQpA8mvZ80PfEHfiPCCxMQeCNKgob8FzA=;
- b=YxYmkKFy6in79wOPQNGL0QRxXpPzVRWTbwckftq8cZmkmQuZSpqw2VWH
- T5xptzvU73iJ4Ol5u0qd0tMyPfKjYuI0iyumUNd7efOK0DD14gwRUpzqU
- 6mVMlgy9dLEpfgDRCO+wzxrZlX0lKDUZf1P5VewbC3ZBe7PtonQC3PpFG
- 8ikWGBk3MDnI+1Ap9cgS38cwq1txZVEHdoMUsdk4Tqzq80zHnCHB+2jbC
- BJiwzpndQZ7ozqHi+ioE2IpQj7X/haFxnGbdtxMhs+AEvHUl7HL7sr38e
- Qro5wLDmnRQDIG3mBQZyIrzg+Mh4ue44RmTtMSqGNtLswPLd3f+a31g3R Q==;
-X-CSE-ConnectionGUID: wgxYl3qfQ4mtvuSApHxtQg==
-X-CSE-MsgGUID: 32vVfXJ1TpaELt80eoiW/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11540"; a="58115929"
-X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="58115929"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2025 04:32:42 -0700
-X-CSE-ConnectionGUID: fq4BpWR7TTaXOvvSVcds7w==
-X-CSE-MsgGUID: emOXXh/vTV6iZVmoUcztmA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,230,1751266800"; d="scan'208";a="175631492"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.193])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2025 04:32:39 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Uma Shankar <uma.shankar@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, vinod.govindapillai@intel.com, Uma
- Shankar <uma.shankar@intel.com>
-Subject: Re: [PATCH 1/1] drm/i915/display: Remove FBC modulo 4 restriction
- for ADL+
-In-Reply-To: <20250902113538.269338-2-uma.shankar@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20250902113538.269338-1-uma.shankar@intel.com>
- <20250902113538.269338-2-uma.shankar@intel.com>
-Date: Tue, 02 Sep 2025 14:32:36 +0300
-Message-ID: <d3e3b81650fc0206f6d5f238e72c1340c5171c8e@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 057AD10E67B;
+ Tue,  2 Sep 2025 11:44:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id ADD4060206;
+ Tue,  2 Sep 2025 11:44:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E614AC4CEF5;
+ Tue,  2 Sep 2025 11:44:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1756813445;
+ bh=DaJ6EJatQGC+ytu6Zrl/0Pk26QWT1XYEoFcww77ugFI=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=sRQkbhhY2dpH3gTZiqeCInER2iVnTwFZtIfqvaq2phUEXi+y6PrF7dLHETzR7ihxl
+ u5k3ZXOc75ac9MgoI3Lmpog/W7jY+8tFd2HlV6LqUlG27yL9ZbR7ubs+3i+s/M5hWd
+ aPU/72zgQAPLyB00V8y3pKW1JBt3SnhH4EcNY7DU=
+Subject: Patch "Revert "drm/dp: Change AUX DPCD probe address from DPCD_REV to
+ LANE0_1_STATUS"" has been added to the 5.4-stable tree
+To: dri-devel@lists.freedesktop.org, imre.deak@intel.com,
+ intel-gfx@lists.freedesktop.org, sashal@kernel.org
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 02 Sep 2025 13:44:01 +0200
+In-Reply-To: <20250828174932.414566-1-imre.deak@intel.com>
+Message-ID: <2025090201-unsafe-energize-b9cd@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,62 +56,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 02 Sep 2025, Uma Shankar <uma.shankar@intel.com> wrote:
-> FBC restriction where FBC is disabled for non-modulo 4 plane size
-> (including plane size + yoffset) is fixed from ADL onwards in h/w.
-> WA:22010751166
->
-> Relax the restriction for the same.
->
-> v2: Update the macro for display version check (Vinod)
->
-> Credits-to: Vidya Srinivas <vidya.srinivas@intel.com>
 
-Credits-to: is not a trailer we should be using. What does it mean?
+This is a note to let you know that I've just added the patch titled
 
-The common ways are either:
+    Revert "drm/dp: Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS"
 
-Suggested-by: N.N.
+to the 5.4-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-or a combo of:
+The filename of the patch is:
+     revert-drm-dp-change-aux-dpcd-probe-address-from-dpcd_rev-to-lane0_1_status.patch
+and it can be found in the queue-5.4 subdirectory.
 
-Co-developed-by: N.N.
-Signed-off-by: N.N.
-
-Whichever the case may be.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
-BR,
-Jani.
+From imre.deak@intel.com  Tue Sep  2 13:42:52 2025
+From: Imre Deak <imre.deak@intel.com>
+Date: Thu, 28 Aug 2025 20:49:26 +0300
+Subject: Revert "drm/dp: Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS"
+To: <stable@vger.kernel.org>
+Cc: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, Sasha Levin <sashal@kernel.org>
+Message-ID: <20250828174932.414566-1-imre.deak@intel.com>
+
+From: Imre Deak <imre.deak@intel.com>
+
+This reverts commit 2402adce8da4e7396b63b5ffa71e1fa16e5fe5c4 which is
+commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f upstream.
+
+The upstream commit a40c5d727b8111b5db424a1e43e14a1dcce1e77f ("drm/dp:
+Change AUX DPCD probe address from DPCD_REV to LANE0_1_STATUS") the
+reverted commit backported causes a regression, on one eDP panel at
+least resulting in display flickering, described in detail at the Link:
+below. The issue fixed by the upstream commit will need a different
+solution, revert the backport for now.
+
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: Sasha Levin <sashal@kernel.org>
+Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14558
+Signed-off-by: Imre Deak <imre.deak@intel.com>
+---
+ drivers/gpu/drm/drm_dp_helper.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/drm_dp_helper.c
++++ b/drivers/gpu/drm/drm_dp_helper.c
+@@ -280,7 +280,7 @@ ssize_t drm_dp_dpcd_read(struct drm_dp_a
+ 	 * We just have to do it before any DPCD access and hope that the
+ 	 * monitor doesn't power down exactly after the throw away read.
+ 	 */
+-	ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_LANE0_1_STATUS, buffer,
++	ret = drm_dp_dpcd_access(aux, DP_AUX_NATIVE_READ, DP_DPCD_REV, buffer,
+ 				 1);
+ 	if (ret != 1)
+ 		goto out;
 
 
-> Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
-> Signed-off-by: Uma Shankar <uma.shankar@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_fbc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-> index d4c5deff9cbe..9e097ed80bd1 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-> @@ -1550,14 +1550,14 @@ static int intel_fbc_check_plane(struct intel_atomic_state *state,
->  	 * having a Y offset that isn't divisible by 4 causes FIFO underrun
->  	 * and screen flicker.
->  	 */
-> -	if (DISPLAY_VER(display) >= 9 &&
-> +	if (IS_DISPLAY_VER(display, 9, 12) &&
->  	    plane_state->view.color_plane[0].y & 3) {
->  		plane_state->no_fbc_reason = "plane start Y offset misaligned";
->  		return 0;
->  	}
->  
->  	/* Wa_22010751166: icl, ehl, tgl, dg1, rkl */
-> -	if (DISPLAY_VER(display) >= 11 &&
-> +	if (IS_DISPLAY_VER(display, 9, 12) &&
->  	    (plane_state->view.color_plane[0].y +
->  	     (drm_rect_height(&plane_state->uapi.src) >> 16)) & 3) {
->  		plane_state->no_fbc_reason = "plane end Y offset misaligned";
+Patches currently in stable-queue which might be from imre.deak@intel.com are
 
--- 
-Jani Nikula, Intel
+queue-5.4/revert-drm-dp-change-aux-dpcd-probe-address-from-dpcd_rev-to-lane0_1_status.patch
