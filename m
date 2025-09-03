@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5819CA1012
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 18:37:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5C1CA1016
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Sep 2025 18:37:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E53E10E230;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42BF210E24E;
 	Wed,  3 Sep 2025 18:37:38 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E772710E874;
- Wed,  3 Sep 2025 13:18:17 +0000 (UTC)
-X-UUID: 6fdb27e088c811f0b29709d653e92f7d-20250903
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFB1C10E87B;
+ Wed,  3 Sep 2025 13:18:40 +0000 (UTC)
+X-UUID: 7bf29db088c811f0b29709d653e92f7d-20250903
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:12ed8bd1-e772-4e2f-b7a0-b366cc106c8e, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:47b9b184-7915-4981-84d2-da5939ebd09f, IP:0,
  U
- RL:0,TC:0,Content:38,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:38
-X-CID-META: VersionHash:6493067, CLOUDID:c7bcb509d5c742570f4125e3bd0d306b,
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:6493067, CLOUDID:4de4532331db31d4079350c98637262e,
  BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:4|50,EDM:-3
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
  :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 6fdb27e088c811f0b29709d653e92f7d-20250903
+X-UUID: 7bf29db088c811f0b29709d653e92f7d-20250903
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 1513682554; Wed, 03 Sep 2025 21:18:09 +0800
+ with ESMTP id 251707506; Wed, 03 Sep 2025 21:18:30 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id A2980E008FA2;
- Wed,  3 Sep 2025 21:18:09 +0800 (CST)
-X-ns-mid: postfix-68B84011-4806846
+ by mail.kylinos.cn (NSMail) with SMTP id 09D93E008FA2;
+ Wed,  3 Sep 2025 21:18:29 +0800 (CST)
+X-ns-mid: postfix-68B84024-80687311
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id E3EF1E008FA4;
- Wed,  3 Sep 2025 21:18:05 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id 3F46FE008FA3;
+ Wed,  3 Sep 2025 21:18:25 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -72,9 +72,10 @@ Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v4 04/10] cpufreq: powernv: Use scope-based cleanup helper
-Date: Wed,  3 Sep 2025 21:17:27 +0800
-Message-Id: <20250903131733.57637-5-zhangzihuan@kylinos.cn>
+Subject: [PATCH v4 09/10] thermal/drivers/ti-soc-thermal: Use scope-based
+ cleanup helper
+Date: Wed,  3 Sep 2025 21:17:32 +0800
+Message-Id: <20250903131733.57637-10-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
 References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
@@ -104,61 +105,69 @@ No functional change intended.
 
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 ---
- drivers/cpufreq/powernv-cpufreq.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/thermal/ti-soc-thermal/ti-thermal-common.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/cpufreq/powernv-cpufreq.c b/drivers/cpufreq/powernv-=
-cpufreq.c
-index 7d9a5f656de8..811fdbf398fa 100644
---- a/drivers/cpufreq/powernv-cpufreq.c
-+++ b/drivers/cpufreq/powernv-cpufreq.c
-@@ -892,15 +892,15 @@ static int powernv_cpufreq_reboot_notifier(struct n=
-otifier_block *nb,
- 				unsigned long action, void *unused)
- {
- 	int cpu;
--	struct cpufreq_policy *cpu_policy;
+diff --git a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c b/drivers=
+/thermal/ti-soc-thermal/ti-thermal-common.c
+index 0cf0826b805a..37d06468913a 100644
+--- a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
++++ b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
+@@ -27,7 +27,6 @@
 =20
- 	rebooting =3D true;
- 	for_each_online_cpu(cpu) {
--		cpu_policy =3D cpufreq_cpu_get(cpu);
-+		struct cpufreq_policy *cpu_policy __free(put_cpufreq_policy) =3D
-+			cpufreq_cpu_get(cpu);
-+
- 		if (!cpu_policy)
- 			continue;
- 		powernv_cpufreq_target_index(cpu_policy, get_nominal_index());
--		cpufreq_cpu_put(cpu_policy);
- 	}
-=20
- 	return NOTIFY_DONE;
-@@ -913,7 +913,6 @@ static struct notifier_block powernv_cpufreq_reboot_n=
-b =3D {
- static void powernv_cpufreq_work_fn(struct work_struct *work)
- {
- 	struct chip *chip =3D container_of(work, struct chip, throttle);
+ /* common data structures */
+ struct ti_thermal_data {
 -	struct cpufreq_policy *policy;
- 	unsigned int cpu;
- 	cpumask_t mask;
+ 	struct thermal_zone_device *ti_thermal;
+ 	struct thermal_zone_device *pcb_tz;
+ 	struct thermal_cooling_device *cool_dev;
+@@ -218,6 +217,7 @@ int ti_thermal_register_cpu_cooling(struct ti_bandgap=
+ *bgp, int id)
+ {
+ 	struct ti_thermal_data *data;
+ 	struct device_node *np =3D bgp->dev->of_node;
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(0);
 =20
-@@ -928,14 +927,14 @@ static void powernv_cpufreq_work_fn(struct work_str=
-uct *work)
- 	chip->restore =3D false;
- 	for_each_cpu(cpu, &mask) {
- 		int index;
-+		struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
-+			cpufreq_cpu_get(cpu);
+ 	/*
+ 	 * We are assuming here that if one deploys the zone
+@@ -234,19 +234,17 @@ int ti_thermal_register_cpu_cooling(struct ti_bandg=
+ap *bgp, int id)
+ 	if (!data)
+ 		return -EINVAL;
 =20
--		policy =3D cpufreq_cpu_get(cpu);
- 		if (!policy)
- 			continue;
- 		index =3D cpufreq_table_find_index_c(policy, policy->cur, false);
- 		powernv_cpufreq_target_index(policy, index);
- 		cpumask_andnot(&mask, &mask, policy->cpus);
--		cpufreq_cpu_put(policy);
+-	data->policy =3D cpufreq_cpu_get(0);
+-	if (!data->policy) {
++	if (!policy) {
+ 		pr_debug("%s: CPUFreq policy not found\n", __func__);
+ 		return -EPROBE_DEFER;
  	}
- out:
- 	cpus_read_unlock();
+=20
+ 	/* Register cooling device */
+-	data->cool_dev =3D cpufreq_cooling_register(data->policy);
++	data->cool_dev =3D cpufreq_cooling_register(policy);
+ 	if (IS_ERR(data->cool_dev)) {
+ 		int ret =3D PTR_ERR(data->cool_dev);
+ 		dev_err(bgp->dev, "Failed to register cpu cooling device %d\n",
+ 			ret);
+-		cpufreq_cpu_put(data->policy);
+=20
+ 		return ret;
+ 	}
+@@ -261,11 +259,8 @@ int ti_thermal_unregister_cpu_cooling(struct ti_band=
+gap *bgp, int id)
+=20
+ 	data =3D ti_bandgap_get_sensor_data(bgp, id);
+=20
+-	if (!IS_ERR_OR_NULL(data)) {
++	if (!IS_ERR_OR_NULL(data))
+ 		cpufreq_cooling_unregister(data->cool_dev);
+-		if (data->policy)
+-			cpufreq_cpu_put(data->policy);
+-	}
+=20
+ 	return 0;
+ }
 --=20
 2.25.1
 
