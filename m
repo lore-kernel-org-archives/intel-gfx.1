@@ -4,88 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0F0CA1013
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 09:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA6B8CA0FED
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 09:56:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF0910EB50;
-	Fri,  5 Sep 2025 09:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D7B910EB60;
+	Fri,  5 Sep 2025 09:56:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="maFSgfUy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsYJYkIM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5397510E2C9;
- Fri,  5 Sep 2025 09:48:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E6FB544D62;
- Fri,  5 Sep 2025 09:48:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C623AC113CF;
- Fri,  5 Sep 2025 09:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1757065716;
- bh=60j1mYXfx8imU4XQiFjnOOvCwt0U79tykqDPzODIpZo=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=maFSgfUyMQwnqV1XKC3DkrSxo3c4Gr1bocEJUa0cLC/fCnWL7VKM4c2Bo9v1SmE4u
- yVQjdnUaUzl/q7oOdXDTBWOziVgkW3OUauQ8yDbUzkhD+Ea/pnt8pUGe+qn8Hxy6DP
- errowBQd2WgD8DTePq4VnEhBOJnbeJmsXbrCagkdiWyhFzq39BzhmUenO0511YEV7n
- jg+iBtIvamrBFBb9f8DY9bEXpN3pl+sA7SKU5wB9iLK+S2xWlmrKw+vsNDCdZOVn3Y
- RFDI8L2baCVkbbjmpaN5vYKIn9ynTjCxTDJPLLx6OTo4NvTKH9jSoNhMTydU60UEnS
- 1fR3EU3FDmD7Q==
-Received: by mail-oo1-f51.google.com with SMTP id
- 006d021491bc7-61e536ada47so689746eaf.1; 
- Fri, 05 Sep 2025 02:48:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoq4SO9OPrw5v4EX6TqlvgGEa5Yinu3Xik6mZGIehsxDgqGQTwWDMyUPsVXTT+t8mKa0YkPXez50g=@lists.freedesktop.org,
- AJvYcCX4bTuPxWEWXCgf0ZF3Fos/eKl4Y1tBg8qBLmrpsCxPIRTDsVWTYtDffQMCeZIVL7EgBjdVZ3d/PbGe@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQE6TmFAXsL0ZmYpDLlSuuCESRTK30z6uG5gn6QegFeanVBp2N
- slGWqRS60geT/K9nNwINXJEA82ub/3feH/1/Merli1UI6IkkoSMHSdOZ5MQtXWq4rL/sRgR8LmY
- /VC7jYTNCag3M3ba/W+5QzVml4/CkZec=
-X-Google-Smtp-Source: AGHT+IHkVwjUQLo7sTj2SxSH10cahTF1EYNw9jM6xcyVmF8yMApnd+1WPw0MFaTQWrdPzjCgm5hFMvaNgP7dcxRbczQ=
-X-Received: by 2002:a05:6820:1b96:b0:61e:154c:5b01 with SMTP id
- 006d021491bc7-61e3374776emr14360839eaf.6.1757065715741; Fri, 05 Sep 2025
- 02:48:35 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D62710EB60;
+ Fri,  5 Sep 2025 09:56:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1757066169; x=1788602169;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=0OhI72o1AQWzREkGWGzhHJpblEFcT11lY1FS0BoFnSU=;
+ b=FsYJYkIMT9wXeD0+Wp39fDCKT2yVPX+AkL80CWWShuzj+teHEFIVW7zN
+ i2NyzHCBzXEHlztWEa7o9N5iaaKi9vroohIUwWKGqaoVUO9oZYuVycGyx
+ +wPSauJgOB234PAFudd+EmKz3MYYPAJSTGvrfbgWncfr/QMqdWpn5kKF2
+ GiRbta4gfdvR7BI0b2PwmYVzSJ8rPkD+qBynILMA7PhlkRTh5iisF3Zql
+ xUpJTsrMItefzy0Ht8EtqjuKd6M4wMgjP7kTXpNB62k7uBe32C2WBqJM6
+ utFRLuMK9ei90wxj2eKQnue2SeRyaHxrd+DDUPkYdgwJBbPimjxgjOmeL A==;
+X-CSE-ConnectionGUID: fN03nXqhTnyyc9moBjKvQQ==
+X-CSE-MsgGUID: m/4bRb34QEi7JZFDfTPw7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11543"; a="59488073"
+X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="59488073"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2025 02:56:08 -0700
+X-CSE-ConnectionGUID: UEa5iK2ASzGVvkgy16mBpw==
+X-CSE-MsgGUID: 9JxcikTdRoWbLz5s6IoN+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="202949675"
+Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.159])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2025 02:56:07 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 4/8] drm/i915/dram: s/wm_lv0.../has_16gb_dimms/
+In-Reply-To: <20250902133113.18778-5-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250902133113.18778-1-ville.syrjala@linux.intel.com>
+ <20250902133113.18778-5-ville.syrjala@linux.intel.com>
+Date: Fri, 05 Sep 2025 12:56:04 +0300
+Message-ID: <c55148f6f0174ff994ab67511fbd11b2be7d0332@intel.com>
 MIME-Version: 1.0
-References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
- <20250903131733.57637-4-zhangzihuan@kylinos.cn>
-In-Reply-To: <20250903131733.57637-4-zhangzihuan@kylinos.cn>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 5 Sep 2025 11:48:22 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gN1T5woSF0tO=TbAh+2-sWzxFjWyDbB7wG2TFCOU01iQ@mail.gmail.com>
-X-Gm-Features: Ac12FXwjp9ef-jXM-6Nr2o91cs1h2j3e0FpihiJghXWzXAbogv1aACVXGXzJKyM
-Message-ID: <CAJZ5v0gN1T5woSF0tO=TbAh+2-sWzxFjWyDbB7wG2TFCOU01iQ@mail.gmail.com>
-Subject: Re: [PATCH v4 03/10] cpufreq: intel_pstate: Use scope-based cleanup
- helper
-To: Zihuan Zhang <zhangzihuan@kylinos.cn>
-Cc: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Thierry Reding <thierry.reding@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Ben Horgan <ben.horgan@arm.com>, 
- zhenglifeng <zhenglifeng1@huawei.com>, Zhang Rui <rui.zhang@intel.com>, 
- Len Brown <lenb@kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>, 
- Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>, 
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>, 
- Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
- linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,75 +71,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 3, 2025 at 3:18=E2=80=AFPM Zihuan Zhang <zhangzihuan@kylinos.cn=
-> wrote:
+On Tue, 02 Sep 2025, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 >
-> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-> annotation for policy references. This reduces the risk of reference
-> counting mistakes and aligns the code with the latest kernel style.
+> The DRAM code shouldn't know anything about watermarks. Rename
+> wm_lv_0_adjust_needed to has_16gb_dimms. How this gets used is
+> up to the watermark code.
 >
-> No functional change intended.
->
-> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
 > ---
->  drivers/cpufreq/intel_pstate.c | 19 ++++++++++++-------
->  1 file changed, 12 insertions(+), 7 deletions(-)
+>  drivers/gpu/drm/i915/display/skl_watermark.c |  2 +-
+>  drivers/gpu/drm/i915/soc/intel_dram.c        | 12 ++++++------
+>  drivers/gpu/drm/i915/soc/intel_dram.h        |  2 +-
+>  3 files changed, 8 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
-e.c
-> index f366d35c5840..925efb1e65be 100644
-> --- a/drivers/cpufreq/intel_pstate.c
-> +++ b/drivers/cpufreq/intel_pstate.c
-> @@ -1209,6 +1209,17 @@ static bool hybrid_clear_max_perf_cpu(void)
->         return ret;
+> diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/d=
+rm/i915/display/skl_watermark.c
+> index 33885d619a97..ae3ce0d65cfc 100644
+> --- a/drivers/gpu/drm/i915/display/skl_watermark.c
+> +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+> @@ -3214,7 +3214,7 @@ adjust_wm_latency(struct intel_display *display,
+>  	 * any underrun. If not able to get Dimm info assume 16GB dimm
+>  	 * to avoid any underrun.
+>  	 */
+> -	if (!display->platform.dg2 && dram_info->wm_lv_0_adjust_needed)
+> +	if (!display->platform.dg2 && dram_info->has_16gb_dimms)
+>  		wm[0] +=3D 1;
 >  }
->
-> +static struct freq_qos_request *intel_pstate_cpufreq_get_req(int cpu)
-> +{
-> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
-> +               cpufreq_cpu_get(cpu);
-> +
-> +       if (!policy)
-> +               return NULL;
-> +
-> +       return policy->driver_data;
-> +}
-> +
->  static void __intel_pstate_get_hwp_cap(struct cpudata *cpu)
+>=20=20
+> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i915=
+/soc/intel_dram.c
+> index b4f0793f778d..efb72e137748 100644
+> --- a/drivers/gpu/drm/i915/soc/intel_dram.c
+> +++ b/drivers/gpu/drm/i915/soc/intel_dram.c
+> @@ -428,7 +428,7 @@ skl_dram_get_channels_info(struct drm_i915_private *i=
+915, struct dram_info *dram
+>  		return -EINVAL;
+>  	}
+>=20=20
+> -	dram_info->wm_lv_0_adjust_needed =3D ch0.is_16gb_dimm || ch1.is_16gb_di=
+mm;
+> +	dram_info->has_16gb_dimms =3D ch0.is_16gb_dimm || ch1.is_16gb_dimm;
+>=20=20
+>  	dram_info->symmetric_memory =3D intel_is_dram_symmetric(&ch0, &ch1);
+>=20=20
+> @@ -673,7 +673,7 @@ static int gen11_get_dram_info(struct drm_i915_privat=
+e *i915, struct dram_info *
+>=20=20
+>  static int gen12_get_dram_info(struct drm_i915_private *i915, struct dra=
+m_info *dram_info)
 >  {
->         u64 cap;
-> @@ -1698,19 +1709,13 @@ static ssize_t store_no_turbo(struct kobject *a, =
-struct kobj_attribute *b,
->  static void update_qos_request(enum freq_qos_req_type type)
->  {
->         struct freq_qos_request *req;
-> -       struct cpufreq_policy *policy;
->         int i;
->
->         for_each_possible_cpu(i) {
->                 struct cpudata *cpu =3D all_cpu_data[i];
->                 unsigned int freq, perf_pct;
->
-> -               policy =3D cpufreq_cpu_get(i);
-> -               if (!policy)
-> -                       continue;
-> -
-> -               req =3D policy->driver_data;
-> -               cpufreq_cpu_put(policy);
-> +               req =3D intel_pstate_cpufreq_get_req(i);
->
->                 if (!req)
->                         continue;
-> --
+> -	dram_info->wm_lv_0_adjust_needed =3D false;
+> +	dram_info->has_16gb_dimms =3D false;
+>=20=20
+>  	return icl_pcode_read_mem_global_info(i915, dram_info);
+>  }
+> @@ -737,10 +737,10 @@ int intel_dram_detect(struct drm_i915_private *i915)
+>  	i915->dram_info =3D dram_info;
+>=20=20
+>  	/*
+> -	 * Assume level 0 watermark latency adjustment is needed until proven
+> +	 * Assume 16Gb DIMMs are present until proven
+>  	 * otherwise, this w/a is not needed by bxt/glk.
+>  	 */
+> -	dram_info->wm_lv_0_adjust_needed =3D !IS_BROXTON(i915) && !IS_GEMINILAK=
+E(i915);
+> +	dram_info->has_16gb_dimms =3D !IS_BROXTON(i915) && !IS_GEMINILAKE(i915);
+>=20=20
+>  	if (DISPLAY_VER(display) >=3D 14)
+>  		ret =3D xelpdp_get_dram_info(i915, dram_info);
+> @@ -766,8 +766,8 @@ int intel_dram_detect(struct drm_i915_private *i915)
+>=20=20
+>  	drm_dbg_kms(&i915->drm, "DRAM channels: %u\n", dram_info->num_channels);
+>=20=20
+> -	drm_dbg_kms(&i915->drm, "Watermark level 0 adjustment needed: %s\n",
+> -		    str_yes_no(dram_info->wm_lv_0_adjust_needed));
+> +	drm_dbg_kms(&i915->drm, "16Gb DIMMs: %s\n",
+> +		    str_yes_no(dram_info->has_16gb_dimms));
+>=20=20
+>  	return 0;
+>  }
+> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.h b/drivers/gpu/drm/i915=
+/soc/intel_dram.h
+> index 6212944d44aa..03a973f1c941 100644
+> --- a/drivers/gpu/drm/i915/soc/intel_dram.h
+> +++ b/drivers/gpu/drm/i915/soc/intel_dram.h
+> @@ -31,7 +31,7 @@ struct dram_info {
+>  	u8 num_qgv_points;
+>  	u8 num_psf_gv_points;
+>  	bool symmetric_memory;
+> -	bool wm_lv_0_adjust_needed;
+> +	bool has_16gb_dimms;
+>  };
+>=20=20
+>  void intel_dram_edram_detect(struct drm_i915_private *i915);
 
-This change would have been fine if the modified code had been
-correct.  Unfortunately, this is not the case because below req is
-passed to freq_qos_update_request() which accesses the policy object
-indirectly through it, so the policy object should be
-reference-counted until freq_qos_update_request() completes.
-
-I will send a fix for this shortly (it is better to fix it before
-rearranging the code to allow the fix to be backported more easily)
-along with my version of the change in question.
-
-Thanks!
+--=20
+Jani Nikula, Intel
