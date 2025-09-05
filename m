@@ -4,68 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB3CCA0FED
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BA95CAC587
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E59810E710;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44AEC10E715;
 	Tue,  9 Sep 2025 13:21:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="3H9p/Vkv";
-	dkim-atps=neutral
-X-Greylist: delayed 2059 seconds by postgrey-1.36 at gabe;
- Fri, 05 Sep 2025 07:32:24 UTC
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E573D10E295;
- Fri,  5 Sep 2025 07:32:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=References:In-Reply-To:Cc:From:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=UMhp8J72yITKfzOtPi4DB3UD3FJrfEyrpQ4ZI8FSlps=; b=3H9p/Vkvxt4XbLhqCSP9aF+To1
- PztEyON86OQi9PDNd1ceEUJxtwdxP8kfhfwhJsFQCpc05baWPVxWZGjg7opX2gYK2WIvJOe9zaGxI
- t1GjVNq312NK5FM6wxYvOK7xHeRcBlZ7DvQNdzrNE74gtjS6ycrbgz9Gz3oDC2fnJm/+BYHCrYZqe
- z3F+cmE+jwq5XWgZ+duo5Zpgb84hlUrrT5p8vOy3tqh9xZzhopHfUHuZpO6PnjBzxRCn0X20BnYgc
- 3sDAk1C2TxIs6tj7Oexhrej49YHa7H2oqGuA9FmUUbjg3rqCJrtaGj5ZEtOjhNwA5eJUszaVWNk4z
- U2CnHU+A==;
-Date: Fri, 5 Sep 2025 08:57:26 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D9C10EB69;
+ Fri,  5 Sep 2025 09:47:48 +0000 (UTC)
+Received: from mail.maildlp.com (unknown [172.18.186.31])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4cJBHr7169z6L5Zv;
+ Fri,  5 Sep 2025 17:43:52 +0800 (CST)
+Received: from frapeml500008.china.huawei.com (unknown [7.182.85.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id C5FBC1402F1;
+ Fri,  5 Sep 2025 17:47:46 +0800 (CST)
+Received: from localhost (10.203.177.15) by frapeml500008.china.huawei.com
+ (7.182.85.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Fri, 5 Sep
+ 2025 11:47:44 +0200
+Date: Fri, 5 Sep 2025 10:47:43 +0100
+From: Jonathan Cameron <jonathan.cameron@huawei.com>
 To: Zihuan Zhang <zhangzihuan@kylinos.cn>
-Cc: "Rafael J . wysocki" <rafael@kernel.org>, Viresh Kumar
- <viresh.kumar@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+CC: "Rafael J . wysocki" <rafael@kernel.org>, Viresh Kumar
+ <viresh.kumar@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, "Will
+ Deacon" <will@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
  <dave.hansen@linux.intel.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
- <alim.akhtar@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park
- <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, Shawn
- Guo <shawnguo@kernel.org>, Eduardo Valentin <edubezval@gmail.com>, Keerthy
- <j-keerthy@ti.com>, Ben Horgan <ben.horgan@arm.com>, zhenglifeng
- <zhenglifeng1@huawei.com>, Zhang Rui <rui.zhang@intel.com>, Len Brown
- <lenb@kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, Pengutronix Kernel
- Team <kernel@pengutronix.de>, Beata Michalska <beata.michalska@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>, Sumit
- Gupta <sumitg@nvidia.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Yicong Yang
- <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
- linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 09/10] thermal/drivers/ti-soc-thermal: Use
- scope-based cleanup helper
-Message-ID: <20250905085726.2bc6fcb4@akair>
-In-Reply-To: <20250903131733.57637-10-zhangzihuan@kylinos.cn>
+ <srinivas.pandruvada@linux.intel.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, MyungJoo Ham
+ <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko
+ Ursulin <tursulin@ursulin.net>, "David Airlie" <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>, Sascha
+ Hauer <s.hauer@pengutronix.de>, "Shawn Guo" <shawnguo@kernel.org>, Eduardo
+ Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>, Ben Horgan
+ <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>, Zhang Rui
+ <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>, Lukasz Luba
+ <lukasz.luba@arm.com>, "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
+ <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>, "Sumit Gupta"
+ <sumitg@nvidia.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>, Sudeep
+ Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
+ <linux-pm@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
+ <linuxppc-dev@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <imx@lists.linux.dev>, <linux-omap@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 03/10] cpufreq: intel_pstate: Use scope-based cleanup
+ helper
+Message-ID: <20250905104743.00004177@huawei.com>
+In-Reply-To: <20250903131733.57637-4-zhangzihuan@kylinos.cn>
 References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
- <20250903131733.57637-10-zhangzihuan@kylinos.cn>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; x86_64-pc-linux-gnu)
+ <20250903131733.57637-4-zhangzihuan@kylinos.cn>
+X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.203.177.15]
+X-ClientProxiedBy: lhrpeml100002.china.huawei.com (7.191.160.241) To
+ frapeml500008.china.huawei.com (7.182.85.71)
 X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,8 +81,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Am Wed,  3 Sep 2025 21:17:32 +0800
-schrieb Zihuan Zhang <zhangzihuan@kylinos.cn>:
+On Wed,  3 Sep 2025 21:17:26 +0800
+Zihuan Zhang <zhangzihuan@kylinos.cn> wrote:
 
 > Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
 > annotation for policy references. This reduces the risk of reference
@@ -92,51 +91,60 @@ schrieb Zihuan Zhang <zhangzihuan@kylinos.cn>:
 > No functional change intended.
 > 
 > Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+
+One trivial comment inline.  This LGTM
+Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+
 > ---
->  drivers/thermal/ti-soc-thermal/ti-thermal-common.c | 13 ++++---------
->  1 file changed, 4 insertions(+), 9 deletions(-)
+>  drivers/cpufreq/intel_pstate.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-> index 0cf0826b805a..37d06468913a 100644
-> --- a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-> +++ b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-> @@ -27,7 +27,6 @@
+> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
+> index f366d35c5840..925efb1e65be 100644
+> --- a/drivers/cpufreq/intel_pstate.c
+> +++ b/drivers/cpufreq/intel_pstate.c
+> @@ -1209,6 +1209,17 @@ static bool hybrid_clear_max_perf_cpu(void)
+>  	return ret;
+>  }
 >  
->  /* common data structures */
->  struct ti_thermal_data {
-> -	struct cpufreq_policy *policy;
->  	struct thermal_zone_device *ti_thermal;
->  	struct thermal_zone_device *pcb_tz;
->  	struct thermal_cooling_device *cool_dev;
-> @@ -218,6 +217,7 @@ int ti_thermal_register_cpu_cooling(struct ti_bandgap *bgp, int id)
+> +static struct freq_qos_request *intel_pstate_cpufreq_get_req(int cpu)
+> +{
+> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) =
+> +		cpufreq_cpu_get(cpu);
+> +
+> +	if (!policy)
+> +		return NULL;
+> +
+> +	return policy->driver_data;
+> +}
+> +
+>  static void __intel_pstate_get_hwp_cap(struct cpudata *cpu)
 >  {
->  	struct ti_thermal_data *data;
->  	struct device_node *np = bgp->dev->of_node;
-> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(0);
+>  	u64 cap;
+> @@ -1698,19 +1709,13 @@ static ssize_t store_no_turbo(struct kobject *a, struct kobj_attribute *b,
+>  static void update_qos_request(enum freq_qos_req_type type)
+>  {
+>  	struct freq_qos_request *req;
+> -	struct cpufreq_policy *policy;
+>  	int i;
 >  
-this looks as it changes the lifecycle from the device lifetime to just
-this function...
-
->  	/*
->  	 * We are assuming here that if one deploys the zone
-> @@ -234,19 +234,17 @@ int ti_thermal_register_cpu_cooling(struct ti_bandgap *bgp, int id)
->  	if (!data)
->  		return -EINVAL;
+>  	for_each_possible_cpu(i) {
+>  		struct cpudata *cpu = all_cpu_data[i];
+>  		unsigned int freq, perf_pct;
 >  
-> -	data->policy = cpufreq_cpu_get(0);
-> -	if (!data->policy) {
-> +	if (!policy) {
->  		pr_debug("%s: CPUFreq policy not found\n", __func__);
->  		return -EPROBE_DEFER;
->  	}
+> -		policy = cpufreq_cpu_get(i);
+> -		if (!policy)
+> -			continue;
+> -
+> -		req = policy->driver_data;
+> -		cpufreq_cpu_put(policy);
+> +		req = intel_pstate_cpufreq_get_req(i);
 >  
->  	/* Register cooling device */
-> -	data->cool_dev = cpufreq_cooling_register(data->policy);
-> +	data->cool_dev = cpufreq_cooling_register(policy);
 
-and it is passed on to something living beyond this function. I see no
-_get(policy) in cpufreq_cooling_register().
-Am I missing something?
+I'd drop this blank line as it'll keep the setting or req and checking it
+closely coupled.  Previously the put inbetween stopped that but now
+we can improve the formatting!
 
-Regards,
-Andreas
+>  		if (!req)
+>  			continue;
+
