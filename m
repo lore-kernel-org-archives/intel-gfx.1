@@ -4,57 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CBECA1013
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 12:18:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BEC78CA0FED
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 13:32:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD0210EB97;
-	Fri,  5 Sep 2025 12:18:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5781710E303;
+	Fri,  5 Sep 2025 13:32:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MKAuw78q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YDLPRfxE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF5610EB97
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 12:18:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757074733; x=1788610733;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=JpSDG2PebG60+YUN+QmcPn1RdMGuhHnNSgMQLTBlWNw=;
- b=MKAuw78q7P5GBMiab5ampNhlTq4x0uYZyp9xFiHKj+UVstPQJZg8JD2i
- TOUo98YwYcxJW4bpGyJReln9yBYSXoH6juj3TxaRqq3duACmxe4IiBZLM
- wti4TBbrje4rWKkYnkjxedSfp0X03m5AXGAah4K4nS2OlRRAAhtu7c91n
- xz2ounsKb+3Y+mcYtv0iRHZX8Sjl/L3xHQ/GNbWJ+3v4x1xGId/RdIiep
- /5G8Z9feFSrgXoSpEgT4WoI55J0+HQ4mD+P8GGS4JRGr6rfckMaIsPhuh
- VCLN+7QspVis+PAv4U/AQdoQi0BrVumhNthW+rrhoozJUxz3XGQS/MKqk Q==;
-X-CSE-ConnectionGUID: ZYAvNqiCRomiISakQxqs1g==
-X-CSE-MsgGUID: fiMPY9x5T7SOnLyYTVCVSA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11543"; a="46996398"
-X-IronPort-AV: E=Sophos;i="6.18,241,1751266800"; d="scan'208";a="46996398"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 05:18:53 -0700
-X-CSE-ConnectionGUID: SjUQ7Z6CS0KDvIZ4YH2Nbw==
-X-CSE-MsgGUID: /1/E+59fRDSSh0sOjr9/AQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,241,1751266800"; d="scan'208";a="209324860"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.248])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 05:18:51 -0700
-Date: Fri, 5 Sep 2025 14:18:48 +0200
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, saurabhg.gupta@intel.com,
- alex.zuo@intel.com, krzysztof.karas@intel.com,
- sebastian.brzezinka@intel.com
-Subject: Re: [PATCH] drm/i915/gt: Fix memory leak in hangcheck selftest
-Message-ID: <aLrVKJO_9dnBP_3f@ashyti-mobl2.lan>
-References: <20250904193041.12888-2-jonathan.cavitt@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACE3E10E300;
+ Fri,  5 Sep 2025 13:32:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5284C44CB7;
+ Fri,  5 Sep 2025 13:32:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114C8C4CEFB;
+ Fri,  5 Sep 2025 13:32:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757079131;
+ bh=8jAcdpkwkSpwOdJxvwA2Vj7xEHXguZJ+MKwk0qNCAa4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=YDLPRfxE+TA2Q55nxy+S45umyans+pDRvwbObVt0bW3hJ3GKjbxPrVlX07NomP+MM
+ gilJHDzfgmGFOcAFu0+loSilTzpkeDO9g9x8k2BAevsNOqWlkswrDpHfRJW58By2gZ
+ h5T2iOat+XnnhSD9UwBeQ3xYHCYi7jaP+GtkcpXBdqab/ccFdCeVstKHtgcieR/3QH
+ +KRTayLgDC1M/LhwjwPtXIccD6HoAsAvaea3u1dA7qTzCEzjxT3V+HO3EHQdCVNDFU
+ /St9BM0FbaHx4JdEUTHAM1R9DDj8M5cKZD+5HIpQks7AUiitM6xvVlMUYXsHzcS8lI
+ bWTNhY8srV4ig==
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-746d3fd3a04so1376746a34.1; 
+ Fri, 05 Sep 2025 06:32:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU2Vh3Pvo2T1l28mnE0xnGqeYkIee4VZ3pqroT7e869/jT+aM7CqFi5Bcq5TsPaP/XYoduaGNyDRbxs@lists.freedesktop.org,
+ AJvYcCWyLNSbSp0Bkp+qkQoDmEtPdEMgRgojhgjKZO0uzCl2qjUWUuBcUB+eRiqh6pzXnVd+7K+rmZGCVmY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQ70mq1P5mpvelXVInwT+kBH9ew7hHKpFoNl1e9GF1/Q69vGLi
+ VesLBKcITd4yB5CYZymwcbBt3aJQIGaslPQLdLc5b0MDrPqYU44fgC53iyUsMMa33W3NJQLVH+S
+ IxHRHom9/qUXZwt20KRuVhMCXn0REetM=
+X-Google-Smtp-Source: AGHT+IFnE56n2ZWY3m6GFquWJS3R+4zyRWG4mn/x7Tvk/fQPvR7/F7IjMN/5eFQpLDwVxaDdPh5JX7KANJsrFqH4mJc=
+X-Received: by 2002:a05:6830:378e:b0:741:a5f0:bc82 with SMTP id
+ 46e09a7af769-74569e53d0dmr13231613a34.17.1757079130135; Fri, 05 Sep 2025
+ 06:32:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20250904193041.12888-2-jonathan.cavitt@intel.com>
+References: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
+ <20250905132413.1376220-4-zhangzihuan@kylinos.cn>
+In-Reply-To: <20250905132413.1376220-4-zhangzihuan@kylinos.cn>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 5 Sep 2025 15:31:58 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0jdJZ2upvE4KzDnc59KpMX+oqYbq=ZW=SXfwvjBctMj3Q@mail.gmail.com>
+X-Gm-Features: Ac12FXwR6ToJkYo5xTTss3xr-Ox8ITso59X_uvklZva98cFgnVHnG6meS0I7mt8
+Message-ID: <CAJZ5v0jdJZ2upvE4KzDnc59KpMX+oqYbq=ZW=SXfwvjBctMj3Q@mail.gmail.com>
+Subject: Re: [PATCH v5 3/6] cpufreq: intel_pstate: Use scope-based cleanup
+ helper
+To: Zihuan Zhang <zhangzihuan@kylinos.cn>
+Cc: "Rafael J . wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Jonathan Cameron <jonathan.cameron@huawei.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Thierry Reding <thierry.reding@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Ben Horgan <ben.horgan@arm.com>, 
+ zhenglifeng <zhenglifeng1@huawei.com>, Zhang Rui <rui.zhang@intel.com>, 
+ Len Brown <lenb@kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>, 
+ Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>, 
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, 
+ Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,30 +104,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jonathan,
+On Fri, Sep 5, 2025 at 3:24=E2=80=AFPM Zihuan Zhang <zhangzihuan@kylinos.cn=
+> wrote:
+>
+> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
+> annotation for policy references. This reduces the risk of reference
+> counting mistakes and aligns the code with the latest kernel style.
+>
+> No functional change intended.
+>
+> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
 
-...
+No, sorry.  I've already said that this isn't going to work:
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> index 619c70c54ef9..4f252f704975 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
-> @@ -904,9 +904,7 @@ static void active_engine(struct kthread_work *work)
->  			arg->result = PTR_ERR(ce[count]);
->  			pr_err("[%s] Create context #%ld failed: %d!\n",
->  			       engine->name, count, arg->result);
-> -			if (!count)
-> -				return;
-> -			while (--count)
-> +			while (count--)
+https://lore.kernel.org/linux-pm/CAJZ5v0gN1T5woSF0tO=3DTbAh+2-sWzxFjWyDbB7w=
+G2TFCOU01iQ@mail.gmail.com/
 
-This is a good catch, but we still need to decrease count by 1
-before entering the loop, right?
+so why are you resending it?
 
-Andi
+And making changes to it in the process without saying what they are?
 
->  				intel_context_put(ce[count]);
->  			return;
->  		}
-> -- 
-> 2.43.0
+Please stop adding confusion.
+
+> ---
+>  drivers/cpufreq/intel_pstate.c | 59 +++++++++++++++++++---------------
+>  1 file changed, 33 insertions(+), 26 deletions(-)
+>
+> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
+e.c
+> index f366d35c5840..0b54e08f9447 100644
+> --- a/drivers/cpufreq/intel_pstate.c
+> +++ b/drivers/cpufreq/intel_pstate.c
+> @@ -1502,9 +1502,8 @@ static void __intel_pstate_update_max_freq(struct c=
+pufreq_policy *policy,
+>
+>  static bool intel_pstate_update_max_freq(struct cpudata *cpudata)
+>  {
+> -       struct cpufreq_policy *policy __free(put_cpufreq_policy);
+> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpuf=
+req_cpu_get(cpudata->cpu);
+>
+> -       policy =3D cpufreq_cpu_get(cpudata->cpu);
+>         if (!policy)
+>                 return false;
+>
+> @@ -1695,41 +1694,49 @@ static ssize_t store_no_turbo(struct kobject *a, =
+struct kobj_attribute *b,
+>         return count;
+>  }
+>
+> -static void update_qos_request(enum freq_qos_req_type type)
+> +static bool intel_pstate_cpufreq_update_limits(int cpu, enum freq_qos_re=
+q_type type)
+>  {
+>         struct freq_qos_request *req;
+> -       struct cpufreq_policy *policy;
+> -       int i;
+> +       unsigned int freq, perf_pct;
+> +       struct cpudata *data =3D all_cpu_data[cpu];
+> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpuf=
+req_cpu_get(cpu);
+>
+> -       for_each_possible_cpu(i) {
+> -               struct cpudata *cpu =3D all_cpu_data[i];
+> -               unsigned int freq, perf_pct;
+> +       if (!policy)
+> +               return false;
+>
+> -               policy =3D cpufreq_cpu_get(i);
+> -               if (!policy)
+> -                       continue;
+> +       req =3D policy->driver_data;
+>
+> -               req =3D policy->driver_data;
+> -               cpufreq_cpu_put(policy);
+> +       if (!req)
+> +               return false;
+>
+> -               if (!req)
+> -                       continue;
+> +       if (hwp_active)
+> +               intel_pstate_get_hwp_cap(data);
+>
+> -               if (hwp_active)
+> -                       intel_pstate_get_hwp_cap(cpu);
+> +       if (type =3D=3D FREQ_QOS_MIN) {
+> +               perf_pct =3D global.min_perf_pct;
+> +       } else {
+> +               req++;
+> +               perf_pct =3D global.max_perf_pct;
+> +       }
+>
+> -               if (type =3D=3D FREQ_QOS_MIN) {
+> -                       perf_pct =3D global.min_perf_pct;
+> -               } else {
+> -                       req++;
+> -                       perf_pct =3D global.max_perf_pct;
+> -               }
+> +       freq =3D DIV_ROUND_UP(data->pstate.turbo_freq * perf_pct, 100);
+>
+> -               freq =3D DIV_ROUND_UP(cpu->pstate.turbo_freq * perf_pct, =
+100);
+> +       if (freq_qos_update_request(req, freq) < 0)
+> +               pr_warn("Failed to update freq constraint: CPU%d\n", cpu)=
+;
+>
+> -               if (freq_qos_update_request(req, freq) < 0)
+> -                       pr_warn("Failed to update freq constraint: CPU%d\=
+n", i);
+> +       return true;
+> +}
+> +
+> +
+> +static void update_qos_request(enum freq_qos_req_type type)
+> +{
+> +       int i;
+> +
+> +       for_each_possible_cpu(i) {
+> +               if (!intel_pstate_cpufreq_update_limits(i, type))
+> +                       continue;
+>         }
+> +
+>  }
+>
+>  static ssize_t store_max_perf_pct(struct kobject *a, struct kobj_attribu=
+te *b,
+> --
+> 2.25.1
+>
+>
