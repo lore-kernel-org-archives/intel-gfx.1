@@ -4,59 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B532CCA0FED
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 09:23:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0F0CA1013
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 09:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ABC710EB49;
-	Fri,  5 Sep 2025 09:23:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EF0910EB50;
+	Fri,  5 Sep 2025 09:48:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lH/MFhLM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="maFSgfUy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44DB210EB47;
- Fri,  5 Sep 2025 09:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757064208; x=1788600208;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=LW4GdXDjqgIsBmErnBuLzrecGYXb+QKUQL1sCZTTddA=;
- b=lH/MFhLMM2yWRNQJ7YV3lZdnPzhle2tA8F7ccvnwvExl2TlR83wPLw1r
- ruEZOeDN23FngsLcrdYFbyb4OAbzTcdFXx8UhQzDoquY3EmmdVh+lAOiA
- /FD6c86Mdf/1ddGIzgaWdQGv9GzvAnZ7tfE23LpVWDdpnMVg4/TwaNH5Y
- s2eSRAxkrC8jGAz9aLoyNGfdDHrjLugE9liJh4LDy4DpKK2VupIJN9LzQ
- SyuD/MUsuBJp36vweceGuPBY5jdcMdhWOcawJgePmTf5N+do0rCZ6MuCv
- Ed+ZQ26Wuzz9ykU7AFuE2SjjQURs6F5N9kl2JkwRfaVw1erAVFt/c+JKb g==;
-X-CSE-ConnectionGUID: FEcYyi9iRPG9g9467/yVcA==
-X-CSE-MsgGUID: uD0rD+hQRa2zi57iFs6k3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="59333354"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="59333354"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 02:23:28 -0700
-X-CSE-ConnectionGUID: qdnjiA7sRqS1BRTSRidgtA==
-X-CSE-MsgGUID: fuXbXBM5SZ+AWPXGhAJz8w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="172006543"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.33])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 02:23:27 -0700
-Date: Fri, 5 Sep 2025 12:23:23 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 2/9] drm/{i915, xe}/fbdev: add intel_fbdev_fb_pitch_align()
-Message-ID: <aLqsC87Ol_zCXOkN@intel.com>
-References: <cover.1756931441.git.jani.nikula@intel.com>
- <ae51d1e224048bdc87bf7a56d8f5ebd0fbb6a383.1756931441.git.jani.nikula@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5397510E2C9;
+ Fri,  5 Sep 2025 09:48:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E6FB544D62;
+ Fri,  5 Sep 2025 09:48:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C623AC113CF;
+ Fri,  5 Sep 2025 09:48:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757065716;
+ bh=60j1mYXfx8imU4XQiFjnOOvCwt0U79tykqDPzODIpZo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=maFSgfUyMQwnqV1XKC3DkrSxo3c4Gr1bocEJUa0cLC/fCnWL7VKM4c2Bo9v1SmE4u
+ yVQjdnUaUzl/q7oOdXDTBWOziVgkW3OUauQ8yDbUzkhD+Ea/pnt8pUGe+qn8Hxy6DP
+ errowBQd2WgD8DTePq4VnEhBOJnbeJmsXbrCagkdiWyhFzq39BzhmUenO0511YEV7n
+ jg+iBtIvamrBFBb9f8DY9bEXpN3pl+sA7SKU5wB9iLK+S2xWlmrKw+vsNDCdZOVn3Y
+ RFDI8L2baCVkbbjmpaN5vYKIn9ynTjCxTDJPLLx6OTo4NvTKH9jSoNhMTydU60UEnS
+ 1fR3EU3FDmD7Q==
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-61e536ada47so689746eaf.1; 
+ Fri, 05 Sep 2025 02:48:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoq4SO9OPrw5v4EX6TqlvgGEa5Yinu3Xik6mZGIehsxDgqGQTwWDMyUPsVXTT+t8mKa0YkPXez50g=@lists.freedesktop.org,
+ AJvYcCX4bTuPxWEWXCgf0ZF3Fos/eKl4Y1tBg8qBLmrpsCxPIRTDsVWTYtDffQMCeZIVL7EgBjdVZ3d/PbGe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwQE6TmFAXsL0ZmYpDLlSuuCESRTK30z6uG5gn6QegFeanVBp2N
+ slGWqRS60geT/K9nNwINXJEA82ub/3feH/1/Merli1UI6IkkoSMHSdOZ5MQtXWq4rL/sRgR8LmY
+ /VC7jYTNCag3M3ba/W+5QzVml4/CkZec=
+X-Google-Smtp-Source: AGHT+IHkVwjUQLo7sTj2SxSH10cahTF1EYNw9jM6xcyVmF8yMApnd+1WPw0MFaTQWrdPzjCgm5hFMvaNgP7dcxRbczQ=
+X-Received: by 2002:a05:6820:1b96:b0:61e:154c:5b01 with SMTP id
+ 006d021491bc7-61e3374776emr14360839eaf.6.1757065715741; Fri, 05 Sep 2025
+ 02:48:35 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ae51d1e224048bdc87bf7a56d8f5ebd0fbb6a383.1756931441.git.jani.nikula@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
+ <20250903131733.57637-4-zhangzihuan@kylinos.cn>
+In-Reply-To: <20250903131733.57637-4-zhangzihuan@kylinos.cn>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 5 Sep 2025 11:48:22 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gN1T5woSF0tO=TbAh+2-sWzxFjWyDbB7wG2TFCOU01iQ@mail.gmail.com>
+X-Gm-Features: Ac12FXwjp9ef-jXM-6Nr2o91cs1h2j3e0FpihiJghXWzXAbogv1aACVXGXzJKyM
+Message-ID: <CAJZ5v0gN1T5woSF0tO=TbAh+2-sWzxFjWyDbB7wG2TFCOU01iQ@mail.gmail.com>
+Subject: Re: [PATCH v4 03/10] cpufreq: intel_pstate: Use scope-based cleanup
+ helper
+To: Zihuan Zhang <zhangzihuan@kylinos.cn>
+Cc: "Rafael J . wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Thierry Reding <thierry.reding@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>, 
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Ben Horgan <ben.horgan@arm.com>, 
+ zhenglifeng <zhenglifeng1@huawei.com>, Zhang Rui <rui.zhang@intel.com>, 
+ Len Brown <lenb@kernel.org>, Lukasz Luba <lukasz.luba@arm.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>, 
+ Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>, 
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, 
+ Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
+ linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,97 +102,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Sep 03, 2025 at 11:31:59PM +0300, Jani Nikula wrote:
-> Add new helper intel_fbdev_fb_pitch_align() in preparation for further
-> refactoring. The alignment is different for i915 and xe.
-> 
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+On Wed, Sep 3, 2025 at 3:18=E2=80=AFPM Zihuan Zhang <zhangzihuan@kylinos.cn=
+> wrote:
+>
+> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
+> annotation for policy references. This reduces the risk of reference
+> counting mistakes and aligns the code with the latest kernel style.
+>
+> No functional change intended.
+>
+> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 > ---
->  drivers/gpu/drm/i915/display/intel_fbdev_fb.c | 8 ++++++--
->  drivers/gpu/drm/i915/display/intel_fbdev_fb.h | 3 +++
->  drivers/gpu/drm/xe/display/intel_fbdev_fb.c   | 8 ++++++--
->  3 files changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev_fb.c b/drivers/gpu/drm/i915/display/intel_fbdev_fb.c
-> index 9c557917d781..d1c03d7b9bdc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev_fb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev_fb.c
-> @@ -13,6 +13,11 @@
->  #include "intel_fb.h"
->  #include "intel_fbdev_fb.h"
->  
-> +u32 intel_fbdev_fb_pitch_align(u32 stride)
+>  drivers/cpufreq/intel_pstate.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
+e.c
+> index f366d35c5840..925efb1e65be 100644
+> --- a/drivers/cpufreq/intel_pstate.c
+> +++ b/drivers/cpufreq/intel_pstate.c
+> @@ -1209,6 +1209,17 @@ static bool hybrid_clear_max_perf_cpu(void)
+>         return ret;
+>  }
+>
+> +static struct freq_qos_request *intel_pstate_cpufreq_get_req(int cpu)
 > +{
-> +	return ALIGN(stride, 64);
+> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
+> +               cpufreq_cpu_get(cpu);
+> +
+> +       if (!policy)
+> +               return NULL;
+> +
+> +       return policy->driver_data;
 > +}
 > +
->  struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_device *drm,
->  					       struct drm_fb_helper_surface_size *sizes)
+>  static void __intel_pstate_get_hwp_cap(struct cpudata *cpu)
 >  {
-> @@ -30,8 +35,7 @@ struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_device *drm,
->  	mode_cmd.width = sizes->surface_width;
->  	mode_cmd.height = sizes->surface_height;
->  
-> -	mode_cmd.pitches[0] = ALIGN(mode_cmd.width *
-> -				    DIV_ROUND_UP(sizes->surface_bpp, 8), 64);
-> +	mode_cmd.pitches[0] = intel_fbdev_fb_pitch_align(mode_cmd.width * DIV_ROUND_UP(sizes->surface_bpp, 8));
->  	mode_cmd.pixel_format = drm_mode_legacy_fb_format(sizes->surface_bpp,
->  							  sizes->surface_depth);
->  
-> diff --git a/drivers/gpu/drm/i915/display/intel_fbdev_fb.h b/drivers/gpu/drm/i915/display/intel_fbdev_fb.h
-> index 668ae355f5e5..caeb543d5efc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_fbdev_fb.h
-> +++ b/drivers/gpu/drm/i915/display/intel_fbdev_fb.h
-> @@ -6,6 +6,8 @@
->  #ifndef __INTEL_FBDEV_FB_H__
->  #define __INTEL_FBDEV_FB_H__
->  
-> +#include <linux/types.h>
-> +
->  struct drm_device;
->  struct drm_fb_helper_surface_size;
->  struct drm_gem_object;
-> @@ -13,6 +15,7 @@ struct fb_info;
->  struct i915_vma;
->  struct intel_display;
->  
-> +u32 intel_fbdev_fb_pitch_align(u32 stride);
->  struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_device *drm,
->  					       struct drm_fb_helper_surface_size *sizes);
->  int intel_fbdev_fb_fill_info(struct intel_display *display, struct fb_info *info,
-> diff --git a/drivers/gpu/drm/xe/display/intel_fbdev_fb.c b/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-> index bafca1059a40..fd2c40020eea 100644
-> --- a/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-> +++ b/drivers/gpu/drm/xe/display/intel_fbdev_fb.c
-> @@ -15,6 +15,11 @@
->  
->  #include <generated/xe_wa_oob.h>
->  
-> +u32 intel_fbdev_fb_pitch_align(u32 stride)
-> +{
-> +	return ALIGN(stride, XE_PAGE_SIZE);
-
-I think someone needs to explain what the heck this extra alignment
-is trying to achieve? I suspect it just needs to get nuked.
-
-> +}
-> +
->  struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_device *drm,
->  					       struct drm_fb_helper_surface_size *sizes)
+>         u64 cap;
+> @@ -1698,19 +1709,13 @@ static ssize_t store_no_turbo(struct kobject *a, =
+struct kobj_attribute *b,
+>  static void update_qos_request(enum freq_qos_req_type type)
 >  {
-> @@ -31,8 +36,7 @@ struct intel_framebuffer *intel_fbdev_fb_alloc(struct drm_device *drm,
->  	mode_cmd.width = sizes->surface_width;
->  	mode_cmd.height = sizes->surface_height;
->  
-> -	mode_cmd.pitches[0] = ALIGN(mode_cmd.width *
-> -				    DIV_ROUND_UP(sizes->surface_bpp, 8), XE_PAGE_SIZE);
-> +	mode_cmd.pitches[0] = intel_fbdev_fb_pitch_align(mode_cmd.width * DIV_ROUND_UP(sizes->surface_bpp, 8));
->  	mode_cmd.pixel_format = drm_mode_legacy_fb_format(sizes->surface_bpp,
->  							  sizes->surface_depth);
->  
-> -- 
-> 2.47.2
+>         struct freq_qos_request *req;
+> -       struct cpufreq_policy *policy;
+>         int i;
+>
+>         for_each_possible_cpu(i) {
+>                 struct cpudata *cpu =3D all_cpu_data[i];
+>                 unsigned int freq, perf_pct;
+>
+> -               policy =3D cpufreq_cpu_get(i);
+> -               if (!policy)
+> -                       continue;
+> -
+> -               req =3D policy->driver_data;
+> -               cpufreq_cpu_put(policy);
+> +               req =3D intel_pstate_cpufreq_get_req(i);
+>
+>                 if (!req)
+>                         continue;
+> --
 
--- 
-Ville Syrjälä
-Intel
+This change would have been fine if the modified code had been
+correct.  Unfortunately, this is not the case because below req is
+passed to freq_qos_update_request() which accesses the policy object
+indirectly through it, so the policy object should be
+reference-counted until freq_qos_update_request() completes.
+
+I will send a fix for this shortly (it is better to fix it before
+rearranging the code to allow the fix to be backported more easily)
+along with my version of the change in question.
+
+Thanks!
