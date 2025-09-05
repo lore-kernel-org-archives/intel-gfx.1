@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F1DCAC580
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 07:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7993DCA1015
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 08:13:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D1C010EB3A;
-	Fri,  5 Sep 2025 07:27:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ehjJ260u";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D18710EB37;
- Fri,  5 Sep 2025 07:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757057249; x=1788593249;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SQJs3vtElSjVjDNoYx5eFXI7VAolAQt8QQSPMNapwpc=;
- b=ehjJ260ubtNdIVTflaHw3tvmUeTrO9Bvvjztv7oNW7Aze3KXK17DWkR/
- GKGEQyQS4iTwOlnsl06Lg5gF6NIMcHaQoJRoToM8frfjaSTEDEv/3KDUy
- up6B+wAkxwDC87ljQ0ZfrwFzYP5beCZAvcfAMrgC8qdKaZ4aGr4CZt5I/
- DdTk3GSrHyfpOc2w/YjceiDD0g7OsBhCCEerhI+Gnh5W/Id0yahPWDZfM
- 9A5xtWRNf3lSG4VSq5+VxTuiFHJoGHqGw+fVkehE4dnGQMtfu5SURkQeH
- 9GYnkJNcP3gkFL816AEmD0LVnWKo98+4SGHNr76ktgeIjFKmvzUPYYYqB A==;
-X-CSE-ConnectionGUID: GEj2KfoGSLCzEKhnrCx7+g==
-X-CSE-MsgGUID: ogC2NZv6QIWpsW3OuO75wQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11543"; a="63047067"
-X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="63047067"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 00:27:29 -0700
-X-CSE-ConnectionGUID: 7/pwIgD4TfyyyUxzcBl7ng==
-X-CSE-MsgGUID: 9OAEqym+QE+7SZFy5nRc+A==
-X-ExtLoop1: 1
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO jhogande-mobl1..)
- ([10.245.245.5])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2025 00:27:27 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 4/4] drm/i915/psr: Add poll for checking PSR is idle before
- starting update
-Date: Fri,  5 Sep 2025 10:27:08 +0300
-Message-ID: <20250905072708.2659411-5-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20250905072708.2659411-1-jouni.hogander@intel.com>
-References: <20250905072708.2659411-1-jouni.hogander@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE5B910EB3B;
+	Fri,  5 Sep 2025 08:13:37 +0000 (UTC)
+Received: from 1538d3639d33 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C673210EB37;
+ Fri,  5 Sep 2025 08:13:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?b?4pyXIEZpLkNJLkJVSUxEOiBmYWlsdXJlIGZvciBtbTogcmVtb3ZlIG50aF9wYWdl?=
+ =?utf-8?b?KCkgKHJldjIp?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "David Hildenbrand" <david@redhat.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 05 Sep 2025 08:13:36 -0000
+Message-ID: <175706001679.306194.7440091953930114698@1538d3639d33>
+X-Patchwork-Hint: ignore
+References: <20250901150359.867252-1-david@redhat.com>
+In-Reply-To: <20250901150359.867252-1-david@redhat.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,36 +37,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We are currently observing crc failures after we started using dsb for PSR
-updates as well. This seems to happen because PSR HW is still sending
-couple of updates using old framebuffers on wake-up.
+== Series Details ==
 
-Fix this by adding poll ensuring PSR is idle before starting update.
+Series: mm: remove nth_page() (rev2)
+URL   : https://patchwork.freedesktop.org/series/153803/
+State : failure
 
-v2: pass new_crtc_state->dsb_commit to intel_psr_wait_for_idle_dsb
+== Summary ==
 
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 3 +++
- 1 file changed, 3 insertions(+)
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/153803/revisions/2/mbox/ not applied
+Applying: mm: stop making SPARSEMEM_VMEMMAP user-selectable
+Applying: arm64: Kconfig: drop superfluous "select SPARSEMEM_VMEMMAP"
+Applying: s390/Kconfig: drop superfluous "select SPARSEMEM_VMEMMAP"
+Applying: x86/Kconfig: drop superfluous "select SPARSEMEM_VMEMMAP"
+Applying: wireguard: selftests: remove CONFIG_SPARSEMEM_VMEMMAP=y from qemu kernel config
+Applying: mm/page_alloc: reject unreasonable folio/compound page sizes in alloc_contig_range_noprof()
+Applying: mm/memremap: reject unreasonable folio/compound page sizes in memremap_pages()
+Applying: mm/hugetlb: check for unreasonable folio sizes when registering hstate
+Applying: mm/mm_init: make memmap_init_compound() look more like prep_compound_page()
+Applying: mm: sanity-check maximum folio size in folio_set_order()
+Applying: mm: limit folio/compound page sizes in problematic kernel configs
+Applying: mm: simplify folio_page() and folio_page_idx()
+Applying: mm/hugetlb: cleanup hugetlb_folio_init_tail_vmemmap()
+Applying: mm/mm/percpu-km: drop nth_page() usage within single allocation
+Applying: fs: hugetlbfs: remove nth_page() usage within folio in adjust_range_hwpoison()
+Applying: fs: hugetlbfs: cleanup folio in adjust_range_hwpoison()
+Applying: mm/pagewalk: drop nth_page() usage within folio in folio_walk_start()
+Applying: mm/gup: drop nth_page() usage within folio when recording subpages
+Applying: mm/gup: remove record_subpages()
+error: patch failed: mm/gup.c:2981
+error: mm/gup.c: patch does not apply
+error: Did you hand edit your patch?
+It does not apply to blobs recorded in its index.
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Using index info to reconstruct a base tree...
+M	mm/gup.c
+Patch failed at 0019 mm/gup: remove record_subpages()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c1a3a95c65f0..5dca7f96b425 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7271,6 +7271,9 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
- 		intel_psr_trigger_frame_change_event(new_crtc_state->dsb_commit,
- 						     state, crtc);
- 
-+		intel_psr_wait_for_idle_dsb(new_crtc_state->dsb_commit,
-+					    new_crtc_state);
-+
- 		if (new_crtc_state->use_dsb)
- 			intel_dsb_vblank_evade(state, new_crtc_state->dsb_commit);
- 
--- 
-2.43.0
 
