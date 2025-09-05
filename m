@@ -4,159 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08227CA1010
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 06:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF368CA1015
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Sep 2025 07:01:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8469D10EB23;
-	Fri,  5 Sep 2025 06:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 112A010EB27;
+	Fri,  5 Sep 2025 07:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="EpW1p9MM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ECeR/wSv";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82A8E10EB23
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Sep 2025 06:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1757054490;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=oF3HN1Q6ZNxZN3c5DymWi4LgFv8yUurotu5FuTflls4=;
- b=EpW1p9MMbSDUi+SxAEcAL7HZbTLcxXjgKuaRcCee2TDI+3yZ8eGcUiDWKX1LvVr1KMVCwy
- T7qi/fNDlIqPoU6ENhlQYJskkfhBCl2fSkz8yo+wadhzWXbqUY27ziyTlMA8I3rIjIU15r
- IVbvW8HRUhpw8oXoa+xYLYjM4qDzqN4=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-223-DKS7Apa3NDKAN71v9UUxgQ-1; Fri, 05 Sep 2025 02:41:29 -0400
-X-MC-Unique: DKS7Apa3NDKAN71v9UUxgQ-1
-X-Mimecast-MFC-AGG-ID: DKS7Apa3NDKAN71v9UUxgQ_1757054488
-Received: by mail-wm1-f72.google.com with SMTP id
- 5b1f17b1804b1-45dd9a66cfbso1788805e9.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 04 Sep 2025 23:41:28 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757054488; x=1757659288;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=oF3HN1Q6ZNxZN3c5DymWi4LgFv8yUurotu5FuTflls4=;
- b=IJ2biKDTms1sh7HJu8QZFscBvtmiAF2fRnXP6NU178ApM1z0Zy+gf+kqmDTTg1DGMq
- 0pAwnoVuqn45tYXl/Ev+UFskO0EKpRSf0Ql4krOXmFT5CtBZ3pMTBbOX9CxAz6VzCTYK
- L3QEpsizdCh+deKkEwPe9x+sGNhyTSVfdW3N5ezxyKnR564HI9vTNIRkUbZugxsRtyLR
- GTAWMwjtLTUSjt1IFqegvs2xgRBAY+G2nX+4pzKVlyodAqA6p9gpJt2YzeP2GCMpmTUs
- x4qRGMqSzWovkKFIfVN6Fi35vY3kKchqv7pH5QziAwQIn3aAOsNCXbY30W7UImjlBTtN
- JRTQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVmq2CkkAvm7SUz/LmEvb20HJpzSeQkVCXlOazb/IYmKh8ufi7FmfrDonGWwx0WqhhuxJxLi2M7I5Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyyo5qk2TB0vljeYRojguZx+h6war3qfpPX4hveCvV5b2oSaXsa
- KDVn3/OGThPP8F506uVRvPv1D6JesawgU3GShZcYlxg0lcq15620KTF9e2xcLiQHTzKpvIeoNZ5
- 1FeoTW2+U8kLMd5jDFiph872Z+r5i8tZSKL+Go27SQW5wiLRvuH8OHhdkh2GWuH/uMEJHbQ==
-X-Gm-Gg: ASbGnctFBJHglFtBJIGUoc5GIQ0XXYPj2L8LG1gXS8Kg7FphLHOLoOPJPXSWzjBfPVK
- B1e4xx94ZXvZfqbThlROWBd46S5S5h8DTDaqCXdtZ6FTs3+mWUNpH0LDvP+h1/vQ809zat5Noqn
- AmPO5cKbNTDS1Fz+KqIaQhygm1J/3lFTk6ro34zaIHSsDr3Whfj76XP61+rOPYoRxTOB6reF9FL
- EzMe/bAsvAumf7ebQkz3KCUTYpOS6Zgu+3h3TnrunxpLL9o5GEL4fiwbI6pRv+RfIs7Fk578Ly/
- o+lTCfta1OAWJCvCNV0k3pJpAvtbgaSB4vkzBic47wRXQSSbvUbp3qRCBq1pHuG36A4E1d7cYJu
- nio7Xpt/Z8s2R+i3eQsautJoQV1MBmKNfikihW9LzOrV3neQsJyw6nXPU
-X-Received: by 2002:a05:600c:4ec9:b0:45b:7ffa:1bf8 with SMTP id
- 5b1f17b1804b1-45b934f6a56mr114232965e9.23.1757054487735; 
- Thu, 04 Sep 2025 23:41:27 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHEj1Q4ueRZg61r58J+1sq7/RpmSeqvAcWabr/Sq37OcVKAf1elh8/EonCz3Jhepl0SBZP4Cg==
-X-Received: by 2002:a05:600c:4ec9:b0:45b:7ffa:1bf8 with SMTP id
- 5b1f17b1804b1-45b934f6a56mr114232615e9.23.1757054487185; 
- Thu, 04 Sep 2025 23:41:27 -0700 (PDT)
-Received: from ?IPV6:2003:d8:2f4d:e00:298:59cc:2514:52?
- (p200300d82f4d0e00029859cc25140052.dip0.t-ipconnect.de.
- [2003:d8:2f4d:e00:298:59cc:2514:52])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-45b7e8879cesm316420125e9.12.2025.09.04.23.41.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 04 Sep 2025 23:41:26 -0700 (PDT)
-Message-ID: <5090355d-546a-4d06-99e1-064354d156b5@redhat.com>
-Date: Fri, 5 Sep 2025 08:41:23 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3704810EB26;
+ Fri,  5 Sep 2025 07:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1757055689; x=1788591689;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9LYBsBGFOu+Gjj3Ya9uz+p72Msg3n4s+Gixm/mrZVb0=;
+ b=ECeR/wSv7w0+945unSb2lqVb25E7LuIZHF12PxuIGlK8IRD/izDmxNHu
+ Ei0STbvY+9vuSuugLezIWA8Tz3g9B4kGSIhMfeVYpWAlwZDGF+X2Omy+D
+ lYnrI9bfPXnOjmjWzan6w6NXubHoUITzMb6WVi0zVR7LzH1P7HJ5ZJaaO
+ GX6sgdl4nDHLq9gDn9HfXuxEdmqqUqSgaHousHaNKBqDzOiOK2I+EZ7q9
+ 0OuBYJYJV2+0IzGD/5rsm0cr7xyMDEWYxPquZk1wGz9jySKawOno9xkUQ
+ LiAEBshXt6/V2S79oef+OjDwzPpYOwgqwfVjryXMd1OgmIG3asp92fWX9 w==;
+X-CSE-ConnectionGUID: lRMXUQ7TROKZqV4pTYtvHw==
+X-CSE-MsgGUID: QU7qJ1ZNR9Cdr3ZGsJXr7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11543"; a="70781483"
+X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="70781483"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2025 00:01:29 -0700
+X-CSE-ConnectionGUID: keiyj2xOQjWpZpNcNhN9XA==
+X-CSE-MsgGUID: PnIy9P42R4a8Rm+ZXippYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,240,1751266800"; d="scan'208";a="171666298"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO jhogande-mobl1..)
+ ([10.245.244.225])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Sep 2025 00:01:28 -0700
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: [PATCH] drm/i915/alpm: Compute ALPM parameters into
+ crtc_state->alpm_parameters
+Date: Fri,  5 Sep 2025 10:01:14 +0300
+Message-ID: <20250905070114.2635531-1-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/37] mm/gup: remove record_subpages()
-To: linux-kernel@vger.kernel.org
-Cc: Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
- Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- kasan-dev@googlegroups.com, kvm@vger.kernel.org,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
- linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Marco Elver <elver@google.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
- Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
- Robin Murphy <robin.murphy@arm.com>, Suren Baghdasaryan <surenb@google.com>,
- Tejun Heo <tj@kernel.org>, virtualization@lists.linux.dev,
- Vlastimil Babka <vbabka@suse.cz>, wireguard@lists.zx2c4.com, x86@kernel.org,
- Zi Yan <ziy@nvidia.com>, Jens Axboe <axboe@kernel.dk>
-References: <20250901150359.867252-1-david@redhat.com>
- <20250901150359.867252-20-david@redhat.com>
-From: David Hildenbrand <david@redhat.com>
-Autocrypt: addr=david@redhat.com; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20250901150359.867252-20-david@redhat.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: FFTHlutZNIkpVjM0kJwBykqpco9NKQ6mmoCmJFrkEWg_1757054488
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,123 +70,258 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 01.09.25 17:03, David Hildenbrand wrote:
-> We can just cleanup the code by calculating the #refs earlier,
-> so we can just inline what remains of record_subpages().
-> 
-> Calculate the number of references/pages ahead of times, and record them
-> only once all our tests passed.
-> 
-> Signed-off-by: David Hildenbrand <david@redhat.com>
-> ---
->   mm/gup.c | 25 ++++++++-----------------
->   1 file changed, 8 insertions(+), 17 deletions(-)
-> 
-> diff --git a/mm/gup.c b/mm/gup.c
-> index c10cd969c1a3b..f0f4d1a68e094 100644
-> --- a/mm/gup.c
-> +++ b/mm/gup.c
-> @@ -484,19 +484,6 @@ static inline void mm_set_has_pinned_flag(struct mm_struct *mm)
->   #ifdef CONFIG_MMU
->   
->   #ifdef CONFIG_HAVE_GUP_FAST
-> -static int record_subpages(struct page *page, unsigned long sz,
-> -			   unsigned long addr, unsigned long end,
-> -			   struct page **pages)
-> -{
-> -	int nr;
-> -
-> -	page += (addr & (sz - 1)) >> PAGE_SHIFT;
-> -	for (nr = 0; addr != end; nr++, addr += PAGE_SIZE)
-> -		pages[nr] = page++;
-> -
-> -	return nr;
-> -}
-> -
->   /**
->    * try_grab_folio_fast() - Attempt to get or pin a folio in fast path.
->    * @page:  pointer to page to be grabbed
-> @@ -2967,8 +2954,8 @@ static int gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp, unsigned long addr,
->   	if (pmd_special(orig))
->   		return 0;
->   
-> -	page = pmd_page(orig);
-> -	refs = record_subpages(page, PMD_SIZE, addr, end, pages + *nr);
-> +	refs = (end - addr) >> PAGE_SHIFT;
-> +	page = pmd_page(orig) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
->   
->   	folio = try_grab_folio_fast(page, refs, flags);
->   	if (!folio)
-> @@ -2989,6 +2976,8 @@ static int gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp, unsigned long addr,
->   	}
->   
->   	*nr += refs;
-> +	for (; refs; refs--)
-> +		*(pages++) = page++;
->   	folio_set_referenced(folio);
->   	return 1;
->   }
-> @@ -3007,8 +2996,8 @@ static int gup_fast_pud_leaf(pud_t orig, pud_t *pudp, unsigned long addr,
->   	if (pud_special(orig))
->   		return 0;
->   
-> -	page = pud_page(orig);
-> -	refs = record_subpages(page, PUD_SIZE, addr, end, pages + *nr);
-> +	refs = (end - addr) >> PAGE_SHIFT;
-> +	page = pud_page(orig) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
->   
->   	folio = try_grab_folio_fast(page, refs, flags);
->   	if (!folio)
-> @@ -3030,6 +3019,8 @@ static int gup_fast_pud_leaf(pud_t orig, pud_t *pudp, unsigned long addr,
->   	}
->   
->   	*nr += refs;
-> +	for (; refs; refs--)
-> +		*(pages++) = page++;
->   	folio_set_referenced(folio);
->   	return 1;
->   }
+Currently ALPM parameters are computed directly into
+intel_dp->alpm_parameters. This is a problem when compute config ends up to
+not using the computed state.
 
-Okay, this code is nasty. We should rework this code to just return the nr and receive a the proper
-pages pointer, getting rid of the "*nr" parameter.
+Fix this by adding ALPM parameters into intel_crtc_state and compute into
+there. Copy needed parts of crtc_state->alpm_parameters into
+intel_dp->alpm.alpm_parameters (io_wake_lines and fast_wake_lines) when
+they are configured into HW.
 
-For the time being, the following should do the trick:
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 38 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_alpm.h     |  2 +-
+ .../drm/i915/display/intel_display_types.h    | 16 +++++---
+ drivers/gpu/drm/i915/display/intel_psr.c      | 20 +++++-----
+ 4 files changed, 43 insertions(+), 33 deletions(-)
 
-commit bfd07c995814354f6b66c5b6a72e96a7aa9fb73b (HEAD -> nth_page)
-Author: David Hildenbrand <david@redhat.com>
-Date:   Fri Sep 5 08:38:43 2025 +0200
-
-     fixup: mm/gup: remove record_subpages()
-     
-     pages is not adjusted by the caller, but idnexed by existing *nr.
-     
-     Signed-off-by: David Hildenbrand <david@redhat.com>
-
-diff --git a/mm/gup.c b/mm/gup.c
-index 010fe56f6e132..22420f2069ee1 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -2981,6 +2981,7 @@ static int gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp, unsigned long addr,
-                 return 0;
-         }
-  
-+       pages += *nr;
-         *nr += refs;
-         for (; refs; refs--)
-                 *(pages++) = page++;
-@@ -3024,6 +3025,7 @@ static int gup_fast_pud_leaf(pud_t orig, pud_t *pudp, unsigned long addr,
-                 return 0;
-         }
-  
-+       pages += *nr;
-         *nr += refs;
-         for (; refs; refs--)
-                 *(pages++) = page++;
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index ed7a7ed486b5..bbc4fa2e084e 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -133,7 +133,7 @@ static int _lnl_compute_aux_less_wake_time(const struct intel_crtc_state *crtc_s
+ 
+ static int
+ _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
+-				  const struct intel_crtc_state *crtc_state)
++				  struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	int aux_less_wake_time, aux_less_wake_lines, silence_period,
+@@ -157,15 +157,15 @@ _lnl_compute_aux_less_alpm_params(struct intel_dp *intel_dp,
+ 	if (display->params.psr_safest_params)
+ 		aux_less_wake_lines = ALPM_CTL_AUX_LESS_WAKE_TIME_MASK;
+ 
+-	intel_dp->alpm_parameters.aux_less_wake_lines = aux_less_wake_lines;
+-	intel_dp->alpm_parameters.silence_period_sym_clocks = silence_period;
+-	intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms = lfps_half_cycle;
++	crtc_state->alpm_parameters.aux_less_wake_lines = aux_less_wake_lines;
++	crtc_state->alpm_parameters.silence_period_sym_clocks = silence_period;
++	crtc_state->alpm_parameters.lfps_half_cycle_num_of_syms = lfps_half_cycle;
+ 
+ 	return true;
+ }
+ 
+ static bool _lnl_compute_alpm_params(struct intel_dp *intel_dp,
+-				     const struct intel_crtc_state *crtc_state)
++				     struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	int check_entry_lines;
+@@ -186,7 +186,7 @@ static bool _lnl_compute_alpm_params(struct intel_dp *intel_dp,
+ 	if (display->params.psr_safest_params)
+ 		check_entry_lines = 15;
+ 
+-	intel_dp->alpm_parameters.check_entry_lines = check_entry_lines;
++	crtc_state->alpm_parameters.check_entry_lines = check_entry_lines;
+ 
+ 	return true;
+ }
+@@ -217,7 +217,7 @@ static int io_buffer_wake_time(const struct intel_crtc_state *crtc_state)
+ }
+ 
+ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+-			       const struct intel_crtc_state *crtc_state)
++			       struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+ 	int io_wake_lines, io_wake_time, fast_wake_lines, fast_wake_time;
+@@ -255,8 +255,8 @@ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+ 		io_wake_lines = fast_wake_lines = max_wake_lines;
+ 
+ 	/* According to Bspec lower limit should be set as 7 lines. */
+-	intel_dp->alpm_parameters.io_wake_lines = max(io_wake_lines, 7);
+-	intel_dp->alpm_parameters.fast_wake_lines = max(fast_wake_lines, 7);
++	crtc_state->alpm_parameters.io_wake_lines = max(io_wake_lines, 7);
++	crtc_state->alpm_parameters.fast_wake_lines = max(fast_wake_lines, 7);
+ 
+ 	return true;
+ }
+@@ -306,9 +306,9 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+ 		    adjusted_mode->crtc_vdisplay - context_latency;
+ 	first_sdp_position = adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vsync_start;
+ 	if (intel_alpm_aux_less_wake_supported(intel_dp))
+-		waketime_in_lines = intel_dp->alpm_parameters.io_wake_lines;
++		waketime_in_lines = crtc_state->alpm_parameters.io_wake_lines;
+ 	else
+-		waketime_in_lines = intel_dp->alpm_parameters.aux_less_wake_lines;
++		waketime_in_lines = crtc_state->alpm_parameters.aux_less_wake_lines;
+ 
+ 	crtc_state->has_lobf = (context_latency + guardband) >
+ 		(first_sdp_position + waketime_in_lines);
+@@ -334,7 +334,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 		alpm_ctl = ALPM_CTL_ALPM_ENABLE |
+ 			ALPM_CTL_ALPM_AUX_LESS_ENABLE |
+ 			ALPM_CTL_AUX_LESS_SLEEP_HOLD_TIME_50_SYMBOLS |
+-			ALPM_CTL_AUX_LESS_WAKE_TIME(intel_dp->alpm_parameters.aux_less_wake_lines);
++			ALPM_CTL_AUX_LESS_WAKE_TIME(crtc_state->alpm_parameters.aux_less_wake_lines);
+ 
+ 		if (intel_dp->as_sdp_supported) {
+ 			u32 pr_alpm_ctl = PR_ALPM_CTL_ADAPTIVE_SYNC_SDP_POSITION_T1;
+@@ -352,7 +352,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 
+ 	} else {
+ 		alpm_ctl = ALPM_CTL_EXTENDED_FAST_WAKE_ENABLE |
+-			ALPM_CTL_EXTENDED_FAST_WAKE_TIME(intel_dp->alpm_parameters.fast_wake_lines);
++			ALPM_CTL_EXTENDED_FAST_WAKE_TIME(crtc_state->alpm_parameters.fast_wake_lines);
+ 	}
+ 
+ 	if (crtc_state->has_lobf) {
+@@ -360,7 +360,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 		drm_dbg_kms(display->drm, "Link off between frames (LOBF) enabled\n");
+ 	}
+ 
+-	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(intel_dp->alpm_parameters.check_entry_lines);
++	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_parameters.check_entry_lines);
+ 
+ 	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
+ 	mutex_unlock(&intel_dp->alpm_parameters.lock);
+@@ -371,6 +371,8 @@ void intel_alpm_configure(struct intel_dp *intel_dp,
+ {
+ 	lnl_alpm_configure(intel_dp, crtc_state);
+ 	intel_dp->alpm_parameters.transcoder = crtc_state->cpu_transcoder;
++	intel_dp->alpm_parameters.io_wake_lines = crtc_state->alpm_parameters.io_wake_lines;
++	intel_dp->alpm_parameters.fast_wake_lines = crtc_state->alpm_parameters.fast_wake_lines;
+ }
+ 
+ void intel_alpm_port_configure(struct intel_dp *intel_dp,
+@@ -388,14 +390,14 @@ void intel_alpm_port_configure(struct intel_dp *intel_dp,
+ 			PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
+ 			PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
+ 			PORT_ALPM_CTL_SILENCE_PERIOD(
+-				intel_dp->alpm_parameters.silence_period_sym_clocks);
++				crtc_state->alpm_parameters.silence_period_sym_clocks);
+ 		lfps_ctl_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(LFPS_CYCLE_COUNT) |
+ 			PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
+-				intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms) |
++				crtc_state->alpm_parameters.lfps_half_cycle_num_of_syms) |
+ 			PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
+-				intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms) |
++				crtc_state->alpm_parameters.lfps_half_cycle_num_of_syms) |
+ 			PORT_ALPM_LFPS_CTL_LAST_LFPS_HALF_CYCLE_DURATION(
+-				intel_dp->alpm_parameters.lfps_half_cycle_num_of_syms);
++				crtc_state->alpm_parameters.lfps_half_cycle_num_of_syms);
+ 	}
+ 
+ 	intel_de_write(display, PORT_ALPM_CTL(port), alpm_ctl_val);
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/i915/display/intel_alpm.h
+index a861c20b5d79..53599b464dea 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.h
++++ b/drivers/gpu/drm/i915/display/intel_alpm.h
+@@ -17,7 +17,7 @@ struct intel_crtc;
+ 
+ void intel_alpm_init(struct intel_dp *intel_dp);
+ bool intel_alpm_compute_params(struct intel_dp *intel_dp,
+-			       const struct intel_crtc_state *crtc_state);
++			       struct intel_crtc_state *crtc_state);
+ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+ 				    struct intel_crtc_state *crtc_state,
+ 				    struct drm_connector_state *conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index fd9d2527889b..1fc778067397 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1339,6 +1339,17 @@ struct intel_crtc_state {
+ 
+ 	/* LOBF flag */
+ 	bool has_lobf;
++
++	struct {
++		u8 io_wake_lines;
++		u8 fast_wake_lines;
++
++		/* LNL and beyond */
++		u8 check_entry_lines;
++		u8 aux_less_wake_lines;
++		u8 silence_period_sym_clocks;
++		u8 lfps_half_cycle_num_of_syms;
++	} alpm_parameters;
+ };
+ 
+ enum intel_pipe_crc_source {
+@@ -1847,11 +1858,6 @@ struct intel_dp {
+ 		enum transcoder transcoder;
+ 		struct mutex lock;
+ 
+-		/* LNL and beyond */
+-		u8 check_entry_lines;
+-		u8 aux_less_wake_lines;
+-		u8 silence_period_sym_clocks;
+-		u8 lfps_half_cycle_num_of_syms;
+ 		bool lobf_disable_debug;
+ 		bool sink_alpm_error;
+ 	} alpm_parameters;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 22433fe2ee14..dd6df3154508 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -953,15 +953,16 @@ static u32 intel_psr2_get_tp_time(struct intel_dp *intel_dp)
+ 	return val;
+ }
+ 
+-static int psr2_block_count_lines(struct intel_dp *intel_dp)
++static int
++psr2_block_count_lines(u8 io_wake_lines, u8 fast_wake_lines)
+ {
+-	return intel_dp->alpm_parameters.io_wake_lines < 9 &&
+-		intel_dp->alpm_parameters.fast_wake_lines < 9 ? 8 : 12;
++	return io_wake_lines < 9 && fast_wake_lines < 9 ? 8 : 12;
+ }
+ 
+ static int psr2_block_count(struct intel_dp *intel_dp)
+ {
+-	return psr2_block_count_lines(intel_dp) / 4;
++	return psr2_block_count_lines(intel_dp->alpm_parameters.io_wake_lines,
++				      intel_dp->alpm_parameters.fast_wake_lines) / 4;
+ }
+ 
+ static u8 frames_before_su_entry(struct intel_dp *intel_dp)
+@@ -1367,11 +1368,12 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
+ 	int wake_lines;
+ 
+ 	if (aux_less)
+-		wake_lines = intel_dp->alpm_parameters.aux_less_wake_lines;
++		wake_lines = crtc_state->alpm_parameters.aux_less_wake_lines;
+ 	else
+ 		wake_lines = DISPLAY_VER(display) < 20 ?
+-			psr2_block_count_lines(intel_dp) :
+-			intel_dp->alpm_parameters.io_wake_lines;
++			psr2_block_count_lines(crtc_state->alpm_parameters.io_wake_lines,
++					       crtc_state->alpm_parameters.fast_wake_lines) :
++			crtc_state->alpm_parameters.io_wake_lines;
+ 
+ 	if (crtc_state->req_psr2_sdp_prior_scanline)
+ 		vblank -= 1;
+@@ -1384,7 +1386,7 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
+ }
+ 
+ static bool alpm_config_valid(struct intel_dp *intel_dp,
+-			      const struct intel_crtc_state *crtc_state,
++			      struct intel_crtc_state *crtc_state,
+ 			      bool aux_less)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
+@@ -1589,7 +1591,7 @@ static bool _psr_compute_config(struct intel_dp *intel_dp,
+ 
+ static bool
+ _panel_replay_compute_config(struct intel_dp *intel_dp,
+-			     const struct intel_crtc_state *crtc_state,
++			     struct intel_crtc_state *crtc_state,
+ 			     const struct drm_connector_state *conn_state)
+ {
+ 	struct intel_display *display = to_intel_display(intel_dp);
 -- 
-
-Cheers
-
-David / dhildenb
+2.43.0
 
