@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1429BCAC58F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFEB7CAC593
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE9C10E725;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37C2C10E724;
 	Tue,  9 Sep 2025 13:21:43 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12D4A10E2E4;
- Fri,  5 Sep 2025 13:24:36 +0000 (UTC)
-X-UUID: a92db2a88a5b11f0b29709d653e92f7d-20250905
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 104AA10E361;
+ Fri,  5 Sep 2025 13:24:45 +0000 (UTC)
+X-UUID: ae0311428a5b11f0b29709d653e92f7d-20250905
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:db943cde-bbe0-429d-b0bf-a43728169e5f, IP:0,
+X-CID-O-INFO: VERSION:1.1.45, REQID:8aa5386c-c9f5-4430-8500-bcee34bb0354, IP:0,
  U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:6493067, CLOUDID:daa3cd9fa204e6c6d28bd15663a324ed,
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:6493067, CLOUDID:b78993f22d836f36a02cb4d46fb2af39,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
  ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
@@ -26,17 +26,17 @@ X-CID-META: VersionHash:6493067, CLOUDID:daa3cd9fa204e6c6d28bd15663a324ed,
 X-CID-BVR: 0
 X-CID-BAS: 0,_,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: a92db2a88a5b11f0b29709d653e92f7d-20250905
+X-UUID: ae0311428a5b11f0b29709d653e92f7d-20250905
 Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
  (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 1872443980; Fri, 05 Sep 2025 21:24:33 +0800
+ with ESMTP id 604134888; Fri, 05 Sep 2025 21:24:41 +0800
 Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 0113AE008FA3;
- Fri,  5 Sep 2025 21:24:33 +0800 (CST)
-X-ns-mid: postfix-68BAE490-8197312
+ by mail.kylinos.cn (NSMail) with SMTP id 14B58E008FA3;
+ Fri,  5 Sep 2025 21:24:41 +0800 (CST)
+X-ns-mid: postfix-68BAE498-6193824
 Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 1F7DBE008FA4;
- Fri,  5 Sep 2025 21:24:29 +0800 (CST)
+ by mail.kylinos.cn (NSMail) with ESMTPA id E5F06E008FA4;
+ Fri,  5 Sep 2025 21:24:36 +0800 (CST)
 From: Zihuan Zhang <zhangzihuan@kylinos.cn>
 To: "Rafael J . wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
@@ -73,9 +73,9 @@ Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
  dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
  linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
  Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v5 1/6] arm64: topology: Use scope-based cleanup helper
-Date: Fri,  5 Sep 2025 21:24:08 +0800
-Message-Id: <20250905132413.1376220-2-zhangzihuan@kylinos.cn>
+Subject: [PATCH v5 3/6] cpufreq: intel_pstate: Use scope-based cleanup helper
+Date: Fri,  5 Sep 2025 21:24:10 +0800
+Message-Id: <20250905132413.1376220-4-zhangzihuan@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
 References: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
@@ -106,49 +106,105 @@ No functional change intended.
 Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
 Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
 ---
- arch/arm64/kernel/topology.c | 11 ++++-------
- 1 file changed, 4 insertions(+), 7 deletions(-)
+ drivers/cpufreq/intel_pstate.c | 59 +++++++++++++++++++---------------
+ 1 file changed, 33 insertions(+), 26 deletions(-)
 
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index 5d07ee85bdae..07e2f5b5ade0 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -307,30 +307,27 @@ int arch_freq_get_on_cpu(int cpu)
- 		 */
- 		if (!housekeeping_cpu(cpu, HK_TYPE_TICK) ||
- 		    time_is_before_jiffies(last_update + msecs_to_jiffies(AMU_SAMPLE_E=
-XP_MS))) {
--			struct cpufreq_policy *policy =3D cpufreq_cpu_get(cpu);
-+			struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
-+				cpufreq_cpu_get(info->opp_cpu);
- 			int ref_cpu;
+diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstat=
+e.c
+index f366d35c5840..0b54e08f9447 100644
+--- a/drivers/cpufreq/intel_pstate.c
++++ b/drivers/cpufreq/intel_pstate.c
+@@ -1502,9 +1502,8 @@ static void __intel_pstate_update_max_freq(struct c=
+pufreq_policy *policy,
 =20
- 			if (!policy)
- 				return -EINVAL;
+ static bool intel_pstate_update_max_freq(struct cpudata *cpudata)
+ {
+-	struct cpufreq_policy *policy __free(put_cpufreq_policy);
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(cpudata->cpu);
 =20
- 			if (!cpumask_intersects(policy->related_cpus,
--						housekeeping_cpumask(HK_TYPE_TICK))) {
--				cpufreq_cpu_put(policy);
-+						housekeeping_cpumask(HK_TYPE_TICK)))
- 				return -EOPNOTSUPP;
--			}
+-	policy =3D cpufreq_cpu_get(cpudata->cpu);
+ 	if (!policy)
+ 		return false;
 =20
- 			for_each_cpu_wrap(ref_cpu, policy->cpus, cpu + 1) {
- 				if (ref_cpu =3D=3D start_cpu) {
- 					/* Prevent verifying same CPU twice */
- 					ref_cpu =3D nr_cpu_ids;
--					break;
-+					return -EAGAIN;
- 				}
- 				if (!idle_cpu(ref_cpu))
- 					break;
- 			}
+@@ -1695,41 +1694,49 @@ static ssize_t store_no_turbo(struct kobject *a, =
+struct kobj_attribute *b,
+ 	return count;
+ }
 =20
--			cpufreq_cpu_put(policy);
--
- 			if (ref_cpu >=3D nr_cpu_ids)
- 				/* No alternative to pull info from */
- 				return -EAGAIN;
+-static void update_qos_request(enum freq_qos_req_type type)
++static bool intel_pstate_cpufreq_update_limits(int cpu, enum freq_qos_re=
+q_type type)
+ {
+ 	struct freq_qos_request *req;
+-	struct cpufreq_policy *policy;
+-	int i;
++	unsigned int freq, perf_pct;
++	struct cpudata *data =3D all_cpu_data[cpu];
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
+u_get(cpu);
+=20
+-	for_each_possible_cpu(i) {
+-		struct cpudata *cpu =3D all_cpu_data[i];
+-		unsigned int freq, perf_pct;
++	if (!policy)
++		return false;
+=20
+-		policy =3D cpufreq_cpu_get(i);
+-		if (!policy)
+-			continue;
++	req =3D policy->driver_data;
+=20
+-		req =3D policy->driver_data;
+-		cpufreq_cpu_put(policy);
++	if (!req)
++		return false;
+=20
+-		if (!req)
+-			continue;
++	if (hwp_active)
++		intel_pstate_get_hwp_cap(data);
+=20
+-		if (hwp_active)
+-			intel_pstate_get_hwp_cap(cpu);
++	if (type =3D=3D FREQ_QOS_MIN) {
++		perf_pct =3D global.min_perf_pct;
++	} else {
++		req++;
++		perf_pct =3D global.max_perf_pct;
++	}
+=20
+-		if (type =3D=3D FREQ_QOS_MIN) {
+-			perf_pct =3D global.min_perf_pct;
+-		} else {
+-			req++;
+-			perf_pct =3D global.max_perf_pct;
+-		}
++	freq =3D DIV_ROUND_UP(data->pstate.turbo_freq * perf_pct, 100);
+=20
+-		freq =3D DIV_ROUND_UP(cpu->pstate.turbo_freq * perf_pct, 100);
++	if (freq_qos_update_request(req, freq) < 0)
++		pr_warn("Failed to update freq constraint: CPU%d\n", cpu);
+=20
+-		if (freq_qos_update_request(req, freq) < 0)
+-			pr_warn("Failed to update freq constraint: CPU%d\n", i);
++	return true;
++}
++
++
++static void update_qos_request(enum freq_qos_req_type type)
++{
++	int i;
++
++	for_each_possible_cpu(i) {
++		if (!intel_pstate_cpufreq_update_limits(i, type))
++			continue;
+ 	}
++
+ }
+=20
+ static ssize_t store_max_perf_pct(struct kobject *a, struct kobj_attribu=
+te *b,
 --=20
 2.25.1
 
