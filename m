@@ -4,83 +4,173 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE95CAC58D
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B345CAC587
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFE5510E71A;
-	Tue,  9 Sep 2025 13:21:27 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B087310EB2A;
- Fri,  5 Sep 2025 07:45:06 +0000 (UTC)
-X-UUID: 397b25d28a2c11f0b29709d653e92f7d-20250905
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:f87db68f-3c30-403e-8904-d7166b6f16d2, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:6493067, CLOUDID:07aa7fe718078e46c5eacd4bb0c408a3,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102,TC:nil,Content:0|52,EDM:
- -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
- AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 397b25d28a2c11f0b29709d653e92f7d-20250905
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 541260558; Fri, 05 Sep 2025 15:44:59 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 29A5AE008FA4;
- Fri,  5 Sep 2025 15:44:59 +0800 (CST)
-X-ns-mid: postfix-68BA94FA-497226507
-Received: from [172.25.120.24] (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 27E5DE008FA3;
- Fri,  5 Sep 2025 15:44:40 +0800 (CST)
-Message-ID: <11bcb7cb-2169-479f-9247-a48e48e9c54e@kylinos.cn>
-Date: Fri, 5 Sep 2025 15:44:39 +0800
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25F2A10E71D;
+	Tue,  9 Sep 2025 13:21:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BpCj3rnl";
+	dkim-atps=neutral
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D670810E173;
+ Sat,  6 Sep 2025 01:05:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MqkbB6StSne28owvikLsjAi64NBTS0DJxXDYR82NPm81Dfmz0yCI8onJbKLsaPd9AwpVlbLoh+VhZtM3piLpt4kmwaE3/uQQmH0kzK3zYtzPDnN6rJBbXl8kZ+Id1vH08t7Pjv3T7K18T5bjsPaK3btlPmuL6/9TYtE/8qbhBAg4nGgM9YmRdAHD5GKiwYPloDUDMBeVgTSBpeJ/8bem5C6Ik9gjjiUpySWu22jTTO3E2kHLNxpBn8eh/PylT1tXWH5EAvExttAgxsYGarLpb5mN/si4NAi98M0AurMoJ7YqMeulN/lnVpKl0fbMsr14TpMf4IDb1UCnbwqZ0DnLOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qmNEjp4wJqKTIanwJekG5BKHGlxuhcysz2RSi1jiRbg=;
+ b=O1MTW8e8YU+D+YGUzTk3UG8zD/KNd4eF1Q18jXFhEmiIL1IcMUKiOfWyAFUMLEwkKGP8hsuugPuI3TgabCXHIkjzvmvBhqPSItaYizcRlhJ9XjhVOjnjReVt0YPZHUoQSXRXEKqQrmxVGP95rU7le7syfDcpEJsO0aiGwyzrZte+3DkF81bd/E0UM2Xh8ZEq0bGO6goU8LhXa+zTEOnGuwpcz41jn9m41vKQvhv6iNesryBJvqJXOCMiyfv61CxmapsVQQaGJYph4LBCx/LllhP2j95qHG2x4Movf+ai+HWAMB6mBzN7DxwwXv9iHGXKm5cLq+YRrqNZIYwwGJ4WCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qmNEjp4wJqKTIanwJekG5BKHGlxuhcysz2RSi1jiRbg=;
+ b=BpCj3rnlKit5YpE6JoxZjQdmLBHHtB17RpTV79tZpLIUZQdYTyLuUFKWayfczIHI1O9MazYN3vUvLLvLXSx9tHWVpmadtp/UNDyY4KmJX89HbXCJAfFyFnUDdQm8WIJxVT2y22wIvpkIerKF/xYHJK/iNQT1u9J4025VUWz+VgVa8lMw/tEyZ+SyBCX9C060sY+YK12/03ChqA+2X/o5Nv1q9+fckWRmwtACBtIVb7Gc4fDZj4sX4ks2l1KZGw3J8lniTa95l+ACuJ1W6qCn7GMVwdljddhHtoRwqXgtphh7Z3XEasApliUGu40VvJAgpV29dmAc3TDPD8u3k8LE4g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV2PR12MB5968.namprd12.prod.outlook.com (2603:10b6:408:14f::7)
+ by SA0PR12MB7479.namprd12.prod.outlook.com (2603:10b6:806:24b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.19; Sat, 6 Sep
+ 2025 01:05:26 +0000
+Received: from LV2PR12MB5968.namprd12.prod.outlook.com
+ ([fe80::e6dd:1206:6677:f9c4]) by LV2PR12MB5968.namprd12.prod.outlook.com
+ ([fe80::e6dd:1206:6677:f9c4%6]) with mapi id 15.20.9094.016; Sat, 6 Sep 2025
+ 01:05:26 +0000
+Message-ID: <016307ba-427d-4646-8e4d-1ffefd2c1968@nvidia.com>
+Date: Fri, 5 Sep 2025 18:05:21 -0700
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 07/10] powercap: dtpm_cpu: Use scope-based cleanup
- helper
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Alim Akhtar
- <alim.akhtar@samsung.com>, Thierry Reding <thierry.reding@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
- Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
- <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
- linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
- <20250903131733.57637-8-zhangzihuan@kylinos.cn>
- <CAJZ5v0hirWzWZiLbAXPWB58SQv3CAW95iHLnsqs=i2twVCcmwg@mail.gmail.com>
- <52e322e5-2dd4-488c-a98e-3a4018f0c323@kylinos.cn>
- <CAJZ5v0g__9g_dfA3=4GVi351f4CKBegKkW9nU81j+Qu=2Hfg1Q@mail.gmail.com>
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-In-Reply-To: <CAJZ5v0g__9g_dfA3=4GVi351f4CKBegKkW9nU81j+Qu=2Hfg1Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 19/37] mm/gup: remove record_subpages()
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+Cc: Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
+ Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, kasan-dev@googlegroups.com,
+ kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
+ linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ Marco Elver <elver@google.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, netdev@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>, Peter Xu <peterx@redhat.com>,
+ Robin Murphy <robin.murphy@arm.com>, Suren Baghdasaryan <surenb@google.com>,
+ Tejun Heo <tj@kernel.org>, virtualization@lists.linux.dev,
+ Vlastimil Babka <vbabka@suse.cz>, wireguard@lists.zx2c4.com, x86@kernel.org,
+ Zi Yan <ziy@nvidia.com>
+References: <20250901150359.867252-1-david@redhat.com>
+ <20250901150359.867252-20-david@redhat.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20250901150359.867252-20-david@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR13CA0205.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::30) To LV2PR12MB5968.namprd12.prod.outlook.com
+ (2603:10b6:408:14f::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV2PR12MB5968:EE_|SA0PR12MB7479:EE_
+X-MS-Office365-Filtering-Correlation-Id: 61650efe-33fd-403e-2700-08ddece176ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MUVHMC9aQ2NWa0MrQTFBY0FZeXlwRlN0c1U2SEtrTWk1UjdzTEJaM091TFc5?=
+ =?utf-8?B?dHJKQ1lPT3FSeE4rSVp3VWQvak41cC9uVmlXaUQrcW1yYU5MTmw2Y24wc0xi?=
+ =?utf-8?B?cnBGL1BZZTZhNUxhUDhaWWZhaUIwQk85a0FBd0M4UlRsV2RTVEVSd0VQYjAv?=
+ =?utf-8?B?K2N4R1RXQVFKUGw5bVVPN0pXZ2hXWS9wa1hhK0szbFZpT3QzMndxRzVkL1JJ?=
+ =?utf-8?B?ZXFmaXNFWHgrcm5IanhmSE8vd3ZuWWF6N2xxbEliYzdHVHMxUG9QVGhjYzJX?=
+ =?utf-8?B?Y1JUWkNWaFVvSDV1aHpYaG5zSFk3dk42UEpaby9telVicW1KMG4xWnpzc1JE?=
+ =?utf-8?B?N1hUakxjdUdwaW1vWkxpQ1lTK2wxMjRsaDl6VzUzdGswaEhjeTFsd2FyUS8v?=
+ =?utf-8?B?VXkzTkFYY1JrcTdXclYxMFFVZVRPbHdYZjdIbTAxVExKSk51UHdRT09jZndX?=
+ =?utf-8?B?V3dJRWU3Nzc4UWZrTTBFTW9uSGFqRUNFTEY0NXZnWE1meHpTN0hyMDltNWJt?=
+ =?utf-8?B?Wk42ZlZJa1RUZFR3eU1pWkFKQkV3bFJJWXNXV1EwTkJQSklYVHZwaVpMNDh3?=
+ =?utf-8?B?aTNwZWJhUWw0SHdWalJtelQ2dFphaGlmVHpyY0FNZndWS0hEeEsvY0dmOHdK?=
+ =?utf-8?B?NEV4VlA1NWFwUzRoQndvVHhlcXFRaGJKWW5HT0hWZGk5eUR0UzNVeWkwQmxp?=
+ =?utf-8?B?SFM2K2xYRDJKN1VITkZMOW5CNUFVV2ZZbDZuNVlOcDRUQkVMQ1N4TmFTcFF3?=
+ =?utf-8?B?VE1HRWhjSGt1UTJ6SjA1eUZndEdxTHAyY25SNWxBbExwSG00Rm5pbFBibXl4?=
+ =?utf-8?B?RXdvalFsU1dqUVk1QXdMYVZBM1NFcEpUMWtzV1lWTDNTb0YzaC8vcXNnOVM5?=
+ =?utf-8?B?L1FDM0tXYm14YTFzdFU1TWgxYWY1ejhYUHRYMFJvdEFuenR2aFNzK2E0QytG?=
+ =?utf-8?B?V21JTmwxelhOWUlGMTJ2K1FoY1ZSZk9EL3BVcWw3MVkvOUoxSVIzOXE4REJQ?=
+ =?utf-8?B?Ky9yWlBaaHJGNUh4SEErdnRXNE1XSUdUNkNqY1dlSE15QUhseTh4azVXVmwz?=
+ =?utf-8?B?Z2IrNnFCbk9HY040MnE4STNXTFJJSDgyYWltTnU0c3B0LzRETDlPRDJIbEV1?=
+ =?utf-8?B?dExaaWxzcXEvTjNuYWhXb00zdXVSNHQrMEVCN3JtcnVGVUFoVWszSi9XS3gz?=
+ =?utf-8?B?THQrckdLNjhhbXo2YWkyNTJzV3VUNzh2TWUyZlVwdC9EdVZXRzFXdjV6R2NS?=
+ =?utf-8?B?UE1mWXJ6Rkx4cVdjS2hzaHlneEZ6blM0MzVJQ2xFZVdzU3dZYzN0ckQ4Q0xM?=
+ =?utf-8?B?N3FXdFBmelVXVTVkak9MY3BHamJ1UWhEZzN4V0F0eDZTNnJnZ0djdFU4OFZB?=
+ =?utf-8?B?L28vZHRXZVorVm5DWDMzbDJtN3dHT3JucWx0b3RTZ2Zkd2IydXdnbGliR3ls?=
+ =?utf-8?B?MGQwNUpyTFJlSTJweGpqclJadXF6VDRnK2ZQNWhSclRwejZoVTJVcHBDZGZC?=
+ =?utf-8?B?RzRQY2hpbDJjNUJtaXZMSjlpb05md2g5WC8vdEgrT0JWYlVkZCtjL2ZHQjlq?=
+ =?utf-8?B?WjhiUE8rTCtmN2JCaVVnNkdvQkVaRVVKRjd5bTJLbURncGJqM1pWQ3VrZmVt?=
+ =?utf-8?B?Z0lCdDduZFFkYW11czFremV6RHN1OWVheENVMExHSVpNeGZXN2ZtbklDUGZU?=
+ =?utf-8?B?TWhQMkhGLzBxandrN0dOWGpqemRTWCs0TlFNdm1makg3b0RDcEQvMmdIQjVr?=
+ =?utf-8?B?eEJnc2xnSWE1K1kwb3RZaFB0dzBoYUhRZUFYeThuR09CWE5QVkNlanJPczQ0?=
+ =?utf-8?B?Q3FEdXAyVWRhamRTaW1sckdqQ0d5MHkwbmxObGY1N3ZwNVhtSUp0Wm84Sm1S?=
+ =?utf-8?B?OFJKeldCMTlsVFNEbHQ5b1BKMXlaRFFOWkdKR2w0WjhlaEE9PQ==?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR12MB5968.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0VaUEgvYjVMZkE1Rzd4NTRoaVhWU281RTFZcklIb0FNbC9Hb3dJdDdLM0V5?=
+ =?utf-8?B?aytHdlpnZlJFUmZoQTVZRU1takd1RFZxUTRvMFdLRVZmRkpCa0NyME9RK1NX?=
+ =?utf-8?B?TDU4aXZ2ZXFYYnRzUU9jSnpXYmJhSjFMeTJudjFtQlNHRFl1UzRvUmphYkY4?=
+ =?utf-8?B?SFBOWlpobnRheXdpNHFmWGx2Y3V4VGNoL0R4TlNmOENIQ3dtMXFXSHhNUlpM?=
+ =?utf-8?B?d1AwTXMzRlRSUEV2SXAxcW9hV3plN25RdjZGbEJ3YlFVUVFBL2RmVUx5SUMv?=
+ =?utf-8?B?YnI3V0M0S3BwK2dIeWhmNXFFS3Q2TEhCa3I5Z3JubVJpUWhqWm1rNkVCUDlx?=
+ =?utf-8?B?VTRPUWE1K3VMNTF6bmdsWUxiUHg1UGVKb2J4bVZFeS9oN1A5ZWxPdW9vK254?=
+ =?utf-8?B?VEppd0FoV25wOUlXMlJNcFJTR3hTVVJ3N1lVdTM0QW1wb0lkZms0UkJJc2dx?=
+ =?utf-8?B?dzZyLzJVNUw4K3A0eXpkVHg5QmM5b3lKVFdFaEFPZEtkdnBTSWRWMDJtRFM4?=
+ =?utf-8?B?bC9qRVo0RFN5MFRlUlJTSVIyWkdtR04reUJpUHl4T2JFeFF6Zk1JZU5CMnBz?=
+ =?utf-8?B?N1lpZEIzNzdnb1U4ZWNUd1MrdCsvZFdZYVI0OUpTRjlHNmhIZnA2QzNGMEd1?=
+ =?utf-8?B?Y0h3Ri83SGdHQXdacjVwQitqaDFLZUM3ZkRKK3dhUEJHKzlLVkgvWW9xUjNT?=
+ =?utf-8?B?aHBnaTFyMjVMTmVwRWVRNDIrVTY1MVprZjRBYWd4UkpVUFlOMFZCMFVRK0l3?=
+ =?utf-8?B?cDB5dWZjNkU0R04wcmFycW52Uk1LcEYyekNaQ3c4d0U1d3FrU1lsWGJ0Vy9a?=
+ =?utf-8?B?dEQzNkgrVTZjRlIvOUlIVWNsdENvTFE5Tm5jbi9QSG4xN21WWEoxUFNIT29L?=
+ =?utf-8?B?UVlRWGMyU2FQMWFKbi9vbGRES0gxZld2UTdUYzJqc20wNjFtT1pkRXBmVzAy?=
+ =?utf-8?B?aFM5MVdXVkl3OUtQUnBUVUl4dFlrU0pLOWN1R3kyTW80K1laaDZKSlZjK2N5?=
+ =?utf-8?B?WjhQc1RIQ3grNzMvNUdUOHY2aFNwMURnNjdTcWRuMGY0WTNjc2ZqcXN0QlRG?=
+ =?utf-8?B?QVdQbk93cDZYZGNNd05GbUVjdU5ld00vdVlNVHUxWThlM3F0UDVQU1d2Q2Ew?=
+ =?utf-8?B?R1RHdHhRb0VSUnZiYjc3d2RCaTBjSG9INXN1eVVtNERQc0tBVE9xNzNpcGxU?=
+ =?utf-8?B?b2lwSmZHdTNydXFJck1BOVJDcktKUEJ3UmR5Z3FKMm50TndodkRSb000U3p4?=
+ =?utf-8?B?TTVwSjZwRHJmRDcyUS9iZFI2V2ZsL3luSkJRTDF5ZlBvTU00eFU3TVpTR1dl?=
+ =?utf-8?B?aFZiVDBtSUtVKzRhQlpnWm0vUUNkeld3K2pDWEViSFJpSG5kU0RZK2Fyd1Rj?=
+ =?utf-8?B?RnlJSjM0T1l0L0dUMEM0dHY1bkhYZm1wVVFKMGpUVkxxQ2pDV05ZZ3lNb0Vt?=
+ =?utf-8?B?M3hDVHZrelpUSzRpcTkzQloxejlSV3IzTktZRFBLU3VKM3p0eDZlUXV3RlZq?=
+ =?utf-8?B?MnlHTDl5SWE1MVptQUxIa0JUWVE2KzR1UzZSc0c3N1lmVHY2NDkvZnhxeS9h?=
+ =?utf-8?B?c1JRb1piTi9wR3NDWWJXVWRFNjVZUzIxUWVvRVpyMVF5Q0xSMlhzMDlBN2Fi?=
+ =?utf-8?B?ZWFkM3dicytDR2JkNk1MWkd4UzNYVGs2MGF3N3dMbWhCQ3FZZnRUVWh1SXNW?=
+ =?utf-8?B?aXZROFFmTVR0cVZjNlgwN1dzbWJpaGxnUjAzNlhkVmsyZVBwVVE3R1I2djk3?=
+ =?utf-8?B?M1lhWDRDVlZScU92UEY5Wkprb1piUHdEZkE4STdBWERmYmRqWlY2bHZHM2wy?=
+ =?utf-8?B?WEttRXBiSkVnRGo0ci9SVUZWYnpRWGk0MFNEbVRmYldTY2lzYml2NmFQUzFo?=
+ =?utf-8?B?R3V4d2FVMEZROUhaVVE0TEVlU3VjdTJWakJMQUtDS3VSdlNYWnRNWjNDR1VM?=
+ =?utf-8?B?TUJ2dmp1TkpqdDFEempoTVFTL0FzVk8zQm5hKzR6Q2x6MHRxNkZoSkZ2NEp2?=
+ =?utf-8?B?ZGtUdGp4Zlc4Q2luODNmSWdqQjhwWVhqVS84NGVHNjNGVDY2cVRWYXJ2bzg1?=
+ =?utf-8?B?em5XSWcrL2dKNjIxR0Y3ZkdGbWFkak10aWh2QWJYOUpqMFR4bFZ4d1dJNndX?=
+ =?utf-8?Q?3h13tEnKqa8tV44hmzJKkEJS2?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61650efe-33fd-403e-2700-08ddece176ce
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5968.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2025 01:05:26.3811 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uf3O0ZJFuEbXVLypywsJNCqDz+wgeCuhr6ze1GG/5gYI7E64YgDaDhkKq51vcMr5G3zgZbO3N1fcV2W8gz30bQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7479
 X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,132 +187,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On 9/1/25 8:03 AM, David Hildenbrand wrote:
+> We can just cleanup the code by calculating the #refs earlier,
+> so we can just inline what remains of record_subpages().
+> 
+> Calculate the number of references/pages ahead of times, and record them
+> only once all our tests passed.
+> 
+> Signed-off-by: David Hildenbrand <david@redhat.com>
+> ---
+>  mm/gup.c | 25 ++++++++-----------------
+>  1 file changed, 8 insertions(+), 17 deletions(-)
+> 
+> diff --git a/mm/gup.c b/mm/gup.c
+> index c10cd969c1a3b..f0f4d1a68e094 100644
+> --- a/mm/gup.c
+> +++ b/mm/gup.c
+> @@ -484,19 +484,6 @@ static inline void mm_set_has_pinned_flag(struct mm_struct *mm)
+>  #ifdef CONFIG_MMU
+>  
+>  #ifdef CONFIG_HAVE_GUP_FAST
+> -static int record_subpages(struct page *page, unsigned long sz,
+> -			   unsigned long addr, unsigned long end,
+> -			   struct page **pages)
+> -{
+> -	int nr;
+> -
+> -	page += (addr & (sz - 1)) >> PAGE_SHIFT;
+> -	for (nr = 0; addr != end; nr++, addr += PAGE_SIZE)
+> -		pages[nr] = page++;
+> -
+> -	return nr;
+> -}
+> -
+>  /**
+>   * try_grab_folio_fast() - Attempt to get or pin a folio in fast path.
+>   * @page:  pointer to page to be grabbed
+> @@ -2967,8 +2954,8 @@ static int gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp, unsigned long addr,
+>  	if (pmd_special(orig))
+>  		return 0;
+>  
+> -	page = pmd_page(orig);
+> -	refs = record_subpages(page, PMD_SIZE, addr, end, pages + *nr);
+> +	refs = (end - addr) >> PAGE_SHIFT;
+> +	page = pmd_page(orig) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
+>  
+>  	folio = try_grab_folio_fast(page, refs, flags);
+>  	if (!folio)
+> @@ -2989,6 +2976,8 @@ static int gup_fast_pmd_leaf(pmd_t orig, pmd_t *pmdp, unsigned long addr,
+>  	}
+>  
+>  	*nr += refs;
+> +	for (; refs; refs--)
+> +		*(pages++) = page++;
+>  	folio_set_referenced(folio);
+>  	return 1;
+>  }
+> @@ -3007,8 +2996,8 @@ static int gup_fast_pud_leaf(pud_t orig, pud_t *pudp, unsigned long addr,
+>  	if (pud_special(orig))
+>  		return 0;
+>  
+> -	page = pud_page(orig);
+> -	refs = record_subpages(page, PUD_SIZE, addr, end, pages + *nr);
+> +	refs = (end - addr) >> PAGE_SHIFT;
+> +	page = pud_page(orig) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
+>  
+>  	folio = try_grab_folio_fast(page, refs, flags);
+>  	if (!folio)
+> @@ -3030,6 +3019,8 @@ static int gup_fast_pud_leaf(pud_t orig, pud_t *pudp, unsigned long addr,
+>  	}
+>  
+>  	*nr += refs;
+> +	for (; refs; refs--)
+> +		*(pages++) = page++;
 
-=E5=9C=A8 2025/9/4 21:17, Rafael J. Wysocki =E5=86=99=E9=81=93:
-> On Thu, Sep 4, 2025 at 12:38=E2=80=AFPM Zihuan Zhang <zhangzihuan@kylin=
-os.cn> wrote:
->>
->> =E5=9C=A8 2025/9/3 21:45, Rafael J. Wysocki =E5=86=99=E9=81=93:
->>> On Wed, Sep 3, 2025 at 3:18=E2=80=AFPM Zihuan Zhang <zhangzihuan@kyli=
-nos.cn> wrote:
->>>> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
->>>> annotation for policy references. This reduces the risk of reference
->>>> counting mistakes and aligns the code with the latest kernel style.
->>>>
->>>> No functional change intended.
->>>>
->>>> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
->>>> ---
->>>>    drivers/powercap/dtpm_cpu.c | 30 +++++++++++-------------------
->>>>    1 file changed, 11 insertions(+), 19 deletions(-)
->>>>
->>>> diff --git a/drivers/powercap/dtpm_cpu.c b/drivers/powercap/dtpm_cpu=
-.c
->>>> index 99390ec1481f..f76594185fa2 100644
->>>> --- a/drivers/powercap/dtpm_cpu.c
->>>> +++ b/drivers/powercap/dtpm_cpu.c
->>>> @@ -144,19 +144,17 @@ static int update_pd_power_uw(struct dtpm *dtp=
-m)
->>>>    static void pd_release(struct dtpm *dtpm)
->>>>    {
->>>>           struct dtpm_cpu *dtpm_cpu =3D to_dtpm_cpu(dtpm);
->>>> -       struct cpufreq_policy *policy;
->>>>
->>>>           if (freq_qos_request_active(&dtpm_cpu->qos_req))
->>>>                   freq_qos_remove_request(&dtpm_cpu->qos_req);
->>>>
->>>> -       policy =3D cpufreq_cpu_get(dtpm_cpu->cpu);
->>>> -       if (policy) {
->>>> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
->>>> +               cpufreq_cpu_get(dtpm_cpu->cpu);
->>>> +
->>>> +       if (policy)
->>>>                   for_each_cpu(dtpm_cpu->cpu, policy->related_cpus)
->>>>                           per_cpu(dtpm_per_cpu, dtpm_cpu->cpu) =3D N=
-ULL;
->>>>
->>>> -               cpufreq_cpu_put(policy);
->>>> -       }
->>>> -
->>>>           kfree(dtpm_cpu);
->>>>    }
->>>>
->>>> @@ -192,7 +190,6 @@ static int cpuhp_dtpm_cpu_online(unsigned int cp=
-u)
->>>>    static int __dtpm_cpu_setup(int cpu, struct dtpm *parent)
->>>>    {
->>>>           struct dtpm_cpu *dtpm_cpu;
->>>> -       struct cpufreq_policy *policy;
->>>>           struct em_perf_state *table;
->>>>           struct em_perf_domain *pd;
->>>>           char name[CPUFREQ_NAME_LEN];
->>>> @@ -202,21 +199,19 @@ static int __dtpm_cpu_setup(int cpu, struct dt=
-pm *parent)
->>>>           if (dtpm_cpu)
->>>>                   return 0;
->>>>
->>>> -       policy =3D cpufreq_cpu_get(cpu);
->>>> +       struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D
->>>> +               cpufreq_cpu_get(cpu);
->>>> +
->>>>           if (!policy)
->>>>                   return 0;
->>>>
->>>>           pd =3D em_cpu_get(cpu);
->>>> -       if (!pd || em_is_artificial(pd)) {
->>>> -               ret =3D -EINVAL;
->>>> -               goto release_policy;
->>>> -       }
->>>> +       if (!pd || em_is_artificial(pd))
->>>> +               return -EINVAL;
->>>>
->>>>           dtpm_cpu =3D kzalloc(sizeof(*dtpm_cpu), GFP_KERNEL);
->>>> -       if (!dtpm_cpu) {
->>>> -               ret =3D -ENOMEM;
->>>> -               goto release_policy;
->>>> -       }
->>>> +       if (!dtpm_cpu)
->>>> +               return -ENOMEM;
->>>>
->>>>           dtpm_init(&dtpm_cpu->dtpm, &dtpm_ops);
->>>>           dtpm_cpu->cpu =3D cpu;
->>>> @@ -239,7 +234,6 @@ static int __dtpm_cpu_setup(int cpu, struct dtpm=
- *parent)
->>>>           if (ret < 0)
->>>>                   goto out_dtpm_unregister;
->>> So this change kind of goes against another recommendation given in c=
-leanup.h:
->>>
->>>    * Lastly, given that the benefit of cleanup helpers is removal of
->>>    * "goto", and that the "goto" statement can jump between scopes, t=
-he
->>>    * expectation is that usage of "goto" and cleanup helpers is never
->>>    * mixed in the same function. I.e. for a given routine, convert al=
-l
->>>    * resources that need a "goto" cleanup to scope-based cleanup, or
->>>    * convert none of them.
->>
->> Should I replace all the memory allocation cleanups here with `__free`=
-?
->> That would allow us to drop all the `goto`s, but since this function h=
-as
->> quite a few of them, I=E2=80=99m concerned it might introduce new issu=
-es. What=E2=80=99s
->> your recommendation?
-> Frankly, don't use __free() in this code at all, at least for the time =
-being.
->
-> There is a problem with dropping the reference to policy at the end of
-> __dtpm_cpu_setup() because that policy may be subsequently indirectly
-> used in set_pd_power_limit() which calls
-> freq_qos_update_request(&dtpm_cpu->qos_req, freq) and
-> dtpm_cpu->qos_req->qos is policy->constraints, so using it will cause
-> policy->constraints to be dereferenced in freq_qos_apply() which will
-> crash and burn if the policy goes away in the meantime.  So AFAICS
-> __dtpm_cpu_setup() shouldn't call cpufreq_cpu_put() at all and the
-> policy should be released in pd_release() without acquiring a new
-> reference to it.
->
+Hi David,
 
-Thanks a lot for the detailed explanation!
+Probably a similar sentiment as Lorenzo here...the above diffs make the code
+*worse* to read. In fact, I recall adding record_subpages() here long ago,
+specifically to help clarify what was going on.
+
+Now it's been returned to it's original, cryptic form.
+
+Just my take on it, for whatever that's worth. :)
+
+
+thanks,
+-- 
+John Hubbard
+
+>  	folio_set_referenced(folio);
+>  	return 1;
+>  }
 
