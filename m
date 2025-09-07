@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19E1ECA1017
-	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2E70CAC587
+	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B1310E44B;
-	Sun,  7 Sep 2025 07:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0916010E446;
+	Sun,  7 Sep 2025 07:46:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="R3m9HJSb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O4sX49HU";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3D4A10E3B6;
- Sun,  7 Sep 2025 07:46:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B23010E197;
+ Sun,  7 Sep 2025 07:46:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757231196; x=1788767196;
+ t=1757231200; x=1788767200;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=HLyEr/ELh282rCnpwTz8ZUvLhExUhMts6ADwZgxSDAI=;
- b=R3m9HJSb4NNhUs2bpJI1hmMtTu7V6CeTqUYDP7HkNbnBqRaQZc0OAnR9
- ejHQeEtVd031jWpckd3qYJiUxDfTVBreI/Sm/lrm22SNoY47pkFcxN97p
- WsCIWbC4jYaTvv059PmGblnJ/Mf787ab5y6Y8Djtok4Piw9hYbQOWVtUJ
- pzwVL9eeAnZQPd704RRuhjBvwbQ/QvOSmvCznEN9nZzf2TOICDGihDAGd
- geqAdglHaNqEK4tKTUlK0+VjCGAseRi0wlSxayRCUGDk0LhsYmm5VBsHX
- pgvk7ErV4LXaLigWVvjUgR7+huQpy+6DCzLcTBNiVDGuApxo7ztCS1BRv A==;
-X-CSE-ConnectionGUID: YpRYO/szToCgOB9P8TptYg==
-X-CSE-MsgGUID: MPjH9Xb4S1uJuPiNFuvMNw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220299"
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220299"
+ bh=ngx/gp3fOnUBoSL1jP5DMLG9RF3pynEjAKEMMfV7i+I=;
+ b=O4sX49HUf364RcrL6IQzb5BI+8jaJXI9pQS4Z5uNSc1N3+ciG/15bH8U
+ Hci39hbmcTO/JicKdojxZj9TFvc4UEo5a1PaPEO/wIk5FJs4oonJ+hbqz
+ /6UTaLw1DTbhnEAuNnJDuj/WCBvqslOHhfuGP/PBZCabvZBptgU7xnBVG
+ EkoIR4WCay05OvfxiCJhFUKD+om2WW4SQPo4DRUs7HjKZ+AiIqMWcGqSm
+ MDrnDItde2Q7zM3xpRdKIuDdgc48uP4al1BqAq9QyGeleO7d8/d/CIk+8
+ hZH2bE+pbvcAwlDxr7anUlyNW7XDNw/syUPDn6DXJzmY2YKrP2lIw1SuV Q==;
+X-CSE-ConnectionGUID: 5Sl6367XTh+6PyjJD8qj9Q==
+X-CSE-MsgGUID: AJzVP4zOSvOukx4oBu2kKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220302"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220302"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:36 -0700
-X-CSE-ConnectionGUID: 84+8Z1o0TpK/K/GK3/srdA==
-X-CSE-MsgGUID: Jc77xIHSRC+WkgAQ/3XeHg==
+ 07 Sep 2025 00:46:40 -0700
+X-CSE-ConnectionGUID: btAdYnZcSkSxSw8M/ctcDA==
+X-CSE-MsgGUID: 3QKeOnGGQiOppexLo8Eh5w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176874026"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176874046"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:34 -0700
+ 07 Sep 2025 00:46:38 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 11/14] drm/i915/dsb: Align flipdone with delayed vblank using
- guardband wait
-Date: Sun,  7 Sep 2025 13:02:38 +0530
-Message-ID: <20250907073241.19632-12-ankit.k.nautiyal@intel.com>
+Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH 13/14] drm/i915/panel: Refactor helper to get highest fixed
+ mode
+Date: Sun,  7 Sep 2025 13:02:40 +0530
+Message-ID: <20250907073241.19632-14-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
 References: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
@@ -69,74 +70,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently the guardband is same as vblank length and undelayed vblank
-and the vblank and the flipdone with dsb interrupt are already aligned
-for the fixed refresh rate case.
+Refactor intel_panel_highest_mode() to return the fixed mode with the
+highest pixel clock, removing the fallback to the adjusted mode. This makes
+the function semantics clearer and better suited for future use cases where
+fallback is not desirable.
 
-As we move towards a shorter optimized guardband we need to wait for the
-delayed vblank before the DSB interrupt to align the flipdone event with
-the delayed vblank.
+Update the caller in intel_dp_mode_clock() to handle the NULL case
+explicitly by falling back to the adjusted mode's crtc_clock. This also
+addresses the existing FIXME comment about ambiguity between clock and
+crtc_clock, by using mode->clock for fixed modes and mode->crtc_clock for
+adjusted modes.
 
-Introduce a helper intel_dsb_wait_for_delayed_vblank() to wait for the
-scanline range [delayed_vblank_start, vmin/vmax vtotal], depending on
-whether fixed refresh rate mode or variable refresh rate mode is active,
-before triggering the DSB interrupt.
+v2: Avoid introducing a new function and refactor existing one instead.
+(Jani).
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |  1 +
- drivers/gpu/drm/i915/display/intel_dsb.c     | 16 ++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dsb.h     |  3 +++
- 3 files changed, 20 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c    | 14 +++++++++-----
+ drivers/gpu/drm/i915/display/intel_panel.c | 11 +++++------
+ drivers/gpu/drm/i915/display/intel_panel.h |  3 +--
+ 3 files changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 787bb6ebdc75..fb072275b1c7 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7447,6 +7447,7 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index d5d30bdc6848..beab66ce0550 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1760,11 +1760,15 @@ static int intel_dp_mode_clock(const struct intel_crtc_state *crtc_state,
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
  
- 		intel_vrr_send_push(new_crtc_state->dsb_commit, new_crtc_state);
- 		intel_dsb_wait_vblank_delay(state, new_crtc_state->dsb_commit);
-+		intel_dsb_wait_for_delayed_vblank(state, new_crtc_state->dsb_commit);
- 		intel_vrr_check_push_sent(new_crtc_state->dsb_commit,
- 					  new_crtc_state);
- 		intel_dsb_interrupt(new_crtc_state->dsb_commit);
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index dee44d45b668..6b3a4d25a6c6 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -1026,3 +1026,19 @@ void intel_dsb_irq_handler(struct intel_display *display,
- 		drm_err(display->drm, "[CRTC:%d:%s] DSB %d GOSUB programming error\n",
- 			crtc->base.base.id, crtc->base.name, dsb_id);
+-	/* FIXME a bit of a mess wrt clock vs. crtc_clock */
+-	if (has_seamless_m_n(connector))
+-		return intel_panel_highest_mode(connector, adjusted_mode)->clock;
+-	else
+-		return adjusted_mode->crtc_clock;
++	if (has_seamless_m_n(connector)) {
++		const struct drm_display_mode *highest_mode;
++
++		highest_mode = intel_panel_highest_mode(connector);
++		if (highest_mode)
++			return highest_mode->clock;
++	}
++
++	return adjusted_mode->crtc_clock;
  }
-+
-+void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
-+				       struct intel_dsb *dsb)
-+{
-+	const struct intel_crtc_state *crtc_state;
-+	struct intel_crtc *crtc = dsb->crtc;
-+	int start, end;
-+
-+	crtc_state = intel_pre_commit_crtc_state(state, crtc);
-+	start = intel_vrr_vmin_vblank_start(crtc_state);
-+	end = crtc_state->vrr.enable ?
-+	      intel_vrr_vmax_vtotal(crtc_state) :
-+	      intel_vrr_vmin_vtotal(crtc_state);
-+
-+	intel_dsb_wait_scanline_in(state, dsb, start, end);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.h b/drivers/gpu/drm/i915/display/intel_dsb.h
-index c8f4499916eb..6eb810aad18f 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.h
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.h
-@@ -74,4 +74,7 @@ void intel_dsb_wait(struct intel_dsb *dsb);
- void intel_dsb_irq_handler(struct intel_display *display,
- 			   enum pipe pipe, enum intel_dsb_id dsb_id);
  
-+void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
-+				       struct intel_dsb *dsb);
-+
- #endif
+ /* Optimize link config in order: max bpp, min clock, min lanes */
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+index 2a20aaaaac39..ac0f04073ecb 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -144,18 +144,17 @@ intel_panel_downclock_mode(struct intel_connector *connector,
+ }
+ 
+ const struct drm_display_mode *
+-intel_panel_highest_mode(struct intel_connector *connector,
+-			 const struct drm_display_mode *adjusted_mode)
++intel_panel_highest_mode(struct intel_connector *connector)
+ {
+-	const struct drm_display_mode *fixed_mode, *best_mode = adjusted_mode;
++	const struct drm_display_mode *fixed_mode, *highest_mode = NULL;
+ 
+ 	/* pick the fixed_mode that has the highest clock */
+ 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
+-		if (fixed_mode->clock > best_mode->clock)
+-			best_mode = fixed_mode;
++		if (!highest_mode || fixed_mode->clock > highest_mode->clock)
++			highest_mode = fixed_mode;
+ 	}
+ 
+-	return best_mode;
++	return highest_mode;
+ }
+ 
+ int intel_panel_get_modes(struct intel_connector *connector)
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
+index 56a6412cf0fb..8a17600e46a3 100644
+--- a/drivers/gpu/drm/i915/display/intel_panel.h
++++ b/drivers/gpu/drm/i915/display/intel_panel.h
+@@ -37,8 +37,7 @@ const struct drm_display_mode *
+ intel_panel_downclock_mode(struct intel_connector *connector,
+ 			   const struct drm_display_mode *adjusted_mode);
+ const struct drm_display_mode *
+-intel_panel_highest_mode(struct intel_connector *connector,
+-			 const struct drm_display_mode *adjusted_mode);
++intel_panel_highest_mode(struct intel_connector *connector);
+ int intel_panel_get_modes(struct intel_connector *connector);
+ enum drrs_type intel_panel_drrs_type(struct intel_connector *connector);
+ enum drm_mode_status
 -- 
 2.45.2
 
