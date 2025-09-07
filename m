@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 007E7CA1013
-	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CE8BCAC58C
+	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B50310E195;
-	Sun,  7 Sep 2025 07:46:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD0610E447;
+	Sun,  7 Sep 2025 07:46:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HVPymxF9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LlBBs7x2";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CB5B10E037;
- Sun,  7 Sep 2025 07:46:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84C3E10E193;
+ Sun,  7 Sep 2025 07:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757231189; x=1788767189;
+ t=1757231191; x=1788767191;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=mwM0D9cHzW/DTtSc6SxyT81YUmAS+j4M8pwROD3/ABk=;
- b=HVPymxF92jbUXqEPUayLhCY0arF8Jv7jc7uublyRx1aNeSQjtVHvWEZq
- sVW+4G3pSysWZ3SzWxc9jUEFsOoOfi+AEdNGX1GszHpxM9E/fM82XzQP7
- cBnB60l4jocEksf6XxEUhI9nnJUnYAaftL9FBV+3m9trziw1kQbpU2fs6
- 0/fVzZSOjzkEcoatpSwFjtRSfOqHfaFW2ConURCzt4MJykrNtkPjYgNhq
- HfwolgqIFsK3TCa9Lsgs2oigFBYxQHvM0pQCEDdlKIZV6YmYYMSOJ6U1/
- K03/kcr3whgNiZ32z9jnqXaUJ7570IUZe0kH31LbdRryucDcccgS6Bce1 w==;
-X-CSE-ConnectionGUID: SZUoamhvQLuDBPIPDLOseQ==
-X-CSE-MsgGUID: wFV3i40IS0uN5+4FGGCbJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220291"
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220291"
+ bh=fOfWU/xSh6h3EBCc0gCQgy/IT+uG3j5SxVJuUupuB1k=;
+ b=LlBBs7x2HR5KvvR3DRne0/NFGTNxHyy9S3QAlJEVtcaEHikCe0g3INFb
+ l7J7f3SnjJv8YbfifT4TqBBISZy/0NkfB/mmC2wJXYWZi/o/b5Xv4v6Xq
+ Ir/gYIzc7owgmNDJGqICc8NeH4nwANRnPTqp9nE8fPIobZAACjjQqmA6b
+ WxkQIUGTULlH8VD0ml4v4MwL6PUThFCdo3dgq80FsqLnm2lqsl49odqyh
+ /RECaC26xG3nc2BYg7bZ1yaWNEJjMJIa82rcvZoWoMi+3BV1hhf86wAJS
+ HxY0/G+2jyvsFQmLaDIU85y9sbXA1iC6UheI/Kmm16movqjlcKU2sIPV2 Q==;
+X-CSE-ConnectionGUID: UczZUMWuRKKR+PCIS0S+Lw==
+X-CSE-MsgGUID: 0Ro2yvvZQ5uX8zxVDHj3lA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220295"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220295"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:24 -0700
-X-CSE-ConnectionGUID: ckqev+V3RaSGSOdxoiMgVQ==
-X-CSE-MsgGUID: q0Wl/MxcSIi1odY537BDxA==
+ 07 Sep 2025 00:46:30 -0700
+X-CSE-ConnectionGUID: IaPRcYq/SNC1csy0rjcNNQ==
+X-CSE-MsgGUID: NThOog8XT1aBootYaDXRvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176873984"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176874003"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:22 -0700
+ 07 Sep 2025 00:46:28 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 05/14] drm/i915/display: Extract helpers to set dsc/scaler
- prefill latencies
-Date: Sun,  7 Sep 2025 13:02:32 +0530
-Message-ID: <20250907073241.19632-6-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 08/14] drm/i915/vrr: Use vrr.sync_start for getting vtotal
+Date: Sun,  7 Sep 2025 13:02:35 +0530
+Message-ID: <20250907073241.19632-9-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
 References: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
@@ -70,180 +69,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently dsc/scaler prefill latencies are handled during watermark
-calculations. With the optimized guardband, we need to compute the
-latencies to find the minimum guardband that works for most cases.
-Extract the helpers to compute these latencies, so that they can be used
-while computing vrr guardband.
+Currently, in intel_vrr_get_config() crtc_vtotal is computed from
+vrr.vmin vtotal, since the VTOTAL.Vtotal bits are deprecated.
+Since vmin is currently set to crtc_vtotal, this gives us the vtotal.
+However, as we move to optimized guardband, vmin will be modified to set
+to the minimum Vtotal for highest refresh rate supported.
 
-While at it, put declarations in reverse xmas tree order for better
-redability.
-
-v2: Initialize {h,v}scale_k to 0, and simplify the check in
-intel_display_scaler_prefill_latency(). (Mitul)
-v3: Move helpers from intel_display.c to intel_vrr.c as they are specific
-to account for latencies to program vrr guardband. (Jani)
+Instead of depending on vmin, compute vtotal from crtc_vsync_start and
+vrr.vsync_start. This works since vrr.vsync_start is measured from the
+end of vblank, and crtc_vsync_start is measured from start of the
+scanline. Together their sum is equal to the crtc_vtotal.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c     | 33 ++++++++++++++
- drivers/gpu/drm/i915/display/intel_vrr.h     |  8 ++++
- drivers/gpu/drm/i915/display/skl_watermark.c | 47 +++++++++-----------
- 3 files changed, 63 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 266cf5e1859d..fd690de5b45b 100644
+index fd690de5b45b..855974174afd 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -772,3 +772,36 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
- 	if (crtc_state->vrr.enable)
- 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
- }
-+
-+int intel_vrr_guardband_scaler_latency(int num_scaler_users, u64 hscale, u64 vscale,
-+				       int chroma_downscaling_factor,
-+				       int cdclk_prefill_adjustment,
-+				       int linetime)
-+{
-+	int scaler_prefill_latency;
-+
-+	scaler_prefill_latency = 4 * linetime +
-+				 DIV_ROUND_UP_ULL((4 * linetime * hscale * vscale *
-+						   chroma_downscaling_factor), 1000000);
-+
-+	scaler_prefill_latency *= cdclk_prefill_adjustment;
-+
-+	return scaler_prefill_latency;
-+}
-+
-+int intel_vrr_guardband_dsc_latency(int num_scaler_users, u64 *hscale, u64 *vscale,
-+				    int chroma_downscaling_factor,
-+				    int cdclk_prefill_adjustment,
-+				    int linetime)
-+{
-+	int dsc_prefill_latency;
-+
-+	dsc_prefill_latency = DIV_ROUND_UP(15 * linetime * chroma_downscaling_factor, 10);
-+
-+	for (int i = 0; i < num_scaler_users; i++)
-+		dsc_prefill_latency = DIV_ROUND_UP_ULL(dsc_prefill_latency * hscale[i] * vscale[i],
-+						       1000000);
-+	dsc_prefill_latency *= cdclk_prefill_adjustment;
-+
-+	return dsc_prefill_latency;
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 38bf9996b883..950041647e47 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -41,5 +41,13 @@ void intel_vrr_transcoder_enable(const struct intel_crtc_state *crtc_state);
- void intel_vrr_transcoder_disable(const struct intel_crtc_state *crtc_state);
- void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state);
- bool intel_vrr_always_use_vrr_tg(struct intel_display *display);
-+int intel_vrr_guardband_scaler_latency(int num_scaler_users, u64 hscale, u64 vscale,
-+				       int chroma_downscaling_factor,
-+				       int cdclk_prefill_adjustment,
-+				       int linetime);
-+int intel_vrr_guardband_dsc_latency(int num_scaler_users, u64 *hscale, u64 *vscale,
-+				    int chroma_downscaling_factor,
-+				    int cdclk_prefill_adjustment,
-+				    int linetime);
- 
- #endif /* __INTEL_VRR_H__ */
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 3d322c39ce21..1ff2b4d9a35e 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -28,6 +28,7 @@
- #include "intel_flipq.h"
- #include "intel_pcode.h"
- #include "intel_plane.h"
-+#include "intel_vrr.h"
- #include "intel_wm.h"
- #include "skl_universal_plane_regs.h"
- #include "skl_scaler.h"
-@@ -2179,11 +2180,12 @@ cdclk_prefill_adjustment(const struct intel_crtc_state *crtc_state)
- static int
- dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- {
-+	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
-+	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	const struct intel_crtc_scaler_state *scaler_state =
--					&crtc_state->scaler_state;
- 	int num_scaler_users = hweight32(scaler_state->scaler_users);
--	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
-+	u64 hscale_k[ARRAY_SIZE(scaler_state->scalers)];
-+	u64 vscale_k[ARRAY_SIZE(scaler_state->scalers)];
- 	u32 dsc_prefill_latency = 0;
- 
- 	if (!crtc_state->dsc.compression_enable ||
-@@ -2191,18 +2193,16 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- 	    num_scaler_users > crtc->num_scalers)
- 		return dsc_prefill_latency;
- 
--	dsc_prefill_latency = DIV_ROUND_UP(15 * linetime * chroma_downscaling_factor, 10);
+@@ -735,17 +735,6 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 						     TRANS_VRR_VMAX(display, cpu_transcoder)) + 1;
+ 		crtc_state->vrr.vmin = intel_de_read(display,
+ 						     TRANS_VRR_VMIN(display, cpu_transcoder)) + 1;
 -
- 	for (int i = 0; i < num_scaler_users; i++) {
--		u64 hscale_k, vscale_k;
+-		/*
+-		 * For platforms that always use VRR Timing Generator, the VTOTAL.Vtotal
+-		 * bits are not filled. Since for these platforms TRAN_VMIN is always
+-		 * filled with crtc_vtotal, use TRAN_VRR_VMIN to get the vtotal for
+-		 * adjusted_mode.
+-		 */
+-		if (intel_vrr_always_use_vrr_tg(display))
+-			crtc_state->hw.adjusted_mode.crtc_vtotal =
+-				intel_vrr_vmin_vtotal(crtc_state);
 -
--		hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16);
--		vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16);
--		dsc_prefill_latency = DIV_ROUND_UP_ULL(dsc_prefill_latency * hscale_k * vscale_k,
--						       1000000);
-+		hscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16);
-+		vscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16);
+ 		if (HAS_AS_SDP(display)) {
+ 			trans_vrr_vsync =
+ 				intel_de_read(display,
+@@ -755,6 +744,16 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 			crtc_state->vrr.vsync_end =
+ 				REG_FIELD_GET(VRR_VSYNC_END_MASK, trans_vrr_vsync);
+ 		}
++		/*
++		 * For platforms that always use VRR Timing Generator, the VTOTAL.Vtotal
++		 * bits are not filled. Since vrr.vsync_start is computed as:
++		 * crtc_vtotal - crtc_vsync_start, we can derive vtotal from
++		 * vrr.vsync_start and crtc_vsync_start.
++		 */
++		if (intel_vrr_always_use_vrr_tg(display))
++			crtc_state->hw.adjusted_mode.crtc_vtotal =
++				crtc_state->hw.adjusted_mode.crtc_vsync_start +
++				crtc_state->vrr.vsync_start;
  	}
  
--	dsc_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
-+	dsc_prefill_latency =
-+		intel_vrr_guardband_dsc_latency(num_scaler_users, hscale_k, vscale_k,
-+						chroma_downscaling_factor,
-+						cdclk_prefill_adjustment(crtc_state),
-+						linetime);
- 
- 	return dsc_prefill_latency;
- }
-@@ -2210,28 +2210,25 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- static int
- scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- {
--	const struct intel_crtc_scaler_state *scaler_state =
--					&crtc_state->scaler_state;
-+	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
-+	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
- 	int num_scaler_users = hweight32(scaler_state->scaler_users);
-+	u64 hscale_k = 0, vscale_k = 0;
- 	int scaler_prefill_latency = 0;
- 
- 	if (!num_scaler_users)
- 		return scaler_prefill_latency;
- 
--	scaler_prefill_latency = 4 * linetime;
--
- 	if (num_scaler_users > 1) {
--		u64 hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
--		u64 vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
--		int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
--		int latency;
--
--		latency = DIV_ROUND_UP_ULL((4 * linetime * hscale_k * vscale_k *
--					    chroma_downscaling_factor), 1000000);
--		scaler_prefill_latency += latency;
-+		hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
-+		vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
- 	}
- 
--	scaler_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
-+	scaler_prefill_latency =
-+		intel_vrr_guardband_scaler_latency(num_scaler_users, hscale_k, vscale_k,
-+						   chroma_downscaling_factor,
-+						   cdclk_prefill_adjustment(crtc_state),
-+						   linetime);
- 
- 	return scaler_prefill_latency;
- }
+ 	vrr_enable = trans_vrr_ctl & VRR_CTL_VRR_ENABLE;
 -- 
 2.45.2
 
