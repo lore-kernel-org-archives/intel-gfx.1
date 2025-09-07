@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA82DCAC586
-	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72BA5CA1013
+	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F66510E44E;
-	Sun,  7 Sep 2025 07:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06E0610E44A;
+	Sun,  7 Sep 2025 07:46:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hsf5hLyZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FTwhqHuc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2071B10E445;
- Sun,  7 Sep 2025 07:46:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04E8910E037;
+ Sun,  7 Sep 2025 07:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757231198; x=1788767198;
+ t=1757231202; x=1788767202;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lna3jd0ZO7M1CftlEUcdyu/bTfq5WImM2MNAjmVTgeU=;
- b=hsf5hLyZ9QJwYw9wsJOOCT3voJweLrtE7NpTBEdoqYCZHIzlDF/Et7cA
- BXZdYc0t2PK+jPRb5RuSpAtiqoSSJVnJ1I082n4UV/IvBRA+8douwXXHn
- Md9nmB1RMnh5Sg/ZNjk7ge4SUw5RJE1HjMEa+H0HWbdA9gQeMRolZsyXZ
- Fp9Tmjo5kYfKQ57vM7MQ6+CSviuVUGZHxTUyKtOpOgR+o0NiH7ukR+cpK
- QU8sQfnlhR96RKJKwtfpYqx9tbpsdL7MhyS706PPNyFsDM/PXo8J4Ods7
- IB2QoSPBm+39DWAIU0WXVUmUvc26jpYjcRdXxmyEbliYNHMOPUDpP7h/x A==;
-X-CSE-ConnectionGUID: vQAPCVX4SjSLceQpaInAYg==
-X-CSE-MsgGUID: BHT93AOjRo6VKBBJp4PAMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220301"
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220301"
+ bh=MMdkNnVMtSWn3qKOyJguh/cgBKCL/OfL9/VAfkvHcaQ=;
+ b=FTwhqHucc+bE4T+bzWy9F4noGKDLfzYRI6IRaUAypJgr0e1lXKs6mYB+
+ +Gr6XHmtZlTcLl1AImBxFwSDsnhCI9AKMjWkwyW/Wp6+TxuU2z90+S/bk
+ ekBti04EPfXfF0NIuxZO6+vJj0t1c7mmR+SWtcUb9vMFEC2uVhEuLsAEU
+ ZOjkFlUF0X71b3Ti0BCDaRtsAULD7ie3ZenbL/ie1rjYRxgbYH5i/z41o
+ xYhoqz0hM64TuIIdGgnsOB1WITZ6Yi9OIewlE5uEahW+lWUUS961MgM3X
+ qyeG4QJ94fB6vw6OPWk5O8EgrgH4ZHY4aIis5rVwTkElvdM3WUQHSKbIb A==;
+X-CSE-ConnectionGUID: ICFntuBJRjecEPZ7T8d39A==
+X-CSE-MsgGUID: CkloP4oAQiicbkHRO5LSeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220304"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220304"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:38 -0700
-X-CSE-ConnectionGUID: rdfpL3tnTJygvtYtpbTkXA==
-X-CSE-MsgGUID: EgLyFczsRkWuNbhdPbUqBw==
+ 07 Sep 2025 00:46:42 -0700
+X-CSE-ConnectionGUID: K8YCIAnpSouEppiQRFLAgQ==
+X-CSE-MsgGUID: 1XacWtsrRfedIy9nxEiEEQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176874039"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176874062"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:36 -0700
+ 07 Sep 2025 00:46:40 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 12/14] drm/i915/vrr: Use static guardband to support seamless
- LRR switching
-Date: Sun,  7 Sep 2025 13:02:39 +0530
-Message-ID: <20250907073241.19632-13-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 14/14] drm/i915/vrr: Fix seamless_mn drrs for PTL
+Date: Sun,  7 Sep 2025 13:02:41 +0530
+Message-ID: <20250907073241.19632-15-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
 References: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
@@ -70,232 +69,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the current VRR implementation, vrr.vmin and vrr.guardband are set such
-that they do not need to change when switching from fixed refresh rate to
-variable refresh rate. Specifically, vrr.guardband is always set to match
-the vblank length. This approach works for most cases, but not for LRR,
-where the guardband would need to change while the VRR timing generator is
-still active.
+With VRR timing generator always on, the fixed refresh rate is achieved
+by setting vrr.flipline and vrr.vmax as the vtotal for the desired mode.
 
-With the VRR TG always active, live updates to guardband are unsafe and not
-recommended. To ensure hardware safety, guardband was moved out of the
-!fastset block, meaning any change now requires a full modeset.
-This breaks seamless LRR switching, which was previously supported.
+This creates a problem for seamless_mn drrs feature, where user can
+seamlessly set a lower mode on the supporting panels. With VRR timing
+generator, the vrr.flipline and vrr.vmax are set to vtotal, but that
+corresponds to the higher mode.
 
-Since the problem arises from guardband being matched to the vblank length,
-solution is to use a minimal, sufficient static value, instead. So we use a
-static guardband defined during mode-set that fits within the smallest
-expected vblank and remains unchanged in case of features like LRR where
-vtotal changes. To compute this minimum guardband we take into account
-latencies/delays due to different features as mentioned in the Bspec.
+To fix this, re-compute the vrr timings when seamless_mn drrs is in
+picture. At the same time make sure that the vrr.guardband is set as
+per the highest mode for such panels, so that switching between higher
+to lower mode, does not change the vrr.guardband.
 
-v2:
--Use helpers for dsc/scaler prefill latencies. (Mitul)
--Account for pkgc latency and take max of pkgc and sagv latencies.
-v3: Use new helper for PSR2/Panel Replay latency.
-v4: Avoid re-setting the Vmin/Flipline for optimized guardband.
+v2: Add a new member `use_highest_mode` to vrr struct to help set the
+vrr timings for highest mode for the seamless_mn drrs case.
+v3:
+-Modify existing function to compute fixed refresh rate timings instead
+of adding a new function. (Mitul)
+-Tweak computation for scaling the vtotal and use DIV_ROUND_UP_ULL.
+-Improve documentation.
 
-Bspec: 70151
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> (#v3)
+Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c |   2 +-
- drivers/gpu/drm/i915/display/intel_vrr.c     | 127 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_vrr.h     |   3 +-
- 3 files changed, 128 insertions(+), 4 deletions(-)
+ .../drm/i915/display/intel_display_types.h    |  2 +
+ drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.h       |  1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 90 ++++++++++++++++++-
+ 4 files changed, 90 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index fb072275b1c7..3fa94675d5e1 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4902,7 +4902,6 @@ intel_modeset_pipe_config_late(struct intel_atomic_state *state,
- 	struct drm_connector *connector;
- 	int i;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index fd9d2527889b..e2b0d0a22ffd 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1319,6 +1319,8 @@ struct intel_crtc_state {
+ 		u8 pipeline_full;
+ 		u16 flipline, vmin, vmax, guardband;
+ 		u32 vsync_end, vsync_start;
++		/* Indicates VRR timing is scaled to highest mode for seamless M/N */
++		bool use_highest_mode;
+ 	} vrr;
  
--	intel_vrr_compute_config_late(crtc_state);
+ 	/* Content Match Refresh Rate state */
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index beab66ce0550..97e9b1aee5ec 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1742,7 +1742,7 @@ static int intel_dp_max_bpp(struct intel_dp *intel_dp,
+ 	return bpp;
+ }
  
- 	for_each_new_connector_in_state(&state->base, connector,
- 					conn_state, i) {
-@@ -4914,6 +4913,7 @@ intel_modeset_pipe_config_late(struct intel_atomic_state *state,
- 		    !encoder->compute_config_late)
- 			continue;
+-static bool has_seamless_m_n(struct intel_connector *connector)
++bool has_seamless_m_n(struct intel_connector *connector)
+ {
+ 	struct intel_display *display = to_intel_display(connector);
  
-+		intel_vrr_compute_config_late(crtc_state, conn_state);
- 		ret = encoder->compute_config_late(encoder, crtc_state,
- 						   conn_state);
- 		if (ret)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index bfd1bd448672..932f5504399e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -216,5 +216,6 @@ int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector);
+ void intel_dp_dpcd_set_probe(struct intel_dp *intel_dp, bool force_on_external);
+ bool intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state);
+ int intel_dp_compute_sdp_latency(struct intel_crtc_state *crtc_state, bool assume_all_enabled);
++bool has_seamless_m_n(struct intel_connector *connector);
+ 
+ #endif /* __INTEL_DP_H__ */
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 855974174afd..fff684eb2514 100644
+index fff684eb2514..880339f7c110 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -6,12 +6,15 @@
- 
- #include <drm/drm_print.h>
- 
-+#include "intel_alpm.h"
- #include "intel_de.h"
+@@ -11,6 +11,7 @@
  #include "intel_display_regs.h"
  #include "intel_display_types.h"
  #include "intel_dp.h"
++#include "intel_panel.h"
  #include "intel_vrr.h"
  #include "intel_vrr_regs.h"
-+#include "skl_scaler.h"
-+#include "skl_watermark.h"
- 
- #define FIXED_POINT_PRECISION		100
- #define CMRR_PRECISION_TOLERANCE	10
-@@ -413,15 +416,135 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	}
- }
- 
--void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state)
-+static
-+int scaler_prefill_latency(struct intel_crtc_state *crtc_state, int linetime_us)
-+{
-+	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
-+	u64 hscale_k, vscale_k;
-+	int cdclk_adjustment;
-+	int num_scaler_users;
-+
-+	/*
-+	 * Assuming:
-+	 * Both scaler enabled.
-+	 * scaler 1 downscaling factor as 2 x 2 (Horiz x Vert)
-+	 * scaler 2 downscaling factor as 2 x 1 (Horiz x Vert)
-+	 * Cdclk Adjustment : 1
-+	 */
-+	num_scaler_users = 2;
-+	hscale_k = 2 * 1000;
-+	vscale_k = 2 * 1000;
-+	cdclk_adjustment = 1;
-+
-+	return intel_vrr_guardband_scaler_latency(num_scaler_users, hscale_k, vscale_k,
-+						  chroma_downscaling_factor,
-+						  cdclk_adjustment,
-+						  linetime_us);
-+}
-+
-+static
-+int dsc_prefill_latency(struct intel_crtc_state *crtc_state, int linetime_us)
-+{
-+#define MAX_SCALERS 2
-+	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
-+	u64 hscale_k[MAX_SCALERS], vscale_k[MAX_SCALERS];
-+	int cdclk_adjustment;
-+	int num_scaler_users;
-+
-+	/*
-+	 * Assuming:
-+	 * Both scaler enabled.
-+	 * scaler 1 downscaling factor as 2 x 2 (Horiz x Vert)
-+	 * scaler 2 downscaling factor as 2 x 1 (Horiz x Vert)
-+	 * Cdclk Adjustment : 1
-+	 */
-+	num_scaler_users = MAX_SCALERS;
-+	hscale_k[0] = 2 * 1000;
-+	vscale_k[0] = 2 * 1000;
-+	hscale_k[1] = 2 * 1000;
-+	vscale_k[1] = 1 * 1000;
-+
-+	cdclk_adjustment = 1;
-+
-+	return intel_vrr_guardband_dsc_latency(num_scaler_users, hscale_k, vscale_k,
-+					       chroma_downscaling_factor,
-+					       cdclk_adjustment,
-+					       linetime_us);
-+}
-+
-+static
-+int intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state,
-+				struct intel_connector *connector)
-+{
-+	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	int dsc_prefill_time = 0;
-+	int psr2_pr_latency = 0;
-+	int scaler_prefill_time;
-+	int wm0_prefill_time;
-+	int pkgc_max_latency;
-+	int sagv_latency;
-+	int sdp_latency = 0;
-+	int guardband_us;
-+	int linetime_us;
-+	int guardband;
-+	int pm_delay;
-+
-+	linetime_us = DIV_ROUND_UP(adjusted_mode->crtc_htotal * 1000,
-+				   adjusted_mode->crtc_clock);
-+
-+	pkgc_max_latency = skl_watermark_max_latency(display, 1);
-+	sagv_latency = display->sagv.block_time_us;
-+
-+	/* Assuming max wm0 lines = 4 */
-+	wm0_prefill_time = 4 * linetime_us + 20;
-+
-+	scaler_prefill_time = scaler_prefill_latency(crtc_state, linetime_us);
-+
-+	if (crtc_state->dsc.compression_enable)
-+		dsc_prefill_time = dsc_prefill_latency(crtc_state, linetime_us);
-+
-+	pm_delay = crtc_state->framestart_delay +
-+		   max(sagv_latency, pkgc_max_latency) +
-+		   wm0_prefill_time +
-+		   scaler_prefill_time +
-+		   dsc_prefill_time;
-+
-+	switch (connector->base.connector_type) {
-+	case DRM_MODE_CONNECTOR_eDP:
-+	case DRM_MODE_CONNECTOR_DisplayPort:
-+		psr2_pr_latency = intel_alpm_compute_max_link_wake_latency(crtc_state, true);
-+		sdp_latency = intel_dp_compute_sdp_latency(crtc_state, true);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	guardband_us = max(sdp_latency, psr2_pr_latency);
-+	guardband_us = max(guardband_us, pm_delay);
-+
-+	guardband = DIV_ROUND_UP(guardband_us, linetime_us);
-+
-+	/* guardband cannot be more than the Vmax vblank */
-+	guardband = min(guardband, crtc_state->vrr.vmax - adjusted_mode->crtc_vblank_start);
-+
-+	return guardband;
-+}
-+
-+void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state,
-+				   struct drm_connector_state *conn_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	struct intel_connector *connector =
-+		to_intel_connector(conn_state->connector);
- 
+ #include "skl_scaler.h"
+@@ -299,6 +300,16 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state)
  	if (!intel_vrr_possible(crtc_state))
  		return;
  
--	if (DISPLAY_VER(display) >= 13) {
-+	if (intel_vrr_always_use_vrr_tg(display)) {
-+		crtc_state->vrr.guardband = intel_vrr_compute_guardband(crtc_state, connector);
-+	} else if (DISPLAY_VER(display) >= 13) {
- 		crtc_state->vrr.guardband =
- 			crtc_state->vrr.vmin - adjusted_mode->crtc_vblank_start;
- 	} else {
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
-index 950041647e47..362638fd0d66 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.h
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.h
-@@ -21,7 +21,8 @@ bool intel_vrr_possible(const struct intel_crtc_state *crtc_state);
- void intel_vrr_check_modeset(struct intel_atomic_state *state);
- void intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			      struct drm_connector_state *conn_state);
--void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state);
-+void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state,
-+				   struct drm_connector_state *conn_state);
- void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state);
- void intel_vrr_enable(const struct intel_crtc_state *crtc_state);
- void intel_vrr_send_push(struct intel_dsb *dsb,
++	if (crtc_state->vrr.use_highest_mode) {
++		intel_de_write(display, TRANS_VRR_VMIN(display, cpu_transcoder),
++			       crtc_state->vrr.vmin - 1);
++		intel_de_write(display, TRANS_VRR_VMAX(display, cpu_transcoder),
++			       crtc_state->vrr.vmax - 1);
++		intel_de_write(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
++			       crtc_state->vrr.flipline - 1);
++		return;
++	}
++
+ 	intel_de_write(display, TRANS_VRR_VMIN(display, cpu_transcoder),
+ 		       intel_vrr_fixed_rr_vmin(crtc_state) - 1);
+ 	intel_de_write(display, TRANS_VRR_VMAX(display, cpu_transcoder),
+@@ -307,15 +318,69 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state)
+ 		       intel_vrr_fixed_rr_flipline(crtc_state) - 1);
+ }
+ 
++static bool needs_seamless_m_n_timings(struct intel_crtc_state *crtc_state,
++				       struct intel_connector *connector)
++{
++	if (!has_seamless_m_n(connector) || crtc_state->joiner_pipes)
++		return false;
++
++	return true;
++}
++
++static int intel_vrr_scale_vtotal_for_seamless_m_n(struct intel_crtc_state *crtc_state,
++						   struct intel_connector *connector)
++{
++	const struct drm_display_mode *highest_mode = intel_panel_highest_mode(connector);
++	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
++	int vtotal = adjusted_mode->crtc_vtotal;
++
++	/*
++	 * For panels with seamless_m_n drrs, the user can seamlessly switch to
++	 * a lower mode, which has a lower clock. This works with legacy timing
++	 * generator, but not with the VRR timing generator.
++	 *
++	 * The VRR timing generator requires flipline and vmax to be equal for
++	 * fixed refresh rate operation. The default fixed RR computation sets
++	 * these to the current mode's vtotal. However, when switching to a
++	 * lower clock mode, this would result in a higher refresh rate than
++	 * desired.
++	 *
++	 * To simulate the lower refresh rate correctly, we scale the vtotal
++	 * based on the ratio of the highest mode's clock to the current mode's
++	 * clock.
++	 *
++	 * When switching to a higher clock mode, the current vtotal already
++	 * results in the desired refresh rate, so no scaling is needed.
++	 *
++	 * So compute the scaled vtotal if required, and update vrr.vmin to
++	 * the scaled value. Also, set vrr.use_highest_mode to indicate that
++	 * VRR timings are based on the highest mode.
++	 */
++	if (highest_mode && adjusted_mode->crtc_clock < highest_mode->clock) {
++		vtotal = DIV_ROUND_UP_ULL(vtotal * highest_mode->clock,
++					  adjusted_mode->crtc_clock);
++		crtc_state->vrr.vmin = vtotal;
++		crtc_state->vrr.use_highest_mode = true;
++	}
++
++	return vtotal;
++}
++
+ static
+-void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state)
++void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state,
++					struct intel_connector *connector)
+ {
++	int vtotal = crtc_state->hw.adjusted_mode.crtc_vtotal;
++
++	if (needs_seamless_m_n_timings(crtc_state, connector))
++		vtotal = intel_vrr_scale_vtotal_for_seamless_m_n(crtc_state, connector);
++
+ 	/*
+ 	 * For fixed rr,  vmin = vmax = flipline.
+ 	 * vmin is already set to crtc_vtotal set vmax and flipline the same.
+ 	 */
+-	crtc_state->vrr.vmax = crtc_state->hw.adjusted_mode.crtc_vtotal;
+-	crtc_state->vrr.flipline = crtc_state->hw.adjusted_mode.crtc_vtotal;
++	crtc_state->vrr.vmax = vtotal;
++	crtc_state->vrr.flipline = vtotal;
+ }
+ 
+ static
+@@ -397,7 +462,7 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+ 	else if (is_cmrr_frac_required(crtc_state) && is_edp)
+ 		intel_vrr_compute_cmrr_timings(crtc_state);
+ 	else
+-		intel_vrr_compute_fixed_rr_timings(crtc_state);
++		intel_vrr_compute_fixed_rr_timings(crtc_state, connector);
+ 
+ 	/*
+ 	 * flipline determines the min vblank length the hardware will
+@@ -478,6 +543,7 @@ int intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state,
+ {
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	struct intel_display *display = to_intel_display(crtc_state);
++	const struct drm_display_mode *highest_mode;
+ 	int dsc_prefill_time = 0;
+ 	int psr2_pr_latency = 0;
+ 	int scaler_prefill_time;
+@@ -490,6 +556,22 @@ int intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state,
+ 	int guardband;
+ 	int pm_delay;
+ 
++	/*
++	 * For seamless m_n the clock is changed while other modeline
++	 * parameters are same. In that case the linetime_us will change,
++	 * causing the guardband to change, and the seamless switch to
++	 * lower mode would not take place.
++	 * To avoid this, take the highest mode where panel supports
++	 * seamless drrs and make guardband equal to the vblank length
++	 * for the highest mode.
++	 */
++	highest_mode = intel_panel_highest_mode(connector);
++	if (needs_seamless_m_n_timings(crtc_state, connector) && highest_mode) {
++		guardband = highest_mode->vtotal - highest_mode->vdisplay;
++
++		return guardband;
++	}
++
+ 	linetime_us = DIV_ROUND_UP(adjusted_mode->crtc_htotal * 1000,
+ 				   adjusted_mode->crtc_clock);
+ 
 -- 
 2.45.2
 
