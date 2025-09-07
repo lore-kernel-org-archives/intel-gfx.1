@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 820FCCAC584
-	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D3ECA101F
+	for <intel-gfx@archiver.kernel.org>; Sun,  7 Sep 2025 07:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A06610E01F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C1BD10E183;
 	Sun,  7 Sep 2025 07:46:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AIqjzERi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZHph+jsn";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E822A10E01F;
- Sun,  7 Sep 2025 07:46:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6028C10E037;
+ Sun,  7 Sep 2025 07:46:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1757231188; x=1788767188;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WX4V5EDb+17dMPsRlhZvZ+Y0Wu/h+wHqhdTZxyhw/X0=;
- b=AIqjzERi6uxbw+21lfBiGIiuTha/IX8CXNKBxVClP19KsLoHNbeUF6Zd
- OXfzXOT2vlR41acH4wKSs8kIkiPQlEq4puSOdfq1eE5NKnSGHlFkOqsmf
- 7fcbI9sE1e683awy6YwOO3GFj6PtBro4KeTMQy7RQLoz7stJ8++e+4D8v
- vSJc434euq/IAl/YDbov+pedG9AWZRvBBk/sgWnwC/V6HFWxuSxreKwvN
- 9dp3+eJ8nhI003+i0+b+N6LfVXz3HK56r/6zvhIhDuTS98zc0KXN91jEH
- faMRkOBVRZCuPXMygw6rXesBgTu91FwDoQLfj/DPJXkjMjuxohnUzWXyk A==;
-X-CSE-ConnectionGUID: lGnscGuJQhi4srwaMTDtPQ==
-X-CSE-MsgGUID: ISjMNTv6RX+g6bBqgmoW6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220281"
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220281"
+ bh=WtVqd16yNYmK7L8lRhvTyXlGt4c9hzq1FiS0rs5MtqU=;
+ b=ZHph+jsnGeo6bIqyAf98rwsoiCRd5O+MobaOyUF78gR8sTHaDDgtm01I
+ F4j07sLpHmVzr9+fHZ/FUPuyW5AZSsWldF16Tfiu//92r511HMHD5CN55
+ ixZ6jkmfTqwJXDEGcjh+jIakEq7KJkzUliI7xZVH3T+fL7ufDJzbEXR1z
+ trKCV2drS9dLFT5Va6Xq509uJnw33OQ46RbSFiMMfU/QxrcHtnRZ+MveM
+ G//txenFtMtFrVHsQELzTEaBnwVHN43SlPWJI6SYQC0ruRpEXoqnCv60V
+ GHcVwwTiTyt5FuQsyUWg75RyRuf3Wu57hh+iPIs2sgusFUUHSW88wWQNS Q==;
+X-CSE-ConnectionGUID: ih9MNWDETMW1vJWOvjQy5A==
+X-CSE-MsgGUID: YjWM/DQKQ1uhrzNJKxKOIg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11545"; a="70220286"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="70220286"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:17 -0700
-X-CSE-ConnectionGUID: CzLRNVgCQgqktj+a8KTScw==
-X-CSE-MsgGUID: vkI5irnxTZOLkXYffECrUQ==
+ 07 Sep 2025 00:46:21 -0700
+X-CSE-ConnectionGUID: R7LTLYh5TzaJan1KH+fZ4w==
+X-CSE-MsgGUID: 0OlvmsUBRbqmc4b2SDfKRw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176873930"
+X-IronPort-AV: E=Sophos;i="6.18,246,1751266800"; d="scan'208";a="176873968"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Sep 2025 00:46:15 -0700
+ 07 Sep 2025 00:46:19 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 01/14] drm/i915/vrr: Use crtc_vsync_start/end for computing
- vrr.vsync_start/end
-Date: Sun,  7 Sep 2025 13:02:28 +0530
-Message-ID: <20250907073241.19632-2-ankit.k.nautiyal@intel.com>
+Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH 03/14] drm/i915/skl_watermark: Pass linetime as argument to
+ latency helpers
+Date: Sun,  7 Sep 2025 13:02:30 +0530
+Message-ID: <20250907073241.19632-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
 References: <20250907073241.19632-1-ankit.k.nautiyal@intel.com>
@@ -69,33 +70,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use adjusted_mode->crtc_vsync_start/end instead of
-adjusted_mode->vsync_start while computing vrr.vsync_start/end.
-For most modes, these are same but for 3D/stereo modes the
-crtc_vsync_start is different than vsync_start.
+Refactor dsc_prefill_latency and scaler_prefill_latency to take
+linetime as an explicit parameter instead of computing it internally.
+
+This avoids redundant calculations and simplifies scanline conversion
+logic in skl_is_vblank_too_short().
+
+This change also facilitates future extraction of these helpers for use
+cases where latencies are computed for an optimized guardband, based on the
+highest resolution mode, rather than the current mode.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 3eed37f271b0..266cf5e1859d 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -406,10 +406,10 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 	if (HAS_AS_SDP(display)) {
- 		crtc_state->vrr.vsync_start =
- 			(crtc_state->hw.adjusted_mode.crtc_vtotal -
--			 crtc_state->hw.adjusted_mode.vsync_start);
-+			 crtc_state->hw.adjusted_mode.crtc_vsync_start);
- 		crtc_state->vrr.vsync_end =
- 			(crtc_state->hw.adjusted_mode.crtc_vtotal -
--			 crtc_state->hw.adjusted_mode.vsync_end);
-+			 crtc_state->hw.adjusted_mode.crtc_vsync_end);
- 	}
+diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
+index 51548447f4aa..49d424f5b305 100644
+--- a/drivers/gpu/drm/i915/display/skl_watermark.c
++++ b/drivers/gpu/drm/i915/display/skl_watermark.c
+@@ -2176,13 +2176,11 @@ cdclk_prefill_adjustment(const struct intel_crtc_state *crtc_state)
  }
  
+ static int
+-dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
++dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	const struct intel_crtc_scaler_state *scaler_state =
+ 					&crtc_state->scaler_state;
+-	int linetime = DIV_ROUND_UP(1000 * crtc_state->hw.adjusted_mode.htotal,
+-				    crtc_state->hw.adjusted_mode.clock);
+ 	int num_scaler_users = hweight32(scaler_state->scaler_users);
+ 	int chroma_downscaling_factor =
+ 		crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
+@@ -2206,18 +2204,16 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
+ 
+ 	dsc_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
+ 
+-	return intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode, dsc_prefill_latency);
++	return dsc_prefill_latency;
+ }
+ 
+ static int
+-scaler_prefill_latency(const struct intel_crtc_state *crtc_state)
++scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
+ {
+ 	const struct intel_crtc_scaler_state *scaler_state =
+ 					&crtc_state->scaler_state;
+ 	int num_scaler_users = hweight32(scaler_state->scaler_users);
+ 	int scaler_prefill_latency = 0;
+-	int linetime = DIV_ROUND_UP(1000 * crtc_state->hw.adjusted_mode.htotal,
+-				    crtc_state->hw.adjusted_mode.clock);
+ 
+ 	if (!num_scaler_users)
+ 		return scaler_prefill_latency;
+@@ -2238,7 +2234,7 @@ scaler_prefill_latency(const struct intel_crtc_state *crtc_state)
+ 
+ 	scaler_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
+ 
+-	return intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode, scaler_prefill_latency);
++	return scaler_prefill_latency;
+ }
+ 
+ static bool
+@@ -2247,11 +2243,13 @@ skl_is_vblank_too_short(const struct intel_crtc_state *crtc_state,
+ {
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
++	int linetime = DIV_ROUND_UP(1000 * adjusted_mode->htotal,
++				    adjusted_mode->clock);
+ 
+ 	return crtc_state->framestart_delay +
+ 		intel_usecs_to_scanlines(adjusted_mode, latency) +
+-		scaler_prefill_latency(crtc_state) +
+-		dsc_prefill_latency(crtc_state) +
++		DIV_ROUND_UP(scaler_prefill_latency(crtc_state, linetime), linetime) +
++		DIV_ROUND_UP(dsc_prefill_latency(crtc_state, linetime), linetime) +
+ 		wm0_lines >
+ 		adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vblank_start;
+ }
 -- 
 2.45.2
 
