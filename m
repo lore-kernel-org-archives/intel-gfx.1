@@ -4,63 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17FB4CAC586
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 11:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D047CAC581
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Sep 2025 12:15:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C08C10E4CD;
-	Mon,  8 Sep 2025 11:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD9C810E084;
+	Mon,  8 Sep 2025 12:15:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mpFU85Is";
+	dkim=pass (1024-bit key; secure) header.d=estudante.ufscar.br header.i=@estudante.ufscar.br header.b="ksu2QDhs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 201CC10E4CF
- for <intel-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 11:39:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757331582; x=1788867582;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=imd6bcuLjWYtLfF+tRtO55veUpXfGL+jiHTBEAOHWKc=;
- b=mpFU85Is8ict5JdSrcSFg5iy1lwDG7ab+tmBV8wFg8wAumgwgTuhWhyl
- 2YeYVVakutEYj83a3rwxaN4y7odk43meHuISHBNpvxawDWJaGtUFS6J/N
- Sz1wFPu+452obA9jLBtLGLRMMumQ/VLHRVnPS8zc2jAaKkl/2VyEXJeaz
- QB8Ooh+NWAo5YDJ0zftpivp7q8XitC56uRO4svV9m8JMwDQDjCSaU/BXX
- f6Ek7rmAVnUyriX+anyZor1HzXgq3dydbpLce692K0sZ8Fhdr2nrVmH0I
- Ju7It1J9U/9oRnbaMxjeVs87peTetR49pI6PrdcwAFvIKSPmxj+Ob7jLl A==;
-X-CSE-ConnectionGUID: hDbLajYjTRq8LSYrFM0SQg==
-X-CSE-MsgGUID: eCbcn7rARnm6KFySoI5b9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11546"; a="69837973"
-X-IronPort-AV: E=Sophos;i="6.18,248,1751266800"; d="scan'208";a="69837973"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2025 04:39:42 -0700
-X-CSE-ConnectionGUID: Ckk+yJ9HQHiPYe8S84wK+w==
-X-CSE-MsgGUID: uH9MZub0T9+kakBfkqX3TA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,248,1751266800"; d="scan'208";a="171943549"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.204])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2025 04:39:38 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Noralf =?utf-8?Q?Tr=C3=B8nnes?=
- <noralf@tronnes.org>, Simona Vetter <simona.vetter@ffwll.ch>, Andi Shyti
- <andi.shyti@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: Re: [PATCH 6/6] drm: Avoid undefined behavior on u16 multiplication
-In-Reply-To: <bc353160d0c3d7f662f66edd8b33ecee2b851b67@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1756995162.git.krzysztof.karas@intel.com>
- <9a7a56a1a958f7aa0389bb5732f4b716bf2be0f6.1756995162.git.krzysztof.karas@intel.com>
- <bc353160d0c3d7f662f66edd8b33ecee2b851b67@intel.com>
-Date: Mon, 08 Sep 2025 14:39:34 +0300
-Message-ID: <4a6f41cf353a6ba2ade0af08f8eebf99c82e5cac@intel.com>
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 634CD10E084
+ for <intel-gfx@lists.freedesktop.org>; Mon,  8 Sep 2025 12:15:32 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-b4ee87cc81eso3940075a12.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 08 Sep 2025 05:15:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=estudante.ufscar.br; s=google; t=1757333732; x=1757938532;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ia+hUZJmf8zZI+6M/t/ltEWDdM46PEHluVyll3CzdAc=;
+ b=ksu2QDhsVh7TBWPE4QF5+FZ26mPLSdm/lFv+WDD+pfWC0wayibkZROrWo1nVq85hAU
+ uVQQNynwwJLoBwIfyJSh8PC83TMGjrCas90UekWEmSdfF6avaLHH/puxj9ncDydNXAE4
+ 9dW3FjM83moOnvCD9Vtbp9U2OlSjQB+cNHbGQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757333732; x=1757938532;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=Ia+hUZJmf8zZI+6M/t/ltEWDdM46PEHluVyll3CzdAc=;
+ b=vKsMDqE3b6w8uQou/gsyBk/ub7v7WjJ/I4u05HSVtO99Hbo3HZGRz40NnQb63su/Vo
+ wnKgWCTnTOVKME8Fir6pkJwtlXYX7O7qrxIVxJRqdScf9G5hOGXvdOTVUJ6Ym+fMEQ8i
+ zIjQUAXMlXadkaD1Gpkm02NngvSlHot1AWfNK0R16b8xZTIVuHT/Kbf1A7+RjI5hVDmI
+ LPcXSw6Gtnzl3BaJkOJ8qbuPHH3fLyWLcQzUU9IDh9sDvZsmV9XQG96EYr40rGOy/0bD
+ 17rKO8whdTqsanTKacxVwc/IfYLYB6BUFBgJXLyn1hKt8KAxdP6nzsYPPCaXoCv7jYvR
+ /txw==
+X-Gm-Message-State: AOJu0Yy0iLl2eXFILt0p1NqGvtUracIfjXVFfqLPjdpqgXGyNREFIQUV
+ sLTRzaFnKruRUTKnKLvgcK6VqesMN2dSC2nCBTDa1cPY6wDCf/CuicSOG3f4aOveo4M=
+X-Gm-Gg: ASbGncvzjQzDKFfVP7e7fNAgaG9NGXYxxc7Ac5vhQJBIeFZTygQzxV5l2sRG5BpvIsT
+ nH1nt0pSsCUhMJ+53qQAa9XrMQpFM+EsFRC/mBarGD5/vWRdRI1lQ8KslQUA9Xcqx0p39PDlUlj
+ bBlro5J4pMwat+D9WIA9AwskaFzkBvadgs2Vpx5JHorZaCavcFp6BOmFm7doGQxcO7GiYMaQq25
+ 5LMAbIoJ7r0LCNS3QpJBsmneY/SnY6gddhqnw1pPkM4DqIiP3ytH9fu47tbwuX/EdF18kQbQUWf
+ YLPPmqiewZdPPZB55OJODFVwrHrcmP1rMrIwiP5qHCGQKo4A/1GglX7TfSGo4WJ9rbndlt6NBCf
+ 5DtOD1+E2yYJjiiJb4Z1l0Ys20QAw3q7HQNaArGo76M4=
+X-Google-Smtp-Source: AGHT+IHWQhozhXLN2meL9w+JEoU34rofGsCii6kWqAWU/UOMV2gqycJDmTFFq6m+MamT1Bm7R0YdaQ==
+X-Received: by 2002:a17:90b:3812:b0:329:87b8:9fc6 with SMTP id
+ 98e67ed59e1d1-32d43f2b307mr11492435a91.16.1757333731665; 
+ Mon, 08 Sep 2025 05:15:31 -0700 (PDT)
+Received: from localhost.localdomain ([2804:14c:4a5:943d::1709])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-772306a1870sm28345188b3a.75.2025.09.08.05.15.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Sep 2025 05:15:31 -0700 (PDT)
+From: Luiz Otavio Mello <luiz.mello@estudante.ufscar.br>
+To: rodrigo.vivi@intel.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, simona@ffwll.ch, airlied@gmail.com,
+ tursulin@ursulin.net
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mairacanal@riseup.net, Luiz Otavio Mello <luiz.mello@estudante.ufscar.br>
+Subject: [PATCH 0/9 v4] drm/i915: Remove legacy struct_mutex usage
+Date: Mon,  8 Sep 2025 09:15:08 -0400
+Message-ID: <20250908131518.36625-1-luiz.mello@estudante.ufscar.br>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,45 +85,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 08 Sep 2025, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> On Mon, 08 Sep 2025, Krzysztof Karas <krzysztof.karas@intel.com> wrote:
->> Fields hdiplay and vdisplay are defined as u16. Their
->> multiplication causes implicit promotion to signed 32-bit value,
->> which may overflow and cause undefined behavior.
->>
->> The same goes for vpos, which is multiplied by signed integer.
->>
->> Prevent possible undefined behavior by explicitly casting one of
->> the operands to (unsigned int) type.
->>
->> Fixes: 3ed4351a83ca ("drm: Extract drm_vblank.[hc]")
->> Fixes: cc4312127108 ("drm/tinydrm/mipi-dbi: Add mipi_dbi_init_with_forma=
-ts()")
->> Fixes: 80f7c3f77697 ("drm/vram: Add helpers to validate a display mode's=
- memory requirements")
->> Cc: Thomas Zimmermann <tzimmermann@suse.de>
->> Cc: Noralf Tr=C3=B8nnes <noralf@tronnes.org>
->> Cc: Simona Vetter <simona.vetter@ffwll.ch>
->> Cc: <stable@vger.kernel.org> # v4.13+
->> Cc: <stable@vger.kernel.org> # v5.4+
->> Cc: <stable@vger.kernel.org> # v5.7+
->
-> The multitude of files, Fixes and subsequent Cc: stables with different
-> target kernels is just an indication this should be three separate
-> patches.
->
-> The cause may be the same, but they're still unrelated fixes.
->
-> Moreover, imagine the consequences of one of these fixes ending up being
-> incorrect, and you have to revert or fix it. It's a logistics PITA.
+This patch series completes the long-standing effort to eliminate usage
+of the legacy struct_mutex from i915 driver.
 
-Also, depending on things introduced in v5.7 means this can't be
-backported to v5.4 either. Not very important here, but something to
-consider for the future.
+Historically, struct_mutex was used to serialize access to global driver
+state across the DRM subsystem. Over time, it has been gradually
+replaced by more fine-grained and localized locking mechanism. The i915
+driver was the last remaining user of this lock, and even there, its
+usage had become redundant or outdated.
 
-BR,
-Jani.
+Specifically, the mutex was only still used in two places: i915_irq.c
+and intel_guc_log.c. In both cases, the lock could either be removed or
+replaced with a more appropriate lock.
 
+This series performs the following steps:
 
---=20
-Jani Nikula, Intel
+* Moves struct_mutex from drm_device to drm_i915_private, since i915 was
+  its only remaining user.
+* Removes or replaces all remaining uses of struct_mutex in i915 driver.
+* Updates or removes comments referring to struct_mutex to prevent
+  future confusion.
+* Deletes the lock entirely from the i915 driver once no longer in use.
+* Cleans up the corresponding TODO entry in Documentation/gpu/todo.rst
+  and comments about struct_mutex in Documentation/gpu/i915.rst.
+
+Some additional notes:
+
+* In intel_guc_log.c, a missing destructor for a lock was identified.
+  Since the series introduces a new lock in that area, this issue was
+  addressed first, to the two locks do not lack memory in kernel.
+
+* Comments referencing struct_mutex were spread across various parts of
+  i915 codebase. To improve clarity, they were cleaned up across three
+  separate patches.
+
+The only remianig reference to struct_mutex is in a comment in
+i915_gem_execbuffer.c, inside the eb_relocate_vma() function. It was
+kept because the intended locking mechanism for that case is unclear.
+
+Changes since v1:
+* Rebased onto latest drm-tip as requested for CI compatibility
+* No changes to code/content
+
+Changes since v2:
+* Rebased onto tip/drm-tip
+* Correct code formatting
+
+Changes since v3:
+* In patch 8, the previous version only removed the mutex_init and 
+mutex_destroy calls, but left the struct_mutex variable itself behind.
+This revision fixes that by fully removing struct_mutex.
+
+Luiz Otavio Mello (9):
+  drm/i915: Move struct_mutex to drm_i915_private
+  drm/i915: Remove struct_mutex in i915_irq.c
+  drm/i915: Change mutex initialization in intel_guc_log
+  drm/i915: Replace struct_mutex in intel_guc_log
+  drm/i915/gem: Clean-up outdated struct_mutex comments
+  drm/i915/display: Remove outdated struct_mutex comments
+  drm/i915: Clean-up outdated struct_mutex comments
+  drm/i915: Drop unused struct_mutex from drm_i915_private
+  drm/i915: Remove todo and comments about struct_mutex
+
+ Documentation/gpu/i915.rst                    |  7 ------
+ Documentation/gpu/todo.rst                    | 25 -------------------
+ drivers/gpu/drm/drm_drv.c                     |  2 --
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  6 +----
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_object.c    |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  4 +--
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c      |  8 +++---
+ drivers/gpu/drm/i915/gt/intel_reset_types.h   |  2 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.c    | 12 ++++++---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_log.h    |  8 ++++++
+ drivers/gpu/drm/i915/i915_drv.h               | 14 +++++++++--
+ drivers/gpu/drm/i915/i915_gem.c               |  3 +--
+ drivers/gpu/drm/i915/i915_irq.c               |  6 -----
+ include/drm/drm_device.h                      | 10 --------
+ 15 files changed, 41 insertions(+), 72 deletions(-)
+
+-- 
+2.50.1
+
