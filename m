@@ -4,179 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8DFCAC593
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC97FCA0FED
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E08910E71E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0727A10E71C;
 	Tue,  9 Sep 2025 13:21:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="L4Y6i/Ow";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UaYg/ztb";
 	dkim-atps=neutral
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2044.outbound.protection.outlook.com [40.107.92.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5D8210E57C;
- Mon,  8 Sep 2025 17:12:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qjGMso32SDE7tJAwprNfSj0WioVRegxAQDvd80g5Az33fnSzJszM90NlFPTSkt3FfltOMvJ2seqnIfLrtPIuQYdbXBK+W/MlVfTzYY+iMnumUkzssbdtR5BczkwG7L2Ilb7cz93MdpaUrMD31PDT+/2eo4Zmr4B7sjO4OYe+ZzdzNib0WArx+DGH7rekVlgvtDVgjjYYSICadYPwGcpYB/SQM80NtPTpX0kTJZT33zsSz2zOjlj0afx0ULH/31Cap99pWkJsjEOLdcyLDEg19Cc8FYjHxVr5RtrgDQ1Z9aVUXrbEzuhilZzHICRt3FGuPGV+pE8n/7HDc1Kw4em+IA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cCHhtKAYH71OaRqtwumrUC6VgHGSSo5HrlbF86pIJBw=;
- b=MPRoYwQJCONGKkVtoV8NTG8bixNkGojivjX1QfiB3EFA7UyK9GfBlYCK7pZ3yMuMz7LnAJlTayE2kK6TjlZyONCfFu27perWYr7UKf330i4C/NJKwFfGt6bzJ/CQY7UA+DhRcAN0Ni4MvKi0H1bi1t4QolY3FB3a81Wt555rMe1JJ6+X/0Zu5hN7YGQjDyVnb5+GvvZUVfA0AkfgrHCckomVxyxKfMYfcbU0N34COF6Odlm1cH4Tv6LwuSRG+cS9VHMfgMk8X3jvidiXnconlf3Z2Dj1DZSHYquqL0SZDp4W7FWSVMo08+7IZVnNJ6Y68qbr6dF8XM/PHSkg8xYJBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cCHhtKAYH71OaRqtwumrUC6VgHGSSo5HrlbF86pIJBw=;
- b=L4Y6i/OwS+jBTMT93xpHECh15iYkbTdLd9mLf4VtA5dbYEbIFgsRd2F1VphXIpXN93yqttrHAAF7Qp7BKmxcajEXuOvZQsZ9nMIXfJ3oUR9S2MSQ0X6qVdStWGaYirP/kTegR+X8HCq/ovteyxcwjQsizlv1H+1aGJcb96JvbNLkyVEi4ZbvvrDAHbyvd4tvSKD/OGOGSfOQO0AjBS/om1AvXUgzKBLRMDESYYJnCRSohNBabP9BwLF4XTl+odCvi9KYVTuGFRa/98q3QJKdikFegBM3IjaTCCNRLPYvxjcJK0EZcg6dc9EWbFP5xWHSzzJ2gnTI6mewF8F2Wm4Lxg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN2PR12MB4127.namprd12.prod.outlook.com (2603:10b6:208:1d1::24)
- by MW3PR12MB4460.namprd12.prod.outlook.com (2603:10b6:303:2f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.22; Mon, 8 Sep
- 2025 17:12:05 +0000
-Received: from MN2PR12MB4127.namprd12.prod.outlook.com
- ([fe80::a0ad:4e23:765e:7cb6]) by MN2PR12MB4127.namprd12.prod.outlook.com
- ([fe80::a0ad:4e23:765e:7cb6%7]) with mapi id 15.20.9094.021; Mon, 8 Sep 2025
- 17:12:05 +0000
-Content-Type: multipart/mixed; boundary="------------rzrR4BY03xbhW3M4NQgwG8lR"
-Message-ID: <cc49661d-c3ea-44c6-9af5-cda4bd102d25@nvidia.com>
-Date: Mon, 8 Sep 2025 10:12:00 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/37] mm/gup: remove record_subpages()
-To: David Hildenbrand <david@redhat.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: linux-kernel@vger.kernel.org, Alexander Potapenko <glider@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
- Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- iommu@lists.linux.dev, io-uring@vger.kernel.org,
- Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
- Johannes Weiner <hannes@cmpxchg.org>, kasan-dev@googlegroups.com,
- kvm@vger.kernel.org, "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
- linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, Marco Elver <elver@google.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Michal Hocko <mhocko@suse.com>,
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
- wireguard@lists.zx2c4.com, x86@kernel.org, Zi Yan <ziy@nvidia.com>
-References: <20250901150359.867252-1-david@redhat.com>
- <20250901150359.867252-20-david@redhat.com>
- <016307ba-427d-4646-8e4d-1ffefd2c1968@nvidia.com>
- <85e760cf-b994-40db-8d13-221feee55c60@redhat.com>
- <727cabec-5ee8-4793-926b-8d78febcd623@lucifer.local>
- <7ee0b58a-8fe4-46fe-bfef-f04f900f3040@redhat.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <7ee0b58a-8fe4-46fe-bfef-f04f900f3040@redhat.com>
-X-ClientProxiedBy: BY5PR20CA0022.namprd20.prod.outlook.com
- (2603:10b6:a03:1f4::35) To MN2PR12MB4127.namprd12.prod.outlook.com
- (2603:10b6:208:1d1::24)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B63BF10E5CE;
+ Mon,  8 Sep 2025 20:32:13 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-4b61161c32eso15549881cf.3; 
+ Mon, 08 Sep 2025 13:32:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757363533; x=1757968333; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=TEXn0VonFGZjiOSBUC+NQ1DPAGBZB46LrclAaBj+qTI=;
+ b=UaYg/ztbDQarPr7bIiVkURvVNyspm60mHRrDL6qNagk3BJAITpnwI+dWsbnjpvmfNZ
+ gR6abba7m5x3P4+jaJIdlFnqtK45+Bx2cj9XVjpogPtLdT1wwlmhzSvhlYPAPi//Sjrk
+ KSRiQLAe1AvDfBr3euoMmgPULy0hEduL5jFfWqKxPjYpG8FoJYHioRFtk41KN9EUDv82
+ UPUQmjsX0f+mzHJTlA2Fp5+4EUn6AHy7D4gZs1dUJTL6xJsbGcdyfLacUMYmJRDyEFME
+ mgWsuVytCWj60nr25Q7Zo1YfRLbMazv1I6lkfo1cndVIVudaDfE1yC94rN3QVB5T5vT6
+ NFVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757363533; x=1757968333;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=TEXn0VonFGZjiOSBUC+NQ1DPAGBZB46LrclAaBj+qTI=;
+ b=Ay0HtTv0WDY1TihMxZQgWwjHxeqEGydfO62h93WolG+NmS8yr8WV7bGvAhnzEFYVvg
+ uQs9B8SMxtdJP4JbRxKNHol9pB0XcUXINNHYi0CBogndZStE9+YBSlbeeM7cLR+NhvMH
+ 8VY/fK5Ug15cf2GWNLjhl52iWNRjkvFxS6hZYmx+c8VKDew2rf1n4jcNvAVdEKVjspG3
+ /D0pNpCqtrH4iFtZsrqDQMyNOiOPAb6438voCaG1Xd0SOBLnCjs4dAMOoMO9TEKDKSLz
+ 1Rb1zjCZY/ziT/C0gw25Igfa/H/HSoyyaCSZyMKtPs1FdIqlxSwCZnRsWgatRSqdP1wc
+ QEQg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVFqHN/7Ofpdu/AImn+ezM5vLseqDGj0KQVZw7Zt0CkDd949CV16I2EQsonptZGWSHfrCbjk5MKg+CSgL6Lyg==@lists.freedesktop.org,
+ AJvYcCVw//yWvrKNWswqhu17knvIYVNMFRk3DTDUmkTUh0jRonNTAYLA1314ZidxqrrHkteBWj8MAeVb@lists.freedesktop.org,
+ AJvYcCWTqOCzQFmIqQDS1atvN2jPro9eqGxDLRVe4HWZIJxWiHCUOJK6ojB/ejfY65G4BTRm2Gcu7zCTF0An@lists.freedesktop.org,
+ AJvYcCXDZwQr5dQ5rn5lvCsQAG1vHYUw4apAbfs9FDfuFLtIYGPHDb9kLIAAHAYq/USUZHeztbBAoyuNHmy2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzIFSOq+tV+7U8YL3dGXYYbWFVufW5zz86IedfopaNnb0gV6f9N
+ +hePMI4qD+lDwmjGZhBiAxZeL3So2xOhOrhWhnmuQ/omqpjVHZZ79JwPMeCecW1I3dgV4TfAxxb
+ wignAm5nt0sx5DV4WlMLQOXF6oY8ad/MgGmZ2
+X-Gm-Gg: ASbGnctnnGtLADLudRUR/f5lAoYEJpJJ34D0oFf4zC3GYBiGpP306XwJZDL6j0obwKP
+ q55n/7zmjnMEkNSLtUVekyZ4sQOxRWyyz/5NDWTeQO1Ya8xdmJ8KXx+rjJ+r/2VE7wIUd8SrKJ/
+ 06BrIuBT97r4RC+JIb/mApcFEWKLcOUtxVABCYy3M/hNRPoW/RdK3Pjv7OoLuJdH8bABTamrROR
+ 6le
+X-Google-Smtp-Source: AGHT+IGSJp2aXhTyk6sqQ/R1QHPbQ2mSNSQXfFUGY0QCJAQA3tiPeM4vv3TdnTCZ0xv7U3r0VWMOh7PZlVp37vbdAj4=
+X-Received: by 2002:a05:690e:251a:10b0:601:62f5:5755 with SMTP id
+ 956f58d0204a3-61022a5bb93mr6550017d50.7.1757363108960; Mon, 08 Sep 2025
+ 13:25:08 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4127:EE_|MW3PR12MB4460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4dfe6367-6971-421b-1057-08ddeefad596
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|1800799024|376014|7416014|4053099003; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?czFGSzQydEYzaHBCV05IMWtORTJDRXIra0FQaG5IUkI0YlI1dVVYZzFaS2N2?=
- =?utf-8?B?V1BGajFZRktpNVhlWmd3YjdibkVPU1hJczJjdVljajhRWTdBWlBheUh2ZTBQ?=
- =?utf-8?B?emhaTEY5cDNZWWwzWVRqMU5iUktzd3paMzJQemlqekpBSHN1aGpLOENRVURS?=
- =?utf-8?B?eTZIdERyNXRmUEQ1L3RlQWMvVlo1LzA4N3JTclJDREEvUUZMckhuWkk0cVho?=
- =?utf-8?B?TDZOQTZLQ1RJM1VabzNVV1Q5STZKclRnM0ZQbVVoeDE1QWVKWFd1MHpHMEhU?=
- =?utf-8?B?d2xld3VZdTZKVzFxeDhUUkY4RGNIa2tCN1dhL3Zqd1JjaFRNK010S1dTWHZi?=
- =?utf-8?B?WFk3Z1MzdzduRUtFRXRzZ0lLazRKdVM3R2dVT2VnSHlmOWxWUUh4NmNIbFY3?=
- =?utf-8?B?MWN3NkdyM0Y5ZDNQSVhPTkFiR0xRbk1BSEM1QVBrRHJycS9TZVY1QTJENjJx?=
- =?utf-8?B?Y0Z5dElHOEQrWUhLeWw2MHRNUFlsOW4zejVxWlFVbjlHUWNzT21nbWNkOXQz?=
- =?utf-8?B?TWRCdjYzSmZFZ2FITkVQUHFJKyt5SVQ0ZU91M2tMVzN3akpoYXdjUHRYR2c0?=
- =?utf-8?B?QjJRbTFBeGUyNHdScE9UMGR0bWZGbUN6VHRyUUgwbHA1QnJhNHFGVG83STF2?=
- =?utf-8?B?WkUvZWJHREpWWFpIdjUwS0plWDQrTTBwdU05R2NmZjR6ckpoQXF0b3Q0cW5y?=
- =?utf-8?B?Y01HREs1by9Qc3N0alB6eGQrbThKVVZrWE5NMUI0Wmd3UUVXcFo1Vk9CVUIr?=
- =?utf-8?B?TVhTQmY4MmlGbkxCVGJJN1VxbDFzNmRYaTNLb21WaXFBcy8zS1dPNDAwVVc3?=
- =?utf-8?B?SlRFa1owRTJJNG96cVdvV0o5eGdTaUMvcUhqUnNOQkRWYWNBVFQ5cVBGTFRK?=
- =?utf-8?B?ak8yZDNyeE9LSit5TiszQmRJeEVXZWpWRmJEWmJOenBIRkZrQUp3R1cxMjdu?=
- =?utf-8?B?RXRXZXB0L2JCdm9OL1BHdWw3L1hzVzZmbHZOcC9CVkpwNDJpZFNKNkx3QnZR?=
- =?utf-8?B?S2EwRUdYRSsvdzBjcDBxVHUvcFJnbFRyeEl0RVVLQStmenZoNkE5NHRFQkxR?=
- =?utf-8?B?VHhGaHVGS0I0RWo5dStET0dwT1dSNEdubDhzWnhyeW8wUUhOKzlNN3ZXQUdK?=
- =?utf-8?B?OVZpc3hiRTJ6dG5nQkpNd3d6T3JmVzFFSHNhbzhXRnFaMnJVQlUzZVZpeVF4?=
- =?utf-8?B?R2lhL3duN1lUY0dGV2xKRUM3Rmo3RkZmNWQ4cEw1L3JNZDJ5c09LUTNSWnZh?=
- =?utf-8?B?bHV0M0RLYUt3ZlliZFc2V3VGeEowOE1BYkY5QWRnK2ozU0F0dVNiMEJ6Zi9E?=
- =?utf-8?B?dXFzTmpNWXpYai8zekhQUXRBQ2lHLzJjUWtTYzY4OUorYjd1VHQ2cmo1U2do?=
- =?utf-8?B?cGV6K3Roc253SGJPNklyR1lydjhYNmVmd1pGa01CTXZ6TWduNHVSREFka2Mw?=
- =?utf-8?B?ZmhjMytFMzIvalBsUlBJclBDZU5SVWs0Mk9kWEFUUmZKY1QxRkZlQ3NTQlNJ?=
- =?utf-8?B?SUcrU0JPbExGTDBPeGZ3SUtvUGMyVVZRcHZldGdhUlZ5T2tJZkZuQ1pqaUJD?=
- =?utf-8?B?dExVL1h2V29UeFREUFpBaFpqeW5VL2YyZDR1Wnl3c0pGbFdBN1NDTGViV1Bn?=
- =?utf-8?B?b0RFNWN0Q0twU09KR09lYUIxR3ZxSXlySmNaSGhZMFdabFREQng2bkh3bEM5?=
- =?utf-8?B?SHBtblBUb1NVakVJY0EvT1lHQlJOU2orQ0oveG5kTWI0dStZVWd6aTcrUWJV?=
- =?utf-8?B?ZG1lMDM4eVZsaHRrTHhtMGVzYWNvbncyY09pekRDWmFWZWdOcXdpV24xTXZk?=
- =?utf-8?B?T0psanNSSFVqYWFsd3lBMjYrUGxtRzZZN1VUOTE1VXVlSDNWazI5M2F5NUx0?=
- =?utf-8?B?RGN5NXkwVEp2RTJ1UXFCSVR2R0tXYTFsMFNlM00yMlRZUDMxWmI5RFVXN2hP?=
- =?utf-8?Q?2Y/7ft6Y8Po=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4127.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(1800799024)(376014)(7416014)(4053099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cks3TlUvZ0FIN2Q5MXYyc29NVHI1N3Q5TEJpQm10Q3pmb3VLcmlnaEkwQ2h2?=
- =?utf-8?B?NlErZFduYzhPVnZLZU92YTdSa0tzdmtmb3o1TVNWYlpQdG01RlovQmhQcEpL?=
- =?utf-8?B?MGlJd3kvN3J4WGNkOWJMZXBXS0VhTVlKT1doY3NxTFJiMkdNaWg4WGpPKytJ?=
- =?utf-8?B?cGRMZCtMeTloeDhGZUVRZ1NiQ0dqVjZRMGUwYVhsQ0hEdkJ6cER6MkFOL3A0?=
- =?utf-8?B?L3RGTWlmM3BJcHJyUUlxc3BreWc2dEtsWWVJZ3oyU1pTQ3FWUVB6UVpMRC9C?=
- =?utf-8?B?dGpNcGltV2hCVVFhbjV0MVhwZDdBb0p2eU9KVnRXVDdPV1djc2RoWm1RNk8x?=
- =?utf-8?B?eWNrcitmbTIrbWZVN043Tk11V3hyRmlhL3I4UUpHSWZtUXpleUw1eUNKOVF1?=
- =?utf-8?B?bC9sZmFkL29rZTNFRXpvYmRBcVlROVZELzdQcG56RlcwM3ZSaTBHRk8zUFFz?=
- =?utf-8?B?bUxBY0QvOElsemZpanAzbUZPV1JRMEZJWktldjczYXAzRnlGVURzUlFWSSt1?=
- =?utf-8?B?enJJbnA4ZlNqZ21GU1Rwbk5LVW9RelJNTk42VlVoVCtuSzVqcG4xZEVGZHk4?=
- =?utf-8?B?TURrOGtpdmliUXpTamdCV25wS3hSUnNlWXRTTzBQbjEvMjFLUENMQlVyQlM1?=
- =?utf-8?B?QWtCR2JwbmdobEt4M0QxSlhOd1NEZ283VExZckNBL1JsU2YveExSTlBiOFFU?=
- =?utf-8?B?NUg1NXdaV1VjYms4TnJKeERtaHdPZFBQbjB3UEladklTSXBNV3l2OFllWFRC?=
- =?utf-8?B?Wk56QkpncW1NOC9jamNaaUpoSWhFUEIxb0RFcW9ZOW8zUndlMjBxMklURTFj?=
- =?utf-8?B?WmlVSE9wSDAxd1BIZmpULzdWaHlDQU1mRWZHcjF3OTZrZnJLbTFHMTE0dHFi?=
- =?utf-8?B?Y3k0NHU5ZW54aWlEelgvUXZRVWpYbXdJWit1bWZrMFhmT0tNcUhYUjBveXA0?=
- =?utf-8?B?QVBnTHpKU1EvQTZZbkd2YktWQXJEMFNVQzg5TCtsd0JVMjUzMTZneWFwVjJX?=
- =?utf-8?B?alZWeEVKVlhhMEpsNWU5OFFDYzZ3TlMxdWFVN2UwRzdNbFhadVo4NjVoK2xo?=
- =?utf-8?B?SlNvR2dIUGp6QXFvWVpYa3cvTlBDNEk2TGhGbmpiUURaNzc0WmpoWExxTGEz?=
- =?utf-8?B?aWF1ZFVOaldDdktjU0gwTmJoQVNBTjJTdWdqYmNpRTlQWEVnT3hqbFVrUjFZ?=
- =?utf-8?B?b21tbktHWllPMUZ4ZzFCUWxZT1M1WUxtazhlSGlSTWNKRkhLK1c0OU9TUUZC?=
- =?utf-8?B?U0tIQVNIMENDWk5aTVdQR3VPbXZQTHE0dUJrek9xOStLb3JEaE5rcXBqeWNx?=
- =?utf-8?B?UkNXaWc3OGk4dUQwY0ptL0lHbEZpdVVqUmNwMmdEUGJxa3FaN01GSGJ2VXB0?=
- =?utf-8?B?cmlBNzlXcTlXMm9IK3lwdGtxUzBXL0Z3R0VPZ1VidlRpeUNObjhNUlE5S2Rt?=
- =?utf-8?B?K1MxaXk0NkpGQ1NKeFE0bXVYSVZxdVJWQUZyK2JUaFpxdHZZTFllTGwyQ2VU?=
- =?utf-8?B?alV4cjhZMmRGWFJVTWZmWXVHNmhsTEhYYU1yVG5Nb1hWd0FTalN1TE9oVXU5?=
- =?utf-8?B?R1R5Y3pjek0xbGU3aVJxc3M1SUpIcU16ZDY2WnlwSVNNb1EwSnJGMlBSSWlX?=
- =?utf-8?B?U2pCUUJld0ZMRVlUNlQ3NGlyRGp5N3RwUlNaNkprSDc4cDhKbFVBR251Qmdj?=
- =?utf-8?B?OTNFT1ZuWHhyZld4Y2FhVEJvS3BudWRUTmJQNTc3UFIzaVI1K3JVRm5PSGQz?=
- =?utf-8?B?eHZ2QVZwTGFlREFTYS8yRE9LYjI0aW90dFJYTHdmVGhYbm9hMEE3U1dvQ1d5?=
- =?utf-8?B?LzV5VFU0Y1RuUWNtWWVmMHRVVTBMaU10YXlBQWc1U3ZySGtndVJYbGJBeFhq?=
- =?utf-8?B?M29DWDBPc3BjWm8vM25sTERqTnJ0Y3VEQW5UOUY1R0ZxbFZEQk04d2l2OHps?=
- =?utf-8?B?cEplOUwxSEhvR3FxcDJXR2pYM281MHhGdVF0R1RWeDhxdW8wMlgzanRldElh?=
- =?utf-8?B?VnpNenBoT2R0TUsyOGliY3RuU0xqOU5adnd1QnBpbk1ZRFo1TGFpV2pRYk94?=
- =?utf-8?B?dVYwRm1VSHE5a3U2ZTM4aWRRL1FRNmJFSXRhVVRtd2kwMDhtclR3c0xRNmh2?=
- =?utf-8?B?OUM4b05ZMXJDVk55RjI4bVdKc0dTd3pxN2NJRWM4TWZuRjhmUTJ5bmwvckF1?=
- =?utf-8?B?UkE9PQ==?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dfe6367-6971-421b-1057-08ddeefad596
-X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB4127.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2025 17:12:05.2791 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fsEWO9zucFmDF/W1gtYaz1/irOZlFpaiXuf3YnAC+CEmK3EYeKr8QougyKFoynPq37VI4N6lkK2JnP/ZgUJbnA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4460
-X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:25 +0000
+References: <20250803035816.603405-1-jim.cromie@gmail.com>
+ <20250803035816.603405-30-jim.cromie@gmail.com>
+ <ea069c8f-b724-409c-9dc6-345b3f9d6d85@bootlin.com>
+In-Reply-To: <ea069c8f-b724-409c-9dc6-345b3f9d6d85@bootlin.com>
+From: jim.cromie@gmail.com
+Date: Mon, 8 Sep 2025 14:24:42 -0600
+X-Gm-Features: Ac12FXwyXU2IBiFoYQeMREDq9_yqq9WDvsDYmK5y_tiNBMm3U6hYdXRJfXTlhPs
+Message-ID: <CAJfuBxwR8xhz3EWvcdk1_JcQRkq7uq4AKqrqxZLMyuPZU8Wh6g@mail.gmail.com>
+Subject: Re: [PATCH v4 29/58] docs/dyndbg: add classmap info to howto
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, seanpaul@chromium.org, robdclark@gmail.com, 
+ groeck@google.com, yanivt@google.com, bleung@google.com, 
+ quic_saipraka@quicinc.com, will@kernel.org, catalin.marinas@arm.com, 
+ quic_psodagud@quicinc.com, maz@kernel.org, arnd@arndb.de, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ mingo@redhat.com, linux-doc@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000d9df49063e4ffb70"
+X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:26 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,147 +97,539 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---------------rzrR4BY03xbhW3M4NQgwG8lR
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--000000000000d9df49063e4ffb70
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/8/25 5:53 AM, David Hildenbrand wrote:
-> On 08.09.25 14:25, Lorenzo Stoakes wrote:
->> On Sat, Sep 06, 2025 at 08:56:48AM +0200, David Hildenbrand wrote:
->>> On 06.09.25 03:05, John Hubbard wrote:
-...
->>> Roughly, what I am thinking (limiting it to pte+pmd case) about is 
->>> the following:
->>
->> I cannot get the below to apply even with the original patch here 
->> applied + fix.
->>
->> It looks like (in mm-new :) commit e73f43a66d5f ("mm/gup: remove dead 
->> pgmap
->> refcounting code") by Alastair has conflicted here, but even then I 
->> can't make
->> it apply, with/without your fix...!
+hi Louis, thx for the nudge.
 
-I eventually resorted to telling the local AI to read the diffs and
-apply them on top of the nth_page series locally. :) Attaching the
-resulting patch, which worked well enough to at least see the proposal
-clearly.
+On Mon, Sep 8, 2025 at 8:38=E2=80=AFAM Louis Chauvet <louis.chauvet@bootlin=
+.com>
+wrote:
 
-> 
-> To be clear: it was never intended to be applied, because it wouldn't 
-> even compile in the current form.
-> 
-> It was based on this nth_page submission + fix.
-> 
-> thanks,
--- 
-John Hubbard
+> \
+>
+> Le 03/08/2025 =C3=A0 05:57, Jim Cromie a =C3=A9crit :
+> > Describe the 3 API macros providing dynamic_debug's classmaps
+> >
+> > DYNDBG_CLASSMAP_DEFINE - create & export a classmap
+> > DYNDBG_CLASSMAP_USE    - refer to exported map
+> > DYNDBG_CLASSMAP_PARAM  - bind control param to the classmap
+> > DYNDBG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
+> >
 
---------------rzrR4BY03xbhW3M4NQgwG8lR
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-David-Hildenbrand-s-fix-for-record_subpages.patch"
-Content-Disposition: attachment;
- filename="0001-David-Hildenbrand-s-fix-for-record_subpages.patch"
-Content-Transfer-Encoding: base64
 
-RnJvbSA2MTQwMTQ3NzVjNmQzYzkyYWJkMGE1M2FlNDdhMGVmYjA1ZTE5MWIyIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIEh1YmJhcmQgPGpodWJiYXJkQG52aWRpYS5jb20+CkRh
-dGU6IFNhdCwgNiBTZXAgMjAyNSAxNDoyMTozOCAtMDcwMApTdWJqZWN0OiBbUEFUQ0hdIERhdmlk
-IEhpbGRlbmJyYW5kJ3MgZml4IGZvciByZWNvcmRfc3VicGFnZXMoKQpYLU5WQ29uZmlkZW50aWFs
-aXR5OiBwdWJsaWMKQ2M6IEpvaG4gSHViYmFyZCA8amh1YmJhcmRAbnZpZGlhLmNvbT4KCi0tLQog
-bW0vZ3VwLmMgfCA3OCArKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM2IGluc2VydGlvbnMoKyksIDQyIGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL21tL2d1cC5jIGIvbW0vZ3VwLmMKaW5kZXggZDFlYWJhOTFk
-NjgwLi5hODhlZmYxYjE1ZjEgMTAwNjQ0Ci0tLSBhL21tL2d1cC5jCisrKyBiL21tL2d1cC5jCkBA
-IC0yODQxLDEyICsyODQxLDExIEBAIHN0YXRpYyB2b2lkIF9fbWF5YmVfdW51c2VkIGd1cF9mYXN0
-X3VuZG9fZGV2X3BhZ2VtYXAoaW50ICpuciwgaW50IG5yX3N0YXJ0LAogICogYWxzbyBjaGVjayBw
-bWQgaGVyZSB0byBtYWtlIHN1cmUgcG1kIGRvZXNuJ3QgY2hhbmdlIChjb3JyZXNwb25kcyB0bwog
-ICogcG1kcF9jb2xsYXBzZV9mbHVzaCgpIGluIHRoZSBUSFAgY29sbGFwc2UgY29kZSBwYXRoKS4K
-ICAqLwotc3RhdGljIGludCBndXBfZmFzdF9wdGVfcmFuZ2UocG1kX3QgcG1kLCBwbWRfdCAqcG1k
-cCwgdW5zaWduZWQgbG9uZyBhZGRyLAotCQl1bnNpZ25lZCBsb25nIGVuZCwgdW5zaWduZWQgaW50
-IGZsYWdzLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzLAotCQlpbnQgKm5yKQorc3RhdGljIHVuc2lnbmVk
-IGxvbmcgZ3VwX2Zhc3RfcHRlX3JhbmdlKHBtZF90IHBtZCwgcG1kX3QgKnBtZHAsIHVuc2lnbmVk
-IGxvbmcgYWRkciwKKwkJdW5zaWduZWQgbG9uZyBlbmQsIHVuc2lnbmVkIGludCBmbGFncywgc3Ry
-dWN0IHBhZ2UgKipwYWdlcykKIHsKIAlzdHJ1Y3QgZGV2X3BhZ2VtYXAgKnBnbWFwID0gTlVMTDsK
-LQlpbnQgcmV0ID0gMDsKKwl1bnNpZ25lZCBsb25nIG5yX3BhZ2VzID0gMDsKIAlwdGVfdCAqcHRl
-cCwgKnB0ZW07CiAKIAlwdGVtID0gcHRlcCA9IHB0ZV9vZmZzZXRfbWFwKCZwbWQsIGFkZHIpOwpA
-QCAtMjkwNCwyNCArMjkwMywyMCBAQCBzdGF0aWMgaW50IGd1cF9mYXN0X3B0ZV9yYW5nZShwbWRf
-dCBwbWQsIHBtZF90ICpwbWRwLCB1bnNpZ25lZCBsb25nIGFkZHIsCiAJCSAqIGRldGFpbHMuCiAJ
-CSAqLwogCQlpZiAoZmxhZ3MgJiBGT0xMX1BJTikgewotCQkJcmV0ID0gYXJjaF9tYWtlX2ZvbGlv
-X2FjY2Vzc2libGUoZm9saW8pOwotCQkJaWYgKHJldCkgeworCQkJaWYgKGFyY2hfbWFrZV9mb2xp
-b19hY2Nlc3NpYmxlKGZvbGlvKSkgewogCQkJCWd1cF9wdXRfZm9saW8oZm9saW8sIDEsIGZsYWdz
-KTsKIAkJCQlnb3RvIHB0ZV91bm1hcDsKIAkJCX0KIAkJfQogCQlmb2xpb19zZXRfcmVmZXJlbmNl
-ZChmb2xpbyk7Ci0JCXBhZ2VzWypucl0gPSBwYWdlOwotCQkoKm5yKSsrOworCQlwYWdlc1tucl9w
-YWdlcysrXSA9IHBhZ2U7CiAJfSB3aGlsZSAocHRlcCsrLCBhZGRyICs9IFBBR0VfU0laRSwgYWRk
-ciAhPSBlbmQpOwogCi0JcmV0ID0gMTsKLQogcHRlX3VubWFwOgogCWlmIChwZ21hcCkKIAkJcHV0
-X2Rldl9wYWdlbWFwKHBnbWFwKTsKIAlwdGVfdW5tYXAocHRlbSk7Ci0JcmV0dXJuIHJldDsKKwly
-ZXR1cm4gbnJfcGFnZXM7CiB9CiAjZWxzZQogCkBAIC0yOTM0LDIxICsyOTI5LDI0IEBAIHN0YXRp
-YyBpbnQgZ3VwX2Zhc3RfcHRlX3JhbmdlKHBtZF90IHBtZCwgcG1kX3QgKnBtZHAsIHVuc2lnbmVk
-IGxvbmcgYWRkciwKICAqIGdldF91c2VyX3BhZ2VzX2Zhc3Rfb25seSBpbXBsZW1lbnRhdGlvbiB0
-aGF0IGNhbiBwaW4gcGFnZXMuIFRodXMgaXQncyBzdGlsbAogICogdXNlZnVsIHRvIGhhdmUgZ3Vw
-X2Zhc3RfcG1kX2xlYWYgZXZlbiBpZiB3ZSBjYW4ndCBvcGVyYXRlIG9uIHB0ZXMuCiAgKi8KLXN0
-YXRpYyBpbnQgZ3VwX2Zhc3RfcHRlX3JhbmdlKHBtZF90IHBtZCwgcG1kX3QgKnBtZHAsIHVuc2ln
-bmVkIGxvbmcgYWRkciwKLQkJdW5zaWduZWQgbG9uZyBlbmQsIHVuc2lnbmVkIGludCBmbGFncywg
-c3RydWN0IHBhZ2UgKipwYWdlcywKLQkJaW50ICpucikKK3N0YXRpYyB1bnNpZ25lZCBsb25nIGd1
-cF9mYXN0X3B0ZV9yYW5nZShwbWRfdCBwbWQsIHBtZF90ICpwbWRwLCB1bnNpZ25lZCBsb25nIGFk
-ZHIsCisJCXVuc2lnbmVkIGxvbmcgZW5kLCB1bnNpZ25lZCBpbnQgZmxhZ3MsIHN0cnVjdCBwYWdl
-ICoqcGFnZXMpCiB7CiAJcmV0dXJuIDA7CiB9CiAjZW5kaWYgLyogQ09ORklHX0FSQ0hfSEFTX1BU
-RV9TUEVDSUFMICovCiAKLXN0YXRpYyBpbnQgZ3VwX2Zhc3RfcG1kX2xlYWYocG1kX3Qgb3JpZywg
-cG1kX3QgKnBtZHAsIHVuc2lnbmVkIGxvbmcgYWRkciwKLQkJdW5zaWduZWQgbG9uZyBlbmQsIHVu
-c2lnbmVkIGludCBmbGFncywgc3RydWN0IHBhZ2UgKipwYWdlcywKLQkJaW50ICpucikKK3N0YXRp
-YyB1bnNpZ25lZCBsb25nIGd1cF9mYXN0X3BtZF9sZWFmKHBtZF90IG9yaWcsIHBtZF90ICpwbWRw
-LCB1bnNpZ25lZCBsb25nIGFkZHIsCisJCXVuc2lnbmVkIGxvbmcgZW5kLCB1bnNpZ25lZCBpbnQg
-ZmxhZ3MsIHN0cnVjdCBwYWdlICoqcGFnZXMpCiB7CisJY29uc3QgdW5zaWduZWQgbG9uZyBucl9w
-YWdlcyA9IChlbmQgLSBhZGRyKSA+PiBQQUdFX1NISUZUOwogCXN0cnVjdCBwYWdlICpwYWdlOwog
-CXN0cnVjdCBmb2xpbyAqZm9saW87Ci0JaW50IHJlZnM7CisJdW5zaWduZWQgbG9uZyBpOworCisJ
-LyogU2VlIGd1cF9mYXN0X3B0ZV9yYW5nZSgpICovCisJaWYgKHBtZF9wcm90bm9uZShvcmlnKSkK
-KwkJcmV0dXJuIDA7CiAKIAlpZiAoIXBtZF9hY2Nlc3NfcGVybWl0dGVkKG9yaWcsIGZsYWdzICYg
-Rk9MTF9XUklURSkpCiAJCXJldHVybiAwOwpAQCAtMjk1NiwzMiArMjk1NCwzMCBAQCBzdGF0aWMg
-aW50IGd1cF9mYXN0X3BtZF9sZWFmKHBtZF90IG9yaWcsIHBtZF90ICpwbWRwLCB1bnNpZ25lZCBs
-b25nIGFkZHIsCiAJaWYgKHBtZF9zcGVjaWFsKG9yaWcpKQogCQlyZXR1cm4gMDsKIAotCXJlZnMg
-PSAoZW5kIC0gYWRkcikgPj4gUEFHRV9TSElGVDsKIAlwYWdlID0gcG1kX3BhZ2Uob3JpZykgKyAo
-KGFkZHIgJiB+UE1EX01BU0spID4+IFBBR0VfU0hJRlQpOwogCi0JZm9saW8gPSB0cnlfZ3JhYl9m
-b2xpb19mYXN0KHBhZ2UsIHJlZnMsIGZsYWdzKTsKKwlmb2xpbyA9IHRyeV9ncmFiX2ZvbGlvX2Zh
-c3QocGFnZSwgbnJfcGFnZXMsIGZsYWdzKTsKIAlpZiAoIWZvbGlvKQogCQlyZXR1cm4gMDsKIAog
-CWlmICh1bmxpa2VseShwbWRfdmFsKG9yaWcpICE9IHBtZF92YWwoKnBtZHApKSkgewotCQlndXBf
-cHV0X2ZvbGlvKGZvbGlvLCByZWZzLCBmbGFncyk7CisJCWd1cF9wdXRfZm9saW8oZm9saW8sIG5y
-X3BhZ2VzLCBmbGFncyk7CiAJCXJldHVybiAwOwogCX0KIAogCWlmICghZ3VwX2Zhc3RfZm9saW9f
-YWxsb3dlZChmb2xpbywgZmxhZ3MpKSB7Ci0JCWd1cF9wdXRfZm9saW8oZm9saW8sIHJlZnMsIGZs
-YWdzKTsKKwkJZ3VwX3B1dF9mb2xpbyhmb2xpbywgbnJfcGFnZXMsIGZsYWdzKTsKIAkJcmV0dXJu
-IDA7CiAJfQogCWlmICghcG1kX3dyaXRlKG9yaWcpICYmIGd1cF9tdXN0X3Vuc2hhcmUoTlVMTCwg
-ZmxhZ3MsICZmb2xpby0+cGFnZSkpIHsKLQkJZ3VwX3B1dF9mb2xpbyhmb2xpbywgcmVmcywgZmxh
-Z3MpOworCQlndXBfcHV0X2ZvbGlvKGZvbGlvLCBucl9wYWdlcywgZmxhZ3MpOwogCQlyZXR1cm4g
-MDsKIAl9CiAKLQkqbnIgKz0gcmVmczsKLQlmb3IgKDsgcmVmczsgcmVmcy0tKQorCWZvciAoaSA9
-IDA7IGkgPCBucl9wYWdlczsgaSsrKQogCQkqKHBhZ2VzKyspID0gcGFnZSsrOwogCWZvbGlvX3Nl
-dF9yZWZlcmVuY2VkKGZvbGlvKTsKLQlyZXR1cm4gMTsKKwlyZXR1cm4gbnJfcGFnZXM7CiB9CiAK
-IHN0YXRpYyBpbnQgZ3VwX2Zhc3RfcHVkX2xlYWYocHVkX3Qgb3JpZywgcHVkX3QgKnB1ZHAsIHVu
-c2lnbmVkIGxvbmcgYWRkciwKQEAgLTMwMjcsMTEgKzMwMjMsMTEgQEAgc3RhdGljIGludCBndXBf
-ZmFzdF9wdWRfbGVhZihwdWRfdCBvcmlnLCBwdWRfdCAqcHVkcCwgdW5zaWduZWQgbG9uZyBhZGRy
-LAogCXJldHVybiAxOwogfQogCi1zdGF0aWMgaW50IGd1cF9mYXN0X3BtZF9yYW5nZShwdWRfdCAq
-cHVkcCwgcHVkX3QgcHVkLCB1bnNpZ25lZCBsb25nIGFkZHIsCi0JCXVuc2lnbmVkIGxvbmcgZW5k
-LCB1bnNpZ25lZCBpbnQgZmxhZ3MsIHN0cnVjdCBwYWdlICoqcGFnZXMsCi0JCWludCAqbnIpCitz
-dGF0aWMgdW5zaWduZWQgbG9uZyBndXBfZmFzdF9wbWRfcmFuZ2UocHVkX3QgKnB1ZHAsIHB1ZF90
-IHB1ZCwgdW5zaWduZWQgbG9uZyBhZGRyLAorCQl1bnNpZ25lZCBsb25nIGVuZCwgdW5zaWduZWQg
-aW50IGZsYWdzLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzKQogewotCXVuc2lnbmVkIGxvbmcgbmV4dDsK
-Kwl1bnNpZ25lZCBsb25nIGN1cl9ucl9wYWdlcywgbmV4dDsKKwl1bnNpZ25lZCBsb25nIG5yX3Bh
-Z2VzID0gMDsKIAlwbWRfdCAqcG1kcDsKIAogCXBtZHAgPSBwbWRfb2Zmc2V0X2xvY2tsZXNzKHB1
-ZHAsIHB1ZCwgYWRkcik7CkBAIC0zMDQwLDIzICszMDM2LDIxIEBAIHN0YXRpYyBpbnQgZ3VwX2Zh
-c3RfcG1kX3JhbmdlKHB1ZF90ICpwdWRwLCBwdWRfdCBwdWQsIHVuc2lnbmVkIGxvbmcgYWRkciwK
-IAogCQluZXh0ID0gcG1kX2FkZHJfZW5kKGFkZHIsIGVuZCk7CiAJCWlmICghcG1kX3ByZXNlbnQo
-cG1kKSkKLQkJCXJldHVybiAwOworCQkJYnJlYWs7CiAKLQkJaWYgKHVubGlrZWx5KHBtZF9sZWFm
-KHBtZCkpKSB7Ci0JCQkvKiBTZWUgZ3VwX2Zhc3RfcHRlX3JhbmdlKCkgKi8KLQkJCWlmIChwbWRf
-cHJvdG5vbmUocG1kKSkKLQkJCQlyZXR1cm4gMDsKKwkJaWYgKHVubGlrZWx5KHBtZF9sZWFmKHBt
-ZCkpKQorCQkJY3VyX25yX3BhZ2VzID0gZ3VwX2Zhc3RfcG1kX2xlYWYocG1kLCBwbWRwLCBhZGRy
-LCBuZXh0LCBmbGFncywgcGFnZXMpOworCQllbHNlCisJCQljdXJfbnJfcGFnZXMgPSBndXBfZmFz
-dF9wdGVfcmFuZ2UocG1kLCBwbWRwLCBhZGRyLCBuZXh0LCBmbGFncywgcGFnZXMpOwogCi0JCQlp
-ZiAoIWd1cF9mYXN0X3BtZF9sZWFmKHBtZCwgcG1kcCwgYWRkciwgbmV4dCwgZmxhZ3MsCi0JCQkJ
-cGFnZXMsIG5yKSkKLQkJCQlyZXR1cm4gMDsKKwkJbnJfcGFnZXMgKz0gY3VyX25yX3BhZ2VzOwor
-CQlwYWdlcyArPSBjdXJfbnJfcGFnZXM7CiAKLQkJfSBlbHNlIGlmICghZ3VwX2Zhc3RfcHRlX3Jh
-bmdlKHBtZCwgcG1kcCwgYWRkciwgbmV4dCwgZmxhZ3MsCi0JCQkJCSAgICAgICBwYWdlcywgbnIp
-KQotCQkJcmV0dXJuIDA7CisJCWlmIChucl9wYWdlcyAhPSAobmV4dCAtIGFkZHIpID4+IFBBR0Vf
-U0laRSkKKwkJCWJyZWFrOwogCX0gd2hpbGUgKHBtZHArKywgYWRkciA9IG5leHQsIGFkZHIgIT0g
-ZW5kKTsKIAotCXJldHVybiAxOworCXJldHVybiBucl9wYWdlczsKIH0KIAogc3RhdGljIGludCBn
-dXBfZmFzdF9wdWRfcmFuZ2UocDRkX3QgKnA0ZHAsIHA0ZF90IHA0ZCwgdW5zaWduZWQgbG9uZyBh
-ZGRyLAotLSAKMi41MS4wCgo=
+I should note:
 
---------------rzrR4BY03xbhW3M4NQgwG8lR--
+classmaps-v1 made some bad-taste naming choices,
+1st was the shortening: DYNDBG_
+These are invoked once per module, so we can afford full names.
+
+So series drops DYNDBG_ prefix, replaces it with DYNAMIC_DEBUG_,
+and this commit-msg is now corrected
+
+
+> > TBD: some of this might be over-specification, or just over-talked.
+> >
+> > NB: The _DEFINE & _USE model makes the user dependent on the definer,
+> > just like EXPORT_SYMBOL(__drm_debug) already does.
+> >
+> > cc: linux-doc@vger.kernel.org
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>
+> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+>
+> > ---
+> > v3- rework protection around PARAM
+> >
+> > v0.5 adjustments per Randy Dunlap
+> > v0.7 checkpatch fixes
+> > v0.8 more
+> > v0.9 rewords
+> >
+> > fixup-howto
+> > ---
+> >   .../admin-guide/dynamic-debug-howto.rst       | 137 ++++++++++++++++-=
+-
+> >   1 file changed, 126 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst
+> b/Documentation/admin-guide/dynamic-debug-howto.rst
+> > index 1ceadf4f28f9f..556e00299ed35 100644
+> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
+> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+> > @@ -146,7 +146,9 @@ keywords are:::
+> >     "1-30" is valid range but "1 - 30" is not.
+> >
+> >
+> > -The meanings of each keyword are:
+> > +Keywords:::
+> > +
+> > +The meanings of each keyword are::
+> >
+> >   func
+> >       The given string is compared against the function name
+> > @@ -194,16 +196,6 @@ format
+> >       format "nfsd: SETATTR"  // a neater way to match a format with
+> whitespace
+> >       format 'nfsd: SETATTR'  // yet another way to match a format with
+> whitespace
+> >
+> > -class
+> > -    The given class_name is validated against each module, which may
+> > -    have declared a list of known class_names.  If the class_name is
+> > -    found for a module, callsite & class matching and adjustment
+> > -    proceeds.  Examples::
+> > -
+> > -     class DRM_UT_KMS        # a DRM.debug category
+> > -     class JUNK              # silent non-match
+> > -     // class TLD_*          # NOTICE: no wildcard in class names
+> > -
+> >   line
+> >       The given line number or range of line numbers is compared
+> >       against the line number of each ``pr_debug()`` callsite.  A singl=
+e
+> > @@ -218,6 +210,24 @@ line
+> >       line -1605          // the 1605 lines from line 1 to line 1605
+> >       line 1600-          // all lines from line 1600 to the end of the
+> file
+> >
+> > +class
+> > +
+> > +    The given class_name is validated against each module, which may
+> > +    have declared a list of class_names it accepts.  If the class_name
+> > +    accepted by a module, callsite & class matching and adjustment
+> > +    proceeds.  Examples::
+> > +
+> > +     class DRM_UT_KMS        # a DRM.debug category
+> > +     class JUNK              # silent non-match
+> > +     // class TLD_*          # NOTICE: no wildcard in class names
+> > +
+> > +.. note ::
+> > +
+> > +    Unlike other keywords, classes are "name-to-change", not
+> > +    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
+> > +
+> > +Flags:::
+> > +
+> >   The flags specification comprises a change operation followed
+> >   by one or more flag characters.  The change operation is one
+> >   of the characters::
+> > @@ -394,3 +404,108 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)`=
+`.
+> >   For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format
+> string is
+> >   its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+> >   in case ``prefix_str`` is built dynamically.
+> > +
+> > +Dynamic Debug Classmaps
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > +
+> > +The "class" keyword selects prdbgs based on author supplied,
+> > +domain-oriented names.  This complements the nested-scope keywords:
+> > +module, file, function, line.
+> > +
+> > +The main difference from the others: classes must be named to be
+> > +changed.  This protects them from generic overwrite:
+> > +
+> > +  # IOW this cannot undo any DRM.debug settings
+> > +  :#> ddcmd -p
+> > +
+> > +This protection is needed; /sys/module/drm/parameters/debug is ABI.
+> > +DRM.debug is authoritative when dyndbg is not used, dyndbg's PARAM
+> > +cannot undermine that guarantee just because its optional for DRM to
+> > +use it.
+> > +
+> > +  :#> echo 0x1ff > /sys/module/drm/parameters/debug
+> > +
+> > +So each class must be enabled individually (no wildcards):
+> > +
+> > +  :#> ddcmd class DRM_UT_CORE +p
+> > +  :#> ddcmd class DRM_UT_KMS +p
+> > +  # or more selectively
+> > +  :#> ddcmd class DRM_UT_CORE module drm +p
+> > +
+> > +That makes direct >control wordy and annoying, but it is a secondary
+> > +interface; it is not intended to replace the ABI, just slide in
+> > +underneath and reimplement it.
+> > +
+> > +However, since the sysfs/kparam is the ABI, if a classmap DEFINEr
+> > +doesn't also add a _CLASSMAP_PARAM, there is no ABI, and no protection
+> > +is needed.  In that case, class'd prdbgs would be enabled/disabled by
+> > +legacy (class-less) queries, as a convenience, and because there's no
+> > +need to enforce irrelevant rules.
+> > +
+> > +
+> > +Dynamic Debug Classmap API
+> > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D
+> > +
+> > +DRM.debug is built upon:
+> > +
+> > +- enum drm_debug_category: DRM_UT_<*> - <T> for short
+> > +- 23 categorized api macros: drm_dbg_<T>(), DRM_DEBUG_<T>()
+> > +- 5000 calls to them
+> > +- all calling to __pr_debug_cls(<T>, ...)
+> > +
+> > +Those compile-time const short ints are good for optimizing compilers;
+> > +a primary classmaps design goal was to keep that property.
+> > +So basically .class_id =3D=3D=3D category.
+> > +
+> > +Then we use the drm_categories DRM_UT_* enum for both the classnames
+> > +(stringified enum symbols) and their numeric values.
+> > +
+> > +Its expected that future users will also use categorized macros and an
+> > +enum-defined categorization scheme like DRM's, with dyndbg inserted in
+> > +similarly.
+> > +
+> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(var,type,_base,classnames) - this maps
+> > +classnames (a list of strings) onto class-ids consecutively, starting
+> > +at _base, it also maps the names onto CLASSMAP_PARAM bits 0..N.
+> > +
+> > +DYNAMIC_DEBUG_CLASSMAP_USE(var) - modules call this to refer to the
+> > +var _DEFINEd elsewhere (and exported).
+> > +
+> > +Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize
+> > +dyndbg to update those classes.  "class FOO" queries are validated
+> > +against the classes, this finds the classid to alter; classes are not
+> > +directly selectable by their classid.
+> > +
+> > +NB: It is an inherent API limitation that the following are possible:
+> > +
+> > +  // these would be caught in review
+> > +  __pr_debug_cls(0, "fake DRM_UT_CORE msg");  // this works
+> > +  __pr_debug_cls(62, "un-known classid msg"); // this compiles, does
+> nothing
+> > +
+> > +There are 2 types of classmaps:
+> > +
+> > + DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug
+> > + DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
+> > +
+> > +DYNAMIC_DEBUG_CLASSMAP_PARAM - modelled after module_param_cb, it
+> > +refers to a DEFINEd classmap, and associates it to the param's
+> > +data-store.  This state is then applied to DEFINEr and USEr modules
+> > +when they're modprobed.
+> > +
+> > +The PARAM interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
+> > +amongst the contained classnames; all classes are independent in the
+> > +control parser itself; there is no implied meaning in names like "V4".
+> > +
+> > +Modules or module-groups (drm & drivers) can define multiple
+> > +classmaps, as long as they (all the classmaps) share the limited 0..62
+> > +per-module-group _class_id range, without overlap.
+> > +
+> > +If a module encounters a conflict between 2 classmaps its USEing, we
+> > +can extend the _USE macro with an offset to allow de-conflicting the
+> > +respective ranges.  Or they use the DEFINErs macro-api, but with new
+> > +enum symbols.
+> > +
+> > +``#define DEBUG`` will enable all pr_debugs in scope, including any
+> > +class'd ones.  This won't be reflected in the PARAM readback value,
+> > +but the class'd pr_debug callsites can be forced off by toggling the
+> > +classmap-kparam all-on then all-off.
+>
+> --
+> Louis Chauvet, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
+>
+
+--000000000000d9df49063e4ffb70
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>hi Louis, thx for the nudge.</div><br><div class=3D"g=
+mail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On =
+Mon, Sep 8, 2025 at 8:38=E2=80=AFAM Louis Chauvet &lt;<a href=3D"mailto:lou=
+is.chauvet@bootlin.com">louis.chauvet@bootlin.com</a>&gt; wrote:<br></div><=
+blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
+eft:1px solid rgb(204,204,204);padding-left:1ex">\<br>
+<br>
+Le 03/08/2025 =C3=A0 05:57, Jim Cromie a =C3=A9crit=C2=A0:<br>
+&gt; Describe the 3 API macros providing dynamic_debug&#39;s classmaps<br>
+&gt; <br>
+&gt; DYNDBG_CLASSMAP_DEFINE - create &amp; export a classmap<br>
+&gt; DYNDBG_CLASSMAP_USE=C2=A0 =C2=A0 - refer to exported map<br>
+&gt; DYNDBG_CLASSMAP_PARAM=C2=A0 - bind control param to the classmap<br>
+&gt; DYNDBG_CLASSMAP_PARAM_REF + use module&#39;s storage - __drm_debug<br>
+&gt;</blockquote><div><br></div><div>I should note:</div><div><br></div><di=
+v>classmaps-v1 made some bad-taste naming choices,</div><div>1st was the sh=
+ortening: DYNDBG_=C2=A0=C2=A0</div><div><div>These are invoked once per mod=
+ule, so we can afford full names.</div><br class=3D"gmail-Apple-interchange=
+-newline"></div><div>So series drops DYNDBG_ prefix, replaces it with DYNAM=
+IC_DEBUG_,</div><div>and this commit-msg is now corrected</div><div><br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
+er-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+&gt; TBD: some of this might be over-specification, or just over-talked.<br=
+>
+&gt; <br>
+&gt; NB: The _DEFINE &amp; _USE model makes the user dependent on the defin=
+er,<br>
+&gt; just like EXPORT_SYMBOL(__drm_debug) already does.<br>
+&gt; <br>
+&gt; cc: <a href=3D"mailto:linux-doc@vger.kernel.org" target=3D"_blank">lin=
+ux-doc@vger.kernel.org</a><br>
+&gt; Signed-off-by: Jim Cromie &lt;<a href=3D"mailto:jim.cromie@gmail.com" =
+target=3D"_blank">jim.cromie@gmail.com</a>&gt;<br>
+<br>
+Reviewed-by: Louis Chauvet &lt;<a href=3D"mailto:louis.chauvet@bootlin.com"=
+ target=3D"_blank">louis.chauvet@bootlin.com</a>&gt;<br>
+<br>
+&gt; ---<br>
+&gt; v3- rework protection around PARAM<br>
+&gt; <br>
+&gt; v0.5 adjustments per Randy Dunlap<br>
+&gt; v0.7 checkpatch fixes<br>
+&gt; v0.8 more<br>
+&gt; v0.9 rewords<br>
+&gt; <br>
+&gt; fixup-howto<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0.../admin-guide/dynamic-debug-howto.rst=C2=A0 =C2=A0 =C2=
+=A0 =C2=A0| 137 ++++++++++++++++--<br>
+&gt;=C2=A0 =C2=A01 file changed, 126 insertions(+), 11 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docum=
+entation/admin-guide/dynamic-debug-howto.rst<br>
+&gt; index 1ceadf4f28f9f..556e00299ed35 100644<br>
+&gt; --- a/Documentation/admin-guide/dynamic-debug-howto.rst<br>
+&gt; +++ b/Documentation/admin-guide/dynamic-debug-howto.rst<br>
+&gt; @@ -146,7 +146,9 @@ keywords are:::<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&quot;1-30&quot; is valid range but &quot;1 - 30&qu=
+ot; is not.<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -The meanings of each keyword are:<br>
+&gt; +Keywords:::<br>
+&gt; +<br>
+&gt; +The meanings of each keyword are::<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0func<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0The given string is compared against the fun=
+ction name<br>
+&gt; @@ -194,16 +196,6 @@ format<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0format &quot;nfsd: SETATTR&quot;=C2=A0 // a =
+neater way to match a format with whitespace<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0format &#39;nfsd: SETATTR&#39;=C2=A0 // yet =
+another way to match a format with whitespace<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -class<br>
+&gt; -=C2=A0 =C2=A0 The given class_name is validated against each module, =
+which may<br>
+&gt; -=C2=A0 =C2=A0 have declared a list of known class_names.=C2=A0 If the=
+ class_name is<br>
+&gt; -=C2=A0 =C2=A0 found for a module, callsite &amp; class matching and a=
+djustment<br>
+&gt; -=C2=A0 =C2=A0 proceeds.=C2=A0 Examples::<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0class DRM_UT_KMS=C2=A0 =C2=A0 =C2=A0 =C2=A0 # a D=
+RM.debug category<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0class JUNK=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 # silent non-match<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0// class TLD_*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+# NOTICE: no wildcard in class names<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0line<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0The given line number or range of line numbe=
+rs is compared<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0against the line number of each ``pr_debug()=
+`` callsite.=C2=A0 A single<br>
+&gt; @@ -218,6 +210,24 @@ line<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0line -1605=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ // the 1605 lines from line 1 to line 1605<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0line 1600-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ // all lines from line 1600 to the end of the file<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +class<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 The given class_name is validated against each module, =
+which may<br>
+&gt; +=C2=A0 =C2=A0 have declared a list of class_names it accepts.=C2=A0 I=
+f the class_name<br>
+&gt; +=C2=A0 =C2=A0 accepted by a module, callsite &amp; class matching and=
+ adjustment<br>
+&gt; +=C2=A0 =C2=A0 proceeds.=C2=A0 Examples::<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0class DRM_UT_KMS=C2=A0 =C2=A0 =C2=A0 =C2=A0 # a D=
+RM.debug category<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0class JUNK=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 # silent non-match<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0// class TLD_*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+# NOTICE: no wildcard in class names<br>
+&gt; +<br>
+&gt; +.. note ::<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 Unlike other keywords, classes are &quot;name-to-change=
+&quot;, not<br>
+&gt; +=C2=A0 =C2=A0 &quot;omitting-constraint-allows-change&quot;.=C2=A0 Se=
+e Dynamic Debug Classmaps<br>
+&gt; +<br>
+&gt; +Flags:::<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0The flags specification comprises a change operation follo=
+wed<br>
+&gt;=C2=A0 =C2=A0by one or more flag characters.=C2=A0 The change operation=
+ is one<br>
+&gt;=C2=A0 =C2=A0of the characters::<br>
+&gt; @@ -394,3 +404,108 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)=
+``.<br>
+&gt;=C2=A0 =C2=A0For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``,=
+ format string is<br>
+&gt;=C2=A0 =C2=A0its ``prefix_str`` argument, if it is constant string; or =
+``hexdump``<br>
+&gt;=C2=A0 =C2=A0in case ``prefix_str`` is built dynamically.<br>
+&gt; +<br>
+&gt; +Dynamic Debug Classmaps<br>
+&gt; +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+<br>
+&gt; +<br>
+&gt; +The &quot;class&quot; keyword selects prdbgs based on author supplied=
+,<br>
+&gt; +domain-oriented names.=C2=A0 This complements the nested-scope keywor=
+ds:<br>
+&gt; +module, file, function, line.<br>
+&gt; +<br>
+&gt; +The main difference from the others: classes must be named to be<br>
+&gt; +changed.=C2=A0 This protects them from generic overwrite:<br>
+&gt; +<br>
+&gt; +=C2=A0 # IOW this cannot undo any DRM.debug settings<br>
+&gt; +=C2=A0 :#&gt; ddcmd -p<br>
+&gt; +<br>
+&gt; +This protection is needed; /sys/module/drm/parameters/debug is ABI.<b=
+r>
+&gt; +DRM.debug is authoritative when dyndbg is not used, dyndbg&#39;s PARA=
+M<br>
+&gt; +cannot undermine that guarantee just because its optional for DRM to<=
+br>
+&gt; +use it.<br>
+&gt; +<br>
+&gt; +=C2=A0 :#&gt; echo 0x1ff &gt; /sys/module/drm/parameters/debug<br>
+&gt; +<br>
+&gt; +So each class must be enabled individually (no wildcards):<br>
+&gt; +<br>
+&gt; +=C2=A0 :#&gt; ddcmd class DRM_UT_CORE +p<br>
+&gt; +=C2=A0 :#&gt; ddcmd class DRM_UT_KMS +p<br>
+&gt; +=C2=A0 # or more selectively<br>
+&gt; +=C2=A0 :#&gt; ddcmd class DRM_UT_CORE module drm +p<br>
+&gt; +<br>
+&gt; +That makes direct &gt;control wordy and annoying, but it is a seconda=
+ry<br>
+&gt; +interface; it is not intended to replace the ABI, just slide in<br>
+&gt; +underneath and reimplement it.<br>
+&gt; +<br>
+&gt; +However, since the sysfs/kparam is the ABI, if a classmap DEFINEr<br>
+&gt; +doesn&#39;t also add a _CLASSMAP_PARAM, there is no ABI, and no prote=
+ction<br>
+&gt; +is needed.=C2=A0 In that case, class&#39;d prdbgs would be enabled/di=
+sabled by<br>
+&gt; +legacy (class-less) queries, as a convenience, and because there&#39;=
+s no<br>
+&gt; +need to enforce irrelevant rules.<br>
+&gt; +<br>
+&gt; +<br>
+&gt; +Dynamic Debug Classmap API<br>
+&gt; +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D<br>
+&gt; +<br>
+&gt; +DRM.debug is built upon:<br>
+&gt; +<br>
+&gt; +- enum drm_debug_category: DRM_UT_&lt;*&gt; - &lt;T&gt; for short<br>
+&gt; +- 23 categorized api macros: drm_dbg_&lt;T&gt;(), DRM_DEBUG_&lt;T&gt;=
+()<br>
+&gt; +- 5000 calls to them<br>
+&gt; +- all calling to __pr_debug_cls(&lt;T&gt;, ...)<br>
+&gt; +<br>
+&gt; +Those compile-time const short ints are good for optimizing compilers=
+;<br>
+&gt; +a primary classmaps design goal was to keep that property.<br>
+&gt; +So basically .class_id =3D=3D=3D category.<br>
+&gt; +<br>
+&gt; +Then we use the drm_categories DRM_UT_* enum for both the classnames<=
+br>
+&gt; +(stringified enum symbols) and their numeric values.<br>
+&gt; +<br>
+&gt; +Its expected that future users will also use categorized macros and a=
+n<br>
+&gt; +enum-defined categorization scheme like DRM&#39;s, with dyndbg insert=
+ed in<br>
+&gt; +similarly.<br>
+&gt; +<br>
+&gt; +DYNAMIC_DEBUG_CLASSMAP_DEFINE(var,type,_base,classnames) - this maps<=
+br>
+&gt; +classnames (a list of strings) onto class-ids consecutively, starting=
+<br>
+&gt; +at _base, it also maps the names onto CLASSMAP_PARAM bits 0..N.<br>
+&gt; +<br>
+&gt; +DYNAMIC_DEBUG_CLASSMAP_USE(var) - modules call this to refer to the<b=
+r>
+&gt; +var _DEFINEd elsewhere (and exported).<br>
+&gt; +<br>
+&gt; +Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize<br>
+&gt; +dyndbg to update those classes.=C2=A0 &quot;class FOO&quot; queries a=
+re validated<br>
+&gt; +against the classes, this finds the classid to alter; classes are not=
+<br>
+&gt; +directly selectable by their classid.<br>
+&gt; +<br>
+&gt; +NB: It is an inherent API limitation that the following are possible:=
+<br>
+&gt; +<br>
+&gt; +=C2=A0 // these would be caught in review<br>
+&gt; +=C2=A0 __pr_debug_cls(0, &quot;fake DRM_UT_CORE msg&quot;);=C2=A0 // =
+this works<br>
+&gt; +=C2=A0 __pr_debug_cls(62, &quot;un-known classid msg&quot;); // this =
+compiles, does nothing<br>
+&gt; +<br>
+&gt; +There are 2 types of classmaps:<br>
+&gt; +<br>
+&gt; + DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like DRM.debug=
+<br>
+&gt; + DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 &gt; V2)<=
+br>
+&gt; +<br>
+&gt; +DYNAMIC_DEBUG_CLASSMAP_PARAM - modelled after module_param_cb, it<br>
+&gt; +refers to a DEFINEd classmap, and associates it to the param&#39;s<br=
+>
+&gt; +data-store.=C2=A0 This state is then applied to DEFINEr and USEr modu=
+les<br>
+&gt; +when they&#39;re modprobed.<br>
+&gt; +<br>
+&gt; +The PARAM interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relatio=
+n<br>
+&gt; +amongst the contained classnames; all classes are independent in the<=
+br>
+&gt; +control parser itself; there is no implied meaning in names like &quo=
+t;V4&quot;.<br>
+&gt; +<br>
+&gt; +Modules or module-groups (drm &amp; drivers) can define multiple<br>
+&gt; +classmaps, as long as they (all the classmaps) share the limited 0..6=
+2<br>
+&gt; +per-module-group _class_id range, without overlap.<br>
+&gt; +<br>
+&gt; +If a module encounters a conflict between 2 classmaps its USEing, we<=
+br>
+&gt; +can extend the _USE macro with an offset to allow de-conflicting the<=
+br>
+&gt; +respective ranges.=C2=A0 Or they use the DEFINErs macro-api, but with=
+ new<br>
+&gt; +enum symbols.<br>
+&gt; +<br>
+&gt; +``#define DEBUG`` will enable all pr_debugs in scope, including any<b=
+r>
+&gt; +class&#39;d ones.=C2=A0 This won&#39;t be reflected in the PARAM read=
+back value,<br>
+&gt; +but the class&#39;d pr_debug callsites can be forced off by toggling =
+the<br>
+&gt; +classmap-kparam all-on then all-off.<br>
+<br>
+-- <br>
+Louis Chauvet, Bootlin<br>
+Embedded Linux and Kernel engineering<br>
+<a href=3D"https://bootlin.com" rel=3D"noreferrer" target=3D"_blank">https:=
+//bootlin.com</a><br>
+<br>
+</blockquote></div></div>
+
+--000000000000d9df49063e4ffb70--
