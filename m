@@ -4,67 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68F2DCAC583
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91855CAC58D
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B60E610E720;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B5D10E722;
 	Tue,  9 Sep 2025 13:21:42 +0000 (UTC)
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
- [185.176.79.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5BF610EB65;
- Fri,  5 Sep 2025 10:05:56 +0000 (UTC)
-Received: from mail.maildlp.com (unknown [172.18.186.231])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4cJBhn0xyXz6L5ly;
- Fri,  5 Sep 2025 18:02:01 +0800 (CST)
-Received: from frapeml500008.china.huawei.com (unknown [7.182.85.71])
- by mail.maildlp.com (Postfix) with ESMTPS id 03F6A1402CB;
- Fri,  5 Sep 2025 18:05:55 +0800 (CST)
-Received: from localhost (10.203.177.15) by frapeml500008.china.huawei.com
- (7.182.85.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.39; Fri, 5 Sep
- 2025 12:05:53 +0200
-Date: Fri, 5 Sep 2025 11:05:51 +0100
-From: Jonathan Cameron <jonathan.cameron@huawei.com>
-To: Zihuan Zhang <zhangzihuan@kylinos.cn>
-CC: "Rafael J . wysocki" <rafael@kernel.org>, Viresh Kumar
- <viresh.kumar@linaro.org>, Catalin Marinas <catalin.marinas@arm.com>, "Will
- Deacon" <will@kernel.org>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, Michael Ellerman <mpe@ellerman.id.au>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Thierry Reding <thierry.reding@gmail.com>, MyungJoo Ham
- <myungjoo.ham@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko
- Ursulin <tursulin@ursulin.net>, "David Airlie" <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>, Sascha
- Hauer <s.hauer@pengutronix.de>, "Shawn Guo" <shawnguo@kernel.org>, Eduardo
- Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>, Ben Horgan
- <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>, Zhang Rui
- <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>, Lukasz Luba
- <lukasz.luba@arm.com>, "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
- <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>, "Sumit Gupta"
- <sumitg@nvidia.com>, Prasanna Kumar T S M <ptsm@linux.microsoft.com>, Sudeep
- Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
- <linux-pm@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
- <linuxppc-dev@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <imx@lists.linux.dev>, <linux-omap@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 08/10] thermal: imx: Use scope-based cleanup helper
-Message-ID: <20250905110551.00006588@huawei.com>
-In-Reply-To: <20250903131733.57637-9-zhangzihuan@kylinos.cn>
-References: <20250903131733.57637-1-zhangzihuan@kylinos.cn>
- <20250903131733.57637-9-zhangzihuan@kylinos.cn>
-X-Mailer: Claws Mail 4.3.0 (GTK 3.24.42; x86_64-w64-mingw32)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE8A10E431;
+ Mon,  8 Sep 2025 09:13:01 +0000 (UTC)
+X-UUID: ff62280e8c9311f0b29709d653e92f7d-20250908
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.1.45, REQID:e2fab22a-c7aa-4216-90ca-404e6fb63c6d, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:6493067, CLOUDID:046415f91e77839f7ce3c5f8880d4853,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:80|81|82|83|102,TC:nil,Content:0|52,EDM:
+ -3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,
+ AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 0,NGT
+X-CID-BAS: 0,NGT,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-UUID: ff62280e8c9311f0b29709d653e92f7d-20250908
+Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
+ (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
+ with ESMTP id 2046176838; Mon, 08 Sep 2025 17:12:52 +0800
+Received: from mail.kylinos.cn (localhost [127.0.0.1])
+ by mail.kylinos.cn (NSMail) with SMTP id A0BDEE008FA7;
+ Mon,  8 Sep 2025 17:12:51 +0800 (CST)
+X-ns-mid: postfix-68BE9E13-43449476
+Received: from [172.25.120.24] (unknown [172.25.120.24])
+ by mail.kylinos.cn (NSMail) with ESMTPA id 8B40BE008FA3;
+ Mon,  8 Sep 2025 17:12:38 +0800 (CST)
+Message-ID: <a968c6da-265a-405c-8f79-cf0474c80bc5@kylinos.cn>
+Date: Mon, 8 Sep 2025 17:12:37 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.203.177.15]
-X-ClientProxiedBy: lhrpeml500004.china.huawei.com (7.191.163.9) To
- frapeml500008.china.huawei.com (7.182.85.71)
-X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:26 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/6] cpufreq: use __free() for all cpufreq_cpu_get()
+ references
+To: Borislav Petkov <bp@alien8.de>
+Cc: "Rafael J . wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Jonathan Cameron <jonathan.cameron@huawei.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>,
+ Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
+ Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Beata Michalska <beata.michalska@arm.com>, Fabio Estevam
+ <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Sumit Gupta <sumitg@nvidia.com>,
+ Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Yicong Yang <yangyicong@hisilicon.com>,
+ linux-pm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ imx@lists.linux.dev, linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
+ <20250905174928.GFaLsiqKV36JDowX94@fat_crate.local>
+From: Zihuan Zhang <zhangzihuan@kylinos.cn>
+In-Reply-To: <20250905174928.GFaLsiqKV36JDowX94@fat_crate.local>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,70 +97,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed,  3 Sep 2025 21:17:31 +0800
-Zihuan Zhang <zhangzihuan@kylinos.cn> wrote:
 
-> Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-> annotation for policy references. This reduces the risk of reference
-> counting mistakes and aligns the code with the latest kernel style.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
+=E5=9C=A8 2025/9/6 01:49, Borislav Petkov =E5=86=99=E9=81=93:
+> On Fri, Sep 05, 2025 at 09:24:07PM +0800, Zihuan Zhang wrote:
+>> This patchset converts all remaining cpufreq users to rely on the
+>> __free(put_cpufreq_policy) annotation for policy references, instead o=
+f
+>> calling cpufreq_cpu_put() manually.
+> Sep 01 Zihuan Zhang ( :8.6K|) [PATCH v3 00/12] cpufreq: use __free() fo=
+r all cpufreq_cpu_get() references
+> Sep 03 Zihuan Zhang ( :  65|) [PATCH v4 00/10] cpufreq: use __free() fo=
+r all cpufreq_cpu_get() references
+> Sep 05 Zihuan Zhang ( :8.3K|) [PATCH v5 0/6] cpufreq: use __free() for =
+all cpufreq_cpu_get() references
+>
+> Please stop the spamming. While waiting, go read how this kernel proces=
+s thing
+> works:
+>
+> From: Documentation/process/submitting-patches.rst
+>
+> Don't get discouraged - or impatient
+> ------------------------------------
+>
+> After you have submitted your change, be patient and wait.  Reviewers a=
+re
+> busy people and may not get to your patch right away.
+>
+> Once upon a time, patches used to disappear into the void without comme=
+nt,
+> but the development process works more smoothly than that now.  You sho=
+uld
+> receive comments within a week or so; if that does not happen, make sur=
+e
+> that you have sent your patches to the right place.  Wait for a minimum=
+ of
+> one week before resubmitting or pinging reviewers - possibly longer dur=
+ing
+> busy times like merge windows.
+Sorry for the noise. I=E2=80=99ll split the patchset and avoid CC=E2=80=99=
+ing=20
+unnecessary people in the future.
 
-This radically changes the lifetime of the reference to policy.
-If that is valid, then I'd expect a lot more description of why!
-
-> ---
->  drivers/thermal/imx_thermal.c | 14 +++++---------
->  1 file changed, 5 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/thermal/imx_thermal.c b/drivers/thermal/imx_thermal.c
-> index 38c993d1bcb3..cd1d9d419275 100644
-> --- a/drivers/thermal/imx_thermal.c
-> +++ b/drivers/thermal/imx_thermal.c
-> @@ -201,7 +201,6 @@ static struct thermal_soc_data thermal_imx7d_data = {
->  
->  struct imx_thermal_data {
->  	struct device *dev;
-> -	struct cpufreq_policy *policy;
->  	struct thermal_zone_device *tz;
->  	struct thermal_cooling_device *cdev;
->  	struct regmap *tempmon;
-> @@ -541,22 +540,20 @@ MODULE_DEVICE_TABLE(of, of_imx_thermal_match);
->  static int imx_thermal_register_legacy_cooling(struct imx_thermal_data *data)
->  {
->  	struct device_node *np;
-> +	struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(0);
->  	int ret = 0;
->  
-> -	data->policy = cpufreq_cpu_get(0);
-> -	if (!data->policy) {
-> +	if (!policy) {
->  		pr_debug("%s: CPUFreq policy not found\n", __func__);
->  		return -EPROBE_DEFER;
->  	}
->  
-> -	np = of_get_cpu_node(data->policy->cpu, NULL);
-> +	np = of_get_cpu_node(policy->cpu, NULL);
->  
->  	if (!np || !of_property_present(np, "#cooling-cells")) {
-> -		data->cdev = cpufreq_cooling_register(data->policy);
-> -		if (IS_ERR(data->cdev)) {
-> +		data->cdev = cpufreq_cooling_register(policy);
-> +		if (IS_ERR(data->cdev))
->  			ret = PTR_ERR(data->cdev);
-> -			cpufreq_cpu_put(data->policy);
-> -		}
->  	}
->  
->  	of_node_put(np);
-> @@ -567,7 +564,6 @@ static int imx_thermal_register_legacy_cooling(struct imx_thermal_data *data)
->  static void imx_thermal_unregister_legacy_cooling(struct imx_thermal_data *data)
->  {
->  	cpufreq_cooling_unregister(data->cdev);
-> -	cpufreq_cpu_put(data->policy);
->  }
->  
->  #else
-
+Thanks for the reminder!
