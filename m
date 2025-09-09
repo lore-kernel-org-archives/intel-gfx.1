@@ -4,84 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C88D5CAC583
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 154DCCA0FED
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 13:24:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59F2C10E72E;
-	Tue,  9 Sep 2025 13:21:56 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 068E010EBA1;
- Fri,  5 Sep 2025 13:25:02 +0000 (UTC)
-X-UUID: b687c5d88a5b11f0b29709d653e92f7d-20250905
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.45, REQID:2f63b8d2-1ead-4757-b66c-86b8c1049e1d, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:6493067, CLOUDID:3fcc3bb2746cc7389702de1a6e732580,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850,TC:nil,Content:0|50,EDM:-3
- ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
- :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 0
-X-CID-BAS: 0,_,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: b687c5d88a5b11f0b29709d653e92f7d-20250905
-Received: from mail.kylinos.cn [(10.44.16.175)] by mailgw.kylinos.cn
- (envelope-from <zhangzihuan@kylinos.cn>) (Generic MTA)
- with ESMTP id 2010186639; Fri, 05 Sep 2025 21:24:55 +0800
-Received: from mail.kylinos.cn (localhost [127.0.0.1])
- by mail.kylinos.cn (NSMail) with SMTP id 6372FE008FA3;
- Fri,  5 Sep 2025 21:24:55 +0800 (CST)
-X-ns-mid: postfix-68BAE4A7-2095376
-Received: from localhost.localdomain (unknown [172.25.120.24])
- by mail.kylinos.cn (NSMail) with ESMTPA id 7B73DE008FA4;
- Fri,  5 Sep 2025 21:24:51 +0800 (CST)
-From: Zihuan Zhang <zhangzihuan@kylinos.cn>
-To: "Rafael J . wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- MyungJoo Ham <myungjoo.ham@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
- Eduardo Valentin <edubezval@gmail.com>, Keerthy <j-keerthy@ti.com>
-Cc: Ben Horgan <ben.horgan@arm.com>, zhenglifeng <zhenglifeng1@huawei.com>,
- Zhang Rui <rui.zhang@intel.com>, Len Brown <lenb@kernel.org>,
- Lukasz Luba <lukasz.luba@arm.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Beata Michalska <beata.michalska@arm.com>,
- Fabio Estevam <festevam@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Sumit Gupta <sumitg@nvidia.com>,
- Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
- Sudeep Holla <sudeep.holla@arm.com>,
- Yicong Yang <yangyicong@hisilicon.com>, linux-pm@vger.kernel.org,
- linux-acpi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zihuan Zhang <zhangzihuan@kylinos.cn>
-Subject: [PATCH v5 5/6] drm/i915: Use scope-based cleanup helper
-Date: Fri,  5 Sep 2025 21:24:12 +0800
-Message-Id: <20250905132413.1376220-6-zhangzihuan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
-References: <20250905132413.1376220-1-zhangzihuan@kylinos.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BC8110E735;
+	Tue,  9 Sep 2025 13:24:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ruf1c8oJ";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60AB710E735;
+ Tue,  9 Sep 2025 13:24:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1757424282; x=1788960282;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=nm7kALkbnMaRvHW6eY/CA6idPUvqQt/VLErkyXtYWXg=;
+ b=Ruf1c8oJc8lskPE8ClaesL878pM7tPG30k5QVOQ5VOHEAsvxNmXCea9n
+ q+pQuwW7zqYGEniWJ9cpLNBk2VRWJ25QKJf/9vOkScZj/gW+BJmXAXpky
+ NXi/u3i1j84Q+PE6ADYpBkmfdhgbjAwom9iqolhvL9reoUgF4MRkfB8jG
+ 32hB1DFoh+9KZj1khVtmRKKgvLgonwc9lumJVuHtIdhdaOTyKlKfX3j63
+ Q96/OdXJya0ticfbOCOaLYdeRrjn+YAy+QZZcr7ZyDF7DeyhSEMelKoHD
+ X6/BJ8ZylZ8iRcVZ67dKX1XzwUZUyvEI6Ui6l6DThPqG+//kNNyn0mf3b w==;
+X-CSE-ConnectionGUID: JvpeJjfiR2KFfZ6CPMhcbg==
+X-CSE-MsgGUID: 1Ap6MhUKQxSdwDYefOU/xg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11548"; a="58923073"
+X-IronPort-AV: E=Sophos;i="6.18,251,1751266800"; d="scan'208";a="58923073"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2025 06:24:42 -0700
+X-CSE-ConnectionGUID: FvKCFIccSZOnaQOL9Y27Cg==
+X-CSE-MsgGUID: UfQDQlt7THCjiCQ3GyUJYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,251,1751266800"; d="scan'208";a="173548945"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.181])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Sep 2025 06:24:40 -0700
+Date: Tue, 9 Sep 2025 16:24:37 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [RESEND 05/12] drm/i915: add vlv_clock_get_cdclk()
+Message-ID: <aMAqlVAw2NqlwQ5_@intel.com>
+References: <cover.1755607980.git.jani.nikula@intel.com>
+ <ddb128204f27ee029fe2858973ec9ca2c59a67e3.1755607980.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 09 Sep 2025 13:21:25 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ddb128204f27ee029fe2858973ec9ca2c59a67e3.1755607980.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,40 +72,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the manual cpufreq_cpu_put() with __free(put_cpufreq_policy)
-annotation for policy references. This reduces the risk of reference
-counting mistakes and aligns the code with the latest kernel style.
+On Tue, Aug 19, 2025 at 03:53:35PM +0300, Jani Nikula wrote:
+> Add vlv_clock_get_cdclk() helper to hide the details from the callers.
+> 
+> For now, this means running vlv_get_hpll_vco() twice in vlv_get_cdclk(),
+> but this will be improved later.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cdclk.c   | 4 +---
+>  drivers/gpu/drm/i915/display/intel_display.c | 6 ++++++
+>  drivers/gpu/drm/i915/display/intel_display.h | 1 +
+>  3 files changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> index 65ad7d48dd39..e898c0541168 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> @@ -610,9 +610,7 @@ static void vlv_get_cdclk(struct intel_display *display,
+>  	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_CCK) | BIT(VLV_IOSF_SB_PUNIT));
+>  
+>  	cdclk_config->vco = vlv_get_hpll_vco(display->drm);
+> -	cdclk_config->cdclk = vlv_get_cck_clock(display->drm, "cdclk",
+> -						CCK_DISPLAY_CLOCK_CONTROL,
+> -						cdclk_config->vco);
+> +	cdclk_config->cdclk = vlv_clock_get_cdclk(display->drm);
+>  
+>  	val = vlv_punit_read(display->drm, PUNIT_REG_DSPSSPM);
+>  
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 8baa5f898284..644028d0c7ef 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -204,6 +204,12 @@ int vlv_clock_get_czclk(struct drm_device *drm)
+>  	return i915->czclk_freq;
+>  }
+>  
+> +int vlv_clock_get_cdclk(struct drm_device *drm)
+> +{
+> +	return vlv_get_cck_clock(drm, "cdclk", CCK_DISPLAY_CLOCK_CONTROL,
+> +				 vlv_get_hpll_vco(drm));
 
-No functional change intended.
+This is actually just vlv_get_cck_clock_hpll(), except that one has
+the vlv_iosf_sb_get/put(CCK) stuff inside it whereas vlv_get_cck_clock()
+needs the caller to grab that.
 
-Signed-off-by: Zihuan Zhang <zhangzihuan@kylinos.cn>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
----
- drivers/gpu/drm/i915/gt/intel_llc.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+So that part of the vlv_clocks.c interface is now rather confusing.
+The interface should probably be high level enough that the caller
+doesn't have to deal with that get/put stuff at all...
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_llc.c b/drivers/gpu/drm/i915/g=
-t/intel_llc.c
-index 1d19c073ba2e..f15e4c0fa54b 100644
---- a/drivers/gpu/drm/i915/gt/intel_llc.c
-+++ b/drivers/gpu/drm/i915/gt/intel_llc.c
-@@ -29,13 +29,11 @@ static struct intel_gt *llc_to_gt(struct intel_llc *l=
-lc)
-=20
- static unsigned int cpu_max_MHz(void)
- {
--	struct cpufreq_policy *policy;
-+	struct cpufreq_policy *policy __free(put_cpufreq_policy) =3D cpufreq_cp=
-u_get(0);
- 	unsigned int max_khz;
-=20
--	policy =3D cpufreq_cpu_get(0);
- 	if (policy) {
- 		max_khz =3D policy->cpuinfo.max_freq;
--		cpufreq_cpu_put(policy);
- 	} else {
- 		/*
- 		 * Default to measured freq if none found, PCU will ensure we
---=20
-2.25.1
+> +}
+> +
+>  int vlv_clock_get_gpll(struct drm_device *drm)
+>  {
+>  	return vlv_get_cck_clock(drm, "GPLL ref", CCK_GPLL_CLOCK_CONTROL,
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+> index 5c9b57e94a65..9fdbc4ad5391 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+> @@ -440,6 +440,7 @@ int vlv_get_cck_clock(struct drm_device *drm,
+>  		      const char *name, u32 reg, int ref_freq);
+>  int vlv_clock_get_hrawclk(struct drm_device *drm);
+>  int vlv_clock_get_czclk(struct drm_device *drm);
+> +int vlv_clock_get_cdclk(struct drm_device *drm);
+>  int vlv_clock_get_gpll(struct drm_device *drm);
+>  bool intel_has_pending_fb_unpin(struct intel_display *display);
+>  void intel_encoder_destroy(struct drm_encoder *encoder);
+> -- 
+> 2.47.2
 
+-- 
+Ville Syrjälä
+Intel
