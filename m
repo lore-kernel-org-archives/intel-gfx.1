@@ -4,52 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC1C9CA0FED
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 15:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FC24CA0FED
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Sep 2025 16:06:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5994510E78D;
-	Tue,  9 Sep 2025 15:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19B9F10E247;
+	Tue,  9 Sep 2025 16:06:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="K3+M3w31";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AUc8r9Kg";
 	dkim-atps=neutral
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3BE410E78D;
- Tue,  9 Sep 2025 15:22:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=2bJb9r9WRkh2TAMgOyJeg6yuzlP1Z0g5WcvmBSdw5jw=; b=K3+M3w31oZcBuYI9a7tM1Wo4ID
- BPiBqB+/2QDy58bY7Sc9535axphYxgvKiFquwU0TlajgwlRtUwRspA0xVmD9BAHJLz/l+jeRZjyjR
- Unw1uOLgfY+EjPa0Itj9WptPWEi19neifkYJniy3Wf2hlEbdwOSuG2acrNEVToC0OeJ1sZs5T1nnK
- gXGBKfpb0jyqvC2yHxEbiNlRGTIi8PdJLlcATpL1HoYOoKskBQ4MjK5mFv/WtG5JC72p01/TzMbra
- BkITS1U0QdkexZxcKSJB91r2uD2hrSHqab+CbXgy+JPrmtyOmqb15KRnsWDBSvIaUTLwYUljo7s4o
- cH/Dx2Kw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1uw0Aa-00000005OZD-2Xxf; Tue, 09 Sep 2025 15:22:09 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
- id 3D7323002EB; Tue, 09 Sep 2025 16:05:19 +0200 (CEST)
-Date: Tue, 9 Sep 2025 16:05:19 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, jani.nikula@linux.intel.com,
- samuel.pitoiset@gmail.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, alexander.deucher@amd.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] drm/buddy: Optimize free block management with RB
- tree
-Message-ID: <20250909140519.GK4067720@noisy.programming.kicks-ass.net>
-References: <20250909095621.489833-1-Arunpravin.PaneerSelvam@amd.com>
- <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0D8310E247
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Sep 2025 16:06:30 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A9BE1601AC;
+ Tue,  9 Sep 2025 16:06:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD14EC4CEF4;
+ Tue,  9 Sep 2025 16:06:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1757433989;
+ bh=sTaCCDMOetgxL/16DR7CYSQfsBkYgTcUJVf9ysfweio=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=AUc8r9KgeRGZircFyFTymLYYZMHI9cGFTjiKxGFZTm2VQ1WZePUm+XoPhdMiRovpJ
+ 1E+HCrSlQrusB0o9te8yceFMYalGhFh2DIvuiJYSfWP908IdfRfIohvCPLP36NOODY
+ ZrgPswEVgj9MgkCnUexsykjgRwXMxKaUF8mtOfSmNYFiMYQ75LKmPHvia5GdK3ynEe
+ uFNL3vYH7L8FYl2vpg0WO+zTdSDgk/YEebfnU8JB2E3zGwtaMzCUDwKpDCACOhtdON
+ hK7YEVbL/6HxxS8ooMWiN5xQOWEqArqAbyVE67H3VmzOZHnelGr59iXNrILnxq9npe
+ Q3SMqiFLD1roQ==
+Date: Tue, 9 Sep 2025 18:06:25 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, saurabhg.gupta@intel.com, 
+ alex.zuo@intel.com, andi.shyti@intel.com, krzysztof.karas@intel.com, 
+ sebastian.brzezinka@intel.com
+Subject: Re: [PATCH] drm/i915/gt: Fix memory leak in hangcheck selftest
+Message-ID: <jr77g42xxaeeid5jeiz7jixxqjt7rp2vl7eozlsn45u2f3mios@fx5bam4xtsus>
+References: <20250904193041.12888-2-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6f6841a7-57bd-49de-9b55-b5b0514a2749@amd.com>
+In-Reply-To: <20250904193041.12888-2-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,45 +58,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Sep 09, 2025 at 02:04:30PM +0200, Christian König wrote:
-> Hi Arun,
-> 
-> On 09.09.25 11:56, Arunpravin Paneer Selvam wrote:
-> [SNIP]
-> 
-> > +/**
-> > + * rbtree_for_each_entry_safe - iterate in-order over rb_root safe against removal
-> > + *
-> > + * @pos:	the 'type *' to use as a loop cursor
-> > + * @n:		another 'type *' to use as temporary storage
-> > + * @root:	'rb_root *' of the rbtree
-> > + * @member:	the name of the rb_node field within 'type'
-> > + */
-> > +#define rbtree_for_each_entry_safe(pos, n, root, member) \
-> > +	for ((pos) = rb_entry_safe(rb_first(root), typeof(*(pos)), member), \
-> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL; \
-> > +	     (pos); \
-> > +	     (pos) = (n), \
-> > +	     (n) = (pos) ? rb_entry_safe(rb_next(&(pos)->member), typeof(*(pos)), member) : NULL)
-> 
-> As far as I know exactly that operation does not work on an R/B tree.
-> 
-> See the _safe() variants of the for_each_ macros are usually used to iterate over a container while being able to remove entries.
-> 
-> But because of the potential re-balance storing just the next entry is not sufficient for an R/B tree to do that as far as I know.
-> 
-> Please explain how exactly you want to use this macro.
+Hi Jonathan,
 
-So I don't much like these iterators; I've said so before. Either we
-should introduce a properly threaded rb-tree (where the NULL child
-pointers encode a linked list), or simply keep a list_head next to the
-rb_node and use that.
+On Thu, Sep 04, 2025 at 07:30:42PM +0000, Jonathan Cavitt wrote:
+> In active_engines, if intel_context_create fails, we need to go
+> backwards through all the created contexts to free/put them.  However,
+> the way this is currently performed skips the first created context, as
+> if count == 1, then --count returns 0 and exits the while-loop
+> prematurely without performing the intel_context_put on context 0.
+> 
+> Fix this by post-decrementing count in the while-loop, rather than
+> pre-decrementing it.  This change makes the prior guard against count
+> underflowing unnecessary, as the while-loop exits when count == 0.
+> 
+> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> Cc: Krzysztof Karas <krzysztof.karas@intel.com>
+> Cc: Andi Shyti <andi.shyti@linux.intel.com>
+> Cc: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-The rb_{next,prev}() things are O(ln n), in the worst case they do a
-full traversal up the tree and a full traversal down the other branch.
+reviewed and merged to drm-intel-gt-next.
 
-That said; given 'next' will remain an existing node, only the 'pos'
-node gets removed, rb_next() will still work correctly, even in the face
-of rebalance.
-
-
+Thanks,
+Andi
