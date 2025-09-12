@@ -4,192 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E900DCAC582
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 13:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38BCFCAC582
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 13:53:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9E910EC50;
-	Fri, 12 Sep 2025 13:53:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D00D810EC54;
+	Fri, 12 Sep 2025 13:53:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XqyZjSCm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A4/GVsgV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2EE10EC50
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 13:53:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757685203; x=1789221203;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=ZGyURVLiIiPvAdfoGWVAYUWeYRK1o7NfwMEBUm/dk90=;
- b=XqyZjSCmpq/uBDCpQgGIwJbXK7S8rf8vFHjQZ2pQvp3eHpDTXis74ROs
- S0wcAgjwfcPdCf1SlTn0QVMwtI1l5wpC3L6SM5jeYjKfAGRnkdl0s0h/+
- aRp+dNdC0IDyVeXogtwamyuKbk1zhTMZw9DNlB/NuAO+0GYUqn9/IVErK
- ppoyXqp5voKuFf2MwN3BSmgCb3zg/pcALJ9BCc4RbdcoZADg3jr4lDNF1
- CK5Y3RgOxz/1HM6IQCyyDG4XL8xfpYMXDatHDMdRFdYwpj5XG/A/9fu4T
- 4wh0Zq/kYVV+K2lC2Q5l7diyLlGe5bqo4n55a6fCz9b6/pxmjd6bx9eMY g==;
-X-CSE-ConnectionGUID: w4tRDYHiSoyiiHJarOOBCw==
-X-CSE-MsgGUID: YyUkbkRlSUi3CQCxidkWHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11551"; a="60139307"
-X-IronPort-AV: E=Sophos;i="6.18,259,1751266800"; d="scan'208";a="60139307"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2025 06:53:22 -0700
-X-CSE-ConnectionGUID: 5tkwfuZgRzSfIKm+/LmJBg==
-X-CSE-MsgGUID: 3TX9CwndQJGZhjSv51cMKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,259,1751266800"; d="scan'208";a="204749694"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2025 06:53:22 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 12 Sep 2025 06:53:21 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Fri, 12 Sep 2025 06:53:21 -0700
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com (40.107.223.83)
- by edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 12 Sep 2025 06:53:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MIMmmZcI5ClzyxLzgrr79hq9XEOjbD5jeysPAjnhgoUR6Gad/N7gRlUzco59ZBgYNlPwxXU8UAYmTepnxSeXPP78lT6KZ2Y86qbm653epOzuQpzh1YiPE6aJKkWBA15n4Ft0wCZgb34YRUjX4eO/mwHgjgfUzPMfXWyrSSFmdKR9EVISRudo8/AAi7V8dp7PXFXpezR4QttFYAoaK0+4q0097ggd4By/t5MjVzuB6jjpYsuJmM16mFj8T3eNCJvoQ2InQJ+L5BpplIlMVB5ch5MsQvB27FA3t3YwlDzfRdKeCOdawhIATIR9kSficPWsrConbguzVjiNDSnMloPIQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZGyURVLiIiPvAdfoGWVAYUWeYRK1o7NfwMEBUm/dk90=;
- b=YFkm8F0MRlwVm4G56kKaGYR5Osdm2VLVtq6mlypXNJlYBy8d/54TXvjlWFRLoS3rhALm+b5FJaX4KGtffox6TPMRP3p7g9Jed+x/5urpIVyTMfeouIbHonjk533lZfKv50CbLuXM8MQ3DV75fkOn2EI61kRGwABv/CqSABzpQqaeOn6RMwLPQoL3Bgzhv0VQetjpfW1mwJOtbzWHvi8GkD84XDPTij6zsAkzSr1z/IcZU3pnQKeQxFQ5Pz9QD1BMtDNKDeiav5ZjLL0IAYpVgiwWvxK42+i97Q4yJ5+HihE3DJB2QHDNTBxn16vt4Y1xhx/gEmrLqxYaLTk3fCRDoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
- SJ2PR11MB7455.namprd11.prod.outlook.com (2603:10b6:a03:4cd::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9094.17; Fri, 12 Sep
- 2025 13:53:19 +0000
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::fc1:e80f:134c:5ed2]) by DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::fc1:e80f:134c:5ed2%5]) with mapi id 15.20.9115.017; Fri, 12 Sep 2025
- 13:53:19 +0000
-From: "Hogander, Jouni" <jouni.hogander@intel.com>
-To: "ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v2 4/6] drm/i915/pm: Do pci_restore_state() in switcheroo
- resume hook
-Thread-Topic: [PATCH v2 4/6] drm/i915/pm: Do pci_restore_state() in switcheroo
- resume hook
-Thread-Index: AQHbkr+8XMrHALB1Ckui4bbmYSaVSbSQs66A
-Date: Fri, 12 Sep 2025 13:53:19 +0000
-Message-ID: <a79af195263c3abc69862e7042836e15aa980be9.camel@intel.com>
-References: <20250311195624.22420-1-ville.syrjala@linux.intel.com>
- <20250311195624.22420-5-ville.syrjala@linux.intel.com>
-In-Reply-To: <20250311195624.22420-5-ville.syrjala@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|SJ2PR11MB7455:EE_
-x-ms-office365-filtering-correlation-id: 4940a2c1-ace0-40ec-6752-08ddf203baf2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|10070799003|376014|38070700021; 
-x-microsoft-antispam-message-info: =?utf-8?B?eGYzNVZMUzBZOWN6cXVzVHkrZjNJb0lZRkk4ck9MMDI5eW5OWVZ2Ry9vaC9I?=
- =?utf-8?B?NnFKZmNWMElRc3Q3d0lDZTBaZmxrUGFCeUNMN2JGaTA3bE9TWnlMeENzaGVE?=
- =?utf-8?B?NzhmRXpBRm5LNDU4eDBMaFM5UjBVVS9iMDBpMFQxOEdvOU0vZ29vSEhySXRu?=
- =?utf-8?B?clRFQmVxREZkWnlkVHJvTTZ0RUd0RnJNZGpIS055RCtRR3I0TVZTbVBtZWdJ?=
- =?utf-8?B?cFA1T25iTEkyWGFnRC9tUVJ1K3pqZFVuSmthdm9KTE8zSW9EOWZLcVlCUS9N?=
- =?utf-8?B?UzhiSE5qWkpvUHJPeTZlS1ZFRitKVGc1dnFYajNrK2xtalhDSkhHZ09MbERY?=
- =?utf-8?B?VVJkeU5MUnB2dEVIV1ZRdmc0Nkp6eWdvSmhDMXlNWXptbnZkZVhrZnZ3ajdX?=
- =?utf-8?B?TVVSTDQwcDY0Z2RiZFYvRCtZcTc4T1lFTW1rUEw1dlhQZm40QjF3VDQzckdM?=
- =?utf-8?B?c3MvV21qUmZvbmp2RjlpR0x0dUFTWlJVQlFUdGRuRDB4VkhEc25ueldLZHBs?=
- =?utf-8?B?N28zU21HTjNPVlBvU2R6bnMzb21kckR3a2wvbUJuVDhPdFd2dWtJNW5zOG50?=
- =?utf-8?B?Uk5BbmFLL3ZIN0s2cHowVTJPdmVscW8wcUYzMHlkQi9IRUlWakhwT2ZXTlhR?=
- =?utf-8?B?K25lc3RLVWFBSWFSa2NsNHVnWm4xMVhUOVZVQVVld0R5My9FRlJEWm5OTXIr?=
- =?utf-8?B?VTgrd085dW11akQvTnNHb2lrby95U2VRL2NsYkNrWHJFaDhScmtDOGpEdGZU?=
- =?utf-8?B?K0F6NVZsODVBNGJtZ3Jwd3pSMVRwdGtvbXM1YWtzOXNXRERzZXJjRkk4U3l4?=
- =?utf-8?B?RFc3endnQzQxTUlxYlRXR2xYc2hjK3F1ajRlOWs5akNiWkZZM2szeU5GYzU1?=
- =?utf-8?B?Y3lYMmZyK1haTXQ0ZjlqMEE5bS9KVkpIa2o2TXZIMHIwelN3U1BLeFdVejVN?=
- =?utf-8?B?cDZWMFR1VWFNM3djaFI4Q0VZMEw3MThqZE5CMy9ocVNBbEREcE5NaHEwZGZ4?=
- =?utf-8?B?SXp1WTNrdmhYWEUra3ZTbkZ2R0w5L2tkaW50MXl3VGh3Wkltcm1UMzNNMDZK?=
- =?utf-8?B?YTFRbDBUYXdhRVNvNDdBOXVBd0Q3OVNabUt1U3FFd21Id3ZEN2lVbkNRbjlv?=
- =?utf-8?B?YkVMQTNialRPbHgxTzNqbG56U2g0YlMvNlU2THBqY0VnNTJPR0VrZnp4VUhV?=
- =?utf-8?B?aHJybDFRckNxL1pGR2JNRXdoc0J2M0hMZjhxeTBXL29VNUdkNkY4cDgrQUov?=
- =?utf-8?B?MWZsaWF0dHZiRUhIVXNhVmFyRGlDWE5KdUNvc3VXejlnZkpRaVA1a1M1L2dY?=
- =?utf-8?B?WGEvYm9rcG8zYlMzWXk1M0xLdUtlc00yTzAva3N6WVJxTWZWRlYvdEJiMXZy?=
- =?utf-8?B?ZXZNSlVwbzYyTGFmRlNnQkdvdFJ1U1o4WmtCbUZQOGVURWF5aEVCSzJUZTZJ?=
- =?utf-8?B?M0lGdzAySUN4V2FJVU1scC9OSTdyKy9OdHJYM0tlSkdheEdBa3liRWR3STVK?=
- =?utf-8?B?Tk0yMFgxcE81WU5oNkYwSDZwUXNrNzMzK3Y5MER2SGFSWEtDUVNZUlVXNWpB?=
- =?utf-8?B?UFdlbUhPZVVoSlQ2THJxbGswWlpYUTlOM2pwdWhqelduOHhYaXhkM2RxeXJl?=
- =?utf-8?B?UU5ZMmZlUVgzOFJGYVo3UEd3OXhrR29paHhsTlI5UGJlNUFOakxOUW5YVitX?=
- =?utf-8?B?RXFBSTFFTlhYelcxN3FWczNxeGxhUmJDUkdJd2dqS3pRNDVkZERWOUJ4eTIx?=
- =?utf-8?B?cXFMS1B1ZWZIMTVmSGZBb2RUbENZeGtJcSt5ZloxYUttQnF5K0s1cmFaeTlz?=
- =?utf-8?B?aXZHWjBkdDJRZnZRWEg1amdrRUYvYmxSakR3WHFSeVZhSjBHZWJGNW1kdkl2?=
- =?utf-8?B?MENFMUx0eGovMXMzVWZZMFp2TFNFeFVYNEs4MkRiNysvdERNRkIyU083aEFh?=
- =?utf-8?B?dWIvZm9PVEdaNHVSUkNLTGFpYmVoOFdHdStOc2tVZlNCYUl3dVRkSVVXZzls?=
- =?utf-8?Q?1x/AWlXasBv6NxwYzjks4yGRMWsCWY=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TlFSajhHeEFVV0JqUkM5dkxhbTdqcmhBamdXWWV6dkZ0UGZmVk1NZGdCUEZU?=
- =?utf-8?B?ejF0VXk3c2V4RHNDVjNmanVnT2pOV3NUb0wxU0p2TjY1N29pMFVoejZNN292?=
- =?utf-8?B?RkpFWDJiNHQwSFRVRENjVCt1c1U5SlVXaENaUjlFTFRmSEIzMmF6cENTOG9a?=
- =?utf-8?B?eWVIVmh2cnE1cFhxbnRSY3dCWk42eGpBa2JGZXo3ZkFYVEVvVytPTlJueGd4?=
- =?utf-8?B?M053eTJNMjc5eHNVaTR0ei94OWxqTUZSb2k4ZVNPb29pVEtWSmF4Z1E2WUtV?=
- =?utf-8?B?VldLT2luTWZmU0VCL3FaQjBuWkhkdEpPSmNneFhiZWJkcGJIekk1ekwxN001?=
- =?utf-8?B?YnhvVEpQNytLVitmUmdKUUpOdTBNY0lmdloyZ1htNUhGdDZKbEhheDVJZzRn?=
- =?utf-8?B?QkhWMDZhVlNaNmRsSWpYYXoyWW1KaHdUNnhRdXV6S0oyUUdBSVc0R3JrVzFm?=
- =?utf-8?B?VlVnRklFZkhUWUZRTjdtVHdmN3hXbjZLVU1McDM4bEVkNG1jSlpJSzVxTzBU?=
- =?utf-8?B?MmZqVENzT1Z0K3RDQVo3cENsWkdSeUdpMHkwWVc5cGdMcGhkeDlOa2NKb0Rk?=
- =?utf-8?B?d1FTdkgzd2pxclhIWU5uQlpHeERFajduWUxsTXg0SEU5dEgyR2MxcVdicEdD?=
- =?utf-8?B?NjhWYTByT055N2EvNkVDbW00RVZkQWltcUE3Q21vL3R4L0FHRFM5SGNjRlBY?=
- =?utf-8?B?WWhic3RlYUZmaWF6cHBwYVNabHcwbDBLa2VLVEFiYjBnVDR1SDF6bVA0Mk9u?=
- =?utf-8?B?TGdmcEgvdmgveDBxODBYUFZ2YjdwaEFOUWQwNjJCejJkY0w5VGJRT3lzWm5D?=
- =?utf-8?B?VzVlejVKMnI0cC8vVVQ3V3pKbFRiRFowam1NdGppWDNjMEFYTUVwbXVNTnJt?=
- =?utf-8?B?a0wzWGhIRUdnK2ptVlhEU0drSWN1MjhsSkpiaSs0ZDE3ZHNuV3NCNTlVVUs1?=
- =?utf-8?B?UTdwcUxyMVRDdERXdVc4eTQ0TDc5RVNZNWI0UFI1a0tWamZiV01rN1B2Uy8r?=
- =?utf-8?B?S0F3OUxJRUZCbmdPdWNqdjkrN3BpUm5zaXY4MWg5YWdiVHlZZHFtNVcvY0Zj?=
- =?utf-8?B?TEZjRndnTU91djdJSlh0SG1mSkJPVlZGQk95SDR2UVVFTHZ5OWNWSlF5TWlU?=
- =?utf-8?B?UUhBRHd5M3k1Vm5FbnZUTmNaVnlHdlhNak5aTER0blRsVTNTUXlwNkk5QVNG?=
- =?utf-8?B?dHExOE1TdzB4VGIyUHd2Z3UrdVh6c2ZydU5QTXJkc2J1QldCYnRhWE1ORm95?=
- =?utf-8?B?SXhqK3hXREFhU2VrS3NkYTczSzdtQ1NMVi9jbENQY29SbEl4NXAwVHg0RW9F?=
- =?utf-8?B?Rng2cG82WXNXSzlCZk9ZZ0k5Zm5mRlM1N2hPZzBOTmtoRHlJMXRaa01oT0hm?=
- =?utf-8?B?aEVMTGsyODhRbTQzaFI4NldHTHphOTJLQ2RnNDZlK0o4YkZTL2VaV0Z1d3NB?=
- =?utf-8?B?dGdFS0tlVmhJZU11bWJFWWJuYVo3SDZweEYxVjd4R2Vlakw0cjYrTkpmanFM?=
- =?utf-8?B?bU5sVjBpQWtQMlhldG9vRGdqQUIvaiszdU04SVZrckVEOHczWVYvZk1tS25M?=
- =?utf-8?B?S2R5WGNreW13N2QvQmVTdHdONVR1Y3M1eHBPc3daK2NLSW5GNkVsc1RjQ1RV?=
- =?utf-8?B?VnNGbS9QbmxiSmt3VXpaRDY4d1UydjJ3ZW1yYlZhQ2NnYjNrNGQ2UDJlWkNP?=
- =?utf-8?B?UXhZbnZuU2JJcUdJN3VrbzdXdlNyR0NvNHFzU1hNVWY3cGFUTWlVWjJmMmlR?=
- =?utf-8?B?YUVaZHZkWVUrZkdyLzRqci9kYXRQZnNDeUNZSGpRV0NRZXVEM2hzTGlGck9M?=
- =?utf-8?B?b043NEY3OHNLck5hTFp1WUVWZTFqd29iMVEzT24wM0pmc1dPMjJieWd1V2I5?=
- =?utf-8?B?YkE3V2o3cE4wQ2VpN2lBUkxIRjA2WnREdzAwK3FrejJ0QTBwR0sycGMraDdO?=
- =?utf-8?B?Sm95ZWhDRkVWT0dTbWJkMVBsSHBmblhVMWFScDdrQjBoOCtVZlJiZ2gvaFda?=
- =?utf-8?B?VHBpY000L2xyK1dBL0U1SHoyRHdTbjd0YUNaOSs3RzdJTXM1RkdnTjJMWC9T?=
- =?utf-8?B?R2ZqUzZRTFdKTGpwd2JpdVJKcU5PbmtrRUhraFJSb1M3OFJWWkVlb0RqNGlk?=
- =?utf-8?B?MmdIdTNCNHpTc3pOcGUyTGRUUlBtZ2xYaFU5bFZNdG5NSktOcTlFa09FYlk1?=
- =?utf-8?B?QmFycG8yVDNYYWk4Nk5yKytwZlBmL3BaNzdmTDFCbU1SNkZEWEtRMTZ5cDRw?=
- =?utf-8?B?N2VBVERzZ2xrNE83WnVOWHZVK2NRPT0=?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4547F3620A90394E9839C14D76EE1A60@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DC3010E38C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 06:51:01 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-77269d19280so1491188b3a.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Sep 2025 23:51:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757659861; x=1758264661; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=GNGJb45hL/pdjUCLbyKUslPYbeFme5iVchmkooKtgU0=;
+ b=A4/GVsgVdvUgsGe/L3Gy54BarzN9vqpjR8EQH13/y9LNuVJZs1zLpT0Wziv7I18hqU
+ cTgvd580+UN8xK2QPBawoflpOz7XpTSQz8IpT/6Vd5DzhnKPsO15yB8mRcZ53U3F7Mrw
+ 3S+eauTIv19eRlfLF8V4WB5vZprOtugELdxN8jjCiGBcVAYA6HAFlgz61Frqxi0Uhe2l
+ mls9fjDyI+mb87seq21Y9LFAo1cwWd32MrtIoUvoeLsR0lHsFPQWYdR8WYsWmb/mJUj8
+ 1ssgGkYuwBdRrpQ/O/QRs5ku4PBVfj9OQfzLXzFj7Oi7AdHTGFZqMsVZFXouo9wpQCtr
+ oxBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757659861; x=1758264661;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GNGJb45hL/pdjUCLbyKUslPYbeFme5iVchmkooKtgU0=;
+ b=jmJBkYZWILvnd2h3VLvqL3yaD6fIU3wJp2CKb9xEx/URduKYSIMzY5x7nDF1bLi7Vw
+ QF+vz8mVdg8p2Pozm+jwI5HQj6skO7mxqImvIbmeUuTxn9m12gkuI6VXHQYjELo7fczD
+ 8Wz/8UDJ7oFXLaqAL9pxgHbZgKhgbBzC7bFVowphgiKttPLW8M5xgHWSezAaIkij72eY
+ lWtAxnGcgYe0oLEMtp/kHvoR8PV2fPppFwlPvMF5Y8SAoNfKXocQxyETUAp3zQrW8PU9
+ +dmAHf8xCq0qJMEsjAbxyXn8XPe846BDV3paBPBBgtBZaoQ165ntScbiF9EW7cufCbEs
+ P3MA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW29ZQDHt6Km6sxXGSIxfDhRaawfCFLQpifN6UIQXtM33r6gFamVVMCCx7U5Iz8Oz15hKjXfKox4Y8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzZj3AraX+RviUVafLzxybGCF+GWhLhExbXMlu90UPPQOQ5+1NP
+ Awh9iQmgxJlv/7x5zyzxgunDIB9z8Snp4GTsLWcOVJX+SoWus0YgLT+8
+X-Gm-Gg: ASbGncuIPPHI2SRjCwwefaD/AUghtmJP9aa/F8tpLYLJPSlmviY6qSyBgazNDFMaN3/
+ dx1HLYfftm8f9xhRxVUCrOFydtgBj51wWUuI+KW0jcoeAEzsN9W3cs/oWwn82ph5nPl9srOcba5
+ qoWtnppZRnPcqFeDOkj7bojz9gQnnxI35PvW7WVgEY+uWWI1oEN1xYHc0fFH+6P8z0oRVr+F4U7
+ RQwWi81OxXrVfS5X3pye/uNxl4oklIvt+LWrPxHJ+TIH5/ZxTEU3iHQIPHKTAQj715B87G5jJ5k
+ z9uQlfsi3EHYgAhN2RpXbfr9hJ7+WZJj0GxDLKfAe6oXnSoKP5wGtGjISd6qSxXjNckO0JvVyeh
+ nnccs08QyN0+J0g/MJkpsmk+R7YXzcde3seNbSd3CkHZOSxYPTQ==
+X-Google-Smtp-Source: AGHT+IGCiqKalyWNCSVmUXfqUY84xooMc3L0OzjiKG8CtYJx5OOn5CI4jMuPlVFHVJUuAgSbM8yoUA==
+X-Received: by 2002:a05:6a00:982:b0:76b:d869:43fd with SMTP id
+ d2e1a72fcca58-7761216815amr2556342b3a.18.1757659860532; 
+ Thu, 11 Sep 2025 23:51:00 -0700 (PDT)
+Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7761277ea42sm1817624b3a.77.2025.09.11.23.50.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Sep 2025 23:50:59 -0700 (PDT)
+From: pengdonglin <dolinux.peng@gmail.com>
+To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
+ ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
+ trondmy@kernel.org, longman@redhat.com, kees@kernel.org
+Cc: bigeasy@linutronix.de, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, linux-nfs@vger.kernel.org,
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, netdev@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ linux-s390@vger.kernel.org, cgroups@vger.kernel.org,
+ pengdonglin <dolinux.peng@gmail.com>, pengdonglin <pengdonglin@xiaomi.com>
+Subject: [PATCH] rcu: Remove redundant rcu_read_lock/unlock() in spin_lock
+ critical sections
+Date: Fri, 12 Sep 2025 14:50:50 +0800
+Message-Id: <20250912065050.460718-1-dolinux.peng@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4940a2c1-ace0-40ec-6752-08ddf203baf2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Sep 2025 13:53:19.1594 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /Uk3r8iEeH/s3D4CfpZ7K4ga1WoIFYj+ZgaQ3/OyCbw/6g8v/N5AwrsPcFx5Ky0BcFq3UXpTZTErV7dP/mievumkxeCJ1YHVouWkiLpSwcs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7455
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 12 Sep 2025 13:53:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -205,27 +95,649 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCAyMDI1LTAzLTExIGF0IDIxOjU2ICswMjAwLCBWaWxsZSBTeXJqYWxhIHdyb3RlOg0K
-PiBGcm9tOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50ZWwuY29tPg0K
-PiANCj4gU2luY2UgdGhpcyBzd2l0Y2hlcm9vIGdhcmJhZ2UgYnlwYXNzZXMgYWxsIHRoZSBjb3Jl
-IHBtIHdlDQo+IGhhdmUgdG8gbWFudWFsbHkgbWFuYWdlIHRoZSBwY2kgc3RhdGUuIFRvIHRoYXQg
-ZW5kIGFkZCB0aGUNCj4gbWlzc2luZyBwY2lfcmVzdG9yZV9zdGF0ZSgpIHRvIHRoZSBzd2l0Y2hl
-cm9vIHJlc3VtZSBob29rLg0KPiBXZSBhbHJlYWR5IGhhdmUgdGhlIHBjaV9zYXZlX3N0YXRlKCkg
-Y291bnRlcnBhcnQgb24gdGhlDQo+IHN1c3BlbmQgc2lkZS4NCj4gDQo+IEFyZ3VhYmx5IG5vbmUg
-b2YgdGhpcyBjb2RlIHNob3VsZCBleGlzdCBpbiB0aGUgZHJpdmVyDQo+IGluIHRoZSBmaXJzdCBw
-bGFjZSwgYW5kIGluc3RlYWQgdGhlIGVudGlyZSBzd2l0Y2hlcm9vDQo+IG1lY2hhbmlzbSBzaG91
-bGQgYmUgcmV3cml0dGVuIGFuZCBwcm9wZXJseSBpbnRlZ3JhdGVkIGludG8NCj4gY29yZSBwbSBj
-b2RlLi4uDQo+IA0KPiBDYzogUm9kcmlnbyBWaXZpIDxyb2RyaWdvLnZpdmlAaW50ZWwuY29tPg0K
-PiBTaWduZWQtb2ZmLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50
-ZWwuY29tPg0KDQpSZXZpZXdlZC1ieTogSm91bmkgSMO2Z2FuZGVyIDxqb3VuaS5ob2dhbmRlckBp
-bnRlbC5jb20+DQo+IC0tLQ0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJpdmVyLmMg
-fCAyICsrDQo+IMKgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJpdmVyLmMNCj4gYi9kcml2ZXJzL2dw
-dS9kcm0vaTkxNS9pOTE1X2RyaXZlci5jDQo+IGluZGV4IDk5NTIwNWUyNGViZi4uYTE5OWUyMWM3
-YmI0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X2RyaXZlci5jDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfZHJpdmVyLmMNCj4gQEAgLTEzNDAsNiAr
-MTM0MCw4IEBAIGludCBpOTE1X2RyaXZlcl9yZXN1bWVfc3dpdGNoZXJvbyhzdHJ1Y3QNCj4gZHJt
-X2k5MTVfcHJpdmF0ZSAqaTkxNSkNCj4gwqAJaWYgKHJldCkNCj4gwqAJCXJldHVybiByZXQ7DQo+
-IMKgDQo+ICsJcGNpX3Jlc3RvcmVfc3RhdGUocGRldik7DQo+ICsNCj4gwqAJcmV0ID0gaTkxNV9k
-cm1fcmVzdW1lX2Vhcmx5KCZpOTE1LT5kcm0pOw0KPiDCoAlpZiAocmV0KQ0KPiDCoAkJcmV0dXJu
-IHJldDsNCg0K
+From: pengdonglin <pengdonglin@xiaomi.com>
+
+When CONFIG_PREEMPT_RT is disabled, spin_lock*() operations implicitly
+disable preemption, which provides RCU read-side protection. When
+CONFIG_PREEMPT_RT is enabled, spin_lock*() implementations internally
+manage RCU read-side critical sections.
+
+Thus, explicit rcu_read_lock()/rcu_read_unlock() calls within spin_lock*()
+critical sections are redundant in both configurations. This patch removes
+these unnecessary operations, simplifying the locking semantics while
+maintaining correct RCU protection.
+
+Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
+Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
+---
+ drivers/acpi/apei/ghes.c                        | 2 --
+ drivers/gpu/drm/i915/gt/intel_ring_submission.c | 2 --
+ drivers/net/amt.c                               | 6 ------
+ drivers/net/bonding/bond_3ad.c                  | 2 --
+ drivers/net/wireless/ath/ath9k/xmit.c           | 2 --
+ drivers/s390/crypto/pkey_base.c                 | 3 ---
+ fs/aio.c                                        | 2 --
+ fs/nfs/callback_proc.c                          | 2 --
+ fs/nfs/nfs4state.c                              | 2 --
+ fs/nfs/pnfs.c                                   | 9 ---------
+ fs/nfs/pnfs_dev.c                               | 4 ----
+ ipc/msg.c                                       | 1 -
+ ipc/sem.c                                       | 1 -
+ ipc/shm.c                                       | 1 -
+ ipc/util.c                                      | 2 --
+ kernel/cgroup/cgroup.c                          | 2 --
+ kernel/cgroup/cpuset.c                          | 6 ------
+ kernel/cgroup/debug.c                           | 4 ----
+ net/mac80211/cfg.c                              | 2 --
+ net/mac80211/debugfs.c                          | 2 --
+ net/mac80211/debugfs_netdev.c                   | 2 --
+ net/mac80211/debugfs_sta.c                      | 2 --
+ net/mac80211/sta_info.c                         | 2 --
+ net/ncsi/ncsi-manage.c                          | 2 --
+ security/yama/yama_lsm.c                        | 4 ----
+ 25 files changed, 69 deletions(-)
+
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index a0d54993edb3..97ee19f2cae0 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -1207,12 +1207,10 @@ static int ghes_notify_hed(struct notifier_block *this, unsigned long event,
+ 	int ret = NOTIFY_DONE;
+ 
+ 	spin_lock_irqsave(&ghes_notify_lock_irq, flags);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(ghes, &ghes_hed, list) {
+ 		if (!ghes_proc(ghes))
+ 			ret = NOTIFY_OK;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock_irqrestore(&ghes_notify_lock_irq, flags);
+ 
+ 	return ret;
+diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+index 2a6d79abf25b..bf73166a1337 100644
+--- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
+@@ -392,14 +392,12 @@ static void reset_rewind(struct intel_engine_cs *engine, bool stalled)
+ 
+ 	rq = NULL;
+ 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
+-	rcu_read_lock();
+ 	list_for_each_entry(pos, &engine->sched_engine->requests, sched.link) {
+ 		if (!__i915_request_is_complete(pos)) {
+ 			rq = pos;
+ 			break;
+ 		}
+ 	}
+-	rcu_read_unlock();
+ 
+ 	/*
+ 	 * The guilty request will get skipped on a hung engine.
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index ed86537b2f61..e7cce735ce7b 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -295,7 +295,6 @@ static void amt_source_work(struct work_struct *work)
+ 
+ 	tunnel = gnode->tunnel_list;
+ 	spin_lock_bh(&tunnel->lock);
+-	rcu_read_lock();
+ 	if (gnode->filter_mode == MCAST_INCLUDE) {
+ 		amt_destroy_source(snode);
+ 		if (!gnode->nr_sources)
+@@ -306,7 +305,6 @@ static void amt_source_work(struct work_struct *work)
+ 		 */
+ 		snode->status = AMT_SOURCE_STATUS_D_FWD;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&tunnel->lock);
+ }
+ 
+@@ -1327,11 +1325,9 @@ static void amt_clear_groups(struct amt_tunnel_list *tunnel)
+ 	int i;
+ 
+ 	spin_lock_bh(&tunnel->lock);
+-	rcu_read_lock();
+ 	for (i = 0; i < amt->hash_buckets; i++)
+ 		hlist_for_each_entry_safe(gnode, t, &tunnel->groups[i], node)
+ 			amt_del_group(amt, gnode);
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&tunnel->lock);
+ }
+ 
+@@ -1343,11 +1339,9 @@ static void amt_tunnel_expire(struct work_struct *work)
+ 	struct amt_dev *amt = tunnel->amt;
+ 
+ 	spin_lock_bh(&amt->lock);
+-	rcu_read_lock();
+ 	list_del_rcu(&tunnel->list);
+ 	amt->nr_tunnels--;
+ 	amt_clear_groups(tunnel);
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&amt->lock);
+ 	kfree_rcu(tunnel, rcu);
+ }
+diff --git a/drivers/net/bonding/bond_3ad.c b/drivers/net/bonding/bond_3ad.c
+index 4edc8e6b6b64..c53ea73f103a 100644
+--- a/drivers/net/bonding/bond_3ad.c
++++ b/drivers/net/bonding/bond_3ad.c
+@@ -2485,7 +2485,6 @@ void bond_3ad_state_machine_handler(struct work_struct *work)
+ 	 * concurrently due to incoming LACPDU as well.
+ 	 */
+ 	spin_lock_bh(&bond->mode_lock);
+-	rcu_read_lock();
+ 
+ 	/* check if there are any slaves */
+ 	if (!bond_has_slaves(bond))
+@@ -2537,7 +2536,6 @@ void bond_3ad_state_machine_handler(struct work_struct *work)
+ 			break;
+ 		}
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&bond->mode_lock);
+ 
+ 	if (update_slave_arr)
+diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
+index 0ac9212e42f7..4a0f465aa2fe 100644
+--- a/drivers/net/wireless/ath/ath9k/xmit.c
++++ b/drivers/net/wireless/ath/ath9k/xmit.c
+@@ -1993,7 +1993,6 @@ void ath_txq_schedule(struct ath_softc *sc, struct ath_txq *txq)
+ 
+ 	ieee80211_txq_schedule_start(hw, txq->mac80211_qnum);
+ 	spin_lock_bh(&sc->chan_lock);
+-	rcu_read_lock();
+ 
+ 	if (sc->cur_chan->stopped)
+ 		goto out;
+@@ -2011,7 +2010,6 @@ void ath_txq_schedule(struct ath_softc *sc, struct ath_txq *txq)
+ 	}
+ 
+ out:
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&sc->chan_lock);
+ 	ieee80211_txq_schedule_end(hw, txq->mac80211_qnum);
+ }
+diff --git a/drivers/s390/crypto/pkey_base.c b/drivers/s390/crypto/pkey_base.c
+index b15741461a63..4c4a9feecccc 100644
+--- a/drivers/s390/crypto/pkey_base.c
++++ b/drivers/s390/crypto/pkey_base.c
+@@ -48,16 +48,13 @@ int pkey_handler_register(struct pkey_handler *handler)
+ 
+ 	spin_lock(&handler_list_write_lock);
+ 
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(h, &handler_list, list) {
+ 		if (h == handler) {
+-			rcu_read_unlock();
+ 			spin_unlock(&handler_list_write_lock);
+ 			module_put(handler->module);
+ 			return -EEXIST;
+ 		}
+ 	}
+-	rcu_read_unlock();
+ 
+ 	list_add_rcu(&handler->list, &handler_list);
+ 	spin_unlock(&handler_list_write_lock);
+diff --git a/fs/aio.c b/fs/aio.c
+index 7fc7b6221312..9c47f09df19e 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -359,7 +359,6 @@ static int aio_ring_mremap(struct vm_area_struct *vma)
+ 	int i, res = -EINVAL;
+ 
+ 	spin_lock(&mm->ioctx_lock);
+-	rcu_read_lock();
+ 	table = rcu_dereference(mm->ioctx_table);
+ 	if (!table)
+ 		goto out_unlock;
+@@ -378,7 +377,6 @@ static int aio_ring_mremap(struct vm_area_struct *vma)
+ 	}
+ 
+ out_unlock:
+-	rcu_read_unlock();
+ 	spin_unlock(&mm->ioctx_lock);
+ 	return res;
+ }
+diff --git a/fs/nfs/callback_proc.c b/fs/nfs/callback_proc.c
+index 8397c43358bd..16144db39335 100644
+--- a/fs/nfs/callback_proc.c
++++ b/fs/nfs/callback_proc.c
+@@ -721,7 +721,6 @@ __be32 nfs4_callback_offload(void *data, void *dummy,
+ 		return cpu_to_be32(NFS4ERR_DELAY);
+ 
+ 	spin_lock(&cps->clp->cl_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(server, &cps->clp->cl_superblocks,
+ 				client_link) {
+ 		list_for_each_entry(tmp_copy, &server->ss_copies, copies) {
+@@ -736,7 +735,6 @@ __be32 nfs4_callback_offload(void *data, void *dummy,
+ 		}
+ 	}
+ out:
+-	rcu_read_unlock();
+ 	if (!found) {
+ 		memcpy(&copy->stateid, &args->coa_stateid, NFS4_STATEID_SIZE);
+ 		nfs4_copy_cb_args(copy, args);
+diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
+index 7612e977e80b..598229fc07ed 100644
+--- a/fs/nfs/nfs4state.c
++++ b/fs/nfs/nfs4state.c
+@@ -241,13 +241,11 @@ const struct cred *nfs4_get_renew_cred(struct nfs_client *clp)
+ 		goto out;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		cred = nfs4_get_renew_cred_server_locked(server);
+ 		if (cred != NULL)
+ 			break;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ 
+ out:
+diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+index a3135b5af7ee..c9399452bcfd 100644
+--- a/fs/nfs/pnfs.c
++++ b/fs/nfs/pnfs.c
+@@ -862,16 +862,13 @@ pnfs_layout_bulk_destroy_byserver_locked(struct nfs_client *clp,
+ 			if (pnfs_layout_add_bulk_destroy_list(inode,
+ 						layout_list))
+ 				continue;
+-			rcu_read_unlock();
+ 			spin_unlock(&clp->cl_lock);
+ 			iput(inode);
+ 		} else {
+-			rcu_read_unlock();
+ 			spin_unlock(&clp->cl_lock);
+ 		}
+ 		nfs_sb_deactive(server->super);
+ 		spin_lock(&clp->cl_lock);
+-		rcu_read_lock();
+ 		return -EAGAIN;
+ 	}
+ 	return 0;
+@@ -922,7 +919,6 @@ int pnfs_layout_destroy_byfsid(struct nfs_client *clp, struct nfs_fsid *fsid,
+ 	LIST_HEAD(layout_list);
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (memcmp(&server->fsid, fsid, sizeof(*fsid)) != 0)
+@@ -932,7 +928,6 @@ int pnfs_layout_destroy_byfsid(struct nfs_client *clp, struct nfs_fsid *fsid,
+ 				&layout_list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ 
+ 	return pnfs_layout_free_bulk_destroy_list(&layout_list, mode);
+@@ -944,14 +939,12 @@ static void pnfs_layout_build_destroy_list_byclient(struct nfs_client *clp,
+ 	struct nfs_server *server;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (pnfs_layout_bulk_destroy_byserver_locked(clp, server,
+ 							     list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ }
+ 
+@@ -990,7 +983,6 @@ static void pnfs_layout_build_recover_list_byclient(struct nfs_client *clp,
+ 	struct nfs_server *server;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (!(server->caps & NFS_CAP_REBOOT_LAYOUTRETURN))
+@@ -999,7 +991,6 @@ static void pnfs_layout_build_recover_list_byclient(struct nfs_client *clp,
+ 							     list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ }
+ 
+diff --git a/fs/nfs/pnfs_dev.c b/fs/nfs/pnfs_dev.c
+index bf0f2d67e96c..d19752ec1a95 100644
+--- a/fs/nfs/pnfs_dev.c
++++ b/fs/nfs/pnfs_dev.c
+@@ -231,9 +231,7 @@ nfs4_delete_deviceid(const struct pnfs_layoutdriver_type *ld,
+ 	struct nfs4_deviceid_node *d;
+ 
+ 	spin_lock(&nfs4_deviceid_lock);
+-	rcu_read_lock();
+ 	d = _lookup_deviceid(ld, clp, id, nfs4_deviceid_hash(id));
+-	rcu_read_unlock();
+ 	if (!d) {
+ 		spin_unlock(&nfs4_deviceid_lock);
+ 		return;
+@@ -331,14 +329,12 @@ _deviceid_purge_client(const struct nfs_client *clp, long hash)
+ 	HLIST_HEAD(tmp);
+ 
+ 	spin_lock(&nfs4_deviceid_lock);
+-	rcu_read_lock();
+ 	hlist_for_each_entry_rcu(d, &nfs4_deviceid_cache[hash], node)
+ 		if (d->nfs_client == clp && atomic_read(&d->ref)) {
+ 			hlist_del_init_rcu(&d->node);
+ 			hlist_add_head(&d->tmpnode, &tmp);
+ 			clear_bit(NFS_DEVICEID_NOCACHE, &d->flags);
+ 		}
+-	rcu_read_unlock();
+ 	spin_unlock(&nfs4_deviceid_lock);
+ 
+ 	if (hlist_empty(&tmp))
+diff --git a/ipc/msg.c b/ipc/msg.c
+index ee6af4fe52bf..1e579b57023f 100644
+--- a/ipc/msg.c
++++ b/ipc/msg.c
+@@ -179,7 +179,6 @@ static int newque(struct ipc_namespace *ns, struct ipc_params *params)
+ 	}
+ 
+ 	ipc_unlock_object(&msq->q_perm);
+-	rcu_read_unlock();
+ 
+ 	return msq->q_perm.id;
+ }
+diff --git a/ipc/sem.c b/ipc/sem.c
+index a39cdc7bf88f..38ad57b2b558 100644
+--- a/ipc/sem.c
++++ b/ipc/sem.c
+@@ -579,7 +579,6 @@ static int newary(struct ipc_namespace *ns, struct ipc_params *params)
+ 	ns->used_sems += nsems;
+ 
+ 	sem_unlock(sma, -1);
+-	rcu_read_unlock();
+ 
+ 	return sma->sem_perm.id;
+ }
+diff --git a/ipc/shm.c b/ipc/shm.c
+index a9310b6dbbc3..61fae1b6a18e 100644
+--- a/ipc/shm.c
++++ b/ipc/shm.c
+@@ -795,7 +795,6 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
+ 	error = shp->shm_perm.id;
+ 
+ 	ipc_unlock_object(&shp->shm_perm);
+-	rcu_read_unlock();
+ 	return error;
+ 
+ no_id:
+diff --git a/ipc/util.c b/ipc/util.c
+index cae60f11d9c2..1be691b5dcad 100644
+--- a/ipc/util.c
++++ b/ipc/util.c
+@@ -293,7 +293,6 @@ int ipc_addid(struct ipc_ids *ids, struct kern_ipc_perm *new, int limit)
+ 	idr_preload(GFP_KERNEL);
+ 
+ 	spin_lock_init(&new->lock);
+-	rcu_read_lock();
+ 	spin_lock(&new->lock);
+ 
+ 	current_euid_egid(&euid, &egid);
+@@ -316,7 +315,6 @@ int ipc_addid(struct ipc_ids *ids, struct kern_ipc_perm *new, int limit)
+ 	if (idx < 0) {
+ 		new->deleted = true;
+ 		spin_unlock(&new->lock);
+-		rcu_read_unlock();
+ 		return idx;
+ 	}
+ 
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index 312c6a8b55bb..db9e00a559df 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -2944,14 +2944,12 @@ int cgroup_attach_task(struct cgroup *dst_cgrp, struct task_struct *leader,
+ 
+ 	/* look up all src csets */
+ 	spin_lock_irq(&css_set_lock);
+-	rcu_read_lock();
+ 	task = leader;
+ 	do {
+ 		cgroup_migrate_add_src(task_css_set(task), dst_cgrp, &mgctx);
+ 		if (!threadgroup)
+ 			break;
+ 	} while_each_thread(leader, task);
+-	rcu_read_unlock();
+ 	spin_unlock_irq(&css_set_lock);
+ 
+ 	/* prepare dst csets and commit */
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 27adb04df675..9b7e8e8e9411 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -4073,7 +4073,6 @@ void cpuset_cpus_allowed(struct task_struct *tsk, struct cpumask *pmask)
+ 	struct cpuset *cs;
+ 
+ 	spin_lock_irqsave(&callback_lock, flags);
+-	rcu_read_lock();
+ 
+ 	cs = task_cs(tsk);
+ 	if (cs != &top_cpuset)
+@@ -4095,7 +4094,6 @@ void cpuset_cpus_allowed(struct task_struct *tsk, struct cpumask *pmask)
+ 			cpumask_copy(pmask, possible_mask);
+ 	}
+ 
+-	rcu_read_unlock();
+ 	spin_unlock_irqrestore(&callback_lock, flags);
+ }
+ 
+@@ -4168,9 +4166,7 @@ nodemask_t cpuset_mems_allowed(struct task_struct *tsk)
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&callback_lock, flags);
+-	rcu_read_lock();
+ 	guarantee_online_mems(task_cs(tsk), &mask);
+-	rcu_read_unlock();
+ 	spin_unlock_irqrestore(&callback_lock, flags);
+ 
+ 	return mask;
+@@ -4265,10 +4261,8 @@ bool cpuset_current_node_allowed(int node, gfp_t gfp_mask)
+ 	/* Not hardwall and node outside mems_allowed: scan up cpusets */
+ 	spin_lock_irqsave(&callback_lock, flags);
+ 
+-	rcu_read_lock();
+ 	cs = nearest_hardwall_ancestor(task_cs(current));
+ 	allowed = node_isset(node, cs->mems_allowed);
+-	rcu_read_unlock();
+ 
+ 	spin_unlock_irqrestore(&callback_lock, flags);
+ 	return allowed;
+diff --git a/kernel/cgroup/debug.c b/kernel/cgroup/debug.c
+index 80aa3f027ac3..81ea38dd6f9d 100644
+--- a/kernel/cgroup/debug.c
++++ b/kernel/cgroup/debug.c
+@@ -49,7 +49,6 @@ static int current_css_set_read(struct seq_file *seq, void *v)
+ 		return -ENODEV;
+ 
+ 	spin_lock_irq(&css_set_lock);
+-	rcu_read_lock();
+ 	cset = task_css_set(current);
+ 	refcnt = refcount_read(&cset->refcount);
+ 	seq_printf(seq, "css_set %pK %d", cset, refcnt);
+@@ -67,7 +66,6 @@ static int current_css_set_read(struct seq_file *seq, void *v)
+ 		seq_printf(seq, "%2d: %-4s\t- %p[%d]\n", ss->id, ss->name,
+ 			  css, css->id);
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock_irq(&css_set_lock);
+ 	cgroup_kn_unlock(of->kn);
+ 	return 0;
+@@ -95,7 +93,6 @@ static int current_css_set_cg_links_read(struct seq_file *seq, void *v)
+ 		return -ENOMEM;
+ 
+ 	spin_lock_irq(&css_set_lock);
+-	rcu_read_lock();
+ 	cset = task_css_set(current);
+ 	list_for_each_entry(link, &cset->cgrp_links, cgrp_link) {
+ 		struct cgroup *c = link->cgrp;
+@@ -104,7 +101,6 @@ static int current_css_set_cg_links_read(struct seq_file *seq, void *v)
+ 		seq_printf(seq, "Root %d group %s\n",
+ 			   c->root->hierarchy_id, name_buf);
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock_irq(&css_set_lock);
+ 	kfree(name_buf);
+ 	return 0;
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 2ed07fa121ab..4fe50d4c461d 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -4825,7 +4825,6 @@ static int ieee80211_get_txq_stats(struct wiphy *wiphy,
+ 	int ret = 0;
+ 
+ 	spin_lock_bh(&local->fq.lock);
+-	rcu_read_lock();
+ 
+ 	if (wdev) {
+ 		sdata = IEEE80211_WDEV_TO_SUB_IF(wdev);
+@@ -4851,7 +4850,6 @@ static int ieee80211_get_txq_stats(struct wiphy *wiphy,
+ 	}
+ 
+ out:
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&local->fq.lock);
+ 
+ 	return ret;
+diff --git a/net/mac80211/debugfs.c b/net/mac80211/debugfs.c
+index e8b78ec682da..82099f4cedbe 100644
+--- a/net/mac80211/debugfs.c
++++ b/net/mac80211/debugfs.c
+@@ -82,7 +82,6 @@ static ssize_t aqm_read(struct file *file,
+ 	int len = 0;
+ 
+ 	spin_lock_bh(&local->fq.lock);
+-	rcu_read_lock();
+ 
+ 	len = scnprintf(buf, sizeof(buf),
+ 			"access name value\n"
+@@ -105,7 +104,6 @@ static ssize_t aqm_read(struct file *file,
+ 			fq->limit,
+ 			fq->quantum);
+ 
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&local->fq.lock);
+ 
+ 	return simple_read_from_buffer(user_buf, count, ppos,
+diff --git a/net/mac80211/debugfs_netdev.c b/net/mac80211/debugfs_netdev.c
+index 1dac78271045..30a5a978a678 100644
+--- a/net/mac80211/debugfs_netdev.c
++++ b/net/mac80211/debugfs_netdev.c
+@@ -625,7 +625,6 @@ static ssize_t ieee80211_if_fmt_aqm(
+ 	txqi = to_txq_info(sdata->vif.txq);
+ 
+ 	spin_lock_bh(&local->fq.lock);
+-	rcu_read_lock();
+ 
+ 	len = scnprintf(buf,
+ 			buflen,
+@@ -642,7 +641,6 @@ static ssize_t ieee80211_if_fmt_aqm(
+ 			txqi->tin.tx_bytes,
+ 			txqi->tin.tx_packets);
+ 
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&local->fq.lock);
+ 
+ 	return len;
+diff --git a/net/mac80211/debugfs_sta.c b/net/mac80211/debugfs_sta.c
+index 49061bd4151b..ef75255d47d5 100644
+--- a/net/mac80211/debugfs_sta.c
++++ b/net/mac80211/debugfs_sta.c
+@@ -148,7 +148,6 @@ static ssize_t sta_aqm_read(struct file *file, char __user *userbuf,
+ 		return -ENOMEM;
+ 
+ 	spin_lock_bh(&local->fq.lock);
+-	rcu_read_lock();
+ 
+ 	p += scnprintf(p,
+ 		       bufsz + buf - p,
+@@ -178,7 +177,6 @@ static ssize_t sta_aqm_read(struct file *file, char __user *userbuf,
+ 			       test_bit(IEEE80211_TXQ_DIRTY, &txqi->flags) ? " DIRTY" : "");
+ 	}
+ 
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&local->fq.lock);
+ 
+ 	rv = simple_read_from_buffer(userbuf, count, ppos, buf, p - buf);
+diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
+index 8c550aab9bdc..663318a75d7f 100644
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -2637,13 +2637,11 @@ static void sta_set_tidstats(struct sta_info *sta,
+ 
+ 	if (link_id < 0 && tid < IEEE80211_NUM_TIDS) {
+ 		spin_lock_bh(&local->fq.lock);
+-		rcu_read_lock();
+ 
+ 		tidstats->filled |= BIT(NL80211_TID_STATS_TXQ_STATS);
+ 		ieee80211_fill_txq_stats(&tidstats->txq_stats,
+ 					 to_txq_info(sta->sta.txq[tid]));
+ 
+-		rcu_read_unlock();
+ 		spin_unlock_bh(&local->fq.lock);
+ 	}
+ }
+diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
+index 446e4e3b9553..6e36cd64a31e 100644
+--- a/net/ncsi/ncsi-manage.c
++++ b/net/ncsi/ncsi-manage.c
+@@ -650,7 +650,6 @@ static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+ 
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(vlan, &ndp->vlan_vids, list) {
+ 		vid = vlan->vid;
+ 		for (i = 0; i < ncf->n_vids; i++)
+@@ -661,7 +660,6 @@ static int set_one_vid(struct ncsi_dev_priv *ndp, struct ncsi_channel *nc,
+ 		if (vid)
+ 			break;
+ 	}
+-	rcu_read_unlock();
+ 
+ 	if (!vid) {
+ 		/* No VLAN ID is not set */
+diff --git a/security/yama/yama_lsm.c b/security/yama/yama_lsm.c
+index 3d064dd4e03f..60d38deb181b 100644
+--- a/security/yama/yama_lsm.c
++++ b/security/yama/yama_lsm.c
+@@ -117,14 +117,12 @@ static void yama_relation_cleanup(struct work_struct *work)
+ 	struct ptrace_relation *relation;
+ 
+ 	spin_lock(&ptracer_relations_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(relation, &ptracer_relations, node) {
+ 		if (relation->invalid) {
+ 			list_del_rcu(&relation->node);
+ 			kfree_rcu(relation, rcu);
+ 		}
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&ptracer_relations_lock);
+ }
+ 
+@@ -152,7 +150,6 @@ static int yama_ptracer_add(struct task_struct *tracer,
+ 	added->invalid = false;
+ 
+ 	spin_lock(&ptracer_relations_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(relation, &ptracer_relations, node) {
+ 		if (relation->invalid)
+ 			continue;
+@@ -166,7 +163,6 @@ static int yama_ptracer_add(struct task_struct *tracer,
+ 	list_add_rcu(&added->node, &ptracer_relations);
+ 
+ out:
+-	rcu_read_unlock();
+ 	spin_unlock(&ptracer_relations_lock);
+ 	return 0;
+ }
+-- 
+2.34.1
+
