@@ -4,61 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC00CA101F
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 12:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15A0BCAC582
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Sep 2025 13:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75B6A10EC3F;
-	Fri, 12 Sep 2025 12:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36D5410EC4B;
+	Fri, 12 Sep 2025 13:45:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iVBZRbRy";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eib82zjH";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5993810EC46
- for <intel-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 12:56:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757681780; x=1789217780;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=oJ7lpTVpvUa6P/2zoJ0q+fqaUv0E1vSTZfAueO0YyWQ=;
- b=iVBZRbRypmwLqGrmS4VvB1iRg70l1mmGNOokx+3bqlZGlg6vTxd2s7Rz
- ADZoxMV15yQJnJiQ2tb/lh8vhKJ3LOzPa+elHo+3oOhKQtaMFGbbp9KLc
- 5zlfkGAb9bF11EC+aThBr8+URu8bRHlHkA3+g+oMpMYBFBYYfLS3v8yCD
- kozfS0LoiNm9XBCzUvjfO8FLcCMMsKzfXfK1To8sepq3FkWCeFyxmsVd+
- Z+kSLWSa+ApOEUcUdPriMO/lt1Dt1hbclkqSMdR4Uhal+QRiVcx5p3+w9
- 8uJDi7nFU8hf63fEI0C4GXa3eH1/ViPENNCf/dI2ipAkxuwjEZhxBOxR0 A==;
-X-CSE-ConnectionGUID: Gbd9Tpk8TImtTONjXjLw8w==
-X-CSE-MsgGUID: /lYdGyWJR36XMjDKwaI8sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="63848517"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="63848517"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2025 05:56:20 -0700
-X-CSE-ConnectionGUID: 5tHtWTUaSFW0+a2BxnYHcw==
-X-CSE-MsgGUID: 6iJVeUbcT6G1RR2CaXlNrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,259,1751266800"; d="scan'208";a="179134983"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.171])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2025 05:56:18 -0700
-Date: Fri, 12 Sep 2025 15:56:16 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 6/6] drm/i915/pm: Drop redundant pci stuff from
- suspend/resume paths
-Message-ID: <aMQYcPE73nEgx1ZN@intel.com>
-References: <20250311195624.22420-1-ville.syrjala@linux.intel.com>
- <20250311195624.22420-7-ville.syrjala@linux.intel.com>
- <8507920a2e7ffc94fb6ad71fb2b7c35191ae176d.camel@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D7110EC5F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Sep 2025 13:45:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id DF134601E8;
+ Fri, 12 Sep 2025 13:45:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 332BDC4CEF1;
+ Fri, 12 Sep 2025 13:45:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1757684700;
+ bh=4bPtQerKh4PPDHzaFkQ9Mq3GNZ4Ge6KPHE5XrzeSJFU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=eib82zjHjnvAhvc6gZZYacrVkQfsrqgyjEdLQ9u6dA8MjgCw78y3sY0bMBaZXkhKl
+ sSmTK9NzGN9UWtxf1Bw0+iKWh0BQla74cFkV1Sx0DOy2bHS7Dxha4SDtzPFTxJdP8b
+ yVq8EDC8Tl63nWQD06Ydysn1EyTiUkGSsbpWcrYY=
+Date: Fri, 12 Sep 2025 15:44:57 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: intel-gfx@lists.freedesktop.org,
+ Alexander Usyskin <alexander.usyskin@intel.com>
+Subject: Re: [PATCH v2 1/2] mei: me: Add exported function to get the PCI ID
+ list
+Message-ID: <2025091228-chewable-amusable-5d2e@gregkh>
+References: <20250911175021.19513-4-daniele.ceraolospurio@intel.com>
+ <20250911175021.19513-5-daniele.ceraolospurio@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8507920a2e7ffc94fb6ad71fb2b7c35191ae176d.camel@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <20250911175021.19513-5-daniele.ceraolospurio@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,115 +56,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Sep 12, 2025 at 09:44:15AM +0000, Hogander, Jouni wrote:
-> On Tue, 2025-03-11 at 21:56 +0200, Ville Syrjala wrote:
-> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > 
-> > I don't think there should be any need for us to call any of
-> > pci_enable_device(), pci_disable_device() or pci_set_master()
-> > from the suspend/resume paths. The config space save/restore should
-> > take care of all of this.
+On Thu, Sep 11, 2025 at 10:50:23AM -0700, Daniele Ceraolo Spurio wrote:
+> The intel GFX drivers (i915/xe) interface with the ME device for some of
+> their features (e.g. PXP, HDCP) via the component interface. Given that
+> the ME device can be hidden by BIOS/Coreboot, the GFX drivers need a
+> way to check if the device is available before attempting to bind the
+> component, otherwise they'll go ahead and initialize features that will
+> never work.
+> The simplest way to check if the device is available is to check the
+> available devices against the PCI ID list of the mei_me driver. To avoid
+> duplication, this patch adds an exported function that the GFX driver
+> can call to obtain the list. Locking around the checks, if required,
+> is left to the caller.
 > 
-> I couldn't find out what save/restore you are referring here. At least
-> driver/pci isn't doing these in it's suspend/resume paths. Can you
-> please point me out?
+> Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+> Cc: Alexander Usyskin <alexander.usyskin@intel.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/misc/mei/pci-me.c | 22 ++++++++++++++++++++++
+>  include/linux/mei_me.h    | 20 ++++++++++++++++++++
+>  2 files changed, 42 insertions(+)
+>  create mode 100644 include/linux/mei_me.h
+> 
+> diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
+> index 3f9c60b579ae..147e79b4ae1f 100644
+> --- a/drivers/misc/mei/pci-me.c
+> +++ b/drivers/misc/mei/pci-me.c
+> @@ -18,6 +18,7 @@
+>  #include <linux/pm_runtime.h>
+>  
+>  #include <linux/mei.h>
+> +#include <linux/mei_me.h>
+>  
+>  #include "mei_dev.h"
+>  #include "client.h"
+> @@ -133,6 +134,27 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
+>  
+>  MODULE_DEVICE_TABLE(pci, mei_me_pci_tbl);
+>  
+> +/**
+> + * mei_me_get_device_id_table - get the list of ME pci device IDs
+> + *
+> + * Other drivers (e.g., i915, xe) interface with the ME device for some of their
+> + * features (e.g., PXP, HDCP). However, the ME device can be unplugged via the
+> + * pci subsystem or hidden by BIOS/coreboot, so those drivers might want to
+> + * check if the device is available before initializing those features. This
+> + * function offers a way for those drivers to get the list of ME device IDs,
+> + * so they can check if one of them is available before attempting to
+> + * interface with it. Locking around the availability check, if required,
+> + * is left to the caller.
+> + *
+> + * Return: An array of struct pci_device_id entries containing the IDs of
+> + * the ME devices.
+> + */
+> +const struct pci_device_id *mei_me_get_device_id_table(void)
+> +{
+> +	return mei_me_pci_tbl;
+> +}
+> +EXPORT_SYMBOL_GPL(mei_me_get_device_id_table);
 
-The save/restore of config space. IIRC the io, mem, and
-busmaster enable bits all live in the pci command register.
+Why not just do:
 
-> 
-> BR,
-> 
-> Jouni Högander
-> > 
-> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/i915_driver.c | 31 ----------------------------
-> > --
-> >  1 file changed, 31 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/i915_driver.c
-> > b/drivers/gpu/drm/i915/i915_driver.c
-> > index 503f1b6b694f..d3d1b2d082dd 100644
-> > --- a/drivers/gpu/drm/i915/i915_driver.c
-> > +++ b/drivers/gpu/drm/i915/i915_driver.c
-> > @@ -1092,7 +1092,6 @@ static int i915_drm_suspend_late(struct
-> > drm_device *dev, bool hibernation)
-> >  {
-> >  	struct drm_i915_private *dev_priv = to_i915(dev);
-> >  	struct intel_display *display = &dev_priv->display;
-> > -	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-> >  	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
-> >  	struct intel_gt *gt;
-> >  	int ret, i;
-> > @@ -1113,21 +1112,10 @@ static int i915_drm_suspend_late(struct
-> > drm_device *dev, bool hibernation)
-> >  	if (ret) {
-> >  		drm_err(&dev_priv->drm, "Suspend complete failed:
-> > %d\n", ret);
-> >  		intel_display_power_resume_early(display);
-> > -
-> > -		goto fail;
-> >  	}
-> >  
-> >  	enable_rpm_wakeref_asserts(rpm);
-> >  
-> > -	if (!dev_priv->uncore.user_forcewake_count)
-> > -		intel_runtime_pm_driver_release(rpm);
-> > -
-> > -	pci_disable_device(pdev);
-> > -
-> > -	return 0;
-> > -
-> > -fail:
-> > -	enable_rpm_wakeref_asserts(rpm);
-> >  	if (!dev_priv->uncore.user_forcewake_count)
-> >  		intel_runtime_pm_driver_release(rpm);
-> >  
-> > @@ -1278,7 +1266,6 @@ static int i915_drm_resume_early(struct
-> > drm_device *dev)
-> >  {
-> >  	struct drm_i915_private *dev_priv = to_i915(dev);
-> >  	struct intel_display *display = &dev_priv->display;
-> > -	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
-> >  	struct intel_gt *gt;
-> >  	int ret, i;
-> >  
-> > @@ -1292,24 +1279,6 @@ static int i915_drm_resume_early(struct
-> > drm_device *dev)
-> >  	 * similar so that power domains can be employed.
-> >  	 */
-> >  
-> > -	/*
-> > -	 * Note that pci_enable_device() first enables any parent
-> > bridge
-> > -	 * device and only then sets the power state for this
-> > device. The
-> > -	 * bridge enabling is a nop though, since bridge devices are
-> > resumed
-> > -	 * first. The order of enabling power and enabling the
-> > device is
-> > -	 * imposed by the PCI core as described above, so here we
-> > preserve the
-> > -	 * same order for the freeze/thaw phases.
-> > -	 *
-> > -	 * TODO: eventually we should remove pci_disable_device() /
-> > -	 * pci_enable_enable_device() from suspend/resume. Due to
-> > how they
-> > -	 * depend on the device enable refcount we can't anyway
-> > depend on them
-> > -	 * disabling/enabling the device.
-> > -	 */
-> > -	if (pci_enable_device(pdev))
-> > -		return -EIO;
-> > -
-> > -	pci_set_master(pdev);
-> > -
-> >  	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
-> >  
-> >  	ret = vlv_resume_prepare(dev_priv, false);
-> 
+	EXPORT_SYMBOL_GPL(mei_me_pci_tbl);
 
--- 
-Ville Syrjälä
-Intel
+instead?
+
+Much simpler :)
+
+thanks,
+
+greg k-h
