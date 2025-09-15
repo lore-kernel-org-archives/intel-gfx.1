@@ -4,183 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64EBCAC592
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 13:40:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE33CCAC592
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Sep 2025 13:52:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EE3B10E4C3;
-	Mon, 15 Sep 2025 13:40:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58CB810E106;
+	Mon, 15 Sep 2025 13:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C9Zn6i26";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pf5Veocv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551FB10E4C3
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 13:40:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDE7D10E106
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 13:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1757943639; x=1789479639;
- h=content-transfer-encoding:in-reply-to:references:subject:
- from:to:cc:date:message-id:mime-version;
- bh=nisaeYXHGBznduStvXuOtUKzOtBhMunqQO0E+TUl7c8=;
- b=C9Zn6i26rYIMrp0WiTvBYDsWPS2GwTUh2C/rFijrlMim9enVAPbvOFxI
- IPx+hD4HFv1eFzxkZCwn26YHQXskKGwgStryeWSUEkfuYqST/9pu7h5wB
- MHIDlf8KlTkdOW+bgrBb8adiBoNGmMOlBLz2AyL2DmCRM8hoWfd5odYXa
- QvXXIiNqGHfD/4iUjx15GHzKHRHdW3BNDzHG0Akd0Ri3fPC7yjEgRxrNN
- Wxq38F04PrAAQMEOvaf+YAgN+ZO4jlb74uO5xq0Ue0YMBoRq8gZlty+cx
- cBpMA+iY5yaTjF6i/KQ4JEh5VGUim+WJuL3cdD/vHorHafosca72/kN6R g==;
-X-CSE-ConnectionGUID: K7bqBXhqQgaAmZ7gRMIm9Q==
-X-CSE-MsgGUID: 3HrwRFr0TtG9Rj5CS+mEeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="59423496"
-X-IronPort-AV: E=Sophos;i="6.18,266,1751266800"; d="scan'208";a="59423496"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 06:40:39 -0700
-X-CSE-ConnectionGUID: dckqUX9aR/KiVCwnEts/Lg==
-X-CSE-MsgGUID: TwUUCczsSUu4I1PcwS+Y1Q==
+ t=1757944321; x=1789480321;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=2zjlvF4MOKAYq8CFLdwz2B7clr8sQstE6Mek/AVi4To=;
+ b=Pf5Veocvb1byXcd6IuxQmyGNfmDPmzH54PX7J5Hz18+i9iUofp8hFJpP
+ 8FVAPgNCEyLAppsD5OsEg+tS3vTKHu9nExV88c5xNFlYE+3/Wzbuj22kF
+ zolEYarLw38SODioDyyMz++FDhAP78BbVdNWm6Rxnp6Q8RKvfO6Cggc9x
+ OwfnBTl7BNx8pIUPRPZP+daK3K0ej4+PIn3mohh4Y6A3Kupkv4qs5Y1/k
+ C0X2OQqcs2eB0ef4KEzyovvTJ8glG/IDv1ZHRILI9FawD8kzQuFTKmQm+
+ riMJPHqlsmWpmk7p7L3K0y9Qh40aOrbj9pj27E3+cDSN0OrY2rVjSm3PW Q==;
+X-CSE-ConnectionGUID: l0wI9aucR3ql7MNJSJQ2OQ==
+X-CSE-MsgGUID: F+TmO6roTmyJyhc74bxWDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11554"; a="60341579"
+X-IronPort-AV: E=Sophos;i="6.18,266,1751266800"; d="scan'208";a="60341579"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2025 06:52:00 -0700
+X-CSE-ConnectionGUID: 1gQbtr8qQx2E7BvXcwOSsg==
+X-CSE-MsgGUID: nJPW95rRT3uVx8ti21x/2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,266,1751266800"; d="scan'208";a="174250042"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2025 06:40:39 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 15 Sep 2025 06:40:38 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17 via Frontend Transport; Mon, 15 Sep 2025 06:40:38 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.60) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 15 Sep 2025 06:40:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ti2j5ESB6HclO4FOc+CEXsVJ9I7EiymLp9EYhyE+CyRUMORNzieSPbo0sw8Lxa1sG3ttSXmx+Y03zuOJf//e8NTdopwubBmTmVg5VM6uTzrMgMunkj4er6Sfu3nU+QaXElYq2xt6pHFbgiwHwuxAioH9VRLS6629j3hxs2aFXA6lPMCM2tExOA8JB+yzk7Y9AyNZv8j+ovO7niSJ66rDjOQ7lhnSD7YFk+9mCyBnvuDzCeQJl9YnWPcgT422e8iKn8CoyEhGcaW6DsAW6ycjGmhBDVpK2efgX5cLjI+2py9RMY99SPcfaqmxtUZp35cxSqtO37KnAwu+bcWqlHWIng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHwsMe64BY4XiNOpbDsDQcacb4tUBIxIdzd9s4T+fyM=;
- b=O0hr+SKwYEsyUPvGv5OkJqo19YD65+A8uqea/pbwJSetL5X99Vk0AuDnAaG+r+tQiEcKE08YJljkJG3DmLAGdBYXDxUqjOsMRfOtgEuAtml+rmM88Fs36vamdlj5eK5q3nVeYMcGw4tJ48a2ybPTFXGKM6b12QDFuECngRM9IA1sRzAZHkTAByX++ARCSvMHRyX0PsEyHPQ3CwY2ZzRwJ2FgS99O2AtmXFTHWkv9LD/yYmSoFDYEuouOVjRrT2Rg2Y413haPk9+hxXwSZfTF/ORhNeI8sz/Q9d+wjvg8GRpCHpP0rO6T8n+Eabh9Evry5uQ3iy837+IXWk2BcLerTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH8PR11MB8287.namprd11.prod.outlook.com (2603:10b6:510:1c7::14)
- by IA1PR11MB6218.namprd11.prod.outlook.com (2603:10b6:208:3ea::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9115.21; Mon, 15 Sep
- 2025 13:40:36 +0000
-Received: from PH8PR11MB8287.namprd11.prod.outlook.com
- ([fe80::7e8b:2e5:8ce4:2350]) by PH8PR11MB8287.namprd11.prod.outlook.com
- ([fe80::7e8b:2e5:8ce4:2350%7]) with mapi id 15.20.9115.018; Mon, 15 Sep 2025
- 13:40:35 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20250911205543.388402-1-dnyaneshwar.bhadane@intel.com>
-References: <20250911205543.388402-1-dnyaneshwar.bhadane@intel.com>
-Subject: Re: [PATCH 0/3] Add WCL as subplatform from PTL
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-To: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>,
- <ankit.k.nautiyal@intel.com>, <intel-gfx@lists.freedesktop.org>
-CC: <matthew.s.atwood@intel.com>, Dnyaneshwar Bhadane
+X-IronPort-AV: E=Sophos;i="6.18,266,1751266800"; d="scan'208";a="174706433"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.17])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2025 06:51:58 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Gustavo Sousa <gustavo.sousa@intel.com>, Dnyaneshwar Bhadane
+ <dnyaneshwar.bhadane@intel.com>, ankit.k.nautiyal@intel.com,
+ intel-gfx@lists.freedesktop.org
+Cc: matthew.s.atwood@intel.com, Dnyaneshwar Bhadane
  <dnyaneshwar.bhadane@intel.com>
-Date: Mon, 15 Sep 2025 10:40:31 -0300
-Message-ID: <175794363121.1613.6250224933429429857@intel.com>
-User-Agent: alot/0.12.dev22+g972188619
-X-ClientProxiedBy: BYAPR07CA0011.namprd07.prod.outlook.com
- (2603:10b6:a02:bc::24) To PH8PR11MB8287.namprd11.prod.outlook.com
- (2603:10b6:510:1c7::14)
+Subject: Re: [PATCH 1/3] drm/pcids: Split PTL pciids group to make wcl
+ subplatform
+In-Reply-To: <175794320783.1613.3172112236499856318@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20250911205543.388402-1-dnyaneshwar.bhadane@intel.com>
+ <20250911205543.388402-2-dnyaneshwar.bhadane@intel.com>
+ <175794320783.1613.3172112236499856318@intel.com>
+Date: Mon, 15 Sep 2025 16:51:55 +0300
+Message-ID: <f292d091e4be602b3a43ff974ac9c588cd6e8611@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR11MB8287:EE_|IA1PR11MB6218:EE_
-X-MS-Office365-Filtering-Correlation-Id: 529007c2-0743-4231-ecc6-08ddf45d72cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZmdFUzJqN3U0aHU1UXlHQlM1Y2tWOFU5K2VRY2V5UW1SdS9xNkRDc29qc2Yz?=
- =?utf-8?B?VkJ1cjJxSzFyeThkMVo2eUw1ZTJ4Z1U5RFNsbHlGTndLVHdjQjg5NDI5cXhY?=
- =?utf-8?B?cDhMZmIwN3U4cEdrVmxFK0cvWFNBZjNNdDdhQWU3d2NTak5mMWxzZDdmV0Jp?=
- =?utf-8?B?S3UwZGxITzV0ZHFzY3RIbDlPc3BkczBLckRrT1BZOUpFamxKMWN5TTFJcmpP?=
- =?utf-8?B?N1dTdm1DRDBBRGhVa2pQRmVTSU1rcGZ2UklWdzg4MEx6ZmNkTk1KcFV0V2Vw?=
- =?utf-8?B?aGhsYnJQYjdnUlRuWGlhVmVkV3YzeWNqNXRqSUpHQVI5QVgwZzZISVVsRlAw?=
- =?utf-8?B?eGp6UWlTZzMxbWlKWGRFbkJ1R1l0cXlYOG1VajRkM1R2empkUVd2ZURUU2FJ?=
- =?utf-8?B?Zi9rZm8yRVdlYnJ4RHVETjNMUURqMlpReDdOVzZ0clVaVitjaU9OMThSeDdy?=
- =?utf-8?B?c3JPRm9KdE9hbHZsam1wRm53bjJsUDFUVExQV0g4Z1VScUlYcHJ0VTZScFdj?=
- =?utf-8?B?R1Y0MDRqL1llQXJtV0hKRDhuN0YxZytpSGQxYXpmcXMwRGtJRWx0ZDZwam84?=
- =?utf-8?B?OTRVTW5hL21PN3hlUmNJamUrQ1NDbGdKUmdvSDlBa1lKb3NpL0lqUUpIRE52?=
- =?utf-8?B?MlhLTjlPMEpyN21la0pMRjJHZVQ1ejhEMG9PU3F2Mm5TdXhpQ0ZyN3NobkRY?=
- =?utf-8?B?VGRqTjR0T3ZzNXVzTE5wQThwMGZGaXRtMlVUQ1BzK0F5MG5iZjFyNWZlenpn?=
- =?utf-8?B?NG0zeUZkMVd2eE94dWZPZUlNcnEwY3ZXQTUyVnNkMnA0RENLUk55cURtZ3pn?=
- =?utf-8?B?UjdZQU9JaHZBMFo1VTRiZ1RwWlZ3WFo5bXVNSytBcEpOUmptbmJFZWJPUE90?=
- =?utf-8?B?L1RTMGdyRnBlTXcxSDgzTEsrU2ZCcG41ZjcxekFNby80RmJaM2tXcWFxbkJ3?=
- =?utf-8?B?QSt6bERFWDRscFR4cWZwZnpDOWNmU3BRSXBsSDZ0ZEdUNTBUYlVSMkRoMEQ4?=
- =?utf-8?B?cVhDRFVyaXc3aXlsVSthZWF5eXJtUndhaVNoNzFxK3k1cEROZUo4eWJoaEY1?=
- =?utf-8?B?WHU4MWxDRjcyUmljK0hrSGhQa1JBUnRWRjh3NnRKVzJEblpwYWs2alpsN3pP?=
- =?utf-8?B?Sm1WY1pDUEFlL2NmaGdad3IxZTRPQ2ZqYURMLy80Zkw0c2F6WjV1U0lIMVg5?=
- =?utf-8?B?TkllUXlmSjVBbENXY3l4U3dobUlLVWNMc2FWazBqazNsNkM4dVppWmFMcGkv?=
- =?utf-8?B?S0Y1VnBuaklCOUM4VFNPMndvampSVzc1enpUa000Rk1HcHRHTUF6Y2RHUzhQ?=
- =?utf-8?B?NTZkTzZwRjZBajFyUmNKdGsySzVNb3A3VEJyRDBTdWUzSHJaMGxxci9PWVNn?=
- =?utf-8?B?L3JNZnZ5RnVYY0p3aHJpNmdOTTloMGRmQno5T2hyb0ZhZ1NuYjhTRlZSRFBo?=
- =?utf-8?B?VHNPd3dnQ29EYTQzaUxtYjJjQm5vczltdi9YdEQ5WlhIK3dnNXlndGRmSlox?=
- =?utf-8?B?RHpMVmdNdzE3dmFFU1NPb25TdUNuTlVaeGZkQytRNXlZTnQvdlNGWW1rNitr?=
- =?utf-8?B?Nkt5R1NQcWJqL1BXbE1xdnNOWnAyV3Q2MEx0SEk5KzY2SFRENG9zdExaVjNX?=
- =?utf-8?B?OUVZb0xFbkN0UXVCUmwyTTRITXZNYjExZHlma2RNcExydlEyT1l3dkpGck1o?=
- =?utf-8?B?cVFGd3p6alA4QllkWkJQTTdtcURHL1BXeTh4V2RkK0FrTXhNWkhnc2JFZHNk?=
- =?utf-8?B?WE9waWJGOEQ3aXAyTHRHcGFmWXBtQTA2aW1jdWxkNU4wMFlCK0RUejRzRytU?=
- =?utf-8?B?UVExeFF4Q2R2aTN3MnlsK3FCODdjalFxSzcwK2xta3JpTU5FZjN4ZkZtQzAx?=
- =?utf-8?B?RUtaUjM2b0IwWWp3VjJiOWJRWUpqcERuaW9pQTAwUnJSTGxzeFhYNENYVU9p?=
- =?utf-8?Q?QEuKmgh0yaA=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR11MB8287.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTArQVEreEcxbXI2MnFEWGRtRWtJWjcwbWdsMnR1RzRsR0gwUE13RzhZa2Zl?=
- =?utf-8?B?cWt0b3ZKSGNJblo1cjY4RmszcmNWWHh6dmkvTFNiUmlhNmtBc29XSUxCYmF4?=
- =?utf-8?B?WnQwSm1wUmM3SHJoTkRLZ0RTcW1JQzI5aDIycUhveU12S1JHM0VaaXp1MmlY?=
- =?utf-8?B?NXlnd2VJck9WcWJNTW1tNG5kZ2RrbmVHZFpLdmpvbW9xZHNvd3ExSE05eFhj?=
- =?utf-8?B?VDltVmhSR0tjbnptMWNOQXR4eERjSk92YXNucjZ0YjlNN1p5NXY4WDFuV3cr?=
- =?utf-8?B?MUd3Q0JQZndaZnZSVXh3dE1sRFFMc1RObUFEQU1BNnJnbUpNMmMwN29iVXBY?=
- =?utf-8?B?bnhDUSt6bVQ4KzlNWkRPUk9JNjlLY3JvTlRySDlSb2xUb2ZIU3p5elIzaFIx?=
- =?utf-8?B?YjBwbDd5ekhXWjB6TllyV0Y2RUNSWXhMNXpUZ00yNE1UTDRZWWU3bUlUNEVD?=
- =?utf-8?B?MTBiOXZjMjRQMUc1VlYyN3oxK3ZnMDFlVFNaR3h0NEJxSmUrZ0hmVitTTkNR?=
- =?utf-8?B?dm5pN2x2YnR2TUxBK1djRXlDYWZMMStwMHN1b09USHZlVUQwdEZhZmxqOVBx?=
- =?utf-8?B?U3FVNTV4d041Y2IyY3pRMVE1d21sc3BZTDZkK2JpNnlpWnNtL1lxRUhKZmEw?=
- =?utf-8?B?aXpDOVpBcDA2UE4rQ1A5aXdBYVRPOGFaVUhveVpVL0ZNY20yQ3lNdUdDVTNJ?=
- =?utf-8?B?ZnFoaXQyWjJkM3dEUzdraHBxZmV2cEtqU09HTjYwZVZDb0I2M2wwYkYvcDhP?=
- =?utf-8?B?dGU5Zzc1ZUhxUmNhZ2Mxd0NmRnJhemtGbHF4aDY4Y3pJY3piQVB2M3NKRGhn?=
- =?utf-8?B?Uk1ULzVYZ1RyLzdaUXFRUE5IQ1R1NGlLeFkrR2NvNFdXZHp3MEs0S3RnekdO?=
- =?utf-8?B?ckM4Y2NqRENrQnFhaHZXQkFEWGpWeFozblhNTktiTTBUSUw4WVZVdWN4LzF6?=
- =?utf-8?B?ek80M1ljSEJwNGlwdjFjRmw0YU1UUUZEcGhKTXk1OHU0RGZWTnBTTm5KZWdz?=
- =?utf-8?B?V1BTSjJYbnRxMnlaTG9DN20rUlZqRis3QjdNUCtydXFsRU1vTEg5eXVCeHly?=
- =?utf-8?B?Z3NTaVVtMkE3UUhTeDlhd1FTRnBNNjNEU2RaVzRtT2ZkRHlsUGxHK29ZVTV0?=
- =?utf-8?B?QWd1R3E5eGI0RTBiV1Z6Q3VkUnJOY3dadkptQWk0V1ZJK202R1QxTFVNYnNz?=
- =?utf-8?B?bTlBbXF5N0MxQ2p0U21rOStSaHdiSWh2c3RYWVEwY3FxcGtXSkV4Q3pYZk9m?=
- =?utf-8?B?TGZKSW5tV09mZUNWcmVRa0hQQjl6WnNrenBWbU9aTi9DNkpJVWdoZjc1Q3Zy?=
- =?utf-8?B?dTRiNlFySDJmNFBqQlVDUnBkOVlGMHlMYUVaeDlORlhKczlZNFpjcDQ4QzBz?=
- =?utf-8?B?T09XREFnUFVLSHV1czljUnZUQXBYMU5zZkVhaXQvRDd2UWRmd0dNdkZNN2p5?=
- =?utf-8?B?bjJFU0ZPeHI5YlFpOEQ1UC9VV1huUE0zcGU1NEx4N1JCcXFQQkdlOVEwMWVx?=
- =?utf-8?B?U2VOM21qb2NSMFNSNnFienJHMFNrL1ZYU0cvNDhwQXNaTUJnKy9ZdFBCMFZv?=
- =?utf-8?B?OENMQ25qbzVNSXFTK0hUbHhha3N2NTRQMGpzRG0wRjlTMkNVRE5JSXRaUXFV?=
- =?utf-8?B?SlJnVmlYS1VZc1hrN0NGak43bmt0TEo2V3E4SmxuZXdpSDlIUXF6ekhpeDlC?=
- =?utf-8?B?VnRheURZeUhMSzBHQjBzWGxmUW81VWV2MXFLR1NGUlRhTWtLcVFKQUdCSTlm?=
- =?utf-8?B?eWtSUlFuSTNzZWxrK1hZQXNOd2h0VVZzYWx3YTFhekdsSmJIeDQ5SVk5Y3E5?=
- =?utf-8?B?SHV0elhIbVIyUGlsQUtqOEdrZnVSejR6dHhuZ0pVcWpZcEhOQnRxNXdKdjJk?=
- =?utf-8?B?NlQvblM3RjUyZS9teUJVNzQ3c1dDbnJCbEovNkhXUWJKelhEN0dlK21pT0px?=
- =?utf-8?B?MEdjRE1UdXU0aEZNcGlZSU56b0F6TUkybWJteGduR1AyaHlpcENZbC9Lc3Nu?=
- =?utf-8?B?YTZ4RUJadTFuZ2ZMM2ZLUWdCcFc1YlZqTlVhcWVVOHVzbjFzeW9Zd1JxK1Rr?=
- =?utf-8?B?RmRpWW1kdWVkUWhtUHRqZVlSemZCemIzcEV1OEIyaXBUK2I3SmRZVGpFbDFh?=
- =?utf-8?B?MWpERFVlbTF1eGRrU0FyS2JoVUJvVzNTZkd0YWlmRHBmZ29Ca3pSNm1EL3Yy?=
- =?utf-8?B?TGc9PQ==?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 529007c2-0743-4231-ecc6-08ddf45d72cf
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8287.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2025 13:40:35.7240 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 17HVh1Q8jZFDsucugVbR3GuKUoflRj1xSz07wvk9dGSU5+IhIrE8x/8kfHDvmV/7uv4E0PbhlN9vACALOAv2+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6218
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -196,41 +74,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Dnyaneshwar Bhadane (2025-09-11 17:55:39-03:00)
->- Add WCL as subplatform and update the definition struct.=20
->- Update condition required to distinguish WCL C10 PHY selection
->on port B.
-
-I have added comments in individual patches. More general comments
-below:
-
-- The title of the series is a bit innacurate as it just refers to the
-  prelimiary work for the final objective of the series. I would simply
-  re-use the original patch's subject because (i) it would help people
-  see this series as a next version (considering that you used v2) of
-  the originally single-patch series; and (ii) it is more accurate
-  regaring the final objective of this set of changes.
-
-- This series should also be sent to intel-xe@lists.freedesktop.org,
-  since we are touching stuff related to hardware enabled in the xe
-  driver.
-
---
-Gustavo Sousa
-
+On Mon, 15 Sep 2025, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
+> Quoting Dnyaneshwar Bhadane (2025-09-11 17:55:40-03:00)
+>>To form the WCL platform as a subplatform of PTL in definition,
+>>WCL pci ids are splited into saparate group from PTL.
+>>So update the pciidlist struct to cover all the pci ids.
+>>
+>>Signed-off-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
+>>---
+>> drivers/gpu/drm/xe/xe_pci.c | 1 +
+>> include/drm/intel/pciids.h  | 4 +++-
+>> 2 files changed, 4 insertions(+), 1 deletion(-)
+>>
+>>diff --git a/drivers/gpu/drm/xe/xe_pci.c b/drivers/gpu/drm/xe/xe_pci.c
+>>index 701ba9baa9d7..fc2ea9132804 100644
+>>--- a/drivers/gpu/drm/xe/xe_pci.c
+>>+++ b/drivers/gpu/drm/xe/xe_pci.c
+>>@@ -375,6 +375,7 @@ static const struct pci_device_id pciidlist[] = {
+>>         INTEL_LNL_IDS(INTEL_VGA_DEVICE, &lnl_desc),
+>>         INTEL_BMG_IDS(INTEL_VGA_DEVICE, &bmg_desc),
+>>         INTEL_PTL_IDS(INTEL_VGA_DEVICE, &ptl_desc),
+>>+        INTEL_WCL_IDS(INTEL_VGA_DEVICE, &ptl_desc),
+>>         { }
+>> };
+>> MODULE_DEVICE_TABLE(pci, pciidlist);
+>>diff --git a/include/drm/intel/pciids.h b/include/drm/intel/pciids.h
+>>index da6301a6fcea..9d378c65be4b 100644
+>>--- a/include/drm/intel/pciids.h
+>>+++ b/include/drm/intel/pciids.h
+>>@@ -877,7 +877,9 @@
+>>         MACRO__(0xB08F, ## __VA_ARGS__), \
+>>         MACRO__(0xB090, ## __VA_ARGS__), \
+>>         MACRO__(0xB0A0, ## __VA_ARGS__), \
+>>-        MACRO__(0xB0B0, ## __VA_ARGS__), \
+>>+        MACRO__(0xB0B0, ## __VA_ARGS__)
+>>+
+>>+#define INTEL_WCL_IDS(MACRO__, ...) \
+>>         MACRO__(0xFD80, ## __VA_ARGS__), \
+>>         MACRO__(0xFD81, ## __VA_ARGS__)
 >
->Dnyaneshwar Bhadane (3):
->  drm/pcids: Split PTL pciids group to make wcl subplatform
->  drm/i915/display: Add definition for wcl as subplatform
->  drm/i915/xe3: Restrict PTL intel_encoder_is_c10phy() to only PHY A
+> This patch, at its current state, will break the display part, because
+> WCL will not be detected until the next patch. We should either:
 >
-> drivers/gpu/drm/i915/display/intel_cx0_phy.c        | 11 ++++-------
-> drivers/gpu/drm/i915/display/intel_display_device.c | 13 +++++++++++++
-> drivers/gpu/drm/i915/display/intel_display_device.h |  4 +++-
-> drivers/gpu/drm/xe/xe_pci.c                         |  1 +
-> include/drm/intel/pciids.h                          |  4 +++-
-> 5 files changed, 24 insertions(+), 9 deletions(-)
+>  - bring the line "INTEL_WCL_IDS(INTEL_DISPLAY_DEVICE, &ptl_desc)" from
+>    path #2 into this one.
+
+This. I've already replied to a newer version of this series to this
+effect [1][2].
+
+[1] https://lore.kernel.org/r/70fc412b47d9972ad2d1b6eca13bbdd9da992552@intel.com
+[2] https://lore.kernel.org/r/84fc10ec3b82b3436b521811589067ad0850eacd@intel.com
+
+>  - squash this and patch #2 together.
+
+IMO cleaner with separate patches.
+
+> That said, since we are defining WCL as a subplatform, I think we
+> probably should make INTEL_WCL_IDS() be called from INTEL_PTL_IDS().
+
+No. Please don't do that.
+
+There are various consumers for the PCI ID macros, and they should be
+kept independent. It's easier to deal with the platform/subplatform
+relationships at the consumer side, instead of forcing it in the PCI ID
+macros.
+
+Just consider having to promote WCL to an independent platform later. It
+would mean shuffling the macros again.
+
+> Either that or make both separate platforms from the display point of
+> view.
 >
->--=20
->2.51.0
->
+> Also, I'm not sure how having a prelimiary patch affects backporting
+> fixes. So, I'm wondering if we should tag this patch somehow or if
+> something else should be made here to make the backporting easier.
+
+It's easy enough to ask for deps to be backported.
+
+BR,
+Jani.
+
+
+-- 
+Jani Nikula, Intel
