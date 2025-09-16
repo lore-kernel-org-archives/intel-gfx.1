@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38C04CAC59B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5300CAC599
 	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C1510E7F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7341010E7F2;
 	Tue, 16 Sep 2025 14:55:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HBPfQcad";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C+eQ2WM8";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6895410E643
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:48:28 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-264417f3a26so15970375ad.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:48:28 -0700 (PDT)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1677410E63D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:48:48 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-b4c9a6d3fc7so3047817a12.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:48:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757998108; x=1758602908; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757998127; x=1758602927; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=E4GnwUXvg4e1SjHBDj7IOnsANmiVf/8g2S4TikZ2k4g=;
- b=HBPfQcad1dX2n8NIIHzzs2Pa+uMcEvLJZiKaZa7mFN0x+MV62uq1/JELXxQFXrVD3A
- zizv20fuzL7KBbVrESDx6+qnn6OJzPz3Xtyj//sUUARGNoZ7cGBkrsV74MO8+dyN5U1G
- zyNbtG1wqREkk/WUl9Se4sNG6wN6HUNYOzpHBQEsZjKuX9KC0AjA2MxSzFDbEgNrR2NW
- uY4f8I7LZSofMWBKJQ9nGGNXhpqD1mVRZUWoEu4f2JZgidSzq8sBul6ku2AFwMotYGhw
- xIaQ7dIiVv6yE4byM2HdgONpRVLVdcuergsAbHri9fYqX6VlEL2G51U0kVabjgC5VMT6
- TYJA==
+ bh=KdSOTRlpcbSm77LoC5qTO7Qj2WXZD3913QNmAyohauk=;
+ b=C+eQ2WM8rZSIciDptRyMiFM4MlI7xxxXBoL2BZWkIGXknoz5OEgedfazXdGSgoG7Cm
+ qdsX7Z55GoL7HbYjq834Mhi21+uIcFdMoiGEeN+TMJhLks+fSrqyKqh745DyOfTqV4NK
+ vIvrKHycMzuLNl2/anIZVDbjl6dZIWQ8NTS60j2V/JLuIHy0G4ji3XGqgl5Tc+a2gJk3
+ gALbm1UuLdnqoXSuYcD7cGXKwVCC4ZHZaDKbs7Rh7s7SrB++Mfaiv4xCoAcBFXdzmh2y
+ iDB+tzj5efnsXazh5UElP6em/AREphFSun7bBY3PETZNzo9iuJEok3UfUvobXRRG1F90
+ RrnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757998108; x=1758602908;
+ d=1e100.net; s=20230601; t=1757998127; x=1758602927;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E4GnwUXvg4e1SjHBDj7IOnsANmiVf/8g2S4TikZ2k4g=;
- b=uTbSmgPUj9L/jUN3i04RnZe84snRgfdPwd9q77PSeMDKUcBHBf6iEW6lZZ9gejmP58
- 1XRnwOrPZBHzmTe0O/1g55N1hKTTOQe6+RQy7VizQh/5P63NHghtWzEwdzImewwEzilx
- XDzUOKMa1DankRhpfr0Yb8fLgYRivK/Ann4Dre6bmxJpU1eQeuHON1qsS9AJSn9sYKuT
- /aOL2BpyqFMr2Rt/PEt3VpLFtujMgvJDQOh9X7BdsqAcKnCJXKuesDogsbSoURge7+Xm
- eEB4zBuE4K33t1ckSY1OnqkTOLAkuAI7NL/Vv/gVvrM/j4S4+E0ROog0d4ckKbw+0pRp
- 8mqg==
+ bh=KdSOTRlpcbSm77LoC5qTO7Qj2WXZD3913QNmAyohauk=;
+ b=wB3S4BoR3IZIDrNuqTXolUJodcFNAqv8ClPPIPk3Y2wNX1YALyzDBNbXF5eqmOvTKO
+ fBtndkVWwvgkTcpa2JV5tp1jbITdnB169KUEGcbNFFnZv59r+WIeCLIAp+MwfuWNa0Jn
+ WnjhHly9of4cgICK4oBkgKaPSvzXhf7ojLM+eAxgvQHH4C8TPUlIUJdBAxkd4Ww6HS52
+ c4TFEoczzkWvwZjlH+Ge9ZvUYFXaTr429+xWNcfFoji5G2O4JXp6RLlvBObf8LC0PO6v
+ KDJWvBhdPxadqEqEvILvBAX63ucsLXTr0qkUq2LTdthZViYlygyU+thAN/ookPuX8taV
+ iQuQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWVDrJ5Um6e+1lWwYTI8kjPCu5KSYshbK4gY6x6zwYU8p+CdYqDSxqvdAOdvflmJc+F9KlRG/H7AzU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzS4Pno+qzWk0qfE7KXZE7cn9y0dqlmRoFn/3Xxsx7j0WN7UpQX
- TrxH5BefsAPb9Wc/UlThD8Naisw+YGWF3t8kXDoYrpkvERPWaz3Vgzn7
-X-Gm-Gg: ASbGnctt/tkn/w/yrb+5zEAyVGu2PWvh83HpmDoTqUVh6Nuvj3wHd0Tm5IKqGRmHAtO
- JbLJyyPnSdw4oVQZduqJvJNiAuFZOILb8qr7EpAMvjAj9uT3YRfaex1Qt7zPmmYz9bh2d+9bHOZ
- myhecoQP/l8ULK5ifvc7UD2+XLsZXCLDOqwmqPjBmZtofEu4TLCbIc7Qxn9IdNC/Nhr80sRvaiN
- t1ohnt4GMwduqvM9fIT1n1v0aTKLCsRTLu/VCeNUoL87TD1Q7YxZ5IPbQew56NYMhvJaFIH/FNw
- X+2+1oZLp2e7Ij3HDiSHtlo6TfpzoDB9FPnYCMMi3ghDvceiwqO+w246twKYE8tlN6ffQjE3EXE
- ZK060xg3CbK/COGvqbMkonjEGnNXR+UVwexODVFs=
-X-Google-Smtp-Source: AGHT+IEX+DuJO9pqL+sh6jlOJbx2wPh/MnPUcew7z+h1RxAPsxkAl191gDKewoy1JkBZ+L5tKb1L0g==
-X-Received: by 2002:a17:902:ec8e:b0:25d:d848:1cca with SMTP id
- d9443c01a7336-25dd8481fbdmr195481725ad.35.1757998107572; 
- Mon, 15 Sep 2025 21:48:27 -0700 (PDT)
+ AJvYcCWMG2RfJKWVTKBBcwdfSxLq9GNCPlAUdqJnadL3CQgMHmpiYk1IXe1K5A933K4ks/u3kjNwXIA0CYw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzaA1pkS0OdlI/cG0ffCCZ5ZZFhHcDwL84lSn+CKd3hRv+3fsbI
+ 3Lvo6kV1TQ9EZo5255ba9g6SkIMYTkdPKP2JxZ0TuZInB0Pcd+sujf3V
+X-Gm-Gg: ASbGnculi+HKL3fYgjd6n9IixpRNx4h3g7lA1mIyTCVMvTWEcNidrLNrDxTk/dlIvmv
+ aRXyBK2V7zI33PUIfLFGoh90J8NnfnTOgesVUhR7NrXPfu8NNJxllBtg7KxYuiolGlAao5m/47A
+ iuFQ7xIaMxVPKlZ11/spx6Jbs3xiO2Mge3+GFJALpVRTe9DmqV3j1vLtDb5SRayMI1SW3dizhw8
+ PtAU3OK1yxloQ1tV7ZhzxbS0qoeYv5YVp59zjaUE1ETRd/ooONp6Ng48YoEHB1+Qt0QO8gLpBHy
+ qTW9g5jrcbMbm0bY+wHLlUR1nLu9QVqY3DiQRP+3/2h2doz50tgY86uAFy0XT/cAqY23hxnCQSR
+ Tcbf7+nmndEOVgc32IXd8akr0/cVyHH4OlIUqZIc=
+X-Google-Smtp-Source: AGHT+IGkIhcIMGh+oiZ/aDBZPsHwPAhQG69OhML0E/f2mr/YjQA5clLbS6Ua4uwzILjLJIA06eQ5gQ==
+X-Received: by 2002:a17:902:d2c4:b0:25e:5d83:2ddd with SMTP id
+ d9443c01a7336-25e5d832fdcmr159755585ad.45.1757998127447; 
+ Mon, 15 Sep 2025 21:48:47 -0700 (PDT)
 Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.48.21
+ d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.48.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Sep 2025 21:48:27 -0700 (PDT)
+ Mon, 15 Sep 2025 21:48:46 -0700 (PDT)
 From: pengdonglin <dolinux.peng@gmail.com>
 To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
  ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
@@ -74,12 +74,13 @@ Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
  linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
  linux-s390@vger.kernel.org, cgroups@vger.kernel.org,
  pengdonglin <dolinux.peng@gmail.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pengdonglin <pengdonglin@xiaomi.com>
-Subject: [PATCH v3 02/14] drm/i915/gt: Remove redundant rcu_read_lock/unlock()
+ Holger Dengler <dengler@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ pengdonglin <pengdonglin@xiaomi.com>
+Subject: [PATCH v3 05/14] s390/pkey: Remove redundant rcu_read_lock/unlock()
  in spin_lock
-Date: Tue, 16 Sep 2025 12:47:23 +0800
-Message-Id: <20250916044735.2316171-3-dolinux.peng@gmail.com>
+Date: Tue, 16 Sep 2025 12:47:26 +0800
+Message-Id: <20250916044735.2316171-6-dolinux.peng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250916044735.2316171-1-dolinux.peng@gmail.com>
 References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
@@ -114,34 +115,37 @@ been started implicitly by spin_lock().
 
 Simplify the code and remove the inner rcu_read_lock() invocation.
 
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: Harald Freudenberger <freude@linux.ibm.com>
+Cc: Holger Dengler <dengler@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
 Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
 Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/intel_ring_submission.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/s390/crypto/pkey_base.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index 2a6d79abf25b..bf73166a1337 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -392,14 +392,12 @@ static void reset_rewind(struct intel_engine_cs *engine, bool stalled)
+diff --git a/drivers/s390/crypto/pkey_base.c b/drivers/s390/crypto/pkey_base.c
+index b15741461a63..4c4a9feecccc 100644
+--- a/drivers/s390/crypto/pkey_base.c
++++ b/drivers/s390/crypto/pkey_base.c
+@@ -48,16 +48,13 @@ int pkey_handler_register(struct pkey_handler *handler)
  
- 	rq = NULL;
- 	spin_lock_irqsave(&engine->sched_engine->lock, flags);
+ 	spin_lock(&handler_list_write_lock);
+ 
 -	rcu_read_lock();
- 	list_for_each_entry(pos, &engine->sched_engine->requests, sched.link) {
- 		if (!__i915_request_is_complete(pos)) {
- 			rq = pos;
- 			break;
+ 	list_for_each_entry_rcu(h, &handler_list, list) {
+ 		if (h == handler) {
+-			rcu_read_unlock();
+ 			spin_unlock(&handler_list_write_lock);
+ 			module_put(handler->module);
+ 			return -EEXIST;
  		}
  	}
 -	rcu_read_unlock();
  
- 	/*
- 	 * The guilty request will get skipped on a hung engine.
+ 	list_add_rcu(&handler->list, &handler_list);
+ 	spin_unlock(&handler_list_write_lock);
 -- 
 2.34.1
 
