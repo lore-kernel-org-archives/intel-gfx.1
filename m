@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00CF3CAC598
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB42CAC59E
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F5CB10E7EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34C010E7F0;
 	Tue, 16 Sep 2025 14:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EuCI9B00";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="buS1pCSa";
 	dkim-atps=neutral
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 401DC10E63D
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:49:41 +0000 (UTC)
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-266a0e83662so12431715ad.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:49:41 -0700 (PDT)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5678C10E63D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:48:54 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2570bf605b1so48699645ad.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:48:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757998181; x=1758602981; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1757998134; x=1758602934; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6Tcedso9pzLAwLQitmBj+2+6wC4HZyTUiqHFeMdiOi8=;
- b=EuCI9B003wKwaAqN85aDwd3hRU0b0D0X8MqGBLoyVytuGhcmycCooB2XwuTUTNEVCJ
- yI0/O/ZmKHz9TxNz6dVMUIyrA5ZWwH0A12n8s6GqDcB6TPO3TMaA8hflncxohgFC8X/W
- EbnJJwVszRZ2B/ZGwsXpVLOq5qlfhG88r+EBNg6ZJP0IiTF8XRKdEOQorAOq5p3IF2vA
- 6VmqhTXAEhe+eVGmZEymiThbxiXxLtV2vGyvlCcREFi/gu91cU+RXXGPZI6ug2Lxayvv
- LvzI5MnJRYiV8OG4Zz4cHQ1+c6VCUQtIni+Rh9D8bgNmTb7hVLiTWHoXkLktVI2k9eBE
- kriw==
+ bh=+E/nxXHnOkpnquuQqI/t3YoOv7z+zhY+r7/SIcSNR5s=;
+ b=buS1pCSaQo4PUcwAw6b50HAZU1PjqZVL4XZgfyymK2/2GHjl21VqvZlDsBkTIzJbGW
+ TEFQ7q1K31Eo4y6e60Obwy9o3jGoHenHxPk45kXTofw/aBJfPsAwYcFAneuxEmnvEMts
+ 2nVkJGPD8kLjk9Z3HJeZz5pAqp/KXCng36k/v6E6w7MgP9jMjRpRyUPnG7KsyUTArQuZ
+ dSR8hqgHevnsLH0Np0B0kc9obWAm+su/wVkJdwrWUXARD5IZdfyP/Ho6ZaBs6yFWh7Ik
+ eMvA5vZ3/ZwHKc3NZXwr3EoWO4NwL05QU5YrR3M+juhlEDRKE+sbg7BYnApzU8JxjryO
+ xWgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757998181; x=1758602981;
+ d=1e100.net; s=20230601; t=1757998134; x=1758602934;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6Tcedso9pzLAwLQitmBj+2+6wC4HZyTUiqHFeMdiOi8=;
- b=a8DnqkOIBjMSOkzLHrdZ6deE02n3Tty459DJrJojYqexKNTPLlgGRwdx0+fdpTJkXj
- LSu/HvERzYeNtLI7aCDUkeMj99lyxiHnViRqiUtqoffWXRE5lgAFXHs6LfYhMLTnR2+P
- YmSt9R7wnos+j7htIuHjXBPt6jus+fMjJpFKTASAjXbW7ss4CMMqyOjE5/nf4EzqI9M4
- NSeynummPTy4Il13gSWa8UKTI7bzpfms3RYJdoGeHvpytnL4ywdPBeYHmeO+3EYB2P5U
- kwnGlxv2Nop3vkqqqsJpFhk58JrReoCVOF/2qnvq2DXR7R3EfScHsSaSBko71ow/LyU1
- iIYw==
+ bh=+E/nxXHnOkpnquuQqI/t3YoOv7z+zhY+r7/SIcSNR5s=;
+ b=DhgfEesaaHJPe05gJyAuBhhshHZOCmIY3jWlAZRoA661/cDBIadcOhKK2xpU+yjzAZ
+ UmiReOO64acOChzMwFiKZm5IhEHTP/R808icyhucw8I8wDlET44zWpPdKkNZl+Xifs1+
+ fLanZ+SL5RhzRbDOxKGZ7SPicP9EQOanG5hJNJVcWpQePo86t5eY+USnh/GdJDyUIT6v
+ RbsyBbYkkTAyIj+x7jIzzK+gJPMFVDTFB8T7u/hzokDhfCP9E6HL6xegye/4n9tpkeTE
+ fYqsj8rP1imXdVMuhBDpgFaugEtGPz/+tS/wnF68ssO15hPB3IRfrPnVISWDLnySfT7F
+ zKyw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4/slWB3Rf4/dvNgg+dyi7L6wu0C90+GWBGktX53LXlLlak1QCImb53E+BQcb9rJMtTbV08m+tok4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzq7ECK9HFxk+3d6NYo9lcpHg0aLhglpTC0Ouzzp4nppByiZnkK
- H/6QbelVJvBSgycOV6us6EYyZu06YOyv2Qc1NqRCG+oQmLi6PioMUjg1
-X-Gm-Gg: ASbGnctO3xNOmFXIX8g5pR9yPnqx6ApTuWG/HytMFj6jx0WFvAM19EHufsdz5WzgvCW
- nJsgHy/FubWspl5T3vG56YdkSaWiY1jAL/ryn/ZnBvWmt/Lo8CxCPBgH0bWd3ieesNZCcR/FxdP
- RUM+8M0VHgpKxNLS9eaqr5FCzA2B3PGeCYhhI9ZsNuL0QAIyyczfhgTFgQfI5RP0qKqnYFDw4RU
- rLmBmQtLcUnkIlTlU2m6uW8Kwkkrqjm6u+ZvZu8KXwnfpKn5NuWlKAZNUjXI7DVOnVxWwzf/mb6
- FPw+EGQyyk8BNMuuf6CvFDhePYLTo5bn4wlAzWOVS76mmFQRw2V2Bn5Y0jH7lcuzV1WPA427M0r
- 2uWMNDLb0fnk0mWrA9Wq3M8E2DraFcb/Oc/sqsMM=
-X-Google-Smtp-Source: AGHT+IEk/DXYOCMhugqpymqTGh+KMlTQeAIuikssxOXlHLYZS5SBPJrXDrKkOxyomJ+DECodEM8EoQ==
-X-Received: by 2002:a17:902:c40d:b0:251:a3b3:1580 with SMTP id
- d9443c01a7336-25d24cac4eemr191581215ad.6.1757998180587; 
- Mon, 15 Sep 2025 21:49:40 -0700 (PDT)
+ AJvYcCWv3I7RZpDvIcWbJOMK1XEUgV7+/xHH/aBuFCO+3aV2el8zL6oSkKhrH8zlK3eVApU9bxAKv7RK1KY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9Fb1cFrSRSP7UjJyVmejk852Xf/vT9aE6OPwmx9IhxXdrsaBR
+ CrcH8UabLWgraDI7E3wA6mOuKL5Zd5ia759lWe7uBzzHeAEnkCvJwn6u
+X-Gm-Gg: ASbGnctwAkxZfrpSCmGlmQqOlSaqA48++Dm8I4KMgHNAABZ8LuW86TjbaSXwN14NjV0
+ f3V4nVgf5R6pSEXeklSxN6dYGicoALOd0xwd7E4Bu0RdFrGNPa6Snj07jAXtFQvlSbGt4ajKOjM
+ Nv9mY54GkAhORFLTnPqU5RVUetPAh5ajcxcxjiXbR7zUO9Oes+A5JR0hqLceZhwlSmDgflri4J4
+ ActsbYvZxCpcdYyJt/bDsqmbOwoFgnymch0h13JBl8a1aTcf5QN7ymmBDM+CtcDCHdS8hR/mj22
+ HtVjPpgy2N6VuCjo0/egCItovY2LO7rnE4mcsCR4sg2EGTPxEMfhPLhZvF5+MQDGiJqcZVFRYD5
+ sN9ZB1pnoOWvxStbQqCuk2Pbe23r36K/mK+7noYaw41k4GbeiRw==
+X-Google-Smtp-Source: AGHT+IHsN0GBYzT4MMuIYjW4jOX+BASz3i1Lsko5ULcFSIEXx1CyBAF2xoChVB4z7RicwE9rHAP4nQ==
+X-Received: by 2002:a17:902:db02:b0:267:b357:9445 with SMTP id
+ d9443c01a7336-267b35796d4mr43637625ad.28.1757998133829; 
+ Mon, 15 Sep 2025 21:48:53 -0700 (PDT)
 Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.49.34
+ d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.48.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 15 Sep 2025 21:49:40 -0700 (PDT)
+ Mon, 15 Sep 2025 21:48:53 -0700 (PDT)
 From: pengdonglin <dolinux.peng@gmail.com>
 To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
  ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
@@ -73,12 +73,11 @@ Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
  netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
  linux-s390@vger.kernel.org, cgroups@vger.kernel.org,
- pengdonglin <dolinux.peng@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- Jakub Kicinski <kuba@kernel.org>, pengdonglin <pengdonglin@xiaomi.com>
-Subject: [PATCH v3 13/14] net: bonding: Remove redundant
- rcu_read_lock/unlock() in spin_lock
-Date: Tue, 16 Sep 2025 12:47:34 +0800
-Message-Id: <20250916044735.2316171-14-dolinux.peng@gmail.com>
+ pengdonglin <dolinux.peng@gmail.com>, pengdonglin <pengdonglin@xiaomi.com>
+Subject: [PATCH v3 06/14] ipc: Remove redundant rcu_read_lock/unlock() in
+ spin_lock
+Date: Tue, 16 Sep 2025 12:47:27 +0800
+Message-Id: <20250916044735.2316171-7-dolinux.peng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20250916044735.2316171-1-dolinux.peng@gmail.com>
 References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
@@ -113,35 +112,71 @@ been started implicitly by spin_lock().
 
 Simplify the code and remove the inner rcu_read_lock() invocation.
 
-Cc: Jay Vosburgh <jv@jvosburgh.net>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
 Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
 ---
- drivers/net/bonding/bond_3ad.c | 2 --
- 1 file changed, 2 deletions(-)
+ ipc/msg.c  | 1 -
+ ipc/sem.c  | 1 -
+ ipc/shm.c  | 1 -
+ ipc/util.c | 2 --
+ 4 files changed, 5 deletions(-)
 
-diff --git a/drivers/net/bonding/bond_3ad.c b/drivers/net/bonding/bond_3ad.c
-index 4edc8e6b6b64..c53ea73f103a 100644
---- a/drivers/net/bonding/bond_3ad.c
-+++ b/drivers/net/bonding/bond_3ad.c
-@@ -2485,7 +2485,6 @@ void bond_3ad_state_machine_handler(struct work_struct *work)
- 	 * concurrently due to incoming LACPDU as well.
- 	 */
- 	spin_lock_bh(&bond->mode_lock);
--	rcu_read_lock();
- 
- 	/* check if there are any slaves */
- 	if (!bond_has_slaves(bond))
-@@ -2537,7 +2536,6 @@ void bond_3ad_state_machine_handler(struct work_struct *work)
- 			break;
- 		}
+diff --git a/ipc/msg.c b/ipc/msg.c
+index ee6af4fe52bf..1e579b57023f 100644
+--- a/ipc/msg.c
++++ b/ipc/msg.c
+@@ -179,7 +179,6 @@ static int newque(struct ipc_namespace *ns, struct ipc_params *params)
  	}
--	rcu_read_unlock();
- 	spin_unlock_bh(&bond->mode_lock);
  
- 	if (update_slave_arr)
+ 	ipc_unlock_object(&msq->q_perm);
+-	rcu_read_unlock();
+ 
+ 	return msq->q_perm.id;
+ }
+diff --git a/ipc/sem.c b/ipc/sem.c
+index a39cdc7bf88f..38ad57b2b558 100644
+--- a/ipc/sem.c
++++ b/ipc/sem.c
+@@ -579,7 +579,6 @@ static int newary(struct ipc_namespace *ns, struct ipc_params *params)
+ 	ns->used_sems += nsems;
+ 
+ 	sem_unlock(sma, -1);
+-	rcu_read_unlock();
+ 
+ 	return sma->sem_perm.id;
+ }
+diff --git a/ipc/shm.c b/ipc/shm.c
+index a9310b6dbbc3..61fae1b6a18e 100644
+--- a/ipc/shm.c
++++ b/ipc/shm.c
+@@ -795,7 +795,6 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
+ 	error = shp->shm_perm.id;
+ 
+ 	ipc_unlock_object(&shp->shm_perm);
+-	rcu_read_unlock();
+ 	return error;
+ 
+ no_id:
+diff --git a/ipc/util.c b/ipc/util.c
+index cae60f11d9c2..1be691b5dcad 100644
+--- a/ipc/util.c
++++ b/ipc/util.c
+@@ -293,7 +293,6 @@ int ipc_addid(struct ipc_ids *ids, struct kern_ipc_perm *new, int limit)
+ 	idr_preload(GFP_KERNEL);
+ 
+ 	spin_lock_init(&new->lock);
+-	rcu_read_lock();
+ 	spin_lock(&new->lock);
+ 
+ 	current_euid_egid(&euid, &egid);
+@@ -316,7 +315,6 @@ int ipc_addid(struct ipc_ids *ids, struct kern_ipc_perm *new, int limit)
+ 	if (idx < 0) {
+ 		new->deleted = true;
+ 		spin_unlock(&new->lock);
+-		rcu_read_unlock();
+ 		return idx;
+ 	}
+ 
 -- 
 2.34.1
 
