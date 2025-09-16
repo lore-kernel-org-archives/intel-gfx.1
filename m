@@ -4,115 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD2B6CAC5A0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 238EACAC59F
 	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A92410E7FF;
-	Tue, 16 Sep 2025 14:55:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8622810E803;
+	Tue, 16 Sep 2025 14:55:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="AbLSsMHN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LK+0zByj";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7F4110E764
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 10:51:28 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 58G7VubJ017774;
- Tue, 16 Sep 2025 10:51:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:reply-to:subject:to; s=pp1;
- bh=6tiMzpFySb6QheQKIvDTH6bfs6J9A1FW2+JoAuxFTeI=; b=AbLSsMHN4/7x
- K1xNMtFDrE+TOYW1iIsk4Mpi83HqtjESBjZwkWHJ8kKIL6P1kWFgRbg5RHL/Vc3/
- 3gNiaqucIq+Hh51NRfzWX0tQi6l43nWNKIrpYWsuJRM6WFMkpMIumQPjbiBNolvo
- Y5C7x/SgZ+Lg+AIaq8uXUg7N+k5h9pT/2jo/OiBPLGzNJmqVQ/uNJdo/uDuDiSBq
- WEnHzpMxwUc0R/63Kg2X/G4mqzS8whBtZo73nJ9nqat9v/gFpoDFgpa6HdDBi/35
- ZZtv0zCsk+pBvAE/vE0jbXVqaj9ApqBocZnQJNjhIpUknqNLYl+7NU0hbSMUKozo
- aSRGgR2Zog==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 496g536k9u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Sep 2025 10:51:09 +0000 (GMT)
-Received: from m0360072.ppops.net (m0360072.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 58GAp8j4018605;
- Tue, 16 Sep 2025 10:51:08 GMT
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 496g536k9s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Sep 2025 10:51:08 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 58G85k50009486;
- Tue, 16 Sep 2025 10:51:07 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 495nn3b4fg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Sep 2025 10:51:07 +0000
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com
- [10.39.53.233])
- by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 58GAp6EK11011482
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 16 Sep 2025 10:51:06 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6406D5803F;
- Tue, 16 Sep 2025 10:51:06 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4345B58055;
- Tue, 16 Sep 2025 10:51:04 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
- by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Tue, 16 Sep 2025 10:51:04 +0000 (GMT)
-MIME-Version: 1.0
-Date: Tue, 16 Sep 2025 12:51:03 +0200
-From: Harald Freudenberger <freude@linux.ibm.com>
-To: pengdonglin <dolinux.peng@gmail.com>
-Cc: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
- ap420073@gmail.com, jv@jvosburgh.net, bcrl@kvack.org,
- trondmy@kernel.org, longman@redhat.com, kees@kernel.org,
- bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDD8110E63D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:49:47 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-26060bcc5c8so29016725ad.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:49:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1757998187; x=1758602987; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OlYXyo2uZuFo7JhGyy9UUCXJlKeDR2CbpPIjqr5RgpE=;
+ b=LK+0zByjxekvpitbJX+On0Zy8eWCRjbYDDy85tin8vVewSvRZNY01pftfPKgo/GwPL
+ y/DeNTlWJ7nD9MA0o4YWyxc6glrjy+ppqkhTFIUiz/GjV27jq4keu/qbBIAeAg7o0M4I
+ 0+sRVdc9n2QmTvOg5tQWInhpKr5+rgn+pl/KcgjQGEfD9DHK4Rna1ZS/X4yfCld6fMX7
+ G/ApejSgi04JSPDJSvlrek2flxslBEGkpImSW7oA2NrG1JApWqEd60Gk4L6PhSnUh1i3
+ uWyjbNx6T7SRT8ri18PJith8mOJsy1ldeTeuyMLccFP0CkZ5qoY2vdyFYED3NAk9GO/K
+ m5dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1757998187; x=1758602987;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OlYXyo2uZuFo7JhGyy9UUCXJlKeDR2CbpPIjqr5RgpE=;
+ b=S1DSXQ6q99QZd0VMQ9wJCH7+nrPSYSJs5/n0UTmJxVKp6DZqHnZ70N3dGKPEZLT2vE
+ iK4eTKDVNcGRTDB349nA8EbskokBpL6P2xZh2nF/QVb5r75e373hNA3sdxKQ9EIVhhae
+ McFDs5LIL6E4J+e4LPfv2mUkdrleu8DgMZDfaBFaUnWYUqXYSWCYZ884g8jSK9BHTFBX
+ I5G5zdbRj0afBTMWP+7eEYfb9zBBEELjuMBAlPRASoDql8p+N4jGJCrJ/2IpVS4O6Nv0
+ QHN8HbmF8gmI8NISgpBn3jdZukWDuPDvICOTaVy/qZl5KDJaSsBJL8ucvpAZsoRqzkgH
+ BUlQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVGf+zDeEKPgJFsgwExlX4OLu+A+/NTlDiFoFaW4xW2GgTCzL/wU5+rn8LL+MLVNl0z29HewZ2DMMw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz//86NVo2iE0BfnFDIw4KckV4WOcL1b6hJXXSZ960bi/z5F6g2
+ cKFcshExNAFml5sEbcB6DuSTJ0gu6CBYUBKnCHFOv+ecGmF70ij8hqnP
+X-Gm-Gg: ASbGnctZwN++VeOnn6U52y84k/1/cinBUtEZB71OKPTwk2hBkNtlpPm/GuHbULLfO+1
+ WyKkqM+pKMLkFNRsJaZXRZCkCUHrFm/CGEkEmqBh0t1J6adn57QYj01eSjHyFfk9U3gegUaOzH8
+ M8A7dpfZnJNuVLayw/+32mcnHn/m6eeATHu2CVSYf4R3UlEZElzOkOVAeWPKxRPHcy4/65utJGk
+ 8z/g7LKp8xjePo3QfZcynHG3I+JIX+Ng24oLCgr8yTDuN7iYDmea3WFlkk0FcZBM9ZugrKW+alg
+ Umr0Xeq9LSkb2O7TyLW/pZKSwpyX44yD4o2o846VrT3zrJYSAOzWoG544MwnODt44oeLAUuRwiC
+ OKIhd7ynwblJgXL3VSZzY3jztsKmAgq4vZRNNvcKqqQTtNzilYA==
+X-Google-Smtp-Source: AGHT+IFV4zbzh4iycIfH4WDU92suC0bCanMglT0Ogl2GwpwL8kM68NHrYSygkh1AIkIcAzvJhqwslA==
+X-Received: by 2002:a17:903:2f4f:b0:24c:99bd:52bb with SMTP id
+ d9443c01a7336-25d267641camr179941415ad.30.1757998187203; 
+ Mon, 15 Sep 2025 21:49:47 -0700 (PDT)
+Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.49.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Sep 2025 21:49:46 -0700 (PDT)
+From: pengdonglin <dolinux.peng@gmail.com>
+To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
+ ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
+ trondmy@kernel.org, longman@redhat.com, kees@kernel.org
+Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
  linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
  linux-nfs@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
  netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
  linux-s390@vger.kernel.org, cgroups@vger.kernel.org,
- Holger Dengler <dengler@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- pengdonglin <pengdonglin@xiaomi.com>
-Subject: Re: [PATCH v3 05/14] s390/pkey: Remove redundant
- rcu_read_lock/unlock() in spin_lock
-Mail-Reply-To: freude@linux.ibm.com
-In-Reply-To: <20250916044735.2316171-6-dolinux.peng@gmail.com>
+ pengdonglin <dolinux.peng@gmail.com>, "Toke" <toke@toke.dk>,
+ Jakub Kicinski <kuba@kernel.org>, pengdonglin <pengdonglin@xiaomi.com>
+Subject: [PATCH v3 14/14] wifi: ath9k: Remove redundant rcu_read_lock/unlock()
+ in spin_lock
+Date: Tue, 16 Sep 2025 12:47:35 +0800
+Message-Id: <20250916044735.2316171-15-dolinux.peng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250916044735.2316171-1-dolinux.peng@gmail.com>
 References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
- <20250916044735.2316171-6-dolinux.peng@gmail.com>
-Message-ID: <31be6bb6541bb3e338e3025ac9e8fce5@linux.ibm.com>
-X-Sender: freude@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: dUB5GxZDVKC_6J2Ylb023C_3mzK49UHc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTE1MDA4NiBTYWx0ZWRfX5K5HvLPe748s
- 1a0iccxe5DzHqpq2HHVExtQN3K3dDZAHmx+plczsOrZBuez8PS/bGeKlwxmdko1vp27MiJETJTG
- rWBkahKjm6E+Lehe9W5AsUAlfhXLzBCKZl91u4s5pKGLTilBgre1vFNiCO4KLvO9XrWU1Caav6A
- LP5y7FEjU/NnADi5ucPQYwViKT2GmRSmRBhcRXXpZEfspZ5l5uxEmXVcbW4As4eHjzGuflsj31H
- fsacgfENVa2S7hh4yS1XXPBx2rL5+dQv2gYhPIFTz7huQ8NQh9IyA9t8ZyRl7UxTDbk1vmK6jmT
- k/dl/Zv55pKlRrfw9Ym17kI1XWuEyzglymXJjQwZlfbaExngRAMTnR8i/K+0vtUxACA7W2YSZzh
- NNpGuSjP
-X-Proofpoint-ORIG-GUID: okqK8s0OaduvH8SS01anEhfn0Ac3dkSd
-X-Authority-Analysis: v=2.4 cv=UJ7dHDfy c=1 sm=1 tr=0 ts=68c9411d cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=yJojWOMRYYMA:10 a=IeNN-m2dAAAA:8 a=VnNF1IyMAAAA:8
- a=pGLkceISAAAA:8 a=6zuzY4jPHNdFWWqqfRgA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
- definitions=2025-09-16_02,2025-09-12_01,2025-03-28_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 impostorscore=0 spamscore=0 priorityscore=1501
- clxscore=1011 suspectscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2507300000 definitions=main-2509150086
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 16 Sep 2025 14:55:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,60 +97,50 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: freude@linux.ibm.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2025-09-16 06:47, pengdonglin wrote:
-> From: pengdonglin <pengdonglin@xiaomi.com>
-> 
-> Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side
-> function definitions")
-> there is no difference between rcu_read_lock(), rcu_read_lock_bh() and
-> rcu_read_lock_sched() in terms of RCU read section and the relevant 
-> grace
-> period. That means that spin_lock(), which implies 
-> rcu_read_lock_sched(),
-> also implies rcu_read_lock().
-> 
-> There is no need no explicitly start a RCU read section if one has 
-> already
-> been started implicitly by spin_lock().
-> 
-> Simplify the code and remove the inner rcu_read_lock() invocation.
-> 
-> Cc: Harald Freudenberger <freude@linux.ibm.com>
-> Cc: Holger Dengler <dengler@linux.ibm.com>
-> Cc: Vasily Gorbik <gor@linux.ibm.com>
-> Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-> Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
-> Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
-> ---
->  drivers/s390/crypto/pkey_base.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/s390/crypto/pkey_base.c 
-> b/drivers/s390/crypto/pkey_base.c
-> index b15741461a63..4c4a9feecccc 100644
-> --- a/drivers/s390/crypto/pkey_base.c
-> +++ b/drivers/s390/crypto/pkey_base.c
-> @@ -48,16 +48,13 @@ int pkey_handler_register(struct pkey_handler 
-> *handler)
-> 
->  	spin_lock(&handler_list_write_lock);
-> 
-> -	rcu_read_lock();
->  	list_for_each_entry_rcu(h, &handler_list, list) {
->  		if (h == handler) {
-> -			rcu_read_unlock();
->  			spin_unlock(&handler_list_write_lock);
->  			module_put(handler->module);
->  			return -EEXIST;
->  		}
->  	}
-> -	rcu_read_unlock();
-> 
->  	list_add_rcu(&handler->list, &handler_list);
->  	spin_unlock(&handler_list_write_lock);
+From: pengdonglin <pengdonglin@xiaomi.com>
 
-Acked-by: Harald Freudenberger <freude@linux.ibm.com>
+Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side function definitions")
+there is no difference between rcu_read_lock(), rcu_read_lock_bh() and
+rcu_read_lock_sched() in terms of RCU read section and the relevant grace
+period. That means that spin_lock(), which implies rcu_read_lock_sched(),
+also implies rcu_read_lock().
+
+There is no need no explicitly start a RCU read section if one has already
+been started implicitly by spin_lock().
+
+Simplify the code and remove the inner rcu_read_lock() invocation.
+
+Cc: "Toke" <toke@toke.dk>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
+Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/xmit.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath9k/xmit.c b/drivers/net/wireless/ath/ath9k/xmit.c
+index 0ac9212e42f7..4a0f465aa2fe 100644
+--- a/drivers/net/wireless/ath/ath9k/xmit.c
++++ b/drivers/net/wireless/ath/ath9k/xmit.c
+@@ -1993,7 +1993,6 @@ void ath_txq_schedule(struct ath_softc *sc, struct ath_txq *txq)
+ 
+ 	ieee80211_txq_schedule_start(hw, txq->mac80211_qnum);
+ 	spin_lock_bh(&sc->chan_lock);
+-	rcu_read_lock();
+ 
+ 	if (sc->cur_chan->stopped)
+ 		goto out;
+@@ -2011,7 +2010,6 @@ void ath_txq_schedule(struct ath_softc *sc, struct ath_txq *txq)
+ 	}
+ 
+ out:
+-	rcu_read_unlock();
+ 	spin_unlock_bh(&sc->chan_lock);
+ 	ieee80211_txq_schedule_end(hw, txq->mac80211_qnum);
+ }
+-- 
+2.34.1
+
