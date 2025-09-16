@@ -4,82 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39A79CAC599
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09F2CCAC59B
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Sep 2025 14:55:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69D4610E7EE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E93310E7EF;
 	Tue, 16 Sep 2025 14:55:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Yju+/4fY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h9jmwTWu";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13C2910E548
- for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 01:55:39 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-62f5bfd0502so1146458a12.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 18:55:39 -0700 (PDT)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DB210E63D
+ for <intel-gfx@lists.freedesktop.org>; Tue, 16 Sep 2025 04:48:41 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-b4f7053cc38so3289509a12.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 15 Sep 2025 21:48:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1757987737; x=1758592537; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1757998121; x=1758602921; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3JiJuCf5fDbcsVFqie8KviQvSHh9fw4OMPm4D25E3/I=;
- b=Yju+/4fYxw0qe27ccSRbTIHRK4Gi1IlFtQH7ePzpCAnhngCC1UzmIGFaTfMjxPUpAm
- kwRBhZwS2Lzv91R1sGJS5FmLxrayMfywbUivAxjBvbU5MqId+HaegnyusiQLgIidHHPr
- J9ykKFSTxUvQGkcy6q4WkePvI/d5OxbevndlB9i1GGun5uD0QE5rXaTNnR3tJsN53AtP
- m8r7pbx+eIRW2i/m8UP0uDSyXXOvNbbdYeP7ZtMG14Og5xIHSah8BLPcwD/AfFCDpJCy
- 39ijseRBlxZUsWVBfJV0V2xfSxhEy5XSwKSrhc/fnJ2iZNjbGaU3BLL+xK/9es2n0cFW
- 8ksA==
+ bh=Xm+DpSE/kXVFYqhbqdQrPOPEWNbTRdYIBwHbzMQMXkY=;
+ b=h9jmwTWuV5vnzWeaYLtv77jCb5Z6XUwkW4MUSBjZ0VCcH16RXDs+Gsy8WYhqX0qb/a
+ vHOLE3S1PuMWZA3v7NyDftwnNzKU51l9Zk7tgVTeYxYvQGn1XwwtKGv7hnzgfNUKl6gb
+ lkFaBFYsasMMH2c+7Tw9++/EG+iEdz3luKU0WPDADnvHaFLj+Lqlo5+2BSFmwKC30s9H
+ 5GMw68S3ZLZ95KwiRIAEWpQ/cNcveVCaH91hMLmqYRBPlYdw2dA+KXdLdtAU8LabUqh5
+ 9UbKNbFdvwirXM80XPAxEMJ70/VC/hmoU9VMX8qIx+mM9aRQ/kQl5ZXoXRRrY5J6uzEL
+ vb9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1757987737; x=1758592537;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1757998121; x=1758602921;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=3JiJuCf5fDbcsVFqie8KviQvSHh9fw4OMPm4D25E3/I=;
- b=lBOYWTgMHfgFmPff9PPFhmYCi8qSgMIWUKFcZYpQTfDWRkVRSh5h86zJXUMCGLDrDd
- g1Ec80JpxUyjOFUMkHC0YSF92ziyuuchR5Nu+IKQQgFXNlZ8wYjscet3CIXjnQA/86D7
- lxN2f4B7JFio8HCVpKonpEBSf3mu+8+09Wgdq9NA6BRTdE5Dq9jKpY+lVY0tB3Y804bV
- uV+ErpxfQ2vZPMck+s9/Z++SU2u0NNu3mHODZMFYAzDyiKVmBqSMO6uIiHgRNSmigDZh
- s+VzacMJaCDZruSLqus8sUFBPgsrg9n75nM8a9qyI9sgVdbibFD4V3fN5psVii/azWx8
- mWJQ==
+ bh=Xm+DpSE/kXVFYqhbqdQrPOPEWNbTRdYIBwHbzMQMXkY=;
+ b=ZIv4Jm/AKMaidrnN/F46xSzMTkXSDhqyRWq4Kwbz6Ndgt6NI3gPn7clOy1TkiZZIqc
+ nR+FqBUKRiKEclHss9hMo5nbAgrbuB9nnbKVH4zkj2GFd1Ijj4rcAqRbYMHa86HuZ0e4
+ 94FzRxo5csprGqNEfBObFI88KJe7jW6pUtwQ2Lx3bjZ2thvOZaQmKoXOhj7XxOAF+D68
+ W5OhTEhUkSKUT5+atpnhqGFeDkS3BOz9Sq7glf5c3KDKgWmFAXsb6iwj+YSuh8uMY433
+ KF0FhoBzTzyS6KIAkc5xhmxu0chGVMmghGHp/ip0U+uNZFoVKkTlxUAwJjzN9AIBU6zT
+ vXgw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXKf6bdZyuGfIpuG5lLA3EQ8oAAoFkBHRNxyysXGXsLbP/w0TEomWY3GI1VebFVsY7QiWjfArmJnVM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywuau4sOel/USaS83jJ1ZN7uhCDpy58iCWAIroymh3EIBPCDP7i
- 4Nqe30HV4eZ0mdSj7lva1kROd4mfARvptKWkaCCPuvdqJ198w1nkQtlUTqsYxFFD+xHtfFhHUai
- yUYUzT1fl+GUTwgL0pWkiy0OkSykXkd0=
-X-Gm-Gg: ASbGnct557qYC3+HfUPdoweA537FFalF0ZFJcVna/bN55rObsbVBiQ3w/HnYaP1q4F6
- unwqS6082riUSDZ5FjnqYyywOD1LfN3sYVGGSIvfC8U3WoqMVecxLpnv/Ss0VwW1L2WbFdywpcp
- 9w/wu4wJJjZm9xEIki6V6eXTGJLijs61CQophvjXydmmmFCKLRsMixEjqO7FNLzg5U2bigffO1K
- u6Ec9uL
-X-Google-Smtp-Source: AGHT+IHJugXW7PgqM4C561Es6pZ+yMEeghRxxr249HgOnA0uY3PnwVnYPJp7RZWq/M8Ro+g8NAKFEnS73k9uc/Q2N9g=
-X-Received: by 2002:a17:907:969e:b0:b04:6c19:ed8d with SMTP id
- a640c23a62f3a-b07c35bdfa1mr1378153066b.26.1757987737286; Mon, 15 Sep 2025
- 18:55:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <20250915134729.1801557-1-dolinux.peng@gmail.com>
- <20250915144052.VHYlgilw@linutronix.de>
-In-Reply-To: <20250915144052.VHYlgilw@linutronix.de>
-From: Donglin Peng <dolinux.peng@gmail.com>
-Date: Tue, 16 Sep 2025 09:55:25 +0800
-X-Gm-Features: AS18NWAOIt4gv03twwvlmnUbxI3Di3y_xFKnQycCNlJ75R-ks7_KB2ty8Keq5J8
-Message-ID: <CAErzpmsW7=3RmLZxByxVD+vD=FV0YDF6POHVZZce784r7jMQyg@mail.gmail.com>
-Subject: Re: [PATCH v2] rcu: Remove redundant rcu_read_lock/unlock() in
- spin_lock critical sections
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com, 
- ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org, 
- trondmy@kernel.org, longman@redhat.com, kees@kernel.org, 
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- linux-nfs@vger.kernel.org, linux-aio@kvack.org, linux-fsdevel@vger.kernel.org, 
- linux-security-module@vger.kernel.org, netdev@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, linux-acpi@vger.kernel.org, 
- linux-s390@vger.kernel.org, cgroups@vger.kernel.org, 
- Hillf Danton <hdanton@sina.com>, "Paul E . McKenney" <paulmck@kernel.org>, 
+ AJvYcCWhjhM7HuYJ3XLRCFVsKxpnYmz1/rTvyE3Lx27NoOQCK4MD/pBlZ4NhyzW/qm3So8o8uFJ1+Fd2Hg0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwkWa6oiaKw3dHH23KTJ64xrg5QGQqN6kSFqAhABv/drrRp4RHM
+ WGH88Iz3CbkMcLKCkuYTsJQO0TBD+zZ6KfVTUWcKQG93/YeosuhN6UYu
+X-Gm-Gg: ASbGncv5WG0iiiC5mi0a/U+Uf+t3UTPhHt5ByWmxRHv5XcVKZsL55Fob3n3zIkn5YaC
+ o0YGdHeT2qVgRnrBq8MdcN2bunN0XKZ660v0GBl/KPoP9DiZxB69kczEwuaRRjdsRXmuCpgdqbr
+ Ei6s9JqTrZS7O3RI1JkWRq/IzU+JWEhSqwc4xW4sEraYisSz1qRTnGgSZWg0WcIV7JHVJ3UDaGu
+ p4xlYv8MwEaUCT+nmPc0U5Qz2vfg/09cedaLiM5XPVStKyw9jHn30I5wDME0YWHmTaQelvqLYru
+ SaiBiozNDvdew2R9uebuNkNnzvyzqxxhMOdURWqLmCES/7fX9dMhqdELTXKE12RnnOSI41wjCMD
+ KEpsOrN0QUtrE9EqlyMW7R2O5S4lerzoACIoEgQO4cqXSVPJJvQ==
+X-Google-Smtp-Source: AGHT+IFZafMscSK5thkkO6qp1JFhXaEzM4XqUKCSOF7a0iBvVAfuiUQIiiPw+R0HXGd/Rlng97VAjQ==
+X-Received: by 2002:a17:903:1a07:b0:267:a20c:fec0 with SMTP id
+ d9443c01a7336-267a20d0722mr60340985ad.1.1757998120540; 
+ Mon, 15 Sep 2025 21:48:40 -0700 (PDT)
+Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-25ef09c77f8sm104600605ad.15.2025.09.15.21.48.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 15 Sep 2025 21:48:39 -0700 (PDT)
+From: pengdonglin <dolinux.peng@gmail.com>
+To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
+ ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
+ trondmy@kernel.org, longman@redhat.com, kees@kernel.org
+Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ linux-nfs@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-s390@vger.kernel.org, cgroups@vger.kernel.org,
+ pengdonglin <dolinux.peng@gmail.com>, Anna Schumaker <anna@kernel.org>,
  pengdonglin <pengdonglin@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 16 Sep 2025 14:55:19 +0000
+Subject: [PATCH v3 04/14] nfs: Remove redundant rcu_read_lock/unlock() in
+ spin_lock
+Date: Tue, 16 Sep 2025 12:47:25 +0800
+Message-Id: <20250916044735.2316171-5-dolinux.peng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20250916044735.2316171-1-dolinux.peng@gmail.com>
+References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 16 Sep 2025 14:55:20 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,60 +100,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Sep 15, 2025 at 10:40=E2=80=AFPM Sebastian Andrzej Siewior
-<bigeasy@linutronix.de> wrote:
->
-> On 2025-09-15 21:47:29 [+0800], pengdonglin wrote:
-> > From: pengdonglin <pengdonglin@xiaomi.com>
-> >
-> > Per Documentation/RCU/rcu_dereference.rst [1], since Linux 4.20's RCU
-> > consolidation [2][3], RCU read-side critical sections include:
-> >   - Explicit rcu_read_lock()
-> >   - BH/interrupt/preemption-disabling regions
-> >   - Spinlock critical sections (including CONFIG_PREEMPT_RT kernels [4]=
-)
-> >
-> > Thus, explicit rcu_read_lock()/unlock() calls within spin_lock*() regio=
-ns are redundant.
-> > This patch removes them, simplifying locking semantics while preserving=
- RCU protection.
-> >
-> > [1] https://elixir.bootlin.com/linux/v6.17-rc5/source/Documentation/RCU=
-/rcu_dereference.rst#L407
-> > [2] https://lore.kernel.org/lkml/20180829222021.GA29944@linux.vnet.ibm.=
-com/
-> > [3] https://lwn.net/Articles/777036/
-> > [4] https://lore.kernel.org/lkml/6435833a-bdcb-4114-b29d-28b7f436d47d@p=
-aulmck-laptop/
->
-> What about something like this:
->
->   Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side
->   function definitions") there is no difference between rcu_read_lock(),
->   rcu_read_lock_bh() and rcu_read_lock_sched() in terms of RCU read
->   section and the relevant grace period. That means that spin_lock(),
->   which implies rcu_read_lock_sched(), also implies rcu_read_lock().
->
->   There is no need no explicitly start a RCU read section if one has
->   already been started implicitly by spin_lock().
->
->   Simplify the code and remove the inner rcu_read_lock() invocation.
->
->
-> The description above should make it clear what:
-> - the intention is
-> - the proposed solution to it and why it is correct.
+From: pengdonglin <pengdonglin@xiaomi.com>
 
-Thanks, that's much clearer. I'll use this commit message in v3.
+Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side function definitions")
+there is no difference between rcu_read_lock(), rcu_read_lock_bh() and
+rcu_read_lock_sched() in terms of RCU read section and the relevant grace
+period. That means that spin_lock(), which implies rcu_read_lock_sched(),
+also implies rcu_read_lock().
 
->
-> You can't send a patch like this. You need to split it at the very least
-> by subsystem. The networking bits need to follow to follow for instance
->    Documentation/process/maintainer-netdev.rst
+There is no need no explicitly start a RCU read section if one has already
+been started implicitly by spin_lock().
 
-Thanks, I will split this into a series for v3.
+Simplify the code and remove the inner rcu_read_lock() invocation.
 
->
-> and so on.
->
-> Sebastian
+Cc: Trond Myklebust <trondmy@kernel.org>
+Cc: Anna Schumaker <anna@kernel.org>
+Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
+Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
+---
+ fs/nfs/callback_proc.c |  2 --
+ fs/nfs/nfs4state.c     |  2 --
+ fs/nfs/pnfs.c          | 12 +-----------
+ fs/nfs/pnfs_dev.c      |  4 ----
+ 4 files changed, 1 insertion(+), 19 deletions(-)
+
+diff --git a/fs/nfs/callback_proc.c b/fs/nfs/callback_proc.c
+index 8397c43358bd..16144db39335 100644
+--- a/fs/nfs/callback_proc.c
++++ b/fs/nfs/callback_proc.c
+@@ -721,7 +721,6 @@ __be32 nfs4_callback_offload(void *data, void *dummy,
+ 		return cpu_to_be32(NFS4ERR_DELAY);
+ 
+ 	spin_lock(&cps->clp->cl_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(server, &cps->clp->cl_superblocks,
+ 				client_link) {
+ 		list_for_each_entry(tmp_copy, &server->ss_copies, copies) {
+@@ -736,7 +735,6 @@ __be32 nfs4_callback_offload(void *data, void *dummy,
+ 		}
+ 	}
+ out:
+-	rcu_read_unlock();
+ 	if (!found) {
+ 		memcpy(&copy->stateid, &args->coa_stateid, NFS4_STATEID_SIZE);
+ 		nfs4_copy_cb_args(copy, args);
+diff --git a/fs/nfs/nfs4state.c b/fs/nfs/nfs4state.c
+index 7612e977e80b..598229fc07ed 100644
+--- a/fs/nfs/nfs4state.c
++++ b/fs/nfs/nfs4state.c
+@@ -241,13 +241,11 @@ const struct cred *nfs4_get_renew_cred(struct nfs_client *clp)
+ 		goto out;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		cred = nfs4_get_renew_cred_server_locked(server);
+ 		if (cred != NULL)
+ 			break;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ 
+ out:
+diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+index a3135b5af7ee..650f86fa144a 100644
+--- a/fs/nfs/pnfs.c
++++ b/fs/nfs/pnfs.c
+@@ -838,13 +838,12 @@ pnfs_layout_add_bulk_destroy_list(struct inode *inode,
+ 	return ret;
+ }
+ 
+-/* Caller must hold rcu_read_lock and clp->cl_lock */
++/* Caller must hold clp->cl_lock (implies rcu_read_lock) */
+ static int
+ pnfs_layout_bulk_destroy_byserver_locked(struct nfs_client *clp,
+ 		struct nfs_server *server,
+ 		struct list_head *layout_list)
+ 	__must_hold(&clp->cl_lock)
+-	__must_hold(RCU)
+ {
+ 	struct pnfs_layout_hdr *lo, *next;
+ 	struct inode *inode;
+@@ -862,16 +861,13 @@ pnfs_layout_bulk_destroy_byserver_locked(struct nfs_client *clp,
+ 			if (pnfs_layout_add_bulk_destroy_list(inode,
+ 						layout_list))
+ 				continue;
+-			rcu_read_unlock();
+ 			spin_unlock(&clp->cl_lock);
+ 			iput(inode);
+ 		} else {
+-			rcu_read_unlock();
+ 			spin_unlock(&clp->cl_lock);
+ 		}
+ 		nfs_sb_deactive(server->super);
+ 		spin_lock(&clp->cl_lock);
+-		rcu_read_lock();
+ 		return -EAGAIN;
+ 	}
+ 	return 0;
+@@ -922,7 +918,6 @@ int pnfs_layout_destroy_byfsid(struct nfs_client *clp, struct nfs_fsid *fsid,
+ 	LIST_HEAD(layout_list);
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (memcmp(&server->fsid, fsid, sizeof(*fsid)) != 0)
+@@ -932,7 +927,6 @@ int pnfs_layout_destroy_byfsid(struct nfs_client *clp, struct nfs_fsid *fsid,
+ 				&layout_list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ 
+ 	return pnfs_layout_free_bulk_destroy_list(&layout_list, mode);
+@@ -944,14 +938,12 @@ static void pnfs_layout_build_destroy_list_byclient(struct nfs_client *clp,
+ 	struct nfs_server *server;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (pnfs_layout_bulk_destroy_byserver_locked(clp, server,
+ 							     list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ }
+ 
+@@ -990,7 +982,6 @@ static void pnfs_layout_build_recover_list_byclient(struct nfs_client *clp,
+ 	struct nfs_server *server;
+ 
+ 	spin_lock(&clp->cl_lock);
+-	rcu_read_lock();
+ restart:
+ 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
+ 		if (!(server->caps & NFS_CAP_REBOOT_LAYOUTRETURN))
+@@ -999,7 +990,6 @@ static void pnfs_layout_build_recover_list_byclient(struct nfs_client *clp,
+ 							     list) != 0)
+ 			goto restart;
+ 	}
+-	rcu_read_unlock();
+ 	spin_unlock(&clp->cl_lock);
+ }
+ 
+diff --git a/fs/nfs/pnfs_dev.c b/fs/nfs/pnfs_dev.c
+index bf0f2d67e96c..d19752ec1a95 100644
+--- a/fs/nfs/pnfs_dev.c
++++ b/fs/nfs/pnfs_dev.c
+@@ -231,9 +231,7 @@ nfs4_delete_deviceid(const struct pnfs_layoutdriver_type *ld,
+ 	struct nfs4_deviceid_node *d;
+ 
+ 	spin_lock(&nfs4_deviceid_lock);
+-	rcu_read_lock();
+ 	d = _lookup_deviceid(ld, clp, id, nfs4_deviceid_hash(id));
+-	rcu_read_unlock();
+ 	if (!d) {
+ 		spin_unlock(&nfs4_deviceid_lock);
+ 		return;
+@@ -331,14 +329,12 @@ _deviceid_purge_client(const struct nfs_client *clp, long hash)
+ 	HLIST_HEAD(tmp);
+ 
+ 	spin_lock(&nfs4_deviceid_lock);
+-	rcu_read_lock();
+ 	hlist_for_each_entry_rcu(d, &nfs4_deviceid_cache[hash], node)
+ 		if (d->nfs_client == clp && atomic_read(&d->ref)) {
+ 			hlist_del_init_rcu(&d->node);
+ 			hlist_add_head(&d->tmpnode, &tmp);
+ 			clear_bit(NFS_DEVICEID_NOCACHE, &d->flags);
+ 		}
+-	rcu_read_unlock();
+ 	spin_unlock(&nfs4_deviceid_lock);
+ 
+ 	if (hlist_empty(&tmp))
+-- 
+2.34.1
+
