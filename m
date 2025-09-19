@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 324C7CAC5A8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10FBACAC592
 	for <intel-gfx@archiver.kernel.org>; Fri, 19 Sep 2025 18:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B43EE10EA72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95C1310EA77;
 	Fri, 19 Sep 2025 18:50:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H59vKcnL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QCZJVNqc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F65410EA72
- for <intel-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 18:50:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0012C10EA72
+ for <intel-gfx@lists.freedesktop.org>; Fri, 19 Sep 2025 18:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1758307847; x=1789843847;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=obMrj9MEN30/K2CXFQSDm5yhVNpjFW/hQO594OgzXYQ=;
- b=H59vKcnLS1OgPkM7uhBcoxDCjUAbef5jmv0Q6UETo01sDNEIJQ02GT28
- IU/0GXouEijy6nlxN+8qMDTTjg615S4r5iD27Gv52Eqcqd4ew94vRU5BN
- 0eMGuP09XkgLf46aJ9oOcxb9JyA+cx7r3SfObFngzqhWdsvyGcvygV2jp
- iubbQpBW5lgW4wM5E17GMdulzZeEehGPRx79/mV9mQgSi6F9bIWSrFZUh
- Wp0bbeAs9uuyETy1zu2VAyqzFGWSJkCpsWOJKUaWqCgycDo3+vVSkBRzU
- Q/+RAmLf1SiB5axQDwOUxVrlejo5bVHdNy57M4DBahSlZ7niUlee6UlBV g==;
-X-CSE-ConnectionGUID: kmvVpgoqQsuRDfmAmdj5lw==
-X-CSE-MsgGUID: jvdPS3tLSnKXxf1I7pUOrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11558"; a="60551409"
-X-IronPort-AV: E=Sophos;i="6.18,278,1751266800"; d="scan'208";a="60551409"
+ bh=qwSOdT6lnTay9U7fCwmG5lMRfKmXAQAgGr85iCGq7dA=;
+ b=QCZJVNqcm1dm5QDcFlMkvzzlwARYTW7pyrrgMwoC3+eylcqIlWUl8NRh
+ KE1tVdI2oSNm5dzHv9lfresdVYZoAs+DBDNdBSX4/lIIqxQAYoB9qw04F
+ X0MVit5DjiZ6MA5W5gSmh4jbxqMD6noLyzGNz4HqnJkXXLBBJRiQ3oEDw
+ iZfYENrlDSOfVdNAV9yPE7q2NgtPe8qzO0wFbX/ueO+alg1JSSxV5ZC4m
+ cUu6yqc7BOhCoXyNAeT0sYLNcLgRj48kMVh0oxUbxe6+F7REWtqae5w9h
+ Cnkpw82nvRPjLw20H7E9YbeIOo/ATThMKpnb8g+cPDwXl5gFO4Xwe9G6p A==;
+X-CSE-ConnectionGUID: Kcdb4ADNT4qxOdwahNAI8g==
+X-CSE-MsgGUID: On98HgjVQd6JTWuPnoJgDA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11558"; a="60551389"
+X-IronPort-AV: E=Sophos;i="6.18,278,1751266800"; d="scan'208";a="60551389"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2025 11:50:47 -0700
-X-CSE-ConnectionGUID: jvxAJu4/R+Kbl9BBcT2JMQ==
-X-CSE-MsgGUID: 8SLzOClzS2GTVvKONKlnzA==
+ 19 Sep 2025 11:50:43 -0700
+X-CSE-ConnectionGUID: vpCYp86fTJSzWRGTxako7Q==
+X-CSE-MsgGUID: q6EurMWAQQ2TesAQsfNzaQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,278,1751266800"; d="scan'208";a="180310340"
+X-IronPort-AV: E=Sophos;i="6.18,278,1751266800"; d="scan'208";a="180310322"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.112])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Sep 2025 11:50:44 -0700
+ 19 Sep 2025 11:50:40 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: Karthik Poosa <karthik.poosa@intel.com>,
+Cc: Badal Nilawar <badal.nilawar@intel.com>,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 6/6] drm/i915/pm: Drop redundant pci stuff from
- suspend/resume paths
-Date: Fri, 19 Sep 2025 21:50:15 +0300
-Message-ID: <20250919185015.14561-7-ville.syrjala@linux.intel.com>
+Subject: [PATCH v3 5/6] drm/i915/pm: Allow drivers/pci to manage our pci state
+ normally
+Date: Fri, 19 Sep 2025 21:50:14 +0300
+Message-ID: <20250919185015.14561-6-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.49.1
 In-Reply-To: <20250919185015.14561-1-ville.syrjala@linux.intel.com>
 References: <20250919185015.14561-1-ville.syrjala@linux.intel.com>
@@ -74,85 +74,55 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-I don't think there should be any need for us to call any of
-pci_enable_device(), pci_disable_device() or pci_set_master()
-from the suspend/resume paths. The config space save/restore should
-take care of all of this.
+Stop doing the pci_save_state(), except when we need to prevent
+D3 due to BIOS bugs, so that the code in drivers/pci is allowed
+to manage the state of the PCI device. Less chance something
+getting left by the wayside by i915 if/when the things change in
+drivers/pci.
 
-Cc: Karthik Poosa <karthik.poosa@intel.com>
+Cc: Badal Nilawar <badal.nilawar@intel.com>
 Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c | 31 ------------------------------
- 1 file changed, 31 deletions(-)
+ drivers/gpu/drm/i915/i915_driver.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 0cb874e64971..95165e45de74 100644
+index 009f4e27cf49..0cb874e64971 100644
 --- a/drivers/gpu/drm/i915/i915_driver.c
 +++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1100,7 +1100,6 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
- {
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_display *display = dev_priv->display;
--	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
- 	struct intel_runtime_pm *rpm = &dev_priv->runtime_pm;
- 	struct intel_gt *gt;
- 	int ret, i;
-@@ -1121,21 +1120,10 @@ static int i915_drm_suspend_late(struct drm_device *dev, bool hibernation)
- 	if (ret) {
- 		drm_err(&dev_priv->drm, "Suspend complete failed: %d\n", ret);
- 		intel_display_power_resume_early(display);
--
--		goto fail;
- 	}
- 
- 	enable_rpm_wakeref_asserts(rpm);
- 
--	if (!dev_priv->uncore.user_forcewake_count)
--		intel_runtime_pm_driver_release(rpm);
--
--	pci_disable_device(pdev);
--
--	return 0;
--
--fail:
--	enable_rpm_wakeref_asserts(rpm);
- 	if (!dev_priv->uncore.user_forcewake_count)
- 		intel_runtime_pm_driver_release(rpm);
- 
-@@ -1284,7 +1272,6 @@ static int i915_drm_resume_early(struct drm_device *dev)
- {
- 	struct drm_i915_private *dev_priv = to_i915(dev);
- 	struct intel_display *display = dev_priv->display;
--	struct pci_dev *pdev = to_pci_dev(dev_priv->drm.dev);
- 	struct intel_gt *gt;
- 	int ret, i;
- 
-@@ -1298,24 +1285,6 @@ static int i915_drm_resume_early(struct drm_device *dev)
- 	 * similar so that power domains can be employed.
+@@ -1162,9 +1162,8 @@ static int i915_drm_suspend_noirq(struct drm_device *dev, bool hibernation)
+ 	 * pci_save_state() prevents drivers/pci from
+ 	 * automagically putting the device into D3.
  	 */
+-	pci_save_state(pdev);
+-	if (!(hibernation && GRAPHICS_VER(dev_priv) < 6))
+-		pci_set_power_state(pdev, PCI_D3hot);
++	if (hibernation && GRAPHICS_VER(dev_priv) < 6)
++		pci_save_state(pdev);
  
--	/*
--	 * Note that pci_enable_device() first enables any parent bridge
--	 * device and only then sets the power state for this device. The
--	 * bridge enabling is a nop though, since bridge devices are resumed
--	 * first. The order of enabling power and enabling the device is
--	 * imposed by the PCI core as described above, so here we preserve the
--	 * same order for the freeze/thaw phases.
--	 *
--	 * TODO: eventually we should remove pci_disable_device() /
--	 * pci_enable_enable_device() from suspend/resume. Due to how they
--	 * depend on the device enable refcount we can't anyway depend on them
--	 * disabling/enabling the device.
--	 */
--	if (pci_enable_device(pdev))
--		return -EIO;
--
--	pci_set_master(pdev);
--
- 	disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
+ 	return 0;
+ }
+@@ -1172,6 +1171,7 @@ static int i915_drm_suspend_noirq(struct drm_device *dev, bool hibernation)
+ int i915_driver_suspend_switcheroo(struct drm_i915_private *i915,
+ 				   pm_message_t state)
+ {
++	struct pci_dev *pdev = to_pci_dev(i915->drm.dev);
+ 	int error;
  
- 	ret = vlv_resume_prepare(dev_priv, false);
+ 	if (drm_WARN_ON_ONCE(&i915->drm, state.event != PM_EVENT_SUSPEND &&
+@@ -1189,9 +1189,8 @@ int i915_driver_suspend_switcheroo(struct drm_i915_private *i915,
+ 	if (error)
+ 		return error;
+ 
+-	error = i915_drm_suspend_noirq(&i915->drm, false);
+-	if (error)
+-		return error;
++	pci_save_state(pdev);
++	pci_set_power_state(pdev, PCI_D3hot);
+ 
+ 	return 0;
+ }
 -- 
 2.49.1
 
