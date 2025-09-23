@@ -4,58 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99377CAC5A5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:54:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80ECFCAC5B0
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB1310E70E;
-	Wed, 24 Sep 2025 11:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1913610E6ED;
+	Wed, 24 Sep 2025 11:59:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eGQQB0Eb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MreSzpgt";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A6C789149;
- Wed, 24 Sep 2025 11:54:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758714867; x=1790250867;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:to:cc;
- bh=PRUny6RG6qhyqL7rgBxW8QiKtn1YkBs7+872DxRe960=;
- b=eGQQB0EbHaI5IEhEZC5iZ8PubOaGIeritIemZ2OQlll6NqaXJH1t+VYN
- HpjHAwBd+VD84VXHx8p5/Xkr+5NmKohV4+q92nuPD8idPHmf83Cnj8UfF
- REAhZ8FRDOwNJ4Xe+0tkzLfLx+PeLQdkhsIu/4jJkMzBlxxbcsqt87IO+
- +nnvMagMKvBqJNm7iqTuPphl0U6TTQCtMGqMC8eKJRPUI+YRtO7Hx5ksh
- 35OoAr8nUlhvPptEQAuq2uHy7pnQI17uDAOgMBH5IiAoUQNh/W0hY/dO8
- CM5JGcHsbz8qsX4SC1QZS1hnwpMVxTDEzRrCxpFMz75lnLJ9Gr+omggtx A==;
-X-CSE-ConnectionGUID: t/w8FMtIRg+1CfjShLjtpQ==
-X-CSE-MsgGUID: mipGqmRcQi60xY/MTArqvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="71631180"
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="71631180"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:54:27 -0700
-X-CSE-ConnectionGUID: EUyAPi2WQjygGa7o8+BFKg==
-X-CSE-MsgGUID: hITsMzzoQLaD0fxd01/nXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="176620533"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO [192.168.1.16])
- ([10.124.220.74])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:54:26 -0700
-From: Gustavo Sousa <gustavo.sousa@intel.com>
-Date: Wed, 24 Sep 2025 08:54:10 -0300
-Subject: [PATCH] drm/i915/display: Enable PICA power before AUX
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED9E10E09A
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 19:51:06 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-25669596955so53625815ad.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 12:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1758657066; x=1759261866; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=4ehAB6FDec8ZClTzkqi6qQhO0SFHIZCiWE6qrwdH3NY=;
+ b=MreSzpgtjm1rBlcAuqvo2rpai+OpXwVmDpPeNmpvMiqnuFJUPtzeaHDpBtNbg5qk5F
+ vC4RomxV5ygEyXL9fO4D2Wj2fRwQ5nZ7skLf8gY/f3jiteOkAqe4tpSbcPf+qP3Rtflv
+ 2kT2++0I9BtlI+pYA7gwUG5+4XvCyJ7xtByusPCRUmzJHbKwE6yiYjNf9/9rFhfc8RWK
+ bumPf++kcHKmMJU1ABVBO9oE6UomaS66O5Oyog3DMyt9wWayGfSlPXrP28yrQFmkgeh4
+ WLFgu4A39Tdt3fvgOC2h3ECfsyQJfuDeMkEFAzjl4O0BoC6APqNQ5+I9Ar6taMBEIzJf
+ UxYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1758657066; x=1759261866;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=4ehAB6FDec8ZClTzkqi6qQhO0SFHIZCiWE6qrwdH3NY=;
+ b=pL5+Tt64tSRnM2D2EQkgi3+Ki42vlMa+oFKjUk5a5Fn8Z53c755uNZtql8wxIy8OC4
+ L107qfQdM0VD/iTHNnpWmDh/34oTwm3qz0n5Rfi31r1z7l9LWWbtWOP0EuXyuqC8wemX
+ oeGlzcQh6hL+enFSS103QVCJqa/O7BwLXRZ+gEyD5XdhE/oCeBO9M0FSid6/MQRPbj/f
+ pnJD03jxKyFJ44tiWsJtChqmWjaJC1Zy43dAAmcqE7lA/g021QlLrNIf5GEnfG8v5qxA
+ 3IRs6/J3NG+g+njcL31taHk4cxk9waiQBc9Q/69L8Nsd7092JBtqZaVPIt91iN1o5Pqo
+ akSw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXFFay6SOSCrPr85ZffybsFRFM1/QJByT2fSOEaIp6VgFJz47J+dfsnPCmIR2YiMXpKxy3MWd396Ss=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDkJciGZ4UNxWIUsSaybQwMdJJtFa3Dqx4W4+xxTzOiSCk9WO+
+ s3K5dn4dscEelV7NA4kFnufLDJi7LmafXs/F6LcKpGLBBOEJ9HOZ1kRJ
+X-Gm-Gg: ASbGncsO85p8Lb8L2qfVl81Hp9LGxPYxlF9gCBRxf+LTt9cEbSpbYQXAHU+Ti3J8GTB
+ E3bAzqHxozbHKq3wDE4QCzSm0BxsUQcdsDY/YVgNKPwmWFdpEkokLsrDTXAUIzz3Sts+u1X2U6h
+ J4oVDNi+wO/xD5cGuwuyGM4FhgXdE6F8ffu5T9GTaD+o+r6Ue0S750qlknbGLLv8PJF5TK2VdCp
+ SxPWZA/kQ46ze+TmZOJS8FaGjXgL3amWI91QFGYfUUAJ4zVwaalBKE5dZdkRcUNbNgG0KgKyy6+
+ 4FPF8DhNHr0OyPiXSieyr7LR6QLXruhnUg9Q5NuW3qEqSB+w3t1nXB00YQwqZA2Hw8jZniYVyF3
+ 8j/1kTvznTkwwR7i8Yh8SYjDa
+X-Google-Smtp-Source: AGHT+IEv/yGGrlpOdfY2cliSiBhQF6mMtksTl6D3DmZd+ZV/JQOSaJhhtwrh4WbSv9rczttlYVIw7Q==
+X-Received: by 2002:a17:902:ce81:b0:276:9863:44da with SMTP id
+ d9443c01a7336-27cc1570dffmr41713785ad.8.1758657065909; 
+ Tue, 23 Sep 2025 12:51:05 -0700 (PDT)
+Received: from archlinux ([36.255.84.56]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2698018d0fasm170974755ad.60.2025.09.23.12.51.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 23 Sep 2025 12:51:05 -0700 (PDT)
+From: Madhur Kumar <madhurkumar004@gmail.com>
+To: jani.nikula@linux.intel.com
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Madhur Kumar <madhurkumar004@gmail.com>
+Subject: [PATCH] drm/i915: i915_pmu: Use sysfs_emit() instead of sprintf()
+Date: Wed, 24 Sep 2025 01:20:51 +0530
+Message-ID: <20250923195051.1277855-1-madhurkumar004@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20250924-pica-power-before-aux-v1-1-9fa95b80842c@intel.com>
-X-B4-Tracking: v=1; b=H4sIAOLb02gC/x3MMQqAMAxA0atIZgOxIqJXEYe2Rs1iS4paEO9uc
- XzD/w8kVuEEY/WA8iVJwlHQ1BX43R4boyzFYMh0NJgWo3iLMdys6HgNymjPjD0RDd4vjesdlDY
- qr5L/7zS/7wdM26oOZwAAAA==
-X-Change-ID: 20250923-pica-power-before-aux-70009ccd1b7b
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Gustavo Sousa <gustavo.sousa@intel.com>
-X-Mailer: b4 0.15-dev
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 24 Sep 2025 11:59:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,104 +88,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-According to Bspec, before enabling AUX power, we need to have the
-"power well containing Aux logic powered up". Starting with Xe2_LPD,
-such power well is the "PICA" power well, which is managed by the driver
-on demand.
+Follow the advice in Documentation/filesystems/sysfs.rst:
+show() should only use sysfs_emit() or sysfs_emit_at() when formatting
+the value to be returned to user space.
 
-While we did add the mapping of AUX power domains to the PICA power
-well, we ended up placing its power well descriptor after the
-descriptor for AUX power. As a result, when enabling power wells for one
-of the aux power domains, the driver will enable AUX power before PICA
-power, going against the order specified in Bspec.
-
-It appears that issue did not become apparent to us mainly because,
-luckily, AUX power is brought up after we assert PICA power, even if
-done in the wrong order; and in enough time for the first AUX
-transaction to succeed.
-
-Furthermore, I have also realized that, in some cases, like driver
-initialization, PICA power is already up when we need to acquire AUX
-power.
-
-One case where we can observe the incorrect ordering is when the driver
-is resuming from runtime PM suspend. Here is an excerpt of a dmesg with
-some extra debug logs extracted from a LNL machine to illustrate the
-issue:
-
-    [  +0.000156] xe 0000:00:02.0: [drm:intel_power_well_enable [xe]] enabling AUX_TC1
-    [  +0.001312] xe 0000:00:02.0: [drm:xelpdp_aux_power_well_enable [xe]] DBG: AUX_CH_USBC1 power status: 0
-    [  +0.000127] xe 0000:00:02.0: [drm:intel_power_well_enable [xe]] enabling PICA_TC
-    [  +0.001072] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC1 power status: 1
-    [  +0.000102] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC2 power status: 0
-    [  +0.000090] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC3 power status: 0
-    [  +0.000092] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC4 power status: 0
-
-The first "DBG: ..." line shows that AUX power for TC1 is off after we
-assert and wait. The remaining lines show that AUX power for TC1 was on
-after we enabled PICA power and waited for AUX power.
-
-It is important that we stay compliant with the spec, so let's fix this
-by listing the power wells in an order that matches the requirements
-from Bspec. (As a side note, it would be nice if we could define those
-dependencies explicitly.)
-
-After this change, we have:
-
-    [  +0.000146] xe 0000:00:02.0: [drm:intel_power_well_enable [xe]] enabling PICA_TC
-    [  +0.001417] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC1 power status: 0
-    [  +0.000116] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC2 power status: 0
-    [  +0.000096] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC3 power status: 0
-    [  +0.000094] xe 0000:00:02.0: [drm:xe2lpd_pica_power_well_enable [xe]] DBG: AUX_CH_USBC4 power status: 0
-    [  +0.000095] xe 0000:00:02.0: [drm:intel_power_well_enable [xe]] enabling AUX_TC1
-    [  +0.000915] xe 0000:00:02.0: [drm:xelpdp_aux_power_well_enable [xe]] DBG: AUX_CH_USBC1 power status: 1
-
-Bspec: 68967, 68886, 72519
-Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+Signed-off-by: Madhur Kumar <madhurkumar004@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_power_map.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-index 39b71fffa2cd..d057bbde42c2 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
-@@ -1582,8 +1582,8 @@ static const struct i915_power_well_desc_list xe2lpd_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_dcoff),
--	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
- 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
-+	I915_PW_DESCRIPTORS(xelpdp_power_wells_main),
- };
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 5bc696bfbb0f..d8f69bba79a9 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -895,7 +895,7 @@ static ssize_t i915_pmu_format_show(struct device *dev,
+ 	struct i915_str_attribute *eattr;
  
- /*
-@@ -1713,8 +1713,8 @@ static const struct i915_power_well_desc_list xe3lpd_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(xe3lpd_power_wells_dcoff),
--	I915_PW_DESCRIPTORS(xe3lpd_power_wells_main),
- 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
-+	I915_PW_DESCRIPTORS(xe3lpd_power_wells_main),
- };
+ 	eattr = container_of(attr, struct i915_str_attribute, attr);
+-	return sprintf(buf, "%s\n", eattr->str);
++	return sysfs_emit(buf, "%s\n", eattr->str);
+ }
  
- static const struct i915_power_well_desc wcl_power_wells_main[] = {
-@@ -1766,8 +1766,8 @@ static const struct i915_power_well_desc_list wcl_power_wells[] = {
- 	I915_PW_DESCRIPTORS(i9xx_power_wells_always_on),
- 	I915_PW_DESCRIPTORS(icl_power_wells_pw_1),
- 	I915_PW_DESCRIPTORS(xe3lpd_power_wells_dcoff),
--	I915_PW_DESCRIPTORS(wcl_power_wells_main),
- 	I915_PW_DESCRIPTORS(xe2lpd_power_wells_pica),
-+	I915_PW_DESCRIPTORS(wcl_power_wells_main),
- };
+ #define I915_PMU_FORMAT_ATTR(_name, _config) \
+@@ -925,7 +925,7 @@ static ssize_t i915_pmu_event_show(struct device *dev,
+ 	struct i915_ext_attribute *eattr;
  
- static void init_power_well_domains(const struct i915_power_well_instance *inst,
-
----
-base-commit: 308a05859081aae4125b58d186d582b814c6deb2
-change-id: 20250923-pica-power-before-aux-70009ccd1b7b
-
-Best regards,
---  
-Gustavo Sousa <gustavo.sousa@intel.com>
+ 	eattr = container_of(attr, struct i915_ext_attribute, attr);
+-	return sprintf(buf, "config=0x%lx\n", eattr->val);
++	return sysfs_emit(buf, "config=0x%lx\n", eattr->val);
+ }
+ 
+ #define __event(__counter, __name, __unit) \
+-- 
+2.51.0
 
