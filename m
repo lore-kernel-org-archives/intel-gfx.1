@@ -4,81 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EA2BCAC5A5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:59:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2D4CAC5B3
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 12:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22D8E10E713;
-	Wed, 24 Sep 2025 11:59:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B4F10E712;
+	Wed, 24 Sep 2025 12:04:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ajaKTL4I";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FO0AS8Gg";
 	dkim-atps=neutral
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0772C10E3E1
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 14:43:24 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-36a448c8aa2so9992151fa.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Sep 2025 07:43:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758552202; x=1759157002; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=F0lMUB1ROfKuK75/vGdOophe58nNykYwwEOWTGObV+k=;
- b=ajaKTL4Iyu4Pv0nxTdWVXJtP+2leEDB5vFTE93k5UsAdYSYXenGLYyIfuOk9v66nnc
- 64df7YiKzuy2/MRhSP5AMuvuFT8vFEotajR6dPT7HQTbUFB1fqTWcPe3rsEoGucN0LOH
- 2EheQRWDAbpMTOYH3dNQcqZCCfTxjwNDJ5OLn0xPxBhWPQG/PW7+rdcjw/t40pIIgJQI
- c1xaXnd3idyH4C5Ut/9EVz49fRgM3JbLBqH5YGgnTwCW/QoNac1Lkp5Nego8rGjUuvro
- smMg2pc9UiSg5z84bGWUyw3nMeBcbNw+IPc56lscTCEUieSOefc/AU7HUrdzak5M4Eng
- Eq8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758552202; x=1759157002;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=F0lMUB1ROfKuK75/vGdOophe58nNykYwwEOWTGObV+k=;
- b=TZvKWp+zrbF8G6ye8Epq+W0hNlFQ74OBGB58ddmuV0/iLMuq4+C9S8Th+qc4ONSMJu
- QvZtSQ19wr4ru5J74EjqIOD9tYiVAccLcJ2Gu6c4C6KFs3jImwEY8+SJIvxsBZ9WDj8m
- C3EAigUHmlaAvWtQIGOBhBwILjibeMPU91+qnJcd2jWBbQ0aRBCuOvdHXdjtdt7ED8kP
- eg1uxwNSSI5kHOalA+z7Bpe/xe/VOyWo3tCLdtYH7qEsKqSA3Ksy9YxgWT1yxXHPqEKA
- KDI3n3oNGsFVmpeLRyyoyL8RygpJ0/pOfd09hRc7XqTKyftAYtY7d6MDQzaE7SP2KZnf
- 8Vcg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWv3LojS82gXtm+05vTSXhFx2L+khh6BYdgS1LsRi97PdCqIw5aqfgaOny8DtAPMeWjJKYDEYQ91/0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlWxAOw3lpvw5B8ZCRAiW2Ea/1sYH3whQzz5UDly9uIpFnaEmL
- MK2VbewEX4bFV1S85v0hLxyu95wpMpgF+Vce4Poj8ijOG9gY+zMjhh2H
-X-Gm-Gg: ASbGncv87aj/s7fqOAVSFuj6CnJbg2yO2ED4yg+BT6ANZFRh8oHS3OM+x1OPqV2goyR
- Zvk9GWzUMAQkE47/msXYYxDA4cTt74UFX/MAIZL621BN7abwYuGDadCyIkBsREAwQTWppy6n7+J
- cfNa5wO+KiU+1EM+Fq9I4AFKJLTTODLS8LXMN9deKpWjpHV6Z5YaTplhGR7+OGH+R1KJAEjJ8/8
- Wb0AKsKVn3FTsnrb0Cnqd9xyEazi5oj/bH1XYOdkj8zhFZVTHyVHv93xd5dZCJK13gm29bCW4bp
- Q87clnfv4YOKl3yG99HanLgIFD7joeeSXa3540pceaj41vbFWMqwT1Qz2gGEk3/2wlRq9BJMAMI
- hM4IGPwZCIhJv0ZXg6R28vxe6f5zblsiBYoO0y9CHo91iCHEXkN/1vjtg6Egyjf/ukukf8i3RlH
- Dl3D06nLEpC4aRzSWq
-X-Google-Smtp-Source: AGHT+IG0k8GFm/GzeFNoiWTic6tM3XN6hehF7mLWcX6QsOfPfppRRO6H9eJxef5vfYTewNG17se7sA==
-X-Received: by 2002:a05:651c:545:b0:36b:4cc1:15ff with SMTP id
- 38308e7fff4ca-36b4cc116b5mr18512911fa.5.1758552201998; 
- Mon, 22 Sep 2025 07:43:21 -0700 (PDT)
-Received: from localhost.localdomain
- (broadband-109-173-93-221.ip.moscow.rt.ru. [109.173.93.221])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3673e015747sm15960611fa.62.2025.09.22.07.43.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Sep 2025 07:43:21 -0700 (PDT)
-From: Alexandr Sapozhnkiov <alsp705@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Alexandr Sapozhnikov <alsp705@gmail.com>, linux-media@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: [PATCH 5.10] gpu/i915: fix error return in mmap_offset_attach()
-Date: Mon, 22 Sep 2025 17:43:16 +0300
-Message-ID: <20250922144318.26-1-alsp705@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2200C10E70C;
+ Wed, 24 Sep 2025 12:04:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1758715489; x=1790251489;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=4k6vtQq3P3QaSxmETdTAv2+O6zcUQsJZFVL/+PumiyA=;
+ b=FO0AS8GgHlSIsjy2u/MHmog2yqFxsHnWOCWWmQnjT8gL069EOctBYms5
+ n4K5unQHZT+/5GWtIPqx26x+m3US4yEXr6XMuZU+uCgOLQ67reJ0Eb4r9
+ cBCy3f+D+nNs6+OcDl8a6lC16VCh9zDlgZmIRxRPi5/Yi5IWHIznaGFqk
+ 2bDH7G1v5+X4LnGoUazn1GAmqBzGxBA1ZDFWyi96xeHv3bx42Xgj/gjNE
+ B8lCfieFApqItxWhVTLN1C0jSkgSIPd4rOdnoZp4q7w4VCm66kFArMmTl
+ Ew8BjhCpku7ZUzDph87m96r8btr+kZjf/aXOS0n+XfY3sfqTEgfZM06fo Q==;
+X-CSE-ConnectionGUID: Ny10DVtkRUmEti47F2HP5w==
+X-CSE-MsgGUID: vXmH4KzQRTKYKQXuGLwJbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="48575561"
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="48575561"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2025 05:04:48 -0700
+X-CSE-ConnectionGUID: cEWRPV06SImWxiTms0y4EQ==
+X-CSE-MsgGUID: NJCZ5IXBRcu0/TbiXfL/Jg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="182299162"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.144])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2025 05:04:48 -0700
+Date: Wed, 24 Sep 2025 15:04:44 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 8/9] drm/i915/vrr: Clamp guardband as per hardware and
+ timing constraints
+Message-ID: <aNPeXDMHgDLzDWvD@intel.com>
+References: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
+ <20250924105129.2771196-9-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 24 Sep 2025 11:59:25 +0000
+In-Reply-To: <20250924105129.2771196-9-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,37 +73,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alexandr Sapozhnikov <alsp705@gmail.com>
+On Wed, Sep 24, 2025 at 04:21:28PM +0530, Ankit Nautiyal wrote:
+> The maximum guardband value is constrained by two factors:
+> - The actual vblank length minus set context latency (SCL)
+> - The hardware register field width:
+>   - 8 bits for ICL/TGL (VRR_CTL_PIPELINE_FULL_MASK -> max 255)
+>   - 16 bits for ADL+ (XELPD_VRR_CTL_VRR_GUARDBAND_MASK -> max 65535)
+> 
+> Remove the #FIXME and clamp the guardband to the maximum allowed value.
+> 
+> v2:
+> - Use REG_FIELD_MAX(). (Ville)
+> - Separate out functions for intel_vrr_max_guardband(),
+>   intel_vrr_max_vblank_guardband(). (Ville)
+> 
+> v3:
+> - Fix Typo: Add the missing adjusted_mode->crtc_vdisplay in guardband
+>   computation. (Ville)
+> - Refactor intel_vrr_max_hw_guardband() and use else for consistency.
+>   (Ville)
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vrr.c | 49 ++++++++++++++++++------
+>  1 file changed, 37 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index 26c5c32a9a58..e29b4050a9df 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -409,6 +409,40 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+>  	}
+>  }
+>  
+> +static int
+> +intel_vrr_max_hw_guardband(const struct intel_crtc_state *crtc_state)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc_state);
+> +	int max_pipeline_full = REG_FIELD_MAX(VRR_CTL_PIPELINE_FULL_MASK);
+> +	int max_guardband;
+> +
+> +	if (DISPLAY_VER(display) >= 13)
+> +		max_guardband = REG_FIELD_MAX(XELPD_VRR_CTL_VRR_GUARDBAND_MASK);
+> +	else
+> +		max_guardband = intel_vrr_pipeline_full_to_guardband(crtc_state,
+> +								     max_pipeline_full);
+> +	return max_guardband;
 
-Return value of function 'drm_vma_node_allow', called 
-at i915_gem_mman.c:670, is not checked, but it is usually 
-checked for this function
+The 'max_guardband' variable looks useless here, could just return
+directly from both sides of the if-else.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-Signed-off-by: Alexandr Sapozhnikov <alsp705@gmail.com>
+'max_pipeline_full' is perhaps redundant too, but I suppose the
+line would get pretty long without it. So maybe it makes sense to keep
+it.
 
----
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+> +}
+> +
+> +static int
+> +intel_vrr_max_vblank_guardband(const struct intel_crtc_state *crtc_state)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc_state);
+> +	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+> +
+> +	return crtc_state->vrr.vmin -
+> +	       adjusted_mode->crtc_vdisplay -
+> +	       crtc_state->set_context_latency -
+> +	       intel_vrr_extra_vblank_delay(display);
+> +}
+> +
+> +static int
+> +intel_vrr_max_guardband(struct intel_crtc_state *crtc_state)
+> +{
+> +	return min(intel_vrr_max_hw_guardband(crtc_state),
+> +		   intel_vrr_max_vblank_guardband(crtc_state));
+> +}
+> +
+>  void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state)
+>  {
+>  	struct intel_display *display = to_intel_display(crtc_state);
+> @@ -417,22 +451,13 @@ void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state)
+>  	if (!intel_vrr_possible(crtc_state))
+>  		return;
+>  
+> -	crtc_state->vrr.guardband =
+> -		crtc_state->vrr.vmin -
+> -		adjusted_mode->crtc_vdisplay -
+> -		crtc_state->set_context_latency -
+> -		intel_vrr_extra_vblank_delay(display);
+> -
+> -	if (DISPLAY_VER(display) < 13) {
+> -		/* FIXME handle the limit in a proper way */
+> -		crtc_state->vrr.guardband =
+> -			min(crtc_state->vrr.guardband,
+> -			    intel_vrr_pipeline_full_to_guardband(crtc_state, 255));
+> +	crtc_state->vrr.guardband = min(crtc_state->vrr.vmin - adjusted_mode->crtc_vdisplay,
+> +					intel_vrr_max_guardband(crtc_state));
+>  
+> +	if (DISPLAY_VER(display) < 13)
+>  		crtc_state->vrr.pipeline_full =
+>  			intel_vrr_guardband_to_pipeline_full(crtc_state,
+>  							     crtc_state->vrr.guardband);
+> -	}
+>  }
+>  
+>  static u32 trans_vrr_ctl(const struct intel_crtc_state *crtc_state)
+> -- 
+> 2.45.2
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index a2195e28b625..adaef8f09d59 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -706,8 +706,11 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
- 	mmo = insert_mmo(obj, mmo);
- 	GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
- out:
--	if (file)
--		drm_vma_node_allow_once(&mmo->vma_node, file);
-+	if (file) {
-+		err = drm_vma_node_allow_once(&mmo->vma_node, file);
-+		if (err)
-+			goto err;
-+	}
- 	return mmo;
- 
- err:
 -- 
-2.43.0
-
+Ville Syrjälä
+Intel
