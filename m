@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3A4BCAC5B5
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96E45CAC5B6
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:05:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E243610E6FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8AB510E6EF;
 	Wed, 24 Sep 2025 11:05:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jdhAKhNC";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HsdeZQ8+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3BFE810E6EF;
- Wed, 24 Sep 2025 11:05:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DD2310E6F8;
+ Wed, 24 Sep 2025 11:05:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758711935; x=1790247935;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=sYx9RUdDxSk/iOMFvHRtPy/Dphh9EPsESQkYsd9kNG4=;
- b=jdhAKhNCoef8O/N2AL7Ubp4Nh2bXsZvYHWCID6LyksH9DWuBkaxHczlN
- HPxNHnPuI0UbCbYYuHzITkEXc8HW4x6bMEa9x0mAcIuBQ3K1Rvea9WmdX
- FieFtzXS4j9q/H/CD6/tvIdo4RsXPLItyl9soYEr/20pXG/SxiDQn0Qzf
- 4cx1mPy6PbjTgcBZSrfwtSwofYfwdHODxriv50EBPHWDcrwfhQu3kSO+X
- KzpV3zRoeff/uVycltm0S2b9CUl2bxogoPmTcWW0Z3Ji2iL7V2LoHppHr
- IcsSxjVVgPAEMejqDcbsogdNsox+KLi7g9BYOaZhN1u9tlWKnRhFNpFpr Q==;
-X-CSE-ConnectionGUID: D0VEAzPMT5SbWIOdP4UHpA==
-X-CSE-MsgGUID: mT7SuXAxRO6BtRJqRxsYdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="71247823"
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="71247823"
+ t=1758711936; x=1790247936;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=D6ej1g4+hfLaQpw9i6oGqhLKpGIZyAqdvTn1MogOrPo=;
+ b=HsdeZQ8+wmcumRAtDO1tE2GAZe6rC2GYAiKaERVMKFCUvrJKbNsQJXiD
+ k+VpPx46l8Pdzj4gi//RQn/Dfp/sMYFBwHPzt5bGQQZPi81LGsj7+iwzC
+ RihsdlCrcNCqMUEF1My38I1256RrTGS2Vl/KQr1qQioiYU0L2G5kuQRiZ
+ 8OVsIwVVb3Lu5YQRF6NN9MDPwEHf4m8O74KBtYANmmtSru/hDabw25GNg
+ mMsfEdYiak6nVFb76Salya0tmC/Y4tSXdFkLItCEYz1FmyQ/4j1eEMEis
+ +ZdDfPPml0hrhTMKO6fd2Ed4mXcuKt3CThjv6t9azgVo0xFAp3OBbiYJm w==;
+X-CSE-ConnectionGUID: 6BxIMT3sR1myGdUCQ1CLlQ==
+X-CSE-MsgGUID: jgJhEI7iQbSnoqtXllSXeQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="71247832"
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="71247832"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:04:52 -0700
-X-CSE-ConnectionGUID: hWI62uNaTEi8b9ytBW30uw==
-X-CSE-MsgGUID: 5LFpjjzQSAS/+5DgE75rpA==
+ 24 Sep 2025 04:04:59 -0700
+X-CSE-ConnectionGUID: 5suQyyIITo+kE1xKUAuEFQ==
+X-CSE-MsgGUID: 0hKeTm/eQ9GW69FvGsUUSg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="176944076"
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="176944096"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:04:49 -0700
+ 24 Sep 2025 04:04:58 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 0/9] Introduce set_context_latency and refactor VRR/DSB timing
- logic
-Date: Wed, 24 Sep 2025 16:21:20 +0530
-Message-ID: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 5/9] drm/i915/dsb:
+ s/intel_dsb_wait_vblank_delay/intel_dsb_wait_for_delayed_vblank
+Date: Wed, 24 Sep 2025 16:21:25 +0530
+Message-ID: <20250924105129.2771196-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
+References: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -68,62 +70,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This patch series refactors VRR and DSB timing logic by introducing
-explicit handling of Set Context Latency (SCL) the number of lines required
-before double buffering to safely program display registers, aka W2 Window.
+The helper intel_dsb_wait_vblank_delay() is used in DSB to wait for the
+delayed vblank after the send push operation. Rename it to
+intel_dsb_wait_for_delayed_vblank() to align with the semantics.
 
-Previously, SCL was handled implicitly via vblank delay calculations. This
-was a hinderance for later work to optimize guardband length. This series
-formalizes SCL as `set_context_latency` in `intel_crtc_state`, enabling
-consistent tracking and timing/delay computation across platforms.
+v2: Rename to intel_dsb_wait_vblank_delay instead of the proposed SCL
+semantics, as this will be ot only about SCL lines with different timing
+generator and different refresh rate modes. (Ville)
 
-- Introduces `set_context_latency` to track SCL explicitly.
-- Refactors VRR evasion and DSB wait logic to use SCL directly.
-- Clamps guardband values based on hardware limits and timing constraints.
-- Renames helpers for clarity and removes legacy delay logic.
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_color.c   | 2 +-
+ drivers/gpu/drm/i915/display/intel_display.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_dsb.c     | 4 ++--
+ drivers/gpu/drm/i915/display/intel_dsb.h     | 4 ++--
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-Rev2: Address comments from Ville:
-- Handle SCL for TGL better and meld patch with previous patch.
-- Drop patch to use set context latency in evasion logic.
-- Add patch to introduce REG_FIELD_MAX based on FIELD_MAX.
-- Added new helper to wait for SCL start and end lines.
-- Other minor refactoring suggested in comments.
-
-Rev3:
-- Drop patch to rename vrr_vblank_delay and instead add a patch to
-  replace it directly with crtc_state->set_context_latency. (Ville)
-- Fix few places where adjusted_mode->crtc_vdisplay was missed. (Ville)
-- Minor refactoring to make the helpers consistent with other parts.
-
-Ankit Nautiyal (9):
-  drm/i915/psr:
-    s/intel_psr_min_vblank_delay/intel_psr_min_set_context_latency
-  drm/i915/display: Add set_context_latency to crtc_state
-  drm/i915/vrr: Use set_context_latency instead of
-    intel_vrr_real_vblank_delay()
-  drm/i915/vrr: Use SCL for computing guardband
-  drm/i915/dsb:
-    s/intel_dsb_wait_vblank_delay/intel_dsb_wait_for_delayed_vblank
-  drm/i915/display: Wait for scl start instead of dsb_wait_vblanks
-  drm/i915/reg_defs: Add REG_FIELD_MAX wrapper for FIELD_MAX()
-  drm/i915/vrr: Clamp guardband as per hardware and timing constraints
-  drm/i915/display: Drop intel_vrr_vblank_delay and use
-    set_context_latency
-
- drivers/gpu/drm/i915/display/intel_color.c    |  2 +-
- .../drm/i915/display/intel_crtc_state_dump.c  |  5 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 58 +++++++++----
- .../drm/i915/display/intel_display_types.h    |  3 +
- drivers/gpu/drm/i915/display/intel_dsb.c      | 24 +++++-
- drivers/gpu/drm/i915/display/intel_dsb.h      |  4 +-
- drivers/gpu/drm/i915/display/intel_psr.c      |  6 +-
- drivers/gpu/drm/i915/display/intel_psr.h      |  2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_vrr.c      | 86 +++++++++++++------
- drivers/gpu/drm/i915/display/intel_vrr.h      |  3 +-
- drivers/gpu/drm/i915/i915_reg_defs.h          | 10 +++
- 12 files changed, 143 insertions(+), 62 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
+index 671db6926e4c..51db70d07fae 100644
+--- a/drivers/gpu/drm/i915/display/intel_color.c
++++ b/drivers/gpu/drm/i915/display/intel_color.c
+@@ -2013,7 +2013,7 @@ void intel_color_prepare_commit(struct intel_atomic_state *state,
+ 
+ 	if (crtc_state->use_dsb && intel_color_uses_chained_dsb(crtc_state)) {
+ 		intel_vrr_send_push(crtc_state->dsb_color, crtc_state);
+-		intel_dsb_wait_vblank_delay(state, crtc_state->dsb_color);
++		intel_dsb_wait_for_delayed_vblank(state, crtc_state->dsb_color);
+ 		intel_vrr_check_push_sent(crtc_state->dsb_color, crtc_state);
+ 		intel_dsb_interrupt(crtc_state->dsb_color);
+ 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 050b6849dedc..b57efd870774 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -7271,7 +7271,7 @@ static void intel_atomic_dsb_finish(struct intel_atomic_state *state,
+ 		intel_dsb_wait_vblanks(new_crtc_state->dsb_commit, 1);
+ 
+ 		intel_vrr_send_push(new_crtc_state->dsb_commit, new_crtc_state);
+-		intel_dsb_wait_vblank_delay(state, new_crtc_state->dsb_commit);
++		intel_dsb_wait_for_delayed_vblank(state, new_crtc_state->dsb_commit);
+ 		intel_vrr_check_push_sent(new_crtc_state->dsb_commit,
+ 					  new_crtc_state);
+ 		intel_dsb_interrupt(new_crtc_state->dsb_commit);
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index dee44d45b668..135d40852e4c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -815,8 +815,8 @@ void intel_dsb_chain(struct intel_atomic_state *state,
+ 			 wait_for_vblank ? DSB_WAIT_FOR_VBLANK : 0);
+ }
+ 
+-void intel_dsb_wait_vblank_delay(struct intel_atomic_state *state,
+-				 struct intel_dsb *dsb)
++void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
++				       struct intel_dsb *dsb)
+ {
+ 	struct intel_crtc *crtc = dsb->crtc;
+ 	const struct intel_crtc_state *crtc_state =
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.h b/drivers/gpu/drm/i915/display/intel_dsb.h
+index c8f4499916eb..2f31f2c1d0c5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.h
++++ b/drivers/gpu/drm/i915/display/intel_dsb.h
+@@ -48,8 +48,8 @@ void intel_dsb_nonpost_end(struct intel_dsb *dsb);
+ void intel_dsb_interrupt(struct intel_dsb *dsb);
+ void intel_dsb_wait_usec(struct intel_dsb *dsb, int count);
+ void intel_dsb_wait_vblanks(struct intel_dsb *dsb, int count);
+-void intel_dsb_wait_vblank_delay(struct intel_atomic_state *state,
+-				 struct intel_dsb *dsb);
++void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
++				       struct intel_dsb *dsb);
+ void intel_dsb_wait_scanline_in(struct intel_atomic_state *state,
+ 				struct intel_dsb *dsb,
+ 				int lower, int upper);
 -- 
 2.45.2
 
