@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80ECFCAC5B0
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93786CAC5B3
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:59:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1913610E6ED;
-	Wed, 24 Sep 2025 11:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FFFA897AC;
+	Wed, 24 Sep 2025 11:59:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MreSzpgt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MbSkcM9K";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED9E10E09A
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 19:51:06 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-25669596955so53625815ad.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Sep 2025 12:51:06 -0700 (PDT)
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com
+ [209.85.167.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A55D10E6FD
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 11:32:00 +0000 (UTC)
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-57b8fc6097fso4681783e87.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 24 Sep 2025 04:32:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1758657066; x=1759261866; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4ehAB6FDec8ZClTzkqi6qQhO0SFHIZCiWE6qrwdH3NY=;
- b=MreSzpgtjm1rBlcAuqvo2rpai+OpXwVmDpPeNmpvMiqnuFJUPtzeaHDpBtNbg5qk5F
- vC4RomxV5ygEyXL9fO4D2Wj2fRwQ5nZ7skLf8gY/f3jiteOkAqe4tpSbcPf+qP3Rtflv
- 2kT2++0I9BtlI+pYA7gwUG5+4XvCyJ7xtByusPCRUmzJHbKwE6yiYjNf9/9rFhfc8RWK
- bumPf++kcHKmMJU1ABVBO9oE6UomaS66O5Oyog3DMyt9wWayGfSlPXrP28yrQFmkgeh4
- WLFgu4A39Tdt3fvgOC2h3ECfsyQJfuDeMkEFAzjl4O0BoC6APqNQ5+I9Ar6taMBEIzJf
- UxYg==
+ d=gmail.com; s=20230601; t=1758713518; x=1759318318; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=oys5quViuvxnIqAu3kdxxzwNACJdrE+Sn1HRv1hkjcM=;
+ b=MbSkcM9KnZHyajxwc+lv6zDn3fXmKJROEm7djeLCNeJvDwIoHjgTjxmCc3gYOKk+Pt
+ jkjmdsQt3iYpkC3wtWXC6ilrTRyTRbxgH/eFzv35cA2nbTqKy4XkYX3XamAr2p1s9m9c
+ DNdpYiHOVy24bIT2mLI46NGUZftYK61EHXPdO1In6EOMxzTbbLYYXSHtTjaszpuDVJ76
+ lQfHDq9oM6cp9XJpJQxJrCMJvinFioqosYcTB7taioczooMvL/x7zrV7yLhIt9V1zjVA
+ 05cHPE4KrkwE1EV4siuB14JYBmxzh9z1++Gxye++72l01sGKWh+bEsUgt1ergydplq/5
+ DSpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1758657066; x=1759261866;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ d=1e100.net; s=20230601; t=1758713518; x=1759318318;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4ehAB6FDec8ZClTzkqi6qQhO0SFHIZCiWE6qrwdH3NY=;
- b=pL5+Tt64tSRnM2D2EQkgi3+Ki42vlMa+oFKjUk5a5Fn8Z53c755uNZtql8wxIy8OC4
- L107qfQdM0VD/iTHNnpWmDh/34oTwm3qz0n5Rfi31r1z7l9LWWbtWOP0EuXyuqC8wemX
- oeGlzcQh6hL+enFSS103QVCJqa/O7BwLXRZ+gEyD5XdhE/oCeBO9M0FSid6/MQRPbj/f
- pnJD03jxKyFJ44tiWsJtChqmWjaJC1Zy43dAAmcqE7lA/g021QlLrNIf5GEnfG8v5qxA
- 3IRs6/J3NG+g+njcL31taHk4cxk9waiQBc9Q/69L8Nsd7092JBtqZaVPIt91iN1o5Pqo
- akSw==
+ bh=oys5quViuvxnIqAu3kdxxzwNACJdrE+Sn1HRv1hkjcM=;
+ b=Qp67QmVGxdwuImXfTMvcrbN8ET2qF8UrhJEQF1uOq2PecM4Mvw52HiTBeKPxh+7QRW
+ QEpm0dbvhiJlru/ojvZCgO5HG72zYjDLAAWKxcor7vfsXGIys6a1gHUs8vemXbjwMGx9
+ 0gxJuQWEmrhUdA9PWlBoj87bxdth2EqaROGAOIH5kBmVm6yzrv250Ac63+nKoW58aDcQ
+ xHaX54OxqV32umSLUf7mQl3GmaCSjYVmUcZ/nQmarq7smO++e+uomKZwlrpP0NCWrkpa
+ M/lNGmfFDKbCkuT54EGlcI90WmcumFcWRaqlouX1tEJXHOY9NMWurOye4MtavlhLzyaR
+ S0ew==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXFFay6SOSCrPr85ZffybsFRFM1/QJByT2fSOEaIp6VgFJz47J+dfsnPCmIR2YiMXpKxy3MWd396Ss=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDkJciGZ4UNxWIUsSaybQwMdJJtFa3Dqx4W4+xxTzOiSCk9WO+
- s3K5dn4dscEelV7NA4kFnufLDJi7LmafXs/F6LcKpGLBBOEJ9HOZ1kRJ
-X-Gm-Gg: ASbGncsO85p8Lb8L2qfVl81Hp9LGxPYxlF9gCBRxf+LTt9cEbSpbYQXAHU+Ti3J8GTB
- E3bAzqHxozbHKq3wDE4QCzSm0BxsUQcdsDY/YVgNKPwmWFdpEkokLsrDTXAUIzz3Sts+u1X2U6h
- J4oVDNi+wO/xD5cGuwuyGM4FhgXdE6F8ffu5T9GTaD+o+r6Ue0S750qlknbGLLv8PJF5TK2VdCp
- SxPWZA/kQ46ze+TmZOJS8FaGjXgL3amWI91QFGYfUUAJ4zVwaalBKE5dZdkRcUNbNgG0KgKyy6+
- 4FPF8DhNHr0OyPiXSieyr7LR6QLXruhnUg9Q5NuW3qEqSB+w3t1nXB00YQwqZA2Hw8jZniYVyF3
- 8j/1kTvznTkwwR7i8Yh8SYjDa
-X-Google-Smtp-Source: AGHT+IEv/yGGrlpOdfY2cliSiBhQF6mMtksTl6D3DmZd+ZV/JQOSaJhhtwrh4WbSv9rczttlYVIw7Q==
-X-Received: by 2002:a17:902:ce81:b0:276:9863:44da with SMTP id
- d9443c01a7336-27cc1570dffmr41713785ad.8.1758657065909; 
- Tue, 23 Sep 2025 12:51:05 -0700 (PDT)
-Received: from archlinux ([36.255.84.56]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2698018d0fasm170974755ad.60.2025.09.23.12.51.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Sep 2025 12:51:05 -0700 (PDT)
-From: Madhur Kumar <madhurkumar004@gmail.com>
-To: jani.nikula@linux.intel.com
-Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Madhur Kumar <madhurkumar004@gmail.com>
-Subject: [PATCH] drm/i915: i915_pmu: Use sysfs_emit() instead of sprintf()
-Date: Wed, 24 Sep 2025 01:20:51 +0530
-Message-ID: <20250923195051.1277855-1-madhurkumar004@gmail.com>
-X-Mailer: git-send-email 2.51.0
+ AJvYcCVi6f6HY8DAiDFPHktUccR0wldCqM5ug/xB+DjjOurjUue4gyHZeZhaoKG/8Sn+XoQLVi1TpoyzC1Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxer2AqKp1+3inPbiGEewQA2WVSImwNnK4Ulu0Xe7bmsprTOwC4
+ g9rfx9xCXXIfHlG1cjt8nVpeNMJQg5eBgWTrogR50/WHKrxujbFdlc+wJMi2vMc6SxHVAO9EBvz
+ yVtzUXPuq9NmfvCL5s0Kt9N75mUlbCnA=
+X-Gm-Gg: ASbGncsWurpY/WiiiYpIJBcKUNe6NbPCJsnlnmO6DbGpu8n4cTF4gH/8tvDQLakrTtc
+ gVYi0DR/84+kze7PIov7uWLLgdDbQySKVx0uTfR1wnwHj5VBxOtkHtlYZVJA4lMz5NRkgP/scrf
+ 2jkYNoeMJpWsy1YkBext6/rK3idpMExbHGm8/UVIBZXI8aV08YGb/ZxZfkgMHMC7rl7bkxr2gOi
+ M8pFh6jTA==
+X-Google-Smtp-Source: AGHT+IFGnbNF6xl8QU22wCnMf96OW2rC6BZjViEKQCcCI330JERQpjmk7Y1WkyWLksH37yb1r23D9aqtqoBYjtk78lA=
+X-Received: by 2002:a05:6512:602:10b0:57c:2474:3733 with SMTP id
+ 2adb3069b0e04-58072efee51mr1942468e87.42.1758713517949; Wed, 24 Sep 2025
+ 04:31:57 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20250922144318.26-1-alsp705@gmail.com>
+ <4u27n4orhmm4fn6xpxbdayqj3fz22lw3il7wjhtif5fjdyitps@d6i6i52giy4j>
+In-Reply-To: <4u27n4orhmm4fn6xpxbdayqj3fz22lw3il7wjhtif5fjdyitps@d6i6i52giy4j>
+From: =?UTF-8?B?0JDQu9C10LrRgdCw0L3QtNGAIEM=?= <alsp705@gmail.com>
+Date: Wed, 24 Sep 2025 14:31:46 +0300
+X-Gm-Features: AS18NWA3GcQq-PCLH7vqH8RGnqC7xHh47aSrZeZvhh0x_Jf8cuRbuDXEZZ7U7ho
+Message-ID: <CAGMq1902iw=PWd=zHjoRgRd4pF9LWTX_mccQHinFMs5W_cGvxw@mail.gmail.com>
+Subject: Re: [PATCH 5.10] gpu/i915: fix error return in mmap_offset_attach()
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, lvc-project@linuxtesting.org
+Content-Type: multipart/alternative; boundary="0000000000007fc8f2063f8a66bc"
 X-Mailman-Approved-At: Wed, 24 Sep 2025 11:59:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,37 +89,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Follow the advice in Documentation/filesystems/sysfs.rst:
-show() should only use sysfs_emit() or sysfs_emit_at() when formatting
-the value to be returned to user space.
+--0000000000007fc8f2063f8a66bc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Madhur Kumar <madhurkumar004@gmail.com>
----
- drivers/gpu/drm/i915/i915_pmu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hi Krzysztof Karas,
 
-diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 5bc696bfbb0f..d8f69bba79a9 100644
---- a/drivers/gpu/drm/i915/i915_pmu.c
-+++ b/drivers/gpu/drm/i915/i915_pmu.c
-@@ -895,7 +895,7 @@ static ssize_t i915_pmu_format_show(struct device *dev,
- 	struct i915_str_attribute *eattr;
- 
- 	eattr = container_of(attr, struct i915_str_attribute, attr);
--	return sprintf(buf, "%s\n", eattr->str);
-+	return sysfs_emit(buf, "%s\n", eattr->str);
- }
- 
- #define I915_PMU_FORMAT_ATTR(_name, _config) \
-@@ -925,7 +925,7 @@ static ssize_t i915_pmu_event_show(struct device *dev,
- 	struct i915_ext_attribute *eattr;
- 
- 	eattr = container_of(attr, struct i915_ext_attribute, attr);
--	return sprintf(buf, "config=0x%lx\n", eattr->val);
-+	return sysfs_emit(buf, "config=0x%lx\n", eattr->val);
- }
- 
- #define __event(__counter, __name, __unit) \
--- 
-2.51.0
+Ignored (unchecked) return values from functions that can fail.
+While a single unchecked return may look harmless, in aggregate they create
+a broad
+attack surface =E2=80=94 a latent, easily-exploitable category of vulnerabi=
+lities
+that can lead to data corruption,
+denial-of-service, or privilege escalation when error conditions are hit in
+the field.
 
+Counter example:  /drivers/gpu/drm/drm_prime.c:748:
+ret =3D drm_vma_node_allow(&obj->vma_node, priv);
+    if (ret)
+        goto out;
+
+Counter example:  /drivers/gpu/drm/drm_gem.c:387:
+ret =3D drm_vma_node_allow(&obj->vma_node, file_priv);
+    if (ret)
+        goto err_remove;
+
+Best Regards,
+Alexandr
+
+=D0=B2=D1=82, 23 =D1=81=D0=B5=D0=BD=D1=82. 2025=E2=80=AF=D0=B3. =D0=B2 12:0=
+7, Krzysztof Karas <krzysztof.karas@intel.com>:
+
+> Hi Alexandr,
+>
+> > Return value of function 'drm_vma_node_allow', called
+> > at i915_gem_mman.c:670, is not checked, but it is usually
+> > checked for this function
+> Grepping for this function in the repo tells me this is currently
+> the only place we call it. I'd rephrase the commit message to focus
+> only on missing return code.
+>
+> After that:
+> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> --
+> Best Regards,
+> Krzysztof
+>
+
+--0000000000007fc8f2063f8a66bc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><div>Hi Krzysztof Karas,</div><br><div>
+<div>Ignored (unchecked) return values from functions that can fail.=C2=A0<=
+br>While a single unchecked return may look harmless, in aggregate they cre=
+ate a broad <br>attack surface =E2=80=94 a latent, easily-exploitable categ=
+ory of vulnerabilities that can lead to data corruption, <br>denial-of-serv=
+ice, or privilege escalation when error conditions are hit in the field.<br=
+><br></div>
+
+Counter example:=C2=A0
+/drivers/gpu/drm/drm_prime.c:748:<br>
+<div style=3D"color:rgb(212,212,212);background-color:rgb(47,52,60);font-fa=
+mily:Consolas,&quot;Courier New&quot;,monospace;font-weight:normal;font-siz=
+e:12px;line-height:16px;white-space:pre"><div><span style=3D"color:rgb(212,=
+212,212)">ret </span><span style=3D"color:rgb(220,220,220)">=3D</span><span=
+ style=3D"color:rgb(212,212,212)"> drm_vma_node_allow</span><span style=3D"=
+color:rgb(220,220,220)">(&amp;</span><span style=3D"color:rgb(212,212,212)"=
+>obj-&gt;vma_node</span><span style=3D"color:rgb(220,220,220)">,</span><spa=
+n style=3D"color:rgb(212,212,212)"> priv</span><span style=3D"color:rgb(220=
+,220,220)">);</span></div><div><span style=3D"color:rgb(212,212,212)">=C2=
+=A0 =C2=A0 </span><span style=3D"color:rgb(86,156,214)">if</span><span styl=
+e=3D"color:rgb(212,212,212)"> </span><span style=3D"color:rgb(220,220,220)"=
+>(</span><span style=3D"color:rgb(212,212,212)">ret</span><span style=3D"co=
+lor:rgb(220,220,220)">)</span></div><div><span style=3D"color:rgb(212,212,2=
+12)">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color:rgb(86,156,214=
+)">goto</span><span style=3D"color:rgb(212,212,212)"> out</span><span style=
+=3D"color:rgb(220,220,220)">;</span></div></div><br>Counter example:=C2=A0 =
+/drivers/gpu/drm/drm_gem.c:387:<br>
+<div style=3D"color:rgb(212,212,212);background-color:rgb(47,52,60);font-fa=
+mily:Consolas,&quot;Courier New&quot;,monospace;font-weight:normal;font-siz=
+e:12px;line-height:16px;white-space:pre"><div><span style=3D"color:rgb(212,=
+212,212)">ret </span><span style=3D"color:rgb(220,220,220)">=3D</span><span=
+ style=3D"color:rgb(212,212,212)"> drm_vma_node_allow</span><span style=3D"=
+color:rgb(220,220,220)">(&amp;</span><span style=3D"color:rgb(212,212,212)"=
+>obj-&gt;vma_node</span><span style=3D"color:rgb(220,220,220)">,</span><spa=
+n style=3D"color:rgb(212,212,212)"> file_priv</span><span style=3D"color:rg=
+b(220,220,220)">);</span></div><div><span style=3D"color:rgb(212,212,212)">=
+=C2=A0 =C2=A0 </span><span style=3D"color:rgb(86,156,214)">if</span><span s=
+tyle=3D"color:rgb(212,212,212)"> </span><span style=3D"color:rgb(220,220,22=
+0)">(</span><span style=3D"color:rgb(212,212,212)">ret</span><span style=3D=
+"color:rgb(220,220,220)">)</span></div><div><span style=3D"color:rgb(212,21=
+2,212)">=C2=A0 =C2=A0 =C2=A0 =C2=A0 </span><span style=3D"color:rgb(86,156,=
+214)">goto</span><span style=3D"color:rgb(212,212,212)"> err_remove</span><=
+span style=3D"color:rgb(220,220,220)">;</span></div></div><br></div>Best Re=
+gards,<br></div>Alexandr</div><br><div class=3D"gmail_quote gmail_quote_con=
+tainer"><div dir=3D"ltr" class=3D"gmail_attr">=D0=B2=D1=82, 23 =D1=81=D0=B5=
+=D0=BD=D1=82. 2025=E2=80=AF=D0=B3. =D0=B2 12:07, Krzysztof Karas &lt;<a hre=
+f=3D"mailto:krzysztof.karas@intel.com">krzysztof.karas@intel.com</a>&gt;:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi Alexandr,<br>
+<br>
+&gt; Return value of function &#39;drm_vma_node_allow&#39;, called <br>
+&gt; at i915_gem_mman.c:670, is not checked, but it is usually <br>
+&gt; checked for this function<br>
+Grepping for this function in the repo tells me this is currently<br>
+the only place we call it. I&#39;d rephrase the commit message to focus<br>
+only on missing return code.<br>
+<br>
+After that:<br>
+Reviewed-by: Krzysztof Karas &lt;<a href=3D"mailto:krzysztof.karas@intel.co=
+m" target=3D"_blank">krzysztof.karas@intel.com</a>&gt;<br>
+-- <br>
+Best Regards,<br>
+Krzysztof<br>
+</blockquote></div>
+
+--0000000000007fc8f2063f8a66bc--
