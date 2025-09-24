@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77A54CAC5B8
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:05:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26E27CAC5B3
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Sep 2025 11:05:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17E4F10E6FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DEDF10E6FF;
 	Wed, 24 Sep 2025 11:05:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PgK8FKl8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CIoxUC5/";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3880F10E6EF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56D1D10E6F7;
  Wed, 24 Sep 2025 11:05:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1758711936; x=1790247936;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lh3QJHP2jWHhc1bIL9JixSRJMkgsHgZWmGQ6eCeuVy0=;
- b=PgK8FKl8z+qNX0FrrjSUTGZZ3TBfEf8ZbmQDi6a86bXJSYTwgaVMIhPh
- AQmFl1W3oTquw8tm2kmAZc6gZvYMzdGU5Wj0V1Yip1ct9vOYriDyf+Y+g
- g8M8OORj4Y+r3jc9baCyi+aTPP2quEo6xYEeGeBSze6TPIH2seCHfWsqf
- y/rI+tV9Dek5gkURpfz0DGkY8ROPDmrcVcaS8hW9b8AQ5Ef9Du6QIHyw2
- eT+Nfa+nZvAPtk1ZQCfNwdDxDLj28FDjjAa6A7qWsR61i2tjZmMLuhbbz
- rc0xE/Ts5N8nIAzPHjtTW1kHgBoEnkydB9a+UNGeITxhHzzGHIWgH/dNj w==;
-X-CSE-ConnectionGUID: 6l5MhtEBSuqEgzM0OC9Rvw==
-X-CSE-MsgGUID: iu9C/FZET16TBTL4uaQYEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="71247830"
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="71247830"
+ bh=HQ3r3+92Iz5pmDZCx7QAXyrZKt+4raBScTmv8qSFf8s=;
+ b=CIoxUC5/113ujQCWiSBUrmp6EMDf2yC42PD1N4hD+0rk5ZM9xZh72rzf
+ OkINti16VZLvf+7VThBebnLItYVHF+yqMTwVsd13GYLk24ZPG83WiG/61
+ hV3Dm6wMl0OXt4UwD8rnzP1jyqdnIZ6Wvr3SR9NxgxEny1Wy5mZX/RkGz
+ y8Ha+iPpafhDAy5h4BYsqRuYfX3HSYv4OT+6xmBxgIbjWTmNSB6Pe25BR
+ 9Xj7yeJSg4F6JJmDGEirN/A+k0Ijg5IP2l/+MwDbsAfVuLPuJ+Aqc4orV
+ gdp7dJFxHxTjz6H8uQTdpkVnCkSPtJunaqcLDwpOYcCYRDXwtrs1trd31 w==;
+X-CSE-ConnectionGUID: SheSKxAtRMGb4JuDlpzHmw==
+X-CSE-MsgGUID: XWOUzmVjSpeUKXp9+2W08A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11561"; a="71247833"
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="71247833"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:04:57 -0700
-X-CSE-ConnectionGUID: jpfontqCRnuiEnyiu0lCVw==
-X-CSE-MsgGUID: bRCdBFVsT2aZEFDDIBaVKQ==
+ 24 Sep 2025 04:05:01 -0700
+X-CSE-ConnectionGUID: G+cXQflUSP+W/hvLHECvXA==
+X-CSE-MsgGUID: Qq/8t4GfSdKuf1JVtO6P2A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="176944092"
+X-IronPort-AV: E=Sophos;i="6.18,290,1751266800"; d="scan'208";a="176944102"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2025 04:04:56 -0700
+ 24 Sep 2025 04:04:59 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 4/9] drm/i915/vrr: Use SCL for computing guardband
-Date: Wed, 24 Sep 2025 16:21:24 +0530
-Message-ID: <20250924105129.2771196-5-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 6/9] drm/i915/display: Wait for scl start instead of
+ dsb_wait_vblanks
+Date: Wed, 24 Sep 2025 16:21:26 +0530
+Message-ID: <20250924105129.2771196-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
 References: <20250924105129.2771196-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,44 +69,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For now guardband is equal to the vblank length so ideally it should be
-computed as difference between the vmin vtotal and vactive. However
-since we are having few lines as SCL, we need to account for this while
-computing the guardband.
+Until LNL, intel_dsb_wait_vblanks() used to wait for the undelayed vblank
+start. However, from PTL onwards, it waits for the start of the
+safe-window defined by the number of lines programmed in the register
+TRANS_SET_CONTEXT_LATENCY. This change was introduced to move the SCL
+window out of the vblank region, supporting modes with higher refresh
+rates and smaller vblanks. This change introduces a "safe window" a
+scanline range from (undelayed vblank - SCL) to (delayed vblank - SCL).
 
-Since the vblank start is moved by SCL lines from the vactive, the delta
-between the vmin vtotal and new vblank start was used to account for this.
-Now that SCL is explicitly tracked using the `set_context_latency` member,
-use it directly in the guardband calculation.
+As a result, on PTL+ platforms, the DSB wait for vblank completes exactly
+SCL lines earlier than the undelayed vblank start (safe window start).
+If the flip occurs in the active region and the push happens before the
+vmin decision boundary, the DSB wait fires early, and the push is sent
+inside this safe window. In such cases, the push bit is cleared at the
+delayed vblank, but our wait logic does not account for the early trigger,
+leading to DSB poll errors.
 
-In the future, when the guardband is shortened or optimized, we may need
-to factor in both the change in the vblank start and SCL lines. For now,
-explicitly accounting for SCL is sufficient.
+To fix this, we add an explicit wait for the end of the safe window i.e.,
+the scanline range from (undelayed vblank - SCL) to (delayed vblank - SCL).
+Once past this window, we are exactly SCL lines away from the delayed
+vblank, and our existing wait logic works as intended.
 
-v2: Fix typo: replace adjusted_mode->vdisplay with
-adjusted_mode->crtc_vdisplay. (Ville)
+This additional wait is only effective if the push occurs before the vmin
+decision boundary. If the push happens after the boundary, the hardware
+already guarantees we're SCL lines away from the delayed vblank, and the
+extra wait becomes a no-op.
+
+v2:
+- Use helpers for safe window start/end. (Ville)
+- Move the extra wait inside the helper to wait for delayed vblank. (Ville)
+- Update the commit message.
+
+v3:
+- Add more documentation for explanation for the wait. (Ville)
+- Rename intel_vrr_vmin_safe_window_start/end as this is vmin safe
+  window. (Ville)
+- Minor refactoring to align with the code. (Ville)
+- Update the commit message for more clarity.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dsb.c | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.c | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h |  2 ++
+ 3 files changed, 35 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
+index 135d40852e4c..3cb4c9be146f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dsb.c
++++ b/drivers/gpu/drm/i915/display/intel_dsb.c
+@@ -824,6 +824,22 @@ void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
+ 	int usecs = intel_scanlines_to_usecs(&crtc_state->hw.adjusted_mode,
+ 					     dsb_vblank_delay(state, crtc));
+ 
++	/*
++	 * If the push happened before the vmin decision boundary
++	 * we don't know how far we are from the undelayed vblank.
++	 * Wait until we're past the vmin safe window, at which
++	 * point we're SCL lines away from the delayed vblank.
++	 *
++	 * If the push happened after the vmin decision boundary
++	 * the hardware itself guarantees that we're SCL lines
++	 * away from the delayed vblank, and we won't be inside
++	 * the vmin safe window so this extra wait does nothing.
++	 */
++	if (pre_commit_is_vrr_active(state, crtc))
++		intel_dsb_wait_scanline_out(state, dsb,
++					    intel_vrr_vmin_safe_window_start(crtc_state),
++					    intel_vrr_vmin_safe_window_end(crtc_state));
++
+ 	intel_dsb_wait_usec(dsb, usecs);
+ }
+ 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 698b33b5b326..1bb9db06f43d 100644
+index 1bb9db06f43d..26c5c32a9a58 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -418,7 +418,9 @@ void intel_vrr_compute_config_late(struct intel_crtc_state *crtc_state)
- 		return;
+@@ -800,3 +800,20 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+ 	if (crtc_state->vrr.enable)
+ 		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+ }
++
++int intel_vrr_vmin_safe_window_start(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++
++	if (DISPLAY_VER(display) >= 30)
++		return crtc_state->hw.adjusted_mode.crtc_vdisplay -
++		       crtc_state->set_context_latency;
++	else
++		return crtc_state->hw.adjusted_mode.crtc_vdisplay;
++}
++
++int intel_vrr_vmin_safe_window_end(const struct intel_crtc_state *crtc_state)
++{
++	return intel_vrr_vmin_vblank_start(crtc_state) -
++	       crtc_state->set_context_latency;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index 38bf9996b883..239e4f94725c 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -41,5 +41,7 @@ void intel_vrr_transcoder_enable(const struct intel_crtc_state *crtc_state);
+ void intel_vrr_transcoder_disable(const struct intel_crtc_state *crtc_state);
+ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state);
+ bool intel_vrr_always_use_vrr_tg(struct intel_display *display);
++int intel_vrr_vmin_safe_window_start(const struct intel_crtc_state *crtc_state);
++int intel_vrr_vmin_safe_window_end(const struct intel_crtc_state *crtc_state);
  
- 	crtc_state->vrr.guardband =
--		crtc_state->vrr.vmin - adjusted_mode->crtc_vblank_start -
-+		crtc_state->vrr.vmin -
-+		adjusted_mode->crtc_vdisplay -
-+		crtc_state->set_context_latency -
- 		intel_vrr_extra_vblank_delay(display);
- 
- 	if (DISPLAY_VER(display) < 13) {
+ #endif /* __INTEL_VRR_H__ */
 -- 
 2.45.2
 
