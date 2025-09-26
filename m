@@ -4,49 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 546B0CAC5B9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91376CAC5BE
 	for <intel-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 11:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3EB410EA2E;
-	Fri, 26 Sep 2025 11:42:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC3410EA2F;
+	Fri, 26 Sep 2025 11:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KcFxoIdu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NeVX/5zO";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45D6510EA30;
- Fri, 26 Sep 2025 11:42:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF4110EA28;
+ Fri, 26 Sep 2025 11:42:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758886931; x=1790422931;
+ t=1758886926; x=1790422926;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CpFCNW3wFcRmk8/nyNdHq2zbvvxN39oyrW6e+BvI2I8=;
- b=KcFxoIduJGyb8iGJfIjnkJRT+lT1TU8uabTcSHT/zhj+bbSSbdCihZ+3
- vf7hbzirBxDyAa5Mc6ATuttdUhOdKYmUpikIz8Hf3BSCMLhIrSrVRvra2
- oCUcnmwMCMoU0uqD3GbSuHtW5dwOGlubG+vtX003v50sw0qWOWuQmzFh4
- rYm5nKLA6PGw9UlXAoOwc0jl80QwE0abQ0iG5oPfzfB7cQpdiQKgAjuwC
- A43FOaVl4PRFFa7KlisoDohBMbPqNS/Jfgge4aHTP1IrCpSlG5CncopHV
- TnHqAh3xJoy1I/UMLSjnecUIpSQ3ECH3uxywrgqwDRfRPWgS5ytn4OOzY g==;
-X-CSE-ConnectionGUID: khGkiRkpR5SRFELYeB9cBg==
-X-CSE-MsgGUID: rljwX/4sS0Caz57SokgoNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11564"; a="78860085"
-X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="78860085"
+ bh=wij0z5cCq4Mn0IJfZ7VFtC6ZRmJsSGki1waC9BwJLS0=;
+ b=NeVX/5zOLie4FIks9cDOa30LpiA2KALnCsDN462ZJaHvkPcLi6gN0Phv
+ oICxUYOLxxqpLsmK8iA08GSt/uZa8NmTV/g6lqdEgO//R/GiVqFsfycrI
+ 89+h56grQObl43jsmaW4iAyTHv09JABgLxx+KuZK9X6/mRM58zAoEyMMb
+ 0cmslrzgfa6IwDhSAwXQz5fWC1biGfCgIvFnEmiKZ+cESHxgCKiNAymdR
+ w0KzZSJpJpf8dQrB3mPUwLCa1fZEeT/CGyK61qO1bCiwzNeYKgpsMPIVg
+ RYaNyUZ6dVBeLFHvLYyWBEEKqGEIpdRZxlfXON1Mgrbd0G3xZJjhyjxmm Q==;
+X-CSE-ConnectionGUID: XXDWHjYyTrmRbNfQ5ND6qQ==
+X-CSE-MsgGUID: 8K400iIvQwiP9xpMoXB5fA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11564"; a="78860076"
+X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="78860076"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Sep 2025 04:42:11 -0700
-X-CSE-ConnectionGUID: j8YmxXIIRYGVcVDAyiOdqQ==
-X-CSE-MsgGUID: o91a1ksyTWqhs/LUWACWwQ==
+ 26 Sep 2025 04:42:05 -0700
+X-CSE-ConnectionGUID: xUi3w5FeRuO1tTvpRAgRWw==
+X-CSE-MsgGUID: d2Sow53qRWSkjjztXzzYbg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="176723445"
+X-IronPort-AV: E=Sophos;i="6.18,295,1751266800"; d="scan'208";a="176723385"
 Received: from nemesa.iind.intel.com ([10.190.239.22])
- by orviesa006.jf.intel.com with ESMTP; 26 Sep 2025 04:42:10 -0700
+ by orviesa006.jf.intel.com with ESMTP; 26 Sep 2025 04:42:04 -0700
 From: Nemesa Garg <nemesa.garg@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 04/10] drm/i915/display: Add filter lut values
-Date: Fri, 26 Sep 2025 17:07:22 +0530
-Message-Id: <20250926113728.606315-5-nemesa.garg@intel.com>
+Cc: Nemesa Garg <nemesa.garg@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 02/10] drm/i915/display: Introduce HAS_CASF for sharpness
+ support
+Date: Fri, 26 Sep 2025 17:07:20 +0530
+Message-Id: <20250926113728.606315-3-nemesa.garg@intel.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20250926113728.606315-1-nemesa.garg@intel.com>
 References: <20250926113728.606315-1-nemesa.garg@intel.com>
@@ -67,123 +69,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the register bits related to filter lut values.
-These values are golden values and these value has
-to be loaded one time while enabling the casf.
+Add HAS_CASF macro to check whether platform supports
+the content adaptive sharpness capability or not.
 
-v2: update commit message[Ankit]
-v3: Make filter_load fn name same[Jani]
-v4: Define the filter macros here
+v2: Update commit message[Ankit]
+v3: Remove \n from middle[Jani]
+v4: Remove the logging part
 
 Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_casf.c     | 47 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_casf.h     |  3 ++
- .../gpu/drm/i915/display/intel_casf_regs.h    | 11 +++++
- 3 files changed, 61 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_device.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_casf.c b/drivers/gpu/drm/i915/display/intel_casf.c
-index 4597e576b6dc..45bc67377d21 100644
---- a/drivers/gpu/drm/i915/display/intel_casf.c
-+++ b/drivers/gpu/drm/i915/display/intel_casf.c
-@@ -16,6 +16,13 @@
- #define MAX_PIXELS_FOR_3_TAP_FILTER (1920 * 1080)
- #define MAX_PIXELS_FOR_5_TAP_FILTER (3840 * 2160)
- 
-+#define FILTER_COEFF_0_125 125
-+#define FILTER_COEFF_0_25 250
-+#define FILTER_COEFF_0_5 500
-+#define FILTER_COEFF_1_0 1000
-+#define FILTER_COEFF_0_0 0
-+#define SET_POSITIVE_SIGN(x) ((x) & (~SIGN))
-+
- /**
-  * DOC: Content Adaptive Sharpness Filter (CASF)
-  *
-@@ -31,6 +38,46 @@
-  * original image.
-  */
- 
-+/* Default LUT values to be loaded one time. */
-+static const u16 sharpness_lut[] = {
-+	4095, 2047, 1364, 1022, 816, 678, 579,
-+	504, 444, 397, 357, 323, 293, 268, 244, 224,
-+	204, 187, 170, 154, 139, 125, 111, 98, 85,
-+	73, 60, 48, 36, 24, 12, 0
-+};
-+
-+const u16 filtercoeff_1[] = {
-+	FILTER_COEFF_0_0, FILTER_COEFF_0_0, FILTER_COEFF_0_5,
-+	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_0,
-+	FILTER_COEFF_0_0,
-+};
-+
-+const u16 filtercoeff_2[] = {
-+	FILTER_COEFF_0_0, FILTER_COEFF_0_25, FILTER_COEFF_0_5,
-+	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_25,
-+	FILTER_COEFF_0_0,
-+};
-+
-+const u16 filtercoeff_3[] = {
-+	FILTER_COEFF_0_125, FILTER_COEFF_0_25, FILTER_COEFF_0_5,
-+	FILTER_COEFF_1_0, FILTER_COEFF_0_5, FILTER_COEFF_0_25,
-+	FILTER_COEFF_0_125,
-+};
-+
-+void intel_casf_filter_lut_load(struct intel_crtc *crtc,
-+				const struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	int i;
-+
-+	intel_de_write(display, SHRPLUT_INDEX(crtc->pipe),
-+		       INDEX_AUTO_INCR | INDEX_VALUE(0));
-+
-+	for (i = 0; i < ARRAY_SIZE(sharpness_lut); i++)
-+		intel_de_write(display, SHRPLUT_DATA(crtc->pipe),
-+			       sharpness_lut[i]);
-+}
-+
- void intel_casf_update_strength(struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_casf.h b/drivers/gpu/drm/i915/display/intel_casf.h
-index 83523fe66c48..3edbc3ad51cf 100644
---- a/drivers/gpu/drm/i915/display/intel_casf.h
-+++ b/drivers/gpu/drm/i915/display/intel_casf.h
-@@ -9,9 +9,12 @@
- #include <linux/types.h>
- 
- struct intel_crtc_state;
-+struct intel_crtc;
- 
- int intel_casf_compute_config(struct intel_crtc_state *crtc_state);
- void intel_casf_update_strength(struct intel_crtc_state *new_crtc_state);
- void intel_casf_sharpness_get_config(struct intel_crtc_state *crtc_state);
-+void intel_casf_filter_lut_load(struct intel_crtc *crtc,
-+				const struct intel_crtc_state *crtc_state);
- 
- #endif /* __INTEL_CASF_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_casf_regs.h b/drivers/gpu/drm/i915/display/intel_casf_regs.h
-index c24ba281ae37..b96950a48335 100644
---- a/drivers/gpu/drm/i915/display/intel_casf_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_casf_regs.h
-@@ -19,4 +19,15 @@
- #define   SHARPNESS_FILTER_SIZE_5X5    REG_FIELD_PREP(FILTER_SIZE_MASK, 1)
- #define   SHARPNESS_FILTER_SIZE_7X7    REG_FIELD_PREP(FILTER_SIZE_MASK, 2)
- 
-+#define _SHRPLUT_DATA_A                        0x682B8
-+#define _SHRPLUT_DATA_B                        0x68AB8
-+#define SHRPLUT_DATA(pipe)             _MMIO_PIPE(pipe, _SHRPLUT_DATA_A, _SHRPLUT_DATA_B)
-+
-+#define _SHRPLUT_INDEX_A               0x682B4
-+#define _SHRPLUT_INDEX_B               0x68AB4
-+#define SHRPLUT_INDEX(pipe)            _MMIO_PIPE(pipe, _SHRPLUT_INDEX_A, _SHRPLUT_INDEX_B)
-+#define   INDEX_AUTO_INCR              REG_BIT(10)
-+#define   INDEX_VALUE_MASK             REG_GENMASK(4, 0)
-+#define   INDEX_VALUE(x)               REG_FIELD_PREP(INDEX_VALUE_MASK, (x))
-+
- #endif /* __INTEL_CASF_REGS__ */
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
+index 0e062753cf9b..e91907b34d43 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.h
++++ b/drivers/gpu/drm/i915/display/intel_display_device.h
+@@ -146,6 +146,7 @@ struct intel_display_platforms {
+ #define HAS_ASYNC_FLIPS(__display)	(DISPLAY_VER(__display) >= 5)
+ #define HAS_AS_SDP(__display)		(DISPLAY_VER(__display) >= 13)
+ #define HAS_BIGJOINER(__display)	(DISPLAY_VER(__display) >= 11 && HAS_DSC(__display))
++#define HAS_CASF(__display)		(DISPLAY_VER(__display) >= 20)
+ #define HAS_CDCLK_CRAWL(__display)	(DISPLAY_INFO(__display)->has_cdclk_crawl)
+ #define HAS_CDCLK_SQUASH(__display)	(DISPLAY_INFO(__display)->has_cdclk_squash)
+ #define HAS_CMRR(__display)		(DISPLAY_VER(__display) >= 20)
 -- 
 2.25.1
 
