@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27260CAC5BB
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 06:13:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9776CAC5AC
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 06:13:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79EE110E9D9;
-	Fri, 26 Sep 2025 06:13:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5118210E9DD;
+	Fri, 26 Sep 2025 06:13:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CyPee3z6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mfbtlCFj";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B7F710E339;
- Fri, 26 Sep 2025 06:13:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82DD410E327;
+ Fri, 26 Sep 2025 06:13:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758867184; x=1790403184;
+ t=1758867191; x=1790403191;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RHibbxt2s5JQn18vhUH/mWx4W3weR2JqcvU/QIp7VcI=;
- b=CyPee3z6nU93a38gF1oK4m1cFS9F+6flsw3TTJrUSvkQC7atxEDWldqf
- hG9mqMfWKXygu/YiqkqBPzwhOwBtR7KsifWU7cCT6Mydrn8SXc+/GTdId
- gj/dTZg5zgoHS8Ph5nFTCk0i0bc9LzqoNq5UVD2smfJKP/wnpZDd4hWhY
- 8/y9XfI7JNqkhWnCVyGtljzP75Xe8DcWQshU9tQ3+dx2zDk9GdL6IhOYA
- nUq268wgb9QBAiLbj4xKFBs9D7esb017VD/u0WqgTneAN8RrYi9xZMJ69
- xGCVCqTdNn1qvzKUpUusLu/kdB2QIDhA2Gvj/Xq9YGlbolXM5+Cy6ISqA w==;
-X-CSE-ConnectionGUID: KQfGh2cqTWudx05X9BxYfw==
-X-CSE-MsgGUID: AUaP19BAQbSyR/XxWs9djg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65007589"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65007589"
+ bh=SI7pr/DgJmi8Ga77vmjd11pOM3Zro2FrlMp3MRg7C68=;
+ b=mfbtlCFjgC1Pr8WHGvuM0uzPl7Cz3iTB846cv4Nu+yWdyUaysTMA6SKd
+ CmojZ8s9lhLaaAYsCuhiNff7rw7oKEVP8NottXWfMP00JF3gq4tUcmzEf
+ VlGvOmaufmeLZb6+X5+qjFsJmVA8olq5T4YRheu5cgY0cN004Ij8dynck
+ 2VnmmPAeQ+IAqMdPUZeiBJWTCz4a8ybyS40xo3gBOVNebrsxiMIzH4nuM
+ c6EhFeczGjpZBIIS2tzjLbQixQDMnUX1eXOgQ6T92jvvbqAF4YM5QJc7a
+ bxhtLouJdi12axteI8R24p3QDFASbuv5gvvJs2WZk7R10ygRO7cdUGedg g==;
+X-CSE-ConnectionGUID: npEIpyQ2Q5KLPuBu4aKpGg==
+X-CSE-MsgGUID: JNXgJKYXSH6dsZ3168u91w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65007594"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65007594"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2025 23:13:04 -0700
-X-CSE-ConnectionGUID: 96ZBvwdjS6qplz3a3zJbsg==
-X-CSE-MsgGUID: Tjwp6piPTUerd0Io5yr7Lg==
+ 25 Sep 2025 23:13:10 -0700
+X-CSE-ConnectionGUID: FnKE0+1AT3CxESYVh4lnLQ==
+X-CSE-MsgGUID: dqCEeLiNTieqZ4lOcvWvxQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,294,1751266800"; d="scan'208";a="177092859"
+X-IronPort-AV: E=Sophos;i="6.18,294,1751266800"; d="scan'208";a="177092889"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2025 23:13:03 -0700
+ 25 Sep 2025 23:13:09 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 04/14] drm/i915/skl_scaler: Introduce helper for chroma
- downscale factor
-Date: Fri, 26 Sep 2025 11:29:25 +0530
-Message-ID: <20250926055935.3532568-5-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 07/14] drm/i915/alpm: Add function to compute max link-wake
+ latency
+Date: Fri, 26 Sep 2025 11:29:28 +0530
+Message-ID: <20250926055935.3532568-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250926055935.3532568-1-ankit.k.nautiyal@intel.com>
 References: <20250926055935.3532568-1-ankit.k.nautiyal@intel.com>
@@ -70,76 +70,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For 444 to 420 output format conversion, scaler uses 2x downscaling in
-each direction. Introduce skl_scaler_chroma_downscale_factor() to
-encapsulate the chroma subsampling adjustment used in scaler/dsc
-pre-fill latency calculations.
+Introduce a helper to compute the max link wake latency when using
+Auxless/Aux wake mechanism for PSR/Panel Replay/LOBF features.
 
+This will be used to compute the minimum guardband so that the link wake
+latencies are accounted and these features work smoothly for higher
+refresh rate panels.
+
+Bspec: 70151, 71477
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_scaler.c    | 5 +++++
- drivers/gpu/drm/i915/display/skl_scaler.h    | 3 +++
- drivers/gpu/drm/i915/display/skl_watermark.c | 7 +++----
- 3 files changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c | 15 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_alpm.h |  2 ++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index c6cccf170ff1..af2cbd54c32e 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -968,3 +968,8 @@ void adl_scaler_ecc_unmask(const struct intel_crtc_state *crtc_state)
- 			  1);
- 	intel_de_write(display, XELPD_DISPLAY_ERR_FATAL_MASK, 0);
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index 749119cc0b28..df380ecf7d0f 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -598,3 +598,18 @@ bool intel_alpm_get_error(struct intel_dp *intel_dp)
+ 
+ 	return false;
  }
 +
-+int skl_scaler_chroma_downscale_factor(const struct intel_crtc_state *crtc_state)
++int intel_alpm_compute_max_link_wake_latency(const struct intel_crtc_state *crtc_state,
++					     bool assume_all_enabled)
 +{
-+	return crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
++	int psr2_vblank_time = 0;
++	int auxless_wake_time = 0;
++
++	if (assume_all_enabled || crtc_state->has_sel_update)
++		psr2_vblank_time =  io_buffer_wake_time(crtc_state);
++
++	if (assume_all_enabled || crtc_state->has_panel_replay)
++		auxless_wake_time = _lnl_compute_aux_less_wake_time(crtc_state);
++
++	return max(psr2_vblank_time, auxless_wake_time);
 +}
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.h b/drivers/gpu/drm/i915/display/skl_scaler.h
-index 12a19016c5f6..257330d4c329 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.h
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.h
-@@ -45,4 +45,7 @@ skl_scaler_mode_valid(struct intel_display *display,
- void adl_scaler_ecc_mask(const struct intel_crtc_state *crtc_state);
- 
- void adl_scaler_ecc_unmask(const struct intel_crtc_state *crtc_state);
-+
-+int skl_scaler_chroma_downscale_factor(const struct intel_crtc_state *crtc_state);
-+
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h b/drivers/gpu/drm/i915/display/intel_alpm.h
+index a861c20b5d79..b371827af356 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.h
++++ b/drivers/gpu/drm/i915/display/intel_alpm.h
+@@ -38,4 +38,6 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp *intel_dp,
+ 				 const struct intel_crtc_state *crtc_state);
+ void intel_alpm_disable(struct intel_dp *intel_dp);
+ bool intel_alpm_get_error(struct intel_dp *intel_dp);
++int intel_alpm_compute_max_link_wake_latency(const struct intel_crtc_state *crtc_state,
++					     bool assume_all_enabled);
  #endif
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index be87a861eb70..2da54569f06a 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -30,6 +30,7 @@
- #include "intel_plane.h"
- #include "intel_wm.h"
- #include "skl_universal_plane_regs.h"
-+#include "skl_scaler.h"
- #include "skl_watermark.h"
- #include "skl_watermark_regs.h"
- 
-@@ -2185,8 +2186,7 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- 	const struct intel_crtc_scaler_state *scaler_state =
- 					&crtc_state->scaler_state;
- 	int num_scaler_users = hweight32(scaler_state->scaler_users);
--	int chroma_downscaling_factor =
--		crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
-+	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
- 	u32 dsc_prefill_latency = 0;
- 
- 	if (!crtc_state->dsc.compression_enable ||
-@@ -2226,8 +2226,7 @@ scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
- 	if (num_scaler_users > 1) {
- 		u64 hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
- 		u64 vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
--		int chroma_downscaling_factor =
--			crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
-+		int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
- 		int latency;
- 
- 		latency = DIV_ROUND_UP_ULL((4 * linetime * hscale_k * vscale_k *
 -- 
 2.45.2
 
