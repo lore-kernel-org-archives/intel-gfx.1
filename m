@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31014CAC5BA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0E6FCAC5AC
 	for <intel-gfx@archiver.kernel.org>; Fri, 26 Sep 2025 06:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C178310E340;
-	Fri, 26 Sep 2025 06:13:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F79F10E343;
+	Fri, 26 Sep 2025 06:13:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gXdMkmbK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KBdOS5ib";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD5610E332;
- Fri, 26 Sep 2025 06:13:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 559A310E342;
+ Fri, 26 Sep 2025 06:13:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1758867182; x=1790403182;
+ t=1758867186; x=1790403186;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lcqoCud+107fk6QGjC06EUZzZljtGOI54TD1kPRrINY=;
- b=gXdMkmbKamXk1z2DFFNJPOegpD9fbRvGR6H+MhEy5VjL5/kk9IMC3idk
- yax67nkMXqDAd4Btd5uHGEDiJ+vo9Xv6YDStbcdUwV0Ev05uhXCMyNN/M
- hlLwqyUx7fjYt1WPmYZxIlQOs4dxRnLM/u2IDl0fFHrDmJSk+ioEUR1Jp
- w9Bwmk0XXsibbHUhvcdknQyjZV41KoAfpeRaSYyCGvCFisZxNtkizpxy8
- ovMzUGwd3vrK38LoNw+1xLuRxu/zkxddGqfBOpVus3BdzIi7Njta4irms
- N5kFcwqbSLJt+g6EKTIU7McZbwPHzGPY8hER4XpUkzGP2VeCYttbc9LGI w==;
-X-CSE-ConnectionGUID: TsEqzUW+TrSLYGwYOy8YRg==
-X-CSE-MsgGUID: 236OB4xuQn2/nBcyC9cAHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65007588"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65007588"
+ bh=+YbeRgDqlLbeVqsJp0T0/kIZcgVTSLA/2BnqfqFb8ME=;
+ b=KBdOS5ibiXoFEELRzumD7mrkQMapzqiLbP4HUAc8Ncq2IJowa+HuSb0e
+ gf5z0/eMP9vMuNBe3cDlNNQ9AiSdSEd2caWVH5415PBTP3LwFf+b8TcID
+ 1piDH62YN5UVwOJbXCUTORCVAkzULLk5tIcvci4hi3KZWh6Z4YVWMdT5c
+ g6XqvNgiPN2UIdYKSFVBhfI6YD66TcBqVN8jYdcD6lCyUXTQmmyegwQ5V
+ k33cBbXWOeMKUkGjJO+Ix48zyTSac7tM2ZQ0GM0NrgobhJR1PRSJHzby4
+ v3NtsnxequqeFpMyfPzY3Aq6kImdNE0wJClWjzoe11sItgAQuDHmtrz0k Q==;
+X-CSE-ConnectionGUID: ZPh4K3WdSpiyL6U6MhF/6Q==
+X-CSE-MsgGUID: CTRN76vRR5mmy0se18clRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="65007591"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="65007591"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2025 23:13:02 -0700
-X-CSE-ConnectionGUID: UcyWXO02RAeGXiyX8/5G+Q==
-X-CSE-MsgGUID: K4ulBX/PRwOdQvAz4gR6tA==
+ 25 Sep 2025 23:13:06 -0700
+X-CSE-ConnectionGUID: GQp4R4CYTDaCrd51+9tB9Q==
+X-CSE-MsgGUID: IlaQe6wESiSDaSpQ9+POig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,294,1751266800"; d="scan'208";a="177092833"
+X-IronPort-AV: E=Sophos;i="6.18,294,1751266800"; d="scan'208";a="177092872"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2025 23:13:01 -0700
+ 25 Sep 2025 23:13:05 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 03/14] drm/i915/skl_watermark: Pass linetime as argument to
- latency helpers
-Date: Fri, 26 Sep 2025 11:29:24 +0530
-Message-ID: <20250926055935.3532568-4-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 05/14] drm/i915/display: Extract helpers to set dsc/scaler
+ prefill latencies
+Date: Fri, 26 Sep 2025 11:29:26 +0530
+Message-ID: <20250926055935.3532568-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250926055935.3532568-1-ankit.k.nautiyal@intel.com>
 References: <20250926055935.3532568-1-ankit.k.nautiyal@intel.com>
@@ -70,90 +70,211 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Refactor dsc_prefill_latency and scaler_prefill_latency to take
-linetime as an explicit parameter instead of computing it internally.
+Currently dsc/scaler prefill latencies are handled during watermark
+calculations. With the optimized guardband, we need to compute the
+latencies to find the minimum guardband that works for most cases.
+Extract the helpers to compute these latencies, so that they can be used
+while computing vrr guardband.
 
-This avoids redundant calculations and simplifies scanline conversion
-logic in skl_is_vblank_too_short().
+While at it, put declarations in reverse xmas tree order for better
+redability.
 
-This change also facilitates future extraction of these helpers for use
-cases where latencies are computed for an optimized guardband, based on the
-highest resolution mode, rather than the current mode.
+v2: Initialize {h,v}scale_k to 0, and simplify the check in
+intel_display_scaler_prefill_latency(). (Mitul)
 
-v2: Sum all latency numbers and use intel_usecs_to_scanlines() to
-convert to scanlines. (Ville).
+v3: Move helpers from intel_display.c to intel_vrr.c as they are specific
+to account for latencies to program vrr guardband. (Jani)
+
+v4: Move helpers to dsc/scaler files. (Ville)
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vdsc.c    | 17 +++++++
+ drivers/gpu/drm/i915/display/intel_vdsc.h    |  4 ++
+ drivers/gpu/drm/i915/display/skl_scaler.c    | 16 +++++++
+ drivers/gpu/drm/i915/display/skl_scaler.h    |  7 +++
+ drivers/gpu/drm/i915/display/skl_watermark.c | 47 +++++++++-----------
+ 5 files changed, 66 insertions(+), 25 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
+index 8e799e225af1..e59d62994798 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.c
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
+@@ -1077,3 +1077,20 @@ int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state)
+ 
+ 	return min_cdclk;
+ }
++
++int intel_dsc_guardband_latency(int num_scaler_users, u64 *hscale, u64 *vscale,
++				int chroma_downscaling_factor,
++				int cdclk_prefill_adjustment,
++				int linetime)
++{
++	int dsc_prefill_latency;
++
++	dsc_prefill_latency = DIV_ROUND_UP(15 * linetime * chroma_downscaling_factor, 10);
++
++	for (int i = 0; i < num_scaler_users; i++)
++		dsc_prefill_latency = DIV_ROUND_UP_ULL(dsc_prefill_latency * hscale[i] * vscale[i],
++						       1000000);
++	dsc_prefill_latency *= cdclk_prefill_adjustment;
++
++	return dsc_prefill_latency;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
+index 9e2812f99dd7..60aecadf95bf 100644
+--- a/drivers/gpu/drm/i915/display/intel_vdsc.h
++++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
+@@ -32,5 +32,9 @@ void intel_dsc_dp_pps_write(struct intel_encoder *encoder,
+ void intel_vdsc_state_dump(struct drm_printer *p, int indent,
+ 			   const struct intel_crtc_state *crtc_state);
+ int intel_vdsc_min_cdclk(const struct intel_crtc_state *crtc_state);
++int intel_dsc_guardband_latency(int num_scaler_users, u64 *hscale, u64 *vscale,
++				int chroma_downscaling_factor,
++				int cdclk_prefill_adjustment,
++				int linetime);
+ 
+ #endif /* __INTEL_VDSC_H__ */
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
+index af2cbd54c32e..69130744c09e 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.c
++++ b/drivers/gpu/drm/i915/display/skl_scaler.c
+@@ -973,3 +973,19 @@ int skl_scaler_chroma_downscale_factor(const struct intel_crtc_state *crtc_state
+ {
+ 	return crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
+ }
++
++int skl_scaler_guardband_latency(int num_scaler_users, u64 hscale, u64 vscale,
++				 int chroma_downscaling_factor,
++				 int cdclk_prefill_adjustment,
++				 int linetime)
++{
++	int scaler_prefill_latency;
++
++	scaler_prefill_latency = 4 * linetime +
++				 DIV_ROUND_UP_ULL((4 * linetime * hscale * vscale *
++						   chroma_downscaling_factor), 1000000);
++
++	scaler_prefill_latency *= cdclk_prefill_adjustment;
++
++	return scaler_prefill_latency;
++}
+diff --git a/drivers/gpu/drm/i915/display/skl_scaler.h b/drivers/gpu/drm/i915/display/skl_scaler.h
+index 257330d4c329..5aa53d576aba 100644
+--- a/drivers/gpu/drm/i915/display/skl_scaler.h
++++ b/drivers/gpu/drm/i915/display/skl_scaler.h
+@@ -5,6 +5,8 @@
+ #ifndef INTEL_SCALER_H
+ #define INTEL_SCALER_H
+ 
++#include <linux/types.h>
++
+ enum drm_mode_status;
+ struct drm_display_mode;
+ struct intel_atomic_state;
+@@ -48,4 +50,9 @@ void adl_scaler_ecc_unmask(const struct intel_crtc_state *crtc_state);
+ 
+ int skl_scaler_chroma_downscale_factor(const struct intel_crtc_state *crtc_state);
+ 
++int skl_scaler_guardband_latency(int num_scaler_users, u64 hscale, u64 vscale,
++				 int chroma_downscaling_factor,
++				 int cdclk_prefill_adjustment,
++				 int linetime);
++
+ #endif
 diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 4b1ef4fa8ed2..be87a861eb70 100644
+index 2da54569f06a..deb43f0c348a 100644
 --- a/drivers/gpu/drm/i915/display/skl_watermark.c
 +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -2179,13 +2179,11 @@ cdclk_prefill_adjustment(const struct intel_crtc_state *crtc_state)
- }
- 
+@@ -28,6 +28,7 @@
+ #include "intel_flipq.h"
+ #include "intel_pcode.h"
+ #include "intel_plane.h"
++#include "intel_vdsc.h"
+ #include "intel_wm.h"
+ #include "skl_universal_plane_regs.h"
+ #include "skl_scaler.h"
+@@ -2182,11 +2183,12 @@ cdclk_prefill_adjustment(const struct intel_crtc_state *crtc_state)
  static int
--dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
-+dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
+ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
  {
++	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
++	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	const struct intel_crtc_scaler_state *scaler_state =
- 					&crtc_state->scaler_state;
--	int linetime = DIV_ROUND_UP(1000 * crtc_state->hw.adjusted_mode.htotal,
--				    crtc_state->hw.adjusted_mode.clock);
+-	const struct intel_crtc_scaler_state *scaler_state =
+-					&crtc_state->scaler_state;
  	int num_scaler_users = hweight32(scaler_state->scaler_users);
- 	int chroma_downscaling_factor =
- 		crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420 ? 4 : 1;
-@@ -2209,18 +2207,16 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state)
+-	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
++	u64 hscale_k[ARRAY_SIZE(scaler_state->scalers)];
++	u64 vscale_k[ARRAY_SIZE(scaler_state->scalers)];
+ 	u32 dsc_prefill_latency = 0;
  
- 	dsc_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
+ 	if (!crtc_state->dsc.compression_enable ||
+@@ -2194,18 +2196,16 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
+ 	    num_scaler_users > crtc->num_scalers)
+ 		return dsc_prefill_latency;
  
--	return intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode, dsc_prefill_latency);
-+	return dsc_prefill_latency;
+-	dsc_prefill_latency = DIV_ROUND_UP(15 * linetime * chroma_downscaling_factor, 10);
+-
+ 	for (int i = 0; i < num_scaler_users; i++) {
+-		u64 hscale_k, vscale_k;
+-
+-		hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16);
+-		vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16);
+-		dsc_prefill_latency = DIV_ROUND_UP_ULL(dsc_prefill_latency * hscale_k * vscale_k,
+-						       1000000);
++		hscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16);
++		vscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16);
+ 	}
+ 
+-	dsc_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
++	dsc_prefill_latency =
++		intel_dsc_guardband_latency(num_scaler_users, hscale_k, vscale_k,
++					    chroma_downscaling_factor,
++					    cdclk_prefill_adjustment(crtc_state),
++					    linetime);
+ 
+ 	return dsc_prefill_latency;
  }
- 
+@@ -2213,28 +2213,25 @@ dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
  static int
--scaler_prefill_latency(const struct intel_crtc_state *crtc_state)
-+scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
+ scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
  {
- 	const struct intel_crtc_scaler_state *scaler_state =
- 					&crtc_state->scaler_state;
+-	const struct intel_crtc_scaler_state *scaler_state =
+-					&crtc_state->scaler_state;
++	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
++	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
  	int num_scaler_users = hweight32(scaler_state->scaler_users);
++	u64 hscale_k = 0, vscale_k = 0;
  	int scaler_prefill_latency = 0;
--	int linetime = DIV_ROUND_UP(1000 * crtc_state->hw.adjusted_mode.htotal,
--				    crtc_state->hw.adjusted_mode.clock);
  
  	if (!num_scaler_users)
  		return scaler_prefill_latency;
-@@ -2241,7 +2237,7 @@ scaler_prefill_latency(const struct intel_crtc_state *crtc_state)
  
- 	scaler_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
+-	scaler_prefill_latency = 4 * linetime;
+-
+ 	if (num_scaler_users > 1) {
+-		u64 hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
+-		u64 vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
+-		int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
+-		int latency;
+-
+-		latency = DIV_ROUND_UP_ULL((4 * linetime * hscale_k * vscale_k *
+-					    chroma_downscaling_factor), 1000000);
+-		scaler_prefill_latency += latency;
++		hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
++		vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
+ 	}
  
--	return intel_usecs_to_scanlines(&crtc_state->hw.adjusted_mode, scaler_prefill_latency);
-+	return scaler_prefill_latency;
- }
+-	scaler_prefill_latency *= cdclk_prefill_adjustment(crtc_state);
++	scaler_prefill_latency =
++		skl_scaler_guardband_latency(num_scaler_users, hscale_k, vscale_k,
++					     chroma_downscaling_factor,
++					     cdclk_prefill_adjustment(crtc_state),
++					     linetime);
  
- static bool
-@@ -2250,11 +2246,14 @@ skl_is_vblank_too_short(const struct intel_crtc_state *crtc_state,
- {
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
-+	int linetime = DIV_ROUND_UP(1000 * adjusted_mode->htotal,
-+				    adjusted_mode->clock);
-+
-+	latency += scaler_prefill_latency(crtc_state, linetime) +
-+		   dsc_prefill_latency(crtc_state, linetime);
- 
- 	return crtc_state->framestart_delay +
- 		intel_usecs_to_scanlines(adjusted_mode, latency) +
--		scaler_prefill_latency(crtc_state) +
--		dsc_prefill_latency(crtc_state) +
- 		wm0_lines >
- 		adjusted_mode->crtc_vtotal - adjusted_mode->crtc_vblank_start;
+ 	return scaler_prefill_latency;
  }
 -- 
 2.45.2
