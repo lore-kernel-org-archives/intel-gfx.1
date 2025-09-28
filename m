@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 268C1CCA46F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1901FCAC5BC
 	for <intel-gfx@archiver.kernel.org>; Sun, 28 Sep 2025 07:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 793C810E31E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7783510E1EB;
 	Sun, 28 Sep 2025 07:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mQP2kINd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fUKzBZ4c";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70EBC10E0E3;
- Sun, 28 Sep 2025 07:19:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A4EF10E31E;
+ Sun, 28 Sep 2025 07:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759043961; x=1790579961;
+ t=1759043955; x=1790579955;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QH7LM+SN+sBNoJ818iCUl0qr7Tz99g90xmVDaskdgaQ=;
- b=mQP2kINdvZ7tamwcbDdu2JgKIFv8IDCMKg998MiaRSWeZRQ3n512NxL+
- 9rvrbQy2nQ/wLBmOZ5wb64e7Yb3zkkXjl9k976MZrGHdYhrhhDjD1nzrx
- aI+F4faDD2T75Xjuq0vLZDM0fsXj+3+8nID/j5pXG1/UFHvFX67041OTI
- chk3yBnQQ0pWd9ceX62YHL7e4Iq1bOGsNF/bdpi515Q++J6cOFY4VqtTX
- b2F4sdKSKD8DeH4jfFMEO9zhfmYL2s5+KS5konr+eCzbpa2foqdozFSG6
- KWubsvbzxULEfstU2AHCWPPVD32eBO4uIiAhl3XwvnH+fQCWNxZecZzOe A==;
-X-CSE-ConnectionGUID: ou9I2ahhSQW34hvgx605LA==
-X-CSE-MsgGUID: r3PI6Yl9SQ2eN0XyNSuWYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11566"; a="60528526"
-X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="60528526"
+ bh=Lb0D99S8oRtd53uMI/T/pnwOBXor8pPYsE3ou7Afk9E=;
+ b=fUKzBZ4c95rGgD92I33gtvaUsE1AUP0++U2ioFkCTw3QM+GRBAX5J9kW
+ u2OrlAdww1oGiXN9T+emZi9qtqQvqwAhn/fC4JDg6Sn+oUtATq9E/9Eto
+ Vc+bkWy94+HCdhVBaZBT8vqR+q61jtUysfZ5ik0H6xZV0GENYSUhvKse0
+ BThHz7Au+fu9yfgA0xr+kwarXN7gH9p9dwFlCyeD1A7J9yfahHkwSTQw7
+ FL6GkLgYtm2e36ygW/k6wJiLXxEaOz7Yl9dstTxyJZihhBCcOywEn1Pl9
+ 3ie929x2NjBKPzNLLf6Je+ZKDiR9FAM7GfRHpz4iZDvh2ECjsMo+ylpIX A==;
+X-CSE-ConnectionGUID: wTAhFGBaTp6FaQyE7UDjPw==
+X-CSE-MsgGUID: OfcZoG76RpKVnaM04o+E7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11566"; a="60528510"
+X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="60528510"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2025 00:19:20 -0700
-X-CSE-ConnectionGUID: /io9oj0iRLuM+Wo9upUsUQ==
-X-CSE-MsgGUID: KET0m8rNQDGy3bVc9Nfg7w==
+ 28 Sep 2025 00:19:14 -0700
+X-CSE-ConnectionGUID: YMdpjdSDTYC1ULUNmWycZw==
+X-CSE-MsgGUID: b6zqHZoWTiqR6NviaD0CDA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="215094056"
+X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="215094041"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2025 00:19:19 -0700
+ 28 Sep 2025 00:19:13 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 09/15] drm/i915/skl_watermark: Remove redundant latency checks
- from vblank validation
-Date: Sun, 28 Sep 2025 12:35:34 +0530
-Message-ID: <20250928070541.3892890-10-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 06/15] drm/i915/dp: Add SDP latency computation helper
+Date: Sun, 28 Sep 2025 12:35:31 +0530
+Message-ID: <20250928070541.3892890-7-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250928070541.3892890-1-ankit.k.nautiyal@intel.com>
 References: <20250928070541.3892890-1-ankit.k.nautiyal@intel.com>
@@ -70,124 +69,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop DSC and scaler prefill latency checks from skl_is_vblank_too_short().
-These are now covered by the guardband validation added during the atomic
-CRTC check phase.
+Add a helper to compute vblank time needed for transmitting specific
+DisplayPort SDPs like PPS, GAMUT_METADATA, and VSC_EXT. Latency is
+based on line count per packet type and current line time.
 
-This cleanup prepares for future changes where the guardband will be
-optimized independently of vblank length, making vblank-based checks
-obsolete.
+Used to ensure adequate vblank when features like DSC/HDR are enabled.
 
+Bspec: 70151
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Reviewed-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 80 --------------------
- 1 file changed, 80 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 47 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.h |  2 ++
+ 2 files changed, 49 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 9a368bb9e92a..73e5b2d8ae83 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -28,7 +28,6 @@
- #include "intel_flipq.h"
- #include "intel_pcode.h"
- #include "intel_plane.h"
--#include "intel_vdsc.h"
- #include "intel_wm.h"
- #include "skl_universal_plane_regs.h"
- #include "skl_scaler.h"
-@@ -2162,91 +2161,12 @@ static int icl_build_plane_wm(struct intel_crtc_state *crtc_state,
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 2eab591a8ef5..83c46e4680b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6857,3 +6857,50 @@ void intel_dp_mst_resume(struct intel_display *display)
+ 		}
+ 	}
  }
++
++static
++int intel_dp_get_sdp_latency(u32 type, int linetime_us)
++{
++	int lines;
++
++	switch (type) {
++	case DP_SDP_VSC_EXT_VESA:
++	case DP_SDP_VSC_EXT_CEA:
++		lines = 10;
++		break;
++	case HDMI_PACKET_TYPE_GAMUT_METADATA:
++		lines = 8;
++		break;
++	case DP_SDP_PPS:
++		lines = 6;
++		break;
++	default:
++		lines = 0;
++		break;
++	}
++
++	return lines * linetime_us;
++}
++
++int intel_dp_compute_sdp_latency(const struct intel_crtc_state *crtc_state,
++				 bool assume_all_enabled)
++{
++	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
++	int sdp_latency = 0;
++	int linetime_us;
++
++	linetime_us = DIV_ROUND_UP(adjusted_mode->crtc_htotal * 1000,
++				   adjusted_mode->crtc_clock);
++	if (assume_all_enabled ||
++	    crtc_state->infoframes.enable &
++	    intel_hdmi_infoframe_enable(HDMI_PACKET_TYPE_GAMUT_METADATA))
++		sdp_latency = max(sdp_latency,
++				  intel_dp_get_sdp_latency(HDMI_PACKET_TYPE_GAMUT_METADATA,
++							   linetime_us));
++
++	if (assume_all_enabled || crtc_state->dsc.compression_enable)
++		sdp_latency = max(sdp_latency,
++				  intel_dp_get_sdp_latency(DP_SDP_PPS, linetime_us));
++
++	return sdp_latency;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index f90cfd1dbbd0..d222749b191c 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -215,5 +215,7 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
+ int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector);
+ void intel_dp_dpcd_set_probe(struct intel_dp *intel_dp, bool force_on_external);
+ bool intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state);
++int intel_dp_compute_sdp_latency(const struct intel_crtc_state *crtc_state,
++				 bool assume_all_enabled);
  
--static int
--cdclk_prefill_adjustment(const struct intel_crtc_state *crtc_state)
--{
--	struct intel_display *display = to_intel_display(crtc_state);
--	struct intel_atomic_state *state =
--		to_intel_atomic_state(crtc_state->uapi.state);
--	const struct intel_cdclk_state *cdclk_state;
--
--	cdclk_state = intel_atomic_get_cdclk_state(state);
--	if (IS_ERR(cdclk_state)) {
--		drm_WARN_ON(display->drm, PTR_ERR(cdclk_state));
--		return 1;
--	}
--
--	return min(1, DIV_ROUND_UP(crtc_state->pixel_rate,
--				   2 * intel_cdclk_logical(cdclk_state)));
--}
--
--static int
--dsc_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
--{
--	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
--	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	int num_scaler_users = hweight32(scaler_state->scaler_users);
--	u64 hscale_k[ARRAY_SIZE(scaler_state->scalers)];
--	u64 vscale_k[ARRAY_SIZE(scaler_state->scalers)];
--	u32 dsc_prefill_latency = 0;
--
--	if (!crtc_state->dsc.compression_enable ||
--	    !num_scaler_users ||
--	    num_scaler_users > crtc->num_scalers)
--		return dsc_prefill_latency;
--
--	for (int i = 0; i < num_scaler_users; i++) {
--		hscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].hscale, 1000) >> 16);
--		vscale_k[i] = max(1000, mul_u32_u32(scaler_state->scalers[i].vscale, 1000) >> 16);
--	}
--
--	dsc_prefill_latency =
--		intel_dsc_guardband_latency(num_scaler_users, hscale_k, vscale_k,
--					    chroma_downscaling_factor,
--					    cdclk_prefill_adjustment(crtc_state),
--					    linetime);
--
--	return dsc_prefill_latency;
--}
--
--static int
--scaler_prefill_latency(const struct intel_crtc_state *crtc_state, int linetime)
--{
--	const struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
--	int chroma_downscaling_factor = skl_scaler_chroma_downscale_factor(crtc_state);
--	int num_scaler_users = hweight32(scaler_state->scaler_users);
--	u64 hscale_k = 0, vscale_k = 0;
--	int scaler_prefill_latency = 0;
--
--	if (!num_scaler_users)
--		return scaler_prefill_latency;
--
--	if (num_scaler_users > 1) {
--		hscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].hscale, 1000) >> 16);
--		vscale_k = max(1000, mul_u32_u32(scaler_state->scalers[0].vscale, 1000) >> 16);
--	}
--
--	scaler_prefill_latency =
--		skl_scaler_guardband_latency(num_scaler_users, hscale_k, vscale_k,
--					     chroma_downscaling_factor,
--					     cdclk_prefill_adjustment(crtc_state),
--					     linetime);
--
--	return scaler_prefill_latency;
--}
--
- static bool
- skl_is_vblank_too_short(const struct intel_crtc_state *crtc_state,
- 			int wm0_lines, int latency)
- {
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
--	int linetime = DIV_ROUND_UP(1000 * adjusted_mode->htotal,
--				    adjusted_mode->clock);
--
--	latency += scaler_prefill_latency(crtc_state, linetime) +
--		   dsc_prefill_latency(crtc_state, linetime);
- 
- 	return crtc_state->framestart_delay +
- 		intel_usecs_to_scanlines(adjusted_mode, latency) +
+ #endif /* __INTEL_DP_H__ */
 -- 
 2.45.2
 
