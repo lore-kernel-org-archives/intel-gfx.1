@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AAAFCAC5BB
-	for <intel-gfx@archiver.kernel.org>; Sun, 28 Sep 2025 07:19:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B5C3CAC5BB
+	for <intel-gfx@archiver.kernel.org>; Sun, 28 Sep 2025 07:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0C5210E385;
-	Sun, 28 Sep 2025 07:19:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0065910E384;
+	Sun, 28 Sep 2025 07:19:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FLnPXin0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DpvnuDLX";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9574210E384;
- Sun, 28 Sep 2025 07:19:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34CD910E385;
+ Sun, 28 Sep 2025 07:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759043970; x=1790579970;
+ t=1759043965; x=1790579965;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/yYx6kZ4XkBvG58i9i9oXDgDSXSMw9Od3KbUqPD2IuQ=;
- b=FLnPXin0ugmrgICZs3P9QefTAS2W4Jee/9jhDEcAC+DbVsUh+Fb9VV+J
- MS8oXJmUNufFG9yaDxE0vvxkTlAGTGqQR65qh0fatnHjagADwRQ5Xo1vk
- 2WqJuE47tAlTAFEyxCXyn+Rlp8NaL5fqIdHaTyJ4QtziXomajMa7M8lQE
- IVQCMcLK+/rP5kbL2ybcxuI/bhMsEdDDon319kmftzeFFZORnCRcCFus9
- t20M5Se4lCJ1oduXawLpIDkI3Q2i1oz2pimBOKLmDV7sWxfmYPfgiC1JZ
- /dOHLxA6FM9sMpYbK9mbbGIApMv0ihvf+lcNHPZipcCCN/nPtj+ZTJYxe Q==;
-X-CSE-ConnectionGUID: nuDJU1PqTzGmjBzTvpJnYA==
-X-CSE-MsgGUID: GCvZanR9R1KtiBSZ8ph7/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11566"; a="60528596"
-X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="60528596"
+ bh=YbA1jQ5bPKhn3CS1EtLJt8BABKSvVfUm055IFDv40uc=;
+ b=DpvnuDLXy8U3YRTaaxPoBSHJz34y7JwYc7tuO6z0V+IcFZWWyXD89nSS
+ 8roECZpSGLcl7tdZO30Nwq7Qt+Gc0TTyy2N9nbZU7oNxF1LJ2QaRjLMRF
+ GEhcnwZ7LI/3Bv/+HQZ8TBSx6RuKA8UlBxGopVQNa5suiMgvezdajtZTY
+ gwKzAc8Ai7d2eG4vgLJXlB+tJGQ4YUrBdivpVJjYexS0VPGzkHvgYPifB
+ SPRbJm5QsIe6hOf8sq6kL2IhEn3WI2qP+W9iRYpo+SYH+XoK0F1Fd5IhT
+ HC96itr++AaPNEyeMq1wIpwX2XRiPswvTUtzPZLMLqFsUQh72gusbafeU w==;
+X-CSE-ConnectionGUID: t3wsAzOnTPmy4JcSjkU9BA==
+X-CSE-MsgGUID: 8W45tBwHTGSqWrYMQatVIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11566"; a="60528537"
+X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="60528537"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2025 00:19:30 -0700
-X-CSE-ConnectionGUID: GtS38shnRmymwoXvAVcnGA==
-X-CSE-MsgGUID: LGeQYs4fTVidVmPITRnRDQ==
+ 28 Sep 2025 00:19:24 -0700
+X-CSE-ConnectionGUID: ERDTO79gScWrLXgioahaKg==
+X-CSE-MsgGUID: cIKUKudHQVezZ2a2wM/rcg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="215094071"
+X-IronPort-AV: E=Sophos;i="6.18,299,1751266800"; d="scan'208";a="215094062"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Sep 2025 00:19:29 -0700
+ 28 Sep 2025 00:19:23 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 14/15] drm/i915/display:
- s/allow_vblank_delay_fastset/allow_vblank_delay_fastset_lrr
-Date: Sun, 28 Sep 2025 12:35:39 +0530
-Message-ID: <20250928070541.3892890-15-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 11/15] drm/i915/vrr: Use optimized guardband when VRR TG is
+ active
+Date: Sun, 28 Sep 2025 12:35:36 +0530
+Message-ID: <20250928070541.3892890-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20250928070541.3892890-1-ankit.k.nautiyal@intel.com>
 References: <20250928070541.3892890-1-ankit.k.nautiyal@intel.com>
@@ -69,47 +69,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The function allow_vblank_delay_fastset specifically checks for conditions
-under which vblank delay is allowed via LRR codepaths. To make its purpose
-clearer and prepare for future extensions, rename it to
-allow_vblank_delay_fastset_lrr.
+We want to use the optimized/reduced guardband whenever we are using the
+VRR timing generator, as the legacy timing generator doesn't need vrr
+guardband.
+
+On platforms where the VRR timing generator is always ON, we optimize the
+guardband regardless of whether the display is operating in fixed or
+variable refresh rate mode.
+
+On platforms where the VRR timing generator is not always ON, we optimize
+the guardband only when VRR is enabled.
+
+Add a helper intel_vrr_use_optimized_guardband() to determine if the
+optimized/reduced guardband should be used.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 7 +++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h | 1 +
+ 2 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ec415b939770..4135f9be53fd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5097,7 +5097,7 @@ pipe_config_cx0pll_mismatch(struct drm_printer *p, bool fastset,
- 	intel_cx0pll_dump_hw_state(display, b);
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index a43e5ee2d3ac..ff6848de21b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -956,3 +956,10 @@ int intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state,
+ 
+ 	return guardband;
  }
++
++bool intel_vrr_use_optimized_guardband(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++
++	return intel_vrr_always_use_vrr_tg(display) || crtc_state->vrr.enable;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index d332e5a0a1c1..0c741c2a5bbd 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -44,5 +44,6 @@ int intel_vrr_safe_window_start(const struct intel_crtc_state *crtc_state);
+ int intel_vrr_vmin_safe_window_end(const struct intel_crtc_state *crtc_state);
+ int intel_vrr_compute_guardband(struct intel_crtc_state *crtc_state,
+ 				struct intel_connector *connector);
++bool intel_vrr_use_optimized_guardband(const struct intel_crtc_state *crtc_state);
  
--static bool allow_vblank_delay_fastset(const struct intel_crtc_state *old_crtc_state)
-+static bool allow_vblank_delay_fastset_lrr(const struct intel_crtc_state *old_crtc_state)
- {
- 	struct intel_display *display = to_intel_display(old_crtc_state);
- 
-@@ -5242,7 +5242,7 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(name.crtc_hsync_start); \
- 	PIPE_CONF_CHECK_I(name.crtc_hsync_end); \
- 	PIPE_CONF_CHECK_I(name.crtc_vdisplay); \
--	if (!fastset || !allow_vblank_delay_fastset(current_config)) \
-+	if (!fastset || !allow_vblank_delay_fastset_lrr(current_config)) \
- 		PIPE_CONF_CHECK_I(name.crtc_vblank_start); \
- 	PIPE_CONF_CHECK_I(name.crtc_vsync_start); \
- 	PIPE_CONF_CHECK_I(name.crtc_vsync_end); \
-@@ -5851,7 +5851,7 @@ static void intel_crtc_check_fastset(const struct intel_crtc_state *old_crtc_sta
- 		drm_dbg_kms(display->drm, "[CRTC:%d:%s] fastset requirement not met, forcing full modeset\n",
- 			    crtc->base.base.id, crtc->base.name);
- 	} else {
--		if (allow_vblank_delay_fastset(old_crtc_state))
-+		if (allow_vblank_delay_fastset_lrr(old_crtc_state))
- 			new_crtc_state->update_lrr = true;
- 		new_crtc_state->uapi.mode_changed = false;
- 	}
+ #endif /* __INTEL_VRR_H__ */
 -- 
 2.45.2
 
