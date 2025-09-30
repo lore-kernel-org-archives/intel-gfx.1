@@ -4,105 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76549CAC5B8
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Oct 2025 12:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AECE9CAC5B8
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Oct 2025 13:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9CD810E197;
-	Thu,  2 Oct 2025 12:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BEF710E192;
+	Thu,  2 Oct 2025 13:12:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Zoe0aB2l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9maRoxsC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Zoe0aB2l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9maRoxsC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g01p2VEM";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E43910E19D
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Oct 2025 12:23:07 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 69FE31F853;
- Thu,  2 Oct 2025 12:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1759407785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=BWeyfp4bTdeFej180yLRqcwV3Jmdyhj5CVAwU6y3GRE=;
- b=Zoe0aB2lYgjaMm7KRLoXiqo8w5PwYJAUJBqaU77forlJxWHSTRAm3UUQhhtSOjGRsl9iF3
- KUx0NFMmlSS8vwjSqMv+UfXX7dQh9AhbvzBE8DD0BH6Kd07AtPZT1rMgUWn3Fc2EjHX7K8
- nemJEs57XPhbylYEj/woRx+SmpH59A8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1759407785;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=BWeyfp4bTdeFej180yLRqcwV3Jmdyhj5CVAwU6y3GRE=;
- b=9maRoxsC2NkgPZ+aw6geJ3q/Z0uQ9rkTUugjMaXhMkp4Bi6/o4Gv6rUKFEOtQ5x0bCvyRN
- 25HMWmPt18T/WkBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=Zoe0aB2l;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9maRoxsC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1759407785; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=BWeyfp4bTdeFej180yLRqcwV3Jmdyhj5CVAwU6y3GRE=;
- b=Zoe0aB2lYgjaMm7KRLoXiqo8w5PwYJAUJBqaU77forlJxWHSTRAm3UUQhhtSOjGRsl9iF3
- KUx0NFMmlSS8vwjSqMv+UfXX7dQh9AhbvzBE8DD0BH6Kd07AtPZT1rMgUWn3Fc2EjHX7K8
- nemJEs57XPhbylYEj/woRx+SmpH59A8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1759407785;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type;
- bh=BWeyfp4bTdeFej180yLRqcwV3Jmdyhj5CVAwU6y3GRE=;
- b=9maRoxsC2NkgPZ+aw6geJ3q/Z0uQ9rkTUugjMaXhMkp4Bi6/o4Gv6rUKFEOtQ5x0bCvyRN
- 25HMWmPt18T/WkBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 012DC13990;
- Thu,  2 Oct 2025 12:23:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id UJxLOqhu3mg6JgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 02 Oct 2025 12:23:04 +0000
-Date: Thu, 2 Oct 2025 14:23:03 +0200
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-next-fixes
-Message-ID: <20251002122303.GA21323@linux.fritz.box>
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58B2B10E5F9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Sep 2025 15:14:52 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-b520539e95bso321355a12.3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Sep 2025 08:14:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1759245292; x=1759850092; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=sqQp7CJ0/ZUkBsxNzFP0LcZLdH18lJsedYddrwxvvpk=;
+ b=g01p2VEMjqNv1jLShYNEN+MDF9mWBu+G7+eGoKW7T1beOPyEUflDEtcYaKkeVkHoSC
+ ztBX/LapGM8TRmyg89OB6JoMz4VM8nsDq0qdzkvAX1HCgP4/UiFv4fkRbWZnvZzUsmqO
+ r+RUrNfwD3MHpa40MW14aYhvnG0IlHwXsa4SWRx32fxazrH/8d8h34pEQ93dE+DL12PA
+ 91YArajCuVjllbnabExBo67xP9+S4/5sKSnjXEBhEkldgTJ3HX7Ed2E6WaXdEMBeBB75
+ gWtz96322qoaSvay1tfg2oF4I/S/7VVbzJyxe6jH7bmvixA5In7f/YLXQOYIR9zN5izn
+ FPFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1759245292; x=1759850092;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=sqQp7CJ0/ZUkBsxNzFP0LcZLdH18lJsedYddrwxvvpk=;
+ b=tJd399q2XeJExai6s/aNxBAHRxg8DIQWbMZkRFeDoijXEtyOngeHdnHb/hAnj4FcGg
+ YpPPINsOeD9I6ViBwfD4jnAHemlP6l+Dd4/PDMq5RKXQZz5YxnzhdHeIzg4rVce1vAqR
+ ftaaHmeQxY6OgvHy9Kor6Xxo8kZIgByPriR8L9wDCl9/Tle/23LOCAfuWJ9eOiVTXrNX
+ z38blaxxb8oZiGtXHflebHcfFZsvbWij6LKkjfVpTexFnzQhPmHFQko7GXka0cbGLCnk
+ 0jYEJVQx2he4gQ9xYqeo2UuUgoGHVpMPqUTJjUjYAF/Qz0T6ZIc4eVNHm/jEqZxe5YVx
+ XUUw==
+X-Gm-Message-State: AOJu0Yxi+ItknBYwELi8dp751QgWjQCnRX4dCF7O0A2gVuhH3WyAnDZM
+ 6AUsfTTx26GWuzq3Bo/dp1M6sZtqs37r0wFt9rVxtp9jk76A8BiEwEWJvRfNG6Q+Vpg9sKzAjT9
+ ECfPySGm95eJ4N29G/ACXodwiMpzwVDc=
+X-Gm-Gg: ASbGncs52Xb8P41/BMKI9pyZuDLgR50cWgGzYMDhsGZjFI5IyYyOEqQq8DQqwR64Lvl
+ pNfXMyF4awMKlGFhLvEJa9TTPToXRlCe2/DiBz4TOYnP1lVj0e49NTagvnGTCnp6jZqk+cQwu91
+ 9jo64eumvqmRH6vQ90dYQwW4bXEWe8kQGs4qcNxz3JGcyiWUHxDX2wN1DoCwsb3z9pbUPs3OG+K
+ 2moRPlUCNXvbBo6eAgp+SiwYQmLpExQ45O0U38GRRw=
+X-Google-Smtp-Source: AGHT+IExoZXRGA9mlKSnNf+W/ZNX3bZkUMtUXmlXaqFzDSzAGWgOOtRwh4IW/Lva8s/pV6iOzxj6lm0qRAbLvvk3MsE=
+X-Received: by 2002:a17:90b:1c04:b0:330:7a07:edb5 with SMTP id
+ 98e67ed59e1d1-3342a22a7d9mr11752276a91.2.1759245291691; Tue, 30 Sep 2025
+ 08:14:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- RCPT_COUNT_TWELVE(0.00)[16]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
- MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 69FE31F853
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+References: <CAGfirffPy5biFVLtSNEW60UCXa6_=-=NrQbU7iLQ8+BXnFQ=1A@mail.gmail.com>
+ <175922381867.30706.10351894191632562572@jlahtine-mobl>
+In-Reply-To: <175922381867.30706.10351894191632562572@jlahtine-mobl>
+From: =?UTF-8?B?6rmA6rCV66+8?= <km.kim1503@gmail.com>
+Date: Wed, 1 Oct 2025 00:14:41 +0900
+X-Gm-Features: AS18NWAxKWtkalxkS1HEf0Xmhu8rrPNzm3u1MnhkYOFR4UIYsfyEiR54fm4Pd-8
+Message-ID: <CAGfirfdDe879wFzABVZkTV7grEimpnc0XrrKpj2SX1w_TLtgNg@mail.gmail.com>
+Subject: Re: BUG: unable to handle kernel NULL pointer dereference in
+ eb_release_vmas
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com, 
+ simona@ffwll.ch, andi.shyti@linux.intel.com, ville.syrjala@linux.intel.com, 
+ nitin.r.gote@intel.com, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Thu, 02 Oct 2025 13:12:48 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,50 +88,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Sima,
+Ok, I will do it.
 
-here's the PR for drm-misc-next-fixes. All further fixes for upstream
-will now go through drm-misc-fixes again.
+Best Regards,
+GangMin Kim.
 
-Best regards
-Thomas
-
-drm-misc-next-fixes-2025-10-02:
-Short summary of fixes pull:
-
-v3d:
-- Fix fence locking
-The following changes since commit 0c4932f6ddf815618fa34f7403df682aed7862b5:
-
-  drm/tiny: pixpaper: Fix missing dependency on DRM_GEM_SHMEM_HELPER (2025-09-23 14:07:04 +0200)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-fixes-2025-10-02
-
-for you to fetch changes up to adefb2ccea1e96b452cbbc39150bc0ccf1688b99:
-
-  drm/v3d: create a dedicated lock for dma fence (2025-09-30 14:28:14 -0100)
-
-----------------------------------------------------------------
-Short summary of fixes pull:
-
-v3d:
-- Fix fence locking
-
-----------------------------------------------------------------
-Melissa Wen (1):
-      drm/v3d: create a dedicated lock for dma fence
-
- drivers/gpu/drm/v3d/v3d_drv.h   | 2 ++
- drivers/gpu/drm/v3d/v3d_fence.c | 2 +-
- drivers/gpu/drm/v3d/v3d_gem.c   | 1 +
- 3 files changed, 4 insertions(+), 1 deletion(-)
-
--- 
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstrasse 146, 90461 Nuernberg, Germany
-GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
-HRB 36809 (AG Nuernberg)
+2025=EB=85=84 9=EC=9B=94 30=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 6:17, J=
+oonas Lahtinen
+<joonas.lahtinen@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Hi,
+>
+> Can you please open a bug as per the instructions in:
+>
+> https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+>
+> Thanks in advance!
+>
+> Regards, Joonas
