@@ -4,26 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0359CCD183
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 14:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EE5CAC5B0
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Oct 2025 14:57:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9956F10E127;
-	Fri,  3 Oct 2025 14:41:00 +0000 (UTC)
-Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6130C10E125;
- Fri,  3 Oct 2025 14:40:59 +0000 (UTC)
-From: Maarten Lankhorst <dev@lankhorst.se>
+	by gabe.freedesktop.org (Postfix) with ESMTP id F34C910E939;
+	Fri,  3 Oct 2025 14:57:39 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XM9YH0WM";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 027BB10E938;
+ Fri,  3 Oct 2025 14:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1759503459; x=1791039459;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IkdMT0vNAHmEBsyvwU0AzbH6SLeqkf2KOiqHJ+DBuys=;
+ b=XM9YH0WMW5yoqdAqISuilxPg6TMAfgxEKMq+UAWTENzbEfnsD1httH8X
+ MuQb2wohNWKfCCUTFRzTSxYRtZIQC3ci3LlQ1FZyVssnrOGcezTU0glmA
+ zqiTbAeKfJAdtkARMUS9On4kt5+bGGtLXm4H/fBVy9yOTQW5nSudSfJN6
+ 8lGZrudNgKmwFlHg0uDWOnnYsJ2hmYOjRMy2kzP0azPYjrZn6Tw9K0GoQ
+ jD+KCT4O3/j+8SyrXknTG/S0lqZTZ2pa5ZTlv33zmmPpbhFXT61V5bMMm
+ osumBarotPt7vSMUYIEMO+xTFsz7g5m+Pcw0n+sxyTAMCJiNlVD85ndHN Q==;
+X-CSE-ConnectionGUID: ep5kgFTtT+uk6fRNucj7eQ==
+X-CSE-MsgGUID: OWnjMD3LSdeyWfwvVlad6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11571"; a="64400477"
+X-IronPort-AV: E=Sophos;i="6.18,312,1751266800"; d="scan'208";a="64400477"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Oct 2025 07:57:39 -0700
+X-CSE-ConnectionGUID: ALu+yDW8RnyjqIsGG1UDnA==
+X-CSE-MsgGUID: VmTYDMLcQzKMHmYqG5tyjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,312,1751266800"; d="scan'208";a="184501959"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.127])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Oct 2025 07:57:38 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Luca Abeni <lucabe72@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [CI 1/2] drm/i915: Disable tracepoints for PREEMPT_RT
-Date: Fri,  3 Oct 2025 16:40:55 +0200
-Message-ID: <20251003144054.112239-3-dev@lankhorst.se>
-X-Mailer: git-send-email 2.51.0
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 0/5] drm/i915: fb fixes and claenups
+Date: Fri,  3 Oct 2025 17:57:29 +0300
+Message-ID: <20251003145734.7634-1-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.49.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -40,61 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Luca Abeni reported this:
-| BUG: scheduling while atomic: kworker/u8:2/15203/0x00000003
-| CPU: 1 PID: 15203 Comm: kworker/u8:2 Not tainted 4.19.1-rt3 #10
-| Call Trace:
-|  rt_spin_lock+0x3f/0x50
-|  gen6_read32+0x45/0x1d0 [i915]
-|  g4x_get_vblank_counter+0x36/0x40 [i915]
-|  trace_event_raw_event_i915_pipe_update_start+0x7d/0xf0 [i915]
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-The tracing events use trace_intel_pipe_update_start() among other events
-use functions acquire spinlock_t locks which are transformed into
-sleeping locks on PREEMPT_RT. A few trace points use
-intel_get_crtc_scanline(), others use ->get_vblank_counter() wich also
-might acquire a sleeping locks on PREEMPT_RT.
-At the time the arguments are evaluated within trace point, preemption
-is disabled and so the locks must not be acquired on PREEMPT_RT.
+Some cleanups and fixes to fb handling.
 
-Based on this I don't see any other way than disable trace points on
-PREMPT_RT.
+v2: Fix the frontbuffer bo refcounting on xe
 
-[mlankhorst]
-The original patch was insufficient, and since the tracing
-infrastructure does not allow for partial disabling of tracepoints.
+Ville Syrjälä (5):
+  drm/i915/frontbuffer: Move bo refcounting
+    intel_frontbuffer_{get,release}()
+  drm/i915/fb: Fix the set_tiling vs. addfb race, again
+  drm/i915/fbdev: Select linear modifier explicitly
+  drm/i915/fb: Drop the 'fb' argument from
+    intel_fb_bo_framebuffer_init()
+  drm/i915/wm: Use fb->modfier to check for tiled vs. untiled
 
-Completely disable tracing for the entire i915 driver in PREEMPT_RT,
-a separate fix for display tracepoints on xe is added to make those
-work.
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |  7 ++--
+ drivers/gpu/drm/i915/display/intel_fb.c       | 42 ++++++++++---------
+ drivers/gpu/drm/i915/display/intel_fb_bo.c    |  3 +-
+ drivers/gpu/drm/i915/display/intel_fb_bo.h    |  3 +-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  2 +
+ .../gpu/drm/i915/display/intel_frontbuffer.c  | 10 ++++-
+ .../i915/gem/i915_gem_object_frontbuffer.h    |  2 -
+ drivers/gpu/drm/xe/display/intel_fb_bo.c      |  3 +-
+ 8 files changed, 39 insertions(+), 33 deletions(-)
 
-Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Reported-by: Luca Abeni <lucabe72@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Co-developed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Link: https://lore.kernel.org/r/20250828090944.101069-1-dev@lankhorst.se
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/Makefile | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 78a45a6681df3..6d7800e25e554 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -13,6 +13,11 @@ subdir-ccflags-$(CONFIG_DRM_I915_WERROR) += -Werror
- # drivers. Define I915 when building i915.
- subdir-ccflags-y += -DI915
- 
-+# FIXME: Disable tracepoints on i915 for PREEMPT_RT, unfortunately
-+# it's an all or nothing flag. You cannot selectively disable
-+# only some tracepoints.
-+subdir-ccflags-$(CONFIG_PREEMPT_RT) += -DNOTRACE
-+
- subdir-ccflags-y += -I$(src)
- 
- # Please keep these build lists sorted!
 -- 
-2.51.0
+2.49.1
 
