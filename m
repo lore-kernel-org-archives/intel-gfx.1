@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4619CCD184
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 07:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFEF5CCA476
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 07:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E7CF10E587;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E81610E58C;
 	Tue,  7 Oct 2025 07:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mZxH8tXN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oEvBr6O7";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE6B10E587
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA0010E587
  for <intel-gfx@lists.freedesktop.org>; Tue,  7 Oct 2025 07:57:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759823868; x=1791359868;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CqJcBNafGfBiY4jqdIhM/5mEogLTsXXyX0dd/AIRQFs=;
- b=mZxH8tXNIkWUBj7oZQzIF3ccht/nYqyPyLd6Qt95+mPxvM7+j9ZFb2Uw
- ihlsCTWmxScbBGowjH2uRGFDYbCIy6CT10/6zHAGEb5iKIy01aJYQK7O1
- MsPpy1AA8h4Ii9ofbn6p+W1qDoMMthsJ0bPROyqt03agGlCGAPrYLWLJN
- Wbz/RYgElYjmcG73yGAaRE6b0Lm6cxceibGVl+bRzpPyTCC6VWCpvGdbr
- FuRTaPHY2J0RUMIfxvJMket5qYPfxYHZdlvrXAEn6ipINwxwObjZpCdGn
- QfTysqFZLDV4cnDBYBUljbat4ajF14VNKbEXX9ZiXtGSX9zFj5JUmZe7N A==;
-X-CSE-ConnectionGUID: PrmDA+neS+yRAbJVnwszkg==
-X-CSE-MsgGUID: XTn3ph9uRyaLIrE+kXDc2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11574"; a="73104884"
-X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="73104884"
+ t=1759823867; x=1791359867;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=BZKoJcND0kl6ircVoahKwAvZ644mxPPFJicLI554nWk=;
+ b=oEvBr6O7FQdqddnRinSC8CORjU+FVmGz2zl19zy+6GRns2g5oiIoNJdt
+ SKzj7yfn0OgdtzCUklSNDL4ObmTpEaHNqOxP4AezAOCn4O4OC0FU7APYa
+ 3pYdyse+mVygej7/W803s4Uveo31fXhMEz9xqHw9ESUC/7UrTuTh6wsTU
+ 5VxclFNyLDAbHnpz5sGnl4NNy/QyQIeGBtMhS9lhKrNMATfSOlzMo0hX6
+ XDPAlGBiAKHkQM6gDV0DGUyPk6scUNNaeArBAJNqkNShsV9VQsAaC9eRg
+ NXY44cUnCzo2SPzK8jH6+ZiGb4sSCXlXTxxYcxlGp8mchwumCOlflLFbz g==;
+X-CSE-ConnectionGUID: Q/m2KpuVRkSXSYRk7LxuDg==
+X-CSE-MsgGUID: psU+zmUaTWaLVKc0qEyyvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11574"; a="73104875"
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="73104875"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2025 00:57:48 -0700
-X-CSE-ConnectionGUID: 0ViXQdjaS5C9DjW7HbDhLg==
-X-CSE-MsgGUID: LwJ4GUwHSn6BT6IjmDTZ4w==
+ 07 Oct 2025 00:57:47 -0700
+X-CSE-ConnectionGUID: M0QbRIzVQByNeCutpUNJqw==
+X-CSE-MsgGUID: Fq8QKTgpQrWdmMQxbhlUVA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="180017656"
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="180017647"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO hazy.intel.com)
  ([10.245.245.206])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2025 00:57:46 -0700
+ 07 Oct 2025 00:57:45 -0700
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: vinod.govindapillai@intel.com,
 	ville.syrjala@linux.intel.com
-Subject: [PATCH v2 1/7] drm/i915/wm: clarify watermark ops with comments
-Date: Tue,  7 Oct 2025 10:56:35 +0300
-Message-ID: <20251007075729.468669-2-luciano.coelho@intel.com>
+Subject: [PATCH v2 0/7] drm/i915/wm: some clean-ups and a bit of refactoring
+Date: Tue,  7 Oct 2025 10:56:34 +0300
+Message-ID: <20251007075729.468669-1-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251007075729.468669-1-luciano.coelho@intel.com>
-References: <20251007075729.468669-1-luciano.coelho@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,41 +68,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some of the ops in struct intel_wm_funcs are used only for legacy
-watermark management, while others are only for SKL+ or both.  Clarify
-that in the struct definition.
+Hi,
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_core.h | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+This is v2 of my initial clean-ups and small refactoring in
+preparation for further refactoring of the watermark code.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index df4da52cbdb3..7144b61fb1ff 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -78,7 +78,7 @@ struct intel_display_funcs {
- 
- /* functions used for watermark calcs for display. */
- struct intel_wm_funcs {
--	/* update_wm is for legacy wm management */
-+	/* these are only for legacy wm management */
- 	void (*update_wm)(struct intel_display *display);
- 	int (*compute_watermarks)(struct intel_atomic_state *state,
- 				  struct intel_crtc *crtc);
-@@ -88,8 +88,12 @@ struct intel_wm_funcs {
- 					 struct intel_crtc *crtc);
- 	void (*optimize_watermarks)(struct intel_atomic_state *state,
- 				    struct intel_crtc *crtc);
-+
-+	/* these are for SKL+ wm management */
- 	int (*compute_global_watermarks)(struct intel_atomic_state *state);
- 	void (*get_hw_state)(struct intel_display *display);
-+
-+	/* this is used by both legacy and SKL+ */
- 	void (*sanitize)(struct intel_display *display);
- };
- 
+Please review.  Changes in v2 described in the relevant patches.
+
+Cheers,
+Luca.
+
+
+Luca Coelho (7):
+  drm/i915/wm: clarify watermark ops with comments
+  drm/i915/wm: move intel_sagv_init() to avoid forward declaration
+  drm/i915/wm: remove stale FIXME in skl_needs_memory_bw_wa()
+  drm/i915/wm: convert x/y-tiling bools to an enum
+  drm/i915/wm: convert tiling mode check in slk_compute_plane_wm() to a
+    switch-case
+  drm/i915/wm: move method selection and calculation to a separate
+    function
+  drm/i915/wm: reduce size of y_min_scanlines to u8
+
+ .../gpu/drm/i915/display/intel_display_core.h |   6 +-
+ drivers/gpu/drm/i915/display/skl_watermark.c  | 166 +++++++++++-------
+ 2 files changed, 106 insertions(+), 66 deletions(-)
+
 -- 
 2.51.0
 
