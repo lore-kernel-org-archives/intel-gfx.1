@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24489CCD188
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D11E1CCD187
 	for <intel-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 09:06:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A120E10E988;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901B810E986;
 	Thu,  9 Oct 2025 09:06:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B4geSTF/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NDsvWvDS";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54ED810E8F1
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 01:10:20 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-639fe77bb29so97643a12.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 08 Oct 2025 18:10:20 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF2410E563
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Oct 2025 06:29:44 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-3307e8979f2so1207315a91.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 06 Oct 2025 23:29:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1759972218; x=1760577018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=gHNwCzkNohYs+pMN4B89ykQsTowN8bxnB/b42VHF3Kk=;
- b=B4geSTF/OwUGQ82EWuqTcysRVXfk8iTI0MaADLdmUFsNXkXUKmlFPWbcrRBKqeIeiW
- pRGzReXLR6XB/6+3WZNiCqzLWYeVofglKAykaA+ZUm8Lgz7MGfa+ojNmL+H6CG7xQlaH
- BnGaiVBhra0HSHh5HhWmm3Hski09zi/uiQ0XuRJndzXUTeMANR1Avo7u6I6suoM/kT/4
- S03IXhzob4SBd1Ura7SLG7aNsu5PZ5J6UdtEcVqSthPggNNmanmoO8pmkQjhf4eep85c
- I7xXv8Nlnyu5pkodyTEeMFdK5kYvCujqSbaWGHEEzYrKzX9IF8sS/Fk+IPeE076oiOdt
- UIQQ==
+ d=gmail.com; s=20230601; t=1759818584; x=1760423384; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=aKkMnGRmG/HCXRR/J+wbpneMSFSl98hzVTOk4wOIvPo=;
+ b=NDsvWvDS/OEmehKZipK3u2lsX7Q/LBDUkzSdLkvuU/BYr86A6l7Mp6tGPNA/9kVilP
+ Htk1sOjWSgBJNAxC766gom8gBNumNAiHJ0qPKlxwnvtwjY0amXcuTa/h8Zt8yFYAZqdG
+ 3E3Fx7xyIL7WooJwUvSWz3CoMXaEpw7Fw0O0yIzwuwnzt892TF0d/pW7eXmyAWOTVRdl
+ 7aDq+4llQ6fdTIKfj6MLThYAYs3+a5OOQ8Y+9hKMIXl+Q9w78ZUtMHYvnZ3s/L7GwNpy
+ +tJY9GH1QpspXAA4GlRvTpbk8O0Yb85eK5PhMRP78aTuepddiX7q14ZVrKmyQPMlt9vc
+ AJSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1759972218; x=1760577018;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gHNwCzkNohYs+pMN4B89ykQsTowN8bxnB/b42VHF3Kk=;
- b=XzbPfhoEMUpECCKYzgoNS8AJ8o8YW/qv7RCaXqN5M2Ml6b5GuIm71l0oWGZm2pnKA9
- 1HDgiwaOfKHVs0gzntrBSGsbM4aG/g/+0lXUdWvXh7zW7sAE9pLu500I3J33IOmlUYlt
- zW7Qy01UuCpGyVGjYNT6zy2018umFELuDQBNLbkLz2a4kmVxnpr+1rGfgIRn17YcQAJy
- dmXUzbnYjlHobNJqyEh3ZAx+F0X/AgNjQYKAPAhXamhW+tFQ9KUTMwwsGhD+Y9amSUv/
- lDj22hrlgwqyb1/jscqN3US7KRtPPvyLkjz74YMYXCnwUETKmI0xkJ4Yyimq2iF0D2Eb
- htmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUxwfmKRYw6YZ8+ab2dg6MGB2TVMNW5jvqEmLN9ZQSlpFgTYqtqUOuUcBeyZiTuDOteUa4L4ZoBUes=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwVB+A5ZyjS6Gkhj64RKI/vY1zBFiCGVQCKptyoScvV5D/2WDGo
- 1ke0br2Pyien5afSTkUJr3ecIHB38bvOrx0QMBiDHeHpaRX8gZns6jJk
-X-Gm-Gg: ASbGncvoFxb7wToMTWcRLFSFb8dJGg1fpdkW7Nf9IuFlXGGeRzEgdy2B1g/gquFHYMH
- t13ft7bYt7toK00Gt7y/bGI97zMUUCv4uproFEUXmepjsheYdEDE7KcWymrXjpvxPxIYYGaE7m8
- SDJCWbUC3f56X698yUS2hLwZtRcnBzumxAI7pDbrNue8+GjCQwropDv0LJLknJP+K7dlk2BFAMt
- 6uCsgExEZOlEPqr6/pMoWM3J59zb98ITQzd51oEOmf5rJm3T9wFq/DFIFHI1xWFaf21c0Zi19tj
- eKO3xud9Rb8g2svIN+jl+QnumdPpct/bYLGr9YqSD2Njg1c/8fvujykU5hchAxq7d2hTDQiWvKt
- T5dDntO/zdWsw6LRGxmZ/oH1msz9SrzjwaNDKM1u2Qpc=
-X-Google-Smtp-Source: AGHT+IFUVSoo1eoMPJWEELwFIyb0TmQNTBhyRzWwaIZEnkB7f2xM/gEhdtxapqA11Ju2Mj6UA4MtcA==
-X-Received: by 2002:a05:6402:510f:b0:62f:5992:a64a with SMTP id
- 4fb4d7f45d1cf-639d5b7f489mr5361550a12.13.1759972218246; 
- Wed, 08 Oct 2025 18:10:18 -0700 (PDT)
-Received: from localhost ([212.73.77.104]) by smtp.gmail.com with UTF8SMTPSA id
- 4fb4d7f45d1cf-639f30ad247sm1240289a12.7.2025.10.08.18.10.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 08 Oct 2025 18:10:17 -0700 (PDT)
-From: Askar Safin <safinaskar@gmail.com>
-To: jia.yao@intel.com
-Cc: alex.zuo@intel.com, chris.p.wilson@linux.intel.com,
- intel-gfx@lists.freedesktop.org, piliu@redhat.com,
- linux-kernel@vger.kernel.org, shuicheng.lin@intel.com
-Subject: Re: [PATCH v2] drm/i915: Setting/clearing the memory access bit when
- en/disabling i915
-Date: Thu,  9 Oct 2025 04:10:00 +0300
-Message-ID: <20251009011010.37763-1-safinaskar@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251007202514.1661491-1-jia.yao@intel.com>
-References: <20251007202514.1661491-1-jia.yao@intel.com>
+ d=1e100.net; s=20230601; t=1759818584; x=1760423384;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=aKkMnGRmG/HCXRR/J+wbpneMSFSl98hzVTOk4wOIvPo=;
+ b=bA5WCoqNkoVNTKV4eygXXqGdSjBUDwPRjzSYVaf2KeUSPpTHFodEFqKHB//sfxcNnC
+ oyoATiVzbDKMsSHyad5gPrzLcxoP7VS7E6uN69xibI4H7L68Qpxdhy9P0pK6Cv+IUa4Y
+ DheSgpF7wGs4lNvc0uCuQ6K7p2ctTANZlWK8C5UdKGWA991ccCK6R+TEm8xe06LNQe+b
+ JrWToedaOfOiXFBzdrIytaK000plI8TJuyZ958JZCJiLKGJFOs5b9cfpF+Z2I2q7BClX
+ AXLp/LL3BEBjUWsEQDJxYlss2Ds6QWpc8604AXwr+/ciUjbqWWV16iGdeyS7BKrwEKdX
+ E6hg==
+X-Gm-Message-State: AOJu0YzCdRM73OrvHJZ4OR+CvGXGvKwgwdmyWazKMa9P3BnxAHrq3mud
+ yJZiudPo3bWIO858Kg/DWo5CQ7IiY3W+FdLC+bftmXcXzt/qVVbMa1pGgQpcQRFZpzVfva0IqFz
+ 8MbTF+iBNCN3v0gsVEPgdK7YjtKvvxe4=
+X-Gm-Gg: ASbGncvgIvalbG8fkkyougl4Ld14Jury125KUesl+SweClQqRXR2MAgpWY9huTh9zfg
+ ZKa8Pz4Pa7QhNRLEBE++6PLIJwa8SvcxDw5C29z6dxVOn/VnBHQ/zoNB/ueOLn9EKgvZKw61Q9q
+ xirVFWuZFH65pCm0zJFHQeMNbakkGkSkjeolojstn9sTjxtZlWH9L+1irnD+TPaal5D9KH82yGd
+ HrXmXNeW1OzDM5FFb6iq441dkF5n5vaeA==
+X-Google-Smtp-Source: AGHT+IEW6knPiqMjhqg1CsWXzM0Am7GvQ+mxVelPlkPt1JP7ue4KThWpZkJDaJNhj3RD4YPttWj4FZC7v5OYuOR6TPM=
+X-Received: by 2002:a17:90b:180a:b0:330:3fb7:d874 with SMTP id
+ 98e67ed59e1d1-339c27e2dc9mr10969162a91.8.1759818583824; Mon, 06 Oct 2025
+ 23:29:43 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <CAGfirffPy5biFVLtSNEW60UCXa6_=-=NrQbU7iLQ8+BXnFQ=1A@mail.gmail.com>
+ <175922381867.30706.10351894191632562572@jlahtine-mobl>
+ <CAGfirfdDe879wFzABVZkTV7grEimpnc0XrrKpj2SX1w_TLtgNg@mail.gmail.com>
+ <aN0X3ck-egLMn_Xy@ashyti-mobl2.lan>
+ <CAGfirffg4JzGkwaKTm9fL9Nyud4kBALvfW3Et33ZF60e8cVO1g@mail.gmail.com>
+In-Reply-To: <CAGfirffg4JzGkwaKTm9fL9Nyud4kBALvfW3Et33ZF60e8cVO1g@mail.gmail.com>
+From: =?UTF-8?B?6rmA6rCV66+8?= <km.kim1503@gmail.com>
+Date: Tue, 7 Oct 2025 15:29:32 +0900
+X-Gm-Features: AS18NWAJwJZBfwvucMwYUat98KEOwu2C85iSdEGMBYwKufVF5K91QzrHXZw2m3s
+Message-ID: <CAGfirfdACPUrW7hxOKXEpaPZ6=Lkwde24CfHov9=75JhXiPApg@mail.gmail.com>
+Subject: Re: BUG: unable to handle kernel NULL pointer dereference in
+ eb_release_vmas
+To: Andi Shyti <andi.shyti@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, rodrigo.vivi@intel.com, 
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch, 
+ ville.syrjala@linux.intel.com, nitin.r.gote@intel.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ syzkaller@googlegroups.com
+Content-Type: multipart/alternative; boundary="0000000000008ede9b06408bb117"
 X-Mailman-Approved-At: Thu, 09 Oct 2025 09:06:04 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,35 +90,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-[It seems this letter got lost, so I'm sending it again, this time using git-send-email.
-Please, CC lkml additionally next time, hopefully it will work better than intel-gfx@freedesktop ]
+--0000000000008ede9b06408bb117
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 7, 2025 at 11:25 PM Jia Yao <jia.yao@intel.com> wrote:
-> Make i915's PCI device management more robust by always setting/clearing
+I noticed that I had sent the related link to only one person, so I=E2=80=
+=99m
+resending it just in case.
 
-Thank you! I tested this patch, and it indeed fixes the problem. You may add:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15062
+<https://l.mailtrack.com/l/a23538b60e872501ef9881ddb3a7e5ffc2cbce55?u=3D123=
+92148>
 
-Tested-By: Askar Safin <safinaskar@gmail.com>
+Best Regards,
+GangMin Kim.
 
-Please, CC me with further patches, I will test them.
 
-Also, I will repeat that the bug doesn't happen if we have
-CONFIG_INTEL_IOMMU_DEFAULT_ON=y.
-So, probably we just need to patch all distro's configs to include
-CONFIG_INTEL_IOMMU_DEFAULT_ON=y
-(Ubuntu already does that.)
-On the other hand, if there is some deeper issue to fix, then, of
-course, I'm glad it is being fixed!
+2025=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 11:42, =
+=EA=B9=80=EA=B0=95=EB=AF=BC <km.kim1503@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=
+=91=EC=84=B1:
 
-Also, please, add some "Fixes" tag and CC stable to make sure this fix
-will be backported to stable kernels.
+> The link is as follows.
+>
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15062
+> <https://l.mailtrack.com/l/7ffb70a27148d4fd131a86469e503e9a70232ef6?u=3D1=
+2392148>
+>
+> Best Regards,
+> GangMin Kim.
+>
+> 2025=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 9:00,=
+ Andi Shyti <andi.shyti@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+> >
+> > On Wed, Oct 01, 2025 at 12:14:41AM +0900, =EA=B9=80=EA=B0=95=EB=AF=BC w=
+rote:
+> > > Ok, I will do it.
+> >
+> > when you do, can you please paste the link here?
+> >
+> > Thanks,
+> > Andi
+> >
+> > > Best Regards,
+> > > GangMin Kim.
+> > >
+> > > 2025=EB=85=84 9=EC=9B=94 30=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 6=
+:17, Joonas Lahtinen
+> > > <joonas.lahtinen@linux.intel.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=
+=B1:
+> > > >
+> > > > Hi,
+> > > >
+> > > > Can you please open a bug as per the instructions in:
+> > > >
+> > > >
+> https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+> <https://l.mailtrack.com/l/de3b4dc95c086ae49b881e7922499a64745d7a93?u=3D1=
+2392148>
+> > > >
+> > > > Thanks in advance!
+> > > >
+> > > > Regards, Joonas
+>
 
-For example:
+--0000000000008ede9b06408bb117
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-  Cc: <stable@vger.kernel.org>
+<div dir=3D"ltr"><div dir=3D"ltr">I noticed that I had sent the related lin=
+k to only one person, so I=E2=80=99m resending it just in case.<br><br><a h=
+ref=3D"https://l.mailtrack.com/l/a23538b60e872501ef9881ddb3a7e5ffc2cbce55?u=
+=3D12392148">https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15062<=
+/a><br><br>Best Regards,<br>GangMin Kim.</div><br><br><img width=3D"0" heig=
+ht=3D"0" class=3D"mailtrack-img" alt=3D"" style=3D"display:flex" src=3D"htt=
+ps://mailtrack.io/trace/mail/0ff16b36172e3d8a1b6f03f56160274b1ff3dff4.png?u=
+=3D12392148"><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"l=
+tr" class=3D"gmail_attr">2025=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EC=88=98) =
+=EC=98=A4=ED=9B=84 11:42, =EA=B9=80=EA=B0=95=EB=AF=BC &lt;<a href=3D"mailto=
+:km.kim1503@gmail.com">km.kim1503@gmail.com</a>&gt;=EB=8B=98=EC=9D=B4 =EC=
+=9E=91=EC=84=B1:<br></div><blockquote class=3D"gmail_quote" style=3D"margin=
+:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
+>The link is as follows.<br>
+<br>
+<a href=3D"https://l.mailtrack.com/l/7ffb70a27148d4fd131a86469e503e9a70232e=
+f6?u=3D12392148" rel=3D"noreferrer" target=3D"_blank">https://gitlab.freede=
+sktop.org/drm/i915/kernel/-/issues/15062</a><br>
+<br>
+Best Regards,<br>
+GangMin Kim.<br>
+<br>
+2025=EB=85=84 10=EC=9B=94 1=EC=9D=BC (=EC=88=98) =EC=98=A4=ED=9B=84 9:00, A=
+ndi Shyti &lt;<a href=3D"mailto:andi.shyti@linux.intel.com" target=3D"_blan=
+k">andi.shyti@linux.intel.com</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:=
+<br>
+&gt;<br>
+&gt; On Wed, Oct 01, 2025 at 12:14:41AM +0900, =EA=B9=80=EA=B0=95=EB=AF=BC =
+wrote:<br>
+&gt; &gt; Ok, I will do it.<br>
+&gt;<br>
+&gt; when you do, can you please paste the link here?<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Andi<br>
+&gt;<br>
+&gt; &gt; Best Regards,<br>
+&gt; &gt; GangMin Kim.<br>
+&gt; &gt;<br>
+&gt; &gt; 2025=EB=85=84 9=EC=9B=94 30=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=
+=84 6:17, Joonas Lahtinen<br>
+&gt; &gt; &lt;<a href=3D"mailto:joonas.lahtinen@linux.intel.com" target=3D"=
+_blank">joonas.lahtinen@linux.intel.com</a>&gt;=EB=8B=98=EC=9D=B4 =EC=9E=91=
+=EC=84=B1:<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Hi,<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Can you please open a bug as per the instructions in:<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; <a href=3D"https://l.mailtrack.com/l/de3b4dc95c086ae49b881e7=
+922499a64745d7a93?u=3D12392148" rel=3D"noreferrer" target=3D"_blank">https:=
+//drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html</a><br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Thanks in advance!<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Regards, Joonas<br>
+</blockquote></div></div>
 
-Here I chose the initial git commit, because i915 always was in git history.
-
--- 
-Askar Safin
+--0000000000008ede9b06408bb117--
