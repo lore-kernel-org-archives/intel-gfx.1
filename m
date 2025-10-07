@@ -4,50 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CBFACCA476
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 10:14:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C99EFCCA470
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 11:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA3AD10E5D3;
-	Tue,  7 Oct 2025 10:14:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 463C610E16A;
+	Tue,  7 Oct 2025 11:40:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PisdVE2p";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CrURF0N0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC89610E181;
- Tue,  7 Oct 2025 10:14:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1192A601DC;
- Tue,  7 Oct 2025 10:14:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522B1C4CEF1;
- Tue,  7 Oct 2025 10:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1759832073;
- bh=3esV0ytccBxzur/KLi5NKJu08t5jZgIJWULK85MYAJ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=PisdVE2pmak6fACq2DRWMwHrPN9glJkXCwwTLPTb7uNbkEvwpZ3bqo2OndZuIuHGL
- 8YxK1rvL8iXv2lnQb+DVLBQunfJTkSELnuzhZCiaXB2nUdmDyYiIOOxxM7p2Vy8DYe
- d7Zri/4ZtyC30D6ohhMFqJAd5+G5Fjovi4L9NU084ka3XbqwbDyXSm7pHO0gExx1nB
- thqy7ZijQipGP3zCULTMdYqiEzeHfC3BpaIVavZiSm19hVTjuY31n6faDTgAWv+PU4
- dqb3E5gz/hlLLpO5I5aNbGHlx1ZfbTtfC7z37Xac4xPaqj7EkiBqzeLTkRNRFxH3YK
- XVkjlGh7VKhMQ==
-Date: Tue, 7 Oct 2025 12:14:30 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Alexandr Sapozhnkiov <alsp705@gmail.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Daniel Vetter <daniel@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- lvc-project@linuxtesting.org
-Subject: Re: [PATCH 5.10] gpu/i915: fix error return in mmap_offset_attach()
-Message-ID: <ris5iw6gdn7squdjpo5kapdyd7jqwbzy3kbpnzspp7jhpm4tlj@osq47p45ydcv>
-References: <20251002084828.11-1-alsp705@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8925110E16A;
+ Tue,  7 Oct 2025 11:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1759837207; x=1791373207;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=CNfSGplDndkpBe6Bt+fSbWcLh3cFwnAQx8RfIbT8iL8=;
+ b=CrURF0N0xb30/FpVgvjrt6hIl/UezwzAe6lXxiTaurIkOlTItiIj9qKc
+ lf2B9tSPuYFG32z2W8KC1XAbYF+fLjCozgjoIKH3fI6ubU8vUD2Vo0X+b
+ UerV6gTKaTlihN35noHzQvpeHgODfgvYJ6oYDqU7JGK7g0p1OhnWmzxV8
+ LBoPxKtzO4EKTU9ArPUx8xMZqz4OJYYVce2Iu/Cn23horTNKQ6robZ2/5
+ YYeviqEeiXfhXdGpPGXgKMC0YIYEHi1vaHdLHGxSohKsQJueBrNNQO07w
+ VCUaZvAMZTBIerdIiw3sVUykeMhzpFe0VLchk4Y7dsg5r+vminUqN3Z6n Q==;
+X-CSE-ConnectionGUID: TRCZMjJPTwaMq2Y1XalInw==
+X-CSE-MsgGUID: evinDs2gR8mtoUTvciM+/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11574"; a="73442889"
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="73442889"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2025 04:40:07 -0700
+X-CSE-ConnectionGUID: vOAtq7ewQ/O/YtGJHnO/rg==
+X-CSE-MsgGUID: PRQiSwvmSMmMC9PcsgA7pg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="184161204"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
+ jkrzyszt-mobl2.intranet) ([10.245.245.225])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2025 04:40:05 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: igt-dev@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>
+Subject: [PATCH i-g-t v2 0/5] tests/gem_eio: Resolve timing issues in stress
+ subtests
+Date: Tue,  7 Oct 2025 13:38:23 +0200
+Message-ID: <20251007113910.3336564-7-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251002084828.11-1-alsp705@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,55 +72,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Subtests that measure time of resume after engine reset require results
+from at least 9 reset-resume cycles for reasonable calculation of a median
+value to be compared against presumed limits.  On most Gen12+ platforms,
+as well as on some older ones like JSL, CHV, ILK or ELK, the current limit
+of 5 seconds for collecting those results occurs too short.  Moreover,
+upstream CI results from kms, reset-stress and unwedge-stress subtests
+show GPU resume after reset noticeably slower when running on some Gen12+
+platforms.
 
-On Thu, Oct 02, 2025 at 11:48:26AM +0300, Alexandr Sapozhnkiov wrote:
-> From: Alexandr Sapozhnikov <alsp705@gmail.com>
-> 
-> In the drm_vma_node_allow function, kmalloc may 
-> return NULL, in which case the file element will not be 
-> added to the mmo->vma_node list. It would be good to 
-> not ignore this event, but at least log an error message.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with SVACE.
-> 
-> Signed-off-by: Alexandr Sapozhnikov <alsp705@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_mman.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> index a2195e28b625..adaef8f09d59 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-> @@ -706,8 +706,11 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
->  	mmo = insert_mmo(obj, mmo);
->  	GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
->  out:
-> -	if (file)
-> -		drm_vma_node_allow_once(&mmo->vma_node, file);
-> +	if (file) {
-> +		err = drm_vma_node_allow_once(&mmo->vma_node, file);
-> +		if (err)
-> +			goto err;
-> +	}
+Skip if less than 9 results from reset-resume cycles are collected.  Raise
+the 5 seconds loop limit to 20 seconds, and break the loop as soon as more
+than 8 results are collected.  Having the test results revisited with the
+above in place, relax expectations on resume-after-reset time for Gen12+
+similar to Gen5-.  Also, limit the scope of exercised engines to physical,
+skipping virtual, to avoid exceeding per test timeout applied by
+igt_runner, and limit the amount of debug info on stderr to avoid 
+exceeding per test disk space limit.
 
-NACK here! You have received several reviews on this patch and
-didn't react to them. Please, read carefully the reviews you
-received and send a second version of the patch.
+v2: Skip, not warn, on too few reset-resume cycles, may be handled as
+    expected skip on extremely slow platforms (Krzysztof),
+  - split out a change in handling of not enough measurements to a
+    separate patch (Kamil),
+  - reword commit message to be more distinct from other patches in
+    series (Kamil),
+  - reword commit message and description so they no longer state the
+    scope of the issue is limited to Gen12+, and list other (non-Gen12+)
+    platforms found also affected,
+  - disable massive engine debugging info on stderr to avoid incompletes
+    on disk space limit exceeded.
 
-Please do use versioning properly in your title and add a
-changelog.
+Janusz Krzysztofik (5):
+  tests/gem_eio: Skip on too few reset-resume cycles
+  tests/gem_eio: Try harder to measure median resume time
+  tests/gem_eio: Adjust for slow resume after reset on Gen12+
+  tests/gem_eio: Iterate over physical rings in stress subtests
+  tests/gem_eio: Avoid exceeding CI disk space limit
 
-Before sending patches, please read the documentation[*].
+ tests/intel/gem_eio.c | 47 ++++++++++++++++++++++++-------------------
+ 1 file changed, 26 insertions(+), 21 deletions(-)
 
-Andi
+-- 
+2.51.0
 
-[*] https://www.kernel.org/doc/html/v4.17/process/submitting-patches.html
-
->  	return mmo;
->  
->  err:
-> -- 
-> 2.43.0
-> 
