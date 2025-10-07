@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D7C6CCA476
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 07:57:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB838CCD185
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Oct 2025 07:57:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01DCE10E596;
-	Tue,  7 Oct 2025 07:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 444B710E592;
+	Tue,  7 Oct 2025 07:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bvVyh7bk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B64PK0CU";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E14D910E592
- for <intel-gfx@lists.freedesktop.org>; Tue,  7 Oct 2025 07:57:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1E9410E597
+ for <intel-gfx@lists.freedesktop.org>; Tue,  7 Oct 2025 07:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1759823871; x=1791359871;
+ t=1759823874; x=1791359874;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=W11gCCSQxh4FP1RarZ6/OiIVU6THacl5nR367hwXdXM=;
- b=bvVyh7bkx8ujaL2/XTNWKpzLmFyE80snXwEEjY7cytX2ChTch3tEGaFg
- 0vqFhel6osfk8jbyeDLqUUzN+Qxs9aBo8W1X//6kCvBh3/+1N5ZAXlObQ
- dXP2CIbQWiuUvLGcnhwWsLYjtUuq6CSy/2nfFAgFRN1cN9BscrKLg8Th5
- F8habjQfIa8HoLgQFV8wArUGP33DdI5VnXATWMVI4pbktHoBDP2l00Ue9
- CuIqrohJ2V6W0k0yTmFPzmWOekE9PXyIpNF/9q23aQ8DElKVDAtdu8mUL
- 53YP2xZSolAq9OvCyFjgLZDG1rls9UyzHPVzP9y0IYjKS3LTQvsem6uOH Q==;
-X-CSE-ConnectionGUID: Psxg6yWlT06lg8kn+SpBXA==
-X-CSE-MsgGUID: JdqDNL9eQuWkD7mfQqcdhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11574"; a="73104907"
-X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="73104907"
+ bh=ZjPfSQqBN0MT98NuBCrP6RQhT60ffcFvyxn6BDNdPQ0=;
+ b=B64PK0CUxob6tqEBpTdp3TYXZXYU+GxcFP4RpkC89kp/gkmjmGPXkSR6
+ FWngQkLy8fhppe9f3GvgfcXJH1eKdELBjx0d319fFtzEPo9o8o3I7GNLU
+ cedRnfheUM8WwOg7fsCOg+mg1I3mHBf2iv0Fuf/aECf9lt/flewynf+5v
+ yzfm7if0FNWTApAp0e+VZ1QbwxZrs+HaBJZk+CubAYk5Cnrj4oI+PUnP1
+ 58hwRjfBuXvQmu+C2cSjZ18DmKq2TEeopiV8cI5HnM5aMY1u1iZSOAPoW
+ 50B/zFNyiYI/PpCGcpv2PAAZdGnzpRkBeZMaRkUg99SCyf9L12BEqqLJn Q==;
+X-CSE-ConnectionGUID: mZhQGiHlRP6Mj6h9dzLHkg==
+X-CSE-MsgGUID: 9PvXL0TpSUC87H1crB1liA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11574"; a="73104928"
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="73104928"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2025 00:57:51 -0700
-X-CSE-ConnectionGUID: 1Mmb1CufSsesrHCmCwUmQg==
-X-CSE-MsgGUID: QyLTr4OJQsymyu4K9ICc6Q==
+ 07 Oct 2025 00:57:54 -0700
+X-CSE-ConnectionGUID: 4dxUzu9nQt2oaRVUecK54A==
+X-CSE-MsgGUID: yen9xIl7QTqIiRurK1kCxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="180017686"
+X-IronPort-AV: E=Sophos;i="6.18,321,1751266800"; d="scan'208";a="180017710"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO hazy.intel.com)
  ([10.245.245.206])
  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2025 00:57:49 -0700
+ 07 Oct 2025 00:57:52 -0700
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: vinod.govindapillai@intel.com,
 	ville.syrjala@linux.intel.com
-Subject: [PATCH v2 3/7] drm/i915/wm: remove stale FIXME in
- skl_needs_memory_bw_wa()
-Date: Tue,  7 Oct 2025 10:56:37 +0300
-Message-ID: <20251007075729.468669-4-luciano.coelho@intel.com>
+Subject: [PATCH v2 5/7] drm/i915/wm: convert tiling mode check in
+ slk_compute_plane_wm() to a switch-case
+Date: Tue,  7 Oct 2025 10:56:39 +0300
+Message-ID: <20251007075729.468669-6-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251007075729.468669-1-luciano.coelho@intel.com>
 References: <20251007075729.468669-1-luciano.coelho@intel.com>
@@ -70,32 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This FIXME has been there forever and apparently the _proper code_ has
-never been added, and, since it's a very old platform alreday, most
-likely never will.  It hasn't been a problem to keep the workaround
-for all cases, so let's drop the FIXME tag.
+Make the code a bit clearer by using a switch-case to check the tiling
+mode in skl_compute_plane_wm(), because all the possible states and
+the calculations they use are explicitly handled.
 
-Reviewed-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+v2: - Remove useless comment (Gustavo)
+    - Move the default case above linear as a fallthrough (Gustavo)
+
 Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- drivers/gpu/drm/i915/display/skl_watermark.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/skl_watermark.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 5e69fe034d6a..3a982458395e 100644
+index dc00b5cd3ff7..a9d1bc432f75 100644
 --- a/drivers/gpu/drm/i915/display/skl_watermark.c
 +++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -83,8 +83,8 @@ u8 intel_enabled_dbuf_slices_mask(struct intel_display *display)
- }
+@@ -1817,12 +1817,23 @@ static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
+ 				 latency,
+ 				 wp->plane_blocks_per_line);
  
- /*
-- * FIXME: We still don't have the proper code detect if we need to apply the WA,
-- * so assume we'll always need it in order to avoid underruns.
-+ * We don't have the proper code detect if we need to apply the WA, so
-+ * assume we'll always need it in order to avoid underruns.
-  */
- static bool skl_needs_memory_bw_wa(struct intel_display *display)
- {
+-	if (wp->tiling == WM_TILING_Y_FAMILY) {
++	switch (wp->tiling) {
++	case WM_TILING_Y_FAMILY:
+ 		selected_result = max_fixed16(method2, wp->y_tile_minimum);
+-	} else {
++		break;
++
++	default:
++		MISSING_CASE(wp->tiling);
++		fallthrough;
++	case WM_TILING_LINEAR:
++	case WM_TILING_X_TILED:
++		/*
++		 * Special case for unrealistically small horizontal
++		 * total with plane downscaling.
++		 */
+ 		if ((wp->cpp * crtc_state->hw.pipe_mode.crtc_htotal /
+ 		     wp->dbuf_block_size < 1) &&
+-		     (wp->plane_bytes_per_line / wp->dbuf_block_size < 1)) {
++		    (wp->plane_bytes_per_line / wp->dbuf_block_size < 1)) {
+ 			selected_result = method2;
+ 		} else if (latency >= wp->linetime_us) {
+ 			if (DISPLAY_VER(display) == 9)
+@@ -1830,8 +1841,11 @@ static void skl_compute_plane_wm(const struct intel_crtc_state *crtc_state,
+ 			else
+ 				selected_result = method2;
+ 		} else {
++			/* everything else with linear/X-tiled uses method 1 */
+ 			selected_result = method1;
+ 		}
++		break;
++
+ 	}
+ 
+ 	blocks = fixed16_to_u32_round_up(selected_result);
 -- 
 2.51.0
 
