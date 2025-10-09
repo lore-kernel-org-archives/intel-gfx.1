@@ -4,68 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2943CCD187
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 09:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BBB6CCD187
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 09:14:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1624D10E98C;
-	Thu,  9 Oct 2025 09:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA16610E056;
+	Thu,  9 Oct 2025 09:14:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C9/ejS7q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mju4WaY+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 509E810E98A;
- Thu,  9 Oct 2025 09:08:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D37DD10E056;
+ Thu,  9 Oct 2025 09:14:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760000924; x=1791536924;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=fvep23//chNCFYNAfdSyIgM69wVc23KqWs+OFcZMV3M=;
- b=C9/ejS7qX38gnAToJq4L/zP0wb/Xk6erkdeBQhvj3wyPYt4Pb6hcPKXg
- /WB/j9uoK5ZoSJB1IxYGUpRL2t5TSjP4semYui7/4g10C9tLcbkKKuD5F
- HzDx1pX5VcghqEkrxvJqjVMOt8hw6BfZIsEcXlDP3x20R2DqBMduhH8Vp
- +qGc8GSS2BXTKNJE4mbrY/2BMWv97uJlbGP+Mayaejypyw3hKu2OMQ8Ud
- xyRgrDoBlshmeffqwo3cItPUaLxrf/FpBRRN19IBsP8C5dyhxpQlg51ij
- lFHhCUvV38zX2AkbnmClW3qULli80QkH6OQ7191W//Rp0PRRZpd8z4+Al w==;
-X-CSE-ConnectionGUID: LOFPpNZ9SjOl98MisUfyrQ==
-X-CSE-MsgGUID: k0JM+q4+R8ujF3orJkgIBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11576"; a="87665405"
-X-IronPort-AV: E=Sophos;i="6.19,215,1754982000"; d="scan'208";a="87665405"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2025 02:08:44 -0700
-X-CSE-ConnectionGUID: R9f6YEemRR2+qcwBj/C+NQ==
-X-CSE-MsgGUID: KkKt9yUnTLelgy75V39/Ig==
+ t=1760001253; x=1791537253;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=PG6Aw2UvoMg5jwgbWlSYXJFXoZ43CAqWApxPUMjXvXw=;
+ b=mju4WaY+PxgUMw1mrCPfFKQjqU9oxZASJ3ZRAkyoqCybJ3mh8c1EmwTR
+ tVmKI399PdB1EklGODWJZ9viltMHxuyAG1P02nohTS4v18USfQiRzjuqy
+ xGUkzTWwm0CRyNAcGVHfT6G6RVnu5Xv//N+QH0rWxtIbKNIYrBcWpofu2
+ 5jmBgTEpiY5iEdHJr8ZpwzdipfZA7/dZU68+Dy6jKDP7CbqChVe2EjLTw
+ ykfUF3yxEZCPQrYgj829RD/DEhdNxDHAJjE+x3cAm8RpTjemvUhwobuXE
+ NTNr9weFE3U28r3KpBH5ebWTmsF89K6so1VrUvDBP5M0rEisf0llx74hE w==;
+X-CSE-ConnectionGUID: bYPxRVmWQDy/cSh+oratEQ==
+X-CSE-MsgGUID: zsa0/RZlSDyJTPKUxzeIRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="62123471"
+X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="62123471"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2025 02:14:13 -0700
+X-CSE-ConnectionGUID: RcVRTsBNTvypWf8IG/dcHA==
+X-CSE-MsgGUID: pcDla1dRSk68gvsaaMbFDA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,215,1754982000"; d="scan'208";a="184927120"
-Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.113])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2025 02:08:39 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: =?utf-8?B?6rmA6rCV66+8?= <km.kim1503@gmail.com>, Andi Shyti
- <andi.shyti@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- ville.syrjala@linux.intel.com, nitin.r.gote@intel.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- syzkaller@googlegroups.com
-Subject: Re: BUG: unable to handle kernel NULL pointer dereference in
- eb_release_vmas
-In-Reply-To: <CAGfirfdACPUrW7hxOKXEpaPZ6=Lkwde24CfHov9=75JhXiPApg@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <CAGfirffPy5biFVLtSNEW60UCXa6_=-=NrQbU7iLQ8+BXnFQ=1A@mail.gmail.com>
- <175922381867.30706.10351894191632562572@jlahtine-mobl>
- <CAGfirfdDe879wFzABVZkTV7grEimpnc0XrrKpj2SX1w_TLtgNg@mail.gmail.com>
- <aN0X3ck-egLMn_Xy@ashyti-mobl2.lan>
- <CAGfirffg4JzGkwaKTm9fL9Nyud4kBALvfW3Et33ZF60e8cVO1g@mail.gmail.com>
- <CAGfirfdACPUrW7hxOKXEpaPZ6=Lkwde24CfHov9=75JhXiPApg@mail.gmail.com>
-Date: Thu, 09 Oct 2025 12:08:36 +0300
-Message-ID: <27ca005b5505e66cb51bb4917a71ef44b0afc7c0@intel.com>
+X-IronPort-AV: E=Sophos;i="6.19,215,1754982000"; d="scan'208";a="179918009"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Oct 2025 02:14:12 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/8] Preparatory patches for guardband optimization
+Date: Thu,  9 Oct 2025 14:30:54 +0530
+Message-ID: <20251009090102.850344-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,19 +67,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 07 Oct 2025, =EA=B9=80=EA=B0=95=EB=AF=BC <km.kim1503@gmail.com> wro=
-te:
-> https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15062
-> <https://l.mailtrack.com/l/a23538b60e872501ef9881ddb3a7e5ffc2cbce55?u=3D1=
-2392148>
+Handle few cases which will need changes when guardband will no longer
+be matched to vblank length.
+- Fix the vblank_start evaluation.
+- Fix PSR wake latency checks wrt to guradband.
 
-Please do not send HTML messages in general, and especially not with
-tracking links.
+Rev 2: PSR went through some changes recently, rebase the patches on latest
+PSR changes.
 
+Ankit Nautiyal (8):
+  drm/i915/vrr: Use crtc_vsync_start/end for computing
+    vrr.vsync_start/end
+  drm/i915/vrr:
+    s/intel_vrr_compute_config_late/intel_vrr_compute_guardband
+  drm/i915/vblank: Add helper to get correct vblank length
+  drm/i915/psr: Consider SCL lines when validating vblank for wake
+    latency
+  drm/i915/display: Check if final vblank is sufficient for PSR features
+  drm/i915/vrr: Recompute vblank_start for platforms with always-on VRR
+    TG
+  drm/i915/display: Add vblank_start adjustment logic for always-on VRR
+    TG
+  drm/i915/display: Prepare for vblank_delay for LRR
 
-Thanks,
-Jani.
+ drivers/gpu/drm/i915/display/intel_ddi.c     |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c |  14 +-
+ drivers/gpu/drm/i915/display/intel_dp.c      |   9 ++
+ drivers/gpu/drm/i915/display/intel_dp.h      |   3 +
+ drivers/gpu/drm/i915/display/intel_psr.c     | 153 +++++++++++++------
+ drivers/gpu/drm/i915/display/intel_psr.h     |   2 +
+ drivers/gpu/drm/i915/display/intel_vblank.c  |  10 ++
+ drivers/gpu/drm/i915/display/intel_vblank.h  |   2 +
+ drivers/gpu/drm/i915/display/intel_vrr.c     |  26 +++-
+ drivers/gpu/drm/i915/display/intel_vrr.h     |   2 +-
+ drivers/gpu/drm/i915/display/skl_watermark.c |   3 +-
+ 11 files changed, 168 insertions(+), 59 deletions(-)
 
+-- 
+2.45.2
 
---=20
-Jani Nikula, Intel
