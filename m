@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 355DBCCA470
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 09:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2021FCCA470
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Oct 2025 09:17:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA8BE10E99A;
-	Thu,  9 Oct 2025 09:14:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Mj3Ul/6Y";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBBD510E998;
- Thu,  9 Oct 2025 09:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760001274; x=1791537274;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tbgH1Si8iTQGFbGAIomWVDAJp62h04JXCe1aj/XBUzs=;
- b=Mj3Ul/6YH0T0nCAONRbJKwTwqn4U+odEv9J8bhFGJrUy5Hhtgjn/0dJc
- 4aBbCU5Y8cr7lKNrjhwN9adcc59Blgevg7QWRTMMuZkEcbL8Wj08FQFrj
- WUK1dtGXGq0nmBgEh5npvL9wyGYb58bpxMGxdsDGpOQUo6M85iox5U8uL
- pj4R8weNgMyxyw5jv7NoA5q9ZwQfqxxVeIeM3z+JlH8RCljYu8vr4nBKd
- YyFOIzXFErLk1BsVspVGT2YqsZJ8hObX0whjiMMGTHsbX9ZFq7JMVg3D8
- sYXf3UeksvIg3n+ScbrnpVSBPjZAhGydrFzPTaxOVY2dWBXdW/eGjhksa A==;
-X-CSE-ConnectionGUID: GCI7PunsQauqOXFUeGINnQ==
-X-CSE-MsgGUID: Wc2lW+ShTL6VEkUl8SD2qw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="62123494"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="62123494"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2025 02:14:33 -0700
-X-CSE-ConnectionGUID: NWwIGk0mSWGjSM//rADZew==
-X-CSE-MsgGUID: w3uPSzjmROi59io5Rgy6zA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,215,1754982000"; d="scan'208";a="179918065"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2025 02:14:27 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Animesh Manna <animesh.manna@intel.com>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH 5/8] drm/i915/display: Check if final vblank is sufficient for
- PSR features
-Date: Thu,  9 Oct 2025 14:30:59 +0530
-Message-ID: <20251009090102.850344-6-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20251009090102.850344-1-ankit.k.nautiyal@intel.com>
-References: <20251009090102.850344-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4874D10E994;
+	Thu,  9 Oct 2025 09:16:58 +0000 (UTC)
+Received: from pegase2.c-s.fr (pegase2.c-s.fr [93.17.235.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D446610E991;
+ Thu,  9 Oct 2025 09:16:56 +0000 (UTC)
+Received: from localhost (mailhub4.si.c-s.fr [172.26.127.67])
+ by localhost (Postfix) with ESMTP id 4cj4530nVNz9sSY;
+ Thu,  9 Oct 2025 11:16:55 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at c-s.fr
+Received: from pegase2.c-s.fr ([172.26.127.65])
+ by localhost (pegase2.c-s.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 1xW49BLVjvgf; Thu,  9 Oct 2025 11:16:55 +0200 (CEST)
+Received: from messagerie.si.c-s.fr (messagerie.si.c-s.fr [192.168.25.192])
+ by pegase2.c-s.fr (Postfix) with ESMTP id 4cj4526L27z9sSX;
+ Thu,  9 Oct 2025 11:16:54 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id BC2658B773;
+ Thu,  9 Oct 2025 11:16:54 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at c-s.fr
+Received: from messagerie.si.c-s.fr ([127.0.0.1])
+ by localhost (messagerie.si.c-s.fr [127.0.0.1]) (amavisd-new, port 10023)
+ with ESMTP id ecZHQXz6ERX1; Thu,  9 Oct 2025 11:16:54 +0200 (CEST)
+Received: from [192.168.235.99] (unknown [192.168.235.99])
+ by messagerie.si.c-s.fr (Postfix) with ESMTP id BE4258B770;
+ Thu,  9 Oct 2025 11:16:52 +0200 (CEST)
+Message-ID: <03671aa8-4276-4707-9c75-83c96968cbb2@csgroup.eu>
+Date: Thu, 9 Oct 2025 11:16:52 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: (bisected) [PATCH v2 08/37] mm/hugetlb: check for unreasonable
+ folio sizes when registering hstate
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+Cc: Zi Yan <ziy@nvidia.com>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Potapenko <glider@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Brendan Jackman <jackmanb@google.com>, Christoph Lameter <cl@gentwo.org>,
+ Dennis Zhou <dennis@kernel.org>, Dmitry Vyukov <dvyukov@google.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ iommu@lists.linux.dev, io-uring@vger.kernel.org,
+ Jason Gunthorpe <jgg@nvidia.com>, Jens Axboe <axboe@kernel.dk>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ kasan-dev@googlegroups.com, kvm@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-arm-kernel@axis.com,
+ linux-arm-kernel@lists.infradead.org, linux-crypto@vger.kernel.org,
+ linux-ide@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mmc@vger.kernel.org, linux-mm@kvack.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Marco Elver <elver@google.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Michal Hocko <mhocko@suse.com>,
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ netdev@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
+ Peter Xu <peterx@redhat.com>, Robin Murphy <robin.murphy@arm.com>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ virtualization@lists.linux.dev, Vlastimil Babka <vbabka@suse.cz>,
+ wireguard@lists.zx2c4.com, x86@kernel.org,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+References: <20250901150359.867252-1-david@redhat.com>
+ <20250901150359.867252-9-david@redhat.com>
+ <3e043453-3f27-48ad-b987-cc39f523060a@csgroup.eu>
+ <d3fc12d4-0b59-4b1f-bb5c-13189a01e13d@redhat.com>
+ <faf62f20-8844-42a0-a7a7-846d8ead0622@csgroup.eu>
+ <9361c75a-ab37-4d7f-8680-9833430d93d4@redhat.com>
+From: Christophe Leroy <christophe.leroy@csgroup.eu>
+Content-Language: fr-FR
+In-Reply-To: <9361c75a-ab37-4d7f-8680-9833430d93d4@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,159 +90,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, wake line latency checks rely on the vblank length,
-which does not account for either the extra vblank delay for icl/tgl or for
-the optimized guardband which will come into picture later at some point.
 
-Introduce intel_dp_compute_config_late() to handle late-stage
-configuration checks for DP/eDP features. For now, it validates whether the
-final vblank (with extra vblank delay) or guardband is sufficient to
-support wake line latencies required by Panel Replay and PSR2 selective
-update.
 
-Check if vblank is sufficient for PSR features, and disable them if their
-wake requirements cannot be accomodated.
+Le 09/10/2025 à 10:14, David Hildenbrand a écrit :
+> On 09.10.25 10:04, Christophe Leroy wrote:
+>>
+>>
+>> Le 09/10/2025 à 09:22, David Hildenbrand a écrit :
+>>> On 09.10.25 09:14, Christophe Leroy wrote:
+>>>> Hi David,
+>>>>
+>>>> Le 01/09/2025 à 17:03, David Hildenbrand a écrit :
+>>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>>>> index 1e777cc51ad04..d3542e92a712e 100644
+>>>>> --- a/mm/hugetlb.c
+>>>>> +++ b/mm/hugetlb.c
+>>>>> @@ -4657,6 +4657,7 @@ static int __init hugetlb_init(void)
+>>>>>         BUILD_BUG_ON(sizeof_field(struct page, private) * 
+>>>>> BITS_PER_BYTE <
+>>>>>                 __NR_HPAGEFLAGS);
+>>>>> +    BUILD_BUG_ON_INVALID(HUGETLB_PAGE_ORDER > MAX_FOLIO_ORDER);
+>>>>>         if (!hugepages_supported()) {
+>>>>>             if (hugetlb_max_hstate || default_hstate_max_huge_pages)
+>>>>> @@ -4740,6 +4741,7 @@ void __init hugetlb_add_hstate(unsigned int 
+>>>>> order)
+>>>>>         }
+>>>>>         BUG_ON(hugetlb_max_hstate >= HUGE_MAX_HSTATE);
+>>>>>         BUG_ON(order < order_base_2(__NR_USED_SUBPAGE));
+>>>>> +    WARN_ON(order > MAX_FOLIO_ORDER);
+>>>>>         h = &hstates[hugetlb_max_hstate++];
+>>>>>         __mutex_init(&h->resize_lock, "resize mutex", &h->resize_key);
+>>>>>         h->order = order;
+>>>
+>>> We end up registering hugetlb folios that are bigger than
+>>> MAX_FOLIO_ORDER. So we have to figure out how a config can trigger that
+>>> (and if we have to support that).
+>>>
+>>
+>> MAX_FOLIO_ORDER is defined as:
+>>
+>> #ifdef CONFIG_ARCH_HAS_GIGANTIC_PAGE
+>> #define MAX_FOLIO_ORDER        PUD_ORDER
+>> #else
+>> #define MAX_FOLIO_ORDER        MAX_PAGE_ORDER
+>> #endif
+>>
+>> MAX_PAGE_ORDER is the limit for dynamic creation of hugepages via
+>> /sys/kernel/mm/hugepages/ but bigger pages can be created at boottime
+>> with kernel boot parameters without CONFIG_ARCH_HAS_GIGANTIC_PAGE:
+>>
+>>     hugepagesz=64m hugepages=1 hugepagesz=256m hugepages=1
+>>
+>> Gives:
+>>
+>> HugeTLB: registered 1.00 GiB page size, pre-allocated 0 pages
+>> HugeTLB: 0 KiB vmemmap can be freed for a 1.00 GiB page
+>> HugeTLB: registered 64.0 MiB page size, pre-allocated 1 pages
+>> HugeTLB: 0 KiB vmemmap can be freed for a 64.0 MiB page
+>> HugeTLB: registered 256 MiB page size, pre-allocated 1 pages
+>> HugeTLB: 0 KiB vmemmap can be freed for a 256 MiB page
+>> HugeTLB: registered 4.00 MiB page size, pre-allocated 0 pages
+>> HugeTLB: 0 KiB vmemmap can be freed for a 4.00 MiB page
+>> HugeTLB: registered 16.0 MiB page size, pre-allocated 0 pages
+>> HugeTLB: 0 KiB vmemmap can be freed for a 16.0 MiB page
+> 
+> I think it's a violation of CONFIG_ARCH_HAS_GIGANTIC_PAGE. The existing 
+> folio_dump() code would not handle it correctly as well.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Animesh Manna <animesh.manna@intel.com>
-Cc: Jouni Högander <jouni.hogander@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c |  3 ++
- drivers/gpu/drm/i915/display/intel_dp.c  |  9 +++++
- drivers/gpu/drm/i915/display/intel_dp.h  |  3 ++
- drivers/gpu/drm/i915/display/intel_psr.c | 51 ++++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_psr.h |  2 +
- 5 files changed, 60 insertions(+), 8 deletions(-)
+I'm trying to dig into history and when looking at commit 4eb0716e868e 
+("hugetlb: allow to free gigantic pages regardless of the 
+configuration") I understand that CONFIG_ARCH_HAS_GIGANTIC_PAGE is 
+needed to be able to allocate gigantic pages at runtime. It is not 
+needed to reserve gigantic pages at boottime.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index c09aa759f4d4..94c593bbedf4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4560,6 +4560,9 @@ static int intel_ddi_compute_config_late(struct intel_encoder *encoder,
- 	struct drm_connector *connector = conn_state->connector;
- 	u8 port_sync_transcoders = 0;
- 
-+	if (intel_crtc_has_dp_encoder(crtc_state))
-+		intel_dp_compute_config_late(encoder, crtc_state, conn_state);
-+
- 	drm_dbg_kms(display->drm, "[ENCODER:%d:%s] [CRTC:%d:%s]\n",
- 		    encoder->base.base.id, encoder->base.name,
- 		    crtc_state->uapi.crtc->base.id, crtc_state->uapi.crtc->name);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a723e846321f..e481ff4c4959 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6979,3 +6979,12 @@ void intel_dp_mst_resume(struct intel_display *display)
- 		}
- 	}
- }
-+
-+void intel_dp_compute_config_late(struct intel_encoder *encoder,
-+				  struct intel_crtc_state *crtc_state,
-+				  struct drm_connector_state *conn_state)
-+{
-+	struct intel_dp *intel_dp = enc_to_intel_dp(encoder);
-+
-+	intel_psr_compute_config_late(intel_dp, crtc_state);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index b379443e0211..0d9573ca44cb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -218,5 +218,8 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
- int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector);
- void intel_dp_dpcd_set_probe(struct intel_dp *intel_dp, bool force_on_external);
- bool intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state);
-+void intel_dp_compute_config_late(struct intel_encoder *encoder,
-+				  struct intel_crtc_state *crtc_state,
-+				  struct drm_connector_state *conn_state);
- 
- #endif /* __INTEL_DP_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 212bd244beed..dcab4127b399 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1405,6 +1405,20 @@ int _intel_psr_min_set_context_latency(const struct intel_crtc_state *crtc_state
- 		return 1;
- }
- 
-+static bool _wake_lines_fit_into_vblank(const struct intel_crtc_state *crtc_state,
-+					int vblank,
-+					int wake_lines)
-+{
-+	if (crtc_state->req_psr2_sdp_prior_scanline)
-+		vblank -= 1;
-+
-+	/* Vblank >= PSR2_CTL Block Count Number maximum line count */
-+	if (vblank < wake_lines)
-+		return false;
-+
-+	return true;
-+}
-+
- static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
- 				       const struct intel_crtc_state *crtc_state,
- 				       bool aux_less,
-@@ -1428,14 +1442,7 @@ static bool wake_lines_fit_into_vblank(struct intel_dp *intel_dp,
- 					       crtc_state->alpm_state.fast_wake_lines) :
- 			crtc_state->alpm_state.io_wake_lines;
- 
--	if (crtc_state->req_psr2_sdp_prior_scanline)
--		vblank -= 1;
--
--	/* Vblank >= PSR2_CTL Block Count Number maximum line count */
--	if (vblank < wake_lines)
--		return false;
--
--	return true;
-+	return _wake_lines_fit_into_vblank(crtc_state, vblank, wake_lines);
- }
- 
- static bool alpm_config_valid(struct intel_dp *intel_dp,
-@@ -4346,3 +4353,31 @@ bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
- {
- 	return intel_dp_is_edp(intel_dp) && crtc_state->has_panel_replay;
- }
-+
-+void intel_psr_compute_config_late(struct intel_dp *intel_dp,
-+				   struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+	int vblank = intel_crtc_vblank_length(crtc_state);
-+	int aux_less_wake_lines = crtc_state->alpm_state.aux_less_wake_lines;
-+	int wake_lines = DISPLAY_VER(display) < 20 ?
-+			 psr2_block_count_lines(crtc_state->alpm_state.io_wake_lines,
-+						crtc_state->alpm_state.fast_wake_lines) :
-+			 crtc_state->alpm_state.io_wake_lines;
-+
-+	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
-+	    !_wake_lines_fit_into_vblank(crtc_state, vblank, aux_less_wake_lines)) {
-+		drm_dbg_kms(display->drm,
-+			    "Disabling Panel replay: vblank insufficient for wakelines = %d\n",
-+			    aux_less_wake_lines);
-+		crtc_state->has_panel_replay = false;
-+	}
-+
-+	if (crtc_state->has_sel_update &&
-+	    !_wake_lines_fit_into_vblank(crtc_state, vblank, wake_lines)) {
-+		drm_dbg_kms(display->drm,
-+			    "Disabling Selective Update: vblank insufficient for wakelines = %d\n",
-+			    wake_lines);
-+		crtc_state->has_sel_update = false;
-+	}
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
-index 9147996d6c9e..b17ce312dc37 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.h
-+++ b/drivers/gpu/drm/i915/display/intel_psr.h
-@@ -83,5 +83,7 @@ void intel_psr_debugfs_register(struct intel_display *display);
- bool intel_psr_needs_alpm(struct intel_dp *intel_dp, const struct intel_crtc_state *crtc_state);
- bool intel_psr_needs_alpm_aux_less(struct intel_dp *intel_dp,
- 				   const struct intel_crtc_state *crtc_state);
-+void intel_psr_compute_config_late(struct intel_dp *intel_dp,
-+				   struct intel_crtc_state *crtc_state);
- 
- #endif /* __INTEL_PSR_H__ */
--- 
-2.45.2
+What am I missing ?
+
+> 
+> See how snapshot_page() uses MAX_FOLIO_NR_PAGES.
+> 
 
