@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE41CCD192
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05491CCD193
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4BE310E4D3;
-	Mon, 13 Oct 2025 19:04:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01F7210E4D6;
+	Mon, 13 Oct 2025 19:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kvku9NrO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="azrhu1lv";
 	dkim-atps=neutral
-Received: from mail-il1-f182.google.com (mail-il1-f182.google.com
- [209.85.166.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E79DB10EADD
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:00 +0000 (UTC)
-Received: by mail-il1-f182.google.com with SMTP id
- e9e14a558f8ab-425911e5661so4815545ab.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:00 -0700 (PDT)
+Received: from mail-io1-f43.google.com (mail-io1-f43.google.com
+ [209.85.166.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 589BB10EAED
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:13 +0000 (UTC)
+Received: by mail-io1-f43.google.com with SMTP id
+ ca18e2360f4ac-911afafcc20so45384339f.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032740; x=1760637540; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760032752; x=1760637552; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FcE2j/B1mQgeocNkBmpDERPavffRGmULzplmDVYobd8=;
- b=kvku9NrOswRYsjlEgn1sl/NcjwrnxTEipeGx4frB/0HfVzZBIOZqHPdPVxLXt8PxFN
- tSyNiCe/vEgCGQBV1t2hEMHlomml4NPp6EAZm0SdjFY8Gj17luL16jIzW3OY5cSyGSpe
- aJh7eh68zGIs/FiLwk/b1NEgDmtZuGF5jNY0Fe2g1nVFVqlRczsCNqiwoiBpm8qhHgRp
- E32p4UMlIb1e9BnZpjrUp3j2xD7tMaVOxKgoyeKt5p6y7Hl7jzo6+IqK77KTqHeaqRrO
- rFu/6BwONCJ8UIWGGwtB8NnO84X5SZ2bf6imzkYKEddt+F/kHR2P4SssdfE3LQb8pTqF
- eEMQ==
+ bh=wWtqPHzvZoScVts3x626CqF+Swe2KDKHU2aMYO19y8E=;
+ b=azrhu1lvLNE5XpnB3KJXlAny5QenVJh9mO9IrrxzqVM4HxnOiIyEp9+eqbEh3ujvNb
+ 1UGg+3XbEjIzRpKJEpOWHRUbvC+QvgDy+xATxAk9VnrmjwAMyVfF6qo81L5EeVJ9JJ37
+ XMhenDA1TvUSjeW0Mds+RQq9VzDn7zNCwC4udBFM9WgB0SaVGIfyE9i4ihSfYlBIBU+R
+ aB4q+9t/BUO1r5I/r8JdaVRQhbBsJpKL4wcMl3+1U6NfQ63ZxbU6HZgmzLEQvlzuowL6
+ p3t+b+qDIm3Ys0nKxvPFzych6IMRjmLZZE9ErG/pucIUOgDFpf8dnreE+xYldW6xBvRF
+ 5F7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032740; x=1760637540;
+ d=1e100.net; s=20230601; t=1760032752; x=1760637552;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FcE2j/B1mQgeocNkBmpDERPavffRGmULzplmDVYobd8=;
- b=u/30pbSEru9biBjGrvgEWJumSNasSXMCtPI44dYN4UWw7mNWqGDdfmKIbetaYsfjQG
- a5P4ZKVI6gqsPIhZlgD6Bf4EKLFfxcDOJ53Hb2GYUaUtzL2fYv+QqkFiNwEnCwZvDFff
- LtJ6kAf8uohJT3tuSLdYgqND+nOJLFzgSy9E1G8urH7pRayYy/hCELbLx6THLpuuAIYE
- CqZJbBgafMu9W7WE6wcqDttks47MhS/dtNsXN65BWJilmhIJbWtmQ9nH+2S0fZCOONB+
- nu7Y7Fb5CADn5X96Sfa2P+QMroAAGc/1FPkjT+fAs86vAV8BfbJnZj+M1rx/DL4FnQxZ
- bN/A==
+ bh=wWtqPHzvZoScVts3x626CqF+Swe2KDKHU2aMYO19y8E=;
+ b=jOt6jbdgylBiSyMM/J7YiIWJxyDV8UrPfAfN+ISgveP3Z7kTIdaUzXGCbzynqt3e3u
+ 34ck2tyQH69HPmJRuSXW+Ybu3RJYtD+LEVQ8pShFe1+VdHrbWBhz/OQdoEnCBxtl769p
+ DJpOaD+d1tA0moVq1/6z3z1p8k4L/i/sGRqCRXneVoK+7L5Pk1uI3gVrJyS0xDQGfvbh
+ 02HPh4An+VxdqujAO4IO5nfLFtZVfKBczEucPk0mMy6qgZTPYFgrXn8WspHUvwHQ6LNN
+ kVRPVXdNlUuHJkmRFpeFscgzv3sijjLtf0PMepTay43X8F8R1XZy5+N5MAdbL74d2/l/
+ VJOA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1DI8WAYJy3htNiX28sjbUj8M4/5dNL8HdPT+RdKvEnck0qaqSIMNsn88sfmfuNvAFKTvyLXEjKbc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwcQDCglo7hJoIk9YO5cR/VsBkfkH5QgFVEgb0uPRRl6xs8vEEx
- HJ0e4IkDZBR4PN2pPp3YVlvIqzV41M5wbD46LpTrFNtQPcSHgnXTAp5V
-X-Gm-Gg: ASbGncscGWT1J3eiWpLx4GjTshpgZKyGwcugfWcG1kslKI8197MVDsG6iFbbmgzArZg
- cht3QbYTfz26CqcFRnYGcvBuj583nPt9Fm9nU6HqQboqmqibQiIQobGt+4QsTLu8IJI/HrK0xdB
- ZkmCgT/s4EIXqeeDXcgVSWfpZsbUZQMC+zyqUgnwPkkJSHlNwza3ARYu4W7thgjwYC7OA/3ceZ7
- xw2cZDR8xL6g41FvBeS+k5blGo3icpatWsB0ouTPf64jOfTLNOZq0EdUnFlR1BOaDZj2/oO4ZXh
- 1KPJHACXzkzg5rfFB6UbLYKIJTbslkAeIwuG3L4dE3zLdZPsJFp8dugtWCothxdDwnvVkqaeAir
- qIrOo4wIDO2U/NCwzRIzwjK60wq7HbfbHAccB1Z/iS6jJJcpcvZlJkeV7+xXE56kvgX8ODOQZiR
- NET0Rumq13+MDyDUAWdOr0BrUQm+o=
-X-Google-Smtp-Source: AGHT+IHjqP+G+vhE18sYwPA5Xq+a2h4s4Xorq9ruFfYudOUTjoHfdl8X+oo47RIuEgvRTTKzlg/Fzg==
-X-Received: by 2002:a05:6e02:2305:b0:426:7dd6:decd with SMTP id
- e9e14a558f8ab-42f873f4705mr67420995ab.28.1760032739929; 
- Thu, 09 Oct 2025 10:58:59 -0700 (PDT)
+ AJvYcCXfu6hD7wAumzBBbNz0guxyne+gw61x8KFxMOfAum7vysyXwXU/71BiMdOrhTl+VmxOw/lS3GkZ1dA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzTvH8SiMk6Hn4z0OBriLAhpxoKq/AgfQ77+7mpcOfb98jkzAZN
+ yh+Y5XRX5gXM8D2XKElsa/vGDaZjd9EvSS5tO5o6zl4Rrl10zI/GyLpJ
+X-Gm-Gg: ASbGncsya5rfiQMvIwFtvw9W6nkaDWGrbkoO5YK+vhwgZV3yVGFiZi5CkL2TWT/trrL
+ 7GEfKFihUW/MAO+EFHUdLRHqmfLGtrkx1UxFay39vBIFPZ46acveVYBmF9RPekAaXz3B5fKnfv+
+ Nlh7GUAHstG+x4F6dsj5jrcOloH4GuLKonzWo9eFYEpZWdV25qrlv28SwmFlnwZhuBGsK7AHAD+
+ iC8dg4/2T65slaAmMDvAjlLqmfRbzxfSF6UBm1dBQMnvO+QU31z0L4XCZgZi68TGzE5TEfrITcn
+ GQZ6rcPe6SexwHzgZOhdAV2TcvWPz/DTItiLwCVMRBfWDhZRKm3X9q/EbLm1p3EtfwLSmDXBarF
+ 3TdE/CYJ2VE1W3yEhf9nKZbxAS1Ikma6+OOzy+lAqQAR+KW9wOEgkjwL3RNWWENDpalqR8RieiL
+ ru2D66KIuwmvzFmLTF56m2L+CvIuv0aoWq9FUWkg==
+X-Google-Smtp-Source: AGHT+IHFaHIr6hhGjGpGvstoe1cPL73AxoLQd3mHJOdW06DK9B2zxkHb4Qpq4bia8u2yk9gHtlYTWg==
+X-Received: by 2002:a05:6e02:160d:b0:42f:991f:60a9 with SMTP id
+ e9e14a558f8ab-42f991f6190mr5265655ab.7.1760032752391; 
+ Thu, 09 Oct 2025 10:59:12 -0700 (PDT)
 Received: from godzilla.raven-morpho.ts.net
  (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.58
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:58:59 -0700 (PDT)
+ Thu, 09 Oct 2025 10:59:12 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
 Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
@@ -72,15 +72,16 @@ Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v5 12/30] dyndbg: macrofy a 2-index for-loop pattern
-Date: Thu,  9 Oct 2025 11:58:16 -0600
-Message-ID: <20251009175834.1024308-13-jim.cromie@gmail.com>
+Subject: [PATCH v5 23/30] dyndbg-test: change do_prints testpoint to accept a
+ loopct
+Date: Thu,  9 Oct 2025 11:58:27 -0600
+Message-ID: <20251009175834.1024308-24-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
 References: <20251009175834.1024308-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:10 +0000
+X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,64 +97,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dynamic-debug has several __sections, each with <vecname>,
-num_<vecname>, and it iterates over these with a 2-index for-loop.
-These loops are fiddly with the 2 names.
+echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
 
-We have only 2 such loops now, but are getting more soon; lets
-embed/abstract the fiddlyness in the for_subvec() macro, and avoid
-repeating it going forward.
+This allows its use as a scriptable load generator, to generate
+dynamic-prefix-emits for flag combinations vs undecorated messages.
+This will make it easy to assess the cost of the prefixing.
+
+Reading the ./do_prints node also prints messages (once) to the-log.
+
+NB: the count is clamped to 10000, chosen to be notice able, but not
+annoying, and not enough to accidentally flood the logs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- lib/dynamic_debug.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
+ lib/test_dynamic_debug.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 283926530a43..ddcaa87f3b02 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -128,6 +128,20 @@ do {								\
- #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
- #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index b2bdfdfb6ba1..fa81177e8089 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -29,18 +29,25 @@
  
-+/*
-+ * simplify a repeated for-loop pattern walking N steps in a T _vec
-+ * member inside a struct _box.  It expects int i and T *_sp to be
-+ * declared in the caller.
-+ * @_i:  caller provided counter.
-+ * @_sp: cursor into _vec, to examine each item.
-+ * @_box: ptr to a struct containing @_vec member
-+ * @_vec: name of a sub-struct member in _box, with array-ref and length
-+ */
-+#define for_subvec(_i, _sp, _box, _vec)				       \
-+	for ((_i) = 0, (_sp) = (_box)->_vec;			       \
-+	     (_i) < (_box)->num_##_vec;				       \
-+	     (_i)++, (_sp)++)
-+
- static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- {
- 	/* trim any trailing newlines */
-@@ -155,7 +169,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	struct ddebug_class_map *map;
- 	int i, idx;
+ #include <linux/module.h>
  
--	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
-+	for_subvec(i, map, dt, classes) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -1220,8 +1234,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- 	 * the builtin/modular classmap vector/section.  Save the start
- 	 * and length of the subrange at its edges.
- 	 */
--	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
+-/* re-gen output by reading or writing sysfs node: do_prints */
 -
-+	for_subvec(i, cm, di, classes) {
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
- 			if (!nc) {
- 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
+-static void do_prints(void); /* device under test */
++/* re-trigger debug output by reading or writing sysfs node: do_prints */
++static void do_prints(unsigned int); /* device under test */
+ static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
+ {
+-	do_prints();
++	int rc;
++	unsigned int ct;
++
++	rc = kstrtouint(instr, 0, &ct);
++	if (rc) {
++		pr_err("expecting numeric input, using 1 instead\n");
++		ct = 1;
++	}
++	do_prints(ct);
+ 	return 0;
+ }
+ static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
+ {
+-	do_prints();
+-	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++	do_prints(1);
++	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
+ }
+ static const struct kernel_param_ops param_ops_do_prints = {
+ 	.set = param_set_do_prints,
+@@ -191,17 +198,20 @@ static void do_levels(void)
+ 	prdbg(V7);
+ }
+ 
+-static void do_prints(void)
++static void do_prints(unsigned int ct)
+ {
+-	pr_debug("do_prints:\n");
+-	do_cats();
+-	do_levels();
++	/* maybe clamp this */
++	pr_debug("do-prints %d times:\n", ct);
++	for (; ct; ct--) {
++		do_cats();
++		do_levels();
++	}
+ }
+ 
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-	do_prints();
++	do_prints(1);
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
 -- 
 2.51.0
 
