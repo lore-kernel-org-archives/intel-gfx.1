@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAB7BCCD197
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A0CFCCD185
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E49F010E4DC;
-	Mon, 13 Oct 2025 19:04:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B89710E4E0;
+	Mon, 13 Oct 2025 19:04:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l6sQtRmv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R8Im8tds";
 	dkim-atps=neutral
-Received: from mail-il1-f178.google.com (mail-il1-f178.google.com
- [209.85.166.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C210710EAC9
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:58:41 +0000 (UTC)
-Received: by mail-il1-f178.google.com with SMTP id
- e9e14a558f8ab-42d8b15548eso6139865ab.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:58:41 -0700 (PDT)
+Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
+ [209.85.166.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D359210EACF
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:58:48 +0000 (UTC)
+Received: by mail-il1-f174.google.com with SMTP id
+ e9e14a558f8ab-42f7b17f9f7so11200495ab.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:58:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032721; x=1760637521; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lGMv5lHdrhywBVTV/PqaJfnG7AITk86FOlf4SxNuZNA=;
- b=l6sQtRmv94EsGBYuU6nf+cuWeMkVmgK18fvYwM2KWjmMSZ5W2KWHpRjs8xQEmQk77R
- byOLFUWOCHHETnfZeqUnU9fRCvfcClEbRph7hHcEUc7L5iMj3FAG0db1XAIKYa1Xf9l4
- Wiui+y9i3ONeSs/NFAPv8cdeZDv9BFN+7BWF6K247hEmBVAid/eD7Ase/OREgOYR3zsO
- urFsCGyvAaNqY2c8OeXsPvV2fI9m4YjEi1DjplMQt8Kk1v/D7MqOBZVHBKhbhmS+PieB
- Yj/hCDDRoP4MMngDy+6jvtWKAXgc5NSWr1ITHMjygPwDX4Jxr4YPYsSDCpjzG54dk9q0
- GA3A==
+ d=gmail.com; s=20230601; t=1760032728; x=1760637528; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=upmZ+84nb0PGLfZ0odEvQVtU0YnnK5GejiW4j5Z157Q=;
+ b=R8Im8tdsv2zzqASIRywI5B236infNfWjEGa4pwGA7nhPyqZMtWw3Jv8JtMbXv6phpp
+ i4MlAtADR4S4M3OMN7kXgSN1gT2Sl2W2odc9BLV4GQx+BMrjsQdJbqBT3gGbh3ONPww/
+ wME6y5Vg52qe/zJSjuF7ql6wR7Yil0CMA3pBDW4YOl9nugC8rtbvcn95hXwfSRJqoh/N
+ ge4kGDUaaXrg52YOs1Ybj//tjmWgQxi1r5ubaB88NdudJvY9ddt+MUaRbqzX5JhxYSVX
+ 6z9DLaLbM/H4abE0PyQW9Q4MCED0qdjYbqA3Q8P1WTW5QmOKV+tWWxdiop8G9inA4FHs
+ e5xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032721; x=1760637521;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=lGMv5lHdrhywBVTV/PqaJfnG7AITk86FOlf4SxNuZNA=;
- b=Z4j4S/sHFz0ROFZ/7Aj8IOH3CXGhf6gcUv4SetYl0Fxa0394u2Hsf9A7aMysPLcgqC
- xmbxgULq3t4pua3vNGcWTgjxwYOUhEagJhA2WQ31Id+wdJfaTcHkwVp0KiYgXXRNHMwR
- pnBfzhaSvBdS38oHRDhv9kVoH1GkCupW/QTwqRgiwt0ddJyemTP+Ga3aajS871dyQeKF
- XacdVmXbkGJi/Fw15G/5/2V2yjzJUhZpQMcEEP9J8AlI70TpyaCVRpMFq7LKNdC5Hb/Q
- 73a0lFnnW4XZKg0Sh/6KMJEHzOQIkRJoot5/zDVyMy8QHCnECP++y+JCdkgFH86OlADN
- HkyQ==
+ d=1e100.net; s=20230601; t=1760032728; x=1760637528;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=upmZ+84nb0PGLfZ0odEvQVtU0YnnK5GejiW4j5Z157Q=;
+ b=fUcTUOyfVO5R5NdwhyxTmygDGQ0M2wWmPqrrA2epFlzy5GZYD37aaGAcjIcz+DR9Qa
+ HUuD146MXjv607579763N3Hoc3dJpuPFMM6DFDVCuOeMTyXlJVf+1a7BnPenWW1RO2kp
+ uJsIi0wgDTRagDxC3TtKOqd5KDxAMF0yaZGB7dkZzGtuT9pwcB+sn/9Pv1+Pj+awjtRU
+ mkLAPklZ6iiG2Bowd6LyUrWTPznnII2TEi12Z9Gnpa24UvnKj8Y3Ofix+h7MvapSqsVs
+ jQEAsGj8IUUy7jOk7L1QZPJRpgMwmlcuqPJad4ZIu9gi3Sbd4BvPmTIteWJ21BwWUTcw
+ Q1uA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAlwUSs3Gn7PuYXG7WVvTaqhGaptmsU+4jRHcbd2GUOeSyCoWg2Rf9tdhM7j32n8TOKaN2/6cQ3bs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyytD5fi82rS4YztMmyGvMUy7xBOIKlGIzbOIP+1jBZO5cFWMkV
- u3IEIBHvdwBkeJNRIoNuInxNdXOU7ZKcAuEetqIFlW8geA+5S47JeTl2
-X-Gm-Gg: ASbGncuklZBdH+lE5Ws24hRGUUJLXf3pxhtekCHt0H3+4XrXuG4whmSao5jbo0ejzjX
- RWDd7pznCE4ccM08pYSB9ofOEUg/LMGKriMRLnLNw8xPdim9Z/P/vRXjws00SxSt30JOREclfu1
- zt5tlKf/NWPvK5ZPXb/uE0sr0h42KRcXr+5HXH9qosKimzT6QcWH0Iu8h6YOkPQcltf0YfYX8iq
- rm6yEqNzb/0HLrbkWnCnqx98a6N0ymwkuXruCwyGAuzFAXrTppmU1QIQMWwHpkgFQi6nfh0biyV
- 5IWSYoW8vQ5/nV5Zy2QDe0mTwW72wxYZcD6E+Dx5pWDRw+o7DMMzPw1qyZh2lesDiKbZXdG2w72
- 4DeYeu688lj+LaGIvg3S9aIkBWN8Cqpk3xbciHseMF2g9bHdvyMXpnqiUxniCTmf8LTmuiUEPT3
- /Fcodv3RBpfY0UQV1rIgbKlzm0KFT5sa7f6WqYV3tcxXHtj7By
-X-Google-Smtp-Source: AGHT+IH0kP4+vfxD+O9Wz2DP4UBxSThOXmUadGnkvBABGnXzdVOZ2Hbq3wUFuypfAQx9EkxOwcXsnQ==
-X-Received: by 2002:a05:6e02:3783:b0:42e:712e:52a0 with SMTP id
- e9e14a558f8ab-42f873540b2mr82406535ab.6.1760032720604; 
- Thu, 09 Oct 2025 10:58:40 -0700 (PDT)
+ AJvYcCX207F/6iKPGQBGg+A0MQQo1BsiMB/KjMemj1EWkEvtz0LVkE86iPU0B7H5RW0J1ibhAgc9pzTzgOQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsLCSO1zRgtflHlLFb3nX6GLkIisd/M9RezivyKOBmBA4QTZi9
+ oV1kK+sw+GpTJL90QRk4xjTcA8/SF67sqAAH0AFlQhO3CR2koY2S9gkq
+X-Gm-Gg: ASbGncsJLD5U5xzWKycuEoFJlYohlUTK/3PvW0lI1je5KDpUdrNSVCSdPpulOu76bXu
+ LQe7V+McIGBW6pe3YKpCutkMEL3tu1Eida46Bth2yvEwRtFTukni/oDWUoZW09pzoj6G3nfDUxn
+ c3wHs+eDpYFXkhh0A29pOCNbK39KgZR+kn0EZhjHDwM6Ey6GQp9uz+3ONZA0Q66G4H6QxgD+kQt
+ lcDPG8Ew4srrJRVG3nHl95TNtabyYg2Z8iRE5C0SInmWm0LFDcvN6+dAObYV23/h/v/+cY3aeNc
+ 8CbM2gYGr0IaJt7tYN/EFCGJntEOaQ/jbCev11NN0WzqPp/JL8zqNSmVwcl4LxR/KtRwrvUV9Ta
+ iqDB1IDMqkw10xXQaH9oYf0YfoytMm44A1QaP1WBdcR4DkCU8icZF368nNKph9ez1bckuYDLv2E
+ wRzFwukGFl5P+DGSu1gOcXysUnKgLWUUfxbMQ7uH09Vyy6+GPz
+X-Google-Smtp-Source: AGHT+IEP/KYeFsU48bhRAsguavBTqOpW4JiVNFuGMdDXElpSwlucCVx3RZG6w7iiJpXxsucAPDZNmA==
+X-Received: by 2002:a05:6e02:18cf:b0:42e:73f7:79c4 with SMTP id
+ e9e14a558f8ab-42f873fb613mr81674845ab.27.1760032728078; 
+ Thu, 09 Oct 2025 10:58:48 -0700 (PDT)
 Received: from godzilla.raven-morpho.ts.net
  (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.39
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.58.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:58:40 -0700 (PDT)
+ Thu, 09 Oct 2025 10:58:47 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
 Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
@@ -71,13 +72,14 @@ Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>,
- andrewjballance@gmail.com
-Subject: [PATCH v5 00/30] Fix DYNAMIC_DEBUG classmaps for DRM
-Date: Thu,  9 Oct 2025 11:58:04 -0600
-Message-ID: <20251009175834.1024308-1-jim.cromie@gmail.com>
+ linux-doc@vger.kernel.org
+Subject: [PATCH v5 02/30] docs/dyndbg: explain flags parse 1st
+Date: Thu,  9 Oct 2025 11:58:06 -0600
+Message-ID: <20251009175834.1024308-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
+References: <20251009175834.1024308-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -95,88 +97,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DYNAMIC_DEBUG classmaps is BROKEN for its 1st user: DRM. Lets Fix it.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
-The DECLARE_DYNDBG_CLASSMAP macro muddled the distinction between
-definition and reference; in use it failed K&R define once, refer many.
+cc: linux-doc@vger.kernel.org
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+---
+ Documentation/admin-guide/dynamic-debug-howto.rst | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-Replace it with:
-. DYNAMIC_DEBUG_CLASSMAP_DEFINE		for drm.ko
-. DYNAMIC_DEBUG_CLASSMAP_USE		for drivers etc
-
-Enhance test-dynamic-debug{,-submod}.ko to recapitulate DRM's 2+ module
-boss-workers failure scenario, and to selftest against them.  This allows
-dropping the DRM patches, formerly included to prove functionality.
-
-The latest (unversioned) rev:
-. I inexplicably fiddled with the patch subject
-. dropped DRM as OT for lib/
-https://lore.kernel.org/lkml/20250911213823.374806-1-jim.cromie@gmail.com/
-
-v1-4 saw significant review, thanks Louis Chauvet <louis.chauvet@bootlin.com>
-
-v4: https://lore.kernel.org/lkml/20250803035816.603405-1-jim.cromie@gmail.com/
-v3: https://lore.kernel.org/lkml/20250402174156.1246171-1-jim.cromie@gmail.com/#t
-v2: https://lore.kernel.org/lkml/20250320185238.447458-1-jim.cromie@gmail.com/
-v1: https://lore.kernel.org/lkml/20250125064619.8305-1-jim.cromie@gmail.com/
-v0: prehistoric versions are linked from v1,v2
-
-Jim Cromie (30):
-  docs/dyndbg: update examples \012 to \n
-  docs/dyndbg: explain flags parse 1st
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: tweak pr_fmt to avoid expansion conflicts
-  dyndbg: reduce verbose/debug clutter
-  dyndbg: refactor param_set_dyndbg_classes and below
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg: replace classmap list with a vector
-  dyndbg: macrofy a 2-index for-loop pattern
-  dyndbg: DECLARE_DYNDBG_CLASSMAP needs stub defn
-  dyndbg,module: make proper substructs in _ddebug_info
-  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
-  dyndbg: move mod_name from ddebug_table down to _ddebug_info
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  selftests-dyndbg: add a dynamic_debug run_tests target
-  dyndbg: change __dynamic_func_call_cls* macros into expressions
-  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-  dyndbg: detect class_id reservation conflicts
-  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
-  dyndbg-test: change do_prints testpoint to accept a loopct
-  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-  dyndbg: treat comma as a token separator
-  dyndbg: split multi-query strings with %
-  selftests-dyndbg: add test_mod_submod
-  dyndbg: resolve "protection" of class'd pr_debugs
-  dyndbg: add DYNAMIC_DEBUG_CLASSMAP_USE_(clname,_base)
-  docs/dyndbg: add classmap info to howto
-
-CC: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: ukaszb@chromium.org
-cc: andrewjballance@gmail.com
-
- .../admin-guide/dynamic-debug-howto.rst       | 179 ++++-
- MAINTAINERS                                   |   3 +-
- include/asm-generic/vmlinux.lds.h             |   5 +-
- include/linux/dynamic_debug.h                 | 304 ++++++--
- kernel/module/main.c                          |  15 +-
- lib/Kconfig.debug                             |  24 +-
- lib/Makefile                                  |   5 +
- lib/dynamic_debug.c                           | 678 +++++++++++-------
- lib/test_dynamic_debug.c                      | 198 +++--
- lib/test_dynamic_debug_submod.c               |  21 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 373 ++++++++++
- 14 files changed, 1393 insertions(+), 429 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 4ac18c0a1d95..63a511f2337b 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -109,9 +109,18 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
+ 
+-
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
++Note: because the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword values.  Flag errs will hide keyword errs:
++
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
+ keywords are:::
+ 
+   match-spec ::= 'func' string |
 -- 
 2.51.0
 
