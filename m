@@ -4,188 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE4EECCD183
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 18:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFEF3CCD183
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D56710E4C3;
-	Mon, 13 Oct 2025 18:47:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB5C610E4CF;
+	Mon, 13 Oct 2025 19:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KBx5YLwB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VlI71qY1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1E3810E4C3;
- Mon, 13 Oct 2025 18:47:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760381257; x=1791917257;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=2CW1RuAvMdKiHgxjbYglbJyOuxdzX7VRQqkp5q1nXM4=;
- b=KBx5YLwBbMioHVe1alDK5ikNsxNU5NkOuGW/PhJ9TauwbtsXujNEfBg2
- FzfnGcl/warU5Hi2sk7ethSuD/uxc3479FsapeGTH6SvvyeU+KdVS1qns
- RLq3jC/AUstKyOBZLpso7D7zoOzUSu04QHUj7Bk8YAi44jQeUu43uD4cC
- meRN+aWMzI0EtJ6m0NVoELqGz6SFibvC1XFVYG1DVODHgIThNFfmxSqsx
- uoHgDaF4DWqGgRURu1MpJM/5b2QrpX2392A5qVTV3gAWrKxIXJJsKnzLA
- 14jk7lqxnd/jUVzi/jcmTV+LlN9JXcPzaIrF/s8NVPo6oPJxeD2CxRbOG g==;
-X-CSE-ConnectionGUID: mlWbQ2mESGCN8obJXtdoCw==
-X-CSE-MsgGUID: J4tDvX1hR9uVVZCTun6DMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11581"; a="61738115"
-X-IronPort-AV: E=Sophos;i="6.19,226,1754982000"; d="scan'208";a="61738115"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2025 11:47:36 -0700
-X-CSE-ConnectionGUID: M035NsGwQx+4lxrJlTczaw==
-X-CSE-MsgGUID: wnJA16lPQmOayqh8QtWA8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,226,1754982000"; d="scan'208";a="181685825"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Oct 2025 11:47:36 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 13 Oct 2025 11:47:35 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27 via Frontend Transport; Mon, 13 Oct 2025 11:47:35 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.18) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 13 Oct 2025 11:47:35 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bCDSM7FNtbSyvHe44dqNJJVc0h3hr3g8lpA4FY92KS51UXZ/nDcJbS2dEjD77I4636mP9tgF/FaMWaIGwq3LIiKMlPQLqL91SJ+XyTkaFpU1arDbaqpmFNZHE7V3Yhu8rxlOV5SSo2QM15mh4Fov3D/6ReNNbwtA1cQDnTUL8PNWTkD5CXDtAqkMtATLELUefEwWZRBp2yyODfuZanYe/2A1xqfr7sXI2WZ/v/OKY4+JzBra0zl+uoLsaU65XthfFMwg3pZSX0qcTGK0MjpsxqC8mFir/mC7Vo7Nvbb3I8+fcGRhMPUilzOqf4nNvyG/eiE+ar/VUVszP8BxRLCIOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2CW1RuAvMdKiHgxjbYglbJyOuxdzX7VRQqkp5q1nXM4=;
- b=DLdMo+byf6zVELSXKJKufBS0WU16WVQ5+1JJs79JO88vmATwE82miYC399YQe74HqNvkUMEvyPR1ri9EUKJEp016qQW4DM06cdTE9JzskpkLTVNfYYYcNUy1P6YFG6HUFiMfD9ZqMKrKStKfdrMwQ1jmCarmlS5ormLczmSjNXt8jGmiZroLVJPKR2s+8HDAgoWfJzHq3wsju6S3wP4gbIjdabUQSi3nKg97ACEX72+72qJ7mSeoVATtyzUF/V8cZkiSt7q6BqtHd4Iki0Ua7WXlOKCiqd1yLmywl5b5/xUt+7jACsHrW1lKNlso52ITXX4mQKo9DtCOOwNA1U73hw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
- CO1PR11MB4852.namprd11.prod.outlook.com (2603:10b6:303:9f::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9182.20; Mon, 13 Oct 2025 18:47:33 +0000
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::8648:3a6b:af5c:b6e6]) by DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::8648:3a6b:af5c:b6e6%4]) with mapi id 15.20.9203.009; Mon, 13 Oct 2025
- 18:47:33 +0000
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: RE: [RFC][PATCH 11/11] drm/i915/prefill: Also print out the worst
- case estimates
-Thread-Topic: [RFC][PATCH 11/11] drm/i915/prefill: Also print out the worst
- case estimates
-Thread-Index: AQHcOIKMJllzVznm3kOl7XHfsOel97TAcpIw
-Date: Mon, 13 Oct 2025 18:47:33 +0000
-Message-ID: <DM4PR11MB636011119AB24A41C8361C93F4EAA@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20251008182559.20615-1-ville.syrjala@linux.intel.com>
- <20251008182559.20615-12-ville.syrjala@linux.intel.com>
-In-Reply-To: <20251008182559.20615-12-ville.syrjala@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|CO1PR11MB4852:EE_
-x-ms-office365-filtering-correlation-id: e731cd79-57d9-42a3-2053-08de0a88f895
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|376014|1800799024|366016|38070700021;
-x-microsoft-antispam-message-info: =?utf-8?B?bFJVV2lVaUtTSGM5ejlIcjVVc1JhTXRqYnlGNDFJR1FhQVBiMWcyZzgwZURY?=
- =?utf-8?B?SFFxY1ArOXlaeG9yazVRR0YvbjJSbGFPV1d6WTdVcTQweFdVaWZlTWxFdG0v?=
- =?utf-8?B?U2UxV1A4dDROWXE3MWw0anBoZE1lMC83M3BuR3VvdmVKUTdVSUd6WkdPOHNK?=
- =?utf-8?B?L2VwYVFYR25OalFzV29nN1dOUHVxSjBhQ1VMYWhLWkVmS0srOTVlTlJ1WUhk?=
- =?utf-8?B?bWtKK0FXT29SSlc4Y2FWQmYvMG1uQi9uazRLaE1NbkZWa1ZBeTcvOHRWcTFZ?=
- =?utf-8?B?YjVUUFhIY1k2U1M3bi9lbzdheXkyT252ekRGdDdZQ3JpeENCb0pSMU5aT25h?=
- =?utf-8?B?TitEYlJiQ2tIR2VsVXN6VWpxN25Ca0pSdWdoL3g2WUlJWE9sUEpnT042OGpF?=
- =?utf-8?B?SXMveU5zTFZSa1Yrd2hHTGMvZXVDSiswKzhZQS9hYlhXbkY3ZjNNeW9teUFx?=
- =?utf-8?B?bWIvV2E1TE9QQk1XSW5XM2FwaGY5eE1CSlRORy91OHRGUmFIOU9lSUwyKzFv?=
- =?utf-8?B?UDhmVkw4NGlCNktJMTlZdzVoWEtodG5Ic3JFVlNiNU5xNExCK2MvWXBDUFBy?=
- =?utf-8?B?K2d2eEQ0WGZOQjZIb3Bla2gvVTQveUNpVFcvZEVqTlJUL2FlSmY0MXlDSWlO?=
- =?utf-8?B?aEJ2QTQ4TEF3bCthQlA0c28xT2NKTHF5TEVvbWNmY0RGS3pZSHlCN0tHSEFZ?=
- =?utf-8?B?d2J2REl1MXpSSWt2VEZkTkp1UjNBZlM5NExaOGdydHl3SVJqSlQ5djFKNmJJ?=
- =?utf-8?B?dk52bjNXcU41d0JSdm1kWmRXbzJzRzh2RVhPMG5ySElLUDZNVmxTSzQ2c05s?=
- =?utf-8?B?WitiSDJGbkcveENjQU4yNy9IQTFXYlBpZzhDeS9hRVNqc3oyQUduUHZFYVhk?=
- =?utf-8?B?dUJOUmd5OHRiVGJZTmNtOHVPMHhIaXZKbmVWOVdHdjRDd1g4em4xWDNDV0JE?=
- =?utf-8?B?R2VyaU5VaEFyQS9tczUrZ1YzL1JQU2NPblErWTVTa2I5dzE3YmZUS2ZVNnIw?=
- =?utf-8?B?Qk94MjcxSDhsWmp5WjhiclhvRkgzVklrQnh4WmtYNEhIME4yWHdYbEVqT1Jz?=
- =?utf-8?B?Q0lKVGwvaklsQ1pYSXpjOTVEaGhWOVczSURzL0VwODFBOE13U0NaL2dQUzdD?=
- =?utf-8?B?R2JGbHlvSEM1R3duMjgwc0M2aXorZWU4MjdwWGtqNm1pM05NMkM0RG1pbkpn?=
- =?utf-8?B?enRURWVJbTlQbjlFTy9sekpPM3JidnJqbHo1QjF6c0Y0aDlmNVpoZldkaDNI?=
- =?utf-8?B?L0tnWGtFSDdhRkdGcHRjYzVkK0srOWNqNmFQSndJWDNkbmpURlhXbGFWdlRT?=
- =?utf-8?B?V0svTXRkTjE5MUFvR3lJUnMzTE5sZXFYV3ZGM21nUE9aZFgzeURDN2o4R1h5?=
- =?utf-8?B?NTJZcXZoem5mWjdMTk14Um5QbHFQNm5Tc2IxbHlkZEpycVRNMHVOZUZacDc4?=
- =?utf-8?B?cytHTUFxTkNtYzR5WkpEQXVRd1JFMzdScUVoRmRvak91VGJpYUpQSmoxM1ZT?=
- =?utf-8?B?djlIbkpGZXdxK2dHbzE2b3F2NE84Z0l3OXUxcjRvUEJuSTJKQlF6WTAwZFcz?=
- =?utf-8?B?UFlSSTlsN0lmbktvdWRnZVVEV3B0dTFXUGhLd1RoczBjQld0Z0xaS2ZjYkVa?=
- =?utf-8?B?QnU1Y3RIR2tCRmhGd1dKd2NjNUU1azAwRmp6NGk3b05QOWlScWpoSXZSOVVs?=
- =?utf-8?B?anJhS0cvZUxxdHlvU0RCOGZLSFJuNWZ0TFRLTGNEOFlZYnk3NXlEQlFFZlF4?=
- =?utf-8?B?MVc2TW9jUmptSWRKTElLTWVvMWRmemVKclp3SGNXSmxtOG0zaktadTN0eVJO?=
- =?utf-8?B?RWlNSVdzS1ZaY2N1RDhhOFd2UitNUkUvUktUOGFUbXBtcXNkSXdBbzMzczU3?=
- =?utf-8?B?eEZqSjBFNWUrTzB2NURjNjhXU0dCdGtLWTlVQ0k2NlJ5aXl3T0tmU3U5S0l0?=
- =?utf-8?B?S0tHWUFiUUw5akNhRzA5cHpweVlnWi9IQTZRS3N1K3h3aUlhNis3VlRtUUxN?=
- =?utf-8?B?Skx1NzNOZ3dNSkcrVmRlcmlmT3R3eGlsTXJ0YlQrQ001aXhDa0Z3bjdCNHVQ?=
- =?utf-8?Q?jZM4we?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(38070700021); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?MjBBRFZZVyttcitKVnY1Um54R0VDaXZZVzMyaGUxQWhTVXZkRnhiWGtJaE9w?=
- =?utf-8?B?VEphSjhHOWJCTmlLRzkwR3I0Rng4N2k0L0hIQzE2c0hHbG83a0FyQTRXNDhZ?=
- =?utf-8?B?aFlxS081M09WcTd5QmhwVXd5QSt0a2RNQVg3cXh2VTh4cU9WMGlaYm50clF4?=
- =?utf-8?B?MGs2UzRFMUtmalhXdC9mbngwelFJVmpjYlRpbXF4aTZORGFBMUFKbFVCK0xh?=
- =?utf-8?B?bnBPK2o1eHBvMjVtY0pNa21ia0w3cUNCeDFDQmxaTzFzTURlNTY4Zko4V1h0?=
- =?utf-8?B?MjV3Q3NaSitFOUpEd0tBb1pRbkRIT0lHa3pIM2JyZkwzYXlTU01lRUhueW5P?=
- =?utf-8?B?b1ZwZ1huUDZGNldqb1JKQnprYmFtTllRR1dhVmM4Y3NvWVA2SnhHKzJ0TjVE?=
- =?utf-8?B?N0NNN3VGLzVMRGtwRWZkTkZvQXFTNWgxUFFTQVg0dU4zMWFSdVBDb3BGVlpX?=
- =?utf-8?B?djVSV3RFS2E1b2FTYnU5MWtvSEZvM2J2N3lwUkVwN0hKS00vb3hpdXhMSW84?=
- =?utf-8?B?NitabjllOFhRN3M4KzlYSG9MRWxhWGtZQytiZDBIMW4yWDdPWEdNQk8wUGd3?=
- =?utf-8?B?WDVVc2RNbENHZ0l0d1NSNDdLQW5ZQWthRitDMjdTeHF0UUxGK2VvR1Y3ZjVl?=
- =?utf-8?B?TGY1RFhGenRYb1VUOVY5U3UzR3MzbUZwc3M3SjRDU2RyMU5NY1VlSlQyZFJE?=
- =?utf-8?B?T2laYTZib1grcDJRSXI2UVRLSUdiTnp6ak56aWJ0d0dsRUxVVTU2cUdJdVNK?=
- =?utf-8?B?U3UydWZ5ODdKZ2tUNlQxdXdhQUIvTFBleVRobHBpSGRZYlU2UURwdmVQUG5r?=
- =?utf-8?B?azdIK1NBUGRMaFlNZWsramNPcjJ6RXBYM0hBbnNrQlN6ekp0Y2Z3dXdpZnM4?=
- =?utf-8?B?SGdidzZDc2duZklvRVg2dDdlNEllMGcxay9JQ2IweWIySmhmNnQzcWIzWDdu?=
- =?utf-8?B?UWF0U21YNFJ4VzREYTVvNzFjWGpJZ3A2MFM2S2JCODI1Uks3U09kYyt2ZnND?=
- =?utf-8?B?WkdER3l4UGQ3eFlOYTk3SHo1b1pLS2FjamNFYUg5YmkvcVN1TVNCUmt3WExO?=
- =?utf-8?B?MGluOU1NcVR2TkZqaS95L3FjR0FwVUlpMnAweiswUW5VZGQwNGNtL2dncDFh?=
- =?utf-8?B?dUpKdExmZkQrT3dPRDAzVy9Ta0h0WklEdTNQYmQ0NWI1ZnoyTVBJNFB0R0Iv?=
- =?utf-8?B?Yi9OMFNpUFZJRTIrbm9SN2UwZUl1Z1FzYlNGZ3QwWE43ci9oaHhMZkVuYmM0?=
- =?utf-8?B?VzgvbElTRDRpNmVMbUlzSGc1KzhiRzE0VGNKM0tzR3BVNTVQWTJLVmFNVjlT?=
- =?utf-8?B?bXI3bFI1UFFNTmMrSTMxNEZxT1dYWXBOZnh3SzVvcnh5bmJXc1RINFladFBm?=
- =?utf-8?B?WTQzbGFSVHc5dU1zb0dERTVjRkk0T2FUa3B3Yk16OHRIM3JIM2Y1SkRiRlJY?=
- =?utf-8?B?U3MxQWFLSHIwdXYwb1N4MkNFRm9JcDRqNk5zR1VJcGVoSmE1STFRcGw2dmJ6?=
- =?utf-8?B?Nmd2WTB3dVFPOVp3aGFQNGVkSXpQN2tmRWtRV0dtbk94QmJSeTdWU2xNSlZN?=
- =?utf-8?B?SEx1Tk5UTmlGeXpKQWd6WHFMSkhkN25oWHE3TU84N0poNFZFbkZwZjRhZU9B?=
- =?utf-8?B?VTZEK0ZpelRCV1Ixck5ZbThGbkdMRkdvWU9ZNUFqNXFmeERLZnRmaVhYMk03?=
- =?utf-8?B?OElHVmZHbUt0MDRxd3IvTnY5M1FhcVYzMzFGd2JHMFN6VTVwUXh4ZmNWOFJU?=
- =?utf-8?B?dDFXSHVadStkcHRBQ2g0aXBLZHdQMDdYVFNsQTRBK0tvSk4xTHQvMk5BZG52?=
- =?utf-8?B?TW9BQ014ZFBtWGZuRHoxbE1QdTFVcmRSRUlpQnVEdVZGU2wvZjRuaFZOS1R6?=
- =?utf-8?B?NUxCTFdXeDJ1VEdqWXpEcWVSRXFNTVlXVys5c2laNFdVUWZCSVpGRmM0cVVZ?=
- =?utf-8?B?SThvYjNnd1h6WkdwWGRkSk44NmxpVGZqcE90WlB4TkxaYVpBamI5T1NoK0dj?=
- =?utf-8?B?QmVxRlE1REpVUWhINXQ2VE9MREgzKzZuQ3JsN05Bdy96cjdsSExJUGJpc3lz?=
- =?utf-8?B?ZWhnWDk3N1ZDSHVZTkxtT1EzMEQ4eHFydWJ5SWRHbmFEMzJFVXd0UHUzV0cx?=
- =?utf-8?Q?JbWXICDwHEgODjWwp+AxQqm+u?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-il1-f179.google.com (mail-il1-f179.google.com
+ [209.85.166.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC7910EAD7
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:05 +0000 (UTC)
+Received: by mail-il1-f179.google.com with SMTP id
+ e9e14a558f8ab-42f94689e73so6750025ab.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1760032744; x=1760637544; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=YGD+sflpYLyKJkUQPBfbt5KFEJrqeRR2/XNh6nVffG4=;
+ b=VlI71qY1gN2u+5dU+6t37bZbFKtM3oqfMf2iXNzKTYyiD+JpjBUbmJC/yaXPPK17B+
+ rTPDnI1TKsBvZI639jv0e/VxKOZI3n23rBMB9akvLrVYF8kexzhhrw4T8F1o2WoNVAZk
+ 7DBdC++jZEMxEbjxWNZ0g1pjmWQCjCJMC43F23jgjfZ3t++JYFNdXQJMmBR+44Ev/h/f
+ uifH3AVsB/xJFqLlKFgJ2oYyrpHWoPxjEm5XrJwgoZeMzCrrJT2BfNCYllU+a4XXscy4
+ Ti1gjvgBibCqZGAVJfgjoPVcpXZ40FwiavQAvNEMZRCkUGxLgHENByf2zjY9Vmk1yGh5
+ fuHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1760032744; x=1760637544;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=YGD+sflpYLyKJkUQPBfbt5KFEJrqeRR2/XNh6nVffG4=;
+ b=mdAYTIVZGzYVKCzWIXOUyJP3bxKFMlmimQ62WQWxTfMz/G2sSR3pu1l+eNBGZWKC/o
+ YC96z+5qGQCPk/Pe45kFQI4vdjgLXKO1WpSqE+kObid0/jxOZMrinhKycR3IeHzEp8vb
+ za3DDifZyHlAEsYvdOV1WgDNaoBsNovrjQy9+bKxeMogU2pduh6w9ULBgXV4WuhPssNb
+ p0IDBmUVvzU7VJIBtZwvPHK8Q1wUGuYIBNsDMMgOaH5wBcXi6y0RTuiwCwVpefjy41Hk
+ yuJvlSojL8b2iK8lS09GgJeMsJN3nUi7f+PFHrrFBu33tYInad/JbQIXGNniWK2kYMIi
+ xmCA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtqCbe/vzHJz+K2KidjKOpOl8VxM54j028wdddlIXSFEU5p9xTHZGsJ87WcrTbClP0O/MhbJSN69c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2QWRL30052oV8atMrToYpqpCdBkXzJL8F4V5JLXIooeq24E73
+ kFWNMSpuvPt84TXFTxH9iDLtZ0vzLtwzrO58EImAFWB1EExOC6jp0VZf
+X-Gm-Gg: ASbGncuj/Ogm8ptCG/19MJYx2COfrwFF4XGoqPqx9Qg+HbelPmNcAXTZfT6po8T+25g
+ 7w+U0mKeHnx7SoHfkmTB8VHKSwseWc1vyGffBgAkbbdopzb4LDiH6ijtBXUzK27jI+MJPFAdV8K
+ 3EeDQHSYPpDDl4VqIyNjMy3BeI/8vZHhJI0VKmOBS7kNFqrAJGLG9bUEpNweXv0Tup3KpV4gvFQ
+ zZT7sK7Wf6ZqbtBcnx9FNMmWNYoqS4Wi4UIrW56Wi9a6SRs99sRvx0Xbchy2PwGxqivSORUpl9G
+ VNzWAhzrxE45oFsWYHZmwroGAt0igS4qteZISw+AbN5TCTSNOMkAzbEZ+gfOCemE6JGY0AH7QwX
+ cjnLjkBGeDBBWLsd6Z/jH4SLwF2Z19POWdY4J4x8+xX12LXq2H2kyH2xd75tjsMH71/WZ5BIGIV
+ j2EOrIvlXyiK/1dvVTQFOg4pZgEPcDF2SeBesnPvUqyFksUdsg
+X-Google-Smtp-Source: AGHT+IHC/pYrpkk1pQ98omx2cEKQCK33DHJq6/oaRwjrGFF6/pxWMHlOMffq90TfVlz60FjVdMse8A==
+X-Received: by 2002:a05:6e02:2783:b0:424:866:ec6d with SMTP id
+ e9e14a558f8ab-42f8736d251mr82921515ab.12.1760032744234; 
+ Thu, 09 Oct 2025 10:59:04 -0700 (PDT)
+Received: from godzilla.raven-morpho.ts.net
+ (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Oct 2025 10:59:03 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: jbaron@akamai.com
+Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
+ tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
+Subject: [PATCH v5 16/30] dyndbg: move mod_name from ddebug_table down to
+ _ddebug_info
+Date: Thu,  9 Oct 2025 11:58:20 -0600
+Message-ID: <20251009175834.1024308-17-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
+References: <20251009175834.1024308-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e731cd79-57d9-42a3-2053-08de0a88f895
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2025 18:47:33.5180 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cQFdUxr6mS29qydB6r04ZRaOhHzPpcFDbMjgEgvr2AxQqJfmrmDBAw/0A1HmRIAkynYVna7qJ4riXFwQL0MfwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB4852
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -201,32 +97,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSW50ZWwtZ2Z4IDxpbnRl
-bC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBWaWxsZQ0K
-PiBTeXJqYWxhDQo+IFNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciA4LCAyMDI1IDExOjU2IFBNDQo+
-IFRvOiBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBpbnRlbC14ZUBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1JGQ11bUEFUQ0ggMTEvMTFdIGRybS9pOTE1
-L3ByZWZpbGw6IEFsc28gcHJpbnQgb3V0IHRoZSB3b3JzdCBjYXNlDQo+IGVzdGltYXRlcw0KPiAN
-Cj4gRnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4N
-Cj4gDQo+IFdlIGRvbid0IHVzZSB0aGUgd29yc3QgY2FzZSBwcmVmaWxsIGVzdGltYXRlcyB5ZXQg
-Zm9yIGFueXRoaW5nLg0KPiBQcmludCB0aGVtIG91dCBhbG9uZ3NpZGUgdGhlIGFjdHVhbCBwcmVm
-aWxsIGRldGFpbHMgdG8gaGVscCBjb25tZmlybSB0aGV5IGFyZSBhdCBsZWF0DQo+IGdldHRpbmcg
-Y29tcHV0ZWQgc29tZXdoYXQgc2FuZWx5Lg0KDQpMb29rcyBHb29kIHRvIG1lLg0KUmV2aWV3ZWQt
-Ynk6IFVtYSBTaGFua2FyIDx1bWEuc2hhbmthckBpbnRlbC5jb20+DQoNCj4gU2lnbmVkLW9mZi1i
-eTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNvbT4NCj4gLS0t
-DQo+ICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3NrbF93YXRlcm1hcmsuYyB8IDExICsr
-KysrKysrKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvc2tsX3dhdGVybWFyay5jDQo+
-IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfd2F0ZXJtYXJrLmMNCj4gaW5kZXgg
-YjNlOWUyYTBkYWIzLi43YmZkNjFjYjQxY2EgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9pOTE1L2Rpc3BsYXkvc2tsX3dhdGVybWFyay5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2Rpc3BsYXkvc2tsX3dhdGVybWFyay5jDQo+IEBAIC0yMzIyLDYgKzIzMjIsMTcgQEAgc3Rh
-dGljIGludCBza2xfd21fY2hlY2tfdmJsYW5rKHN0cnVjdA0KPiBpbnRlbF9hdG9taWNfc3RhdGUg
-KnN0YXRlLA0KPiAgCQl9DQo+ICAJfQ0KPiANCj4gKwkvKiBoYWNrIHRvIGR1bXAgdGhlIHdvcnN0
-IGNhc2UgYXMgd2VsbCAqLw0KPiArCW1lbXNldCgmY3R4LCAwLCBzaXplb2YoY3R4KSk7DQo+ICsJ
-aW50ZWxfcHJlZmlsbF9pbml0X3dvcnN0KCZjdHgsIGNydGNfc3RhdGUpOw0KPiArDQo+ICsJbGV2
-ZWwgPSBza2xfbWF4X3dtX2xldmVsX2Zvcl92YmxhbmsoY3J0Y19zdGF0ZSwgJmN0eCk7DQo+ICsN
-Cj4gKwlpZiAoRElTUExBWV9WRVIoZGlzcGxheSkgPj0gMTIgJiYNCj4gKwkgICAgZGlzcGxheS0+
-c2Fndi5ibG9ja190aW1lX3VzKQ0KPiArCQlpbnRlbF9wcmVmaWxsX3ZibGFua190b29fc2hvcnQo
-JmN0eCwgY3J0Y19zdGF0ZSwNCj4gKwkJCQkJICAgICAgIGRpc3BsYXktPnNhZ3YuYmxvY2tfdGlt
-ZV91cyk7DQo+ICsNCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gDQo+IC0tDQo+IDIuNDkuMQ0KDQo=
+struct _ddebug_info already has most of dyndbg's info for a module;
+push debug_table.mod_name down into it, finishing the encapsulation.
+
+This allows refactoring several callchains, passing &_ddebug_info
+instead of &ddebug_table, and hoisting the "&dt->info" deref up.
+
+ddebug_table contains a _ddebug_info member, so its users keep access
+to mod_name, just now with "->info." added in.
+
+In static ddebug_add_module(&di), reinforce the cursor-model by
+dropping the modname arg, and setting di->mod_name at each caller.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+---
+-v3 more s/dt/di/ internal interface changes
+---
+ include/linux/dynamic_debug.h |  1 +
+ lib/dynamic_debug.c           | 45 ++++++++++++++++++-----------------
+ 2 files changed, 24 insertions(+), 22 deletions(-)
+
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index bf686d1ab012..a5602fd23d8a 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -107,6 +107,7 @@ struct _ddebug_class_maps {
+ } __packed;
+ 
+ struct _ddebug_info {
++	const char *mod_name;
+ 	struct _ddebug_descs descs;
+ 	struct _ddebug_class_maps maps;
+ } __packed;
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index bbbdb8aba071..09f19155d7f0 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -46,7 +46,6 @@ extern struct _ddebug_class_map __stop___dyndbg_class_maps[];
+ 
+ struct ddebug_table {
+ 	struct list_head link;
+-	const char *mod_name;
+ 	struct _ddebug_info info;
+ };
+ 
+@@ -201,7 +200,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 
+ 		/* match against the module name */
+ 		if (query->module &&
+-		    !match_wildcard(query->module, dt->mod_name))
++		    !match_wildcard(query->module, dt->info.mod_name))
+ 			continue;
+ 
+ 		if (query->class_string) {
+@@ -269,7 +268,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ #endif
+ 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
+ 				  trim_prefix(dp->filename), dp->lineno,
+-				  dt->mod_name, dp->function,
++				  dt->info.mod_name, dp->function,
+ 				  ddebug_describe_flags(dp->flags, &fbuf),
+ 				  ddebug_describe_flags(newflags, &nbuf));
+ 			dp->flags = newflags;
+@@ -1133,12 +1132,12 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ #define class_in_range(class_id, map)					\
+ 	(class_id >= map->base && class_id < map->base + map->length)
+ 
+-static const char *ddebug_class_name(struct ddebug_table *dt, struct _ddebug *dp)
++static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp)
+ {
+ 	struct _ddebug_class_map *map;
+ 	int i;
+ 
+-	for_subvec(i, map, &dt->info, maps)
++	for_subvec(i, map, di, maps)
+ 		if (class_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
+ 
+@@ -1166,13 +1165,13 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 
+ 	seq_printf(m, "%s:%u [%s]%s =%s \"",
+ 		   trim_prefix(dp->filename), dp->lineno,
+-		   iter->table->mod_name, dp->function,
++		   iter->table->info.mod_name, dp->function,
+ 		   ddebug_describe_flags(dp->flags, &flags));
+ 	seq_escape_str(m, dp->format, ESCAPE_SPACE, "\t\r\n\"");
+ 	seq_putc(m, '"');
+ 
+ 	if (dp->class_id != _DPRINTK_CLASS_DFLT) {
+-		class = ddebug_class_name(iter->table, dp);
++		class = ddebug_class_name(&iter->table->info, dp);
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+@@ -1224,7 +1223,7 @@ static const struct proc_ops proc_fops = {
+ 
+ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
+ {
+-	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
++	vpr_info("module:%s attached %d classes\n", dt->info.mod_name, dt->info.maps.len);
+ }
+ 
+ /*
+@@ -1241,7 +1240,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ #define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
+ 	int nc = 0;							\
+ 	for_subvec(_i, _sp, _box, _vec) {				\
+-		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
++		if (!strcmp((_sp)->mod_name, (_dst)->info.mod_name)) {	\
+ 			if (!nc++)					\
+ 				(_dst)->info._vec.start = (_sp);	\
+ 		} else {						\
+@@ -1256,7 +1255,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+  */
+-static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
++static int ddebug_add_module(struct _ddebug_info *di)
+ {
+ 	struct ddebug_table *dt;
+ 	struct _ddebug_class_map *cm;
+@@ -1265,20 +1264,19 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 	if (!di->descs.len)
+ 		return 0;
+ 
+-	v3pr_info("add-module: %s %d sites\n", modname, di->descs.len);
++	v3pr_info("add-module: %s %d sites\n", di->mod_name, di->descs.len);
+ 
+ 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
+ 	if (dt == NULL) {
+-		pr_err("error adding module: %s\n", modname);
++		pr_err("error adding module: %s\n", di->mod_name);
+ 		return -ENOMEM;
+ 	}
+ 	/*
+-	 * For built-in modules, name lives in .rodata and is
+-	 * immortal. For loaded modules, name points at the name[]
+-	 * member of struct module, which lives at least as long as
+-	 * this struct ddebug_table.
++	 * For built-in modules, name (as supplied in di by its
++	 * callers) lives in .rodata and is immortal. For loaded
++	 * modules, name points at the name[] member of struct module,
++	 * which lives at least as long as this struct ddebug_table.
+ 	 */
+-	dt->mod_name = modname;
+ 	dt->info = *di;
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+@@ -1292,7 +1290,7 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
+ 	list_add_tail(&dt->link, &ddebug_tables);
+ 	mutex_unlock(&ddebug_lock);
+ 
+-	vpr_info("%3u debug prints in module %s\n", di->descs.len, modname);
++	vpr_info("%3u debug prints in module %s\n", di->descs.len, di->mod_name);
+ 	return 0;
+ }
+ 
+@@ -1355,7 +1353,7 @@ static int ddebug_remove_module(const char *mod_name)
+ 
+ 	mutex_lock(&ddebug_lock);
+ 	list_for_each_entry_safe(dt, nextdt, &ddebug_tables, link) {
+-		if (dt->mod_name == mod_name) {
++		if (dt->info.mod_name == mod_name) {
+ 			ddebug_table_free(dt);
+ 			ret = 0;
+ 			break;
+@@ -1375,7 +1373,8 @@ static int ddebug_module_notify(struct notifier_block *self, unsigned long val,
+ 
+ 	switch (val) {
+ 	case MODULE_STATE_COMING:
+-		ret = ddebug_add_module(&mod->dyndbg_info, mod->name);
++		mod->dyndbg_info.mod_name = mod->name;
++		ret = ddebug_add_module(&mod->dyndbg_info);
+ 		if (ret)
+ 			WARN(1, "Failed to allocate memory: dyndbg may not work properly.\n");
+ 		break;
+@@ -1473,7 +1472,8 @@ static int __init dynamic_debug_init(void)
+ 			mod_ct++;
+ 			di.descs.len = mod_sites;
+ 			di.descs.start = iter_mod_start;
+-			ret = ddebug_add_module(&di, modname);
++			di.mod_name = modname;
++			ret = ddebug_add_module(&di);
+ 			if (ret)
+ 				goto out_err;
+ 
+@@ -1484,7 +1484,8 @@ static int __init dynamic_debug_init(void)
+ 	}
+ 	di.descs.len = mod_sites;
+ 	di.descs.start = iter_mod_start;
+-	ret = ddebug_add_module(&di, modname);
++	di.mod_name = modname;
++	ret = ddebug_add_module(&di);
+ 	if (ret)
+ 		goto out_err;
+ 
+-- 
+2.51.0
+
