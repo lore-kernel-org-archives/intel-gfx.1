@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41CB7CCD18C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E040CCD193
 	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6792C10E4DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E469910E4DD;
 	Mon, 13 Oct 2025 19:04:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CH1dIIRG";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pr4cV79q";
 	dkim-atps=neutral
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F73510EAF3
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:16 +0000 (UTC)
-Received: by mail-io1-f45.google.com with SMTP id
- ca18e2360f4ac-91122373653so47853939f.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:16 -0700 (PDT)
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 816B610EAED
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:19 +0000 (UTC)
+Received: by mail-io1-f41.google.com with SMTP id
+ ca18e2360f4ac-930cfdfabb3so104074039f.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032756; x=1760637556; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1760032759; x=1760637559; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=q5dZYlkWsj0ZEEitjTrF4YjoePePLbd6bheWS2OZneg=;
- b=CH1dIIRGCCKuG028Zenx/mo/CnTXiHZ/XHwIx+YXw8CbCdr3xTZif3pzDifiE+wAI0
- r6yCseuUZlMpRNm2eOYb1AuUe+4ggCmphFRuXff8z6mNBOTlD4x2bw3QbEcrUHzhyqTQ
- Do/qU3D6gddBcKDrPmztxksliCRYWfkhPuxNHq4KdW+/UTHdFqD7tHF1VapPc7Jgx6pR
- +XBkYVKG8PuG1JakqnMSRAYuKMHrITkCsr2mhNwtax2cOwQaTMTxDH1courE/zY4glMC
- ff5yHYnTS26YR7LgKdcaH/rtSxKrmkqBLEpML5kf0ZDo4Fi0K5MyNRvfTshrZNlyZtl5
- vHvw==
+ bh=wJonn1UQmdMquLncDUtZUHutcCuWRZij3zF+8bzYpyM=;
+ b=Pr4cV79q9KSDyEl1Z8ear726se1VKpiVD+3vc411BP31rh5DY18MhfPozsktsr3CJb
+ JhEQylfm0BmTa/dVCpX2Vo4MW6aOHf5ScWEDhOrNUlQOZK7BQB1YLrcL9a6df9K7LKBb
+ sjiEmvFId3HPdv18yMriBZftBJbWqW9Ka61kBF+NazxC5JZTpSOmU2RJiCufJQioS+pu
+ xSfw0I5ib68oh+U2+G3wSclge6+v8emryPDerd9MJpecarjltZqHxcE/fh+2cGAoK5Eb
+ u5cyQ4lX7UHaewBesGd/Nl5vJ4+TDtVWcDOA7xI9Kg8yKBvpKPZG5EJKiH8WGs7035bv
+ VexQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032756; x=1760637556;
+ d=1e100.net; s=20230601; t=1760032759; x=1760637559;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=q5dZYlkWsj0ZEEitjTrF4YjoePePLbd6bheWS2OZneg=;
- b=j1ErI3Kfn2XSxrIGI3KQUe6+fvaqykgGjtubhPsLNO4RiPVzEoqxJoL32yMrnxdZLz
- +HWB6V0rG4thkdjc1i+mzpc5zM8Gv8PNQNarHN2dcV5xXYDPZMZq4twAGvPNXuMP4o8D
- 7MYuUEKSVVggjifJroXDyz4UmZ9uiWsS4rqeXgvwEYJG8aKyU3JZDvOsFLPGBpu6c7ax
- rSdOc5pKuzvn5sZGqvatYKRJj6pZWDchLA8hKEGbt9CV+NpLmuWSmv0ganjYrN9/OweN
- 6CABJ2ot5cuDD4v1KkfowS+ekx4X3NwFLeHSW67S98XB1HLKpLbbQM6SpJQaQo4WxVGy
- RLbA==
+ bh=wJonn1UQmdMquLncDUtZUHutcCuWRZij3zF+8bzYpyM=;
+ b=Fsxek5n9xTGyOjocEeR8Ux/jyWOkPEGMOK0fTq6DPTARyGJjpIwW9UQBhDEFWMQyJl
+ kE7TVqmvJIXHFoQp2c4a2Uj5BTBCaaLGcME4aONtyJ57jux9lCGTQbcnT7o6E1F0TZIi
+ wKeW4wXZWY0FrdwKgj/eR1jp6jpV24jZWY/AVmGkrSsTKl24WtM5NTJR8mHM7ZqrAXRv
+ r5v5uVtqHEGkCZOcX5OG67t92UXCVR4qF7jrk9VTjsBCuFibgFOpQQyOsXp9irZ9tA4f
+ zTp1H7Nh23jj2kq+K9YwxhsMfOXdxqDBuZewx94xdGYlaN2+neprXqPiXrWjYMtR+IeH
+ lFug==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUPwhO6Lvj3B1VTRIKCWFDqHJfG/nzPyr64fOcaawJQR7DKsHEdFe8/iy1Ypxv0ASME1R48OJQz834=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxz0T3xhCnWozzV1YlwDgph2mFYux/r+OIzry0OfQVXZysztgQA
- Wg7bmLE5+iAh0V67VNh9EFarw7sO8l/LrMXnowG6oBreUfHuZ9GWCO68
-X-Gm-Gg: ASbGncun5Orc8LKEDxtd4jaeNGOoSmUUrQfXgpPXBo5TaheeGpR9xl1pQAw33uXJT8x
- M3PohScTwiTg3DHlYEar53Drhhvo66QEwbwcHn/DIWVpIgVa0A4L9dZyZj14uafiaw0mTp72L0O
- Iyc61pWiik0KkTqJn25Rc8npezcSwqGtQC0lSO0DHPusETMSHetj5wboxwg8+lTE0i3TKcBQzjP
- zGp2SxW+F2Y5ynkizb7XrOXdAYaqxYsXiSPzl6W4Rliji2UUKrgAFBevZRKr6TZmP6I01MyqpfM
- cmoJKnaDRnHQdaDH849y0Zdd+EVyRMN4qeJCISAEqfVI3LEJUwnT6361O27ffvu3wYDdvVRWKJ3
- JHAkunqwr5J25vPiKspUZYnSHykTmo1Vl+W+Z1ztpyrI+WiBzVPJt6DEojaDVKG8PsWJG4jq0xr
- FMH7/39zBCK74DdJWnucX3+BSt7Wd4n08YCCQZ1g==
-X-Google-Smtp-Source: AGHT+IHEWGVhtAuxACrF15TMBTJdVDkb5oi4cU4Syu6r807ljXBmyTG7+iiL0/3UAgEv3Zk1RERmEQ==
-X-Received: by 2002:a05:6e02:348a:b0:42f:880a:cff7 with SMTP id
- e9e14a558f8ab-42f880ad12bmr87822445ab.13.1760032755551; 
- Thu, 09 Oct 2025 10:59:15 -0700 (PDT)
+ AJvYcCUQ1EOtrd5PzRn2OBoXTrRu3nlr1fjZTsG3eRR3FGAd5OVQTSn7HXAz4rJHmIhYdjk8Ry+vvlREtPg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBufICpzoQU49dwtoS2y1hnOn7CPttjN0RNtt0Nd+Aqpx/uA21
+ J56pJnipSo9dIcApOgYIospieRi8kZ2vgwo4FKWSJFiDDZpv5fkrrBaK
+X-Gm-Gg: ASbGncvbSLVV9Wiq8mVpnbHOcvzkM6Y5fi8R3uOUXvGMdRPZGfDULvvsEdq6SC9fTN1
+ Zoze83vhZGvTNC324EJU1BuNjgzorCQD0URen2JJq7PXr7Yvez6I/pg1c3MVWHHxYRiClUteoP4
+ V3KnPE6Yaebjou/ybFM6vUjSyh852KmcpjKxGxg2pLGrKqLwBLkJiAjt1gBag5fD2uRZCakPHhA
+ T6RzmKXtXK7G4IbROULEpZETG1U++nQS8PAyQsd7fw2haUn/uzeMf801Ju6ho6t3g/crp1F2Xvz
+ Te5nfhfQwBV03Da8YpxN3VwHY5gH1SXdKxTKoSzA4gGmqsnYuYMbERtsTwlhXqweAYNPaLK2uqS
+ jfKbZ4XDDWZ3nvb0U6b0RLORK8RAFOrVLFNtprsYFGT4N5W1cj3ctoRTbjLPOGV9JLR8+nDSHGg
+ ogIVzNNCnNXjL2Wgz0miLS11I8meGTzKvXvloDcw==
+X-Google-Smtp-Source: AGHT+IHVKXFMusdqiPmDW/wzqUDYexOwse+E0pYDfFVpPjytm/THWwTC1XlwfHUx8Qo1uHRSZGwKQQ==
+X-Received: by 2002:a05:6e02:2489:b0:42f:9649:56b4 with SMTP id
+ e9e14a558f8ab-42f96495934mr16480345ab.13.1760032758628; 
+ Thu, 09 Oct 2025 10:59:18 -0700 (PDT)
 Received: from godzilla.raven-morpho.ts.net
  (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.14
+ 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:59:15 -0700 (PDT)
+ Thu, 09 Oct 2025 10:59:18 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: jbaron@akamai.com
 Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
@@ -72,9 +72,10 @@ Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
  intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
  tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v5 26/30] dyndbg: split multi-query strings with %
-Date: Thu,  9 Oct 2025 11:58:30 -0600
-Message-ID: <20251009175834.1024308-27-jim.cromie@gmail.com>
+Subject: [PATCH v5 29/30] dyndbg: add DYNAMIC_DEBUG_CLASSMAP_USE_(clname,
+ _base)
+Date: Thu,  9 Oct 2025 11:58:33 -0600
+Message-ID: <20251009175834.1024308-30-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
 References: <20251009175834.1024308-1-jim.cromie@gmail.com>
@@ -96,141 +97,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since commit
-85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
+The @_base parameter in @DYNAMIC_DEBUG_CLASSMAP_DEFINE exists to
+de-conflict a second classmap definition from a first, by setting
+different .class_id constants for all of the second map's pr_debug
+callsites.
 
-Multi-query commands have been allowed:
+This gives the same _base param, and thus more flexible usage via
+@DYNAMIC_DEBUG_CLASSMAP_USE_(clname,_base).  So now 2nd classmap used
+can be deconflicted from the 1st used or defined.
 
-  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
-  modprobe drm dyndbg=<<EOX
-     class DRM_UT_CORE +p
-     class DRM_UT_KMS +p
-  EOX
+1st the range-checking logic is refined into two distinct macros,
+@ddebug_class_map_in_range() and @ddebug_class_user_in_range(), which
+are then applied to the lookup functions: @ddebug_find_valid_class(),
+@ddebug_find_map_by_class_id(), and @ddebug_class_name().
 
-More recently, the need for quoting was avoided by treating a comma
-like a space/token-terminator:
+@DYNAMIC_DEBUG_CLASSMAP_USE* macro API kdoc is adjusted accordingly.
 
-  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
-
-That works, but it needs the escaped semicolon, which is a shell
-special-char (one of the bash control operators), so it is brittle
-when passed in/down/around scripts.  In particular, it fails when
-passed to vng (virtme-ng).
-
-So this patch adds '%' to the existing ';' and '\n' multi-command
-separators, which is more shell-friendly, so you can more fully avoid
-quoting and escaping hassles.
-
-NOTE: it does break format matching on '%' patterns:
-
-bash-5.2# ddcmd 'format "find-me: %foo" +p'
-[  203.900581] dyndbg: read 26 bytes from userspace
-[  203.900883] dyndbg: query 0: "format "find-me: " mod:*
-[  203.901118] dyndbg: unclosed quote: find-me:
-[  203.901355] dyndbg: tokenize failed
-[  203.901529] dyndbg: query 1: "foo" +p" mod:*
-[  203.901957] dyndbg: split into words: "foo"" "+p"
-[  203.902243] dyndbg: op='+' flags=0x1 maskp=0xffffffff
-[  203.902458] dyndbg: expecting pairs of match-spec <value>
-[  203.902703] dyndbg: query parse failed
-[  203.902871] dyndbg: processed 2 queries, with 0 matches, 2 errs
-bash: echo: write error: Invalid argument
-
-The '%' splits the input into 2 queries, and both fail.  Given the
-limited utility of matching against the working parts of a format
-string "foo: %d bar %s", nothing is actually lost here.
-
-selftests-dyndbg: test_percent_splitting
-
-This does basic testing of classmaps using '%' separated
-multi-queries.  It modprobes test_dynamic_debug with several classes
-enabled, and counts to verify that the expected sites show the
-enablement in the control file.
+TODO: This is just an api placeholder, it anticipates a possible need
+that may never arise.  The normal way to add a new classmap to a drm
+driver would be to define the enum to avoid DRM_UT_CORE..RES vals.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
--v3 squash feature, test, doc together
-    gate new test, which needs test-dynamic-debug.ko
+ include/linux/dynamic_debug.h | 28 ++++++++++++++++++++++------
+ lib/dynamic_debug.c           | 21 +++++++++++++--------
+ 2 files changed, 35 insertions(+), 14 deletions(-)
 
-test-percent-escape
----
- .../admin-guide/dynamic-debug-howto.rst       |  8 ++++---
- lib/dynamic_debug.c                           |  2 +-
- .../dynamic_debug/dyndbg_selftest.sh          | 24 +++++++++++++++++++
- 3 files changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index e2dbb5d9b314..1ceadf4f28f9 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -85,10 +85,12 @@ by spaces, tabs, or commas.  So these are all equivalent::
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-   :#> ddcmd file,svcsock.c,line,1603,+p
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 588e03e8d157..d1e38158c485 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -87,7 +87,7 @@ struct _ddebug_class_map {
+ struct _ddebug_class_user {
+ 	char *mod_name;
+ 	struct _ddebug_class_map *map;
+-	const int base;		/* user offset to re-number the used map */
++	const int base;		/* offset .class_id range to share space */
+ };
  
--Command submissions are bounded by a write() system call.
--Multiple commands can be written together, separated by ``;`` or ``\n``::
-+Command submissions are bounded by a write() system call.  Multiple
-+commands can be written together, separated by ``%``, ``;`` or ``\n``::
- 
--  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd func foo +p % func bar +p
-+  :#> ddcmd func foo +p \; func bar +p
-+  :#> ddcmd "func foo +p ; func bar +p"
-   :#> ddcmd <<"EOC"
-   func pnpacpi_get_resources +p
-   func pnp_assign_mem +p
+ /*
+@@ -235,15 +235,31 @@ struct _ddebug_class_param {
+ /**
+  * DYNAMIC_DEBUG_CLASSMAP_USE - refer to a classmap, DEFINEd elsewhere.
+  * @_var: name of the exported classmap var
+- * @_not_yet: _base-like, but applies only to this USEr. (if needed)
+  *
+  * This tells dyndbg that the module has prdbgs with classids defined
+  * in the named classmap.  This qualifies "class NAME" >controls on
+- * the user module, and ignores unknown names.
++ * the user module, and ignores unknown names. This is a wrapper for
++ * DYNAMIC_DEBUG_CLASSMAP_USE_() with a base offset of 0.
+  */
+-#define DYNAMIC_DEBUG_CLASSMAP_USE(_var)				\
+-	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0, __UNIQUE_ID(_ddebug_class_user))
+-#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _base, _uname)		\
++#define DYNAMIC_DEBUG_CLASSMAP_USE(_var) \
++	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0)
++
++/**
++ * DYNAMIC_DEBUG_CLASSMAP_USE_ - refer to a classmap with a manual offset.
++ * @_var:   name of the exported classmap var to use.
++ * @_base:  an integer offset to add to the class IDs of the used map.
++ *
++ * This is an extended version of DYNAMIC_DEBUG_CLASSMAP_USE(). It should
++ * be used to resolve class ID conflicts when a module uses multiple
++ * classmaps that have overlapping ID ranges.
++ *
++ * The final class IDs for the used map will be calculated as:
++ * original_map_base + class_index + @_base.
++ */
++#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _base)			\
++	__DYNAMIC_DEBUG_CLASSMAP_USE(_var, _base, __UNIQUE_ID(_ddebug_class_user))
++
++#define __DYNAMIC_DEBUG_CLASSMAP_USE(_var, _base, _uname)		\
+ 	extern struct _ddebug_class_map _var;				\
+ 	static struct _ddebug_class_user __aligned(8) __used		\
+ 	__section("__dyndbg_class_users") _uname = {			\
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index b05d186e78a1..5de74a1be4e5 100644
+index 6e0c978bc7c4..68bd2dbdacfb 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -605,7 +605,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
+@@ -169,6 +169,12 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ 		  _di->users.len);					\
+ 	})
  
- 	for (i = 0; query; query = split) {
--		split = strpbrk(query, ";\n");
-+		split = strpbrk(query, "%;\n");
- 		if (split)
- 			*split++ = '\0';
- 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index c7bf521f36ee..513f6cb1db1d 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -256,9 +256,33 @@ function comma_terminator_tests {
-     ddcmd =_
++#define ddebug_class_map_in_range(id, map) \
++	((id) >= (map)->base && (id) < (map)->base + (map)->length)
++#define ddebug_class_user_in_range(id, user) \
++	((id) >= ((user)->map->base + (user)->base) && \
++	 (id) < ((user)->map->base + (user)->base + (user)->map->length))
++
+ static struct _ddebug_class_map *
+ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class, int *class_id)
+ {
+@@ -189,7 +195,7 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 		if (idx >= 0) {
+ 			vpr_di_info(di, "class-ref: %s -> %s.%s ",
+ 				    cli->mod_name, cli->map->mod_name, query_class);
+-			*class_id = idx + cli->map->base;
++			*class_id = idx + cli->map->base + cli->base;
+ 			return cli->map;
+ 		}
+ 	}
+@@ -197,8 +203,7 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 	return NULL;
  }
  
-+function test_percent_splitting {
-+    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
-+    if [ $LACK_TMOD -eq 1 ]; then
-+	echo "SKIP - test requires test-dynamic-debug.ko"
-+	return
-+    fi
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    # add flags to those callsites
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    ifrmmod test_dynamic_debug
-+}
+-#define class_in_range(class_id, map)					\
+-	(class_id >= map->base && class_id < map->base + map->length)
 +
- tests_list=(
-     basic_tests
-     comma_terminator_tests
-+    test_percent_splitting
- )
  
- # Run tests
+ static struct _ddebug_class_map *
+ ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
+@@ -208,11 +213,11 @@ ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
+ 	int i;
+ 
+ 	for_subvec(i, map, di, maps)
+-		if (class_in_range(class_id, map))
++		if (ddebug_class_map_in_range(class_id, map))
+ 			return map;
+ 
+ 	for_subvec(i, cli, di, users)
+-		if (class_in_range(class_id, cli->map))
++		if (ddebug_class_user_in_range(class_id, cli))
+ 			return cli->map;
+ 
+ 	return NULL;
+@@ -1146,12 +1151,12 @@ static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp
+ 	int i;
+ 
+ 	for_subvec(i, map, di, maps)
+-		if (class_in_range(dp->class_id, map))
++		if (ddebug_class_map_in_range(dp->class_id, map))
+ 			return map->class_names[dp->class_id - map->base];
+ 
+ 	for_subvec(i, cli, di, users)
+-		if (class_in_range(dp->class_id, cli->map))
+-			return cli->map->class_names[dp->class_id - cli->map->base];
++		if (ddebug_class_user_in_range(dp->class_id, cli))
++			return cli->map->class_names[dp->class_id - cli->map->base - cli->base];
+ 
+ 	return NULL;
+ }
 -- 
 2.51.0
 
