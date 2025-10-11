@@ -4,69 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF80CCD198
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D43BCCD195
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B07210E4E4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E945510E4E9;
 	Mon, 13 Oct 2025 19:04:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=estudante.ufscar.br header.i=@estudante.ufscar.br header.b="P8+sa8XC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TkMkbUJx";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 322F410E4BD
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 18:31:33 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-28832ad6f64so50247225ad.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 11:31:33 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DD4B10E070
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 12:49:27 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-46e6674caa5so14717385e9.0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Oct 2025 05:49:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=estudante.ufscar.br; s=google; t=1760380292; x=1760985092;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=CyHScNioNUxAqCRLSGCVsNbNpblsxmwE5o0+kKeDGUI=;
- b=P8+sa8XCtnNyXCHL+xYremb/I7OvrTXsk61LXoswPvPACotS3/cIZ7Vi/zLAXi9QzA
- vMsRr0Sa09pepxue0Cbd7CHbjQw5D+QQ9MfIG7y6LzpDYHC8BJ+CONy4ZrZ5YDypq4l8
- pE8koADkJCNwGWK+UP1PLeys6oMhGizP5jQqQ=
+ d=gmail.com; s=20230601; t=1760186966; x=1760791766; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XyfGQY2LePMu13FoufhKbLjnwELjszWS2B5wGZ1sKQw=;
+ b=TkMkbUJxSp7o9xZoHhSPpfdXQL2x37FusLzUFcf78SuwcCkNMgjzFo0AuTJM1vp9Tt
+ yX577UtHqMR56Rsc2XrIQT3/zrDOgZUJSRTRoUDYokIBMw9p4ZSL+Wun44syD5NyoVFZ
+ cip/FN7ueJsXNaZIHe9UwaCD5AaqZerll6UAvrH/3cGN6A1KNUJyQO8oqLSC3Hl8KXGT
+ cTpVRfHqNxdSIt7VB6zQrwPh7qrgykFI2pLGflitwSvPFR/WYKNQKu0euZ6lD7g3YM/p
+ lnzaFqeDpAc14dWsuln9gDOgakmdaol+a4NSu0t0H3E9Ou102r96xxmZ8OF6QN2h0WtV
+ PPcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760380292; x=1760985092;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=CyHScNioNUxAqCRLSGCVsNbNpblsxmwE5o0+kKeDGUI=;
- b=K4Zv4+bUz+NX2F35Z567rs2t50v5tZeP502UM0R28Om4b6pAVhXf32AYpWW92iOBoZ
- n4w11rYTe3G+qyOszL3ObauspirYWehmgbzzOXqxIjWhGMLyTUP3ED5Mj23es7NA5aFW
- GFeGO+gK7aNG83hdB1d/9TZJOEL3ppBlU9Tp3AfLiXweX3LVOqMXo30seydptI8h7JLH
- dfTY/aOxi6FbX2ol2fCQvQKo23hIQUYAMNUOJd1Ev4TORWKt4cxRbxEiJWL8vdDu3NSG
- 418qrBrMPv8syugLURQZOhfT8Fld0nhRCqUP30QxGrbRODay5YFRRCF2aBRfzgZ93Zqw
- 0BzA==
-X-Gm-Message-State: AOJu0YxMQ5MJp/DaygrIjEvPJsXBWohWpgTN7q+Sn6jLhB9QkqjRE+l1
- YDmpe2qIC3N4KpDXNWyFfqO2ZDjSCcUtA5x92vWx29PkLmivBQqEGLo+i5cdi3iuGVk=
-X-Gm-Gg: ASbGnctfqrWHsaHkeQ2dalQjsFq6DxSpt8V16Bk5oq3cAq9HEdzdDQnxL8MqvsMLD/o
- 02feSZFmt3lGkN0m7KApP5AgQxmesbYqp4bGoosbVQIsWVBjpsG9Gnph5YQYfL3FnQnMWZWT08j
- LFkZL9qKGMsTmkjj398T37TNFViK1oNHIXixrBkofcHpNpoN+oAhH1PZqrPUSL3CP98ntsXPltD
- T7TLrzzMUbAjY8jUtheRXjmFLcazFkatvDySMp/s31aqQvchMuEHfQGQtZcLRNa6ZO7RzVOg3/E
- yg0eSitshca7HZ28NKTXSBe9GeBNbY06vBSNgwRY8E8VifqwIPjykt1kAwXThQSLLG4tRsU7cx6
- Od7d7scWohz20SU1vYv8jiM5XsQQq2rcn43WIXM1UJAWndYzM2l1KW6sHeXUjtWimUd7PxphftD
- nyMJPBT3FAeQ==
-X-Google-Smtp-Source: AGHT+IHV+d2j74/e1G29FQZ2NJM2pqXZ75ajkDMvhMXEO7mXX2cQxMO76M1rFTKKeG0aEbIEAAVgLQ==
-X-Received: by 2002:a17:902:ef10:b0:27e:eabd:4b41 with SMTP id
- d9443c01a7336-29027216505mr311772135ad.7.1760380292414; 
- Mon, 13 Oct 2025 11:31:32 -0700 (PDT)
-Received: from pop-os.. ([189.7.87.127]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-29034cba155sm139865065ad.0.2025.10.13.11.31.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Oct 2025 11:31:31 -0700 (PDT)
-From: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
-Subject: [PATCH] drm/i915/gem: fix typo in comment (I915_EXEC_NO_RELOC)
-Date: Mon, 13 Oct 2025 15:31:23 -0300
-Message-Id: <20251013183123.438573-1-marlonsanches@estudante.ufscar.br>
-X-Mailer: git-send-email 2.34.1
+ d=1e100.net; s=20230601; t=1760186966; x=1760791766;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=XyfGQY2LePMu13FoufhKbLjnwELjszWS2B5wGZ1sKQw=;
+ b=X5RdwSMl8nuACvqtr8rjKlkJGpw4S1d9oXxvRXtyHC5bnQtSdamWNnmwfUOQ2oU4C7
+ +X0u5WJmEGh482q2tVwcZKsIUTaH/5DDfCf3QroEEZZYOoXFFKADm4XEJgzEEqtthOI1
+ fbU4kz3+H0N9WoUi5nL8jwiB/N472IqZWqfc1jJEhuowtOtHfx7VV7yHiZYRTCMOojFO
+ tSMLlTz/pc+TRr+NTH/et0lrRLpIGpP/gaBweDddgljFb7oCUvzvaOwozxMnVsG82GEk
+ Yjczz3VuMw9lYBQwSiAxn+3bi3VgRnp85whQOCmwQyNNGAEweyFd8FCiY7MZf3lawuyJ
+ ManQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVWwhDrz3s7YzqX6of+BR+AXCaT4JiR0HLXBOPOJR2q5ANaEcj7uK4ckDCAmdm+qvfRZTERbQiKS5o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAPaYZHJECUlGEuPcTp56DdhiBVWgH/3UKdsf80sFL2UOsbgS5
+ H6yZhCjIaVFib2xYR3mA8sqSvXAC/8cQ4xe05UiTXmfRzdArxByajpjt
+X-Gm-Gg: ASbGnctY9/1afBmexi+qXqQ0HQ2eUf6POni8s9DrVuM/tR3AQlNSFoDQ/YTupJqPe+t
+ BQ2BwJ3GXsN5adVn4MeB0A3MEMGQGE+8Jf2r3QXHSP9lbaBSkaoBR5CC0QjFS3ZqZFlEwXkYb0n
+ HYjDLSbLXkZfCQS4Ndx4r6UB1Q50QAQIaZ/bqRPZ1z55MwbBb33VhO8bNKtPrt/04s4Iih3TXz2
+ Pfnx7AvqsOybBURHI2uj0RydewtvKAbFUVi4UNM14JTg9vP/gMxx0YeP14m2no5CA5ZwClhuv7l
+ nprYC07y37puUZ2E5UxK7EG0omhPJcXI+n0tiPqGzUPgMKy9but7IwCuNZ787qARWbyt1MT/y1W
+ VdcGwizuruFyWKF2m0PfwoVfNuwxsRUnMdGYweBEvn+8CifIK
+X-Google-Smtp-Source: AGHT+IGOL/iGOOiJ0W1rg32u+UUi5UBjVVyHo3vcBAdJR9e/rc/aSoT32KkemcPLLP9ISEkRMT06zA==
+X-Received: by 2002:a05:600c:2287:b0:45d:d86b:b386 with SMTP id
+ 5b1f17b1804b1-46fa29f13dfmr99087265e9.14.1760186965844; 
+ Sat, 11 Oct 2025 05:49:25 -0700 (PDT)
+Received: from localhost ([212.73.77.104]) by smtp.gmail.com with UTF8SMTPSA id
+ ffacd0b85a97d-426ce57d49bsm9156274f8f.10.2025.10.11.05.49.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 11 Oct 2025 05:49:25 -0700 (PDT)
+From: Askar Safin <safinaskar@gmail.com>
+To: ville.syrjala@linux.intel.com
+Cc: alex.zuo@intel.com, chris.p.wilson@linux.intel.com,
+ intel-gfx@lists.freedesktop.org, jia.yao@intel.com, piliu@redhat.com,
+ shuicheng.lin@intel.com
+Subject: Re: [PATCH v2] drm/i915: Setting/clearing the memory access bit when
+ en/disabling i915
+Date: Sat, 11 Oct 2025 15:49:19 +0300
+Message-ID: <20251011124920.2857-1-safinaskar@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <aOaOJ1YI-NgTloIy@intel.com>
+References: <aOaOJ1YI-NgTloIy@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:11 +0000
@@ -85,28 +91,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The comment referenced the flag name incorrectly as 'I915_EXEC_NORELOC'
-(missing underscore). This patch corrects the spelling in the comment
-only; there is no functional change.
+Also, I just tested opposite thing. I. e. I tested v2 patch, but without
+intel_pxp_fini(i915) line. And the patch worked.
+I. e. intel_pxp_fini(i915) line is not needed for fix to work.
 
-Signed-off-by: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
----
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 39c7c32e1e74..7a0dee4111cb 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -142,7 +142,7 @@ enum {
-  * we want to leave the object where it is and for all the existing relocations
-  * to match. If the object is given a new address, or if userspace thinks the
-  * object is elsewhere, we have to parse all the relocation entries and update
-- * the addresses. Userspace can set the I915_EXEC_NORELOC flag to hint that
-+ * the addresses. Userspace can set the I915_EXEC_NO_RELOC flag to hint that
-  * all the target addresses in all of its objects match the value in the
-  * relocation entries and that they all match the presumed offsets given by the
-  * list of execbuffer objects. Using this knowledge, we know that if we haven't
 -- 
-2.34.1
-
+Askar Safin
