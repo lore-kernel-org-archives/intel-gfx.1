@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D817FCCD19A
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF80CCD198
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A33C810E4E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B07210E4E4;
 	Mon, 13 Oct 2025 19:04:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZmrsmXZI";
+	dkim=pass (1024-bit key; secure) header.d=estudante.ufscar.br header.i=@estudante.ufscar.br header.b="P8+sa8XC";
 	dkim-atps=neutral
-Received: from mail-il1-f175.google.com (mail-il1-f175.google.com
- [209.85.166.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 278F310EAD8
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:04 +0000 (UTC)
-Received: by mail-il1-f175.google.com with SMTP id
- e9e14a558f8ab-42d8bf52325so6007355ab.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:04 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 322F410E4BD
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 18:31:33 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-28832ad6f64so50247225ad.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 11:31:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032743; x=1760637543; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=foiN7sqtth4khBjBEFbfAhEsiysHlMC95zuU+aZAUrk=;
- b=ZmrsmXZIwxH7onGRN1uEo3NMUGEe5jy7UL2cMC78zBIkApFxTAMAe8Fx8uKQb4g+aD
- +bIfEsh2zEMGn/FYQ4Jr7iIPumahLVr5UAT8RV1uaQUjhRReKVf5PXXoY0gzI+XJHgOZ
- dmrdhyXbKIWpD5h+KnY2gA+6X33fwVkPzHm/zHKtOwSZLbrPBLRHdiZSkwNBOUj3TVuP
- h5cQYNbnL0TowJnDHwMSD56L3OXokriNqBXsM+FdHcTS+/k1TSSK4NzTjSdvrmUERNIL
- si7d4a92Gn4z+Y0aKaA2gvzJVMOgU/CBahJpHJO0pVXNxgz/8HJ+pgErY96Oy93/vCGC
- mKkQ==
+ d=estudante.ufscar.br; s=google; t=1760380292; x=1760985092;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=CyHScNioNUxAqCRLSGCVsNbNpblsxmwE5o0+kKeDGUI=;
+ b=P8+sa8XCtnNyXCHL+xYremb/I7OvrTXsk61LXoswPvPACotS3/cIZ7Vi/zLAXi9QzA
+ vMsRr0Sa09pepxue0Cbd7CHbjQw5D+QQ9MfIG7y6LzpDYHC8BJ+CONy4ZrZ5YDypq4l8
+ pE8koADkJCNwGWK+UP1PLeys6oMhGizP5jQqQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032743; x=1760637543;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=foiN7sqtth4khBjBEFbfAhEsiysHlMC95zuU+aZAUrk=;
- b=dPm9NwqHg8yqoSpdQqGW8o4SjNhVL756fkawhQwP8S8U3PDqrbXjVav+7D4kL9dzrz
- Z45USqAEubh5f8seB6OuVCBO2I/m8zjiKrYzdC+MtVJ4hRRswzf0w1Aw4mabVeSMwI1e
- I/ajCNXbwdT8rgncEXZOegU+iRft/hPs18BiknVnhWfdjsteOK2uU76CLbXwyaCkwpGI
- zTJfq0/sqYDHS602xN3oTh1CKOqNpITV6xgZiDvKmB+UOW+5GFENG8j28RYb0pSZr3Rd
- EZyETh/p1vMkckjHbR5dKpPPED7HBAKYzMHxMtp8Sm581Pv6UfTiXnxqZ3FgZLC2WJ2f
- oJ+g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU3cAkgYuLC/7fiDp/Ja1QJWv2JdF5TR/bjoTarWSCQvd0ikccOb2/9Skx7H+byTc3DxqvAdeKnpuc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwxH6fur0SLyI1Xm05McZpXm1Va+zC9umW0+TjQTAiBQ2oxRTHn
- aSjTwmpc+exmtUmp2WN6Na27M62m3CMEBjlPZ5otdfw2RBqi3M81DU+8
-X-Gm-Gg: ASbGncsWx4G736h3PzSPmB9yU24UyzVdlqKPaLuKo3Arpuqy04kQm9D0hcXsMp2phNk
- BviWU9Kzh2v0dV0bj4QiEtAghq60jj+je7s+6Cftu3aBQ2AL1C8trwEI55YAxzlEkJ56LFKMSuF
- l7TjcflwVOt63zjvHkfdwcQoiZhBEcqGxVEUfZcnTZjfGOqmP/Rt+vmrcNLR3AoS6STZJ2/cqwr
- 8dyBQV+ETJEEPxwI6LDxj/K0AqRKDPke0tWYq/TWp0MmWMNok6BPyDkb5Fpy3XBNsMBwT+a9AaG
- v2GNYWQGcLyyTpE7pkfInXM02GuyN12OLMNBNAmmjDtaR512oey26m0tSVFreyYa1xSnZRqllXL
- t0dRfZaM6RHJ9cgODd0a51jTQgDv48+higmSml7AARKxctKWhPGLq9x6ViKzCcBtpR3gynohIUf
- ZnrbtJw2RpXh+FT4lkaINIKEN7dgQ/eyjOIbapJQ==
-X-Google-Smtp-Source: AGHT+IEXrf0bXn6pOGAetXvcTVTItgA/41FlLlYPAXC+Ci3frkzz6F6WaNaH9mI22d7vbWJNi23HhQ==
-X-Received: by 2002:a05:6e02:216d:b0:42f:8eeb:499d with SMTP id
- e9e14a558f8ab-42f8eeb4a47mr41838465ab.8.1760032743223; 
- Thu, 09 Oct 2025 10:59:03 -0700 (PDT)
-Received: from godzilla.raven-morpho.ts.net
- (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.02
+ d=1e100.net; s=20230601; t=1760380292; x=1760985092;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=CyHScNioNUxAqCRLSGCVsNbNpblsxmwE5o0+kKeDGUI=;
+ b=K4Zv4+bUz+NX2F35Z567rs2t50v5tZeP502UM0R28Om4b6pAVhXf32AYpWW92iOBoZ
+ n4w11rYTe3G+qyOszL3ObauspirYWehmgbzzOXqxIjWhGMLyTUP3ED5Mj23es7NA5aFW
+ GFeGO+gK7aNG83hdB1d/9TZJOEL3ppBlU9Tp3AfLiXweX3LVOqMXo30seydptI8h7JLH
+ dfTY/aOxi6FbX2ol2fCQvQKo23hIQUYAMNUOJd1Ev4TORWKt4cxRbxEiJWL8vdDu3NSG
+ 418qrBrMPv8syugLURQZOhfT8Fld0nhRCqUP30QxGrbRODay5YFRRCF2aBRfzgZ93Zqw
+ 0BzA==
+X-Gm-Message-State: AOJu0YxMQ5MJp/DaygrIjEvPJsXBWohWpgTN7q+Sn6jLhB9QkqjRE+l1
+ YDmpe2qIC3N4KpDXNWyFfqO2ZDjSCcUtA5x92vWx29PkLmivBQqEGLo+i5cdi3iuGVk=
+X-Gm-Gg: ASbGnctfqrWHsaHkeQ2dalQjsFq6DxSpt8V16Bk5oq3cAq9HEdzdDQnxL8MqvsMLD/o
+ 02feSZFmt3lGkN0m7KApP5AgQxmesbYqp4bGoosbVQIsWVBjpsG9Gnph5YQYfL3FnQnMWZWT08j
+ LFkZL9qKGMsTmkjj398T37TNFViK1oNHIXixrBkofcHpNpoN+oAhH1PZqrPUSL3CP98ntsXPltD
+ T7TLrzzMUbAjY8jUtheRXjmFLcazFkatvDySMp/s31aqQvchMuEHfQGQtZcLRNa6ZO7RzVOg3/E
+ yg0eSitshca7HZ28NKTXSBe9GeBNbY06vBSNgwRY8E8VifqwIPjykt1kAwXThQSLLG4tRsU7cx6
+ Od7d7scWohz20SU1vYv8jiM5XsQQq2rcn43WIXM1UJAWndYzM2l1KW6sHeXUjtWimUd7PxphftD
+ nyMJPBT3FAeQ==
+X-Google-Smtp-Source: AGHT+IHV+d2j74/e1G29FQZ2NJM2pqXZ75ajkDMvhMXEO7mXX2cQxMO76M1rFTKKeG0aEbIEAAVgLQ==
+X-Received: by 2002:a17:902:ef10:b0:27e:eabd:4b41 with SMTP id
+ d9443c01a7336-29027216505mr311772135ad.7.1760380292414; 
+ Mon, 13 Oct 2025 11:31:32 -0700 (PDT)
+Received: from pop-os.. ([189.7.87.127]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-29034cba155sm139865065ad.0.2025.10.13.11.31.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:59:02 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com
-Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v5 15/30] dyndbg: hoist classmap-filter-by-modname up to
- ddebug_add_module
-Date: Thu,  9 Oct 2025 11:58:19 -0600
-Message-ID: <20251009175834.1024308-16-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
-References: <20251009175834.1024308-1-jim.cromie@gmail.com>
+ Mon, 13 Oct 2025 11:31:31 -0700 (PDT)
+From: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
+Subject: [PATCH] drm/i915/gem: fix typo in comment (I915_EXEC_NO_RELOC)
+Date: Mon, 13 Oct 2025 15:31:23 -0300
+Message-Id: <20251013183123.438573-1-marlonsanches@estudante.ufscar.br>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:10 +0000
+X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,113 +85,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The body of ddebug_attach_module_classes() is dominated by a
-code-block that finds the contiguous subrange of classmaps matching on
-modname, and saves it into the ddebug_table's info record.
+The comment referenced the flag name incorrectly as 'I915_EXEC_NORELOC'
+(missing underscore). This patch corrects the spelling in the comment
+only; there is no functional change.
 
-Implement this block in a macro to accommodate different component
-vectors in the "box" (as named in the for_subvec macro).
-
-And hoist its invocation out of ddebug_attach_module_classes() up into
-ddebug_add_module().  This moves the filtering step up closer to
-dynamic_debug_init(), which effectively does the same for builtin
-pr_debug descriptors; segmenting them into subranges by modname.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
 ---
- lib/dynamic_debug.c | 56 ++++++++++++++++++++++++++-------------------
- 1 file changed, 32 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 53ce28255426..bbbdb8aba071 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -161,8 +161,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- }
- 
- static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							const char *class_string,
--							int *class_id)
-+							 const char *class_string,
-+							 int *class_id)
- {
- 	struct _ddebug_class_map *map;
- 	int i, idx;
-@@ -1224,30 +1224,34 @@ static const struct proc_ops proc_fops = {
- 
- static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
--	struct _ddebug_class_map *cm;
--	int i, nc = 0;
--
--	/*
--	 * Find this module's classmaps in a subrange/wholerange of
--	 * the builtin/modular classmap vector/section.  Save the start
--	 * and length of the subrange at its edges.
--	 */
--	for_subvec(i, cm, di, maps) {
--		if (!strcmp(cm->mod_name, dt->mod_name)) {
--			if (!nc) {
--				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
--					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
--				dt->info.maps.start = cm;
--			}
--			nc++;
--		}
--	}
--	if (nc) {
--		dt->info.maps.len = nc;
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
--	}
-+	vpr_info("module:%s attached %d classes\n", dt->mod_name, dt->info.maps.len);
- }
- 
-+/*
-+ * Walk the @_box->@_vec member, over @_vec.start[0..len], and find
-+ * the contiguous subrange of elements matching on ->mod_name.  Copy
-+ * the subrange into @_dst.  This depends on vars defd by caller.
-+ *
-+ * @_i:   caller provided counter var, init'd by macro
-+ * @_sp:  cursor into @_vec.
-+ * @_box: contains member named @_vec
-+ * @_vec: an array-ref, with: .start .len fields.
-+ * @_dst: an array-ref: to remember the module's subrange
-+ */
-+#define dd_mark_vector_subrange(_i, _dst, _sp, _box, _vec) ({		\
-+	int nc = 0;							\
-+	for_subvec(_i, _sp, _box, _vec) {				\
-+		if (!strcmp((_sp)->mod_name, (_dst)->mod_name)) {	\
-+			if (!nc++)					\
-+				(_dst)->info._vec.start = (_sp);	\
-+		} else {						\
-+			if (nc)						\
-+				break; /* end of consecutive matches */ \
-+		}							\
-+	}								\
-+	(_dst)->info._vec.len = nc;					\
-+})
-+
- /*
-  * Allocate a new ddebug_table for the given module
-  * and add it to the global list.
-@@ -1255,6 +1259,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
- static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
-+	struct _ddebug_class_map *cm;
-+	int i;
- 
- 	if (!di->descs.len)
- 		return 0;
-@@ -1277,6 +1283,8 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 
- 	INIT_LIST_HEAD(&dt->link);
- 
-+	dd_mark_vector_subrange(i, dt, cm, di, maps);
-+
- 	if (di->maps.len)
- 		ddebug_attach_module_classes(dt, di);
- 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 39c7c32e1e74..7a0dee4111cb 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -142,7 +142,7 @@ enum {
+  * we want to leave the object where it is and for all the existing relocations
+  * to match. If the object is given a new address, or if userspace thinks the
+  * object is elsewhere, we have to parse all the relocation entries and update
+- * the addresses. Userspace can set the I915_EXEC_NORELOC flag to hint that
++ * the addresses. Userspace can set the I915_EXEC_NO_RELOC flag to hint that
+  * all the target addresses in all of its objects match the value in the
+  * relocation entries and that they all match the presumed offsets given by the
+  * list of execbuffer objects. Using this knowledge, we know that if we haven't
 -- 
-2.51.0
+2.34.1
 
