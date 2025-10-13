@@ -4,85 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E17CCCD183
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:04:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2DCCCD183
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Oct 2025 19:05:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7679010E4F0;
-	Mon, 13 Oct 2025 19:04:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E86CB10E4E5;
+	Mon, 13 Oct 2025 19:05:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ciJBV3hm";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hGBqkNcb";
 	dkim-atps=neutral
-Received: from mail-il1-f174.google.com (mail-il1-f174.google.com
- [209.85.166.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDC7610EAE5
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Oct 2025 17:59:07 +0000 (UTC)
-Received: by mail-il1-f174.google.com with SMTP id
- e9e14a558f8ab-42f7a4bf805so13346375ab.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Oct 2025 10:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760032747; x=1760637547; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8bJf8BKViTw4/xmo503k0SakyhjsE6/pt49DGGacuYc=;
- b=ciJBV3hmb5+ZzfO5UZYylXdWINSLBz245BbyOK5JLEq4r90sBhd/K9MhD3/+Uvi5Lu
- yQzeIK+YL5OfE80noc9PyNMDkDjlcWR3buLMXgqnc6b4qEsVuBUN49FSmESM79QS6v/1
- 9C8MC4JHMNiDH2HQYs+TAx0l2h6cxsiRUS4HjrgRl8GY2QBw/cGDM9EpTZ3bvlM2P7+Z
- 1Yoem2xeKzVS3WKVJxkRjwo+uNDqlHT2Ju+FewgtDYSJ01k6aAQscQ5NZkl2TBw+vHHb
- uUxiKL7MzTweX2E6cMaJJm4uzoBBpOdklFRMV1nuzaVSxVzkqevqoERDJSwkjK1rvejl
- w11g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760032747; x=1760637547;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=8bJf8BKViTw4/xmo503k0SakyhjsE6/pt49DGGacuYc=;
- b=VmL673EBYo1yRuaOSZt4S70QLUJ9vgjAZcq8LHyTwjC0gY8HvM75y5GDbdJ58JvnFr
- KvECWWPa3Jz5aflhyir4WAuKXSEkDhBqVM9U1wQa4eNBLlHSMdmW2IMmN8uSS/ibCFB/
- UiJzf80ZEGDxQTsBVhsq0Gx+6lCYaTT+frSwRb3XGhL5XSxde1FhgXK6qNYK5cPtEX54
- OVpFcs6BQ+X6C3wa+qOHrTIfTY1kOEQ6DqWbhI0FqYxzE2oRqgGHB0NrWMtB8rvo1AAo
- tlZVvJaWSW4aZUpFFMxYCvJ/E8H/KhjA6SpD5oqStWwk8Qx7uZiJdTlP4Q9+Yh0rBRE7
- 8aEw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXeXJGtCcKsFCXM2EUYEkRPAhsiPGbbcnYfppj7il3VRE8hyHTWQgNTeUEqKgXeEYqCBDydKmNwwEs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwA1blJCLtSTSIrj7elRNHNS5tgiX9DJmDsGZuWgPeLQV2A9fJV
- itPOdLSugeirKgSkAeycKsgvH2ByQxcGyg2QYcO78Y6MjzjAfynaO0Be
-X-Gm-Gg: ASbGncsxrxkDmnoj34RwMzC5HmTaLe+HayDRWk7yVcUV9QxED+XHKaL2w3g29lvTzIA
- L0e4VpVAWs9HKqIeAWesX3T+oWmMhUvuFTS9DS4hJQSB0CJspqJ5OSIzfzBD5uXqGWg82uv9FvK
- vGrmZYNBTXcGPeuHije5y08N27HKH7ZuZktfrOAQwDzmP6F14HHfYMXqg1vAaBMM+65uYHW1R9F
- EqDhx10dNGVw113XNx30cmF5SfTgHMYYKXJCJ8ixC8s8aKE0JdClWMTjZ9WnbbLqMi1iuC8VLyQ
- 8d51k+En/tpCG8VMd4r9YIqgaGrb053r5hZ3BQOrof1F1hDQNa1/Sw3RjS+/6JX+8OGJtfYNCjz
- Y7CZMUAql/81Umahh2jsas0vLa7zmMr7YAni0NRZQ3XrCg7c03MjQpyZOvV98j9gJVs6QJkRYML
- evkzOJugeQN0RrkHJD6tYtfUCr4AJNUvUsTbjKMw==
-X-Google-Smtp-Source: AGHT+IEeu7glopTSSuDvCZNhLjHfm129v1CwDFtKO8S4S4IyootPDCsCBoycaw1tuebiZrGvcW8TNg==
-X-Received: by 2002:a05:6e02:1543:b0:42f:9410:ea96 with SMTP id
- e9e14a558f8ab-42f9410ec91mr30802035ab.2.1760032746684; 
- Thu, 09 Oct 2025 10:59:06 -0700 (PDT)
-Received: from godzilla.raven-morpho.ts.net
- (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 8926c6da1cb9f-58f7200c4afsm30256173.35.2025.10.09.10.59.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Oct 2025 10:59:06 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: jbaron@akamai.com
-Cc: gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, daniel.vetter@ffwll.ch,
- tvrtko.ursulin@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, Jim Cromie <jim.cromie@gmail.com>
-Subject: [PATCH v5 18/30] selftests-dyndbg: add a dynamic_debug run_tests
- target
-Date: Thu,  9 Oct 2025 11:58:22 -0600
-Message-ID: <20251009175834.1024308-19-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251009175834.1024308-1-jim.cromie@gmail.com>
-References: <20251009175834.1024308-1-jim.cromie@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4C4210E4E5;
+ Mon, 13 Oct 2025 19:05:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760382351; x=1791918351;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=c2VntTJ1TtuaCS2xiIj5IvQZU0l/zbfsAb4MGz9PM+I=;
+ b=hGBqkNcbHRgLttcxvLCPnyEBxOdU9lxIiSWoxf7tRDF/QdfQf3KXKtVb
+ 9gpzcI0QLGwb3fjnU0MRr1X/ge81fT27OJydPjkkCVOVCXxUgPF23CrFs
+ TeUYdFkjncp5UxzDjYiRs9Okw+u+3xvMGF6xCjzi2k12Uk+/shKRrHdWr
+ 0vHJvChjLmDIpZnDInqUWYWV4KFDcXdeWCGnqNySDQ73eI3u7jw8gcaRD
+ GVbu5/pipIN7CirxNLCDxMOGeLmCeGR3KIvcTFww4VtKVoXb9c7wc6jUC
+ /XFC8Yc+uZRXLT6p9UnUyUqcd8e//jdGEekOQf4DXKE2JuxcT9oN7Zyff w==;
+X-CSE-ConnectionGUID: kl9/9GoQS2C5DRm7lxdjgA==
+X-CSE-MsgGUID: IHGH3CQ5RqOs94UlEZxeqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11581"; a="62424108"
+X-IronPort-AV: E=Sophos;i="6.19,226,1754982000"; d="scan'208";a="62424108"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2025 12:05:48 -0700
+X-CSE-ConnectionGUID: jfxecflmRh6LzxiufQUgjQ==
+X-CSE-MsgGUID: yU41R+NGTHaCFqVN/pCg9Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,226,1754982000"; d="scan'208";a="185927023"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Oct 2025 12:05:43 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Mon, 13 Oct 2025 12:05:44 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27 via Frontend Transport; Mon, 13 Oct 2025 12:05:44 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.11) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Mon, 13 Oct 2025 12:05:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IJzGAZ/ZPejnKOe07+ECNLxW6sAwzpeYc0gRztedYz9+9IVRk4xLFt+yRornz4pXfODR++OQIHSIUpgkCzYExCLXCN5TrAU+/jCxSsubdQ762xCa249Ms/5w5zjSEaS3DDLWAsjT7VCmh59MxdWf5MYmTM2cGEY24XJZ3xjF+v9H7p1IlleNzXOjsjRYWGvh3i9Ennyoi2kpkknkiMDb/kuL8ET2LjxMxoY7dzMRLpQP0c033r5pwadc8sIPadDaDClQSTS6mDekVl+6gWJ2AHEJAlElU/NOxTyBNxWcexd9mMVGFZ29izt/j2JZd5nGvVOU6RM9zJKwUGjqQlsQCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N0e060gdpASoFlj4rF2Bfp/UMr5vReWTyUxO7QZm2Is=;
+ b=aY0omBcv2WFm2LQrnfh0hArGSxb3KOrE76IpsF2/v24NSPYuCQuLAyteK5GqA0Nc4841nKZvqwH5ZmuIr0nkAexR7FnT5jYT1kb66UJGhvhNBRKeoE2084jtvheuIT58RABdfeIB3erP+fr6koH4Zh/NhIGox27GknhGiSBP+xJe3LWkt+ZGNbWauFZ9xlpEcaYSDJaNEhzHDdTvmvi3JfiTl4hp9ep4B0CKDEy/ReniPGTjtMYoSMxzt5nuayqMtpSWRgNj0wFsRc1HEfH8m3y7B1uX5IYOvRhwZFzU9uJybZEkgQBIAIVshyyFMW3Dq+Wltotm4+b+btJZ1QxoEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
+ by SA0PR11MB4736.namprd11.prod.outlook.com (2603:10b6:806:9f::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9203.13; Mon, 13 Oct
+ 2025 19:05:42 +0000
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::76d2:8036:2c6b:7563]) by CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::76d2:8036:2c6b:7563%6]) with mapi id 15.20.9203.009; Mon, 13 Oct 2025
+ 19:05:42 +0000
+Date: Mon, 13 Oct 2025 15:05:38 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Simona Vetter <simona@ffwll.ch>,
+ <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/i915/gem: fix typo in comment (I915_EXEC_NO_RELOC)
+Message-ID: <aO1NgjjpgUmUoVAn@intel.com>
+References: <20251013183123.438573-1-marlonsanches@estudante.ufscar.br>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20251013183123.438573-1-marlonsanches@estudante.ufscar.br>
+X-ClientProxiedBy: SJ0PR13CA0196.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c3::21) To CYYPR11MB8430.namprd11.prod.outlook.com
+ (2603:10b6:930:c6::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 13 Oct 2025 19:04:10 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|SA0PR11MB4736:EE_
+X-MS-Office365-Filtering-Correlation-Id: 182b935d-d4cb-4453-b8e3-08de0a8b8149
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?S+0ClRUdRZfptCaQSGnf9gGW7piRmRusvrPzEAvSH3UePTC3k56NlJFkdn88?=
+ =?us-ascii?Q?d6m3LUoEFssIFEdM8rE71735ZccAQSmejt5iWnme3kmpAePy+LdPnnQ6VXUq?=
+ =?us-ascii?Q?wjowXxblOtYhS4VtqjKzsTjGr0mG8p0IYCnOsEm/vVW9ZHUTbvVl6Thwrylf?=
+ =?us-ascii?Q?WvdZSTA+FoygdI5K5QxPMsmYn+XLd/E/4np+AXo8ZMbVJNFyAW5NiZEdjein?=
+ =?us-ascii?Q?FkJk9BScptEySmiNEpklv9fUfIflFYWw334imejvWW5DE2pR840oUgdy3mYu?=
+ =?us-ascii?Q?3kVLBdpVc5xQZFENJ7m+Fbw2f2jcHZNqu0Fhsitu3N20F2Pt9aHteVwUkVHs?=
+ =?us-ascii?Q?RkxQai1u7dzgfo2xIIvShIPSziutLEOpCKI6mMsrCZHaHzfWPvenuIJ5wdu/?=
+ =?us-ascii?Q?GvxFpFM3ObM96a8ZXGiEYUT4YxmXsltuV3wNz9cG9i0B0njvORaOXco8AKf4?=
+ =?us-ascii?Q?vfn8AXyLSgd2w3kZJEGr0dGpNL+3WVmIKg9TLzDuOjplk631X/6yXQWYUl4G?=
+ =?us-ascii?Q?XDaXtUezX8XDL7YadnHCw53O5j+Mu0GBjHoR1xdK8PCbzkJ1HmvPYiCsF2dT?=
+ =?us-ascii?Q?nTy/YuAvHK3GaLowRzNjWyN8Ij0OP3IAEA0A3e7wKnBeeOCxVBabiwoeDXjZ?=
+ =?us-ascii?Q?j02pFHGZVEU248oL9oyww2tw+Z9i5AXljdkCZt7OFeMizhC14kDLN5Gd3wcG?=
+ =?us-ascii?Q?JzlqJUiZeGVUqL/9LK3aUihT9Qe4UvdR0F0rkSANBW209LPrszBuczvvta7q?=
+ =?us-ascii?Q?tPoE/zUoTjo9p10B6toxYQP+FUQ4i37bwpzN3NgIgE5OOM9AGs25Y0e6TSJ5?=
+ =?us-ascii?Q?e1dfvICRhMDi7+gWXpiwByMKzoWwkdF/CBMoMOrm/khEVIXeGhBs745m3nsi?=
+ =?us-ascii?Q?PKqwswgNqVWAvBUbS4k3PXvzCtknbG58eSy1UGnSFVdBsT1ef8Dah1M+0EUH?=
+ =?us-ascii?Q?lPUVda5uGS/Wp8LQP8cacS0v516PhuH4g1R69NohplIh86A1UVae5YZEhChj?=
+ =?us-ascii?Q?/TM7vd6JKp3LING64b12j67Bu5HqFKH4G4DfrcZnlgwpNCvQJfA2w8ibzBnO?=
+ =?us-ascii?Q?A/uMfdt2FG9CgN04MsauCPmQKDQadbv2XgzNgTbWRv91Ef3RGO6xlUjATF7f?=
+ =?us-ascii?Q?Y86vP9/Kj6k8kCuD08n+tXvPoZOnyNVgKseft5d8sVArGPU6lE/TUy05pYDz?=
+ =?us-ascii?Q?BDjkbhBg7jLf/fDdety5Mq7rEBqY9J3cVAHcYrw6q76vbHiR/vPtK8SOl6NX?=
+ =?us-ascii?Q?BrA1mZrYZ2XRBN1xrEgrMAU8RCA5U07edwdQAvIwuNU0YCV8wWWuYHR9wkf8?=
+ =?us-ascii?Q?WaYWg4ft/MkIdmfPGRryY+oYtLNgjrywfPVqRsXHay5Ix9GrncXrbcFQixkF?=
+ =?us-ascii?Q?oarQyF//+Edl2VVxhaauda4V/HJ+4HS/7qxyhOI2ljsG9wIjoq6tjQ7RthW8?=
+ =?us-ascii?Q?i7uTYRJE3HBF/GEFU+6HYALzM0FdW29l?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?sCaryIcNd8zaN6twQpPLWhaYHutVxpIX34skgWXHccfoa0Yw4EY4q5vitg+7?=
+ =?us-ascii?Q?aGG++hd5L6RahB1iDPjOhep7/WpCCMmz58gu2ZlnsyWpYWndX7lQImy9zDn1?=
+ =?us-ascii?Q?+eZZQqy3XL4kxbTA9U+9r+sAb2UHikB8VmTTTk73jZJ9eXGdCNZ3Bn/PH3J7?=
+ =?us-ascii?Q?tyTZzBnJi1Hn1PJZFBTF96x8COkuNRh1Puv5xD+WA7Y1bSIPCBJdH4i2PGCQ?=
+ =?us-ascii?Q?yLK7l+FSvG2bL/tKuEUo9r02W4Ubf6eJvxDS1Cqe/Dbyb+z/pUlX+CUzmeGN?=
+ =?us-ascii?Q?FS9aA8u8X+0cnJKjniYuqNopMKhSZGZUQfS5vxTVZ9+rIhxuekTJhphStzH0?=
+ =?us-ascii?Q?XBUSZj3l0Z3FhLjPI8kA7XNVfJxXYUIC9Zv1xmhRFOJRvGknb1fB4vqyHhKm?=
+ =?us-ascii?Q?kTy8Nxg3K5XAmOORR2XXNn+wk/Kj/3mga3jHjeb8Nuzn8SiWe6rNFBLxPEfn?=
+ =?us-ascii?Q?SxuevNexX3wCaJFOI5PLu3yZ3Q9P3f+EGBesSBPWuw9Q0CxYhF9gA51jkY5+?=
+ =?us-ascii?Q?fgdSPKMbDUUKGErK6SCU3DT+dx7fOc8GLpMLGPPDrx6upwT3sJQTuroKCKW/?=
+ =?us-ascii?Q?WShziWWgLSHu4CaFLknHIHfY7bNYYjSw7DlTnJMLoQtyCJ3BHvJwSPg8UjsH?=
+ =?us-ascii?Q?GKhMdsy1NL5VjlXkK+4zqXCRWO27RFhNlfyD+eQmV+3WXk6d1s6AEHwJ/ZiY?=
+ =?us-ascii?Q?hb/Xn9NIRgi+pcKJS9IXjg72g3cWxgd33bZsY/uOql67eYCuWehPv3oUIam6?=
+ =?us-ascii?Q?QCdsd61UdFhjCWF6O353OIdxApwAhQaeY7w84HMgtjhDI1ss9ytBUvU1XdD4?=
+ =?us-ascii?Q?DKsSaVnv0BcpEL0Z9b3TgtKpde2dOTQ4sL8FXSbSQ5rlSaNN9atxMLKwBNoJ?=
+ =?us-ascii?Q?s7vL04M1WFXIqNr1KCU9fT/ff68bGdoN48tmv+GSkZAGIXkhJDPIYmUDo4Np?=
+ =?us-ascii?Q?TJonnBeCz1BrNBICkP13D/tWzs7DJiz9tA27IbwNoQ7M1WO6GOmf1V5YAxYo?=
+ =?us-ascii?Q?ylnNOvPE63gljC2UJHZe6d1I1rf9gILYlX+cAiOoUuZdlh11rHf8pGsIKYNU?=
+ =?us-ascii?Q?4xx3IWg3lJ7wIvQn1l+wFv4mIDQQ7buPHvdIo9wWZuQ9r6ZmiLURiLdMOUcw?=
+ =?us-ascii?Q?Zgzi6iRkArbXwe6KIQROLOZO9wr5E6/+dVYDyt7ygsSlyVW/dxCWTZNrK8hT?=
+ =?us-ascii?Q?2FDZSM1nMZcgXxSFMgT+ZtDHwycyZ/vIwrJBkdZ9yARRRn47K3cAvEVo/mb4?=
+ =?us-ascii?Q?hGBZdPi4C8CeCf5W1Ef0l0+2ecmlzypk3jonRtawUYEHHP9ukfbe7HdrBEts?=
+ =?us-ascii?Q?DaHc7kNzH+9DySc1ByRXkYIaku/zStdlb+Woi90Ls5xcfsVE5TOE3Ipc06/+?=
+ =?us-ascii?Q?C/ELSHtXmC9rrLMdj8EpyABJFymoidOfn/vnTF4F+20U3TrpNznp8yljwd5O?=
+ =?us-ascii?Q?CYNHK8AOUmHfDGEtR8RcFR1ebDloQ4IHIkr8JfMwJhhN7oFhUsIpYElWg5gN?=
+ =?us-ascii?Q?KXJaVG4wKKWEPeUOC3EQm2AgNOPeCeJbzbddhE/2Z4pG9wMLXais5Tf7d+06?=
+ =?us-ascii?Q?nw/ys6vYq5L1fK98d5EgFkWOSSYG3uGHObsZmwLzl6nyvoBi4YQ5NFjOHZEl?=
+ =?us-ascii?Q?Nw=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 182b935d-d4cb-4453-b8e3-08de0a8b8149
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2025 19:05:42.1350 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PtRf6caJf4qmuaPdNbEFDNnQEBxIIMYzi2EZPDHHXHxCyBOI/GyFsaJbQOuyKM82P40DXdqhdiPtXQ/0H6+Lgw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4736
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,416 +178,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a selftest script for dynamic-debug.  The config requires
-CONFIG_TEST_DYNAMIC_DEBUG=m and CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m,
-which tacitly requires either CONFIG_DYNAMIC_DEBUG=y or
-CONFIG_DYNAMIC_DEBUG_CORE=y
+On Mon, Oct 13, 2025 at 03:31:23PM -0300, Marlon Henrique Sanches wrote:
+> The comment referenced the flag name incorrectly as 'I915_EXEC_NORELOC'
+> (missing underscore). This patch corrects the spelling in the comment
+> only; there is no functional change.
+> 
+> Signed-off-by: Marlon Henrique Sanches <marlonsanches@estudante.ufscar.br>
 
-ATM this has just basic_tests(), which modify pr_debug() flags in the
-builtin params module.  This means they're available to manipulate and
-observe the effects in "cat control".
+Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
 
-This is backported from another feature branch; the support-fns (thx
-Lukas) have unused features at the moment, they'll get used shortly.
+pushing soon to drm-intel-gt-next
 
-The script enables simple virtme-ng testing:
+Obrigado!
 
-   [jimc@gandalf b0-ftrace]$ vrun_t
-   virtme-ng 1.32+115.g07b109d
-   doing: vng --name v6.14-rc4-60-gd5f48427de0c \
-	  --user root -v -p 4 -a dynamic_debug.verbose=3 V=1 \
-	  -- ../tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-   virtme: waiting for virtiofsd to start
-   ..
-
-And add dynamic_debug to TARGETS, so `make run_tests` sees it properly
-
-For the impatient, set TARGETS explicitly:
-
-  [root@v6 selftests]# make TARGETS=dynamic_debug run_tests
-  make[1]: Nothing to be done for 'all'.
-  TAP version 13
-  1..1
-  # timeout set to 45
-  # selftests: dynamic_debug: dyndbg_selftest.sh
-  # # BASIC_TESTS    95.422122] dyndbg: query 0: 0"=_" mod:*
-  # : 0 matches on =p
-  # : 4 matches on \[params\[   95.456797] dyndbg: query 0: "module params +]mpf" mod:*
-  # : 4 matches on =pmf
-  [   95.483070] dyndbg: query 0: "module params =_			# clear params" mod:*
-  [   95.483288] dyndbg: query 1: "module params +mf			# set flags" mod:*
-  [   95.483399] dyndbg: query 2: "module params func parse_args +sl	# other flags" mod:*
-  # : 3 matches on =mf
-  # : 1 matches on =mfsl
-  [   95.508877] dyndbg: query 0: "=_" mod:*
-  #
-  # # Done on: Tue Sep  9 03:05:22 PM MDT 2025
-  # ok 1 selftests: dynamic_debug: dyndbg_selftest.sh
-
-NOTES
-
-check KCONFIG_CONFIG to avoid silly fails
-
-Several tests are dependent upon config choices. Lets avoid failing
-where that is noise.
-
-The KCONFIG_CONFIG var exists to convey the config-file around.  If
-the var names a file, read it and extract the relevant CONFIG items,
-and use them to skip the dependent tests, thus avoiding the fails that
-would follow, and the disruption to whatever CI is running these
-selftests.
-
-If the envar doesn't name a config-file, ".config" is assumed.
-
-CONFIG_DYNAMIC_DEBUG=y:
-
-basic-tests() and comma-terminator-tests() test for the presence of
-the builtin pr_debugs in module/main.c, which I deemed stable and
-therefore safe to count.  That said, the test fails if only
-CONFIG_DYNAMIC_DEBUG_CORE=y is set.  It could be rewritten to test
-against test-dynamic-debug.ko, but that just trades one config
-dependence for another.
-
-CONFIG_TEST_DYNAMIC_DEBUG=m
-
-As written, test_percent_splitting() modprobes test_dynamic_debug,
-enables several classes, and counts them.  It could be re-written to
-work for the builtin module also, but builtin test modules are not a
-common or desirable build/config.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Co-developed-by: Łukasz Bartosik <ukaszb@chromium.org>
-Signed-off-by: Łukasz Bartosik <ukaszb@chromium.org>
----
--r3 turn off green at end
-    drop config dep on TEST_DYNAMIC_DEBUG,
-    since basic-test uses builtin params
----
- MAINTAINERS                                   |   1 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 257 ++++++++++++++++++
- 5 files changed, 275 insertions(+)
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 97d958c945e4..0db59cca0d4a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8617,6 +8617,7 @@ S:	Maintained
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-+F:	tools/testing/selftests/dynamic_debug/*
- 
- DYNAMIC INTERRUPT MODERATION
- M:	Tal Gilboa <talgi@nvidia.com>
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index 030da61dbff3..3f1a8044e1c0 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -26,6 +26,7 @@ TARGETS += drivers/net/team
- TARGETS += drivers/net/virtio_net
- TARGETS += drivers/platform/x86/intel/ifs
- TARGETS += dt
-+TARGETS += dynamic_debug
- TARGETS += efivarfs
- TARGETS += exec
- TARGETS += fchmodat2
-diff --git a/tools/testing/selftests/dynamic_debug/Makefile b/tools/testing/selftests/dynamic_debug/Makefile
-new file mode 100644
-index 000000000000..6d06fa7f1040
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/Makefile
-@@ -0,0 +1,9 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+# borrowed from Makefile for user memory selftests
-+
-+# No binaries, but make sure arg-less "make" doesn't trigger "run_tests"
-+all:
-+
-+TEST_PROGS := dyndbg_selftest.sh
-+
-+include ../lib.mk
-diff --git a/tools/testing/selftests/dynamic_debug/config b/tools/testing/selftests/dynamic_debug/config
-new file mode 100644
-index 000000000000..0f906ff53908
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/config
-@@ -0,0 +1,7 @@
-+
-+# basic tests ref the builtin params module
-+CONFIG_DYNAMIC_DEBUG=m
-+
-+# more testing is possible with these
-+# CONFIG_TEST_DYNAMIC_DEBUG=m
-+# CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-new file mode 100755
-index 000000000000..465fad3f392c
---- /dev/null
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -0,0 +1,257 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
-+
-+V=${V:=0}  # invoke as V=1 $0  for global verbose
-+RED="\033[0;31m"
-+GREEN="\033[0;32m"
-+YELLOW="\033[0;33m"
-+BLUE="\033[0;34m"
-+MAGENTA="\033[0;35m"
-+CYAN="\033[0;36m"
-+NC="\033[0;0m"
-+error_msg=""
-+
-+[ -e /proc/dynamic_debug/control ] || {
-+    echo -e "${RED}: this test requires CONFIG_DYNAMIC_DEBUG=y ${NC}"
-+    exit 0 # nothing to test here, no good reason to fail.
-+}
-+
-+# need info to avoid failures due to untestable configs
-+
-+[ -f "$KCONFIG_CONFIG" ] || KCONFIG_CONFIG=".config"
-+if [ -f "$KCONFIG_CONFIG" ]; then
-+    echo "# consulting KCONFIG_CONFIG: $KCONFIG_CONFIG"
-+    grep -q "CONFIG_DYNAMIC_DEBUG=y" $KCONFIG_CONFIG ; LACK_DD_BUILTIN=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG=m" $KCONFIG_CONFIG ; LACK_TMOD=$?
-+    grep -q "CONFIG_TEST_DYNAMIC_DEBUG_SUBMOD=m" $KCONFIG_CONFIG ; LACK_TMOD_SUBMOD=$?
-+    if [ $V -eq 1 ]; then
-+	echo LACK_DD_BUILTIN: $LACK_DD_BUILTIN
-+	echo LACK_TMOD: $LACK_TMOD
-+	echo LACK_TMOD_SUBMOD: $LACK_TMOD_SUBMOD
-+    fi
-+else
-+    LACK_DD_BUILTIN=0
-+    LACK_TMOD=0
-+    LACK_TMOD_SUBMOD=0
-+fi
-+
-+function vx () {
-+    echo $1 > /sys/module/dynamic_debug/parameters/verbose
-+}
-+
-+function ddgrep () {
-+    grep $1 /proc/dynamic_debug/control
-+}
-+
-+function doprints () {
-+    cat /sys/module/test_dynamic_debug/parameters/do_prints
-+}
-+
-+function ddcmd () {
-+    exp_exit_code=0
-+    num_args=$#
-+    if [ "${@:$#}" = "pass" ]; then
-+	num_args=$#-1
-+    elif [ "${@:$#}" = "fail" ]; then
-+        num_args=$#-1
-+	exp_exit_code=1
-+    fi
-+    args=${@:1:$num_args}
-+    output=$((echo "$args" > /proc/dynamic_debug/control) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 5 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function handle_exit_code() {
-+    local exp_exit_code=0
-+    [ $# == 4 ] && exp_exit_code=$4
-+    if [ $3 -ne $exp_exit_code ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$1 $2() expected to exit with code $exp_exit_code"
-+	[ $3 == 1 ] && echo "Error: '$error_msg'"
-+        exit
-+    fi
-+}
-+
-+# $1 - pattern to match, pattern in $1 is enclosed by spaces for a match ""\s$1\s"
-+# $2 - number of times the pattern passed in $1 is expected to match
-+# $3 - optional can be set either to "-r" or "-v"
-+#       "-r" means relaxed matching in this case pattern provided in $1 is passed
-+#       as is without enclosing it with spaces
-+#       "-v" prints matching lines
-+# $4 - optional when $3 is set to "-r" then $4 can be used to pass "-v"
-+function check_match_ct {
-+    pattern="\s$1\s"
-+    exp_cnt=0
-+
-+    [ "$3" == "-r" ] && pattern="$1"
-+    let cnt=$(ddgrep "$pattern" | wc -l)
-+    if [ $V -eq 1 ] || [ "$3" == "-v" ] || [ "$4" == "-v" ]; then
-+        echo -ne "${BLUE}" && ddgrep $pattern && echo -ne "${NC}"
-+    fi
-+    [ $# -gt 1 ] && exp_cnt=$2
-+    if [ $cnt -ne $exp_cnt ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO check failed expected $exp_cnt on $1, got $cnt"
-+        exit
-+    else
-+        echo ": $cnt matches on $1"
-+    fi
-+}
-+
-+# $1 - trace instance name
-+# #2 - if > 0 then directory is expected to exist, if <= 0 then otherwise
-+# $3 - "-v" for verbose
-+function check_trace_instance_dir {
-+    if [ -e /sys/kernel/tracing/instances/$1 ]; then
-+        if [ "$3" == "-v" ] ; then
-+            echo "ls -l /sys/kernel/tracing/instances/$1: "
-+            ls -l /sys/kernel/tracing/instances/$1
-+        fi
-+	if [ $2 -le 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does exist"
-+	    exit
-+	fi
-+    else
-+	if [ $2 -gt 0 ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error trace instance \
-+		    '/sys/kernel/tracing/instances/$1' does not exist"
-+	    exit
-+        fi
-+    fi
-+}
-+
-+function tmark {
-+    echo $* > /sys/kernel/tracing/trace_marker
-+}
-+
-+# $1 - trace instance name
-+# $2 - line number
-+# $3 - if > 0 then the instance is expected to be opened, otherwise
-+# the instance is expected to be closed
-+function check_trace_instance {
-+    output=$(tail -n9 /proc/dynamic_debug/control | grep ": Opened trace instances" \
-+	    | xargs -n1 | grep $1)
-+    if [ "$output" != $1 ] && [ $3 -gt 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not opened"
-+        exit
-+    fi
-+    if [ "$output" == $1 ] && [ $3 -le 0 ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$2 trace instance $1 is not closed"
-+        exit
-+    fi
-+}
-+
-+function is_trace_instance_opened {
-+    check_trace_instance $1 $BASH_LINENO 1
-+}
-+
-+function is_trace_instance_closed {
-+    check_trace_instance $1 $BASH_LINENO 0
-+}
-+
-+# $1 - trace instance directory to delete
-+# $2 - if > 0 then directory is expected to be deleted successfully, if <= 0 then otherwise
-+function del_trace_instance_dir() {
-+    exp_exit_code=1
-+    [ $2 -gt 0 ] && exp_exit_code=0
-+    output=$((rmdir /sys/kernel/debug/tracing/instances/$1) 2>&1)
-+    exit_code=$?
-+    error_msg=$(echo $output | cut -d ":" -f 3 | sed -e 's/^[[:space:]]*//')
-+    handle_exit_code $BASH_LINENO $FUNCNAME $exit_code $exp_exit_code
-+}
-+
-+function error_log_ref {
-+    # to show what I got
-+    : echo "# error-log-ref: $1"
-+    : echo cat \$2
-+}
-+
-+function ifrmmod {
-+    lsmod | grep $1 2>&1>/dev/null && rmmod $1
-+}
-+
-+# $1 - text to search for
-+function search_trace() {
-+    search_trace_name 0 1 $1
-+}
-+
-+# $1 - trace instance name, 0 for global event trace
-+# $2 - line number counting from the bottom
-+# $3 - text to search for
-+function search_trace_name() {
-+	if [ "$1" = "0" ]; then
-+	    buf=$(cat /sys/kernel/debug/tracing/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/trace | head -1 | sed -e 's/^[[:space:]]*//')
-+	else
-+	    buf=$(cat /sys/kernel/debug/tracing/instances/$1/trace)
-+	    line=$(tail -$2 /sys/kernel/debug/tracing/instances/$1/trace | head -1 | \
-+		   sed -e 's/^[[:space:]]*//')
-+	fi
-+	if [ $2 = 0 ]; then
-+	    # whole-buf check
-+	    output=$(echo $buf | grep "$3")
-+	else
-+	    output=$(echo $line | grep "$3")
-+	fi
-+	if [ "$output" = "" ]; then
-+            echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO search for '$3' failed \
-+		    in line '$line' or '$buf'"
-+	    exit
-+	fi
-+	if [ $V = 1 ]; then
-+	    echo -e "${MAGENTA}: search_trace_name in $1 found: \n$output \nin:${BLUE} $buf ${NC}"
-+        fi
-+}
-+
-+# $1 - error message to check
-+function check_err_msg() {
-+    if [ "$error_msg" != "$1" ]; then
-+        echo -e "${RED}: $BASH_SOURCE:$BASH_LINENO error message '$error_msg' \
-+		does not match with '$1'"
-+        exit
-+    fi
-+}
-+
-+function basic_tests {
-+    echo -e "${GREEN}# BASIC_TESTS ${NC}"
-+    if [ $LACK_DD_BUILTIN -eq 1 ]; then
-+	echo "SKIP"
-+	return
-+    fi
-+    ddcmd =_ # zero everything
-+    check_match_ct =p 0
-+
-+    # module params are builtin to handle boot args
-+    check_match_ct '\[params\]' 4 -r
-+    ddcmd module params +mpf
-+    check_match_ct =pmf 4
-+
-+    # multi-cmd input, newline separated, with embedded comments
-+    cat <<"EOF" > /proc/dynamic_debug/control
-+      module params =_				# clear params
-+      module params +mf				# set flags
-+      module params func parse_args +sl		# other flags
-+EOF
-+    check_match_ct =mf 3
-+    check_match_ct =mfsl 1
-+    ddcmd =_
-+}
-+
-+tests_list=(
-+    basic_tests
-+)
-+
-+# Run tests
-+
-+ifrmmod test_dynamic_debug_submod
-+ifrmmod test_dynamic_debug
-+
-+for test in "${tests_list[@]}"
-+do
-+    $test
-+    echo ""
-+done
-+echo -en "${GREEN}# Done on: "
-+date
-+echo -en "${NC}"
--- 
-2.51.0
-
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> index 39c7c32e1e74..7a0dee4111cb 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+> @@ -142,7 +142,7 @@ enum {
+>   * we want to leave the object where it is and for all the existing relocations
+>   * to match. If the object is given a new address, or if userspace thinks the
+>   * object is elsewhere, we have to parse all the relocation entries and update
+> - * the addresses. Userspace can set the I915_EXEC_NORELOC flag to hint that
+> + * the addresses. Userspace can set the I915_EXEC_NO_RELOC flag to hint that
+>   * all the target addresses in all of its objects match the value in the
+>   * relocation entries and that they all match the presumed offsets given by the
+>   * list of execbuffer objects. Using this knowledge, we know that if we haven't
+> -- 
+> 2.34.1
+> 
