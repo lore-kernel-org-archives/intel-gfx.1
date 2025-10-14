@@ -4,81 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FC7CCD18D
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:49:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C84DECCD184
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Oct 2025 12:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2854B10E5F6;
-	Tue, 14 Oct 2025 12:49:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA4E10E5FD;
+	Tue, 14 Oct 2025 12:55:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U9OxYsCz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Srhajso0";
 	dkim-atps=neutral
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
- [209.85.208.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6160B10E1F0
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 Oct 2025 06:44:26 +0000 (UTC)
-Received: by mail-lj1-f172.google.com with SMTP id
- 38308e7fff4ca-363f137bbf8so41157821fa.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Oct 2025 23:44:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1760424265; x=1761029065; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=f5+eQwI0Mb1HF7qS+pk7CGxcaFFpKMarYKASKjNogEU=;
- b=U9OxYsCzNHkbzOwHgPGEOM0OwUuyjQraCqyr3+IcpA+mqxoeM771i5f4z1QFTQcxPY
- u4KgVWfXEMPFjDZrp7NV18SxmPJoIJGD6c3/TWifbfUuuaBlkBXkgYhjVdV6TlmLNbcd
- Jbu7JQr2EKP9gzXE4xomtUjm+y7XRgK769f+4RvU6VXO0ycOVOwxJ0zDDBkXVWPOJgHh
- Gze4PAmUgmtjcWdudOfAtMyUCHRPX/bXIUSHJwoNsxn5Uab2zMTlTeQb5gv+UizYTGPH
- WA1IpVU9bK+6qPGPmg/bZO6lP+5ry3u2sdwm87t5+9+PE2fwEFgP++c/p0qzTRT9t6oy
- 4iWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1760424265; x=1761029065;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=f5+eQwI0Mb1HF7qS+pk7CGxcaFFpKMarYKASKjNogEU=;
- b=fPxPivBtfRu9MmV5L0rcrQntvtgVWs/rSZn25OIMZY5afLieWhfUXsjcnzcckY3aKJ
- XSIUlWNRhQJZ2I9S5j7leutlM0VYmLj3BjJLGvZ45KYb81lqVbbMznE4Ls84PcCUCYI1
- jI2US+1JgB8B0MBVZcGYi3rc/i/twLkdYC8CpSeVW0nKT6gEQGC1U3HFe1NJQ+DL/HpW
- aW1gest5FeXuTsmTW4HXYyxA4IOwvDWgIk6Upr6XqvZIJDfnKL2fLujnEyRZXshVVsGL
- C7uNcCpGWRZizjybcRaL2N48iHDh6jP5AwtzdyhqZhRc+Y+NbhVU02mSpbU2I9JphR7o
- iVcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXdPuQqTdqaQoftzqTgStluU0GG56YIgBkPbrz5cnmZGCIA8Qd+HhqJ87lYlIVrUDE2iT+fCZ7SHgI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfKWEOBbOP6j3WFKoY4vSvTY3lfn0XecrPhB0K1PusdtYuWTHF
- OrO+5fK84T8VFCV62qB5cQLo4Lza3nkPzIn8pi6SQEqpIAoaywlfVeJl
-X-Gm-Gg: ASbGncskG3gxHz2tgGr1cmVYrO22u0fpom8PEzxH0J6/Ss5v/GsiypHVwFKJopOITJo
- YlbAnsjA28cheGaTn4Xk04vGX9FWkzsKRS4C552ys5J6WQlPFmFCgQnb81h1AoNloGerXH40W/f
- MLLHkJBzseT1tUGQZaJooJvcq4Ff1i7Joej+6E51G4pRzlSDiaj1ts8L6GdPARPynZt7oeNDzds
- gUAr0Msd4LMj0hpTk9Bw7ffZ6B3XhlgEz/ODawRKgpafNNf0f442r5vRAUocAvIl+ZNri9jPzTv
- hNRtLuXLV1+eeK/q/y+j7hiOEbSfYatpURG4avRevVcWXO3f3gnyL1QhdzyU3yXGY9j4tvZ+0rv
- cySTqY3lMDWx9oKwxnaZtiGbc26xzFPWoVfmbdIOjI5XQv+rOMn/C94Zn6UjPUftdgdpHfogkqJ
- +pBrUUmQ36gZLqn56PHu2A254s7NtTgn/WCIZnMGVwLhRrbw==
-X-Google-Smtp-Source: AGHT+IFmJuJ2Gq+zrXFJtzs/AN5vXoWk3MaDdcP/25nb997AM9Z7OgvW2leEKAh+3KjJwP/5Rhr/KA==
-X-Received: by 2002:a05:651c:35c5:b0:36f:77e6:d25a with SMTP id
- 38308e7fff4ca-37609efd7d5mr59354151fa.43.1760424264333; 
- Mon, 13 Oct 2025 23:44:24 -0700 (PDT)
-Received: from localhost.localdomain
- (broadband-109-173-93-221.ip.moscow.rt.ru. [109.173.93.221])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3762e7b47ddsm37943311fa.21.2025.10.13.23.44.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Oct 2025 23:44:24 -0700 (PDT)
-From: Alexandr Sapozhnikov <alsp705@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B607710E5FB;
+ Tue, 14 Oct 2025 12:55:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1760446527; x=1791982527;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=O9SkHDvjuILVvTEeejvLwJNXSOActaQbLgkxknLenkg=;
+ b=Srhajso0sR7G0IpLpDAcuEHgCoWH+haULBoA9Dq/n7+UjYmg3HA+lHZW
+ 4DsnUifcU9DEGot07HMNIlL8QrfeLEydnEYU06YGj54Ptp7dH1ugbPsDk
+ eBCnxTMGhOv1xl+yCfmpqRRuqtgkDFLmrKXmFYwpAXmhnH895VPv8ZJJ0
+ gWPhlR024AZph7VmiXgBgt+CEGea769EWYuecvG4rqoOxe1xVSMNANSY2
+ 3wcBUOQShkaco6vQQf0Q/BKI5TJhBFSvkNAA5c2948F7qchCDJ4wghqwa
+ UkUqfecrEpe3MXE2aecdSPYW0F8MD/nWI2oH/GqZ/mGp6I5NIr9ZWTI5t A==;
+X-CSE-ConnectionGUID: GW9iO+QMRp23VigrE9Tj4A==
+X-CSE-MsgGUID: DIAng1PCQuW8xIAd+cm7+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11582"; a="61813299"
+X-IronPort-AV: E=Sophos;i="6.19,228,1754982000"; d="scan'208";a="61813299"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2025 05:55:26 -0700
+X-CSE-ConnectionGUID: QY2Ihee+Q+e8UyNkNfp5bA==
+X-CSE-MsgGUID: 54RAfzYUSEqmJq5yrtg8mw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.19,228,1754982000"; d="scan'208";a="181096653"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.244.230])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2025 05:55:24 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>
-Cc: Alexandr Sapozhnikov <alsp705@gmail.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, lvc-project@linuxtesting.org
-Subject: [PATCH v2] drm/i915/gem: handle drm_vma_node_allow_once() return value
-Date: Tue, 14 Oct 2025 09:44:16 +0300
-Message-ID: <20251014064420.11-1-alsp705@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH v2 0/3] drm/i915: Avoid lock inversion when pinning to GGTT
+Date: Tue, 14 Oct 2025 14:47:35 +0200
+Message-ID: <20251014125504.14804-5-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 14 Oct 2025 12:49:57 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,38 +74,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add missing return value handling of drm_vma_node_allow_once() 
-since the failure to insert the file tag for the node should 
-indicate the whole mmap_offset_attach() failed as well.
+On completion of i915_vma_pin_ww(), a synchronous variant of
+dma_fence_work_commit() is called.  When pinning a VMA to GGTT address
+space on a Cherry View family processor, or on a Broxton generation SoC
+with VTD enabled, i.e., when stop_machine() is then called from
+intel_ggtt_bind_vma(), that can potentially lead to lock inversion among
+reservation_ww and cpu_hotplug locks.
 
-v2: update changelog and return error directly as Chris Wilson, 
-    Andi Shyti and Ville Syrjala suggested.
-link to v1: https://lore.kernel.org/all/20251002084828.11-1-alsp705@gmail.com/
+Call asynchronous variant of dma_fence_work_commit() in that case.  With
+that in place, adjust two selftest affected by that change.
 
-Found by Linux Verification Center (linuxtesting.org) with svace.
+v2: Fix spelling (Sebastian, Krzysztof; 2/3),
+  - explain why VMA pinning is commited asynchronously on CHV/BXT+VTD
+    (Krzysztof; 2/3, 3/3),
+  - use more precise wording in commit description (3/3).
 
-Signed-off-by: Alexandr Sapozhnikov <alsp705@gmail.com>
----
- drivers/gpu/drm/i915/gem/i915_gem_mman.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Janusz Krzysztofik (3):
+  drm/i915: Avoid lock inversion when pinning to GGTT
+  drm/i915: Wait longer for threads in migrate selftest on CHV/BXT+VTD
+  drm/i915: Wait for page_sizes_gtt in gtt selftest on CHV/BXT+VTD
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-index 75f5b0e871ef..eb76f8f2bd95 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_mman.c
-@@ -758,8 +758,11 @@ mmap_offset_attach(struct drm_i915_gem_object *obj,
- 	mmo = insert_mmo(obj, mmo);
- 	GEM_BUG_ON(lookup_mmo(obj, mmap_type) != mmo);
- out:
--	if (file)
--		drm_vma_node_allow_once(&mmo->vma_node, file);
-+	if (file) {
-+		err = drm_vma_node_allow_once(&mmo->vma_node, file);
-+		if (err)
-+			return ERR_PTR(err);
-+	}
- 	return mmo;
- 
- err:
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  3 ++-
+ drivers/gpu/drm/i915/i915_vma.c               | 10 ++++++++--
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  4 ++++
+ 3 files changed, 14 insertions(+), 3 deletions(-)
+
+Cc: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>
 -- 
-2.43.0
+2.51.0
+
