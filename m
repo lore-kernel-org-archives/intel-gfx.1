@@ -4,55 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776BACCD196
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 13:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22792CCD18E
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 13:09:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1E4510E7E1;
-	Wed, 15 Oct 2025 13:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 925D110E7DE;
+	Wed, 15 Oct 2025 13:09:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CkGnrz2W";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KypksD7o";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 599E510E7DC;
- Wed, 15 Oct 2025 13:05:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760533544; x=1792069544;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=cTzWBS8nTs74kWg3BWGiryqQkC+wMScI91mFyi3ovT4=;
- b=CkGnrz2WTjZ5cOIM50roOeOTIPgsUK3PHB8kIG6Iwke4fqB7r06bEXjf
- LemjxfLqX+q/n1JM1WAQ21ho0rcTb+axWRM7gToStG7wXPyYsV2RlOebm
- +S78TaMsmx+ZXBKGFJ4OT9cexjs72EHPklIvZJJqiRuNPKYFw1EzXRBag
- MajPBn88w8f7FMmpfrkfD0ekyaOHdEiQQtP2ulsUQyose9QhcTR7Xe+7S
- 2m6LpOiSpgmf1JVRazLtw5Qf4FihcXAJJttf5YiwRdQsgbHwHOU1GCAAG
- Yw0y3uFVRnRJXarslg7f3Zw4TcLjJ00mo12wRj8nwh2jp9otUoqPoC9xt w==;
-X-CSE-ConnectionGUID: rs77DLI2ROmYaJU8IZQbaA==
-X-CSE-MsgGUID: mHYjTuhXTua2JraMiKX0xA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="80341329"
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="80341329"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 06:05:44 -0700
-X-CSE-ConnectionGUID: eiGkCCxDTYiBAztQUuhwRQ==
-X-CSE-MsgGUID: EofU+FIFT/iR3p+y5FC7gg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="186586993"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa005.fm.intel.com with ESMTP; 15 Oct 2025 06:05:43 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@intel.com>, Luca Coelho <luciano.coelho@intel.com>,
- Mika Kahola <mika.kahola@intel.com>
-Subject: [CI 5/7] drm/i915/display: Fix PHY_C20_VDR_CUSTOM_SERDES_RATE
- programming
-Date: Wed, 15 Oct 2025 15:54:44 +0300
-Message-Id: <20251015125446.3931198-6-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251015125446.3931198-1-mika.kahola@intel.com>
-References: <20251015125446.3931198-1-mika.kahola@intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4409210E7DE;
+ Wed, 15 Oct 2025 13:09:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1760533772;
+ bh=QaXo/9LbVR+tBaOZHohIKGkjMYP/u3JenqZBxSXMx9g=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=KypksD7oZEmujpy6XjotRWQaxryLNjUL1a+0MJUsCZx4+fVJ1efrWNYdoLTnovd33
+ 6YohNFTxHYLwUW8ZV0CgwVoT1SSoUNR17WewzGeOx+sEHOesL+fiWvjAzJiUZcoox6
+ 8bQceecvY8EPTgrKyLTMBg/jvyz2DqQEEbBkm8zm5auqG/IjGg/GAlDtM2h7fjCCW5
+ zbbK6tEgM2NtoNxob1GoUUvbSgtZG3l6BoTzVmxVnObsjUGtIa/cXzNS01cjxIotTh
+ 2N6ilIP2gLhJexoJyMUrGPcR2ZfUYD8PCs66Npr1wBnRsTJFU6G9TjdyXw6FJ0QqEV
+ X+gTn022pgaOw==
+Received: from [IPV6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa] (unknown
+ [IPv6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: loicmolinari)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D472F17E0125;
+ Wed, 15 Oct 2025 15:09:31 +0200 (CEST)
+Message-ID: <6f1fb1a5-5d6f-4ebf-bf12-3481d360fb7f@collabora.com>
+Date: Wed, 15 Oct 2025 15:09:31 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/10] drm/panthor: Introduce huge tmpfs mount point
+ option
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Rob Herring <robh@kernel.org>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Al Viro
+ <viro@zeniv.linux.org.uk>, =?UTF-8?Q?Miko=C5=82aj_Wasiak?=
+ <mikolaj.wasiak@intel.com>, Christian Brauner <brauner@kernel.org>,
+ Nitin Gote <nitin.r.gote@intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Christopher Healy <healych@amazon.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-mm@kvack.org, kernel@collabora.com
+References: <20251004093054.21388-1-loic.molinari@collabora.com>
+ <20251004093054.21388-8-loic.molinari@collabora.com>
+ <20251006092856.02fbfd9e@fedora>
+Content-Language: fr
+From: =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>
+Organization: Collabora Ltd
+In-Reply-To: <20251006092856.02fbfd9e@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,75 +83,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+On 06/10/2025 09:28, Boris Brezillon wrote:
+> On Sat,  4 Oct 2025 11:30:50 +0200
+> Loïc Molinari <loic.molinari@collabora.com> wrote:
+> 
+>> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+>> index fdbe89ef7f43..a2be3b904ca2 100644
+>> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+>> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+>> @@ -1623,6 +1624,12 @@ static const struct drm_driver panthor_drm_driver = {
+>>   #endif
+>>   };
+>>   
+>> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+>> +bool panthor_transparent_hugepage;
+>> +module_param_named(transparent_hugepage, panthor_transparent_hugepage, bool, 0400);
+>> +MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (false = default)");
+> 
+> nit: I'd go for a slightly shorter name, like [panthor_]enable_thp.
 
-Make sure all the DP/HDMI/HDMI-FRL flags are programmed in all the modes
-the PLL is configured.
+For v4, in order to be consistent with the "transparent_hugepage*" 
+kernel parameters, I'd prefer to keep the "panthor.transparent_hugepage" 
+(and "panfrost.transparent_hugepage") module parameter name
 
-Atm the DP mode flag is not programmed in case the PLL is configured for
-HDMI mode for instance. This is incorrect after HW reset, since the DP
-mode flag is asserted after reset, hence would need to be cleared for
-HDMI, but also incorrect because of the same reason after configuring
-the PLL to HDMI mode after it was used in DP mode (for instance on a
-DP++ connector).
+I could keep the parameter name as is and change the variable name though.
 
-There is a similar issue with the HDMI-FRL flag, potentially remaining
-set when configuring the PLL in DP mode.
-
-Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 25 +++++++++++---------
- 1 file changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 9be7e155a584..6e49659d2f17 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2624,6 +2624,7 @@ static void intel_c20_pll_program(struct intel_display *display,
- 				  bool is_dp, int port_clock)
- {
- 	u8 owned_lane_mask = intel_cx0_get_owned_lane_mask(encoder);
-+	u8 serdes;
- 	bool cntx;
- 	int i;
- 
-@@ -2699,21 +2700,23 @@ static void intel_c20_pll_program(struct intel_display *display,
- 		      MB_WRITE_COMMITTED);
- 
- 	/* 5. For DP or 6. For HDMI */
--	if (is_dp) {
--		intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
--			      PHY_C20_IS_DP | PHY_C20_DP_RATE_MASK,
--			      PHY_C20_IS_DP | PHY_C20_DP_RATE(intel_c20_get_dp_rate(port_clock)),
--			      MB_WRITE_COMMITTED);
--	} else {
--		intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
--			      PHY_C20_IS_HDMI_FRL | PHY_C20_DP_RATE_MASK,
--			      is_hdmi_frl(port_clock) ? PHY_C20_IS_HDMI_FRL : 0,
--			      MB_WRITE_COMMITTED);
-+	serdes = 0;
-+
-+	if (is_dp)
-+		serdes = PHY_C20_IS_DP |
-+			 PHY_C20_DP_RATE(intel_c20_get_dp_rate(port_clock));
-+	else if (is_hdmi_frl(port_clock))
-+		serdes = PHY_C20_IS_HDMI_FRL;
- 
-+	intel_cx0_rmw(encoder, owned_lane_mask, PHY_C20_VDR_CUSTOM_SERDES_RATE,
-+		      PHY_C20_IS_DP | PHY_C20_DP_RATE_MASK | PHY_C20_IS_HDMI_FRL,
-+		      serdes,
-+		      MB_WRITE_COMMITTED);
-+
-+	if (!is_dp)
- 		intel_cx0_write(encoder, INTEL_CX0_BOTH_LANES, PHY_C20_VDR_HDMI_RATE,
- 				intel_c20_get_hdmi_rate(port_clock),
- 				MB_WRITE_COMMITTED);
--	}
- 
- 	/*
- 	 * 7. Write Vendor specific registers to toggle context setting to load
--- 
-2.34.1
-
+> The patch is
+> 
+> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> 
+> regardless.
+> 
