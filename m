@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90DADCCD19B
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 15:30:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5D9CCD19B
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 15:30:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 280BA10E840;
-	Wed, 15 Oct 2025 15:30:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DEF110E846;
+	Wed, 15 Oct 2025 15:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Sko1fOkK";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lYblDiWR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22CD10E844;
- Wed, 15 Oct 2025 15:30:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52E7310E844;
+ Wed, 15 Oct 2025 15:30:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1760542249;
- bh=+cl/GzgcT1Fb2lvuYJSy48Zz4ImIu8RmCkKrQxlGrLk=;
+ s=mail; t=1760542253;
+ bh=0MFrZ+8U4pjX98vlkZE+Xc8sfj14rbqqp40IJzqK240=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Sko1fOkKwhU5QJtjbTLNt357vjSNq/kUG6zxztjtADWLI2V+bQ5AvA0/dSCH2xTko
- X3S86Z2JAt2MIs2p36/0a9E7PVnXYqs6fb9MsE7FWooHUJs0M/N3NfuWGFvY8/hWpS
- KTbcapTiE+EutYTrsx5nq+RIPWbBmwHrY8TZvyIvOl81FyMqp+9CctxsiXRCSu3vcY
- yGSQDHCJsEAGzQP6sYRtQuY8opTNhbznPw6+zboNbvl2c7RXtn3nL8wBGmdloIS0la
- PP9NnWVDzKP3ME/CaXzDE/TodgUfp5v5L5dn0Fs3a5uQvgSdhRIG9NZUvmPywNEW1b
- 02Yua7S1vc4YQ==
+ b=lYblDiWRP2ZiZoD1N4aTSKmGyPD8NqQsvlDE6s5Xv71Fc107aPTTmCxNq3C3EXCQI
+ T7axrrnR44h4ihvOHtcBWq8KQyLh9qFiqlET7mTrGOLfLDQfX2EvN/omg4Hj0+JC+F
+ 5UF7nNzyszK+HGUMrAUNOYXf3wYrRTqMkpjYOhTvFWCrNaYawcy/W1EGQqmgLbNmVN
+ dTeCt6KkQYXmQ8/RMkOLHCOm6SCQJhRZmTkxAmqwW9VKcN8DrwiYR+zdIpAdAR4kyC
+ cmDvAkm4f7Nx1qjXNMtadMvzp9ZmwR6fYPnRkZ6LJQIncpMt82ldwTMIqA2Ipym35V
+ u+t1CWvPyMP2g==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6A18C17E00A3;
- Wed, 15 Oct 2025 17:30:48 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F4C317E055D;
+ Wed, 15 Oct 2025 17:30:53 +0200 (CEST)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v4 10/13] drm/panthor: Introduce huge tmpfs mount point option
-Date: Wed, 15 Oct 2025 17:30:14 +0200
-Message-ID: <20251015153018.43735-11-loic.molinari@collabora.com>
+Subject: [PATCH v4 12/13] drm/panfrost: Introduce huge tmpfs mount point option
+Date: Wed, 15 Oct 2025 17:30:16 +0200
+Message-ID: <20251015153018.43735-13-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251015153018.43735-1-loic.molinari@collabora.com>
 References: <20251015153018.43735-1-loic.molinari@collabora.com>
@@ -84,7 +84,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce the 'panthor.transparent_hugepage' boolean module parameter
+Introduce the 'panfrost.transparent_hugepage' boolean module parameter
 (false by default). When the parameter is set to true, a new tmpfs
 mount point is created and mounted using the 'huge=within_size'
 option. It's then used at GEM object creation instead of the default
@@ -102,131 +102,121 @@ v4:
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c |  3 +++
- drivers/gpu/drm/panthor/panthor_drv.c    |  7 +++++++
- drivers/gpu/drm/panthor/panthor_drv.h    | 11 +++++++++++
- drivers/gpu/drm/panthor/panthor_gem.c    | 19 +++++++++++++++++++
- drivers/gpu/drm/panthor/panthor_gem.h    |  2 ++
- 5 files changed, 42 insertions(+)
- create mode 100644 drivers/gpu/drm/panthor/panthor_drv.h
+ drivers/gpu/drm/panfrost/panfrost_device.c |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    |  6 ++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.h    | 11 +++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.c    | 19 +++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h    |  2 ++
+ 5 files changed, 41 insertions(+)
+ create mode 100644 drivers/gpu/drm/panfrost/panfrost_drv.h
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index c7033d82cef5..4ced0bef22e8 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -17,6 +17,7 @@
- #include "panthor_devfreq.h"
- #include "panthor_device.h"
- #include "panthor_fw.h"
-+#include "panthor_gem.h"
- #include "panthor_gpu.h"
- #include "panthor_hw.h"
- #include "panthor_mmu.h"
-@@ -271,6 +272,8 @@ int panthor_device_init(struct panthor_device *ptdev)
- 	if (ret)
- 		goto err_unplug_fw;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index 04bec27449cb..a189bfaac959 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -12,6 +12,7 @@
+ #include "panfrost_device.h"
+ #include "panfrost_devfreq.h"
+ #include "panfrost_features.h"
++#include "panfrost_gem.h"
+ #include "panfrost_issues.h"
+ #include "panfrost_gpu.h"
+ #include "panfrost_job.h"
+@@ -266,6 +267,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_job;
  
-+	panthor_gem_init(ptdev);
++	panfrost_gem_init(pfdev);
 +
- 	/* ~3 frames */
- 	pm_runtime_set_autosuspend_delay(ptdev->base.dev, 50);
- 	pm_runtime_use_autosuspend(ptdev->base.dev);
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index fb4b293f17f0..9e49af1d0959 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1556,6 +1556,7 @@ static const struct file_operations panthor_drm_driver_fops = {
- 	.read = drm_read,
- 	.llseek = noop_llseek,
- 	.mmap = panthor_mmap,
-+	.get_unmapped_area = drm_gem_get_unmapped_area,
- 	.show_fdinfo = drm_show_fdinfo,
- 	.fop_flags = FOP_UNSIGNED_OFFSET,
- };
-@@ -1623,6 +1624,12 @@ static const struct drm_driver panthor_drm_driver = {
+ 	return 0;
+ out_job:
+ 	panfrost_job_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 607a5b8448d0..dfeb6a633fa1 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -858,6 +858,12 @@ static const struct drm_driver panfrost_drm_driver = {
  #endif
  };
  
 +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+bool panthor_transparent_hugepage;
-+module_param_named(transparent_hugepage, panthor_transparent_hugepage, bool, 0400);
++bool panfrost_transparent_hugepage;
++module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
 +MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (false = default)");
 +#endif
 +
- static int panthor_probe(struct platform_device *pdev)
+ static int panfrost_probe(struct platform_device *pdev)
  {
- 	struct panthor_device *ptdev;
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.h b/drivers/gpu/drm/panthor/panthor_drv.h
+ 	struct panfrost_device *pfdev;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
 new file mode 100644
-index 000000000000..27fe9b6f77bd
+index 000000000000..60454611b6a6
 --- /dev/null
-+++ b/drivers/gpu/drm/panthor/panthor_drv.h
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
 @@ -0,0 +1,11 @@
 +// SPDX-License-Identifier: GPL-2.0 or MIT
 +/* Copyright 2025 Amazon.com, Inc. or its affiliates */
 +
-+#ifndef __PANTHOR_DRV_H__
-+#define __PANTHOR_DRV_H__
++#ifndef __PANFROST_DRV_H__
++#define __PANFROST_DRV_H__
 +
 +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+extern bool panthor_transparent_hugepage;
++extern bool panfrost_transparent_hugepage;
 +#endif
 +
 +#endif
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 156c7a0b62a2..1a176e7e35ea 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0 or MIT
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 85d6289a6eda..9b059a8b0f9f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
- /* Copyright 2023 Collabora ltd. */
 +/* Copyright 2025 Amazon.com, Inc. or its affiliates */
  
  #include <linux/cleanup.h>
- #include <linux/dma-buf.h>
-@@ -11,10 +12,28 @@
- #include <drm/panthor_drm.h>
+ #include <linux/err.h>
+@@ -9,9 +10,27 @@
  
- #include "panthor_device.h"
-+#include "panthor_drv.h"
- #include "panthor_fw.h"
- #include "panthor_gem.h"
- #include "panthor_mmu.h"
+ #include <drm/panfrost_drm.h>
+ #include "panfrost_device.h"
++#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
  
-+void panthor_gem_init(struct panthor_device *ptdev)
++void panfrost_gem_init(struct panfrost_device *pfdev)
 +{
 +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
 +	int err;
 +
-+	if (!panthor_transparent_hugepage)
++	if (!panfrost_transparent_hugepage)
 +		return;
 +
-+	err = drm_gem_huge_mnt_create(&ptdev->base, "within_size");
-+	if (ptdev->base.huge_mnt)
-+		drm_info(&ptdev->base, "Using Transparent Hugepage\n");
++	err = drm_gem_huge_mnt_create(pfdev->ddev, "within_size");
++	if (pfdev->ddev->huge_mnt)
++		drm_info(pfdev->ddev, "Using Transparent Hugepage\n");
 +	else if (err)
-+		drm_warn(&ptdev->base, "Can't use Transparent Hugepage (%d)\n",
++		drm_warn(pfdev->ddev, "Can't use Transparent Hugepage (%d)\n",
 +			 err);
 +#endif
 +}
 +
  #ifdef CONFIG_DEBUG_FS
- static void panthor_gem_debugfs_bo_init(struct panthor_gem_object *bo)
- {
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.h b/drivers/gpu/drm/panthor/panthor_gem.h
-index 80c6e24112d0..2eefe9104e5e 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.h
-+++ b/drivers/gpu/drm/panthor/panthor_gem.h
-@@ -136,6 +136,8 @@ struct panthor_gem_object *to_panthor_bo(struct drm_gem_object *obj)
- 	return container_of(to_drm_gem_shmem_obj(obj), struct panthor_gem_object, base);
+ static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
+ 					struct panfrost_gem_object *bo)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 8de3e76f2717..1a62529ff06f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -124,6 +124,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+ 	return container_of(node, struct panfrost_gem_mapping, mmnode);
  }
  
-+void panthor_gem_init(struct panthor_device *ptdev);
++void panfrost_gem_init(struct panfrost_device *pfdev);
 +
- struct drm_gem_object *panthor_gem_create_object(struct drm_device *ddev, size_t size);
+ struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
  
- int
+ struct drm_gem_object *
 -- 
 2.47.3
 
