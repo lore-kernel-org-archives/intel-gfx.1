@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F6E9CCD19A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9860ECCD19B
 	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 15:30:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8E3F10E844;
-	Wed, 15 Oct 2025 15:30:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0325310E848;
+	Wed, 15 Oct 2025 15:30:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MEWQfOsC";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oWauNRo5";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 549ED10E83C;
- Wed, 15 Oct 2025 15:30:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61E5710E844;
+ Wed, 15 Oct 2025 15:30:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1760542256;
- bh=p24aKtUnOv8fOlBIkkg8gEu+LqJuafLvKyczTp6ZjwE=;
+ s=mail; t=1760542251;
+ bh=ROKoonOOaPmiRlBVqml71l+74uvjDMGSuEeXXfy4kSs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MEWQfOsCnRe6aZZhYvFIqCiIoQf3UYeJT8GZNE11MLdXGrg7qQ99gGn0Mv1U5z26U
- hG9wdE50d/yKpuWNzmz7/B8MOUMTpJBwb05ymIJu7pAsnJs4YPyOzkvsgCcHAftyKV
- KsQL+eY9RSD8kFFjMdo32EzSAaD2p4TJrhgq8N55T5GDpkoNXuWBr/NEu4lalt6bKG
- bUwPvfd+5x2LCuHthh8sS/qcuAbZvG8qFEneVQHgSmPf98TC4ZhRo/5gMwZXN2W83R
- Yd6N+hYdGkGsufOyOah/xrsePiDYufrifamK0JwB7ria3gzFXxWObkpUFVOl72Qi8O
- nttUt+QahpoqA==
+ b=oWauNRo5O8AxCrbqN3wpQuZhqtYBS/whks9Dwc5EtVArhQT5qpEhVrSlH6wBw4uEU
+ iKaDieQ7m7kvx0TbZ7pJDXX5+Ms8gyoCJ+mrOS6zO98Xy0LPr3eY6ZoVwRRpj/qt51
+ Q1Ck9KR4XbG7CyXHbj+L4+vIgms72znNIyV2+qxI9nH+F11CvHJMqvLGbCsnusFBO/
+ V8TY6t5nVgAuKW1sos2k9HuBavmxb6aGEV/t83si+7Q3ZeUzuGjLEeMh/R8QU44LrH
+ cr2BxHFzhREQhUiJEFzo2Uq+ORjUrKy/qJMkAdxNVlFpILq3pSpcjE57bYZ8Ik0lO4
+ TejE+TXE6gekg==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2095217E00A3;
- Wed, 15 Oct 2025 17:30:55 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CBCEC17E1340;
+ Wed, 15 Oct 2025 17:30:50 +0200 (CEST)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,10 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v4 13/13] Documentation/gpu/drm-mm: Add THP paragraph to GEM
- mapping section
-Date: Wed, 15 Oct 2025 17:30:17 +0200
-Message-ID: <20251015153018.43735-14-loic.molinari@collabora.com>
+Subject: [PATCH v4 11/13] drm/panthor: Improve IOMMU map/unmap debugging logs
+Date: Wed, 15 Oct 2025 17:30:15 +0200
+Message-ID: <20251015153018.43735-12-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251015153018.43735-1-loic.molinari@collabora.com>
 References: <20251015153018.43735-1-loic.molinari@collabora.com>
@@ -85,65 +84,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a paragraph to the GEM objects mapping section explaining how
-transparent huge pages are handled by GEM.
-
-v4:
-- fix wording after huge_pages handler removal
+Log the number of pages and their sizes actually mapped/unmapped by
+the IOMMU page table driver. Since a map/unmap op is often split in
+several ops depending on the underlying scatter/gather table, add the
+start address and the total size to the debugging logs in order to
+help understand which batch an op is part of.
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- Documentation/gpu/drm-mm.rst | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
-index d55751cad67c..3d6176adc7ca 100644
---- a/Documentation/gpu/drm-mm.rst
-+++ b/Documentation/gpu/drm-mm.rst
-@@ -283,6 +283,9 @@ made up of several fields, the more interesting ones being:
- 		void (*open)(struct vm_area_struct * area);
- 		void (*close)(struct vm_area_struct * area);
- 		vm_fault_t (*fault)(struct vm_fault *vmf);
-+		vm_fault_t (*map_pages)(struct vm_fault *vmf,
-+					pgoff_t start_pgoff,
-+					pgoff_t end_pgoff);
- 	};
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 6dec4354e378..aefbd83d1a75 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -917,10 +917,9 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
+ {
+ 	struct panthor_device *ptdev = vm->ptdev;
+ 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
++	u64 start_iova = iova;
+ 	u64 offset = 0;
  
- 
-@@ -290,15 +293,27 @@ The open and close operations must update the GEM object reference
- count. Drivers can use the drm_gem_vm_open() and drm_gem_vm_close() helper
- functions directly as open and close handlers.
- 
--The fault operation handler is responsible for mapping individual pages
--to userspace when a page fault occurs. Depending on the memory
--allocation scheme, drivers can allocate pages at fault time, or can
--decide to allocate memory for the GEM object at the time the object is
--created.
-+The fault and map_pages operations are responsible for mapping pages to
-+userspace when a page fault occurs. Depending on the memory allocation
-+scheme, drivers can allocate pages at fault time, or can decide to
-+allocate memory for the GEM object at the time the object is created.
- 
- Drivers that want to map the GEM object upfront instead of handling page
- faults can implement their own mmap file operation handler.
- 
-+In order to reduce page table overhead, if the internal shmem mountpoint
-+"shm_mnt" is configured to use transparent huge pages (for builds with
-+CONFIG_TRANSPARENT_HUGEPAGE enabled) and if the shmem backing store
-+managed to allocate a huge page for a faulty address, the fault and
-+map_pages handlers will first attempt to insert that huge page into the
-+VMA before falling back to individual page insertion. mmap() user
-+address alignment for GEM objects is handled by providing a custom
-+get_unmapped_area file operation which forwards to the shmem backing
-+store. For most drivers, which don't create a huge mountpoint by default
-+or through a module parameter, transparent huge pages can be enabled by
-+either setting the "transparent_hugepage_shmem" kernel parameter or the
-+"/sys/kernel/mm/transparent_hugepage/shmem_enabled" sysfs knob.
+-	drm_dbg(&ptdev->base, "unmap: as=%d, iova=%llx, len=%llx", vm->as.id, iova, size);
+-
+ 	while (offset < size) {
+ 		size_t unmapped_sz = 0, pgcount;
+ 		size_t pgsize = get_pgsize(iova + offset, size - offset, &pgcount);
+@@ -935,6 +934,12 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
+ 			panthor_vm_flush_range(vm, iova, offset + unmapped_sz);
+ 			return  -EINVAL;
+ 		}
 +
- For platforms without MMU the GEM core provides a helper method
- drm_gem_dma_get_unmapped_area(). The mmap() routines will call this to get a
- proposed address for the mapping.
++		drm_dbg(&ptdev->base,
++			"unmap: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pgcnt=%zu, pgsz=%zu",
++			vm->as.id, start_iova, size, iova + offset,
++			unmapped_sz / pgsize, pgsize);
++
+ 		offset += unmapped_sz;
+ 	}
+ 
+@@ -950,6 +955,7 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
+ 	struct scatterlist *sgl;
+ 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
+ 	u64 start_iova = iova;
++	u64 start_size = size;
+ 	int ret;
+ 
+ 	if (!size)
+@@ -969,15 +975,18 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
+ 		len = min_t(size_t, len, size);
+ 		size -= len;
+ 
+-		drm_dbg(&ptdev->base, "map: as=%d, iova=%llx, paddr=%pad, len=%zx",
+-			vm->as.id, iova, &paddr, len);
+-
+ 		while (len) {
+ 			size_t pgcount, mapped = 0;
+ 			size_t pgsize = get_pgsize(iova | paddr, len, &pgcount);
+ 
+ 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
+ 					     GFP_KERNEL, &mapped);
++
++			drm_dbg(&ptdev->base,
++				"map: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pa=%pad, pgcnt=%zu, pgsz=%zu",
++				vm->as.id, start_iova, start_size, iova, &paddr,
++				mapped / pgsize, pgsize);
++
+ 			iova += mapped;
+ 			paddr += mapped;
+ 			len -= mapped;
 -- 
 2.47.3
 
