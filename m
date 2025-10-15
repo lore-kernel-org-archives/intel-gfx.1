@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3AACCD18E
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 14:21:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87EBDCCD18E
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 14:32:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D83010E801;
-	Wed, 15 Oct 2025 14:21:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bXXEDAmd";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1956D10E801
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Oct 2025 14:21:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760538098; x=1792074098;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Xb151PWgCaV/v+ZOZ7X2XP3PMTxGQS1nK5hTm6k2MxY=;
- b=bXXEDAmdsYmClF47NEhXkBzo7hr3SjnIYYlB/I6gnP88u4QLxZtwQop+
- CUn3Ts7g57Y3pdCDUw5TSoFlvje885eqqaVJsbjJOESgVPkmwmWVseXfF
- U+xUQAAtmkSm3NwIfYA5XCXE6XbTfs52NzxivMXX6fGOOkRvDEbFmMEIN
- MQ+/IjTdNqTgne6AZVhFYNPL3DoxSQ0vAT3gnkQPpFkCesDRGxVKtd5j2
- o5+CGQWTCsBonYVMCIoHVQETi+eSIShTM8VeQs8dva6OLVd2iHn2bUiYc
- vvXwSHzqxndloUjDzVohyltwc7UP5+BauUiJ9iBC6SSn6ybqNEAkjlU8W Q==;
-X-CSE-ConnectionGUID: HybJpDpdTN+d/bZygnuLyw==
-X-CSE-MsgGUID: InTSjietSkqhAVpzh+wPPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="62757164"
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="62757164"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 07:21:38 -0700
-X-CSE-ConnectionGUID: 4OtafONuRdSTyroWHpWDfw==
-X-CSE-MsgGUID: d2PlPT1AQAeALxXxaLVUdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="181402038"
-Received: from unknown (HELO linux-Raptor-Lake-Client-Platform.iind.intel.com)
- ([10.227.90.135])
- by orviesa010.jf.intel.com with ESMTP; 15 Oct 2025 07:21:36 -0700
-From: Mohammed Thasleem <mohammed.thasleem@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: anshuman.gupta@intel.com, karthik.poosa@intel.com,
- Mohammed Thasleem <mohammed.thasleem@intel.com>
-Subject: [PATCH] drm/xe/xe_debugfs: Expose G7 state residency counter through
- debugfs
-Date: Thu, 16 Oct 2025 01:22:00 +0530
-Message-ID: <20251015195200.34440-1-mohammed.thasleem@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20251010114352.179143-1-mohammed.thasleem@intel.com>
-References: <20251010114352.179143-1-mohammed.thasleem@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2699010E2A9;
+	Wed, 15 Oct 2025 14:32:58 +0000 (UTC)
+Received: from 97596180aaec (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F68E10E2A9;
+ Wed, 15 Oct 2025 14:32:56 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1800982701566379892=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Fix_C?=
+ =?utf-8?q?20_PHY_PLL_DP/HDMI_mode_programming_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 15 Oct 2025 14:32:56 -0000
+Message-ID: <176053877625.17708.262599291378379376@97596180aaec>
+X-Patchwork-Hint: ignore
+References: <20251015125446.3931198-1-mika.kahola@intel.com>
+In-Reply-To: <20251015125446.3931198-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,44 +37,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add G7 package residency counter in debugfs alongside existing G2/G6/G8/G10
-states for complete power state visibility.
+--===============1800982701566379892==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-v2: Update commit subject and description. (Karthik)
+== Series Details ==
 
-Signed-off-by: Mohammed Thasleem <mohammed.thasleem@intel.com>
----
- drivers/gpu/drm/xe/regs/xe_pmt.h | 1 +
- drivers/gpu/drm/xe/xe_debugfs.c  | 1 +
- 2 files changed, 2 insertions(+)
+Series: drm/i915/display: Fix C20 PHY PLL DP/HDMI mode programming (rev2)
+URL   : https://patchwork.freedesktop.org/series/155823/
+State : success
 
-diff --git a/drivers/gpu/drm/xe/regs/xe_pmt.h b/drivers/gpu/drm/xe/regs/xe_pmt.h
-index 264e9baf949c..0f79c0714454 100644
---- a/drivers/gpu/drm/xe/regs/xe_pmt.h
-+++ b/drivers/gpu/drm/xe/regs/xe_pmt.h
-@@ -24,6 +24,7 @@
- #define BMG_MODS_RESIDENCY_OFFSET		(0x4D0)
- #define BMG_G2_RESIDENCY_OFFSET		(0x530)
- #define BMG_G6_RESIDENCY_OFFSET		(0x538)
-+#define BMG_G7_RESIDENCY_OFFSET		(0x4B0)
- #define BMG_G8_RESIDENCY_OFFSET		(0x540)
- #define BMG_G10_RESIDENCY_OFFSET		(0x548)
- 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index d67e32ebbe29..417e6df95e1c 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -142,6 +142,7 @@ static int dgfx_pkg_residencies_show(struct seq_file *m, void *data)
- 	} residencies[] = {
- 		{BMG_G2_RESIDENCY_OFFSET, "Package G2"},
- 		{BMG_G6_RESIDENCY_OFFSET, "Package G6"},
-+		{BMG_G7_RESIDENCY_OFFSET, "Package G7"},
- 		{BMG_G8_RESIDENCY_OFFSET, "Package G8"},
- 		{BMG_G10_RESIDENCY_OFFSET, "Package G10"},
- 		{BMG_MODS_RESIDENCY_OFFSET, "Package ModS"}
--- 
-2.43.0
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_17365 -> Patchwork_155823v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/index.html
+
+Participating hosts (41 -> 39)
+------------------------------
+
+  Missing    (2): fi-bsw-nick fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_155823v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_module_load@load:
+    - bat-mtlp-9:         [PASS][1] -> [ABORT][2] ([i915#13494])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/bat-mtlp-9/igt@i915_module_load@load.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/bat-mtlp-9/igt@i915_module_load@load.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-6:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][5] -> [FAIL][6] ([i915#14867])
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13494]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13494
+  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17365 -> Patchwork_155823v2
+
+  CI-20190529: 20190529
+  CI_DRM_17365: 6a9cafb6723c47062cc4d593804d5bb69155d81a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8585: 8585
+  Patchwork_155823v2: 6a9cafb6723c47062cc4d593804d5bb69155d81a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/index.html
+
+--===============1800982701566379892==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Fix C20 PHY PLL DP/HDMI mode programming (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/155823/">https://patchwork.freedesktop.org/series/155823/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17365 -&gt; Patchwork_155823v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/index.html</p>
+<h2>Participating hosts (41 -&gt; 39)</h2>
+<p>Missing    (2): fi-bsw-nick fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_155823v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_module_load@load:</p>
+<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/bat-mtlp-9/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/bat-mtlp-9/igt@i915_module_load@load.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13494">i915#13494</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17365/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155823v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17365 -&gt; Patchwork_155823v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17365: 6a9cafb6723c47062cc4d593804d5bb69155d81a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8585: 8585<br />
+  Patchwork_155823v2: 6a9cafb6723c47062cc4d593804d5bb69155d81a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1800982701566379892==--
