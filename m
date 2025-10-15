@@ -4,59 +4,192 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DEF5CCD185
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 16:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFFBCCD199
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Oct 2025 16:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D77A710E852;
-	Wed, 15 Oct 2025 16:01:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C47B010E86E;
+	Wed, 15 Oct 2025 16:13:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mjdDcp4G";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OR/sFAlY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E36E10E852;
- Wed, 15 Oct 2025 16:01:48 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C78810E858;
+ Wed, 15 Oct 2025 16:13:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760544108; x=1792080108;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=T1f2wtqcvvQkizNYSvd6WS3HP1ZIKNBOp3rVuGG6M1Q=;
- b=mjdDcp4Gil35GldcGpsJDP1Uf/PxoMtYcRQ60BToz+b5yhHeyd1KvYJY
- X/SMNKwqUT6ppEb6FW0ff/HlfLDnkCBZD8hWER8+Wwg1O5SGi0cHcIgSU
- qmv9Od3TP8RD6h5F000u/VQm/TjOEeM2yMSR2mZMI0eE6GM0DxMVLkgEO
- kdf97SDsqre7u56ZI3/BPto1stk4dvwWWnnTWlnYoiJcJ7nxZr1dyiM8U
- ZAZ5OzTlO4PZLY2ZewacMJ9pcdAYD63bytfPRZwUZE/1MUWQkGz2oOpyo
- o0fo1+QV4Gyw/Ap2cxjf6CdvC2Xup9E8p1EWNyTX/oQVZCNRsT5I1ijKZ A==;
-X-CSE-ConnectionGUID: 2Pu+cFcxSmiZMmvQj/8TEw==
-X-CSE-MsgGUID: iqephtzERhaGDWFPKAzESA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="62818427"
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="62818427"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 09:01:48 -0700
-X-CSE-ConnectionGUID: hdzjHD5+QqelZv/oDEg00Q==
-X-CSE-MsgGUID: 7880gN62SFew+LA2N+4ulQ==
+ t=1760544822; x=1792080822;
+ h=content-transfer-encoding:in-reply-to:references:subject:
+ from:cc:to:date:message-id:mime-version;
+ bh=grooqYsdcTiQdwVMKrFVuBfJsCRw1EAXV1aJhXiWKnA=;
+ b=OR/sFAlYra7Emn/+j/DrLE62GmfW0f3aYRHD4DlUSxbOLFqnB3H/gMcy
+ xVDC+s67vM89F+8VIE8cttg96TcoAT+GpJrwnudDP/1jCAg1DoYAs3F+1
+ HLeuGhYgLjl5y+ttlihEBwDwSLKO74crsKI3DqjmKzI/9jywUv+E5bz2h
+ vHyYxYJ9dxvhsNsPaLbfAsNA51p+YwtspLezcUp87KeEqUHXQFDi2qptz
+ DoYIIdElNeXc9k5T/f5UyiForYYsrp0fqMk3ZJHBusQIU6DjLhwMH0PXy
+ 1RVDo4YZe0Ca0HlFjhGspQU6Son36MGf1EbvfeopfxfejODinRhZO4eGv w==;
+X-CSE-ConnectionGUID: 6+hbfAnHTWyhm+0Qozgu+A==
+X-CSE-MsgGUID: d7dmUIlzTDGP9e3xSsgZCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11583"; a="66587834"
+X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="66587834"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2025 09:13:41 -0700
+X-CSE-ConnectionGUID: XBZH6tI5QwmoupD0HG7rzA==
+X-CSE-MsgGUID: D6AOSgNWSkKq2Qp7a7iG7g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="182997571"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.100])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Oct 2025 09:01:45 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com, Lucas De Marchi <lucas.demarchi@intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [RFC] drm/i915: move i915 specific display adaptation files to
- display-adapt
-Date: Wed, 15 Oct 2025 19:01:40 +0300
-Message-ID: <20251015160140.2296120-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+X-IronPort-AV: E=Sophos;i="6.19,231,1754982000"; d="scan'208";a="187312141"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2025 09:13:40 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Wed, 15 Oct 2025 09:13:40 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27 via Frontend Transport; Wed, 15 Oct 2025 09:13:40 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.29)
+ by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.27; Wed, 15 Oct 2025 09:13:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RMAjQjuVHuZA+1i2zX9+VyJP2Hs0D21BlZT1DSAba/kJuV4H1HFpzyRdETdUk2Jaobaor6pZs1IL4iiNIMOEGkMaFttC9URDWkZEH+xgDQoarvr7pJRpWm+ljXwm9GoRr/PAMT2te/xw8g1ADFfBn8VEMIae5kHDFKXGPLHMeM17a9HkkuLcKcPiQAXeKBPk089OSWqv1tGXtloQ1JaT2YGN4W9RmSWUgZYZ7KfbOPhg9vQ3QCXFk9oSY0jgEciUtgGPT5kpw5RAOfZl7H1AHFU7FPsJ7/u84cJ0frfBf62W9ZB88VinMLW/tf3rTUPbr9AjBpc0nVH9H6kxrKJ0mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3cetqBJMxZ33uRyaYo/3UR/Aa62F6RLw94ZVOEk/pew=;
+ b=yoJ5XKiaOhbCcYeLy7SG2U4ji6Z5b/yOg4GVfVLnu2XLyhCwi3U3UVNkW998toPbfVqfYghIpTSyiBnJR9onJgg/f/PgOfJfWQNmIeAbDowlfSPeItKp/s48zNu/FdCpJ0w48VVvwte3N+axblU1YOIP+/AG0cNcubK/aTrpah9u78S6sgct8MPCjZmUj5H83qyTt0AhmZwGBghFDZIR2tZI3IxQOjl6iYT4eGIlWQ14rHtQwX0oz43BWQdHrsxZ2Gu13/5sgvGx9qiIPp7GtLzl/Q6kDxqtnjHxq6EOfB+fic3wP0Qj2bhAAyE1cvJo11naeDMeELWy9RbFGBEDwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH8PR11MB8287.namprd11.prod.outlook.com (2603:10b6:510:1c7::14)
+ by DM3PR11MB8757.namprd11.prod.outlook.com (2603:10b6:8:1af::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9228.11; Wed, 15 Oct
+ 2025 16:13:38 +0000
+Received: from PH8PR11MB8287.namprd11.prod.outlook.com
+ ([fe80::7e8b:2e5:8ce4:2350]) by PH8PR11MB8287.namprd11.prod.outlook.com
+ ([fe80::7e8b:2e5:8ce4:2350%7]) with mapi id 15.20.9203.009; Wed, 15 Oct 2025
+ 16:13:37 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <3a8d9b266399ddf75dcd173e86b57d5b1b7635fa@intel.com>
+References: <20251015-xe3p_lpd-basic-enabling-v1-0-d2d1e26520aa@intel.com>
+ <20251015-xe3p_lpd-basic-enabling-v1-5-d2d1e26520aa@intel.com>
+ <3a8d9b266399ddf75dcd173e86b57d5b1b7635fa@intel.com>
+Subject: Re: [PATCH 05/32] drm/i915/dram: Add field ecc_impacting_de
+From: Gustavo Sousa <gustavo.sousa@intel.com>
+CC: Ankit Nautiyal <ankit.k.nautiyal@intel.com>, Dnyaneshwar Bhadane
+ <dnyaneshwar.bhadane@intel.com>, Jouni =?utf-8?q?H=C3=B6gander?=
+ <jouni.hogander@intel.com>, Juha-pekka Heikkila
+ <juha-pekka.heikkila@intel.com>, Luca Coelho <luciano.coelho@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, Matt Atwood
+ <matthew.s.atwood@intel.com>, Matt Roper <matthew.d.roper@intel.com>, "Ravi
+ Kumar Vodapalli" <ravi.kumar.vodapalli@intel.com>, Shekhar Chauhan
+ <shekhar.chauhan@intel.com>, Vinod Govindapillai
+ <vinod.govindapillai@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+Date: Wed, 15 Oct 2025 13:13:33 -0300
+Message-ID: <176054481318.3168.14888319303121640191@intel.com>
+User-Agent: alot/0.12.dev22+g972188619
+X-ClientProxiedBy: BY5PR17CA0028.namprd17.prod.outlook.com
+ (2603:10b6:a03:1b8::41) To PH8PR11MB8287.namprd11.prod.outlook.com
+ (2603:10b6:510:1c7::14)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR11MB8287:EE_|DM3PR11MB8757:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2140305-4367-4fab-869b-08de0c05cc35
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TWF2UllZREM0ZEsyNGNSWWlFbUxtaHM5VEhhV1FxVktxMEZLUFRrZ2RsVmFK?=
+ =?utf-8?B?WWt5ZFhMYThPaklZY2JVbU5FbHF2SDlZRVhTN2c0YTM3N24vb3JsVFJNSWRI?=
+ =?utf-8?B?dUcrYjB4citVajdWeTY5YnlTYWU4ZVY1bENlcG1Uekc2TDE4czRmT3ZNVG8z?=
+ =?utf-8?B?aHFYdEFnaUpva212aVlCdWF4SzArc3JKY2JjYWQ5Ujh4Sk9DeU9IMkZlbjZz?=
+ =?utf-8?B?eTVsRHpQY2lmT0xaZjlIUC9Qakh0eEp4L3duSXExTk0yQXZOYTYxam92U2pP?=
+ =?utf-8?B?VzBFVEtMdDFmL2xQanFFS29hN2FjOTZGY2Jab0lvUWl6amRROTQ2QitWeTVW?=
+ =?utf-8?B?QUJZb3FiUzBadHVXMnlKenJ0dkhmR2orNVZaWmNQdXBQK2U2T2dOVEVDbk9B?=
+ =?utf-8?B?akhWMnZtRDlYZDA3NUZsTENhNFl0NW15bjVobitQSkUzTU5hU2NXZWVXU0hr?=
+ =?utf-8?B?bXpEY1hwRWRDQTVkRlI1Vzh4Rkt1SWhwL2ptWGxBQ1grbWYzdmtIR1BYaXA0?=
+ =?utf-8?B?OCtnOHhVdGp2Wm1idXZwakpiYy94cmR5c1YxYzFENUJWSHQ1TWVJcXBReHV4?=
+ =?utf-8?B?enQ2UUlQRWUxZDBxL2p4dmI5UFZkdXZvK2hvcDY2TThldTcxMWdSNmJuWFda?=
+ =?utf-8?B?a2dNcUtjSnllME83b3lnSUtKSnJOMEIvUjdVUW9oRGNEd1BYT2JCbnpjbHRx?=
+ =?utf-8?B?eG9GTTRDeWcwbUF2R1phTWZiT2d3Qzc1S1Y5ZE8xVXFVa21aMndEbVA4bVVt?=
+ =?utf-8?B?aWRIUERNdS8vRjJmUmVCNzdJQ0dlU0R3ZGhmZkNvb1VBYlBIODBNMVRudGVW?=
+ =?utf-8?B?R0xMNHlmaVJMWGxRS2ZNMVYyVnBHY0d0US9zbWFRMmtYNWNwaVlYem9GMnJS?=
+ =?utf-8?B?a3VKTDJXd2I3NEc0QzAwYTl5Mk9LMUlraVlFaDFrazhjZUZWQ0NIZlpSbTNP?=
+ =?utf-8?B?eDZid0pqMUNoZEN6ZnIyR0pRMklYRmdaTnZOL3U0U3hKMDNsd0pSbWYyblJq?=
+ =?utf-8?B?aldVTmNqK1hJYWFaeWNpNjRCRlNxb2oyUG1WTzJRR1J5SDR6cTdxeXFab1ds?=
+ =?utf-8?B?eU1MWnFVUmd2ZUhuVEU5alladWx1VnNVSXNWUm14ZnhVL3FaR2lRZ0dZVmxi?=
+ =?utf-8?B?M00xRzlRbXJyWG1EdjNiSGl5V2RKbmlTTXJFVTNpb3FsUnNxUDQ0NFlQcEhY?=
+ =?utf-8?B?ekxzRGhnOStTNVVXMTRBNzE0bXpMS2lsNjVROFZlczhGekF2amllYVBiN2hB?=
+ =?utf-8?B?WG9LbGliblBLclowYTNQZmdnb1creEwzWGhrc2wrdnNkTkk5b0xXRTN4VnFk?=
+ =?utf-8?B?QmZvcDQrUDRkMEliN3laWWhleXMyWC9ocDltMnNVS0s3a2V1ekx0bFNSbTVv?=
+ =?utf-8?B?SHRuUjA2b3lJcGRDcGdvNHF4aXdVb0VRdlZ6eEcrdm96NHpHWTA4R0tpSjJL?=
+ =?utf-8?B?c2szOU1wR2Y2aDduVnZtaVdEbDhzYmJ6WEw5L0tKaEdWeWNpNjVJU2k4R2E5?=
+ =?utf-8?B?cW0xaWYyb0g0VGRuMWt5TGhFTUtBQlBUTktaaENRcFdHV2hyeG1zSzBJQzh6?=
+ =?utf-8?B?M0krRDQrampQU25wS051bERWeEhVQyt2VHJhbW1kYllKOHZtVFR6M1ozaHM4?=
+ =?utf-8?B?dHNCNXFZRm5QZmh2cHdqRmhGSXh4VFprVVcyY0tsd3dLRUVVbDBRRU9RYVQx?=
+ =?utf-8?B?N3E1UWdSR3h4WHdlMDVUMEo5MUVEZGxPL2FRYkQ3UTB4VTdZbnBHbzNhMHYy?=
+ =?utf-8?B?bDVsRjQrS1ExQnFoTE51MmJwZ0pza1hxaWI4eEk0bUF4V3JQb295RzhvNFpE?=
+ =?utf-8?B?RVgzWE5CaHB4d1BGcVBNelBrRngwZXRSZ2dacXIwREg2d3d5MGdWdzBIZGRH?=
+ =?utf-8?B?blI5U21iK29PeVFGRGFvb3VMQ1l0RnJhSkluampvbHJIQ0M4RS90UFIvaDFo?=
+ =?utf-8?Q?jnDNhpQylhxE8jGgw/qWY1Je3eNGyQv+?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR11MB8287.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWhhN0ZzWGdVcFh0MkxlTUlNUG5pMGZqZlBpcmljc2U1aE82S3dNMHlKQ0t6?=
+ =?utf-8?B?U0RlbERnRFRkVGJFc1MxTjdpMWN1bm4wejZ1dWcwQ2hMMnVYU3I4cWlOeFBt?=
+ =?utf-8?B?WlU3TDNtam02TVo2UGNTVDFtTU00SGF5Q3U1Z1JKU2xCbW05c0psbmw1VUZ4?=
+ =?utf-8?B?bWlLK1orc1JmWWxQUDQ1a3FicFF4UjNVV3dUQzl2TDNFNldZNDdtMjNLZTdT?=
+ =?utf-8?B?bzIzUlFtSzg3WnZOVElTdXFRQU9mejhUOXZ4K2VQUVBKVSs1TFJHQXpoMWJn?=
+ =?utf-8?B?T2VKU0RuZEhaczVMZldMTEc1VkxOaVl0SlJ2UlNGU0IzOGE4VEcwL3Evb3JK?=
+ =?utf-8?B?MFhpRUdUV1RKR0sycGYzQmFEQ3JLL29MN3JTeXJyaVVZV1ZVUUpqSUFjcU53?=
+ =?utf-8?B?TUdrT2t2WnQyRzhTUVRzL2JzUzVSa3JDNmNCN2h3dVU4U1ZkYmV5MFVia244?=
+ =?utf-8?B?MVJnTDk5bTZJZmZjK3pUeUpna3ZQRTBTRkh6bVM3Q1FFdkc5TDcwdzd1ZlZL?=
+ =?utf-8?B?YlJWTmNYTERUZ3RsRVhRc0hkTW5PTTdRaGlXdzJzZGdjYnA3QTBkbnkwYUdv?=
+ =?utf-8?B?aWxkSlpjK2lPb0dVRWVOTnd5QUJveUtSVUhteFQreGFBVUQ3YVdybWNBNWVC?=
+ =?utf-8?B?OWp6NjFqcDBXRS9paUhzZTFwUSs1bG1uNUQ4TEdQKzN1L0pSVUlwQVhmd3U0?=
+ =?utf-8?B?KzJCK25Da3ZpalNaN1p4T0JVOEl4SkF0ZlM5eTN5N2lLZEpLK3A1MHJhQ015?=
+ =?utf-8?B?MFVsaGppL2FUNzVYQURlY1VFT0tGSUUwZ2grMWVpMER0YzlMQllSWFVSdEZM?=
+ =?utf-8?B?N25PWm9PTXRMVTFlSVRhUDNSak9wY1dkTWJJQ0Ztck9BOFpRRkRKVHJzM09V?=
+ =?utf-8?B?VmNJNlBLYUxnc2srMlBGWVVwZUJ4M01qYnkzYTlMREs1T09qT1pDL3RHT3FF?=
+ =?utf-8?B?eXZxaGRhbGlNSTBIM202dzhNUHBZUGpPVmplN3k4WDZteGl6b1JmQjZGSlV3?=
+ =?utf-8?B?RUdpSGpaMVFLbStnbnRZMjFkNTBEU3VFS1hRMUtlaWNvRWlRejErcTZUMHd4?=
+ =?utf-8?B?OE1aQXlMeVVscExDVEp5aEtnMDVsdG5KSUtVQnRHVGNXWEw1QmRPRjJ0OURu?=
+ =?utf-8?B?U2EwYjJYZHZqalRhTm1QdG9BOUFRUmwxVTR3TTdPcXFsdUhPSHNPZGxRTm8y?=
+ =?utf-8?B?c3gzbkt3cUlxc3pIQ245d0JsYlM2NmtGN004ZUdNaWM1V3BtRzFqZjlGdUpq?=
+ =?utf-8?B?eS9kWGN0aWxXbDNjdWIrRkdjVUdvS3dndnZDaTNDNDhoRnRNUDlKU2VrV1M5?=
+ =?utf-8?B?YnhrYTVZSnpwejFEWGE4K29rWWxUOEE1RE10cEtSd0FJc2dLNDJ6Vkt2aFla?=
+ =?utf-8?B?MDBPQy9ic212NWlrNkpwaVBtc3pYY3B5R3dDTXQvZGN4M1FmcnRTWnhBRnlX?=
+ =?utf-8?B?Q085MHNBK3VhQ1B2Nnc3REpKa0ZQWHFaV2xBam0vODJDblNQdzVmVmtLbjh0?=
+ =?utf-8?B?d3o4dVA1d1JwSTRxS1dKSzVZR2x6ajVnZm9waitMb1o2b3VjeXZ5RERHckI0?=
+ =?utf-8?B?M0dkc2FZRVkrMTZ2M2hnWXBqeWhTUTN2RkxRdTdQbFQ1REFMSW9ZSzM1K1lZ?=
+ =?utf-8?B?NWNUbElld0tMRjI0RnpNRG1vSG81TzNTUEhhbmxibjlYa3VWbC9YYVNlM2pu?=
+ =?utf-8?B?ZlpUMmtKQWF1SWwwOW9sQTlUZVNKUzFVa0V1Vi8ySUpheWM0MldENlUzQmU3?=
+ =?utf-8?B?b3dhRlo4VnJ3YmdDYnJnVk9sVmJWcnRnQVIzQ2hjR1QwTDBWd0pQUk95eXBr?=
+ =?utf-8?B?RHgwUHRDREhzc3JWamtOS2pCQklsaXFkd3YrWlhhYngxQUtJblg2K2VOejVt?=
+ =?utf-8?B?MVVYdVBiQTFHL0crUVk0bDdxcERNL3FaZ29RUDR5MXB5NTl1UXArdURWa2RM?=
+ =?utf-8?B?SmRIVWZwOVM4T0lhQ1V1UXhWNXJmV2piSVVyV3pwWmdWbkhJN3h2UDQ4cy9P?=
+ =?utf-8?B?b01YTFFsSlNkNm9zYWdyNTR3TVRaZkRVOURUdGxIUkdrSnNIN256OFJ0QmJP?=
+ =?utf-8?B?NEUyTG10M1JTWmcwZ0NPM2lWd2FsVEQ3ak9ObmxkNVdqVEpWVzYvdmtZc2Rw?=
+ =?utf-8?B?dFkwcDk4ZlJlWlpwbU5hOFBpeVI3aHQ5cXlVNlJwem9lTHErc1lKZlduWUpH?=
+ =?utf-8?B?Znc9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2140305-4367-4fab-869b-08de0c05cc35
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR11MB8287.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Oct 2025 16:13:37.7897 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mQsOLpBl4gDKWfzUT6uKzEobWUwbNPkR/X9fQwOjwx/udeBykbToV2GcBiVrOZ0clmFLNP4q07iJdh1AQToYdA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR11MB8757
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,377 +205,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The display/ subdirectory currently contains files that are about i915
-core driver adaptation to display rather than generic display
-implementation. Move them to a new i915 subdirectory display-adapt/.
+Quoting Jani Nikula (2025-10-15 11:46:52-03:00)
+>On Wed, 15 Oct 2025, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
+>> Starting with Xe3p_LPD, we now have a new field in MEM_SS_INFO_GLOBAL
+>> that indicates whether the memory has enabled ECC that limits display
+>> bandwidth.  Add the field ecc_impacting_de to struct dram_info to
+>> contain that information and set it appropriately when probing for
+>> memory info.  We will use that field when updating bandwidth parameters
+>> for Xe3p_LPD.
+>
+>Could the field name be more accurate than "ecc impacting de"? It sounds
+>quite handwavy to me.
 
-In the xe driver, all of its display/ is basically xe core adaptation to
-display. It's just that i915 display/ contains the actual display
-implementation for both. Ideally, we'd have the shared display code
-somewhere else, and the adaptation in i915 would be under display/, but
-we're not quite ready for that kind of churn yet. So let's just call it
-display-adapt for now.
+Well, perhaps the innacurate part would be the generic "de" instead of
+something that refers to the bandwidth?
 
-xe basically has equivalent files to the ones that are being moved,
-apart from intel_dpt.c, for which the implementation is quite different.
+If so, would you be fine with ecc_impacting_bandwidth?
 
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/Makefile                 | 23 +++++++++++--------
- .../{display => display-adapt}/intel_bo.c     |  3 ++-
- .../intel_display_rpm.c                       |  5 ++--
- .../{display => display-adapt}/intel_dpt.c    | 11 +++++----
- .../intel_dsb_buffer.c                        |  5 ++--
- .../{display => display-adapt}/intel_fb_bo.c  |  9 ++++----
- .../{display => display-adapt}/intel_fb_pin.c | 14 +++++------
- .../intel_fbdev_fb.c                          |  5 +++-
- .../intel_hdcp_gsc.c                          |  2 +-
- .../{display => display-adapt}/intel_panic.c  |  6 ++---
- .../intel_plane_initial.c                     | 17 +++++++-------
- 11 files changed, 56 insertions(+), 44 deletions(-)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_bo.c (98%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_display_rpm.c (95%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_dpt.c (97%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_dsb_buffer.c (96%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_fb_bo.c (94%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_fb_pin.c (97%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_fbdev_fb.c (94%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_hdcp_gsc.c (99%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_panic.c (84%)
- rename drivers/gpu/drm/i915/{display => display-adapt}/intel_plane_initial.c (97%)
+--
+Gustavo Sousa
 
-diff --git a/drivers/gpu/drm/i915/Makefile b/drivers/gpu/drm/i915/Makefile
-index 6d7800e25e55..6000748fc0b3 100644
---- a/drivers/gpu/drm/i915/Makefile
-+++ b/drivers/gpu/drm/i915/Makefile
-@@ -221,6 +221,18 @@ i915-y += \
- i915-$(CONFIG_HWMON) += \
- 	i915_hwmon.o
- 
-+# display adaptation
-+i915-y += \
-+	display-adapt/intel_bo.o \
-+	display-adapt/intel_display_rpm.o \
-+	display-adapt/intel_dpt.o \
-+	display-adapt/intel_dsb_buffer.o \
-+	display-adapt/intel_fb_bo.o \
-+	display-adapt/intel_fb_pin.o \
-+	display-adapt/intel_hdcp_gsc.o \
-+	display-adapt/intel_panic.o \
-+	display-adapt/intel_plane_initial.o
-+
- # modesetting core code
- i915-y += \
- 	display/hsw_ips.o \
-@@ -231,7 +243,6 @@ i915-y += \
- 	display/intel_atomic.o \
- 	display/intel_audio.o \
- 	display/intel_bios.o \
--	display/intel_bo.o \
- 	display/intel_bw.o \
- 	display/intel_cdclk.o \
- 	display/intel_cmtg.o \
-@@ -250,7 +261,6 @@ i915-y += \
- 	display/intel_display_power_map.o \
- 	display/intel_display_power_well.o \
- 	display/intel_display_reset.o \
--	display/intel_display_rpm.o \
- 	display/intel_display_rps.o \
- 	display/intel_display_snapshot.o \
- 	display/intel_display_wa.o \
-@@ -259,14 +269,10 @@ i915-y += \
- 	display/intel_dpio_phy.o \
- 	display/intel_dpll.o \
- 	display/intel_dpll_mgr.o \
--	display/intel_dpt.o \
- 	display/intel_dpt_common.o \
- 	display/intel_drrs.o \
- 	display/intel_dsb.o \
--	display/intel_dsb_buffer.o \
- 	display/intel_fb.o \
--	display/intel_fb_bo.o \
--	display/intel_fb_pin.o \
- 	display/intel_fbc.o \
- 	display/intel_fdi.o \
- 	display/intel_fifo_underrun.o \
-@@ -274,7 +280,6 @@ i915-y += \
- 	display/intel_frontbuffer.o \
- 	display/intel_global_state.o \
- 	display/intel_hdcp.o \
--	display/intel_hdcp_gsc.o \
- 	display/intel_hdcp_gsc_message.o \
- 	display/intel_hotplug.o \
- 	display/intel_hotplug_irq.o \
-@@ -286,12 +291,10 @@ i915-y += \
- 	display/intel_modeset_setup.o \
- 	display/intel_modeset_verify.o \
- 	display/intel_overlay.o \
--	display/intel_panic.o \
- 	display/intel_pch.o \
- 	display/intel_pch_display.o \
- 	display/intel_pch_refclk.o \
- 	display/intel_plane.o \
--	display/intel_plane_initial.o \
- 	display/intel_pmdemand.o \
- 	display/intel_psr.o \
- 	display/intel_quirks.o \
-@@ -312,7 +315,7 @@ i915-$(CONFIG_ACPI) += \
- 	display/intel_opregion.o
- i915-$(CONFIG_DRM_FBDEV_EMULATION) += \
- 	display/intel_fbdev.o \
--	display/intel_fbdev_fb.o
-+	display-adapt/intel_fbdev_fb.o
- i915-$(CONFIG_DEBUG_FS) += \
- 	display/intel_display_debugfs.o \
- 	display/intel_display_debugfs_params.o \
-diff --git a/drivers/gpu/drm/i915/display/intel_bo.c b/drivers/gpu/drm/i915/display-adapt/intel_bo.c
-similarity index 98%
-rename from drivers/gpu/drm/i915/display/intel_bo.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_bo.c
-index 6ae1374d5c2b..bd3956d09aab 100644
---- a/drivers/gpu/drm/i915/display/intel_bo.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_bo.c
-@@ -3,11 +3,12 @@
- 
- #include <drm/drm_panic.h>
- 
-+#include "display/intel_bo.h"
-+
- #include "gem/i915_gem_mman.h"
- #include "gem/i915_gem_object.h"
- #include "gem/i915_gem_object_frontbuffer.h"
- #include "i915_debugfs.h"
--#include "intel_bo.h"
- 
- bool intel_bo_is_tiled(struct drm_gem_object *obj)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.c b/drivers/gpu/drm/i915/display-adapt/intel_display_rpm.c
-similarity index 95%
-rename from drivers/gpu/drm/i915/display/intel_display_rpm.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_display_rpm.c
-index 56c4024201c1..b7a7fd32ef8b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_rpm.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_display_rpm.c
-@@ -1,9 +1,10 @@
- // SPDX-License-Identifier: MIT
- /* Copyright © 2025 Intel Corporation */
- 
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_rpm.h"
-+
- #include "i915_drv.h"
--#include "intel_display_core.h"
--#include "intel_display_rpm.h"
- #include "intel_runtime_pm.h"
- 
- static struct intel_runtime_pm *display_to_rpm(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_dpt.c b/drivers/gpu/drm/i915/display-adapt/intel_dpt.c
-similarity index 97%
-rename from drivers/gpu/drm/i915/display/intel_dpt.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_dpt.c
-index c0a817018d08..57f3f22ab940 100644
---- a/drivers/gpu/drm/i915/display/intel_dpt.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_dpt.c
-@@ -8,12 +8,13 @@
- #include "gem/i915_gem_lmem.h"
- #include "gt/gen8_ppgtt.h"
- 
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_rpm.h"
-+#include "display/intel_display_types.h"
-+#include "display/intel_dpt.h"
-+#include "display/intel_fb.h"
-+
- #include "i915_drv.h"
--#include "intel_display_core.h"
--#include "intel_display_rpm.h"
--#include "intel_display_types.h"
--#include "intel_dpt.h"
--#include "intel_fb.h"
- 
- struct i915_dpt {
- 	struct i915_address_space vm;
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb_buffer.c b/drivers/gpu/drm/i915/display-adapt/intel_dsb_buffer.c
-similarity index 96%
-rename from drivers/gpu/drm/i915/display/intel_dsb_buffer.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_dsb_buffer.c
-index c77d48bda26a..fcede0bef9ac 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb_buffer.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_dsb_buffer.c
-@@ -3,12 +3,13 @@
-  * Copyright 2023, Intel Corporation.
-  */
- 
-+#include "display/intel_display_types.h"
-+#include "display/intel_dsb_buffer.h"
-+
- #include "gem/i915_gem_internal.h"
- #include "gem/i915_gem_lmem.h"
- #include "i915_drv.h"
- #include "i915_vma.h"
--#include "intel_display_types.h"
--#include "intel_dsb_buffer.h"
- 
- u32 intel_dsb_buffer_ggtt_offset(struct intel_dsb_buffer *dsb_buf)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_bo.c b/drivers/gpu/drm/i915/display-adapt/intel_fb_bo.c
-similarity index 94%
-rename from drivers/gpu/drm/i915/display/intel_fb_bo.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_fb_bo.c
-index 7336d7294a7b..89fb6d44cdd8 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_bo.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_fb_bo.c
-@@ -7,11 +7,12 @@
- 
- #include "gem/i915_gem_object.h"
- 
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_types.h"
-+#include "display/intel_fb.h"
-+#include "display/intel_fb_bo.h"
-+
- #include "i915_drv.h"
--#include "intel_display_core.h"
--#include "intel_display_types.h"
--#include "intel_fb.h"
--#include "intel_fb_bo.h"
- 
- void intel_fb_bo_framebuffer_fini(struct drm_gem_object *obj)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.c b/drivers/gpu/drm/i915/display-adapt/intel_fb_pin.c
-similarity index 97%
-rename from drivers/gpu/drm/i915/display/intel_fb_pin.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_fb_pin.c
-index 45af04cb0fb2..3f33f067ec17 100644
---- a/drivers/gpu/drm/i915/display/intel_fb_pin.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_fb_pin.c
-@@ -7,18 +7,18 @@
-  * DOC: display pinning helpers
-  */
- 
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_rpm.h"
-+#include "display/intel_display_types.h"
-+#include "display/intel_dpt.h"
-+#include "display/intel_fb.h"
-+#include "display/intel_fb_pin.h"
-+#include "display/intel_plane.h"
- #include "gem/i915_gem_domain.h"
- #include "gem/i915_gem_object.h"
- 
- #include "i915_drv.h"
- #include "i915_vma.h"
--#include "intel_display_core.h"
--#include "intel_display_rpm.h"
--#include "intel_display_types.h"
--#include "intel_dpt.h"
--#include "intel_fb.h"
--#include "intel_fb_pin.h"
--#include "intel_plane.h"
- 
- static struct i915_vma *
- intel_fb_pin_to_dpt(const struct drm_framebuffer *fb,
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev_fb.c b/drivers/gpu/drm/i915/display-adapt/intel_fbdev_fb.c
-similarity index 94%
-rename from drivers/gpu/drm/i915/display/intel_fbdev_fb.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_fbdev_fb.c
-index 56b145841473..15684cccd85e 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev_fb.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_fbdev_fb.c
-@@ -5,10 +5,13 @@
- 
- #include <linux/fb.h>
- 
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_types.h"
-+#include "display/intel_fb.h"
-+#include "display/intel_fbdev_fb.h"
- #include "gem/i915_gem_lmem.h"
- 
- #include "i915_drv.h"
--#include "intel_fbdev_fb.h"
- 
- struct drm_gem_object *intel_fbdev_fb_bo_create(struct drm_device *drm, int size)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c b/drivers/gpu/drm/i915/display-adapt/intel_hdcp_gsc.c
-similarity index 99%
-rename from drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_hdcp_gsc.c
-index 6a22862d6be1..16f1e61b090b 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_hdcp_gsc.c
-@@ -5,12 +5,12 @@
- 
- #include <drm/intel/i915_hdcp_interface.h>
- 
-+#include "display/intel_hdcp_gsc.h"
- #include "gem/i915_gem_region.h"
- #include "gt/intel_gt.h"
- #include "gt/uc/intel_gsc_uc_heci_cmd_submit.h"
- #include "i915_drv.h"
- #include "i915_utils.h"
--#include "intel_hdcp_gsc.h"
- 
- struct intel_hdcp_gsc_context {
- 	struct drm_i915_private *i915;
-diff --git a/drivers/gpu/drm/i915/display/intel_panic.c b/drivers/gpu/drm/i915/display-adapt/intel_panic.c
-similarity index 84%
-rename from drivers/gpu/drm/i915/display/intel_panic.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_panic.c
-index 7311ce4e8b6c..028ff83b2519 100644
---- a/drivers/gpu/drm/i915/display/intel_panic.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_panic.c
-@@ -3,10 +3,10 @@
- 
- #include <drm/drm_panic.h>
- 
-+#include "display/intel_display_types.h"
-+#include "display/intel_fb.h"
-+#include "display/intel_panic.h"
- #include "gem/i915_gem_object.h"
--#include "intel_display_types.h"
--#include "intel_fb.h"
--#include "intel_panic.h"
- 
- struct intel_panic *intel_panic_alloc(void)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_plane_initial.c b/drivers/gpu/drm/i915/display-adapt/intel_plane_initial.c
-similarity index 97%
-rename from drivers/gpu/drm/i915/display/intel_plane_initial.c
-rename to drivers/gpu/drm/i915/display-adapt/intel_plane_initial.c
-index a9f36b1b50c1..57336ca6b0ed 100644
---- a/drivers/gpu/drm/i915/display/intel_plane_initial.c
-+++ b/drivers/gpu/drm/i915/display-adapt/intel_plane_initial.c
-@@ -3,17 +3,18 @@
-  * Copyright © 2021 Intel Corporation
-  */
- 
-+#include "display/intel_crtc.h"
-+#include "display/intel_display.h"
-+#include "display/intel_display_core.h"
-+#include "display/intel_display_types.h"
-+#include "display/intel_fb.h"
-+#include "display/intel_frontbuffer.h"
-+#include "display/intel_plane.h"
-+#include "display/intel_plane_initial.h"
- #include "gem/i915_gem_lmem.h"
- #include "gem/i915_gem_region.h"
-+
- #include "i915_drv.h"
--#include "intel_crtc.h"
--#include "intel_display.h"
--#include "intel_display_core.h"
--#include "intel_display_types.h"
--#include "intel_fb.h"
--#include "intel_frontbuffer.h"
--#include "intel_plane.h"
--#include "intel_plane_initial.h"
- 
- void intel_plane_initial_vblank_wait(struct intel_crtc *crtc)
- {
--- 
-2.47.3
-
+>
+>BR,
+>Jani.
+>
+>>
+>> Bspec: 69131
+>> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
+>> ---
+>>  drivers/gpu/drm/i915/i915_reg.h       | 1 +
+>>  drivers/gpu/drm/i915/soc/intel_dram.c | 4 ++++
+>>  drivers/gpu/drm/i915/soc/intel_dram.h | 1 +
+>>  3 files changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915=
+_reg.h
+>> index 354ef75ef6a5..5bf3b4ab2baa 100644
+>> --- a/drivers/gpu/drm/i915/i915_reg.h
+>> +++ b/drivers/gpu/drm/i915/i915_reg.h
+>> @@ -1233,6 +1233,7 @@
+>>  #define   OROM_OFFSET_MASK                        REG_GENMASK(20, 16)
+>> =20
+>>  #define MTL_MEM_SS_INFO_GLOBAL                        _MMIO(0x45700)
+>> +#define   XE3P_ECC_IMPACTING_DE                        REG_BIT(12)
+>>  #define   MTL_N_OF_ENABLED_QGV_POINTS_MASK        REG_GENMASK(11, 8)
+>>  #define   MTL_N_OF_POPULATED_CH_MASK                REG_GENMASK(7, 4)
+>>  #define   MTL_DDR_TYPE_MASK                        REG_GENMASK(3, 0)
+>> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.c b/drivers/gpu/drm/i91=
+5/soc/intel_dram.c
+>> index 8841cfe1cac8..bf9f8e38d6ba 100644
+>> --- a/drivers/gpu/drm/i915/soc/intel_dram.c
+>> +++ b/drivers/gpu/drm/i915/soc/intel_dram.c
+>> @@ -685,6 +685,7 @@ static int gen12_get_dram_info(struct drm_i915_priva=
+te *i915, struct dram_info *
+>> =20
+>>  static int xelpdp_get_dram_info(struct drm_i915_private *i915, struct d=
+ram_info *dram_info)
+>>  {
+>> +        struct intel_display *display =3D i915->display;
+>>          u32 val =3D intel_uncore_read(&i915->uncore, MTL_MEM_SS_INFO_GL=
+OBAL);
+>> =20
+>>          switch (REG_FIELD_GET(MTL_DDR_TYPE_MASK, val)) {
+>> @@ -723,6 +724,9 @@ static int xelpdp_get_dram_info(struct drm_i915_priv=
+ate *i915, struct dram_info
+>>          dram_info->num_qgv_points =3D REG_FIELD_GET(MTL_N_OF_ENABLED_QG=
+V_POINTS_MASK, val);
+>>          /* PSF GV points not supported in D14+ */
+>> =20
+>> +        if (DISPLAY_VER(display) >=3D 35)
+>> +                dram_info->ecc_impacting_de =3D REG_FIELD_GET(XE3P_ECC_=
+IMPACTING_DE, val);
+>> +
+>>          return 0;
+>>  }
+>> =20
+>> diff --git a/drivers/gpu/drm/i915/soc/intel_dram.h b/drivers/gpu/drm/i91=
+5/soc/intel_dram.h
+>> index 03a973f1c941..ac77f1ab409f 100644
+>> --- a/drivers/gpu/drm/i915/soc/intel_dram.h
+>> +++ b/drivers/gpu/drm/i915/soc/intel_dram.h
+>> @@ -30,6 +30,7 @@ struct dram_info {
+>>          u8 num_channels;
+>>          u8 num_qgv_points;
+>>          u8 num_psf_gv_points;
+>> +        bool ecc_impacting_de; /* Only valid from Xe3p_LPD onward. */
+>>          bool symmetric_memory;
+>>          bool has_16gb_dimms;
+>>  };
+>
+>--=20
+>Jani Nikula, Intel
