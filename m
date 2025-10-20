@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3AA0CCD1A7
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 18:51:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B055CCD193
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Oct 2025 18:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C8FD10E4BD;
-	Mon, 20 Oct 2025 18:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A6D10E4B1;
+	Mon, 20 Oct 2025 18:51:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z85USCFE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J5TwlIGS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16AA410E4BF;
- Mon, 20 Oct 2025 18:51:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C31E10E4B1;
+ Mon, 20 Oct 2025 18:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1760986277; x=1792522277;
+ t=1760986279; x=1792522279;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=h9Y7uQjI4iskxkktNbUFSXMQKz3y51tXwPP57WINEDg=;
- b=Z85USCFEsCruMeEL/g3xQWSesTZVm1gKLqfiOArA9mqI3OYAn++ZMJfd
- g4eKgoXrhkzG+HYDvrz3ZlXJYdKP9oTjcdzID09OjXoVoew1raSUKwIup
- JB2+iRRpgJNe4DYNcaeTPbIXDGOroe/Uos7hvZiQK+DFNCItC9MiUexkd
- usXiRsebsZ6BNZHLweAxU0a9lvSdo13SYJbg96Pq877OnS0+T9Sx4LFKT
- MaxufXHDRwX3aDXva+YrkEeo8o9yRSa5O0BMLLz4hqyxZVTvDj6UPliMT
- V/TjOnUd7MI0sYsPCkhb8YLqby4zaOHOvmvGYm6fxeB52Hf3A3jr+SwHS w==;
-X-CSE-ConnectionGUID: speEpiCVRO+Zy9DdGlcGtw==
-X-CSE-MsgGUID: WDXyteIcTbuT1ANz7TuS7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11531"; a="63013027"
-X-IronPort-AV: E=Sophos;i="6.17,312,1747724400"; d="scan'208";a="63013027"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2025 11:51:16 -0700
-X-CSE-ConnectionGUID: +OBnb4bYSGSUgKulo5FIfg==
-X-CSE-MsgGUID: KWxW/plfRBuISN7mHTzDkA==
+ bh=FNYZQnLyDyLRXaSU5TVTo2Zfty4OGkWCROaXpZxjT2I=;
+ b=J5TwlIGSDWujnjZ5Yi2WX2L9AL3a9deeZOwmNV6/lChNeKLYJyoxpfQY
+ bEPAHlwoRJYSjuMWiMr1VBgChk2DWzcNL/FLdtJ0BQ4lldwXovDFKvyje
+ 82Rn4qOn/mke5PhWXETKjB5qatHVMUgA6IuUFRgM0n7YDeB+e35r4np2a
+ Hz93B2MX3VmT7rC3KUi3XcMNcl6MNyAfQsPrbtFQlspvZVX8G2eRy3U59
+ v0z7ejk5aMn6yiuS6yQO7yBfnW3t6PCJqD1C/dB1eobD/wPKQMvq1l3iP
+ ltwcwta+mGj2DU/nYhWk3v6H9qoN5xNnNGCAMknLbNx2PMjCjjtMj7x8U Q==;
+X-CSE-ConnectionGUID: +T+YggrFSECwyPJaJxZyXg==
+X-CSE-MsgGUID: gB/iOnv+T7ShngdJfc9mzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="63254810"
+X-IronPort-AV: E=Sophos;i="6.19,243,1754982000"; d="scan'208";a="63254810"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2025 11:51:09 -0700
+X-CSE-ConnectionGUID: VntqXzS5TSqaHTJR0px+eQ==
+X-CSE-MsgGUID: 0+xXU/fkQm2YcGPsswVq8w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,243,1754982000"; d="scan'208";a="183807639"
+X-IronPort-AV: E=Sophos;i="6.19,243,1754982000"; d="scan'208";a="183344944"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
  ([10.245.245.58])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Oct 2025 11:51:14 -0700
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Oct 2025 11:51:07 -0700
 From: Ville Syrjala <ville.syrjala@linux.intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 09/22] drm/i915/vrr: Avoid redundant TRANS_PUSH write in
- intel_vrr_enable()
-Date: Mon, 20 Oct 2025 21:50:25 +0300
-Message-ID: <20251020185038.4272-10-ville.syrjala@linux.intel.com>
+Subject: [PATCH 07/22] drm/i915/vrr: Move compute_fixed_rr_timings()
+Date: Mon, 20 Oct 2025 21:50:23 +0300
+Message-ID: <20251020185038.4272-8-ville.syrjala@linux.intel.com>
 X-Mailer: git-send-email 2.49.1
 In-Reply-To: <20251020185038.4272-1-ville.syrjala@linux.intel.com>
 References: <20251020185038.4272-1-ville.syrjala@linux.intel.com>
@@ -73,34 +72,50 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-We keep TRANS_PUSH_EN always set for always_use_vrr_tg() platfforms,
-so there is no need to write it again in  intel_vrr_enable().
+Relocate intel_vrr_compute_fixed_rr_timings() next to its
+VRR and CMRR counterparts.
 
 Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index b2f139addc8b..6e8f8e673312 100644
+index 9179ad53a2e7..99e10943368d 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -709,12 +709,12 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
+@@ -246,6 +246,15 @@ void intel_vrr_compute_vrr_timings(struct intel_crtc_state *crtc_state,
+ 	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+ }
  
- 	intel_vrr_set_vrr_timings(crtc_state);
- 
--	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
--		       TRANS_PUSH_EN);
--
- 	if (!intel_vrr_always_use_vrr_tg(display)) {
- 		intel_vrr_set_db_point_and_transmission_line(crtc_state);
- 
-+		intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
-+			       TRANS_PUSH_EN);
++static
++void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state)
++{
++	/* For fixed rr,  vmin = vmax = flipline */
++	crtc_state->vrr.vmax = crtc_state->hw.adjusted_mode.crtc_vtotal;
++	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
++	crtc_state->vrr.flipline = crtc_state->vrr.vmin;
++}
 +
- 		if (crtc_state->cmrr.enable) {
- 			intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder),
- 				       VRR_CTL_VRR_ENABLE | VRR_CTL_CMRR_ENABLE |
+ static int intel_vrr_hw_value(const struct intel_crtc_state *crtc_state,
+ 			      int value)
+ {
+@@ -308,15 +317,6 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state)
+ 		       intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
+ }
+ 
+-static
+-void intel_vrr_compute_fixed_rr_timings(struct intel_crtc_state *crtc_state)
+-{
+-	/* For fixed rr,  vmin = vmax = flipline */
+-	crtc_state->vrr.vmax = crtc_state->hw.adjusted_mode.crtc_vtotal;
+-	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
+-	crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+-}
+-
+ static
+ int intel_vrr_compute_vmin(struct intel_crtc_state *crtc_state)
+ {
 -- 
 2.49.1
 
