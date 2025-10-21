@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6858CCD1BD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FB7CCD1BA
 	for <intel-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 11:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F9EA10E5C4;
-	Tue, 21 Oct 2025 11:31:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F1610E5C1;
+	Tue, 21 Oct 2025 11:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="STYkM5hw";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JBo247+a";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 32D9910E5C3;
- Tue, 21 Oct 2025 11:31:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0277C10E5B4;
+ Tue, 21 Oct 2025 11:31:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1761046266;
- bh=mlBi6AMWO1tGRBEEMvytVH6FWqoDNn/HD5c/lE3bK9U=;
+ s=mail; t=1761046258;
+ bh=b5DjKy8Ku5W6YjxLJ5sbdp7mTOI5CNz17N4tCTUcgu8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=STYkM5hw2WLY+JRUxKhJkSlv2Db0EtaSBwf372XyePDJYwu2vmQwBsH5HweRiEFIg
- KrK30iDJKoXgoYjaXvbLsevTL5VVyqUCrsoUPQF6mkxqGT12ADkkmmaK/K8XsqPG7H
- 6UXkZigJelZR2DPrNu5GUb2VCF8W0NmafTvkBOhBfQ6ayVwEXaM4YJqL8OyjCc8MJU
- vbh9pr5q8Ndkue79LA24F3OR8pQlPLyrWc+j30+cwzTWdZNnTLaaytWzA4j+2gUZqY
- ncAHSJET6zGvANSk2weHxp/3CuX0hlm/Y1AGqixGVYxFh4+gRx+ogCL0y8iZwI7k4S
- D12lMAgxTJQTw==
+ b=JBo247+aL1JX25fByWt1HEwt3SEbx1YeMbAdQ0IqQ67eXRvH9z9JYIOkfGwTd+U8l
+ QiIDDrF74o723OS5FwS7yv15E72pHMPEq4cdEVkVsxqkLq4zTH/K0PFuHLNWwb0i6r
+ jwrMmgi5KWer3/K585iB6n3sFieDrCdYYINNW7Qkaz9F4AXfUL1reEx00L+3Vu8kT7
+ hzKIdP4jN24BBm25ssnHeSV9uVYyn33s/mYOtZgxkhLnoFjzu65AHsB25SIlYwL3FX
+ g9jSs0j2u6AsE/oI/z4fSiiKG06CTZQtgtO78ervT37fjs3alX+3CkWciZc4HxbHWA
+ mTb0hr/n2bIvQ==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E7B3E17E131B;
- Tue, 21 Oct 2025 13:31:05 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BFFB917E1407;
+ Tue, 21 Oct 2025 13:30:57 +0200 (CEST)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v5 11/12] drm/panfrost: Introduce huge tmpfs mountpoint option
-Date: Tue, 21 Oct 2025 13:30:48 +0200
-Message-ID: <20251021113049.17242-12-loic.molinari@collabora.com>
+Subject: [PATCH v5 03/12] drm/shmem-helper: Map huge pages in fault handlers
+Date: Tue, 21 Oct 2025 13:30:40 +0200
+Message-ID: <20251021113049.17242-4-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251021113049.17242-1-loic.molinari@collabora.com>
 References: <20251021113049.17242-1-loic.molinari@collabora.com>
@@ -84,140 +84,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce the 'panfrost.transparent_hugepage' boolean module parameter
-(false by default). When the parameter is set to true, a new tmpfs
-mountpoint is created and mounted using the 'huge=within_size'
-option. It's then used at GEM object creation instead of the default
-'shm_mnt' mountpoint in order to enable Transparent Hugepage (THP) for
-the object (without having to rely on a system wide parameter).
+Check whether the starting address in the fault-around handler or the
+faulty address in the fault handler is part of a huge page in order to
+attempt a PMD sized PFN insertion into the VMA.
 
-v3:
-- use huge tmpfs mountpoint in drm_device
+On builds with CONFIG_TRANSPARENT_HUGEPAGE enabled, if the mmap() user
+address is PMD size aligned, if the GEM object is backed by shmem
+buffers on mountpoints setting the 'huge=' option and if the shmem
+backing store manages to allocate a huge folio, CPU mapping would then
+benefit from significantly increased memcpy() performance. When these
+conditions are met on a system with 2 MiB huge pages, an aligned copy
+of 2 MiB would raise a single page fault instead of 4096.
 
 v4:
-- fix builds with CONFIG_TRANSPARENT_HUGEPAGE=n
-- clean up mountpoint creation error handling
-- print negative error value
-
-v5:
-- use drm_gem_has_huge_tmp() helper
-- get rid of CONFIG_TRANSPARENT_HUGEPAGE ifdefs
+- implement map_pages instead of huge_fault
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c |  3 +++
- drivers/gpu/drm/panfrost/panfrost_drv.c    |  6 ++++++
- drivers/gpu/drm/panfrost/panfrost_drv.h    |  9 +++++++++
- drivers/gpu/drm/panfrost/panfrost_gem.c    | 18 ++++++++++++++++++
- drivers/gpu/drm/panfrost/panfrost_gem.h    |  2 ++
- 5 files changed, 38 insertions(+)
- create mode 100644 drivers/gpu/drm/panfrost/panfrost_drv.h
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 30 ++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index c61b97af120c..dedc13e56631 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -12,6 +12,7 @@
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
- #include "panfrost_features.h"
-+#include "panfrost_gem.h"
- #include "panfrost_issues.h"
- #include "panfrost_gpu.h"
- #include "panfrost_job.h"
-@@ -267,6 +268,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	if (err)
- 		goto out_job;
- 
-+	panfrost_gem_init(pfdev);
-+
- 	return 0;
- out_job:
- 	panfrost_jm_fini(pfdev);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 1c3c574cd64a..500c1ce96b0a 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -857,6 +857,12 @@ static const struct drm_driver panfrost_drm_driver = {
- #endif
- };
- 
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+bool panfrost_transparent_hugepage;
-+module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
-+MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (false = default)");
-+#endif
-+
- static int panfrost_probe(struct platform_device *pdev)
- {
- 	struct panfrost_device *pfdev;
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
-new file mode 100644
-index 000000000000..edeb093eb6da
---- /dev/null
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+/* Copyright 2025 Amazon.com, Inc. or its affiliates */
-+
-+#ifndef __PANFROST_DRV_H__
-+#define __PANFROST_DRV_H__
-+
-+extern bool panfrost_transparent_hugepage;
-+
-+#endif
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 0528de674a4f..50fdcb4ef453 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-+/* Copyright 2025 Amazon.com, Inc. or its affiliates */
- 
- #include <linux/cleanup.h>
- #include <linux/err.h>
-@@ -9,9 +10,26 @@
- 
- #include <drm/panfrost_drm.h>
- #include "panfrost_device.h"
-+#include "panfrost_drv.h"
- #include "panfrost_gem.h"
- #include "panfrost_mmu.h"
- 
-+void panfrost_gem_init(struct panfrost_device *pfdev)
-+{
-+	int err;
-+
-+	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-+	    !panfrost_transparent_hugepage)
-+		return;
-+
-+	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-+	if (drm_gem_has_huge_mnt(&pfdev->base))
-+		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-+	else if (err)
-+		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-+			 err);
-+}
-+
- #ifdef CONFIG_DEBUG_FS
- static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
- 					struct panfrost_gem_object *bo)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-index 8de3e76f2717..1a62529ff06f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-@@ -124,6 +124,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
- 	return container_of(node, struct panfrost_gem_mapping, mmnode);
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 2a9fbc9c3712..b7238448d4f9 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -580,6 +580,26 @@ static bool drm_gem_shmem_fault_is_valid(struct drm_gem_object *obj,
+ 	return true;
  }
  
-+void panfrost_gem_init(struct panfrost_device *pfdev);
++static bool drm_gem_shmem_map_pmd(struct vm_fault *vmf, unsigned long addr,
++				  struct page *page)
++{
++#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
++	unsigned long pfn = page_to_pfn(page);
++	unsigned long paddr = pfn << PAGE_SHIFT;
++	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
 +
- struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
++	if (aligned &&
++	    pmd_none(*vmf->pmd) &&
++	    folio_test_pmd_mappable(page_folio(page))) {
++		pfn &= PMD_MASK >> PAGE_SHIFT;
++		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
++			return true;
++	}
++#endif
++
++	return false;
++}
++
+ static vm_fault_t drm_gem_shmem_map_pages(struct vm_fault *vmf,
+ 					  pgoff_t start_pgoff,
+ 					  pgoff_t end_pgoff)
+@@ -606,6 +626,11 @@ static vm_fault_t drm_gem_shmem_map_pages(struct vm_fault *vmf,
+ 		goto out;
+ 	}
  
- struct drm_gem_object *
++	if (drm_gem_shmem_map_pmd(vmf, addr, pages[start_pgoff])) {
++		ret = VM_FAULT_NOPAGE;
++		goto out;
++	}
++
+ 	/* Map a range of pages around the faulty address. */
+ 	do {
+ 		pfn = page_to_pfn(pages[start_pgoff]);
+@@ -639,6 +664,11 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
+ 		goto out;
+ 	}
+ 
++	if (drm_gem_shmem_map_pmd(vmf, vmf->address, pages[page_offset])) {
++		ret = VM_FAULT_NOPAGE;
++		goto out;
++	}
++
+ 	pfn = page_to_pfn(pages[page_offset]);
+ 	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+ 
 -- 
 2.47.3
 
