@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FB7CCD1BA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B313CCD1BC
 	for <intel-gfx@archiver.kernel.org>; Tue, 21 Oct 2025 11:31:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6F1610E5C1;
-	Tue, 21 Oct 2025 11:31:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2E210E5C3;
+	Tue, 21 Oct 2025 11:31:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JBo247+a";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AOEk/KsS";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0277C10E5B4;
- Tue, 21 Oct 2025 11:31:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A9E310E5C2;
+ Tue, 21 Oct 2025 11:31:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1761046258;
- bh=b5DjKy8Ku5W6YjxLJ5sbdp7mTOI5CNz17N4tCTUcgu8=;
+ s=mail; t=1761046265;
+ bh=ROKoonOOaPmiRlBVqml71l+74uvjDMGSuEeXXfy4kSs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JBo247+aL1JX25fByWt1HEwt3SEbx1YeMbAdQ0IqQ67eXRvH9z9JYIOkfGwTd+U8l
- QiIDDrF74o723OS5FwS7yv15E72pHMPEq4cdEVkVsxqkLq4zTH/K0PFuHLNWwb0i6r
- jwrMmgi5KWer3/K585iB6n3sFieDrCdYYINNW7Qkaz9F4AXfUL1reEx00L+3Vu8kT7
- hzKIdP4jN24BBm25ssnHeSV9uVYyn33s/mYOtZgxkhLnoFjzu65AHsB25SIlYwL3FX
- g9jSs0j2u6AsE/oI/z4fSiiKG06CTZQtgtO78ervT37fjs3alX+3CkWciZc4HxbHWA
- mTb0hr/n2bIvQ==
+ b=AOEk/KsS2zt9mawXPmLPkeEnyAohfVhVSvWJwcYIKFAH1sx9L7MMj+N+L1onjTtEa
+ 46Q7GzJgjy2k7iOSZQE9Lox6GrSxl9SIdxmESJZMhl+u/0KGySyjmqGjga+IcGcAfA
+ bnWgxwajf2uW40hzd0n/Q4X/flKY5hGXBbF5gNmOEmAIbsm8yBmbLUhs2tmgZIWPjK
+ W6ryhaZ+TwMUn7XMKo0c9X3FYt8lTDsofWZCD7VIgPWVbA2Br2NUmHPl5sBxnf2Vt6
+ H/yw5pg4mVyGc/kCyCQMrxqg7MPEToMO9LFLc1AQ/tZuYc6bPbN4elVHAVaXzDHNg2
+ d1CZEJ3IJVkvg==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BFFB917E1407;
- Tue, 21 Oct 2025 13:30:57 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E3F1017E15DB;
+ Tue, 21 Oct 2025 13:31:04 +0200 (CEST)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v5 03/12] drm/shmem-helper: Map huge pages in fault handlers
-Date: Tue, 21 Oct 2025 13:30:40 +0200
-Message-ID: <20251021113049.17242-4-loic.molinari@collabora.com>
+Subject: [PATCH v5 10/12] drm/panthor: Improve IOMMU map/unmap debugging logs
+Date: Tue, 21 Oct 2025 13:30:47 +0200
+Message-ID: <20251021113049.17242-11-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251021113049.17242-1-loic.molinari@collabora.com>
 References: <20251021113049.17242-1-loic.molinari@collabora.com>
@@ -84,81 +84,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Check whether the starting address in the fault-around handler or the
-faulty address in the fault handler is part of a huge page in order to
-attempt a PMD sized PFN insertion into the VMA.
-
-On builds with CONFIG_TRANSPARENT_HUGEPAGE enabled, if the mmap() user
-address is PMD size aligned, if the GEM object is backed by shmem
-buffers on mountpoints setting the 'huge=' option and if the shmem
-backing store manages to allocate a huge folio, CPU mapping would then
-benefit from significantly increased memcpy() performance. When these
-conditions are met on a system with 2 MiB huge pages, an aligned copy
-of 2 MiB would raise a single page fault instead of 4096.
-
-v4:
-- implement map_pages instead of huge_fault
+Log the number of pages and their sizes actually mapped/unmapped by
+the IOMMU page table driver. Since a map/unmap op is often split in
+several ops depending on the underlying scatter/gather table, add the
+start address and the total size to the debugging logs in order to
+help understand which batch an op is part of.
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 30 ++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 2a9fbc9c3712..b7238448d4f9 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -580,6 +580,26 @@ static bool drm_gem_shmem_fault_is_valid(struct drm_gem_object *obj,
- 	return true;
- }
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 6dec4354e378..aefbd83d1a75 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -917,10 +917,9 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
+ {
+ 	struct panthor_device *ptdev = vm->ptdev;
+ 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
++	u64 start_iova = iova;
+ 	u64 offset = 0;
  
-+static bool drm_gem_shmem_map_pmd(struct vm_fault *vmf, unsigned long addr,
-+				  struct page *page)
-+{
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+	unsigned long pfn = page_to_pfn(page);
-+	unsigned long paddr = pfn << PAGE_SHIFT;
-+	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
+-	drm_dbg(&ptdev->base, "unmap: as=%d, iova=%llx, len=%llx", vm->as.id, iova, size);
+-
+ 	while (offset < size) {
+ 		size_t unmapped_sz = 0, pgcount;
+ 		size_t pgsize = get_pgsize(iova + offset, size - offset, &pgcount);
+@@ -935,6 +934,12 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
+ 			panthor_vm_flush_range(vm, iova, offset + unmapped_sz);
+ 			return  -EINVAL;
+ 		}
 +
-+	if (aligned &&
-+	    pmd_none(*vmf->pmd) &&
-+	    folio_test_pmd_mappable(page_folio(page))) {
-+		pfn &= PMD_MASK >> PAGE_SHIFT;
-+		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
-+			return true;
-+	}
-+#endif
++		drm_dbg(&ptdev->base,
++			"unmap: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pgcnt=%zu, pgsz=%zu",
++			vm->as.id, start_iova, size, iova + offset,
++			unmapped_sz / pgsize, pgsize);
 +
-+	return false;
-+}
-+
- static vm_fault_t drm_gem_shmem_map_pages(struct vm_fault *vmf,
- 					  pgoff_t start_pgoff,
- 					  pgoff_t end_pgoff)
-@@ -606,6 +626,11 @@ static vm_fault_t drm_gem_shmem_map_pages(struct vm_fault *vmf,
- 		goto out;
+ 		offset += unmapped_sz;
  	}
  
-+	if (drm_gem_shmem_map_pmd(vmf, addr, pages[start_pgoff])) {
-+		ret = VM_FAULT_NOPAGE;
-+		goto out;
-+	}
-+
- 	/* Map a range of pages around the faulty address. */
- 	do {
- 		pfn = page_to_pfn(pages[start_pgoff]);
-@@ -639,6 +664,11 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- 		goto out;
- 	}
+@@ -950,6 +955,7 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
+ 	struct scatterlist *sgl;
+ 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
+ 	u64 start_iova = iova;
++	u64 start_size = size;
+ 	int ret;
  
-+	if (drm_gem_shmem_map_pmd(vmf, vmf->address, pages[page_offset])) {
-+		ret = VM_FAULT_NOPAGE;
-+		goto out;
-+	}
-+
- 	pfn = page_to_pfn(pages[page_offset]);
- 	ret = vmf_insert_pfn(vma, vmf->address, pfn);
+ 	if (!size)
+@@ -969,15 +975,18 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
+ 		len = min_t(size_t, len, size);
+ 		size -= len;
  
+-		drm_dbg(&ptdev->base, "map: as=%d, iova=%llx, paddr=%pad, len=%zx",
+-			vm->as.id, iova, &paddr, len);
+-
+ 		while (len) {
+ 			size_t pgcount, mapped = 0;
+ 			size_t pgsize = get_pgsize(iova | paddr, len, &pgcount);
+ 
+ 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
+ 					     GFP_KERNEL, &mapped);
++
++			drm_dbg(&ptdev->base,
++				"map: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pa=%pad, pgcnt=%zu, pgsz=%zu",
++				vm->as.id, start_iova, start_size, iova, &paddr,
++				mapped / pgsize, pgsize);
++
+ 			iova += mapped;
+ 			paddr += mapped;
+ 			len -= mapped;
 -- 
 2.47.3
 
