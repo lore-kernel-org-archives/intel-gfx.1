@@ -4,54 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17B66CCF9E2
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 08:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC415CCD1BC
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Oct 2025 08:30:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A648D10E8DA;
-	Thu, 23 Oct 2025 08:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E89E10E8DF;
+	Thu, 23 Oct 2025 08:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jBbEqImG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TH5T6hSt";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8EAE10E8DF;
- Thu, 23 Oct 2025 08:29:14 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 467E010E8E9;
+ Thu, 23 Oct 2025 08:30:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761208155; x=1792744155;
+ t=1761208214; x=1792744214;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=E37QXafukE70l8MrWmXV6hWV09rvucnXBIcp/Q4UjkA=;
- b=jBbEqImGROAqLesIc21fOtNntyqu92Gf1YEjT/x5+ANsw7MbPzV19TZX
- SSbw2Yv/JvlRNELxlhaRZG5NdZkOTkPqdj3PTndr1kGxFYn78ZUyq5/Rx
- 6m1tDI6wI6qrmZImCOoCTaFUco0x4q7kNVkl6CkN+FqniH7Vqr/CR5/5j
- ImMXu8LFXWrrQTLX4FbntJh+pEZ6ucowYYIpwPnkZI/I1bmRmAzeNkCQ0
- EXPWc7D5rnBt72dVgO+wAWq+DTWMX9Jtmz6flWcHSK8dgcG+bhLoYObCj
- cX/pX7QEnbIBrqSPKIz1KT+OY690NJanJqpT2AoftZKxXtKvulHzJjwkd A==;
-X-CSE-ConnectionGUID: /FbQPTTBTsO2JVwa1FHpRA==
-X-CSE-MsgGUID: 9j0KkvgIRdiKWRtwBvsCcg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="74808952"
-X-IronPort-AV: E=Sophos;i="6.19,249,1754982000"; d="scan'208";a="74808952"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2025 01:29:14 -0700
-X-CSE-ConnectionGUID: e1BvGCSgQw66V6Jcbd27PA==
-X-CSE-MsgGUID: B90e2hN1RkCReISfxvow1w==
+ bh=rfv8kn19RWzq4iC1PzwMQG+8pShCvAypKFyENytMtME=;
+ b=TH5T6hSt6wB1VnFUwtQHNpwbZI7/QU1zArxbiPjFFC5dwoJMVTxqMUiZ
+ VAHlhOkrJtj9voyx3JbWJK7XvJsHym4+ylLpfT4dWT97EwpjP7v1+pYKV
+ /y/KYq8ZT2aLteF6jVk4q5U3/lPhsy1Uv+G9BuWitOR6mEWRcrGkRp4cv
+ ko1BfiljMU7LQXyVpyukIC8OhHp+bBWujEr1mMeyEjy5dolcr5ktFN2gx
+ RzwlUuKkgFTF8DRU4mQlPaKMakGOLkSLjMDo08efirjW2CAcvS11WwOmc
+ zcjrB9nQbJH8NombdZ1TQPiUHm7FobKEjGPPPpNAdx6ckUlcHZEOjPZ7n A==;
+X-CSE-ConnectionGUID: 6opNhKtDSN2miLgGqSanzA==
+X-CSE-MsgGUID: gHykzpcvTo2X8Jn3Zf744w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11586"; a="63264852"
+X-IronPort-AV: E=Sophos;i="6.19,249,1754982000"; d="scan'208";a="63264852"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 01:30:14 -0700
+X-CSE-ConnectionGUID: 0Q+1dL3JSsqKC6b76K/ZiQ==
+X-CSE-MsgGUID: haWOVBjKSR6ijhQlwVYXxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,249,1754982000"; d="scan'208";a="184163027"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2025 01:29:12 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jouni.hogander@intel.com, ville.syrjala@linux.intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH] drm/i915/vrr: Fix transmission line for Adaptive Sync SDP
-Date: Thu, 23 Oct 2025 13:46:14 +0530
-Message-ID: <20251023081614.2645242-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
+X-IronPort-AV: E=Sophos;i="6.19,249,1754982000"; d="scan'208";a="183319550"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.244.189])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2025 01:30:10 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH v3 0/3] drm/i915: Avoid lock inversion when pinning to GGTT
+Date: Thu, 23 Oct 2025 10:25:18 +0200
+Message-ID: <20251023082925.351307-5-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,67 +74,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently the EMP_AS_SDP_TL is set to vrr.vsync_start which is
-incorrect.
+On completion of i915_vma_pin_ww(), a synchronous variant of
+dma_fence_work_commit() is called.  When pinning a VMA to GGTT address
+space on a Cherry View family processor, or on a Broxton generation SoC
+with VTD enabled, i.e., when stop_machine() is then called from
+intel_ggtt_bind_vma(), that can potentially lead to lock inversion among
+reservation_ww and cpu_hotplug locks.
 
-As per Bspec:71197 the transmission line must be within the SCL +
-guardband region. Before guardband optimization, guradband was same as
-vblank length so EMP_AS_SDP_TL set with vrr.sync_start was falling in
-this region and it was not giving an issue.
+Call asynchronous variant of dma_fence_work_commit() in that case.  With
+that in place, adjust two selftest affected by that change.
 
-Now with optimized guardband, this is falling outside the SCL +
-guardband region and since the same transmission line is used by VSC SDP
-also, this results in PSR timeout issues.
+v3: Provide more verbose in-line comment (Andi; 1/3, 2/3),
+  - mention target environments in commit message (1/3).
+v2: Fix spelling (Sebastian, Krzysztof; 2/3),
+  - explain why VMA pinning is commited asynchronously on CHV/BXT+VTD
+    (Krzysztof; 2/3, 3/3),
+  - use more precise wording in commit description (3/3).
 
-Further restrictions on the position of the transmission line:
-For DP/eDP, if there is a set context latency (SCL) window, then it
-cannot be the first line of SCL
-For DP/eDP, if there is no SCL window, then it cannot be the first line of
-the Delayed V. Blank
+Janusz Krzysztofik (3):
+  drm/i915: Avoid lock inversion when pinning to GGTT on CHV/BXT+VTD
+  drm/i915: Wait longer for threads in migrate selftest on CHV/BXT+VTD
+  drm/i915: Wait for page_sizes_gtt in gtt selftest on CHV/BXT+VTD
 
-Fix the EMP_AS_SDP_TL to VTOTAL - (delayed vblank_start - SCL + 1)
-Internally the HW computes the value as VTOTAL - EMP_AS_SDP_TL.
+ drivers/gpu/drm/i915/gt/selftest_migrate.c    |  9 ++++++++-
+ drivers/gpu/drm/i915/i915_vma.c               | 16 ++++++++++++++--
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c |  4 ++++
+ 3 files changed, 26 insertions(+), 3 deletions(-)
 
-Fixes: e1123e617e51 ("drm/i915/vrr: Program EMP_AS_SDP_TL for DP AS SDP")
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Jouni Högander <jouni.hogander@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vrr.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 92fb72b56f16..dd81d2133aba 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -655,18 +655,24 @@ void intel_vrr_set_db_point_and_transmission_line(const struct intel_crtc_state
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+	int transmission_line;
- 
- 	/*
- 	 * For BMG and LNL+ onwards the EMP_AS_SDP_TL is used for programming
- 	 * double buffering point and transmission line for VRR packets for
- 	 * HDMI2.1/DP/eDP/DP->HDMI2.1 PCON.
- 	 * Since currently we support VRR only for DP/eDP, so this is programmed
--	 * to for Adaptive Sync SDP to Vsync start.
-+	 * for Adaptive Sync SDP.
- 	 */
--	if (DISPLAY_VERx100(display) == 1401 || DISPLAY_VER(display) >= 20)
-+	if (DISPLAY_VERx100(display) == 1401 || DISPLAY_VER(display) >= 20) {
-+		transmission_line = adjusted_mode->crtc_vtotal - (adjusted_mode->crtc_vblank_start -
-+								  crtc_state->set_context_latency +
-+								  1);
- 		intel_de_write(display,
- 			       EMP_AS_SDP_TL(display, cpu_transcoder),
--			       EMP_AS_SDP_DB_TL(crtc_state->vrr.vsync_start));
-+			       EMP_AS_SDP_DB_TL(transmission_line));
-+	}
- }
- 
- static int intel_vrr_hw_vmin(const struct intel_crtc_state *crtc_state)
+Cc: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>
 -- 
-2.45.2
+2.51.0
 
