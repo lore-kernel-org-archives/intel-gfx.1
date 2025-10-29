@@ -4,81 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830E6CCF9F0
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 13:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BDA9CCF9FF
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 13:05:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8776410E26C;
-	Thu, 30 Oct 2025 13:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 215F310E26D;
+	Thu, 30 Oct 2025 13:05:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="A7gT8hbq";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="A7gT8hbq";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="QQuycoPs";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ei5WI6UG";
 	dkim-atps=neutral
-X-Greylist: delayed 944 seconds by postgrey-1.36 at gabe;
- Tue, 28 Oct 2025 02:11:40 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E59210E064;
- Tue, 28 Oct 2025 02:11:40 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=KtvB1oS5JczByJ2TXJbSMekROy5U9Mx/XYWBZ+fYkHA=;
- b=A7gT8hbqcf1aNZZeClcqtU4HxgyLOxf+3xdLrC8jUe8vHKhZ1LQNE8l8SKUtwaXK9LQz7rCyl
- lk9MkCiBuwNYVYuwRKropa5IUssDfu9mJHKsffJQzdjrpvVV6aaeXCfQ//mhWQ7v3JnOpgSoyxp
- oDXln4mSG91mIVyZjIf8s2U=
-Received: from canpmsgout03.his.huawei.com (unknown [172.19.92.159])
- by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4cwYNH0pMBz1BFnt;
- Tue, 28 Oct 2025 09:54:55 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=KtvB1oS5JczByJ2TXJbSMekROy5U9Mx/XYWBZ+fYkHA=;
- b=A7gT8hbqcf1aNZZeClcqtU4HxgyLOxf+3xdLrC8jUe8vHKhZ1LQNE8l8SKUtwaXK9LQz7rCyl
- lk9MkCiBuwNYVYuwRKropa5IUssDfu9mJHKsffJQzdjrpvVV6aaeXCfQ//mhWQ7v3JnOpgSoyxp
- oDXln4mSG91mIVyZjIf8s2U=
-Received: from mail.maildlp.com (unknown [172.19.163.48])
- by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4cwYMt0r7lzpStg;
- Tue, 28 Oct 2025 09:54:34 +0800 (CST)
-Received: from dggpemf500015.china.huawei.com (unknown [7.185.36.143])
- by mail.maildlp.com (Postfix) with ESMTPS id 2A5C71800B4;
- Tue, 28 Oct 2025 09:55:50 +0800 (CST)
-Received: from [10.67.121.110] (10.67.121.110) by
- dggpemf500015.china.huawei.com (7.185.36.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 28 Oct 2025 09:55:48 +0800
-Subject: Re: [PATCH 02/22] vfio/hisi: Convert to the get_region_info op
-To: Jason Gunthorpe <jgg@nvidia.com>, Alexander Gordeev
- <agordeev@linux.ibm.com>, David Airlie <airlied@gmail.com>, Alex Williamson
- <alex.williamson@redhat.com>, Ankit Agrawal <ankita@nvidia.com>, Christian
- Borntraeger <borntraeger@linux.ibm.com>, Brett Creeley
- <brett.creeley@amd.com>, <dri-devel@lists.freedesktop.org>, Eric Auger
- <eric.auger@redhat.com>, Eric Farman <farman@linux.ibm.com>, Giovanni Cabiddu
- <giovanni.cabiddu@intel.com>, Vasily Gorbik <gor@linux.ibm.com>, Heiko
- Carstens <hca@linux.ibm.com>, <intel-gfx@lists.freedesktop.org>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Kevin Tian <kevin.tian@intel.com>,
- <kvm@vger.kernel.org>, Kirti Wankhede <kwankhede@nvidia.com>,
- <linux-s390@vger.kernel.org>, Matthew Rosato <mjrosato@linux.ibm.com>, Nikhil
- Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>, Peter
- Oberparleiter <oberpar@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
- Pranjal Shrivastava <praan@google.com>, <qat-linux@intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Shameer Kolothum
- <skolothumtho@nvidia.com>, Mostafa Saleh <smostafa@google.com>, Sven Schnelle
- <svens@linux.ibm.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- <virtualization@lists.linux.dev>, Vineeth Vijayan <vneethv@linux.ibm.com>,
- Yishai Hadas <yishaih@nvidia.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi
- Wang <zhi.wang.linux@gmail.com>
-CC: <patches@lists.linux.dev>
-References: <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
-From: liulongfang <liulongfang@huawei.com>
-Message-ID: <bdb90638-3439-be4e-8722-6e8f9564b7b4@huawei.com>
-Date: Tue, 28 Oct 2025 09:55:47 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6894F10E057
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 09:42:38 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 59T4uqS33642838
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 09:42:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ MmgRKySPBYPzkhHOeDW0BeEkxDUdUPpQf5CBxkBMstI=; b=QQuycoPs+C/VeFQM
+ etXGcA454gTXTyTo+Z0pkOabIRfNOIDe5qcGphTys7OTdaXoZ6lCv6fhWR8TdhIp
+ QKhZAvzohOpCHrveLE883tDiUVxPXIftlLBEIGuz18V9BjEzPu/SwVnZqfyr8HRL
+ N2jAhAN8wCSosm1UvKGweyNQY8NIYfQ8sfFlrUAytVkQro0hWt3NfHiHvoCGGC0F
+ CRylK4rV+9q5mXlHJScqWfiOThdJaDUiSZMUB6KdBWiuwcadmmQtadRwBBZX4Jmm
+ R9mWcHxphDVBhc1fI3VSIMaaQUFmsDYKPbUyVMfLT9V3bs03igtoxmx3Q1ST37O9
+ xkkFPA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4a34a1j29p-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 09:42:37 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8a03b09b54eso111022385a.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 29 Oct 2025 02:42:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1761730957; x=1762335757;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MmgRKySPBYPzkhHOeDW0BeEkxDUdUPpQf5CBxkBMstI=;
+ b=Ei5WI6UGxcM1H32alnZI0m6w02LT39h6DgzOL5vlg3JZ7RiPuG8xZ1sYThOvSz9/Jk
+ ckV0YZDCB7N8eo8//JkstqOhCt6LVkwg/662MnQtx7/mVLChdL1sl+y1njwDt7lz/YzJ
+ dpTVMbroSkUbxTwqgfKZ3O16vgcyRwyVH5TlTn7oQ9R1n46SqSaAXol/TCJsrJvD1W1U
+ 8F3lIhepwD6tcl6RRPT8t3Ulfid4SlD51uMggcFyE8UOtHFwmF9kmYt3OUOg/F5rW5Pc
+ G1eMTh45Qpm6onFkcUhABboizxlEbV5UPvUzX5lkKQk9kS+qrQkKjFpGCnSu+S50Bia0
+ vHlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761730957; x=1762335757;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MmgRKySPBYPzkhHOeDW0BeEkxDUdUPpQf5CBxkBMstI=;
+ b=KcZoJIH14B49qW0tNhrXJy/NoGtVmPEH6eF3w8bY2yPFqfPtGTItlQ9XNKJKmprP4T
+ ke7RWupklPhDRcZukp4s9GVCe1z0sdBeTsIWxfnxgDhhz1YdIgD7Puk9tUSKYhDvalmD
+ ttar1gCRjwOs7ntYJI/4mWjl0TnMYeEgZ0pO3zecFlq7x8s8WzAWLfXKhq7T6Cf6FriM
+ cuBbNft+3r7WrLMWcuy2uuzsDtTJiPCFV+VgGrlKtrC4pL0Nrm9TCgkwpKulHIHbtu8k
+ VDEPliHAvfl3OQEzX/aNNbpITw21ncVM15KoRvMI6KNdcAao4w4IHMygBiFzHVujDMIF
+ VT9A==
+X-Gm-Message-State: AOJu0Yye67t1ybI3eDqvFvG4YAPOjrBOqNf5muoasOhRWTCkM5iuKAfp
+ 4FNf5lw++dv9cEduzV2Qz9n2iun/WVIy7eD1kngMCIljQpHPqRXpyCY1rE+VAVWk7RNGLvPq20D
+ Fw5bvL2EwtvL/nOocRaBhAD3MJWqPfCVOFIm+EGn1kKfe8pvsb9/F+xpxjD2jCL4+ZHHyr2U=
+X-Gm-Gg: ASbGnctyjcjnC6nA9c2XbPm1HKGssvJdrF4xjv9CBbpWTlv/1Xt/Wy0I4c5vs8SJ909
+ ZjV9GMbnOnpAIMo/f2wNiiBLyuioEq++mBuFFzb5fIv6ERb4mFhnRunHuiXjA1XR2VWagUj7D/Z
+ FSlUphmri6jMSEt+cdBmSuro/Y4WiRd1u5MY8BuIQfuwnvBJhDvFXWuDs9JwrougPxneVK17H3I
+ zQ21BlYjgbSOMWfxNx0aDxHVNHp6OCpLev8WE7PgmzdSWW/DVN/xoB6u4dNLpQiMMAqRDgPhPD+
+ cGw0ECoa5uQMrTlNt+pPRr9N57v0hkA57EcpuxtTTPRGZ1cGHFYubiVmciy73Ol3EcDhP0DEIol
+ SITvXZtGMRgnUUcmiZqHFeDvoFBsUxQETo7lYHcP3XvfZ39pVjgmWzndj
+X-Received: by 2002:a05:620a:bce:b0:878:408d:c09a with SMTP id
+ af79cd13be357-8a8e34d22c9mr206432685a.4.1761730956912; 
+ Wed, 29 Oct 2025 02:42:36 -0700 (PDT)
+X-Google-Smtp-Source: AGHT+IEyzw2uooaE3FP8gd0prarw9B+NMvunoxzP7rKqKh5OTI7VSeSeyuZJuSI/cuTYOFoNrAsYcA==
+X-Received: by 2002:a05:620a:bce:b0:878:408d:c09a with SMTP id
+ af79cd13be357-8a8e34d22c9mr206430585a.4.1761730956406; 
+ Wed, 29 Oct 2025 02:42:36 -0700 (PDT)
+Received: from [192.168.119.202] (078088045245.garwolin.vectranet.pl.
+ [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b6d8541e99fsm1389534266b.61.2025.10.29.02.42.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Oct 2025 02:42:35 -0700 (PDT)
+Message-ID: <78679e08-2a38-477b-a080-be0442465fbe@oss.qualcomm.com>
+Date: Wed, 29 Oct 2025 10:42:33 +0100
 MIME-Version: 1.0
-In-Reply-To: <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
-Content-Type: text/plain; charset="gbk"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/display/dp: Rename bit 4 of DPCD TEST_REQUEST to
+ match DP2.1 spec
+To: Khaled Almahallawy <khaled.almahallawy@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-msm@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@intel.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>, Sean Paul <sean@poorly.run>
+References: <20251028222817.3290035-1-khaled.almahallawy@intel.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20251028222817.3290035-1-khaled.almahallawy@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.67.121.110]
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemf500015.china.huawei.com (7.185.36.143)
+X-Authority-Analysis: v=2.4 cv=dbiNHHXe c=1 sm=1 tr=0 ts=6901e18d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
+ a=IkcTkHD0fZMA:10 a=x6icFKpwvdMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=QyXUC8HyAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8
+ a=COk6AnOGAAAA:8 a=DweoPDKG-9ER2baVzYcA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: ra2WQqY8NUbNc02JJQHlsO7SS_Pm0wnz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUxMDI5MDA3MiBTYWx0ZWRfX/ezgntIS8glx
+ udWQiBruGzqrOQnkExnUMz1UKgNNkjPzciInVtwXFVBTOtDEiq/UepC+hCTHQ1zgmtTMrZr6AT1
+ 6yQEZuxAGI3V9NYQzM9TasmG82Be/VXfgQZkNWp+MgOwEWfTdgzkBIoPVGhV5ky5bzjmxqDMzCg
+ lR5FBo1SW9r8GYDGoAr1C3dgoh1GoZCcZ93piaFJ5iYD5O2KpEUHO+zZXta0AlKPGLs2EUyYuSW
+ A7onvSAn5tP5Uf7sQ0ysZZSX+7tOa2LxJ2ZJRWlRC/mMY3YAJdQwZTc7wo5WAMRnyvE62pNdMYL
+ syyVL2KdoYJpXk5H5xmwFaz4gImPYBrq7KlpHdCg23+lsUyznV6TeJw05xbQAprNEseLp9Da6Ul
+ Lomyo2A3jSAsm1bQZ0we1YuVp3tCoA==
+X-Proofpoint-GUID: ra2WQqY8NUbNc02JJQHlsO7SS_Pm0wnz
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-10-29_04,2025-10-22_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 clxscore=1011 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2510240001 definitions=main-2510290072
 X-Mailman-Approved-At: Thu, 30 Oct 2025 13:05:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,103 +142,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2025/10/24 7:09, Jason Gunthorpe wrote:
-> Change the function signature of hisi_acc_vfio_pci_ioctl()
-> and re-indent it.
+On 10/28/25 11:28 PM, Khaled Almahallawy wrote:
+> The DP_TEST_LINK_FAUX_PATTERN field was deprecated in the DP 1.3 spec.
+> Update its name to align with the DP 2.1 definition and reflect its
+> actual use in the code. No functional changes.
 > 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Cc: Rob Clark <robin.clark@oss.qualcomm.com>
+> Cc: Dmitry Baryshkov <lumag@kernel.org>
+> Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>
+> Cc: Sean Paul <sean@poorly.run>
+> Signed-off-by: Khaled Almahallawy <khaled.almahallawy@intel.com>
 > ---
->  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 57 +++++++++----------
->  1 file changed, 27 insertions(+), 30 deletions(-)
+>  drivers/gpu/drm/msm/dp/dp_link.c | 2 +-
+>  include/drm/display/drm_dp.h     | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> index fde33f54e99ec5..f06dcfcf09599f 100644
-> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> @@ -1324,43 +1324,39 @@ static ssize_t hisi_acc_vfio_pci_read(struct vfio_device *core_vdev,
->  	return vfio_pci_core_read(core_vdev, buf, new_count, ppos);
->  }
+> diff --git a/drivers/gpu/drm/msm/dp/dp_link.c b/drivers/gpu/drm/msm/dp/dp_link.c
+> index 66e1bbd80db3..5d465cf4dbc2 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_link.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_link.c
+> @@ -665,7 +665,7 @@ static int msm_dp_link_parse_request(struct msm_dp_link_private *link)
+>  		return rlen;
+>  	}
 >  
-> -static long hisi_acc_vfio_pci_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
-> -				    unsigned long arg)
-> +static int hisi_acc_vfio_get_region(struct vfio_device *core_vdev,
-> +				    struct vfio_region_info __user *arg)
->  {
-> -	if (cmd == VFIO_DEVICE_GET_REGION_INFO) {
-> -		struct vfio_pci_core_device *vdev =
-> -			container_of(core_vdev, struct vfio_pci_core_device, vdev);
-> -		struct pci_dev *pdev = vdev->pdev;
-> -		struct vfio_region_info info;
-> -		unsigned long minsz;
-> +	struct vfio_pci_core_device *vdev =
-> +		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	struct vfio_region_info info;
-> +	unsigned long minsz;
->  
-> -		minsz = offsetofend(struct vfio_region_info, offset);
-> +	minsz = offsetofend(struct vfio_region_info, offset);
->  
-> -		if (copy_from_user(&info, (void __user *)arg, minsz))
-> -			return -EFAULT;
-> +	if (copy_from_user(&info, arg, minsz))
-> +		return -EFAULT;
->  
-> -		if (info.argsz < minsz)
-> -			return -EINVAL;
-> +	if (info.argsz < minsz)
-> +		return -EINVAL;
->  
-> -		if (info.index == VFIO_PCI_BAR2_REGION_INDEX) {
-> -			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
-> +	if (info.index != VFIO_PCI_BAR2_REGION_INDEX)
-> +		return vfio_pci_ioctl_get_region_info(core_vdev, arg);
+> -	if (!data || (data == DP_TEST_LINK_FAUX_PATTERN)) {
+> +	if (!data || (data == DP_TEST_PHY_TEST_CHANNEL_CODING_TYPE)) {
+>  		drm_dbg_dp(link->drm_dev, "link 0x%x not supported\n", data);
+>  		goto end;
+>  	}
+> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+> index e4eebabab975..610b8cbf1125 100644
+> --- a/include/drm/display/drm_dp.h
+> +++ b/include/drm/display/drm_dp.h
+> @@ -849,7 +849,7 @@
+>  # define DP_TEST_LINK_VIDEO_PATTERN	    (1 << 1)
+>  # define DP_TEST_LINK_EDID_READ		    (1 << 2)
+>  # define DP_TEST_LINK_PHY_TEST_PATTERN	    (1 << 3) /* DPCD >= 1.1 */
+> -# define DP_TEST_LINK_FAUX_PATTERN	    (1 << 4) /* DPCD >= 1.2 */
+> +# define DP_TEST_PHY_TEST_CHANNEL_CODING_TYPE	    (1 << 4)
 
-Looking at your first patch from my driver implementation code, the vfio_pci_ioctl_get_region_info
-function doesn't need to modify the first parameter; it can directly use vdev.
+I think it'd be useful to keep a comment of what it was before the
+deprecation and rename
 
-Thanks.
-Longfang.
-
->  
-> -			/*
-> -			 * ACC VF dev BAR2 region consists of both functional
-> -			 * register space and migration control register space.
-> -			 * Report only the functional region to Guest.
-> -			 */
-> -			info.size = pci_resource_len(pdev, info.index) / 2;
-> +	info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
->  
-> -			info.flags = VFIO_REGION_INFO_FLAG_READ |
-> -					VFIO_REGION_INFO_FLAG_WRITE |
-> -					VFIO_REGION_INFO_FLAG_MMAP;
-> +	/*
-> +	 * ACC VF dev BAR2 region consists of both functional
-> +	 * register space and migration control register space.
-> +	 * Report only the functional region to Guest.
-> +	 */
-> +	info.size = pci_resource_len(pdev, info.index) / 2;
->  
-> -			return copy_to_user((void __user *)arg, &info, minsz) ?
-> -					    -EFAULT : 0;
-> -		}
-> -	}
-> -	return vfio_pci_core_ioctl(core_vdev, cmd, arg);
-> +	info.flags = VFIO_REGION_INFO_FLAG_READ | VFIO_REGION_INFO_FLAG_WRITE |
-> +		     VFIO_REGION_INFO_FLAG_MMAP;
-> +
-> +	return copy_to_user(arg, &info, minsz) ? -EFAULT : 0;
->  }
->  
->  static int hisi_acc_vf_debug_check(struct seq_file *seq, struct vfio_device *vdev)
-> @@ -1557,7 +1553,8 @@ static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
->  	.release = vfio_pci_core_release_dev,
->  	.open_device = hisi_acc_vfio_pci_open_device,
->  	.close_device = hisi_acc_vfio_pci_close_device,
-> -	.ioctl = hisi_acc_vfio_pci_ioctl,
-> +	.ioctl = vfio_pci_core_ioctl,
-> +	.get_region_info = hisi_acc_vfio_get_region,
->  	.device_feature = vfio_pci_core_ioctl_feature,
->  	.read = hisi_acc_vfio_pci_read,
->  	.write = hisi_acc_vfio_pci_write,
-> 
+Konrad
