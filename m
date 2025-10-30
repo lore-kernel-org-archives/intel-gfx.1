@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8835CCF9FC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE09CCCF9F8
 	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 07:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48CAB10E921;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49EFF10E922;
 	Thu, 30 Oct 2025 07:35:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gD4Xp240";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IAl+wYsT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C66B10E8FF;
- Thu, 30 Oct 2025 07:35:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2AAC10E8E9;
+ Thu, 30 Oct 2025 07:35:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761809718; x=1793345718;
+ t=1761809711; x=1793345711;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xJqwWCie4ZVSsxd3CJ9imueHZ/QHz1fW7nsLpd7Z38w=;
- b=gD4Xp240UBQPZiZnk7YdRUXtGqCv+XWjoMuMlruruOYoH7rR7JeINXCD
- 61+WUaeSYgg1s/ga4QVu/PwBpakG4Jp8NHyn/jkoRNER65M+817TuXWc3
- B2euccygxLZt0Y9O7cJ8SUReoX+rOVwknhcNnqbgzmYNi1nvptM+kg/9c
- tdtNQIPEQHuj3ViRzn5XCqE7xCsrkEgZ/ZkBJJBglOai4QFApTy8C/e9G
- +gz+nv+3vgf/vQB/Ml7gKli6pwoE899EkRSocjQELVGMgfJMYf1JCwrrN
- Ub17+GffqulLFQAv88dnn23cj6P0pdSmirN7sXF5pqlK1dZyrIaRSjGav A==;
-X-CSE-ConnectionGUID: mhLkjbNtTXylDaJjnkwAXg==
-X-CSE-MsgGUID: Ar+/3qOCThSsuRK2syQAFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="75063408"
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="75063408"
+ bh=HKdwg0+PYycKP2eyEMPyeIh1lWNJrOR4A9gNjNdqew4=;
+ b=IAl+wYsThXIUvgg/xhengBtV2WlhIG+51GF5YH6Uzj2bEy5G4opMMSGB
+ 7acd4ocqK/F9HHjrQZwUUxLVgDc+BgFm1ywQ6Iv9ag7XyePuED1XUB1gc
+ m3fGtaso8x8f61L8hTEuJ2ci0Twwaf+Tx7G/twiNTrqv7kSoU0PF9ThvX
+ SSXFK6qn17ozT1jnQgDLLRlpRjncY1dmNTfe610TeB65lhxobJ/IMcVvn
+ DOzhKBQo8n8M2yBewmkn4Z1YaO4k8OyvAz7RSbyJ+tCRNDBOVAIPEKiPt
+ Wd9ifHeJ00OYNb3FKic7ncQ02AsTxODIXn7HO9nc+0cwwCBGPpnNa2/Ku w==;
+X-CSE-ConnectionGUID: iROkKJfNQwK3WlJo3Hfr/A==
+X-CSE-MsgGUID: rUnwOCLIRrCkxYTGItdieQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="75063398"
+X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="75063398"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 00:35:17 -0700
-X-CSE-ConnectionGUID: twOfTPXaSJOY20DPme6DwA==
-X-CSE-MsgGUID: +vjIYxpQSJC1SsO5lONpcw==
+ 30 Oct 2025 00:35:10 -0700
+X-CSE-ConnectionGUID: /cgRk8YhSf6f1D3kSOuStg==
+X-CSE-MsgGUID: iAuzuQpORAGsbcE/Hq5JEg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="185075518"
+X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="185075469"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa006.jf.intel.com with ESMTP; 30 Oct 2025 00:35:15 -0700
+ by orviesa006.jf.intel.com with ESMTP; 30 Oct 2025 00:35:08 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@intel.com>,
-	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH 28/32] drm/i915/display: PLL verify debug state print
-Date: Thu, 30 Oct 2025 09:22:45 +0200
-Message-Id: <20251030072249.155095-29-mika.kahola@intel.com>
+Cc: Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH 22/32] drm/i915/display: Add .update_dpll_ref_clks
+Date: Thu, 30 Oct 2025 09:22:39 +0200
+Message-Id: <20251030072249.155095-23-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251030072249.155095-1-mika.kahola@intel.com>
 References: <20251030072249.155095-1-mika.kahola@intel.com>
@@ -68,44 +67,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Imre Deak <imre.deak@intel.com>
+Add .update_dpll_ref_clks function pointer to MTL+
+platforms to support dpll framework. Reusing ICL
+function pointer.
 
-Print out hw and sw pll states for better debugging support.
-
-Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 07bc99ae689c..6cc85a9a781f 100644
+index 3b62943e2748..01e649d66f08 100644
 --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
 +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4882,11 +4882,18 @@ verify_single_dpll_state(struct intel_display *display,
- 				 "%s: pll enabled crtcs mismatch (expected 0x%x in 0x%x)\n",
- 				 pll->info->name, pipe_mask, pll->state.pipe_mask);
+@@ -4450,6 +4450,7 @@ static const struct intel_dpll_mgr mtl_pll_mgr = {
+ 	.get_dplls = mtl_get_dplls,
+ 	.put_dplls = icl_put_dplls,
+ 	.update_active_dpll = icl_update_active_dpll,
++	.update_ref_clks = icl_update_dpll_ref_clks,
+ };
  
--	INTEL_DISPLAY_STATE_WARN(display,
--				 pll->on && memcmp(&pll->state.hw_state, &dpll_hw_state,
--						   sizeof(dpll_hw_state)),
--				 "%s: pll hw state mismatch\n",
--				 pll->info->name);
-+	if (INTEL_DISPLAY_STATE_WARN(display,
-+				     pll->on && memcmp(&pll->state.hw_state, &dpll_hw_state,
-+						       sizeof(dpll_hw_state)),
-+				     "%s: pll hw state mismatch\n",
-+				     pll->info->name)) {
-+		struct drm_printer p = drm_dbg_printer(display->drm, DRM_UT_KMS, NULL);
-+
-+		drm_printf(&p, "PLL %s HW state:\n", pll->info->name);
-+		intel_dpll_dump_hw_state(display, &p, &dpll_hw_state);
-+		drm_printf(&p, "PLL %s SW state:\n", pll->info->name);
-+		intel_dpll_dump_hw_state(display, &p, &pll->state.hw_state);
-+	}
- }
- 
- static bool has_alt_port_dpll(const struct intel_dpll *old_pll,
+ /**
 -- 
 2.34.1
 
