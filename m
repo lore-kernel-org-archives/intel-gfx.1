@@ -4,156 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 110E0CCF9F1
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 10:50:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3430CCF9F0
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 11:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C93910E91D;
-	Thu, 30 Oct 2025 10:50:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AE2810E900;
+	Thu, 30 Oct 2025 11:17:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ykqm67Z4";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CkzMs23u";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Evz0+Qsd";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CkzMs23u";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Evz0+Qsd";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010000.outbound.protection.outlook.com [52.101.201.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D47C10E8FB;
- Thu, 30 Oct 2025 10:50:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4QuMxDCWq9GcJvNCeR+NYFsjnWAhSJgjvtismspHN5GO1gA3VUhDE2s19ePWT5McSDwrRbnRWXqXp1Wokx38XPp3ptZQCoTfqU6ha3xovoVYL/UL4QQIbEf8I69qUbxGEccsixV3mHz7hZnqzH1tQrgFa0nJpa/NmIPNxChQmDovKn3Ou19C/O22vO0IAZYGSXoKp2bsY3zrdDpQxiRLUkCmdYveDmdWaZk2t/nUOtVCcV9yKJ3wejDtc6QH+elefISrd3ljt/BZiIqfCqZ+vjhgJpjqIGMf/1XgmFNgzpF9FlFWhptv6JmjyYceD9SaV0Cikyo2t9x+QgArFGdPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JjXgIqJUOyinh78ykMwMpNtOFIeeoUi7o4PRSF6meaM=;
- b=Cjuljpb7y3ixOh737wbqfnhqYOP4E5WbkIT03vg/TgKGXuYBkWBENxms/4UMT0T1Cor6jqRJ+1ypQaRXcIdYpHJzrOwCVRlvmKHI5+jTG1Uwyu0WGkvnE2bWn02BrYW2UpwGSdG6UL2gMZoWcoI8w8X9TJW5ogLnvT71iSZxk+dQG3VXHCPDTis22ZGFrcRrqkoQu5W2bX36MFpSQF9qtHVucrkx5Ig1ZTNFFWkb4/3p2FOp1yC9MlvnTbXzjEO0UrTqGTKWFafzNKIAo82UIrZf10/LxoNqG4D2eRQS0cO+CPi9G5o8P2mCGm3N3npHK8MSATqQNZOCI3Nw2B79ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JjXgIqJUOyinh78ykMwMpNtOFIeeoUi7o4PRSF6meaM=;
- b=ykqm67Z4iMajYOaapZQQMGm8EMsFz3h6fjoxGTLAqGZcMTwOM38GQR8PSuwolVnMPSaiVu9V7cMXat3hzG5aPiqTPppeYT7qwgHn6NrUIgtZniR1dC6cZdI74CKXliF+A884C1YtnbfBVVLyRPPiRbXi2fTPkpK24+aaX+7PWQw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7649.namprd12.prod.outlook.com (2603:10b6:208:437::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Thu, 30 Oct
- 2025 10:50:09 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9275.013; Thu, 30 Oct 2025
- 10:50:09 +0000
-Message-ID: <2d8f4e8c-10b5-4783-855f-c7f0f7343ea2@amd.com>
-Date: Thu, 30 Oct 2025 11:50:04 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Take a breath during dma-fence-chain subtests
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Nitin Gote
- <nitin.r.gote@intel.com>, intel-gfx@lists.freedesktop.org,
- chris.p.wilson@intel.com, Sumit Semwal <sumit.semwal@linaro.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20250226155534.1099538-1-nitin.r.gote@intel.com>
- <2153999.KlZ2vcFHjT@jkrzyszt-mobl2.ger.corp.intel.com>
- <7a96d06d-54a9-42b4-84c7-0c262104ea5b@amd.com>
- <7836906.EvYhyI6sBW@jkrzyszt-mobl2.ger.corp.intel.com>
- <cf5d530e-6952-4e76-93e2-5c72b31b5c62@amd.com> <aQJ2YMGxh-foBCvx@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <aQJ2YMGxh-foBCvx@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4P288CA0085.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d0::16) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 011A310E901
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Oct 2025 11:17:30 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BC1701F6E6;
+ Thu, 30 Oct 2025 11:17:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761823049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GIeVYpy3Zped/GGBjv38GPNtjRY0ZrSfDqW9N5fkXCw=;
+ b=CkzMs23uAOrLFlfS58wanNTOqAQdYh6Zf09hSuk/O9V2tUNP6pWr3MeMetTrmBT3d8v3zq
+ 0D3G08l0VMhZKXwfMC2iC5Dlh3r5bSZdUI8ajQpQU7JSv4a4cHhBb3DixI6c6k3lu22mYC
+ fbUC+ABP9T5nHnDS75K/TeJ4qIGOKzM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761823049;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GIeVYpy3Zped/GGBjv38GPNtjRY0ZrSfDqW9N5fkXCw=;
+ b=Evz0+QsdwszB1EAiCUvMxp0iyHkt+Z8yJNisJMV3fRjZ8RAF1sjoKG3nY/e6Yj0bAiPhaZ
+ 7auWQkV/cHI+vYCw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CkzMs23u;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Evz0+Qsd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1761823049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GIeVYpy3Zped/GGBjv38GPNtjRY0ZrSfDqW9N5fkXCw=;
+ b=CkzMs23uAOrLFlfS58wanNTOqAQdYh6Zf09hSuk/O9V2tUNP6pWr3MeMetTrmBT3d8v3zq
+ 0D3G08l0VMhZKXwfMC2iC5Dlh3r5bSZdUI8ajQpQU7JSv4a4cHhBb3DixI6c6k3lu22mYC
+ fbUC+ABP9T5nHnDS75K/TeJ4qIGOKzM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1761823049;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=GIeVYpy3Zped/GGBjv38GPNtjRY0ZrSfDqW9N5fkXCw=;
+ b=Evz0+QsdwszB1EAiCUvMxp0iyHkt+Z8yJNisJMV3fRjZ8RAF1sjoKG3nY/e6Yj0bAiPhaZ
+ 7auWQkV/cHI+vYCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8DA9013393;
+ Thu, 30 Oct 2025 11:17:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id AiwEIklJA2mwXwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 30 Oct 2025 11:17:29 +0000
+Message-ID: <c4e3b172-3df8-4d1b-a1b0-51cacae56f0c@suse.de>
+Date: Thu, 30 Oct 2025 12:17:25 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8121c92a-7c50-4833-7588-08de17a21832
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M2ZIanpLRzdlaEtjQ0lNcTNhVjVYTUdURTducnZOVGdaQk5STFNSNkNvbUNU?=
- =?utf-8?B?Mnhoa25GZVh5UFZuNlpWWFpPNkpMcXJtc2pVUno0aUdhbGt0U2l1dzNDeEI0?=
- =?utf-8?B?UlhyeGx2bGlSOXdFci9CVzlHcmdSQXk2ZUNPSmppb1Y3NkgvbURhV0RDMnBF?=
- =?utf-8?B?Vk5YNDlZR3Jzc0JxWXdtZVVSZDFrMnBkeUtXVVI0SEgreFJmeUpINHFlaEZZ?=
- =?utf-8?B?V2NCbnZEbnBScTVCb3VHaHN1S0ZpcGpZUFdnQWJIWG1ITmcwR083MFA3VWtK?=
- =?utf-8?B?Q3FnZWdPNUkvbzJPR2JaLzVpL0VrYkgwMzJJcEU4SWYxUG9VK0FkTFBPaEZp?=
- =?utf-8?B?R1VxTFRaQ1pBeU1kdGV4dmtCVzlFcWluR0x5Y243RnJHdlpwU0xYKzB3YUdT?=
- =?utf-8?B?R2F0c2wvT3BhNytiU096ZFNBU2l2SU1kM2dlZUR5Sm1pUHFCVFhWN3ZmbWsw?=
- =?utf-8?B?WFZXTVV4c0VFeEh0bTVTRVdHdFlwT2VWTmh5Y1MrcWI1NUFvaW1SMGFVZ1lC?=
- =?utf-8?B?UHQvQ094ZTN0QzhMWXFRTVRVVEU4TWNjRHp0THlrcWVYeklSYjRnV1JGVFhT?=
- =?utf-8?B?MFJRL3NWNWhFZVN5OGlsNWRkVm5DaG80cVFzUERNeEVJZFFDdCtuM3FtLy9N?=
- =?utf-8?B?TWFzdGd3RmRUWlhxaldiNmxoWWN4ckxWbjZDc0x6aGMrZ3laRjE0ZFVxTFFp?=
- =?utf-8?B?MjMwVTVPOVpVdkpqd0xXM1BiM0E2VDAzaDZ5VHlEWHNzcHo2L1pNalRILzBW?=
- =?utf-8?B?T1pUQzNtRDhPRGd5amxIV01KNXJIeEJIZVNyUUl0eGY2RDdxS3R5RTJ4RzBO?=
- =?utf-8?B?c0pnSUtxdUk1VFR0N1pxRFMxL0UwNUY5MWlmeEZzb3AvWGt4aG9QU3ZzMVBR?=
- =?utf-8?B?OXlJREt3TWJiRDR0VnBKR3VQNHVPOGNsYWJkN2pOa2QweXNMSHFINm1hRFZI?=
- =?utf-8?B?K3NVTkRidjFrYTEzYkYySU1pdGJiM0hVZHFZTDBUQzFCWXdqUDg5M3AxekpX?=
- =?utf-8?B?bGFCalNmTXJ5Z1QwK0JkZ3AvUGgzdXl2TWxBREE2NWgza2k2VVFXeHhqR01h?=
- =?utf-8?B?akFRWHJ5NUYrTUo1M25FYXNvdlc3QUFLc0pJdXI1WDlkRUxYaFNjMmdFeis3?=
- =?utf-8?B?ampMNGFsdktpSCt4SlRYaE95dzZVVkNLclM3Z3g0M3pEbWZxN1hkNUdZRUlI?=
- =?utf-8?B?U3JWaVh2VVVFMjIreGJ5S0h0ZlNlaVovME5GSTJBMEkzeVo1RU83NEN1Rkxp?=
- =?utf-8?B?UTFpTWMyNTRxYnJIL2RGdkp3TlFlcUhwWVVhcFUvcmlXZWhqdGZlY3MzMTFv?=
- =?utf-8?B?THJtdy9jcmZiMkZYQmNrRDYzdWMzUkJJTGlqRkVTdUhIR3I2MGxzTE1zTEFU?=
- =?utf-8?B?MlVUbkM5OUVQUklPYWYrYkdjQ0QxTEwrSTcyT293YmdEVEd1YUUwRVJMSHJX?=
- =?utf-8?B?SHJtOS8wOGZNeVp1YS96WGlrbVBFSkZ4TnNLZXJLWEh1eHMwNEZrcFoxL1N1?=
- =?utf-8?B?cWY5ZkpOQWlyekRQVXY3RkU0UTZTZC82L3JHcXRhTFU3cjVVa3BXbEJka05o?=
- =?utf-8?B?ZUJlb1dRTHY2ckk2OWZ1VCtzYzRQQ05UaGp6M05ZZWowang1RjBXdUkxcjhD?=
- =?utf-8?B?YlZUalVna1lYNVY0TkRsTXpSVFMvSWx5Mlc3R0R2emcrV2lZZGZlT2lqVUpo?=
- =?utf-8?B?THJkRE4zZGowcGlwMUYxalltTFdIVjNTWUNzbFZSZ1ZPRjF4Y2NjOTV2bU5E?=
- =?utf-8?B?QTNheldQb3hlVWRWSHVrMDl6alBKRVBRakpWYVNBcmozdG50TUg1bTZUSE9S?=
- =?utf-8?B?eTIyWlllR2RzSi8vT0ZwQXBOVGVJM0NiTmt0Q0pFcnZVVGFqeE4wTkt3UDNY?=
- =?utf-8?B?SnpQSHBadHNFU1pXNy9RQ2hUbUNadjluT2RlNXlmRHRPcVlXY0NvRmsvaW00?=
- =?utf-8?Q?FuD6izbaCnpbr1Em9rDyHu/45k01RTRh?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3FXR096bXZJWWhsUHFOSDJGaGtrT2thZ1hNdnNPOTV3VGo3OVZyZ0xERXBP?=
- =?utf-8?B?dUpIOGtBRnBBT00xWW5FcEFTSXpCekhOL3o0RzV1NndRc3JGNHVvS2MvZjNr?=
- =?utf-8?B?SXhpRjdRUnp5SmhSYWIzbitBWi9aZ3E2QWVERUJWZnhNMmFMVlVEdU9nV2NZ?=
- =?utf-8?B?QllVcWNGbEpqKzFZb2crUmFIU0UyWVdDWjlQN1BZK2ExbnhUV0JybXBXN3pM?=
- =?utf-8?B?cXRBa0FMNTVyNWdWWE9Fb0VkRlUwL0VCU3JYcG9Gb0lSdUJSa3NGWkxRbDRn?=
- =?utf-8?B?MlpXYlZ5Zy9DMDZzZWRCazdkU21BRDR3OXhkMFhxcjFNK0pqSUVPSWxrdEhn?=
- =?utf-8?B?VDY1V05Lckh2QWZ0d2ZCQXowdHJBY08rcmZ1LzNVV2Q0K3pLb3NESmpYMVhW?=
- =?utf-8?B?YUQzZWppSWVoSEd3Vk85b0w4K2YrQWZxQ0hnNThQdTh1M0NoMVdSYTloSTBL?=
- =?utf-8?B?TjJ6S2ZDZitHVHo0QWJoTTFPa2kvN05JVGV2d3hBRjlNRnV2dWNjRnRyRDQz?=
- =?utf-8?B?U1ZzejAxUEF1QzF2c09jSlZBN2c2dG5mQVFFcmh4cGZFaXFtaWxhL1RiZWdW?=
- =?utf-8?B?WithWWgxYXdwemZwY0ZFMUQwSkZpZHM3TENNbG5JbWRXVDY2eXBFRGdhZFMv?=
- =?utf-8?B?cElueStiSnlMK3R2bWJhTXBBTTZvYjNPdkcreVFYR0lHTjZ1bCswV0ZDakRC?=
- =?utf-8?B?c055NkoxMldOdDlyZ3kyTEhNeHZIOU9BUkk0RlMyb050WCtwbXNOaFRFdXpz?=
- =?utf-8?B?TE9TTTIyUzM3SVJHajhmc1lYRFNqdUhVb3NVRmxzSFFUMUYzWmszVVZkQ3dj?=
- =?utf-8?B?SFA1cGJ2R1NsRmdYWmVsVFlNNjNIM2E1Umx6dDIwWlppdXMvc2lOZnM3OFRG?=
- =?utf-8?B?bW5XM01kSERDcXJFUWRTbUtVcDdnZnpxeUVrM0twL2o5dVY5Q2JPU3B3VFA0?=
- =?utf-8?B?RE1LUUNXTm8wU3YzNjJSbnVJejVzNXJhQ05qMzgwaUVmVm92RDF6c3lmZS9H?=
- =?utf-8?B?Y1dQbUNrQW1obVdVU3ZtdGp0NWxTUmh4OFBVY0MrR016bHBveGNsM0Y3MTVh?=
- =?utf-8?B?dXdhckgyVHJ2MGNQNDFJY0EwSUh5M01mRXNvUzNEZ0d1QTZCSmRMOGVsZVhE?=
- =?utf-8?B?VzNGSEo4QWNMWE9rT1Y1OWZQbjVlWUM2OXRxOTg2eUNWNDdwL2V6ZmdaNEpS?=
- =?utf-8?B?ckxoYUltVE53bmV5dVgxUGo5RkdQUzRjYTFhK2FiTDlac05ZVmNlV0JERHdY?=
- =?utf-8?B?UWdqMmVDWXU3Ky91MkxrVmsxNUlrSDNoWEFPVTNxMlZkVWJiYVZLYWFZTDBB?=
- =?utf-8?B?bUF2S0NSRHZwVThlaFVOeUNzWGlmSHl1UkpmSnNUeGY3Y0tWcHlaT3RaTHJ1?=
- =?utf-8?B?NW0velQ2MUdEYTl5bHNvY0gzS2lQdkZiMkpMcmRZVHhock9BWVNMUTJOVVZG?=
- =?utf-8?B?dnk3M0ttR0hiUGRDZFlmU2gydCt1Slg5Qmx5MVZSVWIvY1ZnY1NhSzY5NE1X?=
- =?utf-8?B?R1VYYnpxQmdLSVNaZWpoRDFPUWF0NEtRNURGRTRhSEIwNnBpS0FIdjV4U1J2?=
- =?utf-8?B?ekRwM1JvMm9NbFNFV1BNdDUxTFhwOUFRQlluZW9McHhNV3gySHh3akxyYUNx?=
- =?utf-8?B?MW5CNW1HQkZEKzFoWHlDQks4ZjFHcy9SenNXamxtWG5Kb3R3WFVrS2FqWjlz?=
- =?utf-8?B?QXB5OFV2a21ldkZGUU44aStxVTBiYnNySlJZc1JEZHkxY0dMajF5VTQ1bThr?=
- =?utf-8?B?V1VJRkhPWjRPUnZrQmZ0MUIrbnJJRUwyeTF6K0dIMmN0YWlBdUpuZU9KeVVp?=
- =?utf-8?B?OHZMM2tBbnA4SnhMVHM4M3A1Wm9hOVVjanpWV3REd080ZUpnemRjNkhHV2RV?=
- =?utf-8?B?UExpZWw5Qkh1dE8rRWwvYUxpK1A2a0h4UVVWVlhoRlF3WnRkemRUSTNPamxJ?=
- =?utf-8?B?MTh6ZDgwakVhc0FoR0l6VmRLVlZoZmdlcVV2eWRCbmdBSFpIM25GajNqNE5Z?=
- =?utf-8?B?YzVNc0NaejRBZTRBVGgxNFQ2YTMyOXJnOFBRb1FYTytHYkptS3lNVXYxUnpX?=
- =?utf-8?B?YTNqUFNqOEVDdVFkNkVJbEZXa29iUS90S0IwcTZwMnJuQytIRkk1NVY0cGp1?=
- =?utf-8?Q?kd+U+q/D9HzC67Y5IrV1RiKsh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8121c92a-7c50-4833-7588-08de17a21832
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2025 10:50:09.3897 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8xLQ20GxBFqSXybS6aetizB9ygCamwOxz02XpRIe+Y/1ma87zz3biayS4fBXl6Nb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7649
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] drm: replace drm_print.h includes from headers
+ with a forward declaration
+To: Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, Maxime Ripard <mripard@kernel.org>,
+ David Airlie <airlied@redhat.com>, simona.vetter@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+References: <cover.1761734313.git.jani.nikula@intel.com>
+ <41bb4163-8f5b-47c5-8121-7010147bc5e6@suse.de>
+ <b8cc203c44518822197023c2dbf4a21aad681a4c@intel.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <b8cc203c44518822197023c2dbf4a21aad681a4c@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: BC1701F6E6
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ RCVD_VIA_SMTP_AUTH(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_SEVEN(0.00)[8]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,suse.de:dkim];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Action: no action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,90 +151,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/29/25 21:17, Rodrigo Vivi wrote:
-> On Wed, Aug 13, 2025 at 03:29:39PM +0200, Christian König wrote:
->> On 13.08.25 14:43, Janusz Krzysztofik wrote:
->>> Hi Christian,
+Hi
+
+Am 30.10.25 um 10:31 schrieb Jani Nikula:
+> On Wed, 29 Oct 2025, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>> Am 29.10.25 um 11:39 schrieb Jani Nikula:
+>>> v3 of [1] with the series restructured to be able to trivially revert
+>>> the header changes without touching drivers again.
 >>>
->>> On Tuesday, 8 July 2025 12:09:58 CEST Christian König wrote:
->>>> On 08.07.25 10:56, Janusz Krzysztofik wrote:
->>>>>>
->>>>>> There is no reason to test enabling signaling each of the element in a loop. So there should be something like 4096 calls to the dma_fence_chain_cb function each jumping to the next unsignaled fence and re-installing the callback.
->>>>>
->>>>> So how building a chain should look like in real use cases?  When a user 
->>>>> builds a chained link of her fence with another fence then may she enable 
->>>>> signaling on the new chain link?  If that other fence occurs a chain link then 
->>>>> who should take care of disabling signaling on it so signaling is enabled only 
->>>>> on the last link of the chain, not leading to a situation similar to what we 
->>>>> have now in the test case?  IOW, what's a correct use pattern of 
->>>>> dma_fence_chain?  I can't find that documented anywhere, neither in inline 
->>>>> docs nor in commit descriptions.
->>>>
->>>> The dma_fence_chain container is basically a single linked list which allows to "chain" together multiple dma_fence objects.
->>>>
->>>> The use cases is to keep only a single fence even when multiple asynchronous operations have been started.
->>>>
->>>> So you usually keep only the most recently created dma_fence_chain and eventually ask that one to signal when you need to wait for all fences inside the container.
->>>>
->>>> The tricky part is that since the chain can get very long the implementation can't use recursion or otherwise we would potentially overflow the kernel stack. And that needs to be tested and made sure we don't accidentally break the implementation somehow.
->>>>
->>>> Keeping all elements of a dma_fence_chain in an array and asking all of them to signal individually makes no sense, for this use case we have the dma_fence_array in the first place.
 >>>
->>> I'm going to submit a patch that drops enabling of signaling on each link of 
->>> the tested chain, as you suggested.  Don't you mind if I add your Suggested-
->>> by:?
+>>> [1] https://lore.kernel.org/r/cover.1761126446.git.jani.nikula@intel.com
+>>>
+>>> Jani Nikula (4):
+>>>     drm: include drm_print.h where needed
+>>>     drm/buddy: replace drm_print.h include with a forward declaration
+>>>     drm/mm: replace drm_print.h include with a forward declaration
+>>>     drm/ttm: replace drm_print.h include with a forward declaration
+>> For the series:
 >>
->> Sure.
+>> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 >>
->> Thanks for looking into that,
-> 
-> 
-> Hi Christian,
-> 
-> Okay, so the take is that that IGT case is non-realistic and that that kernel
-> change is not needed. We still have a problem with this patch here take so
-> long to complete in a few platforms in a way that the watchdogs gets triggered
-> and test case is marked as failure. While if we do the reschedule waiting a bit
-> longer it end up completing successfully as expected.
-> 
-> Since the goal here is not performance but compliance, can we go with this
-> cond_reschedule here? Or do you have any other suggestion here on how
-> to handle this test case and make it pass on those old platforms?
-> 
-> Or should we simply disable the tests for those platforms?
+>> Thanks for tidying this up.
+> Thank you for the review!
+>
+> Considering that this touches a lot of drivers, albeit just the include
+> lists and thus highly unlikely to cause functional changes or hard
+> conflicts, can I go ahead and merge this to drm-misc-next?
 
-I think for this particular case we should just completely remove the test.
+Of course, go ahead.
 
-HW can have some parallelism and out of order execution, but it is just unrealistic that 1k of submission made in the order A..Z signal in the order Z..A.
+Best regards
+Thomas
 
-What we should test is that in no possible combination the kernel runs into a stack overflow because of recursion in the release handler (for example) of 1k submissions.
+>
+> BR,
+> Jani.
+>
+>
 
-What we should also test from userspace is that we can't overload the callback functions of a fence. E.g. something make a submission and spawn thousands of threads who want to wait for this single submission.
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstrasse 146, 90461 Nuernberg, Germany
+GF: Ivo Totev, Andrew Myers, Andrew McDonald, Boudien Moerman
+HRB 36809 (AG Nuernberg)
 
-Regards,
-Christian.
-
-> 
-> Thanks,
-> Rodrigo.
-> 
->> Christian.
->>
->>>
->>> Thanks,
->>> Janusz
->>>
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> Thanks,
->>>>> Janusz
->>>>
->>>
->>>
->>>
->>>
->>
 
