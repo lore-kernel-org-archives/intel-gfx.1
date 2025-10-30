@@ -4,56 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69AA9CCF9FA
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 07:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B303CCF9F8
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 07:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB34810E919;
-	Thu, 30 Oct 2025 07:35:36 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="M8Mk8RQd";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0BC910E8FD;
- Thu, 30 Oct 2025 07:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761809719; x=1793345719;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pDZG2ebWPChC3z7tEQSKXj1m8X6/jtp5G7X0Xl8t8gQ=;
- b=M8Mk8RQd9/CZfRUaCw5Mlk7aAXjNAErLgQv6EtahMMzmI7qd9KSix+Vh
- 83xKCuR3TBmrlUztGPXfUkpAGB5BvtdaDUvyTCFzPC+LPWgAAugIQ4n45
- RU3qgnM9OKZi3tTJrNS9Y3gif49MyY1++B4MKErIvIwgZAjm+vnbVjipD
- R3O4C9QOLaNj8wPLyelMt2Ln5f9hzOMk7ZW4aO4Vx4atUHkpsYgFHFf5x
- DD8mH2+KdrlYtxOFWtUZS8w7WEA++r/TFog6dY68PZkmAl9sGZY/jYkn1
- 8Xe9L9hbsUwmrOgC8iT9whd2G4PkJKQKEBR+FGCdqCgHiTnwXnoJ5BPWj Q==;
-X-CSE-ConnectionGUID: kWD3p+e5TbekwXR5ERkTgQ==
-X-CSE-MsgGUID: cmoAXh3ZRveRSHN+JK8KMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="75063409"
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="75063409"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 00:35:18 -0700
-X-CSE-ConnectionGUID: yWFxWqWqRRGZCCnsbjrdHA==
-X-CSE-MsgGUID: 7/gtGS/vSuiYzmlNzheftw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="185075530"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa006.jf.intel.com with ESMTP; 30 Oct 2025 00:35:17 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>,
-	Imre Deak <imre.deak@intel.com>
-Subject: [PATCH 29/32] drm/i915/display: Add .enable_clock on DDI for MTL+
- platforms
-Date: Thu, 30 Oct 2025 09:22:46 +0200
-Message-Id: <20251030072249.155095-30-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251030072249.155095-1-mika.kahola@intel.com>
-References: <20251030072249.155095-1-mika.kahola@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0316F10E93B;
+	Thu, 30 Oct 2025 07:51:19 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC5A10E934;
+ Thu, 30 Oct 2025 07:51:17 +0000 (UTC)
+Received: from mobile-access-b04845-99.dhcp.inet.fi ([176.72.69.99]
+ helo=[192.168.8.139])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1vENRA-00000001vn3-3S8b; Thu, 30 Oct 2025 09:51:15 +0200
+Message-ID: <4945d033eb404b2591efd1c3f72357fa5946d66d.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org
+Date: Thu, 30 Oct 2025 09:51:11 +0200
+In-Reply-To: <dbdd1915466850293b9737b751170dd225197873.1761146196.git.jani.nikula@intel.com>
+References: <cover.1761146196.git.jani.nikula@intel.com>
+ <dbdd1915466850293b9737b751170dd225197873.1761146196.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-5 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/6] drm/i915/display: create intel_display_utils.h
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,202 +45,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To enable pll clock on DDI we need to move part of the
-pll enabling sequence to a ddi clock enabling function.
+On Wed, 2025-10-22 at 18:17 +0300, Jani Nikula wrote:
+> Start a file for display specific generic utilities.
+>=20
+> Move KHz() and MHz() helpers there first.
+>=20
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
 
-Simlilarly, we do the pll disabling sequence.
+Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
 
-Signed-off-by: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 34 +++++++++++++------
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  7 +++-
- drivers/gpu/drm/i915/display/intel_ddi.c      |  6 ++--
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 25 ++++++++++++++
- 4 files changed, 58 insertions(+), 14 deletions(-)
+--
+Cheers,
+Luca.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 15ba3522b5b3..b82a1f891eae 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -3301,7 +3301,6 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	 * Frequency Change. We handle this step in bxt_set_cdclk().
- 	 */
- 
--	/* TODO: enable TBT-ALT mode */
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
- }
- 
-@@ -3367,8 +3366,7 @@ static int intel_mtl_tbt_clock_select(struct intel_display *display,
- 	}
- }
- 
--static void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
--				     const struct intel_crtc_state *crtc_state)
-+static void intel_mtl_tbt_pll_enable_clock(struct intel_encoder *encoder, int port_clock)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum phy phy = intel_encoder_to_phy(encoder);
-@@ -3382,7 +3380,7 @@ static void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
- 
- 	mask = XELPDP_DDI_CLOCK_SELECT_MASK(display);
- 	val |= XELPDP_DDI_CLOCK_SELECT_PREP(display,
--					    intel_mtl_tbt_clock_select(display, crtc_state->port_clock));
-+					    intel_mtl_tbt_clock_select(display, port_clock));
- 
- 	mask |= XELPDP_FORWARD_CLOCK_UNGATE;
- 	val |= XELPDP_FORWARD_CLOCK_UNGATE;
-@@ -3423,18 +3421,26 @@ static void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
- 	 * clock frequency.
- 	 */
- 	intel_de_write(display, DDI_CLK_VALFREQ(encoder->port),
--		       crtc_state->port_clock);
-+		       port_clock);
- }
- 
- void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  const struct intel_crtc_state *crtc_state)
-+			  struct intel_dpll *pll,
-+			  const struct intel_dpll_hw_state *dpll_hw_state)
-+{
-+	intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
-+}
-+
-+void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
-+				const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
--		intel_mtl_tbt_pll_enable(encoder, crtc_state);
-+		intel_mtl_tbt_pll_enable_clock(encoder, crtc_state->port_clock);
- 	else
--		intel_cx0pll_enable(encoder, &crtc_state->dpll_hw_state.cx0pll);
-+		/* TODO: remove when PLL mgr is in place. */
-+		intel_mtl_pll_enable(encoder, NULL, &crtc_state->dpll_hw_state);
- }
- 
- /*
-@@ -3550,7 +3556,7 @@ static bool intel_cx0_pll_is_enabled(struct intel_encoder *encoder)
- 			     intel_cx0_get_pclk_pll_request(lane);
- }
- 
--static void intel_mtl_tbt_pll_disable(struct intel_encoder *encoder)
-+static void intel_mtl_tbt_pll_disable_clock(struct intel_encoder *encoder)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum phy phy = intel_encoder_to_phy(encoder);
-@@ -3590,13 +3596,19 @@ static void intel_mtl_tbt_pll_disable(struct intel_encoder *encoder)
- }
- 
- void intel_mtl_pll_disable(struct intel_encoder *encoder)
-+{
-+	intel_cx0pll_disable(encoder);
-+}
-+
-+void intel_mtl_pll_disable_clock(struct intel_encoder *encoder)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
--		intel_mtl_tbt_pll_disable(encoder);
-+		intel_mtl_tbt_pll_disable_clock(encoder);
- 	else
--		intel_cx0pll_disable(encoder);
-+		/* TODO: remove when PLL mgr is in place. */
-+		intel_mtl_pll_disable(encoder);
- }
- 
- enum icl_port_dpll_id
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 13eaf6d280ff..13fa001129f7 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -17,17 +17,22 @@ struct intel_crtc;
- struct intel_crtc_state;
- struct intel_cx0pll_state;
- struct intel_display;
-+struct intel_dpll;
- struct intel_dpll_hw_state;
- struct intel_encoder;
- struct intel_hdmi;
- 
- bool intel_encoder_is_c10phy(struct intel_encoder *encoder);
- void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  const struct intel_crtc_state *crtc_state);
-+			  struct intel_dpll *pll,
-+			  const struct intel_dpll_hw_state *dpll_hw_state);
- void intel_mtl_pll_disable(struct intel_encoder *encoder);
- enum icl_port_dpll_id
- intel_mtl_port_pll_type(struct intel_encoder *encoder,
- 			const struct intel_crtc_state *crtc_state);
-+void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
-+				const struct intel_crtc_state *crtc_state);
-+void intel_mtl_pll_disable_clock(struct intel_encoder *encoder);
- 
- int intel_cx0pll_calc_state(const struct intel_crtc_state *crtc_state,
- 			    struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 870140340342..d0bfa7f397dc 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -88,6 +88,8 @@
- #include "skl_scaler.h"
- #include "skl_universal_plane.h"
- 
-+struct intel_dpll;
-+
- static const u8 index_to_dp_signal_levels[] = {
- 	[0] = DP_TRAIN_VOLTAGE_SWING_LEVEL_0 | DP_TRAIN_PRE_EMPH_LEVEL_0,
- 	[1] = DP_TRAIN_VOLTAGE_SWING_LEVEL_0 | DP_TRAIN_PRE_EMPH_LEVEL_1,
-@@ -5232,8 +5234,8 @@ void intel_ddi_init(struct intel_display *display,
- 	encoder->pipe_mask = ~0;
- 
- 	if (DISPLAY_VER(display) >= 14) {
--		encoder->enable_clock = intel_mtl_pll_enable;
--		encoder->disable_clock = intel_mtl_pll_disable;
-+		encoder->enable_clock = intel_mtl_pll_enable_clock;
-+		encoder->disable_clock = intel_mtl_pll_disable_clock;
- 		encoder->port_pll_type = intel_mtl_port_pll_type;
- 		encoder->get_config = mtl_ddi_get_config;
- 	} else if (display->platform.dg2) {
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 6cc85a9a781f..8220ef69f685 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4391,7 +4391,32 @@ static int mtl_pll_get_freq(struct intel_display *display,
- 	return intel_cx0pll_calc_port_clock(encoder, &dpll_hw_state->cx0pll);
- }
- 
-+static void mtl_pll_enable(struct intel_display *display,
-+			   struct intel_dpll *pll,
-+			   const struct intel_dpll_hw_state *dpll_hw_state)
-+{
-+	struct intel_encoder *encoder = get_intel_encoder(display, pll);
-+
-+	if (drm_WARN_ON(display->drm, !encoder))
-+		return;
-+
-+	intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
-+}
-+
-+static void mtl_pll_disable(struct intel_display *display,
-+			    struct intel_dpll *pll)
-+{
-+	struct intel_encoder *encoder = get_intel_encoder(display, pll);
-+
-+	if (drm_WARN_ON(display->drm, !encoder))
-+		return;
-+
-+	intel_mtl_pll_disable(encoder);
-+}
-+
- static const struct intel_dpll_funcs mtl_pll_funcs = {
-+	.enable = mtl_pll_enable,
-+	.disable = mtl_pll_disable,
- 	.get_hw_state = mtl_pll_get_hw_state,
- 	.get_freq = mtl_pll_get_freq,
- };
--- 
-2.34.1
 
+>  drivers/gpu/drm/i915/display/intel_backlight.c     |  2 +-
+>  drivers/gpu/drm/i915/display/intel_ddi.c           |  1 +
+>  drivers/gpu/drm/i915/display/intel_display_utils.h | 10 ++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c        |  2 +-
+>  drivers/gpu/drm/i915/display/intel_dpll_mgr.c      |  1 +
+>  drivers/gpu/drm/i915/i915_utils.h                  |  3 ---
+>  6 files changed, 14 insertions(+), 5 deletions(-)
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_display_utils.h
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu=
+/drm/i915/display/intel_backlight.c
+> index 3b14f929825a..a68fdbd2acb9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_backlight.c
+> @@ -13,7 +13,6 @@
+>  #include <drm/drm_print.h>
+> =20
+>  #include "i915_reg.h"
+> -#include "i915_utils.h"
+>  #include "intel_backlight.h"
+>  #include "intel_backlight_regs.h"
+>  #include "intel_connector.h"
+> @@ -21,6 +20,7 @@
+>  #include "intel_display_regs.h"
+>  #include "intel_display_rpm.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_dp_aux_backlight.h"
+>  #include "intel_dsi_dcs_backlight.h"
+>  #include "intel_panel.h"
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i=
+915/display/intel_ddi.c
+> index 870140340342..cd9fc3d1f36a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -53,6 +53,7 @@
+>  #include "intel_display_power.h"
+>  #include "intel_display_regs.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_dkl_phy.h"
+>  #include "intel_dkl_phy_regs.h"
+>  #include "intel_dp.h"
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_utils.h b/drivers=
+/gpu/drm/i915/display/intel_display_utils.h
+> new file mode 100644
+> index 000000000000..0a2b603ea856
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_display_utils.h
+> @@ -0,0 +1,10 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/* Copyright =C2=A9 2025 Intel Corporation */
+> +
+> +#ifndef __INTEL_DISPLAY_UTILS__
+> +#define __INTEL_DISPLAY_UTILS__
+> +
+> +#define KHz(x) (1000 * (x))
+> +#define MHz(x) KHz(1000 * (x))
+> +
+> +#endif /* __INTEL_DISPLAY_UTILS__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/dr=
+m/i915/display/intel_dp_mst.c
+> index a845b2612a3f..8d11a989cf79 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -33,7 +33,6 @@
+>  #include <drm/drm_print.h>
+>  #include <drm/drm_probe_helper.h>
+> =20
+> -#include "i915_utils.h"
+>  #include "intel_atomic.h"
+>  #include "intel_audio.h"
+>  #include "intel_connector.h"
+> @@ -43,6 +42,7 @@
+>  #include "intel_display_driver.h"
+>  #include "intel_display_regs.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_dp.h"
+>  #include "intel_dp_hdcp.h"
+>  #include "intel_dp_link_training.h"
+> diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/=
+drm/i915/display/intel_dpll_mgr.c
+> index 8ea96cc524a1..900a945ff8ab 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+> @@ -32,6 +32,7 @@
+>  #include "intel_de.h"
+>  #include "intel_display_regs.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_dkl_phy.h"
+>  #include "intel_dkl_phy_regs.h"
+>  #include "intel_dpio_phy.h"
+> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i91=
+5_utils.h
+> index 44de4a4aa84a..c1f978a7c141 100644
+> --- a/drivers/gpu/drm/i915/i915_utils.h
+> +++ b/drivers/gpu/drm/i915/i915_utils.h
+> @@ -100,9 +100,6 @@ static inline bool is_power_of_2_u64(u64 n)
+>  	return (n !=3D 0 && ((n & (n - 1)) =3D=3D 0));
+>  }
+> =20
+> -#define KHz(x) (1000 * (x))
+> -#define MHz(x) KHz(1000 * (x))
+> -
+>  void add_taint_for_CI(struct drm_i915_private *i915, unsigned int taint)=
+;
+>  static inline void __add_taint_for_CI(unsigned int taint)
+>  {
