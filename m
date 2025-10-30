@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB0F0CCF9E3
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 20:28:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B23ECCCFA03
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 20:28:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6781D10EA22;
-	Thu, 30 Oct 2025 20:28:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 411F810EA1C;
+	Thu, 30 Oct 2025 20:28:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VwskrmzI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qn8VrcDU";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CD410EA1C;
- Thu, 30 Oct 2025 20:28:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A134510EA20;
+ Thu, 30 Oct 2025 20:28:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761856134; x=1793392134;
+ t=1761856137; x=1793392137;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=8QcV+o7RR+n91Ct9E3dOdiRHsh/OZ9mTnm0B7e5CiKE=;
- b=VwskrmzIHNmU7fHU4I8d4hyq3fpL6tk4xTfQE/W+iXixJzysrY/d9fe/
- MKonFcBPOR6szCiNRnsFgHhz+FubTl4sxfpewsUjgfT0B4zxtEPQnlixY
- FxbJAc2tRTT65/QjL3QKU4epIbPFTVQt+vsDaAYbVV7mfy0O87VH0ulBL
- iFYcqhTjcA165WZCMCZopGidhJkxC8bQ026rEgSg01FN+b0bB2aUEnswd
- DZ/PekMSGtMf2Qr6nrtxGcrEXxpRhYTcuWnceqOTwII7BXwzO0Xh02WoD
- JF5pdfD6GpWHOomrrm2CG3MeZjyi8FK11Lc2/S7psmExrtH7BK0eG1jem Q==;
-X-CSE-ConnectionGUID: Y9PPudZhTI62bsvAGM1+3w==
-X-CSE-MsgGUID: WqhnZcMIT9O2j+q9NfuxMQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="63032448"
-X-IronPort-AV: E=Sophos;i="6.19,267,1754982000"; d="scan'208";a="63032448"
+ bh=LOeYVkXybH2o67yL6WZYl5EKqP0BO+fbxBwudAw/yFo=;
+ b=Qn8VrcDU9d7G6Fsz/uUwSDNQ/5CNQNZ6dgHeGqecTJZ46+8vdUK1lpXj
+ EsXKvEapVqHw6EcK+gS/KymNKMPaDf3mxhbp/JiHVzch4imPE2G9T70bb
+ wogj+7aMZCBrXcEVu3qncO1WiKJubEpJRaEfXLjtGsLv3Zx87Ujt3s3oY
+ iID1U9G5kIgubXz4SajlCHtGix/6msLnykNe2DomqMzlNinnwHJcX/bYk
+ 1WJIj1jFYU6hhTHyeG1lCIheuPdTJdp6A5HSR0gug9/1jzcIXGuRLj7Fs
+ QT3A8ECqM4RZUgB5XlEGCvAi/wAlghpyd1UyZzCeUBKr8I1E+p6qxjGNY w==;
+X-CSE-ConnectionGUID: Nn40wk0ZR0yZusceHHQ2PQ==
+X-CSE-MsgGUID: 1OMfmAgtSEOR0YtWkPiLFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="63032454"
+X-IronPort-AV: E=Sophos;i="6.19,267,1754982000"; d="scan'208";a="63032454"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 13:28:54 -0700
-X-CSE-ConnectionGUID: 66NmNxt7SWO/HgntW2Yp5g==
-X-CSE-MsgGUID: RSJOOv2fT/CG+VPFr/VbgQ==
+ 30 Oct 2025 13:28:57 -0700
+X-CSE-ConnectionGUID: u6VoVuFaTj+haPzoB3mZNQ==
+X-CSE-MsgGUID: VhDhhQc+Rmemc5/hiae6Yg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,267,1754982000"; d="scan'208";a="216706808"
+X-IronPort-AV: E=Sophos;i="6.19,267,1754982000"; d="scan'208";a="216706823"
 Received: from abityuts-desk.ger.corp.intel.com (HELO jhogande-mobl3..)
  ([10.245.245.145])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 13:28:53 -0700
+ 30 Oct 2025 13:28:56 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com,
  =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v3 3/6] drm/i915/display: Runtime pm wrappers for display
- parent interface
-Date: Thu, 30 Oct 2025 22:28:33 +0200
-Message-ID: <20251030202836.1815680-4-jouni.hogander@intel.com>
+Subject: [PATCH v3 5/6] drm/i915/display: Use display parent interface for
+ i915 runtime pm
+Date: Thu, 30 Oct 2025 22:28:35 +0200
+Message-ID: <20251030202836.1815680-6-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251030202836.1815680-1-jouni.hogander@intel.com>
 References: <20251030202836.1815680-1-jouni.hogander@intel.com>
@@ -73,147 +73,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Implement runtime pm wrappers for i915 driver and add them into display
-parent interface.
+Start using display parent interface for i915 runtime pm. Doing the same
+for xe is done in coming changes.
 
+v3:
+  - remove useless include
 v2:
-  - move i915 display rpm interface implementation to intel_runtime_pm.c
-  - rename intel_display as i915_display
+  - use <> when including drm/intel/display_parent_interface.h
+  - drop checks for validity of rpm function pointers
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c      |  1 +
- drivers/gpu/drm/i915/intel_runtime_pm.c | 77 +++++++++++++++++++++++++
- drivers/gpu/drm/i915/intel_runtime_pm.h |  3 +
- 3 files changed, 81 insertions(+)
+ .../gpu/drm/i915/display/intel_display_rpm.c  | 33 ++++++++-----------
+ 1 file changed, 13 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index b295326eb4331..c97b767719176 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -740,6 +740,7 @@ static void i915_welcome_messages(struct drm_i915_private *dev_priv)
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.c b/drivers/gpu/drm/i915/display/intel_display_rpm.c
+index 56c4024201c16..0a331f89b4db5 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_rpm.c
++++ b/drivers/gpu/drm/i915/display/intel_display_rpm.c
+@@ -1,69 +1,62 @@
+ // SPDX-License-Identifier: MIT
+ /* Copyright © 2025 Intel Corporation */
  
- static const struct intel_display_parent_interface parent = {
-+	.rpm = &i915_display_rpm_interface,
- };
- 
- const struct intel_display_parent_interface *i915_driver_parent_interface(void)
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.c b/drivers/gpu/drm/i915/intel_runtime_pm.c
-index 7ce3e6de0c197..d11c2814b787b 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.c
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.c
-@@ -29,6 +29,7 @@
- #include <linux/pm_runtime.h>
- 
- #include <drm/drm_print.h>
+-#include "i915_drv.h"
 +#include <drm/intel/display_parent_interface.h>
++
+ #include "intel_display_core.h"
+ #include "intel_display_rpm.h"
+-#include "intel_runtime_pm.h"
+-
+-static struct intel_runtime_pm *display_to_rpm(struct intel_display *display)
+-{
+-	struct drm_i915_private *i915 = to_i915(display->drm);
+-
+-	return &i915->runtime_pm;
+-}
  
- #include "i915_drv.h"
- #include "i915_trace.h"
-@@ -177,6 +178,82 @@ static intel_wakeref_t __intel_runtime_pm_get(struct intel_runtime_pm *rpm,
- 	return track_intel_runtime_pm_wakeref(rpm);
+ struct ref_tracker *intel_display_rpm_get_raw(struct intel_display *display)
+ {
+-	return intel_runtime_pm_get_raw(display_to_rpm(display));
++	return display->parent->rpm->get_raw(display->drm);
  }
  
-+static struct intel_runtime_pm *drm_to_rpm(const struct drm_device *drm)
-+{
-+	struct drm_i915_private *i915 = to_i915(drm);
-+
-+	return &i915->runtime_pm;
-+}
-+
-+static struct ref_tracker *i915_display_rpm_get(const struct drm_device *drm)
-+{
-+	return intel_runtime_pm_get(drm_to_rpm(drm));
-+}
-+
-+static struct ref_tracker *i915_display_rpm_get_raw(const struct drm_device *drm)
-+{
-+	return intel_runtime_pm_get_raw(drm_to_rpm(drm));
-+}
-+
-+static struct ref_tracker *i915_display_rpm_get_if_in_use(const struct drm_device *drm)
-+{
-+	return intel_runtime_pm_get_if_in_use(drm_to_rpm(drm));
-+}
-+
-+static struct ref_tracker *i915_display_rpm_get_noresume(const struct drm_device *drm)
-+{
-+	return intel_runtime_pm_get_noresume(drm_to_rpm(drm));
-+}
-+
-+static void i915_display_rpm_put(const struct drm_device *drm, struct ref_tracker *wakeref)
-+{
-+	intel_runtime_pm_put(drm_to_rpm(drm), wakeref);
-+}
-+
-+static void i915_display_rpm_put_raw(const struct drm_device *drm, struct ref_tracker *wakeref)
-+{
-+	intel_runtime_pm_put_raw(drm_to_rpm(drm), wakeref);
-+}
-+
-+static void i915_display_rpm_put_unchecked(const struct drm_device *drm)
-+{
-+	intel_runtime_pm_put_unchecked(drm_to_rpm(drm));
-+}
-+
-+static bool i915_display_rpm_suspended(const struct drm_device *drm)
-+{
-+	return intel_runtime_pm_suspended(drm_to_rpm(drm));
-+}
-+
-+static void i915_display_rpm_assert_held(const struct drm_device *drm)
-+{
-+	assert_rpm_wakelock_held(drm_to_rpm(drm));
-+}
-+
-+static void i915_display_rpm_assert_block(const struct drm_device *drm)
-+{
-+	disable_rpm_wakeref_asserts(drm_to_rpm(drm));
-+}
-+
-+static void i915_display_rpm_assert_unblock(const struct drm_device *drm)
-+{
-+	enable_rpm_wakeref_asserts(drm_to_rpm(drm));
-+}
-+
-+const struct intel_display_rpm_interface i915_display_rpm_interface = {
-+	.get = i915_display_rpm_get,
-+	.get_raw = i915_display_rpm_get_raw,
-+	.get_if_in_use = i915_display_rpm_get_if_in_use,
-+	.get_noresume = i915_display_rpm_get_noresume,
-+	.put = i915_display_rpm_put,
-+	.put_raw = i915_display_rpm_put_raw,
-+	.put_unchecked = i915_display_rpm_put_unchecked,
-+	.suspended = i915_display_rpm_suspended,
-+	.assert_held = i915_display_rpm_assert_held,
-+	.assert_block = i915_display_rpm_assert_block,
-+	.assert_unblock = i915_display_rpm_assert_unblock
-+};
-+
- /**
-  * intel_runtime_pm_get_raw - grab a raw runtime pm reference
-  * @rpm: the intel_runtime_pm structure
-diff --git a/drivers/gpu/drm/i915/intel_runtime_pm.h b/drivers/gpu/drm/i915/intel_runtime_pm.h
-index 7428bd8fa67f4..ed6c43b17f9ae 100644
---- a/drivers/gpu/drm/i915/intel_runtime_pm.h
-+++ b/drivers/gpu/drm/i915/intel_runtime_pm.h
-@@ -14,6 +14,7 @@
- struct device;
- struct drm_i915_private;
- struct drm_printer;
-+struct intel_display_rpm_interface;
- 
- /*
-  * This struct helps tracking the state needed for runtime PM, which puts the
-@@ -226,4 +227,6 @@ static inline void print_intel_runtime_pm_wakeref(struct intel_runtime_pm *rpm,
+ void intel_display_rpm_put_raw(struct intel_display *display, struct ref_tracker *wakeref)
+ {
+-	intel_runtime_pm_put_raw(display_to_rpm(display), wakeref);
++	display->parent->rpm->put_raw(display->drm, wakeref);
  }
- #endif
  
-+extern const struct intel_display_rpm_interface i915_display_rpm_interface;
-+
- #endif /* __INTEL_RUNTIME_PM_H__ */
+ struct ref_tracker *intel_display_rpm_get(struct intel_display *display)
+ {
+-	return intel_runtime_pm_get(display_to_rpm(display));
++	return display->parent->rpm->get(display->drm);
+ }
+ 
+ struct ref_tracker *intel_display_rpm_get_if_in_use(struct intel_display *display)
+ {
+-	return intel_runtime_pm_get_if_in_use(display_to_rpm(display));
++	return display->parent->rpm->get_if_in_use(display->drm);
+ }
+ 
+ struct ref_tracker *intel_display_rpm_get_noresume(struct intel_display *display)
+ {
+-	return intel_runtime_pm_get_noresume(display_to_rpm(display));
++	return display->parent->rpm->get_noresume(display->drm);
+ }
+ 
+ void intel_display_rpm_put(struct intel_display *display, struct ref_tracker *wakeref)
+ {
+-	intel_runtime_pm_put(display_to_rpm(display), wakeref);
++	display->parent->rpm->put(display->drm, wakeref);
+ }
+ 
+ void intel_display_rpm_put_unchecked(struct intel_display *display)
+ {
+-	intel_runtime_pm_put_unchecked(display_to_rpm(display));
++	display->parent->rpm->put_unchecked(display->drm);
+ }
+ 
+ bool intel_display_rpm_suspended(struct intel_display *display)
+ {
+-	return intel_runtime_pm_suspended(display_to_rpm(display));
++	return display->parent->rpm->suspended(display->drm);
+ }
+ 
+ void assert_display_rpm_held(struct intel_display *display)
+ {
+-	assert_rpm_wakelock_held(display_to_rpm(display));
++	display->parent->rpm->assert_held(display->drm);
+ }
+ 
+ void intel_display_rpm_assert_block(struct intel_display *display)
+ {
+-	disable_rpm_wakeref_asserts(display_to_rpm(display));
++	display->parent->rpm->assert_block(display->drm);
+ }
+ 
+ void intel_display_rpm_assert_unblock(struct intel_display *display)
+ {
+-	enable_rpm_wakeref_asserts(display_to_rpm(display));
++	display->parent->rpm->assert_unblock(display->drm);
+ }
 -- 
 2.43.0
 
