@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05A68CCF9FF
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 07:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB7E0CCF9F8
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Oct 2025 07:34:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CFD110E8BB;
-	Thu, 30 Oct 2025 07:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4125B10E8BF;
+	Thu, 30 Oct 2025 07:34:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XSFwOczs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Tjx6J7Bl";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C9310E8B7;
- Thu, 30 Oct 2025 07:34:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F23310E8CA;
+ Thu, 30 Oct 2025 07:34:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761809689; x=1793345689;
+ t=1761809692; x=1793345692;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=EuneLhGwxEKG8g5BYbAMToszcq6XQuWjt7iOgE0NivQ=;
- b=XSFwOczsaF7Du7BZqN9VVmzkaJ75yEQjWS78ECzaHCDC6l/7fIKxcr0C
- vg8IchTpQ8vtM8r2b8FXiSXt5UitPbDiHnJkLh9s9i7N4rFGl/N2O8eZ7
- jtgDXgSOQC+idjW4AHu5Od7By9bmgxPHMPBNmbpH6u1lDV+a55bl7Mxi3
- +GfCfEAhRU1RHiiOjlE+8qm4ZA/O2UocfNucYSI6z2natfHUy2NIlSyBX
- ZYVSpsZ5zRs0fzdRL4BGHRj1C5709dWF4Oe3VVHvAKNnMOuCdJPlCpfHo
- Eh1TZ3dAi2TZaSvY30oJfLiBwLR7T6uk2+jt1a5MvcLjrBgVcDgXESdEt w==;
-X-CSE-ConnectionGUID: LkAiXMeNSZSk+DjWYVblzQ==
-X-CSE-MsgGUID: /bpXfcNUS4GrCmfVpNjKYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="75063368"
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="75063368"
+ bh=DVN14h5NPrLVTefIexgQ3WzN9heTMNGBkFdx43fhrWg=;
+ b=Tjx6J7BldxBXbn2tYH2DA4jSlU39Wb2BIm+7rbnKGPXsqmzBWToZ88sy
+ 3kqCUiYuLMO/ftnnryDMZfw7p8H/ZYb0ypCXgmlJ0cKlCfSVAaXpIPqd3
+ 5oELRiVv4dPl5wPFYh8PxsHe3OUR1wVYntxECPU4Mh5P2lZkZEWoKVP2q
+ GLy0nWM+M5vpxdNsZt74OrXTi9OC8FMa+tZzYJqSb4Hp834tnQSHV/Y96
+ uJBP+wv+CBWsMbSpA/C3fgBs8eluUpkN+NsHEu6trmd/5Fu27ToVTg6x/
+ /XsW6g/QHONkZeaiEtZdrl1pPxqH+22fMwiZwj+fogax6fYsuhIIQISEK g==;
+X-CSE-ConnectionGUID: coVuvIu8QkSaF868376gOQ==
+X-CSE-MsgGUID: 8cI3/4gIQDKrC/FbdAE7cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11597"; a="75063371"
+X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="75063371"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Oct 2025 00:34:49 -0700
-X-CSE-ConnectionGUID: 8haxnKFaRQeiM7aZaq0U4Q==
-X-CSE-MsgGUID: jCRJqq8wRV2/fs1DktnC7w==
+ 30 Oct 2025 00:34:52 -0700
+X-CSE-ConnectionGUID: mzbt+CPnT1Ku2BS0Ncsvhw==
+X-CSE-MsgGUID: MOr1AVB9Qrq42AfjL8BWBQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="185075321"
+X-IronPort-AV: E=Sophos;i="6.19,266,1754982000"; d="scan'208";a="185075337"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa006.jf.intel.com with ESMTP; 30 Oct 2025 00:34:47 -0700
+ by orviesa006.jf.intel.com with ESMTP; 30 Oct 2025 00:34:50 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Imre Deak <imre.deak@intel.com>,
 	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH 07/32] drm/i915/display: Add macro to get DDI port width from
- a register value
-Date: Thu, 30 Oct 2025 09:22:24 +0200
-Message-Id: <20251030072249.155095-8-mika.kahola@intel.com>
+Subject: [PATCH 09/32] drm/i915/display: Sanitize C10 PHY PLL SSC register
+ setup
+Date: Thu, 30 Oct 2025 09:22:26 +0200
+Message-Id: <20251030072249.155095-10-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251030072249.155095-1-mika.kahola@intel.com>
 References: <20251030072249.155095-1-mika.kahola@intel.com>
@@ -71,34 +71,43 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Imre Deak <imre.deak@intel.com>
 
-A follow-up change will need to retrieve the DDI port field from the
-register value, add a macro for this. Make things symmetric with setting
-the field in the register.
+Define the C10 PLL SSC register range via macros, so the HW/SW state of
+these register can be verified by a follow-up change, reusing these
+macros.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_regs.h | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 9d71e26a4fa2..c14d3caa73a7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -2349,8 +2349,13 @@ enum skl_power_gate {
- #define  DDI_BUF_CTL_TC_PHY_OWNERSHIP		REG_BIT(6)
- #define  DDI_A_4_LANES				REG_BIT(4)
- #define  DDI_PORT_WIDTH_MASK			REG_GENMASK(3, 1)
-+#define  DDI_PORT_WIDTH_ENCODE(width)		((width) == 3 ? 4 : (width) - 1)
-+#define  DDI_PORT_WIDTH_DECODE(regval)		((regval) == 4 ? 3 : (regval) + 1)
- #define  DDI_PORT_WIDTH(width)			REG_FIELD_PREP(DDI_PORT_WIDTH_MASK, \
--							       ((width) == 3 ? 4 : (width) - 1))
-+							       DDI_PORT_WIDTH_ENCODE(width))
-+#define  DDI_PORT_WIDTH_GET(regval)		DDI_PORT_WIDTH_DECODE(REG_FIELD_GET(DDI_PORT_WIDTH_MASK, \
-+										    (regval)))
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index cc5aa38c3364..b394b0397d62 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2064,6 +2064,9 @@ static void intel_cx0pll_update_ssc(struct intel_encoder *encoder,
+ 	}
+ }
+ 
++#define C10_PLL_SSC_REG_START_IDX	4
++#define C10_PLL_SSC_REG_COUNT		5
 +
- #define  DDI_PORT_WIDTH_SHIFT			1
- #define  DDI_INIT_DISPLAY_DETECTED		REG_BIT(0)
+ static void intel_c10pll_update_pll(struct intel_encoder *encoder,
+ 				    struct intel_cx0pll_state *pll_state)
+ {
+@@ -2073,8 +2076,11 @@ static void intel_c10pll_update_pll(struct intel_encoder *encoder,
+ 	if (pll_state->ssc_enabled)
+ 		return;
+ 
+-	drm_WARN_ON(display->drm, ARRAY_SIZE(pll_state->c10.pll) < 9);
+-	for (i = 4; i < 9; i++)
++	drm_WARN_ON(display->drm, ARRAY_SIZE(pll_state->c10.pll) <
++				  C10_PLL_SSC_REG_START_IDX + C10_PLL_SSC_REG_COUNT);
++	for (i = C10_PLL_SSC_REG_START_IDX;
++	     i < C10_PLL_SSC_REG_START_IDX + C10_PLL_SSC_REG_COUNT;
++	     i++)
+ 		pll_state->c10.pll[i] = 0;
+ }
  
 -- 
 2.34.1
