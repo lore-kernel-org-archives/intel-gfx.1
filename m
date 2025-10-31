@@ -4,103 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56BF9CCF9FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD49ACCFA09
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 058EC10E3D1;
-	Mon,  3 Nov 2025 12:46:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEEF10E3ED;
+	Mon,  3 Nov 2025 12:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="NbXM9NFF";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="eam9D8Lo";
 	dkim-atps=neutral
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEC2C10E1B0
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 09:57:41 +0000 (UTC)
-Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-470ff2f6e56so81445e9.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 01:57:41 -0800 (PST)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E12D10EAF7
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 10:09:40 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4711b95226dso25724035e9.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 03:09:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1762163860; x=1762768660;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=4Gxg1uZruJtA4YMzZuNynPGAWW8m9xdZihRPr7yINg8=;
- b=NbXM9NFFD/zEhZPlYAOJ6/kqFHhmXF/xukCvHt5vZy3ptK15T+kvL1L+cBuqJzUCbf
- qVOqqfn1+6ff2v7aJrfDGgTSP01Ce4/3ohsDeAvQFfS7B3gEUioAuW/PwLcWZoGUDV1S
- lwMBsqB34AvcjwgNvkFTXUmCrZQwKb4m4WKUSjvGw9R/4Kmz9A8KRi1aNjG6FU2zWkP9
- tTql38AJkgl1LkfKfMtpEiSgN0t6q1cmLLxtP3AVGNFbZGkMU9nDeAMjchN+AIZTEy7o
- Vf9EsM8r0iXv8tqkOqmdhzqSln/TYtcrE3g9KXIXGx0tDiHBiCl4RxFGlvs7D5pS3pyq
- OgeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762163860; x=1762768660;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=suse.com; s=google; t=1761905379; x=1762510179; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4Gxg1uZruJtA4YMzZuNynPGAWW8m9xdZihRPr7yINg8=;
- b=IoHUs7lwXkpvZY0kQ47mLSMba4iqjA4i88sD+S1Snl8b9edX6AHJEstPK0E2FPWhXZ
- Mu4z2Da8jO+esb82Y2WePZNwFDPOsr5KcuJ4CzmxsxxwgJ8Latv8/eQqtY9xIsFcGu2a
- 8kr5arkf13aHPWuUtmk3EiMKiPgi6IG8mjWmHHPLxZFa3b+HCeWkS7ahwLH9VyMhTh2N
- XuMRwZT4RJ4GVylUPJuAN6fdOZ+L5CbEmABb2laJkAra5e5qWHINK5xbS980v9LvLsy3
- NmxwdOx46w5WrpImaGSUAxtnn9i1pdLFZmJhnrcbhoot8AaQUG503jv4buYkCXYWVWDI
- 4+9w==
+ bh=AR6DCodMEiRozMtWWQUdsBs+LPg+2s6MkeWZ5TMIU0g=;
+ b=eam9D8LoH2KHTz8LTAN1EI2U5Lbyj02hXTV64u+PZ6GHBqw3kDo1fR6540UabmRDHX
+ peq2XK9DmhhTCp6RQ3GkziMMLJDaHOKs0UnPB7Itpp01mwe3TWisL5PmF/knub5kHeVQ
+ FM+JvBfK13GkBXX+QLQwfXk+Ehl812MRCBLoBumFeUwJie3gs7GlZtruHeRXoHmWSYMJ
+ HZi2TAyv2NHv8tRPu6tHfqF2UtjMW8Cii/2Ole84yQb5dSCgJegzMMRP7XZ4sX8cIzJg
+ H0ecSCEBdiSx2x73Fl67rAY/MlsIZyitK4HADaBhvPK2b33H9m64l6tC2fU0zI7hDYmF
+ Pl9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1761905379; x=1762510179;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=AR6DCodMEiRozMtWWQUdsBs+LPg+2s6MkeWZ5TMIU0g=;
+ b=RJnwC3JPbhgP/PCPQ9Elawqn6LT+J+qbaZhKnFDR9hheX7StvB/H3Px4Z6/NoUxZeP
+ hClCh0TTOAyU6Vw3xM+LTZx1qZCXiTd98glGYNqG8O3ipeRn3aUWi2BMFbIkEnf18MDa
+ HFTmMp7CoKUV2CTV9DS1Himx0SjvlxfzUKSeiMRC+iivqj4DqpqiwER+MXWoSXvbjLL9
+ lM4yFJlhmkaHCwULx7bJsoXeT1mBytu9+kf5vbKjMsiL771B7EJLiWQ3fUvNcD07h9n9
+ FLO8mAv5qVbtpknKIn4s6i7nlpBoW2Vx2gaYybdRs9z+6QJUz+oQm2tfNJ+4LbjYRkfV
+ A8JA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnLvgMXVAu7q5rXaARPqDwF8L7BmpEynpKViLzNWjDmIgVa+LTWtOusScZR69zUXVkcGLbyUdlkBY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk65iyZnE83T5S0o3zIbkSbgmz1WyaPxvvzN890GWCafGf3H7M
- gXGtzOeBOiJEYAmKeLI2jAFEzbMMfS2GaF1a2N7SrbYcwvRoCdJEzHLTWLTSrXRsIA==
-X-Gm-Gg: ASbGnct1lEHeTsWzWcmJtH0rJ+nBSFL0MQ4VhA+xgM04kBuyfHGrNIe8HCOJGbZv60u
- 7udgU01O0+NkXDaycl0bc4YoqQLiiGZCQP0bV97r+5v2UB0GbQPRp5AexcvCpBIf7EsyZEOmRbY
- Ugj+LQQKxm9WKAdRtqfLKXzKfUiAGJNLeea29Vn71TZqComyW5DI2GSbERcVjvS3v6sY/lvn54i
- UL5VPWXTCREGZhVnkhMP52kQYc554kO/Txm13JjZ6AXmHdeeCE0iSn9VKCoA3pHQY6iYrmxz/6/
- 9VAYI4F3ritx3kog+wbPLszqbDljl0JDc3MyXJR28P6bh1Lbhc91UIe5M+axut5pxt1PmhOgz1z
- PeWVDwm5BVTA0eb4Ga4bvalsMm8oasQ8lUL9KJ4UrWHkQ5pdVJrf01e4kpVE8bsI+xvcoSb/kVL
- Itg8gMvnQyK8BE0uNuofW4P5+MVJFmT4LjsAfZgJsFATB4keIx8A==
-X-Google-Smtp-Source: AGHT+IGLdHq84lPWuC9+6LJzgqfOJA4DO6nS6TVGXk5Ftt4X8sQj+LIHdpfQT0AOQR/zxEXR5CFwjw==
-X-Received: by 2002:a05:600c:8711:b0:45f:2940:d194 with SMTP id
- 5b1f17b1804b1-4773cdce892mr7234625e9.2.1762163860205; 
- Mon, 03 Nov 2025 01:57:40 -0800 (PST)
-Received: from google.com (54.140.140.34.bc.googleusercontent.com.
- [34.140.140.54]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c11182e3sm19786186f8f.11.2025.11.03.01.57.39
+ AJvYcCV8+kOpa+al2UddM/iUbTWKeYc7VwaSR2gFw5y9Wf/a6MBLrVh/7wgMylsexV6xV18NmCF++t53M1E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZ8+zlwDrRHu8by0I6rtxF3aHQutEOnf1P72ooGzCV0IaygTmR
+ yEhxY4aY1K+nRgAtxuDLYvWR3LCuDDiTr311zhY2ZAtVUlNbWFjBsC9rfNXqacjw4U9fcyL3Cbx
+ suvBq
+X-Gm-Gg: ASbGncusC9gykMBWVjHHhAUXU4bI1+Xmpc74Oy74KQQ61Y7AlgoNePMsyjKLMyh+7Xe
+ 1tY9QXfjzSDHC9aGaE6arHZpwkTHWxpiugATZVjbqXpAg+Zatc9j6hNcb0T0ME2IZR3K/M0B60h
+ MTZsh6291aRymgaHcUC1mMWsdGGZWGMZud51CCVYlfvTGe88DVjK9o50EL2cHd7C6JohCYV+pkD
+ j1exyf0tzU9HHjG4hFdTP3eUvD6ogUflOTDpMv/p/zILRq+WVfNZjA7LHF8t4/cxOug3bvoa0zS
+ ocT73E/TT9uyXKXQZt8mNqw73cGRstEvdSnelKTqGe1pJL3/w/FMpQHRlcF5yDAZmsM4cdqZpbj
+ kyd17G68wRsaTpcxsJ+tRaEUhXbxbUdel2EsMQ1jTcKpGo2egIMhxrW0lQR/PnnMBYNBPzpwvlG
+ 1VamD2nXd1dYXjRUL5JnIsVchW
+X-Google-Smtp-Source: AGHT+IF5CL1Q/oaHD87zPjFp4KiqyMUDxM2HoYOoLKtrm0XnT5ekaMI5s76J1xMKBksDY9h87GST6A==
+X-Received: by 2002:a05:600c:3e06:b0:475:dc58:39e5 with SMTP id
+ 5b1f17b1804b1-4773089b541mr25699695e9.27.1761905378913; 
+ Fri, 31 Oct 2025 03:09:38 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429c13e1c9esm2839171f8f.22.2025.10.31.03.09.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Nov 2025 01:57:39 -0800 (PST)
-Date: Mon, 3 Nov 2025 09:57:36 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
- David Airlie <airlied@gmail.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Ankit Agrawal <ankita@nvidia.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Brett Creeley <brett.creeley@amd.com>,
- dri-devel@lists.freedesktop.org, Eric Auger <eric.auger@redhat.com>,
- Eric Farman <farman@linux.ibm.com>,
- Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
+ Fri, 31 Oct 2025 03:09:38 -0700 (PDT)
+From: Marco Crivellari <marco.crivellari@suse.com>
+To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Marco Crivellari <marco.crivellari@suse.com>,
+ Michal Hocko <mhocko@suse.com>, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Kevin Tian <kevin.tian@intel.com>, kvm@vger.kernel.org,
- Kirti Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org,
- Longfang Liu <liulongfang@huawei.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>,
- Nikhil Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Pranjal Shrivastava <praan@google.com>, qat-linux@intel.com,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Shameer Kolothum <skolothumtho@nvidia.com>,
- Sven Schnelle <svens@linux.ibm.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- virtualization@lists.linux.dev, Vineeth Vijayan <vneethv@linux.ibm.com>,
- Yishai Hadas <yishaih@nvidia.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>, patches@lists.linux.dev
-Subject: Re: [PATCH 20/22] vfio/platform: Convert to get_region_info_caps
-Message-ID: <aQh8kE9DrbxS2x1e@google.com>
-References: <0-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
- <20-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH 2/3] drm/i915: replace use of system_wq with system_percpu_wq
+Date: Fri, 31 Oct 2025 11:09:22 +0100
+Message-ID: <20251031100923.85721-3-marco.crivellari@suse.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251031100923.85721-1-marco.crivellari@suse.com>
+References: <20251031100923.85721-1-marco.crivellari@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 03 Nov 2025 12:46:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,107 +100,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 23, 2025 at 08:09:34PM -0300, Jason Gunthorpe wrote:
-> Remove the duplicate code and change info to a pointer. caps are not used.
-> 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Currently if a user enqueue a work item using schedule_delayed_work() the
+used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
+WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
+schedule_work() that is using system_wq and queue_work(), that makes use
+again of WORK_CPU_UNBOUND.
 
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
+This lack of consistency cannot be addressed without refactoring the API.
 
-Also, I smoke tested this on Qemu.
+system_wq should be the per-cpu workqueue, yet in this name nothing makes
+that clear, so replace system_wq with system_percpu_wq.
 
-Thanks,
-Mostafa
+The old wq (system_wq) will be kept for a few release cycles.
 
-> ---
->  drivers/vfio/platform/vfio_amba.c             |  2 +-
->  drivers/vfio/platform/vfio_platform.c         |  2 +-
->  drivers/vfio/platform/vfio_platform_common.c  | 24 ++++++-------------
->  drivers/vfio/platform/vfio_platform_private.h |  3 ++-
->  4 files changed, 11 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/vfio/platform/vfio_amba.c b/drivers/vfio/platform/vfio_amba.c
-> index d600deaf23b6d7..fa754f203b2dfc 100644
-> --- a/drivers/vfio/platform/vfio_amba.c
-> +++ b/drivers/vfio/platform/vfio_amba.c
-> @@ -115,7 +115,7 @@ static const struct vfio_device_ops vfio_amba_ops = {
->  	.open_device	= vfio_platform_open_device,
->  	.close_device	= vfio_platform_close_device,
->  	.ioctl		= vfio_platform_ioctl,
-> -	.get_region_info = vfio_platform_ioctl_get_region_info,
-> +	.get_region_info_caps = vfio_platform_ioctl_get_region_info,
->  	.read		= vfio_platform_read,
->  	.write		= vfio_platform_write,
->  	.mmap		= vfio_platform_mmap,
-> diff --git a/drivers/vfio/platform/vfio_platform.c b/drivers/vfio/platform/vfio_platform.c
-> index 0e85c914b65105..a4d3ace3e02dda 100644
-> --- a/drivers/vfio/platform/vfio_platform.c
-> +++ b/drivers/vfio/platform/vfio_platform.c
-> @@ -101,7 +101,7 @@ static const struct vfio_device_ops vfio_platform_ops = {
->  	.open_device	= vfio_platform_open_device,
->  	.close_device	= vfio_platform_close_device,
->  	.ioctl		= vfio_platform_ioctl,
-> -	.get_region_info = vfio_platform_ioctl_get_region_info,
-> +	.get_region_info_caps = vfio_platform_ioctl_get_region_info,
->  	.read		= vfio_platform_read,
->  	.write		= vfio_platform_write,
->  	.mmap		= vfio_platform_mmap,
-> diff --git a/drivers/vfio/platform/vfio_platform_common.c b/drivers/vfio/platform/vfio_platform_common.c
-> index 3ebd50fb78fbb7..c2990b7e900fa5 100644
-> --- a/drivers/vfio/platform/vfio_platform_common.c
-> +++ b/drivers/vfio/platform/vfio_platform_common.c
-> @@ -273,30 +273,20 @@ int vfio_platform_open_device(struct vfio_device *core_vdev)
->  EXPORT_SYMBOL_GPL(vfio_platform_open_device);
->  
->  int vfio_platform_ioctl_get_region_info(struct vfio_device *core_vdev,
-> -					struct vfio_region_info __user *arg)
-> +					struct vfio_region_info *info,
-> +					struct vfio_info_cap *caps)
->  {
->  	struct vfio_platform_device *vdev =
->  		container_of(core_vdev, struct vfio_platform_device, vdev);
-> -	struct vfio_region_info info;
-> -	unsigned long minsz;
->  
-> -	minsz = offsetofend(struct vfio_region_info, offset);
-> -
-> -	if (copy_from_user(&info, arg, minsz))
-> -		return -EFAULT;
-> -
-> -	if (info.argsz < minsz)
-> -		return -EINVAL;
-> -
-> -	if (info.index >= vdev->num_regions)
-> +	if (info->index >= vdev->num_regions)
->  		return -EINVAL;
->  
->  	/* map offset to the physical address  */
-> -	info.offset = VFIO_PLATFORM_INDEX_TO_OFFSET(info.index);
-> -	info.size = vdev->regions[info.index].size;
-> -	info.flags = vdev->regions[info.index].flags;
-> -
-> -	return copy_to_user(arg, &info, minsz) ? -EFAULT : 0;
-> +	info->offset = VFIO_PLATFORM_INDEX_TO_OFFSET(info->index);
-> +	info->size = vdev->regions[info->index].size;
-> +	info->flags = vdev->regions[info->index].flags;
-> +	return 0;
->  }
->  EXPORT_SYMBOL_GPL(vfio_platform_ioctl_get_region_info);
->  
-> diff --git a/drivers/vfio/platform/vfio_platform_private.h b/drivers/vfio/platform/vfio_platform_private.h
-> index a6008320e77bae..05084212a76eb6 100644
-> --- a/drivers/vfio/platform/vfio_platform_private.h
-> +++ b/drivers/vfio/platform/vfio_platform_private.h
-> @@ -86,7 +86,8 @@ void vfio_platform_close_device(struct vfio_device *core_vdev);
->  long vfio_platform_ioctl(struct vfio_device *core_vdev,
->  			 unsigned int cmd, unsigned long arg);
->  int vfio_platform_ioctl_get_region_info(struct vfio_device *core_vdev,
-> -					struct vfio_region_info __user *arg);
-> +					struct vfio_region_info *info,
-> +					struct vfio_info_cap *caps);
->  ssize_t vfio_platform_read(struct vfio_device *core_vdev,
->  			   char __user *buf, size_t count,
->  			   loff_t *ppos);
-> -- 
-> 2.43.0
-> 
+Suggested-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
+---
+ drivers/gpu/drm/i915/i915_driver.c | 2 +-
+ drivers/gpu/drm/i915/i915_drv.h    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index a28c3710c4d5..0f33cdc11736 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -140,7 +140,7 @@ static int i915_workqueues_init(struct drm_i915_private *dev_priv)
+ 	/*
+ 	 * The unordered i915 workqueue should be used for all work
+ 	 * scheduling that do not require running in order, which used
+-	 * to be scheduled on the system_wq before moving to a driver
++	 * to be scheduled on the system_percpu_wq before moving to a driver
+ 	 * instance due deprecation of flush_scheduled_work().
+ 	 */
+ 	dev_priv->unordered_wq = alloc_workqueue("i915-unordered", 0, 0);
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index 6a768aad8edd..d9f73b9995cf 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -256,7 +256,7 @@ struct drm_i915_private {
+ 	 *
+ 	 * This workqueue should be used for all unordered work
+ 	 * scheduling within i915, which used to be scheduled on the
+-	 * system_wq before moving to a driver instance due
++	 * system_percpu_wq before moving to a driver instance due
+ 	 * deprecation of flush_scheduled_work().
+ 	 */
+ 	struct workqueue_struct *unordered_wq;
+-- 
+2.51.0
+
