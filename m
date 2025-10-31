@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CFACCCF9F8
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CA81CCF9F8
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:50:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0499C10E02B;
-	Fri, 31 Oct 2025 10:48:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF3510EBB2;
+	Fri, 31 Oct 2025 10:50:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KrzCCd+I";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UM1pSzcf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9EDF10EB73;
- Fri, 31 Oct 2025 10:48:15 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60FF910EBB1;
+ Fri, 31 Oct 2025 10:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761907696; x=1793443696;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=pIEfTtTgiWcW48rNQzkcapMYhvhUCdQS8YnFV0etPVM=;
- b=KrzCCd+IOXRpFwOfh0qPb16fysn2BvyxnyBWTbdAtSq1vRzvxV7427WU
- cmUjeeHNhiUZ71cxs5oIBIavp3MBvA+wRI7EifBIUgfs/dVFDdm758XK2
- qIt6HK1LTjemVNNwaK7luJDGqP02D/ZHK5bu0RwnA561VlVcVbpJJIFiL
- jZOVzXtl3eRqVSU1aNV+ig/eomvCF+aB0WkWeN75hjk4QNr+0jiL5Sz6u
- 6WxU9KZAeqAx44tUqEF5KzLW3cYb35y73d0h3iBRAxH9aSnqF3tACYVgU
- 9lAwR3S0tumd+NCwGIRhTGlygBoWoXsxLTR/6Ndkuq0IapMfpGnb0XsMM A==;
-X-CSE-ConnectionGUID: TpHc3PbLQ9erDS0sgJfkdw==
-X-CSE-MsgGUID: aLqneBDuRH+t6yqlSvQNwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="64217588"
-X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="64217588"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2025 03:48:15 -0700
-X-CSE-ConnectionGUID: fxjN79A8QMK+iDK+5sNzDQ==
-X-CSE-MsgGUID: /+oFTLsiTJ6q+gINu8IDBQ==
+ t=1761907854; x=1793443854;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=Cb6MTIuOM4SH7cmeevF5Q23tPtbQmpIpsuPcvDJlj6o=;
+ b=UM1pSzcfoYR2wXUuFJyNrs6byZnjGiOIzV0VZupXakgr5LurdnEuMh+P
+ rbGIlgCbQR8XuXf/sfunwgcK5ZMBA0NY7ZQ8y7fTFKJoBc3MtZzwrZg5D
+ UfLxhTFcFE4K1UBtD1vr8uufap7a0mSg1j868jDDlFm6Bqbm+Kg/K4apM
+ 5mS1B31BTZALcMt+0by+/DJKJpP1vWHTi5GG70OL1L981QlzpPSV98CZ3
+ 0xGL2bm5SIQHUHOxp9pUT7S0KGzXVwOF4Y8JMZnKMMK/SdS5e/8HMECno
+ tFKkqa1H92/uZVSW3n+S0I+9VvZG8VMGRzQ25arFKpXqSY4rv/6JBIS0/ w==;
+X-CSE-ConnectionGUID: dl8zCnmFSymfpIJrY1L1Tw==
+X-CSE-MsgGUID: Bd2pM6DrRzS9x28RhZKN2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="63953412"
+X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="63953412"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2025 03:50:54 -0700
+X-CSE-ConnectionGUID: XmIJn75iRdijZW1PXiPhpA==
+X-CSE-MsgGUID: p4UL7hfTQSmeg4245HZqPQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="223441433"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa001.jf.intel.com with ESMTP; 31 Oct 2025 03:48:14 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [CI 26/32] drm/i915/display: Add .get_freq to MTL+ platforms
-Date: Fri, 31 Oct 2025 12:35:43 +0200
-Message-Id: <20251031103549.173208-27-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20251031103549.173208-1-mika.kahola@intel.com>
-References: <20251031103549.173208-1-mika.kahola@intel.com>
+X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="186539415"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.37])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Oct 2025 03:50:52 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Jouni =?utf-8?Q?H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: Re: [PATCH v3 0/6] Use display parent interface for runtime pm
+In-Reply-To: <20251030202836.1815680-1-jouni.hogander@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+References: <20251030202836.1815680-1-jouni.hogander@intel.com>
+Date: Fri, 31 Oct 2025 12:50:49 +0200
+Message-ID: <d28d4a6355e691f27c2dc2dffe62cc0242b11860@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,40 +70,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add .get_freq hook to support dpll framework for MTL+
-platforms.
+On Thu, 30 Oct 2025, Jouni H=C3=B6gander <jouni.hogander@intel.com> wrote:
+> Add struct intel_display_parent_interface which is supposed to contain
+> function pointers passed at display probe. This is supposed to allow
+> differing implementations between i915 and xe drivers.
+>
+> Add runtime pm as an example and first set of functions using this new
+> mechanism. Pass own implementations of runtime from i915 and xe
+> drivers during probe.
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Good stuff, let's merge? We've got two sets of eyes on patch 1, that's
+enough.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index db6ae7bc63d6..07bc99ae689c 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4379,8 +4379,21 @@ static bool mtl_pll_get_hw_state(struct intel_display *display,
- 	return intel_cx0pll_readout_hw_state(encoder, &dpll_hw_state->cx0pll);
- }
- 
-+static int mtl_pll_get_freq(struct intel_display *display,
-+			    const struct intel_dpll *pll,
-+			    const struct intel_dpll_hw_state *dpll_hw_state)
-+{
-+	struct intel_encoder *encoder = get_intel_encoder(display, pll);
-+
-+	if (drm_WARN_ON(display->drm, !encoder))
-+		return -EINVAL;
-+
-+	return intel_cx0pll_calc_port_clock(encoder, &dpll_hw_state->cx0pll);
-+}
-+
- static const struct intel_dpll_funcs mtl_pll_funcs = {
- 	.get_hw_state = mtl_pll_get_hw_state,
-+	.get_freq = mtl_pll_get_freq,
- };
- 
- static const struct dpll_info mtl_plls[] = {
--- 
-2.34.1
+BR,
+Jani.
 
+>
+> v3:
+>   - useless includes removed
+>   - drop xe_display_rpm_{get, put}_raw
+> v2:
+>   - unrelated include removal dropped
+>   - add _interface suffix to rpm function pointer struct
+>   - add struct ref_tracker forward declaration
+>   - use kernel-doc comments as needed
+>   - move i915 display rpm interface implementation to intel_runtime_pm.c
+>   - rename intel_display as i915_display
+>   - move xe_display_rpm_interface code into xe_display_rpm.c
+>   - rename xe_rpm as xe_display_rpm
+>   - use <> when including drm/intel/display_parent_interface.h
+>   - drop checks for validity of rpm function pointers
+>   - keep xe_display_rpm.c
+>
+> Jani Nikula (1):
+>   drm/{i915,xe}/display: pass parent interface to display probe
+>
+> Jouni H=C3=B6gander (5):
+>   drm/{i915,xe}/display: Add display runtime pm parent interface
+>   drm/i915/display: Runtime pm wrappers for display parent interface
+>   drm/xe/display: Runtime pm wrappers for display parent interface
+>   drm/i915/display: Use display parent interface for i915 runtime pm
+>   drm/xe/display: Use display parent interface for xe runtime pm
+>
+>  .../gpu/drm/i915/display/intel_display_core.h |  4 +
+>  .../drm/i915/display/intel_display_device.c   |  5 +-
+>  .../drm/i915/display/intel_display_device.h   |  4 +-
+>  .../gpu/drm/i915/display/intel_display_rpm.c  | 33 ++++----
+>  drivers/gpu/drm/i915/i915_driver.c            | 12 ++-
+>  drivers/gpu/drm/i915/i915_driver.h            |  2 +
+>  drivers/gpu/drm/i915/intel_runtime_pm.c       | 77 +++++++++++++++++++
+>  drivers/gpu/drm/i915/intel_runtime_pm.h       |  3 +
+>  .../gpu/drm/i915/selftests/mock_gem_device.c  |  4 +-
+>  drivers/gpu/drm/xe/Makefile                   |  1 +
+>  drivers/gpu/drm/xe/display/xe_display.c       |  8 +-
+>  drivers/gpu/drm/xe/display/xe_display_rpm.c   | 61 +++++++--------
+>  drivers/gpu/drm/xe/display/xe_display_rpm.h   | 11 +++
+>  include/drm/intel/display_parent_interface.h  | 45 +++++++++++
+>  14 files changed, 215 insertions(+), 55 deletions(-)
+>  create mode 100644 drivers/gpu/drm/xe/display/xe_display_rpm.h
+>  create mode 100644 include/drm/intel/display_parent_interface.h
+
+--=20
+Jani Nikula, Intel
