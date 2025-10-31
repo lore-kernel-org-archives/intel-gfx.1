@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 319DECCFA03
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54D59CCF9FE
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Oct 2025 10:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76EF410EB71;
-	Fri, 31 Oct 2025 10:48:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7C3610EB73;
+	Fri, 31 Oct 2025 10:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lscYYwoJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ubm4xVFr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E557C10EB6B;
- Fri, 31 Oct 2025 10:48:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8934C10EB70;
+ Fri, 31 Oct 2025 10:48:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1761907686; x=1793443686;
+ t=1761907688; x=1793443688;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Nd6KtQoK/JyICXg5UZTtZ6MJlxu5Ia9OxVkh1sIJocM=;
- b=lscYYwoJkiUABjVbqpeRf+ZXgFceKAdD+mOkEpGtTum3CJNYdtYJ8aZD
- PoJBs149qL4gn4Uowz146FAtDTfRmbpHNRee/vGQBnA66cF6AfhkABeB6
- b6CKM9bbN92gFptNCf5L2wLFKxUYZdv1CeZtMBFCyw9Pyg9mseF42rDbc
- I/ap9fC/Q8eDXsdz0udbRPInsDmugexT/Q/VYBVQz6fdIKL4cr9hQDonf
- TY8sqMzeoswIPorciHQ5bg9REIukRiX9Fdn9D2ttFfKiafZPYVA793j5v
- u+6QHcZOxh1gTZlFN24ZY5ud2dObzx17GuFAQ7Oc6ttlGoKF2LpPKtJsP g==;
-X-CSE-ConnectionGUID: bFGDbKUPTZy00SvBaAtoGg==
-X-CSE-MsgGUID: kKESfK9GQb6MlkFPfP2muw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="64217573"
-X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="64217573"
+ bh=bDAY9JgmB6GcmqEvuH8FPTvEnsdVXgabwmcu7Ppqvn8=;
+ b=Ubm4xVFrQ45Yod5YtDBvIMKSLeYu5Wn8mHYruiDJ0FnZxpLWMHHtGE7+
+ usKQt9ILoMpNJzYH5Ndp5RWtMyi9kIaRkoBKuqEQEPo/xyz245bTtQeG/
+ A+oZq57z/j2Yva3fTqBNNRU+pH9kzaZLzF/AWvZ5baE5NJeRBwNQf3E/l
+ eKiw0BUW9eubOffdn9fVLwpfIM5wyeg+N4dzsBTlLlXBerGKsGXt0/6qz
+ nAqka1+6CJlxwZKCMjbueRbSYvL6anYANp3L8RS670N7droHcXdB5wonZ
+ dae7jrcF2Xw99b9abSzp2ybxlDvKLmMteSuA3lFKE7X4eNABkKTtIUGVE w==;
+X-CSE-ConnectionGUID: Srrkt6g4QA+X14yDLx7WBA==
+X-CSE-MsgGUID: sJA0q3FxTAGxrZHM7TSQqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11598"; a="64217578"
+X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="64217578"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Oct 2025 03:48:06 -0700
-X-CSE-ConnectionGUID: Fcxq0JUxRbyCJb56sevpTA==
-X-CSE-MsgGUID: SOTjL25OS6yiVINPsltgqw==
+ 31 Oct 2025 03:48:08 -0700
+X-CSE-ConnectionGUID: iJrBqdu9QQSlORD47/AkmQ==
+X-CSE-MsgGUID: qxdyMUcHRMKSACqAfeUdpA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="223441391"
+X-IronPort-AV: E=Sophos;i="6.19,269,1754982000"; d="scan'208";a="223441403"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa001.jf.intel.com with ESMTP; 31 Oct 2025 03:48:04 -0700
+ by orviesa001.jf.intel.com with ESMTP; 31 Oct 2025 03:48:07 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>,
-	Imre Deak <imre.deak@intel.com>
-Subject: [CI 18/32] drm/i915/display: Compute plls for MTL+ platform
-Date: Fri, 31 Oct 2025 12:35:35 +0200
-Message-Id: <20251031103549.173208-19-mika.kahola@intel.com>
+Cc: Mika Kahola <mika.kahola@intel.com>
+Subject: [CI 20/32] drm/i915/display: MTL+ .put_dplls
+Date: Fri, 31 Oct 2025 12:35:37 +0200
+Message-Id: <20251031103549.173208-21-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251031103549.173208-1-mika.kahola@intel.com>
 References: <20251031103549.173208-1-mika.kahola@intel.com>
@@ -68,104 +67,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To bring MTL+ platform aligned with dpll framework we
-need to call and calculate pll state from dpll
-framework.
+Add .put_dplls function pointer to support MTL+ platforms
+on dpll framework. Reusing ICL function pointer.
 
-v2: Rename mtl_compute_c10phy_dpll() to mtl_compute_non_tc_phy_dpll().
-    The state is computed either for a C10 or on the PTL port B eDP on
-    TypeC PHY case for a C20 PHY PLL. Hence refer to this case as
-    "non_tc_phy" instead of "c10phy".
-
-    Rename mtl_compute_c20phy_dplls() to mtl_compute_tc_phy_dplls() for
-    symmetry with mtl_compute_non_tc_phy_dpll().
-
-Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 69 +++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index a9d9b7113f12..b6a5a519e936 100644
+index c6af2816594d..cd612acad6e4 100644
 --- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
 +++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4320,9 +4320,78 @@ static const struct dpll_info mtl_plls[] = {
- 	{}
- };
- 
-+/*
-+ * Compute the state for either a C10 PHY PLL, or in the case of the PTL port B,
-+ * eDP on TypeC PHY case for a C20 PHY PLL.
-+ */
-+static int mtl_compute_non_tc_phy_dpll(struct intel_atomic_state *state,
-+				       struct intel_crtc *crtc,
-+				       struct intel_encoder *encoder)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	struct icl_port_dpll *port_dpll =
-+		&crtc_state->icl_port_dplls[ICL_PORT_DPLL_DEFAULT];
-+	int ret;
-+
-+	ret = intel_cx0pll_calc_state(crtc_state, encoder, &port_dpll->hw_state);
-+	if (ret)
-+		return ret;
-+
-+	/* this is mainly for the fastset check */
-+	icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_DEFAULT);
-+
-+	crtc_state->port_clock = intel_cx0pll_calc_port_clock(encoder,
-+							      &port_dpll->hw_state.cx0pll);
-+
-+	return 0;
-+}
-+
-+static int mtl_compute_tc_phy_dplls(struct intel_atomic_state *state,
-+				    struct intel_crtc *crtc,
-+				    struct intel_encoder *encoder)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
-+	struct icl_port_dpll *port_dpll;
-+	int ret;
-+
-+	/* TODO: Add state calculation for TBT PLL */
-+
-+	port_dpll = &crtc_state->icl_port_dplls[ICL_PORT_DPLL_MG_PHY];
-+	ret = intel_cx0pll_calc_state(crtc_state, encoder, &port_dpll->hw_state);
-+	if (ret)
-+		return ret;
-+
-+	/* this is mainly for the fastset check */
-+	if (old_crtc_state->intel_dpll &&
-+	    old_crtc_state->intel_dpll->info->id == DPLL_ID_ICL_TBTPLL)
-+		icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_DEFAULT);
-+	else
-+		icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_MG_PHY);
-+
-+	crtc_state->port_clock = intel_cx0pll_calc_port_clock(encoder,
-+							      &port_dpll->hw_state.cx0pll);
-+
-+	return 0;
-+}
-+
-+static int mtl_compute_dplls(struct intel_atomic_state *state,
-+			     struct intel_crtc *crtc,
-+			     struct intel_encoder *encoder)
-+{
-+	if (intel_encoder_is_tc(encoder))
-+		return mtl_compute_tc_phy_dplls(state, crtc, encoder);
-+	else
-+		return mtl_compute_non_tc_phy_dpll(state, crtc, encoder);
-+}
-+
- __maybe_unused
- static const struct intel_dpll_mgr mtl_pll_mgr = {
+@@ -4448,6 +4448,7 @@ static const struct intel_dpll_mgr mtl_pll_mgr = {
  	.dpll_info = mtl_plls,
-+	.compute_dplls = mtl_compute_dplls,
+ 	.compute_dplls = mtl_compute_dplls,
+ 	.get_dplls = mtl_get_dplls,
++	.put_dplls = icl_put_dplls,
  };
  
  /**
