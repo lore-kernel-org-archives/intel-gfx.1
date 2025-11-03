@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE43CCF9FE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD5E7CCFA05
 	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B301B10E3E6;
-	Mon,  3 Nov 2025 12:46:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C42C10E3E5;
+	Mon,  3 Nov 2025 12:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="dQ1Y96nm";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="WjHqLbTe";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B379110E164
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 07:32:02 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-294f3105435so342275ad.1
- for <intel-gfx@lists.freedesktop.org>; Sun, 02 Nov 2025 23:32:02 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C58F10E1B0
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 09:55:41 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-47105bbb8d9so71985e9.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 01:55:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1762155122; x=1762759922;
+ d=google.com; s=20230601; t=1762163740; x=1762768540;
  darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=dADjXQcJVAcOBFwaI/JeQVroSWZH3kzmeM+gasunsjY=;
- b=dQ1Y96nmRj/phUcFRMWzJhSwF9V4dTEvRpM73TcGqOOgUSmM3wNpag5+lNHcf01UXU
- jD+NCUOttQGKfvGMzMxKx3iApkVJkcDoxLtGhhOuwvLwA3agpB5hyXIT9MEn3mnDvDcC
- ghW7nxYaTTQ4p2qhI+eekf86bmMyJtzGxr5Yw8fxtoCiZ3HHm48peSh+mBV2AMMLYGIQ
- ujusbznP30yW28hBxMxoiEaPmz4R7gWiI7I0+7JGDIe0TUYj2FpjoayGgKju5pdH93Zn
- zWx3JW7A5yAmx4RWReuP5+FU6cxp7luoC1QX9eCaX8km7ajYmegSeGl5Gj9c6F5JKFST
- Rc4A==
+ bh=/iKwbtWviZdAY+4F++DJl0rWWY/RQA9LSGiuI2/hl/A=;
+ b=WjHqLbTeaihn0zyC2YkqBlvPkzyIXcI3WyrujAMOoihlnHLdqx6bmKOk7maHnzRdhz
+ L/8tGP+MWDxdp9uasMfJfpQji3XzEGwO90JOfQfZvCH3Q16lV7nqMzBEPYdheSemkOvw
+ /cW1urRZ1C+RHKyUYugIBWikLF04OKsypSE1F4qydXE2xORyuTv72KSOPcAkhweYg2rE
+ 8EjPRFQkdIio2eUdHBNJ8OaD7j42HeZxL3oennFo6FUy4GyGV0jM/7+bSHTddBYvGVCL
+ zOPPg2DTEFMLOxfJX/lxYY4aAB56UA0ecqm+7Kv/yu8nnu+FlQxioLNSgro6dYrT/Tsf
+ mjmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762155122; x=1762759922;
+ d=1e100.net; s=20230601; t=1762163740; x=1762768540;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dADjXQcJVAcOBFwaI/JeQVroSWZH3kzmeM+gasunsjY=;
- b=whlTSyvTDG19CphgnpjUeIh90FjPjD1ZXsCd3nDgkSAUcxRF/QMnK0nFt3LLvx/mTs
- uctLBT9IIRBPuKHB49RKdq/g9nOV6oMb5lBKCeuQaLGRKqGCEWO2g6ryBlAneo25mq2r
- bve/5+KdX175obK7dJKByg/nXRHCoyU6oN6atNXxXzeUrBlOPvfKz5N9XuQx+GGTC61S
- EZPIRKa2wh4PCyc5js48cSa6NuxxsKXTiHfzrDNB1Kpkb2OX22aWRP+JAXRCy77PYNxh
- gO2LfPhaGyI5itre4jSNU43AJL7CRutEhAyCWVVH7LN/ZCGHSDP5Y1BUQzpsE30fa951
- mQgQ==
+ bh=/iKwbtWviZdAY+4F++DJl0rWWY/RQA9LSGiuI2/hl/A=;
+ b=Bh8gSIyE9RIFoaikkIxCyvGrP3yldXpi7sxgEN5GZAmFNeKAcgSNlgKA7O7IdHDB/c
+ YFOGkvLcEauO/fIiyd9Tt/MrqT38tvzPmZHhPUVYS9gRtUSxQ1z42axH9qM3uDWwRT0K
+ yasW1NPk1ITMB+pddCLTYK0EWfgNLRWu4gkrQd6PjAMA6awhZmi2N4FDR8bt9YKleKDF
+ 57Pbv8Ey3vNksMM4v8JZb6apAW2FXWEPJyQi4307vvOzG0XUlcF3x58uXbathzgm4EOX
+ qavL9a+zDfTZwB0tNDEXOM+pAaAEBpIs53kvn6VkCQEIYzWGumqSM26rltzmfq1bYfmi
+ I8EQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWPnUX0pZJj26p8so9j1xrpwTa49hbAM70AthTirEJRGLLKDlJQtUBwhZgS1sr3ueaxrMVIbhsam9k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9F1sex+ExhEmp8vYdG2ZxfcOpkbrX9MyFVS6vIuzly4HyPzox
- rQlCw/KlsFfu4AinVUtdTCvTtrjFlY8Naz89rGSiDvJNYXz2AbU8pVxRlNXgTV0CMA==
-X-Gm-Gg: ASbGncsM6Z5BoSzbaxU77B3hjuTPnsh7EfslCHBh1kkl80x8/MiHNdS3yv5oeT3/hoB
- 1kznXdHj8GtjwbhdiM4QNSCBuiEvqw4XNGohhMmwdC5KkUfe0Omsq55gly1HW8jE4q7Jv/BjO5p
- kDI2d2O7f6JKb00Up93HgNPuugmYH18+m3iiE0Kk6hZP+IyraL4PrMA2bxqGcLKffzqMCmekDZt
- ugZI7QGWlQSyortNWvVXufoNGve5kiyeIu1BoyKLhaGVKZePgVfNMEHf17F8ZiDCw5p/svj31EK
- BtPk0VLRwb7X3xjKWoelg+5+KQ4akXuCGCLvM2hUwUaJjtOZKeGgLB8Zn9Z2aSqgflFdjZ5Q9yY
- 225hk0af2HFp9G7SpPplznvs4rYAWXtDjP+MRXl/BDwLyCMhPFvkI1d6dFZYsTCW+9Tzu9Q6tfO
- 21DlkitLFBOBT6htmTovW0MVOuGKMqNgj7CxLWVg==
-X-Google-Smtp-Source: AGHT+IHfrP3JzShs73f4Ou9j74BKdOau8otZ+u7WUYTtBZ6PInXsEFYOD9H0FiQHWOz2YtGspU3bog==
-X-Received: by 2002:a17:902:ec8e:b0:274:1a09:9553 with SMTP id
- d9443c01a7336-29554bb5d5cmr6804875ad.6.1762155121865; 
- Sun, 02 Nov 2025 23:32:01 -0800 (PST)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com.
- [34.142.210.164]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-295512dedabsm82398675ad.5.2025.11.02.23.31.54
+ AJvYcCUJjZV32gn5YvwUcHPNvxqO4SYhhGENfOse2bzXE3CZfWcrh71xAhRcuZGjSI5Fy2mQKxB0O847zgY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw8NG9lfkHIaz41Zg7CRBLGKOLP2nqHPiW0bTjfLGKxp1vXtkpW
+ 03JD/I9riScOcwzBjcDZDLPmWcObVLfLvDEsSnp2td/WEaVjLEHYxb1ajVtRLGiZN2ve7jdhN2v
+ UF672JE7M
+X-Gm-Gg: ASbGncvATxQfSY732IUkNs6CU3GR2pH57eD4VtKfSmBaAuhUdpMVYNwZe/pCWR1NX4s
+ yj2g10er22ywflEEzg/K6PFePC4AqF7kLmy95Qava503o2XP5wd7ExpA2ydnCBag5NzDaUZhZW1
+ +z5c8DIPpmvrmjakvkfuUbQdg2J5ZaSiwS0YR5GPK7w4WRNqS2QSc5hBDV9kMfw5DOhH7Rr6hsI
+ oLoILMdCyZxi5lef9KKpRCf3wkzY0ffaXceNSoCfq9fxgRoza4T/o83c9KXSZJzMVIUHTFhQNLP
+ JFwqEBRSjEEQmQjS0u6lxGw1mfTkfSpb6Dn4lO/0IpngvkA81IdVzTVfhy51zOYNiALIlR0qEzI
+ zZPHSAXHnbFYPEBaOgwryKvJxfri58lXqk0BhR9iAzRrPCYFIhAy4u2GC0Rh3gfZHzE+lrs2jh7
+ VYCerfi1UQM8Wf/FdsXcpljgcwrdcYc6axlHh3RxlQg8f6xIvZlw==
+X-Google-Smtp-Source: AGHT+IHAx+AWORE9paLXTzRW7mKzqe0hb2wtQ9DF+W6v23M9Vo/fGIuffOpRO4zhYPoMBhdyXFmsSw==
+X-Received: by 2002:a05:600c:8a0d:20b0:477:255c:bea8 with SMTP id
+ 5b1f17b1804b1-4773da9baeemr5918155e9.7.1762163740369; 
+ Mon, 03 Nov 2025 01:55:40 -0800 (PST)
+Received: from google.com (54.140.140.34.bc.googleusercontent.com.
+ [34.140.140.54]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-429c13ebfe8sm19975798f8f.35.2025.11.03.01.55.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Nov 2025 23:32:01 -0800 (PST)
-Date: Mon, 3 Nov 2025 07:31:51 +0000
-From: Pranjal Shrivastava <praan@google.com>
+ Mon, 03 Nov 2025 01:55:39 -0800 (PST)
+Date: Mon, 3 Nov 2025 09:55:36 +0000
+From: Mostafa Saleh <smostafa@google.com>
 To: Jason Gunthorpe <jgg@nvidia.com>
 Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
  David Airlie <airlied@gmail.com>,
@@ -85,22 +86,22 @@ Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
  Matthew Rosato <mjrosato@linux.ibm.com>,
  Nikhil Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
  Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, qat-linux@intel.com,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Pranjal Shrivastava <praan@google.com>, qat-linux@intel.com,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
  Shameer Kolothum <skolothumtho@nvidia.com>,
- Mostafa Saleh <smostafa@google.com>, Sven Schnelle <svens@linux.ibm.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev,
- Vineeth Vijayan <vneethv@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ virtualization@lists.linux.dev, Vineeth Vijayan <vneethv@linux.ibm.com>,
+ Yishai Hadas <yishaih@nvidia.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
  Zhi Wang <zhi.wang.linux@gmail.com>, patches@lists.linux.dev
-Subject: Re: [PATCH 11/22] vfio/cdx: Provide a get_region_info op
-Message-ID: <aQhaZ2HvTTtanNdu@google.com>
+Subject: Re: [PATCH 14/22] vfio: Require drivers to implement get_region_info
+Message-ID: <aQh8GG15d_-Ge2Xx@google.com>
 References: <0-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
- <11-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+ <14-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <11-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+In-Reply-To: <14-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
 X-Mailman-Approved-At: Mon, 03 Nov 2025 12:46:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,17 +118,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 23, 2025 at 08:09:25PM -0300, Jason Gunthorpe wrote:
-> Change the signature of vfio_cdx_ioctl_get_region_info() and hook it to
-> the op.
+On Thu, Oct 23, 2025 at 08:09:28PM -0300, Jason Gunthorpe wrote:
+> Remove the fallback through the ioctl callback, no drivers use this now.
 > 
 > Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  drivers/vfio/cdx/main.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
 
 Thanks,
-Praan
+Mostafa
+
+> ---
+>  drivers/vfio/vfio_main.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+> index a390163ce706c4..f056e82ba35075 100644
+> --- a/drivers/vfio/vfio_main.c
+> +++ b/drivers/vfio/vfio_main.c
+> @@ -1297,13 +1297,13 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
+>  		break;
+>  
+>  	case VFIO_DEVICE_GET_REGION_INFO:
+> -		if (!device->ops->get_region_info)
+> -			goto ioctl_fallback;
+> -		ret = device->ops->get_region_info(device, uptr);
+> +		if (unlikely(!device->ops->get_region_info))
+> +			ret = -EINVAL;
+> +		else
+> +			ret = device->ops->get_region_info(device, uptr);
+>  		break;
+>  
+>  	default:
+> -ioctl_fallback:
+>  		if (unlikely(!device->ops->ioctl))
+>  			ret = -EINVAL;
+>  		else
+> -- 
+> 2.43.0
+> 
