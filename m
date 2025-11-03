@@ -4,86 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE47DCCF9FE
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48800CCFA06
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1AC310E3CB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B474810E3CC;
 	Mon,  3 Nov 2025 12:46:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="YwBV/mzb";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="gM1OvX9T";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A170D10EAF6
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 10:09:39 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-47114a40161so23088005e9.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 03:09:39 -0700 (PDT)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E73AA10E359
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 06:06:18 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2959197b68eso184825ad.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 02 Nov 2025 22:06:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1761905378; x=1762510178; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=geErPXIF4l5oKM4a83yW4A9ZMeZpPoF80B9UfR8ZKv0=;
- b=YwBV/mzbCr3sZKhVHYGD6AYA049YQ0DDRRyrLoGi/6/Y4u391fR/woM50eDqwQStSy
- tmvZFu2S9hExrzZ+wo2I6u5WGWQUfbdrwBic2grS24VyqjMmvmJpPhgZWFPf70nxWMsx
- kRLX4Ab0ucBpMn1mv8/x7VrOq8A1jdkxCI+Cd62eavY1PrYk5MnGX3AfBSFLM4xnXCbu
- 4DtLySuMImUYkNuky4vWHh1syQvEQOGbcFHdrua8z/ZSrfJUrgIOJUWSAbh/HtfxeUGH
- mwh0g1egbXy+x9vA54W8gEx0aHCGex8OKsYJD06TxsFy/zhxEHvT5GPRiVT1cVXE35My
- 2STg==
+ d=google.com; s=20230601; t=1762149978; x=1762754778;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=daEhgCusceEtpwe81ptEC+bKqGITwloFYe7hKEHFGD0=;
+ b=gM1OvX9Ttw+flCMj0pZRLbRhdMPBKR/u1W4HPuifagCBIFO5RIQ5ZBcSA2sDXICxJW
+ FR9KpVlYOftZMzX1RyDVITZn8gS3gAznV6kNdk2DXYn3QhjHv14pO7FxEWQWYJOFSHhm
+ 3b83RGMI+TsOmaJNcbYN7jhZAY2Q5Ia3y+YhFGN5PigRQKhiHHqIUYzKDpCBLnFYAKOp
+ VXnxWQLcmGCgkk0Xg75q016IXbqTBFRoGSfnRUBW/w4ofZ0ajeE+vVEJjxuDtwwE8+kI
+ 4qQ+Fc/A3rhrOvjvaOcLFHTvsxhFdtjlxPugWVKvOU4JYAlGufoK1X6PSGWb7W3rQ6GF
+ VP3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761905378; x=1762510178;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=geErPXIF4l5oKM4a83yW4A9ZMeZpPoF80B9UfR8ZKv0=;
- b=BBTpcVyEWsm/ZUAxVD16TEuF/erTMm+qH/s4mlyJs1av4Ust3Kqm44mB7lD2F66W9t
- UaEQAPD1YhGmK8GdfNKfREHNVxAYUUJU9cFeGFHeBfvtO5nqFhRc84GscnSQBMY6A8o3
- cIvXyEgMTT+2NPsFr7B3HVlxJzme8OxPEnxRSo2G/Rb8Ydbqnl03VmW9pO3Dvnfb1qdO
- JpKSVUhG2+77lZC4tIcsYV+eK1n03EqrUsDR3tpmyAEJCVC6anLDTJWvpMWg2BiOKdIQ
- qJD9OdPGuEHtdAj/XECxhPRY41c+4jhT3OM707Cj+kE0+W03vqwhkD6lkdkHxnaQYeki
- Xvlg==
+ d=1e100.net; s=20230601; t=1762149978; x=1762754778;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=daEhgCusceEtpwe81ptEC+bKqGITwloFYe7hKEHFGD0=;
+ b=gtlvNhLpm8Myiya1Qo2GWla0BcRA+21lHvBeQ4NOJKyMJttaNBO7tZu2REyArm28Yc
+ zJlf/ObWV2198GRLRWr6tvlUznom1vIbCuMKY5WgbBdq0gimjZG1cGEUxkl+yhXJWM0w
+ wz7qIwJxTDBL/WbY3kp/R5han7Eekrj8RqWp2lR2D+4JVNSYSdg5OQVicFpK+j0DGThO
+ Hsa9bDfLhQJ5HZoSC+5YA5m3W59V+v/CJWboU3nR2ZpD6zgjYsEK+e7+xYtx4Zb2tWL6
+ TWc8yiy/Mkau2fYlxRq1xioLy01+aABZCpQaAG9to++laq/egy59WFD9mBmQhVxS6Svn
+ B6vA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUEFsHVVk9u2OradqdX9/sBhrBmsuM1FwM8zp8V9ex4JEEQUiMUx7SjiyZDUfh4xOSnTUs5ATbQWsw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyuPsy4UspnBapmv03HPk1XZX6bj+b5xA53EzGhowsUGC8MUg+d
- Eyvybtz73OJccHlxWPQgSE2ejl26n9KGm8Bw4tAjX/aAYYiImFceBXwpjHYG+BBgNmw=
-X-Gm-Gg: ASbGnctAeoi4b6xmPchGgdE+l0IMuEu5X7yxz9htRY4cIYvLtLt04B05a3sWA2sUXvA
- IbL1NVWcM5c75+9udQc24N8dfugU5bxjXu6/TVT6uIBPOj0dP+N6KylGcKMrYsM3o7Tpj+2FuR1
- mpgfcVd0p4mnnYXCFipDA5QHTY1EHngsiM2Fx3Cg97+QuJwTr7iH3awutwSvS3qS5wo2AtzIUrC
- LfW7dbzsjbA2T/D9znue9aW8c2abZPUkuA+++/EVmTQclxROLbIrEYZsg9AmFAMozTYL46GUaJ2
- yNoYnpugtTp9HCO+fn7WCJNEM0yX9w3CiafrisqrCnfr7dfRBbMmFgmMd9iwQNu8utAMxXqKMVK
- OnL03n64LZmSMDOCY0DUu8cpbUCyo7aUL+ZfSMPJf9vUPRxjRZOmmO7QxrqmeNjWek8lB1DJBcN
- GqSPnqD+hBxUru3RrNcHoq0FnGlf5YXk2NqQk=
-X-Google-Smtp-Source: AGHT+IHeodxObcBBJn4QjePgORkM3nPGBaq2Yj+2iKThad3LaDctwhOITCPrMl3v8n0KUydBNlV4tw==
-X-Received: by 2002:a05:600c:3511:b0:477:a9e:859b with SMTP id
- 5b1f17b1804b1-4773089c496mr27121895e9.24.1761905377934; 
- Fri, 31 Oct 2025 03:09:37 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c13e1c9esm2839171f8f.22.2025.10.31.03.09.37
+ AJvYcCWFEGPyCttmI8yrZj4Z3addnJJSXH/cIvdqDte7s1O+jtMemBZGnsJXFg/EpWsz55ZvJQQvtSfUakk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz0/RzJFw8qT1KOv53rCM/qiqUzC/yF3bbk99+gazlKAN3j/uPZ
+ XqnQs0qdvUbOdaBBWhUq4QsVrQHM2ojXR9PNtBIgK9T4wwSFZvsDh1yXfn24ji/xIg==
+X-Gm-Gg: ASbGncsKglgT1PFFnmwY6HigXQ3NwO585s8RNC6bUn7gYwwN71jKPeFxfa0qg7LMsR8
+ bFWJ/m0EsKnA4P7xjIC81mOPLMAb3bN/BwVfWPizKDOTfj4OsGASbeaarN6FX8SOQaOrxrpl1Jo
+ rWuHBLyHi8Sviz1/jgwYzBmw3IqN1oM6eTq8F9bDJYcmkCkLOQPRd2I1EIsQOFgaO3JJUyUxZks
+ jRC06mZD0dLgD4EUsACwYNfXP15mhgKBF0USnWv8xUCoZeY2mFvJqxeEWXCY6Us79Nq3H8+quQZ
+ qJRcikmXr9hsQo+9gGPOEpsGVFg/aGZAKbug3wbERRXeh/P61kG5jVuzRqBIAwuZOCjcytPthrP
+ tRkeyc3KRHLYahTGy+HatNpi+nqpFq7WUPT5V9EpipIUdoT8nS4WwP3ys1Ok3SJgUcO6P45Q2WO
+ lt0F7g4KmwE6fxAt1K8HI7ZRrzZdyIzoSODMc9qw==
+X-Google-Smtp-Source: AGHT+IEluRFzLqUGHbmfa87kzbGcxD4xtCtUDt3Aesdz6fP5oqFYMacpJF/LHmpqMlg6+1lRT50KTA==
+X-Received: by 2002:a17:902:ea08:b0:294:faad:8cb4 with SMTP id
+ d9443c01a7336-29554b85496mr5533065ad.8.1762149977826; 
+ Sun, 02 Nov 2025 22:06:17 -0800 (PST)
+Received: from google.com (164.210.142.34.bc.googleusercontent.com.
+ [34.142.210.164]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-7a9bad978c4sm5062872b3a.13.2025.11.02.22.06.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 03:09:37 -0700 (PDT)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Michal Hocko <mhocko@suse.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Sun, 02 Nov 2025 22:06:17 -0800 (PST)
+Date: Mon, 3 Nov 2025 06:06:07 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Ankit Agrawal <ankita@nvidia.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Brett Creeley <brett.creeley@amd.com>,
+ dri-devel@lists.freedesktop.org, Eric Auger <eric.auger@redhat.com>,
+ Eric Farman <farman@linux.ibm.com>,
+ Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
+ Vasily Gorbik <gor@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 1/3] drm/i915: replace use of system_unbound_wq with
- system_dfl_wq
-Date: Fri, 31 Oct 2025 11:09:21 +0100
-Message-ID: <20251031100923.85721-2-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251031100923.85721-1-marco.crivellari@suse.com>
-References: <20251031100923.85721-1-marco.crivellari@suse.com>
+ Kevin Tian <kevin.tian@intel.com>, kvm@vger.kernel.org,
+ Kirti Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org,
+ Longfang Liu <liulongfang@huawei.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>,
+ Nikhil Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
+ Peter Oberparleiter <oberpar@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, qat-linux@intel.com,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Shameer Kolothum <skolothumtho@nvidia.com>,
+ Mostafa Saleh <smostafa@google.com>, Sven Schnelle <svens@linux.ibm.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev,
+ Vineeth Vijayan <vneethv@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Zhi Wang <zhi.wang.linux@gmail.com>, patches@lists.linux.dev
+Subject: Re: [PATCH 02/22] vfio/hisi: Convert to the get_region_info op
+Message-ID: <aQhGTwg4kpuP8pgF@google.com>
+References: <0-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+ <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
 X-Mailman-Approved-At: Mon, 03 Nov 2025 12:46:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,225 +117,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
+On Thu, Oct 23, 2025 at 08:09:16PM -0300, Jason Gunthorpe wrote:
+> Change the function signature of hisi_acc_vfio_pci_ioctl()
+> and re-indent it.
+> 
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+> ---
+>  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 57 +++++++++----------
+>  1 file changed, 27 insertions(+), 30 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> index fde33f54e99ec5..f06dcfcf09599f 100644
+> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+> @@ -1324,43 +1324,39 @@ static ssize_t hisi_acc_vfio_pci_read(struct vfio_device *core_vdev,
+>  	return vfio_pci_core_read(core_vdev, buf, new_count, ppos);
+>  }
+>  
+> -static long hisi_acc_vfio_pci_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
+> -				    unsigned long arg)
+> +static int hisi_acc_vfio_get_region(struct vfio_device *core_vdev,
+> +				    struct vfio_region_info __user *arg)
+>  {
+> -	if (cmd == VFIO_DEVICE_GET_REGION_INFO) {
+> -		struct vfio_pci_core_device *vdev =
+> -			container_of(core_vdev, struct vfio_pci_core_device, vdev);
+> -		struct pci_dev *pdev = vdev->pdev;
+> -		struct vfio_region_info info;
+> -		unsigned long minsz;
+> +	struct vfio_pci_core_device *vdev =
+> +		container_of(core_vdev, struct vfio_pci_core_device, vdev);
+> +	struct pci_dev *pdev = vdev->pdev;
+> +	struct vfio_region_info info;
+> +	unsigned long minsz;
+>  
+> -		minsz = offsetofend(struct vfio_region_info, offset);
+> +	minsz = offsetofend(struct vfio_region_info, offset);
+>  
+> -		if (copy_from_user(&info, (void __user *)arg, minsz))
+> -			return -EFAULT;
+> +	if (copy_from_user(&info, arg, minsz))
+> +		return -EFAULT;
+>  
+> -		if (info.argsz < minsz)
+> -			return -EINVAL;
+> +	if (info.argsz < minsz)
+> +		return -EINVAL;
+>  
+> -		if (info.index == VFIO_PCI_BAR2_REGION_INDEX) {
+> -			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
+> +	if (info.index != VFIO_PCI_BAR2_REGION_INDEX)
+> +		return vfio_pci_ioctl_get_region_info(core_vdev, arg);
+>  
 
-This lack of consistency cannot be addressed without refactoring the API.
+I'm curious to learn the reason for flipping polarity here? (apart from
+readability).
 
-system_unbound_wq should be the default workqueue so as not to enforce
-locality constraints for random work whenever it's not required.
+> -			/*
+> -			 * ACC VF dev BAR2 region consists of both functional
+> -			 * register space and migration control register space.
+> -			 * Report only the functional region to Guest.
+> -			 */
+> -			info.size = pci_resource_len(pdev, info.index) / 2;
+> +	info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
+>  
+> -			info.flags = VFIO_REGION_INFO_FLAG_READ |
+> -					VFIO_REGION_INFO_FLAG_WRITE |
+> -					VFIO_REGION_INFO_FLAG_MMAP;
+> +	/*
+> +	 * ACC VF dev BAR2 region consists of both functional
+> +	 * register space and migration control register space.
+> +	 * Report only the functional region to Guest.
+> +	 */
+> +	info.size = pci_resource_len(pdev, info.index) / 2;
+>  
+> -			return copy_to_user((void __user *)arg, &info, minsz) ?
+> -					    -EFAULT : 0;
+> -		}
+> -	}
+> -	return vfio_pci_core_ioctl(core_vdev, cmd, arg);
+> +	info.flags = VFIO_REGION_INFO_FLAG_READ | VFIO_REGION_INFO_FLAG_WRITE |
+> +		     VFIO_REGION_INFO_FLAG_MMAP;
+> +
+> +	return copy_to_user(arg, &info, minsz) ? -EFAULT : 0;
+>  }
+>  
+>  static int hisi_acc_vf_debug_check(struct seq_file *seq, struct vfio_device *vdev)
+> @@ -1557,7 +1553,8 @@ static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
+>  	.release = vfio_pci_core_release_dev,
+>  	.open_device = hisi_acc_vfio_pci_open_device,
+>  	.close_device = hisi_acc_vfio_pci_close_device,
+> -	.ioctl = hisi_acc_vfio_pci_ioctl,
+> +	.ioctl = vfio_pci_core_ioctl,
+> +	.get_region_info = hisi_acc_vfio_get_region,
+>  	.device_feature = vfio_pci_core_ioctl_feature,
+>  	.read = hisi_acc_vfio_pci_read,
+>  	.write = hisi_acc_vfio_pci_write,
 
-Adding system_dfl_wq to encourage its use when unbound work should be used.
+The change seems to maintain original functionality and LGTM.
+Acked-by: Pranjal Shrivastava <praan@google.com>
 
-The old system_unbound_wq will be kept for a few release cycles.
-
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- drivers/gpu/drm/i915/display/intel_display_power.c | 2 +-
- drivers/gpu/drm/i915/display/intel_tc.c            | 4 ++--
- drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c       | 2 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.c             | 4 ++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c          | 4 ++--
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c  | 6 +++---
- drivers/gpu/drm/i915/i915_active.c                 | 2 +-
- drivers/gpu/drm/i915/i915_sw_fence_work.c          | 2 +-
- drivers/gpu/drm/i915/i915_vma_resource.c           | 2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp.c               | 2 +-
- drivers/gpu/drm/i915/pxp/intel_pxp_irq.c           | 2 +-
- 11 files changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index da4babfd6bcb..002a7ba6f630 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -645,7 +645,7 @@ queue_async_put_domains_work(struct i915_power_domains *power_domains,
- 						     power.domains);
- 	drm_WARN_ON(display->drm, power_domains->async_put_wakeref);
- 	power_domains->async_put_wakeref = wakeref;
--	drm_WARN_ON(display->drm, !queue_delayed_work(system_unbound_wq,
-+	drm_WARN_ON(display->drm, !queue_delayed_work(system_dfl_wq,
- 						      &power_domains->async_put_work,
- 						      msecs_to_jiffies(delay_ms)));
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index c4a5601c5107..2677e25c42f2 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -1838,7 +1838,7 @@ bool intel_tc_port_link_reset(struct intel_digital_port *dig_port)
- 	if (!intel_tc_port_link_needs_reset(dig_port))
- 		return false;
- 
--	queue_delayed_work(system_unbound_wq,
-+	queue_delayed_work(system_dfl_wq,
- 			   &to_tc_port(dig_port)->link_reset_work,
- 			   msecs_to_jiffies(2000));
- 
-@@ -1919,7 +1919,7 @@ void intel_tc_port_unlock(struct intel_digital_port *dig_port)
- 	struct intel_tc_port *tc = to_tc_port(dig_port);
- 
- 	if (!tc->link_refcount && tc->mode != TC_PORT_DISCONNECTED)
--		queue_delayed_work(system_unbound_wq, &tc->disconnect_phy_work,
-+		queue_delayed_work(system_dfl_wq, &tc->disconnect_phy_work,
- 				   msecs_to_jiffies(1000));
- 
- 	mutex_unlock(&tc->lock);
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-index 2f6b33edb9c9..008d5909a010 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
-@@ -408,7 +408,7 @@ static void __memcpy_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
- 
- 	if (unlikely(fence->error || I915_SELFTEST_ONLY(fail_gpu_migration))) {
- 		INIT_WORK(&copy_work->work, __memcpy_work);
--		queue_work(system_unbound_wq, &copy_work->work);
-+		queue_work(system_dfl_wq, &copy_work->work);
- 	} else {
- 		init_irq_work(&copy_work->irq_work, __memcpy_irq_work);
- 		irq_work_queue(&copy_work->irq_work);
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.c b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-index 52ec4421a211..1c2764440323 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.c
-@@ -624,7 +624,7 @@ int intel_guc_crash_process_msg(struct intel_guc *guc, u32 action)
- 	else
- 		guc_err(guc, "Unknown crash notification: 0x%04X\n", action);
- 
--	queue_work(system_unbound_wq, &guc->dead_guc_worker);
-+	queue_work(system_dfl_wq, &guc->dead_guc_worker);
- 
- 	return 0;
- }
-@@ -646,7 +646,7 @@ int intel_guc_to_host_process_recv_msg(struct intel_guc *guc,
- 		guc_err(guc, "Received early exception notification!\n");
- 
- 	if (msg & (INTEL_GUC_RECV_MSG_CRASH_DUMP_POSTED | INTEL_GUC_RECV_MSG_EXCEPTION))
--		queue_work(system_unbound_wq, &guc->dead_guc_worker);
-+		queue_work(system_dfl_wq, &guc->dead_guc_worker);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-index 3e7e5badcc2b..9260bdd91f80 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
-@@ -31,7 +31,7 @@ static void ct_dead_ct_worker_func(struct work_struct *w);
- 	do { \
- 		if (!(ct)->dead_ct_reported) { \
- 			(ct)->dead_ct_reason |= 1 << CT_DEAD_##reason; \
--			queue_work(system_unbound_wq, &(ct)->dead_ct_worker); \
-+			queue_work(system_dfl_wq, &(ct)->dead_ct_worker); \
- 		} \
- 	} while (0)
- #else
-@@ -1241,7 +1241,7 @@ static int ct_handle_event(struct intel_guc_ct *ct, struct ct_incoming_msg *requ
- 	list_add_tail(&request->link, &ct->requests.incoming);
- 	spin_unlock_irqrestore(&ct->requests.lock, flags);
- 
--	queue_work(system_unbound_wq, &ct->requests.worker);
-+	queue_work(system_dfl_wq, &ct->requests.worker);
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 68f2b8d363ac..364879a4d1d8 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3385,7 +3385,7 @@ static void guc_context_sched_disable(struct intel_context *ce)
- 	} else if (!intel_context_is_closed(ce) && !guc_id_pressure(guc, ce) &&
- 		   delay) {
- 		spin_unlock_irqrestore(&ce->guc_state.lock, flags);
--		mod_delayed_work(system_unbound_wq,
-+		mod_delayed_work(system_dfl_wq,
- 				 &ce->guc_state.sched_disable_delay_work,
- 				 msecs_to_jiffies(delay));
- 	} else {
-@@ -3611,7 +3611,7 @@ static void guc_context_destroy(struct kref *kref)
- 	 * take the GT PM for the first time which isn't allowed from an atomic
- 	 * context.
- 	 */
--	queue_work(system_unbound_wq, &guc->submission_state.destroyed_worker);
-+	queue_work(system_dfl_wq, &guc->submission_state.destroyed_worker);
- }
- 
- static int guc_context_alloc(struct intel_context *ce)
-@@ -5382,7 +5382,7 @@ int intel_guc_engine_failure_process_msg(struct intel_guc *guc,
- 	 * A GT reset flushes this worker queue (G2H handler) so we must use
- 	 * another worker to trigger a GT reset.
- 	 */
--	queue_work(system_unbound_wq, &guc->submission_state.reset_fail_worker);
-+	queue_work(system_dfl_wq, &guc->submission_state.reset_fail_worker);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/i915/i915_active.c b/drivers/gpu/drm/i915/i915_active.c
-index 6b0c1162505a..582e5099e980 100644
---- a/drivers/gpu/drm/i915/i915_active.c
-+++ b/drivers/gpu/drm/i915/i915_active.c
-@@ -193,7 +193,7 @@ active_retire(struct i915_active *ref)
- 		return;
- 
- 	if (ref->flags & I915_ACTIVE_RETIRE_SLEEPS) {
--		queue_work(system_unbound_wq, &ref->work);
-+		queue_work(system_dfl_wq, &ref->work);
- 		return;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-index d2e56b387993..366418108f78 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
-@@ -38,7 +38,7 @@ fence_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
- 			if (test_bit(DMA_FENCE_WORK_IMM, &f->dma.flags))
- 				fence_work(&f->work);
- 			else
--				queue_work(system_unbound_wq, &f->work);
-+				queue_work(system_dfl_wq, &f->work);
- 		} else {
- 			fence_complete(f);
- 		}
-diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
-index 53d619ef0c3d..a8f2112ce81f 100644
---- a/drivers/gpu/drm/i915/i915_vma_resource.c
-+++ b/drivers/gpu/drm/i915/i915_vma_resource.c
-@@ -202,7 +202,7 @@ i915_vma_resource_fence_notify(struct i915_sw_fence *fence,
- 			i915_vma_resource_unbind_work(&vma_res->work);
- 		} else {
- 			INIT_WORK(&vma_res->work, i915_vma_resource_unbind_work);
--			queue_work(system_unbound_wq, &vma_res->work);
-+			queue_work(system_dfl_wq, &vma_res->work);
- 		}
- 		break;
- 	case FENCE_FREE:
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp.c b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-index 27d545c4e6a5..b188c4deafb3 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp.c
-@@ -276,7 +276,7 @@ static void pxp_queue_termination(struct intel_pxp *pxp)
- 	spin_lock_irq(gt->irq_lock);
- 	intel_pxp_mark_termination_in_progress(pxp);
- 	pxp->session_events |= PXP_TERMINATION_REQUEST;
--	queue_work(system_unbound_wq, &pxp->session_work);
-+	queue_work(system_dfl_wq, &pxp->session_work);
- 	spin_unlock_irq(gt->irq_lock);
- }
- 
-diff --git a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-index d81750b9bdda..735325e828bc 100644
---- a/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-+++ b/drivers/gpu/drm/i915/pxp/intel_pxp_irq.c
-@@ -48,7 +48,7 @@ void intel_pxp_irq_handler(struct intel_pxp *pxp, u16 iir)
- 		pxp->session_events |= PXP_TERMINATION_COMPLETE | PXP_EVENT_TYPE_IRQ;
- 
- 	if (pxp->session_events)
--		queue_work(system_unbound_wq, &pxp->session_work);
-+		queue_work(system_dfl_wq, &pxp->session_work);
- }
- 
- static inline void __pxp_set_interrupts(struct intel_gt *gt, u32 interrupts)
--- 
-2.51.0
-
+Thanks,
+Praan
