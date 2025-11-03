@@ -4,86 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD49ACCFA09
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8509CCFA0D
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FEEF10E3ED;
-	Mon,  3 Nov 2025 12:46:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26C9910E3E1;
+	Mon,  3 Nov 2025 12:46:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="eam9D8Lo";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="YP6f+7nw";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E12D10EAF7
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 10:09:40 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4711b95226dso25724035e9.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Oct 2025 03:09:40 -0700 (PDT)
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
+ [209.85.167.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C1D610E3A9
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 10:31:44 +0000 (UTC)
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-59431f57bf6so210552e87.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 02:31:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1761905379; x=1762510179; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=suse.com; s=google; t=1762165902; x=1762770702; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AR6DCodMEiRozMtWWQUdsBs+LPg+2s6MkeWZ5TMIU0g=;
- b=eam9D8LoH2KHTz8LTAN1EI2U5Lbyj02hXTV64u+PZ6GHBqw3kDo1fR6540UabmRDHX
- peq2XK9DmhhTCp6RQ3GkziMMLJDaHOKs0UnPB7Itpp01mwe3TWisL5PmF/knub5kHeVQ
- FM+JvBfK13GkBXX+QLQwfXk+Ehl812MRCBLoBumFeUwJie3gs7GlZtruHeRXoHmWSYMJ
- HZi2TAyv2NHv8tRPu6tHfqF2UtjMW8Cii/2Ole84yQb5dSCgJegzMMRP7XZ4sX8cIzJg
- H0ecSCEBdiSx2x73Fl67rAY/MlsIZyitK4HADaBhvPK2b33H9m64l6tC2fU0zI7hDYmF
- Pl9A==
+ bh=FoPFhQQS89S0PG9IrFQ4Ih5iU0Zai424+/DcdPiuCSc=;
+ b=YP6f+7nwo07487EKDvl7c/BmGP5NZ+3Y2GSmsks5dCKBMnDjli6xfaT32u1o15XQgR
+ y1BmmRDEgsI/crrUYwY9tU79c7WN83Ldc2VEchEQpiXopiiQGy56Nttwx/1V//vtJYsj
+ E87L4NyJ60/y29b9O4uxuJTkgVoEwHipOKnEI/ZcQMu2tACqbAoC5Wfk6cIone41uLci
+ 4w+OFNqO81erF/hJF0Ooe0LsFnP95rauNiAicWptuJjWFA1dB/BOvsERnIsOmcJkrv+8
+ N+MXtCwLWqJivoAczYkQudtFoiwNDwFUjspdY4pUkioOreGzqClQjqu9iMS/T2drK3Dy
+ /ZLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1761905379; x=1762510179;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ d=1e100.net; s=20230601; t=1762165902; x=1762770702;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AR6DCodMEiRozMtWWQUdsBs+LPg+2s6MkeWZ5TMIU0g=;
- b=RJnwC3JPbhgP/PCPQ9Elawqn6LT+J+qbaZhKnFDR9hheX7StvB/H3Px4Z6/NoUxZeP
- hClCh0TTOAyU6Vw3xM+LTZx1qZCXiTd98glGYNqG8O3ipeRn3aUWi2BMFbIkEnf18MDa
- HFTmMp7CoKUV2CTV9DS1Himx0SjvlxfzUKSeiMRC+iivqj4DqpqiwER+MXWoSXvbjLL9
- lM4yFJlhmkaHCwULx7bJsoXeT1mBytu9+kf5vbKjMsiL771B7EJLiWQ3fUvNcD07h9n9
- FLO8mAv5qVbtpknKIn4s6i7nlpBoW2Vx2gaYybdRs9z+6QJUz+oQm2tfNJ+4LbjYRkfV
- A8JA==
+ bh=FoPFhQQS89S0PG9IrFQ4Ih5iU0Zai424+/DcdPiuCSc=;
+ b=CucXvUgyR8WQJccOeFmH9Fh5fv1IGmN/1dOoy2pe8+DSxknze2uvs1SNq1+kW5D58K
+ sM8X+pO7jTPb5LlP6l3OJQLh4fv9uHImes0mtVtnBzk4zDvYE77imZb4LGFt4A5j10TQ
+ nigIg0oVG1w7lvakfUHaXqilRLeRhOM8T5LWDGL2l+S6uu9nzuOu9I6rYQazqGM4Hhz7
+ Q6D+xfM2CG+wyO/2L4JvuOkvXWzEjXGmLX7tSZ85pkG90ZIjdj8wuhxwlI/14Zpj5fAO
+ TQYVelD3uNUbsCpI9k+QoTM9oNxrRIDruV8WgEveiHlbKo5uu/WqF+OD0MVdG02a9TWa
+ u1qQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV8+kOpa+al2UddM/iUbTWKeYc7VwaSR2gFw5y9Wf/a6MBLrVh/7wgMylsexV6xV18NmCF++t53M1E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxZ8+zlwDrRHu8by0I6rtxF3aHQutEOnf1P72ooGzCV0IaygTmR
- yEhxY4aY1K+nRgAtxuDLYvWR3LCuDDiTr311zhY2ZAtVUlNbWFjBsC9rfNXqacjw4U9fcyL3Cbx
- suvBq
-X-Gm-Gg: ASbGncusC9gykMBWVjHHhAUXU4bI1+Xmpc74Oy74KQQ61Y7AlgoNePMsyjKLMyh+7Xe
- 1tY9QXfjzSDHC9aGaE6arHZpwkTHWxpiugATZVjbqXpAg+Zatc9j6hNcb0T0ME2IZR3K/M0B60h
- MTZsh6291aRymgaHcUC1mMWsdGGZWGMZud51CCVYlfvTGe88DVjK9o50EL2cHd7C6JohCYV+pkD
- j1exyf0tzU9HHjG4hFdTP3eUvD6ogUflOTDpMv/p/zILRq+WVfNZjA7LHF8t4/cxOug3bvoa0zS
- ocT73E/TT9uyXKXQZt8mNqw73cGRstEvdSnelKTqGe1pJL3/w/FMpQHRlcF5yDAZmsM4cdqZpbj
- kyd17G68wRsaTpcxsJ+tRaEUhXbxbUdel2EsMQ1jTcKpGo2egIMhxrW0lQR/PnnMBYNBPzpwvlG
- 1VamD2nXd1dYXjRUL5JnIsVchW
-X-Google-Smtp-Source: AGHT+IF5CL1Q/oaHD87zPjFp4KiqyMUDxM2HoYOoLKtrm0XnT5ekaMI5s76J1xMKBksDY9h87GST6A==
-X-Received: by 2002:a05:600c:3e06:b0:475:dc58:39e5 with SMTP id
- 5b1f17b1804b1-4773089b541mr25699695e9.27.1761905378913; 
- Fri, 31 Oct 2025 03:09:38 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:6d43:105:c401:e307:1a37:2e76:ce91])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-429c13e1c9esm2839171f8f.22.2025.10.31.03.09.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Oct 2025 03:09:38 -0700 (PDT)
-From: Marco Crivellari <marco.crivellari@suse.com>
-To: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Marco Crivellari <marco.crivellari@suse.com>,
- Michal Hocko <mhocko@suse.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: [PATCH 2/3] drm/i915: replace use of system_wq with system_percpu_wq
-Date: Fri, 31 Oct 2025 11:09:22 +0100
-Message-ID: <20251031100923.85721-3-marco.crivellari@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20251031100923.85721-1-marco.crivellari@suse.com>
-References: <20251031100923.85721-1-marco.crivellari@suse.com>
+ AJvYcCVWeZvAsvQIluCrzlVKaJdWXtSfqyHcinO0EZZghxdFRLIL0pv0Sia0jB7m5Rf2tMI5YY/RyYGrLpA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiDl3ivaYx/h4aXDEx8w7rK5RfhRmBMs1ozIszEzHGh760VcWy
+ 1vQ9tpFaf6T17CmR8biP8L7XXiH6MN0EFCTED6uwT5a3bqeNPFoNanz+/7z5SwA8uuldM17o40g
+ 9KY36YBI3LddlhRDPbfDhKeA7mOvo2ptT5t/12RcTWQ==
+X-Gm-Gg: ASbGnct4/LTTK3+TKF1NVHf2RvaGJNZBOMDHU2rbGI2s9qQfs6w1v0pheSAdMQQ4aaz
+ fd56OLZGlYsXvVTDsaDBplfU8o4JGeZhYjzvv9S7+ApHsyfPCiqPv3XLujmfCittfcoH3EVEhn8
+ PqPmAAto+HQ09M7RBilHEfwQYDRB2kfCj7onqCF7yiu6c6DIOpmTQDJEX5RULfoCYOGr/ENgdeM
+ CsuwEZPMTa7Tzfccf+DDYp4JIvEIWSetippQXTY7TeGAFWemnrL2bXbWC9renSK/6h5yW4/0aZR
+ W8BdiyhzDIuagLc0lHLIk9vs6fYs
+X-Google-Smtp-Source: AGHT+IEwAU4SOZwUJVarSaQslcnJLXDLRhKZeIYvNp3qfEofTMUe8ZL6Dwbf77J+nSRDOQjf4bHs+Hk1B3ORqp9w7+c=
+X-Received: by 2002:a05:6512:3b9f:b0:594:2f46:3906 with SMTP id
+ 2adb3069b0e04-5942f463d1amr413899e87.42.1762165902161; Mon, 03 Nov 2025
+ 02:31:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251031100923.85721-1-marco.crivellari@suse.com>
+ <20251031100923.85721-2-marco.crivellari@suse.com>
+ <zduzgow2hyvxfzmrhqansber4eeg63av6i533oihvx4ubxdqaz@wu64gw66b4jt>
+In-Reply-To: <zduzgow2hyvxfzmrhqansber4eeg63av6i533oihvx4ubxdqaz@wu64gw66b4jt>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Mon, 3 Nov 2025 11:31:31 +0100
+X-Gm-Features: AWmQ_bkkbh1PZ_mUlCEwcGKqGMRPmj0_7LacVUfhPhRpCu1buDmddrltRgzVqeM
+Message-ID: <CAAofZF6EE=grXh8mowNRDcDkL8RwwrvGhawcjGqcEhn5M4M6zQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] drm/i915: replace use of system_unbound_wq with
+ system_dfl_wq
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 03 Nov 2025 12:46:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,52 +98,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently if a user enqueue a work item using schedule_delayed_work() the
-used wq is "system_wq" (per-cpu wq) while queue_delayed_work() use
-WORK_CPU_UNBOUND (used when a cpu is not specified). The same applies to
-schedule_work() that is using system_wq and queue_work(), that makes use
-again of WORK_CPU_UNBOUND.
+Hi Krzysztof,
 
-This lack of consistency cannot be addressed without refactoring the API.
+On Mon, Nov 3, 2025 at 11:19=E2=80=AFAM Krzysztof Karas
+<krzysztof.karas@intel.com> wrote:
+>
+> Hi Marco,
+> [...]
+> This commit message is very similar to your previous change:
+> 128ea9f6ccfb6960293ae4212f4f97165e42222d - did you do that
+> intentionally or is this a copy-paste mistake? This is also
+> prevalent in other two patches, so I am curious.
 
-system_wq should be the per-cpu workqueue, yet in this name nothing makes
-that clear, so replace system_wq with system_percpu_wq.
+Yes it is intentional. Well, the idea was to give a bit of the context
+about the rename of the workqueues, sharing more details in the
+cover letter (where is present also the commit hash you shared).
 
-The old wq (system_wq) will be kept for a few release cycles.
+Sorry if this created confusion.
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Marco Crivellari <marco.crivellari@suse.com>
----
- drivers/gpu/drm/i915/i915_driver.c | 2 +-
- drivers/gpu/drm/i915/i915_drv.h    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > Adding system_dfl_wq to encourage its use when unbound work should be u=
+sed.
+> Please remove this sentence, because this has already been done.
+>
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index a28c3710c4d5..0f33cdc11736 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -140,7 +140,7 @@ static int i915_workqueues_init(struct drm_i915_private *dev_priv)
- 	/*
- 	 * The unordered i915 workqueue should be used for all work
- 	 * scheduling that do not require running in order, which used
--	 * to be scheduled on the system_wq before moving to a driver
-+	 * to be scheduled on the system_percpu_wq before moving to a driver
- 	 * instance due deprecation of flush_scheduled_work().
- 	 */
- 	dev_priv->unordered_wq = alloc_workqueue("i915-unordered", 0, 0);
-diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
-index 6a768aad8edd..d9f73b9995cf 100644
---- a/drivers/gpu/drm/i915/i915_drv.h
-+++ b/drivers/gpu/drm/i915/i915_drv.h
-@@ -256,7 +256,7 @@ struct drm_i915_private {
- 	 *
- 	 * This workqueue should be used for all unordered work
- 	 * scheduling within i915, which used to be scheduled on the
--	 * system_wq before moving to a driver instance due
-+	 * system_percpu_wq before moving to a driver instance due
- 	 * deprecation of flush_scheduled_work().
- 	 */
- 	struct workqueue_struct *unordered_wq;
--- 
-2.51.0
+Sure, that was not intentional (copy and paste mistake).
 
+Thank you!
+
+--=20
+
+Marco Crivellari
+
+L3 Support Engineer, Technology & Product
