@@ -4,103 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48800CCFA06
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07321CCFA05
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 12:46:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B474810E3CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DED2C10E3CD;
 	Mon,  3 Nov 2025 12:46:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="gM1OvX9T";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="eoproUjB";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73AA10E359
- for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 06:06:18 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2959197b68eso184825ad.1
- for <intel-gfx@lists.freedesktop.org>; Sun, 02 Nov 2025 22:06:18 -0800 (PST)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2134F10E3AB
+ for <intel-gfx@lists.freedesktop.org>; Mon,  3 Nov 2025 10:33:27 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-b6d78062424so839399566b.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 03 Nov 2025 02:33:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1762149978; x=1762754778;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=daEhgCusceEtpwe81ptEC+bKqGITwloFYe7hKEHFGD0=;
- b=gM1OvX9Ttw+flCMj0pZRLbRhdMPBKR/u1W4HPuifagCBIFO5RIQ5ZBcSA2sDXICxJW
- FR9KpVlYOftZMzX1RyDVITZn8gS3gAznV6kNdk2DXYn3QhjHv14pO7FxEWQWYJOFSHhm
- 3b83RGMI+TsOmaJNcbYN7jhZAY2Q5Ia3y+YhFGN5PigRQKhiHHqIUYzKDpCBLnFYAKOp
- VXnxWQLcmGCgkk0Xg75q016IXbqTBFRoGSfnRUBW/w4ofZ0ajeE+vVEJjxuDtwwE8+kI
- 4qQ+Fc/A3rhrOvjvaOcLFHTvsxhFdtjlxPugWVKvOU4JYAlGufoK1X6PSGWb7W3rQ6GF
- VP3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1762149978; x=1762754778;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ d=suse.com; s=google; t=1762166005; x=1762770805; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=daEhgCusceEtpwe81ptEC+bKqGITwloFYe7hKEHFGD0=;
- b=gtlvNhLpm8Myiya1Qo2GWla0BcRA+21lHvBeQ4NOJKyMJttaNBO7tZu2REyArm28Yc
- zJlf/ObWV2198GRLRWr6tvlUznom1vIbCuMKY5WgbBdq0gimjZG1cGEUxkl+yhXJWM0w
- wz7qIwJxTDBL/WbY3kp/R5han7Eekrj8RqWp2lR2D+4JVNSYSdg5OQVicFpK+j0DGThO
- Hsa9bDfLhQJ5HZoSC+5YA5m3W59V+v/CJWboU3nR2ZpD6zgjYsEK+e7+xYtx4Zb2tWL6
- TWc8yiy/Mkau2fYlxRq1xioLy01+aABZCpQaAG9to++laq/egy59WFD9mBmQhVxS6Svn
- B6vA==
+ bh=kOJ/IBO3oLNySkAjeUQaEpdFOYftnABdhDgKv6rsMUc=;
+ b=eoproUjBwKBPNAfAHeYOWI2cphwhQ2Q/C1Z/vRATxO6gJlmkAH2Lsc0ajx8nsdzhS4
+ zC51HmZS3nE8XFGhF1CB0PEd50xUgu4qw39Km3azcojYgaJVKUKZHZtzskksfNPkPMAg
+ AK5H74sUOJwatGDIx2frcK3n4IKnasdTX0is3Pl+dnX3VVXh+8pAfEatmCofjl+YKaaF
+ OSSX17FJvaYWZ7pIgBbmHQ5ZiXR7Jg8jl+vBccsbsLExw6ntZd6I0VDGn7kyd4MYektL
+ C1lJIKTvMb3ZIr0RWgA6eFOG/CW1c/mEt1Gef1W7Wd60MMocAF2WCmXfMdmxvaBuqsgX
+ 6SDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1762166005; x=1762770805;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=kOJ/IBO3oLNySkAjeUQaEpdFOYftnABdhDgKv6rsMUc=;
+ b=H26q5PcQgOymrI0xwn6ulmDWf82zlvSSXbrC+U8XNUB1mKCyirRZliGFvBSwMmh8nL
+ PeztwC9iPA4JSsTkDC24uxbBMdJ+4jMo8hBV+nGmhBJJqwNOpFOgIpAUxvXkOOuIBJOj
+ Uir/x6YxcQv5tJCMgUudTx2tbYj32BwwrLXFv5fTMcA4pDnPVwW+U3DrBFE1bGstLUIr
+ CrmMShCw0pDaif5Z6KLKLAwpTFWrm3dOJFDORfIsTf+hId5uGLfaZ6dmnyeb25tZISdX
+ pqb19oRxtcrI0Yq3uRc3TeZ1O85c0CXYdMQCFJT7wl9WaGLxcAF8Gh46CarTb0ugb9Ii
+ jSYg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWFEGPyCttmI8yrZj4Z3addnJJSXH/cIvdqDte7s1O+jtMemBZGnsJXFg/EpWsz55ZvJQQvtSfUakk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0/RzJFw8qT1KOv53rCM/qiqUzC/yF3bbk99+gazlKAN3j/uPZ
- XqnQs0qdvUbOdaBBWhUq4QsVrQHM2ojXR9PNtBIgK9T4wwSFZvsDh1yXfn24ji/xIg==
-X-Gm-Gg: ASbGncsKglgT1PFFnmwY6HigXQ3NwO585s8RNC6bUn7gYwwN71jKPeFxfa0qg7LMsR8
- bFWJ/m0EsKnA4P7xjIC81mOPLMAb3bN/BwVfWPizKDOTfj4OsGASbeaarN6FX8SOQaOrxrpl1Jo
- rWuHBLyHi8Sviz1/jgwYzBmw3IqN1oM6eTq8F9bDJYcmkCkLOQPRd2I1EIsQOFgaO3JJUyUxZks
- jRC06mZD0dLgD4EUsACwYNfXP15mhgKBF0USnWv8xUCoZeY2mFvJqxeEWXCY6Us79Nq3H8+quQZ
- qJRcikmXr9hsQo+9gGPOEpsGVFg/aGZAKbug3wbERRXeh/P61kG5jVuzRqBIAwuZOCjcytPthrP
- tRkeyc3KRHLYahTGy+HatNpi+nqpFq7WUPT5V9EpipIUdoT8nS4WwP3ys1Ok3SJgUcO6P45Q2WO
- lt0F7g4KmwE6fxAt1K8HI7ZRrzZdyIzoSODMc9qw==
-X-Google-Smtp-Source: AGHT+IEluRFzLqUGHbmfa87kzbGcxD4xtCtUDt3Aesdz6fP5oqFYMacpJF/LHmpqMlg6+1lRT50KTA==
-X-Received: by 2002:a17:902:ea08:b0:294:faad:8cb4 with SMTP id
- d9443c01a7336-29554b85496mr5533065ad.8.1762149977826; 
- Sun, 02 Nov 2025 22:06:17 -0800 (PST)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com.
- [34.142.210.164]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-7a9bad978c4sm5062872b3a.13.2025.11.02.22.06.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Nov 2025 22:06:17 -0800 (PST)
-Date: Mon, 3 Nov 2025 06:06:07 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
- David Airlie <airlied@gmail.com>,
- Alex Williamson <alex.williamson@redhat.com>,
- Ankit Agrawal <ankita@nvidia.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Brett Creeley <brett.creeley@amd.com>,
- dri-devel@lists.freedesktop.org, Eric Auger <eric.auger@redhat.com>,
- Eric Farman <farman@linux.ibm.com>,
- Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, intel-gfx@lists.freedesktop.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Kevin Tian <kevin.tian@intel.com>, kvm@vger.kernel.org,
- Kirti Wankhede <kwankhede@nvidia.com>, linux-s390@vger.kernel.org,
- Longfang Liu <liulongfang@huawei.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>,
- Nikhil Agarwal <nikhil.agarwal@amd.com>, Nipun Gupta <nipun.gupta@amd.com>,
- Peter Oberparleiter <oberpar@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, qat-linux@intel.com,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- Shameer Kolothum <skolothumtho@nvidia.com>,
- Mostafa Saleh <smostafa@google.com>, Sven Schnelle <svens@linux.ibm.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev,
- Vineeth Vijayan <vneethv@linux.ibm.com>, Yishai Hadas <yishaih@nvidia.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Zhi Wang <zhi.wang.linux@gmail.com>, patches@lists.linux.dev
-Subject: Re: [PATCH 02/22] vfio/hisi: Convert to the get_region_info op
-Message-ID: <aQhGTwg4kpuP8pgF@google.com>
-References: <0-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
- <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+ AJvYcCU/D0BUXNq+dsu4n/Q6VYP+ImZEj72z41o9U4wRsg3q37215T6Y1WNwS+7YvGsF9BVNia0cyfRzf2E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8jEL0yTp25bPVinmOFY5DqR2GIFToLLl6sgeXN4jJE3O7X9Eb
+ s9kEn8lQNhKGsIVBaOk18dfd2UMPaLox7sdp1MVF03JlDtKgf/PsKEXctSFoW09k/UKj8KrvNbx
+ 6nw9lxya3ftCuqesqCjOvVEV7CkMe1Ip+zxdsPJSEzQ==
+X-Gm-Gg: ASbGncubF+5ycUEAEsURHXmRkB/quU+GGHCw8y0qiKLSsttyCAL5Sp6NHjsoY7PxEqx
+ HbzTqQmQEegYDDNjHs23nRXFXay31osJ8gKKjRhg4wwJ8bIb6L4eqLSHxCA32kVJGCWXQa+qfEz
+ lbWF8YxElb/jeEwVKk7HFRSckrJi2qb/TC0rto3dySyj83HMZ7CrH3wkWNxW0rq1nk4sBVQyqqK
+ gZm7y30t/88E33lcohCPhvmg8+xMwhObKrnNe7gsy8VU3r2W3Fa+i75E8EmQgAkoDngXP6qNEAX
+ PIJH586KT8yEEXsusA==
+X-Google-Smtp-Source: AGHT+IHpCT3s3+uBnbx+aIMiSutrxjkGQNeoToq6J0kcvc+HGBKIO6gpJGl7JMeuoPpFA+c6+/i+1zgolV3NiZNm/q4=
+X-Received: by 2002:a17:906:6a07:b0:b71:1c98:d270 with SMTP id
+ a640c23a62f3a-b711c98ef85mr163236166b.22.1762166005609; Mon, 03 Nov 2025
+ 02:33:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2-v1-679a6fa27d31+209-vfio_get_region_info_op_jgg@nvidia.com>
+References: <20251031100923.85721-1-marco.crivellari@suse.com>
+ <20251031100923.85721-3-marco.crivellari@suse.com>
+ <s7jsq4mbpkpon3stlizr3mc2nnwpvngmzvnqzfbeg252ua6gto@ohb7js3ufmmt>
+In-Reply-To: <s7jsq4mbpkpon3stlizr3mc2nnwpvngmzvnqzfbeg252ua6gto@ohb7js3ufmmt>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Mon, 3 Nov 2025 11:33:14 +0100
+X-Gm-Features: AWmQ_bk_JyhXrMnXA1L70qG_7G1mhPIIkUfgB3eygmui2C_xUmOMiFJJ_9B5MgQ
+Message-ID: <CAAofZF43CkrumJ0wy4p197pDzKHGhu7j+Oo5eDghbiwONQNq9g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/i915: replace use of system_wq with
+ system_percpu_wq
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 03 Nov 2025 12:46:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -117,105 +98,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Oct 23, 2025 at 08:09:16PM -0300, Jason Gunthorpe wrote:
-> Change the function signature of hisi_acc_vfio_pci_ioctl()
-> and re-indent it.
-> 
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->  .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 57 +++++++++----------
->  1 file changed, 27 insertions(+), 30 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> index fde33f54e99ec5..f06dcfcf09599f 100644
-> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> @@ -1324,43 +1324,39 @@ static ssize_t hisi_acc_vfio_pci_read(struct vfio_device *core_vdev,
->  	return vfio_pci_core_read(core_vdev, buf, new_count, ppos);
->  }
->  
-> -static long hisi_acc_vfio_pci_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
-> -				    unsigned long arg)
-> +static int hisi_acc_vfio_get_region(struct vfio_device *core_vdev,
-> +				    struct vfio_region_info __user *arg)
->  {
-> -	if (cmd == VFIO_DEVICE_GET_REGION_INFO) {
-> -		struct vfio_pci_core_device *vdev =
-> -			container_of(core_vdev, struct vfio_pci_core_device, vdev);
-> -		struct pci_dev *pdev = vdev->pdev;
-> -		struct vfio_region_info info;
-> -		unsigned long minsz;
-> +	struct vfio_pci_core_device *vdev =
-> +		container_of(core_vdev, struct vfio_pci_core_device, vdev);
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	struct vfio_region_info info;
-> +	unsigned long minsz;
->  
-> -		minsz = offsetofend(struct vfio_region_info, offset);
-> +	minsz = offsetofend(struct vfio_region_info, offset);
->  
-> -		if (copy_from_user(&info, (void __user *)arg, minsz))
-> -			return -EFAULT;
-> +	if (copy_from_user(&info, arg, minsz))
-> +		return -EFAULT;
->  
-> -		if (info.argsz < minsz)
-> -			return -EINVAL;
-> +	if (info.argsz < minsz)
-> +		return -EINVAL;
->  
-> -		if (info.index == VFIO_PCI_BAR2_REGION_INDEX) {
-> -			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
-> +	if (info.index != VFIO_PCI_BAR2_REGION_INDEX)
-> +		return vfio_pci_ioctl_get_region_info(core_vdev, arg);
->  
+Hi Krzysztof
 
-I'm curious to learn the reason for flipping polarity here? (apart from
-readability).
+On Mon, Nov 3, 2025 at 11:30=E2=80=AFAM Krzysztof Karas
+<krzysztof.karas@intel.com> wrote:
+> you could be a bit more specific with your patch title:
+> "replace use of system_wq with system_percpu_wq in the documentation",
+> so that it is clear there are no functional changes.
 
-> -			/*
-> -			 * ACC VF dev BAR2 region consists of both functional
-> -			 * register space and migration control register space.
-> -			 * Report only the functional region to Guest.
-> -			 */
-> -			info.size = pci_resource_len(pdev, info.index) / 2;
-> +	info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
->  
-> -			info.flags = VFIO_REGION_INFO_FLAG_READ |
-> -					VFIO_REGION_INFO_FLAG_WRITE |
-> -					VFIO_REGION_INFO_FLAG_MMAP;
-> +	/*
-> +	 * ACC VF dev BAR2 region consists of both functional
-> +	 * register space and migration control register space.
-> +	 * Report only the functional region to Guest.
-> +	 */
-> +	info.size = pci_resource_len(pdev, info.index) / 2;
->  
-> -			return copy_to_user((void __user *)arg, &info, minsz) ?
-> -					    -EFAULT : 0;
-> -		}
-> -	}
-> -	return vfio_pci_core_ioctl(core_vdev, cmd, arg);
-> +	info.flags = VFIO_REGION_INFO_FLAG_READ | VFIO_REGION_INFO_FLAG_WRITE |
-> +		     VFIO_REGION_INFO_FLAG_MMAP;
-> +
-> +	return copy_to_user(arg, &info, minsz) ? -EFAULT : 0;
->  }
->  
->  static int hisi_acc_vf_debug_check(struct seq_file *seq, struct vfio_device *vdev)
-> @@ -1557,7 +1553,8 @@ static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
->  	.release = vfio_pci_core_release_dev,
->  	.open_device = hisi_acc_vfio_pci_open_device,
->  	.close_device = hisi_acc_vfio_pci_close_device,
-> -	.ioctl = hisi_acc_vfio_pci_ioctl,
-> +	.ioctl = vfio_pci_core_ioctl,
-> +	.get_region_info = hisi_acc_vfio_get_region,
->  	.device_feature = vfio_pci_core_ioctl_feature,
->  	.read = hisi_acc_vfio_pci_read,
->  	.write = hisi_acc_vfio_pci_write,
+Sure, I will do it.
 
-The change seems to maintain original functionality and LGTM.
-Acked-by: Pranjal Shrivastava <praan@google.com>
+Thanks!
 
-Thanks,
-Praan
+--=20
+
+Marco Crivellari
+
+L3 Support Engineer, Technology & Product
