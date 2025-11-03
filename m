@@ -4,65 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3B07CCF9F8
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 09:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED36CCF9F8
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Nov 2025 09:59:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75A4010E394;
-	Mon,  3 Nov 2025 09:28:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3322A10E39F;
+	Mon,  3 Nov 2025 09:59:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QWllfpT5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dP/ChqDy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8E7E10E392;
- Mon,  3 Nov 2025 09:28:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFDA10E39E;
+ Mon,  3 Nov 2025 09:59:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762162098; x=1793698098;
+ t=1762163994; x=1793699994;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=za0LOi3Akcq+0nd65VdUYxnjTaEVvELc9+WsBRzSsqs=;
- b=QWllfpT5ogCXZw6Mm+WR0icqSQXXy/e5T32JvoLSdgADqdY+iamdvP5k
- jqbFaHuxR9Miv6om9U2/vvBQ58cHhvvIy1zGqo2bLWQyfljcuVMBw2Ov6
- hrChN8n423BQSSZSkLC5DJy0Ji2ofmluBUsTTLWO2YtY4pkVEpySZrce0
- PCVME0WNCF96LqY04Ik/f8vfUzOxAaqw7D++bi/hzNMdyQOTOUr3xueRd
- YXHaJGRpoUaNH64P3tXdCz0ug+OxpuasjkeT7jcU2qmqeBXc2IeZTcpaV
- 5SRICQyeLpF0B6mFtxk5WLf7bJZMCc90PYgcAgX5p2NAKoJSAMjssKnq1 A==;
-X-CSE-ConnectionGUID: aGCUt8FjRcO7Ak/b82YfmQ==
-X-CSE-MsgGUID: B3KTJUbaRpqgAF8wtnEj6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11601"; a="89695596"
-X-IronPort-AV: E=Sophos;i="6.19,275,1754982000"; d="scan'208";a="89695596"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2025 01:28:17 -0800
-X-CSE-ConnectionGUID: AyOge3HCReCyj2yLTfwB8g==
-X-CSE-MsgGUID: fQ9GZaJQTtOAic0Zt8TyNQ==
+ message-id:mime-version;
+ bh=6LVeH4W9fqDET/naSMtk0NbslISCt6PVwvibTmd0txI=;
+ b=dP/ChqDyNACU8KmpVKxyeR6UHNzOnfeO13tuYfG6TovLy0V8Xso3C5fl
+ 6ALqqRlszdZZEsyQF9lGsE2sfFFxdcBHwwWkJHiZw74aKi13fdpEUJw2n
+ V0YSpM5P/VGDEi5bL2817SLC8sKUdD6VZdxu5V5l3KVfdEMQscVCViyNc
+ vhR5YTTbdNx+zT31Tk6J2L3ZGcZfvux3Z8OwHwByCunmvfqqb7j6kfZwy
+ h2VoAGsKd/jmjAdBoXJDuLw1+6paSyqThj+EEoqJkjeZ687CBu4CcTj6c
+ JeSxiIaFFtGALi5s6MWDtEyuno0PFug1aHD1BhsSBPHAyJ9fqEDNmQJUy A==;
+X-CSE-ConnectionGUID: Vb/0rhxNRDuiwhygT6Bo5w==
+X-CSE-MsgGUID: xIs9nBCXQuqlci05Gvt13g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11601"; a="75682749"
+X-IronPort-AV: E=Sophos;i="6.19,275,1754982000"; d="scan'208";a="75682749"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2025 01:59:54 -0800
+X-CSE-ConnectionGUID: hzvSwpQcRNGOvwH6yjasYg==
+X-CSE-MsgGUID: xjeCtIC+RRKmZ4m1Qm33QQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,275,1754982000"; d="scan'208";a="191152064"
+X-IronPort-AV: E=Sophos;i="6.19,275,1754982000"; d="scan'208";a="186779267"
 Received: from krybak-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.127])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Nov 2025 01:28:14 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- dri-devel@lists.freedesktop.org, maarten.lankhorst@linux.intel.com, Maxime
- Ripard <mripard@kernel.org>, David Airlie <airlied@redhat.com>,
- simona.vetter@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/4] drm: replace drm_print.h includes from headers
- with a forward declaration
-In-Reply-To: <9c67c29b-06e9-469b-9273-eaac368632d6@suse.de>
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Nov 2025 01:59:51 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, mitulkumar.ajitkumar.golani@intel.com,
+ ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
+ ville.syrjala@linux.intel.com
+Subject: Re: [RESEND, 03/22] drm/i915/vrr: Add VRR DC balance registers
+In-Reply-To: <20251103053002.3002695-4-mitulkumar.ajitkumar.golani@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <cover.1761734313.git.jani.nikula@intel.com>
- <41bb4163-8f5b-47c5-8121-7010147bc5e6@suse.de>
- <b8cc203c44518822197023c2dbf4a21aad681a4c@intel.com>
- <c4e3b172-3df8-4d1b-a1b0-51cacae56f0c@suse.de>
- <18ad4c11261b85614f7e3a2aabe611f2ecbf16a5@intel.com>
- <9c67c29b-06e9-469b-9273-eaac368632d6@suse.de>
-Date: Mon, 03 Nov 2025 11:28:12 +0200
-Message-ID: <7656e7f21176f08859d1489e398350bca972de2c@intel.com>
+References: <20251103053002.3002695-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20251103053002.3002695-4-mitulkumar.ajitkumar.golani@intel.com>
+Date: Mon, 03 Nov 2025 11:59:48 +0200
+Message-ID: <9e86a823c8761f4159ec14c45e86fed614add6a9@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,126 +72,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 02 Nov 2025, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Hi
->
-> Am 31.10.25 um 11:01 schrieb Jani Nikula:
->> On Thu, 30 Oct 2025, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->>> Am 30.10.25 um 10:31 schrieb Jani Nikula:
->>>> Considering that this touches a lot of drivers, albeit just the include
->>>> lists and thus highly unlikely to cause functional changes or hard
->>>> conflicts, can I go ahead and merge this to drm-misc-next?
->>> Of course, go ahead.
->> Done, thanks again!
->
-> Looks like fallout from this series:
+On Mon, 03 Nov 2025, Mitul Golani <mitulkumar.ajitkumar.golani@intel.com> wrote:
+> Add VRR register offsets and bits to access DC Balance configuration.
 
-Thanks for the report, the fix is at [1]. I was missing a few configs in
-my build tests.
-
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/r/59277a2dd7939ef5fe6e8fc61311873775141ef8.1762=
-161597.git.jani.nikula@intel.com
-
+v7 and the indentation is still all over the place. Read the big comment
+near the top of i915_reg.h.
 
 >
+> --v2:
+> - Separate register definitions. (Ankit)
+> - Remove usage of dev_priv. (Jani, Nikula)
 >
->  =C2=A0 CC [M]=C2=A0 drivers/gpu/drm/rockchip/rockchip_drm_vop2.o
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'vop2_convert_format':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:215:17: error:=20
-> implicit declaration of function 'DRM_ERROR'; did you mean 'SO_ERROR'?=20
-> [-Wimplicit-function-declaration]
->  =C2=A0 215 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0DRM_ERROR("unsupported format[%08x]\n", format);
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0SO_ERROR
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'rockchip_vop2_mod_supported':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:395:33: error:=20
-> implicit declaration of function 'drm_dbg_kms'=20
-> [-Wimplicit-function-declaration]
->  =C2=A0 395 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dbg_kms(vop2=
-->drm,
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~=
-~~~~~
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'vop2_setup_scale':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:602:25: error:=20
-> implicit declaration of function 'drm_dbg'; did you mean 'dev_dbg'?=20
-> [-Wimplicit-function-declaration]
->  =C2=A0 602 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_dbg(vop2->drm, "%s dst_w[%d] should=20
-> align as 2 pixel\n",
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dev_dbg
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'vop2_core_clks_prepare_enable':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:763:17: error:=20
-> implicit declaration of function 'drm_err'; did you mean 'pr_err'?=20
-> [-Wimplicit-function-declaration]
->  =C2=A0 763 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0drm_err(vop2->drm, "failed to enable hclk -=20
-> %d\n", ret);
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0pr_err
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'vop2_crtc_atomic_disable':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:967:17: error:=20
-> implicit declaration of function 'drm_info'; did you mean 'pr_info'?=20
-> [-Wimplicit-function-declaration]
->  =C2=A0 967 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0drm_info(vop2->drm, "wait for vp%d dsp_hold=20
-> timeout\n", vp->id);
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0pr_info
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'vop2_crtc_atomic_enable':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:1758:41: error:=20
-> implicit declaration of function 'drm_warn'; did you mean 'dev_warn'?=20
-> [-Wimplicit-function-declaration]
->  =C2=A01758 | =C2=A0drm_warn(vop2->drm,
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0^~~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0dev_warn
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c: In function=20
-> 'rk3576_vp_isr':
-> linux/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c:2198:17: error:=20
-> implicit declaration of function 'drm_err_ratelimited'; did you mean=20
-> 'pr_err_ratelimited'? [-Wimplicit-function-declaration]
->  =C2=A02198 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0drm_err_ratelimited(vop2->drm, "POST_BUF_EMPTY=20
-> irq err at vp%d\n", vp->id);
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^~~~~~~~~~~~~~~~~~~
->  =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0pr_err_ratelimited
+> --v3:
+> - Convert register address offset, from capital to small. (Ankit)
+> - Move mask bits near to register offsets. (Ankit)
 >
+> --v4:
+> - Use _MMIO_TRANS wherever possible. (Jani)
 >
-> Best regards
-> Thomas
+> --v5:
+> - Added LIVE Value registers for VMAX and FLIPLINE as provided by DMC fw
+> - For pipe B it is temporary and expected to change later once finalised.
 >
->>
->> BR,
->> Jani.
->>
->>
+> --v6:
+> - Add live value registers for DCB VMAX/FLIPLINE.
+>
+> --v7:
+> - Correct commit message file. (Jani Nikula)
+> - Add bits in highest to lowest order. (Jani Nikula)
+>
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vrr_regs.h | 69 +++++++++++++++++++
+>  1 file changed, 69 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr_regs.h b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+> index ba9b9215dc11..f828db55d9b2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr_regs.h
+> @@ -8,6 +8,74 @@
+>  
+>  #include "intel_display_reg_defs.h"
+>  
+> +/* VRR registers */
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A	0x604d4
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B	0x614d4
+> +#define TRANS_VRR_DCB_ADJ_FLIPLINE_CFG(trans)	_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_A, \
+> +							    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_B)
+> +
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_LIVE_A  0x90700
+> +#define _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_LIVE_B  0x98700
+> +#define TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_LIVE(trans) \
+> +	_MMIO_TRANS(trans, \
+> +		    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_LIVE_A, \
+> +		    _TRANS_VRR_DCB_ADJ_FLIPLINE_CFG_LIVE_B)
+> +#define VRR_DCB_ADJ_FLIPLINE_CNT_MASK		REG_GENMASK(31, 24)
+> +#define VRR_DCB_ADJ_FLIPLINE_MASK		REG_GENMASK(19, 0)
+> +#define VRR_DCB_ADJ_FLIPLINE(flipline)		REG_FIELD_PREP(VRR_DCB_ADJ_FLIPLINE_MASK, \
+> +							       (flipline))
+> +
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_A		0x604d8
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_B		0x614d8
+> +#define TRANS_VRR_DCB_ADJ_VMAX_CFG(trans)	_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_A, \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_B)
+> +
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_LIVE_A	0x906F8
+> +#define _TRANS_VRR_DCB_ADJ_VMAX_CFG_LIVE_B	0x986F8
+> +#define TRANS_VRR_DCB_ADJ_VMAX_CFG_LIVE(trans)	_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_LIVE_A, \
+> +							    _TRANS_VRR_DCB_ADJ_VMAX_CFG_LIVE_B)
+> +#define VRR_DCB_ADJ_VMAX_CNT_MASK		REG_GENMASK(31, 24)
+> +#define VRR_DCB_ADJ_VMAX_MASK			REG_GENMASK(19, 0)
+> +#define VRR_DCB_ADJ_VMAX(vmax)			REG_FIELD_PREP(VRR_DCB_ADJ_VMAX_MASK, (vmax))
+> +
+> +#define _TRANS_VRR_DCB_FLIPLINE_A		0x60418
+> +#define _TRANS_VRR_DCB_FLIPLINE_B		0x61418
+> +#define TRANS_VRR_DCB_FLIPLINE(trans)		_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_FLIPLINE_A, \
+> +							    _TRANS_VRR_DCB_FLIPLINE_B)
+> +
+> +#define _TRANS_VRR_DCB_FLIPLINE_LIVE_A		0x906FC
+> +#define _TRANS_VRR_DCB_FLIPLINE_LIVE_B		0x986FC
+> +#define TRANS_VRR_DCB_FLIPLINE_LIVE(trans)	_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_FLIPLINE_LIVE_A, \
+> +							    _TRANS_VRR_DCB_FLIPLINE_LIVE_B)
+> +#define VRR_DCB_FLIPLINE_MASK			REG_GENMASK(19, 0)
+> +#define VRR_DCB_FLIPLINE(flipline)		REG_FIELD_PREP(VRR_DCB_FLIPLINE_MASK, \
+> +							       (flipline))
+> +
+> +#define _TRANS_VRR_DCB_VMAX_A			0x60414
+> +#define _TRANS_VRR_DCB_VMAX_B			0x61414
+> +#define TRANS_VRR_DCB_VMAX(trans)		_MMIO_TRANS(trans, \
+> +							     _TRANS_VRR_DCB_VMAX_A, \
+> +							     _TRANS_VRR_DCB_VMAX_B)
+> +#define _TRANS_VRR_DCB_VMAX_LIVE_A		0x906F4
+> +#define _TRANS_VRR_DCB_VMAX_LIVE_B		0x986F4
+> +#define TRANS_VRR_DCB_VMAX_LIVE(trans)		_MMIO_TRANS(trans, \
+> +							    _TRANS_VRR_DCB_VMAX_LIVE_A, \
+> +							    _TRANS_VRR_DCB_VMAX_LIVE_B)
+> +#define VRR_DCB_VMAX_MASK			REG_GENMASK(19, 0)
+> +#define VRR_DCB_VMAX(vmax)			REG_FIELD_PREP(VRR_DCB_VMAX_MASK, (vmax))
+> +
+> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_A		0x604c0
+> +#define _TRANS_ADAPTIVE_SYNC_DCB_CTL_B		0x614c0
+> +#define TRANS_ADAPTIVE_SYNC_DCB_CTL(trans)	_MMIO_TRANS(trans, \
+> +							     _TRANS_ADAPTIVE_SYNC_DCB_CTL_A, \
+> +							     _TRANS_ADAPTIVE_SYNC_DCB_CTL_B)
+> +#define ADAPTIVE_SYNC_COUNTER_EN		REG_BIT(31)
+> +
+>  #define _TRANS_VRR_CTL_A			0x60420
+>  #define _TRANS_VRR_CTL_B			0x61420
+>  #define _TRANS_VRR_CTL_C			0x62420
+> @@ -19,6 +87,7 @@
+>  #define   VRR_CTL_CMRR_ENABLE			REG_BIT(27)
+>  #define   VRR_CTL_PIPELINE_FULL_MASK		REG_GENMASK(10, 3)
+>  #define   VRR_CTL_PIPELINE_FULL(x)		REG_FIELD_PREP(VRR_CTL_PIPELINE_FULL_MASK, (x))
+> +#define   VRR_CTL_DCB_ADJ_ENABLE		REG_BIT(28)
+>  #define   VRR_CTL_PIPELINE_FULL_OVERRIDE	REG_BIT(0)
+>  #define   XELPD_VRR_CTL_VRR_GUARDBAND_MASK	REG_GENMASK(15, 0)
+>  #define   XELPD_VRR_CTL_VRR_GUARDBAND(x)	REG_FIELD_PREP(XELPD_VRR_CTL_VRR_GUARDBAND_MASK, (x))
 
---=20
+-- 
 Jani Nikula, Intel
