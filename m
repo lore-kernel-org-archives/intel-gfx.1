@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A8CCCFA03
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 09:21:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49AE6CCF9F8
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Nov 2025 09:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02D1410E85F;
-	Thu,  6 Nov 2025 09:21:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D359D10E856;
+	Thu,  6 Nov 2025 09:24:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QpdhWtRz";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="b4SX1F7g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D705910E857
- for <intel-gfx@lists.freedesktop.org>; Thu,  6 Nov 2025 09:21:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1762420868; x=1793956868;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=FztVZOkpBwxXXSRf8PZSeLK6cz4JmfYvA+krF2qfvUQ=;
- b=QpdhWtRze/TeqnfwU49gkyZmpxd9bEeHreZONL0p2L8d1oL9yh9HgdJd
- CumuhvCJsmfGNlGknixVMogMyuxt//Yaxem5eYkKHCLusM/wwamNgjznb
- jbQzsWap7XIxpfcmtLrk6noCjPwwVNdbKqpBCyX0fH4C6nT0sgu+bcjHm
- MbHRznGyE4U84LGQ48Q9iGGe0mqBO0cffMApSs/KSUySJZQlKt+2XyDhF
- 2/2xihLwouAijZFD0+OlhWPURpA7M+PSd1dNCtW9Pp05Dn7W+p8Wk2aax
- rxj1bKf1yvVA249vgaEjYqmIizk2izkt2hQJczzhOfeq9u4q3EXAiJOKB A==;
-X-CSE-ConnectionGUID: HPzLWHm1QXWHCEQFuAZEkw==
-X-CSE-MsgGUID: mnO5pof6S7KzK2JbW6bBDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11604"; a="87181863"
-X-IronPort-AV: E=Sophos;i="6.19,284,1754982000"; d="scan'208";a="87181863"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2025 01:21:08 -0800
-X-CSE-ConnectionGUID: AaksM4n9TTiPD5/mvDm4oQ==
-X-CSE-MsgGUID: M97frBuQTRiXqy75UDrzQQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,284,1754982000"; d="scan'208";a="187423860"
-Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by orviesa009.jf.intel.com with ESMTP; 06 Nov 2025 01:21:06 -0800
-From: Animesh Manna <animesh.manna@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH] drm/i915/display: Initialize the ret variable for default case
-Date: Thu,  6 Nov 2025 14:23:54 +0530
-Message-Id: <20251106085354.1237867-1-animesh.manna@intel.com>
-X-Mailer: git-send-email 2.29.0
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBB8110E04C;
+ Thu,  6 Nov 2025 09:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1762421083;
+ bh=tHeSThi+ZqD+VIgj88NaARY43hAMAI5iz7LNPfszGXM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=b4SX1F7gZLV5M0k7/B3SdIqeaO53FEaaZT9/lnF54NwIp0SqTs/tMACWue5dhN0oT
+ +4Gwdv5KBtc2eKwX6lxqsjT7Yt24yhTblfB9g3XZtE4qGt0PQ2659c2ir0/jgIHR0F
+ PlUL5CmkEXR8FbX3WtKdL+JqfiA3D5r9KiqMR11MCoxITZpC4dn+f2a3+2ujrbWj/P
+ 1Z5ZDIY52MxtSa5XgSg1EA7lZR1L/huBKoO2arIkyWyWuzWoxIKPoKV/eDCqQC8cNt
+ Tig6ULFxIXKpshoaVr6bp3eqinMHHyjmh4QPVLgK3tH4pIhtp9q2yKhtzT49AaPLff
+ CZrGCdxpRU0Xg==
+Received: from fedora (unknown [IPv6:2a01:e0a:2c:6930:d919:a6e:5ea1:8a9f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A716A17E12C4;
+ Thu,  6 Nov 2025 10:24:42 +0100 (CET)
+Date: Thu, 6 Nov 2025 10:24:38 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: adrinael@adrinael.net, arek@hiler.eu, kamil.konieczny@linux.intel.com,
+ juhapekka.heikkila@gmail.com, bhanuprakash.modem@gmail.com,
+ ashutosh.dixit@intel.com, karthik.b.s@intel.com, liviu.dudau@arm.com,
+ steven.price@arm.com, aliceryhl@google.com, jeffv@google.com,
+ intel-gfx@lists.freedesktop.org, igt-dev@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH i-g-t v3 1/3] lib: add support for opening Panthor devices
+Message-ID: <20251106102438.7c8fcb57@fedora>
+In-Reply-To: <20251104202845.2879460-2-daniel.almeida@collabora.com>
+References: <20251104202845.2879460-1-daniel.almeida@collabora.com>
+ <20251104202845.2879460-2-daniel.almeida@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To make the coverity tool happy initialize the variable.
+On Tue,  4 Nov 2025 17:28:41 -0300
+Daniel Almeida <daniel.almeida@collabora.com> wrote:
 
-Signed-off-by: Animesh Manna <animesh.manna@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dsi_vbt.c | 3 +++
- 1 file changed, 3 insertions(+)
+> We will be adding tests for Panthor in a subsequent patch, so first add
+> the ability to open the device.
+> 
+> Reviewed-by: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-index 31edf57a296f..fb9689acf814 100644
---- a/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsi_vbt.c
-@@ -171,6 +171,9 @@ static const u8 *mipi_exec_send_packet(struct intel_dsi *intel_dsi,
- 	case MIPI_DSI_DCS_LONG_WRITE:
- 		ret = mipi_dsi_dcs_write_buffer(dsi_device, data, len);
- 		break;
-+	default:
-+		ret = 0;
-+		break;
- 	}
- 
- 	if (ret < 0)
--- 
-2.29.0
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+
+> ---
+>  lib/drmtest.c | 1 +
+>  lib/drmtest.h | 1 +
+>  2 files changed, 2 insertions(+)
+> 
+> diff --git a/lib/drmtest.c b/lib/drmtest.c
+> index 590c4671a..3d8c8e79e 100644
+> --- a/lib/drmtest.c
+> +++ b/lib/drmtest.c
+> @@ -220,6 +220,7 @@ static const struct module {
+>  	{ DRIVER_INTEL, "i915", modprobe_i915 },
+>  	{ DRIVER_MSM, "msm" },
+>  	{ DRIVER_PANFROST, "panfrost" },
+> +	{ DRIVER_PANTHOR, "panthor" },
+>  	{ DRIVER_V3D, "v3d" },
+>  	{ DRIVER_VC4, "vc4" },
+>  	{ DRIVER_VGEM, "vgem" },
+> diff --git a/lib/drmtest.h b/lib/drmtest.h
+> index 8416aa491..4b0a71102 100644
+> --- a/lib/drmtest.h
+> +++ b/lib/drmtest.h
+> @@ -57,6 +57,7 @@ int __get_drm_device_name(int fd, char *name, int name_size);
+>  #define DRIVER_VMWGFX   (1 << 8)
+>  #define DRIVER_VKMS	(1 << 9)
+>  #define DRIVER_VIRTIO	(1 << 10)
+> +#define DRIVER_PANTHOR	(1 << 11)
+>  
+>  /*
+>   * Exclude DRIVER_VGEM and DRIVER_VIRTIO from DRIVER_ANY since if you run
 
