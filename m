@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2751ECCF9F8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BB8CCFA05
 	for <intel-gfx@archiver.kernel.org>; Fri,  7 Nov 2025 17:42:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EC4D10EB4E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56A5E10EB53;
 	Fri,  7 Nov 2025 17:41:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AXUelvBC";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pF8sf1lO";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
  (mail-westcentralusazon11010002.outbound.protection.outlook.com
  [40.93.198.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA0D710EB41;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9547C10EB40;
  Fri,  7 Nov 2025 17:41:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l5rCnCRhhVy5lRz5hSowzfMbHMtRcA4Xj9GGR5SaOo0V5RTqg2NEZ3e8GjdX/1b/ve/ubvOhyJLG4ilx6a+xRDdt2fuHmkmrhQviArfXhgSCAQbn/Qe4N1CqjgnClp6+HY4BBVZ/Rd2AXRjD9kFsIR7tgzvAEUwgfjq6XbVuGST3N7E8CFbl4p7wxNCcI3fasHbOb4scf8kRCirfXZ7upTPIRFPjOhWwl0WOR5FBsCglbBgjUNkmDNMFk/oZZYsA/EszaBi/hENRb00PX8Zamc2+xx0Cz5ZIMuatamj5jP3mES/ZrUPk+iOOX6IWPd6f5TFSFt71F998yI/3d1WE1A==
+ b=XQn6DVqvkZQpoaOKRJxeQJfpOLR+PAU9MgS6+vWyzZxQXG0ksZw7F6VQHniGRrEGkF47I9434Hk8tk1XLu5zbGdGv4Qoxux2lP22ivWdUf6DncseYd7kABye+pEkF+9d6L7d0uOynlMDL2vE/akKJ2Oful/Lmj1YIMD+VYKJKlnn2mK4nd85Lme42zxmo+I62VvnxA+04yRKM/BK73SaKdfb8UX48hWhdLAoO4TZF1qdgaRnDW0jkepOF6NLf+wx44keJKrnzHI9552ZqYgxsum+lrL7HbCk9LdnGVWDNhPOsIYXtlUnGzvsC2/gxXkLXmaZfZihXU2DUjYiC4J+wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GaqMjWgAjt5BjQYBXY4NTldnTblTXrZhfFv6nXrKC44=;
- b=rC5bUktKVZn+0DFIGdNs94GD6/GS43o1PGDIycT+Cgi5qhQp/OL7cmMUCNUEsQ7Nr5Omldf+wJb3GJ3dWtvMvf7fRjMpcZcKl9qqFuek9jfBlgtBLsUYE8cKRERL7h+xFCqCyj3K1PZD1gSYWQApBoN2WCwciTW0Si3PG47TJ68fpo+J2B8gYNt8CMDzG5Dy7AXn0Vcb0mBzIeF7cRtmkIMBbOhX9GDhb6OCh6ePl9oG1LY2nCjZFV3/HccxRNgosJM0/YEB19wRmGk61PrIW+pfGP1MpzSRRnKY50DUEPRAE1i8vY+uWPHlNQlyjBcAOnBC+NisCl0bCTh4xxiUew==
+ bh=LTf9X4ira0yZmFfUx2OlBANxJwSlwrBFhKGp8/cRbC4=;
+ b=V0XiSPUTFZGkDI+yRj/cIKpAp1u9cae+SUhp6eNsnCfvrkIhOi9pqRwdvuQv5dIE3spykSzFTI9mMI6mkCu47XaXtokZTf/4/Zaziojx28pjmnTg7t70FCTbsu22alUFTH4Cuj88UylFSjjrBe0scka6z8jbEADF4MnU18yky3v74PVtoj7zyrN+DtbkHBXjgEmMdnFkt00D4MO6Gs7Qlpt6mqwA9d9xfn39lHzz4TjCbUu9QeIyjiaWNciexm4EQH88GWhIc3o59+FwjeQMcVo8ZxyJ/5vkhhtI6jqTFQE8Jj6ASvx6/dSjsOVM4+7wVJympa++HkUnE2gzuPq/dQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GaqMjWgAjt5BjQYBXY4NTldnTblTXrZhfFv6nXrKC44=;
- b=AXUelvBCraoq1kJr6CI6QXFEK8ud7g0qt4Vkc0IE8krfqtq1lQRXYd5d5ZMeu/nHs2rcrcOMBOwUonKuiAQbSbCw4fZLjUtGo2aqZEFefjBvl9NbtZfHlA7SO27tbq73IMRoBgaaqp7Fy8LyjyBn9OlaH1HhhJCQ5yuBJi1rc2F8kz+UBU7EzMECKldQNH4mCYG0afyXocHnFHMqUUytzBvgKi7dlXJNNyRWzkyHirytcc2MUPBWezGeSBO7Gb1fI2VufwsgV8mnJmA1femMFqIWiPrBnaUdqxQZ4DkWLB7mkLaVyOl2MQ0kObRKMD6SpGJnCqjoZQ0zKU1vt7r29A==
+ bh=LTf9X4ira0yZmFfUx2OlBANxJwSlwrBFhKGp8/cRbC4=;
+ b=pF8sf1lO31GwWwU1dylYttfEqawj/is9CHN0kYTQ0jS9/PBEbGB8XcsgY8wrneBSwroit0rxvMgNCN1Hjkf26uqk4DOW9DdT5gKGDd8G19uj6ydIri2YQ1BqyC5Xxq2+HFeiKK7+MKU6ROQ1wTs7JxtPppqLn5I0R2GANyBaKQvEpJdUoolYoduurhXzm83tryC8PplUYQ8RE3SBoZfj09ChhhFR4J4crrIfTwRxN378KNePrcygtkwp4KhXpxmsD8Qm+jzUqULCkpfs+JM6gcTdL94Y2XWVoaf6jjePZRuq6vD1O4AgD8/etjJjcr0cDfG+xwqR8vnuCTAAGmgUwg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MN2PR12MB3613.namprd12.prod.outlook.com (2603:10b6:208:c1::17)
  by MW6PR12MB8833.namprd12.prod.outlook.com (2603:10b6:303:23f::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9275.13; Fri, 7 Nov
- 2025 17:41:48 +0000
+ 2025 17:41:47 +0000
 Received: from MN2PR12MB3613.namprd12.prod.outlook.com
  ([fe80::1b3b:64f5:9211:608b]) by MN2PR12MB3613.namprd12.prod.outlook.com
  ([fe80::1b3b:64f5:9211:608b%4]) with mapi id 15.20.9298.006; Fri, 7 Nov 2025
- 17:41:48 +0000
+ 17:41:47 +0000
 From: Jason Gunthorpe <jgg@nvidia.com>
 To: Alexander Gordeev <agordeev@linux.ibm.com>,
  David Airlie <airlied@gmail.com>,
@@ -69,90 +69,90 @@ To: Alexander Gordeev <agordeev@linux.ibm.com>,
  Zhi Wang <zhi.wang.linux@gmail.com>
 Cc: Kevin Tian <kevin.tian@intel.com>, patches@lists.linux.dev,
  Pranjal Shrivastava <praan@google.com>, Mostafa Saleh <smostafa@google.com>
-Subject: [PATCH v2 15/22] vfio: Add get_region_info_caps op
-Date: Fri,  7 Nov 2025 13:41:31 -0400
-Message-ID: <15-v2-2a9e24d62f1b+e10a-vfio_get_region_info_op_jgg@nvidia.com>
+Subject: [PATCH v2 02/22] vfio/hisi: Convert to the get_region_info op
+Date: Fri,  7 Nov 2025 13:41:18 -0400
+Message-ID: <2-v2-2a9e24d62f1b+e10a-vfio_get_region_info_op_jgg@nvidia.com>
 In-Reply-To: <0-v2-2a9e24d62f1b+e10a-vfio_get_region_info_op_jgg@nvidia.com>
 References: 
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL6PEPF0001640F.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:22e:400:0:1004:0:16) To MN2PR12MB3613.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL6PEPF00013DFE.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:20) To MN2PR12MB3613.namprd12.prod.outlook.com
  (2603:10b6:208:c1::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MN2PR12MB3613:EE_|MW6PR12MB8833:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2fab8e41-9320-4f45-aaad-08de1e24ea55
+X-MS-Office365-Filtering-Correlation-Id: 3362c7e2-a631-4eda-d590-08de1e24ea08
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|366016|7416014|376014|921020; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?QES1ADXvZbJ3fEap3bKlXZes61g/AbNc7SMu0L4kUefbydweXXWotnH6UHiS?=
- =?us-ascii?Q?lk9b5GDWkNaalNne7M3FmUFWRQtwLnQcvYmJ7m9jdEaaIc/duYtYJ9qLG8Iy?=
- =?us-ascii?Q?YvIcmUbIDDLbFMPamybUqqsivhA3gZ0URZ8X6tVCxFFeLFtOJvX+dZK66qN4?=
- =?us-ascii?Q?+WycRlVdd+S3myGe8uchhNyZ8WO6pi65iOgCc93ckCtNTCNxitgnbwDu/TLW?=
- =?us-ascii?Q?bf+Zws65J+GldXZBAcwmGhNbB0bIyV0S+o/246GmmqM8stjBwOebgAaXScCa?=
- =?us-ascii?Q?0A1SYraWHblrnTpq1smWbKAZQEIbPAnHQw9vcmt9Rvc1CyPjXUQAF9o0+Obn?=
- =?us-ascii?Q?kXYC6OngdHoQ2llyiGxeiQNWG2kWd59A3dgProBtMOrxoGTXvHVXsMHvWGYM?=
- =?us-ascii?Q?HJZY5fCGWVxwopytHhDWwMb1PnT6vm2Q2C0mvnEtAww2JEndQ8paWzE2cS6e?=
- =?us-ascii?Q?ONk5nxuNejlOmswAY96XlMn311Oag1Uyq53cMS8KM1uM/7qpHYH0uUobWO53?=
- =?us-ascii?Q?xGis2AIgNJkXIIhYDoynjaudUuMubtMNNwHXsApuzRYPI+47CAKzeRzkjBP2?=
- =?us-ascii?Q?6Sgp2c4E5kAsqDhTdpyiz46hRG2u54h2rR0Wy7n7JxFbImcBUNKhxA/xJJd0?=
- =?us-ascii?Q?a9fMXhRQmlEDgbBx1ZM2bPFLjKSY152e3Nxt+YjK4/sjLUEUZEwOVgBTFLoT?=
- =?us-ascii?Q?jPpLoVGK8HGOVKgyFa/BDqwB9OoxSv7eudOySRH5d2DwwnmlswqrRxlKRidS?=
- =?us-ascii?Q?4cyyfnKoQYXiwLKwpK+uXRl4/K27zOXaL+Xo4WZk88hWdNYT7xTz3Qe504xC?=
- =?us-ascii?Q?ZSPDvdja7qWqsKinLyQablZcRp5uSF/xUnt1tT+tUJFKFpnIhr6Zx5hTuZ+a?=
- =?us-ascii?Q?Ie0W0ei80XhKK3Uwd7Ao/BQ4EoMCR+ZwaiMaS7DKLhmnqa57Ow2SxBesfP8u?=
- =?us-ascii?Q?hLcKvrIKufyaBLgJ7EOtOSZvKkBL2/93+I/yANtjTTgj20dggrL2xRkDTrOA?=
- =?us-ascii?Q?Y6rWHOuQ6ZAOV5x6htdXXGRRpJnj4WJ+r8k5fw11RLMbPxwswIZXo3R+GgNP?=
- =?us-ascii?Q?R0Rzt1ao5xTmRXawGd36OXqpBEcljGgv0xDTMqZkUTVmbhby3Dd5LuBW2Y95?=
- =?us-ascii?Q?MmkswVK5K4dlfGRpzTYsgz6c+NZvJCDMto/ursLZd/Cn1TKOmwJPTuwTTHTn?=
- =?us-ascii?Q?ZUWNQ2MJVfiKbhNFqC5FS7HtlOvR1Oisp6HAt6omB1eehG6BnwlNlH+mnniU?=
- =?us-ascii?Q?4nNaMfoQDcYZzYOJU41esCOCIm+Ck7GEownG2rj7dZpIF/c6ZYypsJeEN+TH?=
- =?us-ascii?Q?ZERhxSsxaIwinpoQtPK8BtDazNLm2lHiD/XqibW2ZCWeKohubBv130kpCDwt?=
- =?us-ascii?Q?u+J0YX79YtBzz2qlhPj7BVER+12Z8POSfe/Mft1BRc8Yc5ALhvVBHrpUVHBb?=
- =?us-ascii?Q?iSdNMhyDDDuJtRTpYwjUaeoFWx62XCBbZGaNXa9CH7/3IlgGgUabQLHi0up/?=
- =?us-ascii?Q?uVotOeQWlIwBLiM=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?oyOXEXjLPDOBQgUk6izn4nysSCnFbnUDX5oHkiWdVlE10WYdQ2oWihnyl+F8?=
+ =?us-ascii?Q?gIjLaK0AHZ0NqF+B+7ZAMscWQOhMV+LKOAZtG0DDRQuXwnOIytM1BuRF1X7e?=
+ =?us-ascii?Q?Nb1esZ3M7c16RsEKaOIRkfZYirD1J7zFb28UDrDyVHtGRH1//mOh7oRdwJ2M?=
+ =?us-ascii?Q?Ty/5z5FprA1cuwKIPVQ2l9s3jXINTDFWhT0I07f7cpS9rI+1jwZ5cjchXJ92?=
+ =?us-ascii?Q?dVGL7Oczde2a0Ms1AEHRoc+oWvSS31MglYg7hi3x3Ggt1CqiA++kcnFLCR2d?=
+ =?us-ascii?Q?9PxVknAIef+6V3vdJleYjr9DerbvrFC/dV3US8NSoOGjXIf04OVJpyTAV/K4?=
+ =?us-ascii?Q?ky9NokuLNfQ96aGCvxjUU32+zk0yBHIo/EDpcBzA6ec8qRx9tNk5kltcT38u?=
+ =?us-ascii?Q?meKxsAEBjpKmnRV5RV+aqYanR4oL07v+LHMNGLpF1YoM1SB3Mm827BYEQJtu?=
+ =?us-ascii?Q?kIttxOv5w5pSvU6TpHEUqJORIJVI26iGcYDYHBiN5QHJY/0F9je1n6zdmBO9?=
+ =?us-ascii?Q?3fW27LsH8eY49HvnZ3iakXGO4NSSxEzBw8QTeVeArlP9dwbIb3gEd6fG1fyV?=
+ =?us-ascii?Q?nXqnT0W6KKPTfsjhFujQLWTVfGHNIWJjWaOcW4eyadk6ZHMy5Q4EAw4MwaIU?=
+ =?us-ascii?Q?N5HeQaFcSuQoMsmJbn7B6rly5HxIqS4vXf2xUyMq8cw68rHwmMnAVLRYeoak?=
+ =?us-ascii?Q?tyREqjXUo3Qc1E1K6ytKg9OfVJIP9ECZtmlF6pwZLudVRT+3u44V5RZrsddX?=
+ =?us-ascii?Q?htq1IHaStlRW4/8JOQhWnEmWaMagAZBVE13KhuVf2M2js5ulsx+zBS4JP0Kx?=
+ =?us-ascii?Q?dIL5DrrI50UibkCYTakzamoCe1jbxIQ2Bizt2aY+LYHp57T4PGsxlAhCgLHh?=
+ =?us-ascii?Q?wy0jiYtoBc0GJaS9Tp6F0uAbIfDLdWcJLQ5/WWKXj47PPXFf6772/9E6nAaP?=
+ =?us-ascii?Q?tHpJIivpR7W9Iis49Q5vL1/0YXmFQx8oTSrF0kOrhN9zps7PKSsqwLVTPa5x?=
+ =?us-ascii?Q?YFyWOxzcUhlpGpsDUHriSebLQu++RPItrBO2SGPGDsxhrzhGwrhwY3N4Ytsc?=
+ =?us-ascii?Q?9jv+YzdANL7dlJRL3UXZvIEEgdMnsTlsmLp23KISDLDjhzczUWPo44x+v1cm?=
+ =?us-ascii?Q?igY47BQgFVCcms1p2PJN0toMoLc7unCqr7foibynOuieW0k4CURTQAe9sG9o?=
+ =?us-ascii?Q?0bqcSoQHV95AkpdF3yEToKQvzl9zREa+Xmy8qqtq1Lll41otbTU3J1DaA30V?=
+ =?us-ascii?Q?LERdoyvcV7Nb2w7+UCBYUi7oOry7Jk8i4v9TwivLik25I3HzgmuNkF0ndz5x?=
+ =?us-ascii?Q?Mg57eCUXsUpIgrDd6iRR4aARVmHWWK7k6vVmEFLOb13YXesUQXRjw3SmfcZF?=
+ =?us-ascii?Q?25S1qFbgGw8htg0OWiliPRjFn07LYpgf9cVxcucwKcwbFCuusb3xQFAiGk3f?=
+ =?us-ascii?Q?B+voGRyPpKPYonDuWxix4HFc4Tdv7sI/i1QRsM/MhRMOmU2F3MnUERQkJePj?=
+ =?us-ascii?Q?DcIuqmOwJMofdmM=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN2PR12MB3613.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020); DIR:OUT; SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8rTX0iWMG17xLAFmW2C1Y+FD0lY7FDBnKCmrI0Tc06XM4DY0VPGddg+KxAw2?=
- =?us-ascii?Q?VTB8O14QcAnvXc6dv1gU/Xd39sQUdsqfWxlFC3VIxnTdj+CQYRXvh94La5dg?=
- =?us-ascii?Q?VxsC+hnmRI2WNBMeRNCmo6bzN3xqNM5zhOQj81SxFw8mynca1HmZIpOE+wIt?=
- =?us-ascii?Q?sevG4kFb7XK+yHIQGB1EEKFbFyI0ZaRG4yHxQagGFILUycMLK/G0Zzgr5HcE?=
- =?us-ascii?Q?PrBUlEhgW3ZfPlce1ywsUOqET6Ke2LTJBl5sp7zIg2P/sIsSz22eG/iqDP4T?=
- =?us-ascii?Q?svi0WcQelTHsTbC8Vke4SDUCmCi/a9QCtL1EMAwJ6/IoaDiP+yqtN8MI59Fr?=
- =?us-ascii?Q?qJu5B0nJIKPuJqKy6YLbh1ubXh5tf5/SfGsKRfQyx6EaFaAOitYRl/S9sKOp?=
- =?us-ascii?Q?MmTL3wSxl1Bd3ilffzIyv2MEUbhx5NggDx6Hsv04oWYmE2suddOjLRotKkpk?=
- =?us-ascii?Q?YGeC5A2esxm/D8gxXLIWpGOQwMGQHhAR37IBkQWRuLSFfsWl8/iOyf//1x9M?=
- =?us-ascii?Q?qtWiHbCxoJgt9o4uzf1/YT/v8VHMXB/9vzNV/HcP2vYqZqs6r0nkLnK+Wlsc?=
- =?us-ascii?Q?arGq4ggyNUjl77xwGMXuqGlFyrHgM4jpQPxCfg+QH5n/1YxOxclHxAI6Vwoa?=
- =?us-ascii?Q?DwOZPxD/5ONHzvvddDdq0FpxxZ3HEJyPGDu5Hb4ZkMCLC1lyPmn8iSaDNuzh?=
- =?us-ascii?Q?7PEf7sb258JkhQtW1x/1P7vTO2RUoml4n0Z/e+dlsGMNB9TV278NzV9zf3uy?=
- =?us-ascii?Q?lVuxH87fNgov0vbsfQqotqB1j9iptOB+EpP6hyYceH+LnefkPqvWeVss92Ar?=
- =?us-ascii?Q?8ypfpWnss19lb9mYPSdX3G9RSLVIpHoCy5KqtauKQ2esO+dXUIMAHu0h432H?=
- =?us-ascii?Q?/osWn8H4QeBoSLHSkBEUkdtx5ULSrUxeLOyr3WztuY/4zVJBvriM8crUWCqT?=
- =?us-ascii?Q?0BXbgrgzpu3IW5uajbc25lpYfrSdsmjpbJa/vDy8SnS9lAxszCZ8wXPKfKeA?=
- =?us-ascii?Q?8W9jTJDFI8SQNQw8gXAaiWBYo7PMX+pNqV6ubGgleQ+Nmu0DpFqvfkjyIgIt?=
- =?us-ascii?Q?azs68r2VxYPgwhODmx54h1pYuHaoq6eAIXMae3ZKch2UjICT3t7OgpqHWbtQ?=
- =?us-ascii?Q?68l/dbSmIXQCMFcxSJUM4mdEtD6rVlXgfmLZfGFmybD3tcKXOAQdRLcKBYbS?=
- =?us-ascii?Q?5Z610/jxlfXVuth4dvQ1vGgOLgwBuAWq/nfbZ3L6+JyetaI63YzEKqtq8Drs?=
- =?us-ascii?Q?XFpTfjHyF8jGeFf7FrL/8f4WVwZWhZcjQO7lgXYxLJiy0rRNNStsrqTzMkVG?=
- =?us-ascii?Q?35zPw9Kremp9RyvqVUp4/axcg/fcKByuLo7if923tYxtBePsY2FMAOgktF6e?=
- =?us-ascii?Q?uDikuPjXlKAPrg9GuhnSZBWJazEwWZPTO9DCbYD5vrmKy9p8yNT2MPrKjC/a?=
- =?us-ascii?Q?yQfTXWc4j5N+1V+PcfVOrv9XCS/ogRmDg07NSCnnDWB0bh6Pr+GAjVbIBTzO?=
- =?us-ascii?Q?AIK91joH6MoBVjnIJ26+GPr0w1/Sh37nk/mFPE6nD5eJQuW/lg/5/deWRUg+?=
- =?us-ascii?Q?8pu+gFt9wyTiImTyulc=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9daWU+FWFEkyJIfSCNp5di0JFVhjQ02YjIpxUNSU43MEfePUnirKicPiCTaL?=
+ =?us-ascii?Q?2jPREriiTGPpg/BBgNwNjcDxpqvAiJsxZd5iFJ/06RjTKfiqJ6Ygn+F0cp+C?=
+ =?us-ascii?Q?lrWpSp2+unGAakU9z6zX1RMrlATVBYJQXsUhRWCGn1HS9UXh507yz5h0mW0S?=
+ =?us-ascii?Q?eUSyGx2fepuorGIwST4ch6oDcTKMFUTgrKTz0pHfJai9RkNp06gD0xXo8GEV?=
+ =?us-ascii?Q?TwXDv1AwqAHEPkf51xX3o6djyGjfxluIg5gfI0qBilXdu6a3MbXGHlhwOCIt?=
+ =?us-ascii?Q?ZZxLLd1mHcRA24AJogbmRiiw+j8gEKV5hmL6pYcz9DPN7nZk9FFIdObp8ROu?=
+ =?us-ascii?Q?ki8nPzZKu/XU4vqePrqbdPLvyOX8PVvdJc8rkTle8dQkCl2coYdrl2h8swL0?=
+ =?us-ascii?Q?X/wPXHpPGl9olabd/AXBVIkaxn3k7Vr30KN6MLeLUuthrzl64gxaYzl9EGpu?=
+ =?us-ascii?Q?rLH0Hr/8ZXjpFpTe3HSnmUi/WMAuv3L1k4ReQDBD+Xg/wNg9+xQOoDw6l9WQ?=
+ =?us-ascii?Q?C68cOxJjYpj2sBvKcZr/iJDWQnxLu9CgE2p0uYZY1cFqQj5rcP/dsTXsD0KJ?=
+ =?us-ascii?Q?5K2iripyeJd/n2vODap0af4ATAA8iot81rn37Bjtrt5XnsIcyu38Z1odkDIq?=
+ =?us-ascii?Q?KA6Kax+Lo3wORWhhTovvM3zqOSx22qpJek82+DuzKADT70jHiHUIjaisO6zO?=
+ =?us-ascii?Q?VDyPbjS85ZxAFWCsHwf3wiPhY40WnBtOTes9pGWBEAP9Z9Va6F4fZBSqLmD0?=
+ =?us-ascii?Q?J7EO4RSNcvD64u//yiaugPjmz+WX9MtnBNo8timmvdmCWdZ1DCfE5XGxywoJ?=
+ =?us-ascii?Q?ySVDMtD4zlKYrFDXxCiGzTvY8HlmFsKuYGW/sTlgBTXewZT2pLr0wTVPKWE3?=
+ =?us-ascii?Q?slA6hjOlUd8qtDnQjSW6CW+wDKC1JOWESuewXX05ObawZbQRDOeu9NBoXQ4g?=
+ =?us-ascii?Q?dp4YxVlGmaEZ7vvJOlcajcV9PLUAKYJ0bx1hpE59pNyBIC4OsgS1KTnj40TY?=
+ =?us-ascii?Q?6pfL1o01MRUVIeu0MkbhauY4dgbSoCUSPouxMEBzJ4BLeiz2qRjlIfIevwHB?=
+ =?us-ascii?Q?BRzj23kGJ2Up0D0woTHDcp146ozoFWE9PIa2+SFXaSP8Vt8FGz2jKXb6cKy6?=
+ =?us-ascii?Q?8PeXJSj8umB0T5ucrDTDV94m88yX61bqwIl6nx4aUysTbbgEOzbH8cKYl9AB?=
+ =?us-ascii?Q?KqZGl4bwvVs0b6cGTcXp9PvnoxY45vb/QPHwpWUkvcQQov2nbmL+S7qsUqcZ?=
+ =?us-ascii?Q?EfrunWXx8mo+H0Kq/uX/LeBM36OF/QFijcDQ/TCTWbdOqZDz1pPQP9G8777I?=
+ =?us-ascii?Q?+rtsnWy+kM4sRLA7tlLcvgwRxkOTv5x3HywPmJ3RZprqnZZD17/iPpPIyigc?=
+ =?us-ascii?Q?OvIR03+bWlThZbwTzcOM2Auz36H+uWjg5X6sP1LS/ro2Cd7DvrA9nG+w0unr?=
+ =?us-ascii?Q?gpM0gEgiTiV8SWpqYQdb8YntfZ4Mt1tQ+nRB1TRx1Y7fK7/KVUHWiRQDdeDC?=
+ =?us-ascii?Q?FxWh+FDVbNiCFnwIhXbIRmBiZXe2KLsL3sgVTwfVS+Bv8WbnU7bDmlWxKlBz?=
+ =?us-ascii?Q?8PuiiYoLnkd8fi9GE1s=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2fab8e41-9320-4f45-aaad-08de1e24ea55
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3362c7e2-a631-4eda-d590-08de1e24ea08
 X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3613.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 17:41:43.6433 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2025 17:41:42.8785 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AR+8Rbzg+zLibzmE7FQVfao8b7+K575SrOKpPalv5L1AP3V98eCN+zxKufiipgU4
+X-MS-Exchange-CrossTenant-UserPrincipalName: gZ/GbmrPTNGijwIqp7ikx5aG5WC9aRzyUNsdgoCoNZ9Ehta527NLCtr3qcbnjbqv
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8833
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -169,113 +169,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This op does the copy to/from user for the info and can return back
-a cap chain through a vfio_info_cap * result.
+Change the function signature of hisi_acc_vfio_pci_ioctl()
+and re-indent it.
 
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Acked-by: Pranjal Shrivastava <praan@google.com>
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/vfio/vfio_main.c | 56 +++++++++++++++++++++++++++++++++++++---
- include/linux/vfio.h     |  4 +++
- 2 files changed, 56 insertions(+), 4 deletions(-)
+ .../vfio/pci/hisilicon/hisi_acc_vfio_pci.c    | 57 +++++++++----------
+ 1 file changed, 27 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index f056e82ba35075..48d034aede46fc 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -1259,6 +1259,57 @@ static int vfio_ioctl_device_feature(struct vfio_device *device,
- 	}
+diff --git a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+index fde33f54e99ec5..899db4d742a010 100644
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1324,43 +1324,39 @@ static ssize_t hisi_acc_vfio_pci_read(struct vfio_device *core_vdev,
+ 	return vfio_pci_core_read(core_vdev, buf, new_count, ppos);
  }
  
-+static long vfio_get_region_info(struct vfio_device *device,
-+				 struct vfio_region_info __user *arg)
-+{
-+	unsigned long minsz = offsetofend(struct vfio_region_info, offset);
-+	struct vfio_region_info info = {};
-+	struct vfio_info_cap caps = {};
-+	int ret;
-+
+-static long hisi_acc_vfio_pci_ioctl(struct vfio_device *core_vdev, unsigned int cmd,
+-				    unsigned long arg)
++static int hisi_acc_vfio_ioctl_get_region(struct vfio_device *core_vdev,
++					  struct vfio_region_info __user *arg)
+ {
+-	if (cmd == VFIO_DEVICE_GET_REGION_INFO) {
+-		struct vfio_pci_core_device *vdev =
+-			container_of(core_vdev, struct vfio_pci_core_device, vdev);
+-		struct pci_dev *pdev = vdev->pdev;
+-		struct vfio_region_info info;
+-		unsigned long minsz;
++	struct vfio_pci_core_device *vdev =
++		container_of(core_vdev, struct vfio_pci_core_device, vdev);
++	struct pci_dev *pdev = vdev->pdev;
++	struct vfio_region_info info;
++	unsigned long minsz;
+ 
+-		minsz = offsetofend(struct vfio_region_info, offset);
++	minsz = offsetofend(struct vfio_region_info, offset);
+ 
+-		if (copy_from_user(&info, (void __user *)arg, minsz))
+-			return -EFAULT;
 +	if (copy_from_user(&info, arg, minsz))
 +		return -EFAULT;
+ 
+-		if (info.argsz < minsz)
+-			return -EINVAL;
 +	if (info.argsz < minsz)
 +		return -EINVAL;
-+
-+	if (device->ops->get_region_info_caps) {
-+		ret = device->ops->get_region_info_caps(device, &info, &caps);
-+		if (ret)
-+			goto out_free;
-+
-+		if (caps.size) {
-+			info.flags |= VFIO_REGION_INFO_FLAG_CAPS;
-+			if (info.argsz < sizeof(info) + caps.size) {
-+				info.argsz = sizeof(info) + caps.size;
-+				info.cap_offset = 0;
-+			} else {
-+				vfio_info_cap_shift(&caps, sizeof(info));
-+				if (copy_to_user(arg + 1, caps.buf,
-+						 caps.size)) {
-+					ret = -EFAULT;
-+					goto out_free;
-+				}
-+				info.cap_offset = sizeof(info);
-+			}
-+		}
-+
-+		if (copy_to_user(arg, &info, minsz)) {
-+			ret = -EFAULT;
-+			goto out_free;
-+		}
-+	} else if (device->ops->get_region_info) {
-+		ret = device->ops->get_region_info(device, arg);
-+		if (ret)
-+			return ret;
-+	} else {
-+		return -EINVAL;
-+	}
-+
-+out_free:
-+	kfree(caps.buf);
-+	return ret;
-+}
-+
- static long vfio_device_fops_unl_ioctl(struct file *filep,
- 				       unsigned int cmd, unsigned long arg)
- {
-@@ -1297,10 +1348,7 @@ static long vfio_device_fops_unl_ioctl(struct file *filep,
- 		break;
  
- 	case VFIO_DEVICE_GET_REGION_INFO:
--		if (unlikely(!device->ops->get_region_info))
--			ret = -EINVAL;
--		else
--			ret = device->ops->get_region_info(device, uptr);
-+		ret = vfio_get_region_info(device, uptr);
- 		break;
+-		if (info.index == VFIO_PCI_BAR2_REGION_INDEX) {
+-			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
++	if (info.index != VFIO_PCI_BAR2_REGION_INDEX)
++		return vfio_pci_ioctl_get_region_info(core_vdev, arg);
  
- 	default:
-diff --git a/include/linux/vfio.h b/include/linux/vfio.h
-index be5fcf8432e8d5..6311ddc837701d 100644
---- a/include/linux/vfio.h
-+++ b/include/linux/vfio.h
-@@ -21,6 +21,7 @@ struct kvm;
- struct iommufd_ctx;
- struct iommufd_device;
- struct iommufd_access;
-+struct vfio_info_cap;
+-			/*
+-			 * ACC VF dev BAR2 region consists of both functional
+-			 * register space and migration control register space.
+-			 * Report only the functional region to Guest.
+-			 */
+-			info.size = pci_resource_len(pdev, info.index) / 2;
++	info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
  
- /*
-  * VFIO devices can be placed in a set, this allows all devices to share this
-@@ -134,6 +135,9 @@ struct vfio_device_ops {
- 			 unsigned long arg);
- 	int	(*get_region_info)(struct vfio_device *vdev,
- 				   struct vfio_region_info __user *arg);
-+	int	(*get_region_info_caps)(struct vfio_device *vdev,
-+					struct vfio_region_info *info,
-+					struct vfio_info_cap *caps);
- 	int	(*mmap)(struct vfio_device *vdev, struct vm_area_struct *vma);
- 	void	(*request)(struct vfio_device *vdev, unsigned int count);
- 	int	(*match)(struct vfio_device *vdev, char *buf);
+-			info.flags = VFIO_REGION_INFO_FLAG_READ |
+-					VFIO_REGION_INFO_FLAG_WRITE |
+-					VFIO_REGION_INFO_FLAG_MMAP;
++	/*
++	 * ACC VF dev BAR2 region consists of both functional
++	 * register space and migration control register space.
++	 * Report only the functional region to Guest.
++	 */
++	info.size = pci_resource_len(pdev, info.index) / 2;
+ 
+-			return copy_to_user((void __user *)arg, &info, minsz) ?
+-					    -EFAULT : 0;
+-		}
+-	}
+-	return vfio_pci_core_ioctl(core_vdev, cmd, arg);
++	info.flags = VFIO_REGION_INFO_FLAG_READ | VFIO_REGION_INFO_FLAG_WRITE |
++		     VFIO_REGION_INFO_FLAG_MMAP;
++
++	return copy_to_user(arg, &info, minsz) ? -EFAULT : 0;
+ }
+ 
+ static int hisi_acc_vf_debug_check(struct seq_file *seq, struct vfio_device *vdev)
+@@ -1557,7 +1553,8 @@ static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
+ 	.release = vfio_pci_core_release_dev,
+ 	.open_device = hisi_acc_vfio_pci_open_device,
+ 	.close_device = hisi_acc_vfio_pci_close_device,
+-	.ioctl = hisi_acc_vfio_pci_ioctl,
++	.ioctl = vfio_pci_core_ioctl,
++	.get_region_info = hisi_acc_vfio_ioctl_get_region,
+ 	.device_feature = vfio_pci_core_ioctl_feature,
+ 	.read = hisi_acc_vfio_pci_read,
+ 	.write = hisi_acc_vfio_pci_write,
 -- 
 2.43.0
 
