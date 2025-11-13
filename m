@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCB5CD8CAF
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 17:00:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 093C9CD8CA4
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 17:00:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D583910E8EC;
-	Thu, 13 Nov 2025 17:00:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13AD010E8EE;
+	Thu, 13 Nov 2025 17:00:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Iv924Bly";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="f8C4RoEI";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A82410E8E1;
- Thu, 13 Nov 2025 17:00:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D8C010E8F1;
+ Thu, 13 Nov 2025 17:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1763053217;
- bh=v6OFrxSoAyYpbjHM20r9xFnmPba+agNd9y5f3ZRnldE=;
+ s=mail; t=1763053221;
+ bh=zYBl/Dqp6Izqq1kQ5gjEICYJes4BCUnNwwCmCl6OpvY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Iv924BlysCuYVXp9dzNJuYONWp6IS5gK6U9qiyL1IOg11OZW3tnBevE037LSg/YRD
- eV1YPYkLXt/qsW2ckdkVz9IWt8LiHkCU6Ui1paOKjBm6E+thJIgrEclNxxDBNPPsny
- mFH+ziwp07u2WGklPcFuhGB0EmHYIMKHgn3NMVDzfj+6EtwVpVtYKKuj+3SZutaaUF
- Chk2MH6gOgyOEun8HTPaNm4cie8iJJ0XHpuBksAOjX197BTAzk10+dt21sva9whn6N
- +QQW3eObP6pV95dbYlX198rCpBxcJcrlhoVYDLUm8G8oKA8UUmbiHirKJfgjnm4Gr7
- 35HVIuyRPRljQ==
+ b=f8C4RoEIQl4ixC4AaSJTwU/a73ZdGP3iO7JtymnuRD46ZnGLlrX3zXIkeMEE38ivH
+ NWbHWsSVmZVNJLMesX2GA2qEEIDBzOywRh7KpHLr1Enc274iJMUSR8OVGNMkmJkUNT
+ qB4i3GRb1r5qfpBPWiZFYzPrWXoHV2a7w8BWxMzRP7rSAUkUGt7OetJFHHe5bXUwku
+ xALRb4jhPjFNJBLQAZMkwsEwlSgRMdKiCIVdnq1H3tzw1Sb3Nbjvo0Cynx/QCK2zS3
+ lK2uWqC1sH6v4LLyNA3y9ph+dmuiy0HOwT/dAnonGddOVEq8rIkVVsDV4dSsUrWABy
+ PqW485btNwz6w==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2398617E151F;
- Thu, 13 Nov 2025 18:00:16 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 35F8717E35D3;
+ Thu, 13 Nov 2025 18:00:20 +0100 (CET)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v8 06/11] drm/v3d: Use huge tmpfs mountpoint helpers
-Date: Thu, 13 Nov 2025 18:00:02 +0100
-Message-ID: <20251113170008.79587-7-loic.molinari@collabora.com>
+Subject: [PATCH v8 10/11] drm/panfrost: Introduce huge tmpfs mountpoint option
+Date: Thu, 13 Nov 2025 18:00:06 +0100
+Message-ID: <20251113170008.79587-11-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251113170008.79587-1-loic.molinari@collabora.com>
 References: <20251113170008.79587-1-loic.molinari@collabora.com>
@@ -84,250 +84,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make use of the new drm_gem_huge_mnt_create() and
-drm_gem_has_huge_mnt() helpers to avoid code duplication. Now that
-it's just a few lines long, the single function in v3d_gemfs.c is
-moved into v3d_gem.c.
+Introduce the 'panfrost.transparent_hugepage' boolean module parameter
+(false by default). When the parameter is set to true, a new tmpfs
+mountpoint is created and mounted using the 'huge=within_size'
+option. It's then used at GEM object creation instead of the default
+'shm_mnt' mountpoint in order to enable Transparent Hugepage (THP) for
+the object (without having to rely on a system wide parameter).
 
 v3:
 - use huge tmpfs mountpoint in drm_device
-- move v3d_gemfs.c into v3d_gem.c
 
 v4:
+- fix builds with CONFIG_TRANSPARENT_HUGEPAGE=n
 - clean up mountpoint creation error handling
+- print negative error value
 
 v5:
-- fix CONFIG_TRANSPARENT_HUGEPAGE check
-- use drm_gem_has_huge_mnt() helper
-
-v8:
-- don't access huge_mnt field with CONFIG_TRANSPARENT_HUGEPAGE=n
+- use drm_gem_has_huge_tmp() helper
+- get rid of CONFIG_TRANSPARENT_HUGEPAGE ifdefs
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/v3d/Makefile    |  3 +-
- drivers/gpu/drm/v3d/v3d_bo.c    |  9 +++--
- drivers/gpu/drm/v3d/v3d_drv.c   |  2 +-
- drivers/gpu/drm/v3d/v3d_drv.h   | 11 +-----
- drivers/gpu/drm/v3d/v3d_gem.c   | 27 ++++++++++++--
- drivers/gpu/drm/v3d/v3d_gemfs.c | 62 ---------------------------------
- 6 files changed, 34 insertions(+), 80 deletions(-)
- delete mode 100644 drivers/gpu/drm/v3d/v3d_gemfs.c
+ drivers/gpu/drm/panfrost/panfrost_device.c |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    |  6 ++++++
+ drivers/gpu/drm/panfrost/panfrost_drv.h    |  9 +++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.c    | 18 ++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_gem.h    |  2 ++
+ 5 files changed, 38 insertions(+)
+ create mode 100644 drivers/gpu/drm/panfrost/panfrost_drv.h
 
-diff --git a/drivers/gpu/drm/v3d/Makefile b/drivers/gpu/drm/v3d/Makefile
-index fcf710926057..b7d673f1153b 100644
---- a/drivers/gpu/drm/v3d/Makefile
-+++ b/drivers/gpu/drm/v3d/Makefile
-@@ -13,8 +13,7 @@ v3d-y := \
- 	v3d_trace_points.o \
- 	v3d_sched.o \
- 	v3d_sysfs.o \
--	v3d_submit.o \
--	v3d_gemfs.o
-+	v3d_submit.o
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index c61b97af120c..dedc13e56631 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -12,6 +12,7 @@
+ #include "panfrost_device.h"
+ #include "panfrost_devfreq.h"
+ #include "panfrost_features.h"
++#include "panfrost_gem.h"
+ #include "panfrost_issues.h"
+ #include "panfrost_gpu.h"
+ #include "panfrost_job.h"
+@@ -267,6 +268,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
+ 	if (err)
+ 		goto out_job;
  
- v3d-$(CONFIG_DEBUG_FS) += v3d_debugfs.o
- 
-diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
-index d9547f5117b9..3bc714ea6392 100644
---- a/drivers/gpu/drm/v3d/v3d_bo.c
-+++ b/drivers/gpu/drm/v3d/v3d_bo.c
-@@ -114,7 +114,7 @@ v3d_bo_create_finish(struct drm_gem_object *obj)
- 	if (IS_ERR(sgt))
- 		return PTR_ERR(sgt);
- 
--	if (!v3d->gemfs)
-+	if (!drm_gem_has_huge_mnt(obj->dev))
- 		align = SZ_4K;
- 	else if (obj->size >= SZ_1M)
- 		align = SZ_1M;
-@@ -150,12 +150,15 @@ struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
- 			     size_t unaligned_size)
- {
- 	struct drm_gem_shmem_object *shmem_obj;
--	struct v3d_dev *v3d = to_v3d_dev(dev);
- 	struct v3d_bo *bo;
- 	int ret;
++	panfrost_gem_init(pfdev);
++
+ 	return 0;
+ out_job:
+ 	panfrost_jm_fini(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 7d8c7c337606..7f59568faa05 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -858,6 +858,12 @@ static const struct drm_driver panfrost_drm_driver = {
+ #endif
+ };
  
 +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 	shmem_obj = drm_gem_shmem_create_with_mnt(dev, unaligned_size,
--						  v3d->gemfs);
-+						  dev->huge_mnt);
-+#else
-+	shmem_obj = drm_gem_shmem_create(dev, unaligned_size);
++bool panfrost_transparent_hugepage;
++module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
++MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (false = default)");
 +#endif
- 	if (IS_ERR(shmem_obj))
- 		return ERR_CAST(shmem_obj);
- 	bo = to_v3d_bo(&shmem_obj->base);
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index e8a46c8bad8a..30b55a00eeda 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -107,7 +107,7 @@ static int v3d_get_param_ioctl(struct drm_device *dev, void *data,
- 		args->value = v3d->perfmon_info.max_counters;
- 		return 0;
- 	case DRM_V3D_PARAM_SUPPORTS_SUPER_PAGES:
--		args->value = !!v3d->gemfs;
-+		args->value = drm_gem_has_huge_mnt(dev);
- 		return 0;
- 	case DRM_V3D_PARAM_GLOBAL_RESET_COUNTER:
- 		mutex_lock(&v3d->reset_lock);
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-index 1884686985b8..99a39329bb85 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.h
-+++ b/drivers/gpu/drm/v3d/v3d_drv.h
-@@ -158,11 +158,6 @@ struct v3d_dev {
- 	struct drm_mm mm;
- 	spinlock_t mm_lock;
++
+ static int panfrost_probe(struct platform_device *pdev)
+ {
+ 	struct panfrost_device *pfdev;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
+new file mode 100644
+index 000000000000..edeb093eb6da
+--- /dev/null
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++/* Copyright 2025 Amazon.com, Inc. or its affiliates */
++
++#ifndef __PANFROST_DRV_H__
++#define __PANFROST_DRV_H__
++
++extern bool panfrost_transparent_hugepage;
++
++#endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
+index 8041b65c6609..d8472a023e05 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
+@@ -1,5 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
++/* Copyright 2025 Amazon.com, Inc. or its affiliates */
  
--	/*
--	 * tmpfs instance used for shmem backed objects
--	 */
--	struct vfsmount *gemfs;
--
- 	struct work_struct overflow_mem_work;
+ #include <linux/cleanup.h>
+ #include <linux/err.h>
+@@ -10,9 +11,26 @@
+ #include <drm/panfrost_drm.h>
+ #include <drm/drm_print.h>
+ #include "panfrost_device.h"
++#include "panfrost_drv.h"
+ #include "panfrost_gem.h"
+ #include "panfrost_mmu.h"
  
- 	struct v3d_queue_state queue[V3D_MAX_QUEUES];
-@@ -569,6 +564,7 @@ extern const struct dma_fence_ops v3d_fence_ops;
- struct dma_fence *v3d_fence_create(struct v3d_dev *v3d, enum v3d_queue q);
- 
- /* v3d_gem.c */
-+extern bool super_pages;
- int v3d_gem_init(struct drm_device *dev);
- void v3d_gem_destroy(struct drm_device *dev);
- void v3d_reset_sms(struct v3d_dev *v3d);
-@@ -576,11 +572,6 @@ void v3d_reset(struct v3d_dev *v3d);
- void v3d_invalidate_caches(struct v3d_dev *v3d);
- void v3d_clean_caches(struct v3d_dev *v3d);
- 
--/* v3d_gemfs.c */
--extern bool super_pages;
--void v3d_gemfs_init(struct v3d_dev *v3d);
--void v3d_gemfs_fini(struct v3d_dev *v3d);
--
- /* v3d_submit.c */
- void v3d_job_cleanup(struct v3d_job *job);
- void v3d_job_put(struct v3d_job *job);
-diff --git a/drivers/gpu/drm/v3d/v3d_gem.c b/drivers/gpu/drm/v3d/v3d_gem.c
-index 5a180dc6c452..f316f67364d2 100644
---- a/drivers/gpu/drm/v3d/v3d_gem.c
-+++ b/drivers/gpu/drm/v3d/v3d_gem.c
-@@ -259,6 +259,30 @@ v3d_invalidate_caches(struct v3d_dev *v3d)
- 	v3d_invalidate_slices(v3d, 0);
- }
- 
-+static void
-+v3d_huge_mnt_init(struct v3d_dev *v3d)
++void panfrost_gem_init(struct panfrost_device *pfdev)
 +{
-+	int err = 0;
++	int err;
 +
-+	/*
-+	 * By using a huge shmemfs mountpoint when the user wants to
-+	 * enable Super Pages, we can pass in mount flags that better
-+	 * match our usecase.
-+	 */
++	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
++	    !panfrost_transparent_hugepage)
++		return;
 +
-+	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) && super_pages)
-+		err = drm_gem_huge_mnt_create(&v3d->drm, "within_size");
-+
-+	if (drm_gem_has_huge_mnt(&v3d->drm))
-+		drm_info(&v3d->drm, "Using Transparent Hugepages\n");
++	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
++	if (drm_gem_has_huge_mnt(&pfdev->base))
++		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
 +	else if (err)
-+		drm_warn(&v3d->drm, "Can't use Transparent Hugepages (%d)\n",
++		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
 +			 err);
-+	else
-+		drm_notice(&v3d->drm,
-+			   "Transparent Hugepage support is recommended for optimal performance on this platform!\n");
 +}
 +
- int
- v3d_gem_init(struct drm_device *dev)
- {
-@@ -310,7 +334,7 @@ v3d_gem_init(struct drm_device *dev)
- 	v3d_init_hw_state(v3d);
- 	v3d_mmu_set_page_table(v3d);
+ #ifdef CONFIG_DEBUG_FS
+ static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
+ 					struct panfrost_gem_object *bo)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
+index 8de3e76f2717..1a62529ff06f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gem.h
++++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
+@@ -124,6 +124,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
+ 	return container_of(node, struct panfrost_gem_mapping, mmnode);
+ }
  
--	v3d_gemfs_init(v3d);
-+	v3d_huge_mnt_init(v3d);
++void panfrost_gem_init(struct panfrost_device *pfdev);
++
+ struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
  
- 	ret = v3d_sched_init(v3d);
- 	if (ret) {
-@@ -330,7 +354,6 @@ v3d_gem_destroy(struct drm_device *dev)
- 	enum v3d_queue q;
- 
- 	v3d_sched_fini(v3d);
--	v3d_gemfs_fini(v3d);
- 
- 	/* Waiting for jobs to finish would need to be done before
- 	 * unregistering V3D.
-diff --git a/drivers/gpu/drm/v3d/v3d_gemfs.c b/drivers/gpu/drm/v3d/v3d_gemfs.c
-deleted file mode 100644
-index bf351fc0d488..000000000000
---- a/drivers/gpu/drm/v3d/v3d_gemfs.c
-+++ /dev/null
-@@ -1,62 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/* Copyright (C) 2024 Raspberry Pi */
--
--#include <linux/fs.h>
--#include <linux/mount.h>
--#include <linux/fs_context.h>
--
--#include <drm/drm_print.h>
--
--#include "v3d_drv.h"
--
--void v3d_gemfs_init(struct v3d_dev *v3d)
--{
--	struct file_system_type *type;
--	struct fs_context *fc;
--	struct vfsmount *gemfs;
--	int ret;
--
--	/*
--	 * By creating our own shmemfs mountpoint, we can pass in
--	 * mount flags that better match our usecase. However, we
--	 * only do so on platforms which benefit from it.
--	 */
--	if (!IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE))
--		goto err;
--
--	/* The user doesn't want to enable Super Pages */
--	if (!super_pages)
--		goto err;
--
--	type = get_fs_type("tmpfs");
--	if (!type)
--		goto err;
--
--	fc = fs_context_for_mount(type, SB_KERNMOUNT);
--	if (IS_ERR(fc))
--		goto err;
--	ret = vfs_parse_fs_string(fc, "source", "tmpfs");
--	if (!ret)
--		ret = vfs_parse_fs_string(fc, "huge", "within_size");
--	if (!ret)
--		gemfs = fc_mount_longterm(fc);
--	put_fs_context(fc);
--	if (ret)
--		goto err;
--
--	v3d->gemfs = gemfs;
--	drm_info(&v3d->drm, "Using Transparent Hugepages\n");
--
--	return;
--
--err:
--	v3d->gemfs = NULL;
--	drm_notice(&v3d->drm,
--		   "Transparent Hugepage support is recommended for optimal performance on this platform!\n");
--}
--
--void v3d_gemfs_fini(struct v3d_dev *v3d)
--{
--	if (v3d->gemfs)
--		kern_unmount(v3d->gemfs);
--}
+ struct drm_gem_object *
 -- 
 2.47.3
 
