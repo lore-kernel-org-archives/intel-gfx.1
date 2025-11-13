@@ -4,94 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E547CCEBF96
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59CEFCED243
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBFBF10E38E;
-	Mon, 17 Nov 2025 13:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B35C10E3B2;
+	Mon, 17 Nov 2025 13:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="YU++uOa/";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="P5ZqKQ9r";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A0410EA6A
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 13:10:14 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-477632d9326so14283775e9.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 05:10:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1763125813; x=1763730613; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
- b=YU++uOa/prmyZdae+fODyXW3wecgtfGXB+Mt8uCcw5T07DnltADGzjPP2nkrVrU61g
- FwploZLaPwsU5qgTnCw6xYlJgyi7WWLUdeMIt/9xe9sSs4wOdN84qY+WcE1Q7EbMApLG
- 4m90WEdsyuJiHaS3Rg4fSqO6o9YZlYNl37ZgfweAtZK+dXxKosJM707C1+SuT1wfj1mn
- 7M/2Nb/PfqPna17ZfJAJx2CPguUDmUMF2XMoFMr1pha5FcsnCF+2Emj3ToYBcO0ALLyF
- nhf/zMjhLcBQt6P9YQAEudvWWnUhSt9DlC5bB7jpTraP223MuehUpjT5BPgbOtMSWrtJ
- S/Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1763125813; x=1763730613;
- h=content-transfer-encoding:mime-version:message-id:date:user-agent
- :references:in-reply-to:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=EJ9S8y/liwc1XSXK0RvzbAJey2hh3NqcyHJfhnjyxSE=;
- b=udzlAxUUkY7dUZCwQQiXn/tnX1VhJ2kpmxo5QHw844CNcLG8Ijl+XMI1l2zqb1F/ji
- T68Ue+t4WDSG3oYi3Fw/uCSZ8FDt+1msuy5jHZtJ7A8Jd/HGJfPlzzRvh4mF0S1k+IiL
- tkwjbD0mr4JQFGbi+SFDzyYF8LXAriEoOpDFxu1Y9AGj2Agfx5rXCA3sIL9m3MJ4pfPv
- OWKD24144NU1B/jS6AUtLkkdDQ3a3JxyWqFkMLJ+t8uG1OhvyMHI88aCcAXHBI2QA1WW
- laJukjWkWSQWtjohdZf/qryV5LzS3RrUBIRs4qaJBbjehldlLOpmSEQnmNkN38+G0/oA
- xekg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX7YBxY2wzmd3HDas3gTh2HS78lB5Q01WBMJoBErHIIW1qqvr0JRZNYKCdNxRdbSnixPM2l/EIPa+M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzR64ddC1F9l9Mu/diZgOa2UUNmAmjrOoUUurvhKbaYZ/r2ktaA
- HfwNmJMLFoFbqbGmzaKvbEMNBLvumVogAOQf5MAC7YTdaFs6AhqswEkKS/oIeZgBwj4=
-X-Gm-Gg: ASbGnctZQdwIiDs/NU3492sYqmYFC25YsXaTFfXO9/8hLElfbj7vxAKzSDBYVcwdm6U
- SpD6b2Twk6R/26dlZJ9VQLsNMok9R6/O+wqIHG+/Hexb57U829OGILpXs4joVE3e8MMirMlG6kj
- hjesUwTVfkimEmS1l3zpT+PX0nwwy41D+/tWCNDf1Kn6cU2LFm39okBeVcr+yUOmlWEmI7+OHSb
- a+NTlW9GEhExhUxr88LTVWSMzND1Jp39z++D9wuEMCbPbZWYXI+AcFrGJSis+Yv4g+btwl6n8Cl
- Nymgfu6mnccMrjMp0b4Uh+ld2xqILXN0b1aIv05oL/8XKdanOQ0Vfn05++JNrn5ntJJ9EL5KRF+
- OjtqL2yfGUesS8xwgM/In5B4KymUIWZSV4bq792C8eA45PNe6Gn8l6xz/HLDUl10wUhQ/9JMAcn
- ra
-X-Google-Smtp-Source: AGHT+IFRUwKdmMnVHD85N3NvYRNZUnPZKMrSMMhF+DQcXz4gku9fHv+s1niWianlCFXxAAY6/RwthA==
-X-Received: by 2002:a05:600c:3587:b0:477:63b5:7148 with SMTP id
- 5b1f17b1804b1-4778fe55174mr31972855e9.6.1763125812943; 
- Fri, 14 Nov 2025 05:10:12 -0800 (PST)
-Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4779527a656sm5951845e9.10.2025.11.14.05.10.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Nov 2025 05:10:11 -0800 (PST)
-Received: from draig (localhost [IPv6:::1])
- by draig.lan (Postfix) with ESMTP id 1B92A5F820;
- Fri, 14 Nov 2025 13:10:11 +0000 (GMT)
-From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
- <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
- David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
- Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
- Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
- Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
- <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
- <michal.winiarski@intel.com>,  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 08/11] drm/xe: Remove driver side BAR release before
- resize
-In-Reply-To: <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com> ("Ilpo
- =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:25
- +0200")
-References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
- <20251113162628.5946-9-ilpo.jarvinen@linux.intel.com>
-User-Agent: mu4e 1.12.14-dev2; emacs 30.1
-Date: Fri, 14 Nov 2025 13:10:11 +0000
-Message-ID: <87ecq0pxos.fsf@draig.linaro.org>
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51DE410E2E2;
+ Thu, 13 Nov 2025 06:34:13 +0000 (UTC)
+Received: from LAPTOP-N070L597.localdomain (unknown [58.241.16.34])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 296eb3989;
+ Thu, 13 Nov 2025 14:34:08 +0800 (GMT+08:00)
+From: Zilin Guan <zilin@seu.edu.cn>
+To: jani.nikula@linux.intel.com
+Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
+ andi.shyti@linux.intel.com, mikolaj.wasiak@intel.com,
+ krzysztof.karas@intel.com, krzysztof.niemiec@intel.com,
+ nitin.r.gote@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jianhao.xu@seu.edu.cn, Zilin Guan <zilin@seu.edu.cn>
+Subject: [PATCH v2] drm/i915: Use symmetric free for vma resources
+Date: Thu, 13 Nov 2025 06:34:05 +0000
+Message-Id: <20251113063405.116845-1-zilin@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9a7bebe2ac03a1kunm32325a7311214d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhlPVhgaTRpOGkpOTU0eGFYeHw5VEwETFhoSFy
+ QUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0xVSktLVUtZBg
+ ++
+DKIM-Signature: a=rsa-sha256;
+ b=P5ZqKQ9rz1kEVvGKZ+XRtsZtVa8yDePzV24qvIJpzzCzY2tYwFUnpaAM6la7IS1Pbx0xVdAmCfnxYuj+wO/3nXAaOGEZkGb80CHraNCB9k1SA0dHixTVkEagfQun0JHpy8c3vF2p7qx2N9ORplOZjrhytdRHQ7vuqql0hnM9t7A=;
+ s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
+ bh=ZSj4l+iI7JKR3Z396kPA7kl8a4f1l9OPjhSTji8cqHE=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Mon, 17 Nov 2025 13:23:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,42 +61,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
+The error paths in reserve_gtt_with_resource() and
+insert_gtt_with_resource() use kfree() to release a vma_res object
+that was allocated with i915_vma_resource_alloc().
 
-> PCI core handles releasing device's resources and their rollback in
-> case of failure of a BAR resizing operation. Releasing resource prior
-> to calling pci_resize_resource() prevents PCI core from restoring the
-> BARs as they were.
->
-> Remove driver-side release of BARs from the xe driver.
->
-> Signed-off-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
-> Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-> ---
->  drivers/gpu/drm/xe/xe_vram.c | 3 ---
->  1 file changed, 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/xe/xe_vram.c b/drivers/gpu/drm/xe/xe_vram.c
-> index 00dd027057df..5aacab9358a4 100644
-> --- a/drivers/gpu/drm/xe/xe_vram.c
-> +++ b/drivers/gpu/drm/xe/xe_vram.c
-> @@ -33,9 +33,6 @@ _resize_bar(struct xe_device *xe, int resno, resource_s=
-ize_t size)
->  	int bar_size =3D pci_rebar_bytes_to_size(size);
->  	int ret;
->=20=20
-> -	if (pci_resource_len(pdev, resno))
-> -		pci_release_resource(pdev, resno);
-> -
->  	ret =3D pci_resize_resource(pdev, resno, bar_size, 0);
->  	if (ret) {
->  		drm_info(&xe->drm, "Failed to resize BAR%d to %dM (%pe). Consider enab=
-ling 'Resizable BAR' support in your BIOS\n",
+While kfree() can handle slab-allocated objects, it is better practice
+to use the symmetric free function.
 
-This didn't apply, I assume due to a clash with:
+Replace kfree() with the specific i915_vma_resource_free() helper to
+improve readability and ensure the alloc/free pairing is explicit.
 
-  d30203739be79 (drm/xe: Move rebar to be done earlier)
+Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+---
+Changes in v2:
+- Reword commit message to describe this as a readability change.
+- Drop the Fixes tag.
+---
+ drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+index 7ab4c4e60264..16e72ef57bed 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
++++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
+@@ -1524,7 +1524,7 @@ static int reserve_gtt_with_resource(struct i915_vma *vma, u64 offset)
+ 		i915_vma_resource_init_from_vma(vma_res, vma);
+ 		vma->resource = vma_res;
+ 	} else {
+-		kfree(vma_res);
++		i915_vma_resource_free(vma_res);
+ 	}
+ 	mutex_unlock(&vm->mutex);
+ 
+@@ -1704,7 +1704,7 @@ static int insert_gtt_with_resource(struct i915_vma *vma)
+ 		i915_vma_resource_init_from_vma(vma_res, vma);
+ 		vma->resource = vma_res;
+ 	} else {
+-		kfree(vma_res);
++		i915_vma_resource_free(vma_res);
+ 	}
+ 	mutex_unlock(&vm->mutex);
+ 
+-- 
+2.34.1
+
