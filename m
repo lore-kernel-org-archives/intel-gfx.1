@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3286CD8CAD
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 17:00:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33776CD8CAE
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Nov 2025 17:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD2A710E8E3;
-	Thu, 13 Nov 2025 17:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C09A10E8ED;
+	Thu, 13 Nov 2025 17:00:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kGFZSJh1";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ESswB97U";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45EA810E8E0;
- Thu, 13 Nov 2025 17:00:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5551810E8E6;
+ Thu, 13 Nov 2025 17:00:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1763053215;
- bh=CmZzkccIUL92ZcDISbCLHJ25kFHzLgptyvzB27dAVN8=;
+ s=mail; t=1763053218;
+ bh=spYITbrA9e6Nbtm9P1ayDz3RtczGYgXs2HigsbhVHtc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kGFZSJh1j+du/b3O+6loVm377l5bUfm85KkzG32kfHAY9ZkMWPv833vf+Fsr+RQf0
- bIEXstf0vjjSi22WOl+teQgIYy26/B9LWOWg45N1qrbUg+/5jdgbFvcEoMIxNxmqov
- hzdXp3vzCkWuMY4eY8eOdIAEyYW7FzW7JgRuXjqai9kPkHbA3+9VjeYnM8TuIx5rs1
- MFY/PwsyOguqHk8RHN85p38xD5ALESFA29TpZeTaA/LFogurlJLFqbobsRGBQ0wxCW
- vfPYcv/F6wuFQZykguEU0mg+VOEnG1p1+O4Fp/aBQw+5v3jEMv8pJ33mZbAr4Yru7p
- dEFIe6YDvM8mw==
+ b=ESswB97UVNuJhvTUWhWvUKL/54wgzkFp4uvBML+1+SsV/c8YfuBgNzWQ/494lZYOX
+ 3xcgw2DWD6Q/P/OtRAHnRVM3kDvsWImrsmkg4DokweAVvCjINet5J9VsSmW4KJbXqs
+ m3xj9x8Cfo9x/zi1M/TtrE6R5wovvYhHPOdLa+Wk3cCcgaFealRlA+9w7CVu7IWWjM
+ vAchCpTBhAZSGm12JBf9Z8jO4HenbIxwPyxq20djau3BXHEg5HyY8Vhcu5/klsUiwz
+ BpxG69XVMpxjj8GmstX+SoIoms+1JhXSuvKdC1JN98vnh8oryQmR++kIHoKfmu1nue
+ XUZCirARK8Kag==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B8D117E1340;
- Thu, 13 Nov 2025 18:00:14 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 29DCB17E0202;
+ Thu, 13 Nov 2025 18:00:17 +0100 (CET)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v8 04/11] drm/gem: Add huge tmpfs mountpoint helpers
-Date: Thu, 13 Nov 2025 18:00:00 +0100
-Message-ID: <20251113170008.79587-5-loic.molinari@collabora.com>
+Subject: [PATCH v8 07/11] drm/gem: Get rid of *_with_mnt helpers
+Date: Thu, 13 Nov 2025 18:00:03 +0100
+Message-ID: <20251113170008.79587-8-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251113170008.79587-1-loic.molinari@collabora.com>
 References: <20251113170008.79587-1-loic.molinari@collabora.com>
@@ -84,204 +84,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the drm_gem_huge_mnt_create() and drm_gem_has_huge_mnt() helpers
-to avoid code duplication in the i915, V3D, Panfrost and Panthor
-drivers. The former creates and mounts a dedicated huge tmpfs
-mountpoint, for the lifetime of a DRM device, used at GEM object
-initialization. The latter checks whether a dedicated huge tmpfs
-mountpoint is in use by a DRM device.
-
-The next commits will port drivers to this helper.
-
-v3:
-- store huge tmpfs mountpoint in drm_device
-
-v4:
-- return 0 in builds with CONFIG_TRANSPARENT_HUGEPAGE=n
-- return 0 when huge_mnt already exists
-- use new vfs_parse_fs_string() helper
+drm_gem_object_init_with_mnt() and drm_gem_shmem_create_with_mnt() can
+be removed now that the drivers use the new drm_gem_huge_mnt_create()
+and drm_gem_has_huge_mnt() helpers.
 
 v5:
-- remove warning on !dev->huge_mnt and reset to NULL on free
-- inline drm_gem_huge_mnt_create() to remove func from text and avoid
-  calls in builds with CONFIG_TRANSPARENT_HUGEPAGE=n
-- compile out drm_device's huge_mnt field in builds with
+- use drm_gem_has_huge_mnt() helper
+- compile out shmem_file_setup_with_mnt() call in builds with
   CONFIG_TRANSPARENT_HUGEPAGE=n
-- add drm_gem_has_huge_mnt() helper
-
-v6:
-- move huge_mnt doc into ifdef'd section
-- either inline or export drm_gem_huge_mnt_create()
-
-v7:
-- include <drm/drm_device.h> in drm_gem.h
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/drm_gem.c | 57 +++++++++++++++++++++++++++++++++++++++
- include/drm/drm_device.h  | 15 +++++++++++
- include/drm/drm_gem.h     | 33 +++++++++++++++++++++++
- 3 files changed, 105 insertions(+)
+ drivers/gpu/drm/drm_gem.c              | 38 ++++++++------------------
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 38 ++++++--------------------
+ drivers/gpu/drm/v3d/v3d_bo.c           |  5 ----
+ include/drm/drm_gem.h                  |  3 --
+ include/drm/drm_gem_shmem_helper.h     |  3 --
+ 5 files changed, 20 insertions(+), 67 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 2a0eecc0d3e4..bbca2ab9e9a5 100644
+index bbca2ab9e9a5..1b0b5813acef 100644
 --- a/drivers/gpu/drm/drm_gem.c
 +++ b/drivers/gpu/drm/drm_gem.c
-@@ -29,6 +29,9 @@
- #include <linux/export.h>
- #include <linux/file.h>
- #include <linux/fs.h>
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+#include <linux/fs_context.h>
-+#endif
- #include <linux/iosys-map.h>
- #include <linux/mem_encrypt.h>
- #include <linux/mm.h>
-@@ -82,6 +85,60 @@
-  * up at a later date, and as our interface with shmfs for memory allocation.
+@@ -171,31 +171,33 @@ drm_gem_init(struct drm_device *dev)
+ }
+ 
+ /**
+- * drm_gem_object_init_with_mnt - initialize an allocated shmem-backed GEM
+- * object in a given shmfs mountpoint
++ * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+  *
+  * @dev: drm_device the object should be initialized for
+  * @obj: drm_gem_object to initialize
+  * @size: object size
+- * @gemfs: tmpfs mount where the GEM object will be created. If NULL, use
+- * the usual tmpfs mountpoint (`shm_mnt`).
+  *
+  * Initialize an already allocated GEM object of the specified size with
+- * shmfs backing store.
++ * shmfs backing store. A huge mountpoint can be used by calling
++ * drm_gem_huge_mnt_create() beforehand.
   */
- 
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+static void drm_gem_huge_mnt_free(struct drm_device *dev, void *data)
-+{
-+	kern_unmount(dev->huge_mnt);
-+}
-+
-+/**
-+ * drm_gem_huge_mnt_create - Create, mount and use a huge tmpfs mountpoint
-+ * @dev: DRM device a huge tmpfs mountpoint should be used with
-+ * @value: huge tmpfs mount option value
-+ *
-+ * This function creates and mounts a dedicated huge tmpfs mountpoint for the
-+ * lifetime of the DRM device @dev which is used at GEM object initialization
-+ * with drm_gem_object_init().
-+ *
-+ * The most common option value @value is "within_size" which only allocates
-+ * huge pages if the page will be fully within the GEM object size. "always",
-+ * "advise" and "never" are supported too but the latter would just create a
-+ * mountpoint similar to the default one (`shm_mnt`). See shmemfs and
-+ * Transparent Hugepage for more information.
-+ *
-+ * Returns:
-+ * 0 on success or a negative error code on failure.
-+ */
-+int drm_gem_huge_mnt_create(struct drm_device *dev, const char *value)
-+{
-+	struct file_system_type *type;
-+	struct fs_context *fc;
-+	int ret;
-+
-+	if (unlikely(drm_gem_has_huge_mnt(dev)))
-+		return 0;
-+
-+	type = get_fs_type("tmpfs");
-+	if (unlikely(!type))
-+		return -EOPNOTSUPP;
-+	fc = fs_context_for_mount(type, SB_KERNMOUNT);
-+	if (IS_ERR(fc))
-+		return PTR_ERR(fc);
-+	ret = vfs_parse_fs_string(fc, "source", "tmpfs");
-+	if (unlikely(ret))
-+		return -ENOPARAM;
-+	ret = vfs_parse_fs_string(fc, "huge", value);
-+	if (unlikely(ret))
-+		return -ENOPARAM;
-+
-+	dev->huge_mnt = fc_mount_longterm(fc);
-+	put_fs_context(fc);
-+
-+	return drmm_add_action_or_reset(dev, drm_gem_huge_mnt_free, NULL);
-+}
-+EXPORT_SYMBOL_GPL(drm_gem_huge_mnt_create);
-+#endif
-+
- static void
- drm_gem_init_release(struct drm_device *dev, void *ptr)
+-int drm_gem_object_init_with_mnt(struct drm_device *dev,
+-				 struct drm_gem_object *obj, size_t size,
+-				 struct vfsmount *gemfs)
++int drm_gem_object_init(struct drm_device *dev, struct drm_gem_object *obj,
++			size_t size)
  {
-diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-index 778b2cca6c49..bcde07c43e3f 100644
---- a/include/drm/drm_device.h
-+++ b/include/drm/drm_device.h
-@@ -3,6 +3,9 @@
+ 	struct file *filp;
  
- #include <linux/list.h>
- #include <linux/kref.h>
+ 	drm_gem_private_object_init(dev, obj, size);
+ 
+-	if (gemfs)
+-		filp = shmem_file_setup_with_mnt(gemfs, "drm mm object", size,
 +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+#include <linux/mount.h>
++	if (drm_gem_has_huge_mnt(dev))
++		filp = shmem_file_setup_with_mnt(dev->huge_mnt,
++						 "drm mm object", size,
+ 						 VM_NORESERVE);
+ 	else
+ 		filp = shmem_file_setup("drm mm object", size, VM_NORESERVE);
++#else
++	filp = shmem_file_setup("drm mm object", size, VM_NORESERVE);
 +#endif
- #include <linux/mutex.h>
- #include <linux/idr.h>
- #include <linux/sched.h>
-@@ -168,6 +171,18 @@ struct drm_device {
- 	 */
- 	struct drm_master *master;
  
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+	/**
-+	 * @huge_mnt:
-+	 *
-+	 * Huge tmpfs mountpoint used at GEM object initialization
-+	 * drm_gem_object_init(). Drivers can call drm_gem_huge_mnt_create() to
-+	 * create a huge tmfps mountpoint. The default tmpfs mountpoint
-+	 * (`shm_mnt`) is used if NULL.
-+	 */
-+	struct vfsmount *huge_mnt;
-+#endif
-+
- 	/**
- 	 * @driver_features: per-device driver features
- 	 *
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 7c8bd67d087c..58fa1e6b9773 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -40,6 +40,9 @@
- #include <linux/list.h>
- #include <linux/mutex.h>
+ 	if (IS_ERR(filp))
+ 		return PTR_ERR(filp);
+@@ -204,22 +206,6 @@ int drm_gem_object_init_with_mnt(struct drm_device *dev,
  
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+#include <drm/drm_device.h>
-+#endif
- #include <drm/drm_vma_manager.h>
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drm_gem_object_init_with_mnt);
+-
+-/**
+- * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+- * @dev: drm_device the object should be initialized for
+- * @obj: drm_gem_object to initialize
+- * @size: object size
+- *
+- * Initialize an already allocated GEM object of the specified size with
+- * shmfs backing store.
+- */
+-int drm_gem_object_init(struct drm_device *dev, struct drm_gem_object *obj,
+-			size_t size)
+-{
+-	return drm_gem_object_init_with_mnt(dev, obj, size, NULL);
+-}
+ EXPORT_SYMBOL(drm_gem_object_init);
  
- struct iosys_map;
-@@ -492,6 +495,36 @@ struct drm_gem_object {
- 		DRM_GEM_FOPS,\
+ /**
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 81f4ac7cb8f6..43a80f3fcfd9 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -50,7 +50,7 @@ static const struct drm_gem_object_funcs drm_gem_shmem_funcs = {
+ };
+ 
+ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem,
+-				size_t size, bool private, struct vfsmount *gemfs)
++				size_t size, bool private)
+ {
+ 	struct drm_gem_object *obj = &shmem->base;
+ 	int ret = 0;
+@@ -62,7 +62,7 @@ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_obj
+ 		drm_gem_private_object_init(dev, obj, size);
+ 		shmem->map_wc = false; /* dma-buf mappings use always writecombine */
+ 	} else {
+-		ret = drm_gem_object_init_with_mnt(dev, obj, size, gemfs);
++		ret = drm_gem_object_init(dev, obj, size);
+ 	}
+ 	if (ret) {
+ 		drm_gem_private_object_fini(obj);
+@@ -103,13 +103,12 @@ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_obj
+  */
+ int drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem, size_t size)
+ {
+-	return __drm_gem_shmem_init(dev, shmem, size, false, NULL);
++	return __drm_gem_shmem_init(dev, shmem, size, false);
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_init);
+ 
+ static struct drm_gem_shmem_object *
+-__drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+-		       struct vfsmount *gemfs)
++__drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private)
+ {
+ 	struct drm_gem_shmem_object *shmem;
+ 	struct drm_gem_object *obj;
+@@ -129,7 +128,7 @@ __drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+ 		obj = &shmem->base;
  	}
  
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+int drm_gem_huge_mnt_create(struct drm_device *dev, const char *value);
-+#else
-+static inline int drm_gem_huge_mnt_create(struct drm_device *dev,
-+					  const char *value)
-+{
-+	return 0;
-+}
-+#endif
-+
-+/**
-+ * drm_gem_has_huge_mnt - Check if a huge tmpfs mountpoint is in use
-+ * @dev: DRM device
-+ *
-+ * This function checks whether a huge tmpfs mountpoint is in use after by DRM
-+ * device @dev. A huge tmpfs mountpoint is used after a successful call to
-+ * drm_gem_huge_mnt_create() on builds with Transparent Hugepage enabled.
-+ *
-+ * Returns:
-+ * true on success, false otherwise.
-+ */
-+static inline bool drm_gem_has_huge_mnt(struct drm_device *dev)
-+{
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+	return !!dev->huge_mnt;
-+#else
-+	return false;
-+#endif
-+}
-+
- void drm_gem_object_release(struct drm_gem_object *obj);
+-	ret = __drm_gem_shmem_init(dev, shmem, size, private, gemfs);
++	ret = __drm_gem_shmem_init(dev, shmem, size, private);
+ 	if (ret) {
+ 		kfree(obj);
+ 		return ERR_PTR(ret);
+@@ -150,31 +149,10 @@ __drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+  */
+ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t size)
+ {
+-	return __drm_gem_shmem_create(dev, size, false, NULL);
++	return __drm_gem_shmem_create(dev, size, false);
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_create);
+ 
+-/**
+- * drm_gem_shmem_create_with_mnt - Allocate an object with the given size in a
+- * given mountpoint
+- * @dev: DRM device
+- * @size: Size of the object to allocate
+- * @gemfs: tmpfs mount where the GEM object will be created
+- *
+- * This function creates a shmem GEM object in a given tmpfs mountpoint.
+- *
+- * Returns:
+- * A struct drm_gem_shmem_object * on success or an ERR_PTR()-encoded negative
+- * error code on failure.
+- */
+-struct drm_gem_shmem_object *drm_gem_shmem_create_with_mnt(struct drm_device *dev,
+-							   size_t size,
+-							   struct vfsmount *gemfs)
+-{
+-	return __drm_gem_shmem_create(dev, size, false, gemfs);
+-}
+-EXPORT_SYMBOL_GPL(drm_gem_shmem_create_with_mnt);
+-
+ /**
+  * drm_gem_shmem_release - Release resources associated with a shmem GEM object.
+  * @shmem: shmem GEM object
+@@ -861,7 +839,7 @@ drm_gem_shmem_prime_import_sg_table(struct drm_device *dev,
+ 	size_t size = PAGE_ALIGN(attach->dmabuf->size);
+ 	struct drm_gem_shmem_object *shmem;
+ 
+-	shmem = __drm_gem_shmem_create(dev, size, true, NULL);
++	shmem = __drm_gem_shmem_create(dev, size, true);
+ 	if (IS_ERR(shmem))
+ 		return ERR_CAST(shmem);
+ 
+@@ -909,7 +887,7 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ 
+ 	size = PAGE_ALIGN(attach->dmabuf->size);
+ 
+-	shmem = __drm_gem_shmem_create(dev, size, true, NULL);
++	shmem = __drm_gem_shmem_create(dev, size, true);
+ 	if (IS_ERR(shmem)) {
+ 		ret = PTR_ERR(shmem);
+ 		goto fail_detach;
+diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+index 3bc714ea6392..d3b68ee05dbb 100644
+--- a/drivers/gpu/drm/v3d/v3d_bo.c
++++ b/drivers/gpu/drm/v3d/v3d_bo.c
+@@ -153,12 +153,7 @@ struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
+ 	struct v3d_bo *bo;
+ 	int ret;
+ 
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	shmem_obj = drm_gem_shmem_create_with_mnt(dev, unaligned_size,
+-						  dev->huge_mnt);
+-#else
+ 	shmem_obj = drm_gem_shmem_create(dev, unaligned_size);
+-#endif
+ 	if (IS_ERR(shmem_obj))
+ 		return ERR_CAST(shmem_obj);
+ 	bo = to_v3d_bo(&shmem_obj->base);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 58fa1e6b9773..75276a12208e 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -529,9 +529,6 @@ void drm_gem_object_release(struct drm_gem_object *obj);
  void drm_gem_object_free(struct kref *kref);
  int drm_gem_object_init(struct drm_device *dev,
+ 			struct drm_gem_object *obj, size_t size);
+-int drm_gem_object_init_with_mnt(struct drm_device *dev,
+-				 struct drm_gem_object *obj, size_t size,
+-				 struct vfsmount *gemfs);
+ void drm_gem_private_object_init(struct drm_device *dev,
+ 				 struct drm_gem_object *obj, size_t size);
+ void drm_gem_private_object_fini(struct drm_gem_object *obj);
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 589f7bfe7506..6b6478f5ca24 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -109,9 +109,6 @@ struct drm_gem_shmem_object {
+ 
+ int drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem, size_t size);
+ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t size);
+-struct drm_gem_shmem_object *drm_gem_shmem_create_with_mnt(struct drm_device *dev,
+-							   size_t size,
+-							   struct vfsmount *gemfs);
+ void drm_gem_shmem_release(struct drm_gem_shmem_object *shmem);
+ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem);
+ 
 -- 
 2.47.3
 
