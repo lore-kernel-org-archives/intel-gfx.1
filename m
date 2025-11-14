@@ -4,47 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59CEFCED243
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0132CEBF97
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B35C10E3B2;
-	Mon, 17 Nov 2025 13:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E98F10E3BB;
+	Mon, 17 Nov 2025 13:23:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="P5ZqKQ9r";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="GRWwBapB";
 	dkim-atps=neutral
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
- [45.254.49.198])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51DE410E2E2;
- Thu, 13 Nov 2025 06:34:13 +0000 (UTC)
-Received: from LAPTOP-N070L597.localdomain (unknown [58.241.16.34])
- by smtp.qiye.163.com (Hmail) with ESMTP id 296eb3989;
- Thu, 13 Nov 2025 14:34:08 +0800 (GMT+08:00)
-From: Zilin Guan <zilin@seu.edu.cn>
-To: jani.nikula@linux.intel.com
-Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- andi.shyti@linux.intel.com, mikolaj.wasiak@intel.com,
- krzysztof.karas@intel.com, krzysztof.niemiec@intel.com,
- nitin.r.gote@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- jianhao.xu@seu.edu.cn, Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH v2] drm/i915: Use symmetric free for vma resources
-Date: Thu, 13 Nov 2025 06:34:05 +0000
-Message-Id: <20251113063405.116845-1-zilin@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4602610EA4A
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 12:06:03 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-42b31507ed8so1524121f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 04:06:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763121962; x=1763726762; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=K95f3YlNhCQTt8GtlNX0mi3FKRnBks4BFfnVQ8YE34o=;
+ b=GRWwBapBrsxyfWgLaEjXF8spVlM9bDDnz3HdGDFO3FHhgE1LDolctkWZq1IxKS/stu
+ tuZR4kLKlHC0QUzpidKgCHTnvo33QBacxT2y1r5gW/N2+ESeLqncQz9VzowdW+SL9kg5
+ UkpCAzy9QZk55YJ58XvouEZbyRgEE8jIvP/vK0ipV3DzpPAKwNEGkZ+yNDV5vaLioP2l
+ DpQd7DNsoNT35RuLFcumfFsHyOhOZ8gqBsATGdKDOzjs2alKdyh1ShiGryvFKFrgszG+
+ fI257YBRnEwlpOF5kulu4b7ctr8okk5Fw58EIDkiCncGJMwjxHNM99r/socuJXcIoldT
+ A1YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763121962; x=1763726762;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=K95f3YlNhCQTt8GtlNX0mi3FKRnBks4BFfnVQ8YE34o=;
+ b=Rw4U3amrS3FeJ/iugEtyQmuB+82wUfDKwoEfTw0BJHuPjwWPh+4lXyJmNTn2HPJybi
+ Gpoq4KrWW2NoDNib2UuCiD26FJll3W9XwsFr7Rp4afKsdhz9fVf3YKgTh8MG2aH44cUN
+ CAwLXlTf92iXo9cOd14UYKfpGLScSlg5aR7za7fB0OG0E4CdyXRyiuC4pxuR9rPBgypz
+ ZXivqRVBgfmyDCGqrxuWFvF3JX3SXhZA0O2LizELl7LcslDafsqLNWQeUtcX2v3IcYBE
+ kKiLwEY6hJo8M1pmbVY/cyINkdXLGgbNMW8DyF8UoPIdeFFTDmnLw5IZ0FGldjDK5jsh
+ 8TQQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV8ZIm+cNv/MGd7PuUU6Wp5p/75CMuDmC/hr4p1wVi3CdDlubz1hybt+IVUjw8hIFk89ZANg3pgBfM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzOK71I2wnsIkZ4DE0MaLyxGt8OdB01MluKljBr0yfq9ulTgD0Y
+ oRnCfel/JVZWxbsQuYXbLCzhWIPHW8ILZ6Nkw8v9mmhdpmMR8sgVHIPPtC3LBlnH1v4=
+X-Gm-Gg: ASbGncuO4bBmp1qcdAqoVpFNNCI2f38J0/BQn9phO3YixPKBdtmXCjvbk2qb93MKrlI
+ 9JGUQUT1LDwmsmKcknLzB57xIungRBflcfQlvKXP3vaGhOALygxzQz1IhvBVqz4jSyt3x0UldTY
+ gIzqBrq9B5rzm2HNi8KXH9S4bfAhzm9Ib5g/ZokaY6hoSTHdM10TqFllEwGPUPPrFxkurVRrsvF
+ 2eBf42sctz1HZobL4Xkl9j8+OGjq/dTMpKA6ZYiBCRWJyCk9A8W+bCYXD1CKdlCCf0+0nh3hdZU
+ H5Vq+iba7vQ8DH+Juc20OmxVwQpOPfFyNXIggAthKiFfJPFWQqUGEVeZpxJxAYPzyj9QeuY5NMU
+ AAFi7oZ0q4zmFuZhTrIfdvet2lCULAtGRv+37kl9REfs6QRgQtQt/J+s5Xwe2asflKySYU1fgpV
+ Br
+X-Google-Smtp-Source: AGHT+IHE8wmfBLRimraz6qGrkqAB1kcfDLmC9Ei9799tyFpwTbyC2bx5mJA0Z5MS/+tIuTgQ7sZknA==
+X-Received: by 2002:a05:6000:25c8:b0:429:c851:69bc with SMTP id
+ ffacd0b85a97d-42b59342f3fmr1891458f8f.8.1763121961723; 
+ Fri, 14 Nov 2025 04:06:01 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42b53f206e2sm9569035f8f.41.2025.11.14.04.06.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 04:06:00 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id 1D11A5F820;
+ Fri, 14 Nov 2025 12:06:00 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
+ <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
+ Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
+ Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>
+Subject: Re: [PATCH v2 00/11] PCI: BAR resizing fix/rework
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:17
+ +0200")
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+User-Agent: mu4e 1.12.14-dev2; emacs 30.1
+Date: Fri, 14 Nov 2025 12:06:00 +0000
+Message-ID: <87jyzsq0nr.fsf@draig.linaro.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9a7bebe2ac03a1kunm32325a7311214d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVkZGhlPVhgaTRpOGkpOTU0eGFYeHw5VEwETFhoSFy
- QUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0xVSktLVUtZBg
- ++
-DKIM-Signature: a=rsa-sha256;
- b=P5ZqKQ9rz1kEVvGKZ+XRtsZtVa8yDePzV24qvIJpzzCzY2tYwFUnpaAM6la7IS1Pbx0xVdAmCfnxYuj+wO/3nXAaOGEZkGb80CHraNCB9k1SA0dHixTVkEagfQun0JHpy8c3vF2p7qx2N9ORplOZjrhytdRHQ7vuqql0hnM9t7A=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=ZSj4l+iI7JKR3Z396kPA7kl8a4f1l9OPjhSTji8cqHE=;
- h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 17 Nov 2025 13:23:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,47 +106,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The error paths in reserve_gtt_with_resource() and
-insert_gtt_with_resource() use kfree() to release a vma_res object
-that was allocated with i915_vma_resource_alloc().
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
-While kfree() can handle slab-allocated objects, it is better practice
-to use the symmetric free function.
+> Hi all,
+>
+> Thanks to issue reports from Simon Richter and Alex Benn=C3=A9e, I
+> discovered BAR resize rollback can corrupt the resource tree. As fixing
+> corruption requires avoiding overlapping resource assignments, the
+> correct fix can unfortunately results in worse user experience, what
+> appeared to be "working" previously might no longer do so. Thus, I had
+> to do a larger rework to pci_resize_resource() in order to properly
+> restore resource states as it was prior to BAR resize.
+<snip>
+>
+> base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
 
-Replace kfree() with the specific i915_vma_resource_free() helper to
-improve readability and ensure the alloc/free pairing is explicit.
+Ahh I have applied to 6.18-rc5 with minor conflicts and can verify that
+on my AVA the AMD GPU shows up again and I can run inference jobs
+against it. So for that case:
 
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
----
-Changes in v2:
-- Reword commit message to describe this as a readability change.
-- Drop the Fixes tag.
----
- drivers/gpu/drm/i915/selftests/i915_gem_gtt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Tested-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
 
-diff --git a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-index 7ab4c4e60264..16e72ef57bed 100644
---- a/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-+++ b/drivers/gpu/drm/i915/selftests/i915_gem_gtt.c
-@@ -1524,7 +1524,7 @@ static int reserve_gtt_with_resource(struct i915_vma *vma, u64 offset)
- 		i915_vma_resource_init_from_vma(vma_res, vma);
- 		vma->resource = vma_res;
- 	} else {
--		kfree(vma_res);
-+		i915_vma_resource_free(vma_res);
- 	}
- 	mutex_unlock(&vm->mutex);
- 
-@@ -1704,7 +1704,7 @@ static int insert_gtt_with_resource(struct i915_vma *vma)
- 		i915_vma_resource_init_from_vma(vma_res, vma);
- 		vma->resource = vma_res;
- 	} else {
--		kfree(vma_res);
-+		i915_vma_resource_free(vma_res);
- 	}
- 	mutex_unlock(&vm->mutex);
- 
--- 
-2.34.1
-
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
