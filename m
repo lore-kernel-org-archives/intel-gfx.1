@@ -4,50 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BAF6CEBF93
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB43CEBF9C
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 13:23:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB83710E37C;
-	Mon, 17 Nov 2025 13:23:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F2010E394;
+	Mon, 17 Nov 2025 13:23:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=toke.dk header.i=@toke.dk header.b="OER8VvtA";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="VSFKmqJo";
 	dkim-atps=neutral
-X-Greylist: delayed 387 seconds by postgrey-1.36 at gabe;
- Mon, 17 Nov 2025 11:53:41 UTC
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E48D510E05C
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 11:53:41 +0000 (UTC)
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=toke.dk; s=20161023;
- t=1763380031; bh=18AThoJ1F5XQlVvAYjRYKKUnjnNDdRj8jhe5/a7p0Ss=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
- b=OER8VvtAWTP0L0fklHIXgvMbFN6jQ42q7ikGcR7PT1lfcpE+sk1vaFPlgwmYfxh2u
- Pq0y/kJUlVETtENUzSDWBD29nZ2oAwTrefvL8GaBT/YWNG1U5Mjq4+u8N2zaMvWGEW
- D0+efZ3KilUrlzGa4RTfgyZqCWS8ZZBaKN5UMhTzrzKUnNddCaSBPAq9WMvcT+Ds69
- 3092p0XYV87EDLK8QwERXg2JcshEZMZcTB0vts1w1Xkp4t6mwezRfsELFuLCBJODqY
- ihba2OAwwWb9Fs/T1FQnHaijPFLuUVe/E+WYicL9bzWdCRfMuTnCXAFDCbIwAZWgF0
- sOcUAGdTe3FmA==
-To: pengdonglin <dolinux.peng@gmail.com>, tj@kernel.org,
- tony.luck@intel.com, jani.nikula@linux.intel.com, ap420073@gmail.com,
- jv@jvosburgh.net, freude@linux.ibm.com, bcrl@kvack.org,
- trondmy@kernel.org, longman@redhat.com, kees@kernel.org
-Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- linux-nfs@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
- netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-s390@vger.kernel.org, cgroups@vger.kernel.org, pengdonglin
- <dolinux.peng@gmail.com>, Jakub Kicinski <kuba@kernel.org>, pengdonglin
- <pengdonglin@xiaomi.com>
-Subject: Re: [PATCH v3 14/14] wifi: ath9k: Remove redundant
- rcu_read_lock/unlock() in spin_lock
-In-Reply-To: <20250916044735.2316171-15-dolinux.peng@gmail.com>
-References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
- <20250916044735.2316171-15-dolinux.peng@gmail.com>
-Date: Mon, 17 Nov 2025 12:47:07 +0100
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87fracop8k.fsf@toke.dk>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2266710EA21
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 09:31:00 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-47755a7652eso12468085e9.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 14 Nov 2025 01:31:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1763112658; x=1763717458; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uG1ndTGu7u+afhv3ORckpwAAuy9xCYDjJCa9P3afHXY=;
+ b=VSFKmqJofgns78ltpmS1ASkWeNV2mSgOaGzuWxvQPhyM+xlVciPBRqiOMfkw4z6Eaa
+ spUpBDdGPVfJm34vDxwFSZif4Haig3WVIAYO3VKy1f+D/gNYfxqkM7gCwVpbDG0E2Xtk
+ DkF3RlWUCq2EcPfmV6K8bmP3UJaBWgkJRBHq6wX7TR5Nc33cAqcsbD3KMlVwLNevgt9m
+ 4QEYXTbiGBchjCadWlgKeBUowt0l4CWdr3GA7rubp/AbHUpMrBzluazbbv8J2hppng68
+ 7hZvunXcqdfhGymxj82eQaYpQFlR1azaCsnzKyxO0Vc4S2d8Z3P1F/VTLcvJOptwOn8D
+ mLlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763112658; x=1763717458;
+ h=content-transfer-encoding:mime-version:message-id:date:user-agent
+ :references:in-reply-to:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=uG1ndTGu7u+afhv3ORckpwAAuy9xCYDjJCa9P3afHXY=;
+ b=ukLvI2wIVcyZvbpyqrWD0TJkOtcSKjYSiWMV3QcOuN1n3fQKTo3K4+2DepCFzcZvaz
+ rwH5RzxtNY4LRJbk4NMI7q5iEiMEWHxzppAcGLMImbWYjnOOvVbMM6QVBc2yLG2pJYNC
+ mwbYNUPAsfva9prUZ1QQ2jsyuOxY2cwGcd9YEF8NrquuzoSK4F7B71J+31j10yux+KAL
+ mhmCJsLkBaQm0elFxS08Ci7zgTb/0UYD1HxBS41alLbRRB2YwJbzULpVsmuuayHyOkAC
+ /J5+FfvNzXSbdKvkpEyWopMkoilzfgWxkbTRrO6uOBrjq9SGvmWQRuxkf5JFv2V3gmcJ
+ GU2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVMfxiMDEkbcqEfD/4p0go4TGh0KiVfM9aBcYD6wjpTFG9oIkebLSV9O1Qet4pdqBHH1NbOOiXFPqM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzeb3sZilcrRdWQQ56Y4NQD3P2IXcVKgX9QJdt/ZVp4UbDPjhMv
+ ZS9hXDcdrV/azEywjjFEbZthAF4nYpt7Xv3umBXi4w9Mhdti11ZIHqARujSFJBAazjk=
+X-Gm-Gg: ASbGnctTDQTyzJCBnWGRwxS4eJhOKLDTnKkLFt8xIjzDnrzHlfOKyRBDcCyCqTH1yqU
+ C3BXaApnML7Kpj1w+4qQHSQTBgDJd6cNVhJ0/csZM7ztejcVw0ie11+ZCHCbjmwXeOr5G2bU4J7
+ eB7i7NQpOZORInCxOal80bGe0b6d99U/en15w2eZSirxRS5uP5FiFuMqmJDTF91gnbmP553JRPj
+ BwDq6fO9U4F5SCr9SyaKvX3L5jryIfZ/lVf1TMN8rWC+FH1+Z3tlcuhFMtvzp2TBlaY0EgEH2oe
+ 56iC34FqgCGQ8A/kc4lh2XiXeYLCt73rp8r86NMl1AJYU1mZ4yfvQxOWLZ55CIQylqO6cYvXEtL
+ Arcx3seIzoV5xmioAuatFyqYPFD9LMdyS8kGSuv0Hxdh8WTlUusPHbIWXPKqrYl0V5sp//uD80e
+ or
+X-Google-Smtp-Source: AGHT+IFJ0DG17bS7Bpxic+Ik1NHnlwSocVb3TsoIa+Uww+ltuZjndP90MdsbrAR2R5TWE+X80Slu9A==
+X-Received: by 2002:a05:600c:4706:b0:471:9b5:6fd3 with SMTP id
+ 5b1f17b1804b1-4778fe0e0a9mr20589695e9.0.1763112658371; 
+ Fri, 14 Nov 2025 01:30:58 -0800 (PST)
+Received: from draig.lan ([185.126.160.19]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4778c897bb8sm77561695e9.12.2025.11.14.01.30.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Nov 2025 01:30:57 -0800 (PST)
+Received: from draig (localhost [IPv6:::1])
+ by draig.lan (Postfix) with ESMTP id DBD265F820;
+ Fri, 14 Nov 2025 09:30:56 +0000 (GMT)
+From: =?utf-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Ilpo =?utf-8?Q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Simon Richter <Simon.Richter@hogyros.de>,  Lucas De Marchi
+ <lucas.demarchi@intel.com>,  Alex Deucher <alexander.deucher@amd.com>,
+ amd-gfx@lists.freedesktop.org,  Bjorn Helgaas <bhelgaas@google.com>,
+ David Airlie <airlied@gmail.com>,  dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,  Jani
+ Nikula <jani.nikula@linux.intel.com>,  Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  linux-pci@vger.kernel.org,  Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  Simona Vetter <simona@ffwll.ch>,  Tvrtko
+ Ursulin <tursulin@ursulin.net>,  Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,  Thomas =?utf-8?Q?Hellstr=C3=B6m?=
+ <thomas.hellstrom@linux.intel.com>,  =?utf-8?Q?Micha=C5=82?= Winiarski
+ <michal.winiarski@intel.com>
+Subject: Re: [PATCH v2 00/11] PCI: BAR resizing fix/rework
+In-Reply-To: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com> ("Ilpo
+ =?utf-8?Q?J=C3=A4rvinen=22's?= message of "Thu, 13 Nov 2025 18:26:17
+ +0200")
+References: <20251113162628.5946-1-ilpo.jarvinen@linux.intel.com>
+User-Agent: mu4e 1.12.14-dev2; emacs 30.1
+Date: Fri, 14 Nov 2025 09:30:56 +0000
+Message-ID: <87pl9lot9r.fsf@draig.linaro.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -67,26 +106,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-pengdonglin <dolinux.peng@gmail.com> writes:
+Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com> writes:
 
-> From: pengdonglin <pengdonglin@xiaomi.com>
+> Hi all,
 >
-> Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side funct=
-ion definitions")
-> there is no difference between rcu_read_lock(), rcu_read_lock_bh() and
-> rcu_read_lock_sched() in terms of RCU read section and the relevant grace
-> period. That means that spin_lock(), which implies rcu_read_lock_sched(),
-> also implies rcu_read_lock().
+> Thanks to issue reports from Simon Richter and Alex Benn=C3=A9e, I
+> discovered BAR resize rollback can corrupt the resource tree. As fixing
+> corruption requires avoiding overlapping resource assignments, the
+> correct fix can unfortunately results in worse user experience, what
+> appeared to be "working" previously might no longer do so. Thus, I had
+> to do a larger rework to pci_resize_resource() in order to properly
+> restore resource states as it was prior to BAR resize.
 >
-> There is no need no explicitly start a RCU read section if one has already
-> been started implicitly by spin_lock().
->
-> Simplify the code and remove the inner rcu_read_lock() invocation.
->
-> Cc: "Toke" <toke@toke.dk>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
-> Signed-off-by: pengdonglin <dolinux.peng@gmail.com>
+> This rework has been on my TODO list anyway but it wasn't the highest
+> prio item until pci_resize_resource() started to cause regressions due
+> to other resource assignment algorithm changes.
 
-Acked-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@toke.dk>
+Thanks I'll have a look.
 
+Where does this apply? At least v6.17 doesn't seem to have
+pbus_reassign_bridge_resources which 4/11 is trying to tweak.
+
+>
+> BAR resize rollback does not always restore BAR resources as they were
+> before the resize operation was started. Currently, when
+> pci_resize_resource() call is made by a driver, the driver must release
+> device resource prior to the call. This is a design flaw in
+> pci_resize_resource() API as PCI core cannot then save the state of
+> those resources from what it was prior to release so it could restore
+> them later if the BAR size change has to be rolled back.
+>
+> PCI core's BAR resize operation doesn't even attempt to restore the
+> device resources currently when rolling back BAR resize operation. If
+> the normal resource assignment algorithm assigned those resources, then
+> device resources might be assigned after pci_resize_resource() call but
+> that could also trigger the resource tree corruption issue so what
+> appeared to an user as "working" might be a corrupted state.
+>
+> With the new pci_resize_resource() interface, the driver calling
+> pci_resize_resource() should no longer release the device resources.
+>
+> I've added WARN_ON_ONCE() to pick up similar bugs that cause resource
+> tree corruption. At least in my tests all looked clear on that front
+> after this series.
+>
+> It would still be nice if the reporters could test these changes
+> resolve the claim conflicts (while I've tested the series to some extent,
+> I don't have such conflicts here).
+>
+> This series will likely conflict with some drm changes from Lucas (will
+> make them partially obsolete by removing the need to release dev's
+> resources on the driver side).
+>
+> I'll soon submit refresh of pci/rebar series on top of this series as
+> there are some conflicts with them.
+>
+> v2:
+> - Add exclude_bars parameter to pci_resize_resource()
+> - Add Link tags
+> - Add kerneldoc patch
+> - Add patch to release pci_bus_sem earlier.
+> - Fix to uninitialized var warnings.
+> - Don't use guard() as goto from before it triggers error with clang.
+>
+> Ilpo J=C3=A4rvinen (11):
+>   PCI: Prevent resource tree corruption when BAR resize fails
+>   PCI/IOV: Adjust ->barsz[] when changing BAR size
+>   PCI: Change pci_dev variable from 'bridge' to 'dev'
+>   PCI: Try BAR resize even when no window was released
+>   PCI: Freeing saved list does not require holding pci_bus_sem
+>   PCI: Fix restoring BARs on BAR resize rollback path
+>   PCI: Add kerneldoc for pci_resize_resource()
+>   drm/xe: Remove driver side BAR release before resize
+>   drm/i915: Remove driver side BAR release before resize
+>   drm/amdgpu: Remove driver side BAR release before resize
+>   PCI: Prevent restoring assigned resources
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  10 +-
+>  drivers/gpu/drm/i915/gt/intel_region_lmem.c |  14 +--
+>  drivers/gpu/drm/xe/xe_vram.c                |   5 +-
+>  drivers/pci/iov.c                           |  15 +--
+>  drivers/pci/pci-sysfs.c                     |  17 +--
+>  drivers/pci/pci.c                           |   4 +
+>  drivers/pci/pci.h                           |   9 +-
+>  drivers/pci/setup-bus.c                     | 126 ++++++++++++++------
+>  drivers/pci/setup-res.c                     |  52 ++++----
+>  include/linux/pci.h                         |   3 +-
+>  10 files changed, 142 insertions(+), 113 deletions(-)
+>
+>
+> base-commit: 3a8660878839faadb4f1a6dd72c3179c1df56787
+
+--=20
+Alex Benn=C3=A9e
+Virtualisation Tech Lead @ Linaro
