@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 007B1CE8D65
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611A4CE8D5D
 	for <intel-gfx@archiver.kernel.org>; Fri, 14 Nov 2025 17:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E9C910EADA;
-	Fri, 14 Nov 2025 17:03:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69EA610EAD8;
+	Fri, 14 Nov 2025 17:03:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="plt5tBhV";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fjww1ngV";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA79510EAD9;
- Fri, 14 Nov 2025 17:03:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFEFE10EAD4;
+ Fri, 14 Nov 2025 17:03:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1763139796;
- bh=PYci18VlZZ5sru0Tx0m/q5hJzWG4Ytkv44neBev88QY=;
+ s=mail; t=1763139794;
+ bh=tceZn14ER4C81qNdHRIGzn7yq68toDNgICpCmQahyEA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=plt5tBhVZiRemU+AUg6p17oPS/5IqLmJ84nGWfx22yDANiPoUKSL6a6BChsevEf/M
- tj8hXCHa5Zcpw4aVu75+8hSzVF2+AGGsHKyXNtnJJExDSMKH8D236Je6v7EhzrEXRu
- 5MOaU7vEO4tECMAeoypsafKxjWoxJEsSB+FnYVCJ2vpyOmqvpzkpXsR5gQOrm2mFWH
- fqTwX8k2pqvLMPSRoscRY7QSNE/slkh7YYfWrPc7l+U4jVbwgKm4BD4FSV4Aua0KIO
- 3GOmekLiyk6IqwBPDaysaohq1V3HTlaZnZ2rGyXvgcMJzO0KRPmPy4+VmIyzMfJjKM
- 07SuyOOUVEQ5A==
+ b=fjww1ngVtT6MDrxaH2rx2EVKsIyoUkbEkVh+LPECVqba7ZdYjvn1I1Wq0Y4V35Nqk
+ mMIc8/73bQZlAQjVm+zKCuT5w1MVHL3i96vqXMyIdDkoGK/bDRZ8kv+L/pQnsMLQNN
+ Xex7Nh/XXPpvJBuvo+G9TXJIsUZ3fFN8ksK2VpmJxQRubMXhLHoTNocsQKAcrxfrZW
+ wOTRIxugF6XdDTdJWUU2FdkkEeLTdwvY/VFfeuevxK2zrzKqpTS05wnneygj9ZVeMb
+ XxtLTS7WtxC6RUj6FSpfOh+IftjLaoaP2tWXdbvubGJnhH2lgwkf6Rt8DE3Xr5qMvg
+ sy+4cskBC5lIw==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9759517E35CB;
- Fri, 14 Nov 2025 18:03:15 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 924FA17E15AB;
+ Fri, 14 Nov 2025 18:03:13 +0100 (CET)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v9 09/11] drm/panthor: Improve IOMMU map/unmap debugging logs
-Date: Fri, 14 Nov 2025 18:03:00 +0100
-Message-ID: <20251114170303.2800-10-loic.molinari@collabora.com>
+Subject: [PATCH v9 07/11] drm/gem: Get rid of *_with_mnt helpers
+Date: Fri, 14 Nov 2025 18:02:58 +0100
+Message-ID: <20251114170303.2800-8-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251114170303.2800-1-loic.molinari@collabora.com>
 References: <20251114170303.2800-1-loic.molinari@collabora.com>
@@ -84,77 +84,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Log the number of pages and their sizes actually mapped/unmapped by
-the IOMMU page table driver. Since a map/unmap op is often split in
-several ops depending on the underlying scatter/gather table, add the
-start address and the total size to the debugging logs in order to
-help understand which batch an op is part of.
+drm_gem_object_init_with_mnt() and drm_gem_shmem_create_with_mnt() can
+be removed now that the drivers use the new drm_gem_huge_mnt_create()
+and drm_gem_get_huge_mnt() helpers.
+
+v5:
+- use drm_gem_has_huge_mnt() helper
+- compile out shmem_file_setup_with_mnt() call in builds with
+  CONFIG_TRANSPARENT_HUGEPAGE=n
+
+v9:
+- replace drm_gem_has_huge_mnt() with drm_gem_get_huge_mnt()
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_mmu.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_gem.c              | 37 +++++++------------------
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 38 ++++++--------------------
+ drivers/gpu/drm/v3d/v3d_bo.c           |  5 ----
+ include/drm/drm_gem.h                  |  3 --
+ include/drm/drm_gem_shmem_helper.h     |  3 --
+ 5 files changed, 18 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-index 58fead90533a..32410713c61c 100644
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-@@ -918,10 +918,9 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
- {
- 	struct panthor_device *ptdev = vm->ptdev;
- 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
-+	u64 start_iova = iova;
- 	u64 offset = 0;
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index ec549130744c..9e1cbf2f1136 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -171,29 +171,28 @@ drm_gem_init(struct drm_device *dev)
+ }
  
--	drm_dbg(&ptdev->base, "unmap: as=%d, iova=%llx, len=%llx", vm->as.id, iova, size);
+ /**
+- * drm_gem_object_init_with_mnt - initialize an allocated shmem-backed GEM
+- * object in a given shmfs mountpoint
++ * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+  *
+  * @dev: drm_device the object should be initialized for
+  * @obj: drm_gem_object to initialize
+  * @size: object size
+- * @gemfs: tmpfs mount where the GEM object will be created. If NULL, use
+- * the usual tmpfs mountpoint (`shm_mnt`).
+  *
+  * Initialize an already allocated GEM object of the specified size with
+- * shmfs backing store.
++ * shmfs backing store. A huge mountpoint can be used by calling
++ * drm_gem_huge_mnt_create() beforehand.
+  */
+-int drm_gem_object_init_with_mnt(struct drm_device *dev,
+-				 struct drm_gem_object *obj, size_t size,
+-				 struct vfsmount *gemfs)
++int drm_gem_object_init(struct drm_device *dev, struct drm_gem_object *obj,
++			size_t size)
+ {
++	struct vfsmount *huge_mnt;
+ 	struct file *filp;
+ 
+ 	drm_gem_private_object_init(dev, obj, size);
+ 
+-	if (gemfs)
+-		filp = shmem_file_setup_with_mnt(gemfs, "drm mm object", size,
+-						 VM_NORESERVE);
++	huge_mnt = drm_gem_get_huge_mnt(dev);
++	if (huge_mnt)
++		filp = shmem_file_setup_with_mnt(huge_mnt, "drm mm object",
++						 size, VM_NORESERVE);
+ 	else
+ 		filp = shmem_file_setup("drm mm object", size, VM_NORESERVE);
+ 
+@@ -204,22 +203,6 @@ int drm_gem_object_init_with_mnt(struct drm_device *dev,
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drm_gem_object_init_with_mnt);
 -
- 	while (offset < size) {
- 		size_t unmapped_sz = 0, pgcount;
- 		size_t pgsize = get_pgsize(iova + offset, size - offset, &pgcount);
-@@ -936,6 +935,12 @@ static int panthor_vm_unmap_pages(struct panthor_vm *vm, u64 iova, u64 size)
- 			panthor_vm_flush_range(vm, iova, offset + unmapped_sz);
- 			return  -EINVAL;
- 		}
-+
-+		drm_dbg(&ptdev->base,
-+			"unmap: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pgcnt=%zu, pgsz=%zu",
-+			vm->as.id, start_iova, size, iova + offset,
-+			unmapped_sz / pgsize, pgsize);
-+
- 		offset += unmapped_sz;
+-/**
+- * drm_gem_object_init - initialize an allocated shmem-backed GEM object
+- * @dev: drm_device the object should be initialized for
+- * @obj: drm_gem_object to initialize
+- * @size: object size
+- *
+- * Initialize an already allocated GEM object of the specified size with
+- * shmfs backing store.
+- */
+-int drm_gem_object_init(struct drm_device *dev, struct drm_gem_object *obj,
+-			size_t size)
+-{
+-	return drm_gem_object_init_with_mnt(dev, obj, size, NULL);
+-}
+ EXPORT_SYMBOL(drm_gem_object_init);
+ 
+ /**
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 81f4ac7cb8f6..43a80f3fcfd9 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -50,7 +50,7 @@ static const struct drm_gem_object_funcs drm_gem_shmem_funcs = {
+ };
+ 
+ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem,
+-				size_t size, bool private, struct vfsmount *gemfs)
++				size_t size, bool private)
+ {
+ 	struct drm_gem_object *obj = &shmem->base;
+ 	int ret = 0;
+@@ -62,7 +62,7 @@ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_obj
+ 		drm_gem_private_object_init(dev, obj, size);
+ 		shmem->map_wc = false; /* dma-buf mappings use always writecombine */
+ 	} else {
+-		ret = drm_gem_object_init_with_mnt(dev, obj, size, gemfs);
++		ret = drm_gem_object_init(dev, obj, size);
+ 	}
+ 	if (ret) {
+ 		drm_gem_private_object_fini(obj);
+@@ -103,13 +103,12 @@ static int __drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_obj
+  */
+ int drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem, size_t size)
+ {
+-	return __drm_gem_shmem_init(dev, shmem, size, false, NULL);
++	return __drm_gem_shmem_init(dev, shmem, size, false);
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_init);
+ 
+ static struct drm_gem_shmem_object *
+-__drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+-		       struct vfsmount *gemfs)
++__drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private)
+ {
+ 	struct drm_gem_shmem_object *shmem;
+ 	struct drm_gem_object *obj;
+@@ -129,7 +128,7 @@ __drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+ 		obj = &shmem->base;
  	}
  
-@@ -951,6 +956,7 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
- 	struct scatterlist *sgl;
- 	struct io_pgtable_ops *ops = vm->pgtbl_ops;
- 	u64 start_iova = iova;
-+	u64 start_size = size;
+-	ret = __drm_gem_shmem_init(dev, shmem, size, private, gemfs);
++	ret = __drm_gem_shmem_init(dev, shmem, size, private);
+ 	if (ret) {
+ 		kfree(obj);
+ 		return ERR_PTR(ret);
+@@ -150,31 +149,10 @@ __drm_gem_shmem_create(struct drm_device *dev, size_t size, bool private,
+  */
+ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t size)
+ {
+-	return __drm_gem_shmem_create(dev, size, false, NULL);
++	return __drm_gem_shmem_create(dev, size, false);
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_create);
+ 
+-/**
+- * drm_gem_shmem_create_with_mnt - Allocate an object with the given size in a
+- * given mountpoint
+- * @dev: DRM device
+- * @size: Size of the object to allocate
+- * @gemfs: tmpfs mount where the GEM object will be created
+- *
+- * This function creates a shmem GEM object in a given tmpfs mountpoint.
+- *
+- * Returns:
+- * A struct drm_gem_shmem_object * on success or an ERR_PTR()-encoded negative
+- * error code on failure.
+- */
+-struct drm_gem_shmem_object *drm_gem_shmem_create_with_mnt(struct drm_device *dev,
+-							   size_t size,
+-							   struct vfsmount *gemfs)
+-{
+-	return __drm_gem_shmem_create(dev, size, false, gemfs);
+-}
+-EXPORT_SYMBOL_GPL(drm_gem_shmem_create_with_mnt);
+-
+ /**
+  * drm_gem_shmem_release - Release resources associated with a shmem GEM object.
+  * @shmem: shmem GEM object
+@@ -861,7 +839,7 @@ drm_gem_shmem_prime_import_sg_table(struct drm_device *dev,
+ 	size_t size = PAGE_ALIGN(attach->dmabuf->size);
+ 	struct drm_gem_shmem_object *shmem;
+ 
+-	shmem = __drm_gem_shmem_create(dev, size, true, NULL);
++	shmem = __drm_gem_shmem_create(dev, size, true);
+ 	if (IS_ERR(shmem))
+ 		return ERR_CAST(shmem);
+ 
+@@ -909,7 +887,7 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ 
+ 	size = PAGE_ALIGN(attach->dmabuf->size);
+ 
+-	shmem = __drm_gem_shmem_create(dev, size, true, NULL);
++	shmem = __drm_gem_shmem_create(dev, size, true);
+ 	if (IS_ERR(shmem)) {
+ 		ret = PTR_ERR(shmem);
+ 		goto fail_detach;
+diff --git a/drivers/gpu/drm/v3d/v3d_bo.c b/drivers/gpu/drm/v3d/v3d_bo.c
+index 211578abf9b6..c4316b768b3d 100644
+--- a/drivers/gpu/drm/v3d/v3d_bo.c
++++ b/drivers/gpu/drm/v3d/v3d_bo.c
+@@ -153,12 +153,7 @@ struct v3d_bo *v3d_bo_create(struct drm_device *dev, struct drm_file *file_priv,
+ 	struct v3d_bo *bo;
  	int ret;
  
- 	if (!size)
-@@ -970,15 +976,18 @@ panthor_vm_map_pages(struct panthor_vm *vm, u64 iova, int prot,
- 		len = min_t(size_t, len, size);
- 		size -= len;
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	shmem_obj = drm_gem_shmem_create_with_mnt(dev, unaligned_size,
+-						  dev->huge_mnt);
+-#else
+ 	shmem_obj = drm_gem_shmem_create(dev, unaligned_size);
+-#endif
+ 	if (IS_ERR(shmem_obj))
+ 		return ERR_CAST(shmem_obj);
+ 	bo = to_v3d_bo(&shmem_obj->base);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 4e9ab5d294ac..3ecab9cf625f 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -529,9 +529,6 @@ void drm_gem_object_release(struct drm_gem_object *obj);
+ void drm_gem_object_free(struct kref *kref);
+ int drm_gem_object_init(struct drm_device *dev,
+ 			struct drm_gem_object *obj, size_t size);
+-int drm_gem_object_init_with_mnt(struct drm_device *dev,
+-				 struct drm_gem_object *obj, size_t size,
+-				 struct vfsmount *gemfs);
+ void drm_gem_private_object_init(struct drm_device *dev,
+ 				 struct drm_gem_object *obj, size_t size);
+ void drm_gem_private_object_fini(struct drm_gem_object *obj);
+diff --git a/include/drm/drm_gem_shmem_helper.h b/include/drm/drm_gem_shmem_helper.h
+index 589f7bfe7506..6b6478f5ca24 100644
+--- a/include/drm/drm_gem_shmem_helper.h
++++ b/include/drm/drm_gem_shmem_helper.h
+@@ -109,9 +109,6 @@ struct drm_gem_shmem_object {
  
--		drm_dbg(&ptdev->base, "map: as=%d, iova=%llx, paddr=%pad, len=%zx",
--			vm->as.id, iova, &paddr, len);
--
- 		while (len) {
- 			size_t pgcount, mapped = 0;
- 			size_t pgsize = get_pgsize(iova | paddr, len, &pgcount);
+ int drm_gem_shmem_init(struct drm_device *dev, struct drm_gem_shmem_object *shmem, size_t size);
+ struct drm_gem_shmem_object *drm_gem_shmem_create(struct drm_device *dev, size_t size);
+-struct drm_gem_shmem_object *drm_gem_shmem_create_with_mnt(struct drm_device *dev,
+-							   size_t size,
+-							   struct vfsmount *gemfs);
+ void drm_gem_shmem_release(struct drm_gem_shmem_object *shmem);
+ void drm_gem_shmem_free(struct drm_gem_shmem_object *shmem);
  
- 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
- 					     GFP_KERNEL, &mapped);
-+
-+			drm_dbg(&ptdev->base,
-+				"map: as=%d, iova=0x%llx, sz=%llu, va=0x%llx, pa=%pad, pgcnt=%zu, pgsz=%zu",
-+				vm->as.id, start_iova, start_size, iova, &paddr,
-+				mapped / pgsize, pgsize);
-+
- 			iova += mapped;
- 			paddr += mapped;
- 			len -= mapped;
 -- 
 2.47.3
 
