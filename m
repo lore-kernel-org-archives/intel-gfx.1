@@ -4,74 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52447CFC27C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032FBCFC281
 	for <intel-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9E8110E893;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E615310E894;
 	Fri, 21 Nov 2025 13:52:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Riyidxtd";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Z5Y4toe4";
 	dkim-atps=neutral
-Received: from sender3-pp-f112.zoho.com (sender3-pp-f112.zoho.com
- [136.143.184.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CA2210E605;
- Wed, 19 Nov 2025 13:34:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1763559176; cv=none; 
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CC310E3F9;
+ Mon, 17 Nov 2025 19:13:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1763406786; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Ye0zlYSjY8a276BMMfjI/83jZrSxRWD1xIyYfPOLAE8Ua6GuF3F55j4fxRxvdR6eFQ6XQbuT5ZwnoTbip+BFc6pDsK84vpGuLQO3H90VxuNX4O9Y2+iB/Nqysm4TBIVuK2ZPxneJr88SYRHFJFMxdg0JWhqvMEFV01n0P2PzB3w=
+ b=S4S4oot7NqAPseBWv4WoV/K5QiqXh+jRX8TXcWeIhlAMrth6kW3bk4loT6h6Q1Xt1VxMu+DkhvhJO4r8wcP11y014oztNkCIdgeGw6bedHyNSiDJpTLl6aNuazVaJyEMBYsP/YtyAONSBL1TPRehilAlnvzoFREIjWX8QGyehMA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1763559176;
+ s=zohoarc; t=1763406786;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=/VWCsLA/mkk3WiZovd+xaAf7ziw484tjuSfyKDbpymE=; 
- b=Zwz62fMimGc/fpX3l5h0s0w3tkHs6sHM8bKfocUKBIAAv1HObYvDf355d2v88LpAkINnFicTKL612+Qspy+dMcgAr5h4wLbRXzurF49Wi++Tfm4UKCG1yoRLjUXKG6NTHLeWQ7Qjbujm6/acFQR9wTl6v3tAjTWoRjKno9nD6+4=
+ bh=2d0k/LuL/udDSP5MXsPj+vrCjkqFJCvyb8zuefLEfUs=; 
+ b=Gyg8YOwSeedwYsb7XmKV6ZYD4uxUuj/MR+l0KFGlD/XXBesT6B4jlyJ1p9A//wau7tt2rXGG5fSHeKqtIUgGTkkM5ji/NLoOU/QHI2O7DaUVXmtglBxNYrgiZkFCzTOy0srTX01a/BLiZjdW/j9OytYPg8f8fUpeLNkTMSt/Jgs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763559176; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763406786; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=/VWCsLA/mkk3WiZovd+xaAf7ziw484tjuSfyKDbpymE=;
- b=RiyidxtdEZDgiubH8FxAC7DZ1KqEL+Xe6vMfemsGAtERjQOhQoGAXNPX3lDioFq1
- vnKFEoOzG6JL8toQ9GAtUF59aQGWNrmjJRrhQ9uyLpWZFFOYjcM7vR+DZXyLjWDa4eY
- 7QzTcPfHfGITtRMbBLBp0bfoYRMbZFnwQx/9Un3E=
-Received: by mx.zohomail.com with SMTPS id 1763559173874830.1787013290812;
- Wed, 19 Nov 2025 05:32:53 -0800 (PST)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=2d0k/LuL/udDSP5MXsPj+vrCjkqFJCvyb8zuefLEfUs=;
+ b=Z5Y4toe4Tj8bWAkFBjnelsdI9Le4bXBiFc57eIPMBcaGAeErDWwdjg1N1YwrGLFQ
+ aAAdIMgs/zrgiKq+6i4Ehm5J67lMAG1ChgyStNdj/sNRfPfXGkP2LFbMO5OGuNyw6w3
+ 5Y4c7X4qx3J+tlCWfv05EkV1zs8I+WQtuQ/J6rwA=
+Received: by mx.zohomail.com with SMTPS id 1763406784495196.5777941542043;
+ Mon, 17 Nov 2025 11:13:04 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v4 05/10] drm/bridge: dw-hdmi-qp: Set bridge
- supported_formats
-Date: Wed, 19 Nov 2025 14:32:45 +0100
-Message-ID: <4348284.aeNJFYEL58@workhorse>
-In-Reply-To: <3863e0e5-677b-4225-9854-3ee420828275@collabora.com>
-References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
- <20251117-color-format-v4-5-0ded72bd1b00@collabora.com>
- <3863e0e5-677b-4225-9854-3ee420828275@collabora.com>
+Date: Mon, 17 Nov 2025 20:11:51 +0100
+Subject: [PATCH v4 07/10] drm/display: hdmi-state-helper: Act on color
+ format DRM property
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20251117-color-format-v4-7-0ded72bd1b00@collabora.com>
+References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+In-Reply-To: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 21 Nov 2025 13:52:13 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,67 +87,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 18 November 2025 21:00:08 Central European Standard Time Cristian Ciocaltea wrote:
-> Hi Nicolas,
-> 
-> On 11/17/25 9:11 PM, Nicolas Frattaroli wrote:
-> > The drm_bridge "supported_formats" member stores a bitmask of supported
-> > HDMI output formats if the bridge is in fact an HDMI bridge.
-> > 
-> > However, until now, the synopsys dw-hdmi-qp driver did not set this
-> > member in the bridge it creates.
-> > 
-> > Set it based on the platform data's supported_formats member, and
-> > default to BIT(HDMI_COLORSPACE_RGB) if it's absent, which preserves the
-> > previous behaviour.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > index fe4c026280f0..cf888236bd65 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > @@ -1269,6 +1269,11 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
-> >  		dev_warn(dev, "Set ref_clk_rate to vendor default\n");
-> >  	}
-> >  
-> > +	if (plat_data->supported_formats)
-> > +		hdmi->bridge.supported_formats = plat_data->supported_formats;
-> 
-> This duplicates a change already introduced via commit 1ff27c5929ab
-> ("drm/bridge: dw-hdmi-qp: Handle platform supported formats and color depth").
+With the introduction of the "color format" DRM property, which allows
+userspace to request a specific color format, the HDMI state helper
+should implement this.
 
-Hmm, looks like I didn't notice that when rebasing onto next-20251117.
+Implement it by checking whether the property is set and set to
+something other than auto. If so, pass the requested color format, and
+otherwise set RGB.
 
-(Aside note, that commit is once again lacking from next-20251119,
-did it get dropped for some reason or did DRM as a whole not get
-pulled into that next version due to a conflict?)
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-> 
-> > +	else
-> > +		hdmi->bridge.supported_formats = BIT(HDMI_COLORSPACE_RGB);
-> 
-> And this one looks redundant as well, since RGB is supposed to be mandatory:
-> supported_formats defaults to RGB in drm_bridge_connector_init() if there's no
-> HDMI bridge in the pipeline overriding it, while drmm_connector_hdmi_init()
-> errors out if supported_formats is unset or doesn't advertise RGB.
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a561f124be99..add0d51fce33 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -650,9 +650,15 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 				       conn_state->max_bpc,
+ 				       8, connector->max_bpc);
+ 	int ret;
++	enum hdmi_colorspace hdmi_colorspace;
++
++	if (conn_state->color_format && conn_state->color_format != DRM_COLOR_FORMAT_AUTO)
++		hdmi_colorspace = color_format_to_hdmi_colorspace(conn_state->color_format);
++	else
++		hdmi_colorspace = HDMI_COLORSPACE_RGB;
+ 
+ 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+-				      HDMI_COLORSPACE_RGB);
++				      hdmi_colorspace);
+ 	if (ret) {
+ 		if (connector->ycbcr_420_allowed) {
+ 			ret = hdmi_compute_format_bpc(connector, conn_state,
 
-Oops, yeah you're right
-
-> 
-> Hence I think this patch can be dropped.
-
-Will do! Thanks for the quick review
-
-> 
-> Regards,
-> Cristian
-> 
-> 
-
-
-
+-- 
+2.51.2
 
