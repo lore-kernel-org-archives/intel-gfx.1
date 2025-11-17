@@ -4,180 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E09BFCEACEF
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 17:58:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3C3CEBF91
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 20:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3877F10E0E4;
-	Mon, 17 Nov 2025 17:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37F2410E1D2;
+	Mon, 17 Nov 2025 20:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lLMry1QO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b1OBhXmZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10DFD10E0E4;
- Mon, 17 Nov 2025 17:58:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763402292; x=1794938292;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- in-reply-to:mime-version;
- bh=W+AbXLVHJQy0cpFa19Gt6XhQjkbE8hzE4dRLJ4tKMIM=;
- b=lLMry1QOoa48cvo8CJO1TsZEZDpRvZFkw4PQeim5EVBh5zChFAW0TX4x
- n57WY7/974/UUAiAGzST688BYy83gDpEP/gGq0AftTiM2zUwLUPPlX1be
- 0OeMgYr+V5aWvhOSFkOugrXkUMUXmd7qcBEM2nijxDnWAFZ0zOTfxtZWs
- QZ33zPTH9PHJbL/bczkHohmEikFUMy+FNlrJRPO8/X3fmgU8h7CD1H14O
- AL1zKIxBhv1EiBdT3HOtkWR0JUxSLfPzNmhFdFw5PH2Zlfh9aAtbNIqb+
- IHeDr3Vdk9a0LZBzIzTGiEqYRazaVvsVBdSyLcNzJ+iI/FPj2xpirYaz0 g==;
-X-CSE-ConnectionGUID: 8lPJ9dEjQEy/8sd2FDW96Q==
-X-CSE-MsgGUID: z0lTPmv3RrOpuWwYRmtghg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11616"; a="90886867"
-X-IronPort-AV: E=Sophos;i="6.19,312,1754982000"; d="scan'208";a="90886867"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2025 09:58:12 -0800
-X-CSE-ConnectionGUID: AzrM8T+yRbm62eBzZ86kSw==
-X-CSE-MsgGUID: UmOhnKrvSFax87LIQ5Uz9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,312,1754982000"; d="scan'208";a="221175253"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2025 09:58:11 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 17 Nov 2025 09:58:11 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27 via Frontend Transport; Mon, 17 Nov 2025 09:58:11 -0800
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.39) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Mon, 17 Nov 2025 09:58:10 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e48xKOOJnBVdwKnxUfB8sA2/VuWZ5izwRyYInYPmer+15j3EvtnBTiV9GaM2lhfsfRnOY+F9nc0RmKplZoauwunjaq9sqRqoawAL93STs6Ht4omfSqqc+jX9xRT/NlUbymOrnMNv1PGjfjaypkBeY8HY8MYQw8iTlBG/sat9J1Da1eT7iY3Vob2BW1t4lg6B9V8XZnYPREw9busp3/+IKg1XXBhazzZr3LLgJgS3bvaHwUrBK6ACwbICHwBSSXJaqtsql2gSSLg4xx/Kd5LNBvXY01IrEKuumnbzw3TNUjLk/DGApTcHXo1IQnLqx4chQkWd+fjbhMdzQg46se4H3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pbSgdfyaIY9UFmc2zQhMBJ2UwqL0drCbXCSpXiicbI8=;
- b=I3AyOYcHKO3DjiaT0/Y3Dw1WzzGYzatPaCmi00AtjutIMDCRQ1o/M/NuCoUtknpCznBUbpJXYgW1+IWiMp0aTu4x2qBiykpxcWJHNMCRsQjXi0MHuG61QEZUleGIB6r7C8H3BqBcx41RzZmxbvsHQc1eMcFFZAV1uY70bo9JUWblt/T1s06eqJvONdAD/PFCbfU+oURvhzKVy/LdxpM9mCFXKSn72cmxvm2MyqXCbGb5nJDgj/ksgzjcKtjES/IYpARjb2Rtg2oXSORLRFRCik7oKufbpZzlR0Hyp8zp1rj/3Ogzwi5jGTiXIdqOr823kUtq/YpZS9N/QzOe7mSsKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
- by BL1PR11MB6002.namprd11.prod.outlook.com (2603:10b6:208:386::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9320.22; Mon, 17 Nov
- 2025 17:58:07 +0000
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::8900:d137:e757:ac9f]) by SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::8900:d137:e757:ac9f%3]) with mapi id 15.20.9320.021; Mon, 17 Nov 2025
- 17:58:07 +0000
-Date: Mon, 17 Nov 2025 19:58:00 +0200
-From: Imre Deak <imre.deak@intel.com>
-To: Gustavo Sousa <gustavo.sousa@intel.com>
-CC: Jouni =?iso-8859-1?Q?H=F6gander?= <jouni.hogander@intel.com>, "Ankit
- Nautiyal" <ankit.k.nautiyal@intel.com>, Dnyaneshwar Bhadane
- <dnyaneshwar.bhadane@intel.com>, Juha-pekka Heikkila
- <juha-pekka.heikkila@intel.com>, Luca Coelho <luciano.coelho@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, Matt Atwood
- <matthew.s.atwood@intel.com>, Matt Roper <matthew.d.roper@intel.com>, "Ravi
- Kumar Vodapalli" <ravi.kumar.vodapalli@intel.com>, Shekhar Chauhan
- <shekhar.chauhan@intel.com>, Vinod Govindapillai
- <vinod.govindapillai@intel.com>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>
-Subject: Re: [PATCH v4 07/11] drm/i915/xe3p_lpd: Extend Type-C flow for
- static DDI allocation
-Message-ID: <aRtiKDZAsYyNYoqw@ideak-desk>
-References: <20251107-xe3p_lpd-basic-enabling-v4-0-ab3367f65f15@intel.com>
- <20251107-xe3p_lpd-basic-enabling-v4-7-ab3367f65f15@intel.com>
- <aRTJq2h7ic7EcpL6@ideak-desk>
- <176314958906.3698.11640605946760436324@intel.com>
- <aRfL-CWPYR6gC6F6@ideak-desk> <aRfV2MuICSW1jR4I@ideak-desk>
- <176339175784.5989.15280881790145867529@intel.com>
- <aRs8nFHQ-syeq4SB@ideak-desk>
- <176340023109.5989.13935406990721055950@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <176340023109.5989.13935406990721055950@intel.com>
-X-ClientProxiedBy: LO2P265CA0224.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:b::20) To SJ0PR11MB4845.namprd11.prod.outlook.com
- (2603:10b6:a03:2d1::10)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 307FF10E1D2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 20:56:53 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-8b2ec756de0so134623985a.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 12:56:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1763413012; x=1764017812; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ISU+0z8/4+zmWNh+iSGO9mIjr0yYVY3n2sP2TXlPC+k=;
+ b=b1OBhXmZhyQNJPSgO30nDtD5Vg+8vCjHXr3tS9vOCIrGr+JIVZ52G3dlw0WkhplUhg
+ IVVG7HGOLG4ffgQNj7xj4foqwXKJWq8gUoTzojSKw+rvLcdHpd37KTUXTWJr0G/at6ou
+ KOp9VDGK2Fr0KP8BVHgg97oweuL0zJlOf29sxVMis5eyHBCWwmO/99l2yZDDaHEUqDsE
+ rYDazSeprY7AFJoF62DsOpLT/Rqb+AIg/dkDlAqkOSD1ETqJsEHAEiVSVwPih+7nnwqB
+ 6W8f71euXyPGXGJJaQtSjvcX/yiL50bFoqvDvkraxEbfrevlWqxKjFSYWyoh/qFMlk+d
+ E5bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1763413012; x=1764017812;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ISU+0z8/4+zmWNh+iSGO9mIjr0yYVY3n2sP2TXlPC+k=;
+ b=XcjuLKkkeY9s8u2YqNxilDFa9EsUgQRfR8KzbQ7tKLUvSRCqU9qF+iHlXCJzZmqeJq
+ pFYn2EuuL9Lh4P00l+XUduQo9ElOD4WlDZVwE+YFpjyndPMKFQkU3EOov2F0ThxmxrFO
+ unXAljkw4UB1KA8CrNo6sCquLktsWrwPZXC3X8Q7I+ijXu9XROwv8T6tAKt3SgRZIGN4
+ 1czPEsMXyKKbenK9YHWwbETZPk3J/Az/Ll6OuqkTBZLSPMa97gM2IwyKvlUUzL2FhA81
+ kBMAu/kg3g+r9qZZqw9CzavkJslRphD2U5USo1SixnGkMcw6PCxbvTbbfgkZYtBh6Oe+
+ iZTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVkFezewRQ8opwPKyCJVozPnyZosbiKAGFkgnJbqT9vUGvg2JP1H8/I0whilTMRqqGwRpIDBtTma3k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwbKLsDIORNjnaMzDsZ2kaDaQEz8rcB32nxBuu535LesYaVde6k
+ u81+FqozcvtHY6O8SWRaRKlhxiMlu8b4iyCH7UBrSPMqrMFzJMgaQ76+Lt9d4/Ojd1GDdJKQeFa
+ 968koO6BvnPOK1B48W4XWGFTQRMl+E5o=
+X-Gm-Gg: ASbGncvTLzaebRmGPc4ZQkM5y0HHszujvlLlLSMbso7nj1aC4+u4aQoPdCXcmnu7Ih8
+ oR1r3lQHPpIc2NwHVz4DyzcTgbc9klGuH7GE7JXezUDJVca6ftcNdoiwsUENKRCGgWlBwxpOwZi
+ 4RJhEjhD/SOMuQUO+0n4MIDhfwEQ5oewt4k9RdF+V83XREW8uy9IQBGz/0togCRl8ELNnBYN8NW
+ yTwzMOZgpZOe8i1wmRuPK8Gp71OfwX/m7fHrmwhnic9R9Qh5iBcp8+kxY+GZvJWT0IeWw==
+X-Google-Smtp-Source: AGHT+IGD4QU1lMs4EaP4WuNY124UzZwJ6lDT6UoQH9dwZiAPGyRG8CtxXsuaQdtK38GikpdlutqP+jZGa5s7dbsUMQg=
+X-Received: by 2002:a05:620a:458b:b0:8b1:5f62:a5d5 with SMTP id
+ af79cd13be357-8b2c31da139mr1822873385a.62.1763413011907; Mon, 17 Nov 2025
+ 12:56:51 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|BL1PR11MB6002:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7411726-a032-4c9c-d5b3-08de2602dd22
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0; ARA:13230040|10070799003|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?EHhJSEvVfToFFvUBtbBp7Oc3dVwZ2J0MSdVxHcxJj2CV74/0sYKxeKI3d51o?=
- =?us-ascii?Q?7gfMvV90lB3ukADiUGFM5c4A3jQdrKIdWH9pAJrVIKmxSVtXCf5kyfYJ/yg8?=
- =?us-ascii?Q?6g8KDkVdTRdDTxbSWDINaGbL5O1JDadujGyCpw2neg4A+3os1exEpPr4Huk1?=
- =?us-ascii?Q?EORlpYwKjjDYbZgCKT0Rv1PnKv9rWtOb4WqdrAVGaSacp6K2L7ygWduND181?=
- =?us-ascii?Q?ynXcQb1zzeUAfNAwjzKiZ8Yb/XxaTSgTrEKmoH5ERTkQQCo8PNxhxVd0XhWs?=
- =?us-ascii?Q?Me92365iODx367IrO4kAXgxZEGX4oitZm5BYUeSByXMXSjN3ftHEtXWpR6Rd?=
- =?us-ascii?Q?TCf11qZPqZEunB6scuUMAEaud7PfCau5W+83I2vLXDXXrt/iY8irmiezyV99?=
- =?us-ascii?Q?JrDf6XwCUIdXafKkLTuUFpM6dNaqu6nDi3pweM+jFkO3ALv7PbJoWpUegLDS?=
- =?us-ascii?Q?N23S56goQ7LieQG12FCpdr1ghq2hU9utNaCAth5dfO1BPvKWtvMJquT+PIth?=
- =?us-ascii?Q?LUZhNRsKZezW3UVmKnVYSCpTFWuASAF5lB3ISjDbRFKRpnIhDB9PqCa+V23s?=
- =?us-ascii?Q?rvzAIyMXwMsjmROIItdQDWoat/7d612PlxZZ9pArm929IxDEQg4O0gzQx++5?=
- =?us-ascii?Q?XVubM5LtmjgKxJ+C3eRev1pwNerLAyuh2vrWnV2D99cQc5JLRXdA/KXufyJO?=
- =?us-ascii?Q?CoKcvTqUZa4KoANqTwqNcAArro0eTi/0ZKhw5RG5wLK3ubGU69itCxg2ywKV?=
- =?us-ascii?Q?u1F9V4D6NEIn0XfVFBtVoczMHNSQcQKo9tYTKFP43REZBG3ipf9gZK/cKFRv?=
- =?us-ascii?Q?m7jq3t+Kmz/8yaKD/UUCJZtAOH6O1yMqjrxHDB7UsRSjtndw1LXB/5y7dreN?=
- =?us-ascii?Q?zlC6/CPvVLViWYtCpjJSqJI8c+NYOWmRGxyKe+4olGdAedOp8+yv/vlJqIJ6?=
- =?us-ascii?Q?sdeAO6rQD6OOReZl942Y6YktK4Jza0jjxBfIO5F+IZy+7nmpEacHlmkBwVeO?=
- =?us-ascii?Q?pH/LX5j9YpysLkprjj0EMfNNkR+zp8XclsEaLVrwaeC9AGRlEMochDLXJpEV?=
- =?us-ascii?Q?eFJqxlYFp4lIG+zdH7tpfGmhCuVqx1lLi6aZ+4Q0rSKzKcHaVcjatK0IW2Vc?=
- =?us-ascii?Q?wiLhKk1z2EBf4Wc95kieR4XVIOmRSEmKnjuhIgbUp/CsXGxGhY97aMKq5TEm?=
- =?us-ascii?Q?nQOoyO9xTXcJ3SxAM/hMcc7tw0+Y5DRBD9UwXMlgaZ+b16M8yL5B37rWVW2M?=
- =?us-ascii?Q?zHVfOG5GCxvGrQ0Di0TgXvfaN4vyg/2MoqW9LNZVgIdphJHPgpSzglRTdCoP?=
- =?us-ascii?Q?dfhIJVfhHQOlOB3wfUUCu+gTUb7jetgwsJZ2c7+VsbD9K9MNFgu6txHggapb?=
- =?us-ascii?Q?fsCb521F0e6UovoVEBdHkyAohtsOLpnD3AvfLzp/eudI/2kuP1rML3sOd0K6?=
- =?us-ascii?Q?gRAJ7ojhsj4w15Ql7teWMtEHSuC4dwAi?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BDmmNsJmXbSdcFWW+9xsO4eQrq7vq47JaEmAef8YHuMyGaoSRVk9Xfp9rQq2?=
- =?us-ascii?Q?twISsn7RahwjEOjT5yMpCmkTm/3b7Djx+uNHj+FN347Ay7Eh1oX5T2D6a6ZE?=
- =?us-ascii?Q?YF9lDbdvUtMVk7eQ8FRft0/RKp7n2xNLJ8i+xCyyqrpq16G0J8RH5MeurjeP?=
- =?us-ascii?Q?QvO1W2lZSmGrn95RqQit0/Seyxp7PrOxRWAi7iLs4enu2wU4QYwUo+puYVjQ?=
- =?us-ascii?Q?FIk4l9bcK7Dc0ptlTmWMj//cjPI7KH57W6vLxF+GPY1H3rCdzApwnic9tp0/?=
- =?us-ascii?Q?1HyeAk6rex7i5cySYwHo0OFJxtp6MhhU0mlvv4jaEcYvFM44XbO2l9Gbi8j3?=
- =?us-ascii?Q?RyKdsrucqGAc4tarCvg3LWEkcDNHZTQ+wwTO/v1er6d/TlxjyNrpxA6g2HE5?=
- =?us-ascii?Q?UO/nbtBqq3V9MTooslHQMJhxjtK50UUb0uCzWw56TTbwPGC8vAW1HErDlEfL?=
- =?us-ascii?Q?KdZXfKXVWd3Wvy5tkXqgxNzCVK3eIGumNeDMIZlO274SgrNh9NpL+6GLpUNt?=
- =?us-ascii?Q?ZfppU6l/rm7pHdgyGGRpFbrbkTStuVCK47TJJAvkGeseCv2hmtv7lxfMogGh?=
- =?us-ascii?Q?pvU1RjM09zMK9pldxUX8RSRXUv+9lLaUi3lq4+/9K4xQ1yyBSKI23qPvtEob?=
- =?us-ascii?Q?6E36+zXobBIQwl7zV9qhRytxrsvrGjC3dVG88id/Ye8eG7HjkOfdTdozoR8F?=
- =?us-ascii?Q?G8f/qMiatqBT1ac8d//9vsQjI/pNrb6/30Xlnu7qio10mT0NyLMRZ52nj0cO?=
- =?us-ascii?Q?dnvrxYxG1Wa07y9sK+PC9eetLlnk2wwqN0k5QYfAp9eZRuKFCmXeqRGTB8Ex?=
- =?us-ascii?Q?YdKOMod9cHGTpyzAZFMs04hBwtVmccgCnvh45H8BERGBXwP8ZIeXeA/7ILEz?=
- =?us-ascii?Q?U2UiOqAf0UwuEpjcol6kHSpfxJdladpRvcqo0iHeA2Zo8stQLtjKsr4IZl2j?=
- =?us-ascii?Q?snhhajonoE1ahxcKw16UFnieeyRgJTWO+z8jsDnBcddA3lyvIXTr/LjQNGMo?=
- =?us-ascii?Q?uwGExHTuirYcPg+SVobTi+TmpOBFkhwUYNGXeWX5sVYwyM3NA+0aSCVFzUCm?=
- =?us-ascii?Q?xYOdpUex/hdi5q2ZkzxEzhUNIuoYQw5L3cVw+bqsY/GeS+vnby19S8MULdl6?=
- =?us-ascii?Q?iES+13+wjFJUbRUO0bTdES0Du84bxsQsWSLJXJz2mAWAOw/9/kyLzGCCwHJt?=
- =?us-ascii?Q?VzkOBxxSnem4422jCZ8KU+Uu3yIwrbpHy29+9lG6+YYLww8pLVhflSzwbg3f?=
- =?us-ascii?Q?OyUr64CoW8YGrV3kLU4ZRKf/bnXlm6qwWnkaDAyD3t+KNDAuSNJHCN8krUqX?=
- =?us-ascii?Q?k28pFZghkXnPVrT/J/I2w6+67svOKzTtNX0ClgfwUQmI4cuwC6TlHvMjxA99?=
- =?us-ascii?Q?qJGZn1TzDxVkVT347TSkKU+/2UDK35HtlsnKYqKGbFYA66PxbGDQbvZ/l1QM?=
- =?us-ascii?Q?i0S+/qxIZKCNjgvIxMr2VhQsAMFFE4NkU+mcVouPjjU/4DgDQoovQZRr/9xi?=
- =?us-ascii?Q?72Q2UdRpwL+PY4Mkty689Q/P0a8N5HhDfv8kEtY51UBxpCIUxAz1hgIURkHG?=
- =?us-ascii?Q?qkDtJGIkv97m9XLc+NKEc61zncSnA0hw75EvnoE4NHqbmrJyggAqLqmsYVnK?=
- =?us-ascii?Q?HcIuPmo7dMlVf/lmz2deO3+hj/hRhmkrcGYtYw1F+/sj?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7411726-a032-4c9c-d5b3-08de2602dd22
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2025 17:58:07.6724 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bx5eDYkiZwJb2ikCqIgZZGhseZpdk/8p3Ba7jV9BgC9gTbnYWbgTkxE3KK3/zdF9JkAp+OR4hOnAiR/kgnOO7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR11MB6002
-X-OriginatorOrg: intel.com
+References: <aRcJOrisG2qPbucE@fedora>
+In-Reply-To: <aRcJOrisG2qPbucE@fedora>
+From: Dave Airlie <airlied@gmail.com>
+Date: Tue, 18 Nov 2025 06:56:40 +1000
+X-Gm-Features: AWmQ_bmMemlRqfWPvp8z_uNqJUS6z3cdQzNjt6szUhfijLFDWUsRY0stdd7FNpg
+Message-ID: <CAPM=9tyYymc6g-9S33PCzFj5__nsaFvKm3PZuWwvJg0b1O7MrQ@mail.gmail.com>
+Subject: Re: [PULL] drm-xe-next
+To: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Oded Gabbay <ogabbay@kernel.org>, Lucas De Marchi <lucas.demarchi@intel.com>, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -190,133 +89,368 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Nov 17, 2025 at 02:23:51PM -0300, Gustavo Sousa wrote:
-> Quoting Imre Deak (2025-11-17 12:17:48-03:00)
-> >On Mon, Nov 17, 2025 at 12:02:37PM -0300, Gustavo Sousa wrote:
-> >> [...]
-> >> >> > >> +        if (iom_dp_resource_lock(tc))
-> >> >> > >> +                return false;
-> >> >> > >> +
-> >> >> > >> +        val = intel_de_read(display, IOM_DP_RESOURCE_MNG);
-> >> >> > >> +
-> >> >> > >> +        consumer = val & IOM_DDI_CONSUMER_MASK(tc_port);
-> >> >> > >> +        consumer >>= IOM_DDI_CONSUMER_SHIFT(tc_port);
-> >> >> > >> +
-> >> >> > >> +        /*
-> >> >> > >> +         * Bspec instructs to select first available DDI, but our driver is not
-> >> >> > >> +         * ready for such dynamic allocation yet. For now, we force a "static"
-> >> >> > >> +         * allocation: map the physical port (where HPD happens) to the
-> >> >> > >> +         * encoder's DDI (logical TC port, represented by tc_port).
-> >> >> > >> +         */
-> >> >> > >> +        expected_consumer = IOM_DDI_CONSUMER_STATIC_TC(tc_port);
-> >> >> > >> +        expected_consumer >>= IOM_DDI_CONSUMER_SHIFT(tc_port);
-> >> >> 
-> >> >> One more thing occured to me: why can't this allocate any free DDI? IOW
-> >> >> does the address of DDI_BUF_CTL (aka DDI_CTL_DE) used for tc_port depend
-> >> >> on which DDI gets allocated (or is there any other dependency on which
-> >> >> DDI got allocated)? AFAICS there is no such dependency and the above
-> >> >> address would be DDI_BUF_CTL(encoder->port) regardless of the allocated
-> >> >> DDI. In that case any free DDI could be allocated here.
-> >> >
-> >> >Ok, checking this again, DDI_BUF_CTL etc. DDI register addresses will
-> >> >depend on the allocated DDI. So nvm the above, the mapping needs to
-> >> >stay 1:1 for now until all the DDI reg accesses are converted to index
-> >> >the registers with the allocated DDI index.
-> >> 
-> >> As far as I understand this, especially after talking with Windows
-> >> folks, the allocated DDI will define the port index for the whole
-> >> programming, including the registers used to program the PHY - and the
-> >> hardware would take care of routing to the correct PHY.
-> >
-> >Correct, that's how I also understood it after "checking this again".
-> >
-> >> Thus, it appears we would need to do the allocation at hotplug time,
-> >> like saying "this PHY will be driven by DDI x".
-> >
-> >To clarify, if the mapping is 1:1, as in this patch, the allocation can
-> >be done statically during driver loading as discussed earlier. This is
-> >the only way it will work atm, because the DDI allocation cannot fail
-> >during runtime.
-> 
-> Two scenarios that come to mind about doing this on probe time:
-> 
->   1) The driver could be loaded with nothing yet attached to the legacy
->      connector.  However, I believe the TCSS doesn't require the
->      connector to be attached for the allocation to work.  So, we are
->      probably fine here.
-> 
->   2) If the legacy connector is never used during the driver's lifetime,
->      we are basically holding a resource that could have been used by a
->      DP-alt/TBT connection.
+On Fri, 14 Nov 2025 at 20:50, Thomas Hellstrom
+<thomas.hellstrom@linux.intel.com> wrote:
+>
+> Hi Dave, Simona
+>
+> This is the last feature drm-xe-next PR towards 6.19.
+>
+> Note that the PR of 25-11-05 was never pulled, so this one
+> incorporates that one as well. Please let me know if you want
+> this done another way.
 
-Yes, this is also the way how things work at the moment: a legacy
-connector reserves a DDI whether or not a sink will be connected to it.
-I think keeping that existing behavior for now is what makes sense.
+Just for future reference, just let me know I've missed one in the
+next one, and treat them as separate, as I'll just go back and do them
+in order.
 
-> For the dynamic feature (to be implemented in the future), how to you
-> see this?
-> 
->   1) Should we allocate the DDI at HPD time and fail report the
->      connector as disconnected on failure?
->   2) Should we allocate the DDI as part of the atomic check phase and
->      fail the modeset if we can't do it?
->   3) Should we allocate the DDI as part of the atomic tail (hardware
->      commit) and raise errors if the allocation fails?
+This is fine this time, I just edited out the overlap from the commit msg.
 
-I think the only way for enabling the dynamic allocation of DDIs is to
-do that whenever the PHY is used, i.e. when the PHY is connected via
-intel_tc_port_lock() or intel_tc_port_get_link(). That's because even
-AUX transfers for a detection need an allocated DDI. This is what the
-patch is currently doing, however, that can be done only once the
-remapping of a connector/encoder -> allocated DDI is in place and the
-driver can also handle a modeset on a legacy connector for which the DDI
-allocation fails.
+Dave.
 
-> Another question: once we implement the dynamic feature, this "allocate
-> on probe time" thing will have to go away, right? 
-
-The allocation would simply have to moved back to happen during
-connecting the PHY.
-
-> In that case, we would basically suffer the same runtime risks that we
-> would be trying to avoid, no?
-
-No, then the driver will be able to handle a modeset for a legacy
-connector without a DDI allocated to it.
-
-> Perhaps I'm missing something, but, if not: I wonder if doing the
-> "allocate on probe time" thing is really worth implementing, since it
-> will be a "temporary" thing that would be reverted later.  In that case,
-> we could try implementing the static allocation in the same place where
-> dynamic allocation would happen.
-
-I still think for now it makes sense to implement the allocate on probe
-time thing, which is simple enough and provides what we have now (legacy
-connectors keep a DDI reserved). Adding support for dynamic DDI
-allocations will allow enabling 3 TBT DP tunnels instead of the current
-2 DP tunnels for instance, but this requires a lot of changes affecting
-current platforms as well. I think moving back the allocation to happen
-during connecting the PHY - when the changes for that are in place -
-would be also simple.
-
-> >> One of the reasons I think we can't allocate a free DDI at the moment is
-> >> that the driver is expecting a 1:1 static mapping for HPD interations.
-> >> We will neeed to make the driver aware of the mapping in order to use
-> >> the correct encoder when handling HPD events.
-> >
-> >Again clarifying, that the above is true only for legacy connectors. IOW
-> >for a TBT/DP-alt connector, where IOM does the DDI allocation, the HPD
-> >IRQ delivered to the driver will be already according to the allocated
-> >DDI. That is those connectors are _different_ wrt. to the mapping
-> >requirement than the dynamic legacy connectors, for those TBT/DP-alt
-> >connectors the DDI registers will be accessed based on the
-> >tc_port/encoder->port to which the HPD IRQ is delivered.
-> 
-> That's my understanding as well.
-> 
-> --
-> Gustavo Sousa
+>
+> Thanks,
+> Thomas
+>
+> drm-xe-next-2025-11-14:
+> UAPI Changes:
+>
+> Limit number of jobs per exec queue (Shuicheng)
+> Add sriov_admin sysfs tree (Michal)
+>
+> Driver Changes:
+>
+> Fix an uninitialized value (Thomas)
+> Expose a residency counter through debugfs (Mohammed Thasleem)
+> Workaround enabling and improvement (Tapani, Tangudu)
+> More Crescent Island-specific support (Sk Anirban, Lucas)
+> PAT entry dump improvement (Xin)
+> Inline gt_reset in the worker (Lucas)
+> Synchronize GT reset with device unbind (Balasubramani)
+> Do clean shutdown also when using flr (Jouni)
+> Fix serialization on burst of unbinds (Matt Brost)
+> Pagefault Refactor (Matt Brost)
+> Remove some unused code (Gwan-gyeong)
+> Avoid TOCTOU when montoring throttle reasons (Lucas)
+> Add/extend workaround (Nitin)
+> SRIOV migration work / plumbing (Michal Wajdeczko, Michal Winiarski, Luka=
+sz)
+> Drop debug flag requirement for VF resource fixup
+> Fix MTL vm_max_level (Rodrigo)
+> Changes around TILE_ADDR_RANGE for platform compatibility
+> (Fei, Lucas)
+> Add runtime registers for GFX ver >=3D 35 (Piotr)
+> Kerneldoc fix (Kriish)
+> Rework pcode error mapping (Lucas)
+> Allow lockdown the PF (Michal)
+> Eliminate GUC code caching of some frequency values (Sk)
+> Improvements around forcewake referencing (Matt Roper)
+> The following changes since commit 4504e780689245f01bee6ee4c19c74051bd875=
+93:
+>
+>   drm/xe/pf: Access VF's register using dedicated MMIO view (2025-10-27 1=
+7:22:18 +0100)
+>
+> are available in the Git repository at:
+>
+>   https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-next-2025-=
+11-14
+>
+> for you to fetch changes up to 6bcb180f6f4585554cefbe8c412aa8879b15f07a:
+>
+>   drm/xe/oa: Store forcewake reference in stream structure (2025-11-13 14=
+:05:51 -0800)
+>
+> ----------------------------------------------------------------
+> UAPI Changes:
+>
+> Limit number of jobs per exec queue (Shuicheng)
+> Add sriov_admin sysfs tree (Michal)
+>
+> Driver Changes:
+>
+> Fix an uninitialized value (Thomas)
+> Expose a residency counter through debugfs (Mohammed Thasleem)
+> Workaround enabling and improvement (Tapani, Tangudu)
+> More Crescent Island-specific support (Sk Anirban, Lucas)
+> PAT entry dump improvement (Xin)
+> Inline gt_reset in the worker (Lucas)
+> Synchronize GT reset with device unbind (Balasubramani)
+> Do clean shutdown also when using flr (Jouni)
+> Fix serialization on burst of unbinds (Matt Brost)
+> Pagefault Refactor (Matt Brost)
+> Remove some unused code (Gwan-gyeong)
+> Avoid TOCTOU when montoring throttle reasons (Lucas)
+> Add/extend workaround (Nitin)
+> SRIOV migration work / plumbing (Michal Wajdeczko, Michal Winiarski, Luka=
+sz)
+> Drop debug flag requirement for VF resource fixup
+> Fix MTL vm_max_level (Rodrigo)
+> Changes around TILE_ADDR_RANGE for platform compatibility
+> (Fei, Lucas)
+> Add runtime registers for GFX ver >=3D 35 (Piotr)
+> Kerneldoc fix (Kriish)
+> Rework pcode error mapping (Lucas)
+> Allow lockdown the PF (Michal)
+> Eliminate GUC code caching of some frequency values (Sk)
+> Improvements around forcewake referencing (Matt Roper)
+>
+> ----------------------------------------------------------------
+> Balasubramani Vivekanandan (2):
+>       drm/xe/gt: Synchronize GT reset with device unbind
+>       drm/xe/guc: Synchronize Dead CT worker with unbind
+>
+> Fei Yang (1):
+>       drm/xe: Use SG_TILE_ADDR_RANGE instead of TILE_ADDR_RANGE
+>
+> Gwan-gyeong Mun (1):
+>       drm/xe: Remove never used code in xe_vm_create()
+>
+> Jouni H=C3=B6gander (1):
+>       drm/xe: Do clean shutdown also when using flr
+>
+> Kriish Sharma (1):
+>       drm/xe: fix kernel-doc function name mismatch in xe_pm.c
+>
+> Lucas De Marchi (10):
+>       drm/xe/gt_throttle: Tidy up perf reasons reading
+>       drm/xe/gt_throttle: Always read and mask
+>       drm/xe/gt_throttle: Add throttle_to_gt()
+>       drm/xe/gt_throttle: Tidy up attribute definition
+>       drm/xe: Improve freq and throttle documentation
+>       drm/xe/gt_throttle: Drop individual show functions
+>       drm/xe: Inline gt_reset in the worker
+>       drm/xe/gt_throttle: Avoid TOCTOU when monitoring reasons
+>       drm/xe/vram: Move forcewake down to get_flat_ccs_offset()
+>       drm/xe/pcode: Rework error mapping
+>
+> Lukasz Laguna (2):
+>       drm/xe/pf: Add helper to retrieve VF's LMEM object
+>       drm/xe/migrate: Add function to copy of VRAM data in chunks
+>
+> Matt Roper (3):
+>       drm/xe/forcewake: Improve kerneldoc
+>       drm/xe/eustall: Store forcewake reference in stream structure
+>       drm/xe/oa: Store forcewake reference in stream structure
+>
+> Matthew Brost (13):
+>       drm/xe: Enforce correct user fence signaling order using
+>       drm/xe: Attach last fence to TLB invalidation job queues
+>       drm/xe: Decouple bind queue last fence from TLB invalidations
+>       drm/xe: Skip TLB invalidation waits in page fault binds
+>       drm/xe: Disallow input fences on zero batch execs and zero binds
+>       drm/xe: Remove last fence dependency check from binds and execs
+>       drm/xe: Stub out new pagefault layer
+>       drm/xe: Implement xe_pagefault_init
+>       drm/xe: Implement xe_pagefault_reset
+>       drm/xe: Implement xe_pagefault_handler
+>       drm/xe: Implement xe_pagefault_queue_work
+>       drm/xe: Add xe_guc_pagefault layer
+>       drm/xe: Remove unused GT page fault code
+>
+> Michal Wajdeczko (22):
+>       drm/xe/pf: Prepare sysfs for SR-IOV admin attributes
+>       drm/xe/pf: Take RPM during calls to SR-IOV attr.store()
+>       drm/xe/pf: Add _locked variants of the VF EQ config functions
+>       drm/xe/pf: Add _locked variants of the VF PT config functions
+>       drm/xe/pf: Allow change PF and VFs EQ/PT using sysfs
+>       drm/xe/pf: Relax report helper to accept PF in bulk configs
+>       drm/xe/pf: Fix signature of internal config helpers
+>       drm/xe/pf: Add functions to bulk configure EQ/PT on GT
+>       drm/xe/pf: Add functions to bulk provision EQ/PT
+>       drm/xe/pf: Allow bulk change all VFs EQ/PT using sysfs
+>       drm/xe/pf: Add functions to provision scheduling priority
+>       drm/xe/pf: Allow bulk change all VFs priority using sysfs
+>       drm/xe/pf: Allow change PF scheduling priority using sysfs
+>       drm/xe/pf: Promote xe_pci_sriov_get_vf_pdev
+>       drm/xe/pf: Add sysfs device symlinks to enabled VFs
+>       drm/xe/pf: Allow to stop the VF using sysfs
+>       drm/xe/pf: Add documentation for sriov_admin attributes
+>       drm/xe/pf: Use migration-friendly context IDs auto-provisioning
+>       drm/xe/pf: Use migration-friendly doorbells auto-provisioning
+>       drm/xe/tests: Add KUnit tests for PF fair provisioning
+>       drm/xe/pf: Allow to lockdown the PF using custom guard
+>       drm/xe/pf: Use migration-friendly GGTT auto-provisioning
+>
+> Micha=C5=82 Winiarski (23):
+>       drm/xe/vf: Enable VF resource fixup unconditionally
+>       drm/xe/pf: Remove GuC version check for migration support
+>       drm/xe: Move migration support to device-level struct
+>       drm/xe/pf: Convert control state to bitmap
+>       drm/xe/pf: Add save/restore control state stubs and connect to debu=
+gfs
+>       drm/xe/pf: Add data structures and handlers for migration rings
+>       drm/xe/pf: Add helpers for migration data packet allocation / free
+>       drm/xe/pf: Add support for encap/decap of bitstream to/from packet
+>       drm/xe/pf: Add minimalistic migration descriptor
+>       drm/xe/pf: Expose VF migration data size over debugfs
+>       drm/xe: Add sa/guc_buf_cache sync interface
+>       drm/xe: Allow the caller to pass guc_buf_cache size
+>       drm/xe/pf: Increase PF GuC Buffer Cache size and use it for VF migr=
+ation
+>       drm/xe/pf: Remove GuC migration data save/restore from GT debugfs
+>       drm/xe/pf: Don't save GuC VF migration data on pause
+>       drm/xe/pf: Switch VF migration GuC save/restore to struct migration=
+ data
+>       drm/xe/pf: Handle GuC migration data as part of PF control
+>       drm/xe/pf: Add helpers for VF GGTT migration data handling
+>       drm/xe/pf: Handle GGTT migration data as part of PF control
+>       drm/xe/pf: Handle MMIO migration data as part of PF control
+>       drm/xe/pf: Handle VRAM migration data as part of PF control
+>       drm/xe/pf: Add wait helper for VF FLR
+>       drm/intel/bmg: Allow device ID usage with single-argument macros
+>
+> Mohammed Thasleem (1):
+>       drm/xe/xe_debugfs: Expose G7 package state residency counter throug=
+h debugfs
+>
+> Nitin Gote (1):
+>       drm/xe/xe3lpg: Extend Wa_15016589081 for xe3lpg
+>
+> Piotr Pi=C3=B3rkowski (1):
+>       drm/xe/pf: Add runtime registers for GFX ver >=3D 35
+>
+> Rodrigo Vivi (1):
+>       drm/xe: Fix MTL vm_max_level
+>
+> Shuicheng Lin (1):
+>       drm/xe: Limit number of jobs per exec queue
+>
+> Sk Anirban (3):
+>       drm/xe/cri: Add new performance limit reasons bits
+>       drm/xe/guc: Eliminate RPe caching for SLPC parameter handling
+>       drm/xe/guc: Eliminate RPa frequency caching
+>
+> Tangudu Tilak Tirumalesh (1):
+>       drm/xe/xe3: Extend wa_14023061436
+>
+> Tapani P=C3=A4lli (1):
+>       drm/xe/xe3: Apply wa_14024997852
+>
+> Thomas Hellstr=C3=B6m (1):
+>       drm/xe: Fix uninitialized return value from xe_validation_guard()
+>
+> Xin Wang (1):
+>       drm/xe: highlight reserved PAT entries in dump output
+>
+>  .../ABI/testing/sysfs-driver-intel-xe-sriov        |  159 +++
+>  Documentation/gpu/xe/xe_gt_freq.rst                |    3 +
+>  drivers/gpu/drm/xe/Makefile                        |    6 +-
+>  drivers/gpu/drm/xe/regs/xe_gt_regs.h               |   14 +-
+>  drivers/gpu/drm/xe/regs/xe_pmt.h                   |    1 +
+>  drivers/gpu/drm/xe/regs/xe_regs.h                  |    2 +
+>  .../gpu/drm/xe/tests/xe_gt_sriov_pf_config_kunit.c |  208 ++++
+>  drivers/gpu/drm/xe/xe_debugfs.c                    |    1 +
+>  drivers/gpu/drm/xe/xe_device.c                     |   23 +-
+>  drivers/gpu/drm/xe/xe_device_types.h               |   11 +
+>  drivers/gpu/drm/xe/xe_eu_stall.c                   |    8 +-
+>  drivers/gpu/drm/xe/xe_exec.c                       |   14 +-
+>  drivers/gpu/drm/xe/xe_exec_queue.c                 |  124 ++-
+>  drivers/gpu/drm/xe/xe_exec_queue.h                 |   23 +-
+>  drivers/gpu/drm/xe/xe_exec_queue_types.h           |   17 +
+>  drivers/gpu/drm/xe/xe_force_wake_types.h           |   26 +-
+>  drivers/gpu/drm/xe/xe_ggtt.c                       |  104 ++
+>  drivers/gpu/drm/xe/xe_ggtt.h                       |    3 +
+>  drivers/gpu/drm/xe/xe_ggtt_types.h                 |    2 +
+>  drivers/gpu/drm/xe/xe_gt.c                         |   44 +-
+>  drivers/gpu/drm/xe/xe_gt_freq.c                    |   30 +-
+>  drivers/gpu/drm/xe/xe_gt_pagefault.c               |  679 ------------
+>  drivers/gpu/drm/xe/xe_gt_pagefault.h               |   19 -
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_config.c         |  351 +++++-
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_config.h         |   16 +
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c        |  650 +++++++++++-
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_control.h        |   10 +
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_control_types.h  |   34 +-
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_debugfs.c        |   47 -
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_migration.c      | 1112 ++++++++++++++=
++-----
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_migration.h      |   46 +-
+>  .../gpu/drm/xe/xe_gt_sriov_pf_migration_types.h    |   34 +-
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_service.c        |   21 +-
+>  drivers/gpu/drm/xe/xe_gt_sriov_pf_types.h          |    5 +-
+>  drivers/gpu/drm/xe/xe_gt_throttle.c                |  375 +++----
+>  drivers/gpu/drm/xe/xe_gt_types.h                   |   65 --
+>  drivers/gpu/drm/xe/xe_guard.h                      |  119 +++
+>  drivers/gpu/drm/xe/xe_guc.c                        |   13 +-
+>  drivers/gpu/drm/xe/xe_guc_buf.c                    |   57 +-
+>  drivers/gpu/drm/xe/xe_guc_buf.h                    |    2 +
+>  drivers/gpu/drm/xe/xe_guc_ct.c                     |    9 +-
+>  drivers/gpu/drm/xe/xe_guc_pagefault.c              |   95 ++
+>  drivers/gpu/drm/xe/xe_guc_pagefault.h              |   15 +
+>  drivers/gpu/drm/xe/xe_guc_pc.c                     |  100 +-
+>  drivers/gpu/drm/xe/xe_guc_pc_types.h               |    4 -
+>  drivers/gpu/drm/xe/xe_migrate.c                    |  142 ++-
+>  drivers/gpu/drm/xe/xe_migrate.h                    |   16 +
+>  drivers/gpu/drm/xe/xe_oa.c                         |   54 +-
+>  drivers/gpu/drm/xe/xe_oa_types.h                   |   11 +
+>  drivers/gpu/drm/xe/xe_pagefault.c                  |  445 ++++++++
+>  drivers/gpu/drm/xe/xe_pagefault.h                  |   19 +
+>  drivers/gpu/drm/xe/xe_pagefault_types.h            |  136 +++
+>  drivers/gpu/drm/xe/xe_pat.c                        |   15 +-
+>  drivers/gpu/drm/xe/xe_pat.h                        |    5 +
+>  drivers/gpu/drm/xe/xe_pci.c                        |    2 +-
+>  drivers/gpu/drm/xe/xe_pci_sriov.c                  |   62 +-
+>  drivers/gpu/drm/xe/xe_pci_sriov.h                  |    1 +
+>  drivers/gpu/drm/xe/xe_pcode.c                      |   40 +-
+>  drivers/gpu/drm/xe/xe_pcode_api.h                  |    6 -
+>  drivers/gpu/drm/xe/xe_pm.c                         |    2 +-
+>  drivers/gpu/drm/xe/xe_pt.c                         |   80 +-
+>  drivers/gpu/drm/xe/xe_reg_whitelist.c              |    7 +
+>  drivers/gpu/drm/xe/xe_sa.c                         |   21 +
+>  drivers/gpu/drm/xe/xe_sa.h                         |    1 +
+>  drivers/gpu/drm/xe/xe_sched_job.c                  |   19 +-
+>  drivers/gpu/drm/xe/xe_sched_job.h                  |    1 -
+>  drivers/gpu/drm/xe/xe_sriov_packet.c               |  520 +++++++++
+>  drivers/gpu/drm/xe/xe_sriov_packet.h               |   30 +
+>  drivers/gpu/drm/xe/xe_sriov_packet_types.h         |   75 ++
+>  drivers/gpu/drm/xe/xe_sriov_pf.c                   |  107 ++
+>  drivers/gpu/drm/xe/xe_sriov_pf.h                   |    4 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_control.c           |  128 +++
+>  drivers/gpu/drm/xe/xe_sriov_pf_control.h           |    5 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_debugfs.c           |  131 +++
+>  drivers/gpu/drm/xe/xe_sriov_pf_helpers.h           |   16 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_migration.c         |  342 ++++++
+>  drivers/gpu/drm/xe/xe_sriov_pf_migration.h         |   29 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_migration_types.h   |   37 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_provision.c         |  284 +++++
+>  drivers/gpu/drm/xe/xe_sriov_pf_provision.h         |   14 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_sysfs.c             |  647 ++++++++++++
+>  drivers/gpu/drm/xe/xe_sriov_pf_sysfs.h             |   16 +
+>  drivers/gpu/drm/xe/xe_sriov_pf_types.h             |   21 +
+>  drivers/gpu/drm/xe/xe_sriov_vf.c                   |    8 -
+>  drivers/gpu/drm/xe/xe_svm.c                        |    3 +-
+>  drivers/gpu/drm/xe/xe_sync.c                       |   95 +-
+>  drivers/gpu/drm/xe/xe_sync.h                       |    3 +
+>  drivers/gpu/drm/xe/xe_sync_types.h                 |    3 +
+>  drivers/gpu/drm/xe/xe_tlb_inval_job.c              |   31 +-
+>  drivers/gpu/drm/xe/xe_tlb_inval_job.h              |    5 +-
+>  drivers/gpu/drm/xe/xe_trace.h                      |   23 +
+>  drivers/gpu/drm/xe/xe_validation.h                 |    8 +-
+>  drivers/gpu/drm/xe/xe_vm.c                         |  101 +-
+>  drivers/gpu/drm/xe/xe_vm_types.h                   |    6 +-
+>  drivers/gpu/drm/xe/xe_vram.c                       |   26 +-
+>  drivers/gpu/drm/xe/xe_wa.c                         |    7 +
+>  include/drm/intel/pciids.h                         |    2 +-
+>  97 files changed, 6762 insertions(+), 1751 deletions(-)
+>  create mode 100644 Documentation/ABI/testing/sysfs-driver-intel-xe-sriov
+>  create mode 100644 drivers/gpu/drm/xe/tests/xe_gt_sriov_pf_config_kunit.=
+c
+>  delete mode 100644 drivers/gpu/drm/xe/xe_gt_pagefault.c
+>  delete mode 100644 drivers/gpu/drm/xe/xe_gt_pagefault.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_guard.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_guc_pagefault.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_guc_pagefault.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_pagefault.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_pagefault.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_pagefault_types.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_packet.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_packet.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_packet_types.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_pf_migration.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_pf_migration.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_pf_migration_types.h
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_pf_sysfs.c
+>  create mode 100644 drivers/gpu/drm/xe/xe_sriov_pf_sysfs.h
