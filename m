@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B787CE8D6B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2FC4CEBF96
 	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 05:44:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20F8E10E18C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6862510E18E;
 	Mon, 17 Nov 2025 05:44:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="csECbP1a";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LyLq8OjY";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4001B10E18C;
- Mon, 17 Nov 2025 05:44:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D65610E2C7;
+ Mon, 17 Nov 2025 05:44:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763358284; x=1794894284;
+ t=1763358282; x=1794894282;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=J4H/7yU853FroZ1hL/Cv5Sdrj4+HEIQEAae7sUN5A2g=;
- b=csECbP1aq4rDBPnLhoPowMHFIw1tuFWUGitv0Xm5sPHjxUdO7gOeaYXW
- vhGv9Ja7ERPUtqMVyzIP5cY0q1EE8TOz6JFSWQfHK9E9dmIjuWekv8SUY
- 1wkecm+BFmqwt6dHos4ftiQkz7vqR01YqAEtnQjz6GoK4EJgtGbyBIJqX
- VAGQj9by49HM5L6W7MC0sAgZGb9TjN6LRn7KeC22SfHCAJQ3AQ89ZU/0I
- jNAYjjEsWgjidukqFS2dcFcGhmo0IFCEokop4yCt+yzhU3VEGLpu1k4Vu
- Jewltkrmh7KGmMtVW106DrsPbafnnx4RJq1YYbBM0PEOkZxdXx9U5GMt4 g==;
-X-CSE-ConnectionGUID: JZK6CzMeRCKgdSl5Q5iuzQ==
-X-CSE-MsgGUID: Ln402tzwSOmf4MA2E9zJFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="65446024"
-X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="65446024"
+ bh=OZxOjNZrVIME2cSsv1rDFuLg1PCVRyr0uKMY1l2uqEE=;
+ b=LyLq8OjYaNfhUKw+svBaV7XGiTE/ls2NWzgfczSCeZU89eV+VD4nx23K
+ h84hl80Ryt/dd7N8O0VtvdaXRpml3YeYa4SVzw43oM56ipyHcvBWK4naV
+ 2Rag0nfhCoephgIOoxz3hAMfr+4isUFrsixtk6PGXx2K6QBR0Y0RDPMpb
+ v2P173twaNqwpnqE68b1GLkY5k9Cqb50jZD+DGmHV4kvKQs9UDT9Hf8QY
+ VWEtl6EyG+FYFrqoJAVF2cXK5+WQpAZ2GOJHfL8gBEaPvFaovIasRDbb+
+ uNTQhygiiGX+PvMp83noP+GAfB2OcZyMRWbQjdXeTgj0xiido6YYFxlhB Q==;
+X-CSE-ConnectionGUID: aWDjr9DgSie54KVgvVzugQ==
+X-CSE-MsgGUID: qzdvIKNvSQeCgGe+yhdVIA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="65446022"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="65446022"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Nov 2025 21:44:44 -0800
-X-CSE-ConnectionGUID: 4u/QIAovRT+7eNXgHIq48A==
-X-CSE-MsgGUID: JH8zOj0CS569BBxHwl8FJA==
+ 16 Nov 2025 21:44:42 -0800
+X-CSE-ConnectionGUID: 4ucZ0VY2SHO4yl5rxwBaDA==
+X-CSE-MsgGUID: hVkWsBojTtqdVF9ADZtB3w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="190016335"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="190016329"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa007.fm.intel.com with ESMTP; 16 Nov 2025 21:44:42 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 16 Nov 2025 21:44:40 -0800
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, mitulkumar.ajitkumar.golani@intel.com,
  ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com
-Subject: [PATCH v8 07/18] drm/i915/vrr: Add compute config for DC Balance
- params
-Date: Mon, 17 Nov 2025 11:14:31 +0530
-Message-ID: <20251117054442.4047665-8-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v8 06/18] drm/i915/vrr: Add state dump for DC Balance params
+Date: Mon, 17 Nov 2025 11:14:30 +0530
+Message-ID: <20251117054442.4047665-7-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20251117054442.4047665-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20251117054442.4047665-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -68,96 +67,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute DC Balance parameters and tunable params based on
-experiments.
+Add state dump for dc balance params to track DC Balance
+crtc state config.
 
---v2:
-- Document tunable params. (Ankit)
-
---v3:
-- Add line spaces to compute config. (Ankit)
-- Remove redundancy checks.
-
---v4:
-- Separate out conpute config to separate function.
-- As all the valuse are being computed in scanlines, and slope
-is still in usec, convert and store it to scanlines.
+-v1:
+-- nitpick: s/Vblank target/vblank target. (Ankit)
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 38 ++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 650077eb280f..7cb484dd96df 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -6,6 +6,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index c2a6217c2262..234843b8f83a 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -303,6 +303,14 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 	drm_printf(&p, "vrr: vmin vblank: %d, vmax vblank: %d, vmin vtotal: %d, vmax vtotal: %d\n",
+ 		   intel_vrr_vmin_vblank_start(pipe_config), intel_vrr_vmax_vblank_start(pipe_config),
+ 		   intel_vrr_vmin_vtotal(pipe_config), intel_vrr_vmax_vtotal(pipe_config));
++	drm_printf(&p, "vrr: dc balance: %s, vmin: %d vmax: %d guardband: %d, slope: %d max increase: %d max decrease: %d vblank target: %d\n",
++		   str_yes_no(pipe_config->vrr.dc_balance.enable),
++		   pipe_config->vrr.dc_balance.vmin, pipe_config->vrr.dc_balance.vmax,
++		   pipe_config->vrr.dc_balance.guardband,
++		   pipe_config->vrr.dc_balance.slope,
++		   pipe_config->vrr.dc_balance.max_increase,
++		   pipe_config->vrr.dc_balance.max_decrease,
++		   pipe_config->vrr.dc_balance.vblank_target);
  
- #include <drm/drm_print.h>
- 
-+#include "intel_crtc.h"
- #include "intel_de.h"
- #include "intel_display_regs.h"
- #include "intel_display_types.h"
-@@ -20,6 +21,14 @@
- #define FIXED_POINT_PRECISION		100
- #define CMRR_PRECISION_TOLERANCE	10
- 
-+/*
-+ * Tunable parameters for DC Balance correction.
-+ * These are captured based on experimentations.
-+ */
-+#define DCB_CORRECTION_SENSITIVITY	30
-+#define DCB_CORRECTION_AGGRESSIVENESS	1000
-+#define DCB_BLANK_TARGET		50
-+
- bool intel_vrr_is_capable(struct intel_connector *connector)
- {
- 	struct intel_display *display = to_intel_display(connector);
-@@ -342,6 +351,33 @@ int intel_vrr_compute_vmax(struct intel_connector *connector,
- 	return vmax;
- }
- 
-+static void
-+intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
-+{
-+	int val;
-+	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
-+
-+	if (!crtc_state->vrr.dc_balance.enable)
-+		return;
-+
-+	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
-+	crtc_state->vrr.dc_balance.vmin = crtc_state->vrr.vmin;
-+	crtc_state->vrr.dc_balance.max_increase =
-+		crtc_state->vrr.vmax - crtc_state->vrr.vmin;
-+	crtc_state->vrr.dc_balance.max_decrease =
-+		crtc_state->vrr.vmax - crtc_state->vrr.vmin;
-+	crtc_state->vrr.dc_balance.guardband =
-+		DIV_ROUND_UP(crtc_state->vrr.dc_balance.vmax *
-+			     DCB_CORRECTION_SENSITIVITY, 100);
-+	val = DIV_ROUND_UP(DCB_CORRECTION_AGGRESSIVENESS * 10,
-+			   crtc_state->vrr.dc_balance.guardband);
-+	crtc_state->vrr.dc_balance.slope =
-+		intel_usecs_to_scanlines(adjusted_mode, val);
-+	crtc_state->vrr.dc_balance.vblank_target =
-+		DIV_ROUND_UP((crtc_state->vrr.vmax - crtc_state->vrr.vmin) *
-+			     DCB_BLANK_TARGET, 100);
-+}
-+
- void
- intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			 struct drm_connector_state *conn_state)
-@@ -399,6 +435,8 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
- 			(crtc_state->hw.adjusted_mode.crtc_vtotal -
- 			 crtc_state->hw.adjusted_mode.crtc_vsync_end);
- 	}
-+
-+	intel_vrr_dc_balance_compute_config(crtc_state);
- }
- 
- static int
+ 	drm_printf(&p, "requested mode: " DRM_MODE_FMT "\n",
+ 		   DRM_MODE_ARG(&pipe_config->hw.mode));
 -- 
 2.48.1
 
