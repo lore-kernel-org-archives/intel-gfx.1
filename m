@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 032FBCFC281
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9920CFC279
 	for <intel-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E615310E894;
-	Fri, 21 Nov 2025 13:52:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B8CA10E896;
+	Fri, 21 Nov 2025 13:52:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Z5Y4toe4";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="J7bMahNJ";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CC310E3F9;
- Mon, 17 Nov 2025 19:13:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1763406786; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F05410E103
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Nov 2025 19:12:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1763406762; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=S4S4oot7NqAPseBWv4WoV/K5QiqXh+jRX8TXcWeIhlAMrth6kW3bk4loT6h6Q1Xt1VxMu+DkhvhJO4r8wcP11y014oztNkCIdgeGw6bedHyNSiDJpTLl6aNuazVaJyEMBYsP/YtyAONSBL1TPRehilAlnvzoFREIjWX8QGyehMA=
+ b=hrm+qKgW/rySYKUswoBT/MbdkDO6GqmBUPMxXuPc4hiuAzKiKmQbzkZvPLN3d/o5mHPGZHyMWx7uFdr8CMRYp3Umha7Bt4btZM18IQpTpGCfXVO1xMD2C9pCJWLcselh40lw/n3tjDwA2wTbvMIksSTdqzRpwJ5yxeGIl8KD28w=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1763406786;
+ s=zohoarc; t=1763406762;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=2d0k/LuL/udDSP5MXsPj+vrCjkqFJCvyb8zuefLEfUs=; 
- b=Gyg8YOwSeedwYsb7XmKV6ZYD4uxUuj/MR+l0KFGlD/XXBesT6B4jlyJ1p9A//wau7tt2rXGG5fSHeKqtIUgGTkkM5ji/NLoOU/QHI2O7DaUVXmtglBxNYrgiZkFCzTOy0srTX01a/BLiZjdW/j9OytYPg8f8fUpeLNkTMSt/Jgs=
+ bh=Wl+Rgi87r48WhXQHR78kVLoSBu5iwS2wv+pKzPrF8ig=; 
+ b=F8dcbuaN3E6mgwEs42uhNTVYhp+Em/q41SIAemz7vPn0dn39KT4+AmzlfyeU5SNyYR+/APcvDdI35Mx19+SUTY3bUKKG5nyBEA08laItInIqOmDTR6jQdFOZMhIQjNHQsI0kdZk9/ktMFmHMjWOnXj5Ql3yzGsWrYqVTzs3w7z8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763406786; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763406762; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=2d0k/LuL/udDSP5MXsPj+vrCjkqFJCvyb8zuefLEfUs=;
- b=Z5Y4toe4Tj8bWAkFBjnelsdI9Le4bXBiFc57eIPMBcaGAeErDWwdjg1N1YwrGLFQ
- aAAdIMgs/zrgiKq+6i4Ehm5J67lMAG1ChgyStNdj/sNRfPfXGkP2LFbMO5OGuNyw6w3
- 5Y4c7X4qx3J+tlCWfv05EkV1zs8I+WQtuQ/J6rwA=
-Received: by mx.zohomail.com with SMTPS id 1763406784495196.5777941542043;
- Mon, 17 Nov 2025 11:13:04 -0800 (PST)
+ bh=Wl+Rgi87r48WhXQHR78kVLoSBu5iwS2wv+pKzPrF8ig=;
+ b=J7bMahNJZxwspv9ecDqh3gRSiMywGJUNMFlvEbFO6EWe0xu+m7PAIEd7b5gB+KJL
+ cxRrCU72paetabfqXpFuKi4QjSWmkSS7fX2h6NeM84Ywfdk0tewhsdVa3LPbs9VTM3n
+ HP3kq3F6rVEgvq7abK2Pc7v+Vk+Ys8tRTfy/KTmg=
+Received: by mx.zohomail.com with SMTPS id 1763406759575712.9921053494943;
+ Mon, 17 Nov 2025 11:12:39 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 17 Nov 2025 20:11:51 +0100
-Subject: [PATCH v4 07/10] drm/display: hdmi-state-helper: Act on color
- format DRM property
+Date: Mon, 17 Nov 2025 20:11:47 +0100
+Subject: [PATCH v4 03/10] drm: Add enum conversion from/to HDMI_COLORSPACE
+ to DRM_COLOR_FORMAT
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20251117-color-format-v4-7-0ded72bd1b00@collabora.com>
+Message-Id: <20251117-color-format-v4-3-0ded72bd1b00@collabora.com>
 References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
 In-Reply-To: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -69,7 +69,8 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 21 Nov 2025 13:52:13 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -87,40 +88,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the "color format" DRM property, which allows
-userspace to request a specific color format, the HDMI state helper
-should implement this.
+From: Marius Vlad <marius.vlad@collabora.com>
 
-Implement it by checking whether the property is set and set to
-something other than auto. If so, pass the requested color format, and
-otherwise set RGB.
+This would please the compiler to have a enum transformation from one to
+another even though the values are the same. It should also make things
+obvious that we use different enums.
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_connector.c | 18 ++++++++++++++++++
+ include/drm/drm_connector.h     |  3 +++
+ 2 files changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index a561f124be99..add0d51fce33 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -650,9 +650,15 @@ hdmi_compute_config(const struct drm_connector *connector,
- 				       conn_state->max_bpc,
- 				       8, connector->max_bpc);
- 	int ret;
-+	enum hdmi_colorspace hdmi_colorspace;
-+
-+	if (conn_state->color_format && conn_state->color_format != DRM_COLOR_FORMAT_AUTO)
-+		hdmi_colorspace = color_format_to_hdmi_colorspace(conn_state->color_format);
-+	else
-+		hdmi_colorspace = HDMI_COLORSPACE_RGB;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 0ad7be0a2d09..61c077b67ac3 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -1384,6 +1384,24 @@ drm_color_format_enum_to_color_format(enum drm_color_format_enum fmt_enum)
+ 	}
+ }
  
- 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
--				      HDMI_COLORSPACE_RGB);
-+				      hdmi_colorspace);
- 	if (ret) {
- 		if (connector->ycbcr_420_allowed) {
- 			ret = hdmi_compute_format_bpc(connector, conn_state,
++enum hdmi_colorspace
++color_format_to_hdmi_colorspace(enum drm_color_format fmt)
++{
++	switch (fmt) {
++	default:
++	case DRM_COLOR_FORMAT_AUTO:
++	case DRM_COLOR_FORMAT_RGB444:
++		return HDMI_COLORSPACE_RGB;
++	case DRM_COLOR_FORMAT_YCBCR444:
++		return HDMI_COLORSPACE_YUV444;
++	case DRM_COLOR_FORMAT_YCBCR422:
++		return HDMI_COLORSPACE_YUV422;
++	case DRM_COLOR_FORMAT_YCBCR420:
++		return HDMI_COLORSPACE_YUV420;
++	}
++}
++EXPORT_SYMBOL(color_format_to_hdmi_colorspace);
++
+ /**
+  * drm_get_color_format_name - return a string for color format
+  * @colorspace: color format to compute name of
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index a071079fd3ad..e044976c8d76 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2586,6 +2586,9 @@ drm_color_format_to_color_format_enum(enum drm_color_format fmt);
+ u32
+ drm_color_format_enum_to_color_format(enum drm_color_format_enum fmt_enum);
+ 
++enum hdmi_colorspace
++color_format_to_hdmi_colorspace(enum drm_color_format fmt);
++
+ /**
+  * drm_for_each_connector_iter - connector_list iterator macro
+  * @connector: &struct drm_connector pointer used as cursor
 
 -- 
 2.51.2
