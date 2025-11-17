@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAAA1CE8D6B
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 10:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F01DCED240
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 10:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A5CC10E33F;
-	Mon, 17 Nov 2025 10:59:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AEB310E354;
+	Mon, 17 Nov 2025 10:59:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UbFwOABB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ef+wzxwb";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6F110E369;
- Mon, 17 Nov 2025 10:59:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5065E10E355;
+ Mon, 17 Nov 2025 10:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763377160; x=1794913160;
+ t=1763377153; x=1794913153;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=1CuHEHzI8b4JJCZPwvQ5KQA0uVU1iHKYrS0GBG+euMo=;
- b=UbFwOABBYN1jWNpvTA7145pZrv8BkfNu2E4KYh9rUDUiHk3s5Rcni6ML
- JfGpAPh7KLYcFP3wZhsG0QhS0Y/fXtInqoG10OlEa1HUQEI2o55nPe4Hc
- hNjulGBx23FToYWu8HTpvQpTx+93+DaKR7zFKqH//qu285RYls5gkETsL
- wUi5o9x3llkwm6UkzR35WLHmaYFMl9wogVfsgVBvBJTETYfmmneoaxPM2
- gyEpzsYI8pBUyjsTmXg6oNwfE5qxt7wC5/f16cqTtn2GVfjfrMP0+hznN
- dnZnIlWQ7sstaipxY2Fmb/OEHGEUAgBdL2ea1S6vREzaha6ea3uxb9hNW g==;
-X-CSE-ConnectionGUID: qNfSq8x9QXC6Iy+tHLztIQ==
-X-CSE-MsgGUID: r54XmQh5TryTDVZsgeKQFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="76475379"
-X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="76475379"
+ bh=Wwka4fLpeugZrn3cnWuon+Rge0B8mGJEE7n7sXUKPmk=;
+ b=Ef+wzxwbVKidyhK6Fvpt9smgV3IGR1Ovq/bFbsL8xYghNw2j89NQaGW0
+ EYOh8InvCLeY4lgjEBkS1fWVY149DDln33AFniEMjTvLiRN724LQbl4sS
+ 19X1Od2zv3wXxkg/oeFVCCFGhaenjIIGuSHh0a+nk0/t04BCphlac99Qb
+ nBsnBCOZm3JFuCU2AI8FwJBLlnQJzcWJu7Lc6VB6JqF7vVU5jonesewz5
+ uUR9gobTz1+gMsBpXImou94e5ElSTbAo9PeLvbPiseypTYStQX9r6we7P
+ 2bOcXAWsV9iJuFniPWlrs/lwrjbPrNZ3FfiwkLznfd6ZBUmfflRb0BIbo w==;
+X-CSE-ConnectionGUID: Lc4SujrgQkCffQ8TUsfXOQ==
+X-CSE-MsgGUID: 0hcMf7sdTVGDQAaCmt+4Jw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="76475361"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="76475361"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2025 02:59:20 -0800
-X-CSE-ConnectionGUID: mivRoFWKQa6YtdGax6ICsg==
-X-CSE-MsgGUID: enb5H6uFRlKpZioQvLmBcg==
+ 17 Nov 2025 02:59:13 -0800
+X-CSE-ConnectionGUID: V+LP7cF1SBSljydAYvj3Wg==
+X-CSE-MsgGUID: KxpHurChRRS+Rx1r9CEjGQ==
 X-ExtLoop1: 1
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 02:59:19 -0800
+ by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 02:59:11 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Imre Deak <imre.deak@intel.com>,
-	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v2 14/32] drm/i915/cx0: Print additional Cx0 PLL HW state
-Date: Mon, 17 Nov 2025 12:45:44 +0200
-Message-Id: <20251117104602.2363671-15-mika.kahola@intel.com>
+Cc: Imre Deak <imre.deak@intel.com>, Mika Kahola <mika.kahola@intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v2 09/32] drm/i915/cx0: Sanitize C10 PHY PLL SSC register setup
+Date: Mon, 17 Nov 2025 12:45:39 +0200
+Message-Id: <20251117104602.2363671-10-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251117104602.2363671-1-mika.kahola@intel.com>
 References: <20251117104602.2363671-1-mika.kahola@intel.com>
@@ -69,65 +69,45 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Imre Deak <imre.deak@intel.com>
 
-Print all the Cx0 PLL state in the PLL state dumper.
-
-v2: Use BUILD_BUG_ON() instead of WARN_ON() (Jani)
+Define the C10 PLL SSC register range via macros, so the HW/SW state of
+these register can be verified by a follow-up change, reusing these
+macros.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index df3daa81a698..763546fe152b 100644
+index 2ab93d02fdf1..f190762e4871 100644
 --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -2306,8 +2306,8 @@ static void intel_c10pll_dump_hw_state(struct intel_display *display,
- 	unsigned int multiplier, tx_clk_div;
- 
- 	fracen = hw_state->pll[0] & C10_PLL0_FRACEN;
--	drm_dbg_kms(display->drm, "c10pll_hw_state: fracen: %s, ",
--		    str_yes_no(fracen));
-+	drm_dbg_kms(display->drm, "c10pll_hw_state: clock: %d, fracen: %s, ",
-+		    hw_state->clock, str_yes_no(fracen));
- 
- 	if (fracen) {
- 		frac_quot = hw_state->pll[12] << 8 | hw_state->pll[11];
-@@ -2816,7 +2816,7 @@ static void intel_c20pll_dump_hw_state(struct intel_display *display,
- {
- 	int i;
- 
--	drm_dbg_kms(display->drm, "c20pll_hw_state:\n");
-+	drm_dbg_kms(display->drm, "c20pll_hw_state clock: %d:\n", hw_state->clock);
- 	drm_dbg_kms(display->drm,
- 		    "tx[0] = 0x%.4x, tx[1] = 0x%.4x, tx[2] = 0x%.4x\n",
- 		    hw_state->tx[0], hw_state->tx[1], hw_state->tx[2]);
-@@ -2832,12 +2832,24 @@ static void intel_c20pll_dump_hw_state(struct intel_display *display,
- 		for (i = 0; i < ARRAY_SIZE(hw_state->mplla); i++)
- 			drm_dbg_kms(display->drm, "mplla[%d] = 0x%.4x\n", i,
- 				    hw_state->mplla[i]);
-+
-+		/* For full coverage, also print the additional PLL B entry. */
-+		BUILD_BUG_ON(ARRAY_SIZE(hw_state->mplla) + 1 != ARRAY_SIZE(hw_state->mpllb));
-+		drm_dbg_kms(display->drm, "mpllb[%d] = 0x%.4x\n", i, hw_state->mpllb[i]);
+@@ -2059,6 +2059,9 @@ static void intel_cx0pll_update_ssc(struct intel_encoder *encoder,
  	}
-+
-+	drm_dbg_kms(display->drm, "vdr: custom width: 0x%02x, serdes rate: 0x%02x, hdmi rate: 0x%02x\n",
-+		    hw_state->vdr.custom_width, hw_state->vdr.serdes_rate, hw_state->vdr.hdmi_rate);
  }
  
- void intel_cx0pll_dump_hw_state(struct intel_display *display,
- 				const struct intel_cx0pll_state *hw_state)
- {
-+	drm_dbg_kms(display->drm,
-+		    "cx0pll_hw_state: lane_count: %d, ssc_enabled: %s, use_c10: %s, tbt_mode: %s\n",
-+		    hw_state->lane_count, str_yes_no(hw_state->ssc_enabled),
-+		    str_yes_no(hw_state->use_c10), str_yes_no(hw_state->tbt_mode));
++#define C10_PLL_SSC_REG_START_IDX	4
++#define C10_PLL_SSC_REG_COUNT		5
 +
- 	if (hw_state->use_c10)
- 		intel_c10pll_dump_hw_state(display, &hw_state->c10);
- 	else
+ static void intel_c10pll_update_pll(struct intel_encoder *encoder,
+ 				    struct intel_cx0pll_state *pll_state)
+ {
+@@ -2068,8 +2071,11 @@ static void intel_c10pll_update_pll(struct intel_encoder *encoder,
+ 	if (pll_state->ssc_enabled)
+ 		return;
+ 
+-	drm_WARN_ON(display->drm, ARRAY_SIZE(pll_state->c10.pll) < 9);
+-	for (i = 4; i < 9; i++)
++	drm_WARN_ON(display->drm, ARRAY_SIZE(pll_state->c10.pll) <
++				  C10_PLL_SSC_REG_START_IDX + C10_PLL_SSC_REG_COUNT);
++	for (i = C10_PLL_SSC_REG_START_IDX;
++	     i < C10_PLL_SSC_REG_START_IDX + C10_PLL_SSC_REG_COUNT;
++	     i++)
+ 		pll_state->c10.pll[i] = 0;
+ }
+ 
 -- 
 2.34.1
 
