@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E952CED24D
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 10:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D8DFCED243
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 10:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95E5410E378;
-	Mon, 17 Nov 2025 10:59:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55F2910E363;
+	Mon, 17 Nov 2025 10:59:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YEHYqtmk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="it+HLyrT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E165310E37C;
- Mon, 17 Nov 2025 10:59:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF53910E34A;
+ Mon, 17 Nov 2025 10:59:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763377166; x=1794913166;
+ t=1763377149; x=1794913149;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CbKuirjA1nQHjZ8Q/UDhkegS+Wfo3A3eLVte3ZspiqQ=;
- b=YEHYqtmkeDUWkCdyLzl7WhVAVKXtzNQf4S70gylthWSxQ/9RNABkxrP/
- UE47QOIaoIj97fImCrt+JaGDmoHthIFq57mVXTGJEnI4lMmelw2u5/1Vv
- nI/+nWW+zuyJuXhnrfTVvOJDtSZd0hLO9YoxmWhZXoXOgakclHHvHT8Es
- oblovdzQxK5/vlyTvg/KaCJ0aE6HYCajhmqNVrQibArVPEA7AgASC+Pn6
- UR8OhVVZTvbSM5roUIN1aT0Av233Hjvis4rryp0DSEGoeBo0zfFkfjMCE
- Z2zBupfIEK74XJd5qmOsPRp3cL2aGpH/zSZJSShPulb3FOJWc/6XX8V8V w==;
-X-CSE-ConnectionGUID: Pv8RHw4ITUGgytxVGH0VCA==
-X-CSE-MsgGUID: qIK56jIESWCyg0xTz7SwjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="76475392"
-X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="76475392"
+ bh=CYBlDBBpIdoTzcho5TX+f8Jeq1ZWzTPmKAukX1u3i+Q=;
+ b=it+HLyrTY+A/6/VCL2V0zVpwdF5Frw8Q2XfvdLsLwrknuJBaPUWFElK7
+ FUAZsVGloLR8DKYmyO96K0gnFjM9QcrTH4gzx45bBpcqCD5ix3ezu64ez
+ As0UX4Um02cp7NjLkUs+8hij5SbY2kggIRmTXf82QXcYPcVuOfY0k0VLe
+ i4GZ7viFnOJqz0ESKQOW22Sd7iiDgInMzkvq+5VC24Bu/UUKtxREKUaD+
+ W80zi9avjhUfRGDeo4HvuIWcNP/LYZT49ZlRnn+pvHGvWADUGthdg0VX5
+ ZeZzQZoqtRtKJX9d9XXf5fbJMS7/UK8AnNTzIJQdKgiEsNhYpkad+lGDF w==;
+X-CSE-ConnectionGUID: Kc5HTJFMS8avJxxCfi8wqA==
+X-CSE-MsgGUID: A9PfEVVDQvOMoH1NZ9QP7w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="76475340"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="76475340"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2025 02:59:25 -0800
-X-CSE-ConnectionGUID: S7o//5ddQTKgv/nrLqQBJg==
-X-CSE-MsgGUID: I3kQIeBTSwa4jgk/wZwv0g==
+ 17 Nov 2025 02:59:08 -0800
+X-CSE-ConnectionGUID: ytFCd7JNSHqiB1LMos3Tzw==
+X-CSE-MsgGUID: jhMgxqfbToSarlL4euJPaA==
 X-ExtLoop1: 1
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 02:59:24 -0800
+ by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 02:59:07 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>, Imre Deak <imre.deak@intel.com>,
+Cc: Imre Deak <imre.deak@intel.com>, Mika Kahola <mika.kahola@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v2 18/32] drm/i915/cx0: Compute plls for MTL+ platform
-Date: Mon, 17 Nov 2025 12:45:48 +0200
-Message-Id: <20251117104602.2363671-19-mika.kahola@intel.com>
+Subject: [PATCH v2 06/32] drm/i915/cx0: Move definition of Cx0 PHY functions
+ earlier
+Date: Mon, 17 Nov 2025 12:45:36 +0200
+Message-Id: <20251117104602.2363671-7-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251117104602.2363671-1-mika.kahola@intel.com>
 References: <20251117104602.2363671-1-mika.kahola@intel.com>
@@ -67,108 +68,266 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-To bring MTL+ platform aligned call and calculate PLL state
-from dpll framework.
+From: Imre Deak <imre.deak@intel.com>
 
-v2: Rename mtl_compute_c10phy_dpll() to mtl_compute_non_tc_phy_dpll().
-    The state is computed either for a C10 or on the PTL port B eDP on
-    TypeC PHY case for a C20 PHY PLL. Hence refer to this case as
-    "non_tc_phy" instead of "c10phy".
-
-    Rename mtl_compute_c20phy_dplls() to mtl_compute_tc_phy_dplls() for
-    symmetry with mtl_compute_non_tc_phy_dpll().
-v3: Reword commit message (Suraj)
+Move the definitions of the
+  intel_c10pll_calc_port_clock()
+  intel_c20_get_dp_rate()
+  intel_c20_get_hdmi_rate()
+  is_hdmi_frl()
+  is_dp2()
+  intel_get_c20_custom_width()
+functions earlier to avoid the forward declarations.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 69 +++++++++++++++++++
- 1 file changed, 69 insertions(+)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 203 +++++++++----------
+ 1 file changed, 98 insertions(+), 105 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 23f22c495ec7..20f940110faa 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4319,9 +4319,78 @@ static const struct dpll_info mtl_plls[] = {
- 	{}
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index fd0409565c68..9515157ee6b3 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2126,7 +2126,31 @@ static int intel_c10pll_calc_state(struct intel_crtc_state *crtc_state,
+ }
  
-+/*
-+ * Compute the state for either a C10 PHY PLL, or in the case of the PTL port B,
-+ * eDP on TypeC PHY case for a C20 PHY PLL.
-+ */
-+static int mtl_compute_non_tc_phy_dpll(struct intel_atomic_state *state,
-+				       struct intel_crtc *crtc,
-+				       struct intel_encoder *encoder)
+ static int intel_c10pll_calc_port_clock(struct intel_encoder *encoder,
+-					const struct intel_c10pll_state *pll_state);
++					const struct intel_c10pll_state *pll_state)
 +{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	struct icl_port_dpll *port_dpll =
-+		&crtc_state->icl_port_dplls[ICL_PORT_DPLL_DEFAULT];
-+	int ret;
++	unsigned int frac_quot = 0, frac_rem = 0, frac_den = 1;
++	unsigned int multiplier, tx_clk_div, hdmi_div, refclk = 38400;
++	int tmpclk = 0;
 +
-+	ret = intel_cx0pll_calc_state(crtc_state, encoder, &port_dpll->hw_state);
-+	if (ret)
-+		return ret;
++	if (pll_state->pll[0] & C10_PLL0_FRACEN) {
++		frac_quot = pll_state->pll[12] << 8 | pll_state->pll[11];
++		frac_rem =  pll_state->pll[14] << 8 | pll_state->pll[13];
++		frac_den =  pll_state->pll[10] << 8 | pll_state->pll[9];
++	}
 +
-+	/* this is mainly for the fastset check */
-+	icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_DEFAULT);
++	multiplier = (REG_FIELD_GET8(C10_PLL3_MULTIPLIERH_MASK, pll_state->pll[3]) << 8 |
++		      pll_state->pll[2]) / 2 + 16;
 +
-+	crtc_state->port_clock = intel_cx0pll_calc_port_clock(encoder,
-+							      &port_dpll->hw_state.cx0pll);
++	tx_clk_div = REG_FIELD_GET8(C10_PLL15_TXCLKDIV_MASK, pll_state->pll[15]);
++	hdmi_div = REG_FIELD_GET8(C10_PLL15_HDMIDIV_MASK, pll_state->pll[15]);
 +
-+	return 0;
++	tmpclk = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(refclk, (multiplier << 16) + frac_quot) +
++				     DIV_ROUND_CLOSEST(refclk * frac_rem, frac_den),
++				     10 << (tx_clk_div + 16));
++	tmpclk *= (hdmi_div ? 2 : 1);
++
++	return tmpclk;
 +}
-+
-+static int mtl_compute_tc_phy_dplls(struct intel_atomic_state *state,
-+				    struct intel_crtc *crtc,
-+				    struct intel_encoder *encoder)
-+{
-+	struct intel_crtc_state *crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	const struct intel_crtc_state *old_crtc_state =
-+		intel_atomic_get_old_crtc_state(state, crtc);
-+	struct icl_port_dpll *port_dpll;
-+	int ret;
-+
-+	/* TODO: Add state calculation for TBT PLL */
-+
-+	port_dpll = &crtc_state->icl_port_dplls[ICL_PORT_DPLL_MG_PHY];
-+	ret = intel_cx0pll_calc_state(crtc_state, encoder, &port_dpll->hw_state);
-+	if (ret)
-+		return ret;
-+
-+	/* this is mainly for the fastset check */
-+	if (old_crtc_state->intel_dpll &&
-+	    old_crtc_state->intel_dpll->info->id == DPLL_ID_ICL_TBTPLL)
-+		icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_DEFAULT);
-+	else
-+		icl_set_active_port_dpll(crtc_state, ICL_PORT_DPLL_MG_PHY);
-+
-+	crtc_state->port_clock = intel_cx0pll_calc_port_clock(encoder,
-+							      &port_dpll->hw_state.cx0pll);
-+
-+	return 0;
-+}
-+
-+static int mtl_compute_dplls(struct intel_atomic_state *state,
-+			     struct intel_crtc *crtc,
-+			     struct intel_encoder *encoder)
-+{
-+	if (intel_encoder_is_tc(encoder))
-+		return mtl_compute_tc_phy_dplls(state, crtc, encoder);
-+	else
-+		return mtl_compute_non_tc_phy_dpll(state, crtc, encoder);
-+}
-+
- __maybe_unused
- static const struct intel_dpll_mgr mtl_pll_mgr = {
- 	.dpll_info = mtl_plls,
-+	.compute_dplls = mtl_compute_dplls,
- };
  
- /**
+ static void intel_c10pll_readout_hw_state(struct intel_encoder *encoder,
+ 					  struct intel_cx0pll_state *cx0pll_state)
+@@ -2357,9 +2381,79 @@ intel_c20_pll_tables_get(const struct intel_crtc_state *crtc_state,
+ 	return NULL;
+ }
+ 
+-static u8 intel_c20_get_dp_rate(u32 clock);
+-static u8 intel_c20_get_hdmi_rate(u32 clock);
+-static int intel_get_c20_custom_width(u32 clock, bool dp);
++static u8 intel_c20_get_dp_rate(u32 clock)
++{
++	switch (clock) {
++	case 162000: /* 1.62 Gbps DP1.4 */
++		return 0;
++	case 270000: /* 2.7 Gbps DP1.4 */
++		return 1;
++	case 540000: /* 5.4 Gbps DP 1.4 */
++		return 2;
++	case 810000: /* 8.1 Gbps DP1.4 */
++		return 3;
++	case 216000: /* 2.16 Gbps eDP */
++		return 4;
++	case 243000: /* 2.43 Gbps eDP */
++		return 5;
++	case 324000: /* 3.24 Gbps eDP */
++		return 6;
++	case 432000: /* 4.32 Gbps eDP */
++		return 7;
++	case 1000000: /* 10 Gbps DP2.0 */
++		return 8;
++	case 1350000: /* 13.5 Gbps DP2.0 */
++		return 9;
++	case 2000000: /* 20 Gbps DP2.0 */
++		return 10;
++	case 648000: /* 6.48 Gbps eDP*/
++		return 11;
++	case 675000: /* 6.75 Gbps eDP*/
++		return 12;
++	default:
++		MISSING_CASE(clock);
++		return 0;
++	}
++}
++
++static u8 intel_c20_get_hdmi_rate(u32 clock)
++{
++	if (clock >= 25175 && clock <= 600000)
++		return 0;
++
++	switch (clock) {
++	case 300000: /* 3 Gbps */
++	case 600000: /* 6 Gbps */
++	case 1200000: /* 12 Gbps */
++		return 1;
++	case 800000: /* 8 Gbps */
++		return 2;
++	case 1000000: /* 10 Gbps */
++		return 3;
++	default:
++		MISSING_CASE(clock);
++		return 0;
++	}
++}
++
++static bool is_dp2(u32 clock)
++{
++	/* DP2.0 clock rates */
++	if (clock == 1000000 || clock == 1350000 || clock  == 2000000)
++		return true;
++
++	return false;
++}
++
++static int intel_get_c20_custom_width(u32 clock, bool dp)
++{
++	if (dp && is_dp2(clock))
++		return 2;
++	else if (intel_hdmi_is_frl(clock))
++		return 1;
++	else
++		return 0;
++}
+ 
+ static void intel_c20_calc_vdr_params(struct intel_c20pll_vdr_state *vdr, bool is_dp,
+ 				      int port_clock)
+@@ -2648,70 +2742,6 @@ void intel_cx0pll_dump_hw_state(struct intel_display *display,
+ 		intel_c20pll_dump_hw_state(display, &hw_state->c20);
+ }
+ 
+-static u8 intel_c20_get_dp_rate(u32 clock)
+-{
+-	switch (clock) {
+-	case 162000: /* 1.62 Gbps DP1.4 */
+-		return 0;
+-	case 270000: /* 2.7 Gbps DP1.4 */
+-		return 1;
+-	case 540000: /* 5.4 Gbps DP 1.4 */
+-		return 2;
+-	case 810000: /* 8.1 Gbps DP1.4 */
+-		return 3;
+-	case 216000: /* 2.16 Gbps eDP */
+-		return 4;
+-	case 243000: /* 2.43 Gbps eDP */
+-		return 5;
+-	case 324000: /* 3.24 Gbps eDP */
+-		return 6;
+-	case 432000: /* 4.32 Gbps eDP */
+-		return 7;
+-	case 1000000: /* 10 Gbps DP2.0 */
+-		return 8;
+-	case 1350000: /* 13.5 Gbps DP2.0 */
+-		return 9;
+-	case 2000000: /* 20 Gbps DP2.0 */
+-		return 10;
+-	case 648000: /* 6.48 Gbps eDP*/
+-		return 11;
+-	case 675000: /* 6.75 Gbps eDP*/
+-		return 12;
+-	default:
+-		MISSING_CASE(clock);
+-		return 0;
+-	}
+-}
+-
+-static u8 intel_c20_get_hdmi_rate(u32 clock)
+-{
+-	if (clock >= 25175 && clock <= 600000)
+-		return 0;
+-
+-	switch (clock) {
+-	case 300000: /* 3 Gbps */
+-	case 600000: /* 6 Gbps */
+-	case 1200000: /* 12 Gbps */
+-		return 1;
+-	case 800000: /* 8 Gbps */
+-		return 2;
+-	case 1000000: /* 10 Gbps */
+-		return 3;
+-	default:
+-		MISSING_CASE(clock);
+-		return 0;
+-	}
+-}
+-
+-static bool is_dp2(u32 clock)
+-{
+-	/* DP2.0 clock rates */
+-	if (clock == 1000000 || clock == 1350000 || clock  == 2000000)
+-		return true;
+-
+-	return false;
+-}
+-
+ static bool intel_c20_protocol_switch_valid(struct intel_encoder *encoder)
+ {
+ 	struct intel_digital_port *intel_dig_port = enc_to_dig_port(encoder);
+@@ -2721,16 +2751,6 @@ static bool intel_c20_protocol_switch_valid(struct intel_encoder *encoder)
+ 	return intel_tc_port_in_legacy_mode(intel_dig_port);
+ }
+ 
+-static int intel_get_c20_custom_width(u32 clock, bool dp)
+-{
+-	if (dp && is_dp2(clock))
+-		return 2;
+-	else if (intel_hdmi_is_frl(clock))
+-		return 1;
+-	else
+-		return 0;
+-}
+-
+ static void intel_c20_pll_program(struct intel_display *display,
+ 				  struct intel_encoder *encoder,
+ 				  const struct intel_c20pll_state *pll_state)
+@@ -2819,33 +2839,6 @@ static void intel_c20_pll_program(struct intel_display *display,
+ 		      MB_WRITE_COMMITTED);
+ }
+ 
+-static int intel_c10pll_calc_port_clock(struct intel_encoder *encoder,
+-					const struct intel_c10pll_state *pll_state)
+-{
+-	unsigned int frac_quot = 0, frac_rem = 0, frac_den = 1;
+-	unsigned int multiplier, tx_clk_div, hdmi_div, refclk = 38400;
+-	int tmpclk = 0;
+-
+-	if (pll_state->pll[0] & C10_PLL0_FRACEN) {
+-		frac_quot = pll_state->pll[12] << 8 | pll_state->pll[11];
+-		frac_rem =  pll_state->pll[14] << 8 | pll_state->pll[13];
+-		frac_den =  pll_state->pll[10] << 8 | pll_state->pll[9];
+-	}
+-
+-	multiplier = (REG_FIELD_GET8(C10_PLL3_MULTIPLIERH_MASK, pll_state->pll[3]) << 8 |
+-		      pll_state->pll[2]) / 2 + 16;
+-
+-	tx_clk_div = REG_FIELD_GET8(C10_PLL15_TXCLKDIV_MASK, pll_state->pll[15]);
+-	hdmi_div = REG_FIELD_GET8(C10_PLL15_HDMIDIV_MASK, pll_state->pll[15]);
+-
+-	tmpclk = DIV_ROUND_CLOSEST_ULL(mul_u32_u32(refclk, (multiplier << 16) + frac_quot) +
+-				     DIV_ROUND_CLOSEST(refclk * frac_rem, frac_den),
+-				     10 << (tx_clk_div + 16));
+-	tmpclk *= (hdmi_div ? 2 : 1);
+-
+-	return tmpclk;
+-}
+-
+ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
+ 					 const struct intel_cx0pll_state *pll_state,
+ 					 bool is_dp, int port_clock,
 -- 
 2.34.1
 
