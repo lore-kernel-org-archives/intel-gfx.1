@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A73D9CEBF8D
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 12:09:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0218CE8D6B
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Nov 2025 12:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24CA810E381;
-	Mon, 17 Nov 2025 12:09:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 061EA10E3A5;
+	Mon, 17 Nov 2025 12:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="If1PZ4TG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hq/Qdcom";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B69110E381;
- Mon, 17 Nov 2025 12:09:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0323C10E38E;
+ Mon, 17 Nov 2025 12:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763381393; x=1794917393;
+ t=1763381397; x=1794917397;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=APHW4g8XKRKK8UfEMwzU6rM4nZBjL88zv/vx1X6SLUs=;
- b=If1PZ4TGkO9j7CIkmQiRjeDx6ejPz9Hor27TBwNB+LJHuVUIMLf6JRKq
- EhSAbKOkVdjE9DHmnXI5ib1Zz62+EZ9olvbdHKuQoxwmGa9qxzDKuOXwp
- 6n5/NjR9zzxKphJ95oG1dfbNq+huLfCARVPScmrT8t8Tk1TjLtTDPiknB
- 6yLyh70rxHegmIdz23IvAwo6bywetsHD7XuhNF8l/CgxjJ+f/Yrzg5Kxu
- UWFhDBBDYDkLKfvhN+M+QJrk443mqEbxeHox7XnNv7buiJwlWqx/KVCf5
- K2sUq5IeuqgIVIqPb8/DQfl1DdfSIvgf0DMIsg9zPfOzFoP4I0AC4P6Cb Q==;
-X-CSE-ConnectionGUID: AhQW40pTTbimgbT+tyjKaw==
-X-CSE-MsgGUID: luGeRKfwQfiKybx85M8/3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="52945787"
-X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="52945787"
+ bh=XTw4ru0Ev2ulxohwIXOjkFLgOlJV59tOlJL10kDb7tc=;
+ b=Hq/QdcomIeOTnRujH07eUEEmuK/w9mh9njqYcgdD7sFEuKeqv2b6sevK
+ fHyzM90H6XZ64Y1OTQe1IvDKb3RukSU6xrfAAbxkuzhwHELTUB50d2ozR
+ ByUNsGosYnCpu3ROWx8ht7XiYi4Glpwg/ZeMooD/DMqFeCyda+I+nZ0KG
+ pT2TrF0WmzvImbO3RuvTgKo4dWimRYHQ94YSO7Cmp7gRivP36anew6smc
+ Rgjtr1xUl77Ol3p0Ag7f169frhnO2cAFvumu2uJeww69hwoFcmbJCcfA/
+ BaQQ86ahTAFs3jNxA9/gMFygofVYADy8wo/9IJJl+AgFYdCtmMpT9af4Y A==;
+X-CSE-ConnectionGUID: xNfYfAK4S1C2iMEVtFxTmw==
+X-CSE-MsgGUID: k/sPQG4ISVmQbCQwsPT21w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11615"; a="52945790"
+X-IronPort-AV: E=Sophos;i="6.19,311,1754982000"; d="scan'208";a="52945790"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Nov 2025 04:09:53 -0800
-X-CSE-ConnectionGUID: jgV6W5FhQOyxu38qUsNwSw==
-X-CSE-MsgGUID: fBqAHvuKS0Gx1Tp9GwVZfg==
+ 17 Nov 2025 04:09:57 -0800
+X-CSE-ConnectionGUID: v5ZtvXSHTXiziBbFMX2aog==
+X-CSE-MsgGUID: MyZqymhwRmiD8UCOXbEvRA==
 X-ExtLoop1: 1
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 04:09:52 -0800
+ by fmviesa003.fm.intel.com with ESMTP; 17 Nov 2025 04:09:55 -0800
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Animesh Manna <animesh.manna@intel.com>
-Subject: [RFC 5/8] drm/i915/cmtg: program set context latency of cmtg
-Date: Mon, 17 Nov 2025 17:12:13 +0530
-Message-Id: <20251117114216.1522615-6-animesh.manna@intel.com>
+Subject: [RFC 7/8] drm/i915/cmtg: program sync to port for cmtg
+Date: Mon, 17 Nov 2025 17:12:15 +0530
+Message-Id: <20251117114216.1522615-8-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20251117114216.1522615-1-animesh.manna@intel.com>
 References: <20251117114216.1522615-1-animesh.manna@intel.com>
@@ -66,47 +66,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Program context latency for delayed vblank timings to create window2.
+Program Cmtg Sync to Port Sync. Set before enabling the timing generator.
+While cmtg start running this bit will be cleared.
 
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cmtg.c      | 4 ++++
+ drivers/gpu/drm/i915/display/intel_cmtg.c      | 3 +++
  drivers/gpu/drm/i915/display/intel_cmtg_regs.h | 2 ++
- 2 files changed, 6 insertions(+)
+ 2 files changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-index 3dfb691913cb..6086ba4d764f 100644
+index 0a804554f16d..d5793842815f 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-@@ -249,6 +249,7 @@ static void intel_cmtg_set_timings(const struct intel_crtc_state *crtc_state)
+@@ -274,4 +274,7 @@ void intel_cmtg_enable(const struct intel_crtc_state *crtc_state)
  
- void intel_cmtg_enable(const struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 
- 	if (cpu_transcoder != TRANSCODER_A && cpu_transcoder != TRANSCODER_B)
-@@ -257,4 +258,7 @@ void intel_cmtg_enable(const struct intel_crtc_state *crtc_state)
- 	/* Program CMTG Transcoder Timings */
- 	intel_cmtg_set_timings(crtc_state);
- 
-+	/* Program context latency */
-+	intel_de_write(display, TRANS_SET_CTX_LATENCY_CMTG(cpu_transcoder),
-+		       intel_de_read(display, TRANS_SET_CONTEXT_LATENCY(display, cpu_transcoder)));
+ 	/* Program CMTG MN */
+ 	intel_cpu_cmtg_transcoder_set_m_n(crtc_state);
++
++	/* Program Cmtg Sync to Port Sync, TRANS_CMTG_CTL */
++	intel_de_rmw(display, TRANS_CMTG_CTL(cpu_transcoder), CMTG_SYNC_TO_PORT, CMTG_SYNC_TO_PORT);
  }
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg_regs.h b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
-index 37dee7165852..406b5eb385a5 100644
+index 1bbdb66ee587..aace1490a741 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
-@@ -33,6 +33,8 @@ enum cmtg {
- #define TRANS_VBLANK_CMTG(id)		_MMIO(0x6F010 + (id) * 0x100)
- #define TRANS_VSYNC_CMTG(id)		_MMIO(0x6F014 + (id) * 0x100)
+@@ -24,7 +24,9 @@ enum cmtg {
  
-+#define TRANS_SET_CTX_LATENCY_CMTG(id)	_MMIO(0x6F07C + (id) * 0x100)
-+
- #define TRANS_VRR_CTL_CMTG(id)		_MMIO(0x6F420 + (id) * 0x100)
- #define TRANS_VRR_VMAX_CMTG(id)		_MMIO(0x6F424 + (id) * 0x100)
- #define TRANS_VRR_VMIN_CMTG(id)		_MMIO(0x6F434 + (id) * 0x100)
+ #define TRANS_CMTG_CTL_A		_MMIO(0x6fa88)
+ #define TRANS_CMTG_CTL_B		_MMIO(0x6fb88)
++#define TRANS_CMTG_CTL(id)		_MMIO(0x6fa88 + (id) * 0x100)
+ #define  CMTG_ENABLE			REG_BIT(31)
++#define  CMTG_SYNC_TO_PORT		REG_BIT(29)
+ 
+ #define TRANS_HTOTAL_CMTG(id)		_MMIO(0x6F000 + (id) * 0x100)
+ #define TRANS_HBLANK_CMTG(id)		_MMIO(0x6F004 + (id) * 0x100)
 -- 
 2.29.0
 
