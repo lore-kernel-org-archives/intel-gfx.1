@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B3D9CF34B2
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 14:04:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB583CF34B4
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Nov 2025 14:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71FF010E625;
-	Wed, 19 Nov 2025 14:04:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A187A10E62E;
+	Wed, 19 Nov 2025 14:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TNL6Xolv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kqrjelsM";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C6B710E625;
- Wed, 19 Nov 2025 14:04:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDC9C10E62C;
+ Wed, 19 Nov 2025 14:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763561078; x=1795097078;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HSdPweAl7FLGbU6IXU4jJXpCzragn7Cu3V7NUL0ie6w=;
- b=TNL6Xolvl5/wTcvKLsRChiJjiNL1l3qvVX15C3YJDAabutiP0Z6hdaKU
- xU7zwodDNq/muCHUzuvtb/yXYVefbAAt2AO7ptLNgDaH6CEQvHNSRlGvW
- g7P9uPXh4NTaVFW1r/Loub+HLEwqL5Flt6+rKv0PZ3Z3rmT6jYkxbUU55
- rPr4I/3eUgiQQAcOdii5i2zkdLr0wbqSC9hIZRu7fUFCTWzxwCTdUdpoE
- HDNutWqjOnn8P76iYrFS8nbJmbcBTvHZU53Hi7WSLoc//t8Y18VwEjpYV
- XnA7zZqf/OJ0sQIW8l29Fb25A99+IQMkmBa9USahBfd7C92qhL3ZLchPz Q==;
-X-CSE-ConnectionGUID: kK/Lu6QOTaazA0ubXVDxyQ==
-X-CSE-MsgGUID: 2eyjOYozR6qva0ZNw29uyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="91077049"
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="91077049"
+ t=1763561081; x=1795097081;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nYmp4J9PBrG0WYBqLA5yUnicuCCF5rk1xRvr4lVfLyo=;
+ b=kqrjelsMNErXkb3nJL/VxfTfGE4N9J/VVH/tJ0LG2R8TegE6HuYbl6Md
+ qssiKd/limDMq89kecKPHT8RdkXq3uBz3PalCwlv+1Rang9/ZLRRFa0TN
+ +7BjY01gsmuWZGYI36JG+QAgR+tVzmkPGBVGoLaOhrNK6w9tYRRBh2GZJ
+ lApSUuPT492NwctfMUq6jtRS/NKKL7HckAXWp/3WxRS8y42O+I1/gybC2
+ AeRDsNj/qU5thkQLFx9MccGnXK+fiIjnLcO6woi5MgBv1pLfJAUFxMz4O
+ XUD+A+HmiVS3D+ekbWVoFPE7yUbnOHBduEOlJlEnOSZkC42xOXvtgmcd1 Q==;
+X-CSE-ConnectionGUID: 0YfCrf3ZSEys1YDoWwCqQg==
+X-CSE-MsgGUID: iHhMS2rMSRaCUidWm8thjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="91077072"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="91077072"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 06:04:34 -0800
-X-CSE-ConnectionGUID: dY+KNiu4Q0y6DBziFFuS8w==
-X-CSE-MsgGUID: d9QO1ii8SPauechTkAIj0g==
+ 19 Nov 2025 06:04:41 -0800
+X-CSE-ConnectionGUID: 2/rFaHfYRUSr6Nj3SvYwGw==
+X-CSE-MsgGUID: ZhpXybB1RMmRIPhzgZaByw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191191840"
+X-IronPort-AV: E=Sophos;i="6.19,315,1754982000"; d="scan'208";a="191191857"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 06:04:31 -0800
+ 19 Nov 2025 06:04:38 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, ville.syrjala@linux.intel.com,
  animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 0/5] LOBF fixes
-Date: Wed, 19 Nov 2025 19:21:47 +0530
-Message-ID: <20251119135152.673276-1-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 3/5] drm/i915/alpm: Allow LOBF only for platform that have
+ Always on VRR TG
+Date: Wed, 19 Nov 2025 19:21:50 +0530
+Message-ID: <20251119135152.673276-4-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20251119135152.673276-1-ankit.k.nautiyal@intel.com>
+References: <20251119135152.673276-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,29 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix lobf to use computed guardband and set context latency.
-Also disable LOBF while switching to LRR/seamlessMN modes.
+As per bspec the LOBF is allowed when running in fixed refresh rate mode
+i.e. when flipline = vmin = vmax and when window1 is non zero. This
+implies that we can allow LOBF only when VRR timing generator is running
+in the fixed refresh rate mode.
 
-Rev2:
- - Use is_enabling/disabling macros for lobf checks and other suggested
-   changes from Ville.
+Use the check intel_vrr_always_use_vrr_tg() to avoid LOBF with legacy
+timing generator. Also use intel_vrr_is_fixed_rr() to check for fixed
+refresh rate mode.
 
-Ankit Nautiyal (5):
-  drm/i915/alpm: Compute LOBF late after guardband is already determined
-  drm/i915/alpm: Allow LOBF only if window1 > alpm check_entry lines
-  drm/i915/alpm: Allow LOBF only for platform that have Always on VRR TG
-  drm/i915/alpm: Simplify and align LOBF checks in pre/post plane update
-  drm/i915/alpm: Disable LOBF around transitioning for LRR/seamless MN
+v2: Modify commit message to clarify window1 requirement for LOBF.
+(Ville)
 
- drivers/gpu/drm/i915/display/intel_alpm.c    | 134 ++++++++++++-------
- drivers/gpu/drm/i915/display/intel_alpm.h    |   9 +-
- drivers/gpu/drm/i915/display/intel_display.c |  32 ++++-
- drivers/gpu/drm/i915/display/intel_dp.c      |   2 +
- drivers/gpu/drm/i915/display/intel_intel.c   |   0
- drivers/gpu/drm/i915/display/intel_vrr.c     |   2 +
- 6 files changed, 125 insertions(+), 54 deletions(-)
- create mode 100644 drivers/gpu/drm/i915/display/intel_intel.c
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_alpm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index 686e4d13f864..5cfb9345776a 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -344,8 +344,8 @@ void intel_alpm_lobf_compute_config(struct intel_dp *intel_dp,
+ 	if (crtc_state->has_psr)
+ 		return;
+ 
+-	if (crtc_state->vrr.vmin != crtc_state->vrr.vmax ||
+-	    crtc_state->vrr.vmin != crtc_state->vrr.flipline)
++	if (!intel_vrr_always_use_vrr_tg(display) ||
++	    !intel_vrr_is_fixed_rr(crtc_state))
+ 		return;
+ 
+ 	if (!(intel_alpm_aux_wake_supported(intel_dp) ||
 -- 
 2.45.2
 
