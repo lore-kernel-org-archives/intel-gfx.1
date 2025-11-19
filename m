@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1BABCFC282
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:52:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F639CFC279
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Nov 2025 13:52:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EED4E10E886;
-	Fri, 21 Nov 2025 13:52:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 864B210E88A;
+	Fri, 21 Nov 2025 13:52:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UTV8MhzG";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="lOK0BGrs";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E82610E504;
- Tue, 18 Nov 2025 20:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1763496009;
- bh=Ouz3sykA6NZWtw6Ox5elkRDV5HgOt7b0f0GP8Kov1EI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UTV8MhzGZCT6pEbkvadKMx88eRgkHh/BuJwjL7ViFkX8GYKo/Kklgll2xVBXkZlQF
- ZBDDmOe+RdQMe08+xVVPmYlsa3GF5Lw/PjdGBsKdTsYqoZJV/wQ9Zh0YMyPvEGzo7Y
- axSvCTEV+OYbBjghz5nybkVV2zcXM6sAxV4Umijn2BdAvXKVbgA3DCf2VDs3YT9YOT
- LYz8OowQRHgsRHjB2iaR0yuFmK+CgnHMkfF4uwNYt4ueo9cu20LqAY4W3Y9sm4j8EH
- Rwdm06n+iHYdq08roCIF3rHHZD3K+D9QZinZRYCgC5ADRTB0V3+J9sPvmlujWxP5QR
- HP+nOID4xnnpQ==
-Received: from [192.168.1.90] (unknown [82.79.138.145])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C39BF17E0610;
- Tue, 18 Nov 2025 21:00:08 +0100 (CET)
-Message-ID: <3863e0e5-677b-4225-9854-3ee420828275@collabora.com>
-Date: Tue, 18 Nov 2025 22:00:08 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/10] drm/bridge: dw-hdmi-qp: Set bridge
- supported_formats
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85B6F10E60C;
+ Wed, 19 Nov 2025 13:38:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1763559482; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=CuwjR2h4Ha6FdX9YcmYJiHsMLW8UhFvlnuR8RsskwaZcOcgRJe+R6sdtnrxYVApCqwS/19y5nZYG42D9Zlo+RPeXtzzCIOhL7xTXZAz0qiAIUDj2DLaCrpAEizra3PiJFw6vLc/o5ZV1QnX+3YBSMP4wjqXjBkQgHjK505A5Xwg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1763559482;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=7kLvj5qlOUkKcedzN+9zXzz8KHY8mPvxCmgiQNKASC0=; 
+ b=BCAuUf7lbq92vuxRMz/1dYjtXKeB4V2AgeLPbEvGKCNo1PsZBEWNnNL2rE/S5OB4m8uvbPJM+mIrekYRF4AgbS0ucOFBSaquhoFf6ZvIn81nZo5B/vh4I3TLFX7c9E3OjY6Hxu74BAGjUte++apzjOfX++EnahUAgYz5w6+dBmE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1763559482; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=7kLvj5qlOUkKcedzN+9zXzz8KHY8mPvxCmgiQNKASC0=;
+ b=lOK0BGrsyBiEDevslzfJVvrHYzJKW5KQ4sVEUjGezcv3IIJHy5sc4MlGVNfICCIN
+ R0Bhi6yfEfVGmx5g0Y392pEDMHk0run1ePP/ik30HEqOq+cQIV0+Y3+9aOcBibP0RjH
+ aInqlNcei+5GnD4BbDSIMlOsR2qwk/3VOUtRhD1g=
+Received: by mx.zohomail.com with SMTPS id 1763559480451443.4437908471832;
+ Wed, 19 Nov 2025 05:38:00 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -50,24 +49,30 @@ To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v4 06/10] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
+Date: Wed, 19 Nov 2025 14:37:51 +0100
+Message-ID: <11723230.nUPlyArG6x@workhorse>
+In-Reply-To: <edc12051-6e50-4ef6-98cf-713abb49dd90@collabora.com>
 References: <20251117-color-format-v4-0-0ded72bd1b00@collabora.com>
- <20251117-color-format-v4-5-0ded72bd1b00@collabora.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20251117-color-format-v4-5-0ded72bd1b00@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Fri, 21 Nov 2025 13:52:12 +0000
+ <20251117-color-format-v4-6-0ded72bd1b00@collabora.com>
+ <edc12051-6e50-4ef6-98cf-713abb49dd90@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailman-Approved-At: Fri, 21 Nov 2025 13:52:13 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,48 +88,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
-
-On 11/17/25 9:11 PM, Nicolas Frattaroli wrote:
-> The drm_bridge "supported_formats" member stores a bitmask of supported
-> HDMI output formats if the bridge is in fact an HDMI bridge.
+On Tuesday, 18 November 2025 21:14:31 Central European Standard Time Cristian Ciocaltea wrote:
+> On 11/17/25 9:11 PM, Nicolas Frattaroli wrote:
+> > With the introduction of the supported_formats member in the
+> > dw-hdmi-qp platform data struct, drivers that have access to this
+> > information should now set it.
+> > 
+> > Set it in the rockchip dw_hdmi_qp glue driver, where such a bitmask of
+> > supported color formats already exists. It just needs to be converted to
+> > the appropriate HDMI_COLORSPACE_ mask.
+> > 
+> > This allows this information to be passed down to the dw-hdmi-qp core,
+> > which sets it in the bridge it creates, and consequently will allow the
+> > common HDMI bridge code to act on it.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 24 ++++++++++++++++++++++++
+> >  1 file changed, 24 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > index c9fe6aa3e3e3..7c294751de19 100644
+> > --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> > @@ -468,6 +468,28 @@ static const struct of_device_id dw_hdmi_qp_rockchip_dt_ids[] = {
+> >  };
+> >  MODULE_DEVICE_TABLE(of, dw_hdmi_qp_rockchip_dt_ids);
+> >  
+> > +static const u32 supported_colorformats = DRM_COLOR_FORMAT_AUTO |
+> > +					  DRM_COLOR_FORMAT_RGB444 |
+> > +					  DRM_COLOR_FORMAT_YCBCR444;
+> > +
+> > +static unsigned int __pure drm_to_hdmi_fmts(const u32 fmt)
+> > +{
+> > +	unsigned int res = 0;
+> > +
+> > +	if (fmt & DRM_COLOR_FORMAT_AUTO)
+> > +		res |= BIT(HDMI_COLORSPACE_RGB);
+> > +	if (fmt & DRM_COLOR_FORMAT_RGB444)
+> > +		res |= BIT(HDMI_COLORSPACE_RGB);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR444)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV444);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR422)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV422);
+> > +	if (fmt & DRM_COLOR_FORMAT_YCBCR420)
+> > +		res |= BIT(HDMI_COLORSPACE_YUV420);
+> > +
+> > +	return res;
+> > +}
+> > +
+> >  static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+> >  				    void *data)
+> >  {
+> > @@ -521,6 +543,8 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+> >  	plat_data.phy_data = hdmi;
+> >  	plat_data.max_bpc = 10;
+> >  
+> > +	plat_data.supported_formats = drm_to_hdmi_fmts(supported_colorformats);
 > 
-> However, until now, the synopsys dw-hdmi-qp driver did not set this
-> member in the bridge it creates.
+> Any reason why this cannot be simply set as
 > 
-> Set it based on the platform data's supported_formats member, and
-> default to BIT(HDMI_COLORSPACE_RGB) if it's absent, which preserves the
-> previous behaviour.
+>   BIT(HDMI_COLORSPACE_RGB) | BIT(HDMI_COLORSPACE_YUV444) | BIT(HDMI_COLORSPACE_YUV422)
 > 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 5 +++++
->  1 file changed, 5 insertions(+)
+> and get rid of the unnecessary conversion?
+
+My gut feeling lead me towards trying to have a single source of
+truth for the supported color formats, but upon further reflection
+this is indeed way too verbose and lead me to move the
+supported_colorformats definition into this patch rather than the
+one where it's needed for registering the property.
+
+So I agree with you here and will simplify this by just setting
+these as you described.
+
+Kind regards,
+Nicolas Frattaroli
+
 > 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> index fe4c026280f0..cf888236bd65 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -1269,6 +1269,11 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
->  		dev_warn(dev, "Set ref_clk_rate to vendor default\n");
->  	}
->  
-> +	if (plat_data->supported_formats)
-> +		hdmi->bridge.supported_formats = plat_data->supported_formats;
+> > +
+> >  	encoder = &hdmi->encoder.encoder;
+> >  	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+> >  
+> > 
+> 
+> 
 
-This duplicates a change already introduced via commit 1ff27c5929ab
-("drm/bridge: dw-hdmi-qp: Handle platform supported formats and color depth").
 
-> +	else
-> +		hdmi->bridge.supported_formats = BIT(HDMI_COLORSPACE_RGB);
 
-And this one looks redundant as well, since RGB is supposed to be mandatory:
-supported_formats defaults to RGB in drm_bridge_connector_init() if there's no
-HDMI bridge in the pipeline overriding it, while drmm_connector_hdmi_init()
-errors out if supported_formats is unset or doesn't advertise RGB.
-
-Hence I think this patch can be dropped.
-
-Regards,
-Cristian
 
