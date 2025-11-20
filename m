@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9590CF64BB
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 07:19:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE617CF64BB
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 07:19:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F7C310E6F4;
-	Thu, 20 Nov 2025 07:19:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 347F910E6F7;
+	Thu, 20 Nov 2025 07:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U3Ytj4h/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n1DoyOht";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 050F510E6F2;
- Thu, 20 Nov 2025 07:19:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 510E710E6F7;
+ Thu, 20 Nov 2025 07:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763623165; x=1795159165;
+ t=1763623168; x=1795159168;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JSH6v7LXfwai7te/y+VsIWMIfH3qRfrXiYBWCZ38/iM=;
- b=U3Ytj4h/VHMBAAgs5djnn6A9Q+OlWwzj+fIC4eoZTQck9f6MexL/6G7i
- kRp8JGIyLXkf8bTPckeKRV1e56iM1LudndEUWnxrWoeHd2qO8JvuMypdY
- yyr0TjsBgnjPLdvytmX+joGB1svSu3TGNnhg3KLCvP6+tzaQxIJ73RYv3
- r6z8IkpPuEj3abVZ4WnBkrmLaAF77JjlJkrZi/jnMWgFYxvj3wB33sz2i
- 8/YdEuMdLuLCbQMxQgp59Yb46Lq/zQpeAg3+W5cK/406qgrDh4sCmKEhr
- pNHcj2GTZGEwMS03wnET285zUQFlF50OBDtYjvinJgQh7riqrkb4o3Hwh g==;
-X-CSE-ConnectionGUID: AS87oHBPQdmCz09/BFyG3w==
-X-CSE-MsgGUID: 8Oa6NkXZTeCvCEmQf1vrAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="65559094"
-X-IronPort-AV: E=Sophos;i="6.19,317,1754982000"; d="scan'208";a="65559094"
+ bh=gZ2lnzUrbWJiIQ879feveCLRv29TbNmOQvslKeGs0bs=;
+ b=n1DoyOhtvMOwush10oRgp/cCrsZOy9fB3rjM7Lb1T8xbzYM9u2e5IGBd
+ 83C65soovc1Cbl/STVq+6MG5BItET/6KE3xFTUZrGk0f+UXwpttufMjBo
+ pto05NAWdTSv0sZiLRZ2DhR/5Yd3h7ELVs9IdHj1yatBvs+2aeEbGGLm7
+ TilpbwEVJSQ5ZjOAJMFf2S3VErI5WvS+zR3Ykot1AbL/t1fLnRRtAweDi
+ 45pU9fSbxZNcegax0EkEXOV3XqBhj8RLZdnvVUEKBsYl89DivaA2flxZ/
+ QloHBjqwZBdzZW9HCKKM8TgTF/h9PqqRVLjp2TJSVls28L77uBUA8hYjU w==;
+X-CSE-ConnectionGUID: GMZr7ZQCR7yP6NaUF/YVfQ==
+X-CSE-MsgGUID: nb897fVWS/azwsvtjmaPKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11618"; a="65559101"
+X-IronPort-AV: E=Sophos;i="6.19,317,1754982000"; d="scan'208";a="65559101"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 23:19:25 -0800
-X-CSE-ConnectionGUID: pefAoMJrTTG8ovbuc0O9Sg==
-X-CSE-MsgGUID: 1MsU28EBSuax1goZ035qyA==
+ 19 Nov 2025 23:19:28 -0800
+X-CSE-ConnectionGUID: X8MwM53/ROuK9zmxhvRQCA==
+X-CSE-MsgGUID: Wf+VOyXyRG+PztzHrmniig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.19,317,1754982000"; d="scan'208";a="191073621"
+X-IronPort-AV: E=Sophos;i="6.19,317,1754982000"; d="scan'208";a="191073631"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2025 23:19:23 -0800
+ 19 Nov 2025 23:19:26 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 03/11] drm/i915/dp: Move num_joined_pipes and related checks
- together
-Date: Thu, 20 Nov 2025 12:36:31 +0530
-Message-ID: <20251120070640.727040-4-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 05/11] drm/i915/dp: Refactor DSC BW calculation
+Date: Thu, 20 Nov 2025 12:36:33 +0530
+Message-ID: <20251120070640.727040-6-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20251120070640.727040-1-ankit.k.nautiyal@intel.com>
 References: <20251120070640.727040-1-ankit.k.nautiyal@intel.com>
@@ -69,59 +68,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move the calculation of `num_joined_pipes` and other constraints that
-depend on it, into a single block.
-This groups all joiner-dependent logic together, preparing the code for a
-future loop-based evaluation of multiple joiner configurations.
+Switch DSC bandwidth check to use explicit 64-bit math and kbits/sec units.
+Use DIV_ROUND_UP_ULL for required bandwidth making it safe to allow
+available_bw >= required_bw (exact fit).
+
+While at it, drop the unused output_format argument.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 66f469af4b7c..6748cfc9932a 100644
+index 97b4894b1efd..94fe8ecaf4bf 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1523,20 +1523,9 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 		target_clock = fixed_mode->clock;
- 	}
+@@ -2008,15 +2008,24 @@ static bool intel_dp_dsc_supports_format(const struct intel_connector *connector
  
--	num_joined_pipes = intel_dp_num_joined_pipes(intel_dp, connector,
--						     mode->hdisplay, target_clock);
--	max_dotclk *= num_joined_pipes;
--
- 	sink_format = intel_dp_sink_format(connector, mode);
- 	output_format = intel_dp_output_format(connector, sink_format);
+ static bool is_bw_sufficient_for_dsc_config(int dsc_bpp_x16, u32 link_clock,
+ 					    u32 lane_count, u32 mode_clock,
+-					    enum intel_output_format output_format,
+ 					    int timeslots)
+ {
+-	u32 available_bw, required_bw;
++	u32 fec_pixel_clk_khz = intel_dp_mode_to_fec_clock(mode_clock);
++	u64 available_bw_kbps;
++	u64 required_bw_kbps;
  
--	status = intel_pfit_mode_valid(display, mode, output_format, num_joined_pipes);
--	if (status != MODE_OK)
--		return status;
--
--	if (target_clock > max_dotclk)
--		return MODE_CLOCK_HIGH;
--
- 	max_link_clock = intel_dp_max_link_rate(intel_dp);
- 	max_lanes = intel_dp_max_lane_count(intel_dp);
+-	available_bw = (link_clock * lane_count * timeslots * 16)  / 8;
+-	required_bw = dsc_bpp_x16 * (intel_dp_mode_to_fec_clock(mode_clock));
++	/*
++	 * Available Link Bandwidth(Kbits/sec):
++	 *  = NumberOfLanes * LinkSymbolClock * 8 * (TimeSlots / 64)
++	 *  = (NumberOfLanes * LinkSymbolClock * TimeSlots) / 8
++	 *
++	 * Required Bandwidth(Kbits/sec):
++	 * = Clock(Khz) * FEC Overhead * bpp
++	 */
++	available_bw_kbps = ((u64)link_clock * lane_count * timeslots) / 8;
++	required_bw_kbps = DIV_ROUND_UP_ULL((u64)fec_pixel_clk_khz * dsc_bpp_x16, 16);
  
-@@ -1545,6 +1534,17 @@ intel_dp_mode_valid(struct drm_connector *_connector,
- 	mode_rate = intel_dp_link_required(target_clock,
- 					   intel_dp_mode_min_output_bpp(connector, mode));
+-	return available_bw > required_bw;
++	return available_bw_kbps >= required_bw_kbps;
+ }
  
-+	num_joined_pipes = intel_dp_num_joined_pipes(intel_dp, connector,
-+						     mode->hdisplay, target_clock);
-+	max_dotclk *= num_joined_pipes;
-+
-+	status = intel_pfit_mode_valid(display, mode, output_format, num_joined_pipes);
-+	if (status != MODE_OK)
-+		return status;
-+
-+	if (target_clock > max_dotclk)
-+		return MODE_CLOCK_HIGH;
-+
- 	if (intel_dp_has_dsc(connector)) {
- 		get_dsc_slice_and_bpp(connector, mode, target_clock,
- 				      num_joined_pipes,
+ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+@@ -2064,7 +2073,6 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+ 			} else {
+ 				if (!is_bw_sufficient_for_dsc_config(dsc_bpp_x16, link_rate,
+ 								     lane_count, adjusted_mode->clock,
+-								     pipe_config->output_format,
+ 								     timeslots))
+ 					continue;
+ 			}
 -- 
 2.45.2
 
