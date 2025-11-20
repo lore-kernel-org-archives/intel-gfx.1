@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2521CF9C77
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 17:24:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CD10CF9C72
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Nov 2025 17:24:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C6DE10E79D;
-	Thu, 20 Nov 2025 17:24:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E458010E798;
+	Thu, 20 Nov 2025 17:24:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Oa0nfwWA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h/hE0SLL";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AF3110E79A;
- Thu, 20 Nov 2025 17:24:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6168110E798;
+ Thu, 20 Nov 2025 17:24:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1763659478; x=1795195478;
+ t=1763659483; x=1795195483;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=Oq/pRMjTIWWIkRdaQdj5cHyHEaKFkyoJONJwlbr0C/s=;
- b=Oa0nfwWA5pAiGNF/dShzeEI4iJvZ/pYLDixIr/Ju0K6KIdgnPWHqVPXi
- 5U3qecqUm1s+rP/0mWzIB32RLUTXjk4HTBZMviNWJxDj96nj93Y2Gm0pN
- axSI6Mxtl0j5sCgjcl4P6jrQaM+Yj4OEv3zJ8m33BVkk8TeXZUmL5Vqo+
- E3DQeT4mY39BH0WWAYK6vtb3Pc/Wb4X7LBMXf00riYMOgFfQfgOGUDVma
- 46WmDHRWw9aOR3Ix9GEbOObPy+AAQJtJPOevD0U9dAH7Xp/2DrvjVthXL
- aym5faVzX5ktVrhlLTCrtT1Y3uaMwCm3HioO+7EMVePJyIyeR1k1zcDdG A==;
-X-CSE-ConnectionGUID: FdCygyI7REK+TwKAbiLPMw==
-X-CSE-MsgGUID: wDixBhBXRMqcNgDztYPj9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11619"; a="65767751"
-X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="65767751"
+ bh=NJyX8iTczhSLdU0fTBUPC9pKLVxjy1N6XFBPqjA7j8c=;
+ b=h/hE0SLLnJuaw00AjGe2t1458DCQBCoKgjfCy+DkRUbstAkZ0JLSLKvz
+ WkPmnsBwuIxpsitxpY9x/hxhmS+qExKvKrCrUxdsGFz078m2phCbeo8NN
+ rK1bQqkKoEzy7jo6ZJ6ouQZJAJ1TcA9Hy0NgQSy+Ue7PNEKxMxJSNVqw/
+ nsDxybMiDkWJCPTjL3UtSGNjZghCKObcW2yduWssvSI9E0n8iRkkvDV9T
+ MmjkS2OjEgd0y5O7YnjgItoxFkYZDBm829Y5vQOMCBY1AiON1iARoK1iz
+ FFcCbeNpjGd8TlO6MHKM7oGShjjDRfHs6oi1F1++L9s+lhYfISxtVtzD2 w==;
+X-CSE-ConnectionGUID: J00pwAoxQ/+Ll1PCDSokGg==
+X-CSE-MsgGUID: wqUUmYhkSamYXqN+D/jXMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11619"; a="65767759"
+X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="65767759"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2025 09:24:36 -0800
-X-CSE-ConnectionGUID: T7cjBjkmT7aPwzMkbiz2RQ==
-X-CSE-MsgGUID: 2id5sXgxQpi29MsOOaPIgQ==
+ 20 Nov 2025 09:24:38 -0800
+X-CSE-ConnectionGUID: CCheJoIgSsKjVBCXQByGXQ==
+X-CSE-MsgGUID: FqR3dKF2SX+mrKeH86vOsw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="195728074"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+X-IronPort-AV: E=Sophos;i="6.20,213,1758610800"; d="scan'208";a="195728089"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Nov 2025 09:24:34 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ 20 Nov 2025 09:24:36 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Thu, 20 Nov 2025 09:24:33 -0800
+ 15.2.2562.27; Thu, 20 Nov 2025 09:24:36 -0800
 Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27 via Frontend Transport; Thu, 20 Nov 2025 09:24:33 -0800
+ 15.2.2562.27 via Frontend Transport; Thu, 20 Nov 2025 09:24:36 -0800
 Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.36) by
  edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.27; Thu, 20 Nov 2025 09:24:32 -0800
+ 15.2.2562.27; Thu, 20 Nov 2025 09:24:35 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hEVBHv524qulv9ZeTPmmZXfCtEeOnu0Ly6NrBJHl3JVrfZ2NY1qTxG3DHCAlX9WvSjmapnlbHaV3u0EQFRcbwSyxq4i6tcasosUK3GL2Ijk+E7Fm2H+rkRAnlThcplpddcML9wcvh/gPiokGRft26QjojbPDdIQxhDcW7+kRvfR1l38U/br2zr/tp+WCKe6gRWUN4FnJKvq6mi+lw9bVS4mkAQ4Y156alTa6X+lVWZ41bNx1M0eV2WfVP7sHHi/5lGX97W3M8qqJyn7A4hzskfkJkDj6ZEVb0Mt7oxfRjunKMU5QtngZEbllb1+wPy3Qrqw+DPS7TbsIjclPyBnzTA==
+ b=U0/z+eahb0NAs/B07AvqVSnsMs0tjna41LXZAuw+JpsZBsBcNDaVBLnNLIgtu1zZ97midt2H/blV2OyWFVmjFtjkUR03WM1WOr8kIwisgolFU1YmQuW14BqdhAU9rMd19WVYmqpgMdn3YGyW5XX0nubCLpWCNAsSUIn8WuCSMfUyxyK+hiZGzf0QgZpAni7ZvGegVlEc8HoS35Hl300I+QFWOrVeJRhZhfAPnvkTebUjJfGXUkdzg4LAt+fka6t3+cfZjKMHYubX2I8qr3BD1JuZoGBKMZMGBFzDv3yj0WZ+21bsTgXFqK6t5/dyKRuNBSKaIljtKt9Vn7kbYwJ49g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7EP2siYmz/LH+WQE5XZ+Q/YWDi8yzvnu8QH+P60BtUc=;
- b=R9wujTbtodDY6IEsWV4VbUA4GTsF4cbQ/cFfrx9Dlx/RStEkVsEwWoho/lSM0zdV05DPSbpy4jEN4XxuiK4njZbHIjKxZA4LyzUgjfExjaSIEEO0QZS7joA3BVfoXVZXf7Z4mKZZ3cwOxfW8h+HX8ZtkbQ7SIQKWSvgfVVzwnX0ISi/qp19QQ5oSOC+rXtaCk32IK/L2NJue2bb/GZp4W7UkSiI5brihSCji2i9BpkSdjnMcZgHQIIJhnmJglRJURPLA1yMEOjQiymQ99rJke1fTV5Q91tdSXbilN0FL69zOzP6V/ZRLCUTHr4XDi8+feJ6UovSoWMwvPB8ZTAwSrg==
+ bh=g5PPazp5r9c6rqlB0QRhjjJjWYa686+AH0i1Yxsr3yU=;
+ b=qO9SUOSHavwh+2gjBWvBHzCsLb+RtOOiP3jZV6R525U2SA1fWdn9ZGowCrzbaxDZZrPbSnfugRch384/gn9cWVCsWmW+quQwhJ+JfGSKU2+M0wqCLnA/RugNTN/6TsQpNjgGOf/gslQx/TgOgBSyGCK9CVmqSx8NdINdCayUAhegyEWhwvCP5SZLobdNCBj3FUF9egEl8FkjJZEF7gBTRo2BTtD4wMUzbITsnglH1+/gUxkVIyVQs6tOj6C4jzDQe/Q9XidolUaIZJMkYWmsp/xHsid9HwTsIf8ofbQDxV3SgjBhg5glksePNWQIYZdvbZzzzPqdKlmLDpPqm0hruQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -69,19 +69,19 @@ Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
  by LV4PR11MB9516.namprd11.prod.outlook.com (2603:10b6:408:2dd::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.11; Thu, 20 Nov
- 2025 17:24:26 +0000
+ 2025 17:24:34 +0000
 Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
  ([fe80::8900:d137:e757:ac9f]) by SJ0PR11MB4845.namprd11.prod.outlook.com
  ([fe80::8900:d137:e757:ac9f%3]) with mapi id 15.20.9343.011; Thu, 20 Nov 2025
- 17:24:26 +0000
+ 17:24:34 +0000
 From: Imre Deak <imre.deak@intel.com>
 To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-CC: Suraj Kandpal <suraj.kandpal@intel.com>, Mika Kahola
- <mika.kahola@intel.com>
-Subject: [PATCH 2/5] drm/i915/tc: Add separate intel_tc_phy_port_to_tc() for
- TC DDI/PHY ports
-Date: Thu, 20 Nov 2025 19:23:55 +0200
-Message-ID: <20251120172358.1282765-2-imre.deak@intel.com>
+CC: Mika Kahola <mika.kahola@intel.com>, Suraj Kandpal
+ <suraj.kandpal@intel.com>
+Subject: [PATCH 5/5] drm/i915/cx0: Read out power-down state of both PHY lanes
+ for reversed lanes
+Date: Thu, 20 Nov 2025 19:23:58 +0200
+Message-ID: <20251120172358.1282765-5-imre.deak@intel.com>
 X-Mailer: git-send-email 2.49.1
 In-Reply-To: <20251120172358.1282765-1-imre.deak@intel.com>
 References: <20251120172358.1282765-1-imre.deak@intel.com>
@@ -93,75 +93,75 @@ X-ClientProxiedBy: LO4P123CA0268.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|LV4PR11MB9516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98fd3705-707b-4951-c403-08de2859a757
+X-MS-Office365-Filtering-Correlation-Id: be4184d6-1a2c-41b6-9a6e-08de2859abf9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0; ARA:13230040|10070799003|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?HpNAc40cgXrDFk/m5ny7tydRPDSK+tj2D0C3MmdTIBwSMGxHs+chphwoB2tW?=
- =?us-ascii?Q?JRPs4TslaGoZmoKnFyCxyJcb16bxTkS5RuS/zb7PDHYktrpKRvFG1yPJ5eM0?=
- =?us-ascii?Q?+2qh0BuDuJr6qLHy7cwGVOvu3UYEf/eFGvnIOPYmHOrGhFtnXZ0oBWM8x5W3?=
- =?us-ascii?Q?x6lSmxrj5KuwQuBMwUGD09qh/l3vavylYiWIRVZdqGg9bjkRIMVFRSaU9Awm?=
- =?us-ascii?Q?i0//QjGBv0G29OWskEiKEK3yrqNjVy2XAAgwrCNGv0bUInlMaD9nF0c2Tqpf?=
- =?us-ascii?Q?n9FhHGniWkt1PQitMWaEiiGj9DkEEv3rmozPgG0HBxTlF+DeD15CjN8wlZvU?=
- =?us-ascii?Q?NCqCigwUkPI0V6X+4+87FBZmcGS8e0I/dj9Q1J7pg59910kADnmBip1ouKWI?=
- =?us-ascii?Q?XnrwHmZzrMUMNcpWlqQETcVKvVFKnhcLzpugDjeS+y921iKhANWbyY4coCz5?=
- =?us-ascii?Q?rzCHeOd4saHRebw6hvLi7mS6Kbo2WkpEHK5liYkNgi1ym0c/Hx9hX6FfAXpe?=
- =?us-ascii?Q?G1m1WuNrKolwjx06rxpBCcPMDmC0aHFG8zZodcM4fl6vImI7qtAPmt2PGqIH?=
- =?us-ascii?Q?BvX52FD+cJAN5/T6CBN/BDfeT4e3XjiF4kGJZGP7/9XQldImB6jfuDYzLADs?=
- =?us-ascii?Q?NWOn9Eani6safrOduSAZSnju2A2Q6XfKx++7TeLTdeNsazQ5iUcX11W33hhI?=
- =?us-ascii?Q?Xs7ZaHKzbQpX62fLDc6QJa7Mw6F0Rq9HejjoN7lUPVflFoMORUF3CBVMmav1?=
- =?us-ascii?Q?f/XANKjQ25lBw5ZBK90C6rZtYzia6bVn9C386e+piXGI4C2ykseRfsEJ3EqT?=
- =?us-ascii?Q?ZbOVi7Ldy4zzTvSh8ZP8oCg+Mr+UJd/F2YsHOAJIGUFYVKtVrpP7hAZBCpgi?=
- =?us-ascii?Q?pBA21ZNaFELAe30Wh9qoBLLjwBJd4qea+BooBkJeeaUyQ2lI5f0pgNAaCJwa?=
- =?us-ascii?Q?/ggduXHWgW3nB1QanMp9XsxlXdVxkpsnEVFi3pD22Ht5YIeL3GJ+BQOY4cMN?=
- =?us-ascii?Q?V1SSd6fJ/Sx4auqo5EvqONW0R5EeVUArTUjGn3hzR2wJdMQzt6RCisl1JanK?=
- =?us-ascii?Q?Rlc2FEa/zJHs45R3kStqtw9fLwn9yGNBshNoFQxFGxmxw+QkzuA//jp1IJzD?=
- =?us-ascii?Q?nozt3Jxt1yH4LuiIHfreu3tZtgHPGrHNYjUulExy/8+2/d/7pRkPqkRBU6/I?=
- =?us-ascii?Q?nQnyrc5MGqAGrXjE8zClb+jMG4n3aOEZvPWN29x+buaQcFv2mhtbmXX/RXeO?=
- =?us-ascii?Q?upQsUtq/HukktyNTTw27cwF/Ccp2s7e0qjZnGTVIAI/JGytU7zc6g6gVx888?=
- =?us-ascii?Q?3w9fL3SaOFCSwgiNbfT4duaCv056SVk1IRbTMdEUC68umGV/HrnyEkER1lP+?=
- =?us-ascii?Q?5qOewrhXCR9EA8PsvUtiVT8h39S12kiQMQgDPJW0QFaDt/fbCxUOliKvT4rl?=
- =?us-ascii?Q?ZHjdCoBo/SD49zZm1X1BCycegPe1ryHW?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4yY+tCdD7cyiQOyKvYR/ihx0HvQ93fRwS2OnNoDDlu+76EWcftfRKkGPrDiS?=
+ =?us-ascii?Q?UBNM+jiPva9XWZBGIM/eBxub7tJhZKmnv2i5ffn9Qa6uOSlFpzD2JHqrIrPE?=
+ =?us-ascii?Q?WjXTh29wHiTY2ylkMUvk3EfKKQHThIX3jeusxseA+DPU2JPZvQdpQ2QN6crT?=
+ =?us-ascii?Q?MZFCMKcmsbMCPsZ5p1UizNNCjOu+zVDpGGoeOvXYNvPz88b24FawmA1CnRfw?=
+ =?us-ascii?Q?I4REUcGO6jYB3Y6jCcKGmEdBhfeEz7pjckqWd3oOOp4CqCSz8oG81SAEMgGF?=
+ =?us-ascii?Q?CssLOUrEc+2+xSriS1ag1uO4EadEIcUctY8OFD/qbCaoDFosj29/yabktpG0?=
+ =?us-ascii?Q?AsdO9uvqiJ9WpFYyvHknG17TvVVtD8q5aLS1NRlIFO2G/Rt7qmVT8L6xtkoy?=
+ =?us-ascii?Q?L2ttPhGwOb5u1NHRz9jTx+BqLiWOKD0c8n59bZ09e8RQudgPrEN30uQ6Ja5p?=
+ =?us-ascii?Q?nKGcO12bP53yGM5mj+MKenV7VjTbwA8N2xZarUJyZdWN+9TWZBlL+AXd9O/c?=
+ =?us-ascii?Q?Lm9yb1WNahQLJLj3JIkxk7Fo3mVw8AKfUwTyC9ShiDT+KLsnG1EIDyFcnOQ1?=
+ =?us-ascii?Q?qP+oGFenkx1mKmIztyuC+4sVD2uGXfx63wVHfj8FOUGNmdiu7m2RQTNDW82A?=
+ =?us-ascii?Q?Prx6mIPsrbRuHnwgFCaTeoyUPuKzCB5kGztFdvchqQf1p1NozioI6LF94u4s?=
+ =?us-ascii?Q?NxnGAC3Ukx0yF2yKkUDHsAJcQkimMevpviaHK1M4YY+AYWHdpKSzqqlCM3Ld?=
+ =?us-ascii?Q?ZQPwcOpd+J1n88qnXP+O1reAxz1tthOiTbeQI8TyC0cqgACGAQZQFcZgSFAM?=
+ =?us-ascii?Q?oFPfdGvUkjo+An2y7+HGTAtLvCQk4j9mJk0VpGkF5Cp/Phm+Y1aOv1/eW6Q8?=
+ =?us-ascii?Q?QsX8kkeHfpsM2TrGo8PyRghXjNphbRFFExKPK/i2eBT3Yxb099pKPmlQnC+Y?=
+ =?us-ascii?Q?VJHOrNW1RcSD64hyy3NnbC7JfGhVN4SwEJTTj28Cr22o69yLx3MF0gyrKs5A?=
+ =?us-ascii?Q?3AY3w/rxKfUVnLdFjEQEavfRRDAep1SRsUx1YICIgIDrpKRtuml+p4lh4d5M?=
+ =?us-ascii?Q?jqGQcgXE/NwSS7ZinI4w8lUBIqBIZiF3HZa2bfflLzGfn43mMj/KhG+dZl1m?=
+ =?us-ascii?Q?jXmxkkE1mTwcay4NTsjG5etNK5OLvBj2WYBa/9TIWrHst9OrZgUSRnq9jV7+?=
+ =?us-ascii?Q?VA/E9yTvo/jzQjzmbakqnvSGugUcMRuiEn1ogzCvmvSaqZ7MxDG1wzNjsIB9?=
+ =?us-ascii?Q?xTODKrN2OG6K1EaiUPA64c02plKDhh/S8XUfF/Idan2hQ69TnFy12q9T11AX?=
+ =?us-ascii?Q?tOZNyGJ6Fby+MvsfpfCzab8zjZeRjfvMp986cSCh5KXlyJ22UGrF6Q8B9kxo?=
+ =?us-ascii?Q?GdTU86OtmVROiJIQzp5Fs+/pKHoDq4XgjwO5ubQ9o7c1xbimM2xj/93WoOzu?=
+ =?us-ascii?Q?l3ChPsKnrnhwb1L+esW5l/FEWNtCCHWo?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(10070799003)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?xkMoSsCjQ+5CK0pATyJQbAe911ZxJixvy+CEZV3N5hieTQD8NsxEUk5gg/vF?=
- =?us-ascii?Q?MEAZ9iuyJZxs6rEhD2W/gw6IECpkb0a2YqtEw78gaDQIpRLrcwurFyXqFksH?=
- =?us-ascii?Q?7b8Fh8FEuYfzYM/5abWPuvdfqqYsn9amE9ZkeXj+ax94MaJzUAFt6hRjV7nV?=
- =?us-ascii?Q?NIrpTTAp9rH/c/0htQnztMQuKfvoNbD8f7FXkov1dHjers5v9itVuXTqEOWu?=
- =?us-ascii?Q?/E2zeVgUiH/TysyGNhTB2U2J3CRUkRToQyCNTmTYyVRQpsDfpAbF3E9TXeXt?=
- =?us-ascii?Q?rF2bDLRySIl8Y6g3pJm9uvkx7PLuJHLuNfWkmf8j+866MC2iuDtXBYzvxvkv?=
- =?us-ascii?Q?6oukWkCkjLHxNFHltpp+Nt7+kHbcEtac62/tF2ddwNoLy0OuQ9fr24RY8lyy?=
- =?us-ascii?Q?dXG4KQGfgQ+3vwNJhO8CiDBxIPHIkZ8yKVPVQAFLK4TS9l9jZEGdWv1gBTXY?=
- =?us-ascii?Q?JgR3f9JmnEYJZQa1DTgJDPjVpWvzrRQ7rKQsz5WkOH/t5uumZvTbm3YnSWQ8?=
- =?us-ascii?Q?1779U0mssdkdyriX3AIKIt62//OFxpSBw3uSfHoL/DVvw2Rkaf/v1L8DmCbe?=
- =?us-ascii?Q?r8RYCLHvi1vRFF/8XP9+Xh0wGsYzbVJx9JTQmGAsHw5CDbsP/n8jD3sTfCcE?=
- =?us-ascii?Q?3GMMybHPh8jRXDbufejfOewO9kdf8gyglkeN5QL9BhHI1Msnio5VrEFGO4yo?=
- =?us-ascii?Q?2Njc6q9JpzfL+ldzEi1cEaWkfJvM4F/IiBhUZdrYcarG9iONGGe8ylO1PInr?=
- =?us-ascii?Q?TlrxNZXtveSkR0XslkK90HTB+f/k6b0Yq9yYpG1l6umms2MtZvdtM8FxSa5p?=
- =?us-ascii?Q?CosG8znkS1FEH5hOofsd3QCbJcV0GNGvCK6EjIEF57uxJvOWxt3gUw1hcGzg?=
- =?us-ascii?Q?AZf5SR3rPHVbIoAvqu1+v1TouU2fBtxE7hcDDLXFMKeDgK9PlaqbE2+GBCUN?=
- =?us-ascii?Q?qz+KWfm1PweT3nzwjoOPds1iJ0QP00AGyrIMESnED8PcawN6ldE4iZkewipU?=
- =?us-ascii?Q?4iF57M6ynSteMwadiMaVJADm6vO2EGxwt/uixJuT8lbUzWVdTKOMCNfVACKH?=
- =?us-ascii?Q?C8yAyO0p7xIvt8VJGEYujYtq2wN4XMpu1ADK8p2loGDdcpvwvg3SOW92oRoP?=
- =?us-ascii?Q?DJeDasILdVdsisvAi5tBY/SvNgilImCzvr6ZyWpn8rseHKdrLMbKnVkAybEr?=
- =?us-ascii?Q?Rd+t+4ndoNdMfbdc0z2xxgSkVQK8H8jytGv5YwupT7xWx8h7l0uw4IrEnANq?=
- =?us-ascii?Q?Ol0oBNPThtFXk0+w8YE19T75vR/SJGE1ALndgv6gCRUyTJmpxpuCp8Et4Gt5?=
- =?us-ascii?Q?PfPyAxCpIvheJgzPudsHKozrUSOpiCNLPK1L1VYtTvZGUDINGrGGl3d7PFYK?=
- =?us-ascii?Q?nSCGJSIy/96JqGO1+IROMDE6jHF8MVg7TC58Fl3dVGSy5tZE5/SC5Ur7k9eA?=
- =?us-ascii?Q?mUkBKmbRi70dHxQkaFtJ1ZNhJumbImJLTSoMyT0JcGRpJsuuEJaNemFwtIxE?=
- =?us-ascii?Q?GArbY3EO+taw370feunNuGdTszqfr5n79i8h1386jZv8oTHnrt1RYwMxSsLW?=
- =?us-ascii?Q?r1mRAxijLkBE+V+vxB05JfKEm5sWmt0MK3yZOrlQ8ORUD/WUeDJsTipxrC33?=
- =?us-ascii?Q?yoq0w9LUFMjeKMkkSoXlgIh02HQ4TU3aXYeYn3OnAh31?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98fd3705-707b-4951-c403-08de2859a757
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?M6O78cXeQ60VOdGHUer6ErZtVbtvr+KFdLGpP3849IjWzFhViAGROq7DiAnM?=
+ =?us-ascii?Q?eYFh5rAtwzPm2OnO+v4zGQ6k5Ilv1x9uGCVALnUwz2Y8wmBup7lZYziF/7ST?=
+ =?us-ascii?Q?Q/KFyqdScTe3DVdhK36rc1rIF4WX4GTq4ME2sDSbXnLakZVOG30IB45yt8pc?=
+ =?us-ascii?Q?ROESLpUctxWfZdQX24kCIQnEg0MpkOVAUOPV/6sqmGDzo12YrEEy+zbUseqA?=
+ =?us-ascii?Q?C92xcz1SRg445/s2NlAQ/ICatduPY5d53D6rWBlKpHLVjS/3xKpAx0Ins+/y?=
+ =?us-ascii?Q?cIfKq6GswcRFJo3eakh/rqUjxQPI8W18ohq93PCqNRcvOA+G2jb9FezFZzrT?=
+ =?us-ascii?Q?xenkiYQWhP/rZLdVkiF9YznbNdQ2lw3Z7t8xc1+nPVNajtgDJ+OvETMMRBsv?=
+ =?us-ascii?Q?+LiTDCnZ9gIYNVCejiQEikqUVMucaNc03rDKOTzVd4DVRu/sDFJ9GfPXjeqt?=
+ =?us-ascii?Q?y2k6QwERAx0jFJz5Zqd3KA1tV478Z5jnLffmDcR9R8QsbXMYt2KxyspaDaNu?=
+ =?us-ascii?Q?gcVRQS9qo6wSscIiAsNxfqhvnpnshTeI5uyesUJKIHbzTBLJ0jTBD9FXJob0?=
+ =?us-ascii?Q?dviDhFRMRK2sYITzcQQkqfs3oWeJeI7eEoYARsFlkvYvXJDRVwLpapUvTEAY?=
+ =?us-ascii?Q?vjqA30cRNyTcauHzJdsH4h0kFC791aRKclPs2gvSdsqcGT5NVvbKb0oN8Yf0?=
+ =?us-ascii?Q?YzodIfGiqp2uoC+1llq1FIQWKvb4qt5MYtFnNfrEqZIy5WUE0T0XcAb21D2K?=
+ =?us-ascii?Q?8IBCdp6dxf2/k5Bu1x6iuzajoiNGx8L26+7IlnAp+ly9pRaVR3yYENjiC9al?=
+ =?us-ascii?Q?7CTMQhzmD75iDwVGRtRETyJDAeofU9H11+BcE3ff4RrcwjjkEECAkpP47xZn?=
+ =?us-ascii?Q?+QDHVbO1+lEhHSmNLg3telfP7vA5tl3i0d+XLa4c2+eiuOyAentLZ+kQxL9r?=
+ =?us-ascii?Q?UY3UVhqMqFdIhf+ffboiBrJUQmZqabyv1Uy0THwv5ztohtp+2snm7VfVQqA1?=
+ =?us-ascii?Q?jxTbNRyopRCMwBJI0HWWVY97hWsQx7tkFhxRrS/EeNC1cgKBXgq9F3CAOz31?=
+ =?us-ascii?Q?2cvWEmZdvup02xRC3rg+3OgSxjzqXtnNYsy1sTImQyQdlOzioH/grx1vYbi4?=
+ =?us-ascii?Q?RChqIz2p0jp57mrjCOzDU9aaXaqdNwucQ+QGcsMN6YrIk3aHO8gNGiwlPS/8?=
+ =?us-ascii?Q?ez3oxLO+glcM4hmGPyQC2Z+6mJoXocGz41B21l9eN+0IGv2kRBrj8MET3rIg?=
+ =?us-ascii?Q?YGc1U6TNEzlD7T4HF2Y7NNp/MxjE54XMCUiNs+3S14RwUff4hCY5z5u4kybH?=
+ =?us-ascii?Q?iiF/sZPwO9s7MChdJIp5mEbJKBOJJU5htbnw0qt2J385Coc6B6gUFhKQoeIP?=
+ =?us-ascii?Q?qQV9PfZ0zOdfoXB3Kiv+QcyUVc6LlagfpsXdQzBqvfLlE+Cb0mNPaGmiwhPX?=
+ =?us-ascii?Q?YzaIAxxMPBTeRyc06/5QayUYyBGuNYwqDcfprvx+7Ug2mY7WcvahOlhHS07n?=
+ =?us-ascii?Q?phFwYhbQDMDCUX1CKG1V/ClvJdiPnNvFymsp0hf/wm8gU8nfZbZAaP6Fb9KB?=
+ =?us-ascii?Q?NxUgMhiQBSO3PNUt2xWPtJOgpdwkgqmueHLulWJ2vH6X/J0dUUAPtMoxFMgx?=
+ =?us-ascii?Q?TebjoXUDEz4xy/7NKs+rcB99ioHyHPiizM98dKSJBZPG?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: be4184d6-1a2c-41b6-9a6e-08de2859abf9
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 17:24:26.3947 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2025 17:24:34.1564 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e1mBJb2Co5f6pDDreqN/Utzzbm1SMXzs1QOpqRMQ4bfgYBD5mzFEvlZd9acH6swAhbJ+SqfILeI2lix6DStX3A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5GLo0NOB3tZWsd/wUTWOTBLgC3eKPg20+KCUtRFZcLeQpCU6bqDsL+G+itqPf14KuSiyDvpulSH6ZjF01z20nQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV4PR11MB9516
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -179,109 +179,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_port_to_tc() returns the PORT_TC1..6 -> TC_PORT_1..6 mapping only
-for DDI ports that are connected to a TypeC PHY. In some cases this
-mapping is also required for TypeC DDI ports which are not connected to
-a TypeC PHY. Such DDI ports are the PORT_TC1..4 ports on RKL/ADLS/BMG.
+For a port used with lane reversal enabled the first two TX lanes will
+be enabled in PHY lane#1 instead of PHY lane#0. At the moment the HW
+readout will read out the power-down state for these two TX lanes from
+PHY lane#0 incorrectly. The display HW lane reversal feature (vs. the
+similar TCSS lane swap) is only used for TypeC legacy mode and for
+non-TypeC PHYs. Since in both of these cases the display owns both PHY
+lanes, both of these PHY lanes' state can be read out. Do that to fix
+cases when lane reversal is used with 1 or 2 active TX lanes.
 
-Add a separate intel_tc_phy_to_tc() helper to return the mapping for
-ports connected to a TypeC PHY, and make all the current users - which
-expect this semantic - call this helper. A follow-up change will need to
-get the same mapping for TypeC DDI ports not connected to a TypeC PHY,
-leave intel_port_to_tc() exported for that.
+While at it add an assert to the PLL enable function about the above
+assumption on when lane reversal can be used.
 
-Cc: Suraj Kandpal <suraj.kandpal@intel.com>
 Cc: Mika Kahola <mika.kahola@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Fixes: 230d4c748113 ("drm/i915/cx0: Track the Cx0 PHY enabled lane count in the PLL state")
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c     |  4 ++--
- drivers/gpu/drm/i915/display/intel_display.c | 23 ++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_display.h |  1 +
- 3 files changed, 22 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c | 24 ++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 8471bdab5c62f..ed9798b0ec009 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -5148,7 +5148,7 @@ static const char *intel_ddi_encoder_name(struct intel_display *display,
- 			       port_name(port - PORT_D_XELPD + PORT_D),
- 			       phy_name(phy));
- 	} else if (DISPLAY_VER(display) >= 12) {
--		enum tc_port tc_port = intel_port_to_tc(display, port);
-+		enum tc_port tc_port = intel_tc_phy_port_to_tc(display, port);
- 
- 		seq_buf_printf(s, "DDI %s%c/PHY %s%c",
- 			       port >= PORT_TC1 ? "TC" : "",
-@@ -5156,7 +5156,7 @@ static const char *intel_ddi_encoder_name(struct intel_display *display,
- 			       tc_port != TC_PORT_NONE ? "TC" : "",
- 			       tc_port != TC_PORT_NONE ? tc_port_name(tc_port) : phy_name(phy));
- 	} else if (DISPLAY_VER(display) >= 11) {
--		enum tc_port tc_port = intel_port_to_tc(display, port);
-+		enum tc_port tc_port = intel_tc_phy_port_to_tc(display, port);
- 
- 		seq_buf_printf(s, "DDI %c%s/PHY %s%c",
- 			       port_name(port),
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6c8a7f63111ec..a8a3e80001870 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1859,17 +1859,32 @@ enum phy intel_port_to_phy(struct intel_display *display, enum port port)
- }
- 
- /* Prefer intel_encoder_to_tc() */
-+/*
-+ * Return TC_PORT_1..I915_MAX_TC_PORTS for any TypeC DDI port. The function
-+ * can be also called for TypeC DDI ports not connected to a TypeC PHY such as
-+ * the PORT_TC1..4 ports on RKL/ADLS/BMG.
-+ */
- enum tc_port intel_port_to_tc(struct intel_display *display, enum port port)
- {
--	if (!intel_phy_is_tc(display, intel_port_to_phy(display, port)))
--		return TC_PORT_NONE;
--
- 	if (DISPLAY_VER(display) >= 12)
- 		return TC_PORT_1 + port - PORT_TC1;
- 	else
- 		return TC_PORT_1 + port - PORT_C;
- }
- 
-+/*
-+ * Return TC_PORT_1..I915_MAX_TC_PORTS for TypeC DDI ports connected to a TypeC PHY.
-+ * Note that on RKL, ADLS, BMG the PORT_TC1..4 ports are connected to a non-TypeC
-+ * PHY, so on those platforms the function returns TC_PORT_NONE.
-+ */
-+enum tc_port intel_tc_phy_port_to_tc(struct intel_display *display, enum port port)
-+{
-+	if (!intel_phy_is_tc(display, intel_port_to_phy(display, port)))
-+		return TC_PORT_NONE;
-+
-+	return intel_port_to_tc(display, port);
-+}
-+
- enum phy intel_encoder_to_phy(struct intel_encoder *encoder)
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 0d524735dcf95..27be2a490297f 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -2197,17 +2197,30 @@ static int readout_enabled_lane_count(struct intel_encoder *encoder)
  {
  	struct intel_display *display = to_intel_display(encoder);
-@@ -1902,7 +1917,7 @@ enum tc_port intel_encoder_to_tc(struct intel_encoder *encoder)
- {
- 	struct intel_display *display = to_intel_display(encoder);
+ 	u8 enabled_tx_lane_count = 0;
+-	int max_tx_lane_count;
++	int max_tx_lane_count = 4;
++	bool lane_reversal;
+ 	int tx_lane;
  
--	return intel_port_to_tc(display, encoder->port);
-+	return intel_tc_phy_port_to_tc(display, encoder->port);
- }
++	lane_reversal = intel_de_read(display, XELPDP_PORT_BUF_CTL1(display, encoder->port)) &
++			XELPDP_PORT_REVERSAL;
++
+ 	/*
+ 	 * TODO: also check inactive TX lanes in all PHY lanes owned by the
+ 	 * display. For now checking only those PHY lane(s) which are owned
+ 	 * based on the active TX lane count (i.e.
+ 	 *   1,2 active TX lanes -> PHY lane#0
+ 	 *   3,4 active TX lanes -> PHY lane#0 and PHY lane#1).
++	 *
++	 * In case of lane reversal for 1, 2 active TX lanes, only PHY
++	 * lane#1 is used. This is only possible in TypeC legacy mode or if
++	 * the port is connected to a non-TC PHY. In both of these cases both
++	 * PHY lane#0 and #1 are owned by display, so check all 4 TX lanes in
++	 * both PHY lanes in those cases.
+ 	 */
+-	max_tx_lane_count = DDI_PORT_WIDTH_GET(intel_de_read(display, DDI_BUF_CTL(encoder->port)));
++	if (!lane_reversal)
++		max_tx_lane_count = DDI_PORT_WIDTH_GET(intel_de_read(display,
++								     DDI_BUF_CTL(encoder->port)));
++
+ 	if (!drm_WARN_ON(display->drm, max_tx_lane_count == 0))
+ 		max_tx_lane_count = round_up(max_tx_lane_count, 2);
  
- enum intel_display_power_domain
-diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-index bcc6ccb69d2b5..f8e6e4e827222 100644
---- a/drivers/gpu/drm/i915/display/intel_display.h
-+++ b/drivers/gpu/drm/i915/display/intel_display.h
-@@ -451,6 +451,7 @@ bool intel_phy_is_combo(struct intel_display *display, enum phy phy);
- bool intel_phy_is_tc(struct intel_display *display, enum phy phy);
- bool intel_phy_is_snps(struct intel_display *display, enum phy phy);
- enum tc_port intel_port_to_tc(struct intel_display *display, enum port port);
-+enum tc_port intel_tc_phy_port_to_tc(struct intel_display *display, enum port port);
+@@ -3214,6 +3227,13 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 					  INTEL_CX0_LANE0;
+ 	intel_wakeref_t wakeref = intel_cx0_phy_transaction_begin(encoder);
  
- enum phy intel_encoder_to_phy(struct intel_encoder *encoder);
- bool intel_encoder_is_combo(struct intel_encoder *encoder);
++	/*
++	 * Lane reversal is never used in DP-alt mode, in that case the
++	 * corresponding lane swapping (based on the TypeC cable flip state
++	 * for instance) is handled automatically by the HW via a TCSS mux.
++	 */
++	drm_WARN_ON(display->drm, lane_reversal && intel_tc_port_in_dp_alt_mode(dig_port));
++
+ 	/*
+ 	 * 1. Program PORT_CLOCK_CTL REGISTER to configure
+ 	 * clock muxes, gating and SSC
 -- 
 2.49.1
 
