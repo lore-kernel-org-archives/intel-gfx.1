@@ -4,61 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26220D0EE0F
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 17:18:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E34D0EE0F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 17:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B505A10E567;
-	Tue, 25 Nov 2025 17:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1C710E56B;
+	Tue, 25 Nov 2025 17:24:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="faz8MWaJ";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kttSZiFW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D5DD10E566;
- Tue, 25 Nov 2025 17:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764091082; x=1795627082;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=aHgf2cW3VZ8VMDmLnjGOE9JEUeHAHHErnZi9f71luSQ=;
- b=faz8MWaJJfMshOnTs7ZCoQkN3ih0fWxvxxSVl7F/iJTfjdQBa89U3+Kn
- 1Z1yIPA0G0kC1CAPHSrRD1SBaCjpnrsPJr7B4UEp+upwcVj7yQigvN427
- s89BXWQy0wjrmESmSnwQTqiqktYUGZne4RTgg84mWQBtpA+rcPv70PrzW
- IxUsrEEOOPaaTYndnf93tiia4o8SeIcQXhL8Eglj31p0rUs9KWoLhJ4Kj
- ED/WsgtFNUPgTGjrtSuJA3JPmDySjup9xIHfOVCe34h23aZ5MdSHIUeBb
- HqFensx/Pkpv3Y3zOzQN3FIaQwKxXZa2ESabp9lF+bDh38vt9X9eU5/QO w==;
-X-CSE-ConnectionGUID: kxZ26w4MQy+Osoe9H0Xl0A==
-X-CSE-MsgGUID: z8nK8t9PToyYyN5hXEpGMw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="65116527"
-X-IronPort-AV: E=Sophos;i="6.20,226,1758610800"; d="scan'208";a="65116527"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 09:18:02 -0800
-X-CSE-ConnectionGUID: a8t3GxlmTM2XItBlP7BJ5A==
-X-CSE-MsgGUID: YXhpe5nvQCap6GijpukL5Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,226,1758610800"; d="scan'208";a="192336509"
-Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.213])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 09:18:00 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 2/2] drm/{i915,
- xe}/hdcp: use parent interface for HDCP GSC calls
-Date: Tue, 25 Nov 2025 19:17:44 +0200
-Message-ID: <e397073e91f8aa7518754b3b79f65c1936be91ad.1764090990.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1764090990.git.jani.nikula@intel.com>
-References: <cover.1764090990.git.jani.nikula@intel.com>
-MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD18B10E272;
+ Mon, 24 Nov 2025 23:46:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Boziv/nzjWLq6ostmlFedbXN6fEqghvUMCh5oWhDkn9McczCA37lKNKx6P0YlYK+rh8rY7qDosGp5vhCvWCzMwNlLbRQjQs3uG64oZkBKnl+VJNCBR28rMMOmXHdsprC7A3Ex+7MV/nsB3tF1ltIhno+ldUjM1V5yMzPSXS7+7OZ4r6drb3AxZqtD1LT0hFOUPuD+lbjXQ30lr8zJAQsCkPwzS9L1Xt9PIimOaYiiXP76V3aSlEedBdPlPPWKP1K/6dRLzt8uqxUDpG7WxYHgR35d7MRD86Z3+m2CawQox1XFwkQgPdd8G4ouMCkyAkm+17KL8FV1VLz36Udusqt9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=06gdeqhWV3jBwAAjgUGljbBOXff00n3pJiJJv3FhqH8=;
+ b=l3MapVFvO1FtjvCOmXSLnd5WRHsoGHKI16kHUj2iAWke/ciI7JNWQB1d1otNqt3tgAr7sY33CkwHRlJLewXH4hpmJ2JY1xojBjwsJx3GxP9PzdG8lbwHl4ZuyisvlgikddWJCt4Tz+Uov30otD+Shgr0FL6jNbWFvP2CZEMHnXB1/nhF/wU2Xnw64STS+yKX1eVBYGgSN3VrQV8HCAWUgV92r8+QMCE7Qht1xGF8F0YH8FLznN8E3EYoAoqMKXZdFGPgYQizadW7YIdV+dzfewAVF5594A/qNdHWTJ97p5iH+BlKjiRL05CaEirP8r631ExJAiN/i2/2lsmxT2CCsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=06gdeqhWV3jBwAAjgUGljbBOXff00n3pJiJJv3FhqH8=;
+ b=kttSZiFWc/bmlnVACjp/PwO9KzaoJSgyMxlX7PI81cI6mB0IDrAuKdSlqCkXDExdCZYUV4sAHRfNVyF2VTicxZWQXPwjLkdFgxpWaVr6/sMWdHaZt35cz5AKD/r3o6gagNqanAAUiyZqQCuIxZKhGhO22L6ab7ZaxR0okzzNtZbporbdaCn23M4XcNut9mbEj+qS5BQmkbhu5aPJ8LoRa3lLUtIFyc8NddQMX1oSqM9mD6aDGV95B85uwKHEB/skTQLrYo/ToJBZQsYrSQoonz7zyXaapxZiIMv9DkT92VgUPVMI58vftFXi836wnhGBOaxTijv3UoxC4x7smZvEHA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SN7PR12MB8059.namprd12.prod.outlook.com (2603:10b6:806:32b::7)
+ by IA1PR12MB6578.namprd12.prod.outlook.com (2603:10b6:208:3a2::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9343.17; Mon, 24 Nov
+ 2025 23:46:23 +0000
+Received: from SN7PR12MB8059.namprd12.prod.outlook.com
+ ([fe80::4ee2:654e:1fe8:4b91]) by SN7PR12MB8059.namprd12.prod.outlook.com
+ ([fe80::4ee2:654e:1fe8:4b91%2]) with mapi id 15.20.9343.016; Mon, 24 Nov 2025
+ 23:46:23 +0000
+Message-ID: <410ecd09-af28-4fb3-854e-09fa9cc9313b@nvidia.com>
+Date: Mon, 24 Nov 2025 18:46:20 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] gpu: Move DRM buddy allocator one level up
+To: linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20251124234432.1988476-1-joelagnelf@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <20251124234432.1988476-1-joelagnelf@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN0PR04CA0027.namprd04.prod.outlook.com
+ (2603:10b6:208:52d::16) To SN7PR12MB8059.namprd12.prod.outlook.com
+ (2603:10b6:806:32b::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR12MB8059:EE_|IA1PR12MB6578:EE_
+X-MS-Office365-Filtering-Correlation-Id: 334ae011-e9db-46ad-72a2-08de2bb3ad0f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?c3l0bkc4S0pNZUplb3pRbklYQmRMdGtPUXNtL2dDcllScC9LaWJtV0pqR3lz?=
+ =?utf-8?B?SmdLOE9adVhqVlBOT3ZRZE9iZFZwVVcyVUtreDkvaG03enZYQ20zcURMbE5I?=
+ =?utf-8?B?QnlBcnpIT3I3NWV3NlJ1bERGUGx2NTByYkhONXIxNmdsUG5FUHk4WndCc004?=
+ =?utf-8?B?cllGNU5VNk1haWFSVHRuMlNlS0VKcWdqN3RFOEprT0h6OGJicVNYK2llcUw3?=
+ =?utf-8?B?ZmxueWtGR2RDamVpWngzbWJmWkUzSDc3MitHSDR0dWxwV2ZJYUVtRUhGWWd5?=
+ =?utf-8?B?OXNTaUptdlZZL1Blak1EdklWdGFhZnJBblFTbnc3SVNZdWVQdm5PVVFRdCtY?=
+ =?utf-8?B?V1dBSXFGREJ1d0JtZ0RIUVROK0hhZ0hvMXh4VDFRQk9sTEdra25vaXNFaWdl?=
+ =?utf-8?B?R1JLdkNSTFJWWlQ1R2tkN01iaDgzcFZBSGZaWDB6eGRONHFRakJwNnVQOUNh?=
+ =?utf-8?B?bStjcFNTZ3JxRDhzZTVPNlo5dDVERFhZLzlvRzM1cit5Sllud3QveVRTbWYx?=
+ =?utf-8?B?d0V2V01pZCttbWo3RFZpQWJqOTJ3NThEeDZtNlpTRVpiZ2pFL3ZGbmY4RGNi?=
+ =?utf-8?B?ZkNUcCtLTkNLeFFBcStlRGFZS1lvb0hyQytTbFZUL2JTMXo3Y0tIZksvQ1N4?=
+ =?utf-8?B?clBwUUwvcWZubFhEMHhhMTlHNTNWWWFnYkVGWFpQSE5zWXpnbXBpam95ckRx?=
+ =?utf-8?B?WU9rMkZWK0czQ0RwSVF2bGRaejVUZ2VmdW9BcGZiU28yVVl5VUozdTA1M0Nx?=
+ =?utf-8?B?enJQai9DNXV5Wmp3THYyQ3pUWVV0aXc3OE1MTU94b1gyM2FVV1NZU294Y1hM?=
+ =?utf-8?B?RlRzeGx2WmxkSFVTa0l1UGZvRWsvSEhIU2M0NTVYbjFGalI0QWVIZ3dCcCsy?=
+ =?utf-8?B?THBOWHNEblppVXN6S0VtQnRnQllkQ3JDRCs3bnZseVQwVDhDWkZWMjZSV2Z2?=
+ =?utf-8?B?bEk1RlNPejFBNzZXSTRWd1BxbFNaRWFhYU5IYVZZeWQ3ejlNUzZYakZEUXIw?=
+ =?utf-8?B?QXlUTUg3dVdSSzhZd1RiZWd1M0tyTTRabEZEVXZXMTRoSTROL1hiMkhFTlJ1?=
+ =?utf-8?B?MGJGSkd5WlVuVlN3bWtWWkM3a2prN3liY2dmcS8rV1NIbG52RFUyZWFSVDFu?=
+ =?utf-8?B?dmxUc0ZnVWFqdGkwTHJkRUhnWXlTaW1ZNGVSWGI5bFQxZkVqdzE0WlgwckI4?=
+ =?utf-8?B?a3lCcGYvYUFEVHN0d084TTIrTHNYL0RNTXNrbGpUTnBuOER0cjlwRDRDenNM?=
+ =?utf-8?B?THAvVkhxSTlGRnlaSkQ0cnUyeThkQnMzZVBBdWViem1qaEJiUXZCNjlvSDBw?=
+ =?utf-8?B?Y1JOY1lqUjBobk8xbTlCeXBxMDN2ZVdFYk5QQnRuaTFQc0JQZHhiRUJROWVu?=
+ =?utf-8?B?c2gvblFOdVhVd1ZTeHRTTzBsUk9PRzYwK3pkQ2hscFlCek50eFRKcE9YNVVk?=
+ =?utf-8?B?UXZWY25UUlhZbTZvMVlBalpvQzVqSWtlZHlEb1VGUG5hUFlKdXB6ektaa3l2?=
+ =?utf-8?B?NzRtQjBBYWlFWlQrNGM1TEdJeEx2WWZ4V2tPbXVrLytkd0UvNkRhSSs1anlw?=
+ =?utf-8?B?MXhYajNkUjYxTDFYT1J1dHdUOXpXdHFWZE5TTDdkWWNVOTg5YlQxN3R5cHNt?=
+ =?utf-8?B?QkdTWUNzR25ZSnF1eUJnYkJZcVh4dDZEek9xc3IrM21oK3FsaHpKc0lkSThV?=
+ =?utf-8?B?QmlIZDFyeGxuL2RSR1BjU0xPYUJEVENDSTIxVXlpelE0SlRnanpxMFpGNFRT?=
+ =?utf-8?B?UmpIbUIvWTBMeWxTaGFyUElqM29ya3ZVZ2dybzE0c0w5d3hwU1BaRHhnSGJL?=
+ =?utf-8?B?Y2ljVDVkYWNkMDZQZEdQUFFXL1E2M2ZWWmxyZy84azRsTlY5dmFqNWJzZHBE?=
+ =?utf-8?B?c0toYWdZUFpJWG5aaVZrUUgzRW5HZUZRdmdqYi9QNHlVZ3hnR1VieDBzT0Vs?=
+ =?utf-8?B?ZUxRRHJOVGEvQ3BoYm9OVmxOVXlpU1FZb2pVWFR2S1gwd2dTVlZ1NE9ObkJZ?=
+ =?utf-8?Q?348/XSLYQs5ZYjp15DT2yEMSGa03Oc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN7PR12MB8059.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(921020); DIR:OUT; SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L0lzSk9sV0huaGI2U3k5SlRvSUZWZ0VtTkwwRVJvVzA5QW1wSGVnUW90NEw5?=
+ =?utf-8?B?S0k1Y0ZocUlidGNIYmtYWUd2SERRNEE4YStXZVhpNFcycHNXVTVLTHV6OHls?=
+ =?utf-8?B?cjJhTS9UUVpvUVpQMHdTK2toVHBmTEFvanVhNjhicWVUN2ExcStQMVlXRXZa?=
+ =?utf-8?B?Zm5mVWFJaHhadGY2MzJYa1B1QWlEM0t2YnBUek9kbUwzMzE4VTJmdGRqSHg2?=
+ =?utf-8?B?S3ZZdWNvUHUyblM0Wi81azJsOW9NeE9PZjZ2YlREdzFmYzNRZllBKzR5QUtR?=
+ =?utf-8?B?bnZCTCtJM3p6cUZCb3ZGRzV4V3pxZHNLUDZGRTBMZWlzTmZvSDBNbEl4bmhM?=
+ =?utf-8?B?Mkc5Q3QvMzQ3alpscldVVUQzYy95YXR4dmtvUmV5dGNYOFVPckJnT1NPVWRF?=
+ =?utf-8?B?NndSUVBRaE9FZ0FHd0JRNVVhY3lXNStQSkhIcWZ5RkZwSFdyMnY1SUNlT0Vw?=
+ =?utf-8?B?QS9XczA4cklRS1NRUmZzUUhGVGRvcG9aR3RBU1FJaEc0dVNTMXZCVFNEU2Ra?=
+ =?utf-8?B?OGkxWm10TXNoY0F1WEpRa1pOUTVmQllTVU84V28zZkNsQmVKK3IvbGhEL3ZD?=
+ =?utf-8?B?dDFyV2hSSWZLY0pSQVkzL0VxZHlTcTBURnJHT1BWTkExRlZpMUxOZVdPaHpP?=
+ =?utf-8?B?cEFreW01UUtqNDQ3cWRHaGlZbkRBaVIvK0c4dGVuMG5vUXRuOWZyYmFaUGFt?=
+ =?utf-8?B?QmRQMUdYV3cwWStqRFJtT0N3cUhEcU1NRGU2MmUyYWF2M0JCZ0hWbWZFSWRY?=
+ =?utf-8?B?enNXNWx4OEhTQkZhUmVYdWhhdS95RUNQbEJWZ2ZmLzZPSW5YUHpjS0xSemUr?=
+ =?utf-8?B?YkZPclhhdnlqTU05Z0hXVjhsbmttNzJPcnRhY0xIWEZkOEw0MFhsbW5nUVNF?=
+ =?utf-8?B?N084TkJicE93dG0xZ3VaNHNVWTFCb09yaW5mUEdBSnpWSGluUnpuQUFGZlhE?=
+ =?utf-8?B?TVR2VWhQc1V5c0VybFA0QkZ0bU5nNUUwR3NYRTFvVlNzZjVoaysvcy9Kejcy?=
+ =?utf-8?B?NVJTemIxdWU5NnJhUHVxajVNcnp1ZER6K3Zmb3BlazdGWG9GejB5Uzc0dVF0?=
+ =?utf-8?B?U1VJVlRvVE9OMmRhKzVuYkRUT1hZcjZvbjk4WHdSOEUvQUxVOEdhQ2pLMll3?=
+ =?utf-8?B?Z1lqaEZUQlZDbjJxMTJmK291NGNTWjFnOGRUL1lURW9ibmhzY1ZaMFdreWVW?=
+ =?utf-8?B?b0ROMW1ucWlEVVJObXJKVitFbHNYNmxXNVJnUmxVYXhqS0RSWXFwdTNlMy9J?=
+ =?utf-8?B?MWZpS0lRem4wRmRRMU9KbldLamtlU1htcFprRVBFMXAra2NPM0dxY3RNZ1Fp?=
+ =?utf-8?B?MUJRTXZXalFOZWo1SlMwTUpGSnhBWC9yRkJyQ0tOUnJybDFISFdFUXpYdFA0?=
+ =?utf-8?B?MFRlRjhNOGJza205TkJBOCs0VnF0YytIeEVQZEs0VkZpUkZ4WUhEYkx4dXI0?=
+ =?utf-8?B?WmdmeUFjbFEzOU0rK2RaRVZCMkVJa2JuL0ljK0h3VGVMRVovTUtsaHlPL1I5?=
+ =?utf-8?B?dkU2emlmUGxNZFFoRWxmalhLTW13T2R0bFlDNkpjL2puWGZpQzdNbHA0UXp4?=
+ =?utf-8?B?WlhKTmtmMEx2OC9KTGNhTitvVGJXSTVFS0dJUExITjJGMkZlWlIwWWd2a0hi?=
+ =?utf-8?B?Y0EzK2pIRXR2alE1WCtjN0lXSVdzS3p0Rm83eGNsVFRaMnduMyt2QjNDTDJV?=
+ =?utf-8?B?ZS9ueTFFaUN6NFdTdldVWFBqem1hU1lHdXc0S2Y0aTVXK2p3T2QwQUhZSVhH?=
+ =?utf-8?B?Y2gyajFGcDd0MFJDbEVCTXlpM0pweUUzVDU4RlZJaE41M0RqLzlDTWwvbklk?=
+ =?utf-8?B?RU5EZHJUV2cyU1pqUmRLQjQyVWpnYVREVWJ0dUdublNNdVN5RGtud0lnSWZJ?=
+ =?utf-8?B?dXJOWFpmTTlUNTZETjdYYkU3S1VoTHhZbVhDUWVEMVZvUUFwMVZLQXc5azJE?=
+ =?utf-8?B?OXNXeG11L1RDalBBUHF0eTR0cWJmTUNGNUZTaGp4aDRQTkxRUDBSWFo2OWM3?=
+ =?utf-8?B?cDVTV0k1NnJxOTlLa0dQUStSZjlzNjJzR0JrQk1VU0pQTGh6eklmYTEvSnB3?=
+ =?utf-8?B?ZGVOVTdMV0pDcCtpK0NnQVJCd21IYkRNVHhYakllSlJnS2tQWU9xd2ppQStC?=
+ =?utf-8?Q?NVyttht0P2nDHwDaSpsNTqpG6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 334ae011-e9db-46ad-72a2-08de2bb3ad0f
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB8059.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2025 23:46:23.7030 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5lkZykjChfpI69ebBGlgzG+CCLMge6tpSYCcPHhhMm18QJXNkjQU3c1qDZdhsZVRBfxMb3S5SKl/ELiubBCeVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6578
+X-Mailman-Approved-At: Tue, 25 Nov 2025 17:24:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,576 +190,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The HDCP GSC implementation is different for both i915 and xe. Add it to
-the display parent interface, and call the hooks via the parent
-interface.
+On 11/24/2025 6:44 PM, Joel Fernandes wrote:
+> Move the DRM buddy allocator one level up so that it can be used by GPU
+> drivers (example, nova-core) that have usecases other than DRM (such as
+> VFIO vGPU support). Modify the API, structures and Kconfigs to use
+> "gpu_buddy" terminology. Adapt the drivers and tests to use the new API.
+> 
+> The commit cannot be split due to bissectability, however no functional
+> change is intended. Verified by running K-UNIT tests and build tested
+> various configurations.
+> 
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> ---
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c     |  4 +-
- drivers/gpu/drm/i915/display/intel_hdcp_gsc.h | 22 ------
- .../drm/i915/display/intel_hdcp_gsc_message.c | 78 +++++++++----------
- drivers/gpu/drm/i915/display/intel_parent.c   | 24 ++++++
- drivers/gpu/drm/i915/display/intel_parent.h   | 10 +++
- drivers/gpu/drm/i915/i915_driver.c            |  2 +
- drivers/gpu/drm/i915/i915_hdcp_gsc.c          | 22 ++++--
- drivers/gpu/drm/i915/i915_hdcp_gsc.h          |  9 +++
- drivers/gpu/drm/xe/display/xe_display.c       |  2 +
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.c      | 25 ++++--
- drivers/gpu/drm/xe/display/xe_hdcp_gsc.h      |  9 +++
- include/drm/intel/display_parent_interface.h  | 13 ++++
- 12 files changed, 139 insertions(+), 81 deletions(-)
- delete mode 100644 drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
- create mode 100644 drivers/gpu/drm/i915/i915_hdcp_gsc.h
- create mode 100644 drivers/gpu/drm/xe/display/xe_hdcp_gsc.h
+Sorry, I should have mentioned: this patch applies on linux-next master branch.
+I did so to get the latest changes to reduce conflicts. Thanks.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 5e1a96223a9c..7114fc405c29 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -29,10 +29,10 @@
- #include "intel_display_types.h"
- #include "intel_dp_mst.h"
- #include "intel_hdcp.h"
--#include "intel_hdcp_gsc.h"
- #include "intel_hdcp_gsc_message.h"
- #include "intel_hdcp_regs.h"
- #include "intel_hdcp_shim.h"
-+#include "intel_parent.h"
- #include "intel_pcode.h"
- #include "intel_step.h"
- 
-@@ -258,7 +258,7 @@ static bool intel_hdcp2_prerequisite(struct intel_connector *connector)
- 
- 	/* If MTL+ make sure gsc is loaded and proxy is setup */
- 	if (USE_HDCP_GSC(display)) {
--		if (!intel_hdcp_gsc_check_status(display->drm))
-+		if (!intel_parent_hdcp_gsc_check_status(display))
- 			return false;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h b/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
-deleted file mode 100644
-index 9305c14aaffe..000000000000
---- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc.h
-+++ /dev/null
-@@ -1,22 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2023 Intel Corporation
-- */
--
--#ifndef __INTEL_HDCP_GSC_H__
--#define __INTEL_HDCP_GSC_H__
--
--#include <linux/types.h>
--
--struct drm_device;
--struct intel_hdcp_gsc_context;
--
--ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
--				void *msg_in, size_t msg_in_len,
--				void *msg_out, size_t msg_out_len);
--bool intel_hdcp_gsc_check_status(struct drm_device *drm);
--
--struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *drm);
--void intel_hdcp_gsc_context_free(struct intel_hdcp_gsc_context *gsc_context);
--
--#endif /* __INTEL_HDCP_GCS_H__ */
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp_gsc_message.c b/drivers/gpu/drm/i915/display/intel_hdcp_gsc_message.c
-index 98967bb148e3..781667b710b4 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp_gsc_message.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp_gsc_message.c
-@@ -10,8 +10,8 @@
- 
- #include "intel_display_core.h"
- #include "intel_display_types.h"
--#include "intel_hdcp_gsc.h"
- #include "intel_hdcp_gsc_message.h"
-+#include "intel_parent.h"
- 
- static int
- intel_hdcp_gsc_initiate_session(struct device *dev, struct hdcp_port_data *data,
-@@ -44,10 +44,9 @@ intel_hdcp_gsc_initiate_session(struct device *dev, struct hdcp_port_data *data,
- 	session_init_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
- 	session_init_in.protocol = data->protocol;
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &session_init_in,
--				       sizeof(session_init_in),
--				       &session_init_out,
--				       sizeof(session_init_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &session_init_in, sizeof(session_init_in),
-+					      &session_init_out, sizeof(session_init_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -106,10 +105,9 @@ intel_hdcp_gsc_verify_receiver_cert_prepare_km(struct device *dev,
- 	memcpy(verify_rxcert_in.r_rx, &rx_cert->r_rx, HDCP_2_2_RRX_LEN);
- 	memcpy(verify_rxcert_in.rx_caps, rx_cert->rx_caps, HDCP_2_2_RXCAPS_LEN);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &verify_rxcert_in,
--				       sizeof(verify_rxcert_in),
--				       &verify_rxcert_out,
--				       sizeof(verify_rxcert_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &verify_rxcert_in, sizeof(verify_rxcert_in),
-+					      &verify_rxcert_out, sizeof(verify_rxcert_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed: %zd\n", byte);
- 		return byte;
-@@ -169,10 +167,9 @@ intel_hdcp_gsc_verify_hprime(struct device *dev, struct hdcp_port_data *data,
- 	memcpy(send_hprime_in.h_prime, rx_hprime->h_prime,
- 	       HDCP_2_2_H_PRIME_LEN);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &send_hprime_in,
--				       sizeof(send_hprime_in),
--				       &send_hprime_out,
--				       sizeof(send_hprime_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &send_hprime_in, sizeof(send_hprime_in),
-+					      &send_hprime_out, sizeof(send_hprime_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -220,10 +217,9 @@ intel_hdcp_gsc_store_pairing_info(struct device *dev, struct hdcp_port_data *dat
- 	memcpy(pairing_info_in.e_kh_km, pairing_info->e_kh_km,
- 	       HDCP_2_2_E_KH_KM_LEN);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &pairing_info_in,
--				       sizeof(pairing_info_in),
--				       &pairing_info_out,
--				       sizeof(pairing_info_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &pairing_info_in, sizeof(pairing_info_in),
-+					      &pairing_info_out, sizeof(pairing_info_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -269,8 +265,9 @@ intel_hdcp_gsc_initiate_locality_check(struct device *dev,
- 	lc_init_in.port.physical_port = (u8)data->hdcp_ddi;
- 	lc_init_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &lc_init_in, sizeof(lc_init_in),
--				       &lc_init_out, sizeof(lc_init_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &lc_init_in, sizeof(lc_init_in),
-+					      &lc_init_out, sizeof(lc_init_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -321,10 +318,9 @@ intel_hdcp_gsc_verify_lprime(struct device *dev, struct hdcp_port_data *data,
- 	memcpy(verify_lprime_in.l_prime, rx_lprime->l_prime,
- 	       HDCP_2_2_L_PRIME_LEN);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &verify_lprime_in,
--				       sizeof(verify_lprime_in),
--				       &verify_lprime_out,
--				       sizeof(verify_lprime_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &verify_lprime_in, sizeof(verify_lprime_in),
-+					      &verify_lprime_out, sizeof(verify_lprime_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -370,8 +366,9 @@ intel_hdcp_gsc_get_session_key(struct device *dev,
- 	get_skey_in.port.physical_port = (u8)data->hdcp_ddi;
- 	get_skey_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &get_skey_in, sizeof(get_skey_in),
--				       &get_skey_out, sizeof(get_skey_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &get_skey_in, sizeof(get_skey_in),
-+					      &get_skey_out, sizeof(get_skey_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -434,10 +431,9 @@ intel_hdcp_gsc_repeater_check_flow_prepare_ack(struct device *dev,
- 	memcpy(verify_repeater_in.receiver_ids, rep_topology->receiver_ids,
- 	       HDCP_2_2_RECEIVER_IDS_MAX_LEN);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &verify_repeater_in,
--				       sizeof(verify_repeater_in),
--				       &verify_repeater_out,
--				       sizeof(verify_repeater_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &verify_repeater_in, sizeof(verify_repeater_in),
-+					      &verify_repeater_out, sizeof(verify_repeater_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -504,9 +500,9 @@ intel_hdcp_gsc_verify_mprime(struct device *dev,
- 
- 	verify_mprime_in->k = cpu_to_be16(data->k);
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, verify_mprime_in, cmd_size,
--				       &verify_mprime_out,
--				       sizeof(verify_mprime_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      verify_mprime_in, cmd_size,
-+					      &verify_mprime_out, sizeof(verify_mprime_out));
- 	kfree(verify_mprime_in);
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
-@@ -552,10 +548,9 @@ static int intel_hdcp_gsc_enable_authentication(struct device *dev,
- 	enable_auth_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
- 	enable_auth_in.stream_type = data->streams[0].stream_type;
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &enable_auth_in,
--				       sizeof(enable_auth_in),
--				       &enable_auth_out,
--				       sizeof(enable_auth_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &enable_auth_in, sizeof(enable_auth_in),
-+					      &enable_auth_out, sizeof(enable_auth_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -599,10 +594,9 @@ intel_hdcp_gsc_close_session(struct device *dev, struct hdcp_port_data *data)
- 	session_close_in.port.physical_port = (u8)data->hdcp_ddi;
- 	session_close_in.port.attached_transcoder = (u8)data->hdcp_transcoder;
- 
--	byte = intel_hdcp_gsc_msg_send(gsc_context, &session_close_in,
--				       sizeof(session_close_in),
--				       &session_close_out,
--				       sizeof(session_close_out));
-+	byte = intel_parent_hdcp_gsc_msg_send(display, gsc_context,
-+					      &session_close_in, sizeof(session_close_in),
-+					      &session_close_out, sizeof(session_close_out));
- 	if (byte < 0) {
- 		drm_dbg_kms(display->drm, "intel_hdcp_gsc_msg_send failed. %zd\n", byte);
- 		return byte;
-@@ -645,7 +639,7 @@ int intel_hdcp_gsc_init(struct intel_display *display)
- 
- 	mutex_lock(&display->hdcp.hdcp_mutex);
- 
--	gsc_context = intel_hdcp_gsc_context_alloc(display->drm);
-+	gsc_context = intel_parent_hdcp_gsc_context_alloc(display);
- 	if (IS_ERR(gsc_context)) {
- 		ret = PTR_ERR(gsc_context);
- 		kfree(arbiter);
-@@ -665,7 +659,7 @@ int intel_hdcp_gsc_init(struct intel_display *display)
- 
- void intel_hdcp_gsc_fini(struct intel_display *display)
- {
--	intel_hdcp_gsc_context_free(display->hdcp.gsc_context);
-+	intel_parent_hdcp_gsc_context_free(display, display->hdcp.gsc_context);
- 	display->hdcp.gsc_context = NULL;
- 	kfree(display->hdcp.arbiter);
- 	display->hdcp.arbiter = NULL;
-diff --git a/drivers/gpu/drm/i915/display/intel_parent.c b/drivers/gpu/drm/i915/display/intel_parent.c
-index 27c7ef34ce48..2ea310cc3509 100644
---- a/drivers/gpu/drm/i915/display/intel_parent.c
-+++ b/drivers/gpu/drm/i915/display/intel_parent.c
-@@ -22,6 +22,30 @@
- #include "intel_display_core.h"
- #include "intel_parent.h"
- 
-+ssize_t intel_parent_hdcp_gsc_msg_send(struct intel_display *display,
-+				       struct intel_hdcp_gsc_context *gsc_context,
-+				       void *msg_in, size_t msg_in_len,
-+				       void *msg_out, size_t msg_out_len)
-+{
-+	return display->parent->hdcp->gsc_msg_send(gsc_context, msg_in, msg_in_len, msg_out, msg_out_len);
-+}
-+
-+bool intel_parent_hdcp_gsc_check_status(struct intel_display *display)
-+{
-+	return display->parent->hdcp->gsc_check_status(display->drm);
-+}
-+
-+struct intel_hdcp_gsc_context *intel_parent_hdcp_gsc_context_alloc(struct intel_display *display)
-+{
-+	return display->parent->hdcp->gsc_context_alloc(display->drm);
-+}
-+
-+void intel_parent_hdcp_gsc_context_free(struct intel_display *display,
-+					struct intel_hdcp_gsc_context *gsc_context)
-+{
-+	display->parent->hdcp->gsc_context_free(gsc_context);
-+}
-+
- bool intel_parent_irq_enabled(struct intel_display *display)
- {
- 	return display->parent->irq->enabled(display->drm);
-diff --git a/drivers/gpu/drm/i915/display/intel_parent.h b/drivers/gpu/drm/i915/display/intel_parent.h
-index a8ca40b57ea9..8f91a6f75c53 100644
---- a/drivers/gpu/drm/i915/display/intel_parent.h
-+++ b/drivers/gpu/drm/i915/display/intel_parent.h
-@@ -8,6 +8,16 @@
- 
- struct dma_fence;
- struct intel_display;
-+struct intel_hdcp_gsc_context;
-+
-+ssize_t intel_parent_hdcp_gsc_msg_send(struct intel_display *display,
-+				       struct intel_hdcp_gsc_context *gsc_context,
-+				       void *msg_in, size_t msg_in_len,
-+				       void *msg_out, size_t msg_out_len);
-+bool intel_parent_hdcp_gsc_check_status(struct intel_display *display);
-+struct intel_hdcp_gsc_context *intel_parent_hdcp_gsc_context_alloc(struct intel_display *display);
-+void intel_parent_hdcp_gsc_context_free(struct intel_display *display,
-+					struct intel_hdcp_gsc_context *gsc_context);
- 
- bool intel_parent_irq_enabled(struct intel_display *display);
- void intel_parent_irq_synchronize(struct intel_display *display);
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index db0dd25f734d..d98839427ef9 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -96,6 +96,7 @@
- #include "i915_file_private.h"
- #include "i915_getparam.h"
- #include "i915_gmch.h"
-+#include "i915_hdcp_gsc.h"
- #include "i915_hwmon.h"
- #include "i915_ioc32.h"
- #include "i915_ioctl.h"
-@@ -757,6 +758,7 @@ static void fence_priority_display(struct dma_fence *fence)
- }
- 
- static const struct intel_display_parent_interface parent = {
-+	.hdcp = &i915_display_hdcp_interface,
- 	.rpm = &i915_display_rpm_interface,
- 	.irq = &i915_display_irq_interface,
- 	.rps = &i915_display_rps_interface,
-diff --git a/drivers/gpu/drm/i915/i915_hdcp_gsc.c b/drivers/gpu/drm/i915/i915_hdcp_gsc.c
-index 38df5318e13a..9906da2aef1c 100644
---- a/drivers/gpu/drm/i915/i915_hdcp_gsc.c
-+++ b/drivers/gpu/drm/i915/i915_hdcp_gsc.c
-@@ -4,13 +4,14 @@
-  */
- 
- #include <drm/drm_print.h>
-+#include <drm/intel/display_parent_interface.h>
- #include <drm/intel/i915_hdcp_interface.h>
- 
--#include "display/intel_hdcp_gsc.h"
- #include "gem/i915_gem_region.h"
- #include "gt/intel_gt.h"
- #include "gt/uc/intel_gsc_uc_heci_cmd_submit.h"
- #include "i915_drv.h"
-+#include "i915_hdcp_gsc.h"
- 
- struct intel_hdcp_gsc_context {
- 	struct drm_i915_private *i915;
-@@ -19,7 +20,7 @@ struct intel_hdcp_gsc_context {
- 	void *hdcp_cmd_out;
- };
- 
--bool intel_hdcp_gsc_check_status(struct drm_device *drm)
-+static bool intel_hdcp_gsc_check_status(struct drm_device *drm)
- {
- 	struct drm_i915_private *i915 = to_i915(drm);
- 	struct intel_gt *gt = i915->media_gt;
-@@ -87,7 +88,7 @@ static int intel_hdcp_gsc_initialize_message(struct drm_i915_private *i915,
- 	return err;
- }
- 
--struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *drm)
-+static struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *drm)
- {
- 	struct drm_i915_private *i915 = to_i915(drm);
- 	struct intel_hdcp_gsc_context *gsc_context;
-@@ -111,7 +112,7 @@ struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *d
- 	return gsc_context;
- }
- 
--void intel_hdcp_gsc_context_free(struct intel_hdcp_gsc_context *gsc_context)
-+static void intel_hdcp_gsc_context_free(struct intel_hdcp_gsc_context *gsc_context)
- {
- 	if (!gsc_context)
- 		return;
-@@ -168,9 +169,9 @@ static int intel_gsc_send_sync(struct drm_i915_private *i915,
-  * gsc cs memory header as stated in specs after which the normal HDCP payload
-  * will follow
-  */
--ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
--				void *msg_in, size_t msg_in_len,
--				void *msg_out, size_t msg_out_len)
-+static ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
-+				       void *msg_in, size_t msg_in_len,
-+				       void *msg_out, size_t msg_out_len)
- {
- 	struct drm_i915_private *i915 = gsc_context->i915;
- 	struct intel_gt *gt = i915->media_gt;
-@@ -237,3 +238,10 @@ ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
- err:
- 	return ret;
- }
-+
-+const struct intel_display_hdcp_interface i915_display_hdcp_interface = {
-+	.gsc_msg_send = intel_hdcp_gsc_msg_send,
-+	.gsc_check_status = intel_hdcp_gsc_check_status,
-+	.gsc_context_alloc = intel_hdcp_gsc_context_alloc,
-+	.gsc_context_free = intel_hdcp_gsc_context_free,
-+};
-diff --git a/drivers/gpu/drm/i915/i915_hdcp_gsc.h b/drivers/gpu/drm/i915/i915_hdcp_gsc.h
-new file mode 100644
-index 000000000000..e0b562cfcde3
---- /dev/null
-+++ b/drivers/gpu/drm/i915/i915_hdcp_gsc.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: MIT */
-+/* Copyright © 2025 Intel Corporation */
-+
-+#ifndef __I915_HDCP_GSC_H__
-+#define __I915_HDCP_GSC_H__
-+
-+extern const struct intel_display_hdcp_interface i915_display_hdcp_interface;
-+
-+#endif /* __I915_HDCP_GSC_H__ */
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 793115077615..9d2aa69ea428 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -37,6 +37,7 @@
- #include "skl_watermark.h"
- #include "xe_display_rpm.h"
- #include "xe_module.h"
-+#include "xe_hdcp_gsc.h"
- 
- /* Ensure drm and display members are placed properly. */
- INTEL_DISPLAY_MEMBER_STATIC_ASSERT(struct xe_device, drm, display);
-@@ -534,6 +535,7 @@ static const struct intel_display_irq_interface xe_display_irq_interface = {
- };
- 
- static const struct intel_display_parent_interface parent = {
-+	.hdcp = &xe_display_hdcp_interface,
- 	.rpm = &xe_display_rpm_interface,
- 	.irq = &xe_display_irq_interface,
- };
-diff --git a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-index 71d21fde1736..07acae121aa7 100644
---- a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-+++ b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.c
-@@ -3,18 +3,20 @@
-  * Copyright 2023, Intel Corporation.
-  */
- 
-+#include <linux/delay.h>
-+
- #include <drm/drm_print.h>
-+#include <drm/intel/display_parent_interface.h>
- #include <drm/intel/i915_hdcp_interface.h>
--#include <linux/delay.h>
- 
- #include "abi/gsc_command_header_abi.h"
--#include "intel_hdcp_gsc.h"
- #include "xe_bo.h"
- #include "xe_device.h"
- #include "xe_device_types.h"
- #include "xe_force_wake.h"
- #include "xe_gsc_proxy.h"
- #include "xe_gsc_submit.h"
-+#include "xe_hdcp_gsc.h"
- #include "xe_map.h"
- #include "xe_pm.h"
- #include "xe_uc_fw.h"
-@@ -30,7 +32,7 @@ struct intel_hdcp_gsc_context {
- 
- #define HDCP_GSC_HEADER_SIZE sizeof(struct intel_gsc_mtl_header)
- 
--bool intel_hdcp_gsc_check_status(struct drm_device *drm)
-+static bool intel_hdcp_gsc_check_status(struct drm_device *drm)
- {
- 	struct xe_device *xe = to_xe_device(drm);
- 	struct xe_tile *tile = xe_device_get_root_tile(xe);
-@@ -87,7 +89,7 @@ static int intel_hdcp_gsc_initialize_message(struct xe_device *xe,
- 	return ret;
- }
- 
--struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *drm)
-+static struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *drm)
- {
- 	struct xe_device *xe = to_xe_device(drm);
- 	struct intel_hdcp_gsc_context *gsc_context;
-@@ -111,7 +113,7 @@ struct intel_hdcp_gsc_context *intel_hdcp_gsc_context_alloc(struct drm_device *d
- 	return gsc_context;
- }
- 
--void intel_hdcp_gsc_context_free(struct intel_hdcp_gsc_context *gsc_context)
-+static void intel_hdcp_gsc_context_free(struct intel_hdcp_gsc_context *gsc_context)
- {
- 	if (!gsc_context)
- 		return;
-@@ -146,9 +148,9 @@ static int xe_gsc_send_sync(struct xe_device *xe,
- 	return ret;
- }
- 
--ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
--				void *msg_in, size_t msg_in_len,
--				void *msg_out, size_t msg_out_len)
-+static ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
-+				       void *msg_in, size_t msg_in_len,
-+				       void *msg_out, size_t msg_out_len)
- {
- 	struct xe_device *xe = gsc_context->xe;
- 	const size_t max_msg_size = PAGE_SIZE - HDCP_GSC_HEADER_SIZE;
-@@ -198,3 +200,10 @@ ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_context,
- 
- 	return ret;
- }
-+
-+const struct intel_display_hdcp_interface xe_display_hdcp_interface = {
-+	.gsc_msg_send = intel_hdcp_gsc_msg_send,
-+	.gsc_check_status = intel_hdcp_gsc_check_status,
-+	.gsc_context_alloc = intel_hdcp_gsc_context_alloc,
-+	.gsc_context_free = intel_hdcp_gsc_context_free,
-+};
-diff --git a/drivers/gpu/drm/xe/display/xe_hdcp_gsc.h b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.h
-new file mode 100644
-index 000000000000..c1062e4b62f7
---- /dev/null
-+++ b/drivers/gpu/drm/xe/display/xe_hdcp_gsc.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: MIT */
-+/* Copyright © 2025 Intel Corporation */
-+
-+#ifndef __XE_HDCP_GSC_H__
-+#define __XE_HDCP_GSC_H__
-+
-+extern const struct intel_display_hdcp_interface xe_display_hdcp_interface;
-+
-+#endif
-diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
-index 4135d1e1a67e..61d1b22adc83 100644
---- a/include/drm/intel/display_parent_interface.h
-+++ b/include/drm/intel/display_parent_interface.h
-@@ -8,6 +8,7 @@
- 
- struct dma_fence;
- struct drm_device;
-+struct intel_hdcp_gsc_context;
- struct ref_tracker;
- 
- struct intel_display_rpm_interface {
-@@ -26,6 +27,15 @@ struct intel_display_rpm_interface {
- 	void (*assert_unblock)(const struct drm_device *drm);
- };
- 
-+struct intel_display_hdcp_interface {
-+	ssize_t (*gsc_msg_send)(struct intel_hdcp_gsc_context *gsc_context,
-+				void *msg_in, size_t msg_in_len,
-+				void *msg_out, size_t msg_out_len);
-+	bool (*gsc_check_status)(struct drm_device *drm);
-+	struct intel_hdcp_gsc_context *(*gsc_context_alloc)(struct drm_device *drm);
-+	void (*gsc_context_free)(struct intel_hdcp_gsc_context *gsc_context);
-+};
-+
- struct intel_display_irq_interface {
- 	bool (*enabled)(struct drm_device *drm);
- 	void (*synchronize)(struct drm_device *drm);
-@@ -50,6 +60,9 @@ struct intel_display_rps_interface {
-  * check the optional pointers.
-  */
- struct intel_display_parent_interface {
-+	/** @hdcp: HDCP GSC interface */
-+	const struct intel_display_hdcp_interface *hdcp;
-+
- 	/** @rpm: Runtime PM functions */
- 	const struct intel_display_rpm_interface *rpm;
- 
--- 
-2.47.3
+ - Joel
 
