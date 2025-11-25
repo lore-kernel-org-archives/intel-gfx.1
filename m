@@ -4,37 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 337ABD0EE10
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 17:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59074D0EE0F
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 17:24:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1576110E579;
-	Tue, 25 Nov 2025 17:24:34 +0000 (UTC)
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com
- [115.124.28.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1AF10E39C;
- Tue, 25 Nov 2025 09:55:38 +0000 (UTC)
-Received: from 172.38.10.120(mailfrom:zhangzhijie@bosc.ac.cn
- fp:SMTPD_---.fVY00.f_1764064535 cluster:ay29) by smtp.aliyun-inc.com;
- Tue, 25 Nov 2025 17:55:36 +0800
-Message-ID: <1657dccb-3d03-420a-9ffa-5601ae212fd9@bosc.ac.cn>
-Date: Tue, 25 Nov 2025 17:55:34 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA5E10E56A;
+	Tue, 25 Nov 2025 17:24:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MItXFNEG";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC8D110E578
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 17:24:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764091474; x=1795627474;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=C1psyIie9ctzl3TYwgOkwTbaK04ShQhqk5PNlbP2l34=;
+ b=MItXFNEGoMmIaycVFzQJPrvAuxo6TfRWM6fcOp487CGv5z3xlLu/dH4d
+ iT6OtcrXVysaFnGVZpt0nwEegCtNQqCqw6pFtbAoFHJ+K1coO94D7iBQD
+ GyourEMWtMndR3wBwBI6M9iXKVDtyLm1poeOr6UGEOo9u7uK4BlDERGD2
+ 97ov44lrXTMWzBgDAn4FyAkvMI2zs3vcuZ70MVhctdHYzanX/Du8BgEKc
+ 06JPav7QzxlvPuj5HKai2IHlSMjE2dLcn++xwrNuSwPrilCKm3otN4/gK
+ dsFLZfwgYtWbBYtzIjsredpKSsbzVq2hmeb4CHCNq25kUGFPUdhIu+20l g==;
+X-CSE-ConnectionGUID: 3ApnOZ99Q86iAs/2ZO3Hfw==
+X-CSE-MsgGUID: DwjeyZ4rTMSX2SPdFNoSvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="76441912"
+X-IronPort-AV: E=Sophos;i="6.20,226,1758610800"; d="scan'208";a="76441912"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 09:24:33 -0800
+X-CSE-ConnectionGUID: C8jlCO4RSmm5GKLSGQfgNg==
+X-CSE-MsgGUID: NDbb94/tTlSzlweWJ6thQw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,226,1758610800"; d="scan'208";a="223378759"
+Received: from bkammerd-mobl.amr.corp.intel.com (HELO localhost)
+ ([10.124.222.230])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 09:24:32 -0800
+Date: Tue, 25 Nov 2025 19:24:28 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: "Lankhorst, Maarten" <maarten.lankhorst@intel.com>,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: =?utf-8?B?4pyXIGk5MTUuQ0kuRnVsbDogZmFp?=
+ =?utf-8?Q?lure_for_drm=2Fi915=2Fdisplay?= =?utf-8?Q?=3A?= stop using the
+ configurable fence timeout (rev2)
+Message-ID: <aSXmTMWeOXjnYNSB@intel.com>
+References: <20251112155612.8320-1-jani.nikula@intel.com>
+ <176310680567.54560.8073003092226406962@10055242dc62>
+ <3692f126b907c442d76a93957073660d7d9ffd12@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i915: Support Intel GPU porting on any non-x86 system.
-To: Jani Nikula <jani.nikula@linux.intel.com>, jeff@jeffgeerling.com,
- wangran@bosc.ac.cn, zhangjian@bosc.ac.cn, daniel@ffwll.ch,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn
-References: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
- <bac7a05b799309fe2c269232e70e82f86a8e2811@intel.com>
-Content-Language: en-US
-From: ZhangZhiJie <zhangzhijie@bosc.ac.cn>
-In-Reply-To: <bac7a05b799309fe2c269232e70e82f86a8e2811@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 25 Nov 2025 17:24:32 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3692f126b907c442d76a93957073660d7d9ffd12@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,91 +76,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Nov 25, 2025 at 03:55:02PM +0200, Jani Nikula wrote:
+> On Fri, 14 Nov 2025, Patchwork <patchwork@emeril.freedesktop.org> wrote:
+> > == Series Details ==
+> >
+> > Series: drm/i915/display: stop using the configurable fence timeout (rev2)
+> > URL   : https://patchwork.freedesktop.org/series/157441/
+> > State : failure
+> >
+> > == Summary ==
+> >
+> > CI Bug Log - changes from CI_DRM_17544_full -> Patchwork_157441v2_full
+> > ====================================================
+> >
+> > Summary
+> > -------
+> >
+> >   **FAILURE**
+> >
+> >   Serious unknown changes coming with Patchwork_157441v2_full absolutely need to be
+> >   verified manually.
+> >   
+> >   If you think the reported changes have nothing to do with the changes
+> >   introduced in Patchwork_157441v2_full, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+> >   to document this new failure mode, which will reduce false positives in CI.
+> >
+> >   
+> >
+> > Participating hosts (10 -> 11)
+> > ------------------------------
+> >
+> >   Additional (1): shard-dg2-set2 
+> >
+> > Possible new issues
+> > -------------------
+> >
+> >   Here are the unknown changes that may have been introduced in Patchwork_157441v2_full:
+> >
+> > ### IGT changes ###
+> >
+> > #### Possible regressions ####
+> >
+> >   * igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-a:
+> >     - shard-mtlp:         [PASS][1] -> [DMESG-WARN][2] +5 other tests dmesg-warn
+> >    [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17544/shard-mtlp-7/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-a.html
+> >    [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_157441v2/shard-mtlp-3/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-a.html
+> >
+> >   * igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-b:
+> >     - shard-snb:          [PASS][3] -> [DMESG-WARN][4] +3 other tests dmesg-warn
+> >    [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17544/shard-snb5/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-b.html
+> >    [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_157441v2/shard-snb7/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-b.html
+> >
+> >   * igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-d:
+> >     - shard-dg2:          [PASS][5] -> [DMESG-WARN][6] +5 other tests dmesg-warn
+> >    [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17544/shard-dg2-6/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-d.html
+> >    [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_157441v2/shard-dg2-5/igt@kms_busy@extended-modeset-hang-newfb-with-reset@pipe-d.html
+> >
+> >   * igt@kms_busy@extended-modeset-hang-oldfb-with-reset:
+> >     - shard-dg1:          [PASS][7] -> [DMESG-WARN][8] +2 other tests dmesg-warn
+> >    [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17544/shard-dg1-12/igt@kms_busy@extended-modeset-hang-oldfb-with-reset.html
+> >    [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_157441v2/shard-dg1-18/igt@kms_busy@extended-modeset-hang-oldfb-with-reset.html
+> 
+> Maarten, Ville, any ideas what to do about these?
 
+Looks like we need the timeout to unbreak the modeset vs. reset
+deadlock in a timely fashion.
 
-On 2025/11/24 20:24, Jani Nikula wrote:
-> On Mon, 24 Nov 2025, zhangzhijie <zhangzhijie@bosc.ac.cn> wrote:
->> inb/outb speccial wire not support on other ARCH.
->> Should detect whether arch platform support or not.
-> 
-> Seems to me it inb/outb depend on CONFIG_HAS_IOPORT. Which arch are you
-> talking about specifically?
+I'm not where we signal/error the fences the modeset is waiting
+for, but I guess that must be happening after the whole reset
+sequence is done. Doing that earlier would seem like another
+solution, but dunno what other fallout it would have.
 
-riscv , has CONFIG_HAS_IOPORT.  is using for serial, GPIO., etc.
-
-Thanks.
-BR.
-ZhiJie
-> 
->> Signed-off-by: zhangzhijie <zhangzhijie@bosc.ac.cn>
->> ---
->>   drivers/gpu/drm/i915/display/intel_vga.c | 27 ++++++++++++++++++------
->>   1 file changed, 20 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
->> index 6e125564db34..d5d6c4ba6434 100644
->> --- a/drivers/gpu/drm/i915/display/intel_vga.c
->> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
->> @@ -41,6 +41,15 @@ static bool has_vga_pipe_sel(struct intel_display *display)
->>   	return DISPLAY_VER(display) < 7;
->>   }
->>   
->> +static bool intel_arch_support_vga_pm(struct intel_display *display)
->> +{
->> +#if defined(CONFIG_X86) || defined(CONFIG_X86_64)
->> +	return true;
->> +#else
->> +	return false;
->> +#endif
->> +}
->> +
->>   /* Disable the VGA plane that we never use */
->>   void intel_vga_disable(struct intel_display *display)
->>   {
->> @@ -66,11 +75,13 @@ void intel_vga_disable(struct intel_display *display)
->>   
->>   	/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
->>   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
->> -	outb(0x01, VGA_SEQ_I);
->> -	sr1 = inb(VGA_SEQ_D);
->> -	outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
->> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
->> -	udelay(300);
->> +	if (likely(intel_arch_support_vga_pm(display))) {
-> 
-> As a rule of thumb, please do not use likely/unlikely, at all.
-> 
-> Here, intel_arch_support_vga_pm() is evaluated at build time, and the
-> likely has no functional value, only dubious documentation value.
-> 
->> +		outb(0x01, VGA_SEQ_I);
->> +		sr1 = inb(VGA_SEQ_D);
->> +		outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
->> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
-> 
-> Both or neither get/put need to be inside the branch. Now you only get,
-> never put, on non-x86.
-> 
-> BR,
-> Jani.
-> 
->> +		udelay(300);
->> +	}
->>   
->>   	intel_de_write(display, vga_reg, VGA_DISP_DISABLE);
->>   	intel_de_posting_read(display, vga_reg);
->> @@ -91,8 +102,10 @@ void intel_vga_reset_io_mem(struct intel_display *display)
->>   	 * and error messages.
->>   	 */
->>   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
->> -	outb(inb(VGA_MIS_R), VGA_MIS_W);
->> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
->> +	if (likely(intel_arch_support_vga_pm(display))) {
->> +		outb(inb(VGA_MIS_R), VGA_MIS_W);
->> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
->> +	}
->>   }
->>   
->>   int intel_vga_register(struct intel_display *display)
-> 
-
+-- 
+Ville Syrjälä
+Intel
