@@ -4,40 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AA0D0E6E3
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E757BD0E6E3
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4FD410E196;
-	Tue, 25 Nov 2025 13:28:51 +0000 (UTC)
-X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
- Tue, 25 Nov 2025 13:28:49 UTC
-Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D329C10E196
- for <intel-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 13:28:49 +0000 (UTC)
-Received: from [IPV6:2400:2410:b120:f200:a1f3:73da:3a04:160d] (unknown
- [IPv6:2400:2410:b120:f200:a1f3:73da:3a04:160d])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- by psionic.psi5.com (Postfix) with ESMTPSA id A8FED3F11B;
- Tue, 25 Nov 2025 14:18:46 +0100 (CET)
-Message-ID: <7bd66c59-7101-4e79-9c45-8c3417a4284f@hogyros.de>
-Date: Tue, 25 Nov 2025 22:18:43 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE3210E3F9;
+	Tue, 25 Nov 2025 13:34:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TWTH3QfP";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 233FD10E3ED;
+ Tue, 25 Nov 2025 13:34:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764077657; x=1795613657;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ncAmHFRwrd1NdZKJ+0cTeRDuglxHsodpfVMuecLUaUE=;
+ b=TWTH3QfPB/KM5lR/Izrmrr6IoHT9L2in0EBpWW0yRlPv/LhCPzevmNfT
+ fPuvbCRuIZEOvw6z+44CRHSXCeuL0tWSFM3MK7FM+3nSRE5V85f+y8XPI
+ E0LfR0Kjcn6wDiIt+AjqEzSCEi40K4gfCaFDkIdLYC4RdQYZG/9KUyvPt
+ Hg2fFpmymi5Q9L+5SLvrUwNkSHtNfla9M8AFTgioZc2g5uvmfm+cUDguv
+ PbKYq6LHiPZZuoOIUTfgvudhtYL/o5V5sXUvyp8nhoqevlO1LgwwccZJt
+ wmY1s/OrnJ6jFP/OcRc4955ZOHG31dD7Vrg564qFEGFLGrYk9gFfbLHhL g==;
+X-CSE-ConnectionGUID: zwc/ISENT4eCe1sHBxN8aQ==
+X-CSE-MsgGUID: zDEaxDTxTwKPsS5hxjtyXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11623"; a="65984731"
+X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="65984731"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 05:34:16 -0800
+X-CSE-ConnectionGUID: kPttoz08R2qsbry/5BzHAA==
+X-CSE-MsgGUID: P21qfUWyRSKjOvqQfWbRYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="192726793"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.246.222])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 05:34:12 -0800
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org,
+ =?UTF-8?q?=EA=B9=80=EA=B0=95=EB=AF=BC?= <km.kim1503@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>,
+ Chris Wilson <chris.p.wilson@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [PATCH] drm/i915/gem: NULL-initialize the eb->vma[].vma pointers in
+ gem_do_execbuffer
+Date: Tue, 25 Nov 2025 14:33:38 +0100
+Message-ID: <20251125133337.26483-2-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] i915: Support Intel GPU porting on any non-x86 system.
-To: zhangzhijie <zhangzhijie@bosc.ac.cn>, jani.nikula@linux.intel.com,
- jeff@jeffgeerling.com, wangran@bosc.ac.cn, zhangjian@bosc.ac.cn,
- daniel@ffwll.ch, rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn
-References: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
-Content-Language: en-US
-From: Simon Richter <Simon.Richter@hogyros.de>
-In-Reply-To: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,45 +76,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Initialize eb->vma[].vma pointers to NULL when the eb structure is first
+set up.
 
-On 11/24/25 3:56 PM, zhangzhijie wrote:
+During the execution of eb_lookup_vmas(), the eb->vma array is
+successively filled up with struct eb_vma objects. This process includes
+calling eb_add_vma(), which might fail; however, even in the event of
+failure, eb->vma[i].vma is set for the currently processed buffer.
 
- > inb/outb speccial wire not support on other ARCH.
- > Should detect whether arch platform support or not.
+If eb_add_vma() fails, eb_lookup_vmas() returns with an error, which
+prompts a call to eb_release_vmas() to clean up the mess. Since
+eb_lookup_vmas() might fail during processing any (possibly not first)
+buffer, eb_release_vmas() checks whether a buffer's vma is NULL to know
+at what point did the lookup function fail.
 
-These platforms still have inb/outb definitions though that do 
-something. https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/1824 
-has a few cases where this goes wrong.
+In eb_lookup_vmas(), eb->vma[i].vma is set to NULL if either the helper
+function eb_lookup_vma() or eb_validate_vma() fails. eb->vma[i+1].vma is
+set to NULL in case i915_gem_object_userptr_submit_init() fails; the
+current one needs to be cleaned up by eb_release_vmas() at this point,
+so the next one is set. If eb_add_vma() fails, neither the current nor
+the next vma is nullified, which is a source of a NULL deref bug
+described in [1].
 
-There are also a few Intel chipsets that also allow MMIO accesses to VGA 
-registers. Whether there is an intersection of chipsets that allow it, 
-and chipsets where that is useful is another question though.
+When entering eb_lookup_vmas(), the vma pointers are set to the slab
+poison value, instead of NULL. This doesn't matter for the actual
+lookup, since it gets overwritten anyway, however the eb_release_vmas()
+function only recognizes NULL as the stopping value, hence the pointers
+are being nullified as they go in case of intermediate failure. This
+patch changes the approach to filling them all with NULL at the start
+instead, rather than handling that manually during failure.
 
- >   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15062
+Fixes: 544460c33821 ("drm/i915: Multi-BB execbuf")
+Reported-by: Gangmin Kim <km.kim1503@gmail.com>
+Cc: <stable@vger.kernel.org> # 5.16.x
+Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+---
+ .../gpu/drm/i915/gem/i915_gem_execbuffer.c    | 27 ++++++-------------
+ 1 file changed, 8 insertions(+), 19 deletions(-)
 
-This function really should check if inb/outb will address pdev after 
-the function returns, and return an error if not, then the accesses here 
-and in the power well code could be conditional on this, and it would be 
-generic.
-
-For this, the vgaarb code would need to check that the bridges on the 
-way up have accepted the VGA forwarding bit (i.e. read back after 
-writing it), and there probably should be a mechanism for the bridge 
-between PCI(e) and the platform bus, so systems with multiple PCI(e) 
-domains can also be handled.
-
-E.g. on POWER, there are global variables "isa_io_base" and 
-"pci_io_base", and it is assumed that these point to a place that 
-generates IO accesses from MMIO, but this assumption is not actually 
-verified, and I can pretty much guarantee that it's wrong if the PCIe 
-bus in question is not even attached to the first socket.
-
-Just checking that upstream bridges accept the VGA bit while vgaarb 
-switches decoding over would solve all of my problems though, because 
-the root bridge doesn't, so that would be a quick way of inhibiting 
-these accesses. It might work for you too, just try setting the bit 
-manually with setpci and check if it sticks.
-
-    Simon
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index b057c2fa03a4..02120203af55 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -951,13 +951,13 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 		vma = eb_lookup_vma(eb, eb->exec[i].handle);
+ 		if (IS_ERR(vma)) {
+ 			err = PTR_ERR(vma);
+-			goto err;
++			return err;
+ 		}
+ 
+ 		err = eb_validate_vma(eb, &eb->exec[i], vma);
+ 		if (unlikely(err)) {
+ 			i915_vma_put(vma);
+-			goto err;
++			return err;
+ 		}
+ 
+ 		err = eb_add_vma(eb, &current_batch, i, vma);
+@@ -966,19 +966,8 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 
+ 		if (i915_gem_object_is_userptr(vma->obj)) {
+ 			err = i915_gem_object_userptr_submit_init(vma->obj);
+-			if (err) {
+-				if (i + 1 < eb->buffer_count) {
+-					/*
+-					 * Execbuffer code expects last vma entry to be NULL,
+-					 * since we already initialized this entry,
+-					 * set the next value to NULL or we mess up
+-					 * cleanup handling.
+-					 */
+-					eb->vma[i + 1].vma = NULL;
+-				}
+-
++			if (err)
+ 				return err;
+-			}
+ 
+ 			eb->vma[i].flags |= __EXEC_OBJECT_USERPTR_INIT;
+ 			eb->args->flags |= __EXEC_USERPTR_USED;
+@@ -986,10 +975,6 @@ static int eb_lookup_vmas(struct i915_execbuffer *eb)
+ 	}
+ 
+ 	return 0;
+-
+-err:
+-	eb->vma[i].vma = NULL;
+-	return err;
+ }
+ 
+ static int eb_lock_vmas(struct i915_execbuffer *eb)
+@@ -3362,6 +3347,7 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 	struct sync_file *out_fence = NULL;
+ 	int out_fence_fd = -1;
+ 	int err;
++	int i;
+ 
+ 	BUILD_BUG_ON(__EXEC_INTERNAL_FLAGS & ~__I915_EXEC_ILLEGAL_FLAGS);
+ 	BUILD_BUG_ON(__EXEC_OBJECT_INTERNAL_FLAGS &
+@@ -3375,7 +3361,10 @@ i915_gem_do_execbuffer(struct drm_device *dev,
+ 
+ 	eb.exec = exec;
+ 	eb.vma = (struct eb_vma *)(exec + args->buffer_count + 1);
+-	eb.vma[0].vma = NULL;
++
++	for (i = 0; i < args->buffer_count; i++)
++		eb.vma[i].vma = NULL;
++
+ 	eb.batch_pool = NULL;
+ 
+ 	eb.invalid_flags = __EXEC_OBJECT_UNKNOWN_FLAGS;
+-- 
+2.45.2
 
