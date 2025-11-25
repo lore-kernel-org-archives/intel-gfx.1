@@ -4,63 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A471ACFD364
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 09:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ED8ACFD37A
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 09:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37B4910E392;
-	Tue, 25 Nov 2025 09:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB5CB10E39D;
+	Tue, 25 Nov 2025 09:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q+tY7JN/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QzrRgt6n";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AD2810E392;
- Tue, 25 Nov 2025 09:21:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EEFB10E39A;
+ Tue, 25 Nov 2025 09:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764062478; x=1795598478;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=rXSULp4vfIoNnkqO/8ZTvxScvJMuAPn6XpwllKcdgyM=;
- b=Q+tY7JN/77nZwvZnrlGkPCP96ft+SF1xzTw5bKaUnKT5xDEajRA6fXmb
- 1Kgsfx2IrAkyyYjOkWwa2YL7cYMxw5Vd6bT/yIDju1Qh2iPhGGFTPaV1h
- 7tDAvzG3LLV1ujxWMItazMJEh9RPcL2RZX4D+YIssGIgw+yAvwnp39i5q
- mlubsOPR/uvGeCDPwJIvxSLspLpiEmu8Hh1w7Q+df+BaeNKDTCwMn00tG
- Xvfk6CLzIAoMM0+77pINB1Z+4t37RLz4D2ma/XV37VSLCD+1H6SC7b+5B
- Fp+PPIhhgE1+QyBLMZ2kM8yL/ABQxL/CYYJmzk3yXRSiqjAS4X1at/1yC w==;
-X-CSE-ConnectionGUID: 1haZ8lbHR8+mHisPa/vsXw==
-X-CSE-MsgGUID: 2OIcJz0MSr+aw/Hyyftr8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11623"; a="68664444"
-X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="68664444"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 01:21:18 -0800
-X-CSE-ConnectionGUID: Vf900OCkQKuA5pq0yVnxoA==
-X-CSE-MsgGUID: 3AHWtPaDSKq2oGQ9YFoO0A==
+ t=1764064052; x=1795600052;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=NQl4HTJxjn2olNJOQjtZGcx2wqprJBGQtWLPJtWDrPM=;
+ b=QzrRgt6nD0qzC/tjvM3TO71eCTkSlvkcjGUoufEVbZTD1PbNSaUsIfAs
+ kxfAUwczGUp6jmOr1NklTw+E1UP7OkP236wRMADdmppjRsdX4jul8JC7z
+ r2+zsHKdyDvOitmiJKt/BWwm8SA+dU+Zrn8GdwnSY1mnzzyozGT8iNIH3
+ jD8jf6WG2npxU5hPwfA5gcNZhJ1TU40ilIFU5AaMTJ6J4OCN4xmedG73+
+ O6+ZepoOEtBixuokzO4WbYGFlN6ea50b3Ia5w52tbCITN89td8LRRdCMV
+ N20kg829LVj6Z5zWCZbt4uTgeUNlnVivCqLoe2zeOgvzRVBfLCQc7VFy4 g==;
+X-CSE-ConnectionGUID: rdsKqceATKmDxz3DJ7T/Bg==
+X-CSE-MsgGUID: Wr4VfxUxSqi6qhmV74uvDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11623"; a="83688347"
+X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="83688347"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 01:47:32 -0800
+X-CSE-ConnectionGUID: aEADA086Tr6wZ7kN/hOWcQ==
+X-CSE-MsgGUID: /4GU4NLES/GDSC0aA4cndQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="192224469"
+X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="197072905"
 Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
  ([10.245.246.213])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 01:21:15 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "Sousa, Gustavo" <gustavo.sousa@intel.com>, "Roper, Matthew D"
- <matthew.d.roper@intel.com>, "Syrjala, Ville" <ville.syrjala@intel.com>
-Subject: Re: [PATCH v3 2/2] drm/i915/xe3p_lpd: Enable display use of system
- cache for FBC
-In-Reply-To: <7210f811ede22c67bb0e88f1f4580f899aa345b5.camel@intel.com>
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2025 01:47:27 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: zhangzhijie <zhangzhijie@bosc.ac.cn>, jeff@jeffgeerling.com,
+ zhangzhijie@bosc.ac.cn, wangran@bosc.ac.cn, zhangjian@bosc.ac.cn,
+ daniel@ffwll.ch, rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn,
+ ville.syrjala@linux.intel.com
+Subject: Re: [PATCH v3] i915: Support Intel GPU porting on any non-x86 system.
+In-Reply-To: <20251125093651.2414999-1-zhangzhijie@bosc.ac.cn>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-References: <20251123160127.142599-1-vinod.govindapillai@intel.com>
- <20251123160127.142599-3-vinod.govindapillai@intel.com>
- <e397113073a89536b28e57f44313eff247bf1fb9@intel.com>
- <7210f811ede22c67bb0e88f1f4580f899aa345b5.camel@intel.com>
-Date: Tue, 25 Nov 2025 11:21:12 +0200
-Message-ID: <5a24e00828c84c753647e0039f491c3b14adfce9@intel.com>
+References: <20251125093651.2414999-1-zhangzhijie@bosc.ac.cn>
+Date: Tue, 25 Nov 2025 11:47:24 +0200
+Message-ID: <b76c84c0c6396391289559a22e9d5fafa70f50b3@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,52 +72,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 25 Nov 2025, "Govindapillai, Vinod" <vinod.govindapillai@intel.com>=
- wrote:
-> On Mon, 2025-11-24 at 18:25 +0200, Jani Nikula wrote:
->> On Sun, 23 Nov 2025, Vinod Govindapillai
->> <vinod.govindapillai@intel.com> wrote:
->> > One of the FBC instances can utilize the reserved area of SoC
->> > level cache for the fbc transactions to benefit reduced memory
->> > system power especially in idle scenarios. Reserved area of the
->> > system cache can be assigned to an fbc instance by configuring
->> > the cacheability configuration register with offset of the
->> > compressed frame buffer in stolen memoty of that fbc. There is
->> > a limit to this reserved area which is programmable and for
->> > xe3p_lpd the limit is defined as 2MB.
->> >=20
->> > v2: - better to track fbc sys cache usage from intel_display level,
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sanitize the cacheability config regist=
-er on probe (Matt)
->> > =C2=A0=C2=A0=C2=A0 - limit this for integrated graphics solutions, con=
-firmed that
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 no default value set for cache range by=
- hw (Gustavo)
->> >=20
->> > v3: - changes related to the use of fbc substruct in intel_display
->> > =C2=A0=C2=A0=C2=A0 - use intel_de_write() instead of intel_rmw() by ha=
-rdcoding the
->> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 default value fields
->>=20
->> Overall issue: The fbc mutexes are per fbc instance, but nothing
->> protects display->fbc.sys_cache_id.
+On Tue, 25 Nov 2025, zhangzhijie <zhangzhijie@bosc.ac.cn> wrote:
+> inb/outb VGA_SEQ_* not support on other ARCH (such as RISCV).
+> Should detect whether arch platform support or not.
 >
-> The places where this sys_cache_id can be changed to a valid fbc
-> instance id + fbc cfb offset are protected by the fbc mutex as part of
-> intel_fbc_enable and intel_fbc_disable. That's is what I was mentioning
-> in my prev reply. And the places where this sys cache usage register
-> reset happens is outside the fbc context - where sanitize and remove
-> module gets called. I don't see a need to update the fbc.sys_cache_id
-> from anywhere else.
+> Signed-off-by: zhangzhijie <zhangzhijie@bosc.ac.cn>
+>
+> Changes in v3:
+>     1.Rewrite Commit message.
+>     2. Remove likely/unlikely
+>
+> Changes in v2:
+> 	1. vga_get/put inside the branch.
 
-That's not the point. Each FBC instance has its own mutex. Two FBC
-instance mutexes could be held at the same time. I don't think this is
-the case during enable/disable, though. But the point remains, the
-instance mutex can't protect something that's not part of the instance.
+Argh, I also said, "I would rather finish the discussion on the previous
+version before seeing a new version."
+
+Can you please stop sending new versions? It's not helping you get any
+of this merged.
+
 
 BR,
 Jani.
 
 
---=20
+>
+> Signed-off-by: zhangzhijie <zhangzhijie@bosc.ac.cn>
+> ---
+>  drivers/gpu/drm/i915/display/intel_vga.c | 33 +++++++++++++++++-------
+>  1 file changed, 23 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
+> index 6e125564db34..fda4c2cfd7cf 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vga.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
+> @@ -41,6 +41,15 @@ static bool has_vga_pipe_sel(struct intel_display *display)
+>  	return DISPLAY_VER(display) < 7;
+>  }
+>  
+> +static bool intel_arch_support_vga_pm(struct intel_display *display)
+> +{
+> +#if defined(CONFIG_X86) || defined(CONFIG_X86_64)
+> +	return true;
+> +#else
+> +	return false;
+> +#endif
+> +}
+> +
+>  /* Disable the VGA plane that we never use */
+>  void intel_vga_disable(struct intel_display *display)
+>  {
+> @@ -64,13 +73,15 @@ void intel_vga_disable(struct intel_display *display)
+>  	drm_dbg_kms(display->drm, "Disabling VGA plane on pipe %c\n",
+>  		    pipe_name(pipe));
+>  
+> -	/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
+> -	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+> -	outb(0x01, VGA_SEQ_I);
+> -	sr1 = inb(VGA_SEQ_D);
+> -	outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
+> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
+> -	udelay(300);
+> +	if (intel_arch_support_vga_pm(display)) {
+> +		/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
+> +		vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+> +		outb(0x01, VGA_SEQ_I);
+> +		sr1 = inb(VGA_SEQ_D);
+> +		outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
+> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
+> +		udelay(300);
+> +	}
+>  
+>  	intel_de_write(display, vga_reg, VGA_DISP_DISABLE);
+>  	intel_de_posting_read(display, vga_reg);
+> @@ -90,9 +101,11 @@ void intel_vga_reset_io_mem(struct intel_display *display)
+>  	 * sure vgacon can keep working normally without triggering interrupts
+>  	 * and error messages.
+>  	 */
+> -	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+> -	outb(inb(VGA_MIS_R), VGA_MIS_W);
+> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
+> +	if (intel_arch_support_vga_pm(display)) {
+> +		vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+> +		outb(inb(VGA_MIS_R), VGA_MIS_W);
+> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
+> +	}
+>  }
+>  
+>  int intel_vga_register(struct intel_display *display)
+
+-- 
 Jani Nikula, Intel
