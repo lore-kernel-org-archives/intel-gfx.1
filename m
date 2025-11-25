@@ -4,31 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 132BDD0EE0F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1288D0EE12
 	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 17:24:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF64410E576;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C509310E577;
 	Tue, 25 Nov 2025 17:24:33 +0000 (UTC)
-Received: from out28-195.mail.aliyun.com (out28-195.mail.aliyun.com
- [115.124.28.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC34210E345;
- Tue, 25 Nov 2025 03:34:26 +0000 (UTC)
-Received: from aliyun.com(mailfrom:zhangzhijie@bosc.ac.cn
- fp:SMTPD_---.fV91Bm9_1764041662 cluster:ay29) by smtp.aliyun-inc.com;
- Tue, 25 Nov 2025 11:34:23 +0800
-From: zhangzhijie <zhangzhijie@bosc.ac.cn>
-To: jani.nikula@linux.intel.com, jeff@jeffgeerling.com, zhangzhijie@bosc.ac.cn,
- wangran@bosc.ac.cn, zhangjian@bosc.ac.cn, daniel@ffwll.ch,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn,
- ville.syrjala@linux.intel.com
-Subject: [PATCH v2/2] i915: Support Intel GPU porting on any non-x86 system.
-Date: Tue, 25 Nov 2025 11:34:20 +0800
-Message-Id: <20251125033420.2265288-1-zhangzhijie@bosc.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from out28-2.mail.aliyun.com (out28-2.mail.aliyun.com [115.124.28.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BA1910E106;
+ Tue, 25 Nov 2025 03:31:09 +0000 (UTC)
+Received: from 172.38.10.120(mailfrom:zhangzhijie@bosc.ac.cn
+ fp:SMTPD_---.fV56p1x_1764041465 cluster:ay29) by smtp.aliyun-inc.com;
+ Tue, 25 Nov 2025 11:31:06 +0800
+Message-ID: <16876d5f-311e-4c06-ad8a-e05b4a240aba@bosc.ac.cn>
+Date: Tue, 25 Nov 2025 11:31:04 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i915: Support Intel GPU porting on any non-x86 system.
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: jani.nikula@linux.intel.com, jeff@jeffgeerling.com, wangran@bosc.ac.cn,
+ zhangjian@bosc.ac.cn, daniel@ffwll.ch, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20251124065612.1920389-1-zhangzhijie@bosc.ac.cn>
+ <aSTIsRbrtEfJQzWU@intel.com>
+Content-Language: en-US
+From: ZhangZhiJie <zhangzhijie@bosc.ac.cn>
+In-Reply-To: <aSTIsRbrtEfJQzWU@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 25 Nov 2025 17:24:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -46,72 +49,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-inb/outb speccial wire not support on other ARCH.
-Should detect whether arch platform support or not.
 
-Signed-off-by: zhangzhijie <zhangzhijie@bosc.ac.cn>
----
- drivers/gpu/drm/i915/display/intel_vga.c | 33 +++++++++++++++++-------
- 1 file changed, 23 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
-index 6e125564db34..d85622ba10fc 100644
---- a/drivers/gpu/drm/i915/display/intel_vga.c
-+++ b/drivers/gpu/drm/i915/display/intel_vga.c
-@@ -41,6 +41,15 @@ static bool has_vga_pipe_sel(struct intel_display *display)
- 	return DISPLAY_VER(display) < 7;
- }
- 
-+static bool intel_arch_support_vga_pm(struct intel_display *display)
-+{
-+#if defined(CONFIG_X86) || defined(CONFIG_X86_64)
-+	return true;
-+#else
-+	return false;
-+#endif
-+}
-+
- /* Disable the VGA plane that we never use */
- void intel_vga_disable(struct intel_display *display)
- {
-@@ -64,13 +73,15 @@ void intel_vga_disable(struct intel_display *display)
- 	drm_dbg_kms(display->drm, "Disabling VGA plane on pipe %c\n",
- 		    pipe_name(pipe));
- 
--	/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
--	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
--	outb(0x01, VGA_SEQ_I);
--	sr1 = inb(VGA_SEQ_D);
--	outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
--	vga_put(pdev, VGA_RSRC_LEGACY_IO);
--	udelay(300);
-+	if (likely(intel_arch_support_vga_pm(display))) {
-+		/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
-+		vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
-+		outb(0x01, VGA_SEQ_I);
-+		sr1 = inb(VGA_SEQ_D);
-+		outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
-+		vga_put(pdev, VGA_RSRC_LEGACY_IO);
-+		udelay(300);
-+	}
- 
- 	intel_de_write(display, vga_reg, VGA_DISP_DISABLE);
- 	intel_de_posting_read(display, vga_reg);
-@@ -90,9 +101,11 @@ void intel_vga_reset_io_mem(struct intel_display *display)
- 	 * sure vgacon can keep working normally without triggering interrupts
- 	 * and error messages.
- 	 */
--	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
--	outb(inb(VGA_MIS_R), VGA_MIS_W);
--	vga_put(pdev, VGA_RSRC_LEGACY_IO);
-+	if (likely(intel_arch_support_vga_pm(display))) {
-+		vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
-+		outb(inb(VGA_MIS_R), VGA_MIS_W);
-+		vga_put(pdev, VGA_RSRC_LEGACY_IO);
-+	}
- }
- 
- int intel_vga_register(struct intel_display *display)
--- 
-2.34.1
+On 2025/11/25 05:05, Ville Syrjälä wrote:
+> On Mon, Nov 24, 2025 at 02:56:12PM +0800, zhangzhijie wrote:
+>> inb/outb speccial wire not support on other ARCH.
+>> Should detect whether arch platform support or not.
+>>
+>> Signed-off-by: zhangzhijie <zhangzhijie@bosc.ac.cn>
+>> ---
+>>   drivers/gpu/drm/i915/display/intel_vga.c | 27 ++++++++++++++++++------
+>>   1 file changed, 20 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_vga.c b/drivers/gpu/drm/i915/display/intel_vga.c
+>> index 6e125564db34..d5d6c4ba6434 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_vga.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_vga.c
+>> @@ -41,6 +41,15 @@ static bool has_vga_pipe_sel(struct intel_display *display)
+>>   	return DISPLAY_VER(display) < 7;
+>>   }
+>>   
+>> +static bool intel_arch_support_vga_pm(struct intel_display *display)
+> 
+> whatis "pm"?
+I'd wana to power-manage . or can using better function name
+> 
+>> +{
+>> +#if defined(CONFIG_X86) || defined(CONFIG_X86_64)
+>> +	return true;
+>> +#else
+>> +	return false;
+>> +#endif
+> 
+> Isn't there already some kind of ARCH_HAS_PORTIO thing?
+> Does that not work?
+> 
+configs had HAS_IOPORT, But non-x86 arch not support  ioport for  VGA_SEQ_*
+>> +}
+>> +
+>>   /* Disable the VGA plane that we never use */
+>>   void intel_vga_disable(struct intel_display *display)
+>>   {
+>> @@ -66,11 +75,13 @@ void intel_vga_disable(struct intel_display *display)
+>>   
+> 
+> I wouldn't expect us to get this far. The VGA plane should
+> never have been enabled in the first place.
+> 
+>>   	/* WaEnableVGAAccessThroughIOPort:ctg,elk,ilk,snb,ivb,vlv,hsw */
+>>   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+> 
+> Why are you leaving the vga_get() outside the check?
+> 
+Sorry forgot , I will take new patch for fix this misstake
+>> -	outb(0x01, VGA_SEQ_I);
+>> -	sr1 = inb(VGA_SEQ_D);
+>> -	outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
+>> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
+>> -	udelay(300);
+>> +	if (likely(intel_arch_support_vga_pm(display))) {
+>> +		outb(0x01, VGA_SEQ_I);
+>> +		sr1 = inb(VGA_SEQ_D);
+>> +		outb(sr1 | VGA_SR01_SCREEN_OFF, VGA_SEQ_D);
+>> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
+>> +		udelay(300);
+>> +	}
+>>   
+>>   	intel_de_write(display, vga_reg, VGA_DISP_DISABLE);
+>>   	intel_de_posting_read(display, vga_reg);
+>> @@ -91,8 +102,10 @@ void intel_vga_reset_io_mem(struct intel_display *display)
+>>   	 * and error messages.
+>>   	 */
+>>   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+>> -	outb(inb(VGA_MIS_R), VGA_MIS_W);
+>> -	vga_put(pdev, VGA_RSRC_LEGACY_IO);
+>> +	if (likely(intel_arch_support_vga_pm(display))) {
+>> +		outb(inb(VGA_MIS_R), VGA_MIS_W);
+>> +		vga_put(pdev, VGA_RSRC_LEGACY_IO);
+>> +	}
+>>   }
+>>   
+>>   int intel_vga_register(struct intel_display *display)
+>> -- 
+>> 2.34.1
+> 
 
