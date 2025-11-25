@@ -4,59 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3FFCD0E6E5
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AA0D0E6E3
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Nov 2025 13:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559C410E3F6;
-	Tue, 25 Nov 2025 13:25:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qbu+0IU3";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C885E10E3F6;
- Tue, 25 Nov 2025 13:25:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764077111; x=1795613111;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=P26is+AzXjN7E6TYpkRRvfAG82Wo5+4LpxAeylqYqzQ=;
- b=Qbu+0IU3BkQspa/4objhSdnoE2eOyTYeWFRDH402Q/Lq8r5KM127fMpM
- /3Ywg/Akf8pFXeLNgM3+GoD6d6DGzJJC4Gwj1lzfMRHAI8bJudVyWyWC8
- 9n1NigSITRkvMSCnh+x2wXHqmE/Cqs7fDnsK4eMO383lgJwSTUF4TMwJG
- I4xUTE0zsqJ+b2N2QdiWFodw1iv0jRB97bJr1S2n3g6TGmVPWjZlKW/x/
- tek2497AjUtV2by4c97gix8PGZLAI6Almq/GXaJkuYtnkiEJQzrCV0//M
- zhTkqqGNfkXYaehr2I7qVGl9fG3K2LO5AfvO24ZRl57T8S2u6E9iCdkgn w==;
-X-CSE-ConnectionGUID: 7+E68lWGQcyd+LOx9F+kKw==
-X-CSE-MsgGUID: r7wZXl1cT/eoIVSJNgn6Pw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11623"; a="53662863"
-X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="53662863"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 05:25:11 -0800
-X-CSE-ConnectionGUID: yGomD0jsTeGRj7Mz9F6Jsg==
-X-CSE-MsgGUID: 0ssy+pD3SjiIKHLfK8748w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,225,1758610800"; d="scan'208";a="197117953"
-Received: from ettammin-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.246.213])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2025 05:25:10 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH v2 5/5] drm/{i915,xe}/display: drop intel_wakeref.h usage
-Date: Tue, 25 Nov 2025 15:24:43 +0200
-Message-ID: <3599d0ec168d7ce7030582706acba66b616ab9f3.1764076995.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1764076995.git.jani.nikula@intel.com>
-References: <cover.1764076995.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4FD410E196;
+	Tue, 25 Nov 2025 13:28:51 +0000 (UTC)
+X-Greylist: delayed 596 seconds by postgrey-1.36 at gabe;
+ Tue, 25 Nov 2025 13:28:49 UTC
+Received: from psionic.psi5.com (psionic.psi5.com [185.187.169.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D329C10E196
+ for <intel-gfx@lists.freedesktop.org>; Tue, 25 Nov 2025 13:28:49 +0000 (UTC)
+Received: from [IPV6:2400:2410:b120:f200:a1f3:73da:3a04:160d] (unknown
+ [IPv6:2400:2410:b120:f200:a1f3:73da:3a04:160d])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by psionic.psi5.com (Postfix) with ESMTPSA id A8FED3F11B;
+ Tue, 25 Nov 2025 14:18:46 +0100 (CET)
+Message-ID: <7bd66c59-7101-4e79-9c45-8c3417a4284f@hogyros.de>
+Date: Tue, 25 Nov 2025 22:18:43 +0900
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i915: Support Intel GPU porting on any non-x86 system.
+To: zhangzhijie <zhangzhijie@bosc.ac.cn>, jani.nikula@linux.intel.com,
+ jeff@jeffgeerling.com, wangran@bosc.ac.cn, zhangjian@bosc.ac.cn,
+ daniel@ffwll.ch, rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn
+References: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
+Content-Language: en-US
+From: Simon Richter <Simon.Richter@hogyros.de>
+In-Reply-To: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,78 +53,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop the display dependency on intel_wakeref.h header. The contract in
-the parent interface is that -ENOENT means there's no tracking. It
-doesn't actually require us to use a shared macro for it. Duplicate the
-macro in the few places that need this instead of inlining, primarily
-for documentation reasons.
+Hi,
 
-This allows us to remove the xe compat intel_wakeref.h header.
+On 11/24/25 3:56 PM, zhangzhijie wrote:
 
-v2: Define INTEL_WAKEREF_DEF in intel_display_power.h
+ > inb/outb speccial wire not support on other ARCH.
+ > Should detect whether arch platform support or not.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_power.h     | 5 +++--
- drivers/gpu/drm/xe/compat-i915-headers/intel_wakeref.h | 6 ------
- drivers/gpu/drm/xe/display/xe_display_rpm.c            | 4 +++-
- 3 files changed, 6 insertions(+), 9 deletions(-)
- delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_wakeref.h
+These platforms still have inb/outb definitions though that do 
+something. https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/1824 
+has a few cases where this goes wrong.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index 6f8d921b4482..d616d5d09cbe 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -9,8 +9,6 @@
- #include <linux/mutex.h>
- #include <linux/workqueue.h>
- 
--#include "intel_wakeref.h"
--
- enum aux_ch;
- enum port;
- struct i915_power_well;
-@@ -19,6 +17,9 @@ struct intel_encoder;
- struct ref_tracker;
- struct seq_file;
- 
-+/* -ENOENT means we got the ref, but there's no tracking */
-+#define INTEL_WAKEREF_DEF ERR_PTR(-ENOENT)
-+
- /*
-  * Keep the pipe, transcoder, port (DDI_LANES,DDI_IO,AUX) domain instances
-  * consecutive, so that the pipe,transcoder,port -> power domain macros
-diff --git a/drivers/gpu/drm/xe/compat-i915-headers/intel_wakeref.h b/drivers/gpu/drm/xe/compat-i915-headers/intel_wakeref.h
-deleted file mode 100644
-index 910a8a60da64..000000000000
---- a/drivers/gpu/drm/xe/compat-i915-headers/intel_wakeref.h
-+++ /dev/null
-@@ -1,6 +0,0 @@
--/* SPDX-License-Identifier: MIT */
--/*
-- * Copyright © 2023 Intel Corporation
-- */
--
--#define INTEL_WAKEREF_DEF ERR_PTR(-ENOENT)
-diff --git a/drivers/gpu/drm/xe/display/xe_display_rpm.c b/drivers/gpu/drm/xe/display/xe_display_rpm.c
-index 9416ec784e39..b3db40035499 100644
---- a/drivers/gpu/drm/xe/display/xe_display_rpm.c
-+++ b/drivers/gpu/drm/xe/display/xe_display_rpm.c
-@@ -5,11 +5,13 @@
- 
- #include "intel_display_core.h"
- #include "intel_display_rpm.h"
--#include "intel_wakeref.h"
- #include "xe_device.h"
- #include "xe_device_types.h"
- #include "xe_pm.h"
- 
-+/* -ENOENT means we got the ref, but there's no tracking */
-+#define INTEL_WAKEREF_DEF ERR_PTR(-ENOENT)
-+
- static struct ref_tracker *xe_display_rpm_get(const struct drm_device *drm)
- {
- 	return xe_pm_runtime_resume_and_get(to_xe_device(drm)) ? INTEL_WAKEREF_DEF : NULL;
--- 
-2.47.3
+There are also a few Intel chipsets that also allow MMIO accesses to VGA 
+registers. Whether there is an intersection of chipsets that allow it, 
+and chipsets where that is useful is another question though.
+
+ >   	vga_get_uninterruptible(pdev, VGA_RSRC_LEGACY_IO);
+
+This function really should check if inb/outb will address pdev after 
+the function returns, and return an error if not, then the accesses here 
+and in the power well code could be conditional on this, and it would be 
+generic.
+
+For this, the vgaarb code would need to check that the bridges on the 
+way up have accepted the VGA forwarding bit (i.e. read back after 
+writing it), and there probably should be a mechanism for the bridge 
+between PCI(e) and the platform bus, so systems with multiple PCI(e) 
+domains can also be handled.
+
+E.g. on POWER, there are global variables "isa_io_base" and 
+"pci_io_base", and it is assumed that these point to a place that 
+generates IO accesses from MMIO, but this assumption is not actually 
+verified, and I can pretty much guarantee that it's wrong if the PCIe 
+bus in question is not even attached to the first socket.
+
+Just checking that upstream bridges accept the VGA bit while vgaarb 
+switches decoding over would solve all of my problems though, because 
+the root bridge doesn't, so that would be a quick way of inhibiting 
+these accesses. It might work for you too, just try setting the bit 
+manually with setpci and check if it sticks.
+
+    Simon
 
