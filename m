@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D841CD116F3
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885BDD11700
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D7310E402;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2F010E403;
 	Mon,  1 Dec 2025 13:39:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="slheEfRM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLN6C2Wx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA87110E380;
- Mon,  1 Dec 2025 10:50:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 572D510E5EA;
+ Wed, 26 Nov 2025 13:20:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 53EEF6014C;
- Mon,  1 Dec 2025 10:50:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E21C113D0;
- Mon,  1 Dec 2025 10:50:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3CB1044346;
+ Wed, 26 Nov 2025 13:20:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D077C113D0;
+ Wed, 26 Nov 2025 13:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764586245;
- bh=soLLIRsbuDfyantBFZTK0Fok4YmEK6Tih/8wUoUvq3A=;
+ s=k20201202; t=1764163221;
+ bh=MN344wm2Ixu5X6Egt125oaRBPXXL6wOJJ8cpucZ04iA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=slheEfRM4qq4CBY706N9NiDZkoNhrtLL3LdJB3q+32lOQZN31j+ES1wWKUKQIZjMh
- O/K1ln97Il8byeLhs+vJ+hNeGh6fn9oPvvd+S8fwyvw1XN41fLNHuEy8Rw2ptq5BIy
- 3EP5XlafFZUMbvVtGmZATm5tmVw9usBYsLFdXP57HcVGaC59EFEXlGib28hruszN2f
- bGtjaF1xcCRi2nbyCN/n2hbmgPmfg5MDMZDWQ2K/20rA6Ba5BDbPGwUALNDDytAtLm
- TbZbgiE5EP3tXtQq0LD5DTG3MQ0JjqN3QTts2r4CQDiUAaFaKdHWhnPGSynEO05c9i
- YaHjWO07eZnFA==
+ b=KLN6C2WxyaGLUphoRIvUajESUcR/xNOR+7fMO/ABWSP+mXxmpoAAqQVtXfRLExvTc
+ SHrYcieFx+oJIAIIpPsikBV7AlKohQDi3P3L9XlfRc/R0rQyx3hXhfkOxgi1TVkpGR
+ vu3+lvtFLZrjiqNSZ3DSkk7SvXT2C7IGLmlY7IAE/e2YBZHik2G2uG86XzNj3goi7q
+ oFQqGbp0EeUdB7hxktU5GTHGrf4Ugn2d6Z/GlxFvP8yVotOajkcvYV+PercoshxZqo
+ QMnkU/DrukJ2Zqfh5CB4FFW5NbPNqCHSZez5AxeD+gRPeP6pPbCCSHSjlPCt/IGkrw
+ 38tlRKl6OYtRA==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  Gustavo Padovan <gustavo@padovan.org>,
@@ -48,15 +48,16 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2 3/8] amd/amdkfd: Use dma_fence_check_and_signal()
-Date: Mon,  1 Dec 2025 11:50:07 +0100
-Message-ID: <20251201105011.19386-5-phasta@kernel.org>
+Subject: [PATCH 3/6] drm/gpu/xe: Ignore dma_fenc_signal() return code
+Date: Wed, 26 Nov 2025 14:19:12 +0100
+Message-ID: <20251126131914.149445-5-phasta@kernel.org>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251201105011.19386-2-phasta@kernel.org>
-References: <20251201105011.19386-2-phasta@kernel.org>
+In-Reply-To: <20251126131914.149445-2-phasta@kernel.org>
+References: <20251126131914.149445-2-phasta@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -76,49 +77,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-amdkfd is one of the few users which relies on the return code of
-dma_fence_signal(), which, so far, informs the caller whether the fence
-had already been signaled.
+The return code of dma_fence_signal() is not really useful as there is
+nothing reasonable to do if a fence was already signaled. That return
+code shall be removed from the kernel.
 
-As there are barely any users, dma_fence signaling functions shall get
-the return value void. To do so, the few users must be ported to a
-function which preserves the old behavior.
-
-Replace the call to dma_fence_signal() with one to
-dma_fence_check_and_signal().
+Ignore dma_fence_signal()'s return code.
 
 Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_hw_fence.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ddfe30c13e9d..4dc46ac6a65e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1983,10 +1983,10 @@ kfd_process_gpuid_from_node(struct kfd_process *p, struct kfd_node *node,
- 	return -EINVAL;
- }
- 
--static int signal_eviction_fence(struct kfd_process *p)
-+static bool signal_eviction_fence(struct kfd_process *p)
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index b2a0c46dfcd4..959b30dde724 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -85,7 +85,6 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
  {
- 	struct dma_fence *ef;
--	int ret;
-+	bool ret;
+ 	struct xe_hw_fence *fence, *next;
+ 	unsigned long flags;
+-	int err;
+ 	bool tmp;
  
- 	rcu_read_lock();
- 	ef = dma_fence_get_rcu_safe(&p->ef);
-@@ -1994,7 +1994,7 @@ static int signal_eviction_fence(struct kfd_process *p)
- 	if (!ef)
- 		return -EINVAL;
- 
--	ret = dma_fence_signal(ef);
-+	ret = dma_fence_check_and_signal(ef);
- 	dma_fence_put(ef);
- 
- 	return ret;
+ 	if (XE_WARN_ON(!list_empty(&irq->pending))) {
+@@ -93,9 +92,9 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
+ 		spin_lock_irqsave(&irq->lock, flags);
+ 		list_for_each_entry_safe(fence, next, &irq->pending, irq_link) {
+ 			list_del_init(&fence->irq_link);
+-			err = dma_fence_signal_locked(&fence->dma);
++			XE_WARN_ON(dma_fence_test_signaled_flag(&fence->dma));
++			dma_fence_signal_locked(&fence->dma);
+ 			dma_fence_put(&fence->dma);
+-			XE_WARN_ON(err);
+ 		}
+ 		spin_unlock_irqrestore(&irq->lock, flags);
+ 		dma_fence_end_signalling(tmp);
 -- 
 2.49.0
 
