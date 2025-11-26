@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B813DD11701
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0C4D11700
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA5810E3FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDB9D10E3F3;
 	Mon,  1 Dec 2025 13:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SlzUKnq7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YloxW97u";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAF210E5EC;
- Wed, 26 Nov 2025 13:20:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24B6910E137;
+ Wed, 26 Nov 2025 13:20:02 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 242B940BFF;
- Wed, 26 Nov 2025 13:20:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F58C113D0;
- Wed, 26 Nov 2025 13:20:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C390C43804;
+ Wed, 26 Nov 2025 13:20:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A38C113D0;
+ Wed, 26 Nov 2025 13:19:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764163234;
- bh=lgAu6095fUG7URUtB5h9h1pWeOKehgRUT+IfEnrX0L8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=SlzUKnq7+JYkCPIISBxuVSJtdfIbgnro2PHCDrhP1dJKS3DVMtUcilQacvEz/ee17
- n/rAZbBLl1tDeiGBZMIfP903XFYmcmrpBfkc8FMNkSMAS5rh0UfG9DP0he9+bjVsGh
- X8NmWUTmwUR3GL7sikPHs0vQ2bTo45s6VLia93pI3VaJ0ZubUQToiKczIjcBU3OYJH
- 76rPpa7YG4R/HdNwlS3tq9eBfDQfTnu4JO+iNOIJ01Ta2z0h+YCkqh/kjqfGUp2F4F
- Hm0Zlee+s4KQs9RusVyTgY9xIZfMwbSIzZxLh5C2T1MI6nNapaHJFzmkrvgHBUK7NB
- bgrvQM/LDGb7A==
+ s=k20201202; t=1764163201;
+ bh=Sxi/6Q4jvM2wf7pGd7IQAsQCeNxuHVhX9VsDta4LQiA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=YloxW97ukkemiEAEPPhT3JNEHRNsVszBesyclyxTRy/EnrWClbK0bOMKoj3DfHXYz
+ qoI4/w2RckPGF92iCtRSt0iYnXyoM8Tc88E/i3SGDnoJAVqj1KaIxoqV/t0KumtfHg
+ 7eQHOasX20pp/F4RF8CDvu7tYubl2WDsVGsRbqWeXsn9htX/5681mjms4g1PWtPT9m
+ Z0H73pNH42qhH97McsOJran19ljL/9/E989x8UdZfitpJSEVz95DcX/Dbty5lKKfmz
+ D63AVLSZR/MJ4CnCHUZ4j/BSbAPPTzStWNmNcKA9dSOgRtNbeK2KIECPRkfHhReJzG
+ QTlTTkRMr0uGg==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  Gustavo Padovan <gustavo@padovan.org>,
@@ -52,12 +52,10 @@ Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 5/6] drm/ttm: Remove return check of dma_fence_signal()
-Date: Wed, 26 Nov 2025 14:19:14 +0100
-Message-ID: <20251126131914.149445-7-phasta@kernel.org>
+Subject: [PATCH 0/6] dma-fence: Remove return code of dma_fence_signal() et al.
+Date: Wed, 26 Nov 2025 14:19:09 +0100
+Message-ID: <20251126131914.149445-2-phasta@kernel.org>
 X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251126131914.149445-2-phasta@kernel.org>
-References: <20251126131914.149445-2-phasta@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -77,31 +75,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The return code of dma_fence_signal() is not useful and shall be removed
-from the kernel. To do so, all users must be removed.
+Barely anyone uses dma_fence_signal()'s (and similar functions') return
+code. Checking it is pretty much useless anyways, because what are you
+going to do if a fence was already signal it? Unsignal it and signal it
+again? ;p
 
-Remove usage of dma_fence_signal()'s return code.
+Removing the return code simplifies the API and makes it easier for me
+to sit on top with Rust DmaFence.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Philipp Stanner (6):
+  dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
+  amd/amdkfd: Ignore return code of dma_fence_signal()
+  drm/gpu/xe: Ignore dma_fenc_signal() return code
+  dma-buf: Don't misuse dma_fence_signal()
+  drm/ttm: Remove return check of dma_fence_signal()
+  dma-buf/dma-fence: Remove return code of signaling-functions
 
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-index 1bcc67977f48..34957624910f 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-@@ -692,7 +692,8 @@ static int threaded_fence_signal(void *arg)
- 
- 	msleep(20);
- 
--	return dma_fence_signal(fence);
-+	dma_fence_signal(fence);
-+	return 0;
- }
- 
- static void ttm_bo_validate_move_fence_not_signaled(struct kunit *test)
+ drivers/dma-buf/dma-fence.c                   | 59 ++++++-------------
+ drivers/dma-buf/st-dma-fence.c                |  7 +--
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  5 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  3 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  5 +-
+ include/linux/dma-fence.h                     | 33 ++++++++---
+ 6 files changed, 53 insertions(+), 59 deletions(-)
+
 -- 
 2.49.0
 
