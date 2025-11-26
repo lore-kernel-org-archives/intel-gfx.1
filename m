@@ -4,59 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89578D10F22
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 11:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8234FD10F34
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Nov 2025 12:50:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A66C10E5A2;
-	Wed, 26 Nov 2025 11:11:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J3OivqFN";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 974FA10E5A2;
- Wed, 26 Nov 2025 11:11:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764155508; x=1795691508;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=T6QSdd9im9TwtM6pJnF79OwFNgjEqF5MU1rz9rGCVZk=;
- b=J3OivqFNREsUJo+wv29qjECGEESAejc3ddIxUgiS+pvCejzaT9NhSNu0
- ygMsDs1uFj3EJrz7FYA5JiwFq/rhR5PKZpD7G6EC60zjupHYv3hnRNyPU
- im4fWEsdYh4dofuByHhrSRdS9i66relKsOBnt4a3mlAyFo7aypUcWgwrb
- oGsZ5GyXov3YNfjgudEhftDmVCWbKPNy3CQNmmZ9nxR6q8rHjixTr2IUq
- msxNNregNAEr+sgFgRMphLovyEJznPML2dsDS1NiedA3Wi3jJGn7NaJnh
- A3OiREOfxyyyBMWKy7MAQepzOkJOHRUmLscGuUeM/CzGDXTs9uGpIKtDX g==;
-X-CSE-ConnectionGUID: sq5g8aL9QjSnXDtHw8K9RQ==
-X-CSE-MsgGUID: dsaxvi04SSGgdV1Zh92eBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11624"; a="66349682"
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="66349682"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 03:11:48 -0800
-X-CSE-ConnectionGUID: g044VjtcR7ecVSsN0ysCTw==
-X-CSE-MsgGUID: 7rzbBv0nQX6aCwche6/ScQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,228,1758610800"; d="scan'208";a="197404490"
-Received: from lfiedoro-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.246.1])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2025 03:11:46 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	ville.syrjala@linux.intel.com
-Subject: [RESEND 4/4] drm/xe/dsb: drop the unnecessary struct i915_vma
-Date: Wed, 26 Nov 2025 13:11:23 +0200
-Message-ID: <f0bba09d2f185fe3e7f3b803036f036d845a8cc4.1764155417.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1764155417.git.jani.nikula@intel.com>
-References: <cover.1764155417.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1596010E5EF;
+	Wed, 26 Nov 2025 12:50:10 +0000 (UTC)
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com
+ [115.124.28.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6C6F10E070;
+ Wed, 26 Nov 2025 01:39:42 +0000 (UTC)
+Received: from 172.38.10.120(mailfrom:zhangzhijie@bosc.ac.cn
+ fp:SMTPD_---.fVyAjhI_1764121178 cluster:ay29) by smtp.aliyun-inc.com;
+ Wed, 26 Nov 2025 09:39:39 +0800
+Message-ID: <0d2e6a53-11f8-403c-a4e8-b9c367ed96a8@bosc.ac.cn>
+Date: Wed, 26 Nov 2025 09:39:37 +0800
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i915: Support Intel GPU porting on any non-x86 system.
+To: Lucas De Marchi <lucas.demarchi@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, jeff@jeffgeerling.com,
+ wangran@bosc.ac.cn, zhangjian@bosc.ac.cn, daniel@ffwll.ch,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, guoyaxing@bosc.ac.cn
+References: <20251124065645.1920632-1-zhangzhijie@bosc.ac.cn>
+ <bac7a05b799309fe2c269232e70e82f86a8e2811@intel.com>
+ <1657dccb-3d03-420a-9ffa-5601ae212fd9@bosc.ac.cn>
+ <58728a8ae8f0a3e92be203a9296d120fd12da8d5@intel.com>
+ <14954d6d-67bc-49f4-b394-3da4e1f80af1@bosc.ac.cn>
+ <743pqjv2sefs3bhsyyoezv2nzf6tcbc6fo5nshczsc3s36j3qy@2xla3yxhbhpd>
+Content-Language: en-US
+From: ZhangZhiJie <zhangzhijie@bosc.ac.cn>
+In-Reply-To: <743pqjv2sefs3bhsyyoezv2nzf6tcbc6fo5nshczsc3s36j3qy@2xla3yxhbhpd>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 26 Nov 2025 12:50:09 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,117 +55,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that struct intel_dsb_buffer is opaque, it can be made unique to
-both drivers, and we can drop the unnecessary struct i915_vma part. Only
-the struct xe_bo part is needed.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/xe/display/xe_dsb_buffer.c | 28 +++++++---------------
- 1 file changed, 8 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_dsb_buffer.c b/drivers/gpu/drm/xe/display/xe_dsb_buffer.c
-index d55858705106..fa0acb11eaad 100644
---- a/drivers/gpu/drm/xe/display/xe_dsb_buffer.c
-+++ b/drivers/gpu/drm/xe/display/xe_dsb_buffer.c
-@@ -3,7 +3,6 @@
-  * Copyright 2023, Intel Corporation.
-  */
- 
--#include "i915_vma.h"
- #include "intel_dsb_buffer.h"
- #include "xe_bo.h"
- #include "xe_device.h"
-@@ -11,30 +10,30 @@
- 
- struct intel_dsb_buffer {
- 	u32 *cmd_buf;
--	struct i915_vma *vma;
-+	struct xe_bo *bo;
- 	size_t buf_size;
- };
- 
- u32 intel_dsb_buffer_ggtt_offset(struct intel_dsb_buffer *dsb_buf)
- {
--	return xe_bo_ggtt_addr(dsb_buf->vma->bo);
-+	return xe_bo_ggtt_addr(dsb_buf->bo);
- }
- 
- void intel_dsb_buffer_write(struct intel_dsb_buffer *dsb_buf, u32 idx, u32 val)
- {
--	iosys_map_wr(&dsb_buf->vma->bo->vmap, idx * 4, u32, val);
-+	iosys_map_wr(&dsb_buf->bo->vmap, idx * 4, u32, val);
- }
- 
- u32 intel_dsb_buffer_read(struct intel_dsb_buffer *dsb_buf, u32 idx)
- {
--	return iosys_map_rd(&dsb_buf->vma->bo->vmap, idx * 4, u32);
-+	return iosys_map_rd(&dsb_buf->bo->vmap, idx * 4, u32);
- }
- 
- void intel_dsb_buffer_memset(struct intel_dsb_buffer *dsb_buf, u32 idx, u32 val, size_t size)
- {
- 	WARN_ON(idx > (dsb_buf->buf_size - size) / sizeof(*dsb_buf->cmd_buf));
- 
--	iosys_map_memset(&dsb_buf->vma->bo->vmap, idx * 4, val, size);
-+	iosys_map_memset(&dsb_buf->bo->vmap, idx * 4, val, size);
- }
- 
- struct intel_dsb_buffer *intel_dsb_buffer_create(struct drm_device *drm, size_t size)
-@@ -42,19 +41,12 @@ struct intel_dsb_buffer *intel_dsb_buffer_create(struct drm_device *drm, size_t
- 	struct xe_device *xe = to_xe_device(drm);
- 	struct intel_dsb_buffer *dsb_buf;
- 	struct xe_bo *obj;
--	struct i915_vma *vma;
- 	int ret;
- 
- 	dsb_buf = kzalloc(sizeof(*dsb_buf), GFP_KERNEL);
- 	if (!dsb_buf)
- 		return ERR_PTR(-ENOMEM);
- 
--	vma = kzalloc(sizeof(*vma), GFP_KERNEL);
--	if (!vma) {
--		ret = -ENOMEM;
--		goto err_vma;
--	}
--
- 	/* Set scanout flag for WC mapping */
- 	obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe),
- 					PAGE_ALIGN(size),
-@@ -66,15 +58,12 @@ struct intel_dsb_buffer *intel_dsb_buffer_create(struct drm_device *drm, size_t
- 		goto err_pin_map;
- 	}
- 
--	vma->bo = obj;
--	dsb_buf->vma = vma;
-+	dsb_buf->bo = obj;
- 	dsb_buf->buf_size = size;
- 
- 	return dsb_buf;
- 
- err_pin_map:
--	kfree(vma);
--err_vma:
- 	kfree(dsb_buf);
- 
- 	return ERR_PTR(ret);
-@@ -82,14 +71,13 @@ struct intel_dsb_buffer *intel_dsb_buffer_create(struct drm_device *drm, size_t
- 
- void intel_dsb_buffer_cleanup(struct intel_dsb_buffer *dsb_buf)
- {
--	xe_bo_unpin_map_no_vm(dsb_buf->vma->bo);
--	kfree(dsb_buf->vma);
-+	xe_bo_unpin_map_no_vm(dsb_buf->bo);
- 	kfree(dsb_buf);
- }
- 
- void intel_dsb_buffer_flush_map(struct intel_dsb_buffer *dsb_buf)
- {
--	struct xe_device *xe = dsb_buf->vma->bo->tile->xe;
-+	struct xe_device *xe = dsb_buf->bo->tile->xe;
- 
- 	/*
- 	 * The memory barrier here is to ensure coherency of DSB vs MMIO,
--- 
-2.47.3
+On 2025/11/26 05:54, Lucas De Marchi wrote:
+> On Tue, Nov 25, 2025 at 06:20:00PM +0800, ZhangZhiJie wrote:
+>>
+>>
+>> On 2025/11/25 18:13, Jani Nikula wrote:
+>>> On Tue, 25 Nov 2025, ZhangZhiJie <zhangzhijie@bosc.ac.cn> wrote:
+>>>> On 2025/11/24 20:24, Jani Nikula wrote:
+>>>>> On Mon, 24 Nov 2025, zhangzhijie <zhangzhijie@bosc.ac.cn> wrote:
+>>>>>> inb/outb speccial wire not support on other ARCH.
+>>>>>> Should detect whether arch platform support or not.
+>>>>>
+>>>>> Seems to me it inb/outb depend on CONFIG_HAS_IOPORT. Which arch are 
+>>>>> you
+>>>>> talking about specifically?
+>>>>
+>>>> riscv , has CONFIG_HAS_IOPORT.  is using for serial, GPIO., etc.
+>>>
+>>> What is the actual failure mode you see?
+>>>
+>>> Does it build?
+>>>
+>>> BR,
+>>> Jani.
+>>>
+>> Yes, i compiled Xe driver, and it's occured load access fault when not 
+>> disable  VGA_SEQ_*.
+>>
+>> can found this link https://github.com/geerlingguy/raspberry-pi-pcie- 
+>> devices/issues/510#issuecomment-3383284831
+> 
+> and this is what I tested with rpi:
+> https://lore.kernel.org/intel-xe/20251119-ioport-v1-1- 
+> ec43f1e12c49@intel.com/
+> 
+Yep. agree like this patch.
 
+In my mind. if machine not implement VGA_SEQ_* ioport.
+should avoid access ioports about VGA_SEQ_* .
+
+Can you give  log for bootting on non-x86 arch?
+
+> not sure why you are changing the intel_vga_disable() function: out of
+> reset that bit is disabled and the function does nothing:
+> 
+>      tmp = intel_de_read(display, vga_reg);
+>      if (tmp & VGA_DISP_DISABLE)
+>          return;
+> 
+> If there's no VGA, no bios, then there isn't anything enabling that and
+> we don't need to disable it.
+> 
+> I have a patch that moves the vga access to a separate function,
+> intel_vga_set_screen_off(), but that's mostly for clarity, not to fix
+> anything. If later we want to add an ifdef then we'd probably have to
+> implement the alternative.
+> 
+> Also note that not having CONFIG_HAS_IOPORT doesn't mean inb()/outb()
+> are not implemented. See arch/{arm,powerpc,sparc}/include/asm/io.h
+> for a few variants.
+> 
+> Lucas De Marchi
+
+BR.
+ZhiJie
