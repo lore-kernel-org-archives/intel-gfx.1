@@ -4,59 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB0BD11700
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F41CD11709
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F1610E410;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBFF510E413;
 	Mon,  1 Dec 2025 13:39:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GdvDEAEF";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="jLMIxK76";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B30A110E338;
- Mon,  1 Dec 2025 09:38:08 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A0BD86013A;
- Mon,  1 Dec 2025 09:38:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73726C4CEF1;
- Mon,  1 Dec 2025 09:38:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764581887;
- bh=4p2wg1jmOngnkzqKp6YIZ9UwcAm/w6dhGKvcrcI//Ok=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=GdvDEAEFt0aGU5ln/ROKVDXUPfJFeouk5NuQRf4tzsuamtFpi6ayLs4mMLZn0bkSA
- tbBtWTvwS1FdfhGP03SFL+5x2JrTBLkfrPT5zbmp8IkhZAUcUAeStqzOprHT1vEKBH
- BxwhXHuBsY6erQgpyld5jroWvYmoLA4hmWXecHHXScuQE38VjTnq4MqnKX70DeBPPr
- ExeDG4SucnRtoWYtI3elukieHFaaTCndJDK1mrQMi+bOVZlknQigDvQHuAoSE22e8b
- KbTG3h3Q8YOO018TQwixvc4ft1NT2apZi3P/SBkhkF4CD1QSXZEe9cCXeae0b2Ri1A
- FDU8aHJPDvC/Q==
-Message-ID: <3e7ddbea-978f-44f7-abdd-7319908fd83c@kernel.org>
-Date: Mon, 1 Dec 2025 10:38:01 +0100
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66BAE10E7F4;
+ Thu, 27 Nov 2025 09:48:12 +0000 (UTC)
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dHBSS6Tfrz9tlN;
+ Thu, 27 Nov 2025 10:48:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764236888; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ZQYSvusihxhAEhdU9CYjb1IJ74ERkj/ScwDBukN3aU4=;
+ b=jLMIxK760nk1jr6W+dythNSXScSQUSIn0bfNZKLsnQsoUsP4h3ywir/eSZ27UsyXpnUHGt
+ HKR1ydCo5vb0KXtgiU6+xBvKyCoskn4oBuzTQs9zRcXr4JqHMSNdo9tohHXFRZPmyaLuPE
+ fotHp0J55AqD+/ghCBzme2ktHRL56A/js86yI4JIJmo+MHuOaH5QumXvHmc8mWASePQ8Ys
+ I9DkcZ+wxN5w0xPnu1wseU7+VBp/jfR6Z2ugni7+QL0aVcoKFRF9QYlIY8o9GfvPOCf5Gz
+ dg4RXwx8zURlAGa2kAFYPgo3xhFLy361bSBJz6mMLjboBiGUb7+PvOGVjcDFdA==
+Message-ID: <d46f753e660694ab46c65409a5e43f050b7eb2d9.camel@mailbox.org>
+Subject: Re: [PATCH 2/6] amd/amdkfd: Ignore return code of dma_fence_signal()
+From: Philipp Stanner <phasta@mailbox.org>
+To: "Kuehling, Felix" <felix.kuehling@amd.com>, Philipp Stanner
+ <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Gustavo
+ Padovan <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
+ <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Date: Thu, 27 Nov 2025 10:48:00 +0100
+In-Reply-To: <cef83fed-5994-4c77-962c-9c7aac9f7306@amd.com>
+References: <20251126131914.149445-2-phasta@kernel.org>
+ <20251126131914.149445-4-phasta@kernel.org>
+ <cef83fed-5994-4c77-962c-9c7aac9f7306@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] kernel.h: drop STACK_MAGIC macro
-To: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-References: <20251129195304.204082-1-yury.norov@gmail.com>
- <20251129195304.204082-2-yury.norov@gmail.com>
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Content-Language: fr-FR
-In-Reply-To: <20251129195304.204082-2-yury.norov@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 0128008008b612f56f4
+X-MBO-RS-META: iynpcy9qgfczj4y13orf1zbr8bhxik1n
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,65 +78,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Wed, 2025-11-26 at 16:24 -0500, Kuehling, Felix wrote:
+>=20
+> On 2025-11-26 08:19, Philipp Stanner wrote:
+> > The return code of dma_fence_signal() is not really useful as there is
+> > nothing reasonable to do if a fence was already signaled. That return
+> > code shall be removed from the kernel.
+> >=20
+> > Ignore dma_fence_signal()'s return code.
+>=20
+> I think this is not correct. Looking at the comment in=20
+> evict_process_worker, we use the return value to decide a race=20
+> conditions where multiple threads are trying to signal the eviction=20
+> fence. Only one of them should schedule the restore work. And the other=
+=20
+> ones need to increment the reference count to keep evictions balanced.
+
+Thank you for pointing that out. Seems then amdkfd is the only user who
+actually relies on the feature. See below
+
+>=20
+> Regards,
+> =C2=A0=C2=A0 Felix
+>=20
+>=20
+> >=20
+> > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > ---
+> > =C2=A0 drivers/gpu/drm/amd/amdkfd/kfd_process.c | 5 ++---
+> > =C2=A0 1 file changed, 2 insertions(+), 3 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_process.c
+> > index ddfe30c13e9d..950fafa4b3c3 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> > @@ -1986,7 +1986,6 @@ kfd_process_gpuid_from_node(struct kfd_process *p=
+, struct kfd_node *node,
+> > =C2=A0 static int signal_eviction_fence(struct kfd_process *p)
+> > =C2=A0 {
+> > =C2=A0=C2=A0	struct dma_fence *ef;
+> > -	int ret;
+> > =C2=A0=20
+> > =C2=A0=C2=A0	rcu_read_lock();
+> > =C2=A0=C2=A0	ef =3D dma_fence_get_rcu_safe(&p->ef);
+> > @@ -1994,10 +1993,10 @@ static int signal_eviction_fence(struct kfd_pro=
+cess *p)
+> > =C2=A0=C2=A0	if (!ef)
+> > =C2=A0=C2=A0		return -EINVAL;
+> > =C2=A0=20
+> > -	ret =3D dma_fence_signal(ef);
+> > +	dma_fence_signal(ef);
+
+The issue now is that dma_fence_signal()'s return code is actually non-
+racy, because check + bit-set are protected by lock.
+
+Christian's new spinlock series would add a lock function for fences:
+https://lore.kernel.org/dri-devel/20251113145332.16805-5-christian.koenig@a=
+md.com/
 
 
-Le 29/11/2025 à 20:53, Yury Norov (NVIDIA) a écrit :
-> The macro is only used by i915. Move it to a local header and drop from
-> the kernel.h.
+So I suppose this should work:
 
-At the begining of the git history we have:
+dma_fence_lock_irqsave(ef, flags);
+if (dma_fence_test_signaled_flag(ef)) {
+	dma_fence_unlock_irqrestore(ef, flags);
+	return true;
+}
+dma_fence_signal_locked(ef);
+dma_fence_unlock_irqrestore(ef, flags);
 
-$ git grep STACK_MAGIC 1da177e4c3f41
-1da177e4c3f41:arch/h8300/kernel/traps.c:        if (STACK_MAGIC != 
-*(unsigned long *)((unsigned long)current+PAGE_SIZE))
-1da177e4c3f41:arch/m68k/mac/macints.c:          if (STACK_MAGIC != 
-*(unsigned long *)current->kernel_stack_page)
-1da177e4c3f41:include/linux/kernel.h:#define STACK_MAGIC        0xdeadbeef
+return false;
 
-Would be good to know the history of its usage over time.
 
-I see:
-- Removed from m68k by 3cd53b14e7c4 ("m68k/mac: Improve NMI handler")
-- Removed from h8300 by 1c4b5ecb7ea1 ("remove the h8300 architecture")
-- Started being used in i915 selftest by 250f8c8140ac ("drm/i915/gtt: 
-Read-only pages for insert_entries on bdw+")
++ some cosmetic adjustments for the boolean of course.
 
-Christophe
 
-> 
-> Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
-> ---
->   drivers/gpu/drm/i915/i915_utils.h | 2 ++
->   include/linux/kernel.h            | 2 --
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
-> index a0c892e4c40d..6c197e968305 100644
-> --- a/drivers/gpu/drm/i915/i915_utils.h
-> +++ b/drivers/gpu/drm/i915/i915_utils.h
-> @@ -32,6 +32,8 @@
->   #include <linux/workqueue.h>
->   #include <linux/sched/clock.h>
->   
-> +#define STACK_MAGIC	0xdeadbeef
-> +
->   #ifdef CONFIG_X86
->   #include <asm/hypervisor.h>
->   #endif
-> diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-> index 5b46924fdff5..61d63c57bc2d 100644
-> --- a/include/linux/kernel.h
-> +++ b/include/linux/kernel.h
-> @@ -40,8 +40,6 @@
->   
->   #include <uapi/linux/kernel.h>
->   
-> -#define STACK_MAGIC	0xdeadbeef
-> -
->   struct completion;
->   struct user;
->   
+Would that fly and be reasonable? @Felix, Christian.
 
+
+P.
