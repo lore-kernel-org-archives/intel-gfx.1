@@ -4,70 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F478D1170C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D009D116F5
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C6A10E41C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 957FC10E41A;
 	Mon,  1 Dec 2025 13:39:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PE/GCtNF";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="oMA0l5GF";
 	dkim-atps=neutral
-X-Greylist: delayed 492 seconds by postgrey-1.36 at gabe;
- Wed, 26 Nov 2025 14:17:53 UTC
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F2A3810E632;
- Wed, 26 Nov 2025 14:17:53 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6980010E7D1;
+ Thu, 27 Nov 2025 09:16:16 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dGhJf3tP1z9tcd;
- Wed, 26 Nov 2025 15:09:38 +0100 (CET)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4dH9ld1kxhz9tZ4;
+ Thu, 27 Nov 2025 10:16:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
  s=mail20150812; 
- t=1764166178; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ t=1764234973; h=from:from:reply-to:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=DmRHcXHYF1BHpb8VfMZZq6dar989WGMZcrYiKm4u1P4=;
- b=PE/GCtNFXUhbjzXJdWR/gD4m00NSINuH49EL55fKe7aGFUYC4Ge/PJf2Ma4cBbhjTKNffz
- 2+z9XS0g/j0UO8gNWoHsABYoMxn+fw4dgv2jLNU0+IMV7GNFw0sMUVA0ts9KFjzP5/Ax58
- +GOEkRpMlv5VeHhX6w+bpMlRzQyW74iUlKtsK55fUO/oBriC4hYyV6B2dHx8sBN7GynYxv
- tRCctxkqNU0DvqURQ+i6raZDUFihHqWeJQd7mQLFA5VG4mqWgUaK9vo9gNqwrpzEYZL7QA
- BI+K9rzzkLvUQbN8xFGbt4lovABNKLUakNT+E9q9ZNwqWxClbUY8RPelnfWfWw==
-Message-ID: <f74664fdf1cf0adba9a8b19b00db4823ee3f7f1b.camel@mailbox.org>
-Subject: Re: [PATCH 0/6] dma-fence: Remove return code of dma_fence_signal()
- et al.
+ bh=XFgdH560T3YiZGXpnSavHS2fNWjlZmWfX61HED3oDlY=;
+ b=oMA0l5GF20+89bOALj2AZEzZ3KIYCQ0sQV3nKIuCRZQwgA60GoBHIUvo5JRwMguBCc9aZn
+ F5inZjQemfWXADIy+1xs76rtlYJFo92RNRet6w4peIdc++GW6ttRGWxsCSXZqLLJ1K10VW
+ QLkDmrkejRTh1VxfNJZ4pklrXpAKF9HotuRSmTJqVuPBFkros9P2+ivH/W1otk+mQpr0t9
+ mnTm79fYRIiStVef/JAOqBwscFVop7s6hLDvpyU/Arc28NFYHaNpXsDjbYT9vMO0+bOAVO
+ gzwkxgjeZWdYc3mg70heVVNEMMx2BkFm+1Edzdqkw9Qv9hGCakXTyIbg4+8BCQ==
+Message-ID: <35189892c0cb774155e2012d41371b4d3f8e7d0f.camel@mailbox.org>
+Subject: Re: [PATCH 1/6] dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
 From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>, Felix Kuehling
- <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
- <matthew.brost@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Date: Wed, 26 Nov 2025 15:09:26 +0100
-In-Reply-To: <48352d7e-5e43-4683-9f00-b77ae571d8f6@amd.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
+ Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Date: Thu, 27 Nov 2025 10:16:01 +0100
+In-Reply-To: <f1864f6d-8403-406d-81a0-00a71495cae8@amd.com>
 References: <20251126131914.149445-2-phasta@kernel.org>
- <48352d7e-5e43-4683-9f00-b77ae571d8f6@amd.com>
+ <20251126131914.149445-3-phasta@kernel.org>
+ <aSctt3QFiEIB61Gr@lstrano-desk.jf.intel.com>
+ <aScxGDYeNeN1WYja@lstrano-desk.jf.intel.com>
+ <f1864f6d-8403-406d-81a0-00a71495cae8@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MBO-RS-ID: 9184d60e51ec9d03be1
-X-MBO-RS-META: ppa4nssdwpc8dthds1b9du1r4cc734jt
+X-MBO-RS-META: bgpghhhhrg9u5u445qr6ka3upg67j9jx
+X-MBO-RS-ID: a7092e291bad71bbc06
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,65 +84,57 @@ Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2025-11-26 at 15:02 +0100, Christian K=C3=B6nig wrote:
-> On 11/26/25 14:19, Philipp Stanner wrote:
-> > Barely anyone uses dma_fence_signal()'s (and similar functions') return
-> > code. Checking it is pretty much useless anyways, because what are you
-> > going to do if a fence was already signal it? Unsignal it and signal it
-> > again? ;p
+On Thu, 2025-11-27 at 09:11 +0100, Christian K=C3=B6nig wrote:
+> On 11/26/25 17:55, Matthew Brost wrote:
+> > On Wed, Nov 26, 2025 at 08:41:27AM -0800, Matthew Brost wrote:
+> > > On Wed, Nov 26, 2025 at 02:19:10PM +0100, Philipp Stanner wrote:
+> > > > The dma_fence framework checks at many places whether the signaled =
+flag
+> > > > of a fence is already set. The code can be simplified and made more
+> > > > readable by providing a helper function for that.
+> > > >=20
+> > > > Add dma_fence_test_signaled_flag(), which only checks whether a fen=
+ce is
+> > > > signaled. Use it internally.
+> > > >=20
+> > > > Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> > > > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> > >=20
+> > > This is a nice cleanp:
+> > > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+> > >=20
+> > > > ---
+> > > > =C2=A0drivers/dma-buf/dma-fence.c | 19 +++++++++----------
+> > > > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 | 24 ++++++++++++++++++=
+++++--
+> > > > =C2=A02 files changed, 31 insertions(+), 12 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fenc=
+e.c
+> > > > index 39e6f93dc310..25117a906846 100644
+> > > > --- a/drivers/dma-buf/dma-fence.c
+> > > > +++ b/drivers/dma-buf/dma-fence.c
+> > > > @@ -372,8 +372,7 @@ int dma_fence_signal_timestamp_locked(struct dm=
+a_fence *fence,
+> > > > =C2=A0
+> > > > =C2=A0	lockdep_assert_held(fence->lock);
+> > > > =C2=A0
+> > > > -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> > > > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
+> >=20
+> > I need to read a little better, I think this change isn't quite right.
+> > The original code is test and set, the updated code is test only (i.e.,
+> > you are missing the set step). So maybe just leave this line as is.
 >=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com> for the enti=
-re series.
->=20
-> Please push to drm-misc-next or leave me a note when I should pick it up.
+> Oh, good point! I've totally missed that as well.
 
-Thx! I can push it. Let's wait a while to see if some of the other
-folks have sth to say.
+Oh dear; I also just saw it when opening the mail client ._.
 
 >=20
-> > Removing the return code simplifies the API and makes it easier for me
-> > to sit on top with Rust DmaFence.
->=20
-> BTW, I have an rb for embedding the lock and I'm now writing test cases.
->=20
-> When that is done you should be able to base the Rust DmaFence abstractio=
-n on that as well.
+> But that means that this patch set hasn't even been smoke tested.
 
-Yeah, thank you, that will actually help since I was in the process of
-solving the same life time issues in Rust.
+I've built it and did some basic testing with my Nouveau system. Any
+suggestions? Do you have a CI that one can trigger?
 
-I will give your series a review ~tomorrow, too. Or should I wait for
-v4 with the tests?
-
+Thx
 P.
-
->=20
-> Regards,
-> Christian.
->=20
-> >=20
-> > Philipp Stanner (6):
-> > =C2=A0 dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-> > =C2=A0 amd/amdkfd: Ignore return code of dma_fence_signal()
-> > =C2=A0 drm/gpu/xe: Ignore dma_fenc_signal() return code
-> > =C2=A0 dma-buf: Don't misuse dma_fence_signal()
-> > =C2=A0 drm/ttm: Remove return check of dma_fence_signal()
-> > =C2=A0 dma-buf/dma-fence: Remove return code of signaling-functions
-> >=20
-> > =C2=A0drivers/dma-buf/dma-fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | =
-59 ++++++-------------
-> > =C2=A0drivers/dma-buf/st-dma-fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 7 +--
-> > =C2=A0drivers/gpu/drm/amd/amdkfd/kfd_process.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 5 +-
-> > =C2=A0.../gpu/drm/ttm/tests/ttm_bo_validate_test.c=C2=A0 |=C2=A0 3 +-
-> > =C2=A0drivers/gpu/drm/xe/xe_hw_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 +-
-> > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 33 ++++++++---
-> > =C2=A06 files changed, 53 insertions(+), 59 deletions(-)
-> >=20
->=20
-
