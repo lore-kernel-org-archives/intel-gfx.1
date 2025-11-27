@@ -4,27 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 404E9D11183
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 10:14:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5108CD11183
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Nov 2025 10:20:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6B5810E009;
-	Thu, 27 Nov 2025 10:14:06 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1369310E009;
- Thu, 27 Nov 2025 10:14:05 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8743066997543828462=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id D991110E809;
+	Thu, 27 Nov 2025 10:20:52 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="la0SHrPr";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 955A910E80E;
+ Thu, 27 Nov 2025 10:20:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1764238851; x=1795774851;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ZzHUBGN1VFguLHVaAo/QngF2ato47wi5Fy4aJz5eFc0=;
+ b=la0SHrPryTJmf+uTbe2zyBw9RRb4qmlEyCGRWNy2uMsbdv3ANFXZgeEo
+ JtVEsIR5kE5NGtfbKaLWZwrFQH1naWHpYVz8LXzyQRVd9MialeIqs4OfD
+ mdzzRNNwBXGojP9ksCTlkgDi9mzFtjwu7hJ1kl/3GfD0BfBvJwYL6hOFR
+ G3FVAnfmlHe7iuerTcK6Bm5oTh436sDqE+oQgg9rq83yeM+S1r7xZOoPI
+ DulDZWY0uyx0CAz5ocdkhwjIF1VTk9fVwHxAeOXZfvrMIL7H6k42IO2PA
+ QK3Y8fvIpviDNOJ4yHkBCOea6a1dFOG3f92nYkPXTSaz5VBSwjzwIwci/ Q==;
+X-CSE-ConnectionGUID: UcH7j8d2Q26tJPJmrmEpPA==
+X-CSE-MsgGUID: P627qOaRR6mP+EYTu3djBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11625"; a="65470209"
+X-IronPort-AV: E=Sophos;i="6.20,230,1758610800"; d="scan'208";a="65470209"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2025 02:20:51 -0800
+X-CSE-ConnectionGUID: MEh1p7OgQvSiuLEp0Vr/Ow==
+X-CSE-MsgGUID: k2bAcksTSXuOcSO4+P7jug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.20,230,1758610800"; d="scan'208";a="197353313"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa003.jf.intel.com with ESMTP; 27 Nov 2025 02:20:50 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Subject: [Core-for-CI] Revert "power: always freeze efivarfs"
+Date: Thu, 27 Nov 2025 15:34:00 +0530
+Message-Id: <20251127100400.1372221-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Enable/Disable_DC_balance?=
- =?utf-8?q?_along_with_VRR_DSB?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Nov 2025 10:14:05 -0000
-Message-ID: <176423844507.34580.14339722827913344778@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20251127091614.648791-1-mitulkumar.ajitkumar.golani@intel.com>
-In-Reply-To: <20251127091614.648791-1-mitulkumar.ajitkumar.golani@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,225 +61,139 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8743066997543828462==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This reverts commit a3f8f8662771285511ae26c4c8d3ba1cd22159b9.
 
-== Series Details ==
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15317
+References: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15341
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+---
+ fs/efivarfs/super.c      |  1 -
+ fs/super.c               | 13 +++----------
+ include/linux/fs.h       |  3 +--
+ kernel/power/hibernate.c |  9 ++++++---
+ kernel/power/suspend.c   |  3 ++-
+ 5 files changed, 12 insertions(+), 17 deletions(-)
 
-Series: Enable/Disable DC balance along with VRR DSB
-URL   : https://patchwork.freedesktop.org/series/158156/
-State : failure
+diff --git a/fs/efivarfs/super.c b/fs/efivarfs/super.c
+index 6de97565d5f7..1f4d8ce56667 100644
+--- a/fs/efivarfs/super.c
++++ b/fs/efivarfs/super.c
+@@ -533,7 +533,6 @@ static struct file_system_type efivarfs_type = {
+ 	.init_fs_context = efivarfs_init_fs_context,
+ 	.kill_sb = efivarfs_kill_sb,
+ 	.parameters = efivarfs_parameters,
+-	.fs_flags = FS_POWER_FREEZE,
+ };
+ 
+ static __init int efivarfs_init(void)
+diff --git a/fs/super.c b/fs/super.c
+index 277b84e5c279..5bab94fb7e03 100644
+--- a/fs/super.c
++++ b/fs/super.c
+@@ -1183,14 +1183,11 @@ static inline bool get_active_super(struct super_block *sb)
+ 
+ static const char *filesystems_freeze_ptr = "filesystems_freeze";
+ 
+-static void filesystems_freeze_callback(struct super_block *sb, void *freeze_all_ptr)
++static void filesystems_freeze_callback(struct super_block *sb, void *unused)
+ {
+ 	if (!sb->s_op->freeze_fs && !sb->s_op->freeze_super)
+ 		return;
+ 
+-	if (freeze_all_ptr && !(sb->s_type->fs_flags & FS_POWER_FREEZE))
+-		return;
+-
+ 	if (!get_active_super(sb))
+ 		return;
+ 
+@@ -1204,13 +1201,9 @@ static void filesystems_freeze_callback(struct super_block *sb, void *freeze_all
+ 	deactivate_super(sb);
+ }
+ 
+-void filesystems_freeze(bool freeze_all)
++void filesystems_freeze(void)
+ {
+-	void *freeze_all_ptr = NULL;
+-
+-	if (freeze_all)
+-		freeze_all_ptr = &freeze_all;
+-	__iterate_supers(filesystems_freeze_callback, freeze_all_ptr,
++	__iterate_supers(filesystems_freeze_callback, NULL,
+ 			 SUPER_ITER_UNLOCKED | SUPER_ITER_REVERSE);
+ }
+ 
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index dd3b57cfadee..6abc3bb2939d 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2689,7 +2689,6 @@ struct file_system_type {
+ #define FS_ALLOW_IDMAP         32      /* FS has been updated to handle vfs idmappings. */
+ #define FS_MGTIME		64	/* FS uses multigrain timestamps */
+ #define FS_LBS			128	/* FS supports LBS */
+-#define FS_POWER_FREEZE		256	/* Always freeze on suspend/hibernate */
+ #define FS_RENAME_DOES_D_MOVE	32768	/* FS will handle d_move() during rename() internally. */
+ 	int (*init_fs_context)(struct fs_context *);
+ 	const struct fs_parameter_spec *parameters;
+@@ -3608,7 +3607,7 @@ extern void drop_super_exclusive(struct super_block *sb);
+ extern void iterate_supers(void (*f)(struct super_block *, void *), void *arg);
+ extern void iterate_supers_type(struct file_system_type *,
+ 			        void (*)(struct super_block *, void *), void *);
+-void filesystems_freeze(bool freeze_all);
++void filesystems_freeze(void);
+ void filesystems_thaw(void);
+ 
+ extern int dcache_dir_open(struct inode *, struct file *);
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index 26e45f86b955..53166ef86ba4 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -821,7 +821,8 @@ int hibernate(void)
+ 		goto Restore;
+ 
+ 	ksys_sync_helper();
+-	filesystems_freeze(filesystem_freeze_enabled);
++	if (filesystem_freeze_enabled)
++		filesystems_freeze();
+ 
+ 	error = freeze_processes();
+ 	if (error)
+@@ -927,7 +928,8 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data)
+ 	if (error)
+ 		goto restore;
+ 
+-	filesystems_freeze(filesystem_freeze_enabled);
++	if (filesystem_freeze_enabled)
++		filesystems_freeze();
+ 
+ 	error = freeze_processes();
+ 	if (error)
+@@ -1077,7 +1079,8 @@ static int software_resume(void)
+ 	if (error)
+ 		goto Restore;
+ 
+-	filesystems_freeze(filesystem_freeze_enabled);
++	if (filesystem_freeze_enabled)
++		filesystems_freeze();
+ 
+ 	pm_pr_dbg("Preparing processes for hibernation restore.\n");
+ 	error = freeze_processes();
+diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
+index 3d4ebedad69f..b4ca17c2fecf 100644
+--- a/kernel/power/suspend.c
++++ b/kernel/power/suspend.c
+@@ -375,7 +375,8 @@ static int suspend_prepare(suspend_state_t state)
+ 	if (error)
+ 		goto Restore;
+ 
+-	filesystems_freeze(filesystem_freeze_enabled);
++	if (filesystem_freeze_enabled)
++		filesystems_freeze();
+ 	trace_suspend_resume(TPS("freeze_processes"), 0, true);
+ 	error = suspend_freeze_processes();
+ 	trace_suspend_resume(TPS("freeze_processes"), 0, false);
+-- 
+2.25.1
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_17595 -> Patchwork_158156v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_158156v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_158156v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/index.html
-
-Participating hosts (45 -> 44)
-------------------------------
-
-  Missing    (1): fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_158156v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@gem_tiled_pread_basic:
-    - fi-kbl-guc:         [PASS][1] -> [INCOMPLETE][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/fi-kbl-guc/igt@gem_tiled_pread_basic.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/fi-kbl-guc/igt@gem_tiled_pread_basic.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_158156v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [PASS][5] -> [FAIL][6] ([i915#14867])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-dg2-8:          [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-dg2-8/igt@i915_selftest@live.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-dg2-8/igt@i915_selftest@live.html
-    - bat-arlh-2:         [INCOMPLETE][9] ([i915#14837]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arlh-2/igt@i915_selftest@live.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arlh-2/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@guc_hang:
-    - bat-arlh-2:         [INCOMPLETE][11] ([i915#15275]) -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arlh-2/igt@i915_selftest@live@guc_hang.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arlh-2/igt@i915_selftest@live@guc_hang.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arls-5:         [DMESG-FAIL][13] ([i915#12061]) -> [PASS][14] +1 other test pass
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
-    - bat-mtlp-6:         [DMESG-FAIL][15] ([i915#12061]) -> [PASS][16] +1 other test pass
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#14837]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14837
-  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
-  [i915#15275]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15275
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_17595 -> Patchwork_158156v1
-
-  CI-20190529: 20190529
-  CI_DRM_17595: e7a767430515c3a6e8aee91c2a68cba8b06fe884 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8639: 2ce563031e6b2ec91479f6af8c326d25c15bdb26 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_158156v1: e7a767430515c3a6e8aee91c2a68cba8b06fe884 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/index.html
-
---===============8743066997543828462==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable/Disable DC balance along with VRR DSB</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/158156/">https://patchwork.freedesktop.org/series/158156/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_17595 -&gt; Patchwork_158156v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_158156v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_158156v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/index.html</p>
-<h2>Participating hosts (45 -&gt; 44)</h2>
-<p>Missing    (1): fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_158156v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@gem_tiled_pread_basic:<ul>
-<li>fi-kbl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/fi-kbl-guc/igt@gem_tiled_pread_basic.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/fi-kbl-guc/igt@gem_tiled_pread_basic.html">INCOMPLETE</a></li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_158156v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_hdmi_inject@inject-audio:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14837">i915#14837</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arlh-2/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@guc_hang:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arlh-2/igt@i915_selftest@live@guc_hang.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15275">i915#15275</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arlh-2/igt@i915_selftest@live@guc_hang.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-mtlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17595/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158156v1/bat-mtlp-6/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_17595 -&gt; Patchwork_158156v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_17595: e7a767430515c3a6e8aee91c2a68cba8b06fe884 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8639: 2ce563031e6b2ec91479f6af8c326d25c15bdb26 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_158156v1: e7a767430515c3a6e8aee91c2a68cba8b06fe884 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8743066997543828462==--
