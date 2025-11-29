@@ -4,62 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885BDD11700
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 290BAD11701
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E2F010E403;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E467B10E404;
 	Mon,  1 Dec 2025 13:39:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KLN6C2Wx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OX4+jChN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 572D510E5EA;
- Wed, 26 Nov 2025 13:20:21 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3CB1044346;
- Wed, 26 Nov 2025 13:20:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D077C113D0;
- Wed, 26 Nov 2025 13:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764163221;
- bh=MN344wm2Ixu5X6Egt125oaRBPXXL6wOJJ8cpucZ04iA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KLN6C2WxyaGLUphoRIvUajESUcR/xNOR+7fMO/ABWSP+mXxmpoAAqQVtXfRLExvTc
- SHrYcieFx+oJIAIIpPsikBV7AlKohQDi3P3L9XlfRc/R0rQyx3hXhfkOxgi1TVkpGR
- vu3+lvtFLZrjiqNSZ3DSkk7SvXT2C7IGLmlY7IAE/e2YBZHik2G2uG86XzNj3goi7q
- oFQqGbp0EeUdB7hxktU5GTHGrf4Ugn2d6Z/GlxFvP8yVotOajkcvYV+PercoshxZqo
- QMnkU/DrukJ2Zqfh5CB4FFW5NbPNqCHSZez5AxeD+gRPeP6pPbCCSHSjlPCt/IGkrw
- 38tlRKl6OYtRA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 3/6] drm/gpu/xe: Ignore dma_fenc_signal() return code
-Date: Wed, 26 Nov 2025 14:19:12 +0100
-Message-ID: <20251126131914.149445-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251126131914.149445-2-phasta@kernel.org>
-References: <20251126131914.149445-2-phasta@kernel.org>
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC3A210E00D
+ for <intel-gfx@lists.freedesktop.org>; Sat, 29 Nov 2025 03:29:53 +0000 (UTC)
+Received: by mail-pg1-f170.google.com with SMTP id
+ 41be03b00d2f7-bc8ceb76c04so1638639a12.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 28 Nov 2025 19:29:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1764386993; x=1764991793; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=W3VMXcUmTO3xpxKoPCgPeXG3UWYRk+wblTdtJybNqmg=;
+ b=OX4+jChNwai9eQgpQUM9Tks7e69cIKivtxXGPRzY4X/2KGfBot2nXcHORJtAZiWZMB
+ O+XSH9G4g+LSAnQ6awBW1++VyLiuC+h5SApt55qYQ20IohRh7WP7HVirOr4Zrj5gplh6
+ S951kcclIwsL/UT+x8d6y/p/UxhDHbOvZWACFuyvxBrWpsqw/2HaJnc1+dsaPirizLER
+ 7RLyLLCo/A0lHv6nkP+D02UyKeV4NyJrsiCAtYomKwqtbrPJX6snz+TJODSa1j9xXAlx
+ Amwi41g25wJpBoV36eGy7dxZuapHFto0MaRWsznGyPC1nnrNQOR7Rf6mO9gJgZjpdQ2Q
+ uzJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764386993; x=1764991793;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=W3VMXcUmTO3xpxKoPCgPeXG3UWYRk+wblTdtJybNqmg=;
+ b=RChaOUGvK+Z/kIVK6JO7BkLuvqGRPrAFe6uiH0joaFtUZqH4dFMzu03RadJFHwtO7i
+ +zUTr86GghIVMbnp+DFnyKzUslMr229jr1kNDvE46PuCYgW4bTiUNR8dFLmBukIQ8elO
+ FoD9oXHfFyc86ZHmi5bWaFKxqZV8L6508c+OI2iTgsTiSvHSuJgbcx4bTm5Fr8cjaz/6
+ YOAcJsqk3yGkrd/w00FlNIc8309IT5AyLa7nLJKZJiYYA24i2jMViMD5FhQ0GBoFy8oA
+ 9APT8iPNIL4wYxHE7MuBHfrfA9R0QGLcj4HgHTc68gB9jdkbpUhj90BVL/r8+PsWrGk2
+ wGWA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUHBYZB3qO/kSuOuybb1LN2IBlZInOt1fkXeMaYwnlbTwxpWtdQ1nbNxhD6zViscYFQ2n+PjjEIWSM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx2KxokpJqULKZTzZN9q2TGVQiFPmp8PYg9vEsNZuPchLcdxNNv
+ O3Xuh4DZncHV6RmTQtBiVZW3GLVNoxHVVSMde7/pFwRPv3wiylLqnqe9
+X-Gm-Gg: ASbGncskbA59gaN7M9P7A3euNMFqLQ3ipfH+2OdGGkvsRWEYKtoCf+Mw12jS++qidYb
+ Ozo5N4go8NJKn2IAPGVtYD9TyNH9wull9GuRyRL1+7Ebjv6qqeF3xUa6Saox3lX6l4CcUCh3L15
+ YXjFy6tASmdsYhbCHN5yMoCPW8wuZ9/FWWqBE9KVPF5GiZl9tPsbozypNdLINJgoDg7Z3M1UQ0w
+ eD6WSp4d02tbJ6kgOl6rrOMF7ZviPBQaW5YH2Str48YS/YFpIXTf/Bs86fLAj6mgniRWO8qAg53
+ PY54zHdVpp+BIg1BJeFDPSCrxqaEkxWRnR2rB48GYbK1t4xnLR55lloo7udOe8nbPvfJuEpk1PN
+ rABmN9pfF2qZ1RSzoN6r0deCjfPb7DfNq2h5f1am37D63sEy0XPvS4EHA9hX7yXpoFGNkbtHK2A
+ knOcO/RsZCwnA=
+X-Google-Smtp-Source: AGHT+IFWeBUfkLimXpH6/rkpJhmGPswp2kuBGTWuMwz5cnMjbd68P1jHOBqNKoSbkkI6Vy6iYnVFGQ==
+X-Received: by 2002:a05:7022:6b97:b0:119:e569:f610 with SMTP id
+ a92af1059eb24-11c9d60e3e0mr20589635c88.9.1764386993316; 
+ Fri, 28 Nov 2025 19:29:53 -0800 (PST)
+Received: from fedora ([172.59.162.202]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-11dcb03cc7dsm26206743c88.5.2025.11.28.19.29.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Nov 2025 19:29:52 -0800 (PST)
+From: Alex Tran <alex.t.tran@gmail.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net
+Cc: airlied@gmail.com, simona@ffwll.ch, ville.syrjala@linux.intel.com,
+ vinay.belgaumkar@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Alex Tran <alex.t.tran@gmail.com>
+Subject: [PATCH v1] drm: i915: gt: intel_rps: handle counter overflow by
+ calculating delta for each register
+Date: Fri, 28 Nov 2025 19:29:21 -0800
+Message-ID: <20251129032921.811332-1-alex.t.tran@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -77,42 +91,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The return code of dma_fence_signal() is not really useful as there is
-nothing reasonable to do if a fence was already signaled. That return
-code shall be removed from the kernel.
+The previous implementation calculated the power deltas by adding together
+the u32 energy counters DMIEC, DDREC, CSIEC into a u64 total and then
+subtracting from the previous total to obtain the delta. When any of the
+u32 counters overflowed and wrapped, the total would be less then previous
+total, causing incorrect delta calculations since u64 subtraction doesn't
+handle u32 counter wrapping correctly.
 
-Ignore dma_fence_signal()'s return code.
+This implementation tracks each counter individually, allowing their deltas
+to be calculated separately and then summed. This correctly handles u32
+counter wraparound, fixing incorrect power calculations when counters
+overflow.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Signed-off-by: Alex Tran <alex.t.tran@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_hw_fence.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_rps.c       | 40 +++++++++++++----------
+ drivers/gpu/drm/i915/gt/intel_rps_types.h |  6 ++--
+ 2 files changed, 27 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
-index b2a0c46dfcd4..959b30dde724 100644
---- a/drivers/gpu/drm/xe/xe_hw_fence.c
-+++ b/drivers/gpu/drm/xe/xe_hw_fence.c
-@@ -85,7 +85,6 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
- {
- 	struct xe_hw_fence *fence, *next;
- 	unsigned long flags;
--	int err;
- 	bool tmp;
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps.c b/drivers/gpu/drm/i915/gt/intel_rps.c
+index 4da94098bd3e..8247a8b16f18 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps.c
++++ b/drivers/gpu/drm/i915/gt/intel_rps.c
+@@ -324,8 +324,10 @@ __ips_chipset_val(struct intel_ips *ips)
+ 	struct intel_uncore *uncore =
+ 		rps_to_uncore(container_of(ips, struct intel_rps, ips));
+ 	unsigned long now = jiffies_to_msecs(jiffies), dt;
++	u32 dmiec_delta, ddrec_delta, csiec_delta;
++	u32 dmiec, ddrec, csiec;
+ 	unsigned long result;
+-	u64 total, delta;
++	u64 delta;
  
- 	if (XE_WARN_ON(!list_empty(&irq->pending))) {
-@@ -93,9 +92,9 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
- 		spin_lock_irqsave(&irq->lock, flags);
- 		list_for_each_entry_safe(fence, next, &irq->pending, irq_link) {
- 			list_del_init(&fence->irq_link);
--			err = dma_fence_signal_locked(&fence->dma);
-+			XE_WARN_ON(dma_fence_test_signaled_flag(&fence->dma));
-+			dma_fence_signal_locked(&fence->dma);
- 			dma_fence_put(&fence->dma);
--			XE_WARN_ON(err);
- 		}
- 		spin_unlock_irqrestore(&irq->lock, flags);
- 		dma_fence_end_signalling(tmp);
+ 	lockdep_assert_held(&mchdev_lock);
+ 
+@@ -339,17 +341,21 @@ __ips_chipset_val(struct intel_ips *ips)
+ 	if (dt <= 10)
+ 		return ips->chipset_power;
+ 
+-	/* FIXME: handle per-counter overflow */
+-	total = intel_uncore_read(uncore, DMIEC);
+-	total += intel_uncore_read(uncore, DDREC);
+-	total += intel_uncore_read(uncore, CSIEC);
++	dmiec = intel_uncore_read(uncore, DMIEC);
++	ddrec = intel_uncore_read(uncore, DDREC);
++	csiec = intel_uncore_read(uncore, CSIEC);
+ 
+-	delta = total - ips->last_count1;
++	dmiec_delta = dmiec - ips->last_dmiec;
++	ddrec_delta = ddrec - ips->last_ddrec;
++	csiec_delta = csiec - ips->last_csiec;
+ 
++	delta = dmiec_delta + ddrec_delta + csiec_delta;
+ 	result = div_u64(div_u64(ips->m * delta, dt) + ips->c, 10);
+-
+-	ips->last_count1 = total;
++
+ 	ips->last_time1 = now;
++	ips->last_dmiec = dmiec;
++	ips->last_ddrec = ddrec;
++	ips->last_csiec = csiec;
+ 
+ 	ips->chipset_power = result;
+ 
+@@ -396,7 +402,7 @@ static void __gen5_ips_update(struct intel_ips *ips)
+ 	struct intel_uncore *uncore =
+ 		rps_to_uncore(container_of(ips, struct intel_rps, ips));
+ 	u64 now, delta, dt;
+-	u32 count;
++	u32 gfxec;
+ 
+ 	lockdep_assert_held(&mchdev_lock);
+ 
+@@ -408,10 +414,10 @@ static void __gen5_ips_update(struct intel_ips *ips)
+ 	if (dt <= 10)
+ 		return;
+ 
+-	count = intel_uncore_read(uncore, GFXEC);
+-	delta = count - ips->last_count2;
+-
+-	ips->last_count2 = count;
++	gfxec = intel_uncore_read(uncore, GFXEC);
++	delta = gfxec - ips->last_gfxec;
++
++	ips->last_gfxec = gfxec;
+ 	ips->last_time2 = now;
+ 
+ 	/* More magic constants... */
+@@ -607,12 +613,12 @@ static bool gen5_rps_enable(struct intel_rps *rps)
+ 
+ 	__gen5_rps_set(rps, rps->cur_freq);
+ 
+-	rps->ips.last_count1 = intel_uncore_read(uncore, DMIEC);
+-	rps->ips.last_count1 += intel_uncore_read(uncore, DDREC);
+-	rps->ips.last_count1 += intel_uncore_read(uncore, CSIEC);
++	rps->ips.last_dmiec = intel_uncore_read(uncore, DMIEC);
++	rps->ips.last_ddrec = intel_uncore_read(uncore, DDREC);
++	rps->ips.last_csiec = intel_uncore_read(uncore, CSIEC);
+ 	rps->ips.last_time1 = jiffies_to_msecs(jiffies);
+ 
+-	rps->ips.last_count2 = intel_uncore_read(uncore, GFXEC);
++	rps->ips.last_gfxec = intel_uncore_read(uncore, GFXEC);
+ 	rps->ips.last_time2 = ktime_get_raw_ns();
+ 
+ 	ilk_display_rps_enable(display);
+diff --git a/drivers/gpu/drm/i915/gt/intel_rps_types.h b/drivers/gpu/drm/i915/gt/intel_rps_types.h
+index ece445109305..e275291787cf 100644
+--- a/drivers/gpu/drm/i915/gt/intel_rps_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_rps_types.h
+@@ -13,10 +13,12 @@
+ #include <linux/workqueue.h>
+ 
+ struct intel_ips {
+-	u64 last_count1;
++	u32 last_dmiec;
++	u32 last_ddrec;
++	u32 last_csiec;
+ 	unsigned long last_time1;
+ 	unsigned long chipset_power;
+-	u64 last_count2;
++	u32 last_gfxec;
+ 	u64 last_time2;
+ 	unsigned long gfx_power;
+ 	u8 corr;
 -- 
-2.49.0
+2.51.0
 
