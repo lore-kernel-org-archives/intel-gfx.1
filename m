@@ -4,70 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF181D11707
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB0BD11700
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F00410E411;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F1610E410;
 	Mon,  1 Dec 2025 13:39:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="raC6aTam";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GdvDEAEF";
 	dkim-atps=neutral
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9EA910E7C3;
- Thu, 27 Nov 2025 10:16:39 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4dHC5J3Srfz9t5M;
- Thu, 27 Nov 2025 11:16:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764238596; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/LwMaXtJBDLXQXsCQXnsteb1mtiqvJkilJ+dHEkj54k=;
- b=raC6aTamMxW3XjfgydWAdK4gvLHYOWYg89ZahO46b/L2hJ73UNWoB23IOUuy6deSE87H2x
- gLKD+aF4bvPXisVcAZwug5eUHK/cGm2GfGUsFGsk212L3JVrzXrc4tdNBxR30B+P7OwYKd
- 1HZU1boijNknhlg/InkP09RyDOiqqdhmza522BYaqiacCFTGGvUHVzmOiBcYEqtUilZoA9
- 6owl1co+7Wkf5nGrOCEuG8ZResFMNoaECA2zEkWgZngSNfOO5UMCUbLDhWDijZ8kwMsFCY
- qSNRytCNexkzAcgGNAuuIvkdIyXOrYvtLQoWA4CRnxVFQQEHBqdG3/17b1Gt3Q==
-Message-ID: <89c04c8b3ca0fadf73452ca20ffd61cb106d762a.camel@mailbox.org>
-Subject: Re: [PATCH 1/6] dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Matthew Brost <matthew.brost@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org,  linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org,  amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org,  intel-xe@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Date: Thu, 27 Nov 2025 11:16:26 +0100
-In-Reply-To: <adfd840e-fcc8-4cdb-8fd8-d0e48ee32247@amd.com>
-References: <20251126131914.149445-2-phasta@kernel.org>
- <20251126131914.149445-3-phasta@kernel.org>
- <aSctt3QFiEIB61Gr@lstrano-desk.jf.intel.com>
- <aScxGDYeNeN1WYja@lstrano-desk.jf.intel.com>
- <f1864f6d-8403-406d-81a0-00a71495cae8@amd.com>
- <35189892c0cb774155e2012d41371b4d3f8e7d0f.camel@mailbox.org>
- <adfd840e-fcc8-4cdb-8fd8-d0e48ee32247@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B30A110E338;
+ Mon,  1 Dec 2025 09:38:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id A0BD86013A;
+ Mon,  1 Dec 2025 09:38:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73726C4CEF1;
+ Mon,  1 Dec 2025 09:38:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1764581887;
+ bh=4p2wg1jmOngnkzqKp6YIZ9UwcAm/w6dhGKvcrcI//Ok=;
+ h=Date:Subject:To:References:From:In-Reply-To:From;
+ b=GdvDEAEFt0aGU5ln/ROKVDXUPfJFeouk5NuQRf4tzsuamtFpi6ayLs4mMLZn0bkSA
+ tbBtWTvwS1FdfhGP03SFL+5x2JrTBLkfrPT5zbmp8IkhZAUcUAeStqzOprHT1vEKBH
+ BxwhXHuBsY6erQgpyld5jroWvYmoLA4hmWXecHHXScuQE38VjTnq4MqnKX70DeBPPr
+ ExeDG4SucnRtoWYtI3elukieHFaaTCndJDK1mrQMi+bOVZlknQigDvQHuAoSE22e8b
+ KbTG3h3Q8YOO018TQwixvc4ft1NT2apZi3P/SBkhkF4CD1QSXZEe9cCXeae0b2Ri1A
+ FDU8aHJPDvC/Q==
+Message-ID: <3e7ddbea-978f-44f7-abdd-7319908fd83c@kernel.org>
+Date: Mon, 1 Dec 2025 10:38:01 +0100
 MIME-Version: 1.0
-X-MBO-RS-ID: bc88f92c2f8974133ff
-X-MBO-RS-META: yz6764qr1bhitjd3f1i7yofkkz7wzuth
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] kernel.h: drop STACK_MAGIC macro
+To: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+References: <20251129195304.204082-1-yury.norov@gmail.com>
+ <20251129195304.204082-2-yury.norov@gmail.com>
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Content-Language: fr-FR
+In-Reply-To: <20251129195304.204082-2-yury.norov@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,77 +70,65 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2025-11-27 at 11:01 +0100, Christian K=C3=B6nig wrote:
-> On 11/27/25 10:16, Philipp Stanner wrote:
-> > On Thu, 2025-11-27 at 09:11 +0100, Christian K=C3=B6nig wrote:
-> > > On 11/26/25 17:55, Matthew Brost wrote:
-> > > > On Wed, Nov 26, 2025 at 08:41:27AM -0800, Matthew Brost wrote:
-> > > > > On Wed, Nov 26, 2025 at 02:19:10PM +0100, Philipp Stanner wrote:
-> > > > > > The dma_fence framework checks at many places whether the signa=
-led flag
-> > > > > > of a fence is already set. The code can be simplified and made =
-more
-> > > > > > readable by providing a helper function for that.
-> > > > > >=20
-> > > > > > Add dma_fence_test_signaled_flag(), which only checks whether a=
- fence is
-> > > > > > signaled. Use it internally.
-> > > > > >=20
-> > > > > > Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> > > > > > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> > > > >=20
-> > > > > This is a nice cleanp:
-> > > > > Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-> > > > >=20
-> > > > > > ---
-> > > > > > =C2=A0drivers/dma-buf/dma-fence.c | 19 +++++++++----------
-> > > > > > =C2=A0include/linux/dma-fence.h=C2=A0=C2=A0 | 24 ++++++++++++++=
-++++++++--
-> > > > > > =C2=A02 files changed, 31 insertions(+), 12 deletions(-)
-> > > > > >=20
-> > > > > > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-=
-fence.c
-> > > > > > index 39e6f93dc310..25117a906846 100644
-> > > > > > --- a/drivers/dma-buf/dma-fence.c
-> > > > > > +++ b/drivers/dma-buf/dma-fence.c
-> > > > > > @@ -372,8 +372,7 @@ int dma_fence_signal_timestamp_locked(struc=
-t dma_fence *fence,
-> > > > > > =C2=A0
-> > > > > > =C2=A0	lockdep_assert_held(fence->lock);
-> > > > > > =C2=A0
-> > > > > > -	if (unlikely(test_and_set_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
-> > > > > > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags)))
-> > > >=20
-> > > > I need to read a little better, I think this change isn't quite rig=
-ht.
-> > > > The original code is test and set, the updated code is test only (i=
-.e.,
-> > > > you are missing the set step). So maybe just leave this line as is.
-> > >=20
-> > > Oh, good point! I've totally missed that as well.
-> >=20
-> > Oh dear; I also just saw it when opening the mail client ._.
-> >=20
-> > >=20
-> > > But that means that this patch set hasn't even been smoke tested.
-> >=20
-> > I've built it and did some basic testing with my Nouveau system. Any
-> > suggestions? Do you have a CI that one can trigger?
->=20
-> DMA-buf has CONFIG_DMABUF_SELFTESTS which should be able to catch things =
-like that.
->=20
-> But even running Nouveau should have found this since basically no fence =
-at would signal any more.
 
-They will signal and execute their callbacks, but all is_signaled()
-checks are then broken.
 
-Thx for the feedback, I'll be more careful with changes like those and
-test more extensively.
+Le 29/11/2025 à 20:53, Yury Norov (NVIDIA) a écrit :
+> The macro is only used by i915. Move it to a local header and drop from
+> the kernel.h.
 
-P.
+At the begining of the git history we have:
+
+$ git grep STACK_MAGIC 1da177e4c3f41
+1da177e4c3f41:arch/h8300/kernel/traps.c:        if (STACK_MAGIC != 
+*(unsigned long *)((unsigned long)current+PAGE_SIZE))
+1da177e4c3f41:arch/m68k/mac/macints.c:          if (STACK_MAGIC != 
+*(unsigned long *)current->kernel_stack_page)
+1da177e4c3f41:include/linux/kernel.h:#define STACK_MAGIC        0xdeadbeef
+
+Would be good to know the history of its usage over time.
+
+I see:
+- Removed from m68k by 3cd53b14e7c4 ("m68k/mac: Improve NMI handler")
+- Removed from h8300 by 1c4b5ecb7ea1 ("remove the h8300 architecture")
+- Started being used in i915 selftest by 250f8c8140ac ("drm/i915/gtt: 
+Read-only pages for insert_entries on bdw+")
+
+Christophe
+
+> 
+> Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
+> ---
+>   drivers/gpu/drm/i915/i915_utils.h | 2 ++
+>   include/linux/kernel.h            | 2 --
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/i915_utils.h b/drivers/gpu/drm/i915/i915_utils.h
+> index a0c892e4c40d..6c197e968305 100644
+> --- a/drivers/gpu/drm/i915/i915_utils.h
+> +++ b/drivers/gpu/drm/i915/i915_utils.h
+> @@ -32,6 +32,8 @@
+>   #include <linux/workqueue.h>
+>   #include <linux/sched/clock.h>
+>   
+> +#define STACK_MAGIC	0xdeadbeef
+> +
+>   #ifdef CONFIG_X86
+>   #include <asm/hypervisor.h>
+>   #endif
+> diff --git a/include/linux/kernel.h b/include/linux/kernel.h
+> index 5b46924fdff5..61d63c57bc2d 100644
+> --- a/include/linux/kernel.h
+> +++ b/include/linux/kernel.h
+> @@ -40,8 +40,6 @@
+>   
+>   #include <uapi/linux/kernel.h>
+>   
+> -#define STACK_MAGIC	0xdeadbeef
+> -
+>   struct completion;
+>   struct user;
+>   
+
