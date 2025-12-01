@@ -4,70 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB860D11701
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:23:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F241D11702
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C0410E66D;
-	Tue,  2 Dec 2025 14:23:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C43C10E66E;
+	Tue,  2 Dec 2025 14:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="il/eUsMM";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="bpolJv1o";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B73710E59E;
- Tue,  2 Dec 2025 09:19:32 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org
- [IPv6:2001:67c:2050:b231:465::2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4dLFb41cf3z9spF;
- Tue,  2 Dec 2025 10:19:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1764667168; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=q8Y1OU0Q+Bol5U/MPFfzGP28CcuUiYKdthv47THRxek=;
- b=il/eUsMMmTGh9GD/DnjHcdipYrZx4Bnp/W8SmT4Rhvtieu4WLMXE1QfRoapTjZMjPj7LRI
- o//dVBIiqL677W9dpkG9++H2ZzgSgq2h2nzdvIVmUoQFBcImTdC/IdaqyXM8Y3cdFeU3kN
- 4Syh4pa0m6+RY5Imt5wIsyTRyZLDWvTyVS3qgj2Mf0D8EaL2/oFyDiamW9Iqx4LLl7FWf9
- AyGH79vdedTAdp35ypPh/hoj03z/jMSl7PQ4unIaR8UDe18AdJk+ctcnCLzxTRpHe4FIaa
- BorrZ0RWQlO3JziTfJ7cbwRDMw4Ku8uCWL/+APW5Ut2KoA8e93mAwYi3N0KX/A==
-Message-ID: <d7956d8e8401f7dd9951d93752a74d2f8f660830.camel@mailbox.org>
-Subject: Re: [PATCH v2 2/8] dma-buf/dma-fence: Add dma_fence_check_and_signal()
-From: Philipp Stanner <phasta@mailbox.org>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
- phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
- <gustavo@padovan.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Matthew Brost
- <matthew.brost@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Lucas De Marchi
- <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
- <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Date: Tue, 02 Dec 2025 10:19:09 +0100
-In-Reply-To: <07cd6a0c-9975-48ef-bb2e-5e53a042888e@amd.com>
-References: <20251201105011.19386-2-phasta@kernel.org>
- <20251201105011.19386-4-phasta@kernel.org>
- <80554ed2-4454-489b-873f-533d68c8d2ae@amd.com>
- <2a9c83b4a428bb3cc993499c39d0da01f9563278.camel@mailbox.org>
- <93a4f4e4-af7a-4c84-a7a2-5db785f2a5a8@amd.com>
- <247185f833edd075cd4aac8c39ac8ae5b5aabe07.camel@mailbox.org>
- <07cd6a0c-9975-48ef-bb2e-5e53a042888e@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53EBE10E06C
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 19:01:31 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-42e2d52c24dso956395f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 01 Dec 2025 11:01:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1764615690; x=1765220490; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=BzJeas8LPFGypXbCtT1+U1OrcCvq4t/9azfoNFwruuE=;
+ b=bpolJv1oBEFLGTWAhzyUwlerufMW61mn9bsUwpHxZqdlV49JoDHfvOL0bTelN6ABBW
+ cAQzEtdEkVFTeKGOtj+i3Je9VXgLRExY0ONb+OqW/HY7QVaGvgKBj8M+iyoHwKjBGCtG
+ q4VnbFulSev2LsUvtkpmI2I4/m8xOH1iZK0vPdqEDzh6a1IFQzXeeYloK3dzItnyPaFG
+ l5aR9oSl5clD/OXoSnnm6nycDQgUvQcuatmGT/ml9Uu4NdTaUSBBMqOOZ4l/RdA2aMIK
+ XMZqBwf+YmmPWboSe5FWZg457ZpmjDx3W2rJARy6isEGB24Nbd+pPFRSd74E3ArGGmav
+ ig0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1764615690; x=1765220490;
+ h=content-transfer-encoding:in-reply-to:from:cc:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=BzJeas8LPFGypXbCtT1+U1OrcCvq4t/9azfoNFwruuE=;
+ b=SHY/qRoJzp6ychYyLUDgHtMQLtNCEPcZ1FrxBdd5msVzzkinQRU4AmW+DQp0XoUHFc
+ fy2xvgBpgJRPCpjXJ3yaLSGqW4ny97oooqI1bSIKXA8HrUqyF54RiJdRlmVq2X874vB+
+ VbIzx5cF874G3pN0CcdJUlcGAGLcWTPvCADBtBPwm6+p4yf+FJiBaqmOUGr/Jw10MCw1
+ aeH/ECypownhdWK3f5MgToU7piKAavGve9QNMpQnGUuWHYsLyJvWaqdcx0OzVdak6rUT
+ WfOTUuJj5K5+Ag1+PrI8VFvYgBywptzxreMXCbBYWCfCr6/Wg4Kv0offyod4R1Lji4hh
+ HBlw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVHWkhIpDp9jQGnTIGFknPRhShMQTkBv0v2gn3Mg+7PIKYxR0ICCe0G039PBG+mUmEtM2g7GS1Ua00=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyXUAkZ23Rks6oWawjikbMg5TNUnk2Px16Nm5o5lP6DM/sTR7mF
+ g6TAtqKurdxNO7IQhYPm5IjqMd5D6yN9uCCLCYYXCedQLbQnQMyxe4CB1aBD+ExN5yY=
+X-Gm-Gg: ASbGnctqH1r0vUZxFKdmhO+3dn5y/AI1y0UKtwXcISLstoscVtZiiJ2OAURP4ZjZJs3
+ IRXCgikRhJgEAIG5q/3F0JTQthQVgwWFNwRxDXBRjvs6M7z3vKTS/EgHwB6B0CJ/hiGt8Z3HS20
+ ABNq+53fIIG71Abn7U6YN1PJ1oy5DlpN+MgCI2qXHpU9lHmfOxIEhHH5Na6G0qSGPWPhpDe4FZ+
+ ja9Xs5PHxzCKTVM88hONe0A26pWK2K7YB406ABxqrXYa1Xl+6TS3ZuTjXK8+h/HrEsL+Kydx2e5
+ 2cYd0esfpj1EApdsN5gwE+XZtSfOh6UDH0qt4F9TXidxZEOY2/DLDTVvaBhzhdNtTjrCyMZW1Ch
+ MQeJreoB9IRjU3+bVmkErBW5zySWgtLIByliuRMDo3bdlkmofAj30jyW99Km4AxYU47i8Xpk2kz
+ +/PwxuwzUhtQKgtRCCNjZVE1B+Ba+Dww==
+X-Google-Smtp-Source: AGHT+IH5FuCKsYMYPN+g8M+3ojhMVERFE+79odP4YJ9nnFhLMkIpgzWhG8yjjilqJh37A6fSs2EzPw==
+X-Received: by 2002:a05:6000:2085:b0:429:ed90:91dd with SMTP id
+ ffacd0b85a97d-42cc1ab6bf9mr43260446f8f.6.1764615688217; 
+ Mon, 01 Dec 2025 11:01:28 -0800 (PST)
+Received: from [10.0.1.22] (109-81-1-107.rct.o2.cz. [109.81.1.107])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-42e1c5c304csm27574737f8f.8.2025.12.01.11.01.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 01 Dec 2025 11:01:27 -0800 (PST)
+Message-ID: <c45058d5-d690-4731-85d1-434971c16f92@suse.com>
+Date: Mon, 1 Dec 2025 20:01:23 +0100
 MIME-Version: 1.0
-X-MBO-RS-ID: 27d8c8638880777556e
-X-MBO-RS-META: 33hpokdgbkw758zqyymwdksfr37hc4fg
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] kernel.h: move VERIFY_OCTAL_PERMISSIONS() to sysfs.h
+To: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
+References: <20251129195304.204082-1-yury.norov@gmail.com>
+ <20251129195304.204082-3-yury.norov@gmail.com>
+Content-Language: en-US
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Daniel Gomez <da.gomez@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20251129195304.204082-3-yury.norov@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 02 Dec 2025 14:23:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,74 +104,57 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2025-12-01 at 17:08 +0100, Christian K=C3=B6nig wrote:
-> On 12/1/25 16:53, Philipp Stanner wrote:
-> > On Mon, 2025-12-01 at 16:20 +0100, Christian K=C3=B6nig wrote:
-> > > On 12/1/25 14:55, Philipp Stanner wrote:
-> > > > On Mon, 2025-12-01 at 14:23 +0100, Christian K=C3=B6nig wrote:
-> > > > > On 12/1/25 11:50, Philipp Stanner wrote:
-> > > > > > The overwhelming majority of users of dma_fence signaling funct=
-ions
-> > > > > > don't care about whether the fence had already been signaled by=
- someone
-> > > > > >=20
-> > > >=20
-> >=20
-> > [=E2=80=A6]
-> >=20
-> > > > >=20
-> > > > > > +{
-> > > > > > +	unsigned long flags;
-> > > > > > +	bool ret;
-> > > > > > +
-> > > > > > +	spin_lock_irqsave(fence->lock, flags);
-> > > > > > +	ret =3D dma_fence_check_and_signal_locked(fence);
-> > > > > > +	spin_unlock_irqrestore(fence->lock, flags);
-> > > > >=20
-> > > > > Could this use guard(fence->lock, flags) ?
-> > > >=20
-> > > > guard? You mean a lockdep guard? Do you have a pointer to someplace=
- in
-> > > > dma_fence who does what you mean / want?
-> > >=20
-> > > E.g. like guard(spinlock_irqsave)(&fence->lock);
-> >=20
-> >=20
-> > Hmm, but why?
-> > It's obvious to all readers that I do spin_unlock_irqrestore() here.
-> > It's very simple code, lock, 1 line, unlock. What would the guard
-> > improve?
->=20
-> Well you can save using the local variables.
->=20
-> So this:
->=20
-> 	unsigned long flags;
-> 	bool ret;
->=20
-> 	spin_lock_irqsave(fence->lock, flags);
-> 	ret =3D dma_fence_check_and_signal_locked(fence);
-> 	spin_unlock_irqrestore(fence->lock, flags);
->=20
-> 	return ret;
->=20
-> Becomes just:
->=20
-> 	guard(spinlock_irqsave)(&fence->lock);
-> 	return dma_fence_check_and_signal_locked(fence);
+On 11/29/25 8:53 PM, Yury Norov (NVIDIA) wrote:
+> The macro is related to sysfs, but is defined in kernel.h. Move it to
+> the proper header, and unload the generic kernel.h.
+> 
+> Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
+> ---
+>  include/linux/kernel.h      | 12 ------------
+>  include/linux/moduleparam.h |  2 +-
+>  include/linux/sysfs.h       | 13 +++++++++++++
+>  3 files changed, 14 insertions(+), 13 deletions(-)
+> 
+> [...]
+> diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
+> index 6907aedc4f74..4e390a84a8bc 100644
+> --- a/include/linux/moduleparam.h
+> +++ b/include/linux/moduleparam.h
+> @@ -4,7 +4,7 @@
+>  /* (C) Copyright 2001, 2002 Rusty Russell IBM Corporation */
+>  #include <linux/init.h>
+>  #include <linux/stringify.h>
+> -#include <linux/kernel.h>
+> +#include <linux/sysfs.h>
 
-Mhm, I guess I agree that __cleanup is a cool new feature that can be
-useful at many places. But in this case I think it's actually less
-readable and doesn't really give lots of advantages. And don't I have
-to use a DEFINE_GUARD or DEFINE_FREE in the first place?
+If you are removing the kernel.h include from
+include/linux/moduleparam.h, I think it would be good to update the file
+to ensure that all necessary includes are now listed directly.
 
-If it's your maintainer preference, I can look into that though..
+The following items are present in moduleparam.h:
 
-P.
+* __UNIQUE_ID(), __used(), __section(), __aligned(), __always_unused()
+  -> linux/compiler.h,
+* THIS_MODULE -> linux/init.h,
+* __stringify() -> linux/stringify.h,
+* u8, s8, u16, ... -> linux/types.h,
+* static_assert() -> linux/build_bug.h,
+* VERIFY_OCTAL_PERMISSIONS() -> linux/sysfs.h,
+* ARRAY_SIZE() -> linux/array_size.h.
 
+I suggest then updating the includes in include/linux/moduleparam.h to:
 
+#include <linux/array_size.h>
+#include <linux/build_bug.h>
+#include <linux/compiler.h>
+#include <linux/init.h>
+#include <linux/stringify.h>
+#include <linux/sysfs.h>
+#include <linux/types.h>
 
+-- 
+Thanks,
+Petr
