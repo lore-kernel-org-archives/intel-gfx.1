@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F0C4D11700
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD38AD116F5
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDB9D10E3F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8B1010E3FF;
 	Mon,  1 Dec 2025 13:39:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YloxW97u";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nriw1m3h";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24B6910E137;
- Wed, 26 Nov 2025 13:20:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3146610E384;
+ Mon,  1 Dec 2025 10:50:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C390C43804;
- Wed, 26 Nov 2025 13:20:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A38C113D0;
- Wed, 26 Nov 2025 13:19:55 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DFC8E4080E;
+ Mon,  1 Dec 2025 10:50:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B218C4CEF1;
+ Mon,  1 Dec 2025 10:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764163201;
- bh=Sxi/6Q4jvM2wf7pGd7IQAsQCeNxuHVhX9VsDta4LQiA=;
- h=From:To:Cc:Subject:Date:From;
- b=YloxW97ukkemiEAEPPhT3JNEHRNsVszBesyclyxTRy/EnrWClbK0bOMKoj3DfHXYz
- qoI4/w2RckPGF92iCtRSt0iYnXyoM8Tc88E/i3SGDnoJAVqj1KaIxoqV/t0KumtfHg
- 7eQHOasX20pp/F4RF8CDvu7tYubl2WDsVGsRbqWeXsn9htX/5681mjms4g1PWtPT9m
- Z0H73pNH42qhH97McsOJran19ljL/9/E989x8UdZfitpJSEVz95DcX/Dbty5lKKfmz
- D63AVLSZR/MJ4CnCHUZ4j/BSbAPPTzStWNmNcKA9dSOgRtNbeK2KIECPRkfHhReJzG
- QTlTTkRMr0uGg==
+ s=k20201202; t=1764586250;
+ bh=nBUlplmOKh9m9ly7/GmxFt4mHujNHh6V7/MgT8pL33Q=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=nriw1m3ha4OTMH/XMePE3kBvGPVChGJ8qPbWQ39WnGIxGjLjrkiW7TjT+SYIlx5KI
+ gxMIADDj5J1EO+GsWRp+mXIlg5q2Yz6mcXTK9wu8RFTGHd4AtDnUXXmA5jIDDwsV+c
+ nOWkPuHG4o3RGGIB/mOLL8htcaUQATnjDvBAaeA4hiUYFKMVMQEFBC4UgXOeJ7uFAY
+ 812WELGcmLbETDKsQkPI+jZT9h2aWiY1jBB+aSWrplQKrujJkdDS9UYGVJ4vqpr6rx
+ uGgxxJ2stgT6/76F+u6muDqBxIaGHOKBg6+avfXm6HZQJg2P1oACiNANVb+HoR5H/+
+ A34XQiNOAJH6Q==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  Gustavo Padovan <gustavo@padovan.org>,
@@ -48,16 +48,16 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 0/6] dma-fence: Remove return code of dma_fence_signal() et al.
-Date: Wed, 26 Nov 2025 14:19:09 +0100
-Message-ID: <20251126131914.149445-2-phasta@kernel.org>
+Subject: [PATCH v2 4/8] drm/xe: Use dma_fence_check_and_signal_locked()
+Date: Mon,  1 Dec 2025 11:50:08 +0100
+Message-ID: <20251201105011.19386-6-phasta@kernel.org>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20251201105011.19386-2-phasta@kernel.org>
+References: <20251201105011.19386-2-phasta@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -75,30 +75,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Barely anyone uses dma_fence_signal()'s (and similar functions') return
-code. Checking it is pretty much useless anyways, because what are you
-going to do if a fence was already signal it? Unsignal it and signal it
-again? ;p
+Xe is one of the few users utilizing the return code of
+dma_fence_signal() to check whether a fence had already been signaled by
+someone else.
 
-Removing the return code simplifies the API and makes it easier for me
-to sit on top with Rust DmaFence.
+To clean up and simplify the dma_fence API, the few kernel users relying
+on that behavior shall be ported to an alternative function.
 
-Philipp Stanner (6):
-  dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-  amd/amdkfd: Ignore return code of dma_fence_signal()
-  drm/gpu/xe: Ignore dma_fenc_signal() return code
-  dma-buf: Don't misuse dma_fence_signal()
-  drm/ttm: Remove return check of dma_fence_signal()
-  dma-buf/dma-fence: Remove return code of signaling-functions
+Replace dma_fence_signal_locked() with
+dma_fence_check_and_signal_locked().
 
- drivers/dma-buf/dma-fence.c                   | 59 ++++++-------------
- drivers/dma-buf/st-dma-fence.c                |  7 +--
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      |  5 +-
- .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  3 +-
- drivers/gpu/drm/xe/xe_hw_fence.c              |  5 +-
- include/linux/dma-fence.h                     | 33 ++++++++---
- 6 files changed, 53 insertions(+), 59 deletions(-)
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ drivers/gpu/drm/xe/xe_hw_fence.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index b2a0c46dfcd4..f6057456e460 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -85,7 +85,6 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
+ {
+ 	struct xe_hw_fence *fence, *next;
+ 	unsigned long flags;
+-	int err;
+ 	bool tmp;
+ 
+ 	if (XE_WARN_ON(!list_empty(&irq->pending))) {
+@@ -93,9 +92,8 @@ void xe_hw_fence_irq_finish(struct xe_hw_fence_irq *irq)
+ 		spin_lock_irqsave(&irq->lock, flags);
+ 		list_for_each_entry_safe(fence, next, &irq->pending, irq_link) {
+ 			list_del_init(&fence->irq_link);
+-			err = dma_fence_signal_locked(&fence->dma);
++			XE_WARN_ON(dma_fence_check_and_signal_locked(&fence->dma));
+ 			dma_fence_put(&fence->dma);
+-			XE_WARN_ON(err);
+ 		}
+ 		spin_unlock_irqrestore(&irq->lock, flags);
+ 		dma_fence_end_signalling(tmp);
 -- 
 2.49.0
 
