@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33C41D1170F
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81D41D11716
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C765210E414;
-	Mon,  1 Dec 2025 13:39:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D207210E427;
+	Mon,  1 Dec 2025 13:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mSb2FsYx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rLTAWzYx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586A810E384;
- Mon,  1 Dec 2025 10:50:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 576ED10E38D;
+ Mon,  1 Dec 2025 10:50:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C9FF460121;
- Mon,  1 Dec 2025 10:50:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E26BC113D0;
- Mon,  1 Dec 2025 10:50:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CAF2B60137;
+ Mon,  1 Dec 2025 10:50:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E334C113D0;
+ Mon,  1 Dec 2025 10:50:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764586233;
- bh=ucz6LgX9MKOxuFee2Z+MJ/KjfFjd204nb6XDQLVTLQM=;
+ s=k20201202; t=1764586256;
+ bh=psV3AjFMvx+hXzUq9J8i739SH64kLqL5g0LrFSRpUkM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=mSb2FsYxpB8vJgNzjBQ0lMeVHeqdD3J1q4nUIBRv5TYi2iud2kAGtQsB0DKYNnsLD
- ufd6s1/p6NdWet6MdXc10C36BWCfX4gXSaVGvA+7+hNI/LAOWkvJYFQkUWoxHSrwOj
- ecq0X9scEDeYk7WM6GEj+H9LY0Q751V8TOhQl4kwgJhrQA0Ja+sKPdEQ8EFe13lhXN
- wsvtNyygUmLcPU6sCPpHQgm/4h7bBD/PD5/IuAZNvLzEZNkxvtA99f/vd+PSbqAgTG
- FpvWQyNliO5N+ijQ1p8MQlUTvQADbuMda2uw1AeVC+8DHJTeTkCdxTp+Bs5Kc2aEWW
- gX+ZpMn8umtPw==
+ b=rLTAWzYx6rzjm5FOB1qQRsnqmGx9jZme2PkpQdPQ5Gk9SYiCeR3uqyFWB/ecKz80T
+ dFkAKaEmVUAj/yOX/dJf22/kQnshwBsC3eedsv1wk5Ojj1vQnEi6rZqpRTA3Ufntdr
+ P7OmsO/ICoEgrwsStpB/dILe4tLxYKj5JGeQQT1jXrkaLHVbmo6FhS1377mQIm2awY
+ 2ptlOGK6moAeJgfunx/ryXcHzUc0TXM8v0mN+koe4xQcIdrOVPAouclixrhcHNccdv
+ rXFXI0ABcANLgSdbNSwCebdfb7OA2BZE4GhcD9eWrQt8VoUQLnNNo0O1ZvzdLUMnUl
+ YmmkPTZeKOJ1A==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  Gustavo Padovan <gustavo@padovan.org>,
@@ -50,15 +50,15 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v2 1/8] dma-buf/dma-fence: Add dma_fence_test_signaled_flag()
-Date: Mon,  1 Dec 2025 11:50:05 +0100
-Message-ID: <20251201105011.19386-3-phasta@kernel.org>
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v2 5/8] dma-buf: Don't misuse dma_fence_signal()
+Date: Mon,  1 Dec 2025 11:50:09 +0100
+Message-ID: <20251201105011.19386-7-phasta@kernel.org>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20251201105011.19386-2-phasta@kernel.org>
 References: <20251201105011.19386-2-phasta@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -76,145 +76,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The dma_fence framework checks at many places whether the signaled flag
-of a fence is already set. The code can be simplified and made more
-readable by providing a helper function for that.
+The return code of dma_fence_signal() is not really useful as there is
+nothing reasonable to do if a fence was already signaled. That return
+code shall be removed from the kernel.
 
-Add dma_fence_test_signaled_flag(), which only checks whether a fence is
-signaled. Use it internally.
+Moreover, dma_fence_signal() should not be used to check whether fences
+are signaled. That's what dma_fence_is_signaled() and
+dma_fence_test_signaled_flag() exist for.
 
-Suggested-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Replace the non-canonical usage of dma_fence_signal().
+
+Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/dma-buf/dma-fence.c | 16 ++++++++--------
- include/linux/dma-fence.h   | 24 ++++++++++++++++++++++--
- 2 files changed, 30 insertions(+), 10 deletions(-)
+ drivers/dma-buf/st-dma-fence.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 39e6f93dc310..96d72ffc0750 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -545,7 +545,7 @@ void dma_fence_release(struct kref *kref)
- 	trace_dma_fence_destroy(fence);
- 
- 	if (!list_empty(&fence->cb_list) &&
--	    !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
-+	    !dma_fence_test_signaled_flag(fence)) {
- 		const char __rcu *timeline;
- 		const char __rcu *driver;
- 		unsigned long flags;
-@@ -602,7 +602,7 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
- 	was_set = test_and_set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
- 				   &fence->flags);
- 
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (dma_fence_test_signaled_flag(fence))
- 		return false;
- 
- 	if (!was_set && fence->ops->enable_signaling) {
-@@ -666,7 +666,7 @@ int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
- 	if (WARN_ON(!fence || !func))
- 		return -EINVAL;
- 
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
-+	if (dma_fence_test_signaled_flag(fence)) {
- 		INIT_LIST_HEAD(&cb->node);
- 		return -ENOENT;
+diff --git a/drivers/dma-buf/st-dma-fence.c b/drivers/dma-buf/st-dma-fence.c
+index 27a36045410b..4dbe39c58bfb 100644
+--- a/drivers/dma-buf/st-dma-fence.c
++++ b/drivers/dma-buf/st-dma-fence.c
+@@ -126,7 +126,7 @@ static int test_signaling(void *arg)
+ 		goto err_free;
  	}
-@@ -783,7 +783,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
  
- 	spin_lock_irqsave(fence->lock, flags);
+-	if (dma_fence_signal(f)) {
++	if (dma_fence_check_and_signal(f)) {
+ 		pr_err("Fence reported being already signaled\n");
+ 		goto err_free;
+ 	}
+@@ -136,7 +136,7 @@ static int test_signaling(void *arg)
+ 		goto err_free;
+ 	}
  
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (dma_fence_test_signaled_flag(fence))
- 		goto out;
- 
- 	if (intr && signal_pending(current)) {
-@@ -800,7 +800,7 @@ dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
- 	cb.task = current;
- 	list_add(&cb.base.node, &fence->cb_list);
- 
--	while (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) && ret > 0) {
-+	while (!dma_fence_test_signaled_flag(fence) && ret > 0) {
- 		if (intr)
- 			__set_current_state(TASK_INTERRUPTIBLE);
- 		else
-@@ -832,7 +832,7 @@ dma_fence_test_signaled_any(struct dma_fence **fences, uint32_t count,
- 
- 	for (i = 0; i < count; ++i) {
- 		struct dma_fence *fence = fences[i];
--		if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)) {
-+		if (dma_fence_test_signaled_flag(fence)) {
- 			if (idx)
- 				*idx = i;
- 			return true;
-@@ -1108,7 +1108,7 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
- 			 "RCU protection is required for safe access to returned string");
- 
--	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (!dma_fence_test_signaled_flag(fence))
- 		return fence->ops->get_driver_name(fence);
- 	else
- 		return "detached-driver";
-@@ -1140,7 +1140,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
- 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
- 			 "RCU protection is required for safe access to returned string");
- 
--	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (!dma_fence_test_signaled_flag(fence))
- 		return fence->ops->get_timeline_name(fence);
- 	else
- 		return "signaled-timeline";
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 64639e104110..19972f5d176f 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -401,6 +401,26 @@ void dma_fence_enable_sw_signaling(struct dma_fence *fence);
- const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
- const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
- 
-+/*
-+ * dma_fence_test_signaled_flag - Only check whether a fence is signaled yet.
-+ * @fence: the fence to check
-+ *
-+ * This function just checks whether @fence is signaled, without interacting
-+ * with the fence in any way. The user must, therefore, ensure through other
-+ * means that fences get signaled eventually.
-+ *
-+ * This function uses test_bit(), which is thread-safe. Naturally, this function
-+ * should be used opportunistically; a fence could get signaled at any moment
-+ * after the check is done.
-+ *
-+ * Return: true if signaled, false otherwise.
-+ */
-+static inline bool
-+dma_fence_test_signaled_flag(struct dma_fence *fence)
-+{
-+	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-+}
-+
- /**
-  * dma_fence_is_signaled_locked - Return an indication if the fence
-  *                                is signaled yet.
-@@ -418,7 +438,7 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
- static inline bool
- dma_fence_is_signaled_locked(struct dma_fence *fence)
- {
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (dma_fence_test_signaled_flag(fence))
- 		return true;
- 
- 	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-@@ -448,7 +468,7 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
- static inline bool
- dma_fence_is_signaled(struct dma_fence *fence)
- {
--	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
-+	if (dma_fence_test_signaled_flag(fence))
- 		return true;
- 
- 	if (fence->ops->signaled && fence->ops->signaled(fence)) {
+-	if (!dma_fence_signal(f)) {
++	if (!dma_fence_test_signaled_flag(f)) {
+ 		pr_err("Fence reported not being already signaled\n");
+ 		goto err_free;
+ 	}
 -- 
 2.49.0
 
