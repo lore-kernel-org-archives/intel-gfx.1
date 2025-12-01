@@ -4,65 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7322CD11710
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 13:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C203D116F1
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 14:06:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B4C10E40F;
-	Mon,  1 Dec 2025 13:39:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ixu2iZTZ";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C471D10E5F1;
- Wed, 26 Nov 2025 13:20:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AAFEF44381;
- Wed, 26 Nov 2025 13:20:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732D8C116B1;
- Wed, 26 Nov 2025 13:20:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1764163240;
- bh=2pw/MJl6LY/oCnTL3+ZydHGGLHEVdvEQCODhNg8b1NQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ixu2iZTZtYLH17YMkWe3wgu1khWIu1Btj2ZXZ0yppvuSfVrDVJwz4hvsSE5lbhvLv
- v+ExMAHWV1q4rJG+OCiWwImm3OoF+GHOxZCug5HdXMdNdSxwXRx+cQJ3rHZMTZ/vLH
- 2nWKlIQOPYQfdFZ3Wu8eot2tUTBqKV7TKLo+zR2DwReVr051qui5adYQ12uI9mEjmM
- 8CcZyLymsWhgqA7HdvfILFC+ahuAbLzJLvxgL1mlD1MUhHZUMNCf/hHgiqmZEIe+Io
- gEuLpALwLvhJStMxBEKR4CYPvoexnFADl4gwHHolqjWk7HyVtuXg3BuMihjZi8waxF
- Ww+QKUEf7OKaw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Gustavo Padovan <gustavo@padovan.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH 6/6] dma-buf/dma-fence: Remove return code of
- signaling-functions
-Date: Wed, 26 Nov 2025 14:19:15 +0100
-Message-ID: <20251126131914.149445-8-phasta@kernel.org>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20251126131914.149445-2-phasta@kernel.org>
-References: <20251126131914.149445-2-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A1210E3EE;
+	Mon,  1 Dec 2025 14:06:02 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 292C310E3EE;
+ Mon,  1 Dec 2025 14:06:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8978474137211525123=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 01 Dec 2025 13:39:28 +0000
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Switch_to_use_kernel_stan?=
+ =?utf-8?q?dard_fault_injection_in_i915_=28rev16=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Juha-Pekka Heikkila" <juhapekka.heikkila@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 01 Dec 2025 14:06:01 -0000
+Message-ID: <176459796116.44391.9648404325418130875@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20251201130559.731361-1-juhapekka.heikkila@gmail.com>
+In-Reply-To: <20251201130559.731361-1-juhapekka.heikkila@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,154 +37,178 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-All functions used for signaling a fence return an error code whose sole
-purpose is to tell whether a fence was already signaled.
+--===============8978474137211525123==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This is racy and has been used by almost no party in the kernel, and the
-few users have been removed in preceding cleanup commits.
+== Series Details ==
 
-Turn all signaling-functions into void-functions.
+Series: Switch to use kernel standard fault injection in i915 (rev16)
+URL   : https://patchwork.freedesktop.org/series/155765/
+State : success
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c | 40 ++++++++++---------------------------
- include/linux/dma-fence.h   |  9 ++++-----
- 2 files changed, 14 insertions(+), 35 deletions(-)
+== Summary ==
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 25117a906846..bed8d0c27217 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -360,11 +360,8 @@ void __dma_fence_might_wait(void)
-  *
-  * Unlike dma_fence_signal_timestamp(), this function must be called with
-  * &dma_fence.lock held.
-- *
-- * Returns 0 on success and a negative error value when @fence has been
-- * signalled already.
-  */
--int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
-+void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 				      ktime_t timestamp)
- {
- 	struct dma_fence_cb *cur, *tmp;
-@@ -373,7 +370,7 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 	lockdep_assert_held(fence->lock);
- 
- 	if (unlikely(dma_fence_test_signaled_flag(fence)))
--		return -EINVAL;
-+		return;
- 
- 	/* Stash the cb_list before replacing it with the timestamp */
- 	list_replace(&fence->cb_list, &cb_list);
-@@ -386,8 +383,6 @@ int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 		INIT_LIST_HEAD(&cur->node);
- 		cur->func(fence, cur);
- 	}
--
--	return 0;
- }
- EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
- 
-@@ -402,23 +397,17 @@ EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
-  * can only go from the unsignaled to the signaled state and not back, it will
-  * only be effective the first time. Set the timestamp provided as the fence
-  * signal timestamp.
-- *
-- * Returns 0 on success and a negative error value when @fence has been
-- * signalled already.
-  */
--int dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
-+void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
- {
- 	unsigned long flags;
--	int ret;
- 
- 	if (WARN_ON(!fence))
--		return -EINVAL;
-+		return;
- 
- 	spin_lock_irqsave(fence->lock, flags);
--	ret = dma_fence_signal_timestamp_locked(fence, timestamp);
-+	dma_fence_signal_timestamp_locked(fence, timestamp);
- 	spin_unlock_irqrestore(fence->lock, flags);
--
--	return ret;
- }
- EXPORT_SYMBOL(dma_fence_signal_timestamp);
- 
-@@ -434,13 +423,10 @@ EXPORT_SYMBOL(dma_fence_signal_timestamp);
-  *
-  * Unlike dma_fence_signal(), this function must be called with &dma_fence.lock
-  * held.
-- *
-- * Returns 0 on success and a negative error value when @fence has been
-- * signalled already.
-  */
--int dma_fence_signal_locked(struct dma_fence *fence)
-+void dma_fence_signal_locked(struct dma_fence *fence)
- {
--	return dma_fence_signal_timestamp_locked(fence, ktime_get());
-+	dma_fence_signal_timestamp_locked(fence, ktime_get());
- }
- EXPORT_SYMBOL(dma_fence_signal_locked);
- 
-@@ -453,28 +439,22 @@ EXPORT_SYMBOL(dma_fence_signal_locked);
-  * dma_fence_add_callback(). Can be called multiple times, but since a fence
-  * can only go from the unsignaled to the signaled state and not back, it will
-  * only be effective the first time.
-- *
-- * Returns 0 on success and a negative error value when @fence has been
-- * signalled already.
-  */
--int dma_fence_signal(struct dma_fence *fence)
-+void dma_fence_signal(struct dma_fence *fence)
- {
- 	unsigned long flags;
--	int ret;
- 	bool tmp;
- 
- 	if (WARN_ON(!fence))
--		return -EINVAL;
-+		return;
- 
- 	tmp = dma_fence_begin_signalling();
- 
- 	spin_lock_irqsave(fence->lock, flags);
--	ret = dma_fence_signal_timestamp_locked(fence, ktime_get());
-+	dma_fence_signal_timestamp_locked(fence, ktime_get());
- 	spin_unlock_irqrestore(fence->lock, flags);
- 
- 	dma_fence_end_signalling(tmp);
--
--	return ret;
- }
- EXPORT_SYMBOL(dma_fence_signal);
- 
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 19972f5d176f..188f7641050f 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -364,11 +364,10 @@ static inline void dma_fence_end_signalling(bool cookie) {}
- static inline void __dma_fence_might_wait(void) {}
- #endif
- 
--int dma_fence_signal(struct dma_fence *fence);
--int dma_fence_signal_locked(struct dma_fence *fence);
--int dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
--int dma_fence_signal_timestamp_locked(struct dma_fence *fence,
--				      ktime_t timestamp);
-+void dma_fence_signal(struct dma_fence *fence);
-+void dma_fence_signal_locked(struct dma_fence *fence);
-+void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
-+void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
- signed long dma_fence_default_wait(struct dma_fence *fence,
- 				   bool intr, signed long timeout);
- int dma_fence_add_callback(struct dma_fence *fence,
--- 
-2.49.0
+CI Bug Log - changes from CI_DRM_17612 -> Patchwork_155765v16
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/index.html
+
+Participating hosts (44 -> 43)
+------------------------------
+
+  Missing    (1): fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_155765v16 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-mtlp-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-jsl-1:          [PASS][3] -> [DMESG-FAIL][4] ([i915#13774]) +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-jsl-1/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-jsl-1/igt@i915_selftest@live.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [DMESG-WARN][5] ([i915#13735]) -> [PASS][6] +77 other tests pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-9:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+    - bat-arls-6:         [DMESG-FAIL][9] ([i915#12061]) -> [PASS][10] +1 other test pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - bat-apl-1:          [DMESG-WARN][11] ([i915#13735] / [i915#180]) -> [PASS][12] +49 other tests pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#13774]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13774
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17612 -> Patchwork_155765v16
+
+  CI-20190529: 20190529
+  CI_DRM_17612: 7f7b6cfa09ab1155b3e92ccfb7ae4bbfd41fec0c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8645: 8645
+  Patchwork_155765v16: 7f7b6cfa09ab1155b3e92ccfb7ae4bbfd41fec0c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/index.html
+
+--===============8978474137211525123==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Switch to use kernel standard fault injection in i915 (rev16)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/155765/">https://patchwork.freedesktop.org/series/155765/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17612 -&gt; Patchwork_155765v16</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/index.html</p>
+<h2>Participating hosts (44 -&gt; 43)</h2>
+<p>Missing    (1): fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_155765v16 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-jsl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-jsl-1/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-jsl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13774">i915#13774</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> +77 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17612/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_155765v16/bat-apl-1/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17612 -&gt; Patchwork_155765v16</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17612: 7f7b6cfa09ab1155b3e92ccfb7ae4bbfd41fec0c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8645: 8645<br />
+  Patchwork_155765v16: 7f7b6cfa09ab1155b3e92ccfb7ae4bbfd41fec0c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8978474137211525123==--
