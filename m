@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DF32D111A8
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 06:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED0ED111A8
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Dec 2025 06:36:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0496B10E2A5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC5310E2A9;
 	Mon,  1 Dec 2025 06:35:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GGlaBBKQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FlJLfMHP";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E421910E0FE;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB8BA10E1A3;
  Mon,  1 Dec 2025 06:35:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1764570951; x=1796106951;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=OGZF8QRIDv7gtV/OIWqN/wMyrT8dGXUgLjGWkCMtVHU=;
- b=GGlaBBKQN8zg09OLl9jdawBf1MA1O5J1THPVj3R2pu+RKpPlnShTbMG/
- yLrmfHdLotqLoWt5ZJ3CddH/sbgN4i32OoJqD7THcY4wtakpbFbTZP6yX
- 3YiM+u6L9WQ2ofBFooNEwvccDUJ746rAL3tcis485cGIuFyt/9wWoDvwz
- E5pSRS7f4Mlm15BQqGew5XuPaKjFBKu4S5OwoPsbCpQkwKiD9jm175TwQ
- 35f21MsoDYZZZ8242Uorax5XEioe+K6XBALGYNNzXXe8dF2Eg8hPbVUsJ
- 5zYffZaK1Tz9VmPeW8HfrXWmGk4D0zkZGJMUwSWDycFuBcM9py5Fu2ssr Q==;
-X-CSE-ConnectionGUID: On7+yzv8QGycVgIO7ZbTnA==
-X-CSE-MsgGUID: T4tnDMelRvWq1AgGIeqh8Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11629"; a="66663181"
-X-IronPort-AV: E=Sophos;i="6.20,240,1758610800"; d="scan'208";a="66663181"
+ bh=zh9ygxrLb93dfRNrKpjFdFR7OPpEzsZr7QeIYIHSE9Y=;
+ b=FlJLfMHPBxSe0zGvMiLErFQe+v5tyrpdCUX9YKWX7nqQEDhj3JK8VGew
+ Kkq2G0G/NUrf4ll696cC3gru00QV4FFHrFPh9symVy9SoQE2pI4NTiR5E
+ gilTHWxAZhkovT4PSsiy4d6F7Ijnpn62XX6crzheRlm3sfZwmdqcTVfMK
+ HsO5/L1MJ9rQL031um5xQimiLJn4jUORPpBpSYd5lESkfuGX9nIAXweWC
+ sZdo2S/u1EFeHs9pwRpCN03OhI8PypvaNcSwjGyamq+2xaSO3bCmhwzPe
+ SP8n3qCMOv2MdPV5l8s+4bGOWZHJ6+stVIUtcnfDFsWwUaWrx6iyFPpLj Q==;
+X-CSE-ConnectionGUID: 2vz1LKIwT5O3+lnS62KxYA==
+X-CSE-MsgGUID: 0ZZUWoloRyaWzTkjk8fwmQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11629"; a="66663161"
+X-IronPort-AV: E=Sophos;i="6.20,240,1758610800"; d="scan'208";a="66663161"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  30 Nov 2025 22:35:50 -0800
-X-CSE-ConnectionGUID: RBujNW4eRUKMKXhMESikLQ==
-X-CSE-MsgGUID: Aeka7MqZS2eFPhjvemSA0w==
+X-CSE-ConnectionGUID: z0ycivasTLiXW1dgstqLdA==
+X-CSE-MsgGUID: NzNIYnOFRSmXA4ix/vtzvg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,240,1758610800"; d="scan'208";a="193806060"
+X-IronPort-AV: E=Sophos;i="6.20,240,1758610800"; d="scan'208";a="193806055"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by orviesa009.jf.intel.com with ESMTP; 30 Nov 2025 22:35:15 -0800
+ by orviesa009.jf.intel.com with ESMTP; 30 Nov 2025 22:35:05 -0800
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
@@ -48,9 +48,10 @@ Cc: chaitanya.kumar.borah@intel.com, ville.syrjala@linux.intel.com,
  mwen@igalia.com, jadahl@redhat.com, sebastian.wick@redhat.com,
  swati2.sharma@intel.com, alex.hung@amd.com, jani.nikula@intel.com,
  suraj.kandpal@intel.com, Uma Shankar <uma.shankar@intel.com>
-Subject: [v7 03/15] drm/i915/color: Add helper to create intel colorop
-Date: Mon,  1 Dec 2025 12:16:43 +0530
-Message-ID: <20251201064655.3579280-4-uma.shankar@intel.com>
+Subject: [v7 01/15] drm/i915/display: Add identifiers for driver specific
+ blocks
+Date: Mon,  1 Dec 2025 12:16:41 +0530
+Message-ID: <20251201064655.3579280-2-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20251201064655.3579280-1-uma.shankar@intel.com>
 References: <20251201064655.3579280-1-uma.shankar@intel.com>
@@ -73,66 +74,37 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-Add intel colorop create helper
+Add macros to identify intel specific color blocks. It will help
+in mapping drm_color_ops to intel color HW blocks
 
-v2:
- - Make function names consistent (Jani)
- - Remove redundant code related to colorop state
- - Refactor code to separate files
+v2:- Prefix enums with INTEL_* (Jani, Suraj)
+   - Remove unnecessary comments (Jani)
+   - Commit message improvements (Suraj)
 
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_colorop.c | 25 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_colorop.h |  2 ++
- 2 files changed, 27 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_limits.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_colorop.c b/drivers/gpu/drm/i915/display/intel_colorop.c
-index eaab50d2d126..f2fc0d8780ce 100644
---- a/drivers/gpu/drm/i915/display/intel_colorop.c
-+++ b/drivers/gpu/drm/i915/display/intel_colorop.c
-@@ -8,3 +8,28 @@ struct intel_colorop *to_intel_colorop(struct drm_colorop *colorop)
- {
- 	return container_of(colorop, struct intel_colorop, base);
- }
-+
-+struct intel_colorop *intel_colorop_alloc(void)
-+{
-+	struct intel_colorop *colorop;
-+
-+	colorop = kzalloc(sizeof(*colorop), GFP_KERNEL);
-+	if (!colorop)
-+		return ERR_PTR(-ENOMEM);
-+
-+	return colorop;
-+}
-+
-+struct intel_colorop *intel_colorop_create(enum intel_color_block id)
-+{
-+	struct intel_colorop *colorop;
-+
-+	colorop = intel_colorop_alloc();
-+
-+	if (IS_ERR(colorop))
-+		return colorop;
-+
-+	colorop->id = id;
-+
-+	return colorop;
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_colorop.h b/drivers/gpu/drm/i915/display/intel_colorop.h
-index 23a29a565949..21d58eb9f3d0 100644
---- a/drivers/gpu/drm/i915/display/intel_colorop.h
-+++ b/drivers/gpu/drm/i915/display/intel_colorop.h
-@@ -9,5 +9,7 @@
- #include "intel_display_types.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_limits.h b/drivers/gpu/drm/i915/display/intel_display_limits.h
+index f0fa27e365ab..55fd574ba313 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_limits.h
++++ b/drivers/gpu/drm/i915/display/intel_display_limits.h
+@@ -138,4 +138,12 @@ enum hpd_pin {
+ 	HPD_NUM_PINS
+ };
  
- struct intel_colorop *to_intel_colorop(struct drm_colorop *colorop);
-+struct intel_colorop *intel_colorop_alloc(void);
-+struct intel_colorop *intel_colorop_create(enum intel_color_block id);
- 
- #endif /* __INTEL_COLOROP_H__ */
++enum intel_color_block {
++	INTEL_PLANE_CB_PRE_CSC_LUT,
++	INTEL_PLANE_CB_CSC,
++	INTEL_PLANE_CB_POST_CSC_LUT,
++
++	INTEL_CB_MAX
++};
++
+ #endif /* __INTEL_DISPLAY_LIMITS_H__ */
 -- 
 2.50.1
 
