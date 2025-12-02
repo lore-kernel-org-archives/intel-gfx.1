@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A388D116FE
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 10:17:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3391CFD2F6
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 10:26:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0072010E603;
-	Tue,  2 Dec 2025 10:17:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5885F10E5F4;
+	Tue,  2 Dec 2025 10:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aoxfp54t";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bFOm8/v6";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56FE210E600;
- Tue,  2 Dec 2025 10:17:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CF0310E5F4;
+ Tue,  2 Dec 2025 10:26:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764670653;
- bh=wyWso67v2Pmj9cYL41opZ0W8Md0EXL6qC4U3K6oFpbc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aoxfp54tiIpKEvnoXToNHivMgiHJcbiNwhnrwAj0coi+E+b84NTgqUy4uxCj8o0NB
- 2+Swvb+dl4aG1ct8xDW7YTw6ubXhH4z4X7eiReWrXZQYFR2vZyduHR+ppHcX50qJ6W
- 7tn6cbPDPM7fzDSULcGhmZT4howHqNgMCVVuQejjBm1TTP1FcrSfGVwrIC6OYOcnU4
- WxYn4vqK1tkbJCBz8vRF4p1BR6janolAvCutJEzPtZcKQdc2Mhpjebwo43KEk8k6P/
- qPii3Rv1U6aNc/QJeGk/Rcd8Nleuq32YmzvDem1r4hjBMhzqjBGlo7YLQneax2tHdp
- MSr1Dq+WFY5mA==
-Received: from debian-rockchip-rock5b-rk3588.. (unknown
- [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ s=mail; t=1764671174;
+ bh=e7TL2i9NphOc/kce1J1qGMHgFQPOLfYmW0DnWE9bCNo=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=bFOm8/v6aGx1M8z9Zpyb9UCv3oCX5iuw35PHBfvlLzi1JdAc/hfcxthIarnTbNCmy
+ 2I0VCRherX6/R1pZ7//qNSValT98ap82x/aN8rBQadvr/Sqp/fCX03wW2OP0k00VlR
+ BNYWfg0jR7SWsb5PuFzr2aPjdx25oUmHUZCb9wL3kl6gaWVsd3sl9q22u8MS9gbY1m
+ biItp7+M0CcXY89Skv35SgVG3yNdN3Twq6IUnzBBPyLTnrsqNNs/tC8WG0dtzdLHmY
+ zQlHEjlBD/b2u6jACtPmAUphkSD0T77qcK4KuQxC8PeqtJQrzbo8d+J2XIwpuAkP8C
+ N60bj6/UJdbjQ==
+Received: from [IPV6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa] (unknown
+ [IPv6:2a01:e0a:5e3:6100:7aed:fe0e:8590:cbaa])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C73B17E1341;
- Tue,  2 Dec 2025 11:17:32 +0100 (CET)
-From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 91D2717E114C;
+ Tue,  2 Dec 2025 11:26:13 +0100 (CET)
+Message-ID: <5554e135-8184-4aab-9b25-19f9e8cf1d7c@collabora.com>
+Date: Tue, 2 Dec 2025 11:26:12 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 10/10] Documentation/gpu/drm-mm: Add THP paragraph to
+ GEM mapping section
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Boris Brezillon <boris.brezillon@collabora.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Boris Brezillon <boris.brezillon@collabora.com>,
  Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
  Liviu Dudau <liviu.dudau@arm.com>, Melissa Wen <mwen@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>,
- Al Viro <viro@zeniv.linux.org.uk>,
- =?UTF-8?q?Miko=C5=82aj=20Wasiak?= <mikolaj.wasiak@intel.com>,
- Christian Brauner <brauner@kernel.org>,
- Nitin Gote <nitin.r.gote@intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, Jonathan Corbet <corbet@lwn.net>,
- Christopher Healy <healych@amazon.com>,
- Matthew Wilcox <willy@infradead.org>, Bagas Sanjaya <bagasdotme@gmail.com>
+ Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>,
+ Al Viro <viro@zeniv.linux.org.uk>, =?UTF-8?Q?Miko=C5=82aj_Wasiak?=
+ <mikolaj.wasiak@intel.com>, Christian Brauner <brauner@kernel.org>,
+ Nitin Gote <nitin.r.gote@intel.com>, Andi Shyti
+ <andi.shyti@linux.intel.com>, Jonathan Corbet <corbet@lwn.net>,
+ Christopher Healy <healych@amazon.com>, Matthew Wilcox
+ <willy@infradead.org>, Bagas Sanjaya <bagasdotme@gmail.com>
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v11 09/10] drm/panfrost: Introduce huge tmpfs mountpoint option
-Date: Tue,  2 Dec 2025 11:17:19 +0100
-Message-ID: <20251202101720.3129-10-loic.molinari@collabora.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20251202101720.3129-1-loic.molinari@collabora.com>
-References: <20251202101720.3129-1-loic.molinari@collabora.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20251128185252.3092-1-loic.molinari@collabora.com>
+ <20251128185252.3092-11-loic.molinari@collabora.com>
+ <f1a5e5a9-2193-4a47-9fce-c51b223985aa@igalia.com>
+Content-Language: fr
+From: =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>
+Organization: Collabora Ltd
+In-Reply-To: <f1a5e5a9-2193-4a47-9fce-c51b223985aa@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,146 +85,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce the 'panfrost.transparent_hugepage' boolean module parameter
-(false by default). When the parameter is set to true, a new tmpfs
-mountpoint is created and mounted using the 'huge=within_size'
-option. It's then used at GEM object creation instead of the default
-'shm_mnt' mountpoint in order to enable Transparent Hugepage (THP) for
-the object (without having to rely on a system wide parameter).
+Hi Maíra,
 
-v3:
-- use huge tmpfs mountpoint in drm_device
+On 01/12/2025 14:27, Maíra Canal wrote:
+> Hi Loïc,
+> 
+> On 28/11/25 15:52, Loïc Molinari wrote:
+>> Add a paragraph to the GEM objects mapping section explaining how
+>> transparent huge pages are handled by GEM.
+>>
+>> v4:
+>> - fix wording after huge_pages handler removal
+>>
+>> v6:
+>> - fix wording after map_pages handler removal
+>>
+>> Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
+>> Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+>> ---
+>>   Documentation/gpu/drm-mm.rst | 22 +++++++++++++++++-----
+>>   1 file changed, 17 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/Documentation/gpu/drm-mm.rst b/Documentation/gpu/drm-mm.rst
+>> index d55751cad67c..d69eab0b4093 100644
+>> --- a/Documentation/gpu/drm-mm.rst
+>> +++ b/Documentation/gpu/drm-mm.rst
+>> @@ -290,15 +290,27 @@ The open and close operations must update the 
+>> GEM object reference
+>>   count. Drivers can use the drm_gem_vm_open() and drm_gem_vm_close() 
+>> helper
+>>   functions directly as open and close handlers.
+>> -The fault operation handler is responsible for mapping individual pages
+>> -to userspace when a page fault occurs. Depending on the memory
+>> -allocation scheme, drivers can allocate pages at fault time, or can
+>> -decide to allocate memory for the GEM object at the time the object is
+>> -created.
+>> +The fault operation handler is responsible for mapping pages to
+>> +userspace when a page fault occurs. Depending on the memory allocation
+>> +scheme, drivers can allocate pages at fault time, or can decide to
+>> +allocate memory for the GEM object at the time the object is created.
+>>   Drivers that want to map the GEM object upfront instead of handling 
+>> page
+>>   faults can implement their own mmap file operation handler.
+>> +In order to reduce page table overhead, if the internal shmem mountpoint
+>> +"shm_mnt" is configured to use transparent huge pages (for builds with
+>> +CONFIG_TRANSPARENT_HUGEPAGE enabled) and if the shmem backing store
+>> +managed to allocate a huge page for a faulty address, the fault handler
+>> +will first attempt to insert that huge page into the VMA before falling
+>> +back to individual page insertion. mmap() user address alignment for GEM
+>> +objects is handled by providing a custom get_unmapped_area file
+>> +operation which forwards to the shmem backing store. For most drivers,
+>> +which don't create a huge mountpoint by default or through a module
+>> +parameter, transparent huge pages can be enabled by either setting the
+>> +"transparent_hugepage_shmem" kernel parameter or the
+>> +"/sys/kernel/mm/transparent_hugepage/shmem_enabled" sysfs knob.
+> 
+> It would be nice to have a paragraph about the use of the huge tmpfs
+> mountpoint helpers (maybe in the "GEM Objects Creation" section?).
 
-v4:
-- fix builds with CONFIG_TRANSPARENT_HUGEPAGE=n
-- clean up mountpoint creation error handling
-- print negative error value
+Thanks for the review.
 
-v5:
-- use drm_gem_has_huge_tmp() helper
-- get rid of CONFIG_TRANSPARENT_HUGEPAGE ifdefs
+I've added a few words about the drm_gem_huge_huge_mnt() helper into the 
+"GEM Objects Creation" section in patch series v11. I've also just 
+realized that I added your R-b to that commit without you asking for 
+it... sorry for that. I'll remove it in v12 unless you explicitly ask to 
+let it there.
 
-v9:
-- replace drm_gem_has_huge_tmp() by drm_gem_get_huge_tmp()
+Regards,
+Loïc
 
-v11:
-- enable 'panfrost.transparent_hugepage' by default
-
-Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
----
- drivers/gpu/drm/panfrost/panfrost_device.c |  3 +++
- drivers/gpu/drm/panfrost/panfrost_drv.c    |  6 ++++++
- drivers/gpu/drm/panfrost/panfrost_drv.h    |  9 +++++++++
- drivers/gpu/drm/panfrost/panfrost_gem.c    | 18 ++++++++++++++++++
- drivers/gpu/drm/panfrost/panfrost_gem.h    |  2 ++
- 5 files changed, 38 insertions(+)
- create mode 100644 drivers/gpu/drm/panfrost/panfrost_drv.h
-
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index c61b97af120c..dedc13e56631 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -12,6 +12,7 @@
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
- #include "panfrost_features.h"
-+#include "panfrost_gem.h"
- #include "panfrost_issues.h"
- #include "panfrost_gpu.h"
- #include "panfrost_job.h"
-@@ -267,6 +268,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	if (err)
- 		goto out_job;
- 
-+	panfrost_gem_init(pfdev);
-+
- 	return 0;
- out_job:
- 	panfrost_jm_fini(pfdev);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 7d8c7c337606..4f5f19eda587 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -858,6 +858,12 @@ static const struct drm_driver panfrost_drm_driver = {
- #endif
- };
- 
-+#ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+bool panfrost_transparent_hugepage = true;
-+module_param_named(transparent_hugepage, panfrost_transparent_hugepage, bool, 0400);
-+MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with Transparent Hugepage enabled (true = default)");
-+#endif
-+
- static int panfrost_probe(struct platform_device *pdev)
- {
- 	struct panfrost_device *pfdev;
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.h b/drivers/gpu/drm/panfrost/panfrost_drv.h
-new file mode 100644
-index 000000000000..edeb093eb6da
---- /dev/null
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.h
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+/* Copyright 2025 Amazon.com, Inc. or its affiliates */
-+
-+#ifndef __PANFROST_DRV_H__
-+#define __PANFROST_DRV_H__
-+
-+extern bool panfrost_transparent_hugepage;
-+
-+#endif
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 8041b65c6609..c1688a542ec2 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-+/* Copyright 2025 Amazon.com, Inc. or its affiliates */
- 
- #include <linux/cleanup.h>
- #include <linux/err.h>
-@@ -10,9 +11,26 @@
- #include <drm/panfrost_drm.h>
- #include <drm/drm_print.h>
- #include "panfrost_device.h"
-+#include "panfrost_drv.h"
- #include "panfrost_gem.h"
- #include "panfrost_mmu.h"
- 
-+void panfrost_gem_init(struct panfrost_device *pfdev)
-+{
-+	int err;
-+
-+	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
-+	    !panfrost_transparent_hugepage)
-+		return;
-+
-+	err = drm_gem_huge_mnt_create(&pfdev->base, "within_size");
-+	if (drm_gem_get_huge_mnt(&pfdev->base))
-+		drm_info(&pfdev->base, "Using Transparent Hugepage\n");
-+	else if (err)
-+		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
-+			 err);
-+}
-+
- #ifdef CONFIG_DEBUG_FS
- static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
- 					struct panfrost_gem_object *bo)
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-index 8de3e76f2717..1a62529ff06f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-@@ -124,6 +124,8 @@ drm_mm_node_to_panfrost_mapping(struct drm_mm_node *node)
- 	return container_of(node, struct panfrost_gem_mapping, mmnode);
- }
- 
-+void panfrost_gem_init(struct panfrost_device *pfdev);
-+
- struct drm_gem_object *panfrost_gem_create_object(struct drm_device *dev, size_t size);
- 
- struct drm_gem_object *
--- 
-2.47.3
+> Best Regards,
+> - Maíra
+> 
+>> +
+>>   For platforms without MMU the GEM core provides a helper method
+>>   drm_gem_dma_get_unmapped_area(). The mmap() routines will call this 
+>> to get a
+>>   proposed address for the mapping.
+> 
 
