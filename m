@@ -4,93 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F241D11702
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B15CFD2F6
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 14:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C43C10E66E;
-	Tue,  2 Dec 2025 14:23:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B20F10E66C;
+	Tue,  2 Dec 2025 14:23:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="bpolJv1o";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="rtiE3GB6";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53EBE10E06C
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Dec 2025 19:01:31 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-42e2d52c24dso956395f8f.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 01 Dec 2025 11:01:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1764615690; x=1765220490; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:cc:content-language
- :references:to:subject:user-agent:mime-version:date:message-id:from
- :to:cc:subject:date:message-id:reply-to;
- bh=BzJeas8LPFGypXbCtT1+U1OrcCvq4t/9azfoNFwruuE=;
- b=bpolJv1oBEFLGTWAhzyUwlerufMW61mn9bsUwpHxZqdlV49JoDHfvOL0bTelN6ABBW
- cAQzEtdEkVFTeKGOtj+i3Je9VXgLRExY0ONb+OqW/HY7QVaGvgKBj8M+iyoHwKjBGCtG
- q4VnbFulSev2LsUvtkpmI2I4/m8xOH1iZK0vPdqEDzh6a1IFQzXeeYloK3dzItnyPaFG
- l5aR9oSl5clD/OXoSnnm6nycDQgUvQcuatmGT/ml9Uu4NdTaUSBBMqOOZ4l/RdA2aMIK
- XMZqBwf+YmmPWboSe5FWZg457ZpmjDx3W2rJARy6isEGB24Nbd+pPFRSd74E3ArGGmav
- ig0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764615690; x=1765220490;
- h=content-transfer-encoding:in-reply-to:from:cc:content-language
- :references:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=BzJeas8LPFGypXbCtT1+U1OrcCvq4t/9azfoNFwruuE=;
- b=SHY/qRoJzp6ychYyLUDgHtMQLtNCEPcZ1FrxBdd5msVzzkinQRU4AmW+DQp0XoUHFc
- fy2xvgBpgJRPCpjXJ3yaLSGqW4ny97oooqI1bSIKXA8HrUqyF54RiJdRlmVq2X874vB+
- VbIzx5cF874G3pN0CcdJUlcGAGLcWTPvCADBtBPwm6+p4yf+FJiBaqmOUGr/Jw10MCw1
- aeH/ECypownhdWK3f5MgToU7piKAavGve9QNMpQnGUuWHYsLyJvWaqdcx0OzVdak6rUT
- WfOTUuJj5K5+Ag1+PrI8VFvYgBywptzxreMXCbBYWCfCr6/Wg4Kv0offyod4R1Lji4hh
- HBlw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVHWkhIpDp9jQGnTIGFknPRhShMQTkBv0v2gn3Mg+7PIKYxR0ICCe0G039PBG+mUmEtM2g7GS1Ua00=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXUAkZ23Rks6oWawjikbMg5TNUnk2Px16Nm5o5lP6DM/sTR7mF
- g6TAtqKurdxNO7IQhYPm5IjqMd5D6yN9uCCLCYYXCedQLbQnQMyxe4CB1aBD+ExN5yY=
-X-Gm-Gg: ASbGnctqH1r0vUZxFKdmhO+3dn5y/AI1y0UKtwXcISLstoscVtZiiJ2OAURP4ZjZJs3
- IRXCgikRhJgEAIG5q/3F0JTQthQVgwWFNwRxDXBRjvs6M7z3vKTS/EgHwB6B0CJ/hiGt8Z3HS20
- ABNq+53fIIG71Abn7U6YN1PJ1oy5DlpN+MgCI2qXHpU9lHmfOxIEhHH5Na6G0qSGPWPhpDe4FZ+
- ja9Xs5PHxzCKTVM88hONe0A26pWK2K7YB406ABxqrXYa1Xl+6TS3ZuTjXK8+h/HrEsL+Kydx2e5
- 2cYd0esfpj1EApdsN5gwE+XZtSfOh6UDH0qt4F9TXidxZEOY2/DLDTVvaBhzhdNtTjrCyMZW1Ch
- MQeJreoB9IRjU3+bVmkErBW5zySWgtLIByliuRMDo3bdlkmofAj30jyW99Km4AxYU47i8Xpk2kz
- +/PwxuwzUhtQKgtRCCNjZVE1B+Ba+Dww==
-X-Google-Smtp-Source: AGHT+IH5FuCKsYMYPN+g8M+3ojhMVERFE+79odP4YJ9nnFhLMkIpgzWhG8yjjilqJh37A6fSs2EzPw==
-X-Received: by 2002:a05:6000:2085:b0:429:ed90:91dd with SMTP id
- ffacd0b85a97d-42cc1ab6bf9mr43260446f8f.6.1764615688217; 
- Mon, 01 Dec 2025 11:01:28 -0800 (PST)
-Received: from [10.0.1.22] (109-81-1-107.rct.o2.cz. [109.81.1.107])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-42e1c5c304csm27574737f8f.8.2025.12.01.11.01.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 01 Dec 2025 11:01:27 -0800 (PST)
-Message-ID: <c45058d5-d690-4731-85d1-434971c16f92@suse.com>
-Date: Mon, 1 Dec 2025 20:01:23 +0100
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51D9C10E5B1;
+ Tue,  2 Dec 2025 08:29:23 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4dLDTD0jlmz9t0n;
+ Tue,  2 Dec 2025 09:29:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1764664160; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=F3V+T3Om8mfxHZjoquX2SFCTJRc6COI8uBe9tXVns1o=;
+ b=rtiE3GB6OQymRRXq6bWEORf0EfuPDtxS3sekTtzO4T8XZ5MLvkGt1Ac63OSi8pz4kbswXr
+ yX/iz/4acIgH6RUpliPeKrVGPQnrMs4ZXxhU13MkAgCIPxHBH+/pm8Z/Cf3nSH4HQ8B/Bz
+ ayg2P2whnMkKeJLXUzff2SV/iVSLS8+8FonRXw6WpYcXZ4ISMy2FqDLagUV/ezUoERrhXv
+ zWyTuYkstLxtsa7rlL59fvFOO+uPnh2qr28MZUrbY+2Xl2t37pRdVa0fxXfdwI5/F/sg1r
+ 5Flw/byOkjwd8AVdjG0gHpG5fTsS2diT8CrO3d6uWKB+oAPFIHn+SRu5ItC5+w==
+Message-ID: <1aaaa2fe56fc7598b653a5e45fc26aa0b8703ad5.camel@mailbox.org>
+Subject: Re: [PATCH v2 8/8] drm/xe: Use dma_fence_test_signaled_flag()
+From: Philipp Stanner <phasta@mailbox.org>
+To: Matthew Brost <matthew.brost@intel.com>, Philipp Stanner
+ <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>,  Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,  Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
+ Marchi <lucas.demarchi@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,  linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org,  intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Date: Tue, 02 Dec 2025 09:29:09 +0100
+In-Reply-To: <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
+References: <20251201105011.19386-2-phasta@kernel.org>
+ <20251201105011.19386-10-phasta@kernel.org>
+ <aS3touSB1ZyR2hfM@lstrano-desk.jf.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] kernel.h: move VERIFY_OCTAL_PERMISSIONS() to sysfs.h
-To: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
-References: <20251129195304.204082-1-yury.norov@gmail.com>
- <20251129195304.204082-3-yury.norov@gmail.com>
-Content-Language: en-US
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Daniel Gomez <da.gomez@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <20251129195304.204082-3-yury.norov@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 76ac2ab24f1c8917547
+X-MBO-RS-META: 6eppcxqxqw1xf4rtz518s3ggqzj8e6aa
 X-Mailman-Approved-At: Tue, 02 Dec 2025 14:23:18 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,57 +78,105 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 11/29/25 8:53 PM, Yury Norov (NVIDIA) wrote:
-> The macro is related to sysfs, but is defined in kernel.h. Move it to
-> the proper header, and unload the generic kernel.h.
-> 
-> Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
-> ---
->  include/linux/kernel.h      | 12 ------------
->  include/linux/moduleparam.h |  2 +-
->  include/linux/sysfs.h       | 13 +++++++++++++
->  3 files changed, 14 insertions(+), 13 deletions(-)
-> 
-> [...]
-> diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
-> index 6907aedc4f74..4e390a84a8bc 100644
-> --- a/include/linux/moduleparam.h
-> +++ b/include/linux/moduleparam.h
-> @@ -4,7 +4,7 @@
->  /* (C) Copyright 2001, 2002 Rusty Russell IBM Corporation */
->  #include <linux/init.h>
->  #include <linux/stringify.h>
-> -#include <linux/kernel.h>
-> +#include <linux/sysfs.h>
+On Mon, 2025-12-01 at 11:33 -0800, Matthew Brost wrote:
+> On Mon, Dec 01, 2025 at 11:50:12AM +0100, Philipp Stanner wrote:
+> > There is a new dma_fence helper which simplifies testing for a fence's
+> > signaled_flag. Use it in xe.
+> >=20
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>=20
+> Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 
-If you are removing the kernel.h include from
-include/linux/moduleparam.h, I think it would be good to update the file
-to ensure that all necessary includes are now listed directly.
+Doesn't apply on drm-misc-next. Suggestions about what to do about
+that?
 
-The following items are present in moduleparam.h:
 
-* __UNIQUE_ID(), __used(), __section(), __aligned(), __always_unused()
-  -> linux/compiler.h,
-* THIS_MODULE -> linux/init.h,
-* __stringify() -> linux/stringify.h,
-* u8, s8, u16, ... -> linux/types.h,
-* static_assert() -> linux/build_bug.h,
-* VERIFY_OCTAL_PERMISSIONS() -> linux/sysfs.h,
-* ARRAY_SIZE() -> linux/array_size.h.
+P.
 
-I suggest then updating the includes in include/linux/moduleparam.h to:
 
-#include <linux/array_size.h>
-#include <linux/build_bug.h>
-#include <linux/compiler.h>
-#include <linux/init.h>
-#include <linux/stringify.h>
-#include <linux/sysfs.h>
-#include <linux/types.h>
+>=20
+> > ---
+> > =C2=A0drivers/gpu/drm/xe/xe_exec_queue.c | 9 +++------
+> > =C2=A0drivers/gpu/drm/xe/xe_pt.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 | 3 +--
+> > =C2=A0drivers/gpu/drm/xe/xe_sched_job.c=C2=A0 | 2 +-
+> > =C2=A03 files changed, 5 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/xe/xe_exec_queue.c b/drivers/gpu/drm/xe/xe=
+_exec_queue.c
+> > index cb5f204c08ed..06736f52fbaa 100644
+> > --- a/drivers/gpu/drm/xe/xe_exec_queue.c
+> > +++ b/drivers/gpu/drm/xe/xe_exec_queue.c
+> > @@ -1037,8 +1037,7 @@ struct dma_fence *xe_exec_queue_last_fence_get(st=
+ruct xe_exec_queue *q,
+> > =C2=A0
+> > =C2=A0	xe_exec_queue_last_fence_lockdep_assert(q, vm);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put(q, vm);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1064,8 +1063,7 @@ struct dma_fence *xe_exec_queue_last_fence_get_fo=
+r_resume(struct xe_exec_queue *
+> > =C2=A0
+> > =C2=A0	lockdep_assert_held_write(&q->hwe->hw_engine_group->mode_sem);
+> > =C2=A0
+> > -	if (q->last_fence &&
+> > -	=C2=A0=C2=A0=C2=A0 test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &q->last_fen=
+ce->flags))
+> > +	if (q->last_fence && dma_fence_test_signaled_flag(q->last_fence))
+> > =C2=A0		xe_exec_queue_last_fence_put_unlocked(q);
+> > =C2=A0
+> > =C2=A0	fence =3D q->last_fence ? q->last_fence : dma_fence_get_stub();
+> > @@ -1106,8 +1104,7 @@ int xe_exec_queue_last_fence_test_dep(struct xe_e=
+xec_queue *q, struct xe_vm *vm)
+> > =C2=A0
+> > =C2=A0	fence =3D xe_exec_queue_last_fence_get(q, vm);
+> > =C2=A0	if (fence) {
+> > -		err =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags) ?
+> > -			0 : -ETIME;
+> > +		err =3D dma_fence_test_signaled_flag(fence) ? 0 : -ETIME;
+> > =C2=A0		dma_fence_put(fence);
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_pt.c b/drivers/gpu/drm/xe/xe_pt.c
+> > index 07f96bda638a..1ca2dec18e51 100644
+> > --- a/drivers/gpu/drm/xe/xe_pt.c
+> > +++ b/drivers/gpu/drm/xe/xe_pt.c
+> > @@ -1208,8 +1208,7 @@ static bool no_in_syncs(struct xe_sync_entry *syn=
+cs, u32 num_syncs)
+> > =C2=A0	for (i =3D 0; i < num_syncs; i++) {
+> > =C2=A0		struct dma_fence *fence =3D syncs[i].fence;
+> > =C2=A0
+> > -		if (fence && !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 &fence->flags))
+> > +		if (fence && !dma_fence_test_signaled_flag(fence))
+> > =C2=A0			return false;
+> > =C2=A0	}
+> > =C2=A0
+> > diff --git a/drivers/gpu/drm/xe/xe_sched_job.c b/drivers/gpu/drm/xe/xe_=
+sched_job.c
+> > index d21bf8f26964..1c9ba49a325b 100644
+> > --- a/drivers/gpu/drm/xe/xe_sched_job.c
+> > +++ b/drivers/gpu/drm/xe/xe_sched_job.c
+> > @@ -188,7 +188,7 @@ static bool xe_fence_set_error(struct dma_fence *fe=
+nce, int error)
+> > =C2=A0	bool signaled;
+> > =C2=A0
+> > =C2=A0	spin_lock_irqsave(fence->lock, irq_flags);
+> > -	signaled =3D test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> > +	signaled =3D dma_fence_test_signaled_flag(fence);
+> > =C2=A0	if (!signaled)
+> > =C2=A0		dma_fence_set_error(fence, error);
+> > =C2=A0	spin_unlock_irqrestore(fence->lock, irq_flags);
+> > --=20
+> > 2.49.0
+> >=20
 
--- 
-Thanks,
-Petr
