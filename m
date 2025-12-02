@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC39DD11703
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62E99CFD376
 	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 10:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D254310E5F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A50710E5F5;
 	Tue,  2 Dec 2025 10:17:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="F8zu7ZoM";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hzLTIZO4";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBB510E575;
- Tue,  2 Dec 2025 10:17:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ABD110E5F5;
+ Tue,  2 Dec 2025 10:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1764670645;
- bh=N2AsdBqZNtbYogJcBwRYN1psPAl2r+q308j/n/zu/no=;
+ s=mail; t=1764670648;
+ bh=9th0tLAngJVGd6qH652rQnjACAMqlVf6KbfxdfP115A=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F8zu7ZoMUaldXwPoM2FCMg/6Lzwz40NNr88YDofPZKSyv2AZnX4QHrzDcCRCSC+Fp
- /YTMe2dI6WqtI4PhJCx/+GCvQrASYQ65bT7Y/z7g/829OWRtLWXcQX87MAcU3nSpQC
- 75lSWFhiq3cBZotUIrFisMRb+oj34k9jw1FirOKKty/tOa1qM5r9KmMB4UaKS5IZxB
- KxrYlsvJ2phGwfsJv1eEaw0wZupnG1LKmSVZVcYOpFeSn4Izce8+wWPS0Vab2+Ht3S
- o1wD7UzV6KFEkBtZKvUIDSSQ5ZE9naEfrkqwA7ICbWP5T7PtR+Yi7H4kg0iBPyOMTy
- zWSamgvvtNr1A==
+ b=hzLTIZO4FKybVytLPB8Q+wJpU5gvTnj6tCpOXfRP0sStlfSW6Qiyz9bqu5Dtm105w
+ t3RbjK7qOT7oqij4vDG1DT67koICrUXrGdim26gz/c+v8zMMioqe+1sSvO5MhNFxY+
+ iwJZ+opUrw9DpGNJdGg7nmWZi/noPh/rL3GKidVw5xc9nBtX5R1KVbdnFc0NXvgAtV
+ srexQGdbfrhhSQmbGx/gAjdwfYwYgm5aQG7s0/8DFuJhL1sDOvKA+2qAEasF/Vvz1g
+ +PSc2NsvfgY/zQi0YyP7hoMRhU4bRsBMAttp76kE0Rqy12yAb8baiZMsiFiHzrlMA2
+ 23xevis+eKEDA==
 Received: from debian-rockchip-rock5b-rk3588.. (unknown
  [IPv6:2a01:e0a:5e3:6100:826d:bc07:e98c:84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
  (Authenticated sender: loicmolinari)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1988317E1341;
- Tue,  2 Dec 2025 11:17:25 +0100 (CET)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2176017E13F1;
+ Tue,  2 Dec 2025 11:17:27 +0100 (CET)
 From: =?UTF-8?q?Lo=C3=AFc=20Molinari?= <loic.molinari@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
@@ -60,9 +60,9 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  linux-doc@vger.kernel.org, kernel@collabora.com
-Subject: [PATCH v11 02/10] drm/shmem-helper: Map huge pages in fault handler
-Date: Tue,  2 Dec 2025 11:17:12 +0100
-Message-ID: <20251202101720.3129-3-loic.molinari@collabora.com>
+Subject: [PATCH v11 04/10] drm/gem: Add huge tmpfs mountpoint helpers
+Date: Tue,  2 Dec 2025 11:17:14 +0100
+Message-ID: <20251202101720.3129-5-loic.molinari@collabora.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20251202101720.3129-1-loic.molinari@collabora.com>
 References: <20251202101720.3129-1-loic.molinari@collabora.com>
@@ -84,100 +84,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Attempt a PMD sized PFN insertion into the VMA if the faulty address
-of the fault handler is part of a huge page.
+Add the drm_gem_huge_mnt_create() and drm_gem_get_huge_mnt() helpers
+to avoid code duplication in the i915, V3D, Panfrost and Panthor
+drivers. The former creates and mounts a dedicated huge tmpfs
+mountpoint, for the lifetime of a DRM device, used at GEM object
+initialization. The latter retrieves the dedicated huge tmpfs
+mountpoint used by a DRM device.
 
-On builds with CONFIG_TRANSPARENT_HUGEPAGE enabled, if the mmap() user
-address is PMD size aligned, if the GEM object is backed by shmem
-buffers on mountpoints setting the 'huge=' option and if the shmem
-backing store manages to allocate a huge folio, CPU mapping would then
-benefit from significantly increased memcpy() performance. When these
-conditions are met on a system with 2 MiB huge pages, an aligned copy
-of 2 MiB would raise a single page fault instead of 4096.
+The next commits will port drivers to these helpers.
+
+v3:
+- store huge tmpfs mountpoint in drm_device
 
 v4:
-- implement map_pages instead of huge_fault
+- return 0 in builds with CONFIG_TRANSPARENT_HUGEPAGE=n
+- return 0 when huge_mnt already exists
+- use new vfs_parse_fs_string() helper
+
+v5:
+- remove warning on !dev->huge_mnt and reset to NULL on free
+- inline drm_gem_huge_mnt_create() to remove func from text and avoid
+  calls in builds with CONFIG_TRANSPARENT_HUGEPAGE=n
+- compile out drm_device's huge_mnt field in builds with
+  CONFIG_TRANSPARENT_HUGEPAGE=n
+- add drm_gem_has_huge_mnt() helper
 
 v6:
-- get rid of map_pages handler for now (keep it for another series
-  along with arm64 contpte support)
+- move huge_mnt doc into ifdef'd section
+- either inline or export drm_gem_huge_mnt_create()
+
+v7:
+- include <drm/drm_device.h> in drm_gem.h
+
+v9:
+- replace drm_gem_has_huge_mnt() by drm_gem_get_huge_mnt()
 
 v11:
-- remove page fault validity check helper
-- rename drm_gem_shmem_map_pmd() to drm_gem_shmem_try_map_pmd()
-- add Boris R-b
+- doc fixes
+- add Boris and Maíra R-bs
 
 Signed-off-by: Loïc Molinari <loic.molinari@collabora.com>
 Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Reviewed-by: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/drm_gem_shmem_helper.c | 37 ++++++++++++++++++++++----
- 1 file changed, 32 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_gem.c | 57 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_device.h  | 15 +++++++++++
+ include/drm/drm_gem.h     | 33 +++++++++++++++++++++++
+ 3 files changed, 105 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index e47ab3ebb5c2..4e2e58d92b36 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -567,15 +567,36 @@ int drm_gem_shmem_dumb_create(struct drm_file *file, struct drm_device *dev,
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- 
-+static bool drm_gem_shmem_try_map_pmd(struct vm_fault *vmf, unsigned long addr,
-+				      struct page *page)
-+{
-+#ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
-+	unsigned long pfn = page_to_pfn(page);
-+	unsigned long paddr = pfn << PAGE_SHIFT;
-+	bool aligned = (addr & ~PMD_MASK) == (paddr & ~PMD_MASK);
-+
-+	if (aligned &&
-+	    pmd_none(*vmf->pmd) &&
-+	    folio_test_pmd_mappable(page_folio(page))) {
-+		pfn &= PMD_MASK >> PAGE_SHIFT;
-+		if (vmf_insert_pfn_pmd(vmf, pfn, false) == VM_FAULT_NOPAGE)
-+			return true;
-+	}
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 933fc89dd648..32dddb23e211 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -29,6 +29,9 @@
+ #include <linux/export.h>
+ #include <linux/file.h>
+ #include <linux/fs.h>
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++#include <linux/fs_context.h>
 +#endif
-+
-+	return false;
+ #include <linux/iosys-map.h>
+ #include <linux/mem_encrypt.h>
+ #include <linux/mm.h>
+@@ -82,6 +85,60 @@
+  * up at a later date, and as our interface with shmfs for memory allocation.
+  */
+ 
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++static void drm_gem_huge_mnt_free(struct drm_device *dev, void *data)
++{
++	kern_unmount(dev->huge_mnt);
 +}
 +
- static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
++/**
++ * drm_gem_huge_mnt_create - Create, mount and use a huge tmpfs mountpoint
++ * @dev: DRM device that will use the huge tmpfs mountpoint
++ * @value: huge tmpfs mount option value
++ *
++ * This function creates and mounts a dedicated huge tmpfs mountpoint for the
++ * lifetime of the DRM device @dev which is used at GEM object initialization
++ * with drm_gem_object_init().
++ *
++ * The most common option for @value is "within_size" which only allocates huge
++ * pages if the page will be fully within the GEM object size. "always",
++ * "advise" and "never" are supported too but the latter would just create a
++ * mountpoint similar to the default one (`shm_mnt`). See shmemfs and
++ * Transparent Hugepage for more information.
++ *
++ * Returns:
++ * 0 on success or a negative error code on failure.
++ */
++int drm_gem_huge_mnt_create(struct drm_device *dev, const char *value)
++{
++	struct file_system_type *type;
++	struct fs_context *fc;
++	int ret;
++
++	if (unlikely(drm_gem_get_huge_mnt(dev)))
++		return 0;
++
++	type = get_fs_type("tmpfs");
++	if (unlikely(!type))
++		return -EOPNOTSUPP;
++	fc = fs_context_for_mount(type, SB_KERNMOUNT);
++	if (IS_ERR(fc))
++		return PTR_ERR(fc);
++	ret = vfs_parse_fs_string(fc, "source", "tmpfs");
++	if (unlikely(ret))
++		return -ENOPARAM;
++	ret = vfs_parse_fs_string(fc, "huge", value);
++	if (unlikely(ret))
++		return -ENOPARAM;
++
++	dev->huge_mnt = fc_mount_longterm(fc);
++	put_fs_context(fc);
++
++	return drmm_add_action_or_reset(dev, drm_gem_huge_mnt_free, NULL);
++}
++EXPORT_SYMBOL_GPL(drm_gem_huge_mnt_create);
++#endif
++
+ static void
+ drm_gem_init_release(struct drm_device *dev, void *ptr)
  {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct drm_gem_object *obj = vma->vm_private_data;
- 	struct drm_gem_shmem_object *shmem = to_drm_gem_shmem_obj(obj);
- 	loff_t num_pages = obj->size >> PAGE_SHIFT;
--	vm_fault_t ret;
--	struct page *page;
-+	struct page **pages = shmem->pages;
- 	pgoff_t page_offset;
-+	unsigned long pfn;
-+	vm_fault_t ret;
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index 5af49c5c3778..bc78fb77cc27 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -3,6 +3,9 @@
  
- 	/* Offset to faulty address in the VMA. */
- 	page_offset = vmf->pgoff - vma->vm_pgoff;
-@@ -586,12 +607,18 @@ static vm_fault_t drm_gem_shmem_fault(struct vm_fault *vmf)
- 	    drm_WARN_ON_ONCE(obj->dev, !shmem->pages) ||
- 	    shmem->madv < 0) {
- 		ret = VM_FAULT_SIGBUS;
--	} else {
--		page = shmem->pages[page_offset];
-+		goto out;
-+	}
+ #include <linux/list.h>
+ #include <linux/kref.h>
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++#include <linux/mount.h>
++#endif
+ #include <linux/mutex.h>
+ #include <linux/idr.h>
+ #include <linux/sched.h>
+@@ -168,6 +171,18 @@ struct drm_device {
+ 	 */
+ 	struct drm_master *master;
  
--		ret = vmf_insert_pfn(vma, vmf->address, page_to_pfn(page));
-+	if (drm_gem_shmem_try_map_pmd(vmf, vmf->address, pages[page_offset])) {
-+		ret = VM_FAULT_NOPAGE;
-+		goto out;
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++	/**
++	 * @huge_mnt:
++	 *
++	 * Huge tmpfs mountpoint used at GEM object initialization
++	 * drm_gem_object_init(). Drivers can call drm_gem_huge_mnt_create() to
++	 * create, mount and use it. The default tmpfs mountpoint (`shm_mnt`) is
++	 * used if NULL.
++	 */
++	struct vfsmount *huge_mnt;
++#endif
++
+ 	/**
+ 	 * @driver_features: per-device driver features
+ 	 *
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 7c8bd67d087c..97b5fca8966d 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -40,6 +40,9 @@
+ #include <linux/list.h>
+ #include <linux/mutex.h>
+ 
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++#include <drm/drm_device.h>
++#endif
+ #include <drm/drm_vma_manager.h>
+ 
+ struct iosys_map;
+@@ -492,6 +495,36 @@ struct drm_gem_object {
+ 		DRM_GEM_FOPS,\
  	}
  
-+	pfn = page_to_pfn(pages[page_offset]);
-+	ret = vmf_insert_pfn(vma, vmf->address, pfn);
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++int drm_gem_huge_mnt_create(struct drm_device *dev, const char *value);
++#else
++static inline int drm_gem_huge_mnt_create(struct drm_device *dev,
++					  const char *value)
++{
++	return 0;
++}
++#endif
 +
-+ out:
- 	dma_resv_unlock(shmem->base.resv);
- 
- 	return ret;
++/**
++ * drm_gem_get_huge_mnt - Get the huge tmpfs mountpoint used by a DRM device
++ * @dev: DRM device
++
++ * This function gets the huge tmpfs mountpoint used by DRM device @dev. A huge
++ * tmpfs mountpoint is used instead of `shm_mnt` after a successful call to
++ * drm_gem_huge_mnt_create() when CONFIG_TRANSPARENT_HUGEPAGE is enabled.
++
++ * Returns:
++ * The huge tmpfs mountpoint in use, NULL otherwise.
++ */
++static inline struct vfsmount *drm_gem_get_huge_mnt(struct drm_device *dev)
++{
++#ifdef CONFIG_TRANSPARENT_HUGEPAGE
++	return dev->huge_mnt;
++#else
++	return NULL;
++#endif
++}
++
+ void drm_gem_object_release(struct drm_gem_object *obj);
+ void drm_gem_object_free(struct kref *kref);
+ int drm_gem_object_init(struct drm_device *dev,
 -- 
 2.47.3
 
