@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62B6FD116F1
-	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 01:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AE40D116FF
+	for <intel-gfx@archiver.kernel.org>; Tue,  2 Dec 2025 01:23:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE86110E4FD;
-	Tue,  2 Dec 2025 01:23:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C14610E4FF;
+	Tue,  2 Dec 2025 01:23:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aj1pbeJO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="msEpqI7W";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9878910E4FA;
- Tue,  2 Dec 2025 01:23:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69D7B10E4FA;
+ Tue,  2 Dec 2025 01:23:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1764638591; x=1796174591;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=yvpaVvQUDtyj2n76PnydWqurfr+nNx3ttVK9GVOOlmU=;
- b=aj1pbeJOEDlhJIUQQslEGKzmQfu8garJAoW0qJXlTkizzy9Uj+tSDTA7
- tC/iu+A+60Vz30oDBiBIplh5FQqmjGyTBh+lrhjlpj2SKBpuGmwvwZmk5
- 6LBXghOaP9OPUi6y/A2ylyXeb7SgBdgPZ9Rrmiyg59HrITWrRzInoMOLR
- ToZYnn1RcCsI03fSACkjDzxlysC6VlXsUpjCsaJ71nscYBvaqDFXO5t/q
- gIUUL34ZG5Vk3qSf1aCE8ddp4ElV1PcrNZV+MlOVOS8VGxghAqkbH8Da5
- 92gGPZhi83bP496CsIVvxdMeXPRybbwk5+zViXpDIf3dRyQuIVJXDHdFX A==;
-X-CSE-ConnectionGUID: II/itoTcTWq69reXplELfg==
-X-CSE-MsgGUID: RWeOOBCZQ8iHTM57GCbfGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11630"; a="69186538"
-X-IronPort-AV: E=Sophos;i="6.20,241,1758610800"; d="scan'208";a="69186538"
+ t=1764638594; x=1796174594;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DUSYvOulrcrE0buUSfVYjcrz7Ua4AUkoRD7rKoJE0oI=;
+ b=msEpqI7W+C/3O8psS+VqHKKx16s1XdhK6UpKuKdvccO57OqMMe42cz/i
+ kx6+vFq8gS6JYpNdaGeh/kxBM0ksQX8Na2ILHFzVzXWsgcqxqWn+H6OBS
+ 41Kw9D2ed7FBaqL2ifRaewdXFjgyjuydm/B5+Q45kObG4EXMHwmAiMqm9
+ QaGv/DShGgp6Twa9lZugOX7y8Ady9KItpjRY8S7FRWdi3RLiBFz867r/F
+ BO/wn1sfnXAtVx8kjOnatrsuXBHfcdRaGGnypGZadpryQdXN+ZmRwRdh5
+ wGcUaIL79eCCviQkxTACa01tfjRUNSjnPxEt+a4mNI4KiO01/Ugrl2NwS A==;
+X-CSE-ConnectionGUID: v92v0V0cT0SnyH3wBUJx3g==
+X-CSE-MsgGUID: 4L17SwUNStqRqgDipzhA2Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11630"; a="69186544"
+X-IronPort-AV: E=Sophos;i="6.20,241,1758610800"; d="scan'208";a="69186544"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2025 17:23:11 -0800
-X-CSE-ConnectionGUID: xkoZ/zG5Qfy4eaJ4jf0Spw==
-X-CSE-MsgGUID: Ig1zCRduSsmPBs/bNTtgBA==
+ 01 Dec 2025 17:23:14 -0800
+X-CSE-ConnectionGUID: /QO2hctmTLqVvyymh5KkGg==
+X-CSE-MsgGUID: 2Ti5ESqES9K0G1oiQi8OeA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.20,241,1758610800"; d="scan'208";a="224927881"
+X-IronPort-AV: E=Sophos;i="6.20,241,1758610800"; d="scan'208";a="224927898"
 Received: from msatwood-mobl.amr.corp.intel.com (HELO
  msatwood-mobl.hsd1.or.comcast.net) ([10.125.111.179])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2025 17:23:11 -0800
+ 01 Dec 2025 17:23:14 -0800
 From: Matt Atwood <matthew.s.atwood@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
@@ -52,13 +52,14 @@ Cc: ankit.k.nautiyal@Intel.com, dnyaneshware.bhdane@intel.com,
  shekhar.chauhan@intel.com, vinod.govindapillai@intel.com,
  imre.deak@intel.com, jani.nikula@linux.intel.com, suraj.kandapal@intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- sai.teja.pottumuttu@Intel.com, Matt Atwood <matthew.s.atwood@intel.com>
-Subject: [PATCH v6 0/8] drm/i915/display: Add initial support Xe3p_LPD
-Date: Mon,  1 Dec 2025 17:22:58 -0800
-Message-ID: <20251202012306.9315-1-matthew.s.atwood@intel.com>
+ sai.teja.pottumuttu@Intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v6 2/8] drm/i915/power: Use intel_encoder_is_tc()
+Date: Mon,  1 Dec 2025 17:23:00 -0800
+Message-ID: <20251202012306.9315-3-matthew.s.atwood@intel.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20251202012306.9315-1-matthew.s.atwood@intel.com>
+References: <20251202012306.9315-1-matthew.s.atwood@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,83 +76,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series adds initial support Xe3p_LPD, Intel's Display architecture
-with IP version 35.
+From: Gustavo Sousa <gustavo.sousa@intel.com>
 
-This series contains basic enabling patches and does not provide
-complete support for the display IP yet. More involved features, like
-the new PHY implementation and ALPM are implemented as separate patch
-series.
+Starting with Xe3p_LPD, when intel_phy_is_tc() returns true, it does
+not necessarily mean that the port is connected to a PHY in the Type-C
+subsystem.  The reason is that there is now a VBT field called
+dedicated_external that will indicate that a Type-C capable port is
+connected to a (most likely) combo/dedicated PHY.  When that's the case,
+we must not do the extra programming required for Type-C connections.
 
+In an upcoming change, we will modify intel_encoder_is_tc() to take the
+VBT field dedicated_external into consideration.  Update
+intel_display_power_well.c to use that function instead of
+intel_phy_is_tc().
+
+Note that, even though icl_aux_power_well_{enable,disable} are not part
+of Xe3p_LPD's display paths, we modify them anyway for uniformity.
+
+v2:
+  - Add and use icl_aux_pw_is_tc_phy() helper to avoid explicit encoder
+    lookup. (Imre)
+
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Shekhar Chauhan <shekhar.chauhan@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com> # v1
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-Signed-off-by: Matt Atwood <matthew.s.atwood@intel.com>
+Reviewed-by: Imre Deak <imre.deak@intel.com>
 ---
-Changes in v6:
-- Incorporated a review feedback for drm/i915/xe3p_lpd: Handle underrun
-  debug bits
-- Link to v5: https://patch.msgid.link/ 20251114-xe3p_lpd-basic-enabling-v5-0-c183388367f4@intel.com
+ .../i915/display/intel_display_power_well.c   | 33 +++++++++++++------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
 
-Changes in v4:
-- Skipped patches from v3 that were already applied.
-- Dropped patch "drm/i915/xe3p_lpd: Enable system caching for FBC" with
-  the expectation that its next version will be sent as a standalone
-  patch.
-- Link to v3: https://patch.msgid.link/20251103-xe3p_lpd-basic-enabling-v3-0-00e87b510ae7@intel.com
-
-Changes in v3:
-- Reshuffled patches so that most of the ones already containing a r-b
-  are placed at the start.
-- Dropped "drm/i915/xe3p_lpd: Wait for AUX channel power status", as a
-  similar patch was already applied from a patch series dedicated to LT
-  PHY
-  (https://lore.kernel.org/all/20251101032513.4171255-25-suraj.kandpal@intel.com/).
-- Dropped patches related to UINT16 plane formats, as they were
-  incomplete and were not specific to Xe3p_LPD.
-- Dropped FBC related patches, as Vinod is handling them as a separated
-  series
-  (https://lore.kernel.org/intel-gfx/20251027134001.325064-1-vinod.govindapillai@intel.com/)
-- Dropped "drm/i915/xe3p_lpd: PSR SU minimum lines is 4", since that
-  change is not valid according to Bspec.
-- Incorporated review feedback on the other patches. Please check the
-  changelog in the individual patches for details.
-- Link to v2: https://lore.kernel.org/r/20251021-xe3p_lpd-basic-enabling-v2-0-10eae6d655b8@intel.com
-
-Changes in v2:
-- Incorporated review feedback. Please check the changelog in the
-  patches for details.
-- Link to v1: https://lore.kernel.org/r/20251015-xe3p_lpd-basic-enabling-v1-0-d2d1e26520aa@intel.com
-
----
-Gustavo Sousa (7):
-  drm/i915/vbt: Add fields dedicated_external and dyn_port_over_tc
-  drm/i915/power: Use intel_encoder_is_tc()
-  drm/i915/display: Handle dedicated external ports in
-    intel_encoder_is_tc()
-  drm/i915/xe3p_lpd: Handle underrun debug bits
-  drm/i915/display: Use platform check in HAS_LT_PHY()
-  drm/i915/display: Move HAS_LT_PHY() to intel_display_device.h
-  drm/i915/display: Use HAS_LT_PHY() for LT PHY AUX power
-
-Sai Teja Pottumuttu (1):
-  drm/i915/nvls: Add NVL-S display support
-
- drivers/gpu/drm/i915/display/intel_bios.c     |  73 +++++++++++-
- drivers/gpu/drm/i915/display/intel_bios.h     |   2 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  11 ++
- drivers/gpu/drm/i915/display/intel_display.c  |  16 ++-
- .../drm/i915/display/intel_display_device.c   |   5 +
- .../drm/i915/display/intel_display_device.h   |   6 +-
- .../i915/display/intel_display_power_well.c   |  49 +++++---
- .../gpu/drm/i915/display/intel_display_regs.h |  16 +++
- .../drm/i915/display/intel_display_types.h    |   1 +
- drivers/gpu/drm/i915/display/intel_fbc.c      |  44 +++++++
- drivers/gpu/drm/i915/display/intel_fbc.h      |   3 +
- drivers/gpu/drm/i915/display/intel_fbc_regs.h |   2 +
- .../drm/i915/display/intel_fifo_underrun.c    | 109 ++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_lt_phy.h   |   2 -
- drivers/gpu/drm/i915/display/intel_vbt_defs.h |   3 +-
- 15 files changed, 318 insertions(+), 24 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+index 719f58e43269..3abfb17f8988 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+@@ -257,8 +257,9 @@ aux_ch_to_digital_port(struct intel_display *display,
+ 	return NULL;
+ }
+ 
+-static enum phy icl_aux_pw_to_phy(struct intel_display *display,
+-				  const struct i915_power_well *power_well)
++static struct intel_encoder *
++icl_aux_pw_to_encoder(struct intel_display *display,
++		      const struct i915_power_well *power_well)
+ {
+ 	enum aux_ch aux_ch = icl_aux_pw_to_ch(power_well);
+ 	struct intel_digital_port *dig_port = aux_ch_to_digital_port(display, aux_ch);
+@@ -270,7 +271,23 @@ static enum phy icl_aux_pw_to_phy(struct intel_display *display,
+ 	 * as HDMI-only and routed to a combo PHY, the encoder either won't be
+ 	 * present at all or it will not have an aux_ch assigned.
+ 	 */
+-	return dig_port ? intel_encoder_to_phy(&dig_port->base) : PHY_NONE;
++	return dig_port ? &dig_port->base : NULL;
++}
++
++static enum phy icl_aux_pw_to_phy(struct intel_display *display,
++				  const struct i915_power_well *power_well)
++{
++	struct intel_encoder *encoder = icl_aux_pw_to_encoder(display, power_well);
++
++	return encoder ? intel_encoder_to_phy(encoder) : PHY_NONE;
++}
++
++static bool icl_aux_pw_is_tc_phy(struct intel_display *display,
++				 const struct i915_power_well *power_well)
++{
++	struct intel_encoder *encoder = icl_aux_pw_to_encoder(display, power_well);
++
++	return encoder && intel_encoder_is_tc(encoder);
+ }
+ 
+ static void hsw_wait_for_power_well_enable(struct intel_display *display,
+@@ -569,9 +586,7 @@ static void
+ icl_aux_power_well_enable(struct intel_display *display,
+ 			  struct i915_power_well *power_well)
+ {
+-	enum phy phy = icl_aux_pw_to_phy(display, power_well);
+-
+-	if (intel_phy_is_tc(display, phy))
++	if (icl_aux_pw_is_tc_phy(display, power_well))
+ 		return icl_tc_phy_aux_power_well_enable(display, power_well);
+ 	else if (display->platform.icelake)
+ 		return icl_combo_phy_aux_power_well_enable(display,
+@@ -584,9 +599,7 @@ static void
+ icl_aux_power_well_disable(struct intel_display *display,
+ 			   struct i915_power_well *power_well)
+ {
+-	enum phy phy = icl_aux_pw_to_phy(display, power_well);
+-
+-	if (intel_phy_is_tc(display, phy))
++	if (icl_aux_pw_is_tc_phy(display, power_well))
+ 		return hsw_power_well_disable(display, power_well);
+ 	else if (display->platform.icelake)
+ 		return icl_combo_phy_aux_power_well_disable(display,
+@@ -1845,7 +1858,7 @@ static void xelpdp_aux_power_well_enable(struct intel_display *display,
+ 	enum aux_ch aux_ch = i915_power_well_instance(power_well)->xelpdp.aux_ch;
+ 	enum phy phy = icl_aux_pw_to_phy(display, power_well);
+ 
+-	if (intel_phy_is_tc(display, phy))
++	if (icl_aux_pw_is_tc_phy(display, power_well))
+ 		icl_tc_port_assert_ref_held(display, power_well,
+ 					    aux_ch_to_digital_port(display, aux_ch));
+ 
 -- 
 2.51.0
 
