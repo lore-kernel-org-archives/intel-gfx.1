@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEE12D339A0
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 17:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76211D339A2
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Dec 2025 17:52:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D4F910EB79;
-	Fri,  5 Dec 2025 17:52:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCF610EB7A;
+	Fri,  5 Dec 2025 17:52:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lH1Xjlki";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HAbeXtCM";
 	dkim-atps=neutral
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
- [74.125.224.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0384810EB79
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Dec 2025 17:52:41 +0000 (UTC)
-Received: by mail-yx1-f45.google.com with SMTP id
- 956f58d0204a3-6443bc360bdso2073572d50.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 09:52:40 -0800 (PST)
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B73F10EB79
+ for <intel-gfx@lists.freedesktop.org>; Fri,  5 Dec 2025 17:52:42 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-6443bc360bdso2073606d50.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 05 Dec 2025 09:52:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1764957160; x=1765561960; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1764957162; x=1765561962; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AIMsjwiJg4RqJtb77Sd/3hjNTplhvG97vleKrEOTwfY=;
- b=lH1Xjlkia8FOX8w33VKEiBRQKhqeTSb+mzSp+XqjCU710XwL2OgQqzH77uZFk/MzSm
- mfYr+TSSbub7I9WF/+2KUXS5wYGo93TLm2IuRoNab/pEmg6Kjsj7s13zaGCXSX6jh9Q6
- gdNtXHDqOQD0EzDhUIG7XLPyDYHpZNGWAT8rcDAnASfQLRBUAugk7QXI9kwsaKXJLv5R
- xHdqF1I0sM4Gl9lWAFH/wykVPgerznYiL4Fl+BdHV+olUGXDkiH4blDe/8basKIPK0C7
- qMjPLe2UXTro895Ih9eHJDNBiHa2xXDU2ZpsDiEIjdDDHtvpHBB/fso6LAmxFy9GEMND
- ECXg==
+ bh=qMcm6nWRLFBVfXJXBUXf6pE+rQOQZFvzs8Y8xJm6ysU=;
+ b=HAbeXtCMt6npwCFBVERJtJhZ9jDIvfjSeTXHSEQ5Hc9Ycj2qmKrcgsnUdt2diCdtFE
+ G/Q58HxCeW+EiwZdKbICi8iF5QM0RT1KBDa8Im/n9J/+UFL5+cKN953sz+9WZxRdEFPu
+ FDn2cmSww+xqlhYkVF440Zja4HEedm/o7N4MrfxmDlsWrcusxLsolyFrPCEF8fuOJ7Wv
+ K32hLYLX+3sjD1YOK7eQS6/+acJaDsVQgX49YvO9McnjouT9oQYcgzGGGoTOyaQxBDek
+ a6GtyKC0ItTkcJGBprEtJOV1TniFIRENFUpIREu6/XhrdEhm/1xhz0kRKj3rbd8lg1f8
+ 7aVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1764957160; x=1765561960;
+ d=1e100.net; s=20230601; t=1764957162; x=1765561962;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AIMsjwiJg4RqJtb77Sd/3hjNTplhvG97vleKrEOTwfY=;
- b=gndaHCzBGeF8vXJcyd0X/iAaahZlbJ9Rw2iD7B5lGqsvpzSZQdusybLrD8KbaDpMY5
- M4UHLLtxywEA4WiTBU64TYOtLV7EOrf0mtIxN3tyOZVJiFEMHhhizsGxQLlHpGfu1DSS
- /Lb2ayOYlyjU2T6tjfBFHag9tDeMu2tn3esuFfXUJjF7XCfxwOlGULP0OjghN/O/fCM6
- EYOpUrhAVvgtuVRXtZ+tFCNQozJ5QWui9hm99MbovdriwzjVodpebwfM8FJLhY69faN/
- GeNPXmjkb803D2W9jODuL4d/gcbKpQSRENqfWKn3TYP5sRdiFnIOxb/nj0C8xmEenl5d
- oXCA==
+ bh=qMcm6nWRLFBVfXJXBUXf6pE+rQOQZFvzs8Y8xJm6ysU=;
+ b=QcBQ2IG5CpzcJNlo77cGrhsZ7M8Qg7IK4jfxbZIpDmIuck1+NolAf1cpKDcgZFFrQt
+ lkbcWxGvxIeMFfQhI0PM74RPuMClH1C2fMaNMMcLTguaO/ySCHCrNebfxoNKmZnq9Ou0
+ tLSWOq/EtiF50J7N9llpQzFxrL+GYcoHF8qDVOi6voOuLh1E+XbDfABggOYXTo5qQUF8
+ kkbOQkYYVkN5wA1FVaQESiB4SLMJLgbvitGtB51wABsI8iaB9nJj3yEIEVEOEz0OGYkA
+ ngA2scQoYWZcFsaw5aZ4VbTZ8VsCiLKmdKsRKr6ibWLA2WyKgsh+ckutGCPpyke7BfaH
+ 6F7g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW4Z+qSL18ge55pK2Hkj5ykthFUvJmM4zXU7pnCmDKXkngt6QsD0jRa0ov4+MblCFR5NhxH70Hhfh8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yybqxg3VdbHVqBNVrZRk/A/FZwfK1Xuhh9EobRzCkr7DyznyY0/
- vGD31QIy00bEFaSYxUtdhjsmx15KsrAzCnwH9hXn7bLMa+mzIwYTIlsa
-X-Gm-Gg: ASbGncviTiUmqUXt3M4UGn/ZBkDYdqOaIcCz0qN6Hj0C7WDB5cYt1r+g/ivZm7YmyA+
- uvz+9dUsRPj61/FHyNON56gH3GUUENwMTS+/260BJynnT4mjmd02dEJFgUaIS6acIQS3e5o1auE
- TK8o76ivdCz56IA6ivoPG+wnOxpysMjP1ZOEw1RzldsrdrCJXoQRuzKqTZR8U3//6nq4XU9+GG+
- q4RCu+BRIr6v1X09d3ccLpwxC+f20LE3qFUpBCvSO25PQuCYB3Ob56wfOm0jNtL4yF6FiYug698
- HRU1uwK7v4LFR/xOxahOJwqj5Tiy+h3S30SqpROne+rYVC+MTV5w47ErcC7H3ptg/7ftHzTSB0m
- V5kdCgKdlG4xECe5BjAuOVzNqthGtcWCDUFjd88SLXPEtnMXuxWQqwz+QCemEYDycqHOMtKVdP5
- 6hEuP1TQ==
-X-Google-Smtp-Source: AGHT+IEj0tKsgnYq0A9mSlKiTaWZ9dj9I4yKU0s/KO7Y2wAesrkqKoyujesKH3ZFEOTbGXg0vUaC6A==
-X-Received: by 2002:a05:690c:6f83:b0:788:e74:b267 with SMTP id
- 00721157ae682-78c1893c4e9mr110130367b3.65.1764957159703; 
- Fri, 05 Dec 2025 09:52:39 -0800 (PST)
+ AJvYcCXH1NfNyUwqUUEeQ4ieZvn0Klzq3D3Dp9UTmOlW5+2/8fM8Kmh6N1b51bYpnu68p/6yEUbi/zLwutA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz09BUyOJRnSxL+8So6zpuMvUAACIfL6RESidrq0L4QM5aO6Vk7
+ zukOT10Skunn3a3Ab/RrUwD3J+10ie2+kY1cB3MGd1iyNcaVRXvDPgYu
+X-Gm-Gg: ASbGncuFcFxuDh0axPGO08VEbiryJt7IUyclKXN6XtUBhuXznilnoRehcwwcvVEylOr
+ OQCLUBMo4Gh5zBiAO5fioGyqhxZdPvKBk32rDKvE0QWBmeCUcixs6yNu9z6LPHMIhf5x/M8fzyA
+ ud7CszWG615DY8y8Hs7mj1Ow1BAgpyLK0GDu1ckPf5O/RqgQO67Wtfjw04KW/CjDhNhBfqkAnvM
+ Cfee0XzlyTUek6gU/VDdrJP0HFp+vWP4bZ8PstOWAuZYk2GKKdrh59JdyQrwTKclGN+9968nqmQ
+ isS1UjD8iWk8c1CSvJ0QKeZrRyQ/sXwEVNIsTVRVqgGvkMTnQOF1ZQld5ilmPzUDe/CSw0IbDIW
+ qIrurqcIWB48s+J7OAzfamS+4zRujpJjIu6MM3LDgnQn8OfV2WhI40NVyS55Vir2wjpnNdbL5Ev
+ Ci96AYkA==
+X-Google-Smtp-Source: AGHT+IFMa7PLE5Wadu9vbkWwOz5YfxbRiG9Bng/2nx/P0WjNdaVzVzG0hYz8xn0T4porbVJXTUfmtg==
+X-Received: by 2002:a05:690c:2506:b0:784:9076:a0f5 with SMTP id
+ 00721157ae682-78c188bffcamr128846517b3.44.1764957161553; 
+ Fri, 05 Dec 2025 09:52:41 -0800 (PST)
 Received: from localhost ([2601:346:0:79bd:be2a:7e4d:3bf:3fbc])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-6443f5a3e81sm2042888d50.16.2025.12.05.09.52.39
+ 00721157ae682-78c1b78e63bsm18841887b3.42.2025.12.05.09.52.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Dec 2025 09:52:39 -0800 (PST)
+ Fri, 05 Dec 2025 09:52:41 -0800 (PST)
 From: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
  Masami Hiramatsu <mhiramat@kernel.org>,
@@ -81,16 +81,14 @@ To: Steven Rostedt <rostedt@goodmis.org>,
  Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Cc: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v3 1/4] kernel.h: drop STACK_MAGIC macro
-Date: Fri,  5 Dec 2025 12:52:32 -0500
-Message-ID: <20251205175237.242022-2-yury.norov@gmail.com>
+Cc: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
+Subject: [PATCH v3 3/4] kernel.h: move VERIFY_OCTAL_PERMISSIONS() to sysfs.h
+Date: Fri,  5 Dec 2025 12:52:34 -0500
+Message-ID: <20251205175237.242022-4-yury.norov@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251205175237.242022-1-yury.norov@gmail.com>
 References: <20251205175237.242022-1-yury.norov@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,60 +105,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The macro was introduced in 1994, v1.0.4, for stacks protection. Since
-that, people found better ways to protect stacks, and now the macro is
-only used by i915 selftests. Move it to a local header and drop from
-the kernel.h.
+The macro is related to sysfs, but is defined in kernel.h. Move it to
+the proper header, and unload the generic kernel.h.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Now that the macro is removed from kernel.h, linux/moduleparam.h is
+decoupled, and kernel.h inclusion can be removed.
+
 Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
 Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_ring_submission.c | 1 +
- drivers/gpu/drm/i915/i915_selftest.h               | 2 ++
- include/linux/kernel.h                             | 2 --
- 3 files changed, 3 insertions(+), 2 deletions(-)
+ Documentation/filesystems/sysfs.rst |  2 +-
+ include/linux/kernel.h              | 12 ------------
+ include/linux/moduleparam.h         |  2 +-
+ include/linux/sysfs.h               | 13 +++++++++++++
+ 4 files changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-index 87ceb0f374b6..600333ae6c8c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2020 Intel Corporation
-  */
+diff --git a/Documentation/filesystems/sysfs.rst b/Documentation/filesystems/sysfs.rst
+index 2703c04af7d0..ffcef4d6bc8d 100644
+--- a/Documentation/filesystems/sysfs.rst
++++ b/Documentation/filesystems/sysfs.rst
+@@ -120,7 +120,7 @@ is equivalent to doing::
+ 	    .store = store_foo,
+     };
  
-+#include "i915_selftest.h"
- #include "intel_engine_pm.h"
- #include "selftests/igt_flush_test.h"
- 
-diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/i915_selftest.h
-index bdf3e22c0a34..72922028f4ba 100644
---- a/drivers/gpu/drm/i915/i915_selftest.h
-+++ b/drivers/gpu/drm/i915/i915_selftest.h
-@@ -26,6 +26,8 @@
- 
- #include <linux/types.h>
- 
-+#define STACK_MAGIC	0xdeadbeef
-+
- struct pci_dev;
- struct drm_i915_private;
+-Note as stated in include/linux/kernel.h "OTHER_WRITABLE?  Generally
++Note as stated in include/linux/sysfs.h "OTHER_WRITABLE?  Generally
+ considered a bad idea." so trying to set a sysfs file writable for
+ everyone will fail reverting to RO mode for "Others".
  
 diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-index 5b46924fdff5..61d63c57bc2d 100644
+index 61d63c57bc2d..5b879bfea948 100644
 --- a/include/linux/kernel.h
 +++ b/include/linux/kernel.h
-@@ -40,8 +40,6 @@
+@@ -389,16 +389,4 @@ static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
+ # define REBUILD_DUE_TO_DYNAMIC_FTRACE
+ #endif
  
- #include <uapi/linux/kernel.h>
+-/* Permissions on a sysfs file: you didn't miss the 0 prefix did you? */
+-#define VERIFY_OCTAL_PERMISSIONS(perms)						\
+-	(BUILD_BUG_ON_ZERO((perms) < 0) +					\
+-	 BUILD_BUG_ON_ZERO((perms) > 0777) +					\
+-	 /* USER_READABLE >= GROUP_READABLE >= OTHER_READABLE */		\
+-	 BUILD_BUG_ON_ZERO((((perms) >> 6) & 4) < (((perms) >> 3) & 4)) +	\
+-	 BUILD_BUG_ON_ZERO((((perms) >> 3) & 4) < ((perms) & 4)) +		\
+-	 /* USER_WRITABLE >= GROUP_WRITABLE */					\
+-	 BUILD_BUG_ON_ZERO((((perms) >> 6) & 2) < (((perms) >> 3) & 2)) +	\
+-	 /* OTHER_WRITABLE?  Generally considered a bad idea. */		\
+-	 BUILD_BUG_ON_ZERO((perms) & 2) +					\
+-	 (perms))
+ #endif
+diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
+index ca7c8107c7c8..dd2d990b2611 100644
+--- a/include/linux/moduleparam.h
++++ b/include/linux/moduleparam.h
+@@ -8,7 +8,7 @@
+ #include <linux/compiler.h>
+ #include <linux/init.h>
+ #include <linux/stringify.h>
+-#include <linux/kernel.h>
++#include <linux/sysfs.h>
+ #include <linux/types.h>
  
--#define STACK_MAGIC	0xdeadbeef
--
- struct completion;
- struct user;
+ /*
+diff --git a/include/linux/sysfs.h b/include/linux/sysfs.h
+index 9a25a2911652..15ee3ef33991 100644
+--- a/include/linux/sysfs.h
++++ b/include/linux/sysfs.h
+@@ -798,4 +798,17 @@ static inline void sysfs_put(struct kernfs_node *kn)
+ 	kernfs_put(kn);
+ }
  
++/* Permissions on a sysfs file: you didn't miss the 0 prefix did you? */
++#define VERIFY_OCTAL_PERMISSIONS(perms)						\
++	(BUILD_BUG_ON_ZERO((perms) < 0) +					\
++	 BUILD_BUG_ON_ZERO((perms) > 0777) +					\
++	 /* USER_READABLE >= GROUP_READABLE >= OTHER_READABLE */		\
++	 BUILD_BUG_ON_ZERO((((perms) >> 6) & 4) < (((perms) >> 3) & 4)) +	\
++	 BUILD_BUG_ON_ZERO((((perms) >> 3) & 4) < ((perms) & 4)) +		\
++	 /* USER_WRITABLE >= GROUP_WRITABLE */					\
++	 BUILD_BUG_ON_ZERO((((perms) >> 6) & 2) < (((perms) >> 3) & 2)) +	\
++	 /* OTHER_WRITABLE?  Generally considered a bad idea. */		\
++	 BUILD_BUG_ON_ZERO((perms) & 2) +					\
++	 (perms))
++
+ #endif /* _SYSFS_H_ */
 -- 
 2.43.0
 
