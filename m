@@ -4,36 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCEBD49224
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 020E7D49225
 	for <intel-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 13:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 034F110E790;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2610E791;
 	Fri, 12 Dec 2025 13:02:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="TqN6ry3/";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="MYH1a+hd";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9710D10E359;
- Fri, 12 Dec 2025 13:02:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE0EC10E738;
+ Fri, 12 Dec 2025 13:02:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1765544540;
- bh=Mi72tZLkVY+OWZNlHhJHSloPqeEUuXErW5xRvyEChLQ=;
+ s=default; t=1765544543;
+ bh=cHQWFaMTZ+4Ec8rHtOWI5xSmSpbsCLQi64flg47Nvrs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TqN6ry3/Y2JRLoEKW/8oOguLETwOA3Q4K2h+pJFVH0jq2yN9jLqc+dQGmpu8FQHcZ
- 9FGLaS8qx2ZwzcOPLb+Znr9FIVf4jsTGjksNZS6cgPSuYmxtzKEaKcgvm/EgOq+NQ3
- kRSoeKufh+buBjy1D8J+cDlcWNKLpsz+bc1OY/2JTnc+gOeFPFZefZ83T3zZPcmcgw
- 8rvsvbqwcR+QwevpY8XniwLQGiE9xkiUtrKpL3L1cEfqa3dOLzFMt77XXvz2QInc5Y
- y5Wpl5b25OqMXiXVgHtlUaRrnZtQB95komcsm28IV9+Y1X/mXom1KsXAsyFtpBeocf
- K5OKO2r8nWgiQ==
+ b=MYH1a+hdJATLlKB30gqVvO6fgd3mDzhjGhYyFNgZFAuQ8gVi64NkAtwiujx1kkc2X
+ ngE8vrmWKm92q46jw+If0t/PGqI8CEwXozSmyHtaw0eOoEg/eM3e8pRxU6qRMGr0Fn
+ 8TWxZLA2uTbbyKoTgSOaxZHsDG8xFJNTJeaGCrAgdNoOYOHSeJMu4/IWnzSZ4kr5jj
+ sTCmJgGzJXRNKxeQweK4RVE19A9OQMqZ0MRBBlXsU6lfQgNtjQCKHRiFUTJQ0d1X/G
+ 5ED3RqDzF7e8Phzn3eDjFDTsNW0f4lxf2hdCvQLvTqil3JTFSA1I7x6Ni2JU/TZAnM
+ znM6BwesiCXew==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>, Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH 05/11] drm/i915/display: Move vblank put until after critical
- section
-Date: Fri, 12 Dec 2025 14:02:11 +0100
-Message-ID: <20251212130205.963029-18-dev@lankhorst.se>
+ Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 10/11] drm/i915: Use preempt_disable/enable_rt() where
+ recommended
+Date: Fri, 12 Dec 2025 14:02:16 +0100
+Message-ID: <20251212130205.963029-23-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251212130205.963029-13-dev@lankhorst.se>
 References: <20251212130205.963029-13-dev@lankhorst.se>
@@ -54,63 +56,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_crtc_vblank_put may take some locks, this should probably
-not be the first thing we do after entering the time sensitive
-part.
+From: Mike Galbraith <umgwanakikbuti@gmail.com>
 
-A better place is after programming is completed. Add a flag
-to put the vblank after completion.
+Mario Kleiner suggest in commit
+  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into kms driver.")
 
-In the case of drm_vblank_work_schedule, we may not even need
-to disable the vblank interrupt any more if it takes its own
-reference.
+a spots where preemption should be disabled on PREEMPT_RT. The
+difference is that on PREEMPT_RT the intel_uncore::lock disables neither
+preemption nor interrupts and so region remains preemptible.
 
+The area covers only register reads and writes. The part that worries me
+is:
+- __intel_get_crtc_scanline() the worst case is 100us if no match is
+  found.
+
+- intel_crtc_scanlines_since_frame_timestamp() not sure how long this
+  may take in the worst case.
+
+It was in the RT queue for a while and nobody complained.
+Disable preemption on PREEPMPT_RT during timestamping.
+
+[bigeasy: patch description.]
+
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
+Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 43 ++++++++++++++++-----
+ 1 file changed, 33 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 2c5d917fbd7e9..3e84a2078a0a7 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -816,6 +816,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		to_intel_crtc_state(crtc->base.state);
- 	struct intel_crtc_state *new_crtc_state;
- 	struct intel_vblank_evade_ctx evade;
-+	bool has_vblank = false;
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 0261baed14615..4d71cfa9d97f1 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -317,6 +317,20 @@ static void intel_vblank_section_exit(struct intel_display *display)
+ 	struct drm_i915_private *i915 = to_i915(display->drm);
+ 	spin_unlock(&i915->uncore.lock);
+ }
++
++static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
++	__acquires(i915->uncore.lock)
++{
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	spin_lock_irqsave(&i915->uncore.lock, *flags);
++}
++
++static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
++	__releases(i915->uncore.lock)
++{
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	spin_unlock_irqrestore(&i915->uncore.lock, flags);
++}
+ #else
+ static void intel_vblank_section_enter(struct intel_display *display)
+ {
+@@ -325,6 +339,17 @@ static void intel_vblank_section_enter(struct intel_display *display)
+ static void intel_vblank_section_exit(struct intel_display *display)
+ {
+ }
++
++static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
++{
++	*flags = 0;
++}
++
++static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
++{
++	if (flags)
++		return;
++}
+ #endif
+ 
+ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+@@ -361,10 +386,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+ 	 * timing critical raw register reads, potentially with
+ 	 * preemption disabled, so the following code must not block.
+ 	 */
+-	local_irq_save(irqflags);
+-	intel_vblank_section_enter(display);
++	intel_vblank_section_enter_irqf(display, &irqflags);
+ 
+-	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_disable();
+ 
+ 	/* Get optional system timestamp before query. */
+ 	if (stime)
+@@ -428,10 +453,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+ 	if (etime)
+ 		*etime = ktime_get();
+ 
+-	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_enable();
+ 
+-	intel_vblank_section_exit(display);
+-	local_irq_restore(irqflags);
++	intel_vblank_section_exit_irqf(display, irqflags);
  
  	/*
-@@ -913,6 +914,8 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 	intel_psr_lock(crtc_state);
+ 	 * While in vblank, position will be negative
+@@ -469,13 +494,11 @@ int intel_get_crtc_scanline(struct intel_crtc *crtc)
+ 	unsigned long irqflags;
+ 	int position;
  
- 	if (!drm_WARN_ON(display->drm, drm_crtc_vblank_get(&crtc->base))) {
-+		has_vblank = true;
-+
- 		/*
- 		 * TODO: maybe check if we're still in PSR
- 		 * and skip the vblank evasion entirely?
-@@ -922,8 +925,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		local_irq_disable();
+-	local_irq_save(irqflags);
+-	intel_vblank_section_enter(display);
++	intel_vblank_section_enter_irqf(display, &irqflags);
  
- 		intel_vblank_evade(&evade);
--
--		drm_crtc_vblank_put(&crtc->base);
- 	} else {
- 		local_irq_disable();
- 	}
-@@ -939,6 +940,9 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 	position = __intel_get_crtc_scanline(crtc);
  
- 	intel_psr_unlock(crtc_state);
+-	intel_vblank_section_exit(display);
+-	local_irq_restore(irqflags);
++	intel_vblank_section_exit_irqf(display, irqflags);
  
-+	if (has_vblank)
-+		drm_crtc_vblank_put(&crtc->base);
-+
- 	if (old_plane_state->ggtt_vma != new_plane_state->ggtt_vma) {
- 		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
- 				     intel_cursor_unpin_work);
+ 	return position;
+ }
 -- 
 2.51.0
 
