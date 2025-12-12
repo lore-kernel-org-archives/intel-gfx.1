@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 872E8D49224
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 13:02:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 287F3D49228
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 13:02:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88FDE10E356;
-	Fri, 12 Dec 2025 13:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 901E410E5A9;
+	Fri, 12 Dec 2025 13:02:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ju1z6Kke";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="WCoBFq99";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3205710E116;
- Fri, 12 Dec 2025 13:02:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CD0D10E55D;
+ Fri, 12 Dec 2025 13:02:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1765544536;
- bh=Bne1RUVyYhtMfwYqK3Ip48zVZdJr+u55XTL2YPV9fWw=;
+ s=default; t=1765544541;
+ bh=F1/r4POtbPI3PDZ5d3UC7Fr/KLdbqrB4+YCWrkoKfsk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ju1z6Kkelh3oj7TOfVaA5rFRNEwacACyyGLE29M2Hl0NXlGrYuBIJkzz0hkMMkSbJ
- 0IfnqQhqHMghFp4SI4PfDa+S2NmuIFETGLWaE5AfIbYET+tmtR/NAW5KYFJ3w78div
- qXKvd5ca9som0evWPpsXJkHqwSTEnHMvAoo2wH1yXQ3eBG8dGYs5EfCyEVGBkDJqUC
- +BkUTsEMEpPPJJoDl598EUUpcZ/gklzhuAWUagk+uRgcQ8WbeJi6M+CXLv/NEZw2ki
- bO16ugCIxAWfll+4NU/Er8PCykSQ6s1cZzEe67rHupvLW0wdSokzm092qWi+Oq5lXN
- /ZCCnj2PdD3VA==
+ b=WCoBFq999E/NPxO9m8rAIBChnizZ4xY+05V5r0ldU2M1Jm0man7xPOTKZYZ4rdRrG
+ Z8BrW89YvhOplU6osZ2VpS4jtCxGS7orsRYOYX18W4ZouFZK8CGQ4l5JEUYj5LeoaM
+ njPdSl3Ti77ZVtvyOU9bTWsGu7e0lsHqpS2/IMRdsjW7VV477wIwj0g1/puCDGpUwM
+ T9JkNaNZEyMnl17dcFSL6i98GejtJ29zNbBLaiBni1/I2ETZs5V4MhR0hZc5MXB7k3
+ iN3gQryYKF8AEzjMiFA2UixJrMcmCsGj1o8/uXXk/QKTEcXi8Bt/mvn31VLzc8rf9b
+ qF/2PltedUFpg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH 01/11] drm/i915/display: Fix intel_lpe_audio_irq_handler for
- PREEMPT-RT
-Date: Fri, 12 Dec 2025 14:02:07 +0100
-Message-ID: <20251212130205.963029-14-dev@lankhorst.se>
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 06/11] drm/i915/display: Remove locking from
+ intel_vblank_evade critical section
+Date: Fri, 12 Dec 2025 14:02:12 +0100
+Message-ID: <20251212130205.963029-19-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251212130205.963029-13-dev@lankhorst.se>
 References: <20251212130205.963029-13-dev@lankhorst.se>
@@ -55,35 +54,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The LPE audio interrupt comes from the i915 interrupt handler. It
-should be in irq disabled context.
+finish_wait() may take a lock, which means that it can take any amount
+of time. On PREEMPT-RT we should not be taking any lock after disabling
+preemption, so ensure that the completion is done before disabling
+interrupts.
 
-With PREEMPT_RT enabled, the IRQ handler is threaded.
-Because intel_lpe_audio_irq_handler() may be called in threaded IRQ context,
-generic_handle_irq_safe API disables the interrupts before calling LPE's
-interrupt top half handler.
-
-This fixes braswell audio issues with RT enabled.
+This also has the benefit of making vblank evasion more deterministic,
+by performing the final vblank check after all locking is done.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 25 ++++++++-------------
+ 1 file changed, 9 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-index 5b41abe1c64d5..172c0062237eb 100644
---- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-@@ -262,7 +262,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
- 	if (!HAS_LPE_AUDIO(display))
- 		return;
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 2b106ffa3f5f5..f72da4099119c 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -708,6 +708,13 @@ void intel_vblank_evade_init(const struct intel_crtc_state *old_crtc_state,
+ 		evade->min -= vblank_delay;
+ }
  
--	ret = generic_handle_irq(display->audio.lpe.irq);
-+	ret = generic_handle_irq_safe(display->audio.lpe.irq);
- 	if (ret)
- 		drm_err_ratelimited(display->drm,
- 				    "error handling LPE audio irq: %d\n", ret);
++static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *scanline)
++{
++	*scanline = intel_get_crtc_scanline(evade->crtc);
++
++	return *scanline < evade->min || *scanline > evade->max;
++}
++
+ /* must be called with vblank interrupt already enabled! */
+ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ {
+@@ -715,24 +722,12 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 	struct intel_display *display = to_intel_display(crtc);
+ 	long timeout = msecs_to_jiffies_timeout(1);
+ 	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
+-	DEFINE_WAIT(wait);
+ 	int scanline;
+ 
+ 	if (evade->min <= 0 || evade->max <= 0)
+ 		return 0;
+ 
+-	for (;;) {
+-		/*
+-		 * prepare_to_wait() has a memory barrier, which guarantees
+-		 * other CPUs can see the task state update by the time we
+-		 * read the scanline.
+-		 */
+-		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
+-
+-		scanline = intel_get_crtc_scanline(crtc);
+-		if (scanline < evade->min || scanline > evade->max)
+-			break;
+-
++	while (!scanline_in_safe_range(evade, &scanline)) {
+ 		if (!timeout) {
+ 			drm_dbg_kms(display->drm,
+ 				    "Potential atomic update failure on pipe %c\n",
+@@ -742,13 +737,11 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 
+ 		local_irq_enable();
+ 
+-		timeout = schedule_timeout(timeout);
++		timeout = wait_event_timeout(*wq, scanline_in_safe_range(evade, &scanline), timeout);
+ 
+ 		local_irq_disable();
+ 	}
+ 
+-	finish_wait(wq, &wait);
+-
+ 	/*
+ 	 * On VLV/CHV DSI the scanline counter would appear to
+ 	 * increment approx. 1/3 of a scanline before start of vblank.
 -- 
 2.51.0
 
