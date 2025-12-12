@@ -4,35 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34373D49235
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 14:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6DF8D49230
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Dec 2025 14:35:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2A010E8A9;
-	Fri, 12 Dec 2025 14:35:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAFB010E8CA;
+	Fri, 12 Dec 2025 14:35:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="AMpQxGq1";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Co718GNw";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90CDA10E8CA;
- Fri, 12 Dec 2025 14:35:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DEA510E8AB;
+ Fri, 12 Dec 2025 14:35:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1765550121;
- bh=sk9duva0XMXxaPdPr6PMHusIKskXWaW2OtNz2MW0fbE=;
+ s=default; t=1765550120;
+ bh=cHQWFaMTZ+4Ec8rHtOWI5xSmSpbsCLQi64flg47Nvrs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AMpQxGq14SyE7mMFAJnIyeYNxomBwKjel1quPiey6QuWgnaY27hiJk5HeZw5Ll6Wd
- aA5mXVGL44FEOAAlviIORWDF57B6qRkwoGAdNqHbZv13kdFgsnhmbFbaRIeIVdAqQb
- YFDipfaZMiFP85uvmUjarZ3+JabbyLoO0/GJo3wMMEMRFj5kBXFmLEd3PUOiurgxHY
- ij4MOXImZDsAuhbRV7yu6ErHDlygBoCsKtL0cdI+I0s47XDqAebWBfvXEYZ/ePYjT6
- FuqalkD+7BcuugbdmNMqN1DXVLuIPV48rAmqTrgwMEvz/xCuR2LZtnO1bOxmoGn3t9
- sZGIBE5bu/EzQ==
+ b=Co718GNwiSI296A1ZHc06RlkRVhX2manL9Azh03quq+8hEmivub+D8Gh3xMIrf46Y
+ xsEUCY4c9taaQvXb8z5I0CQOT/FD52E4YFBf7BDfvgy2di418wzgsaDKa89E6FbIuS
+ 8mLLVHfCi/9eJ7WupGbQ4mJoeMfLhd1twbZm/3L3lWoIgFz2LRhKMeaW4F44/2unV/
+ RIGy2nYA/T45kimdU9dOHUDjXmTde7M3m4gpUy/8AjkdS1rUWX7VgScZbTqhu8urAJ
+ TqWLIpyHWOQZQK6IvsJJkDVhjzo19/vaPbQlGmGiCXBVNyZvLs536GZRr8/P02YRuZ
+ rY/d6kkcgHucw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v2 12/12] drm/i915/display: Use intel_de_read_fw in colorops
-Date: Fri, 12 Dec 2025 15:35:16 +0100
-Message-ID: <20251212143504.973839-26-dev@lankhorst.se>
+ Mike Galbraith <umgwanakikbuti@gmail.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v2 10/12] drm/i915: Use preempt_disable/enable_rt() where
+ recommended
+Date: Fri, 12 Dec 2025 15:35:14 +0100
+Message-ID: <20251212143504.973839-24-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251212143504.973839-14-dev@lankhorst.se>
 References: <20251212143504.973839-14-dev@lankhorst.se>
@@ -53,83 +56,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This fixes a module load error on PTL:
+From: Mike Galbraith <umgwanakikbuti@gmail.com>
 
-BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 1335, name: xe_module_load
-preempt_count: 0, expected: 0
-RCU nest depth: 0, expected: 0
-11 locks held by xe_module_load/1335:
- #0: ffff888107e0c1a0 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x104/0x220
- #1: ffff888115388280 (&dev->clientlist_mutex){+.+.}-{3:3}, at: drm_client_register+0x32/0xe0
- #2: ffffffff837f89d8 (registration_lock){+.+.}-{3:3}, at: register_framebuffer+0x1b/0x50
- #3: ffffffff83598620 (console_lock){+.+.}-{0:0}, at: fbcon_fb_registered+0x6f/0x90
- #4: ffff888122775aa0 (&helper->lock){+.+.}-{3:3}, at: __drm_fb_helper_restore_fbdev_mode_unlocked+0x7b/0x110
- #5: ffff888115388158 (&dev->master_mutex){+.+.}-{3:3}, at: drm_master_internal_acquire+0x20/0x50
- #6: ffff888122775888 (&client->modeset_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_locked+0x2a/0x1b0
- #7: ffffc90003d46e88 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
- #8: ffffc90003d46eb0 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
- #9: ffff888139a0b8b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
- #10: ffff888127123d30 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
-irq event stamp: 1240122
-hardirqs last  enabled at (1240121): [<ffffffff828a2d11>] _raw_spin_unlock_irqrestore+0x51/0x80
-hardirqs last disabled at (1240122): [<ffffffffa0d7de9b>] intel_pipe_update_start+0x34b/0x440 [xe]
-softirqs last  enabled at (0): [<ffffffff813c291c>] copy_process+0xabc/0x23d0
-softirqs last disabled at (0): [<0000000000000000>] 0x0
-CPU: 5 UID: 0 PID: 1335 Comm: xe_module_load Tainted: G     U              6.18.0-lgci-xe-xe-pw-158855v1+ #1 PREEMPT_{RT,(lazy)} 
-Tainted: [U]=USER
-Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3383.D10.2510222219 10/22/2025
-Call Trace:
- <TASK>
- dump_stack_lvl+0x91/0xf0
- dump_stack+0x10/0x20
- __might_resched+0x174/0x260
- rt_spin_lock+0x63/0x200
- ? intel_dmc_wl_get+0x3c/0x140 [xe]
- ? __lock_acquire+0x1195/0x2860
- intel_dmc_wl_get+0x3c/0x140 [xe]
- intel_color_plane_commit_arm+0xbc/0x140 [xe]
- icl_plane_update_arm+0x23f/0x280 [xe]
- intel_plane_update_arm+0x74/0x170 [xe]
- intel_crtc_planes_update_arm+0x3cb/0x4c0 [xe]
- intel_update_crtc+0x1c3/0x840 [xe]
- ? intel_pre_update_crtc+0x2ce/0x470 [xe]
- ? intel_enable_crtc+0x123/0x150 [xe]
- skl_commit_modeset_enables+0x4c4/0x720 [xe]
- intel_atomic_commit_tail+0xd9d/0x1b30 [xe]
- intel_atomic_commit+0x2e8/0x330 [xe]
- ? intel_atomic_commit+0x2e8/0x330 [xe]
- drm_atomic_commit+0xaf/0xf0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_client_modeset_commit_atomic+0x25c/0x2b0
+Mario Kleiner suggest in commit
+  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into kms driver.")
 
+a spots where preemption should be disabled on PREEMPT_RT. The
+difference is that on PREEMPT_RT the intel_uncore::lock disables neither
+preemption nor interrupts and so region remains preemptible.
+
+The area covers only register reads and writes. The part that worries me
+is:
+- __intel_get_crtc_scanline() the worst case is 100us if no match is
+  found.
+
+- intel_crtc_scanlines_since_frame_timestamp() not sure how long this
+  may take in the worst case.
+
+It was in the RT queue for a while and nobody complained.
+Disable preemption on PREEPMPT_RT during timestamping.
+
+[bigeasy: patch description.]
+
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
+Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_color.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 43 ++++++++++++++++-----
+ 1 file changed, 33 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index e7950655434b8..d15f4e78ffa5e 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -4078,7 +4078,7 @@ static void glk_load_lut_3d(struct intel_dsb *dsb,
- 	int i, lut_size = drm_color_lut32_size(blob);
- 	enum pipe pipe = crtc->pipe;
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 0261baed14615..4d71cfa9d97f1 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -317,6 +317,20 @@ static void intel_vblank_section_exit(struct intel_display *display)
+ 	struct drm_i915_private *i915 = to_i915(display->drm);
+ 	spin_unlock(&i915->uncore.lock);
+ }
++
++static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
++	__acquires(i915->uncore.lock)
++{
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	spin_lock_irqsave(&i915->uncore.lock, *flags);
++}
++
++static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
++	__releases(i915->uncore.lock)
++{
++	struct drm_i915_private *i915 = to_i915(display->drm);
++	spin_unlock_irqrestore(&i915->uncore.lock, flags);
++}
+ #else
+ static void intel_vblank_section_enter(struct intel_display *display)
+ {
+@@ -325,6 +339,17 @@ static void intel_vblank_section_enter(struct intel_display *display)
+ static void intel_vblank_section_exit(struct intel_display *display)
+ {
+ }
++
++static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
++{
++	*flags = 0;
++}
++
++static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
++{
++	if (flags)
++		return;
++}
+ #endif
  
--	if (!dsb && intel_de_read(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
-+	if (!dsb && intel_de_read_fw(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
- 		drm_err(display->drm, "[CRTC:%d:%s] 3D LUT not ready, not loading LUTs\n",
- 			crtc->base.base.id, crtc->base.name);
- 		return;
-@@ -4096,7 +4096,7 @@ static void glk_lut_3d_commit(struct intel_dsb *dsb, struct intel_crtc *crtc, bo
- 	enum pipe pipe = crtc->pipe;
- 	u32 val = 0;
+ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+@@ -361,10 +386,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+ 	 * timing critical raw register reads, potentially with
+ 	 * preemption disabled, so the following code must not block.
+ 	 */
+-	local_irq_save(irqflags);
+-	intel_vblank_section_enter(display);
++	intel_vblank_section_enter_irqf(display, &irqflags);
  
--	if (!dsb && intel_de_read(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
-+	if (!dsb && intel_de_read_fw(display, LUT_3D_CTL(pipe)) & LUT_3D_READY) {
- 		drm_err(display->drm, "[CRTC:%d:%s] 3D LUT not ready, not committing change\n",
- 			crtc->base.base.id, crtc->base.name);
- 		return;
+-	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_disable();
+ 
+ 	/* Get optional system timestamp before query. */
+ 	if (stime)
+@@ -428,10 +453,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
+ 	if (etime)
+ 		*etime = ktime_get();
+ 
+-	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
++	if (IS_ENABLED(CONFIG_PREEMPT_RT))
++		preempt_enable();
+ 
+-	intel_vblank_section_exit(display);
+-	local_irq_restore(irqflags);
++	intel_vblank_section_exit_irqf(display, irqflags);
+ 
+ 	/*
+ 	 * While in vblank, position will be negative
+@@ -469,13 +494,11 @@ int intel_get_crtc_scanline(struct intel_crtc *crtc)
+ 	unsigned long irqflags;
+ 	int position;
+ 
+-	local_irq_save(irqflags);
+-	intel_vblank_section_enter(display);
++	intel_vblank_section_enter_irqf(display, &irqflags);
+ 
+ 	position = __intel_get_crtc_scanline(crtc);
+ 
+-	intel_vblank_section_exit(display);
+-	local_irq_restore(irqflags);
++	intel_vblank_section_exit_irqf(display, irqflags);
+ 
+ 	return position;
+ }
 -- 
 2.51.0
 
