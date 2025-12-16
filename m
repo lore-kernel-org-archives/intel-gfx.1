@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F215ED5C0F3
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1E8D5C0F2
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 08:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B53210E6E0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9944710E78F;
 	Tue, 16 Dec 2025 08:46:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Pt2kUo8C";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hj3+1MkV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27CA010E785;
- Tue, 16 Dec 2025 08:46:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20103899B7;
+ Tue, 16 Dec 2025 08:46:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1765874816; x=1797410816;
+ t=1765874813; x=1797410813;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ojjhsxPWzMMMkACPL1c92nchJ4CdS8qBhm+cmhsz57c=;
- b=Pt2kUo8Ci0N2M+ZRmeiYp9aXJPSbGDD0hK95RXlYnhWzm8l/hu4OFRA2
- t9q92wbitaOXoaPhI54cj2li62TYArdtWCWwgEmfHJh9m/QnQxTxzbH8Q
- vSADtFjJfaVc1k0eII4WUp5TX4OXiOVo29O2IkoshaQ2qk/GMRAumBdgK
- iNxSRHKuPu9CjXxTkHTD+SKH/23an17zZ7UW0BGB+PkF64JD4Io5ZtUvV
- VVvk//DlJ7bf3NVJ/nHxCfEpahAZxS63ow/71J9LCh6n5efYsS8unKNy3
- 5NC0PA6+y8ocGgfzVz6zqcCrD2YspnFNCQvy3iLBKamFgk/sG1zlrVXBm g==;
-X-CSE-ConnectionGUID: TKCRNfV5RVOrqKSzszL1bQ==
-X-CSE-MsgGUID: B9gsMQ5NRK6VxpxC0SujgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11643"; a="71642342"
-X-IronPort-AV: E=Sophos;i="6.21,152,1763452800"; d="scan'208";a="71642342"
+ bh=s2t39uzYu/ez0Rq/4t82YX8YiFZbMYSfbokK7NnP4HU=;
+ b=Hj3+1MkV6SxXoPDsIVcQJ/H4pyEpHXPH/1MzeDKFaKAvICUxVcC/5U8C
+ adUmA5xjzUvMrOztEkaQRGr6n+yDIx6LnuIuGr2oeZvLGpDXGJ4hc1mtr
+ 0QJrT31FvwM+6yhpCNClfs7nH0pBpyWuFNCjBK+DelCXEGGoSEe/Jv5j5
+ gITYkTBIiRa3aAnBtoagq2cq4Ft20aC4rK6Z7oFSPWnLK03N8zZmKRT9h
+ OfG7mVFRF9TPoK472X784VBEYTjrj1Mp8uERLtefcWPdnFpleKAS27NnQ
+ CtV/bXnWFggtYCaZS5AVkSMIPIQFc+7tmnq+PVAatlBQHTTTEanx9BtFD A==;
+X-CSE-ConnectionGUID: zvDxIYgTTgiC4py2FsmFvA==
+X-CSE-MsgGUID: w1IbhFA+TXGfgoUhOeXO+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11643"; a="71642328"
+X-IronPort-AV: E=Sophos;i="6.21,152,1763452800"; d="scan'208";a="71642328"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Dec 2025 00:46:55 -0800
-X-CSE-ConnectionGUID: m7rPt2tGS1W4TXe/Sgvi9w==
-X-CSE-MsgGUID: vjK/xZ4eT12EU+JBG+Y7lw==
+ 16 Dec 2025 00:46:53 -0800
+X-CSE-ConnectionGUID: O2wftdi2R2urGYSTCQ9vFg==
+X-CSE-MsgGUID: hTUqegbwTfayqbl0URSmvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,152,1763452800"; d="scan'208";a="198448906"
+X-IronPort-AV: E=Sophos;i="6.21,152,1763452800"; d="scan'208";a="198448878"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa009.fm.intel.com with ESMTP; 16 Dec 2025 00:46:54 -0800
+ by fmviesa009.fm.intel.com with ESMTP; 16 Dec 2025 00:46:51 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: imre.deak@intel.com,
 	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH 11/13] drm/i915/cx0: Drop C20 25.175 MHz rate
-Date: Tue, 16 Dec 2025 10:37:57 +0200
-Message-Id: <20251216083759.383163-12-mika.kahola@intel.com>
+Subject: [PATCH 09/13] drm/i915/cx0: Verify C10/C20 pll dividers
+Date: Tue, 16 Dec 2025 10:37:55 +0200
+Message-Id: <20251216083759.383163-10-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251216083759.383163-1-mika.kahola@intel.com>
 References: <20251216083759.383163-1-mika.kahola@intel.com>
@@ -68,61 +68,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Drop C20 25.175 MHz pll table as with these
-pll dividers the port clock will be incorrectly
-calculated to 25.2 MHz. For 25.175 MHz rate the
-PLl dividers are calculated algorithmically making
-pll table for this rate redundant.
+Add verification for pll table dividers. The port clock
+is computed based on pll tables and, for hdmi case, the
+algorithmic model is applied to calculate pll dividers.
+If port clock differs more than +-2 kHz from expected value
+an drm_warn() is thrown and pll divider differences are
+printed out for debugging purposes.
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 26 --------------------
- 1 file changed, 26 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 125 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h  |   2 +
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  12 +-
+ 3 files changed, 136 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index ff76d4b8c8fd..25f6062345f9 100644
+index 12c962ffb3f5..ff76d4b8c8fd 100644
 --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -1790,31 +1790,6 @@ static const struct intel_cx0pll_params mtl_c10_hdmi_tables[] = {
- 	C10PLL_HDMI_PARAMS(594000, mtl_c10_hdmi_594), /* Consolidated Table */
- };
+@@ -3265,6 +3265,11 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 					  INTEL_CX0_LANE0;
+ 	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
  
--static const struct intel_c20pll_state mtl_c20_hdmi_25_175 = {
--	.clock = 25175,
--	.tx = {  0xbe88, /* tx cfg0 */
--		  0x9800, /* tx cfg1 */
--		  0x0000, /* tx cfg2 */
--		},
--	.cmn = { 0x0500, /* cmn cfg0*/
--		  0x0005, /* cmn cfg1 */
--		  0x0000, /* cmn cfg2 */
--		  0x0000, /* cmn cfg3 */
--		},
--	.mpllb = { 0xa0d2,	/* mpllb cfg0 */
--		   0x7d80,	/* mpllb cfg1 */
--		   0x0906,	/* mpllb cfg2 */
--		   0xbe40,	/* mpllb cfg3 */
--		   0x0000,	/* mpllb cfg4 */
--		   0x0000,	/* mpllb cfg5 */
--		   0x0200,	/* mpllb cfg6 */
--		   0x0001,	/* mpllb cfg7 */
--		   0x0000,	/* mpllb cfg8 */
--		   0x0000,	/* mpllb cfg9 */
--		   0x0001,	/* mpllb cfg10 */
--		},
--};
++	if (pll_state->use_c10)
++		port_clock = intel_c10pll_calc_port_clock(&pll_state->c10);
++	else
++		port_clock = intel_c20pll_calc_port_clock(&pll_state->c20);
++
+ 	/*
+ 	 * Lane reversal is never used in DP-alt mode, in that case the
+ 	 * corresponding lane swapping (based on the TypeC cable flip state
+@@ -3804,3 +3809,123 @@ void intel_cx0_pll_power_save_wa(struct intel_display *display)
+ 		intel_cx0pll_disable(encoder);
+ 	}
+ }
++
++static void intel_c10pll_verify_clock(struct intel_display *display,
++				      int precomputed_clock,
++				      const char *pll_params_name,
++				      const struct intel_c10pll_state *pll_state,
++				      bool pre_computed_params)
++{
++	struct drm_printer p;
++	int clock;
++
++	clock = intel_c10pll_calc_port_clock(pll_state);
++
++	if (intel_cx0pll_clock_matches(clock, precomputed_clock))
++		return;
++
++	drm_warn(display->drm,
++		 "%s (%s): clock difference too high: computed %d, pre-computed %d\n",
++		 pll_params_name,
++		 pre_computed_params ? "precomputed" : "computed",
++		 clock, precomputed_clock);
++
++	if (!drm_debug_enabled(DRM_UT_KMS))
++		return;
++
++	p = drm_dbg_printer(display->drm, DRM_UT_KMS, NULL);
++
++	drm_printf(&p, "PLL state (%s):\n",
++		   pre_computed_params ? "precomputed" : "computed");
++	intel_c10pll_dump_hw_state(&p, pll_state);
++}
++
++static void intel_c10pll_verify_params(struct intel_display *display,
++				       const struct intel_cx0pll_params *pll_params)
++{
++	struct intel_c10pll_state pll_state;
++
++	intel_c10pll_verify_clock(display, pll_params->clock_rate, pll_params->name, pll_params->c10, true);
++
++	if (!pll_params->is_hdmi)
++		return;
++
++	intel_snps_hdmi_pll_compute_c10pll(&pll_state, pll_params->clock_rate);
++
++	intel_c10pll_verify_clock(display, pll_params->clock_rate, pll_params->name, &pll_state, false);
++}
++
++static void intel_c20pll_verify_clock(struct intel_display *display,
++				      int precomputed_clock,
++				      const char *pll_params_name,
++				      const struct intel_c20pll_state *pll_state,
++				      bool pre_computed_params)
++{
++	struct drm_printer p;
++	int clock;
++
++	clock = intel_c20pll_calc_port_clock(pll_state);
++
++	if (intel_cx0pll_clock_matches(clock, precomputed_clock))
++		return;
++
++	drm_warn(display->drm,
++		 "%s (%s): clock difference too high: computed %d, pre-computed %d\n",
++		 pll_params_name,
++		 pre_computed_params ? "precomputed" : "computed",
++		 clock, precomputed_clock);
++
++	if (!drm_debug_enabled(DRM_UT_KMS))
++		return;
++
++	p = drm_dbg_printer(display->drm, DRM_UT_KMS, NULL);
++
++	drm_printf(&p, "PLL state (%s):\n",
++		   pre_computed_params ? "precomputed" : "computed");
++	intel_c20pll_dump_hw_state(&p, pll_state);
++}
++
++static void intel_c20pll_verify_params(struct intel_display *display,
++				       const struct intel_cx0pll_params *pll_params)
++{
++	struct intel_c20pll_state pll_state;
++
++	intel_c20pll_verify_clock(display, pll_params->clock_rate, pll_params->name, pll_params->c20, true);
++
++	if (!pll_params->is_hdmi)
++		return;
++
++	if (intel_c20_compute_hdmi_tmds_pll(display, pll_params->clock_rate, &pll_state) != 0)
++		return;
++
++	intel_c20pll_verify_clock(display, pll_params->clock_rate, pll_params->name, &pll_state, false);
++}
++
++static void intel_cx0pll_verify_tables(struct intel_display *display,
++				       const struct intel_cx0pll_params *tables,
++				       int size)
++{
++	int i;
++
++	for (i = 0; i < size; i++) {
++		if (tables[i].is_c10)
++			intel_c10pll_verify_params(display, &tables[i]);
++		else
++			intel_c20pll_verify_params(display, &tables[i]);
++	}
++}
++
++void intel_cx0pll_verify_plls(struct intel_display *display)
++{
++	/* C10 */
++	intel_cx0pll_verify_tables(display, mtl_c10_edp_tables, ARRAY_SIZE(mtl_c10_edp_tables));
++	intel_cx0pll_verify_tables(display, mtl_c10_dp_tables, ARRAY_SIZE(mtl_c10_dp_tables));
++	intel_cx0pll_verify_tables(display, mtl_c10_hdmi_tables, ARRAY_SIZE(mtl_c10_hdmi_tables));
++
++	/* C20 */
++	intel_cx0pll_verify_tables(display, xe2hpd_c20_edp_tables, ARRAY_SIZE(xe2hpd_c20_edp_tables));
++	intel_cx0pll_verify_tables(display, mtl_c20_dp_tables, ARRAY_SIZE(mtl_c20_dp_tables));
++	intel_cx0pll_verify_tables(display, xe2hpd_c20_dp_tables, ARRAY_SIZE(xe2hpd_c20_dp_tables));
++	intel_cx0pll_verify_tables(display, xe3lpd_c20_dp_edp_tables, ARRAY_SIZE(xe3lpd_c20_dp_edp_tables));
++	intel_cx0pll_verify_tables(display, mtl_c20_hdmi_tables, ARRAY_SIZE(mtl_c20_hdmi_tables));
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+index 3d9c580eb562..c6e4985dad88 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+@@ -78,6 +78,8 @@ bool intel_mtl_tbt_pll_readout_hw_state(struct intel_display *display,
+ 					struct intel_dpll_hw_state *hw_state);
+ int intel_mtl_tbt_calc_port_clock(struct intel_encoder *encoder);
+ 
++bool intel_cx0pll_clock_matches(int clock1, int clock2);
++void intel_cx0pll_verify_plls(struct intel_display *display);
+ void intel_cx0_pll_power_save_wa(struct intel_display *display);
+ void intel_lnl_mac_transmit_lfps(struct intel_encoder *encoder,
+ 				 const struct intel_crtc_state *crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 9aa84a430f09..001788174f6b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -38,6 +38,7 @@
+ #include "intel_dpll.h"
+ #include "intel_dpll_mgr.h"
+ #include "intel_hti.h"
++#include "intel_lt_phy.h"
+ #include "intel_mg_phy_regs.h"
+ #include "intel_pch_refclk.h"
+ #include "intel_step.h"
+@@ -4613,7 +4614,7 @@ void intel_dpll_init(struct intel_display *display)
+ 		dpll_mgr = &pch_pll_mgr;
+ 
+ 	if (!dpll_mgr)
+-		return;
++		goto out_verify;
+ 
+ 	dpll_info = dpll_mgr->dpll_info;
+ 
+@@ -4632,6 +4633,13 @@ void intel_dpll_init(struct intel_display *display)
+ 
+ 	display->dpll.mgr = dpll_mgr;
+ 	display->dpll.num_dpll = i;
++
++out_verify:
++	/*
++	 * TODO: Convert these to a KUnit test or dependent on a kconfig
++	 * debug option.
++	 */
++	intel_cx0pll_verify_plls(display);
+ }
+ 
+ /**
+@@ -4842,8 +4850,6 @@ void intel_dpll_sanitize_state(struct intel_display *display)
+ 	struct intel_dpll *pll;
+ 	int i;
+ 
+-	intel_cx0_pll_power_save_wa(display);
 -
- static const struct intel_c20pll_state mtl_c20_hdmi_27_0 = {
- 	.clock = 27000,
- 	.tx = {  0xbe88, /* tx cfg0 */
-@@ -2041,7 +2016,6 @@ static const struct intel_c20pll_state mtl_c20_hdmi_1200 = {
- };
- 
- static const struct intel_cx0pll_params mtl_c20_hdmi_tables[] = {
--	C20PLL_HDMI_PARAMS(25175, mtl_c20_hdmi_25_175),
- 	C20PLL_HDMI_PARAMS(27000, mtl_c20_hdmi_27_0),
- 	C20PLL_HDMI_PARAMS(74250, mtl_c20_hdmi_74_25),
- 	C20PLL_HDMI_PARAMS(148500,mtl_c20_hdmi_148_5),
+ 	for_each_dpll(display, pll, i)
+ 		sanitize_dpll_state(display, pll);
+ }
 -- 
 2.34.1
 
