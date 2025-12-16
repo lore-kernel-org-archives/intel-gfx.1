@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 597D4D5CC9E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B95B9D5CC8F
 	for <intel-gfx@archiver.kernel.org>; Tue, 16 Dec 2025 09:22:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBEC10E7E4;
-	Tue, 16 Dec 2025 09:22:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64CFC10E827;
+	Tue, 16 Dec 2025 09:22:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="JQszNDnL";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="lDAEp4X7";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A76410E7DA;
- Tue, 16 Dec 2025 09:22:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C781E10E77B;
+ Tue, 16 Dec 2025 09:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1765876957;
- bh=eFcYzzIh2gTiRgQralyfFDCOEY8Uq1MhooKroWdQPKU=;
+ s=default; t=1765876955;
+ bh=4eZA4vQcAGDaA2XtZ/pzJMwTCFwPUJ2QS96uCj634kI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JQszNDnLlXqAIoM/fIWZ2qBXwN65fU1pOj5o4m4bYXcD6slaVpvboOGznrP3mj2sH
- Hbi2Fc5shiIan0ASGc8NXfLUd4g/aXeOGj4lB7LSnmvv9R67Yb3dk4vkGyPbCO/2YA
- m18BDtnh2TQpE1rFFDXWw7aKmTEOHtlWUPBRXwSxmd0BmBWfJQHYiVbUQ3cGxkss8D
- NcVIc4yXmMUwcEQBgS6KOhKOJzv/YoZPP8rseK8c5dqiDmK+iWQ3B9DR+JNctp3gKh
- GY1Mg7zdILswsUCQnKgitgPbRlNnst02ln1D8u1gCxXoH1hhCcvX2NiDWFooa1jQ0/
- IkmYWArdBLq3A==
+ b=lDAEp4X7pKu6vTmPTPbKiKChTkItx+WTGnwE6yVFtPgimDKAlSAA2GS2X2EbbXw1F
+ uXYKy8xXRyVDCK2GJUEqUmAKd6WzXuTbvgKWBSC3rMjyuDm2xwyTTe8UuyMIpa7Udm
+ 9UhP6P1MHJIni0d16OXV5NNnEfnLEIg/Nb+9pI/Iv7LMahdLv0gb019J4MfCP/GdCV
+ FyXQAKWmLMmhXakKVT+/rEO3x1LpcbhFgwkTS4FY2keHLjARvlcCb7PPrh7eJT5r5Y
+ 3TdOcn9Mitwoi56DdhMSAHCkup5rM2Jyjjj7qQHjxUd5RfnqO73yeinip+LktEBMMY
+ XNr7IijBPbTPg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Subject: [i915-rt v2 10/16] drm/i915: Use preempt_disable/enable_rt() where
- recommended
-Date: Tue, 16 Dec 2025 10:22:37 +0100
-Message-ID: <20251216092226.1777909-28-dev@lankhorst.se>
+Subject: [i915-rt v2 08/16] drm/i915/display: Make icl_dsi_frame_update use
+ _fw too
+Date: Tue, 16 Dec 2025 10:22:35 +0100
+Message-ID: <20251216092226.1777909-26-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251216092226.1777909-18-dev@lankhorst.se>
 References: <20251216092226.1777909-18-dev@lankhorst.se>
@@ -52,124 +52,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Mike Galbraith <umgwanakikbuti@gmail.com>
+Don't use the dmc lock inside the vblank critical section,
+not even as last call.
 
-Mario Kleiner suggest in commit
-  ad3543ede630f ("drm/intel: Push get_scanout_position() timestamping into kms driver.")
-
-a spots where preemption should be disabled on PREEMPT_RT. The
-difference is that on PREEMPT_RT the intel_uncore::lock disables neither
-preemption nor interrupts and so region remains preemptible.
-
-The area covers only register reads and writes. The part that worries me
-is:
-- __intel_get_crtc_scanline() the worst case is 100us if no match is
-  found.
-
-- intel_crtc_scanlines_since_frame_timestamp() not sure how long this
-  may take in the worst case.
-
-It was in the RT queue for a while and nobody complained.
-Disable preemption on PREEPMPT_RT during timestamping.
-
-[bigeasy: patch description.]
-
-Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
-Signed-off-by: Mike Galbraith <umgwanakikbuti@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 43 ++++++++++++++++-----
- 1 file changed, 33 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 772024f1c344e..75f334fe25aaa 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -317,6 +317,20 @@ static void intel_vblank_section_exit(struct intel_display *display)
- 	struct drm_i915_private *i915 = to_i915(display->drm);
- 	spin_unlock(&i915->uncore.lock);
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index dac781f546617..adcd74f855f41 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -243,8 +243,8 @@ void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+ 	else
+ 		return;
+ 
+-	intel_de_rmw(display, DSI_CMD_FRMCTL(port), 0,
+-		     DSI_FRAME_UPDATE_REQUEST);
++	intel_de_rmw_fw(display, DSI_CMD_FRMCTL(port), 0,
++			DSI_FRAME_UPDATE_REQUEST);
  }
-+
-+static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
-+	__acquires(i915->uncore.lock)
-+{
-+	struct drm_i915_private *i915 = to_i915(display->drm);
-+	spin_lock_irqsave(&i915->uncore.lock, *flags);
-+}
-+
-+static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
-+	__releases(i915->uncore.lock)
-+{
-+	struct drm_i915_private *i915 = to_i915(display->drm);
-+	spin_unlock_irqrestore(&i915->uncore.lock, flags);
-+}
- #else
- static void intel_vblank_section_enter(struct intel_display *display)
- {
-@@ -325,6 +339,17 @@ static void intel_vblank_section_enter(struct intel_display *display)
- static void intel_vblank_section_exit(struct intel_display *display)
- {
- }
-+
-+static void intel_vblank_section_enter_irqf(struct intel_display *display, unsigned long *flags)
-+{
-+	*flags = 0;
-+}
-+
-+static void intel_vblank_section_exit_irqf(struct intel_display *display, unsigned long flags)
-+{
-+	if (flags)
-+		return;
-+}
- #endif
  
- static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
-@@ -361,10 +386,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
- 	 * timing critical raw register reads, potentially with
- 	 * preemption disabled, so the following code must not block.
- 	 */
--	local_irq_save(irqflags);
--	intel_vblank_section_enter(display);
-+	intel_vblank_section_enter_irqf(display, &irqflags);
- 
--	/* preempt_disable_rt() should go right here in PREEMPT_RT patchset. */
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-+		preempt_disable();
- 
- 	/* Get optional system timestamp before query. */
- 	if (stime)
-@@ -428,10 +453,10 @@ static bool i915_get_crtc_scanoutpos(struct drm_crtc *_crtc,
- 	if (etime)
- 		*etime = ktime_get();
- 
--	/* preempt_enable_rt() should go right here in PREEMPT_RT patchset. */
-+	if (IS_ENABLED(CONFIG_PREEMPT_RT))
-+		preempt_enable();
- 
--	intel_vblank_section_exit(display);
--	local_irq_restore(irqflags);
-+	intel_vblank_section_exit_irqf(display, irqflags);
- 
- 	/*
- 	 * While in vblank, position will be negative
-@@ -469,13 +494,11 @@ int intel_get_crtc_scanline(struct intel_crtc *crtc)
- 	unsigned long irqflags;
- 	int position;
- 
--	local_irq_save(irqflags);
--	intel_vblank_section_enter(display);
-+	intel_vblank_section_enter_irqf(display, &irqflags);
- 
- 	position = __intel_get_crtc_scanline(crtc);
- 
--	intel_vblank_section_exit(display);
--	local_irq_restore(irqflags);
-+	intel_vblank_section_exit_irqf(display, irqflags);
- 
- 	return position;
- }
+ static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
 -- 
 2.51.0
 
