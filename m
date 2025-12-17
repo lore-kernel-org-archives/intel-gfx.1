@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D22A5D65559
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E7A9D65556
 	for <intel-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 10:35:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F12910EC68;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0261410EC65;
 	Wed, 17 Dec 2025 10:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="fk6oQ/pP";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="J4VTYo1z";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8F9B10EC50;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38E0010EC58;
  Wed, 17 Dec 2025 10:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
  s=default; t=1765967716;
- bh=4eZA4vQcAGDaA2XtZ/pzJMwTCFwPUJ2QS96uCj634kI=;
+ bh=6nHfLCV0ds0yjPzVJSi07ejEkPqchX7aWxMrbWVbMPk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fk6oQ/pPwlW3IuvqSNEhJ8AeaLGhY7on840gWuRxG4EwDv5fyRF7ep5o2c1/eqtua
- jQ+xDAkFleGYGjlDz/XNJIf3v2Kcrk5lcQcugjI+6HXLY8qGuzhnlwvDttEAZsij2e
- Iv7caxHNmbAJWGxpbheTiBq2Ec52VoFpjFwFeWaaN3peaCQIOXtWV9rDyRR75NRCzV
- 763HuV6KjJXG8t7YqdQ1rgxjaS9/iK78lATmlDvDq4cqaSjWxAew5CrpIJKlNQ/5UZ
- VsfkEw+DyL47eNfb9a0LPn/uNCbLcZAr39eKEfRqIfl8nCgR8+E3ixd6MHH1ri2dgo
- 3mwelbsn3bcvQ==
+ b=J4VTYo1z6dpMg7PxXSIaDjONrk5BNX1X38uS4iAe8k7b2IN2Ax0EuZxfA24q/c1KV
+ HZIex4CujO2QbpBu5V0zZMDlXy2syfGIaNAAfy6AcKSRB0/a3/8xWsFjm3/4HQ1Pwl
+ 1kzoAiVpPF6xgcD84IgAlhndtSYRAcTjY1yxyi3ArxZm9yFcLTnxEvbdOTqVtSmD/O
+ GDmpPwNjfwBcLOs/KEhxjzH1/qmSPZixm+SeecnpkKEioJe9088VfCeWkX3mtCJUKC
+ LZ7Wm0B9x9HaUGJevMMLkdCn/eSXcfKB4NpmkRb0FxObEYC9aXp8cRDn0MduzjTeuG
+ qAzkNk96x03vA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Subject: [i915-rt v3 08/16] drm/i915/display: Make icl_dsi_frame_update use
- _fw too
-Date: Wed, 17 Dec 2025 11:35:15 +0100
-Message-ID: <20251217103506.1873859-26-dev@lankhorst.se>
+Subject: [i915-rt v3 07/16] drm/i915/display: Handle vlv dsi workaround in
+ scanline_in_safe_range too
+Date: Wed, 17 Dec 2025 11:35:14 +0100
+Message-ID: <20251217103506.1873859-25-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251217103506.1873859-18-dev@lankhorst.se>
 References: <20251217103506.1873859-18-dev@lankhorst.se>
@@ -52,29 +52,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Don't use the dmc lock inside the vblank critical section,
-not even as last call.
+Now that we have a macro, might as well handle the VLV dsi workaround
+too.
+
+This makes the vblank evasion code slightly more deterministic, by not
+looping with interrupts disabled.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 36 ++++++++++-----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index dac781f546617..adcd74f855f41 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -243,8 +243,8 @@ void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 289f390762b7c..d700fd04cb407 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -715,6 +715,24 @@ static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *sc
  	else
- 		return;
+ 		*scanline = __intel_get_crtc_scanline(evade->crtc);
  
--	intel_de_rmw(display, DSI_CMD_FRMCTL(port), 0,
--		     DSI_FRAME_UPDATE_REQUEST);
-+	intel_de_rmw_fw(display, DSI_CMD_FRMCTL(port), 0,
-+			DSI_FRAME_UPDATE_REQUEST);
++	/*
++	 * On VLV/CHV DSI the scanline counter would appear to
++	 * increment approx. 1/3 of a scanline before start of vblank.
++	 * The registers still get latched at start of vblank however.
++	 * This means we must not write any registers on the first
++	 * line of vblank (since not the whole line is actually in
++	 * vblank). And unfortunately we can't use the interrupt to
++	 * wait here since it will fire too soon. We could use the
++	 * frame start interrupt instead since it will fire after the
++	 * critical scanline, but that would require more changes
++	 * in the interrupt code. So for now we'll just do the nasty
++	 * thing and poll for the bad scanline to pass us by.
++	 *
++	 * FIXME figure out if BXT+ DSI suffers from this as well
++	 */
++	if (evade->need_vlv_dsi_wa && *scanline == evade->vblank_start)
++		return false;
++
+ 	return *scanline < evade->min || *scanline > evade->max;
  }
  
- static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
+@@ -745,24 +763,6 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 		local_irq_disable();
+ 	}
+ 
+-	/*
+-	 * On VLV/CHV DSI the scanline counter would appear to
+-	 * increment approx. 1/3 of a scanline before start of vblank.
+-	 * The registers still get latched at start of vblank however.
+-	 * This means we must not write any registers on the first
+-	 * line of vblank (since not the whole line is actually in
+-	 * vblank). And unfortunately we can't use the interrupt to
+-	 * wait here since it will fire too soon. We could use the
+-	 * frame start interrupt instead since it will fire after the
+-	 * critical scanline, but that would require more changes
+-	 * in the interrupt code. So for now we'll just do the nasty
+-	 * thing and poll for the bad scanline to pass us by.
+-	 *
+-	 * FIXME figure out if BXT+ DSI suffers from this as well
+-	 */
+-	while (evade->need_vlv_dsi_wa && scanline == evade->vblank_start)
+-		scanline = intel_get_crtc_scanline(crtc);
+-
+ 	return scanline;
+ }
+ 
 -- 
 2.51.0
 
