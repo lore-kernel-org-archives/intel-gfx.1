@@ -4,34 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E7A9D65556
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 10:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FCD7D6555B
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 10:35:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0261410EC65;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C03710EC67;
 	Wed, 17 Dec 2025 10:35:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="J4VTYo1z";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="cNhn2fJB";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38E0010EC58;
- Wed, 17 Dec 2025 10:35:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EB6010EC65;
+ Wed, 17 Dec 2025 10:35:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1765967716;
- bh=6nHfLCV0ds0yjPzVJSi07ejEkPqchX7aWxMrbWVbMPk=;
+ s=default; t=1765967719;
+ bh=VBco7zVB9VTaGgt3tIx7GWoTZdb6hMaqwzco395EbzY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J4VTYo1z6dpMg7PxXSIaDjONrk5BNX1X38uS4iAe8k7b2IN2Ax0EuZxfA24q/c1KV
- HZIex4CujO2QbpBu5V0zZMDlXy2syfGIaNAAfy6AcKSRB0/a3/8xWsFjm3/4HQ1Pwl
- 1kzoAiVpPF6xgcD84IgAlhndtSYRAcTjY1yxyi3ArxZm9yFcLTnxEvbdOTqVtSmD/O
- GDmpPwNjfwBcLOs/KEhxjzH1/qmSPZixm+SeecnpkKEioJe9088VfCeWkX3mtCJUKC
- LZ7Wm0B9x9HaUGJevMMLkdCn/eSXcfKB4NpmkRb0FxObEYC9aXp8cRDn0MduzjTeuG
- qAzkNk96x03vA==
+ b=cNhn2fJB5d0cXC6PZzfi3nqxf9hRFvdlfF2D0IcM0G8LGg4FYb7kSay2ZkUNgjXWS
+ kkzRwn+cNSJ6qJRCEdM5Q3mtadSXpcRgxv2IPhuNQy+jp9xvgRj5w060+fXmqVkdsc
+ fDMtDdDJr8qdK99ftpwW9kYcwwANT4u0gPeWLU0Tf+mu0E+ktzoV/UnMLJxuPNjSh6
+ 8gPCWTgZ03cyR1IuMQZO1Bi18VrEtZ7IOtnVrRvZUstY1srPhCMiopje1E1UNaMPjh
+ 3lKmeJYFFDaavhqJTDrCak4h2g7I2DKqZV7FORB9qR/Ek1W1PWKJbDqHMffsmBeMOo
+ mn4uEhVp4xw2w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org
-Subject: [i915-rt v3 07/16] drm/i915/display: Handle vlv dsi workaround in
- scanline_in_safe_range too
-Date: Wed, 17 Dec 2025 11:35:14 +0100
-Message-ID: <20251217103506.1873859-25-dev@lankhorst.se>
+Subject: [i915-rt v3 11/16] PREEMPT_RT injection
+Date: Wed, 17 Dec 2025 11:35:18 +0100
+Message-ID: <20251217103506.1873859-29-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251217103506.1873859-18-dev@lankhorst.se>
 References: <20251217103506.1873859-18-dev@lankhorst.se>
@@ -52,71 +51,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Now that we have a macro, might as well handle the VLV dsi workaround
-too.
-
-This makes the vblank evasion code slightly more deterministic, by not
-looping with interrupts disabled.
-
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 36 ++++++++++-----------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/Kconfig.debug | 15 ---------------
+ drivers/gpu/drm/xe/Kconfig.debug   |  5 +++++
+ kernel/Kconfig.preempt             |  4 ++--
+ 3 files changed, 7 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 289f390762b7c..d700fd04cb407 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -715,6 +715,24 @@ static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *sc
- 	else
- 		*scanline = __intel_get_crtc_scanline(evade->crtc);
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index 3562a02ef7adc..0ab10ff41e38d 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -233,21 +233,6 @@ config DRM_I915_LOW_LEVEL_TRACEPOINTS
  
-+	/*
-+	 * On VLV/CHV DSI the scanline counter would appear to
-+	 * increment approx. 1/3 of a scanline before start of vblank.
-+	 * The registers still get latched at start of vblank however.
-+	 * This means we must not write any registers on the first
-+	 * line of vblank (since not the whole line is actually in
-+	 * vblank). And unfortunately we can't use the interrupt to
-+	 * wait here since it will fire too soon. We could use the
-+	 * frame start interrupt instead since it will fire after the
-+	 * critical scanline, but that would require more changes
-+	 * in the interrupt code. So for now we'll just do the nasty
-+	 * thing and poll for the bad scanline to pass us by.
-+	 *
-+	 * FIXME figure out if BXT+ DSI suffers from this as well
-+	 */
-+	if (evade->need_vlv_dsi_wa && *scanline == evade->vblank_start)
-+		return false;
-+
- 	return *scanline < evade->min || *scanline > evade->max;
- }
+ 	  If in doubt, say "N".
  
-@@ -745,24 +763,6 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 		local_irq_disable();
- 	}
- 
--	/*
--	 * On VLV/CHV DSI the scanline counter would appear to
--	 * increment approx. 1/3 of a scanline before start of vblank.
--	 * The registers still get latched at start of vblank however.
--	 * This means we must not write any registers on the first
--	 * line of vblank (since not the whole line is actually in
--	 * vblank). And unfortunately we can't use the interrupt to
--	 * wait here since it will fire too soon. We could use the
--	 * frame start interrupt instead since it will fire after the
--	 * critical scanline, but that would require more changes
--	 * in the interrupt code. So for now we'll just do the nasty
--	 * thing and poll for the bad scanline to pass us by.
--	 *
--	 * FIXME figure out if BXT+ DSI suffers from this as well
--	 */
--	while (evade->need_vlv_dsi_wa && scanline == evade->vblank_start)
--		scanline = intel_get_crtc_scanline(crtc);
+-config DRM_I915_DEBUG_VBLANK_EVADE
+-	bool "Enable extra debug warnings for vblank evasion"
+-	depends on DRM_I915
+-	default n
+-	help
+-	  Choose this option to turn on extra debug warnings for the
+-	  vblank evade mechanism. This gives a warning every time the
+-	  the deadline allotted for the vblank evade critical section
+-	  is exceeded, even if there isn't an actual risk of missing
+-	  the vblank.
 -
- 	return scanline;
- }
+-	  Recommended for driver developers only.
+-
+-	  If in doubt, say "N".
+-
+ config DRM_I915_DEBUG_RUNTIME_PM
+ 	bool "Enable extra state checking for runtime PM"
+ 	depends on DRM_I915
+diff --git a/drivers/gpu/drm/xe/Kconfig.debug b/drivers/gpu/drm/xe/Kconfig.debug
+index 01227c77f6d70..1d5f11c6e88f3 100644
+--- a/drivers/gpu/drm/xe/Kconfig.debug
++++ b/drivers/gpu/drm/xe/Kconfig.debug
+@@ -30,6 +30,11 @@ config DRM_XE_DEBUG
  
+ 	  If in doubt, say "N".
+ 
++config DRM_I915_DEBUG_VBLANK_EVADE
++        def_bool y
++        depends on DRM_XE
++
++
+ config DRM_XE_DEBUG_VM
+ 	bool "Enable extra VM debugging info"
+ 	default n
+diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+index da326800c1c9b..68a6d42c55abe 100644
+--- a/kernel/Kconfig.preempt
++++ b/kernel/Kconfig.preempt
+@@ -87,9 +87,9 @@ config PREEMPT_LAZY
+ endchoice
+ 
+ config PREEMPT_RT
+-	bool "Fully Preemptible Kernel (Real-Time)"
+-	depends on EXPERT && ARCH_SUPPORTS_RT && !COMPILE_TEST
++	def_bool y
+ 	select PREEMPTION
++	depends on ARCH_SUPPORTS_RT
+ 	help
+ 	  This option turns the kernel into a real-time kernel by replacing
+ 	  various locking primitives (spinlocks, rwlocks, etc.) with
 -- 
 2.51.0
 
