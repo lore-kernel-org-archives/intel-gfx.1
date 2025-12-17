@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19D70D65C72
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 15:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 668C2D65C69
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Dec 2025 15:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8652C10E9D4;
-	Wed, 17 Dec 2025 15:28:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02B6210ECFF;
+	Wed, 17 Dec 2025 15:28:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WJoUmE0Z";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lJ3gPA0O";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3E6A10E9D4;
- Wed, 17 Dec 2025 15:28:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C087010E8CC;
+ Wed, 17 Dec 2025 15:28:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1765985328; x=1797521328;
+ t=1765985333; x=1797521333;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=s4spUSG8Mbs5yt9P+xfP58sna6CbP0kiP/Mv7SMa3lQ=;
- b=WJoUmE0Z39Z1aAvkmDNxCGkWGjLj7+hdglOsbzGfOVartrHU2sfsEVdt
- MeRCPoIwwhSmw/GnAaRBLx2jW3qkDYBMXsA5V5blBleW/yLhhUt1c03i/
- sL8I760NfN7T4jA5aK54rQWqc3MjQqqtkk7W1z5f6QXyAuHDQryT0VI4M
- edvnjxhaLoSaldZNGz8dDJHN6X9kA1cfpQDnDwcT+ZGvWKX9yeqO1ZusE
- Hvh2UuSmTTmbR4BY2gvWAP5a015aSH9P5yRq9sC4ET79+OV+wyOkQgAUw
- EYy7sh5fM28Ec501v8YEXU36J2P7f/WO7KuljE3PkU70Va/AX1LF+nA4K Q==;
-X-CSE-ConnectionGUID: mI8g68MkShmrRsm+KpK4LA==
-X-CSE-MsgGUID: ygJVbWquT8uVeikfh1qdtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11645"; a="71781441"
-X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="71781441"
+ bh=jJKupESaJAWmGXdT3hGst/XPGoxTXTXtLw6A4BPEU4Y=;
+ b=lJ3gPA0OiA1GaSgt/ebLscq8nn5jOiL2u1zcgFDw3wk0qMgNK2rdGjaS
+ OCQ37845y7D7MM6wvCyMfd2B75ST+GoeYsSA46Po19Onu9KibfWpsVagK
+ dK4NvXssvaD/8DglxhcY4dzSeFoe5RlM604l48/OBneozrnJAaalqtJh9
+ LRQfQkyCBuV+KCEyoZBWsdPue4qOWeMLT8U8y61vF2SKU5y/kdw+XAFvb
+ Ymve1icT8zy8zMeMB5LXV87nr5FVVMnhVK1gNzuuzeMfOHGjaPfsBw2BY
+ srUgBHhSgBYOYP0NFegE//wZB9S5/YiUI+1k633vNNtq+zlH2Rz0JR39i Q==;
+X-CSE-ConnectionGUID: kWqGzfXYRWGk09L7UQtOhw==
+X-CSE-MsgGUID: 6cBqj92tQ/OLuN939K4PnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11645"; a="71781459"
+X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="71781459"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2025 07:28:48 -0800
-X-CSE-ConnectionGUID: dtmQCJCsT8udVuQfOibiCg==
-X-CSE-MsgGUID: gVx4nFNvRmmwM8ZWKsVQFQ==
+ 17 Dec 2025 07:28:53 -0800
+X-CSE-ConnectionGUID: 02VIRtEHST67om5JCAnDTg==
+X-CSE-MsgGUID: 7Jmh10WLTR+hp48g9aF30Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="198097302"
+X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="198097316"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa009.jf.intel.com with ESMTP; 17 Dec 2025 07:28:46 -0800
+ by orviesa009.jf.intel.com with ESMTP; 17 Dec 2025 07:28:51 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v2 06/15] drm/i915/cx0: Create macro around pll tables
-Date: Wed, 17 Dec 2025 17:19:46 +0200
-Message-Id: <20251217151955.1690202-7-mika.kahola@intel.com>
+Subject: [PATCH v2 10/15] drm/i915/cx0: Add a fuzzy check for DP/HDMI clock
+ rates during programming
+Date: Wed, 17 Dec 2025 17:19:50 +0200
+Message-Id: <20251217151955.1690202-11-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20251217151955.1690202-1-mika.kahola@intel.com>
 References: <20251217151955.1690202-1-mika.kahola@intel.com>
@@ -67,422 +68,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Create macro for storing pll dividers with table name
-and clock rate.
-
-v2: Preserve the terminating {} in each PLL table.
+Since the clock rate is derived from the PLL divider values it can have
+a +-1kHz difference wrt. the reference rates in the comparison
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 301 ++++++++++---------
- 1 file changed, 167 insertions(+), 134 deletions(-)
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c |  8 +++++++-
+ drivers/gpu/drm/i915/display/intel_hdmi.c    | 18 ++++++++----------
+ 2 files changed, 15 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index b7ac89e32586..ab402bd8a125 100644
+index 0f28d02b7a69..ea807191cb4f 100644
 --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -780,25 +780,58 @@ static const struct intel_c10pll_state mtl_c10_dp_hbr3 = {
- 	.pll[19] = 0x23,
- };
- 
--static const struct intel_c10pll_state * const mtl_c10_dp_tables[] = {
--	&mtl_c10_dp_rbr,
--	&mtl_c10_dp_hbr1,
--	&mtl_c10_dp_hbr2,
--	&mtl_c10_dp_hbr3,
--	NULL,
--};
--
--static const struct intel_c10pll_state * const mtl_c10_edp_tables[] = {
--	&mtl_c10_dp_rbr,
--	&mtl_c10_edp_r216,
--	&mtl_c10_edp_r243,
--	&mtl_c10_dp_hbr1,
--	&mtl_c10_edp_r324,
--	&mtl_c10_edp_r432,
--	&mtl_c10_dp_hbr2,
--	&mtl_c10_edp_r675,
--	&mtl_c10_dp_hbr3,
--	NULL,
-+struct intel_cx0pll_params {
-+	const char *name;
-+	bool is_c10;
-+	bool is_hdmi;
-+	int clock_rate;
-+	union {
-+		const struct intel_c10pll_state *c10;
-+		const struct intel_c20pll_state *c20;
-+	};
-+};
-+
-+#define __C10PLL_PARAMS(__is_hdmi, __clock_rate, __state) { \
-+	.name = __stringify(__state), \
-+	.is_c10 = true, \
-+	.is_hdmi = __is_hdmi, \
-+	.clock_rate = __clock_rate, \
-+	.c10 = &__state, \
-+}
-+
-+#define __C20PLL_PARAMS(__is_hdmi, __clock_rate, __state)    { \
-+	.name = __stringify(__state), \
-+	.is_c10 = false, \
-+	.is_hdmi = __is_hdmi, \
-+	.clock_rate = __clock_rate, \
-+	.c20 = &__state, \
-+}
-+
-+#define C10PLL_HDMI_PARAMS(__clock_rate, __state)       __C10PLL_PARAMS(true, __clock_rate, __state)
-+#define C10PLL_DP_PARAMS(__clock_rate, __state)         __C10PLL_PARAMS(false, __clock_rate, __state)
-+
-+#define C20PLL_HDMI_PARAMS(__clock_rate, __state)       __C20PLL_PARAMS(true, __clock_rate, __state)
-+#define C20PLL_DP_PARAMS(__clock_rate, __state)         __C20PLL_PARAMS(false, __clock_rate, __state)
-+
-+static const struct intel_cx0pll_params mtl_c10_dp_tables[] = {
-+	C10PLL_DP_PARAMS(162000, mtl_c10_dp_rbr),
-+	C10PLL_DP_PARAMS(270000, mtl_c10_dp_hbr1),
-+	C10PLL_DP_PARAMS(540000, mtl_c10_dp_hbr2),
-+	C10PLL_DP_PARAMS(810000, mtl_c10_dp_hbr3),
-+	{}
-+};
-+
-+static const struct intel_cx0pll_params mtl_c10_edp_tables[] = {
-+	C10PLL_DP_PARAMS(162000, mtl_c10_dp_rbr),
-+	C10PLL_DP_PARAMS(216000, mtl_c10_edp_r216),
-+	C10PLL_DP_PARAMS(243000, mtl_c10_edp_r243),
-+	C10PLL_DP_PARAMS(270000, mtl_c10_dp_hbr1),
-+	C10PLL_DP_PARAMS(324000, mtl_c10_edp_r324),
-+	C10PLL_DP_PARAMS(432000, mtl_c10_edp_r432),
-+	C10PLL_DP_PARAMS(540000, mtl_c10_dp_hbr2),
-+	C10PLL_DP_PARAMS(675000, mtl_c10_edp_r675),
-+	C10PLL_DP_PARAMS(810000, mtl_c10_dp_hbr3),
-+	{}
- };
- 
- /* C20 basic DP 1.4 tables */
-@@ -976,15 +1009,15 @@ static const struct intel_c20pll_state mtl_c20_dp_uhbr20 = {
- 		},
- };
- 
--static const struct intel_c20pll_state * const mtl_c20_dp_tables[] = {
--	&mtl_c20_dp_rbr,
--	&mtl_c20_dp_hbr1,
--	&mtl_c20_dp_hbr2,
--	&mtl_c20_dp_hbr3,
--	&mtl_c20_dp_uhbr10,
--	&mtl_c20_dp_uhbr13_5,
--	&mtl_c20_dp_uhbr20,
--	NULL,
-+static const struct intel_cx0pll_params mtl_c20_dp_tables[] = {
-+	C20PLL_DP_PARAMS(162000, mtl_c20_dp_rbr),
-+	C20PLL_DP_PARAMS(270000, mtl_c20_dp_hbr1),
-+	C20PLL_DP_PARAMS(540000, mtl_c20_dp_hbr2),
-+	C20PLL_DP_PARAMS(810000, mtl_c20_dp_hbr3),
-+	C20PLL_DP_PARAMS(1000000, mtl_c20_dp_uhbr10),
-+	C20PLL_DP_PARAMS(1350000, mtl_c20_dp_uhbr13_5),
-+	C20PLL_DP_PARAMS(2000000, mtl_c20_dp_uhbr20),
-+	{}
- };
- 
- /*
-@@ -1116,17 +1149,17 @@ static const struct intel_c20pll_state xe2hpd_c20_edp_r675 = {
- 		  },
- };
- 
--static const struct intel_c20pll_state * const xe2hpd_c20_edp_tables[] = {
--	&mtl_c20_dp_rbr,
--	&xe2hpd_c20_edp_r216,
--	&xe2hpd_c20_edp_r243,
--	&mtl_c20_dp_hbr1,
--	&xe2hpd_c20_edp_r324,
--	&xe2hpd_c20_edp_r432,
--	&mtl_c20_dp_hbr2,
--	&xe2hpd_c20_edp_r675,
--	&mtl_c20_dp_hbr3,
--	NULL,
-+static const struct intel_cx0pll_params xe2hpd_c20_edp_tables[] = {
-+	C20PLL_DP_PARAMS(162000, mtl_c20_dp_rbr),
-+	C20PLL_DP_PARAMS(216000, xe2hpd_c20_edp_r216),
-+	C20PLL_DP_PARAMS(243000, xe2hpd_c20_edp_r243),
-+	C20PLL_DP_PARAMS(270000, mtl_c20_dp_hbr1),
-+	C20PLL_DP_PARAMS(324000, xe2hpd_c20_edp_r324),
-+	C20PLL_DP_PARAMS(432000, xe2hpd_c20_edp_r432),
-+	C20PLL_DP_PARAMS(540000, mtl_c20_dp_hbr2),
-+	C20PLL_DP_PARAMS(675000, xe2hpd_c20_edp_r675),
-+	C20PLL_DP_PARAMS(810000, mtl_c20_dp_hbr3),
-+	{}
- };
- 
- static const struct intel_c20pll_state xe2hpd_c20_dp_uhbr13_5 = {
-@@ -1154,30 +1187,30 @@ static const struct intel_c20pll_state xe2hpd_c20_dp_uhbr13_5 = {
- 		},
- };
- 
--static const struct intel_c20pll_state * const xe2hpd_c20_dp_tables[] = {
--	&mtl_c20_dp_rbr,
--	&mtl_c20_dp_hbr1,
--	&mtl_c20_dp_hbr2,
--	&mtl_c20_dp_hbr3,
--	&mtl_c20_dp_uhbr10,
--	&xe2hpd_c20_dp_uhbr13_5,
--	NULL,
-+static const struct intel_cx0pll_params xe2hpd_c20_dp_tables[] = {
-+	C20PLL_DP_PARAMS(162000, mtl_c20_dp_rbr),
-+	C20PLL_DP_PARAMS(270000, mtl_c20_dp_hbr1),
-+	C20PLL_DP_PARAMS(540000, mtl_c20_dp_hbr2),
-+	C20PLL_DP_PARAMS(810000, mtl_c20_dp_hbr3),
-+	C20PLL_DP_PARAMS(1000000, mtl_c20_dp_uhbr10),
-+	C20PLL_DP_PARAMS(1350000, xe2hpd_c20_dp_uhbr13_5),
-+	{}
- };
- 
--static const struct intel_c20pll_state * const xe3lpd_c20_dp_edp_tables[] = {
--	&mtl_c20_dp_rbr,
--	&xe2hpd_c20_edp_r216,
--	&xe2hpd_c20_edp_r243,
--	&mtl_c20_dp_hbr1,
--	&xe2hpd_c20_edp_r324,
--	&xe2hpd_c20_edp_r432,
--	&mtl_c20_dp_hbr2,
--	&xe2hpd_c20_edp_r675,
--	&mtl_c20_dp_hbr3,
--	&mtl_c20_dp_uhbr10,
--	&xe2hpd_c20_dp_uhbr13_5,
--	&mtl_c20_dp_uhbr20,
--	NULL,
-+static const struct intel_cx0pll_params xe3lpd_c20_dp_edp_tables[] = {
-+	C20PLL_DP_PARAMS(162000, mtl_c20_dp_rbr),
-+	C20PLL_DP_PARAMS(216000, xe2hpd_c20_edp_r216),
-+	C20PLL_DP_PARAMS(243000, xe2hpd_c20_edp_r243),
-+	C20PLL_DP_PARAMS(270000, mtl_c20_dp_hbr1),
-+	C20PLL_DP_PARAMS(324000, xe2hpd_c20_edp_r324),
-+	C20PLL_DP_PARAMS(432000, xe2hpd_c20_edp_r432),
-+	C20PLL_DP_PARAMS(540000, mtl_c20_dp_hbr2),
-+	C20PLL_DP_PARAMS(675000, xe2hpd_c20_edp_r675),
-+	C20PLL_DP_PARAMS(810000, mtl_c20_dp_hbr3),
-+	C20PLL_DP_PARAMS(1000000, mtl_c20_dp_uhbr10),
-+	C20PLL_DP_PARAMS(1350000, xe2hpd_c20_dp_uhbr13_5),
-+	C20PLL_DP_PARAMS(2000000, mtl_c20_dp_uhbr20),
-+	{}
- };
- 
- /*
-@@ -1715,53 +1748,53 @@ static const struct intel_c10pll_state mtl_c10_hdmi_593407 = {
- 	.pll[15] = 0x08, .pll[16] = 0x08, .pll[17] = 0x8F, .pll[18] = 0x84, .pll[19] = 0x23,
- };
- 
--static const struct intel_c10pll_state * const mtl_c10_hdmi_tables[] = {
--	&mtl_c10_hdmi_25_2, /* Consolidated Table */
--	&mtl_c10_hdmi_27_0, /* Consolidated Table */
--	&mtl_c10_hdmi_27027,
--	&mtl_c10_hdmi_28320,
--	&mtl_c10_hdmi_30240,
--	&mtl_c10_hdmi_31500,
--	&mtl_c10_hdmi_36000,
--	&mtl_c10_hdmi_40000,
--	&mtl_c10_hdmi_49500,
--	&mtl_c10_hdmi_50000,
--	&mtl_c10_hdmi_57284,
--	&mtl_c10_hdmi_58000,
--	&mtl_c10_hdmi_65000,
--	&mtl_c10_hdmi_71000,
--	&mtl_c10_hdmi_74176,
--	&mtl_c10_hdmi_74_25, /* Consolidated Table */
--	&mtl_c10_hdmi_75000,
--	&mtl_c10_hdmi_78750,
--	&mtl_c10_hdmi_85500,
--	&mtl_c10_hdmi_88750,
--	&mtl_c10_hdmi_106500,
--	&mtl_c10_hdmi_108000,
--	&mtl_c10_hdmi_115500,
--	&mtl_c10_hdmi_119000,
--	&mtl_c10_hdmi_135000,
--	&mtl_c10_hdmi_138500,
--	&mtl_c10_hdmi_147160,
--	&mtl_c10_hdmi_148352,
--	&mtl_c10_hdmi_148_5, /* Consolidated Table */
--	&mtl_c10_hdmi_154000,
--	&mtl_c10_hdmi_162000,
--	&mtl_c10_hdmi_167000,
--	&mtl_c10_hdmi_197802,
--	&mtl_c10_hdmi_198000,
--	&mtl_c10_hdmi_209800,
--	&mtl_c10_hdmi_241500,
--	&mtl_c10_hdmi_262750,
--	&mtl_c10_hdmi_268500,
--	&mtl_c10_hdmi_296703,
--	&mtl_c10_hdmi_297000,
--	&mtl_c10_hdmi_319750,
--	&mtl_c10_hdmi_497750,
--	&mtl_c10_hdmi_592000,
--	&mtl_c10_hdmi_593407,
--	&mtl_c10_hdmi_594, /* Consolidated Table */
--	NULL,
-+static const struct intel_cx0pll_params mtl_c10_hdmi_tables[] = {
-+	C10PLL_HDMI_PARAMS(25200, mtl_c10_hdmi_25_2), /* Consolidated Table */
-+	C10PLL_HDMI_PARAMS(27000, mtl_c10_hdmi_27_0), /* Consolidated Table */
-+	C10PLL_HDMI_PARAMS(27027, mtl_c10_hdmi_27027),
-+	C10PLL_HDMI_PARAMS(28320, mtl_c10_hdmi_28320),
-+	C10PLL_HDMI_PARAMS(30240, mtl_c10_hdmi_30240),
-+	C10PLL_HDMI_PARAMS(31500, mtl_c10_hdmi_31500),
-+	C10PLL_HDMI_PARAMS(36000, mtl_c10_hdmi_36000),
-+	C10PLL_HDMI_PARAMS(40000, mtl_c10_hdmi_40000),
-+	C10PLL_HDMI_PARAMS(49500, mtl_c10_hdmi_49500),
-+	C10PLL_HDMI_PARAMS(50000, mtl_c10_hdmi_50000),
-+	C10PLL_HDMI_PARAMS(57284, mtl_c10_hdmi_57284),
-+	C10PLL_HDMI_PARAMS(58000, mtl_c10_hdmi_58000),
-+	C10PLL_HDMI_PARAMS(65000, mtl_c10_hdmi_65000),
-+	C10PLL_HDMI_PARAMS(71000, mtl_c10_hdmi_71000),
-+	C10PLL_HDMI_PARAMS(74176, mtl_c10_hdmi_74176),
-+	C10PLL_HDMI_PARAMS(74250, mtl_c10_hdmi_74_25), /* Consolidated Table */
-+	C10PLL_HDMI_PARAMS(75000, mtl_c10_hdmi_75000),
-+	C10PLL_HDMI_PARAMS(78750, mtl_c10_hdmi_78750),
-+	C10PLL_HDMI_PARAMS(85500, mtl_c10_hdmi_85500),
-+	C10PLL_HDMI_PARAMS(88750, mtl_c10_hdmi_88750),
-+	C10PLL_HDMI_PARAMS(106500, mtl_c10_hdmi_106500),
-+	C10PLL_HDMI_PARAMS(108000, mtl_c10_hdmi_108000),
-+	C10PLL_HDMI_PARAMS(115500, mtl_c10_hdmi_115500),
-+	C10PLL_HDMI_PARAMS(119000, mtl_c10_hdmi_119000),
-+	C10PLL_HDMI_PARAMS(135000, mtl_c10_hdmi_135000),
-+	C10PLL_HDMI_PARAMS(138500, mtl_c10_hdmi_138500),
-+	C10PLL_HDMI_PARAMS(147160, mtl_c10_hdmi_147160),
-+	C10PLL_HDMI_PARAMS(148352, mtl_c10_hdmi_148352),
-+	C10PLL_HDMI_PARAMS(148500, mtl_c10_hdmi_148_5), /* Consolidated Table */
-+	C10PLL_HDMI_PARAMS(154000, mtl_c10_hdmi_154000),
-+	C10PLL_HDMI_PARAMS(162000, mtl_c10_hdmi_162000),
-+	C10PLL_HDMI_PARAMS(167000, mtl_c10_hdmi_167000),
-+	C10PLL_HDMI_PARAMS(197802, mtl_c10_hdmi_197802),
-+	C10PLL_HDMI_PARAMS(198000, mtl_c10_hdmi_198000),
-+	C10PLL_HDMI_PARAMS(209800, mtl_c10_hdmi_209800),
-+	C10PLL_HDMI_PARAMS(241500, mtl_c10_hdmi_241500),
-+	C10PLL_HDMI_PARAMS(262750, mtl_c10_hdmi_262750),
-+	C10PLL_HDMI_PARAMS(268500, mtl_c10_hdmi_268500),
-+	C10PLL_HDMI_PARAMS(296703, mtl_c10_hdmi_296703),
-+	C10PLL_HDMI_PARAMS(297000, mtl_c10_hdmi_297000),
-+	C10PLL_HDMI_PARAMS(319750, mtl_c10_hdmi_319750),
-+	C10PLL_HDMI_PARAMS(497750, mtl_c10_hdmi_497750),
-+	C10PLL_HDMI_PARAMS(592000, mtl_c10_hdmi_592000),
-+	C10PLL_HDMI_PARAMS(593407, mtl_c10_hdmi_593407),
-+	C10PLL_HDMI_PARAMS(594000, mtl_c10_hdmi_594), /* Consolidated Table */
-+	{}
- };
- 
- static const struct intel_c20pll_state mtl_c20_hdmi_25_175 = {
-@@ -2014,21 +2047,21 @@ static const struct intel_c20pll_state mtl_c20_hdmi_1200 = {
- 		},
- };
- 
--static const struct intel_c20pll_state * const mtl_c20_hdmi_tables[] = {
--	&mtl_c20_hdmi_25_175,
--	&mtl_c20_hdmi_27_0,
--	&mtl_c20_hdmi_74_25,
--	&mtl_c20_hdmi_148_5,
--	&mtl_c20_hdmi_594,
--	&mtl_c20_hdmi_300,
--	&mtl_c20_hdmi_600,
--	&mtl_c20_hdmi_800,
--	&mtl_c20_hdmi_1000,
--	&mtl_c20_hdmi_1200,
--	NULL,
-+static const struct intel_cx0pll_params mtl_c20_hdmi_tables[] = {
-+	C20PLL_HDMI_PARAMS(25175, mtl_c20_hdmi_25_175),
-+	C20PLL_HDMI_PARAMS(27000, mtl_c20_hdmi_27_0),
-+	C20PLL_HDMI_PARAMS(74250, mtl_c20_hdmi_74_25),
-+	C20PLL_HDMI_PARAMS(148500, mtl_c20_hdmi_148_5),
-+	C20PLL_HDMI_PARAMS(594000, mtl_c20_hdmi_594),
-+	C20PLL_HDMI_PARAMS(300000, mtl_c20_hdmi_300),
-+	C20PLL_HDMI_PARAMS(600000, mtl_c20_hdmi_600),
-+	C20PLL_HDMI_PARAMS(800000, mtl_c20_hdmi_800),
-+	C20PLL_HDMI_PARAMS(1000000, mtl_c20_hdmi_1000),
-+	C20PLL_HDMI_PARAMS(1200000, mtl_c20_hdmi_1200),
-+	{}
- };
- 
--static const struct intel_c10pll_state * const *
-+static const struct intel_cx0pll_params *
- intel_c10pll_tables_get(const struct intel_crtc_state *crtc_state,
- 			struct intel_encoder *encoder)
- {
-@@ -2183,16 +2216,16 @@ static int intel_c20pll_calc_port_clock(const struct intel_c20pll_state *pll_sta
-  * intel_c20pll_calc_state_from_table().
-  */
- static int intel_c10pll_calc_state_from_table(struct intel_encoder *encoder,
--					      const struct intel_c10pll_state * const *tables,
-+					      const struct intel_cx0pll_params *tables,
- 					      bool is_dp, int port_clock, int lane_count,
- 					      struct intel_cx0pll_state *pll_state)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	int i;
- 
--	for (i = 0; tables[i]; i++) {
--		if (port_clock == tables[i]->clock) {
--			pll_state->c10 = *tables[i];
-+	for (i = 0; tables[i].name; i++) {
-+		if (port_clock == tables[i].clock_rate) {
-+			pll_state->c10 = *tables[i].c10;
- 			intel_cx0pll_update_ssc(encoder, pll_state, is_dp);
- 			intel_c10pll_update_pll(encoder, pll_state);
- 
-@@ -2214,7 +2247,7 @@ static int intel_c10pll_calc_state(const struct intel_crtc_state *crtc_state,
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	bool is_dp = intel_crtc_has_dp_encoder(crtc_state);
--	const struct intel_c10pll_state * const *tables;
-+	const struct intel_cx0pll_params *tables;
- 	int err;
- 
- 	tables = intel_c10pll_tables_get(crtc_state, encoder);
-@@ -2505,7 +2538,7 @@ static int intel_c20_compute_hdmi_tmds_pll(struct intel_display *display,
- 	return 0;
- }
- 
--static const struct intel_c20pll_state * const *
-+static const struct intel_cx0pll_params *
- intel_c20_pll_tables_get(const struct intel_crtc_state *crtc_state,
- 			 struct intel_encoder *encoder)
- {
-@@ -2673,20 +2706,20 @@ static void intel_c20_program_vdr_params(struct intel_encoder *encoder,
+@@ -3013,6 +3013,12 @@ static void intel_c20_pll_program(struct intel_display *display,
  		      MB_WRITE_COMMITTED);
  }
  
--static const struct intel_c20pll_state *
-+static const struct intel_cx0pll_params *
- intel_c20_pll_find_table(const struct intel_crtc_state *crtc_state,
- 			 struct intel_encoder *encoder)
++static bool is_mplla_clock_rate(int clock)
++{
++	return intel_cx0pll_clock_matches(clock, 1000000) ||
++	       intel_cx0pll_clock_matches(clock, 2000000);
++}
++
+ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
+ 					 const struct intel_cx0pll_state *pll_state,
+ 					 int port_clock,
+@@ -3038,7 +3044,7 @@ static void intel_program_port_clock_ctl(struct intel_encoder *encoder,
+ 
+ 	/* TODO: HDMI FRL */
+ 	/* DP2.0 10G and 20G rates enable MPLLA*/
+-	if (port_clock == 1000000 || port_clock == 2000000)
++	if (is_mplla_clock_rate(port_clock))
+ 		val |= pll_state->ssc_enabled ? XELPDP_SSC_ENABLE_PLLA : 0;
+ 	else
+ 		val |= pll_state->ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 055e68810d0d..63a88006e336 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -70,16 +70,14 @@
+ 
+ bool intel_hdmi_is_frl(u32 clock)
  {
--	const struct intel_c20pll_state * const *tables;
-+	const struct intel_cx0pll_params *tables;
- 	int i;
- 
- 	tables = intel_c20_pll_tables_get(crtc_state, encoder);
- 	if (!tables)
- 		return NULL;
- 
--	for (i = 0; tables[i]; i++)
--		if (crtc_state->port_clock == tables[i]->clock)
--			return tables[i];
-+	for (i = 0; tables[i].name; i++)
-+		if (crtc_state->port_clock == tables[i].clock_rate)
-+			return &tables[i];
- 
- 	return NULL;
+-	switch (clock) {
+-	case 300000: /* 3 Gbps */
+-	case 600000: /* 6 Gbps */
+-	case 800000: /* 8 Gbps */
+-	case 1000000: /* 10 Gbps */
+-	case 1200000: /* 12 Gbps */
+-		return true;
+-	default:
+-		return false;
+-	}
++	u32 rates[] = { 300000, 600000, 800000, 1000000, 1200000 };
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(rates); i++)
++		if (intel_cx0pll_clock_matches(clock, rates[i]))
++			return true;
++
++	return false;
  }
-@@ -2695,13 +2728,13 @@ static int intel_c20pll_calc_state_from_table(const struct intel_crtc_state *crt
- 					      struct intel_encoder *encoder,
- 					      struct intel_cx0pll_state *pll_state)
- {
--	const struct intel_c20pll_state *table;
-+	const struct intel_cx0pll_params *table;
  
- 	table = intel_c20_pll_find_table(crtc_state, encoder);
- 	if (!table)
- 		return -EINVAL;
- 
--	pll_state->c20 = *table;
-+	pll_state->c20 = *table->c20;
- 
- 	intel_cx0pll_update_ssc(encoder, pll_state, intel_crtc_has_dp_encoder(crtc_state));
- 
+ static void
 -- 
 2.34.1
 
