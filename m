@@ -4,161 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63933D6D237
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 15:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AE55D6ACDD
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 16:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED8FD10E84E;
-	Thu, 18 Dec 2025 15:39:07 +0000 (UTC)
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022108.outbound.protection.outlook.com [52.101.101.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35B4210E5D8;
- Tue, 16 Dec 2025 03:05:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a/TbVWLsDd3PB7VZK9JyZjEzzqZ6lPO1NHRQi4X30mEHtQru1GgHRVacg8NwebYe3DwCBvdxI6qkCNCRrQvJNXHwX2ixilO/rgbcKgC2GFN2JONSZVOOpX2Lbj5GH03Ox0t6N1JzcdebsujCWgFjhK23rd1v6DTBhIlKATgvFa6tAtzOMIp5qV3BsZx5LSnHlYsyE8XxXkSVpuYxq2z/th+v+deJyaOSLkRSUnU/TGtPGw+19SRJGTbi8xy+d1sf+UQENFrLCd1TuueZayzIf9jgXWNmlOXqSxcxavauJYI6XISJObvk8tZkKfGgYb1QkNHFUIVMEfqVeFl/buu+Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6GkY5mUDoQdNfUw+jDqPPo2KTofXbYBH527YyDMssyg=;
- b=Ockyd84/JG8apaujb+hfMF6G45ZP+0GiYhg0/gAAoKrrca+4ZUrRfEbxy/U8Z7JikeaBSypIc3jdhFLDfQiZsjyAr1b1YDywHCYPJify6L4kDpnz/jD+b7AiLjU72599kLvl783IqEeKYjI8l9OKMNr3Yeh+R8Vcr9ph42EIPDn4jC2enFpkmkXZSQ6dCAfsvMyLShFnghIvSa8qftdQDiBrdF+jaNVMy4v90yDctJtFYbsOTl1LhdgG1Uuc9IlUXqhdaMPQ635S4ReqyhCPwuL4kLH9Niw/8Z5piINtU/YE5EwmrBWdxp5Qef7lIiaEhqbGM3pH+Y6Tei2g4Hklug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:70::10)
- by CWLP123MB2755.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:58::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9412.13; Tue, 16 Dec
- 2025 03:05:11 +0000
-Received: from CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- ([fe80::de8e:2e4f:6c6:f3bf]) by CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- ([fe80::de8e:2e4f:6c6:f3bf%5]) with mapi id 15.20.9412.011; Tue, 16 Dec 2025
- 03:05:11 +0000
-Date: Mon, 15 Dec 2025 22:05:08 -0500
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christophe Leroy <chleroy@kernel.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- David Laight <david.laight@runbox.com>, Petr Pavlu <petr.pavlu@suse.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Daniel Gomez <da.gomez@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
- Jani Nikula <jani.nikula@intel.com>
-Subject: Re: [PATCH v3 1/4] kernel.h: drop STACK_MAGIC macro
-Message-ID: <s5mlxqh3utetnuzfh3dwnv7v26awezmj5jikdtwahkfybwfzez@rj4eoap4kwt4>
-References: <20251205175237.242022-1-yury.norov@gmail.com>
- <20251205175237.242022-2-yury.norov@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20251205175237.242022-2-yury.norov@gmail.com>
-X-ClientProxiedBy: BN9P221CA0015.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:408:10a::20) To CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:70::10)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7CA510EA1E;
+	Thu, 18 Dec 2025 16:07:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nWDHL1I/";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E873510EA1E;
+ Thu, 18 Dec 2025 16:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1766074038; x=1797610038;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RTeQtx7Ozk0C8BXbjeN9iTqKoc3YELSe4kcL2u3VWDQ=;
+ b=nWDHL1I/WgX7LeTqE7EJaWDlznQeQMYl/kORMBoU5sOX7Hir0fZwzqn6
+ in+23i3DNc5qepZgXnTu1f3ZWb2Hn5REcODL4KQ0ZsF1tMuFULdh86ypw
+ TWyShbq7ELQ6AX5MCPhOg0cC7n5edzxC5com5KC9Sj95p6uyRfw6Is8WQ
+ 5GKcFJgj0zsFBCDv9tltsF6sUJBp853Hh0WCzi7ytGTSa88wxgBNpQqkB
+ iaJbgv0reDfmww1TAIfmkhYbvfhQhMvRaWoo49K0PB56H3Q149AUzR/wv
+ QFWRHGUnRUCNIzgWtz9a5/H4SYkRdLYnJ8Z7gz0IawlBZbT17plVFe+hm A==;
+X-CSE-ConnectionGUID: KMYxj+N5RPidKqKPwmR3yQ==
+X-CSE-MsgGUID: BwgHC9wQQcGElGo+Yt7lUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11646"; a="68185892"
+X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="68185892"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2025 08:07:17 -0800
+X-CSE-ConnectionGUID: Gj47cCzTQtaPKbXjirYP4A==
+X-CSE-MsgGUID: WMqfocIGRPKlkCJZyTO8ow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="198887008"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.252])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2025 08:07:15 -0800
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Kamil Konieczny <kamil.konieczny@linux.intel.com>
+Cc: igt-dev@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: Re: [PATCH i-g-t] tests/intel/gem_lmem_swapping: Avoid false failures
+ from oom-killer
+Date: Thu, 18 Dec 2025 17:07:12 +0100
+Message-ID: <14360181.RDIVbhacDa@jkrzyszt-mobl2.ger.corp.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <2277720.NgBsaNRSFp@jkrzyszt-mobl2.ger.corp.intel.com>
+References: <20251217145110.131121-2-janusz.krzysztofik@linux.intel.com>
+ <20251218142125.i75a6km3wm7nxjsc@kamilkon-DESK.igk.intel.com>
+ <2277720.NgBsaNRSFp@jkrzyszt-mobl2.ger.corp.intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB3523:EE_|CWLP123MB2755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 325afebb-f65a-4e50-acf5-08de3c4fed24
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?MVpUamM5VkV0YVk2aW5ta043d1ZHTXgzbkRvSU55eW9MU1JHeXFCT29LelEw?=
- =?utf-8?B?Y2swblFhdEN4UXFYeTc3NDVwc2lvc3VoUjJIN2dMeFJ4Q0pBcGk3VjFYV2x4?=
- =?utf-8?B?L0hQQmpZWkZUSlVsMVQrV1krSzdMRU5qbG5EeHZCS1FGL0lONWJYeGJUbUVB?=
- =?utf-8?B?UkhwczM1OVZKdXcxaHNaUmlzY2kvdCtVTGZ3NWR1YjE3aXBTaGtNdXIwWGVl?=
- =?utf-8?B?bUtzUEFQMGFMUjNKbGZaam5hcmVDc0V0cmdPWU8rTFh3emExejFxaU9KWEZE?=
- =?utf-8?B?bnFnQmVBMEFXN1JrUkl2QlZWTDVKQVF5c1g3L3Rwdk1haGowZFFOL28zOVVk?=
- =?utf-8?B?MnBxakhVcmFkNHFyZVFlZ0ZxNllTb09wZXRiODZBM1lsUkIrc0FjTGx4RU5p?=
- =?utf-8?B?ZEZKQ3BnZ05QaDdjZElQQURKNDJSSnJjdG5JYmFnMXNNR0FEMm5rL1Y5a29L?=
- =?utf-8?B?VS9aZ3o2OXFYcm1kaDFJUHBCUVdyYk1Mc2Zpa2tzWWhjQ3IxS2l2dEdnNVZH?=
- =?utf-8?B?eFoxSFFBNEFSejQ1MmVwUm4rYjE1dUFONncwOHJVek5kNy8yYS9sTE4vM1gw?=
- =?utf-8?B?azNUbVhiVnl3V0tlWFYrVXdFWXBjSEc5dnVFRVFqODlCRnFaRVdjMUhwdUdS?=
- =?utf-8?B?RFVnT29qVTlXVGdUcVc4bEF6RkxIZ08yd1lYUldpUFJ3Z1lZOVlIWUJSUjNU?=
- =?utf-8?B?QUVFdjJZWnB1UHl4KzFLTG1XeXAxUHkvdCtueFlibTFtTTVJSjM4bnhJNVY2?=
- =?utf-8?B?Q3hTeUllaEhOcUE2TC9JdjdUUi9JUHhaRUV6YnNrWFhGS25oc2NBUE1GWU5v?=
- =?utf-8?B?MkV5N3RSS2YyczZyRVlWNjVEUkZBYmdKd25XUmV2Nlk1Q2FkRFNjaHZIb21D?=
- =?utf-8?B?M0oyL2NocERMSEcrRmdGUXhGeWRDK2tMVnBtK1lWaVR2ZGlKOHlJWGZsV2Nw?=
- =?utf-8?B?Zm5wS3lDVGtQK1R5TlV2eCtRdFZLRy82Qy9qeEdoaHRMSjQrYTNVajN1N0dm?=
- =?utf-8?B?N1JQaC9JWUZ4cG9sMDNoL3Zqemgxb0dFYUNUbzZRL1FKZHM5ZTlibGl0NUFT?=
- =?utf-8?B?eHc1Y3lRWmVrOXZaZWc0TDg5dEkwd3BhUmFaZkQyemhQNVl1QnhSWkZNdVd4?=
- =?utf-8?B?K0I1YU9rSXVSWVovSWd3ZTRLVXFSeVhhRkc3SjNtWDcwbFhQNUlYM21Zc1VF?=
- =?utf-8?B?RVkwUHlWcy9xNngvd094akhJTHVlQ2tncXFVSkF3K3BLMnlrak5TeGJ4aXMr?=
- =?utf-8?B?MVNUeStlaS9Qc2ROdWRkNmhUUkRhN3RscGVOWTgzSWdDRklDYThjVFMyZ1VJ?=
- =?utf-8?B?WDVCblk1NThJOXpCWnJ5Mng2OGVMNVdlWEtzbERSTTc3a1IvOW1VNkFXZjdo?=
- =?utf-8?B?U1BZQi9OTnhLbDdaY01VRVVJcktXYi9GWjA3QzhzYW1hdk9jc3ZsRVZWbFFJ?=
- =?utf-8?B?ZXB6RUJVZWxjeG1pZG9PNXFyWllsd0FvQW9MUFd4UFllYW5lajRIUmJmS0xG?=
- =?utf-8?B?clBMbW1GQXRGMGk2TzRvSGRZU1BhZ0UvbnN5SGczdUtQK1lVVkNoT1krdmJo?=
- =?utf-8?B?RzRuTTVXREQ5Q0VXOTI3K3lyZ09XS2JlV1h0bjlDMTZnU0x0SCszbGdXL2ZR?=
- =?utf-8?B?VFloN1hLNksvNWE3Wi83Szk5OFFuR0lYRjBhR2lBa1hmZS84UHNhTTFDNHlk?=
- =?utf-8?B?bFdXQzdub2ZFckVTNjhGVWJhY0lWcmRkbWd2UmJ2OHc4Sk9NNXNhUzhpV0Vw?=
- =?utf-8?B?eVNCczA0NURuek9lNnZHRVNCMUNKckpMSHZJYXkrVDE3NW5JQi9TS0lWVWNs?=
- =?utf-8?B?aHJtKzhLVmhQZmZmNmlLaEJyS3R2NjNkcEloS0QvK2dyMkszY05mempSTUpQ?=
- =?utf-8?B?V2hQNjNSaFFyUGtxUllwdXQ3SkI3U0gxa2JNQVB1RkNoUUV4RjJyWU5aRUhC?=
- =?utf-8?Q?Kv982WGs8TbJm8V+SqR6TrlKI0Vfmgcl?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(7053199007); DIR:OUT;
- SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TEdoeEVheVdOWktKL2pRUnNCWDduUnB5bjlxbUozcWh6aXpGclVNYU1NRTRG?=
- =?utf-8?B?V0RsU0xHcSsyU3dRWktxc0NBRkduQTFZV01SalBHb0EvcUp3VFpOSCtNUnNz?=
- =?utf-8?B?M0dpTi9Fd3NUVTk5SzVBRGZnY0JjaWpYUjB1L1dwRHZ6bStqRkxockF2RWlN?=
- =?utf-8?B?Ymh1WmNMZU1NcDZUQ2lsWCtWTGxneEZkRCtkRGpoZWJORUVuWVovbjJmckVT?=
- =?utf-8?B?dWtSRkJrcHAvc245Vys1U0h5QW54Q0xOWGVmL04zQjJ3YWNhNk1VRG5mTE02?=
- =?utf-8?B?azZVOFZIZDdQSnpUWno4SDZRRHlxQVpzRlhxa0V2c254RmdwR0srKy9tQytB?=
- =?utf-8?B?RzZIVTZDY242d2U2S0ozUlRnWStFejF3S1dOM2p3ZkNnMStDWlNDclUwSHhz?=
- =?utf-8?B?OWtUd0NWWTl3eGdWZzNDMGVxa2lSR0tVZk5IMFJXMjZZa0ljKzFtVFZJcVcx?=
- =?utf-8?B?U2p1Vmc1Vi94aTk3WGxJOXRMNGhiYTh2ODJ2dEJvMlNKa1JFSzZXeDk3aWdm?=
- =?utf-8?B?ZDYxd0tkeU55YUdzU3FaNDhtQ2VldW1uakxWbk9rMUJLTm9Ya0JqcVJjTGZT?=
- =?utf-8?B?RnJNdDZ5NFd2WFpNOTZ5akVQaTROT0V5RS9sdXkyYzN0SXlybzVrSHhzNEU3?=
- =?utf-8?B?OWtVZ1UyNXBYRnJmYkpyNnh1SGczTTJ3clpCeWN2aStZeEdzTXNPcXA1WmQ1?=
- =?utf-8?B?L0x4L2tiVmFPY2ZaZ3R1b0VyVFgrRDc1WDQ1eEc5SE1QSWhhNXFvazI3T2NT?=
- =?utf-8?B?MEk2cjBEdHFhTUVZcjcrbGphN244M0dPNTY5eStnY1ZBRE1FRjhsR2owUTlE?=
- =?utf-8?B?eThvaGpZN3JWWlhidnVpYnBPOVU5aVRtR3FTL3dIZlc1dkRlbUZUbXg1eE9y?=
- =?utf-8?B?MWhzQ2F2c0FWdU5JaWw1TlI5azR6Znc5M3VudWZoZUJ4ckgwQzFVTVYwZWhq?=
- =?utf-8?B?N0IzUmoxUGNHQnJwdS9qTGpWQWtrcVFZdmRESllOQ1FqSmM3L2IvanFXWTJq?=
- =?utf-8?B?OHM0ZXI5VVp4R0RNclVabXZpUkkyK2xMdERmMUtwMEt4cWxLWjB2RmZ4aCtx?=
- =?utf-8?B?RXVkVmFYSzRFL0Q4aTFhSlpkcHdHVk9KVktPT0dXNGtKZmVabTRjUEtyMjBW?=
- =?utf-8?B?KzVZUGhVekRQNUJVNkxrVFRxT0FQbkdpa3M5NjZJNGFpdlp6NnVYT0lzdEMy?=
- =?utf-8?B?MitITlFQa2VjV29EemFreGRJRE5Zc3EzbXdZcmRsc2NwQVZBT2xVT0s0RkhX?=
- =?utf-8?B?aXVleU1XV0h0aGY1OHlLZm5SYUQzVnA2S1hydHpzWnVDWjJHYkVZWWhkV2dl?=
- =?utf-8?B?b2Z2TWFJNkFTMk56N0RId3ozWjliNWdTRlFaT3M4TWxaRnBVeGxNb0dGOG14?=
- =?utf-8?B?SDErWHMrQ251dkFPalZzQjBFd3Q3ZmY3MGpySDN0SG9jUUNpNVJ4VHdDbGhq?=
- =?utf-8?B?Qk83dGE4NkwzQWFkMzhneEZTSndTZTBnZlZXQmxCcmJ4RjlYUnJZajhiclp6?=
- =?utf-8?B?N0hlNjNZVy9RbjI3TUlXMGdEOXhQUHpzUitkQzV1aCt4WU4vZEFQMElvUjd3?=
- =?utf-8?B?K1RPMVdhL01nZjZDMW5JTjdpSTZ1ckZleFVGdnREeHVnWFZVSFBFTGI4dkE2?=
- =?utf-8?B?b1lqUDhiS3pqVzA5Q1lWRUp6T0NYZFRtYU1DSDVOeGMyUThoVnBwb2ZTQkkw?=
- =?utf-8?B?T2dXZUZxS2R6bG9EVUNKcndDNEdJcU12RU9xVGN2Q1Zwam1OYkY5a3pZcFBH?=
- =?utf-8?B?WEowdzJLR3padHIwK2YyeXhYS2RVV1ZMTXcyWERMTGRlTGlZbDVqeU5GVUYr?=
- =?utf-8?B?NTRnclFsekw4VGhjbnVWQlAxeXh1Wm94dUkwY0xtT3ZYU1cvL0J4QnVuOTF3?=
- =?utf-8?B?M1RQdzU2cXMwdGxaaWlCQnNpSm0vRHQvVEJBSjBMaGF4SWRuN21PQkIzZkxa?=
- =?utf-8?B?dStHUm9WcUw0ZWU4eEVHSlRsT2lXN1ZicENkK1dLSDdGeWZVcWhIeGtjeVJp?=
- =?utf-8?B?SkVkV3MzeTgzSWk3ckwyd2JsTkduOGxHcFkrRWh4cUUzTXVJNkhpRHZvb3U1?=
- =?utf-8?B?d3JxRXdzanRWWXJZYXp1bjBXdDgwYmVONVZZcmlubnZzQWJrZk1Cb3VNeHdm?=
- =?utf-8?Q?8FgabBRhYAFkuyE94bUmpCcGY?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 325afebb-f65a-4e50-acf5-08de3c4fed24
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB3523.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2025 03:05:11.4093 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0HHHMjWRgOECX9Me6RMnEGNb/43kcqEGhDMJxq6BOd4oQrbBMq/FdWNigNk0jXKTQ71iNezF+S22lDlbAz5QTg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP123MB2755
-X-Mailman-Approved-At: Thu, 18 Dec 2025 15:39:06 +0000
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,67 +77,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Dec 05, 2025 at 12:52:32PM -0500, Yury Norov (NVIDIA) wrote:
-> The macro was introduced in 1994, v1.0.4, for stacks protection. Since
-> that, people found better ways to protect stacks, and now the macro is
-> only used by i915 selftests. Move it to a local header and drop from
-> the kernel.h.
+Hi,
+Commenting myself ...
+
+On Thursday, 18 December 2025 16:09:43 CET Janusz Krzysztofik wrote:
+> Hi Kamil,
 > 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Acked-by: Randy Dunlap <rdunlap@infradead.org>
-> Acked-by: Jani Nikula <jani.nikula@intel.com>
-> Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-> Signed-off-by: Yury Norov (NVIDIA) <yury.norov@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gt/selftest_ring_submission.c | 1 +
->  drivers/gpu/drm/i915/i915_selftest.h               | 2 ++
->  include/linux/kernel.h                             | 2 --
->  3 files changed, 3 insertions(+), 2 deletions(-)
+> Thank you for looking at this.
 > 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> index 87ceb0f374b6..600333ae6c8c 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-> @@ -3,6 +3,7 @@
->   * Copyright © 2020 Intel Corporation
->   */
->  
-> +#include "i915_selftest.h"
->  #include "intel_engine_pm.h"
->  #include "selftests/igt_flush_test.h"
->  
-> diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/i915_selftest.h
-> index bdf3e22c0a34..72922028f4ba 100644
-> --- a/drivers/gpu/drm/i915/i915_selftest.h
-> +++ b/drivers/gpu/drm/i915/i915_selftest.h
-> @@ -26,6 +26,8 @@
->  
->  #include <linux/types.h>
->  
-> +#define STACK_MAGIC	0xdeadbeef
-> +
->  struct pci_dev;
->  struct drm_i915_private;
->  
-> diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-> index 5b46924fdff5..61d63c57bc2d 100644
-> --- a/include/linux/kernel.h
-> +++ b/include/linux/kernel.h
-> @@ -40,8 +40,6 @@
->  
->  #include <uapi/linux/kernel.h>
->  
-> -#define STACK_MAGIC	0xdeadbeef
-> -
->  struct completion;
->  struct user;
->  
-> -- 
-> 2.43.0
+> On Thursday, 18 December 2025 15:21:25 CET Kamil Konieczny wrote:
+> > Hi Janusz,
+> > On 2025-12-17 at 15:50:30 +0100, Janusz Krzysztofik wrote:
+> > > The smem-oom subtest can expectedly result in oom-killer being triggered,
+> > > which then dumps a call trace from a process that triggered it.  If that
+> > > happens to be a process that executes drm or i915 functions then the call
+> > > trace dump contains lines recognized by igt_runner running in piglit mode
+> > > as potential warnings.  If severity of the call trace dump messages is
+> > > NOTICE or higher, which isn't unlikely, then a dmesg-warn result is
+> > > reported despite successful completion of the subtest.
+> > > 
+> > > Fortunately, severity of those call trace dump messages depends on kernel
+> > > default log level which can be controlled from user space over sysctl.
+> > > 
+> > > To avoid false failure reports, relax kernel default log level to INFO so
+> > > those log lines are ignored by igt_runner in piglit mode at an expense of
+> > > call traces from real issues potentially detected by the subtest not
+> > > contributing to the igt_runner reported result.  Since those call traces
+> > > are still available to developers, only submitted with reduced severity,
+> > > that shouldn't hurt as long as the igt_runner still abandons further
+> > > execution and reports an abort result on a kernel taint.
+> > > 
+> > > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5493
+> > > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> > > ---
+> > >  tests/intel/gem_lmem_swapping.c | 40 ++++++++++++++++++++++++++++++++-
+> > >  1 file changed, 39 insertions(+), 1 deletion(-)
+> > > 
+> > > diff --git a/tests/intel/gem_lmem_swapping.c b/tests/intel/gem_lmem_swapping.c
+> > > index adae26716c..ab951a7414 100644
+> > > --- a/tests/intel/gem_lmem_swapping.c
+> > > +++ b/tests/intel/gem_lmem_swapping.c
+> > > @@ -804,8 +804,9 @@ int igt_main_args("", long_options, help_str, opt_handler, NULL)
+> > >  		{ "parallel-random-verify-ccs", TEST_PARALLEL | TEST_RANDOM | TEST_CCS },
+> > >  		{ }
+> > >  	};
+> > > +	int i915 = -1, console_log_level, default_log_level;
+> > >  	const intel_ctx_t *ctx;
+> > > -	int i915 = -1;
+> > > +	FILE *printk;
+> > 
+> > 	FILE *printk = NULL;
+> > 
+> > For a reason see below.
+> > 
+> > >  
+> > >  	igt_fixture() {
+> > >  		struct intel_execution_engine2 *e;
+> > > @@ -860,11 +861,48 @@ int igt_main_args("", long_options, help_str, opt_handler, NULL)
+> > >  			test_evict(i915, ctx, region, test->flags);
+> > >  	}
+> > >  
+> > > +	/*
+> > > +	 * The smem-oom subtest can result in oom-killer being triggered, which
+> > > +	 * then dumps a call trace from a process that triggered it.  If that
+> > > +	 * happens to be a process that executes drm or i915 functions then the
+> > > +	 * call trace dump contains lines recognized by igt_runner as warnings
+> > > +	 * and a dmesg-warn result is reported.  To avoid false failure reports,
+> > > +	 * relax kernel default log level to INFO for those lines to be ignored
+> > > +	 * by igt_runner in piglit mode, at an expense of call traces from
+> > > +	 * potential real issues not contributing to the igt_runner reported
+> > > +	 * result.  Since those call traces are still available to developers,
+> > > +	 * only displayed with relaxed severity, that shouldn't hurt as long as
+> > > +	 * igt_runner still abandons further execution and reports an abort
+> > > +	 * result on a kernel taint.
+> > > +	 */
+> > > +	igt_fixture() {
+> > > +		printk = fopen("/proc/sys/kernel/printk", "r+");
+> > > +		if (igt_debug_on(!printk))
+> > > +			break;
+> > > +
+> > > +		if (!igt_debug_on(fscanf(printk, "%d %d",
+> > > +					 &console_log_level, &default_log_level) != 2) &&
+> > > +		    default_log_level < 6) {
+> > > +			rewind(printk);
+> > > +			igt_debug_on(fprintf(printk, "%d 6", console_log_level) != 3);
+> > > +		} else {
+> > > +			fclose(printk);
+> > > +			printk = NULL;
+> > > +		}
+> > > +	}
+> > > +
+> > 
+> > Looks good but please move it inside subtest smem-oom,
+> > so it will affect only it. Cleanup should be done in final fixup
+> > so that code is ok.
+> 
+> The only way I can imagine other subtests affected is if someone adds a 
+> new subtest below without taking care of splitting the loglevel cleanup 
+> out of the final igt_fixture() into a separate one, placed right after 
+> the "smem_oom" subtest and before any other future subtests.  
+
+As an option, maybe still better, we could convert from using a locally 
+introduced dynamic_lmem_subtest() macro to a less compact, generic 
+igt_subtest_with_dynamic(), with an explicit loop on LMEM regions around 
+igt_dynamic_subtest().  Then we could surround the loop with loglevel 
+setup / cleanup steps still inside the subtest body -- still better, 
+I think, than placing the cleanup steps inside an igt_fixture() section 
+that follows.
+
+Thanks,
+Janusz
+
+
+> But we can 
+> take care now, either by already splitting it into two consecutive 
+> igt_fixture sections, or by adding a reminder to do that before adding 
+> new subtests in between.  I think that would be more clear then hiding 
+> the loglevel setup steps inside the test_smem_oom().  Moreover, your 
+> approach doesn't address potential cases of running more than one 
+> subtest in a single invocation of the test, which is perfectly possible 
+> when igt_runner is used with --multiple-mode option or in manual runs.
+> 
+> As additional benefits, we neither have to pass extra arguments to the 
+> test_smem_oom(), nor have to take care for the loglevel setup being 
+> processed only once in case more than one LMEM region exists and 
+> test_smmem_oom() is called several times.
+> 
+> Thanks,
+> Janusz
+> 
+> 
+> > 
+> > Regards,
+> > Kamil
+> > 
+> > >  	igt_describe("Exercise local memory swapping during exhausting system memory");
+> > >  	dynamic_lmem_subtest(region, regions, "smem-oom")
+> > >  		test_smem_oom(i915, ctx, region);
+> > >  
+> > >  	igt_fixture() {
+> > > +		if (printk) {
+> > > +			rewind(printk);
+> > > +			igt_debug_on(fprintf(printk, "%d %d",
+> > > +					     console_log_level, default_log_level) != 3);
+> > > +			fclose(printk);
+> > > +		}
+> > > +
+> > >  		intel_allocator_multiprocess_stop();
+> > >  		intel_ctx_destroy(i915, ctx);
+> > >  		free(regions);
+> > 
 > 
 > 
 
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
 
--- 
-Aaron Tomlin
+
+
