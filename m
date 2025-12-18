@@ -4,95 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 361BDD68BDC
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 05:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C755D68BDC
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 05:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6705510E5D9;
-	Thu, 18 Dec 2025 05:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EEF110E5DA;
+	Thu, 18 Dec 2025 05:40:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDsoiJ0A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JpsEkG0D";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4257210E5D9
- for <intel-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 05:39:08 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-7b8e49d8b35so356933b3a.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 17 Dec 2025 21:39:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766036348; x=1766641148; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yaGJpOKqg8zQltJlD/AWg9VGkTrfZMf+YGQyTVj+MTg=;
- b=TDsoiJ0A2A/hXYPf1U4xBct6TRx+VW29wTt7Mx8x1RxN+h61bFky3ncaXgIKQ3qN7D
- XbDfaGcv5EigNNlb751AN0I/4iqwFCPSgn8OkUiysEqEOMs/m7nRKgyUmUhIxDKjeiOV
- ncMt+HH4IgdoVWvgLrxMLbfHe6l+eeo7sVpqzLViEkRBqmXK3hT2IzExeLdhqm2ov8Bl
- 4is/hTxYisGbrKAMIi6MyVZUQb/I0CIg80z8CIVELB1KJoq2HW9rNag41ussiQVsvLmt
- BXt9U9EuTvk3cCSdMhexc7zbXE3By+9TDR+g/rvHlbC3fLboMP9frGYVT5TrQL9gTsja
- nuSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766036348; x=1766641148;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yaGJpOKqg8zQltJlD/AWg9VGkTrfZMf+YGQyTVj+MTg=;
- b=jhIO0OwCiptIYn1+u8hMvHFSSIF63MRtIGEPo7jlCp+VDhBFBGb/uAKklDYY+Gij/n
- 6gwbn9ovF2bbqFxIVjUz8vfqeiGVneAYRoMStRCkxLjq5xsr+aKYXFi3OyRtDE5Yag7B
- qVtmG+ONA4yomPCKnu+bRoFDtRN8pVhamT+QsRcBq/kBIm2H3ZVvuYCG5Jq4/TzmnHWg
- c0Lx0wB1YaFMYI/nQ4VYoQdtXFJW7KYEwtRXYGv6tzx1D5+R3nLfKlgJFfXfF53c/Mas
- Okh9TpJNMcjIJ1besa/CNn2c9FXC6EqB4dG1xcgJu9zOxOdGPp62e0KWdbWMolJdMUVY
- AqbA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUdPXpox3RIH/HSlI5HKqEJB6cNvQP1TO/F4k/36Ons+rqKJt6XonyynWKpOmoBIOgcxyrZRadDkUo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyadFihaTlfs+Ew9IPM9XcTpi+IZCKhrOoNazwvEz+f67xEFZrH
- rnvOTyXax9jX8Ycfz7pB84rhdbQi6jDQoDPri/rr3sdEgBDDKJQdQ+1aS2KE3g==
-X-Gm-Gg: AY/fxX4B5uihwlhECW1Gwqh4OzqxTvBGwcZFJQvUpBiFBpAIXWdZjS9uvRA0GxJ6tpK
- k7KYAgbt8c+F4kyLpPTXDRKt61hwOJsml5MD7B/LohIC6ETPccHX/mrFHKq/06n5tR828n5d6kR
- ktgsS0ItNPKgnCQjpuc4OP1gwXlj8fbFE2oNjP1gLxmDPha4P+2C3LKaZJdsrSGGk5xJAMan2UW
- hTgHH9aBX5xo3kUMqny0G7Bxww7OLw2+3ASdpLZJUTy1j9PA/KFjINjX0vnq6uY7A5eJx7JXR/D
- SGQXTWtoSS0dU4wXD2Vmr80NEgIpSuTQIMXLm2mr6i5RcfxPy/0k/1+ykNvBAhkynvTsXmYgJyy
- drOoTRIVu4KHFVCuh4e6DNcbjnwmjErAqCDRvETgYdWA7Q8yj/0fm5+KfhrxsRCNsFBZgSpWLUy
- w5oRBAFX0mKzlJuT+kiA==
-X-Google-Smtp-Source: AGHT+IHIeJZ6pUO0IWI3BZr8YKRR4WYcObEmm4ye3CL4DoHkOxJXpQslAZeBIjOMe9+OleYRLYL1Lg==
-X-Received: by 2002:a53:a090:0:b0:63f:bd67:7c52 with SMTP id
- 956f58d0204a3-645555e7c66mr12186194d50.29.1766030374328; 
- Wed, 17 Dec 2025 19:59:34 -0800 (PST)
-Received: from localhost ([2601:346:0:79bd:52c0:aec0:bf15:a891])
- by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-646636e8a2csm581612d50.4.2025.12.17.19.59.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Dec 2025 19:59:33 -0800 (PST)
-Date: Wed, 17 Dec 2025 22:59:33 -0500
-From: Yury Norov <yury.norov@gmail.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christophe Leroy <chleroy@kernel.org>, Ingo Molnar <mingo@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- David Laight <david.laight@runbox.com>, Petr Pavlu <petr.pavlu@suse.com>,
- Andi Shyti <andi.shyti@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Daniel Gomez <da.gomez@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-modules@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH v3 4/4] tracing: move tracing declarations from kernel.h
- to a dedicated header
-Message-ID: <aUN8Hm377C5A0ILX@yury>
-References: <20251205175237.242022-1-yury.norov@gmail.com>
- <20251205175237.242022-5-yury.norov@gmail.com>
- <20251216161316.45b3f19ff0ad482018137189@linux-foundation.org>
- <55ceb7bf-0fe9-4edc-81c2-d51366847eec@infradead.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0DCB10E5DA
+ for <intel-gfx@lists.freedesktop.org>; Thu, 18 Dec 2025 05:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1766036415; x=1797572415;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=INEBjVdmRLV3uJtAWDj3yQyuhLH6AWWuHpiVEx/Xclo=;
+ b=JpsEkG0DdcnlwOjNXubXog/wwRCsjALloqGGNjGtRUn+HtgowY2AVeyz
+ 24YBcMWjE0ilDqCLC/I6txejOuyAkSRfVtsFxtCc5NQN1i6p3xEAGFQTa
+ FShd5iqFJeobDUh5f8zfmHcSX2zbrw1hbxrnpc8ZGejclNoroEZfVfPxf
+ VL8lXi9EPJH+rLgqWTbC4UiD5eI6hU02EBq7uB0OGmZNAZC/FgW1hG2Fy
+ IPUuKcrnRGFdiMlXQuzjFlVgSUc7s62ViMAb2hebH8e8oRsm7eAMJmJ+i
+ UGvF1LrDdJWyRuz1KJGaFKjx4N1I4wjdNq3pKfF/D9BV/RUughCHLQi6k Q==;
+X-CSE-ConnectionGUID: Z62vPPDcTEWf9RhkVlyZAw==
+X-CSE-MsgGUID: YVEwkHb9R0yVqZ2yHa9G4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11645"; a="90643321"
+X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="90643321"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2025 21:40:14 -0800
+X-CSE-ConnectionGUID: xlZdA6B1SCqGRSTf0eB+zQ==
+X-CSE-MsgGUID: SH+hY9+GSJq9MEFf4dD/ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,156,1763452800"; d="scan'208";a="203561828"
+Received: from anirban-z690i-a-ultra-plus.iind.intel.com ([10.190.216.83])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2025 21:40:11 -0800
+From: Sk Anirban <sk.anirban@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: badal.nilawar@intel.com, riana.tauro@intel.com, karthik.poosa@intel.com,
+ raag.jadav@intel.com, soham.purkait@intel.com, mallesh.koujalagi@intel.com,
+ krzysztof.karas@intel.com, Sk Anirban <sk.anirban@intel.com>
+Subject: [PATCH v3] drm/i915/selftest: Add throttle reason diagnostics to RPS
+ selftests
+Date: Thu, 18 Dec 2025 11:02:21 +0530
+Message-ID: <20251218053220.1599233-2-sk.anirban@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <55ceb7bf-0fe9-4edc-81c2-d51366847eec@infradead.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,64 +68,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Dec 16, 2025 at 09:24:55PM -0800, Randy Dunlap wrote:
-> [adding Kees]
-> 
-> On 12/16/25 4:13 PM, Andrew Morton wrote:
-> > On Fri,  5 Dec 2025 12:52:35 -0500 "Yury Norov (NVIDIA)" <yury.norov@gmail.com> wrote:
-> > 
-> >> Tracing is a half of the kernel.h in terms of LOCs, although it's
-> >> a self-consistent part. It is intended for quick debugging purposes
-> >> and isn't used by the normal tracing utilities.
-> >>
-> >> Move it to a separate header. If someone needs to just throw a
-> >> trace_printk() in their driver, they will not have to pull all
-> >> the heavy tracing machinery.
-> >>
-> >> This is a pure move, except for removing a few 'extern's.
-> >>
-> 
-> Hm, for a pure move, this shouldn't be necessary. Anyway, not using
-> FORTIFY in purgatory.o fixes this build error.
-> Or maybe there's a better answer.
-> 
-> ---
->  arch/x86/purgatory/Makefile |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> --- a/arch/x86/purgatory/Makefile
-> +++ b/arch/x86/purgatory/Makefile
-> @@ -62,7 +62,7 @@ PURGATORY_CFLAGS_REMOVE		+= $(CC_FLAGS_C
->  endif
->  
->  CFLAGS_REMOVE_purgatory.o	+= $(PURGATORY_CFLAGS_REMOVE)
-> -CFLAGS_purgatory.o		+= $(PURGATORY_CFLAGS)
-> +CFLAGS_purgatory.o		+= $(PURGATORY_CFLAGS) -D__NO_FORTIFY
->  
->  CFLAGS_REMOVE_sha256.o		+= $(PURGATORY_CFLAGS_REMOVE)
->  CFLAGS_sha256.o			+= $(PURGATORY_CFLAGS)
+Report GPU throttle reasons when RPS tests fail to reach expected
+frequencies or power levels.
 
-That happened because the new trace_printk.h includes string.h for
-strlen(), so all kernel.h users now indirectly include it, and it
-causes, seemingly, a circular dependency if FORTIFY is enabled.
+v2: Read the throttle value before the spinner ends (Raag)
+    Add a condition before printing throttle value (Krzysztof)
+v3: Extend throttle reasons debug support (Raag)
 
-A fix would be dropping trace_printk.h from kernel.h, or switching the
-only user of string.h, trace_puts(), to __builtin_strlen().
+Signed-off-by: Sk Anirban <sk.anirban@intel.com>
+---
+ drivers/gpu/drm/i915/gt/selftest_rps.c | 37 ++++++++++++++++++++++----
+ 1 file changed, 32 insertions(+), 5 deletions(-)
 
-Notice, Andy has concerned about this on the previous round, and also
-suggested __builtin_strlen():
+diff --git a/drivers/gpu/drm/i915/gt/selftest_rps.c b/drivers/gpu/drm/i915/gt/selftest_rps.c
+index 73bc91c6ea07..b42d9b39add6 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_rps.c
++++ b/drivers/gpu/drm/i915/gt/selftest_rps.c
+@@ -378,6 +378,7 @@ int live_rps_control(void *arg)
+ 	enum intel_engine_id id;
+ 	struct igt_spinner spin;
+ 	intel_wakeref_t wakeref;
++	u32 throttle;
+ 	int err = 0;
+ 
+ 	/*
+@@ -463,6 +464,10 @@ int live_rps_control(void *arg)
+ 		max = rps_set_check(rps, limit);
+ 		max_dt = ktime_sub(ktime_get(), max_dt);
+ 
++		throttle = intel_uncore_read(gt->uncore,
++					     intel_gt_perf_limit_reasons_reg(gt));
++		throttle &= GT0_PERF_LIMIT_REASONS_MASK;
++
+ 		min_dt = ktime_get();
+ 		min = rps_set_check(rps, rps->min_freq);
+ 		min_dt = ktime_sub(ktime_get(), min_dt);
+@@ -478,11 +483,9 @@ int live_rps_control(void *arg)
+ 			min, max, ktime_to_ns(min_dt), ktime_to_ns(max_dt));
+ 
+ 		if (limit != rps->max_freq) {
+-			u32 throttle = intel_uncore_read(gt->uncore,
+-							 intel_gt_perf_limit_reasons_reg(gt));
+-
+-			pr_warn("%s: GPU throttled with reasons 0x%08x\n",
+-				engine->name, throttle & GT0_PERF_LIMIT_REASONS_MASK);
++			if (throttle)
++				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++					engine->name, throttle);
+ 			show_pstate_limits(rps);
+ 		}
+ 
+@@ -1138,6 +1141,7 @@ int live_rps_power(void *arg)
+ 	struct intel_engine_cs *engine;
+ 	enum intel_engine_id id;
+ 	struct igt_spinner spin;
++	u32 throttle;
+ 	int err = 0;
+ 
+ 	/*
+@@ -1195,6 +1199,10 @@ int live_rps_power(void *arg)
+ 		max.freq = rps->max_freq;
+ 		max.power = measure_power_at(rps, &max.freq);
+ 
++		throttle = intel_uncore_read(gt->uncore,
++					     intel_gt_perf_limit_reasons_reg(gt));
++		throttle &= GT0_PERF_LIMIT_REASONS_MASK;
++
+ 		min.freq = rps->min_freq;
+ 		min.power = measure_power_at(rps, &min.freq);
+ 
+@@ -1210,12 +1218,21 @@ int live_rps_power(void *arg)
+ 			pr_notice("Could not control frequency, ran at [%d:%uMHz, %d:%uMhz]\n",
+ 				  min.freq, intel_gpu_freq(rps, min.freq),
+ 				  max.freq, intel_gpu_freq(rps, max.freq));
++
++			if (throttle)
++				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++					engine->name, throttle);
+ 			continue;
+ 		}
+ 
+ 		if (11 * min.power > 10 * max.power) {
+ 			pr_err("%s: did not conserve power when setting lower frequency!\n",
+ 			       engine->name);
++
++			if (throttle)
++				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++					engine->name, throttle);
++
+ 			err = -EINVAL;
+ 			break;
+ 		}
+@@ -1241,6 +1258,7 @@ int live_rps_dynamic(void *arg)
+ 	struct intel_engine_cs *engine;
+ 	enum intel_engine_id id;
+ 	struct igt_spinner spin;
++	u32 throttle;
+ 	int err = 0;
+ 
+ 	/*
+@@ -1293,6 +1311,10 @@ int live_rps_dynamic(void *arg)
+ 		max.freq = wait_for_freq(rps, rps->max_freq, 500);
+ 		max.dt = ktime_sub(ktime_get(), max.dt);
+ 
++		throttle = intel_uncore_read(gt->uncore,
++					     intel_gt_perf_limit_reasons_reg(gt));
++		throttle &= GT0_PERF_LIMIT_REASONS_MASK;
++
+ 		igt_spinner_end(&spin);
+ 
+ 		min.dt = ktime_get();
+@@ -1308,6 +1330,11 @@ int live_rps_dynamic(void *arg)
+ 		if (min.freq >= max.freq) {
+ 			pr_err("%s: dynamic reclocking of spinner failed\n!",
+ 			       engine->name);
++
++			if (throttle)
++				pr_warn("%s: GPU throttled with reasons 0x%08x\n",
++					engine->name, throttle);
++
+ 			err = -EINVAL;
+ 		}
+ 
+-- 
+2.43.0
 
-        https://lkml.org/lkml/2025/12/3/910
-
-I deem to drop trace_printk.h from kernel.h - it is more aligned with
-the idea of unloading the header. The original motivation to keep
-trace_printk.h in kernel.h was just because a similar printk.h is living
-there. But after all, this is a purely debugging header, so no need for
-almost every C file to bear debugging stuff.
-
-I can actually do both - switch to an intrinsic and drop the header.
-
-Guys, please let me know what do you thing.
-
-Thanks,
-Yury
