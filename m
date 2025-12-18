@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE86D6E2AF
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 16:33:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2EACD6ACDD
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 16:33:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 539C810EA67;
-	Thu, 18 Dec 2025 16:33:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6136D10EA6F;
+	Thu, 18 Dec 2025 16:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="R1SqMgZf";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="QagVagx0";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4CBD10EA61;
- Thu, 18 Dec 2025 16:33:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1012010EA67;
+ Thu, 18 Dec 2025 16:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1766075618;
- bh=n6ml83CVyREMXoI7JsUqJNlSZqhiqG6t1FLzS/WrF+o=;
+ s=default; t=1766075624;
+ bh=ohJAyXokG1DXJlCLrQJRh/QxThVSMLY/wxocRwSmqYU=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=R1SqMgZf/pW1aJh5zoSYfjfqSOGeGIgAtCRMqjlpncI9RHv9q4duS3ACKlS2RFTCx
- FQXn0YlbgQfAsY3tyuVgPypWch1XjgjxyhNBKpGD2SnYCiP6ODD0Ti5EniDCfIu1s1
- oj7Q997XjzLnJGDAPXpc4+taKsvE18YSQ5QM7OTprbOMNJYiOEiC5eIFBr1Qd4AOmi
- QHnOCevumbG97ZMNTmtnmAwCVyy5rAxuRP151mtkl0HmbZ3t1WKcTac5A5+x0nVcgq
- +g2FywqsxTscDWM72O9LDvF+vXnuugC8nzsZY0pnVJ3s6zbzx99YeStEytaBB1Gjbx
- e43Ty0oxoEBWg==
+ b=QagVagx0UKO7Szc+b9OmJ+Nj9sSPJLonHfQU+HZkLaGpKi5ksBwrPbVYwGwNLhVv9
+ LYIIbzV0rwlswDM9GsfPUWDID1FfX7ZOEkw4whQfJ1gkP5JIVqnYxph1cabxRTpaVv
+ WPYrmvnHQB3AZ+a6fbAEz6k5Ty+vNoF9Q3O3KThLKVfXJYB0LiUD/T4Lp7zYlOxPDr
+ MDjQ6xfZzKwDwB0YnIvxP8imUlvvRVniTHo8mp9TmHByrqYS3+hBOPdZLuj/HpjehT
+ WtwLDB1E/8ZJ82hbEOLxd0iU6U4wv5TrOqOdVx/UWD0v5WhegfFX2TvlfeJTdTCyhT
+ IkrEhyS6oxkbQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Subject: [i915-rt v4 06/20] drm/i915/display: Remove locking from
- intel_vblank_evade critical section
-Date: Thu, 18 Dec 2025 17:33:54 +0100
-Message-ID: <20251218163408.97508-7-dev@lankhorst.se>
+Subject: [i915-rt v4 09/20] drm/i915/display: Enable interrupts earlier on
+ PREEMPT_RT
+Date: Thu, 18 Dec 2025 17:33:57 +0100
+Message-ID: <20251218163408.97508-10-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20251218163408.97508-1-dev@lankhorst.se>
 References: <20251218163408.97508-1-dev@lankhorst.se>
@@ -52,117 +52,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-finish_wait() may take a lock, which means that it can take any amount
-of time. On PREEMPT-RT we should not be taking any lock after disabling
-preemption, so ensure that the completion is done before disabling
-interrupts.
+The last part of the vblank evasion is about updating bookkeeping,
+not programming hardware registers.
 
-This also has the benefit of making vblank evasion more deterministic,
-by performing the final vblank check after all locking is done.
+The interrupts cannot stay disabled here on PREEMPT_RT since the
+spinlocks get converted to mutexes.
+
+There's still a small race in VRR that needs to be addressed, and
+in the other worst case there is a delay of a vblank completion if
+the vblank is fired and we schedule on the next vblank, this needs
+to be addressed separately.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c   |  2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c | 30 +++++++++------------
- drivers/gpu/drm/i915/display/intel_vblank.h |  1 +
- 3 files changed, 15 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/i915/display/intel_crtc.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 778ebc5095c38..cb31c9c1c2525 100644
+index cb31c9c1c2525..84ab737c50918 100644
 --- a/drivers/gpu/drm/i915/display/intel_crtc.c
 +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -684,7 +684,7 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 	struct intel_crtc_state *new_crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	enum pipe pipe = crtc->pipe;
--	int scanline_end = intel_get_crtc_scanline(crtc);
-+	int scanline_end = __intel_get_crtc_scanline(crtc);
- 	u32 end_vbl_count = intel_crtc_get_vblank_counter(crtc);
- 	ktime_t end_vbl_time = ktime_get();
+@@ -703,6 +703,14 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 	    intel_crtc_has_type(new_crtc_state, INTEL_OUTPUT_DSI))
+ 		icl_dsi_frame_update(new_crtc_state);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 2b106ffa3f5f5..289f390762b7c 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -242,7 +242,7 @@ int intel_crtc_scanline_offset(const struct intel_crtc_state *crtc_state)
-  * intel_de_read_fw(), only for fast reads of display block, no need for
-  * forcewake etc.
-  */
--static int __intel_get_crtc_scanline(struct intel_crtc *crtc)
-+int __intel_get_crtc_scanline(struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(crtc);
- 	struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(&crtc->base);
-@@ -708,6 +708,16 @@ void intel_vblank_evade_init(const struct intel_crtc_state *old_crtc_state,
- 		evade->min -= vblank_delay;
- }
- 
-+static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *scanline, bool unlocked)
-+{
-+	if (unlocked)
-+		*scanline = intel_get_crtc_scanline(evade->crtc);
-+	else
-+		*scanline = __intel_get_crtc_scanline(evade->crtc);
++#if IS_ENABLED(CONFIG_PREEMPT_RT)
++	/*
++	 * Timing sensitive register writing completed, non-deterministic
++	 * locking from here on out.
++	 */
++	local_irq_enable();
++#endif
 +
-+	return *scanline < evade->min || *scanline > evade->max;
-+}
-+
- /* must be called with vblank interrupt already enabled! */
- int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- {
-@@ -715,24 +725,12 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 	struct intel_display *display = to_intel_display(crtc);
- 	long timeout = msecs_to_jiffies_timeout(1);
- 	wait_queue_head_t *wq = drm_crtc_vblank_waitqueue(&crtc->base);
--	DEFINE_WAIT(wait);
- 	int scanline;
+ 	/* We're still in the vblank-evade critical section, this can't race.
+ 	 * Would be slightly nice to just grab the vblank count and arm the
+ 	 * event outside of the critical section - the spinlock might spin for a
+@@ -750,7 +758,9 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
+ 	if (!state->base.legacy_cursor_update)
+ 		intel_vrr_send_push(NULL, new_crtc_state);
  
- 	if (evade->min <= 0 || evade->max <= 0)
- 		return 0;
++#if !IS_ENABLED(CONFIG_PREEMPT_RT)
+ 	local_irq_enable();
++#endif
  
--	for (;;) {
--		/*
--		 * prepare_to_wait() has a memory barrier, which guarantees
--		 * other CPUs can see the task state update by the time we
--		 * read the scanline.
--		 */
--		prepare_to_wait(wq, &wait, TASK_UNINTERRUPTIBLE);
--
--		scanline = intel_get_crtc_scanline(crtc);
--		if (scanline < evade->min || scanline > evade->max)
--			break;
--
-+	while (!scanline_in_safe_range(evade, &scanline, false)) {
- 		if (!timeout) {
- 			drm_dbg_kms(display->drm,
- 				    "Potential atomic update failure on pipe %c\n",
-@@ -742,13 +740,11 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
- 
- 		local_irq_enable();
- 
--		timeout = schedule_timeout(timeout);
-+		timeout = wait_event_timeout(*wq, scanline_in_safe_range(evade, &scanline, true), timeout);
- 
- 		local_irq_disable();
- 	}
- 
--	finish_wait(wq, &wait);
--
- 	/*
- 	 * On VLV/CHV DSI the scanline counter would appear to
- 	 * increment approx. 1/3 of a scanline before start of vblank.
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.h b/drivers/gpu/drm/i915/display/intel_vblank.h
-index 98d04cacd65f8..aa1974400e9fc 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.h
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.h
-@@ -38,6 +38,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc);
- bool intel_crtc_get_vblank_timestamp(struct drm_crtc *crtc, int *max_error,
- 				     ktime_t *vblank_time, bool in_vblank_irq);
- int intel_get_crtc_scanline(struct intel_crtc *crtc);
-+int __intel_get_crtc_scanline(struct intel_crtc *crtc);
- void intel_wait_for_pipe_scanline_stopped(struct intel_crtc *crtc);
- void intel_wait_for_pipe_scanline_moving(struct intel_crtc *crtc);
- void intel_crtc_update_active_timings(const struct intel_crtc_state *crtc_state,
+ 	if (intel_parent_vgpu_active(display))
+ 		goto out;
 -- 
 2.51.0
 
