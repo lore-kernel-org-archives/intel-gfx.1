@@ -4,57 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D77D9D6D224
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 14:07:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B184D6D22A
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Dec 2025 14:15:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE0510E9E7;
-	Thu, 18 Dec 2025 14:07:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D06A10E3A8;
+	Thu, 18 Dec 2025 14:15:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Qy3y7DW2";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kzm712JN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D07D10E994;
- Thu, 18 Dec 2025 14:07:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5904010E3A8;
+ Thu, 18 Dec 2025 14:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1766066873; x=1797602873;
+ t=1766067338; x=1797603338;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=BFgo7/3e83OZ962rbzXYiTWcG0gCYl4eE4SJsOPWJSQ=;
- b=Qy3y7DW2eH6Ne4/y+9OmIQKdLvG8Pcfoa8dnZT/Ew+JTzGgLX3zXh4u2
- guPgeCaa1+RH42Rcshsde+9tJNiC0bnM9D68PTthklohDuH5TNiqcw/be
- i1v9NRtQ+WiY2pxQ0jefTRNhtFsIv+ouAPKSIQ4AneWp6EyD8d3j8wET5
- X4Bh6UuZ607NBB6aDamqNmaej9+0vKp25Xx8LX6QCqYS3yBt1jETnVlln
- qG+bzoKX46j+B72x9UF9ijg6TMz7NToxDpQJxLOUAcVdFM/uWBelEnBgN
- uVG57BvAbG8GZbaIKC2rGaGTn+Ow//mMKc794G8MEfUE8IEB7NHD+ndaQ w==;
-X-CSE-ConnectionGUID: ckTNkTiATImplYLHUODA6w==
-X-CSE-MsgGUID: ynA4+wDnQUG1PLDeKB+9rA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11646"; a="78731180"
-X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="78731180"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2025 06:07:53 -0800
-X-CSE-ConnectionGUID: CjbHkQF/QGCQpKywhWvW8A==
-X-CSE-MsgGUID: NrI0spBWT1C0LpsTVREPJg==
+ bh=aslAvdVFIqU5Ykh2SN7femuU1MX2ahu4DPXMcQgi4hc=;
+ b=Kzm712JNQAe1mF3sUYUSPL+OVlO+f0+/SwvdxdddwjTn8MRHqIKkiJuw
+ +IZZujaGs2j/lJIHcYUUitx4NNoI0IiGXZsQvjCRkbyQsjxn8eOZUls1K
+ WCaFHtoEW0CZQ981BF7supPqAmZn6t7fjEJ66llEukDFiFjedO/R3hR5x
+ 1lwRArNXTs+XBHuYAzDW+UPqTAW1ketNwfH148jz5RIlB9Sri80pyJQFB
+ kW/rVhIpxg4x4yRlqsrQvpCyd9duRE0FLAwvPeYA+2Zx4O1hXycWrXPia
+ e//5uE08JYxQ+k/sdSqf3H3pUKRYTOh345tJjs1U7xpmMNixsQ/C4Fu1B Q==;
+X-CSE-ConnectionGUID: NfikZo33RW+kElu+tRVyAw==
+X-CSE-MsgGUID: pz1KvLN7Sleq4mcH7GXQtw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11646"; a="71880373"
+X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="71880373"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2025 06:15:38 -0800
+X-CSE-ConnectionGUID: vgD7mB2dRpy0zFtoOgNWQQ==
+X-CSE-MsgGUID: FpF83SKiQVit/QAYe6l1jQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="202767063"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa003.jf.intel.com with ESMTP; 18 Dec 2025 06:07:51 -0800
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Borah@freedesktop.org,
-	Chaitanya Kumar <chaitanya.kumar.borah@intel.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	RavitejaX Veesam <ravitejax.veesam@intel.com>,
-	"Rafael J . Wysocki" <rafael.j.wysocki@intel.com>
-Subject: [core-for-CI] powercap: intel_rapl: Fix possible recursive lock
- warning
-Date: Thu, 18 Dec 2025 15:59:04 +0200
-Message-Id: <20251218135904.2276976-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=Sophos;i="6.21,158,1763452800"; d="scan'208";a="222000312"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.247])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2025 06:15:34 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@intel.com,
+ Simon Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Melissa Wen <mwen@igalia.com>,
+ Sebastian Wick <sebastian.wick@redhat.com>
+Subject: [PATCH] drm/atomic: convert drm_atomic_get_{old,
+ new}_colorop_state() into proper functions
+Date: Thu, 18 Dec 2025 16:15:27 +0200
+Message-ID: <20251218141527.405328-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,181 +73,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+There is no real reason to include drm_colorop.h from drm_atomic.h, as
+drm_atomic_get_{old,new}_colorop_state() have no real reason to be
+static inline.
 
-With the RAPL PMU addition, there is a recursive locking when CPU online
-callback function calls rapl_package_add_pmu(). Here cpu_hotplug_lock
-is already acquired by cpuhp_thread_fun() and rapl_package_add_pmu()
-tries to acquire again.
+Convert the static inlines to proper functions, and drop the include to
+reduce the include dependencies and improve data hiding.
 
-<4>[ 8.197433] ============================================
-<4>[ 8.197437] WARNING: possible recursive locking detected
-<4>[ 8.197440] 6.19.0-rc1-lgci-xe-xe-4242-05b7c58b3367dca84+ #1 Not tainted
-<4>[ 8.197444] --------------------------------------------
-<4>[ 8.197447] cpuhp/0/20 is trying to acquire lock:
-<4>[ 8.197450] ffffffff83487870 (cpu_hotplug_lock){++++}-{0:0}, at:
-rapl_package_add_pmu+0x37/0x370 [intel_rapl_common]
-<4>[ 8.197463]
-but task is already holding lock:
-<4>[ 8.197466] ffffffff83487870 (cpu_hotplug_lock){++++}-{0:0}, at:
-cpuhp_thread_fun+0x6d/0x290
-<4>[ 8.197477]
-other info that might help us debug this:
-<4>[ 8.197480] Possible unsafe locking scenario:
+Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Sebastian Wick <sebastian.wick@redhat.com>
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
-<4>[ 8.197483] CPU0
-<4>[ 8.197485] ----
-<4>[ 8.197487] lock(cpu_hotplug_lock);
-<4>[ 8.197490] lock(cpu_hotplug_lock);
-<4>[ 8.197493]
-*** DEADLOCK ***
-..
-..
-<4>[ 8.197542] __lock_acquire+0x146e/0x2790
-<4>[ 8.197548] lock_acquire+0xc4/0x2c0
-<4>[ 8.197550] ? rapl_package_add_pmu+0x37/0x370 [intel_rapl_common]
-<4>[ 8.197556] cpus_read_lock+0x41/0x110
-<4>[ 8.197558] ? rapl_package_add_pmu+0x37/0x370 [intel_rapl_common]
-<4>[ 8.197561] rapl_package_add_pmu+0x37/0x370 [intel_rapl_common]
-<4>[ 8.197565] rapl_cpu_online+0x85/0x87 [intel_rapl_msr]
-<4>[ 8.197568] ? __pfx_rapl_cpu_online+0x10/0x10 [intel_rapl_msr]
-<4>[ 8.197570] cpuhp_invoke_callback+0x41f/0x6c0
-<4>[ 8.197573] ? cpuhp_thread_fun+0x6d/0x290
-<4>[ 8.197575] cpuhp_thread_fun+0x1e2/0x290
-<4>[ 8.197578] ? smpboot_thread_fn+0x26/0x290
-<4>[ 8.197581] smpboot_thread_fn+0x12f/0x290
-<4>[ 8.197584] ? __pfx_smpboot_thread_fn+0x10/0x10
-<4>[ 8.197586] kthread+0x11f/0x250
-<4>[ 8.197589] ? __pfx_kthread+0x10/0x10
-<4>[ 8.197592] ret_from_fork+0x344/0x3a0
-<4>[ 8.197595] ? __pfx_kthread+0x10/0x10
-<4>[ 8.197597] ret_from_fork_asm+0x1a/0x30
-<4>[ 8.197604] </TASK>
-
-Fix this issue in the same way as rapl powercap package domain is added
-from the same CPU online callback by introducing another interface which
-doesn't call cpus_read_lock(). Add rapl_package_add_pmu_locked() and
-rapl_package_remove_pmu_locked() which don't call cpus_read_lock().
-
-Fixes: 748d6ba43afd ("powercap: intel_rapl: Enable MSR-based RAPL PMU support")
-Reported-by: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
-Closes: https://lore.kernel.org/linux-pm/5427ede1-57a0-43d1-99f3-8ca4b0643e82@intel.com/T/#u
-Tested-by: Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>
-Tested-by: RavitejaX Veesam <ravitejax.veesam@intel.com>
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20251217153455.3560176-1-srinivas.pandruvada@linux.intel.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 ---
- drivers/powercap/intel_rapl_common.c | 24 ++++++++++++++++++------
- drivers/powercap/intel_rapl_msr.c    |  4 ++--
- include/linux/intel_rapl.h           |  4 ++++
- 3 files changed, 24 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/powercap/intel_rapl_common.c b/drivers/powercap/intel_rapl_common.c
-index b9d87e56cbbc..3ff6da3bf4e6 100644
---- a/drivers/powercap/intel_rapl_common.c
-+++ b/drivers/powercap/intel_rapl_common.c
-@@ -2032,7 +2032,7 @@ static int rapl_pmu_update(struct rapl_package *rp)
- 	return ret;
- }
- 
--int rapl_package_add_pmu(struct rapl_package *rp)
-+int rapl_package_add_pmu_locked(struct rapl_package *rp)
- {
- 	struct rapl_package_pmu_data *data = &rp->pmu_data;
- 	int idx;
-@@ -2040,8 +2040,6 @@ int rapl_package_add_pmu(struct rapl_package *rp)
- 	if (rp->has_pmu)
- 		return -EEXIST;
- 
--	guard(cpus_read_lock)();
--
- 	for (idx = 0; idx < rp->nr_domains; idx++) {
- 		struct rapl_domain *rd = &rp->domains[idx];
- 		int domain = rd->id;
-@@ -2091,17 +2089,23 @@ int rapl_package_add_pmu(struct rapl_package *rp)
- 
- 	return rapl_pmu_update(rp);
- }
-+EXPORT_SYMBOL_GPL(rapl_package_add_pmu_locked);
+Including the massive Cc list because I don't want to keep doing this
+afterwards. This stuff needs to be blocked and fixed during review. Just
+stop including headers from headers. It's a PITA to clean up.
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  3 ++
+ drivers/gpu/drm/drm_atomic.c                  | 32 +++++++++++++++
+ drivers/gpu/drm/drm_atomic_helper.c           |  1 +
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ include/drm/drm_atomic.h                      | 39 ++++---------------
+ 5 files changed, 45 insertions(+), 31 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 1dcc79b35225..20a76d81d532 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -23,6 +23,9 @@
+  * Authors: AMD
+  *
+  */
 +
-+int rapl_package_add_pmu(struct rapl_package *rp)
++#include <drm/drm_colorop.h>
++
+ #include "amdgpu.h"
+ #include "amdgpu_mode.h"
+ #include "amdgpu_dm.h"
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 6d3ea8056b60..52738b80ddbe 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -641,6 +641,38 @@ drm_atomic_get_colorop_state(struct drm_atomic_state *state,
+ }
+ EXPORT_SYMBOL(drm_atomic_get_colorop_state);
+ 
++/**
++ * drm_atomic_get_old_colorop_state - get colorop state, if it exists
++ * @state: global atomic state object
++ * @colorop: colorop to grab
++ *
++ * This function returns the old colorop state for the given colorop, or
++ * NULL if the colorop is not part of the global atomic state.
++ */
++struct drm_colorop_state *
++drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
++				 struct drm_colorop *colorop)
 +{
-+	guard(cpus_read_lock)();
-+
-+	return rapl_package_add_pmu_locked(rp);
++	return state->colorops[drm_colorop_index(colorop)].old_state;
 +}
- EXPORT_SYMBOL_GPL(rapl_package_add_pmu);
- 
--void rapl_package_remove_pmu(struct rapl_package *rp)
-+void rapl_package_remove_pmu_locked(struct rapl_package *rp)
- {
- 	struct rapl_package *pos;
- 
- 	if (!rp->has_pmu)
- 		return;
- 
--	guard(cpus_read_lock)();
--
- 	list_for_each_entry(pos, &rapl_packages, plist) {
- 		/* PMU is still needed */
- 		if (pos->has_pmu && pos != rp)
-@@ -2111,6 +2115,14 @@ void rapl_package_remove_pmu(struct rapl_package *rp)
- 	perf_pmu_unregister(&rapl_pmu.pmu);
- 	memset(&rapl_pmu, 0, sizeof(struct rapl_pmu));
- }
-+EXPORT_SYMBOL_GPL(rapl_package_remove_pmu_locked);
++EXPORT_SYMBOL(drm_atomic_get_old_colorop_state);
 +
-+void rapl_package_remove_pmu(struct rapl_package *rp)
++/**
++ * drm_atomic_get_new_colorop_state - get colorop state, if it exists
++ * @state: global atomic state object
++ * @colorop: colorop to grab
++ *
++ * This function returns the new colorop state for the given colorop, or
++ * NULL if the colorop is not part of the global atomic state.
++ */
++struct drm_colorop_state *
++drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
++				 struct drm_colorop *colorop)
 +{
-+	guard(cpus_read_lock)();
-+
-+	rapl_package_remove_pmu_locked(rp);
++	return state->colorops[drm_colorop_index(colorop)].new_state;
 +}
- EXPORT_SYMBOL_GPL(rapl_package_remove_pmu);
- #endif
++EXPORT_SYMBOL(drm_atomic_get_new_colorop_state);
++
+ static bool
+ plane_switching_crtc(const struct drm_plane_state *old_plane_state,
+ 		     const struct drm_plane_state *new_plane_state)
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 10adac9397cf..5840e9cc6f66 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -34,6 +34,7 @@
+ #include <drm/drm_atomic_uapi.h>
+ #include <drm/drm_blend.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_colorop.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_device.h>
+ #include <drm/drm_drv.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index 6ff53cd58052..eb2e3f1e83c9 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -34,6 +34,7 @@
+ #include <drm/display/drm_dp_tunnel.h>
+ #include <drm/display/drm_dsc.h>
+ #include <drm/drm_atomic.h>
++#include <drm/drm_colorop.h>
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_framebuffer.h>
+diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+index 74ce26fa8838..178f8f62c80f 100644
+--- a/include/drm/drm_atomic.h
++++ b/include/drm/drm_atomic.h
+@@ -30,7 +30,6 @@
  
-diff --git a/drivers/powercap/intel_rapl_msr.c b/drivers/powercap/intel_rapl_msr.c
-index 0ce1096b6314..9a7e150b3536 100644
---- a/drivers/powercap/intel_rapl_msr.c
-+++ b/drivers/powercap/intel_rapl_msr.c
-@@ -82,7 +82,7 @@ static int rapl_cpu_online(unsigned int cpu)
- 		if (IS_ERR(rp))
- 			return PTR_ERR(rp);
- 		if (rapl_msr_pmu)
--			rapl_package_add_pmu(rp);
-+			rapl_package_add_pmu_locked(rp);
- 	}
- 	cpumask_set_cpu(cpu, &rp->cpumask);
- 	return 0;
-@@ -101,7 +101,7 @@ static int rapl_cpu_down_prep(unsigned int cpu)
- 	lead_cpu = cpumask_first(&rp->cpumask);
- 	if (lead_cpu >= nr_cpu_ids) {
- 		if (rapl_msr_pmu)
--			rapl_package_remove_pmu(rp);
-+			rapl_package_remove_pmu_locked(rp);
- 		rapl_remove_package_cpuslocked(rp);
- 	} else if (rp->lead_cpu == cpu) {
- 		rp->lead_cpu = lead_cpu;
-diff --git a/include/linux/intel_rapl.h b/include/linux/intel_rapl.h
-index e9ade2ff4af6..f479ef5b3341 100644
---- a/include/linux/intel_rapl.h
-+++ b/include/linux/intel_rapl.h
-@@ -214,10 +214,14 @@ void rapl_remove_package(struct rapl_package *rp);
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_util.h>
+-#include <drm/drm_colorop.h>
  
- #ifdef CONFIG_PERF_EVENTS
- int rapl_package_add_pmu(struct rapl_package *rp);
-+int rapl_package_add_pmu_locked(struct rapl_package *rp);
- void rapl_package_remove_pmu(struct rapl_package *rp);
-+void rapl_package_remove_pmu_locked(struct rapl_package *rp);
- #else
- static inline int rapl_package_add_pmu(struct rapl_package *rp) { return 0; }
-+static inline int rapl_package_add_pmu_locked(struct rapl_package *rp) { return 0; }
- static inline void rapl_package_remove_pmu(struct rapl_package *rp) { }
-+static inline void rapl_package_remove_pmu_locked(struct rapl_package *rp) { }
- #endif
+ /**
+  * struct drm_crtc_commit - track modeset commits on a CRTC
+@@ -712,6 +711,14 @@ drm_atomic_get_plane_state(struct drm_atomic_state *state,
+ struct drm_colorop_state *
+ drm_atomic_get_colorop_state(struct drm_atomic_state *state,
+ 			     struct drm_colorop *colorop);
++
++struct drm_colorop_state *
++drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
++				 struct drm_colorop *colorop);
++struct drm_colorop_state *
++drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
++				 struct drm_colorop *colorop);
++
+ struct drm_connector_state * __must_check
+ drm_atomic_get_connector_state(struct drm_atomic_state *state,
+ 			       struct drm_connector *connector);
+@@ -808,36 +815,6 @@ drm_atomic_get_new_plane_state(const struct drm_atomic_state *state,
+ 	return state->planes[drm_plane_index(plane)].new_state;
+ }
  
- #endif /* __INTEL_RAPL_H__ */
+-/**
+- * drm_atomic_get_old_colorop_state - get colorop state, if it exists
+- * @state: global atomic state object
+- * @colorop: colorop to grab
+- *
+- * This function returns the old colorop state for the given colorop, or
+- * NULL if the colorop is not part of the global atomic state.
+- */
+-static inline struct drm_colorop_state *
+-drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
+-				 struct drm_colorop *colorop)
+-{
+-	return state->colorops[drm_colorop_index(colorop)].old_state;
+-}
+-
+-/**
+- * drm_atomic_get_new_colorop_state - get colorop state, if it exists
+- * @state: global atomic state object
+- * @colorop: colorop to grab
+- *
+- * This function returns the new colorop state for the given colorop, or
+- * NULL if the colorop is not part of the global atomic state.
+- */
+-static inline struct drm_colorop_state *
+-drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
+-				 struct drm_colorop *colorop)
+-{
+-	return state->colorops[drm_colorop_index(colorop)].new_state;
+-}
+-
+ /**
+  * drm_atomic_get_old_connector_state - get connector state, if it exists
+  * @state: global atomic state object
 -- 
-2.34.1
+2.47.3
 
