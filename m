@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D4AE674BF
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DE8FE674B2
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D75510E69E;
-	Mon, 22 Dec 2025 14:00:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A883910E69A;
+	Mon, 22 Dec 2025 14:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WtYmD1gg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OZv/BtyJ";
 	dkim-atps=neutral
-Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
- [209.85.210.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFF3B10E5CC
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:29:29 +0000 (UTC)
-Received: by mail-pf1-f195.google.com with SMTP id
- d2e1a72fcca58-8035e31d834so1076299b3a.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:29:29 -0800 (PST)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD8E10E5CF
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:25:42 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2a0a33d0585so34484905ad.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:25:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766392169; x=1766996969; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766391941; x=1766996741; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6JUGCGjJm2Xj6X5n/nhoMCGHMBetXjpQki6LB/h6PNI=;
- b=WtYmD1ggtgFrs0WficCbcGKzrFVMvz5IRpHD0liYFd8eLpEOTi3bfjAd9uKGW3fIkk
- bwYe/6/NdtmvvCrNjt3laILhDYWlmljx0gU9L0BkigRZ9Lb+JCecU75/VKCW7NteP3KF
- 0IomGj9nd1pzT2BHwWryXZCuYNYC3DFgy+JXcRI3Q7LJ/wIml9ssEh0wBRy/M47pDUwI
- O0dT0toX18vDq+6OGJy2V1IenOrAi7eCwhl/OwUTJ58lw1dg8UzrkcGjJg8ZW9RpVzO4
- 26+mOB26t0D5qdbvcI3tsBAAYC4XIZOPTHNAXurf7eBdyAtvt0dxrAbEvLyOt8zU/aYj
- ak0w==
+ bh=FrG1isq17Lyb0bJFCu5jKcbVF320nGGDAVNnMWnzxZY=;
+ b=OZv/BtyJ0GVWZseJiMw4O7OhWSe6mxtr3Kug+drjvNSgqvoFSXOnolwz5ajpS7WtKV
+ KCsPDKpp/irVC6ymItIG2OtW9mEa05gsQlXJDWq/J+0Z8fnusQ7k2ORif4+sNGkPRi7S
+ ivevLBo5R+oCUVSdneQwlWWz1ZThZoDiT5y02sz7qrXjLasEJ5/0Xhq6/3D+iqS1MqH/
+ hPQSA5mMPh9Kk5S92m8ycbk8PdLN2cY/JC061ZAmuioALJF3Gc8hRZSx4ZMpA24WE64r
+ 53dGmlFFfsVoywXZ6DQqd4QL2xH9cOLUYDMhhrOPtxT5Jm25tp7ElBt2sh73LhNkwTEG
+ O7kQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766392169; x=1766996969;
+ d=1e100.net; s=20230601; t=1766391941; x=1766996741;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6JUGCGjJm2Xj6X5n/nhoMCGHMBetXjpQki6LB/h6PNI=;
- b=JvWAhuE1iRK8XG2H6VEMino7P+zfiyfDnjN87eRreMJm9HvATzDKlIZSyyiThsUqjP
- GYQtNLg/aNQAeNjEijHRCyb5MKyt30rlZD/1utqtRQVPalpoKfZbkZzuhPVZjwS/WTx9
- 8eW2SlGmA6jVATUs9VtcLndJfhtq1izukoO5ASDGCazUECotD8Kduevw0nPKDHmOAIQP
- lCiugVmjlQtJghPZZB4jMLF6AeV3Qa2Pzus2uojGK2UW3rDeABZg85+a+MeeUvj8/UhR
- raU7IoPMdQonzDa0Z30jA8zTtBqDhjeyI2IdFUN9xG8JO8x0u4Q3ErTpxILODypxqX8g
- zaig==
+ bh=FrG1isq17Lyb0bJFCu5jKcbVF320nGGDAVNnMWnzxZY=;
+ b=rSOrCgbFvMXCeEFySj4GFowft+GJ5oAePwTV8R8DTIG3OL2lQkhQOyqVZBnKFfp2lm
+ kSjmrjOCOsQG/kM0oRCFBOj60G5Vo9PetNdJbHY+EpyVBDWgaM9QePHL93BWUJ3Y+fhj
+ XVkumtQTkCW9LgWCnFpiP0RwMTA25o4at+qxd0Ijs9y7ZLi+H6EeNjEUXumj6u4P+Fyr
+ 5sxStwGAIFOQwel1gnTcAVj0xK0lDqXAqq6DjNEXj26gf2PkbdJhaW15gdzpuY4yHB7E
+ dcFmkHvD5XYIB9LbjIWJjOP1P7w0SZ3aQemDIfN/dFVyAvXlNVLioMoQrAMvLaqg6Do5
+ buhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWxCj1tSky49kLiBiQVKusC7HHvhazTmCjMV9O0bCeQN1oV19Ikz75l3JNu0xLjjGQ344XD+Pv6nnI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1aPIjHziE7VgQMmnXxYMBXK3MmD2qdBtm5rTomTF6EV2fiVJk
- JGpOZsMlQ9FJFWG3PF2YtJ4/t91/O0wUZt5nxqPorKAQnqGD/yFIuF6B
-X-Gm-Gg: AY/fxX7U/DG5Gv3a878xSNFsY4iS3T8PoPHkpRsoVHRErpc9VJCaPMUH2LtkW53AnvW
- zYgVCBuZCdpNZgE+v69avLjuAH3jnxOZegi7QFsuAAdoFTMDP4N5aMpzPRC37KWdGEzVHvwpT0W
- EJIajYj62niXE/96PxRtxQgqmjO0g49R1+jWw3qYAwX4tf9vdPXplKz4Q83RtB2WemNnQDJyqL1
- VNHua63QX/W90zypw87MmACVoY/B0erScBG3YB4i2gVFxDxNqrL5YXaqOkJzD9sCtTMMY0VkTfR
- 7z8N9FKaix3zZO3GvMrRWyOZAAfwtyC/WtJxxWQXNhW3tFOliXF/SRC+I9p9ULdO+5V/DwKKZnn
- /YzUYbyB8eRNhqCq8YTXKcxqgHo3RiyyuNcJg5fEjZPRKaGicFtQTvCKKX5x83mDSvAJphOPjz1
- gh6U3D6orO
-X-Google-Smtp-Source: AGHT+IEimmJ/Dttom6F34YWsdHH3XKVu5FJm4MVosU3HZTEdHiOovrYFxoO5oyh48i40FCdqR5InOQ==
-X-Received: by 2002:a05:6a00:aa82:b0:7a9:c21a:55b4 with SMTP id
- d2e1a72fcca58-7ff657a6a53mr9194464b3a.28.1766392169447; 
- Mon, 22 Dec 2025 00:29:29 -0800 (PST)
+ AJvYcCXKLplHpc8Mr923c17K3rp0v+ulKSae64gxeEFbn7r1fYbyWL0ItsVV3iV8aj+1Ek/fLLt1aASh1QM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzjO7BOidduJTmgdLf6ED8+pf0PaMBlLVt0ewAQ1QxyR5U/lk8c
+ LodZAO91VftsfHlPnJXEYRLT1UnxPxJtMdXMeTYg8WeJfrjzAZ016wai
+X-Gm-Gg: AY/fxX4EeqFRS/YZGke0Oyr2ZkkIEgLKYRctjgRXqnvVNHu2nhyLKmakXUeR7zVn+1B
+ Ueh4XsjTEPkJgtgIbYiB1l14DTWFYczyw4a5F+Z/Gct1N4zEIlROK6tc/sahJXoP6ptuen+4+bl
+ eAAFOrXM2D2hFIMclqAi0R0OsKukqPg6JWzd5O+2UZlT2hJfM3TWv9TfFlsxsn+bmbRNXPqEoin
+ fdobFED2BVOTdxDB2QFGX+np4NC4pliCNhX1duAuTaISjWy3XKCiRrqucL3H+GY12Vz3JTuTaAx
+ f8Qnrykfng95XB6vnAMjS2p53EHrhirJYVO97+Em2cSOl5uV0tNKkrBNzc+iGzLfAXyS6WUPeCS
+ iCJijJohNe3lRQObJk89n8+++8x6JlrPH6Ft6maee9YHc7CEFuFcg4of6iv8el65FFPnLLYOOSB
+ ZFwELNwkVv
+X-Google-Smtp-Source: AGHT+IFewFiHLSSMkteVB5+mJ427GMrWESNV1s0gzG1qZwVux0iZoGglO5KJ+zZHGWbOk0GOGu+BPQ==
+X-Received: by 2002:a17:902:ea11:b0:290:91d2:9304 with SMTP id
+ d9443c01a7336-2a2f22052f9mr107996865ad.4.1766391941481; 
+ Mon, 22 Dec 2025 00:25:41 -0800 (PST)
 Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7af29dcfsm9640064b3a.17.2025.12.22.00.29.19
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.25.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:29:29 -0800 (PST)
+ Mon, 22 Dec 2025 00:25:40 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -75,13 +75,13 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 01/31] dyndbg: factor ddebug_match_desc out from
- ddebug_change
-Date: Mon, 22 Dec 2025 21:28:13 +1300
-Message-ID: <20251222082843.1816701-2-jim.cromie@gmail.com>
+Subject: [PATCH v7 24/31] dyndbg-test: change do_prints testpoint to accept a
+ loopct
+Date: Mon, 22 Dec 2025 21:20:41 +1300
+Message-ID: <20251222082049.1782440-25-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20251222082843.1816701-1-jim.cromie@gmail.com>
-References: <20251222082843.1816701-1-jim.cromie@gmail.com>
+In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
+References: <20251222082049.1782440-3-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 22 Dec 2025 14:00:06 +0000
@@ -100,134 +100,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ddebug_change() is a big (~100 lines) function with a nested for loop.
+echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
 
-The outer loop walks the per-module ddebug_tables list, and does
-module stuff: it filters on a query's "module FOO*" and "class BAR",
-failures here skip the entire inner loop.
+This allows its use as a scriptable load generator, to generate
+dynamic-prefix-emits for flag combinations vs undecorated messages.
+This will make it easy to assess the cost of the prefixing.
 
-The inner loop (60 lines) scans a module's descriptors.  It starts
-with a long block of filters on function, line, format, and the
-validated "BAR" class (or the legacy/_DPRINTK_CLASS_DFLT).
-
-These filters "continue" past pr_debugs that don't match the query
-criteria, before it falls through the code below that counts matches,
-then adjusts the flags and static-keys.  This is unnecessarily hard to
-think about.
-
-So move the per-descriptor filter-block into a boolean function:
-ddebug_match_desc(desc), and change each "continue" to "return false".
-This puts a clear interface in place, so any future changes are either
-inside, outside, or across this interface.
-
-also fix checkpatch complaints about spaces and braces.
+Reading the ./do_prints node also prints messages (once) to the-log.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 83 +++++++++++++++++++++++++--------------------
- 1 file changed, 47 insertions(+), 36 deletions(-)
+ lib/test_dynamic_debug.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 5a007952f7f2..eb5146bcfaca 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -171,6 +171,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
-  * callsites, normally the same as number of changes.  If verbose,
-  * logs the changes.  Takes ddebug_lock.
-  */
-+static bool ddebug_match_desc(const struct ddebug_query *query,
-+			      struct _ddebug *dp,
-+			      int valid_class)
-+{
-+	/* match site against query-class */
-+	if (dp->class_id != valid_class)
-+		return false;
-+
-+	/* match against the source filename */
-+	if (query->filename &&
-+	    !match_wildcard(query->filename, dp->filename) &&
-+	    !match_wildcard(query->filename,
-+			    kbasename(dp->filename)) &&
-+	    !match_wildcard(query->filename,
-+			    trim_prefix(dp->filename)))
-+		return false;
-+
-+	/* match against the function */
-+	if (query->function &&
-+	    !match_wildcard(query->function, dp->function))
-+		return false;
-+
-+	/* match against the format */
-+	if (query->format) {
-+		if (*query->format == '^') {
-+			char *p;
-+			/* anchored search. match must be at beginning */
-+			p = strstr(dp->format, query->format + 1);
-+			if (p != dp->format)
-+				return false;
-+		} else if (!strstr(dp->format, query->format)) {
-+			return false;
-+		}
-+	}
-+
-+	/* match against the line number range */
-+	if (query->first_lineno &&
-+	    dp->lineno < query->first_lineno)
-+		return false;
-+	if (query->last_lineno &&
-+	    dp->lineno > query->last_lineno)
-+		return false;
-+
-+	return true;
-+}
-+
- static int ddebug_change(const struct ddebug_query *query,
- 			 struct flag_settings *modifiers)
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index b2bdfdfb6ba1..fa81177e8089 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -29,18 +29,25 @@
+ 
+ #include <linux/module.h>
+ 
+-/* re-gen output by reading or writing sysfs node: do_prints */
+-
+-static void do_prints(void); /* device under test */
++/* re-trigger debug output by reading or writing sysfs node: do_prints */
++static void do_prints(unsigned int); /* device under test */
+ static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
  {
-@@ -203,42 +249,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 		for (i = 0; i < dt->num_ddebugs; i++) {
- 			struct _ddebug *dp = &dt->ddebugs[i];
+-	do_prints();
++	int rc;
++	unsigned int ct;
++
++	rc = kstrtouint(instr, 0, &ct);
++	if (rc) {
++		pr_err("expecting numeric input, using 1 instead\n");
++		ct = 1;
++	}
++	do_prints(ct);
+ 	return 0;
+ }
+ static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
+ {
+-	do_prints();
+-	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++	do_prints(1);
++	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
+ }
+ static const struct kernel_param_ops param_ops_do_prints = {
+ 	.set = param_set_do_prints,
+@@ -191,17 +198,20 @@ static void do_levels(void)
+ 	prdbg(V7);
+ }
  
--			/* match site against query-class */
--			if (dp->class_id != valid_class)
--				continue;
--
--			/* match against the source filename */
--			if (query->filename &&
--			    !match_wildcard(query->filename, dp->filename) &&
--			    !match_wildcard(query->filename,
--					   kbasename(dp->filename)) &&
--			    !match_wildcard(query->filename,
--					   trim_prefix(dp->filename)))
--				continue;
--
--			/* match against the function */
--			if (query->function &&
--			    !match_wildcard(query->function, dp->function))
--				continue;
--
--			/* match against the format */
--			if (query->format) {
--				if (*query->format == '^') {
--					char *p;
--					/* anchored search. match must be at beginning */
--					p = strstr(dp->format, query->format+1);
--					if (p != dp->format)
--						continue;
--				} else if (!strstr(dp->format, query->format))
--					continue;
--			}
--
--			/* match against the line number range */
--			if (query->first_lineno &&
--			    dp->lineno < query->first_lineno)
--				continue;
--			if (query->last_lineno &&
--			    dp->lineno > query->last_lineno)
-+			if (!ddebug_match_desc(query, dp, valid_class))
- 				continue;
+-static void do_prints(void)
++static void do_prints(unsigned int ct)
+ {
+-	pr_debug("do_prints:\n");
+-	do_cats();
+-	do_levels();
++	/* maybe clamp this */
++	pr_debug("do-prints %d times:\n", ct);
++	for (; ct; ct--) {
++		do_cats();
++		do_levels();
++	}
+ }
  
- 			nfound++;
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-	do_prints();
++	do_prints(1);
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
 -- 
 2.52.0
 
