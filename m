@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F37E674B1
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 090F1E674B2
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22A7D10E0D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28F0510E116;
 	Mon, 22 Dec 2025 14:00:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gHiTSc64";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="neBQnuVn";
 	dkim-atps=neutral
 Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
  [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 439A110E57B
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:23:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0683A10E578
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:22:50 +0000 (UTC)
 Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-7b9387df58cso6062607b3a.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:23:11 -0800 (PST)
+ d2e1a72fcca58-7b9387df58cso6062292b3a.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:22:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766391791; x=1766996591; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766391769; x=1766996569; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=kB9XGvfi6ObodyigSZBf40IoYnb1xkrL/FFwh/sfSnM=;
- b=gHiTSc64Jz/bR3RGyWQTdqByafuxJY7KFtVwpgzwWLXI0XVOgMzjLLd20kGjkiiHDN
- 7lMaz6Iri1oAYhthAEQKTh/LFvL0bgg06/FMiz8LngcfQEGaj/ul99lUVzfKDIqx4EcJ
- hK2BAtRkB7xez/cEsuOTkLsN+88MpnV/x++8n2dStjMdZCnUvWAK3zkVPqmXTQ/1xtdP
- GwYw3XlYF00cY/YWF+X1/nCG/oKxQv7ckG6rajhJDPcFB0CiWrdniHebBmG/vrU6qo2m
- jUNqTfc9rvOZIL8EjB8TKwgbQp/vx7mO3h9zBmcZ/V2/EMIiN0Lzr729gpLHGSzTt1+w
- t5Xw==
+ bh=kbNTI65sKfDeAaHShpwIIW/4QzYcWu3sc0P4jYcnBH4=;
+ b=neBQnuVnzqt1H6VYOlP3M8KKFRI/cdKsOs3057KO5vNhsv1HbmMwGjaVH15rsyMKo/
+ N4ZdO94JS47LXLlFvUizmZFqWUnevi51Zgx1usHTPggd09nMkqZTs2OIV3Uvvw2fBV+c
+ 0+eacWIonCw1Pxvbvx49TWdjkDpuo0AgR+d7B2mAdf2tWg65Icad4FES8F+s3A+5Qpog
+ gBJEHIf8vEB6jIuFnXyLLg15qascLywGhdyt5Ni7672afCUd5aM6lmmiK/n+Lu0jEf2X
+ bYMcs7+8Xixtmzz0NSjUX4jhTUnKompVNPl6Oh8iCSeJ+QzrUsInR1N8oZ1KyL5H5nYM
+ vgjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766391791; x=1766996591;
+ d=1e100.net; s=20230601; t=1766391769; x=1766996569;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=kB9XGvfi6ObodyigSZBf40IoYnb1xkrL/FFwh/sfSnM=;
- b=QqXlLeZt3AJhFITEQdJzxTH1P1eu1uXZRzlbiRxiq1gArvYxz/f8NWImwnkyNnQqse
- 9TB9QZBigb1+HMXD4enTozsy/TQAEr4GyD0KFQA13wBtzYxT9qPnb/yV3jUcz1rBDpUn
- 8kH74aQJUCvj038k3ab+8Wu8L2TPQXqsumbR9smXQIddNqSYgGhqMChkpyoVqblJ60T7
- QcK6CiJPWdyRd7o0/yDpkuNGT+++To5nDn0gHl55lrjrRdoS7zos5NZ80tb++ZXvRhS4
- c2P2EQMhXdvSMJm1wmmYNBxcZNiXLWys0xIYKr9bMzW6Q8XPgbBPhYniaCY9b+5u16Wq
- honQ==
+ bh=kbNTI65sKfDeAaHShpwIIW/4QzYcWu3sc0P4jYcnBH4=;
+ b=RSoCHdYjLJCy1aWbBqwaragIYCXZfI9V4NhBBfV/dtDJ8ZjdfcKjhc3JYpIoeVeqCm
+ HBZ1GLvk9fy220tDCvOJfOXvpaD6/mC4RxbBD+ZUW0lJixWKJSJRyJnpfy4XA4ljBRfc
+ vd1mUkha1G74GztkwpLqEQnBPUm+yrYEbHSvxpbR0YqGoUclUEEyC7R52KC+ODd4Lhfp
+ wku99ta84o4N5X0zx4YZb1fy36jPBgpBVl06I4MECOb36Q8zIPXR/T1b/q5UZA1GaPqb
+ 6CPqukTPncDEOpjGqFevIGfi/uUHWtXX5RuFlM5HPsmfp93ark64pjWc/JwMdqFlnNrr
+ 4mAA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVn+MlTh6FFDWcEF27xe+cEuBA51le09o64xxmSdskU77x/NC3r7Zj5lo3thLWhtM5FYcp0Tc8q4EU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLNS15IhBDoUJJajzjrMA09KKRy4YoOTpKj6A/bKwRcGDiko+9
- e+RwXdILCFqE77sihCTCrgXiCoYFjmJLTmMoZZX2RM+P8sLKmTxjm8Og
-X-Gm-Gg: AY/fxX6EyUNfLTPkHaWhDjbmsZxcuYxqwN+iFMlJn3HG76C9kPmVIsiC0M5PI60isaq
- qQoM9W+jfO9vaGL3FR868p8MpIrgZe3ZUnBdICkiWvXmeJt55kelppJ0aCSWzlbV+515q3E+pYm
- 8Uw6noW37M5m7UnZ1lWgF1wPqCffXt96NSkriOz4haHjtOl3nVhiaCRpEYnFvMUzGS/DaMQZWa4
- na8NLLq+HT9hi+0k2KgTG1n2kaJJszsGVu8KMevQZ5YxXOieXC/5GJQFBIUngY94OCLA7nsnk5y
- dyITP51KFyaohSMHswYQc5XyHKcRMVtJfXZ+V6VmF294jMWNG5beN1kNiQ3Y1pXM6anLQ8HYMsz
- DbDf1hIUr8loIs1/qch2COGkG4JOXWeZ2R2feaAvyXy5G4FaCVc+RbXw8xZdAx2BTTtGo5SA5XF
- 54PSQSKYWO
-X-Google-Smtp-Source: AGHT+IGznpKTz6ixXv+s26nHooFtLIG4Ke1AWMjy0/WKJaDBXTq6iXxKo6TPfotRdJtMkjnB8IbN1A==
-X-Received: by 2002:a05:6a20:b905:b0:366:14b0:1a3b with SMTP id
- adf61e73a8af0-376ab2e4dd1mr7445280637.73.1766391790723; 
- Mon, 22 Dec 2025 00:23:10 -0800 (PST)
+ AJvYcCVPGuiHcKd6uUPxDjACD/3lcNHnbPN2uQ9UAd5uRNEy3wrLFIvkH45vDlAx+pxoP7NvuhA6+Hd/ItQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwwqVeBowvcUdgQZvzgGvEN92keTTPOERiB08isQTLtCZkyOCA
+ smr3QqLOi1rVEML7y3iuuUOnhYkIZeO1HzAzM9m0cxNmZQxq9s6RNNfL
+X-Gm-Gg: AY/fxX7cG56QxR9tzOB2Cbz3IywSTD19KUU0+txfRhe0Gu3tY4Yr969TlfIDaElei8M
+ Ct9kJzIlxZGHxU+RukqUKDaZfnUKKkMO+gkGQjy76AERr9ht+BB2nq80l9Hy1pXUoL0UPdsqblX
+ I1CRpRy15St5H4MKo4vKKXO+jx4gup5lefx8rpLfK5iDY5twMxAq6Ud3F/M3Zk/7jptvcPSnMSG
+ a1OIZlbdiVRjTxkHLEORsKe+ZVAC2DUk/HPGm0RJnJx+x1fSdSJhTKgwu9bSRulzTPvxSc+zVdD
+ s7Wtc11m6mKeN7SGUbkRdATJQuQ6nm68zyIw4MOq0BH04ToH6+IKCz5dkJ+d2iq02WzGWhHa5gg
+ 2LVNmjwK/IXEKntsiU4aMwRkg1zRpbiuowBznuBkIElFWSO66LpXoborqXbDOW8zZFoHu0Z3EMz
+ enDwIG+WW+
+X-Google-Smtp-Source: AGHT+IGD08I50soJcdL+xzw0QhupyvnNGdXij4KQgDOgK8/wl2+Is9lHSt1ytu+E7hNdpFYZDBEOMA==
+X-Received: by 2002:a05:6a00:1d12:b0:7b8:16af:3bbc with SMTP id
+ d2e1a72fcca58-7ff650ce054mr9986499b3a.31.1766391769458; 
+ Mon, 22 Dec 2025 00:22:49 -0800 (PST)
 Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.22.59
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.22.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:23:10 -0800 (PST)
+ Mon, 22 Dec 2025 00:22:49 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -75,9 +75,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 10/31] dyndbg: reduce verbose/debug clutter
-Date: Mon, 22 Dec 2025 21:20:27 +1300
-Message-ID: <20251222082049.1782440-11-jim.cromie@gmail.com>
+Subject: [PATCH v7 08/31] dyndbg: drop NUM_TYPE_ARRAY
+Date: Mon, 22 Dec 2025 21:20:25 +1300
+Message-ID: <20251222082049.1782440-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
 References: <20251222082049.1782440-3-jim.cromie@gmail.com>
@@ -99,123 +99,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-currently, for verbose=3, these are logged (blank lines for clarity):
-
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
-
- dyndbg: op='+'
- dyndbg: flags=0x1
- dyndbg: *flagsp=0x1 *maskp=0xffffffff
-
- dyndbg: parsed: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: no matches for query
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-That is excessive, so this patch:
- - shrinks 3 lines of 2nd stanza to single line
- - drops 1st 2 lines of 3rd stanza
-   3rd line is like 1st, with result, not procedure.
-   2nd line is just status, retold in 4th, with more info.
-
-New output:
-
- dyndbg: query 0: "class DRM_UT_CORE +p" mod:*
- dyndbg: split into words: "class" "DRM_UT_CORE" "+p"
- dyndbg: op='+' flags=0x1 *flagsp=0x1 *maskp=0xffffffff
- dyndbg: no-match: func="" file="" module="" format="" lineno=0-0 class=...
- dyndbg: processed 1 queries, with 0 matches, 0 errs
-
-Also reduce verbose=3 messages in ddebug_add_module
-
-When modprobing a module, dyndbg currently logs/says "add-module", and
-then "skipping" if the module has no prdbgs.  Instead just check 1st
-and return quietly.
+ARRAY_SIZE works here, since array decl is complete.
 
 no functional change
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 21 ++++++---------------
- 1 file changed, 6 insertions(+), 15 deletions(-)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 21c1db7e8705..1db2f627237a 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -275,9 +275,6 @@ static int ddebug_change(const struct ddebug_query *query,
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 4b7c3b997657..c4ae79f934d9 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -131,11 +131,9 @@ struct ddebug_class_param {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
  	}
- 	mutex_unlock(&ddebug_lock);
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
  
--	if (!nfound && verbose)
--		pr_info("no matches for query\n");
--
- 	return nfound;
- }
- 
-@@ -510,7 +507,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		pr_err("bad flag-op %c, at start of %s\n", *str, str);
- 		return -EINVAL;
- 	}
--	v3pr_info("op='%c'\n", op);
- 
- 	for (; *str ; ++str) {
- 		for (i = ARRAY_SIZE(opt_array) - 1; i >= 0; i--) {
-@@ -524,7 +520,6 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 			return -EINVAL;
- 		}
- 	}
--	v3pr_info("flags=0x%x\n", modifiers->flags);
- 
- 	/* calculate final flags, mask based upon op */
- 	switch (op) {
-@@ -540,7 +535,7 @@ static int ddebug_parse_flags(const char *str, struct flag_settings *modifiers)
- 		modifiers->flags = 0;
- 		break;
- 	}
--	v3pr_info("*flagsp=0x%x *maskp=0x%x\n", modifiers->flags, modifiers->mask);
-+	v3pr_info("op='%c' flags=0x%x maskp=0x%x\n", op, modifiers->flags, modifiers->mask);
- 
- 	return 0;
- }
-@@ -550,7 +545,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 	struct flag_settings modifiers = {};
- 	struct ddebug_query query = {};
- #define MAXWORDS 9
--	int nwords, nfound;
-+	int nwords;
- 	char *words[MAXWORDS];
- 
- 	nwords = ddebug_tokenize(query_string, words, MAXWORDS);
-@@ -568,10 +563,7 @@ static int ddebug_exec_query(char *query_string, const char *modname)
- 		return -EINVAL;
- 	}
- 	/* actually go and implement the change */
--	nfound = ddebug_change(&query, &modifiers);
--	vpr_info_dq(&query, nfound ? "applied" : "no-match");
--
--	return nfound;
-+	return ddebug_change(&query, &modifiers);
- }
- 
- /* handle multiple queries in query string, continue on error, return
-@@ -1245,11 +1237,10 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- {
- 	struct ddebug_table *dt;
- 
--	v3pr_info("add-module: %s.%d sites\n", modname, di->num_descs);
--	if (!di->num_descs) {
--		v3pr_info(" skip %s\n", modname);
-+	if (!di->num_descs)
- 		return 0;
--	}
-+
-+	v3pr_info("add-module: %s %d sites\n", modname, di->num_descs);
- 
- 	dt = kzalloc(sizeof(*dt), GFP_KERNEL);
- 	if (dt == NULL) {
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
 -- 
 2.52.0
 
