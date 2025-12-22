@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED122E674BC
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3866E674BD
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC9710E690;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 377D910E689;
 	Mon, 22 Dec 2025 14:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cGDtHuVG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Syu2tmjs";
 	dkim-atps=neutral
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
- [209.85.210.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5041310E5A0
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:23:45 +0000 (UTC)
-Received: by mail-pf1-f193.google.com with SMTP id
- d2e1a72fcca58-7aa2170adf9so2864101b3a.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:23:45 -0800 (PST)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA11D10E566
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:22:01 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-7b8bbf16b71so3689769b3a.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:22:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766391825; x=1766996625; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766391721; x=1766996521; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ivVObFpEMeRPBcsYoBwesJyCBQlJUgWhfwCq+iuBLo8=;
- b=cGDtHuVGtmeq4H7kktJVkcYZCwuEOKdaqscNUIPXJM3xSL0Xeb2I5A+FRqNApY6Aka
- yHSWSuWtMfmKIQ+NPs9QlF8E2Mh3OjKnJO+rODdQTRr7JGpq8ITWSm4h1eWrRYBCbn9g
- haPbvCjIcZ8699qQTJH5f5Mf3oMzsQsj3cx+alkNV25RUozR/5fl4B0HjASUloBBQMiG
- FUsdYG06Ves45B3qV5KAZ6DKiCvVViYjDZiaID+PicNIIGL7r/aZFvvJTB8JFRg0TZIO
- OvHX1NJNyEwzyy1w0shREsjyjMsPH8hmy4dy+HDT9YlO9jG9J+7GaoErPyRRLo8qN5iS
- wwhA==
+ bh=dFfaj1jg7DkAQbZ2xQqGZ0nerYqYJ2u1eC/UX4LEwiY=;
+ b=Syu2tmjspjbsxZBZzGro64cQcQxDsuaF1oafdwsRYTmhV8m9oLv/T5CGThXCSSQpre
+ KwrMxpwtrWG5MJP9eiw0dK4sX9hEOF5Olgzz8RN+zkWTdm5bvz8yM1Iti+bTt/ma4xj4
+ REgQJtNslUwRe6fs2prz34bzz/FH7AyHFkTIP3tyTqi3HrIOfPYmEEZXEY1qoPdxIhoS
+ MG2flnVi8hF9xIDw2wcl44BbzQisCRQdSQKBB4Z9k5l1pHx2GClnvhHADK/gnD07xSVF
+ M9MphcIiuAcEISZ/qBmS3WhnA70rBSHcMaUvKJFYaryXyqjUvSpYSkuvkQKDn0w7EpKD
+ sV0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766391825; x=1766996625;
+ d=1e100.net; s=20230601; t=1766391721; x=1766996521;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ivVObFpEMeRPBcsYoBwesJyCBQlJUgWhfwCq+iuBLo8=;
- b=qjZZcC26BC1oX+qrwjPuGdGMI0K21/g5zCScwBPyuv2tpP5FOBtURGAUzWjzG1WJxx
- Bj8RLUZMc+7IRFIuWAbIAoW1VM5q47JBVnAr8aUDctvmSzU2gm1mOKh9L3pTg1rCT6Bw
- aT1SCGVlF8v3jTcZLoy2UOllEwG0xX0bR37BYko+Fe/rcfYAUbgrtNfI5+X9q80dfofQ
- GN3m2p6qCIb7eOP1piQrdvin3vetmHguu8wiyV1b5QGTGLbR90C0BWRRYFgs4sltXHbz
- pDwFtEmiArUy3W0DawKs42Ad8SfESH4La/E3Dkttl5iN5FFZ+vTbjJndkGvKBc7q9Zfy
- GncA==
+ bh=dFfaj1jg7DkAQbZ2xQqGZ0nerYqYJ2u1eC/UX4LEwiY=;
+ b=WC3q3yrXwGENoR7vv4KliUMVveUbCTvpKIuZ1r32a4F647H9UHdOO4GQmdfWnAMyW3
+ xzY5sKuU67VfYxhPqVWzsrThW5q5F6nxmLThkyiT6L6vWnGdG7/ML2YcfjQdEeJBLvXf
+ rrN5GXgwky0B1EvP2Npaw31E5DLW2FuhvnHzq4IRVpF8YAxTvHJ9QNd5YHSE8ZBaaFMR
+ oqK1h7swKO9CbDdd0/h2SSd2t3ATT2e3QRfNUJIqIBb1q1yNsXxmBOUzB3sinD5tGUiW
+ wKejssed2T/dZKU5sNFCpSreOtoXHD3bQuWuBvx2+HBF0OY5msXV/LM+K9l/C8SPYjVh
+ 5qxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWJcE6QEUnPq53vS4blWPx9BoGkvHu0xB9SKZmV0O4qM61rYhOWerGX32pADLuvtu33M1o4O+8N6U0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0jbjWj4N+ssxLbmbqLBMn+pmc/aEvuTHKDaFEeGVskF1MLJ5y
- Jx8kkruUERs/QMggbrjmNSyvD/9BHoeqRmx5WZTVJCFlRWPisxZKs/AN
-X-Gm-Gg: AY/fxX5Lp7RIPp03QS1xQibpLMjplzvVW79+kjCbZbl7mwENX0ajjE7/NYM76C4sEou
- NwFtVjaXvGRsKRRhKZxUExX/psMGt7/0VTWb6/I/7Mqpf0hj79imk+uIdjmusx0U3q6W7UYC5Iq
- cAvlLV+aIKowEVMxmnd+kSke4hNyOasbvSFusdExlGXqyeo9j+6T/fQbdRl54TynE8IxIlropas
- AgV7aYTSBjzTpIYM7ni7loIuJpxTvaOpwi0E0LHnhLZvoudW6avkDUOoIArygp7AOh7N2CNxWSR
- 3opXnMiTGZBNBM/SThbeBl1oLciGokM4Jgzs+6cEhwC8nyFoOHLP+cdEMhaFBA2U3acV3L1MEXg
- l//toa4wXkWeAy866pU2k8AuEI/35cng9agwHJg+j2DMTq/ZCHlydbT39hno5VoWTl67qQD4rus
- J6yIKqzxyA
-X-Google-Smtp-Source: AGHT+IErZyV3AXFVhyKoyCbBtMfXSf07isejz/aGGQIZRu0pVdlKjcUPzr8HfnBOtnGWXU36ZXLjnQ==
-X-Received: by 2002:a05:6a00:2e23:b0:7ff:e3ae:58e7 with SMTP id
- d2e1a72fcca58-7ffe3ae595amr8361296b3a.9.1766391824782; 
- Mon, 22 Dec 2025 00:23:44 -0800 (PST)
+ AJvYcCVKjWAzTBUz0Tmj4VVhGzmImwVh5/Ql7cszETNfz8f+nqTWnmQ1hrC/scofrgPsJ/fLtzgOaN4U4S8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTkT/A474EtLcmxKB0HNFdWEH7mzGlANNk0qNtKq9Z3GohNuO1
+ RPjHrrOcq4Y4cn20kgcjQTQ0BIz6KWEIWep7FlH1VvoULMaLe0Pk4MEA
+X-Gm-Gg: AY/fxX7wjS+h2D2nNoQDkxa91Y0zUzlpOtL7LUhhVcfl14GB9zGtxlosYk5KKFjxFS/
+ Adlka0VoNJs9ILtRXX1pFKzo9wgyJBOuq00r69+jvNUUPvu+TJe0D7fQsGsPEOyIFLykCq31ydU
+ rL9AC1U0HSnGhl5IbXwcv+ItAmp0uQEUQOeD9opBM5GdiTCqorvb4sMOBOjzB/+tGMdzylFStph
+ y2ufg1192ti4zwn+mG73vXvj1FT+pdjMD3RD/87UrlD3NWvotgE9J2sbKM3uQNcuABsgZRokFt5
+ H4B5QTCsRprFGOVBtvE91j0Lwobcr/dQZzDjFl7LduaPCihnwxDl5zAaZDX4EJ5Tt0fA9EeyUOy
+ vEa12qagaJadETcjnKRqmuKe8pwxfH0ej3zs5rrHF7yWU8uoz/9oQmLfs/7/2X7dI5LobalG09D
+ ytRtyyN59P
+X-Google-Smtp-Source: AGHT+IG3eUuB5Tb1s+Zs70IjrZagHo/mf8fIHvmKfCB1AS8Rh4HCdjBPUwGbrg6oNBn8UN6DCsv0tQ==
+X-Received: by 2002:a05:6a00:3e2a:b0:7ff:9657:d6c8 with SMTP id
+ d2e1a72fcca58-7ff9657d93bmr10043630b3a.27.1766391721087; 
+ Mon, 22 Dec 2025 00:22:01 -0800 (PST)
 Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.23.33
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.21.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:23:44 -0800 (PST)
+ Mon, 22 Dec 2025 00:22:00 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -74,10 +74,11 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 13/31] dyndbg: replace classmap list with a vector
-Date: Mon, 22 Dec 2025 21:20:30 +1300
-Message-ID: <20251222082049.1782440-14-jim.cromie@gmail.com>
+ linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com,
+ linux-doc@vger.kernel.org
+Subject: [PATCH v7 04/31] docs/dyndbg: explain flags parse 1st
+Date: Mon, 22 Dec 2025 21:20:21 +1300
+Message-ID: <20251222082049.1782440-5-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
 References: <20251222082049.1782440-3-jim.cromie@gmail.com>
@@ -99,182 +100,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Classmaps are stored in an elf section/array, but currently are
-individually list-linked onto dyndbg's per-module ddebug_table for
-operation. This is unnecessary.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
-Just like dyndbg's descriptors, classes are packed in compile order;
-so even with many builtin modules employing multiple classmaps, each
-modules' maps are packed contiguously, and can be treated as a
-array-start-address & array-length.
-
-So this drops the whole list building operation done in
-ddebug_attach_module_classes(), and removes the list-head members.
-The "select-by-modname" condition is reused to find the start,end of
-the subrange.
-
-NOTE: This "filter-by-modname" on classmaps should really be done in
-ddebug_add_module(1); ie at least one step closer to ddebug_init(2),
-which already splits up pr-debug descriptors into subranges by
-modname, then calls (1) on each.  (2) knows nothing of classmaps
-currently, and doesn't need to.  For now, just add comment.
-
+cc: linux-doc@vger.kernel.org
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h |  1 -
- lib/dynamic_debug.c           | 62 ++++++++++++++++++-----------------
- 2 files changed, 32 insertions(+), 31 deletions(-)
+ .../admin-guide/dynamic-debug-howto.rst         | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index c4ae79f934d9..51ed26e42032 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -83,7 +83,6 @@ enum class_map_type {
- };
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 4ac18c0a1d95..e76ccd987704 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
- struct ddebug_class_map {
--	struct list_head link;
- 	struct module *mod;
- 	const char *mod_name;	/* needed for builtins */
- 	const char **class_names;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index db0559763e60..e882e951d585 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link, maps;
-+	struct list_head link;
- 	const char *mod_name;
--	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-+	struct ddebug_class_map *classes;
-+	unsigned int num_ddebugs, num_classes;
- };
- 
- struct ddebug_query {
-@@ -148,12 +149,13 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- }
- 
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							  const char *class_string, int *class_id)
-+							const char *class_string,
-+							int *class_id)
- {
- 	struct ddebug_class_map *map;
--	int idx;
-+	int i, idx;
- 
--	list_for_each_entry(map, &dt->maps, link) {
-+	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -164,7 +166,6 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	return NULL;
- }
- 
--#define __outvar /* filled by callee */
- /*
-  * Search the tables for _ddebug's which match the given `query' and
-  * apply the `flags' and `mask' to them.  Returns number of matching
-@@ -226,7 +227,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
- 	struct ddebug_class_map *map = NULL;
--	int __outvar valid_class;
-+	int valid_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -1133,9 +1134,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map;
-+	struct ddebug_class_map *map = iter->table->classes;
-+	int i, nc = iter->table->num_classes;
- 
--	list_for_each_entry(map, &iter->table->maps, link)
-+	for (i = 0; i < nc; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1219,30 +1221,31 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
--static void ddebug_attach_module_classes(struct ddebug_table *dt,
--					 struct ddebug_class_map *classes,
--					 int num_classes)
-+static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
--	int i, j, ct = 0;
-+	int i, nc = 0;
- 
--	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+	/*
-+	 * Find this module's classmaps in a subrange/wholerange of
-+	 * the builtin/modular classmap vector/section.  Save the start
-+	 * and length of the subrange at its edges.
-+	 */
-+	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
 -
--			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
--				  cm->mod_name, cm->base, cm->length, cm->map_type);
--
--			for (j = 0; j < cm->length; j++)
--				v3pr_info(" %d: %d %s\n", j + cm->base, j,
--					  cm->class_names[j]);
--
--			list_add(&cm->link, &dt->maps);
--			ct++;
-+			if (!nc) {
-+				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-+				dt->classes = cm;
-+			}
-+			nc++;
- 		}
- 	}
--	if (ct)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+	if (nc) {
-+		dt->num_classes = nc;
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+	}
- }
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
+-keywords are:::
++Note that since the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword and value.  Flag errs will hide keyword errs::
++
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
++keywords are::
  
- /*
-@@ -1274,10 +1277,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	dt->num_ddebugs = di->num_descs;
- 
- 	INIT_LIST_HEAD(&dt->link);
--	INIT_LIST_HEAD(&dt->maps);
- 
- 	if (di->classes && di->num_classes)
--		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
-+		ddebug_attach_module_classes(dt, di);
- 
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
-@@ -1390,8 +1392,8 @@ static void ddebug_remove_all_tables(void)
- 	mutex_lock(&ddebug_lock);
- 	while (!list_empty(&ddebug_tables)) {
- 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
--						      struct ddebug_table,
--						      link);
-+						     struct ddebug_table,
-+						     link);
- 		ddebug_table_free(dt);
- 	}
- 	mutex_unlock(&ddebug_lock);
+   match-spec ::= 'func' string |
+ 		 'file' string |
 -- 
 2.52.0
 
