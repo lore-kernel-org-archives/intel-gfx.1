@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62989E674B8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7433E674BA
 	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE70B10E698;
-	Mon, 22 Dec 2025 14:00:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1831310E69C;
+	Mon, 22 Dec 2025 14:00:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aBDnKzso";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eCkkRrnM";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FA6610E5D2
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:27:03 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-7f89d0b37f0so2291023b3a.0
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:27:03 -0800 (PST)
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com
+ [209.85.210.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15D0E10E56A
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:23:33 +0000 (UTC)
+Received: by mail-pf1-f195.google.com with SMTP id
+ d2e1a72fcca58-7f121c00dedso5007248b3a.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:23:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766392023; x=1766996823; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1766391812; x=1766996612; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Ii1VafhOMs6l+h1e+D2giL8132vNQ2TDoma8/MEoG3Y=;
- b=aBDnKzsot/puTa0IBp+hdHwMJxgfqNl/HWLUkJrEE9qnvnjQNSpVQrnuQUHJbNzHnv
- aGHeZ21gIndmrKwwLaQ/dW2/KoyUiamSjoj9PbPL7/42pR7nTnubj2QO5fYWouPSTOtg
- /yeJqVLkqxwYA2CH8HDvYuuCjGPikZD+SmyIY6T4vdQ6Q1EIUq/6GTT0naTtRJgoitN9
- GVCUpFyvwRvCAGIXXnNJR02m1SXEoB8i1sIpoqmyJ3jb5XUbVFS7sLOX6FcCHic0UJ+f
- XNKeZkLifxDgd8sPSUrZMZ+0b89tKNNCtpR7m8Q4mEIkrFFa6RKYIvJUKv1ujpVfiOjP
- Ae2Q==
+ bh=OmSrywNj94qh5LuqDwB/XOVQgrfMaP0ThWQZPNx1I5w=;
+ b=eCkkRrnM77hBrvg/jXlfsrq998rhSJMdw1R9mpGSQqtZohs5+LzNCu6q4AGwSPK2rD
+ P+7FoOAJo9csMm9vqskk5bhu7UPqPZfbLfVp1YTBj7FFYmxr0z9Qk7NdeNKbTUWZrlY2
+ Wa8qKZ6aIZHT6cXHJp0YBY2xncJLT4j+8n3Nl84JaTV5etGwSiJtb2EZ7t7D/cPWv0Zt
+ 0XOAZ0TW5pLqj4QCCffQWBJ8nnyFeCTDZjQh4IM5RCH2h44c0VDlSD9elrxc90IvUjy4
+ C6/b3xJLIo6dOhqCZjI2hTbxtF7vqz0hEr5vtqQLBwAH9N9WiuFRPhohUUayb2EFhDl8
+ fVcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766392023; x=1766996823;
+ d=1e100.net; s=20230601; t=1766391812; x=1766996612;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Ii1VafhOMs6l+h1e+D2giL8132vNQ2TDoma8/MEoG3Y=;
- b=oqYAM4LIOTHJCYTJnCcdpBH5CBETCqDzJ6GAdw3XM90SDasGFY2VelRN9TCRWYTbxW
- KePNlnTP+K9RGTG5MFGt2SiUL2zM+7+2l4hlPwHJqjfkIVWShtXtgNeO6dpHGsoE2IjB
- DGtoKgszwCCLLPbVjZ2CeBj5wVCe0ePCI6uSZm0w1m7QUUDr4oNAs09mAYO8h9bSfu0F
- OOV9zt/knvqZkfdKnj5os/MB1ZfftZKMQ5MvEIyHi2ZrB/oJLSmbBoZPkh5TwcNImuBP
- HCniaUZ0HzgKLvgRT0ZXwavUV2GTfo1fhc5iIqW2YzpTiT/QKOcZddBzbgDWimQ/t9/Y
- GbTg==
+ bh=OmSrywNj94qh5LuqDwB/XOVQgrfMaP0ThWQZPNx1I5w=;
+ b=HJLOonxaenOgn/gKufzx6DM41cnqc+3hiTY3FMamMbvuTrM0DVKZD9WWqOt+g8hzDC
+ QU6bkJ0gWKqe/UhsjakHe3rQl6zSGNAmyT4Zr7VEzF1ikpVTbh6RKAnIpKOYHxtBp/u0
+ EBOYG0ZlVIzne9gRd1Z5Ltxsug+Riw0LMQWBMEmrZVB0Vxq9mtWRHunY6X1dApoI4ni3
+ MOL9/mAEk2CiC6oOHaQG1wQP09+RLNagZmK3/4g4TrRrXFJhmhj4OGjQmXctxzFglu+X
+ 9ymnHJDejStvkhbK33CNzWHbf0ph9kMbCSS+mOHu3MYDv8qBEj4qGIlWukuGHjPlMq1y
+ 9JDw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUSsK0hhjqRe+wigmZU6wAjDuNLkLxg0WGMt3cvfKhzasFIko3YeX6g/MelmTmcWbIvTmfcLS5nFzQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9aBE3bDEt2PY0D5Fq2zRhEVXYW2xMB6mZ+apb604l9hAqidxN
- 6Xw0+DOKMhd26N0iWY8PIKlnSRhoPTnDKoADu1ty6levCo2fOJj8a6xO
-X-Gm-Gg: AY/fxX5LzMePisDEhuV7PQ8S47wUO66/60IVONo9DAKqPnulIAtXpRnQxAcvrRBSQRP
- X9O/+LqqKYYjCKshc7tkTpRVcZLw17Z+Ut0azmox33HuyZ2nzniYW/vJtZh9NQ9Boeiu6/OASV/
- RfaoIkQ+yxWw52776/NtYeU0IiobZ3vhbW/sp2/v4dz1Cy5ip3XsNA89jZrqzWve8Nblgk5f8kt
- XLVhz7m3UCYmiTiEtdbp2+Ugb9XOMFme9gAZVBXuGUAymbt6yVI2RNYkEknqcpsRa8CjEsnOZq5
- XBSENErPJx8jL2x78QCR0+0L/NoWUS0UOdainAQzVcoU/1rbRGAXYZijNiK5Tu8vBa2O9+VRavH
- PVASptomd5RiEUmZ4V2y7lQK7PHzgDfq/T2wZZF6n+b1y6qlrrF/irC76hxtraZq4J8IHu5fkjO
- YfHLNc95e8
-X-Google-Smtp-Source: AGHT+IGofjncFQbha1D4YrfUNbCgds/xOaiZY5usf+asKdAPER694b234cYaH/K4SJMr8+Sv5Hw4Hw==
-X-Received: by 2002:a05:6a20:3d0b:b0:366:14b0:4b1b with SMTP id
- adf61e73a8af0-3769ff1bb74mr10653684637.38.1766392022754; 
- Mon, 22 Dec 2025 00:27:02 -0800 (PST)
+ AJvYcCVsR0ns5niU5mnCMRrixZP4aQdwljYEBMug6G+GkHfjh8derjsun9fF9Glay62PDU/AG72S5VLDIVc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzd2LsSLKmmwzExjfIxUvPUxtEQKdGBhO74o+pmpEAFDoECrB3M
+ FR3wQ1AWJ3sHPkGh2lWjFSyjxilVvktn85BY+WSsEhNcOQW735AJUX6z
+X-Gm-Gg: AY/fxX4B4NUSzaqNaiIsVNl5CSvERf78iInYi1R514MnWm9Yet/eCCS84qP18X3N2Ag
+ /IiY7f3GCiDEFl75B7YPt3TdVCSP4IiPZu2SObrk6+6LWk+fEFhn0WVb7vzjyaSekUGKbExpUO1
+ ITAn7WKGfqflT11eLl8E1tI+hvigleGnijIb0UWFts+Y3kKHfKO2xNGxD0YPH9slFpuGCevK8bY
+ Art3hQcPMPtIMOTCMI2pkPgaIgA2R8sgiGGDf2aETX96Av45gVyoGZ8cRTm/L4Pv64g4lezEfw/
+ BvaN5EDADBSNvT7CP5og9ILlxPPP1Sh7bRWeqZs4XcphLnimYxfmr+dd43UruZwNzumK+Xiw8ma
+ mq45PpXxSLJijbYeRZuMY/5Eg0YbLxgKkI3bhyWF0GTbXYE4bf87LZEj3RvUe8TnnGPO74t2DGr
+ XRwLdLHmua
+X-Google-Smtp-Source: AGHT+IEAZMs9QfUDe2we6n2g+FitaNoCAtMAvZyB3nOYDQz1xn8UTnE5egrQpYntQN6837WRTsLoLQ==
+X-Received: by 2002:a05:6a00:3309:b0:7f0:665d:efd8 with SMTP id
+ d2e1a72fcca58-7ff6705d34cmr9495645b3a.67.1766391812599; 
+ Mon, 22 Dec 2025 00:23:32 -0800 (PST)
 Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.26.19
+ d2e1a72fcca58-7ff7e493123sm9540699b3a.50.2025.12.22.00.23.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:27:02 -0800 (PST)
+ Mon, 22 Dec 2025 00:23:32 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
  gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
@@ -75,9 +75,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
  maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
  linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 27/31] dyndbg: split multi-query strings with %
-Date: Mon, 22 Dec 2025 21:20:44 +1300
-Message-ID: <20251222082049.1782440-28-jim.cromie@gmail.com>
+Subject: [PATCH v7 12/31] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+Date: Mon, 22 Dec 2025 21:20:29 +1300
+Message-ID: <20251222082049.1782440-13-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20251222082049.1782440-3-jim.cromie@gmail.com>
 References: <20251222082049.1782440-3-jim.cromie@gmail.com>
@@ -99,136 +99,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since commit
-85f7f6c0edb8 ("dynamic_debug: process multiple debug-queries on a line")
-
-Multi-query commands have been allowed:
-
-  modprobe drm dyndbg="class DRM_UT_CORE +p; class DRM_UT_KMS +p"
-  modprobe drm dyndbg=<<EOX
-     class DRM_UT_CORE +p
-     class DRM_UT_KMS +p
-  EOX
-
-More recently, the need for quoting was avoided by treating a comma
-like a space/token-terminator:
-
-  modprobe drm dyndbg=class,DRM_UT_CORE,+p\;class,DRM_UT_KMS,+p
-
-That works, but it needs the escaped semicolon, which is a shell
-special-char (one of the bash control operators), so it is brittle
-when passed in/down/around scripts.  In particular, it fails when
-passed to vng (virtme-ng).
-
-So this patch adds '%' to the existing ';' and '\n' multi-command
-separators, which is more shell-friendly, so you can more fully avoid
-quoting and escaping hassles.
-
-NOTE: it does break format matching on '%' patterns:
-
-bash-5.2# ddcmd 'format "find-me: %foo" +p'
-[  203.900581] dyndbg: read 26 bytes from userspace
-[  203.900883] dyndbg: query 0: "format "find-me: " mod:*
-[  203.901118] dyndbg: unclosed quote: find-me:
-[  203.901355] dyndbg: tokenize failed
-[  203.901529] dyndbg: query 1: "foo" +p" mod:*
-[  203.901957] dyndbg: split into words: "foo"" "+p"
-[  203.902243] dyndbg: op='+' flags=0x1 maskp=0xffffffff
-[  203.902458] dyndbg: expecting pairs of match-spec <value>
-[  203.902703] dyndbg: query parse failed
-[  203.902871] dyndbg: processed 2 queries, with 0 matches, 2 errs
-bash: echo: write error: Invalid argument
-
-The '%' splits the input into 2 queries, and both fail.  Given the
-limited utility of matching against the working parts of a format
-string "foo: %d bar %s", nothing is actually lost here.
-
-selftests-dyndbg: test_percent_splitting
-
-This does basic testing of classmaps using '%' separated
-multi-queries.  It modprobes test_dynamic_debug with several classes
-enabled, and counts to verify that the expected sites show the
-enablement in the control file.
+old_bits arg is currently a pointer to the input bits, but this could
+allow inadvertent changes to the input by the fn.  Disallow this.
+And constify new_bits while here.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- .../admin-guide/dynamic-debug-howto.rst       |  8 ++++---
- lib/dynamic_debug.c                           |  2 +-
- .../dynamic_debug/dyndbg_selftest.sh          | 24 +++++++++++++++++++
- 3 files changed, 30 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 350d93834e19..89ee15d7ae58 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -85,10 +85,12 @@ by spaces, tabs, or commas.  So these are all equivalent::
-   :#> ddcmd '  file   svcsock.c     line  1603 +p  '
-   :#> ddcmd file,svcsock.c,line,1603,+p
- 
--Command submissions are bounded by a write() system call.
--Multiple commands can be written together, separated by ``;`` or ``\n``::
-+Command submissions are bounded by a write() system call.  Multiple
-+commands can be written together, separated by ``%``, ``;`` or ``\n``::
- 
--  :#> ddcmd "func pnpacpi_get_resources +p; func pnp_assign_mem +p"
-+  :#> ddcmd func foo +p % func bar +p
-+  :#> ddcmd func foo +p \; func bar +p
-+  :#> ddcmd "func foo +p ; func bar +p"
-   :#> ddcmd <<"EOC"
-   func pnpacpi_get_resources +p
-   func pnp_assign_mem +p
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 5ac7248d51bb..c50836c262b4 100644
+index 64d69f5cba1b..db0559763e60 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -626,7 +626,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 	int i, errs = 0, exitcode = 0, rc, nfound = 0;
+@@ -606,7 +606,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
  
- 	for (i = 0; query; query = split) {
--		split = strpbrk(query, ";\n");
-+		split = strpbrk(query, "%;\n");
- 		if (split)
- 			*split++ = '\0';
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits,
++				     const unsigned long *new_bits,
++				     const unsigned long old_bits,
+ 				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+@@ -615,12 +616,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
  
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index c7bf521f36ee..513f6cb1db1d 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -256,9 +256,33 @@ function comma_terminator_tests {
-     ddcmd =_
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
++		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+@@ -632,9 +633,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
  }
+@@ -690,7 +691,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -700,7 +701,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
  
-+function test_percent_splitting {
-+    echo -e "${GREEN}# TEST_PERCENT_SPLITTING - multi-command splitting on % ${NC}"
-+    if [ $LACK_TMOD -eq 1 ]; then
-+	echo "SKIP - test requires test-dynamic-debug.ko"
-+	return
-+    fi
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+    modprobe test_dynamic_debug dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    # add flags to those callsites
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    check_match_ct test_dynamic_debug 23 -r
-+    ifrmmod test_dynamic_debug
-+}
-+
- tests_list=(
-     basic_tests
-     comma_terminator_tests
-+    test_percent_splitting
- )
- 
- # Run tests
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -754,7 +755,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+ 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, mod_name);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -767,7 +768,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
 -- 
 2.52.0
 
