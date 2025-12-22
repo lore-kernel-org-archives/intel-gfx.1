@@ -4,84 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E372E674B5
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCCC2E674B9
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Dec 2025 14:44:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2C4F10E6A6;
-	Mon, 22 Dec 2025 14:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE6D10E05D;
+	Mon, 22 Dec 2025 14:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BzEMpXFT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nEMG6Izc";
 	dkim-atps=neutral
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
- [209.85.210.194])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6743510E5D4
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 08:29:14 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id
- d2e1a72fcca58-7baf61be569so4011547b3a.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Dec 2025 00:29:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1766392154; x=1766996954; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=UJ0Fy32CNz68gAtuvvvAIFbPIlI5INll01DQrP39TKA=;
- b=BzEMpXFTFU8IUBuFSp2ZvKv8D63DrBLIagh6mlVtUBtsW3gwi4oxzGlHCOOgmIN2+a
- 5Y+5Dmud4FTOpJKXrc1pDGXFgfw1RpgnVfrIMf87PhmNpH88y4VoWe6DlKAIwprYFqFM
- tifZ9fWdiB9NKKXox2210eyQqWHTQBGMCAU1Z8XLM/wYsaDlHPhvPQLiIE/36wiE+giD
- W+xXxjMTEd1XZyBqDgor2oXCf9bFT6XdoV5+RUblqtTdu/mRLJu5eaGjYKVW70mV5xQE
- 2+cg++oqSspi43PqF4ODb39At8RChGpIaV/tKlAG7cT16XH9WIxAiHd7qGosnQO7LT/2
- n8Dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1766392154; x=1766996954;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UJ0Fy32CNz68gAtuvvvAIFbPIlI5INll01DQrP39TKA=;
- b=pLGtvM4Qyxs7FLCjIQFfi8DZCIs3+P57CCm4eEMsysNdlVI+IKid6cE4oKzxV2hxLJ
- ho7vOH9GSwDyIrA7G2J8LZJM4KcSzWJnW9xJS/EDZqELenDRayWcG2HFPM06GhPNVyni
- bNl0C2z8gXdIdPHi+i8SHkYLZ9kBYDODYwwqJzcqjmn0ho8iUka/3vugj1tHxZUo14f6
- QLRuP2LMtqtp8eXUWtPhqICQA97cwk/T+NiW5cehz18sY8Bp3ijQ5bYslvw9BHiGb4MR
- E6eCyEDWBN5MP4qJYxQdRas9P3+iBATiSN2NLyrQPbmpjRbm1/INRqThHWnfd0xmY0wg
- T4hw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCU9jGGpyH/Rmhw6uO4oTmkscbaAr7PrBM911Fx3zHw4DFjx47P4U6wMUoCS7BJhwiLkoUvLQnHArmA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJcxNwT32BXIbgppsPfm7rUl2gcQYeBz45afS8jhZ79i/SVOf+
- 1FoyL57FM68xetM+oUT1N94hmuXe5AQ4s1dfC34gg0sakx/4KUOaq36G
-X-Gm-Gg: AY/fxX4HQ13BIVV7zU3Zqg0FmqvIaQ6pIIb2ffESOUJ+4ZfAK5xkLRMmWlcGH7GlPNU
- 5zBpH5b7lanPdR2y9TWayKA6ub8BFxPTFrrOLJZHFoBphgAUPJZtum2tmlPmHD9JstvzYSqeSIF
- LRlCMTAFCY9v5PX7dzW7sI1cJQ+JhOG06xgO768FrTXRLOxM2UOtx9yFQct8Wp8pY7iaazwi54F
- HC/QGh0wZz5BsuMvRTEfzHRVEWMBcWH+1w9hxfKdLEc8+jdfakaohZqjCurZEdf8+DPUS3Wubdj
- FQvrfnYgr+rO0H+1NcZP2BSIEG3yOx9ejPl6TYbo1RNfD2xK9aGgXuZU+96aYj/oPzxs8ILNIcr
- i+zV5VIzDAopDtR9q9U+uCkbmnsG3RhKN/9JgevpuPK74pnCd9/8Mugeb2JLNKyL0p2aZKJzLWI
- 8EDhmxtmsH
-X-Google-Smtp-Source: AGHT+IH91xYoqgoO/9cTyIkcwq8ylRSPWssYXk7Ak1UGNvKWMh8b4fE0tkVyhdkLY2d/CPzf+gHPIA==
-X-Received: by 2002:a05:6a00:1f17:b0:7f1:fad7:2ce with SMTP id
- d2e1a72fcca58-7ff679669d1mr11073286b3a.48.1766392153873; 
- Mon, 22 Dec 2025 00:29:13 -0800 (PST)
-Received: from frodo ([2404:4400:417e:3d00:8b90:7f55:1261:772f])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-7ff7af29dcfsm9640064b3a.17.2025.12.22.00.29.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 22 Dec 2025 00:29:13 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, jbaron@akamai.com,
- gregkh@linuxfoundation.org, ukaszb@chromium.org, louis.chauvet@bootlin.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gvt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- daniel.vetter@ffwll.ch, tvrtko.ursulin@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- seanpaul@chromium.org, robdclark@gmail.com, groeck@google.com,
- yanivt@google.com, bleung@google.com, quic_saipraka@quicinc.com,
- will@kernel.org, catalin.marinas@arm.com, quic_psodagud@quicinc.com,
- maz@kernel.org, arnd@arndb.de, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, mingo@redhat.com, jim.cromie@gmail.com
-Subject: [PATCH v7 00/31] drm/dyndbg: Fix dynamic debug classmap regression
-Date: Mon, 22 Dec 2025 21:28:12 +1300
-Message-ID: <20251222082843.1816701-1-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D38D10E05D;
+ Mon, 22 Dec 2025 14:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1766414696; x=1797950696;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=zdyK52t++zeXs0qCyraNq1sLq9xvMET/4UU9Mznu2OE=;
+ b=nEMG6IzcbGXFhBdx25siUWlJ8om7iELmi7SVt4o3jf7HoGiresXXIVx2
+ v2Cxk+Vljhf7VXllWb8QBnkaRDGFGexPUrwA03iELVB2SuG6zTvn43WgJ
+ DgpTxa596DBFCgajl7AVb/2xMau670ZuUGe0AUaSYQYpKv++thXoptyf+
+ uanvnqLKdbBWOOptRQpBcxS5OPcnSeW5/ArOOdBj0ho0uqotfiayjq1Gi
+ Wn11S7QbN/wiVkI4wvrytOTa4BgO7Grcj8+zqPWInX/1txQprHRUByEdg
+ 0GlcdgrcJjKkN4+eVw7cHb4gNAPGVciryZR3b8W9/pGSFu1OcWnRnfl18 g==;
+X-CSE-ConnectionGUID: FHO0RSQZQa2hzJTH0uZRxA==
+X-CSE-MsgGUID: 2qoStUK4Rn+MihDzNsWLxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11650"; a="78588351"
+X-IronPort-AV: E=Sophos;i="6.21,168,1763452800"; d="scan'208";a="78588351"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2025 06:44:56 -0800
+X-CSE-ConnectionGUID: 2fTBnh1/SX+kWFJ/1UVDqA==
+X-CSE-MsgGUID: pggsNDjPSbKv8fSiK4ll1A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,168,1763452800"; d="scan'208";a="199306877"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.79])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Dec 2025 06:44:53 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, Simon Ser <contact@emersion.fr>, Harry
+ Wentland <harry.wentland@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>
+Subject: Re: [PATCH v2] drm/atomic: convert
+ drm_atomic_get_{old,new}_colorop_state() into proper functions
+In-Reply-To: <53746714-c989-4f9a-96a0-f2044705ffb9@amd.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20251219114939.1069851-1-jani.nikula@intel.com>
+ <53746714-c989-4f9a-96a0-f2044705ffb9@amd.com>
+Date: Mon, 22 Dec 2025 16:44:50 +0200
+Message-ID: <39b45d9eefcebc2afd47fd2aee6d5f40b6db03e1@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 22 Dec 2025 14:00:06 +0000
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,141 +73,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-hello all,
+On Fri, 19 Dec 2025, Alex Hung <alex.hung@amd.com> wrote:
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-commit aad0214f3026 ("dyndbg: add DECLARE_DYNDBG_CLASSMAP macro")
+Thanks, pushed to drm-misc-next.
 
-added dyndbg's "classmaps" feature, which brought dyndbg's 0-off-cost
-debug to DRM.  Dyndbg wired to /sys/module/drm/parameters/debug,
-mapped its bits to classes named "DRM_UT_*", and effected the callsite
-enablements only on updates to the sys-node (and underlying >control).
+BR,
+Jani.c
 
-Sadly, it hit a CI failure, resulting in:
-commit bb2ff6c27bc9 ("drm: Disable dynamic debug as broken")
-
-The regression was that drivers, when modprobed, did not get the
-drm.debug=0xff turn-on action, because that had already been done for
-drm.ko itself.
-
-The core design bug is in the DECLARE_DYNDBG_CLASSMAP macro.  Its use
-in both drm.ko (ie core) and all drivers.ko meant that they couldn't
-fundamentally distinguish their respective roles.  They each
-"re-defined" the classmap separately, breaking K&R-101.
-
-My ad-hoc test scripting helped to hide the error from me, by 1st
-testing various combos of boot-time module.dyndbg=... and
-drm.debug=... configurations, and then inadvertently relying upon
-those initializations.
-
-This series addresses both failings:
-
-It replaces DECLARE_DYNDBG_CLASSMAP with
-
-- `DYNAMIC_DEBUG_CLASSMAP_DEFINE`: Used by core modules (e.g.,
-  `drm.ko`) to define their classmaps.  Based upon DECLARE, it exports
-  the classmap so USE can use it.
-
-- `DYNAMIC_DEBUG_CLASSMAP_USE`: this lets other "subsystem" users
-  create a linkage to the classmap defined elsewhere (ie drm.ko).
-  These users can then find their "parent" and apply its settings.
-
-It adds a selftest script, and a 2nd "sub-module" to recapitulate
-DRM's multi-module "subsystem" use-case, including the specific
-failure scenario.
-
-It also adds minor parsing enhancements, allowing easier construction
-of multi-part debug configurations.  These enhancements are used to
-test classmaps in particular, but are not otherwize required.
-
-v7 adds:
-. WARN_ONCE when classmap isnt found for a class'd callsite, JBaron
-. reorder macro args to match kdoc, JBaron
-. Doc formatting fixes, by Bagas
-
-Thank you for your review.
-
-P.S. Id also like to "tease" some other work:
-
-1. patchset to send pr_debugs to tracefs on +T flag
-
-   allows 63 "private" tracebufs, 1 "common" one (at 0)
-   "drm.debug_2trace=0x1ff" is possible
-   from Lukas Bartoski
-
-2. patchset to save 40% of DATA_DATA footprint
-
-   move (modname,filename,function) to struct _ddebug_site
-   save their descriptor intervals to 3 maple-trees
-   3 accessors fetch on descriptor, from trees
-   move __dyndbg_sites __section to INIT_DATA
-
-3. patchset to cache dynamic-prefixes
-   should hide 2.s cost increase.
-
-
-Jim Cromie (31):
-
-fixes, cleanups, simple stuff::
-
-Jim Cromie (31):
-  dyndbg: factor ddebug_match_desc out from ddebug_change
-  dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
-  docs/dyndbg: update examples \012 to \n
-  docs/dyndbg: explain flags parse 1st
-  test-dyndbg: fixup CLASSMAP usage error
-  dyndbg: reword "class unknown," to "class:_UNKNOWN_"
-  dyndbg: make ddebug_class_param union members same size
-  dyndbg: drop NUM_TYPE_ARRAY
-  dyndbg: tweak pr_fmt to avoid expansion conflicts
-  dyndbg: reduce verbose/debug clutter
-
-callchain grooming, re-structs, code simplify/dedup by macros::
-
-  dyndbg: refactor param_set_dyndbg_classes and below
-  dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-  dyndbg: replace classmap list with a vector
-  dyndbg: macrofy a 2-index for-loop pattern
-  dyndbg,module: make proper substructs in _ddebug_info
-  dyndbg: hoist classmap-filter-by-modname up to ddebug_add_module
-  dyndbg: move mod_name down from struct ddebug_table to _ddebug_info
-  dyndbg-API: remove DD_CLASS_TYPE_(DISJOINT|LEVEL)_NAMES and code
-  selftests-dyndbg: add a dynamic_debug run_tests target
-  dyndbg: change __dynamic_func_call_cls* macros into expressions
-
-core fix, detect api misuse errors, etc::
-
-  dyndbg-API: replace DECLARE_DYNDBG_CLASSMAP
-  dyndbg: detect class_id reservation conflicts
-  dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at compile-time
-  dyndbg-test: change do_prints testpoint to accept a loopct
-  dyndbg-API: promote DYNAMIC_DEBUG_CLASSMAP_PARAM to API
-  dyndbg: treat comma as a token separator
-  dyndbg: split multi-query strings with %
-  selftests-dyndbg: add test_mod_submod
-  dyndbg: resolve "protection" of class'd pr_debug
-  dyndbg: add DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
-  docs/dyndbg: add classmap info to howto
-
- .../admin-guide/dynamic-debug-howto.rst       | 187 ++++-
- MAINTAINERS                                   |   3 +-
- include/asm-generic/vmlinux.lds.h             |   5 +-
- include/linux/dynamic_debug.h                 | 302 +++++--
- kernel/module/main.c                          |  15 +-
- lib/Kconfig.debug                             |  24 +-
- lib/Makefile                                  |   5 +
- lib/dynamic_debug.c                           | 776 +++++++++++-------
- lib/test_dynamic_debug.c                      | 198 +++--
- lib/test_dynamic_debug_submod.c               |  21 +
- tools/testing/selftests/Makefile              |   1 +
- .../testing/selftests/dynamic_debug/Makefile  |   9 +
- tools/testing/selftests/dynamic_debug/config  |   7 +
- .../dynamic_debug/dyndbg_selftest.sh          | 373 +++++++++
- 14 files changed, 1465 insertions(+), 461 deletions(-)
- create mode 100644 lib/test_dynamic_debug_submod.c
- create mode 100644 tools/testing/selftests/dynamic_debug/Makefile
- create mode 100644 tools/testing/selftests/dynamic_debug/config
- create mode 100755 tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+>
+> On 12/19/25 04:49, Jani Nikula wrote:
+>> There is no real reason to include drm_colorop.h from drm_atomic.h, as
+>> drm_atomic_get_{old,new}_colorop_state() have no real reason to be
+>> static inline.
+>> 
+>> Convert the static inlines to proper functions, and drop the include to
+>> reduce the include dependencies and improve data hiding.
+>> 
+>> v2: Fix vkms build failures (Alex)
+>> 
+>> Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
+>> Cc: Simon Ser <contact@emersion.fr>
+>> Cc: Alex Hung <alex.hung@amd.com>
+>> Cc: Harry Wentland <harry.wentland@amd.com>
+>> Cc: Daniel Stone <daniels@collabora.com>
+>> Cc: Melissa Wen <mwen@igalia.com>
+>> Cc: Sebastian Wick <sebastian.wick@redhat.com>
+>> Cc: Alex Hung <alex.hung@amd.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> 
+>> ---
+>> 
+>> Including the massive Cc list because I don't want to keep doing this
+>> afterwards. This stuff needs to be blocked and fixed during review. Just
+>> stop including headers from headers. It's a PITA to clean up.
+>> ---
+>>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  3 ++
+>>   drivers/gpu/drm/drm_atomic.c                  | 32 +++++++++++++++
+>>   drivers/gpu/drm/drm_atomic_helper.c           |  1 +
+>>   .../drm/i915/display/intel_display_types.h    |  1 +
+>>   drivers/gpu/drm/vkms/vkms_composer.c          |  1 +
+>>   drivers/gpu/drm/vkms/vkms_drv.c               |  1 +
+>>   include/drm/drm_atomic.h                      | 39 ++++---------------
+>>   7 files changed, 47 insertions(+), 31 deletions(-)
+>> 
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> index 1dcc79b35225..20a76d81d532 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+>> @@ -23,6 +23,9 @@
+>>    * Authors: AMD
+>>    *
+>>    */
+>> +
+>> +#include <drm/drm_colorop.h>
+>> +
+>>   #include "amdgpu.h"
+>>   #include "amdgpu_mode.h"
+>>   #include "amdgpu_dm.h"
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 6d3ea8056b60..52738b80ddbe 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -641,6 +641,38 @@ drm_atomic_get_colorop_state(struct drm_atomic_state *state,
+>>   }
+>>   EXPORT_SYMBOL(drm_atomic_get_colorop_state);
+>>   
+>> +/**
+>> + * drm_atomic_get_old_colorop_state - get colorop state, if it exists
+>> + * @state: global atomic state object
+>> + * @colorop: colorop to grab
+>> + *
+>> + * This function returns the old colorop state for the given colorop, or
+>> + * NULL if the colorop is not part of the global atomic state.
+>> + */
+>> +struct drm_colorop_state *
+>> +drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
+>> +				 struct drm_colorop *colorop)
+>> +{
+>> +	return state->colorops[drm_colorop_index(colorop)].old_state;
+>> +}
+>> +EXPORT_SYMBOL(drm_atomic_get_old_colorop_state);
+>> +
+>> +/**
+>> + * drm_atomic_get_new_colorop_state - get colorop state, if it exists
+>> + * @state: global atomic state object
+>> + * @colorop: colorop to grab
+>> + *
+>> + * This function returns the new colorop state for the given colorop, or
+>> + * NULL if the colorop is not part of the global atomic state.
+>> + */
+>> +struct drm_colorop_state *
+>> +drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
+>> +				 struct drm_colorop *colorop)
+>> +{
+>> +	return state->colorops[drm_colorop_index(colorop)].new_state;
+>> +}
+>> +EXPORT_SYMBOL(drm_atomic_get_new_colorop_state);
+>> +
+>>   static bool
+>>   plane_switching_crtc(const struct drm_plane_state *old_plane_state,
+>>   		     const struct drm_plane_state *new_plane_state)
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+>> index 10adac9397cf..5840e9cc6f66 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -34,6 +34,7 @@
+>>   #include <drm/drm_atomic_uapi.h>
+>>   #include <drm/drm_blend.h>
+>>   #include <drm/drm_bridge.h>
+>> +#include <drm/drm_colorop.h>
+>>   #include <drm/drm_damage_helper.h>
+>>   #include <drm/drm_device.h>
+>>   #include <drm/drm_drv.h>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+>> index 6ff53cd58052..eb2e3f1e83c9 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+>> @@ -34,6 +34,7 @@
+>>   #include <drm/display/drm_dp_tunnel.h>
+>>   #include <drm/display/drm_dsc.h>
+>>   #include <drm/drm_atomic.h>
+>> +#include <drm/drm_colorop.h>
+>>   #include <drm/drm_crtc.h>
+>>   #include <drm/drm_encoder.h>
+>>   #include <drm/drm_framebuffer.h>
+>> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+>> index 3cf3f26e0d8e..cd85de4ffd03 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_composer.c
+>> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
+>> @@ -5,6 +5,7 @@
+>>   #include <drm/drm_atomic.h>
+>>   #include <drm/drm_atomic_helper.h>
+>>   #include <drm/drm_blend.h>
+>> +#include <drm/drm_colorop.h>
+>>   #include <drm/drm_fourcc.h>
+>>   #include <drm/drm_fixed.h>
+>>   #include <drm/drm_gem_framebuffer_helper.h>
+>> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+>> index dd1402f43773..434c295f44ba 100644
+>> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+>> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+>> @@ -17,6 +17,7 @@
+>>   #include <drm/drm_gem.h>
+>>   #include <drm/drm_atomic.h>
+>>   #include <drm/drm_atomic_helper.h>
+>> +#include <drm/drm_colorop.h>
+>>   #include <drm/drm_drv.h>
+>>   #include <drm/drm_fbdev_shmem.h>
+>>   #include <drm/drm_file.h>
+>> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+>> index 74ce26fa8838..178f8f62c80f 100644
+>> --- a/include/drm/drm_atomic.h
+>> +++ b/include/drm/drm_atomic.h
+>> @@ -30,7 +30,6 @@
+>>   
+>>   #include <drm/drm_crtc.h>
+>>   #include <drm/drm_util.h>
+>> -#include <drm/drm_colorop.h>
+>>   
+>>   /**
+>>    * struct drm_crtc_commit - track modeset commits on a CRTC
+>> @@ -712,6 +711,14 @@ drm_atomic_get_plane_state(struct drm_atomic_state *state,
+>>   struct drm_colorop_state *
+>>   drm_atomic_get_colorop_state(struct drm_atomic_state *state,
+>>   			     struct drm_colorop *colorop);
+>> +
+>> +struct drm_colorop_state *
+>> +drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
+>> +				 struct drm_colorop *colorop);
+>> +struct drm_colorop_state *
+>> +drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
+>> +				 struct drm_colorop *colorop);
+>> +
+>>   struct drm_connector_state * __must_check
+>>   drm_atomic_get_connector_state(struct drm_atomic_state *state,
+>>   			       struct drm_connector *connector);
+>> @@ -808,36 +815,6 @@ drm_atomic_get_new_plane_state(const struct drm_atomic_state *state,
+>>   	return state->planes[drm_plane_index(plane)].new_state;
+>>   }
+>>   
+>> -/**
+>> - * drm_atomic_get_old_colorop_state - get colorop state, if it exists
+>> - * @state: global atomic state object
+>> - * @colorop: colorop to grab
+>> - *
+>> - * This function returns the old colorop state for the given colorop, or
+>> - * NULL if the colorop is not part of the global atomic state.
+>> - */
+>> -static inline struct drm_colorop_state *
+>> -drm_atomic_get_old_colorop_state(struct drm_atomic_state *state,
+>> -				 struct drm_colorop *colorop)
+>> -{
+>> -	return state->colorops[drm_colorop_index(colorop)].old_state;
+>> -}
+>> -
+>> -/**
+>> - * drm_atomic_get_new_colorop_state - get colorop state, if it exists
+>> - * @state: global atomic state object
+>> - * @colorop: colorop to grab
+>> - *
+>> - * This function returns the new colorop state for the given colorop, or
+>> - * NULL if the colorop is not part of the global atomic state.
+>> - */
+>> -static inline struct drm_colorop_state *
+>> -drm_atomic_get_new_colorop_state(struct drm_atomic_state *state,
+>> -				 struct drm_colorop *colorop)
+>> -{
+>> -	return state->colorops[drm_colorop_index(colorop)].new_state;
+>> -}
+>> -
+>>   /**
+>>    * drm_atomic_get_old_connector_state - get connector state, if it exists
+>>    * @state: global atomic state object
+>
 
 -- 
-2.52.0
-
+Jani Nikula, Intel
