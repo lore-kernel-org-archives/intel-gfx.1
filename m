@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C77B1E6F079
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 10:51:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7001CE6F088
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 10:51:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58A7A10E2BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51B110E2CE;
 	Tue, 23 Dec 2025 10:51:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nACkjKLd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hmom4N4x";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6202610E2B1;
- Tue, 23 Dec 2025 10:51:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF50B10E2BE;
+ Tue, 23 Dec 2025 10:51:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1766487102; x=1798023102;
+ t=1766487107; x=1798023107;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/pdtkncV0oxQT6aeJS+c9nSVDU12dNmwdvCRU8TKlB0=;
- b=nACkjKLdS2yCbbvmglIMaF7ePrPE2l51QgpobHckMnSVchHgCINPlYzm
- +MDQQzZzhfI/jyrWfmnYmrQlhLgO2Bc3Bs31aBGZ2xPWLskVC7am9GkVg
- lR81a+cJz2tO2ORjtGM7r2/jig+a5EXthKUBlCTe2CSvaUVrPulmxxboF
- uAtxZhxZx5jqo7YpknnyxZ2nQPM5Ljdjc0T8lgfshpqJwa8QhZuebOCPP
- EcVg6MpRupOPLe3TKFS4plrOiDuCD1IONMlemuH5LaVyia9Gg9A+Miqlu
- SRFwDayQqPk6THbsaPCNMXK+6rNNKji0SUHVlbZ4AExMeVW1vmc6RCS/g w==;
-X-CSE-ConnectionGUID: 00OHVft0QB65GnsbpYzaaA==
-X-CSE-MsgGUID: jwmaBZktQj2IVES5U8nNDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11650"; a="78651280"
-X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="78651280"
+ bh=IA/uGeujoVQu3plklxhp1JRcNCwND0RX18AgP1KQMJk=;
+ b=Hmom4N4xVYEocizRQ3urlvBr8oD697lzceDtt94swHfNB+0ZAf0vT4sZ
+ 5nLWlu8qukOLtF45m0zCJ6NEdpByxN/hgvLD5hoq7q1IgX5PP3yT1pYFH
+ A8do6xW2/gUcLKTjVovbZHAX0yiXYs0XEi1UWv1MP6zjTr7Z+zQcBRaoB
+ Tjl268wfwcmMo+K/l9Cmwyh6Zjat3GFYn5Cg56ZHcne5tJgED/rMnmMdK
+ GraH/0eLzWhh8XOlhZy1kDWC+TdbDsynXK2IcVCx2EE9NrxYm/GYJGIk6
+ RRcmR3VPveP8a+/z1TwiBQLXaGoz1QfYjP0YjWp1h3eSgdaQVWj0/zg1m w==;
+X-CSE-ConnectionGUID: BUrrFBA3QH2xvoJdjpIKXA==
+X-CSE-MsgGUID: N0+o3mxlRQq7U64bp3crTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11650"; a="78651286"
+X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="78651286"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2025 02:51:42 -0800
-X-CSE-ConnectionGUID: mClJW6gzTCyHmbXZhRY+dA==
-X-CSE-MsgGUID: ucWevZuWTf20Iq79hXyYzg==
+ 23 Dec 2025 02:51:47 -0800
+X-CSE-ConnectionGUID: 21jTGEJHSRO4PvtgGmX0Og==
+X-CSE-MsgGUID: riYTW7vgTZS/PvpFGvRZCA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="204806162"
+X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="204806229"
 Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO
  jhogande-mobl3.intel.com) ([10.245.246.100])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2025 02:51:40 -0800
+ 23 Dec 2025 02:51:45 -0800
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v9 4/8] drm/i915/dsb: Set DSB_SKIP_WAITS_EN chicken bit for
+Subject: [PATCH v9 7/8] drm/i915/psr: Do PSR exit on frontbuffer flush on
  LunarLake and onwards
-Date: Tue, 23 Dec 2025 12:51:16 +0200
-Message-ID: <20251223105120.21505-5-jouni.hogander@intel.com>
+Date: Tue, 23 Dec 2025 12:51:19 +0200
+Message-ID: <20251223105120.21505-8-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20251223105120.21505-1-jouni.hogander@intel.com>
 References: <20251223105120.21505-1-jouni.hogander@intel.com>
@@ -72,57 +72,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On LunarLake we are using TRANS_PUSH mechanism to trigger "Frame Change"
-event. This way we have more control on when PSR HW is woken up. I.e. not
-every display register write is triggering sending update. This allows us
-setting DSB_SKIP_WAITS_EN chicken bit as well.
+We need to use intel_psr_exit in frontbuffer flush on LunarLake and
+onwardsif we want to move using trans push mechanism to trigger Frame
+Change event.
+
+Keep PSR1 and PSR2 HW tracking as it is for older platforms as this was
+seen causing problems there.
 
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dsb.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 18 ++++++++++--------
+ 1 file changed, 10 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-index ec2a3fb171ab..19a99f82f413 100644
---- a/drivers/gpu/drm/i915/display/intel_dsb.c
-+++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-@@ -17,6 +17,7 @@
- #include "intel_dsb.h"
- #include "intel_dsb_buffer.h"
- #include "intel_dsb_regs.h"
-+#include "intel_psr.h"
- #include "intel_vblank.h"
- #include "intel_vrr.h"
- #include "skl_watermark.h"
-@@ -166,18 +167,24 @@ static int dsb_scanline_to_hw(struct intel_atomic_state *state,
-  * definitely do not want to skip vblank wait. We also have concern what comes
-  * to skipping vblank evasion. I.e. arming registers are latched before we have
-  * managed writing them. Due to these reasons we are not setting
-- * DSB_SKIP_WAITS_EN.
-+ * DSB_SKIP_WAITS_EN except when using TRANS_PUSH mechanism to trigger
-+ * "frame change" event.
-  */
- static u32 dsb_chicken(struct intel_atomic_state *state,
- 		       struct intel_crtc *crtc)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 4336ba188aa7..ee70d0ceeb5b 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -3559,7 +3559,14 @@ static void _psr_flush_handle(struct intel_dp *intel_dp)
  {
-+	const struct intel_crtc_state *new_crtc_state =
-+		intel_atomic_get_new_crtc_state(state, crtc);
-+	u32 chicken = intel_psr_use_trans_push(new_crtc_state) ?
-+		DSB_SKIP_WAITS_EN : 0;
-+
- 	if (pre_commit_is_vrr_active(state, crtc))
--		return DSB_CTRL_WAIT_SAFE_WINDOW |
-+		chicken |= DSB_CTRL_WAIT_SAFE_WINDOW |
- 			DSB_CTRL_NO_WAIT_VBLANK |
- 			DSB_INST_WAIT_SAFE_WINDOW |
- 			DSB_INST_NO_WAIT_VBLANK;
--	else
--		return 0;
-+
-+	return chicken;
- }
+ 	struct intel_display *display = to_intel_display(intel_dp);
  
- static bool assert_dsb_has_room(struct intel_dsb *dsb)
+-	if (DISPLAY_VER(display) < 20 && intel_dp->psr.psr2_sel_fetch_enabled) {
++	if (DISPLAY_VER(display) >= 20) {
++		/*
++		 * We can use PSR exit on LunarLake onwards. Also
++		 * using trans push mechanism to trigger Frame Change
++		 * event requires using PSR exit.
++		 */
++		intel_psr_exit(intel_dp);
++	} else if (intel_dp->psr.psr2_sel_fetch_enabled) {
+ 		/* Selective fetch prior LNL */
+ 		if (intel_dp->psr.psr2_sel_fetch_cff_enabled) {
+ 			/* can we turn CFF off? */
+@@ -3579,16 +3586,11 @@ static void _psr_flush_handle(struct intel_dp *intel_dp)
+ 		intel_psr_configure_full_frame_update(intel_dp);
+ 
+ 		intel_psr_force_update(intel_dp);
+-	} else if (!intel_dp->psr.psr2_sel_fetch_enabled) {
++	} else {
+ 		/*
+-		 * PSR1 on all platforms
+-		 * PSR2 HW tracking
+-		 * Panel Replay Full frame update
++		 * On older platforms using PSR exit was seen causing problems
+ 		 */
+ 		intel_psr_force_update(intel_dp);
+-	} else {
+-		/* Selective update LNL onwards */
+-		intel_psr_exit(intel_dp);
+ 	}
+ 
+ 	if (!intel_dp->psr.active && !intel_dp->psr.busy_frontbuffer_bits)
 -- 
 2.43.0
 
