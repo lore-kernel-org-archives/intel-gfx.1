@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48160E6F061
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 08:16:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0CE7E6F077
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Dec 2025 09:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C51B610E1D0;
-	Tue, 23 Dec 2025 08:16:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TSlPtIqk";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A1A10E19E;
- Tue, 23 Dec 2025 08:16:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1766477789; x=1798013789;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=H5PC9rJCiyCQeuGYg0SSfY2kOCezPAXQSwtqkqQwB4Q=;
- b=TSlPtIqktyIPL7xdpYUhOWEHa3BvASRbO2cFU+y9XXopNefwZeAYWobo
- hSA1M7tdlvNTtdizYkfma8ANreact3QhZUvmgDpBi+JfnHqH+E4vATbRs
- nC2+ZSpif70YZAuju85k1b5uMHq+e8oGlahK0lftUs8sVzlQfXZtx/qZE
- aACXEK83AK4ECko0xNmi4BIKJBBR51jd9T39YAToqVZ83MGrEPZfDD135
- wXYMqNVkCYPzKzsQGnnjIkwx0+VN6IntB3OlggCGyxitQHrIwVBfnhyUU
- oNFCiTa6kLZJI9w4mf8gAMA08g7wmoKFQd6wj3omVY5+vXu4J83R7X/pY Q==;
-X-CSE-ConnectionGUID: JrPbGRuWRUKhmpkX3ca4KA==
-X-CSE-MsgGUID: XT3TPTFGRxaxP3wk87PvTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11650"; a="68081703"
-X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="68081703"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Dec 2025 00:16:29 -0800
-X-CSE-ConnectionGUID: PVHEFE/gTx2g+sIEmidOdw==
-X-CSE-MsgGUID: vjLWJ89CR3eUQ+p3N9CUiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,170,1763452800"; d="scan'208";a="204224377"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by fmviesa005.fm.intel.com with ESMTP; 23 Dec 2025 00:16:28 -0800
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 2/3] drm/i915/display: Introduce skl_pipe_scaler_setup()
-Date: Tue, 23 Dec 2025 13:42:59 +0530
-Message-Id: <20251223081300.1196417-3-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20251223081300.1196417-1-nemesa.garg@intel.com>
-References: <20251223081300.1196417-1-nemesa.garg@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43A1810E091;
+	Tue, 23 Dec 2025 09:14:26 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3C5F10E091;
+ Tue, 23 Dec 2025 09:14:24 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4474564839244440852=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Make_casf_updates_atomic_?=
+ =?utf-8?q?and_dsb_ready_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Nemesa Garg" <nemesa.garg@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 23 Dec 2025 09:14:24 -0000
+Message-ID: <176648126473.113796.7313676790290596030@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20251223081300.1196417-1-nemesa.garg@intel.com>
+In-Reply-To: <20251223081300.1196417-1-nemesa.garg@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,149 +37,195 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As skl_pfit_enable and skl_scaler_setup_casf
-have similar logic for pipe scaler registers
-so to avoid duplicacy introduce new helper
-skl_pipe_scaler_setup. This helper consolidates
-common scaler setup steps and is now called
-from both skl_pfit_enable() and skl_scaler_setup_casf().
+--===============4474564839244440852==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
----
- drivers/gpu/drm/i915/display/skl_scaler.c | 67 ++++++++++++-----------
- drivers/gpu/drm/i915/display/skl_scaler.h |  2 +
- 2 files changed, 36 insertions(+), 33 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 4c4deac7f9c8..abd951f7dd71 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -761,41 +761,25 @@ static void skl_scaler_setup_filter(struct intel_display *display,
- 
- void skl_scaler_setup_casf(struct intel_crtc_state *crtc_state)
- {
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	struct intel_display *display = to_intel_display(crtc);
-+	struct intel_display *display = to_intel_display(crtc_state);
-+        struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	const struct intel_crtc_scaler_state *scaler_state =
-+                &crtc_state->scaler_state;
- 	struct drm_display_mode *adjusted_mode =
--	&crtc_state->hw.adjusted_mode;
--	struct intel_crtc_scaler_state *scaler_state =
--		&crtc_state->scaler_state;
--	struct drm_rect src, dest;
--	int id, width, height;
--	int x = 0, y = 0;
-+		&crtc_state->hw.adjusted_mode;
- 	enum pipe pipe = crtc->pipe;
--	u32 ps_ctrl;
-+	int width, height, x = 0, y = 0;
-+	int id;
- 
- 	width = adjusted_mode->crtc_hdisplay;
- 	height = adjusted_mode->crtc_vdisplay;
- 
--	drm_rect_init(&dest, x, y, width, height);
--
--	width = drm_rect_width(&dest);
--	height = drm_rect_height(&dest);
- 	id = scaler_state->scaler_id;
- 
--	drm_rect_init(&src, 0, 0,
--		      drm_rect_width(&crtc_state->pipe_src) << 16,
--		      drm_rect_height(&crtc_state->pipe_src) << 16);
-+	skl_pipe_scaler_setup(crtc_state, width, height, x, y);
- 
--	trace_intel_pipe_scaler_update_arm(crtc, id, x, y, width, height);
--
--	ps_ctrl = PS_SCALER_EN | PS_BINDING_PIPE | scaler_state->scalers[id].mode |
--		  CASF_SCALER_FILTER_SELECT;
--
--	intel_de_write_fw(display, SKL_PS_CTRL(pipe, id), ps_ctrl);
--	intel_de_write_fw(display, SKL_PS_WIN_POS(pipe, id),
--			  PS_WIN_XPOS(x) | PS_WIN_YPOS(y));
- 	intel_de_write_fw(display, SKL_PS_WIN_SZ(pipe, id),
--			  PS_WIN_XSIZE(width) | PS_WIN_YSIZE(height));
-+                          PS_WIN_XSIZE(width) | PS_WIN_YSIZE(height));
- }
- 
- void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
-@@ -814,7 +798,6 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	int hscale, vscale;
- 	struct drm_rect src;
- 	int id;
--	u32 ps_ctrl;
- 
- 	if (!crtc_state->pch_pfit.enabled)
- 		return;
-@@ -836,10 +819,34 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 	uv_rgb_hphase = skl_scaler_calc_phase(1, hscale, false);
- 	uv_rgb_vphase = skl_scaler_calc_phase(1, vscale, false);
- 
-+	skl_pipe_scaler_setup(crtc_state, width, height, x, y);
-+
-+	id = scaler_state->scaler_id;
-+
-+	intel_de_write_fw(display, SKL_PS_VPHASE(pipe, id),
-+			  PS_Y_PHASE(0) | PS_UV_RGB_PHASE(uv_rgb_vphase));
-+	intel_de_write_fw(display, SKL_PS_HPHASE(pipe, id),
-+			  PS_Y_PHASE(0) | PS_UV_RGB_PHASE(uv_rgb_hphase));
-+	intel_de_write_fw(display, SKL_PS_WIN_SZ(pipe, id),
-+			  PS_WIN_XSIZE(width) | PS_WIN_YSIZE(height));
-+}
-+
-+void skl_pipe_scaler_setup(const struct intel_crtc_state *crtc_state,
-+			   int width, int height, int x, int y)
-+{
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	const struct intel_crtc_scaler_state *scaler_state =
-+		&crtc_state->scaler_state;
-+	enum pipe pipe = crtc->pipe;
-+	int id;
-+	u32 ps_ctrl;
-+
- 	id = scaler_state->scaler_id;
- 
- 	ps_ctrl = PS_SCALER_EN | PS_BINDING_PIPE | scaler_state->scalers[id].mode |
--		skl_scaler_get_filter_select(crtc_state->hw.scaling_filter);
-+		  skl_scaler_get_filter_select(crtc_state->hw.scaling_filter) |
-+		  CASF_SCALER_FILTER_SELECT;
- 
- 	trace_intel_pipe_scaler_update_arm(crtc, id, x, y, width, height);
- 
-@@ -848,14 +855,8 @@ void skl_pfit_enable(const struct intel_crtc_state *crtc_state)
- 
- 	intel_de_write_fw(display, SKL_PS_CTRL(pipe, id), ps_ctrl);
- 
--	intel_de_write_fw(display, SKL_PS_VPHASE(pipe, id),
--			  PS_Y_PHASE(0) | PS_UV_RGB_PHASE(uv_rgb_vphase));
--	intel_de_write_fw(display, SKL_PS_HPHASE(pipe, id),
--			  PS_Y_PHASE(0) | PS_UV_RGB_PHASE(uv_rgb_hphase));
- 	intel_de_write_fw(display, SKL_PS_WIN_POS(pipe, id),
- 			  PS_WIN_XPOS(x) | PS_WIN_YPOS(y));
--	intel_de_write_fw(display, SKL_PS_WIN_SZ(pipe, id),
--			  PS_WIN_XSIZE(width) | PS_WIN_YSIZE(height));
- }
- 
- void
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.h b/drivers/gpu/drm/i915/display/skl_scaler.h
-index 7e8d819c019d..94bde5d1c06a 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.h
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.h
-@@ -30,6 +30,8 @@ void skl_program_plane_scaler(struct intel_dsb *dsb,
- 			      struct intel_plane *plane,
- 			      const struct intel_crtc_state *crtc_state,
- 			      const struct intel_plane_state *plane_state);
-+void skl_pipe_scaler_setup(const struct intel_crtc_state *crtc_state,
-+			   int width, int height, int x, int y);
- void skl_detach_scalers(struct intel_dsb *dsb,
- 			const struct intel_crtc_state *crtc_state);
- void skl_scaler_disable(const struct intel_crtc_state *old_crtc_state);
--- 
-2.25.1
+Series: Make casf updates atomic and dsb ready (rev2)
+URL   : https://patchwork.freedesktop.org/series/158667/
+State : failure
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_17732 -> Patchwork_158667v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_158667v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_158667v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/index.html
+
+Participating hosts (44 -> 42)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_158667v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@migrate:
+    - bat-mtlp-8:         [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-mtlp-8/igt@i915_selftest@live@migrate.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-mtlp-8/igt@i915_selftest@live@migrate.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_158667v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][3] -> [INCOMPLETE][4] ([i915#15176])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-mtlp-8/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-mtlp-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-6:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arlh-3:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html
+    - bat-arls-5:         [DMESG-FAIL][9] ([i915#12061]) -> [PASS][10] +1 other test pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#15176]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17732 -> Patchwork_158667v2
+
+  CI-20190529: 20190529
+  CI_DRM_17732: f101d56dc32350daa45c130ff7a6d46512f614a9 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8674: f38f4d8e9c65aff45ac807e646d06e38bc3193a2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_158667v2: f101d56dc32350daa45c130ff7a6d46512f614a9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/index.html
+
+--===============4474564839244440852==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Make casf updates atomic and dsb ready (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/158667/">https://patchwork.freedesktop.org/series/158667/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17732 -&gt; Patchwork_158667v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_158667v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_158667v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/index.html</p>
+<h2>Participating hosts (44 -&gt; 42)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_158667v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@migrate:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-mtlp-8/igt@i915_selftest@live@migrate.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-mtlp-8/igt@i915_selftest@live@migrate.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_158667v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-mtlp-8/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176">i915#15176</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17732/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_158667v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17732 -&gt; Patchwork_158667v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17732: f101d56dc32350daa45c130ff7a6d46512f614a9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8674: f38f4d8e9c65aff45ac807e646d06e38bc3193a2 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_158667v2: f101d56dc32350daa45c130ff7a6d46512f614a9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4474564839244440852==--
