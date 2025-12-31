@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC22FEE49BD
-	for <intel-gfx@archiver.kernel.org>; Wed, 31 Dec 2025 05:23:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1B23EE57D1
+	for <intel-gfx@archiver.kernel.org>; Wed, 31 Dec 2025 05:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49A3F10E737;
-	Wed, 31 Dec 2025 05:23:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4904110E97A;
+	Wed, 31 Dec 2025 05:23:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jsKK8TTc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PFPkaz7G";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3610E1A0;
- Wed, 31 Dec 2025 05:23:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C95910E978;
+ Wed, 31 Dec 2025 05:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1767158603; x=1798694603;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=O9ql1KN8nfXOm77J0pBi3b2wEa75Qlo5by9+ACWWf8s=;
- b=jsKK8TTcvGVvY//qq9L6VBYYs2SfOIRU1coCw4Myh+fYZu6qbgsk9RjU
- J+ffXKM9iZdS0Q5N5famkbHMrZCqNeqhGfIcYUXwbCY7nU/gwZzLB+wC3
- Q8yF03EyM7Rsc8PxLhzQ6/MBgzDSvUNlORFGwq+zYgEu9aqpAYkPbMX75
- PbrtSwVKyU6168cnDHoTGW1cc9A8qhCY8H0oy22bh1TdQjCUNrRqg+9Qe
- Ymko+HrOxNvLj+WpWcGWEp/sR5CxI5QidOm9hEdt3mjbYBSiAa0c0z9Gs
- 36SzPiR/Tt5+z63cB3475+5z/R+P+CplryF9X2VL8THkwxMc2J1wqxqR7 Q==;
-X-CSE-ConnectionGUID: BQEjAmFVT6m/eyT5L1Z5HA==
-X-CSE-MsgGUID: 8w+7uOSNQrys2DJ/GQGIeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11657"; a="68486243"
-X-IronPort-AV: E=Sophos;i="6.21,191,1763452800"; d="scan'208";a="68486243"
+ t=1767158606; x=1798694606;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GOG7UmNOSpXufRAtUBk94vQJoCYW0YqHISUimB0WgNM=;
+ b=PFPkaz7Gum5QU7cXF1hOHcDPjUi8fNKsnmXIpm5NWzifNZYaTOzjxGYF
+ Ad8e2+RwNGpOYA7cOowV0r7I0Msu5TcHkd9vWsH0Kn0Uw03LQ5pnbcEmf
+ K3vt1T4jbLMrNAW/LCf3CeYUYr0s2eY0XDCyF9cW23HxSXfcuKSPHCdPX
+ DBrzEstzC3x7FMw7tXyCBDNWS9h8xCUROWtKN5jY8Vo+pPJCBepRuNjKl
+ dDtVAEeXzABg08PX7cyZvOlJx6sJAfH3GyJNV89B2TBccN7lPlCwD37ad
+ 8LvMixcBSMuWNwAkCgjj+0+EnNGWFLjJ/Kek7cjBA0f6kr6khghBuwdL4 Q==;
+X-CSE-ConnectionGUID: jZNm7uKxTCeakP0C9A7xtg==
+X-CSE-MsgGUID: chW4KUPnS0uxL8Iknjg1aA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11657"; a="68486247"
+X-IronPort-AV: E=Sophos;i="6.21,191,1763452800"; d="scan'208";a="68486247"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Dec 2025 21:23:22 -0800
-X-CSE-ConnectionGUID: gh62UJrSQD6AVV9Gn7/lJg==
-X-CSE-MsgGUID: 04bFf17xS6WlVMEWK8lvSg==
+ 30 Dec 2025 21:23:25 -0800
+X-CSE-ConnectionGUID: xmqJr0vJTgazqx9eiT+1vw==
+X-CSE-MsgGUID: BbV365+vREihRIWRK6q5Mw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,191,1763452800"; d="scan'208";a="232450978"
+X-IronPort-AV: E=Sophos;i="6.21,191,1763452800"; d="scan'208";a="232450989"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa001.fm.intel.com with ESMTP; 30 Dec 2025 21:23:20 -0800
+ by fmviesa001.fm.intel.com with ESMTP; 30 Dec 2025 21:23:23 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com,
 	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 1/3] drm/i915/ltphy: Remove state verification for LT PHY
- fields
-Date: Wed, 31 Dec 2025 10:53:13 +0530
-Message-Id: <20251231052315.77828-1-suraj.kandpal@intel.com>
+Subject: [PATCH 3/3] drm/i915/ltphy: Provide protection against unsupported
+ modes
+Date: Wed, 31 Dec 2025 10:53:15 +0530
+Message-Id: <20251231052315.77828-3-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20251231052315.77828-1-suraj.kandpal@intel.com>
+References: <20251231052315.77828-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,70 +69,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove LT PHY State verification for all VDR register fields other
-than VDR0_CONFIG and VDR2_CONFIG since those are the only reliable
-shadow register that hold on to its value in case there is PSR/PR
-which can cause power gating internally of the PHY.
+We need to make sure we return some port clock in case we have
+unsupported LT PHY modes or if we were not able to read the LT PHY state
+for whatever reason and the mode ends up being 0.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_lt_phy.c | 30 +++++----------------
- 1 file changed, 7 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lt_phy.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 939c8975fd4c..9501ac861712 100644
+index cc85818c2b7e..54d1c68cf83a 100644
 --- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
 +++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -2259,8 +2259,6 @@ void intel_lt_phy_pll_state_verify(struct intel_atomic_state *state,
- 	struct intel_encoder *encoder;
- 	struct intel_lt_phy_pll_state pll_hw_state = {};
- 	const struct intel_lt_phy_pll_state *pll_sw_state = &new_crtc_state->dpll_hw_state.ltpll;
--	int clock;
--	int i, j;
+@@ -31,6 +31,7 @@
+ #define INTEL_LT_PHY_BOTH_LANES		(INTEL_LT_PHY_LANE1 |\
+ 					 INTEL_LT_PHY_LANE0)
+ #define MODE_DP				3
++#define MODE_HDMI_20			4
+ #define Q32_TO_INT(x)	((x) >> 32)
+ #define Q32_TO_FRAC(x)	((x) & 0xFFFFFFFF)
+ #define DCO_MIN_FREQ_MHZ	11850
+@@ -1751,6 +1752,7 @@ int
+ intel_lt_phy_calc_port_clock(struct intel_encoder *encoder,
+ 			     const struct intel_crtc_state *crtc_state)
+ {
++	struct intel_display *display = to_intel_display(encoder);
+ 	int clk;
+ 	const struct intel_lt_phy_pll_state *lt_state =
+ 		&crtc_state->dpll_hw_state.ltpll;
+@@ -1768,8 +1770,11 @@ intel_lt_phy_calc_port_clock(struct intel_encoder *encoder,
+ 		rate = REG_FIELD_GET8(LT_PHY_VDR_RATE_ENCODING_MASK,
+ 				      lt_state->config[0]);
+ 		clk = intel_lt_phy_get_dp_clock(rate);
+-	} else {
++	} else if (mode == MODE_HDMI_20) {
+ 		clk = intel_lt_phy_calc_hdmi_port_clock(crtc_state);
++	} else {
++		drm_WARN_ON(display->drm, "Unsupported LT PHY Mode!\n");
++		clk = xe3plpd_lt_hdmi_252.clock;
+ 	}
  
- 	if (DISPLAY_VER(display) < 35)
- 		return;
-@@ -2275,33 +2273,19 @@ void intel_lt_phy_pll_state_verify(struct intel_atomic_state *state,
- 
- 	encoder = intel_get_crtc_new_encoder(state, new_crtc_state);
- 	intel_lt_phy_pll_readout_hw_state(encoder, new_crtc_state, &pll_hw_state);
--	clock = intel_lt_phy_calc_port_clock(encoder, new_crtc_state);
- 
- 	dig_port = enc_to_dig_port(encoder);
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
- 		return;
- 
--	INTEL_DISPLAY_STATE_WARN(display, pll_hw_state.clock != clock,
--				 "[CRTC:%d:%s] mismatch in LT PHY: Register CLOCK (expected %d, found %d)",
-+	INTEL_DISPLAY_STATE_WARN(display, pll_hw_state.config[0] != pll_sw_state->config[0],
-+				 "[CRTC:%d:%s] mismatch in LT PHY PLL CONFIG 0: (expected 0x%04x, found 0x%04x)",
- 				 crtc->base.base.id, crtc->base.name,
--				 pll_sw_state->clock, pll_hw_state.clock);
--
--	for (i = 0; i < 3; i++) {
--		INTEL_DISPLAY_STATE_WARN(display, pll_hw_state.config[i] != pll_sw_state->config[i],
--					 "[CRTC:%d:%s] mismatch in LT PHY PLL CONFIG%d: (expected 0x%04x, found 0x%04x)",
--					 crtc->base.base.id, crtc->base.name, i,
--					 pll_sw_state->config[i], pll_hw_state.config[i]);
--	}
--
--	for (i = 0; i <= 12; i++) {
--		for (j = 3; j >= 0; j--)
--			INTEL_DISPLAY_STATE_WARN(display,
--						 pll_hw_state.data[i][j] !=
--						 pll_sw_state->data[i][j],
--						 "[CRTC:%d:%s] mismatch in LT PHY PLL DATA[%d][%d]: (expected 0x%04x, found 0x%04x)",
--						 crtc->base.base.id, crtc->base.name, i, j,
--						 pll_sw_state->data[i][j], pll_hw_state.data[i][j]);
--	}
-+				 pll_sw_state->config[0], pll_hw_state.config[0]);
-+	INTEL_DISPLAY_STATE_WARN(display, pll_hw_state.config[2] != pll_sw_state->config[2],
-+				 "[CRTC:%d:%s] mismatch in LT PHY PLL CONFIG 2: (expected 0x%04x, found 0x%04x)",
-+				 crtc->base.base.id, crtc->base.name,
-+				 pll_sw_state->config[2], pll_hw_state.config[2]);
- }
- 
- void intel_xe3plpd_pll_enable(struct intel_encoder *encoder,
+ 	return clk;
 -- 
 2.34.1
 
