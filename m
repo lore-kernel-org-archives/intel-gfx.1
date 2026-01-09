@@ -4,69 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A628D232EE
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 08:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3453D232F7
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 08:43:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0814F10E808;
-	Fri,  9 Jan 2026 08:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C280010E81F;
+	Fri,  9 Jan 2026 08:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="sUayzPK2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O0NCuAJb";
 	dkim-atps=neutral
-Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
- [209.85.221.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4179010E809
- for <intel-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 08:23:54 +0000 (UTC)
-Received: by mail-wr1-f74.google.com with SMTP id
- ffacd0b85a97d-431026b6252so3309953f8f.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 00:23:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1767947033; x=1768551833;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=Bz6XZoZwTVNk1kaS460BdgY2+XDbKdduhK2aC7bHOvY=;
- b=sUayzPK2amOPXRBB1w6TYRaebC/hrarCEg6k+bgmhFbrExrNuGD3gNq7frZhkAlFW5
- Faj6Yj5zeA38wqawXdh3JHNydNzc9pDb1Xn41sNokbXvjMTP4yB24c4GLohbf25tylCC
- 9XD+oilbdn/PXOCFAi90hQ6GH5LpuBQ5ecX7qO5FZWDuFdPD9JOOos5LwoxwwCLvwD5X
- IzhUuqWnswqmWaxbaZZ1hFnO7TVkCWMEuhTUVEkJJitxPAaSJRrR/+o5jUR7iT7VGiou
- gapvL6SiXPyCKv2/9COnqfmQy5OHTpF0kBe+wPJNAoJRPq1goBIKmNtOxCyuSjrI+KWF
- 9m+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1767947033; x=1768551833;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Bz6XZoZwTVNk1kaS460BdgY2+XDbKdduhK2aC7bHOvY=;
- b=lfOSmDATLraXaP63eCJG6ObzzPvhuycGzSEX+q0kOv8n9su31wDPkxONfmiHH/eWm8
- +JxrwbhOiJumEzSS29jwPpPaAzJ6S6N4pB6j163J2bYn7o+nYPsceVrkAB/MZmg40+Jv
- jg+pS2vPlAstQop+Bo7D9q4vFifMchFCHNPzh0FMpcWvIF+FAfjno2+DxJB2cT4nx75u
- 5DgJ5jg2/GpgZ+ljNsOSyFnrtqDGhNd5Q9D4q5d64TorkNPCmxOOhllof2O7uWcW980l
- 3rcK9cJkRr+ei1YDk1CRIcZshl8zk/pwMQJ6548u0T/zRJVYwP35NgCo3HMWTiprpYu2
- tL9Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUs62WSU6N6Ok0ngKG43NIZ1LaH1YBnMMS2yXGr704kadj2Cr1IwlA0ZvRZWeDpd4Tbd4F1ZfvBRgo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfLQ+574RMxmK6cM+r693xKoOQgYNW64Zbn6sIpNYuqkx+Kuek
- FgiizZmmFHonEWqU4VrOkdhVBkUkKzgn6q1YFbAWHt0cGOwsILDBWdMovtS7EJK32aS0g6l53At
- f3BHDPoGTXqJ57Ygr4w==
-X-Google-Smtp-Source: AGHT+IEORxBIBX+gxAwgYCUgmsBm4kcmdt3wMvqlRa+ow6HYY7tuSd6AdQ6sTWBCwLoPH+xaT8wwKwsFL/ro6+I=
-X-Received: from wrp30.prod.google.com ([2002:a05:6000:41fe:b0:430:f692:a94e])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:240f:b0:432:5b81:480 with SMTP id
- ffacd0b85a97d-432c3774163mr10272579f8f.24.1767947032905; 
- Fri, 09 Jan 2026 00:23:52 -0800 (PST)
-Date: Fri, 9 Jan 2026 08:23:52 +0000
-In-Reply-To: <20260109135438.5b4f463d@canb.auug.org.au>
-Mime-Version: 1.0
-References: <20260109135438.5b4f463d@canb.auug.org.au>
-Message-ID: <aWC7GKcOB6m4LFGz@google.com>
-Subject: Re: linux-next: build warning after merge of the drm-misc tree
-From: Alice Ryhl <aliceryhl@google.com>
-To: Stephen Rothwell <sfr@canb.auug.org.au>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5AA10E817;
+ Fri,  9 Jan 2026 08:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1767948178; x=1799484178;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KbTCncQ97eerYnw4Wnp91TIcTti+LR3nCKvYH1J59aA=;
+ b=O0NCuAJbxovJWCsIc0rdwx//7xYBqj3W60ixSSKSz/V9qhFORLYRPGBx
+ xcddnU01o7WFeu5QOML9n2Jgxj1+sHXpwGGqiHeQDxzwvC5pjSx3qI542
+ KPf4Q2+VS3W00FilYYXCnBI+mXMOQobXHhVsvD8Ey+cky8i/WK/YQ2ZEN
+ /+Bo50MilqNcx2BmDbfAYOfeUbUFuw1xVElSAPYSnqSoGL4rlSQmePyGw
+ TIByaXufrhsRslU+nfROV0qWUdXPtpKIjEN/t217hDXo18HHNmZQqE2ur
+ RCogqHVDUSoxUwzOIzEIzkhq8veJ/++nKaZlQ15oc7dwSGDE1IEV4N+hW g==;
+X-CSE-ConnectionGUID: 4q+uutgZTFWFnZt/I9G8fQ==
+X-CSE-MsgGUID: +TchHBtISS+pidLfZ4JqCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11665"; a="69241385"
+X-IronPort-AV: E=Sophos;i="6.21,212,1763452800"; d="scan'208";a="69241385"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2026 00:42:58 -0800
+X-CSE-ConnectionGUID: ps0lOmumRfGomJYoGwQ6Qw==
+X-CSE-MsgGUID: K6mETJ7JSumbVto6QyMiaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,212,1763452800"; d="scan'208";a="240924425"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa001.jf.intel.com with ESMTP; 09 Jan 2026 00:42:53 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
+ alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
+ suraj.kandpal@intel.com, nfraprado@collabora.com,
+ ville.syrjala@linux.intel.com, matthew.d.roper@intel.com
+Subject: [PATCH v2 00/13] drm: Color pipeline teardown and follow-up
+ fixes/improvements
+Date: Fri,  9 Jan 2026 13:47:15 +0530
+Message-Id: <20260109081728.478844-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,23 +71,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 09, 2026 at 01:54:38PM +1100, Stephen Rothwell wrote:
-> Hi all,
-> 
-> After merging the drm-misc tree, today's linux-next build (htmldocs)
-> produced this warning:
-> 
-> WARNING: drivers/gpu/drm/drm_gpuvm.c:1855 expecting prototype for drm_gpuvm_bo_obtain(). Prototype was for drm_gpuvm_bo_obtain_locked() instead
-> 
-> Introduced by commit
-> 
->   9bf4ca1e699c ("drm/gpuvm: drm_gpuvm_bo_obtain() requires lock and staged mode")
-> 
-> -- 
-> Cheers,
-> Stephen Rothwell
+This series contains follow-up fixes and improvements for the DRM color
+pipeline infrastructure that was introduced in v6.19.[1][2]
 
-Thanks, here is the fix:
-https://lore.kernel.org/all/20260109082019.3999814-1-aliceryhl@google.com/
+The central handling of clean up of colorop from the mode_config list
+is missing. While vkms calls drm_colorop_pipeline_destroy() in vkms_destroy(),
+amd driver calls it only during failure of the init path and i915/xe driver
+does not call it at all. This means amd and intel leaks these objects on
+driver removal.
 
-Alice
+This series adds the teardown of mode_config.colorop_list in drm_mode_config_cleanup().
+Since, i915/xe sub-classes the drm_colorop within intel_colorop it was not enough
+to just use drm_colorop_pipeline_destroy(). Therefore, this series
+
+- Introduces driver-managed destruction for drm_colorop objects and
+  updates core helpers to use driver-provided destroy callbacks.
+- Ensures all colorop objects are correctly torn down during
+  mode_config cleanup and driver removal.
+
+In addition to that following changes are made in the series
+- Fixes enum name lifetime leaks in color pipeline init in i915, amdgpu_dm, and vkms
+- Corrects the ordering of the 3D LUT block in the i915 plane color pipeline
+- Refactors i915 plane color pipeline initialization to reliably clean
+  up partially constructed pipelines on failure.
+
+Thanks for taking a look. Feedback is welcome.
+
+[1] https://lore.kernel.org/dri-devel/cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com/
+[2] https://lore.kernel.org/intel-gfx/20251203085211.3663374-1-uma.shankar@intel.com/
+
+v2:
+ - Re-arrange patches (Alex)
+ - Re-factor code to avoid repitition in pipeline creation (Suraj)
+
+==
+Chaitanya
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+
+Chaitanya Kumar Borah (13):
+  drm/i915/color: Place 3D LUT after CSC in plane color pipeline
+  drm/amd/display: Fix color pipeline enum name leak
+  drm/vkms: Fix color pipeline enum name leak
+  drm/i915/display: Fix color pipeline enum name leak
+  drm/colorop: Add destroy helper for colorop objects
+  drm: Allow driver-managed destruction of colorop objects
+  drm/amd/display: Hook up colorop destroy helper for plane pipelines
+  drm/vkms: Hook up colorop destroy helper for plane pipelines
+  drm/i915/display: Hook up intel_colorop_destroy
+  drm: Clean up colorop objects during mode_config cleanup
+  drm/vkms: Remove drm_colorop_pipeline_destroy() from vkms_destroy()
+  drm/colorop: Use destroy callback for color pipeline teardown
+  drm/i915/color: Add failure handling in plane color pipeline init
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  31 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  13 +-
+ drivers/gpu/drm/drm_colorop.c                 |  46 +++--
+ drivers/gpu/drm/drm_mode_config.c             |   6 +
+ .../drm/i915/display/intel_color_pipeline.c   | 179 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_colorop.c  |   6 +
+ drivers/gpu/drm/i915/display/intel_colorop.h  |   1 +
+ drivers/gpu/drm/vkms/vkms_colorop.c           |  31 +--
+ drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
+ include/drm/drm_colorop.h                     |  40 +++-
+ 10 files changed, 264 insertions(+), 90 deletions(-)
+
+-- 
+2.25.1
+
