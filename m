@@ -4,27 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D5D0D232E2
-	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 06:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A628D232EE
+	for <intel-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 08:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB9B110E7EF;
-	Fri,  9 Jan 2026 06:48:43 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE3A10E7EF;
- Fri,  9 Jan 2026 06:48:42 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7916240877187113048=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_use_p?=
- =?utf-8?q?ort_not_transcoder_for_PORT=5FALPM=5FCTL?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kaushlendra Kumar" <kaushlendra.kumar@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 09 Jan 2026 06:48:42 -0000
-Message-ID: <176794132288.139574.14379606156327715898@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260109050021.2017982-1-kaushlendra.kumar@intel.com>
-In-Reply-To: <20260109050021.2017982-1-kaushlendra.kumar@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0814F10E808;
+	Fri,  9 Jan 2026 08:23:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="sUayzPK2";
+	dkim-atps=neutral
+Received: from mail-wr1-f74.google.com (mail-wr1-f74.google.com
+ [209.85.221.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4179010E809
+ for <intel-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 08:23:54 +0000 (UTC)
+Received: by mail-wr1-f74.google.com with SMTP id
+ ffacd0b85a97d-431026b6252so3309953f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 00:23:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1767947033; x=1768551833;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bz6XZoZwTVNk1kaS460BdgY2+XDbKdduhK2aC7bHOvY=;
+ b=sUayzPK2amOPXRBB1w6TYRaebC/hrarCEg6k+bgmhFbrExrNuGD3gNq7frZhkAlFW5
+ Faj6Yj5zeA38wqawXdh3JHNydNzc9pDb1Xn41sNokbXvjMTP4yB24c4GLohbf25tylCC
+ 9XD+oilbdn/PXOCFAi90hQ6GH5LpuBQ5ecX7qO5FZWDuFdPD9JOOos5LwoxwwCLvwD5X
+ IzhUuqWnswqmWaxbaZZ1hFnO7TVkCWMEuhTUVEkJJitxPAaSJRrR/+o5jUR7iT7VGiou
+ gapvL6SiXPyCKv2/9COnqfmQy5OHTpF0kBe+wPJNAoJRPq1goBIKmNtOxCyuSjrI+KWF
+ 9m+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767947033; x=1768551833;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Bz6XZoZwTVNk1kaS460BdgY2+XDbKdduhK2aC7bHOvY=;
+ b=lfOSmDATLraXaP63eCJG6ObzzPvhuycGzSEX+q0kOv8n9su31wDPkxONfmiHH/eWm8
+ +JxrwbhOiJumEzSS29jwPpPaAzJ6S6N4pB6j163J2bYn7o+nYPsceVrkAB/MZmg40+Jv
+ jg+pS2vPlAstQop+Bo7D9q4vFifMchFCHNPzh0FMpcWvIF+FAfjno2+DxJB2cT4nx75u
+ 5DgJ5jg2/GpgZ+ljNsOSyFnrtqDGhNd5Q9D4q5d64TorkNPCmxOOhllof2O7uWcW980l
+ 3rcK9cJkRr+ei1YDk1CRIcZshl8zk/pwMQJ6548u0T/zRJVYwP35NgCo3HMWTiprpYu2
+ tL9Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUs62WSU6N6Ok0ngKG43NIZ1LaH1YBnMMS2yXGr704kadj2Cr1IwlA0ZvRZWeDpd4Tbd4F1ZfvBRgo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfLQ+574RMxmK6cM+r693xKoOQgYNW64Zbn6sIpNYuqkx+Kuek
+ FgiizZmmFHonEWqU4VrOkdhVBkUkKzgn6q1YFbAWHt0cGOwsILDBWdMovtS7EJK32aS0g6l53At
+ f3BHDPoGTXqJ57Ygr4w==
+X-Google-Smtp-Source: AGHT+IEORxBIBX+gxAwgYCUgmsBm4kcmdt3wMvqlRa+ow6HYY7tuSd6AdQ6sTWBCwLoPH+xaT8wwKwsFL/ro6+I=
+X-Received: from wrp30.prod.google.com ([2002:a05:6000:41fe:b0:430:f692:a94e])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:240f:b0:432:5b81:480 with SMTP id
+ ffacd0b85a97d-432c3774163mr10272579f8f.24.1767947032905; 
+ Fri, 09 Jan 2026 00:23:52 -0800 (PST)
+Date: Fri, 9 Jan 2026 08:23:52 +0000
+In-Reply-To: <20260109135438.5b4f463d@canb.auug.org.au>
+Mime-Version: 1.0
+References: <20260109135438.5b4f463d@canb.auug.org.au>
+Message-ID: <aWC7GKcOB6m4LFGz@google.com>
+Subject: Re: linux-next: build warning after merge of the drm-misc tree
+From: Alice Ryhl <aliceryhl@google.com>
+To: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>, Danilo Krummrich <dakr@kernel.org>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,132 +79,26 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7916240877187113048==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Fri, Jan 09, 2026 at 01:54:38PM +1100, Stephen Rothwell wrote:
+> Hi all,
+> 
+> After merging the drm-misc tree, today's linux-next build (htmldocs)
+> produced this warning:
+> 
+> WARNING: drivers/gpu/drm/drm_gpuvm.c:1855 expecting prototype for drm_gpuvm_bo_obtain(). Prototype was for drm_gpuvm_bo_obtain_locked() instead
+> 
+> Introduced by commit
+> 
+>   9bf4ca1e699c ("drm/gpuvm: drm_gpuvm_bo_obtain() requires lock and staged mode")
+> 
+> -- 
+> Cheers,
+> Stephen Rothwell
 
-== Series Details ==
+Thanks, here is the fix:
+https://lore.kernel.org/all/20260109082019.3999814-1-aliceryhl@google.com/
 
-Series: drm/i915/display: use port not transcoder for PORT_ALPM_CTL
-URL   : https://patchwork.freedesktop.org/series/159850/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_17791 -> Patchwork_159850v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/index.html
-
-Participating hosts (43 -> 41)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_159850v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-3:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17791/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-    - bat-mtlp-9:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17791/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_17791 -> Patchwork_159850v1
-
-  CI-20190529: 20190529
-  CI_DRM_17791: 9e5d93261e35cda4189383e8746fef35c7d0d335 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8692: 8692
-  Patchwork_159850v1: 9e5d93261e35cda4189383e8746fef35c7d0d335 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/index.html
-
---===============7916240877187113048==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: use port not transcoder for PORT_ALPM_CTL</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/159850/">https://patchwork.freedesktop.org/series/159850/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_17791 -&gt; Patchwork_159850v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/index.html</p>
-<h2>Participating hosts (43 -&gt; 41)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_159850v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17791/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17791/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_159850v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_17791 -&gt; Patchwork_159850v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_17791: 9e5d93261e35cda4189383e8746fef35c7d0d335 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8692: 8692<br />
-  Patchwork_159850v1: 9e5d93261e35cda4189383e8746fef35c7d0d335 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7916240877187113048==--
+Alice
