@@ -4,60 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89DCDD0C851
-	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 10:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D60CCD0C850
+	for <intel-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 10:53:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E0210E4D7;
-	Tue, 13 Jan 2026 10:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 665CA10E4DA;
+	Tue, 13 Jan 2026 10:53:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z0Ku9f1d";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VSq3f46g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BBCF10E4D2;
- Tue, 13 Jan 2026 10:49:26 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1EA810E4D0;
+ Tue, 13 Jan 2026 10:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768301366; x=1799837366;
+ t=1768301596; x=1799837596;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=oqLWbR9Oz7S8nDmc4UEf/Rds8P7J6rSEEerhxG5PTCY=;
- b=Z0Ku9f1dfB4tMLCszSn3TNMOPhgHCkvB0L5VPv2Kh8mYBGk56uwAFmRi
- IVOynAbz3U3hrhgnuhZjRn/ZuACP+NsEHkPhlpStcFJoMExA/jv6tA8MB
- pzPaOF18b4hpIkCdYmGCoy3qkIouNtkSkdUspCaVRvl449lFqxbLOIt+2
- pCDOUv7Nv9iCRUqKl8EI/erLhdR4i0a284kcwHifQSmEukMbhJVoXuePL
- evJhZZxu9e2Rl94zt9rxLLaL4ZPvR/0lavuZDWd5P9Gvd56++briVuC1U
- +0Hl5tRnWbmHNfdgHgBM/PSozLwTxCPpdcqu6CyEAKuLkcYV75mxccO2u Q==;
-X-CSE-ConnectionGUID: WxH02pk7Ss6Ofi6GxHzDBA==
-X-CSE-MsgGUID: pH53U5YrQb+JdFaiVn6wYg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="87165275"
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="87165275"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2026 02:49:26 -0800
-X-CSE-ConnectionGUID: +q8KG43ZS16W/iRavnLvzA==
-X-CSE-MsgGUID: HqZ36w8BRuONwKkJ84lKNQ==
+ bh=LoS36F2vtru91ArMQWK8BgfHrWh/r0v7hLjWDK90geI=;
+ b=VSq3f46gLZFpBZqEcrH377NqpCGoRkN8mz9I+NEtzed75fpKa4QIWnYk
+ gwair6duGarqUSb9K1C81nDt4aQGS7ZP3wE+B/1KFWOYMhtWj5DM1PMQg
+ Y3d3NBoWA9wp10IXveyy+VXiWZ2NfKMlcdvzT6sZrRcBytJzwC/kXQ2ki
+ reSoTZCAow+Ul5GznOYzZHBUpCCVCOpofDaEA7Tgu1CBUhA9/nMMHF94g
+ Bx8t/MuAWjKhTyfWNdSlB6HeOEFNWbwm8SVFtygP90902wQvKPydgdb5E
+ QGgAcrh/kiTved+dYa5izNTAAMe2whXbzzlReTYhymiBgHU4CjxksyKLj Q==;
+X-CSE-ConnectionGUID: Uah5GETQTHmJYHXx45o+BQ==
+X-CSE-MsgGUID: nLzjzVmSRFew/i/mjuSMjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="92251421"
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="92251421"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2026 02:53:15 -0800
+X-CSE-ConnectionGUID: RLpLCtn6R1Sy+WoO5b99Xw==
+X-CSE-MsgGUID: kqF37buPRheHU9+VM+G88w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="227554702"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa002.fm.intel.com with ESMTP; 13 Jan 2026 02:49:22 -0800
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, jani.nikula@linux.intel.com,
- louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
- alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
- suraj.kandpal@intel.com, nfraprado@collabora.com,
- ville.syrjala@linux.intel.com, matthew.d.roper@intel.com
-Subject: [PATCH v3 13/13] drm/i915/color: Add failure handling in plane color
- pipeline init
-Date: Tue, 13 Jan 2026 15:53:03 +0530
-Message-Id: <20260113102303.724205-14-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260113102303.724205-1-chaitanya.kumar.borah@intel.com>
-References: <20260113102303.724205-1-chaitanya.kumar.borah@intel.com>
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="204443357"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.48])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2026 02:53:14 -0800
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Zbigniew =?UTF-8?B?S2VtcGN6ecWEc2tp?= <zbigniew.kempczynski@intel.com>
+Cc: igt-dev@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Subject: Re: [RFC i-g-t] Extend lsgpu output with data from discrete GPU
+ upstream bridge
+Date: Tue, 13 Jan 2026 11:53:11 +0100
+Message-ID: <14378338.RDIVbhacDa@jkrzyszt-mobl2.ger.corp.intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+In-Reply-To: <3c6q6qy233qap2w6tibmjrsckkmnjqhsmrucf37z5uip3prgfb@qflifrueyydx>
+References: <24219669.6Emhk5qWAg@jkrzyszt-mobl2.ger.corp.intel.com>
+ <3c6q6qy233qap2w6tibmjrsckkmnjqhsmrucf37z5uip3prgfb@qflifrueyydx>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,234 +71,359 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The plane color pipeline initialization built up multiple colorop blocks
-inline, but did not reliably clean up partially constructed pipelines
-when an intermediate step failed. This could lead to leaked colorop
-objects and fragile error handling as the pipeline grows.
+Hi Zbigniew,
 
-Refactor the pipeline construction to use a common helper for adding
-colorop blocks. This centralizes allocation, initialization, and
-teardown logic, allowing the caller to reliably unwind all previously
-created colorops on failure.
+Thanks for your comments.
 
-v2:
- - Refactor code to avoid repetition (Suraj)
+On Monday, 12 January 2026 17:45:23 CET Zbigniew Kempczy=C5=84ski wrote:
+> On Thu, Jan 08, 2026 at 07:29:27PM +0100, Janusz Krzysztofik wrote:
+> > Hi,
+> >=20
+> > Before I submit patches, I'd like you to have a look at the below provi=
+ded=20
+> > example of proposed output from a modified lsgpu tool and share your co=
+mments.
+> >=20
+> > Users complain about PCIe link bandwith of their Intel discrete GPU dev=
+ices=20
+> > limited to 2.5 GT/s x1, unable to utilize capabilities of their motherb=
+oards,=20
+> > see https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10753.  So =
+far=20
+> > Intel has provided the following explanation:
+> > https://www.intel.com/content/www/us/en/support/articles/000094587/grap=
+hics.html
+> >=20
+> > That's not true.  While PCI devices associated directly with Intel disc=
+rete=20
+> > GPUs provide fake data about link speed and width capabilities and stat=
+us,=20
+> > their upstream PCIe bridges report correct, actual values of those link=
+=20
+> > bandwidth attributes.
+>=20
+> Last time I was looking at this, and I have some doubts:
+>=20
+> Examining PCIe link chain for BMG, in my case device is
+>=20
+> 0000:03:00.0 -> ../../../devices/pci0000:00/0000:00:01.0/0000:01:00.0/000=
+0:02:01.0/0000:03:00.0
+>=20
+> LnkCap looks like this:
+>=20
+> # lspci -vv -s 0000:00:01.0 | egrep '^[0-9]|LnkCap'
+> 00:01.0 PCI bridge: Intel Corporation Device a70d (rev 01) (prog-if 00 [N=
+ormal decode])
+>                 LnkCap: Port #2, Speed 32GT/s, Width x16, ASPM L1, Exit L=
+atency L1 <16us
+>                 LnkCap2: Supported Link Speeds: 2.5-32GT/s, Crosslink- Re=
+timer+ 2Retimers+ DRS-
+> # lspci -vv -s 0000:01:00.0 | egrep '^[0-9]|LnkCap'
+> 01:00.0 PCI bridge: Intel Corporation Device e2ff (rev 01) (prog-if 00 [N=
+ormal decode])
+>                 LnkCap: Port #0, Speed 16GT/s, Width x8, ASPM L1, Exit La=
+tency L1 <32us
+>                 LnkCap2: Supported Link Speeds: 2.5-16GT/s, Crosslink- Re=
+timer+ 2Retimers+ DRS+
+> # lspci -vv -s 0000:02:01.0 | egrep '^[0-9]|LnkCap'
+> 02:01.0 PCI bridge: Intel Corporation Device e2f0 (prog-if 00 [Normal dec=
+ode])
+>                 LnkCap: Port #8, Speed 2.5GT/s, Width x1, ASPM L1, Exit L=
+atency L1 <1us
+>                 LnkCap2: Supported Link Speeds: 2.5GT/s, Crosslink- Retim=
+er+ 2Retimers+ DRS-
+> # lspci -vv -s 0000:03:00.0 | egrep '^[0-9]|LnkCap'
+> 03:00.0 VGA compatible controller: Intel Corporation Device e20b (prog-if=
+ 00 [VGA controller])
+>                 LnkCap: Port #0, Speed 2.5GT/s, Width x1, ASPM L0s L1, Ex=
+it Latency L0s <64ns, L1 <1us
+>                 LnkCap2: Supported Link Speeds: 2.5GT/s, Crosslink- Retim=
+er- 2Retimers- DRS-
+>=20
+> What is real link speed/width here? 32GT/s? 16GT/s? 2.5GT/s? Even if we
+> put 16GT/s here or even 32GT/s (why not, it is in the chain) we still
+> really don't know what is the real link speed/width on the GPU side.
 
-v3:
- - s/nvl/xe3plpd (Suraj)
+You've focused on link capabilities, while there is also information on lin=
+k=20
+status available.  If you grep your lspci output with '^[0-9]|LnkCap|LnkSta=
+'=20
+then you will also see current link status, compared to its capabilities.
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- .../drm/i915/display/intel_color_pipeline.c   | 164 +++++++++++++-----
- 1 file changed, 117 insertions(+), 47 deletions(-)
+> We will provide then two different values - lspci will show one value,
+> lsgpu another. =20
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 8fecc53540ba..6cf8080ee800 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -2,6 +2,8 @@
- /*
-  * Copyright © 2025 Intel Corporation
-  */
-+#include <drm/drm_print.h>
-+
- #include "intel_color.h"
- #include "intel_colorop.h"
- #include "intel_color_pipeline.h"
-@@ -10,6 +12,7 @@
- #include "skl_universal_plane.h"
- 
- #define MAX_COLOR_PIPELINES 1
-+#define MAX_COLOROP 4
- #define PLANE_DEGAMMA_SIZE 128
- #define PLANE_GAMMA_SIZE 32
- 
-@@ -17,70 +20,137 @@ static const struct drm_colorop_funcs intel_colorop_funcs = {
- 	.destroy = intel_colorop_destroy,
- };
- 
-+/*
-+ * 3DLUT can be bound to all three HDR planes. However, even with the latest
-+ * color pipeline UAPI, there is no good way to represent a HW block which
-+ * can be shared/attached at different stages of the pipeline. So right now,
-+ * we expose 3DLUT only attached with the primary plane.
-+ *
-+ * That way we don't confuse the userspace with opaque commit failures
-+ * on trying to enable it on multiple planes which would otherwise make
-+ * the pipeline totally unusable.
-+ */
-+static const enum intel_color_block xe3plpd_primary_plane_pipeline[] = {
-+	INTEL_PLANE_CB_PRE_CSC_LUT,
-+	INTEL_PLANE_CB_CSC,
-+	INTEL_PLANE_CB_3DLUT,
-+	INTEL_PLANE_CB_POST_CSC_LUT,
-+};
-+
-+static const enum intel_color_block hdr_plane_pipeline[] = {
-+	INTEL_PLANE_CB_PRE_CSC_LUT,
-+	INTEL_PLANE_CB_CSC,
-+	INTEL_PLANE_CB_POST_CSC_LUT,
-+};
-+
-+static bool plane_has_3dlut(struct intel_display *display, enum pipe pipe,
-+			    struct drm_plane *plane)
-+{
-+	return (DISPLAY_VER(display) >= 35 &&
-+		intel_color_crtc_has_3dlut(display, pipe) &&
-+		plane->type == DRM_PLANE_TYPE_PRIMARY);
-+}
-+
- static
--int _intel_color_pipeline_plane_init(struct drm_plane *plane, struct drm_prop_enum_list *list,
--				     enum pipe pipe)
-+struct intel_colorop *intel_color_pipeline_plane_add_colorop(struct drm_plane *plane,
-+							     struct intel_colorop *prev,
-+							     enum intel_color_block id)
- {
- 	struct drm_device *dev = plane->dev;
--	struct intel_display *display = to_intel_display(dev);
--	struct drm_colorop *prev_op;
- 	struct intel_colorop *colorop;
- 	int ret;
- 
--	colorop = intel_colorop_create(INTEL_PLANE_CB_PRE_CSC_LUT);
--
--	ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, plane, &intel_colorop_funcs,
--						  PLANE_DEGAMMA_SIZE,
--						  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
--						  DRM_COLOROP_FLAG_ALLOW_BYPASS);
--
--	if (ret)
--		return ret;
--
--	list->type = colorop->base.base.id;
--
--	/* TODO: handle failures and clean up */
--	prev_op = &colorop->base;
--
--	colorop = intel_colorop_create(INTEL_PLANE_CB_CSC);
--	ret = drm_plane_colorop_ctm_3x4_init(dev, &colorop->base, plane, &intel_colorop_funcs,
--					     DRM_COLOROP_FLAG_ALLOW_BYPASS);
--	if (ret)
--		return ret;
--
--	drm_colorop_set_next_property(prev_op, &colorop->base);
--	prev_op = &colorop->base;
--
--	if (DISPLAY_VER(display) >= 35 &&
--	    intel_color_crtc_has_3dlut(display, pipe) &&
--	    plane->type == DRM_PLANE_TYPE_PRIMARY) {
--		colorop = intel_colorop_create(INTEL_PLANE_CB_3DLUT);
--
-+	colorop = intel_colorop_create(id);
-+
-+	if (IS_ERR(colorop))
-+		return colorop;
-+
-+	switch (id) {
-+	case INTEL_PLANE_CB_PRE_CSC_LUT:
-+		ret = drm_plane_colorop_curve_1d_lut_init(dev,
-+							  &colorop->base, plane,
-+							  &intel_colorop_funcs,
-+							  PLANE_DEGAMMA_SIZE,
-+							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
-+							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+		break;
-+	case INTEL_PLANE_CB_CSC:
-+		ret = drm_plane_colorop_ctm_3x4_init(dev, &colorop->base, plane,
-+						     &intel_colorop_funcs,
-+						     DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+		break;
-+	case INTEL_PLANE_CB_3DLUT:
- 		ret = drm_plane_colorop_3dlut_init(dev, &colorop->base, plane,
- 						   &intel_colorop_funcs, 17,
- 						   DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
- 						   true);
--		if (ret)
--			return ret;
--
--		drm_colorop_set_next_property(prev_op, &colorop->base);
--
--		prev_op = &colorop->base;
-+		break;
-+	case INTEL_PLANE_CB_POST_CSC_LUT:
-+		ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, plane,
-+							  &intel_colorop_funcs,
-+							  PLANE_GAMMA_SIZE,
-+							  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
-+							  DRM_COLOROP_FLAG_ALLOW_BYPASS);
-+		break;
-+	default:
-+		drm_err(plane->dev, "Invalid colorop id [%d]", id);
-+		ret = -EINVAL;
- 	}
- 
--	colorop = intel_colorop_create(INTEL_PLANE_CB_POST_CSC_LUT);
--	ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, plane, &intel_colorop_funcs,
--						  PLANE_GAMMA_SIZE,
--						  DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
--						  DRM_COLOROP_FLAG_ALLOW_BYPASS);
- 	if (ret)
--		return ret;
-+		goto cleanup;
- 
--	drm_colorop_set_next_property(prev_op, &colorop->base);
-+	if (prev)
-+		drm_colorop_set_next_property(&prev->base, &colorop->base);
- 
--	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", list->type);
-+	return colorop;
-+
-+cleanup:
-+	intel_colorop_destroy(&colorop->base);
-+	return ERR_PTR(ret);
-+}
-+
-+static
-+int _intel_color_pipeline_plane_init(struct drm_plane *plane, struct drm_prop_enum_list *list,
-+				     enum pipe pipe)
-+{
-+	struct drm_device *dev = plane->dev;
-+	struct intel_display *display = to_intel_display(dev);
-+	struct intel_colorop *colorop[MAX_COLOROP];
-+	struct intel_colorop *prev = NULL;
-+	const enum intel_color_block *pipeline;
-+	int pipeline_len;
-+	int ret = 0;
-+	int i;
-+
-+	if (plane_has_3dlut(display, pipe, plane)) {
-+		pipeline = xe3plpd_primary_plane_pipeline;
-+		pipeline_len = ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
-+	} else {
-+		pipeline = hdr_plane_pipeline;
-+		pipeline_len = ARRAY_SIZE(hdr_plane_pipeline);
-+	}
-+
-+	for (i = 0; i < pipeline_len; i++) {
-+		colorop[i] = intel_color_pipeline_plane_add_colorop(plane, prev,
-+								    pipeline[i]);
-+		if (IS_ERR(colorop[i])) {
-+			ret = PTR_ERR(colorop[i]);
-+			goto cleanup;
-+		}
-+
-+		prev = colorop[i];
-+	}
-+
-+	list->type = colorop[0]->base.base.id;
-+	list->name = kasprintf(GFP_KERNEL, "Color Pipeline %d", colorop[0]->base.base.id);
- 
- 	return 0;
-+
-+cleanup:
-+	while (--i >= 0)
-+		intel_colorop_destroy(&colorop[i]->base);
-+	return ret;
- }
- 
- int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe pipe)
--- 
-2.25.1
+No, I proposed to omit those fake link bandwidth attributes associated with=
+=20
+the device itself from the output of lsgpu, and complement it with a view o=
+f=20
+the device's PCIe upstream bridge, with its correct link speed and size inf=
+o.
+
+> I don't know is it possible to alter sysfs values to real
+> link speed/width (assuming it is a lie now) but imo real fix should go
+> to sysfs side, not to userspace apps which just read what kernel provides.
+
+Those values are exposed in sysfs only via /sys/bus/pci/<slot>/device/confi=
+g. =20
+Its content is provided by the linux kernel PCI layer as a copy of the=20
+device's PCI config space read directly from hardware.  I don't think PCI=20
+subsystem maintainers will like your idea.  Since the issue is Intel GPU=20
+specific, it needs to be addressed in an Intel specific piece of software,=
+=20
+if not in hardware.  Neither i915 nor Xe KMDs can do anything about that.
+
+My first approach was to limit the corrective actions to extending the now=
+=20
+misleading information provided by customer support with a explanation of=20
+where to look for actual values and a promise that those values, provided b=
+y=20
+the device's upstream bridge, correctly describe the device's link status.
+
+The idea of teaching our lsgpu utility how to show current link status=20
+correctly addresses the lack of such tool on the Linux side, compared to=20
+Windows with its GPU-Z or HWiNFO user space tools which can do that (Window=
+s=20
+Device Manager still provides the same fake info as lspci).
+
+Thanks,
+Janusz
+
+>=20
+> --
+> Zbigniew
+>=20
+> >=20
+> > While users may use lspci tool to examine bridge devices manually thems=
+elves,=20
+> > there is an idea of extending our lsgpu tool with support for printing =
+that=20
+> > data.  In order for the tool to show correct link bandwidth of a discre=
+te GPU,=20
+> > we need to identify its PCIe upstream bridge and get that information f=
+rom=20
+> > that bridge.  For consistency with lspci output, we are not going to re=
+place=20
+> > silently the fake data with those obtained from the bridge, only omit t=
+hat=20
+> > data from our list of the GPU PCI device attributes, and complement the=
+=20
+> > printout with more or less complete information about the bridge itself.
+> >=20
+> > Please have a look at the example output provided below and share your=
+=20
+> > comments, if any.
+> >=20
+> > $ sudo ./build/tools/lsgpu -s
+> > sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000=
+:03:00.0/drm/card0
+> >     subsystem       : drm
+> >     drm card        : /dev/dri/card0
+> >     parent          : sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:=
+00.0/0000:02:01.0/0000:03:00.0
+> >=20
+> > sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000=
+:03:00.0/drm/renderD128
+> >     subsystem       : drm
+> >     drm render      : /dev/dri/renderD128
+> >     parent          : sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:=
+00.0/0000:02:01.0/0000:03:00.0
+> >=20
+> > sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0/0000:02:01.0/0000=
+:03:00.0
+> >     subsystem       : pci
+> >     drm card        : /dev/dri/card0
+> >     drm render      : /dev/dri/renderD128
+> >     vendor          : 8086
+> >     device          : 56A0
+> >     codename        : dg2
+> >     bridge          : sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:=
+00.0
+> >=20
+> > sys:/sys/devices/pci0000:00/0000:00:01.0/0000:01:00.0
+> >     subsystem       : pci
+> >     vendor          : 8086
+> >     device          : 4FA0
+> >=20
+> > $ sudo ./build/tools/lsgpu -p
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D drm:/sys/devices/pci0000:00/0000:00:01.0=
+/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0 =3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> >=20
+> > [properties]
+> > DEVPATH                         : /devices/pci0000:00/0000:00:01.0/0000=
+:01:00.0/0000:02:01.0/0000:03:00.0/drm/card0
+> > ID_PATH_TAG                     : pci-0000_03_00_0
+> > CURRENT_TAGS                    : :seat:uaccess:master-of-seat:
+> > TAGS                            : :seat:uaccess:master-of-seat:
+> > MINOR                           : 0
+> > DEVNAME                         : /dev/dri/card0
+> > ID_PATH                         : pci-0000:03:00.0
+> > SUBSYSTEM                       : drm
+> > DEVTYPE                         : drm_minor
+> > DEVLINKS                        : /dev/dri/by-path/pci-0000:03:00.0-card
+> > ID_FOR_SEAT                     : drm-pci-0000_03_00_0
+> > USEC_INITIALIZED                : 7056426
+> > MAJOR                           : 226
+> >=20
+> > [attributes]
+> > gt_cur_freq_mhz                 : 600
+> > gt_act_freq_mhz                 : 0
+> > subsystem                       : drm
+> > gt_max_freq_mhz                 : 2400
+> > gt_RP1_freq_mhz                 : 600
+> > gt_RPn_freq_mhz                 : 300
+> > device                          : 0000:03:00.0
+> > gt_boost_freq_mhz               : 2400
+> > gt_RP0_freq_mhz                 : 2400
+> > error                           : No error state collected
+> > gt_min_freq_mhz                 : 300
+> > dev                             : 226:0
+> >=20
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D drm:/sys/devices/pci0000:00/0000:00:01.0=
+/0000:01:00.0/0000:02:01.0/0000:03:00.0/drm/renderD128 =3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D
+> >=20
+> > [properties]
+> > DEVPATH                         : /devices/pci0000:00/0000:00:01.0/0000=
+:01:00.0/0000:02:01.0/0000:03:00.0/drm/renderD128
+> > ID_PATH                         : pci-0000:03:00.0
+> > MINOR                           : 128
+> > DEVNAME                         : /dev/dri/renderD128
+> > ID_PATH_TAG                     : pci-0000_03_00_0
+> > SUBSYSTEM                       : drm
+> > DEVTYPE                         : drm_minor
+> > DEVLINKS                        : /dev/dri/by-path/pci-0000:03:00.0-ren=
+der
+> > USEC_INITIALIZED                : 7057304
+> > MAJOR                           : 226
+> >=20
+> > [attributes]
+> > subsystem                       : drm
+> > dev                             : 226:128
+> > device                          : 0000:03:00.0
+> >=20
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D pci:/sys/devices/pci0000:00/0000:00:01.0=
+/0000:01:00.0/0000:02:01.0/0000:03:00.0 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > card device                     : /dev/dri/card0
+> > render device                   : /dev/dri/renderD128
+> > codename                        : dg2
+> >=20
+> > [properties]
+> > PCI_ID                          : 8086:56A0
+> > DEVPATH                         : /devices/pci0000:00/0000:00:01.0/0000=
+:01:00.0/0000:02:01.0/0000:03:00.0
+> > ID_PCI_INTERFACE_FROM_DATABASE  : VGA controller
+> > ID_PATH_TAG                     : pci-0000_03_00_0
+> > PCI_CLASS                       : 30000
+> > ID_PCI_CLASS_FROM_DATABASE      : Display controller
+> > ID_PCI_SUBCLASS_FROM_DATABASE   : VGA compatible controller
+> > PCI_SUBSYS_ID                   : 8086:1029
+> > MODALIAS                        : pci:v00008086d000056A0sv00008086sd000=
+01029bc03sc00i00
+> > PCI_SLOT_NAME                   : 0000:03:00.0
+> > USEC_INITIALIZED                : 7056140
+> > DRIVER                          : i915
+> > ID_PATH                         : pci-0000:03:00.0
+> > SUBSYSTEM                       : pci
+> >=20
+> > [attributes]
+> > consistent_dma_mask_bits        : 46
+> > power_state                     : D0
+> > class                           : 0x030000
+> > subsystem                       : pci
+> > iommu_group                     : 17
+> > enable                          : 1
+> > subsystem_vendor                : 0x8086
+> > reset_method                    : flr bus
+> > vendor                          : 0x8086
+> > boot_vga                        : 1
+> > resource2_resize                : 0000000000007f00
+> > subsystem_device                : 0x1029
+> > driver                          : i915
+> > iommu                           : dmar0
+> > d3cold_allowed                  : 1
+> > local_cpulist                   : 0-23
+> > ari_enabled                     : 1
+> > numa_node                       : -1
+> > dma_mask_bits                   : 46
+> > irq                             : 124
+> > driver_override                 : (null)
+> > device                          : 0x56a0
+> > local_cpus                      : ffffff
+> > revision                        : 0x08
+> > msi_bus                         : 1
+> > broken_parity_status            : 0
+> > devspec                         :=20
+> >=20
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D pci:/sys/devices/pci0000:00/0000:00:01.0=
+/0000:01:00.0 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >=20
+> > [properties]
+> > PCI_ID                          : 8086:4FA0
+> > DEVPATH                         : /devices/pci0000:00/0000:00:01.0/0000=
+:01:00.0
+> > ID_PCI_INTERFACE_FROM_DATABASE  : Normal decode
+> > ID_PATH_TAG                     : pci-0000_01_00_0
+> > PCI_CLASS                       : 60400
+> > ID_PCI_CLASS_FROM_DATABASE      : Bridge
+> > ID_PCI_SUBCLASS_FROM_DATABASE   : PCI bridge
+> > PCI_SUBSYS_ID                   : 0000:0000
+> > MODALIAS                        : pci:v00008086d00004FA0sv00000000sd000=
+00000bc06sc04i00
+> > PCI_SLOT_NAME                   : 0000:01:00.0
+> > USEC_INITIALIZED                : 7055925
+> > DRIVER                          : pcieport
+> > ID_PATH                         : pci-0000:01:00.0
+> > SUBSYSTEM                       : pci
+> >=20
+> > [attributes]
+> > firmware_node                   : device:04
+> > irq                             : 16
+> > iommu_group                     : 14
+> > reset_method                    : bus
+> > device                          : 0x4fa0
+> > d3cold_allowed                  : 1
+> > broken_parity_status            : 0
+> > consistent_dma_mask_bits        : 32
+> > numa_node                       : -1
+> > local_cpus                      : ffffff
+> > subsystem                       : pci
+> > iommu                           : dmar0
+> > enable                          : 1
+> > subsystem_vendor                : 0x0000
+> > secondary_bus_number            : 2
+> > current_link_speed              : 16.0 GT/s PCIe
+> > max_link_width                  : 16
+> > vendor                          : 0x8086
+> > max_link_speed                  : 16.0 GT/s PCIe
+> > msi_bus                         : 1
+> > current_link_width              : 16
+> > dma_mask_bits                   : 32
+> > driver_override                 : (null)
+> > ari_enabled                     : 0
+> > class                           : 0x060400
+> > local_cpulist                   : 0-23
+> > revision                        : 0x01
+> > subordinate_bus_number          : 4
+> > subsystem_device                : 0x0000
+> > driver                          : pcieport
+> > devspec                         :=20
+> > power_state                     : D0
+> >=20
+> >=20
+> > A few AER related attributes that provide error statistics in the form =
+of=20
+> > hard to format lists of multiple key-values pairs each have been omitte=
+d form=20
+> > the printout.
+> >=20
+> > Thanks,
+> > Janusz
+> >=20
+> >=20
+>=20
+
+
+
 
