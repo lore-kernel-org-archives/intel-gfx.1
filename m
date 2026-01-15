@@ -4,157 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD5C6D47CD0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2681AD48981
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 11:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92F4B10E85E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9177210E1FC;
 	Fri, 16 Jan 2026 11:08:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="rvGsLkTW";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="okBg/XDt";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011047.outbound.protection.outlook.com [40.107.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4BCA10E0CE;
- Fri, 16 Jan 2026 04:25:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EVFDhRZR4d8iBCRerRhD0ChE7un/AwXx0ZavwBG81cOpunY2QmWGnBJ0Jb+dXdckxtpngzymYWK1rnB67v41kgQfyNqCbszq0YdTRENpVQPa6myvvGvYbOHUjpTSSlcJNLCWf+BhqLc814cUeVEg1N3JC8G0Xbd5UgaUYc+OJgzDFTLYRqYbG1sfaC4Noxk9m2axA+FjitNaG8es3cjTYgk6wHrsRJxAuefkMbehrwXwGB7KZDUaKasFta5Jk5CoH8xptvYrwkJLikfZlvOV2SAXciq7KfoROhF2H2gdHyoj0oGvp+BhTfMMRWF3Tf8cbhraLW6rp/wed8eCk1QECA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yov1Pi8MbNbUTubi/SC1PcUJkrHxPzst2GUMSIwemnE=;
- b=gZ/a2QIytFNUJ5/BDM2eVrWiuWZgDWOnAfJRykzidbqHZ3RwcWxFqUtX/qX229OYr91rK++FwL6YtXU24okBzsByhhMQ/5tOmmk5wcHHd1RZhzLfgKx3mKUTA47kZLErnwW8I45na/QdNNmgSp8jE5El2NIbQyp3i2g26uaG9XPGRUjzY8XHIkv96CrOKMXByAL2K6BMcuzwzmtFolzg03JXHFoFSEJHBKYECdalFjUltCCaVHdVF8sP22clVNsB2jfCtUcBuuKEJyNGPWyDALEwgxsWqMXC+Ii1SjSoPlGmmL7vhMgQuWPDrBrQryZWmrpM5SPWV7kDvUkZ1mpxvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yov1Pi8MbNbUTubi/SC1PcUJkrHxPzst2GUMSIwemnE=;
- b=rvGsLkTWPt4GW8xcM1FAqIXMAxdYDTEQg4Jk+8MkjX1p27vPrqtbsYpk7Zrf6qgcKeIqQX6DiXKy2eGQeP2SLQPp72dTphFILPst43cAbGVnORNAbtpi29v5NF8hNwkBONo9jM2t4D7U181j4TYcIApZglKZJCidHSF6r289oVOEnieF2jQlkRczB3V417T8p9rfpV35nlf1H6cfDiPX9bI2rTf98y4hy/SkVpdYOBuXOgyOjCh2z44NR6yNKaWiFTHe/JLxTQF9BNKheVFLJFpiAoaFswsIywhNbu9Xu0Z4n8AChWGOrb6r79xWFit/wJUhcd09B4RttPmOaB0FVQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB8800.namprd12.prod.outlook.com (2603:10b6:510:26f::12)
- by LV3PR12MB9188.namprd12.prod.outlook.com (2603:10b6:408:19b::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Fri, 16 Jan
- 2026 04:25:16 +0000
-Received: from PH0PR12MB8800.namprd12.prod.outlook.com
- ([fe80::f79d:ddc5:2ad7:762d]) by PH0PR12MB8800.namprd12.prod.outlook.com
- ([fe80::f79d:ddc5:2ad7:762d%4]) with mapi id 15.20.9520.003; Fri, 16 Jan 2026
- 04:25:16 +0000
-From: Yury Norov <ynorov@nvidia.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- David Laight <david.laight@runbox.com>, Petr Pavlu <petr.pavlu@suse.com>,
- Andi Shyti <andi.shyti@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Daniel Gomez <da.gomez@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
-Subject: [PATCH v5 2/6] moduleparam: include required headers explicitly
-Date: Thu, 15 Jan 2026 23:25:05 -0500
-Message-ID: <20260116042510.241009-3-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260116042510.241009-1-ynorov@nvidia.com>
-References: <20260116042510.241009-1-ynorov@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN9PR03CA0061.namprd03.prod.outlook.com
- (2603:10b6:408:fc::6) To PH0PR12MB8800.namprd12.prod.outlook.com
- (2603:10b6:510:26f::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB8800:EE_|LV3PR12MB9188:EE_
-X-MS-Office365-Filtering-Correlation-Id: c97778a2-ba33-4f08-b7d6-08de54b74024
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|10070799003|921020; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9R4qvtqAf+DM92pVWxzXAFrTyIgT3gxibXeaR4pOsfRWcIW8+1Kp2FDEXeAT?=
- =?us-ascii?Q?i1oVs9IP8jTn4YY/SIeveGfu5tUYGxwBIfN6WYiB5Je4ApvGbdL6tMFT2DeU?=
- =?us-ascii?Q?uFhrXGkFc8e0uF9xX5/ioKUOjucifTkuma9fXSHPGHniQ6mmFN5ZThZIFj1M?=
- =?us-ascii?Q?FNg+Af79kDVr/rVSyZzrTnpQjdyn6OvJuiD0qMXbGy3WPaezvEstNX+fJbZ0?=
- =?us-ascii?Q?SDAgbXf9K/vovk0ga5MhOcOf0v7PTQuop3OWjRr5txPmsVql1SHUsn4Q2vf8?=
- =?us-ascii?Q?NyAWLIx8PsITWpwlvcd4mvLy2iGYyteDINnaL0Y0/eOASztwmkLPvXOmLPK1?=
- =?us-ascii?Q?XUwV0l9rT4+bdd2q9PB+r+wuHarZnpncVFcgNuhlsoAsntdGOLHHzquZ3mom?=
- =?us-ascii?Q?RyIWoXibKFnSzVENhGZknkVNXBd1onu7Ok6HowFUEjn0eRcoZ+FA1508qBo8?=
- =?us-ascii?Q?RC+3rXGdFCkFG6WAXF8ha0uHi5MRxMYNooqJMjHYOnYyxUhG5HtSByBtVdm/?=
- =?us-ascii?Q?/gl7j6vbjricH202jsISNlHEKCsK9kQq0makFv8/oejkllLm0bPxtFplQG3P?=
- =?us-ascii?Q?28qBoygAv8ubtKG0C1s6+omMTrr4C2EHm/RKdMlN/Q2fi581u3cdoG3eEtit?=
- =?us-ascii?Q?Txgwax1oWfS5HC5BIWLtjwZ1eHhO8LpZwaFLGCrvaF1AMwhdk3VUgUI0kF7H?=
- =?us-ascii?Q?lX3jGInmmICTHytzHfLVeSS5dofcN49YIaxQC+DIQVTXSqYvUq7eL3v+eNzQ?=
- =?us-ascii?Q?GkakVGnn35wOvSdZdebHTMClFTE4WhXrK3k3tzyjh6S/oyCDk2KOW0Nd4C7B?=
- =?us-ascii?Q?6nwOJNioDYGWAqzgFqxk7YKvZRsEg0vjqQyKl4CsK4yrYtQ2V425HLCeiGLR?=
- =?us-ascii?Q?7yQmiIKPC80IdN3P0imqC+wRSuSK6K56DzZkImjAuQjNSaNGomnr05Hsj1I+?=
- =?us-ascii?Q?OmqBs3ZpbhBITWRf8Qf+4MdKW4xT055VTdk3KE9ZtmafGbRt0EZ8/1ZzLXnW?=
- =?us-ascii?Q?XNifYK1arVEnA8DK4npTWNnKkSzueOGIk9IaggYjcf47PCDD6aMK5MxKNIFg?=
- =?us-ascii?Q?XmFVRyREblPcLDSvmUvXz6qmW23r2+brwYeOFXob/nWhMfjLWl4Dl+dQy1Et?=
- =?us-ascii?Q?Ce5w2LoXBekrjMNdoy6Z37Ymd33NmE5Zm02iDTtX7yox6SLxDcLwd+FoM0sw?=
- =?us-ascii?Q?yUmxJmVAgyyuxF3XnzjTAvBLu78GTDLdqXUdYy1wnNIElOpese+JlkKTNmeL?=
- =?us-ascii?Q?g6VxvOjZpND2AzQapjZHMGqOz0TArutfw02RCz///HrGe0Xr1CevSc2WjFRR?=
- =?us-ascii?Q?0ESIXvZ3qKyRBMsuH5rG1SDCkzS0vhkhhUUrLIxFsyP61En8X7iZfpdfprgH?=
- =?us-ascii?Q?4oufnWZUC5ezz/xZAQ6bniIBSVAyaIUmYqOoxtz+WaT0bA0aYlorxUYklrZT?=
- =?us-ascii?Q?DMCV9wXpZBwRVbXjkP/pWhe7upnJCmYg4sfk9/94eGoxMhZR0JA6GIaQ/aI7?=
- =?us-ascii?Q?W+8ZccioM02cgA9NoWYrdHkwsNOdyjJk576li1VP5eozhI/37u7TWe14k7Xo?=
- =?us-ascii?Q?UocNJc2DCr/9jG5pwKsg4DuKLCi6uNgJ7D9/nokX5PGyr8/PiJPmw8LHWQuB?=
- =?us-ascii?Q?5g=3D=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR12MB8800.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(10070799003)(921020);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BmnPhwwjnhXpz8dDR4vDoaFGtIoKjvKb0hAqaVVaTdQwwC0Ssj3cXaiOYNAX?=
- =?us-ascii?Q?XWP7NGtOJcFF0AY9bn1A7K1CzxxAxzUJC8idz9IO4ONa66byk4SqaPLHwU+5?=
- =?us-ascii?Q?9usEVcdPVD34zq3mY0kiYfCwDOtN6Xm0nrt6MSabRim4JQOi6aovZW6KzBum?=
- =?us-ascii?Q?NIFlTSgy7veQe02glvuYt+xEicWid+ebAbHc31teWQ8aiueK/zoMNFLDJpx7?=
- =?us-ascii?Q?eorh4CqlFwQ1or3ophbaOOvsYdi3IZhraOBVUA5gV6E+EnVPraZRtas6yH6U?=
- =?us-ascii?Q?sHGnReVdwiBUYalODVUYkXlEEtgCjD0W0hZcRsyaIoblkUX31svsv7iOJQqX?=
- =?us-ascii?Q?k+7kSf7ivp3vv8DhJKQ170Q35XHx/zzeOfnJg0qjPTHTTzRS73/X64nDg/Ha?=
- =?us-ascii?Q?NIbuKmf/e/CKdzwXR66phaxuifTzZZmGTUIGAC3ivRNSx+CbeJvthfE1ry/z?=
- =?us-ascii?Q?2cPmPUMyyssOPo68hNGudpOO7sZzQk6MLH+Ao8URAP7suOMuMXPBdzXpBSuh?=
- =?us-ascii?Q?+CO+MYiaRj7DKYDLCKiM+hahHwNHCN9xwE3i/tLOmcjd5AjlxNxLKRrnbxul?=
- =?us-ascii?Q?U3xgolveIuFuprBDS3N6qqpCHqaC7OOXS5NTBZ3amjOXGwYqCGE24KuSFFVw?=
- =?us-ascii?Q?RbEFjW1ueGC2VBws0dSsF3LSEo0H7FUs+wcKC4bV4MWC2RcH+MuHsGTyvBUP?=
- =?us-ascii?Q?hLTx3cdyCsJapxIr8ijfnF4B5SGc7jNoxTDM1+tv3Xj2zc/siWbqHA6hkqFm?=
- =?us-ascii?Q?vcPFFEb/zQVSQLs1e7NFMa8oBQuQu8URZSgUzJpd1vfXcnNoAPbArzaYO7y3?=
- =?us-ascii?Q?7IiTxs5Q/IdFi6QN35OPr9Y9mTE7l48FCykmYhJQZj6baOKfFiAm6kuUFtFX?=
- =?us-ascii?Q?7EIP/9xIpk2WGWB35k3DvfV9zqVyPmBGp0N+0S+ycqxdVxmiNjIK5/6CSCly?=
- =?us-ascii?Q?Kx1Rc/yE9xYgj4IDJU7NF31srNstpenjxNMKEKP4rARqKGZR72YPqo0N0Cz/?=
- =?us-ascii?Q?ZluUWMll1r1+rjRVr2RtRRs6Y3Ur1XZRGyPYDnkD4EwhBNufTOn26s4sNJGw?=
- =?us-ascii?Q?gH0POG84IAElvOy/KWW0dmz/lK0kpIVuRvetKEQSoMwcSu/oChcwbcqN/fIj?=
- =?us-ascii?Q?0ldNJFbePaxuogAvjWr5G92lioL52+bENg6AycMKa6cXKGPElHGOmEXMMrA9?=
- =?us-ascii?Q?rNGoypgb75Knrp7h+DOA7adr2X9j6wBuGY3C39dsB25byrsE1ln81BMAZ8TV?=
- =?us-ascii?Q?RBPKcu3JTwE8DLxcfnbUXyo0N1ge7xnL7OPGyb9PMsNw36LUTPSlBYVfboRi?=
- =?us-ascii?Q?5I7j+hxtWkcF7MUjQUEk6FErt6ulOTt/lZLi+xqgr1mgdg07aclUXqYyvhfx?=
- =?us-ascii?Q?IuQjNw2+/MdExo/380WJ7rmcICe1Xq2y1XwlPgRiJ/2JPIH8MVphNrDBccGS?=
- =?us-ascii?Q?743ly/ege3rjJ8cpkHzH4wFLL2JUeU/Kw9iXzH/xQRZTVlgJxFevpGZhRZlV?=
- =?us-ascii?Q?xB46y+Sd+8sy2mQvxF0Av+bqTvdGyAdFVLfotzXpLLD/RjKfZgDU8+9sBL6F?=
- =?us-ascii?Q?n1kWI0CxdiquBL/WsR4avS1kNoGtuc9Bo8Y9gfDMiYNSyx/nyV51vQuKlKcC?=
- =?us-ascii?Q?azoswlB6p82DJjfB/55xWGyxdEd9pTgls45MLR2GIh2+FDGlR5l2tb4zVvqd?=
- =?us-ascii?Q?ESlkXqciqNdiK0YJTtVjPrhYufElHpqhc/uJgHzA+ylufsNr1zToLQ5V0WP7?=
- =?us-ascii?Q?rt9GNnt2ECLiaoXZJF3HnzojQSdIEujwEyPZnar+w+DzcQFtFpm6?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c97778a2-ba33-4f08-b7d6-08de54b74024
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB8800.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 04:25:16.6535 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KtMPQHxKTiO4vAVuLOWaMu0M22dcb0rsZjCUvQ9vrX1ct5cVTmumt/ScG7S7O4BzByqsH/VVgQeUB2+ej3PeKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9188
+Received: from mail-pf1-f201.google.com (mail-pf1-f201.google.com
+ [209.85.210.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91E5510E7B7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jan 2026 16:55:49 +0000 (UTC)
+Received: by mail-pf1-f201.google.com with SMTP id
+ d2e1a72fcca58-81f3de65b79so774565b3a.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 15 Jan 2026 08:55:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20230601; t=1768496149; x=1769100949;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=eG3rEM0XnsP7mfoGfC144CTbZaCEXof3j5ORE1+Pdco=;
+ b=okBg/XDtfjEYMzmnkfyKaurMN9nAJoa34oWKr1Wc7n0eq0SzG+6bKgYUohk/yDTwBB
+ 45+24kJg7r5c03CIZ9v0wtGoiKDuafzVbgtnwC4B8VPqzw8QGld+qFPbXH/tMy66K/U6
+ 520ACGyQFZesvsFhUkL+6dFz4Vfeb/DYT68ljUAvvzM2Cox3LwTzg9SIIGmg2bdPw5E2
+ 78uIn2fA0mOQ+kvOciel3gTxHhW8CA6qvKagF6gS4jCP0cwQ/2d8CexV2G967ZM8qngH
+ oay3sa07bZgXDgbKPperS2UczHBQlr1UFZI48RBVtEG9q/tt6rlFf321uIhz3aNLCAW/
+ ef0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768496149; x=1769100949;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=eG3rEM0XnsP7mfoGfC144CTbZaCEXof3j5ORE1+Pdco=;
+ b=Cx1auBH2SUYlpX3NczjGnp9eO6rTE5sjRq59ckftUr0VTGV0EKsnjhqtJ2eO9d0Ik4
+ RAx4vxi8K7Ig+ppUSltK/G735gd6D1wG3x/wvhY3pN+4yMBa18sBxoVLlg0vfNbVTE70
+ DSCJ7ITQEqrmHU+rTC/cZufiFrar87BQ5Kp+NI2RNwcb4ZVV9Q7+p/Kue3pzVeanZTLg
+ 9+5gn7KlFPC4mD/x+RYy1QfqnOczeBx1qdYT0frW+SxG582MZnzlsO9xCV10+Gq3+8DM
+ PT0t9vwKntMs3ZKzvXYyE6KbWytgyoPu74pQ0kZtaTezOsXKlNzaFv/r4DdtuA8KPb2d
+ 1nlg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWGjXRqXrtlSbt/o6QwEAI6EbQJnbPIgmlIdpeMDxX+6ssTJnLmUlunoLRvp+wo8M+8t6G1KrHEyPM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2gpi9T235a/42Lw0l2sTXwSeLcsaLRp/2SKMq/iwM9dL4Qio9
+ SzxhYgd77N4PXzKPn5prKBnOC7M7Cm3FT9FyO5A6T0ft8X4IZbgNjkRipdw0zrW1h5OeNtf3yON
+ kUnGtQLXHnz5CLw==
+X-Received: from pfbih10.prod.google.com
+ ([2002:a05:6a00:8c0a:b0:7f9:3450:d9b0])
+ (user=jdsultan job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:14cb:b0:81b:13c5:b6b2 with SMTP id
+ d2e1a72fcca58-81fa01ec364mr194077b3a.33.1768496148910; 
+ Thu, 15 Jan 2026 08:55:48 -0800 (PST)
+Date: Thu, 15 Jan 2026 08:54:51 -0800
+In-Reply-To: <20260115-upstream-prep-v1-0-001d5b38fc11@google.com>
+Mime-Version: 1.0
+References: <20260115-upstream-prep-v1-0-001d5b38fc11@google.com>
+X-Developer-Key: i=jdsultan@google.com; a=ed25519;
+ pk=RhTSABMOTIhvVE7NYiZwn1iDGYYNbaN092nvaEF2dxo=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1768496136; l=4641;
+ i=jdsultan@google.com; s=20260115; h=from:subject:message-id;
+ bh=WGsmXa9DlEYC0Cve/8njqaHWAeYO6NiBVpq2cwTNRhM=;
+ b=EdHqabS/u+xNeSSUOjDiQsCsVkF8RmXH+vLfPnAxkiqpvbE7mI9E3uVmb7w5uMQA7eqy/3/k5
+ HvIc2FEVoNxBwE1irI83s0wQkIQxVBri/CEu9gLmdjJCMJGg33vqRy8
+X-Mailer: b4 0.14.2
+Message-ID: <20260115-upstream-prep-v1-5-001d5b38fc11@google.com>
+Subject: [PATCH RFC 05/10] drm/i915/display: Enable early PLL readout and
+ robustify modeset setup
+From: Juasheem Sultan <jdsultan@google.com>
+To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Sean Paul <seanpaul@google.com>, Manasi Navare <navaremanasi@google.com>, 
+ Drew Davenport <ddavenport@google.com>, Juasheem Sultan <jdsultan@google.com>
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Fri, 16 Jan 2026 11:08:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -171,36 +91,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The following patch drops moduleparam.h dependency on kernel.h. In
-preparation to it, list all the required headers explicitly.
+To support seamless boot and accurate state reconstruction on PTL:
+1. Introduce `intel_dpll_readout_hw_state_early()` to capture shared DPLL
+   states before the full modeset readout loop. This ensures PLL state is
+   available when reconstructing CRTC states.
+2. In `intel_modeset_readout_hw_state()`, explicitly set connector status
+   to `connected` if an encoder is active. This prevents the framework from
+   treating active boot connectors as disconnected if a subsequent detect()
+   call hasn't run yet.
+3. Add a NULL check for `encoder->get_hw_state` to prevent crashes during
+   early readout if an encoder isn't fully initialized.
+4. Suppress a warning in `skl_ddi_dpll0_get_hw_state` that can trigger
+   during early boot transitions.
 
-Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Signed-off-by: Juasheem Sultan <jdsultan@google.com>
 ---
- include/linux/moduleparam.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c      | 16 +++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h      |  1 +
+ drivers/gpu/drm/i915/display/intel_modeset_setup.c |  7 +++++++
+ 3 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
-index 915f32f7d888..03a977168c52 100644
---- a/include/linux/moduleparam.h
-+++ b/include/linux/moduleparam.h
-@@ -2,9 +2,14 @@
- #ifndef _LINUX_MODULE_PARAMS_H
- #define _LINUX_MODULE_PARAMS_H
- /* (C) Copyright 2001, 2002 Rusty Russell IBM Corporation */
-+
-+#include <linux/array_size.h>
-+#include <linux/build_bug.h>
-+#include <linux/compiler.h>
- #include <linux/init.h>
- #include <linux/stringify.h>
- #include <linux/kernel.h>
-+#include <linux/types.h>
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 8ea96cc524a1e253edfaa4a3f15be79560a1b7b5..57c2713ce3e7a6f410669e991cb58f9c63761718 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -1482,15 +1482,15 @@ static bool skl_ddi_dpll0_get_hw_state(struct intel_display *display,
  
- /*
-  * The maximum module name length, including the NUL byte.
+ 	/* DPLL0 is always enabled since it drives CDCLK */
+ 	val = intel_de_read(display, regs[id].ctl);
+-	if (drm_WARN_ON(display->drm, !(val & LCPLL_PLL_ENABLE)))
+-		goto out;
++	//if (drm_WARN_ON(display->drm, !(val & LCPLL_PLL_ENABLE)))
++	//	goto out;
+ 
+ 	val = intel_de_read(display, DPLL_CTRL1);
+ 	hw_state->ctrl1 = (val >> (id * 6)) & 0x3f;
+ 
+ 	ret = true;
+ 
+-out:
++//out:
+ 	intel_display_power_put(display, POWER_DOMAIN_DISPLAY_CORE, wakeref);
+ 
+ 	return ret;
+@@ -4513,6 +4513,16 @@ bool intel_dpll_get_hw_state(struct intel_display *display,
+ 	return pll->info->funcs->get_hw_state(display, pll, dpll_hw_state);
+ }
+ 
++void intel_dpll_readout_hw_state_early(struct intel_display *display)
++{
++	struct intel_dpll *pll;
++	int i;
++
++	for_each_dpll(display, pll, i) {
++		pll->on = intel_dpll_get_hw_state(display, pll, &pll->state.hw_state);
++	}
++}
++
+ static void readout_dpll_hw_state(struct intel_display *display,
+ 				  struct intel_dpll *pll)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index f131bdd1c975de2f126e88d0fdabf73f9e7d9a87..a17e85295bf026ab28d3610fa027b7e72ee77acf 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -424,6 +424,7 @@ void intel_dpll_swap_state(struct intel_atomic_state *state);
+ void intel_dpll_init(struct intel_display *display);
+ void intel_dpll_update_ref_clks(struct intel_display *display);
+ void intel_dpll_readout_hw_state(struct intel_display *display);
++void intel_dpll_readout_hw_state_early(struct intel_display *display);
+ void intel_dpll_sanitize_state(struct intel_display *display);
+ 
+ void intel_dpll_dump_hw_state(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 8415f3d703edd01b4d209e7d805795c022ed6627..5dbffd0321e9527e114a7c29c82732870c1e4769 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -696,6 +696,8 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+ 	struct intel_connector *connector;
+ 	struct drm_connector_list_iter conn_iter;
+ 
++	intel_dpll_readout_hw_state_early(display);
++
+ 	for_each_intel_crtc(display->drm, crtc) {
+ 		struct intel_crtc_state *crtc_state =
+ 			to_intel_crtc_state(crtc->base.state);
+@@ -724,6 +726,10 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+ 
+ 		pipe = 0;
+ 
++		if (!encoder->get_hw_state) {
++			continue;
++		}
++
+ 		if (encoder->get_hw_state(encoder, &pipe)) {
+ 			crtc = intel_crtc_for_pipe(display, pipe);
+ 			crtc_state = to_intel_crtc_state(crtc->base.state);
+@@ -778,6 +784,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+ 			struct intel_crtc *crtc;
+ 
+ 			connector->base.dpms = DRM_MODE_DPMS_ON;
++			connector->base.status = connector_status_connected;
+ 
+ 			encoder = intel_attached_encoder(connector);
+ 			connector->base.encoder = &encoder->base;
+
 -- 
-2.43.0
+2.52.0.457.g6b5491de43-goog
 
