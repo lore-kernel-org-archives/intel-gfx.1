@@ -4,101 +4,175 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09203D44C63
-	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 15:30:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8EFBD44C6E
+	for <intel-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 15:52:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8786910E793;
-	Thu, 15 Jan 2026 15:30:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A79710E79A;
+	Thu, 15 Jan 2026 15:52:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=infineon.com header.i=@infineon.com header.b="BAFTMr8w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZssHo5En";
 	dkim-atps=neutral
-X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
- Mon, 12 Jan 2026 21:08:02 UTC
-Received: from smtp2.infineon.com (smtp2.infineon.com [217.10.52.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F1C410E17B
- for <intel-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 21:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=infineon.com; i=@infineon.com; q=dns/txt; s=IFXMAIL;
- t=1768252083; x=1799788083;
- h=from:to:cc:subject:date:message-id:in-reply-to: mime-version;
- bh=kNW58q0vhnHE4IwENphTvFyQMUGpm//lPqdZcWsBYV0=;
- b=BAFTMr8wAY2bwMO3oGlrBq92sbqSQp4TS9Zgi8fuTX57ZOvKcSZRexBS
- q8/vRg5t7/jLg++ITNEIoohWLb2NqbK6DqYXbzJ+qXjfuoonIhvW0gTlk
- uGH3JUKGcGBLP2B2es5tnJ+Eph23xCYGaKD9TY6Du6apMTg0mw17+T/O9 s=;
-X-CSE-ConnectionGUID: wU//zo2bRGqYVwwLtKJKkw==
-X-CSE-MsgGUID: EinN0ee5SbultAP1DT7eUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="139229266"
-X-IronPort-AV: E=Sophos;i="6.21,221,1763420400"; 
- d="scan'208,217";a="139229266"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO MUCSE805.infineon.com) ([172.23.29.31])
- by smtp2.infineon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 22:00:54 +0100
-Received: from MUCSE809.infineon.com (172.23.29.35) by MUCSE805.infineon.com
- (172.23.29.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 12 Jan
- 2026 22:00:53 +0100
-Received: from MUCSE801.infineon.com (172.23.29.27) by MUCSE809.infineon.com
- (172.23.29.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 12 Jan
- 2026 22:00:53 +0100
-Received: from MUCSE801.infineon.com ([fe80::1f12:7149:6e8:2b2]) by
- MUCSE801.infineon.com ([fe80::1f12:7149:6e8:2b2%14]) with mapi id
- 15.02.2562.035; Mon, 12 Jan 2026 22:00:53 +0100
-From: <support@infineon.com>
-To: <nommensen1981@gmail.com>, <support@aoostar.com>, <support@chuwi.com>,
- <support@geekompc.com>, <support@morefine.com>, <support@acemagic.com>,
- <support@toptonpc.com>, <support@beelink.com>, <support@gmktec.com>,
- <support@msi.com>, <linux@hp.com>, <linux@dell.com>, <linux@lenovo.com>,
- <linux@asus.com>, <freebsd-current@freebsd.org>,
- <freebsd-hardware@freebsd.org>, <opensuse-kernel@opensuse.org>,
- <arch-general@lists.archlinux.org>, <fedora-kernel@lists.fedoraproject.org>,
- <debian-kernel@lists.debian.org>, <ubuntu-devel@lists.ubuntu.com>,
- <root@linuxmint.com>, <lm-sensors@lists.lm-sensors.org>,
- <linux-hwmon@vger.kernel.org>, <sales@ite.com.tw>, <support@ite.com.tw>,
- <gpuopen@amd.com>, <graphics-driver@amd.com>, <linux@amd.com>
-CC: <support@lockheedmartin.com>, <support@boeing.com>, <support@ngc.com>,
- <support@rtx.com>, <support@baesystems.com>, <support@thalesgroup.com>,
- <info@rheinmetall.com>, <info@leonardocompany.com>, <info@saabgroup.com>,
- <support.industry@siemens.com>, <support@bosch.com>, <support@se.com>,
- <support@abb.com>, <support@rockwellautomation.com>, <support@advantech.com>, 
- <support@kontron.com>, <support@aaeon.com>, <support@adlinktech.com>,
- <support@iei.com.tw>, <support@dfi.com>, <support@portwell.com>,
- <support@nxp.com>, <support@renesas.com>, <support@microchip.com>,
- <support@broadcom.com>, <support@marvell.com>, <support@infineon.com>,
- <support@st.com>, <linux-kernel@intel.com>, <support@intel.com>,
- <support@amd.com>, <support@qti.qualcomm.com>, <support@realtek.com>,
- <support@creative.com>, <support@cmedia.com.tw>, <support@via.com.tw>,
- <support@esstech.com>, <support@cirrus.com>, <support@analog.com>,
- <support@ti.com>, <support@yamaha.com>, <support@focusrite.com>,
- <support@steinberg.de>, <support@behringer.com>, <support@pny.com>,
- <support@inno3d.com>, <support@gainward.com>, <support@palit.com>,
- <support@zotac.com>, <support@xfxforce.com>, <support@powercolor.com>,
- <support@sapphiretech.com>, <intel-gfx@lists.freedesktop.org>,
- <linux-bugs@nvidia.com>, <support@tyan.com>, <support@foxconn.com>,
- <support@ecs.com.tw>, <support@maxsun.com>, <support@colorful.cn>,
- <support@nzxt.com>, <support@evga.com>, <support@supermicro.com>,
- <support@biostar.com.tw>, <support@gigabyte.com>, <support@asrock.com>,
- <support@asus.com>, <support@minisforum.com>
-Subject: [IFX-260112-1977499] RE: Structural hardware support gap on modern
- AMD systems: missing official AMD & ITE sensor, fan and power stack for Linux
- (all distros) and FreeBSD ~|~CRM0071640006510
-Thread-Topic: [IFX-260112-1977499] RE: Structural hardware support gap on
- modern AMD systems: missing official AMD & ITE sensor, fan and power stack
- for Linux (all distros) and FreeBSD ~|~CRM0071640006510
-Thread-Index: AQHchAaJMmCPRpeymkyJyp+Q6P15NQ==
-Date: Mon, 12 Jan 2026 21:00:52 +0000
-Message-ID: <54AFAFA44762482FA1F3D8408EB2FE2E1DC8406882C9@SUPPORT.INFINEON.COM>
-In-Reply-To: <CACNpR7e_CKPqT6+qXr0u-+rGOsvcypih5TNE0rriHwXTJqYOiw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.32.22.196]
-Content-Type: multipart/alternative;
- boundary="_000_54AFAFA44762482FA1F3D8408EB2FE2E1DC8406882C9SUPPORTINFI_"
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 909A110E037;
+ Thu, 15 Jan 2026 15:52:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1768492376; x=1800028376;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=dEftFG1+BfWyQb7cxgGWoJ1jGD6dBWMbMcWN8fe84Ho=;
+ b=ZssHo5EnorFPGPFa3lfc1VmcXo9AApfoswn8XC0KRYYfzHJxZ09U5jbu
+ SpJcHSY2byLLFeV3bUt2YlGe+to8U1xNeHLtVEzN9fU1Sdtpq6jRP2nHu
+ gXppJMIFiXqNxRG1Ll+qvxB6SPSEXlMSF6WrGH6smXXxZYdg1G/I6e+W4
+ AVtTH0bWKsxQguXpgeahUN6T14Z3MIBCf4z+q+GSJtbrmACKqfohCTU53
+ NWjZVsc3N4UXUJN9HTopqPuKUPaQn+4iBR95vsNrX7D4Y38d6hMgiS+bW
+ 1vkPZAmZamfILRzTtEWB5wBBTeKkDqszCT17ahcZPMXbSqN/han12mXbE Q==;
+X-CSE-ConnectionGUID: APcGecgLTz28gKXYbTbNOw==
+X-CSE-MsgGUID: XEhEfHkFQrGhyx0UMDxyiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11672"; a="80105418"
+X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; d="scan'208";a="80105418"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2026 07:52:56 -0800
+X-CSE-ConnectionGUID: KZeBSVlPS5yYwVWfbU1yMA==
+X-CSE-MsgGUID: JX5wrNE4Q2+fCg4MxBGaKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,228,1763452800"; d="scan'208";a="210034908"
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2026 07:52:56 -0800
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 15 Jan 2026 07:52:55 -0800
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29 via Frontend Transport; Thu, 15 Jan 2026 07:52:55 -0800
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.64) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Thu, 15 Jan 2026 07:52:55 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ddeo/opBVocRAPfbTa9LVXLQOvJYSX42UIRlUyRDCnSUxejd94Se7CjtZd09VR36Q6emyrMTzuY6owr1He0KuRzyXPWC9967LgJA8Q4zlMR86tHw7hcuqV83nNWdQc1X35+XES15FMBp5vaAdQQue3gtZ9Jd+3a4CbfpnPPMDae/CdY7qUz4eNHH6bWd7/ZdYqKABjkqKFHpIyut/47z8MLTPw+QcsqfHl12sWWPeQohZpfBn6EXZAITbxIZ3GzhXEsHjCUs2jAcg15xWrROLexqBS3CoiTbM8yFNGRNbGN0+UF+FdA/2nOPINbPLUjkC0dSB3b7Bp5KRsQbj1/9aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jLkJ5Nf2FafhaAP1gaxqdzKofC0AyupX2kM7Byy+U30=;
+ b=L/unyhBTRm/XeCmImDoL0iNh+s3bHT/PViqWkSRFCbXUZdT2RT3EKEOI+wGAVpeLJ/5Edf5yj1fv0KDDBo/WCr28prmC0xvoVXn2HI83UovSFeeZvu7+EfXKJWRiFhYQ1LEy3EzLQgUsmIWjPj8fYcHLtpnCc5zGWxl9xorjtKBunjjQEPCK3wt+pZzlYXe7L/f8y9varI5WMFV6T+DToAy0/zP9c3YE2qI6uvJAdt07Gb9Y8RRp2SU0/TaKgjzrwGgMvt9ulfBv3KOT+kat/rrfFVzMbPAp1WZK9FGVmOSUgyU71McAwlyy6HBDG4J9O7vthhtnvGwYTlMcj3X7Cg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com (2603:10b6:930:c6::19)
+ by MW4PR11MB7078.namprd11.prod.outlook.com (2603:10b6:303:219::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Thu, 15 Jan
+ 2026 15:52:52 +0000
+Received: from CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::1d86:a34:519a:3b0d]) by CYYPR11MB8430.namprd11.prod.outlook.com
+ ([fe80::1d86:a34:519a:3b0d%5]) with mapi id 15.20.9499.005; Thu, 15 Jan 2026
+ 15:52:51 +0000
+Date: Thu, 15 Jan 2026 10:52:46 -0500
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-intel-next
+Message-ID: <aWkNThVRSkGAfUVv@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BYAPR11CA0046.namprd11.prod.outlook.com
+ (2603:10b6:a03:80::23) To CYYPR11MB8430.namprd11.prod.outlook.com
+ (2603:10b6:930:c6::19)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 15 Jan 2026 15:30:29 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CYYPR11MB8430:EE_|MW4PR11MB7078:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca9429fd-147f-4e3a-3932-08de544e2387
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?B902aR+fgz63mF4Ipav1t3SFDa8s79iXuu15gdmlnVcdY2xeyKL62MVi6x?=
+ =?iso-8859-1?Q?Nd0hose5ldvuJr5I1Fg5t7/fc88wV8sk2ycMf58xhTr3hRt6uJ/OxnI6PA?=
+ =?iso-8859-1?Q?8ZjF3IgR+uMxqum1tnw9nBI247j02q1qRefUEIKq9qn7V3cqeAcYRGm/Wb?=
+ =?iso-8859-1?Q?VR8FZhaKUJ/xShmFrOJ0dB5WrgtqbJwbrwGlL9M2SovZp5mMoVYwyE7XJM?=
+ =?iso-8859-1?Q?/R1UtfQ0jer3kfQbhTx++wVNLrmneEvx4LSkTVDnsQ8pUZD3VaCi2lmPuY?=
+ =?iso-8859-1?Q?5klt1nrIIMKsat3V1ldGluVOlR0y4aKAESo/GNhVygSnjZyuGlZYWzwMFh?=
+ =?iso-8859-1?Q?+odKnazBvj2r4WgcF7fVsExmCcL7dedlzcBBvKDJkdD5TO9N7mOb9EvEBG?=
+ =?iso-8859-1?Q?1u0KYTCAB7gIwc8y4YxP0N+QOv+O3+OIwEVxy+WYYRFqfMOpqEfwk3KE8d?=
+ =?iso-8859-1?Q?MGEg5dwUZ2QrUnGzErh7xcXwuM5exeWvc3WnYnPb0txOzXp8rMRPSJELR1?=
+ =?iso-8859-1?Q?X/d+ApXFUhgCLrHRHKgP2NdMj0Dr/ZO7NrCcJvxNpGK0XnU2JpjMcxDT/7?=
+ =?iso-8859-1?Q?XwY3ZhYSkLx4PFp6Y4dCowh7BTx5rRpgJIZLUHr2MoAy7Q02wQvKC34Apd?=
+ =?iso-8859-1?Q?ifEyStQLLbJA/RORbQW43FO3o9Emms7cnacphRs/SrAfWHruBbdmXJ1YeM?=
+ =?iso-8859-1?Q?nxE7hVtn1OX5nLnVDA+W6t7ndzkapjDGjG80pM0jt9tXvr0HpA80Lxb0QX?=
+ =?iso-8859-1?Q?DpbmCIPkd7fzCVN/tbw/nQmTzveJIwiEBfjlzaEoZ/SZfgNASILaFrITLQ?=
+ =?iso-8859-1?Q?BZ/tMU0MPegT6zhspKkmqOhKiproWyo4dScGjYkxQsPsrdg3MR2pG2gepI?=
+ =?iso-8859-1?Q?vc0y7rSN5hoBAh0/Ao5TGLR3NOgyezPGjeMElkjbdtQvieP1iv7Uam5Cp1?=
+ =?iso-8859-1?Q?DIZpU07Cny8Ru9wUYOr6KWDUDc7qguo0rMj+xefmIRDfuJjUJXMO0lv/SM?=
+ =?iso-8859-1?Q?N9xkKyIl8lPvJW7eqhKz1rqA/2dAJwPdg0Y5E0hXRLAus9wHEf2BCsZyJD?=
+ =?iso-8859-1?Q?DeSHrEvwJeAmDCUc6iEdN7llemmWt1oNKQ1V9p2dx0TwyWj/onR64s00nT?=
+ =?iso-8859-1?Q?hV6FV5NLknODq8+bd/ushdlodQZHEuu3HhjsO/edjSAslPjfM5Ew1YH0SJ?=
+ =?iso-8859-1?Q?UojkAZu9EO40Ef6S1ZDoRz/SnO/xOlMzjfcR3LpWts9JjHm6rWanEupeM+?=
+ =?iso-8859-1?Q?7D6nPQsLi9y6dG/ZjtQEEwOM2rrjSczqZrhwdBbtRZcpx/0RPu12Q00EcM?=
+ =?iso-8859-1?Q?G3ttjaBXEypY9Igo1uKjgqlcwgNDIRRPtOfJRgACOXYcDhCinS9WMfXQxO?=
+ =?iso-8859-1?Q?5Z0Zynvd7GtPdRh/aXV0hBhFWOUpAzpnziewzGPfIQ4NUP4psdYQvj1sFY?=
+ =?iso-8859-1?Q?lUFLk9YyRxwO6ziknAo70weodIrkalRb6aDPZwNf6gczAB2hpl1hyMUQBd?=
+ =?iso-8859-1?Q?8A6+/kFo906ogayownAnoYcqG5CIse49cxv9fkn/iKR/ksINTEV0hAsotl?=
+ =?iso-8859-1?Q?ZHzKNH2Q4xJQcYEUQY4FtjObDegO?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CYYPR11MB8430.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?u6rD1hDHzcVkuDX7C9zjHs6DxA8W3sm4fabtMp696d1bh66M79CHKnm/wD?=
+ =?iso-8859-1?Q?hj06n2owUzbfI0PK3OtSem7djyNGKQdCmtXXIZJipXAQfECxpuO/U/8BRh?=
+ =?iso-8859-1?Q?nCE/SadjEsI9TiRgyda9lIS1dmlPstHbv2XOF56/wmy0zZlpmQExk9CNGh?=
+ =?iso-8859-1?Q?uK2irrYe5tunMnnKv1668ylP8LtpInN7Aho3kwRqi2SZJhqLKiGFQashUH?=
+ =?iso-8859-1?Q?MMdmlG0wDoktNKLgP+zL1fxFV0Q2Rxm9l5RF/MVAAAUS/c7sJ47DhnW10t?=
+ =?iso-8859-1?Q?ery0iVH1U10vPbgWIf6cj5ti7Gu1hY5wU/wZ5iQDRT3Ss13HHTQhdEwVXY?=
+ =?iso-8859-1?Q?0pePpy5fqAp1aHsbdPYszW0v7o2ID9vW50T8t3qSpXxrNdBOt+FdHyrU4E?=
+ =?iso-8859-1?Q?JAVEf+XZKTEWsQuf/kdrzU63dkpnh9rC0xfmlpHNheKcdyZGX1EhcbIPds?=
+ =?iso-8859-1?Q?uB76ub6f8/nEJuf3tQBUQdrPp5XhBv4B3SH5QSjt+v4mdeiIkse1W5G/14?=
+ =?iso-8859-1?Q?9fkW2QHjj2VWNLFK4Cq7brGUGdtTZH6V2hzHrzovBaP4pIqwDxJNZjLsq3?=
+ =?iso-8859-1?Q?ax4q8a+mFtrq4zg6ID4KcjVnUKgnMmjjqKQUXC+Lme/SR1igilwpHNU1qb?=
+ =?iso-8859-1?Q?tsa8NLsRML2RBjhxEewDq+mbIezd7vyYQEjjskfZ5p2PZRhioT8OfYxpUT?=
+ =?iso-8859-1?Q?VmQw5ldiHHfXk8HV0D4smdri/nCoP2xTjNko81wxDMu0WAsk2jjZzCXqwt?=
+ =?iso-8859-1?Q?HyIOwBa5D3mAWxLePqtX72R4+O7onTCqQmCQANI/TsMRsr7MCot1ag0RwN?=
+ =?iso-8859-1?Q?AUwVESk0B2UW+sC9yz4UuF2jL5oSjc9cgCWjM6RFzABjsBqgy4li63qKJq?=
+ =?iso-8859-1?Q?M1E6RZjzn+uLa3wxVKCnYju48uH//HfaltGVrub2hZBDCy4YBFzG/EGb3I?=
+ =?iso-8859-1?Q?8/X2GCNntOq2476ViqIn/XFSKwN1FnmZfU9ULQzGwU6vKwGUxmI9d03v8R?=
+ =?iso-8859-1?Q?BN0C8sXmTlaSQGvy4PS5VmcknfV5irWUC6m+RLQ7bQbqYapuy269+1p+z6?=
+ =?iso-8859-1?Q?nzCVrX3sM+iU2RQb+/jzNARVHkXjSipy2qq0GvGWPkYpHXK+0lk4HJccuB?=
+ =?iso-8859-1?Q?f656jL+6lss+SRmVezykfRyccY/mJu3IynsExO+KpfxEJcdcByfLOR6M/E?=
+ =?iso-8859-1?Q?LguytIWN+Zincb8DwC6g/zuwu+6rOT6AgaUwtJcTTtPLkPorONPZLiYkmB?=
+ =?iso-8859-1?Q?HkaaUkveNrsIv21JF+RSdF6srQTUTsflflz7ivQDsw4KGBnWJkZhu/KRBc?=
+ =?iso-8859-1?Q?7NsFQZ1W6ZvH8MF779KW2tqHShPf6F5pLVZ52afHbQbndM+2dHHV9AJ3c0?=
+ =?iso-8859-1?Q?VDkFXViO2r8nxFJyYFQ/R97CRbIhdxp20QfpGt5BWNRfR+NmahDzRecGtm?=
+ =?iso-8859-1?Q?7/0OBHgngqeEzxdF+Dpq+xLt5xPIe5htX4ucg1MfX0Y53EHelfmSegwOOS?=
+ =?iso-8859-1?Q?hBZ41N38qcsnsql24kCa0QYQF/zadjG9m5L4apg3JHbfT6cfnwj3hppE5N?=
+ =?iso-8859-1?Q?sxfsG0l4pdppU+G2iW7+w+xXV+MwzZ6xa1G/EnywpAYOAMYoQEQO4sDESP?=
+ =?iso-8859-1?Q?KaIm8a/Gk2LrHRTU2k9VaG8UxuJWiotetfv1Y9ZP7jV2jlApDxzEGyTGzk?=
+ =?iso-8859-1?Q?AloyveDNJ5r3XKcmhwukgU3IbY6bpRCjD81dK0hgFN2tf17g8h2JIZN+5r?=
+ =?iso-8859-1?Q?QzZZYXDae7G3NTo4vxmdAFtQSVJEvzv89wx0LaH/FCR0W4u2qjDJOfJMlJ?=
+ =?iso-8859-1?Q?XleWnxGv9Q=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca9429fd-147f-4e3a-3932-08de544e2387
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR11MB8430.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2026 15:52:51.5798 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IFxmsKi074Nc4iuaqbZOoCZRq2H8Q5rgZmKZFsNw7u/sdkQJFsklJwyaeQdoD/3wXqr+p/HpElT0dIqw83tKYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB7078
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,801 +188,277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---_000_54AFAFA44762482FA1F3D8408EB2FE2E1DC8406882C9SUPPORTINFI_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Dear Sender,
-
-Please use our other support options available at: https://www.infineon.com=
-/support
-
-For urgent inquiries kindly contact our hotline: https://www.infineon.com/c=
-all
-
-
-
-
-
-Best regards,
-Infineon Technologies AG,
---
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Infineon Technologies AG
-Chairman of the Supervisory Board: Dr. Herbert Diess
-Management Board: Jochen Hanebeck (CEO), Alexander Gorski, Elke Reichart, D=
-r. Sven Schneider, Andreas Urschitz
-Registered office: Neubiberg
-Commercial register: M=FCnchen HRB 126492
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-------------------- Original Message -------------------
-From: nommensen1981@gmail.com;
-Received: Mon Jan 12 2026 20:57:09 GMT+0100 (Central European Standard Time=
-)
-To: support@aoostar.com; support@chuwi.com; support@geekompc.com; support@m=
-orefine.com; support@acemagic.com; support@toptonpc.com; support@beelink.co=
-m; support@gmktec.com; support@msi.com; linux@hp.com; linux@dell.com; linux=
-@lenovo.com; linux@asus.com; freebsd-current@freebsd.org; freebsd-hardware@=
-freebsd.org; opensuse-kernel@opensuse.org; arch-general@lists.archlinux.org=
-; fedora-kernel@lists.fedoraproject.org; debian-kernel@lists.debian.org; ub=
-untu-devel@lists.ubuntu.com; root@linuxmint.com; lm-sensors@lists.lm-sensor=
-s.org; linux-hwmon@vger.kernel.org; sales@ite.com.tw; support@ite.com.tw; g=
-puopen@amd.com; graphics-driver@amd.com; linux@amd.com;
-Cc: support@lockheedmartin.com; support@boeing.com; support@ngc.com; suppor=
-t@rtx.com; support@baesystems.com; support@thalesgroup.com; info@rheinmetal=
-l.com; info@leonardocompany.com; info@saabgroup.com; support.industry@sieme=
-ns.com; support@bosch.com; support@se.com; support@abb.com; support@rockwel=
-lautomation.com; support@advantech.com; support@kontron.com; support@aaeon.=
-com; support@adlinktech.com; support@iei.com.tw; support@dfi.com; support@p=
-ortwell.com; support@nxp.com; support@renesas.com; support@microchip.com; s=
-upport@broadcom.com; support@marvell.com; support@infineon.com; support@st.=
-com; linux-kernel@intel.com; support@intel.com; support@amd.com; support@qt=
-i.qualcomm.com; support@realtek.com; support@creative.com; support@cmedia.c=
-om.tw; support@via.com.tw; support@esstech.com; support@cirrus.com; support=
-@analog.com; support@ti.com; support@yamaha.com; support@focusrite.com; sup=
-port@steinberg.de; support@behringer.com; support@pny.com; support@inno3d.c=
-om; support@gainward.com; support@palit.com; support@zotac.com; support@xfx=
-force.com; support@powercolor.com; support@sapphiretech.com; intel-gfx@list=
-s.freedesktop.org; linux-bugs@nvidia.com; support@tyan.com; support@foxconn=
-.com; support@ecs.com.tw; support@maxsun.com; support@colorful.cn; support@=
-nzxt.com; support@evga.com; support@supermicro.com; support@biostar.com.tw;=
- support@gigabyte.com; support@asrock.com; support@asus.com; support@minisf=
-orum.com;
-Subject: Structural hardware support gap on modern AMD systems: missing off=
-icial AMD & ITE sensor, fan and power stack for Linux (all distros) and Fre=
-eBSD
-
-
-
-Caution: This e-mail originated outside Infineon Technologies. Please be ca=
-utious when sharing information or opening attachments especially from unkn=
-own senders. Refer to our intranet guide<https://intranet-content.infineon.=
-com/explore/aboutinfineon/rules/informationsecurity/ug/SocialEngineering/Pa=
-ges/SocialEngineeringElements_en.aspx> to help you identify Phishing email.
-
-
-
-
-Dear AMD, ITE, OEM partners, Linux and FreeBSD maintainers,
-
-this email describes a structural hardware support gap on modern AMD-based =
-systems, affecting all Linux distributions and FreeBSD, specifically regard=
-ing ITE Super-I/O chips, sensor access, fan control, and power management.
-
-This is not a configuration problem and not distribution-specific.
-It is a missing official vendor-supported driver and integration stack.
-
-________________________________
-1. Affected platforms (representative)
-
-  *   Operating systems
-
-     *   All Linux distributions (Ubuntu, Linux Mint, Debian, Fedora, Arch,=
- openSUSE, etc.)
-
-     *   FreeBSD
-
-  *   Hardware
-
-     *   CPU: AMD Ryzen 6000 / 7000 / 8000 series (desktop, mobile, HS/HX)
-
-     *   GPU: AMD Radeon iGPU/dGPU (RDNA2 / RDNA3, e.g. 780M)
-
-     *   Mainboards, laptops and mini-PCs using ITE Super-I/O chips
-(IT86xx / IT87xx / IT89xx families)
-
-________________________________
-2. Observed problem (Linux & FreeBSD)
-
-On all Linux distributions and FreeBSD:
-
-  *   ITE Super-I/O chips are detected but unsupported
-
-     *   Typical output:
-ITE IT86xx detected (to-be-written)
-
-  *   No official driver for:
-
-     *   motherboard temperatures
-
-     *   voltages
-
-     *   fan RPM
-
-     *   PWM fan control
-
-  *   CPU and GPU telemetry is fragmented and inconsistent
-
-  *   Tools such as:
-
-     *   lm-sensors, psensor, fancontrol (Linux)
-
-     *   sysctl, hwmon, powerd (FreeBSD)
-cannot operate safely without vendor support
-
-  *   Users are forced to:
-
-     *   rely on BIOS-only fan control
-
-     *   use experimental or reverse-engineered drivers
-
-     *   accept missing thermal visibility
-
-This leads to:
-
-  *   reduced system safety
-
-  *   unnecessary fan noise
-
-  *   poor power efficiency
-
-  *   blocked adoption for non-technical users
-
-________________________________
-3. Why this works on Windows (important context)
-
-On Windows systems:
-
-  *   ITE provides proprietary reference drivers to OEMs
-
-  *   OEMs integrate:
-
-     *   ITE drivers
-
-     *   Embedded Controller (EC) firmware
-
-     *   ACPI tables
-
-  *   Microsoft distributes these drivers via Windows Update
-
-On Linux and FreeBSD:
-
-  *   No public register documentation
-
-  *   No official vendor drivers
-
-  *   No OEM-exposed ACPI/EC interfaces
-
-  *   Community developers cannot implement safe, complete support
-
-________________________________
-4. Root cause (clear responsibility split)
-
-  *   ITE
-
-     *   No public Super-I/O register specifications
-
-     *   No official Linux or FreeBSD drivers
-
-  *   OEMs
-
-     *   Ship Linux/FreeBSD-capable hardware without sensor/fan support
-
-     *   Do not expose EC/ACPI interfaces for non-Windows systems
-
-  *   AMD
-
-     *   No unified vendor-supported control stack for Linux and FreeBSD
-
-     *   No official repository bundling CPU, GPU, sensor and power control
-
-________________________________
-5. Proposed solution (realistic and actionable)
-A) Official AMD-supported repository
-
-  *   Linux: official AMD repository (PPA / repo)
-
-  *   FreeBSD: official AMD packages/ports
-
-Containing:
-
-  *   CPU power and thermal telemetry
-
-  *   GPU telemetry and power limits
-
-  *   OEM-approved sensor interfaces
-
-  *   Safe fan control framework
-
-________________________________
-B) Official ITE support for Unix-like systems
-
-One of the following:
-
-  *   Public Super-I/O register documentation
-or
-
-  *   Vendor-maintained drivers for Linux and FreeBSD
-or
-
-  *   OEM-mediated abstraction layer shared across platforms
-
-________________________________
-C) Unified user-space control framework
-
-Available on:
-
-  *   Linux (all distributions)
-
-  *   FreeBSD
-
-With:
-
-  *   Four fixed profiles:
-
-     *   Power saving
-
-     *   Quiet / Office
-
-     *   Balanced
-
-     *   Maximum performance
-
-  *   Optional automatic mode
-
-  *   Manual overrides for advanced users
-
-  *   Safe defaults for families and seniors
-
-________________________________
-6. Why this matters
-
-  *   Modern AMD hardware is powerful but artificially limited on Linux and=
- FreeBSD
-
-  *   The issue affects all distributions, not just one ecosystem
-
-  *   Lack of official hardware control blocks:
-
-     *   OEM Linux offerings
-
-     *   FreeBSD workstation and server use
-
-     *   long-term stable systems
-
-  *   This is a systemic vendor-level gap, not a community failure
-
-________________________________
-7. Request
-
-We ask AMD, ITE and OEM partners to:
-
-  *   treat Linux and FreeBSD as first-class platforms
-
-  *   provide an official, supported hardware control stack
-
-  *   stop forcing users and developers into unsafe reverse engineering
-
-  *   coordinate with kernel, hwmon and FreeBSD maintainers
-
-We are willing to provide logs, testing feedback and structured reports.
-
-Kind regards,
-
-Daniel Frank Nommensen
-
-
-
---_000_54AFAFA44762482FA1F3D8408EB2FE2E1DC8406882C9SUPPORTINFI_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-</head>
-<body>
-<div class=3D"ck-content" data-wrapper=3D"true" dir=3D"ltr" style=3D"--ck-i=
-mage-style-spacing: 1.5em; --ck-inline-image-style-spacing: calc(var(--ck-i=
-mage-style-spacing) / 2); font-family: Arial; font-size: 11pt;">
-<div style=3D"font-family:Arial;font-size:11pt;">
-<div style=3D"display:block;" id=3D"signature">
-<div>
-<div style=3D"font-family:;" dir=3D"ltr" data-wrapper=3D"true">
-<div>
-<div style=3D"font-family:;" data-wrapper=3D"true" dir=3D"ltr">
-<p style=3D"margin: 0cm;"><span style=3D"font-family:Arial;font-size:11pt;"=
-><span lang=3D"EN-US">Dear Sender,</span></span></p>
-<p style=3D"margin: 0cm;"><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Plea=
-se use our other support options available at:&nbsp;</span></span><a href=
-=3D"https://www.infineon.com/support" target=3D"_blank" title=3D"https://ww=
-w.infineon.com/support"><span style=3D"font-family:Arial;font-size:11pt;"><=
-span lang=3D"EN-US">https://www.infineon.com/support</span></span></a></p>
-<p style=3D"margin: 0cm;"><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">For =
-urgent inquiries kindly contact our hotline:&nbsp;</span></span><a href=3D"=
-https://www.infineon.com/call" target=3D"_blank" title=3D"https://www.infin=
-eon.com/call"><span style=3D"font-family:Arial;font-size:11pt;"><span lang=
-=3D"EN-US">https://www.infineon.com/call</span></span></a></p>
-<p style=3D"margin: 0cm;">&nbsp;</p>
-<p style=3D"margin: 0cm;"><span style=3D"font-family:Arial;font-size:11pt;"=
-><span lang=3D"EN-US">&nbsp;</span></span></p>
-<p style=3D"margin: 0cm;"><span style=3D"font-family:Arial;font-size:11pt;"=
-><span lang=3D"EN-US">Best regards,</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Infi=
-neon Technologies AG,</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">--</=
-span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Infi=
-neon Technologies AG</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Chai=
-rman of the Supervisory Board: Dr. Herbert Diess</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Mana=
-gement Board: Jochen Hanebeck (CEO), Alexander Gorski, Elke Reichart, Dr. S=
-ven Schneider, Andreas Urschitz</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Regi=
-stered office: Neubiberg</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">Comm=
-ercial register: M=FCnchen HRB 126492</span></span><br>
-<span style=3D"font-family:Arial;font-size:11pt;"><span lang=3D"EN-US">&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;</span></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p style=3D"margin: 0;"><span style=3D"font-family:Tahoma, Verdana, Arial;f=
-ont-size:small;">------------------- Original Message -------------------</=
-span><br>
-<span style=3D"font-family:Tahoma, Verdana, Arial;font-size:small;"><b>From=
-:</b> nommensen1981@gmail.com;&nbsp;</span><br>
-<span style=3D"font-family:Tahoma, Verdana, Arial;font-size:small;"><b>Rece=
-ived:</b> Mon Jan 12 2026 20:57:09 GMT&#43;0100 (Central European Standard =
-Time)</span><br>
-<span style=3D"font-family:Tahoma, Verdana, Arial;font-size:small;"><b>To:<=
-/b> support@aoostar.com; support@chuwi.com; support@geekompc.com; support@m=
-orefine.com; support@acemagic.com; support@toptonpc.com; support@beelink.co=
-m; support@gmktec.com; support@msi.com;
- linux@hp.com; linux@dell.com; linux@lenovo.com; linux@asus.com; freebsd-cu=
-rrent@freebsd.org; freebsd-hardware@freebsd.org; opensuse-kernel@opensuse.o=
-rg; arch-general@lists.archlinux.org; fedora-kernel@lists.fedoraproject.org=
-; debian-kernel@lists.debian.org;
- ubuntu-devel@lists.ubuntu.com; root@linuxmint.com; lm-sensors@lists.lm-sen=
-sors.org; linux-hwmon@vger.kernel.org; sales@ite.com.tw; support@ite.com.tw=
-; gpuopen@amd.com; graphics-driver@amd.com; linux@amd.com;&nbsp;</span><br>
-<span style=3D"font-family:Tahoma, Verdana, Arial;font-size:small;"><b>Cc:<=
-/b> support@lockheedmartin.com; support@boeing.com; support@ngc.com; suppor=
-t@rtx.com; support@baesystems.com; support@thalesgroup.com; info@rheinmetal=
-l.com; info@leonardocompany.com; info@saabgroup.com;
- support.industry@siemens.com; support@bosch.com; support@se.com; support@a=
-bb.com; support@rockwellautomation.com; support@advantech.com; support@kont=
-ron.com; support@aaeon.com; support@adlinktech.com; support@iei.com.tw; sup=
-port@dfi.com; support@portwell.com;
- support@nxp.com; support@renesas.com; support@microchip.com; support@broad=
-com.com; support@marvell.com; support@infineon.com; support@st.com; linux-k=
-ernel@intel.com; support@intel.com; support@amd.com; support@qti.qualcomm.c=
-om; support@realtek.com; support@creative.com;
- support@cmedia.com.tw; support@via.com.tw; support@esstech.com; support@ci=
-rrus.com; support@analog.com; support@ti.com; support@yamaha.com; support@f=
-ocusrite.com; support@steinberg.de; support@behringer.com; support@pny.com;=
- support@inno3d.com; support@gainward.com;
- support@palit.com; support@zotac.com; support@xfxforce.com; support@powerc=
-olor.com; support@sapphiretech.com; intel-gfx@lists.freedesktop.org; linux-=
-bugs@nvidia.com; support@tyan.com; support@foxconn.com; support@ecs.com.tw;=
- support@maxsun.com; support@colorful.cn;
- support@nzxt.com; support@evga.com; support@supermicro.com; support@biosta=
-r.com.tw; support@gigabyte.com; support@asrock.com; support@asus.com; suppo=
-rt@minisforum.com;&nbsp;</span><br>
-<span style=3D"font-family:Tahoma, Verdana, Arial;font-size:small;"><b>Subj=
-ect:</b> Structural hardware support gap on modern AMD systems: missing off=
-icial AMD &amp; ITE sensor, fan and power stack for Linux (all distros) and=
- FreeBSD</span><br>
-<br>
-&nbsp;</p>
-<div dir=3D"ltr">
-<div style=3D"background-color:#FFE4B5;display:inline-block;font-family:cal=
-ibri;padding:5px;width:auto;">
-<table class=3D"table" style=3D"background-color:#FFE4B5;font-size:14px;wid=
-th:auto;">
-<tbody>
-<tr>
-<td aria-label=3D"Table cell"><strong>Caution</strong>:&nbsp;<span style=3D=
-"font-family:arial,helvetica,clean,sans-serif;font-size:13px;">This e-mail =
-originated outside Infineon Technologies. Please be cautious when sharing i=
-nformation or opening attachments especially
- from unknown senders. Refer to our&nbsp;</span><a style=3D"font-family:ari=
-al,helvetica,clean,sans-serif;font-size:13px;" href=3D"https://intranet-con=
-tent.infineon.com/explore/aboutinfineon/rules/informationsecurity/ug/Social=
-Engineering/Pages/SocialEngineeringElements_en.aspx"><span style=3D"backgro=
-und-attachment:initial;background-clip:initial;background-image:initial;bac=
-kground-origin:initial;background-position:initial;background-repeat:initia=
-l;background-size:initial;">intranet
- guide</span></a><span style=3D"font-family:arial,helvetica,clean,sans-seri=
-f;font-size:13px;">&nbsp;to help you identify Phishing email.</span><br>
-&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p style=3D"margin: 0;"><br>
-&nbsp;</p>
-<div>
-<div dir=3D"ltr">
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Dear AMD, ITE, =
-OEM partners, Linux and FreeBSD maintainers,</span></p>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>this email desc=
-ribes a <strong>
-structural hardware support gap on modern AMD-based systems</strong>, affec=
-ting <strong>
-all Linux distributions and FreeBSD</strong>, specifically regarding <stron=
-g>ITE Super-I/O chips, sensor access, fan control, and power management</st=
-rong>.</span></p>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>This is <strong=
->not a configuration problem</strong> and
-<strong>not distribution-specific</strong>.</span><br>
-<span>It is a <strong>missing official vendor-supported driver and integrat=
-ion stack</strong>.</span></p>
-<hr>
-<h2><span>1. Affected platforms (representative)</span></h2>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>Operati=
-ng systems</strong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>All Linux distr=
-ibutions (Ubuntu, Linux Mint, Debian, Fedora, Arch, openSUSE, etc.)</span><=
-/p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>FreeBSD=
-</strong></span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>Hardwar=
-e</strong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>CPU: AMD Ryzen =
-6000 / 7000 / 8000 series (desktop, mobile, HS/HX)</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>GPU: AMD Radeon=
- iGPU/dGPU (RDNA2 / RDNA3, e.g. 780M)</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Mainboards, lap=
-tops and mini-PCs using
-<strong>ITE Super-I/O chips</strong></span><br>
-<span>(IT86xx / IT87xx / IT89xx families)</span></p>
-</li></ul>
-</li></ul>
-<hr>
-<h2><span>2. Observed problem (Linux &amp; FreeBSD)</span></h2>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>On <strong>all =
-Linux distributions and FreeBSD</strong>:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>ITE Super-I/O c=
-hips are detected but
-<strong>unsupported</strong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Typical output:=
-</span><br>
-<code><span>ITE IT86xx detected (to-be-written)</span></code></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No official dri=
-ver for:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>motherboard tem=
-peratures</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>voltages</span>=
-</p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>fan RPM</span><=
-/p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>PWM fan control=
-</span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>CPU and GPU tel=
-emetry is <strong>
-fragmented and inconsistent</strong></span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Tools such as:<=
-/span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><code><span>lm-sensor=
-s</span></code><span>,
-</span><code><span>psensor</span></code><span>, </span><code><span>fancontr=
-ol</span></code><span> (Linux)</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><code><span>sysctl</s=
-pan></code><span>,
-</span><code><span>hwmon</span></code><span>, </span><code><span>powerd</sp=
-an></code><span> (FreeBSD)</span><br>
-<span>cannot operate safely without vendor support</span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Users are force=
-d to:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>rely on BIOS-on=
-ly fan control</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>use experimenta=
-l or reverse-engineered drivers</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>accept missing =
-thermal visibility</span></p>
-</li></ul>
-</li></ul>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>This leads to:<=
-/span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>reduced system =
-safety</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>unnecessary fan=
- noise</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>poor power effi=
-ciency</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>blocked adoptio=
-n for non-technical users</span></p>
-</li></ul>
-<hr>
-<h2><span>3. Why this works on Windows (important context)</span></h2>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>On Windows syst=
-ems:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>ITE</st=
-rong> provides proprietary reference drivers to OEMs</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>OEMs</s=
-trong> integrate:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>ITE drivers</sp=
-an></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Embedded Contro=
-ller (EC) firmware</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>ACPI tables</sp=
-an></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>Microso=
-ft</strong> distributes these drivers via Windows Update</span></p>
-</li></ul>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>On Linux and Fr=
-eeBSD:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No public regis=
-ter documentation</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No official ven=
-dor drivers</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No OEM-exposed =
-ACPI/EC interfaces</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Community devel=
-opers cannot implement safe, complete support</span></p>
-</li></ul>
-<hr>
-<h2><span>4. Root cause (clear responsibility split)</span></h2>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>ITE</st=
-rong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No public Super=
--I/O register specifications</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No official Lin=
-ux or FreeBSD drivers</span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>OEMs</s=
-trong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Ship Linux/Free=
-BSD-capable hardware without sensor/fan support</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Do not expose E=
-C/ACPI interfaces for non-Windows systems</span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span><strong>AMD</st=
-rong></span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No unified vend=
-or-supported control stack for Linux and FreeBSD</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>No official rep=
-ository bundling CPU, GPU, sensor and power control</span></p>
-</li></ul>
-</li></ul>
-<hr>
-<h2><span>5. Proposed solution (realistic and actionable)</span></h2>
-<h3><span>A) Official AMD-supported repository</span></h3>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Linux: official=
- AMD repository (PPA / repo)</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>FreeBSD: offici=
-al AMD packages/ports</span></p>
-</li></ul>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Containing:</sp=
-an></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>CPU power and t=
-hermal telemetry</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>GPU telemetry a=
-nd power limits</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>OEM-approved se=
-nsor interfaces</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Safe fan contro=
-l framework</span></p>
-</li></ul>
-<hr>
-<h3><span>B) Official ITE support for Unix-like systems</span></h3>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>One of the foll=
-owing:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Public Super-I/=
-O register documentation</span><br>
-<span><strong>or</strong></span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Vendor-maintain=
-ed drivers for Linux and FreeBSD</span><br>
-<span><strong>or</strong></span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>OEM-mediated ab=
-straction layer shared across platforms</span></p>
-</li></ul>
-<hr>
-<h3><span>C) Unified user-space control framework</span></h3>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Available on:</=
-span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Linux (all dist=
-ributions)</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>FreeBSD</span><=
-/p>
-</li></ul>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>With:</span></p=
->
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Four fixed prof=
-iles:</span></p>
-<ol start=3D"1">
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Power saving</s=
-pan></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Quiet / Office<=
-/span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Balanced</span>=
-</p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Maximum perform=
-ance</span></p>
-</li></ol>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Optional automa=
-tic mode</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Manual override=
-s for advanced users</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Safe defaults f=
-or families and seniors</span></p>
-</li></ul>
-<hr>
-<h2><span>6. Why this matters</span></h2>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Modern AMD hard=
-ware is powerful but
-<strong>artificially limited</strong> on Linux and FreeBSD</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>The issue affec=
-ts <strong>
-all distributions</strong>, not just one ecosystem</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>Lack of officia=
-l hardware control blocks:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>OEM Linux offer=
-ings</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>FreeBSD worksta=
-tion and server use</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>long-term stabl=
-e systems</span></p>
-</li></ul>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>This is a <stro=
-ng>systemic vendor-level gap</strong>, not a community failure</span></p>
-</li></ul>
-<hr>
-<h2><span>7. Request</span></h2>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>We ask AMD, ITE=
- and OEM partners to:</span></p>
-<ul>
-<li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>treat Linux and=
- FreeBSD as
-<strong>first-class platforms</strong></span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>provide an offi=
-cial, supported hardware control stack</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>stop forcing us=
-ers and developers into unsafe reverse engineering</span></p>
-</li><li>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>coordinate with=
- kernel, hwmon and FreeBSD maintainers</span></p>
-</li></ul>
-<p class=3D"gmail-isSelectedEnd" style=3D"margin: 0;"><span>We are willing =
-to provide logs, testing feedback and structured reports.</span></p>
-<p style=3D"margin: 0;"><span>Kind regards,</span></p>
-<p style=3D"margin: 0;">Daniel Frank Nommensen</p>
-<p style=3D"margin: 0;"><br>
-&nbsp;</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_54AFAFA44762482FA1F3D8408EB2FE2E1DC8406882C9SUPPORTINFI_--
+Hi Dave and Sima,
+
+Here goes our likely last drm-intel-next PR towards 7.0.
+
+Thanks,
+Rodrigo.
+
+drm-intel-next-2026-01-15:
+Beyond Display:
+ - Make 'guc_hw_reg_state' static as it isn't exported (Ben)
+ - Fix doc build on mei related interface header (Jani)
+
+Display related:
+ - Fix ggtt fb alignment on Xe display (Tvrtko)
+ - More display clean-up towards deduplication and full separation (Jani)
+ - Use the consolidated HDMI tables (Suraj)
+ - Account for DSC slice overhead (Ankit)
+ - Prepare GVT for display modularization (Ankit, Jani)
+ - Enable/Disable DC balance along with VRR DSB (Mitul, Ville)
+ - Protection against unsupported modes in LT PHY (Suraj)
+ - Display W/a addition and fixes (Gustavo)
+ - Fix many SPDX identifier comments (Ankit)
+ - Incorporate Xe3_LPD changes for CD2X divider (Gustavo)
+ - Clean up link BW/DSC slice config computation (Imre)
+The following changes since commit 35ec71285c9311395b14bedc60fa94f6b7e24d2d:
+
+  drm/i915/pc8: Add parent interface for PC8 forcewake tricks (2025-12-19 21:28:48 +0200)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-2026-01-15
+
+for you to fetch changes up to d30f75d2dba913754dbacb982b19b783a30253ea:
+
+  drm/i915/dp: Simplify computing the DSC compressed BPP for DP-MST (2026-01-13 18:42:21 +0200)
+
+----------------------------------------------------------------
+Beyond Display:
+ - Make 'guc_hw_reg_state' static as it isn't exported (Ben)
+ - Fix doc build on mei related interface header (Jani)
+
+Display related:
+ - Fix ggtt fb alignment on Xe display (Tvrtko)
+ - More display clean-up towards deduplication and full separation (Jani)
+ - Use the consolidated HDMI tables (Suraj)
+ - Account for DSC slice overhead (Ankit)
+ - Prepare GVT for display modularization (Ankit, Jani)
+ - Enable/Disable DC balance along with VRR DSB (Mitul, Ville)
+ - Protection against unsupported modes in LT PHY (Suraj)
+ - Display W/a addition and fixes (Gustavo)
+ - Fix many SPDX identifier comments (Ankit)
+ - Incorporate Xe3_LPD changes for CD2X divider (Gustavo)
+ - Clean up link BW/DSC slice config computation (Imre)
+
+----------------------------------------------------------------
+Ankit Nautiyal (16):
+      drm/i915/vdsc: Account for DSC slice overhead in intel_vdsc_min_cdclk()
+      drm/i915/display: Abstract pipe/trans/cursor offset calculation
+      drm/i915/display: Add APIs to be used by gvt to get the register offsets
+      drm/i915/gvt: Add header to use display offset functions in macros
+      drm/i915/gvt: Change for_each_pipe to use pipe_valid API
+      drm/i915/gvt: Use the appropriate header for the DPLL macro
+      drm/i915/gvt/display_helper: Get rid of #ifdef/#undefs
+      drm/i915/intel_alpm: Fix the SPDX identifier comment
+      drm/i915/intel_cx0_phy: Fix the SPDX identifier comment
+      drm/i915/intel_cx0_phy_regs: Fix the SPDX identifier comment
+      drm/i915/intel_display_params: Fix the SPDX identifier comment
+      drm/i915/intel_dsb: Fix the SPDX identifier comment
+      drm/i915/intel_dsb_buffer: Fix the SPDX identifier comment
+      drm/i915/intel_gvt_api: Fix the SPDX identifier comment
+      drm/i915/intel_lt_phy: Fix the SPDX identifier comment
+      drm/i915/lt_phy_regs: Fix the SPDX identifier comment
+
+Ben Dooks (1):
+      drm/i915/guc: make 'guc_hw_reg_state' static as it isn't exported
+
+Gustavo Sousa (3):
+      drm/i915/display_wa: Keep enum intel_display_wa sorted
+      drm/i915/cdclk: Implement Wa_13012396614
+      drm/i915/cdclk: Incorporate Xe3_LPD changes for CD2X divider
+
+Imre Deak (19):
+      drm/i915/dp: Drop unused timeslots param from dsc_compute_link_config()
+      drm/i915/dp: Factor out align_max_sink_dsc_input_bpp()
+      drm/i915/dp: Factor out align_max_vesa_compressed_bpp_x16()
+      drm/i915/dp: Align min/max DSC input BPPs to sink caps
+      drm/i915/dp: Align min/max compressed BPPs when calculating BPP limits
+      drm/i915/dp: Drop intel_dp parameter from intel_dp_compute_config_link_bpp_limits()
+      drm/i915/dp: Pass intel_output_format to intel_dp_dsc_sink_{min_max}_compressed_bpp()
+      drm/i915/dp: Pass mode clock to dsc_throughput_quirk_max_bpp_x16()
+      drm/i915/dp: Factor out compute_min_compressed_bpp_x16()
+      drm/i915/dp: Factor out compute_max_compressed_bpp_x16()
+      drm/i915/dp: Add intel_dp_mode_valid_with_dsc()
+      drm/i915/dp: Unify detect and compute time DSC mode BW validation
+      drm/i915/dp: Use helpers to align min/max compressed BPPs
+      drm/i915/dp: Simplify computing DSC BPPs for eDP
+      drm/i915/dp: Simplify computing DSC BPPs for DP-SST
+      drm/i915/dp: Simplify computing forced DSC BPP for DP-SST
+      drm/i915/dp: Unify computing compressed BPP for DP-SST and eDP
+      drm/i915/dp: Simplify eDP vs. DP compressed BPP computation
+      drm/i915/dp: Simplify computing the DSC compressed BPP for DP-MST
+
+Jani Nikula (30):
+      drm/i915: move display/intel_plane_initial.c to i915_initial_plane.c
+      drm/xe/display: rename xe_plane_initial.c to xe_initial_plane.c
+      drm/i915: rename intel_plane_initial.h to intel_initial_plane.h
+      drm/{i915, xe}: move initial plane calls to parent interface
+      drm/{i915, xe}: deduplicate intel_initial_plane_config() between i915 and xe
+      drm/{i915, xe}: deduplicate plane_config_fini() between i915 and xe
+      drm/{i915, xe}: start deduplicating intel_find_initial_plane_obj() between i915 and xe
+      drm/i915: return plane_state from intel_reuse_initial_plane_obj()
+      drm/xe: return plane_state from intel_reuse_initial_plane_obj()
+      drm/i915: further deduplicate intel_find_initial_plane_obj()
+      drm/{i915, xe}: deduplicate intel_alloc_initial_plane_obj() FB modifier checks
+      drm/{i915,xe}: deduplicate initial plane setup
+      drm/{i915, xe}: pass struct drm_plane_state instead of struct drm_crtc to ->setup
+      drm/{i915, xe}: pass struct drm_device instead of drm_device to ->alloc_obj
+      drm/i915: drop dependency on struct intel_display from i915 initial plane
+      drm/xe/display: drop i915_utils.h
+      drm/i915: remove unused dev_priv local variable
+      drm/xe/compat: remove unused forcewake get/put macros
+      drm/xe/compat: convert uncore macro to static inlines
+      drm/i915/display: use to_intel_uncore() to avoid i915_drv.h
+      drm/i915: drop i915 param from i915_fence{, _context}_timeout()
+      drm/xe: remove compat i915_drv.h and -Ddrm_i915_private=xe_device hack
+      drm/i915/utils: drop unnecessary ifdefs
+      drm/i915/display: remove accidentally added empty file
+      drm/i915/gvt: sort and group include directives
+      drm/i915/gvt: include sched_policy.h only where needed
+      drm/i915/gvt: reduce include of gt/intel_engine_regs.h
+      drm/i915/gvt: reduce include of vfio.h
+      drm/i915/gvt: include intel_display_limits.h where needed
+      mei: late_bind: fix struct intel_lb_component_ops kernel-doc
+
+Mitul Golani (12):
+      drm/i915/display: Add source param for dc balance
+      drm/i915/vrr: Add VRR DC balance registers
+      drm/i915/vrr: Add DC Balance params to crtc_state
+      drm/i915/vrr: Add state dump for DC Balance params
+      drm/i915/vrr: Add compute config for DC Balance params
+      drm/i915/vrr: Add function to check if DC Balance Possible
+      drm/i915/vrr: Add function to reset DC balance accumulated params
+      drm/i915/display: Add DC Balance flip count operations
+      drm/i915/vrr: Write DC balance params to hw registers
+      drm/i915/display: Wait for VRR PUSH status update
+      drm/i915/display: Add function to configure event for dc balance
+      drm/i915/vrr: Enable DC Balance
+
+Suraj Kandpal (4):
+      drm/i915/cx0: Use the consolidated HDMI tables
+      drm/i915/ltphy: Remove state verification for LT PHY fields
+      drm/i915/ltphy: Compare only certain fields in state verify function
+      drm/i915/ltphy: Provide protection against unsupported modes
+
+Tvrtko Ursulin (1):
+      drm/xe: Fix ggtt fb alignment
+
+Ville Syrjälä (6):
+      drm/i915/dmc: Add pipe dmc registers and bits for DC Balance
+      drm/i915/vrr: Add functions to read out vmin/vmax stuff
+      drm/i915/vblank: Extract vrr_vblank_start()
+      drm/i915/vrr: Implement vblank evasion with DC balancing
+      drm/i915/dsb: Add pipedmc dc balance enable/disable
+      drm/i915/vrr: Pause DC Balancing for DSB commits
+
+ drivers/gpu/drm/i915/Makefile                      |   6 +-
+ drivers/gpu/drm/i915/display/i9xx_wm.c             |  17 +-
+ drivers/gpu/drm/i915/display/intel_alpm.h          |   4 +-
+ drivers/gpu/drm/i915/display/intel_bw.c            |  19 +-
+ drivers/gpu/drm/i915/display/intel_cdclk.c         |  60 ++-
+ drivers/gpu/drm/i915/display/intel_connector.c     |   2 -
+ .../gpu/drm/i915/display/intel_crtc_state_dump.c   |   8 +
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c       |  13 +-
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h       |   2 +-
+ drivers/gpu/drm/i915/display/intel_cx0_phy_regs.h  |   4 +-
+ drivers/gpu/drm/i915/display/intel_display.c       |  46 +-
+ .../gpu/drm/i915/display/intel_display_device.h    |  18 +
+ .../gpu/drm/i915/display/intel_display_driver.c    |   4 +-
+ .../gpu/drm/i915/display/intel_display_params.h    |   2 +-
+ drivers/gpu/drm/i915/display/intel_display_power.c |   3 +-
+ .../gpu/drm/i915/display/intel_display_reg_defs.h  |  15 +-
+ drivers/gpu/drm/i915/display/intel_display_types.h |  11 +
+ drivers/gpu/drm/i915/display/intel_display_utils.h |   4 -
+ drivers/gpu/drm/i915/display/intel_display_wa.c    |  14 +-
+ drivers/gpu/drm/i915/display/intel_display_wa.h    |  12 +-
+ drivers/gpu/drm/i915/display/intel_dmc.c           |  25 +
+ drivers/gpu/drm/i915/display/intel_dmc.h           |   5 +
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h      |  60 +++
+ drivers/gpu/drm/i915/display/intel_dp.c            | 515 ++++++++++-----------
+ drivers/gpu/drm/i915/display/intel_dp.h            |  17 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        |  77 +--
+ drivers/gpu/drm/i915/display/intel_dram.c          |  42 +-
+ drivers/gpu/drm/i915/display/intel_dsb.c           |  31 +-
+ drivers/gpu/drm/i915/display/intel_dsb.h           |   4 +-
+ drivers/gpu/drm/i915/display/intel_dsb_buffer.h    |   4 +-
+ drivers/gpu/drm/i915/display/intel_gvt_api.c       |  43 ++
+ drivers/gpu/drm/i915/display/intel_gvt_api.h       |  21 +
+ drivers/gpu/drm/i915/display/intel_initial_plane.c | 193 ++++++++
+ ...intel_plane_initial.h => intel_initial_plane.h} |   6 +-
+ drivers/gpu/drm/i915/display/intel_lt_phy.c        |  54 +--
+ drivers/gpu/drm/i915/display/intel_lt_phy.h        |   4 +-
+ drivers/gpu/drm/i915/display/intel_lt_phy_regs.h   |   4 +-
+ drivers/gpu/drm/i915/display/intel_plane_initial.c | 442 ------------------
+ drivers/gpu/drm/i915/display/intel_rom.c           |   8 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c        |  46 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c          |  35 +-
+ drivers/gpu/drm/i915/display/intel_vrr.c           | 281 ++++++++++-
+ drivers/gpu/drm/i915/display/intel_vrr.h           |  10 +
+ drivers/gpu/drm/i915/display/intel_vrr_regs.h      |  68 +++
+ drivers/gpu/drm/i915/gem/i915_gem_clflush.c        |   2 +-
+ drivers/gpu/drm/i915/gvt/aperture_gm.c             |   5 +-
+ drivers/gpu/drm/i915/gvt/cfg_space.c               |   2 +-
+ drivers/gpu/drm/i915/gvt/cmd_parser.c              |  26 +-
+ drivers/gpu/drm/i915/gvt/debugfs.c                 |   4 +-
+ drivers/gpu/drm/i915/gvt/display.c                 |  23 +-
+ drivers/gpu/drm/i915/gvt/display.h                 |   2 +-
+ drivers/gpu/drm/i915/gvt/display_helpers.h         |  37 ++
+ drivers/gpu/drm/i915/gvt/dmabuf.c                  |   6 +-
+ drivers/gpu/drm/i915/gvt/dmabuf.h                  |   7 +-
+ drivers/gpu/drm/i915/gvt/edid.c                    |   1 +
+ drivers/gpu/drm/i915/gvt/execlist.c                |   2 +-
+ drivers/gpu/drm/i915/gvt/fb_decoder.c              |  14 +-
+ drivers/gpu/drm/i915/gvt/fb_decoder.h              |   2 -
+ drivers/gpu/drm/i915/gvt/firmware.c                |   4 +-
+ drivers/gpu/drm/i915/gvt/gtt.c                     |   9 +-
+ drivers/gpu/drm/i915/gvt/gvt.h                     |  26 +-
+ drivers/gpu/drm/i915/gvt/handlers.c                |  21 +-
+ drivers/gpu/drm/i915/gvt/interrupt.c               |   5 +-
+ drivers/gpu/drm/i915/gvt/kvmgt.c                   |  24 +-
+ drivers/gpu/drm/i915/gvt/mmio.c                    |  13 +-
+ drivers/gpu/drm/i915/gvt/mmio_context.h            |   5 -
+ drivers/gpu/drm/i915/gvt/opregion.c                |   3 +-
+ drivers/gpu/drm/i915/gvt/page_track.c              |   3 +-
+ drivers/gpu/drm/i915/gvt/sched_policy.c            |   3 +-
+ drivers/gpu/drm/i915/gvt/scheduler.c               |   8 +-
+ drivers/gpu/drm/i915/gvt/trace.h                   |   2 +-
+ drivers/gpu/drm/i915/gvt/trace_points.c            |   2 +
+ drivers/gpu/drm/i915/gvt/vgpu.c                    |   6 +-
+ drivers/gpu/drm/i915/i915_config.c                 |   3 +-
+ drivers/gpu/drm/i915/i915_config.h                 |  10 +-
+ drivers/gpu/drm/i915/i915_driver.c                 |   2 +
+ drivers/gpu/drm/i915/i915_gpu_error.c              |   2 +-
+ drivers/gpu/drm/i915/i915_initial_plane.c          | 290 ++++++++++++
+ drivers/gpu/drm/i915/i915_initial_plane.h          |   9 +
+ drivers/gpu/drm/i915/i915_request.c                |   3 +-
+ drivers/gpu/drm/i915/i915_utils.h                  |   4 -
+ drivers/gpu/drm/i915/intel_gvt.c                   |  13 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c        |   4 +-
+ drivers/gpu/drm/xe/Makefile                        |   6 +-
+ .../gpu/drm/xe/compat-i915-headers/i915_config.h   |   5 +-
+ drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h  |  22 -
+ .../gpu/drm/xe/compat-i915-headers/i915_utils.h    |   7 -
+ .../gpu/drm/xe/compat-i915-headers/intel_uncore.h  |  11 +-
+ drivers/gpu/drm/xe/display/xe_display.c            |   2 +
+ drivers/gpu/drm/xe/display/xe_fb_pin.c             |   2 +-
+ drivers/gpu/drm/xe/display/xe_initial_plane.c      | 189 ++++++++
+ drivers/gpu/drm/xe/display/xe_initial_plane.h      |   9 +
+ drivers/gpu/drm/xe/display/xe_plane_initial.c      | 321 -------------
+ include/drm/intel/display_parent_interface.h       |  17 +
+ include/drm/intel/intel_lb_mei_interface.h         |   3 +-
+ 95 files changed, 2017 insertions(+), 1443 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_gvt_api.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_gvt_api.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_initial_plane.c
+ rename drivers/gpu/drm/i915/display/{intel_plane_initial.h => intel_initial_plane.h} (60%)
+ delete mode 100644 drivers/gpu/drm/i915/display/intel_plane_initial.c
+ create mode 100644 drivers/gpu/drm/i915/gvt/display_helpers.h
+ create mode 100644 drivers/gpu/drm/i915/i915_initial_plane.c
+ create mode 100644 drivers/gpu/drm/i915/i915_initial_plane.h
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_drv.h
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_utils.h
+ create mode 100644 drivers/gpu/drm/xe/display/xe_initial_plane.c
+ create mode 100644 drivers/gpu/drm/xe/display/xe_initial_plane.h
+ delete mode 100644 drivers/gpu/drm/xe/display/xe_plane_initial.c
