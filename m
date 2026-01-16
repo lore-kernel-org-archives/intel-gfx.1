@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F324BD4898A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26040D48986
 	for <intel-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 11:08:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0A1F10E865;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7B110E863;
 	Fri, 16 Jan 2026 11:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="PPfXC0dG";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="cMNVDF39";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010064.outbound.protection.outlook.com [52.101.61.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7631410E0CE;
- Fri, 16 Jan 2026 04:25:17 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010000.outbound.protection.outlook.com [52.101.85.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A981B10E7E5;
+ Fri, 16 Jan 2026 04:25:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e4aZ6eJuO1kZ9Vws9/0diMs5na3hnDlnDNLfXzA9TPOZ5dwK8Umkpx+iBlCC+yRcK66Cj5j+SXl+QRIXtUsts4UKfUaXyeO68p6kbmJLtt8LXE38ONQIncQbfR9VvFdgUopeOCfDcmuMlMAxgTmsHvrCVmkMzAHVvzrK10YGot1QzzqlGwywEEBCtUW/JTTz+XB67ht/10c+rZc0TvtelUvmun+mA2Fz57d9H3hRBq+uBJic9AykSigpRSoJyZ5ccB3ho8QoY4gsxmOaB001y+8NI4SsaWG8d4BCxefOdsdywNVM6pCrkAiS84Wzh/vj/QSaNk++VIK/ac4BA60xZw==
+ b=vf80Wy0S8njQqCW3Q2y3alYISzhLIEcSmBaRCYhwnPeR68rFj/rHWhxyaO2kFnYGYTk2q3GFhRFs8lruzt/pF5urUGvfClUsxLsZ1JFm47rEPJ0c8Lq4xeFkOIXXczPCw0EWr39pd9mq9iHVxNVC7dPty4YLiDQPzFvuxExRhuFlr9ZGMuBAeSCm0/R7Dl2HlzXTRabyVj5XHG7kVKUCLChvrfKh3UvK8ncmQQWC2PQrOoF3iJtgwXthY05y5G+ppKfVjD7P7q9texXphAiYxtOuueC1PTGWsHRwByJjE0hnqFZmJVNV/ucDAJDzZWXst8Q5KwSRyOPtSbIwo8TpZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p1aSG8Z2rbMPJuG9ML4hNEIbvmlGzPzrnmoQI2wCT9Y=;
- b=KmMmNIAtD+uJ+oNqZXNVCo8HAqXRxkKlh3sDGnmrVHM+ts1i3mTYBr/j4H39HtGcVFai7Iw1TPdCQxdCFoVbke5fKYFEMX46JiLZBIcsVwz0M2dn/EyZdglIlnmVcwZe9+V3L/+k+24TouaA1wYmgbmaE88aAR2l8cCDhfH0fNe84uoY0KNWRpn48vZ0qw+R4I3EhC3yyOPEt5168XawnyOMc9jaT6KtTf7QxA5tVKXSXO4rJHwb6OzB9iBtZfDK4jeuURuDOPla7lEwmadesqbSR3anXwlVJb2pU4WT6qeKEmnQwH/BMFo25yl620u7MiuLGl2VeXyWPwGvCS+XiA==
+ bh=49uKfNCblPIbuAaIumNUQfnpfJGhQ6JmPFcix/5b4L8=;
+ b=wWvt0CzLfNFdegLyd6JHvYw98rYBxG6/gsOC8XLmTv+lTkVKlWm4KIxEiDGIJJPTTgcYKrCfNKWh3mW5Bs3JhRFmrOg6+RSRjggGfxwo4bQWVSCiWi1QWdrMmQgP+Jh5z0CujZhBGgp9Qvj9ujr60GJDc7v6yjL2Z5fGBCabL+u7o70Ah0QHCU0LekWBoD0RJzYFat5FARCapi3HypOfrO7KU1uURp2ZELGMWRIGhM1vQ3ptG+q1EA6doI651sG8h7XXm+E8lrCYFfvQoH/pIIZe1CLeTD72gcs2Gfqh/Ez6GNi+g6nzH+umGbVtahUVWrSkRRn6PrB1g2PfsYroTA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p1aSG8Z2rbMPJuG9ML4hNEIbvmlGzPzrnmoQI2wCT9Y=;
- b=PPfXC0dGR5PMdMWyiDoVM/IjnkdCmIpyZo34JTleGHoCvi0UyQ/g4zgdpAs+SLZmQlxLS8gQ5M2OK39pJdtPSYWvkMvUthAIwJ5fUoNWuVZArYtH7MOjQ/2+iFznVFu5KoFNAM5hx5CXm5VUNYzSn+7ZAppnMntGrEqUNAeSZfnYiTR13F8bikfKLF3a4PYjfIlsM9qyoEzep7+Iw3qLIX9gcMPG0XbWAFOGMwBda/ScR4gZwdWRt/bXjCHGsF6DUIbOp5eoPBTGMY2anHFKrsGUXp1sWbQZpnRLnu3qWCyWmwsUYkBsYcijBVbj6xMnUrCaPaEYMh2b/AOBq/QyfA==
+ bh=49uKfNCblPIbuAaIumNUQfnpfJGhQ6JmPFcix/5b4L8=;
+ b=cMNVDF39ji1jsuL0vXhvD8kXiAuWBzAPjtN5dCjuyzkkdd+rmTBiPnvn4rAs+WxjGCUzfhDbgg1n7uvEhi/F2STW3N4E/r//23RrHC+6h2QxsNq83Ez1vC+814lu7ciJGoBtABPIxOZ4DQQfx7RvN4KqgASTI8W4gS7guWAYZhLfSamqfW+MLCN4w9wgY0WQTeNTB+DNCXUOzvopsKqGyQQE28zzXD0mrZxSH9ArAIkjsq3SN9v1z9VFKfB4CgTCJtOesKbDRYRKJ4iJ+7/jLLYi+lBC7MAcwJxmhJRUWP/1ADD5rW6954/URN0jSNLWeqM/vNJb5ELHktAZLFz7vg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from PH0PR12MB8800.namprd12.prod.outlook.com (2603:10b6:510:26f::12)
  by LV3PR12MB9188.namprd12.prod.outlook.com (2603:10b6:408:19b::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Fri, 16 Jan
- 2026 04:25:14 +0000
+ 2026 04:25:24 +0000
 Received: from PH0PR12MB8800.namprd12.prod.outlook.com
  ([fe80::f79d:ddc5:2ad7:762d]) by PH0PR12MB8800.namprd12.prod.outlook.com
  ([fe80::f79d:ddc5:2ad7:762d%4]) with mapi id 15.20.9520.003; Fri, 16 Jan 2026
- 04:25:14 +0000
+ 04:25:24 +0000
 From: Yury Norov <ynorov@nvidia.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -62,119 +62,99 @@ To: Steven Rostedt <rostedt@goodmis.org>,
  dri-devel@lists.freedesktop.org, linux-modules@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
 Cc: Yury Norov <ynorov@nvidia.com>,
- "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- Jani Nikula <jani.nikula@intel.com>, Aaron Tomlin <atomlin@atomlin.com>,
- Andi Shyti <andi.shyti@linux.intel.com>
-Subject: [PATCH v5 1/6] kernel.h: drop STACK_MAGIC macro
-Date: Thu, 15 Jan 2026 23:25:04 -0500
-Message-ID: <20260116042510.241009-2-ynorov@nvidia.com>
+ "Yury Norov (NVIDIA)" <yury.norov@gmail.com>
+Subject: [PATCH v5 6/6] tracing: move tracing declarations from kernel.h to a
+ dedicated header
+Date: Thu, 15 Jan 2026 23:25:09 -0500
+Message-ID: <20260116042510.241009-7-ynorov@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260116042510.241009-1-ynorov@nvidia.com>
 References: <20260116042510.241009-1-ynorov@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0741.namprd03.prod.outlook.com
- (2603:10b6:408:110::26) To PH0PR12MB8800.namprd12.prod.outlook.com
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0240.namprd03.prod.outlook.com
+ (2603:10b6:408:f8::35) To PH0PR12MB8800.namprd12.prod.outlook.com
  (2603:10b6:510:26f::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH0PR12MB8800:EE_|LV3PR12MB9188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 657ea600-ca76-4926-b139-08de54b73eff
+X-MS-Office365-Filtering-Correlation-Id: 1ea75a62-1f90-4e6d-136a-08de54b744fd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|10070799003|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VG5XMXRCQUJ5a1Fsa3RBN1VCOE13THA2SkRhS1YvL0huQ1NjaGF2ellVWENJ?=
- =?utf-8?B?cmdKWllrNmkxa2FlblZuRkd0SkVEYy95b1BKNVZqYnFjTEp3SXU4bnBncy8z?=
- =?utf-8?B?R1FaaE1xdzdGOFhBVU9IcU9pcFBNR0F6SXEwY1hjR3pHWS8yMjFHeUtoeE1u?=
- =?utf-8?B?NFRUNlB0NTA5eTYxcmJMTCtZZG83eXVSVzJqdEdpdHpMTklGK3JsNHRsNDJV?=
- =?utf-8?B?VHFPb0xwa0FZNHA1V284bzVHblBUd0FJdnJ0cnZzSnVnTGo4bHR3NzdRN3hw?=
- =?utf-8?B?WWlrRVFlVm5BWDIzTkhtQnNmQzNYY2FNWEVodXhzdm1zYTFRdkZoczUxSTdG?=
- =?utf-8?B?UGdRbmlVWjhXNWlIeDdET2RpWnl2M09wdUE2NVlmNkI5ZHhUemhzMEsvLzh6?=
- =?utf-8?B?ekJWSFlacHRwNFV3cG1CT3NWRndxZUMraEgybGFyOUtGaEhQNVFtejhPK3NL?=
- =?utf-8?B?RHl3RVpzdm1vZVFtbGMyS3RrMHdwaU9hNjZMK1Zhakhxc3g1NitIOEpmcjlC?=
- =?utf-8?B?OUpOV2VPZUlBYjJ2VXdZdFRaU2N4TFpGRFZpQ0RIUjQ2TlVNMXVzbHVvRklZ?=
- =?utf-8?B?QTdBYjI2ZTZ0OVFPVnp0eE1xWjMwd241MWkwN2xSTUVUZ3phZXFHRXJHeDBu?=
- =?utf-8?B?MnNQbHJMcHFWNk96ekN5TU9ablM1cU1Md25EakIyUkZGZldpNitTMEhwNHUy?=
- =?utf-8?B?OWI1Sy9kVG9QYmxCVEloZTNTWXdqYkFBakJWdmZEU3MzM2NRREF6SW43aWxW?=
- =?utf-8?B?eHgxN0NRZVFBcjN3UFYwa0xlZjhlRGp1SVZnT2w1RnluQ0lXalVOQTV6c2k2?=
- =?utf-8?B?eCtiemJ5L3BoVThLbjZEdTdhUVJEVWl4cjFNaWk3SkhNcFdYTGxycDd4ZHM3?=
- =?utf-8?B?a1l1cFdFOFpHUjY3NS8xNnRqbkJaMkhzazVqRS8zK3N3U0hTSStTR2NCQWxv?=
- =?utf-8?B?Tm84YjhCZG9McnZtUSs2bTZreTFFMkN1OUVab2R4aGJIZTF3SDhyY1RaQ2da?=
- =?utf-8?B?cm5YQ3ZXY2NsSFFGTHRFc1NZN29KTVBpcnU4V1VrNkwvUG1aYkhMcFZvbE04?=
- =?utf-8?B?M3c1Q1IzUjFYSUgxZ3lOR2pMTkJ0RUpLb1d5WnBlY3ZpL0hWM2tiTVloNzV2?=
- =?utf-8?B?U0c3ZFdMbFZjcU1na0NLcmVuRTk0T0FQYms3YU5lRUZic2ROaFdMeWdVL3ps?=
- =?utf-8?B?a0xXQUR0ZVpBeGd3cytzaHRXNGE5UXhPUVBRQ3RTYmJMUnRrb00xMTVJTzg2?=
- =?utf-8?B?eG8yZ3FTTGZDL1pxdEEwVE1iOXdCeThhbXNBZ21EeXVVUlVZeWJnQVhNeTho?=
- =?utf-8?B?NlBOTW9UNkNPVkREV3hLKzRaUGFpOGVUaTY4WG5HaUhQYWJ3aG1HVzdnQ25O?=
- =?utf-8?B?ME5HMlpuN2pxQ21BNk1Pazhpdkk5b1F6ZVJhRzNyc2puQ2FRVVFYRTd2dXlU?=
- =?utf-8?B?ZXQ2bk5LTGxTL3NBeWY0WDA5TXdxNEdIOVVZUkJSRCtJMU1PNnJ1ZGkwWThT?=
- =?utf-8?B?TkY5VTgveDM0SEhZYTF2VEI1R3BsRnA5blFMMDBYZE8yb2RsblYwalN0aXlD?=
- =?utf-8?B?a2VTNmYyajVqYkJuWUJCN3VRYmdjTkN1eDFFVGFqYTFheXhnMTg5UjNwYmJs?=
- =?utf-8?B?dWZyWnVETnVrb3VMS3U5cmNkNGZYTzJ0M1pvVFJNaHFvc1h1cERtRjBGM245?=
- =?utf-8?B?ZThnSVI1bC94WGdOK3R2azQzMUZmOGxhQ0pabnJuMS8rZ2tuMmdJeVV6OGk5?=
- =?utf-8?B?bkl3YVh5bnJ0cFRON08rdlNEN042S2tGdFY2ZTJzSlNhR21aTXJHZDhubkg5?=
- =?utf-8?B?cUlZdm4ycGhvbjRlSFczc3Z6aFJGVnp6djE2ZUs1K09sQ1lNK0NIMDU5REtW?=
- =?utf-8?B?VTNIRGhjRzVVMUduVEgvZ0FwaEJiSXZJWXNTUldBZ0RSL1ZYUjJKcmJ6eXBo?=
- =?utf-8?B?a0s4Q1Q1VjVxNmwybWFxUWRVS3o0RmN1dE9yb0xVNkFzN09pV05oalVZVE5U?=
- =?utf-8?B?Wms2UWg5QytRUkFrcER6WlNCOFFVQjd5Z2V4T21ieVJ0cHdISEJzQnQzUUVI?=
- =?utf-8?B?M1ZEa1ZMY3Q4S0NZSHpMbytNczlMZGVkanhEUHpYU0RLQm1qZ3l1T3lXdmtD?=
- =?utf-8?B?aUUvZjhJcUVrQ0lsaHBIdVpOMWVzZUVaNXNqRkpPSEFOSnAwSVM1YjgyeFlu?=
- =?utf-8?B?cFE9PQ==?=
+ ARA:13230040|366016|376014|1800799024|7416014|10070799003|7053199007|921020; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?nG1AHkiCyRfaCsw1gIJ40CZU5fmj84GDNfIKQRPEF20l/W/4HXRMg5YV74s1?=
+ =?us-ascii?Q?2Hi8uejwiF0sPfkQgTzIKQB6YQMMZhcNsFicbe86pPnjsax2Y0hCWmPOxH+P?=
+ =?us-ascii?Q?WSYd/kG2rsehnmCiQRBQLXZsO5lKe6XSGjwqIhO9W4cJh2ON15eAts4cpghY?=
+ =?us-ascii?Q?0ZTMFwpjNirXA39BLk3BNE1/ktZBdeIEbKH05klzh8TqNL5ZehTmTLJGI8Sj?=
+ =?us-ascii?Q?cnYiU8wYq7JM/xp4nHWg07hu2jhC4fhgRdH878LPspXpJ/9vXPts3ul2l87L?=
+ =?us-ascii?Q?T3/1MdzQFs6aMNDMfoytTz4o8KA1r0BbJVOQd8CBJkoF9oUsui8KuATNVnaL?=
+ =?us-ascii?Q?GVl7RArjXHU49dwNkyYd1s8rNiC/qKUZMan7/hHR/UrJa0yOekKZeACvHkl0?=
+ =?us-ascii?Q?ybpBGsaMSR9W8u/+VVV5WLVIy2C0HzLtrvc9B0078w5RZqcUEIwI0LfIOy9H?=
+ =?us-ascii?Q?9QJAPRve0BGPgtRtxuespdhvynvXk7YJYSmelnGL4LsrLjZk8YHXyJBH0+Rq?=
+ =?us-ascii?Q?MlqgbZIibU+7lq8AKtksekY20CfATh7Ns+imZ4bciub7Tg3TErS7+UC0U078?=
+ =?us-ascii?Q?xGOpRVsT9rBDa/erAQV1B6VLM8fpvm8kXs4Qq0zrAsvuRh7vVlo0rLa/2jDg?=
+ =?us-ascii?Q?rVNmiaZraKtRQ6M4zCKR7zX3eljVD28bFBdIB8AHqHA6sM8E3R2s1FaZrfIO?=
+ =?us-ascii?Q?XA3oMUpidWRh6cvquu4imnAWLgP1jxuRmA+KOe9XLyO/ug/j0f0lISWYgN7o?=
+ =?us-ascii?Q?apNbDXzC6F+0NVbua8/8yUKZotERdHo+quxJ/hy7NbtoP57knuNbqDYTuOFH?=
+ =?us-ascii?Q?P4AinSvjCmxnQCSkqzyKvfslAMe3pcMRxXLLpMn9ObkgVz5ejU/j87L8dylo?=
+ =?us-ascii?Q?JDv0z2BvjDB13GmVXZUPcUurn4mVXHH46IsZMoaeYtlTvYnrHQNDAuX64fo9?=
+ =?us-ascii?Q?rpdw341DXetDG6tQqxUcgsBqDyyqssY+pSTCmtdGtnsrLsG6xnM28KS2d8hz?=
+ =?us-ascii?Q?vOVxXz5jao0iSGcypbrU4Pl9MWY/ofkaelUc4qLSr45y4KW2yQPnobkk7f0G?=
+ =?us-ascii?Q?J+gDX1WSJxsPAjIt7L7zJeb8wEgjmL2nydii99HgWWcPI3VQzqinaTl6X0o6?=
+ =?us-ascii?Q?toFU9y0Xj7UzqggculXu96WlOQpY7FoUsOJAj3xLY+uiEOoRkfkl2z5A9FGt?=
+ =?us-ascii?Q?3EEeYANXrquH70Jg0BLbiIUF6oAkb6htgpMY6Wu4UV9WvSTI4D2zwA52+uPe?=
+ =?us-ascii?Q?1LFdXLtZF0/N7eP/M2/f29QU4vIp3NRqDzZN5FdoatBuTcchZj7j0PnrVOUN?=
+ =?us-ascii?Q?ZsVgKtpZcaKRXtBaJOMuYXNwnF9mcoJFlKPd3l5sF1vjScgILrx30RCxjyfO?=
+ =?us-ascii?Q?Jxd9ncE0X/cequrcwfIiEEMbNS47+BwgD7ekajti3S56891CldQhRbziof5W?=
+ =?us-ascii?Q?0WYYF4G90LH4ulCEQMgwJle9G2B88J3voTaRjqPrG0uJ1zNcoPLnrfOr1N/G?=
+ =?us-ascii?Q?8qlnFBrKeu0HAZMtzToZueNKtGGxcHUm+h8Rdptj8IU4L7ugVMfuWZhO5vX9?=
+ =?us-ascii?Q?JqJSLY59fopkN0C5+Du4L3pLeo3a791N93aCMOfeBED/vPC/+WuALK7fj9w8?=
+ =?us-ascii?Q?EQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR12MB8800.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(10070799003)(921020);
+ SFS:(13230040)(366016)(376014)(1800799024)(7416014)(10070799003)(7053199007)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VG91YVdrR3U5eXMzYTZFNXVhOU9WWjB1UTJvMHVQUU9BSXVxd1o2ZWxIekJz?=
- =?utf-8?B?Z1l1NHdHWE5EMW5ZZXRuKy9mRWR2dW4zZlpCSnJpYUhCeU4xWEhMdUZ6NGpy?=
- =?utf-8?B?VHZzMzcvenZjMEFyTGdSRW5hS0dHSVpsWE1DeDNtNlVKbEFpNWhxcnRkNXhZ?=
- =?utf-8?B?cU5jeHFvYUNsK2E4SlNZclM0RWE0UlcvbWZKeTJVbFRiSHNjUkJXZkpKcnpJ?=
- =?utf-8?B?RU96TmNhNUgySXd5S0lNKy96aUVweldZUUFnTzNvRytMbHdZNFZCajZxR3RK?=
- =?utf-8?B?TXFyQXlPeXFOK2QwanFTdFNsMm5ob3BwWGFXSUdQQkRBWUZJcllCVkZQeGJp?=
- =?utf-8?B?U2Y1M1BSeEF4aDdyejRvVXVOTVhob1RaUUxZaWF4VEJpVTkxUVJ6STd3L0Qv?=
- =?utf-8?B?bUJSSHUzUTBqa3R1UGZzR2RkSTFsYXAwM0k3TllDMm5hYzVYS0FqMk82UGE1?=
- =?utf-8?B?U2FDNGxqM3pQdnZwRmVKWFRvTWN6dzlWVGE1UVowUlZKSVBnSDIyOWliREMr?=
- =?utf-8?B?bHdyZzBkS3l0ZW9xQ1dZeU55eDVydTZ0b2I3SDRCUS9vSjRqUTZ3eWREM2Ja?=
- =?utf-8?B?SVBFMC9DMVptVVRTMy81YVdxUkg0amVYQ1hQc3BuaHY0akQ0dzJZMzEzNlMv?=
- =?utf-8?B?ZXNEamJWVkVCaElNamhRVGtkS0lWbGJXcDNheG9SWUQ0dzRJandnOHBMbFhl?=
- =?utf-8?B?ODVrdG5TZmVqcEJxT0VsMWc5RmJYcHA1bXdKb256REJmVnhhRHZLM0hLeWpv?=
- =?utf-8?B?VVJoQWM3N2toTzFpWWpLaE9NRWFrNWZtaU9yRFE1RmNacmtMVzU1SDd6cEN4?=
- =?utf-8?B?cDdrdU50b0o3V1NjbVltdnZvVzEzOG5LTlIxL0dqelpHRDlmQmhGbG80NSt6?=
- =?utf-8?B?dlJCSmFjT2I1M0d0dzlnTnM0L1E0ZHJwWGRyUHVSemVrK3c1djJyZkRIb3Bv?=
- =?utf-8?B?T1lQOUxTVUtEdEhqN25BeDdITGt6TElybGlMUWhKT214YWlVYlluazFOdHFa?=
- =?utf-8?B?bVZOOVVoUlNjOEI4MGYyUHUyTkswQVBpanF5THJnai93N1U1UXpGZ3l4V25D?=
- =?utf-8?B?cEQxSmFVZnRVUEh4NFR4WjhJcng0N1V3UlR5RXdoZ1N4VWZ4d05jYS9ueUpK?=
- =?utf-8?B?YzNZaS9kVUkrdzdmVzVaYUk5RFd1cm5ZbFdoQlltWGlGMFlqOEFERnpsMkts?=
- =?utf-8?B?VnlBUXJDV1JjeWlRcE9GRHlVS1o0N091bnNrVUdtQnB2ODBlMy83WTZWYU0w?=
- =?utf-8?B?dTlkUXVGVmE2Y093b0MxS2syVXd6TkJNSWpZSVFmaVFET0dMVTBiM0JqeHBy?=
- =?utf-8?B?ZUxMaXdPRXVxZzE3bW5PWG0wb0wzc1Zwam1pYkNZZ3FndFJYenZpRTVpTGVG?=
- =?utf-8?B?VGh6YTZPMnp3amdoTzZmOHhOVFN0UjhJR0RWMk96cnhlaHQ0SHgzbEF4YkdB?=
- =?utf-8?B?M0dLMnZqWVFiaFA5RXR5R2VLTjRYZW4ycm5xSlpCSnBQbDNlRVBFaEUxZFd1?=
- =?utf-8?B?elpYMnI4cG5BUUsvb2JtQ1Y5RHgzQ2YzU2pNektnTTFLSGFtT2dYVmJiY2Zo?=
- =?utf-8?B?UmFHWlpyNHV5NTNFclJsMHpJdnN6K25HbklhNURqa2VLMDJtTXBqZ3BZK28y?=
- =?utf-8?B?eEFJZmdXL2xmR1B0Wjh2MTdPY2lCZ2hoL1FjTW9JQk5jMFpvUnBiWWVuWkph?=
- =?utf-8?B?SHMra0dJa2hKYjJWaWEvMDZ3ekRtMjN4MlFGZ1dsZXBNWFhNQUZzTDB1dzZD?=
- =?utf-8?B?WTVyaFBmK2Q1WTJiU3FVRCt5cExWZjJTN3Bxa0p4NWRPNmw4RE9VUk11b2du?=
- =?utf-8?B?RmUrQWFsajZLaWk0aXZ4eGpOaW9lcTlMSGxRTUtNU2FCSzY2Sklud0dybEx6?=
- =?utf-8?B?RTIrZnVHQWh2OXpqQitMNGhZSTZBbmZGcGJGRmlybjNOZW05MHArVEllOGNj?=
- =?utf-8?B?WVNlWDFLSitvdEhMNCtZWUNjVHB4R0tMRkdRNGxJb29GbHBlMW5KbFV4bUV6?=
- =?utf-8?B?YmhHWXdIditCRDUzck9lcEdXUVllOFpJQWNyeTI0ek52dFp2aVlqbEloY1pl?=
- =?utf-8?B?eXJBcGcyWWJxRDlYQzdGRE9HZUJ4S1JKQUdRcTJkVERJcngxbTd3Y2NRb3RL?=
- =?utf-8?B?aDRSZGM0RitMWTBWa1FCQmUzM2VyMnJIN3I1aTRmaXJIUWw3S29KdHZBMStN?=
- =?utf-8?B?NjlSV29JV043WERHNURPWFlpbGRWbmRuakVDWnBMUXVNT1FybEd5NlVsMWRS?=
- =?utf-8?B?ekFpZHV5RTZQN2cxSm41cm5YRm9ZcVVRaWdDbjRHNE5tOS9oZFdqaXd0UVVp?=
- =?utf-8?B?Q0k2cFlJalQ2UWZ6YXFWK29sWEFha2VMTmczcUtQQXR5OTB4SmpvVnZxNDg4?=
- =?utf-8?Q?fcg4L84wPnN1ojIJ/EhMJ8OUFFJRVh7qZNGwg?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?obni4u9IV/bJzc11tsN3P1b4OMZ8D7gdescnZI5IshXZ9+zrhtUQ6JUPoK8R?=
+ =?us-ascii?Q?NQ+YeV1NvbSvpZ/UAaiwDy7SMAd7YzO0qhE4GYbOUAOgFsz3NafjbMbJ0gJg?=
+ =?us-ascii?Q?1wKKSwTZOsTlV01sw84LBpqZzqq9j9JQ01mVAg19SCK/zj5+j+wEAk9yLa7u?=
+ =?us-ascii?Q?hWtpwaJJRpXVwzO+xZYfyJeNm2fZC9ud5nSVaQki1QjHpM14vIxZpO+8gBXz?=
+ =?us-ascii?Q?9GSef/kv3gdmWc63jF4dJnezIA6t72YFMKTt6kkMd4lPJyMJl0LDv/e9VZn1?=
+ =?us-ascii?Q?mAK9Ip8fLpwM36uwjmqt6MaqYRv3MxGGub43vMrTZ3MgR+2PEPiRkh+EiEOC?=
+ =?us-ascii?Q?vO1qLd35L8du/rnHoetnCtnp7XUrBcEvE5cqEoINPR9/6fA8zib+/Jhbz+cn?=
+ =?us-ascii?Q?uafJ9w+ea1E+rYRAsxP7W8SVms8xbcQd0Rp7phyBWjLJbZNKbY2ObjgKTEQK?=
+ =?us-ascii?Q?yN+rKP6E2arA1dJwak+lXbyj4kO3xk2F0SF/RRArT+RLt1NDRMxJl+eVkyom?=
+ =?us-ascii?Q?/07w2ijaaCiXsttyK0jAhqTywM4njY3eiWc8a6VSwBzCaQDyraaYuAiu6/O7?=
+ =?us-ascii?Q?om7yjN98pTK+fAgryLr4POMskWxTdkIi2THVtUa2h5rsjyq3qhqvqL1fT5UV?=
+ =?us-ascii?Q?taEcSxHHF6hVkgCVBMIyDyAbx5DMz28Rw0ZWwTA/I3ELlbpONts5xDCVgbvh?=
+ =?us-ascii?Q?Gs565B2JOGdWVTj3rBrLc5fJINggH/yMlsZ2/G/nlDIQQDRO0P5XiQAIQamj?=
+ =?us-ascii?Q?tjbKFEep1CiKP2eKBD9dNRqYFcdzWE+OKAdGPTs35sd5+d4n+/5YFHBbNF/H?=
+ =?us-ascii?Q?z3GliEmhkOwaIwLiNqQb/xqsRcULmbME2WjoTSSanq3B6fHakD4W0jnCVHfg?=
+ =?us-ascii?Q?lq1lUTDjIETcyUuxt4B0Yz2VR4AsbmsFatp4tzeurjcxl5ZBDd3fkWUiRWUj?=
+ =?us-ascii?Q?6TAC0z+yUA1hF5hojFl9v4t4LJKWws8g4em/5wIbvMWwLMtxne6r5FS6KHoA?=
+ =?us-ascii?Q?xUa82kCAICT6xCNXiKysi6yYBHkxA7oZqJH3WcsAie9QsOxO3FUB4QIfTVKo?=
+ =?us-ascii?Q?5DO+BBGYkyZ7NZgOJ0iLF5EnqnGc8M2JO76ZjhWjf3sDuXOhaIL8lHQ8KO7j?=
+ =?us-ascii?Q?a+LQbLuvIjHFbZuROtlhWgWNIj7F9mmvi+LjvX8e6aDKRApJWeiY21ptdmRo?=
+ =?us-ascii?Q?GV8emoFcw4kn1MwaMMFQQPwCwssiyv/4fSH/YEC44vJuNZzGeMtHV9da0/IP?=
+ =?us-ascii?Q?zoabmLT22gqmntV640tbWdt6jmtXelZF4dF7ATfdD5QANBAwc/ot4VyXnIfI?=
+ =?us-ascii?Q?J4GRDpmuyq7KdGpF+7y7g7GpYykdPeaXR0ozHQKqP1US3Y2eCmQTtRevaA2Y?=
+ =?us-ascii?Q?Ws+n9XPg7bapvgOVu3iAvMjq8FkcaSWNI3aiIg0c9wvcUfIqfBvxrc9j35Dp?=
+ =?us-ascii?Q?7ot6y9ktPDcPs2Zi6WuPhF42ZDffyRNnZOZsjdT19BddR2jJFG3w0Vv4eRV7?=
+ =?us-ascii?Q?TGKWhf4AEpznUDmd3M/+ctwTREIBT76C2SJrO2ipVNz9D5zVftIgEU7LWW66?=
+ =?us-ascii?Q?WYZ0pkFRwBTcqrWEH6bSl5IH8Ut5lyIjj35Qhs5KuUh1L4oIOajwyN6Z87SX?=
+ =?us-ascii?Q?1YJ2HnJMblETT0upNgZrFtJTyx904+HfgNzTJ40/zf2gxEyDCgxl7zVGCsX1?=
+ =?us-ascii?Q?dz2VcC1/DoUeng1zmK1X04WazwSNYbnURUuSRGX+zy3TAyquTA7Vbz0AZYUT?=
+ =?us-ascii?Q?7aubNa8r8s0sIGU68WVGE8BgswSPSxSqLKUU64KPu9F6KXHEH7dj?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 657ea600-ca76-4926-b139-08de54b73eff
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ea75a62-1f90-4e6d-136a-08de54b744fd
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB8800.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 04:25:14.7314 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 04:25:24.8318 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1YvFEDFM0R2rIQWwvnomh5eBRnCv9xH3u67pFBeJFiqBzNnPdoUNr0Ao74MhGmsBXbsr62HQRk1W1AtgCgepbg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7SBbOHBn1D79Evj5xeDpMoJBIVOiybRvxCge2iA4a7UG/LuPgj9OfyO/v0idb4vVMtng4z19iiWDYEVSIdbcSQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9188
 X-Mailman-Approved-At: Fri, 16 Jan 2026 11:08:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -192,62 +172,449 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The macro was introduced in 1994, v1.0.4, for stacks protection. Since
-that, people found better ways to protect stacks, and now the macro is
-only used by i915 selftests. Move it to a local header and drop from
-the kernel.h.
+Tracing is a half of the kernel.h in terms of LOCs, although it's
+a self-consistent part. It is intended for quick debugging purposes
+and isn't used by the normal tracing utilities.
 
+Move it to a separate header. If someone needs to just throw a
+trace_printk() in their driver, they will not have to pull all
+the heavy tracing machinery.
+
+This is a pure move.
+
+Acked-by: Steven Rostedt <rostedt@goodmis.org>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Acked-by: Jani Nikula <jani.nikula@intel.com>
-Reviewed-by: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
-Reviewed-by: Aaron Tomlin <atomlin@atomlin.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 Signed-off-by: Yury Norov <ynorov@nvidia.com>
 ---
- drivers/gpu/drm/i915/gt/selftest_ring_submission.c | 1 +
- drivers/gpu/drm/i915/i915_selftest.h               | 2 ++
- include/linux/kernel.h                             | 2 --
- 3 files changed, 3 insertions(+), 2 deletions(-)
+ include/linux/kernel.h       | 196 +--------------------------------
+ include/linux/trace_printk.h | 204 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 205 insertions(+), 195 deletions(-)
+ create mode 100644 include/linux/trace_printk.h
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-index 87ceb0f374b6..600333ae6c8c 100644
---- a/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_ring_submission.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2020 Intel Corporation
-  */
- 
-+#include "i915_selftest.h"
- #include "intel_engine_pm.h"
- #include "selftests/igt_flush_test.h"
- 
-diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/i915_selftest.h
-index bdf3e22c0a34..72922028f4ba 100644
---- a/drivers/gpu/drm/i915/i915_selftest.h
-+++ b/drivers/gpu/drm/i915/i915_selftest.h
-@@ -26,6 +26,8 @@
- 
- #include <linux/types.h>
- 
-+#define STACK_MAGIC	0xdeadbeef
-+
- struct pci_dev;
- struct drm_i915_private;
- 
 diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-index 5b46924fdff5..61d63c57bc2d 100644
+index 4ee48fb10dec..a377335e01da 100644
 --- a/include/linux/kernel.h
 +++ b/include/linux/kernel.h
-@@ -40,8 +40,6 @@
+@@ -32,7 +32,7 @@
+ #include <linux/build_bug.h>
+ #include <linux/sprintf.h>
+ #include <linux/static_call_types.h>
+-#include <linux/instruction_pointer.h>
++#include <linux/trace_printk.h>
+ #include <linux/util_macros.h>
+ #include <linux/wordpart.h>
  
- #include <uapi/linux/kernel.h>
+@@ -190,200 +190,6 @@ enum system_states {
+ };
+ extern enum system_states system_state;
  
--#define STACK_MAGIC	0xdeadbeef
+-/*
+- * General tracing related utility functions - trace_printk(),
+- * tracing_on/tracing_off and tracing_start()/tracing_stop
+- *
+- * Use tracing_on/tracing_off when you want to quickly turn on or off
+- * tracing. It simply enables or disables the recording of the trace events.
+- * This also corresponds to the user space /sys/kernel/tracing/tracing_on
+- * file, which gives a means for the kernel and userspace to interact.
+- * Place a tracing_off() in the kernel where you want tracing to end.
+- * From user space, examine the trace, and then echo 1 > tracing_on
+- * to continue tracing.
+- *
+- * tracing_stop/tracing_start has slightly more overhead. It is used
+- * by things like suspend to ram where disabling the recording of the
+- * trace is not enough, but tracing must actually stop because things
+- * like calling smp_processor_id() may crash the system.
+- *
+- * Most likely, you want to use tracing_on/tracing_off.
+- */
 -
- struct completion;
- struct user;
- 
+-enum ftrace_dump_mode {
+-	DUMP_NONE,
+-	DUMP_ALL,
+-	DUMP_ORIG,
+-	DUMP_PARAM,
+-};
+-
+-#ifdef CONFIG_TRACING
+-void tracing_on(void);
+-void tracing_off(void);
+-int tracing_is_on(void);
+-void tracing_snapshot(void);
+-void tracing_snapshot_alloc(void);
+-
+-extern void tracing_start(void);
+-extern void tracing_stop(void);
+-
+-static inline __printf(1, 2)
+-void ____trace_printk_check_format(const char *fmt, ...)
+-{
+-}
+-#define __trace_printk_check_format(fmt, args...)			\
+-do {									\
+-	if (0)								\
+-		____trace_printk_check_format(fmt, ##args);		\
+-} while (0)
+-
+-/**
+- * trace_printk - printf formatting in the ftrace buffer
+- * @fmt: the printf format for printing
+- *
+- * Note: __trace_printk is an internal function for trace_printk() and
+- *       the @ip is passed in via the trace_printk() macro.
+- *
+- * This function allows a kernel developer to debug fast path sections
+- * that printk is not appropriate for. By scattering in various
+- * printk like tracing in the code, a developer can quickly see
+- * where problems are occurring.
+- *
+- * This is intended as a debugging tool for the developer only.
+- * Please refrain from leaving trace_printks scattered around in
+- * your code. (Extra memory is used for special buffers that are
+- * allocated when trace_printk() is used.)
+- *
+- * A little optimization trick is done here. If there's only one
+- * argument, there's no need to scan the string for printf formats.
+- * The trace_puts() will suffice. But how can we take advantage of
+- * using trace_puts() when trace_printk() has only one argument?
+- * By stringifying the args and checking the size we can tell
+- * whether or not there are args. __stringify((__VA_ARGS__)) will
+- * turn into "()\0" with a size of 3 when there are no args, anything
+- * else will be bigger. All we need to do is define a string to this,
+- * and then take its size and compare to 3. If it's bigger, use
+- * do_trace_printk() otherwise, optimize it to trace_puts(). Then just
+- * let gcc optimize the rest.
+- */
+-
+-#define trace_printk(fmt, ...)				\
+-do {							\
+-	char _______STR[] = __stringify((__VA_ARGS__));	\
+-	if (sizeof(_______STR) > 3)			\
+-		do_trace_printk(fmt, ##__VA_ARGS__);	\
+-	else						\
+-		trace_puts(fmt);			\
+-} while (0)
+-
+-#define do_trace_printk(fmt, args...)					\
+-do {									\
+-	static const char *trace_printk_fmt __used			\
+-		__section("__trace_printk_fmt") =			\
+-		__builtin_constant_p(fmt) ? fmt : NULL;			\
+-									\
+-	__trace_printk_check_format(fmt, ##args);			\
+-									\
+-	if (__builtin_constant_p(fmt))					\
+-		__trace_bprintk(_THIS_IP_, trace_printk_fmt, ##args);	\
+-	else								\
+-		__trace_printk(_THIS_IP_, fmt, ##args);			\
+-} while (0)
+-
+-extern __printf(2, 3)
+-int __trace_bprintk(unsigned long ip, const char *fmt, ...);
+-
+-extern __printf(2, 3)
+-int __trace_printk(unsigned long ip, const char *fmt, ...);
+-
+-/**
+- * trace_puts - write a string into the ftrace buffer
+- * @str: the string to record
+- *
+- * Note: __trace_bputs is an internal function for trace_puts and
+- *       the @ip is passed in via the trace_puts macro.
+- *
+- * This is similar to trace_printk() but is made for those really fast
+- * paths that a developer wants the least amount of "Heisenbug" effects,
+- * where the processing of the print format is still too much.
+- *
+- * This function allows a kernel developer to debug fast path sections
+- * that printk is not appropriate for. By scattering in various
+- * printk like tracing in the code, a developer can quickly see
+- * where problems are occurring.
+- *
+- * This is intended as a debugging tool for the developer only.
+- * Please refrain from leaving trace_puts scattered around in
+- * your code. (Extra memory is used for special buffers that are
+- * allocated when trace_puts() is used.)
+- *
+- * Returns: 0 if nothing was written, positive # if string was.
+- *  (1 when __trace_bputs is used, strlen(str) when __trace_puts is used)
+- */
+-
+-#define trace_puts(str) ({						\
+-	static const char *trace_printk_fmt __used			\
+-		__section("__trace_printk_fmt") =			\
+-		__builtin_constant_p(str) ? str : NULL;			\
+-									\
+-	if (__builtin_constant_p(str))					\
+-		__trace_bputs(_THIS_IP_, trace_printk_fmt);		\
+-	else								\
+-		__trace_puts(_THIS_IP_, str);				\
+-})
+-extern int __trace_bputs(unsigned long ip, const char *str);
+-extern int __trace_puts(unsigned long ip, const char *str);
+-
+-extern void trace_dump_stack(int skip);
+-
+-/*
+- * The double __builtin_constant_p is because gcc will give us an error
+- * if we try to allocate the static variable to fmt if it is not a
+- * constant. Even with the outer if statement.
+- */
+-#define ftrace_vprintk(fmt, vargs)					\
+-do {									\
+-	if (__builtin_constant_p(fmt)) {				\
+-		static const char *trace_printk_fmt __used		\
+-		  __section("__trace_printk_fmt") =			\
+-			__builtin_constant_p(fmt) ? fmt : NULL;		\
+-									\
+-		__ftrace_vbprintk(_THIS_IP_, trace_printk_fmt, vargs);	\
+-	} else								\
+-		__ftrace_vprintk(_THIS_IP_, fmt, vargs);		\
+-} while (0)
+-
+-extern __printf(2, 0) int
+-__ftrace_vbprintk(unsigned long ip, const char *fmt, va_list ap);
+-
+-extern __printf(2, 0) int
+-__ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
+-
+-extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
+-#else
+-static inline void tracing_start(void) { }
+-static inline void tracing_stop(void) { }
+-static inline void trace_dump_stack(int skip) { }
+-
+-static inline void tracing_on(void) { }
+-static inline void tracing_off(void) { }
+-static inline int tracing_is_on(void) { return 0; }
+-static inline void tracing_snapshot(void) { }
+-static inline void tracing_snapshot_alloc(void) { }
+-
+-static inline __printf(1, 2)
+-int trace_printk(const char *fmt, ...)
+-{
+-	return 0;
+-}
+-static __printf(1, 0) inline int
+-ftrace_vprintk(const char *fmt, va_list ap)
+-{
+-	return 0;
+-}
+-static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
+-#endif /* CONFIG_TRACING */
+-
+ /* Rebuild everything on CONFIG_DYNAMIC_FTRACE */
+ #ifdef CONFIG_DYNAMIC_FTRACE
+ # define REBUILD_DUE_TO_DYNAMIC_FTRACE
+diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
+new file mode 100644
+index 000000000000..bb5874097f24
+--- /dev/null
++++ b/include/linux/trace_printk.h
+@@ -0,0 +1,204 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_TRACE_PRINTK_H
++#define _LINUX_TRACE_PRINTK_H
++
++#include <linux/compiler_attributes.h>
++#include <linux/instruction_pointer.h>
++#include <linux/stddef.h>
++#include <linux/stringify.h>
++
++/*
++ * General tracing related utility functions - trace_printk(),
++ * tracing_on/tracing_off and tracing_start()/tracing_stop
++ *
++ * Use tracing_on/tracing_off when you want to quickly turn on or off
++ * tracing. It simply enables or disables the recording of the trace events.
++ * This also corresponds to the user space /sys/kernel/tracing/tracing_on
++ * file, which gives a means for the kernel and userspace to interact.
++ * Place a tracing_off() in the kernel where you want tracing to end.
++ * From user space, examine the trace, and then echo 1 > tracing_on
++ * to continue tracing.
++ *
++ * tracing_stop/tracing_start has slightly more overhead. It is used
++ * by things like suspend to ram where disabling the recording of the
++ * trace is not enough, but tracing must actually stop because things
++ * like calling smp_processor_id() may crash the system.
++ *
++ * Most likely, you want to use tracing_on/tracing_off.
++ */
++
++enum ftrace_dump_mode {
++	DUMP_NONE,
++	DUMP_ALL,
++	DUMP_ORIG,
++	DUMP_PARAM,
++};
++
++#ifdef CONFIG_TRACING
++void tracing_on(void);
++void tracing_off(void);
++int tracing_is_on(void);
++void tracing_snapshot(void);
++void tracing_snapshot_alloc(void);
++
++extern void tracing_start(void);
++extern void tracing_stop(void);
++
++static inline __printf(1, 2)
++void ____trace_printk_check_format(const char *fmt, ...)
++{
++}
++#define __trace_printk_check_format(fmt, args...)			\
++do {									\
++	if (0)								\
++		____trace_printk_check_format(fmt, ##args);		\
++} while (0)
++
++/**
++ * trace_printk - printf formatting in the ftrace buffer
++ * @fmt: the printf format for printing
++ *
++ * Note: __trace_printk is an internal function for trace_printk() and
++ *       the @ip is passed in via the trace_printk() macro.
++ *
++ * This function allows a kernel developer to debug fast path sections
++ * that printk is not appropriate for. By scattering in various
++ * printk like tracing in the code, a developer can quickly see
++ * where problems are occurring.
++ *
++ * This is intended as a debugging tool for the developer only.
++ * Please refrain from leaving trace_printks scattered around in
++ * your code. (Extra memory is used for special buffers that are
++ * allocated when trace_printk() is used.)
++ *
++ * A little optimization trick is done here. If there's only one
++ * argument, there's no need to scan the string for printf formats.
++ * The trace_puts() will suffice. But how can we take advantage of
++ * using trace_puts() when trace_printk() has only one argument?
++ * By stringifying the args and checking the size we can tell
++ * whether or not there are args. __stringify((__VA_ARGS__)) will
++ * turn into "()\0" with a size of 3 when there are no args, anything
++ * else will be bigger. All we need to do is define a string to this,
++ * and then take its size and compare to 3. If it's bigger, use
++ * do_trace_printk() otherwise, optimize it to trace_puts(). Then just
++ * let gcc optimize the rest.
++ */
++
++#define trace_printk(fmt, ...)				\
++do {							\
++	char _______STR[] = __stringify((__VA_ARGS__));	\
++	if (sizeof(_______STR) > 3)			\
++		do_trace_printk(fmt, ##__VA_ARGS__);	\
++	else						\
++		trace_puts(fmt);			\
++} while (0)
++
++#define do_trace_printk(fmt, args...)					\
++do {									\
++	static const char *trace_printk_fmt __used			\
++		__section("__trace_printk_fmt") =			\
++		__builtin_constant_p(fmt) ? fmt : NULL;			\
++									\
++	__trace_printk_check_format(fmt, ##args);			\
++									\
++	if (__builtin_constant_p(fmt))					\
++		__trace_bprintk(_THIS_IP_, trace_printk_fmt, ##args);	\
++	else								\
++		__trace_printk(_THIS_IP_, fmt, ##args);			\
++} while (0)
++
++extern __printf(2, 3)
++int __trace_bprintk(unsigned long ip, const char *fmt, ...);
++
++extern __printf(2, 3)
++int __trace_printk(unsigned long ip, const char *fmt, ...);
++
++/**
++ * trace_puts - write a string into the ftrace buffer
++ * @str: the string to record
++ *
++ * Note: __trace_bputs is an internal function for trace_puts and
++ *       the @ip is passed in via the trace_puts macro.
++ *
++ * This is similar to trace_printk() but is made for those really fast
++ * paths that a developer wants the least amount of "Heisenbug" effects,
++ * where the processing of the print format is still too much.
++ *
++ * This function allows a kernel developer to debug fast path sections
++ * that printk is not appropriate for. By scattering in various
++ * printk like tracing in the code, a developer can quickly see
++ * where problems are occurring.
++ *
++ * This is intended as a debugging tool for the developer only.
++ * Please refrain from leaving trace_puts scattered around in
++ * your code. (Extra memory is used for special buffers that are
++ * allocated when trace_puts() is used.)
++ *
++ * Returns: 0 if nothing was written, positive # if string was.
++ *  (1 when __trace_bputs is used, strlen(str) when __trace_puts is used)
++ */
++
++#define trace_puts(str) ({						\
++	static const char *trace_printk_fmt __used			\
++		__section("__trace_printk_fmt") =			\
++		__builtin_constant_p(str) ? str : NULL;			\
++									\
++	if (__builtin_constant_p(str))					\
++		__trace_bputs(_THIS_IP_, trace_printk_fmt);		\
++	else								\
++		__trace_puts(_THIS_IP_, str);				\
++})
++extern int __trace_bputs(unsigned long ip, const char *str);
++extern int __trace_puts(unsigned long ip, const char *str);
++
++extern void trace_dump_stack(int skip);
++
++/*
++ * The double __builtin_constant_p is because gcc will give us an error
++ * if we try to allocate the static variable to fmt if it is not a
++ * constant. Even with the outer if statement.
++ */
++#define ftrace_vprintk(fmt, vargs)					\
++do {									\
++	if (__builtin_constant_p(fmt)) {				\
++		static const char *trace_printk_fmt __used		\
++		  __section("__trace_printk_fmt") =			\
++			__builtin_constant_p(fmt) ? fmt : NULL;		\
++									\
++		__ftrace_vbprintk(_THIS_IP_, trace_printk_fmt, vargs);	\
++	} else								\
++		__ftrace_vprintk(_THIS_IP_, fmt, vargs);		\
++} while (0)
++
++extern __printf(2, 0) int
++__ftrace_vbprintk(unsigned long ip, const char *fmt, va_list ap);
++
++extern __printf(2, 0) int
++__ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
++
++extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
++#else
++static inline void tracing_start(void) { }
++static inline void tracing_stop(void) { }
++static inline void trace_dump_stack(int skip) { }
++
++static inline void tracing_on(void) { }
++static inline void tracing_off(void) { }
++static inline int tracing_is_on(void) { return 0; }
++static inline void tracing_snapshot(void) { }
++static inline void tracing_snapshot_alloc(void) { }
++
++static inline __printf(1, 2)
++int trace_printk(const char *fmt, ...)
++{
++	return 0;
++}
++static __printf(1, 0) inline int
++ftrace_vprintk(const char *fmt, va_list ap)
++{
++	return 0;
++}
++static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
++#endif /* CONFIG_TRACING */
++
++#endif
 -- 
 2.43.0
 
