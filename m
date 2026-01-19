@@ -4,54 +4,245 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84529D29C4D
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 20:20:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0F88D2ECE6
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 21:20:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC3C10E1BC;
-	Mon, 19 Jan 2026 20:20:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228E610E518;
+	Mon, 19 Jan 2026 21:20:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="maTSCRPA";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="ra+ud70j";
+	dkim=pass (1024-bit key; unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="tOa9m/FQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B5AB10E1BC;
- Mon, 19 Jan 2026 20:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768854017; x=1800390017;
- h=date:from:to:cc:subject:message-id;
- bh=1vQg/T5ZuzuhxcFSSx1m4hlg1qsZLbyt3u418N/l8YE=;
- b=maTSCRPAgBBlo4JkeEP07D/ig/hQMo8m2UwR1TfYOCXJbBaN7kCG6bvi
- cvnEGLXs3yqgDybIaUGSbK1HCjAJmcgNhtab2jYb12uG1159q+692SvND
- Gwihs5Xk26l3VQyCyBNsQCGagmn86v1fIi1IJd9zy78o4D2AxHZa92nNq
- x/6HxT/Q7wUCTP4nu6ZilOIznxKNpNSH8kRuigJxF5x0wjM4q/ztnM0xZ
- HcmsR6pcNwi7UUmEsyLupiIAHEd3PnFKcCSpC923B8FM/QIUFGV0a+bm0
- gkeW0JL0xOTZf4IBsRNs98ez+ZTkac7+l8iz/FAtft2lYVY/ahivsl4Qn g==;
-X-CSE-ConnectionGUID: 52zBgXZEQde7TQQdYaooeQ==
-X-CSE-MsgGUID: Z/p7gk+0Q1O8Sm0QTlZ8TQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11676"; a="73694254"
-X-IronPort-AV: E=Sophos;i="6.21,238,1763452800"; d="scan'208";a="73694254"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2026 12:20:17 -0800
-X-CSE-ConnectionGUID: 3GfOwatjSPiOYcDIiG1Lcw==
-X-CSE-MsgGUID: oeuaV/PBSHmpRqw+Ia9ZSA==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by fmviesa003.fm.intel.com with ESMTP; 19 Jan 2026 12:20:15 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vhvjQ-00000000OH1-2aWp;
- Mon, 19 Jan 2026 20:20:12 +0000
-Date: Tue, 20 Jan 2026 04:19:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [drm-tip:drm-tip 1415/1442]
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:2744:49: warning: passing
- argument 6 of 'drm_property_replace_blob_from_id' makes integer from pointer
- without a cast
-Message-ID: <202601200452.irMHod6V-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8908010E518;
+ Mon, 19 Jan 2026 21:20:07 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60JBDW3M1512488; Mon, 19 Jan 2026 21:19:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ corp-2025-04-25; bh=UyEoEfL3TTEPL0jXTixCoRIS7NI+4KHS9j7GvuHEC8g=; b=
+ ra+ud70jxj9L2BEuG0y/LZlyeZlczeVlkAYFrTHF07zcZ9WsSJXihxU9sCdABb5h
+ vGsBjYAVVieinOmbqupgX+gGRfEqPEyyF26FqmhWAbwg6B/elOv7CVVCr+H1vs0B
+ B4LkjPbcfMe7OWJA9wj3TCixSPFUjGasL5GCh/7YFV2fFPyRcWs4i3wTtJcMx95j
+ WBjftrlQ5S+HOK7DKIFLyGRKn/2YQ0WATJVgxncrQqUH6IWixTJ7/o95mGitolb2
+ h4uR3yC1d7EEWgYhPAImOWAiBGP/QcGy/lgx4tvyNdZEa7v9lIVycJKM0YkJGjmF
+ 10QqQIuySB/5VLqGnGSi4g==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4br21qas1q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 19 Jan 2026 21:19:26 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 60JLDfoR015518; Mon, 19 Jan 2026 21:19:25 GMT
+Received: from co1pr03cu002.outbound.protection.outlook.com
+ (mail-westus2azon11010020.outbound.protection.outlook.com [52.101.46.20])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4br0v8sb2q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 19 Jan 2026 21:19:25 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yD0W9ZVilJ2ck1VxL+3MoL8CptG6syIJLij4BUGefROR98kyeJ1KoAS4zX0HTQgBT3fwE9MuCulaOp3CR5dNQCUvXwRwOxKD2dlutoo5ipKEERruoBJTVIjvhniIcgel9dKhRVPpFS7f+c4cmLDJdzcKBW/PKx0zOfcfL1NY+CNMBg+8pQNoN/hh81ux0YvhpeFZbwC0MT54sU6aHnl/Z2ZuJUwJ4PoDin/kJlu+0/3bs4p0tDtZ4EIUrRngBQ19xJmwimm7BNEle11Z6Cya+VCUFgYoJfzLWB9Ypi77DK1ZercVvZyej/5o1Bm7OdSHyzZSwnSs6O31pDP8wIihWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UyEoEfL3TTEPL0jXTixCoRIS7NI+4KHS9j7GvuHEC8g=;
+ b=lzSgj7lRzZvuJ13WX+aJKCS28R3QmWH/8HUJtZy67wwsm7lH1D89kgzs1/F/ZSJ6Ciig+fwolvE+auDgG/d3qehD/eaDR6jM9+NPotwUAgH0MaHA7klciRw4dOMXWyOxeVzOTCFyoTuO9HkPvRMBqGkytr0HXz8MyVK7vKrl9UivWJOKlPHcHZdPrijIa52udN0qgRCFY28EN3HP9t23I2uekP9rh4uBwEu4bp7ZciRL2tnuOSedV0gD/0EwklVqS9hn7lo4tP+rq1N3a13eqMRGj0kalh/N3Qvm8C5gXqC6IPyebJoNFMwcnMbz4JIWwUcB0cbuLrjweK0huEZCMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UyEoEfL3TTEPL0jXTixCoRIS7NI+4KHS9j7GvuHEC8g=;
+ b=tOa9m/FQUQpLKbv8tg2aKchEfjeXwMlM9+Ah7MyH4wps3GlkM6qry8na7gZOAj2k96bcgwKoPSJvExIBYsrPnQVyTdciXMgs5sEG1V4fJElu0e/VlnRV/oavIYpJVDk6AgFYbIhlwCkW9dzVx1rxHh4woA4HUSYXA5kTNTugVt4=
+Received: from BL4PR10MB8229.namprd10.prod.outlook.com (2603:10b6:208:4e6::14)
+ by DM4PR10MB6838.namprd10.prod.outlook.com (2603:10b6:8:106::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
+ 2026 21:19:20 +0000
+Received: from BL4PR10MB8229.namprd10.prod.outlook.com
+ ([fe80::552b:16d2:af:c582]) by BL4PR10MB8229.namprd10.prod.outlook.com
+ ([fe80::552b:16d2:af:c582%6]) with mapi id 15.20.9520.005; Mon, 19 Jan 2026
+ 21:19:20 +0000
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Benjamin LaHaise <bcrl@kvack.org>, Gao Xiang <xiang@kernel.org>,
+ Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
+ Jeffle Xu <jefflexu@linux.alibaba.com>,
+ Sandeep Dhavale <dhavale@google.com>,
+ Hongbo Li <lihongbo22@huawei.com>, Chunhai Guo <guochunhai@vivo.com>,
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Mike Marshall <hubcap@omnibond.com>,
+ Martin Brandenburg <martin@omnibond.com>, Tony Luck <tony.luck@intel.com>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Dave Martin <Dave.Martin@arm.com>, James Morse <james.morse@arm.com>,
+ Babu Moger <babu.moger@amd.com>, Carlos Maiolino <cem@kernel.org>,
+ Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
+ Johannes Thumshirn <jth@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
+ Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, David Howells <dhowells@redhat.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E . Hallyn" <serge@hallyn.com>, Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, linux-sgx@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ linux-aio@kvack.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-mm@kvack.org, ntfs3@lists.linux.dev,
+ devel@lists.orangefs.org, linux-xfs@vger.kernel.org,
+ keyrings@vger.kernel.org, linux-security-module@vger.kernel.org,
+ Jason Gunthorpe <jgg@nvidia.com>
+Subject: [PATCH RESEND 02/12] mm: add mk_vma_flags() bitmap flag macro helper
+Date: Mon, 19 Jan 2026 21:19:04 +0000
+Message-ID: <2dbf01bf3538e13b2bd6125e6723165a94eaf06c.1768857200.git.lorenzo.stoakes@oracle.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1768857200.git.lorenzo.stoakes@oracle.com>
+References: <cover.1768857200.git.lorenzo.stoakes@oracle.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0256.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:37c::16) To BL4PR10MB8229.namprd10.prod.outlook.com
+ (2603:10b6:208:4e6::14)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR10MB8229:EE_|DM4PR10MB6838:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9077c919-6a3b-42dc-7753-08de57a06942
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hm4CkGKUtC/FVYt9z27rRprV8Y3Yt1xdcCNRETIVT4haKzMePqgRxFU/B7UA?=
+ =?us-ascii?Q?n0Ion0vIKxmPkTEY2RvUp58UyUoFDNm4dhmfVwwDqMtkf/r6ctzWX9SQo73o?=
+ =?us-ascii?Q?I12rAfQLNk0MN7dOLaR7CFrBXEp1/DVogHmmQ1HMkcInxCtQaf/bWCYHidOG?=
+ =?us-ascii?Q?ALBTHCeL3uIVy3QnWNcOi7a0Pugbe71qsGXgUr11QjU3hXqIb2ryzs9bD3xK?=
+ =?us-ascii?Q?14IK/AqVvZdNopVyPZd020rvCQJ1mZxY+1FFThBJCfb4rTu6NLl/FzaWipz7?=
+ =?us-ascii?Q?qRD3EEo5IKh2yhPhNF+xW1zZW0tXP6I6wlWtRMh6bNuJqaCB1I+lMfY26b+c?=
+ =?us-ascii?Q?d39Qi/NR6mMeVPrD4NzkQ7ZlODBackPtKQE2WLmM3TM5Mi+dngN/dekhw7ZM?=
+ =?us-ascii?Q?hF6Es6PKvG6CAfv3uLvqztL/YTSZ5MNNbV+N5Okk/wBxvIm0Tq33U/wmWrO9?=
+ =?us-ascii?Q?L95y41owa6ZCCyafNxaSTh2AqgIdQUaG3CxAF6KdsNmBNrmTRtrhZubRxuQf?=
+ =?us-ascii?Q?PZUfS7SGcRdwy0wnyFJFXzlJHdyg31qXI5IVsee3iHN/UHfZdJvnIEPzFdjT?=
+ =?us-ascii?Q?yA10u7VjbvwEvGjYy5OT3rYFWypOsGdMgqj8LiVUyFZnBI6LjC2H1zDfh7zB?=
+ =?us-ascii?Q?xAeFsnDAw7Mks21ZhJ2DnX5M+hXlrhfYbguOTXjNR/5DyeJp8VBE+7221BFb?=
+ =?us-ascii?Q?g0RJT9gwkaqbxHj/xzpCi2Izr3g5C0H2rsursszjaY4qxkxmQhRouDaFfYcJ?=
+ =?us-ascii?Q?5RW69EMXv1OLcLQDPryE4TVVq1lJ1dcW3jFnRx75N4NI8hzkjayckZd4SDey?=
+ =?us-ascii?Q?LNhVYSebl9L3gglv0WVgHTjghK9Cnq0RgEOHN00XxYAd3iLT16emrfngPZ28?=
+ =?us-ascii?Q?RwiwmSeFPzh6A5Km9SnkTGx9X/AuV4Qd0a8q0mFosQyhdMPTIekvaw2Kvsz0?=
+ =?us-ascii?Q?NeYuFdeIemwKY2PrqyKrO55KAmMs8T1qdYko3cVZ7/uuLvvxIWZRnLm9oDJw?=
+ =?us-ascii?Q?sLaJtKSbCZwLVC3FHDDJSr24IEgyp52gSOTS81UrkJcHUXCkpBIBiHg05Kn0?=
+ =?us-ascii?Q?0feTw+S5JvsvBWeGmkHTy7nT20jXHxj0jLd5E2iDw8C+nvNT2V3v2KmVZGeJ?=
+ =?us-ascii?Q?rlCodpQi6wpnUyw4fY+u+Mj0sRnF+7blKwZiLuhe6LDL6WVl4hy3CyXYRdGt?=
+ =?us-ascii?Q?vtrp0PLdLUlKSYennFfV6L2qtVSUsOmDFd+Jq2p7YKx++BnHe+aNwtu9oWBu?=
+ =?us-ascii?Q?c0GgpzIvIenzoB2myHU3uAKEQfegwxRpFnleadYLLV4Xl4SPqgLw1ow1yhIZ?=
+ =?us-ascii?Q?dZe+BAXv8LfwKp4TzAmvZgLJeC/KeVNcxUUa8rKOcwD91AbtcCn64+k0zwCa?=
+ =?us-ascii?Q?xJEpAhpWowYD9VeMQRTjjcA5pJsuxlokrpslFgmPyyerH4GxBcTI3VIQTtRu?=
+ =?us-ascii?Q?pYNPunabtqDKKWMcHN/LltW8kpM883ZyUcvRruJmsKXXVjyj2rC75i27b/4R?=
+ =?us-ascii?Q?5XbWwXlDoRSKVS5STA+fdZUsHHKa8O1JDXYlHO+7vXUvNZSQYeEQ1vVpXgLW?=
+ =?us-ascii?Q?gps7RzPHv3JXh/I5Avc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL4PR10MB8229.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ex8Gaip/+6h2nnLJBpDlcykt52+PE4tFqwnhN4BgRf5nqzGFiPrzS3RGT2br?=
+ =?us-ascii?Q?ikQ+iqU51LVAGFn/6TyEwLbg/ss0pxQzOIoeJYX1g1WF/tMCs9vwr/2F1czE?=
+ =?us-ascii?Q?6tOKOmYs+nfRHJkpZUgKnjLZ7L/IYX68LVg4l1T63/e5tBYnGRQSBrdY8kxq?=
+ =?us-ascii?Q?HffRreuTHb3y9G/AC7vVtKyCilP78ew7RthtL33WUDn7WWv1a6Et1xId7bMT?=
+ =?us-ascii?Q?PZT0zC2kO+jVtEJFkAQwyTklT/q5AzrVftslts+l/H2hoy1enSaK4aaOX4Ip?=
+ =?us-ascii?Q?1hE6ByuZbJpCKU/+zpAFPXMUEYABW42MqIzkjWXXyjwJhdkCpGFvhnSWyTi0?=
+ =?us-ascii?Q?bIw5pMFWMm5D89nNbxhDSo/CD+rgregQNA+sU/RU8J5dWmisP15JdV2kBrK3?=
+ =?us-ascii?Q?ieLxWtOaiV1jT10tSz0v70QLPJrl3u36RW9zlV2SbTPdMSX5BgWgI/IZi93M?=
+ =?us-ascii?Q?yPixGRaysDp3F5FUhG+KojFEOdk5WCjVF7GHF+tyytyO4Hdm54ZN7uLvZYbw?=
+ =?us-ascii?Q?IwplfxyfFM85HA+cFzAdWgFHtLIDbTV0RC+CMaJMgNclxOqrXJOZIHxP+EKk?=
+ =?us-ascii?Q?Jh4hvah3KnwsZnOqBIfEg+GD7ZhO4vNvHcLoOOYIVBH/hI4QVDJ1DWcBoTS3?=
+ =?us-ascii?Q?5kzVMaoksGLF0xnGArdgZGrRuzzk+6iMH/2poW3rYIcaTE1f0AwcStRX9j+H?=
+ =?us-ascii?Q?GPohEVWb3Y/2Rt49fq6YQ4OQEGYRUvyvba1A29wc2E6vV5xwhlnsAzjHpxRQ?=
+ =?us-ascii?Q?5KBdRXFfRjnhlXiBVx04/jjJAs5onC8geE/GCXkRk8446vfCl+Gi5AGAV4tg?=
+ =?us-ascii?Q?68/iUHM05Z0ERjDONg9gI80YEsrSSt4RyeEg5YHKGUTIET8m0mSHlhzG+JNT?=
+ =?us-ascii?Q?CG1WKGQJc47Aas60qwK/JPVCU+7lp+s5WZXxaqgkj95KzOqakb8hwwaz+ggt?=
+ =?us-ascii?Q?TqOD85W5Ihbf3OGnkhh1duRiIxyQRTx8HFtkztrGNmMIhsttZBcvvYix2s42?=
+ =?us-ascii?Q?ek2lDe9qEhZYwf9PKJ8xcsWxCD5dxxS8eiN5RFMtIC7tez4m39Fs0hFj33La?=
+ =?us-ascii?Q?JQo2n+oK4D6SN7t9RuhXGRPvl8P1hIHNyNdNNdc5i+bPGSBuFYGIwoztSgwR?=
+ =?us-ascii?Q?oeVtMBJMRhRbdMYwIuwfTvL7IBUEZSJBP/9J7paGxOJ36Yo7zsI5m/lrcnhV?=
+ =?us-ascii?Q?q54GVB7vXX4YO6OA6GW/O/cxH6aDbz0jN5F5pGyUNSpZ/t9AjDhIHmQMK/Tf?=
+ =?us-ascii?Q?gEUrRlgFZk5bdMnAX34J8uQe9Oy/X689J3IMzdbkeArrXcWXtg57BMuOhXG7?=
+ =?us-ascii?Q?UWOKRv0vLEXOBbJRlHdhSrpzO5bLMSo6v6dY6dEJKwK++nnUOr+d/0FUxGKf?=
+ =?us-ascii?Q?j+9ww+QkirLOME6TWLc42Pmp55gjtb0TIia6AzPX1YTZ7jG86GF94F94pvEC?=
+ =?us-ascii?Q?Anh5A0uKUfICAWQJsbleprwRUpgQv99Qu7N9k77H3IvDyoHgzEveviPMl74H?=
+ =?us-ascii?Q?9aLfzxTMceRE2svxwK7dR6/rNMNKKp7jsSLDIr5WiRILv4Vqx+JNyfAsGbLR?=
+ =?us-ascii?Q?7u40npOBvCGyUVobNB7TftlZZk/NWuaTvsCYDz3l216tN14Vo48apUBQW0fW?=
+ =?us-ascii?Q?9G/CtD4tnLOF4T7nCvpbYcFT1emTpCnehyMPynX4lkOZWDyz/2VNq7M2smUv?=
+ =?us-ascii?Q?DT8buTPY3JfghRCcFBsn5pFYksdp/qXZBCL0bqMr/bgTOSr7v5JFNdjWYouz?=
+ =?us-ascii?Q?u/Tl6NL2Oc7ATQWlwPrDiJV3vUkQsn4=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: YmY0xgjf/szL/Dr7AW2BMDG1TLZ+3+RL3eIhCp7QlkrTpnZWUnhA2o/Tem8ohJDCm6r7b3mdSlWHKXIlSn+zLXjq1bRhyF65WxySO0LAtYbKohBg6l0oEmOJAz0zPq0CWDyktP2Jp3X0toPb8erGJMV/h/DM8KR8Kqq7YKjrc0IwWZwsX0FZ7eQoYp8KafXWG1gkIF4TMFjoNqX58dYZvTkihrbmbs103FtRmZcw1AiaeQQwmLScotBKhhUZlkhnyyseRL3o4dwaw/cXymS8zLwOZY5YDcVS4sA/rdX9Hcqgmc2mAoSwTALwVtTAbZlw+/CydeR7zuuYbQC1dtYdp4oMiwJ+Gb6RAkRMWWv2yE2dmqfHlw6Dum77ZY8h32KaAeRUSWDYlrRXK2sAVnFfAgYwl84kkfig7AcqB0tesz8ASo9s2EPXWpR5NjlqKC8nqdOVECnc0cMIk9Nv9nrB+GVHrA3kwpGRqd7xSQpjfYLFA2CuDoBFlJClEvMzWfkPt9DZSDirCdSMK6qrolGZSk2Y0yuu+4StbO52oY0lPf551sqXYjfFxuaOU5ThhSCfYvVoCmRxbu6vAvQOBvvgSonsznQn2gqnAvBjETg+b+o=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9077c919-6a3b-42dc-7753-08de57a06942
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR10MB8229.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 21:19:20.7027 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MXX5ErdguvREgSMKzzRkRsu7eyxvKMuFGUkhxsaoQe8Ta4I1Trc4as+hXKckF/+lWO/QTfE+WqjFsiv1iN4EKvevKPOOQd/Lr8VnDoVcsAE=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB6838
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-19_05,2026-01-19_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxscore=0 adultscore=0
+ phishscore=0 suspectscore=0 spamscore=0 mlxlogscore=999 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2601150000
+ definitions=main-2601190178
+X-Proofpoint-GUID: 2xcCNtiy58jD32hmu336X1U93WeqPeZG
+X-Proofpoint-ORIG-GUID: 2xcCNtiy58jD32hmu336X1U93WeqPeZG
+X-Authority-Analysis: v=2.4 cv=QdJrf8bv c=1 sm=1 tr=0 ts=696e9fde cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=vUbySO9Y5rIA:10
+ a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Ikd4Dj_1AAAA:8 a=yPCof4ZbAAAA:8
+ a=X9FSn9lvzeJUOF9phsgA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE5MDE3OCBTYWx0ZWRfX2sDBrSi96RqA
+ MZgaqhBoBvX+mJiuhvnv2WzfR8xsYe04Ct7QnEh90SZvryEaAf8BVhBzCy2u1ZLsYlv2PyZo7fv
+ Dl4uMXByaQgpRzQRtZScxOR+kvYZqkPz/NME76ztnNQvRBz2TJ3QFH1y4LIBVbvwWyrQJVHVlt2
+ EAZwLp3L1kUsH9ul4iBp1siRSRzukgt3amAvIpWYjXe53XgiTTJRZHP92/rCgyy4JQDqRd3Ke4L
+ eAc4qUJIgiSOVrHToXpTtmaxCgJZxjhaMf9ROOLkz5m66yBz5Cq3vGmpPr+XOfaiqGMFkDXxaqL
+ kWTfYeL9fH0VBuuthwSVwyV49TitqpT72yOUuPsGYFLB4B3aMzVcuBZugodJx+XJDSHJn+9G3/p
+ +VBqsZ61OOHkLf1i2WRqQOv5TxzZjreOF2akLcT5YDehCAsfqhaw3Xfu/fwOPpKoiqQmDXt4D1a
+ L26UC7TI1AaF0yw+szQ==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,169 +258,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tree:   https://gitlab.freedesktop.org/drm/tip.git drm-tip
-head:   1629d3f34f235cd5e43cfd0386a152d65584ccd4
-commit: 7436a87db99d57196c49d10de35f41531993d5f1 [1415/1442] drm/tests: hdmi: check the infoframes behaviour
-config: x86_64-randconfig-005-20260119 (https://download.01.org/0day-ci/archive/20260120/202601200452.irMHod6V-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260120/202601200452.irMHod6V-lkp@intel.com/reproduce)
+This patch introduces the mk_vma_flags() macro helper to allow easy
+manipulation of VMA flags utilising the new bitmap representation
+implemented of VMA flags defined by the vma_flags_t type.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601200452.irMHod6V-lkp@intel.com/
+It is a variadic macro which provides a bitwise-or'd representation of all
+of each individual VMA flag specified.
 
-All warnings (new ones prefixed by >>):
+Note that, while we maintain VM_xxx flags for backwards compatibility until
+the conversion is complete, we define VMA flags of type vma_flag_t using
+VMA_xxx_BIT to avoid confusing the two.
 
-   drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c: In function 'drm_test_check_reject_hdr_infoframe_bpc_10':
->> drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:2744:49: warning: passing argument 6 of 'drm_property_replace_blob_from_id' makes integer from pointer without a cast [-Wint-conversion]
-    2744 |                                                 &replaced);
-         |                                                 ^~~~~~~~~
-         |                                                 |
-         |                                                 bool * {aka _Bool *}
-   In file included from include/drm/drm_connector.h:33,
-                    from include/drm/drm_modes.h:33,
-                    from include/drm/drm_crtc.h:32,
-                    from include/drm/drm_atomic.h:31,
-                    from drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:7:
-   include/drm/drm_property.h:287:47: note: expected 'ssize_t' {aka 'long int'} but argument is of type 'bool *' {aka '_Bool *'}
-     287 |                                       ssize_t max_size,
-         |                                       ~~~~~~~~^~~~~~~~
-   drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c:2740:15: error: too few arguments to function 'drm_property_replace_blob_from_id'
-    2740 |         ret = drm_property_replace_blob_from_id(drm,
-         |               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/drm/drm_property.h:282:5: note: declared here
-     282 | int drm_property_replace_blob_from_id(struct drm_device *dev,
-         |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This helper macro therefore can be used thusly:
 
+vma_flags_t flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT);
 
-vim +/drm_property_replace_blob_from_id +2744 drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+We allow for up to 5 flags to specified at a time which should accommodate
+all current kernel uses of combined VMA flags.
 
-  2658	
-  2659	/*
-  2660	 * Test that the rejection of HDR InfoFrame results in the failure of
-  2661	 * drm_atomic_helper_connector_hdmi_update_infoframes() in the high bpc is
-  2662	 * supported.
-  2663	 */
-  2664	static void drm_test_check_reject_hdr_infoframe_bpc_10(struct kunit *test)
-  2665	{
-  2666		struct drm_atomic_helper_connector_hdmi_priv *priv;
-  2667		struct drm_modeset_acquire_ctx ctx;
-  2668		struct drm_atomic_state *state;
-  2669		struct drm_connector_state *new_conn_state;
-  2670		struct drm_crtc_state *crtc_state;
-  2671		struct drm_display_mode *preferred;
-  2672		struct drm_connector *conn;
-  2673		struct drm_device *drm;
-  2674		struct drm_crtc *crtc;
-  2675		int old_hdmi_update_failures;
-  2676		struct hdr_output_metadata hdr_data;
-  2677		struct drm_property_blob *hdr_blob;
-  2678		bool replaced;
-  2679		int ret;
-  2680	
-  2681		priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-  2682					BIT(HDMI_COLORSPACE_RGB),
-  2683					10,
-  2684					&reject_hdr_infoframe_hdmi_funcs,
-  2685					test_edid_hdmi_1080p_rgb_max_200mhz_hdr);
-  2686		KUNIT_ASSERT_NOT_NULL(test, priv);
-  2687	
-  2688		drm = &priv->drm;
-  2689		crtc = priv->crtc;
-  2690		conn = &priv->connector;
-  2691	
-  2692		preferred = find_preferred_mode(conn);
-  2693		KUNIT_ASSERT_NOT_NULL(test, preferred);
-  2694	
-  2695		drm_modeset_acquire_init(&ctx, 0);
-  2696	
-  2697	retry_conn_enable:
-  2698		ret = drm_kunit_helper_enable_crtc_connector(test, drm,
-  2699							     crtc, conn,
-  2700							     preferred,
-  2701							     &ctx);
-  2702		if (ret == -EDEADLK) {
-  2703			ret = drm_modeset_backoff(&ctx);
-  2704			if (!ret)
-  2705				goto retry_conn_enable;
-  2706		}
-  2707		KUNIT_ASSERT_EQ(test, ret, 0);
-  2708	
-  2709		drm_encoder_helper_add(&priv->encoder, &test_encoder_helper_funcs);
-  2710	
-  2711		state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-  2712		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-  2713	
-  2714	retry_conn_state:
-  2715		new_conn_state = drm_atomic_get_connector_state(state, conn);
-  2716		if (PTR_ERR(new_conn_state) == -EDEADLK) {
-  2717			drm_atomic_state_clear(state);
-  2718			ret = drm_modeset_backoff(&ctx);
-  2719			if (!ret)
-  2720				goto retry_conn_state;
-  2721		}
-  2722		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_conn_state);
-  2723	
-  2724		crtc_state = drm_atomic_get_crtc_state(state, crtc);
-  2725		if (PTR_ERR(crtc_state) == -EDEADLK) {
-  2726			drm_atomic_state_clear(state);
-  2727			ret = drm_modeset_backoff(&ctx);
-  2728			if (!ret)
-  2729				goto retry_conn_state;
-  2730		}
-  2731		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-  2732	
-  2733		hdr_data.metadata_type = HDMI_STATIC_METADATA_TYPE1;
-  2734		hdr_data.hdmi_metadata_type1.eotf = HDMI_EOTF_TRADITIONAL_GAMMA_SDR;
-  2735		hdr_data.hdmi_metadata_type1.metadata_type = HDMI_STATIC_METADATA_TYPE1;
-  2736	
-  2737		hdr_blob = drm_property_create_blob(drm, sizeof(hdr_data), &hdr_data);
-  2738		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hdr_blob);
-  2739	
-  2740		ret = drm_property_replace_blob_from_id(drm,
-  2741							&new_conn_state->hdr_output_metadata,
-  2742							hdr_blob->base.id,
-  2743							sizeof(struct hdr_output_metadata), -1,
-> 2744							&replaced);
-  2745		KUNIT_ASSERT_EQ(test, ret, 0);
-  2746		KUNIT_ASSERT_EQ(test, replaced, true);
-  2747	
-  2748		crtc_state->mode_changed = true;
-  2749	
-  2750		old_hdmi_update_failures = priv->hdmi_update_failures;
-  2751	
-  2752		ret = drm_atomic_check_only(state);
-  2753		if (ret == -EDEADLK) {
-  2754			drm_atomic_state_clear(state);
-  2755			ret = drm_modeset_backoff(&ctx);
-  2756			if (!ret)
-  2757				goto retry_conn_state;
-  2758		}
-  2759		KUNIT_ASSERT_EQ(test, ret, 0);
-  2760	
-  2761		ret = drm_atomic_commit(state);
-  2762		if (ret == -EDEADLK) {
-  2763			drm_atomic_state_clear(state);
-  2764			ret = drm_modeset_backoff(&ctx);
-  2765			if (!ret)
-  2766				goto retry_conn_state;
-  2767		}
-  2768		KUNIT_ASSERT_EQ(test, ret, 0);
-  2769	
-  2770		KUNIT_EXPECT_LE(test, old_hdmi_update_failures, priv->hdmi_update_failures);
-  2771	
-  2772		new_conn_state = conn->state;
-  2773		KUNIT_ASSERT_NOT_NULL(test, new_conn_state);
-  2774	
-  2775		KUNIT_ASSERT_EQ(test, new_conn_state->hdmi.output_bpc, 10);
-  2776		KUNIT_ASSERT_EQ(test, new_conn_state->hdmi.infoframes.hdr_drm.set, true);
-  2777	
-  2778		drm_modeset_drop_locks(&ctx);
-  2779		drm_modeset_acquire_fini(&ctx);
-  2780	}
-  2781	
+Testing has demonstrated that the compiler optimises this code such that it
+generates the same assembly utilising this macro as it does if the flags
+were specified manually, for instance:
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+vma_flags_t get_flags(void)
+{
+	return mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT, VMA_EXEC_BIT);
+}
+
+Generates the same code as:
+
+vma_flags_t get_flags(void)
+{
+	vma_flags_t flags;
+
+	vma_flags_clear_all(&flags);
+	vma_flag_set(&flags, VMA_READ_BIT);
+	vma_flag_set(&flags, VMA_WRITE_BIT);
+	vma_flag_set(&flags, VMA_EXEC_BIT);
+
+	return flags;
+}
+
+And:
+
+vma_flags_t get_flags(void)
+{
+	vma_flags_t flags;
+	unsigned long *bitmap = ACCESS_PRIVATE(&flags, __vma_flags);
+
+	*bitmap = 1UL << (__force int)VMA_READ_BIT;
+	*bitmap |= 1UL << (__force int)VMA_WRITE_BIT;
+	*bitmap |= 1UL << (__force int)VMA_EXEC_BIT;
+
+	return flags;
+}
+
+That is:
+
+get_flags:
+        movl    $7, %eax
+        ret
+
+Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+---
+ include/linux/mm.h | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 52bf141fc018..c2c5b7328c21 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -2,6 +2,7 @@
+ #ifndef _LINUX_MM_H
+ #define _LINUX_MM_H
+
++#include <linux/args.h>
+ #include <linux/errno.h>
+ #include <linux/mmdebug.h>
+ #include <linux/gfp.h>
+@@ -1029,6 +1030,38 @@ static inline bool vma_test_atomic_flag(struct vm_area_struct *vma, vma_flag_t b
+ 	return false;
+ }
+
++/* Set an individual VMA flag in flags, non-atomically. */
++static inline void vma_flag_set(vma_flags_t *flags, vma_flag_t bit)
++{
++	unsigned long *bitmap = ACCESS_PRIVATE(flags, __vma_flags);
++
++	__set_bit((__force int)bit, bitmap);
++}
++
++static inline vma_flags_t __mk_vma_flags(size_t count, const vma_flag_t *bits)
++{
++	vma_flags_t flags;
++	int i;
++
++	vma_flags_clear_all(&flags);
++	for (i = 0; i < count; i++)
++		vma_flag_set(&flags, bits[i]);
++	return flags;
++}
++
++/*
++ * Helper macro which bitwise-or combines the specified input flags into a
++ * vma_flags_t bitmap value. E.g.:
++ *
++ * vma_flags_t flags = mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,
++ * 		VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++ *
++ * The compiler cleverly optimises away all of the work and this ends up being
++ * equivalent to aggregating the values manually.
++ */
++#define mk_vma_flags(...) __mk_vma_flags(COUNT_ARGS(__VA_ARGS__), \
++					 (const vma_flag_t []){__VA_ARGS__})
++
+ static inline void vma_set_anonymous(struct vm_area_struct *vma)
+ {
+ 	vma->vm_ops = NULL;
+--
+2.52.0
