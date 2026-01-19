@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 054A1CCF2F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 12:05:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E000CCF2F4
+	for <intel-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 12:05:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BB4C10E419;
-	Mon, 19 Jan 2026 12:05:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75DC310E41B;
+	Mon, 19 Jan 2026 12:05:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cQPLPDTr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WvOuF7hD";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0921410E40A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE0310E40C;
  Mon, 19 Jan 2026 12:05:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1EC4F60155;
+ by tor.source.kernel.org (Postfix) with ESMTP id 5200360166;
  Mon, 19 Jan 2026 12:05:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA878C19425;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FDFC2BC9E;
  Mon, 19 Jan 2026 12:05:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1768824316;
- bh=gIlHO7b2dpX1yT61k9PtOOKZE0nPF7btslse5y1Pu2s=;
+ bh=6HyC5gF4ScinHY1gGeYNGGYvsoRZQIoC1BWSJQdTkY4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cQPLPDTr9HIYOdHR/wEdulLJPp1fpkTVYYwVsquoQQPDk16XAoVJga5jcBtKxIhhH
- xtctZVCg8p4w1gGmntAfhG5XFNdd6DmXrpk0el86rDvwRVp+Sy/gjgMPlOOq6tsMlG
- 7MRy+TppxhgzXmW4Yq0QKTKxqnucEuxHrL7LE79Du4BGlHDnug0AWDQaPUS1F8Ahty
- UDBXW/dbOYiFSBQ/RB4hMIIZHr/9ZywTNOBuk1mhEKWQ7GU0h8Uta7pu1QvAea5FLJ
- GvxoK00BLTRZ/L52HxqGhOfmko4ZxWKWOr8Cn4lzck97rWpm+QC0dldNFvTM7ajH6x
- Azgkup5ORkhNQ==
+ b=WvOuF7hDdCBaQHihY9OW2YC1MzFJB74MOokdSvhwGI85VRZ6Ev5ixzSbIBVoGZb0/
+ AmbHlcUNZ2uPeFv1VnM9Qa7+zTcxklTBwakBGzeGuORRTwf/v0c317Hhqo3pHRQvA8
+ xN0ekp0C1rZw+mLt2vegSQ6so20BWtxxGtdy+loRJ5Q8MNLVrGGWAYazLjJon10GlF
+ g9EbikW4yrmdSyIR3ntYNzXo9x6GcoTddi06ePHkoshuq6hlkf1qMgLFNTit1g9/Rc
+ 7z/wVoOni+N0u5k5pdd+YSlwDfNSmUkHEuPrq6WVsUrAwa34hFYy2oxu1hnL2sshDG
+ vxQE1+IuvzqjQ==
 Received: from mchehab by mail.kernel.org with local (Exim 4.99)
  (envelope-from <mchehab+huawei@kernel.org>)
- id 1vho0Q-00000001ZjI-3Qjw; Mon, 19 Jan 2026 13:05:14 +0100
+ id 1vho0Q-00000001Zjj-48cY; Mon, 19 Jan 2026 13:05:14 +0100
 From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 To: Jonathan Corbet <corbet@lwn.net>,
  Linux Doc Mailing List <linux-doc@vger.kernel.org>
 Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
- workflows@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [PATCH 3/9] docs: kdoc: ensure that comments are using our coding
- style
-Date: Mon, 19 Jan 2026 13:04:58 +0100
-Message-ID: <50e430acd333a500719205e80ab3b2d297edcd7d.1768823489.git.mchehab+huawei@kernel.org>
+ workflows@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Subject: [PATCH 9/9] docs: conf.py: get rid of the now unused kerneldoc_bin
+ env var
+Date: Mon, 19 Jan 2026 13:05:04 +0100
+Message-ID: <c0fa9f561c1dd4370f9096de4195a9214763c51c.1768823489.git.mchehab+huawei@kernel.org>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1768823489.git.mchehab+huawei@kernel.org>
 References: <cover.1768823489.git.mchehab+huawei@kernel.org>
@@ -65,121 +66,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Along kernel-doc libs, we opted to have all comments starting/ending
-with a blank comment line. Use the same style here.
+In the past, this contained the location of the binary file to parse
+kernel-doc. Nowadays, it is used only for debugging purposes, inside
+kerneldoc.py extension.
+
+Move it to sphinx/kerneldoc.py, to avoid needing to handle with it
+on several places.
 
 Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 ---
- scripts/kernel-doc.py | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ Documentation/conf.py             | 4 ----
+ Documentation/sphinx/kerneldoc.py | 7 +++++--
+ 2 files changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/scripts/kernel-doc.py b/scripts/kernel-doc.py
-index 1ebb16b9bb08..f1f3f56edeb5 100755
---- a/scripts/kernel-doc.py
-+++ b/scripts/kernel-doc.py
-@@ -3,7 +3,7 @@
- # Copyright(c) 2025: Mauro Carvalho Chehab <mchehab@kernel.org>.
- #
- # pylint: disable=C0103,R0912,R0914,R0915
--
-+#
- # NOTE: While kernel-doc requires at least version 3.6 to run, the
- #       command line should work with Python 3.2+ (tested with 3.4).
- #       The rationale is that it shall fail gracefully during Kernel
-@@ -12,7 +12,7 @@
- #       - no f-strings can be used on this file.
- #       - the libraries that require newer versions can only be included
- #         after Python version is checked.
--
-+#
- # Converted from the kernel-doc script originally written in Perl
- # under GPLv2, copyrighted since 1998 by the following authors:
- #
-@@ -197,8 +197,9 @@ def main():
-     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter,
-                                      description=DESC)
+diff --git a/Documentation/conf.py b/Documentation/conf.py
+index 383d5e5b9d0a..65df81a9e414 100644
+--- a/Documentation/conf.py
++++ b/Documentation/conf.py
+@@ -579,10 +579,6 @@ pdf_documents = [
+     ("kernel-documentation", "Kernel", "Kernel", "J. Random Bozo"),
+ ]
  
-+    #
-     # Normal arguments
--
-+    #
-     parser.add_argument("-v", "-verbose", "--verbose", action="store_true",
-                         help="Verbose output, more warnings and other information.")
+-# kernel-doc extension configuration for running Sphinx directly (e.g. by Read
+-# the Docs). In a normal build, these are supplied from the Makefile via command
+-# line arguments.
+-kerneldoc_bin = "../tools/docs/kernel-doc"  # Not used now
+ kerneldoc_srctree = ".."
  
-@@ -213,8 +214,9 @@ def main():
-                         action="store_true",
-                         help="Enable line number output (only in ReST mode)")
+ def setup(app):
+diff --git a/Documentation/sphinx/kerneldoc.py b/Documentation/sphinx/kerneldoc.py
+index afbab458550a..c1cadb4eb099 100644
+--- a/Documentation/sphinx/kerneldoc.py
++++ b/Documentation/sphinx/kerneldoc.py
+@@ -47,6 +47,10 @@ sys.path.insert(0, os.path.join(srctree, "tools/lib/python"))
+ from kdoc.kdoc_files import KernelFiles
+ from kdoc.kdoc_output import RestFormat
  
-+    #
-     # Arguments to control the warning behavior
--
-+    #
-     parser.add_argument("-Wreturn", "--wreturn", action="store_true",
-                         help="Warns about the lack of a return markup on functions.")
++# Used when verbose is active to show how to reproduce kernel-doc
++# issues via command line
++kerneldoc_bin = "tools/docs/kernel-doc"
++
+ __version__  = '1.0'
+ kfiles = None
+ logger = logging.getLogger(__name__)
+@@ -95,7 +99,7 @@ class KernelDocDirective(Directive):
+     def handle_args(self):
  
-@@ -235,8 +237,9 @@ def main():
-     parser.add_argument("-export-file", "--export-file", action='append',
-                         help=EXPORT_FILE_DESC)
+         env = self.state.document.settings.env
+-        cmd = [env.config.kerneldoc_bin, '-rst', '-enable-lineno']
++        cmd = [kerneldoc_bin, '-rst', '-enable-lineno']
  
-+    #
-     # Output format mutually-exclusive group
--
-+    #
-     out_group = parser.add_argument_group("Output format selection (mutually exclusive)")
+         filename = env.config.kerneldoc_srctree + '/' + self.arguments[0]
  
-     out_fmt = out_group.add_mutually_exclusive_group()
-@@ -248,8 +251,9 @@ def main():
-     out_fmt.add_argument("-N", "-none", "--none", action="store_true",
-                          help="Do not output documentation, only warnings.")
+@@ -257,7 +261,6 @@ def setup_kfiles(app):
  
-+    #
-     # Output selection mutually-exclusive group
--
-+    #
-     sel_group = parser.add_argument_group("Output selection (mutually exclusive)")
-     sel_mut = sel_group.add_mutually_exclusive_group()
  
-@@ -262,7 +266,9 @@ def main():
-     sel_mut.add_argument("-s", "-function", "--symbol", action='append',
-                          help=FUNCTION_DESC)
+ def setup(app):
+-    app.add_config_value('kerneldoc_bin', None, 'env')
+     app.add_config_value('kerneldoc_srctree', None, 'env')
+     app.add_config_value('kerneldoc_verbosity', 1, 'env')
  
-+    #
-     # Those are valid for all 3 types of filter
-+    #
-     parser.add_argument("-n", "-nosymbol", "--nosymbol", action='append',
-                         help=NOSYMBOL_DESC)
- 
-@@ -295,9 +301,11 @@ def main():
- 
-     python_ver = sys.version_info[:2]
-     if python_ver < (3,6):
-+        #
-         # Depending on Kernel configuration, kernel-doc --none is called at
-         # build time. As we don't want to break compilation due to the
-         # usage of an old Python version, return 0 here.
-+        #
-         if args.none:
-             logger.error("Python 3.6 or later is required by kernel-doc. skipping checks")
-             sys.exit(0)
-@@ -307,7 +315,9 @@ def main():
-     if python_ver < (3,7):
-         logger.warning("Python 3.7 or later is required for correct results")
- 
-+    #
-     # Import kernel-doc libraries only after checking Python version
-+    #
-     from kdoc.kdoc_files import KernelFiles             # pylint: disable=C0415
-     from kdoc.kdoc_output import RestFormat, ManFormat  # pylint: disable=C0415
- 
-@@ -346,6 +356,8 @@ def main():
- 
-     sys.exit(0)
- 
-+#
- # Call main method
-+#
- if __name__ == "__main__":
-     main()
 -- 
 2.52.0
 
