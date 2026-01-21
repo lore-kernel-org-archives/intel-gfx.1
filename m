@@ -4,111 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EF5D3EE66
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:38:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3795CD3EE67
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:39:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB3A510E9A7;
-	Thu, 22 Jan 2026 13:38:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE33A10E9AB;
+	Thu, 22 Jan 2026 13:38:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=joelfernandes.org header.i=@joelfernandes.org header.b="va3Wo3uc";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Cy3im71u";
 	dkim-atps=neutral
-Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
- [209.85.222.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 140C310E854
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 18:13:00 +0000 (UTC)
-Received: by mail-qk1-f171.google.com with SMTP id
- af79cd13be357-8c53198a65fso9616585a.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 10:12:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=joelfernandes.org; s=google; t=1769019179; x=1769623979;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
- b=va3Wo3uc4PCH9CBrnqiRI4nd8mCaa1V4xh6Eb1Ixahcv/Y1G/cJskLPUutHYMn+LjN
- D3U9jbUClVAkqVeqTw7xf8y3RS8NPpvKQnmSxRjuzy52kUBb42r6DAyZN8x+1p/gpMAI
- DCGKqE9S/PRZXdxT1TEd6Rrnr1sA6t7PDxkCI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769019179; x=1769623979;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
- b=g52ofn6+SHTjjNNPlfFX7ZXxdbR4KGFHY/SEY4E2sz32lhcZeiSC8dHl3kNYz+0ASI
- VKUVcn0gEO1X510RbvJiOtFUhmd011xI5Njx9TTPuPEHOpEdHP1Gn5pHp06uprWgbmG4
- tuIjGs5OtJQ1/szOkMBh78hXscc0yCWLpQSyjkrt1djPfpPeuFDP/smeFbskDzlSKppY
- GxHne4j6WQqhHkAp1m80ukg0WhTu8MSDSWQJG0RjBG7grbQkYh1BK3wLwk9sP5aXFV1O
- ++MivHS23j8EC41+DLC04I+U94IUeclqxk3RwVWsOuBfZjqfLxYVB4aUF1lWa7DM+5Kp
- g6JQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXKL5ocKlONbrJKbNTROMcgW4Dg6awZ38deZ5ca37hxQhE6DlsW/2XPwVfMgePdHyFHbqv984qBS+0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxPjpG9ngjB2/gqEVs5dV5SVHzwOzn8f7+f2jqwBvAXmG6I0Dsc
- dBciWLQbFmk4/4+WUDBPa5VWUm1VNixfVHb6L6lj7Z7i7UQ39Jz4iXcwNSB+oQLXI9M=
-X-Gm-Gg: AZuq6aI0rcNeFelKfM6cVkh3RU5b8sEy/9mMxIhZEIqiFzQC7znyntWAyNum0hnD9u3
- 8X0mWx+h/1D5WDlkf5y8IxgD8mAd0Abikn/IXtc3VdqbpZYxPiXEQjxNPkEqepbqTwjvNnIg2tB
- eKgUps7so8hiPRJDoyt/xGmAD1ejcjSF7EQFirCP/gqquNv3LYJRDVq14YFzP9nX2ISkVORBkcF
- VL1/BxnxObTSSC5EI5qk7o8YUntc/NnLU7WyVoUlZuR12q8n/lnqCJahCgCYZuckYnrfNLLdPa9
- gJ4RPSIowcI8Sh2adE4g1K5hbLFiciKCvH+1+Cf9tKldsSnYBnlnQBoFychkub7wrCHviBnXB6w
- SUnFa/I+ljgbiLVPES0dp2aJ/h1VnPiS66UYc/IEmBxWmbTmC6tWvDCb97+ADf/skgVsZCkx/Sc
- bYIWHveXMKznA7zsP18UZcKlX8gw==
-X-Received: by 2002:a05:620a:2d90:b0:8c6:a790:cd09 with SMTP id
- af79cd13be357-8c6a790cd9cmr1883910285a.40.1769019178697; 
- Wed, 21 Jan 2026 10:12:58 -0800 (PST)
-Received: from [192.168.0.99] ([71.219.3.177])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8c6a71ab288sm1356284885a.6.2026.01.21.10.12.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 10:12:58 -0800 (PST)
-Message-ID: <237f94cc-dde6-4d91-b942-4854e62eeebb@joelfernandes.org>
-Date: Wed, 21 Jan 2026 13:12:55 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 01/26] rust: clist: Add support to interface with C
- linked lists
-To: Zhi Wang <zhiw@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
+X-Greylist: delayed 492 seconds by postgrey-1.36 at gabe;
+ Wed, 21 Jan 2026 22:48:02 UTC
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0E110E08E;
+ Wed, 21 Jan 2026 22:48:02 +0000 (UTC)
+Received: from wse-pc.. (unknown [61.8.154.114])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPA id 62D1A2FC0052;
+ Wed, 21 Jan 2026 23:39:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1769035187;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=hLbZrDz0Hrmb7n202kZRgmxmu9bjINs7CGMfMenSWS0=;
+ b=Cy3im71uXo+asTdc4ajysXLnqB0HgCfHn8UamJhCPnqv9I+x5mkwpT+icagVLeRba4qach
+ LHOaduGfZDZJoOl7zyhSMxXSHAD3Gy+BWvVySRzuGGzcHFWl/B1G88xX0DGMej692M/T7Y
+ NPwg2AHFLyGVJt2smsYC1Cr3lPHbC/I=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>
-References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
- <20260120204303.3229303-2-joelagnelf@nvidia.com>
- <20260121092730.3628d290.zhiw@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joel@joelfernandes.org>
-In-Reply-To: <20260121092730.3628d290.zhiw@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 22 Jan 2026 13:38:58 +0000
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Werner Sembach <wse@tuxedocomputers.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/i915/display: Add quirk to force backlight type on
+ some TUXEDO devices
+Date: Wed, 21 Jan 2026 23:38:55 +0100
+Message-ID: <20260121223944.1104951-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 22 Jan 2026 13:38:57 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,45 +66,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 with panels
+AUO 12701 and AUO 12701 must be forced to INTEL_DP_AUX_BACKLIGHT_ON to be
+able to control the brightness.
 
+This could already be archived via a module parameter, but this patch adds
+a quirk to apply this by default on the mentioned devices.
 
-On 1/21/2026 2:27 AM, Zhi Wang wrote:
-> 
->> +/// Initialize a `list_head` object to point to itself.
->> +///
->> +/// # Safety
->> +///
->> +/// `list` must be a valid pointer to a `list_head` object.
->> +#[inline]
->> +pub unsafe fn init_list_head(list: *mut bindings::list_head) {
->> +    // SAFETY: Caller guarantees `list` is a valid pointer to a
->> `list_head`.
->> +    unsafe {
->> +        (*list).next = list;
->> +        (*list).prev = list;
->> +    }
->> +}
->> +
->
-> Might be better to have a C helper? since INIT_LIST_HEAD() has WRITE_ONCE()
-> for memory ordering. This one seems not equal to it.
+This patch does not actually test for the exact panels as the id that is
+used in the intel_dpcd_quirks list is sadly zeroed on the devices, but
+afaik all these devices use try_intel_interface first anyway so all the
+quirk does is to add the fallback to try_vesa_interface, so the behaviour
+on the devices not needing the quirk and fallback should functionally stay
+the same.
 
-WRITE_ONCE() is not really about CPU memory ordering though, it is about
-compiler optimizations. On the C side, I think it is needed in case of
-list_for_each_entry_rcu(), to avoid the case of invented stores or store fusing,
-but here we are not doing RCU-based iteration.
+Cc: stable@vger.kernel.org
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+---
+ .../drm/i915/display/intel_dp_aux_backlight.c |  9 ++++++-
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 25 ++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+ 3 files changed, 33 insertions(+), 2 deletions(-)
 
-Anyway, if we want to future proof that, I am Ok with adding the helper back
-(which I actually initially had but feedback from past review was to just inline
-it into rust).
-
-But I am not sure if we have this issue for the Rust compiler, like we do for C.
-Rust does not allow raw pointers to be concurrently read/written using plain
-accesses, so should be already protected due to the borrow checker and compiler
-itself right?
-
-Adding some interested folks as well to CC for the topic of _ONCE, +Boqun +Paul.
-
---
-Joel Fernandes
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+index 0a3a3f6a5f9d8..bbdfa142d084d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+@@ -41,6 +41,7 @@
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+ #include "intel_dp_aux_backlight.h"
++#include "intel_quirks.h"
+ 
+ /*
+  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
+@@ -661,11 +662,17 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+ 	struct drm_device *dev = connector->base.dev;
+ 	struct intel_panel *panel = &connector->panel;
+ 	bool try_intel_interface = false, try_vesa_interface = false;
++	int enable_dpcd_backlight;
+ 
+ 	/* Check the VBT and user's module parameters to figure out which
+ 	 * interfaces to probe
+ 	 */
+-	switch (display->params.enable_dpcd_backlight) {
++	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
++	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
++	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
++		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
++
++	switch (enable_dpcd_backlight) {
+ 	case INTEL_DP_AUX_BACKLIGHT_OFF:
+ 		return -ENODEV;
+ 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index d2e16b79d6be1..df20930f73f75 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct intel_display *display)
+ 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
+ }
+ 
++static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
++	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -251,7 +259,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
+ 		.hook = quirk_fw_sync_len,
+ 	},
+-
++	/* TUXEDO InsanityBook 15 v1 */
++	{
++		.device = 0x591b,
++		.subsystem_vendor = 0x1558,
++		.subsystem_device = 0x9501,
++		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
++		.hook = quirk_enable_dpcd_backlight,
++	},
++	/* TUXEDO DX1708 */
++	{
++		.device = 0x3e9b,
++		.subsystem_vendor = 0x1558,
++		.subsystem_device = 0x8500,
++		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
++		.hook = quirk_enable_dpcd_backlight,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 06da0e286c67c..686f306ab4472 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -21,6 +21,7 @@ enum intel_quirk_id {
+ 	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
+ 	QUIRK_FW_SYNC_LEN,
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
++	QUIRK_ENABLE_DPCD_BACKLIGHT,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.43.0
 
