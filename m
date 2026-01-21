@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83FACC4452F
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:19:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26596C4452E
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:45:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 220A510E0E9;
-	Wed, 21 Jan 2026 13:19:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895E810E154;
+	Wed, 21 Jan 2026 13:45:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="QKy0MKmm";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Emw2iIPf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OMn1JsI/";
 	dkim-atps=neutral
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0ABE10E1EF;
- Wed, 21 Jan 2026 13:19:48 +0000 (UTC)
-Date: Wed, 21 Jan 2026 14:19:45 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1769001587;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gS2+iHxIbevA83J45Omvh8/BUHWmgVWea1xnhRoZIig=;
- b=QKy0MKmmtsDWsex5jjbDiYzULhWZhMSKLDtYJaJVkWh2KoLFS6G0SMQAUW581hm/A01gC5
- MaQDYQFKxSNw3paCHGHBznYCmTAOc6kyOE2elI2woIrzgYZx3wLDd0oHzwggwEVzIkFEYN
- rsDJNv2viTyKzZgFnH10vWDFNu8rszKm6BH+yRc8L1Wa33EwGPl+GBYJ0D8o3y0g9YYFMx
- IvmjH8earqkeg5Sfa2dmRf8NQEpBaQTWLtVNDtSD+ac18R8oV7rysax7iHVLSq8bCwRdEd
- A0z9wziULb6Lldfwo8qVNCS251e3+39n2IZ/Bpu15ZyzvhZlg74/3jbVWB/W8Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1769001587;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=gS2+iHxIbevA83J45Omvh8/BUHWmgVWea1xnhRoZIig=;
- b=Emw2iIPfU/LjQBQfEsFgPEyEfYs6Rw1TSZd9/MgsQG/gXXpbWh1gUu7ysxdHnWntVYSc3J
- fseZOvj/X0D7OUDQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: hansg@kernel.org, "Kurmi, Suresh Kumar" <suresh.kumar.kurmi@intel.com>,
- "Saarinen, Jani" <jani.saarinen@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- sfr@canb.auug.org.au, ilpo.jarvinen@linux.intel.com,
- regressions@leemhuis.info
-Subject: Re: REGRESSION on linux-next (next-20260115)
-Message-ID: <20260121131945.i78zWqhv@linutronix.de>
-References: <555f1c56-0f74-41bf-8bd2-6217e0aab0c6@intel.com>
- <20260121075348.5MyqcHFB@linutronix.de>
- <89de03a5-e5da-4d2e-8547-8e54ad73b324@intel.com>
- <20260121090154.Lpaj9hrr@linutronix.de>
- <5d83c0d0-8f82-40a8-bca6-7052658a5fb6@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 604DB10E154;
+ Wed, 21 Jan 2026 13:45:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769003143; x=1800539143;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=XueELBJu97blWbfgp7t5pd9+spftDfRhmvAtR3T4x34=;
+ b=OMn1JsI/0r3SPjznXq0eO07YmOf8dy7dyNLR8Kh7A2sKw0dUnURzxy1J
+ A5IbopEVTkKewugzt2wItPpav/fI1xyqYKkmzptmL4BGf/oqKDs3nQSt4
+ MnU/uPQCpzFJa9wkL/GPUff2OaN0k8oDI6y1aqh+WBj7SxP3rC3epH065
+ SWjQd62LkVmNDK0lF9n7tNEPAyqfva3hO3WItYPElbGwChaES7msKxxax
+ e5syvJGgCeUrTz5GOqO+MIJhJTn0+Ry4tmcwut8/hV4ZYTYypRaUZY08q
+ Iii4xLdd23tTfhdhRf4gowdNR3JqUd97eqOdOvKUwVH1b0roynA0+2Oci w==;
+X-CSE-ConnectionGUID: z/4HdqNzQjiA34viDyDHGg==
+X-CSE-MsgGUID: s64+5kfgTiGMdX+rA0XK9Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11678"; a="70128865"
+X-IronPort-AV: E=Sophos;i="6.21,242,1763452800"; d="scan'208";a="70128865"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2026 05:45:43 -0800
+X-CSE-ConnectionGUID: gacHPRiURiygrKGXZo6/dQ==
+X-CSE-MsgGUID: H7o9KcPZQtOlGfLLlIKfZw==
+X-ExtLoop1: 1
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.119])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2026 05:45:41 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH] drm/i915/gvt_mmio_table: Use the gvt versions of the
+ display macros
+In-Reply-To: <20260114025456.1639171-1-ankit.k.nautiyal@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260114025456.1639171-1-ankit.k.nautiyal@intel.com>
+Date: Wed, 21 Jan 2026 15:45:37 +0200
+Message-ID: <0bc65f08b4bc32eeaaa0b96d8b56a3db80253d40@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5d83c0d0-8f82-40a8-bca6-7052658a5fb6@intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,9 +71,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2026-01-21 17:43:50 [+0530], Borah, Chaitanya Kumar wrote:
-> This helps. Thank you for the patch. Would you be floating it soon?
+On Wed, 14 Jan 2026, Ankit Nautiyal <ankit.k.nautiyal@intel.com> wrote:
+> Include gvt/display_helpers.h so that the display register macros in
+> intel_gvt_mmio_table.c expand through the exported display functions.
+> This lets us keep the existing macro calls while avoiding direct
+> access to display internals, helping the display modularization work.
+>
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Yes, I will. I consider this as a tested-by.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Sebastian
+> ---
+>  drivers/gpu/drm/i915/intel_gvt_mmio_table.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+> index 478d00f89a4b..052596ac83a0 100644
+> --- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+> +++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
+> @@ -11,12 +11,12 @@
+>  #include "display/intel_color_regs.h"
+>  #include "display/intel_crt_regs.h"
+>  #include "display/intel_cursor_regs.h"
+> -#include "display/intel_display_core.h"
+>  #include "display/intel_display_regs.h"
+>  #include "display/intel_display_types.h"
+>  #include "display/intel_dmc_regs.h"
+>  #include "display/intel_dp_aux_regs.h"
+>  #include "display/intel_dpio_phy.h"
+> +#include "display/intel_fbc.h"
+>  #include "display/intel_fbc_regs.h"
+>  #include "display/intel_fdi_regs.h"
+>  #include "display/intel_lvds_regs.h"
+> @@ -32,6 +32,7 @@
+>  #include "gt/intel_engine_regs.h"
+>  #include "gt/intel_gt_regs.h"
+>  
+> +#include "gvt/display_helpers.h"
+>  #include "gvt/reg.h"
+>  
+>  #include "i915_drv.h"
+
+-- 
+Jani Nikula, Intel
