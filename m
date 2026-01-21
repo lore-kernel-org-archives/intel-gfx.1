@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4ACC4453A
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:53:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8B28C4452E
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:53:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD03C10E7D0;
-	Wed, 21 Jan 2026 13:53:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DFAC10E7DE;
+	Wed, 21 Jan 2026 13:53:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="goPStqDY";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Jt9h/UpW";
 	dkim-atps=neutral
 Received: from lankhorst.se (lankhorst.se [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E03EE10E7D5;
- Wed, 21 Jan 2026 13:53:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16DBE10E7DB;
+ Wed, 21 Jan 2026 13:53:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1769003613;
- bh=Mi72tZLkVY+OWZNlHhJHSloPqeEUuXErW5xRvyEChLQ=;
+ s=default; t=1769003618;
+ bh=GQ+pvTVeYh2WxTxMyowpW3CgubZWqe3zxHAkT3hSPOg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=goPStqDYk6pL2ZzozoHrDYKDuToD1dLtDTfqvS3/Sm2RcRd8r7s99dx3/fr0MLxxH
- lUzE+sdU/qT9bFQB1pWtZgKE9GF0Fh5aF58kREmAYIIQOBq26YgyO+soTE2E/pGOlY
- bSIZCdAoPT9J6ZGqaWO63RrpnFpOqHWYBNJ1NTX2hwYGFdFFQBtNPZ5iRk0XZsmb4n
- tNj2JhrC+m61HIYIaCIqieLchnKIBCebXAyXKTFbd9GPuBh4sFvFk6Yoox8IXW0est
- IcaIRuj8hBfBdnYZntwPfeHbdQr4HMKi1wHVT0YYwN5489NEOubSiS8PTlq94ERhqo
- jv8MPerCUw2Tw==
+ b=Jt9h/UpW8KSHN3XLGC0yhGnqsGIXFi8E9MYCSR5T08cPvbZqGKFNfyV7hlRDVaq2k
+ qXtCmigzC8XAsZSSVF6gsmPK3J+u0rRny1dYi8cnGOz17s0qkey/8kuQkgmpKOVl6w
+ kIsO32J0B+NjwgpML+9lgAk41y5m0MdeT2OaEHnBSW1QM29mrMNJACOnU/dzRzKULD
+ zJQ5xgtKvaO+QrJ7PAFGvXU/6NdbuePCcM0+U9Qc4rpC+SYL8cnwVmmhr7AmtLWkSX
+ uPoNo8u0DEV0aVrxgBEqdkIkVUR25LDxHaMqZXprrAppKSt5/TFmsv0/GHbTdFNwOQ
+ Ko1WteEYXknLQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>, Uma Shankar <uma.shankar@intel.com>
-Subject: [i915-rt v5 05/21] drm/i915/display: Move vblank put until after
- critical section
-Date: Wed, 21 Jan 2026 14:53:01 +0100
-Message-ID: <20260121135318.651622-6-dev@lankhorst.se>
+Cc: Maarten Lankhorst <dev@lankhorst.se>
+Subject: [i915-rt v5 08/21] drm/i915/display: Make icl_dsi_frame_update use
+ _fw too
+Date: Wed, 21 Jan 2026 14:53:04 +0100
+Message-ID: <20260121135318.651622-9-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260121135318.651622-1-dev@lankhorst.se>
 References: <20260121135318.651622-1-dev@lankhorst.se>
@@ -53,63 +53,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-drm_crtc_vblank_put may take some locks, this should probably
-not be the first thing we do after entering the time sensitive
-part.
-
-A better place is after programming is completed. Add a flag
-to put the vblank after completion.
-
-In the case of drm_vblank_work_schedule, we may not even need
-to disable the vblank interrupt any more if it takes its own
-reference.
+Don't use the dmc lock inside the vblank critical section,
+not even as last call.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cursor.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index 2c5d917fbd7e9..3e84a2078a0a7 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -816,6 +816,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		to_intel_crtc_state(crtc->base.state);
- 	struct intel_crtc_state *new_crtc_state;
- 	struct intel_vblank_evade_ctx evade;
-+	bool has_vblank = false;
- 	int ret;
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index c8e0333706c1e..1df2f347a13be 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -243,8 +243,8 @@ void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+ 	else
+ 		return;
  
- 	/*
-@@ -913,6 +914,8 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 	intel_psr_lock(crtc_state);
+-	intel_de_rmw(display, DSI_CMD_FRMCTL(port), 0,
+-		     DSI_FRAME_UPDATE_REQUEST);
++	intel_de_rmw_fw(display, DSI_CMD_FRMCTL(port), 0,
++			DSI_FRAME_UPDATE_REQUEST);
+ }
  
- 	if (!drm_WARN_ON(display->drm, drm_crtc_vblank_get(&crtc->base))) {
-+		has_vblank = true;
-+
- 		/*
- 		 * TODO: maybe check if we're still in PSR
- 		 * and skip the vblank evasion entirely?
-@@ -922,8 +925,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		local_irq_disable();
- 
- 		intel_vblank_evade(&evade);
--
--		drm_crtc_vblank_put(&crtc->base);
- 	} else {
- 		local_irq_disable();
- 	}
-@@ -939,6 +940,9 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 
- 	intel_psr_unlock(crtc_state);
- 
-+	if (has_vblank)
-+		drm_crtc_vblank_put(&crtc->base);
-+
- 	if (old_plane_state->ggtt_vma != new_plane_state->ggtt_vma) {
- 		drm_vblank_work_init(&old_plane_state->unpin_work, &crtc->base,
- 				     intel_cursor_unpin_work);
+ static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
 -- 
 2.51.0
 
