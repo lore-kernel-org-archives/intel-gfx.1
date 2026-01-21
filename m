@@ -4,27 +4,111 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48418D3EE67
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:33:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EF5D3EE66
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:38:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF45A10E99F;
-	Thu, 22 Jan 2026 13:33:57 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AECF210E9A7;
- Thu, 22 Jan 2026 13:33:56 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1794913394421976866=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB3A510E9A7;
+	Thu, 22 Jan 2026 13:38:58 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=joelfernandes.org header.i=@joelfernandes.org header.b="va3Wo3uc";
+	dkim-atps=neutral
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 140C310E854
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 18:13:00 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-8c53198a65fso9616585a.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 10:12:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=joelfernandes.org; s=google; t=1769019179; x=1769623979;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
+ b=va3Wo3uc4PCH9CBrnqiRI4nd8mCaa1V4xh6Eb1Ixahcv/Y1G/cJskLPUutHYMn+LjN
+ D3U9jbUClVAkqVeqTw7xf8y3RS8NPpvKQnmSxRjuzy52kUBb42r6DAyZN8x+1p/gpMAI
+ DCGKqE9S/PRZXdxT1TEd6Rrnr1sA6t7PDxkCI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769019179; x=1769623979;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
+ b=g52ofn6+SHTjjNNPlfFX7ZXxdbR4KGFHY/SEY4E2sz32lhcZeiSC8dHl3kNYz+0ASI
+ VKUVcn0gEO1X510RbvJiOtFUhmd011xI5Njx9TTPuPEHOpEdHP1Gn5pHp06uprWgbmG4
+ tuIjGs5OtJQ1/szOkMBh78hXscc0yCWLpQSyjkrt1djPfpPeuFDP/smeFbskDzlSKppY
+ GxHne4j6WQqhHkAp1m80ukg0WhTu8MSDSWQJG0RjBG7grbQkYh1BK3wLwk9sP5aXFV1O
+ ++MivHS23j8EC41+DLC04I+U94IUeclqxk3RwVWsOuBfZjqfLxYVB4aUF1lWa7DM+5Kp
+ g6JQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXKL5ocKlONbrJKbNTROMcgW4Dg6awZ38deZ5ca37hxQhE6DlsW/2XPwVfMgePdHyFHbqv984qBS+0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxPjpG9ngjB2/gqEVs5dV5SVHzwOzn8f7+f2jqwBvAXmG6I0Dsc
+ dBciWLQbFmk4/4+WUDBPa5VWUm1VNixfVHb6L6lj7Z7i7UQ39Jz4iXcwNSB+oQLXI9M=
+X-Gm-Gg: AZuq6aI0rcNeFelKfM6cVkh3RU5b8sEy/9mMxIhZEIqiFzQC7znyntWAyNum0hnD9u3
+ 8X0mWx+h/1D5WDlkf5y8IxgD8mAd0Abikn/IXtc3VdqbpZYxPiXEQjxNPkEqepbqTwjvNnIg2tB
+ eKgUps7so8hiPRJDoyt/xGmAD1ejcjSF7EQFirCP/gqquNv3LYJRDVq14YFzP9nX2ISkVORBkcF
+ VL1/BxnxObTSSC5EI5qk7o8YUntc/NnLU7WyVoUlZuR12q8n/lnqCJahCgCYZuckYnrfNLLdPa9
+ gJ4RPSIowcI8Sh2adE4g1K5hbLFiciKCvH+1+Cf9tKldsSnYBnlnQBoFychkub7wrCHviBnXB6w
+ SUnFa/I+ljgbiLVPES0dp2aJ/h1VnPiS66UYc/IEmBxWmbTmC6tWvDCb97+ADf/skgVsZCkx/Sc
+ bYIWHveXMKznA7zsP18UZcKlX8gw==
+X-Received: by 2002:a05:620a:2d90:b0:8c6:a790:cd09 with SMTP id
+ af79cd13be357-8c6a790cd9cmr1883910285a.40.1769019178697; 
+ Wed, 21 Jan 2026 10:12:58 -0800 (PST)
+Received: from [192.168.0.99] ([71.219.3.177])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8c6a71ab288sm1356284885a.6.2026.01.21.10.12.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jan 2026 10:12:58 -0800 (PST)
+Message-ID: <237f94cc-dde6-4d91-b942-4854e62eeebb@joelfernandes.org>
+Date: Wed, 21 Jan 2026 13:12:55 -0500
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cdclk=3A_Extend_?=
- =?utf-8?q?Wa=5F13012396614_to_Xe3p=5FLPD?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gustavo Sousa" <gustavo.sousa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 22 Jan 2026 13:33:56 -0000
-Message-ID: <176908883671.183335.10293251085133528287@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260122-wa_13012396614-xe3p_lpd-v1-1-39d34a3a5b77@intel.com>
-In-Reply-To: <20260122-wa_13012396614-xe3p_lpd-v1-1-39d34a3a5b77@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v6 01/26] rust: clist: Add support to interface with C
+ linked lists
+To: Zhi Wang <zhiw@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>
+Cc: linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-2-joelagnelf@nvidia.com>
+ <20260121092730.3628d290.zhiw@nvidia.com>
+Content-Language: en-US
+From: Joel Fernandes <joel@joelfernandes.org>
+In-Reply-To: <20260121092730.3628d290.zhiw@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 22 Jan 2026 13:38:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,151 +121,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1794913394421976866==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-== Series Details ==
-
-Series: drm/i915/cdclk: Extend Wa_13012396614 to Xe3p_LPD
-URL   : https://patchwork.freedesktop.org/series/160487/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_17872 -> Patchwork_160487v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/index.html
-
-Participating hosts (43 -> 39)
-------------------------------
-
-  Missing    (4): bat-adlp-9 bat-dg2-13 fi-snb-2520m bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_160487v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arls-5:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
-    - bat-dg2-9:          [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-dg2-9/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-dg2-9/igt@i915_selftest@live@workarounds.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [DMESG-FAIL][5] ([i915#12061]) -> [PASS][6] +1 other test pass
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-    - bat-arls-6:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-arls-6/igt@i915_selftest@live@workarounds.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-arls-6/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
 
 
-Build changes
--------------
+On 1/21/2026 2:27 AM, Zhi Wang wrote:
+> 
+>> +/// Initialize a `list_head` object to point to itself.
+>> +///
+>> +/// # Safety
+>> +///
+>> +/// `list` must be a valid pointer to a `list_head` object.
+>> +#[inline]
+>> +pub unsafe fn init_list_head(list: *mut bindings::list_head) {
+>> +    // SAFETY: Caller guarantees `list` is a valid pointer to a
+>> `list_head`.
+>> +    unsafe {
+>> +        (*list).next = list;
+>> +        (*list).prev = list;
+>> +    }
+>> +}
+>> +
+>
+> Might be better to have a C helper? since INIT_LIST_HEAD() has WRITE_ONCE()
+> for memory ordering. This one seems not equal to it.
 
-  * Linux: CI_DRM_17872 -> Patchwork_160487v1
+WRITE_ONCE() is not really about CPU memory ordering though, it is about
+compiler optimizations. On the C side, I think it is needed in case of
+list_for_each_entry_rcu(), to avoid the case of invented stores or store fusing,
+but here we are not doing RCU-based iteration.
 
-  CI-20190529: 20190529
-  CI_DRM_17872: 75950b1567cb40a67e93cb3912e023219745ff60 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8712: 8712
-  Patchwork_160487v1: 75950b1567cb40a67e93cb3912e023219745ff60 @ git://anongit.freedesktop.org/gfx-ci/linux
+Anyway, if we want to future proof that, I am Ok with adding the helper back
+(which I actually initially had but feedback from past review was to just inline
+it into rust).
 
-== Logs ==
+But I am not sure if we have this issue for the Rust compiler, like we do for C.
+Rust does not allow raw pointers to be concurrently read/written using plain
+accesses, so should be already protected due to the borrow checker and compiler
+itself right?
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/index.html
+Adding some interested folks as well to CC for the topic of _ONCE, +Boqun +Paul.
 
---===============1794913394421976866==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+--
+Joel Fernandes
 
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/cdclk: Extend Wa_13012396614 to Xe3p_LPD</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/160487/">https://patchwork.freedesktop.org/series/160487/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_17872 -&gt; Patchwork_160487v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/index.html</p>
-<h2>Participating hosts (43 -&gt; 39)</h2>
-<p>Missing    (4): bat-adlp-9 bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_160487v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-dg2-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-dg2-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17872/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160487v1/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_17872 -&gt; Patchwork_160487v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_17872: 75950b1567cb40a67e93cb3912e023219745ff60 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8712: 8712<br />
-  Patchwork_160487v1: 75950b1567cb40a67e93cb3912e023219745ff60 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1794913394421976866==--
