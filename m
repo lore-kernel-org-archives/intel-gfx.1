@@ -4,62 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E063C4452E
-	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23DA1C4453D
+	for <intel-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:53:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16E4310E7C9;
-	Wed, 21 Jan 2026 13:51:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EAE410E174;
+	Wed, 21 Jan 2026 13:53:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ffGW5zjS";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Fds77Ijg";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7729C10E7C4;
- Wed, 21 Jan 2026 13:51:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769003496; x=1800539496;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=X6WWV8Zc3M2gl2bSFzCM11YEJF5O9CumjKArCsMsjr0=;
- b=ffGW5zjSEhh0ovBVqSabzHoKpRz/hJiG/kZG8e5Eq1RVDXbnDRBLg5s8
- 1PiHMT2kT4ngS1BN/lPCgM+nnkea0VW6Lx5swsH3QidYp9+u/fLWIuPvx
- X/Y5VdkkOpmDALicw3CKfR0o6AhN8bN4A6fUCXiRjwIEVBCiE0S6HAO83
- aIPeE3SnHG/Mg8LDMGL1ys26YkBvMdiGq0+dZ1Pe7hPC92OuELia2J0bi
- DlmJJzg122XIv5I5EYEyHdy3ppMpgHXIy2Dq92UCVaELNGppyGlksqj9m
- Xv2/6aAZkuJIVtf3dAC0tn5/v2uBfnvbfoEHW7etNi/hLv34uiTH1Mnfz g==;
-X-CSE-ConnectionGUID: wrMBmj8TSU+JbQYztKosJA==
-X-CSE-MsgGUID: C2bjjir8Qfa+kLgv7max4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11678"; a="70141359"
-X-IronPort-AV: E=Sophos;i="6.21,242,1763452800"; d="scan'208";a="70141359"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2026 05:51:35 -0800
-X-CSE-ConnectionGUID: +VjNks09T5C1G0XER90Uug==
-X-CSE-MsgGUID: Zgeiwj2zTP6tnOIDWBVJ4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,242,1763452800"; d="scan'208";a="205704745"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.119])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2026 05:51:30 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, louis.chauvet@bootlin.com, mwen@igalia.com,
- contact@emersion.fr, alex.hung@amd.com, daniels@collabora.com,
- uma.shankar@intel.com, suraj.kandpal@intel.com, nfraprado@collabora.com,
- ville.syrjala@linux.intel.com, matthew.d.roper@intel.com
-Subject: Re: [PATCH v3 00/13] drm: Color pipeline teardown and follow-up
- fixes/improvements
-In-Reply-To: <20260113102303.724205-1-chaitanya.kumar.borah@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260113102303.724205-1-chaitanya.kumar.borah@intel.com>
-Date: Wed, 21 Jan 2026 15:51:26 +0200
-Message-ID: <513db214e2adcad6a70cea2461b7bfc26c2884db@intel.com>
+Received: from lankhorst.se (lankhorst.se [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B91DE10E7CE;
+ Wed, 21 Jan 2026 13:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1769003605;
+ bh=uLFCamQk+mxuKbmOw6XpLu3qm2HJUuDv67/dvtuqQyM=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Fds77Ijgb4TuwdMLJMxsUSus7jJ/N+E9YMZCOF/kV9ZIEpZoVzOFGO+eIqArn6yHH
+ DkZXckxzJSTJ5AjV3csMTrjVHpezZ9mEGgg1DnLcaxCBavKtNcJmDke0MY86P9o5eH
+ HXTwYPbjKRp1ayJn4Sj9cewsQueHdBQaDLzqsZ2Jr/vBVOWps//KKFUbd7qpI3GPNI
+ mblhXR1kR1oKzYzhhrJqhvT865rQ+YiNc9Ux1fDy4GTjPMVxR3NM9Tn+/HgmQNCEz6
+ gSFcBvimSjQe9zfXC4lGY3sqTgqrnbF3iztWbEKhNDqjk7M56W+BoJ8dtsgx9nBa5q
+ w0Y+DEsvTg2Qw==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Maarten Lankhorst <dev@lankhorst.se>
+Subject: [i915-rt v5 00/21] drm/i915/display: All patches to make PREEMPT_RT
+ work on i915 + xe.
+Date: Wed, 21 Jan 2026 14:52:56 +0100
+Message-ID: <20260121135318.651622-1-dev@lankhorst.se>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,86 +51,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 13 Jan 2026, Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com> wrote:
-> This series contains follow-up fixes and improvements for the DRM color
-> pipeline infrastructure that was introduced in v6.19.[1][2]
->
-> The central handling of clean up of colorop from the mode_config list
-> is missing. While vkms calls drm_colorop_pipeline_destroy() in vkms_destroy(),
-> amd driver calls it only during failure of the init path and i915/xe driver
-> does not call it at all. This means amd and intel leaks these objects on
-> driver removal.
->
-> This series adds the teardown of mode_config.colorop_list in drm_mode_config_cleanup().
-> Since, i915/xe sub-classes the drm_colorop within intel_colorop it was not enough
-> to just use drm_colorop_pipeline_destroy(). Therefore, this series
->
-> - Introduces driver-managed destruction for drm_colorop objects and
->   updates core helpers to use driver-provided destroy callbacks.
-> - Ensures all colorop objects are correctly torn down during
->   mode_config cleanup and driver removal.
->
-> In addition to that following changes are made in the series
-> - Fixes enum name lifetime leaks in color pipeline init in i915, amdgpu_dm, and vkms
-> - Corrects the ordering of the 3D LUT block in the i915 plane color pipeline
-> - Refactors i915 plane color pipeline initialization to reliably clean
->   up partially constructed pipelines on failure.
->
-> Thanks for taking a look. Feedback is welcome.
+We should probably take the uncore lock only once, and hold it during
+entire evasion. For now just remove the code using it to see if CI
+passes.
 
-I did not do detailed review, but
+Since last time, adjust some patches to compile again, and also
+add a lockdep_reset() to make CI pass from repeatedly loading
+the i915 module.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+Maarten Lankhorst (16):
+  drm/i915/display: Fix intel_lpe_audio_irq_handler for PREEMPT-RT
+  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
+  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
+  drm/i915/display: Make set_pipeconf use the fw variants
+  drm/i915/display: Move vblank put until after critical section
+  drm/i915/display: Remove locking from intel_vblank_evade critical
+    section
+  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
+    too
+  drm/i915/display: Make icl_dsi_frame_update use _fw too
+  drm/i915/display: Enable interrupts earlier on PREEMPT_RT
+  drm/i915/display: Use intel_de_read/write_fw in colorops
+  drm/i915/gt: Fix selftests on PREEMPT_RT
+  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
+  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
+  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
+  PREEMPT_RT injection
+  FOR-CI: drm/i915: Reset lockdep after selftest unload
 
-for merging via drm-misc.
+Mike Galbraith (1):
+  drm/i915: Use preempt_disable/enable_rt() where recommended
 
-Please coordinate with drm and drm-misc maintainers on which branch
-these should merged through. IIUC there are memory leak fixes for
-changes heading to v6.19, which speaks for drm-misc-fixes. But is it too
-much at this stage? Up to drm and drm-misc maintainers I think.
+Sebastian Andrzej Siewior (4):
+  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
+    spin_lock()
+  drm/i915: Drop the irqs_disabled() check
+  drm/i915/guc: Consider also RCU depth in busy loop.
+  Revert "drm/i915: Depend on !PREEMPT_RT."
 
-BR,
-Jani.
-
-
->
-> [1] https://lore.kernel.org/dri-devel/cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com/
-> [2] https://lore.kernel.org/intel-gfx/20251203085211.3663374-1-uma.shankar@intel.com/
->
-> v2:
->  - Re-arrange patches (Alex)
->  - Re-factor code to avoid repitition in pipeline creation (Suraj)
->
-> v3:
->  - Add documentation only to function definition (Jani)
->  - s/nvl/xe3plpd (Suraj)
->
-> Chaitanya Kumar Borah (13):
->   drm/i915/color: Place 3D LUT after CSC in plane color pipeline
->   drm/amd/display: Fix color pipeline enum name leak
->   drm/vkms: Fix color pipeline enum name leak
->   drm/i915/display: Fix color pipeline enum name leak
->   drm/colorop: Add destroy helper for colorop objects
->   drm: Allow driver-managed destruction of colorop objects
->   drm/amd/display: Hook up colorop destroy helper for plane pipelines
->   drm/vkms: Hook up colorop destroy helper for plane pipelines
->   drm/i915/display: Hook up intel_colorop_destroy
->   drm: Clean up colorop objects during mode_config cleanup
->   drm/vkms: Remove drm_colorop_pipeline_destroy() from vkms_destroy()
->   drm/colorop: Use destroy callback for color pipeline teardown
->   drm/i915/color: Add failure handling in plane color pipeline init
->
->  .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  31 ++-
->  .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  13 +-
->  drivers/gpu/drm/drm_colorop.c                 |  49 +++--
->  drivers/gpu/drm/drm_mode_config.c             |   6 +
->  .../drm/i915/display/intel_color_pipeline.c   | 179 +++++++++++++-----
->  drivers/gpu/drm/i915/display/intel_colorop.c  |   6 +
->  drivers/gpu/drm/i915/display/intel_colorop.h  |   1 +
->  drivers/gpu/drm/vkms/vkms_colorop.c           |  31 +--
->  drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
->  include/drm/drm_colorop.h                     |  32 +++-
->  10 files changed, 259 insertions(+), 90 deletions(-)
+ drivers/gpu/drm/i915/Kconfig                  |   1 -
+ drivers/gpu/drm/i915/Kconfig.debug            |  15 ---
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
+ drivers/gpu/drm/i915/display/intel_crtc.c     |  12 +-
+ drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
+ drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
+ drivers/gpu/drm/i915/display/intel_display.c  |  46 +++----
+ .../gpu/drm/i915/display/intel_lpe_audio.c    |   2 +-
+ drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
+ drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      |  16 +--
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
+ drivers/gpu/drm/i915/i915_module.c            |   6 +
+ drivers/gpu/drm/i915/i915_request.c           |   2 -
+ drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
+ drivers/gpu/drm/xe/Kconfig.debug              |   5 +
+ .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
+ kernel/Kconfig.preempt                        |   4 +-
+ 23 files changed, 180 insertions(+), 137 deletions(-)
 
 -- 
-Jani Nikula, Intel
+2.51.0
+
