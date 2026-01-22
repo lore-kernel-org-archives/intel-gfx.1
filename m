@@ -4,53 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3795CD3EE67
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:39:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDCD8D3EE67
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:51:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE33A10E9AB;
-	Thu, 22 Jan 2026 13:38:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Cy3im71u";
-	dkim-atps=neutral
-X-Greylist: delayed 492 seconds by postgrey-1.36 at gabe;
- Wed, 21 Jan 2026 22:48:02 UTC
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0E110E08E;
- Wed, 21 Jan 2026 22:48:02 +0000 (UTC)
-Received: from wse-pc.. (unknown [61.8.154.114])
- (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id 62D1A2FC0052;
- Wed, 21 Jan 2026 23:39:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1769035187;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=hLbZrDz0Hrmb7n202kZRgmxmu9bjINs7CGMfMenSWS0=;
- b=Cy3im71uXo+asTdc4ajysXLnqB0HgCfHn8UamJhCPnqv9I+x5mkwpT+icagVLeRba4qach
- LHOaduGfZDZJoOl7zyhSMxXSHAD3Gy+BWvVySRzuGGzcHFWl/B1G88xX0DGMej692M/T7Y
- NPwg2AHFLyGVJt2smsYC1Cr3lPHbC/I=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: Werner Sembach <wse@tuxedocomputers.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-Date: Wed, 21 Jan 2026 23:38:55 +0100
-Message-ID: <20260121223944.1104951-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DC2210E9B1;
+	Thu, 22 Jan 2026 13:51:55 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D538710E9B3;
+ Thu, 22 Jan 2026 13:51:53 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 22 Jan 2026 13:38:57 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/displa?=
+ =?utf-8?q?y=3A_Add_quirk_to_force_backlight_type_on_some_TUXEDO_devices_=28?=
+ =?utf-8?q?rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Werner Sembach" <wse@tuxedocomputers.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 22 Jan 2026 13:51:53 -0000
+Message-ID: <176908991387.183335.183009691454018859@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260121223944.1104951-1-wse@tuxedocomputers.com>
+In-Reply-To: <20260121223944.1104951-1-wse@tuxedocomputers.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,117 +38,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 with panels
-AUO 12701 and AUO 12701 must be forced to INTEL_DP_AUX_BACKLIGHT_ON to be
-able to control the brightness.
+== Series Details ==
 
-This could already be archived via a module parameter, but this patch adds
-a quirk to apply this by default on the mentioned devices.
+Series: drm/i915/display: Add quirk to force backlight type on some TUXEDO devices (rev2)
+URL   : https://patchwork.freedesktop.org/series/147704/
+State : failure
 
-This patch does not actually test for the exact panels as the id that is
-used in the intel_dpcd_quirks list is sadly zeroed on the devices, but
-afaik all these devices use try_intel_interface first anyway so all the
-quirk does is to add the fallback to try_vesa_interface, so the behaviour
-on the devices not needing the quirk and fallback should functionally stay
-the same.
+== Summary ==
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
- .../drm/i915/display/intel_dp_aux_backlight.c |  9 ++++++-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 25 ++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 33 insertions(+), 2 deletions(-)
+Address 'wse@tuxedocomputers.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 0a3a3f6a5f9d8..bbdfa142d084d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -41,6 +41,7 @@
- #include "intel_display_types.h"
- #include "intel_dp.h"
- #include "intel_dp_aux_backlight.h"
-+#include "intel_quirks.h"
- 
- /*
-  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
-@@ -661,11 +662,17 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
- 	bool try_intel_interface = false, try_vesa_interface = false;
-+	int enable_dpcd_backlight;
- 
- 	/* Check the VBT and user's module parameters to figure out which
- 	 * interfaces to probe
- 	 */
--	switch (display->params.enable_dpcd_backlight) {
-+	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
-+	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
-+	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
-+		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
-+
-+	switch (enable_dpcd_backlight) {
- 	case INTEL_DP_AUX_BACKLIGHT_OFF:
- 		return -ENODEV;
- 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index d2e16b79d6be1..df20930f73f75 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct intel_display *display)
- 	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");
- }
- 
-+static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
-+	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -251,7 +259,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
- 		.hook = quirk_fw_sync_len,
- 	},
--
-+	/* TUXEDO InsanityBook 15 v1 */
-+	{
-+		.device = 0x591b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x9501,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
-+	/* TUXEDO DX1708 */
-+	{
-+		.device = 0x3e9b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x8500,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 06da0e286c67c..686f306ab4472 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -21,6 +21,7 @@ enum intel_quirk_id {
- 	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
- 	QUIRK_FW_SYNC_LEN,
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
-+	QUIRK_ENABLE_DPCD_BACKLIGHT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.43.0
 
