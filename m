@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7073FD6CFA4
-	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 21:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD7C5D6CFAA
+	for <intel-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 22:44:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE33E10E15A;
-	Thu, 22 Jan 2026 21:39:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ebVHQiIM";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13E9B10E15A
- for <intel-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 21:39:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769117982; x=1800653982;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=aNJKxQSDAxbZ9NWgeTcg3QiYTvMHI0KJ/zZkDQ6BC4E=;
- b=ebVHQiIMNb7yEdRc8WVeulB7lb633uYQVKvKWEr3iPaIpK4at77BPXhd
- GQKmrjm8PKhxyPhucD5mOKnh1CfIEJgbFMbOHqDP27piuuURscGXngDUG
- lXulKBHNTMsxgt9OSAVBvS5b+GD35ZRtLixdvX5kR5J+sq5L2kYRAZ/kU
- VjgLiDvm06lh+mjZl0KKxCn7a5Ty0TH0/rBki3y7ECArcoyGAUxnXmUBn
- Mr+/OtYF0yolEx6lqco7y5LHN+suEp1KvOsSg9c5kl+OvK1fvVi/B2M3q
- /7zWkrOFfvZsgB1/bDd4JgNoGRgePqwJehKZWkXcwp9I9ypn7+923+tA1 A==;
-X-CSE-ConnectionGUID: J/8j0OXrSxuihUpc6NDLxQ==
-X-CSE-MsgGUID: +k16RIaPT2utsfsSWN1okA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11679"; a="81741979"
-X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="81741979"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2026 13:39:41 -0800
-X-CSE-ConnectionGUID: LTuuAgeJTFKLOMI7ESJpxw==
-X-CSE-MsgGUID: 2e1RY4W8T6yDEbtdv1NQoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="206438291"
-Received: from dut4086lnl.fm.intel.com ([10.105.8.127])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2026 13:39:41 -0800
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: saurabhg.gupta@intel.com,
-	alex.zuo@intel.com,
-	jonathan.cavitt@intel.com
-Subject: [PATCH] drm/i915/display: PORT_NONE is not valid
-Date: Thu, 22 Jan 2026 21:39:41 +0000
-Message-ID: <20260122213940.64352-2-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BD6F10EB60;
+	Thu, 22 Jan 2026 22:44:02 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92D9A10EB5C;
+ Thu, 22 Jan 2026 22:44:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5385818115538176322=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_PORT?=
+ =?utf-8?q?=5FNONE_is_not_valid?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 22 Jan 2026 22:44:01 -0000
+Message-ID: <176912184159.185549.17022153613164094538@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260122213940.64352-2-jonathan.cavitt@intel.com>
+In-Reply-To: <20260122213940.64352-2-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,42 +37,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Static analysis issue:
+--===============5385818115538176322==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-In assert_port_valid, add a check to ensure port != PORT_NONE, as that
-is not a valid port.  The check must be explicit to prevent a bad bit
-shift operation in the general case via short-circuiting.  It's not
-likely this will ever come up in a real use case, but it's at least
-worth guarding against.
+== Series Details ==
 
-It would probably also be pertinent to modify the behavior of the
-port_name function to correctly print PORT_NONE in this case, as
-currently the port would be reported as 'port @' by the debugger.  But
-that should be done separately, and given port_name is mostly just a
-debug printing helper function anyways, fixing it is a low priority.
+Series: drm/i915/display: PORT_NONE is not valid
+URL   : https://patchwork.freedesktop.org/series/160522/
+State : success
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 7491e00e3858..250f31bb5938 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -7828,7 +7828,8 @@ static bool intel_ddi_crt_present(struct intel_display *display)
- 
- bool assert_port_valid(struct intel_display *display, enum port port)
- {
--	return !drm_WARN(display->drm, !(DISPLAY_RUNTIME_INFO(display)->port_mask & BIT(port)),
-+	return !drm_WARN(display->drm,
-+			 !(port < 0 || DISPLAY_RUNTIME_INFO(display)->port_mask & BIT(port)),
- 			 "Platform does not support port %c\n", port_name(port));
- }
- 
--- 
-2.43.0
+CI Bug Log - changes from CI_DRM_17873 -> Patchwork_160522v1
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/index.html
+
+Participating hosts (43 -> 41)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_160522v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-9:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17873/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - fi-skl-6600u:       [DMESG-FAIL][3] -> [PASS][4] +1 other test pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17873/fi-skl-6600u/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/fi-skl-6600u/igt@i915_selftest@live.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17873 -> Patchwork_160522v1
+
+  CI-20190529: 20190529
+  CI_DRM_17873: cb83f2b90fe3dba3db516c1d9ad1a86dcc5e8e50 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8713: 33d772ed2d772fee329e6200cd968962f695a927 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_160522v1: cb83f2b90fe3dba3db516c1d9ad1a86dcc5e8e50 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/index.html
+
+--===============5385818115538176322==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: PORT_NONE is not valid</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/160522/">https://patchwork.freedesktop.org/series/160522/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17873 -&gt; Patchwork_160522v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/index.html</p>
+<h2>Participating hosts (43 -&gt; 41)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_160522v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17873/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17873/fi-skl-6600u/igt@i915_selftest@live.html">DMESG-FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160522v1/fi-skl-6600u/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17873 -&gt; Patchwork_160522v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17873: cb83f2b90fe3dba3db516c1d9ad1a86dcc5e8e50 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8713: 33d772ed2d772fee329e6200cd968962f695a927 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_160522v1: cb83f2b90fe3dba3db516c1d9ad1a86dcc5e8e50 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5385818115538176322==--
