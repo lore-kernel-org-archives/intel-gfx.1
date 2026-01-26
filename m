@@ -4,104 +4,201 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4E3D13C0F
-	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 13:55:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ECF0D13C1E
+	for <intel-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 14:26:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F33EC10E43D;
-	Mon, 26 Jan 2026 13:55:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A969210E442;
+	Mon, 26 Jan 2026 14:26:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M89xD5TT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bHT8qLx0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B001B10E363;
- Sun, 25 Jan 2026 14:50:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B0A0743D2F;
- Sun, 25 Jan 2026 14:50:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70185C19421;
- Sun, 25 Jan 2026 14:50:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769352606;
- bh=Qb77RiWgyHm5SU1GmS1LMhqiQbtCFBFXaWxM/S1HaDo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=M89xD5TT4e8L24TFAy59ViAy3loqol6G07UhfkgnivqN0T1QHIeXLK6KufoCrmnXv
- kekwqOI8IRA4bMgS3j6olFfRKZTjyIBt4fMtWD+6LFJ0ZGBnPwkx1Vvk3JrvMW2Ll4
- zC5Vge1F4V9gjzvpVRyB4bOSiYG1Efwk0TeU8NIXylAL1tIZq8vI4gcuC9uXB2RLeh
- JBN9Hl+6DYuHM7nuJ5FN1dElHztg8/NLO1X1HlWuX25qrluftOw7nVx6DrXppnlOtZ
- MyTpao/Eq+4i/v4tPdubm9C3tLQzM8HcEkPI3lCw90Wg6LIyuqGLw6gE9EaZT2Y1at
- 1DQ8tqzm59ruQ==
-Date: Sun, 25 Jan 2026 16:50:01 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dan Williams <dan.j.williams@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Benjamin LaHaise <bcrl@kvack.org>, Gao Xiang <xiang@kernel.org>,
- Chao Yu <chao@kernel.org>, Yue Hu <zbestahu@gmail.com>,
- Jeffle Xu <jefflexu@linux.alibaba.com>,
- Sandeep Dhavale <dhavale@google.com>, Hongbo Li <lihongbo22@huawei.com>,
- Chunhai Guo <guochunhai@vivo.com>, Theodore Ts'o <tytso@mit.edu>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>, Tony Luck <tony.luck@intel.com>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Dave Martin <Dave.Martin@arm.com>,
- James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>,
- Carlos Maiolino <cem@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>,
- Matthew Wilcox <willy@infradead.org>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Zi Yan <ziy@nvidia.com>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- David Howells <dhowells@redhat.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E . Hallyn" <serge@hallyn.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- linux-sgx@vger.kernel.org, linux-kernel@vger.kernel.org,
- nvdimm@lists.linux.dev, linux-cxl@vger.kernel.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-mm@kvack.org, ntfs3@lists.linux.dev, devel@lists.orangefs.org,
- linux-xfs@vger.kernel.org, keyrings@vger.kernel.org,
- linux-security-module@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>
-Subject: Re: [PATCH v2 08/13] mm: update shmem_[kernel]_file_*() functions to
- use vma_flags_t
-Message-ID: <aXYtmbL40r5wLgk2@kernel.org>
-References: <cover.1769097829.git.lorenzo.stoakes@oracle.com>
- <736febd280eb484d79cef5cf55b8a6f79ad832d2.1769097829.git.lorenzo.stoakes@oracle.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF3B710E43A;
+ Mon, 26 Jan 2026 14:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769437604; x=1800973604;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=E6S7CDFQ4X7Y1ve9XcCfMSbV1gFUj/I18rTOovQf/ws=;
+ b=bHT8qLx0hg1vK7gjRiGq7MQVTloDZPQGYBWN+nkwRnBeT3WFxEtx5nOL
+ inW5IPjaFuEEvmFlkczQIjutt4kQ7MYE3kzqIQL3EWk5YMeJnv4IR1Fdd
+ oXuZSO6fa0KPSlQJRs8exsqoKuYxMpPv+w94NOtVv+UXLdTbTHZZFI7uj
+ NGw1zWuVZDoxDGZ3RZ77slbE+NRqjWQqQixRbe9ATmzhl6rc1fdyDJbIj
+ fJN88j7u+LqgcnZTeANfqF2ldqAQpTeuhDCsLqOGQLR1J1+0zhCxJ/4PT
+ 516NgY981GICts2i7+PzyELzRSS6rA6ZmiGy01NH3zH1NxdGfkHhbjYDZ g==;
+X-CSE-ConnectionGUID: EZB4xUcdSIuWn2tPW0hWCA==
+X-CSE-MsgGUID: SpIPF091SZaoofRrZm5FaA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11683"; a="74457592"
+X-IronPort-AV: E=Sophos;i="6.21,255,1763452800"; d="scan'208";a="74457592"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2026 06:26:43 -0800
+X-CSE-ConnectionGUID: ZtLSYFWRR1OkAYkFmhSiFQ==
+X-CSE-MsgGUID: huKq8IBRTAmq3MdN0rQtIQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,255,1763452800"; d="scan'208";a="212675844"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2026 06:26:43 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Mon, 26 Jan 2026 06:26:42 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Mon, 26 Jan 2026 06:26:42 -0800
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.65) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Mon, 26 Jan 2026 06:26:42 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WWqYGQVMShSbdj26N2eatdYZJH0V6BAiSMPIrkBvYUBiXPiAb66Wf5TAcamjnb+MONq/J5LWrL9bIyb+orFSdMGwGCepVTFqyKx9Ev6s/dahwwz2w5+Tew/nkhUMh8Hd9qmJLESb/w+WdTps9k3Fl3N62nkNCDjKXOEH4WS/ft2g9qH0bHNM35YcSfNoVTkabdnC0St9br3HE5lj9XljxLPXKf734GQkv0vlX7xOU8eL0lbqpcJAlajPI9pY45WQPuQYb2+IkpaKE5p9DZDfBzIp2XnEipxVrq5XK8Mo9ETCVlMQHAbUIIPofNiS6OwJqna4a1CdQKRSo1oSzD1blw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E6S7CDFQ4X7Y1ve9XcCfMSbV1gFUj/I18rTOovQf/ws=;
+ b=hWFQ5fhw47OrCZCzcJGFA/PLZbFzQyZa80H0TRno2J1sCP1QD8JRIgEZY0OulMSukvYVC0v8hDvUg7zgdosc0DAYT9vGHPm6KKXSXKgLTzVtwfmsqaRcYRNAcvj61BaUmpzxvWsvBaWK4y+gGomeji/fDpFJuNG7gZZoJx0hNYuRSyiSGRQOdkmUpTfWb2ssNhfWB38LZyG0+8tCNg4uc7wBar+g4AtaIE7akQLdJ11ZKRp2r69VgOJIwsIhTvTdjST83/gpTHmVwF9LSLmEOiLFcfg3+ILRnWY9XPz8ZAu6x2lBN9HxjxdVUCDW1cc9/SefE2B83kY88XFWLhcHwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from CY8PR11MB7777.namprd11.prod.outlook.com (2603:10b6:930:71::14)
+ by DS4PPF641CF4859.namprd11.prod.outlook.com (2603:10b6:f:fc02::26)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.16; Mon, 26 Jan
+ 2026 14:26:39 +0000
+Received: from CY8PR11MB7777.namprd11.prod.outlook.com
+ ([fe80::5a6:cd7:969c:fa41]) by CY8PR11MB7777.namprd11.prod.outlook.com
+ ([fe80::5a6:cd7:969c:fa41%5]) with mapi id 15.20.9542.010; Mon, 26 Jan 2026
+ 14:26:39 +0000
+From: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>
+To: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>
+CC: "Shankar, Uma" <uma.shankar@intel.com>, "Heikkila, Juha-pekka"
+ <juha-pekka.heikkila@intel.com>
+Subject: Re: [PATCH v2] drm/i915/display: fix the pixel normalization handling
+ for xe3p_lpd
+Thread-Topic: [PATCH v2] drm/i915/display: fix the pixel normalization
+ handling for xe3p_lpd
+Thread-Index: AQHcjsfNUEWAjUUdNUWFRAYWpHCs/7VkdeuAgAAMFIA=
+Date: Mon, 26 Jan 2026 14:26:38 +0000
+Message-ID: <25d2de49b4d402c02ed027bbee0a6bd8f989ec56.camel@intel.com>
+References: <20260126132908.619409-1-vinod.govindapillai@intel.com>
+ <bd2e79d77212ea5bec52291e038421705b1f09b1@intel.com>
+In-Reply-To: <bd2e79d77212ea5bec52291e038421705b1f09b1@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR11MB7777:EE_|DS4PPF641CF4859:EE_
+x-ms-office365-filtering-correlation-id: 7b1998f1-b609-4c31-ebd7-08de5ce6eb14
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|10070799003|1800799024|376014|366016|38070700021; 
+x-microsoft-antispam-message-info: =?utf-8?B?WUMyU2FYQ0pzZU1qZWhVWFFMbTdtZjdaeW4rN1ZoSUZ2Y2xNSlRWNkhpTkRj?=
+ =?utf-8?B?akRONG5ITjhaalVpR2dCYW12S2lNMjYwT3kveTI4RUdMaUhmaVRFM0t2Rkta?=
+ =?utf-8?B?QW9hQTNrQ0UzQzExSCtvNTk1ZnluVkRPZk41cFBFV2M2cVdtSkd0ZzltcDZ0?=
+ =?utf-8?B?bEcwUnovYTlhT01qaDljOHNYLzF0UmZxamNzZi9kaWROb0lXeEFsYnhmVWcv?=
+ =?utf-8?B?YndFUWx2UXNWYW12OWJOQlM5Si8zRGg4VWErTVhDYWJHL0gzN1huVnV3b2V5?=
+ =?utf-8?B?VmpTYU5XemY0bktDSE5UVTdkT0lEQWMzYjVVT1kraVJPeks5Z2VkZCtLN0sy?=
+ =?utf-8?B?eUsvRmVDR3ZVOHp3ekhobkQrb2dyMDFFUHRNaEUwOHJEcFVWTG1BLzY4dVRh?=
+ =?utf-8?B?M2c2SmRRMm81S3ZrbWVvY2pBNVpYdmh3MmFQZjNMek0zc1dUTlpnM1pUOEhx?=
+ =?utf-8?B?R0dBOG9PYnZnK0FLcVRWcXVuVVZDTnRzWWdlRUdKczkrSmJWUzlucktjbmg3?=
+ =?utf-8?B?YmV2N1BNWklUaWxCYWt0aFl4MDhlUG83ZklvZFkrdHAxR1NzOTVqbnZVdUhE?=
+ =?utf-8?B?YktjUWRjT1JiRkN4VnBGVFE5NTlOdVhXWkI4dTM4R0llUENiT2ZaSWxESUZt?=
+ =?utf-8?B?ZU94L0ZsYVdwRUR6ZmJ0cDF0NkhWWmluSzlDNFlTcnZJYitsZ2VZN09BS21s?=
+ =?utf-8?B?UlErRXZiU3NLdFVtY2tCeGdmYUEyTXh1bmZmdDN4V25GYitPSnF4a25UYWlW?=
+ =?utf-8?B?VEpUQzJQTEcrTVVJWjA3dmZPVXpQS21tbEpTT3FJL3A0VUttZ1pxOE10WjFI?=
+ =?utf-8?B?ak1BbE54aUp4d1RjSENKZDdMRHUxTzQ2R2NjM3JlVFFsNE9yQWxKVHFuZzVC?=
+ =?utf-8?B?Qmk2Z3hFU0l4eTZWNWE2cWFkNmlIeDYwMWx2cUYycHRNZW80TTZCMGpDRDZF?=
+ =?utf-8?B?S09WdzlSMVZwQUMvalZkR1diOXNvNVR2VThBMzdMVzNSZUJPOUhvMHdFYmJh?=
+ =?utf-8?B?aitaOCtPOVVMbHhOSnByR3o0NFlhRnhUcWtCRjBxVU1hVEVZSlpxNmVwbTB2?=
+ =?utf-8?B?dy8wN3UrYWNXZzB0U0tXNEJxZTRxbFR1Sk5ERHlhTkF0Q2hZMGhwRitBczI2?=
+ =?utf-8?B?a3JaN1Z5NkkwYXBXSHV4Yk1vVHdFWFNRRmt3QjBSS1F4L3FlbnNNVDd2RUZ4?=
+ =?utf-8?B?bGY3T3pPNWdrNWdST3JUeENJNnFsWXhSRUFGcmJvN3Jaa0RZV013KzZERHhP?=
+ =?utf-8?B?SFJLVWVSNDgwdzVyR0dNaTlUcSt4TDQ3OGZWNFR6OG5rSmluN2xQS2c4UnpF?=
+ =?utf-8?B?SHJlMFV5c3hYeW1JM0QrblErMXlBclA4MXRDelQxdU0zMGw4dy83VHAwYWN0?=
+ =?utf-8?B?Ykp0VEJER0lHRWlNMjVSck1VbXhmcVlQQ1JleThhYTVpc0dENENWSzZVTzBD?=
+ =?utf-8?B?M0l3N3hQSElnbXhtQUZCMjZON21pd3F0UXExc1IrdXRUbGloTzJNK1BOZHE5?=
+ =?utf-8?B?YU42K1dZVjJFYkNvSHdyYkxxd01wNGMrZWlOT3NoeXArVnk5RmRQQnQwWHdr?=
+ =?utf-8?B?Ym1pWDRvNGo2WDdGT0tZWmpLVmlGMSt3emxCY2NhTVRtaTl5Ukp0Vi84ZjUy?=
+ =?utf-8?B?OFczYXU3bWtLVGhIMzZNcG4za0l3Mk5GdTJEem5SWWRQenNrbnBTOXVBOUVU?=
+ =?utf-8?B?djRwNkdOaGtJaGNESkhVRUk1OXJkdGtjY2xDeUU0YWxBTHBUcVNvT3Nucmhl?=
+ =?utf-8?B?ZlVtV2NLLy9GTCtEZ1JjNFJkUXhCRG5hOExTT0NuWTNQdDU3ekVVTThvdWt0?=
+ =?utf-8?B?OG5BK0JOSmlqSyt4YWlPbzhKQjFUejhNZGdqUDlTSzduODkvYjhGeW5GODJu?=
+ =?utf-8?B?ajlwMmpGUS9oNGUvMmIzYjJvdXh1ckFaZnRpMWFFWDdnK2NhUExyQkhXMFJH?=
+ =?utf-8?B?bHZ5ZUJWVGx6ai9nMW5FWVBXUk5BUzVMd2hWbFlMUUhyOXloQ0RWM3JLQU5F?=
+ =?utf-8?B?WTByaitoQnIyeGIwZHZmR3Rwb2NPZnhwOWpMVEM4QWZoVE5EbmpSTi9tQUgz?=
+ =?utf-8?B?TGJMTlg3ZlMwSGVidS9FWGlwNG9XUG5jWmtHbUk4b0tpcEZ4dmtjRDllbFJp?=
+ =?utf-8?B?aCt2Tnl4eHlhdkR4cVF6VGdNbVVOT0pZREJGM1VJYXBSc21pS3B2QXNwTFhY?=
+ =?utf-8?Q?dsmFBI0uWg4M/HUHTo1W9lI=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR11MB7777.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(376014)(366016)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bXMva2lzMnh2dFM5QzJvME9GVmdmWnZheWREWFh6TEQ0TS8zdDRtV2FlYTI3?=
+ =?utf-8?B?QStVdFI5RzhocXRXb0x3dnJpWW5heWp3c3haTnpYbzNLempZL3JlU3FrTzRo?=
+ =?utf-8?B?ZXB6M0ZoenZtTFJ5bHh2d3Z2aFkxOU1wOFRSNnMrZ050aVQwNGZWclQ2Rk9u?=
+ =?utf-8?B?OWdacUx1SGhGMmlKcDlTTXdSK1Y5YWNmYlF6TnIwVmpscWwyYkJzeXVaVnlN?=
+ =?utf-8?B?bjRVa21tVlNHVGRQOFkyNVc5Q3JhK3pRWFFxaEdIdW5IeUZUVkpTaVZVZWlQ?=
+ =?utf-8?B?ZDhxOHhNbFJIeFJqam5EdXZsSkZjMDJHOFFNZjhNYmtlNkFHWFBPMUppYVk1?=
+ =?utf-8?B?VE1FM01tdTgyM2F4VGF1QXFTNEdOcURVOHNZa29jTXVua2IybThZYWhYMVY0?=
+ =?utf-8?B?cnhkZWpyVWpxeTMvWXVuVUEzZU4yUkllb0tKclFaN3d4RzJ2dlAvOXF3d0NI?=
+ =?utf-8?B?MTlETFJ1V1JId0pzdU0xOWVzOEpWRUR1UEk2ZmgxdG5oZVIzWmRVOVBqSmdM?=
+ =?utf-8?B?ZHZxS1FYK1RCNWI5OEhCTEcrbnZvbmdkNEw3cmJRcnVnSVBVMVA5V1RKNXNN?=
+ =?utf-8?B?Ry90VmpFMERwbm9FTjBENU96WTVpYTViaGNxY01nWmdDUUxpbTdTQmZSVHd5?=
+ =?utf-8?B?TUZFcUlKRzdhYWpCU2hXY1VndXU2ZnR5eXVtT3dMdHBYTFRwbjhVM1d2czJ6?=
+ =?utf-8?B?R1NQbzZLaFZDTXlwVWl2UUk3UTBPMWZzZzhlRUJoOW9nZDBCUjlydmt2T09q?=
+ =?utf-8?B?KytJWXlEMzBpUDdRbk1mKzh5citxSW1oRFEzM2FCZXYyTTIyYTBhQmtTNU1n?=
+ =?utf-8?B?cHpVTFJzbk0rVmtLT0dpMC9wQVpMMnQybEdROUc1U1ViY0pnSTVjZTVWNkhU?=
+ =?utf-8?B?TW42VXMrVXprejRuTjQrU0w0UENzNkFPdTJvNHJPcWRiY3pBSmtmTzEveGxW?=
+ =?utf-8?B?bEdjMGh3RmhyWGZZdE0zbnhBN0owNzd4SUwzOWI3MmxuaElPOXhtem9YaEd6?=
+ =?utf-8?B?RXdiZzJ0SmdRZzd5a21DVVNmNHlFRUZ6NUlsakdsK2FySEZ5TFZad0VpZVZQ?=
+ =?utf-8?B?RlR1cXRHUzV0YUZzWjYwOVNkUGswYnVGWEpETGtHaWVwU0MwcWJBMXNHTnNK?=
+ =?utf-8?B?dWgxNitYOUxOWFlqbXpBdVlMQU1wVEJQcnNmY1Y4Tm03K3VNTklHWGY1SHVz?=
+ =?utf-8?B?S2FRRHlnd0NXTmh6ME03Z1FVR1dCbWw0d1FkVVdONDZkNzZxUGVOZzU1eXRN?=
+ =?utf-8?B?OHl2MXoyZXBQWXJmeFhkT1huL1NnY0diU1RsYS9Kbm9sRmRMQTIzS3dyaldE?=
+ =?utf-8?B?M0kwME5KcEJ4Nk1IN292eFA5S2FVMkh1c01vUkh1dWhnQ2wyTDVLNkJnWU9t?=
+ =?utf-8?B?dTB5TjFXZkluT0Zac1A2a1BKQnlCcnBEQWlOaGhjeWxlVVFGUVpBb2h3WE9o?=
+ =?utf-8?B?VG1yNDhWbkI1RWljdFB3Mm5sMVIvQVdyamxCYXlPaEw4STF2ZHNIVS9KYldp?=
+ =?utf-8?B?c0NXa3NUVmdmeGZSVERwcU1BQWZKcTBycnhtNFIxN2Zja2tyd3psVUZmaGQ3?=
+ =?utf-8?B?aFhLWUl5YXVWU2F6eUxMdzk2MUlheTlwaUxjSjRMZGpZYlVHalZ4VGJpWkV4?=
+ =?utf-8?B?YnVpS1VubklYQXNnbVRCWHBOZklZWCtFMmZScXhVZFJud0s2bnIwNlJHMGJZ?=
+ =?utf-8?B?SlhiM1piZG15c0NWSzdhanYxT2dmcGMyZDlNd05EYXNobXViVG45NEZPMVFE?=
+ =?utf-8?B?d0R2WHZxeXlQa1lGemNmTmo4c3JHRTZQKzZGVzJnY08vaGl2VmRiN1hxZUI5?=
+ =?utf-8?B?c3N3eFJIVXFzWkJxMGNQckkzV0RSL3pHMnVPRkRMNDhtNFZyeXJUT2dhUVdr?=
+ =?utf-8?B?emEvUUhYUkJJTFdEQnpHVE1SZ05tV3pkczRtblV0RWVObFBWY0FYbksxbTJN?=
+ =?utf-8?B?dWtUbm5VaW13eE8yTnJJZVRiUlV6UHIrOWloUkxOZk5yblV1WFlNYzlLMDEw?=
+ =?utf-8?B?SDRpd2NuWmdkUHlCRWtVTzVlcWRteEV0c1JFRGNrLzh0R2ZpWHVNS1ZzUHhS?=
+ =?utf-8?B?Q0pmb3FTRDlqQ1ZjK2daNzdvWUIrRExjeXhrNGdTeXpCa2xST003Z1VCNzVs?=
+ =?utf-8?B?aElMaHEzS0N1WGFOcFlzd1lBdjNUT0hrbUswYS9CRkMxTXdoY0w0dGdvSks5?=
+ =?utf-8?B?b2k5TzlVc0NMMnlhcy9rMW9XRk5xZEw3N3R2TThqL1dORnVqenZuV0lFTEVa?=
+ =?utf-8?B?T2hHdUNLY2FRZmp2aVhFVnNCdXYzVkNUMG05UHRhSzAvZG1VNHBGZldjTjhi?=
+ =?utf-8?B?MTltWVN6Uy92U1NCZkdwL29hWElHd3NtNndXSnhDcDlJL2FGbE1OOWdoUU42?=
+ =?utf-8?Q?yY3YHY48PT0fdYeMJ/NMRAswLT0swN8/uDoT+MJJUfNWb?=
+x-ms-exchange-antispam-messagedata-1: +xxMWT5Y4z8Lf/82haKA2q17JuAHTqrEGVfEwdHCuuXIZjNCr6A4RnNB
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <0E59138857E9AF45A091A8F0689597EC@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <736febd280eb484d79cef5cf55b8a6f79ad832d2.1769097829.git.lorenzo.stoakes@oracle.com>
-X-Mailman-Approved-At: Mon, 26 Jan 2026 13:55:54 +0000
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR11MB7777.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b1998f1-b609-4c31-ebd7-08de5ce6eb14
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jan 2026 14:26:38.8850 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: D9Ath9ztHeThI7wZXK9Wn+ICVgySsGgvAyJYGioNWnD6Z2NzWyvzdNk7C/mqsR5nMuS/9b93BwV2VgfF6zk2LfCGDBdBf6g3BPyakrW+uXU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PPF641CF4859
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,476 +214,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 22, 2026 at 04:06:17PM +0000, Lorenzo Stoakes wrote:
-> In order to be able to use only vma_flags_t in vm_area_desc we must adjust
-> shmem file setup functions to operate in terms of vma_flags_t rather than
-> vm_flags_t.
-> 
-> This patch makes this change and updates all callers to use the new
-> functions.
-> 
-> No functional changes intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-> ---
->  arch/x86/kernel/cpu/sgx/ioctl.c           |  2 +-
->  drivers/gpu/drm/drm_gem.c                 |  5 +-
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c |  2 +-
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c   |  3 +-
->  drivers/gpu/drm/i915/gt/shmem_utils.c     |  3 +-
->  drivers/gpu/drm/ttm/tests/ttm_tt_test.c   |  2 +-
->  drivers/gpu/drm/ttm/ttm_backup.c          |  3 +-
->  drivers/gpu/drm/ttm/ttm_tt.c              |  2 +-
->  fs/xfs/scrub/xfile.c                      |  3 +-
->  fs/xfs/xfs_buf_mem.c                      |  2 +-
->  include/linux/shmem_fs.h                  |  8 ++-
->  ipc/shm.c                                 |  6 +--
->  mm/memfd.c                                |  2 +-
->  mm/memfd_luo.c                            |  2 +-
->  mm/shmem.c                                | 59 +++++++++++++----------
->  security/keys/big_key.c                   |  2 +-
->  16 files changed, 57 insertions(+), 49 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/sgx/ioctl.c b/arch/x86/kernel/cpu/sgx/ioctl.c
-> index 9322a9287dc7..0bc36957979d 100644
-> --- a/arch/x86/kernel/cpu/sgx/ioctl.c
-> +++ b/arch/x86/kernel/cpu/sgx/ioctl.c
-> @@ -83,7 +83,7 @@ static int sgx_encl_create(struct sgx_encl *encl, struct sgx_secs *secs)
->  	encl_size = secs->size + PAGE_SIZE;
->  
->  	backing = shmem_file_setup("SGX backing", encl_size + (encl_size >> 5),
-> -				   VM_NORESERVE);
-> +				   mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(backing)) {
->  		ret = PTR_ERR(backing);
->  		goto err_out_shrink;
-
-As per this diff:
-
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index e4df43427394..be4dca2bc34e 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -130,14 +130,15 @@ int drm_gem_object_init_with_mnt(struct drm_device *dev,
->  				 struct vfsmount *gemfs)
->  {
->  	struct file *filp;
-> +	const vma_flags_t flags = mk_vma_flags(VMA_NORESERVE_BIT);
->  
->  	drm_gem_private_object_init(dev, obj, size);
->  
->  	if (gemfs)
->  		filp = shmem_file_setup_with_mnt(gemfs, "drm mm object", size,
-> -						 VM_NORESERVE);
-> +						 flags);
->  	else
-> -		filp = shmem_file_setup("drm mm object", size, VM_NORESERVE);
-> +		filp = shmem_file_setup("drm mm object", size, flags);
->  
->  	if (IS_ERR(filp))
->  		return PTR_ERR(filp);
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> index 26dda55a07ff..fe1843497b27 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -496,7 +496,7 @@ static int __create_shmem(struct drm_i915_private *i915,
->  			  struct drm_gem_object *obj,
->  			  resource_size_t size)
->  {
-> -	unsigned long flags = VM_NORESERVE;
-> +	const vma_flags_t flags = mk_vma_flags(VMA_NORESERVE_BIT);
->  	struct file *filp;
->  
->  	drm_gem_private_object_init(&i915->drm, obj, size);
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> index f65fe86c02b5..7b1a7d01db2b 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
-> @@ -200,7 +200,8 @@ static int i915_ttm_tt_shmem_populate(struct ttm_device *bdev,
->  		struct address_space *mapping;
->  		gfp_t mask;
->  
-> -		filp = shmem_file_setup("i915-shmem-tt", size, VM_NORESERVE);
-> +		filp = shmem_file_setup("i915-shmem-tt", size,
-> +					mk_vma_flags(VMA_NORESERVE_BIT));
->  		if (IS_ERR(filp))
->  			return PTR_ERR(filp);
->  
-> diff --git a/drivers/gpu/drm/i915/gt/shmem_utils.c b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> index 365c4b8b04f4..5f37c699a320 100644
-> --- a/drivers/gpu/drm/i915/gt/shmem_utils.c
-> +++ b/drivers/gpu/drm/i915/gt/shmem_utils.c
-> @@ -19,7 +19,8 @@ struct file *shmem_create_from_data(const char *name, void *data, size_t len)
->  	struct file *file;
->  	int err;
->  
-> -	file = shmem_file_setup(name, PAGE_ALIGN(len), VM_NORESERVE);
-> +	file = shmem_file_setup(name, PAGE_ALIGN(len),
-> +				mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(file))
->  		return file;
->  
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> index 61ec6f580b62..bd5f7d0b9b62 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_tt_test.c
-> @@ -143,7 +143,7 @@ static void ttm_tt_fini_shmem(struct kunit *test)
->  	err = ttm_tt_init(tt, bo, 0, caching, 0);
->  	KUNIT_ASSERT_EQ(test, err, 0);
->  
-> -	shmem = shmem_file_setup("ttm swap", BO_SIZE, 0);
-> +	shmem = shmem_file_setup("ttm swap", BO_SIZE, EMPTY_VMA_FLAGS);
->  	tt->swap_storage = shmem;
->  
->  	ttm_tt_fini(tt);
-> diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-> index 32530c75f038..6bd4c123d94c 100644
-> --- a/drivers/gpu/drm/ttm/ttm_backup.c
-> +++ b/drivers/gpu/drm/ttm/ttm_backup.c
-> @@ -178,5 +178,6 @@ EXPORT_SYMBOL_GPL(ttm_backup_bytes_avail);
->   */
->  struct file *ttm_backup_shmem_create(loff_t size)
->  {
-> -	return shmem_file_setup("ttm shmem backup", size, 0);
-> +	return shmem_file_setup("ttm shmem backup", size,
-> +				EMPTY_VMA_FLAGS);
->  }
-> diff --git a/drivers/gpu/drm/ttm/ttm_tt.c b/drivers/gpu/drm/ttm/ttm_tt.c
-> index 611d20ab966d..f73a5ce87645 100644
-> --- a/drivers/gpu/drm/ttm/ttm_tt.c
-> +++ b/drivers/gpu/drm/ttm/ttm_tt.c
-> @@ -330,7 +330,7 @@ int ttm_tt_swapout(struct ttm_device *bdev, struct ttm_tt *ttm,
->  	struct page *to_page;
->  	int i, ret;
->  
-> -	swap_storage = shmem_file_setup("ttm swap", size, 0);
-> +	swap_storage = shmem_file_setup("ttm swap", size, EMPTY_VMA_FLAGS);
->  	if (IS_ERR(swap_storage)) {
->  		pr_err("Failed allocating swap storage\n");
->  		return PTR_ERR(swap_storage);
-> diff --git a/fs/xfs/scrub/xfile.c b/fs/xfs/scrub/xfile.c
-> index c753c79df203..fe0584a39f16 100644
-> --- a/fs/xfs/scrub/xfile.c
-> +++ b/fs/xfs/scrub/xfile.c
-> @@ -61,7 +61,8 @@ xfile_create(
->  	if (!xf)
->  		return -ENOMEM;
->  
-> -	xf->file = shmem_kernel_file_setup(description, isize, VM_NORESERVE);
-> +	xf->file = shmem_kernel_file_setup(description, isize,
-> +					   mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(xf->file)) {
->  		error = PTR_ERR(xf->file);
->  		goto out_xfile;
-> diff --git a/fs/xfs/xfs_buf_mem.c b/fs/xfs/xfs_buf_mem.c
-> index dcbfa274e06d..fd6f0a5bc0ea 100644
-> --- a/fs/xfs/xfs_buf_mem.c
-> +++ b/fs/xfs/xfs_buf_mem.c
-> @@ -62,7 +62,7 @@ xmbuf_alloc(
->  	if (!btp)
->  		return -ENOMEM;
->  
-> -	file = shmem_kernel_file_setup(descr, 0, 0);
-> +	file = shmem_kernel_file_setup(descr, 0, EMPTY_VMA_FLAGS);
->  	if (IS_ERR(file)) {
->  		error = PTR_ERR(file);
->  		goto out_free_btp;
-> diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
-> index e2069b3179c4..a8273b32e041 100644
-> --- a/include/linux/shmem_fs.h
-> +++ b/include/linux/shmem_fs.h
-> @@ -102,12 +102,10 @@ static inline struct shmem_inode_info *SHMEM_I(struct inode *inode)
->  extern const struct fs_parameter_spec shmem_fs_parameters[];
->  extern void shmem_init(void);
->  extern int shmem_init_fs_context(struct fs_context *fc);
-> -extern struct file *shmem_file_setup(const char *name,
-> -					loff_t size, unsigned long flags);
-> -extern struct file *shmem_kernel_file_setup(const char *name, loff_t size,
-> -					    unsigned long flags);
-> +struct file *shmem_file_setup(const char *name, loff_t size, vma_flags_t flags);
-> +struct file *shmem_kernel_file_setup(const char *name, loff_t size, vma_flags_t vma_flags);
->  extern struct file *shmem_file_setup_with_mnt(struct vfsmount *mnt,
-> -		const char *name, loff_t size, unsigned long flags);
-> +		const char *name, loff_t size, vma_flags_t flags);
->  int shmem_zero_setup(struct vm_area_struct *vma);
->  int shmem_zero_setup_desc(struct vm_area_desc *desc);
->  extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
-> diff --git a/ipc/shm.c b/ipc/shm.c
-> index 2c7379c4c647..e8c7d1924c50 100644
-> --- a/ipc/shm.c
-> +++ b/ipc/shm.c
-> @@ -708,6 +708,7 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
->  	struct shmid_kernel *shp;
->  	size_t numpages = (size + PAGE_SIZE - 1) >> PAGE_SHIFT;
->  	const bool has_no_reserve = shmflg & SHM_NORESERVE;
-> +	vma_flags_t acctflag = EMPTY_VMA_FLAGS;
->  	struct file *file;
->  	char name[13];
->  
-> @@ -738,7 +739,6 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
->  
->  	sprintf(name, "SYSV%08x", key);
->  	if (shmflg & SHM_HUGETLB) {
-> -		vma_flags_t acctflag = EMPTY_VMA_FLAGS;
->  		struct hstate *hs;
->  		size_t hugesize;
->  
-> @@ -755,14 +755,12 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
->  		file = hugetlb_file_setup(name, hugesize, acctflag,
->  				HUGETLB_SHMFS_INODE, (shmflg >> SHM_HUGE_SHIFT) & SHM_HUGE_MASK);
->  	} else {
-> -		vm_flags_t acctflag = 0;
-> -
->  		/*
->  		 * Do not allow no accounting for OVERCOMMIT_NEVER, even
->  		 * if it's asked for.
->  		 */
->  		if  (has_no_reserve && sysctl_overcommit_memory != OVERCOMMIT_NEVER)
-> -			acctflag = VM_NORESERVE;
-> +			vma_flags_set(&acctflag, VMA_NORESERVE_BIT);
->  		file = shmem_kernel_file_setup(name, size, acctflag);
->  	}
->  	error = PTR_ERR(file);
-> diff --git a/mm/memfd.c b/mm/memfd.c
-> index 5f95f639550c..f3a8950850a2 100644
-> --- a/mm/memfd.c
-> +++ b/mm/memfd.c
-> @@ -469,7 +469,7 @@ static struct file *alloc_file(const char *name, unsigned int flags)
->  					(flags >> MFD_HUGE_SHIFT) &
->  					MFD_HUGE_MASK);
->  	} else {
-> -		file = shmem_file_setup(name, 0, VM_NORESERVE);
-> +		file = shmem_file_setup(name, 0, mk_vma_flags(VMA_NORESERVE_BIT));
->  	}
->  	if (IS_ERR(file))
->  		return file;
-> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-> index 4f6ba63b4310..a2629dcfd0f1 100644
-> --- a/mm/memfd_luo.c
-> +++ b/mm/memfd_luo.c
-> @@ -443,7 +443,7 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
->  	if (!ser)
->  		return -EINVAL;
->  
-> -	file = shmem_file_setup("", 0, VM_NORESERVE);
-> +	file = shmem_file_setup("", 0, mk_vma_flags(VMA_NORESERVE_BIT));
->  
->  	if (IS_ERR(file)) {
->  		pr_err("failed to setup file: %pe\n", file);
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 0adde3f4df27..97a8f55c7296 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -3057,9 +3057,9 @@ static struct offset_ctx *shmem_get_offset_ctx(struct inode *inode)
->  }
->  
->  static struct inode *__shmem_get_inode(struct mnt_idmap *idmap,
-> -					     struct super_block *sb,
-> -					     struct inode *dir, umode_t mode,
-> -					     dev_t dev, unsigned long flags)
-> +				       struct super_block *sb,
-> +				       struct inode *dir, umode_t mode,
-> +				       dev_t dev, vma_flags_t flags)
->  {
->  	struct inode *inode;
->  	struct shmem_inode_info *info;
-> @@ -3087,7 +3087,8 @@ static struct inode *__shmem_get_inode(struct mnt_idmap *idmap,
->  	spin_lock_init(&info->lock);
->  	atomic_set(&info->stop_eviction, 0);
->  	info->seals = F_SEAL_SEAL;
-> -	info->flags = (flags & VM_NORESERVE) ? SHMEM_F_NORESERVE : 0;
-> +	info->flags = vma_flags_test(&flags, VMA_NORESERVE_BIT)
-> +		? SHMEM_F_NORESERVE : 0;
->  	info->i_crtime = inode_get_mtime(inode);
->  	info->fsflags = (dir == NULL) ? 0 :
->  		SHMEM_I(dir)->fsflags & SHMEM_FL_INHERITED;
-> @@ -3140,7 +3141,7 @@ static struct inode *__shmem_get_inode(struct mnt_idmap *idmap,
->  #ifdef CONFIG_TMPFS_QUOTA
->  static struct inode *shmem_get_inode(struct mnt_idmap *idmap,
->  				     struct super_block *sb, struct inode *dir,
-> -				     umode_t mode, dev_t dev, unsigned long flags)
-> +				     umode_t mode, dev_t dev, vma_flags_t flags)
->  {
->  	int err;
->  	struct inode *inode;
-> @@ -3166,9 +3167,9 @@ static struct inode *shmem_get_inode(struct mnt_idmap *idmap,
->  	return ERR_PTR(err);
->  }
->  #else
-> -static inline struct inode *shmem_get_inode(struct mnt_idmap *idmap,
-> +static struct inode *shmem_get_inode(struct mnt_idmap *idmap,
->  				     struct super_block *sb, struct inode *dir,
-> -				     umode_t mode, dev_t dev, unsigned long flags)
-> +				     umode_t mode, dev_t dev, vma_flags_t flags)
->  {
->  	return __shmem_get_inode(idmap, sb, dir, mode, dev, flags);
->  }
-> @@ -3875,7 +3876,8 @@ shmem_mknod(struct mnt_idmap *idmap, struct inode *dir,
->  	if (!generic_ci_validate_strict_name(dir, &dentry->d_name))
->  		return -EINVAL;
->  
-> -	inode = shmem_get_inode(idmap, dir->i_sb, dir, mode, dev, VM_NORESERVE);
-> +	inode = shmem_get_inode(idmap, dir->i_sb, dir, mode, dev,
-> +				mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(inode))
->  		return PTR_ERR(inode);
->  
-> @@ -3910,7 +3912,8 @@ shmem_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
->  	struct inode *inode;
->  	int error;
->  
-> -	inode = shmem_get_inode(idmap, dir->i_sb, dir, mode, 0, VM_NORESERVE);
-> +	inode = shmem_get_inode(idmap, dir->i_sb, dir, mode, 0,
-> +				mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(inode)) {
->  		error = PTR_ERR(inode);
->  		goto err_out;
-> @@ -4107,7 +4110,7 @@ static int shmem_symlink(struct mnt_idmap *idmap, struct inode *dir,
->  		return -ENAMETOOLONG;
->  
->  	inode = shmem_get_inode(idmap, dir->i_sb, dir, S_IFLNK | 0777, 0,
-> -				VM_NORESERVE);
-> +				mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(inode))
->  		return PTR_ERR(inode);
->  
-> @@ -5108,7 +5111,8 @@ static int shmem_fill_super(struct super_block *sb, struct fs_context *fc)
->  #endif /* CONFIG_TMPFS_QUOTA */
->  
->  	inode = shmem_get_inode(&nop_mnt_idmap, sb, NULL,
-> -				S_IFDIR | sbinfo->mode, 0, VM_NORESERVE);
-> +				S_IFDIR | sbinfo->mode, 0,
-> +				mk_vma_flags(VMA_NORESERVE_BIT));
->  	if (IS_ERR(inode)) {
->  		error = PTR_ERR(inode);
->  		goto failed;
-> @@ -5808,7 +5812,7 @@ static inline void shmem_unacct_size(unsigned long flags, loff_t size)
->  
->  static inline struct inode *shmem_get_inode(struct mnt_idmap *idmap,
->  				struct super_block *sb, struct inode *dir,
-> -				umode_t mode, dev_t dev, unsigned long flags)
-> +				umode_t mode, dev_t dev, vma_flags_t flags)
->  {
->  	struct inode *inode = ramfs_get_inode(sb, dir, mode, dev);
->  	return inode ? inode : ERR_PTR(-ENOSPC);
-> @@ -5819,10 +5823,11 @@ static inline struct inode *shmem_get_inode(struct mnt_idmap *idmap,
->  /* common code */
->  
->  static struct file *__shmem_file_setup(struct vfsmount *mnt, const char *name,
-> -				       loff_t size, unsigned long vm_flags,
-> +				       loff_t size, vma_flags_t flags,
->  				       unsigned int i_flags)
->  {
-> -	unsigned long flags = (vm_flags & VM_NORESERVE) ? SHMEM_F_NORESERVE : 0;
-> +	const unsigned long shmem_flags =
-> +		vma_flags_test(&flags, VMA_NORESERVE_BIT) ? SHMEM_F_NORESERVE : 0;
->  	struct inode *inode;
->  	struct file *res;
->  
-> @@ -5835,13 +5840,13 @@ static struct file *__shmem_file_setup(struct vfsmount *mnt, const char *name,
->  	if (is_idmapped_mnt(mnt))
->  		return ERR_PTR(-EINVAL);
->  
-> -	if (shmem_acct_size(flags, size))
-> +	if (shmem_acct_size(shmem_flags, size))
->  		return ERR_PTR(-ENOMEM);
->  
->  	inode = shmem_get_inode(&nop_mnt_idmap, mnt->mnt_sb, NULL,
-> -				S_IFREG | S_IRWXUGO, 0, vm_flags);
-> +				S_IFREG | S_IRWXUGO, 0, flags);
->  	if (IS_ERR(inode)) {
-> -		shmem_unacct_size(flags, size);
-> +		shmem_unacct_size(shmem_flags, size);
->  		return ERR_CAST(inode);
->  	}
->  	inode->i_flags |= i_flags;
-> @@ -5864,9 +5869,10 @@ static struct file *__shmem_file_setup(struct vfsmount *mnt, const char *name,
->   *	checks are provided at the key or shm level rather than the inode.
->   * @name: name for dentry (to be seen in /proc/<pid>/maps)
->   * @size: size to be set for the file
-> - * @flags: VM_NORESERVE suppresses pre-accounting of the entire object size
-> + * @vma_flags: VMA_NORESERVE_BIT suppresses pre-accounting of the entire object size
->   */
-> -struct file *shmem_kernel_file_setup(const char *name, loff_t size, unsigned long flags)
-> +struct file *shmem_kernel_file_setup(const char *name, loff_t size,
-> +				     vma_flags_t flags)
->  {
->  	return __shmem_file_setup(shm_mnt, name, size, flags, S_PRIVATE);
->  }
-> @@ -5878,7 +5884,7 @@ EXPORT_SYMBOL_GPL(shmem_kernel_file_setup);
->   * @size: size to be set for the file
->   * @flags: VM_NORESERVE suppresses pre-accounting of the entire object size
->   */
-> -struct file *shmem_file_setup(const char *name, loff_t size, unsigned long flags)
-> +struct file *shmem_file_setup(const char *name, loff_t size, vma_flags_t flags)
->  {
->  	return __shmem_file_setup(shm_mnt, name, size, flags, 0);
->  }
-> @@ -5889,16 +5895,17 @@ EXPORT_SYMBOL_GPL(shmem_file_setup);
->   * @mnt: the tmpfs mount where the file will be created
->   * @name: name for dentry (to be seen in /proc/<pid>/maps)
->   * @size: size to be set for the file
-> - * @flags: VM_NORESERVE suppresses pre-accounting of the entire object size
-> + * @flags: VMA_NORESERVE_BIT suppresses pre-accounting of the entire object size
->   */
->  struct file *shmem_file_setup_with_mnt(struct vfsmount *mnt, const char *name,
-> -				       loff_t size, unsigned long flags)
-> +				       loff_t size, vma_flags_t flags)
->  {
->  	return __shmem_file_setup(mnt, name, size, flags, 0);
->  }
->  EXPORT_SYMBOL_GPL(shmem_file_setup_with_mnt);
->  
-> -static struct file *__shmem_zero_setup(unsigned long start, unsigned long end, vm_flags_t vm_flags)
-> +static struct file *__shmem_zero_setup(unsigned long start, unsigned long end,
-> +		vma_flags_t flags)
->  {
->  	loff_t size = end - start;
->  
-> @@ -5908,7 +5915,7 @@ static struct file *__shmem_zero_setup(unsigned long start, unsigned long end, v
->  	 * accessible to the user through its mapping, use S_PRIVATE flag to
->  	 * bypass file security, in the same way as shmem_kernel_file_setup().
->  	 */
-> -	return shmem_kernel_file_setup("dev/zero", size, vm_flags);
-> +	return shmem_kernel_file_setup("dev/zero", size, flags);
->  }
->  
->  /**
-> @@ -5918,7 +5925,7 @@ static struct file *__shmem_zero_setup(unsigned long start, unsigned long end, v
->   */
->  int shmem_zero_setup(struct vm_area_struct *vma)
->  {
-> -	struct file *file = __shmem_zero_setup(vma->vm_start, vma->vm_end, vma->vm_flags);
-> +	struct file *file = __shmem_zero_setup(vma->vm_start, vma->vm_end, vma->flags);
->  
->  	if (IS_ERR(file))
->  		return PTR_ERR(file);
-> @@ -5939,7 +5946,7 @@ int shmem_zero_setup(struct vm_area_struct *vma)
->   */
->  int shmem_zero_setup_desc(struct vm_area_desc *desc)
->  {
-> -	struct file *file = __shmem_zero_setup(desc->start, desc->end, desc->vm_flags);
-> +	struct file *file = __shmem_zero_setup(desc->start, desc->end, desc->vma_flags);
->  
->  	if (IS_ERR(file))
->  		return PTR_ERR(file);
-> diff --git a/security/keys/big_key.c b/security/keys/big_key.c
-> index d46862ab90d6..268f702df380 100644
-> --- a/security/keys/big_key.c
-> +++ b/security/keys/big_key.c
-> @@ -103,7 +103,7 @@ int big_key_preparse(struct key_preparsed_payload *prep)
->  					 0, enckey);
->  
->  		/* save aligned data to file */
-> -		file = shmem_kernel_file_setup("", enclen, 0);
-> +		file = shmem_kernel_file_setup("", enclen, EMPTY_VMA_FLAGS);
->  		if (IS_ERR(file)) {
->  			ret = PTR_ERR(file);
->  			goto err_enckey;
-> -- 
-> 2.52.0
-> 
-
-BR, Jarkko
+T24gTW9uLCAyMDI2LTAxLTI2IGF0IDE1OjQzICswMjAwLCBKYW5pIE5pa3VsYSB3cm90ZToNCj4g
+T24gTW9uLCAyNiBKYW4gMjAyNiwgVmlub2QgR292aW5kYXBpbGxhaQ0KPiA8dmlub2QuZ292aW5k
+YXBpbGxhaUBpbnRlbC5jb20+IHdyb3RlOg0KPiA+IFBpeGVsIG5vcm1hbGl6ZXIgaXMgZW5hYmxl
+ZCB3aXRoIG5vcm1hbGl6YXRpb24gZmFjdG9yIGFzIDEuMCBmb3INCj4gPiBGUDE2IGZvcm1hdHMg
+aW4gb3JkZXIgdG8gc3VwcG9ydCBGQkMgZm9yIHRob3NlIGZvcm1hdHMgaW4geGUzcF9scGQuDQo+
+ID4gUHJldmlvdXNseSBwaXhlbCBub3JtYWxpemVyIGdldHMgZGlzYWJsZWQgZHVyaW5nIHRoZSBw
+bGFuZSBkaXNhYmxlDQo+ID4gcm91dGluZS4gQnV0IHRoZXJlIGNvdWxkIGJlIHBsYW5lIGZvcm1h
+dCBzZXR0aW5ncyB3aXRob3V0DQo+ID4gZXhwbGljaXRseQ0KPiA+IGNhbGxpbmcgdGhlIHBsYW5l
+IGRpc2FibGUgaW4tYmV0d2VlbiBhbmQgd2UgY291bGQgZW5kdXAga2VlcGluZyB0aGUNCj4gPiBw
+aXhlbCBub3JtYWxpemVyIGVuYWJsZWQgZm9yIGZvcm1hdHMgd2hpY2ggd2UgZG9uJ3QgcmVxdWly
+ZSB0aGF0Lg0KPiA+IFRoaXMgaXMgY2F1c2luZyBjcmMgbWlzbWF0Y2hlcyBpbiB5dXYgZm9ybWF0
+cyBhbmQgRklGTyB1bmRlcnJ1bnMgaW4NCj4gPiBwbGFuYXIgZm9ybWF0cyBsaWtlIE5WMTIuDQo+
+ID4gDQo+ID4gRml4IHRoaXMgYnkgdXBkYXRpbmcgdGhlIHBpeGVsIG5vcm1hbGl6ZXIgY29uZmln
+dXJhdGlvbiBiYXNlZCBvbg0KPiA+IHRoZQ0KPiA+IHBpeGVsIGZvcm1hdHMgZXhwbGljaXRseSBk
+dXJpbmcgdGhlIHBsYW5lIHNldHRpbmdzIGFybSBjYWxscyBpdHNlbGYNCj4gPiAtIGVuYWJsZSBp
+dCBmb3IgRlAxNiBhbmQgZGlzYWJsZSBpdCBmb3Igb3RoZXIgZm9ybWF0cyBpbiBIRFINCj4gPiBj
+YXBhYmxlDQo+ID4gcGxhbmVzLiBUbyBhdm9pZCByZWR1bmRhbmNpZXMgaW4gdGhlc2UgdXBkYXRl
+cywgbm9ybWFsaXphdGlvbg0KPiA+IGZhY3Rvcg0KPiA+IGJldHdlZW4gb2xkIGFuZCBuZXcgcGxh
+bmUgc3RhdGVzIGFyZSBjb21wYXJlZCBiZWZvcmUgdGhlIHVwZGF0ZS4NCj4gPiBUaGUNCj4gPiBm
+dW5jdGlvbiB0byBjaGVjayB2YWxpZGl0eSBvZiB0aGUgZnAxNiBmb3JtYXRzIGZvciBmYmMgaXMg
+bm93DQo+ID4gdXBkYXRlZA0KPiA+IHRvIHJldHVybiB0aGUgbm9ybWFsaXphdGlvbiBmYWN0b3Ig
+YXMgMS4wIGluIGNhc2Ugb2YgZnAxNiBmb3JtYXRzDQo+ID4gYW5kDQo+ID4gMCBpbiBvdGhlciBj
+YXNlcy4NCj4gPiANCj4gPiB2MjogYXZvaWQgcmVkdW5kYW50IHBpeGVsIG5vcm1hbGl6YXRpb24g
+c2V0dGluZyB1cGRhdGVzDQo+ID4gDQo+ID4gRml4ZXM6IDUyOThlZWE3ZWQyMCAoImRybS9pOTE1
+L3hlM3BfbHBkOiB1c2UgcGl4ZWwgbm9ybWFsaXplciBmb3INCj4gPiBmcDE2IGZvcm1hdHMgZm9y
+IEZCQyIpDQo+ID4gU2lnbmVkLW9mZi1ieTogVmlub2QgR292aW5kYXBpbGxhaSA8dmlub2QuZ292
+aW5kYXBpbGxhaUBpbnRlbC5jb20+DQo+ID4gLS0tDQo+ID4gwqAuLi4vZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9kaXNwbGF5X2RldmljZS5owqDCoCB8wqAgMSArDQo+ID4gwqAuLi4vZHJtL2k5MTUv
+ZGlzcGxheS9pbnRlbF9kaXNwbGF5X3R5cGVzLmjCoMKgwqAgfMKgIDggKysNCj4gPiDCoGRyaXZl
+cnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmPCoMKgwqDCoMKgIHwgMTcgKysrLQ0K
+PiA+IMKgZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuaMKgwqDCoMKgwqAg
+fMKgIDQgKy0NCj4gPiDCoC4uLi9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2ZXJzYWxfcGxhbmUu
+Y8KgwqDCoCB8IDgyDQo+ID4gKysrKysrKysrKysrKysrLS0tLQ0KPiA+IMKgNSBmaWxlcyBjaGFu
+Z2VkLCA5MCBpbnNlcnRpb25zKCspLCAyMiBkZWxldGlvbnMoLSkNCj4gPiANCj4gPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9kaXNwbGF5X2RldmljZS5o
+DQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGV2aWNl
+LmgNCj4gPiBpbmRleCA2Yzc0ZDZiMGNjNDguLjEyNmFhMWVlZWI2ZCAxMDA2NDQNCj4gPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGV2aWNlLmgNCj4g
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2Rpc3BsYXlfZGV2aWNl
+LmgNCj4gPiBAQCAtMTc1LDYgKzE3NSw3IEBAIHN0cnVjdCBpbnRlbF9kaXNwbGF5X3BsYXRmb3Jt
+cyB7DQo+ID4gwqAjZGVmaW5lIEhBU19EU0NfTVNUKF9fZGlzcGxheSkJCShESVNQTEFZX1ZFUihf
+X2Rpc3BsYXkpID49DQo+ID4gMTIgJiYgSEFTX0RTQyhfX2Rpc3BsYXkpKQ0KPiA+IMKgI2RlZmlu
+ZQ0KPiA+IEhBU19GQkMoX19kaXNwbGF5KQkJKERJU1BMQVlfUlVOVElNRV9JTkZPKF9fZGlzcGxh
+eSktPmZiY19tYXNrICE9IDApDQo+ID4gwqAjZGVmaW5lIEhBU19GQkNfRElSVFlfUkVDVChfX2Rp
+c3BsYXkpCShESVNQTEFZX1ZFUihfX2Rpc3BsYXkpID49DQo+ID4gMzApDQo+ID4gKyNkZWZpbmUN
+Cj4gPiBIQVNfRkJDX0ZQMTZfRk9STUFUUyhfX2Rpc3BsYXkpCShESVNQTEFZX1ZFUihfX2Rpc3Bs
+YXkpID49IDM1KQ0KPiA+IMKgI2RlZmluZSBIQVNfRkJDX1NZU19DQUNIRShfX2Rpc3BsYXkpCShE
+SVNQTEFZX1ZFUihfX2Rpc3BsYXkpID49DQo+ID4gMzUgJiYgIShfX2Rpc3BsYXkpLT5wbGF0Zm9y
+bS5kZ2Z4KQ0KPiA+IMKgI2RlZmluZQ0KPiA+IEhBU19GUEdBX0RCR19VTkNMQUlNRUQoX19kaXNw
+bGF5KQkoRElTUExBWV9JTkZPKF9fZGlzcGxheSktPmhhc19mcGdhX2RiZykNCj4gPiDCoCNkZWZp
+bmUgSEFTX0ZXX0JMQyhfX2Rpc3BsYXkpCQkoRElTUExBWV9WRVIoX19kaXNwbGF5KSA+PQ0KPiA+
+IDMpDQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxf
+ZGlzcGxheV90eXBlcy5oDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
+X2Rpc3BsYXlfdHlwZXMuaA0KPiA+IGluZGV4IDA3YjYyNmQyMjc0OC4uZjQyZjI2MDlkODM3IDEw
+MDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZGlzcGxh
+eV90eXBlcy5oDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9k
+aXNwbGF5X3R5cGVzLmgNCj4gPiBAQCAtNjg1LDYgKzY4NSwxNCBAQCBzdHJ1Y3QgaW50ZWxfcGxh
+bmVfc3RhdGUgew0KPiA+IMKgCXVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ID4gwqAjZGVmaW5lIFBM
+QU5FX0hBU19GRU5DRSBCSVQoMCkNCj4gPiDCoA0KPiA+ICsJLyogeGUzcF9scGQrICovDQo+ID4g
+KwlzdHJ1Y3Qgew0KPiA+ICsJCS8qIDB4M2MwMCAoMS4wKSBmb3IgZnAxNiBmb3JtYXRzIGFuZCBl
+bHNlIGRpc2FibGUNCj4gPiAoMCkgKi8NCj4gPiArCQl1bnNpZ25lZCBpbnQgZmFjdG9yOw0KPiAN
+Cj4gV2hhdCBpcyB0aGUgZm9ybWF0IG9mIHRoaXMgbnVtYmVyPyBXaGF0IG1ha2VzIDB4M2MwMCBt
+ZWFuIDEuMD8NCj4gDQo+ID4gKwkJLyogdXBkYXRlIGlzIG5lZWRlZCBpZiBmYWN0b3IgZGlmZmVy
+cyBiZXR3ZWVuIG9sZA0KPiA+IGFuZCBuZXcgcGxhbmUgc3RhdGVzICovDQo+ID4gKwkJYm9vbCBu
+ZWVkc191cGRhdGU7DQo+ID4gKwl9IHBpeGVsX25vcm1hbGl6ZXI7DQo+ID4gKw0KPiA+IMKgCXN0
+cnVjdCBpbnRlbF9mYl92aWV3IHZpZXc7DQo+ID4gwqANCj4gPiDCoAkvKiBmb3IgbGVnYWN5IGN1
+cnNvciBmYiB1bnBpbiAqLw0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2ZiYy5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2ZiYy5jDQo+ID4gaW5kZXggZmVmMmYzNWZmMWU5Li5kYmVkYzhlYThjZGYgMTAwNjQ0DQo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuYw0KPiA+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmMNCj4gPiBAQCAtNjAs
+NiArNjAsNyBAQA0KPiA+IMKgI2luY2x1ZGUgImludGVsX2Zyb250YnVmZmVyLmgiDQo+ID4gwqAj
+aW5jbHVkZSAiaW50ZWxfcGFyZW50LmgiDQo+ID4gwqAjaW5jbHVkZSAiaW50ZWxfc3RlcC5oIg0K
+PiA+ICsjaW5jbHVkZSAic2tsX3VuaXZlcnNhbF9wbGFuZV9yZWdzLmgiDQo+ID4gwqANCj4gPiDC
+oCNkZWZpbmUgZm9yX2VhY2hfZmJjX2lkKF9fZGlzcGxheSwgX19mYmNfaWQpIFwNCj4gPiDCoAlm
+b3IgKChfX2ZiY19pZCkgPSBJTlRFTF9GQkNfQTsgKF9fZmJjX2lkKSA8IEk5MTVfTUFYX0ZCQ1M7
+DQo+ID4gKF9fZmJjX2lkKSsrKSBcDQo+ID4gQEAgLTEyMDIsMTMgKzEyMDMsMjEgQEAgc3RhdGlj
+IGJvb2wNCj4gPiB4ZTNwX2xwZF9mYmNfcGl4ZWxfZm9ybWF0X2lzX3ZhbGlkKGNvbnN0IHN0cnVj
+dCBpbnRlbF9wbGFuZV9zdGF0ZQ0KPiA+ICpwDQo+ID4gwqAJfQ0KPiA+IMKgfQ0KPiA+IMKgDQo+
+ID4gLWJvb2wNCj4gPiAtaW50ZWxfZmJjX2lzX2VuYWJsZV9waXhlbF9ub3JtYWxpemVyKGNvbnN0
+IHN0cnVjdA0KPiA+IGludGVsX3BsYW5lX3N0YXRlICpwbGFuZV9zdGF0ZSkNCj4gPiArdW5zaWdu
+ZWQgaW50DQo+ID4gK2ludGVsX2ZiY19ub3JtYWxpemF0aW9uX2ZhY3Rvcihjb25zdCBzdHJ1Y3Qg
+aW50ZWxfcGxhbmVfc3RhdGUNCj4gPiAqcGxhbmVfc3RhdGUpDQo+ID4gwqB7DQo+ID4gwqAJc3Ry
+dWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXkgPQ0KPiA+IHRvX2ludGVsX2Rpc3BsYXkocGxhbmVf
+c3RhdGUpOw0KPiA+IMKgDQo+ID4gLQlyZXR1cm4gRElTUExBWV9WRVIoZGlzcGxheSkgPj0gMzUg
+JiYNCj4gPiAtCcKgwqDCoMKgwqDCoCB4ZTNwX2xwZF9mYmNfZnAxNl9mb3JtYXRfaXNfdmFsaWQo
+cGxhbmVfc3RhdGUpOw0KPiA+ICsJLyoNCj4gPiArCSAqIEluIG9yZGVyIHRvIGhhdmUgRkJDIGZv
+ciBmcDE2IGZvcm1hdHMgcGl4ZWwgbm9ybWFsaXplcg0KPiA+IGJsb2NrIG11c3QgYmUNCj4gPiAr
+CSAqIGFjdGl2ZS4gRm9yIEZQMTYgZm9ybWF0cywgdXNlIG5vcm1hbGl6YXRpb24gZmFjdG9yIGFz
+DQo+ID4gMS4wIGFuZCBlbmFibGUNCj4gPiArCSAqIHRoZSBibG9jay4NCj4gPiArCSAqLw0KPiA+
+ICsJaWYgKEhBU19GQkNfRlAxNl9GT1JNQVRTKGRpc3BsYXkpICYmDQo+ID4gKwnCoMKgwqAgeGUz
+cF9scGRfZmJjX2ZwMTZfZm9ybWF0X2lzX3ZhbGlkKHBsYW5lX3N0YXRlKSkNCj4gPiArCQlyZXR1
+cm4gUExBTkVfUElYRUxfTk9STUFMSVpFX05PUk1fRkFDVE9SXzFfMDsNCj4gDQo+IERpdHRvIGhl
+cmUuIEkgZG9uJ3QgcGFydGljdWxhcmx5IGxpa2UgZW5jb2RpbmcgcmVnaXN0ZXIgdmFsdWVzIHRv
+DQo+IGZ1bmN0aW9uIHJldHVybiB2YWx1ZXMgbGlrZSB0aGlzLiBCYXNpY2FsbHksIGluY2x1ZGlu
+Zw0KPiBza2xfdW5pdmVyc2FsX3BsYW5lX3JlZ3MuaCBoZXJlIGZlZWxzIHdyb25nLg0KDQpJdCBp
+cyBpbiB0aGUgaGFsZiBwcmVjaXNpb24gZmxvYXRpbmcgcG9pbnQgZm9ybWF0IGFzIHBlciB0aGUg
+YnNwZWMuDQpUaGlzIGlzIGEgc3RhbmRhcmQgcmVwcmVzZW50YXRpb24gdGhlIHJlZ2lzdGVyIGV4
+cGVjdCB0aGUgZm9ybWF0IHRvIGJlDQpmb3IgdGhlIG5vcm1hbGl6YXRpb24gZmFjdG9yIGJ1dCBp
+dCBpcyBub3QgZXhhY3RseSBhcyBwZXIgdGhlIHJlZ2lzdGVyDQplbmNvZGluZyBmb3IgdGhlIGNv
+cnJlc3BvbmRpbmcgYml0ZmllbGQuDQoNCkkgY2FuIHJldHVybiAxLjAgZnJvbSB0aGlzIGZ1bmN0
+aW9uIGFuZCBhIHVzZSBhIHNlcGFyYXRlIGZ1bmN0aW9uIHRvDQplbmNvZGUgdGhpcyBhcyBwZXIg
+dGhlIGJzcGVjIGluIHNrbF91bml2ZXJzYWxfcGxhbmUuIEJ1dCBhcyB0aGlzIGlzIHRoZQ0Kb25s
+eSBjYXNlIHdoZXJlLCB3ZSBoYXZlIHRvIHVzZSB0aGlzLCB3YXMgd29uZGVyaW5nIGlmIGl0IGlz
+IHRvbyBtdWNoDQphYnN0cmFjdGlvbiEgQXJlIHlvdSBleHBlY3Rpbmcgc29tZXRoaW5nIGxpa2Ug
+dGhpcz8gDQoNCkkgZGlkIGNvbnNpZGVyIHRvIHVzZSBvbmx5IHRoYXQgYm9vbCB2YXJpYWJsZSB0
+byBjaGVjayBpZiB0aGUNCm5vcm1hbGl6YXRpb24gZmFjdG9yIG5lZWQgYW4gdXBkYXRlIGFuZCBh
+dm9pZGluZyB0aGUgZmFjdG9yIGJlaW5nDQpwYXNzZWQgZnJvbSB0aGUgZmJjIGNvZGUuIEJ1dCB0
+aGF0IGNvdWxkIGxlYWQgdG8gc29tZSByZWR1bmRhbnQgdXBkYXRlcw0KdG8gdGhlIG5vcm1hbGl6
+YXRpb24gcmVnaXN0ZXIgZXNwZWNpYWxseSBkdXJpbmcgdGhlIGRpc2FibGVfcGxhbmUgYXJtDQpj
+YWxsLg0KDQpCUg0KVmlub2QNCg0KDQoNCj4gDQo+IA0KPiBCUiwNCj4gSmFuaS4NCj4gDQo+IA0K
+PiA+ICsNCj4gPiArCXJldHVybiAwOw0KPiA+IMKgfQ0KPiA+IMKgDQo+ID4gwqBzdGF0aWMgYm9v
+bCBwaXhlbF9mb3JtYXRfaXNfdmFsaWQoY29uc3Qgc3RydWN0IGludGVsX3BsYW5lX3N0YXRlDQo+
+ID4gKnBsYW5lX3N0YXRlKQ0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX2ZiYy5oDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2lu
+dGVsX2ZiYy5oDQo+ID4gaW5kZXggZjAyNTVkZGFlMmI2Li5iNTg4OGU5OGE2NTkgMTAwNjQ0DQo+
+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9mYmMuaA0KPiA+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZmJjLmgNCj4gPiBAQCAtNTYs
+NyArNTYsNyBAQCB2b2lkIGludGVsX2ZiY19wcmVwYXJlX2RpcnR5X3JlY3Qoc3RydWN0DQo+ID4g
+aW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiDCoAkJCQnCoCBzdHJ1Y3QgaW50ZWxfY3J0
+YyAqY3J0Yyk7DQo+ID4gwqB2b2lkIGludGVsX2ZiY19kaXJ0eV9yZWN0X3VwZGF0ZV9ub2FybShz
+dHJ1Y3QgaW50ZWxfZHNiICpkc2IsDQo+ID4gwqAJCQkJwqDCoMKgwqDCoMKgIHN0cnVjdCBpbnRl
+bF9wbGFuZSAqcGxhbmUpOw0KPiA+IC1ib29sDQo+ID4gLWludGVsX2ZiY19pc19lbmFibGVfcGl4
+ZWxfbm9ybWFsaXplcihjb25zdCBzdHJ1Y3QNCj4gPiBpbnRlbF9wbGFuZV9zdGF0ZSAqcGxhbmVf
+c3RhdGUpOw0KPiA+ICt1bnNpZ25lZCBpbnQNCj4gPiAraW50ZWxfZmJjX25vcm1hbGl6YXRpb25f
+ZmFjdG9yKGNvbnN0IHN0cnVjdCBpbnRlbF9wbGFuZV9zdGF0ZQ0KPiA+ICpwbGFuZV9zdGF0ZSk7
+DQo+ID4gwqANCj4gPiDCoCNlbmRpZiAvKiBfX0lOVEVMX0ZCQ19IX18gKi8NCj4gPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMN
+Cj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvc2tsX3VuaXZlcnNhbF9wbGFuZS5j
+DQo+ID4gaW5kZXggYjNkNDE3MDU0NDhhLi4wNWMyMjc5MTNiOGQgMTAwNjQ0DQo+ID4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9za2xfdW5pdmVyc2FsX3BsYW5lLmMNCj4gPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L3NrbF91bml2ZXJzYWxfcGxhbmUuYw0K
+PiA+IEBAIC04OTEsMjAgKzg5MSw0OSBAQCBzdGF0aWMgdm9pZA0KPiA+IGljbF9wbGFuZV9kaXNh
+YmxlX3NlbF9mZXRjaF9hcm0oc3RydWN0IGludGVsX2RzYiAqZHNiLA0KPiA+IMKgCWludGVsX2Rl
+X3dyaXRlX2RzYihkaXNwbGF5LCBkc2IsIFNFTF9GRVRDSF9QTEFORV9DVEwocGlwZSwNCj4gPiBw
+bGFuZS0+aWQpLCAwKTsNCj4gPiDCoH0NCj4gPiDCoA0KPiA+IC1zdGF0aWMgdm9pZCB4M3BfbHBk
+X3BsYW5lX3VwZGF0ZV9waXhlbF9ub3JtYWxpemVyKHN0cnVjdCBpbnRlbF9kc2INCj4gPiAqZHNi
+LA0KPiA+IC0JCQkJCQnCoCBzdHJ1Y3QNCj4gPiBpbnRlbF9wbGFuZSAqcGxhbmUsDQo+ID4gLQkJ
+CQkJCcKgIGJvb2wgZW5hYmxlKQ0KPiA+ICtzdGF0aWMgdm9pZCB4ZTNwX2xwZF9wbGFuZV9kaXNh
+YmxlX3BpeGVsX25vcm1hbGl6ZXIoc3RydWN0DQo+ID4gaW50ZWxfZHNiICpkc2IsDQo+ID4gKwkJ
+CQkJCcKgwqDCoCBzdHJ1Y3QNCj4gPiBpbnRlbF9wbGFuZSAqcGxhbmUpDQo+ID4gwqB7DQo+ID4g
+wqAJc3RydWN0IGludGVsX2Rpc3BsYXkgKmRpc3BsYXkgPSB0b19pbnRlbF9kaXNwbGF5KHBsYW5l
+KTsNCj4gPiDCoAllbnVtIGludGVsX2ZiY19pZCBmYmNfaWQgPSBza2xfZmJjX2lkX2Zvcl9waXBl
+KHBsYW5lLQ0KPiA+ID5waXBlKTsNCj4gPiAtCXUzMiB2YWw7DQo+ID4gKwljb25zdCBzdHJ1Y3Qg
+aW50ZWxfcGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRlID0NCj4gPiArCQl0b19pbnRlbF9wbGFuZV9z
+dGF0ZShwbGFuZS0+YmFzZS5zdGF0ZSk7DQo+ID4gKw0KPiA+ICsJaWYgKCFIQVNfRkJDX0ZQMTZf
+Rk9STUFUUyhkaXNwbGF5KSkNCj4gPiArCQlyZXR1cm47DQo+ID4gKw0KPiA+ICsJaWYgKCFza2xf
+cGxhbmVfaGFzX2ZiYyhkaXNwbGF5LCBmYmNfaWQsIHBsYW5lLT5pZCkpDQo+ID4gKwkJcmV0dXJu
+Ow0KPiA+ICsNCj4gPiArCWlmICghcGxhbmVfc3RhdGUtPnBpeGVsX25vcm1hbGl6ZXIuZmFjdG9y
+KQ0KPiA+ICsJCXJldHVybjsNCj4gPiArDQo+ID4gKwlpbnRlbF9kZV93cml0ZV9kc2IoZGlzcGxh
+eSwgZHNiLA0KPiA+ICsJCQnCoMKgIFBMQU5FX1BJWEVMX05PUk1BTElaRShwbGFuZS0+cGlwZSwN
+Cj4gPiBwbGFuZS0+aWQpLCAwKTsNCj4gPiArfQ0KPiA+ICsNCj4gPiArc3RhdGljIHZvaWQgeGUz
+cF9scGRfcGxhbmVfdXBkYXRlX3BpeGVsX25vcm1hbGl6ZXIoc3RydWN0DQo+ID4gaW50ZWxfZHNi
+ICpkc2IsDQo+ID4gKwkJCQkJCcKgwqAgc3RydWN0DQo+ID4gaW50ZWxfcGxhbmUgKnBsYW5lKQ0K
+PiA+ICt7DQo+ID4gKwlzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSA9IHRvX2ludGVsX2Rp
+c3BsYXkocGxhbmUpOw0KPiA+ICsJZW51bSBpbnRlbF9mYmNfaWQgZmJjX2lkID0gc2tsX2ZiY19p
+ZF9mb3JfcGlwZShwbGFuZS0NCj4gPiA+cGlwZSk7DQo+ID4gKwljb25zdCBzdHJ1Y3QgaW50ZWxf
+cGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRlID0NCj4gPiArCQl0b19pbnRlbF9wbGFuZV9zdGF0ZShw
+bGFuZS0+YmFzZS5zdGF0ZSk7DQo+ID4gKwl1MzIgdmFsID0gMDsNCj4gPiArDQo+ID4gKwlpZiAo
+IUhBU19GQkNfRlAxNl9GT1JNQVRTKGRpc3BsYXkpKQ0KPiA+ICsJCXJldHVybjsNCj4gPiDCoA0K
+PiA+IC0JLyogT25seSBIRFIgcGxhbmVzIGhhdmUgcGl4ZWwgbm9ybWFsaXplciBhbmQgZG9uJ3Qg
+bWF0dGVyDQo+ID4gaWYgbm8gRkJDICovDQo+ID4gKwkvKiBPbmx5IEhEUiBwbGFuZXMgaGF2ZSBw
+aXhlbCBub3JtYWxpemVyIGFuZCBkb24ndCBtYXR0ZXINCj4gPiBpZiBGQkMgaXMgZnVzZWQgb2Zm
+ICovDQo+ID4gwqAJaWYgKCFza2xfcGxhbmVfaGFzX2ZiYyhkaXNwbGF5LCBmYmNfaWQsIHBsYW5l
+LT5pZCkpDQo+ID4gwqAJCXJldHVybjsNCj4gPiDCoA0KPiA+IC0JdmFsID0gZW5hYmxlID8NCj4g
+PiBQTEFORV9QSVhFTF9OT1JNQUxJWkVfTk9STV9GQUNUT1IoUExBTkVfUElYRUxfTk9STUFMSVpF
+X05PUk1fRkFDVE9SDQo+ID4gXzFfMCkgfA0KPiA+IC0JCcKgwqDCoMKgwqDCoCBQTEFORV9QSVhF
+TF9OT1JNQUxJWkVfRU5BQkxFIDogMDsNCj4gPiArCWlmICghcGxhbmVfc3RhdGUtPnBpeGVsX25v
+cm1hbGl6ZXIubmVlZHNfdXBkYXRlKQ0KPiA+ICsJCXJldHVybjsNCj4gPiArDQo+ID4gKwlpZiAo
+cGxhbmVfc3RhdGUtPnBpeGVsX25vcm1hbGl6ZXIuZmFjdG9yKQ0KPiA+ICsJCXZhbCA9DQo+ID4g
+UExBTkVfUElYRUxfTk9STUFMSVpFX05PUk1fRkFDVE9SKHBsYW5lX3N0YXRlLQ0KPiA+ID5waXhl
+bF9ub3JtYWxpemVyLmZhY3RvcikgfA0KPiA+ICsJCcKgwqDCoMKgwqAgUExBTkVfUElYRUxfTk9S
+TUFMSVpFX0VOQUJMRTsNCj4gPiDCoA0KPiA+IMKgCWludGVsX2RlX3dyaXRlX2RzYihkaXNwbGF5
+LCBkc2IsDQo+ID4gwqAJCQnCoMKgIFBMQU5FX1BJWEVMX05PUk1BTElaRShwbGFuZS0+cGlwZSwN
+Cj4gPiBwbGFuZS0+aWQpLCB2YWwpOw0KPiA+IEBAIC05MjYsOCArOTU1LDcgQEAgaWNsX3BsYW5l
+X2Rpc2FibGVfYXJtKHN0cnVjdCBpbnRlbF9kc2IgKmRzYiwNCj4gPiDCoA0KPiA+IMKgCWljbF9w
+bGFuZV9kaXNhYmxlX3NlbF9mZXRjaF9hcm0oZHNiLCBwbGFuZSwgY3J0Y19zdGF0ZSk7DQo+ID4g
+wqANCj4gPiAtCWlmIChESVNQTEFZX1ZFUihkaXNwbGF5KSA+PSAzNSkNCj4gPiAtCQl4M3BfbHBk
+X3BsYW5lX3VwZGF0ZV9waXhlbF9ub3JtYWxpemVyKGRzYiwgcGxhbmUsDQo+ID4gZmFsc2UpOw0K
+PiA+ICsJeGUzcF9scGRfcGxhbmVfZGlzYWJsZV9waXhlbF9ub3JtYWxpemVyKGRzYiwgcGxhbmUp
+Ow0KPiA+IMKgDQo+ID4gwqAJaW50ZWxfZGVfd3JpdGVfZHNiKGRpc3BsYXksIGRzYiwgUExBTkVf
+Q1RMKHBpcGUsDQo+ID4gcGxhbmVfaWQpLCAwKTsNCj4gPiDCoAlpbnRlbF9kZV93cml0ZV9kc2Io
+ZGlzcGxheSwgZHNiLCBQTEFORV9TVVJGKHBpcGUsDQo+ID4gcGxhbmVfaWQpLCAwKTsNCj4gPiBA
+QCAtMTY3NCwxMyArMTcwMiw3IEBAIGljbF9wbGFuZV91cGRhdGVfYXJtKHN0cnVjdCBpbnRlbF9k
+c2IgKmRzYiwNCj4gPiDCoA0KPiA+IMKgCWludGVsX2NvbG9yX3BsYW5lX2NvbW1pdF9hcm0oZHNi
+LCBwbGFuZV9zdGF0ZSk7DQo+ID4gwqANCj4gPiAtCS8qDQo+ID4gLQkgKiBJbiBvcmRlciB0byBo
+YXZlIEZCQyBmb3IgZnAxNiBmb3JtYXRzIHBpeGVsIG5vcm1hbGl6ZXINCj4gPiBibG9jayBtdXN0
+IGJlDQo+ID4gLQkgKiBhY3RpdmUuIENoZWNrIGlmIHBpeGVsIG5vcm1hbGl6ZXIgYmxvY2sgbmVl
+ZCB0byBiZQ0KPiA+IGVuYWJsZWQgZm9yIEZCQy4NCj4gPiAtCSAqIElmIG5lZWRlZCwgdXNlIG5v
+cm1hbGl6YXRpb24gZmFjdG9yIGFzIDEuMCBhbmQgZW5hYmxlDQo+ID4gdGhlIGJsb2NrLg0KPiA+
+IC0JICovDQo+ID4gLQlpZiAoaW50ZWxfZmJjX2lzX2VuYWJsZV9waXhlbF9ub3JtYWxpemVyKHBs
+YW5lX3N0YXRlKSkNCj4gPiAtCQl4M3BfbHBkX3BsYW5lX3VwZGF0ZV9waXhlbF9ub3JtYWxpemVy
+KGRzYiwgcGxhbmUsDQo+ID4gdHJ1ZSk7DQo+ID4gKwl4ZTNwX2xwZF9wbGFuZV91cGRhdGVfcGl4
+ZWxfbm9ybWFsaXplcihkc2IsIHBsYW5lKTsNCj4gPiDCoA0KPiA+IMKgCS8qDQo+ID4gwqAJICog
+VGhlIGNvbnRyb2wgcmVnaXN0ZXIgc2VsZi1hcm1zIGlmIHRoZSBwbGFuZSB3YXMNCj4gPiBwcmV2
+aW91c2x5DQo+ID4gQEAgLTIzNTAsNiArMjM3MiwzMiBAQCBzdGF0aWMgdm9pZCBjbGlwX2RhbWFn
+ZShzdHJ1Y3QNCj4gPiBpbnRlbF9wbGFuZV9zdGF0ZSAqcGxhbmVfc3RhdGUpDQo+ID4gwqAJZHJt
+X3JlY3RfaW50ZXJzZWN0KGRhbWFnZSwgJnNyYyk7DQo+ID4gwqB9DQo+ID4gwqANCj4gPiArc3Rh
+dGljIHZvaWQgY2hlY2tfcGl4ZWxfbm9ybWFsaXplcihzdHJ1Y3QgaW50ZWxfcGxhbmVfc3RhdGUN
+Cj4gPiAqcGxhbmVfc3RhdGUpDQo+ID4gK3sNCj4gPiArCXN0cnVjdCBpbnRlbF9kaXNwbGF5ICpk
+aXNwbGF5ID0NCj4gPiB0b19pbnRlbF9kaXNwbGF5KHBsYW5lX3N0YXRlKTsNCj4gPiArCXN0cnVj
+dCBpbnRlbF9wbGFuZSAqcGxhbmUgPSB0b19pbnRlbF9wbGFuZShwbGFuZV9zdGF0ZS0NCj4gPiA+
+dWFwaS5wbGFuZSk7DQo+ID4gKwlzdHJ1Y3QgaW50ZWxfYXRvbWljX3N0YXRlICpzdGF0ZSA9DQo+
+ID4gKwkJdG9faW50ZWxfYXRvbWljX3N0YXRlKHBsYW5lX3N0YXRlLT51YXBpLnN0YXRlKTsNCj4g
+PiArCWNvbnN0IHN0cnVjdCBpbnRlbF9wbGFuZV9zdGF0ZSAqb2xkX3BsYW5lX3N0YXRlID0NCj4g
+PiArCQlpbnRlbF9hdG9taWNfZ2V0X29sZF9wbGFuZV9zdGF0ZShzdGF0ZSwgcGxhbmUpOw0KPiA+
+ICsNCj4gPiArCWlmICghSEFTX0ZCQ19GUDE2X0ZPUk1BVFMoZGlzcGxheSkpDQo+ID4gKwkJcmV0
+dXJuOw0KPiA+ICsNCj4gPiArCXBsYW5lX3N0YXRlLT5waXhlbF9ub3JtYWxpemVyLmZhY3RvciA9
+DQo+ID4gKwkJaW50ZWxfZmJjX25vcm1hbGl6YXRpb25fZmFjdG9yKHBsYW5lX3N0YXRlKTsNCj4g
+PiArDQo+ID4gKwkvKg0KPiA+ICsJICogSW4gY2FzZSBvZiBubyBvbGQgc3RhdGUgdG8gY29tcGFy
+ZSwgYmV0dGVyIHRvIGZvcmNlDQo+ID4gdXBkYXRlIHRoZSBwaXhlbA0KPiA+ICsJICogbm9ybWFs
+aXplciBzZXR0aW5ncy4NCj4gPiArCSAqLw0KPiA+ICsJcGxhbmVfc3RhdGUtPnBpeGVsX25vcm1h
+bGl6ZXIubmVlZHNfdXBkYXRlID0gdHJ1ZTsNCj4gPiArCWlmIChvbGRfcGxhbmVfc3RhdGUgJiYg
+b2xkX3BsYW5lX3N0YXRlLT5ody5mYikNCj4gPiArCQlwbGFuZV9zdGF0ZS0+cGl4ZWxfbm9ybWFs
+aXplci5uZWVkc191cGRhdGUgPQ0KPiA+ICsJCQlwbGFuZV9zdGF0ZS0+cGl4ZWxfbm9ybWFsaXpl
+ci5mYWN0b3IgIT0NCj4gPiArCQkJaW50ZWxfZmJjX25vcm1hbGl6YXRpb25fZmFjdG9yKG9sZF9w
+bGFuZV9zDQo+ID4gdGF0ZSk7DQo+ID4gK30NCj4gPiArDQo+ID4gwqBzdGF0aWMgaW50IHNrbF9w
+bGFuZV9jaGVjayhzdHJ1Y3QgaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwNCj4gPiDCoAkJ
+CcKgwqAgc3RydWN0IGludGVsX3BsYW5lX3N0YXRlICpwbGFuZV9zdGF0ZSkNCj4gPiDCoHsNCj4g
+PiBAQCAtMjQwMCw2ICsyNDQ4LDggQEAgc3RhdGljIGludCBza2xfcGxhbmVfY2hlY2soc3RydWN0
+DQo+ID4gaW50ZWxfY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwNCj4gPiDCoA0KPiA+IMKgCWNoZWNr
+X3Byb3RlY3Rpb24ocGxhbmVfc3RhdGUpOw0KPiA+IMKgDQo+ID4gKwljaGVja19waXhlbF9ub3Jt
+YWxpemVyKHBsYW5lX3N0YXRlKTsNCj4gPiArDQo+ID4gwqAJLyogSFcgb25seSBoYXMgOCBiaXRz
+IHBpeGVsIHByZWNpc2lvbiwgZGlzYWJsZSBwbGFuZSBpZg0KPiA+IGludmlzaWJsZSAqLw0KPiA+
+IMKgCWlmICghKHBsYW5lX3N0YXRlLT5ody5hbHBoYSA+PiA4KSkgew0KPiA+IMKgCQlwbGFuZV9z
+dGF0ZS0+dWFwaS52aXNpYmxlID0gZmFsc2U7DQo+IA0KDQo=
