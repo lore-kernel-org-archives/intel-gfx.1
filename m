@@ -4,84 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89BD3D3F075
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2295D3F074
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:39:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C38E110E70D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2800A10E70A;
 	Wed, 28 Jan 2026 14:39:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ix8aF/8U";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WQGNVXp4";
 	dkim-atps=neutral
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
- [209.85.218.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BAE310E637
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 10:12:51 +0000 (UTC)
-Received: by mail-ej1-f49.google.com with SMTP id
- a640c23a62f3a-b8871718b00so803537566b.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:12:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769595170; cv=none;
- d=google.com; s=arc-20240605;
- b=WpqkxvvFBGjsTc1LTUheSDiOiIUPP6aoTFImJlXJsKNrxARL+3qXD+4+zTlLX5Efs8
- yypHMkxabt3KNtorw4khejGjM5P7YGYRJUEdl2+RBchg2Echf13zwNH0vAqARVDiZmSW
- AZFYDnuwuJMlySGBhzUOGJxjwCX5p/RXUUp1L5tTPa+hSV3X8avgBnnRgTgNZzpCx46E
- qTyRbvY6Q3D5IaVFC8UKK56cWQpMdDvjymYycnCQFlrD6zvd2P/kISpBy+rKnMoPk1tS
- PrKeJ07Tt6+PEcblBg+Xjxw695JBotMNdtotfxUS3InvCTJJpoopAnkQvklXKzEgsm+3
- OBMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=bMedHKTUpCrDiRDvfRSiyuvj598CtJ0UHh+4Yb6z/KE=;
- fh=Fxo/1u0wyYibam+nk2jkhZbO21IGLFZX7R4d6DL4loI=;
- b=K+/ofAtQw27yJ0vU/OWioBIfNRHyJRDgQe0tyvOJFJMICNLE7CPuzUCyBFafq01uNF
- L8ng795LszQYdZ+kvQn4jLxe6ETs1MOBZ96tfDX2hseWRFkWgcb/gk8IWz95UFJ0Po3m
- D/YYESbrRn8itWfiTzl6fT4Ax37rcnq2y8pm/7DXE06mcIUFiylUMCCXYzAhMNH9ryFt
- s3UVl68FlH2BbfTp/ehVW+624LQuIzx5X2r5N/0Lw4VNix4CkYMFgjHPpbjyRmsulU7M
- +Ob3F0bXn9lw5fOhzl0IPAygGOtlAHrWkd+WyOiWiUehbgR7cSr4qFSV2rRp1ZECeZDf
- wpHA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30FD210E498
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 20:49:24 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-34c21417781so2527709a91.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 12:49:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769595170; x=1770199970; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=bMedHKTUpCrDiRDvfRSiyuvj598CtJ0UHh+4Yb6z/KE=;
- b=ix8aF/8UbRfRtuLD0oNVGX3wqVMnJgDyhtQHagQpQn2yc9TMpRExTq1cbRTai0Bh1f
- nj1x2/h+TrBFaXV+WOJy8rEMOb7EjIchrZcKTdskWvR+YloWIoKm33fV5ZO4ERa8xDZu
- Og7TIYe6swwQ+W9KY4970RP1v4M6b0ZfzHZZKvfpnCTUagd3wQgmUQYraGX29RVAVd3r
- kvOgLqbHzOCgv3Ld2i0oPaFjXQQL3AZBhEth8HgWw1C3HbbHnvA8NG9kzsb+YEdo3G2b
- PY2jF9vBDYCZ5iGr4vnQkCF3Cm7IlCWwe7/yKbarF9D2SlKPp9zI3076sbap0H9j+e5M
- TjFQ==
+ d=gmail.com; s=20230601; t=1769460564; x=1770065364; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DgBDIJIrUHpJ6j6lR+sPmz5sI1yJjso51mAmb29uJAg=;
+ b=WQGNVXp4pNUp0Zi61cSUHTymPZn5edAJK0q2CtWppbPL99TmmWOcj3+74weKjHn7PW
+ xlkbZ3PViClUNTba7WRBr+Z+YabIaf+4E/4WN+DB2rk+93beZZH6cCLs0zzINCR0JW3Q
+ 8rqyTymDMzhCIdHbLeze4xftKDlHUzDxyoR9VoHBEBufGqQ48/5xjvdJgKq/WzCPI3fn
+ +rmYTpI0EC8TotjprwYZaQJNWakmSkOSrWd4eLzmKGdux6YbviM+VwuWamU85IBEyTQx
+ MxX9HlmUXkGQgpYi+Qr6ppXer3CpTcuH41er0374XfBE0LYAUhy9B1FLAMUSO4uVYNzL
+ yQaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769595170; x=1770199970;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=bMedHKTUpCrDiRDvfRSiyuvj598CtJ0UHh+4Yb6z/KE=;
- b=qkX0eIWWBo1pjiudWL6hiZmx+c28GIYNm/giyZ3jy0TENy7sLGOieWYOrI9+tOzcpA
- CTsGDx5EZiDmNrceChqgCiLPqMnLimyfSQ4tErrhfZQqDGhDA9j0lHeCyaMXmF/IxNI6
- CPWJhJbyNb4CAv46ln948vwNumfIEjpRqpMviz+t5oNAF200YdbDyq+G1KrAzPssPuim
- aR3KxqmThROXkmfVBdTnnq9snximo5y/Ni7qqC+NaO91dTQV8SsiJvmWDdYW4XhEQYgp
- Lyoq7vd6D0LDsSBryJUkVXLmOYgv2X2/d5OWqx4q1MyQf2DcUMcUoZZnUxhgfTsCfBMC
- h+/Q==
-X-Gm-Message-State: AOJu0YxryQzNk7rcKFMZr3JseVjpEoR1rlTTpVROvnysv9onxA2GcwB0
- p0GzfGMhFSGCyMiM+IAkepXJX5iaXBaGpW33u7Rj4gOb6C9Nl7fFyHpaphXQd9XAlCdvvMDPVg3
- sPI6kYcY9fboQq3lMP2kEpt0ArwwIwRHvzQZuJ7k=
-X-Gm-Gg: AZuq6aJ9NUdRZ1CYx1Cj4vsUkxZHRBTCnSSJ9j8cI8srFsxwtDsATXTpEEdgxL/keJ7
- UwJeEGQavTka3gfTDEiVuxQUIv8JFtmmJk9MeqW7nMUf3BDdY1qdHUGLGwBkH/Z/QpCIqIT802Y
- rjfsQPKZ0+Sp1ERDgvHnNDHjHNLo0fOnhm9QJMdY1hVBiO4lvoqq6F0kZr2X43dndSlwd227wvD
- OyFeeKB7wsQgKs81vIjkHm584kMMML9THsFyyUlyMqKdl18f1V6F+LAYVKIWV3s430r1+sP7aWB
- pZ06rHKa6AfvbdKCwZ05muUoGYap+avY/hCI
-X-Received: by 2002:a17:907:d8a:b0:b87:1db0:a4af with SMTP id
- a640c23a62f3a-b8dab3d2070mr331673166b.64.1769595169561; Wed, 28 Jan 2026
- 02:12:49 -0800 (PST)
+ d=1e100.net; s=20230601; t=1769460564; x=1770065364;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DgBDIJIrUHpJ6j6lR+sPmz5sI1yJjso51mAmb29uJAg=;
+ b=dtaaLsbyuvXvtx59SNaN6OzaMDk95PHgbi63syELNVEDU+/1F0VabnT1YJ8FZDlvjA
+ c/VRbZUPUitCtcgt6zGl5TLXoF0rpi5IolD2c59U3zt1isTU5X0qFaQwAS2bHVa94xu7
+ vcmpOyu5u9EBwhsbRN1nriE21bqYQqgWqYPALJ7+eYDLeNHZzW7CCPVyqhy/qKas7CSv
+ pdUJ2vZHRfusH2wHpvf0/5SEisZca+/oqsBQlq//Bzz5Ob3hW6MSkd+NzzQzCpderwqU
+ 6sV0o7Ki3Dozbep4dRt5PvNHKFibX1u+tAteIddGRlNK1DEMPc0erffpy+WCd22+K0cP
+ bJ3Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX0eNWRFWcAAjLGelcp9uK1EQFjx53f+A8eRSmwq9w11kDkB/cT4Mb8xqw7yKeSgtTnefZbkkH/HkQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYl+zFiRUOtzv7r5bnB7d1Evxz7l+7djyN7dF/8mUKcmvx2YvI
+ BZc4DusN13gxpODOWFOC1Jso16BhJM/IwY/QCUj/0sTgKfS1cq+v5nE=
+X-Gm-Gg: AZuq6aJvJC4Iglxh1RzDiykyaqQhK1BYOsFV2ggUwZyQLSiGWk+FhyhuFETd2pj8p3Q
+ dKIOuxRgFp4gHAefzmHgmY+uVX/Xy3bQXPxmOzAv/DOkSVKQGW+QPHDnOd6QSajM3qdBuJvm6JU
+ UfAwqZv0j1w9P8klG/D1v6PXNBqNGFoVuQ78NEp9QtGTL/FHxd8eWWU0GpaSJhShA9Y4AMwTGE8
+ 7k6Cdzh1NYqz2m8saBFA72Z22aXINTcunLBXuvX2iAn5wzsD1JgZbVmqv9domDlua3hp7GtmC3Z
+ ZbVWy0f+ujD27QSo6YPwr8M5kwPLh6Qrd23KK5jzZt8++xiUsINOoMf6NAypS2qse9TA1jvL2jT
+ XiRbGgEs0YvKWzrLhlwAzwsASG2kpkDX1NDgPUvwSNhygD/de7/u+f/J3j37PbCqpGgXvQt9rIv
+ TBm5dbvDj5ZwmYdL8VA8e3SqWjMA==
+X-Received: by 2002:a17:90b:350e:b0:341:2b78:61b8 with SMTP id
+ 98e67ed59e1d1-353c416b90cmr5425981a91.20.1769460563371; 
+ Mon, 26 Jan 2026 12:49:23 -0800 (PST)
+Received: from at.. ([171.61.166.126]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82339095c85sm5470337b3a.67.2026.01.26.12.49.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Jan 2026 12:49:22 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: jani.nikula@linux.intel.com
+Cc: airlied@gmail.com, atharvatiwarilinuxdev@gmail.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com, simona@ffwll.ch,
+ tursulin@ursulin.net, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH 2/2] drm/i915/display: Disable display for iMac's
+Date: Mon, 26 Jan 2026 20:49:15 +0000
+Message-ID: <20260126204915.1324-1-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <c3fc271e9cd1eec5ab96c70c9dc3c971d5ed73d6@intel.com>
+References: <c3fc271e9cd1eec5ab96c70c9dc3c971d5ed73d6@intel.com>
 MIME-Version: 1.0
-From: =?UTF-8?B?SsOpcsO0bWUgVG9sbGV0?= <jerome.tollet@gmail.com>
-Date: Wed, 28 Jan 2026 11:12:38 +0100
-X-Gm-Features: AZwV_Qi5IJZzyfbalJKUw-lxWLXc_rxLSxVrj2V4y3PXP6uciNAbFVtk3M-HhXc
-Message-ID: <CADN_a6Ne4Vr6knCXdKtCnB8=et6OK7PEZ8F5bpyGamwyv1K9GA@mail.gmail.com>
-Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
- TMDS_Scrambler_Status
-To: intel-gfx@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 28 Jan 2026 14:39:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,21 +92,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ville,
-Following Ankit's response on January 21st where he suggested
-considering a panel-specific quirk instead of a generic solution, I
-wanted to get your input on the preferred approach.
-As a reminder, testing showed the delay works at any placement in the
-modeset sequence (all 4 test positions succeeded), suggesting this is
-a timing issue rather than being tied to a specific operation.
+> Rendering and display are quite separate in the hardware and in the
+> driver. Perhaps you do not mean "rendering" here? Perhaps it can be used
+> for rendering but not display?
 
-Three approaches are available:
-1. Generic SCDC polling after port enable - aligns with Windows
-behavior which also performs ~200ms SCDC poll post-enable
-2. Panel-specific quirk for affected displays (Cisco Desk Pro in my case)
-3. Fixed delay after SCDC config (my v2 patch from Jan 14)
+Yeah, it can be used for rendering but not display, sorry for the wording.
 
-I'm happy with any approach that gets merged.
+> Okay, so perhaps there's no eDP connected. But what about the other
+> connectors on the iGPU? What about everything else in the display
+> hardware?
 
-Thanks
-Jerome
+You cant use the iGPU to drive the display on any hardware (including external displays).
+
+> If you can figure out that it's specifically link training that fails (a
+> dmesg would be useful to show this) there clearly is display hardware,
+> right?
+
+As said the iGPU cant drive the display on all monitors (even on macOS), but still heres the dmesg before this patch:
+
+[    5.095489] i915 0000:00:02.0: [drm] Found cometlake (device ID 9bc8) integrated display version 9.00 stepping N/A
+[    5.096061] i915 0000:00:02.0: [drm] VT-d active for gfx access
+[    5.096102] i915 0000:00:02.0: [drm] Using Transparent Hugepages
+[    5.099214] i915 0000:00:02.0: Invalid PCI ROM header signature: expecting 0xaa55, got 0xffff
+[    5.099217] i915 0000:00:02.0: [drm] Failed to find VBIOS tables (VBT)
+[    5.099324] i915 0000:00:02.0: vgaarb: VGA decodes changed: olddecodes=io+mem,decodes=none:owns=io+mem
+[    5.100960] i915 0000:00:02.0: [drm] Finished loading DMC firmware i915/kbl_dmc_ver1_04.bin (v1.4)
+[    5.832214] i915 0000:00:02.0: [drm] [ENCODER:105:DDI A/PHY A] failed to retrieve link info, disabling eDP
+[    5.835756] i915 0000:00:02.0: [drm] Registered 3 planes with drm panic
+[    6.428455] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+[    6.722404] i915 0000:00:02.0: [drm] Cannot find any crtc or sizes
+
+> There's at least three levels where this could be handled, depending on
+> details:
+> 
+> - Display probe (the patch at hand). Assumes there's no display
+>   hardware, at all. The driver doesn't touch the hardware, which
+>   continues to consume power, it's not put in low power states. Not
+>   optimal if there actually is display hardware.
+> 
+> - Display disable. See intel_display_device_enabled(). The driver takes
+>   over the hardware, puts it to sleep, but prevents all connectors from
+>   being connected.
+> 
+> - eDP disable. Add a quirk somewhere to enforce eDP is disconnected, but
+>   other connectors can be used.
+
+The main reason I sent this patch is that after i915 trys to probe the display,
+the dGPU (amdgpu) is no longer able to detect the internal display,
+resulting in a black screen.
+
+> It would be quite useful to indicate the PCI ID of the device in
+> question.
+
+00:02.0 VGA compatible controller [0300]: Intel Corporation CometLake-S GT2 [UHD Graphics 630] [8086:9bc8] (rev 03) (prog-if 00 [VGA controller])
+	Subsystem: Apple Inc. CometLake-S GT2 [UHD Graphics 630] [106b:ffff]
