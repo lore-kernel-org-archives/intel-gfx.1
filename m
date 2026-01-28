@@ -4,63 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4432D35698
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 10:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B03FDD3569C
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 10:14:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 375D210E649;
-	Wed, 28 Jan 2026 10:00:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cJ2BHvz7";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E70610E631;
- Wed, 28 Jan 2026 10:00:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769594409; x=1801130409;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SEE7O1/IpRN98KcKKX+2aoRVpE1qOi1AzsxCFz6jfrI=;
- b=cJ2BHvz7jvDANOJtk09/G0y6HnmgURrJY3q13VNA1cIyVFkqT1tQid69
- qhLKWM4B7TTWSdpHV3ci0QVCDAZ9Ud/Xj6nCIU9FimDwgwEP94eFvEvfK
- OlP/EIvh/ugBOkNkK6kIznQhP9kkMuM4dsg4KKBZ236TWcWQHdL67D+sN
- PMUCwcvsS1o3dKA7T3Eq7GO5Wv7AApZX4H7appPrsBJO+VJMmILdpCFPU
- /2vlpAH34sa/slpouCp+FtdVNPr3kyZKDEFWyMfPgnypt2LNuirtJXLTh
- NXabqr6MeyiGsUAG9hExqnYhtNZNcJ2qSv1AlpJ05VvznUsBT7odTaKpY Q==;
-X-CSE-ConnectionGUID: ix/19QarTsKsGEXZ1S+WjQ==
-X-CSE-MsgGUID: fflPWfGYTrKjfJ5YGaxXog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11684"; a="74661201"
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="74661201"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 02:00:09 -0800
-X-CSE-ConnectionGUID: 9e+vvnucQUG1PNMZjWX7mw==
-X-CSE-MsgGUID: HYPuKXcKSXGDEaNCGxIuhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="245838767"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.210])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 02:00:06 -0800
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: igt-dev@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Subject: Re: [PATCH i-g-t v2 6/6] lib/igt_device_scan: Print GPU upstream port
- parent/child relations
-Date: Wed, 28 Jan 2026 11:00:04 +0100
-Message-ID: <6887454.4vTCxPXJkl@jkrzyszt-mobl2.ger.corp.intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-In-Reply-To: <20260127100123.114516-14-janusz.krzysztofik@linux.intel.com>
-References: <20260127100123.114516-8-janusz.krzysztofik@linux.intel.com>
- <20260127100123.114516-14-janusz.krzysztofik@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BF1710E637;
+	Wed, 28 Jan 2026 10:14:36 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B9910E637;
+ Wed, 28 Jan 2026 10:14:35 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3454058688282312447=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/power=5Fwell=3A_?=
+ =?utf-8?q?Enable_workaround_for_DSS_clock_gating_issue_=2822021048059=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Jan 2026 10:14:35 -0000
+Message-ID: <176959527503.199106.17013543877841443237@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260128074806.3324942-1-mika.kahola@intel.com>
+In-Reply-To: <20260128074806.3324942-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,112 +37,220 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+--===============3454058688282312447==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Commenting myself again, sorry.
+== Series Details ==
 
-On Tuesday, 27 January 2026 10:54:23 CET Janusz Krzysztofik wrote:
-> In a short listing, lsgpu prints a sysfs path of a PCI GPU parent as a
-> local attribute of a DRM device.  However, if that's a discrete GPU and
-> its associated PCIe upstream bridge port has been identified, no
-> information on that bridge is listed among the GPU attributes.  Follow the
-> pattern used with DRM devices and also show a PCI slot of the bridge port
-> as a local attribute of the discrete GPU device.
-> 
-> Moreover, in both short and detailed listings, local attributes intended
-> for providing device names of GPU associated DRM devices and the GPU
-> codename are also printed as attributes of related PCIe upstream bridge
-> port, however, the DRM device names are shown as (null), and the codename
-> attribute provides raw vendor:device codes of the bridge itself.  Replace
-> those with PCI slot and codename of the GPU device.
-> 
-> v2: Allocate memory to local attributes of a bridge for safety (Sebastian),
->   - merge with a formerly separate patch "lib/igt_device_scan: Don't print
->     bridge not applicable attributes" (Sebastian),
->   - no need for DEVTYPE_BRIDGE, just skip attributes if NULL.
+Series: drm/i915/power_well: Enable workaround for DSS clock gating issue (22021048059)
+URL   : https://patchwork.freedesktop.org/series/160741/
+State : failure
 
-I missed the fact that without setting dev_type of the bridge, by default 
-classified as DEVTYPE_INTEGRATED, to e.g. DEVTYPE_BRIDGE, link bandwith 
-attributes of the bridge, which all this series is about, are dropped from 
-printouts.  In fact, that should be addressed already in patch 3 "lib/
-igt_device_scan: Include PCIe bridge upstream port if available".  Let me fix 
-it in next iteration of the series.
+== Summary ==
 
-Thanks,
-Janusz
+CI Bug Log - changes from CI_DRM_17899 -> Patchwork_160741v1
+====================================================
 
+Summary
+-------
 
-> 
-> Cc: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
->  lib/igt_device_scan.c | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/lib/igt_device_scan.c b/lib/igt_device_scan.c
-> index cdd735e994..4ce64b93fe 100644
-> --- a/lib/igt_device_scan.c
-> +++ b/lib/igt_device_scan.c
-> @@ -249,6 +249,8 @@ struct igt_device {
->  	char *codename; /* For grouping by codename */
->  	enum dev_type dev_type; /* For grouping by integrated/discrete */
->  
-> +	char *pci_gpu; /* Filled for upstream bridge ports */
-> +
->  	struct igt_list_head link;
->  };
->  
-> @@ -1060,6 +1062,10 @@ static void update_or_add_parent(struct udev *udev,
->  
->  	bridge_idev = find_or_add_igt_device(udev, bridge_dev, limit_attrs);
->  	igt_assert(bridge_idev);
-> +
-> +	bridge_idev->pci_gpu = strdup(parent_idev->pci_slot_name);
-> +	bridge_idev->codename = strdup(parent_idev->codename);
-> +	parent_idev->parent = bridge_idev;
->  }
->  
->  static struct igt_device *duplicate_device(struct igt_device *dev) {
-> @@ -1231,6 +1237,7 @@ static void igt_device_free(struct igt_device *dev)
->  	free(dev->device);
->  	free(dev->driver);
->  	free(dev->pci_slot_name);
-> +	free(dev->pci_gpu);
->  	igt_map_destroy(dev->attrs_map, free_key_value);
->  	igt_map_destroy(dev->props_map, free_key_value);
->  }
-> @@ -1327,7 +1334,11 @@ igt_devs_print_simple(struct igt_list_head *view,
->  			if (is_pci_subsystem(dev)) {
->  				_pr_simple("vendor", dev->vendor);
->  				_pr_simple("device", dev->device);
-> +				if (dev->pci_gpu)
-> +					_pr_simple("GPU device", dev->pci_gpu);
->  				_pr_simple("codename", dev->codename);
-> +				if (dev->parent && dev->parent->pci_slot_name)
-> +					_pr_simple("upstream port", dev->parent->pci_slot_name);
->  			}
->  		}
->  		printf("\n");
-> @@ -1480,8 +1491,12 @@ igt_devs_print_detail(struct igt_list_head *view,
->  		printf("========== %s:%s ==========\n",
->  		       dev->subsystem, dev->syspath);
->  		if (!is_drm_subsystem(dev)) {
-> -			_print_key_value("card device", dev->drm_card);
-> -			_print_key_value("render device", dev->drm_render);
-> +			if (dev->drm_card)
-> +				_print_key_value("card device", dev->drm_card);
-> +			if (dev->drm_render)
-> +				_print_key_value("render device", dev->drm_render);
-> +			if (dev->pci_gpu)
-> +				_print_key_value("GPU device", dev->pci_gpu);
->  			_print_key_value("codename", dev->codename);
->  		}
->  
-> 
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_160741v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_160741v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/index.html
+
+Participating hosts (43 -> 40)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_160741v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@client:
+    - bat-mtlp-9:         [PASS][1] -> [INCOMPLETE][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-9/igt@i915_selftest@live@client.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-9/igt@i915_selftest@live@client.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_160741v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - bat-rpls-4:         [PASS][3] -> [DMESG-WARN][4] ([i915#13400])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-8/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-mtlp-9:         [PASS][7] -> [INCOMPLETE][8] ([i915#15176])
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-9/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-9/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@reset:
+    - bat-twl-2:          [PASS][9] -> [ABORT][10] ([i915#14365]) +1 other test abort
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-twl-2/igt@i915_selftest@live@reset.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-twl-2/igt@i915_selftest@live@reset.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][11] -> [DMESG-FAIL][12] ([i915#12061]) +1 other test dmesg-fail
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [FAIL][13] ([i915#14867]) -> [PASS][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#14365]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14365
+  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
+  [i915#15176]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176
 
 
+Build changes
+-------------
+
+  * Linux: CI_DRM_17899 -> Patchwork_160741v1
+
+  CI-20190529: 20190529
+  CI_DRM_17899: 23ebb43006b887363bd6653fbc4a327fd3072226 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8721: 3707bb4267de22a18d61b232c4ab5fbaf61db90c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_160741v1: 23ebb43006b887363bd6653fbc4a327fd3072226 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/index.html
+
+--===============3454058688282312447==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/power_well: Enable workaround for DSS clock gating issue (22021048059)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/160741/">https://patchwork.freedesktop.org/series/160741/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17899 -&gt; Patchwork_160741v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_160741v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_160741v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/index.html</p>
+<h2>Participating hosts (43 -&gt; 40)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_160741v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@client:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-9/igt@i915_selftest@live@client.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-9/igt@i915_selftest@live@client.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_160741v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-mtlp-9/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-mtlp-9/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176">i915#15176</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@reset:</p>
+<ul>
+<li>bat-twl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-twl-2/igt@i915_selftest@live@reset.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-twl-2/igt@i915_selftest@live@reset.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14365">i915#14365</a>) +1 other test abort</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17899/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160741v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17899 -&gt; Patchwork_160741v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17899: 23ebb43006b887363bd6653fbc4a327fd3072226 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8721: 3707bb4267de22a18d61b232c4ab5fbaf61db90c @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_160741v1: 23ebb43006b887363bd6653fbc4a327fd3072226 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3454058688282312447==--
