@@ -4,49 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CB23D3F073
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E1DBD3F074
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB7D10E70B;
-	Wed, 28 Jan 2026 14:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 360E810E6E2;
+	Wed, 28 Jan 2026 14:59:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="VjvO9Upn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wr0d1Vqa";
 	dkim-atps=neutral
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Mon, 26 Jan 2026 15:32:30 UTC
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
- [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 090D910E22B
- for <intel-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 15:32:29 +0000 (UTC)
-Received: from LAPTOP-N070L597.localdomain (unknown [58.215.202.202])
- by smtp.qiye.163.com (Hmail) with ESMTP id 3203f8b2c;
- Mon, 26 Jan 2026 23:27:22 +0800 (GMT+08:00)
-From: Zilin Guan <zilin@seu.edu.cn>
-To: jani.nikula@linux.intel.com
-Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- chris@chris-wilson.co.uk, lionel.g.landwerlin@intel.com,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn,
- Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH] drm/i915/gem: Fix memory leak in i915_gem_do_execbuffer()
-Date: Mon, 26 Jan 2026 15:27:18 +0000
-Message-Id: <20260126152718.276013-1-zilin@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F27D410E6E0;
+ Wed, 28 Jan 2026 14:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769612358; x=1801148358;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=4CJVyf3Si1egSIzCE5wJkF5qaRO4qdy6wv5dnpfqrYY=;
+ b=Wr0d1VqaV71btjNt8TMGU6PUWppTiDQ+BxlC7TLS7tPO0l1LVNGdWnBh
+ Y5PNkebWmH03M6dayJKCal6XfwrgsFWtPUVB70h6bOFLst63ateVlFnjA
+ RgQkojtdlmFIHenMBddnWyHpLclwGk+4Siaw5IUaNNb8TujPi51swQNNv
+ W27lK3QNUJWM5dKbzQR1Hm7c4E5UnoDgV5lauMdqsyB10mk4lwOLY/p25
+ AL++CS8P8OtDAk40jLrHKRh04+5MyoiDKmkvju2B64aCqThRAmWY0+Ol7
+ D5ALGZTD3da6pcWCt41sCxcy8JWtUSySbPv8wkYGwufTOjptA9n2/+gSh Q==;
+X-CSE-ConnectionGUID: mdN6q9PhSMqub6L5aEFg1Q==
+X-CSE-MsgGUID: O9jE0vtCR56yfeLGQp21Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11684"; a="81935608"
+X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="81935608"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2026 06:59:17 -0800
+X-CSE-ConnectionGUID: 2TKELJm/QaWSJCchj/tFJA==
+X-CSE-MsgGUID: DCqR8lGhR7GRJ3w2VL2tfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="208354068"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.207])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2026 06:59:14 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/4] drm/i915/gvt: further reduce dependency on display
+Date: Wed, 28 Jan 2026 16:59:06 +0200
+Message-ID: <cover.1769612208.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9bfaeaacc103a1kunmbbba5180fa35
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxlJVkxPSRhLGEIdGE1KHlYeHw5VEwETFhoSFy
- QUDg9ZV1kYEgtZQVlOQ1VJSk5VSUtJVUlLSVlXWRYaDxIVHRRZQVlPS0hVSktJSE5DQ1VKS0tVS1
- kG
-DKIM-Signature: a=rsa-sha256;
- b=VjvO9UpnjEKAnCi4MyUbu63T9qyX6Nt5SxWZLvLwzZfFxsn11EHqJru50P62/3zLuTmhMPgHBXy3+qQgv9nmGvjKcRDih5CHcY9v0CrWtx7VGibbwkx0tiW9AdTHh4SKWif4VpwV62I3F1oNA7sKYBVw3D1slr8zWasKv64kdHs=;
- s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=gNpAAdRUMg/ZRAkntu9Cwk86cxeJUQGqQwcMGXeBiNk=;
- h=date:mime-version:subject:message-id:from;
-X-Mailman-Approved-At: Wed, 28 Jan 2026 14:39:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +70,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In i915_gem_do_execbuffer(), add_fence_array() allocates and populates
-eb.fences. Immediately after this, if both IN_FENCES flags are set, the
-function returns -EINVAL directly without calling put_fence_array(),
-resulting in a memory leak of the allocated fence array.
+GVT still includes a handful of core display headers, and uses struct
+dpll. Migrate away from them, reducing the include "surface" to avoid
+even accidental usages of display functions or types.
 
-Fix this by jumping to err_ext in the error path, ensuring that
-put_fence_array() is properly called to release the fence array.
+With this, GVT should only use 1) register macros, 2) some enums, 3) the
+handful of APIs to support register macros.
 
-Compile tested only. Issue found using a prototype static analysis tool
-and code review.
+BR,
+Jani.
 
-Fixes: 13149e8bafc4 ("drm/i915: add syncobj timeline support")
-Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
----
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Jani Nikula (4):
+  drm/i915/display: move enum aux_ch to intel_display_limits.h
+  drm/i915/gvt: drop dependency on display struct dpll
+  drm/i915/gvt: drop dependency on intel_display_types.h
+  drm/i915/gvt: drop unnecessary include of intel_display.h
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index d49e96f9be51..43f267f98ba0 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -3407,8 +3407,10 @@ i915_gem_do_execbuffer(struct drm_device *dev,
- 
- #define IN_FENCES (I915_EXEC_FENCE_IN | I915_EXEC_FENCE_SUBMIT)
- 	if (args->flags & IN_FENCES) {
--		if ((args->flags & IN_FENCES) == IN_FENCES)
--			return -EINVAL;
-+		if ((args->flags & IN_FENCES) == IN_FENCES) {
-+			err = -EINVAL;
-+			goto err_ext;
-+		}
- 
- 		in_fence = sync_file_get_fence(lower_32_bits(args->rsvd2));
- 		if (!in_fence) {
+ drivers/gpu/drm/i915/display/intel_display.h  | 26 -------------
+ .../drm/i915/display/intel_display_limits.h   | 26 +++++++++++++
+ drivers/gpu/drm/i915/gvt/display.c            |  1 -
+ drivers/gpu/drm/i915/gvt/handlers.c           | 38 +++++++++----------
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |  2 +-
+ 5 files changed, 45 insertions(+), 48 deletions(-)
+
 -- 
-2.34.1
+2.47.3
 
