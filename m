@@ -4,73 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 795E1D3F082
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 15:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D80D3F081
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 15:50:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0274910E6FF;
-	Wed, 28 Jan 2026 15:37:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A76C10E6F3;
+	Wed, 28 Jan 2026 15:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YVnu31vF";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="z5g8en+G";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2XN42P5";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="z5g8en+G";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="z2XN42P5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A26B10E193;
- Wed, 28 Jan 2026 15:37:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769614646; x=1801150646;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=0wyoV90WmYlDsdIojZFY1AdPgbfCyPWW+8y/M6SlHE4=;
- b=YVnu31vFQzt7TQVlmmMc4IEbz4CDfPqGipBCN+bomJ0BV4u1Jv9R42fE
- JziIsH33RRFh5ZMWTqVAyK6Q73U0EzkwwhS/UxAkD2qCmvnFsdXP/7Mu8
- /uLhKpaE6GXBGdIpACkZTyFadnV9Kver0yw0j322qZEQxE1XYXHKrh4c2
- kihwx13jShoGLNgk1vB0FskX7QwGhJFJZzj3TkpXOZpdQDLY4Q2e/9EMU
- 54pqafakpp46GIr0lraF1fztVmpNUAnoK8+yF9GQbdfWyTIiB9sejaQxL
- yGvDta00JWpsbXznXiKjuBWNHNmL2HV5XA639Em+Wc/3NQrXDVBLliM2Q Q==;
-X-CSE-ConnectionGUID: wuNfWE8gSiyYn411D7UlAA==
-X-CSE-MsgGUID: iACIfWaqQAip+yct40NZ+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11685"; a="73423407"
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="73423407"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 07:37:25 -0800
-X-CSE-ConnectionGUID: KTQ67kAaSbu8bA5Ll5fKQg==
-X-CSE-MsgGUID: QZTVq2c0S8Gv4W9Dfv9tAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="208673485"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
- ([10.245.245.54])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 07:37:21 -0800
-Date: Wed, 28 Jan 2026 17:37:18 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Ard Biesheuvel <ardb@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5A5210E6F3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 15:50:27 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 624FF5BCCA;
+ Wed, 28 Jan 2026 15:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1769615426; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W5xl2haCUI0hSbDXGPGJjYXdaOWzaQKGtYWRQOCdGmk=;
+ b=z5g8en+G05pnMaNrzzDCXnf1qOdMVROErfW2cjLmhjMwUBS3nqT7MqPjMQ1soQOw95TLTo
+ Xuu1CJXJHDc4ykhi5dXEd8DlyHOU/VPbnkfrQyMvP403e5vyhMNr2RE5XHX5nWp9NGKcPU
+ HO4Eh1la/o/z3buNY93rhoQIoFEkvdw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1769615426;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W5xl2haCUI0hSbDXGPGJjYXdaOWzaQKGtYWRQOCdGmk=;
+ b=z2XN42P5bGin/nEWebti+qMt69kcoJ1HxWoyBX5Ra2kIqBIQTO0F8xPzWqOas0ufx5A+2R
+ jhMG61Ostvk8GKAQ==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=z5g8en+G;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=z2XN42P5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1769615426; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W5xl2haCUI0hSbDXGPGJjYXdaOWzaQKGtYWRQOCdGmk=;
+ b=z5g8en+G05pnMaNrzzDCXnf1qOdMVROErfW2cjLmhjMwUBS3nqT7MqPjMQ1soQOw95TLTo
+ Xuu1CJXJHDc4ykhi5dXEd8DlyHOU/VPbnkfrQyMvP403e5vyhMNr2RE5XHX5nWp9NGKcPU
+ HO4Eh1la/o/z3buNY93rhoQIoFEkvdw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1769615426;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=W5xl2haCUI0hSbDXGPGJjYXdaOWzaQKGtYWRQOCdGmk=;
+ b=z2XN42P5bGin/nEWebti+qMt69kcoJ1HxWoyBX5Ra2kIqBIQTO0F8xPzWqOas0ufx5A+2R
+ jhMG61Ostvk8GKAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E04173EA61;
+ Wed, 28 Jan 2026 15:50:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id k2B9MzwwemlHUQAAD6G6ig
+ (envelope-from <pfalcato@suse.de>); Wed, 28 Jan 2026 15:50:20 +0000
+Date: Wed, 28 Jan 2026 15:50:19 +0000
+From: Pedro Falcato <pfalcato@suse.de>
+To: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Yury Norov <ynorov@nvidia.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H . Peter Anvin" <hpa@zytor.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Dan Williams <dan.j.williams@intel.com>, 
+ Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- Lenny Szubowicz <lszubowi@redhat.com>,
- Francesco Pompo <francescopompo2@gmail.com>,
- linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/2] drm/i915/display: Disable display for iMac's
-Message-ID: <aXotLnGvZu4Ib0Vx@intel.com>
-References: <20260128145855.1071-1-atharvatiwarilinuxdev@gmail.com>
- <20260128145855.1071-3-atharvatiwarilinuxdev@gmail.com>
- <26c4e0b7f9c25f405401288d13fc7e5097e9c7f5@intel.com>
+ Christian Koenig <christian.koenig@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Benjamin LaHaise <bcrl@kvack.org>, 
+ Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>,
+ Yue Hu <zbestahu@gmail.com>, 
+ Jeffle Xu <jefflexu@linux.alibaba.com>, Sandeep Dhavale <dhavale@google.com>, 
+ Hongbo Li <lihongbo22@huawei.com>, Chunhai Guo <guochunhai@vivo.com>,
+ Theodore Ts'o <tytso@mit.edu>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, Tony Luck <tony.luck@intel.com>, 
+ Reinette Chatre <reinette.chatre@intel.com>, Dave Martin <Dave.Martin@arm.com>,
+ James Morse <james.morse@arm.com>, Babu Moger <babu.moger@amd.com>, 
+ Carlos Maiolino <cem@kernel.org>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Zi Yan <ziy@nvidia.com>,
+ Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>, 
+ David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>, 
+ Yury Norov <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ linux-sgx@vger.kernel.org, linux-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
+ linux-cxl@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ linux-fsdevel@vger.kernel.org, linux-aio@kvack.org,
+ linux-erofs@lists.ozlabs.org, 
+ linux-ext4@vger.kernel.org, linux-mm@kvack.org, ntfs3@lists.linux.dev, 
+ devel@lists.orangefs.org, linux-xfs@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v2 00/13] mm: add bitmap VMA flag helpers and convert all
+ mmap_prepare to use them
+Message-ID: <wqtf6zwf72i5mmq4jxzea5lg7nziinqrm7eyou6n76ticah4py@ju4i4mndzsr2>
+References: <cover.1769097829.git.lorenzo.stoakes@oracle.com>
+ <aXjDaN4pwEyyBy-I@yury>
+ <5f764622-fd45-4c49-8ecb-7dc4d1fa48d6@lucifer.local>
+ <aXkv7DSUbdY-RD5d@yury>
+ <c7452c5f-e42f-4595-8680-bd1d5726be38@lucifer.local>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <26c4e0b7f9c25f405401288d13fc7e5097e9c7f5@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <c7452c5f-e42f-4595-8680-bd1d5726be38@lucifer.local>
+X-Spamd-Result: default: False [-2.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FROM_HAS_DN(0.00)[];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ FREEMAIL_CC(0.00)[nvidia.com,linux-foundation.org,kernel.org,linux.intel.com,redhat.com,alien8.de,zytor.com,arndb.de,linuxfoundation.org,intel.com,suse.de,gmail.com,ffwll.ch,ursulin.net,amd.com,zeniv.linux.org.uk,suse.cz,kvack.org,linux.alibaba.com,google.com,huawei.com,vivo.com,mit.edu,dilger.ca,linux.dev,paragon-software.com,omnibond.com,arm.com,wdc.com,infradead.org,oracle.com,suse.com,paul-moore.com,namei.org,hallyn.com,rasmusvillemoes.dk,vger.kernel.org,lists.linux.dev,lists.freedesktop.org,lists.ozlabs.org,lists.orangefs.org];
+ RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[94];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TAGGED_RCPT(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLwxok9gz6e6xb7dgp4tusfohw)];
+ MISSING_XM_UA(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Queue-Id: 624FF5BCCA
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,73 +179,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 28, 2026 at 05:23:51PM +0200, Jani Nikula wrote:
-> On Wed, 28 Jan 2026, Atharva Tiwari <atharvatiwarilinuxdev@gmail.com> wrote:
-> > Disable display on iMacs, as they can't do link training
-> > on the internal display.
+On Wed, Jan 28, 2026 at 09:33:44AM +0000, Lorenzo Stoakes wrote:
+> On Tue, Jan 27, 2026 at 04:36:44PM -0500, Yury Norov wrote:
+> > On Tue, Jan 27, 2026 at 02:40:03PM +0000, Lorenzo Stoakes wrote:
+> > > On Tue, Jan 27, 2026 at 08:53:44AM -0500, Yury Norov wrote:
+> > > > On Thu, Jan 22, 2026 at 04:06:09PM +0000, Lorenzo Stoakes wrote:
+> >
+> > ...
+> >
+> > > > Even if you expect adding more flags, u128 would double your capacity,
+> > > > and people will still be able to use language-supported operation on
+> > > > the bits in flag. Which looks simpler to me...
+> > >
+> > > u128 isn't supported on all architectures, VMA flags have to have absolutely
+> >
+> > What about big integers?
+> >
+> >         typedef unsigned _BitInt(VMA_FLAGS_COUNT) vma_flags_t
 > 
-> I'd expand on that a bit, based on the previous discussion.
+> There is no use of _BitInt anywhere in the kernel. That seems to be a
+> C23-only feature with limited compiler support that we simply couldn't use
+> yet.
+> 
+> https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3639r0.html tells
+> me that it's supported in clang 16+ and gcc 14+.
+> 
+> We cannot put such a restriction on compilers in the kernel, obviously.
 > 
 > >
-> > (tested on iMac20,1)
+> > > We want to be able to arbitrarily extend this as we please in the future. So
+> > > using u64 wouldn't buy us _anything_ except getting the 32-bit kernels in line.
 > >
-> > Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> > So enabling 32-bit arches is a big deal, even if it's a temporary
+> > solution. Again, how many flags in your opinion are blocked because of
+> > 32-bit integer limitation? How soon 64-bit capacity will get fully
+> > used?
 > 
-> I can't test this, but if nobody chimes in to oppose, I'll take it.
+> In my opinion? I'm not sure where my opinion comes into this? There are 43 VMA
+> flags and 32-bits available in 32-bit kernels.
+> 
+> As I said to you before Yury, when adding new flags you have to add a whole
+> load of mess of #ifdef CONFIG_64BIT ... #endif etc. around things that have
+> nothing to do with 64-bit vs 32-bit architecture as a result.
+> 
+> It's a mess, we've run out.
+> 
+> Also something that might not have occurred to you - there is a chilling
+> effect of limited VMA flag availability - the bar to adding flags is
+> higher, and features that might have used VMA flags but need general kernel
+> support (incl. 32-bit) have to find other ways to store state like this.
+> 
 
-I guess the main problem with a hack like this is that you won't
-be able to get deep pkgC states due to the display hardware not
-going into DC5/6.
+For the record, I fully agree with all of the points you made. I don't think
+it makes sense to hold this change back waiting for a feature that right
+now is relatively unobtainable (also IIRC the ABI around _BitInt was a bit
+unstable and confusing in general, I don't know if that changed).
 
-But I can't immediately think of other issues due this being an
-iGPU, so eg. runtime PCI D3 doesn't really do anything meaningful
-and thus the display hardware remaining powered on shouldn't
-matter that much (apart from the increased power usage).
+The goals are to:
+1) get more than sizeof(unsigned long) * 8 flags so we don't have to uglify
+and gatekeep things behind 64-bit. Also letting us use VMA flags more freely.
+2) not cause any performance/codegen regression
 
-> 
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-> 
-> 
-> > ---
-> >  .../gpu/drm/i915/display/intel_display_device.c    | 14 +++++++++++++-
-> >  1 file changed, 13 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-> > index 1170afaa8680..b1fec1018d7e 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_device.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-> > @@ -3,6 +3,7 @@
-> >   * Copyright © 2023 Intel Corporation
-> >   */
-> >  
-> > +#include <linux/dmi.h>
-> >  #include <linux/pci.h>
-> >  
-> >  #include <drm/drm_color_mgmt.h>
-> > @@ -1435,7 +1436,18 @@ static bool has_no_display(struct pci_dev *pdev)
-> >  		{}
-> >  	};
-> >  
-> > -	return pci_match_id(ids, pdev);
-> > +	static const struct dmi_system_id dmi_ids[] = {
-> > +		{
-> > +			.ident = "Apple Inc. iMac",
-> > +			.matches = {
-> > +				DMI_EXACT_MATCH(DMI_BOARD_VENDOR, "Apple Inc."),
-> > +				DMI_MATCH(DMI_PRODUCT_NAME, "iMac"),
-> > +			}
-> > +		},
-> > +		{}
-> > +	};
-> > +
-> > +	return pci_match_id(ids, pdev) || dmi_check_system(dmi_ids);
-> >  }
-> >  
-> >  #define INTEL_DISPLAY_DEVICE(_id, _desc) { .devid = (_id), .desc = (_desc) }
-> 
-> -- 
-> Jani Nikula, Intel
+Yes, the current patchset (and the current state of things too) uglifies
+things a bit, but it also provides things like type safety which are sorely
+needed here. And which 128-bit integers, or N-bit integers would not provide.
+
+And if any of the above suddenly become available to us in the future, it
+will be trivial to change because the VMA flags types will be fully
+encapsulated with proper accessors.
+
+Or perhaps we'll rewrite it all in rust by the end of the decade and this is
+all a moot point, who knows ;)
 
 -- 
-Ville Syrjälä
-Intel
+Pedro
