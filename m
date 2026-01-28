@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91C3DD3F074
-	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E97ED3F07B
+	for <intel-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 15:02:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B0310E70F;
-	Wed, 28 Jan 2026 14:59:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H7LySltt";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7382210E6E0;
- Wed, 28 Jan 2026 14:59:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769612379; x=1801148379;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fEdqgvYFPvWJpsa3pJucaOQlS15fp708qTz479n7NCs=;
- b=H7LySltt/h6jUNDAdShNPobGVTC/3HZmK4X77BA+5ErvNRQLLX9KlSpH
- cj+qzzzNqTy4MDFGVnS99XysPBYNu1+N4csEXCEyrSQGlzQkY/Qek7iaH
- Ehd0luTGbT5T0pxkJ4xkZtFIRzxFDnVuGMkvgutx2fYAXS34ZswLURJOG
- sRpjs9BTtgKcLmn6RswcKf2IpdNR/IxImd7ZnumLAPbbGGtogGzZ73Pe6
- YkPv2pH2EE3B79h1yjXfR/JCQaXcvnjHnETNWN9EoO1hxUnbPoz/I6g80
- zRqC9yD2poKisNTBj6XnAUZLTbZiO1A/Bm2FiiPn6WN99+9PYeEgG09Nf A==;
-X-CSE-ConnectionGUID: 20q1ZJj9QCuqBUoVTsAyNQ==
-X-CSE-MsgGUID: LlMXU17nTZuu3VsZdbze0A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11684"; a="70728175"
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="70728175"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 06:59:38 -0800
-X-CSE-ConnectionGUID: YM8RVOnKQNWBxllIhlbgqg==
-X-CSE-MsgGUID: axgBXTF+TnShPR435SxPkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="212845177"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.207])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 06:59:36 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 4/4] drm/i915/gvt: drop unnecessary include of intel_display.h
-Date: Wed, 28 Jan 2026 16:59:10 +0200
-Message-ID: <32359d5d5feb777ecc7c983d970823218851035f.1769612208.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1769612208.git.jani.nikula@intel.com>
-References: <cover.1769612208.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E66210E6F2;
+	Wed, 28 Jan 2026 15:02:58 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA99D10E6E4;
+ Wed, 28 Jan 2026 15:02:57 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gem=3A?=
+ =?utf-8?q?_Fix_memory_leak_in_i915=5Fgem=5Fdo=5Fexecbuffer=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Zilin Guan" <zilin@seu.edu.cn>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 28 Jan 2026 15:02:57 -0000
+Message-ID: <176961257795.200694.7705945672914486587@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260126152718.276013-1-zilin@seu.edu.cn>
+In-Reply-To: <20260126152718.276013-1-zilin@seu.edu.cn>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,29 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This does not appear to be needed at all.
+== Series Details ==
 
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/gvt/display.c | 1 -
- 1 file changed, 1 deletion(-)
+Series: drm/i915/gem: Fix memory leak in i915_gem_do_execbuffer()
+URL   : https://patchwork.freedesktop.org/series/160768/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/gvt/display.c b/drivers/gpu/drm/i915/gvt/display.c
-index 21341842c0a9..c026526c39f6 100644
---- a/drivers/gpu/drm/i915/gvt/display.c
-+++ b/drivers/gpu/drm/i915/gvt/display.c
-@@ -39,7 +39,6 @@
- #include "display/i9xx_plane_regs.h"
- #include "display/intel_crt_regs.h"
- #include "display/intel_cursor_regs.h"
--#include "display/intel_display.h"
- #include "display/intel_display_regs.h"
- #include "display/intel_dpio_phy.h"
- #include "display/intel_dpll_mgr.h"
--- 
-2.47.3
+== Summary ==
+
+Address 'zilin@seu.edu.cn' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
+
 
