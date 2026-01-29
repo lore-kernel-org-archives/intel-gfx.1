@@ -4,45 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6319D358F9
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 10:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC678D358FB
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 11:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FAED10E329;
-	Thu, 29 Jan 2026 10:33:04 +0000 (UTC)
-Received: from bmailout1.hostsharing.net (bmailout1.hostsharing.net
- [83.223.95.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2EFB10E24F;
- Thu, 29 Jan 2026 10:33:02 +0000 (UTC)
-Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384
- client-signature ECDSA (secp384r1) client-digest SHA384)
- (Client CN "*.hostsharing.net",
- Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
- by bmailout1.hostsharing.net (Postfix) with ESMTPS id 6712B2C06849;
- Thu, 29 Jan 2026 11:33:00 +0100 (CET)
-Received: by h08.hostsharing.net (Postfix, from userid 100393)
- id 5E92C2639F; Thu, 29 Jan 2026 11:33:00 +0100 (CET)
-Date: Thu, 29 Jan 2026 11:33:00 +0100
-From: Lukas Wunner <lukas@wunner.de>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: airlied@gmail.com, ardb@kernel.org, bp@alien8.de,
- dri-devel@lists.freedesktop.org, francescopompo2@gmail.com,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- jani.nikula@linux.intel.com, javierm@redhat.com,
- joonas.lahtinen@linux.intel.com, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, lszubowi@redhat.com,
- rodrigo.vivi@intel.com, simona@ffwll.ch, tursulin@ursulin.net,
- tzimmermann@suse.de
-Subject: Re: [PATCH v2 1/2] efi/libstub: enable apple-set-os for all apple
- devices
-Message-ID: <aXs3XOYucVna8eGH@wunner.de>
-References: <aXovFQsk-w90wZi1@wunner.de>
- <20260129043759.1220-1-atharvatiwarilinuxdev@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 514FF10E31C;
+	Thu, 29 Jan 2026 11:02:48 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PYxsdwZW";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9ED10E102;
+ Thu, 29 Jan 2026 11:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769684567; x=1801220567;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=zyC8VKz5aS6W4/l1+3DxCQ0yH37qtqSXhcpR94LBS74=;
+ b=PYxsdwZWc5Quw/l5A6cwrO8mWgW32uVxJT7bI8Pd00D6gjc2zMXrw/zw
+ RXM58EIOq/Dqv4eAcEYbmH1LNoFPQfTpFStOR15Seg7AXkwkCgAYKPMcm
+ upjBPEOnpZ0YVmb+1jQhv9Rj8nJ6i4IhxfLTlQVHRF/eQbunvf1kIcLIU
+ rmVtHkwRoV7xcDlOe18PiXj+kUWGJN7q5rbYhp2KA0SbntZtTSXaPOQqE
+ dTc07NReJQJL89v/OVQD4zGLSsmNRgwt55fSR7Ldp+JVf9LtgMZeeWA7X
+ iTHp/X16sVuBxtNl1E3CpS8IuQ0geu8yv/l2aolK5Codu835wRyx21J4+ g==;
+X-CSE-ConnectionGUID: PP6WsmEPS4mog35+ELjmWg==
+X-CSE-MsgGUID: VE5dcpH9RpmCGeB0rW7IrA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11685"; a="58501507"
+X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="58501507"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 03:02:46 -0800
+X-CSE-ConnectionGUID: 5dBykHyMS2y5wOws+oIgtw==
+X-CSE-MsgGUID: HvyOjBU/RVu969o7d1l5fQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="239280093"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa002.jf.intel.com with ESMTP; 29 Jan 2026 03:02:45 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: daniele.ceraolospurio@intel.com
+Subject: [PATCH] drm/xe/guc: Fix kernel-doc warning in GuC scheduler ABI header
+Date: Thu, 29 Jan 2026 16:07:30 +0530
+Message-Id: <20260129103730.2289942-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260129043759.1220-1-atharvatiwarilinuxdev@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,32 +65,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 29, 2026 at 04:37:59AM +0000, Atharva Tiwari wrote:
-> > As discussed previously, your patch will regress older MacBook Airs
-> > which use SPI to access keyboard + trackpad if the set_os protocol
-> > is invoked:
-> > 
-> > https://lore.kernel.org/all/ZoJPgSlZJ3ZlU2zL@wunner.de/
-> > 
-> > The last time this topic came up, I suggested counting the number of
-> > GPUs instead of using the DMI quirk.  I even provided a patch but
-> > nobody with an eGPU bothered to test it, so the thread fizzled out:
-> > 
-> > https://lore.kernel.org/all/Z6paeFrjdv7L3mtv@wunner.de/
-> > 
-> > Maybe you could give it a spin and verify if it fixes the issue for you?
-> 
-> I tested your patch, and well it works (you still need the 2nd patch to 
-> avoid a blank screen), but i can see how this will fail
-> like for example, with the iMacPro (only has dGPU) you would need 2 eGPUs
-> to turn on apple-set-os.
+The GuC scheduler ABI header contains a file-level comment that is not
+intended to document a kernel-doc symbol. Using kernel-doc comment
+syntax (/** */) triggers kernel-doc warnings.
 
-I don't quite follow.  The patch counts the number of GPUs and
-uses the set_os protocol if there are at least 2 of them.
-One dGPU + one eGPU = 2, so the protocol is used.
+With "-Werror", this causes the build to fail. Convert the comment to a
+regular block comment.
 
-Am I missing something?
+HDRTEST drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
+Warning: drivers/gpu/drm/xe/abi/guc_scheduler_abi.h:11 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+ * Generic defines required for registration with and submissions to the GuC
+1 warnings as errors
+make[6]: *** [drivers/gpu/drm/xe/Makefile:377: drivers/gpu/drm/xe/abi/guc_scheduler_abi.hdrtest] Error 3
+make[5]: *** [scripts/Makefile.build:544: drivers/gpu/drm/xe] Error 2
+make[4]: *** [scripts/Makefile.build:544: drivers/gpu/drm] Error 2
+make[3]: *** [scripts/Makefile.build:544: drivers/gpu] Error 2
+make[2]: *** [scripts/Makefile.build:544: drivers] Error 2
+make[1]: *** [/home/kbuild2/kernel/Makefile:2088: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
-Thanks,
+Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+---
+ drivers/gpu/drm/xe/abi/guc_scheduler_abi.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Lukas
+diff --git a/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h b/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
+index 513b22a87428..19ec89bf39c5 100644
+--- a/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
++++ b/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
+@@ -8,7 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
+-/**
++/*
+  * Generic defines required for registration with and submissions to the GuC
+  * scheduler. Includes engine class/instance defines and context attributes
+  * (id, priority, etc)
+-- 
+2.25.1
+
