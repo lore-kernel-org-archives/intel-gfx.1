@@ -4,83 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B80AD73E89
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 20:47:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9E3D73E83
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 20:47:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED77310E1D5;
-	Thu, 29 Jan 2026 20:47:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F194110E8C0;
+	Thu, 29 Jan 2026 20:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BSJUV3aw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M89UFxJh";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB2710E6E0
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 14:59:13 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2a7bced39cfso74921415ad.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 06:59:13 -0800 (PST)
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com
+ [209.85.215.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B1B210E2C8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 17:54:08 +0000 (UTC)
+Received: by mail-pg1-f179.google.com with SMTP id
+ 41be03b00d2f7-c46d68f2b4eso698883a12.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 09:54:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769612353; x=1770217153; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=zohHYUiSSiWv89YYYBiAoIYe/d4kRFJrNEy84GzqibY=;
- b=BSJUV3awKpOUUKVs7/md9JOhmVnwpbt6+lFzhoMiuh6MO611G7SYqlH2f6QjMgVQ18
- zdi3sBEuxTM8BbL/jbUq2o69ENRxL6uArJANpzE6pYRPwMdzgsEArYqLpPKwNHL4M7h6
- vq1+A2WChpBhUlRlnzH+xFXlBe/4zyKrq780CLOLY+v4wFhG7ji4e931vzXJSdw8EBqt
- pGukOdlJhNJ/UcMWR3+jJd986qLjcKYU5qXWBz+WMiZ+poWs5L3UAkYZP2LvG82jRGcb
- GMYmZdR44QJOa2s2dlTJnhv4qszw7zCBXuefSJciN8GPiDme+ld7rOt44+dR04KYdxrQ
- muCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769612353; x=1770217153;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1769709248; x=1770314048; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=zohHYUiSSiWv89YYYBiAoIYe/d4kRFJrNEy84GzqibY=;
- b=snl7U+BCV6Ggx1ykRkVu8/X33Sq9/a90BWtR0bWppfZZq9sybkQ/slW15Qw5mec56x
- EdzUiitagSMuz8sPp597cA3mr6SUZdN+6Tt7RP+bjYOPiHhEX9y517vyg581A0089OyA
- 8j4+0vN6YxrK20zHg1yK1HTocuI9mwzSPS60I+f+38r9e/Ao2ZjnqNgQnKdkKskQXPi7
- ReOcAZTq+nP0xMO5wDWVEDsVfiMtHn0+Cp+C9Jvwl+CEdTObReOBolIvauL3INRoXYzj
- AhYvEH0Fsy9AGpyBD5YgFyLvQAYaENoUKxnOXbi7qy+vwm1BZed+olrmyEds49eWIQoK
- 8l5Q==
+ bh=pRBeS4+WQmZOEFMKUG8W1VxyeXhFlcnz8q11qIvwb5g=;
+ b=M89UFxJhHI6qbcUc9gyaDKKcgns+oBNp1sXgGbs/+cZ8rOxn7q3KrpvXeJDV5cT4mT
+ 3vnOx8p8ykM4/8l4hAbOJD5k9fe/RJtLTn3xhE+2KGUrp5dqT4rZggDP7rWLvl0+Bhk5
+ QuCYgJ11M+wyCimScqaqbrMNsFdA/jtdL0qR30rWyBc+Z9TJ2Y2Ar/SdfVJIBaDDb3Vq
+ GUh2+82xnnPWIxksc42RO6XhGtRpDYCynjZkdT70SMsxwvDDcVw/AEYbRYT9EqpvLhSB
+ j4nCGiHC/tz/jYT7I7+p8WvNYMmpKLj8jy0lu3eOC/9NCu9ug0lRTNCDlsQ3ugq9ybzl
+ I8Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769709248; x=1770314048;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pRBeS4+WQmZOEFMKUG8W1VxyeXhFlcnz8q11qIvwb5g=;
+ b=g8s9jqlwmo3EQyslrmqBWxRb2IyOlhQfGMKt93ir8NQbLxK+XEICaXjZ3i8OnVQ98T
+ HarEAl5MyjrHH29o4EiOzf1t9KzIBpzXhTu3gBtps2MEir74fPiHhU10JQtxubtxr+mp
+ UEIgrxPdwrSi9655bKa+s4QCf90wYgXNRHRLDt6eu3PNkMV01fneIXcA3M1Vxb8oL0Wr
+ 5XR7VNcWWRci90wFY4aVBZRtvCEyEjmxzFVgp0/R7HLHNDhuGZUVL3+Owlr+XI9sCHtg
+ vjF64Pm+wq75FEosIMxhjeM6E1Cizl1F/8L6Q5oPMvOBKGMHc/NtPKt3kwXC+jpZ8ejw
+ 51fA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVevGdgvIgo5qMQtC2qx/t3WxefH0YBk0ussj5VEshPRYte1O1lByqQ4mn6eqxvgsJbgaHfJ/hyhGY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6JOpy2MV7bm11nrEnSBQslt9aUb/QWWYoREhi4IJPKpWSJNoy
- 8Z4LRcWQ84/2vvp58KNovDb44IFCvLccgXNy62qdy6zemOfPJbtC5OE=
-X-Gm-Gg: AZuq6aLwQqA3ndxeM6xC8Ar133UjEbv8W6TRri0wOQtX1YdXa55gk6mW/uYqaTX9aFa
- h4JAkH/XSGv6Fv4pP66Wp/HXmLYGDVQcrkHaPY53AmSxG4YbqE4zVh5FtwhsuXth4+pQoC/YZDH
- p5bTexaUytZOq7mV2HjdpdB6eDKhC9SIfW5iuoP8jtolCnomqUMjD+oBxnGwoU/G1dY4lkoRKgY
- nN1b/GJXL92pqEXRZc380JBxoS3s7FTSSIXGTmaVAwA3irLR6pfsmeyF8BSEOutY5CBUsVbeB8E
- 1qC2yxABzzcCn/io1ZstluMlFHdk+MzTRhWQstW/YqJQ3ogfEW5GjUUOtJhNHM8DUMagGuQRUaI
- larty9QBD7yiCNdjvOa5m4K4DevVmJm/Yk3cv8LKTPV1UOTyj0RebSwGKkwN/MXJaKingqKcQ6k
- 2QPkyKiBJXwNKo
-X-Received: by 2002:a17:903:1a88:b0:2a3:e7b6:ab53 with SMTP id
- d9443c01a7336-2a870db403amr54053765ad.22.1769612352864; 
- Wed, 28 Jan 2026 06:59:12 -0800 (PST)
+ AJvYcCUivqOgl5i7eRAPZ25It7OgH1nzRXhzdo1bFVQ33j3EX6/7Kwf51Sc09wmMRIWdMbvkw5GewwXxCAM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx29cOsmbAVu0xLuqneoFosxdU61DK4yV/3HgF+znaDc4fC2f/N
+ DT2DDxaN94+c64bmL9oPHa9eRD7U/h9H4HZZlKnGVToLfD5FyZve9PA=
+X-Gm-Gg: AZuq6aK3fT0bEgDGhMBVWToRudUF5ThUXN6Jp8AQvXH6Qfph4/02fhVNc3fODPSxiMe
+ uAV2t5KFxKZGYnfjbveevRSpI6J+NmNUuyK9PMn5UXyTvEKZ10MddnmK/SVn9K3ZO2oa7pw7HUF
+ 2Zvj2Ae8ktMCH0NiRgoAyQfZk1WBlFUmpKm/Z+yKW9NsUfR8Ahl98cE9TzLX/iAb5XDznpWuW3U
+ J463lQ+OPg4EZMh6xN6METfFA99+Ufy7oOgyTvC9TEHaF3CD3F+lJia/aUI9/vRLeAn5whSAcFE
+ Wz0x5zV9z3+Fp95QIXwdfZVX/zrdJDeYeJuvyS8cL+9gLZ4Ca9mHA3x/wL+hrmn5n5sjIVBWxhX
+ nEVEdmU57ZasWX1Zwpl+Yog7ALBdFTz6nOHEPrpZR2UNiUXP5XGTj6lCdKl9NLIhxrrvhuu09X5
+ fLqCEzo9NnKeeE
+X-Received: by 2002:a17:90a:d60d:b0:32e:38b0:15f4 with SMTP id
+ 98e67ed59e1d1-3543b2dc1c9mr291029a91.7.1769709247945; 
+ Thu, 29 Jan 2026 09:54:07 -0800 (PST)
 Received: from at.. ([171.61.161.8]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a88b5d9a7bsm25820235ad.79.2026.01.28.06.59.06
+ 98e67ed59e1d1-3540f2cb5adsm5952303a91.3.2026.01.29.09.54.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Jan 2026 06:59:12 -0800 (PST)
+ Thu, 29 Jan 2026 09:54:07 -0800 (PST)
 From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lenny Szubowicz <lszubowi@redhat.com>, Ingo Molnar <mingo@kernel.org>,
- Francesco Pompo <francescopompo2@gmail.com>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 0/2] Add support for eGPUs on Apple Products
-Date: Wed, 28 Jan 2026 14:58:36 +0000
-Message-ID: <20260128145855.1071-1-atharvatiwarilinuxdev@gmail.com>
+To: lukas@wunner.de
+Cc: airlied@gmail.com, ardb@kernel.org, atharvatiwarilinuxdev@gmail.com,
+ bp@alien8.de, dri-devel@lists.freedesktop.org, francescopompo2@gmail.com,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, javierm@redhat.com,
+ joonas.lahtinen@linux.intel.com, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lszubowi@redhat.com, rodrigo.vivi@intel.com,
+ simona@ffwll.ch, tursulin@ursulin.net, tzimmermann@suse.de
+Subject: Re: [PATCH v2 1/2] efi/libstub: enable apple-set-os for all apple
+ devices
+Date: Thu, 29 Jan 2026 17:53:58 +0000
+Message-ID: <20260129175358.1100-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aXs3XOYucVna8eGH@wunner.de>
+References: <aXs3XOYucVna8eGH@wunner.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 29 Jan 2026 20:47:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -98,29 +95,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series adds support for eGPUs on Apple products, by
-enabling apple-set-os on all apple devices.
+> I don't quite follow.  The patch counts the number of GPUs and
+> uses the set_os protocol if there are at least 2 of them.
+> One dGPU + one eGPU = 2, so the protocol is used.
+> 
+> Am I missing something?
 
-A side effect of this patch is that the iGPU becomes enabled on iMacs.
-However, iMacs can’t use the iGPU to drive the display
-(They can't link-train the internal display),
-so displays must be disabled on iMacs.
+Well your not, and it was a mistake of me, which i apologize for.
 
-Changes in v2:
-- Reworded cover-letter
-- Transferred logic to has_no_display in the 2nd patch
-
-Link to v1:
-https://lore.kernel.org/all/20260125001111.1269-1-atharvatiwarilinuxdev@gmail.com/
-
-Atharva Tiwari (2):
-  efi/libstub: enable apple-set-os for all apple devices
-  drm/i915/display: Disable display for iMac's
-
- drivers/firmware/efi/libstub/x86-stub.c       | 22 +++++--------------
- .../drm/i915/display/intel_display_device.c   | 13 ++++++++++-
- 2 files changed, 17 insertions(+), 18 deletions(-)
-
--- 
-2.43.0
-
+but i still think a MacBookAir dmi check would be better, as
+theoretically you can connect a eGPU to a 2013/2014 MacBookAir,
+which would enable set-os, and will cause problems in applespi.c
