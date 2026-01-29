@@ -4,27 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08F29D61013
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 13:31:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DC94D61013
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 13:37:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69BE810E869;
-	Thu, 29 Jan 2026 13:31:55 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15A5210E05A;
- Thu, 29 Jan 2026 13:31:55 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2834123699760647097=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id E065410E02B;
+	Thu, 29 Jan 2026 13:37:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mAiyZ2mQ";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB06B10E02B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 13:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769693857; x=1801229857;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=iz0KttqIBwnNO8Z+I0WDIhJ6AGOKKZmSPClOtk0VSdY=;
+ b=mAiyZ2mQV9nxP9erhgvhogMMGY4iI8LAizGSUZgZLX0Yb0F5YWjyu6Wh
+ 37fUAq/hyjB5RjUPqfIuY0PYl/DqR4nvD5XQ0PxGfzl5tbIQHj99VPZzs
+ 7+cX60aHaz+4C3SHzSQq3ctxlTxMP5QQZ+fuGfBiOruh5MbN54uqGP4/U
+ N9YgIoiePBhZyJizED8Fxn4K4OOfItXj4Vp+ptjU97uEy+y9EnwH5G+VV
+ 3z3u5ui7SP+JApv3S6FCJ3jw6RZZCERHJUJUcqHwxMA9AyKa7zBug1TAN
+ NUnp1QfehiUgl7zMuXbFHp4yyicmNigk3M/opZrpo5QMZDUN9oNUjzeDY Q==;
+X-CSE-ConnectionGUID: /kOHCJw6RPmbhB9R+SKRKA==
+X-CSE-MsgGUID: 6kj90h3oT5Chsl0CtOMlXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11685"; a="69947158"
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="69947158"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 05:37:37 -0800
+X-CSE-ConnectionGUID: IjjSuNNzQ2OOxn8Kr3q54Q==
+X-CSE-MsgGUID: bPKsQIkaTlGVT+JnacZIhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="213076354"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.160])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 05:37:35 -0800
+Date: Thu, 29 Jan 2026 14:37:32 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>, maxime.ripard@kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v6 0/2] Miscellaneous fixes in drm code
+Message-ID: <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
+References: <20260120154824.1864085-1-krzysztof.karas@intel.com>
+ <aXtFHm4Y94jf0YXd@ashyti-mobl2.lan>
+ <52e0096c310d346b23fa65b56837b4e0ecc09d58@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/guc=3A_Fix_kernel-?=
- =?utf-8?q?doc_warning_in_GuC_scheduler_ABI_header?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 29 Jan 2026 13:31:55 -0000
-Message-ID: <176969351508.205652.16019188152325350052@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260129103730.2289942-1-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260129103730.2289942-1-chaitanya.kumar.borah@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <52e0096c310d346b23fa65b56837b4e0ecc09d58@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,128 +73,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2834123699760647097==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Jan 29, 2026 at 03:10:44PM +0200, Jani Nikula wrote:
+> On Thu, 29 Jan 2026, Andi Shyti <andi.shyti@linux.intel.com> wrote:
+> > Hi Krzysztof,
+> >
+> >> Krzysztof Karas (2):
+> >>   drm: Warn before division by 0 would occur
+> >>   drm: Avoid suspicious operations in drm_fb_dma_get_gem_addr()
+> >> 
+> >>  drivers/gpu/drm/drm_fb_dma_helper.c | 7 +++++--
+> >>  1 file changed, 5 insertions(+), 2 deletions(-)
+> >
+> > merged to drm-intel-gt-next.
+> 
+> ...but neither commit belongs in drm-intel-gt-next, they belong in
+> drm-misc-next!
+> 
+> Cc: drm-misc maintainers, how do you want to resolve this?
 
-== Series Details ==
+Ah... sorry! I was taken by the habit!
 
-Series: drm/xe/guc: Fix kernel-doc warning in GuC scheduler ABI header
-URL   : https://patchwork.freedesktop.org/series/160836/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_17904 -> Patchwork_160836v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/index.html
-
-Participating hosts (43 -> 40)
-------------------------------
-
-  Missing    (3): bat-dg2-13 bat-jsl-1 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_160836v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-9:          [DMESG-FAIL][1] ([i915#12061]) -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17904/bat-dg2-9/igt@i915_selftest@live@workarounds.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/bat-dg2-9/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_17904 -> Patchwork_160836v1
-
-  CI-20190529: 20190529
-  CI_DRM_17904: 7d2c5f861ae9bbed1464e1a6aa39a9055139a4b0 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8724: 6a10d1136a4e856cc4ceb5b899c32b03ed8ddc5e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_160836v1: 7d2c5f861ae9bbed1464e1a6aa39a9055139a4b0 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/index.html
-
---===============2834123699760647097==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/xe/guc: Fix kernel-doc warning in GuC scheduler ABI header</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/160836/">https://patchwork.freedesktop.org/series/160836/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_17904 -&gt; Patchwork_160836v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/index.html</p>
-<h2>Participating hosts (43 -&gt; 40)</h2>
-<p>Missing    (3): bat-dg2-13 bat-jsl-1 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_160836v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17904/bat-dg2-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_160836v1/bat-dg2-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_17904 -&gt; Patchwork_160836v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_17904: 7d2c5f861ae9bbed1464e1a6aa39a9055139a4b0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8724: 6a10d1136a4e856cc4ceb5b899c32b03ed8ddc5e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_160836v1: 7d2c5f861ae9bbed1464e1a6aa39a9055139a4b0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2834123699760647097==--
+Andi
