@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E9DD6101C
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 14:29:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAB10D3F09D
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 17:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2B110E872;
-	Thu, 29 Jan 2026 14:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2F7E10E8A6;
+	Thu, 29 Jan 2026 17:01:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PqaOgpYp";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z9kRArO1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9692210E877
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 14:29:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 107EC10E2AC;
+ Thu, 29 Jan 2026 17:01:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769696962; x=1801232962;
- h=mime-version:content-transfer-encoding:in-reply-to:
- references:subject:from:cc:to:date:message-id;
- bh=bO+yjD6a2ZSMRvIgXiAEPSgOlFm0zWTN05XBiY53FfM=;
- b=PqaOgpYpAjzcX9fDA2+gDEIK6mWhdua8+6Jl7h2IccSV69bBo/64tDXN
- q9lcR5YEtOLE5lsj+BCqNZTRyNbEWwkLEax8uFRi8zCLto+ZW/+93dDLM
- /thM/T9Ag8gzAk5d4TFXl7FiWPKnTPEJvypo+4KnlQwp/ZZEZ2+RZHncu
- bEou31aji2CVyhxJ5HRFOu0phj6Fx76K0qWXoCF0upOGYFRs6GN6WtZxh
- SJ90Fvi2RKXyvP4j2IE2BQGDTXLjJYfuO9SumfR/K2BQHGYBL2U/fEBYx
- 6wAzKSs6rZrmIYErO2I74XXTxSqMHx91q+BqTiNBfXdVUuLZiJ+YqXxN5 g==;
-X-CSE-ConnectionGUID: QI9Gqd2uQnSeJdbU0cDAvA==
-X-CSE-MsgGUID: JyAJLkxpQMyn2LDW9LRdgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="96400112"
-X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="96400112"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 06:29:21 -0800
-X-CSE-ConnectionGUID: HSGqkLl9RXOa9Szh15nX0w==
-X-CSE-MsgGUID: xSWedFVzSIK9yoHCbgDJuQ==
+ t=1769706106; x=1801242106;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=COUeNXezoot5hHSoYeek1JCCGkRvQwOzVer6CimPFEY=;
+ b=Z9kRArO1RbyayF7snuT7IST5yrPTAWg9Y1Lz1MAPheU1Gbf4wuASpCrC
+ viYDr1gXW8G5WRLbbx87pG51XRMtC+oz2YgViMBUtbZrY3bDCw85E938+
+ W3t11dvOCsnTpgO5BIVCV66t3DH2VLIIVEql04CiwA0u38EsO9KbHnytY
+ pFapiOHY8gqqjJfJI6RMyvaM9nBYkDAOgvrt58Jxl6FzuxSNcnkzBL76U
+ paFRykSPZnrdiq/ECls/4Wi8Q5JxvjdKwOl86TRmzVHD4vLZeSuPT1aRN
+ UgDlsATkkmIp2lsw2YFpitT1vsE8crPNACiz0L2hFB2oFQr+eos/ZTOIE w==;
+X-CSE-ConnectionGUID: xKMq4SebT6ivMk7X3JqH6Q==
+X-CSE-MsgGUID: +1WiO5LfTqKO/Jppd204jQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="73546942"
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="73546942"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 09:01:45 -0800
+X-CSE-ConnectionGUID: QmK4vWY/TN2yqcEmz8sveQ==
+X-CSE-MsgGUID: wzPqhYGAQaa3oBpTTU7kvw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="207705598"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.118])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 06:29:18 -0800
-Content-Type: text/plain; charset="utf-8"
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="208412919"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.203])
+ ([10.245.245.203])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 09:01:41 -0800
+Message-ID: <a34d967e-b111-4b29-8c97-af3e77b5d33e@linux.intel.com>
+Date: Thu, 29 Jan 2026 18:01:38 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
-References: <20260120154824.1864085-1-krzysztof.karas@intel.com>
- <aXtFHm4Y94jf0YXd@ashyti-mobl2.lan>
- <52e0096c310d346b23fa65b56837b4e0ecc09d58@intel.com>
- <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
-Subject: Re: [PATCH v6 0/2] Miscellaneous fixes in drm code
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, intel-gfx@lists.freedesktop.org,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>, maxime.ripard@kernel.org,
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>
-To: Andi Shyti <andi.shyti@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Jani Nikula <jani.nikula@linux.intel.com>
-Date: Thu, 29 Jan 2026 16:29:15 +0200
-Message-ID: <176969695526.66661.6414120924505935818@jlahtine-mobl>
-User-Agent: alot/0.12.dev7+g16b50e5f
+Subject: [PULL] drm-misc-fixes
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,31 +77,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Quoting Andi Shyti (2026-01-29 15:37:32)
-> On Thu, Jan 29, 2026 at 03:10:44PM +0200, Jani Nikula wrote:
-> > On Thu, 29 Jan 2026, Andi Shyti <andi.shyti@linux.intel.com> wrote:
-> > > Hi Krzysztof,
-> > >
-> > >> Krzysztof Karas (2):
-> > >>   drm: Warn before division by 0 would occur
-> > >>   drm: Avoid suspicious operations in drm_fb_dma_get_gem_addr()
-> > >>=20
-> > >>  drivers/gpu/drm/drm_fb_dma_helper.c | 7 +++++--
-> > >>  1 file changed, 5 insertions(+), 2 deletions(-)
-> > >
-> > > merged to drm-intel-gt-next.
-> >=20
-> > ...but neither commit belongs in drm-intel-gt-next, they belong in
-> > drm-misc-next!
-> >=20
-> > Cc: drm-misc maintainers, how do you want to resolve this?
->=20
-> Ah... sorry! I was taken by the habit!
+Hi Dave, Simona,
 
-Missed this mail but noticed the issue raised by Maarten in IRC so I
-force-pushed drm-intel-gt-next without the 2 commits as they still were
-the topmost commits.
+2 small fixes for the next rc/final.
 
-Regards, Joonas
+The WARN_ON() fix seemed noticeable enough to send a pull request.
 
-> Andi
+Kind regards,
+~Maarten Lankhorst
+
+drm-misc-fixes-2026-01-29:
+drm-misc-fixes for v6.19-rc8:
+- Fix a WARN_ON() when passing an invalid handle to
+  drm_gem_change_handle_ioctl()
+- drop ddc device reference when unloading in imx/tve.
+The following changes since commit 0a095b64fa5b4b1edfeb2e9b1751e044230c5d73:
+
+  drm/i915/display: Fix color pipeline enum name leak (2026-01-22 10:26:55 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-01-29
+
+for you to fetch changes up to e535c23513c63f02f67e3e09e0787907029efeaf:
+
+  drm/imx/tve: fix probe device leak (2026-01-28 10:53:19 +0100)
+
+----------------------------------------------------------------
+drm-misc-fixes for v6.19-rc8:
+- Fix a WARN_ON() when passing an invalid handle to
+  drm_gem_change_handle_ioctl()
+- drop ddc device reference when unloading in imx/tve.
+
+----------------------------------------------------------------
+Johan Hovold (1):
+      drm/imx/tve: fix probe device leak
+
+Tvrtko Ursulin (1):
+      drm: Do not allow userspace to trigger kernel warnings in drm_gem_change_handle_ioctl()
+
+ drivers/gpu/drm/drm_gem.c           | 18 ++++++++++++------
+ drivers/gpu/drm/imx/ipuv3/imx-tve.c | 13 +++++++++++++
+ 2 files changed, 25 insertions(+), 6 deletions(-)
