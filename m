@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCDAD6101A
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 14:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E9DD6101C
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 14:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D66E210E86D;
-	Thu, 29 Jan 2026 14:29:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC2B110E872;
+	Thu, 29 Jan 2026 14:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iMuHsy3c";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PqaOgpYp";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E50010E874
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 14:29:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9692210E877
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 14:29:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769696955; x=1801232955;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=rH6nDmXf1+xTHI5+13GwAaIseMia/bFUNXNU7oCNsrU=;
- b=iMuHsy3cSxL7K7LmAja3TZIFTLHWhNA4QqdJGSSNoBrzWFHsTttOcJfH
- u09KrlhF7XEefhKilkv6lHvBn4HnkSIFFOrcKvTTbY4bwez4H1s0jdHZE
- sxpUJBGgDCHg2lfwAD2jn8dLvIzDHkvs35bHLVS256kUWoQ8jdXCqx6O5
- BJDoXEgL35p6ONcGhE3bK4e5r2dyFQkfM1lawMU+A2lwKsRzzktlWEZxB
- vxqYuQFXCDLjMfFA+oUb9Yi6W/Suxt81/DgKJWvLyrmpIG2zhmOIrBjil
- 5CXWv/inolrt5/JbCiVVWzMLkzUsNP+h7q5YprUYQ+3kaK/KAmzFRqFkb Q==;
-X-CSE-ConnectionGUID: CS4cLmKJSpq1qaqhvueOjw==
-X-CSE-MsgGUID: NBsz2JYWS+WcNoW/CoFWmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="96400096"
-X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="96400096"
+ t=1769696962; x=1801232962;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=bO+yjD6a2ZSMRvIgXiAEPSgOlFm0zWTN05XBiY53FfM=;
+ b=PqaOgpYpAjzcX9fDA2+gDEIK6mWhdua8+6Jl7h2IccSV69bBo/64tDXN
+ q9lcR5YEtOLE5lsj+BCqNZTRyNbEWwkLEax8uFRi8zCLto+ZW/+93dDLM
+ /thM/T9Ag8gzAk5d4TFXl7FiWPKnTPEJvypo+4KnlQwp/ZZEZ2+RZHncu
+ bEou31aji2CVyhxJ5HRFOu0phj6Fx76K0qWXoCF0upOGYFRs6GN6WtZxh
+ SJ90Fvi2RKXyvP4j2IE2BQGDTXLjJYfuO9SumfR/K2BQHGYBL2U/fEBYx
+ 6wAzKSs6rZrmIYErO2I74XXTxSqMHx91q+BqTiNBfXdVUuLZiJ+YqXxN5 g==;
+X-CSE-ConnectionGUID: QI9Gqd2uQnSeJdbU0cDAvA==
+X-CSE-MsgGUID: JyAJLkxpQMyn2LDW9LRdgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="96400112"
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="96400112"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 06:29:14 -0800
-X-CSE-ConnectionGUID: 5/mlllJQT7+5E5buhQ7NJA==
-X-CSE-MsgGUID: RRPJdAWrQj2TeGA69DQL1A==
+ 29 Jan 2026 06:29:21 -0800
+X-CSE-ConnectionGUID: HSGqkLl9RXOa9Szh15nX0w==
+X-CSE-MsgGUID: xSWedFVzSIK9yoHCbgDJuQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="207705590"
-Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.160])
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="207705598"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.118])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 06:29:10 -0800
-Date: Thu, 29 Jan 2026 15:29:07 +0100
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>, maxime.ripard@kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Subject: Re: [PATCH v6 0/2] Miscellaneous fixes in drm code
-Message-ID: <aXtus9Lh67K-iKH4@ashyti-mobl2.lan>
+ 29 Jan 2026 06:29:18 -0800
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
 References: <20260120154824.1864085-1-krzysztof.karas@intel.com>
  <aXtFHm4Y94jf0YXd@ashyti-mobl2.lan>
  <52e0096c310d346b23fa65b56837b4e0ecc09d58@intel.com>
  <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aXtinG2JIhLjNWK6@ashyti-mobl2.lan>
+Subject: Re: [PATCH v6 0/2] Miscellaneous fixes in drm code
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, intel-gfx@lists.freedesktop.org,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>, maxime.ripard@kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>
+To: Andi Shyti <andi.shyti@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Date: Thu, 29 Jan 2026 16:29:15 +0200
+Message-ID: <176969695526.66661.6414120924505935818@jlahtine-mobl>
+User-Agent: alot/0.12.dev7+g16b50e5f
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,9 +78,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Thu, Jan 29, 2026 at 02:37:32PM +0100, Andi Shyti wrote:
+Quoting Andi Shyti (2026-01-29 15:37:32)
 > On Thu, Jan 29, 2026 at 03:10:44PM +0200, Jani Nikula wrote:
 > > On Thu, 29 Jan 2026, Andi Shyti <andi.shyti@linux.intel.com> wrote:
 > > > Hi Krzysztof,
@@ -88,19 +86,23 @@ On Thu, Jan 29, 2026 at 02:37:32PM +0100, Andi Shyti wrote:
 > > >> Krzysztof Karas (2):
 > > >>   drm: Warn before division by 0 would occur
 > > >>   drm: Avoid suspicious operations in drm_fb_dma_get_gem_addr()
-> > >> 
+> > >>=20
 > > >>  drivers/gpu/drm/drm_fb_dma_helper.c | 7 +++++--
 > > >>  1 file changed, 5 insertions(+), 2 deletions(-)
 > > >
 > > > merged to drm-intel-gt-next.
-> > 
+> >=20
 > > ...but neither commit belongs in drm-intel-gt-next, they belong in
 > > drm-misc-next!
-> > 
+> >=20
 > > Cc: drm-misc maintainers, how do you want to resolve this?
-> 
+>=20
 > Ah... sorry! I was taken by the habit!
 
-Joonas has reverted them. Thanks a lot, Joonas!
+Missed this mail but noticed the issue raised by Maarten in IRC so I
+force-pushed drm-intel-gt-next without the 2 commits as they still were
+the topmost commits.
 
-Andi
+Regards, Joonas
+
+> Andi
