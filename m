@@ -4,82 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC9DD73E89
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 20:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CEEFD73E89
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 20:58:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA45F10E8CB;
-	Thu, 29 Jan 2026 20:47:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBDCA10E26E;
+	Thu, 29 Jan 2026 20:58:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="USNDVzpi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PApjLqWd";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2805710E7C5
- for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 04:38:09 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-c0c24d0f4ceso195968a12.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 20:38:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769661488; x=1770266288; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=NtQGOuC29uzt/6xaJHUti83+eOwCdLjkcvzsqNsGu6w=;
- b=USNDVzpi/NMuc4WTVKvX34yX6KxaKMPv456dt/vyTHVVT6nxo2XrrHGxCWLNjxAbRi
- lYqExVzkvjtk74tLsUMlF8c7Mi1vpuMHsTQ9I08zXjvkLol+2bLL0fUtbEVPNqTvXadF
- Hg2Hw8suq+WKq9UtgbJi1O1YYXR2iayZ6xxrQ5SeFso7bsoOcJ3b1o/j3Xj8iXDBj+mB
- uUXX0FK1vC8WAT3xtorZoJ9skrv66i4Fua0AiWZQFYxLC7gCNLTeDQjp2UKnN2HEo47v
- U3maa+ySJV5yNzK93F4pDjilJi2csYHEFBlKWzyXP/TD90nDyQdF7Mn+3L0/MtAJANfu
- fJRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769661488; x=1770266288;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=NtQGOuC29uzt/6xaJHUti83+eOwCdLjkcvzsqNsGu6w=;
- b=KjbCkIjAI4rO7WOnebYGBqj6Sf8VDWtqnAPBrN498KaXuSuTYftleZVNti24V+n/D+
- GPuHe4MIuPYOGCmJaViBj2J7+rVitzPb/1BTCdbNQ8H4JtkskD10BiW9ZRu+sMx3mU/x
- EHSbglxvYwvbxU+tmgsWr7dmFzEICXiDNZ49Uju1kHpHr0kpO0Cj0CBYkzKEw0hxYCS5
- hoJ9zM3EkzcI+RfNxYOBEyUliZ49N4XBFKUfvV1SseF3j+EouIqWgr1RyCAQ2xmqE7fV
- lizZEWCXxwoIJI26ENZQLc+GktqsZU7ykMxleRLSzMMCfrD4G62zuFQ6XJE22Tq61Wa5
- caVA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWGzoRjPZDdhXep7lwV+tZHaZdpW5sK+yT9LIcTANiRhFRTO/bYa95Isw8PhFeT1ZrB9b3B+ADaElQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy5Scz9WlVzQbmFEnEWsMIPdZIHZNmArk/zGa8U49PO4D4MRY71
- UqQvgQ8L/NHVQeoYW3BsjqZ+qAxSrLd1vbDh/WwSWIbJpBT7MVmO66Q=
-X-Gm-Gg: AZuq6aKcGk5KBncQeKO8agPVp2z7kzd6nmHmdLDCaURYdbE1ciGRx0ukicw4DCK7JdQ
- jMmdVp0hnHRS4X9cT6+2epFKwq5Tn6bvEDV3+nRckemTPzsFb882tDBNaD8R20UwegQ8up0OB0V
- GUUL8oN4aPbY6zcbFnQ+v1IhFPUr88+eiN62DVEsJTJyCkjcAogU+Ud94VIerSPEklAGW/QoK6u
- 6NhkR3T9MYilkKNzUNvzj4cAvD7V0EIIGHDVgfapxHAJ51mPX5XTX13CIPG0myhmpDL1eY+DOB9
- R8DLPAUFx0gTca6rKBTRuesCQridOIdet+0PGWntY+GKXxNclG2Y328RZOmC3rmHgQzj9Na+14U
- cpeeTCpOtcnoWSPIKXT8e1YyAimaHxrmdvqKUrTtni5k5sOpKYp5oMbe1XkIS/cgRnh58rAQKBx
- cw+fb0CWVGascR
-X-Received: by 2002:a05:6a20:2d26:b0:38b:e430:156f with SMTP id
- adf61e73a8af0-38ec62c6411mr6930473637.20.1769661488418; 
- Wed, 28 Jan 2026 20:38:08 -0800 (PST)
-Received: from at.. ([171.61.161.8]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c6427e9ce21sm3595710a12.10.2026.01.28.20.38.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Jan 2026 20:38:08 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: lukas@wunner.de
-Cc: airlied@gmail.com, ardb@kernel.org, atharvatiwarilinuxdev@gmail.com,
- bp@alien8.de, dri-devel@lists.freedesktop.org, francescopompo2@gmail.com,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- jani.nikula@linux.intel.com, javierm@redhat.com,
- joonas.lahtinen@linux.intel.com, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, lszubowi@redhat.com, rodrigo.vivi@intel.com,
- simona@ffwll.ch, tursulin@ursulin.net, tzimmermann@suse.de
-Subject: Re: [PATCH v2 1/2] efi/libstub: enable apple-set-os for all apple
- devices
-Date: Thu, 29 Jan 2026 04:37:59 +0000
-Message-ID: <20260129043759.1220-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aXovFQsk-w90wZi1@wunner.de>
-References: <aXovFQsk-w90wZi1@wunner.de>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C4FB10E26E;
+ Thu, 29 Jan 2026 20:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769720293; x=1801256293;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=i41IWj6w769VoO/y7RV/K/d3rD2JitnFJtt5ildpJ9g=;
+ b=PApjLqWdWWOL+xwIFNyV0OY1zJFqoD3oJesKp5oHtf44cUWRCiKehx8f
+ Bh4z+xc/irob8u+wnMx7D/bLHgUZTglMCHGht0JzRHOs8TOoiokbk1o0c
+ HAczxLXvRDe+PCB2e/Sb4uscKHQwVKrvRi1s1zkeRlwBVd3ogYTniEGQB
+ V9qvFyfqMb4AcY/hAul/j00Gq0XyYko1NcFe/KQbymhRkHoDSGnwpiOF2
+ QIM1ryaAb6D9ZEXDn13MSJFyRO0iDzy3wg5HahWAoRFnfksJgqXIhv/Tt
+ 0oqlPnVwVndYf5d/RodxVFVxTqho72aDVJGaf2TcUSLbf5+lF+yILD6V1 g==;
+X-CSE-ConnectionGUID: zLNxLVJ5STGG77JgLINFRA==
+X-CSE-MsgGUID: CvqF29r/SI24/YZWXKnq4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="88545297"
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="88545297"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 12:58:12 -0800
+X-CSE-ConnectionGUID: vwI7K/R1R3ejG3NvWkfC2Q==
+X-CSE-MsgGUID: xNoO6T//ThqYFAMSo6Eprg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,261,1763452800"; d="scan'208";a="239927107"
+Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
+ by fmviesa001.fm.intel.com with ESMTP; 29 Jan 2026 12:58:10 -0800
+From: Uma Shankar <uma.shankar@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [v3 00/19] Make Display free from i915_reg.h
+Date: Fri, 30 Jan 2026 02:43:39 +0530
+Message-ID: <20260129211358.1240283-1-uma.shankar@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 29 Jan 2026 20:47:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,24 +66,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> As discussed previously, your patch will regress older MacBook Airs
-> which use SPI to access keyboard + trackpad if the set_os protocol
-> is invoked:
-> 
-> https://lore.kernel.org/all/ZoJPgSlZJ3ZlU2zL@wunner.de/
-> 
-> The last time this topic came up, I suggested counting the number of
-> GPUs instead of using the DMI quirk.  I even provided a patch but
-> nobody with an eGPU bothered to test it, so the thread fizzled out:
-> 
-> https://lore.kernel.org/all/Z6paeFrjdv7L3mtv@wunner.de/
-> 
-> Maybe you could give it a spin and verify if it fixes the issue for you?
+Move the common register definition to per feature header
+which makes display files free from including i915_reg.h.
+This will help avoid dupicate definitions and includes and can
+serve as a common file for xe, i915 and display module.
 
-I tested your patch, and well it works (you still need the 2nd patch to 
-avoid a blank screen), but i can see how this will fail
-like for example, with the iMacPro (only has dGPU) you would need 2 eGPUs
-to turn on apple-set-os.
+v3:
+- Create per feature modular headers instead of 1 common header (Jani)
+- Commit message and header fixes (Jani)
 
-My opinion is, we disable apple-set-os using a dmi check on the 2013/2014
-MacbookAir models.
+v2:
+- Moved display definitions needed for gvt and clock gating
+  to display header (Jani)
+- Fixed redundant includes
+
+Uma Shankar (19):
+  drm/i915: Extract display registers from i915_reg.h to display
+  drm/i915: Extract South chicken registers from i915_reg.h to display
+  drm/i915: Extract display interrupt definitions
+  drm/i915: Extract DSPCLK_GATE_D from i915_reg to display
+  drm/{i915, xe}: Extract pcode definitions to common header
+  drm/i915: Remove i915_reg.h from intel_display_device.c
+  drm/i915: Remove i915_reg.h from intel_dram.c
+  drm/i915: Remove i915_reg.h from intel_display.c
+  drm/i915: Remove i915_reg.h from intel_overlay.c
+  drm/i915: Remove i915_reg.h from g4x_dp.c
+  drm/i915: Remove i915_reg.h from i9xx_wm.c
+  drm/{i915, xe}: Remove i915_reg.h from g4x_hdmi.c
+  drm/i915: Remove i915_reg.h from intel_rom.c
+  drm/i915: Remove i915_reg.h from intel_psr.c
+  drm/i915: Remove i915_reg.h from intel_fifo_underrun.c
+  drm/i915: Remove i915_reg.h from intel_display_irq.c
+  drm/i915: Remove i915_reg.h from intel_display_power_well.c
+  drm/i915: Remove i915_reg.h from intel_modeset_setup.c
+  drm/{i915, xe}: Remove i915_reg.h from display
+
+ drivers/gpu/drm/i915/display/g4x_dp.c         |   2 +-
+ drivers/gpu/drm/i915/display/g4x_hdmi.c       |   1 -
+ drivers/gpu/drm/i915/display/hsw_ips.c        |   2 +-
+ drivers/gpu/drm/i915/display/i9xx_plane.c     |   1 -
+ drivers/gpu/drm/i915/display/i9xx_wm.c        |   2 +-
+ drivers/gpu/drm/i915/display/icl_dsi.c        |   1 -
+ .../gpu/drm/i915/display/intel_backlight.c    |   1 -
+ drivers/gpu/drm/i915/display/intel_bw.c       |   2 +-
+ drivers/gpu/drm/i915/display/intel_casf.c     |   1 -
+ drivers/gpu/drm/i915/display/intel_cdclk.c    |   2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |   1 -
+ drivers/gpu/drm/i915/display/intel_display.c  |   1 -
+ .../drm/i915/display/intel_display_debugfs.c  |   1 -
+ .../drm/i915/display/intel_display_device.c   |   7 +-
+ .../gpu/drm/i915/display/intel_display_irq.c  |   2 +-
+ .../drm/i915/display/intel_display_power.c    |   2 +-
+ .../i915/display/intel_display_power_well.c   |   2 +-
+ .../gpu/drm/i915/display/intel_display_regs.h | 267 +++++++++-
+ .../gpu/drm/i915/display/intel_display_rps.c  |   2 +-
+ .../gpu/drm/i915/display/intel_display_wa.c   |   1 -
+ drivers/gpu/drm/i915/display/intel_dmc.c      |   1 -
+ drivers/gpu/drm/i915/display/intel_dram.c     |   2 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c      |   1 -
+ .../drm/i915/display/intel_fifo_underrun.c    |   1 -
+ drivers/gpu/drm/i915/display/intel_gmbus.c    |   1 -
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |   2 +-
+ .../gpu/drm/i915/display/intel_hotplug_irq.c  |   1 -
+ drivers/gpu/drm/i915/display/intel_lt_phy.c   |   1 -
+ .../drm/i915/display/intel_modeset_setup.c    |   1 -
+ drivers/gpu/drm/i915/display/intel_overlay.c  |   2 +-
+ .../gpu/drm/i915/display/intel_pch_display.c  |   1 -
+ .../gpu/drm/i915/display/intel_pch_refclk.c   |   1 -
+ drivers/gpu/drm/i915/display/intel_pps.c      |   1 -
+ drivers/gpu/drm/i915/display/intel_psr.c      |   1 -
+ drivers/gpu/drm/i915/display/intel_rom.c      |   3 +-
+ drivers/gpu/drm/i915/display/intel_tc.c       |   1 -
+ drivers/gpu/drm/i915/display/skl_watermark.c  |   2 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c        |   1 -
+ drivers/gpu/drm/i915/gt/intel_gt.c            |   1 +
+ drivers/gpu/drm/i915/gt/intel_gt_irq.c        |   2 +
+ drivers/gpu/drm/i915/gt/intel_rc6.c           |   1 +
+ .../gpu/drm/i915/gt/intel_ring_submission.c   |   1 +
+ drivers/gpu/drm/i915/gvt/handlers.c           |   1 +
+ drivers/gpu/drm/i915/gvt/interrupt.c          |   1 +
+ drivers/gpu/drm/i915/i915_irq.c               |   1 +
+ drivers/gpu/drm/i915/i915_reg.h               | 465 +-----------------
+ drivers/gpu/drm/i915/intel_clock_gating.c     |   3 +-
+ drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |   2 +
+ drivers/gpu/drm/i915/vlv_suspend.c            |   1 +
+ include/drm/intel/intel_gmd_interrupt.h       |  92 ++++
+ include/drm/intel/intel_gmd_misc_regs.h       |  21 +
+ include/drm/intel/intel_pcode.h               | 114 +++++
+ 52 files changed, 525 insertions(+), 506 deletions(-)
+ create mode 100644 include/drm/intel/intel_gmd_interrupt.h
+ create mode 100644 include/drm/intel/intel_gmd_misc_regs.h
+ create mode 100644 include/drm/intel/intel_pcode.h
+
+-- 
+2.50.1
+
