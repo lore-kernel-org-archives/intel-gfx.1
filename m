@@ -4,52 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC678D358FB
-	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 11:02:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A1CDD61008
+	for <intel-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 11:31:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 514FF10E31C;
-	Thu, 29 Jan 2026 11:02:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F040B10E85E;
+	Thu, 29 Jan 2026 11:31:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PYxsdwZW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TL6S0qNc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9ED10E102;
- Thu, 29 Jan 2026 11:02:47 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A76A210E846
+ for <intel-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 11:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769684567; x=1801220567;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=zyC8VKz5aS6W4/l1+3DxCQ0yH37qtqSXhcpR94LBS74=;
- b=PYxsdwZWc5Quw/l5A6cwrO8mWgW32uVxJT7bI8Pd00D6gjc2zMXrw/zw
- RXM58EIOq/Dqv4eAcEYbmH1LNoFPQfTpFStOR15Seg7AXkwkCgAYKPMcm
- upjBPEOnpZ0YVmb+1jQhv9Rj8nJ6i4IhxfLTlQVHRF/eQbunvf1kIcLIU
- rmVtHkwRoV7xcDlOe18PiXj+kUWGJN7q5rbYhp2KA0SbntZtTSXaPOQqE
- dTc07NReJQJL89v/OVQD4zGLSsmNRgwt55fSR7Ldp+JVf9LtgMZeeWA7X
- iTHp/X16sVuBxtNl1E3CpS8IuQ0geu8yv/l2aolK5Codu835wRyx21J4+ g==;
-X-CSE-ConnectionGUID: PP6WsmEPS4mog35+ELjmWg==
-X-CSE-MsgGUID: VE5dcpH9RpmCGeB0rW7IrA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11685"; a="58501507"
-X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="58501507"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 03:02:46 -0800
-X-CSE-ConnectionGUID: 5dBykHyMS2y5wOws+oIgtw==
-X-CSE-MsgGUID: HvyOjBU/RVu969o7d1l5fQ==
+ t=1769686307; x=1801222307;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XGiYL0IdY1B9qHXVNgF5GtpE9q3m7lIZmv3EbhdOJW8=;
+ b=TL6S0qNcp6ZrKDneH/sTVT1iv/R5NG5u2DB3pwiIMavISqebJV7gLUD8
+ UVN2jt50o8alVsBWZqXMj5pK8esmPVYrD4sz4M0z4E4YvosNFTEeBPNU9
+ lnzmox2DVzIa/kDizZK/0Qx/CMcNJqSp5Q7AVWwYHJZg3hcmYPif49Q3t
+ pYVq/wWXg4ccplCjpruD1nlEGm+XXiA9QCzPsvoyGKOeyDkDzfzNzDG3J
+ 6dPLPEvdDFd884dkRCbSSmHFCs/fvv7GKl4F5X2MjgC5qYbpkuS42XVyd
+ Ycaq2YRzd4qa4Vlj7FJ3hNrnslkf8HSre1eOCoiycy4+GxPToltvLCVJi w==;
+X-CSE-ConnectionGUID: v1qXm02tT1qvy3K5AqYOGg==
+X-CSE-MsgGUID: cAH8EoORQL+1PzVFMqedzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11685"; a="82291042"
+X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="82291042"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 03:31:47 -0800
+X-CSE-ConnectionGUID: gISJwUItTBamqHWf5VL5tA==
+X-CSE-MsgGUID: ECFgE5x2RTKMTC1SrRNm8g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="239280093"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by orviesa002.jf.intel.com with ESMTP; 29 Jan 2026 03:02:45 -0800
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: daniele.ceraolospurio@intel.com
-Subject: [PATCH] drm/xe/guc: Fix kernel-doc warning in GuC scheduler ABI header
-Date: Thu, 29 Jan 2026 16:07:30 +0530
-Message-Id: <20260129103730.2289942-1-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=Sophos;i="6.21,260,1763452800"; d="scan'208";a="246180320"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.160])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2026 03:31:45 -0800
+Date: Thu, 29 Jan 2026 12:31:42 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: Re: [PATCH v6 0/2] Miscellaneous fixes in drm code
+Message-ID: <aXtFHm4Y94jf0YXd@ashyti-mobl2.lan>
+References: <20260120154824.1864085-1-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260120154824.1864085-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,43 +71,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The GuC scheduler ABI header contains a file-level comment that is not
-intended to document a kernel-doc symbol. Using kernel-doc comment
-syntax (/** */) triggers kernel-doc warnings.
+Hi Krzysztof,
 
-With "-Werror", this causes the build to fail. Convert the comment to a
-regular block comment.
+> Krzysztof Karas (2):
+>   drm: Warn before division by 0 would occur
+>   drm: Avoid suspicious operations in drm_fb_dma_get_gem_addr()
+> 
+>  drivers/gpu/drm/drm_fb_dma_helper.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 
-HDRTEST drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
-Warning: drivers/gpu/drm/xe/abi/guc_scheduler_abi.h:11 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
- * Generic defines required for registration with and submissions to the GuC
-1 warnings as errors
-make[6]: *** [drivers/gpu/drm/xe/Makefile:377: drivers/gpu/drm/xe/abi/guc_scheduler_abi.hdrtest] Error 3
-make[5]: *** [scripts/Makefile.build:544: drivers/gpu/drm/xe] Error 2
-make[4]: *** [scripts/Makefile.build:544: drivers/gpu/drm] Error 2
-make[3]: *** [scripts/Makefile.build:544: drivers/gpu] Error 2
-make[2]: *** [scripts/Makefile.build:544: drivers] Error 2
-make[1]: *** [/home/kbuild2/kernel/Makefile:2088: .] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+merged to drm-intel-gt-next.
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/xe/abi/guc_scheduler_abi.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h b/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
-index 513b22a87428..19ec89bf39c5 100644
---- a/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
-+++ b/drivers/gpu/drm/xe/abi/guc_scheduler_abi.h
-@@ -8,7 +8,7 @@
- 
- #include <linux/types.h>
- 
--/**
-+/*
-  * Generic defines required for registration with and submissions to the GuC
-  * scheduler. Includes engine class/instance defines and context attributes
-  * (id, priority, etc)
--- 
-2.25.1
-
+Thank you!
+Andi
