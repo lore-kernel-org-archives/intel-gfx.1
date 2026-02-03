@@ -4,85 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34696E87836
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Feb 2026 14:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10FCE87834
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Feb 2026 14:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93E8C10E672;
-	Tue,  3 Feb 2026 14:10:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="grKwTYOR";
-	dkim-atps=neutral
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BCDD10E318
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 07:31:50 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-8220bd582ddso3111078b3a.2
- for <intel-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 23:31:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770103909; x=1770708709; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=f1PNOi1oh0/Zk5XEHIqvUN6ECXvN0Y2KoNmyJjB7WcQ=;
- b=grKwTYOR23LQTLpuIMu5kNiy0e7ZGqO1QTCMWGm+f/l2VEM/AcctZICyQ57JG+szWM
- YWDppChlQMy7uNCPTONtov2a6I4myWEnehRUXJfr69sHQGZG9DSR+M2d4lRda5oMjaYc
- 2AE5fzECzEWtAEyaiZCUZegfsKs1O9exrUNnx6BIkmUyrUNyhRJXVQGQUOFSdhof44Np
- f0UkvqM+WSGEAh+gIuJn3QIbMreNLop/PR3ZGWHfJ9CQoTZVXYq0P296iXe9+r0S4Ih+
- whj0fgE9bVlbISvyk9U5KtLFzsT+iZvn3GtKr+xxKIXv1HlMjvuRd1HcTLe2CP9IoJr5
- ha+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770103909; x=1770708709;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=f1PNOi1oh0/Zk5XEHIqvUN6ECXvN0Y2KoNmyJjB7WcQ=;
- b=i0Kfbo69lA9BtmqCSBtZyJ6J+UXqTTk2X8mp7K4g2TPyIr8WgjvfAq8cByDUQPpooN
- 07aKwXU2PF0kDj3/VWjwabzNEubGSTKqJGTiGtwqb5wmh+7t1Bxe0pkOYNZWia1YGWGI
- E+L9oRou+xCl9XA4Z7++YLd3oi3h9xiZGyXmAP9rnVU69GYZcJfY8hCmrAdvJXmxqazm
- QffpxypSrlYbAMjBNxWxYpQvZYuWSA+7FEdAoRn2i3o5XtI2AqkpVWcYq+C68lAwFdpv
- 7SS4JG41Mp4I83ERi+mSgi/+4X2t9cZLul7GBCoYUFF2uU1XnHNJZzEdVQlDJjaP+coM
- Hfvg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXfXo8avdUbsYFPhniXlSXD6IVt9Iqq5fwSnMoe0ajLSnw31nYeJp5HqoQqvqs01ephNW5SBc3Wnak=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoW5hcPgxm2nIOj24lh5mk3z7L+bDaI+ak0tsoOA0NMLJ5Bs9j
- Tt13keBr8TJh0MlwivlR9SQ+gWXgbNaJpSqKsSh+EXhJ5IDgpnfXDlU=
-X-Gm-Gg: AZuq6aJRSRdESUrWjXGCLxMVcux+wgJpV71o7mpOJja3Jly8uSrPVrtmHwVwTwyqbGW
- EO3AnLrbHdG+GL1xVLJ4ZYqqKbnjuR7yPJb+zbkf55qAV+FX6+7YuybXc15uRT+DpsAschBAIh1
- 79jNSbbfD/H2ZuPqyf0/T4nzyS4EnXpKtXjD2OKsxqce51YRzAgoqgV17zRRMeQpB8OxaFO1SVB
- ey3/OfTwzzUy4T7AH32Z5w2ygGtKTJi5/wkzmA9FX1BlbWmsH3aZczy7DgTfUky1RFwz43myq9Q
- UoH6i9PFibguFbSd7jR+n6YhLGz2teL4rwatjD1/3H2cv5ZKAPhw+hzNKx15dLHLcK/khDdlnSf
- AZ3Cq4eJr69rfBeaYZLrQqAto0Ibki0ppqYZAtQ1qnLl44+euBij6rfuvAzYAFvxS0k4xPIm60F
- Wl88zYnXzE7sW5rTY=
-X-Received: by 2002:a05:6300:4093:b0:38d:e674:b5ef with SMTP id
- adf61e73a8af0-392e01aa144mr12357123637.75.1770103909557; 
- Mon, 02 Feb 2026 23:31:49 -0800 (PST)
-Received: from at.. ([171.61.163.171]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a8dc225534sm108280865ad.68.2026.02.02.23.31.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Feb 2026 23:31:49 -0800 (PST)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Ard Biesheuvel <ardb@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Francesco Pompo <francescopompo2@gmail.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>,
- Lenny Szubowicz <lszubowi@redhat.com>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/2] Add support for eGPUs on Apple Products
-Date: Tue,  3 Feb 2026 07:31:16 +0000
-Message-ID: <20260203073130.1111-1-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6123D10E684;
+	Tue,  3 Feb 2026 14:12:49 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC52210E681;
+ Tue,  3 Feb 2026 14:12:48 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 03 Feb 2026 14:10:02 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_Add_support_for?=
+ =?utf-8?q?_eGPUs_on_Apple_Products_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Atharva Tiwari" <atharvatiwarilinuxdev@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 03 Feb 2026 14:12:48 -0000
+Message-ID: <177012796894.219828.4032090295869231100@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260203073130.1111-1-atharvatiwarilinuxdev@gmail.com>
+In-Reply-To: <20260203073130.1111-1-atharvatiwarilinuxdev@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,38 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series adds support for eGPUs on Apple products, by
-enabling apple-set-os on all apple devices.
+== Series Details ==
 
-A side effect of this patch is that the iGPU becomes enabled on iMacs.
-However, iMacs can’t use the iGPU to drive the display
-(They can't link-train the internal display),
-so displays must be disabled on iMacs.
+Series: Add support for eGPUs on Apple Products (rev3)
+URL   : https://patchwork.freedesktop.org/series/160655/
+State : failure
 
-Changes in v3:
-- Disabled apple-set-os on MacBookAir6,1 and 7,1 to avoid regressions
-- Reworded 1st patch
-Changes in v2:
-- Reworded cover-letter
-- Transferred logic to has_no_display in the 2nd patch
+== Summary ==
 
-Link to v2:
-https://lore.kernel.org/all/20260128145855.1071-1-atharvatiwarilinuxdev@gmail.com/#t
+Address 'atharvatiwarilinuxdev@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
-Link to v1:
-https://lore.kernel.org/all/20260125001111.1269-1-atharvatiwarilinuxdev@gmail.com/
-
-Atharva Tiwari (2):
-  efi/libstub: Enable apple-set-os for most apple devices
-  drm/i915/display: Disable display for iMac's
-
- drivers/firmware/efi/libstub/x86-stub.c       | 20 +++++++------------
- .../drm/i915/display/intel_display_device.c   | 14 ++++++++++++-
- 2 files changed, 20 insertions(+), 14 deletions(-)
-
--- 
-2.43.0
 
