@@ -4,27 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D5FE8782A
-	for <intel-gfx@archiver.kernel.org>; Tue,  3 Feb 2026 13:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F4CE87838
+	for <intel-gfx@archiver.kernel.org>; Tue,  3 Feb 2026 14:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A31C510E657;
-	Tue,  3 Feb 2026 13:41:26 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97DFB10E32D;
- Tue,  3 Feb 2026 13:41:25 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id A77CC10E676;
+	Tue,  3 Feb 2026 14:10:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gTonk76a";
+	dkim-atps=neutral
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0716810E554
+ for <intel-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 07:31:58 +0000 (UTC)
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-2a91215c158so14083745ad.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 23:31:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770103917; x=1770708717; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JuaUAhd1+lDG6wBrbXZqMO2C5ILHdpZJbCQrItpX1Ck=;
+ b=gTonk76alwH4yy8cx56qmvYfNpF1qCr0VU3ZwOVfQHWqOtiQcdIADX8mXwke0XmEvl
+ XwzkUqMRzPA/B01o27K+jQ/kyHqiWLf7RddTa7DpUc0AtpA4NAiZ6+aE4p3mfUYC7Q9O
+ ylfYpflz7pkRzoB7A81s3wFF/OgjSWN+dvnwmqdIR8PPH2XpkJYlC3UpCXwcpaSryPwR
+ u4P/Zp2DCq/OFGwWmsB4aop0TABTvvsJEXTle5bA38X6HbGGEqZSveUN62vyB2beS4Wh
+ UoE84yTmaCH1ZF4gOEQ1y2Lo2RbMuJsoGfswOzWWsnOXf//uqCz0w2fk+hePAljr/byF
+ PYaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770103917; x=1770708717;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=JuaUAhd1+lDG6wBrbXZqMO2C5ILHdpZJbCQrItpX1Ck=;
+ b=T5PZeGq9eFAN0GTwuUcEbbGFUG5gNvQFKYY5XnEdKk3zJbOEqvWFtVcdRYX8Lf52dw
+ 76Mix7zDYAShGjN7af5NUNbz4HvpzDAOxb+MzCyAw2ITI4AXHsuXbEop+5pei+RHvrKr
+ 1YXegjnqB0wWVJVyfBrrfhWHS/u3mMvz4Witcq+AAsRbMdZghML+SuhBfr6SVpSPpG+Q
+ 5mRGUTxyN2esP7GWbN4yEMwa2CPK9n3BCx+RjBUrJ0/oT+M8BIpwoHuU6RQrJVHPCfu4
+ 08RdOyBO4WJihlXYd2RWRmTxCJFjnJHVApd+youBid+34sspY2sZi/78m7qTMeiFVM0G
+ Edfg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVUZ+qzovJjCBC7zUisEy+UTSAuVwKzLNTysG+7jf2jgI7DInGH8cQqZZT30IowTo+FYRsAidN3mIM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxC+l3ABSEcPLtNOZpdIIVvvx4fTlU7OiBjGoXAp1JlIQXV5qyG
+ PeStTrwlNyMm1C9PLYCK1AJ8NGTJ9twesbXustIbgssqUZvS9kPacfaq8hs4
+X-Gm-Gg: AZuq6aIm12ZZfTdannmdps3ncd3QwnPgzaG0A2j2+orlzzuEnCeqNgC0/0QfYq3lpuY
+ 4/cek72fWLbS+anliWuehERs+lthqb3SaxyzrJ+0VF4CFgLC4CVTcSvSzgmIZ1wSbbSESWiPV6Z
+ ft0LsadHo9sOYdpCbp7QDsGBiaXswNNytm/31PrLIUikMfLKvZq4DODzuw+o+xufGLFg7cNVfdD
+ vFJMjjYxmCIOkYiDd6lfIonnmPLaRScMIiri0CjuSRMtvEZJom7nvYhb+sCnXRak1Gt/NVdEmst
+ U//bcz4hxIiThNdK3lOnEFCiXbcJT7ucjps7p6XIKBB5QxwYUf6+smnSBoIV8oTy7l9uXhwm0GA
+ UVJ9Aiz/w94thMby5Vv32nFxyF9G9XqanjXkKhup94evDwh5GN9KiUGOBIWonzqXw2WJZ5t3SOt
+ HH2XPGpdk0C+wB6M+mCvSi09kbcA==
+X-Received: by 2002:a17:903:1ac8:b0:2a0:d728:2e79 with SMTP id
+ d9443c01a7336-2a8d7ed9bcbmr138418055ad.16.1770103917493; 
+ Mon, 02 Feb 2026 23:31:57 -0800 (PST)
+Received: from at.. ([171.61.163.171]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2a8dc225534sm108280865ad.68.2026.02.02.23.31.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Feb 2026 23:31:57 -0800 (PST)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lenny Szubowicz <lszubowi@redhat.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Francesco Pompo <francescopompo2@gmail.com>, linux-efi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 1/2] efi/libstub: Enable apple-set-os for most apple devices
+Date: Tue,  3 Feb 2026 07:31:17 +0000
+Message-ID: <20260203073130.1111-2-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260203073130.1111-1-atharvatiwarilinuxdev@gmail.com>
+References: <20260203073130.1111-1-atharvatiwarilinuxdev@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/selftests=3A_Pre?=
- =?utf-8?q?vent_userspace_mapping_invalidation_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 03 Feb 2026 13:41:25 -0000
-Message-ID: <177012608559.219349.6937622437230637714@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <5biajlwhi3oaep72si2dj2lhp2xwrpfa2gxqc2l36464uishjo@g26isdq64nv2>
-In-Reply-To: <5biajlwhi3oaep72si2dj2lhp2xwrpfa2gxqc2l36464uishjo@g26isdq64nv2>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 03 Feb 2026 14:10:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,31 +98,61 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+Enable apple-set-os on Apple Mac systems by default.
 
-Series: drm/i915/selftests: Prevent userspace mapping invalidation (rev3)
-URL   : https://patchwork.freedesktop.org/series/160096/
-State : failure
+Exclude MacBook6,2 and MacBookAir7,2, as enabling apple-set-os on
+these models causes regressions.
 
-== Summary ==
+(tested on iMac20,1)
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/160096/revisions/3/mbox/ not applied
-Applying: drm/i915/selftests: Prevent userspace mapping invalidation
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0001 drm/i915/selftests: Prevent userspace mapping invalidation
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/firmware/efi/libstub/x86-stub.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
+index cef32e2c82d8..532a713adef5 100644
+--- a/drivers/firmware/efi/libstub/x86-stub.c
++++ b/drivers/firmware/efi/libstub/x86-stub.c
+@@ -303,15 +303,9 @@ static const struct efi_smbios_record *get_table_record(u8 type)
+ 
+ static bool apple_match_product_name(void)
+ {
+-	static const char type1_product_matches[][15] = {
+-		"MacBookPro11,3",
+-		"MacBookPro11,5",
+-		"MacBookPro13,3",
+-		"MacBookPro14,3",
+-		"MacBookPro15,1",
+-		"MacBookPro15,3",
+-		"MacBookPro16,1",
+-		"MacBookPro16,4",
++	static const char disabled_product_matches[][14] = {
++		"MacBookPro6,2",
++		"MacBookPro7,2",
+ 	};
+ 	const struct efi_smbios_type1_record *record;
+ 	const u8 *product;
+@@ -325,12 +319,12 @@ static bool apple_match_product_name(void)
+ 	if (!product)
+ 		return false;
+ 
+-	for (int i = 0; i < ARRAY_SIZE(type1_product_matches); i++) {
+-		if (!strcmp(product, type1_product_matches[i]))
+-			return true;
++	for (int i = 0; i < ARRAY_SIZE(disabled_product_matches); i++) {
++		if (!strcmp(product, disabled_product_matches[i]))
++			return false;
+ 	}
+ 
+-	return false;
++	return true;
+ }
+ 
+ static void apple_set_os(void)
+-- 
+2.43.0
 
