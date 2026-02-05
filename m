@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E928EC1E80
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 09:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D313DEC1E84
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 09:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A28B510E847;
-	Thu,  5 Feb 2026 09:28:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17E5010E858;
+	Thu,  5 Feb 2026 09:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XoIfzknw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JefFpZc9";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0644910E839;
- Thu,  5 Feb 2026 09:28:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6EEC10E843;
+ Thu,  5 Feb 2026 09:28:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770283699; x=1801819699;
+ t=1770283705; x=1801819705;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=xoKo1lVsyQ/SvYmXGNzI3ZaRzRdQrEuEZPsT6S4kwAI=;
- b=XoIfzknwRFg5MlNTOaVc8B1ZCRFBVDgH62FaaDtEewti9PCymZ6cMNUD
- YSDTxMrpTjrDTjMhcC5E4lxdkFDxQaznl8HNjtMsYWg252KMQ3DuEpLAf
- TS6C7SRGb6OIzJ91o/9nE5EDUQJIN0PrLVezoxF9V5ccUYrJOcwb/f01q
- 3/chw7k8x6ylucYwBOidOqKy7JFB5L7DOygdQuV0vMDeRonee/PqwXqA8
- 6yGr0BovCN9oPDYXDXreQUyVIzARLg8xzGSdruwa4mqUpVg0NTKhO3jht
- JoqY9azoVGyNu6lCreTR6WsVspoub+Sqp1+Pg0QjgHPzf9WoGqjhL4Fb/ Q==;
-X-CSE-ConnectionGUID: 0fYah5DPT4mLxGOzTtZVTA==
-X-CSE-MsgGUID: ctZ6mYa9TmmXzdoDS6fCzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="89060123"
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="89060123"
+ bh=E4i/7XhIYPIDAyRmGf0nVPAV2+nefZLbev2YX90Jil8=;
+ b=JefFpZc9ciM47STUC0QbZeoE+cGDsP2TFGyMrq6JcNjsWPXd4FNhc4Fm
+ iO6HEIWvd/VRr8mv2d9bSYqwhHT3Ptuew7ZR5mI2l1LFEKdqGedN5QbnG
+ 4BSlOdcHJ5ppP/no4W+5XM/2MdWJQGlPXyU09reU4tGHN+6Bl1cG0JzDu
+ YVP1RWIA7RJWK3TuA+TgVqDgTrrxwu7pSSYpP6o4BJV4JgYoNHxCK8g0g
+ oQVh4GIFAeLb/WVSZ89Y+2Ypt4L4L65F1KGwY53boy+HL5GwYq2Xi77fQ
+ XcdqpiH5W3Cikv/m+U/q6oA4xqGWE/FrOOVispLkd/p0B4xnbMUfW7Y6S w==;
+X-CSE-ConnectionGUID: 9IL1535KT3m9hIaJZb7Zhw==
+X-CSE-MsgGUID: mNqrqdXNR5KyEXLl9x9iHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="89060134"
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="89060134"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 01:28:19 -0800
-X-CSE-ConnectionGUID: 77xRyZc3SCeIVhc+WQm0yA==
-X-CSE-MsgGUID: HfSNCdupRsiQZWAYHRnXRA==
+ 05 Feb 2026 01:28:25 -0800
+X-CSE-ConnectionGUID: 0YthRyEwQJWYj3HfI2foBQ==
+X-CSE-MsgGUID: j34rEPjkRqaQiQ59zKRMiQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="209807792"
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="209807805"
 Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa007.fm.intel.com with ESMTP; 05 Feb 2026 01:28:17 -0800
+ by fmviesa007.fm.intel.com with ESMTP; 05 Feb 2026 01:28:23 -0800
 From: Uma Shankar <uma.shankar@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  Uma Shankar <uma.shankar@intel.com>
-Subject: [v4 12/20] drm/i915: Remove i915_reg.h from i9xx_wm.c
-Date: Thu,  5 Feb 2026 15:13:33 +0530
-Message-ID: <20260205094341.1882816-13-uma.shankar@intel.com>
+Subject: [v4 15/20] drm/i915: Remove i915_reg.h from intel_psr.c
+Date: Thu,  5 Feb 2026 15:13:36 +0530
+Message-ID: <20260205094341.1882816-16-uma.shankar@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260205094341.1882816-1-uma.shankar@intel.com>
 References: <20260205094341.1882816-1-uma.shankar@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,241 +68,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Move FW_BLC_SELF to common header to make i9xx_wm.c
-free from i915_reg.h include. Introduce a common
-intel_gmd_misc_regs.h to define common miscellaneous
-register definitions across graphics and display.
+Move some chicken registers to display header to make
+intel_psr.c free from including i915_reg.h.
 
-v3: MISC header included as needed, drop from i915_reg (Jani)
+v3: Update commit header
 
-v2: Introdue a common misc header for GMD
+v2: Use display header instead of gmd common include (Jani)
 
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/i9xx_wm.c        |  2 +-
- .../drm/i915/display/intel_display_debugfs.c  |  1 +
- .../gpu/drm/i915/display/intel_display_regs.h |  7 ++++++-
- drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c  |  1 +
- .../gpu/drm/i915/gt/intel_ring_submission.c   |  1 +
- drivers/gpu/drm/i915/gt/intel_workarounds.c   |  2 ++
- drivers/gpu/drm/i915/gvt/cmd_parser.c         |  1 +
- drivers/gpu/drm/i915/gvt/mmio_context.c       |  1 +
- drivers/gpu/drm/i915/i915_debugfs.c           |  1 +
- drivers/gpu/drm/i915/i915_reg.h               | 19 -----------------
- drivers/gpu/drm/i915/intel_clock_gating.c     |  1 +
- drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |  1 +
- include/drm/intel/intel_gmd_misc_regs.h       | 21 +++++++++++++++++++
- 13 files changed, 38 insertions(+), 21 deletions(-)
- create mode 100644 include/drm/intel/intel_gmd_misc_regs.h
+ .../gpu/drm/i915/display/intel_display_regs.h | 26 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_psr.c      |  1 -
+ drivers/gpu/drm/i915/i915_reg.h               | 28 -------------------
+ 3 files changed, 26 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
-index 39dfceb438ae..24f898efa9dd 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
-@@ -6,8 +6,8 @@
- #include <linux/iopoll.h>
- 
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
--#include "i915_reg.h"
- #include "i9xx_wm.h"
- #include "i9xx_wm_regs.h"
- #include "intel_atomic.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index aba13e8a9051..f041a7102317 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -13,6 +13,7 @@
- #include <drm/drm_file.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "hsw_ips.h"
- #include "i915_reg.h"
 diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 5bc891f6de57..9f241655aa99 100644
+index d4c5fd975b1b..9a7005e125a9 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_regs.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -3132,6 +3132,11 @@ enum skl_power_gate {
- #define   MTL_TRAS_MASK			REG_GENMASK(16, 8)
- #define   MTL_TRDPRE_MASK		REG_GENMASK(7, 0)
+@@ -357,6 +357,32 @@
+ #define OGAMC1			_MMIO(0x30020)
+ #define OGAMC0			_MMIO(0x30024)
  
--
-+#define FW_BLC		_MMIO(0x20d8)
-+#define FW_BLC2		_MMIO(0x20dc)
-+#define FW_BLC_SELF	_MMIO(0x20e0) /* 915+ only */
-+#define   FW_BLC_SELF_EN_MASK      REG_BIT(31)
-+#define   FW_BLC_SELF_FIFO_MASK    REG_BIT(16) /* 945 only */
-+#define   FW_BLC_SELF_EN           REG_BIT(15) /* 945 only */
- 
- #endif /* __INTEL_DISPLAY_REGS_H__ */
-diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-index 5eda98ebc1ae..ee90f5323da7 100644
---- a/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ggtt_fencing.c
-@@ -6,6 +6,7 @@
- #include <linux/highmem.h>
- 
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "display/intel_display.h"
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/i915/gt/intel_ring_submission.c b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-index c1797e49811d..099453dd9cd5 100644
---- a/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_ring_submission.c
-@@ -5,6 +5,7 @@
- 
- #include <drm/drm_cache.h>
- #include <drm/intel/intel_gmd_interrupt_regs.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "gem/i915_gem_internal.h"
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_workarounds.c b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-index ece88c612e27..4427812b2438 100644
---- a/drivers/gpu/drm/i915/gt/intel_workarounds.c
-+++ b/drivers/gpu/drm/i915/gt/intel_workarounds.c
-@@ -3,6 +3,8 @@
-  * Copyright © 2014-2018 Intel Corporation
-  */
- 
-+#include <drm/intel/intel_gmd_misc_regs.h>
++#define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
++#define   _LATENCY_REPORTING_REMOVED_PIPE_D	REG_BIT(31)
++#define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
++#define   _LATENCY_REPORTING_REMOVED_PIPE_C	REG_BIT(25)
++#define   _LATENCY_REPORTING_REMOVED_PIPE_B	REG_BIT(24)
++#define   _LATENCY_REPORTING_REMOVED_PIPE_A	REG_BIT(23)
++#define   LATENCY_REPORTING_REMOVED(pipe)	_PICK((pipe), \
++						      _LATENCY_REPORTING_REMOVED_PIPE_A, \
++						      _LATENCY_REPORTING_REMOVED_PIPE_B, \
++						      _LATENCY_REPORTING_REMOVED_PIPE_C, \
++						      _LATENCY_REPORTING_REMOVED_PIPE_D)
++#define   ICL_DELAY_PMRSP			REG_BIT(22)
++#define   DISABLE_FLR_SRC			REG_BIT(15)
++#define   MASK_WAKEMEM				REG_BIT(13)
++#define   DDI_CLOCK_REG_ACCESS			REG_BIT(7)
 +
- #include "i915_drv.h"
- #include "i915_reg.h"
- #include "i915_mmio_range.h"
-diff --git a/drivers/gpu/drm/i915/gvt/cmd_parser.c b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-index bf7c3d3f5f8a..98c35c78a4ed 100644
---- a/drivers/gpu/drm/i915/gvt/cmd_parser.c
-+++ b/drivers/gpu/drm/i915/gvt/cmd_parser.c
-@@ -37,6 +37,7 @@
- #include <linux/slab.h>
- 
++#define CHICKEN_PAR1_1		_MMIO(0x42080)
++#define   IGNORE_KVMR_PIPE_A		REG_BIT(23)
++#define   KBL_ARB_FILL_SPARE_22		REG_BIT(22)
++#define   DIS_RAM_BYPASS_PSR2_MAN_TRACK	REG_BIT(16)
++#define   SKL_DE_COMPRESSED_HASH_MODE	REG_BIT(15)
++#define   HSW_MASK_VBL_TO_PIPE_IN_SRD	REG_BIT(15) /* hsw/bdw */
++#define   FORCE_ARB_IDLE_PLANES		REG_BIT(14)
++#define   SKL_EDP_PSR_FIX_RDWRAP	REG_BIT(3)
++#define   IGNORE_PSR2_HW_TRACKING	REG_BIT(1)
++
+ #define GEN9_CLKGATE_DIS_4		_MMIO(0x4653C)
+ #define   BXT_GMBUS_GATING_DIS		(1 << 14)
+ #define   DG2_DPFC_GATING_DIS		REG_BIT(31)
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 4e644711c571..5bea2eda744b 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -29,7 +29,6 @@
  #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
+ #include <drm/drm_vblank.h>
  
- #include "display/i9xx_plane_regs.h"
- #include "display/intel_display_regs.h"
-diff --git a/drivers/gpu/drm/i915/gvt/mmio_context.c b/drivers/gpu/drm/i915/gvt/mmio_context.c
-index d4e9d485d382..3eb442acdf8d 100644
---- a/drivers/gpu/drm/i915/gvt/mmio_context.c
-+++ b/drivers/gpu/drm/i915/gvt/mmio_context.c
-@@ -34,6 +34,7 @@
-  */
- 
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "gt/intel_context.h"
- #include "gt/intel_engine_regs.h"
-diff --git a/drivers/gpu/drm/i915/i915_debugfs.c b/drivers/gpu/drm/i915/i915_debugfs.c
-index 42f6b44f0027..4778ba664ec7 100644
---- a/drivers/gpu/drm/i915/i915_debugfs.c
-+++ b/drivers/gpu/drm/i915/i915_debugfs.c
-@@ -33,6 +33,7 @@
- 
- #include <drm/drm_debugfs.h>
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "gem/i915_gem_context.h"
- #include "gt/intel_gt.h"
+-#include "i915_reg.h"
+ #include "intel_alpm.h"
+ #include "intel_atomic.h"
+ #include "intel_crtc.h"
 diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index b808d1ec5387..2bac216bd2b9 100644
+index 9cb753b65bc2..3a54b31bc072 100644
 --- a/drivers/gpu/drm/i915/i915_reg.h
 +++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -393,24 +393,10 @@
+@@ -805,37 +805,9 @@
+ #define   CHICKEN3_DGMG_REQ_OUT_FIX_DISABLE	REG_BIT(5)
+ #define   CHICKEN3_DGMG_DONE_FIX_DISABLE	REG_BIT(2)
  
- #define GEN2_ERROR_REGS		I915_ERROR_REGS(EMR, EIR)
- 
--#define INSTPM	        _MMIO(0x20c0)
--#define   INSTPM_SELF_EN (1 << 12) /* 915GM only */
--#define   INSTPM_AGPBUSY_INT_EN (1 << 11) /* gen3: when disabled, pending interrupts
--					will not assert AGPBUSY# and will only
--					be delivered when out of C3. */
--#define   INSTPM_FORCE_ORDERING				(1 << 7) /* GEN6+ */
--#define   INSTPM_TLB_INVALIDATE	(1 << 9)
--#define   INSTPM_SYNC_FLUSH	(1 << 5)
- #define MEM_MODE	_MMIO(0x20cc)
- #define   MEM_DISPLAY_B_TRICKLE_FEED_DISABLE (1 << 3) /* 830 only */
- #define   MEM_DISPLAY_A_TRICKLE_FEED_DISABLE (1 << 2) /* 830/845 only */
- #define   MEM_DISPLAY_TRICKLE_FEED_DISABLE (1 << 2) /* 85x only */
--#define FW_BLC		_MMIO(0x20d8)
--#define FW_BLC2		_MMIO(0x20dc)
--#define FW_BLC_SELF	_MMIO(0x20e0) /* 915+ only */
--#define   FW_BLC_SELF_EN_MASK      REG_BIT(31)
--#define   FW_BLC_SELF_FIFO_MASK    REG_BIT(16) /* 945 only */
--#define   FW_BLC_SELF_EN           REG_BIT(15) /* 945 only */
- #define MM_BURST_LENGTH     0x00700000
- #define MM_FIFO_WATERMARK   0x0001F000
- #define LM_BURST_LENGTH     0x00000700
-@@ -833,11 +819,6 @@
+-#define CHICKEN_PAR1_1		_MMIO(0x42080)
+-#define   IGNORE_KVMR_PIPE_A		REG_BIT(23)
+-#define   KBL_ARB_FILL_SPARE_22		REG_BIT(22)
+-#define   DIS_RAM_BYPASS_PSR2_MAN_TRACK	REG_BIT(16)
+-#define   SKL_DE_COMPRESSED_HASH_MODE	REG_BIT(15)
+-#define   HSW_MASK_VBL_TO_PIPE_IN_SRD	REG_BIT(15) /* hsw/bdw */
+-#define   FORCE_ARB_IDLE_PLANES		REG_BIT(14)
+-#define   SKL_EDP_PSR_FIX_RDWRAP	REG_BIT(3)
+-#define   IGNORE_PSR2_HW_TRACKING	REG_BIT(1)
+-
+ #define CHICKEN_PAR2_1		_MMIO(0x42090)
  #define   KVM_CONFIG_CHANGE_NOTIFICATION_SELECT	REG_BIT(14)
  
- 
--#define DISP_ARB_CTL	_MMIO(0x45000)
--#define   DISP_FBC_MEMORY_WAKE		REG_BIT(31)
--#define   DISP_TILE_SURFACE_SWIZZLING	REG_BIT(13)
--#define   DISP_FBC_WM_DIS		REG_BIT(15)
 -
- #define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
- #define   _LATENCY_REPORTING_REMOVED_PIPE_D	REG_BIT(31)
- #define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
-diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-index 4e18d5a22112..1ad31435bd3f 100644
---- a/drivers/gpu/drm/i915/intel_clock_gating.c
-+++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-@@ -26,6 +26,7 @@
-  */
+-#define GEN8_CHICKEN_DCPR_1			_MMIO(0x46430)
+-#define   _LATENCY_REPORTING_REMOVED_PIPE_D	REG_BIT(31)
+-#define   SKL_SELECT_ALTERNATE_DC_EXIT		REG_BIT(30)
+-#define   _LATENCY_REPORTING_REMOVED_PIPE_C	REG_BIT(25)
+-#define   _LATENCY_REPORTING_REMOVED_PIPE_B	REG_BIT(24)
+-#define   _LATENCY_REPORTING_REMOVED_PIPE_A	REG_BIT(23)
+-#define   LATENCY_REPORTING_REMOVED(pipe)	_PICK((pipe), \
+-						      _LATENCY_REPORTING_REMOVED_PIPE_A, \
+-						      _LATENCY_REPORTING_REMOVED_PIPE_B, \
+-						      _LATENCY_REPORTING_REMOVED_PIPE_C, \
+-						      _LATENCY_REPORTING_REMOVED_PIPE_D)
+-#define   ICL_DELAY_PMRSP			REG_BIT(22)
+-#define   DISABLE_FLR_SRC			REG_BIT(15)
+-#define   MASK_WAKEMEM				REG_BIT(13)
+-#define   DDI_CLOCK_REG_ACCESS			REG_BIT(7)
+-
+-
+ #define  VLV_PMWGICZ				_MMIO(0x1300a4)
  
- #include <drm/drm_print.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "display/i9xx_plane_regs.h"
- #include "display/intel_display.h"
-diff --git a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-index 8cfe9b56f1d0..c8a51e773086 100644
---- a/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-+++ b/drivers/gpu/drm/i915/intel_gvt_mmio_table.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <drm/intel/intel_pcode_regs.h>
-+#include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "display/bxt_dpio_phy_regs.h"
- #include "display/i9xx_plane_regs.h"
-diff --git a/include/drm/intel/intel_gmd_misc_regs.h b/include/drm/intel/intel_gmd_misc_regs.h
-new file mode 100644
-index 000000000000..763d7711f21c
---- /dev/null
-+++ b/include/drm/intel/intel_gmd_misc_regs.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: MIT */
-+/* Copyright © 2026 Intel Corporation */
-+
-+#ifndef _INTEL_GMD_MISC_REGS_H_
-+#define _INTEL_GMD_MISC_REGS_H_
-+
-+#define DISP_ARB_CTL	_MMIO(0x45000)
-+#define   DISP_FBC_MEMORY_WAKE		REG_BIT(31)
-+#define   DISP_TILE_SURFACE_SWIZZLING	REG_BIT(13)
-+#define   DISP_FBC_WM_DIS		REG_BIT(15)
-+
-+#define INSTPM	        _MMIO(0x20c0)
-+#define   INSTPM_SELF_EN (1 << 12) /* 915GM only */
-+#define   INSTPM_AGPBUSY_INT_EN (1 << 11) /* gen3: when disabled, pending interrupts
-+					will not assert AGPBUSY# and will only
-+					be delivered when out of C3. */
-+#define   INSTPM_FORCE_ORDERING				(1 << 7) /* GEN6+ */
-+#define   INSTPM_TLB_INVALIDATE	(1 << 9)
-+#define   INSTPM_SYNC_FLUSH	(1 << 5)
-+
-+#endif
+ #define  HSW_EDRAM_CAP				_MMIO(0x120010)
 -- 
 2.50.1
 
