@@ -4,55 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E11BEC1E80
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 09:28:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA97EC1E84
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 09:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8F4E10E85A;
-	Thu,  5 Feb 2026 09:28:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A85010E87C;
+	Thu,  5 Feb 2026 09:41:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AaIYdH1j";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FsTZiEK9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09F5E10E845;
- Thu,  5 Feb 2026 09:28:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB5F110E87C;
+ Thu,  5 Feb 2026 09:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770283715; x=1801819715;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qveEFAFmNCDdEvQNW6ykBrTDpRh5IX2o3idxyMVBZ3Y=;
- b=AaIYdH1j9Uyd5TqipEEpFaePiMZO9gBhIoIxC5oP2sD2/y8AzF92IJJr
- SWEov45mKYNDazY83YBHrNVE4WVq0W/7fvtvKDtSLexJG92jrBwYQmk4B
- nbvqi1DCAX0d3UkNDeAtu0PWlx1GnwwoneAG42QuQXcYmDQhMSVhphrve
- ENJWCtpEf12pM5mlOxMNmulr0uUGXUBoGxdSeqrVQDnUPnpBOtwgXCmxf
- /XNbCaBoYN+2ODvm6hu6FeGyCllGwgNJV1HnaEFqjczdp+AQLYFyohMxW
- Omn/YBfywQLleH/+clp4FINelSdUo8Fvf+bzmtKzBMTqHK2fg409ZYkGq A==;
-X-CSE-ConnectionGUID: m0se94dEQk2gfZH5D2FNoQ==
-X-CSE-MsgGUID: jjT4D7zzSzGLZoft0dY5kA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="89060150"
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="89060150"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 01:28:35 -0800
-X-CSE-ConnectionGUID: xfAWtY2RQHayw/RtuLt34A==
-X-CSE-MsgGUID: CD5HBBUuSdqtN4RYhjKKbA==
+ t=1770284484; x=1801820484;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ in-reply-to:mime-version;
+ bh=2P8yjFbAbuEZenp/JpHt1clCHRUjkCS0SFFnxf6mz2s=;
+ b=FsTZiEK9f1crCiseJw1F4p/4EwNA7uTk8HzIlRpKUvzQVjJDE+ytb60h
+ OqveLwJin0KiXC4ptKFDAtcz98oPL4D/le4BNKuWttOvjr3a6nviGb1OU
+ +6HoMdGY4MXRAQ3qwhR97ejLpdyekejudrvPaixNy7TrZwDX2JQQ5lhXp
+ zz93f7dbkpC3dIrg3Kl6t25WG2v8tg4XKMmhgkFxVxOynmTVRLWYDLIlq
+ drTiNZrBFcqSepFIJTh3hJA2CXi706LBes8I3uYB+mp9ZKJYCaUQzgc8X
+ KuicfVPJSZfg9JwQrhv2xWrcVE73jxhtPabCnu5hAPMx8E9V1THQto5FK w==;
+X-CSE-ConnectionGUID: +BZ14RBlT2mLT5djacdcGw==
+X-CSE-MsgGUID: hIPG1/GvR5ydeuyCsbFveQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="71541765"
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="71541765"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 01:41:23 -0800
+X-CSE-ConnectionGUID: 3bn7TnmXTcWE6QQs5NTZyQ==
+X-CSE-MsgGUID: paxyAGtqTyyT4kyB5JMOCw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="209807821"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa007.fm.intel.com with ESMTP; 05 Feb 2026 01:28:33 -0800
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [v4 20/20] drm/{i915, xe}: Remove i915_reg.h from display
-Date: Thu,  5 Feb 2026 15:13:41 +0530
-Message-ID: <20260205094341.1882816-21-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260205094341.1882816-1-uma.shankar@intel.com>
-References: <20260205094341.1882816-1-uma.shankar@intel.com>
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="210261171"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 01:41:23 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Thu, 5 Feb 2026 01:41:22 -0800
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Thu, 5 Feb 2026 01:41:22 -0800
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.50)
+ by edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Thu, 5 Feb 2026 01:41:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iWfyZ5EMzALxGpF08jKWjxvgOZhURpDM3AtF8b6ptDGDZp0ExgGR/BvJ2B3h0yhckewppoEnNjM2KYwOWRS9VTw3oWEdy+zSNPfNsBEVe0jd8k3D0JHxh5d3mDf26zqOgZwGVBG5+2ZNDL9BOueI2DI99JJXuQ1fUlaMuEpPJ7lR5RROiWHUITkr2GKsZbIHl289Ei5PDiR0yWluq+KxAEaR8fjSQ8TVPuzaLUT6p9MSELkRvkcsqKMEfcD5fk0ErLLfLVkRTv2NYF22QjQ8wPRUulNVZSnVgpIHV1o9tlBN9bu6sdrfndH1hmGXg5GQqo/TwtFXerjGKha6JaWHlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fPdaD6LIXguJAh0wvawdEjvOtGEbwZi2V4F0ujQnKnM=;
+ b=LgH1xgRL88eHl4WDdwFE4qwRl7gE+WIklv9axDo+zV4dhWCKhdIsqCFSisKARpXngs7qyqJIJtvgjgpwpBdpZ3ZUbvmKeTgdI0XOiGTBx03guhhUJaD0+sSEfyj9cbffLFMqOIT1pyl6/4nwWBALsI34QIGNbmGJdUrqcq65ZrUSIn0AjIBgLAOJuWUcya5yAvhiTlVOJNL6C6jQcTrL/UkKiXtvKoOJPLNlQeHANactFzNnDgYloTYlt5PnGnG9wpG4g3y9wr1wUXXf3ck15RjPqDUvzNiqdzxPAgwhvqlJHAQPjS1J9UlpWm6fnKl6PnFTv9dZIRx1E4aSOCzIKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB4840.namprd11.prod.outlook.com (2603:10b6:510:43::16)
+ by DS0PR11MB7506.namprd11.prod.outlook.com (2603:10b6:8:151::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Thu, 5 Feb
+ 2026 09:41:14 +0000
+Received: from PH0PR11MB4840.namprd11.prod.outlook.com
+ ([fe80::fa90:e665:4a25:58a7]) by PH0PR11MB4840.namprd11.prod.outlook.com
+ ([fe80::fa90:e665:4a25:58a7%4]) with mapi id 15.20.9587.013; Thu, 5 Feb 2026
+ 09:41:14 +0000
+Date: Thu, 5 Feb 2026 11:41:03 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <jani.nikula@linux.intel.com>
+Subject: Re: [PATCH 2/2] drm/i915/dp: Restore the missing check for
+ intel_dp_has_joiner
+Message-ID: <aYRlrws-fvk3feUU@ideak-desk.lan>
+References: <20260205083623.793902-1-ankit.k.nautiyal@intel.com>
+ <20260205083623.793902-3-ankit.k.nautiyal@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260205083623.793902-3-ankit.k.nautiyal@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ClientProxiedBy: GV3PEPF0001DBB4.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::6f7) To SJ0PR11MB4845.namprd11.prod.outlook.com
+ (2603:10b6:a03:2d1::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB4840:EE_|DS0PR11MB7506:EE_
+X-MS-Office365-Filtering-Correlation-Id: d9d0b8fb-2fa3-47fb-2e5d-08de649ab12e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jfrba+dCnnA5aUyLMJCR0WBbAaT9X05V2sPzSIVdyA3MpFQUF+0gywOGHqoA?=
+ =?us-ascii?Q?4uwBWJzOPiR2KJ88sus+P5P0rq9KHw9mdhFpvF5fntjl484VHr9NRL+1hBis?=
+ =?us-ascii?Q?CPRLSV2wg4BIg5C+T3uvOQf1a6Yji18Fhg5yToQZONpJjgQ08KztroPJ1uCt?=
+ =?us-ascii?Q?bhXk4+m2N1KE19ynTB5VWo/Vv2UeLxdpX9qVcUv/bSVdPgH3ciN/4U6adUax?=
+ =?us-ascii?Q?/jIS5AHjzZhJ5rJBr9dN9X90qpLhQuHrK2EZUCyeWqwwFJBCl3k79vGd1cC8?=
+ =?us-ascii?Q?AgRNlAnsMlKmkqcZOsi8Q8/lqocGfXV4/N8dvb0jj8mUCUYAtG6MxS5vWowr?=
+ =?us-ascii?Q?EQbXFl+fGg4E7BpkejFykszF/3gd/zRytTA99sKIDCd0BnunJL1+8mMquozz?=
+ =?us-ascii?Q?TaOCSOxWOnJ7O5RLfuFupwXC82LHhnEgCB2vAfHYTFN2hR+mQMoMcKP+CoSP?=
+ =?us-ascii?Q?OslOj2C59yfjmu2yjcm36e3T/Y9qCN9XaO/s/kCmxdTsAgacQ4ptZLd+Xo7c?=
+ =?us-ascii?Q?rqGGagA4RvcX3i96cLK+9qWf+7WPJqwxR6CtgGbwkoYIltstrdhaHQ/sOeme?=
+ =?us-ascii?Q?aWlGsneywVPWNGORfMZ+dI/g+r/xdD6v1dVrNE63Su6hNgJqzWaCCmXID4Dr?=
+ =?us-ascii?Q?UTILMNjWzgF7G2u4HhPQC8q0wyJLfJB36BDWMcgyoZM3z6X9NSnZXwDOvKAq?=
+ =?us-ascii?Q?3G0b5vpPRGGYsfMZOeslltgsyj9JJ/stbVZobjoI6EBy6HGu+ZEMw2fYq4B7?=
+ =?us-ascii?Q?tnbL5hcaBF5733LgZvnR+YJ+s7BsO3nNGjkAskTFM4y9h7BXiwZ1PV+dXseb?=
+ =?us-ascii?Q?eCPqmq91Fqs3pZLkVw7w8PxcAIyMNl4hzhWKGqi/BQYdDvaa9Ir36Wc/mckR?=
+ =?us-ascii?Q?jC6yZeWxbnwv5k/tw+vQlgMQ1V8OOdQAQXGW2gG+zz54eFnypoYFTNtLzXlJ?=
+ =?us-ascii?Q?rJLMltE0uzQf4EZCgheKrRdt1tatLsTy0fS+YBvjjdTXDPatMS+8JMXdDUba?=
+ =?us-ascii?Q?qqRibQAwwbmn1twHs7BaNPcuv7wmHd5sKjbNgojdH3Svxg5/yIcl4np3OvgE?=
+ =?us-ascii?Q?9eKa2u/njttX2/D74iTg2KL+GfVx0U4rK4c7UnoaBFzi77SaKX84dQ41u9uv?=
+ =?us-ascii?Q?uVlVBcwMbBjxvt+cF5/8v8AN0n1gptI87F6esZL+j/+d80H6mqdFI9PDuJBR?=
+ =?us-ascii?Q?WqLag3IrU9FFSUh3+2tbNLZDFJ1VyspRU1gfvRe4fyl5dOreIyL64sW/JT8g?=
+ =?us-ascii?Q?Ph1xBcr+FLd53terwSmhJTGbj3/Sbxnkij5R/us4beQOz755IeWnQfXPGdIo?=
+ =?us-ascii?Q?UswSOo2ovUk7eqJ7a/LX1rOsrpmR5jnvIAM01SPpOtv5nMtev/bFzXpPDwmF?=
+ =?us-ascii?Q?2dLOaqzfVM908QlTqsPhGVnx531D2sgyrrAfY0fKjS3rXDacCxNLbw57P16y?=
+ =?us-ascii?Q?6K55/jid/686LMt9gstg/5Dg2YOUk57mnMWbfuRm995YUSVcpyNRUwcvePFQ?=
+ =?us-ascii?Q?2NDsn31OKI62Qkc7dmsMpLwDuUKPv3TjJGO4EPfBS2M/O9zCVvhpvNDeoUCk?=
+ =?us-ascii?Q?kGDv4qkQvZSCmQHRSmk=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB4840.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?RaI9FhATxNc3HeLkyLSuSNINSRUNb+Eh+D3GLI1Qn3iY/vfQjpxMQCLqly3J?=
+ =?us-ascii?Q?qO1oDx0o8j7tWlZ4+Q2I0RrffLAx3aT0H9kxy+vjKejY/XUfdmQZg+vSNUn8?=
+ =?us-ascii?Q?AjKMAdzGENttMoQgEKFa6M0m4TqQ+C79WR4CS+dbBrrEhSEz++mCmaBZY1nW?=
+ =?us-ascii?Q?QhOvn/EQtN1rCyn6TBBl5W4TPd2/NuZt6PJmVBTCFVGn1VhoL1yq6eBfva20?=
+ =?us-ascii?Q?LJ/WKx5h8zJJ/N1nKjfhAPX4TbVIGhohtmmT8at664gcPVXy5BA14AeYM4Hk?=
+ =?us-ascii?Q?Cp3fpJ0vyVfGktX0nuSa2nwGZkkfWmbamveEIadDjYASWdEy5BE7YuhTFYmV?=
+ =?us-ascii?Q?JVXPOdHVCke2GAEq13b/YV8LFYyhicFQZlP8XT1SefNZWWWXsiE+YQdedSs2?=
+ =?us-ascii?Q?2XMsOR9Ts5wv27ym9a3Dg+JBLlv99dCeRr4U5wlrBj+aPlaIWctUNSCf5wmi?=
+ =?us-ascii?Q?BayfDwQbPnSkcWcVdQhOvoqWO7TnljebDQu4gBrvavmWPjhLOKfDnvqmrMGG?=
+ =?us-ascii?Q?tVUNavlWMzmr4dEFEwbB5TE/lFQGn7jOZalRci6vVhj6BLZj9vP7alMJJ9w1?=
+ =?us-ascii?Q?PZdU2lyHbrL9G25ytk9GMJo/ePj7YMarQ8fi4z7qH1n+QMQFhobcToCWKRxN?=
+ =?us-ascii?Q?FiUFGkYEve/YywLVZKEYk295f/9NqxlViAsb87a3ppLiaGAoKsuD8a4aCVVf?=
+ =?us-ascii?Q?Pq2mhWizJ5NSWSzy9Nb4NeoRSAYChRaj8+CnXIxJD+2jxT6r5nAjIS/Yf0ly?=
+ =?us-ascii?Q?fAxks8+AylnKtEraBOG3bInoYu5bdP5gSLG1Tq2vl4hFTjzSCwsyuCkaNO3J?=
+ =?us-ascii?Q?/X601BD0QcjHF5VxFtzpjfDDSeiAKGB411dd+HAOvHxWScsQJvYWqn4d7mD+?=
+ =?us-ascii?Q?wkNfdo2JJYRbWD9rb4UL2n5dtCsOiXG0l8MmCVvn5hUc3hq15fvHxAA+riU1?=
+ =?us-ascii?Q?QeZvDTBsaDEkUUE7F8dQCg6E9M/rScT/oXhXyqircPqjDg2ViTVeqMLtoiLD?=
+ =?us-ascii?Q?CoAb1t/JyZOYQvHos/fJ1trJdOblb7263pGka2T3PjYte03InmIMTC6NRkC/?=
+ =?us-ascii?Q?dNUMq0DrleViKs6ddsxUJwQfgNTREtY1y3xMVkpZwm4gD/GrwEQBvqWGVvEf?=
+ =?us-ascii?Q?4YqQnktVe1/4K79VVnfS58c1sp2Nu+Baf4vBTaI0S28lSQqZhggM0TdfAoZ3?=
+ =?us-ascii?Q?+7XoV3aBhlz+H5VAVhN5GWlhY7G0TwVLH27OhN3izGDGsCgxHYNjczBLBgYr?=
+ =?us-ascii?Q?lD6pdKJCeWwzDAEt5XWYEF8mxRIzWrACrB3hqybl6FMtwOSuZtZVBoBirGJC?=
+ =?us-ascii?Q?/AWDz2coly154R510OlDlvjUrmyZO0NNcQAi1EjzPLVm3x1OZTv5ZZld0l0t?=
+ =?us-ascii?Q?XDdp5HIdXJIWA1jhGQPiIgpoMAnl8Gp/1GsR7gmR66/fKcQSOsLdiur/gdPU?=
+ =?us-ascii?Q?PvjTHl/mCamv3WvwR5aj1jCiFD4fM1pg3mMo7h2EHw5y8Sq1gOU7tFfUMskm?=
+ =?us-ascii?Q?h29GyvDrGMW0lEltbH5tAJEIC6yScP35AMNsLneFdhDbn+JzwHje0nl1qoer?=
+ =?us-ascii?Q?GHF5ws0VQNoOK6jBEDMx9UC6LbfLtTR2n0j1SkvchrTe+G2OM3WDefaFcnQJ?=
+ =?us-ascii?Q?HkfxSr2NEtUjLtAWYPV4BzctCWLhJHOLsemH6wmu7jJRf0MgmqTGnInsu6la?=
+ =?us-ascii?Q?GxFbiMCLmTh0JxVCIi0Z30WvksPBnJ0Db1xNZ4THSLjxmCQLH96Gowsw2zlP?=
+ =?us-ascii?Q?BPdJPzGA8w=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9d0b8fb-2fa3-47fb-2e5d-08de649ab12e
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 09:41:13.7793 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IrDcnaTKbtEjxxx4SP9vT+m8Sw7C2Mbu2D+DvvN/uzfBPdp8tZ3ZJd8IXw4n2+Oe5wt3WTtbB/wJ5lEirXET6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7506
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,264 +182,134 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Make display files free from including i915_reg.h.
+On Thu, Feb 05, 2026 at 02:06:23PM +0530, Ankit Nautiyal wrote:
+> Commit ad121a62d566 ("drm/i915/dp: Rework pipe joiner logic in mode_valid")
+> replaced intel_dp_num_joined_pipes() with an explicit joiner candidate
+> iteration. The previous code implicitly checked for DP joiner capability
+> via intel_dp_has_joiner(), but this check was lost during the refactor.
+> 
+> Restore the missing intel_dp_has_joiner() check in intel_dp_can_join() so
+> that DP specific joiner conditions are taken into account.
+> 
+> This change also requires propagating struct intel_dp * from the callers
+> down to the new check.
+> 
+> Fixes: ad121a62d566 ("drm/i915/dp: Rework pipe joiner logic in mode_valid")
+> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c     | 16 +++++++++++-----
+>  drivers/gpu/drm/i915/display/intel_dp.h     |  7 ++++---
+>  drivers/gpu/drm/i915/display/intel_dp_mst.c |  4 ++--
+>  3 files changed, 17 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 4f5b89f80e55..3021c64d0f85 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -1397,9 +1397,14 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
+>  }
+>  
+>  static
+> -bool intel_dp_can_join(struct intel_display *display,
+> +bool intel_dp_can_join(struct intel_dp *intel_dp,
+>  		       int num_joined_pipes)
+>  {
+> +	struct intel_display *display = to_intel_display(intel_dp);
+> +
+> +	if (num_joined_pipes > 1 && !intel_dp_has_joiner(intel_dp))
+> +		return false;
+> +
+>  	switch (num_joined_pipes) {
+>  	case 1:
+>  		return true;
+> @@ -1496,7 +1501,7 @@ intel_dp_mode_valid(struct drm_connector *_connector,
+>  	 * over candidate pipe counts and evaluate each combination.
+>  	 */
+>  	status = MODE_CLOCK_HIGH;
+> -	for_each_joiner_candidate(connector, mode, num_joined_pipes) {
+> +	for_each_joiner_candidate(intel_dp, connector, mode, num_joined_pipes) {
+>  		int dsc_slice_count = 0;
+>  
+>  		status = intel_pfit_mode_valid(display, mode, output_format, num_joined_pipes);
+> @@ -2895,7 +2900,7 @@ intel_dp_compute_link_config(struct intel_encoder *encoder,
+>  	    !intel_dp_supports_fec(intel_dp, connector, crtc_state))
+>  		return -EINVAL;
+>  
+> -	for_each_joiner_candidate(connector, adjusted_mode, num_joined_pipes) {
+> +	for_each_joiner_candidate(intel_dp, connector, adjusted_mode, num_joined_pipes) {
+>  		/*
+>  		 * NOTE:
+>  		 * The crtc_state->joiner_pipes should have been set at the end
+> @@ -7213,13 +7218,14 @@ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
+>  	return sdp_guardband;
+>  }
+>  
+> -bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+> +bool intel_dp_joiner_candidate_valid(struct intel_dp *intel_dp,
+> +				     struct intel_connector *connector,
+>  				     int hdisplay,
+>  				     int num_joined_pipes)
 
-v2: Move pcode_regs.h out of i915_reg.h (Jani)
+intel_dp can be always deducted from the connector, via
+intel_attached_dp(), so no need to pass intel_dp separately.
 
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/hsw_ips.c               | 1 -
- drivers/gpu/drm/i915/display/i9xx_plane.c            | 1 -
- drivers/gpu/drm/i915/display/icl_dsi.c               | 1 -
- drivers/gpu/drm/i915/display/intel_backlight.c       | 1 -
- drivers/gpu/drm/i915/display/intel_bw.c              | 1 -
- drivers/gpu/drm/i915/display/intel_casf.c            | 1 -
- drivers/gpu/drm/i915/display/intel_ddi.c             | 1 -
- drivers/gpu/drm/i915/display/intel_display_debugfs.c | 1 -
- drivers/gpu/drm/i915/display/intel_display_power.c   | 1 -
- drivers/gpu/drm/i915/display/intel_display_wa.c      | 1 -
- drivers/gpu/drm/i915/display/intel_dmc.c             | 1 -
- drivers/gpu/drm/i915/display/intel_fdi.c             | 1 -
- drivers/gpu/drm/i915/display/intel_hdcp.c            | 1 -
- drivers/gpu/drm/i915/display/intel_hotplug_irq.c     | 1 -
- drivers/gpu/drm/i915/display/intel_lt_phy.c          | 1 -
- drivers/gpu/drm/i915/display/intel_pps.c             | 1 -
- drivers/gpu/drm/i915/display/intel_tc.c              | 1 -
- drivers/gpu/drm/i915/display/skl_watermark.c         | 1 -
- drivers/gpu/drm/i915/display/vlv_dsi.c               | 1 -
- 19 files changed, 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/hsw_ips.c b/drivers/gpu/drm/i915/display/hsw_ips.c
-index 8658872ed86f..cbaef3f13f00 100644
---- a/drivers/gpu/drm/i915/display/hsw_ips.c
-+++ b/drivers/gpu/drm/i915/display/hsw_ips.c
-@@ -9,7 +9,6 @@
- #include <drm/intel/intel_pcode_regs.h>
- 
- #include "hsw_ips.h"
--#include "i915_reg.h"
- #include "intel_color_regs.h"
- #include "intel_de.h"
- #include "intel_display_regs.h"
-diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
-index b1fecf178906..9c16753a1f3b 100644
---- a/drivers/gpu/drm/i915/display/i9xx_plane.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
-@@ -10,7 +10,6 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "i9xx_plane.h"
- #include "i9xx_plane_regs.h"
- #include "intel_atomic.h"
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index c8e0333706c1..7cf511a6c0f9 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -34,7 +34,6 @@
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
--#include "i915_reg.h"
- #include "icl_dsi.h"
- #include "icl_dsi_regs.h"
- #include "intel_atomic.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_backlight.c b/drivers/gpu/drm/i915/display/intel_backlight.c
-index a68fdbd2acb9..34e95f05936e 100644
---- a/drivers/gpu/drm/i915/display/intel_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_backlight.c
-@@ -12,7 +12,6 @@
- #include <drm/drm_file.h>
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_backlight.h"
- #include "intel_backlight_regs.h"
- #include "intel_connector.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
-index 618da1dfb671..6808fb9b4ab3 100644
---- a/drivers/gpu/drm/i915/display/intel_bw.c
-+++ b/drivers/gpu/drm/i915/display/intel_bw.c
-@@ -7,7 +7,6 @@
- #include <drm/drm_print.h>
- #include <drm/intel/intel_pcode_regs.h>
- 
--#include "i915_reg.h"
- #include "intel_bw.h"
- #include "intel_crtc.h"
- #include "intel_display_core.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_casf.c b/drivers/gpu/drm/i915/display/intel_casf.c
-index 0fe4398a1a4e..b167af31de5b 100644
---- a/drivers/gpu/drm/i915/display/intel_casf.c
-+++ b/drivers/gpu/drm/i915/display/intel_casf.c
-@@ -3,7 +3,6 @@
- 
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_casf.h"
- #include "intel_casf_regs.h"
- #include "intel_de.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index f92323664162..94ae583e907f 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -34,7 +34,6 @@
- #include <drm/drm_print.h>
- #include <drm/drm_privacy_screen_consumer.h>
- 
--#include "i915_reg.h"
- #include "icl_dsi.h"
- #include "intel_alpm.h"
- #include "intel_audio.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index f041a7102317..2614c4863c87 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -16,7 +16,6 @@
- #include <drm/intel/intel_gmd_misc_regs.h>
- 
- #include "hsw_ips.h"
--#include "i915_reg.h"
- #include "i9xx_wm_regs.h"
- #include "intel_alpm.h"
- #include "intel_bo.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index cb9256f72aa9..755935dcfe23 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_print.h>
- #include <drm/intel/intel_pcode_regs.h>
- 
--#include "i915_reg.h"
- #include "intel_backlight_regs.h"
- #include "intel_cdclk.h"
- #include "intel_clock_gating.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index b1979ee9d836..c2ccdca2c2f3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -5,7 +5,6 @@
- 
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_display_core.h"
- #include "intel_display_regs.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 1182bc9a2e6d..8df06b993890 100644
---- a/drivers/gpu/drm/i915/display/intel_dmc.c
-+++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -29,7 +29,6 @@
- #include <drm/drm_file.h>
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_crtc.h"
- #include "intel_de.h"
- #include "intel_display_power_well.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_fdi.c b/drivers/gpu/drm/i915/display/intel_fdi.c
-index 5bb0090dd5ed..24ce8a7842c7 100644
---- a/drivers/gpu/drm/i915/display/intel_fdi.c
-+++ b/drivers/gpu/drm/i915/display/intel_fdi.c
-@@ -8,7 +8,6 @@
- #include <drm/drm_fixed.h>
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_atomic.h"
- #include "intel_crtc.h"
- #include "intel_ddi.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index c96f51d88186..0058098d3c3e 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -19,7 +19,6 @@
- #include <drm/intel/i915_component.h>
- #include <drm/intel/intel_pcode_regs.h>
- 
--#include "i915_reg.h"
- #include "intel_connector.h"
- #include "intel_de.h"
- #include "intel_display_jiffies.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-index 82c39e4ffa37..8865cb2ac569 100644
---- a/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_hotplug_irq.c
-@@ -5,7 +5,6 @@
- 
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_display_irq.h"
- #include "intel_display_regs.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 27ad8407606b..eced8493e566 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -5,7 +5,6 @@
- 
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_cx0_phy.h"
- #include "intel_cx0_phy_regs.h"
- #include "intel_ddi.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i915/display/intel_pps.c
-index b217ec7aa758..2d799af73bb7 100644
---- a/drivers/gpu/drm/i915/display/intel_pps.c
-+++ b/drivers/gpu/drm/i915/display/intel_pps.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_print.h>
- 
- #include "g4x_dp.h"
--#include "i915_reg.h"
- #include "intel_de.h"
- #include "intel_display_jiffies.h"
- #include "intel_display_power_well.h"
-diff --git a/drivers/gpu/drm/i915/display/intel_tc.c b/drivers/gpu/drm/i915/display/intel_tc.c
-index 064f572bbc85..78ed9c58a72f 100644
---- a/drivers/gpu/drm/i915/display/intel_tc.c
-+++ b/drivers/gpu/drm/i915/display/intel_tc.c
-@@ -7,7 +7,6 @@
- 
- #include <drm/drm_print.h>
- 
--#include "i915_reg.h"
- #include "intel_atomic.h"
- #include "intel_cx0_phy_regs.h"
- #include "intel_ddi.h"
-diff --git a/drivers/gpu/drm/i915/display/skl_watermark.c b/drivers/gpu/drm/i915/display/skl_watermark.c
-index 1455ea068d22..8e3031adb09f 100644
---- a/drivers/gpu/drm/i915/display/skl_watermark.c
-+++ b/drivers/gpu/drm/i915/display/skl_watermark.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_print.h>
- #include <drm/intel/intel_pcode_regs.h>
- 
--#include "i915_reg.h"
- #include "i9xx_wm.h"
- #include "intel_atomic.h"
- #include "intel_bw.h"
-diff --git a/drivers/gpu/drm/i915/display/vlv_dsi.c b/drivers/gpu/drm/i915/display/vlv_dsi.c
-index d705af3bf8ba..67f0082d3a69 100644
---- a/drivers/gpu/drm/i915/display/vlv_dsi.c
-+++ b/drivers/gpu/drm/i915/display/vlv_dsi.c
-@@ -33,7 +33,6 @@
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
- 
--#include "i915_reg.h"
- #include "intel_atomic.h"
- #include "intel_backlight.h"
- #include "intel_connector.h"
--- 
-2.50.1
-
+>  {
+>  	struct intel_display *display = to_intel_display(connector);
+>  
+> -	if (!intel_dp_can_join(display, num_joined_pipes))
+> +	if (!intel_dp_can_join(intel_dp, num_joined_pipes))
+>  		return false;
+>  
+>  	if (hdisplay > num_joined_pipes * intel_dp_max_hdisplay_per_pipe(display))
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+> index cbd7fcd3789f..37302ebe1cf9 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -227,12 +227,13 @@ bool intel_dp_dotclk_valid(struct intel_display *display,
+>  			   int htotal,
+>  			   int dsc_slice_count,
+>  			   int num_joined_pipes);
+> -bool intel_dp_joiner_candidate_valid(struct intel_connector *connector,
+> +bool intel_dp_joiner_candidate_valid(struct intel_dp *intel_dp,
+> +				     struct intel_connector *connector,
+>  				     int hdisplay,
+>  				     int num_joined_pipes);
+>  
+> -#define for_each_joiner_candidate(__connector, __mode, __num_joined_pipes) \
+> +#define for_each_joiner_candidate(__intel_dp, __connector, __mode, __num_joined_pipes) \
+>  	for ((__num_joined_pipes) = 1; (__num_joined_pipes) <= (I915_MAX_PIPES); (__num_joined_pipes)++) \
+> -		for_each_if(intel_dp_joiner_candidate_valid(__connector, (__mode)->hdisplay, __num_joined_pipes))
+> +		for_each_if(intel_dp_joiner_candidate_valid(__intel_dp, __connector, (__mode)->hdisplay, __num_joined_pipes))
+>  
+>  #endif /* __INTEL_DP_H__ */
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> index 29713075e413..b2d3f35edd78 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+> @@ -720,7 +720,7 @@ static int mst_stream_compute_config(struct intel_encoder *encoder,
+>  	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
+>  	pipe_config->has_pch_encoder = false;
+>  
+> -	for_each_joiner_candidate(connector, adjusted_mode, num_joined_pipes) {
+> +	for_each_joiner_candidate(intel_dp, connector, adjusted_mode, num_joined_pipes) {
+>  		if (num_joined_pipes > 1)
+>  			pipe_config->joiner_pipes = GENMASK(crtc->pipe + num_joined_pipes - 1,
+>  							    crtc->pipe);
+> @@ -1524,7 +1524,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+>  	}
+>  
+>  	*status = MODE_CLOCK_HIGH;
+> -	for_each_joiner_candidate(connector, mode, num_joined_pipes) {
+> +	for_each_joiner_candidate(intel_dp, connector, mode, num_joined_pipes) {
+>  		int dsc_slice_count = 0;
+>  
+>  		if (intel_dp_has_dsc(connector) &&
+> -- 
+> 2.45.2
+> 
