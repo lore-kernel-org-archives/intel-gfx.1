@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77283ECD9BA
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 23:40:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E833ECD9B0
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 23:40:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98BA810E183;
-	Thu,  5 Feb 2026 23:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCDE510E1C3;
+	Thu,  5 Feb 2026 23:40:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FgFMijIT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LmVk1SnT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C3110E18D;
- Thu,  5 Feb 2026 23:40:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28C1310E1A0;
+ Thu,  5 Feb 2026 23:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770334833; x=1801870833;
+ t=1770334835; x=1801870835;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=Ab6Og3+1BDV/QHfPik/2Se/dwaJ9X2129+BgcVtkhJo=;
- b=FgFMijIT1N3pv7e51/j6eaa+uE7F9piAvU3+7lU0g+yYrLV2omw8LHXn
- MZS3kMTml+TfPqd8bOxuX9IAplqO3nkmakNTKjwWnvs+X1PHMDwwIN/jV
- DxNhfETwnuWuDzZ650l8idr/r5YXX4KbzLfijf5jzLcjn/+5KQavIpYkh
- ginO3oHlTSZW3F3Miw2e8kc/PXgXmD3jTsegN2mjL2zB7sOtScv+uBjur
- 5Q35FPpLEhj4yLE4OJM1/qvr4nm05pRQrErT2t0gD2ArqysG5QCfW5fjd
- 4jOPocE4FTU8OwiKSjZQGgHchcNZIvbX4AZF4vZ8SzbVePcnPBPO38YH7 w==;
-X-CSE-ConnectionGUID: FmlmwjZBSf+bEVV3c5ghhg==
-X-CSE-MsgGUID: zlhAYY9EQ0m3Cgv6UoTbVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11692"; a="82658684"
-X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; d="scan'208";a="82658684"
+ bh=MVttFq6otnXhNAouGJFbBZANSNtGZGO2XVmkdk9dQnI=;
+ b=LmVk1SnTDVv9yFhZWMLsn+XDBZ7yEJSG5GOTSF6gaGIw7toaSEkNV2rb
+ wUZLsGdW2qAAaLFBh+G47bb7n3iJhw2keqlxVOquOYLZpzLm61xCuGshl
+ d6wu3976aNsBK+xTJ4CTS2xXmrbXSkj3/pvPh0U09YrOVgtK3umD2/E5q
+ HHY8cg0V4ulWGtegs73F9l2t4ZfN1JMy7vMR/6WO0Upl9WyVicR+AaItL
+ BM2pKMlGPu8xWDDw5Xp/Bm+Z9B/jET2SusxwJsEWHWfb2PUEsSQ8KhyAX
+ WP+fDnF6XovOY3e0pHv5zt0nfCxqpNVyFInoLAdD6GyHaYcqM1Nfd/kb/ Q==;
+X-CSE-ConnectionGUID: sFMtiyG1RWGYKkTMP9J95g==
+X-CSE-MsgGUID: mzzoylyaQ0+JU9SnVh2/yw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11692"; a="82658689"
+X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; d="scan'208";a="82658689"
 Received: from orviesa009.jf.intel.com ([10.64.159.149])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 15:40:33 -0800
-X-CSE-ConnectionGUID: niSVcp0PR0qTQxymn6n7Cg==
-X-CSE-MsgGUID: YLtEtl7dSQCEZBtNsM72fg==
+ 05 Feb 2026 15:40:35 -0800
+X-CSE-ConnectionGUID: nZGWhGRNQrOcbhKn/ANiXw==
+X-CSE-MsgGUID: kfdElFN8SAqFbDZgfUPrXw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; d="scan'208";a="210500130"
+X-IronPort-AV: E=Sophos;i="6.21,275,1763452800"; d="scan'208";a="210500146"
 Received: from rfrazer-mobl3.amr.corp.intel.com (HELO [192.168.1.16])
  ([10.124.222.82])
  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 15:40:23 -0800
+ 05 Feb 2026 15:40:33 -0800
 From: Gustavo Sousa <gustavo.sousa@intel.com>
-Date: Thu, 05 Feb 2026 20:39:34 -0300
-Subject: [PATCH v2 06/15] drm/xe/xe3p_lpg: Add LRC parsing for additional
- RCS engine state
+Date: Thu, 05 Feb 2026 20:39:39 -0300
+Subject: [PATCH v2 11/15] drm/xe/xe3p_lpg: Set STLB bank hash mode to 4KB
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260205-nvl-p-upstreaming-v2-6-9ec14f00cc6c@intel.com>
+Message-Id: <20260205-nvl-p-upstreaming-v2-11-9ec14f00cc6c@intel.com>
 References: <20260205-nvl-p-upstreaming-v2-0-9ec14f00cc6c@intel.com>
 In-Reply-To: <20260205-nvl-p-upstreaming-v2-0-9ec14f00cc6c@intel.com>
 To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 Cc: Gustavo Sousa <gustavo.sousa@intel.com>, 
- Matt Roper <matthew.d.roper@intel.com>, 
- Matt Atwood <matthew.s.atwood@intel.com>
+ Aradhya Bhatia <aradhya.bhatia@intel.com>, 
+ Matt Roper <matthew.d.roper@intel.com>
 X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,99 +71,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Matt Roper <matthew.d.roper@intel.com>
+From: Aradhya Bhatia <aradhya.bhatia@intel.com>
 
-Xe3p_LPG adds some additional state instructions to the RCS engine's
-LRC.  Add support for these to the debugfs LRC parser.
+Since the dominant size of the pages referred in an i-gpu, such as
+Xe3p_LPG, will be 4KB, the HW default of mix of 64K and 2M for STLB bank
+hash mode does not make sense.
 
-Note that the bspec's LRC description page seems to have a few mistakes
-in the name/spelling of these new instructions (e.g.,
-"3DSTATE_TASK_DATA_EXT" instead of "3DSTATE_TASK_SHADER_DATA_EXT" or
-"3DSTATE_VIEWPORT_STATE_POINTERS_CL_SF_2" instead of
-"3DSTATE_VIEWPORT_STATE_POINTERS_SF_CLIP_2").
+Allow the SW to change it to 4KB Mode, for Xe3p_LPG.
 
-Bspec: 65182
-Reviewed-by: Matt Atwood <matthew.s.atwood@intel.com>
-Signed-off-by: Matt Roper <matthew.d.roper@intel.com>
+v2:
+  - Add Bspec reference. (Matt)
+
+Bspec: 78248
+Reviewed-by: Matt Roper <matthew.d.roper@intel.com>
+Signed-off-by: Aradhya Bhatia <aradhya.bhatia@intel.com>
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
- drivers/gpu/drm/xe/instructions/xe_gfxpipe_commands.h | 10 ++++++++++
- drivers/gpu/drm/xe/xe_lrc.c                           | 10 ++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/gpu/drm/xe/regs/xe_gt_regs.h | 2 ++
+ drivers/gpu/drm/xe/xe_tuning.c       | 9 +++++++++
+ 2 files changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/instructions/xe_gfxpipe_commands.h b/drivers/gpu/drm/xe/instructions/xe_gfxpipe_commands.h
-index 457881af8af9..4d854c85e588 100644
---- a/drivers/gpu/drm/xe/instructions/xe_gfxpipe_commands.h
-+++ b/drivers/gpu/drm/xe/instructions/xe_gfxpipe_commands.h
-@@ -55,6 +55,7 @@
- #define PIPELINE_SELECT				GFXPIPE_SINGLE_DW_CMD(0x1, 0x4)
+diff --git a/drivers/gpu/drm/xe/regs/xe_gt_regs.h b/drivers/gpu/drm/xe/regs/xe_gt_regs.h
+index f626cc584bd9..1d652266f4f3 100644
+--- a/drivers/gpu/drm/xe/regs/xe_gt_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_gt_regs.h
+@@ -470,6 +470,8 @@
+ #define   FORCE_MISS_FTLB			REG_BIT(3)
  
- #define CMD_3DSTATE_DRAWING_RECTANGLE_FAST	GFXPIPE_3D_CMD(0x0, 0x0)
-+#define CMD_3DSTATE_CUSTOM_SAMPLE_PATTERN	GFXPIPE_3D_CMD(0x0, 0x2)
- #define CMD_3DSTATE_CLEAR_PARAMS		GFXPIPE_3D_CMD(0x0, 0x4)
- #define CMD_3DSTATE_DEPTH_BUFFER		GFXPIPE_3D_CMD(0x0, 0x5)
- #define CMD_3DSTATE_STENCIL_BUFFER		GFXPIPE_3D_CMD(0x0, 0x6)
-@@ -138,8 +139,16 @@
- #define CMD_3DSTATE_SBE_MESH			GFXPIPE_3D_CMD(0x0, 0x82)
- #define CMD_3DSTATE_CPSIZE_CONTROL_BUFFER	GFXPIPE_3D_CMD(0x0, 0x83)
- #define CMD_3DSTATE_COARSE_PIXEL		GFXPIPE_3D_CMD(0x0, 0x89)
-+#define CMD_3DSTATE_MESH_SHADER_DATA_EXT	GFXPIPE_3D_CMD(0x0, 0x8A)
-+#define CMD_3DSTATE_TASK_SHADER_DATA_EXT	GFXPIPE_3D_CMD(0x0, 0x8B)
-+#define CMD_3DSTATE_VIEWPORT_STATE_POINTERS_CC_2	GFXPIPE_3D_CMD(0x0, 0x8D)
-+#define CMD_3DSTATE_CC_STATE_POINTERS_2		GFXPIPE_3D_CMD(0x0, 0x8E)
-+#define CMD_3DSTATE_SCISSOR_STATE_POINTERS_2	GFXPIPE_3D_CMD(0x0, 0x8F)
-+#define CMD_3DSTATE_BLEND_STATE_POINTERS_2	GFXPIPE_3D_CMD(0x0, 0xA0)
-+#define CMD_3DSTATE_VIEWPORT_STATE_POINTERS_SF_CLIP_2	GFXPIPE_3D_CMD(0x0, 0xA1)
+ #define XEHP_GAMSTLB_CTRL			XE_REG_MCR(0xcf4c)
++#define   BANK_HASH_MODE			REG_GENMASK(27, 26)
++#define   BANK_HASH_4KB_MODE			REG_FIELD_PREP(BANK_HASH_MODE, 0x3)
+ #define   CONTROL_BLOCK_CLKGATE_DIS		REG_BIT(12)
+ #define   EGRESS_BLOCK_CLKGATE_DIS		REG_BIT(11)
+ #define   TAG_BLOCK_CLKGATE_DIS			REG_BIT(7)
+diff --git a/drivers/gpu/drm/xe/xe_tuning.c b/drivers/gpu/drm/xe/xe_tuning.c
+index 694385ae75f1..316f5e2b2e48 100644
+--- a/drivers/gpu/drm/xe/xe_tuning.c
++++ b/drivers/gpu/drm/xe/xe_tuning.c
+@@ -90,6 +90,15 @@ static const struct xe_rtp_entry_sr gt_tunings[] = {
+ 	  XE_RTP_RULES(MEDIA_VERSION(2000)),
+ 	  XE_RTP_ACTIONS(SET(XE2LPM_SCRATCH3_LBCF, RWFLUSHALLEN))
+ 	},
++
++	/* Xe3p */
++
++	{ XE_RTP_NAME("Tuning: Set STLB Bank Hash Mode to 4KB"),
++	  XE_RTP_RULES(GRAPHICS_VERSION_RANGE(3510, XE_RTP_END_VERSION_UNDEFINED),
++		       IS_INTEGRATED),
++	  XE_RTP_ACTIONS(FIELD_SET(XEHP_GAMSTLB_CTRL, BANK_HASH_MODE,
++				   BANK_HASH_4KB_MODE))
++	},
+ };
  
- #define CMD_3DSTATE_DRAWING_RECTANGLE		GFXPIPE_3D_CMD(0x1, 0x0)
-+#define CMD_3DSTATE_URB_MEMORY			GFXPIPE_3D_CMD(0x1, 0x1)
- #define CMD_3DSTATE_CHROMA_KEY			GFXPIPE_3D_CMD(0x1, 0x4)
- #define CMD_3DSTATE_POLY_STIPPLE_OFFSET		GFXPIPE_3D_CMD(0x1, 0x6)
- #define CMD_3DSTATE_POLY_STIPPLE_PATTERN	GFXPIPE_3D_CMD(0x1, 0x7)
-@@ -160,5 +169,6 @@
- #define CMD_3DSTATE_SUBSLICE_HASH_TABLE		GFXPIPE_3D_CMD(0x1, 0x1F)
- #define CMD_3DSTATE_SLICE_TABLE_STATE_POINTERS	GFXPIPE_3D_CMD(0x1, 0x20)
- #define CMD_3DSTATE_PTBR_TILE_PASS_INFO		GFXPIPE_3D_CMD(0x1, 0x22)
-+#define CMD_3DSTATE_SLICE_TABLE_STATE_POINTER_2	GFXPIPE_3D_CMD(0x1, 0xA0)
- 
- #endif
-diff --git a/drivers/gpu/drm/xe/xe_lrc.c b/drivers/gpu/drm/xe/xe_lrc.c
-index 3db7968aa5e2..e58eb8b9db78 100644
---- a/drivers/gpu/drm/xe/xe_lrc.c
-+++ b/drivers/gpu/drm/xe/xe_lrc.c
-@@ -1966,6 +1966,7 @@ static int dump_gfxpipe_command(struct drm_printer *p,
- 	MATCH(PIPELINE_SELECT);
- 
- 	MATCH3D(3DSTATE_DRAWING_RECTANGLE_FAST);
-+	MATCH3D(3DSTATE_CUSTOM_SAMPLE_PATTERN);
- 	MATCH3D(3DSTATE_CLEAR_PARAMS);
- 	MATCH3D(3DSTATE_DEPTH_BUFFER);
- 	MATCH3D(3DSTATE_STENCIL_BUFFER);
-@@ -2049,8 +2050,16 @@ static int dump_gfxpipe_command(struct drm_printer *p,
- 	MATCH3D(3DSTATE_SBE_MESH);
- 	MATCH3D(3DSTATE_CPSIZE_CONTROL_BUFFER);
- 	MATCH3D(3DSTATE_COARSE_PIXEL);
-+	MATCH3D(3DSTATE_MESH_SHADER_DATA_EXT);
-+	MATCH3D(3DSTATE_TASK_SHADER_DATA_EXT);
-+	MATCH3D(3DSTATE_VIEWPORT_STATE_POINTERS_CC_2);
-+	MATCH3D(3DSTATE_CC_STATE_POINTERS_2);
-+	MATCH3D(3DSTATE_SCISSOR_STATE_POINTERS_2);
-+	MATCH3D(3DSTATE_BLEND_STATE_POINTERS_2);
-+	MATCH3D(3DSTATE_VIEWPORT_STATE_POINTERS_SF_CLIP_2);
- 
- 	MATCH3D(3DSTATE_DRAWING_RECTANGLE);
-+	MATCH3D(3DSTATE_URB_MEMORY);
- 	MATCH3D(3DSTATE_CHROMA_KEY);
- 	MATCH3D(3DSTATE_POLY_STIPPLE_OFFSET);
- 	MATCH3D(3DSTATE_POLY_STIPPLE_PATTERN);
-@@ -2070,6 +2079,7 @@ static int dump_gfxpipe_command(struct drm_printer *p,
- 	MATCH3D(3DSTATE_SUBSLICE_HASH_TABLE);
- 	MATCH3D(3DSTATE_SLICE_TABLE_STATE_POINTERS);
- 	MATCH3D(3DSTATE_PTBR_TILE_PASS_INFO);
-+	MATCH3D(3DSTATE_SLICE_TABLE_STATE_POINTER_2);
- 
- 	default:
- 		drm_printf(p, "[%#010x] unknown GFXPIPE command (pipeline=%#x, opcode=%#x, subopcode=%#x), likely %d dwords\n",
+ static const struct xe_rtp_entry_sr engine_tunings[] = {
 
 -- 
 2.52.0
