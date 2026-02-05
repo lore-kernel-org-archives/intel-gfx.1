@@ -4,59 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C534E9128E
-	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 08:50:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1322E91297
+	for <intel-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 08:52:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCC6E10E39B;
-	Thu,  5 Feb 2026 08:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0F410E801;
+	Thu,  5 Feb 2026 08:52:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XH8DRDEc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ddhGl+I1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF19310E39B;
- Thu,  5 Feb 2026 08:50:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52CA610E7FB;
+ Thu,  5 Feb 2026 08:52:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770281406; x=1801817406;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=g0Ww8yudr96NgS3B0+boydw+jzAAIslFYYjf+MWtMI0=;
- b=XH8DRDEc1nYDCbhpxucDqPAK+f/6xig+i/OPUU5Rx2qEAjb1G3/2kYUI
- NSmwjHxSGkfa7NW6Ft348MsTJDxy3+RTPtL00l2dSWMJIwvcbBu4AQl6X
- 9wLFw0fhSp5xUrmvZWyW4uqBZulZ5nDQUZ+dssz53ZwQ3eho7E7J9OYyL
- Gov+yQQRLqL18X82KjHHP0SSVGVXhVlmrE2fS8MQP0XsMXwpGFpft9aR0
- 3Kfx8mRql3uSsw/U0mbAT6YGfjhS7J6prkUYketD0h3CyqO05YxWFeMB0
- 6f9mIwenxWsAdN8vV2xdPdX+cSKoLYfbtB/F3k+zxRu+zhaY5k9IRNRHn g==;
-X-CSE-ConnectionGUID: nf1ZdUHeRKS/Anp0xcv3Zg==
-X-CSE-MsgGUID: XzypBN6VR2Oys9tIN7mqJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="71649706"
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="71649706"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 00:50:06 -0800
-X-CSE-ConnectionGUID: gXJY8MtqQ5CW+KTGsfbgwg==
-X-CSE-MsgGUID: rAtzssowSwm7pqiXcpfvVA==
+ t=1770281533; x=1801817533;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=4oHuQFQJASmM3+Ir3QzpVh9945D5FkXapntrNAVXxRE=;
+ b=ddhGl+I10DGE5ushY2C+LDCYD+kLzuu1YcSwyS7QjOuKags8L+czbmxW
+ YZQrqu9PcxVQANhV8pn4Mco9VsS6qZbVuIZk9DKZYUFffimKj1CqfNsy2
+ OhrcuQnDKsIibl1GlxErxqKB5k/2w6HoAF/9bGkA+gbZ8FO97Oz+OXpML
+ yQWYio0z/zCEPvKka4nUSNmYTclttIAgdbH++gkL5reQs55Ux9dF7aRvw
+ ePiv+zxDbe0xodQM/+Geg7KNdMskXh3IGb87kJWId8ONjDAOwdHRFSKMF
+ NGazds9JjhhQP+SwTiyjvDYeKZkKOkYEtaGyCApE2rTDC8FvzFArpyolP w==;
+X-CSE-ConnectionGUID: n5mJa7hKRayFzW20XHsbPA==
+X-CSE-MsgGUID: 2Aee0ABeSAigANRBDgNrAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11691"; a="71377282"
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="71377282"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 00:52:12 -0800
+X-CSE-ConnectionGUID: xlFq26SbRZKnzVWmf47eew==
+X-CSE-MsgGUID: JWTKo6qfT+O3zBrjSG02hQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="241116986"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.69])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Feb 2026 00:50:04 -0800
-From: Jani Nikula <jani.nikula@intel.com>
-To: Animesh Manna <animesh.manna@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: dibin.moolakadan.subrahmanian@intel.com, Animesh Manna
- <animesh.manna@intel.com>
-Subject: Re: [PATCH v2 08/10] drm/i915/cmtg: enable cmtg ctl
-In-Reply-To: <20260203134407.2823406-9-animesh.manna@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260203134407.2823406-1-animesh.manna@intel.com>
- <20260203134407.2823406-9-animesh.manna@intel.com>
-Date: Thu, 05 Feb 2026 10:50:01 +0200
-Message-ID: <43f64e1ba3fcb988272e47a2e6d10e1a35a7d428@intel.com>
+X-IronPort-AV: E=Sophos;i="6.21,274,1763452800"; d="scan'208";a="233380063"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2026 00:52:09 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, imre.deak@intel.com,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 1/2] drm/i915/dp: Make intel_dp_can_join() static
+Date: Thu,  5 Feb 2026 14:06:22 +0530
+Message-ID: <20260205083623.793902-2-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260205083623.793902-1-ankit.k.nautiyal@intel.com>
+References: <20260205083623.793902-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,52 +69,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 03 Feb 2026, Animesh Manna <animesh.manna@intel.com> wrote:
-> Enable CMTG through control register.
->
-> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_cmtg.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> index 3af4aefc760e..f7364c7408d5 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> @@ -244,6 +244,19 @@ static void intel_cpu_cmtg_transcoder_set_m_n(const struct intel_crtc_state *crt
->  	intel_de_write(display, TRANS_LINKN1_CMTG(cpu_transcoder), m_n->link_n);
->  }
->  
-> +static void intel_cmtg_ctl_enable(const struct intel_crtc_state *crtc_state)
-> +{
-> +	struct intel_display *display = to_intel_display(crtc_state);
-> +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-> +	u32 val = 0;
-> +
-> +	val = intel_de_read(display, TRANS_CMTG_CTL(cpu_transcoder));
-> +
-> +	val |= CMTG_ENABLE;
-> +
-> +	intel_de_write(display, TRANS_CMTG_CTL(cpu_transcoder), val);
+intel_dp_can_join() was previously exposed in intel_dp.h, but after the
+recent joiner refactor it is only used internally via
+intel_dp_joiner_candidate_valid(). It no longer needs external
+visibility, so make it static and drop the prototype from intel_dp.h.
 
-This is just a single line intel_de_rmw().
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 1 +
+ drivers/gpu/drm/i915/display/intel_dp.h | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-> +}
-> +
->  void intel_cmtg_enable(const struct intel_crtc_state *crtc_state)
->  {
->  	struct intel_display *display = to_intel_display(crtc_state);
-> @@ -261,4 +274,7 @@ void intel_cmtg_enable(const struct intel_crtc_state *crtc_state)
->  
->  	/* Program Cmtg Sync to Port Sync, TRANS_CMTG_CTL */
->  	intel_de_rmw(display, TRANS_CMTG_CTL(cpu_transcoder), CMTG_SYNC_TO_PORT, CMTG_SYNC_TO_PORT);
-> +
-> +	/* Program Enable Cmtg */
-> +	intel_cmtg_ctl_enable(crtc_state);
-
-If there's intel_de_rmw() before, why is this a function?
-
->  }
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index e2fd01d1a1e4..4f5b89f80e55 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1396,6 +1396,7 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
+ 	return true;
+ }
+ 
++static
+ bool intel_dp_can_join(struct intel_display *display,
+ 		       int num_joined_pipes)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index ff527b351de0..cbd7fcd3789f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -222,8 +222,6 @@ int intel_dp_compute_config_late(struct intel_encoder *encoder,
+ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
+ 			       bool assume_all_enabled);
+ int intel_dp_max_hdisplay_per_pipe(struct intel_display *display);
+-bool intel_dp_can_join(struct intel_display *display,
+-		       int num_joined_pipes);
+ bool intel_dp_dotclk_valid(struct intel_display *display,
+ 			   int target_clock,
+ 			   int htotal,
 -- 
-Jani Nikula, Intel
+2.45.2
+
