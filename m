@@ -4,189 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 241E3EB28EE
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 08:39:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF15AEB28F8
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 08:44:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADCFD10E0FB;
-	Fri,  6 Feb 2026 08:39:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D636110E5B5;
+	Fri,  6 Feb 2026 08:44:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fiCRTZ+P";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GOAHUgzv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41EE310E0D3;
- Fri,  6 Feb 2026 08:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770367169; x=1801903169;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=6FILLNMkNhTXaDuPDg/mHVwxJwUnMlXn8EKeLZ39sW8=;
- b=fiCRTZ+PrB6W5dqDbdd9CUgn5mDMD2NDPDXLvshLLe/DSCKtqWIAemHZ
- 4dn/9ZVXq1cUEKJREvu4Aw5P4BBJ04XZp2F6lOIVupmyRUzkLeWH6/zky
- FgFp4Qw2ElembDv17ZfApClSW7j4fi7uHglipXPx8jjuv88KWPelKngQc
- kpsUDLf/4aK5bvo10drhyHps5Skxgacakn6KY0HItEqXKq03czCCffiES
- wWyA9uG9Y420yvBigw7j6DA7Hcmzu2qX6ElOKWd5mJkGA4iKgLJbUccvP
- 4CURqws6LpaNTwyzWEftQ555MDmSqyYX6F3V4Bj8TbSGibNW3K5xBXrQX Q==;
-X-CSE-ConnectionGUID: SEkXh2DxTxeYrI/JpGuJow==
-X-CSE-MsgGUID: 8+HGKcHwSGaSK6lE8XE52g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11692"; a="81890447"
-X-IronPort-AV: E=Sophos;i="6.21,276,1763452800"; d="scan'208";a="81890447"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2026 00:39:28 -0800
-X-CSE-ConnectionGUID: KuIFuygpSvWtn7eIH7wzbA==
-X-CSE-MsgGUID: vMKXc+YcQc+cjjuTT5rQzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,276,1763452800"; d="scan'208";a="210644669"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2026 00:39:26 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Fri, 6 Feb 2026 00:39:24 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35 via Frontend Transport; Fri, 6 Feb 2026 00:39:24 -0800
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.28) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Fri, 6 Feb 2026 00:39:24 -0800
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD4B710E0D3;
+ Fri,  6 Feb 2026 08:44:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q5PhoXRqy8wL8nzwR/bI+eaieWOxwg5JS3FqmBzeWuhRf/gApyw+12za12hX6cwGv6Dvsm54qOM4mm3QPjjLe81qoQznDTPKHePG6K9HND8RBFeQEZXiRU5wcpYHp1gUrYKUUjTzdBYZyG/DV+rvzUfg66vFO5cD3fyJ65d9mdRy/QWP+7R+bJDn/Otpthlpir5OYprL7GzfTTgbNCE2aH4q/hYzaap2hVzox3sfurKOaiOfyqx+JPN3TSZN3tl4UvEUoHV+Smfn4HwiBLQTcw4PaiqPpdT7K5htn4is7edOEqOcFNhupt6aGsqMXeQvZo1tVYGjKkAFKMNrSr5CSw==
+ b=hUjdxGTEwHDF6ZCzIWJ54xeq1eo1os+rbC3NxtrQRSikLVaEXMJVyKXllbkSja9UbPNX7nImaqkPBUoO6lXDt64qPqkvH61yBz9WUbOoQQEqx36yJlkGweoP18R+3Azi67vUhJuOjDM0f6SDB9iPk+Vbc4ZA21bPqcdYnS40FTNqJqmnndxlQ5lG0H4UtFEuo9MGr0NFqG5JT8EUb0VoHNw4Y8oRu+CFfXJOCGN8slA8iY4JJQ2Xka2lbgClXVozZOdgK5ft77Xlzy8vEm1mt5LyC1rvFVzkET6XnhDRh6U8VX8qkv5gl9e/S8lqz1fHzsU5GDjAt8M62AGOjELUPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2MqVHeLi732M2ISsFWNiJIcDv9GAqlPg2ZYW9loRcaE=;
- b=gVp3ajVsyypeU4tiliF+STV0EkMtfDzoxICMzX2VStTdj7Sro1QBsM1QPtkVhSDI1Z8IPU2ygiMRL/k6xRRoBNxGr5F8RlbJg66UgMyopz44LFJTeoFb/mHV9PQ09fnOo5+XpHrEAATzQYKGz9L3c20dIqUao+9WW0YbeQhMfwRoyfJtSuVXiPtphS5wQdLzwzq/m/ycv5qwGk0isGCyjmfR9C1Q7m3MLOySHfcf+e/P9tIF5NhY5iOnsOFpFnvAbRZ2YiV+fP4FxZWP3cTsQhbUTz+AULnd1QK2O84P9qhVYN0CH0iQ+dbol2iPehjThsB4g0QIxkNtjVg5aDzMBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from IA1PR11MB6266.namprd11.prod.outlook.com (2603:10b6:208:3e6::12)
- by BN9PR11MB5228.namprd11.prod.outlook.com (2603:10b6:408:135::5)
+ bh=1wRNRn1ro80tcWVxUnIl3uqt9qPUWlBIxvvXYKzv0Ps=;
+ b=xWnTHZ3GO5ylAMHKs5L3SKzbbnyukfgeuHo3SZiJOYUzUnMEVGDc2Gw4kO9VT5kSr8IxQl2a2EBSUl8Wzzkpk73cgRisHWCWZ8Zkqb15CHMfZFZC1GxS9WOV0wb8v3432dBsQ6gpvmO+zGcbZvBSI4RDjhbN79JfduxBdHh8KD2GVGNEhmWUUprwxHJfLZFFHpEHpRYxjlFjBTITh/6Smw7b6ZyGYCKdTkxxixEFBgZrgYBygcq0cz23sxtRA6OkicTsdlrUYR3E7EM10S75GcF/enq1qdc6yOWuJjEqr2VRVrZkrc02b/s1vok/QkJr5/VSvM625+esXPCYE1AQQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1wRNRn1ro80tcWVxUnIl3uqt9qPUWlBIxvvXYKzv0Ps=;
+ b=GOAHUgzv4cepBWp/tOVKy/xF/S8aqQv38QcBTf2S/+IsMv+vyzDuKnBZ78KQkplAj0JhlFalMQwkjWP050t0PdknZFl5oGC1kvov516HOyAsn8nygFCRXcZySf1rcGdTIFXEGa09cstlBU3kCZfcko6LDJZqhAvmKBMkSy6ek4k=
+Received: from CH0P221CA0012.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::16)
+ by BL3PR12MB9049.namprd12.prod.outlook.com (2603:10b6:208:3b8::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Fri, 6 Feb
- 2026 08:39:22 +0000
-Received: from IA1PR11MB6266.namprd11.prod.outlook.com
- ([fe80::eda2:e570:4314:8720]) by IA1PR11MB6266.namprd11.prod.outlook.com
- ([fe80::eda2:e570:4314:8720%5]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
- 08:39:22 +0000
-Message-ID: <c69715ae-d8fd-429a-b157-8c6bfca03751@intel.com>
-Date: Fri, 6 Feb 2026 14:09:15 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/15] drm/xe/nvlp: Bump maximum WOPCM size
-To: Gustavo Sousa <gustavo.sousa@intel.com>, <intel-xe@lists.freedesktop.org>, 
- <intel-gfx@lists.freedesktop.org>
-References: <20260205-nvl-p-upstreaming-v2-0-9ec14f00cc6c@intel.com>
- <20260205-nvl-p-upstreaming-v2-15-9ec14f00cc6c@intel.com>
-Content-Language: en-US
-From: "Bhadane, Dnyaneshwar" <dnyaneshwar.bhadane@intel.com>
-In-Reply-To: <20260205-nvl-p-upstreaming-v2-15-9ec14f00cc6c@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0153.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::14) To IA1PR11MB6266.namprd11.prod.outlook.com
- (2603:10b6:208:3e6::12)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Fri, 6 Feb
+ 2026 08:44:53 +0000
+Received: from DS3PEPF000099E2.namprd04.prod.outlook.com
+ (2603:10b6:610:11c:cafe::92) by CH0P221CA0012.outlook.office365.com
+ (2603:10b6:610:11c::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.16 via Frontend
+ Transport; Fri, 6 Feb 2026 08:44:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099E2.mail.protection.outlook.com (10.167.17.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Fri, 6 Feb 2026 08:44:53 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 6 Feb
+ 2026 02:44:50 -0600
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v2 2/2] drm/buddy: Add KUnit test for offset-aligned
+ allocations
+Date: Fri, 6 Feb 2026 14:14:24 +0530
+Message-ID: <20260206084424.7360-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260206084424.7360-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260206084424.7360-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR11MB6266:EE_|BN9PR11MB5228:EE_
-X-MS-Office365-Filtering-Correlation-Id: 55739d85-b729-487d-766b-08de655b39e0
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099E2:EE_|BL3PR12MB9049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ad67b60-dab7-49fe-83f7-08de655bff37
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OFZ2bHhjRUkwZEVCYTBQZEVZUm9McnRlYTRFa1Zkdjl3V0Z3akxVTWdiUmoy?=
- =?utf-8?B?WFRSUnFzUUJLWFVBNkVyMGQ3Rmo2dGQrMHN3YmR5M0dGSGNnWGhHS2hVRmxB?=
- =?utf-8?B?dTNDQlFEZEQvaUwwOFB4YjFrS1o4V2dNU3o3bTdNV1hCWHUvdFg3eWxzK21Q?=
- =?utf-8?B?ZWF0T1FzRDNVWmpadlBPajNMLzdBbEtRRTI0R3dhUTNvNlc0OFBJUHFFTzV4?=
- =?utf-8?B?WThjWTNvY0pOcnNnSUE3M2ZWTTVJVjRWUVR2R1hhZzRVWVU4SytQNmFPend0?=
- =?utf-8?B?bHNpc09pVk81YTArcmw2eWdoZWdmd2M1ejhCaytEZVc3aHpYVXhxN04zdnhn?=
- =?utf-8?B?RzVwRFdjK1N3TWxodnhCT0YyUzR2Znk5Y29kQks0M3JDU01zRlF2MXNYRDV0?=
- =?utf-8?B?N1UvcWRXZlZEbndHK0hhSU1MU1BHUmdHYVl2SjRHWXZnR1owcjNaNTlqNTlT?=
- =?utf-8?B?RzR5ZGV5TFZCTXRYd09vcFYwN1F4N0hkNUNycFVoTGJrOFdOT2xCcjdxYmhw?=
- =?utf-8?B?dlRid1p5ZlJQMXhRSExCLzJMUTdqdVlUMUliYWlsSTEvcFB3MXlZOHA1QjFj?=
- =?utf-8?B?WkN4Uk1DZC9xL3JaemlBOVlQSzBia0VreU1KVjRrUEV3QVZrek9OTU9zdWE4?=
- =?utf-8?B?eVpNL2RuNnNPemFQTlp1bFROUExMS2VraW5nbG51ajArVkhEbzhFYzZYT1Rv?=
- =?utf-8?B?a0RzUXZzTnBHaGlEUU85WndvWngvLzlHdlVramNIODRCY3lHaEFzUmp4YXhQ?=
- =?utf-8?B?ZGVzTUNOTXBXY3BnbkdNS2MyeXZ4MEZqcXRpU1N3M0RLZ2xjdXRabVJvazh3?=
- =?utf-8?B?dG1reEVFNmY4cW44dFd2SDF1dW12TmFTMmVXN0YvUzlrQ2ZPSzdlSHdNNlFh?=
- =?utf-8?B?OGI2c2VWYWt5SVQvK1R5NDYxc3BkajlQLzdOMStackUxT3lndFhFL3ZNajdN?=
- =?utf-8?B?YzdDcWNyVVhMK3F6dHhBaHlyTzBtSEovM0lqa1hXZGxjS1dlOHhCMVBYTlc2?=
- =?utf-8?B?V04vOWx3ZEwvdndyd1VQdXdIRVkxN3hVUnRQb0JpUGlqaFVXTm42cnVVaXUy?=
- =?utf-8?B?NUhQSW9zdjVka1dPcWVsa0NybkdIZUw2aWw0TVRHc0hHemUyVWJzalViTVpu?=
- =?utf-8?B?Q2FIQVJvNTRoWjg3dDF0aExITmpMSExnWlh5SGY3NFkrK0pVT1hPSzg5aXJW?=
- =?utf-8?B?V0hDSytiMXRRM1dWU0RxSk5KMDk2VFhtWlhScHVQR1haMDlUa1gwd3o0QjB0?=
- =?utf-8?B?V3JyQUdieC9XUTRrbU1DbS85Tjd2NHN4b3BhaEZNMDVjK2ZaQWt6ZmtXd2hn?=
- =?utf-8?B?Y0dqUXZma24ySkxRWFhSd1E5QnFhd0p2SmZ5RUg4T1F4ZWF3OWVuUDltaWU0?=
- =?utf-8?B?QXhHeTUyRHBWNWpqY3QrSzVkR2Y4VkhhRjlXZmVKWUFEcUorM2U3UHRyV1pN?=
- =?utf-8?B?cTd0Skd1THV0WE5ud3FMRU1ZdWZCMXpmMXM0Zy9CYzVIeEhDV2x0S1JmN09O?=
- =?utf-8?B?K2tETEhHSTRuWGRielQrek45SEpPcXZhS1lqMitvcHdhN1N2NHp4ZXVxOU5C?=
- =?utf-8?B?allxQVU3Q0VxQnBlbHZJU3ZnK1I0RGx2UDdpQzBKdlIvNG9jRHlvR0lwKzdm?=
- =?utf-8?B?dEZueDFpb2ZiWElCLzhkbkFFZmZMdlM0REF6NEw0cm9sV1h4N2NlR1o2VjhM?=
- =?utf-8?B?R1RuMG95eWdCQms4clhGWTJURmxpU052a3JEdGxKcGVTWGEzd0UxcjA1WktB?=
- =?utf-8?B?Qm5NREJDM1ZoeDVGYzFqTzI0NjErb09iYlc2ck5ieDdKTG13TFI0cjE4akFO?=
- =?utf-8?B?K2laMnpsRkZsY0lsRGtGZ0FjT3RXc0lqQjlJdnJnT3RnYkFmU2lqU2pPN0V1?=
- =?utf-8?B?eFN6bUdjZ20ybzlPTUkremxYakNwRVFtbkptaFJxWTBVVVJyTlVCQmFXQXJY?=
- =?utf-8?B?OVhQRlVaQzFLVWlHQ0l3WFJrb242WVRtRkovWENSRWpGQ0Y3Q0Zyczc3MjVw?=
- =?utf-8?B?OXM5VTVVSCtwcFlOY1FUcy9SM1Q1RjRRSXQ4UWhpd1FVRENHVDN0VEdLaUJu?=
- =?utf-8?B?SjF4b25ZcTBobXpZd3ZiUWdjVVM0VGl5T2F5YnBWMlNYQnhmSE9BOHh6Z2py?=
- =?utf-8?Q?Pwok=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR11MB6266.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?tpsRxqRCLBGgVLxKaN68gBOM7ZIb1sfPZ6cUmuBinKwTia+XbIi75+VYh9F9?=
+ =?us-ascii?Q?M/+HrxXVfra0i+9hVU0+6RjSbwdWprrXEAtag4JYwTcn7sPMGYD8Atovk+G3?=
+ =?us-ascii?Q?CxT1Ev2KcDrf7NsCwTA57dOYmvpvnqk81uNnq6EvAPtx/t+wGrebJvVz1mnw?=
+ =?us-ascii?Q?gGsMxPn9c/uIYoPbuk3c9aSNTob5121eBOTuf1X7zCjAKD8RQrSN7Pj+oXn6?=
+ =?us-ascii?Q?n16cjuNu5zZmJ8vHIOuygoSVXlvWWuSuDSuWGIvDpjdzlih4bdXeZ/OCH0t1?=
+ =?us-ascii?Q?Cg/amlFsL8PBoDqJah94dQ5n2XwkXBaKUSF6PxHF0afaVCvPy8HToH1BjaNn?=
+ =?us-ascii?Q?d4As0D8EE57HKl1aDsfCW2H6GvU1QG+NfTHz9CoQHWH799ptzYD3fcWVnc/y?=
+ =?us-ascii?Q?9ln1A6oeeQx5gxDrx2azPh1U2UoQIUqRRGn+KGUrnWqA0oTt/VCZ9uAFEURt?=
+ =?us-ascii?Q?bDeUBoaCSnJCUX9zQGUwIFdZec7mglMolVtSByYKt6OXy5nt07Y1VzdWWfCJ?=
+ =?us-ascii?Q?sTW/TgLo317Xbt0Mead7acM//RZdlkhAnNXrqP8i1ogbtJRlvUx7MuiGlcJz?=
+ =?us-ascii?Q?USefsWVss1fJxLYNHikQlXjEJTSuiGyBNfR1H0T5kr6D8DDniFkhmQx/fXnV?=
+ =?us-ascii?Q?fAM5dhGjDyfbBjkTqwYTa187Km2q5JByUwvJuzDkEmeWrFlnn5uCEnINgE6+?=
+ =?us-ascii?Q?42QcaE1BZFqXwBP1WptyiiYavWFaB+Trlv6bQuZI2k4nu6wL7W948LzK/cP+?=
+ =?us-ascii?Q?WQx3090yzgwHa22DRrAB4on3InMWBt9YmpAW4cSQ9NDncFZE/teTBgE8lChI?=
+ =?us-ascii?Q?zV6mQybtfdYPSw5EOHEWT7m9cMA8NrTcK7CURSCtiJediNnLxSyz9aMGwo5j?=
+ =?us-ascii?Q?vrO3ILV+PvShEU6rh+IGzPTxSjw9tms58W14DtC3zOX0nw8W3J0ReBIqXjt/?=
+ =?us-ascii?Q?lWrBR6LNPRvhopaq57i63VtBu5pBrAt+r7m60o3eyz10Tk2DrhWb6+0W3Wft?=
+ =?us-ascii?Q?Oz6jebXwq7/SPq0PnncWUZ7t3RmSkEiV3c2gOdY9kOnc3i/SzYyF/hmLbqw8?=
+ =?us-ascii?Q?m0SwTBb+hPuZaC1BqxRd7Ct2xtP2Q6uKCwpjpmBTk4YaAbfRy9tMM1TCo053?=
+ =?us-ascii?Q?wHs0pJPysawzwfKrkQZtm2X/SQZKIbHoDS7BRWNWa4EEPuHjfrWfUNFdK47Y?=
+ =?us-ascii?Q?9cwbGJ7vcQtlFRj8IqOXfDNNLjD6GWjwjkBDIqWI9yUx3ouArR091a3yNN85?=
+ =?us-ascii?Q?J3T809OKxHuBkY5mT9iaAGWEvnRs4QLbOIVhb5Zs4xD5zMjOC7IDhIylwVQJ?=
+ =?us-ascii?Q?LNGvLsfIc05konhcZGxAn4NNU0BVixR0AjKkK+IU7B+pD3YsH/wnSDv7tc0P?=
+ =?us-ascii?Q?fI21vWb95d89fEvMba35s8rEnb3k0rodapZZePprJ7IfaZ78Oar1PgR+V5l7?=
+ =?us-ascii?Q?F7SUd8glIRF0eqcFedeUKQl544xrkphecnBinocztA6xaPLvEiwxP0muYXQm?=
+ =?us-ascii?Q?0nYMpdtlOaOyi9eyMpzn0kowfnkxp7bt6nNMx3zQZk9l17ZHhiNPYlrOUGVg?=
+ =?us-ascii?Q?yl55Zt0p5ZjI3I2OlKMf4TIrRNe2hSDud7ZNhsHVE6p/IgbP0WIgOzr+dN9F?=
+ =?us-ascii?Q?zQ8ECwmPRjtGo5ObM/X+1ThE0mUz++Vz3S06B7tfz1eYad09LKeTuLMEc6Rw?=
+ =?us-ascii?Q?2Zqezw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFdiWFZETWtwdVlVRkFRd1AvT0FhL2huVzhHNzYyc3pIa1JkZWdDMFQwQ2xj?=
- =?utf-8?B?ZERDU09IajZRdDFmdldpbkc5MVpuOWVlWXNpZHBLTGlTSzcvNFJ2QTRja2F1?=
- =?utf-8?B?ZFMvczlhallPZklTSFQ1NlgwQm5Kei9DOHFLZlEzM1JZenlHbXJ2MFpocDRq?=
- =?utf-8?B?eTNzVHRpMDhZdDcvSlkwcnFrcjV5KzZJV2FUbHVCWFZmTzF2K2VSa3hXU3RN?=
- =?utf-8?B?MHBub3liNzlwK3lzbEtDci9IZ2dFNWx4VldvYSt5YlUxSi9oUkxSZURmdjFl?=
- =?utf-8?B?Rk56YktXSUk4WDRwNk5ud0hmZ1UzeDZDOGxuc3lBMlNYTTJpblVwNjlLbDkx?=
- =?utf-8?B?aEk4MFRva2ZKMXg3aHByVW1PNTNQNk9PSkFvemh4SlVaWXgzKzd5VVEyaG5F?=
- =?utf-8?B?cEcxK3ZwZkxOeHQ3a2txdmF6ckJDdlVYQ0xKeVVvSDB6V2F5dmJVZUhNb3VR?=
- =?utf-8?B?RTRyZ1lJUGMyUXRrT2ZRcTQ1TnlmMzVNVlB5MmI2SFpoK2FUR3JTSklYVmls?=
- =?utf-8?B?WjJaUkhZOTdPeUxQeU5SeXVsMXN5cnNPT0FPMzRRTktLeExPTUI0a1NlWUc1?=
- =?utf-8?B?Q1l1RFZPbkw4OGZ3dncrRWZBRHhSY0JFVXBnWDlnaGdFMmRyVyt6WWVReG5x?=
- =?utf-8?B?Nm9sMUN6NlNaWDVwZHpsdFdBekgxeTVsZEl6MC9KdDRYR3hwYjRmQ01LUjcy?=
- =?utf-8?B?d0E2LzR3V3lQYnRaNmxQSTY0ejRPUTJqMHdZMjNjTWI3UkZwTWRXVDU2ZDIr?=
- =?utf-8?B?c0RGNFRROHNKVnN2d0UwN0l2SE9TRnFtTUlrRnM4MkZaZDhTNG1uQTE4ankr?=
- =?utf-8?B?ZVY3Mi81bnQxNE5KZk1XYnJkVmNCRjlpRlFqM2x4Vmp0SEVFZHd1UG1FZE5v?=
- =?utf-8?B?SEJSOUNXWGs4cFhpVnFsSE1BTmkycGkwZlpEVlZYM2ZCL3RSTVMwamZRdG53?=
- =?utf-8?B?TTZUdm0xM1czcTZCVTVReXdhd1pxcGdYWHlkQlBuQmtrNEdzV2RaK0dtcXRD?=
- =?utf-8?B?ZGZ5dzZXWFVFY1gya21OTVJsYTJtZ0h1eVZEenQ2VGNERjdtTEFnS2ZUNVJU?=
- =?utf-8?B?OC8wMVNrMG5mcTV2ODlidUNOWW9LZ0Uzb0Vwemg3WjFGRVQ1K1hvZ2E4bGNU?=
- =?utf-8?B?V3JTbjR4V2MxOUw4NGg4azFjMnQxUlRRSEtOVnpBcnYrd3FVbkdwNXdvZ0w4?=
- =?utf-8?B?VDZ6azFOS0EyQkNEeHFlZzVsNE5zQ1BNc29ibUV5dmRaNEV2S0phUkowMkdI?=
- =?utf-8?B?aTFaTmNPQmRCOTlycFlaNHJuc2xLZ1Jvcit0SjdIVitiREFWcm1iSSt5bmJQ?=
- =?utf-8?B?aU5wbmIzeFl2V0JVVG5zdjFiT2FhWDBDSU5Jd0x4NzJGY2hXS0tHSlRxMEpy?=
- =?utf-8?B?WVNKalNpTHRld1dwa2pLQ05uN2xuK2tJMnloTzNKNjhjNmRrM1V3dFh3WTVv?=
- =?utf-8?B?eFpjSGVTRGs5bi9uYlVWU0lvclUvY3Z6dkMzaWh0WG1pcVMyT0hxUU1NZkgw?=
- =?utf-8?B?d3dPYVNUd2J3dHpVYlU3RS8rWVh5My9mWUFya3M3NUF2QTJnQWtCZzJXajgy?=
- =?utf-8?B?cmdycjRValhla1YrQUppWTJVLzNlMDBJcmtmUUQ2M1gzcjNHVWtWN1FxdFZt?=
- =?utf-8?B?QkVsSFpOc0tJK3JIN3pDcUtmNE43U0JjWURyc0xuU2hjWnVkOU1aUlRLWHFF?=
- =?utf-8?B?d1llOEJCYmFnKzEvbmZZa25PaGllZXlQRkhjSUpuZHJURWdIU3BlUDNMby84?=
- =?utf-8?B?VmhnOEdnV0FLclhCTEMza1BuSTZ3NjU1YTltK1NyOXlLeDdiZGNBbm5nWlh1?=
- =?utf-8?B?b0haQ3UzRXVZTGUvMVpEYUhuVXNEOXY0T2dzVEVENVRVNHd6cXk3S0VMd1Fa?=
- =?utf-8?B?QXdMbTBMME1LSmVjU25FQkRyREpRWWtseHBJUG9zeHRLVFNMM0ZmWkI2ZCtl?=
- =?utf-8?B?Ukx5NFlNOXo2ZnJGTTI0RkpLc05FekF2K01KNmtJL2w3THJ3YThyRFJaY2JO?=
- =?utf-8?B?azJDWWtRK1JsUk85SmhzVjlGMTlobGdqaXc4TnZpbkRCMTNMTFE4RGpvN05F?=
- =?utf-8?B?TkNTVWxkWHNnV1RWdEFDNUxKcHNudExZSDN4ejlSdFNwLzdXUUZJQ0VpSm9V?=
- =?utf-8?B?ejZJNndhV1ZjREhlcFp0WnJjM2huN053UnQvaUNkeHhweFE2cHZjRHNBSFVX?=
- =?utf-8?B?SXpadVBaY0dJdDVESjV6SE1kd1M0bmFxUDdKOTd0VmdiVmpqUFFvNGRYYkxw?=
- =?utf-8?B?S0pZZXNIMjI1dzI5NjlneHIvWk5LRSt4cVVrYlNZZ0lVSFhWcGtCcEVGQmYv?=
- =?utf-8?B?S0lweFFaZE44ZW15dENQSHB2Y3N5YUtxWXJLdGZnQWJNaUx3bWlMQ1NXT0oz?=
- =?utf-8?Q?CRF5b3szAkqnqfpg=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 55739d85-b729-487d-766b-08de655b39e0
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6266.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 08:39:22.4324 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UemOHR6TlakDIdS2jpBQtsJx4w55XOpNh53byjedEbv4XutXdjZYzfzCxmS9b46nE8wTk9KupDjO2kqDXgQVY8Gcbj/yxmTOlL4wWf3Ilvs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR11MB5228
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: jFsUn1WAhl3inNWAcu05Y1zJ9aHHCRqsfo8SnE6GdZk0sqYLLWS9BU7D502O6HD2b203ITdFRMmdTI6osF8IlGZU2erAassRDdzVUDnkz7oz+VBCGs89X4JQJCfN7E4HcY03XwLTRCnwhRsXLduLumtpD59A+HK02lFJAAlBavWgZxJlVMQ6DCc5Tm5awHfHoD/NAye5B8qPb+JLfGmqr7F0xBwt45mJrYR34Gd9pAd1F7g+UTrxbplYjIStQp3QIQPws3gVyb8URIsLSWu1SYDXTYPvQq1oqJi8xhXMBOwRJsvbcOO/U1aLTaLbEyfukXp77xovjZhOWh2+hD6gfMA22Kef+ZraEOJXJVR9wYxk8QLBDE9LVmRn/WIvLS0SMgDRLOymbrMAcmkMgqRiS9zO0ZmjrefYa4KTXCmONIe1ZEY450a69YU9yCHmCDhm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 08:44:53.1002 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ad67b60-dab7-49fe-83f7-08de655bff37
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099E2.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB9049
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -202,68 +142,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add KUnit test to validate offset-aligned allocations in the DRM buddy
+allocator.
 
+Validate offset-aligned allocation:
+The test covers allocations with sizes smaller than the alignment constraint
+and verifies correct size preservation, offset alignment, and behavior across
+multiple allocation sizes. It also exercises fragmentation by freeing
+alternating blocks and confirms that allocation fails once all aligned offsets
+are consumed.
 
-On 06-Feb-26 5:09 AM, Gustavo Sousa wrote:
-> On NVL-P, the primary GT's WOPCM gained an extra 8MiB for the Memory
-> URB.  As such, we need to bump the maximum size in the driver so that
-> the driver is able to load without erroring out thinking that the WOPCM
-> is too small.
-> 
-> FIXME: The wopcm code in xe driver is a bit confusing.  For the case
-> where the offsets for GUC WOPCM are already locked, it appears we are
-> using the maximum overall WOPCM size instead of the sizes relative to
-> each type of GT.  The function __check_layout() should be checking
-> against the latter.
-> 
-> Bspec: 67090
-> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
-LGTM,
-Reviewed-by: Dnyaneshwar Bhadane <dnyaneshwar.bhadane@intel.com>
-> ---
->   drivers/gpu/drm/xe/xe_wopcm.c | 15 ++++++++++++---
->   1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/xe/xe_wopcm.c b/drivers/gpu/drm/xe/xe_wopcm.c
-> index dde4f4967ca3..900daf1d1b1b 100644
-> --- a/drivers/gpu/drm/xe/xe_wopcm.c
-> +++ b/drivers/gpu/drm/xe/xe_wopcm.c
-> @@ -55,8 +55,6 @@
->   #define MTL_WOPCM_SIZE			SZ_4M
->   #define WOPCM_SIZE			SZ_2M
->   
-> -#define MAX_WOPCM_SIZE			SZ_8M
-> -
->   /* 16KB WOPCM (RSVD WOPCM) is reserved from HuC firmware top. */
->   #define WOPCM_RESERVED_SIZE		SZ_16K
->   
-> @@ -186,6 +184,14 @@ u32 xe_wopcm_size(struct xe_device *xe)
->   		WOPCM_SIZE;
->   }
->   
-> +static u32 max_wopcm_size(struct xe_device *xe)
-> +{
-> +	if (xe->info.platform == XE_NOVALAKE_P)
-> +		return SZ_16M;
-> +	else
-> +		return SZ_8M;
-> +}
-> +
->   /**
->    * xe_wopcm_init() - Initialize the WOPCM structure.
->    * @wopcm: pointer to xe_wopcm.
-> @@ -227,8 +233,11 @@ int xe_wopcm_init(struct xe_wopcm *wopcm)
->   		 * When the GuC wopcm base and size are preprogrammed by
->   		 * BIOS/IFWI, check against the max allowed wopcm size to
->   		 * validate if the programmed values align to the wopcm layout.
-> +		 *
-> +		 * FIXME: This is giving the maximum overall WOPCM size and not
-> +		 * the size relative to each GT.
->   		 */
-> -		wopcm->size = MAX_WOPCM_SIZE;
-> +		wopcm->size = max_wopcm_size(xe);
->   
->   		goto check;
->   	}
-> 
+Stress subtree_max_alignment propagation:
+Exercise subtree_max_alignment tracking by allocating blocks with descending
+alignment constraints and freeing them in reverse order. This verifies that
+free-tree augmentation correctly propagates the maximum offset alignment
+present in each subtree at every stage.
+
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/drm/tests/drm_buddy_test.c | 167 +++++++++++++++++++++++++
+ 1 file changed, 167 insertions(+)
+
+diff --git a/drivers/gpu/drm/tests/drm_buddy_test.c b/drivers/gpu/drm/tests/drm_buddy_test.c
+index 5f40b5343bd8..b24302ef4188 100644
+--- a/drivers/gpu/drm/tests/drm_buddy_test.c
++++ b/drivers/gpu/drm/tests/drm_buddy_test.c
+@@ -21,6 +21,171 @@ static inline u64 get_size(int order, u64 chunk_size)
+ 	return (1 << order) * chunk_size;
+ }
+ 
++static void drm_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
++{
++	struct drm_buddy_block *block;
++	struct rb_node *node = NULL;
++	const u64 mm_size = SZ_2M;
++	const u64 alignments[] = {
++		SZ_1M,
++		SZ_512K,
++		SZ_256K,
++		SZ_128K,
++		SZ_64K,
++		SZ_32K,
++		SZ_16K,
++		SZ_8K,
++	};
++
++	struct list_head allocated[ARRAY_SIZE(alignments)];
++	unsigned int i, order, max_subtree_align = 0;
++	struct drm_buddy mm;
++	int ret, tree;
++
++	KUNIT_ASSERT_FALSE(test, drm_buddy_init(&mm, mm_size, SZ_4K),
++			   "buddy_init failed\n")
++
++	for (i = 0; i < ARRAY_SIZE(allocated); i++)
++		INIT_LIST_HEAD(&allocated[i]);
++
++	/*
++	 * Exercise subtree_max_alignment tracking by allocating blocks with descending
++	 * alignment constraints and freeing them in reverse order. This verifies that
++	 * free-tree augmentation correctly propagates the maximum offset alignment
++	 * present in each subtree at every stage.
++	 */
++
++	for (i = 0; i < ARRAY_SIZE(alignments); i++) {
++		struct drm_buddy_block *root = NULL;
++		unsigned int expected;
++		u64 align;
++
++		align = alignments[i];
++		expected = ilog2(align) - 1;
++
++		for (;;) {
++			ret = drm_buddy_alloc_blocks(&mm,
++						     0, mm_size,
++						     SZ_4K, align,
++						     &allocated[i],
++						     0);
++			if (ret)
++				break;
++
++			block = list_last_entry(&allocated[i],
++						struct drm_buddy_block,
++						link);
++			KUNIT_EXPECT_EQ(test, drm_buddy_block_offset(block) & (align - 1), 0ULL);
++		}
++
++		for (order = mm.max_order + 1; order-- > 0 && !root; ) {
++			for (tree = 0; tree < 2; tree++) {
++				node = mm.free_trees[tree][order].rb_node;
++				if (node) {
++					root = container_of(node,
++							    struct drm_buddy_block,
++							    rb);
++					break;
++				}
++			}
++		}
++
++		KUNIT_ASSERT_NOT_NULL(test, root);
++		KUNIT_EXPECT_EQ(test, root->subtree_max_alignment, expected);
++	}
++
++	for (i = ARRAY_SIZE(alignments); i-- > 0; ) {
++		drm_buddy_free_list(&mm, &allocated[i], 0);
++
++		for (order = 0; order <= mm.max_order; order++) {
++			for (tree = 0; tree < 2; tree++) {
++				node = mm.free_trees[tree][order].rb_node;
++				if (!node)
++					continue;
++
++				block = container_of(node, struct drm_buddy_block, rb);
++				max_subtree_align = max(max_subtree_align, block->subtree_max_alignment);
++			}
++		}
++
++		KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
++	}
++
++	drm_buddy_fini(&mm);
++}
++
++static void drm_test_buddy_offset_aligned_allocation(struct kunit *test)
++{
++	struct drm_buddy_block *block, *tmp;
++	int num_blocks, i, count = 0;
++	LIST_HEAD(allocated);
++	struct drm_buddy mm;
++	u64 mm_size = SZ_4M;
++	LIST_HEAD(freed);
++
++	KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_init(&mm, mm_size, SZ_4K),
++			       "buddy_init failed\n");
++
++	num_blocks = mm_size / SZ_256K;
++
++	/*
++	 * Allocate multiple sizes under a fixed offset alignment.
++	 * Ensures alignment handling is independent of allocation size and
++	 * exercises subtree max-alignment pruning for small requests.
++	 */
++	for (i = 0; i < num_blocks; i++)
++		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_8K, SZ_256K,
++								    &allocated, 0),
++					"buddy_alloc hit an error size=%u\n", SZ_8K);
++
++	list_for_each_entry(block, &allocated, link) {
++		/* Ensure the allocated block uses the expected 8 KB size */
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_size(&mm, block), SZ_8K);
++		/* Ensure the block starts at a 256 KB-aligned offset for proper alignment */
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_offset(block) & (SZ_256K - 1), 0ULL);
++	}
++	drm_buddy_free_list(&mm, &allocated, 0);
++
++	for (i = 0; i < num_blocks; i++)
++		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
++								    &allocated, 0),
++					"buddy_alloc hit an error size=%u\n", SZ_16K);
++
++	list_for_each_entry(block, &allocated, link) {
++		/* Ensure the allocated block uses the expected 16 KB size */
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_size(&mm, block), SZ_16K);
++		/* Ensure the block starts at a 256 KB-aligned offset for proper alignment */
++		KUNIT_EXPECT_EQ(test, drm_buddy_block_offset(block) & (SZ_256K - 1), 0ULL);
++	}
++
++	/*
++	 * Free alternating aligned blocks to introduce fragmentation.
++	 * Ensures offset-aligned allocations remain valid after frees and
++	 * verifies subtree max-alignment metadata is correctly maintained.
++	 */
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count % 2 == 0)
++			list_move_tail(&block->link, &freed);
++		count++;
++	}
++	drm_buddy_free_list(&mm, &freed, 0);
++
++	for (i = 0; i < num_blocks / 2; i++)
++		KUNIT_ASSERT_FALSE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
++								    &allocated, 0),
++					"buddy_alloc hit an error size=%u\n", SZ_16K);
++
++	/*
++	 * Allocate with offset alignment after all slots are used; must fail.
++	 * Confirms that no aligned offsets remain.
++	 */
++	KUNIT_ASSERT_TRUE_MSG(test, drm_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
++							   &allocated, 0),
++			       "buddy_alloc hit an error size=%u\n", SZ_16K);
++	drm_buddy_free_list(&mm, &allocated, 0);
++	drm_buddy_fini(&mm);
++}
++
+ static void drm_test_buddy_fragmentation_performance(struct kunit *test)
+ {
+ 	struct drm_buddy_block *block, *tmp;
+@@ -877,6 +1042,8 @@ static struct kunit_case drm_buddy_tests[] = {
+ 	KUNIT_CASE(drm_test_buddy_alloc_clear),
+ 	KUNIT_CASE(drm_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE(drm_test_buddy_fragmentation_performance),
++	KUNIT_CASE(drm_test_buddy_offset_aligned_allocation),
++	KUNIT_CASE(drm_test_buddy_subtree_offset_alignment_stress),
+ 	{}
+ };
+ 
+-- 
+2.34.1
 
