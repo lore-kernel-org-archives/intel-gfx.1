@@ -4,136 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05BADE78D45
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:32:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7FAE78D40
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:40:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B1010E34B;
-	Mon,  9 Feb 2026 08:32:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA05610E33E;
+	Mon,  9 Feb 2026 08:40:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PBcW5G3W";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SKhUUTf2";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010059.outbound.protection.outlook.com
- [40.93.198.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B809B897FD;
- Mon,  9 Feb 2026 08:32:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FB0010E33D;
+ Mon,  9 Feb 2026 08:40:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1770626444; x=1802162444;
+ h=date:from:to:cc:subject:message-id:reply-to:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=x6YfnZxsuyxTda/zhe9ofGK3UuBinmrkRM4hPkFGLrY=;
+ b=SKhUUTf2/Ujd40PPXIF0vzi8r4SQmbw86mwXLi2ZNb6RfHWDceL15exd
+ mDL2sRR+jJMQUF7LQoc9dmNPHKquSqN5IKvZsQH3Ln9ayK/YtKTgNfQDh
+ uh2QBw1AWOrgay+3Wdq0Lb2zXaFYi6XiFUgELWsO5JtBHtQfofetpY1Br
+ CcyXVBK7wFl2l/pBPa8m0jX2ghoA7SWy97x/uzcujedT1wqjD+lHV5wPh
+ PYzoRyD5o/IX2Ek4IYtDJXgKZJfQIvp4KeoxHL9uMlZcITwHIvam2Y2PY
+ dccyg9HqjGvU3Injiqm7thw3GS+HTdZVcX6/jFeDwJ7XvuN2DjbnNFF65 w==;
+X-CSE-ConnectionGUID: YjMoMPc7TveB5j6GPafj+Q==
+X-CSE-MsgGUID: g2rV5F73TECSiGpwP7BY9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11695"; a="75580893"
+X-IronPort-AV: E=Sophos;i="6.21,281,1763452800"; d="scan'208,223";a="75580893"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2026 00:40:43 -0800
+X-CSE-ConnectionGUID: SU/d/qi0QKKcF3QBLOXCIw==
+X-CSE-MsgGUID: G9Z/8uWeTv+dVmladQQmmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,281,1763452800"; 
+ d="scan'208,223";a="216024673"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Feb 2026 00:40:43 -0800
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Mon, 9 Feb 2026 00:40:42 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Mon, 9 Feb 2026 00:40:42 -0800
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.46) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Mon, 9 Feb 2026 00:40:42 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rREpaDJ4GVzlTuhKJuZpTrHQss7Y3zPdFadiYPad3ECJbN6v1N9AlfLAEaLGKCuUA52u36zuSH9v1kY8qqYzNUYekOGdsmYK3eKzVJ79fpYHPvGjeKoopl6z0iFGYHADKgc9ZEATrPLKRjiuJGV37DQj74BvFrGg6WvXJ2KC1BELdRsTr3xFI/fOVaWkSHdgB4UIzAqYhgKwris1lv7AeMEqHS3BafdKXqRZnYfxsGxyVCz18yIhzBVGVice+acQ45VHeEJw3QXoY9NASfLDmeg1532gPsCzaKI0JHBzwapXAYGyoyZ/bRwbo2bn98jkt0Jt3FkkaxLqIMnDy9EXIQ==
+ b=D6pnhwS3qf+fktVNec0DQUX8B7kh1OnNAe8G0wcz3knl2M70VwOBt692DHNqhAd0xLElg3vGyW23kGz4QuvNzx3NT0OEDBeaCP/tBnWCcqXaeBp19og1zlIcZQhMwxsqUqri3C0/1GzlCXCkxg5HhbT+oEXwjOEL0MuJS7eUURi8YLWJBoSTqpFe1WjdDAmh5aCGzCQMvWjJAu1LPNLjbYVKu54KlQRpr0VU/c5PsDZAIgIADT8I7O3bQhG8ewvQ+srKZb1Q/XEcuu+5UPdkABIfEkiU8+i/tsKxSh9T3TDTfTzF40/xvoui9LbRZ6BpjwI2sFi9kmNAUOd4B9XUuQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KtSzeEP3dK2CFhDLgTmMyqVk8gsomk3zNDQwkXiY/Hg=;
- b=eacircYi1crVK5k0fNnYR8isqbtETOgCI9jRbGKuI8OoSy7OrNRZk3AQhM/mDTICcyTZQgMRQI3m190ojHGPdPXKhbP4NTrBwAtoCmkSxbuujt4n7AI/4q+vJYJ3ZK25ZySe6euV3fQZOeNZAUJO5QNZ3egwB0dy+lXfrA+2gh1VJlw1Dq0avqM/q2W8OQdXyR8gVG0GKL/JT8QlkPwXwSVIW8kUjdzQg7Zg/TL+Bh4Zm3kv64dD0LJ2vb9cte70yz4VU2pz42XhBQ6ZnXxboTXHUD581rtGJpucGcGUhzcifn8kTWiKnL9APjW/r9lIh2W4ZkH8/cvlm8FjZ0sbLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KtSzeEP3dK2CFhDLgTmMyqVk8gsomk3zNDQwkXiY/Hg=;
- b=PBcW5G3Ww4evuvcvNvl+fqRtg8U7q2IWumV3UtODlIkwcksdcmbE2/5AzkP0Gl7YSqw9pxAoQ2yXRYVvekuEYFNMaJ6b32+lzibjiGJ2FZDiqX63+VDlS3wNhhZwJCHJA+53z0mVip1dSP2DVQrj74jUwXCJdogCNmn550/6p+0=
-Received: from SA9PR03CA0025.namprd03.prod.outlook.com (2603:10b6:806:20::30)
- by SJ0PR12MB6736.namprd12.prod.outlook.com (2603:10b6:a03:47a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
- 2026 08:31:21 +0000
-Received: from SN1PEPF0002BA4D.namprd03.prod.outlook.com
- (2603:10b6:806:20:cafe::d7) by SA9PR03CA0025.outlook.office365.com
- (2603:10b6:806:20::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.19 via Frontend Transport; Mon,
- 9 Feb 2026 08:31:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002BA4D.mail.protection.outlook.com (10.167.242.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 08:31:21 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
- 2026 02:31:18 -0600
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v3 1/2] drm/buddy: Improve offset-aligned allocation handling
-Date: Mon, 9 Feb 2026 14:00:50 +0530
-Message-ID: <20260209083051.13376-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ bh=YfVxRbOVzt5Y8o0KvW43DcjRQakc4+U04tXueeGIpXY=;
+ b=BAJ+Xokpo10MrXm3uRX5wip1acq8l8Qm1qYeuWwq/dLa7gmybo/zhIvfYEt2QHK4f3GcJpGTy8jPoftkQq3OKDHwLiJB1TmNHvntXN62zbtrHqciCIpv2XpKh48tel8oUM7yXv/tdcCk0CNRijdcbDL72h1asX8XuuvaLrqfHJSXVCnPAFs0/wWP+eMjO2SCs94dMS/Q7bvunC1yPj6Siper01TD5lDVduHQgctFIkr4COOatmcAJkWmE2z5kE+b79USWrCSn4IUcUMF4RSwzXAT3wHRea7DNOnv63Drdvo8qV5h9Cbqd1Y/yLRpeLbBp4XPTrZG5qBYLD3j2NR4hw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
+ by DM4PR11MB8203.namprd11.prod.outlook.com (2603:10b6:8:187::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
+ 2026 08:40:35 +0000
+Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
+ ([fe80::9ca5:4d1d:db45:f523]) by SJ0PR11MB4845.namprd11.prod.outlook.com
+ ([fe80::9ca5:4d1d:db45:f523%4]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
+ 08:40:35 +0000
+Date: Mon, 9 Feb 2026 10:40:02 +0200
+From: Imre Deak <imre.deak@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+CC: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH 1/2] drm/i915/dp: Fix pipe BPP clamping due to HDR
+Message-ID: <aYmdYjjRljq0dVSL@ideak-desk.lan>
+References: <20260206104227.290231-1-imre.deak@intel.com>
+ <f6b59555-01f6-49ff-aff4-a6da9d347332@intel.com>
+ <9ca3365b-c595-4401-8663-9c18ccc45d45@intel.com>
+Content-Type: multipart/mixed; boundary="T9JaGIDB2HevN1K6"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+In-Reply-To: <9ca3365b-c595-4401-8663-9c18ccc45d45@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-ClientProxiedBy: GV3PEPF00002BA4.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:144:1:0:6:0:1b) To SJ0PR11MB4845.namprd11.prod.outlook.com
+ (2603:10b6:a03:2d1::10)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA4D:EE_|SJ0PR12MB6736:EE_
-X-MS-Office365-Filtering-Correlation-Id: 913b73f1-fd37-4adb-aef1-08de67b59ae6
+X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|DM4PR11MB8203:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cd1ffbc-0d9d-428d-3c95-08de67b6e4b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZnR2bStsbnpIVXJaR3hRcVZ4Wm5rQTI2dGlPVTFuZmdjcHVZR3hhRjRVTisz?=
- =?utf-8?B?anVIaml6eElWcE5DLzZQdDdVS0NBdWEraE9KMnQyTWFST2xmd0kycS83MFpZ?=
- =?utf-8?B?UEwzTEpyS2hFYnBEV0d4U0k4OVA5ZFlIVHp2VEdpVkZyRE1VeHEwaGw0TEsy?=
- =?utf-8?B?bVFuMTB1Ui91TGJ1bVQwM2xub0FqWE9waFdHTzMrdHBrUVFiSklaN3pkc1hQ?=
- =?utf-8?B?bjF0Sms1WFlsYU5HeGNVOVJPTDhaRjV3L29yTm1oSCtuSzl4UDNaUWJOdzEx?=
- =?utf-8?B?dWkycXZENVJ4UmV1TUpGR0FiYjBJV013UjVTS2YvcWdVaU1kd25Ba2R2MzZV?=
- =?utf-8?B?aGhMWXVreWxja3VDWjROeHZFbGhKQlVpeGRzQlAvUG1oMlFhalMzNWNQczlQ?=
- =?utf-8?B?aVN3d3B1VldoSDQxaVZYZU81QWhldTRaa1NjK2VVdEY0eGc4UEhBMXl4M291?=
- =?utf-8?B?aGhVekZ4NURtOW1lTE9lR0l2RVVwTUVCNnU1REc4eUFJWGx6dnBHNlhrSE91?=
- =?utf-8?B?WHJvMEhuTzZSdGlxMVoxKzF2LzF2a29WK2JxUXhpdklBVnd5bFAxcU9uNEM3?=
- =?utf-8?B?U0d5QWo0MlFubzBFaGtma0h1bitacVUzb0NWYjZlYTU3RVZhSWlUU3F4cWN5?=
- =?utf-8?B?RkNLTlk4dXhzeXdpN1BicmVCRTN5SmhVNVhGbHloWlFWdjcwRWhFb0ltVlJn?=
- =?utf-8?B?a0k3UEF6QjlBMGtKN2hJQnhVcXBCN1Y5T0htaERmY2E0M0Q4L2VMaFlRUnhE?=
- =?utf-8?B?MEp0bFUwNHk5T216ODA2dlpLNEpCMXpmWDhYWlZubXgxaVN6Y2t4TndsV3Q4?=
- =?utf-8?B?TU5JMTUwUTUvZHFrUkdwN0NMcmNQZzF4cDdBY1daNms4c3pnOE9kcnpLTS9W?=
- =?utf-8?B?Uks0Mnc1NnhPL2ExOGE1WkxNaHd1WGdDeGlLZVhJU0RWb3ZoVXRZSlY3cjN3?=
- =?utf-8?B?N2Y1TEhWczhKcEV4TGNzTW1KaEpDOUFFOGdHMSt6Q0lpUkVDUUVrYW1YV21a?=
- =?utf-8?B?c01QSXEvK2RVekFESm01V3Y0VlhoWW1DcGN3QnpBR0xWYnRET0dIdHNQblpu?=
- =?utf-8?B?ZWp4YUZ2TnBnSHloNHBsNHNmNDdmUnJMOWU4cTA0R05aNDU1Yi9paG5oN1NH?=
- =?utf-8?B?Q291RkNRY1NQNFVYMEhLWnZLUjVKb3dwTkVDcy9ncGJtK2hWOTJPM2k2S0Y2?=
- =?utf-8?B?MDM0cGJSNS9kMncwdmlhMkJ1cE4rNzQxbXgycXVrY21MeEREOGFjcTNvUlA5?=
- =?utf-8?B?QllPaGtSbFdwZ1RNTm9HS2thNGxORUJVYW9vL1k5SWhkMDU0UlVsWHRlWUYw?=
- =?utf-8?B?aUFjTXZ6RlFkNXNlRkk0dVFDV282djhjbThvU3NSYjBjU1JyYzROSnBpbDdn?=
- =?utf-8?B?UHVUTlA3Q1pOUmdGWEluS1dPZW5ZOEpnSXFBcW1Gb0JYcjc1Yy93KzN5OEQ1?=
- =?utf-8?B?TG5MNGpPTFZRYmQ0Z2w1WUJsUHhnMmJHQWZHUldYdytBUUlsVG5xMTNEdUJQ?=
- =?utf-8?B?aWJIRm9JNzhiRmRaNGNtMjk1R2lLTGZPekxieHVMaWZsZmsrS2xiTGt3b0px?=
- =?utf-8?B?UjhWR1RZVEV5OTFYeklzSEpxMVBvNGFUZWxSbG5lemVIMzVla3RCZjMyc3NX?=
- =?utf-8?B?NGZ3SDZLYlRWSlVrUmxrcXIzeUQyNlF0cEZ1N09DckVBSGxGd0FCVW1yNFZG?=
- =?utf-8?B?WnJtMHNPZlE5K1JLQ2gzaERQQkRITFE0dVZ5QnI5clZjUDBKSXpBRE83ZEQv?=
- =?utf-8?B?UFlDd0pVZFRNQURlN1NWbTR2UkdxZ2I1SlY5SjlubGxpVTJrZDh0U2lNdUJu?=
- =?utf-8?B?b2plcFBRL2lKME5VSHRRQ2VSbC8wWWxhU1prWTJjRDBoTUVTamcxa2Yvcmg2?=
- =?utf-8?B?NFFMMmx2eWdXRCs2VTNLbEJ1M2V2a0tVbHhLaWFPZ3MwQjNna3NEMkx0RWM5?=
- =?utf-8?B?aGc3eUdyU2J3RlJVMkZSb1k1V0Q4UEw3MDZtQTJQWjA3TEROb0tGTm9WR1Jo?=
- =?utf-8?B?cXR5L2wwK0pTeWxwWHVja3dSSlpXVW55aHhUMnhUZ1pNeUdwdWViSVY2M3N1?=
- =?utf-8?B?UWFKWWc3OWhyem04SHEyZmhpcnZJaDZBSjM4b2dNdzNaWW9Bd1ZPdy94WUM5?=
- =?utf-8?B?TWxjNUhLQzFsR2F0YzlodEkxaWt1NUxERFRsd05XMHMyVUlpdU11WWl2L0M1?=
- =?utf-8?B?REMrdGppRUR4Z0lJYzA0b0l4cXVqUkZuTEFVRVZUdnZpUC9kaTdscWtLTG53?=
- =?utf-8?B?ZDdwckpySDZKY29EelU0RDErTnN3PT0=?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+ ARA:13230040|376014|366016|1800799024|6049299003|4013099003|4053099003; 
+X-Microsoft-Antispam-Message-Info: =?iso-8859-1?Q?KpB89nQCCJaXCm6EvEd/eGG7Ot188y1AfhndLwDjpOmq/8FU/9bbeH6ccd?=
+ =?iso-8859-1?Q?yFxFwpTangWfBO/AD1mXmlSqQs8GkutQUYQ55NTzOweM/mSXfNM4rLPS+q?=
+ =?iso-8859-1?Q?XnR09AWxIIvVnNmf5UNx6YjbZnfV9h6bL+Vc1pWK+aZxEiAz5WqXinCcoz?=
+ =?iso-8859-1?Q?JeA28pkwTpra9+dq7hPQ+Hf+7rYb7x3tjpz7Q4J4QG3lp5O+8HId46Mt6C?=
+ =?iso-8859-1?Q?zsMcyPuW0djCDjQduVpdX0EqhH8iiN95TbDEYQTbxxJxtoZNuA3lhkJSAj?=
+ =?iso-8859-1?Q?tDTn1YbneZDb1A0I4Jv8AU0g0jctEKMlphJtNKUEAtNhqNyftm8gzqgllU?=
+ =?iso-8859-1?Q?sO5B6e25NdEv966o5yOe/HhQNMIxr3zXcrXs4entcm4dTnj23vwK8KaUgO?=
+ =?iso-8859-1?Q?iRy0RBBKSNCICB+sTKWOoPQkKlKpAOFz2TsVi1c4yE9DulKLCfrjki5Y/3?=
+ =?iso-8859-1?Q?y0AkwzxlohVEXniDXrd3BwWy99GF/M7S7ybq15U48UH8nJ4990/Gypr6DM?=
+ =?iso-8859-1?Q?Dk7VibaLyZ7P8fIbDnODXc32M5p2kWhaiwGaKmJvEHruSCA/59Tb9JT/sO?=
+ =?iso-8859-1?Q?eJGoT1iygkLmnS/YOmDt56DHAPWQ91F+GzJuNfS6Iuc2ov8gpuBja7PBe3?=
+ =?iso-8859-1?Q?XwEqkWhJLgipg3g4rhbN02jFSiqs8Rqb+oA3l72VlXaiHubZ5lI5rgOh+L?=
+ =?iso-8859-1?Q?585LTx85HIDjaKKD6oowlU+6zEpmyq7SkuXkEqjKChFlyapgERNRU84P+6?=
+ =?iso-8859-1?Q?2HZnv2jA65iteZnDhtsweVCLzD5cgjOFf0Uvk2c/gIW+VkN1Ijg55ul+f9?=
+ =?iso-8859-1?Q?aHWC3SFmqGSgoA1aNFX5uGRGu/GXeprsF4/SCKU1nNW9+viQJXq9qEvYJp?=
+ =?iso-8859-1?Q?sR+4aDaQ2emfLSxbfwBIR/O1nW7Oi/ClfmTr1s2lkvDwBXyj6+dpa5v70U?=
+ =?iso-8859-1?Q?Yd59d19ktlhOcjT0v+Ze/sagQLMZTifw0P9M7nCidP/1iYYB8Ta2/8iogr?=
+ =?iso-8859-1?Q?TZCMcONPXR3+nWHPuFjoivZkSwpZuX8NGCk0jVxREi/FjXH9sfIjcRE6w/?=
+ =?iso-8859-1?Q?hdsvsb+AltpBbqeS+sYUkBXbCLrkMWWIH6YqW5iG9mxZkFK5OGx1OMpRaR?=
+ =?iso-8859-1?Q?KoDZhR39tAc+xggrTCUeRU5mPGmAtDgZDHU88/lEDfG4kQ/0NvTLAMumTs?=
+ =?iso-8859-1?Q?epRDg1cCrYnFp9jCh988YqazZZXvKhD68pOwUf+odCOGXUw5LKgNLtuFBg?=
+ =?iso-8859-1?Q?Cl9cU/il4TAohVNdwxRCtTLlLXChu4AwctVL9Ol1m9Wdjk0hf9t0TCdSpd?=
+ =?iso-8859-1?Q?UHp+wfBlQTHDcn6bIerraixSFV9ktcbka0VIDNsWtyiXCfGj6Kjj3xr2h6?=
+ =?iso-8859-1?Q?Yzhznokew2nTg1BAv2x3NcL2Nj3kgn6JNXpLPnQVDka5V29CxguQkaMhou?=
+ =?iso-8859-1?Q?UJ6S+Ssw005dyn5MFwodzm9ef+MpHpOrsTTMSQSAT9HhyFwGGLLWg6rj3C?=
+ =?iso-8859-1?Q?myucx166o2p2z/x5fbnM5Bhre4P8yrEpSMsIuy4qtZbfW0gkV2qULxsIEA?=
+ =?iso-8859-1?Q?NtTJIlrk/zlO+Cdy5FCncT7eFO/7?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(6049299003)(4013099003)(4053099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OkaP0Hjs+Cq/yrRwcpuaIz34Zeaf8Kq+yVJiKkmQwn2TwXfveWBTUxPIfnXliu0fdnTIXY9ZOtcFFKHLb/mBHIHVe0XEtdusr8Z6X7UnV3Sj48I8dS56X4tfam3ns8KDK3w1XVdNaDniAWG943yBKEnJGXIGo1UDndIel8lF4nyfgaboOXuyMeggxt7w6+I9xcCy6O7EYpoG24lzidilFkho7w3yy04a90Ka1XwY4kPxWcIzXGIrxKTj57wvwnr+Djw365saMwqtIt6oJ1AajCxtJMYAD+L6mMX708wKkzluE7PTBr76iedsqJT2dOeq3UsL170gdead3HMdnqoY1A3SVsY1eua+tUxVP5oPvKswvMnXJY87bWzaiODopv8nq76XEzjqEjX3ebhHd7iuPTR7vlGNSTDej0IbREB1LipCAQIB24wyWPWkfoG33x7C
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 08:31:21.8391 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 913b73f1-fd37-4adb-aef1-08de67b59ae6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA4D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6736
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?RtHDGFJSME9eeS64gmQ3yd9lmI6zIq+KaIEGhOIvF93NqEpZRUr58MxagG?=
+ =?iso-8859-1?Q?tAUHcEELSfRUGp3YMPUDKwzlhPhNqnE94GUtR4DJnQrFl6pykyxQviM4af?=
+ =?iso-8859-1?Q?JuqTxmcCWCs59DFLJ4IBn+SlazbGaE4NgBBP6iypX3l8xzpJf7erP8/F95?=
+ =?iso-8859-1?Q?DxXlMQhHrRmKj98wgsFQezXAnqDDiiKQj+RnoTNzl6fBCcPIhZEzBKQDw0?=
+ =?iso-8859-1?Q?xyjwu6Ru+o289Hz6Ei58THAQveq2zqJ9Fp1kyD3o147jnWPqfdam8Jpuhy?=
+ =?iso-8859-1?Q?acUD72yffuURy3jdX1S9xolWAWtKdsFJtp5q+w9cyPUtJcgHUIe6nZFl1g?=
+ =?iso-8859-1?Q?Iq2Nhb00aA5RiAC5jPWdxN14bvOErTcv+1yXK3un7a09Y9clEWI8qAm4k7?=
+ =?iso-8859-1?Q?3qnxYUyURuxPU96oozFFROarviYXlnDjVndRYd/Zsed6xPpdnRibdvSGKs?=
+ =?iso-8859-1?Q?6rC2tdqzUGDwZWBzNgyeOAKjplW9BU+gDBqP2+rHYMy4p4mc+fALcd0SwF?=
+ =?iso-8859-1?Q?Vep0OC1ZjHW/ua/sf02uRqjslsH19fVVWWnjdEeNMZKjE7d2dN+BiEIadJ?=
+ =?iso-8859-1?Q?X/n8Z9t3N9J8/ZIgUZnJ2GOK98EjcjEchw821ZcgEFebpyOTJJKEX3ECzl?=
+ =?iso-8859-1?Q?ZLTivkucjUfv2S3THeOXtZtZoP7tULsMN54DZwflb3uF9cTbl5lPnQEsFk?=
+ =?iso-8859-1?Q?UNNkQjH0syaNOh7PKcddZwUGtRjYBGI4l8fmyMkU/yTm6hJohzaMnay4L9?=
+ =?iso-8859-1?Q?efFlPbyn6BByZlYxD3McM0VyKGkO+GcRBs/y6joFTFe7+fkDErZYEJs89v?=
+ =?iso-8859-1?Q?DJ23xDUpW1ZWQR5wa2zXOwGq3zMZ6u59ediOLc7Tvo7IZghFNeFdkYW/tn?=
+ =?iso-8859-1?Q?xK77bJeUwHr9h7akmK6zrUS2tomcGJD27DnEUIWTufBWOvkbc8+iq1/oZb?=
+ =?iso-8859-1?Q?biLjxPeDVUhiCVz8Bdd2FGUykHCHyJ3yz3wipQ7NHy0alktzKNbsgolfQ6?=
+ =?iso-8859-1?Q?j+COzF6DQoPC3cwiaRQwAamOW3iWEyCwUh6xxP9pmqr/Dt0C2OsyJAblUy?=
+ =?iso-8859-1?Q?YSK3k0vlFIVje8GN1EQfiDCm+uDozeF1NOzcUCb83GSHhwqiguDuUH35lp?=
+ =?iso-8859-1?Q?MmWEf2LcExM1jK8ycGD7S17PKAjtON31ts5lBkRzmEZWj8pk6kOF/1D3qf?=
+ =?iso-8859-1?Q?5Dzn6YnXffKkIbwEFwTOqPdvDYQPfQRxNqZ0qxhctQBZQRexq/MtU+r3pX?=
+ =?iso-8859-1?Q?wfr6vEDImU6EsoOTJIR8i/9N9Qvf5A90E8t1BfE+Jb76zeMFAM6R4I9P0D?=
+ =?iso-8859-1?Q?FHKhaX3r6RGh7PZqJgzothdzUtb9bk31YMipxz1W1KruXREGUgobZDtRwQ?=
+ =?iso-8859-1?Q?c/daFx/V9yE5V0irchNzvcrpPcySBZeIgc/bIBXO3yTmN5W2mPsBKEiZrP?=
+ =?iso-8859-1?Q?dV1/rNiKaIF6dNjd29ZYkckXwpSieLbD+0BY5GzDZz29nP/FiYy8OkunfU?=
+ =?iso-8859-1?Q?U5RunUUQqlrfjrzVSKk4/DLHo9Grb1l+1Hl4l1TNDLstDfjx2dQqQKWbcs?=
+ =?iso-8859-1?Q?EeOx44Gmmvzuo6p6tBOnQrrprDzKG6une+tu2ZcJvHFpS+FZGHJANEMCNN?=
+ =?iso-8859-1?Q?DWSWpUOKowA6qtre3/rdXUJo1zh8/QfJ9cp4mPPnei9YRL8+5xTkkztIPF?=
+ =?iso-8859-1?Q?feTGpbcbumavPqd0lYs+hdx8o7CJgw6Pt+QMrsmbcp9Ml+urxbP7L4t5EU?=
+ =?iso-8859-1?Q?RzCxIcQxEWEJdGZBK1ogQA6RVI29/HeYVcIcn7+hjCBOsqDnCbizaAaF1J?=
+ =?iso-8859-1?Q?xlU+av+V4g=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cd1ffbc-0d9d-428d-3c95-08de67b6e4b8
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 08:40:35.5359 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +njexfZJ2EeqF0RTMz/1bsK6+T+ZTlQ/JJ34wJDc1BaeVRKTofnSsHIcs9bNZFY+YPz8aW8bUM3Y/vZRt9hNNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8203
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,438 +188,195 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Large alignment requests previously forced the buddy allocator to search by
-alignment order, which often caused higher-order free blocks to be split even
-when a suitably aligned smaller region already existed within them. This led
-to excessive fragmentation, especially for workloads requesting small sizes
-with large alignment constraints.
+--T9JaGIDB2HevN1K6
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-This change prioritizes the requested allocation size during the search and
-uses an augmented RB-tree field (subtree_max_alignment) to efficiently locate
-free blocks that satisfy both size and offset-alignment requirements. As a
-result, the allocator can directly select an aligned sub-region without
-splitting larger blocks unnecessarily.
+On Mon, Feb 09, 2026 at 12:06:20PM +0530, Borah, Chaitanya Kumar wrote:
+> 
+> 
+> On 2/6/2026 7:20 PM, Nautiyal, Ankit K wrote:
+> > 
+> > On 2/6/2026 4:12 PM, Imre Deak wrote:
+> > > The pipe BPP value shouldn't be set outside of the source's / sink's
+> > > valid pipe BPP range, ensure this when increasing the minimum pipe BPP
+> > > value to 30 due to HDR.
+> > > 
+> > > Fixes: ba49a4643cf53 ("drm/i915/dp: Set min_bpp limit to 30 in HDR mode")
+> > > Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> > > Cc: <stable@vger.kernel.org> # v6.18+
+> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
+> > > ---
+> > >   drivers/gpu/drm/i915/display/intel_dp.c | 14 ++++++++++++--
+> > >   1 file changed, 12 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/
+> > > drm/i915/display/intel_dp.c
+> > > index 2b8f43e211741..4d8f480cf803f 100644
+> > > --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> > > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> > > @@ -2697,6 +2697,7 @@ intel_dp_compute_config_limits(struct intel_dp
+> > > *intel_dp,
+> > >                      bool dsc,
+> > >                      struct link_config_limits *limits)
+> > >   {
+> > > +    struct intel_display *display = to_intel_display(intel_dp);
+> > >       bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
+> > >       struct intel_connector *connector =
+> > >           to_intel_connector(conn_state->connector);
+> > > @@ -2709,8 +2710,7 @@ intel_dp_compute_config_limits(struct intel_dp
+> > > *intel_dp,
+> > >       limits->min_lane_count = intel_dp_min_lane_count(intel_dp);
+> > >       limits->max_lane_count = intel_dp_max_lane_count(intel_dp);
+> > > -    limits->pipe.min_bpp = intel_dp_in_hdr_mode(conn_state) ? 30 :
+> > > -                intel_dp_min_bpp(crtc_state->output_format);
+> > > +    limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
+> > >       if (is_mst) {
+> > >           /*
+> > >            * FIXME: If all the streams can't fit into the link with their
+> > > @@ -2726,6 +2726,16 @@ intel_dp_compute_config_limits(struct
+> > > intel_dp *intel_dp,
+> > >                               respect_downstream_limits);
+> > >       }
+> > > +    if (intel_dp_in_hdr_mode(conn_state)) {
+> > > +        if (limits->pipe.min_bpp <= 30 && limits->pipe.max_bpp >= 30)
+> > > +            limits->pipe.min_bpp = 30;
+> > > +        else
+> > > +            drm_dbg_kms(display->drm,
+> > > +                    "[CONNECTOR:%d:%s] HDR min 30 bpp outside of
+> > > valid pipe bpp range (%d-%d)\n",
+> > > +                    connector->base.base.id, connector->base.name,
+> > > +                    limits->pipe.min_bpp, limits->pipe.max_bpp);
+> > 
+> > 
+> > pipe.max_bpp < 30 will be either due to the max_bpc property set to less
+> > than 10, or perhaps when the panel itself does not support 10 bpc
+> > (limited by EDID or VBT).
+> > With these constraints doesn't make sense to enable HDR and send HDR
+> > metadata.
+> > However, as we see in some reported issues [1] [2], in practice some
+> > compositor seems to enable HDR by default and with the hard limit set,
+> > they report blankout.
+> > So it does make sense to raise the min bpp limit only if its inside the
+> > supported range.
+> > 
+> > Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> > 
+> > 
+> > [1] https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/7052
+> > [2] https://gitlab.freedesktop.org/drm/i915/kernel/-/
+> > issues/5969#note_3248404
+> > 
+> 
+> I am not sure if this patch would help with the above gitlabs. For example
+> in case of #7052 pipe max bpp is 30 and the commit still fails.
 
-A practical example is the VKCTS test
-dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which repeatedly
-allocates 8 KiB buffers with a 256 KiB alignment. Previously, such allocations
-caused large blocks to be split aggressively, despite smaller aligned regions
-being sufficient. With this change, those aligned regions are reused directly,
-significantly reducing fragmentation.
+It does fix though reported cases where the sink does not support 10 BPC
+at all. Yes the monitor in #7052 is still a problem, since it supports
+10 BPC only with lower resolution, where the link BW would allow this
+and he monitor doesn't have DSC either.
 
-This improvement is visible in the amdgpu VRAM buddy allocator state
-(/sys/kernel/debug/dri/1/amdgpu_vram_mm). After the change, higher-order blocks
-are preserved and the number of low-order fragments is substantially reduced.
+> However, I need to look deeper.
+> 
+> I am thinking of relaxing this restriction all together because the earlier
+> assumption that a panel advertising HDR will support atleast 10bpc in all
+> it's mode turns out to be false.
+> 
+> Currently, I am inclined on the following policy.
+> 
+> - If DSC is not available, fall back to normal bandwidth calculations and
+> select the highest bpp the link can support. (Also preferred by Kwin)
+> 
+> - If DSC is available, prefer falling back to DSC and attempt the highest
+> bpp allowed by bandwidth constraints.
 
-Before:
-  order- 5 free: 1936 MiB, blocks: 15490
-  order- 4 free:  967 MiB, blocks: 15486
-  order- 3 free:  483 MiB, blocks: 15485
-  order- 2 free:  241 MiB, blocks: 15486
-  order- 1 free:  241 MiB, blocks: 30948
+The patch does the above, except for not handling the case where the
+monitor doesn't support DSC. The attach patch handles that too and so
+fixes #7052 as well, are you ok with it?
 
-After:
-  order- 5 free:  493 MiB, blocks:  3941
-  order- 4 free:  246 MiB, blocks:  3943
-  order- 3 free:  123 MiB, blocks:  4101
-  order- 2 free:   61 MiB, blocks:  4101
-  order- 1 free:   61 MiB, blocks:  8018
+> I am working on a patch for this and should be able to float something soon.
+> Imre, if you agree with this policy, would you please wait for the patch.
+> That should make it easier to send out fix for stable kernels.
+> 
+> ==
+> Chaitanya
+> 
+> > > +    }
+> > > +
+> > >       if (dsc && !intel_dp_dsc_compute_pipe_bpp_limits(connector,
+> > > limits))
+> > >           return false;
+> 
 
-By avoiding unnecessary splits, this change improves allocator efficiency and
-helps maintain larger contiguous free regions under heavy offset-aligned
-allocation workloads.
+--T9JaGIDB2HevN1K6
+Content-Type: text/x-diff; charset="us-ascii"
+Content-Disposition: attachment;
+	filename="0001-drm-i915-dp-Fix-pipe-BPP-clamping-due-to-HDR.patch"
 
-v2:(Matthew)
-  - Update augmented information along the path to the inserted node.
+From 550f8de76d0b5a497d36a24dee6988d07a634588 Mon Sep 17 00:00:00 2001
+From: Imre Deak <imre.deak@intel.com>
+Date: Thu, 5 Feb 2026 16:49:03 +0200
+Subject: [PATCH] drm/i915/dp: Fix pipe BPP clamping due to HDR
 
-v3:
-  - Move the patch to gpu/buddy.c file.
+The pipe BPP value shouldn't be set outside of the source's / sink's
+valid pipe BPP range, ensure this when increasing the minimum pipe BPP
+value to 30 due to HDR.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Suggested-by: Christian KÃ¶nig <christian.koenig@amd.com>
+Fixes: ba49a4643cf53 ("drm/i915/dp: Set min_bpp limit to 30 in HDR mode")
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Cc: <stable@vger.kernel.org> # v6.18+
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/buddy.c       | 271 +++++++++++++++++++++++++++++++-------
- include/linux/gpu_buddy.h |   2 +
- 2 files changed, 228 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 603c59a2013a..3a25eed050ba 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -14,6 +14,16 @@
- 
- static struct kmem_cache *slab_blocks;
- 
-+static unsigned int gpu_buddy_block_offset_alignment(struct gpu_buddy_block *block)
-+{
-+	return __ffs(gpu_buddy_block_offset(block));
-+}
-+
-+RB_DECLARE_CALLBACKS_MAX(static, gpu_buddy_augment_cb,
-+			 struct gpu_buddy_block, rb,
-+			 unsigned int, subtree_max_alignment,
-+			 gpu_buddy_block_offset_alignment);
-+
- static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
- 					       struct gpu_buddy_block *parent,
- 					       unsigned int order,
-@@ -31,6 +41,9 @@ static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
- 	block->header |= order;
- 	block->parent = parent;
- 
-+	block->subtree_max_alignment =
-+		gpu_buddy_block_offset_alignment(block);
-+
- 	RB_CLEAR_NODE(&block->rb);
- 
- 	BUG_ON(block->header & GPU_BUDDY_HEADER_UNUSED);
-@@ -67,26 +80,42 @@ static bool rbtree_is_empty(struct rb_root *root)
- 	return RB_EMPTY_ROOT(root);
- }
- 
--static bool gpu_buddy_block_offset_less(const struct gpu_buddy_block *block,
--					const struct gpu_buddy_block *node)
--{
--	return gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node);
--}
--
--static bool rbtree_block_offset_less(struct rb_node *block,
--				     const struct rb_node *node)
--{
--	return gpu_buddy_block_offset_less(rbtree_get_free_block(block),
--					   rbtree_get_free_block(node));
--}
--
- static void rbtree_insert(struct gpu_buddy *mm,
- 			  struct gpu_buddy_block *block,
- 			  enum gpu_buddy_free_tree tree)
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4b786706ea2d..ad167393282d 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -2703,6 +2703,7 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 			       bool dsc,
+ 			       struct link_config_limits *limits)
  {
--	rb_add(&block->rb,
--	       &mm->free_trees[tree][gpu_buddy_block_order(block)],
--	       rbtree_block_offset_less);
-+	struct rb_node **link, *parent = NULL;
-+	unsigned int block_alignment, order;
-+	struct gpu_buddy_block *node;
-+	struct rb_root *root;
-+
-+	order = gpu_buddy_block_order(block);
-+	block_alignment = gpu_buddy_block_offset_alignment(block);
-+
-+	root = &mm->free_trees[tree][order];
-+	link = &root->rb_node;
-+
-+	while (*link) {
-+		parent = *link;
-+		node = rbtree_get_free_block(parent);
-+		/*
-+		 * Manual augmentation update during insertion traversal. Required
-+		 * because rb_insert_augmented() only calls rotate callback during
-+		 * rotations. This ensures all ancestors on the insertion path have
-+		 * correct subtree_max_alignment values.
-+		 */
-+		if (node->subtree_max_alignment < block_alignment)
-+			node->subtree_max_alignment = block_alignment;
-+
-+		if (gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node))
-+			link = &parent->rb_left;
-+		else
-+			link = &parent->rb_right;
-+	}
-+
-+	block->subtree_max_alignment = block_alignment;
-+	rb_link_node(&block->rb, parent, link);
-+	rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
- }
++	struct intel_display *display = to_intel_display(intel_dp);
+ 	bool is_mst = intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST);
+ 	struct intel_connector *connector =
+ 		to_intel_connector(conn_state->connector);
+@@ -2715,8 +2716,7 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 	limits->min_lane_count = intel_dp_min_lane_count(intel_dp);
+ 	limits->max_lane_count = intel_dp_max_lane_count(intel_dp);
  
- static void rbtree_remove(struct gpu_buddy *mm,
-@@ -99,7 +128,7 @@ static void rbtree_remove(struct gpu_buddy *mm,
- 	tree = get_block_tree(block);
- 	root = &mm->free_trees[tree][order];
- 
--	rb_erase(&block->rb, root);
-+	rb_erase_augmented(&block->rb, root, &gpu_buddy_augment_cb);
- 	RB_CLEAR_NODE(&block->rb);
- }
- 
-@@ -790,6 +819,132 @@ alloc_from_freetree(struct gpu_buddy *mm,
- 	return ERR_PTR(err);
- }
- 
-+static bool
-+gpu_buddy_can_offset_align(u64 size, u64 min_block_size)
-+{
-+	return size < min_block_size && is_power_of_2(size);
-+}
-+
-+static bool gpu_buddy_subtree_can_satisfy(struct rb_node *node,
-+					  unsigned int alignment)
-+{
-+	struct gpu_buddy_block *block;
-+
-+	if (!node)
-+		return false;
-+
-+	block = rbtree_get_free_block(node);
-+	return block->subtree_max_alignment >= alignment;
-+}
-+
-+static struct gpu_buddy_block *
-+gpu_buddy_find_block_aligned(struct gpu_buddy *mm,
-+			     enum gpu_buddy_free_tree tree,
-+			     unsigned int order,
-+			     unsigned int tmp,
-+			     unsigned int alignment,
-+			     unsigned long flags)
-+{
-+	struct rb_root *root = &mm->free_trees[tree][tmp];
-+	struct rb_node *rb = root->rb_node;
-+
-+	while (rb) {
-+		struct gpu_buddy_block *block = rbtree_get_free_block(rb);
-+		struct rb_node *left_node = rb->rb_left, *right_node = rb->rb_right;
-+
-+		if (right_node) {
-+			if (gpu_buddy_subtree_can_satisfy(right_node, alignment)) {
-+				rb = right_node;
-+				continue;
-+			}
-+		}
-+
-+		if (gpu_buddy_block_order(block) >= order &&
-+		    __ffs(gpu_buddy_block_offset(block)) >= alignment)
-+			return block;
-+
-+		if (left_node) {
-+			if (gpu_buddy_subtree_can_satisfy(left_node, alignment)) {
-+				rb = left_node;
-+				continue;
-+			}
-+		}
-+
-+		break;
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct gpu_buddy_block *
-+gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
-+				    u64 size,
-+				    u64 min_block_size,
-+				    unsigned long flags)
-+{
-+	struct gpu_buddy_block *block = NULL;
-+	unsigned int order, tmp, alignment;
-+	struct gpu_buddy_block *buddy;
-+	enum gpu_buddy_free_tree tree;
-+	unsigned long pages;
-+	int err;
-+
-+	alignment = ilog2(min_block_size);
-+	pages = size >> ilog2(mm->chunk_size);
-+	order = fls(pages) - 1;
-+
-+	tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
-+		GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
-+
-+	for (tmp = order; tmp <= mm->max_order; ++tmp) {
-+		block = gpu_buddy_find_block_aligned(mm, tree, order,
-+						     tmp, alignment, flags);
-+		if (!block) {
-+			tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
-+				GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
-+			block = gpu_buddy_find_block_aligned(mm, tree, order,
-+							     tmp, alignment, flags);
-+		}
-+
-+		if (block)
-+			break;
-+	}
-+
-+	if (!block)
-+		return ERR_PTR(-ENOSPC);
-+
-+	while (gpu_buddy_block_order(block) > order) {
-+		struct gpu_buddy_block *left, *right;
-+
-+		err = split_block(mm, block);
-+		if (unlikely(err))
-+			goto err_undo;
-+
-+		left  = block->left;
-+		right = block->right;
-+
-+		if (__ffs(gpu_buddy_block_offset(right)) >= alignment)
-+			block = right;
-+		else
-+			block = left;
-+	}
-+
-+	return block;
-+
-+err_undo:
-+	/*
-+	 * We really don't want to leave around a bunch of split blocks, since
-+	 * bigger is better, so make sure we merge everything back before we
-+	 * free the allocated blocks.
-+	 */
-+	buddy = __get_buddy(block);
-+	if (buddy &&
-+	    (gpu_buddy_block_is_free(block) &&
-+	     gpu_buddy_block_is_free(buddy)))
-+		__gpu_buddy_free(mm, block, false);
-+	return ERR_PTR(err);
-+}
-+
- static int __alloc_range(struct gpu_buddy *mm,
- 			 struct list_head *dfs,
- 			 u64 start, u64 size,
-@@ -1059,6 +1214,7 @@ EXPORT_SYMBOL(gpu_buddy_block_trim);
- static struct gpu_buddy_block *
- __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 			 u64 start, u64 end,
-+			 u64 size, u64 min_block_size,
- 			 unsigned int order,
- 			 unsigned long flags)
- {
-@@ -1066,6 +1222,11 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 		/* Allocate traversing within the range */
- 		return  __gpu_buddy_alloc_range_bias(mm, start, end,
- 						     order, flags);
-+	else if (size < min_block_size)
-+		/* Allocate from an offset-aligned region without size rounding */
-+		return gpu_buddy_offset_aligned_allocation(mm, size,
-+							   min_block_size,
-+							   flags);
- 	else
- 		/* Allocate from freetree */
- 		return alloc_from_freetree(mm, order, flags);
-@@ -1137,8 +1298,11 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
- 		size = roundup_pow_of_two(size);
- 		min_block_size = size;
--	/* Align size value to min_block_size */
--	} else if (!IS_ALIGNED(size, min_block_size)) {
-+		/*
-+		 * Normalize the requested size to min_block_size for regular allocations.
-+		 * Offset-aligned allocations intentionally skip size rounding.
-+		 */
-+	} else if (!gpu_buddy_can_offset_align(size, min_block_size)) {
- 		size = round_up(size, min_block_size);
+-	limits->pipe.min_bpp = intel_dp_in_hdr_mode(conn_state) ? 30 :
+-				intel_dp_min_bpp(crtc_state->output_format);
++	limits->pipe.min_bpp = intel_dp_min_bpp(crtc_state->output_format);
+ 	if (is_mst) {
+ 		/*
+ 		 * FIXME: If all the streams can't fit into the link with their
+@@ -2732,6 +2732,17 @@ intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ 							respect_downstream_limits);
  	}
  
-@@ -1158,43 +1322,60 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
- 	do {
- 		order = min(order, (unsigned int)fls(pages) - 1);
- 		BUG_ON(order > mm->max_order);
--		BUG_ON(order < min_order);
-+		/*
-+		 * Regular allocations must not allocate blocks smaller than min_block_size.
-+		 * Offset-aligned allocations deliberately bypass this constraint.
-+		 */
-+		BUG_ON(size >= min_block_size && order < min_order);
- 
- 		do {
-+			unsigned int fallback_order;
++	if (intel_dp_in_hdr_mode(conn_state) &&
++	    intel_dp_supports_dsc(intel_dp, connector, crtc_state)) {
++		if (limits->pipe.min_bpp <= 30 && limits->pipe.max_bpp >= 30)
++			limits->pipe.min_bpp = 30;
++		else
++			drm_dbg_kms(display->drm,
++				    "[CONNECTOR:%d:%s] HDR min 30 bpp outside of valid pipe bpp range (%d-%d)\n",
++				    connector->base.base.id, connector->base.name,
++				    limits->pipe.min_bpp, limits->pipe.max_bpp);
++	}
 +
- 			block = __gpu_buddy_alloc_blocks(mm, start,
- 							 end,
-+							 size,
-+							 min_block_size,
- 							 order,
- 							 flags);
- 			if (!IS_ERR(block))
- 				break;
+ 	if (dsc && !intel_dp_dsc_compute_pipe_bpp_limits(connector, limits))
+ 		return false;
  
--			if (order-- == min_order) {
--				/* Try allocation through force merge method */
--				if (mm->clear_avail &&
--				    !__force_merge(mm, start, end, min_order)) {
--					block = __gpu_buddy_alloc_blocks(mm, start,
--									 end,
--									 min_order,
--									 flags);
--					if (!IS_ERR(block)) {
--						order = min_order;
--						break;
--					}
--				}
-+			if (size < min_block_size) {
-+				fallback_order = order;
-+			} else if (order == min_order) {
-+				fallback_order = min_order;
-+			} else {
-+				order--;
-+				continue;
-+			}
- 
--				/*
--				 * Try contiguous block allocation through
--				 * try harder method.
--				 */
--				if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
--				    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
--					return __alloc_contig_try_harder(mm,
--									 original_size,
--									 original_min_size,
--									 blocks);
--				err = -ENOSPC;
--				goto err_free;
-+			/* Try allocation through force merge method */
-+			if (mm->clear_avail &&
-+			    !__force_merge(mm, start, end, fallback_order)) {
-+				block = __gpu_buddy_alloc_blocks(mm, start,
-+								 end,
-+								 size,
-+								 min_block_size,
-+								 fallback_order,
-+								 flags);
-+				if (!IS_ERR(block)) {
-+					order = fallback_order;
-+					break;
-+				}
- 			}
-+
-+			/*
-+			 * Try contiguous block allocation through
-+			 * try harder method.
-+			 */
-+			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
-+			    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
-+				return __alloc_contig_try_harder(mm,
-+								 original_size,
-+								 original_min_size,
-+								 blocks);
-+			err = -ENOSPC;
-+			goto err_free;
- 		} while (1);
- 
- 		mark_allocated(mm, block);
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index 07ac65db6d2e..7ad817c69ec6 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -11,6 +11,7 @@
- #include <linux/slab.h>
- #include <linux/sched.h>
- #include <linux/rbtree.h>
-+#include <linux/rbtree_augmented.h>
- 
- #define GPU_BUDDY_RANGE_ALLOCATION		BIT(0)
- #define GPU_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
-@@ -58,6 +59,7 @@ struct gpu_buddy_block {
- 	};
- 
- 	struct list_head tmp_link;
-+	unsigned int subtree_max_alignment;
- };
- 
- /* Order-zero must be at least SZ_4K */
-
-base-commit: 9d757669b2b22cd224c334924f798393ffca537c
 -- 
-2.34.1
+2.49.1
 
+
+--T9JaGIDB2HevN1K6--
