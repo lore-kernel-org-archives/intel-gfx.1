@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6124AEA3F0D
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 07:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896FCEA3F16
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 08:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEEA610E4ED;
-	Tue, 10 Feb 2026 07:19:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="cORE1bB6";
-	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7510F10E4E5;
- Tue, 10 Feb 2026 07:19:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1770707995;
- bh=mXytY2lL2wi8cjZeNB2IcAirtUMY2l1nJ77qqr3eRgI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=cORE1bB6JiXPP7MxYMEIB9mnMgtmqwgQWX81FlF2vw5eQto+1TUUuWBeugjetaSV8
- Hj+Ua2UaDoaOn3wzQBLNmooz3DV7UbKMkaVOSRxOlRZWasCebnpSw3TCi3wavrMIPR
- VAF1c/3QFj1yh3vT9Abs/Xzwp/B9+EPUKy3EkSI0xnN/DW0r3RvRro0opIMTKzU4E4
- uhPC1u5cw0mgJG1qxpa3eSkS6XE0xImmDJtUcFxDzPlTvUnhr6AmuPM35XvHS2uN1u
- 0lUvIGnc7IC+qf+frLWojZ/ioO6Fx2k2K1yWxtkXE4ChKnpDTrOx/y6p8Yjiev5gZL
- PDXhRtW/OBwxg==
-Received: from [192.168.50.190] (unknown [171.76.81.211])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: vignesh)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 36D1717E13A6;
- Tue, 10 Feb 2026 08:19:49 +0100 (CET)
-Message-ID: <5ed6508c-78ab-4606-b503-9bc54f5cdea9@collabora.com>
-Date: Tue, 10 Feb 2026 12:49:46 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id 249B310E02C;
+	Tue, 10 Feb 2026 08:19:14 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EE4E10E02C;
+ Tue, 10 Feb 2026 08:19:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6611106351288436169=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 6/7] drm/ci: uprev IGT
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, daniels@collabora.com,
- helen.fornazier@gmail.com, airlied@gmail.com, simona.vetter@ffwll.ch,
- lumag@kernel.org, robdclark@gmail.com, robin.clark@oss.qualcomm.com,
- guilherme.gallo@collabora.com, sergi.blanch.torne@collabora.com,
- valentine.burley@collabora.com, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-rockchip@lists.infradead.org,
- amd-gfx@lists.freedesktop.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260127104406.200505-1-vignesh.raman@collabora.com>
- <20260127104406.200505-7-vignesh.raman@collabora.com>
- <zi7frtnecrzyei4fl4nmwmth3icnsyycxxobbrcwovbqfsfq4z@eh25dyfrjkqz>
- <9949e82b-6ec2-4975-939b-d6a709ecf43f@collabora.com>
- <5vxrhiilcsaull2airasmc3pjqazvswrtojozz264i5vk3m6zl@pgkdwq46p4ho>
-Content-Language: en-US
-From: Vignesh Raman <vignesh.raman@collabora.com>
-In-Reply-To: <5vxrhiilcsaull2airasmc3pjqazvswrtojozz264i5vk3m6zl@pgkdwq46p4ho>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/ci=3A_add_new_jobs=2C?=
+ =?utf-8?q?_uprev_IGT_and_mesa_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vignesh Raman" <vignesh.raman@collabora.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 10 Feb 2026 08:19:13 -0000
+Message-ID: <177071155317.240455.14416205414488821767@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260210071138.2256773-1-vignesh.raman@collabora.com>
+In-Reply-To: <20260210071138.2256773-1-vignesh.raman@collabora.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,46 +37,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+--===============6611106351288436169==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On 27/01/26 19:55, Dmitry Baryshkov wrote:
-> On Tue, Jan 27, 2026 at 06:26:11PM +0530, Vignesh Raman wrote:
->> Hi Dmitry,
->>
->> On 27/01/26 18:01, Dmitry Baryshkov wrote:
->>> On Tue, Jan 27, 2026 at 04:14:01PM +0530, Vignesh Raman wrote:
->>>> Recent IGT [1] seems to be broken on MSM hardware, with many tests
->>>> failing due to the old_primary->index != 0 assertion. Uprev IGT to
->>>> the last known good revision where the tests pass, and update the
->>>> expectation files accordingly.
->>>>
->>>> [1] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/commit/a909ab05
->>>>
->>>> Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
->>>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>>
->>> It is not clear, which parts here are due to Mesa uprev (yes, there are
->>> some of those) and which are due to the IGT uprev. Please split into two
->>> commits and make sure that Mesa-uprev passes more or less clearly.
->>
->> The mesa uprev and the IGT uprev are already split into two separate
->> commits. The IGT uprev only updates the IGT version in gitlab-ci.yml and
->> xfails.
-> 
-> I think I was not clear enough: Mesa uprev also causes some of the
-> xfails. Those needs to be a part of the Mesa uprev commit.
+== Series Details ==
 
-I have created v2 where the mesa uprev commit also includes the updated 
-xfails. I will send IGT uprev as a separate commit/series.
+Series: drm/ci: add new jobs, uprev IGT and mesa (rev3)
+URL   : https://patchwork.freedesktop.org/series/151801/
+State : success
 
-https://lore.kernel.org/dri-devel/20260210071138.2256773-1-vignesh.raman@collabora.com/T/#t
+== Summary ==
 
-Regards,
-Vignesh
+CI Bug Log - changes from CI_DRM_17965 -> Patchwork_151801v3
+====================================================
 
-> 
-> 
+Summary
+-------
 
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/index.html
+
+Participating hosts (43 -> 40)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_151801v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-mtlp-9:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17965/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-14:         [DMESG-FAIL][3] ([i915#12061]) -> [PASS][4] +1 other test pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17965/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17965 -> Patchwork_151801v3
+
+  CI-20190529: 20190529
+  CI_DRM_17965: b20f8b5666871e489718c540f9604999e43338ac @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8746: 8746
+  Patchwork_151801v3: b20f8b5666871e489718c540f9604999e43338ac @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/index.html
+
+--===============6611106351288436169==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/ci: add new jobs, uprev IGT and mesa (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/151801/">https://patchwork.freedesktop.org/series/151801/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17965 -&gt; Patchwork_151801v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/index.html</p>
+<h2>Participating hosts (43 -&gt; 40)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_151801v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17965/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_17965/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_151801v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17965 -&gt; Patchwork_151801v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17965: b20f8b5666871e489718c540f9604999e43338ac @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8746: 8746<br />
+  Patchwork_151801v3: b20f8b5666871e489718c540f9604999e43338ac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6611106351288436169==--
