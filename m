@@ -4,59 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32ADEEA8134
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 15:50:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CA8AEA8131
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 15:51:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3458510E5AD;
-	Tue, 10 Feb 2026 15:50:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2759310E5BD;
+	Tue, 10 Feb 2026 15:51:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="c9aPMa/w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cnWI6HFr";
 	dkim-atps=neutral
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 468E610E106;
- Mon,  9 Feb 2026 22:22:09 +0000 (UTC)
-Received: from [192.168.178.24] (i5C75F6C0.versanet.de [92.117.246.192])
- (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPSA id BB0D32FC0061;
- Mon,  9 Feb 2026 23:22:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1770675727;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9UQ3B7W/cx4yivTTdMfnQWuYxY1YQbuzbQqMSYQKC7U=;
- b=c9aPMa/w3aAfc3aoiwZ8rF93IIW3TdWbI6+rVETGE+o0bglVOJ42a65aHF0mEd+fMbjt4Q
- b1RkDHbfu6CZ6KsJGqX8yAqT8RR/JoS8Z+td31zsljH1Q7CVLR6Nz3YdEItTBktWgoHJ2T
- 89XnEhYIdsR5m7maqEi40RGEO5hlNko=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <f0028617-3d82-4d03-9ed1-4722b2e30bec@tuxedocomputers.com>
-Date: Mon, 9 Feb 2026 23:22:06 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260121223944.1104951-1-wse@tuxedocomputers.com>
- <DM3PPF208195D8D575D7D0E044CAC4955D4E39EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <DM3PPF208195D8D575D7D0E044CAC4955D4E39EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0FC10E5B9;
+ Tue, 10 Feb 2026 15:51:35 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 515B2442DF;
+ Tue, 10 Feb 2026 15:51:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8BDC116C6;
+ Tue, 10 Feb 2026 15:51:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1770738695;
+ bh=q++is72bj4uWTYoc+vkSxji6zhNdE9WWO1UbEw2tudU=;
+ h=Date:From:To:Subject:In-Reply-To:References:Cc:From;
+ b=cnWI6HFr1xnNHjshPC4yDw5r3+LkkXpVxaFR3h2hnFByRL3mXa2IZkAWf26KgNLHG
+ P7Qo5hWsg6/4z9qOyshZWKCSOBKbiGeS9Z6a/2f9Dxu4si/Al+lkTj0Wn/QV/jN7N0
+ ZBAb2QM7//B7b2eK/anIQ/bEhWHa+8YbEnjMKVdzI5yXLDPyn1cBrAeIL8/DlNtWhr
+ tfMPvfCdHpCEpIpG+vveOFecl/QePKAD8y1bvSOV84opabNTBxS0cYwe9z0mUJPL+7
+ XiX7IgAzzf2ceJD+gaS3/eAd/8XwnDw1XsQdk86Bb6bC3KRkQ+ReQuaJT5kdQleZK5
+ /4xNZoC+I20pg==
+Message-ID: <5c9aeeb9e9d9c0609028dc3637eb9dc4@kernel.org>
+Date: Tue, 10 Feb 2026 15:51:32 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Subject: Re: [PATCH v7 18/22] drm/tests: hdmi: Add tests for the
+ color_format property
+In-Reply-To: <20260121-color-format-v7-18-ef790dae780c@collabora.com>
+References: <20260121-color-format-v7-18-ef790dae780c@collabora.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, "Alex
+ Deucher" <alexander.deucher@amd.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>,
+ "Andy Yan" <andy.yan@rock-chips.com>,
+ =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "David
+ Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>, "Harry
+ Wentland" <harry.wentland@amd.com>,
+ =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Jani
+ Nikula" <jani.nikula@linux.intel.com>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jonas
+ Karlman" <jonas@kwiboo.se>, "Jonathan Corbet" <corbet@lwn.net>, "Joonas
+ Lahtinen" <joonas.lahtinen@linux.intel.com>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Leo
+ Li" <sunpeng.li@amd.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
+ Ripard" <mripard@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Rob Herring" <robh@kernel.org>, "Robert Foss" <rfoss@kernel.org>, "Rodrigo
+ Siqueira" <siqueira@igalia.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Sandy
+ Huang" <hjc@rock-chips.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, "Simona
+ Vetter" <simona@ffwll.ch>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Tvrtko
+ Ursulin" <tursulin@ursulin.net>
 Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 10 Feb 2026 15:50:05 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,138 +79,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Suraj,
+On Wed, 21 Jan 2026 15:45:25 +0100, Nicolas Frattaroli wrote:
+> Add some KUnit tests to check the color_format property is working as
+> expected with the HDMI state helper.
+> 
+> Existing tests are extended to also test the DRM_COLOR_FORMAT_AUTO case,
+> in order to avoid duplicating test cases. For the explicitly selected
+> 
+> [ ... ]
 
-Am 29.01.26 um 05:23 schrieb Kandpal, Suraj:
->> Subject: [PATCH v2] drm/i915/display: Add quirk to force backlight type on
->> some TUXEDO devices
->>
->> The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 with panels
->> AUO 12701 and AUO 12701 must be forced to
->> INTEL_DP_AUX_BACKLIGHT_ON to be able to control the brightness.
->>
->> This could already be archived via a module parameter, but this patch adds a
->> quirk to apply this by default on the mentioned devices.
->>
->> This patch does not actually test for the exact panels as the id that is used in
->> the intel_dpcd_quirks list is sadly zeroed on the devices, but afaik all these
->> devices use try_intel_interface first anyway so all the quirk does is to add the
->> fallback to try_vesa_interface, so the behaviour on the devices not needing
->> the quirk and fallback should functionally stay the same.
-> Hi Sembach,
->
-> Thanks for the patch. I would recommend opening a gitlab issue with all the details
-> (platform, edp version etc), Along with dmesg logs with drm.debug set to 0x10e and kernel
-> Version mentioned . So we can root cause this properly and determine is an actual quirk is required or not.
-> Use can use this as a guide https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 
-Done: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15679
-
-Best Regards,
-
-Werner
-
->
-> Regards,
-> Suraj Kandpal
->
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
->> ---
->>   .../drm/i915/display/intel_dp_aux_backlight.c |  9 ++++++-
->>   drivers/gpu/drm/i915/display/intel_quirks.c   | 25 ++++++++++++++++++-
->>   drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
->>   3 files changed, 33 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> index 0a3a3f6a5f9d8..bbdfa142d084d 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> @@ -41,6 +41,7 @@
->>   #include "intel_display_types.h"
->>   #include "intel_dp.h"
->>   #include "intel_dp_aux_backlight.h"
->> +#include "intel_quirks.h"
->>
->>   /*
->>    * DP AUX registers for Intel's proprietary HDR backlight interface. We define
->> @@ -661,11 +662,17 @@ int intel_dp_aux_init_backlight_funcs(struct
->> intel_connector *connector)
->>   	struct drm_device *dev = connector->base.dev;
->>   	struct intel_panel *panel = &connector->panel;
->>   	bool try_intel_interface = false, try_vesa_interface = false;
->> +	int enable_dpcd_backlight;
->>
->>   	/* Check the VBT and user's module parameters to figure out which
->>   	 * interfaces to probe
->>   	 */
->> -	switch (display->params.enable_dpcd_backlight) {
->> +	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
->> +	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
->> +	    intel_has_dpcd_quirk(intel_dp,
->> QUIRK_ENABLE_DPCD_BACKLIGHT))
->> +		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
->> +
->> +	switch (enable_dpcd_backlight) {
->>   	case INTEL_DP_AUX_BACKLIGHT_OFF:
->>   		return -ENODEV;
->>   	case INTEL_DP_AUX_BACKLIGHT_AUTO:
->> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
->> b/drivers/gpu/drm/i915/display/intel_quirks.c
->> index d2e16b79d6be1..df20930f73f75 100644
->> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
->> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
->> @@ -86,6 +86,14 @@ static void quirk_edp_limit_rate_hbr2(struct
->> intel_display *display)
->>   	drm_info(display->drm, "Applying eDP Limit rate to HBR2 quirk\n");  }
->>
->> +static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp) {
->> +	struct intel_display *display = to_intel_display(intel_dp);
->> +
->> +	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
->> +	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n"); }
->> +
->>   struct intel_quirk {
->>   	int device;
->>   	int subsystem_vendor;
->> @@ -251,7 +259,22 @@ static const struct intel_dpcd_quirk
->> intel_dpcd_quirks[] = {
->>   		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
->>   		.hook = quirk_fw_sync_len,
->>   	},
->> -
->> +	/* TUXEDO InsanityBook 15 v1 */
->> +	{
->> +		.device = 0x591b,
->> +		.subsystem_vendor = 0x1558,
->> +		.subsystem_device = 0x9501,
->> +		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
->> +		.hook = quirk_enable_dpcd_backlight,
->> +	},
->> +	/* TUXEDO DX1708 */
->> +	{
->> +		.device = 0x3e9b,
->> +		.subsystem_vendor = 0x1558,
->> +		.subsystem_device = 0x8500,
->> +		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
->> +		.hook = quirk_enable_dpcd_backlight,
->> +	},
->>   };
->>
->>   void intel_init_quirks(struct intel_display *display) diff --git
->> a/drivers/gpu/drm/i915/display/intel_quirks.h
->> b/drivers/gpu/drm/i915/display/intel_quirks.h
->> index 06da0e286c67c..686f306ab4472 100644
->> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
->> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
->> @@ -21,6 +21,7 @@ enum intel_quirk_id {
->>   	QUIRK_NO_PPS_BACKLIGHT_POWER_HOOK,
->>   	QUIRK_FW_SYNC_LEN,
->>   	QUIRK_EDP_LIMIT_RATE_HBR2,
->> +	QUIRK_ENABLE_DPCD_BACKLIGHT,
->>   };
->>
->>   void intel_init_quirks(struct intel_display *display);
->> --
->> 2.43.0
+Thanks!
+Maxime
