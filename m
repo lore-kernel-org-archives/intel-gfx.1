@@ -4,62 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA282E9E2F8
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Feb 2026 12:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4373E9E302
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Feb 2026 12:44:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF8710E149;
-	Wed, 11 Feb 2026 12:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5803A10E19E;
+	Wed, 11 Feb 2026 12:44:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mZOuA7Y1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B6RAhhdl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9FD310E145;
- Wed, 11 Feb 2026 12:03:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B3B310E19E;
+ Wed, 11 Feb 2026 12:44:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770811414; x=1802347414;
+ t=1770813895; x=1802349895;
  h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=0PVnu6077kn/sHrMX4M1V4c92Bf0gx2QSofA7b0udz4=;
- b=mZOuA7Y1c1V7xo5vOo/VN41NFX+dGoObDBjB6NIst8TOOYHVhCcw+dzh
- LClgvdzWFlsJrlVp2YDusl9yp8Z8r7bvJwXd0zx/Nbj3n/WowaKTT2YFU
- PVu5tp7LF0oraqB32DDLlP+cgn45xA8hrm7ofzgUTKVoS2dYLs0ymyrYi
- YpVPA1r3yGapuUHHZzXakul5lY4FPNQmArIJeaMf3cx7Dxl89ZJpwdxjr
- gJmlCRNnID93trQUlZCEevJfgkerBk6KdciccW7NTMmEWiifLa+ksqhRI
- ntkPYiPi5JTOoY6y0nEaf/Q4+5qTRGaZGMS8T1klArFjgTVkdm4dJS/93 Q==;
-X-CSE-ConnectionGUID: Md+YAGQYTmqAMAEv7kL5og==
-X-CSE-MsgGUID: AyRtLBUgSHOFc9f57qoO0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11697"; a="75805444"
-X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="75805444"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2026 04:03:33 -0800
-X-CSE-ConnectionGUID: nrv8QZY2T4ScCuaTUH+7dw==
-X-CSE-MsgGUID: t2K0X/OLTZSViwWVnL8H+Q==
+ message-id:mime-version;
+ bh=v68hQ34G/u0JBrosDQmbODbLU/3WxHyvWDy+F3cLmgo=;
+ b=B6RAhhdllzdWt6KDGo2ovdeOfLpbMLHzUZ/mBswZiJ8zxSLAXE/UuOG/
+ tpkjnpkfUMlxYYk2xNUIgSd/ZoNwCxCOHOrKj5Kx1cQQY2veeiIZbK0N6
+ QlgrcTPWRlVIXslEDJ2VCr+IjLxdQvN4r0A21QwLSh/n2TboY8ewkHIfp
+ hbGa5AnNRdv0qcsP69FMDWR2KoyM0HdOod/dcxNMX+mGr7AZhatYCemzu
+ a+R8iXnxY1WAZQvscMQI0LcJh8NbHmjFGpGjyrLoDk5RYHwu02g/u96jx
+ fSqoMjJWVxf0SL6xy7y85mcVMaaboaY+adTL+vtES8IQ+6veQxXCsSOOL A==;
+X-CSE-ConnectionGUID: z19WSoRATbajSxuAN5Ar/g==
+X-CSE-MsgGUID: VrZAbBdJRB6DVy3pL038uA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11697"; a="94599835"
+X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="94599835"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2026 04:44:54 -0800
+X-CSE-ConnectionGUID: G3ZBSObxQBOXSXX1z0KDtA==
+X-CSE-MsgGUID: 4pcluTJtQu2D324qxHRhCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="216735823"
+X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="211274387"
 Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
  ([10.245.246.57])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2026 04:03:30 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Kaushlendra Kumar <kaushlendra.kumar@intel.com>, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Kaushlendra Kumar
- <kaushlendra.kumar@intel.com>
-Subject: Re: [PATCH] drm/i915: free _DSM package when no connectors
-In-Reply-To: <fcef7bb595e9197eec717a3876d8bc0c869a4b25@intel.com>
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2026 04:44:52 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: Uma Shankar <uma.shankar@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, Uma Shankar <uma.shankar@intel.com>
+Subject: Re: [v4 05/20] drm/{i915, xe}: Extract pcode definitions to common
+ header
+In-Reply-To: <20260205094341.1882816-6-uma.shankar@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260109032549.1826303-1-kaushlendra.kumar@intel.com>
- <fcef7bb595e9197eec717a3876d8bc0c869a4b25@intel.com>
-Date: Wed, 11 Feb 2026 14:03:27 +0200
-Message-ID: <b6b359780b7b46802feff0f1db18f63aed8adab1@intel.com>
+References: <20260205094341.1882816-1-uma.shankar@intel.com>
+ <20260205094341.1882816-6-uma.shankar@intel.com>
+Date: Wed, 11 Feb 2026 14:44:49 +0200
+Message-ID: <a4af3c80c5f402879970461287967501d935e749@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,47 +72,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 09 Jan 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
-> Subject prefix "drm/i915/acpi:"
+On Thu, 05 Feb 2026, Uma Shankar <uma.shankar@intel.com> wrote:
+> There are certain register definitions which are commonly shared
+> by i915, xe and display. Extract the same to a common header to
+> avoid duplication.
 >
-> On Fri, 09 Jan 2026, Kaushlendra Kumar <kaushlendra.kumar@intel.com> wrot=
-e:
->> acpi_evaluate_dsm_typed() returns an ACPI package in pkg.
->> When pkg->package.count =3D=3D 0, we returned without freeing pkg,
->> leaking memory. Free pkg before returning on the empty case.
+> Move GEN6_PCODE_MAILBOX to common pcode header to make intel_cdclk.c
+> free from including i915_reg.h.
 >
-> Fixes: 337d7a1621c7 ("drm/i915: Fix invalid access to ACPI _DSM objects")
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> Cc: <stable@vger.kernel.org> # v5.14+
-> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-Pushed to drm-intel-next, thanks for the patch.
-
-BR,
-Jani.
-
-
-
+> v3: Include pcode header as required, instead in i915_reg.h (Jani)
 >
->> Signed-off-by: Kaushlendra Kumar <kaushlendra.kumar@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_acpi.c | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm=
-/i915/display/intel_acpi.c
->> index 68c01932f7b4..e06f324027be 100644
->> --- a/drivers/gpu/drm/i915/display/intel_acpi.c
->> +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
->> @@ -96,6 +96,7 @@ static void intel_dsm_platform_mux_info(acpi_handle dh=
-andle)
->>=20=20
->>  	if (!pkg->package.count) {
->>  		DRM_DEBUG_DRIVER("no connection in _DSM\n");
->> +		ACPI_FREE(pkg);
->>  		return;
->>  	}
+> v2: Make the header granular and per feature (Jani)
+>
+> Signed-off-by: Uma Shankar <uma.shankar@intel.com>
 
---=20
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+
+-- 
 Jani Nikula, Intel
