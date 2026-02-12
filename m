@@ -4,89 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D10C4EE3698
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 17:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CAA3EEA84A
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 18:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EFEF10E786;
-	Thu, 12 Feb 2026 17:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0E1C10E293;
+	Thu, 12 Feb 2026 18:48:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mSbKzM+w";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cKKNiqZl";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E90C10E786
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 17:32:39 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2aad1bb5058so757135ad.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 09:32:39 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770917559; cv=none;
- d=google.com; s=arc-20240605;
- b=MfV4UQNMQjkF3Tz6H6RFOudDQtINoScSuOniJduNhuyeTSDFIodr1lvxcGY+PBUD0s
- gcZHXDbJgKNWSBx7opOapb5WsQBLx7MLDpDj+sG3ZEctxtTWZ14c/9I0cSjsOKmm5VWU
- wjAYn8DlYCHKBWgeaCvehEOnlJJDOG7NRxEZH0hfnv9xJ3fTtivwF6xtJGNjcfsl5hbj
- SWn///AT66CK94hAIg2qJOIoPONFRgta3xFyvdMXBtjmxe/6g+OK0VvmrGaTht3K4S1P
- 4Q2CYUhouK/Z3zveMZJWZb5pCGtnPOh9GNBCdXhv+aHL9zmslfLed4tZt7kMv5iw4uDh
- DbJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=KJWO+CWz2+ZX1hwrogxjvfwO0uyUciYnaKJTLU1x3oY=;
- fh=O2ribCQQisiCkr+3M07ILQQEw1uleeeimohAwUA0pfc=;
- b=Qh2e1pWtiM0LEDZoDSbHhv4gdU4KcfIi4WyRUQKrCl3CrnxSoZRt14zQER8qHDL2aY
- RUGOl80gfSuA1ZEonQR7WEKIsBwS+XgS2O8v8UyoXz8tpGFGqs+kJ0AV4RiHY5GT3xN9
- 8HxHqkHJmsLJJxu/+iWrdawPruMAOhkSQQBEMmUnmEa1ShnKOii8oRmcnYWJLrSpEA1O
- kXb0bQ6MQnfSQWO1G1hnJzpZ2lL9Zu7VbuZyhHr5ZOX8xWXZvkX1DmzTyEgvJFCE9VbP
- HQ8aYhUT1gbCRuuI/9reP0gE7brfQB0neJW4vcVsqD2lrkvSSiAxXQkBN9jMlhpk/WL7
- EN4Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770917559; x=1771522359; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KJWO+CWz2+ZX1hwrogxjvfwO0uyUciYnaKJTLU1x3oY=;
- b=mSbKzM+w/Boi49/ccyMoUtgk6U+QYiUcaC3amaoDs6hF0sjcDUxaMzEHUZn6MiVezL
- jOaUqazxh+PUz4ztQYcRPq4z/JYAigEKNS8C7ecPFn8kHY0eYtYmZk2Vnn5Bjd3oBaNP
- KuirHhwlUhYVCeDuskFzreTSltNzSnygp1pbTVBsBr98NCcY9IqWCVHH1yxucw8tIPC9
- q8bC8rZaXxfJXMeX+eaJ4N1iohwft9Ah2GS0c7pcMXICUDCByu1++7w8XN12uUuARi/C
- T4Gqc2ixuvRHMjD4H78p4t0PoQepWnvXFNQ0mYDgUzAYJndwmJQwroAgqN4JlLAbQFHs
- xaeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770917559; x=1771522359;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=KJWO+CWz2+ZX1hwrogxjvfwO0uyUciYnaKJTLU1x3oY=;
- b=MH2C69/ZfeA50dqOR8nezMLybY4y/ckk3TE892jMSEnpYN6JgoPI2GCs3gyMt9GwS1
- bptUXgnOkZicwTB6MRETEFGvI9zfNPlN90zCR3Rn621+KE2qZhZ1VDMyD1tHZjX1gCAQ
- M+A2p9aqpEpJWjVe7b0NdPkByjNt1RlBDFlOlIWAhNh3lF45u/v+U81/17pr/98yFxIu
- +crapWyiOAnnr2yKQJaN7RJMZVykWX/sP4xuIur4UX6Eb7cZauuFYF1fB6dH30g7vKc3
- fQxDS8OgJOVwCeylr5rCLL0jWQA8EmH6o+IW+85s50N7UgGIoxIJw3wNSnwC8oteEImc
- 8+GQ==
-X-Gm-Message-State: AOJu0YyuQJa/gWiIUgAs+cW725rsGhrcf4O/9Il8yJRBcdr5zwVDLNCW
- VCnmAPVQWH0DxPt1QuORdk6k+jayeHT0RiW0520STZL9MWTf5OzKWsyFrGGLMPRDNSE4fDwJ/ah
- Plk3KIAmZMIAyiDRUwUFemc6o/z7MF3Q=
-X-Gm-Gg: AZuq6aKEYS4Rgg+kGgvksw99SiXu4FL1qUgs2wqkrue5f9IRIVb0Rb7eiIQ5t3B6HsU
- u0KFueKhFXn+7mbUQ/Wr3wDh6HD2AYSKuQXyg5x903OdSHCBGxSQpMgXSe08kkNYiMvmXnBPB8q
- oe2eTnlzHAaMBHhcA8Cv+w4Jd4249yj9x6bNyJyYSoC2saWtNUv94qxY8zdC8yZqxTBKxpea0qs
- kr69izK80iuoRitEb9sIzYwMdn76MqEO8txLva0zKhRYvqURg0E2GrIgWGrmQ9FPlNqsjSscN9o
- 5uW/EJbo4kKKxCmwFCZLV4PaGKnOrFJgLbUQw1gK3Q==
-X-Received: by 2002:a17:902:d4c8:b0:2aa:d320:e969 with SMTP id
- d9443c01a7336-2ab3b18986fmr26218815ad.8.1770917558647; Thu, 12 Feb 2026
- 09:32:38 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFA510E289;
+ Thu, 12 Feb 2026 18:48:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1770922103; x=1802458103;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=tNlBaglZ2un3woa2RpJSVT+Y4WohjUmstN3DsXNWUfo=;
+ b=cKKNiqZlIoygOgaWIRbogMbIHFv0hT0yaX2jlwA/E3lHWY7e4jhWTsKJ
+ Pl4M7Qp6+PbhBuAOPrSZrmlolBs8tEeiw5F3GL5y4Ha6iV8S+BQCsJtSb
+ L4B7ZQ4DF1EiNhKXMZk3NrodlPwmp/AKjl+jzKklQpwHUFkGr01BzGwqS
+ DGmBya5TcEirKQTI1ymYqEwPMGMWDxxXqZ1tk6I1gU7VH00mnPvOIwoX/
+ ZDGh+ZEh3Uh6zkCIwmtIKjTYX/MOaJWG7t0n8roFt1AS7GV7YP3aitz1z
+ PF6i+oS/x0EVtxRVJhnZyb1L9kQiQVHsKBasZCU+SdQc2AhXThAR+dgSt A==;
+X-CSE-ConnectionGUID: JjG+khrVRH6woSPgvuXzxw==
+X-CSE-MsgGUID: yBv3FR27ToGL0APyOtnGxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72204100"
+X-IronPort-AV: E=Sophos;i="6.21,287,1763452800"; d="scan'208";a="72204100"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2026 10:48:23 -0800
+X-CSE-ConnectionGUID: PhSWmBxBQOGc3HCV3wneqQ==
+X-CSE-MsgGUID: BAjSZZ2NTF2Uz1tguJ37EQ==
+X-ExtLoop1: 1
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO hazy.intel.com)
+ ([10.245.245.217])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Feb 2026 10:48:22 -0800
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 00/15] drm/i915/display: convert a bunch of W/A checks to
+ the new framework
+Date: Thu, 12 Feb 2026 20:45:58 +0200
+Message-ID: <20260212184737.352515-1-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-References: <cover.1770379986.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1770379986.git.jani.nikula@intel.com>
-From: =?UTF-8?Q?Juha=2DPekka_Heikkil=C3=A4?= <juhapekka.heikkila@gmail.com>
-Date: Thu, 12 Feb 2026 19:32:27 +0200
-X-Gm-Features: AZwV_QiZn4TfGQHluDXPNcwCixx5hFSZrHcH64ZJp433UqxfD81wtNyyp1Vdtdk
-Message-ID: <CAJ=qYWSJ8n71Y0tE=dqGcwib1Fq7mq=4NKnFsD0sODiUhmcVrA@mail.gmail.com>
-Subject: Re: [PATCH 00/10] drm/i915/dpt: refactoring, move to parent interface
-To: Jani Nikula <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,55 +66,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-I didn't spot anything special on these other than maybe patch
-"drm/i915/dpt: switch to i915 runtime pm calls" could use better
-commit message.
+Hi,
 
-set is
-Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+This series convert the "low hanging fruits" of workaround checks to
+the new framework.  Some of the workarounds check other values that
+are not in the intel_display structure, so they don't directly fit in
+the workaround framework and will be left for later.
 
-On Fri, Feb 6, 2026 at 2:13=E2=80=AFPM Jani Nikula <jani.nikula@intel.com> =
-wrote:
->
->
-> Jani Nikula (10):
->   drm/i915/dpt: move display/intel_dpt.c to i915_dpt.c
->   drm/i915/dpt: pass obj, size instead of framebuffer to
->     intel_dpt_create()
->   drm/i915/dpt: move create/destroy to parent interface
->   drm/i915/dpt: move suspend/resume to parent interface
->   drm/i915/dpt: remove display/intel_dpt.h
->   drm/i915/dpt: drop _common from the DPT file names
->   drm/i915/dpt: switch to i915 runtime pm calls
->   drm/i915/dpt: rename i915 specific functions to i915_dpt_ prefix
->   drm/i915/dpt: rename struct i915_dpt to intel_dpt
->   drm/i915/dpt: pass opaque struct intel_dpt around instead of
->     i915_address_space
->
->  drivers/gpu/drm/i915/Makefile                 |   2 +-
->  drivers/gpu/drm/i915/display/intel_display.c  |   1 -
->  .../drm/i915/display/intel_display_types.h    |   2 +-
->  drivers/gpu/drm/i915/display/intel_dpt.c      | 316 +++---------------
->  drivers/gpu/drm/i915/display/intel_dpt.h      |  22 +-
->  .../gpu/drm/i915/display/intel_dpt_common.c   |  35 --
->  .../gpu/drm/i915/display/intel_dpt_common.h   |  13 -
->  drivers/gpu/drm/i915/display/intel_fb.c       |  21 +-
->  drivers/gpu/drm/i915/display/intel_fb_pin.c   |  15 +-
->  drivers/gpu/drm/i915/display/intel_parent.c   |  28 ++
->  drivers/gpu/drm/i915/display/intel_parent.h   |   9 +
->  .../drm/i915/display/skl_universal_plane.c    |   1 -
->  drivers/gpu/drm/i915/i915_dpt.c               | 277 +++++++++++++++
->  drivers/gpu/drm/i915/i915_dpt.h               |  20 ++
->  drivers/gpu/drm/i915/i915_driver.c            |   2 +
->  drivers/gpu/drm/xe/Makefile                   |   2 +-
->  drivers/gpu/drm/xe/display/xe_fb_pin.c        |  20 --
->  include/drm/intel/display_parent_interface.h  |  11 +
->  18 files changed, 419 insertions(+), 378 deletions(-)
->  delete mode 100644 drivers/gpu/drm/i915/display/intel_dpt_common.c
->  delete mode 100644 drivers/gpu/drm/i915/display/intel_dpt_common.h
->  create mode 100644 drivers/gpu/drm/i915/i915_dpt.c
->  create mode 100644 drivers/gpu/drm/i915/i915_dpt.h
->
-> --
-> 2.47.3
->
+In v2:
+   * Added intel-xe in Cc for xe CI (Jani);
+   * Removed NOP intel-overlay.c patch (Jani).
+
+Please review.
+
+Cheers,
+Luca.
+
+
+Luca Coelho (15):
+  drm/i915/display: convert audio workaround to new framework
+  drm/i915/display: convert W/As in intel_display_power.c to new
+    framework
+  drm/i915/display: convert W/As in intel_cdclk.c to new framework
+  drm/i915/display: convert W/As in intel_cursor.c to new framework
+  drm/i915/display: convert W/As in intel_ddi.c to new framework
+  drm/i915/display: convert W/As in intel_display.c to new framework
+  drm/i915/display: convert W/As in intel_display_device.c to new
+    framework
+  drm/i915/display: convert W/As in intel_dp_mst.c to new framework
+  drm/i915/display: convert W/As in intel_fbc.c to new framework
+  drm/i915/display: convert W/As in intel_flipq.c to new framework
+  drm/i915/display: convert W/As in intel_modeset_setup.c to new
+    framework
+  drm/i915/display: convert W/As in intel_pmdemand.c to new framework
+  drm/i915/display: convert W/As in intel_psr.c to new framework
+  drm/i915/display: convert W/As in skl_universal_plane.c to new
+    framework
+  drm/i915/display: convert W/As in skl_watermark.c to new framework
+
+ drivers/gpu/drm/i915/display/intel_audio.c    | 16 +----
+ drivers/gpu/drm/i915/display/intel_cdclk.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  3 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  4 +-
+ drivers/gpu/drm/i915/display/intel_display.c  |  4 +-
+ .../drm/i915/display/intel_display_device.c   |  3 +-
+ .../drm/i915/display/intel_display_power.c    | 22 +++----
+ .../gpu/drm/i915/display/intel_display_wa.c   | 65 +++++++++++++++++++
+ .../gpu/drm/i915/display/intel_display_wa.h   | 25 +++++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  3 +-
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  4 +-
+ drivers/gpu/drm/i915/display/intel_flipq.c    | 13 +---
+ .../drm/i915/display/intel_modeset_setup.c    |  3 +-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c |  8 ++-
+ drivers/gpu/drm/i915/display/intel_psr.c      | 20 +++---
+ .../drm/i915/display/skl_universal_plane.c    |  6 +-
+ drivers/gpu/drm/i915/display/skl_watermark.c  |  3 +-
+ 17 files changed, 140 insertions(+), 64 deletions(-)
+
+-- 
+2.51.0
+
