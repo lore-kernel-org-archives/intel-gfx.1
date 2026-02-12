@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E966EDF04B
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 06:35:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D9C8EDF04C
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 07:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F52310E6E6;
-	Thu, 12 Feb 2026 06:35:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gKrzIEb5";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD2E610E6E6;
- Thu, 12 Feb 2026 06:35:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770878152; x=1802414152;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=47MAfgVy33HiZplpX8HQkF2EutU3fokF53UkfRJlzSg=;
- b=gKrzIEb5TJMYpXncwxf+ejOf6gFpvPZR5t7kp20rVwCCOzWk6wIDMzxR
- piGI3JkD0oFu34BsdYsRVKHlxDFXp9IlYFWXv+E6zhgfGlG5EX3If640r
- sP7QvFFdaraDSKkQp9px2aZmRn1MxFSx5/atVKHdIbOcUoEO+TEzdGsm7
- N2NQzVXAA831996dCCsPMir5oZaAtXMxmstzOvgcPnrc5KY6Hr+/0+yZG
- aq0eFwJvna8EDIodRjxVDb43ReiQzjBB0LfXL/8wCiynj0YFUxGa8jD87
- tG9khp2NyXsGXYaRixQj1fwJgyLMigRnItI04XVDbm2MRAaZGrWwnxH0v g==;
-X-CSE-ConnectionGUID: S7C4d2o0Rui/+eC0gNwr0Q==
-X-CSE-MsgGUID: 036AgPZCQyewTwx6ETwUnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11698"; a="74642601"
-X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="74642601"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Feb 2026 22:35:52 -0800
-X-CSE-ConnectionGUID: HjKdjeLLRs+ks+d1k+3vTQ==
-X-CSE-MsgGUID: CEOiKAj8Q6i2waCElLzbGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="212591668"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa007.jf.intel.com with ESMTP; 11 Feb 2026 22:35:50 -0800
-From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Thu, 12 Feb 2026 12:04:22 +0530
-Subject: [PATCH v2 2/2] drm/i915/lt_phy_regs: Add SoC/OS turnaround time
+	by gabe.freedesktop.org (Postfix) with ESMTP id 956F310E063;
+	Thu, 12 Feb 2026 07:52:41 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0978110E063;
+ Thu, 12 Feb 2026 07:52:40 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1264732263292662784=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260212-timeout-v2-2-74bccad5018d@intel.com>
-References: <20260212-timeout-v2-0-74bccad5018d@intel.com>
-In-Reply-To: <20260212-timeout-v2-0-74bccad5018d@intel.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, uma.shankar@intel.com, 
- suraj.kandpal@intel.com, ankit.k.nautiyal@intel.com
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Arun R Murthy <arun.r.murthy@intel.com>
-X-Mailer: b4 0.15-dev
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/alpm=3A_ALPM_dis?=
+ =?utf-8?q?able_fixes?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 12 Feb 2026 07:52:39 -0000
+Message-ID: <177088275999.249093.2056496761797746434@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260212062731.397801-1-jouni.hogander@intel.com>
+In-Reply-To: <20260212062731.397801-1-jouni.hogander@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On top the timeouts mentioned in the spec which includes only the PHY
-timeouts include the SoC and the OS turnaround time.
-The overhead value is based on the stress test results with multiple
-available panels.
+--===============1264732263292662784==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_lt_phy_regs.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy_regs.h b/drivers/gpu/drm/i915/display/intel_lt_phy_regs.h
-index 37e46fb9abde4156ebd7ad1eb6cbbc12e7026b23..ff6d7829dbb9c50b2001d079b435b894faf9659e 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy_regs.h
-@@ -6,12 +6,12 @@
- #ifndef __INTEL_LT_PHY_REGS_H__
- #define __INTEL_LT_PHY_REGS_H__
- 
--#define XE3PLPD_MSGBUS_TIMEOUT_FAST_US	500
-+#define XE3PLPD_MSGBUS_TIMEOUT_FAST_US		500
- #define XE3PLPD_MACCLK_TURNON_LATENCY_MS	2
--#define XE3PLPD_MACCLK_TURNOFF_LATENCY_US	1
-+#define XE3PLPD_MACCLK_TURNOFF_LATENCY_US	10
- #define XE3PLPD_RATE_CALIB_DONE_LATENCY_MS	1
--#define XE3PLPD_RESET_START_LATENCY_US	10
--#define XE3PLPD_PWRDN_TO_RDY_LATENCY_US	4
-+#define XE3PLPD_RESET_START_LATENCY_US		10
-+#define XE3PLPD_PWRDN_TO_RDY_LATENCY_US		10
- #define XE3PLPD_RESET_END_LATENCY_MS		2
- 
- /* LT Phy MAC Register */
+Series: drm/i915/alpm: ALPM disable fixes
+URL   : https://patchwork.freedesktop.org/series/161531/
+State : success
 
--- 
-2.25.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_17977 -> Patchwork_161531v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161531v1/index.html
+
+Participating hosts (43 -> 41)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_17977 -> Patchwork_161531v1
+
+  CI-20190529: 20190529
+  CI_DRM_17977: b4bfe7d753afaf6ea4950111a309a4e2ef5aef68 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8751: af788251f1ef729d17c802aec2c4547b52059e58 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_161531v1: b4bfe7d753afaf6ea4950111a309a4e2ef5aef68 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161531v1/index.html
+
+--===============1264732263292662784==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/alpm: ALPM disable fixes</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/161531/">https://patchwork.freedesktop.org/series/161531/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161531v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161531v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_17977 -&gt; Patchwork_161531v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161531v1/index.html</p>
+<h2>Participating hosts (43 -&gt; 41)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_17977 -&gt; Patchwork_161531v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_17977: b4bfe7d753afaf6ea4950111a309a4e2ef5aef68 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8751: af788251f1ef729d17c802aec2c4547b52059e58 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_161531v1: b4bfe7d753afaf6ea4950111a309a4e2ef5aef68 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1264732263292662784==--
