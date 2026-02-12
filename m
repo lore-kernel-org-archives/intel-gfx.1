@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E299EB491D
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 12:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58AF1ECD6EA
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 12:57:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0E5710E738;
-	Thu, 12 Feb 2026 12:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD31F10E73C;
+	Thu, 12 Feb 2026 12:57:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jc5Khz2D";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q+8DPiAx";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6BA710E732
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 12:56:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE02E10E737
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 12:56:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770901017; x=1802437017;
+ t=1770901019; x=1802437019;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=ODjW0v0hL6v947qtezuGkBaMpVhdqlIQ5JKoblsXEOs=;
- b=jc5Khz2DhLlYqOnJg7Qw8ePHTWtCUyokY7edfHZjF9TI60QHgtKccVIy
- LMxfFAYAOlvh8nZ0CSyyjWCE3s8GV4p5V3wjdHdPQMGRLYSF6b9cn5oKN
- Wfj2h435G6fTuJ7EnTE2LqpMjKlhxgEFZx7aZmr+UBg6a1l4qAJKm0B+U
- 0v5G/khv2z9ruo5cFCtT4cjyaT+w/QnWbVz0MphyHg8DaKZESNTpgeQE+
- oLMTEwVLbRRrm5VOIu8wrNDhBPMaeuEbWfjgH1rPRBoS1La772596q3yd
- 1tTCQFsE+Pko++u4GeypgBzuGIcObZIfHQcnwXPssKUTASfysgscfy/eQ Q==;
-X-CSE-ConnectionGUID: tjnsceLERt6YsK7DZqjgUA==
-X-CSE-MsgGUID: tvWYPQ4dRNqZXTQzrFEkDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72116755"
-X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="72116755"
+ bh=exYtwgvvxKN8w15hl0V2dwu3G9vlpmZOY94ptZ9PYxU=;
+ b=Q+8DPiAxZxLXCdN49dLiHQUL45iiI/+PM/tq5A1asoQDMHAlB9dEeTfK
+ xdOI7Zk3D0snhV9PdFW0naaQsTQBE3WkhZ937h3CEDXJOrUI9AxqW9p0r
+ 1EAeAT0AyRdVteIG1k58SLhsnwmCpkKy8Y2Gfp73JjfDqum73/A4xD3/s
+ DjiA24ea/hLp+kqhUVqKHLZ5W2dsNroSmNBBE/c1YvOFfMAsAiJM5iEw5
+ utfKwUvCsC2faos8J3OeujKLAFIocBIAlxRzzaWGU+1ctkXS5fffYV4x7
+ DoGcOAoXClCjp5Ge306ZjQ6GKmTYz7mL2+rUk8LcYaint1dt0Ujh8BeZI A==;
+X-CSE-ConnectionGUID: RCY5AIDUTh+D1QXL9hXjbw==
+X-CSE-MsgGUID: D0/dGSgIQZONZuERmyethA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72116757"
+X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="72116757"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2026 04:56:57 -0800
-X-CSE-ConnectionGUID: tFsUHiGkT8CnxirZrVjTpw==
-X-CSE-MsgGUID: THyDH0vOSWGE2t7t9MUeNw==
+ 12 Feb 2026 04:56:59 -0800
+X-CSE-ConnectionGUID: /llkKwS6TCa0aiWOzytETg==
+X-CSE-MsgGUID: FyWRU/wjS56Ab2EKLZ6LWg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="212698625"
+X-IronPort-AV: E=Sophos;i="6.21,286,1763452800"; d="scan'208";a="212698627"
 Received: from dalessan-mobl3.ger.corp.intel.com (HELO hazy.intel.com)
  ([10.245.245.167])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2026 04:56:56 -0800
+ 12 Feb 2026 04:56:58 -0800
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
-Subject: [PATCH 05/16] drm/i915/display: convert W/As in intel_ddi.c to new
- framework
-Date: Thu, 12 Feb 2026 14:51:54 +0200
-Message-ID: <20260212125526.344401-6-luciano.coelho@intel.com>
+Subject: [PATCH 07/16] drm/i915/display: convert W/As in
+ intel_display_device.c to new framework
+Date: Thu, 12 Feb 2026 14:51:56 +0200
+Message-ID: <20260212125526.344401-8-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260212125526.344401-1-luciano.coelho@intel.com>
 References: <20260212125526.344401-1-luciano.coelho@intel.com>
@@ -74,59 +74,58 @@ workarounds all over, concentrate the checks in intel_wa.c.
 
 Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c        | 4 ++--
- drivers/gpu/drm/i915/display/intel_display_wa.c | 3 +++
- drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
- 3 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display_device.c | 3 ++-
+ drivers/gpu/drm/i915/display/intel_display_wa.c     | 3 +++
+ drivers/gpu/drm/i915/display/intel_display_wa.h     | 1 +
+ 3 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 94ae583e907f..c96438245b39 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -52,6 +52,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
+index e79913a858b3..e88ae1884213 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_device.c
++++ b/drivers/gpu/drm/i915/display/intel_display_device.c
+@@ -19,6 +19,7 @@
+ #include "intel_display_reg_defs.h"
  #include "intel_display_regs.h"
  #include "intel_display_types.h"
- #include "intel_display_utils.h"
 +#include "intel_display_wa.h"
- #include "intel_dkl_phy.h"
- #include "intel_dkl_phy_regs.h"
- #include "intel_dp.h"
-@@ -1401,8 +1402,7 @@ static void tgl_dkl_phy_set_signal_levels(struct intel_encoder *encoder,
- 		int level;
+ #include "intel_fbc.h"
+ #include "intel_step.h"
  
- 		/* Wa_16011342517:adl-p */
--		if (display->platform.alderlake_p &&
--		    IS_DISPLAY_STEP(display, STEP_A0, STEP_D0)) {
-+		if (intel_display_wa(display, 16011342517)) {
- 			if ((intel_encoder_is_hdmi(encoder) &&
- 			     crtc_state->port_clock == 594000) ||
- 			     (intel_encoder_is_dp(encoder) &&
+@@ -1773,7 +1774,7 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
+ 		display_runtime->port_mask |= BIT(PORT_F);
+ 
+ 	/* Wa_14011765242: adl-s A0,A1 */
+-	if (display->platform.alderlake_s && IS_DISPLAY_STEP(display, STEP_A0, STEP_A2))
++	if (intel_display_wa(display, 14011765242))
+ 		for_each_pipe(display, pipe)
+ 			display_runtime->num_scalers[pipe] = 0;
+ 	else if (DISPLAY_VER(display) >= 11) {
 diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index 8473cb25c92e..e2bbc3a90eca 100644
+index 744ca7828f06..b45212708110 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_wa.c
 +++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -99,6 +99,9 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
- 		return DISPLAY_VER(display) == 20;
- 	case INTEL_DISPLAY_WA_15018326506:
- 		return display->platform.battlemage;
-+	case INTEL_DISPLAY_WA_16011342517:
-+		return display->platform.alderlake_p &&
-+			IS_DISPLAY_STEP(display, STEP_A0, STEP_D0);
- 	case INTEL_DISPLAY_WA_16023588340:
- 		return intel_display_needs_wa_16023588340(display);
- 	case INTEL_DISPLAY_WA_16025573575:
+@@ -91,6 +91,9 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
+ 		return DISPLAY_VER(display) == 13;
+ 	case INTEL_DISPLAY_WA_14011508470:
+ 		return (IS_DISPLAY_VERx100(display, 1200, 1300));
++	case INTEL_DISPLAY_WA_14011765242:
++		return display->platform.alderlake_s &&
++			IS_DISPLAY_STEP(display, STEP_A0, STEP_A2);
+ 	case INTEL_DISPLAY_WA_14020863754:
+ 		return DISPLAY_VERx100(display) == 3000 ||
+ 			DISPLAY_VERx100(display) == 2000 ||
 diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-index 7e5f5a466e2a..b9c088025fd7 100644
+index 4fab1b27087a..923cb917e727 100644
 --- a/drivers/gpu/drm/i915/display/intel_display_wa.h
 +++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-@@ -38,6 +38,7 @@ enum intel_display_wa {
+@@ -35,6 +35,7 @@ enum intel_display_wa {
+ 	INTEL_DISPLAY_WA_14011503030,
+ 	INTEL_DISPLAY_WA_14011503117,
+ 	INTEL_DISPLAY_WA_14011508470,
++	INTEL_DISPLAY_WA_14011765242,
+ 	INTEL_DISPLAY_WA_14020863754,
  	INTEL_DISPLAY_WA_14025769978,
  	INTEL_DISPLAY_WA_15013987218,
- 	INTEL_DISPLAY_WA_15018326506,
-+	INTEL_DISPLAY_WA_16011342517,
- 	INTEL_DISPLAY_WA_16023588340,
- 	INTEL_DISPLAY_WA_16025573575,
- 	INTEL_DISPLAY_WA_22010178259,
 -- 
 2.51.0
 
