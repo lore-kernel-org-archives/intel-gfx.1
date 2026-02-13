@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E51EEDF15A
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 12:26:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89F60EDF159
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 12:26:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD1110E80E;
-	Fri, 13 Feb 2026 12:26:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FA0B10E814;
+	Fri, 13 Feb 2026 12:26:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Avmp326a";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XI+i1fgB";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31CF910E814;
- Fri, 13 Feb 2026 12:26:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 159D810E80D;
+ Fri, 13 Feb 2026 12:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770985602; x=1802521602;
+ t=1770985594; x=1802521594;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=RvooJWze1cJT4cKiigKrZA1DBhgX10gry7e54UTL7hA=;
- b=Avmp326aCoW+BBVvbPfFIfbvXywEokU5jwyKdHcQr4hDVV8hkNY7FO81
- /yIxfiXWksx1q6lao7E/c3xmFZlqzVB7cKbNpN+CYXvkjTWREdxzHdj+T
- AcY6QIuKbgwDdObY3/OgrutyBpx0YhAtyONieuA0nhXDvgnL0RFTKxZ2w
- 9C8ErnzyGnWcZYyuHB2TPYsWowhN5Ri8X4B34s4EHW7CdA5kmjQZKvWSk
- bxM+Tqaen5G8c08wXTdOkigEBVo72CjtCLiniZd9OHKWGfxCG8pazdl6Q
- h9GuJQmCdyhbORlDG4R9ZI7FKH4qqSM5HVNkde74gy5q9UL/q30d/0dWU Q==;
-X-CSE-ConnectionGUID: aDBtjDSrSBmmRaJJ2i+Mhg==
-X-CSE-MsgGUID: eGftUSw/Rv2rdPY1frIZPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72158145"
-X-IronPort-AV: E=Sophos;i="6.21,288,1763452800"; d="scan'208";a="72158145"
+ bh=sv9muotCym1RjQDqZsMfmzvj4QKOvHFfGIuls01EKTA=;
+ b=XI+i1fgBjUirA46kk/MIEb9+82axMsfEFmWXPjnpcxZGOCsRGMeqwhqa
+ 0fmfY+c0ng6U3NxcV7gWMrij8s4sVWXQzLoudG0XGnFgg3oiHuTN3u5xq
+ 7Yytj6q/mjr3ZvF1v2YVDT+2tDotrx4ZdS3M2lIulzOXY5EHZKsN0aTyB
+ e8RFzg4eAh8mVMCLbVTs31v9k2aLy3Skk1Ku1fM5SLtmJ5WeoEnDN3iBE
+ NHD8I/a8Rl+MZTo4TRn6sbm7SLsM0wdLuMhdkeoCez+eSAp4U7DAipYHi
+ +BRrh3fsTAgf1eKMT/D8jOPunQIDcx8ziJhWqgR0cY+qeb03TaxfVg7i7 A==;
+X-CSE-ConnectionGUID: J0ERzPhoSiagNnmeGQI8sQ==
+X-CSE-MsgGUID: neYjEauiTGuIdQig41KMGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72158124"
+X-IronPort-AV: E=Sophos;i="6.21,288,1763452800"; d="scan'208";a="72158124"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2026 04:26:41 -0800
-X-CSE-ConnectionGUID: NC946HukRJGbAD8biMdJLQ==
-X-CSE-MsgGUID: SUeZ3I7JTSCd1v1WMyr45Q==
+ 13 Feb 2026 04:26:34 -0800
+X-CSE-ConnectionGUID: uKjYYu5BSDybe4cQWxnogg==
+X-CSE-MsgGUID: 0AkY59q8RbuMO/bySaYJVg==
 X-ExtLoop1: 1
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa003.fm.intel.com with ESMTP; 13 Feb 2026 04:26:40 -0800
+ by fmviesa003.fm.intel.com with ESMTP; 13 Feb 2026 04:26:33 -0800
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH 19/19] drm/i915/lt_phy: Enable dpll framework for xe3plpd
-Date: Fri, 13 Feb 2026 12:26:15 +0000
-Message-ID: <20260213122615.1083654-20-mika.kahola@intel.com>
+Subject: [PATCH 13/19] drm/i915/lt_phy: Add xe3plpd .crtc_get_dpll
+Date: Fri, 13 Feb 2026 12:26:09 +0000
+Message-ID: <20260213122615.1083654-14-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260213122615.1083654-1-mika.kahola@intel.com>
 References: <20260213122615.1083654-1-mika.kahola@intel.com>
@@ -66,151 +66,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-xe3plpd platform is supported by dpll framework remove a separate
-check for hw comparison and rely solely on dpll framework
-hw comparison.
-
-Finally, all required hooks are now in place so initialize
-PLL manager for xe3plpd platform and remove the redirections
-to the legacy code paths for clock enable/disable as well as
-state mismatch checks that are no longer needed.
+Add .crtc_get_dpll function pointer to support xe3plpd
+platform.
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
- drivers/gpu/drm/i915/display/intel_display.c  | 31 -------------------
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  7 +++--
- drivers/gpu/drm/i915/display/intel_lt_phy.c   |  8 +----
- 4 files changed, 6 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dpll.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 9f3c8cd02a33..e59b5857bdb5 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -5286,7 +5286,7 @@ void intel_ddi_init(struct intel_display *display,
- 	if (HAS_LT_PHY(display)) {
- 		encoder->enable_clock = intel_xe3plpd_pll_enable_clock;
- 		encoder->disable_clock = intel_xe3plpd_pll_disable_clock;
--		encoder->port_pll_type = intel_mtl_port_pll_type;
-+		encoder->port_pll_type = icl_ddi_tc_port_pll_type;
- 		if (intel_encoder_is_tc(encoder))
- 			encoder->get_config = mtl_ddi_tc_phy_get_config;
- 		else
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 57b0ed062b41..b0e92e1bd98c 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5045,23 +5045,6 @@ static bool allow_vblank_delay_fastset(const struct intel_crtc_state *old_crtc_s
- 	       !intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_DSI);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll.c b/drivers/gpu/drm/i915/display/intel_dpll.c
+index 88f11cb8c5e1..abc85ee9b832 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll.c
+@@ -1691,6 +1691,7 @@ static int i8xx_crtc_compute_clock(struct intel_atomic_state *state,
  
--static void
--pipe_config_lt_phy_pll_mismatch(struct drm_printer *p, bool fastset,
--				const struct intel_crtc *crtc,
--				const char *name,
--				const struct intel_lt_phy_pll_state *a,
--				const struct intel_lt_phy_pll_state *b)
--{
--	char *chipname = "LTPHY";
--
--	pipe_config_mismatch(p, fastset, crtc, name, chipname);
--
--	drm_printf(p, "expected:\n");
--	intel_lt_phy_dump_hw_state(p, a);
--	drm_printf(p, "found:\n");
--	intel_lt_phy_dump_hw_state(p, b);
--}
--
- bool
- intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 			  const struct intel_crtc_state *pipe_config,
-@@ -5176,16 +5159,6 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	} \
- } while (0)
+ static const struct intel_dpll_global_funcs xe3plpd_dpll_funcs = {
+ 	.crtc_compute_clock = xe3plpd_crtc_compute_clock,
++	.crtc_get_dpll = hsw_crtc_get_dpll,
+ };
  
--#define PIPE_CONF_CHECK_PLL_LT(name) do { \
--	if (!intel_lt_phy_pll_compare_hw_state(&current_config->name, \
--					       &pipe_config->name)) { \
--		pipe_config_lt_phy_pll_mismatch(&p, fastset, crtc, __stringify(name), \
--						&current_config->name, \
--						&pipe_config->name); \
--		ret = false; \
--	} \
--} while (0)
--
- #define PIPE_CONF_CHECK_TIMINGS(name) do {     \
- 	PIPE_CONF_CHECK_I(name.crtc_hdisplay); \
- 	PIPE_CONF_CHECK_I(name.crtc_htotal); \
-@@ -5412,10 +5385,6 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	if (display->dpll.mgr || HAS_GMCH(display))
- 		PIPE_CONF_CHECK_PLL(dpll_hw_state);
- 
--	/* FIXME convert MTL+ platforms over to dpll_mgr */
--	if (HAS_LT_PHY(display))
--		PIPE_CONF_CHECK_PLL_LT(dpll_hw_state.ltpll);
--
- 	PIPE_CONF_CHECK_X(dsi_pll.ctrl);
- 	PIPE_CONF_CHECK_X(dsi_pll.div);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 534cc691979f..bbd2bcfc7ea3 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4724,7 +4724,6 @@ static bool xe3plpd_compare_hw_state(const struct intel_dpll_hw_state *_a,
- 	return intel_lt_phy_pll_compare_hw_state(a, b);
- }
- 
--__maybe_unused
- static const struct intel_dpll_mgr xe3plpd_pll_mgr = {
- 	.dpll_info = xe3plpd_plls,
- 	.compute_dplls = xe3plpd_compute_dplls,
-@@ -4750,9 +4749,11 @@ void intel_dpll_init(struct intel_display *display)
- 
- 	mutex_init(&display->dpll.lock);
- 
--	if (DISPLAY_VER(display) >= 35 || display->platform.dg2)
--		/* No shared DPLLs on NVL or DG2; port PLLs are part of the PHY */
-+	if (display->platform.dg2)
-+		/* No shared DPLLs on DG2; port PLLs are part of the PHY */
- 		dpll_mgr = NULL;
-+	else if (DISPLAY_VER(display) >= 35)
-+		dpll_mgr = &xe3plpd_pll_mgr;
- 	else if (DISPLAY_VER(display) >= 14)
- 		dpll_mgr = &mtl_pll_mgr;
- 	else if (display->platform.alderlake_p)
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 1dc53918a054..f68c3164332e 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -12,6 +12,7 @@
- #include "intel_ddi_buf_trans.h"
- #include "intel_de.h"
- #include "intel_display.h"
-+#include "intel_display_regs.h"
- #include "intel_display_types.h"
- #include "intel_display_utils.h"
- #include "intel_dpll.h"
-@@ -2284,9 +2285,6 @@ void intel_xe3plpd_pll_enable_clock(struct intel_encoder *encoder,
- 
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
- 		intel_mtl_tbt_pll_enable_clock(encoder, crtc_state->port_clock);
--	else
--		/* TODO: remove when PLL mgr is in place. */
--		intel_xe3plpd_pll_enable(encoder, NULL, &crtc_state->dpll_hw_state);
- }
- 
- void intel_xe3plpd_pll_disable(struct intel_encoder *encoder)
-@@ -2305,10 +2303,6 @@ void intel_xe3plpd_pll_disable_clock(struct intel_encoder *encoder)
- 
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
- 		intel_mtl_tbt_pll_disable_clock(encoder);
--	else
--		/* TODO: remove when PLL mgr is in place. */
--		intel_xe3plpd_pll_disable(encoder);
--
- }
- 
- static void intel_lt_phy_pll_verify_clock(struct intel_display *display,
+ static const struct intel_dpll_global_funcs mtl_dpll_funcs = {
 -- 
 2.43.0
 
