@@ -4,56 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EDBAEF48F9
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 09:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF3BCEF48F3
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 09:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B25B910E7D5;
-	Fri, 13 Feb 2026 09:17:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h3ZzpGgx";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F19610E7D2;
- Fri, 13 Feb 2026 09:17:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770974240; x=1802510240;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=h02ltg/bWR6iAdetj8BTG+wc9MjJkDyvjA3LaLJxWso=;
- b=h3ZzpGgxnFLATbmJQTSMKIBXoI0HhV7LXS+XjOeXpR/K5gZbe8ozF958
- eQt/Mw2SzxNvb74PhPgoGTbi1k3PnIa2d9Aznq4bPYOLCbry5do9wrfJ2
- j3K+9rbYZFnLEA8tBaFjE3+eHxpG0yYsYhZ7ErjCOoKKDEoU8Pa9CAGu+
- sSkivssr3xJiQLuTgeZcWzItepM5mQzCH0N84A1U/Z65rTDwCEVbtdgRY
- eR1QtYpii1CGfvAaVf2pp3kacIyETgfMllWlGYQjMhRUZl1IFjINF46tC
- sxz2BLlP7KFWPy6KRvhA0hiNmjZFL/yA5NmQ35y/sPKnY/joPFJ7cnWiI g==;
-X-CSE-ConnectionGUID: oTr6f5FHT/+vSbSsQQkIyA==
-X-CSE-MsgGUID: 98wfNaPTSDW/rlui1O1tig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="72146732"
-X-IronPort-AV: E=Sophos;i="6.21,288,1763452800"; d="scan'208";a="72146732"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Feb 2026 01:17:19 -0800
-X-CSE-ConnectionGUID: 01wNpZnpT5itkbOkwflZcg==
-X-CSE-MsgGUID: xJKbG6J6Srq8fTQigJYGAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,288,1763452800"; d="scan'208";a="211778852"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa007.fm.intel.com with ESMTP; 13 Feb 2026 01:17:17 -0800
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 8/8] drm/i915/backlight: Avoid 0 brightness for INTEL AUX HDR
- backlight
-Date: Fri, 13 Feb 2026 14:46:53 +0530
-Message-Id: <20260213091653.2250887-9-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260213091653.2250887-1-suraj.kandpal@intel.com>
-References: <20260213091653.2250887-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 321B310E7D7;
+	Fri, 13 Feb 2026 09:19:17 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3903710E7D7;
+ Fri, 13 Feb 2026 09:19:16 +0000 (UTC)
+Received: from 37-33-41-57.bb.dnainternet.fi ([37.33.41.57]
+ helo=[192.168.101.110])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1vqpKS-00000002Lac-0GqZ; Fri, 13 Feb 2026 11:19:13 +0200
+Message-ID: <5ab22c377338056ee8a195481229817cb2849673.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>, Ville
+ =?ISO-8859-1?Q?Syrj=E4l=E4?=	 <ville.syrjala@linux.intel.com>, "Coelho,
+ Luciano" <luciano.coelho@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Date: Fri, 13 Feb 2026 11:19:10 +0200
+In-Reply-To: <DM3PPF208195D8DD2E52F76AE768BF86C3AE361A@DM3PPF208195D8D.namprd11.prod.outlook.com>
+References: <20260212184737.352515-1-luciano.coelho@intel.com>
+ <20260212184737.352515-12-luciano.coelho@intel.com>
+ <aY6w7FuoIi0TydHB@intel.com>
+ <2358502e438f28e734c65a55364a437b0291e956.camel@coelho.fi>
+ <DM3PPF208195D8DD2E52F76AE768BF86C3AE361A@DM3PPF208195D8D.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-8 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 11/15] drm/i915/display: convert W/As in
+ intel_modeset_setup.c to new framework
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,58 +52,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Whenever the minimum brightness is reported as 0 there are chances
-we maybe sometimes end up with blank screen. This confuses the user
-into thinking the display is acting weird. This occurs in eDP 1.4b
-when we use proprietary INTEL AUX HDR DPCD registers to mainupate
-brightness via luminance values. Make sure if minimum luminance
-range is 0 we program it to 10% of max luminance range.
+On Fri, 2026-02-13 at 08:24 +0000, Kandpal, Suraj wrote:
+> > Subject: Re: [PATCH v2 11/15] drm/i915/display: convert W/As in
+> > intel_modeset_setup.c to new framework
+> >=20
+> > On Fri, 2026-02-13 at 07:04 +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > > On Thu, Feb 12, 2026 at 08:46:09PM +0200, Luca Coelho wrote:
+> > > > Convert the low-hanging fruits of workaround checks to the
+> > > > workaround framework.  Instead of having display structure checks
+> > > > for the workarounds all over, concentrate the checks in intel_wa.c.
+> > > >=20
+> > > > Acked-by: Jani Nikula <jani.nikula@intel.com>
+> > > > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+> > > > ---
+> > > > =C2=A0drivers/gpu/drm/i915/display/intel_display_wa.c    | 2 ++
+> > > > =C2=A0drivers/gpu/drm/i915/display/intel_display_wa.h    | 1 +
+> > > > =C2=A0drivers/gpu/drm/i915/display/intel_modeset_setup.c | 3 ++-
+> > > > =C2=A03 files changed, 5 insertions(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c
+> > > > b/drivers/gpu/drm/i915/display/intel_display_wa.c
+> > > > index 3aa79e607bf8..72f645686efd 100644
+> > > > --- a/drivers/gpu/drm/i915/display/intel_display_wa.c
+> > > > +++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
+> > > > @@ -79,6 +79,8 @@ bool __intel_display_wa(struct intel_display *dis=
+play,
+> > enum intel_display_wa wa,
+> > > > =C2=A0	case INTEL_DISPLAY_WA_13012396614:
+> > > > =C2=A0		return DISPLAY_VERx100(display) =3D=3D 3000 ||
+> > > > =C2=A0			DISPLAY_VERx100(display) =3D=3D 3500;
+> > > > +	case INTEL_DISPLAY_WA_14010480278:
+> > > > +		return (IS_DISPLAY_VER(display, 10, 12));
+> > >=20
+> > > This is now quite confusing. That w/a number only means something for
+> > > tgl+. I think if we want to start converting this kind of places
+> > > tgl+someone
+> > > needs to come up with an actual plan how to deal with older platforms=
+.
+> >=20
+> > If there are more numbers from other platforms, I think they should jus=
+t have
+> > their own cases, like in some later patches in this series,
+> > eg.:
+> >=20
+> > 	case INTEL_DISPLAY_WA_<tgl+_wa_number>:
+> > 	case INTEL_DISPLAY_WA_<lnl_wa_number>:
+> >=20
+> > ...but this was a problem before my series already, and it's not someth=
+ing I'm
+> > trying to address here.
+> >=20
+> >=20
+> > > Also I'm pretty sure that even among the new platforms some w/a's are
+> > > listed with different numbers for different platforms. Has anyone
+> > > thought what we should do about that?
+> >=20
+> > Yeah, and there's also the case where more than workaround has the same
+> > check, we'll end up with many fallthrough cases.
+> >=20
+>=20
+>=20
+> My two cents here:
+> Maybe we first get all the WA's here into this framework then work on how=
+ to optimize it later.
+> Perhaps documenting how and where WA's can be placed, their numbering and=
+ version checking.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c   | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Yes, I agree with moving the "low-hanging fruits" to the new framework
+and continue to improve it from there.  That was the intention of this
+series, a first step that hopefully makes it easier to continue with
+subsequent clean-ups.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 8f86b368612e..cf53759c2860 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -178,6 +178,7 @@ intel_dp_aux_hdr_get_backlight(struct intel_connector *connector, enum pipe pipe
- 	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
- 	u8 tmp;
- 	u8 buf[2] = {};
-+	u32 level;
- 
- 	if (drm_dp_dpcd_readb(&intel_dp->aux, INTEL_EDP_HDR_GETSET_CTRL_PARAMS, &tmp) != 1) {
- 		drm_err(display->drm,
-@@ -205,7 +206,10 @@ intel_dp_aux_hdr_get_backlight(struct intel_connector *connector, enum pipe pipe
- 		return 0;
- 	}
- 
--	return (buf[1] << 8 | buf[0]);
-+	level = (buf[1] << 8 | buf[0]);
-+	if (!level)
-+		return panel->backlight.min;
-+	return level;
- }
- 
- static void
-@@ -427,10 +431,13 @@ intel_dp_aux_hdr_setup_backlight(struct intel_connector *connector, enum pipe pi
- 
- 	if (luminance_range->max_luminance) {
- 		panel->backlight.max = luminance_range->max_luminance;
--		panel->backlight.min = luminance_range->min_luminance;
-+		if (luminance_range->min_luminance)
-+			panel->backlight.min = luminance_range->min_luminance;
-+		else
-+			panel->backlight.min = (luminance_range->max_luminance * 10) / 100;
- 	} else {
- 		panel->backlight.max = 512;
--		panel->backlight.min = 0;
-+		panel->backlight.min = 51;
- 	}
- 
- 	intel_dp_aux_write_panel_luminance_override(connector);
--- 
-2.34.1
+--
+Cheers,
+Luca.
 
+
+
+> Regards,
+> Suraj Kandpal
+>=20
+> > --
+> > Cheers,
+> > Luca.
+> >=20
+> >=20
+> > > > =C2=A0	case INTEL_DISPLAY_WA_14010547955:
+> > > > =C2=A0		return display->platform.dg2;
+> > > > =C2=A0	case INTEL_DISPLAY_WA_14010685332:
+> > > > diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h
+> > > > b/drivers/gpu/drm/i915/display/intel_display_wa.h
+> > > > index 57345d0abe1c..d8359f88de29 100644
+> > > > --- a/drivers/gpu/drm/i915/display/intel_display_wa.h
+> > > > +++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
+> > > > @@ -30,6 +30,7 @@ enum intel_display_wa {
+> > > > =C2=A0	INTEL_DISPLAY_WA_1409120013,
+> > > > =C2=A0	INTEL_DISPLAY_WA_1409767108,
+> > > > =C2=A0	INTEL_DISPLAY_WA_13012396614,
+> > > > +	INTEL_DISPLAY_WA_14010480278,
+> > > > =C2=A0	INTEL_DISPLAY_WA_14010547955,
+> > > > =C2=A0	INTEL_DISPLAY_WA_14010685332,
+> > > > =C2=A0	INTEL_DISPLAY_WA_14011294188,
+> > > > diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> > > > b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> > > > index 9b0becee221c..7ee1494a67af 100644
+> > > > --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> > > > +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+> > > > @@ -25,6 +25,7 @@
+> > > > =C2=A0#include "intel_display_power.h"
+> > > > =C2=A0#include "intel_display_regs.h"
+> > > > =C2=A0#include "intel_display_types.h"
+> > > > +#include "intel_display_wa.h"
+> > > > =C2=A0#include "intel_dmc.h"
+> > > > =C2=A0#include "intel_fifo_underrun.h"
+> > > > =C2=A0#include "intel_modeset_setup.h"
+> > > > @@ -913,7 +914,7 @@ static void intel_early_display_was(struct
+> > intel_display *display)
+> > > > =C2=A0	 * Display WA #1185 WaDisableDARBFClkGating:glk,icl,ehl,tgl
+> > > > =C2=A0	 * Also known as Wa_14010480278.
+> > > > =C2=A0	 */
+> > > > -	if (IS_DISPLAY_VER(display, 10, 12))
+> > > > +	if (intel_display_wa(display, 14010480278))
+> > >=20
+> > > > =C2=A0		intel_de_rmw(display, GEN9_CLKGATE_DIS_0, 0,
+> > DARBF_GATING_DIS);
+> > > >=20
+> > > > =C2=A0	/*
+> > > > --
+> > > > 2.51.0
