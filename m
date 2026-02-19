@@ -4,27 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C22E9A02C
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 22:43:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12A86E9A02C
+	for <intel-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 00:38:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A205910E640;
-	Wed, 18 Feb 2026 22:43:42 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77A4210E333;
- Wed, 18 Feb 2026 22:43:41 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7871105480232337657=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 586A210E156;
+	Thu, 19 Feb 2026 00:38:37 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BoVx38QL";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54BA110E156
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 00:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1771461517; x=1802997517;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=qax+XdHsIvJdoI4nk3Bx5s56LMmPe2+B1hNXNerPp+0=;
+ b=BoVx38QL/Z1KisECMY+N5JLVoTSlGfnL0YiY6bogQyj4izj5ngSGp3LX
+ +xHikHtqPdg9aJV4F96AqP0NmVk+/Kc4OOw05koiGU8PZ0PLs+HkbEz1F
+ 5HmweHqPGgAw5pgm0vhilfH+9cfFe/B/1C6qevtF7aRskYBxhV7EgWTFe
+ /mKsxL2vhLVsUeLkZRYHCr4WJTuRzi9d4yiF0+c5HGOQdnAqkkJzfZsad
+ 7bk8GmFTPmqMHqtDgerkmhWysOjYpiVrWjGPv21avWNragq9mAYqjJECS
+ mTsRVVNTmzNlxV5/C8/QROGy7XCKf6rqEJ34RmtYhvNQpZiEsuCYxJnBG A==;
+X-CSE-ConnectionGUID: VpA3JfKSSoe9qzbBobitBA==
+X-CSE-MsgGUID: Mb8HTubGQNGpebUsb5S5Kg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11705"; a="76165669"
+X-IronPort-AV: E=Sophos;i="6.21,299,1763452800"; d="scan'208";a="76165669"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2026 16:38:36 -0800
+X-CSE-ConnectionGUID: Kp/NsaVmSN6s102TqPke2g==
+X-CSE-MsgGUID: Alf3HSUdTbKDkFVrEH0YOw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,299,1763452800"; d="scan'208";a="219363501"
+Received: from valcore-skull-1.fm.intel.com ([10.1.39.17])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2026 16:38:36 -0800
+From: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Subject: [PATCH] drm/xe/guc: Fail immediately on GuC load error
+Date: Wed, 18 Feb 2026 16:38:22 -0800
+Message-ID: <20260219003821.1219962-2-daniele.ceraolospurio@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_nova-core=3A_Add_memory_m?=
- =?utf-8?q?anagement_support?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 18 Feb 2026 22:43:41 -0000
-Message-ID: <177145462147.264666.6395990793022612414@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260218212020.800836-1-joelagnelf@nvidia.com>
-In-Reply-To: <20260218212020.800836-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,205 +62,53 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7871105480232337657==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+By using the same variable for both the return of poll_timeout_us and
+the return of the polled function guc_wait_ucode, the return value of
+the latter is overwritten and lost after exiting the polling loop. Since
+guc_wait_ucode returns -1 on GuC load failure, we lose that information
+and always continue as if the GuC had been loaded correctly.
 
-== Series Details ==
+This is fixed by simply using 2 separate variables.
 
-Series: nova-core: Add memory management support
-URL   : https://patchwork.freedesktop.org/series/161792/
-State : success
+Fixes: a4916b4da448 ("drm/xe/guc: Refactor GuC load to use poll_timeout_us()")
+Signed-off-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/xe/xe_guc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/xe/xe_guc.c b/drivers/gpu/drm/xe/xe_guc.c
+index cbbb4d665b8f..aacf77f09522 100644
+--- a/drivers/gpu/drm/xe/xe_guc.c
++++ b/drivers/gpu/drm/xe/xe_guc.c
+@@ -1179,6 +1179,7 @@ static int guc_wait_ucode(struct xe_guc *guc)
+ 	struct xe_guc_pc *guc_pc = &gt->uc.guc.pc;
+ 	u32 before_freq, act_freq, cur_freq;
+ 	u32 status = 0, tries = 0;
++	int load_result;
+ 	ktime_t before;
+ 	u64 delta_ms;
+ 	int ret;
+@@ -1186,7 +1187,7 @@ static int guc_wait_ucode(struct xe_guc *guc)
+ 	before_freq = xe_guc_pc_get_act_freq(guc_pc);
+ 	before = ktime_get();
+ 
+-	ret = poll_timeout_us(ret = guc_load_done(gt, &status, &tries), ret,
++	ret = poll_timeout_us(load_result = guc_load_done(gt, &status, &tries), load_result,
+ 			      10 * USEC_PER_MSEC,
+ 			      GUC_LOAD_TIMEOUT_SEC * USEC_PER_SEC, false);
+ 
+@@ -1194,7 +1195,7 @@ static int guc_wait_ucode(struct xe_guc *guc)
+ 	act_freq = xe_guc_pc_get_act_freq(guc_pc);
+ 	cur_freq = xe_guc_pc_get_cur_freq_fw(guc_pc);
+ 
+-	if (ret) {
++	if (ret || load_result <= 0) {
+ 		xe_gt_err(gt, "load failed: status = 0x%08X, time = %lldms, freq = %dMHz (req %dMHz)\n",
+ 			  status, delta_ms, xe_guc_pc_get_act_freq(guc_pc),
+ 			  xe_guc_pc_get_cur_freq_fw(guc_pc));
+-- 
+2.43.0
 
-CI Bug Log - changes from CI_DRM_18004 -> Patchwork_161792v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/index.html
-
-Participating hosts (43 -> 40)
-------------------------------
-
-  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_161792v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-3:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [PASS][3] -> [FAIL][4] ([i915#14867])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-
-  
-#### Possible fixes ####
-
-  * igt@gem_exec_fence@basic-await:
-    - bat-twl-2:          [FAIL][5] ([i915#15263]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-twl-2/igt@gem_exec_fence@basic-await.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-twl-2/igt@gem_exec_fence@basic-await.html
-
-  * igt@gem_exec_fence@basic-await@rcs0:
-    - bat-twl-2:          [FAIL][7] -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-twl-2/igt@gem_exec_fence@basic-await@rcs0.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-twl-2/igt@gem_exec_fence@basic-await@rcs0.html
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [INCOMPLETE][9] ([i915#15176]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-8/igt@i915_selftest@live.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-8/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@memory_region:
-    - bat-mtlp-8:         [INCOMPLETE][11] -> [PASS][12]
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-8/igt@i915_selftest@live@memory_region.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-8/igt@i915_selftest@live@memory_region.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-9:         [DMESG-FAIL][13] ([i915#12061]) -> [PASS][14] +1 other test pass
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
-  [i915#15176]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176
-  [i915#15263]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15263
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18004 -> Patchwork_161792v1
-
-  CI-20190529: 20190529
-  CI_DRM_18004: 7ee0795cb4f30c9ccc2b8a580faebcefbdf150c5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8760: 8760
-  Patchwork_161792v1: 7ee0795cb4f30c9ccc2b8a580faebcefbdf150c5 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/index.html
-
---===============7871105480232337657==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>nova-core: Add memory management support</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/161792/">https://patchwork.freedesktop.org/series/161792/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18004 -&gt; Patchwork_161792v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/index.html</p>
-<h2>Participating hosts (43 -&gt; 40)</h2>
-<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_161792v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_hdmi_inject@inject-audio:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@gem_exec_fence@basic-await:</p>
-<ul>
-<li>bat-twl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-twl-2/igt@gem_exec_fence@basic-await.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15263">i915#15263</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-twl-2/igt@gem_exec_fence@basic-await.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@gem_exec_fence@basic-await@rcs0:</p>
-<ul>
-<li>bat-twl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-twl-2/igt@gem_exec_fence@basic-await@rcs0.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-twl-2/igt@gem_exec_fence@basic-await@rcs0.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-8/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15176">i915#15176</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@memory_region:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-8/igt@i915_selftest@live@memory_region.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-8/igt@i915_selftest@live@memory_region.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18004/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161792v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18004 -&gt; Patchwork_161792v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18004: 7ee0795cb4f30c9ccc2b8a580faebcefbdf150c5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8760: 8760<br />
-  Patchwork_161792v1: 7ee0795cb4f30c9ccc2b8a580faebcefbdf150c5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7871105480232337657==--
