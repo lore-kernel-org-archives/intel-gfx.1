@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8930BC53214
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 05:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DAE3C53215
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 05:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19E7510E784;
-	Fri, 20 Feb 2026 05:02:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F205810E783;
+	Fri, 20 Feb 2026 05:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O+kBwpOj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HuoJFl1w";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0ED10E784;
- Fri, 20 Feb 2026 05:02:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48B0010E783;
+ Fri, 20 Feb 2026 05:02:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771563750; x=1803099750;
+ t=1771563751; x=1803099751;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=yb8j/+2jrPye5oLwJMI1JvZWpy3lbDZGIiCv7JMG+kQ=;
- b=O+kBwpOj+h/LmAGd7PbnYJB1PXlp09TZveb0k3ENmiJCKgbzKLnPMn5G
- kxsdqYEUK4aGz3IYdPIu5a8OKvdvBwhQRZg21rE53epL264p5X55N6gkq
- b9dJ4djNJeDe1PQTfcmxfp0tmhgr9CokZLMuqbRkyW6M1yo9I3u/9/pnl
- yRbm8BfZ8a9mmU3xt5VTNtkL1aQjs8OIhvR5uLRa+6/stjHt/r4BTDpnA
- 2wzF0g88bkSkms1YEyXXi5Y8d6+1hDtRM2vAiBkQQD8vST/C3h2OvOhM0
- 5bNGjj6Cx1scsj3zCMcrNExR6TrID7J6qpPFwBkjufXH0WzePLv5PqPdZ w==;
-X-CSE-ConnectionGUID: sg/85kWlQrKvMce49Zr1mQ==
-X-CSE-MsgGUID: iysC81VnTxO/O1RQ/k/nCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11706"; a="72758228"
-X-IronPort-AV: E=Sophos;i="6.21,301,1763452800"; d="scan'208";a="72758228"
+ bh=8RZ96fL0F6NTlriwPhUCyBXq5ZSRIYw/RzPsEmHQkQQ=;
+ b=HuoJFl1w523l4QyXarqtXUNHYPU5GZjPNxjbGD8BRWPjDEVMq2m1HrUb
+ eijzXBJs0Pf6C85v4/bL4AqMob6q7J2gJoFJt1g7ZJn4nYuZPOYjQTZ4r
+ rQHpCs5Z5Oplp33IkeTzQQuTARJ53faVnvrgse58xx5SBrFeBGyLltEZH
+ pAhIueDgd6drkIvsGLQoFucjgJ0QC3DKIiG3QWJOaCdDCbwoHZpg/ZHBA
+ BQjZRgtTQPcXhJvMBoo8n1f3HmjKBlx9d3RCyl8705zr+xO2TA+Y6UPnh
+ j+kdtTaipmXhtPzzOp3xpMcokf08pJ8fRENFMe+KFy6Yi/gJqxwy8KvY3 Q==;
+X-CSE-ConnectionGUID: KL+yNrUUT+GPMHKnam87CQ==
+X-CSE-MsgGUID: pqtiTEVaQcGquoUB8da7Rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11706"; a="72758230"
+X-IronPort-AV: E=Sophos;i="6.21,301,1763452800"; d="scan'208";a="72758230"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2026 21:02:29 -0800
-X-CSE-ConnectionGUID: yr2isZG4QG2tzBCn/mfLdQ==
-X-CSE-MsgGUID: m0IcKIW3Qt2YZpCzkdXORQ==
+ 19 Feb 2026 21:02:31 -0800
+X-CSE-ConnectionGUID: sT3d2AXjQ8iYam4jKT0M+Q==
+X-CSE-MsgGUID: liWzZJ7hRQS9pb6qT7Vy/w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,301,1763452800"; d="scan'208";a="218894633"
+X-IronPort-AV: E=Sophos;i="6.21,301,1763452800"; d="scan'208";a="218894639"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa003.jf.intel.com with ESMTP; 19 Feb 2026 21:02:28 -0800
+ by orviesa003.jf.intel.com with ESMTP; 19 Feb 2026 21:02:29 -0800
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 2/8] drm/i915/backlight: Use intel_panel variable instead of
- intel_connector
-Date: Fri, 20 Feb 2026 10:32:11 +0530
-Message-Id: <20260220050217.2453681-3-suraj.kandpal@intel.com>
+Subject: [PATCH 3/8] drm/i915/backlight: Take luminance_set into account for
+ VESA backlight
+Date: Fri, 20 Feb 2026 10:32:12 +0530
+Message-Id: <20260220050217.2453681-4-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260220050217.2453681-1-suraj.kandpal@intel.com>
 References: <20260220050217.2453681-1-suraj.kandpal@intel.com>
@@ -69,27 +69,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the intel_panel variable since it has already been declared and
-looks cleaner.
+When deciding what functions to enable to help control backlight we
+used to only check aux_enable. Now with PANEL_LUMINANCE_OVERRIDE in
+picture we need to take care that we do not enable PWM function if
+luminance_set is set.
 
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15671
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index c40ce310ad97..05d6d033f60b 100644
+index 05d6d033f60b..cb39696491a1 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -459,7 +459,7 @@ static u32 intel_dp_aux_vesa_get_backlight(struct intel_connector *connector, en
- 		return val / 1000;
- 	}
+@@ -486,7 +486,8 @@ intel_dp_aux_vesa_enable_backlight(const struct intel_crtc_state *crtc_state,
+ 	struct intel_panel *panel = &connector->panel;
+ 	struct intel_dp *intel_dp = enc_to_intel_dp(connector->encoder);
  
--	return connector->panel.backlight.level;
-+	return panel->backlight.level;
- }
+-	if (!panel->backlight.edp.vesa.info.aux_enable) {
++	if (!(panel->backlight.edp.vesa.info.aux_enable ||
++	      panel->backlight.edp.vesa.info.luminance_set)) {
+ 		u32 pwm_level;
  
- static void
+ 		if (!panel->backlight.edp.vesa.info.aux_set)
 -- 
 2.34.1
 
