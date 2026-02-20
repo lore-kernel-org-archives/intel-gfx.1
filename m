@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C80EC55176
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE15FC55163
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:37:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B0AB10E7BD;
-	Fri, 20 Feb 2026 08:37:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D573210E7BB;
+	Fri, 20 Feb 2026 08:37:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="g2A7FA26";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="nkJxtm2P";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C79E10E7B7;
- Fri, 20 Feb 2026 08:37:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5050E10E7B3;
+ Fri, 20 Feb 2026 08:37:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1771576641;
- bh=/T86rcA01cGgM35z2+asiVe5bkFH96NTyprH2lsWm8E=;
+ s=default; t=1771576638;
+ bh=JjuQlSBJtcs1s4HB+nRnZWBHE+LnWcQ0BbXuil+tJMU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g2A7FA26ZnykXFsTxCQcbYCPUReus9yzXK0Zsq9aHQMst1ihllQ3/OdfIgQAGq6+r
- TSp4fET14KsM0yqLaIDUSbfki/PuhMCurFWpgVyb9yus8B8fcRhnQJywGbwh7m4keB
- r6/b8SzGrg0a2LwA3As6GzbAinoT/ASwxK5S0R8NVZfIjBqhhqprvFF/gWZ8pBRjAD
- 7QmXK/Hj/7qc0/HoQbKvROYiC2kUzN3Kr7RFAKkqsztTtbg8KWha0HZDYzBUT5PW80
- poPp38k3NGWMywOnGdM5xBDY0kU4Um4BDaAH/mzbBY01XwxwCFckKCm+mob4kLBlLa
- YNu3TvZYxKB1w==
+ b=nkJxtm2P9CLaR7Ws9EykXY8dGhA3nyFim68FBmIPIsbaekCYx5oJh0KacEO9uDo4l
+ BStuge/LwX1+s91bLtCntE6YXQZ+lFja4suLRlNViZZlfWCjaDvfREhSH9vvskRLbV
+ 1T1RMPikz7vH3hizyh1wAIqTSmP+fbgw85pK/mSE9j92C9hHs1T/OPQlrj94xpkwET
+ fWERS8AZwIBoyS+aaeTxFrGN+/PWrlHMr/VPuUmL8lbTdTH/BTeIlirT/IrQdrdlTk
+ G7DBNlevmMDZnjwVFialniu8LqndqQB5BWLRJuorJcza/LJMa3h/EclAs63sst+apA
+ +f48l5WaDm0vw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: linux-rt-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [i915-rt v6 09/24] drm/i915/display: Make get_vblank_counter use
- intel_de_read_fw()
-Date: Fri, 20 Feb 2026 09:37:07 +0100
-Message-ID: <20260220083657.28815-35-dev@lankhorst.se>
+ Maarten Lankhorst <dev@lankhorst.se>, Uma Shankar <uma.shankar@intel.com>
+Subject: [i915-rt v6 07/24] drm/i915/display: Handle vlv dsi workaround in
+ scanline_in_safe_range too
+Date: Fri, 20 Feb 2026 09:37:05 +0100
+Message-ID: <20260220083657.28815-33-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260220083657.28815-26-dev@lankhorst.se>
 References: <20260220083657.28815-26-dev@lankhorst.se>
@@ -54,44 +54,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fixes the following lockdep splat on PREEMPT_RT:
-<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1373, name: xe_module_load
-<3> preempt_count: 1, expected: 0
-<3> RCU nest depth: 0, expected: 0
-<4> 11 locks held by xe_module_load/1373:
-<4>  #0: ffff888107b691a0 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x104/0x220
-<4>  #1: ffff88813cd30280 (&dev->clientlist_mutex){+.+.}-{3:3}, at: drm_client_register+0x32/0xe0
-<4>  #2: ffffffff837f88f8 (registration_lock){+.+.}-{3:3}, at: register_framebuffer+0x1b/0x50
-<4>  #3: ffffffff835985e0 (console_lock){+.+.}-{0:0}, at: fbcon_fb_registered+0x6f/0x90
-<4>  #4: ffff88812589e6a0 (&helper->lock){+.+.}-{3:3}, at: __drm_fb_helper_restore_fbdev_mode_unlocked+0x7b/0x110
-<4>  #5: ffff88813cd30158 (&dev->master_mutex){+.+.}-{3:3}, at: drm_master_internal_acquire+0x20/0x50
-<4>  #6: ffff88812589e488 (&client->modeset_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_locked+0x2a/0x1b0
-<4>  #7: ffffc9000031eef0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #8: ffffc9000031ef18 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #9: ffff888114f7b8b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
-<4>  #10: ffff88812a0cbbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
+Now that we have a macro, might as well handle the VLV dsi workaround
+too.
 
-This splat will happen otherwise on all tracepoints too, for similar reasons.
+This makes the vblank evasion code slightly more deterministic, by not
+looping with interrupts disabled.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 36 ++++++++++-----------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 8263cefaa0fb6..e204c260b9aef 100644
+index 73676d8ccec8b..3eb6418723a84 100644
 --- a/drivers/gpu/drm/i915/display/intel_vblank.c
 +++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -132,7 +132,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
- 	if (!vblank->max_vblank_count)
- 		return 0;
+@@ -739,6 +739,24 @@ static bool scanline_in_safe_range(struct intel_vblank_evade_ctx *evade, int *sc
+ 	else
+ 		*scanline = __intel_get_crtc_scanline(evade->crtc);
  
--	return intel_de_read(display, PIPE_FRMCOUNT_G4X(display, pipe));
-+	return intel_de_read_fw(display, PIPE_FRMCOUNT_G4X(display, pipe));
++	/*
++	 * On VLV/CHV DSI the scanline counter would appear to
++	 * increment approx. 1/3 of a scanline before start of vblank.
++	 * The registers still get latched at start of vblank however.
++	 * This means we must not write any registers on the first
++	 * line of vblank (since not the whole line is actually in
++	 * vblank). And unfortunately we can't use the interrupt to
++	 * wait here since it will fire too soon. We could use the
++	 * frame start interrupt instead since it will fire after the
++	 * critical scanline, but that would require more changes
++	 * in the interrupt code. So for now we'll just do the nasty
++	 * thing and poll for the bad scanline to pass us by.
++	 *
++	 * FIXME figure out if BXT+ DSI suffers from this as well
++	 */
++	if (evade->need_vlv_dsi_wa && *scanline == evade->vblank_start)
++		return false;
++
+ 	return *scanline < evade->min || *scanline > evade->max;
  }
  
- static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
+@@ -769,24 +787,6 @@ int intel_vblank_evade(struct intel_vblank_evade_ctx *evade)
+ 		local_irq_disable();
+ 	}
+ 
+-	/*
+-	 * On VLV/CHV DSI the scanline counter would appear to
+-	 * increment approx. 1/3 of a scanline before start of vblank.
+-	 * The registers still get latched at start of vblank however.
+-	 * This means we must not write any registers on the first
+-	 * line of vblank (since not the whole line is actually in
+-	 * vblank). And unfortunately we can't use the interrupt to
+-	 * wait here since it will fire too soon. We could use the
+-	 * frame start interrupt instead since it will fire after the
+-	 * critical scanline, but that would require more changes
+-	 * in the interrupt code. So for now we'll just do the nasty
+-	 * thing and poll for the bad scanline to pass us by.
+-	 *
+-	 * FIXME figure out if BXT+ DSI suffers from this as well
+-	 */
+-	while (evade->need_vlv_dsi_wa && scanline == evade->vblank_start)
+-		scanline = intel_get_crtc_scanline(crtc);
+-
+ 	return scanline;
+ }
+ 
 -- 
 2.51.0
 
