@@ -4,75 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57544EA4FC4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA0F2EA4FC5
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 780B510E3C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2B1B10E3C8;
 	Mon, 23 Feb 2026 13:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jW1rf9ye";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dqrpuXO2";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEE610E044
- for <intel-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 07:37:28 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-4807068eacbso22238645e9.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 23:37:28 -0800 (PST)
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com
+ [209.85.221.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61F9310E12C
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Feb 2026 21:56:15 +0000 (UTC)
+Received: by mail-vk1-f173.google.com with SMTP id
+ 71dfb90a1353d-5674689e507so1604352e0c.3
+ for <intel-gfx@lists.freedesktop.org>; Sun, 22 Feb 2026 13:56:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771797374; cv=none;
+ d=google.com; s=arc-20240605;
+ b=lxirVs2uyle5pOWcOFEgelO+Z3DqBZZTYPEGfleOEbdLvhCuPkc3291h/82ALBPr4c
+ s9y40l+qLmrSeUwcaoQchSB0ZL7I4scAkBq0zE6PFvElwatSnNUMOIs9NKv7N7AtNff1
+ hAaO+q/0dTou6I+UW8NBod4+Oihsd56gZnY2Gm50qZOW8IKhaMumJLcqdkzA5SKbzJZo
+ fWA1PCHuLB1nNM6Dr9SmXGP9476fA+16mS6ADOd6iAQt7BEnp0Uw87EkUeVyErm7gJYF
+ FUAyWSvQA5Qh/4oNEJku3JA5U5P+wXlKMJ321ZLaXks1CxVT1typ4tJlqNhGNrVCpa97
+ SzGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=fvZFs6ZWQcArHoivTdoRPMVBttlGZZKU4uro3YAyvz8=;
+ fh=CejCUVoZQxveiALRdoz6jiSZPNJUqC7Iw48SnfqZA7k=;
+ b=bAfhp97Fb5sC0HvfVAgz8hsoovGv6vfXV/5ORIJ/L6x7rXyBpfi+YUooS84ckFZWW/
+ kf4QG1mtD+pxXY3js4XDxnUhp6K2O1gohz8lc/NlEKrak2Q+BWJSFu4JkqUQAlQ1YTgk
+ Lm+AR9n++5LMgE2/8z9DfJXTdYcs5kNynvrmB2yasF1cvOKQFtiqfLXrbDfLYCijL5Fm
+ DBhXnyvtg7w8Ac0qtQv4MRyXtxhkmhA1mNBmc1qBKO/9L0JgExcqtiDkGFnH4tnQRsYv
+ r8hwNJmlRHSFEObqBOEq23ogAuzrOlLxnicd7BdEqxSrxe65BiHL6Oy1M1Zb2EYxfeqq
+ hmRg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771659447; x=1772264247; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YcSiEB2h+wSCIY10t8E7R/Khte+t349F76jiCfSqhKE=;
- b=jW1rf9yePjbryV87/SeyY2jgfQR0DYpzfjsBE3WUJBQ/gLCGgVNEvsP93eOHwl2rax
- +E9oMQgoc26TA0WMvLvNIm3byxgRhnjXL5k3UDuOIQXdEUgv/62jbVCkLKoJvyO4Yrar
- 7st+pz82/cH1mz/x2hXoZFF6bXEtRlYtpz/mROWygfYjuNrGv7KiIde4MEqeYqQoTC9w
- UEuah2HCXFLtlyWvILWkSiE0M6C4FX3yXSCgL2WS9mpgyjHK602Gz+uS+4kRdYOumgPm
- VuBrYAfNq2hKtmALGEnFV0l5Fx9l8Kz0nF4JAH8Zk9vkoaYLYkODAXENzoSKtyDh9LrS
- 0WIQ==
+ d=gmail.com; s=20230601; t=1771797374; x=1772402174; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=fvZFs6ZWQcArHoivTdoRPMVBttlGZZKU4uro3YAyvz8=;
+ b=dqrpuXO2bzP066N7t5u+ofclK/cIW9s+evU6PH8UmFeJi43jC21Ghm5YNacNinTHT2
+ lOkCAbeRtgyeATfIZSTjtAb0Zqf9C+tG9YojFsrx2w/uZ+LTNPSoNwp2rJa0AzqTLXD2
+ 6Ir5r90pQqVqrdGZz6asBsGG79f9IIbyzKZzdQ6N1qln4PoPIKIIxPvRT+6mzHLsHPV5
+ hy2HumTI5Jmj8i/oKQspUNQU5SFkjqKnPcZW0hfVLoEn74EHNl9uLbRLK8Aw14HV7BDg
+ 879NyRl+NMkQyTQZ6c2zC4WclRFGGLvJ5oFqEIEFQM81LhKRWGoo8dpJ5YTFxGZgeVYD
+ BsXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771659447; x=1772264247;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=YcSiEB2h+wSCIY10t8E7R/Khte+t349F76jiCfSqhKE=;
- b=BFC8sWx7CBU3Nz+dhmLmap5Ias2wvQWD0S3a34fqLWUfOySHT7pVPRDkot+kI+BiaK
- m/9O5Uk6/2kJs5pWHhmnplcjf8wPeLeaR6kmH786o3KtxclYlKbwV9+uVTwJpaeDfI0o
- nREvizmWnA8U18cCWG4qMz0ttdXFV9MFR5vzdyUyabA9PtSQZbg8CqHVljBiGeq15nCp
- L0tB/nLGfLfaHDzTZyXyYZSsyWCNSOCpf8etlCB1BbzTviYg2LmhwscPeC+LvVRgsbvh
- w6OjBEMnUbwXeKk844u4ZkbnWpzNEH7taYusJ2PZ1KLOCYeuAgOsJV/QAgJTp+NTKQ45
- +O2g==
-X-Gm-Message-State: AOJu0YzOUsSJJLKKfAv6bNpmIYAFE3DmSeWmkisJ8OhfNv1eIqRYvPtM
- b5o3E/sDpTPeAGtsr1TMpeKbdmx933ZWyA4KpaZmXQM0mR6VFqieXXOSV0+c3ZkhQdA=
-X-Gm-Gg: AZuq6aLzZIIAbzRuit1kDD2UA1B/Gx+he8YDPNMJ5TdFRCBYlHwnxLDOqkG0CQSZBd7
- askytL7YH5xmPLrDe1q0aVjylbJ8JECLENHzxTjBReRmlawQEcKu+0PAtPZ6CU5iIqZduGTJYui
- HDJx3IAV1EzsRfiEpOUZ011Gw0JZxgAXOtCtxNAa2xJxisxYk+MUUE6C7CrcX2r6und8ant8G+P
- JqE/emZlZAEsd/AliAFRAtCu3tot0vrkJ3ubGKU7sj7dxnOOVfQEe7x2+BqPsvqBn2ksKll1T92
- Qp7bG0DmutQSBbX/YXp8DZiihoUZPaSe2o7Iq2SIrfRqR7zBTOv8OEKAg1BNjvOwb2iiqCKPjZf
- nWCRy6QgKPuU5PaOq8rMLIq9hZ+F+ezLLextssRqAO1rkI2yzyCXzB/bKU3rQr4DXEOF8mLCxu9
- wYoT0BEJHcVvTGZxJpJusKm7Sst8EXaH/AR/LOBYng0htxxE3lqPhfEPkp9w==
-X-Received: by 2002:a05:600c:8b66:b0:483:6f7c:19f4 with SMTP id
- 5b1f17b1804b1-483a95ed6f3mr30448685e9.30.1771659446514; 
- Fri, 20 Feb 2026 23:37:26 -0800 (PST)
-Received: from JTOLLET-M-FKW7 (130.64.3.89.rev.sfr.net. [89.3.64.130])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a31bc0e3sm109732405e9.5.2026.02.20.23.37.25
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 20 Feb 2026 23:37:26 -0800 (PST)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-X-Google-Original-From: Jerome Tollet <jtollet@cisco.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
- TMDS_Scrambler_Status
-Date: Sat, 21 Feb 2026 08:37:24 +0100
-Message-ID: <20260221073724.85291-1-jtollet@cisco.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <[email protected]>
-References: <[email protected]>
+ d=1e100.net; s=20230601; t=1771797374; x=1772402174;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fvZFs6ZWQcArHoivTdoRPMVBttlGZZKU4uro3YAyvz8=;
+ b=anTSDF9d7EaKPSOVSywaw5XVzY7SqICCzGRe8sNFeNUvJtmLm/Js8X6k3BBq59Ccjx
+ Vx5Vjdxd5lN2zuhO+pwShQ+vHtJLWfEt0kFhiCxxf9hreqBDDUhok+RduuxI0kjWO62P
+ 3fDCAhPrFzWY6iN5TIWrUD40rys5aKWAal0aqHifMbyXBix2lptdNLXDnrxvXpfTSUHK
+ 0KcuBLOnxgRLmz9nva5/cO6oYDUKu8bupEVMIwuKeh0HvEz1YY/qIT96DoOm+pShiJW2
+ gaTx6nruSqBwE3G6/trTzO0yOtCx4aKQDs/fQZKqwO3sMPsnmLfmyLjuibYE9ZPO9K36
+ 1jmA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU4wKuqzybdkJ569O9eGZ+o9/ZcVFBX3vWCHztfdtt/UQ/QSDKure8I4WKjpKRG9glSB1Yv0v4I/0A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywhl5vbS6tqbrD+2Oy9iSi5YOVYaZ4bhFjt/VYy0VlnwKBDgNmn
+ gfAhFse0Qhl/ll7QA824eGIs7eqUyvNxHVLZRgSiVSvAXZYsnT+vLulZND36tMihWRJ++GtpSYd
+ OC7k/fl7Fq6VGcn1uBc3UPXFIcuzagrM=
+X-Gm-Gg: AZuq6aL9+ZTDMFLLoTQdrcguvUeNtzIi3kG1flCSq/XG553rp34cvO4gzx9JS042g32
+ u5trsIkOI2YhfUWMdjmndY+6+fk7m2nYO5hyVk06Vkr6VO6b0UEunErJ9AVhNJduFh5f6xhp6ok
+ t8st8TF3NKcdDSFm59GcPj4K3fDSVkY00Ync7xQf9qfLtTrRg/cIbHp+cEeGDYtA2PtxecgPmWA
+ n23GaCcg6i+VoeC1PF6jNYUj1ndg4DWoDo50xeFQvAfAEBwZHuxjD93dbB/jRImZodxN7C/6zbW
+ nmyKF8zs54HdCAc51S71+wwpD0L4aMiGbTZnqtOkSGxTOxEAjRrIQXVjMO4AIho9+qYE3St4jqU
+ kVIdHS8rSkw==
+X-Received: by 2002:a05:6122:469b:b0:55b:1a1b:3273 with SMTP id
+ 71dfb90a1353d-568e47abec3mr2195110e0c.6.1771797374061; Sun, 22 Feb 2026
+ 13:56:14 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: =?UTF-8?B?QW5kcsOpcyBQw6lyZXo=?= <andres.f.perez@gmail.com>
+Date: Sun, 22 Feb 2026 21:55:54 +0000
+X-Gm-Features: AaiRm50d7jLgPyD4kdVKiyrm9CHXFWwo9PDyCMT5qvyZh7PMRFS6zqm3NMkVBvk
+Message-ID: <CAD0gVBsyzYNA6ydPwg9mJ9VQzYg4zPAi24JQ13-=0KtdbQ039A@mail.gmail.com>
+Subject: [REGRESSION] Display freeze on VT switch back to X11 since v6.16
+To: stable@vger.kernel.org, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Feb 2026 13:54:29 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,26 +113,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ankit,
+# OVERVIEW
 
-I've completed isolated testing and can confirm the SCDC polling patch works perfectly.
+Since kernel v6.16.1, switching from an X11 session to a text VT and back
+freezes the display on a ThinkPad P15 Gen 2. The system remains responsive
+over SSH; only the display is frozen. Bisecting identified commit
+d1b618e7954802fe ("media: uvcvideo: Do not turn on the camera for some
+ioctls") as the trigger. Reverting the logic change in that commit
+fixes VT switching
+on v6.16.1, v6.17.9, and v6.18.9, but that is not an actual solution. Wayla=
+nd
+compositors (e.g., river and sway) are not affected.
 
-Test results:
-- Kernel: 6.19.2
-- Hardware: Intel Alder Lake-N (N100) with integrated UHD Graphics
-- Display: Cisco Desk Pro (CS-DESKPRO-2) 4K@60Hz via HDMI 2.0
-- Status: 4K@60Hz (3840x2160@60Hz) working correctly
-- Result: Stable display, no corruption, works across reboots
+Last good:  v6.15.9
+First bad:  v6.16.1
+Bisect result: d1b618e7954802fe media: uvcvideo: Do not turn on the
+camera for some ioctls
 
-The SCDC polling approach is also more consistent with other implementations
-like Windows, which performs similar SCDC polling after port enable.
+## Hardware:   Lenovo ThinkPad P15 Gen 2i (20YQ0031US)
+CPU:        Intel Core i7-11800H (Tiger Lake-H)
+iGPU:        Intel UHD Graphics (TGL GT1)
+dGPU:       NVIDIA T1200 (not involved in eDP output; driver: nvidia-open)
+Display:    15.6" 1920x1080 eDP, 10 bpc capable (EDID 1.4)
+Webcam:     Integrated Camera on PCH xHCI (Bus 003 Port 004)
+Firmware:   LENOVO N37ET61W (1.97)
+OS:         Arch Linux, Nix home-manager, X11 + xmonad, no display manager
 
-Relevant dmesg output:
-[    5.491988] i915: loading out-of-tree module taints kernel.
-[    6.104904] i915 0000:00:02.0: [drm] Found alderlake_p/alderlake_n (device ID 46d1) integrated display version 13.00 stepping D0
-[    6.218551] i915 0000:00:02.0: [drm] GT0: GuC firmware i915/tgl_guc_70.bin version 70.49.4
-[    6.268439] [drm] Initialized i915 1.6.0 for 0000:00:02.0 on minor 1
-[    6.691347] i915 0000:00:02.0: [drm] fb0: i915drmfb frame buffer device
+## Symptoms and reproduction steps:
+1. Boot, start X11 on tty1 (startx).
+2. Switch to tty2 (Ctrl+Alt+F2): works.
+3. Switch back to tty1 (Ctrl+Alt+F1): display freezes.
+   - Frozen on the last frame shown before switching away.
+   - System is fully responsive over SSH.
+   - Other VTs switch normally between each other as long as X11 is
+not active on them.
+   - Killing X does not recover the display. A reboot is required.
 
-Thanks,
-Jerome
+# DEBUG ANALYSIS
+
+On v6.16.1, the VT switch back to X triggers a full modeset due to pipe
+configuration mismatches detected by intel_pipe_config_compare:
+
+[drm:intel_pipe_config_compare] fastset requirement not met in pipe_bpp
+  (expected 30, found 24)
+[drm:intel_pipe_config_compare] fastset requirement not met in dp_m_n
+  (expected link 269484/524288, found link 336855/524288)
+[drm:intel_pipe_config_compare] fastset requirement not met in dpll_hw_stat=
+e
+  (expected cfgcr0: 0xe001a5, found cfgcr0: 0x1c2)
+[drm:intel_pipe_config_compare] fastset requirement not met in port_clock
+  (expected 270000, found 216000)
+[drm:intel_atomic_check] forcing full modeset
+
+On v6.15.9, the same VT switch shows no such messages.
+no pipe_config_compare runs, no modeset, no freeze.
+
+# BISECT AND VERIFICATION
+
+The bisect converged on d1b618e7954802fe in the uvcvideo driver. This
+commit adds a switch statement to uvc_v4l2_unlocked_ioctl that allows
+certain V4L2 IOCTLS to call video_ioctl2 directly without first calling
+uvc_pm_get/uvc_pm_put. Prior to this commit, all ioctls called uvc_pm_get
+before video_ioctl2.
+
+## VT switching verification across kernel versions:
+
+  v6.12.74 arch pkg:   WORKS
+  v6.15.9 arch pkg:    WORKS
+  v6.15.9 from source: WORKS
+  v6.16.1 with d1b618e reverted:     WORKS
+  v6.17.9 with PM wrapping restored: WORKS
+  v6.18.9 with PM wrapping restored: WORKS
+
+  v6.16.1 from source:  FREEZES
+  v6.16.1 arch pkg:     FREEZES
+  v6.17.9 arch pkg:     FREEZES
+  v6.18.9 from source:  FREEZES
+  v6.18.9 arch pkg:     FREEZES
+
+## Things that do not eliminate the freeze
+
+  - module_blacklist=3Duvcvideo on boot
+  - CONFIG_USB_VIDEO_CLASS=3Dn (compiled out)
+  - i915.enable_psr=3D0
+  - Bypassing intel_vrr_transcoder_enable/disable (no-op)
+  - xrandr --output eDP-1 --set "max bpc" 10
+  - Xorg config FBDepth 30 (No effect on pipe_bpp)
+
+## Workaround patch
+
+Reverting the optimization from d1b618e to restore the unconditional
+uvc_pm_get/put wrapping for all ioctls. This is not a proper fix.
+
+diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v=
+4l2.c
+index 9e4a251eca88..15057b47ec4f 100644
+--- a/drivers/media/usb/uvc/uvc_v4l2.c
++++ b/drivers/media/usb/uvc/uvc_v4l2.c
+@@ -1199,33 +1199,12 @@ static long uvc_v4l2_unlocked_ioctl(struct file *fi=
+le,
+  unsigned int converted_cmd =3D v4l2_translate_cmd(cmd);
+  int ret;
+
+- /* The following IOCTLs need to turn on the camera. */
+- switch (converted_cmd) {
+- case UVCIOC_CTRL_MAP:
+- case UVCIOC_CTRL_QUERY:
+- case VIDIOC_G_CTRL:
+- case VIDIOC_G_EXT_CTRLS:
+- case VIDIOC_G_INPUT:
+- case VIDIOC_QUERYCTRL:
+- case VIDIOC_QUERYMENU:
+- case VIDIOC_QUERY_EXT_CTRL:
+- case VIDIOC_S_CTRL:
+- case VIDIOC_S_EXT_CTRLS:
+- case VIDIOC_S_FMT:
+- case VIDIOC_S_INPUT:
+- case VIDIOC_S_PARM:
+- case VIDIOC_TRY_EXT_CTRLS:
+- case VIDIOC_TRY_FMT:
+- ret =3D uvc_pm_get(handle->stream->dev);
+- if (ret)
+- return ret;
+- ret =3D video_ioctl2(file, cmd, arg);
+- uvc_pm_put(handle->stream->dev);
++ ret =3D uvc_pm_get(handle->stream->dev);
++ if (ret)
+  return ret;
+- }
+-
+- /* The other IOCTLs can run with the camera off. */
+- return video_ioctl2(file, cmd, arg);
++ ret =3D video_ioctl2(file, cmd, arg);
++ uvc_pm_put(handle->stream->dev);
++ return ret;
+ }
+
+ const struct v4l2_ioctl_ops uvc_ioctl_ops =3D {
+
+Andr=C3=A9s
