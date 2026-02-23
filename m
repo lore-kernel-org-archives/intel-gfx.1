@@ -4,105 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FADEA4FC3
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346B0EA4FC3
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 14:00:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2947710E3C2;
-	Mon, 23 Feb 2026 13:54:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD64A10E3D7;
+	Mon, 23 Feb 2026 14:00:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jnpVqdle";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YJtAREBB";
 	dkim-atps=neutral
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
- [209.85.217.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2432610E329
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 11:51:36 +0000 (UTC)
-Received: by mail-vs1-f54.google.com with SMTP id
- ada2fe7eead31-5fc41477460so1055202137.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 03:51:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771847495; cv=none;
- d=google.com; s=arc-20240605;
- b=L2RT5n+wGRjsc/nx8RIz7ueJ55vjFN9/BSYhI5Tef4jy1tbcLk9swxd3Lz6SBlUsuW
- BKh8a/kqlZV014pge/verNjrYDgh3ZivQa6b5hsX7ZSe9QI0hfI22HG/GJwQsVM0eMfd
- rBmFsx++ZrvD1lMhmc5CCFVC4roe6sYrAsjd9UJX+lY+AUTBLL6puDVxxQn1Mmj3sHhG
- uvTF+Ehj+TFBm6gKP3ULmvMjO1dHRjSFjS+nTtW1D61R9zhqOe1yBGz6rGMLmMcMBn35
- 6LgJ0u03tIBebTqhscLLVV5qRcDoleSQwt6DtjUlUgxEfmqV5WGIqfehHISSo2KorKym
- MnDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=rMp9NyS10Y7o5BbV0/n1cd3o9I8LFMg8n5wPuOM1jvE=;
- fh=KqVN0YuW2VfbFnpqC1km1fOioqYbD2N3PBMTljiOZFU=;
- b=bmRhYXiTylKCm5q97n9Y3PqH9BwOb4aJr/xCd5r/T5wQAbGfXy2FqukxzbtI4Pe4XZ
- Bbd/vx/pYxBrnypATQDuGrvk9WHkL5ltFfGXDx6VitCiZfh/BHdpEFv8FdfPUnD4mxak
- ZtvbVRwW1JDG0flAw/meuhDNpOxw4lekTG6sXJoKoecu041GRzlil8GOFUF9HyFWu6Jk
- h/bWW+2p3xHx83Grx4uKgmABZGMuhjKpydW6CZq/ektsORDI9mhxVPBHA8dn6w+Bh7hg
- nZVQaljTFzkg0Y/d7unwZQkXMql5TUL15buuwNADyFrJWFT68mZCnlEFdQobnrB0/ILM
- j8jA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771847495; x=1772452295; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rMp9NyS10Y7o5BbV0/n1cd3o9I8LFMg8n5wPuOM1jvE=;
- b=jnpVqdleYVxBNdCbEC4hT4mE+O9ZFIb1ZFndg8Gn6IX8R6d0OqUZWYmUMQamXtjiNM
- OcVicQsqQUXeksAJms9WGZU7mJZd6mIRVV+il8/7kcbOVqp4ISr9xxYY5JIyjoKf02uK
- GNPBPGFaRtftJPHYlblkd2PfaFHD5gh1F+CW2/EN/EYGyfTj9x/7Fgb1Vdn3hjzmLZSo
- 1+7Cps4jedheKlbbfU1LffYZjT4RqvkCjBoKGyQ9AzoBEqKCPPL2B7V4Sv/qeA7xboZg
- SVPQkIO3uDM0v8uvEK3zmsaLB8OakdiobxWtMWGJ08qGvnkWXkGMiDM0CWoIYULl7pW5
- 1TZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771847495; x=1772452295;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rMp9NyS10Y7o5BbV0/n1cd3o9I8LFMg8n5wPuOM1jvE=;
- b=Z91+RovZ6Bt4g9hc92CbnwglXj7WBAeZb0ojbU36F3PofuAtzPlYoHwVWXJlVD/Ejb
- La0QZpA8aGv7YPO492zYvX+VgheMfImh/bKRQDFNRLEQ4Zk4iOU5P6CHxomesnchkba3
- fRAbRF4XKPyL2b5t8/3LI702KEBG75Sss157kOncP0U2baOAHNsUq/A2Xqv7OUXHyPOl
- ixLxBpYukWzkJ0lCSLMTVtPr2LYnOok3tOJvdLRUlUfA8C1L6g8lj/Dml6FO2+mUfY7q
- hsXaUCHS5J/4NTOkmCAC639sPObgbC0idC8+RNa+G7U1dHaXIWXLZr9X4LXOUG9eR2vg
- 6x2w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWL6Umv0rd+VgDo9BQOZnxzxAmAy7718ucDbbslL53SmVeahx669ewPJWsVDJedtsHO0nTHDpIbacw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyalaDHAsQGZDvx7TaG3oHTGHqdq+QCffyD4c70Z0eU76iOuZ8M
- abNFQLrqfO62GPTIWNDiOTTKwj8wG50ijlegwlVcErDhoNu1EEfTVtIfFRkaQ5rKth4u56vruLu
- HYGOVGrNSlgF9zpbJOm9LgO3EbLJB9jw=
-X-Gm-Gg: AZuq6aJjm/Ewj1JsDeOr5rLhh5Gb7Rh+UgRR+zumpNTvBKNk4lSlAXCjnQe4csE5Vz+
- lKq7QmtdId4weA047itBUt4OG3K3olc0GcAyJfZs1abUn2LzirYu18hYP8yewl2BdwijBMu47tn
- yxTAPupfREK370QIuo6eMujnmSoS37hnENFEW5VQj9juf4N1nogAhQ3nJyHH4ZljA7/WVShRwtf
- Z843mheVIBxCeEAWqZsdR6UkX2ujlsiYnUziEPPhYP5MD4gi4jX9rzjg9jnpI5ou9gLPgTQKCjH
- eNBXHUI+D4aIyQO4nlqNMDdOvcjebORUvaJVoWH9Zo07xQqVd23KGTnoU/14W4E/Qts1Y8+GpbB
- dbwRBIKfSEg==
-X-Received: by 2002:a05:6102:e0e:b0:5df:8f4:61e6 with SMTP id
- ada2fe7eead31-5feb310b93bmr3236127137.32.1771847494951; Mon, 23 Feb 2026
- 03:51:34 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4233E10E3D3;
+ Mon, 23 Feb 2026 14:00:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1771855201; x=1803391201;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=2eqLmW3Q9stjnz4EBfBsjYNQn4CKvsCYHrBdKIx1jNM=;
+ b=YJtAREBBjzEpyQZdWtiirJ0lc+YpXJLoyHXtq0oRKoqc99/dDr3LKZvP
+ Fxqm5aitlSXW+z9O2LJX0p0F9gTQ/hSI6NRZXscjS/SzLOsqJRiGv+w5b
+ W6QjsFezl9z3W/sqbksI4NDX/rAtYcW8P2LB1pw71v1Ef++cVX6zcHNg2
+ Vvk/YzgAx2l8QNu/ypri+eQ3S/OanpqRA+IQbic91ZCGZvgCdYqbRULk0
+ iR9blEwNrANBHqwzIR0rLPjbknq6ZQzvqmyg2JG4Zy2KDxmrmFiAxyTqp
+ bZT07kxrPwCHItuIe/61HpR66EMHkXhhiLiX2EsxSWrxdCp2fp5MrFvZ9 Q==;
+X-CSE-ConnectionGUID: LrLai4hbQaejdR0J5uULkg==
+X-CSE-MsgGUID: DgXwLzcbQ5ycvKbkEAboHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11709"; a="72827028"
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="72827028"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 06:00:01 -0800
+X-CSE-ConnectionGUID: pNQe17viTcaRcqKBog4jzw==
+X-CSE-MsgGUID: yeow5yx7TUeX2NLG7572qQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="212961147"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 05:59:58 -0800
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
+ animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 00/14] Fix Adaptive Sync SDP for PR with Link ON + Auxless ALPM
+Date: Mon, 23 Feb 2026 19:14:17 +0530
+Message-ID: <20260223134431.1639308-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-References: <CAD0gVBsyzYNA6ydPwg9mJ9VQzYg4zPAi24JQ13-=0KtdbQ039A@mail.gmail.com>
- <CANiDSCsMVE7qAcjcjbjhYSMoyypkR5Nq-ZA-e=CJVY5CUGAG7Q@mail.gmail.com>
-In-Reply-To: <CANiDSCsMVE7qAcjcjbjhYSMoyypkR5Nq-ZA-e=CJVY5CUGAG7Q@mail.gmail.com>
-From: =?UTF-8?B?QW5kcsOpcyBQw6lyZXo=?= <andres.f.perez@gmail.com>
-Date: Mon, 23 Feb 2026 11:51:14 +0000
-X-Gm-Features: AaiRm52aszgholXfDNGG6k-0d1fHGX88p3iT8Mn4sxSWllcwfxYwH-T9tRbXK5Q
-Message-ID: <CAD0gVBtWhQqnxVt7kvQoQcbazGiLH-rUNrTfnZZpm40-jKvTUA@mail.gmail.com>
-Subject: Re: [REGRESSION] Display freeze on VT switch back to X11 since v6.16
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: stable@vger.kernel.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Feb 2026 13:54:29 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,187 +68,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ricardo,
+Enable Adaptive Sync SDP for Panel replay + auxless ALPM.
+First few patches are fixes in existing AS SDP enablement.
+Later patches add the support to send AS SDP for Panel replay with Link
+ON and with auxless ALPM (Link-Off). 
 
-Listen, I'm right there with you, scratching my head. First thing I
-did when I bisected to that commit was modprobe -r that module. Easy
-sacrifice; I don't use my camera that often. When it still froze, I
-assumed that maybe something related to module init was still
-lingering, so I disabled it by kernel boot param. When that didn't
-work, I just didn't build it in at all. Then I ignored it and tried a
-few other things. Eventually I came back to that commit. Instead of
-patching any code, I just added a comment to the file, thinking maybe
-this is just some build artifact that's causing a false positive. No
-dice. So far, the only thing that has allowed VT switching to work is
-restoring those PM calls around the video_ioctl2 call. I am not
-presenting it as a solution (quite the contrary!), I am presenting it
-solely because it's all I've got to go on.
+This series is in continuation from discussions in [1] [2] and more
+recent [3]:
 
-Andr=C3=A9s
+Apart from few patches from [3] new changes include:
+- Add AS SDP version and PR and VRR specific bits in drm_dp.h.
+- Modify AS SDP compute config to accomodate PR with Link On and Link
+  Off.
+- Program Downspread Ctrl DPCD bits.
+- Make way for T1 and T2 AS SDP transmission timing/position.
 
-On Mon, Feb 23, 2026 at 8:18=E2=80=AFAM Ricardo Ribalda <ribalda@chromium.o=
-rg> wrote:
->
-> Hi Andr=C3=A9s
->
-> Thanks for doing the bisecting
->
-> On Sun, 22 Feb 2026 at 22:56, Andr=C3=A9s P=C3=A9rez <andres.f.perez@gmai=
-l.com> wrote:
-> >
-> > # OVERVIEW
-> >
-> > Since kernel v6.16.1, switching from an X11 session to a text VT and ba=
-ck
-> > freezes the display on a ThinkPad P15 Gen 2. The system remains respons=
-ive
-> > over SSH; only the display is frozen. Bisecting identified commit
-> > d1b618e7954802fe ("media: uvcvideo: Do not turn on the camera for some
-> > ioctls") as the trigger. Reverting the logic change in that commit
-> > fixes VT switching
-> > on v6.16.1, v6.17.9, and v6.18.9, but that is not an actual solution. W=
-ayland
-> > compositors (e.g., river and sway) are not affected.
-> >
-> > Last good:  v6.15.9
-> > First bad:  v6.16.1
-> > Bisect result: d1b618e7954802fe media: uvcvideo: Do not turn on the
-> > camera for some ioctls
-> >
-> > ## Hardware:   Lenovo ThinkPad P15 Gen 2i (20YQ0031US)
-> > CPU:        Intel Core i7-11800H (Tiger Lake-H)
-> > iGPU:        Intel UHD Graphics (TGL GT1)
-> > dGPU:       NVIDIA T1200 (not involved in eDP output; driver: nvidia-op=
-en)
-> > Display:    15.6" 1920x1080 eDP, 10 bpc capable (EDID 1.4)
-> > Webcam:     Integrated Camera on PCH xHCI (Bus 003 Port 004)
-> > Firmware:   LENOVO N37ET61W (1.97)
-> > OS:         Arch Linux, Nix home-manager, X11 + xmonad, no display mana=
-ger
-> >
-> > ## Symptoms and reproduction steps:
-> > 1. Boot, start X11 on tty1 (startx).
-> > 2. Switch to tty2 (Ctrl+Alt+F2): works.
-> > 3. Switch back to tty1 (Ctrl+Alt+F1): display freezes.
-> >    - Frozen on the last frame shown before switching away.
-> >    - System is fully responsive over SSH.
-> >    - Other VTs switch normally between each other as long as X11 is
-> > not active on them.
-> >    - Killing X does not recover the display. A reboot is required.
-> >
-> > # DEBUG ANALYSIS
-> >
-> > On v6.16.1, the VT switch back to X triggers a full modeset due to pipe
-> > configuration mismatches detected by intel_pipe_config_compare:
-> >
-> > [drm:intel_pipe_config_compare] fastset requirement not met in pipe_bpp
-> >   (expected 30, found 24)
-> > [drm:intel_pipe_config_compare] fastset requirement not met in dp_m_n
-> >   (expected link 269484/524288, found link 336855/524288)
-> > [drm:intel_pipe_config_compare] fastset requirement not met in dpll_hw_=
-state
-> >   (expected cfgcr0: 0xe001a5, found cfgcr0: 0x1c2)
-> > [drm:intel_pipe_config_compare] fastset requirement not met in port_clo=
-ck
-> >   (expected 270000, found 216000)
-> > [drm:intel_atomic_check] forcing full modeset
-> >
-> > On v6.15.9, the same VT switch shows no such messages.
-> > no pipe_config_compare runs, no modeset, no freeze.
-> >
-> > # BISECT AND VERIFICATION
-> >
-> > The bisect converged on d1b618e7954802fe in the uvcvideo driver. This
-> > commit adds a switch statement to uvc_v4l2_unlocked_ioctl that allows
-> > certain V4L2 IOCTLS to call video_ioctl2 directly without first calling
-> > uvc_pm_get/uvc_pm_put. Prior to this commit, all ioctls called uvc_pm_g=
-et
-> > before video_ioctl2.
-> >
-> > ## VT switching verification across kernel versions:
-> >
-> >   v6.12.74 arch pkg:   WORKS
-> >   v6.15.9 arch pkg:    WORKS
-> >   v6.15.9 from source: WORKS
-> >   v6.16.1 with d1b618e reverted:     WORKS
-> >   v6.17.9 with PM wrapping restored: WORKS
-> >   v6.18.9 with PM wrapping restored: WORKS
-> >
-> >   v6.16.1 from source:  FREEZES
-> >   v6.16.1 arch pkg:     FREEZES
-> >   v6.17.9 arch pkg:     FREEZES
-> >   v6.18.9 from source:  FREEZES
-> >   v6.18.9 arch pkg:     FREEZES
-> >
-> > ## Things that do not eliminate the freeze
-> >
-> >   - module_blacklist=3Duvcvideo on boot
-> >   - CONFIG_USB_VIDEO_CLASS=3Dn (compiled out)
->
-> This is puzzling me a bit... You are saying that if you do not build
-> the uvc driver, the freeze is still happening?
->
-> Am I understanding this correctly?
->
-> >   - i915.enable_psr=3D0
-> >   - Bypassing intel_vrr_transcoder_enable/disable (no-op)
-> >   - xrandr --output eDP-1 --set "max bpc" 10
-> >   - Xorg config FBDepth 30 (No effect on pipe_bpp)
-> >
-> > ## Workaround patch
-> >
-> > Reverting the optimization from d1b618e to restore the unconditional
-> > uvc_pm_get/put wrapping for all ioctls. This is not a proper fix.
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/u=
-vc_v4l2.c
-> > index 9e4a251eca88..15057b47ec4f 100644
-> > --- a/drivers/media/usb/uvc/uvc_v4l2.c
-> > +++ b/drivers/media/usb/uvc/uvc_v4l2.c
-> > @@ -1199,33 +1199,12 @@ static long uvc_v4l2_unlocked_ioctl(struct file=
- *file,
-> >   unsigned int converted_cmd =3D v4l2_translate_cmd(cmd);
-> >   int ret;
-> >
-> > - /* The following IOCTLs need to turn on the camera. */
-> > - switch (converted_cmd) {
-> > - case UVCIOC_CTRL_MAP:
-> > - case UVCIOC_CTRL_QUERY:
-> > - case VIDIOC_G_CTRL:
-> > - case VIDIOC_G_EXT_CTRLS:
-> > - case VIDIOC_G_INPUT:
-> > - case VIDIOC_QUERYCTRL:
-> > - case VIDIOC_QUERYMENU:
-> > - case VIDIOC_QUERY_EXT_CTRL:
-> > - case VIDIOC_S_CTRL:
-> > - case VIDIOC_S_EXT_CTRLS:
-> > - case VIDIOC_S_FMT:
-> > - case VIDIOC_S_INPUT:
-> > - case VIDIOC_S_PARM:
-> > - case VIDIOC_TRY_EXT_CTRLS:
-> > - case VIDIOC_TRY_FMT:
-> > - ret =3D uvc_pm_get(handle->stream->dev);
-> > - if (ret)
-> > - return ret;
-> > - ret =3D video_ioctl2(file, cmd, arg);
-> > - uvc_pm_put(handle->stream->dev);
-> > + ret =3D uvc_pm_get(handle->stream->dev);
-> > + if (ret)
-> >   return ret;
-> > - }
-> > -
-> > - /* The other IOCTLs can run with the camera off. */
-> > - return video_ioctl2(file, cmd, arg);
-> > + ret =3D video_ioctl2(file, cmd, arg);
-> > + uvc_pm_put(handle->stream->dev);
-> > + return ret;
-> >  }
-> >
-> >  const struct v4l2_ioctl_ops uvc_ioctl_ops =3D {
-> >
-> > Andr=C3=A9s
-> >
->
->
-> --
-> Ricardo Ribalda
+Note:
+Currently I have enabled AS SDP for either VRR or Panel Replay. However
+in view of the optimized guardband, perhaps we should always enable AS
+SDP whenever supported. That way we will always take the AS SDP constraints
+into account while computing the optimized guardband.
+
+[1] https://lore.kernel.org/all/1b8c6c6de1e5fe0db83e6ae942dfee7e6f950767.camel@intel.com/
+[2] https://lore.kernel.org/all/aPtqdAxDwiuQZbrn@intel.com/
+[3] https://lore.kernel.org/intel-gfx/7c2d6f4e-69e6-452a-89cc-5fd4254430bd@intel.com/T/#m6e8beab2cc3b6ff9d61f740f107d83a2f4e08114
+
+Ankit Nautiyal (14):
+  drm/i915/dp: Fix readback for target_rr in Adaptive Sync SDP
+  drm/i915/vrr: Avoid vrr for PCON with HDMI2.1 sink
+  drm/i915/dp: Add a helper to decide if AS SDP is needed
+  drm/i915/dp: Update the helper intel_dp_needs_as_sdp() for CMRR
+  include/drm/display/dp: Add field for storing AS SDP version
+  drm/i915/dp: Use version field of AS SDP data structure
+  drm/i915/dp: Compute AS SDP after PSR and LOBF
+  drm/i915/dp: Add AS SDP support for PR with link ON
+  drm/i915/psr: Add helper to check if PR is with link OFF
+  drm/i915/dp: Set relevant Downspread Ctrl DPCD bits for PR + Auxless
+    ALPM
+  drm/i915/dp: Program AS SDP DB[1:0] for PR with Link off
+  include/drm/display/dp: Add DPCD registers for configuring Panel
+    Replay + VRR
+  drm/i915/display: Add member to store AS SDP transmission time
+  drm/i915/dp: Account for AS_SDP guardband only when enabled
+
+ drivers/gpu/drm/display/drm_dp_helper.c       |  1 +
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 21 +++++++-
+ drivers/gpu/drm/i915/display/intel_display.c  |  3 +-
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 48 ++++++++++++++-----
+ .../drm/i915/display/intel_dp_link_training.c | 10 +++-
+ .../drm/i915/display/intel_dp_link_training.h |  3 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      | 13 +++++
+ drivers/gpu/drm/i915/display/intel_psr.h      |  1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 10 ++++
+ include/drm/display/drm_dp.h                  |  9 ++++
+ include/drm/display/drm_dp_helper.h           |  1 +
+ 13 files changed, 105 insertions(+), 18 deletions(-)
+
+-- 
+2.45.2
+
