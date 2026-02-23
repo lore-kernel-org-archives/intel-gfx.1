@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89596EA4FC7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8A38EA4FC8
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 14:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08AD210E3FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29D6310E401;
 	Mon, 23 Feb 2026 14:00:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nMEYf2Rt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ixitv65a";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0384610E3FC;
- Mon, 23 Feb 2026 14:00:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD0B110E3FC;
+ Mon, 23 Feb 2026 14:00:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771855225; x=1803391225;
+ t=1771855221; x=1803391221;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=eJIbThSOvhhvyr2TVkh1V0NSi+LmS2OiodVKgSJrTws=;
- b=nMEYf2RtMelPqCGIsv4DoA7udU8fhLuIsOp2FCvrQ+GhNgh4OssE9x/4
- gj+sjWS+ZEs/8d2y+scvRlFoG0Lkgw0/Oi7PXhvw2fGQgAEAxaPcLicT/
- EAcFXmH86yaSqRjkQPJNeqmDsUwI1rK6Vx7Yqx/7WiAOR2Tfw8HePKTUk
- QnY+Ne1ReY7UY1I+bqmz4SbDRdhUsU7SOen07HqAlfrUlZ9V3w4XxnUSk
- QgvRGWzowlMx6FwQOWMuUB85lMd88Iw7vu+r/0iTCJHaAdl7XxgxmAivt
- LnMpDCZvFxtPvldr8IBE/1rtaxlpjun1SGsht0M/tyIty1Pl0qSB3VIka Q==;
-X-CSE-ConnectionGUID: N5aOBr99Ru+88nvLbTEW5A==
-X-CSE-MsgGUID: Rh+QsthmQbG/jz65RIVE0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11709"; a="72827065"
-X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="72827065"
+ bh=+ZCisIoRDwyhylzqDMrbHHCN9fNBs5sJ7toNcoqtL+w=;
+ b=ixitv65aKQDerAq8ivlOf7LDhqxROegJUhvDtSgWByZeRYinQf/P0omX
+ 78B5RaM3YIRpUvNeAF0iC0WjJ/oCTdCeKYdqRxKsacUtQLrFb4Q4jBqof
+ wzlu+XDapoaVjO0a1PLMxGgSZ5qz2o1E8EHjpNv9FmTZXXwJXFks3NGau
+ zkL3Ay2xM3oYAf8gIAxqgZtFH3KduaAH0xrls8xaZ7xNsO4bxUePiNpDM
+ exTMPAYzKH5TfwBVqfbPB/P5QZmsEmsug2rlDmomD68oAUV/DwVJ9aXAS
+ TTi5eCi2ShNbRh/wieH+a5wH58RmDMLxZxrnO5YNhBHV8iQtWxoHPRZle Q==;
+X-CSE-ConnectionGUID: 9KjmcEbBT/OHFR8Cgubd7g==
+X-CSE-MsgGUID: dUPspRsDSdqyxtVrAcg+rA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11709"; a="72827055"
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="72827055"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 06:00:25 -0800
-X-CSE-ConnectionGUID: VqXQC3ScTfKKz5gp2yKt9g==
-X-CSE-MsgGUID: ngXepo3+Qf+JM2DvNVxvHQ==
+ 23 Feb 2026 06:00:20 -0800
+X-CSE-ConnectionGUID: lLuWHLyrRAWPK8ZxYknKqw==
+X-CSE-MsgGUID: 7+mG58uESgSEtxUGHplO6w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="212961227"
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="212961207"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 06:00:22 -0800
+ 23 Feb 2026 06:00:18 -0800
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
  animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 11/14] drm/i915/dp: Program AS SDP DB[1:0] for PR with Link off
-Date: Mon, 23 Feb 2026 19:14:28 +0530
-Message-ID: <20260223134431.1639308-12-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 09/14] drm/i915/psr: Add helper to check if PR is with link OFF
+Date: Mon, 23 Feb 2026 19:14:26 +0530
+Message-ID: <20260223134431.1639308-10-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260223134431.1639308-1-ankit.k.nautiyal@intel.com>
 References: <20260223134431.1639308-1-ankit.k.nautiyal@intel.com>
@@ -69,48 +69,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For Panel Replay with AUX-less ALPM (link-off PR), the source must send
-Adaptive-Sync SDP v2. Program DB[1:0] per DP spec v2.1:
-- VRR AVT: 00b (variable VTotal)
-- VRR FAVT: 10b/11b (TRR not reached/reached)
-- Fixed timing with PR link-off (VRR off): 01b (AS disabled; VTotal fixed)
-
-Select SDP version v2 whenever PR link-off or VRR is active, otherwise v1,
-and program the AS SDP DB[1:0] bits.
-
-Also, drop the redundant target_rr assignment.
+Introduce a helper intel_psr_is_pr_with_link_off() to check if the Panel
+Replay feature needs to be enabled with link off.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/intel_psr.c | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_psr.h | 1 +
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 5952db6197cf..ad2aceb526ff 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3139,7 +3139,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	as_sdp->duration_incr_ms = 0;
- 	as_sdp->version = 0x2;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 5bea2eda744b..e0e6ddbfaa2d 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -4575,3 +4575,9 @@ bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state)
  
--	if (crtc_state->vrr.enable)
-+	if (crtc_state->vrr.enable || intel_psr_is_pr_with_link_off(crtc_state))
- 		as_sdp->version = 0x2;
- 	else
- 		as_sdp->version = 0x1;
-@@ -3154,9 +3154,10 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
- 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
- 		as_sdp->target_rr_divider = true;
--	} else {
-+	} else if (crtc_state->vrr.enable) {
- 		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
--		as_sdp->target_rr = 0;
-+	} else if (intel_psr_is_pr_with_link_off(crtc_state)) {
-+		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
- 	}
+ 	return HAS_PSR_TRANS_PUSH_FRAME_CHANGE(display) && crtc_state->has_psr;
  }
++
++bool intel_psr_is_pr_with_link_off(const struct intel_crtc_state *crtc_state)
++{
++	return crtc_state->has_panel_replay &&
++		crtc_state->link_off_after_as_sdp_when_pr_active;
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.h b/drivers/gpu/drm/i915/display/intel_psr.h
+index 394b641840b3..6764bcb13f9b 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.h
++++ b/drivers/gpu/drm/i915/display/intel_psr.h
+@@ -86,5 +86,6 @@ void intel_psr_compute_config_late(struct intel_dp *intel_dp,
+ 				   struct intel_crtc_state *crtc_state);
+ int intel_psr_min_guardband(struct intel_crtc_state *crtc_state);
+ bool intel_psr_use_trans_push(const struct intel_crtc_state *crtc_state);
++bool intel_psr_is_pr_with_link_off(const struct intel_crtc_state *crtc_state);
  
+ #endif /* __INTEL_PSR_H__ */
 -- 
 2.45.2
 
