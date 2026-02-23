@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30029EA4FBA
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:11:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 515FEEA4FBB
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE8DA10E39E;
-	Mon, 23 Feb 2026 13:11:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 984E010E3A2;
+	Mon, 23 Feb 2026 13:20:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MxMViMXn";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T/M1crss";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27DEE10E39E;
- Mon, 23 Feb 2026 13:11:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62B2610E2EB;
+ Mon, 23 Feb 2026 13:20:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771852273; x=1803388273;
+ t=1771852835; x=1803388835;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=J2vhozv/YvZShZIfb1naQVw5qy+u2SyNnAYnmLriOrc=;
- b=MxMViMXnyQ2x2LV2QRqvPgpkFBnSbd4MIk9uMlhW/naUWrN+LlWJ9apT
- F5nUdkf4WK9ycUuzOGNr15Uuf72JQ8jzShnxfkf7nkqEYb02MNe0CSgco
- oTTy3OL3Uok3cggI4y/eJ9JlBYD7Ou87dpWcgU0oqGFvOiz8E4RR9DKPe
- PYicqgZGgxGhe5LlBMU3lwYt6yBwZpVm6LJNyOcNnIc0B+8Yq0QnQZael
- CNK+C7C3c01YXeWXqGtKeUSZHYFNpTO0ADmPNaxmPLyvL3liRa2pV82ry
- PVRflY1fvPNsHnK3BMB833ZpPS6YDi2k5Zg9UOMOTpbyXXpYdSVWVzYac Q==;
-X-CSE-ConnectionGUID: Z1ggkM3ARyOJZS8taSRZYw==
-X-CSE-MsgGUID: 9RHXMVRTSKGt53CrhAp6fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11709"; a="72723026"
-X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="72723026"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 05:11:13 -0800
-X-CSE-ConnectionGUID: tbfHqhOVSJWs7wd0ahR3HQ==
-X-CSE-MsgGUID: 5nAm8neYR9yiVKCECValrQ==
+ bh=y/rSdGH7T84H87TDHdsRlckNukfxfCLgXK5Ye+LlBFM=;
+ b=T/M1crssu7ZS6p9isU5Via3G9LpPbL6AEkGGHuL5lmFpNzbywSJyAvdU
+ mAYJiMu7oUs9c3tO+w/w43fzbLrFbQQlwN+W6jjBg81BC5k/958F5VDF9
+ fX59LxMeCT8XkoLtI6QeBKVIwiAd6pAT0RMk+SRUyVi7h1YXoRpfpzFkm
+ j/Zy4ZIEITO4cAfeKdnItbnPoYi4JnjfXMCjdURRpM460qkbvRR3MtZ6V
+ F6edk/djR5E3oqB1524T/OxMp9JjVLuff5JIBvX6VzdeTc0Ms84a9jA9x
+ sXeW699MnHRyNACLxU+BOyiL0F2EVSp3Psds5Du9qwoO3SWGD42p2ADG7 g==;
+X-CSE-ConnectionGUID: ISMhusM1RPGCl/RrUe8AoQ==
+X-CSE-MsgGUID: 5BDGiyQSTUqC2yn7w+9FpA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11709"; a="76709300"
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="76709300"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 05:20:35 -0800
+X-CSE-ConnectionGUID: Y0tKyZyXRoCkYB5yf0FBYg==
+X-CSE-MsgGUID: zmdfvRUqTDqnSJQKHIfp1g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="215575372"
+X-IronPort-AV: E=Sophos;i="6.21,306,1763452800"; d="scan'208";a="219673695"
 Received: from rvuia-mobl.ger.corp.intel.com (HELO vgovind2-mobl4.intel.com)
  ([10.245.245.209])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 05:11:11 -0800
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 05:20:33 -0800
 From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: vinod.govindapillai@intel.com
-Subject: [PATCH] drm/i915/fbc: remove uint16 from supported fbc formats in
+Subject: [PATCH v2] drm/i915/fbc: remove uint16 from supported fbc formats in
  xe3plpd
-Date: Mon, 23 Feb 2026 15:10:51 +0200
-Message-ID: <20260223131051.180311-1-vinod.govindapillai@intel.com>
+Date: Mon, 23 Feb 2026 15:20:11 +0200
+Message-ID: <20260223132011.245620-1-vinod.govindapillai@intel.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
@@ -75,16 +75,26 @@ of the display versions so far, there is no point is having these
 formats listed as supported for FBC. So remove the UINT16 formats
 from the supported formats for FBC.
 
+v2: removed an unused variable
+
 Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_fbc.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+ drivers/gpu/drm/i915/display/intel_fbc.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index 9f39b6990bbd..cf4d145d6a8c 100644
+index 9f39b6990bbd..e85a0fa8b24d 100644
 --- a/drivers/gpu/drm/i915/display/intel_fbc.c
 +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -1204,15 +1204,7 @@ static bool xe3p_lpd_fbc_pixel_format_is_valid(const struct intel_plane_state *p
+@@ -1196,23 +1196,13 @@ xe3p_lpd_fbc_fp16_format_is_valid(const struct intel_plane_state *plane_state)
+ 
+ static bool xe3p_lpd_fbc_pixel_format_is_valid(const struct intel_plane_state *plane_state)
+ {
+-	const struct drm_framebuffer *fb = plane_state->hw.fb;
+-
+ 	if (lnl_fbc_pixel_format_is_valid(plane_state))
+ 		return true;
+ 
  	if (xe3p_lpd_fbc_fp16_format_is_valid(plane_state))
  		return true;
  
