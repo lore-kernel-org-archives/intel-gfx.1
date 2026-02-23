@@ -4,72 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3542DC624D8
-	for <intel-gfx@archiver.kernel.org>; Sun, 22 Feb 2026 10:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE245E98DF1
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 07:00:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8886610E170;
-	Sun, 22 Feb 2026 10:42:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F9710E256;
+	Mon, 23 Feb 2026 07:00:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kcnQaRIh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x4qvGEjI";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F8C510E170;
- Sun, 22 Feb 2026 10:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1771756960;
- bh=DrCoid4Pafm2Wd5d5/Z36uNtrGzmCQLSkgqHZBWbMWI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=kcnQaRIhmB0uGgwiB08nORlre5NuxRsoB2FhWkbTA0uYMYf6QSacBs7MCbQdRvNPi
- JeHfk7mQs6ptHQEPHkfOwLlIPtkpiKCsUiq/ngOee4OWEUe1yGzLtMRQW1Ts5UKPJQ
- tEbZJmMJvGuK/9DvFT1UfvlwokAAI5MS4W4yCnlUnAIusVd4I+kyR0WJhDunTD95H0
- 8+dXODsnj4+199XZxBN4G9F3JNclal+PiE6fwmSiFxwAHdj/J7Anv9khultrTWZ0ZP
- YUVii9sUyN07jhIf8Hq+9Y6865ccLndCOa5nJCSwfhuZ+mufH+HZi+vtiVcerihvP/
- /B/uM1nFumzpQ==
-Received: from [192.168.1.90] (unknown [82.79.138.145])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B2D3C17E1274;
- Sun, 22 Feb 2026 11:42:39 +0100 (CET)
-Message-ID: <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
-Date: Sun, 22 Feb 2026 12:42:39 +0200
-MIME-Version: 1.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010037.outbound.protection.outlook.com
+ [52.101.193.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E830610E24F;
+ Mon, 23 Feb 2026 07:00:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GboFBA2x4mWpq0oTwnTEoY4g8hait+p40p2QtknPW6iewbClKuUj4ntOVMRWTTWFPXLrwlgrUl8i7pV53aumjE1tqs3Az86/E/RmZTr87fDzfXzTTSF1Vvmg71qOYeJno0uu6c0PEOxaVc2YUxN+JfOnQcbJnLV/aqjtcsoWF0Bv3bkASALXIEz5j5+3RvgvDxD6EU9bMjCHY3aCoDnSHwNkJaGN0Oq749Nu19/JEzUM75kSRHIUtWbFEVijrsIizGQwIZQqXUvaN/hcOi8DY4UAyhh2u7W40GWjzrB0S3P8p+mDjXW4Z9KBeN6PB9zkI6jCg8kXyOWEQaGupzYgFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u9U6P/D9+oqKd7zY8ZjtClcRqLrKtZfVuQ2vceUq37s=;
+ b=PFG1wTeqb5VeGGyLnSsTk6j3d9HlbaGag/NfnNk9KTiRPwdgDXPG6zmaEgjgrIob3rJHDF22zb20zHTLxWOksIgzwEVsT+KYRMUCtubII/CXgIcW9Yh6l3oyrSrmVbW3KJu70WtbzAIhe80lA8NxY4eJ9gjxrMUG/fN0jXdAdayR2/lERAoIgCwzXvoCJ74uMoBQVK//koUqr+PSt0Blb2aVSK6eEc1kr+CXbsMfYY9hyNesAbWyPhm+WLj/z8ftXK8WbuVvbs+CLo5D7ZaPZuSY/mFMzW0tmfBVZzff1eYQh/UhK2GdjxviephixRKDl4I9kxjnHpalhQiMVZm1dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u9U6P/D9+oqKd7zY8ZjtClcRqLrKtZfVuQ2vceUq37s=;
+ b=x4qvGEjICaVXF3jnUqs6SffAv4icrQnHKlS/+J5hGxznrNMD2y5WSB1G80wvcc4ASveIepVmHPRQtlRuZnoCC14fS4WPteXCRY2qdK531lUYTCSQwEBj0yOfz8P4D105OQj26+Q++3mbdyOQUlZqmm00DKVAOMA61m/P8zjXGEc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by PH8PR12MB7183.namprd12.prod.outlook.com (2603:10b6:510:228::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.13; Mon, 23 Feb
+ 2026 07:00:19 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd%4]) with mapi id 15.20.9632.017; Mon, 23 Feb 2026
+ 07:00:19 +0000
+Message-ID: <e360b60c-df02-402d-895d-f97a4ca38756@amd.com>
+Date: Mon, 23 Feb 2026 12:30:13 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 13/20] drm/bridge: dw-hdmi-qp: Implement
- atomic_get_output_bus_fmts
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
- <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
+Subject: Re: [PATCH v4 1/2] drm/buddy: Improve offset-aligned allocation
+ handling
+To: matthew.auld@intel.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260217113900.10675-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <20260217113900.10675-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:96::21) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|PH8PR12MB7183:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdd29139-c419-4e50-82e0-08de72a9346e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0; ARA:13230040|376014|366016|1800799024|19052099003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Wi9yN3BIK2F1WEhZRFRHaGZqVS9BZG9XNHAvU25ReUs0bzA1QjVnUkVxZmpv?=
+ =?utf-8?B?endwY2VQZ0dLSWo0VjRlR0VRUGZiUFBWamIwdFBldTNVaGF3S3llUlRab0xT?=
+ =?utf-8?B?Z1hEclA3OGpuRmNrZGlzZWVZd2hnNmNYaWwrbzEwMnZXWSthTWhqbHNnc0s2?=
+ =?utf-8?B?UjBhOWIxbDZqWnZXTTdlS0hLc1lpb241SWJyWTVzK3J2TS9XNFhVc2QweG5O?=
+ =?utf-8?B?clV3c3VqR0IxTzZyY2JJNFdKWFFESGJ2NE9tUDQyeTAxR3JQTVQ3SmVNRnZT?=
+ =?utf-8?B?WEorTWpMRGhIc2Y3NHJlWk8wakN1MnhsOThhMXFmTHdHeVM3QVo4NTZYNWI2?=
+ =?utf-8?B?RmdIZ3c3WllkYVovOFY2MWpLYi82RjhyM2hRM2pHa2lTSVM0Nnhid1M4UjdB?=
+ =?utf-8?B?VThJR0VuMGVmUEg2MnNoTUcwcFNzckVYNTBicDhPWXRScW1CbUZ3OTdCQUdB?=
+ =?utf-8?B?T3ZtNTZTS01HTkZWcC80clpjUWdRd3Qwbm9yRWpqQkc4cWtrNjZaSHdPM3lM?=
+ =?utf-8?B?ZDVRSE1TZStSeGM3QXNvY29mbHgvRUswL2o2RmlBK05rN2lWRDZBUXVKRFd1?=
+ =?utf-8?B?TVo3Vm5wM2w3QnpENFJHNm9FN3EyNU13QzBLQitubUptMWdsZUV5elJ2YTZQ?=
+ =?utf-8?B?U0hQOGg2eVp3OGF5VTNTTTQ5UzQzL0xEWG9FcVFJRjFIOTZRYk9zYVYzcklQ?=
+ =?utf-8?B?bFNhM1llTmwrTElyRUlKdHNVcXhla3NoaEsyTTVrQ3NUOUxtODZoRHZMK2I3?=
+ =?utf-8?B?cHVsZ2lsMEVlM0c4RkNjSERhcmVrcVFtMkJGeW5sODlvRnZ1U1pGMmxMakdu?=
+ =?utf-8?B?MTM1cW8vazFTeWt4NngxZFVZU0gvY3pMcFN1U0tEM0ZTR29XMzNRSVZKWmI1?=
+ =?utf-8?B?VlpEUkVqejFaSERtaXowVGROOTFoY2FoWDhDMU51b1h2S0h5Wjl6dmp4eENt?=
+ =?utf-8?B?YUR2SEVoeVBlbmJCWlJ0TnY0dnVqcURDazdlQ2xKbU9mczNUWGlGNlhrSHFD?=
+ =?utf-8?B?L2hmLzc4Z0NVbEt2QnNwSGlqYmtiZkwvajEzZjNQclZwa1pHRjZmaDZOdTFa?=
+ =?utf-8?B?czJkWmhPTjFyeWJvTHNqZHRTMGVRTzZSV09wOHV2ZFJJaHRsaFJRdFVkck5E?=
+ =?utf-8?B?cDZxb3Vud1VLVzNKWER2ZDhNK3J2OE5yelFqd25oQWUwTFVyQ3psenZhK2Fy?=
+ =?utf-8?B?ODZVblpmNnd6OXdudk5KbWlWWnVUTExKc2YrTEtSS3dUV1ZkQXNjZytMaUlv?=
+ =?utf-8?B?TE4rT1BYT3kvY1N5Y1hPUUtVaDkwUVNsTUEzMTBocVB1ZlhKbnQ4R1BmYm81?=
+ =?utf-8?B?L21ZRmMyTk05SWZnNGk2bEhxWG5OKzZTUmNNY3lBa2xCSHRsUGY0aXVYWXVk?=
+ =?utf-8?B?bEMxeXZRZnNHbi8vK3YzenFIbkZyelEyR0p6RFRWK1FUMmc2TFhpeFdIc1Bv?=
+ =?utf-8?B?ckxpcVdhM0NNK0ZiME1oaS81R0d5cFpwYkJHQmtZNmZGZEJCYWJ1cGJTMlls?=
+ =?utf-8?B?ZUdMN0ZJWGYwdWdNOURRS3pyTVVzb0FaNGRlRVFsaTB3dnpxTzlWaCtKRzZH?=
+ =?utf-8?B?WE9GQTNHdHpkc0Z5U1FxQkF4RG9LaGNjWVQwSEU5d08wU3JFUVMydTYza3hE?=
+ =?utf-8?B?VnhaS21DRVNwVEhCZnRWZDNVNEdlbXFXelcvR2xDdCs3NDczTWsrQ3dIemR2?=
+ =?utf-8?B?eUc4RklvVHE5TjI4WElmSVFUSHpTQ2puMWQycFB3NjBmcTNIYVRiakIxdUlO?=
+ =?utf-8?B?TnBYRFNibHJEVGhwVkY4cTVLV21Lcm4wMEMwam1wL2lrU0xHd0xxZitrYnNB?=
+ =?utf-8?B?eDQ5RzJUYy8vSWJOMk9hYnprUWJ2QlhuUEtGbUNGdVpHUGZVMkhqOHRpUThJ?=
+ =?utf-8?B?NHMxZTBpbEZENmE1N0FQdUcvUWp0YXF5YWlabkRIZjJESWxJcWpPQ0tMNGxh?=
+ =?utf-8?B?NXkzeU1NQm9HQUk4aSs1T3F6S0k2SElNamZMaDBaTDlmcXBvcnJhVVQ0bmFV?=
+ =?utf-8?B?YW9FaWRKTWIyclBQQkQrWllnNVlzR2hNeE51bmRCUHFBd3hnYVdWQTdCb3VL?=
+ =?utf-8?B?NlUyZTFubHhabUJlcG8ycGxNOWdnby9RNDRSeDBQclZHeW9zR1RRQlZwNExr?=
+ =?utf-8?Q?pkE4=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(19052099003); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3hlWjA0eG0xNWZCaUZ3Zm1PNzk3MGFXOE5DQ1phYmcyYyt0MUwxYmpNZFc0?=
+ =?utf-8?B?dzE0UDgzTUJVZUQ0Um1SWTNuZFlhVEswTzdEUHlpMmVLUDkyckI2WjJDd0Z4?=
+ =?utf-8?B?VUM2OFJrSkFyMXlRMG5KQ1A5bGtrUkZuVm9mdUtoVG0yY0V6bFQ3SThBZ0Y1?=
+ =?utf-8?B?UU53d2xzK2tkdzFya0piMEQ0NDdDbjE4aUNIaUVRbStna3pQVG5KMWp2TWJw?=
+ =?utf-8?B?OWxKeEtoMitqY1NkbVJjMFpWUXZaNHFXNlpDbXNjR0xQV04wTGpKZFNSYzhU?=
+ =?utf-8?B?RjAvNGVjb3c5WFY2S1Y2V255LzJ6WHBGLzFCcWJuc2JVQ0Nsc2d5b2syaUFC?=
+ =?utf-8?B?NVV2MWQ2WDFueTRDZUZ3T1JwOHVKdnNaQkljS05QODFYVU1DSDFxM3NoaUFx?=
+ =?utf-8?B?UVA1TTlkMEZCTFFWTTMwSjVPOFllNk54bUJxQlFHbDFzMmJ5eDY1dXg0cDdT?=
+ =?utf-8?B?NUlYRVgwSFJJTW9oWnVUbURRYzRMeTFPU1Z4QTdycFM4eUltV3B5eE9VYVcr?=
+ =?utf-8?B?NDZyRTNvMC9RTVV1N2J2aThuenFmK0poZVVFVjVJZTFTVGxSa3ZFeDVaSjVh?=
+ =?utf-8?B?TjBrdnlNNmdBVEJIYjhvckdUM1A0eXJLOHlNSmphaExQb252K2JmbXRFaXpL?=
+ =?utf-8?B?TVh6SWhIV01CMHNFemY1bzZMeElFbHZSSWF4VDhzRnc0ZkFnemIrQnBHOGpP?=
+ =?utf-8?B?YnZOL284MzQwVEVIWkZWaEN2NWhqR1A5MjEwc3hVUERBZmVVQU4rWE8wYURR?=
+ =?utf-8?B?bnltV0VUay9mYVpoYnVtWTZSMFhxSGc5dHMxTUhwem1pMU5hS2NLQldveit5?=
+ =?utf-8?B?UTUvay96aUJEUDFVNGtDSTF5b1ZpcEkxaEpnTndPckxUcnJvUEo2VzRFNjR4?=
+ =?utf-8?B?WGdHUHFZMk5VQTBFc1N1MHlYdVNqZkVrekpaMUtBSWxJWUxIL3Y3RW1yYjJ6?=
+ =?utf-8?B?YmIzSE9wRXJoYmY5Q0N4NmVKSkZlamhCdlRWNWxoejVmaDBOWU9mUmhmTjha?=
+ =?utf-8?B?NnZxN0NYc1Q0UHVEOHY4UndyMWVlWkI2a0pPVVV1dkxEcVYxSnZJSzZnbkFQ?=
+ =?utf-8?B?bWdEa3VSNmtnNk11ODcyT1M3K1h3NmwxRTFUb2tCRnN2dnFjSVhzdUZaYUpx?=
+ =?utf-8?B?SXk0clBPMDNBbUNjZmowY0lNQkRSbyt6R2xaWUxFR2l4OWxwYUpSK0N3a2Zm?=
+ =?utf-8?B?UU9jVWp5RzVSZmZ2a3Urc0dLQ1lSSTVxZUkyTVI3N0pnV3lDQWVuMmVtVGhF?=
+ =?utf-8?B?NFNJRkZLZlFVVGVldlpyMUt4NFhvbXVUVkt5VEtIVU83SHFjNk0wRk9DbFdT?=
+ =?utf-8?B?eWdUTmRPby9qK1dBZGNkRzJvM1l4cTlXUFRDdG43bzIveGEwMTIvVlFxdlpl?=
+ =?utf-8?B?T0w4d2l4WG1yMzRuNVFlU3h2WDJtVWdFV21PUzE1S0tGVUVNMDV4cHpQUnBn?=
+ =?utf-8?B?dVArck5JQTMvaEFXaVNGaWIzUDU2dHVZd05BdGZmcHRUS0prM3pkMHhKRXNZ?=
+ =?utf-8?B?dEx0Ly9EQm0wdXVBWEkzZENDaFhFUXd5ODZLdWxJb0lmUDlSWXZadXJTdFRq?=
+ =?utf-8?B?WllSbWdLQlpIWkJWQUM3aVphODd6N1dxZGdFZWE3K0xxZ2Z1bWpKSzNFUjh3?=
+ =?utf-8?B?VWFaM212cDZKMER2c3dBN2hmdm8vMThpLzBqbVVnR3p5bWsreFBEYWVQckVD?=
+ =?utf-8?B?TmNKcDRtV29JYUlJcGlkeXdXYllnakY2eWFwek0vUmR1VGs1Q216YnR4RGla?=
+ =?utf-8?B?ekx1S01KaWdlbEF5dUNSMVhrZzhKQW9PRlFQUUV1OHJyV0p1Vzl6T1NEdDVw?=
+ =?utf-8?B?enpaOFp6bFBLUTZIUWp0ODYrVzU3YkI3Rit0ZGNubkV3emN0Rk15bXRYdUhX?=
+ =?utf-8?B?ZUxENXh1eFF2czFvMnpodjc2K0ExU0lGcEt0UTNORk1nLzJLa2RzenlzdlpZ?=
+ =?utf-8?B?VXNSTXR3QlNxZ1NwUjFNOXlveHJIMjhrNWYveGx1bHhsbjRkMEdwWlFZVTFD?=
+ =?utf-8?B?dDNvV3NGQ2h0Nk0randJVng4RkNaVWVMZFViSk5XR3Z6Y0syMUZYU21vWGlJ?=
+ =?utf-8?B?K0JlS3hKVVJVb2w4VHg0Y25nWW9XcEVEbDlJK2o1NjFEVStlWnJpdjdFUmI2?=
+ =?utf-8?B?Uy80eStnUGdmVnNjZ0hCSkE5Tm9pSkZWZnlnYnc4V1lOOEs4bTliWkFweTNT?=
+ =?utf-8?B?WnZRZ2lvZWlLQjdJa21obE80dktOY2RYM2NRRVdjVXIrc1dTZE05aGdaZWZ1?=
+ =?utf-8?B?QTZJSk1ZemFFMmp1eWRkM0pObTNOajRFcGlvTXFCTU1YNGVLbW9NY0lzVUMz?=
+ =?utf-8?B?bTd3bU1TZS9yT0NVcmRpVitzKzM3RHpIRE5YQUdkaTBIUzdSSDhFZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdd29139-c419-4e50-82e0-08de72a9346e
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2026 07:00:19.1606 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WLbN6MHi0eKBeqKnGBoBqEBtlY4ozjiEsFuXxhaZ1RNVqVMH7KlPAOuRDaa3IXLVtfV0a/GKV916rF/0z8A/0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7183
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,158 +171,452 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+Hi Matthew,
 
-On 2/16/26 3:01 PM, Nicolas Frattaroli wrote:
-> The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
-> to recursively select a suitable output format in a bridge chain.
-> 
-> As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
-> formats determined by which formats the platform-specific integration of
-> the hardware supports, and the chosen HDMI output bit depth.
-> 
-> Implement this callback. The returned u32* buffer is supposed to be
-> freed by the caller of this callback, as specified by the callback's
-> documentation.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Ping ?
+
+Regards,
+Arun.
+
+On 2/17/2026 5:08 PM, Arunpravin Paneer Selvam wrote:
+> Large alignment requests previously forced the buddy allocator to search by
+> alignment order, which often caused higher-order free blocks to be split even
+> when a suitably aligned smaller region already existed within them. This led
+> to excessive fragmentation, especially for workloads requesting small sizes
+> with large alignment constraints.
+>
+> This change prioritizes the requested allocation size during the search and
+> uses an augmented RB-tree field (subtree_max_alignment) to efficiently locate
+> free blocks that satisfy both size and offset-alignment requirements. As a
+> result, the allocator can directly select an aligned sub-region without
+> splitting larger blocks unnecessarily.
+>
+> A practical example is the VKCTS test
+> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which repeatedly
+> allocates 8 KiB buffers with a 256 KiB alignment. Previously, such allocations
+> caused large blocks to be split aggressively, despite smaller aligned regions
+> being sufficient. With this change, those aligned regions are reused directly,
+> significantly reducing fragmentation.
+>
+> This improvement is visible in the amdgpu VRAM buddy allocator state
+> (/sys/kernel/debug/dri/1/amdgpu_vram_mm). After the change, higher-order blocks
+> are preserved and the number of low-order fragments is substantially reduced.
+>
+> Before:
+>    order- 5 free: 1936 MiB, blocks: 15490
+>    order- 4 free:  967 MiB, blocks: 15486
+>    order- 3 free:  483 MiB, blocks: 15485
+>    order- 2 free:  241 MiB, blocks: 15486
+>    order- 1 free:  241 MiB, blocks: 30948
+>
+> After:
+>    order- 5 free:  493 MiB, blocks:  3941
+>    order- 4 free:  246 MiB, blocks:  3943
+>    order- 3 free:  123 MiB, blocks:  4101
+>    order- 2 free:   61 MiB, blocks:  4101
+>    order- 1 free:   61 MiB, blocks:  8018
+>
+> By avoiding unnecessary splits, this change improves allocator efficiency and
+> helps maintain larger contiguous free regions under heavy offset-aligned
+> allocation workloads.
+>
+> v2:(Matthew)
+>    - Update augmented information along the path to the inserted node.
+>
+> v3:
+>    - Move the patch to gpu/buddy.c file.
+>
+> v4:(Matthew)
+>    - Use the helper instead of calling _ffs directly
+>    - Remove gpu_buddy_block_order(block) >= order check and drop order
+>    - Drop !node check as all callers handle this already
+>    - Return larger than any other possible alignment for __ffs64(0)
+>    - Replace __ffs with __ffs64
+>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Christian König <christian.koenig@amd.com>
 > ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 178 +++++++++++++++++++++++++++
->  1 file changed, 178 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> index d649a1cf07f5..4c00218e5fd7 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -11,6 +11,7 @@
->  #include <linux/export.h>
->  #include <linux/i2c.h>
->  #include <linux/irq.h>
-> +#include <linux/media-bus-format.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> @@ -749,6 +750,182 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
->  	return adap;
->  }
->  
-> +static int dw_hdmi_qp_config_avi_infoframe(struct dw_hdmi_qp *hdmi,
-> +					   const u8 *buffer, size_t len)
+>   drivers/gpu/buddy.c       | 275 +++++++++++++++++++++++++++++++-------
+>   include/linux/gpu_buddy.h |   2 +
+>   2 files changed, 232 insertions(+), 45 deletions(-)
+>
+> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> index 603c59a2013a..542131992763 100644
+> --- a/drivers/gpu/buddy.c
+> +++ b/drivers/gpu/buddy.c
+> @@ -14,6 +14,25 @@
+>   
+>   static struct kmem_cache *slab_blocks;
+>   
+> +static unsigned int gpu_buddy_block_offset_alignment(struct gpu_buddy_block *block)
 > +{
-> +	u32 val, i, j;
+> +	u64 offset = gpu_buddy_block_offset(block);
 > +
-> +	if (len != HDMI_INFOFRAME_SIZE(AVI)) {
-> +		dev_err(hdmi->dev, "failed to configure avi infoframe\n");
-> +		return -EINVAL;
+> +	if (!offset)
+> +		/*
+> +		 * __ffs64(0) is undefined; offset 0 is maximally aligned, so return
+> +		 * a value greater than any possible alignment.
+> +		 */
+> +		return 64 + 1;
+> +
+> +	return __ffs64(offset);
+> +}
+> +
+> +RB_DECLARE_CALLBACKS_MAX(static, gpu_buddy_augment_cb,
+> +			 struct gpu_buddy_block, rb,
+> +			 unsigned int, subtree_max_alignment,
+> +			 gpu_buddy_block_offset_alignment);
+> +
+>   static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+>   					       struct gpu_buddy_block *parent,
+>   					       unsigned int order,
+> @@ -31,6 +50,9 @@ static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+>   	block->header |= order;
+>   	block->parent = parent;
+>   
+> +	block->subtree_max_alignment =
+> +		gpu_buddy_block_offset_alignment(block);
+> +
+>   	RB_CLEAR_NODE(&block->rb);
+>   
+>   	BUG_ON(block->header & GPU_BUDDY_HEADER_UNUSED);
+> @@ -67,26 +89,42 @@ static bool rbtree_is_empty(struct rb_root *root)
+>   	return RB_EMPTY_ROOT(root);
+>   }
+>   
+> -static bool gpu_buddy_block_offset_less(const struct gpu_buddy_block *block,
+> -					const struct gpu_buddy_block *node)
+> -{
+> -	return gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node);
+> -}
+> -
+> -static bool rbtree_block_offset_less(struct rb_node *block,
+> -				     const struct rb_node *node)
+> -{
+> -	return gpu_buddy_block_offset_less(rbtree_get_free_block(block),
+> -					   rbtree_get_free_block(node));
+> -}
+> -
+>   static void rbtree_insert(struct gpu_buddy *mm,
+>   			  struct gpu_buddy_block *block,
+>   			  enum gpu_buddy_free_tree tree)
+>   {
+> -	rb_add(&block->rb,
+> -	       &mm->free_trees[tree][gpu_buddy_block_order(block)],
+> -	       rbtree_block_offset_less);
+> +	struct rb_node **link, *parent = NULL;
+> +	unsigned int block_alignment, order;
+> +	struct gpu_buddy_block *node;
+> +	struct rb_root *root;
+> +
+> +	order = gpu_buddy_block_order(block);
+> +	block_alignment = gpu_buddy_block_offset_alignment(block);
+> +
+> +	root = &mm->free_trees[tree][order];
+> +	link = &root->rb_node;
+> +
+> +	while (*link) {
+> +		parent = *link;
+> +		node = rbtree_get_free_block(parent);
+> +		/*
+> +		 * Manual augmentation update during insertion traversal. Required
+> +		 * because rb_insert_augmented() only calls rotate callback during
+> +		 * rotations. This ensures all ancestors on the insertion path have
+> +		 * correct subtree_max_alignment values.
+> +		 */
+> +		if (node->subtree_max_alignment < block_alignment)
+> +			node->subtree_max_alignment = block_alignment;
+> +
+> +		if (gpu_buddy_block_offset(block) < gpu_buddy_block_offset(node))
+> +			link = &parent->rb_left;
+> +		else
+> +			link = &parent->rb_right;
 > +	}
 > +
-> +	/*
-> +	 * DW HDMI QP IP uses a different byte format from standard AVI info
-> +	 * frames, though generally the bits are in the correct bytes.
-> +	 */
-> +	val = buffer[1] << 8 | buffer[2] << 16;
-> +	dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS0);
+> +	block->subtree_max_alignment = block_alignment;
+> +	rb_link_node(&block->rb, parent, link);
+> +	rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>   }
+>   
+>   static void rbtree_remove(struct gpu_buddy *mm,
+> @@ -99,7 +137,7 @@ static void rbtree_remove(struct gpu_buddy *mm,
+>   	tree = get_block_tree(block);
+>   	root = &mm->free_trees[tree][order];
+>   
+> -	rb_erase(&block->rb, root);
+> +	rb_erase_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>   	RB_CLEAR_NODE(&block->rb);
+>   }
+>   
+> @@ -790,6 +828,127 @@ alloc_from_freetree(struct gpu_buddy *mm,
+>   	return ERR_PTR(err);
+>   }
+>   
+> +static bool
+> +gpu_buddy_can_offset_align(u64 size, u64 min_block_size)
+> +{
+> +	return size < min_block_size && is_power_of_2(size);
+> +}
 > +
-> +	for (i = 0; i < 4; i++) {
-> +		for (j = 0; j < 4; j++) {
-> +			if (i * 4 + j >= 14)
-> +				break;
-> +			if (!j)
-> +				val = buffer[i * 4 + j + 3];
-> +			val |= buffer[i * 4 + j + 3] << (8 * j);
+> +static bool gpu_buddy_subtree_can_satisfy(struct rb_node *node,
+> +					  unsigned int alignment)
+> +{
+> +	struct gpu_buddy_block *block;
+> +
+> +	block = rbtree_get_free_block(node);
+> +	return block->subtree_max_alignment >= alignment;
+> +}
+> +
+> +static struct gpu_buddy_block *
+> +gpu_buddy_find_block_aligned(struct gpu_buddy *mm,
+> +			     enum gpu_buddy_free_tree tree,
+> +			     unsigned int order,
+> +			     unsigned int alignment,
+> +			     unsigned long flags)
+> +{
+> +	struct rb_root *root = &mm->free_trees[tree][order];
+> +	struct rb_node *rb = root->rb_node;
+> +
+> +	while (rb) {
+> +		struct gpu_buddy_block *block = rbtree_get_free_block(rb);
+> +		struct rb_node *left_node = rb->rb_left, *right_node = rb->rb_right;
+> +
+> +		if (right_node) {
+> +			if (gpu_buddy_subtree_can_satisfy(right_node, alignment)) {
+> +				rb = right_node;
+> +				continue;
+> +			}
 > +		}
 > +
-> +		dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS1 + i * 4);
+> +		if (gpu_buddy_block_offset_alignment(block) >= alignment)
+> +			return block;
+> +
+> +		if (left_node) {
+> +			if (gpu_buddy_subtree_can_satisfy(left_node, alignment)) {
+> +				rb = left_node;
+> +				continue;
+> +			}
+> +		}
+> +
+> +		break;
 > +	}
 > +
-> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_AVI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
-> +
-> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN,
-> +		       PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN, PKTSCHED_PKT_EN);
-> +
-> +	return 0;
+> +	return NULL;
 > +}
 > +
-> +static int dw_hdmi_qp_config_drm_infoframe(struct dw_hdmi_qp *hdmi,
-> +					   const u8 *buffer, size_t len)
+> +static struct gpu_buddy_block *
+> +gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+> +				    u64 size,
+> +				    u64 min_block_size,
+> +				    unsigned long flags)
 > +{
-> +	u32 val, i;
+> +	struct gpu_buddy_block *block = NULL;
+> +	unsigned int order, tmp, alignment;
+> +	struct gpu_buddy_block *buddy;
+> +	enum gpu_buddy_free_tree tree;
+> +	unsigned long pages;
+> +	int err;
 > +
-> +	if (len != HDMI_INFOFRAME_SIZE(DRM)) {
-> +		dev_err(hdmi->dev, "failed to configure drm infoframe\n");
-> +		return -EINVAL;
+> +	alignment = ilog2(min_block_size);
+> +	pages = size >> ilog2(mm->chunk_size);
+> +	order = fls(pages) - 1;
+> +
+> +	tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+> +		GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+> +
+> +	for (tmp = order; tmp <= mm->max_order; ++tmp) {
+> +		block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+> +						     alignment, flags);
+> +		if (!block) {
+> +			tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+> +				GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+> +			block = gpu_buddy_find_block_aligned(mm, tree, tmp,
+> +							     alignment, flags);
+> +		}
+> +
+> +		if (block)
+> +			break;
 > +	}
 > +
-> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_TX_EN, PKTSCHED_PKT_EN);
+> +	if (!block)
+> +		return ERR_PTR(-ENOSPC);
 > +
-> +	val = buffer[1] << 8 | buffer[2] << 16;
-> +	dw_hdmi_qp_write(hdmi, val, PKT_DRMI_CONTENTS0);
+> +	while (gpu_buddy_block_order(block) > order) {
+> +		struct gpu_buddy_block *left, *right;
 > +
-> +	for (i = 0; i <= buffer[2]; i++) {
-> +		if (i % 4 == 0)
-> +			val = buffer[3 + i];
-> +		val |= buffer[3 + i] << ((i % 4) * 8);
+> +		err = split_block(mm, block);
+> +		if (unlikely(err))
+> +			goto err_undo;
 > +
-> +		if ((i % 4 == 3) || i == buffer[2])
-> +			dw_hdmi_qp_write(hdmi, val,
-> +					 PKT_DRMI_CONTENTS1 + ((i / 4) * 4));
+> +		left  = block->left;
+> +		right = block->right;
+> +
+> +		if (gpu_buddy_block_offset_alignment(right) >= alignment)
+> +			block = right;
+> +		else
+> +			block = left;
 > +	}
 > +
-> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
-> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_DRMI_TX_EN, PKTSCHED_DRMI_TX_EN,
-> +		       PKTSCHED_PKT_EN);
+> +	return block;
 > +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Static values documented in the TRM
-> + * Different values are only used for debug purposes
-> + */
-> +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB1	0x1
-> +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB2	0xa
-> +
-> +static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
-> +					     const u8 *buffer, size_t len)
-> +{
+> +err_undo:
 > +	/*
-> +	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
-> +	 * AUDI_CONTENTS1: { PB3, PB2, PB1, PB0 }
-> +	 * AUDI_CONTENTS2: { PB7, PB6, PB5, PB4 }
-> +	 *
-> +	 * PB0: CheckSum
-> +	 * PB1: | CT3    | CT2  | CT1  | CT0  | F13  | CC2 | CC1 | CC0 |
-> +	 * PB2: | F27    | F26  | F25  | SF2  | SF1  | SF0 | SS1 | SS0 |
-> +	 * PB3: | F37    | F36  | F35  | F34  | F33  | F32 | F31 | F30 |
-> +	 * PB4: | CA7    | CA6  | CA5  | CA4  | CA3  | CA2 | CA1 | CA0 |
-> +	 * PB5: | DM_INH | LSV3 | LSV2 | LSV1 | LSV0 | F52 | F51 | F50 |
-> +	 * PB6~PB10: Reserved
-> +	 *
-> +	 * AUDI_CONTENTS0 default value defined by HDMI specification,
-> +	 * and shall only be changed for debug purposes.
+> +	 * We really don't want to leave around a bunch of split blocks, since
+> +	 * bigger is better, so make sure we merge everything back before we
+> +	 * free the allocated blocks.
 > +	 */
-> +	u32 header_bytes = (DW_HDMI_QP_AUDIO_INFOFRAME_HB1 << 8) |
-> +			  (DW_HDMI_QP_AUDIO_INFOFRAME_HB2 << 16);
-> +
-> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS0, &header_bytes, 1);
-> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS1, &buffer[3], 1);
-> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS2, &buffer[4], 1);
-> +
-> +	/* Enable ACR, AUDI, AMD */
-> +	dw_hdmi_qp_mod(hdmi,
-> +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
-> +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
-> +		       PKTSCHED_PKT_EN);
-> +
-> +	/* Enable AUDS */
-> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AUDS_TX_EN, PKTSCHED_AUDS_TX_EN, PKTSCHED_PKT_EN);
-> +
-> +	return 0;
+> +	buddy = __get_buddy(block);
+> +	if (buddy &&
+> +	    (gpu_buddy_block_is_free(block) &&
+> +	     gpu_buddy_block_is_free(buddy)))
+> +		__gpu_buddy_free(mm, block, false);
+> +	return ERR_PTR(err);
 > +}
+> +
+>   static int __alloc_range(struct gpu_buddy *mm,
+>   			 struct list_head *dfs,
+>   			 u64 start, u64 size,
+> @@ -1059,6 +1218,7 @@ EXPORT_SYMBOL(gpu_buddy_block_trim);
+>   static struct gpu_buddy_block *
+>   __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   			 u64 start, u64 end,
+> +			 u64 size, u64 min_block_size,
+>   			 unsigned int order,
+>   			 unsigned long flags)
+>   {
+> @@ -1066,6 +1226,11 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   		/* Allocate traversing within the range */
+>   		return  __gpu_buddy_alloc_range_bias(mm, start, end,
+>   						     order, flags);
+> +	else if (size < min_block_size)
+> +		/* Allocate from an offset-aligned region without size rounding */
+> +		return gpu_buddy_offset_aligned_allocation(mm, size,
+> +							   min_block_size,
+> +							   flags);
+>   	else
+>   		/* Allocate from freetree */
+>   		return alloc_from_freetree(mm, order, flags);
+> @@ -1137,8 +1302,11 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+>   		size = roundup_pow_of_two(size);
+>   		min_block_size = size;
+> -	/* Align size value to min_block_size */
+> -	} else if (!IS_ALIGNED(size, min_block_size)) {
+> +		/*
+> +		 * Normalize the requested size to min_block_size for regular allocations.
+> +		 * Offset-aligned allocations intentionally skip size rounding.
+> +		 */
+> +	} else if (!gpu_buddy_can_offset_align(size, min_block_size)) {
+>   		size = round_up(size, min_block_size);
+>   	}
+>   
+> @@ -1158,43 +1326,60 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>   	do {
+>   		order = min(order, (unsigned int)fls(pages) - 1);
+>   		BUG_ON(order > mm->max_order);
+> -		BUG_ON(order < min_order);
+> +		/*
+> +		 * Regular allocations must not allocate blocks smaller than min_block_size.
+> +		 * Offset-aligned allocations deliberately bypass this constraint.
+> +		 */
+> +		BUG_ON(size >= min_block_size && order < min_order);
+>   
+>   		do {
+> +			unsigned int fallback_order;
+> +
+>   			block = __gpu_buddy_alloc_blocks(mm, start,
+>   							 end,
+> +							 size,
+> +							 min_block_size,
+>   							 order,
+>   							 flags);
+>   			if (!IS_ERR(block))
+>   				break;
+>   
+> -			if (order-- == min_order) {
+> -				/* Try allocation through force merge method */
+> -				if (mm->clear_avail &&
+> -				    !__force_merge(mm, start, end, min_order)) {
+> -					block = __gpu_buddy_alloc_blocks(mm, start,
+> -									 end,
+> -									 min_order,
+> -									 flags);
+> -					if (!IS_ERR(block)) {
+> -						order = min_order;
+> -						break;
+> -					}
+> -				}
+> +			if (size < min_block_size) {
+> +				fallback_order = order;
+> +			} else if (order == min_order) {
+> +				fallback_order = min_order;
+> +			} else {
+> +				order--;
+> +				continue;
+> +			}
+>   
+> -				/*
+> -				 * Try contiguous block allocation through
+> -				 * try harder method.
+> -				 */
+> -				if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+> -				    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+> -					return __alloc_contig_try_harder(mm,
+> -									 original_size,
+> -									 original_min_size,
+> -									 blocks);
+> -				err = -ENOSPC;
+> -				goto err_free;
+> +			/* Try allocation through force merge method */
+> +			if (mm->clear_avail &&
+> +			    !__force_merge(mm, start, end, fallback_order)) {
+> +				block = __gpu_buddy_alloc_blocks(mm, start,
+> +								 end,
+> +								 size,
+> +								 min_block_size,
+> +								 fallback_order,
+> +								 flags);
+> +				if (!IS_ERR(block)) {
+> +					order = fallback_order;
+> +					break;
+> +				}
+>   			}
+> +
+> +			/*
+> +			 * Try contiguous block allocation through
+> +			 * try harder method.
+> +			 */
+> +			if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+> +			    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+> +				return __alloc_contig_try_harder(mm,
+> +								 original_size,
+> +								 original_min_size,
+> +								 blocks);
+> +			err = -ENOSPC;
+> +			goto err_free;
+>   		} while (1);
+>   
+>   		mark_allocated(mm, block);
+> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+> index 07ac65db6d2e..7ad817c69ec6 100644
+> --- a/include/linux/gpu_buddy.h
+> +++ b/include/linux/gpu_buddy.h
+> @@ -11,6 +11,7 @@
+>   #include <linux/slab.h>
+>   #include <linux/sched.h>
+>   #include <linux/rbtree.h>
+> +#include <linux/rbtree_augmented.h>
+>   
+>   #define GPU_BUDDY_RANGE_ALLOCATION		BIT(0)
+>   #define GPU_BUDDY_TOPDOWN_ALLOCATION		BIT(1)
+> @@ -58,6 +59,7 @@ struct gpu_buddy_block {
+>   	};
+>   
+>   	struct list_head tmp_link;
+> +	unsigned int subtree_max_alignment;
+>   };
+>   
+>   /* Order-zero must be at least SZ_4K */
+>
+> base-commit: 0ef1dcf4c16bb6d90e8fbf7b18f3d76b79fcde9d
 
-Something's wrong with this patch as all the functions above have been dropped
-since the HDMI VSI & SPD InfoFrames series [1] got merged.  The previous
-revision was fine though, hence that's likely an unexpected artifact of the
-latest rebase.
-
-[1] https://lore.kernel.org/all/20260129-dw-hdmi-qp-iframe-v2-0-0157ad05232c@collabora.com/
