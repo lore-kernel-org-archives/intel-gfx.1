@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FD15FD3760
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28CFAFD375E
 	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 617F910E788;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B29710E78A;
 	Wed, 25 Feb 2026 13:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="XJB39VWz";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="USXY8AfK";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D99710E783
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5176410E783
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025593;
- bh=Ki3mUmMvHpijIAiDYp7vsZU9L20YDZpEx92dDshhaXk=;
+ s=default; t=1772025592;
+ bh=Ylxk4DX3lxqTtQhz8WcScd7QQ/EpzHw2VcnEhKxqrho=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=XJB39VWzqqJ+esk8DpRmhCD5XIy/ZbdMUdZ1EFKwORKZe5i5rhnNV6ocBi5sFjoIV
- b7/IRzL5ZWw/9qtQMB06ULwzozA015sUTWyZwpOhRKyfwuhmy4jOJCCO0uu55f9ZFy
- y/RdLorXYnmGD0IGHxzb8mwhBj36/7TuvmI58lAFUfJTHux+Fh8N7Ez3UQA7RmGvyB
- O8jXCpEZktwzm7SU7BFexc8HnX9N/3YCFq8nCONKQGz0GzlhrHm/Z1T00qbHnU3JRQ
- V9ee4qq/LB99+UTHOki+SUPzQ8+261gOwKznh76cfb9g9K/VOOrcCL9Yo25mU5Db5o
- q8VuS9ftIJhRQ==
+ b=USXY8AfKWd+8ClxENMYPtTNLsw9qAcYVkjA1U+S/yapyy0twY3J6f+tZhsDY5kIQP
+ AcmoDSwDg36Fpn/VaGPcnkCpsn0VfCXZug+Cw7JvcuxY4kbt3lfJKXXhbCgZkxXiwA
+ Nd+F3KFgoA8nxKd0/vbSUEXQewV6oCZMEWQjJlfPVUtypgOSvWbdxIg7QV2eS4O2yx
+ nJF/f5fF0Z4XGsJ6dU9Q7+XJopoMPk5mux8z1buDjrAM1BXO1D0LrEN0awuj01buTN
+ aTvUAfcuKHHVlpPKet+tSKDVGxvN0AMf+4gLUXsTihMdk3X1+UK61HP7krkfU5wyYd
+ 2LrhipjYeeVDg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 22/25] drm/i915: Use sleeping selftests for
- igt_atomic on PREEMPT_RT
-Date: Wed, 25 Feb 2026 14:19:26 +0100
-Message-ID: <20260225131931.60724-23-dev@lankhorst.se>
+Subject: [i915-ci-only NO-REVIEW 20/25] drm/i915/gt: Set stop_timeout()
+ correctly on PREEMPT-RT
+Date: Wed, 25 Feb 2026 14:19:24 +0100
+Message-ID: <20260225131931.60724-21-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
 References: <20260225131931.60724-1-dev@lankhorst.se>
@@ -51,36 +51,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This makes the i915 selftests slightly happier, especially
-related to GPU reset.
-
-I believe this may be a better approach than trying to convert
-uncore->lock to raw_spinlock
+Also check if RCU is disabled for PREEMPT-RT, which is the case when
+local_bh_disable() is called.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/selftests/igt_atomic.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/drm/i915/selftests/igt_atomic.c
-index fb506b6990956..8ae39cf570b76 100644
---- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
-+++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
-@@ -39,7 +39,14 @@ static void __hardirq_end(void)
- 	local_irq_enable();
- }
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index 54c9571327e72..97bc49fcb5e05 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
  
-+static void __maybe_unused __nop(void)
-+{}
-+
- const struct igt_atomic_section igt_atomic_phases[] = {
-+#if IS_ENABLED(CONFIG_PREEMPT_RT)
-+	{ "sleeping", __nop, __nop },
-+	{ },
-+#endif
- 	{ "preempt", __preempt_begin, __preempt_end },
- 	{ "softirq", __softirq_begin, __softirq_end },
- 	{ "hardirq", __hardirq_begin, __hardirq_end },
+ static unsigned long stop_timeout(const struct intel_engine_cs *engine)
+ {
+-	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
++	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
+ 		return 0;
+ 
+ 	/*
 -- 
 2.51.0
 
