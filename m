@@ -4,34 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ADC7FD374E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87EADFD3760
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1E6A10E6F2;
-	Wed, 25 Feb 2026 13:19:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2E5F10E773;
+	Wed, 25 Feb 2026 13:19:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="PyYZaX+e";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="XUKI1iCm";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE5110E355
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C8EA310E355
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025574;
- bh=UumSUaCwoKkC+CTynuEMgZFE/2h/iZQGftvdpvqprbU=;
- h=From:To:Subject:Date:From;
- b=PyYZaX+e1/uVN98N/q9dtrd/N8SNFNGHdvmCH0J+16xN+JwHu/P8yHIvYg2371jvS
- u3yX7JErH/jggRLDUAmRc16a5YjAAp+7Z9J6J3u+5uOJJUXXAFTgRBGiGbJXWLazPQ
- yJq7vrGIMaR4ggD+JXVYwoXS+3yzAQizAzE22MaVJVeAiV5tvdCIbIHChRykobOFzZ
- jzqr6FPjpEPBLb1kFYi+/56sE/NAtW9/hkSSAHenLPQ7cS8wshfyeaY8q6ymlZKPqm
- y+AYznomLOIDSdyXZZRniM5d1ydIzexaw1y4drgn5N4Ke63FRNlhMSLFLP7HDHifdk
- dp42sHcVwJZTw==
+ s=default; t=1772025576;
+ bh=XWR3PTD9PvlVyf4ItzdXRNZmhDejNV+hqUEQoIthRQU=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=XUKI1iCm9qYNpbYzQ7yPWW2Vtr4UM/rPR4ihDlTX6iBku6J/v2Ik8xdEDCJVCEkp3
+ pMLw6ch33yfjUFYg5EVHV39iD9VhKz1zsbVELg0OzKJudIFGPbkGqVzcxWLsOrwN9i
+ iBrTnqZ3wYpXNFElxxD1xPscYwkQo4LgwaEy9g6r98sEeaJf6C66p+O2zPakyYFQZA
+ 17kBSb3hUZIl7BitqFAnief/0vcjckZ361uFMNWKIRRNnBDxlu3YscPTH859oeGYl8
+ aWZLFPjgItJXTwzx8cvp6t80Wqph/Zb+s3ni3fwbbM8HAV12G5GMYwdc5Zth+twdN/
+ GoC4a+LHtoScQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 00/25] Test PREEMPT_RT on i915 with selftest
- fix.
-Date: Wed, 25 Feb 2026 14:19:04 +0100
-Message-ID: <20260225131931.60724-1-dev@lankhorst.se>
+Subject: [i915-ci-only NO-REVIEW 03/25] drm/intel/display: Make
+ intel_crtc_arm_vblank_event static
+Date: Wed, 25 Feb 2026 14:19:07 +0100
+Message-ID: <20260225131931.60724-4-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
+References: <20260225131931.60724-1-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -49,78 +51,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is PURELY a CI run. I want to see what happens if I change
-the igt_atomic selftests to use a sleeping context instead. I do
-believe that there should be no functional change, and it's not
-necessary to convert the uncore lock to a raw spinlock.
+Only used inside intel_crtc.c now, so no need to export it any more.
 
-I hope I'm right!
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ drivers/gpu/drm/i915/display/intel_crtc.c | 2 +-
+ drivers/gpu/drm/i915/display/intel_crtc.h | 1 -
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-Maarten Lankhorst (20):
-  drm/vblank_work: Add methods to schedule vblank_work in 2 stages
-  drm/vblank: Add a 2-stage version of drm_crtc_arm_vblank_event
-  drm/intel/display: Make intel_crtc_arm_vblank_event static
-  drm/intel/display: Convert vblank event handling to 2-stage arming
-  drm/i915/display: Move vblank put until after critical section
-  drm/i915/display: Remove locking from intel_vblank_evade critical
-    section
-  drm/i915/display: Handle vlv dsi workaround in scanline_in_safe_range
-    too
-  drm/i915/display: Make get_vblank_counter use intel_de_read_fw()
-  drm/i915/display: Do not take uncore lock in i915_get_vblank_counter
-  drm/i915/display: Make icl_dsi_frame_update use _fw too
-  drm/i915/display: Use intel_de_read/write_fw in colorops
-  drm/i915/display: Use intel_de_write_fw in intel_pipe_fastset
-  drm/i915/display: Make set_pipeconf use the fw variants
-  drm/i915/display: Fix intel_lpe_audio_irq_handler for PREEMPT-RT
-  drm/i915/gt: Fix selftests on PREEMPT_RT
-  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-  drm/i915/display: Remove uncore lock from vlv_atomic_update_fifo
-  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
-  PREEMPT_RT injection
-  FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-
-Mike Galbraith (1):
-  drm/i915: Use preempt_disable/enable_rt() where recommended
-
-Sebastian Andrzej Siewior (4):
-  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
-    spin_lock()
-  drm/i915: Drop the irqs_disabled() check
-  drm/i915/guc: Consider also RCU depth in busy loop.
-  Revert "drm/i915: Depend on !PREEMPT_RT."
-
- drivers/gpu/drm/drm_vblank.c                  |  61 +++++++++-
- drivers/gpu/drm/drm_vblank_work.c             | 106 ++++++++++++----
- drivers/gpu/drm/i915/Kconfig                  |   1 -
- drivers/gpu/drm/i915/Kconfig.debug            |  15 ---
- drivers/gpu/drm/i915/display/i9xx_wm.c        |   4 -
- drivers/gpu/drm/i915/display/icl_dsi.c        |   4 +-
- drivers/gpu/drm/i915/display/intel_color.c    |   6 +-
- drivers/gpu/drm/i915/display/intel_crtc.c     |  86 ++++++-------
- drivers/gpu/drm/i915/display/intel_crtc.h     |   1 -
- drivers/gpu/drm/i915/display/intel_cursor.c   |   8 +-
- drivers/gpu/drm/i915/display/intel_de.h       |   8 ++
- drivers/gpu/drm/i915/display/intel_display.c  |  46 +++----
- .../gpu/drm/i915/display/intel_lpe_audio.c    |   2 +-
- drivers/gpu/drm/i915/display/intel_vblank.c   | 115 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_vblank.h   |   1 +
- drivers/gpu/drm/i915/display/intel_vrr.c      |  18 +--
- drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
- .../drm/i915/gt/intel_execlists_submission.c  |  17 +--
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
- drivers/gpu/drm/i915/i915_request.c           |   2 -
- drivers/gpu/drm/i915/intel_uncore.h           |  26 ++--
- drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 ++
- drivers/gpu/drm/xe/Kconfig.debug              |   5 +
- .../drm/xe/compat-i915-headers/intel_uncore.h |   7 ++
- include/drm/drm_vblank.h                      |  14 ++-
- include/drm/drm_vblank_work.h                 |  12 ++
- kernel/Kconfig.preempt                        |   4 +-
- lib/Kconfig.debug                             |   4 +-
- 29 files changed, 383 insertions(+), 209 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index b8189cd5d864a..296f7a7b962fa 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -638,7 +638,7 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
+ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
+ #endif
+ 
+-void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
++static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	unsigned long irqflags;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.h b/drivers/gpu/drm/i915/display/intel_crtc.h
+index 12507b51ee77e..f65cbafe2b42a 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.h
++++ b/drivers/gpu/drm/i915/display/intel_crtc.h
+@@ -33,7 +33,6 @@ int intel_usecs_to_scanlines(const struct drm_display_mode *adjusted_mode,
+ 			     int usecs);
+ int intel_scanlines_to_usecs(const struct drm_display_mode *adjusted_mode,
+ 			     int scanlines);
+-void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state);
+ void intel_crtc_prepare_vblank_event(struct intel_crtc_state *crtc_state,
+ 				     struct drm_pending_vblank_event **event);
+ u32 intel_crtc_max_vblank_count(const struct intel_crtc_state *crtc_state);
 -- 
 2.51.0
 
