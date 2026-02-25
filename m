@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DCF6FD374E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9513FD375D
 	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB24210E789;
-	Wed, 25 Feb 2026 13:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A4CA10E785;
+	Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Qi0o5gnL";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="mIO/pNuC";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD09F10E77D
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A33F10E787
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025591;
- bh=/YttZUgmn62XSEh0hwiLQG2joTYu/zUwyvhm/nBW/W4=;
+ s=default; t=1772025595;
+ bh=Qyjkrg23NvqAtrZ6SXaT7ACN9JWfiY1iU+ZEiaE5bX4=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=Qi0o5gnL/G6WoJzthXXjea5hCfQlaU2pfurwOIbe/SASz7Cmm01T27adsvx2RnPit
- BoC3gs/xaonelbbCeEZcz3Tl61b0Ed6qeqR7SC5xWDS8jCgXFGBpKGxCuk/4Yp+r76
- pUc5EfhPez/l0gDqp8Rh7dO2uBN2LQg75FZjRUDuT2rOQLvZ44Y8cuHkmZEs0k/1xP
- sslYbpfKLbn9oBgiUQHjmugwlnMfWtGHTA21EQnSFQ1pHsfMmcrj9Nw8muVIKc++aU
- hYV6KgF77L5hIkpdl0dPKmrQJKC1l6VquYaoZRYwegbE0Ae5EHZnvMkLvlOz8cBAfH
- NSnp/TVqpsuaw==
+ b=mIO/pNuCKtk7gb8y/PXDopTwU/5rPRa8JEtEQESMZFyXzpd1nxoqWkXugHrSzEjG1
+ zhAbBAZlTMQNcHcdH9OaE4SDkQftP78yDoPgEwcAjT5hjM7U3wu3nLIn5bUWh5+O6X
+ l85AN7A8qfRfm4ySBuchHlKFwV6SjSHM9PuHLPcia1FA+0wDSWUt7zeutR80XVUldJ
+ RLNMSUKNkTSQKmXHZBP9MDIdniqvI43SfTjn51qIG7IlbXn8IJXZA2a5B4aNUUPfwa
+ +beUO+BQB1W5cXM2kFzhnYoBiDCtOmXN0ipOFoX3GxFkgfe59z8Ecf+TkXsXZR9R2Y
+ /TV5wnlfHPkZg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 19/25] drm/i915/gt: Fix selftests on
- PREEMPT_RT
-Date: Wed, 25 Feb 2026 14:19:23 +0100
-Message-ID: <20260225131931.60724-20-dev@lankhorst.se>
+Subject: [i915-ci-only NO-REVIEW 23/25] Revert "drm/i915: Depend on
+ !PREEMPT_RT."
+Date: Wed, 25 Feb 2026 14:19:27 +0100
+Message-ID: <20260225131931.60724-24-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
 References: <20260225131931.60724-1-dev@lankhorst.se>
@@ -51,43 +51,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+Once the known issues are addressed, it should be safe to enable the
+driver.
+
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-index 10e556a7eac45..c1eff9edd8a5e 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
- 		st_engine_heartbeat_disable(engine);
- 
- 		ENGINE_TRACE(engine, "measuring idle time\n");
--		preempt_disable();
-+		migrate_disable();
- 		de = intel_engine_get_busy_time(engine, &t[0]);
- 		udelay(100);
- 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
--		preempt_enable();
-+		migrate_enable();
- 		dt = ktime_sub(t[1], t[0]);
- 		if (de < 0 || de > 10) {
- 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
-@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
- 		}
- 
- 		ENGINE_TRACE(engine, "measuring busy time\n");
--		preempt_disable();
-+		migrate_disable();
- 		de = intel_engine_get_busy_time(engine, &t[0]);
- 		mdelay(100);
- 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
--		preempt_enable();
-+		migrate_enable();
- 		dt = ktime_sub(t[1], t[0]);
- 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
- 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 5e939004b6463..40a9234e6e5dc 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -3,7 +3,6 @@ config DRM_I915
+ 	tristate "Intel 8xx/9xx/G3x/G4x/HD Graphics"
+ 	depends on DRM
+ 	depends on X86 && PCI
+-	depends on !PREEMPT_RT
+ 	select INTEL_GTT if X86
+ 	select INTERVAL_TREE
+ 	# we need shmfs for the swappable backing store, and in particular
 -- 
 2.51.0
 
