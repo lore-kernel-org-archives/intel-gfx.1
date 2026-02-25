@@ -4,105 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F8D2FEFB50
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3359FEFB4F
 	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 13:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B099410EB6B;
-	Fri, 27 Feb 2026 13:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AB3510EB6D;
+	Fri, 27 Feb 2026 13:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZRahhQ0+";
+	dkim=pass (2048-bit key; unprotected) header.d=columbia.edu header.i=@columbia.edu header.b="NZaA/URT";
 	dkim-atps=neutral
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
- [209.85.221.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2206C10E355
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:01:21 +0000 (UTC)
-Received: by mail-vk1-f182.google.com with SMTP id
- 71dfb90a1353d-5688c221fd3so2876949e0c.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 05:01:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772024480; cv=none;
- d=google.com; s=arc-20240605;
- b=ePjFxlgLD4+f3PwNVmYjN0sHY/3BekdrCUZi7QQdw5n650dcrcbggbmKx0lL9zUsAr
- 7hVNiQkWKVmEnU/d8wc/Oskzaez6WfMcc4rvy6NaHhe/eoPVk39vtE1OqBz9g1Z/t2jc
- LZqpwbxEV/IrJ3Spx9o8O6TsHSycc7Ay+trCf2VZvD2B73spn03rx+QxHsEpt/+nNTXq
- plg/eQP3eOVNfWXKCOeKxLqN+1bh2NWUz6bIFY2MwUxf1zStnoUcfU5MBNDUKmghh7q4
- /gcIpAMqVRBTzt60goZEqOxA1CKcv5izyL/Y83sVKG6qxuoMSEbIESkitl0fkWgUuI9W
- VcNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Gdcuy9iaPpeMvNyOTp4uTsufvW1t3dj/0T0Nt9nk9jk=;
- fh=7Wd6blE6AybHQ8i5Zn2wUVaHD/Vs1CVMRe5hqLJPsWA=;
- b=kyZ2AmY3iTDwTf1YIaJYIUyQUgwukeihvfEwql+Hz1380GvPbQNafLWy0Y3fhNqmvl
- QxCDhoB4HCAhpfapR033EiJnFAXu9SXR78bCe+VEdXMQwiNKmKwCx5rcZ09nt8sWck9J
- AxsjdJ98qK37rzidBRnOKbPqy3Qmv1Rf7MeEceJ9y920EI6z6IcDl6QH0y8Tp5bwGeTd
- T17uqGu83FxINzyCv+WYWkHCMPY+BE4/dZsdxR/3Obxgnrj6Vg0Lm1IvzzaAlDZ5SVvu
- kamR4vMqyIInqtj6kPyuSVmA/c6eskBc/+6dSHtCeNeOOvFbvnT6XZ/OuLyLxtG9RSV+
- +t8A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772024480; x=1772629280; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Gdcuy9iaPpeMvNyOTp4uTsufvW1t3dj/0T0Nt9nk9jk=;
- b=ZRahhQ0+ACEgMCM+crn02npT1O+ESZYwQTlGuex3CaUjMQwoHpnUw76iKcfmHuHmwr
- eRA+9eZHIY6ry9v+vTT7GjqiJJEvznOunKw7Mzak6Omux69OAtRm+ZM9v1HBI5WIxPF/
- 7DyJb/t2KHl1NHmHGozm1RDYhINkUQmaHWGQn2WQhtZGg7kUfwS/R1bLx8dRGkc8Cihi
- 5OTpWxYBKRh2VeSo9xg01dUapYr8i1H+bRfmkDyFyCIiqI/zJe6dcWtqOysF150zfQXJ
- dRY/g/5hU5PxaGsSCOiR1nwdB2697jEzWzXcpPMYlpRSE9a5EqZY3kfhjkBgFsxdU+P2
- bnAw==
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com
+ [148.163.139.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2D2810E848
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 00:05:36 +0000 (UTC)
+Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
+ by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 61PNN4Ov3370949
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 18:44:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=pps01; bh=05jgbknsbqZP1uCdgxmv7u4HMp
+ tdcfek0XZsU81eJwo=; b=NZaA/URTtN755x3xQdd19/fuZUZtYv1FQpcevc3XwH
+ GiJ5HRxGcY9iy/OYljXRxusFlBguMsPnyZDcmgj6ga3FB3ZEB6s8V8MYK1RQkRqs
+ 73E3y2Il0kMvjM1FeCKvErS6Ge1o+L/OrnSKHrzy/0gMDrz4XGhlptm9EW5EZsiN
+ KbNXNDLUxHRAHYoImMhwtPfSo5MKLD5TPNctjPWYbFCDuzg3+QLXfj4h+8nzvl+h
+ eF35anfVfxgICHTPN/s3s6nvmvXB97+RSUwbstEdYahxR2kI4oqGBDlsjZPhkjFA
+ 35Gntn163Y2SMifNAIheBj42FBACqKtXgkrnpRQmM3NQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4chs0qf8ru-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 18:44:40 -0500 (EST)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-899b12d76adso29866166d6.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 15:44:40 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772024480; x=1772629280;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Gdcuy9iaPpeMvNyOTp4uTsufvW1t3dj/0T0Nt9nk9jk=;
- b=P3kmcQE4tuK2tuuoR+pJAwFEz8kXQ06ishyciH7aaOSjo3zJHtVwkoE3NeltJwf/yd
- cPE89l2AxfVmhDs6EiE8aDEO4gLUFb5cMmV31+bnhpy4f449RKomvWxueaq02PtFsMeR
- GbHeVk5jXxLYqjkdcXu2gxaZPeT443Ev4honj/ensUmt9h1a8IZ7wSoqrwoZOnurRzI3
- eUyNV8u22omAftj1MOfrR48pipzJ9sII2/RDwb1CGsDeTf8C7PpLRyTrgS3CL7Ebb12u
- qhnkSVVMzmpx3wI+NWsxc/5GYXYGOMS6vrrVUOpGbJWv/c9A2Y4elkKaGwEHoJ1RhRC2
- XXfQ==
+ d=1e100.net; s=20230601; t=1772063080; x=1772667880;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=05jgbknsbqZP1uCdgxmv7u4HMptdcfek0XZsU81eJwo=;
+ b=d20x74Ebk3Ec7PRBTBIJg9m/Dc44kWftVWCyL0xY9F8639ytYt0tR6/Z1gRA/7Hz6r
+ okuBUzoQSnu+M9tXXYyzFeSCHZKxjijSXxUmgAaoz2MKNTAxiL0DbjtxJftGXxfUE8vq
+ O7Gt6zu+XW9iaomJX+xOvxjKe+1HyrBa30KO6yH8mfnzVmt8HytX92bqiVNPFnRUVJ3p
+ xDm6uIEoNVUAqPnMO7yX94mje5wquzLML5lL1knIyHk4LDoQQ9rz7IxbUNlGDdiBQV8F
+ ahNkrtdqEIAPg+l2zK7bpGZaoryUgzHsw6HmQpRl424z/Yn0ecaY0iy2n1HXS8jaPS0F
+ IzGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV6U3+y+8VLPNdZLNHjIavrcX3YxYs7vY6I3J/5iZtByxNKWXMH7Hy/KHbEFxQQW2wwzuHx7nTFLqE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyW2DwPL5z06bRAw36ZW6L5X7og/0fttQCz49WAaQeND9xxU004
- lZ5k7EBT3cwE1p4tiCIXrXAvXEeT+vRe0LX5GNzScjm7G4C8r4csMxt9U9gdHwQ6PbiNx3Qug7U
- AFkbWtBA65mmoP7908v/Hy5yxouUkRY0=
-X-Gm-Gg: ATEYQzyPHPRrZXRvlZq/S4edmmoIP9ZjkL0kK1P2mu7HtTiG7QIJ5FD2Yf4DJgZdjhZ
- fWsGWEFiA7NXY0BzfZc5jxyssVof7ElzdKXA8zBW4Hjv1x9w90Kd1NBmbfekUIkSNexJlZDf5oa
- T+D9lK3b3s9+GCWXE/k5dbT/s6cyEGHApcHTwrQ8VcY0OUry5PuQBeMJSLDcqstAjD95KT75+Mp
- v7Kme65c8pTl6k0xqdIntqBHicDTIEaoVWowJXw84aQhl6JEvjh9qdxpI5G+HahEII+J+vjdA8+
- AYKGKz1GSE6aTEPCC6TFYB7E8j/q/EhBEt2FvM4SD9ZpNSHYWw6lVZksPbFn6Ar55Joi8P8uf5Q
- 1ZfoWSxwjAA==
-X-Received: by 2002:a05:6102:c48:b0:5fe:13bc:f13a with SMTP id
- ada2fe7eead31-5feb30f2f8bmr6491053137.36.1772024478156; Wed, 25 Feb 2026
- 05:01:18 -0800 (PST)
+ AJvYcCUglwL5Lhx7KTeBk3jLobdjnuYg7IaklhYftHR+ijHfenML+nmU5tUkiTAoxAV8RiHBuusE1ylq3O4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywoh4Tma8Ft4cW3wUIHJ6xTzys4aJ/1pO1FRo+5xd+Qy9Wf90B8
+ egoLtr49XAxFcHwcMdBI9LaB1yEI5fe31QO9ySyys9UhvJjWZyXOMk7LHxrEr3hFaA2SRFy7NgZ
+ jku0XinsK4fYz1yzIDzoxfkni/OVg6sivbKxnnUGg/8HpnY8S0PPbGtdDBDokRCoRwg==
+X-Gm-Gg: ATEYQzwVzJlciiHNIeVwn7Y//wM+kmYudp2yFeJ6cpAinljaYtAvvm4+oMFboBKvb9p
+ dKXumI0oF48y9OiplpYzbDnCdfqCtl3vxcNWTRbcwTqZEIdqoH+zODwoHftcIdqOVvCYMu5IvcY
+ iswMv1wI4aPCIXZ7/UbLTvg+y9kkYoSN+ymsxJ+ckymi35aGWzwFACmNlqBFXGlsshxvpbi7rf3
+ UGeehgyuUOB/qDFjeWVRxpqPZVVz18lzAMYIXMxEZgbkAUr9rVHOM6MGkZvAvml9xAWp1N5wgxQ
+ ipCWwR8YCx1rpRLGXMgmGzq1LdAFvTPw1BmfbNY9DpE0vMcmAYCBKdcHW3Q8X366PHF+sCGQpwQ
+ UYQWWte/aQZOaLlM7ttLJasOOxehSvtq2
+X-Received: by 2002:a05:6214:4387:b0:894:663f:cb4b with SMTP id
+ 6a1803df08f44-89979e31f4amr253354886d6.7.1772063080176; 
+ Wed, 25 Feb 2026 15:44:40 -0800 (PST)
+X-Received: by 2002:a05:6214:4387:b0:894:663f:cb4b with SMTP id
+ 6a1803df08f44-89979e31f4amr253353936d6.7.1772063079588; 
+ Wed, 25 Feb 2026 15:44:39 -0800 (PST)
+Received: from [127.0.1.1] ([216.158.158.246])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-899c738d80bsm3357606d6.41.2026.02.25.15.44.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Feb 2026 15:44:39 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH v2 0/4] mm: Remove stray references to pagevec
+Date: Wed, 25 Feb 2026 18:44:24 -0500
+Message-Id: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
 MIME-Version: 1.0
-References: <CAD0gVBsyzYNA6ydPwg9mJ9VQzYg4zPAi24JQ13-=0KtdbQ039A@mail.gmail.com>
- <CANiDSCsMVE7qAcjcjbjhYSMoyypkR5Nq-ZA-e=CJVY5CUGAG7Q@mail.gmail.com>
- <068a5363-de97-4d67-94a9-c9a2baed68b0@leemhuis.info>
-In-Reply-To: <068a5363-de97-4d67-94a9-c9a2baed68b0@leemhuis.info>
-From: =?UTF-8?B?QW5kcsOpcyBQw6lyZXo=?= <andres.f.perez@gmail.com>
-Date: Wed, 25 Feb 2026 13:00:55 +0000
-X-Gm-Features: AaiRm53w9VqfdeuFM3tO4rVuI77Og9DiXXronH78foC19VF0BgkGYZqa119Jqws
-Message-ID: <CAD0gVBvB6grt+Px_KV15eFFp8akuttEk6XY_r6L1yyuP75K+7A@mail.gmail.com>
-Subject: Re: [REGRESSION] Display freeze on VT switch back to X11 since v6.16
-To: Thorsten Leemhuis <regressions@leemhuis.info>
-Cc: Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFiJn2kC/3WNQQ6CMBBFr0JmbQ0dsBpX3sMQU9oBJkFoWttoS
+ O9uZe/yveS/v0EgzxTgWm3gKXHgdSmAhwrMpJeRBNvCgDWqGvEknB4pkXmYmfQSnbDt2Uhl+np
+ AC2XlPA383ov3rvDE4bX6z36Q5M/+byUppGguhNiqRjUWb2ad47NnfSQbocs5fwEZhc9ksQAAA
+ A==
+X-Change-ID: 20260225-pagevec_cleanup-d47c16cb0f2d
+To: David Howells <dhowells@redhat.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <bhe@redhat.com>, Barry Song <baohua@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>,
+ Dan Williams <dan.j.williams@intel.com>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Theodore Ts'o <tytso@mit.edu>
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
+ Paulo Alcantara <pc@manguebit.org>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Steve French <sfrench@samba.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
+ Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>,
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
+ Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ netfs@lists.linux.dev, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, gfs2@lists.linux.dev,
+ linux-nilfs@vger.kernel.org, linux-xfs@vger.kernel.org,
+ cgroups@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.14.3-dev-d7477
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772063077; l=3877;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=RPYa8SOtCEMGYvfhLiG7oMZP0LUGjYMFBvMU/E6aYSQ=;
+ b=N/1edh2L6XTHkwD9ieSfOXn9kYa5DYTkRpLgb6W+Pjo3fqU/OShuTpJ0EUyLfSHC66PI9wcY+
+ BU8+4Nx0zdtBWryBzWRqlHj5gGJzMg+bWxBXZztU9BaHETUf5RWJ+Bm
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Authority-Analysis: v=2.4 cv=ZbYQ98VA c=1 sm=1 tr=0 ts=699f8968 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=mD05b5UW6KhLIDvowZ5dSQ==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=x7bEGLp0ZPQA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
+ a=VwQbUJbxAAAA:8 a=C2eTfLYCeeefI48a-yAA:9 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: QoUsdwu9KDBg754O7jiN3RFme2JQtRCk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI1MDIyNyBTYWx0ZWRfX+cZ8tpZw8Jsq
+ 6+tArWVX9YtcU1RMpcj7trRGyyk1n0zxsOV5P9C3HglqRK4GFC0IR9yBr1NkNUDJ/3/dQ4JUl67
+ 48XsT8F12wIREuaX+bAmL+ZqKHnOsRUDF9CeZTPcVRZP7nehXoQ2BckWukPV2o/OoSmfz9hmmEu
+ HKOqno/dRKP/xo1sifze/nW90XV7VLoI5Ps4w5gYOiN+1O2XHNziuRzY8K4xfCpQ1JiPUBEdZ03
+ D8mlXAl48qTEpdAVpJQ2wp9yl3cLBgV/kO8E9coy14wCGrYc5aNh+fbcuEe174nzi+IaNxa978l
+ R2MCgxAWfvgZJjU+to4efbXZVw5mx5gP1/a2INFKrFQ5MwZDTLb6cruJQPeZ+3bxpoJCONRXXaI
+ coEHyrxNGXwxgVvvMeG8fXvKUvKkS4TG0G/UsDTyh9k/I+gaNZHxRPdZyZrd4AKPOGG3Lz1F3gf
+ O/n+jw+rT9nQrIA4OEQ==
+X-Proofpoint-ORIG-GUID: QoUsdwu9KDBg754O7jiN3RFme2JQtRCk
+X-Proofpoint-Virus-Version: vendor=nai engine=6800 definitions=11712
+ signatures=596818
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 suspectscore=0 impostorscore=10
+ priorityscore=1501 phishscore=0 spamscore=0 bulkscore=10 adultscore=0
+ lowpriorityscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
+ definitions=main-2602250227
 X-Mailman-Approved-At: Fri, 27 Feb 2026 13:41:00 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,236 +193,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thorsten,
+struct pagevec was removed in commit 1e0877d58b1e ("mm: remove struct
+pagevec"). Remove any stray references to it and rename relevant files
+and macros accordingly.
 
-So I built vanilla 7.0-rc1. I also added these kernel params:
-    nvidia-drm.modeset=3D0
-    modprobe.blacklist=3Dnvidia,nvidia_drm,nvidia_modeset,nvidia_uvm
-    rd.driver.blacklist=3Dnvidia,nvidia_drm,nvidia_modeset,nvidia_uvm
+While at it, remove unnecessary #includes of pagevec.h (now
+folio_batch.h) in .c files. There are probably more of these that could
+be removed in .h files, but those are more complex to verify.
 
-then I booted into it. this is what my nvidia loadout looks like on my
-usual 6.18.9:
-    + uname -r
-    6.18.9-arch1-2
-    + lsmod
-    + grep -E nvidia|nouveau
-    nvidia_drm            147456  3
-    nvidia_modeset       2121728  3 nvidia_drm
-    nvidia_uvm           2568192  0
-    nvidia              16306176  34 nvidia_uvm,nvidia_modeset
-    drm_ttm_helper         16384  2 nvidia_drm,xe
-    video                  81920  4 thinkpad_acpi,xe,i915,nvidia_modeset
-    + lspci -nnk
-    + grep -iA2 VGA\|3D\|Display
-    00:02.0 VGA compatible controller [0300]: Intel Corporation
-TigerLake-H GT1 [UHD Graphics] [8086:9a60] (rev 01)
-        Subsystem: Lenovo Device [17aa:22d8]
-        Kernel driver in use: i915
-    --
-    01:00.0 VGA compatible controller [0300]: NVIDIA Corporation
-TU117GLM [T1200 Laptop GPU] [10de:1fbc] (rev a1)
-        Subsystem: Lenovo Device [17aa:22d8]
-        Kernel driver in use: nvidia
+---
+Changes in v2:
+- Add tags from Matthew, David, and Chris (thanks!).
+- Add 3 new patches with more cleanups.
+- Link to v1: https://lore.kernel.org/r/20260225-pagevec_cleanup-v1-1-38e2246363d2@columbia.edu
 
-and this is what it looked like in vanilla 7.0-rc1 with blacklisted nvidia:
-    + uname -r
-    7.0.0-rc1-dirty
-    + lsmod
-    + grep -E nvidia|nouveau
-    + lspci -nnk
-    + grep -iA2 VGA\|3D\|Display
-    00:02.0 VGA compatible controller [0300]: Intel Corporation
-TigerLake-H GT1 [UHD Graphics] [8086:9a60] (rev 01)
-        Subsystem: Lenovo Device [17aa:22d8]
-        Kernel driver in use: i915
-    --
-    01:00.0 VGA compatible controller [0300]: NVIDIA Corporation
-TU117GLM [T1200 Laptop GPU] [10de:1fbc] (rev a1)
-        Subsystem: Lenovo Device [17aa:22d8]
-        Kernel modules: nouveau
+---
+Tal Zussman (4):
+      mm: Remove stray references to struct pagevec
+      fs: Remove unncessary pagevec.h includes
+      folio_batch: Rename pagevec.h to folio_batch.h
+      folio_batch: Rename PAGEVEC_SIZE to FOLIO_BATCH_SIZE
 
-when I did a VT switch, it froze. my 90s failsafe triggered and rebooted me=
-.
-then I rebuilt 7.0-rc1 with my patch, rebooted with the same efi
-loader, and was able to perform VT switching without any issues.
+ MAINTAINERS                                |  1 +
+ drivers/gpu/drm/drm_gem.c                  |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_shmem.c  |  2 +-
+ drivers/gpu/drm/i915/gt/intel_gtt.h        |  2 +-
+ drivers/gpu/drm/i915/i915_gpu_error.c      |  2 +-
+ fs/afs/internal.h                          |  1 -
+ fs/afs/write.c                             |  1 -
+ fs/btrfs/compression.c                     |  2 +-
+ fs/btrfs/extent_io.c                       |  6 +++---
+ fs/btrfs/tests/extent-io-tests.c           |  2 +-
+ fs/buffer.c                                |  2 +-
+ fs/ceph/addr.c                             |  2 +-
+ fs/dax.c                                   |  1 -
+ fs/ext4/file.c                             |  1 -
+ fs/ext4/inode.c                            |  2 +-
+ fs/ext4/page-io.c                          |  1 -
+ fs/ext4/readpage.c                         |  1 -
+ fs/f2fs/checkpoint.c                       |  2 +-
+ fs/f2fs/compress.c                         |  2 +-
+ fs/f2fs/data.c                             |  2 +-
+ fs/f2fs/f2fs.h                             |  2 --
+ fs/f2fs/file.c                             |  1 -
+ fs/f2fs/node.c                             |  2 +-
+ fs/gfs2/aops.c                             |  2 +-
+ fs/hugetlbfs/inode.c                       |  2 +-
+ fs/mpage.c                                 |  1 -
+ fs/netfs/buffered_write.c                  |  1 -
+ fs/nfs/blocklayout/blocklayout.c           |  1 -
+ fs/nfs/dir.c                               |  1 -
+ fs/nilfs2/btree.c                          |  2 +-
+ fs/nilfs2/page.c                           |  2 +-
+ fs/nilfs2/segment.c                        |  2 +-
+ fs/ocfs2/refcounttree.c                    |  1 -
+ fs/ramfs/file-nommu.c                      |  2 +-
+ fs/smb/client/connect.c                    |  1 -
+ fs/smb/client/file.c                       |  1 -
+ include/linux/{pagevec.h => folio_batch.h} | 16 ++++++++--------
+ include/linux/folio_queue.h                |  8 ++++----
+ include/linux/iomap.h                      |  2 +-
+ include/linux/sunrpc/svc.h                 |  2 +-
+ include/linux/swap.h                       |  2 --
+ include/linux/writeback.h                  |  2 +-
+ mm/filemap.c                               |  2 +-
+ mm/gup.c                                   |  2 +-
+ mm/memcontrol.c                            |  2 +-
+ mm/mlock.c                                 |  2 +-
+ mm/page-writeback.c                        |  2 +-
+ mm/page_alloc.c                            |  2 +-
+ mm/shmem.c                                 |  6 +++---
+ mm/swap.c                                  |  4 ++--
+ mm/swap_state.c                            |  4 ++--
+ mm/truncate.c                              |  8 ++++----
+ mm/vmscan.c                                |  2 +-
+ 53 files changed, 56 insertions(+), 73 deletions(-)
+---
+base-commit: 957a3fab8811b455420128ea5f41c51fd23eb6c7
+change-id: 20260225-pagevec_cleanup-d47c16cb0f2d
 
-Andr=C3=A9s
+Best regards,
+-- 
+Tal Zussman <tz2294@columbia.edu>
 
-On Mon, Feb 23, 2026 at 8:26=E2=80=AFAM Thorsten Leemhuis
-<regressions@leemhuis.info> wrote:
->
->
->
-> On 2/23/26 09:10, Ricardo Ribalda wrote:
-> > Hi Andr=C3=A9s
-> >
-> > Thanks for doing the bisecting
-> >
-> > On Sun, 22 Feb 2026 at 22:56, Andr=C3=A9s P=C3=A9rez <andres.f.perez@gm=
-ail.com> wrote:
-> >>
-> >> # OVERVIEW
-> >>
-> >> Since kernel v6.16.1, switching from an X11 session to a text VT and b=
-ack
-> >> freezes the display on a ThinkPad P15 Gen 2. The system remains respon=
-sive
-> >> over SSH; only the display is frozen. Bisecting identified commit
-> >> d1b618e7954802fe ("media: uvcvideo: Do not turn on the camera for some
-> >> ioctls") as the trigger. Reverting the logic change in that commit
-> >> fixes VT switching
-> >> on v6.16.1, v6.17.9, and v6.18.9, but that is not an actual solution. =
-Wayland
-> >> compositors (e.g., river and sway) are not affected.
-> >>
-> >> Last good:  v6.15.9
-> >> First bad:  v6.16.1
-> >> Bisect result: d1b618e7954802fe media: uvcvideo: Do not turn on the
-> >> camera for some ioctls
-> >>
-> >> ## Hardware:   Lenovo ThinkPad P15 Gen 2i (20YQ0031US)
-> >> CPU:        Intel Core i7-11800H (Tiger Lake-H)
-> >> iGPU:        Intel UHD Graphics (TGL GT1)
-> >> dGPU:       NVIDIA T1200 (not involved in eDP output; driver: nvidia-o=
-pen)
->
-> Could this be caused by nvidia's own driver, even if it is not supposed
-> to be involved? Might be worth ruling out with a proper vanilla kernel,
-> ideally really fresh, so 7.0-rc1.
->
-> Ciao, Thorsten
->
-> >> Display:    15.6" 1920x1080 eDP, 10 bpc capable (EDID 1.4)
-> >> Webcam:     Integrated Camera on PCH xHCI (Bus 003 Port 004)
-> >> Firmware:   LENOVO N37ET61W (1.97)
-> >> OS:         Arch Linux, Nix home-manager, X11 + xmonad, no display man=
-ager
-> >>
-> >> ## Symptoms and reproduction steps:
-> >> 1. Boot, start X11 on tty1 (startx).
-> >> 2. Switch to tty2 (Ctrl+Alt+F2): works.
-> >> 3. Switch back to tty1 (Ctrl+Alt+F1): display freezes.
-> >>    - Frozen on the last frame shown before switching away.
-> >>    - System is fully responsive over SSH.
-> >>    - Other VTs switch normally between each other as long as X11 is
-> >> not active on them.
-> >>    - Killing X does not recover the display. A reboot is required.
-> >>
-> >> # DEBUG ANALYSIS
-> >>
-> >> On v6.16.1, the VT switch back to X triggers a full modeset due to pip=
-e
-> >> configuration mismatches detected by intel_pipe_config_compare:
-> >>
-> >> [drm:intel_pipe_config_compare] fastset requirement not met in pipe_bp=
-p
-> >>   (expected 30, found 24)
-> >> [drm:intel_pipe_config_compare] fastset requirement not met in dp_m_n
-> >>   (expected link 269484/524288, found link 336855/524288)
-> >> [drm:intel_pipe_config_compare] fastset requirement not met in dpll_hw=
-_state
-> >>   (expected cfgcr0: 0xe001a5, found cfgcr0: 0x1c2)
-> >> [drm:intel_pipe_config_compare] fastset requirement not met in port_cl=
-ock
-> >>   (expected 270000, found 216000)
-> >> [drm:intel_atomic_check] forcing full modeset
-> >>
-> >> On v6.15.9, the same VT switch shows no such messages.
-> >> no pipe_config_compare runs, no modeset, no freeze.
-> >>
-> >> # BISECT AND VERIFICATION
-> >>
-> >> The bisect converged on d1b618e7954802fe in the uvcvideo driver. This
-> >> commit adds a switch statement to uvc_v4l2_unlocked_ioctl that allows
-> >> certain V4L2 IOCTLS to call video_ioctl2 directly without first callin=
-g
-> >> uvc_pm_get/uvc_pm_put. Prior to this commit, all ioctls called uvc_pm_=
-get
-> >> before video_ioctl2.
-> >>
-> >> ## VT switching verification across kernel versions:
-> >>
-> >>   v6.12.74 arch pkg:   WORKS
-> >>   v6.15.9 arch pkg:    WORKS
-> >>   v6.15.9 from source: WORKS
-> >>   v6.16.1 with d1b618e reverted:     WORKS
-> >>   v6.17.9 with PM wrapping restored: WORKS
-> >>   v6.18.9 with PM wrapping restored: WORKS
-> >>
-> >>   v6.16.1 from source:  FREEZES
-> >>   v6.16.1 arch pkg:     FREEZES
-> >>   v6.17.9 arch pkg:     FREEZES
-> >>   v6.18.9 from source:  FREEZES
-> >>   v6.18.9 arch pkg:     FREEZES
-> >>
-> >> ## Things that do not eliminate the freeze
-> >>
-> >>   - module_blacklist=3Duvcvideo on boot
-> >>   - CONFIG_USB_VIDEO_CLASS=3Dn (compiled out)
-> >
-> > This is puzzling me a bit... You are saying that if you do not build
-> > the uvc driver, the freeze is still happening?
-> >
-> > Am I understanding this correctly?
-> >
-> >>   - i915.enable_psr=3D0
-> >>   - Bypassing intel_vrr_transcoder_enable/disable (no-op)
-> >>   - xrandr --output eDP-1 --set "max bpc" 10
-> >>   - Xorg config FBDepth 30 (No effect on pipe_bpp)
-> >>
-> >> ## Workaround patch
-> >>
-> >> Reverting the optimization from d1b618e to restore the unconditional
-> >> uvc_pm_get/put wrapping for all ioctls. This is not a proper fix.
-> >>
-> >> diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/=
-uvc_v4l2.c
-> >> index 9e4a251eca88..15057b47ec4f 100644
-> >> --- a/drivers/media/usb/uvc/uvc_v4l2.c
-> >> +++ b/drivers/media/usb/uvc/uvc_v4l2.c
-> >> @@ -1199,33 +1199,12 @@ static long uvc_v4l2_unlocked_ioctl(struct fil=
-e *file,
-> >>   unsigned int converted_cmd =3D v4l2_translate_cmd(cmd);
-> >>   int ret;
-> >>
-> >> - /* The following IOCTLs need to turn on the camera. */
-> >> - switch (converted_cmd) {
-> >> - case UVCIOC_CTRL_MAP:
-> >> - case UVCIOC_CTRL_QUERY:
-> >> - case VIDIOC_G_CTRL:
-> >> - case VIDIOC_G_EXT_CTRLS:
-> >> - case VIDIOC_G_INPUT:
-> >> - case VIDIOC_QUERYCTRL:
-> >> - case VIDIOC_QUERYMENU:
-> >> - case VIDIOC_QUERY_EXT_CTRL:
-> >> - case VIDIOC_S_CTRL:
-> >> - case VIDIOC_S_EXT_CTRLS:
-> >> - case VIDIOC_S_FMT:
-> >> - case VIDIOC_S_INPUT:
-> >> - case VIDIOC_S_PARM:
-> >> - case VIDIOC_TRY_EXT_CTRLS:
-> >> - case VIDIOC_TRY_FMT:
-> >> - ret =3D uvc_pm_get(handle->stream->dev);
-> >> - if (ret)
-> >> - return ret;
-> >> - ret =3D video_ioctl2(file, cmd, arg);
-> >> - uvc_pm_put(handle->stream->dev);
-> >> + ret =3D uvc_pm_get(handle->stream->dev);
-> >> + if (ret)
-> >>   return ret;
-> >> - }
-> >> -
-> >> - /* The other IOCTLs can run with the camera off. */
-> >> - return video_ioctl2(file, cmd, arg);
-> >> + ret =3D video_ioctl2(file, cmd, arg);
-> >> + uvc_pm_put(handle->stream->dev);
-> >> + return ret;
-> >>  }
-> >>
-> >>  const struct v4l2_ioctl_ops uvc_ioctl_ops =3D {
-> >>
-> >> Andr=C3=A9s
-> >>
-> >
-> >
->
