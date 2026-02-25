@@ -4,41 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF886FEFB4F
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 13:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1B4CFEFB51
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 13:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0089510EB63;
-	Fri, 27 Feb 2026 13:41:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D214410EB5F;
+	Fri, 27 Feb 2026 13:41:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N4DCZVGH";
+	dkim=pass (2048-bit key; unprotected) header.d=columbia.edu header.i=@columbia.edu header.b="U1PIVhaQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FAA10E928;
- Thu, 26 Feb 2026 13:20:48 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2F3D040DA4;
- Thu, 26 Feb 2026 13:20:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDABC19422;
- Thu, 26 Feb 2026 13:20:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772112048;
- bh=kX30qZnPYCqfXb/76euKMO+o8GK+nW5VkIoRhP2qqC8=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=N4DCZVGHLhr0eBVQJieC3pRRNOvI49z81D2VdJU7sBWh4T/dHMdDAX5hzZ4PpRBNW
- BRAq078+anBNSSCiijh5OkpiqIYJfpx4294YGpYpgaRQbbP8SGLtoBU6rh9a1FWmwg
- SMHRRRvB40cIlPOpE5aMdYx0zO6bkUuB7JQPjuU0GcV+U39Xp9CP5szIB0aKctpq2g
- d+u7N0JiuNZ5PHI+yjzmsfgj+ZfpuRK4a85OFXXDp51NNqss2+suPBeMMB8LBAYrbd
- ueLNudkPWiaIkRW48GLkCxgdEUdzQySHZm0VcoWcIPqzcKgaOeXkBDt5p+PnSlggiO
- a+Pn9fTs5JkzA==
-Message-ID: <d8d35cd9-464d-46e5-8da6-cb0e45b1e582@kernel.org>
-Date: Thu, 26 Feb 2026 14:20:25 +0100
+X-Greylist: delayed 1153 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Feb 2026 00:03:55 UTC
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com
+ [148.163.139.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F5A10E870
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 00:03:55 +0000 (UTC)
+Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
+ by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 61PNNAx52878823
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 18:44:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pps01; bh=Q1k2
+ aRLcgmydoMd1dEiHPTc9xxnOTAMtx9b+CM6PXh0=; b=U1PIVhaQRwd3nbrNnYtm
+ L1no1lMCV2YmzeST//Dp/v7B3/cqL4T65QQrGFeq4b08zK5Y2bNTbh+NZ0dvRq8L
+ fWxAXdfzylJQAflLxh8iC6HUOyaR7ki6/xPgiP+/NrizW4D7zaK1w0+W4ErGSFUd
+ W0ErFErP2OIoxqkEv58jTOIg5iLwKzU7KKkGTTglXZHlYByD0dZEd4gm2XRonTBf
+ IAwk64JaWJh5SI6PlHFHgjkB1xFbM72XAqyzdYvOCmP5fAPuCzBajwGH0E/vZsKp
+ WVFnR0ForMBT3YjkIm2sCMYMPztXn+cqf57JO1rCfMS6vvmcio9eEyqAYlqMbGkD
+ Vw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71])
+ by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4chnrtr67b-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 18:44:45 -0500 (EST)
+Received: by mail-qv1-f71.google.com with SMTP id
+ 6a1803df08f44-896ff58f17aso27416516d6.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 15:44:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772063085; x=1772667885;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Q1k2aRLcgmydoMd1dEiHPTc9xxnOTAMtx9b+CM6PXh0=;
+ b=NUS1kCVespTXPm6Zb4k7WPeJsXe9IqI1oSmOJmDrJK1XSuuPqJhmusq6X8ZEVSUR/g
+ /zl4oUDBkMfVd2S8tLqJuLCfEhCmoGULjpARUfdrfaQXEbg/7wWTMNkThYwa6c8ry1dh
+ BeL19MbArZs8VOciWBUAhwKZTXINIO52Q5zlrMvRjASo26aJGDuylaGLwvPGr7iWSJIy
+ VBUuyupYMfF+I50nbyANCI5Loq2oxWdjEh5o8ERagepYENTATFhsefgxMiaAMLOj+HXo
+ O+1Ui8SJMFQziaXEi+DT86KkXfgzkg7oKfdXMtc4y9TUTQBsKvMDCOhVixRGGmJLF3Xd
+ uL7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVYIVGj9kWJPbT4+GY12WbeFm16Znr/5ecfja+hkSO6PJfvvmzro58db2dnLLSPmUj+nSCW46wNjO4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzkf6k4t2ncjzwzcMBMjX/WWTdNAA3lh0p/XTyXvSuH32zdCtnc
+ h2TNoSBroqzjLI9rqi0gVQmYleuZlOSosiyEWko1R+1O+jM/WXvjqVQCPofg0hbi0wUABL1ug8g
+ rDZGYBTmcJTpcCyTzPFPSy/4WIkMQ6E78IdBmDf0KRYUD3iAuzbVpwfKVd7muRFyfmQ==
+X-Gm-Gg: ATEYQzzmjCXE6YDNDtoG7F5eBjZ109sfSPDkELexWcJxtJIa+sBynJ/mQFrB6PvexRK
+ PUh/v+EcaHOww7U9EMoZ0iWjJu6Jt8HysKfnEWmqNkr4rQsnOukEU3RZ3LHACVHPL7r3b2uxYMq
+ VUAT95Ru/0p5cDCe96jZslhqju6PYxOVlVrlGJ7hizJ9da8OGIBivpZ2tzZMNIPCLG/l+a24qWK
+ kgzy2roTUHraYSpRgPJrkD2MdcBZ9F66Bzr8rUnB0V6aBI6Q3P0ayryJdV7kGDuUYM2F0KO1gCv
+ icHK4Qbw1vJfgQTgCYtGpG0OjVPuSAzZRwwXDSXVv2WV+tziXYWpRTxcbnTMzm4whwcV422lSLc
+ IPhDRFY1Ezl5kygw7LCy63WxwmE2F6UlH
+X-Received: by 2002:a05:6214:21ea:b0:895:7864:f69a with SMTP id
+ 6a1803df08f44-89979eedb2amr279116106d6.46.1772063084995; 
+ Wed, 25 Feb 2026 15:44:44 -0800 (PST)
+X-Received: by 2002:a05:6214:21ea:b0:895:7864:f69a with SMTP id
+ 6a1803df08f44-89979eedb2amr279115656d6.46.1772063084415; 
+ Wed, 25 Feb 2026 15:44:44 -0800 (PST)
+Received: from [127.0.1.1] ([216.158.158.246])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-899c738d80bsm3357606d6.41.2026.02.25.15.44.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Feb 2026 15:44:43 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Wed, 25 Feb 2026 18:44:26 -0500
+Subject: [PATCH v2 2/4] fs: Remove unncessary pagevec.h includes
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] folio_batch: Rename PAGEVEC_SIZE to
- FOLIO_BATCH_SIZE
-To: Tal Zussman <tz2294@columbia.edu>, David Howells <dhowells@redhat.com>,
- Marc Dionne <marc.dionne@auristor.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Chao Yu <chao@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260225-pagevec_cleanup-v2-2-716868cc2d11@columbia.edu>
+References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
+In-Reply-To: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
+To: David Howells <dhowells@redhat.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  "Liam R. Howlett" <Liam.Howlett@oracle.com>,
  Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
@@ -46,102 +95,86 @@ To: Tal Zussman <tz2294@columbia.edu>, David Howells <dhowells@redhat.com>,
  Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
  Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
  Baoquan He <bhe@redhat.com>, Barry Song <baohua@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Dan Williams
- <dan.j.williams@intel.com>, Jan Kara <jack@suse.cz>,
+ Matthew Wilcox <willy@infradead.org>,
+ Dan Williams <dan.j.williams@intel.com>, Jan Kara <jack@suse.cz>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>, Theodore Ts'o <tytso@mit.edu>
 Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
- Paulo Alcantara <pc@manguebit.org>, Trond Myklebust <trondmy@kernel.org>,
- Anna Schumaker <anna@kernel.org>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Steve French <sfrench@samba.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>,
- Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>,
+ Paulo Alcantara <pc@manguebit.org>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Steve French <sfrench@samba.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath SM <bharathsm@microsoft.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
  David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
  Alex Markuze <amarkuze@redhat.com>, Viacheslav Dubeyko <slava@dubeyko.com>,
  Andreas Gruenbacher <agruenba@redhat.com>,
  Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
  Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Chuck Lever <chuck.lever@oracle.com>,
- Jeff Layton <jlayton@kernel.org>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ "Darrick J. Wong" <djwong@kernel.org>,
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
  Roman Gushchin <roman.gushchin@linux.dev>,
  Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Brendan Jackman <jackmanb@google.com>,
- Zi Yan <ziy@nvidia.com>, Hugh Dickins <hughd@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
+ Hugh Dickins <hughd@google.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Qi Zheng <zhengqi.arch@bytedance.com>,
- linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev,
- linux-ext4@vger.kernel.org, netfs@lists.linux.dev,
- linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org,
- gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org,
- linux-xfs@vger.kernel.org, cgroups@vger.kernel.org
-References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
- <20260225-pagevec_cleanup-v2-4-716868cc2d11@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260225-pagevec_cleanup-v2-4-716868cc2d11@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ netfs@lists.linux.dev, linux-nfs@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, gfs2@lists.linux.dev,
+ linux-nilfs@vger.kernel.org, linux-xfs@vger.kernel.org,
+ cgroups@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.14.3-dev-d7477
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1772063077; l=5646;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=gYLxuKpY2d3qKNQKxivfKoBOKiAm81D0oxjvJeYJzNU=;
+ b=0+QFbVO+EVyu3LcoNlltI7+0YkfiOzPAREHRqHF+/vRJBoggqFw4V6DeYqoYE35EGaZ0z2yM5
+ xg7WRatCQDeAtdc5+Wn8weZAkk+lk9tyDOPYyXE2pnCtDyQNUNup7UV
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI1MDIyNyBTYWx0ZWRfXwhkQcO5KduHL
+ yrdFEnahBACcSggTD7VUjQjByy5V8Ty6cZTnI4SrvxH9YdFM0sj5DCDrgGPg28vj5FZvphoS4ED
+ qlD8N6gMYjqPeK/8T5phXgEZlf0nTKtcsUfotjTtZcrfj8qj8sLAZInk+YhSXlT+L2CC1WuDTba
+ B7Upk229kELQYOiDsjrNLrlkLTp2mnpTwL/XZH7YzEKavCXqaGfZjwqvYju8aXoa9+4Ths3NhrG
+ D4WuX0WJ3My3n3Sg3e9N1CcE3CQrLiZfBBsiiV3MWN68Vhb1vQatnht4wluDduqCOXuMaeaysmO
+ B+dQIHh4RlCm/yN9u113HF52t69lbZB7iSLT7RnPLoVh3bp/LENHKpXkj3cbgpIqBRDWlhjBNWQ
+ BzdGFjOKjQtsCLFauL4l1v9TD6t8oECiapiabStugvlTMKAgk4vVZ+J0b83j7xB7BdN8I7fqzbI
+ EF8GC3fFnKOqYAkpXgw==
+X-Authority-Analysis: v=2.4 cv=bcRmkePB c=1 sm=1 tr=0 ts=699f896d cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=mD05b5UW6KhLIDvowZ5dSQ==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=x7bEGLp0ZPQA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
+ a=_wBAnLaIECucki5onNwA:9 a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: 7Y4JEvixLFj3PcCG22YOWBkf_Je26JkN
+X-Proofpoint-GUID: 7Y4JEvixLFj3PcCG22YOWBkf_Je26JkN
+X-Proofpoint-Virus-Version: vendor=nai engine=6800 definitions=11712
+ signatures=596818
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=10 bulkscore=10 priorityscore=1501 phishscore=0
+ clxscore=1015 adultscore=0 impostorscore=10 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2602250227
 X-Mailman-Approved-At: Fri, 27 Feb 2026 13:41:00 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -158,15 +191,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 2/26/26 00:44, Tal Zussman wrote:
-> struct pagevec no longer exists. Rename the macro appropriately.
-> 
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
+Remove unused pagevec.h includes from .c files. These were found with
+the following command:
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+  grep -rl '#include.*pagevec\.h' --include='*.c' | while read f; do
+  	grep -qE 'PAGEVEC_SIZE|folio_batch' "$f" || echo "$f"
+  done
+
+There are probably more removal candidates in .h files, but those are
+more complex to analyze.
+
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+---
+ fs/afs/write.c                   | 1 -
+ fs/dax.c                         | 1 -
+ fs/ext4/file.c                   | 1 -
+ fs/ext4/page-io.c                | 1 -
+ fs/ext4/readpage.c               | 1 -
+ fs/f2fs/file.c                   | 1 -
+ fs/mpage.c                       | 1 -
+ fs/netfs/buffered_write.c        | 1 -
+ fs/nfs/blocklayout/blocklayout.c | 1 -
+ fs/nfs/dir.c                     | 1 -
+ fs/ocfs2/refcounttree.c          | 1 -
+ fs/smb/client/connect.c          | 1 -
+ fs/smb/client/file.c             | 1 -
+ 13 files changed, 13 deletions(-)
+
+diff --git a/fs/afs/write.c b/fs/afs/write.c
+index 93ad86ff3345..fcfed9d24e0a 100644
+--- a/fs/afs/write.c
++++ b/fs/afs/write.c
+@@ -10,7 +10,6 @@
+ #include <linux/fs.h>
+ #include <linux/pagemap.h>
+ #include <linux/writeback.h>
+-#include <linux/pagevec.h>
+ #include <linux/netfs.h>
+ #include <trace/events/netfs.h>
+ #include "internal.h"
+diff --git a/fs/dax.c b/fs/dax.c
+index b78cff9c91b3..a5237169b467 100644
+--- a/fs/dax.c
++++ b/fs/dax.c
+@@ -15,7 +15,6 @@
+ #include <linux/memcontrol.h>
+ #include <linux/mm.h>
+ #include <linux/mutex.h>
+-#include <linux/pagevec.h>
+ #include <linux/sched.h>
+ #include <linux/sched/signal.h>
+ #include <linux/uio.h>
+diff --git a/fs/ext4/file.c b/fs/ext4/file.c
+index f1dc5ce791a7..5e02f6cf653e 100644
+--- a/fs/ext4/file.c
++++ b/fs/ext4/file.c
+@@ -27,7 +27,6 @@
+ #include <linux/dax.h>
+ #include <linux/filelock.h>
+ #include <linux/quotaops.h>
+-#include <linux/pagevec.h>
+ #include <linux/uio.h>
+ #include <linux/mman.h>
+ #include <linux/backing-dev.h>
+diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+index a8c95eee91b7..98da200d11c8 100644
+--- a/fs/ext4/page-io.c
++++ b/fs/ext4/page-io.c
+@@ -16,7 +16,6 @@
+ #include <linux/string.h>
+ #include <linux/buffer_head.h>
+ #include <linux/writeback.h>
+-#include <linux/pagevec.h>
+ #include <linux/mpage.h>
+ #include <linux/namei.h>
+ #include <linux/uio.h>
+diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
+index 830f3b8a321f..3c7aabde719c 100644
+--- a/fs/ext4/readpage.c
++++ b/fs/ext4/readpage.c
+@@ -43,7 +43,6 @@
+ #include <linux/mpage.h>
+ #include <linux/writeback.h>
+ #include <linux/backing-dev.h>
+-#include <linux/pagevec.h>
+ 
+ #include "ext4.h"
+ #include <trace/events/ext4.h>
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index c8a2f17a8f11..c6b6a1465d08 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -17,7 +17,6 @@
+ #include <linux/compat.h>
+ #include <linux/uaccess.h>
+ #include <linux/mount.h>
+-#include <linux/pagevec.h>
+ #include <linux/uio.h>
+ #include <linux/uuid.h>
+ #include <linux/file.h>
+diff --git a/fs/mpage.c b/fs/mpage.c
+index 7dae5afc2b9e..e5285fbfcf09 100644
+--- a/fs/mpage.c
++++ b/fs/mpage.c
+@@ -28,7 +28,6 @@
+ #include <linux/mm_inline.h>
+ #include <linux/writeback.h>
+ #include <linux/backing-dev.h>
+-#include <linux/pagevec.h>
+ #include "internal.h"
+ 
+ /*
+diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+index 22a4d61631c9..05ea5b0cc0e8 100644
+--- a/fs/netfs/buffered_write.c
++++ b/fs/netfs/buffered_write.c
+@@ -10,7 +10,6 @@
+ #include <linux/mm.h>
+ #include <linux/pagemap.h>
+ #include <linux/slab.h>
+-#include <linux/pagevec.h>
+ #include "internal.h"
+ 
+ static void __netfs_set_group(struct folio *folio, struct netfs_group *netfs_group)
+diff --git a/fs/nfs/blocklayout/blocklayout.c b/fs/nfs/blocklayout/blocklayout.c
+index cb0a645aeb50..11f9f69cde61 100644
+--- a/fs/nfs/blocklayout/blocklayout.c
++++ b/fs/nfs/blocklayout/blocklayout.c
+@@ -36,7 +36,6 @@
+ #include <linux/namei.h>
+ #include <linux/bio.h>		/* struct bio */
+ #include <linux/prefetch.h>
+-#include <linux/pagevec.h>
+ 
+ #include "../pnfs.h"
+ #include "../nfs4session.h"
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 2402f57c8e7d..0d276441206b 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -32,7 +32,6 @@
+ #include <linux/nfs_fs.h>
+ #include <linux/nfs_mount.h>
+ #include <linux/pagemap.h>
+-#include <linux/pagevec.h>
+ #include <linux/namei.h>
+ #include <linux/mount.h>
+ #include <linux/swap.h>
+diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
+index c1cdececdfa4..b4acd081bbc4 100644
+--- a/fs/ocfs2/refcounttree.c
++++ b/fs/ocfs2/refcounttree.c
+@@ -31,7 +31,6 @@
+ #include <linux/blkdev.h>
+ #include <linux/slab.h>
+ #include <linux/writeback.h>
+-#include <linux/pagevec.h>
+ #include <linux/swap.h>
+ #include <linux/security.h>
+ #include <linux/string.h>
+diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+index 33dfe116ca52..9e57812b7b95 100644
+--- a/fs/smb/client/connect.c
++++ b/fs/smb/client/connect.c
+@@ -20,7 +20,6 @@
+ #include <linux/delay.h>
+ #include <linux/completion.h>
+ #include <linux/kthread.h>
+-#include <linux/pagevec.h>
+ #include <linux/freezer.h>
+ #include <linux/namei.h>
+ #include <linux/uuid.h>
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 18f31d4eb98d..853ce1817810 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -15,7 +15,6 @@
+ #include <linux/stat.h>
+ #include <linux/fcntl.h>
+ #include <linux/pagemap.h>
+-#include <linux/pagevec.h>
+ #include <linux/writeback.h>
+ #include <linux/task_io_accounting_ops.h>
+ #include <linux/delay.h>
 
 -- 
-Cheers,
+2.39.5
 
-David
