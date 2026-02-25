@@ -4,37 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0563FD3762
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D471FD375D
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:29:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F36F210E787;
-	Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1544E10E79F;
+	Wed, 25 Feb 2026 13:29:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="f90F6T12";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kXiuqk5R";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 882B010E78C
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025596;
- bh=lrcUxclBSkr+3S1JEQjxufiM7ar00+YY89+dveOvBfo=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=f90F6T12ceye01P719JHs0cOS5gopE+HLeAJ78fo1zgxzZBlbovswgl89zcnG5RxG
- ms3spI1J1c4a+2T3/V2/e5qwxjBE+HPmaA3LfLH2VDHXbiX50cte2QP724KE9OHzy1
- iKt4rmp9L50e4MEjq8/H1bXkeoKawvg0VeNJxMpz7A3mSyjAF4KWzlocuUFADgxZNL
- gU30Sa6Eu91MzO77zgI2fiqxQB/A+9QpX0thKhmlalsyXe4etcGLG6LbZ+7XUPMfup
- /SQezvwdHX9KfNhRTO6CRuTPdQK2+Nb5Z0nzwlrCQDEyDVVZrIpuqEQr/+B6umiYIj
- NlFkBUuF5pGIQ==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 24/25] PREEMPT_RT injection
-Date: Wed, 25 Feb 2026 14:19:28 +0100
-Message-ID: <20260225131931.60724-25-dev@lankhorst.se>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
-References: <20260225131931.60724-1-dev@lankhorst.se>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08B7110E79F;
+ Wed, 25 Feb 2026 13:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772026151; x=1803562151;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=DVgT5RMRNWekHbyHQc8KcLrs3cWTMG1K0k1HgAFeRF0=;
+ b=kXiuqk5RiDN1NE0lLQgR2rcHAdZWpPBFs6QADrmOU3UGjrwafGIwibCI
+ X0zZAlCk6aLyoTdClNdH7Tum+qBgKp5NwYhjqHKEAS8ypcww7qAvMJeXH
+ Be8BlgdmlCUtYaQJT6jIDetpkoYzc0ubYXqgTwXqqg783LzL8eWmtwwG8
+ vEXPvesLRWeTD3eU54IYG2z6s5K7oFG6OTa4uMYYTVf+dZrNTOo2E4/7y
+ wJxdM1ZFWHlEhnb7OvuOdEyYtewC01EV9rCgb5rTJvIa8a/CX287B6vqT
+ 22sBN789vMSkz8Dfnmx8bdk1OtnFm0RnaVSlE76Ut/egMjZaFx2K/rJq/ w==;
+X-CSE-ConnectionGUID: HTYDvouQSDa4pqEFbTzdkg==
+X-CSE-MsgGUID: fUwPy8L1SHq7AvqFWT4HKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="95679098"
+X-IronPort-AV: E=Sophos;i="6.21,310,1763452800"; d="scan'208";a="95679098"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2026 05:29:11 -0800
+X-CSE-ConnectionGUID: sFhDSqreQCuseaty/XGkng==
+X-CSE-MsgGUID: DqnRm6IwSjqOsCklKY3Y1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,310,1763452800"; d="scan'208";a="216116671"
+Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.68])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2026 05:29:07 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>, Jouni =?utf-8?Q?H?=
+ =?utf-8?Q?=C3=B6gander?=
+ <jouni.hogander@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH 4/5] drm/i915/psr: DSC configuration for Early Transport
+In-Reply-To: <528b9b9c-920d-4146-a4f7-97db356e7f28@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260219130743.1232188-1-jouni.hogander@intel.com>
+ <20260219130743.1232188-5-jouni.hogander@intel.com>
+ <528b9b9c-920d-4146-a4f7-97db356e7f28@intel.com>
+Date: Wed, 25 Feb 2026 15:29:04 +0200
+Message-ID: <62858fcc175b123862a5071265a65210428e3bc5@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,71 +75,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/Kconfig.debug | 15 ---------------
- drivers/gpu/drm/xe/Kconfig.debug   |  5 +++++
- kernel/Kconfig.preempt             |  4 ++--
- 3 files changed, 7 insertions(+), 17 deletions(-)
+On Wed, 25 Feb 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+> On 2/19/2026 6:37 PM, Jouni H=C3=B6gander wrote:
+>> There is Selective Update slice row per frame and picture height
+>> configurations needed on DSC when using Selective Update Early
+>> Transport. Calculate and configure these when using Early Transport.
+>>
+>> Bspec: 68927
+>> Fixes: 467e4e061c44 ("drm/i915/psr: Enable psr2 early transport as possi=
+ble")
+>> Cc: <stable@vger.kernel.org> # v6.9+
+>
+>
+> This patch needs the other patch where registers are defined. I am not=20
+> sure if stable will only pick this patch or will try to find out the=20
+> dependency patch.
+>
+> We need to check if there is a way to tell the dependency patch/commit=20
+> to stable, so that both patches are applied together.
+>
+> If we want this change to get ported to older kernels, we might need to=20
+> squash the register definition patch with this patch.
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 3562a02ef7adc..0ab10ff41e38d 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -233,21 +233,6 @@ config DRM_I915_LOW_LEVEL_TRACEPOINTS
- 
- 	  If in doubt, say "N".
- 
--config DRM_I915_DEBUG_VBLANK_EVADE
--	bool "Enable extra debug warnings for vblank evasion"
--	depends on DRM_I915
--	default n
--	help
--	  Choose this option to turn on extra debug warnings for the
--	  vblank evade mechanism. This gives a warning every time the
--	  the deadline allotted for the vblank evade critical section
--	  is exceeded, even if there isn't an actual risk of missing
--	  the vblank.
--
--	  Recommended for driver developers only.
--
--	  If in doubt, say "N".
--
- config DRM_I915_DEBUG_RUNTIME_PM
- 	bool "Enable extra state checking for runtime PM"
- 	depends on DRM_I915
-diff --git a/drivers/gpu/drm/xe/Kconfig.debug b/drivers/gpu/drm/xe/Kconfig.debug
-index 01227c77f6d70..1d5f11c6e88f3 100644
---- a/drivers/gpu/drm/xe/Kconfig.debug
-+++ b/drivers/gpu/drm/xe/Kconfig.debug
-@@ -30,6 +30,11 @@ config DRM_XE_DEBUG
- 
- 	  If in doubt, say "N".
- 
-+config DRM_I915_DEBUG_VBLANK_EVADE
-+        def_bool y
-+        depends on DRM_XE
-+
-+
- config DRM_XE_DEBUG_VM
- 	bool "Enable extra VM debugging info"
- 	default n
-diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
-index 88c594c6d7fcd..11bec9be95405 100644
---- a/kernel/Kconfig.preempt
-+++ b/kernel/Kconfig.preempt
-@@ -90,9 +90,9 @@ config PREEMPT_LAZY
- endchoice
- 
- config PREEMPT_RT
--	bool "Fully Preemptible Kernel (Real-Time)"
--	depends on EXPERT && ARCH_SUPPORTS_RT && !COMPILE_TEST
-+	def_bool y
- 	select PREEMPTION
-+	depends on ARCH_SUPPORTS_RT
- 	help
- 	  This option turns the kernel into a real-time kernel by replacing
- 	  various locking primitives (spinlocks, rwlocks, etc.) with
--- 
-2.51.0
+Nope. Neither we nor stable want dependencies squashed. They'll happily
+pick up extra dependency commits if needed, though.
 
+Someone(tm) just needs to let them know about the dependencies when they
+send the mail about (the presumably failed) backport attempt.
+
+BR,
+Jani.
+
+
+>
+>
+>> Signed-off-by: Jouni H=C3=B6gander <jouni.hogander@intel.com>
+>> ---
+>>   .../drm/i915/display/intel_display_types.h    |  1 +
+>>   drivers/gpu/drm/i915/display/intel_psr.c      | 24 +++++++++++++++++++
+>>   2 files changed, 25 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/driver=
+s/gpu/drm/i915/display/intel_display_types.h
+>> index e8e4af03a6a6..8903804c04b1 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+>> @@ -1381,6 +1381,7 @@ struct intel_crtc_state {
+>>   	u32 psr2_man_track_ctl;
+>>=20=20=20
+>>   	u32 pipe_srcsz_early_tpt;
+>> +	u32 dsc_su_parameter_set_0_calc;
+>
+> I think let's just have a bool parameter something like=20
+> psr_su_update_dsc_pps.
+>
+> We can set this bool variable during intel_psr2_sel_fetch_update()
+>
+>
+>>=20=20=20
+>>   	struct drm_rect psr2_su_area;
+>>=20=20=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/=
+i915/display/intel_psr.c
+>> index 331645a2c9f6..0a2948ec308d 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+>> @@ -2618,6 +2618,11 @@ void intel_psr2_program_trans_man_trk_ctl(struct =
+intel_dsb *dsb,
+>>=20=20=20
+>>   	intel_de_write_dsb(display, dsb, PIPE_SRCSZ_ERLY_TPT(crtc->pipe),
+>>   			   crtc_state->pipe_srcsz_early_tpt);
+>> +	intel_de_write_dsb(display, dsb, DSC_SU_PARAMETER_SET_0_DSC0(crtc->pip=
+e),
+>> +			   crtc_state->dsc_su_parameter_set_0_calc);
+>> +	if (intel_dsc_get_vdsc_per_pipe(crtc_state) > 1)
+>> +		intel_de_write_dsb(display, dsb, DSC_SU_PARAMETER_SET_0_DSC1(crtc->pi=
+pe),
+>> +				   crtc_state->dsc_su_parameter_set_0_calc);
+>>   }
+>>=20=20=20
+>>   static void psr2_man_trk_ctl_calc(struct intel_crtc_state *crtc_state,
+>> @@ -2668,6 +2673,23 @@ static u32 psr2_pipe_srcsz_early_tpt_calc(struct =
+intel_crtc_state *crtc_state,
+>>   	return PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1);
+>>   }
+>>=20=20=20
+>> +static u32 psr2_dsc_su_parameter_set_0_calc(struct intel_crtc_state *cr=
+tc_state,
+>> +					    bool full_update)
+>> +{
+>> +	const struct drm_dsc_config *vdsc_cfg =3D &crtc_state->dsc.config;
+>> +	int slice_row_per_frame, pic_height;
+>> +
+>> +	if (!crtc_state->enable_psr2_su_region_et || full_update ||
+>> +	    !crtc_state->dsc.compression_enable)
+>> +		return 0;
+>> +
+>
+> Although we are making sure that height of the psr2_su_area is a=20
+> multiple of the slice_height, perhaps it would be good to have a=20
+> drm_WARN here to flag any misconfiguration i.e. if height is not a=20
+> multiple of slice_height.
+>
+>
+>> +	slice_row_per_frame =3D drm_rect_height(&crtc_state->psr2_su_area) / v=
+dsc_cfg->slice_height;
+>> +	pic_height =3D slice_row_per_frame * vdsc_cfg->slice_height;
+>> +
+>> +	return DSC_SU_PARAMETER_SET_0_SU_SLICE_ROW_PER_FRAME(slice_row_per_fra=
+me) |
+>> +		DSC_SU_PARAMETER_SET_0_SU_PIC_HEIGHT(pic_height);
+>> +}
+>
+> Since this writes a DSC register belonging to PPS Set 0, this function=20
+> should be moved to intel_vdsc.c.
+>
+> Also, based on the boolean flag (psr_su_update_dsc_pps) discussed above,=
+=20
+> this function should simply retrieve the required fields from crtc_state=
+=20
+> and program the register.
+>
+> Such a helper function should then be called from=20
+> intel_psr2_program_trans_man_trk_ctl() in place of the direct=20
+> intel_reg_write() call.
+>
+> IMO, all register reads/writes, along with the wrappers/helpers around=20
+> them, should live in the file corresponding to the block that owns those=
+=20
+> registers, based on context.
+>
+>
+> Regards,
+>
+> Ankit
+>
+>> +
+>>   static void clip_area_update(struct drm_rect *overlap_damage_area,
+>>   			     struct drm_rect *damage_area,
+>>   			     struct drm_rect *pipe_src)
+>> @@ -3026,6 +3048,8 @@ int intel_psr2_sel_fetch_update(struct intel_atomi=
+c_state *state,
+>>   	psr2_man_trk_ctl_calc(crtc_state, full_update);
+>>   	crtc_state->pipe_srcsz_early_tpt =3D
+>>   		psr2_pipe_srcsz_early_tpt_calc(crtc_state, full_update);
+>> +	crtc_state->dsc_su_parameter_set_0_calc =3D psr2_dsc_su_parameter_set_=
+0_calc(crtc_state,
+>> +										   full_update);
+>>   	return 0;
+>>   }
+>>=20=20=20
+
+--=20
+Jani Nikula, Intel
