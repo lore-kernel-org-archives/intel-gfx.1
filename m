@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA460FD375F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F2E9FD3761
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:20:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33A2710E78F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6D0110E790;
 	Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="JpEWW1iD";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="bt7asC/p";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B559D10E779
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCADF10E779
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025585;
- bh=lZ6H4Dy22Qdq6mPmVhYnEWnuEgtDhqeuBLPnnoYreFc=;
+ s=default; t=1772025588;
+ bh=eyrX1bgYtd7PmtTkGjNQ8a2wd3BtOI/PfU+8w3F45pQ=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=JpEWW1iDdx3CzwKP8ZzHqDhbbmXRPuKBGm3GXdbAWfZ11hdfLodqcxjpThsFtXdGe
- esfw95aa8jpi1K6GEcY1MCQCyDt3YCvq0v+8l6sc3BRKDh88zmFDJ9H4p6u26Ulbiz
- a3g/7CcWKkvKEermbvEUdFNIbbuwdfL+6yOAyosN/HNDikwYkP9WI11/mHM+WNb1sW
- X92bKUhsHcBEGD80ugsQRb7vl8MadfvExBAMaVhbk/xb14UHrEs5aBB1ZNozDjbbLL
- VPROpCfGm0VYh7fEgwFIkrdwb5l3SFGmNzLtkDZkrpBZO+3xzsfneuOqQMNcxA9MXM
- Zn+kn7bEk5DrQ==
+ b=bt7asC/pV2HnV4ozIs2Q3HQ2GyTaFLlW+04KGDbvoiI4HiQhv6nR9tot8UOeIv+M8
+ 2frDsO1MKy7bZEfMf80Qno7zRm8Q11aNjaZpt0rgcO9zypztPV3NqaXkA3g29poeQ4
+ o38BwSUkDxGApHRUFivhOfgpu8gFcJGznIiI9vpjotXYtaSP0kLwUn/TM3rSSuNTZ+
+ 91/bWwY0GcLAeheShI4WwbcBAEdR5mkGvScaGudfMrowGq6d1qA16+b2g2aWBcqcwo
+ gFDCe62FGZJ5x6Eu0a4ffsAvyfIuXqdp/GdS1pr4ASVRgpJpj7dfPzmfUNVedI1D/f
+ U8DAMiiKZuueA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 14/25] drm/i915/display: Make set_pipeconf
- use the fw variants
-Date: Wed, 25 Feb 2026 14:19:18 +0100
-Message-ID: <20260225131931.60724-15-dev@lankhorst.se>
+Subject: [i915-ci-only NO-REVIEW 16/25] drm/i915/gt: Use spin_lock_irq()
+ instead of local_irq_disable() + spin_lock()
+Date: Wed, 25 Feb 2026 14:19:20 +0100
+Message-ID: <20260225131931.60724-17-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
 References: <20260225131931.60724-1-dev@lankhorst.se>
@@ -51,80 +51,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The calls are used inside the critical section when updating
-the gamma mode, and thus should use the _fw variants to prevent
-locks.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Fixes following splat:
-| BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-| in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 2115, name: modprobe
-| preempt_count: 0, expected: 0
-| RCU nest depth: 0, expected: 0
-| 4 locks held by modprobe/2115:
-|  #0: ffff99b9425161a0 (&dev->mutex){....}-{4:4}, at: __driver_attach+0xaf/0x1c0
-|  #1: ffffaa224810f6c0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: intel_initial_commit+0x4c/0x200 [i915]
-|  #2: ffffaa224810f6e8 (crtc_ww_class_mutex){+.+.}-{4:4}, at: intel_initial_commit+0x4c/0x200 [i915]
-|  #3: ffff99b94a6c9030 (&uncore->lock){+.+.}-{3:3}, at: gen6_write32+0x50/0x290 [i915]
-| irq event stamp: 513344
-| hardirqs last  enabled at (513343): [<ffffffff8ba8d84c>] _raw_spin_unlock_irqrestore+0x4c/0x60
-| hardirqs last disabled at (513344): [<ffffffffc1543646>] intel_pipe_update_start+0x216/0x2c0 [i915]
-| softirqs last  enabled at (512766): [<ffffffff8af045cf>] __local_bh_enable_ip+0x10f/0x170
-| softirqs last disabled at (512712): [<ffffffffc14dfb6a>] __i915_request_queue+0x3a/0x70 [i915]
-| CPU: 3 UID: 0 PID: 2115 Comm: modprobe Tainted: G        W           6.18.0-rc1+ #17 PREEMPT_{RT,(lazy)}
-| Tainted: [W]=WARN
-| Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./Z68 Pro3-M, BIOS P2.30 06/29/2012
-| Call Trace:
-|  <TASK>
-|  dump_stack_lvl+0x68/0x90
-|  __might_resched.cold+0xf0/0x12b
-|  rt_spin_lock+0x5f/0x200
-|  gen6_write32+0x50/0x290 [i915]
-|  ilk_set_pipeconf+0x12d/0x230 [i915]
-|  ilk_color_commit_arm+0x2d/0x70 [i915]
-|  intel_update_crtc+0x15b/0x690 [i915]
-|  intel_commit_modeset_enables+0xa6/0xd0 [i915]
-|  intel_atomic_commit_tail+0xd55/0x19a0 [i915]
-|  intel_atomic_commit+0x25d/0x2a0 [i915]
-|  drm_atomic_commit+0xad/0xe0 [drm]
-|  intel_initial_commit+0x16c/0x200 [i915]
-|  intel_display_driver_probe+0x2e/0x80 [i915]
-|  i915_driver_probe+0x791/0xc10 [i915]
-|  i915_pci_probe+0xd7/0x190 [i915]
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
 
-Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
+
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 62ce2befb3981..8f4a918dadf39 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -3037,8 +3037,9 @@ void i9xx_set_pipeconf(const struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index cafe0b8e6bdd0..55f94c5feaa3b 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * and context switches) submission.
+ 	 */
  
- 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
+-	spin_lock(&sched_engine->lock);
++	spin_lock_irq(&sched_engine->lock);
  
--	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
--	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
-+	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
-+	/* posting read */
-+	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&sched_engine->lock);
++				spin_unlock_irq(&sched_engine->lock);
+ 				return;
+ 			}
+ 		}
+@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.sched_engine->lock);
+-			spin_unlock(&engine->sched_engine->lock);
++			spin_unlock_irq(&engine->sched_engine->lock);
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
+ 	i915_sched_engine_reset_on_empty(sched_engine);
+-	spin_unlock(&sched_engine->lock);
++	spin_unlock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	}
  }
  
- static enum intel_output_format
-@@ -3233,8 +3234,9 @@ void ilk_set_pipeconf(const struct intel_crtc_state *crtc_state)
- 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
- 	val |= TRANSCONF_MSA_TIMING_DELAY(crtc_state->msa_timing_delay);
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
+ {
+ 	memset_p((void **)ports, NULL, count);
+@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
+ 	}
  
--	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
--	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
-+	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
-+	/* posting read */
-+	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
- }
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
  
- static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
 -- 
 2.51.0
 
