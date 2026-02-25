@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28CFAFD375E
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:19:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DCF6FD374E
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 13:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B29710E78A;
-	Wed, 25 Feb 2026 13:19:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB24210E789;
+	Wed, 25 Feb 2026 13:19:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="USXY8AfK";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Qi0o5gnL";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5176410E783
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD09F10E77D
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 13:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1772025592;
- bh=Ylxk4DX3lxqTtQhz8WcScd7QQ/EpzHw2VcnEhKxqrho=;
+ s=default; t=1772025591;
+ bh=/YttZUgmn62XSEh0hwiLQG2joTYu/zUwyvhm/nBW/W4=;
  h=From:To:Subject:Date:In-Reply-To:References:From;
- b=USXY8AfKWd+8ClxENMYPtTNLsw9qAcYVkjA1U+S/yapyy0twY3J6f+tZhsDY5kIQP
- AcmoDSwDg36Fpn/VaGPcnkCpsn0VfCXZug+Cw7JvcuxY4kbt3lfJKXXhbCgZkxXiwA
- Nd+F3KFgoA8nxKd0/vbSUEXQewV6oCZMEWQjJlfPVUtypgOSvWbdxIg7QV2eS4O2yx
- nJF/f5fF0Z4XGsJ6dU9Q7+XJopoMPk5mux8z1buDjrAM1BXO1D0LrEN0awuj01buTN
- aTvUAfcuKHHVlpPKet+tSKDVGxvN0AMf+4gLUXsTihMdk3X1+UK61HP7krkfU5wyYd
- 2LrhipjYeeVDg==
+ b=Qi0o5gnL/G6WoJzthXXjea5hCfQlaU2pfurwOIbe/SASz7Cmm01T27adsvx2RnPit
+ BoC3gs/xaonelbbCeEZcz3Tl61b0Ed6qeqR7SC5xWDS8jCgXFGBpKGxCuk/4Yp+r76
+ pUc5EfhPez/l0gDqp8Rh7dO2uBN2LQg75FZjRUDuT2rOQLvZ44Y8cuHkmZEs0k/1xP
+ sslYbpfKLbn9oBgiUQHjmugwlnMfWtGHTA21EQnSFQ1pHsfMmcrj9Nw8muVIKc++aU
+ hYV6KgF77L5hIkpdl0dPKmrQJKC1l6VquYaoZRYwegbE0Ae5EHZnvMkLvlOz8cBAfH
+ NSnp/TVqpsuaw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Subject: [i915-ci-only NO-REVIEW 20/25] drm/i915/gt: Set stop_timeout()
- correctly on PREEMPT-RT
-Date: Wed, 25 Feb 2026 14:19:24 +0100
-Message-ID: <20260225131931.60724-21-dev@lankhorst.se>
+Subject: [i915-ci-only NO-REVIEW 19/25] drm/i915/gt: Fix selftests on
+ PREEMPT_RT
+Date: Wed, 25 Feb 2026 14:19:23 +0100
+Message-ID: <20260225131931.60724-20-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260225131931.60724-1-dev@lankhorst.se>
 References: <20260225131931.60724-1-dev@lankhorst.se>
@@ -51,27 +51,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also check if RCU is disabled for PREEMPT-RT, which is the case when
-local_bh_disable() is called.
-
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index 54c9571327e72..97bc49fcb5e05 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 10e556a7eac45..c1eff9edd8a5e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
+ 		st_engine_heartbeat_disable(engine);
  
- static unsigned long stop_timeout(const struct intel_engine_cs *engine)
- {
--	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
-+	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
- 		return 0;
+ 		ENGINE_TRACE(engine, "measuring idle time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		udelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (de < 0 || de > 10) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
+@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
+ 		}
  
- 	/*
+ 		ENGINE_TRACE(engine, "measuring busy time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		mdelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
 -- 
 2.51.0
 
