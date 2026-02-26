@@ -4,77 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56BE1FEFB52
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 13:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25853FEFB54
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 13:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 653E910EB69;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E0910EB6A;
 	Fri, 27 Feb 2026 13:41:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OPHc/xzu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DcjIXeLg";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A31B10EB3C
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 13:17:10 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4806ce0f97bso16585315e9.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 05:17:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772198228; x=1772803028; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1JlP/Hf+1uXINfgamN2q52Ag3USsQOeX8HbMEe6aI5w=;
- b=OPHc/xzuJhRFojeYZe3HCcBMMdx04uklX3IjF9U9zI6WjlqW9tsFs24aTSP0Ii+jT6
- eY2qd9WRVVyU1V5pTx7ks5Qer8Lz/H+KDBCSs2WyBc/ctSMhkWU3JKMR8iPU6biYj3D/
- P3+MIi4Nl+DjUq8JiEmMpYmHV97SIJAtYOSRDC7jGlLMc62bTAXMNzy0f5POxYPe1aBc
- YOyXpf5ic8Gz9sx+0mzzQ1hv/CftWOFoX5sZDE6scKyEcFunjWXDaY35NKx1t/3FkNpd
- xxGyE4qdaEtl/mxA/KpBtjeXFf2Qs7XYbUSXE9VWgAte5p8gE12PUNr/FhCD0yzyNwnQ
- ItqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772198228; x=1772803028;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=1JlP/Hf+1uXINfgamN2q52Ag3USsQOeX8HbMEe6aI5w=;
- b=raFWhXctA5KkHqU4g0Bl41Ic90kqwzf7cOXb/gY/hf566LlNoRoRHMKnjrFR9v27SQ
- LbDFYwqU62kPPRZgnK/dHo5elgO9Dl9NhVLexq96TVAAgg4BOV4jZj98lRw7QlQ2R1h6
- hiRnFt1gTEck2gCzLqNxIdfKsHLfbjXH5V852WEheLmV+oW8hYou162c82Cu/LwF0QHq
- 5V3VNYN2+xFvV3g7mMD9J9v8aVz/Db2b5BrRp65sMBGtVxKTv0uvZm5HLfrBLc0IWjsN
- Ip7stxBO3+Fasew/cviMD7y8n4M0gq4aeItgcwoF8XR1GHbdxQ5o1MkLsrjE5JH1O8e5
- TiFg==
-X-Gm-Message-State: AOJu0YzWHzmHQD4g/rx0wclo+vmwFeHCIfgDzdaYh/HvISzrE2WXEvsD
- d3MbmSn1UvZyNt39RJgSjD+lZaHkUvZmlI2yylNgvqyfv8cJ3kZZDvVCsfHDlPUMzHjaosGW
-X-Gm-Gg: ATEYQzwq9rE6fRhuLR88amcAV75B33aWUJwzolHSWptXR6iQm1bnwe3vr8DRBqy+mxa
- 1rsnsgHI/CbJdPICkdFwQRu0KDAfIa3Ci7YFC8YwBPLeK7fKomxsko3i7nNITEcRkcQe/o4UYVB
- W5bsV/sW2HhujmjpON8lSzBuwmFW8jw6f6z0dhnxugpDP+l6Aeb/Nyup+Luu9fMkwjAMnhbVvWU
- 7aT7ZORDShMYU4d9NpUpQhHBYrjPJqmvuP4hZzPwo3r2EzGoKm+XNpuJ2bZE23sO8AQMJevsyIt
- 9DcQ0C8/WcZ4Er2VeEwWNazK4YLCBOqOdyBL+w2PRFLvOOjeG+Rrz78+B9VZVGWWXjx8DFxDBrL
- pQnzMhT5ajvVSDoFSdUfbnMOFmTQbEWgkjyRNKouooYYbp8RIWTL3phzGw3yvsh9sshmCJSIoPS
- 97xNmKVJJ8UA2ZZN88FLouoNHQzZFr69VpuxeiTpXL9pviBJUdBdUiQrjS1Vgh+9Qv3ekQ0hKeT
- A==
-X-Received: by 2002:a05:600c:3106:b0:483:6a8d:b2f9 with SMTP id
- 5b1f17b1804b1-483c9ba6165mr46831075e9.5.1772198228112; 
- Fri, 27 Feb 2026 05:17:08 -0800 (PST)
-Received: from JTOLLET-M-FKW7 (90.64.3.89.rev.sfr.net. [89.3.64.90])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bfb77abdsm59354005e9.2.2026.02.27.05.17.07
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 27 Feb 2026 05:17:07 -0800 (PST)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- ville.syrjala@linux.intel.com, Jerome Tollet <jerome.tollet@gmail.com>
-Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
- TMDS_Scrambler_Status
-Date: Fri, 27 Feb 2026 14:16:38 +0100
-Message-ID: <20260227131638.33167-1-jerome.tollet@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <73e0de50-b7e3-4315-ab81-0a3ecebc2363@intel.com>
-References: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
- <Z1MfXyv5_ORAVj3z@intel.com> <73e0de50-b7e3-4315-ab81-0a3ecebc2363@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4237510E9D9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 21:49:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E6AEF4455D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 21:49:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A105AC2BCAF
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 21:49:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772142540;
+ bh=LF4bwcYv1+PfMspbbpqO2VzfLK8CTRaCpOj6mQJxZGw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=DcjIXeLgrxqUYwwv+2hZCBu8T09MVdaj4sSw8in+d9ikwiv6jPM/YXPBL00H8vz+L
+ ThBlz0nE8Lf5ETYcNtggwxUpTaTtpxvJzo6zuFsbRb8XoqlA9Fh9yjWBh0hxolp6uP
+ F4RBlPeM6zLgUqIIeXrHHNM23II286EyJloqnQZQDeWWJH6pSFZ/PCtkdKVacnfQjO
+ j39CTWgFGDhh9HZ9An7My+BGm7MDURWMkjqHI10HW8SaosV01xNYbdS9uJSRV+fDJ+
+ jhAZOaOllUvBy/kqKwJuum3OskFoy2GeMvvV0xHQSbc+35MVaFPFbyqJ1+b6Gwa1RP
+ ewnbRhbSJ1htQ==
+Received: by mail-yx1-f49.google.com with SMTP id
+ 956f58d0204a3-64aea64bf15so1200635d50.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 13:49:00 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZ7TO5RB70fY0MPGxhALBzsQTBUfvtuANOXYTY10D1sfk8+NuNce7z02A3AIcq7oPFJTEXgHARgNw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzkSNs24xwKNdeLqELEbOdnAs1T4dS23Qlwn/BUReuo4O2jAwzF
+ LiRCdnpWurmN7lOuXCZoAac5ORvGXrfROLCqeR8Jv00FxB7ZkhXqNalF3AqdKT3yc1EFbj+mTIo
+ bOSW9QgwFHLMy/F4Jpm24kVJG77jFUJiomfv5+89LjQ==
+X-Received: by 2002:a53:e8c9:0:b0:64c:a81e:f2b2 with SMTP id
+ 956f58d0204a3-64cc211f150mr699646d50.27.1772142538704; Thu, 26 Feb 2026
+ 13:48:58 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
+ <20260225-pagevec_cleanup-v2-2-716868cc2d11@columbia.edu>
+In-Reply-To: <20260225-pagevec_cleanup-v2-2-716868cc2d11@columbia.edu>
+From: Chris Li <chrisl@kernel.org>
+Date: Thu, 26 Feb 2026 13:48:47 -0800
+X-Gmail-Original-Message-ID: <CACePvbX5Qm+kQLtCWynvO-2YtoW0mdR+V6rfq=buR6tfR1A9FQ@mail.gmail.com>
+X-Gm-Features: AaiRm50fP40RQkljlPLX-PI1NSM3iQnOuQQEi7r5tKbV7kaWVe_vUmPk2uGLYLk
+Message-ID: <CACePvbX5Qm+kQLtCWynvO-2YtoW0mdR+V6rfq=buR6tfR1A9FQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/4] fs: Remove unncessary pagevec.h includes
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: David Howells <dhowells@redhat.com>, Marc Dionne <marc.dionne@auristor.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <bhe@redhat.com>, Barry Song <baohua@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, 
+ Dan Williams <dan.j.williams@intel.com>, Jan Kara <jack@suse.cz>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, 
+ "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Paulo Alcantara <pc@manguebit.org>, Trond Myklebust <trondmy@kernel.org>,
+ Anna Schumaker <anna@kernel.org>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Brendan Jackman <jackmanb@google.com>,
+ Zi Yan <ziy@nvidia.com>, 
+ Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Qi Zheng <zhengqi.arch@bytedance.com>, 
+ linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, netfs@lists.linux.dev, linux-nfs@vger.kernel.org, 
+ ocfs2-devel@lists.linux.dev, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, linux-btrfs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, gfs2@lists.linux.dev, linux-nilfs@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, cgroups@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 27 Feb 2026 13:41:00 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,17 +128,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Ankit, Ville,
+On Wed, Feb 25, 2026 at 3:44=E2=80=AFPM Tal Zussman <tz2294@columbia.edu> w=
+rote:
+>
+> Remove unused pagevec.h includes from .c files. These were found with
+> the following command:
+>
+>   grep -rl '#include.*pagevec\.h' --include=3D'*.c' | while read f; do
+>         grep -qE 'PAGEVEC_SIZE|folio_batch' "$f" || echo "$f"
+>   done
+>
+> There are probably more removal candidates in .h files, but those are
+> more complex to analyze.
+>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Gentle ping on this patch series. As confirmed in my previous testing
-(Feb 21), the SCDC polling patch works perfectly on kernel 6.19.2 with
-my Alder Lake-N (N100) + Cisco Desk Pro (CS-DESKPRO-2) setup.
+Acked-by: Chris Li <chrisl@kernel.org>
 
-The isolated testing showed that the SCDC polling approach alone
-resolves the 4K@60Hz HDMI issue, which aligns with both the HDMI 2.0
-spec requirements and Windows driver behavior.
-
-Is there anything else needed from my side to help move this forward?
-
-Thanks,
-Jerome
+Chris
