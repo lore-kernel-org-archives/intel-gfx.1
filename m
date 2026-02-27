@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F0EEA4E3E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 713EAE9B37F
 	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97B9610E554;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95E810E555;
 	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VgnVpkaH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R+uZFzLt";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10B3810EC2A;
- Fri, 27 Feb 2026 20:10:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A2A510EC2E;
+ Fri, 27 Feb 2026 20:11:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4085E60130;
- Fri, 27 Feb 2026 20:10:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E261C116C6;
- Fri, 27 Feb 2026 20:09:59 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1D4BA41843;
+ Fri, 27 Feb 2026 20:11:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83C0C2BC86;
+ Fri, 27 Feb 2026 20:11:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772223014;
- bh=hLgJdGT31V5wnxVFe1vHLMNm/KVuWNy5vLAGWsJg21c=;
+ s=k20201202; t=1772223098;
+ bh=KcfCcPy+dBQFq2iZWWRAzMkc9iA3mhQIqe4VKvKm/84=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VgnVpkaHaAkciLTAeL0+EHoy6ULSwuu9fj3VyFkgJooaJcw9CuTij8hQME2UbVNWD
- Yvc/lVRhwFa8DPT/JmgPCmNWacY7labSQ2afT1BQfoxShbwEJk2Jn8z7NxsGfCsqtz
- PFpbCDhsNtcpqdguKU2gvD4AUwof1y66dauCjiXbAiMN6CyWf4CltYotNxCjssrHCp
- /q9YFMkt4jNd7FScndseUUa/D3NnepYZOmjVGGfCd+L3Hgug9STuzNp9OaPEgAhBvJ
- WiDRQIsjsWJIIKTyzXG8Pn+MIUoCY9cTsDjzXp52+rtBZSOfNAH+NerJi1RRj2Hxlh
- G0ODowk2+zwXQ==
+ b=R+uZFzLtdrG65b8hmVxNKYNlrS/AesJe5C0CdRLLG0CXN4yBdaUTdPL6zW++yDFfV
+ d9morv+7a1pkXjkKZLGhg42leomEsG3yOY/LUvmeI7p74dvImpIdlZ+hVxW2bRPJa1
+ EnR+f8uCtq2nwqb4bowrT5fporOqCSIT2OWtiwOHYZKKevZ2sqcl0dhKRiXN/W1VTf
+ T3JnjgarvGwRpiC+6sbx7CJfmMTNXMJbxZ+2eZvxX9FSc8qEYjP7BB1HwU+r3h1AXj
+ QaDl1DJbAtFutxlyg3qP2d0PNjBvS5b6oUjoQZ0i0yJpmByBkdKGovCyF8vwNHNDEe
+ YwpOXuN0+M/Ig==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
@@ -81,10 +81,10 @@ Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
  linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: [PATCH v1 04/16] mm/memory: simplify calculation in
- unmap_mapping_range_tree()
-Date: Fri, 27 Feb 2026 21:08:35 +0100
-Message-ID: <20260227200848.114019-5-david@kernel.org>
+Subject: [PATCH v1 09/16] mm/memory: convert details->even_cows into
+ details->skip_cows
+Date: Fri, 27 Feb 2026 21:08:40 +0100
+Message-ID: <20260227200848.114019-10-david@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260227200848.114019-1-david@kernel.org>
 References: <20260227200848.114019-1-david@kernel.org>
@@ -106,75 +106,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's simplify the calculation a bit further to make it easier to get,
-reusing vma_last_pgoff() which we move from interval_tree.c to mm.h.
+The current semantics are confusing: simply because someone specifies an
+empty zap_detail struct suddenly makes should_zap_cows() behave
+differently. The default should be to also zap CoW'ed anonymous pages.
+
+Really only unmap_mapping_pages() and friends want to skip zapping of
+these anon folios.
+
+So let's invert the meaning; turn the confusing "reclaim_pt" check that
+overrides other properties in should_zap_cows() into a safety check.
+
+Note that the only caller that sets reclaim_pt=true is
+madvise_dontneed_single_vma(), which wants to zap any pages.
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/mm.h |  5 +++++
- mm/interval_tree.c |  5 -----
- mm/memory.c        | 12 +++++-------
- 3 files changed, 10 insertions(+), 12 deletions(-)
+ include/linux/mm.h |  2 +-
+ mm/madvise.c       |  1 -
+ mm/memory.c        | 12 ++++++------
+ 3 files changed, 7 insertions(+), 8 deletions(-)
 
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index a8138ff7d1fa..d3ef586ee1c0 100644
+index d3ef586ee1c0..21b67c203e62 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -4000,6 +4000,11 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
- 	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
- }
+@@ -2798,7 +2798,7 @@ extern void pagefault_out_of_memory(void);
+  */
+ struct zap_details {
+ 	struct folio *single_folio;	/* Locked folio to be unmapped */
+-	bool even_cows;			/* Zap COWed private pages too? */
++	bool skip_cows;			/* Do not zap COWed private pages */
+ 	bool reclaim_pt;		/* Need reclaim page tables? */
+ 	zap_flags_t zap_flags;		/* Extra flags for zapping */
+ };
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 557a360f7919..b51f216934f3 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -853,7 +853,6 @@ static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
+ 	struct madvise_behavior_range *range = &madv_behavior->range;
+ 	struct zap_details details = {
+ 		.reclaim_pt = true,
+-		.even_cows = true,
+ 	};
  
-+static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
-+{
-+	return vma->vm_pgoff + vma_pages(vma) - 1;
-+}
-+
- static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
- {
- 	return desc->end - desc->start;
-diff --git a/mm/interval_tree.c b/mm/interval_tree.c
-index 32e390c42c53..32bcfbfcf15f 100644
---- a/mm/interval_tree.c
-+++ b/mm/interval_tree.c
-@@ -15,11 +15,6 @@ static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
- 	return v->vm_pgoff;
- }
- 
--static inline unsigned long vma_last_pgoff(struct vm_area_struct *v)
--{
--	return v->vm_pgoff + vma_pages(v) - 1;
--}
--
- INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
- 		     unsigned long, shared.rb_subtree_last,
- 		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
+ 	zap_page_range_single_batched(
 diff --git a/mm/memory.c b/mm/memory.c
-index 5c47309331f5..e4154f03feac 100644
+index fdcd2abf29c2..7d7c24c6917c 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -4227,17 +4227,15 @@ static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
- 					    struct zap_details *details)
+@@ -1554,11 +1554,13 @@ copy_page_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma)
+ static inline bool should_zap_cows(struct zap_details *details)
  {
- 	struct vm_area_struct *vma;
--	pgoff_t vba, vea, zba, zea;
- 	unsigned long start, size;
- 	struct mmu_gather tlb;
+ 	/* By default, zap all pages */
+-	if (!details || details->reclaim_pt)
++	if (!details)
+ 		return true;
  
- 	vma_interval_tree_foreach(vma, root, first_index, last_index) {
--		vba = vma->vm_pgoff;
--		vea = vba + vma_pages(vma) - 1;
--		zba = max(first_index, vba);
--		zea = min(last_index, vea);
--		start = ((zba - vba) << PAGE_SHIFT) + vma->vm_start;
--		size = (zea - zba + 1) << PAGE_SHIFT;
-+		const pgoff_t start_idx = max(first_index, vma->vm_pgoff);
-+		const pgoff_t end_idx = min(last_index, vma_last_pgoff(vma)) + 1;
++	VM_WARN_ON_ONCE(details->skip_cows && details->reclaim_pt);
 +
-+		start = vma->vm_start + ((start_idx - vma->vm_pgoff) << PAGE_SHIFT);
-+		size = (end_idx - start_idx) << PAGE_SHIFT;
+ 	/* Or, we zap COWed pages only if the caller wants to */
+-	return details->even_cows;
++	return !details->skip_cows;
+ }
  
- 		tlb_gather_mmu(&tlb, vma->vm_mm);
- 		zap_page_range_single_batched(&tlb, vma, start, size, details);
+ /* Decides whether we should zap this folio with the folio pointer specified */
+@@ -2149,8 +2151,6 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
+ 	struct mmu_notifier_range range;
+ 	struct zap_details details = {
+ 		.zap_flags = ZAP_FLAG_DROP_MARKER | ZAP_FLAG_UNMAP,
+-		/* Careful - we need to zap private pages too! */
+-		.even_cows = true,
+ 	};
+ 
+ 	vma = unmap->first;
+@@ -4282,7 +4282,7 @@ void unmap_mapping_folio(struct folio *folio)
+ 	first_index = folio->index;
+ 	last_index = folio_next_index(folio) - 1;
+ 
+-	details.even_cows = false;
++	details.skip_cows = true;
+ 	details.single_folio = folio;
+ 	details.zap_flags = ZAP_FLAG_DROP_MARKER;
+ 
+@@ -4312,7 +4312,7 @@ void unmap_mapping_pages(struct address_space *mapping, pgoff_t start,
+ 	pgoff_t	first_index = start;
+ 	pgoff_t	last_index = start + nr - 1;
+ 
+-	details.even_cows = even_cows;
++	details.skip_cows = !even_cows;
+ 	if (last_index < first_index)
+ 		last_index = ULONG_MAX;
+ 
 -- 
 2.43.0
 
