@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AB70C624C6
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92A0BD58E48
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A82910E54C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 535FF10E551;
 	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DBRHRg84";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PYP8hi5N";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D00E10EC2A;
- Fri, 27 Feb 2026 20:10:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4448110EC2F;
+ Fri, 27 Feb 2026 20:11:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4A4DA432F8;
- Fri, 27 Feb 2026 20:10:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5E5C2BCB0;
- Fri, 27 Feb 2026 20:10:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9BCB560126;
+ Fri, 27 Feb 2026 20:11:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DAAC116C6;
+ Fri, 27 Feb 2026 20:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772223031;
- bh=GDIsuZYm2zKYxLFzdJGIwkOaoBFqEdMRlEhHeQ3/4/c=;
+ s=k20201202; t=1772223081;
+ bh=Ms86RD0Otoj1d6fzyHR5o28Ex/YjZExC3FyxUcdS+A8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DBRHRg84mUFFa5j1Ap08A/NiDuF3TUvfcRS7C3+9hv775NpD/8NroucXGTumCDp/q
- yrfW9Y3j7L6NHLbxDVoLPnwidDlbqQx43JL5ql1ycR4JGKaqhcycHzZzwNzJlcvc02
- dllhdtIOUZfDuMDJj+LoTseNq6O5uagn4G64tCcqE5fAIbrOu0ko0XkUr7ircdpbQh
- bXRyXmVj6xEUhwSFjMMxmlipUHZ264tacuMAwtSvAd5grFuLAF6s73NejFFuX4hEaz
- JPFck19AXo77usRat6V50+er5SScDpOmDuKTSvIT6gz+N5E8JF7nu9dERR/ctItvMT
- m5GfMgiKzWHMQ==
+ b=PYP8hi5N5sGdSXGeQeQx0PGG2qoBngPOdHIav4EUqj7du6tyiIkdIqI1w8m/NqulN
+ yXTxgx+g53/5ilvSpYisK6g/8IOBFrnfp7OT3nq69Vw+lSxB4peBlnL7oBBrBFteR+
+ M2xZ9SjZBvkW0pqpQ/Xabhkha8T9/aSY5mi7v8CLxJ+sb4/YPmxDWucCxYnzccFDiZ
+ EBFkzzUicUwOCfYz7Mnqy0dyy3jiaAtOm+CqJElfZ27AJo9RZVjXuSUjS95x5xGJ2w
+ JLFZQYbU59MSVTJrtE+3FkB7Em2PBv3oHfoONvXgNLI0cd8vWkaGCUZ4/ZP0s9duB7
+ TSoGd5pRM7nbA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
@@ -81,10 +81,10 @@ Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
  linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: [PATCH v1 05/16] mm/oom_kill: use MMU_NOTIFY_CLEAR in
- __oom_reap_task_mm()
-Date: Fri, 27 Feb 2026 21:08:36 +0100
-Message-ID: <20260227200848.114019-6-david@kernel.org>
+Subject: [PATCH v1 08/16] mm/memory: move adjusting of address range to
+ unmap_vmas()
+Date: Fri, 27 Feb 2026 21:08:39 +0100
+Message-ID: <20260227200848.114019-9-david@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260227200848.114019-1-david@kernel.org>
 References: <20260227200848.114019-1-david@kernel.org>
@@ -106,34 +106,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In commit 7269f999934b ("mm/mmu_notifier: use correct mmu_notifier events
-for each invalidation") we converted all MMU_NOTIFY_UNMAP to
-MMU_NOTIFY_CLEAR, except the ones that actually perform munmap() or
-mremap() as documented.
+__zap_vma_range() has two callers, whereby
+zap_page_range_single_batched() documents that the range must fit into
+the VMA range.
 
-__oom_reap_task_mm() behaves much more like MADV_DONTNEED. So use
-MMU_NOTIFY_CLEAR as well.
+So move adjusting the range to unmap_vmas() where it is actually
+required and add a safety check in __zap_vma_range() instead. In
+unmap_vmas(), we'd never expect to have empty ranges (otherwise, why
+have the vma in there in the first place).
 
-This is a preparation for further changes.
+__zap_vma_range() will no longer be called with start == end, so
+cleanup the function a bit. While at it, simplify the overly long
+comment to its core message.
+
+We will no longer call uprobe_munmap() for start == end, which actually
+seems to be the right thing to do.
+
+Note that hugetlb_zap_begin()->...->adjust_range_if_pmd_sharing_possible()
+cannot result in the range exceeding the vma range.
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/oom_kill.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/memory.c | 58 +++++++++++++++++++++--------------------------------
+ 1 file changed, 23 insertions(+), 35 deletions(-)
 
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 5c6c95c169ee..0ba56fcd10d5 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -551,7 +551,7 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
- 			struct mmu_notifier_range range;
- 			struct mmu_gather tlb;
+diff --git a/mm/memory.c b/mm/memory.c
+index f0aaec57a66b..fdcd2abf29c2 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2073,44 +2073,28 @@ static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	tlb_end_vma(tlb, vma);
+ }
  
--			mmu_notifier_range_init(&range, MMU_NOTIFY_UNMAP, 0,
-+			mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0,
- 						mm, vma->vm_start,
- 						vma->vm_end);
- 			tlb_gather_mmu(&tlb, mm);
+-
+-static void __zap_vma_range(struct mmu_gather *tlb,
+-		struct vm_area_struct *vma, unsigned long start_addr,
+-		unsigned long end_addr, struct zap_details *details)
++static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
++		unsigned long start, unsigned long end,
++		struct zap_details *details)
+ {
+-	unsigned long start = max(vma->vm_start, start_addr);
+-	unsigned long end;
+-
+-	if (start >= vma->vm_end)
+-		return;
+-	end = min(vma->vm_end, end_addr);
+-	if (end <= vma->vm_start)
+-		return;
++	VM_WARN_ON_ONCE(start >= end || !range_in_vma(vma, start, end));
+ 
+ 	if (vma->vm_file)
+ 		uprobe_munmap(vma, start, end);
+ 
+-	if (start != end) {
+-		if (unlikely(is_vm_hugetlb_page(vma))) {
+-			/*
+-			 * It is undesirable to test vma->vm_file as it
+-			 * should be non-null for valid hugetlb area.
+-			 * However, vm_file will be NULL in the error
+-			 * cleanup path of mmap_region. When
+-			 * hugetlbfs ->mmap method fails,
+-			 * mmap_region() nullifies vma->vm_file
+-			 * before calling this function to clean up.
+-			 * Since no pte has actually been setup, it is
+-			 * safe to do nothing in this case.
+-			 */
+-			if (vma->vm_file) {
+-				zap_flags_t zap_flags = details ?
+-				    details->zap_flags : 0;
+-				__unmap_hugepage_range(tlb, vma, start, end,
+-							     NULL, zap_flags);
+-			}
+-		} else
+-			unmap_page_range(tlb, vma, start, end, details);
++	if (unlikely(is_vm_hugetlb_page(vma))) {
++		zap_flags_t zap_flags = details ? details->zap_flags : 0;
++
++		/*
++		 * vm_file will be NULL when we fail early while instantiating
++		 * a new mapping. In this case, no pages were mapped yet and
++		 * there is nothing to do.
++		 */
++		if (!vma->vm_file)
++			return;
++		__unmap_hugepage_range(tlb, vma, start, end, NULL, zap_flags);
++	} else {
++		unmap_page_range(tlb, vma, start, end, details);
+ 	}
+ }
+ 
+@@ -2174,8 +2158,9 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
+ 				unmap->vma_start, unmap->vma_end);
+ 	mmu_notifier_invalidate_range_start(&range);
+ 	do {
+-		unsigned long start = unmap->vma_start;
+-		unsigned long end = unmap->vma_end;
++		unsigned long start = max(vma->vm_start, unmap->vma_start);
++		unsigned long end = min(vma->vm_end, unmap->vma_end);
++
+ 		hugetlb_zap_begin(vma, &start, &end);
+ 		__zap_vma_range(tlb, vma, start, end, &details);
+ 		hugetlb_zap_end(vma, &details);
+@@ -2204,6 +2189,9 @@ void zap_page_range_single_batched(struct mmu_gather *tlb,
+ 
+ 	VM_WARN_ON_ONCE(!tlb || tlb->mm != vma->vm_mm);
+ 
++	if (unlikely(!size))
++		return;
++
+ 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
+ 				address, end);
+ 	hugetlb_zap_begin(vma, &range.start, &range.end);
 -- 
 2.43.0
 
