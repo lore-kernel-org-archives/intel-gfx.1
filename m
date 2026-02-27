@@ -4,84 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50EF2FEFB5A
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 15:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5C4FEFB6E
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 17:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFF7310EBBA;
-	Fri, 27 Feb 2026 15:16:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9498210EBD4;
+	Fri, 27 Feb 2026 17:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="bRnb2yPr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VLWuz7r3";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6247310EBBB
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 15:16:29 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4836f4cbe0bso18958955e9.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 07:16:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1772205388; x=1772810188; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SDbmRdkKnF+R+3AIq+Y+qJnHc86/jTNbQ+TAerlSwZI=;
- b=bRnb2yPrdhTriDWcJwusJ76WXs3W0ZP88wjWcveRFtyDiPPtWXrL8yUdOpBQF2Dy63
- S/rYvp3GgEFnAwV9/RjZpO72MfqGbioz2zD8Ovxwy7eJ2TR2PcLdUeNt5PFMBfmvAGUj
- E97AfYFSxeIjzX/Fv7jbhk9ZgixlCsNaSIjG1kYXhjjMoZlpoW2SLN8173j8tNoW0nZn
- KxQbRp2AtSFI6y6wp9FoDFJKEUHy47Hak9a82wKRhwthlaG9+hGq/btYQ+bP99tJX4Ia
- zVw6OvbmKSPzokCrTpLambandb/VJXU+K7USnUhI2VIj29xJwIwnEhK1cMsF+8IvIw5h
- 6KiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772205388; x=1772810188;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SDbmRdkKnF+R+3AIq+Y+qJnHc86/jTNbQ+TAerlSwZI=;
- b=CbNgzhevPa+hDBhYPvECelcEY0wymhrPnkDbzpV+YFtpvdIphQKwZxUPHtoyBGxLta
- M/CJ8wGDWOYJ/6Axd7vnR0CVChhh1kcDgig5uox6bmCeFUL25j3cGaeElPkHzdKsucZl
- rlCFImw9AEWMQnxLsZ9Hjqk0zv/k80zvPhcTOQqyfPCkxw/xIW1FV982ifb1NgnSrVtj
- +nmc9O4107XYNJZltZm/9lOcghR2LeP8h/gZ5y7L6PkYxZfG00OWQeGhge1m2+1KQkcs
- mQswm1lhA6ntlt2U0ap+VNamvl4yTDoDvfFSQvqviw7kcyHbC9nvaUuLptdafQzHXcTz
- YTJw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXBQBqin2fCCTVW4/W1OVfVzbdKVjX6LBqa+P2JJlCBJHss4xNDYQicm1DN4Pztw8Fr5XDVZ4sVPMM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzZ1nIh7LgAiuVqBQMG0rnKrl5q+sBWAc2yQKN8wQPMjcr2SDb
- pzJuhrzR9sLDMFuk5PLcUHZfep80aqnsg/lx/QsOeHCjlUDKE27FBayczbd17D/xpHA=
-X-Gm-Gg: ATEYQzwDP4WuXpIZmHpUHh3W4+A8KGw+nS/XvL7lzqbOYCtZwQQYkDOTWVmNKH6dPf9
- r7i0kllZcdV8BPLCrqmVjLXgUTgRVDhPu61EV2eOc4QXR/NYviZEbCJCvlnnNgaRq0iQ/sGNsZP
- IzDlNIsORpXiMLP3dz0uIzQJQPgDMolEjARTxOsmIaD3xkFG8gQzFs5CyxWJ8MDfwPP962ts3fp
- /Vuj3SB9Oi5ssM+4CzvL2Mjrv+PC9mqbwsC32AjPlikMTwFjLIQeiWE7DAeK4sbzhLLoJuFwosN
- B5WhR4WF0wEsbSaOfM1WzUbIHexMvhYDN6pAvd4rNKYZVkpkt8av+sB+futF3FPAUcfR+BeHw5w
- XnAH5Bkj+oL1s8y1eeLgpCZQv/Los/VoNtElgNmER3PpkIq2phclSlAU1m3QAvC/oKmyhZBE+Kz
- KlSJ6Ulp3WGTw8MSgdF8CBcyaAZDz+75FK92zAA8LW9WgR
-X-Received: by 2002:a05:600c:4e05:b0:483:b505:9db7 with SMTP id
- 5b1f17b1804b1-483c9c0b940mr43879535e9.32.1772205387536; 
- Fri, 27 Feb 2026 07:16:27 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4399c76b20bsm7955985f8f.35.2026.02.27.07.16.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Feb 2026 07:16:27 -0800 (PST)
-Message-ID: <79244f17-3e35-46cf-87d1-1a21dcff7812@ursulin.net>
-Date: Fri, 27 Feb 2026 15:16:26 +0000
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23EE910EBD1;
+ Fri, 27 Feb 2026 17:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772212641; x=1803748641;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vrDn2gcKJ5LGc8jy7P8EZmSKhfJFHJUg4xh2Z1ZznCg=;
+ b=VLWuz7r3uHKcQ3jeNdrv8vgq3aIRocRkQ/Hr4L27jJ+mWGaGDKqUWQmp
+ 1x3UzOup5L3DdNfSmW4vB6ohE0sXsZ4+UXT5evyXUr8u+hOGSyV6PUd+m
+ Pmw5JDzy1IfO4CJ0xu+i5D9p+4koRTLw0kiJ9kDSn71fmPcI2YthBeph4
+ wOA3IheuaC3bvZ9hoLREcgN2Mmr6yyCasQN8d54xL5mUtMD+2Vmg9myLB
+ 5o63s8N7WLIt+EGfnQxBsBbLxOZL5i3golVrdo4dns2uPPjfP/Ld5fh2p
+ TU9flFrUO/P6AHiEG04U1wGQEgscn8km9Qykf6Oka7G1R0MT1thb4BD1N w==;
+X-CSE-ConnectionGUID: 0606OJAMT+2H4QRrpDhjAw==
+X-CSE-MsgGUID: jkeZInfdQHKPS46KY+zw1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11714"; a="75902335"
+X-IronPort-AV: E=Sophos;i="6.21,314,1763452800"; d="scan'208";a="75902335"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2026 09:17:20 -0800
+X-CSE-ConnectionGUID: G+N8tmgoSGu8V/XTLuwFPw==
+X-CSE-MsgGUID: PbvxxBQLRhig9HBqTvE5Sw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,314,1763452800"; d="scan'208";a="213804016"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.202])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Feb 2026 09:17:18 -0800
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 0/4] drm/i915, drm/xe: clean up i915_vma.h usage for display
+Date: Fri, 27 Feb 2026 19:17:10 +0200
+Message-ID: <cover.1772212579.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915: Test for imported buffers with
- drm_gem_is_imported()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org
-References: <20260227133113.235940-5-tzimmermann@suse.de>
- <c85eb64d-e4c2-41a2-9135-b52b3e8d7e12@ursulin.net>
- <4758c394-8c9a-4da2-a526-de06cbfa4c61@suse.de>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <4758c394-8c9a-4da2-a526-de06cbfa4c61@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,69 +69,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Drop compat i915_vma.h and make struct i915_vma opaque towards display.
 
-On 27/02/2026 15:05, Thomas Zimmermann wrote:
-> Hi
-> 
-> Am 27.02.26 um 15:59 schrieb Tvrtko Ursulin:
->>
->> On 27/02/2026 13:31, Thomas Zimmermann wrote:
->>> Instead of testing import_attach for imported GEM buffers, invoke
->>> drm_gem_is_imported() to do the test. The test itself does not change.
->>>
->>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Cc: Jani Nikula <jani.nikula@linux.intel.com>
->>> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
->>> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
->>> Cc: Tvrtko Ursulin <tursulin@ursulin.net>
->>> Cc: intel-gfx@lists.freedesktop.org
->>> ---
->>>   drivers/gpu/drm/i915/gem/i915_gem_object.c | 6 +++---
->>>   1 file changed, 3 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_object.c b/drivers/ 
->>> gpu/drm/i915/gem/i915_gem_object.c
->>> index 3f6f040c359d..798c920160cf 100644
->>> --- a/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_object.c
->>> @@ -372,12 +372,12 @@ void __i915_gem_object_pages_fini(struct 
->>> drm_i915_gem_object *obj)
->>>        * and ttm_bo_cleanup_memtype_use() shouldn't be invoked for
->>>        * dma-buf, so it's safe to take the lock.
->>>        */
->>> -    if (obj->base.import_attach)
->>> +    if (drm_gem_is_imported(&obj->base))
->>>           i915_gem_object_lock(obj, NULL);
->>>         __i915_gem_object_put_pages(obj);
->>>   -    if (obj->base.import_attach)
->>> +    if (drm_gem_is_imported(&obj->base))
->>>           i915_gem_object_unlock(obj);
->>>         GEM_BUG_ON(i915_gem_object_has_pages(obj));
->>> @@ -391,7 +391,7 @@ void __i915_gem_free_object(struct 
->>> drm_i915_gem_object *obj)
->>>         bitmap_free(obj->bit_17);
->>>   -    if (obj->base.import_attach)
->>> +    if (drm_gem_is_imported(&obj->base))
->>>           drm_prime_gem_destroy(&obj->base, NULL);
->>>         drm_gem_free_mmap_offset(&obj->base);
->>
->> LGTM. Want us to merge it via i915 or you want to take the group via 
->> drm-misc?
-> 
-> Please merge it via i915 trees.
-> 
->>
->> What is the end goal btw, just cleanup or you plan to remove/rename 
->> the member? If latter there are some other places which access it 
->> directly.
-> 
-> There's no further goal. It's just about making the code easier to 
-> understand. I had these changes here for some time already and finally 
-> wanted to get them merged..
+Jani Nikula (4):
+  drm/i915/fbdev: stop debug logging i915_ggtt_offset()
+  drm/i915: add VMA to parent interface
+  drm/xe/compat: remove i915_vma.h from compat
+  drm/xe/display: clean up xe_initial_plane.c includes
 
-Acknowledged and merged, thank you for the cleanup!
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  5 ++-
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |  5 +--
+ drivers/gpu/drm/i915/display/intel_parent.c   |  9 +++++
+ drivers/gpu/drm/i915/display/intel_parent.h   |  3 ++
+ drivers/gpu/drm/i915/i915_driver.c            |  1 +
+ drivers/gpu/drm/i915/i915_vma.c               | 10 ++++++
+ drivers/gpu/drm/i915/i915_vma.h               |  7 ++--
+ .../gpu/drm/xe/compat-i915-headers/i915_vma.h | 36 -------------------
+ drivers/gpu/drm/xe/display/xe_display_vma.h   | 18 ++++++++++
+ drivers/gpu/drm/xe/display/xe_fb_pin.c        |  6 ++--
+ drivers/gpu/drm/xe/display/xe_initial_plane.c | 16 +++------
+ include/drm/intel/display_parent_interface.h  |  7 ++++
+ 12 files changed, 61 insertions(+), 62 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_vma.h
+ create mode 100644 drivers/gpu/drm/xe/display/xe_display_vma.h
 
-Regards,
-
-Tvrtko
+-- 
+2.47.3
 
