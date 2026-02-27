@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76628EA4E3D
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F0EEA4E3E
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 494D710E550;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97B9610E554;
 	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e5g0TPuA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VgnVpkaH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3078C10EC34;
- Fri, 27 Feb 2026 20:12:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10B3810EC2A;
+ Fri, 27 Feb 2026 20:10:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D97E141843;
- Fri, 27 Feb 2026 20:12:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624A8C4AF0E;
- Fri, 27 Feb 2026 20:12:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4085E60130;
+ Fri, 27 Feb 2026 20:10:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E261C116C6;
+ Fri, 27 Feb 2026 20:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772223163;
- bh=B1yXnc32tXbLcJ8NQGFc5Arvb5lyHtOMPl4AdrDajl0=;
+ s=k20201202; t=1772223014;
+ bh=hLgJdGT31V5wnxVFe1vHLMNm/KVuWNy5vLAGWsJg21c=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e5g0TPuAG6gfesnF6qlduLlcGUBPnMhU3YENZOHkNsVPDgQhRnH1MFauWgeL7RMDC
- ZDytxLL3/ocwf5PbRvFpVbk3pmvkdAD+XF1L6BzyancbBjD35yHtpfICb2QNxOw986
- L5hI932ZW/hEh+Gw6fKcAGmpoqiF+z1NyH1tsVKuOA7DQSAhWxwkWr6RocVOmKV8XG
- KFx3ANZlj2o1XSLVoqev/UhRxYfp7R7fG3oZ4hNen9Y8TdMB1iPdiGc3rcD8XmrotP
- q4q3zeg0mjfjsk5BWqfRmyIBaT8twqj4E2sWv/18B/I98ZtV8ClTF3/ZnpUTnwGlob
- z68EfQd2gz72g==
+ b=VgnVpkaHaAkciLTAeL0+EHoy6ULSwuu9fj3VyFkgJooaJcw9CuTij8hQME2UbVNWD
+ Yvc/lVRhwFa8DPT/JmgPCmNWacY7labSQ2afT1BQfoxShbwEJk2Jn8z7NxsGfCsqtz
+ PFpbCDhsNtcpqdguKU2gvD4AUwof1y66dauCjiXbAiMN6CyWf4CltYotNxCjssrHCp
+ /q9YFMkt4jNd7FScndseUUa/D3NnepYZOmjVGGfCd+L3Hgug9STuzNp9OaPEgAhBvJ
+ WiDRQIsjsWJIIKTyzXG8Pn+MIUoCY9cTsDjzXp52+rtBZSOfNAH+NerJi1RRj2Hxlh
+ G0ODowk2+zwXQ==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
@@ -81,10 +81,10 @@ Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
  linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: [PATCH v1 13/16] mm: rename zap_page_range_single_batched() to
- zap_vma_range_batched()
-Date: Fri, 27 Feb 2026 21:08:44 +0100
-Message-ID: <20260227200848.114019-14-david@kernel.org>
+Subject: [PATCH v1 04/16] mm/memory: simplify calculation in
+ unmap_mapping_range_tree()
+Date: Fri, 27 Feb 2026 21:08:35 +0100
+Message-ID: <20260227200848.114019-5-david@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260227200848.114019-1-david@kernel.org>
 References: <20260227200848.114019-1-david@kernel.org>
@@ -106,97 +106,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Let's make the naming more consistent with our new naming scheme.
-
-While at it, polish the kerneldoc a bit.
+Let's simplify the calculation a bit further to make it easier to get,
+reusing vma_last_pgoff() which we move from interval_tree.c to mm.h.
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/internal.h |  2 +-
- mm/madvise.c  |  5 ++---
- mm/memory.c   | 23 +++++++++++++----------
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ include/linux/mm.h |  5 +++++
+ mm/interval_tree.c |  5 -----
+ mm/memory.c        | 12 +++++-------
+ 3 files changed, 10 insertions(+), 12 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index df9190f7db0e..15a1b3f0a6d1 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -536,7 +536,7 @@ static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index a8138ff7d1fa..d3ef586ee1c0 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4000,6 +4000,11 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+ 	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
  }
  
- struct zap_details;
--void zap_page_range_single_batched(struct mmu_gather *tlb,
-+void zap_vma_range_batched(struct mmu_gather *tlb,
- 		struct vm_area_struct *vma, unsigned long addr,
- 		unsigned long size, struct zap_details *details);
- int zap_vma_for_reaping(struct vm_area_struct *vma);
-diff --git a/mm/madvise.c b/mm/madvise.c
-index b51f216934f3..fb5fcdff2b66 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -855,9 +855,8 @@ static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
- 		.reclaim_pt = true,
- 	};
- 
--	zap_page_range_single_batched(
--			madv_behavior->tlb, madv_behavior->vma, range->start,
--			range->end - range->start, &details);
-+	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
-+			      range->start, range->end - range->start, &details);
- 	return 0;
++static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
++{
++	return vma->vm_pgoff + vma_pages(vma) - 1;
++}
++
+ static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
+ {
+ 	return desc->end - desc->start;
+diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+index 32e390c42c53..32bcfbfcf15f 100644
+--- a/mm/interval_tree.c
++++ b/mm/interval_tree.c
+@@ -15,11 +15,6 @@ static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
+ 	return v->vm_pgoff;
  }
  
+-static inline unsigned long vma_last_pgoff(struct vm_area_struct *v)
+-{
+-	return v->vm_pgoff + vma_pages(v) - 1;
+-}
+-
+ INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
+ 		     unsigned long, shared.rb_subtree_last,
+ 		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
 diff --git a/mm/memory.c b/mm/memory.c
-index 1c0bcdfc73b7..e611e9af4e85 100644
+index 5c47309331f5..e4154f03feac 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -2167,17 +2167,20 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
- }
- 
- /**
-- * zap_page_range_single_batched - remove user pages in a given range
-+ * zap_vma_range_batched - zap page table entries in a vma range
-  * @tlb: pointer to the caller's struct mmu_gather
-- * @vma: vm_area_struct holding the applicable pages
-- * @address: starting address of pages to remove
-- * @size: number of bytes to remove
-- * @details: details of shared cache invalidation
-+ * @vma: the vma covering the range to zap
-+ * @address: starting address of the range to zap
-+ * @size: number of bytes to zap
-+ * @details: details specifying zapping behavior
-+ *
-+ * @tlb must not be NULL. The provided address range must be fully
-+ * contained within @vma. If @vma is for hugetlb, @tlb is flushed and
-+ * re-initialized by this function.
-  *
-- * @tlb shouldn't be NULL.  The range must fit into one VMA.  If @vma is for
-- * hugetlb, @tlb is flushed and re-initialized by this function.
-+ * If @details is NULL, this function will zap all page table entries.
-  */
--void zap_page_range_single_batched(struct mmu_gather *tlb,
-+void zap_vma_range_batched(struct mmu_gather *tlb,
- 		struct vm_area_struct *vma, unsigned long address,
- 		unsigned long size, struct zap_details *details)
+@@ -4227,17 +4227,15 @@ static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
+ 					    struct zap_details *details)
  {
-@@ -2225,7 +2228,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+ 	struct vm_area_struct *vma;
+-	pgoff_t vba, vea, zba, zea;
+ 	unsigned long start, size;
  	struct mmu_gather tlb;
  
- 	tlb_gather_mmu(&tlb, vma->vm_mm);
--	zap_page_range_single_batched(&tlb, vma, address, size, NULL);
-+	zap_vma_range_batched(&tlb, vma, address, size, NULL);
- 	tlb_finish_mmu(&tlb);
- }
- 
-@@ -4251,7 +4254,7 @@ static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
- 		size = (end_idx - start_idx) << PAGE_SHIFT;
+ 	vma_interval_tree_foreach(vma, root, first_index, last_index) {
+-		vba = vma->vm_pgoff;
+-		vea = vba + vma_pages(vma) - 1;
+-		zba = max(first_index, vba);
+-		zea = min(last_index, vea);
+-		start = ((zba - vba) << PAGE_SHIFT) + vma->vm_start;
+-		size = (zea - zba + 1) << PAGE_SHIFT;
++		const pgoff_t start_idx = max(first_index, vma->vm_pgoff);
++		const pgoff_t end_idx = min(last_index, vma_last_pgoff(vma)) + 1;
++
++		start = vma->vm_start + ((start_idx - vma->vm_pgoff) << PAGE_SHIFT);
++		size = (end_idx - start_idx) << PAGE_SHIFT;
  
  		tlb_gather_mmu(&tlb, vma->vm_mm);
--		zap_page_range_single_batched(&tlb, vma, start, size, details);
-+		zap_vma_range_batched(&tlb, vma, start, size, details);
- 		tlb_finish_mmu(&tlb);
- 	}
- }
+ 		zap_page_range_single_batched(&tlb, vma, start, size, details);
 -- 
 2.43.0
 
