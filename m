@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6974CD58E48
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8581FD006E
 	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFEF110E558;
-	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D5CD10E55D;
+	Mon,  2 Mar 2026 16:22:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TykYjpWv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BsV4ULrX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D04B10EC27;
- Fri, 27 Feb 2026 20:09:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E3AF10EC37;
+ Fri, 27 Feb 2026 20:13:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AEF0E434E8;
- Fri, 27 Feb 2026 20:09:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80D2C19423;
- Fri, 27 Feb 2026 20:09:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 36CC9401C0;
+ Fri, 27 Feb 2026 20:13:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5BFC116C6;
+ Fri, 27 Feb 2026 20:13:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772222964;
- bh=oTLLv1/LtvCwIvkJbROBPO/znHjTWfNn5494fkK85gk=;
+ s=k20201202; t=1772223212;
+ bh=8DjODQ9JTo8rNPBCTFGX0cqEx7ur/z2XYX0+HQB8juc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TykYjpWvgGwljpM6p2COuJBm6vVZY9Djvp9ZNM6zX/Mg+sBmes0wCnbQ4WeSfbmW/
- SV+IDNBtumzcZhC3ElSbyAiv475EkpQUkxeCLhsWULdxAHfGnT0H335AmzCjAN+dQj
- QRAOmuBYMH+Ynj0dVRD7vPT/l9+4APLtjm8nWyekU8kueRKpx8XbFw5ajrTVTYHSCI
- fPG3LX2/4RfCF7sYKFaOg85sIPFkNtlXfBAxGEQ4tDcYAx7xhGzd19vCY9jvvC0Ulp
- O7aQ9sT3wfiLxfn9cUcpLrszMNdsrZRZprFMOD9AkXLMBxMByussndPeKhWeTlHo/m
- zYXuh1oeZiM/A==
+ b=BsV4ULrXcf69csyHSuGqVHkErg/TmBz0CXhzBZuPFMOJEd58YYsV9GY3LYfW2rxUB
+ B/Bd+jNerrYiWu/dHQ4j9aEcpp/k/BLY3TOUIcBEDZazpW4Qb1rlsg807wAQftoetu
+ oKHzBMSDxjv/CxuvG+QWIc4cPfrDOfwX0D5SZxDFnYn2LED/gYiKa1XwK/OgvUaDiQ
+ wgo5tEx/CUq90wHpk0NTCoqjaz2e0NS8iGFwY2Tc6jUxOCGeEWKQQpTGNJBMzS+gGd
+ d3N1RDyJOeuPtak0u7xYeGcKnNxHOOxKOC4LpkDRwUfoXIisyM7oV5jLZ/g+BGM9tD
+ tmtukJMtnncfA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
@@ -81,10 +81,10 @@ Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
  linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: [PATCH v1 01/16] mm/madvise: drop range checks in
- madvise_free_single_vma()
-Date: Fri, 27 Feb 2026 21:08:32 +0100
-Message-ID: <20260227200848.114019-2-david@kernel.org>
+Subject: [PATCH v1 16/16] mm/memory: support VM_MIXEDMAP in
+ zap_special_vma_range()
+Date: Fri, 27 Feb 2026 21:08:47 +0100
+Message-ID: <20260227200848.114019-17-david@kernel.org>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260227200848.114019-1-david@kernel.org>
 References: <20260227200848.114019-1-david@kernel.org>
@@ -106,63 +106,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-madvise_vma_behavior()-> madvise_dontneed_free()->madvise_free_single_vma()
-is only called from madvise_walk_vmas()
+There is demand for also zapping page table entries by drivers in
+VM_MIXEDMAP VMAs[1].
 
-(a) After try_vma_read_lock() confirmed that the whole range falls into
-    a single VMA (see is_vma_lock_sufficient()).
+Nothing really speaks against supporting VM_MIXEDMAP for driver use. We
+just don't want arbitrary drivers to zap in ordinary (non-special) VMAs.
 
-(b) After adjusting the range to the VMA in the loop afterwards.
-
-madvise_dontneed_free() might drop the MM lock when handling
-userfaultfd, but it properly looks up the VMA again to adjust the range.
-
-So in madvise_free_single_vma(), the given range should always fall into
-a single VMA and should also span at least one page.
-
-Let's drop the error checks.
-
-The code now matches what we do in madvise_dontneed_single_vma(), where
-we call zap_vma_range_batched() that documents: "The range must fit into
-one VMA.". Although that function still adjusts that range, we'll change
-that soon.
+[1] https://lore.kernel.org/r/aYSKyr7StGpGKNqW@google.com
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/madvise.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ mm/memory.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index c0370d9b4e23..efc04334a000 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -799,9 +799,10 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+diff --git a/mm/memory.c b/mm/memory.c
+index f3b7b7e16138..3fe30dc2f179 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2239,13 +2239,13 @@ void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
+  * @size: number of bytes to zap
+  *
+  * This function does nothing when the provided address range is not fully
+- * contained in @vma, or when the @vma is not VM_PFNMAP.
++ * contained in @vma, or when the @vma is not VM_PFNMAP or VM_MIXEDMAP.
+  */
+ void zap_special_vma_range(struct vm_area_struct *vma, unsigned long address,
+ 		unsigned long size)
  {
- 	struct mm_struct *mm = madv_behavior->mm;
- 	struct vm_area_struct *vma = madv_behavior->vma;
--	unsigned long start_addr = madv_behavior->range.start;
--	unsigned long end_addr = madv_behavior->range.end;
--	struct mmu_notifier_range range;
-+	struct mmu_notifier_range range = {
-+		.start = madv_behavior->range.start,
-+		.end = madv_behavior->range.end,
-+	};
- 	struct mmu_gather *tlb = madv_behavior->tlb;
- 	struct mm_walk_ops walk_ops = {
- 		.pmd_entry		= madvise_free_pte_range,
-@@ -811,12 +812,6 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
- 	if (!vma_is_anonymous(vma))
- 		return -EINVAL;
+ 	if (!range_in_vma(vma, address, address + size) ||
+-	    		!(vma->vm_flags & VM_PFNMAP))
++	   !(vma->vm_flags & (VM_PFNMAP | VM_MIXEDMAP)))
+ 		return;
  
--	range.start = max(vma->vm_start, start_addr);
--	if (range.start >= vma->vm_end)
--		return -EINVAL;
--	range.end = min(vma->vm_end, end_addr);
--	if (range.end <= vma->vm_start)
--		return -EINVAL;
- 	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm,
- 				range.start, range.end);
- 
+ 	zap_vma_range(vma, address, size);
 -- 
 2.43.0
 
