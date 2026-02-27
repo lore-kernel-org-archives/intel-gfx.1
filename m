@@ -4,82 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB252E9B37E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76628EA4E3D
 	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91C9F10E553;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 494D710E550;
 	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="O4VApGig";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e5g0TPuA";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Fri, 27 Feb 2026 15:58:32 UTC
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
- [95.215.58.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4643510E18F
- for <intel-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 15:58:32 +0000 (UTC)
-Message-ID: <1d3c1c86-7382-4c2a-ab3e-3e6938d055ec@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1772207497;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MaJxtRy1gxu5Hm6tq13uMb/9SHoCAIyHdACW5TaPNP8=;
- b=O4VApGigh6dfWOJ9Vb5+0CQiVHhKjSZySfd6btG/EKcPBAUptNJb4/YDic3YfSQ0J8VAGe
- hZ/07Q7h657LWWPzTUyyfY/nw/ws6+i/16B29wlwXRCsnqs1muOE91VHh5HeFCpqC42LSN
- SqIKXtc4WN41DQjWrPhh33QzvyF2Et8=
-Date: Fri, 27 Feb 2026 23:50:59 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v11 2/2] rust: clist: Add support to interface with C
- linked lists
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
- Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, Nikola Djukic
- <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3078C10EC34;
+ Fri, 27 Feb 2026 20:12:44 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id D97E141843;
+ Fri, 27 Feb 2026 20:12:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624A8C4AF0E;
+ Fri, 27 Feb 2026 20:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772223163;
+ bh=B1yXnc32tXbLcJ8NQGFc5Arvb5lyHtOMPl4AdrDajl0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=e5g0TPuAG6gfesnF6qlduLlcGUBPnMhU3YENZOHkNsVPDgQhRnH1MFauWgeL7RMDC
+ ZDytxLL3/ocwf5PbRvFpVbk3pmvkdAD+XF1L6BzyancbBjD35yHtpfICb2QNxOw986
+ L5hI932ZW/hEh+Gw6fKcAGmpoqiF+z1NyH1tsVKuOA7DQSAhWxwkWr6RocVOmKV8XG
+ KFx3ANZlj2o1XSLVoqev/UhRxYfp7R7fG3oZ4hNen9Y8TdMB1iPdiGc3rcD8XmrotP
+ q4q3zeg0mjfjsk5BWqfRmyIBaT8twqj4E2sWv/18B/I98ZtV8ClTF3/ZnpUTnwGlob
+ z68EfQd2gz72g==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: "linux-mm @ kvack . org" <linux-mm@kvack.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ =?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>,
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <20260224222734.3153931-1-joelagnelf@nvidia.com>
- <20260224222734.3153931-3-joelagnelf@nvidia.com>
- <dbbb1a93-93fc-4ea6-bd6f-6f7fbfcc4710@linux.dev>
- <20260226193442.GA4077409@joelbox2>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <20260226193442.GA4077409@joelbox2>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Eric Dumazet <edumazet@google.com>, Neal Cardwell <ncardwell@google.com>,
+ "David S. Miller" <davem@davemloft.net>, David Ahern <dsahern@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Miguel Ojeda <ojeda@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
+Subject: [PATCH v1 13/16] mm: rename zap_page_range_single_batched() to
+ zap_vma_range_batched()
+Date: Fri, 27 Feb 2026 21:08:44 +0100
+Message-ID: <20260227200848.114019-14-david@kernel.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260227200848.114019-1-david@kernel.org>
+References: <20260227200848.114019-1-david@kernel.org>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Mon, 02 Mar 2026 16:22:03 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,65 +106,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Let's make the naming more consistent with our new naming scheme.
 
-On 2/27/26 03:34, Joel Fernandes wrote:
-> On Fri, 27 Feb 2026, Alvin Sun wrote:
->> Thanks for the clist abstraction. The Tyr debugfs [1] I'm implementing
->> needs to iterate over a GpuVm's VA list, and I'd like to switch that to
->> a CList-based implementation.
-> Thanks for looking into using CList for this!
->
->> Could you make CListHeadIter public and expose a public constructor?
->> Or do you have a better suggestion?
-> I think this can be handled without exposing CListHeadIter. See below.
->
->> The VA list mixes two node types in one list — GpuVa (with driver-specific
->> data) and KernelGpuVa — so we have to filter/skip nodes and can't use
->> CList as-is. With a public CListHeadIter and new(), we can implement a
->> custom iterator (like our current GpuVaIter) on top of CListHeadIter and
->> then migrate that code to clist instead of hand-rolled list traversal.
-> Looking at the Tyr code, both GpuVa and KernelGpuVa are
-> #[repr(transparent)] wrappers over the same C struct (drm_gpuva), linked
-> through the same list_head field at the same offset. The "two types" are
-> a Rust-level modeling choice for safety, not a structural difference in
-> the list — every node in that list is a drm_gpuva.
->
-> So CList's typed iteration already works here. You can iterate over all
-> nodes using a common Rust wrapper type (like a #[repr(transparent)]
-> wrapper over drm_gpuva), and then skip the kernel-reserved node by
-> pointer identity — since drm_gpuvm has its kernel_alloc_node as a named
-> field, its address is known. Something like:
->
->      // Iterate all nodes as a common base type.
->      let list = clist_create!(unsafe { head, RawGpuVa, drm_gpuva, rb.entry });
->      let kernel_ptr = unsafe { &raw mut (*gpuvm_raw).kernel_alloc_node };
->
->      for va in list.iter() {
->          if va.as_raw() == kernel_ptr {
->              continue;  // skip
->          }
->
->          // Cast to &GpuVa
->          let gpu_va = unsafe { GpuVa::from_raw(va.as_raw()) };
->          ...
->      }
->
-> If you need a named iterator type (e.g. for returning from a method),
-> you can wrap CListIter in your own GpuVaIter struct that stores the
-> kernel node pointer and filters in its Iterator::next() impl. That would
-> probably also be cleaner.
-That's a good idea! I will try to implement GpuVaIter based on CListIter.
+While at it, polish the kerneldoc a bit.
 
-Thanks,
-Alvin Sun
->
-> OTOH, with CListHeadIter you'd need to do container_of manually on each node,
-> which might be more erroneous code, whereas CListIter handles that for you.
-> And anyway, the pointer comparison needed to skip the kernel node is the same
-> in both approaches.
->
-> Would this work for the Tyr debugfs use case?
->
-> --
-> Joel Fernandes
->
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/internal.h |  2 +-
+ mm/madvise.c  |  5 ++---
+ mm/memory.c   | 23 +++++++++++++----------
+ 3 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index df9190f7db0e..15a1b3f0a6d1 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -536,7 +536,7 @@ static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
+ }
+ 
+ struct zap_details;
+-void zap_page_range_single_batched(struct mmu_gather *tlb,
++void zap_vma_range_batched(struct mmu_gather *tlb,
+ 		struct vm_area_struct *vma, unsigned long addr,
+ 		unsigned long size, struct zap_details *details);
+ int zap_vma_for_reaping(struct vm_area_struct *vma);
+diff --git a/mm/madvise.c b/mm/madvise.c
+index b51f216934f3..fb5fcdff2b66 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -855,9 +855,8 @@ static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
+ 		.reclaim_pt = true,
+ 	};
+ 
+-	zap_page_range_single_batched(
+-			madv_behavior->tlb, madv_behavior->vma, range->start,
+-			range->end - range->start, &details);
++	zap_vma_range_batched(madv_behavior->tlb, madv_behavior->vma,
++			      range->start, range->end - range->start, &details);
+ 	return 0;
+ }
+ 
+diff --git a/mm/memory.c b/mm/memory.c
+index 1c0bcdfc73b7..e611e9af4e85 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2167,17 +2167,20 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
+ }
+ 
+ /**
+- * zap_page_range_single_batched - remove user pages in a given range
++ * zap_vma_range_batched - zap page table entries in a vma range
+  * @tlb: pointer to the caller's struct mmu_gather
+- * @vma: vm_area_struct holding the applicable pages
+- * @address: starting address of pages to remove
+- * @size: number of bytes to remove
+- * @details: details of shared cache invalidation
++ * @vma: the vma covering the range to zap
++ * @address: starting address of the range to zap
++ * @size: number of bytes to zap
++ * @details: details specifying zapping behavior
++ *
++ * @tlb must not be NULL. The provided address range must be fully
++ * contained within @vma. If @vma is for hugetlb, @tlb is flushed and
++ * re-initialized by this function.
+  *
+- * @tlb shouldn't be NULL.  The range must fit into one VMA.  If @vma is for
+- * hugetlb, @tlb is flushed and re-initialized by this function.
++ * If @details is NULL, this function will zap all page table entries.
+  */
+-void zap_page_range_single_batched(struct mmu_gather *tlb,
++void zap_vma_range_batched(struct mmu_gather *tlb,
+ 		struct vm_area_struct *vma, unsigned long address,
+ 		unsigned long size, struct zap_details *details)
+ {
+@@ -2225,7 +2228,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+ 	struct mmu_gather tlb;
+ 
+ 	tlb_gather_mmu(&tlb, vma->vm_mm);
+-	zap_page_range_single_batched(&tlb, vma, address, size, NULL);
++	zap_vma_range_batched(&tlb, vma, address, size, NULL);
+ 	tlb_finish_mmu(&tlb);
+ }
+ 
+@@ -4251,7 +4254,7 @@ static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
+ 		size = (end_idx - start_idx) << PAGE_SHIFT;
+ 
+ 		tlb_gather_mmu(&tlb, vma->vm_mm);
+-		zap_page_range_single_batched(&tlb, vma, start, size, details);
++		zap_vma_range_batched(&tlb, vma, start, size, details);
+ 		tlb_finish_mmu(&tlb);
+ 	}
+ }
+-- 
+2.43.0
+
