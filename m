@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20955FD0047
-	for <intel-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 18:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 343C8FD0075
+	for <intel-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 18:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66EC010E3FB;
-	Sun,  1 Mar 2026 18:58:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBB8F10E400;
+	Sun,  1 Mar 2026 18:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kCz0FYs+";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Yn4EDM7R";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011004.outbound.protection.outlook.com [52.101.52.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D7C610E3F6;
- Sun,  1 Mar 2026 18:58:06 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012003.outbound.protection.outlook.com [40.107.209.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E101210E3F3;
+ Sun,  1 Mar 2026 18:58:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q9PYcU5e/kJDfLNjgblrCYWrhUbrBQIKBqebZ/vIG1z9DOdOMo92d8j8ypT6u58OuuwrVtPy+/Xw6312Nbvgbe0jCQFQg3zhyUwIWG7nDOm7zx+Z89GhBwq4bSFcJXVCwGdmx62h1c+6uzdHJs5iYEiIVzH/mdNPgJjFXdNNABDP8oEQebzWBdod+iBBXpS+fILT0kHkV8ZKNB5TzgbhSAu5C4i5Q8Ado8M6P4eGMWorSZ7xkGU98zFl9sIezcCYwiClHN3ghAtPweYKlFFJK58NtxSWWM/lNJJgTa+7YrZQ1CVSI724BLhLaBtKCcx3YiOExIYDymdlOeA64OLZ3w==
+ b=spX+GVgnZ5bgMkMbbVtqGfYERd/1EykJCbeNb+l2anjzpNCrOl6WbMN0LBQUx39BN6/WhvtrgkydLk387nksMvDBKdG+SUA5e902MFWEtvvA9K3LlfifpK5jRq/e7chtQNWTL8B5uwjzLys3/wcAqfB+GxJ5kR2FbJx3AUNoyNy1PaoOYmF4xuDTpr8VA1dAB/2zrKz60kEBE0VsIX00U3YoXsoszf1WmBH4xSGucgNmDkbyw8VFc1uMeH+6/JjwH50hZuUCcftWuJiTnVQBhnD+f5mDYfv11TiuIfWou2u0GlHDNsZlSVj0e7EW5b5ZAW0Rw2EprtAuFwf+ucGb6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lz4990U5peHB+guUcGVvhQ3px+EmAIMqj2P8VyHOg1U=;
- b=Xmat8gtqFdH4CbdT1UEnECEEBwtacQcq/3UupXxs2U1gwQS8Kxk5N4VCgKY6eGgYNCgoY2VEF0bx3/51+g0Ylm7Nsf7gbIx1hVk2DNQHYklKaZD9U1v71WzSJ8tDrIR/KvIJS1GZdVcOk8OeBLfV0aGneu+ZTUi7P/1gFKLlZzIPBbJ8k8ijQiK6Fr30E/RiUYbtYAn7NZLNn0j4l55LJNPfiBF1javiaAw9+MiKGjIn2QUlJGOvE0QBYg985otIsqxgDj815hPJElyKwSlSo3MBcyr6fWn4q6n8anI0IOylwmOWDmXYiJqLRgSTc/Do8k6xMsDsleowllJjlFuTiQ==
+ bh=80zMS60hsdJ7ItPrD+7bzS9Cfj6rMNVNXpv27z9H9Rc=;
+ b=KP1Hc2L2aY6uZKuf9CMBtDeKZSz+uUIxQHdb3civvngGnVhQ7EvUmbTl5X8ddR1Z6oyAo/f6zH3dbNjtBUu7EuKUDv89/1VDj3t/zz42dLX3mhGDI0j58MpTk/4XhzVRCOPA9KEApqVeqdOEwZfHM4CdgXzqkbWxIsE/fvCLhfQsE+Dwz+G4pD2i3FKdHlPPx125hxRs71kPx5bLUGSq2bf3BumxpCFEXSOFcSso3s1r87jXooDJFwgBaM9Yf7pTZMDlhnHMQLN5Puu2BPqCOk4Qi8sgmr8CUYZizX+aWbORujYULgyuOMA6Y7VDYO7NWPS/uJynTxDWOXOs7IAS8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lz4990U5peHB+guUcGVvhQ3px+EmAIMqj2P8VyHOg1U=;
- b=kCz0FYs+r1B4HB6z4hB2g6hY0lGt573Uyuf3r2ky7k/8JBIC9CR7RBLzdetY6BR2zMbjLgyb8FomEQ3FR5eqh6ZMKNsgepBS5sTd4eGTBG5dp26Q+kvsQEMIndRRvWZR+FuDVSUdqZGEkonD+CjxAC8k8v1dU0GBBssVriG6x+zp7lpEEkdEE8VKdR8DurTbqdvU37xpIn+jdRQEP534ccTRv2HyjcYp0RtH5zUksAZMtJMzaMItbGnCq2u4h5Hp/SvueO8GgsQbkCTS2WzKWaRD599rL6mYlUDzGxxrVXi61eHc6Hujp+Et8V208SWl+JvDPA2ZG0c+6nFjP0zOTw==
+ bh=80zMS60hsdJ7ItPrD+7bzS9Cfj6rMNVNXpv27z9H9Rc=;
+ b=Yn4EDM7R4uVv+Fv4QtDc2f1VDAxSPCMvo8TTrNrywy8DWe+xFX19ShHFFBwNwKAV3ClXbTv8BcivAE9+xzzdECiPnjyiFT6X/ZS7XDTx2uXAY57MZ6q+VO4kGbRNXz3fwOKFPfzvoUpkzlkWDacg2WVKj3zCJLjxsFogAjnoxz7QBOIlqg/LROA/eZe9DMApibs+5Z/sUdCSjlmRMKwSvaWHxsYkauW3eaD7lOoZ6/bPQyoDCXiskUgiT6WkOPu5P0WMPx47ejY+O+xhgpphmyQJuZ32kuagXDCj2vhhAQqMyVN04krTliucyKJQVHM9vUzNt3dI43F0R21UpB2xCQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
  by BL1PR12MB5993.namprd12.prod.outlook.com (2603:10b6:208:399::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.18; Sun, 1 Mar
- 2026 18:58:01 +0000
+ 2026 18:58:02 +0000
 Received: from LV8PR12MB9620.namprd12.prod.outlook.com
  ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
  ([fe80::299d:f5e0:3550:1528%5]) with mapi id 15.20.9654.014; Sun, 1 Mar 2026
- 18:58:01 +0000
+ 18:58:02 +0000
 From: Jason Gunthorpe <jgg@nvidia.com>
 To: David Airlie <airlied@gmail.com>,
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -53,77 +53,77 @@ To: David Airlie <airlied@gmail.com>,
  Sumit Semwal <sumit.semwal@linaro.org>,
  Tvrtko Ursulin <tursulin@ursulin.net>
 Cc: patches@lists.linux.dev
-Subject: [PATCH 1/5] dma-buf: Change st-dma-resv.c to use kunit
-Date: Sun,  1 Mar 2026 14:57:53 -0400
-Message-ID: <1-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
+Subject: [PATCH 4/5] dma-buf: Change st-dma-fence-chain.c to use kunit
+Date: Sun,  1 Mar 2026 14:57:56 -0400
+Message-ID: <4-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
 In-Reply-To: <0-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
 References: 
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BLAPR03CA0153.namprd03.prod.outlook.com
- (2603:10b6:208:32f::19) To LV8PR12MB9620.namprd12.prod.outlook.com
+X-ClientProxiedBy: BL1PR13CA0389.namprd13.prod.outlook.com
+ (2603:10b6:208:2c0::34) To LV8PR12MB9620.namprd12.prod.outlook.com
  (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|BL1PR12MB5993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1702019c-4534-4c61-272f-08de77c4755c
+X-MS-Office365-Filtering-Correlation-Id: 40ad3113-64dd-4532-6c2c-08de77c47545
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|7416014|366016|1800799024|921020; 
-X-Microsoft-Antispam-Message-Info: hLdlHQtWwVl5sSjtDwYbtvK8g2bPXBS6BN+v9p7jcHnygkzggK3znVX0onwrj163KdUmnWxZ3ayhPDISEn90po/dkIsHp2FdQqwFC9+QLmkhDWgYgWgHL+gg5R9ftCr0MVzuUhc4+nbDZY9DSsSjPKP2O/RB5w+E287rhrIEf5WFU7yRAIR5ImaAjfH2YuXkyeStaeRWl13rOdnU6MzYizLn2YHzJEk3ybi44fsASZ2ss87esPyC3ej1Ggk/3oSlCmfAbS6R3oQ1sUjNg896r7L7LDXGCvPDdtO84nJuso6J3dBV9REGMLw22cpqnAw6t8s8atXQ3iPaZhEBERvNp05q8i+gIDpNrL8Eb2n5DouDWuDNI+8HEZ1BU2f9pb9wmB4s3RNOAIgPQE+nLgQ8AvjkgNv40JlvJX5ZmoJ5E9OiFL/dDSHgUM4jAfz1OEw28OJH7CW/j1WksVdPVANWso5YnvaaifDl8PWVosh6XHIaDvtlwEw7Pnx750VG7Sd6D6RsjUkkSUjA401hGHkPhBDZNXkbp3PH/F6u5rDqnDak+ofWS7uOMAhpCtvZYddu/l0dVOO8h4uZcLc7gLbg2ruRzVthSZzi7anAstelJV3C7RuIndMtF9w1awvptCX4jEazsmRlokDMc+dLBB5TVhE1+dv84bpI5CnuNYe4g/J9P24JJ/3OHktBFChZa6saz7EOCFsmHO82FYhr5bsjHpa2kWfOp7UlYxv2hsV5Ya3KFrBJeKoFeC283CghcLV8ZU+yvMEB8K8Fk5e06TG5nQ==
+X-Microsoft-Antispam-Message-Info: nA0K2GVUYrGN7t/uxKMQM3XB36FuR2w0DFh2Qf7VmiCxOrzleY6b2/Sl2M2b5I+CDcp0kMryPNEHcVR2P3z+BoInsZL3+vcO/AerbAWAYomX0GwSEz0EniDC+Da35CsRsXOMpuy7j3Ynl6D1qNavlKKponGGaY29cpPiFBr9Oe383vJoSXTPHM8GQ1orCgNrXZekGnUAnrUtw2DVDifzGyElf5lPqJmZw6lCA3AZx39l+TUjQm/0XV3gPbbeFx6o9WFLopVZzzsBZzB+Xqc0jQg5S36rzn5hRKYKRWxnGsVaw80BfM2Sm1+LIF5Tb0OxsFNVa1LFUyhpTVWqntOav1ByqRaLD1hs+fMh8q9ompiLCzK7KCymbpCjj6vCwTtx2onvKfADOffZ6J1uz8InXOMGOmq+O7PiwSjpl82VJEvRMMm8hTh6klFv08qTyvdO3OoMof8oVIqGVxZ14Ai4wP2hhwConGrb8Ik33ZEWJwbpKIlDbvR9WvQ9tYyG3mLNp3VB3VgTXpkjuNGfYWsfwzQbbTG3UolJZbHHPjkFi8eB3y/EayVYjv9PiCoG1/QG8VZ70ODHx91+OsgOV4W0Ts/47v5p8Qmt75sab6ck52xMaQVz55/sPFFyZXWTmUlW7J8Vsc/s4xbIzS/XVNo0GkEuazrvNyz7zlwBpfSEsBuvytncwjylCPqYmMwmhM+fv1NKFLkmlYOF9AM9uQGews+IwhzO5fCpitth2X4Xbaws+Gt+8kq4ySxgo8nf5kJq0pQvlHrQPowo518F/T8Vcw==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(7416014)(366016)(1800799024)(921020); DIR:OUT; SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1VzbXN3ckJiVGJaUVpRZmFaRHB4dXdibkJFWGFrTzhUMXgyUUdZaTQ4djZ1?=
- =?utf-8?B?ak5JYzgrd2JGQXhyQVU2QnJNd1pGQW1qalVSdzBkTXE1L2NkdHAybmFSTEND?=
- =?utf-8?B?cFBEQkNaRzlEL004QTJDMVlySW9USnV3MmtvMC8zZE0zaGhoTnVpN2ZzdThT?=
- =?utf-8?B?UTRKS0I2QXFPSTg3SUFmdlNVblpBU2JobU8xdCtHSVd1VE5aVmdNQURxM1l3?=
- =?utf-8?B?aXE4QTJpcHQ4RnNDWEJFUHJ4V201UGN1MnZQY0xndGlNZW80bk1HMkoydmI0?=
- =?utf-8?B?dmlxV3U5Tzkxc1Q5dTRMSGdaSWxBcGdUMll1QmJFK25abU13bnlGVktYUEN6?=
- =?utf-8?B?V1oxbWIraWl3Tndia1hWYUs0LzIwWVZyY1k1bTNVOVpMZVhMak1MVSt4SkMx?=
- =?utf-8?B?cU1FYkNZRDI3OTBXUVpjNTBsUXJ4RUYxQXlOeEJWQTUvRjJPb1E0NHI1SmxD?=
- =?utf-8?B?R2QxYWhUWjVNL1ZYa29DbTY4VXFaaGJ6NU9heS8vR2xMUVhYMFQxbVBLRUZk?=
- =?utf-8?B?cU5rckVtRHIzcG0xUGZGYUJ3MFN3WDJ6OElEN1dpTmx1eE05R2liMm13UnE3?=
- =?utf-8?B?eUNKK3hPUldldmM4VUtLU3p4eEpFMWlUTStJdll4b2tScFBJdzlpbldvUXhQ?=
- =?utf-8?B?ckVkb0xXUklhZmhOMk84cDBVZDFINkZ4QjVxc2V3NjNIL0dKS2crRFlpZHJt?=
- =?utf-8?B?TUc1WlE1QmZ3WHlEL1Y2b2REM3hQb25qdGZNL1RRWkRsTWR3QldZZWVGWVpL?=
- =?utf-8?B?UlExQml1SUgyRlhjQ25haGVMdVpVY0lGVTBhdXVhSWViTTVaMHNKc1JsZnhr?=
- =?utf-8?B?cTVoRUVhaTU4ejAwZ2h5RWR6YUZmYjdQRmNIMUxES1Q5OXN5MkdsS0ZkRTAr?=
- =?utf-8?B?NzBkbmpqTVV3bHZ3NWlHNm9KcTFpRnp6RGViaDFrdVBnbVhPamdKYVFTeU5r?=
- =?utf-8?B?QzA2b0JneWR5QWIyNXdUUWc5Q1p2MUdERUtsMzFVMVNYQjB0WVBMSnlkWHBO?=
- =?utf-8?B?TWNOYmFLRGNXN3JiZWFwZFN5NWYzVFR3Qnd0RzI1N1RjbEhvSHpjMDB3Unpk?=
- =?utf-8?B?TGxleFBEaVRLaE1sN2VIaC9qUDJQY2d0UXpleFY1OEpJV21JbVJlckdPY2hH?=
- =?utf-8?B?OG9QTzhHbGIvazVNcHI5WkxGUHA4aW90cytjV0ZVTUQ3SXZ4Mlo2dDdSenpl?=
- =?utf-8?B?emsxS25oUitXWDBDRm42NnJrTHFKZXc2Yi9WM0Z0OTZGN0V2VjMvQk1nQk03?=
- =?utf-8?B?Njd2b0o0YmMrYlR2NVA5Y3ZqVWtGQldpZ0t6dENTYXZOYlhDZUdsWEJOMlFS?=
- =?utf-8?B?bkxKQzZBSk81ZDI5WHNyK1UyWGwra0NROVROYWcrVzhYOHVRcWNDd1JjWFpW?=
- =?utf-8?B?VC9vWlFYKzQyNWZIZVdiTXZqT2ZVNzU2K0hiZGlzcmFoQWV6dXYxZ3Z5Y29T?=
- =?utf-8?B?cjB4VitFNCt6OHM3VGl1dGFESlhnemlSZmlFd2c3WXFNRkNHaFJ6SEhzNG5x?=
- =?utf-8?B?RjdVZ0ZWVUQ4ZlhFbkwvWnFoZVQvOTBIbWxLZU8reENSUnZMSmNVdU16LzJU?=
- =?utf-8?B?U1hWVFhmS2ZDZzRiT0NKWElHK3MvTGx2dkZaN2VSM01LVnMxdklSUmJsMkZ4?=
- =?utf-8?B?OUZPdTNLcWFDMlhRcElaMFpWbEtZc2cydDRVME1XTDZpeXdzWG1EUkFZWjlG?=
- =?utf-8?B?S0J6dDFmaGhUZzJXRWExYTc0cmtHYktVSVJvVG5URXQ1aE9hcDBENEpQQXhN?=
- =?utf-8?B?SUFOZHdaZnBwdDREVHNoaDVISzhEb1FTVzIxdFNSeDBUVmpzTERCekFTczQw?=
- =?utf-8?B?OGluMmowTmpVMk9ISHdqbk8wRm93SkZ0QS9rRCtsaTg1UDlBSDZJa0dhUDZ0?=
- =?utf-8?B?ODZXcjRNcFp5eStZbGhkUVQvOXRUTXVwaTNJTGw2K1RVR0JET0llYzNHbURE?=
- =?utf-8?B?Q3hyUENLb0dvV1ZZcktpRGZKOGwyOE1nUjlvaVQ2RTBOSUlGVGgyQnhYRmYr?=
- =?utf-8?B?OHg3Tm01YW5xSUQxMCticDRkZDJrb0FBMnIvb280b1ZzNWs5Y0xxc3kxT2xt?=
- =?utf-8?B?V3MycmY0VisrSTN6YW1zNUg1aStoOXIxZVRDc2N1RDg4Z2lNclQ1TkVpdmhJ?=
- =?utf-8?B?R3h3K1pYSUVDZDdQMVJuUzd1bFNPcWg5d3pyRXJha2JXOVhhUzB3a1FwSXNN?=
- =?utf-8?B?cklnNUdxU3d6T2ZMK1ZtcG41ZkJUV2lYUGl0MmYrTVJBRmE0U3Z5b0g5MEgz?=
- =?utf-8?B?QXcyL0tPRUV5VWtJL3BJOGd4WXBsSVpZZnpjL0ZZS0t1ZHkrUjBySHQvNEZi?=
- =?utf-8?B?blFRME9UdzR5UFM0OEJabElBNkMvTVF3SVN0TnhlQnBxYzBLV0N3Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z0xJYm1nUjhjS0lsMXMzeXVCQm1nY3dKbmpqWDBJWGRZU0tTRTFrV0MwTVZ3?=
+ =?utf-8?B?ZHVFaGdWSTE4S1dkZStlcmdqY25DdTMrb1RRR0pUTGpFQ2daZWtNQ0tmTUVV?=
+ =?utf-8?B?QjVpVDdFanhkUXZ4R25vUFppWSthQlJzdCttdzBEa2hkM3U0bXA0a3plV0lH?=
+ =?utf-8?B?citEa2tadVlBdFp3VWFyWEVmc0hkU09qSklpL1I2dzhCQkxKZHFLK0sxNkcz?=
+ =?utf-8?B?SmVHU01nODZ3WkwrRk81SjkxZGpFdFEwZkhuR2ZEdXI2UERpUXJNMGhSVmxQ?=
+ =?utf-8?B?cUJyKzA0UnV1dkFBZzQxZUMzUk1ubjdJanVsYzJ4c2xGM3pWMDlwZHNzQzRl?=
+ =?utf-8?B?aU5sY0R4bytYcVAwZEJpZEl0VElFRjVsdWFQK3FVT1pxeVkzVFpPS3E1UEhi?=
+ =?utf-8?B?UHMybXY4VkFXNzVjYmNIRy9GL1lEZkI2SEJjNlJ6RHBBTmVkb0IwNXpiNmo2?=
+ =?utf-8?B?UFk3S2ZQUmFCeFNJQUY1L1psZUtrTkxFbXRwYXg5SkIremxkMlpTZzlFbm9J?=
+ =?utf-8?B?Q3R2OEZLcG05ai9YNXByekFwMVNoelhvWmd0dHlUcEJORnVHRkxZN0JzdGxi?=
+ =?utf-8?B?amZFZlZjSnJmWHFDWjdFK2Q1ZS92emo5enA4eVd3cFNvMGJ1UmhDVzd1eFJ2?=
+ =?utf-8?B?QjUxek1ISHBlUVlJUndmd21RWExadDdxWktMWmhQU2daRXpNUjF0WjJwcVhH?=
+ =?utf-8?B?ZWxHY2xUejVlWFdHQUdIL1pVVWkwbm4zL2h3RGI4VkgvTUVKMXFyYzRva0lX?=
+ =?utf-8?B?b2FPNFhiRVo4SDN1bkwvSXVzZ2l3S25VZHcvU3JnZDVHK2R1NmdEaWVUbTdO?=
+ =?utf-8?B?THJ3ZGZoVmt1UkFTQVppb0FsT1VoNk1zcjJTU3drL3FsdmE0WlBpZ1QyMlgx?=
+ =?utf-8?B?UFg2d2lMSDJoS1BJdElRYml3bGVlc2hpTTVFSTcyUndlclpKZzFMNGptUVV2?=
+ =?utf-8?B?Nm52eHhBWTlsN2FvLythZVkxV0czbTN4YzNhK0Y0NE9UOGdjRmtYbEEybmRq?=
+ =?utf-8?B?MjE1RFJKUHlYUUJES08vb1VXQVpWWmtoN1dnQmhLVmkxWUtHQVNmR2I5VDE2?=
+ =?utf-8?B?emtrTkdIbXEzeVE3dmlvL3FGNEpOdEMwMVdTakplSzFiWlNHQ3BVYXFGTVZX?=
+ =?utf-8?B?SzVQOUdVS2w3R1h5UzM0OVdjKy9wR1NRVU5BTjZ5bUV1aktSS1VpUVNXMGhm?=
+ =?utf-8?B?Ym5ac0t4UUNuTDF6akpDdWhZalVaWjNpd0FRanUxK2hPMUZKc2NxTGtaMzh0?=
+ =?utf-8?B?NXg2TjRjaFVBNUpFeXA5MjM5MXNQaUQ5OFVhZG03SXc1ZEFQaWp2L1JvSmlt?=
+ =?utf-8?B?cm8rN1M5RDRDOEloem9rdVlQMVpCcFlDYVFjeFFaNWYxYlZaVGdVWWRRYlR3?=
+ =?utf-8?B?Q3lCQUVucWRsRUVMSVNKWjJWVFlDcVhJdkViYlRldmZjSEg1VVRuaGN3ZS9s?=
+ =?utf-8?B?MUc3N256RzFVT1JFMkZndnVHYnBPMW1qSFhGaWNUb0dob21tQmw1TWY3VUg2?=
+ =?utf-8?B?Sks5UW05elhISDdCUElYMHU1b0xTL2xFbldTUkRrbnc5UkRCcGV6KzR6WHk0?=
+ =?utf-8?B?d3BDTDQ1d1lwU004WXFGcUJTb0tvd1NPc2VQYVZ6bnJBMFNZdGtRNU5uTW5V?=
+ =?utf-8?B?b3NTOTdmZDRiZ0E5SFBBd1p5dGJFUXN1MDZHL2VrQlFMVXo5blVkcTlzN0FB?=
+ =?utf-8?B?SVVrZVVwNDlYc3BCVWtLcVN1d21LbnR5UkZkeFlFVzE0SmpBNFh4K3dDKzlJ?=
+ =?utf-8?B?OEhVeDl1Tk1UZ2U4dVVhYmZWRU81V0RoUTBoZ1ZQNnROVUVYRDRuUmZOeVlz?=
+ =?utf-8?B?L1YydlFxTDV1N2VBNU1nK1dTb1hhdG5hRTlyWW9ueTB4UXBQeHVoOXQ2bGg5?=
+ =?utf-8?B?VGkxOTlSTklnNFRRVFp0S0MxbytWNUFBU3JuRUUxNE5MdVdXa3dxVUxxMERI?=
+ =?utf-8?B?TU0vdEd0TTBvS25zQzU5Yk52cWxHY2FINWk1M21JcFZudkxjSEpvZjZITnJQ?=
+ =?utf-8?B?ak5YSXNHTjJWajBaR1ErNmg5TnM3TTI0NHdxaC81WUxlM3ArV25GOTNacW5t?=
+ =?utf-8?B?enJucDFNS0M3NFZsaU5QNzhyemhhM3B4N3NCOWZvNnBQTHBGMjJ3cVNtV3ZT?=
+ =?utf-8?B?UkJySlpSV3hLZUV5ZDg0cFJERG4zdWhBUEhEaTNuZUlIYjRreUs5NGE5c094?=
+ =?utf-8?B?bkhIM2NzZE9haWRKOWpGemlWM0loSGpTTi9EcXB5U09oYzc4U0tZeVRsL1Rm?=
+ =?utf-8?B?LzVxd3pCQjZKTHdmNk5MY3czM3lnWGZWZmNvQ2tyRHlJcEt0UGM3Z0F4VEZx?=
+ =?utf-8?Q?f08TYIBbj8w25xCaaB?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1702019c-4534-4c61-272f-08de77c4755c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40ad3113-64dd-4532-6c2c-08de77c47545
 X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2026 18:58:00.4646 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2026 18:58:00.6729 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1sId4k0YuNzbi5DQe3ykVPcsIGQBgGbfMjoi9hIocoAubRk2VOWNZha21IMaU8Hp
+X-MS-Exchange-CrossTenant-UserPrincipalName: D9mhPacgMT19sH8J9bJnmFIJtGya7jursMFXRq2EI+qLOlWKkx+HPFG/C0PCLSJM
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5993
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,433 +142,613 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Modernize the open coded test framework by using kunit.
 
-The kunit tool can be used to build a kernel and run it in a VM with:
-
-$ tools/testing/kunit/kunit.py run --build_dir build_kunit_x86_64 --arch x86_64 --kunitconfig ./drivers/dma-buf/.kunitconfig
-
-Along with the other ways to run kunits.
-
-To make the kunit tool work like this the DMABUF_KUNIT_TEST kconfig must
-select DMA_SHARED_BUFFER to get it turned on without building a driver
-using it.
-
 Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/dma-buf/.kunitconfig  |   2 +
- drivers/dma-buf/Kconfig       |   8 ++
- drivers/dma-buf/Makefile      |   8 +-
- drivers/dma-buf/selftests.h   |   1 -
- drivers/dma-buf/st-dma-resv.c | 145 +++++++++++++++++-----------------
- 5 files changed, 88 insertions(+), 76 deletions(-)
- create mode 100644 drivers/dma-buf/.kunitconfig
+ drivers/dma-buf/Makefile             |   4 +-
+ drivers/dma-buf/selftests.h          |   1 -
+ drivers/dma-buf/st-dma-fence-chain.c | 217 ++++++++++++---------------
+ 3 files changed, 98 insertions(+), 124 deletions(-)
 
-diff --git a/drivers/dma-buf/.kunitconfig b/drivers/dma-buf/.kunitconfig
-new file mode 100644
-index 00000000000000..1ce5fb7e6cf9ff
---- /dev/null
-+++ b/drivers/dma-buf/.kunitconfig
-@@ -0,0 +1,2 @@
-+CONFIG_KUNIT=y
-+CONFIG_DMABUF_KUNIT_TEST=y
-diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-index 8d4f2f89f24e3c..7d13c8f4484dd3 100644
---- a/drivers/dma-buf/Kconfig
-+++ b/drivers/dma-buf/Kconfig
-@@ -54,6 +54,14 @@ config DMABUF_SELFTESTS
- 	default n
- 	depends on DMA_SHARED_BUFFER
- 
-+config DMABUF_KUNIT_TEST
-+	tristate "KUnit tests for DMA-BUF" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	select DMA_SHARED_BUFFER
-+	default KUNIT_ALL_TESTS
-+	help
-+	   Enable kunit tests for DMA-BUF
-+
- menuconfig DMABUF_HEAPS
- 	bool "DMA-BUF Userland Memory Heaps"
- 	select DMA_SHARED_BUFFER
 diff --git a/drivers/dma-buf/Makefile b/drivers/dma-buf/Makefile
-index 7a85565d906ba1..2e7a1453e2fe04 100644
+index 65bda1b7cc73eb..c97ab2d01a7e68 100644
 --- a/drivers/dma-buf/Makefile
 +++ b/drivers/dma-buf/Makefile
-@@ -11,7 +11,11 @@ dmabuf_selftests-y := \
- 	selftest.o \
- 	st-dma-fence.o \
- 	st-dma-fence-chain.o \
--	st-dma-fence-unwrap.o \
--	st-dma-resv.o
-+	st-dma-fence-unwrap.o
+@@ -8,13 +8,13 @@ obj-$(CONFIG_SW_SYNC)		+= sw_sync.o sync_debug.o
+ obj-$(CONFIG_UDMABUF)		+= udmabuf.o
+ 
+ dmabuf_selftests-y := \
+-	selftest.o \
+-	st-dma-fence-chain.o
++	selftest.o
  
  obj-$(CONFIG_DMABUF_SELFTESTS)	+= dmabuf_selftests.o
-+
-+dmabuf_kunit-y := \
-+	st-dma-resv.o
-+
-+obj-$(CONFIG_DMABUF_KUNIT_TEST) += dmabuf_kunit.o
+ 
+ dmabuf_kunit-y := \
+ 	st-dma-fence.o \
++	st-dma-fence-chain.o \
+ 	st-dma-fence-unwrap.o \
+ 	st-dma-resv.o
+ 
 diff --git a/drivers/dma-buf/selftests.h b/drivers/dma-buf/selftests.h
-index 851965867d9c7f..2fdaca6b3e92e2 100644
+index 7104cf0cce26d1..37b7251841278e 100644
 --- a/drivers/dma-buf/selftests.h
 +++ b/drivers/dma-buf/selftests.h
-@@ -13,4 +13,3 @@ selftest(sanitycheck, __sanitycheck__) /* keep first (igt selfcheck) */
- selftest(dma_fence, dma_fence)
- selftest(dma_fence_chain, dma_fence_chain)
- selftest(dma_fence_unwrap, dma_fence_unwrap)
--selftest(dma_resv, dma_resv)
-diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
-index ad4dfb49dcd9fa..95a4becdb8926d 100644
---- a/drivers/dma-buf/st-dma-resv.c
-+++ b/drivers/dma-buf/st-dma-resv.c
-@@ -5,13 +5,17 @@
- * Copyright © 2021 Advanced Micro Devices, Inc.
- */
+@@ -10,4 +10,3 @@
+  * Tests are executed in order by igt/dmabuf_selftest
+  */
+ selftest(sanitycheck, __sanitycheck__) /* keep first (igt selfcheck) */
+-selftest(dma_fence_chain, dma_fence_chain)
+diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+index 821023dd34df68..a3023d3fedc9d8 100644
+--- a/drivers/dma-buf/st-dma-fence-chain.c
++++ b/drivers/dma-buf/st-dma-fence-chain.c
+@@ -4,6 +4,7 @@
+  * Copyright © 2019 Intel Corporation
+  */
  
 +#include <kunit/test.h>
- #include <linux/slab.h>
+ #include <linux/delay.h>
+ #include <linux/dma-fence.h>
+ #include <linux/dma-fence-chain.h>
+@@ -15,8 +16,6 @@
  #include <linux/spinlock.h>
- #include <linux/dma-resv.h>
+ #include <linux/random.h>
  
 -#include "selftest.h"
-+static DEFINE_SPINLOCK(fence_lock);
+-
+ #define CHAIN_SZ (4 << 10)
  
--static struct spinlock fence_lock;
-+struct dma_resv_usage_param {
-+	enum dma_resv_usage usage;
-+	const char *desc;
-+};
- 
- static const char *fence_name(struct dma_fence *f)
- {
-@@ -35,15 +39,14 @@ static struct dma_fence *alloc_fence(void)
- 	return f;
+ static struct kmem_cache *slab_fences;
+@@ -74,27 +73,23 @@ static struct dma_fence *mock_chain(struct dma_fence *prev,
+ 	return &f->base;
  }
  
 -static int sanitycheck(void *arg)
 +static void test_sanitycheck(struct kunit *test)
  {
- 	struct dma_resv resv;
- 	struct dma_fence *f;
- 	int r;
+ 	struct dma_fence *f, *chain;
+-	int err = 0;
  
- 	f = alloc_fence();
+ 	f = mock_fence();
 -	if (!f)
 -		return -ENOMEM;
 +	KUNIT_ASSERT_NOT_NULL(test, f);
  
- 	dma_fence_enable_sw_signaling(f);
- 
-@@ -53,49 +56,46 @@ static int sanitycheck(void *arg)
- 	dma_resv_init(&resv);
- 	r = dma_resv_lock(&resv, NULL);
- 	if (r)
--		pr_err("Resv locking failed\n");
-+		KUNIT_FAIL(test, "Resv locking failed\n");
+ 	chain = mock_chain(NULL, f, 1);
+ 	if (chain)
+ 		dma_fence_enable_sw_signaling(chain);
  	else
- 		dma_resv_unlock(&resv);
- 	dma_resv_fini(&resv);
--	return r;
- }
+-		err = -ENOMEM;
++		KUNIT_FAIL(test, "Failed to create chain");
  
--static int test_signaling(void *arg)
-+static void test_signaling(struct kunit *test)
- {
--	enum dma_resv_usage usage = (unsigned long)arg;
-+	const struct dma_resv_usage_param *param = test->param_value;
-+	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv resv;
- 	struct dma_fence *f;
- 	int r;
- 
- 	f = alloc_fence();
--	if (!f)
--		return -ENOMEM;
-+	KUNIT_ASSERT_NOT_NULL(test, f);
- 
- 	dma_fence_enable_sw_signaling(f);
- 
- 	dma_resv_init(&resv);
- 	r = dma_resv_lock(&resv, NULL);
- 	if (r) {
--		pr_err("Resv locking failed\n");
-+		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
- 	}
- 
- 	r = dma_resv_reserve_fences(&resv, 1);
- 	if (r) {
--		pr_err("Resv shared slot allocation failed\n");
-+		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
- 	}
- 
- 	dma_resv_add_fence(&resv, f, usage);
- 	if (dma_resv_test_signaled(&resv, usage)) {
--		pr_err("Resv unexpectedly signaled\n");
--		r = -EINVAL;
-+		KUNIT_FAIL(test, "Resv unexpectedly signaled");
- 		goto err_unlock;
- 	}
  	dma_fence_signal(f);
- 	if (!dma_resv_test_signaled(&resv, usage)) {
--		pr_err("Resv not reporting signaled\n");
--		r = -EINVAL;
-+		KUNIT_FAIL(test, "Resv not reporting signaled");
- 		goto err_unlock;
- 	}
- err_unlock:
-@@ -103,33 +103,32 @@ static int test_signaling(void *arg)
- err_free:
- 	dma_resv_fini(&resv);
  	dma_fence_put(f);
--	return r;
+ 
+ 	dma_fence_put(chain);
+-
+-	return err;
  }
  
--static int test_for_each(void *arg)
-+static void test_for_each(struct kunit *test)
+ struct fence_chains {
+@@ -176,7 +171,7 @@ static void fence_chains_fini(struct fence_chains *fc)
+ 	kvfree(fc->chains);
+ }
+ 
+-static int find_seqno(void *arg)
++static void test_find_seqno(struct kunit *test)
  {
--	enum dma_resv_usage usage = (unsigned long)arg;
-+	const struct dma_resv_usage_param *param = test->param_value;
-+	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
- 	struct dma_resv resv;
- 	int r;
+ 	struct fence_chains fc;
+ 	struct dma_fence *fence;
+@@ -184,14 +179,13 @@ static int find_seqno(void *arg)
+ 	int i;
  
- 	f = alloc_fence();
--	if (!f)
--		return -ENOMEM;
-+	KUNIT_ASSERT_NOT_NULL(test, f);
+ 	err = fence_chains_init(&fc, 64, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
  
- 	dma_fence_enable_sw_signaling(f);
- 
- 	dma_resv_init(&resv);
- 	r = dma_resv_lock(&resv, NULL);
- 	if (r) {
--		pr_err("Resv locking failed\n");
-+		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
+ 	fence = dma_fence_get(fc.tail);
+ 	err = dma_fence_chain_find_seqno(&fence, 0);
+ 	dma_fence_put(fence);
+ 	if (err) {
+-		pr_err("Reported %d for find_seqno(0)!\n", err);
++		KUNIT_FAIL(test, "Reported %d for find_seqno(0)!", err);
+ 		goto err;
  	}
  
- 	r = dma_resv_reserve_fences(&resv, 1);
- 	if (r) {
--		pr_err("Resv shared slot allocation failed\n");
-+		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
- 	}
- 
-@@ -138,24 +137,23 @@ static int test_for_each(void *arg)
- 	r = -ENOENT;
- 	dma_resv_for_each_fence(&cursor, &resv, usage, fence) {
- 		if (!r) {
--			pr_err("More than one fence found\n");
--			r = -EINVAL;
-+			KUNIT_FAIL(test, "More than one fence found");
- 			goto err_unlock;
+@@ -200,14 +194,13 @@ static int find_seqno(void *arg)
+ 		err = dma_fence_chain_find_seqno(&fence, i + 1);
+ 		dma_fence_put(fence);
+ 		if (err) {
+-			pr_err("Reported %d for find_seqno(%d:%d)!\n",
+-			       err, fc.chain_length + 1, i + 1);
++			KUNIT_FAIL(test, "Reported %d for find_seqno(%d:%d)!",
++				   err, fc.chain_length + 1, i + 1);
+ 			goto err;
  		}
- 		if (f != fence) {
--			pr_err("Unexpected fence\n");
-+			KUNIT_FAIL(test, "Unexpected fence");
- 			r = -EINVAL;
- 			goto err_unlock;
+ 		if (fence != fc.chains[i]) {
+-			pr_err("Incorrect fence reported by find_seqno(%d:%d)\n",
+-			       fc.chain_length + 1, i + 1);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Incorrect fence reported by find_seqno(%d:%d)",
++				   fc.chain_length + 1, i + 1);
+ 			goto err;
  		}
- 		if (dma_resv_iter_usage(&cursor) != usage) {
--			pr_err("Unexpected fence usage\n");
-+			KUNIT_FAIL(test, "Unexpected fence usage");
- 			r = -EINVAL;
- 			goto err_unlock;
+ 
+@@ -215,12 +208,11 @@ static int find_seqno(void *arg)
+ 		err = dma_fence_chain_find_seqno(&fence, i + 1);
+ 		dma_fence_put(fence);
+ 		if (err) {
+-			pr_err("Error reported for finding self\n");
++			KUNIT_FAIL(test, "Error reported for finding self");
+ 			goto err;
  		}
- 		r = 0;
+ 		if (fence != fc.chains[i]) {
+-			pr_err("Incorrect fence reported by find self\n");
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Incorrect fence reported by find self");
+ 			goto err;
+ 		}
+ 
+@@ -228,9 +220,8 @@ static int find_seqno(void *arg)
+ 		err = dma_fence_chain_find_seqno(&fence, i + 2);
+ 		dma_fence_put(fence);
+ 		if (!err) {
+-			pr_err("Error not reported for future fence: find_seqno(%d:%d)!\n",
+-			       i + 1, i + 2);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Error not reported for future fence: find_seqno(%d:%d)!",
++				   i + 1, i + 2);
+ 			goto err;
+ 		}
+ 
+@@ -238,31 +229,28 @@ static int find_seqno(void *arg)
+ 		err = dma_fence_chain_find_seqno(&fence, i);
+ 		dma_fence_put(fence);
+ 		if (err) {
+-			pr_err("Error reported for previous fence!\n");
++			KUNIT_FAIL(test, "Error reported for previous fence!");
+ 			goto err;
+ 		}
+ 		if (i > 0 && fence != fc.chains[i - 1]) {
+-			pr_err("Incorrect fence reported by find_seqno(%d:%d)\n",
+-			       i + 1, i);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Incorrect fence reported by find_seqno(%d:%d)",
++				   i + 1, i);
+ 			goto err;
+ 		}
  	}
- 	if (r) {
--		pr_err("No fence found\n");
-+		KUNIT_FAIL(test, "No fence found");
- 		goto err_unlock;
- 	}
- 	dma_fence_signal(f);
-@@ -164,33 +162,32 @@ static int test_for_each(void *arg)
- err_free:
- 	dma_resv_fini(&resv);
- 	dma_fence_put(f);
--	return r;
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
  }
  
--static int test_for_each_unlocked(void *arg)
-+static void test_for_each_unlocked(struct kunit *test)
+-static int find_signaled(void *arg)
++static void test_find_signaled(struct kunit *test)
  {
--	enum dma_resv_usage usage = (unsigned long)arg;
-+	const struct dma_resv_usage_param *param = test->param_value;
-+	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
- 	struct dma_resv resv;
- 	int r;
+ 	struct fence_chains fc;
+ 	struct dma_fence *fence;
+ 	int err;
  
- 	f = alloc_fence();
--	if (!f)
--		return -ENOMEM;
-+	KUNIT_ASSERT_NOT_NULL(test, f);
+ 	err = fence_chains_init(&fc, 2, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
  
- 	dma_fence_enable_sw_signaling(f);
+ 	dma_fence_signal(fc.fences[0]);
  
- 	dma_resv_init(&resv);
- 	r = dma_resv_lock(&resv, NULL);
- 	if (r) {
--		pr_err("Resv locking failed\n");
-+		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
+@@ -270,37 +258,33 @@ static int find_signaled(void *arg)
+ 	err = dma_fence_chain_find_seqno(&fence, 1);
+ 	dma_fence_put(fence);
+ 	if (err) {
+-		pr_err("Reported %d for find_seqno()!\n", err);
++		KUNIT_FAIL(test, "Reported %d for find_seqno()!", err);
+ 		goto err;
  	}
  
- 	r = dma_resv_reserve_fences(&resv, 1);
- 	if (r) {
--		pr_err("Resv shared slot allocation failed\n");
-+		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		dma_resv_unlock(&resv);
- 		goto err_free;
+ 	if (fence && fence != fc.chains[0]) {
+-		pr_err("Incorrect chain-fence.seqno:%lld reported for completed seqno:1\n",
+-		       fence->seqno);
++		KUNIT_FAIL(test, "Incorrect chain-fence.seqno:%lld reported for completed seqno:1",
++			   fence->seqno);
+ 
+ 		dma_fence_get(fence);
+ 		err = dma_fence_chain_find_seqno(&fence, 1);
+ 		dma_fence_put(fence);
+ 		if (err)
+-			pr_err("Reported %d for finding self!\n", err);
+-
+-		err = -EINVAL;
++			KUNIT_FAIL(test, "Reported %d for finding self!", err);
  	}
-@@ -202,21 +199,20 @@ static int test_for_each_unlocked(void *arg)
- 	dma_resv_iter_begin(&cursor, &resv, usage);
- 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
- 		if (!r) {
--			pr_err("More than one fence found\n");
--			r = -EINVAL;
-+			KUNIT_FAIL(test, "More than one fence found");
- 			goto err_iter_end;
- 		}
- 		if (!dma_resv_iter_is_restarted(&cursor)) {
--			pr_err("No restart flag\n");
-+			KUNIT_FAIL(test, "No restart flag");
- 			goto err_iter_end;
- 		}
- 		if (f != fence) {
--			pr_err("Unexpected fence\n");
-+			KUNIT_FAIL(test, "Unexpected fence");
- 			r = -EINVAL;
- 			goto err_iter_end;
- 		}
- 		if (dma_resv_iter_usage(&cursor) != usage) {
--			pr_err("Unexpected fence usage\n");
-+			KUNIT_FAIL(test, "Unexpected fence usage");
- 			r = -EINVAL;
- 			goto err_iter_end;
- 		}
-@@ -230,40 +226,38 @@ static int test_for_each_unlocked(void *arg)
- 			r = 0;
- 		}
- 	}
--	if (r)
--		pr_err("No fence found\n");
-+	KUNIT_EXPECT_EQ(test, r, 0);
- err_iter_end:
- 	dma_resv_iter_end(&cursor);
- 	dma_fence_signal(f);
- err_free:
- 	dma_resv_fini(&resv);
- 	dma_fence_put(f);
--	return r;
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
  }
  
--static int test_get_fences(void *arg)
-+static void test_get_fences(struct kunit *test)
+-static int find_out_of_order(void *arg)
++static void test_find_out_of_order(struct kunit *test)
  {
--	enum dma_resv_usage usage = (unsigned long)arg;
-+	const struct dma_resv_usage_param *param = test->param_value;
-+	enum dma_resv_usage usage = param->usage;
- 	struct dma_fence *f, **fences = NULL;
- 	struct dma_resv resv;
- 	int r, i;
+ 	struct fence_chains fc;
+ 	struct dma_fence *fence;
+ 	int err;
  
- 	f = alloc_fence();
--	if (!f)
--		return -ENOMEM;
-+	KUNIT_ASSERT_NOT_NULL(test, f);
+ 	err = fence_chains_init(&fc, 3, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
  
- 	dma_fence_enable_sw_signaling(f);
+ 	dma_fence_signal(fc.fences[1]);
  
- 	dma_resv_init(&resv);
- 	r = dma_resv_lock(&resv, NULL);
- 	if (r) {
--		pr_err("Resv locking failed\n");
-+		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_resv;
+@@ -308,7 +292,7 @@ static int find_out_of_order(void *arg)
+ 	err = dma_fence_chain_find_seqno(&fence, 2);
+ 	dma_fence_put(fence);
+ 	if (err) {
+-		pr_err("Reported %d for find_seqno()!\n", err);
++		KUNIT_FAIL(test, "Reported %d for find_seqno()!", err);
+ 		goto err;
  	}
  
- 	r = dma_resv_reserve_fences(&resv, 1);
- 	if (r) {
--		pr_err("Resv shared slot allocation failed\n");
-+		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		dma_resv_unlock(&resv);
- 		goto err_resv;
- 	}
-@@ -273,12 +267,12 @@ static int test_get_fences(void *arg)
+@@ -319,16 +303,12 @@ static int find_out_of_order(void *arg)
+ 	 * we should get as fence to wait upon (fence 2 being garbage
+ 	 * collected during the traversal of the chain).
+ 	 */
+-	if (fence != fc.chains[0]) {
+-		pr_err("Incorrect chain-fence.seqno:%lld reported for completed seqno:2\n",
+-		       fence ? fence->seqno : 0);
+-
+-		err = -EINVAL;
+-	}
++	if (fence != fc.chains[0])
++		KUNIT_FAIL(test, "Incorrect chain-fence.seqno:%lld reported for completed seqno:2",
++			   fence ? fence->seqno : 0);
  
- 	r = dma_resv_get_fences(&resv, usage, &i, &fences);
- 	if (r) {
--		pr_err("get_fences failed\n");
-+		KUNIT_FAIL(test, "get_fences failed");
- 		goto err_free;
- 	}
- 
- 	if (i != 1 || fences[0] != f) {
--		pr_err("get_fences returned unexpected fence\n");
-+		KUNIT_FAIL(test, "get_fences returned unexpected fence");
- 		goto err_free;
- 	}
- 
-@@ -290,27 +284,32 @@ static int test_get_fences(void *arg)
- err_resv:
- 	dma_resv_fini(&resv);
- 	dma_fence_put(f);
--	return r;
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
  }
  
--int dma_resv(void)
--{
+ static uint64_t seqno_inc2(unsigned int i)
+@@ -336,7 +316,7 @@ static uint64_t seqno_inc2(unsigned int i)
+ 	return 2 * i + 2;
+ }
+ 
+-static int find_gap(void *arg)
++static void test_find_gap(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	struct dma_fence *fence;
+@@ -344,24 +324,22 @@ static int find_gap(void *arg)
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, 64, seqno_inc2);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	for (i = 0; i < fc.chain_length; i++) {
+ 		fence = dma_fence_get(fc.tail);
+ 		err = dma_fence_chain_find_seqno(&fence, 2 * i + 1);
+ 		dma_fence_put(fence);
+ 		if (err) {
+-			pr_err("Reported %d for find_seqno(%d:%d)!\n",
+-			       err, fc.chain_length + 1, 2 * i + 1);
++			KUNIT_FAIL(test, "Reported %d for find_seqno(%d:%d)!",
++				   err, fc.chain_length + 1, 2 * i + 1);
+ 			goto err;
+ 		}
+ 		if (fence != fc.chains[i]) {
+-			pr_err("Incorrect fence.seqno:%lld reported by find_seqno(%d:%d)\n",
+-			       fence->seqno,
+-			       fc.chain_length + 1,
+-			       2 * i + 1);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Incorrect fence.seqno:%lld reported by find_seqno(%d:%d)",
++				   fence->seqno,
++				   fc.chain_length + 1,
++				   2 * i + 1);
+ 			goto err;
+ 		}
+ 
+@@ -369,19 +347,17 @@ static int find_gap(void *arg)
+ 		err = dma_fence_chain_find_seqno(&fence, 2 * i + 2);
+ 		dma_fence_put(fence);
+ 		if (err) {
+-			pr_err("Error reported for finding self\n");
++			KUNIT_FAIL(test, "Error reported for finding self");
+ 			goto err;
+ 		}
+ 		if (fence != fc.chains[i]) {
+-			pr_err("Incorrect fence reported by find self\n");
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "Incorrect fence reported by find self");
+ 			goto err;
+ 		}
+ 	}
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+ struct find_race {
+@@ -437,7 +413,7 @@ static int __find_race(void *arg)
+ 	return err;
+ }
+ 
+-static int find_race(void *arg)
++static void test_find_race(struct kunit *test)
+ {
+ 	struct find_race data;
+ 	int ncpus = num_online_cpus();
+@@ -447,12 +423,11 @@ static int find_race(void *arg)
+ 	int i;
+ 
+ 	err = fence_chains_init(&data.fc, CHAIN_SZ, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	threads = kmalloc_objs(*threads, ncpus);
+ 	if (!threads) {
+-		err = -ENOMEM;
++		KUNIT_FAIL(test, "Failed to allocate threads array");
+ 		goto err;
+ 	}
+ 
+@@ -486,74 +461,67 @@ static int find_race(void *arg)
+ 			count++;
+ 	pr_info("Completed %lu cycles\n", count);
+ 
++	KUNIT_EXPECT_EQ(test, err, 0);
++
+ err:
+ 	fence_chains_fini(&data.fc);
+-	return err;
+ }
+ 
+-static int signal_forward(void *arg)
++static void test_signal_forward(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	int err;
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, 64, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	for (i = 0; i < fc.chain_length; i++) {
+ 		dma_fence_signal(fc.fences[i]);
+ 
+ 		if (!dma_fence_is_signaled(fc.chains[i])) {
+-			pr_err("chain[%d] not signaled!\n", i);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "chain[%d] not signaled!", i);
+ 			goto err;
+ 		}
+ 
+ 		if (i + 1 < fc.chain_length &&
+ 		    dma_fence_is_signaled(fc.chains[i + 1])) {
+-			pr_err("chain[%d] is signaled!\n", i);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "chain[%d] is signaled!", i);
+ 			goto err;
+ 		}
+ 	}
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+-static int signal_backward(void *arg)
++static void test_signal_backward(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	int err;
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, 64, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	for (i = fc.chain_length; i--; ) {
+ 		dma_fence_signal(fc.fences[i]);
+ 
+ 		if (i > 0 && dma_fence_is_signaled(fc.chains[i])) {
+-			pr_err("chain[%d] is signaled!\n", i);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "chain[%d] is signaled!", i);
+ 			goto err;
+ 		}
+ 	}
+ 
+ 	for (i = 0; i < fc.chain_length; i++) {
+ 		if (!dma_fence_is_signaled(fc.chains[i])) {
+-			pr_err("chain[%d] was not signaled!\n", i);
+-			err = -EINVAL;
++			KUNIT_FAIL(test, "chain[%d] was not signaled!", i);
+ 			goto err;
+ 		}
+ 	}
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+ static int __wait_fence_chains(void *arg)
+@@ -566,7 +534,7 @@ static int __wait_fence_chains(void *arg)
+ 	return 0;
+ }
+ 
+-static int wait_forward(void *arg)
++static void test_wait_forward(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	struct task_struct *tsk;
+@@ -574,12 +542,11 @@ static int wait_forward(void *arg)
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, CHAIN_SZ, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	tsk = kthread_run(__wait_fence_chains, &fc, "dmabuf/wait");
+ 	if (IS_ERR(tsk)) {
+-		err = PTR_ERR(tsk);
++		KUNIT_FAIL(test, "Failed to create kthread");
+ 		goto err;
+ 	}
+ 	get_task_struct(tsk);
+@@ -589,13 +556,13 @@ static int wait_forward(void *arg)
+ 		dma_fence_signal(fc.fences[i]);
+ 
+ 	err = kthread_stop_put(tsk);
++	KUNIT_EXPECT_EQ(test, err, 0);
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+-static int wait_backward(void *arg)
++static void test_wait_backward(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	struct task_struct *tsk;
+@@ -603,12 +570,11 @@ static int wait_backward(void *arg)
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, CHAIN_SZ, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	tsk = kthread_run(__wait_fence_chains, &fc, "dmabuf/wait");
+ 	if (IS_ERR(tsk)) {
+-		err = PTR_ERR(tsk);
++		KUNIT_FAIL(test, "Failed to create kthread");
+ 		goto err;
+ 	}
+ 	get_task_struct(tsk);
+@@ -618,10 +584,10 @@ static int wait_backward(void *arg)
+ 		dma_fence_signal(fc.fences[i]);
+ 
+ 	err = kthread_stop_put(tsk);
++	KUNIT_EXPECT_EQ(test, err, 0);
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+ static void randomise_fences(struct fence_chains *fc)
+@@ -640,7 +606,7 @@ static void randomise_fences(struct fence_chains *fc)
+ 	}
+ }
+ 
+-static int wait_random(void *arg)
++static void test_wait_random(struct kunit *test)
+ {
+ 	struct fence_chains fc;
+ 	struct task_struct *tsk;
+@@ -648,14 +614,13 @@ static int wait_random(void *arg)
+ 	int i;
+ 
+ 	err = fence_chains_init(&fc, CHAIN_SZ, seqno_inc);
+-	if (err)
+-		return err;
++	KUNIT_ASSERT_EQ_MSG(test, err, 0, "Failed to init fence chains");
+ 
+ 	randomise_fences(&fc);
+ 
+ 	tsk = kthread_run(__wait_fence_chains, &fc, "dmabuf/wait");
+ 	if (IS_ERR(tsk)) {
+-		err = PTR_ERR(tsk);
++		KUNIT_FAIL(test, "Failed to create kthread");
+ 		goto err;
+ 	}
+ 	get_task_struct(tsk);
+@@ -665,29 +630,14 @@ static int wait_random(void *arg)
+ 		dma_fence_signal(fc.fences[i]);
+ 
+ 	err = kthread_stop_put(tsk);
++	KUNIT_EXPECT_EQ(test, err, 0);
+ 
+ err:
+ 	fence_chains_fini(&fc);
+-	return err;
+ }
+ 
+-int dma_fence_chain(void)
++static int dma_fence_chain_suite_init(struct kunit_suite *suite)
+ {
 -	static const struct subtest tests[] = {
 -		SUBTEST(sanitycheck),
--		SUBTEST(test_signaling),
--		SUBTEST(test_for_each),
--		SUBTEST(test_for_each_unlocked),
--		SUBTEST(test_get_fences),
+-		SUBTEST(find_seqno),
+-		SUBTEST(find_signaled),
+-		SUBTEST(find_out_of_order),
+-		SUBTEST(find_gap),
+-		SUBTEST(find_race),
+-		SUBTEST(signal_forward),
+-		SUBTEST(signal_backward),
+-		SUBTEST(wait_forward),
+-		SUBTEST(wait_backward),
+-		SUBTEST(wait_random),
 -	};
--	enum dma_resv_usage usage;
--	int r;
-+static const struct dma_resv_usage_param dma_resv_usage_params[] = {
-+	{ DMA_RESV_USAGE_KERNEL, "kernel" },
-+	{ DMA_RESV_USAGE_WRITE, "write" },
-+	{ DMA_RESV_USAGE_READ, "read" },
-+	{ DMA_RESV_USAGE_BOOKKEEP, "bookkeep" },
-+};
+-	int ret;
+-
+ 	pr_info("sizeof(dma_fence_chain)=%zu\n",
+ 		sizeof(struct dma_fence_chain));
  
--	spin_lock_init(&fence_lock);
--	for (usage = DMA_RESV_USAGE_KERNEL; usage <= DMA_RESV_USAGE_BOOKKEEP;
--	     ++usage) {
--		r = subtests(tests, (void *)(unsigned long)usage);
--		if (r)
--			return r;
--	}
--	return 0;
--}
-+KUNIT_ARRAY_PARAM_DESC(dma_resv_usage, dma_resv_usage_params, desc);
+@@ -696,9 +646,34 @@ int dma_fence_chain(void)
+ 				 SLAB_HWCACHE_ALIGN);
+ 	if (!slab_fences)
+ 		return -ENOMEM;
+-
+-	ret = subtests(tests, NULL);
+-
+-	kmem_cache_destroy(slab_fences);
+-	return ret;
++	return 0;
+ }
 +
-+static struct kunit_case dma_resv_cases[] = {
++static void dma_fence_chain_suite_exit(struct kunit_suite *suite)
++{
++	kmem_cache_destroy(slab_fences);
++}
++
++static struct kunit_case dma_fence_chain_cases[] = {
 +	KUNIT_CASE(test_sanitycheck),
-+	KUNIT_CASE_PARAM(test_signaling, dma_resv_usage_gen_params),
-+	KUNIT_CASE_PARAM(test_for_each, dma_resv_usage_gen_params),
-+	KUNIT_CASE_PARAM(test_for_each_unlocked, dma_resv_usage_gen_params),
-+	KUNIT_CASE_PARAM(test_get_fences, dma_resv_usage_gen_params),
++	KUNIT_CASE(test_find_seqno),
++	KUNIT_CASE(test_find_signaled),
++	KUNIT_CASE(test_find_out_of_order),
++	KUNIT_CASE(test_find_gap),
++	KUNIT_CASE(test_find_race),
++	KUNIT_CASE(test_signal_forward),
++	KUNIT_CASE(test_signal_backward),
++	KUNIT_CASE(test_wait_forward),
++	KUNIT_CASE(test_wait_backward),
++	KUNIT_CASE(test_wait_random),
 +	{}
 +};
 +
-+static struct kunit_suite dma_resv_test_suite = {
-+	.name = "dma-buf-resv",
-+	.test_cases = dma_resv_cases,
++static struct kunit_suite dma_fence_chain_test_suite = {
++	.name = "dma-buf-fence-chain",
++	.suite_init = dma_fence_chain_suite_init,
++	.suite_exit = dma_fence_chain_suite_exit,
++	.test_cases = dma_fence_chain_cases,
 +};
 +
-+kunit_test_suite(dma_resv_test_suite);
-+
-+MODULE_DESCRIPTION("KUnit tests for DMA-BUF");
-+MODULE_LICENSE("GPL");
++kunit_test_suite(dma_fence_chain_test_suite);
 -- 
 2.43.0
 
