@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FAEBEA4E3B
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3BF7EA4E3F
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 16:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A65010E552;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21DB910E54B;
 	Mon,  2 Mar 2026 16:22:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Krl6+69H";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtcHjAcd";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 669F210E073;
- Mon,  2 Mar 2026 10:28:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BBB710E453;
+ Mon,  2 Mar 2026 08:19:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 68891600AD;
- Mon,  2 Mar 2026 10:27:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A46C2BC87;
- Mon,  2 Mar 2026 10:27:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 81674600AD;
+ Mon,  2 Mar 2026 08:19:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A42C3C19423;
+ Mon,  2 Mar 2026 08:18:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772447279;
- bh=8Jbu9H2WLMZ/Y0rr095qrTvIs+zg55Kd2JEbFtyGHmY=;
+ s=k20201202; t=1772439545;
+ bh=WmUymOIJMfyfhcBz2h3rfkkfmDcPbAvC1z+3AaqwZ0g=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Krl6+69HdQKfsIadgvHYi287ier/j1szZ993OZDT7DLhjavvKec7Gmr03hTpHVgXj
- X0/0EjLIMbPIDZrCrJh9in109yydXaY5xnii3BGEGQDsH91yBSGTL2rsyr6PES0xNG
- KzCTBZZYNcrS+JljktAcnv3r/4+UE5gSO+jilmVPIvLhvKH/uOqaeeaW5ID/ViHWtE
- 1C/VnCBU/fOpg6j3zXJeKFB9GExjAgAF8c5qVzy1gVHvIfNNS90zmmwWo7JQbWGXi2
- hMrX3cYHDYRwL5mIhmHn77RYJyzkHV9dkffdxYZV/gl7j7Y90QzUkwjrqRa3JIEhbO
- Sst0s9UkPTtwg==
-Message-ID: <f2f3a8a1-3dbf-4ef9-a89a-a6ec20791d1c@kernel.org>
-Date: Mon, 2 Mar 2026 11:27:40 +0100
+ b=VtcHjAcdNUspXks9MnWnffCAOqhBHNybP+7Ni7w8KdFY/trDOnhcMQKmf8ZqBAo9v
+ 2oPq6TzzmlTs/C9RNRmZ/bhgByD+u1nfj6UxwxomjOQCu2sY9HuCtu0I3smP44soG1
+ z3JiHjnOWXVROlMpnAOszR6Llw0KBEFBuQA/dpMNDX95fR6stQpR5WnTZjAG5K+8C3
+ J8dr/QWrvH7T+g/mBKT5sBlBT5fQFIHiyIyYAdI/Wil4qScmZd5DeCh046NcNpwp9+
+ rTrW2LUZVcITpNBX5owhZeWoh57rxakj8ZFLJUaCvflED3tgx9mlEtXGwa4FzT086v
+ UCdEEMmXLFPAA==
+Message-ID: <8a27e9ac-2025-4724-a46d-0a7c90894ba7@kernel.org>
+Date: Mon, 2 Mar 2026 09:18:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 02/16] mm/memory: remove "zap_details" parameter from
@@ -84,8 +84,6 @@ Cc: linux-kernel@vger.kernel.org, "linux-mm @ kvack . org"
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
 References: <20260227200848.114019-1-david@kernel.org>
  <20260227200848.114019-3-david@kernel.org> <aaLh2BxSgC9Jl5iS@google.com>
- <8a27e9ac-2025-4724-a46d-0a7c90894ba7@kernel.org>
- <aaVf5gv4XjV6Ddt-@google.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -132,7 +130,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <aaVf5gv4XjV6Ddt-@google.com>
+In-Reply-To: <aaLh2BxSgC9Jl5iS@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 02 Mar 2026 16:22:03 +0000
@@ -151,47 +149,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 3/2/26 11:01, Alice Ryhl wrote:
-> On Mon, Mar 02, 2026 at 09:18:45AM +0100, David Hildenbrand (Arm) wrote:
->> On 2/28/26 13:38, Alice Ryhl wrote:
->>>
->>>
->>> Please run rustfmt on Rust changes. Here, rustfmt leads to this being
->>> formatted on a single line:
+On 2/28/26 13:38, Alice Ryhl wrote:
+> On Fri, Feb 27, 2026 at 09:08:33PM +0100, David Hildenbrand (Arm) wrote:
+>> Nobody except memory.c should really set that parameter to non-NULL. So
+>> let's just drop it and make unmap_mapping_range_vma() use
+>> zap_page_range_single_batched() instead.
 >>
->> Having to run tooling I don't even have installed when removing a single
->> function parameter; did not expect that :)
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > 
-> Well, rustfmt comes with the compiler, and it would be ideal to build
-> test changes before sending them :)
+>> diff --git a/rust/kernel/mm/virt.rs b/rust/kernel/mm/virt.rs
+>> index da21d65ccd20..b8e59e4420f3 100644
+>> --- a/rust/kernel/mm/virt.rs
+>> +++ b/rust/kernel/mm/virt.rs
+>> @@ -124,7 +124,7 @@ pub fn zap_page_range_single(&self, address: usize, size: usize) {
+>>          // sufficient for this method call. This method has no requirements on the vma flags. The
+>>          // address range is checked to be within the vma.
+>>          unsafe {
+>> -            bindings::zap_page_range_single(self.as_ptr(), address, size, core::ptr::null_mut())
+>> +            bindings::zap_page_range_single(self.as_ptr(), address, size)
+>>          };
+> 
+> Please run rustfmt on Rust changes. Here, rustfmt leads to this being
+> formatted on a single line:
 
-At least on Ubuntu on my notebook where I do most of the coding+patch
-submissions it's a separate package?
-
-I do all my builds on a different (more powerful) machine where the
-whole rust machinery's in place. Further, build bots that run on my
-private branches did not report any issues.
-
-
-> But no worries, I took care of testing it. Thanks for taking the time to
-> update the Rust code as well.
-
-I just did an allyesconfig and it does not report any warnings.
-
-So apparently, rustfmt problems not result in the compiler complaining?
-
-Or something else is off here that rust/kernel/mm/virt.rs won't get
-compiled on my machine, even with allyesconfig. I can definitely see
-some RUSTC stuff happening in the logs, like
-
-	RUSTC L rust/kernel.o
-
-Thanks for the review and for pointing out rustfmt!
+Having to run tooling I don't even have installed when removing a single
+function parameter; did not expect that :)
 
 > 
-> Documentation/rust/quick-start.rst has details for most distros.
+> unsafe { bindings::zap_page_range_single(self.as_ptr(), address, size) };
+> 
 
-Will read that the next time I feel brave enough to touch rust code.
+@Andrew, can you squash:
+
+From 5128f2e34d219722a8883c1fa94e057bd34601f2 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Mon, 2 Mar 2026 09:17:19 +0100
+Subject: [PATCH] fixup: mm/memory: remove zap_details parameter from
+ zap_page_range_single()
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ rust/kernel/mm/virt.rs | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/rust/kernel/mm/virt.rs b/rust/kernel/mm/virt.rs
+index b8e59e4420f3..6bfd91cfa1f4 100644
+--- a/rust/kernel/mm/virt.rs
++++ b/rust/kernel/mm/virt.rs
+@@ -123,9 +123,7 @@ pub fn zap_page_range_single(&self, address: usize, size: usize) {
+         // SAFETY: By the type invariants, the caller has read access to this VMA, which is
+         // sufficient for this method call. This method has no requirements on the vma flags. The
+         // address range is checked to be within the vma.
+-        unsafe {
+-            bindings::zap_page_range_single(self.as_ptr(), address, size)
+-        };
++        unsafe { bindings::zap_page_range_single(self.as_ptr(), address, size) };
+     }
+ 
+     /// If the [`VM_MIXEDMAP`] flag is set, returns a [`VmaMixedMap`] to this VMA, otherwise
+-- 
+2.43.0
+
+
+
+> with the above changed:
+> 
+> Acked-by: Alice Ryhl <aliceryhl@google.com> # Rust and Binder
+
+Thanks!
 
 -- 
 Cheers,
