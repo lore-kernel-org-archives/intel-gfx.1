@@ -4,66 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B969EE9B365
-	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 11:25:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A60E9B36B
+	for <intel-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 11:43:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA3710E010;
-	Mon,  2 Mar 2026 11:25:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3526B10E49D;
+	Mon,  2 Mar 2026 11:43:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lF9oW4AD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HVAaMsLV";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E732310E010;
- Mon,  2 Mar 2026 11:25:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772450738; x=1803986738;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ryhY777bCLCf6JHq4SupwGlVA50ZGL7NVyJ4/Ycc2vU=;
- b=lF9oW4ADNh/iz+S/xcbb6tX6iozvJC8ln/AjsLw3CogpTpNPecYQ8OvI
- +juPq8cGHRe8ctS5tWh+u9d14qzZg4TuYGoGJIgdUqw+iEnIgl3pkQCwu
- NDtLQ1gGTpFya3mJRVkv/hIrds1kHUWr2NShQX/BXibk/SOEEn+0TGgMU
- xeENwVQGxZH4sZP/Wb+Cn7tEZw8nXCAKr3L/VmxNrTwuJQhU9+GdaU97X
- qKJ0Qza+Gd83GmarbniufyQY0sUn1CN+g5Ho+8rvjvJTgsIf/cOm54afM
- qIvooerWdvOZFLSlziw1REfR0HPmju94A9/KLaESIlFenKfMpH0ViLCnu g==;
-X-CSE-ConnectionGUID: zRJjMZ1ORTiJX6hm9BPVqA==
-X-CSE-MsgGUID: aZHMz5ipRQOp57Go9KurEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11716"; a="76057809"
-X-IronPort-AV: E=Sophos;i="6.21,319,1763452800"; d="scan'208";a="76057809"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2026 03:25:37 -0800
-X-CSE-ConnectionGUID: 9Qfz5AhyS6WzInOCO5b6+Q==
-X-CSE-MsgGUID: efmw7faBTROkejDlBC8hRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,319,1763452800"; d="scan'208";a="217650566"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.238])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Mar 2026 03:25:36 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "Murthy, Arun R" <arun.r.murthy@intel.com>
-Subject: RE: [PATCH v3 1/8] drm/i915/backlight: Use default/max brightness
- for VESA AUX backlight init
-In-Reply-To: <DM3PPF208195D8D8B2C13C0E7E9385ED0FCE37EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260224034526.2730130-1-suraj.kandpal@intel.com>
- <20260224034526.2730130-2-suraj.kandpal@intel.com>
- <1a76dfe14cbc90b4aaec6f0e54b4e8df9f480efa@intel.com>
- <DM3PPF208195D8DACF643E4D0D138F0128CE375A@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <9f9be7c4361428b7ccb77dcc04f93b0eda024c8b@intel.com>
- <DM3PPF208195D8DBB70E17DC6764BC5A276E37EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
- <676746dc5a9fe839e3ed071dee1c8e89174ce0ea@intel.com>
- <DM3PPF208195D8D8B2C13C0E7E9385ED0FCE37EA@DM3PPF208195D8D.namprd11.prod.outlook.com>
-Date: Mon, 02 Mar 2026 13:25:32 +0200
-Message-ID: <6af697ac89413d21faee8515056cfe4bb699d733@intel.com>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012017.outbound.protection.outlook.com [52.101.48.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C0EC10E496;
+ Mon,  2 Mar 2026 11:43:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uMd/UR6shbc6hJgg8SK9mcZLr+vidiQhfWPJqBLSetKIOFofN9S0yw8AUy0ZOp5tqq6GstAZafc1dN6I/nxEMXQI5ygtoCS0fn40m5r/1VCkdIZy/TqysLSPOSue4S2OfPPadDyv6TcQ45U/lqYkV8fcecaJX1uPY6emc8836AdPic5Js9I42vDIW7oDPR8I68yktWuk7UH6xlDoD7e4gcaZQpBwlAPR3GSKZfINJ0z3FXdrBeDmJ/jnTw5G336FBKKIq5LMetr2zhp3qEwQ8BkDGuZrpadEF5QnodBLDpHxXCnYYV76mMbv0NP/LeYEd/3aucoI7CkD+jM173ydVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/C43wIqH54Zm4JpG1HZ+wUQ6D5reWdnglZXHt+WRwmM=;
+ b=iXJgNcguwuCuh7Xs2qGTdHSsrltGaOrdJ0MMD7GjSnOwiXLEKtSuzynm1s/XwQK8u6mFyLNB1TuYM46frUtnXbWoquSiwLqSjGawfVH8aiGa/PjVxxRCFFEtORpQt5WEKmHL/h9kRS45nwREVdb18uSDbkbsbTmhKD6SddgPs4i02u3SfC88Y9BRz4LkEgBcySqEng0kSSpnLXRrjZp1+CcqFotepDFOTYpE8xUHVSuiA+zaVHDA6Ps5wrzM+lGoLiWLBHhzskUB5a7oQbnIZGOVtWyTdubhPaeDt1B9QIMU8rX5gNxNu7RW+mN35EaLA/F0OMHaIU+nF9IwUr3voQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/C43wIqH54Zm4JpG1HZ+wUQ6D5reWdnglZXHt+WRwmM=;
+ b=HVAaMsLVEbV0H3NK6R2TZeOH2TKjnxX4oPA7xGoTYpwKkWPqRfegtTrbMvDdGucfcjYKGDGeKsvaY79cuACbg9wgD6j0qr+vnCc8azI5y+JvmoYdO5PJCdNl1cjFMi95pqWufwiQdjBI2bZzQD6UNgQsTPcfOvkNIV0pBaAuoCc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SAWPR12MB999140.namprd12.prod.outlook.com (2603:10b6:806:4e2::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.14; Mon, 2 Mar
+ 2026 11:43:41 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9654.014; Mon, 2 Mar 2026
+ 11:43:41 +0000
+Message-ID: <7c30f527-abc4-43a9-a11c-9233015b0a59@amd.com>
+Date: Mon, 2 Mar 2026 12:43:34 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/5] Replace the dmabuf custom test framework with kunit
+To: Jason Gunthorpe <jgg@nvidia.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: patches@lists.linux.dev
+References: <0-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <0-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0391.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cf::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SAWPR12MB999140:EE_
+X-MS-Office365-Filtering-Correlation-Id: f53124c4-3f14-481f-1952-08de7850f35d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|7053199007|921020; 
+X-Microsoft-Antispam-Message-Info: WNQHN4GFAi8mktbTG/FuOYRsNkMauQ4tp7Gjj5KFShMiP3SxagVQHWUYWgcJs41pCF6Gpn9FX7NwlNgbscnWCUZUFhI5TeMlODZNX4LbImwgy0tfnqmvQ4o2oHup1732RR9dKV381ZFnQ+wbLIQ3gdaNRW3DqihiskWd6dOTGmDRQFycfiHTOd8KlP8MNnzgAl7ZLo28v+Mx6pq6qNIR5Ua7JkG9bS57fMwSNj147z+3KOcpybe4Mtxg+MJIIBT29EiLhZ1QDiequ2o01jv5n5CkkgKi8v/h6FV6Si7gYQNrts5U/icxOAwJNLLmKQ2vKgEvp/tMpl3Z5qp5He9fpacQlLlfMPeIxcaqMJ/4OXQU5Ugi0A+xMyYb5keY8t4hj9O77wdVhIA5SVe1O9SENYyLhaR4WetNrYmEXTaNmesuyc/2SvxtRJ8bKk60hM805LhxZVNDSe1tx0pRNMKHhmAguU579s4cGu3703DdzopqMfi2rlRwZaJwzPrDuTZRU7RXYX7N/rbPAoZJ+Mq9JJx/1XBHGv5g08dMvNGhU1C+UGLey0u+AKu50cquYykluy0KOKZ3tEkZchcCN/jDKUoYvXDt/1v+EO43GydG1Tx5ttau6KYYDVj4dS5NxkjVu5fBO68wyY+K3DTR5KadQi7cooeIYTOnXrB5FUaNK7SdTm80jnHNizlvpNYD+BK6AIjEIkrJiOiSUu4ycv5PEWK1BrL0W5W7fKkDTjDuDtgk+5e8rkHNLZ0TrfIGInuduZSnKuALOPQw0692brrqt0tfuUkvCgJCujl6I0BiCow=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(7053199007)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cFhEZm9tYUswcGRZSnkzU0dJbFh6aXI5Rm5Fak13YUdERTNEV2pNdDdUazlV?=
+ =?utf-8?B?WlArV0lGNldxQkIwczJzQlZaT0xMQVkxZE1oaHF4c2xwZ2hWV1BHaVVkUXVC?=
+ =?utf-8?B?dFU4ejBtb0xTTlBQWkVrUGlEUVRmYk9iTy9hSUVZSkhEOXROTHMvak1RSlhn?=
+ =?utf-8?B?U3FNNGFpcGhUYmF3Z09nbEN0dEZ2S2tGTFhTMjVZQTVGdEJxdnFzRFVpRHdU?=
+ =?utf-8?B?NExkbUM0WTV1YmJITDZaK0syaEtiRkJHV0F6QU1qelF2bXBHRzBnRkthUVBj?=
+ =?utf-8?B?MEY3Q3B2QW0xQ1JOM0gvYXIwSU90dFpVR1hGUDBOTjYzMit5c3YxNlRWa3BN?=
+ =?utf-8?B?ZzBmQkNQMlRadlV2NlVQdTFMOWtaRlpXbG16ekZ6Yno2QUlOMlhXVnZHUjQ5?=
+ =?utf-8?B?MjVYZ2I5Z0FVK1p6WmpmNDkwaDdUdzBZLzVwTStTTVI2cWJWb3dncFFtdVBJ?=
+ =?utf-8?B?TERTS0p5bnpPTCtReGVhc3NGaEN5WHVVRzJTamxRQ1JxQ2hqU01QbWhiT2d1?=
+ =?utf-8?B?VFo4ZlVMVmU3TUZUYkJxVkhMSFVWam9hWHhDeHF3TXBSM0JKYkRNL3Z0UkFF?=
+ =?utf-8?B?Z1hQSDRTbGlaU0V3M0NWR3ZodlhDczV3SkJkSUtDZzYxY2lpQ24xVlFnNHph?=
+ =?utf-8?B?QXFWUm45OXN6Qk1KelJlY0FvT0ppcHdRREd3NDRvNzl3UGdpUm14TjArejhk?=
+ =?utf-8?B?UXl3bkFqdmpibXBkWE8wbkx3Q2w2cmE0MDhMMVhmLzhNV1RLUXEyQThxVUgr?=
+ =?utf-8?B?OUdpaGVSU3lLdGJLNDU5bzk5VFd4RGs5NXEwSjZkczAxRVNpSnlIL1BEMFpK?=
+ =?utf-8?B?WnZBTzJKRXFIRE1vQi8vL1BackE1cFUwVUVhdmJLOUVIWlEzdFQ3cU9VdGdo?=
+ =?utf-8?B?UWxFdnoxSEpxcjc5ZmNtVFhSbEx5b1U5dFBIT2s2alJ5VWtFa0NGWE9ka0hM?=
+ =?utf-8?B?NVdlZUp5akF0MXdHekNLOTdsQjRPWkdDNDJnRVpMYm53cS9lTUNaTTAwc2ow?=
+ =?utf-8?B?QUpzd2xtc3R6NU1WZkFMck5id0xFUUJzOEsrU2Z2cTNSdUlFbjFtK2xrQzIr?=
+ =?utf-8?B?WFlmUWlrVTB4UjN6MldEaytBT25aTTBScWJjMm1weS9OcEhIZ0Z3eE9WSFVB?=
+ =?utf-8?B?MzRLZ1FzbW9odXBTWSsyM09lRnBEazVOVCtvS0VUbUZaY3JxWE9aMmZVNUZY?=
+ =?utf-8?B?V0cvcGkvWUVnbFZxOG1EOVNxVWR1RGdkdU5mLzRUaFIzTzJqMjljdEU1dG9Q?=
+ =?utf-8?B?ZjAxS0NTSUdYamdrdE9zRFNnK1FtQ1NHQmUxZVdPbnJjSkJ6Q3d0L2oyQ3JC?=
+ =?utf-8?B?M2hBalN1U0s0aGljUUg1cjl2dzJNeTBjOTdRSFVVTC9qWmZrS3lmNTU5QW1S?=
+ =?utf-8?B?d1NScHNKYkdLUUQrbnkvUXJvKzlEb0NsTXJ1bGtZSXBIdzlrSmZ2VUpONVpt?=
+ =?utf-8?B?ME90aVFmZTlCVkdVNHQ0MDllQkszd3B5WUhZQ0VkN3BEclp6ZGtsVXJZczln?=
+ =?utf-8?B?Nzk0ekNYUGdBNVdnVkE4emthS0srMG45WG9LNzNhakRHZjBOL0VGc0NCS3c5?=
+ =?utf-8?B?Q21PYlhVcm5oRkxlV2FyMmpHOGpBbkJpQnNXYW94SjYxSkJ5OStjL1U3Umky?=
+ =?utf-8?B?a3dXTGhXUm1mTm5qb3dVbFZIV1hldFg1aWVsOGVMcnR0VXNiVVNLb1pUeEZR?=
+ =?utf-8?B?L01qQW1uTHF4enkvZWs1SWVSVERjUFMxREpWVmNWREtRYmV0ODhacE91a2JC?=
+ =?utf-8?B?Z0pzcGFtMHpmMnJxNlBYTzByV2lENldQaHd6UVVZS1JMRVBydFp5M0ZWamdU?=
+ =?utf-8?B?OFBDbzk1WlVkblB0cUw0NCtsSlVOMkJUdWFPL2cvYVdvUFZBNkFMT0UxR2Va?=
+ =?utf-8?B?LzNCb2JFdC85WEhKZnJFMTZHM3VETEN2Z212aGRjV0E1ZThVYjE5SWQvUUVR?=
+ =?utf-8?B?U0g2M2QrUThrQWxleVVkMW5CeUJEZlFkU3A5OHFTbGdkbC9ubGdHTzJFekJN?=
+ =?utf-8?B?VzA3ZU5XaEJzVS8vVEpETDJtMEFSSWJjYTd0S250U3NVVytpSXpmbUhZS1Bn?=
+ =?utf-8?B?RkI0M2tTdGdsMWY4MzdYMklEeFVCcS9QRytldkZsYi9Db0ZKZ3MvcUJ2aU00?=
+ =?utf-8?B?QytCL21ZVzcrRXhzcnVJaDRYZG1TSlZtRTMrNzhFem5pNzgwZERQdzBLa2J2?=
+ =?utf-8?B?aERVNTdwRE9TeUZ3YkpyV0Z2R0ZPb01LeFR0ZUFEQmprRnI0YVpCVFoyam13?=
+ =?utf-8?B?bnpEejJmMVk4ZEtNMGVpakVhUHUwZ3g0VmdsL0lQanppV3kxY0J1WlBaTHA3?=
+ =?utf-8?Q?SxIGHX7q5E8mMDgjfq?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f53124c4-3f14-481f-1952-08de7850f35d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2026 11:43:41.2558 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I1h0o0D3pn/6lUYv7F6SOL82eu7kc/GJRN5GkHn+I3HdYgFGpvc64VcDlNWFtVXF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999140
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,208 +140,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 02 Mar 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> Subject: RE: [PATCH v3 1/8] drm/i915/backlight: Use default/max brightness for
->> VESA AUX backlight init
->> 
->> On Mon, 02 Mar 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> >> Subject: RE: [PATCH v3 1/8] drm/i915/backlight: Use default/max
->> >> brightness for VESA AUX backlight init
->> >>
->> >> On Wed, 25 Feb 2026, "Kandpal, Suraj" <suraj.kandpal@intel.com> wrote:
->> >> >> Subject: Re: [PATCH v3 1/8] drm/i915/backlight: Use default/max
->> >> >> brightness for VESA AUX backlight init
->> >> >>
->> >> >> On Tue, 24 Feb 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
->> >> >> > If the brightness fetched from VBT/previous state is 0 on
->> >> >> > backlight initialization, then set the brightness to a default/max value.
->> >> >> > Whenever the minimum brightness is reported as 0 there are
->> >> >> > chances we end up with blank screen. This confuses the user into
->> >> >> > thinking the display is acting weird. This occurs in eDP 1.5
->> >> >> > when we are using PANEL_LUMINANCE_OVERRIDE mode to mainpulate
->> >> >> > brightness via luminance values.
->> >> >> >
->> >> >> > Closes:
->> >> >> > https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15671
->> >> >> > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
->> >> >> > Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
->> >> >> > ---
->> >> >> > v1 -> v2:
->> >> >> > - Let users set brightness to 0, make it so that it's just not
->> >> >> > done by default (Arun)
->> >> >> >
->> >> >> > v2 -> v3:
->> >> >> > -Update commit header and message (Arun)
->> >> >> >
->> >> >> >  drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 4 ++++
->> >> >> >  1 file changed, 4 insertions(+)
->> >> >> >
->> >> >> > diff --git
->> >> >> > a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> >> >> > b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> >> >> > index eb05ef4bd9f6..c40ce310ad97 100644
->> >> >> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> >> >> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
->> >> >> > @@ -564,6 +564,8 @@ static int
->> >> >> > intel_dp_aux_vesa_setup_backlight(struct
->> >> >> intel_connector *connector,
->> >> >> >  		}
->> >> >> >  		panel->backlight.level =
->> >> >> intel_dp_aux_vesa_get_backlight(connector, 0);
->> >> >> >  		panel->backlight.enabled = panel->backlight.level != 0;
->> >> >> > +		if (!panel->backlight.level)
->> >> >> > +			panel->backlight.level = panel->backlight.max;
->> >> >>
->> >> >> How does this help when .enabled is still based on level != 0 above?
->> >> >>
->> >> >
->> >> > Well we keep the backlight.enabled as false if we read a 0 back
->> >> > from the DPCD
->> >> or the current level state is 0.
->> >> > This is to maintain the policy that if during setup we get 0 as
->> >> > backlight value eDP backlight is currently disabled (which means
->> >> > __intel_backlight_enable needs be called). We then change the
->> >> > current level to max so that when backlight enable is called after
->> >> > setup from
->> >> intel_backlight_update, we enable backlight with max level so that we
->> >> do not end up with a blank screen. This is also where we set
->> backlight.enabled = true.
->> >> > This is  to tackle different eDP behavior where, some preserve the
->> >> > last brightness value programmed in them (in that case users want
->> >> > the same brightness to continue) while others don't and just 0 it
->> >> > out instead of
->> >> having some default value (in that case we keep backlight.enabled =
->> >> false later to be made true during the __intel_backlight_enable call).
->> >> > We face these scenarios in some compositors during the pass key
->> >> > phase where the compositor is still totally not doing everything
->> >> > and does not send
->> >> us any explicit brightness value to set thinking eDP would have some
->> >> basic default value of it's own . We end up getting a 0 from DPCD and
->> >> we enable and set the backlight enable with 0 value which anyways
->> >> later causes us to call backlight disable.
->> >> > In this case during authentication in some compositors like Fedora
->> >> > there are cases where we do not get a explicitly backlight value
->> >> > till the user
->> >> has to blindly enter their Passkey, after which the compositor sends
->> >> us some sane value which we then program.
->> >>
->> >> There's a long history of problems with the PWM backlight
->> >> unexpectedly going from 0 to max.
->> >
->> > Right but at least with this now luminance values will continue if
->> > DPCD maintains its state if we get a value back, otherwise we set a Default
->> value.
->> 
->> What's the brightness control mode *before* we enable luminance control?
->> 
->> When taking over, we should try to read the current brightness setting with the
->> current brightness control method. If we're switching to luminance control, the
->> existing luminance value is meaningless.
->> 
->> AFAICT drm_edp_backlight_probe_state() uses bl->luminance_set to determine
->> the value to read, not the current mode. At a glance, seems wrong to me.
->
-> Luminance mode is the current mode. Which we determine that by checking different capabilities from the and setting them
-> In this case aux_set and aux_enable to represent them.
+On 3/1/26 19:57, Jason Gunthorpe wrote:
+> Using kunit to write tests for new work on dmabuf is coming up:
+> 
+> https://lore.kernel.org/all/26-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+> 
+> Replace the custom test framework with kunit to avoid maintaining two
+> concurrent test frameworks.
 
-The question is not about the panel's *ability* to use luminance mode,
-it's about whether that mode was set and in use by GOP/pre-os.
+Oh, yes that was on my todo list for like an eternity as well.
 
-BR,
-Jani.
+No idea when or even if I have time to review that, but feel free to add my Acked-by should that go upstream.
 
->
-> [    1.667694] i915 0000:00:02.0: [drm:drm_edp_backlight_init [drm_display_helper]] AUX A/DDI A/PHY A: Found backlight: aux_set=1 aux_enable=0 mode=0
-> [    1.667703] i915 0000:00:02.0: [drm:drm_edp_backlight_init [drm_display_helper]] AUX A/DDI A/PHY A: Backlight caps: level=496/496 pwm_freq_pre_divider=0 lsb_reg_used=1
->
-> In this case aux_set = 1 and luminance_set = 1 which means we are in luminance mode
->
->> 
->> Of course, regressions have priority, so a revert should also be a consideration
->> before quickly going for adding level = max in there.
->> 
->
-> From what I can see
-> We are in Luminance Mode to begin with. From logs there is a level mentioned in VBT should we use that ?
->
-> [    1.665632] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Panel type (VBT): 255
-> [    1.665770] i915 0000:00:02.0: [drm:pnpid_get_panel_type [i915]] EDID manufacturer name: SDC, product code: 16899, serial number: 0, year of manufacture: 2024
-> [    1.665890] i915 0000:00:02.0: [drm:pnpid_get_panel_type [i915]] EDID raw product id: 4c 83 03 42 00 00 00 00 00 22
-> [    1.666006] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Panel type (fallback): 0
-> [    1.666124] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Selected panel type (fallback): 0
-> [    1.666235] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] DRRS supported mode is seamless
-> [    1.666346] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Found panel mode in BIOS VBT legacy lfp table: "640x480": 63 25180 640 648 744 784 480 482 484 509 0x8 0xa
-> [    1.666454] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Panel manufacturer name: @H@, product code: 0, serial number: 0, year of manufacture: 1990
-> [    1.666560] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Panel name: LFP_PanelName
-> [    1.666665] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] Seamless DRRS min refresh rate: 0 Hz
-> [    1.666757] i915 0000:00:02.0: [drm:intel_bios_init_panel [i915]] VBT backlight PWM modulation frequency 200 Hz, active high, min brightness 0, level 255, controller 0
-> [    1.666847] i915 0000:00:02.0: [drm:intel_panel_add_edid_fixed_modes [i915]] [CONNECTOR:502:eDP-1] using preferred EDID fixed mode: "2880x1800": 60 709633 2880 2888 2920 3080 1800 3800 3816 3840 0x48 0xa
-> [    1.666931] i915 0000:00:02.0: [drm:intel_panel_add_edid_fixed_modes [i915]] [CONNECTOR:502:eDP-1] using alternate EDID fixed mode: "2880x1800": 120 709633 2880 2888 2920 3080 1800 1880 1896 1920 0x40 0xa
-> [    1.667117] mmc0: SDHCI controller on PCI [0000:58:00.0] using ADMA
-> [    1.667206] i915 0000:00:02.0: [drm:drm_dp_dpcd_read [drm_display_helper]] AUX A/DDI A/PHY A: 0x007a4 AUX -> (ret=  1) 00
-> [    1.667223] i915 0000:00:02.0: [drm:intel_dp_aux_init_backlight_funcs [i915]] [CONNECTOR:502:eDP-1] AUX Luminance Based Backlight Control Supported!
-> [    1.667335] i915 0000:00:02.0: [drm:intel_dp_aux_init_backlight_funcs [i915]] [CONNECTOR:502:eDP-1] Using VESA eDP backlight controls
-> [    1.667413] i915 0000:00:02.0: [drm:intel_panel_init [i915]] [CONNECTOR:502:eDP-1] DRRS type: none
->
-> VBT here says use level 255 would it be okay if we set that to level as VBT level, if no value is returned from DPCD panel.
->
-> Regards,
-> Suraj Kandpal
->
->> > Can we proceed with getting this merged ? Would really help the user.
->> 
->> The real problem with quick fixes to help the user is that they have the
->> potential to make it a lot harder for a lot more users and developers in the long
->> run.
->> 
->> 
->> BR,
->> Jani.
->> 
->> >
->> > Regards,
->> > Suraj Kandpal
->> >
->> >>
->> >> BR,
->> >> Jani.
->> >>
->> >> >
->> >> > Regards,
->> >> > Suraj Kandpal
->> >> >
->> >> >> >  		drm_dbg_kms(display->drm,
->> >> >> >  			    "[CONNECTOR:%d:%s] AUX VESA Nits
->> backlight level
->> >> >> is controlled through DPCD\n",
->> >> >> >  			    connector->base.base.id, connector-
->> >base.name);
->> >> >> @@ -573,6
->> >> >> > +575,8 @@ static int intel_dp_aux_vesa_setup_backlight(struct
->> >> >> intel_connector *connector,
->> >> >> >  		if (current_mode ==
->> >> >> DP_EDP_BACKLIGHT_CONTROL_MODE_DPCD) {
->> >> >> >  			panel->backlight.level = current_level;
->> >> >> >  			panel->backlight.enabled = panel-
->> >backlight.level != 0;
->> >> >> > +			if (!panel->backlight.level)
->> >> >> > +				panel->backlight.level = panel-
->> >backlight.max;
->> >> >>
->> >> >> Ditto.
->> >> >>
->> >> >> >  		} else {
->> >> >> >  			panel->backlight.level = panel->backlight.max;
->> >> >> >  			panel->backlight.enabled = false;
->> >> >>
->> >> >> --
->> >> >> Jani Nikula, Intel
->> >>
->> >> --
->> >> Jani Nikula, Intel
->> 
->> --
->> Jani Nikula, Intel
+Regards,
+Christian.
 
--- 
-Jani Nikula, Intel
+> 
+> The conversion minimizes code changes and uses simple pattern-oriented
+> reworks to reduce the chance of breaking any tests. Aside from adding the
+> kunit_test_suite() boilerplate, the conversion follows a number of
+> patterns:
+> 
+> Test failures without cleanup. For example:
+>    if (!ptr)
+>        return -ENOMEM;
+> Becomes:
+>    KUNIT_ASSERT_NOT_NULL(test, ptr);
+> 
+> In kunit ASSERT longjumps out of the test.
+> 
+> Check for error, fail and cleanup:
+>    if (err) {
+>        pr_err("msg\n");
+>        goto cleanup;
+>    }
+> Becomes:
+>    if (err) {
+>        KUNIT_FAIL(test, "msg");
+>        goto cleanup;
+>    }
+> Preserve the existing failure messages and cleanup code.
+> 
+> Cases where the test returns err but prints no message:
+>    if (err)
+>        goto cleanup;
+> Becomes:
+>    if (err) {
+>        KUNIT_FAIL(test, "msg");
+>        goto cleanup;
+>    }
+> Use KUNIT_FAIL to retain the 'cleanup on err' behavior.
+> 
+> Overall, the conversion is straightforward.
+> 
+> The result can be run with kunit.py:
+> 
+>     $ tools/testing/kunit/kunit.py run --build_dir build_kunit_x86_64 --arch x86_64 --kunitconfig ./drivers/dma-buf/.kunitconfig
+>     [20:37:23] Configuring KUnit Kernel ...
+>     [20:37:23] Building KUnit Kernel ...
+>     Populating config with:
+>     $ make ARCH=x86_64 O=build_kunit_x86_64 olddefconfig
+>     Building with:
+>     $ make all compile_commands.json scripts_gdb ARCH=x86_64 O=build_kunit_x86_64 --jobs=20
+>     [20:37:29] Starting KUnit Kernel (1/1)...
+>     [20:37:29] ============================================================
+>     Running tests with:
+>     $ qemu-system-x86_64 -nodefaults -m 1024 -kernel build_kunit_x86_64/arch/x86/boot/bzImage -append 'kunit.enable=1 console=ttyS0 kunit_shutdown=reboot' -no-reboot -nographic -accel kvm -accel hvf -accel tcg -serial stdio -bios qboot.rom
+>     [20:37:30] ================ dma-buf-resv (5 subtests) =================
+>     [20:37:30] [PASSED] test_sanitycheck
+>     [20:37:30] ===================== test_signaling  ======================
+>     [20:37:30] [PASSED] kernel
+>     [20:37:30] [PASSED] write
+>     [20:37:30] [PASSED] read
+>     [20:37:30] [PASSED] bookkeep
+>     [20:37:30] ================= [PASSED] test_signaling ==================
+>     ...
+>     [20:37:35] Testing complete. Ran 50 tests: passed: 49, skipped: 1
+>     [20:37:35] Elapsed time: 12.635s total, 0.001s configuring, 6.551s building, 6.017s running
+> 
+> One test that requires two CPUs is skipped since the default VM has a
+> single CPU and cannot run the test.
+> 
+> All other usual ways to run kunit work as well, and all tests are placed
+> in a module to provide more options for how they are run.
+> 
+> AI was used to do the large scale semantic search and replaces described
+> above, then everything was hand checked. AI also deduced the issue with
+> test_race_signal_callback() in a couple of seconds from the kunit
+> crash (!!), again was hand checked though I am not so familiar with this
+> test to be fully certain this is the best answer.
+> 
+> Jason Gunthorpe (5):
+>   dma-buf: Change st-dma-resv.c to use kunit
+>   dma-buf: Change st-dma-fence.c to use kunit
+>   dma-buf: Change st-dma-fence-unwrap.c to use kunit
+>   dma-buf: Change st-dma-fence-chain.c to use kunit
+>   dma-buf: Remove the old selftest
+> 
+>  drivers/dma-buf/.kunitconfig          |   2 +
+>  drivers/dma-buf/Kconfig               |  11 +-
+>  drivers/dma-buf/Makefile              |   5 +-
+>  drivers/dma-buf/selftest.c            | 167 ---------------
+>  drivers/dma-buf/selftest.h            |  30 ---
+>  drivers/dma-buf/selftests.h           |  16 --
+>  drivers/dma-buf/st-dma-fence-chain.c  | 217 +++++++++----------
+>  drivers/dma-buf/st-dma-fence-unwrap.c | 290 +++++++++++---------------
+>  drivers/dma-buf/st-dma-fence.c        | 200 ++++++++----------
+>  drivers/dma-buf/st-dma-resv.c         | 145 +++++++------
+>  drivers/gpu/drm/i915/Kconfig.debug    |   2 +-
+>  11 files changed, 394 insertions(+), 691 deletions(-)
+>  create mode 100644 drivers/dma-buf/.kunitconfig
+>  delete mode 100644 drivers/dma-buf/selftest.c
+>  delete mode 100644 drivers/dma-buf/selftest.h
+>  delete mode 100644 drivers/dma-buf/selftests.h
+> 
+> 
+> base-commit: 41dae5ac5e157b0bb260f381eb3df2f4a4610205
+
