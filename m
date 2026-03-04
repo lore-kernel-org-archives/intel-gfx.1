@@ -4,151 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E599DEF8FF1
-	for <intel-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 14:43:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08600EF8FF0
+	for <intel-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 14:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA0810EA32;
-	Wed,  4 Mar 2026 14:43:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7949510EA29;
+	Wed,  4 Mar 2026 14:52:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QnJEo6mw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AAb+oN43";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F91410E06E
- for <intel-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 20:49:21 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso570463eec.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 03 Mar 2026 12:49:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772570960; cv=none;
- d=google.com; s=arc-20240605;
- b=Sz478P51G8q6b/KTfJP3WiFBbc8GfxSJOR/h38SuIcxz494FnPaMrOfkJVNUdsotTW
- jDmIt7BHdpghBhdqy/S7vKBJMn79IFdlFThxqb0j5UweZls5GtT/CmXgl5gxygtlI+kk
- LANrSKI43b2UPykjTkhzcwbOoKUDbIM49AmG3hrfTjRNHnrup7qDzpP5tMBWtCzNJF5N
- nvDvq+e1z9VplMERr8HmBfsJtaXzPBDrPyRkCoEeGbEvOkJQSLXgkWff6n3xehja2G4m
- uFVt1tAtC8yPUnGpVf2AMtMLzlp8aQPXtVo+75GvGW3787qsVsaFq/vyKycTOHgR+oqU
- oNwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=z5K9TC0MkEO8By22h3GqX8xxcKLeF0UtxgZ/D1gjfh8=;
- fh=el+KTUvhwHZXMIvuS7C6r1GnCnHMalLdLs/afquQ93w=;
- b=jWB5tA649AM4SMx4GLwfQVQy30FP8bHLxwiR8ndrkjNQNJTAS1HBiX0BMvQ6c2dBzb
- Kmj/YjmPSOCiA2uPQsx4aTbvEYCnxkJL9cwHY9j0/dPm2hlgeC6DAB+t43V1itwNsPeU
- igHePsDbrRMsnKyH/IVdIjU4sajvYBwT22zGvyXETApGTqww/If+A3ojPyesPSqQevES
- tTlvqT8LFNNpmY+hKcdUbC8A/M9U9RKGpOJTD0NASjrrfw8UmNS6mHcxGGJD/w/CZxuB
- XC5QnT+DWqaJbUDGxOuJDHMH1eNF4WZYmm9Nl29CPNysZ9JZq1eAy0nj1rgG/i7yHAy0
- rhkQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772570960; x=1773175760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=z5K9TC0MkEO8By22h3GqX8xxcKLeF0UtxgZ/D1gjfh8=;
- b=QnJEo6mwUiDeEB/8v+FMD0yeikn3t0hpSRvW5LqBaB4t0AEo4kyx8Swq7S5llGzq0M
- p+TWnlza5SKLZHzwhk8pLIE6hA6c0WmLgqA6R1Bs4mcGBXIqgGrFWKo/05aT1hi0yc/d
- Dt1V63wjmpCgDLpsk7aDga/9aI7DT10eShgF7wEDY/3c5FKt/m3HNX05J5wwPxvEcMs2
- MiRqfafHluMs3HXCnv2UMZtEgGdTiguoMxmYGKtx0+2cE5czcvifGghC/5SG9sZ1P1i6
- 0a1+njt639Ejt8ZDtgsMrPcbDzH8dSpDqZSZMBcABWbyB0/wZwdLFKgyt/9P0Lz/speE
- 6VrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772570960; x=1773175760;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=z5K9TC0MkEO8By22h3GqX8xxcKLeF0UtxgZ/D1gjfh8=;
- b=B675XFQQJ0hSh1eGgzeQeayISaN+zsbpb6PWYqvNu/LwNasXkKaJrCDc6gYS4rQQSb
- Jj1O5mD5G5C+ZxaRFSlz5HRLbnHNSzKjebIKwM36w9EE8kOvv39eoEY7dmUeCPXdRipW
- zz1qv/5r1ilPnzSaJIrOgkwx5iZAg0PembJAK776wGWE3lLOIYya9Z/0YV8fdoYu/jyD
- u/H+bMe0M1hcmRirI235//RaHGc0mKs8f1p/SDi2/sO/giKmyq8BEusgpEduZZvblASr
- Oy3XcbE/hfDRnpWZDlSm/TPysUjBB7z3W5c2YQ7eomMwlCgpdSmT3eYXBgxCgLELKW0c
- +G2w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWp1eQAwnaOv1KDXrYzH8rkgzohuL9XhQmdzqjQn+oJ/ROR7xIj7qJWJu7z1Zwsr+rY5gMa4D2I250=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyY3gwCf6okcxE8ZYEic9XItE9M02eyrSpo3mb+WFYpNS9kQzJX
- 8cUjCE3kY+xkuMinnU/c4chRr3IOVRICB2H0dMT0swbFha/qp1oxPW0eFbGWSsVoCUV9nJa/J16
- jFWiKEHrHVGDDsVVh8E2XkWseJM7XXTk=
-X-Gm-Gg: ATEYQzwNi1dG+zPu53pXoGR1JBPnZXOwnyYv1KYmv4sG0kqpsBo9TgMyS/tNSrztZNX
- Ftt/qrFKAHQm2W+Avqlz2AsWggWEHyhHDeaDUnr8EPdufjCwljr6Y18IIyrUt+T3Rz/zK58hFix
- M+T36y6GXOzN5aKYKfP6eTftHeKh4f6JPi9pQtjjHvFis3K5SHfYaNbOs0NaAaELQTwdBzYZax7
- Gqjy3HCLYmqRUvKM8UYH//9OPC6C41i/aXvUP7YXw1HOe2IShtWWjZrvApNJvMpzNdBI3RERLG5
- y91sim6xYBiWpKlXO4I/u0zSkOvVTcFoq0tBp2lpQU5auibreCjP5i6Dwbq7nXr4OpIfPyEA5Wo
- Xr5WhIjIeSnyNae43NgT4M1ZJ
-X-Received: by 2002:a05:7300:231e:b0:2b7:103a:7697 with SMTP id
- 5a478bee46e88-2bde1d4bc79mr3350396eec.5.1772570960234; Tue, 03 Mar 2026
- 12:49:20 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCA710EA29
+ for <intel-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 14:52:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772635970; x=1804171970;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=JFHrHcJAKhwG5I94UdW0T9+XmMEyqcoL07+snzsLNIg=;
+ b=AAb+oN43d4SPye2I8jF69Y2pfaClsv+slm+DbDOqB3CmlKNYxRFD51PO
+ ktzPWTmJ+G3gQMOip9XbhXAP8XYaHT646uYaSFo0xxXQDDxmPLI+I3Gyn
+ weYpJr04smSzCBoqRkXoZGPiIbFm7cld5TNp96Fq0u40uE2GS0oUCrz+w
+ KdJoQ+htFS99g8pbGkBELY1DVY15o16yAfbtsDIDLNJeaCo6zh+mD3Y1y
+ s8nu5hT4sjcVbBsaJSEzehqNHmZ7fu0iwmKFGhQ6vJaYGHkseelGMX03b
+ Yods49BsMYnsNAtLdnK3n/JDquShltsVYLCxm3suqI0tGSjGMzwvSgFcQ A==;
+X-CSE-ConnectionGUID: deoyo/AHTIm+3Gk0C+6mLg==
+X-CSE-MsgGUID: oPQI8bTqTG2As6n/nLySxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="85040825"
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="85040825"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 06:52:49 -0800
+X-CSE-ConnectionGUID: rH8GxfStQsSAxyr5EDijcg==
+X-CSE-MsgGUID: uE95lT2KTXWJ0EQ5U6s4+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="222857372"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.249])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 06:52:47 -0800
+Date: Wed, 4 Mar 2026 15:52:43 +0100
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com,
+ Christian =?iso-8859-15?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v2] drm/ttm: fix NULL deref in ttm_bo_flush_all_fences()
+ after fence ops detach
+Message-ID: <aahHOyaELQJOQbVK@ashyti-mobl2.lan>
+References: <1c2f34351b6fb70ab576aeac07987542a4d480b2.1772540459.git.sebastian.brzezinka@intel.com>
 MIME-Version: 1.0
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-3-david@kernel.org>
- <aaLh2BxSgC9Jl5iS@google.com>
- <8a27e9ac-2025-4724-a46d-0a7c90894ba7@kernel.org>
- <aaVf5gv4XjV6Ddt-@google.com>
- <f2f3a8a1-3dbf-4ef9-a89a-a6ec20791d1c@kernel.org>
- <aaVnifbdxKhBddQp@google.com>
- <5f8dcb7f-9e4f-4484-b160-3a9ce541d63c@kernel.org>
- <aaWvtn48X8UizaaN@google.com>
-In-Reply-To: <aaWvtn48X8UizaaN@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 3 Mar 2026 21:49:06 +0100
-X-Gm-Features: AaiRm50lUTXkxHRxiLsKpWNGF1HIgeoo2SkrDpQfQSxM22wzlSiellk8rvn7q80
-Message-ID: <CANiq72nK8P1rUYw=y3fMzWZR3f_mW2v0_LSLWR1i0dQTtOqu2w@mail.gmail.com>
-Subject: Re: [PATCH v1 02/16] mm/memory: remove "zap_details" parameter from
- zap_page_range_single()
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, linux-kernel@vger.kernel.org,
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, 
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, 
- Miguel Ojeda <ojeda@kernel.org>, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-rdma@vger.kernel.org, bpf@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 04 Mar 2026 14:43:56 +0000
+Content-Type: text/plain; charset=iso-8859-15
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1c2f34351b6fb70ab576aeac07987542a4d480b2.1772540459.git.sebastian.brzezinka@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,18 +71,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 2, 2026 at 4:41=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> wr=
-ote:
->
-> It's not relevant in this patch, but another thing that may be useful is
-> to add CLIPPY=3D1 to the make invocation when building normally. This
-> causes additional warnings to be checked using a tool called clippy.
+Hi Sebastian,
 
-Yes, please do use `CLIPPY=3D1` -- the build should be Clippy clean
-modulo exceptional cases that may slip through (and soon linux-next
-will probably start reporting those warnings too).
+On Tue, Mar 03, 2026 at 01:26:42PM +0100, Sebastian Brzezinka wrote:
+> Since commit 541c8f2468b9 ("dma-buf: detach fence ops on signal v3"),
+> fence->ops may be set to NULL via RCU when a fence signals and has no
+> release/wait ops. ttm_bo_flush_all_fences() was not updated to handle
+> this and directly dereferences fence->ops->signaled, leading to a NULL
+> pointer dereference crash:
+> 
+> ```
+> BUG: kernel NULL pointer dereference, address: 0000000000000018
+> RIP: 0010:ttm_bo_release+0x1bc/0x330 [ttm]
+> ```
+> 
+> Since dma_fence_enable_sw_signaling() already handles the signaled case
+> internally (it checks DMA_FENCE_FLAG_SIGNALED_BIT before doing anything),
+> the ops->signaled pre-check is redundant. Simply remove it and call
+> dma_fence_enable_sw_signaling() unconditionally for each fence.
+> 
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15759
+> Fixes: 541c8f2468b9 ("dma-buf: detach fence ops on signal v3")
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-Thanks!
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-Cheers,
-Miguel
+Thanks,
+Andi
