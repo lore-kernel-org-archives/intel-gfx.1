@@ -4,93 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3615FCA17F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C12DFCA17D
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA68D10E5AF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98C9110E5AA;
 	Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="teU+WZvc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OfbcGuQQ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5511410E196;
- Fri,  6 Mar 2026 12:40:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 466E2444A2;
- Fri,  6 Mar 2026 12:40:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E997C4CEF7;
- Fri,  6 Mar 2026 12:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772800810;
- bh=momqQiCPeBiESmsNjbCQuXjIElnPD5t8ixlqkLdaUNY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=teU+WZvcr3Vfjfj4PS79KVLwqpyqTY1ONa1PtwIvjXtMon6hdWoFyi7tYSgQVQlA7
- 7WqNZXjH072FsKlQxHwMb1xYD4ogJ/HhRqFMhvz7mUpomd6qDRF1LsEb2Nx0xCA20F
- Q306mWNpenrHSDponyi32Ye/+ALDPg+T87ZCaJf9rHbmPLs7TEcXwfiNFZJ08Qk58i
- YudRyMnPxWInwwAAt3CqHvwKRQrMAo7VQbC5DvtngGuMvZuxZUii1u78G4eRDQ1D/r
- cgHhuLioq6MaNE+pd+1wCN6iTybUQcrEBmRwhDJWiYLDD7kyNQioEEvs3ECG9KmNxt
- q/+pMMPgggcHw==
-Date: Fri, 6 Mar 2026 12:40:07 +0000
-From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
+ [209.85.161.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1AF10E2E6
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:09 +0000 (UTC)
+Received: by mail-oo1-f50.google.com with SMTP id
+ 006d021491bc7-662efd1bdd4so6117074eaf.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772761869; x=1773366669; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
+ b=OfbcGuQQXk7TnXTWL2CayiETbUGRKuAKDLAR3z/uCEMjgD1qBeHy/yzGSMXVupEMGR
+ b1I577PMAa+ymRxUfpTRQXdzugWJYIduWvXZrB54JmFZhkXboxKMmFkQ9KQZg7g1tkjw
+ TjljFOJJT0AeGdaGlc4mOXCpGrgtDv2ILtydNFZ2xtcSbObXuuOS5mGaHMfL7OGpCd1r
+ 2mjRq9CV7R4jK6R05IaJjfIE1RYWxBoigAB3fSHA5eaOTd4A9Y0LGKth9zLoFGeVGxit
+ JGMZS7rLQEu13s66hLif+27ugwoSsWUzlVvKDwgCcEWtKmmU8i4PSoV+qK0ypcrsi++p
+ 3nHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772761869; x=1773366669;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
+ b=fy64QzGfzB81tyn5U+nB2hgX71k6fn6qtBq4IRYjlFx79X5TB9GFVZLj8LIm4v3Q58
+ jexu1bpkkpmAndOoFt/mklAsJMltvCw7BJlezgLlMwRpW2b59QUA34Ee5/tyXE4mHnJK
+ xMDky3sFLfeq3Y1wooDNzO2fRAeaYqMf7aJfDbwVeVTsHxU7eE1xIZ/FyQjIN+EgJuIE
+ l29XRIvggb3yhbwnBEDofnq+wXK03d81W3+H0h9BKnVk/te7yUH5QSkvboAfaobdIQSv
+ WvGUwdVxC3IgbNnv6lbzFKkQ22Tqz68afESBVXzAyuxcXy8EupDMwRxF7LbHyf4LC565
+ H1/w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVpoJOX4qNavTi+RsmTaiRVRp2Xuxw2tc2WmRgRb5JHkTuLj/Od/qrJg8nflyfx35Ql4XIR8/nIudM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxYJsKy/fUKeVuRt0wvZZtNji/RuK6dL0bbBGVK0Ch12cEscqAw
+ WKa8iVvBu1HD0zqukT2vG12Pt0HsZ4bUzOGAKMlqbNQdRKtsQqpty3+x
+X-Gm-Gg: ATEYQzywIPimCeltSgrbAMfdUZNwHkrlVgXz6aeVfCKSg1MrD98pEm3iad9C4TimR9u
+ D4XesFncW+M7r+9t+ndQzRn5fC5p1NAmHWXh+z3t13GWikS0VYwCRdT/8JJsuzTsMHx//Zsyznr
+ H+qOIUYydcOLDEiEPk4YBouZ5gZ0wa+oqSGSeq2JYd1UVbnPGSw3uhQwoTKwff+nCC4Oi1vQASJ
+ 1R3ofYSl5oyK9RzuB3+BtwxepSs7ZRBroiJt6x4v12/NLSfpmKTQ3+wkz+wV34ib0wzw66aKkek
+ uw3LtnreGXs70NZ8Sp/paUR/iBKDpl/J/7brZLFx7PT9d+sXbCt0tz/r6M1qjk8fd5uzQZWdpdf
+ V7ocdVYF+NIJFtOBcal6dCDopDjrhNks+Zgr3jHlWbIKq2BRd40c4A2OIBFkwGfzu84yWY9eo8B
+ cvTN/E6sJ9q/86uC+kEjtlIuxbvp3T1drvZzYYDcfugQLie1yr
+X-Received: by 2002:a4a:ee14:0:b0:677:3b8f:43a4 with SMTP id
+ 006d021491bc7-67b9c485db9mr276619eaf.36.1772761868900; 
+ Thu, 05 Mar 2026 17:51:08 -0800 (PST)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Mar 2026 17:51:08 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: Jim Cromie <jim.cromie@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
- Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 08/16] mm/memory: move adjusting of address range to
- unmap_vmas()
-Message-ID: <6858ccdd-5065-4396-81c9-489bf2d43c9e@lucifer.local>
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-9-david@kernel.org>
+ Jiri Slaby <jirislaby@kernel.org>, Petr Mladek <pmladek@suse.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org
+Subject: [RFC PATCH 3/7] drivers/tty/serial/serial_core: ratelimit
+ uart_wait_until_sent
+Date: Thu,  5 Mar 2026 18:50:06 -0700
+Message-ID: <20260306015022.1940986-4-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
+References: <20260306015022.1940986-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-9-david@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,124 +97,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:39PM +0100, David Hildenbrand (Arm) wrote:
-> __zap_vma_range() has two callers, whereby
-> zap_page_range_single_batched() documents that the range must fit into
-> the VMA range.
->
-> So move adjusting the range to unmap_vmas() where it is actually
-> required and add a safety check in __zap_vma_range() instead. In
-> unmap_vmas(), we'd never expect to have empty ranges (otherwise, why
-> have the vma in there in the first place).
->
-> __zap_vma_range() will no longer be called with start == end, so
-> cleanup the function a bit. While at it, simplify the overly long
-> comment to its core message.
->
-> We will no longer call uprobe_munmap() for start == end, which actually
-> seems to be the right thing to do.
->
-> Note that hugetlb_zap_begin()->...->adjust_range_if_pmd_sharing_possible()
-> cannot result in the range exceeding the vma range.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Ratelimiting these pr_debug()s can reduce the console flood during
+bulk dynamic-debug activation, in environments where a serial console
+is used.
 
-LGTM, So:
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/tty/serial/serial_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 487756947a96..6db465619c70 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1790,8 +1790,8 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
+ 
+ 	expire = jiffies + timeout;
+ 
+-	pr_debug("uart_wait_until_sent(%u), jiffies=%lu, expire=%lu...\n",
+-		port->line, jiffies, expire);
++	pr_debug_ratelimited("waiting on (%u) jiffies=%lu, expire=%lu...\n",
++			     port->line, jiffies, expire);
+ 
+ 	/*
+ 	 * Check whether the transmitter is empty every 'char_time'.
+-- 
+2.53.0
 
-> ---
->  mm/memory.c | 58 +++++++++++++++++++++--------------------------------
->  1 file changed, 23 insertions(+), 35 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index f0aaec57a66b..fdcd2abf29c2 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2073,44 +2073,28 @@ static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  	tlb_end_vma(tlb, vma);
->  }
->
-> -
-> -static void __zap_vma_range(struct mmu_gather *tlb,
-> -		struct vm_area_struct *vma, unsigned long start_addr,
-> -		unsigned long end_addr, struct zap_details *details)
-> +static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> +		unsigned long start, unsigned long end,
-> +		struct zap_details *details)
->  {
-> -	unsigned long start = max(vma->vm_start, start_addr);
-> -	unsigned long end;
-> -
-> -	if (start >= vma->vm_end)
-> -		return;
-> -	end = min(vma->vm_end, end_addr);
-> -	if (end <= vma->vm_start)
-> -		return;
-> +	VM_WARN_ON_ONCE(start >= end || !range_in_vma(vma, start, end));
->
->  	if (vma->vm_file)
->  		uprobe_munmap(vma, start, end);
->
-> -	if (start != end) {
-> -		if (unlikely(is_vm_hugetlb_page(vma))) {
-> -			/*
-> -			 * It is undesirable to test vma->vm_file as it
-> -			 * should be non-null for valid hugetlb area.
-> -			 * However, vm_file will be NULL in the error
-> -			 * cleanup path of mmap_region. When
-> -			 * hugetlbfs ->mmap method fails,
-> -			 * mmap_region() nullifies vma->vm_file
-> -			 * before calling this function to clean up.
-> -			 * Since no pte has actually been setup, it is
-> -			 * safe to do nothing in this case.
-> -			 */
-> -			if (vma->vm_file) {
-> -				zap_flags_t zap_flags = details ?
-> -				    details->zap_flags : 0;
-> -				__unmap_hugepage_range(tlb, vma, start, end,
-> -							     NULL, zap_flags);
-> -			}
-> -		} else
-> -			unmap_page_range(tlb, vma, start, end, details);
-> +	if (unlikely(is_vm_hugetlb_page(vma))) {
-> +		zap_flags_t zap_flags = details ? details->zap_flags : 0;
-> +
-> +		/*
-> +		 * vm_file will be NULL when we fail early while instantiating
-> +		 * a new mapping. In this case, no pages were mapped yet and
-> +		 * there is nothing to do.
-> +		 */
-> +		if (!vma->vm_file)
-> +			return;
-> +		__unmap_hugepage_range(tlb, vma, start, end, NULL, zap_flags);
-> +	} else {
-> +		unmap_page_range(tlb, vma, start, end, details);
->  	}
->  }
->
-> @@ -2174,8 +2158,9 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
->  				unmap->vma_start, unmap->vma_end);
->  	mmu_notifier_invalidate_range_start(&range);
->  	do {
-> -		unsigned long start = unmap->vma_start;
-> -		unsigned long end = unmap->vma_end;
-> +		unsigned long start = max(vma->vm_start, unmap->vma_start);
-> +		unsigned long end = min(vma->vm_end, unmap->vma_end);
-> +
->  		hugetlb_zap_begin(vma, &start, &end);
->  		__zap_vma_range(tlb, vma, start, end, &details);
->  		hugetlb_zap_end(vma, &details);
-> @@ -2204,6 +2189,9 @@ void zap_page_range_single_batched(struct mmu_gather *tlb,
->
->  	VM_WARN_ON_ONCE(!tlb || tlb->mm != vma->vm_mm);
->
-> +	if (unlikely(!size))
-> +		return;
-> +
->  	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
->  				address, end);
->  	hugetlb_zap_begin(vma, &range.start, &range.end);
-> --
-> 2.43.0
->
