@@ -4,101 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5E9FCA17F
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BED9FCA17A
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B563310E5A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F85910E59E;
 	Mon,  9 Mar 2026 18:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qau6CML+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="edn61naH";
 	dkim-atps=neutral
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
- [209.85.128.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 710DC10ED4B
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 14:03:05 +0000 (UTC)
-Received: by mail-yw1-f171.google.com with SMTP id
- 00721157ae682-7985ce90542so92044627b3.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 06 Mar 2026 06:03:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772805784; cv=none;
- d=google.com; s=arc-20240605;
- b=YMoAxkboEkH3LxTqE1B6jb0OSnWPB7B0OrlflcwF208HmF1PZW2Wp1mEygnn2mJ7oy
- LZfwXuZ6n3DKHxNECOG8EhKYwnqsv7atXWl9Cf0xljXkguvo5M6KsJv0PQMtixw2UilG
- YqFDveYSfpcakpqn7S2AKg33R1R5j+Jr7ugtPoZsyXekIyFUbyRAXUBRnMxgh73yza28
- jOUK2j41b8/pp1nTQYwYetcwA11vUhgCyjbpvoAo4gNDOti3ixyAOA64BVcogMOba+q/
- glj4zTOFVpqrVS6MVdj7hpFU141eFPNMtxrBXFT0O3o7zLGJ3My42ODBrSAw7zN6bYHg
- MVIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
- fh=yEJ8s9NBm1w+uU8IEQpYE0MlgKza1AeAVXY/VUjaIRs=;
- b=FT/QgkjUrMrZDVhYcF6dZfz7NW0CN7p+uOigLgTyhVbuyHK/N1IH/ONR99n091jzQz
- mDv96zCcqVSA3SyXDkPggwh49XZ/0ybuG/vX8pc33qsdU90kWsix4k0XrwkFFUXzsqYE
- JIx5fxXZudOgP405qpdPLgSUpR+nNSZjHhfZXtd1lbseDb8zfJ1KuUkdQ3BVHOWzqwpT
- krMzUz8ubbpLT0f8/YGfx51NJRCFuf0VPYVpts1vnC9nYdSVhc/phDQsfhDdxIqnsbGp
- G3+5PiA5umxLukknsuEoFnnH+LtFmgBrqvULnwo4JV8dZINwPLCpOKRSI4C72qCcGocn
- j1/g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772805784; x=1773410584; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
- b=Qau6CML+yiU/U6ticC0YdY0ouic7E2IKjUeEDRDWliaeooXqgKBXwRJrv3CNiI0rnk
- 523FzqmDHYkI5SD3TK32EoRpOQYDdQQ/0fXnFTBMqVwNPaZsEIf0k8RPYxdELFEiWh+P
- yOd1VBsksRR1FmxGt+PjwmLAmOMoX3j6IUl1cpa1geHk1VlXuOWUavX0JpkaDoIvdQI+
- NOk0r+ch64Go68HTXDhS9d28kxGlaie2JnBsy+rtQEe9ozuMJQcLJ2IURGodeRl7B+oT
- yBKgYWfMeihQIU35h3n6v5Z54s3ZrNN1eLazHlonLBNncGXtK9JE70sg6eSgBwZtWKzX
- e0wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772805784; x=1773410584;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
- b=sC5mppD03gsoIF4KQ+ZSbnkVwoYer0DUGZgM09TZbdntuCbmuG659EQ5oweG2fuaa1
- ewzLDIb3FaerElYwj+cTWGVAVSGNGlCMB7re7+cGq9HMpVxqTm0rRxYoCuHd9QTTJ/8B
- 3l/eJzNbGlGtmX96QV6GG5CPf93vSYCRgjmbx9xzby/twzK6kV24E2a/bJShac82iBbe
- cPtXjUd3l8o/BlpL6QtKAtG5xm4LtZN2QZRUZUlsp7ArAueyLLY9OKbx8oZ7Hqgcs/7X
- pZ13D0eM64AGAMgrqvLVjIin4JE7dZHbsWsjLH+gNQTmC3wAe/noBsd2Siya3+S8BF5M
- 6oMg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVCgN2+iEPRyyIMQVcUWGi2YW86bfSZFbQdZ6OwpticgcGyIYcvCq7pQ+XBanBORWlXuA2bCgVQ5VY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwlCkWIT+YY419m9FHIgVNEmwb1aGQ+N5UjLL2kTRPmRy21ab0i
- +7zm5ufqh148JbBUTz1MnjIY6RPTX2u4ebJjSwfX5oXKXOSKY7BY7aY5gm5kigrWgczjesnUTHx
- JLcQhgF+MNn3iUMyvazh/2YKGY/i68a4=
-X-Gm-Gg: ATEYQzz6CFlINOG/JVHR4mcnMKml4QpQfl1u5pqjNN9yB4KmmItE1SDqtJNiiNwy3lb
- a2jmdxjag3ZTHEJ6ngb3D28ttdttKRoYRSkY0XUFMiulRF9QkBnGOx4mR8RuQA9sy9tEO47dPTa
- vkH5B8gKojb0sGmTgiAo/NAYNHJba0HSBdjx494TciJx49bzuU5Uv3Rh+2t5gA/n3TDCp/QsnjY
- lII11NfKDMxpZRpHsNmwziRPsYgA0zf+QMHeWHbAduLAT2UJA2YD8QLlBT1XhStEtA6XBvjUR8l
- LDZQ
-X-Received: by 2002:a05:690c:f03:b0:798:740f:6af1 with SMTP id
- 00721157ae682-798dd6e9b55mr17942317b3.24.1772805784050; Fri, 06 Mar 2026
- 06:03:04 -0800 (PST)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF41810E234;
+ Fri,  6 Mar 2026 12:12:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7DDE84074C;
+ Fri,  6 Mar 2026 12:12:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62C0C2BCAF;
+ Fri,  6 Mar 2026 12:12:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772799165;
+ bh=0pXAFOIFGu2oV25L8o52sQR97OfC/9uMSwkci4VWiEI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=edn61naHlNfCj6ZsP5AwEUGw9CwfdJ2+qp4E3P9NrRqaex7Mzs8I9+4N3Nb8iPzP+
+ MDPjuNK9A6Qetf2KX0tPdvyQxuXEHgWgnJamhiPEMXHArV5hNb6HubqUE67/ScusgV
+ 91Op1mHTejDA5unrODiPadH1XnhaGXoJamDx/1ZP/XFup2VlHpsi86fd3iVR7t4ble
+ +R8KS6ktipoGCS0QCYK2SAjgpa//+C9kqsjUElB2UcpnwNnT+t6UY96TQdEfREXxm8
+ O4hbjLTlhFJ/5gK3fCzWdjUFddgW6o4Vk83yvQglRcCnELrZY+0WRVW3GmusGUbG5S
+ PqwmeKjYrR3zQ==
+Date: Fri, 6 Mar 2026 12:12:42 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "linux-mm @ kvack . org" <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Eric Dumazet <edumazet@google.com>, 
+ Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
+ David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH v1 04/16] mm/memory: simplify calculation in
+ unmap_mapping_range_tree()
+Message-ID: <6c6bf2d6-bc0f-4721-a57d-6b9c5f2a5c66@lucifer.local>
+References: <20260227200848.114019-1-david@kernel.org>
+ <20260227200848.114019-5-david@kernel.org>
 MIME-Version: 1.0
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
- <20260306015022.1940986-4-jim.cromie@gmail.com>
- <51fed793-869b-4a5b-b90f-2ba80c13d773@kernel.org>
-In-Reply-To: <51fed793-869b-4a5b-b90f-2ba80c13d773@kernel.org>
-From: jim.cromie@gmail.com
-Date: Fri, 6 Mar 2026 07:02:38 -0700
-X-Gm-Features: AaiRm51wLCC9Sug6nG1UgnDvIstzQQFHwne8N2p7gQVCpTt4Mc1sv69X0Jjm7fU
-Message-ID: <CAJfuBxxe5uJc0=nLC45JMp1dcQhyiyyyNuv06jZJX++YJaN58g@mail.gmail.com>
-Subject: Re: [RFC PATCH 3/7] drivers/tty/serial/serial_core: ratelimit
- uart_wait_until_sent
-To: Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Petr Mladek <pmladek@suse.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260227200848.114019-5-david@kernel.org>
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,50 +107,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 5, 2026 at 11:32=E2=80=AFPM Jiri Slaby <jirislaby@kernel.org> w=
-rote:
+On Fri, Feb 27, 2026 at 09:08:35PM +0100, David Hildenbrand (Arm) wrote:
+> Let's simplify the calculation a bit further to make it easier to get,
+> reusing vma_last_pgoff() which we move from interval_tree.c to mm.h.
 >
-> On 06. 03. 26, 2:50, Jim Cromie wrote:
-> > Ratelimiting these pr_debug()s can reduce the console flood during
-> > bulk dynamic-debug activation, in environments where a serial console
-> > is used.
-> >
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-> > ---
-> >   drivers/tty/serial/serial_core.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/seri=
-al_core.c
-> > index 487756947a96..6db465619c70 100644
-> > --- a/drivers/tty/serial/serial_core.c
-> > +++ b/drivers/tty/serial/serial_core.c
-> > @@ -1790,8 +1790,8 @@ static void uart_wait_until_sent(struct tty_struc=
-t *tty, int timeout)
-> >
-> >       expire =3D jiffies + timeout;
-> >
-> > -     pr_debug("uart_wait_until_sent(%u), jiffies=3D%lu, expire=3D%lu..=
-.\n",
-> > -             port->line, jiffies, expire);
-> > +     pr_debug_ratelimited("waiting on (%u) jiffies=3D%lu, expire=3D%lu=
-...\n",
-> > +                          port->line, jiffies, expire);
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+
+Thanks, some crusty old code here much improved. LGTM, so:
+
+Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+
+> ---
+>  include/linux/mm.h |  5 +++++
+>  mm/interval_tree.c |  5 -----
+>  mm/memory.c        | 12 +++++-------
+>  3 files changed, 10 insertions(+), 12 deletions(-)
 >
-> The changed message does not make any sense.
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index a8138ff7d1fa..d3ef586ee1c0 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -4000,6 +4000,11 @@ static inline unsigned long vma_pages(const struct vm_area_struct *vma)
+>  	return (vma->vm_end - vma->vm_start) >> PAGE_SHIFT;
+>  }
 >
-
-Ackn.  Given the narrow rate-limiting purpose,
-I should have ignored the checkpatch warning
-and kept the message as is.
-
-In any case, my test setup didnt actually use serio,
-and didnt get flooded by it, so I dont know that this
-single change would be enough to fix it.
-
-I withdraw this particular patch.
-
+> +static inline unsigned long vma_last_pgoff(struct vm_area_struct *vma)
+> +{
+> +	return vma->vm_pgoff + vma_pages(vma) - 1;
+> +}
+> +
+>  static inline unsigned long vma_desc_size(const struct vm_area_desc *desc)
+>  {
+>  	return desc->end - desc->start;
+> diff --git a/mm/interval_tree.c b/mm/interval_tree.c
+> index 32e390c42c53..32bcfbfcf15f 100644
+> --- a/mm/interval_tree.c
+> +++ b/mm/interval_tree.c
+> @@ -15,11 +15,6 @@ static inline unsigned long vma_start_pgoff(struct vm_area_struct *v)
+>  	return v->vm_pgoff;
+>  }
 >
+> -static inline unsigned long vma_last_pgoff(struct vm_area_struct *v)
+> -{
+> -	return v->vm_pgoff + vma_pages(v) - 1;
+> -}
+> -
+>  INTERVAL_TREE_DEFINE(struct vm_area_struct, shared.rb,
+>  		     unsigned long, shared.rb_subtree_last,
+>  		     vma_start_pgoff, vma_last_pgoff, /* empty */, vma_interval_tree)
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 5c47309331f5..e4154f03feac 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -4227,17 +4227,15 @@ static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
+>  					    struct zap_details *details)
+>  {
+>  	struct vm_area_struct *vma;
+> -	pgoff_t vba, vea, zba, zea;
+>  	unsigned long start, size;
+>  	struct mmu_gather tlb;
+>
+>  	vma_interval_tree_foreach(vma, root, first_index, last_index) {
+> -		vba = vma->vm_pgoff;
+> -		vea = vba + vma_pages(vma) - 1;
+> -		zba = max(first_index, vba);
+> -		zea = min(last_index, vea);
+
+These variable names... Lord.
+
+> -		start = ((zba - vba) << PAGE_SHIFT) + vma->vm_start;
+> -		size = (zea - zba + 1) << PAGE_SHIFT;
+> +		const pgoff_t start_idx = max(first_index, vma->vm_pgoff);
+> +		const pgoff_t end_idx = min(last_index, vma_last_pgoff(vma)) + 1;
+
+I guess since 'end' is by-convention the +1 of last this is fine
+
+> +
+> +		start = vma->vm_start + ((start_idx - vma->vm_pgoff) << PAGE_SHIFT);
+> +		size = (end_idx - start_idx) << PAGE_SHIFT;
+>
+>  		tlb_gather_mmu(&tlb, vma->vm_mm);
+>  		zap_page_range_single_batched(&tlb, vma, start, size, details);
 > --
-> js
-> suse labs
+> 2.43.0
+>
