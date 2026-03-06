@@ -4,84 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C12DFCA17D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B7CFCA180
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C9110E5AA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D105810E5B0;
 	Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OfbcGuQQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h5AYGafZ";
 	dkim-atps=neutral
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com
- [209.85.161.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1AF10E2E6
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:09 +0000 (UTC)
-Received: by mail-oo1-f50.google.com with SMTP id
- 006d021491bc7-662efd1bdd4so6117074eaf.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761869; x=1773366669; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
- b=OfbcGuQQXk7TnXTWL2CayiETbUGRKuAKDLAR3z/uCEMjgD1qBeHy/yzGSMXVupEMGR
- b1I577PMAa+ymRxUfpTRQXdzugWJYIduWvXZrB54JmFZhkXboxKMmFkQ9KQZg7g1tkjw
- TjljFOJJT0AeGdaGlc4mOXCpGrgtDv2ILtydNFZ2xtcSbObXuuOS5mGaHMfL7OGpCd1r
- 2mjRq9CV7R4jK6R05IaJjfIE1RYWxBoigAB3fSHA5eaOTd4A9Y0LGKth9zLoFGeVGxit
- JGMZS7rLQEu13s66hLif+27ugwoSsWUzlVvKDwgCcEWtKmmU8i4PSoV+qK0ypcrsi++p
- 3nHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761869; x=1773366669;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
- b=fy64QzGfzB81tyn5U+nB2hgX71k6fn6qtBq4IRYjlFx79X5TB9GFVZLj8LIm4v3Q58
- jexu1bpkkpmAndOoFt/mklAsJMltvCw7BJlezgLlMwRpW2b59QUA34Ee5/tyXE4mHnJK
- xMDky3sFLfeq3Y1wooDNzO2fRAeaYqMf7aJfDbwVeVTsHxU7eE1xIZ/FyQjIN+EgJuIE
- l29XRIvggb3yhbwnBEDofnq+wXK03d81W3+H0h9BKnVk/te7yUH5QSkvboAfaobdIQSv
- WvGUwdVxC3IgbNnv6lbzFKkQ22Tqz68afESBVXzAyuxcXy8EupDMwRxF7LbHyf4LC565
- H1/w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVpoJOX4qNavTi+RsmTaiRVRp2Xuxw2tc2WmRgRb5JHkTuLj/Od/qrJg8nflyfx35Ql4XIR8/nIudM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYJsKy/fUKeVuRt0wvZZtNji/RuK6dL0bbBGVK0Ch12cEscqAw
- WKa8iVvBu1HD0zqukT2vG12Pt0HsZ4bUzOGAKMlqbNQdRKtsQqpty3+x
-X-Gm-Gg: ATEYQzywIPimCeltSgrbAMfdUZNwHkrlVgXz6aeVfCKSg1MrD98pEm3iad9C4TimR9u
- D4XesFncW+M7r+9t+ndQzRn5fC5p1NAmHWXh+z3t13GWikS0VYwCRdT/8JJsuzTsMHx//Zsyznr
- H+qOIUYydcOLDEiEPk4YBouZ5gZ0wa+oqSGSeq2JYd1UVbnPGSw3uhQwoTKwff+nCC4Oi1vQASJ
- 1R3ofYSl5oyK9RzuB3+BtwxepSs7ZRBroiJt6x4v12/NLSfpmKTQ3+wkz+wV34ib0wzw66aKkek
- uw3LtnreGXs70NZ8Sp/paUR/iBKDpl/J/7brZLFx7PT9d+sXbCt0tz/r6M1qjk8fd5uzQZWdpdf
- V7ocdVYF+NIJFtOBcal6dCDopDjrhNks+Zgr3jHlWbIKq2BRd40c4A2OIBFkwGfzu84yWY9eo8B
- cvTN/E6sJ9q/86uC+kEjtlIuxbvp3T1drvZzYYDcfugQLie1yr
-X-Received: by 2002:a4a:ee14:0:b0:677:3b8f:43a4 with SMTP id
- 006d021491bc7-67b9c485db9mr276619eaf.36.1772761868900; 
- Thu, 05 Mar 2026 17:51:08 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:08 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AB0F10E1AE;
+ Fri,  6 Mar 2026 12:21:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C1D5E60018;
+ Fri,  6 Mar 2026 12:21:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC2EEC4CEF7;
+ Fri,  6 Mar 2026 12:21:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772799708;
+ bh=theG/LCt2/q2eE4jZPVvO5dWH6DfzprovWLt+cDnxxE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=h5AYGafZBAupVubVI+ZD7t499uAUfoIBiWhpl8owqkPKw6XrDaEVq2gk6V3VMTbJG
+ I4jRzHR0ZgmZkpNFwz4WPgqzlj/ZTXG8Mkg6mu7rnyphpzPSp0u7fh1+VK9oWLl6gi
+ IDaaFcFprJbRbe9bTzXRL2TSF66F78vemrV5U33fTWh+G/lmL2lf9YKdm5HPHC4unn
+ ZD1xuMdPWyTYHNQLOcZ7Z+EV+KFd74oVVcNcMiIFZxDCm23EI+oRIIIQqgBzscf/du
+ 1PqvIt+BJZaIL/QfENv95huWxRehRctl1ISCOa4xhZ4a1heXH/LVdrvC2Qdmxny09h
+ GIoNXwDaiAUHQ==
+Date: Fri, 6 Mar 2026 12:21:45 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "linux-mm @ kvack . org" <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Petr Mladek <pmladek@suse.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org
-Subject: [RFC PATCH 3/7] drivers/tty/serial/serial_core: ratelimit
- uart_wait_until_sent
-Date: Thu,  5 Mar 2026 18:50:06 -0700
-Message-ID: <20260306015022.1940986-4-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+ Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Eric Dumazet <edumazet@google.com>, 
+ Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
+ David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH v1 09/16] mm/memory: convert details->even_cows into
+ details->skip_cows
+Message-ID: <091ce280-9204-4b85-bf39-5e2a61e3d0ba@lucifer.local>
+References: <20260227200848.114019-1-david@kernel.org>
+ <20260227200848.114019-10-david@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260227200848.114019-10-david@kernel.org>
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,30 +107,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Ratelimiting these pr_debug()s can reduce the console flood during
-bulk dynamic-debug activation, in environments where a serial console
-is used.
+On Fri, Feb 27, 2026 at 09:08:40PM +0100, David Hildenbrand (Arm) wrote:
+> The current semantics are confusing: simply because someone specifies an
+> empty zap_detail struct suddenly makes should_zap_cows() behave
+> differently. The default should be to also zap CoW'ed anonymous pages.
+>
+> Really only unmap_mapping_pages() and friends want to skip zapping of
+> these anon folios.
+>
+> So let's invert the meaning; turn the confusing "reclaim_pt" check that
+> overrides other properties in should_zap_cows() into a safety check.
+>
+> Note that the only caller that sets reclaim_pt=true is
+> madvise_dontneed_single_vma(), which wants to zap any pages.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/tty/serial/serial_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This is another nice change. I have some tweak suggestions below, but past
+experience suggests to me it's quite possible you do what I ask in subsequent
+patches, will see :)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 487756947a96..6db465619c70 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1790,8 +1790,8 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
- 
- 	expire = jiffies + timeout;
- 
--	pr_debug("uart_wait_until_sent(%u), jiffies=%lu, expire=%lu...\n",
--		port->line, jiffies, expire);
-+	pr_debug_ratelimited("waiting on (%u) jiffies=%lu, expire=%lu...\n",
-+			     port->line, jiffies, expire);
- 
- 	/*
- 	 * Check whether the transmitter is empty every 'char_time'.
--- 
-2.53.0
+Anyway overall LGTM, so:
 
+Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+
+> ---
+>  include/linux/mm.h |  2 +-
+>  mm/madvise.c       |  1 -
+>  mm/memory.c        | 12 ++++++------
+>  3 files changed, 7 insertions(+), 8 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index d3ef586ee1c0..21b67c203e62 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2798,7 +2798,7 @@ extern void pagefault_out_of_memory(void);
+>   */
+>  struct zap_details {
+>  	struct folio *single_folio;	/* Locked folio to be unmapped */
+> -	bool even_cows;			/* Zap COWed private pages too? */
+> +	bool skip_cows;			/* Do not zap COWed private pages */
+>  	bool reclaim_pt;		/* Need reclaim page tables? */
+>  	zap_flags_t zap_flags;		/* Extra flags for zapping */
+>  };
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 557a360f7919..b51f216934f3 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -853,7 +853,6 @@ static long madvise_dontneed_single_vma(struct madvise_behavior *madv_behavior)
+>  	struct madvise_behavior_range *range = &madv_behavior->range;
+>  	struct zap_details details = {
+>  		.reclaim_pt = true,
+> -		.even_cows = true,
+>  	};
+>
+>  	zap_page_range_single_batched(
+> diff --git a/mm/memory.c b/mm/memory.c
+> index fdcd2abf29c2..7d7c24c6917c 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -1554,11 +1554,13 @@ copy_page_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma)
+>  static inline bool should_zap_cows(struct zap_details *details)
+
+Not sure if you fix up later, but we should probably change this function to
+should_skip_cows() to keep everything consistent, otherwise this is a bit weird
+and confusing.
+
+>  {
+>  	/* By default, zap all pages */
+> -	if (!details || details->reclaim_pt)
+> +	if (!details)
+>  		return true;
+>
+> +	VM_WARN_ON_ONCE(details->skip_cows && details->reclaim_pt);
+> +
+>  	/* Or, we zap COWed pages only if the caller wants to */
+> -	return details->even_cows;
+> +	return !details->skip_cows;
+>  }
+>
+>  /* Decides whether we should zap this folio with the folio pointer specified */
+> @@ -2149,8 +2151,6 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
+>  	struct mmu_notifier_range range;
+>  	struct zap_details details = {
+>  		.zap_flags = ZAP_FLAG_DROP_MARKER | ZAP_FLAG_UNMAP,
+> -		/* Careful - we need to zap private pages too! */
+> -		.even_cows = true,
+>  	};
+>
+>  	vma = unmap->first;
+> @@ -4282,7 +4282,7 @@ void unmap_mapping_folio(struct folio *folio)
+>  	first_index = folio->index;
+>  	last_index = folio_next_index(folio) - 1;
+>
+> -	details.even_cows = false;
+> +	details.skip_cows = true;
+>  	details.single_folio = folio;
+>  	details.zap_flags = ZAP_FLAG_DROP_MARKER;
+>
+> @@ -4312,7 +4312,7 @@ void unmap_mapping_pages(struct address_space *mapping, pgoff_t start,
+>  	pgoff_t	first_index = start;
+>  	pgoff_t	last_index = start + nr - 1;
+>
+> -	details.even_cows = even_cows;
+> +	details.skip_cows = !even_cows;
+
+Not sure if you clean up later, but seems sensible to cascade the change into
+the local boolean here.
+
+>  	if (last_index < first_index)
+>  		last_index = ULONG_MAX;
+>
+> --
+> 2.43.0
+>
