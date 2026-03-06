@@ -4,93 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA1A9FCA181
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17E1FCA178
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A4E210E5A4;
-	Mon,  9 Mar 2026 18:56:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAB0010E5A1;
+	Mon,  9 Mar 2026 18:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RrOKh0OA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QVCdWYZo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DACB210ED1D;
- Fri,  6 Mar 2026 12:30:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6AF21440A6;
- Fri,  6 Mar 2026 12:30:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B33C3C4CEF7;
- Fri,  6 Mar 2026 12:30:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772800213;
- bh=Kftdd8omZX7VELmkL5LGQUFF+sQIeOHfzVU13moKjvE=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RrOKh0OAhxHMytB1jOn/jttu3GJlb3C3rXPB9TooAMKbyt3vUr89Pt0+i4u40IkqV
- RX2hBvNB6H5hwNgpkw2833/q+m2pIU+tXLy6aT2UqxNKjA9gRXZUoAjf58JN5/E+WU
- b+1XKEzPnARh8OeG9Vznq4eIhrMwfxCOh6yt4sHKclOXteR/4dXp5YR9O3YGnPPT2n
- aDJp5EcMC6pPhjaUS4A5KpHj2GJduynNISMtMzESwpD0c6OWnPmGQWuaLB8H96xPbV
- V8tWz99yS9NFw2rriHryb/Y2+I+FJmH4No3lieIJOsE5G/KrymQlZobYCswq94RN1W
- nF2PinBdqWDrw==
-Date: Fri, 6 Mar 2026 12:30:10 +0000
-From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
- Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBF7010E2E3
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:50:57 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-7d4d8712b40so4049658a34.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:50:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772761857; x=1773366657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4BixrpmblYk1fVfc//g7Bejl2P3I3dQW/tYhS8Iov94=;
+ b=QVCdWYZoEDsn6JhZMUKHhxVD9kq3sVmw1qCwV7duDjyYNhQvX57nPeH5hLnCSzhsAH
+ hZKsqSJ5JVqvHaKGGosO9Lct5rLEYOHJzdZNBe5QwGFbFYr/OzDIpgZA/Pnw7GiLkfNQ
+ lVXCydHByVgeH/0yJMTmV9z7an9SxvocK/kCsSUtJoWy4xWPPpRqW3EZg+m2KLjk1mAX
+ fYpO3QC45BYvHjepIeYoKGrSmW5SuB8tLkhTnk1ayMP+L5mkuBJIAid3+zHl2lVqtp71
+ BlbxoJcQ1jL2ZSiYNLYPX0itCFV3SDEeKEjP/BQdcbItOj6g+IczTqd4nWcz7cGFI1WP
+ iQKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772761857; x=1773366657;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4BixrpmblYk1fVfc//g7Bejl2P3I3dQW/tYhS8Iov94=;
+ b=tVfq9HoDEwXhTmMFRzgE1mH7TqLu5T7JNKvKdvowD2Cp1v2TTtcTaUQT7NTpi7WH/b
+ +/ER7qtK1uz2W/KRlvsQG186rOCMa0gxbNfn7gtMjptt8V96u1xF0zo1bnEOJFUw9tbg
+ 4Lag5xg6P7GqiqU+2k2V6A9iLdxSZ68kdYaQQzxlG9wkrrnEGwWLvZNMgpgjccJEsT59
+ zsr88jwhoqcLVy8HdzPTzbGhc3/ST/WI1vdkI6DgZApNzIgQqSFmtEb6666rM7BN631i
+ 13xI55AvGgOIcy0WXT1a+iWWvwNG7dbouWRQTY/fLxjlrMNL9sy93u3sGd6708CESJhH
+ XRBg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXub4hLIMtgTBUz/P6EjNWlFdQP9N6Uu2zXXhSAsSxIMUFvxjybv6cdvcyD7BCznsWYhZbbbmZbldE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywb7eKAcLH2POlc7CFAdZXEi6ZRpQQ1Ia5r5tjPt+i5TpOEwcC5
+ gd0qGP+iVzIRx5R5tuRCyQYiKxlSmeOysGjUb8Df3iBX8RtUdFUta/ek
+X-Gm-Gg: ATEYQzzNBimFNvMPPi90dr6GyeTEDeJ9Ei1bFx8pOUmA0PQLcJOzjx4kLYcxEG7e/wu
+ WVgx243ILd3zAUj3U8AIlUgfQLKtRKNTJGgEZyhCa1oYSpG/U/35EzikRONwC4eqhETmzDxy228
+ RIzLaSxMpvgH13vFSmwx+BF15GBgPc1c+Z0lpn9HWYz2TjDiZWUsobByDaF+4vJnXVz/8im+PE3
+ Q056XiLKOYxqQWgtUZIlQ4jZbiKkq5gONRW9T0pu8HGP6G354c0Ept0FWaNsPzH0exJeEQ0qHJz
+ NpifHHa06Up7TUCkSUm2EUaADcbC4cGYPiyfgiiMBjB/aU6d8gwWMhM1jsbnpFPJJVFgJV5Smj6
+ EsnyB8x8iMbTuFSDK87hS+U0tfLVa/JCkKBcPHjrsUa9p+f+iGqB9kV+Fbkn18nyCIttG0LIkMq
+ yvXTs2w0q/zEnyaNaXOyY77mtAboyCtpdHSIqs4oBL4AT5GzqG
+X-Received: by 2002:a05:6820:4410:b0:677:2ac6:3beb with SMTP id
+ 006d021491bc7-67b9bd49539mr338521eaf.55.1772761856874; 
+ Thu, 05 Mar 2026 17:50:56 -0800 (PST)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.50.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Mar 2026 17:50:56 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
  Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 12/16] mm: rename zap_vma_pages() to zap_vma()
-Message-ID: <2f4ee3ee-549c-4c0f-980d-3853193776b6@lucifer.local>
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-13-david@kernel.org>
+ Josh Poimboeuf <jpoimboe@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Alexandre Chartre <alexandre.chartre@oracle.com>,
+ Juergen Gross <jgross@suse.com>, Andy Lutomirski <luto@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Kees Cook <kees@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Lukas Bulwahn <lukas.bulwahn@redhat.com>
+Subject: [RFC PATCH 1/7] jump_label: expose queueing API for batched static
+ key updates
+Date: Thu,  5 Mar 2026 18:50:04 -0700
+Message-ID: <20260306015022.1940986-2-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
+References: <20260306015022.1940986-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-13-david@kernel.org>
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,93 +103,441 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:43PM +0100, David Hildenbrand (Arm) wrote:
-> Let's rename it to an even simpler name. While at it, add some
-> simplistic kernel doc.
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Currently, `HAVE_JUMP_LABEL_BATCH` provides an architecture-level
+mechanism to defer instruction synchronization (`text_poke_sync()`)
+when patching a sequence of static keys. However, this deferred
+batching capability is not exposed as a public kernel API. Subsystems
+that need to toggle a large number of static keys (e.g.,
+dynamic_debug) currently suffer from O(N) overhead due to repeated
+machine-wide synchronizations (stop_machine).
 
-LGTM, so:
+This patch introduces a public queueing API to expose this deferred
+synchronization mechanism to the rest of the kernel. This allows
+multiple static keys to be enabled/disabled by queueing their
+architecture-level updates, before applying a single machine-wide
+synchronization barrier after all instructions are modified.
 
-Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+The new API consists of:
+- static_key_enable_queued(key)
+- static_key_disable_queued(key)
+- static_key_apply_queued() (the global barrier/flush)
+- static_branch_enable_queued(x) / static_branch_disable_queued(x) macros
 
-> ---
->  arch/powerpc/platforms/book3s/vas-api.c | 2 +-
->  arch/powerpc/platforms/pseries/vas.c    | 2 +-
->  include/linux/mm.h                      | 6 +++++-
->  lib/vdso/datastore.c                    | 2 +-
->  mm/page-writeback.c                     | 2 +-
->  5 files changed, 9 insertions(+), 5 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/book3s/vas-api.c b/arch/powerpc/platforms/book3s/vas-api.c
-> index ea4ffa63f043..e96d79db69fe 100644
-> --- a/arch/powerpc/platforms/book3s/vas-api.c
-> +++ b/arch/powerpc/platforms/book3s/vas-api.c
-> @@ -414,7 +414,7 @@ static vm_fault_t vas_mmap_fault(struct vm_fault *vmf)
->  	/*
->  	 * When the LPAR lost credits due to core removal or during
->  	 * migration, invalidate the existing mapping for the current
-> -	 * paste addresses and set windows in-active (zap_vma_pages in
-> +	 * paste addresses and set windows in-active (zap_vma() in
->  	 * reconfig_close_windows()).
->  	 * New mapping will be done later after migration or new credits
->  	 * available. So continue to receive faults if the user space
-> diff --git a/arch/powerpc/platforms/pseries/vas.c b/arch/powerpc/platforms/pseries/vas.c
-> index ceb0a8788c0a..fa05f04364fe 100644
-> --- a/arch/powerpc/platforms/pseries/vas.c
-> +++ b/arch/powerpc/platforms/pseries/vas.c
-> @@ -807,7 +807,7 @@ static int reconfig_close_windows(struct vas_caps *vcap, int excess_creds,
->  		 * is done before the original mmap() and after the ioctl.
->  		 */
->  		if (vma)
-> -			zap_vma_pages(vma);
-> +			zap_vma(vma);
->
->  		mutex_unlock(&task_ref->mmap_mutex);
->  		mmap_write_unlock(task_ref->mm);
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 4710f7c7495a..4bd1500b9630 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2837,7 +2837,11 @@ void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
->  		  unsigned long size);
->  void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
->  			   unsigned long size);
-> -static inline void zap_vma_pages(struct vm_area_struct *vma)
-> +/**
-> + * zap_vma - zap all page table entries in a vma
-> + * @vma: The vma to zap.
-> + */
-> +static inline void zap_vma(struct vm_area_struct *vma)
->  {
->  	zap_page_range_single(vma, vma->vm_start, vma->vm_end - vma->vm_start);
->  }
-> diff --git a/lib/vdso/datastore.c b/lib/vdso/datastore.c
-> index a565c30c71a0..222c143aebf7 100644
-> --- a/lib/vdso/datastore.c
-> +++ b/lib/vdso/datastore.c
-> @@ -121,7 +121,7 @@ int vdso_join_timens(struct task_struct *task, struct time_namespace *ns)
->  	mmap_read_lock(mm);
->  	for_each_vma(vmi, vma) {
->  		if (vma_is_special_mapping(vma, &vdso_vvar_mapping))
-> -			zap_vma_pages(vma);
-> +			zap_vma(vma);
->  	}
->  	mmap_read_unlock(mm);
->
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index 601a5e048d12..29f7567e5a71 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -2645,7 +2645,7 @@ void folio_account_cleaned(struct folio *folio, struct bdi_writeback *wb)
->   * while this function is in progress, although it may have been truncated
->   * before this function is called.  Most callers have the folio locked.
->   * A few have the folio blocked from truncation through other means (e.g.
-> - * zap_vma_pages() has it mapped and is holding the page table lock).
-> + * zap_vma() has it mapped and is holding the page table lock).
->   * When called from mark_buffer_dirty(), the filesystem should hold a
->   * reference to the buffer_head that is being marked dirty, which causes
->   * try_to_free_buffers() to fail.
-> --
-> 2.43.0
->
+NOTES:
+
+The '_queued' API suffix was chosen to match the underlying
+'arch_jump_label_transform_queue' and to avoid confusion with the
+existing rate-limited 'static_key_deferred' API.
+
+Also unify the names under the 'static_key_*' prefix, renaming
+jump_label_apply_queued to static_key_apply_queued (with a
+compatibility macro) for consistency.
+
+A pr_debug() is added to show the poked addresses, this exposed the
+semi-random ordering coming from dynamic-debug, despite its ordered
+descriptors.
+
+So x86/kernel/alternatives gets new code to do an insert-sort, by
+memcpy & memmove after appending.  This sorting yields a dramatic IPI
+reduction; a following patch to dynamic-debug uses the API, and
+includes the numbers.
+
+Cc: Jason Baron <jbaron@akamai.com>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Alice Ryhl <aliceryhl@google.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Alexandre Chartre <alexandre.chartre@oracle.com>
+Cc: Juergen Gross <jgross@suse.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ arch/Kconfig                  |   3 +
+ arch/x86/Kconfig              |   1 +
+ arch/x86/kernel/alternative.c |  50 +++++++++-----
+ arch/x86/kernel/jump_label.c  |  13 +++-
+ include/linux/jump_label.h    |  24 +++++++
+ kernel/jump_label.c           | 125 +++++++++++++++++++++++++++++++---
+ 6 files changed, 186 insertions(+), 30 deletions(-)
+
+diff --git a/arch/Kconfig b/arch/Kconfig
+index 102ddbd4298e..388a73545005 100644
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -505,6 +505,9 @@ config HAVE_ARCH_JUMP_LABEL
+ config HAVE_ARCH_JUMP_LABEL_RELATIVE
+ 	bool
+ 
++config HAVE_JUMP_LABEL_BATCH
++	bool
++
+ config MMU_GATHER_TABLE_FREE
+ 	bool
+ 
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index e2df1b147184..4d7705890558 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -249,6 +249,7 @@ config X86
+ 	select HAVE_IOREMAP_PROT
+ 	select HAVE_IRQ_EXIT_ON_IRQ_STACK	if X86_64
+ 	select HAVE_IRQ_TIME_ACCOUNTING
++	select HAVE_JUMP_LABEL_BATCH
+ 	select HAVE_JUMP_LABEL_HACK		if HAVE_OBJTOOL
+ 	select HAVE_KERNEL_BZIP2
+ 	select HAVE_KERNEL_GZIP
+diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
+index a888ae0f01fb..85df82c36543 100644
+--- a/arch/x86/kernel/alternative.c
++++ b/arch/x86/kernel/alternative.c
+@@ -3137,26 +3137,19 @@ static void __smp_text_poke_batch_add(void *addr, const void *opcode, size_t len
+ }
+ 
+ /*
+- * We hard rely on the text_poke_array.vec being ordered; ensure this is so by flushing
+- * early if needed.
++ * We hard rely on the text_poke_array.vec being ordered; ensure this
++ * by finding where to insert to preserve the order, and mem-moving
++ * into place after appending it.
+  */
+-static bool text_poke_addr_ordered(void *addr)
++static int text_poke_get_insert_idx(void *addr)
+ {
+-	WARN_ON_ONCE(!addr);
++	int i;
+ 
+-	if (!text_poke_array.nr_entries)
+-		return true;
+-
+-	/*
+-	 * If the last current entry's address is higher than the
+-	 * new entry's address we'd like to add, then ordering
+-	 * is violated and we must first flush all pending patching
+-	 * requests:
+-	 */
+-	if (text_poke_addr(text_poke_array.vec + text_poke_array.nr_entries-1) > addr)
+-		return false;
+-
+-	return true;
++	for (i = 0; i < text_poke_array.nr_entries; i++) {
++		if (text_poke_addr(&text_poke_array.vec[i]) > addr)
++			return i;
++	}
++	return text_poke_array.nr_entries;
+ }
+ 
+ /**
+@@ -3174,9 +3167,30 @@ static bool text_poke_addr_ordered(void *addr)
+  */
+ void __ref smp_text_poke_batch_add(void *addr, const void *opcode, size_t len, const void *emulate)
+ {
+-	if (text_poke_array.nr_entries == TEXT_POKE_ARRAY_MAX || !text_poke_addr_ordered(addr))
++	int insert_idx;
++
++	pr_debug("incoming addr=%px, current_qlen=%d\n",
++		 addr, text_poke_array.nr_entries);
++
++	if (text_poke_array.nr_entries == TEXT_POKE_ARRAY_MAX)
+ 		smp_text_poke_batch_finish();
++
++	insert_idx = text_poke_get_insert_idx(addr);
+ 	__smp_text_poke_batch_add(addr, opcode, len, emulate);
++
++	if (insert_idx < text_poke_array.nr_entries - 1) {
++		struct smp_text_poke_loc tmp;
++		int last = text_poke_array.nr_entries - 1;
++		/* Copy the newly appended item out */
++		memcpy(&tmp, &text_poke_array.vec[last], sizeof(tmp));
++
++		/* Shift everything from insert_idx over by 1 */
++		memmove(&text_poke_array.vec[insert_idx + 1],
++			&text_poke_array.vec[insert_idx],
++			(last - insert_idx) * sizeof(struct smp_text_poke_loc));
++		/* Drop the new item into its sorted home */
++		memcpy(&text_poke_array.vec[insert_idx], &tmp, sizeof(tmp));
++	}
+ }
+ 
+ /**
+diff --git a/arch/x86/kernel/jump_label.c b/arch/x86/kernel/jump_label.c
+index a7949a54a0ff..6b5bab5f34e8 100644
+--- a/arch/x86/kernel/jump_label.c
++++ b/arch/x86/kernel/jump_label.c
+@@ -120,6 +120,8 @@ void arch_jump_label_transform(struct jump_entry *entry,
+ 	jump_label_transform(entry, type, 0);
+ }
+ 
++static int jump_label_queue_len;
++
+ bool arch_jump_label_transform_queue(struct jump_entry *entry,
+ 				     enum jump_label_type type)
+ {
+@@ -135,14 +137,23 @@ bool arch_jump_label_transform_queue(struct jump_entry *entry,
+ 
+ 	mutex_lock(&text_mutex);
+ 	jlp = __jump_label_patch(entry, type);
+-	smp_text_poke_batch_add((void *)jump_entry_code(entry), jlp.code, jlp.size, NULL);
++	smp_text_poke_batch_add((void *)jump_entry_code(entry),
++				jlp.code, jlp.size, NULL);
++	jump_label_queue_len++;
+ 	mutex_unlock(&text_mutex);
+ 	return true;
+ }
+ 
+ void arch_jump_label_transform_apply(void)
+ {
++	if (!jump_label_queue_len) {
++		pr_debug("no queued jump_labels to apply\n");
++		return;
++	}
++
++	pr_debug("applying %d queued jump_labels\n", jump_label_queue_len);
+ 	mutex_lock(&text_mutex);
+ 	smp_text_poke_batch_finish();
++	jump_label_queue_len = 0;
+ 	mutex_unlock(&text_mutex);
+ }
+diff --git a/include/linux/jump_label.h b/include/linux/jump_label.h
+index fdb79dd1ebd8..17f572abe4bb 100644
+--- a/include/linux/jump_label.h
++++ b/include/linux/jump_label.h
+@@ -234,10 +234,20 @@ extern void static_key_slow_dec_cpuslocked(struct static_key *key);
+ extern int static_key_count(struct static_key *key);
+ extern void static_key_enable(struct static_key *key);
+ extern void static_key_disable(struct static_key *key);
++extern void static_key_enable_queued(struct static_key *key);
++extern void static_key_disable_queued(struct static_key *key);
++extern void static_key_apply_queued(void);
+ extern void static_key_enable_cpuslocked(struct static_key *key);
+ extern void static_key_disable_cpuslocked(struct static_key *key);
+ extern enum jump_label_type jump_label_init_type(struct jump_entry *entry);
+ 
++#define static_branch_enable(x)			static_key_enable(&(x)->key)
++#define static_branch_disable(x)		static_key_disable(&(x)->key)
++#define static_branch_enable_queued(x)		static_key_enable_queued(&(x)->key)
++#define static_branch_disable_queued(x)		static_key_disable_queued(&(x)->key)
++#define static_branch_enable_cpuslocked(x)	static_key_enable_cpuslocked(&(x)->key)
++#define static_branch_disable_cpuslocked(x)	static_key_disable_cpuslocked(&(x)->key)
++
+ /*
+  * We should be using ATOMIC_INIT() for initializing .enabled, but
+  * the inclusion of atomic.h is problematic for inclusion of jump_label.h
+@@ -340,6 +350,18 @@ static inline void static_key_disable(struct static_key *key)
+ 	atomic_set(&key->enabled, 0);
+ }
+ 
++static inline void static_key_enable_queued(struct static_key *key)
++{
++	static_key_enable(key);
++}
++
++static inline void static_key_disable_queued(struct static_key *key)
++{
++	static_key_disable(key);
++}
++
++static inline void static_key_apply_queued(void) {}
++
+ #define static_key_enable_cpuslocked(k)		static_key_enable((k))
+ #define static_key_disable_cpuslocked(k)	static_key_disable((k))
+ 
+@@ -535,6 +557,8 @@ extern bool ____wrong_branch_error(void);
+ 
+ #define static_branch_enable(x)			static_key_enable(&(x)->key)
+ #define static_branch_disable(x)		static_key_disable(&(x)->key)
++#define static_branch_enable_queued(x)		static_key_enable_queued(&(x)->key)
++#define static_branch_disable_queued(x)		static_key_disable_queued(&(x)->key)
+ #define static_branch_enable_cpuslocked(x)	static_key_enable_cpuslocked(&(x)->key)
+ #define static_branch_disable_cpuslocked(x)	static_key_disable_cpuslocked(&(x)->key)
+ 
+diff --git a/kernel/jump_label.c b/kernel/jump_label.c
+index 7cb19e601426..76a0f4e68b73 100644
+--- a/kernel/jump_label.c
++++ b/kernel/jump_label.c
+@@ -91,6 +91,7 @@ jump_label_sort_entries(struct jump_entry *start, struct jump_entry *stop)
+ }
+ 
+ static void jump_label_update(struct static_key *key);
++static void jump_label_update_queued(struct static_key *key);
+ 
+ /*
+  * There are similar definitions for the !CONFIG_JUMP_LABEL case in jump_label.h.
+@@ -250,6 +251,41 @@ void static_key_disable(struct static_key *key)
+ }
+ EXPORT_SYMBOL_GPL(static_key_disable);
+ 
++void static_key_enable_queued(struct static_key *key)
++{
++	STATIC_KEY_CHECK_USE(key);
++
++	if (atomic_read(&key->enabled) > 0) {
++		WARN_ON_ONCE(atomic_read(&key->enabled) != 1);
++		return;
++	}
++
++	jump_label_lock();
++	if (atomic_read(&key->enabled) == 0) {
++		atomic_set(&key->enabled, -1);
++		jump_label_update_queued(key);
++		atomic_set_release(&key->enabled, 1);
++	}
++	jump_label_unlock();
++}
++EXPORT_SYMBOL_GPL(static_key_enable_queued);
++
++void static_key_disable_queued(struct static_key *key)
++{
++	STATIC_KEY_CHECK_USE(key);
++
++	if (atomic_read(&key->enabled) != 1) {
++		WARN_ON_ONCE(atomic_read(&key->enabled) != 0);
++		return;
++	}
++
++	jump_label_lock();
++	if (atomic_cmpxchg(&key->enabled, 1, 0) == 1)
++		jump_label_update_queued(key);
++	jump_label_unlock();
++}
++EXPORT_SYMBOL_GPL(static_key_disable_queued);
++
+ static bool static_key_dec_not_one(struct static_key *key)
+ {
+ 	int v;
+@@ -488,39 +524,59 @@ static bool jump_label_can_update(struct jump_entry *entry, bool init)
+ 	return true;
+ }
+ 
+-#ifndef HAVE_JUMP_LABEL_BATCH
+ static void __jump_label_update(struct static_key *key,
+ 				struct jump_entry *entry,
+ 				struct jump_entry *stop,
+ 				bool init)
+ {
++#ifndef HAVE_JUMP_LABEL_BATCH
+ 	for (; (entry < stop) && (jump_entry_key(entry) == key); entry++) {
+ 		if (jump_label_can_update(entry, init))
+ 			arch_jump_label_transform(entry, jump_label_type(entry));
+ 	}
+-}
+ #else
+-static void __jump_label_update(struct static_key *key,
+-				struct jump_entry *entry,
+-				struct jump_entry *stop,
+-				bool init)
+-{
+ 	for (; (entry < stop) && (jump_entry_key(entry) == key); entry++) {
+ 
+ 		if (!jump_label_can_update(entry, init))
+ 			continue;
+ 
+ 		if (!arch_jump_label_transform_queue(entry, jump_label_type(entry))) {
+-			/*
+-			 * Queue is full: Apply the current queue and try again.
+-			 */
+ 			arch_jump_label_transform_apply();
+-			BUG_ON(!arch_jump_label_transform_queue(entry, jump_label_type(entry)));
++			WARN_ON_ONCE(!arch_jump_label_transform_queue(entry, jump_label_type(entry)));
+ 		}
+ 	}
+ 	arch_jump_label_transform_apply();
++#endif
+ }
++
++static void __jump_label_update_queued(struct static_key *key,
++				      struct jump_entry *entry,
++				      struct jump_entry *stop,
++				      bool init)
++{
++#ifdef HAVE_JUMP_LABEL_BATCH
++	for (; (entry < stop) && (jump_entry_key(entry) == key); entry++) {
++
++		if (!jump_label_can_update(entry, init))
++			continue;
++
++		if (!arch_jump_label_transform_queue(entry, jump_label_type(entry))) {
++			arch_jump_label_transform_apply();
++			WARN_ON_ONCE(!arch_jump_label_transform_queue(entry, jump_label_type(entry)));
++		}
++	}
++#else
++	__jump_label_update(key, entry, stop, init);
++#endif
++}
++
++void static_key_apply_queued(void)
++{
++#ifdef HAVE_JUMP_LABEL_BATCH
++	arch_jump_label_transform_apply();
+ #endif
++}
++EXPORT_SYMBOL_GPL(static_key_apply_queued);
+ 
+ void __init jump_label_init(void)
+ {
+@@ -696,6 +752,27 @@ static void __jump_label_mod_update(struct static_key *key)
+ 	}
+ }
+ 
++static void __jump_label_mod_update_queued(struct static_key *key)
++{
++	struct static_key_mod *mod;
++
++	for (mod = static_key_mod(key); mod; mod = mod->next) {
++		struct jump_entry *stop;
++		struct module *m;
++
++		if (!mod->entries)
++			continue;
++
++		m = mod->mod;
++		if (!m)
++			stop = __stop___jump_table;
++		else
++			stop = m->jump_entries + m->num_jump_entries;
++		__jump_label_update_queued(key, mod->entries, stop,
++					   m && m->state == MODULE_STATE_COMING);
++	}
++}
++
+ static int jump_label_add_module(struct module *mod)
+ {
+ 	struct jump_entry *iter_start = mod->jump_entries;
+@@ -919,6 +996,32 @@ static void jump_label_update(struct static_key *key)
+ 		__jump_label_update(key, entry, stop, init);
+ }
+ 
++static void jump_label_update_queued(struct static_key *key)
++{
++	struct jump_entry *stop = __stop___jump_table;
++	bool init = system_state < SYSTEM_RUNNING;
++	struct jump_entry *entry;
++#ifdef CONFIG_MODULES
++	struct module *mod;
++
++	if (static_key_linked(key)) {
++		__jump_label_mod_update_queued(key);
++		return;
++	}
++
++	scoped_guard(rcu) {
++		mod = __module_address((unsigned long)key);
++		if (mod) {
++			stop = mod->jump_entries + mod->num_jump_entries;
++			init = mod->state == MODULE_STATE_COMING;
++		}
++	}
++#endif
++	entry = static_key_entries(key);
++	if (entry)
++		__jump_label_update_queued(key, entry, stop, init);
++}
++
+ #ifdef CONFIG_STATIC_KEYS_SELFTEST
+ static DEFINE_STATIC_KEY_TRUE(sk_true);
+ static DEFINE_STATIC_KEY_FALSE(sk_false);
+-- 
+2.53.0
+
