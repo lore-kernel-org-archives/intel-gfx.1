@@ -4,95 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B564FFCA173
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA61FCA178
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9E210E5B8;
-	Mon,  9 Mar 2026 18:57:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1C710E5BB;
+	Mon,  9 Mar 2026 18:57:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BVr69GD8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SqztcIfP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDFBB10E183;
- Mon,  9 Mar 2026 13:46:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 77C214423B;
- Mon,  9 Mar 2026 13:46:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF8FC4CEF7;
- Mon,  9 Mar 2026 13:46:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773064005;
- bh=w0QUYZum+m+R/ZMJD9ICvWbnwxxvrz4NQJRGvdgYc+w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=BVr69GD85TMcTAfG+a8utDGbnLRZpnfsgk6oAEieKIf3SbpafBvF3+irOxH5364Mf
- 5pQjiP3OB9FC6sxDF6sRahqD3JxDLeM/LKZhytQKKexcd9nKBgdJPKEyw8sk8hmBqZ
- 6Umeng6LJPjNhP9ijAtZ1GLP3fQirKriMZIBcjz1MV/Ly4Ym8+L+fbakf0sGYzf2HZ
- 3zIBqoZorFxzO8i8L6kszr5AnLvTpWYNSPn5PmXLkOowtVs0WINaH4TFDGQhbj2jWW
- Xu+fRiMPtxXfm3CsyrGqKEUJHR4HPp+HrebcbqvJ0J7zXXW7tbIaDGtBQ28EmTK0dV
- febooG99fQKig==
-Date: Mon, 9 Mar 2026 13:46:27 +0000
-From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
- Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 11/16] mm/memory: inline unmap_page_range() into
- __zap_vma_range()
-Message-ID: <737a88b8-8221-44e6-aa90-3be326bc8612@lucifer.local>
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-12-david@kernel.org>
- <a5765cac-69d6-4314-82d5-80ee363906de@lucifer.local>
- <bc5cfcc4-5e51-4da1-9ce9-ea0831bec400@kernel.org>
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDAC10E2F0
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:15 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-6786b13984fso6218493eaf.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772761874; x=1773366674; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
+ b=SqztcIfPRBD2tzqtLW/ac+y64QOL4W5AmcXWlV5s3IMJ0/wV+UxfGqBD2FPCsXyyo7
+ 7IglWvDRmXuesxe5kiIZlkl7pI+FP0SbGRBMd6h/Cd+UbeJWF0vem7m+z8S1ZEuVhy81
+ cHsJFbMc4hZP75EFN9h4zCalRU+/rNFKCazXgdYLvfNDMbshsmwsK7oj0tCXM4K19omu
+ 56i6eUMOkauW0wQWanr4wHKjWjCinUzm1QocTQ++wLIGxg2o9Qd+lpRwwz6dBa4+ehMq
+ PhoTfnZDbJtyDZhp5NkrCE87+FmpTLq3pUSgf1shfuUluPctcEaXHq6WhJwU2xQAR193
+ HDjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772761874; x=1773366674;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
+ b=cGZ5BA6E+cOYVz6/DF7z0PatuL6iudIp+8E5jDHlmwwdjfR4K1V4CLiz8HkvKs7VQ9
+ BGG2gcsy3ll7rCweYQC/b7Yh1ElQhsNCHDDWANYCKxkWRRUFiZ1FrNnYukVZJhxT0TJi
+ nGA7uqIGfdOimX1Baj0YMm1umJwxI/yKDGMGtdWo2HdQi3w15w+N696baRrYZM4ANJpr
+ ISvCt8sQ4GB+9qhx0ts7R9Ks8dTYsRELnO5Zj1oV6bUJpEsA6zBj69c8HOR0zGad11Gf
+ A1JdWkCWO/K1h1/QEfVokL2u4ux/+3fUeAAJoOZGz6XlVvPJd+1YOelnvjQCZhI9cjkq
+ 2fhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzk1FhNRc437KR9iuhKH+kAZ7ts/Sa4EbSJzUbfkRAU3Y7khuAPTRUwDXFHL9nUWZNo4TRImWvW1s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcMXEOIp/xBWk1IUgdP+Yc+wN/rbeMCyGom5O/GnvVNKR1L1hV
+ clAkKZB96iy0YJNwGQpSeAqVfUmDr9rJxAHxbQQKF4wDPqI2G2EsRO4L
+X-Gm-Gg: ATEYQzxCtlL4UTWrubjiLLFh4uMz8n22VQkZEQMmigxfm3SI8lpWREZjgzZnmbflh1I
+ 2jMl6v5N+gqwAiVzdeuJSTy0R3NWSwZD62Wuw7bz+vrYaeYGEA51x1ocELRRhcLAJ25iMNialjH
+ gBlkHamYjgoUABOViwF+cqUbQzzO8tbCsDnViFStx/wZjKs/ReFxUQuj8VEzcPF9ErHWTd5sU02
+ Y5YyE9/7kSTEBuvIqj5B4d2CLVh5qTqj1R3NwH3bkAWvuNUyc7oPcDW4zeyivMzFxBexyo6WcOF
+ dilCeiOXVlS7YvYFgX3ULWQ0dkEdikHFE/qXEqznbbeQ42fbdP17MVEXFYHrjQx3jSdibC0hdsu
+ h3NScVghy/ZY4lOjwzqVKHZotCKoRUq3Xse/mlIyhkMtAZyWaPGMoGixjPCyg+DpZReakTIXSL3
+ X6mx/0NvtBwHcb9bNsGGQK6AZJparh/EpDuT9aw8WGoY3zhbsw
+X-Received: by 2002:a05:6820:3103:b0:663:11b2:d61d with SMTP id
+ 006d021491bc7-67b9bca1e01mr428086eaf.25.1772761874446; 
+ Thu, 05 Mar 2026 17:51:14 -0800 (PST)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Mar 2026 17:51:13 -0800 (PST)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
+ Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
+Subject: [RFC PATCH 7/7] dyndbg-test: test keyword !value negation
+Date: Thu,  5 Mar 2026 18:50:10 -0700
+Message-ID: <20260306015022.1940986-8-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
+References: <20260306015022.1940986-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bc5cfcc4-5e51-4da1-9ce9-ea0831bec400@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,86 +92,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 06, 2026 at 02:16:26PM +0100, David Hildenbrand (Arm) wrote:
-> On 3/6/26 13:29, Lorenzo Stoakes (Oracle) wrote:
-> > On Fri, Feb 27, 2026 at 09:08:42PM +0100, David Hildenbrand (Arm) wrote:
-> >> Let's inline it into the single caller to reduce the number of confusing
-> >> unmap/zap helpers.
-> >>
-> >> Get rid of the unnecessary BUG_ON().
-> >>
-> >> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> >
-> > Small nits below, but overall LGTM so:
-> >
-> > Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
-> >
-> >> ---
-> >>  mm/memory.c | 32 ++++++++++++--------------------
-> >>  1 file changed, 12 insertions(+), 20 deletions(-)
-> >>
-> >> diff --git a/mm/memory.c b/mm/memory.c
-> >> index 394b2e931974..1c0bcdfc73b7 100644
-> >> --- a/mm/memory.c
-> >> +++ b/mm/memory.c
-> >> @@ -2056,25 +2056,6 @@ static inline unsigned long zap_p4d_range(struct mmu_gather *tlb,
-> >>  	return addr;
-> >>  }
-> >>
-> >> -static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> >> -		unsigned long addr, unsigned long end,
-> >> -		struct zap_details *details)
-> >> -{
-> >> -	pgd_t *pgd;
-> >> -	unsigned long next;
-> >> -
-> >> -	BUG_ON(addr >= end);
-> >> -	tlb_start_vma(tlb, vma);
-> >> -	pgd = pgd_offset(vma->vm_mm, addr);
-> >> -	do {
-> >> -		next = pgd_addr_end(addr, end);
-> >> -		if (pgd_none_or_clear_bad(pgd))
-> >> -			continue;
-> >> -		next = zap_p4d_range(tlb, vma, pgd, addr, next, details);
-> >> -	} while (pgd++, addr = next, addr != end);
-> >> -	tlb_end_vma(tlb, vma);
-> >> -}
-> >> -
-> >>  static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> >>  		unsigned long start, unsigned long end,
-> >>  		struct zap_details *details)
-> >> @@ -2100,7 +2081,18 @@ static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> >>  			return;
-> >>  		__unmap_hugepage_range(tlb, vma, start, end, NULL, zap_flags);
-> >>  	} else {
-> >> -		unmap_page_range(tlb, vma, start, end, details);
-> >> +		unsigned long next, cur = start;
-> >
-> > VERY nitty, but generally current is abbreviated to curr not cur.
-> >
->
-> The following might not be fully expressive (but simple to grep):
->
-> $ git grep "cur_" | wc -l
-> 24261
-> $ git grep "curr_" | wc -l
-> 9288
+---
+ .../dynamic_debug/dyndbg_selftest.sh          | 35 +++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-Lol hmm...
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index 09937dca3056..5c35d7cc5ecf 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -350,12 +350,47 @@ function test_mod_submod {
+     ifrmmod test_dynamic_debug
+ }
+ 
++function test_negated_keywords {
++    echo -e "${GREEN}# TEST_NEGATED_KEYWORDS ${NC}"
++
++    # Test 1: Disable negated subset from enabled set
++    # Enables all 6 in init/main.c, then pulses ONLY those that are NOT run_init_process (the 2 blacklist sites) OFF.
++    ddcmd =_
++    ddcmd file init/main.c +p
++    check_match_ct 'init/main.c:.*=p' 6 -r
++    ddcmd file init/main.c func !run_init_process -p
++    # Result: 6 - 2 = 4 sites (run_init_process) remain enabled.
++    check_match_ct 'init/main.c:.*=p' 4 -r
++    check_match_ct 'run_init_process' 4 -r
++
++    # Test 2: Enable negated subset from clean slate
++    # Negation !run_init_process should match the 2 blacklist sites.
++    ddcmd =_
++    ddcmd file init/main.c func !run_init_process +p
++    # Verify exactly 2 sites enabled
++    check_match_ct 'init/main.c:.*=p' 2 -r
++    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
++    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
++
++    # Test 3: Enable negated subset with wildcard
++    # Negation !run_init_* should match the same 2 blacklist sites.
++    ddcmd =_
++    ddcmd file init/main.c func !run_init_* +p
++    # Verify exactly 2 sites enabled
++    check_match_ct 'init/main.c:.*=p' 2 -r
++    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
++    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
++
++    ddcmd =_
++}
++
+ tests_list=(
+     basic_tests
+     # these require test_dynamic_debug*.ko
+     comma_terminator_tests
+     test_percent_splitting
+     test_mod_submod
++    test_negated_keywords
+ )
+ 
+ # Run tests
+-- 
+2.53.0
 
->
-> Tells me that "cur" is rather common.
->
-> > It's not a big deal, but why not addr?
->
-> Good question, I can just do that. :)
-
-Thanks!
-
->
-> --
-> Cheers,
->
-> David
-
-Cheers, Lorenzo
