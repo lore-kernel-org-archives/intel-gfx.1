@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC0EFCA181
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72497FCA173
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE26610E5B2;
-	Mon,  9 Mar 2026 18:57:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A85E10E5B5;
+	Mon,  9 Mar 2026 18:57:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T4qMHjOg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AkmrBFKC";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E24C10ED25;
- Fri,  6 Mar 2026 12:32:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B764D10ED1B;
+ Fri,  6 Mar 2026 12:06:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5C6FD60018;
- Fri,  6 Mar 2026 12:32:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77675C4CEF7;
- Fri,  6 Mar 2026 12:32:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E508260127;
+ Fri,  6 Mar 2026 12:06:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC1EC4CEF7;
+ Fri,  6 Mar 2026 12:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772800364;
- bh=QVn8Y7AXnOu5aPCMlNbbvX0FUbONENXusGGY7trKhug=;
+ s=k20201202; t=1772798817;
+ bh=vBj3woozlRPQJAsoS5/IW+klSPAITAbOF218ghzCguY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=T4qMHjOgk3jgWcvjrkPPEKLsolahZSrljiWXH/PIK77OKljPOm5wuV74Xo62bGU2b
- W2MZJZyOEeSTvlWTQKvpw5ckVkmpOqUnkKU8hUrtVMu+d5hRTorZsy9a/BEQnu2MNk
- nkpwmlrF4FIcx3IYFoqiolIPYTFgWBFiAXMfD1sq6oLSmSACgNEMYXkg5K3N6Dj5og
- 5jrJz2ywPJ9P8z00grks+YpbG2l3REUrSAfVA1y7lqHfuba58RIKaBs/unDG3xXkGc
- mn8Gi0kijcty5232VA10s00CPwrG4FcWsdUqqvgT+wM0NufnQahvqjPZh7U/cyIOmO
- l9QVmPUmpBsCw==
-Date: Fri, 6 Mar 2026 12:32:40 +0000
+ b=AkmrBFKCRbCHZUTyW9ICY4wBEh7Pe2S+YM/wqEXDcxFbGGnByiHHlbb3EYKuqNZO0
+ q2Usn/TeECRhZl/rRCEONLCagepvAgIirItP2eC3qQ8ChVybtdQP4cnbuxMspCqW2l
+ NuRTEQcZ4fNf0tnEm2Vt9rwza2i3hBvcHJoaSIUIev91gK+ZQxbmGNyuTbfBNfDzL8
+ uczsg8/HVlnzzRmWjuPHT7rnXFdsVjPMqku8Ani2QkPzrZQ1tx0APw0DKJ47bqWkCl
+ F3GWu9zvI/f7ShUPFDiLOLuo7Nr5RGLGYycyCEDy+H2U/X6/mJjX+zGqmWubbpWaHm
+ 6cB2ohevQ1byA==
+Date: Fri, 6 Mar 2026 12:06:54 +0000
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: linux-kernel@vger.kernel.org, 
@@ -82,15 +82,15 @@ Cc: linux-kernel@vger.kernel.org,
  bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, 
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 14/16] mm: rename zap_page_range_single() to
- zap_vma_range()
-Message-ID: <eb247018-b64b-4dba-97ca-9ce8c1b0186c@lucifer.local>
+Subject: Re: [PATCH v1 02/16] mm/memory: remove "zap_details" parameter from
+ zap_page_range_single()
+Message-ID: <6ad209ea-4be2-42f0-94ef-a2da69292dc2@lucifer.local>
 References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-15-david@kernel.org>
+ <20260227200848.114019-3-david@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-15-david@kernel.org>
+In-Reply-To: <20260227200848.114019-3-david@kernel.org>
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,240 +107,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:45PM +0100, David Hildenbrand (Arm) wrote:
-> Let's rename it to make it better match our new naming scheme.
->
-> While at it, polish the kerneldoc.
+On Fri, Feb 27, 2026 at 09:08:33PM +0100, David Hildenbrand (Arm) wrote:
+> Nobody except memory.c should really set that parameter to non-NULL. So
+> let's just drop it and make unmap_mapping_range_vma() use
+> zap_page_range_single_batched() instead.
 >
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-LGTM, again obviously assuming the rustfmt stuff is sorted :>), so:
+This is nice, good cleanup.
+
+Assuming rust side is all sorted (seems it from thread)... LGTM, so:
 
 Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 > ---
->  arch/s390/mm/gmap_helpers.c          |  2 +-
->  drivers/android/binder/page_range.rs |  4 ++--
->  drivers/android/binder_alloc.c       |  2 +-
->  include/linux/mm.h                   |  4 ++--
->  kernel/bpf/arena.c                   |  2 +-
->  kernel/events/core.c                 |  2 +-
->  mm/madvise.c                         |  4 ++--
->  mm/memory.c                          | 14 +++++++-------
->  net/ipv4/tcp.c                       |  6 +++---
->  rust/kernel/mm/virt.rs               |  4 ++--
->  10 files changed, 22 insertions(+), 22 deletions(-)
+>  arch/s390/mm/gmap_helpers.c    |  2 +-
+>  drivers/android/binder_alloc.c |  2 +-
+>  include/linux/mm.h             |  5 ++---
+>  kernel/bpf/arena.c             |  3 +--
+>  kernel/events/core.c           |  2 +-
+>  mm/madvise.c                   |  3 +--
+>  mm/memory.c                    | 16 ++++++++++------
+>  net/ipv4/tcp.c                 |  5 ++---
+>  rust/kernel/mm/virt.rs         |  2 +-
+>  9 files changed, 20 insertions(+), 20 deletions(-)
 >
 > diff --git a/arch/s390/mm/gmap_helpers.c b/arch/s390/mm/gmap_helpers.c
-> index ae2d59a19313..f8789ffcc05c 100644
+> index dea83e3103e5..ae2d59a19313 100644
 > --- a/arch/s390/mm/gmap_helpers.c
 > +++ b/arch/s390/mm/gmap_helpers.c
 > @@ -89,7 +89,7 @@ void gmap_helper_discard(struct mm_struct *mm, unsigned long vmaddr, unsigned lo
 >  		if (!vma)
 >  			return;
 >  		if (!is_vm_hugetlb_page(vma))
-> -			zap_page_range_single(vma, vmaddr, min(end, vma->vm_end) - vmaddr);
-> +			zap_vma_range(vma, vmaddr, min(end, vma->vm_end) - vmaddr);
+> -			zap_page_range_single(vma, vmaddr, min(end, vma->vm_end) - vmaddr, NULL);
+> +			zap_page_range_single(vma, vmaddr, min(end, vma->vm_end) - vmaddr);
 >  		vmaddr = vma->vm_end;
 >  	}
 >  }
-> diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
-> index fdd97112ef5c..2fddd4ed8d4c 100644
-> --- a/drivers/android/binder/page_range.rs
-> +++ b/drivers/android/binder/page_range.rs
-> @@ -130,7 +130,7 @@ pub(crate) struct ShrinkablePageRange {
->      pid: Pid,
->      /// The mm for the relevant process.
->      mm: ARef<Mm>,
-> -    /// Used to synchronize calls to `vm_insert_page` and `zap_page_range_single`.
-> +    /// Used to synchronize calls to `vm_insert_page` and `zap_vma_range`.
->      #[pin]
->      mm_lock: Mutex<()>,
->      /// Spinlock protecting changes to pages.
-> @@ -719,7 +719,7 @@ fn drop(self: Pin<&mut Self>) {
->
->      if let Some(vma) = mmap_read.vma_lookup(vma_addr) {
->          let user_page_addr = vma_addr + (page_index << PAGE_SHIFT);
-> -        vma.zap_page_range_single(user_page_addr, PAGE_SIZE);
-> +        vma.zap_vma_range(user_page_addr, PAGE_SIZE);
->      }
->
->      drop(mmap_read);
 > diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
-> index dd2046bd5cde..e4488ad86a65 100644
+> index 241f16a9b63d..dd2046bd5cde 100644
 > --- a/drivers/android/binder_alloc.c
 > +++ b/drivers/android/binder_alloc.c
 > @@ -1185,7 +1185,7 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
 >  	if (vma) {
 >  		trace_binder_unmap_user_start(alloc, index);
 >
-> -		zap_page_range_single(vma, page_addr, PAGE_SIZE);
-> +		zap_vma_range(vma, page_addr, PAGE_SIZE);
+> -		zap_page_range_single(vma, page_addr, PAGE_SIZE, NULL);
+> +		zap_page_range_single(vma, page_addr, PAGE_SIZE);
 >
 >  		trace_binder_unmap_user_end(alloc, index);
 >  	}
 > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 4bd1500b9630..833bedd3f739 100644
+> index ecff8268089b..a8138ff7d1fa 100644
 > --- a/include/linux/mm.h
 > +++ b/include/linux/mm.h
-> @@ -2835,7 +2835,7 @@ struct page *vm_normal_page_pud(struct vm_area_struct *vma, unsigned long addr,
->
+> @@ -2835,11 +2835,10 @@ struct page *vm_normal_page_pud(struct vm_area_struct *vma, unsigned long addr,
 >  void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
 >  		  unsigned long size);
-> -void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
-> +void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
->  			   unsigned long size);
->  /**
->   * zap_vma - zap all page table entries in a vma
-> @@ -2843,7 +2843,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
->   */
->  static inline void zap_vma(struct vm_area_struct *vma)
+>  void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+> -			   unsigned long size, struct zap_details *details);
+> +			   unsigned long size);
+>  static inline void zap_vma_pages(struct vm_area_struct *vma)
 >  {
-> -	zap_page_range_single(vma, vma->vm_start, vma->vm_end - vma->vm_start);
-> +	zap_vma_range(vma, vma->vm_start, vma->vm_end - vma->vm_start);
+> -	zap_page_range_single(vma, vma->vm_start,
+> -			      vma->vm_end - vma->vm_start, NULL);
+> +	zap_page_range_single(vma, vma->vm_start, vma->vm_end - vma->vm_start);
 >  }
 >  struct mmu_notifier_range;
 >
 > diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
-> index c34510d83b1f..37843c6a4764 100644
+> index 144f30e740e8..c34510d83b1f 100644
 > --- a/kernel/bpf/arena.c
 > +++ b/kernel/bpf/arena.c
-> @@ -656,7 +656,7 @@ static void zap_pages(struct bpf_arena *arena, long uaddr, long page_cnt)
+> @@ -656,8 +656,7 @@ static void zap_pages(struct bpf_arena *arena, long uaddr, long page_cnt)
 >  	guard(mutex)(&arena->lock);
 >  	/* iterate link list under lock */
 >  	list_for_each_entry(vml, &arena->vma_list, head)
-> -		zap_page_range_single(vml->vma, uaddr, PAGE_SIZE * page_cnt);
-> +		zap_vma_range(vml->vma, uaddr, PAGE_SIZE * page_cnt);
+> -		zap_page_range_single(vml->vma, uaddr,
+> -				      PAGE_SIZE * page_cnt, NULL);
+> +		zap_page_range_single(vml->vma, uaddr, PAGE_SIZE * page_cnt);
 >  }
 >
 >  static void arena_free_pages(struct bpf_arena *arena, long uaddr, long page_cnt, bool sleepable)
 > diff --git a/kernel/events/core.c b/kernel/events/core.c
-> index c94c56c94104..5ee02817c3bc 100644
+> index ac70d68217b6..c94c56c94104 100644
 > --- a/kernel/events/core.c
 > +++ b/kernel/events/core.c
 > @@ -7215,7 +7215,7 @@ static int map_range(struct perf_buffer *rb, struct vm_area_struct *vma)
 >  #ifdef CONFIG_MMU
 >  	/* Clear any partial mappings on error. */
 >  	if (err)
-> -		zap_page_range_single(vma, vma->vm_start, nr_pages * PAGE_SIZE);
-> +		zap_vma_range(vma, vma->vm_start, nr_pages * PAGE_SIZE);
+> -		zap_page_range_single(vma, vma->vm_start, nr_pages * PAGE_SIZE, NULL);
+> +		zap_page_range_single(vma, vma->vm_start, nr_pages * PAGE_SIZE);
 >  #endif
 >
 >  	return err;
 > diff --git a/mm/madvise.c b/mm/madvise.c
-> index fb5fcdff2b66..6e66f56ff1a6 100644
+> index efc04334a000..557a360f7919 100644
 > --- a/mm/madvise.c
 > +++ b/mm/madvise.c
-> @@ -832,7 +832,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
->   * Application no longer needs these pages.  If the pages are dirty,
->   * it's OK to just throw them away.  The app will be more careful about
->   * data it wants to keep.  Be sure to free swap resources too.  The
-> - * zap_page_range_single call sets things up for shrink_active_list to actually
-> + * zap_vma_range call sets things up for shrink_active_list to actually
->   * free these pages later if no one else has touched them in the meantime,
->   * although we could add these pages to a global reuse list for
->   * shrink_active_list to pick up before reclaiming other pages.
-> @@ -1191,7 +1191,7 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+> @@ -1193,8 +1193,7 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
 >  		 * OK some of the range have non-guard pages mapped, zap
 >  		 * them. This leaves existing guard pages in place.
 >  		 */
-> -		zap_page_range_single(vma, range->start, range->end - range->start);
-> +		zap_vma_range(vma, range->start, range->end - range->start);
+> -		zap_page_range_single(vma, range->start,
+> -				range->end - range->start, NULL);
+> +		zap_page_range_single(vma, range->start, range->end - range->start);
 >  	}
 >
 >  	/*
 > diff --git a/mm/memory.c b/mm/memory.c
-> index e611e9af4e85..dd737b6d28c0 100644
+> index 9385842c3503..19f5f9a60995 100644
 > --- a/mm/memory.c
 > +++ b/mm/memory.c
-> @@ -2215,14 +2215,14 @@ void zap_vma_range_batched(struct mmu_gather *tlb,
->  }
->
->  /**
-> - * zap_page_range_single - remove user pages in a given range
-> - * @vma: vm_area_struct holding the applicable pages
-> - * @address: starting address of pages to zap
-> + * zap_vma_range - zap all page table entries in a vma range
-> + * @vma: the vma covering the range to zap
-> + * @address: starting address of the range to zap
+> @@ -2203,17 +2203,16 @@ void zap_page_range_single_batched(struct mmu_gather *tlb,
+>   * @vma: vm_area_struct holding the applicable pages
+>   * @address: starting address of pages to zap
 >   * @size: number of bytes to zap
+> - * @details: details of shared cache invalidation
 >   *
-> - * The range must fit into one VMA.
-> + * The provided address range must be fully contained within @vma.
+>   * The range must fit into one VMA.
 >   */
-> -void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
-> +void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
->  		unsigned long size)
+>  void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+> -		unsigned long size, struct zap_details *details)
+> +		unsigned long size)
 >  {
 >  	struct mmu_gather tlb;
-> @@ -2250,7 +2250,7 @@ void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
+>
+>  	tlb_gather_mmu(&tlb, vma->vm_mm);
+> -	zap_page_range_single_batched(&tlb, vma, address, size, details);
+> +	zap_page_range_single_batched(&tlb, vma, address, size, NULL);
+>  	tlb_finish_mmu(&tlb);
+>  }
+>
+> @@ -2235,7 +2234,7 @@ void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
 >  	    		!(vma->vm_flags & VM_PFNMAP))
 >  		return;
 >
-> -	zap_page_range_single(vma, address, size);
-> +	zap_vma_range(vma, address, size);
+> -	zap_page_range_single(vma, address, size, NULL);
+> +	zap_page_range_single(vma, address, size);
 >  }
 >  EXPORT_SYMBOL_GPL(zap_vma_ptes);
 >
-> @@ -3018,7 +3018,7 @@ static int remap_pfn_range_notrack(struct vm_area_struct *vma, unsigned long add
+> @@ -3003,7 +3002,7 @@ static int remap_pfn_range_notrack(struct vm_area_struct *vma, unsigned long add
 >  	 * maintain page reference counts, and callers may free
 >  	 * pages due to the error. So zap it early.
 >  	 */
-> -	zap_page_range_single(vma, addr, size);
-> +	zap_vma_range(vma, addr, size);
+> -	zap_page_range_single(vma, addr, size, NULL);
+> +	zap_page_range_single(vma, addr, size);
 >  	return error;
 >  }
 >
+> @@ -4226,7 +4225,12 @@ static void unmap_mapping_range_vma(struct vm_area_struct *vma,
+>  		unsigned long start_addr, unsigned long end_addr,
+>  		struct zap_details *details)
+>  {
+> -	zap_page_range_single(vma, start_addr, end_addr - start_addr, details);
+> +	struct mmu_gather tlb;
+> +
+> +	tlb_gather_mmu(&tlb, vma->vm_mm);
+> +	zap_page_range_single_batched(&tlb, vma, start_addr,
+> +				      end_addr - start_addr, details);
+> +	tlb_finish_mmu(&tlb);
+>  }
+>
+>  static inline void unmap_mapping_range_tree(struct rb_root_cached *root,
 > diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-> index befcde27dee7..cb4477ef1529 100644
+> index f84d9a45cc9d..befcde27dee7 100644
 > --- a/net/ipv4/tcp.c
 > +++ b/net/ipv4/tcp.c
 > @@ -2104,7 +2104,7 @@ static int tcp_zerocopy_vm_insert_batch_error(struct vm_area_struct *vma,
 >  		maybe_zap_len = total_bytes_to_map -  /* All bytes to map */
 >  				*length + /* Mapped or pending */
 >  				(pages_remaining * PAGE_SIZE); /* Failed map. */
-> -		zap_page_range_single(vma, *address, maybe_zap_len);
-> +		zap_vma_range(vma, *address, maybe_zap_len);
+> -		zap_page_range_single(vma, *address, maybe_zap_len, NULL);
+> +		zap_page_range_single(vma, *address, maybe_zap_len);
 >  		err = 0;
 >  	}
 >
-> @@ -2112,7 +2112,7 @@ static int tcp_zerocopy_vm_insert_batch_error(struct vm_area_struct *vma,
->  		unsigned long leftover_pages = pages_remaining;
->  		int bytes_mapped;
->
-> -		/* We called zap_page_range_single, try to reinsert. */
-> +		/* We called zap_vma_range, try to reinsert. */
->  		err = vm_insert_pages(vma, *address,
->  				      pending_pages,
->  				      &pages_remaining);
-> @@ -2269,7 +2269,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
+> @@ -2269,8 +2269,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
 >  	total_bytes_to_map = avail_len & ~(PAGE_SIZE - 1);
 >  	if (total_bytes_to_map) {
 >  		if (!(zc->flags & TCP_RECEIVE_ZEROCOPY_FLAG_TLB_CLEAN_HINT))
-> -			zap_page_range_single(vma, address, total_bytes_to_map);
-> +			zap_vma_range(vma, address, total_bytes_to_map);
+> -			zap_page_range_single(vma, address, total_bytes_to_map,
+> -					      NULL);
+> +			zap_page_range_single(vma, address, total_bytes_to_map);
 >  		zc->length = total_bytes_to_map;
 >  		zc->recv_skip_hint = 0;
 >  	} else {
 > diff --git a/rust/kernel/mm/virt.rs b/rust/kernel/mm/virt.rs
-> index b8e59e4420f3..04b3cc925d67 100644
+> index da21d65ccd20..b8e59e4420f3 100644
 > --- a/rust/kernel/mm/virt.rs
 > +++ b/rust/kernel/mm/virt.rs
-> @@ -113,7 +113,7 @@ pub fn end(&self) -> usize {
->      /// kernel goes further in freeing unused page tables, but for the purposes of this operation
->      /// we must only assume that the leaf level is cleared.
->      #[inline]
-> -    pub fn zap_page_range_single(&self, address: usize, size: usize) {
-> +    pub fn zap_vma_range(&self, address: usize, size: usize) {
->          let (end, did_overflow) = address.overflowing_add(size);
->          if did_overflow || address < self.start() || self.end() < end {
->              // TODO: call WARN_ONCE once Rust version of it is added
 > @@ -124,7 +124,7 @@ pub fn zap_page_range_single(&self, address: usize, size: usize) {
 >          // sufficient for this method call. This method has no requirements on the vma flags. The
 >          // address range is checked to be within the vma.
 >          unsafe {
-> -            bindings::zap_page_range_single(self.as_ptr(), address, size)
-> +            bindings::zap_vma_range(self.as_ptr(), address, size)
+> -            bindings::zap_page_range_single(self.as_ptr(), address, size, core::ptr::null_mut())
+> +            bindings::zap_page_range_single(self.as_ptr(), address, size)
 >          };
 >      }
 >
