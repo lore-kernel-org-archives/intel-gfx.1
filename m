@@ -4,81 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAECFFCA178
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92440FCA17A
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA6C510E5AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB00210E5A9;
 	Mon,  9 Mar 2026 18:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fp7i4V/e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VmPUWeBa";
 	dkim-atps=neutral
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
- [209.85.210.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 285FE10E2E6
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:11 +0000 (UTC)
-Received: by mail-ot1-f45.google.com with SMTP id
- 46e09a7af769-7d4c12ff3d5so8687112a34.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761870; x=1773366670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LBdiOYK9OqacwkN82GElrUr530ZKa03hWcr3nX6dVyA=;
- b=Fp7i4V/eOX6IhHuA14XXtTanknN8Y76o3kmMhbZUtog+mOGMjYrexwuiYKbkDcxUi9
- vQScxp9MaE0s19345coQM4gxHl+ChvaIyrUiWnseqZHITdzUDw3qQSghJrKCOZEK/1KA
- zgc5fBUYrHRkx6Ar5X74y09cS2d+FUqtWc84NGVMJYInqWq37fU29dVWlfjspv4cFBsU
- GdWu/08/EiN+uvJdYei5qmpZMYBg78OKv4Tv5x9QdoHgWHPEgxIJqPO7VEhynj9fkfTJ
- YGj8A2umI7k5jrX6PQmPVED7D6LNhuj6lzYiotj65un3MBTCAkOnMFd4WVvpImrw57mn
- TM7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761870; x=1773366670;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=LBdiOYK9OqacwkN82GElrUr530ZKa03hWcr3nX6dVyA=;
- b=FAqTT7p/KRFgXX8d+He8HzO7bnw+MHvTPQ9+iwPbB12OQG4Laxb5W61MnIIzr1+sPl
- bUqa3d43XCJklCBn/ooLFBeGui4Xe822GJMlJfgyN1EnaptCClip2J2guvbKU6Z4St0H
- Q+wxVMC4Hars36Lmlo3ws8cwYRcBhqbUbxMZg3mw+uS/8dQLYvDGbGlmBHRAKfcWt2S0
- HiO73nlYg3pTQLBtWLMcZWxciVYKMzQf1db9RNjTtil8UDub/Zb8+YAWZkBiH5vestkp
- A8QKyjrjVl2cc3ge2fxjy0jrlPOrQ9DltyIASq871gNOkwSo5kHu/HDlCRaNKaXzSqcP
- 7odA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPA30VmTPTQPJs+VhRz03emJNZL/lGbe4tht+mOxaIhk3GL2XlSB/NSuk7B/xi/t6Gb/q0DzShIas=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoPGckawB95ly6s2u4GYBJ/F/37ESzDfKrX3bIVGcMi6Y3WbUu
- d0a9GhX9s0P/ClhJbpeqKlT+EIbxXLGiGj8Sg/BkcM6wfvUcg4kI84xL
-X-Gm-Gg: ATEYQzzRkbEGe4Wqn28OdC0TYPucdI/2Unr/QgUzttH77cdRGgk+JbDs/wjPvLBW2Nq
- DtWafBmBPJ56Uabtr2xGTy0B68aK7Mtvvav1EegHoItJJ4P3ius/LkosiJJLZB8i1keXdWrAS4A
- VA4klqVkXhjwfjCtQpuXy0PiHTKDUXw20pPdOzyhKRDCW+XexyhiuElGO+s3IJ0D1U8o4X1+fnl
- 9D5yDbVCWXIdVKru7UBTbmeoV+ii3Ie5Cmfp3NQtNV2dtmMNU3sQRhzfmZVsvchVsHfihLMbV40
- LAzhAVI4gGA31N0Bj7WF4uGH2o1FwzrPMQxtFZ9iTYIITh7BEuTgmCTPO4az2csAWo29B6mOJOq
- bUiDUNnFmYAYTZfCaUNyejfSn8YvUaqOlopaH0hqnkpDfzqhAhM08PEpaTlJBNu68UQgaKjBHiO
- /dBq8jUfrvXUHYkWeLc7ULzQ2Z1GcNKLBa9v1p6Wfw070b0pO8
-X-Received: by 2002:a05:6820:198e:b0:672:fec8:e61 with SMTP id
- 006d021491bc7-67b9bcc0fabmr433464eaf.32.1772761870142; 
- Thu, 05 Mar 2026 17:51:10 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:09 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [RFC PATCH 4/7] dyndbg: use static-key queueing API in dynamic-debug
-Date: Thu,  5 Mar 2026 18:50:07 -0700
-Message-ID: <20260306015022.1940986-5-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F330610ECFB;
+ Fri,  6 Mar 2026 11:42:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B4B9A60127;
+ Fri,  6 Mar 2026 11:42:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4FAC4CEF7;
+ Fri,  6 Mar 2026 11:42:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772797342;
+ bh=CA2vkPrs+KBRPBb6HWrkcW5f3nw7u13fgvwPYP4Knsw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VmPUWeBaQkwHyNWrIgE+k6VTvF58sgBu9LcG+6SertLT2ce7KXBFZ0We86Id7A25U
+ Q+HpvLqR5cHvWiwcCko03D2oM0ZKE14Cr+BxZZDDmzCKdHkCFk9RqTfMemJZDDnloC
+ Ew767ufZJ7CKXy/CG6eJzT3vDrdM6zE9ZYv22SYiUP3CREBCfUFzOy3pucv0xCVXiW
+ 9MsH74masuCdJlZ8BntBknVUwyKbUCdud5oUJoRnrzrGTDqUqCnck040huUBGNP38a
+ rVd+D+l7txMQlbfz48dBDZDt3rCVTj4/qKf0/Air3/s23aXm7SQiY2Tv5T9Owh5nxk
+ DlcAdpF9cammw==
+Date: Fri, 6 Mar 2026 11:42:19 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: David Howells <dhowells@redhat.com>, 
+ Marc Dionne <marc.dionne@auristor.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Chao Yu <chao@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <bhe@redhat.com>,
+ Barry Song <baohua@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>, Dan Williams <dan.j.williams@intel.com>,
+ Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, 
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Paulo Alcantara <pc@manguebit.org>, Trond Myklebust <trondmy@kernel.org>, 
+ Anna Schumaker <anna@kernel.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org, netfs@lists.linux.dev, 
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org, gfs2@lists.linux.dev, 
+ linux-nilfs@vger.kernel.org, linux-xfs@vger.kernel.org, cgroups@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] mm: Remove stray references to struct pagevec
+Message-ID: <3f262490-ebed-49b5-99ff-7a8aaa12cada@lucifer.local>
+References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
+ <20260225-pagevec_cleanup-v2-1-716868cc2d11@columbia.edu>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260225-pagevec_cleanup-v2-1-716868cc2d11@columbia.edu>
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,88 +118,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the new static-key queueing API in dynamic-debug
+On Wed, Feb 25, 2026 at 06:44:25PM -0500, Tal Zussman wrote:
+> struct pagevec was removed in commit 1e0877d58b1e ("mm: remove struct
+> pagevec"). Remove remaining forward declarations and change
+> __folio_batch_release()'s declaration to match its definition.
+>
+> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Acked-by: Chris Li <chrisl@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-function _get_cal_count() {
-    # Sum all CPU columns for the 'CAL' (Function call interrupts) line
-    grep CAL /proc/interrupts | awk '{ sum=0; for(i=2; i<NF-2; i++) sum+=$i; print sum }'
-}
-function ddcmdq () {
-    local cal_before=$(_get_cal_count)
-    echo $* > /proc/dynamic_debug/control
-    local cal_after=$(_get_cal_count)
-    printf "Delta-CAL (IPI): %d\n" "$((cal_after - cal_before))"
-}
+LGTM, so:
 
-Before:
+Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
-  #> ddcmdq +p
-  #> ddcmdq -p
-  ...
-  [   37.165860] virtqueue callback for 000000009e760656 (00000000011de1b1)
-  [   37.165952] virtiofs virtio0: virtio_fs_vq_done requests.0
-  [   37.166119] dyndbg: query 0: "-p" mod:*
-  Delta-CAL (IPI): 16154
-
-After:
-  ...
-  [   32.189131] dyndbg: batch desc: ffffffff89468028, static_key addr ffffffff89468050 (fbcon_startup:1032)
-  [   32.189225] dyndbg: batch desc: ffffffff89468060, static_key addr ffffffff89468088 (acpi_table_parse_entries_array:264)
-  [   32.189332] dyndbg: batch desc: ffffffff89468098, static_key addr ffffffff894680c0 (acpi_table_print_madt_entry:229)
-  Delta-CAL (IPI): 134
-
-Extra context:
-
-  #> wc /proc/dynamic_debug/control
-  1903 15092 185427 /proc/dynamic_debug/control
-  #> ddgrep dynamic_debug
-  lib/dynamic_debug.c:386 [dynamic_debug]ddebug_change =_ "batch desc: %px, static_key addr %px (%s:%d)\n"
-  lib/dynamic_debug.c:397 [dynamic_debug]ddebug_change =_ "applied queued updates to %d sites in total\n"
-  #> dmesg | grep queued
-  [   26.837520] dyndbg: applied queued updates to 1902 sites in total
-  [   26.837631] applying 1866 queued jump_labels
-
-The baseline has the 2 ratelimited patches cherry-picked in, so both
-of these numbers include whatever overhead is caused by virtio and
-dynamic-debugs pr_debug()s.
-
-Cc: Jason Baron <jbaron@akamai.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index aa16782bc93b..e555a8dbdc27 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -371,10 +371,12 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- #ifdef CONFIG_JUMP_LABEL
- 			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
- 				if (!(newflags & _DPRINTK_FLAGS_PRINT))
--					static_branch_disable(&dp->key.dd_key_true);
-+					static_branch_disable_queued(&dp->key.dd_key_true);
- 			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
--				static_branch_enable(&dp->key.dd_key_true);
-+				static_branch_enable_queued(&dp->key.dd_key_true);
- 			}
-+			pr_debug("batch desc: %px, static_key addr %px (%s:%d)\n",
-+				 dp, &dp->key.dd_key_true, dp->function, dp->lineno);
- #endif
- 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
- 				  trim_prefix(dp->filename), dp->lineno,
-@@ -384,6 +386,8 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 			dp->flags = newflags;
- 		}
- 	}
-+	pr_debug("applied queued updates to %d sites in total\n", nfound);
-+	static_key_apply_queued();
- 	mutex_unlock(&ddebug_lock);
- 
- 	return nfound;
--- 
-2.53.0
-
+> ---
+>  fs/afs/internal.h       | 1 -
+>  fs/f2fs/f2fs.h          | 2 --
+>  include/linux/pagevec.h | 2 +-
+>  include/linux/swap.h    | 2 --
+>  4 files changed, 1 insertion(+), 6 deletions(-)
+>
+> diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+> index 009064b8d661..599353c33337 100644
+> --- a/fs/afs/internal.h
+> +++ b/fs/afs/internal.h
+> @@ -31,7 +31,6 @@
+>
+>  #define AFS_CELL_MAX_ADDRS 15
+>
+> -struct pagevec;
+>  struct afs_call;
+>  struct afs_vnode;
+>  struct afs_server_probe;
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index bb34e864d0ef..d9e8531a5301 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -28,8 +28,6 @@
+>  #include <linux/fscrypt.h>
+>  #include <linux/fsverity.h>
+>
+> -struct pagevec;
+> -
+>  #ifdef CONFIG_F2FS_CHECK_FS
+>  #define f2fs_bug_on(sbi, condition)	BUG_ON(condition)
+>  #else
+> diff --git a/include/linux/pagevec.h b/include/linux/pagevec.h
+> index 63be5a451627..007affabf335 100644
+> --- a/include/linux/pagevec.h
+> +++ b/include/linux/pagevec.h
+> @@ -93,7 +93,7 @@ static inline struct folio *folio_batch_next(struct folio_batch *fbatch)
+>  	return fbatch->folios[fbatch->i++];
+>  }
+>
+> -void __folio_batch_release(struct folio_batch *pvec);
+> +void __folio_batch_release(struct folio_batch *fbatch);
+>
+>  static inline void folio_batch_release(struct folio_batch *fbatch)
+>  {
+> diff --git a/include/linux/swap.h b/include/linux/swap.h
+> index 0effe3cc50f5..4b1f13b5bbad 100644
+> --- a/include/linux/swap.h
+> +++ b/include/linux/swap.h
+> @@ -20,8 +20,6 @@ struct notifier_block;
+>
+>  struct bio;
+>
+> -struct pagevec;
+> -
+>  #define SWAP_FLAG_PREFER	0x8000	/* set if swap priority specified */
+>  #define SWAP_FLAG_PRIO_MASK	0x7fff
+>  #define SWAP_FLAG_DISCARD	0x10000 /* enable discard for swap */
+>
+> --
+> 2.39.5
+>
