@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92440FCA17A
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 349D7FCA17E
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB00210E5A9;
-	Mon,  9 Mar 2026 18:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3491610E5AD;
+	Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VmPUWeBa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fSK/XAQL";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F330610ECFB;
- Fri,  6 Mar 2026 11:42:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D26010E07F;
+ Fri,  6 Mar 2026 11:45:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B4B9A60127;
- Fri,  6 Mar 2026 11:42:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4FAC4CEF7;
- Fri,  6 Mar 2026 11:42:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id BCBCD60131;
+ Fri,  6 Mar 2026 11:45:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9A66C4CEF7;
+ Fri,  6 Mar 2026 11:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772797342;
- bh=CA2vkPrs+KBRPBb6HWrkcW5f3nw7u13fgvwPYP4Knsw=;
+ s=k20201202; t=1772797528;
+ bh=R0Pw6Rvi1Mhd+owNp6fekaCHGfNY8HGW5Ezw3BximRg=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VmPUWeBaQkwHyNWrIgE+k6VTvF58sgBu9LcG+6SertLT2ce7KXBFZ0We86Id7A25U
- Q+HpvLqR5cHvWiwcCko03D2oM0ZKE14Cr+BxZZDDmzCKdHkCFk9RqTfMemJZDDnloC
- Ew767ufZJ7CKXy/CG6eJzT3vDrdM6zE9ZYv22SYiUP3CREBCfUFzOy3pucv0xCVXiW
- 9MsH74masuCdJlZ8BntBknVUwyKbUCdud5oUJoRnrzrGTDqUqCnck040huUBGNP38a
- rVd+D+l7txMQlbfz48dBDZDt3rCVTj4/qKf0/Air3/s23aXm7SQiY2Tv5T9Owh5nxk
- DlcAdpF9cammw==
-Date: Fri, 6 Mar 2026 11:42:19 +0000
+ b=fSK/XAQLAWrXgjeiTk3XlTolP/BrZo51IJvpeJZGw2osWtvnYdKil+TQMDx8gWiRi
+ WjuQV6ZeyS/m6ni5W9gNsA2w9RKNJwzanT8/GnfMrboUr9Gbo4aVh2Mn/o2+vlLsjv
+ 4PWo7PC7OublPZdNgrtwgO4Z2w9v6j7fcHKxDxv09GvTy61OlC8iHrQfKGPJGqGONd
+ M0ALOZf6QGWhuKnQcihp+k2WJXsFw4+ryjYEvUIiElVerrlDn/O4aKeIuaVu+rMseL
+ zWWevBBNjgHPZpEgylrlPgorL36cHHh2UT5GUH7Mk8QSGuUi3c21N1pC1/msfyBSRQ
+ 8CjN9YQXQSKGA==
+Date: Fri, 6 Mar 2026 11:45:24 +0000
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: Tal Zussman <tz2294@columbia.edu>
 Cc: David Howells <dhowells@redhat.com>, 
@@ -94,14 +94,15 @@ Cc: David Howells <dhowells@redhat.com>,
  intel-gfx@lists.freedesktop.org, 
  linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org, gfs2@lists.linux.dev, 
  linux-nilfs@vger.kernel.org, linux-xfs@vger.kernel.org, cgroups@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: Remove stray references to struct pagevec
-Message-ID: <3f262490-ebed-49b5-99ff-7a8aaa12cada@lucifer.local>
+Subject: Re: [PATCH v2 4/4] folio_batch: Rename PAGEVEC_SIZE to
+ FOLIO_BATCH_SIZE
+Message-ID: <56265c07-962d-4bfc-b332-17f04c97429e@lucifer.local>
 References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
- <20260225-pagevec_cleanup-v2-1-716868cc2d11@columbia.edu>
+ <20260225-pagevec_cleanup-v2-4-716868cc2d11@columbia.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260225-pagevec_cleanup-v2-1-716868cc2d11@columbia.edu>
+In-Reply-To: <20260225-pagevec_cleanup-v2-4-716868cc2d11@columbia.edu>
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,78 +119,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 25, 2026 at 06:44:25PM -0500, Tal Zussman wrote:
-> struct pagevec was removed in commit 1e0877d58b1e ("mm: remove struct
-> pagevec"). Remove remaining forward declarations and change
-> __folio_batch_release()'s declaration to match its definition.
+On Wed, Feb 25, 2026 at 06:44:28PM -0500, Tal Zussman wrote:
+> struct pagevec no longer exists. Rename the macro appropriately.
 >
-> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Acked-by: Chris Li <chrisl@kernel.org>
 > Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-LGTM, so:
+Nice thanks for this! LGTM, so:
 
 Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 > ---
->  fs/afs/internal.h       | 1 -
->  fs/f2fs/f2fs.h          | 2 --
->  include/linux/pagevec.h | 2 +-
->  include/linux/swap.h    | 2 --
->  4 files changed, 1 insertion(+), 6 deletions(-)
+>  fs/btrfs/extent_io.c        | 4 ++--
+>  include/linux/folio_batch.h | 6 +++---
+>  include/linux/folio_queue.h | 6 +++---
+>  mm/shmem.c                  | 4 ++--
+>  mm/swap.c                   | 2 +-
+>  mm/swap_state.c             | 2 +-
+>  mm/truncate.c               | 6 +++---
+>  7 files changed, 15 insertions(+), 15 deletions(-)
 >
-> diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-> index 009064b8d661..599353c33337 100644
-> --- a/fs/afs/internal.h
-> +++ b/fs/afs/internal.h
-> @@ -31,7 +31,6 @@
+> diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
+> index c373d113f1e7..d82ca509503f 100644
+> --- a/fs/btrfs/extent_io.c
+> +++ b/fs/btrfs/extent_io.c
+> @@ -2095,13 +2095,13 @@ static void buffer_tree_tag_for_writeback(struct btrfs_fs_info *fs_info,
+>  struct eb_batch {
+>  	unsigned int nr;
+>  	unsigned int cur;
+> -	struct extent_buffer *ebs[PAGEVEC_SIZE];
+> +	struct extent_buffer *ebs[FOLIO_BATCH_SIZE];
+>  };
 >
->  #define AFS_CELL_MAX_ADDRS 15
->
-> -struct pagevec;
->  struct afs_call;
->  struct afs_vnode;
->  struct afs_server_probe;
-> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-> index bb34e864d0ef..d9e8531a5301 100644
-> --- a/fs/f2fs/f2fs.h
-> +++ b/fs/f2fs/f2fs.h
-> @@ -28,8 +28,6 @@
->  #include <linux/fscrypt.h>
->  #include <linux/fsverity.h>
->
-> -struct pagevec;
-> -
->  #ifdef CONFIG_F2FS_CHECK_FS
->  #define f2fs_bug_on(sbi, condition)	BUG_ON(condition)
->  #else
-> diff --git a/include/linux/pagevec.h b/include/linux/pagevec.h
-> index 63be5a451627..007affabf335 100644
-> --- a/include/linux/pagevec.h
-> +++ b/include/linux/pagevec.h
-> @@ -93,7 +93,7 @@ static inline struct folio *folio_batch_next(struct folio_batch *fbatch)
->  	return fbatch->folios[fbatch->i++];
+>  static inline bool eb_batch_add(struct eb_batch *batch, struct extent_buffer *eb)
+>  {
+>  	batch->ebs[batch->nr++] = eb;
+> -	return (batch->nr < PAGEVEC_SIZE);
+> +	return (batch->nr < FOLIO_BATCH_SIZE);
 >  }
 >
-> -void __folio_batch_release(struct folio_batch *pvec);
-> +void __folio_batch_release(struct folio_batch *fbatch);
+>  static inline void eb_batch_init(struct eb_batch *batch)
+> diff --git a/include/linux/folio_batch.h b/include/linux/folio_batch.h
+> index a2f3d3043f7e..b45946adc50b 100644
+> --- a/include/linux/folio_batch.h
+> +++ b/include/linux/folio_batch.h
+> @@ -12,7 +12,7 @@
+>  #include <linux/types.h>
 >
->  static inline void folio_batch_release(struct folio_batch *fbatch)
+>  /* 31 pointers + header align the folio_batch structure to a power of two */
+> -#define PAGEVEC_SIZE	31
+> +#define FOLIO_BATCH_SIZE	31
+>
+>  struct folio;
+>
+> @@ -29,7 +29,7 @@ struct folio_batch {
+>  	unsigned char nr;
+>  	unsigned char i;
+>  	bool percpu_pvec_drained;
+> -	struct folio *folios[PAGEVEC_SIZE];
+> +	struct folio *folios[FOLIO_BATCH_SIZE];
+>  };
+>
+>  /**
+> @@ -58,7 +58,7 @@ static inline unsigned int folio_batch_count(const struct folio_batch *fbatch)
+>
+>  static inline unsigned int folio_batch_space(const struct folio_batch *fbatch)
 >  {
-> diff --git a/include/linux/swap.h b/include/linux/swap.h
-> index 0effe3cc50f5..4b1f13b5bbad 100644
-> --- a/include/linux/swap.h
-> +++ b/include/linux/swap.h
-> @@ -20,8 +20,6 @@ struct notifier_block;
+> -	return PAGEVEC_SIZE - fbatch->nr;
+> +	return FOLIO_BATCH_SIZE - fbatch->nr;
+>  }
 >
->  struct bio;
+>  /**
+> diff --git a/include/linux/folio_queue.h b/include/linux/folio_queue.h
+> index 0d3765fa9d1d..f6d5f1f127c9 100644
+> --- a/include/linux/folio_queue.h
+> +++ b/include/linux/folio_queue.h
+> @@ -29,12 +29,12 @@
+>   */
+>  struct folio_queue {
+>  	struct folio_batch	vec;		/* Folios in the queue segment */
+> -	u8			orders[PAGEVEC_SIZE]; /* Order of each folio */
+> +	u8			orders[FOLIO_BATCH_SIZE]; /* Order of each folio */
+>  	struct folio_queue	*next;		/* Next queue segment or NULL */
+>  	struct folio_queue	*prev;		/* Previous queue segment of NULL */
+>  	unsigned long		marks;		/* 1-bit mark per folio */
+>  	unsigned long		marks2;		/* Second 1-bit mark per folio */
+> -#if PAGEVEC_SIZE > BITS_PER_LONG
+> +#if FOLIO_BATCH_SIZE > BITS_PER_LONG
+>  #error marks is not big enough
+>  #endif
+>  	unsigned int		rreq_id;
+> @@ -70,7 +70,7 @@ static inline void folioq_init(struct folio_queue *folioq, unsigned int rreq_id)
+>   */
+>  static inline unsigned int folioq_nr_slots(const struct folio_queue *folioq)
+>  {
+> -	return PAGEVEC_SIZE;
+> +	return FOLIO_BATCH_SIZE;
+>  }
 >
-> -struct pagevec;
-> -
->  #define SWAP_FLAG_PREFER	0x8000	/* set if swap priority specified */
->  #define SWAP_FLAG_PRIO_MASK	0x7fff
->  #define SWAP_FLAG_DISCARD	0x10000 /* enable discard for swap */
+>  /**
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 149fdb051170..5e7dcf5bc5d3 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1113,7 +1113,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>  	pgoff_t start = (lstart + PAGE_SIZE - 1) >> PAGE_SHIFT;
+>  	pgoff_t end = (lend + 1) >> PAGE_SHIFT;
+>  	struct folio_batch fbatch;
+> -	pgoff_t indices[PAGEVEC_SIZE];
+> +	pgoff_t indices[FOLIO_BATCH_SIZE];
+>  	struct folio *folio;
+>  	bool same_folio;
+>  	long nr_swaps_freed = 0;
+> @@ -1510,7 +1510,7 @@ static int shmem_unuse_inode(struct inode *inode, unsigned int type)
+>  	struct address_space *mapping = inode->i_mapping;
+>  	pgoff_t start = 0;
+>  	struct folio_batch fbatch;
+> -	pgoff_t indices[PAGEVEC_SIZE];
+> +	pgoff_t indices[FOLIO_BATCH_SIZE];
+>  	int ret = 0;
+>
+>  	do {
+> diff --git a/mm/swap.c b/mm/swap.c
+> index 2e517ede6561..78b4aa811fc6 100644
+> --- a/mm/swap.c
+> +++ b/mm/swap.c
+> @@ -1018,7 +1018,7 @@ EXPORT_SYMBOL(folios_put_refs);
+>  void release_pages(release_pages_arg arg, int nr)
+>  {
+>  	struct folio_batch fbatch;
+> -	int refs[PAGEVEC_SIZE];
+> +	int refs[FOLIO_BATCH_SIZE];
+>  	struct encoded_page **encoded = arg.encoded_pages;
+>  	int i;
+>
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index a0c64db2b275..6313b59d7eab 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -385,7 +385,7 @@ void free_folio_and_swap_cache(struct folio *folio)
+>  void free_pages_and_swap_cache(struct encoded_page **pages, int nr)
+>  {
+>  	struct folio_batch folios;
+> -	unsigned int refs[PAGEVEC_SIZE];
+> +	unsigned int refs[FOLIO_BATCH_SIZE];
+>
+>  	folio_batch_init(&folios);
+>  	for (int i = 0; i < nr; i++) {
+> diff --git a/mm/truncate.c b/mm/truncate.c
+> index df0b7a7e6aff..2931d66c16d0 100644
+> --- a/mm/truncate.c
+> +++ b/mm/truncate.c
+> @@ -369,7 +369,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
+>  	pgoff_t		start;		/* inclusive */
+>  	pgoff_t		end;		/* exclusive */
+>  	struct folio_batch fbatch;
+> -	pgoff_t		indices[PAGEVEC_SIZE];
+> +	pgoff_t		indices[FOLIO_BATCH_SIZE];
+>  	pgoff_t		index;
+>  	int		i;
+>  	struct folio	*folio;
+> @@ -534,7 +534,7 @@ EXPORT_SYMBOL(truncate_inode_pages_final);
+>  unsigned long mapping_try_invalidate(struct address_space *mapping,
+>  		pgoff_t start, pgoff_t end, unsigned long *nr_failed)
+>  {
+> -	pgoff_t indices[PAGEVEC_SIZE];
+> +	pgoff_t indices[FOLIO_BATCH_SIZE];
+>  	struct folio_batch fbatch;
+>  	pgoff_t index = start;
+>  	unsigned long ret;
+> @@ -672,7 +672,7 @@ int folio_unmap_invalidate(struct address_space *mapping, struct folio *folio,
+>  int invalidate_inode_pages2_range(struct address_space *mapping,
+>  				  pgoff_t start, pgoff_t end)
+>  {
+> -	pgoff_t indices[PAGEVEC_SIZE];
+> +	pgoff_t indices[FOLIO_BATCH_SIZE];
+>  	struct folio_batch fbatch;
+>  	pgoff_t index;
+>  	int i;
 >
 > --
 > 2.39.5
