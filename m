@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8B20FCA17E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48F5AFCA17D
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DC910E59F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CA2F10E59B;
 	Mon,  9 Mar 2026 18:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LZ2C8YdL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rCp0TEPy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4490B10ED30;
- Fri,  6 Mar 2026 12:29:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85C3410ED1B;
+ Fri,  6 Mar 2026 12:17:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 519B160018;
- Fri,  6 Mar 2026 12:29:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FBA6C4CEF7;
- Fri,  6 Mar 2026 12:29:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D6E3404AF;
+ Fri,  6 Mar 2026 12:17:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811D4C4CEF7;
+ Fri,  6 Mar 2026 12:17:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772800171;
- bh=e/BhLuvVPXdAbTMBHCsfqneVZFKZ17hQIzvo4yPKeoQ=;
+ s=k20201202; t=1772799478;
+ bh=yyADghSRuv3g36SG1gTJ+zwspTahcSZlQ722wYwHmFo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LZ2C8YdL87D8RpW/YcqxQXdubcwJYV1mXiNi+UoS9iMH/GZ6tewKR5nE3DeuewPAj
- FjUGDPllrcWVkaTdK+hHETp1VMwk8al+fULHWHc5ArhEgn636iBiIKwo+030oucnyt
- R5ip2+oEghEmWWtqUJEOEDUPUzE1JM264O2JI8HG3B2KdY6tnlp6cUREjXfuUUhJqK
- laEw0eVrwgbM9iqQmt/O5Pd7Dpk3bYJMdu8+pPEen9SGbx9GDjtpxN/Vm1R2vXpdx+
- TesD22LJCGx7pZOPjxKfoMlDF8xXvihsNP+Y8Jno2n0Svqw7inQAdc/rgB4H5jjlqp
- MaOZu6sgtomNA==
-Date: Fri, 6 Mar 2026 12:29:28 +0000
+ b=rCp0TEPyTOAJupRC28UvQbYXcao/G55MgmxFJIUwmwhQpuaPUpOT9IaUxiz4l5nEc
+ otvkysRzxPs3DwlOKdKiqY//hgQr7LqJ9BEez9xlbH2rOvQ6KR8wW1Te2DyXt5Y7C0
+ AdZO6ELl5OOGQXFL+vy+jJZnK0vGap6Hkyknjo+SAeXBT8O22MNov+m6lrTpzBgLZQ
+ EhmCORIlTz+NSzc9TcBguQTQ6X0MFO8+HpR8ALVK04Q+cBoY+dyiAu0NzOviSlR6nv
+ hBCmb0cqI2vr+citiZrZ/w8gPppkTAUyT1n6sGgxa1kceA0/E1psbkUc1vZ34fDFyh
+ JYwVuJUUBth/A==
+Date: Fri, 6 Mar 2026 12:17:55 +0000
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: linux-kernel@vger.kernel.org, 
@@ -82,15 +82,15 @@ Cc: linux-kernel@vger.kernel.org,
  bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, 
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 11/16] mm/memory: inline unmap_page_range() into
+Subject: Re: [PATCH v1 07/16] mm/memory: rename unmap_single_vma() to
  __zap_vma_range()
-Message-ID: <a5765cac-69d6-4314-82d5-80ee363906de@lucifer.local>
+Message-ID: <f03471b0-ec73-40d1-88bf-a977c0e8d201@lucifer.local>
 References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-12-david@kernel.org>
+ <20260227200848.114019-8-david@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-12-david@kernel.org>
+In-Reply-To: <20260227200848.114019-8-david@kernel.org>
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,77 +107,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:42PM +0100, David Hildenbrand (Arm) wrote:
-> Let's inline it into the single caller to reduce the number of confusing
-> unmap/zap helpers.
->
-> Get rid of the unnecessary BUG_ON().
+On Fri, Feb 27, 2026 at 09:08:38PM +0100, David Hildenbrand (Arm) wrote:
+> Let's rename it to better fit our new naming scheme.
 >
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Small nits below, but overall LGTM so:
+Yesssss thank you! I hate[d] the rando 'sometimes zap sometimes unmap' naming
+convention here.
+
+LGTM, so:
 
 Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 > ---
->  mm/memory.c | 32 ++++++++++++--------------------
->  1 file changed, 12 insertions(+), 20 deletions(-)
+>  mm/memory.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
 > diff --git a/mm/memory.c b/mm/memory.c
-> index 394b2e931974..1c0bcdfc73b7 100644
+> index 621f38ae1425..f0aaec57a66b 100644
 > --- a/mm/memory.c
 > +++ b/mm/memory.c
-> @@ -2056,25 +2056,6 @@ static inline unsigned long zap_p4d_range(struct mmu_gather *tlb,
->  	return addr;
+> @@ -2074,7 +2074,7 @@ static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
 >  }
 >
-> -static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> -		unsigned long addr, unsigned long end,
-> -		struct zap_details *details)
-> -{
-> -	pgd_t *pgd;
-> -	unsigned long next;
-> -
-> -	BUG_ON(addr >= end);
-> -	tlb_start_vma(tlb, vma);
-> -	pgd = pgd_offset(vma->vm_mm, addr);
-> -	do {
-> -		next = pgd_addr_end(addr, end);
-> -		if (pgd_none_or_clear_bad(pgd))
-> -			continue;
-> -		next = zap_p4d_range(tlb, vma, pgd, addr, next, details);
-> -	} while (pgd++, addr = next, addr != end);
-> -	tlb_end_vma(tlb, vma);
-> -}
-> -
->  static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  		unsigned long start, unsigned long end,
->  		struct zap_details *details)
-> @@ -2100,7 +2081,18 @@ static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  			return;
->  		__unmap_hugepage_range(tlb, vma, start, end, NULL, zap_flags);
->  	} else {
-> -		unmap_page_range(tlb, vma, start, end, details);
-> +		unsigned long next, cur = start;
-
-VERY nitty, but generally current is abbreviated to curr not cur.
-
-It's not a big deal, but why not addr?
-
-> +		pgd_t *pgd;
-> +
-> +		tlb_start_vma(tlb, vma);
-> +		pgd = pgd_offset(vma->vm_mm, cur);
-> +		do {
-> +			next = pgd_addr_end(cur, end);
-> +			if (pgd_none_or_clear_bad(pgd))
-> +				continue;
-> +			next = zap_p4d_range(tlb, vma, pgd, cur, next, details);
-> +		} while (pgd++, cur = next, cur != end);
-> +		tlb_end_vma(tlb, vma);
->  	}
->  }
 >
+> -static void unmap_single_vma(struct mmu_gather *tlb,
+> +static void __zap_vma_range(struct mmu_gather *tlb,
+>  		struct vm_area_struct *vma, unsigned long start_addr,
+>  		unsigned long end_addr, struct zap_details *details)
+>  {
+> @@ -2177,7 +2177,7 @@ void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap)
+>  		unsigned long start = unmap->vma_start;
+>  		unsigned long end = unmap->vma_end;
+>  		hugetlb_zap_begin(vma, &start, &end);
+> -		unmap_single_vma(tlb, vma, start, end, &details);
+> +		__zap_vma_range(tlb, vma, start, end, &details);
+>  		hugetlb_zap_end(vma, &details);
+>  		vma = mas_find(unmap->mas, unmap->tree_end - 1);
+>  	} while (vma);
+> @@ -2213,7 +2213,7 @@ void zap_page_range_single_batched(struct mmu_gather *tlb,
+>  	 * unmap 'address-end' not 'range.start-range.end' as range
+>  	 * could have been expanded for hugetlb pmd sharing.
+>  	 */
+> -	unmap_single_vma(tlb, vma, address, end, details);
+> +	__zap_vma_range(tlb, vma, address, end, details);
+>  	mmu_notifier_invalidate_range_end(&range);
+>  	if (is_vm_hugetlb_page(vma)) {
+>  		/*
 > --
 > 2.43.0
 >
