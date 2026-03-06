@@ -4,93 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C73DFCA179
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17312FCA173
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9446D10E5A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88BF410E599;
 	Mon,  9 Mar 2026 18:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dVqQGJSF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AoTL4X7f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6217B10E3D1;
- Fri,  6 Mar 2026 12:14:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B34F10ECFE;
+ Fri,  6 Mar 2026 11:43:36 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6715E6012A;
- Fri,  6 Mar 2026 12:14:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 829DEC4CEF7;
- Fri,  6 Mar 2026 12:14:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ACAE1437E7;
+ Fri,  6 Mar 2026 11:43:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB45CC4CEF7;
+ Fri,  6 Mar 2026 11:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772799245;
- bh=Aeql3Q18nbzOXyXxhu0vMzA3N0kdNt6Kxm9MrBYhJwc=;
+ s=k20201202; t=1772797415;
+ bh=GowoyTsR4CI3ewxQ0f2lHFy7dHsKMkcXOPtOrZuLkR8=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dVqQGJSFiWX+fDD/OWZvs6Gl8EvNWdkhGAwY0jgLtpsGAh+dBK4hjzKSY1SnoVxJU
- Xn8o0QmPk7618RpV/ZP3BQon0ikZoZX/2Edj80XY9nHA/af8dILFPWfW54wd0CfK5J
- NNDPt/dl+gpaSa6q1arnlJ6LaGOiSvQqHc8RpLx+kRVj9NJ49/AzP4n1GT/dB3EozG
- MzrBFPGFBVBNv32TOIbQwG4bTmYYGJvCCLdYq7arv1NHHiBCMmGv2K2Sm+N0LRxzpC
- aFvJFL0+ixqlChqXpUk4/1NsRYhl/5ShnknPXYh+3W2ihDb5KHKe+eLdNWM7yGCDkz
- //0PKp6ZWU7fQ==
-Date: Fri, 6 Mar 2026 12:14:02 +0000
+ b=AoTL4X7fkCCo0RpTHoieQY0AotRrEjVyuQ02wvcgh1owSajcJbmcQEtWizAtCSsK/
+ X+mc0JnVWTe165uGDV9E7WpAYYzGMULmVtno4EZukM7QoACh09oHoPUhdwygslZKvl
+ UA8JGFtIK2G8zIIAmjqKqpT+tyil+49Wti7f3MPsrXYEUnfS45na2IEnXoSRELDO6M
+ ZL6z80bBwk4W9VVHCHJBf7g9N26hSrTQ1VOPLG5slPyq9X33Zeti35mCcJQiMAS9Er
+ ddlmGUcS+LRPdDZ43n2TXxhXjJ5UL+qfVn18k94Sk3SHS399+2vt6KziT54vb18xV4
+ c6KUFHbeprQ4w==
+Date: Fri, 6 Mar 2026 11:43:32 +0000
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: David Howells <dhowells@redhat.com>, 
+ Marc Dionne <marc.dionne@auristor.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Chao Yu <chao@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
  "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
  Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
  Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <bhe@redhat.com>,
+ Barry Song <baohua@kernel.org>, 
+ Matthew Wilcox <willy@infradead.org>, Dan Williams <dan.j.williams@intel.com>,
+ Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, 
+ Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Paulo Alcantara <pc@manguebit.org>, Trond Myklebust <trondmy@kernel.org>, 
+ Anna Schumaker <anna@kernel.org>, Mark Fasheh <mark@fasheh.com>,
+ Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>, 
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
- Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Andreas Gruenbacher <agruenba@redhat.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>,
+ NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ Brendan Jackman <jackmanb@google.com>, Zi Yan <ziy@nvidia.com>,
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Qi Zheng <zhengqi.arch@bytedance.com>, linux-afs@lists.infradead.org,
+ linux-kernel@vger.kernel.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-mm@kvack.org,
  linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 05/16] mm/oom_kill: use MMU_NOTIFY_CLEAR in
- __oom_reap_task_mm()
-Message-ID: <8ad03e9e-b14a-4348-aea3-fefd5d2b163d@lucifer.local>
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-6-david@kernel.org>
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org, netfs@lists.linux.dev, 
+ linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
+ linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, 
+ linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org, gfs2@lists.linux.dev, 
+ linux-nilfs@vger.kernel.org, linux-xfs@vger.kernel.org, cgroups@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] fs: Remove unncessary pagevec.h includes
+Message-ID: <b5c861d6-6875-432a-8ae0-33030f4571ae@lucifer.local>
+References: <20260225-pagevec_cleanup-v2-0-716868cc2d11@columbia.edu>
+ <20260225-pagevec_cleanup-v2-2-716868cc2d11@columbia.edu>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-6-david@kernel.org>
+In-Reply-To: <20260225-pagevec_cleanup-v2-2-716868cc2d11@columbia.edu>
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,40 +118,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:36PM +0100, David Hildenbrand (Arm) wrote:
-> In commit 7269f999934b ("mm/mmu_notifier: use correct mmu_notifier events
-> for each invalidation") we converted all MMU_NOTIFY_UNMAP to
-> MMU_NOTIFY_CLEAR, except the ones that actually perform munmap() or
-> mremap() as documented.
+On Wed, Feb 25, 2026 at 06:44:26PM -0500, Tal Zussman wrote:
+> Remove unused pagevec.h includes from .c files. These were found with
+> the following command:
 >
-> __oom_reap_task_mm() behaves much more like MADV_DONTNEED. So use
-> MMU_NOTIFY_CLEAR as well.
+>   grep -rl '#include.*pagevec\.h' --include='*.c' | while read f; do
+>   	grep -qE 'PAGEVEC_SIZE|folio_batch' "$f" || echo "$f"
+>   done
 >
-> This is a preparation for further changes.
+> There are probably more removal candidates in .h files, but those are
+> more complex to analyze.
 >
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-LGTM, so:
+Nice, LGTM so:
 
 Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 > ---
->  mm/oom_kill.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  fs/afs/write.c                   | 1 -
+>  fs/dax.c                         | 1 -
+>  fs/ext4/file.c                   | 1 -
+>  fs/ext4/page-io.c                | 1 -
+>  fs/ext4/readpage.c               | 1 -
+>  fs/f2fs/file.c                   | 1 -
+>  fs/mpage.c                       | 1 -
+>  fs/netfs/buffered_write.c        | 1 -
+>  fs/nfs/blocklayout/blocklayout.c | 1 -
+>  fs/nfs/dir.c                     | 1 -
+>  fs/ocfs2/refcounttree.c          | 1 -
+>  fs/smb/client/connect.c          | 1 -
+>  fs/smb/client/file.c             | 1 -
+>  13 files changed, 13 deletions(-)
 >
-> diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-> index 5c6c95c169ee..0ba56fcd10d5 100644
-> --- a/mm/oom_kill.c
-> +++ b/mm/oom_kill.c
-> @@ -551,7 +551,7 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
->  			struct mmu_notifier_range range;
->  			struct mmu_gather tlb;
+> diff --git a/fs/afs/write.c b/fs/afs/write.c
+> index 93ad86ff3345..fcfed9d24e0a 100644
+> --- a/fs/afs/write.c
+> +++ b/fs/afs/write.c
+> @@ -10,7 +10,6 @@
+>  #include <linux/fs.h>
+>  #include <linux/pagemap.h>
+>  #include <linux/writeback.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/netfs.h>
+>  #include <trace/events/netfs.h>
+>  #include "internal.h"
+> diff --git a/fs/dax.c b/fs/dax.c
+> index b78cff9c91b3..a5237169b467 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -15,7 +15,6 @@
+>  #include <linux/memcontrol.h>
+>  #include <linux/mm.h>
+>  #include <linux/mutex.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/sched.h>
+>  #include <linux/sched/signal.h>
+>  #include <linux/uio.h>
+> diff --git a/fs/ext4/file.c b/fs/ext4/file.c
+> index f1dc5ce791a7..5e02f6cf653e 100644
+> --- a/fs/ext4/file.c
+> +++ b/fs/ext4/file.c
+> @@ -27,7 +27,6 @@
+>  #include <linux/dax.h>
+>  #include <linux/filelock.h>
+>  #include <linux/quotaops.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/uio.h>
+>  #include <linux/mman.h>
+>  #include <linux/backing-dev.h>
+> diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
+> index a8c95eee91b7..98da200d11c8 100644
+> --- a/fs/ext4/page-io.c
+> +++ b/fs/ext4/page-io.c
+> @@ -16,7 +16,6 @@
+>  #include <linux/string.h>
+>  #include <linux/buffer_head.h>
+>  #include <linux/writeback.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/mpage.h>
+>  #include <linux/namei.h>
+>  #include <linux/uio.h>
+> diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
+> index 830f3b8a321f..3c7aabde719c 100644
+> --- a/fs/ext4/readpage.c
+> +++ b/fs/ext4/readpage.c
+> @@ -43,7 +43,6 @@
+>  #include <linux/mpage.h>
+>  #include <linux/writeback.h>
+>  #include <linux/backing-dev.h>
+> -#include <linux/pagevec.h>
 >
-> -			mmu_notifier_range_init(&range, MMU_NOTIFY_UNMAP, 0,
-> +			mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0,
->  						mm, vma->vm_start,
->  						vma->vm_end);
->  			tlb_gather_mmu(&tlb, mm);
+>  #include "ext4.h"
+>  #include <trace/events/ext4.h>
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index c8a2f17a8f11..c6b6a1465d08 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -17,7 +17,6 @@
+>  #include <linux/compat.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/mount.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/uio.h>
+>  #include <linux/uuid.h>
+>  #include <linux/file.h>
+> diff --git a/fs/mpage.c b/fs/mpage.c
+> index 7dae5afc2b9e..e5285fbfcf09 100644
+> --- a/fs/mpage.c
+> +++ b/fs/mpage.c
+> @@ -28,7 +28,6 @@
+>  #include <linux/mm_inline.h>
+>  #include <linux/writeback.h>
+>  #include <linux/backing-dev.h>
+> -#include <linux/pagevec.h>
+>  #include "internal.h"
+>
+>  /*
+> diff --git a/fs/netfs/buffered_write.c b/fs/netfs/buffered_write.c
+> index 22a4d61631c9..05ea5b0cc0e8 100644
+> --- a/fs/netfs/buffered_write.c
+> +++ b/fs/netfs/buffered_write.c
+> @@ -10,7 +10,6 @@
+>  #include <linux/mm.h>
+>  #include <linux/pagemap.h>
+>  #include <linux/slab.h>
+> -#include <linux/pagevec.h>
+>  #include "internal.h"
+>
+>  static void __netfs_set_group(struct folio *folio, struct netfs_group *netfs_group)
+> diff --git a/fs/nfs/blocklayout/blocklayout.c b/fs/nfs/blocklayout/blocklayout.c
+> index cb0a645aeb50..11f9f69cde61 100644
+> --- a/fs/nfs/blocklayout/blocklayout.c
+> +++ b/fs/nfs/blocklayout/blocklayout.c
+> @@ -36,7 +36,6 @@
+>  #include <linux/namei.h>
+>  #include <linux/bio.h>		/* struct bio */
+>  #include <linux/prefetch.h>
+> -#include <linux/pagevec.h>
+>
+>  #include "../pnfs.h"
+>  #include "../nfs4session.h"
+> diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+> index 2402f57c8e7d..0d276441206b 100644
+> --- a/fs/nfs/dir.c
+> +++ b/fs/nfs/dir.c
+> @@ -32,7 +32,6 @@
+>  #include <linux/nfs_fs.h>
+>  #include <linux/nfs_mount.h>
+>  #include <linux/pagemap.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/namei.h>
+>  #include <linux/mount.h>
+>  #include <linux/swap.h>
+> diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
+> index c1cdececdfa4..b4acd081bbc4 100644
+> --- a/fs/ocfs2/refcounttree.c
+> +++ b/fs/ocfs2/refcounttree.c
+> @@ -31,7 +31,6 @@
+>  #include <linux/blkdev.h>
+>  #include <linux/slab.h>
+>  #include <linux/writeback.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/swap.h>
+>  #include <linux/security.h>
+>  #include <linux/string.h>
+> diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
+> index 33dfe116ca52..9e57812b7b95 100644
+> --- a/fs/smb/client/connect.c
+> +++ b/fs/smb/client/connect.c
+> @@ -20,7 +20,6 @@
+>  #include <linux/delay.h>
+>  #include <linux/completion.h>
+>  #include <linux/kthread.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/freezer.h>
+>  #include <linux/namei.h>
+>  #include <linux/uuid.h>
+> diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+> index 18f31d4eb98d..853ce1817810 100644
+> --- a/fs/smb/client/file.c
+> +++ b/fs/smb/client/file.c
+> @@ -15,7 +15,6 @@
+>  #include <linux/stat.h>
+>  #include <linux/fcntl.h>
+>  #include <linux/pagemap.h>
+> -#include <linux/pagevec.h>
+>  #include <linux/writeback.h>
+>  #include <linux/task_io_accounting_ops.h>
+>  #include <linux/delay.h>
+>
 > --
-> 2.43.0
+> 2.39.5
 >
