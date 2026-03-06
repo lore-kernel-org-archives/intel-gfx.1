@@ -4,79 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0781BFCA182
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CC0EFCA181
 	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD8810E5B1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE26610E5B2;
 	Mon,  9 Mar 2026 18:57:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ns4WzGmK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T4qMHjOg";
 	dkim-atps=neutral
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE55210E2F2
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:13 +0000 (UTC)
-Received: by mail-oo1-f49.google.com with SMTP id
- 006d021491bc7-6799774d0fcso5725554eaf.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761873; x=1773366673; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bv05xjmvI4rIAw60NQ+tAXnn+K45GBBhYovFXo2xASw=;
- b=ns4WzGmKwFcPQRXOEp/XQ+YT/zr2qyN2d5s5Ath7FdNLpk+Z5Gttq8MjRBRJkAODla
- V91ZjvxZMfMyd/qPkheOO3G2cBvMgVWbaK4EqBj07NJY9SNnqM0TuOX05+Xpc8OSCHYu
- 3R2RwL18A3ITGWmBckyvK419gSi8WAhwjXWobvkZvxBHKZtGnRu0YNIbj5vf41XTlKGG
- 4GYCJqcLuXYDu/tLcDEJb8p4G7kdIL8S1sUGvpk9B5j1jDgdY5KaBts+6oQIMx7Fn7x1
- zRXbBB2q12iFxOE2UIiBLq1qMc6qRD4QwmaH5xoxnlTgidSy8t78+T/p3BQAXfHOWUyp
- zaug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761873; x=1773366673;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bv05xjmvI4rIAw60NQ+tAXnn+K45GBBhYovFXo2xASw=;
- b=pceHlU6Cp0xt5RHbSr74mQa3AqeM94gCQVvgbpLnMfyCK0hd3DqkjiuDy1oCiyn+63
- uoiheCjxQdAh86QF9dwe4sCtupwRZXo4CdWJCQKqvVUaad8sTUa9yE5Iq5VmbLcHC3OJ
- eGUI1d/AZv13PCIeircl45uJ49SmWHZR0BBhWv9hjLsWpn4enhk4vfjwHmRz+wo4gdcN
- EUnisrXV90cdUc6A4ug1h1PNHqu90qB7duu+6LdHGQtNqtc6idqHbFOvccEX1qvimleS
- 94uRHIflxleqakBi/4L8THJGTnJ6FiXhE3Y46JRj62lWvJZmGN20+WSoXxJm1XW4FNfX
- PlcQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVv9Ho4IQhK3tzjbP25EbzCpENNkP58Jb5eT6f2s/kJDg8c4Ksbl1NuKRYRc+UcVVKqzGxLnZ7kOCM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLq31O8iLBJSIVxMM4KKSBxj/+pV1KqBRHs6E9nY1v3sdMIku8
- R/qNAUAg64Qtuc8yvdNr/1y+RFoatFXYSePVdinmlvFjwotNMkQmtaypgQ0VJS5s
-X-Gm-Gg: ATEYQzxG2zVI7tRtymxfyEnGTPxpJalkVUknAK88mwffpvGNZ3jgzZtttzBP1I8Tjwr
- Fw3utL4UXXdmiBdOHfJcQtSpFti1Y0KFPlEnNilwsdjqCb6ah8uTw42apV7UbBd/XAS7KRVJZ0K
- n+M+Ks5AlNR6c3GCyFCAebnHQm6AIVhzlGrpiBfCHwDd9cS47ZnNab0ZSAXQb3R+WBYPuPIOpt2
- irvg+JiXL1w2VCYTEPwz/BO09+wL5hswGwTESdy4/An3W64Gui9oUfIbpyiYRdVJ/G97m4kkSeo
- 1iEhxqMNvYF0PzsJfa7uyD/OwlUV8yfELjnw1BqpQ0HRKFDhn6XAzHTgdSvNhKRPAVP/BDaxVRI
- /Xh2oG0yK9akQu70TVuBbHmFurO17+8eWfIylQIyTgelZRMTZEFsgoLncN9Nalj6ZR3dUvd2JJw
- JhJWhnvl+NpSOPHPikIO3mSt4M7+UcV/dShcHt+aM5omwijzTH
-X-Received: by 2002:a05:6820:4b05:b0:67a:4fe9:a4ba with SMTP id
- 006d021491bc7-67b9bd49644mr410552eaf.63.1772761872956; 
- Thu, 05 Mar 2026 17:51:12 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:12 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Jason Baron <jbaron@akamai.com>
-Subject: [RFC PATCH 6/7] lib/dynamic_debug: add negation support to queries
-Date: Thu,  5 Mar 2026 18:50:09 -0700
-Message-ID: <20260306015022.1940986-7-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E24C10ED25;
+ Fri,  6 Mar 2026 12:32:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5C6FD60018;
+ Fri,  6 Mar 2026 12:32:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77675C4CEF7;
+ Fri,  6 Mar 2026 12:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772800364;
+ bh=QVn8Y7AXnOu5aPCMlNbbvX0FUbONENXusGGY7trKhug=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=T4qMHjOgk3jgWcvjrkPPEKLsolahZSrljiWXH/PIK77OKljPOm5wuV74Xo62bGU2b
+ W2MZJZyOEeSTvlWTQKvpw5ckVkmpOqUnkKU8hUrtVMu+d5hRTorZsy9a/BEQnu2MNk
+ nkpwmlrF4FIcx3IYFoqiolIPYTFgWBFiAXMfD1sq6oLSmSACgNEMYXkg5K3N6Dj5og
+ 5jrJz2ywPJ9P8z00grks+YpbG2l3REUrSAfVA1y7lqHfuba58RIKaBs/unDG3xXkGc
+ mn8Gi0kijcty5232VA10s00CPwrG4FcWsdUqqvgT+wM0NufnQahvqjPZh7U/cyIOmO
+ l9QVmPUmpBsCw==
+Date: Fri, 6 Mar 2026 12:32:40 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "linux-mm @ kvack . org" <linux-mm@kvack.org>,
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
+ Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
+ H Hartley Sweeten <hsweeten@visionengravers.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>,
+ Eric Dumazet <edumazet@google.com>, 
+ Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
+ David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, 
+ netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
+Subject: Re: [PATCH v1 14/16] mm: rename zap_page_range_single() to
+ zap_vma_range()
+Message-ID: <eb247018-b64b-4dba-97ca-9ce8c1b0186c@lucifer.local>
+References: <20260227200848.114019-1-david@kernel.org>
+ <20260227200848.114019-15-david@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260227200848.114019-15-david@kernel.org>
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,180 +107,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This allow users to invert the selection of any keyword.
-For example:
+On Fri, Feb 27, 2026 at 09:08:45PM +0100, David Hildenbrand (Arm) wrote:
+> Let's rename it to make it better match our new naming scheme.
+>
+> While at it, polish the kerneldoc.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-  echo "module !virtio* +p" > /proc/dynamic_debug/control
+LGTM, again obviously assuming the rustfmt stuff is sorted :>), so:
 
-When I test with virtme-ng, this cmd prevents flooding the logs with
-virtio activity.  Its not perfect, because it cannot also avoid
-flooding from pr_debugs in serial_core or other potential sources.
+Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
-A more robust command is:
-
-  echo "module !virtio* +p % module serial -p" > /proc/dynamic_debug/control
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/dynamic_debug.c | 76 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 53 insertions(+), 23 deletions(-)
-
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 80fa8d2143e8..a283d12fd64d 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -59,6 +59,10 @@ struct ddebug_query {
- 	const char *format;
- 	const char *class_string;
- 	unsigned int first_lineno, last_lineno;
-+	unsigned int filename_neg:1;
-+	unsigned int module_neg:1;
-+	unsigned int function_neg:1;
-+	unsigned int format_neg:1;
- };
- 
- struct ddebug_iter {
-@@ -163,11 +167,12 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- 			fmtlen--;
- 	}
- 
--	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
-+	v3pr_info("%s: func%s=\"%s\" file%s=\"%s\" module%s=\"%s\" format%s=\"%.*s\" lineno=%u-%u class=%s\n",
- 		  msg,
--		  query->function ?: "",
--		  query->filename ?: "",
--		  query->module ?: "",
-+		  query->function_neg ? "!" : "", query->function ?: "",
-+		  query->filename_neg ? "!" : "", query->filename ?: "",
-+		  query->module_neg ? "!" : "", query->module ?: "",
-+		  query->format_neg ? "!" : "",
- 		  fmtlen, query->format ?: "",
- 		  query->first_lineno, query->last_lineno, query->class_string);
- }
-@@ -268,32 +273,34 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
- 			      int selected_class)
- {
- 	struct _ddebug_class_map *site_map;
-+	bool match;
- 
- 	/* match against the source filename */
--	if (query->filename &&
--	    !match_wildcard(query->filename, dp->filename) &&
--	    !match_wildcard(query->filename,
--			    kbasename(dp->filename)) &&
--	    !match_wildcard(query->filename,
--			    trim_prefix(dp->filename)))
--		return false;
-+	if (query->filename) {
-+		match = match_wildcard(query->filename, dp->filename) ||
-+			match_wildcard(query->filename, kbasename(dp->filename)) ||
-+			match_wildcard(query->filename, trim_prefix(dp->filename));
-+		if (match == query->filename_neg)
-+			return false;
-+	}
- 
- 	/* match against the function */
--	if (query->function &&
--	    !match_wildcard(query->function, dp->function))
--		return false;
-+	if (query->function) {
-+		match = match_wildcard(query->function, dp->function);
-+		if (match == query->function_neg)
-+			return false;
-+	}
- 
- 	/* match against the format */
- 	if (query->format) {
- 		if (*query->format == '^') {
--			char *p;
- 			/* anchored search. match must be at beginning */
--			p = strstr(dp->format, query->format + 1);
--			if (p != dp->format)
--				return false;
--		} else if (!strstr(dp->format, query->format)) {
--			return false;
-+			match = (strstr(dp->format, query->format + 1) == dp->format);
-+		} else {
-+			match = !!strstr(dp->format, query->format);
- 		}
-+		if (match == query->format_neg)
-+			return false;
- 	}
- 
- 	/* match against the line number range */
-@@ -345,9 +352,11 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 		struct _ddebug_class_map *mods_map;
- 
- 		/* match against the module name */
--		if (query->module &&
--		    !match_wildcard(query->module, di->mod_name))
--			continue;
-+		if (query->module) {
-+			bool match = match_wildcard(query->module, di->mod_name);
-+			if (match == query->module_neg)
-+				continue;
-+		}
- 
- 		selected_class = _DPRINTK_CLASS_DFLT;
- 		if (query->class_string) {
-@@ -514,6 +523,16 @@ static int parse_linerange(struct ddebug_query *query, const char *first)
- 	return 0;
- }
- 
-+static char *check_neg(char *src, unsigned int *neg)
-+{
-+	if (*src == '!') {
-+		*neg = 1;
-+		return src + 1;
-+	}
-+	*neg = 0;
-+	return src;
-+}
-+
- static int check_set(const char **dest, char *src, char *name)
- {
- 	int rc = 0;
-@@ -558,10 +577,15 @@ static int ddebug_parse_query(char *words[], int nwords,
- 	for (i = 0; i < nwords; i += 2) {
- 		char *keyword = words[i];
- 		char *arg = words[i+1];
-+		unsigned int neg;
- 
- 		if (!strcmp(keyword, "func")) {
-+			arg = check_neg(arg, &neg);
-+			query->function_neg = neg;
- 			rc = check_set(&query->function, arg, "func");
- 		} else if (!strcmp(keyword, "file")) {
-+			arg = check_neg(arg, &neg);
-+			query->filename_neg = neg;
- 			if (check_set(&query->filename, arg, "file"))
- 				return -EINVAL;
- 
-@@ -572,6 +596,8 @@ static int ddebug_parse_query(char *words[], int nwords,
- 			*fline++ = '\0';
- 			if (isalpha(*fline) || *fline == '*' || *fline == '?') {
- 				/* take as function name */
-+				fline = check_neg(fline, &neg);
-+				query->function_neg = neg;
- 				if (check_set(&query->function, fline, "func"))
- 					return -EINVAL;
- 			} else {
-@@ -579,11 +605,15 @@ static int ddebug_parse_query(char *words[], int nwords,
- 					return -EINVAL;
- 			}
- 		} else if (!strcmp(keyword, "module")) {
-+			arg = check_neg(arg, &neg);
-+			query->module_neg = neg;
- 			rc = check_set(&query->module, arg, "module");
- 		} else if (!strcmp(keyword, "format")) {
- 			string_unescape_inplace(arg, UNESCAPE_SPACE |
- 							    UNESCAPE_OCTAL |
- 							    UNESCAPE_SPECIAL);
-+			arg = check_neg(arg, &neg);
-+			query->format_neg = neg;
- 			rc = check_set(&query->format, arg, "format");
- 		} else if (!strcmp(keyword, "line")) {
- 			if (parse_linerange(query, arg))
--- 
-2.53.0
-
+> ---
+>  arch/s390/mm/gmap_helpers.c          |  2 +-
+>  drivers/android/binder/page_range.rs |  4 ++--
+>  drivers/android/binder_alloc.c       |  2 +-
+>  include/linux/mm.h                   |  4 ++--
+>  kernel/bpf/arena.c                   |  2 +-
+>  kernel/events/core.c                 |  2 +-
+>  mm/madvise.c                         |  4 ++--
+>  mm/memory.c                          | 14 +++++++-------
+>  net/ipv4/tcp.c                       |  6 +++---
+>  rust/kernel/mm/virt.rs               |  4 ++--
+>  10 files changed, 22 insertions(+), 22 deletions(-)
+>
+> diff --git a/arch/s390/mm/gmap_helpers.c b/arch/s390/mm/gmap_helpers.c
+> index ae2d59a19313..f8789ffcc05c 100644
+> --- a/arch/s390/mm/gmap_helpers.c
+> +++ b/arch/s390/mm/gmap_helpers.c
+> @@ -89,7 +89,7 @@ void gmap_helper_discard(struct mm_struct *mm, unsigned long vmaddr, unsigned lo
+>  		if (!vma)
+>  			return;
+>  		if (!is_vm_hugetlb_page(vma))
+> -			zap_page_range_single(vma, vmaddr, min(end, vma->vm_end) - vmaddr);
+> +			zap_vma_range(vma, vmaddr, min(end, vma->vm_end) - vmaddr);
+>  		vmaddr = vma->vm_end;
+>  	}
+>  }
+> diff --git a/drivers/android/binder/page_range.rs b/drivers/android/binder/page_range.rs
+> index fdd97112ef5c..2fddd4ed8d4c 100644
+> --- a/drivers/android/binder/page_range.rs
+> +++ b/drivers/android/binder/page_range.rs
+> @@ -130,7 +130,7 @@ pub(crate) struct ShrinkablePageRange {
+>      pid: Pid,
+>      /// The mm for the relevant process.
+>      mm: ARef<Mm>,
+> -    /// Used to synchronize calls to `vm_insert_page` and `zap_page_range_single`.
+> +    /// Used to synchronize calls to `vm_insert_page` and `zap_vma_range`.
+>      #[pin]
+>      mm_lock: Mutex<()>,
+>      /// Spinlock protecting changes to pages.
+> @@ -719,7 +719,7 @@ fn drop(self: Pin<&mut Self>) {
+>
+>      if let Some(vma) = mmap_read.vma_lookup(vma_addr) {
+>          let user_page_addr = vma_addr + (page_index << PAGE_SHIFT);
+> -        vma.zap_page_range_single(user_page_addr, PAGE_SIZE);
+> +        vma.zap_vma_range(user_page_addr, PAGE_SIZE);
+>      }
+>
+>      drop(mmap_read);
+> diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
+> index dd2046bd5cde..e4488ad86a65 100644
+> --- a/drivers/android/binder_alloc.c
+> +++ b/drivers/android/binder_alloc.c
+> @@ -1185,7 +1185,7 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
+>  	if (vma) {
+>  		trace_binder_unmap_user_start(alloc, index);
+>
+> -		zap_page_range_single(vma, page_addr, PAGE_SIZE);
+> +		zap_vma_range(vma, page_addr, PAGE_SIZE);
+>
+>  		trace_binder_unmap_user_end(alloc, index);
+>  	}
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 4bd1500b9630..833bedd3f739 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -2835,7 +2835,7 @@ struct page *vm_normal_page_pud(struct vm_area_struct *vma, unsigned long addr,
+>
+>  void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
+>  		  unsigned long size);
+> -void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+> +void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
+>  			   unsigned long size);
+>  /**
+>   * zap_vma - zap all page table entries in a vma
+> @@ -2843,7 +2843,7 @@ void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+>   */
+>  static inline void zap_vma(struct vm_area_struct *vma)
+>  {
+> -	zap_page_range_single(vma, vma->vm_start, vma->vm_end - vma->vm_start);
+> +	zap_vma_range(vma, vma->vm_start, vma->vm_end - vma->vm_start);
+>  }
+>  struct mmu_notifier_range;
+>
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> index c34510d83b1f..37843c6a4764 100644
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+> @@ -656,7 +656,7 @@ static void zap_pages(struct bpf_arena *arena, long uaddr, long page_cnt)
+>  	guard(mutex)(&arena->lock);
+>  	/* iterate link list under lock */
+>  	list_for_each_entry(vml, &arena->vma_list, head)
+> -		zap_page_range_single(vml->vma, uaddr, PAGE_SIZE * page_cnt);
+> +		zap_vma_range(vml->vma, uaddr, PAGE_SIZE * page_cnt);
+>  }
+>
+>  static void arena_free_pages(struct bpf_arena *arena, long uaddr, long page_cnt, bool sleepable)
+> diff --git a/kernel/events/core.c b/kernel/events/core.c
+> index c94c56c94104..5ee02817c3bc 100644
+> --- a/kernel/events/core.c
+> +++ b/kernel/events/core.c
+> @@ -7215,7 +7215,7 @@ static int map_range(struct perf_buffer *rb, struct vm_area_struct *vma)
+>  #ifdef CONFIG_MMU
+>  	/* Clear any partial mappings on error. */
+>  	if (err)
+> -		zap_page_range_single(vma, vma->vm_start, nr_pages * PAGE_SIZE);
+> +		zap_vma_range(vma, vma->vm_start, nr_pages * PAGE_SIZE);
+>  #endif
+>
+>  	return err;
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index fb5fcdff2b66..6e66f56ff1a6 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -832,7 +832,7 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+>   * Application no longer needs these pages.  If the pages are dirty,
+>   * it's OK to just throw them away.  The app will be more careful about
+>   * data it wants to keep.  Be sure to free swap resources too.  The
+> - * zap_page_range_single call sets things up for shrink_active_list to actually
+> + * zap_vma_range call sets things up for shrink_active_list to actually
+>   * free these pages later if no one else has touched them in the meantime,
+>   * although we could add these pages to a global reuse list for
+>   * shrink_active_list to pick up before reclaiming other pages.
+> @@ -1191,7 +1191,7 @@ static long madvise_guard_install(struct madvise_behavior *madv_behavior)
+>  		 * OK some of the range have non-guard pages mapped, zap
+>  		 * them. This leaves existing guard pages in place.
+>  		 */
+> -		zap_page_range_single(vma, range->start, range->end - range->start);
+> +		zap_vma_range(vma, range->start, range->end - range->start);
+>  	}
+>
+>  	/*
+> diff --git a/mm/memory.c b/mm/memory.c
+> index e611e9af4e85..dd737b6d28c0 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2215,14 +2215,14 @@ void zap_vma_range_batched(struct mmu_gather *tlb,
+>  }
+>
+>  /**
+> - * zap_page_range_single - remove user pages in a given range
+> - * @vma: vm_area_struct holding the applicable pages
+> - * @address: starting address of pages to zap
+> + * zap_vma_range - zap all page table entries in a vma range
+> + * @vma: the vma covering the range to zap
+> + * @address: starting address of the range to zap
+>   * @size: number of bytes to zap
+>   *
+> - * The range must fit into one VMA.
+> + * The provided address range must be fully contained within @vma.
+>   */
+> -void zap_page_range_single(struct vm_area_struct *vma, unsigned long address,
+> +void zap_vma_range(struct vm_area_struct *vma, unsigned long address,
+>  		unsigned long size)
+>  {
+>  	struct mmu_gather tlb;
+> @@ -2250,7 +2250,7 @@ void zap_vma_ptes(struct vm_area_struct *vma, unsigned long address,
+>  	    		!(vma->vm_flags & VM_PFNMAP))
+>  		return;
+>
+> -	zap_page_range_single(vma, address, size);
+> +	zap_vma_range(vma, address, size);
+>  }
+>  EXPORT_SYMBOL_GPL(zap_vma_ptes);
+>
+> @@ -3018,7 +3018,7 @@ static int remap_pfn_range_notrack(struct vm_area_struct *vma, unsigned long add
+>  	 * maintain page reference counts, and callers may free
+>  	 * pages due to the error. So zap it early.
+>  	 */
+> -	zap_page_range_single(vma, addr, size);
+> +	zap_vma_range(vma, addr, size);
+>  	return error;
+>  }
+>
+> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+> index befcde27dee7..cb4477ef1529 100644
+> --- a/net/ipv4/tcp.c
+> +++ b/net/ipv4/tcp.c
+> @@ -2104,7 +2104,7 @@ static int tcp_zerocopy_vm_insert_batch_error(struct vm_area_struct *vma,
+>  		maybe_zap_len = total_bytes_to_map -  /* All bytes to map */
+>  				*length + /* Mapped or pending */
+>  				(pages_remaining * PAGE_SIZE); /* Failed map. */
+> -		zap_page_range_single(vma, *address, maybe_zap_len);
+> +		zap_vma_range(vma, *address, maybe_zap_len);
+>  		err = 0;
+>  	}
+>
+> @@ -2112,7 +2112,7 @@ static int tcp_zerocopy_vm_insert_batch_error(struct vm_area_struct *vma,
+>  		unsigned long leftover_pages = pages_remaining;
+>  		int bytes_mapped;
+>
+> -		/* We called zap_page_range_single, try to reinsert. */
+> +		/* We called zap_vma_range, try to reinsert. */
+>  		err = vm_insert_pages(vma, *address,
+>  				      pending_pages,
+>  				      &pages_remaining);
+> @@ -2269,7 +2269,7 @@ static int tcp_zerocopy_receive(struct sock *sk,
+>  	total_bytes_to_map = avail_len & ~(PAGE_SIZE - 1);
+>  	if (total_bytes_to_map) {
+>  		if (!(zc->flags & TCP_RECEIVE_ZEROCOPY_FLAG_TLB_CLEAN_HINT))
+> -			zap_page_range_single(vma, address, total_bytes_to_map);
+> +			zap_vma_range(vma, address, total_bytes_to_map);
+>  		zc->length = total_bytes_to_map;
+>  		zc->recv_skip_hint = 0;
+>  	} else {
+> diff --git a/rust/kernel/mm/virt.rs b/rust/kernel/mm/virt.rs
+> index b8e59e4420f3..04b3cc925d67 100644
+> --- a/rust/kernel/mm/virt.rs
+> +++ b/rust/kernel/mm/virt.rs
+> @@ -113,7 +113,7 @@ pub fn end(&self) -> usize {
+>      /// kernel goes further in freeing unused page tables, but for the purposes of this operation
+>      /// we must only assume that the leaf level is cleared.
+>      #[inline]
+> -    pub fn zap_page_range_single(&self, address: usize, size: usize) {
+> +    pub fn zap_vma_range(&self, address: usize, size: usize) {
+>          let (end, did_overflow) = address.overflowing_add(size);
+>          if did_overflow || address < self.start() || self.end() < end {
+>              // TODO: call WARN_ONCE once Rust version of it is added
+> @@ -124,7 +124,7 @@ pub fn zap_page_range_single(&self, address: usize, size: usize) {
+>          // sufficient for this method call. This method has no requirements on the vma flags. The
+>          // address range is checked to be within the vma.
+>          unsafe {
+> -            bindings::zap_page_range_single(self.as_ptr(), address, size)
+> +            bindings::zap_vma_range(self.as_ptr(), address, size)
+>          };
+>      }
+>
+> --
+> 2.43.0
+>
