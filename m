@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF3DFCC076
-	for <intel-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 21:27:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F4CBFCC07D
+	for <intel-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 21:32:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F7C610E402;
-	Fri,  6 Mar 2026 21:27:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0257510E40D;
+	Fri,  6 Mar 2026 21:32:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="TKuE5TCY";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eFUrMb1I";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0F110E3FA;
- Fri,  6 Mar 2026 21:27:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A32810E40D;
+ Fri,  6 Mar 2026 21:32:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1772832476;
- bh=8AcXATpPHhAW6+VsEJt3fbqjfR+nRZ5oVmrac43OOrg=;
+ s=mail; t=1772832740;
+ bh=aHU0GZS6zTBPMdXOwCrTKTzH8C6YwZmjPue47grujys=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TKuE5TCY9pEao6ovX2ljN+08xIEW10blai+3m0jm5lIqeNw1ZtMCznKG1mP5WDIZa
- RMy8xazy/23QolllpOLPnM3DiBpIdv86oGjBjzgKGYmPUFe0o5AZVmGdLurCUda0JQ
- OmEwFnoXG8n8ZNpeIqkW8oVCvVmcmF6s7Wg5DfvXLqXrnEX6+tZM4LQN4fZNcuLEEG
- Jfy9uq4P/0HDrrTyIYtoAlj/aDYFhzyuRf91VNqojzpQFlYt4I1WkkkkteEwnp8djt
- WxIJeugI63Mz6WslOt1Hk6ceagZFYi5AwF1vZ4o3IqKEguUiKdtrQEyR4KlT6/MbPW
- 1vV1T6W5Cx2Hg==
+ b=eFUrMb1I3poRqCks/sKIZUbqF9uYwi2jBuezsO7ZNqi43m8Ilf2849gKI7YKgafAK
+ W08P8uJd7EPMfKmi9NkYCLwmb2UprPhWzXTmW/onNnKBLX0LFz6IKErczKao9jvGa7
+ sN9XEc2xvnSQzjo70mWuXzqTxwm+zzU63DGLYn3sUUPm8wWFKhhSFO85gAQZqs7GGW
+ eJ4Fa4zVu8xkypUJPZ4IYRYQtSNJ/g0FUnaHlW2OaGYJfDSe+sI+vnxGqYpjizQCM3
+ /yd7pd+cbrDQBSSHWUlKAH/HTSeJTG6mkjtS3soVaeDbWhOSL9qTLeAxA3SaCyhNKR
+ NyV/BtVeDPn7A==
 Received: from [192.168.1.90] (unknown [86.123.23.225])
  (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C482617E0959;
- Fri,  6 Mar 2026 22:27:54 +0100 (CET)
-Message-ID: <84b30917-5d09-4432-bc49-873d1b2674df@collabora.com>
-Date: Fri, 6 Mar 2026 23:27:53 +0200
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D56CB17E0071;
+ Fri,  6 Mar 2026 22:32:18 +0100 (CET)
+Message-ID: <7ec93603-8d30-4f7c-99f8-64b09da13346@collabora.com>
+Date: Fri, 6 Mar 2026 23:32:18 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 15/22] drm/rockchip: dw_hdmi_qp: Implement "color
- format" DRM property
+Subject: Re: [PATCH v10 16/22] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
 To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Rodrigo Siqueira <siqueira@igalia.com>,
@@ -64,10 +64,10 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-doc@vger.kernel.org
 References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
- <20260305-color-format-v10-15-a58c68a11868@collabora.com>
+ <20260305-color-format-v10-16-a58c68a11868@collabora.com>
 Content-Language: en-US
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20260305-color-format-v10-15-a58c68a11868@collabora.com>
+In-Reply-To: <20260305-color-format-v10-16-a58c68a11868@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -86,17 +86,15 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 3/5/26 4:19 PM, Nicolas Frattaroli wrote:
-> Switch between requested color formats by setting the right bus formats,
-> configuring the VO GRF registers, and setting the right output mode.
+> With the introduction of the supported_formats member in the
+> dw-hdmi-qp platform data struct, drivers that have access to this
+> information should now set it.
 > 
-> To do this, the encoder's atomic_check queries the bus format of the
-> first bridge, which was determined by the bridge chain recursive format
-> selection. Pick the input format if it's !FIXED, otherwise, pick the
-> output format.
+> Set it in the rockchip dw_hdmi_qp glue driver.
 > 
-> The previously unused GRF register color format defines are redone as
-> well. Both RK3588 and RK3576 use the same defines; it didn't look like
-> this as there was a typo in the previously (unused) definition.
+> This allows this information to be passed down to the dw-hdmi-qp core,
+> which sets it in the bridge it creates, and consequently will allow the
+> common HDMI bridge code to act on it.
 > 
 > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
