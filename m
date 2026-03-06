@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF06FCA178
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A05FCA17A
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A720B10E58E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E035710E590;
 	Mon,  9 Mar 2026 18:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TpY6K6f3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h1hNNt/g";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A9AA10E134;
- Fri,  6 Mar 2026 12:26:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96E2710ED1F;
+ Fri,  6 Mar 2026 12:03:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DB15241A00;
- Fri,  6 Mar 2026 12:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3469DC4CEF7;
- Fri,  6 Mar 2026 12:26:34 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C88E6013E;
+ Fri,  6 Mar 2026 12:03:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6488CC4CEF7;
+ Fri,  6 Mar 2026 12:03:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772799994;
- bh=2P0FvPHpjsAhaxOTJ42bBLcCaRl4aaXZ5kIUOMNVWG4=;
+ s=k20201202; t=1772798607;
+ bh=8tIEjkmwTnv14wqiBx5utAVT1y4BywX848doWLEUMyQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TpY6K6f3dvGsTTghQkD02tTChA2EwqMp/TpQHYfK66zjyTbZ8MiJAmvnb4buPO2Ol
- ASVRmYPmWBmFSlqURChzwTNJTonaTuZGs5/EHFxAeEK+JJM37rDxeHbP+7uPAPbDNB
- ZJH6y/sj2SwJrkrFUmj4U4BCckhgnUnVgGUpwh2dSE34XG3Ns9Rv8SqsanNsG90lqE
- qDOiPmqQr5aqOlEJ3hzzDS0y2SX/ydi84zZQWgo/w3iX/S4bMLqQGcMFP6NoojCwMK
- m9eF4QgqmVkNoXqv/RAre6ur7cbDQLHMeE6WwwrH+FV41xx9ytsuDVQOKxlgtAVRGn
- vdR8q0SNanDlA==
-Date: Fri, 6 Mar 2026 12:26:31 +0000
+ b=h1hNNt/ggkmOIg6nOIs6YVKXxpvjxXfuNC1/E243FERUMlrdAP/1JGuS8WftUsd7f
+ sEmFfcrfCzizYh1WflGJxM+Mh8s8/NGzCybtmxDbPIa+RYlLhAC8M2mVomjBVzk4GJ
+ ovvi/YoGsX9AnKFqWBjW+IpIUt/t0ThtH++DKgi9JosbOXhePSuaAgqwo9ysipyiZZ
+ tJR6V8PVm0Q3rJsUQBZpi2/tPfiYYA+aTsakBMmVszHI4rXW/zZE1/jrzMC/3s/CgY
+ 3bcJ8hm+9ce3MEINimXRaNGIqZXC4Xd93/yIA5/AX590NC8dE2fbRiLTj205GiFNUz
+ 8UXcS4I1Opdeg==
+Date: Fri, 6 Mar 2026 12:03:24 +0000
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: linux-kernel@vger.kernel.org, 
@@ -82,15 +82,15 @@ Cc: linux-kernel@vger.kernel.org,
  bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, 
  netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 10/16] mm/memory: use __zap_vma_range() in
- zap_vma_for_reaping()
-Message-ID: <c03e1ced-6fa5-4d66-9c91-66693193383f@lucifer.local>
+Subject: Re: [PATCH v1 01/16] mm/madvise: drop range checks in
+ madvise_free_single_vma()
+Message-ID: <c5a89c14-0c6b-4c1e-a68c-0680c7d64f4c@lucifer.local>
 References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-11-david@kernel.org>
+ <20260227200848.114019-2-david@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-11-david@kernel.org>
+In-Reply-To: <20260227200848.114019-2-david@kernel.org>
 X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,93 +107,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:41PM +0100, David Hildenbrand (Arm) wrote:
-> Let's call __zap_vma_range() instead of unmap_page_range() to prepare
-> for further cleanups.
+On Fri, Feb 27, 2026 at 09:08:32PM +0100, David Hildenbrand (Arm) wrote:
+> madvise_vma_behavior()-> madvise_dontneed_free()->madvise_free_single_vma()
+> is only called from madvise_walk_vmas()
 >
-> To keep the existing behavior, whereby we do not call uprobe_munmap()
-> which could block, add a new "reaping" member to zap_details and use it.
-
-I am always in favour of making further use of helper structs :)
-
+> (a) After try_vma_read_lock() confirmed that the whole range falls into
+>     a single VMA (see is_vma_lock_sufficient()).
 >
-> Likely we should handle the possible blocking in uprobe_munmap()
-> differently, but for now keep it unchanged.
+> (b) After adjusting the range to the VMA in the loop afterwards.
+>
+> madvise_dontneed_free() might drop the MM lock when handling
+> userfaultfd, but it properly looks up the VMA again to adjust the range.
+>
+> So in madvise_free_single_vma(), the given range should always fall into
+> a single VMA and should also span at least one page.
+>
+> Let's drop the error checks.
+>
+> The code now matches what we do in madvise_dontneed_single_vma(), where
+> we call zap_vma_range_batched() that documents: "The range must fit into
+> one VMA.". Although that function still adjusts that range, we'll change
+> that soon.
 >
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-OK this looks like it's doing the equivalent of what was there before, so:
+Yeah I did wonder about some of these checks, thanks for going through and
+confirming these are useless.
+
+Checked the madvise_dontneed_free() case to be sure and LGTM so overall:
 
 Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 > ---
->  include/linux/mm.h |  1 +
->  mm/memory.c        | 13 +++++++++----
->  2 files changed, 10 insertions(+), 4 deletions(-)
+>  mm/madvise.c | 13 ++++---------
+>  1 file changed, 4 insertions(+), 9 deletions(-)
 >
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 21b67c203e62..4710f7c7495a 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -2800,6 +2800,7 @@ struct zap_details {
->  	struct folio *single_folio;	/* Locked folio to be unmapped */
->  	bool skip_cows;			/* Do not zap COWed private pages */
->  	bool reclaim_pt;		/* Need reclaim page tables? */
-> +	bool reaping;			/* Reaping, do not block. */
->  	zap_flags_t zap_flags;		/* Extra flags for zapping */
->  };
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 7d7c24c6917c..394b2e931974 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2079,14 +2079,18 @@ static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  		unsigned long start, unsigned long end,
->  		struct zap_details *details)
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index c0370d9b4e23..efc04334a000 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -799,9 +799,10 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
 >  {
-> +	const bool reaping = details && details->reaping;
-> +
->  	VM_WARN_ON_ONCE(start >= end || !range_in_vma(vma, start, end));
->
-> -	if (vma->vm_file)
-> +	/* uprobe_munmap() might sleep, so skip it when reaping. */
-> +	if (vma->vm_file && !reaping)
->  		uprobe_munmap(vma, start, end);
->
->  	if (unlikely(is_vm_hugetlb_page(vma))) {
->  		zap_flags_t zap_flags = details ? details->zap_flags : 0;
->
-> +		VM_WARN_ON_ONCE(reaping);
->  		/*
->  		 * vm_file will be NULL when we fail early while instantiating
->  		 * a new mapping. In this case, no pages were mapped yet and
-> @@ -2111,11 +2115,12 @@ static void __zap_vma_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
->   */
->  int zap_vma_for_reaping(struct vm_area_struct *vma)
->  {
-> +	struct zap_details details = {
-> +		.reaping = true,
+>  	struct mm_struct *mm = madv_behavior->mm;
+>  	struct vm_area_struct *vma = madv_behavior->vma;
+> -	unsigned long start_addr = madv_behavior->range.start;
+> -	unsigned long end_addr = madv_behavior->range.end;
+> -	struct mmu_notifier_range range;
+> +	struct mmu_notifier_range range = {
+> +		.start = madv_behavior->range.start,
+> +		.end = madv_behavior->range.end,
 > +	};
->  	struct mmu_notifier_range range;
->  	struct mmu_gather tlb;
+>  	struct mmu_gather *tlb = madv_behavior->tlb;
+>  	struct mm_walk_ops walk_ops = {
+>  		.pmd_entry		= madvise_free_pte_range,
+> @@ -811,12 +812,6 @@ static int madvise_free_single_vma(struct madvise_behavior *madv_behavior)
+>  	if (!vma_is_anonymous(vma))
+>  		return -EINVAL;
 >
-> -	VM_WARN_ON_ONCE(is_vm_hugetlb_page(vma));
-> -
-
-I guess because you've moved this safety check into __zap_vma_range()?
-
->  	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
->  				vma->vm_start, vma->vm_end);
->  	tlb_gather_mmu(&tlb, vma->vm_mm);
-> @@ -2123,7 +2128,7 @@ int zap_vma_for_reaping(struct vm_area_struct *vma)
->  		tlb_finish_mmu(&tlb);
->  		return -EBUSY;
->  	}
-> -	unmap_page_range(&tlb, vma, range.start, range.end, NULL);
-> +	__zap_vma_range(&tlb, vma, range.start, range.end, &details);
->  	mmu_notifier_invalidate_range_end(&range);
->  	tlb_finish_mmu(&tlb);
->  	return 0;
+> -	range.start = max(vma->vm_start, start_addr);
+> -	if (range.start >= vma->vm_end)
+> -		return -EINVAL;
+> -	range.end = min(vma->vm_end, end_addr);
+> -	if (range.end <= vma->vm_start)
+> -		return -EINVAL;
+>  	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, mm,
+>  				range.start, range.end);
+>
 > --
 > 2.43.0
 >
