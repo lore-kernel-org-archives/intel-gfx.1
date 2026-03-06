@@ -4,94 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FC6FCA17C
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5E9FCA17F
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:56:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4372910E59D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B563310E5A0;
 	Mon,  9 Mar 2026 18:56:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JE9hl+xg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qau6CML+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC98010ED18;
- Fri,  6 Mar 2026 12:17:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 516C242A97;
- Fri,  6 Mar 2026 12:17:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9601AC4CEF7;
- Fri,  6 Mar 2026 12:17:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772799426;
- bh=E50Nei4wvO5acKQ5WAuR9y8yrxBw8Jw9n6m//WAfpNk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=JE9hl+xgT0bTGi+BM5jUSHSxJhmfXyDYuZyy882H8pwaPVW4rs91GqXsOlDdNYt5q
- M4CYD21uXiIoE80aCpIXZWa8pvS6BpzRhby5F3zlbgDBohqfN8gLvqI1ZzEKj9Sq8O
- 1GA8U2yXsayzOcXwk/z9rDzRougLhaH2sFQZ/lImuHVanVDszwy6gcpcLHaEn0JF34
- 5MRb84nwU6hkVV8bxr42O43gDIOYuZx7PoAczRQyQjOzRXl+pydnhhFnDCu0OWdTD3
- GeXNhxm0JknludP4ZgMHI0L5kkBWpm7KDg9wTx0PM6ikXJpjNR7e3ecgYQUbTFzh7m
- tM4T4pFHUGsng==
-Date: Fri, 6 Mar 2026 12:17:03 +0000
-From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-kernel@vger.kernel.org, 
- "linux-mm @ kvack . org" <linux-mm@kvack.org>,
- Andrew Morton <akpm@linux-foundation.org>, 
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Rientjes <rientjes@google.com>, 
- Shakeel Butt <shakeel.butt@linux.dev>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
- Alice Ryhl <aliceryhl@google.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arve =?utf-8?B?SGrDuG5uZXbDpWc=?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, Ian Abbott <abbotti@mev.co.uk>, 
- H Hartley Sweeten <hsweeten@visionengravers.com>,
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, Dimitri Sivanich <dimitri.sivanich@hpe.com>,
- Arnd Bergmann <arnd@arndb.de>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
- Vincenzo Frascino <vincenzo.frascino@arm.com>,
- Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, "David S. Miller" <davem@davemloft.net>, 
- David Ahern <dsahern@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Miguel Ojeda <ojeda@kernel.org>,
- linuxppc-dev@lists.ozlabs.org, 
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, 
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, 
- netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, x86@kernel.org
-Subject: Re: [PATCH v1 06/16] mm/oom_kill: factor out zapping of VMA into
- zap_vma_for_reaping()
-Message-ID: <d92e21ff-50cd-485b-8f48-621e8ae1b169@lucifer.local>
-References: <20260227200848.114019-1-david@kernel.org>
- <20260227200848.114019-7-david@kernel.org>
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 710DC10ED4B
+ for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 14:03:05 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-7985ce90542so92044627b3.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 06 Mar 2026 06:03:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772805784; cv=none;
+ d=google.com; s=arc-20240605;
+ b=YMoAxkboEkH3LxTqE1B6jb0OSnWPB7B0OrlflcwF208HmF1PZW2Wp1mEygnn2mJ7oy
+ LZfwXuZ6n3DKHxNECOG8EhKYwnqsv7atXWl9Cf0xljXkguvo5M6KsJv0PQMtixw2UilG
+ YqFDveYSfpcakpqn7S2AKg33R1R5j+Jr7ugtPoZsyXekIyFUbyRAXUBRnMxgh73yza28
+ jOUK2j41b8/pp1nTQYwYetcwA11vUhgCyjbpvoAo4gNDOti3ixyAOA64BVcogMOba+q/
+ glj4zTOFVpqrVS6MVdj7hpFU141eFPNMtxrBXFT0O3o7zLGJ3My42ODBrSAw7zN6bYHg
+ MVIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
+ fh=yEJ8s9NBm1w+uU8IEQpYE0MlgKza1AeAVXY/VUjaIRs=;
+ b=FT/QgkjUrMrZDVhYcF6dZfz7NW0CN7p+uOigLgTyhVbuyHK/N1IH/ONR99n091jzQz
+ mDv96zCcqVSA3SyXDkPggwh49XZ/0ybuG/vX8pc33qsdU90kWsix4k0XrwkFFUXzsqYE
+ JIx5fxXZudOgP405qpdPLgSUpR+nNSZjHhfZXtd1lbseDb8zfJ1KuUkdQ3BVHOWzqwpT
+ krMzUz8ubbpLT0f8/YGfx51NJRCFuf0VPYVpts1vnC9nYdSVhc/phDQsfhDdxIqnsbGp
+ G3+5PiA5umxLukknsuEoFnnH+LtFmgBrqvULnwo4JV8dZINwPLCpOKRSI4C72qCcGocn
+ j1/g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772805784; x=1773410584; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
+ b=Qau6CML+yiU/U6ticC0YdY0ouic7E2IKjUeEDRDWliaeooXqgKBXwRJrv3CNiI0rnk
+ 523FzqmDHYkI5SD3TK32EoRpOQYDdQQ/0fXnFTBMqVwNPaZsEIf0k8RPYxdELFEiWh+P
+ yOd1VBsksRR1FmxGt+PjwmLAmOMoX3j6IUl1cpa1geHk1VlXuOWUavX0JpkaDoIvdQI+
+ NOk0r+ch64Go68HTXDhS9d28kxGlaie2JnBsy+rtQEe9ozuMJQcLJ2IURGodeRl7B+oT
+ yBKgYWfMeihQIU35h3n6v5Z54s3ZrNN1eLazHlonLBNncGXtK9JE70sg6eSgBwZtWKzX
+ e0wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772805784; x=1773410584;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=mKF5k211NtUeIcGa6uptRsEXiW/hV471fc5S/IDch2A=;
+ b=sC5mppD03gsoIF4KQ+ZSbnkVwoYer0DUGZgM09TZbdntuCbmuG659EQ5oweG2fuaa1
+ ewzLDIb3FaerElYwj+cTWGVAVSGNGlCMB7re7+cGq9HMpVxqTm0rRxYoCuHd9QTTJ/8B
+ 3l/eJzNbGlGtmX96QV6GG5CPf93vSYCRgjmbx9xzby/twzK6kV24E2a/bJShac82iBbe
+ cPtXjUd3l8o/BlpL6QtKAtG5xm4LtZN2QZRUZUlsp7ArAueyLLY9OKbx8oZ7Hqgcs/7X
+ pZ13D0eM64AGAMgrqvLVjIin4JE7dZHbsWsjLH+gNQTmC3wAe/noBsd2Siya3+S8BF5M
+ 6oMg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVCgN2+iEPRyyIMQVcUWGi2YW86bfSZFbQdZ6OwpticgcGyIYcvCq7pQ+XBanBORWlXuA2bCgVQ5VY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlCkWIT+YY419m9FHIgVNEmwb1aGQ+N5UjLL2kTRPmRy21ab0i
+ +7zm5ufqh148JbBUTz1MnjIY6RPTX2u4ebJjSwfX5oXKXOSKY7BY7aY5gm5kigrWgczjesnUTHx
+ JLcQhgF+MNn3iUMyvazh/2YKGY/i68a4=
+X-Gm-Gg: ATEYQzz6CFlINOG/JVHR4mcnMKml4QpQfl1u5pqjNN9yB4KmmItE1SDqtJNiiNwy3lb
+ a2jmdxjag3ZTHEJ6ngb3D28ttdttKRoYRSkY0XUFMiulRF9QkBnGOx4mR8RuQA9sy9tEO47dPTa
+ vkH5B8gKojb0sGmTgiAo/NAYNHJba0HSBdjx494TciJx49bzuU5Uv3Rh+2t5gA/n3TDCp/QsnjY
+ lII11NfKDMxpZRpHsNmwziRPsYgA0zf+QMHeWHbAduLAT2UJA2YD8QLlBT1XhStEtA6XBvjUR8l
+ LDZQ
+X-Received: by 2002:a05:690c:f03:b0:798:740f:6af1 with SMTP id
+ 00721157ae682-798dd6e9b55mr17942317b3.24.1772805784050; Fri, 06 Mar 2026
+ 06:03:04 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260227200848.114019-7-david@kernel.org>
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:52 +0000
+References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+ <20260306015022.1940986-4-jim.cromie@gmail.com>
+ <51fed793-869b-4a5b-b90f-2ba80c13d773@kernel.org>
+In-Reply-To: <51fed793-869b-4a5b-b90f-2ba80c13d773@kernel.org>
+From: jim.cromie@gmail.com
+Date: Fri, 6 Mar 2026 07:02:38 -0700
+X-Gm-Features: AaiRm51wLCC9Sug6nG1UgnDvIstzQQFHwne8N2p7gQVCpTt4Mc1sv69X0Jjm7fU
+Message-ID: <CAJfuBxxe5uJc0=nLC45JMp1dcQhyiyyyNuv06jZJX++YJaN58g@mail.gmail.com>
+Subject: Re: [RFC PATCH 3/7] drivers/tty/serial/serial_core: ratelimit
+ uart_wait_until_sent
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Petr Mladek <pmladek@suse.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ "Dr. David Alan Gilbert" <linux@treblig.org>,
+ Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,128 +114,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 09:08:37PM +0100, David Hildenbrand (Arm) wrote:
-> Let's factor it out so we can turn unmap_page_range() into a static
-> function instead, and so oom reaping has a clean interface to call.
+On Thu, Mar 5, 2026 at 11:32=E2=80=AFPM Jiri Slaby <jirislaby@kernel.org> w=
+rote:
 >
-> Note that hugetlb is not supported, because it would require a bunch of
-> hugetlb-specific further actions (see zap_page_range_single_batched()).
+> On 06. 03. 26, 2:50, Jim Cromie wrote:
+> > Ratelimiting these pr_debug()s can reduce the console flood during
+> > bulk dynamic-debug activation, in environments where a serial console
+> > is used.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> > ---
+> >   drivers/tty/serial/serial_core.c | 4 ++--
+> >   1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/seri=
+al_core.c
+> > index 487756947a96..6db465619c70 100644
+> > --- a/drivers/tty/serial/serial_core.c
+> > +++ b/drivers/tty/serial/serial_core.c
+> > @@ -1790,8 +1790,8 @@ static void uart_wait_until_sent(struct tty_struc=
+t *tty, int timeout)
+> >
+> >       expire =3D jiffies + timeout;
+> >
+> > -     pr_debug("uart_wait_until_sent(%u), jiffies=3D%lu, expire=3D%lu..=
+.\n",
+> > -             port->line, jiffies, expire);
+> > +     pr_debug_ratelimited("waiting on (%u) jiffies=3D%lu, expire=3D%lu=
+...\n",
+> > +                          port->line, jiffies, expire);
+>
+> The changed message does not make any sense.
+>
 
-Ugh gawd. Hugetlb.
+Ackn.  Given the narrow rate-limiting purpose,
+I should have ignored the checkpatch warning
+and kept the message as is.
 
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+In any case, my test setup didnt actually use serio,
+and didnt get flooded by it, so I dont know that this
+single change would be enough to fix it.
 
-Seems reasonable, so:
+I withdraw this particular patch.
 
-Reviewed-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
-
-> ---
->  mm/internal.h |  5 +----
->  mm/memory.c   | 36 ++++++++++++++++++++++++++++++++----
->  mm/oom_kill.c | 15 +--------------
->  3 files changed, 34 insertions(+), 22 deletions(-)
->
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 39ab37bb0e1d..df9190f7db0e 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -536,13 +536,10 @@ static inline void sync_with_folio_pmd_zap(struct mm_struct *mm, pmd_t *pmdp)
->  }
->
->  struct zap_details;
-> -void unmap_page_range(struct mmu_gather *tlb,
-> -			     struct vm_area_struct *vma,
-> -			     unsigned long addr, unsigned long end,
-> -			     struct zap_details *details);
->  void zap_page_range_single_batched(struct mmu_gather *tlb,
->  		struct vm_area_struct *vma, unsigned long addr,
->  		unsigned long size, struct zap_details *details);
-> +int zap_vma_for_reaping(struct vm_area_struct *vma);
->  int folio_unmap_invalidate(struct address_space *mapping, struct folio *folio,
->  			   gfp_t gfp);
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index e4154f03feac..621f38ae1425 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2054,10 +2054,9 @@ static inline unsigned long zap_p4d_range(struct mmu_gather *tlb,
->  	return addr;
->  }
->
-> -void unmap_page_range(struct mmu_gather *tlb,
-> -			     struct vm_area_struct *vma,
-> -			     unsigned long addr, unsigned long end,
-> -			     struct zap_details *details)
-> +static void unmap_page_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> +		unsigned long addr, unsigned long end,
-> +		struct zap_details *details)
->  {
->  	pgd_t *pgd;
->  	unsigned long next;
-> @@ -2115,6 +2114,35 @@ static void unmap_single_vma(struct mmu_gather *tlb,
->  	}
->  }
->
-> +/**
-> + * zap_vma_for_reaping - zap all page table entries in the vma without blocking
-> + * @vma: The vma to zap.
-> + *
-> + * Zap all page table entries in the vma without blocking for use by the oom
-> + * killer. Hugetlb vmas are not supported.
-> + *
-> + * Returns: 0 on success, -EBUSY if we would have to block.
-> + */
-> +int zap_vma_for_reaping(struct vm_area_struct *vma)
-> +{
-> +	struct mmu_notifier_range range;
-> +	struct mmu_gather tlb;
-> +
-> +	VM_WARN_ON_ONCE(is_vm_hugetlb_page(vma));
-> +
-> +	mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, vma->vm_mm,
-> +				vma->vm_start, vma->vm_end);
-> +	tlb_gather_mmu(&tlb, vma->vm_mm);
-> +	if (mmu_notifier_invalidate_range_start_nonblock(&range)) {
-> +		tlb_finish_mmu(&tlb);
-> +		return -EBUSY;
-> +	}
-> +	unmap_page_range(&tlb, vma, range.start, range.end, NULL);
-> +	mmu_notifier_invalidate_range_end(&range);
-> +	tlb_finish_mmu(&tlb);
-> +	return 0;
-> +}
-> +
->  /**
->   * unmap_vmas - unmap a range of memory covered by a list of vma's
->   * @tlb: address of the caller's struct mmu_gather
-> diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-> index 0ba56fcd10d5..54b7a8fe5136 100644
-> --- a/mm/oom_kill.c
-> +++ b/mm/oom_kill.c
-> @@ -548,21 +548,8 @@ static bool __oom_reap_task_mm(struct mm_struct *mm)
->  		 * count elevated without a good reason.
->  		 */
->  		if (vma_is_anonymous(vma) || !(vma->vm_flags & VM_SHARED)) {
-> -			struct mmu_notifier_range range;
-> -			struct mmu_gather tlb;
-> -
-> -			mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0,
-> -						mm, vma->vm_start,
-> -						vma->vm_end);
-> -			tlb_gather_mmu(&tlb, mm);
-> -			if (mmu_notifier_invalidate_range_start_nonblock(&range)) {
-> -				tlb_finish_mmu(&tlb);
-> +			if (zap_vma_for_reaping(vma))
->  				ret = false;
-> -				continue;
-> -			}
-> -			unmap_page_range(&tlb, vma, range.start, range.end, NULL);
-> -			mmu_notifier_invalidate_range_end(&range);
-> -			tlb_finish_mmu(&tlb);
->  		}
->  	}
 >
 > --
-> 2.43.0
->
+> js
+> suse labs
