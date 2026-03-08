@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ABAAFC9EC8
-	for <intel-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 13:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B76FCB63B
+	for <intel-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 14:19:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C5F810E231;
-	Sun,  8 Mar 2026 13:25:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H1QAW7Dn";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 030EF10E175;
- Sun,  8 Mar 2026 13:25:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772976314; x=1804512314;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=p+O2dYYLBD4tD8j4Y6YNsBRPaO1EsoXdHdMkrFX4z6c=;
- b=H1QAW7DnKOXRkXSgIpo/H0bksbrFrHMVtRQDztOe+ayskNR7OGH+rXKm
- ebpulwrGV1/jtt/ehim2Or1TsnYYMwebww+Wldf2qvPfD2RRSOjTneT9T
- 5JAxi6zn2tTx+InnUjRgvRd442GamWtSijwfW3dab7lHk1Z+nI0JcPSvi
- BViwJ9U+P7Qj/yWJv5Yz/YD9SdbAQN99TrOFKWlC1s7HZJFjWXNOIvnx1
- GROrz47IgF2/+r/bhI+UcRJnMplWhtSR9PBRKMvHmmDR7Bwlxq6cql+1l
- lxRtyWdPSEsQSHqVNSMVDjNG/H1KlxX2yHj49Iw/UOf69ML0p0dmLzFbm A==;
-X-CSE-ConnectionGUID: zdF6yUSDTMmYvjNcWZh3xA==
-X-CSE-MsgGUID: hD6c2BNZSba3toiRiOSpEQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11722"; a="77871409"
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="77871409"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2026 06:25:14 -0700
-X-CSE-ConnectionGUID: Fp48SRCkTRaqvKibJXkkRw==
-X-CSE-MsgGUID: kady+aWrSBWElEH09DfkLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="217598188"
-Received: from administrator-system-product-name.igk.intel.com (HELO
- dev-417.igk.intel.com) ([10.91.214.181])
- by fmviesa008.fm.intel.com with ESMTP; 08 Mar 2026 06:25:13 -0700
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [RFC v1 10/11] drm/i915/dg2: warn on V/P Override request on dg2
-Date: Sun,  8 Mar 2026 14:24:45 +0100
-Message-ID: <20260308132446.3320848-11-michal.grzelak@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260308132446.3320848-1-michal.grzelak@intel.com>
-References: <20260308132446.3320848-1-michal.grzelak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E230810E46B;
+	Sun,  8 Mar 2026 14:19:08 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50C8110E46B;
+ Sun,  8 Mar 2026 14:19:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4577382016581675808=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_support_for_vswing/preemp?=
+ =?utf-8?q?hasis_override?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 08 Mar 2026 14:19:07 -0000
+Message-ID: <177297954730.330865.6608173285285458280@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260308132446.3320848-1-michal.grzelak@intel.com>
+In-Reply-To: <20260308132446.3320848-1-michal.grzelak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,32 +37,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DG2 doesn't support vswing/preemphasis overriding. Issue a warning when
-requested to do so.
+--===============4577382016581675808==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c | 4 ++++
- 1 file changed, 4 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index 632a5fe08381..1b30c9888f95 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -1804,6 +1804,10 @@ dg2_get_snps_buf_trans(struct intel_encoder *encoder,
- 		       const struct intel_crtc_state *crtc_state,
- 		       int *n_entries)
- {
-+	drm_WARN(to_intel_display(encoder)->drm,
-+		 intel_bios_encoder_overrides_vswing(encoder->devdata),
-+		 "Port %s asks to override vswing/preemph tables [DG2]\n",
-+		 port_name(intel_bios_encoder_port(encoder->devdata)));
- 	if (intel_crtc_has_dp_encoder(crtc_state) &&
- 	    intel_dp_is_uhbr(crtc_state))
- 		return intel_get_buf_trans(&dg2_snps_trans_uhbr, n_entries);
--- 
-2.45.2
+Series: support for vswing/preemphasis override
+URL   : https://patchwork.freedesktop.org/series/162814/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18107 -> Patchwork_162814v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_162814v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-dg2-8:          [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18107/bat-dg2-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/bat-dg2-8/igt@i915_selftest@live.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [DMESG-FAIL][3] ([i915#12061]) -> [PASS][4] +1 other test pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18107/bat-mtlp-8/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/bat-mtlp-8/igt@i915_selftest@live.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18107 -> Patchwork_162814v1
+
+  CI-20190529: 20190529
+  CI_DRM_18107: f705e865254996e9a099a22a9320e523e6debdcf @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8784: c7d12b3499ef1698373f246748e68c05ada0579e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_162814v1: f705e865254996e9a099a22a9320e523e6debdcf @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/index.html
+
+--===============4577382016581675808==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>support for vswing/preemphasis override</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162814/">https://patchwork.freedesktop.org/series/162814/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18107 -&gt; Patchwork_162814v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_162814v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18107/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18107/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162814v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18107 -&gt; Patchwork_162814v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18107: f705e865254996e9a099a22a9320e523e6debdcf @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8784: c7d12b3499ef1698373f246748e68c05ada0579e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_162814v1: f705e865254996e9a099a22a9320e523e6debdcf @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4577382016581675808==--
