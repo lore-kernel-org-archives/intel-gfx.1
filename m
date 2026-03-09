@@ -4,79 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA61FCA178
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 18:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD417FCA17E
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 19:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F1C710E5BB;
-	Mon,  9 Mar 2026 18:57:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SqztcIfP";
-	dkim-atps=neutral
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
- [209.85.161.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DDAC10E2F0
- for <intel-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:15 +0000 (UTC)
-Received: by mail-oo1-f49.google.com with SMTP id
- 006d021491bc7-6786b13984fso6218493eaf.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761874; x=1773366674; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
- b=SqztcIfPRBD2tzqtLW/ac+y64QOL4W5AmcXWlV5s3IMJ0/wV+UxfGqBD2FPCsXyyo7
- 7IglWvDRmXuesxe5kiIZlkl7pI+FP0SbGRBMd6h/Cd+UbeJWF0vem7m+z8S1ZEuVhy81
- cHsJFbMc4hZP75EFN9h4zCalRU+/rNFKCazXgdYLvfNDMbshsmwsK7oj0tCXM4K19omu
- 56i6eUMOkauW0wQWanr4wHKjWjCinUzm1QocTQ++wLIGxg2o9Qd+lpRwwz6dBa4+ehMq
- PhoTfnZDbJtyDZhp5NkrCE87+FmpTLq3pUSgf1shfuUluPctcEaXHq6WhJwU2xQAR193
- HDjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761874; x=1773366674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
- b=cGZ5BA6E+cOYVz6/DF7z0PatuL6iudIp+8E5jDHlmwwdjfR4K1V4CLiz8HkvKs7VQ9
- BGG2gcsy3ll7rCweYQC/b7Yh1ElQhsNCHDDWANYCKxkWRRUFiZ1FrNnYukVZJhxT0TJi
- nGA7uqIGfdOimX1Baj0YMm1umJwxI/yKDGMGtdWo2HdQi3w15w+N696baRrYZM4ANJpr
- ISvCt8sQ4GB+9qhx0ts7R9Ks8dTYsRELnO5Zj1oV6bUJpEsA6zBj69c8HOR0zGad11Gf
- A1JdWkCWO/K1h1/QEfVokL2u4ux/+3fUeAAJoOZGz6XlVvPJd+1YOelnvjQCZhI9cjkq
- 2fhQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXzk1FhNRc437KR9iuhKH+kAZ7ts/Sa4EbSJzUbfkRAU3Y7khuAPTRUwDXFHL9nUWZNo4TRImWvW1s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxcMXEOIp/xBWk1IUgdP+Yc+wN/rbeMCyGom5O/GnvVNKR1L1hV
- clAkKZB96iy0YJNwGQpSeAqVfUmDr9rJxAHxbQQKF4wDPqI2G2EsRO4L
-X-Gm-Gg: ATEYQzxCtlL4UTWrubjiLLFh4uMz8n22VQkZEQMmigxfm3SI8lpWREZjgzZnmbflh1I
- 2jMl6v5N+gqwAiVzdeuJSTy0R3NWSwZD62Wuw7bz+vrYaeYGEA51x1ocELRRhcLAJ25iMNialjH
- gBlkHamYjgoUABOViwF+cqUbQzzO8tbCsDnViFStx/wZjKs/ReFxUQuj8VEzcPF9ErHWTd5sU02
- Y5YyE9/7kSTEBuvIqj5B4d2CLVh5qTqj1R3NwH3bkAWvuNUyc7oPcDW4zeyivMzFxBexyo6WcOF
- dilCeiOXVlS7YvYFgX3ULWQ0dkEdikHFE/qXEqznbbeQ42fbdP17MVEXFYHrjQx3jSdibC0hdsu
- h3NScVghy/ZY4lOjwzqVKHZotCKoRUq3Xse/mlIyhkMtAZyWaPGMoGixjPCyg+DpZReakTIXSL3
- X6mx/0NvtBwHcb9bNsGGQK6AZJparh/EpDuT9aw8WGoY3zhbsw
-X-Received: by 2002:a05:6820:3103:b0:663:11b2:d61d with SMTP id
- 006d021491bc7-67b9bca1e01mr428086eaf.25.1772761874446; 
- Thu, 05 Mar 2026 17:51:14 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:13 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 7/7] dyndbg-test: test keyword !value negation
-Date: Thu,  5 Mar 2026 18:50:10 -0700
-Message-ID: <20260306015022.1940986-8-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A5E110E5C1;
+	Mon,  9 Mar 2026 19:38:34 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A4910E5C1;
+ Mon,  9 Mar 2026 19:38:32 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Mar 2026 18:56:53 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_queued_static-key_API_red?=
+ =?utf-8?q?uces_IPIs_to_134/16154_in_dyndbg?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 09 Mar 2026 19:38:32 -0000
+Message-ID: <177308511244.335140.5955590888016925503@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,65 +37,30 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
----
- .../dynamic_debug/dyndbg_selftest.sh          | 35 +++++++++++++++++++
- 1 file changed, 35 insertions(+)
+== Series Details ==
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 09937dca3056..5c35d7cc5ecf 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -350,12 +350,47 @@ function test_mod_submod {
-     ifrmmod test_dynamic_debug
- }
- 
-+function test_negated_keywords {
-+    echo -e "${GREEN}# TEST_NEGATED_KEYWORDS ${NC}"
-+
-+    # Test 1: Disable negated subset from enabled set
-+    # Enables all 6 in init/main.c, then pulses ONLY those that are NOT run_init_process (the 2 blacklist sites) OFF.
-+    ddcmd =_
-+    ddcmd file init/main.c +p
-+    check_match_ct 'init/main.c:.*=p' 6 -r
-+    ddcmd file init/main.c func !run_init_process -p
-+    # Result: 6 - 2 = 4 sites (run_init_process) remain enabled.
-+    check_match_ct 'init/main.c:.*=p' 4 -r
-+    check_match_ct 'run_init_process' 4 -r
-+
-+    # Test 2: Enable negated subset from clean slate
-+    # Negation !run_init_process should match the 2 blacklist sites.
-+    ddcmd =_
-+    ddcmd file init/main.c func !run_init_process +p
-+    # Verify exactly 2 sites enabled
-+    check_match_ct 'init/main.c:.*=p' 2 -r
-+    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
-+    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
-+
-+    # Test 3: Enable negated subset with wildcard
-+    # Negation !run_init_* should match the same 2 blacklist sites.
-+    ddcmd =_
-+    ddcmd file init/main.c func !run_init_* +p
-+    # Verify exactly 2 sites enabled
-+    check_match_ct 'init/main.c:.*=p' 2 -r
-+    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
-+    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
-+
-+    ddcmd =_
-+}
-+
- tests_list=(
-     basic_tests
-     # these require test_dynamic_debug*.ko
-     comma_terminator_tests
-     test_percent_splitting
-     test_mod_submod
-+    test_negated_keywords
- )
- 
- # Run tests
--- 
-2.53.0
+Series: queued static-key API reduces IPIs to 134/16154 in dyndbg
+URL   : https://patchwork.freedesktop.org/series/162898/
+State : failure
+
+== Summary ==
+
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/162898/revisions/1/mbox/ not applied
+Applying: jump_label: expose queueing API for batched static key updates
+Applying: virtio: use pr_debug_ratelimited to avoid flooding
+Applying: drivers/tty/serial/serial_core: ratelimit uart_wait_until_sent
+Applying: dyndbg: use static-key queueing API in dynamic-debug
+error: sha1 information is lacking or useless (lib/dynamic_debug.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0004 dyndbg: use static-key queueing API in dynamic-debug
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
