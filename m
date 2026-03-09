@@ -4,33 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFC0EEFCD62
-	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 09:16:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E38EFCD6C
+	for <intel-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 09:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 484BB10E4AE;
-	Mon,  9 Mar 2026 09:16:20 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E36C10E4AE;
- Mon,  9 Mar 2026 09:16:18 +0000 (UTC)
-Received: from 37-33-19-16.bb.dnainternet.fi ([37.33.19.16]
- helo=[192.168.101.111])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1vzWil-000000039pQ-3gD4; Mon, 09 Mar 2026 11:16:16 +0200
-Message-ID: <8a73c8ad587fdc378d75da152e4fff10ce792693.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org
-Date: Mon, 09 Mar 2026 11:16:14 +0200
-In-Reply-To: <436c2056cf7c70eddc726e07e72eed782f3d4632.camel@coelho.fi>
-References: <cover.1772635152.git.jani.nikula@intel.com>
- <bdfa49fcc939985c66d75f3f39987813493c3ef1.1772635152.git.jani.nikula@intel.com>
- <436c2056cf7c70eddc726e07e72eed782f3d4632.camel@coelho.fi>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-8 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C26E10E4B9;
+	Mon,  9 Mar 2026 09:19:38 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC61B10E1FC;
+ Mon,  9 Mar 2026 09:19:37 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7620676256097118972=="
 MIME-Version: 1.0
-Subject: Re: [PATCH 5/8] drm/intel: add shared step.h and switch i915 to use it
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/hdcp=3A_Take_for?=
+ =?utf-8?q?ce=5Fhdcp14_into_account_during_check=5Flink_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 09 Mar 2026 09:19:37 -0000
+Message-ID: <177304797767.332643.4491187998767410644@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260225065045.3040787-1-suraj.kandpal@intel.com>
+In-Reply-To: <20260225065045.3040787-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,188 +37,218 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-03-09 at 11:09 +0200, Luca Coelho wrote:
-> On Wed, 2026-03-04 at 16:40 +0200, Jani Nikula wrote:
-> > As the first step towards using shared definitions for step name
-> > enumerations, add shared include/drm/intel/step.h and switch i915 to us=
-e
-> > it.
-> >=20
-> > Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> > ---
->=20
-> Reviewed-by: Luca Coelho <luciano.coelho@intel.com>
->=20
-> --
-> Cheers,
-> Luca.
->=20
->=20
-> >  drivers/gpu/drm/i915/intel_step.h | 57 +---------------------------
-> >  include/drm/intel/step.h          | 62 +++++++++++++++++++++++++++++++
-> >  2 files changed, 64 insertions(+), 55 deletions(-)
-> >  create mode 100644 include/drm/intel/step.h
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/intel_step.h b/drivers/gpu/drm/i915/i=
-ntel_step.h
-> > index 22f1d6905160..2ca36eae4b5a 100644
-> > --- a/drivers/gpu/drm/i915/intel_step.h
-> > +++ b/drivers/gpu/drm/i915/intel_step.h
-> > @@ -8,6 +8,8 @@
-> > =20
-> >  #include <linux/types.h>
-> > =20
-> > +#include <drm/intel/step.h>
-> > +
-> >  struct drm_i915_private;
-> > =20
-> >  struct intel_step_info {
-> > @@ -19,61 +21,6 @@ struct intel_step_info {
-> >  	u8 media_step;
-> >  };
-> > =20
-> > -#define STEP_ENUM_VAL(name)  STEP_##name,
-> > -
-> > -#define STEP_NAME_LIST(func)		\
-> > -	func(A0)			\
-> > -	func(A1)			\
-> > -	func(A2)			\
-> > -	func(A3)			\
-> > -	func(B0)			\
-> > -	func(B1)			\
-> > -	func(B2)			\
-> > -	func(B3)			\
-> > -	func(C0)			\
-> > -	func(C1)			\
-> > -	func(C2)			\
-> > -	func(C3)			\
-> > -	func(D0)			\
-> > -	func(D1)			\
-> > -	func(D2)			\
-> > -	func(D3)			\
-> > -	func(E0)			\
-> > -	func(E1)			\
-> > -	func(E2)			\
-> > -	func(E3)			\
-> > -	func(F0)			\
-> > -	func(F1)			\
-> > -	func(F2)			\
-> > -	func(F3)			\
-> > -	func(G0)			\
-> > -	func(G1)			\
-> > -	func(G2)			\
-> > -	func(G3)			\
-> > -	func(H0)			\
-> > -	func(H1)			\
-> > -	func(H2)			\
-> > -	func(H3)			\
-> > -	func(I0)			\
-> > -	func(I1)			\
-> > -	func(I2)			\
-> > -	func(I3)			\
-> > -	func(J0)			\
-> > -	func(J1)			\
-> > -	func(J2)			\
-> > -	func(J3)
-> > -
-> > -/*
-> > - * Symbolic steppings that do not match the hardware. These are valid =
-both as gt
-> > - * and display steppings as symbolic names.
-> > - */
-> > -enum intel_step {
-> > -	STEP_NONE =3D 0,
-> > -	STEP_NAME_LIST(STEP_ENUM_VAL)
-> > -	STEP_FUTURE,
-> > -	STEP_FOREVER,
-> > -};
-> > -
-> >  void intel_step_init(struct drm_i915_private *i915);
-> >  const char *intel_step_name(enum intel_step step);
-> > =20
-> > diff --git a/include/drm/intel/step.h b/include/drm/intel/step.h
-> > new file mode 100644
-> > index 000000000000..4de7520109bc
-> > --- /dev/null
-> > +++ b/include/drm/intel/step.h
-> > @@ -0,0 +1,62 @@
-> > +/* SPDX-License-Identifier: MIT */
-> > +/* Copyright =C2=A9 2026 Intel Corporation */
-> > +
-> > +#ifndef __STEP_H__
-> > +#define __STEP_H__
-> > +
-> > +#define STEP_ENUM_VAL(name)  STEP_##name,
-> > +
-> > +#define STEP_NAME_LIST(func)		\
-> > +	func(A0)			\
-> > +	func(A1)			\
-> > +	func(A2)			\
-> > +	func(A3)			\
-> > +	func(B0)			\
-> > +	func(B1)			\
-> > +	func(B2)			\
-> > +	func(B3)			\
-> > +	func(C0)			\
-> > +	func(C1)			\
-> > +	func(C2)			\
-> > +	func(C3)			\
-> > +	func(D0)			\
-> > +	func(D1)			\
-> > +	func(D2)			\
-> > +	func(D3)			\
-> > +	func(E0)			\
-> > +	func(E1)			\
-> > +	func(E2)			\
-> > +	func(E3)			\
-> > +	func(F0)			\
-> > +	func(F1)			\
-> > +	func(F2)			\
-> > +	func(F3)			\
-> > +	func(G0)			\
-> > +	func(G1)			\
-> > +	func(G2)			\
-> > +	func(G3)			\
-> > +	func(H0)			\
-> > +	func(H1)			\
-> > +	func(H2)			\
-> > +	func(H3)			\
-> > +	func(I0)			\
-> > +	func(I1)			\
-> > +	func(I2)			\
-> > +	func(I3)			\
-> > +	func(J0)			\
-> > +	func(J1)			\
-> > +	func(J2)			\
-> > +	func(J3)
-> > +
-> > +/*
-> > + * Symbolic steppings that do not match the hardware. These are valid =
-both as gt
-> > + * and display steppings as symbolic names.
-> > + */
-> > +enum intel_step {
+--===============7620676256097118972==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Just a small thing that came to my mind, intel_step sounds a bit too
-generic at this level, I think?
+== Series Details ==
 
-This is specifically a drm/intel enum, but there surely are other Intel
-steps out there?
+Series: drm/i915/hdcp: Take force_hdcp14 into account during check_link (rev2)
+URL   : https://patchwork.freedesktop.org/series/162115/
+State : failure
 
-This doesn't change my r-b, but just something to consider.
+== Summary ==
 
---
-Cheers,
-Luca.
+CI Bug Log - changes from CI_DRM_18110 -> Patchwork_162115v2
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_162115v2 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_162115v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/index.html
+
+Participating hosts (40 -> 39)
+------------------------------
+
+  Additional (1): fi-pnv-d510 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_162115v2:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@gem_exec_fence@basic-await:
+    - bat-arlh-3:         [PASS][1] -> [FAIL][2] +1 other test fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-arlh-3/igt@gem_exec_fence@basic-await.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-arlh-3/igt@gem_exec_fence@basic-await.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_162115v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-arlh-3:         [PASS][3] -> [INCOMPLETE][4] ([i915#15631])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-arlh-3/igt@i915_pm_rpm@module-reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-arlh-3/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-mtlp-8/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-mtlp-8/igt@i915_selftest@live.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - fi-pnv-d510:        NOTRUN -> [SKIP][7] +35 other tests skip
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-rpls-4:         [DMESG-WARN][8] ([i915#13400]) -> [PASS][9]
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-rpls-4/igt@i915_pm_rpm@module-reload.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [FAIL][10] ([i915#14867]) -> [PASS][11]
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
+  [i915#15631]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15631
 
 
-> > +	STEP_NONE =3D 0,
-> > +	STEP_NAME_LIST(STEP_ENUM_VAL)
-> > +	STEP_FUTURE,
-> > +	STEP_FOREVER,
-> > +};
-> > +
-> > +#endif /* __STEP_H__ */
+Build changes
+-------------
+
+  * Linux: CI_DRM_18110 -> Patchwork_162115v2
+
+  CI-20190529: 20190529
+  CI_DRM_18110: 2590b5b38b7b67f863d0997270d5dc50430c0287 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8784: c7d12b3499ef1698373f246748e68c05ada0579e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_162115v2: 2590b5b38b7b67f863d0997270d5dc50430c0287 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/index.html
+
+--===============7620676256097118972==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/hdcp: Take force_hdcp14 into account during check_link (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162115/">https://patchwork.freedesktop.org/series/162115/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18110 -&gt; Patchwork_162115v2</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_162115v2 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_162115v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 39)</h2>
+<p>Additional (1): fi-pnv-d510 <br />
+  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_162115v2:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@gem_exec_fence@basic-await:<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-arlh-3/igt@gem_exec_fence@basic-await.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-arlh-3/igt@gem_exec_fence@basic-await.html">FAIL</a> +1 other test fail</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_162115v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-arlh-3/igt@i915_pm_rpm@module-reload.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-arlh-3/igt@i915_pm_rpm@module-reload.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15631">i915#15631</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>fi-pnv-d510:        NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/fi-pnv-d510/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> +35 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/bat-rpls-4/igt@i915_pm_rpm@module-reload.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18110/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162115v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18110 -&gt; Patchwork_162115v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18110: 2590b5b38b7b67f863d0997270d5dc50430c0287 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8784: c7d12b3499ef1698373f246748e68c05ada0579e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_162115v2: 2590b5b38b7b67f863d0997270d5dc50430c0287 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7620676256097118972==--
