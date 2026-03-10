@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DA3EB107E
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 11:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 467C7EB1068
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 11:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B7D310E6CA;
-	Tue, 10 Mar 2026 11:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1ADD10E6CF;
+	Tue, 10 Mar 2026 11:57:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="lqBppfMk";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ORJP6pik";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD7A10E6C5;
- Tue, 10 Mar 2026 11:57:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB0410E6C9;
+ Tue, 10 Mar 2026 11:57:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1773143851;
- bh=vz9B4cQ+/HKcCZzJkACLi61qh8KMdknC41qN0AVDk6o=;
+ s=default; t=1773143854;
+ bh=q5DGgQouGWGgfcuej1E52iDtx+kNPYr3AALCQt5FiTw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lqBppfMkd387A0/IDFs0wkJYTIwiGY8SuREy05mWCI6SR9O+EKUzoBBKmPKNpGLHi
- tK92rs7859wF/Ysr0ypQEtKvIxEECxbN8bB6Qepgm7QvMlLZ+ksYVqRbKECvnEU8N4
- UqAShFAf+D1UR4kv6MY3lpecu8F14m1Xb8NA56d0mfe704iCB1eE59+fQGTmeI5bqi
- F3cKg9JBSRugAPPEpwQFB3dWSbOyEDk6V8cJ4GP+IfhwzwHtjJsqDTm640BLvSZ3cq
- zxwDVj/BQW7R7xM3P1rxOIhTdGKUS8fxXWP1WT2O0LVneeBWllA5Ms3OFEclbCPpVX
- wTx6uWbMTBF7g==
+ b=ORJP6pik4mxWZMAxvvvqW03RNGWTfnDYCsgf12gqe7z50Hvoh3Zq3Os2AE9LGniSi
+ b85a460PAJAXUBq3zV3hDpxKlnX2JQeyOICXCLXFlicJs/6njoBLcW5+TxEKVLPQrA
+ NWRHOpq+MhOpoEXonUyRHgaZdVAmqzDKfa/J7maxafwUemHXUVcQfYqyvcIdwXjEhJ
+ U0dF+qmznJqi8DqKL9rdc5+tX1OmUCXm8DiJ9TSbUCXYbYHIuxxBUGomMp0iS9VEwa
+ IFXXdkfNfTYY/2UJr2CQjhRgY7XRhDz7RAIW6zeBgdcZTXxpPPpmVIKw3cKS+kCnAO
+ hkUvBh29/M8UQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v7 13/26] drm/i915/display: Use intel_de_write_fw in
- intel_pipe_fastset
-Date: Tue, 10 Mar 2026 12:56:55 +0100
-Message-ID: <20260310115709.2276203-14-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v7 15/26] drm/i915/display: Fix intel_lpe_audio_irq_handler
+ for PREEMPT-RT
+Date: Tue, 10 Mar 2026 12:56:57 +0100
+Message-ID: <20260310115709.2276203-16-dev@lankhorst.se>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260310115709.2276203-1-dev@lankhorst.se>
 References: <20260310115709.2276203-1-dev@lankhorst.se>
@@ -54,208 +55,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_set_pipe_src_size(), hsw_set_linetime_wm(),
-intel_cpu_transcoder_set_m1_n1() and intel_set_transcoder_timings_lrr()
-are called from an atomic context on PREEMPT_RT, and should be using the
-_fw functions.
+The LPE audio interrupt comes from the i915 interrupt handler. It
+should be in irq disabled context.
 
-This likely prevents a deadlock on i915.
+With PREEMPT_RT enabled, the IRQ handler is threaded.
+Because intel_lpe_audio_irq_handler() may be called in threaded IRQ context,
+generic_handle_irq_safe API disables the interrupts before calling LPE's
+interrupt top half handler.
 
-Again noticed when trying to disable preemption in vblank evasion:
-<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1505, name: kms_cursor_lega
-<3> preempt_count: 1, expected: 0
-<3> RCU nest depth: 0, expected: 0
-<4> 4 locks held by kms_cursor_lega/1505:
-<4>  #0: ffffc90003c6f988 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_mode_atomic_ioctl+0x13b/0xe90
-<4>  #1: ffffc90003c6f9b0 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_mode_atomic_ioctl+0x13b/0xe90
-<4>  #2: ffff888135b838b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
-<4>  #3: ffff88812607bbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
-<4> CPU: 6 UID: 0 PID: 1505 Comm: kms_cursor_lega Tainted: G     U              6.18.0-rc3-lgci-xe-xe-pw-156729v1+ #1 PREEMPT_{RT,(lazy)}
-<4> Tainted: [U]=USER
-<4> Hardware name: Intel Corporation Panther Lake Client Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3383.D02.2509240621 09/24/2025
-<4> Call Trace:
-<4>  <TASK>
-<4>  dump_stack_lvl+0xc1/0xf0
-<4>  dump_stack+0x10/0x20
-<4>  __might_resched+0x174/0x260
-<4>  rt_spin_lock+0x63/0x200
-<4>  ? intel_dmc_wl_get+0x3c/0x140 [xe]
-<4>  intel_dmc_wl_get+0x3c/0x140 [xe]
-<4>  intel_set_pipe_src_size+0x89/0xe0 [xe]
-<4>  intel_update_crtc+0x3c1/0x950 [xe]
-<4>  ? intel_pre_update_crtc+0x258/0x400 [xe]
-<4>  skl_commit_modeset_enables+0x217/0x720 [xe]
-<4>  intel_atomic_commit_tail+0xd4e/0x1af0 [xe]
-<4>  ? lock_release+0xce/0x2a0
-<4>  intel_atomic_commit+0x2e5/0x330 [xe]
-<4>  ? intel_atomic_commit+0x2e5/0x330 [xe]
-<4>  drm_atomic_commit+0xaf/0xf0
-<4>  ? __pfx___drm_printfn_info+0x10/0x10
-<4>  drm_mode_atomic_ioctl+0xbd5/0xe90
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
-<4>  drm_ioctl_kernel+0xb6/0x120
-<4>  drm_ioctl+0x2d7/0x5a0
-<4>  ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
-<4>  ? rt_spin_unlock+0xa0/0x140
-<4>  ? __pm_runtime_resume+0x53/0x90
-<4>  xe_drm_ioctl+0x56/0x90 [xe]
-<4>  __x64_sys_ioctl+0xa8/0x110
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  x64_sys_call+0x1144/0x26a0
-<4>  do_syscall_64+0x93/0xae0
-<4>  ? lock_release+0xce/0x2a0
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  ? find_held_lock+0x31/0x90
-<4>  ? __task_pid_nr_ns+0xcf/0x270
-<4>  ? __lock_acquire+0x43e/0x2860
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? lock_acquire+0xc4/0x2e0
-<4>  ? find_held_lock+0x31/0x90
-<4>  ? __task_pid_nr_ns+0xcf/0x270
-<4>  ? lock_release+0xce/0x2a0
-<4>  ? __task_pid_nr_ns+0xd9/0x270
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  ? do_syscall_64+0x1b7/0xae0
-<4>  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+This fixes braswell audio issues with RT enabled.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 36 ++++++++++----------
- drivers/gpu/drm/i915/display/intel_vrr.c     | 18 +++++-----
- 2 files changed, 27 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index b18ce0c36a649..9cfa3fa915cf5 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1606,9 +1606,9 @@ static void hsw_set_linetime_wm(const struct intel_crtc_state *crtc_state)
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 
--	intel_de_write(display, WM_LINETIME(crtc->pipe),
--		       HSW_LINETIME(crtc_state->linetime) |
--		       HSW_IPS_LINETIME(crtc_state->ips_linetime));
-+	intel_de_write_fw(display, WM_LINETIME(crtc->pipe),
-+			  HSW_LINETIME(crtc_state->linetime) |
-+			  HSW_IPS_LINETIME(crtc_state->ips_linetime));
- }
- 
- static void hsw_set_frame_start_delay(const struct intel_crtc_state *crtc_state)
-@@ -2604,14 +2604,14 @@ void intel_set_m_n(struct intel_display *display,
- 		   i915_reg_t data_m_reg, i915_reg_t data_n_reg,
- 		   i915_reg_t link_m_reg, i915_reg_t link_n_reg)
- {
--	intel_de_write(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
--	intel_de_write(display, data_n_reg, m_n->data_n);
--	intel_de_write(display, link_m_reg, m_n->link_m);
-+	intel_de_write_fw(display, data_m_reg, TU_SIZE(m_n->tu) | m_n->data_m);
-+	intel_de_write_fw(display, data_n_reg, m_n->data_n);
-+	intel_de_write_fw(display, link_m_reg, m_n->link_m);
- 	/*
- 	 * On BDW+ writing LINK_N arms the double buffered update
- 	 * of all the M/N registers, so it must be written last.
- 	 */
--	intel_de_write(display, link_n_reg, m_n->link_n);
-+	intel_de_write_fw(display, link_n_reg, m_n->link_n);
- }
- 
- bool intel_cpu_transcoder_has_m2_n2(struct intel_display *display,
-@@ -2798,9 +2798,9 @@ static void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc
- 	}
- 
- 	if (DISPLAY_VER(display) >= 13) {
--		intel_de_write(display,
--			       TRANS_SET_CONTEXT_LATENCY(display, cpu_transcoder),
--			       crtc_state->set_context_latency);
-+		intel_de_write_fw(display,
-+				  TRANS_SET_CONTEXT_LATENCY(display, cpu_transcoder),
-+				  crtc_state->set_context_latency);
- 
- 		/*
- 		 * VBLANK_START not used by hw, just clear it
-@@ -2816,9 +2816,9 @@ static void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc
- 	 * The hardware actually ignores TRANS_VBLANK.VBLANK_END in DP mode.
- 	 * But let's write it anyway to keep the state checker happy.
- 	 */
--	intel_de_write(display, TRANS_VBLANK(display, cpu_transcoder),
--		       VBLANK_START(crtc_vblank_start - 1) |
--		       VBLANK_END(crtc_vblank_end - 1));
-+	intel_de_write_fw(display, TRANS_VBLANK(display, cpu_transcoder),
-+			  VBLANK_START(crtc_vblank_start - 1) |
-+			  VBLANK_END(crtc_vblank_end - 1));
- 	/*
- 	 * For platforms that always use VRR Timing Generator, the VTOTAL.Vtotal
- 	 * bits are not required. Since the support for these bits is going to
-@@ -2832,9 +2832,9 @@ static void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc
- 	 * The double buffer latch point for TRANS_VTOTAL
- 	 * is the transcoder's undelayed vblank.
- 	 */
--	intel_de_write(display, TRANS_VTOTAL(display, cpu_transcoder),
--		       VACTIVE(crtc_vdisplay - 1) |
--		       VTOTAL(crtc_vtotal - 1));
-+	intel_de_write_fw(display, TRANS_VTOTAL(display, cpu_transcoder),
-+			  VACTIVE(crtc_vdisplay - 1) |
-+			  VTOTAL(crtc_vtotal - 1));
- 
- 	intel_vrr_set_fixed_rr_timings(crtc_state);
- 	intel_vrr_transcoder_enable(crtc_state);
-@@ -2851,8 +2851,8 @@ static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state)
- 	/* pipesrc controls the size that is scaled from, which should
- 	 * always be the user's requested size.
- 	 */
--	intel_de_write(display, PIPESRC(display, pipe),
--		       PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
-+	intel_de_write_fw(display, PIPESRC(display, pipe),
-+			  PIPESRC_WIDTH(width - 1) | PIPESRC_HEIGHT(height - 1));
- }
- 
- static bool intel_pipe_is_interlaced(const struct intel_crtc_state *crtc_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 8a957804cb970..a2d507b238322 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -318,12 +318,12 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state)
- 	if (!intel_vrr_possible(crtc_state))
+diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+index 117b60656ca19..306b16889bc92 100644
+--- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+@@ -262,7 +262,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
+ 	if (!HAS_LPE_AUDIO(display))
  		return;
  
--	intel_de_write(display, TRANS_VRR_VMIN(display, cpu_transcoder),
--		       intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
--	intel_de_write(display, TRANS_VRR_VMAX(display, cpu_transcoder),
--		       intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
--	intel_de_write(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
--		       intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_VMIN(display, cpu_transcoder),
-+			  intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_VMAX(display, cpu_transcoder),
-+			  intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
-+	intel_de_write_fw(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
-+			  intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
- }
- 
- static
-@@ -908,8 +908,8 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
- 	u32 vrr_ctl;
- 
--	intel_de_write(display, TRANS_PUSH(display, cpu_transcoder),
--		       trans_vrr_push(crtc_state, false));
-+	intel_de_write_fw(display, TRANS_PUSH(display, cpu_transcoder),
-+			  trans_vrr_push(crtc_state, false));
- 
- 	vrr_ctl = VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state);
- 
-@@ -921,7 +921,7 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
- 	if (cmrr_enable)
- 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
- 
--	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
-+	intel_de_write_fw(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
- }
- 
- static void intel_vrr_tg_disable(const struct intel_crtc_state *old_crtc_state)
+-	ret = generic_handle_irq(display->audio.lpe.irq);
++	ret = generic_handle_irq_safe(display->audio.lpe.irq);
+ 	if (ret)
+ 		drm_err_ratelimited(display->drm,
+ 				    "error handling LPE audio irq: %d\n", ret);
 -- 
 2.51.0
 
