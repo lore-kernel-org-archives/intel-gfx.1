@@ -4,56 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11912EB1070
-	for <intel-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 15:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D09C8FD4F03
+	for <intel-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 17:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80DA910E2B6;
-	Tue, 10 Mar 2026 15:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ACBF89F4F;
+	Tue, 10 Mar 2026 17:04:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MacECfSl";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="M5dDTCgD";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ImjK1jeW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E4F210E2B6;
- Tue, 10 Mar 2026 15:38:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773157105; x=1804693105;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5t/Nl19lBc99pULKIc3u2lOUlSXXZ3/NYwUYAkaStbI=;
- b=MacECfSlbfk4otUq8HoYVlayzqTOKsr1Ghd0d1UDdrT238clzNaEWTcK
- NjR0X3YokO+QU8J1M3tu97vR4U6fSqEndiOibFBz/BrWc7gaAEK6QW8Yr
- 4vf6QntIO5wo9JLU/li83kAq68aWnDN6dRbbZrbrAdbqM1dJqD4JzG5NE
- c9Y9mSqjt61SG9WxYldfabUFe7h/TGiH5eRYqPCwkY2AvLagEgr9ih6Q3
- zExrR0ZkdfAo01nCvmvnzBrWeul4DknaZabU8+n2CJbtktdZat9dygIR1
- P06OO68ssQf425Dgs8/vkVJIwjaq6bAr/SQOnnhOwDy6JESgF0FyvcWLb g==;
-X-CSE-ConnectionGUID: 7Lg2DLTATeCLdSMjx+1IeA==
-X-CSE-MsgGUID: 1f1gcSjwSJq35uojfEPv2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11725"; a="84840209"
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; d="scan'208";a="84840209"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2026 08:38:25 -0700
-X-CSE-ConnectionGUID: jVO35lVmR+CT7xza/853Fg==
-X-CSE-MsgGUID: EVk+8s8SRLS5JZ5CqAgUrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; d="scan'208";a="220199474"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa008.jf.intel.com with ESMTP; 10 Mar 2026 08:38:23 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v3 04/24] drm/i915/lt_phy: Refactor LT PHY PLL handling to use
- explicit PLL state
-Date: Tue, 10 Mar 2026 15:38:21 +0000
-Message-ID: <20260310153821.1933371-1-mika.kahola@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260310133600.1708066-1-mika.kahola@intel.com>
-References: <20260310133600.1708066-1-mika.kahola@intel.com>
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 182EA10E2C5;
+ Tue, 10 Mar 2026 17:04:17 +0000 (UTC)
+Date: Tue, 10 Mar 2026 18:04:13 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1773162254;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=O3nDHwFwsMlE3nsDKwdkvC+E/cqGCBBrap8xgsZnTUM=;
+ b=M5dDTCgDKkEENYH2WA3ts/zZ5h10e6ASZrGqUU+rYQ7KcQDXvLfOJFvIzK/Rhty8MFWyaf
+ CPALuX2isLNOLem5Qph5/44zddRB90vebitwmZHS2lx28JMzF2bNvLOAdMewkHhDDUiwHa
+ XyCo2MyKTjXK7YUG/JGDvcgVomIS2ckxFaUTx/4xgQcL8/ihc0LKJC8SLuKtLjHu9GUPnV
+ SNlEQ2u9dfbqozL5aFIUEwbPYb9PyaDTjcMtlbr04md0P+Qi5eXgMAL8tlKM93rL+9B2GH
+ OyLQ9zcZpYHD8q3UMh4zhgMdPUmP0pl5gjiNMIJ8HTFKUT2cUDKszgF2xG0ttA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1773162254;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=O3nDHwFwsMlE3nsDKwdkvC+E/cqGCBBrap8xgsZnTUM=;
+ b=ImjK1jeWVBzBok3Np/zMmiVhItovXZoRI5JLwHhJug2g348CtboaO2a0m/Qd9iWD7jpMwL
+ jQxBKpXMWs4QeeCA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Maarten Lankhorst <dev@lankhorst.se>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v7 26/26] drm/i915/gt: Add a spinlock to prevent
+ starvation of irq_work.
+Message-ID: <20260310170413.5rCjlTce@linutronix.de>
+References: <20260310115709.2276203-1-dev@lankhorst.se>
+ <20260310115709.2276203-27-dev@lankhorst.se>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260310115709.2276203-27-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,205 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The LT PHY implementation currently pulls PLL and port_clock
-information directly from the CRTC state. This ties the PHY
-programming logic too tightly to the CRTC state and makes it
-harder to clearly express the PHY’s own PLL configuration.
+On 2026-03-10 12:57:08 [+0100], Maarten Lankhorst wrote:
+> From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> 
+> IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+> and the interrupt will poll on signaler_active while the irq-work can't
+> make progress.
 
-Introduce an explicit "struct intel_lt_phy_pll_state" argument
-for the PHY functions and update callers accordingly.
+The threaded-interrupt is the interrupt.
 
-No functional change is intended — this is a preparatory cleanup for
-to bring LT PHY PLL handling as part of PLL framework.
+| On PREEMPT_RT the irq_work can be preempted by threaded-interrupt which
+| will be poll for completion but the irq_work routine can't make
+| progress.
 
-v2:  DP, HDMI 2.0, and HDMI FRL modes are port of the VDR configuration 0
-    register. These modes are defined by bits 2:0. Decode these to
-    differentiate DP and HDMI modes when programming PLL's. (Imre, Suraj)
+> Solve this by adding a spinlock to prevent starvation and force
+> completion.
 
-BSpec: 744921
+| Solve this by adding a spinlock_t to prevent starvation by forcing a
+| context switch if lock is held based on `signaler_active'. On
+| !PREEMPT_RT `signaler_active' can only be non-zero if multiple CPUs are
+| involved and spinning on the lock leds to the same result.
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
----
- drivers/gpu/drm/i915/display/intel_lt_phy.c | 67 ++++++++++++++-------
- 1 file changed, 46 insertions(+), 21 deletions(-)
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 8fe61cfdb706..76acffb2e840 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -32,6 +32,7 @@
- 					 INTEL_LT_PHY_LANE0)
- #define MODE_DP				3
- #define MODE_HDMI_20			4
-+#define MODE_HDMI_FRL			5
- #define Q32_TO_INT(x)	((x) >> 32)
- #define Q32_TO_FRAC(x)	((x) & 0xFFFFFFFF)
- #define DCO_MIN_FREQ_MHZ	11850
-@@ -1176,9 +1177,30 @@ intel_lt_phy_lane_reset(struct intel_encoder *encoder,
- 	intel_de_rmw(display, XELPDP_PORT_BUF_CTL2(display, port), lane_phy_pulse_status, 0);
- }
+If I am the From: then I should have the Signed-off-by, too. Let me do
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+so it can be picked up.
+
+You did suggest the following:
+
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -209,7 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
  
-+static bool intel_lt_phy_is_hdmi(const struct intel_lt_phy_pll_state *ltpll)
-+{
-+	u8 mode = REG_FIELD_GET8(LT_PHY_VDR_MODE_ENCODING_MASK, ltpll->config[0]);
-+
-+	if (mode == MODE_HDMI_20 || mode == MODE_HDMI_FRL)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool intel_lt_phy_is_dp(const struct intel_lt_phy_pll_state *ltpll)
-+{
-+	u8 mode = REG_FIELD_GET8(LT_PHY_VDR_MODE_ENCODING_MASK, ltpll->config[0]);
-+
-+	if (mode == MODE_DP)
-+		return true;
-+
-+	return false;
-+}
-+
- static void
- intel_lt_phy_program_port_clock_ctl(struct intel_encoder *encoder,
--				    const struct intel_crtc_state *crtc_state,
-+				    const struct intel_lt_phy_pll_state *ltpll,
-+				    int port_clock,
- 				    bool lane_reversal)
- {
- 	struct intel_display *display = to_intel_display(encoder);
-@@ -1195,17 +1217,16 @@ intel_lt_phy_program_port_clock_ctl(struct intel_encoder *encoder,
- 	 * but since the register bits still remain the same we use
- 	 * the same definition
- 	 */
--	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI) &&
--	    intel_hdmi_is_frl(crtc_state->port_clock))
-+	if (intel_lt_phy_is_hdmi(ltpll) && intel_hdmi_is_frl(port_clock))
- 		val |= XELPDP_DDI_CLOCK_SELECT_PREP(display, XELPDP_DDI_CLOCK_SELECT_DIV18CLK);
- 	else
- 		val |= XELPDP_DDI_CLOCK_SELECT_PREP(display, XELPDP_DDI_CLOCK_SELECT_MAXPCLK);
+ 	rcu_read_lock();
+-	atomic_inc(&b->signaler_active);
++	spin_lock(&b->signaler_active_sync);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
  
- 	 /* DP2.0 10G and 20G rates enable MPLLA*/
--	if (crtc_state->port_clock == 1000000 || crtc_state->port_clock == 2000000)
-+	if (port_clock == 1000000 || port_clock == 2000000)
- 		val |= XELPDP_SSC_ENABLE_PLLA;
- 	else
--		val |= crtc_state->dpll_hw_state.ltpll.ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
-+		val |= ltpll->ssc_enabled ? XELPDP_SSC_ENABLE_PLLB : 0;
- 
- 	intel_de_rmw(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
- 		     XELPDP_LANE1_PHY_CLOCK_SELECT | XELPDP_FORWARD_CLOCK_UNGATE |
-@@ -1248,10 +1269,12 @@ static u32 intel_lt_phy_get_dp_clock(u8 rate)
- 
- static bool
- intel_lt_phy_config_changed(struct intel_encoder *encoder,
--			    const struct intel_crtc_state *crtc_state)
-+			    const struct intel_lt_phy_pll_state *ltpll)
- {
-+	struct intel_display *display = to_intel_display(encoder);
- 	u8 val, rate;
- 	u32 clock;
-+	u32 port_clock = intel_lt_phy_calc_port_clock(display, ltpll);
- 
- 	val = intel_lt_phy_read(encoder, INTEL_LT_PHY_LANE0,
- 				LT_PHY_VDR_0_CONFIG);
-@@ -1262,9 +1285,9 @@ intel_lt_phy_config_changed(struct intel_encoder *encoder,
- 	 * using 1.62 Gbps clock since PHY PLL defaults to that
- 	 * otherwise we always need to reconfigure it.
- 	 */
--	if (intel_crtc_has_dp_encoder(crtc_state)) {
-+	if (intel_lt_phy_is_dp(ltpll)) {
- 		clock = intel_lt_phy_get_dp_clock(rate);
--		if (crtc_state->port_clock == 1620000 && crtc_state->port_clock == clock)
-+		if (port_clock == 1620000 && port_clock == clock)
- 			return false;
+@@ -245,7 +245,7 @@ static void signal_irq_work(struct irq_work *work)
+ 				i915_request_put(rq);
+ 		}
  	}
+-	atomic_dec(&b->signaler_active);
++	spin_unlock(&b->signaler_active_sync);
+ 	rcu_read_unlock();
  
-@@ -1759,41 +1782,41 @@ intel_lt_phy_pll_calc_state(struct intel_crtc_state *crtc_state,
+ 	llist_for_each_safe(signal, sn, signal) {
+@@ -290,6 +290,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	init_llist_head(&b->signaled_requests);
  
- static void
- intel_lt_phy_program_pll(struct intel_encoder *encoder,
--			 const struct intel_crtc_state *crtc_state)
-+			 const struct intel_lt_phy_pll_state *ltpll)
- {
- 	u8 owned_lane_mask = intel_lt_phy_get_owned_lane_mask(encoder);
- 	int i, j, k;
+ 	spin_lock_init(&b->irq_lock);
++	spin_lock_init(&b->signaler_active_sync);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
  
- 	intel_lt_phy_write(encoder, owned_lane_mask, LT_PHY_VDR_0_CONFIG,
--			   crtc_state->dpll_hw_state.ltpll.config[0], MB_WRITE_COMMITTED);
-+			   ltpll->config[0], MB_WRITE_COMMITTED);
- 	intel_lt_phy_write(encoder, INTEL_LT_PHY_LANE0, LT_PHY_VDR_1_CONFIG,
--			   crtc_state->dpll_hw_state.ltpll.config[1], MB_WRITE_COMMITTED);
-+			   ltpll->config[1], MB_WRITE_COMMITTED);
- 	intel_lt_phy_write(encoder, owned_lane_mask, LT_PHY_VDR_2_CONFIG,
--			   crtc_state->dpll_hw_state.ltpll.config[2], MB_WRITE_COMMITTED);
-+			   ltpll->config[2], MB_WRITE_COMMITTED);
+ 	b->irq_engine = irq_engine;
+@@ -487,8 +488,10 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 	if (release)
+ 		intel_context_put(ce);
  
- 	for (i = 0; i <= 12; i++) {
- 		intel_lt_phy_write(encoder, INTEL_LT_PHY_LANE0, LT_PHY_VDR_X_ADDR_MSB(i),
--				   crtc_state->dpll_hw_state.ltpll.addr_msb[i],
-+				   ltpll->addr_msb[i],
- 				   MB_WRITE_COMMITTED);
- 		intel_lt_phy_write(encoder, INTEL_LT_PHY_LANE0, LT_PHY_VDR_X_ADDR_LSB(i),
--				   crtc_state->dpll_hw_state.ltpll.addr_lsb[i],
-+				   ltpll->addr_lsb[i],
- 				   MB_WRITE_COMMITTED);
- 
- 		for (j = 3, k = 0; j >= 0; j--, k++)
- 			intel_lt_phy_write(encoder, INTEL_LT_PHY_LANE0,
- 					   LT_PHY_VDR_X_DATAY(i, j),
--					   crtc_state->dpll_hw_state.ltpll.data[i][k],
-+					   ltpll->data[i][k],
- 					   MB_WRITE_COMMITTED);
- 	}
- }
- 
- static void
- intel_lt_phy_enable_disable_tx(struct intel_encoder *encoder,
--			       const struct intel_crtc_state *crtc_state)
-+			       const struct intel_lt_phy_pll_state *ltpll,
-+			       u8 lane_count)
- {
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	bool lane_reversal = dig_port->lane_reversal;
--	u8 lane_count = crtc_state->lane_count;
- 	bool is_dp_alt =
- 		intel_tc_port_in_dp_alt_mode(dig_port);
- 	enum intel_tc_pin_assignment tc_pin =
-@@ -1895,7 +1918,8 @@ void intel_lt_phy_pll_enable(struct intel_encoder *encoder,
- 	intel_lt_phy_lane_reset(encoder, crtc_state->lane_count);
- 
- 	/* 2. Program PORT_CLOCK_CTL register to configure clock muxes, gating, and SSC. */
--	intel_lt_phy_program_port_clock_ctl(encoder, crtc_state, lane_reversal);
-+	intel_lt_phy_program_port_clock_ctl(encoder, &crtc_state->dpll_hw_state.ltpll,
-+					    crtc_state->port_clock, lane_reversal);
- 
- 	/* 3. Change owned PHY lanes power to Ready state. */
- 	intel_lt_phy_powerdown_change_sequence(encoder, owned_lane_mask,
-@@ -1905,12 +1929,12 @@ void intel_lt_phy_pll_enable(struct intel_encoder *encoder,
- 	 * 4. Read the PHY message bus VDR register PHY_VDR_0_Config check enabled PLL type,
- 	 * encoded rate and encoded mode.
- 	 */
--	if (intel_lt_phy_config_changed(encoder, crtc_state)) {
-+	if (intel_lt_phy_config_changed(encoder, &crtc_state->dpll_hw_state.ltpll)) {
- 		/*
- 		 * 5. Program the PHY internal PLL registers over PHY message bus for the desired
- 		 * frequency and protocol type
- 		 */
--		intel_lt_phy_program_pll(encoder, crtc_state);
-+		intel_lt_phy_program_pll(encoder, &crtc_state->dpll_hw_state.ltpll);
- 
- 		/* 6. Use the P2P transaction flow */
- 		/*
-@@ -2001,7 +2025,8 @@ void intel_lt_phy_pll_enable(struct intel_encoder *encoder,
- 	intel_lt_phy_powerdown_change_sequence(encoder, owned_lane_mask,
- 					       XELPDP_P0_STATE_ACTIVE);
- 
--	intel_lt_phy_enable_disable_tx(encoder, crtc_state);
-+	intel_lt_phy_enable_disable_tx(encoder, &crtc_state->dpll_hw_state.ltpll,
-+				       crtc_state->lane_count);
- 	intel_lt_phy_transaction_end(encoder, wakeref);
- }
- 
--- 
-2.43.0
+-	while (atomic_read(&b->signaler_active))
+-		cpu_relax();
++	while (spin_is_locked(&b->signaler_active_sync)) {
++		spin_lock_irqsave(&b->signaler_active_sync, flags);
++		spin_unlock_irqrestore(&b->signaler_active_sync, flags);
 
+And this does not work because spin_is_locked() returns true and spins
+forever. This fails because there is a "corner case" where
+spin_is_locked() returns but the lock has no lock owner as in locked.
+This happens if there is a waiter which did not yet acquire the lock. 
+
+So if you happy with this, we could keep it ;)
+
++	}
+ }
+ 
+ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index bdf09fd67b6e7..d071f4f1b1910 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -39,7 +39,7 @@ struct intel_breadcrumbs {
+ 	spinlock_t signalers_lock; /* protects the list of signalers */
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
+-	atomic_t signaler_active;
++	spinlock_t signaler_active_sync;
+ 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
+
+
+Sebastian
