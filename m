@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B431112583A
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 14:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88C5E112583C
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 14:19:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC4910E291;
-	Wed, 11 Mar 2026 14:19:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25A3210E8C4;
+	Wed, 11 Mar 2026 14:19:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FFX9bxLR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kxP5k52W";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9677710E205;
- Wed, 11 Mar 2026 14:19:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9214E10E8C4;
+ Wed, 11 Mar 2026 14:19:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773238749; x=1804774749;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=WjabNf4ZfVUf0yPvf+APukrtM4OGc+svebu+rMDG75I=;
- b=FFX9bxLRBLElC0i7JTS1n0kQzcdN0VbxMocuF7nP0rbTnzTG7IqexD8o
- zhnJcVqyaz5zu6HflehDS5igpQ/BKeNX9tt89abMHdCeEo2JAN1ZNDIUt
- 9oNfqF2qGzSInVTlao9qJR76EinR97kGBr35B0++qF0gKpc/R5sIJHXq1
- lQsz8qJ1LZkUqLEu3LLDMmyE8e/KOB8jYTSacg8ZAcWzKq1kXMsHwDs3Z
- +asZ+0EqqxdDfzzgG323UE/Wmx+RNZuERAgklPtrIZTd6AdcqyuRQtNNv
- FzrPMSngBbbP7Q0NUNVSZF4rFbJ1gcgSlkLbOhfwkJ8XZ9BGzxaAeqigi Q==;
-X-CSE-ConnectionGUID: j6iEUK8bR5CK6eYsOx0I6w==
-X-CSE-MsgGUID: qtUJ68FmSOeRwUPpQLtPuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11726"; a="99775153"
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="99775153"
+ t=1773238751; x=1804774751;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=kf8+KtqCVmGyAgYZtnMZj8gr9JRv0t0v75OYAMgS9zI=;
+ b=kxP5k52Wax/ms89wqP63eMQQ1W1zyCVhzYuUBjvogqKxwXG+cvPSeMN1
+ zo0cqZFlGTldAI5lfcuWp3pa7Q6SwyazgUF/VLJ4W5r1GZsL5opjyMkxb
+ OCUDJSIq4hY/cPjJSH6jc0PIdy+xyBHFHEv1LcOSrEPewrSHD9iWkPYWA
+ EMOB/F0MqZwD5l0yZdrTImis+GfF5gfAhsHBeYs8p8rnPQBIESjTwKfH/
+ QtZkR2ANNi/K7of0tB1gAXO4OlwyV3+KXM4LIOhfvFFtIQ6MZodJmFoPA
+ 2jGzaFVj0lVnnZlXLsGXxxJs6WzrEQh1MEocpu8DdIrkCv+VPLBEhqHoc g==;
+X-CSE-ConnectionGUID: l3uZ2CDIT9CVCiExOhIsQQ==
+X-CSE-MsgGUID: My7laWTbRv2lFrj5WZ94Vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11726"; a="99775163"
+X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="99775163"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Mar 2026 07:19:08 -0700
-X-CSE-ConnectionGUID: JHSaXzhxTJquCjY7e6nxJA==
-X-CSE-MsgGUID: AvVP4H87QAOObs0B/QNNOA==
+ 11 Mar 2026 07:19:11 -0700
+X-CSE-ConnectionGUID: frmfKSbQSZeAYPqaYYLgVg==
+X-CSE-MsgGUID: m8QlWZsLTb6Sl49Co0Ve9A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="216730339"
+X-IronPort-AV: E=Sophos;i="6.23,113,1770624000"; d="scan'208";a="216730363"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa006.fm.intel.com with ESMTP; 11 Mar 2026 07:19:06 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 11 Mar 2026 07:19:09 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: suraj.kandpal@intel.com,
 	Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH v3 00/24] Refactor LT PHY PLL handling to use DPLL framework
-Date: Wed, 11 Mar 2026 14:18:41 +0000
-Message-ID: <20260311141905.2526418-1-mika.kahola@intel.com>
+Subject: [PATCH v3 02/24] drm/i915/lt_phy: Add check if PLL is enabled
+Date: Wed, 11 Mar 2026 14:18:43 +0000
+Message-ID: <20260311141905.2526418-3-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260311141905.2526418-1-mika.kahola@intel.com>
+References: <20260311141905.2526418-1-mika.kahola@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,52 +68,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is v3 of [1], with the following changes
- - Reorder patches to maintain bisectability
- - Drop xe3plpd specific DDI enable_clock/disable_clock hooks and reuse
-   MTL intel_mtl_pll_enable_clock() and intel_mtl_pll_disable_clock()
-   hooks instead
- - Commit message updates
+Add check for PLL enabling and return early if
+PLL is not enabled.
 
-Mika Kahola (24):
-  drm/i915/lt_phy: Dump missing PLL state parameters
-  drm/i915/lt_phy: Add check if PLL is enabled
-  drm/i915/lt_phy: Add PLL information for xe3plpd
-  drm/i915/lt_phy: Refactor LT PHY PLL handling to use explicit PLL
-    state
-  drm/i915/lt_phy: Add lane_count to PLL state
-  drm/i915/lt_phy: Add xe3plpd .compute_dplls hook
-  drm/i915/lt_phy: Add xe3plpd .get_dplls hook
-  drm/i915/lt_phy: Add xe3plpd .put_dplls hook
-  drm/i915/lt_phy: Add xe3plpd .update_active_dpll hook
-  drm/i915/lt_phy: Add xe3plpd .update_dpll_ref_clks hook
-  drm/i915/lt_phy: Add xe3plpd .dump_hw_state hook
-  drm/i915/lt_phy: Add xe3plpd .compare_hw_state hook
-  drm/i915/lt_phy: Add xe3plpd .get_hw_state hook
-  drm/i915/lt_phy: Add xe3plpd .get_freq hook
-  drm/i915/lt_phy: Add xe3plpd .crtc_get_dpll
-  drm/i915/lt_phy: Add .enable_clock hook on DDI
-  drm/i915/lt_phy: Add .disable_clock hook on DDI
-  drm/i915/lt_phy: Dump lane count for HW state
-  drm/i915/lt_phy: Readout lane count
-  drm/i915/lt_phy: Get encoder configuration for xe3plpd platform
-  drm/i915/lt_phy: Add xe3plpd Thunderbolt PLL hooks
-  drm/i915/lt_phy: Remove LT PHY specific state verification
-  drm/i915/lt_phy: Enable dpll framework for xe3plpd
-  drm/i915/lt_phy: Replace crtc compute clock
+v2: Use PCLK PLL ACK bit to check if PLL is enabled (Suraj)
+v3: Check only if PCLK PLL ACK bit for lane 0 is enabled (Suraj)
 
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  10 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |   1 +
- drivers/gpu/drm/i915/display/intel_ddi.c      |  26 +--
- drivers/gpu/drm/i915/display/intel_display.c  |  32 ---
- drivers/gpu/drm/i915/display/intel_dpll.c     |  26 +--
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 184 ++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h |   1 +
- drivers/gpu/drm/i915/display/intel_lt_phy.c   | 193 ++++++++++--------
- drivers/gpu/drm/i915/display/intel_lt_phy.h   |  23 ++-
- .../drm/i915/display/intel_modeset_verify.c   |   1 -
- 10 files changed, 318 insertions(+), 179 deletions(-)
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_lt_phy.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+index f768804122c1..e1c95f58b6ae 100644
+--- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+@@ -2176,6 +2176,14 @@ intel_lt_phy_pll_compare_hw_state(const struct intel_lt_phy_pll_state *a,
+ 	return false;
+ }
+ 
++static bool intel_lt_phy_pll_is_enabled(struct intel_encoder *encoder)
++{
++	struct intel_display *display = to_intel_display(encoder);
++
++	return intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port)) &
++			     XELPDP_LANE_PCLK_PLL_ACK(0);
++}
++
+ void intel_lt_phy_pll_readout_hw_state(struct intel_encoder *encoder,
+ 				       const struct intel_crtc_state *crtc_state,
+ 				       struct intel_lt_phy_pll_state *pll_state)
+@@ -2185,6 +2193,9 @@ void intel_lt_phy_pll_readout_hw_state(struct intel_encoder *encoder,
+ 	struct ref_tracker *wakeref;
+ 	int i, j, k;
+ 
++	if (!intel_lt_phy_pll_is_enabled(encoder))
++		return;
++
+ 	pll_state->tbt_mode = intel_tc_port_in_tbt_alt_mode(enc_to_dig_port(encoder));
+ 	if (pll_state->tbt_mode)
+ 		return;
 -- 
 2.43.0
 
