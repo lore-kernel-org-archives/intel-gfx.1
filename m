@@ -4,27 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 148211062892
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 12:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE7B106289F
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 13:16:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FF1E10E134;
-	Wed, 11 Mar 2026 12:50:08 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13D1510E134;
- Wed, 11 Mar 2026 12:50:08 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1526996778855244465=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDE710E1EC;
+	Wed, 11 Mar 2026 13:16:10 +0000 (UTC)
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
+ [209.85.221.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 151BB10E1EC
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 13:16:09 +0000 (UTC)
+Received: by mail-vk1-f180.google.com with SMTP id
+ 71dfb90a1353d-56ae58f3fc6so6631461e0c.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 06:16:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773234968; x=1773839768;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=34DR94e/1PAvLLEaib58vFA4GW0m5SGe6jvxchEhMek=;
+ b=WUTjMoCVabzlWddOvTvR+wxpFmmd4LWZ4QSrB0Spca2xillyTUudC+vvvzazWZvUKV
+ mM2vDUC786FnXpOKUoOOF7miJbiasFR2MWJtPVW7sYmKofBT7G5pFqkn3s3d7orV9LlO
+ Bm3IBMtnd3z3VAuIk2zvGjYbf5//vkjCOQ7htrMp1yucW/osxz1ihjYgkSCQFuf3NX8w
+ RVubI4/4jhFEwugsehMZ5jCO1bQCbt2HKtMuTvW99+ufT49DQsr3LQYz5fnLiJ21qvPq
+ Zt3AgOIwK0VrTJ7MF6eb2TjENuh0SpSLi9xhtAlpyoH7D2hxzJ8DhNq3AVFdfdtHlf2X
+ LJiw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX2eYyC91Dt6m4NhhlqfweQ78ZCasqDy7D70NYRjZvXjbpf3wes3Ebwr/Sp0lYB++VCYQnmoCsAiik=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFPrl/Lp39Qo6AiFBxWUlIeuQpgka8tkX1IBbq2kMgLLvJmJe5
+ Uh4ftaxVMnPFXmZnVhX9Ss4oKjRv4liW7ir8io8Bnd44Sx26qAIvCZ8KUGYFYL61050=
+X-Gm-Gg: ATEYQzyOCmCrLMgAB4AoIsn9GK2UeOAbEFc1YY72Cet/kqT08vsdAIPTFR0XDvbHDnG
+ mnbyAzLgVnYpdNBZhK6fE93CktVjU0BA/3fM9Eaw5nE9RzXRICggK1GV66Qa2DxVLr9+qYSNnRu
+ IvPrTq8gb/GsxecNWERxvkzKlfZARed6HXp1v0w1ldDERZuRoyN+JeWegNNV8bx0HQDY0Tupp65
+ B7jF7NzThM8JqCVR9tExk/2zCNqwnUDttoEKD0ZOCUyFnm1J5FquDx7NauGIzrRtwZ9JmID/j8U
+ uvTb7+uY4u5m3EZ0oDxcc3P6iK3xcT762POuhdxlACC6OwfdpWkFBJzn13xdpaYq10X6P25RJPC
+ LxF6UjS0Ppi+PAXgTDCPzKSxijPry3k82xVvTCApi0cbFuruugsEH4ROw7mUZjO8sY1o+cJ/P4m
+ kraqoz9Bg+1pur0rBbnrJ3qd80KVrvI4ljdVvKvxXFNhMfjSCVLizs28CLEPn9t/jA
+X-Received: by 2002:a05:6123:147:b0:56a:fb7b:7537 with SMTP id
+ 71dfb90a1353d-56b4769d7fbmr866148e0c.19.1773234967879; 
+ Wed, 11 Mar 2026 06:16:07 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com.
+ [209.85.221.171]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-94ecfc4dd70sm515890241.2.2026.03.11.06.16.07
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 11 Mar 2026 06:16:07 -0700 (PDT)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-5675d609621so11786880e0c.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 06:16:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDQyHgLG7BohwlVntEMkswBSRqDGyrExuD93zdQuNtSVK9g1K21iL4HuLydVtm9qP4dvtAwaqJzew=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:1d05:b0:55b:7494:177b with SMTP id
+ 71dfb90a1353d-56b4752d806mr922396e0c.10.1773234967338; Wed, 11 Mar 2026
+ 06:16:07 -0700 (PDT)
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Fix_Adaptive_Sync_SDP_for?=
- =?utf-8?q?_PR_with_Link_ON_+_Auxless_ALPM_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 11 Mar 2026 12:50:08 -0000
-Message-ID: <177323340805.345924.9409066575720330865@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260311113611.3393194-1-ankit.k.nautiyal@intel.com>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-36-bd63b656022d@avm.de>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-36-bd63b656022d@avm.de>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 11 Mar 2026 14:15:56 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXQ8Q4jvkgFRJYhghz2BZRDC-9Mk6DbXxuaOc6C9DFHZQ@mail.gmail.com>
+X-Gm-Features: AaiRm52J84H77ROK64ZWWtJfaiCpnFeKyoSRmPbi-NC8CN6Ju1TJEFxJU9gZQQ8
+Message-ID: <CAMuHMdXQ8Q4jvkgFRJYhghz2BZRDC-9Mk6DbXxuaOc6C9DFHZQ@mail.gmail.com>
+Subject: Re: [PATCH 36/61] arch/sh: Prefer IS_ERR_OR_NULL over manual NULL
+ check
+To: Philipp Hahn <phahn-oss@avm.de>
+Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org, 
+ linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org, 
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
+ samba-technical@lists.samba.org, sched-ext@lists.linux.dev, 
+ target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
+ v9fs@lists.linux.dev, Yoshinori Sato <ysato@users.sourceforge.jp>, 
+ Rich Felker <dalias@libc.org>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,224 +108,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1526996778855244465==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 10 Mar 2026 at 12:56, Philipp Hahn <phahn-oss@avm.de> wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+>
+> Change generated with coccinelle.
+>
+> To: Yoshinori Sato <ysato@users.sourceforge.jp>
+> To: Rich Felker <dalias@libc.org>
+> To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Cc: linux-sh@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 
-== Series Details ==
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Series: Fix Adaptive Sync SDP for PR with Link ON + Auxless ALPM (rev2)
-URL   : https://patchwork.freedesktop.org/series/161977/
-State : failure
+Gr{oetje,eeting}s,
 
-== Summary ==
+                        Geert
 
-CI Bug Log - changes from CI_DRM_18129 -> Patchwork_161977v2
-====================================================
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_161977v2 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_161977v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/index.html
-
-Participating hosts (41 -> 39)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_161977v2:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - fi-bsw-nick:        [PASS][1] -> [ABORT][2] +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-bsw-nick/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-bsw-nick/igt@i915_selftest@live.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_161977v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@dmabuf@all-tests@dma_fence_chain:
-    - fi-glk-j4005:       NOTRUN -> [SKIP][3]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence_chain.html
-
-  * igt@i915_selftest@live:
-    - bat-dg2-8:          [PASS][4] -> [DMESG-FAIL][5] ([i915#12061]) +1 other test dmesg-fail
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-dg2-8/igt@i915_selftest@live.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-dg2-8/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-9:         [PASS][6] -> [DMESG-FAIL][7] ([i915#12061]) +1 other test dmesg-fail
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-glk-j4005:       [ABORT][8] -> [PASS][9] +1 other test pass
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-glk-j4005/igt@i915_selftest@live.html
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@migrate:
-    - fi-glk-j4005:       [DMESG-FAIL][10] -> [PASS][11]
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-glk-j4005/igt@i915_selftest@live@migrate.html
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@i915_selftest@live@migrate.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [DMESG-FAIL][12] ([i915#12061]) -> [PASS][13] +1 other test pass
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18129 -> Patchwork_161977v2
-
-  CI-20190529: 20190529
-  CI_DRM_18129: 215a6363df58623db6c206078cdf34b3e58047ac @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8792: 8792
-  Patchwork_161977v2: 215a6363df58623db6c206078cdf34b3e58047ac @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/index.html
-
---===============1526996778855244465==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Fix Adaptive Sync SDP for PR with Link ON + Auxless ALPM (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/161977/">https://patchwork.freedesktop.org/series/161977/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18129 -&gt; Patchwork_161977v2</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_161977v2 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_161977v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/index.html</p>
-<h2>Participating hosts (41 -&gt; 39)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_161977v2:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-bsw-nick/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-bsw-nick/igt@i915_selftest@live.html">ABORT</a> +1 other test abort</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_161977v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
-<ul>
-<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@dmabuf@all-tests@dma_fence_chain.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-glk-j4005/igt@i915_selftest@live.html">ABORT</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@migrate:</p>
-<ul>
-<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/fi-glk-j4005/igt@i915_selftest@live@migrate.html">DMESG-FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/fi-glk-j4005/igt@i915_selftest@live@migrate.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18129/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_161977v2/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18129 -&gt; Patchwork_161977v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18129: 215a6363df58623db6c206078cdf34b3e58047ac @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8792: 8792<br />
-  Patchwork_161977v2: 215a6363df58623db6c206078cdf34b3e58047ac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1526996778855244465==--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
