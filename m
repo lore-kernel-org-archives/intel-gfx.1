@@ -4,27 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4B39106ACC7
-	for <intel-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 16:13:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CE3106ACD0
+	for <intel-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 16:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E65010E284;
-	Thu, 12 Mar 2026 16:13:31 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 931ED10E284;
- Thu, 12 Mar 2026 16:13:30 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8072659030869202692=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5450410EA67;
+	Thu, 12 Mar 2026 16:45:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="WxcdvAR4";
+	dkim-atps=neutral
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79D9010E334;
+ Wed, 11 Mar 2026 23:03:38 +0000 (UTC)
+Received: from monstersaurus.ideasonboard.com
+ (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id CD91E448;
+ Thu, 12 Mar 2026 00:02:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1773270149;
+ bh=ATo3aRyKmYSXuSYD8x/NeBUp5LJcLKbzHVpozNXQJC0=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=WxcdvAR4zphcUuTNTLXCbLGiiCOKCwemLRMbnRdmW3ARcBHAWQiYVeysDpnfCIDuk
+ B8rMCjKjDjoWJdgj4Zp0scfHxrPnr5P3xl9hFANY/wyWKZBZYHzyf2qsFxVEe9S31Y
+ m9r/HjFnopry9bsUUdk6/id/Q3d97jYK/FiMa+Qw=
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dmc=3A_Update_PI?=
- =?utf-8?q?PEDMC_interrupt_mask_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 12 Mar 2026 16:13:30 -0000
-Message-ID: <177333201058.351130.8578943981980026064@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260312132941.2614478-1-dibin.moolakadan.subrahmanian@intel.com>
-In-Reply-To: <20260312132941.2614478-1-dibin.moolakadan.subrahmanian@intel.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260310-b4-is_err_or_null-v1-49-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-49-bd63b656022d@avm.de>
+Subject: Re: [PATCH 49/61] media: Prefer IS_ERR_OR_NULL over manual NULL check
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
+	apparmor@lists.ubuntu.com, bpf@vger.kernel.org,
+	ceph-devel@vger.kernel.org, cocci@inria.fr, dm-devel@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, gfs2@lists.linux.dev,
+	intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+	iommu@lists.linux.dev, kvm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
+	linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org,
+	linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-mm@kvack.org, linux-modules@vger.kernel.org,
+	linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-phy@lists.infradead.org,
+	lin@freedesktop.org, ux-pm@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+	ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+	sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+	tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
+Date: Wed, 11 Mar 2026 23:03:33 +0000
+Message-ID: <177327021364.3167621.11851238159935183684@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
+X-Mailman-Approved-At: Thu, 12 Mar 2026 16:45:40 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,145 +81,44 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8072659030869202692==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Quoting Philipp Hahn (2026-03-10 11:49:15)
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+>=20
+> Change generated with coccinelle.
+>=20
+> To: Shuah Khan <skhan@linuxfoundation.org>
+> To: Kieran Bingham <kieran.bingham@ideasonboard.com>
+> To: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Cc: linux-media@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>  drivers/media/test-drivers/vimc/vimc-streamer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/test-drivers/vimc/vimc-streamer.c b/drivers/me=
+dia/test-drivers/vimc/vimc-streamer.c
+> index 15d863f97cbf96b7ca7fbf3d7b6b6ec39fcc8ae3..da5aca50bcb4990c06f28e5a8=
+83eb398606991e9 100644
+> --- a/drivers/media/test-drivers/vimc/vimc-streamer.c
+> +++ b/drivers/media/test-drivers/vimc/vimc-streamer.c
+> @@ -167,7 +167,7 @@ static int vimc_streamer_thread(void *data)
+>                 for (i =3D stream->pipe_size - 1; i >=3D 0; i--) {
+>                         frame =3D stream->ved_pipeline[i]->process_frame(
+>                                         stream->ved_pipeline[i], frame);
+> -                       if (!frame || IS_ERR(frame))
+> +                       if (IS_ERR_OR_NULL(frame))
 
-== Series Details ==
+Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
 
-Series: drm/i915/dmc: Update PIPEDMC interrupt mask (rev3)
-URL   : https://patchwork.freedesktop.org/series/162934/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_18137 -> Patchwork_162934v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_162934v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-dg2-8:          [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-dg2-8/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-dg2-8/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-    - bat-arls-6:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-arls-6/igt@i915_selftest@live@workarounds.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-arls-6/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18137 -> Patchwork_162934v3
-
-  CI-20190529: 20190529
-  CI_DRM_18137: 3ccc0e3404591e404d0dee79406cd013f377356a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8798: 8798
-  Patchwork_162934v3: 3ccc0e3404591e404d0dee79406cd013f377356a @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/index.html
-
---===============8072659030869202692==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dmc: Update PIPEDMC interrupt mask (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162934/">https://patchwork.freedesktop.org/series/162934/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18137 -&gt; Patchwork_162934v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_162934v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18137/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162934v3/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18137 -&gt; Patchwork_162934v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18137: 3ccc0e3404591e404d0dee79406cd013f377356a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8798: 8798<br />
-  Patchwork_162934v3: 3ccc0e3404591e404d0dee79406cd013f377356a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8072659030869202692==--
+>                                 break;
+>                 }
+>                 //wait for 60hz
+>=20
+> --=20
+> 2.43.0
+>
