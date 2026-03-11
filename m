@@ -4,72 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E81E31125851
-	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 16:14:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A6C1125853
+	for <intel-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 16:14:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA1C510E8B0;
-	Wed, 11 Mar 2026 16:14:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8955A10E8F5;
+	Wed, 11 Mar 2026 16:14:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=crudebyte.com header.i=@crudebyte.com header.b="BSv+5VTS";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="AYT9zup6";
 	dkim-atps=neutral
-X-Greylist: delayed 2576 seconds by postgrey-1.36 at gabe;
- Tue, 10 Mar 2026 14:28:14 UTC
-Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC32410E158
- for <intel-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 14:28:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
- Content-ID:Content-Description;
- bh=tqNoaL94Dj4pObM+6pGSr4RMsIJmELh6Cj7p3cxJGxE=; b=BSv+5VTSyPyrhpKWnMZVCjZEvG
- yrk6LWxlGwnUUZjquKMol+ljVUIUp9jBraubgLqBi4cKz4hniKCf9rIQTsThme1FexxEN+zxKvsgC
- uvMYbDhkYi+shFX+PLCD/IMwmjSpYMDJbZGsateoQvss1ByMiB7n5CokueqpdePTp7697ajozqLcL
- QNNNvSzTIj5kMR2wUJSupi5THJtiu7VhPmFy8ePRrdnRpYFSOebiyO3IlTbeTGO/MmRM5PEIBBHLD
- zejwvm6ItsldfqTIXTc6O0Z/soDk0el6lSZ+MrXBoszSWB5pdQE71J71rNLjrXAAIRkB6hWfEOV6d
- 5s2EICAGfy5rFvZnPzPqZQFNMJmMF1OtxV9pY8V9U1rZXYRb0+cWjl6X1xLcFCZOiZcoHLob301cc
- kRokX7oWqU/2ExVyAy+qxf6eKje0uvqaOqv9hMGZ5ryaSKPC2aKAIJfnAVSBvJS/v1i4KIjPZc3rm
- OWRlN9QVYisM4o3VWUWhQE9QLOSHJzH7XsIe7kcAxjAHPZYtil03PpuGESYai0z/ycOzdMPXNnK8s
- RUYQ5R4xdnnK/uIBRJ5tLN+fwlf+9zGkqtXzZ7Db2ibQTV2JC6OBFoQ9ds8aqQ/KGsNN9Qx1u7AAn
- wqTFHtO0j/nTwkXDvMBIt3or3MQXIgQCujiNGxQ00=;
-From: Christian Schoenebeck <linux_oss@crudebyte.com>
-To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
- Philipp Hahn <phahn-oss@avm.de>, Philipp Hahn <phahn-oss@avm.de>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>
-Subject: Re: [PATCH 06/61] 9p: Prefer IS_ERR_OR_NULL over manual NULL check
-Date: Tue, 10 Mar 2026 14:45:07 +0100
-Message-ID: <2401874.ElGaqSPkdT@weasel>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-6-bd63b656022d@avm.de>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-6-bd63b656022d@avm.de>
+X-Greylist: delayed 496 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Mar 2026 13:41:17 UTC
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F7B10E1B0;
+ Wed, 11 Mar 2026 13:41:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+ s=iohv2404; t=1773236474;
+ bh=nue+qzPo4qG7NNzBxMSw/JyTNDP379Ume26FJRqcLIA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=AYT9zup6yLuWQh5wsd+TCM0E5VmTGrmXWUvpBQoVFPdBKhuC01MpGgJYS6GMH1eZa
+ J/UKCbeotzba/pDHFYVOLAUR3/loTHE8Q5R0K+3FrSJoExVc649veQsiaGqAIA0qqF
+ rrY6ax17QdExELC2F1zxUdkLziHjphUDKqurM/w4=
+X-QQ-mid: esmtpgz14t1773235918td265877b
+X-QQ-Originating-IP: Sjg5GRpehjMhjW7R+H5sozHhXDewFonGnwPMgAtMDRY=
+Received: from localhost.localdomain ( [116.172.93.199])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 11 Mar 2026 21:31:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 18182196931313005747
+EX-QQ-RecipientCnt: 14
+From: Kexin Sun <kexinsun@smail.nju.edu.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ julia.lawall@inria.fr, xutong.ma@inria.fr, yunbolyu@smu.edu.sg,
+ ratnadiraw@smu.edu.sg, Kexin Sun <kexinsun@smail.nju.edu.cn>
+Subject: [PATCH] drm/i915/gem: update outdated comment
+Date: Wed, 11 Mar 2026 21:31:53 +0800
+Message-Id: <20260311133153.576-1-kexinsun@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: MOrL9Q2bZwNShs2znJCtW+uThu2Y6hoImKfgUgw1NhudO40S2T0gbXYo
+ /zqK7ujJTbSrsiWOxU5pZDIqdvcWpMtV8+Or688gwEHyauApGM4HMgL8mUHewxWla3oG8Lz
+ 1insOPgrdQXiyS5lS4PknihvD0/ZE6AcdUCjfkqPzFm0/cBXXiTJs5h0tHIy1jvRKvudOwv
+ mhX1uy5wZhwi6Mjx/V9hjuf2NU35AmayFsSaI89Aaqc6gLbWWxdjiyd3FnjLzXDCJRukHPc
+ JO/FNJplUFRn9rPKiB/2zrgfJBGNYF0+z+U3RImKhQC1AMp/4AJAWc8GZvLxnhcCD24VGLa
+ kQTktPnZ0FsPqc77bHY17GYVWEL3KHfYsg9Y+W06rTdgEtEKpEkO80DzWB8kE+BXm9O9iSM
+ fUMQu4SeIBqjs8yUsNGnTOKsPSqsJxE5JEhHSrRoPCH4zRyl5XGNTxjcOP194WjtNu+SybZ
+ 7+/EELei0rWlRGJPE9r5AbXOWXqf1z87wViPUQh0e2oX5JhdUsE4ENTWsg9r/OMkgIOSP7l
+ /zHpdqWDLKXEnPwARe44D3iIY303BJz8vgS+jSbBDAHQPGgFQaEG++chWSuhXdq7Rl44E6L
+ BRBVKqJ3ccnRXMRIplStyLs3ufGr/bFOTXaP9bCgQLtBkJJVbfar6my7XI6Ou91VZPdmWdn
+ qTWh2oNmQhMq2sB8ptiE7GowH3bDN+2wiy3f5pJqkK5bPfIlq0rOQZ6wDsX58B/nR8Wx3C7
+ 5rpuI+VZdxgY1nVHTYAhRPzdSFAozT8iJYMapEgMJ5PYK7Nf0RHh3MAw9S30qesRTtPMiby
+ 9wQSmjJ1WRsfjKJKXKX187cBsM/MXZYu/h6VPxaY0WBXke/J+lnwDjLKON5o3M7wyxshTU1
+ ybnElfni0V5zo1AMhKfUCWDzJ2kXQkcX4pmRjmr/BpVwYcc6NsYke6vfveC6ALEqAZpl/Ra
+ eXR14xPWFnufe0LbMetneX2KMRjvwKwOTUdEE8Ov/Zy2/kmxHrpSNzh4MqaoWgSEBjTzii1
+ RPHwTbxMpiVW7SLSP3baQ9PutEFKiSYA7Y752FP3EkYV8fFtynTZmWA3tQumd5TuTy+wRZF
+ 86w3c1WMe7eqUHTsdCqEoPf6N0ZE/Y+ksj2JdyUfrQ/58gICZrD9wA=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 11 Mar 2026 16:14:45 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,42 +83,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 10 March 2026 12:48:32 CET Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
-> 
-> Change generated with coccinelle.
-> 
-> To: Eric Van Hensbergen <ericvh@kernel.org>
-> To: Latchesar Ionkov <lucho@ionkov.net>
-> To: Dominique Martinet <asmadeus@codewreck.org>
-> To: Christian Schoenebeck <linux_oss@crudebyte.com>
-> Cc: v9fs@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  fs/9p/fid.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+The function set_engines() was removed in commit d9d29c747df8
+("drm/i915/gem: Don't allow changing the engine set on running
+contexts (v3)").
 
-"fs/9p" in the subject on this one, please, not just "9p".
+However, concurrent code paths such as i915_gem_context_lock_engines()
+still access ctx->engines under engines_mutex (e.g. from execbuf
+throttle), so the lock in context_close() remains necessary to
+serialize the engine teardown against these concurrent readers.
 
-Except of that:
+So, remove the outdated reference to set_engines(), but preserve the
+serialization reminder.
 
-Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
+Assisted-by: unnamed:deepseek-v3.2 coccinelle
+Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> diff --git a/fs/9p/fid.h b/fs/9p/fid.h
-> index
-> 0d6138bee2a3d1ab565ab2d210c0a3f3bf97e4e3..3bb7ef4380e972a2d9ab67eb4aab6cc5b
-> fe2eea7 100644 --- a/fs/9p/fid.h
-> +++ b/fs/9p/fid.h
-> @@ -27,7 +27,7 @@ static inline struct p9_fid *v9fs_fid_clone(struct dentry
-> *dentry) struct p9_fid *fid, *nfid;
-> 
->  	fid = v9fs_fid_lookup(dentry);
-> -	if (!fid || IS_ERR(fid))
-> +	if (IS_ERR_OR_NULL(fid))
->  		return fid;
-> 
->  	nfid = clone_fid(fid);
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index 6ac0f23570f3..958e3c822948 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1516,7 +1516,7 @@ static void context_close(struct i915_gem_context *ctx)
+ {
+ 	struct i915_drm_client *client;
+ 
+-	/* Flush any concurrent set_engines() */
++	/* Serialize against concurrent access to the context's engines */
+ 	mutex_lock(&ctx->engines_mutex);
+ 	unpin_engines(__context_engines_static(ctx));
+ 	engines_idle_release(ctx, rcu_replace_pointer(ctx->engines, NULL, 1));
+-- 
+2.25.1
 
