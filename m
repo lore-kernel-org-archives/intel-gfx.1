@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B9CCFED2E8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25F1FED2EC
 	for <intel-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 08:07:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1AF10E9C9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D72610E9C8;
 	Thu, 12 Mar 2026 08:07:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OQ0mToXH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gI7vKe9f";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1454310E9BB;
- Thu, 12 Mar 2026 08:07:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE4610E9BE;
+ Thu, 12 Mar 2026 08:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773302845; x=1804838845;
+ t=1773302841; x=1804838841;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dnmUmralgHDV2sSJsFHdMhwJ7xSGRMeG0ixkiA/2WrU=;
- b=OQ0mToXHo2vhGBXCByhS4ZcnFCy4gJEGRJDuYPcfeYwcNJRpVyJ4PYFM
- AkY3Y3ZepwRs0bJs9yvw7J5aVZHSHGO7RgDqDzlRee3NipiNJKz18s3Tp
- /Z92zW5Ak5U541v7pCzFN0afrbYE5vMFEj8CY/amQ5LjLgOMoWvvLc5wD
- zZGhJYLikZQdGn/9if6G1R3JiM1ZZXGYr311QZy/9Z4qma3UtzjT4ZVVs
- tl0jypGXHuluM4J7kxirL9rktYEWyXMxVqPXn7moQoc4Rc531O6QqHVCQ
- aCgga6aioAzJH4yruU65cskTq0paK+eRtyUPm7m0F3XsdJEfBxpHOoea7 g==;
-X-CSE-ConnectionGUID: sOo/OvEgSUSnNYL1h3DFAA==
-X-CSE-MsgGUID: tDqM2IQATSWozcva0IghOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11726"; a="85013742"
-X-IronPort-AV: E=Sophos;i="6.23,115,1770624000"; d="scan'208";a="85013742"
+ bh=SPwgdb/b9QXQFBWiiumTFmYMynRm2NCKLpBMPsOwf1U=;
+ b=gI7vKe9fdjZr+fUJmRoGKyEBwXmBok0CnUS14XjB2Q+Zmp65TRLEmt/u
+ 6aOaLKHTIAwDJpTxUTHQvNVZrT62V1asF9+ZwVn253er2vNZpCFYxz8rv
+ DqefMBP8pxysuFWzX+ezmVekxuZ7u3S9v8y6tD7Ybk3XA2quGu0p47E7L
+ faFRDxCI5rCHmte3g746aqD3MPtoaoAWvV1dR1EDR2t5QSAUQa8LJT/vS
+ 3xjWWJs+emma3wCcBMCAAOq5AymtVXHmneXwJluzp4ecIfvvdeHosf1cl
+ aUwPwyEso2RPUPpMDIY+WEBGpBmlIURFfya/DN+O9z3Gy20pyFGn9cSgh g==;
+X-CSE-ConnectionGUID: rCbLuHQWTQWHLpWUJphmjw==
+X-CSE-MsgGUID: 9AQRKxeYQg6/n34TykLUWA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11726"; a="85013739"
+X-IronPort-AV: E=Sophos;i="6.23,115,1770624000"; d="scan'208";a="85013739"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2026 01:07:25 -0700
-X-CSE-ConnectionGUID: GsCsaj9sQOu6k/DS/bE1Ag==
-X-CSE-MsgGUID: R+e7V/TySvqhiVSdVpEhJg==
+ 12 Mar 2026 01:07:21 -0700
+X-CSE-ConnectionGUID: TwUAvY//RqCnEUOdkUtBnQ==
+X-CSE-MsgGUID: 752fK1iAQ3OwK9RSwNFcoQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,115,1770624000"; d="scan'208";a="223206909"
+X-IronPort-AV: E=Sophos;i="6.23,115,1770624000"; d="scan'208";a="223206881"
 Received: from display-adls.igk.intel.com ([10.211.131.198])
- by fmviesa004.fm.intel.com with ESMTP; 12 Mar 2026 01:07:24 -0700
+ by fmviesa004.fm.intel.com with ESMTP; 12 Mar 2026 01:07:20 -0700
 From: Mika Kahola <mika.kahola@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Mika Kahola <mika.kahola@intel.com>,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [CI v3 20/24] drm/i915/lt_phy: Get encoder configuration for xe3plpd
- platform
-Date: Thu, 12 Mar 2026 08:06:53 +0000
-Message-ID: <20260312080657.2648265-21-mika.kahola@intel.com>
+Subject: [CI v3 17/24] drm/i915/lt_phy: Add .disable_clock hook on DDI
+Date: Thu, 12 Mar 2026 08:06:50 +0000
+Message-ID: <20260312080657.2648265-18-mika.kahola@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260312080657.2648265-1-mika.kahola@intel.com>
 References: <20260312080657.2648265-1-mika.kahola@intel.com>
@@ -69,52 +68,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reuse mtl_ddi_*_get_config functions now that all hooks are in place.
+Add new pll_disable_clock functions so that they can be
+hooked up to dpll->disable. This is just a wrapper over
+the exitisting intel_xe3plpd_pll_disable to make it
+compatible With dpll->disable function
+
+v2: Revise commit message (Suraj)
+    Drop wrapper for TBT clock disabling and reuse
+    intel_mtl_pll_disable_clock() for DDI clock
+    disabling hook (Suraj)
 
 Signed-off-by: Mika Kahola <mika.kahola@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 20 ++++----------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 12 ++++++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 3cc8c681c352..fe024250d350 100644
+index 93f62d995e96..3cc8c681c352 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi.c
 +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4243,21 +4243,6 @@ void intel_ddi_get_clock(struct intel_encoder *encoder,
- 						     &crtc_state->dpll_hw_state);
+@@ -5299,7 +5299,7 @@ void intel_ddi_init(struct intel_display *display,
+ 
+ 	if (HAS_LT_PHY(display)) {
+ 		encoder->enable_clock = intel_mtl_pll_enable_clock;
+-		encoder->disable_clock = intel_xe3plpd_pll_disable;
++		encoder->disable_clock = intel_mtl_pll_disable_clock;
+ 		encoder->port_pll_type = intel_mtl_port_pll_type;
+ 		encoder->get_config = xe3plpd_ddi_get_config;
+ 	} else if (DISPLAY_VER(display) >= 14) {
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 54c7a255b3a5..28c560417409 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4607,8 +4607,20 @@ static void xe3plpd_pll_enable(struct intel_display *display,
+ 	intel_xe3plpd_pll_enable(encoder, pll, dpll_hw_state);
  }
  
--static void xe3plpd_ddi_get_config(struct intel_encoder *encoder,
--				   struct intel_crtc_state *crtc_state)
--{
--	struct intel_display *display = to_intel_display(encoder);
--
--	intel_lt_phy_pll_readout_hw_state(encoder, &crtc_state->dpll_hw_state.ltpll);
--
--	if (crtc_state->dpll_hw_state.ltpll.tbt_mode)
--		crtc_state->port_clock = intel_mtl_tbt_calc_port_clock(encoder);
--	else
--		crtc_state->port_clock =
--			intel_lt_phy_calc_port_clock(display, &crtc_state->dpll_hw_state.ltpll);
--	intel_ddi_get_config(encoder, crtc_state);
--}
--
- static bool icl_ddi_tc_pll_is_tbt(const struct intel_dpll *pll)
- {
- 	return pll->info->id == DPLL_ID_ICL_TBTPLL;
-@@ -5301,7 +5286,10 @@ void intel_ddi_init(struct intel_display *display,
- 		encoder->enable_clock = intel_mtl_pll_enable_clock;
- 		encoder->disable_clock = intel_mtl_pll_disable_clock;
- 		encoder->port_pll_type = intel_mtl_port_pll_type;
--		encoder->get_config = xe3plpd_ddi_get_config;
-+		if (intel_encoder_is_tc(encoder))
-+			encoder->get_config = mtl_ddi_tc_phy_get_config;
-+		else
-+			encoder->get_config = mtl_ddi_non_tc_phy_get_config;
- 	} else if (DISPLAY_VER(display) >= 14) {
- 		encoder->enable_clock = intel_mtl_pll_enable_clock;
- 		encoder->disable_clock = intel_mtl_pll_disable_clock;
++static void xe3plpd_pll_disable(struct intel_display *display,
++				struct intel_dpll *pll)
++{
++	struct intel_encoder *encoder = get_intel_encoder(display, pll);
++
++	if (drm_WARN_ON(display->drm, !encoder))
++		return;
++
++	intel_xe3plpd_pll_disable(encoder);
++}
++
+ static const struct intel_dpll_funcs xe3plpd_pll_funcs = {
+ 	.enable = xe3plpd_pll_enable,
++	.disable = xe3plpd_pll_disable,
+ 	.get_hw_state = xe3plpd_pll_get_hw_state,
+ 	.get_freq = xe3plpd_pll_get_freq,
+ };
 -- 
 2.43.0
 
