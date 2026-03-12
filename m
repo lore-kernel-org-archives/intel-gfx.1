@@ -4,88 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14549105F7A8
-	for <intel-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 12:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0802105F7A7
+	for <intel-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 12:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D4DA10EBE5;
-	Fri, 13 Mar 2026 12:58:41 +0000 (UTC)
-X-Greylist: delayed 419 seconds by postgrey-1.36 at gabe;
- Thu, 12 Mar 2026 19:40:46 UTC
-Received: from lithops.sigma-star.at (mailout.nod.at [116.203.167.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D4210E1D1
- for <intel-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 19:40:46 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by lithops.sigma-star.at (Postfix) with ESMTP id 4DE582C14A8;
- Thu, 12 Mar 2026 20:33:44 +0100 (CET)
-Received: from lithops.sigma-star.at ([127.0.0.1])
- by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id yCwNT8mwVvHB; Thu, 12 Mar 2026 20:33:43 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by lithops.sigma-star.at (Postfix) with ESMTP id 8A34D2C14AA;
- Thu, 12 Mar 2026 20:33:43 +0100 (CET)
-Received: from lithops.sigma-star.at ([127.0.0.1])
- by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id 3HN7guaAFMsE; Thu, 12 Mar 2026 20:33:43 +0100 (CET)
-Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
- by lithops.sigma-star.at (Postfix) with ESMTP id ABF4A2C14A6;
- Thu, 12 Mar 2026 20:33:42 +0100 (CET)
-Date: Thu, 12 Mar 2026 20:33:42 +0100 (CET)
-From: Richard Weinberger <richard@nod.at>
-To: Philipp Hahn <phahn-oss@avm.de>
-Cc: amd-gfx <amd-gfx@lists.freedesktop.org>, 
- apparmor <apparmor@lists.ubuntu.com>, bpf <bpf@vger.kernel.org>, 
- ceph-devel <ceph-devel@vger.kernel.org>, cocci <cocci@inria.fr>, 
- dm-devel@lists.linux.dev, 
- DRI mailing list <dri-devel@lists.freedesktop.org>, 
- gfs2 <gfs2@lists.linux.dev>, intel-gfx <intel-gfx@lists.freedesktop.org>, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
- kvm@vger.kernel.org, 
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
- linux-block <linux-block@vger.kernel.org>, 
- linux-bluetooth@vger.kernel.org, 
- linux-btrfs <linux-btrfs@vger.kernel.org>, 
- linux-cifs <linux-cifs@vger.kernel.org>, linux-clk@vger.kernel.org, 
- linux-erofs <linux-erofs@lists.ozlabs.org>, 
- linux-ext4 <linux-ext4@vger.kernel.org>, 
- linux-fsdevel <linux-fsdevel@vger.kernel.org>, 
- linux-gpio@vger.kernel.org, linux-hyperv <linux-hyperv@vger.kernel.org>, 
- linux-input@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>, 
- linux-leds@vger.kernel.org, linux-media <linux-media@vger.kernel.org>, 
- linux-mips <linux-mips@vger.kernel.org>, 
- linux-mm <linux-mm@kvack.org>, linux-modules@vger.kernel.org, 
- linux-mtd <linux-mtd@lists.infradead.org>, 
- linux-nfs <linux-nfs@vger.kernel.org>, 
- linux-omap <linux-omap@vger.kernel.org>, 
- linux-phy@lists.infradead.org, linux-pm <linux-pm@vger.kernel.org>, 
- linux-rockchip <linux-rockchip@lists.infradead.org>, 
- linux-s390 <linux-s390@vger.kernel.org>, 
- linux-scsi <linux-scsi@vger.kernel.org>, linux-sctp@vger.kernel.org, 
- LSM <linux-security-module@vger.kernel.org>, 
- linux-sh <linux-sh@vger.kernel.org>, 
- linux-sound <linux-sound@vger.kernel.org>, 
- linux-stm32 <linux-stm32@st-md-mailman.stormreply.com>, 
- linux-trace-kernel <linux-trace-kernel@vger.kernel.org>, 
- linux-usb@vger.kernel.org, 
- linux-wireless <linux-wireless@vger.kernel.org>, 
- netdev <netdev@vger.kernel.org>, ntfs3 <ntfs3@lists.linux.dev>, 
- samba-technical <samba-technical@lists.samba.org>, 
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
- tipc-discussion@lists.sourceforge.net, v9fs <v9fs@lists.linux.dev>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>
-Message-ID: <1584421372.26258.1773344022512.JavaMail.zimbra@nod.at>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-48-bd63b656022d@avm.de>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-48-bd63b656022d@avm.de>
-Subject: Re: [PATCH 48/61] mtd: Prefer IS_ERR_OR_NULL over manual NULL check
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44BDA10EBE8;
+	Fri, 13 Mar 2026 12:58:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I70LgRYw";
+	dkim-atps=neutral
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE9DD10EA91
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 19:16:13 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-12734af2cdcso83835c88.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:16:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773342973; cv=none;
+ d=google.com; s=arc-20240605;
+ b=R8qbnLFLtrmO7vHJlzVLEf853lujNe98Zx3H3RS3aaC5Ybkg1ty3wGMWwh3dO0A7Ve
+ WKbYRt+ntVBfnKvdSGiLW5CmSEqruhEdql6rt1j8Cwp9K2EZhunSyIjCDpmcG2meulur
+ bUIMLJArQ0+CMq9E4lAi6UBfRxl2z2fAuAq5bURMojUdTLT1ejF5CYc0lNHi3JXTTJBf
+ Q/psjUwcdws568DDFj/cQr2s0uOOrxdcJbS65TUXSLlThfFIBSsY7JGgBYrxWoAMHnuY
+ AymnaYm1EbTXovrDIxbQDJRqP2d+kRw+YZgQchtL5Ja0S4V7pSxgabWgSKAvo4QXimAS
+ SHaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ fh=Wy6zi4bKRZEVvSWygoSFgaF3wLQVCiFwGSE6Ny15X2g=;
+ b=dslKX4bcs7VUOGi6MVefGjHpqzFN+3vr12eSGTExvmsVIxvpROE07J0BN+dzK0FsGA
+ kkNtURWOAmIispGsEP84yJW/U4Z2fbBnJoSgoRP25TZeM1zlGUi/242jffyxYF2AcPuW
+ HJ5M0Px3JT+YKCPTQesWrI7aTYiBCQUZrozdBuo6I1OQqn4gHedC3uGJI37c7Eenp6ZO
+ LRcvTLmog1qVyr8chjA9Nu9pZyVx7c0gVNVsKKMmgY8ilK8xL6Fn26Q9zJOPrbqGXPKF
+ N+8o3BZPKHDR7UqYqDbrH4/NWJyZG2naCfZ3lUlXPZ6/uowdphs+o7EmeaR1AFi3glXY
+ NPCA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773342973; x=1773947773; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ b=I70LgRYwmb1Kf3TSnl+ArSLtzExyTBoa7dl04aKCHbpIOVlt0pkM+kTuMC22F9ryVp
+ jUv01TLfI+UOeUVX6Sjz3kZS8LJyXET8ksAMjQMZzMqR2UNwz/RhUR0Dh0iVLA9TJZHL
+ QXDsAXdQJiSbkyV3ypZv6uYxCyR1eCY+nrb6KQRwRLstb0XzDVTra1OJoA7lxpmr4sXI
+ kaiXA9abzkmSNzENEsVuZBIyKPxgfqceCeSC5GzkFLFj33Ut8QJ5agezs64BnIL5WFv+
+ 4K0QJleWgs+yILD46TlDsM4JTXcyiLlouPXq9bhfJihv+HoQC5so3WutGFCQ5CAn3ICC
+ Xoxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773342973; x=1773947773;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ b=wNleS/hcYZ6Dj6OBTtVngQ9m6vFtMVgeqwsLAV4JHCId8izEQMV8ck9G5dTNcJ/FJW
+ VVrq6lqtCZdBhN9zAK8G9TC2IqDxSzXDSmYErAO430ylqAGLejYN4Cd3/JgmTJvpaJ4G
+ kkyemybzW/LNmXdzkGgF662CJ5XcTDT6sTMfsLyHOxPjPKlvUQBu0paDMVQjG3RglqQP
+ RuEAZVIObua9ognIfbyEAyJ2IOs4+99+GDn5R9W/xhsDwusepe9C2+8/wwZybuI8E8bY
+ wHw+H1M/TdbUXFvxTojPdmRnZHoDjSfhxDEWlVPq73wxawiMbGxCBUGTXpLSaFWKErFi
+ reFQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWTGb6sj50mx+eO+SB3LCiz3Ui5cz8t1nWuzea18toNw40SnQ2H1o1DSIczb6hlaI4xLp4i/srktI4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVfRxPWJnR5L0r8T3HkjmWuNX1NtHMJkTyYwQYY3vE99+tPvKt
+ upaZLEu9m2Jh645d1P4mQmGhen0ajsPPd0rW/Yxf4HdG8/ZjE//wTSkKJ5ZFfGj2sJrceCyoXYy
+ HBYJV5vLWHwdW+m2Mbd8EYAh9AmDIZK8=
+X-Gm-Gg: ATEYQzwvohUDI81jg8GrCftB36ecBOOwT5k1TNsTxEqBrTYSkj3R377WEKCiHG2Fden
+ qynVUvxq0XYGZXJCRPPU3wUJtM+XMplbUIzSPGOA2RiGhxhfLTPw/S0x1IetAImixhOpAQdbMXx
+ 2GbJ5/edWHCPRePVjyn9X9GGyAtYvGcD9c5FbactBz9fwPTxg39Ev9J146rMZsXIUX8DVMavCs3
+ 7OnuxuA0bXFgCvwGhPpYpUb/dYP9KOVhSevxQDbm5TXuAe9c7QIhwdTV8rFGje9/rYsaEGKeSiD
+ CT9+mOgBgndEeOPblOZfYEND0GJpF7oLhTDZlYKURQyklwOva+VU5ekX6XYI8pBfKfe17K4SP6w
+ s61e/GL5y+cWPNcYIggxtr3Q=
+X-Received: by 2002:a05:7300:fd03:b0:2be:171c:2177 with SMTP id
+ 5a478bee46e88-2bea5744a60mr186533eec.7.1773342973060; Thu, 12 Mar 2026
+ 12:16:13 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+ <20260306203648.1136554-2-joelagnelf@nvidia.com>
+In-Reply-To: <20260306203648.1136554-2-joelagnelf@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 12 Mar 2026 20:16:00 +0100
+X-Gm-Features: AaiRm537cVQtFBzSwOEaMgXdjzYeE0uMIzdX3f2cfwXX8kFS15LK67mGvYzfQo0
+Message-ID: <CANiq72m2Eo1UAuwMC0LhiD4+yqKixRm=+oHtEnpwY-VbNdR+fw@mail.gmail.com>
+Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [195.201.40.130]
-X-Mailer: Zimbra 8.8.12_GA_3807 (ZimbraWebClient - FF148
- (Linux)/8.8.12_GA_3809)
-Thread-Topic: Prefer IS_ERR_OR_NULL over manual NULL check
-Thread-Index: 0l8CyewQmrWlgaG6N3QgQFfukutRbA==
 X-Mailman-Approved-At: Fri, 13 Mar 2026 12:58:38 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,14 +140,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
------ Urspr=C3=BCngliche Mail -----
-> Von: "Philipp Hahn" <phahn-oss@avm.de>
-> -=09if (gpiomtd->nwp && !IS_ERR(gpiomtd->nwp))
-> +=09if (!IS_ERR_OR_NULL(gpiomtd->nwp))
+On Fri, Mar 6, 2026 at 9:37=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.co=
+m> wrote:
+>
+> Acked-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 
-No, please don't.
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-This makes reading the code not easier.
+> +//! # // SAFETY: head and all the items are test objects allocated in th=
+is scope.
 
-Thanks,
-//richard
+`head`
+
+> +//! // Rust wrapper for the C struct.
+
+Empty newline comment between these:
+
+  //! //
+
+Actually, should this be `//! ///`?
+
+> +//! // The list item struct in this example is defined in C code as:
+> +//! //   struct SampleItemC {
+> +//! //       int value;
+> +//! //       struct list_head link;
+> +//! //   };
+> +//! //
+
+Let's try to use the usual style, i.e. no empty newline at the end of
+docs for an item.
+
+And the example should be in a proper code block with a C tag, so all
+together something like:
+
+    //! /// Rust wrapper for the C struct.
+    //! ///
+    //! /// The list item struct in this example is defined in C code as:
+    //! ///
+    //! /// ```c
+    //! /// struct SampleItemC {
+    //! ///     int value;
+    //! ///     struct list_head link;
+    //! /// };
+    //! /// ```
+
+> +//!         // SAFETY: [`Item`] has same layout as [`SampleItemC`].
+
+No need for intra-doc links in comments (for now at least).
+
+> +//! // Create typed [`CList`] from sentinel head.
+
+Empty newline comment.
+
+> +//! // SAFETY: head is valid and initialized, items are `SampleItemC` wi=
+th
+
+`head`
+
+However, this is giving me a Clippy issue (please see the other email).
+
+> +///   `next`/`prev` pointers are valid and non-NULL.
+
+We started using `NULL` recently as a convention for the null pointer.
+
+> +        // - [`CListHead`] has same layout as `list_head`.
+
+Intra-doc link not needed.
+
+> +        // - `ptr` is valid and unmodified for 'a per caller guarantees.
+
+`'a`
+
+> +        // SAFETY: self.as_raw() is valid per type invariants.
+
+`self.as_raw()`
+
+> +/// perform conversion of returned [`CListHead`] to an item (using `cont=
+ainer_of` macro or similar).
+
+Intra-doc link to `container_of`?
+
+> +        // - [`CList`] has same layout as [`CListHead`] due to repr(tran=
+sparent).
+
+Intra-doc link not needed.
+
+> +        // Convert to item using OFFSET.
+
+`OFFSET`
+
+Newline comment after this one.
+
+> +/// Create a C doubly-circular linked list interface `CList` from a raw =
+`list_head` pointer.
+
+[`CList`]
+
+> +///   pointing to a list that is not concurrently modified for the lifet=
+ime of the `CList`.
+
+[`CList`]
+
+> +/// Refer to the examples in this module's documentation.
+
+Perhaps we could have an intra-doc link here to the module.
+
+> +        // Compile-time check that field path is a list_head.
+
+`list_head`
+
+Cheers,
+Miguel
