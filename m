@@ -4,71 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E372F483D8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96053F483D4
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:04:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6536F10E575;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A754A10E579;
 	Mon, 23 Mar 2026 16:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=antgroup.com header.i=@antgroup.com header.b="jz/g29XK";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="lX6evrPp";
 	dkim-atps=neutral
-Received: from out28-5.mail.aliyun.com (out28-5.mail.aliyun.com [115.124.28.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E255110E2AF;
- Mon, 16 Mar 2026 03:52:39 +0000 (UTC)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06BD510EC23
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:06 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-46703fb602fso907332b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=antgroup.com; s=default;
- t=1773633158; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=c9/X8odBS2n9mVEmqOXdQw5uNgbPFfBggNNq8a/rnIo=;
- b=jz/g29XKfOZCOP1/0WTWAJsO1hElJ619MPezMYR+QZbb3dYMMh6mmLfEX0w3Xs1AIaDoV48uXhu7YRztjvk+3QiF8xBTC3M67LDEUusFxfLqX6oLzmA/t9Pylk1LyrCb8kyTrjQh7t396oV94NyOjgumRLWji2Ky1+um5n5oBQM=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R991e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037031241;
- MF=houwenlong.hwl@antgroup.com; NM=1; PH=DS; RN=47; SR=0;
- TI=SMTPD_---.gt2oRKf_1773632851; 
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.gt2oRKf_1773632851 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 16 Mar 2026 11:47:32 +0800
-From: Hou Wenlong <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ausef Yousof <auyousof@amd.com>,
- Bhuvanachandra Pinninti <bpinnint@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Chris Park <chris.park@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
- Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jun Lei <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
- Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Lohita Mudimela <lohita.mudimela@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-Subject: [PATCH 1/2] drm/i915/gvt: Rename struct 'pixel_format' to
- 'gvt_pixel_format'
-Date: Mon, 16 Mar 2026 11:46:28 +0800
-Message-Id: <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
-References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
+ d=gmail.com; s=20230601; t=1773408305; x=1774013105; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=lX6evrPpLbTkpimTR3Ca+L1AVrOsppWbLU33iifFbe9ZLJlcAYAHh1HoiHFF5ZhH+V
+ JxkMmOdasgqY8R7PXnVycpkpVVYuplg8oyY/OwcYKqiC7aWLbqH+ai4Tw2tLNt55w3A4
+ IRaHN/XMmHiFF2Cn5oyQ98qSeQIGEAeu2slFv/RrflY4FzAEGp27W2+8HiLQsK4UDWPJ
+ BbVPSs9e8hG9mKgKcSzD9kF6OcZWAIYtOQcrEIyybfcIMi45e5re0zNSubDL6t9bEzkC
+ 1+LvGqQLCpu2m7n8ahGcjWRW6KYVt6jyNlFb31ajN8nOzoLbs/chhBCRA7au26D1AQkx
+ FNmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773408305; x=1774013105;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=mnIYp8ZNQ7dO2Qruqhl/u/t3jP9fqZljPdhQvXu8HUaxT7E2FXQ48QoLz0E9Jd1FsL
+ +ugCJF4rGlRLnNcqTzmXonr3Rt8ybEYfV34M9KWTwMgeJIwhfg3Hy5PHxKA3fsmrgVUG
+ szVJ23/Wuno1xMv+IjiXTjFdZGZAQ9dKTMogG5XsXRY3lYpdA7ZNZJCIs3hc/ZIWeU19
+ 0OSQHebo5aQ1bYZz7fgeNVPi1prnV1UunE9Hnot3yILO91nBE30sDOtCKTSynIJT4iAQ
+ TZ/9ispKYq38Xd14WjktunD8gkfEBacujdAHsLaA1SSNAMMHA3B/sQ4R0fvwiMM5Tfr+
+ dy2g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUc0GvM2DIt7sBzsFluLKwW1NB3bmopfwOpA/G1mkSNW/5N7zM69XpkvfbDiDFDDmIC6+yFQyAF3fM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyIIZpUKhuMS1nkKn7SzqR1hOKg2/4ryxhrPHMU92ynwE1IDXno
+ jBxk0cbPGr+pcnmUDNjxwGXeDPTtad9xn2RbSxatcoglyrJULXQFnZa3
+X-Gm-Gg: ATEYQzw0AZNAX+oTmjsUlhUAsI8TjpujUb3GqIKRo/77srO1vODDa0wlpS42OEk47oN
+ ikVrslDIzlmOAJppT1D2lzeGx3ABbBlLV7KctsmhCYmsBHfSmJaekApNddOAad2rkKOxIifCffi
+ l3erYUVw6wAWWVU6mmFdN7pxRSAiqSiajf+5ZwZHEhsd+fr8N+IYrOvJPKYGHHLnMaQ1grh/6Hj
+ h9rofH3TZf4i2pqs/wREYMYqv2b44gGsrlq48/3CCJbTs7G+MBOtQa5Ji6LHmzOvSQ/l3Vthnsp
+ uOseiTdulr3R0NapoRY4RFDlEDb6SpQC1/rirnjt3E/VFVvnYoatWSRJ+DvMmbl49EMsvQmAIwB
+ hWupqf/bo5Lb4une9n2LcCI/WvQbBX8BWL+hqbA1UPXFSQYvuXsQILI9VxIcb46bE1/IpQTjaLj
+ 6jWpaFTyUyp9dIFOdkIHUfjV/hrl/mU5kZqwufznCnFAalbR40
+X-Received: by 2002:a05:6808:1187:b0:467:3f4:907d with SMTP id
+ 5614622812f47-467575812d0mr1643061b6e.56.1773408305157; 
+ Fri, 13 Mar 2026 06:25:05 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:25:04 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 62/65] accel/rocket: enable drm.debug control
+Date: Fri, 13 Mar 2026 07:20:27 -0600
+Message-ID: <20260313132103.2529746-63-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,44 +98,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Rename the local struct 'pixel_format' to 'gvt_pixel_format' to avoid
-potential name conflicts with the 'pixel_format' struct defined in
-include/video/pixel_format.h.
+rocket.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+to tell dynamic-debug what classmap enables them.
 
-Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/i915/gvt/fb_decoder.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/accel/rocket/rocket_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-index d7abf38df532..25fffc77f138 100644
---- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
-+++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-@@ -48,13 +48,13 @@
- #include "i915_reg.h"
+diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+index b6a385d2edfc..0d06857b96ad 100644
+--- a/drivers/accel/rocket/rocket_gem.c
++++ b/drivers/accel/rocket/rocket_gem.c
+@@ -11,6 +11,8 @@
+ #include "rocket_drv.h"
+ #include "rocket_gem.h"
  
- #define PRIMARY_FORMAT_NUM	16
--struct pixel_format {
-+struct gvt_pixel_format {
- 	int drm_format;	/* Pixel format in DRM definition */
- 	int bpp; /* Bits per pixel, 0 indicates invalid */
- 	const char *desc; /* The description */
- };
- 
--static const struct pixel_format bdw_pixel_formats[] = {
-+static const struct gvt_pixel_format bdw_pixel_formats[] = {
- 	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
- 	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
- 	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
-@@ -67,7 +67,7 @@ static const struct pixel_format bdw_pixel_formats[] = {
- 	{}
- };
- 
--static const struct pixel_format skl_pixel_formats[] = {
-+static const struct gvt_pixel_format skl_pixel_formats[] = {
- 	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
- 	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
- 	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static void rocket_gem_bo_free(struct drm_gem_object *obj)
+ {
+ 	struct rocket_gem_object *bo = to_rocket_bo(obj);
 -- 
-2.31.1
+2.53.0
 
