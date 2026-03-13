@@ -4,84 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E59BBF483C4
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD80F483C8
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 750F310E53C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6296D10E53B;
 	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQrwk93L";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="WZh2DwTQ";
 	dkim-atps=neutral
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29A410EBFA
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:22 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-4671119c1c0so1595105b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:22 -0700 (PDT)
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05E8310EC23
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:02 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-46703fb602fso907290b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408202; x=1774013002; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408301; x=1774013101; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
- b=kQrwk93LE62KbrsLbEFRGVmaI/Bz0SEXQ5grieklpiQ8itw5IjbMcy5en4rL+P9sBG
- y7TmRkUcDqibsoZA2nVML/3PoCWRqTh444NC12Jwjvv0DgWPW3Ue7oXGtATFBT2CRfsq
- rAeQ71t5gj/1QD1wHZMvq3po766gTHyB5TWEtxbkgYldpVR2+jqwRbxk8cR1HYXHQn5f
- jIpH+U4R93vsQuh6HpvaAJkXKrWz/mdfglNVxGI1MNv7jm6a7VslNuepuZtV1+Mel1pz
- cVvdMNVVZaolDzOwf4yQX1DGQo8O9JeauCT+lKXFSX+bASKK/XFLbd7jFTja8WB18gWn
- cRTg==
+ bh=3MLouRi7A/376XLBTN4RuLKPG3wKNeKXtfBxDJ5SI9M=;
+ b=WZh2DwTQLnsjy6w8U9A6g55Is5qIJWaC1xY3vUjBUtpfyhW9RQdxqpFjk7YyBMs6KO
+ e4GF3bVHyUp9RJTeTME74KVVZu6rg5oNE7b4poJ/nES+42epIH8kPEWaEYeCB17VCJdt
+ TAZqODAjWMBDVr0drPZEnLtDnYnxF34pAViYUZn8A3Aex0P71aiNi4KqlizhyMEwtsAV
+ UqJBVvZqr4X4dboNBNVRBxnNZNBdkTY/NW4lJE2X4l8Xy7p42e31/JujRvEQhm/pj1FI
+ S7pc2H+3Xrn9Y4n9hcgyaKB7zh0t0n0dn6pjfadpte8hu80e4aOPIo7SlkjAN69kZU0u
+ sidw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408202; x=1774013002;
+ d=1e100.net; s=20251104; t=1773408301; x=1774013101;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
- b=qa5GGN/wjE/2pEuxQEIFx3aSDotVgMUNDnPW5mREDLGE+y7UL+u9aIZ8dHepDvSS2E
- NvyeGKP0wTRkJtc52a/tQcqH7DA+A16S7nPVgaNMJM7tGc0TDso9a2k8J3GZzl4A2ZAx
- MiKQlKloG+V+fo/lU4v6EidPPpC16EHSfGJ1IOcF/A2d5Wt38h6mWdniB35Q8ooMJNrz
- WffdZTYVOuxG8yXjvPwSmHq3H7RFyUXi4p3lnqFxWpbl8DE3TPoHHds1hGr42GR9hERw
- HOV3slpMMBcpOJpQzACd3lD47Bs2Lrk3G8yF5rCBIe+1lWnyzN3eAHiwl2V1Y3e0uYNC
- jNog==
+ bh=3MLouRi7A/376XLBTN4RuLKPG3wKNeKXtfBxDJ5SI9M=;
+ b=pD6HCpubrxmCAp39iuLOzPIOTHTuigLBOjutzlmwlFPPVfHtqxhjf5Lc7CTIzxLsf7
+ te8ucAB0roVY88G+uu2RLc00l0YhIz9Y6xSjqu6PIEjpcBiWu0YMgpE5O/ew3cCliNCS
+ 47LPCPzu1W66QpwFmNyGn8+trln4Mj2aI9uRbQM5Yo04BgDgp00vrCJQJG2kexa/uIat
+ HGO1v3Z3VtJwVheCUaM46tGZXmSiiQhJnQoF5pBEH+Efj48WJWjflN7XZ4phsHKTu2Ne
+ DPIWa+DdoRIzk8TgxqokKQI0ZOeNjhfjvTVWyjC0InFNmsaCpBQwwvALiRQfpG5APgMd
+ lYJA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUbnjMEntvbPn8D5R4NKM6+cUybYdt5TB472E7gXHhJf9e8HCU6wTUga8Y5MFOZneaHDUCa3/zUv98=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkMUNfPjaBBvV8RjLHAlUFa4vjF4GxCYe1TJu4nM4tiNizwr/v
- kF1PZ7RMSKwl9azBqfPVt+hDMh2oztlsx0n5H+ajU/n1h7ufSb1uB2c0
-X-Gm-Gg: ATEYQzyvLXnIFpUPSU6fmfE8svoQW4DrG/5VcYGFw4G1eF5Na2fSU/1R8V3DzIcbEHk
- U7eaaEk5MtNE7hxMW4zoBXGody2aasY2/8DwNYPPwyxjY3cwA1/8SebI7CFApz/xGH5sXgtttRA
- KRPAIruJUFJrAMsnX+/hy5leGo1LyMFHy5F2N8n6CPpcd2LCnWzco63XuTTHWSBAOWborDOdF2u
- QnXpocLbrDG6MxVtHWWpjLP7hXuVlwB3NvkoVRVd9OK8INvfZKzmj6yRPbHHS4eaoXoK8wsmRdW
- 9DNNc1weSkyIvySEJq0HZpmgtYbD6V+QRclOirNrJZWMe09yxo3n264CbsGWM7w87hMFX5tG7o7
- NWKI8fjIfQaI3kDjomjNRbJvQWftvgjfQjLF/pmfDckJe2b9+AqZVUi4voc8V5cCAAxi2xjtqo0
- mFUu45NAdrgr9Ck0shWFFggO95uV6/V2LXqsX9K97shdTvarjbdH2gitv+iPk=
-X-Received: by 2002:a05:6808:1a21:b0:467:13b5:8ae6 with SMTP id
- 5614622812f47-4675704ae1cmr1541416b6e.4.1773408202078; 
- Fri, 13 Mar 2026 06:23:22 -0700 (PDT)
+ AJvYcCWjMN8cM02HYKi3thhWN1erwIT4xOonwO9V0gdnmKbWbZ1SBsmndfnwNd1fgQW8txQFqY3KhGWmXqo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7Ctbj3jYBUDQ/+RlpWv1/052xbPkNVZAE+k7T0R8/RqbSPfjs
+ xqUHzy6mZTsJvfmQ4WUD6pjzDdEZBvsUuKxGBQsGNWVQ+rx2C/SUKAcp
+X-Gm-Gg: ATEYQzyILHwWtVb+EiwfeATGZzw+OGYiO6+YoLiRuQdr55AhIp5HfKnc5v4Fo/arwo0
+ hTff9Ixa01MSJ+v9ur2FXUI1o3QBYS3dzxRimMhTIyxS+sZNRZ3lb3VIU9jFheybYce15Hy9Dra
+ EYxGY6G16qb3viLzh8oCLcTNUR2f5WHIDRr/CVQJabhdU0knPLlt4or3tydyl++Tn7UymHKDKdF
+ IHFMh/pLN8zsu/uvTmuEz3G6XdQP0iS5e2+yCMikY0CsWZtfLrLQF320A8SyDByOjsOyc+4HeAr
+ 4qJdBhGsRiySq6Im7LdS+6CNdZtADWaiuQ9XkLlWc0bSpZpCXZ2PbOUcEibpU9zGK1Vz0T1TafJ
+ OTEP6jG5om9Y13iVJG5PpkQb58AOua0O0C/zFs2mMVmgcsl7ODqDGaicXT6XfJ6OxC6Tu/l5Tzg
+ s5aYswkVROw/7edN0fAWni/1b6bE+47F9FpP92BintrJ8p/EB1
+X-Received: by 2002:a05:6808:8947:b0:467:1cf5:768b with SMTP id
+ 5614622812f47-46757053acamr1500831b6e.10.1773408301182; 
+ Fri, 13 Mar 2026 06:25:01 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.20
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:21 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Andrew Morton <akpm@linux-foundation.org>,
- Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ gregkh@linuxfoundation.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 13/65] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
-Date: Fri, 13 Mar 2026 07:19:38 -0600
-Message-ID: <20260313132103.2529746-14-jim.cromie@gmail.com>
+Subject: [PATCH v11 60/65] drm: restore CONFIG_DRM_USE_DYNAMIC_DEBUG un-BROKEN
+Date: Fri, 13 Mar 2026 07:20:25 -0600
+Message-ID: <20260313132103.2529746-61-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,94 +99,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-old_bits arg is currently a pointer to the input bits, but this could
-allow inadvertent changes to the input by the fn.  Disallow this.
-And constify new_bits while here.
+Time for some thorough CI.
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Also, the previous 18 patches could perhaps be replaced by a single
+invocation of DYNDBG_CLASSMAP_USE, from a C-file linked into all drm
+drivers & helpers.  I didn't find such a file, nor a drm-client
+linkage item in the Makefile.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/Kconfig.debug | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 4313c8803007..a18f4bc63473 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -607,7 +607,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
- 
- /* apply a new class-param setting */
- static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
--				     unsigned long *new_bits, unsigned long *old_bits,
-+				     const unsigned long *new_bits,
-+				     const unsigned long old_bits,
- 				     const char *query_modname)
- {
- #define QUERY_SIZE 128
-@@ -616,12 +617,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 	int matches = 0;
- 	int bi, ct;
- 
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
- 
- 	for (bi = 0; bi < map->length; bi++) {
--		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
-+		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
- 			continue;
- 
- 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
-@@ -633,9 +634,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
- 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
- 			  ct, map->class_names[bi], *new_bits);
- 	}
--	if (*new_bits != *old_bits)
-+	if (*new_bits != old_bits)
- 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
--			  *old_bits, query_modname ?: "'*'");
-+			  old_bits, query_modname ?: "'*'");
- 
- 	return matches;
- }
-@@ -691,7 +692,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 				continue;
- 			}
- 			curr_bits ^= BIT(cls_id);
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
- 			*dcp->bits = curr_bits;
- 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id]);
-@@ -701,7 +702,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
- 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
- 
--			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
-+			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
- 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
- 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
- 				  map->class_names[cls_id], old_bits, curr_bits);
-@@ -755,7 +756,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 			inrep &= CLASSMAP_BITMASK(map->length);
- 		}
- 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
-+		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, mod_name);
- 		*dcp->bits = inrep;
- 		break;
- 	case DD_CLASS_TYPE_LEVEL_NUM:
-@@ -768,7 +769,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
- 		new_bits = CLASSMAP_BITMASK(inrep);
- 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
--		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
-+		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
- 		*dcp->lvl = inrep;
- 		break;
- 	default:
+diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
+index 3b7886865335..48674fae5958 100644
+--- a/drivers/gpu/drm/Kconfig.debug
++++ b/drivers/gpu/drm/Kconfig.debug
+@@ -1,7 +1,6 @@
+ config DRM_USE_DYNAMIC_DEBUG
+ 	bool "use dynamic debug to implement drm.debug"
+ 	default n
+-	depends on BROKEN
+ 	depends on DRM
+ 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
+ 	depends on JUMP_LABEL
 -- 
 2.53.0
 
