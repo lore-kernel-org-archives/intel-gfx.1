@@ -4,84 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5222BF483D1
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A13FF483DA
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44BEB10E554;
-	Mon, 23 Mar 2026 16:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 228A610E535;
+	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIb4mQhX";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZM9S4sd";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B91C510E045
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 19:16:28 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c73a12af63cso3747410a12.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:16:28 -0700 (PDT)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E7110EBFB
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:26 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id
+ 5614622812f47-464bc03efd8so1514680b6e.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773774988; x=1774379788; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408206; x=1774013006; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xNksHD/Ia/lI3PwtOgNwKe8s7JojbqFZYiYVCtaCE+Q=;
- b=bIb4mQhXFuOVjZrjCLwVvP6ANdAaqS2OKEvWIWKYeyovIk5/Bdpr/tc75eZR52c9pJ
- /ClrGzD8Qmy0uW10uTz2e1wxjphpH+kmeeHfDsxUPFsar2vjexC0z9n4LV3sxQRCA4eu
- TnUDN1b490j6zqqzrApPa7SWoHsJ9hXqQ/2DB9W7KiHhoXbtGfu2HEAntFH4iI0ykI1r
- /C4ESMXNzHcos9I250TETpdxeui3tEqCXRokKPcO1DuJT9vodXtWke4MTbUOCptQOV3X
- V/EJ9GJDCpNONiAzJDc7r7Am3hV2NET80zz0239aKPMPWamakm8DqTHvVPETHGUCvb0M
- Na3g==
+ bh=dBYomo+y0fMuoiYBGpthmpNvx8Y41pycbs0VlWTcMIg=;
+ b=UZM9S4sdkGpGxrMIdeGHuzc0BkHSdiyN96WL+0GCG/naM6Uf+0UFgglWJ5Mo1uADA5
+ BcE7ghQWe+G/lpWJ28HQ7hEKcbRVkedIA7tyxSm0IV7S1r0H2PNxUcL5+1umsjsJeVcT
+ prrHz8l23c32jRz3y5/nNgK0XokVX1USct9742BFVjkD/8bjdfNl+GALI7CnUI92KTDp
+ u3ZBcuLx8+VEGbRq9iZ6ysgUGyW9a8iu/fsfQOY4UOP3+fPQ/QuiQG54MiNqdQIbNNGu
+ T+GsD9tMQMYAKYoVHQiy3YbW8UqAY8S8zIuaqSUSK8W7NEWddrs8t0UlMPscV0fQmqWb
+ YvJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773774988; x=1774379788;
+ d=1e100.net; s=20251104; t=1773408206; x=1774013006;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=xNksHD/Ia/lI3PwtOgNwKe8s7JojbqFZYiYVCtaCE+Q=;
- b=qaX7w3lUuy3ij+xfJcs3BRvqRaKm+Cp7/NrK+AhtCCs7Ogv0XHy85n4GhklmrK0rDs
- YuPiLcGnVOzL5QTCh3hxd/FVQzGgbCVHsqPsOsFhgJnjrnC+sBfXCuvfTbBijcmO5aQ7
- Zl1JBwofazM65e+4XWQJbsRtz2mN9wzeNbEv/p43D3qd8YAOg6c5UM4uO2Huj6WSI+Py
- ETWwu3R9oQDEXAieDe7Z/adQYbSW8q9aEIYl8fsMqQgr0y2tTs8W91MeGrxSgusLF5JF
- snbm2qKNhl7Ljua+StLlLKPEvuHJZBIrgouoMTfrrAifwH3I30J0H286C6E4vXOkA5CT
- /NTQ==
+ bh=dBYomo+y0fMuoiYBGpthmpNvx8Y41pycbs0VlWTcMIg=;
+ b=tI8F4zE3lcMnfVZMv+d8GMsX1xC++jAGIkyopGgquX7d82lHNbSh0c6kFSYBCpnD3I
+ pykLWM1ssMrPp60OeL5//517FL5wohDH88quun+4DMrn+hwnTwXTRpok3BoUR4q7cGw9
+ T3xZQHJjzqSpblrnJjwe/X2Hjskiu1XszxHZ67OSGYZoRf8eYWcWvjdLL2XdH2FchqRn
+ JXRIGUmiq7c35eqBdwPEqUFb+tAxJbILrnvPxZaLQj4UJYNZndftI8HL1n7xH2DIm7Ko
+ zhK8Lggday4x9E/s9GF3svCiBpX+wmvrhPggw9Rkj5M0xh4OOiwnBylK9Ixm5FwS7j60
+ u5Ug==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVFd2g/BlwgRjjGzDCuf/hVwTPwE4SaqWkYvAHKrjYlgacbwHu/XH8cUED2NEoiYdsuCFdi0iNiuP0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVFmoxOjTqexToiS3gV9HCQq6HoMV1ZosxHngpNjcmIzvvgRrd
- vibD0IuxT4azW5XkzF5PMiN0UsC0aU7YjNIkOkx8/QaDmEAfcEKiKYJo
-X-Gm-Gg: ATEYQzxMDpLZd+JAgauMJ2P6JqlOxUXQEnlK2Rf/XRVj/tne0uBA8UmoNWHUJFIpBNd
- IG2mLYHSu++gv7cPEDktk32QjoT/4tw9TNsxt72rFpioQ/pN3ArfaL/fq85lNWtR26U/Z8kjIXK
- UtkIorYCUttkBWIKBu4aDiDgumOF/n4XhERxrBn63HnpieJ0qSw9AmKpTGdiSgt6OfT42QNGO1J
- gaDQk1g5CbgeHPZDKgavJlAg/DRhgr9b4Pcfx9Jo+vC513gxE02cJXIKx+HSx81q4Wqe7QqgpGM
- suTb0ZsU+QQ8AulreK4kmysQwrgrtaL3g1Ixmzyt/7c+UhC/dn9XD6C3GR9EFOYvARS6ZiOBRpU
- H9hZhofR3Q1U+r+1aIRP/WVMJIfnBW0EzZ2r0p+6G/sCMGbBjkCdw+wxfo4np7mqPKP2fDz+DZr
- KPTt7xD1qqMvn/ov7isI14Jpy2Biii90cvJ5AIWb8w9eDTj2IKDJ2fw1+uyOBO4cn+PAPU6YBLY
- 3gLIZ6lCJd7YyGlwGHmAeqVFUWpQ8p1/BrJkcfzBTVEHaspu5qUve9+mSf8lIr19uUJm+gz6x+D
- ny2k
-X-Received: by 2002:a05:6a21:398d:b0:39b:7f5f:d591 with SMTP id
- adf61e73a8af0-39b9a0c86ddmr341476637.63.1773774988182; 
- Tue, 17 Mar 2026 12:16:28 -0700 (PDT)
-Received: from 2045D.localdomain (76.sub-72-110-123.myvzw.com. [72.110.123.76])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c741e546b01sm334350a12.21.2026.03.17.12.16.16
+ AJvYcCV+QvjkrluT/zQ82ECtgLzgHIsLR6PMCiVXyyduOW5yYsxpA8RKIAEOtrrUmVYvAeWFpwoWhc6iwOI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxtqaz3QOYf3vJP4g+3E+xG6Z56p5+f3agF6qe4W8Qxu3KiAjk6
+ 4XEpKfXbJQ0dFemDc+0X/3OO6j7cMFWkgPfmwkRcXBap5+ai66JTncjW
+X-Gm-Gg: ATEYQzygBxvA3W0yc503ye9Xty8z4bfvSK174SvzIUlw+MkOfi6pn5mpnYpwWJZ2p5F
+ P+TLw9FVhmh8JSmgON30Peci/8Pj8a6hSLMKEdTwUihJATnotoKmBp8R7cH4T9K0azkADalRFMV
+ zktCTNL3x1iJAk9/9IXrUs92IRBfrXi8iBkxFyK05GKlPLGtDl1u+Y0837N2Nouc09TB0n4LYrw
+ Bgwe7Ey78fu5OhIa7QkEkQHQ358liGKfMhqJO1NeizvQ8GFTkObStt2hZP/eCYAOBwxuYvkpgbC
+ i/tm+9TsQbA4QHPpKpCjjn6ys0F8Y9cJawzi5/aEksZovZju6nj8+PekFPjcuAuHFxJDUTyirVg
+ DFZCls1RoyL3gsv6ZXJMP0I18HXx82tFdg50K9fpz9sffZqYgCcOaZhlDp7a4yGWMBgcNTijmPg
+ KjNcLL0dBU5iCgExVedtiNO58OMhvr2hhpsHNoDU+BqwD8x2ZR
+X-Received: by 2002:a05:6808:221f:b0:455:d5d1:8ac0 with SMTP id
+ 5614622812f47-467574375ccmr1562149b6e.53.1773408205979; 
+ Fri, 13 Mar 2026 06:23:25 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 12:16:27 -0700 (PDT)
-From: Gui-Dong Han <hanguidong02@gmail.com>
-To: gregkh@linuxfoundation.org, dakr@kernel.org, rafael@kernel.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: gustavo.sousa@intel.com, demarchi@kernel.org, jouni.hogander@intel.com,
- luciano.coelho@intel.com, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-sound@vger.kernel.org, akaieurus@gmail.com, me@ziyao.cc,
- Gui-Dong Han <hanguidong02@gmail.com>
-Subject: [PATCH 4/4] drm/i915/display: initialize string params to empty
- strings
-Date: Wed, 18 Mar 2026 03:15:38 +0800
-Message-ID: <20260317191538.43535-1-hanguidong02@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260317185920.43387-1-hanguidong02@gmail.com>
-References: <20260317185920.43387-1-hanguidong02@gmail.com>
+ Fri, 13 Mar 2026 06:23:25 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 15/65] dyndbg: macrofy a 2-index for-loop pattern
+Date: Fri, 13 Mar 2026 07:19:40 -0600
+Message-ID: <20260313132103.2529746-16-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
@@ -100,40 +97,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Passing NULL to debugfs_create_str() causes a NULL pointer dereference
-upon reading, and is no longer permitted. Change the default values of
-dmc_firmware_path and vbt_firmware to empty strings ("").
+dynamic-debug currently has 2 __sections (__dyndbg, __dyndb_classes),
+struct _ddebug_info keeps track of them both, with 2 members each:
+_vec and _vec#_len.
 
-Existing code that consumes these parameters already verifies both
-pointer validity and string length, so empty strings are handled
-correctly. Furthermore, heap allocation is not required here: these
-debugfs parameters are created with strictly read-only permissions
-(0400). As a result, the debugfs write operation is never invoked,
-meaning the static empty string will not be erroneously freed by
-kfree().
+We need to loop over these sections, with index and record pointer,
+making ref to both _vec and _vec_len.  This is already fiddly and
+error-prone, and will get worse as we add a 3rd section.
 
-Fixes: e9913f0bd2e1 ("drm/i915/display: move dmc_firmware_path to display params")
-Fixes: 29292bc6cc37 ("drm/i915/display: Move vbt_firmware module parameter under display")
-Signed-off-by: Gui-Dong Han <hanguidong02@gmail.com>
+Lets instead embed/abstract the fiddly-ness in the `for_subvec()`
+macro, and avoid repeating it going forward.
+
+This is a for-loop macro expander, so it syntactically expects to
+precede either a single statement or a { block } of them, and the
+usual typeof or do-while-0 tricks are unavailable to fix the
+multiple-expansion warning.
+
+The macro needs a lot from its caller: it needs 2 local vars, 1 of
+which is a ref to a contained struct with named members.  To support
+these requirements, add:
+
+1. __ASSERT_IS_LVALUE(_X):
+   ie: ((void)sizeof((void)0, &(x)))
+
+2. __ASSERT_HAS_VEC_MEMBERS(_X, _Y):
+   compile-time check that the _Y "vector" exists
+   ie: _X->_Y and _X->num##_Y are lvalues.
+
+The for_subvec() macro then invokes these before the for-loop itself;
+they disappear at runtime.  They do cause a "complex macro" CHECK from
+checkpatch --strict.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_params.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index b95ecf728daa..0a8cad98d480 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -23,8 +23,8 @@ struct drm_printer;
-  *       debugfs file
-  */
- #define INTEL_DISPLAY_PARAMS_FOR_EACH(param) \
--	param(char *, dmc_firmware_path, NULL, 0400) \
--	param(char *, vbt_firmware, NULL, 0400) \
-+	param(char *, dmc_firmware_path, "", 0400) \
-+	param(char *, vbt_firmware, "", 0400) \
- 	param(int, lvds_channel_mode, 0, 0400) \
- 	param(int, panel_use_ssc, -1, 0600) \
- 	param(int, vbt_sdvo_panel_type, -1, 0400) \
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 94a66c8537ab..cb7bfe8729a7 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -129,6 +129,28 @@ do {								\
+ #define v3pr_info(fmt, ...)	vnpr_info(3, fmt, ##__VA_ARGS__)
+ #define v4pr_info(fmt, ...)	vnpr_info(4, fmt, ##__VA_ARGS__)
+ 
++/*
++ * simplify a repeated for-loop pattern walking N steps in a T _vec
++ * member inside a struct _box.  It expects int i and T *_sp to be
++ * declared in the caller.
++ * @_i:  caller provided counter.
++ * @_sp: cursor into _vec, to examine each item.
++ * @_box: ptr to a struct containing @_vec member
++ * @_vec: name of a member in @_box
++ */
++#define __ASSERT_IS_LVALUE(x) ((void)sizeof((void)0, &(x)))
++#define __ASSERT_HAS_VEC_MEMBER(_box, _vec) \
++	((void)sizeof((_box)->_vec + (_box)->num##_vec))
++
++#define for_subvec(_i, _sp, _box, _vec)			\
++	for (__ASSERT_IS_LVALUE(_i),			\
++		__ASSERT_IS_LVALUE(_sp),		\
++		__ASSERT_HAS_VEC_MEMBER(_box, _vec),	\
++		(_i) = 0,				\
++		(_sp) = (_box)->_vec;			\
++	     (_i) < (_box)->num##_vec;			\
++	     (_i)++, (_sp)++)		/* { block } */
++
+ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ {
+ 	/* trim any trailing newlines */
+@@ -156,7 +178,7 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+ 	struct ddebug_class_map *map;
+ 	int i, idx;
+ 
+-	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
++	for_subvec(i, map, dt, classes) {
+ 		idx = match_string(map->class_names, map->length, class_string);
+ 		if (idx >= 0) {
+ 			*class_id = idx + map->base;
+@@ -1232,8 +1254,7 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ 	 * the builtin/modular classmap vector/section.  Save the start
+ 	 * and length of the subrange at its edges.
+ 	 */
+-	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
+-
++	for_subvec(i, cm, di, classes) {
+ 		if (!strcmp(cm->mod_name, dt->mod_name)) {
+ 			if (!nc) {
+ 				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
 -- 
-2.43.0
+2.53.0
 
