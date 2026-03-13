@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F47F483D9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB65F483C3
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5E6610E550;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAA6010E54B;
 	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="B7Oc/sGg";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="WdlIUNs8";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91C9010EC0E
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:05 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-46703fb602fso906872b6e.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:05 -0700 (PDT)
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4507C10EC23
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:04 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id
+ 5614622812f47-464ba2bb3aeso1297464b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408245; x=1774013045; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408303; x=1774013103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qdG+Un7f/ck3xLwdvB5oV2R2xxQrjM1Me1J1P6bJ/B8=;
- b=B7Oc/sGgi6eQp3zRYL7zvnA1Ug7pae6MPp0eajBrt85vu6cVF+5JeMHGPtT2dZyC7G
- 95A7cskUVuwzMPMJfNAwwQB40rKRVbNiD60EeHLYyst6SgW/eufChX6mn3MJlzlcZU2K
- OqRwmTxsCACxFb8KAs7hDMC3EhNDY45DUulWPp7SdsS0KrNCl4KGa9dHs9IBfoPqhEsj
- 7sFQnVSbO6ccpe8EUPIeYEA2v6jiC4WBczsUkKbl7ewVayHoo1Klhjl2C8rTeOi2jFk+
- hZLCni8as0ywPgg9NaFVMqx7woPRc6g5lE1v/GnK7qp91OS6nICUL0jKaPT+b9M6RDwK
- yWvw==
+ bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
+ b=WdlIUNs8jVU09TTFtkAQFzt/PZG5qNnFsuuiRJ/khBU3BGmXcnCbsIcu8vfLV3fcgT
+ apUX3jzndETlbFP1+3sIKYcSjCAEmZYSh6l1qlZ6tluzI5vmqMRavC0h/Eb9Gv29rpQ+
+ fLnJCVCH6tuQWZkUc9HwIWzbwDScdvApQGdljvcugN5aWzqOPXNVoF1UNe9SbAfqjvHI
+ CJVBZRUXPXny05aMX/zJu8wptnX0vM2v8L046QZfXYUY+OU3s4AESnIcN79Qkn49byZ7
+ 6oXusQ86GB2d/ktYEzZpQU0mHHWjvym6L64cm339HFCLL8wlh4KqeL1YkebgbO9TMmCr
+ Z/cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408245; x=1774013045;
+ d=1e100.net; s=20251104; t=1773408303; x=1774013103;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qdG+Un7f/ck3xLwdvB5oV2R2xxQrjM1Me1J1P6bJ/B8=;
- b=RawLWxWrBLNS8fGaTS/pEcrRfva/DTCKdvtXgYQy0cCistpz7b+bFOjiuaiTqVo9sF
- wkyFYPj1GMgsbxLUyxH7u1QceXQNxoosBlGhZBZilO5+62i/cPCFWcx/qWz5ZvFZ+Yyi
- msRQSBjKlIK6gTh6DQpfnK/3ediKMQWh9jCmFnQFfLer0lZ1I6lIWstf637cCPXN+WKz
- z84/uLGFF/lIIUoZ9Ug9C1HLAsJ0cHIR5p34v7iGvqvnQnTow+FJDyG/9LBS8bDwoADP
- zqFvR39wxmB6z+PPTuGV2qW9d5QaNsku9GCpf3/We2/NRaUUvKg3qo082KZPlO+7ePWP
- Ymrw==
+ bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
+ b=LHn1UNUEmYIpnoTSpTGfrLR5BXn31Bivd9QOTyE0bK0g1uAMNc+4L+SWyIiHRoATi2
+ ow0xT3mdk15iIm/zvu8orDTUYv+lhrhot9LegrOFvBXt7bQYNC3MMmj04uvbLHQae9dL
+ Az2KDPkF0+fjicrmtsC0Oqb3Ei2Plun4wrVqeusfhi8VdUJV07IzncTkuL/dKiZBcMDK
+ mejheoZsW5vy7g9Pzb1sqtVBXN9H+vVZk3V9/jVb1u8UgOv028a2JDQmLX5gPm9JkmyR
+ Mgzhsbza0fs1WZdWaCHpb4kKUmM6JCy4ZVVkYj9QN+/A9Ebyvt9opT2o4f7OCi6pcIJK
+ cxAQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUvO74Yelq7PsTXkMs+2jUMD9S05LUSmEfe3wsQVl6PKi5OrRPhLgZvVJsncaSEkYP9EQM2mHx/fxE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywy8u25sXSpzyNY/nhSMFNcTKBmNtr7oHqYtJqkHVqVg2eJyWfT
- 6ZVRKTtn5Yz7nr6EG+LUotQlQVGNJ6K8TSrwMZ9LeufxVIzxMRILVvuL
-X-Gm-Gg: ATEYQzyx/acCiQot6/cjlgx9OYB/KM3m8vmZohZ6Gw+wmpjTRspJKnbHWL8RwwRGrAu
- 9cQSOTrn9OmYe/e/FS1xQhC84IieixothNjcQ0w73ighMIqAyKopQBdoAzhFe+g1NSdrncP2aPV
- GYFhwk+x/50OOqdr6SsANeWldH4ebeDl4Ejt3gaw3gX94HfAp3E9WseOEuZNskAIagEYTenScEQ
- TmN96ctzToEF2w4Cq+PXhE8yVB9M4ykl1guG/BfrGaKB4ajTVeXiSfbVcw9BThhwULnsKZ8nJac
- H49QbW4rn4u74v5v7Tmkk01YEc1QU9IznwNf76u3YO31V4ghNQ4VAkKBFTSyvM9e/gNy9dnmhVI
- Q+5cydZySVHsAQADr1cMgaSLBa3JwqKNlFIuxjGQuFKAJ593dLEudLmDYatnYL5AgNwuM5NkKhu
- u9ZJCF6YERlyfb+j9f/ilUD1c53RiyqSfYz3ALRnTsLa1LMq1c
-X-Received: by 2002:a05:6808:4783:b0:466:f60b:19c5 with SMTP id
- 5614622812f47-46757052ad7mr1017669b6e.6.1773408244642; 
- Fri, 13 Mar 2026 06:24:04 -0700 (PDT)
+ AJvYcCV9RMVE96tPufvQDMnba+kWgIqogSb3NWR/NMXdtnrBapQJRupBvjAohQzFmaV9CdpozFdIvouZ4cM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJFWcRdiM8M7XDc51P7FAmaCrVzTjpQ01iKD9lVmrEC1xAWaZz
+ thoGOphQmoY60UCMo181XxhazQ0KL231kLfpGS2VTWr37vpvICXnwUYT
+X-Gm-Gg: ATEYQzzvr5zTxZ0oksBCuJPKtBSj+BUrgYixn2hbE5ZDwqG4n4iyzyojaM0hW77hNlr
+ 2FT5+HmwKHoY/VC11HaFNiSBuNzWLHV8epacXbk175+RyVmQSZ2fzDE3NJg3NXyVhndzY/381TO
+ vFg9ArOOd+F3QJAsHDW1tJuHd2JdQKWTTtJzKYVmuPLe/c68L9KND2NEn39UKSF+sqRKBFNraMC
+ Mvw4K0xJNG+zVVq/PGtCNEN7XGaJW4BPl/fmmoBp2HZG6Ej1zpd1hnd2YZXGn2Rmd5Ltsv2/srb
+ Cac7cbHmHeAryc+DiW9lMpEE8S2+rheKYHTA/xdXaTdX36fQLTjTFasj6VHMQ9KvOa3xffXbel4
+ a2rsg8oMtf+ZCyhWjPXSQIIbL6vI3C5nX3RG/s/5qvtqiVsZBnOJ56gGxqrhetDx19QUEsVOS4F
+ 7GxlssblMQpprRee8QdAthUcdy0aG790n0nImcutaTPA2KPdIz
+X-Received: by 2002:a05:6808:190e:b0:467:2be4:9e33 with SMTP id
+ 5614622812f47-4675552dd65mr1929280b6e.6.1773408303348; 
+ Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.03
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:04 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 31/65] dyndbg: add
- DYNAMIC_DEBUG_CLASSMAP_USE_(dd_class_name, offset)
-Date: Fri, 13 Mar 2026 07:19:56 -0600
-Message-ID: <20260313132103.2529746-32-jim.cromie@gmail.com>
+Subject: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
+Date: Fri, 13 Mar 2026 07:20:26 -0600
+Message-ID: <20260313132103.2529746-62-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -98,145 +98,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Allow a module to use 2 classmaps together that would otherwise have a
-class_id range conflict.
-
-Suppose a drm-driver does:
-
-  DYNAMIC_DEBUG_CLASSMAP_USE(drm_debug_classes);
-  DYNAMIC_DEBUG_CLASSMAP_USE(drm_accel_xfer_debug);
-
-If (for some reason) drm-accel cannot define their constants to avoid
-DRM's drm_debug_category 0..10 reservations, we would have a conflict
-with reserved-ids.
-
-In this case a driver needing to use both would _USE_ one of them with
-an offset to avoid the conflict.  This will handle most foreseeable
-cases; perhaps a 3-X-3 of classmap-defns X classmap-users would get
-too awkward and fiddly.
-
-This is an untested interface extension, so drop this patch if it
-feels too speculative, knowing theres at least a notional solution
-should the situation arise.
-
-NB: this gets a checkpatch warning about unused _offset arg,
-apparently because the arg is 5 lines down, and out of the chunk
-context window.
+ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+to tell dynamic-debug what classmap enables them.
+Also include drm/drm_print.h explicitly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 27 ++++++++++++++++++++++-----
- lib/dynamic_debug.c           | 19 ++++++++++++-------
- 2 files changed, 34 insertions(+), 12 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index a1454db1bcb0..0d1245aefc69 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -88,7 +88,7 @@ struct _ddebug_class_map {
- struct _ddebug_class_user {
- 	char *mod_name;
- 	struct _ddebug_class_map *map;
--	const int offset;	/* user offset to re-number the used map */
-+	const int offset;	/* offset from map->base */
- };
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index 9992193d7338..a0b8cb81a359 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -17,12 +17,15 @@
+ #include <drm/drm_gem.h>
+ #include <drm/drm_accel.h>
+ #include <drm/ethosu_accel.h>
++#include <drm/drm_print.h>
  
- /*
-@@ -239,11 +239,28 @@ struct _ddebug_class_param {
-  *
-  * This tells dyndbg that the module has prdbgs with classids defined
-  * in the named classmap.  This qualifies "class NAME" >controls on
-- * the user module, and ignores unknown names.
-+ * the user module, and ignores unknown names. This is a wrapper for
-+ * DYNAMIC_DEBUG_CLASSMAP_USE_() with a base offset of 0.
-  */
--#define DYNAMIC_DEBUG_CLASSMAP_USE(_var)				\
--	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0, __UNIQUE_ID(_ddebug_class_user))
--#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _offset, _uname)		\
-+#define DYNAMIC_DEBUG_CLASSMAP_USE(_var) \
-+	DYNAMIC_DEBUG_CLASSMAP_USE_(_var, 0)
-+
-+/**
-+ * DYNAMIC_DEBUG_CLASSMAP_USE_ - refer to a classmap with a manual offset.
-+ * @_var:   name of the exported classmap var to use.
-+ * @_offset:  an integer offset to add to the class IDs of the used map.
-+ *
-+ * This is an extended version of DYNAMIC_DEBUG_CLASSMAP_USE(). It should
-+ * only be used to resolve class ID conflicts when a module uses multiple
-+ * classmaps that have overlapping ID ranges.
-+ *
-+ * The final class IDs for the used map will be calculated as:
-+ * original_map_base + class_index + @_offset.
-+ */
-+#define DYNAMIC_DEBUG_CLASSMAP_USE_(_var, _offset)			\
-+	__DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, __UNIQUE_ID(_ddebug_class_user))
-+
-+#define __DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, _uname)		\
- 	extern struct _ddebug_class_map _var;				\
- 	static struct _ddebug_class_user __aligned(8) __used		\
- 	__section("__dyndbg_class_users") _uname = {			\
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index e9fa0c8868db..2083a8546460 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -198,7 +198,7 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
- 		if (idx >= 0) {
- 			vpr_di_info(di, "class-ref: %s -> %s.%s ",
- 				    cli->mod_name, cli->map->mod_name, query_class);
--			*class_id = idx + cli->map->base;
-+			*class_id = idx + cli->map->base - cli->offset;
- 			return cli->map;
- 		}
- 	}
-@@ -206,12 +206,17 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
- 	return NULL;
- }
+ #include "ethosu_drv.h"
+ #include "ethosu_device.h"
+ #include "ethosu_gem.h"
+ #include "ethosu_job.h"
  
--static bool ddebug_class_in_range(const int class_id, const struct _ddebug_class_map *map)
-+static bool ddebug_class_map_in_range(const int class_id, const struct _ddebug_class_map *map)
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static int ethosu_ioctl_dev_query(struct drm_device *ddev, void *data,
+ 				  struct drm_file *file)
  {
- 	return (class_id >= map->base &&
- 		class_id < map->base + map->length);
- }
- 
-+static bool ddebug_class_user_in_range(const int class_id, const struct _ddebug_class_user *user)
-+{
-+	return ddebug_class_map_in_range(class_id - user->offset, user->map);
-+}
-+
- static struct _ddebug_class_map *
- ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
- {
-@@ -220,11 +225,11 @@ ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
- 	int i;
- 
- 	for_subvec(i, map, di, maps)
--		if (ddebug_class_in_range(class_id, map))
-+		if (ddebug_class_map_in_range(class_id, map))
- 			return map;
- 
- 	for_subvec(i, cli, di, users)
--		if (ddebug_class_in_range(class_id, cli->map))
-+		if (ddebug_class_user_in_range(class_id, cli))
- 			return cli->map;
- 
- 	return NULL;
-@@ -1178,12 +1183,12 @@ static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp
- 	int i;
- 
- 	for_subvec(i, map, di, maps)
--		if (ddebug_class_in_range(dp->class_id, map))
-+		if (ddebug_class_map_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
- 	for_subvec(i, cli, di, users)
--		if (ddebug_class_in_range(dp->class_id, cli->map))
--			return cli->map->class_names[dp->class_id - cli->map->base];
-+		if (ddebug_class_user_in_range(dp->class_id, cli))
-+			return cli->map->class_names[dp->class_id - cli->map->base - cli->offset];
- 
- 	return NULL;
- }
 -- 
 2.53.0
 
