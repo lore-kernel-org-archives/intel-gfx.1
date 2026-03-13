@@ -4,128 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF283F483C2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F3BF483D7
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E37E10E538;
-	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9E110E526;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kEXvo3on";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="hTdyY45m";
 	dkim-atps=neutral
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 533ED10E1B3
- for <intel-gfx@lists.freedesktop.org>; Mon, 23 Mar 2026 00:08:20 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-79a3ba1653fso24020227b3.3
- for <intel-gfx@lists.freedesktop.org>; Sun, 22 Mar 2026 17:08:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774224499; cv=none;
- d=google.com; s=arc-20240605;
- b=RWlJ4MV0pnn4WaKcyTJ2B9Mxz/IoaEgos7arwf/8pJgcmDDwuB1ugUGYOYVmRKfvrL
- k59CFNZemc/E9VP9X8MM8zBBuMW7Fj2sKZZPHDfKj2j9tiauYikfPWasP8Qe3lbqiwTF
- 5WWBGBUDEI7IGRGmvg/jwjHMHs3fVgH4zhTbYjVMO72fDsD0XHTzywHe54nDVvAnsvH6
- 9bEFp+9IfCzFkyZJqZ8klNB//msbjvik/BSGPfpwRzY052rsOzYxNMzpMsiDR2uZB/J2
- ozCznGTKDtrrBgX+yb4D82BSBion2rAyoICZW8Ys++sJ/W7ix245pB06MsUFQRDh9NDd
- gZ+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
- fh=va/xi5IDGTDr8LZf6KfMdoEYA08YlNKd0+/dpvMMetY=;
- b=Hms0393SJCJpjmx/kI25Jv7NwN4VX7M8J14DNnBTK2iMLGz8Ot829ab4EQUOD587uH
- 45ubB22/9wmh86R6OiOsoluvuPIdESsY1eDg55kjDmruj1h9hvT9b4LOenPrXDg/6CPW
- hVf8a0W4UFytAoAp/w5DQnB7+m+Oa6Bb49Dw7NVtB/lzpIKQXPrxpv41Zkjjg1wI8ZZR
- 4/nZAMi3X5gDZ0SViHh6wk9ywS21JiWtlQxa0b+i4GTIOAseJal6EWZcCcyDDlwGEMQ3
- QpLOTXVV/Md83ot8kxX3hEY6+P0UNrI1WP9wEP8UiAWYF/sZ5i71X/Dnl3GCONR++Xh4
- vQ+Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4753010EC20
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:00 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id
+ 5614622812f47-467161c4b89so1365887b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774224499; x=1774829299; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773408299; x=1774013099; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
- b=kEXvo3onKDbCYpEcl0SNVj2ns8u+u0QKaeCMtHhJEWK4Qs1BcB3Efu+6t10YZH1hkw
- vLYIWXJSw0z9DtUIP8sh+u3A1mjTUmZKLjJba9RljRCB/yMoZiBm2ZPmO7ITJHN6+W/O
- ocQhy67noDzAjBdt5X2trx1eYJpj/P/9iYwBC8fIkaRVIpBfXOGoH+ZIwDSnMCy141aC
- 6ZbhPLo32QrFsVvcZt6BYQ7s22TBvcpap2AH2eEVTcApnLnHpwpumm1KRfN5PPiBMH1m
- SkFCQSUloorUvOuyNIXfOh3sXVDSSS+Ijgo/pv8sRC7YK0Wbswfi6x4sZu0C2EOGv4wy
- S/Mw==
+ bh=MSI+J0679V/DmlJlREZ5wQ9k+pFMYu6PsZxwHc99Yws=;
+ b=hTdyY45mvr2XhOdbaKznl2huansZYxi0c3QF0/LeT9rSvMnPD6sUQ61sSnp3P82eNw
+ 1fmGSS+JrQcvWeLJ8GDI0znAy6HywqtbAcPN26ujeczJNpDmqAVUJj9Z2tPWFlD0M6ZA
+ Yqu8tz02rfeWP3XRakpCvEK9tkudyRbpFfwNoHebPkM411KicZWF7IfJ+djM9NRWJjw1
+ ml2wSBH1zjp2HbuktXmn9T9gKt2sYwxfMFw8gX6BN/U8xy0RoPLKZnfkwUbZ086ft4mg
+ U49CYwhqsgyta0F3eSGySoq2PmqMbDkXKMUeHtR+EsHrpWZqt7wrCyoe5jnTZv28Uion
+ zywA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774224499; x=1774829299;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773408299; x=1774013099;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=+To22M9XrloAsp8zyktj8aS2Z2Pum4SQehyzZWues4c=;
- b=SVTdN6uadmH8UXRNTE2kJz1MboiJI0JlmKx5V3wSusQAhAEE2aQGDSxt6UQtW/hkUN
- F3leaUKhTHmnB8FRVczopwDG+sL3fDqvbtraDZqrCebo6ABvwGp2dEmySBCzCWDgOOoG
- kfPlRWG+hHttB6mdU452iJDAiSTfS6xb75Q1tSQQKPF283sh8Zau2g+MLHVlFpRw4eut
- 6+skPIx2FZoJGX7L1jnxoNonMnIJhzLc+8E3kRioEbaviSe1NexGFrSmAPED4RoP4QvY
- Yv21rdnPHnXrINHfoTeBxGM3hqW78+y0i+q8aIBPXaQdj4DJtG4xCCDsKpMxRHs9HvWy
- RTeg==
+ bh=MSI+J0679V/DmlJlREZ5wQ9k+pFMYu6PsZxwHc99Yws=;
+ b=EXLaPXt2+YQxIbp3DqJIvpBmuQ4H5Lfjwl/GwtRjYGCvhc4aH0xnbyoXwv1sF+R4Z6
+ +bMF5Jj5yUBPOTtbA41dw3X7fhnN1CnBX3zK/c3V1bbHxK0rgqejUkWv/aa1u20xuyk6
+ 85b8D6tMZN7oAvO9syipTESve9VjN9TzgI3a/dv0gJH70UmJrCrqGhdNASJuLAyCuKkQ
+ W2OWJkeMejF5ebu2xolPvqlESki7XeruIwecEGEW2Dt2p8YtG6NHCrsrOCXiqz/P4AbB
+ zBQ1xrcE6UfXPoqS/oucQa6b5lTADUX++cgtrmDAYPTTGPM+XJhVa1ykvDWoOjpmMWBV
+ oEcg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVqf3PK0/fn3qorRxEVCwhrUJbSeIXgahM7KpQ9fFNZzDZ84K6ii162tX0IpFhSItHFX7XhDrq39JY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwQkMN6Lj/tsPYyEVxdiD9sCOxynaHw10wcO/ss7xPtuKhl50ZC
- q96giFPbJydM6VISxY1RfqVdyDwk8KVINGbZrf4lNlSQ6K2hxUR0N5mGGK+lA4JmqkSxcOp9sbG
- Y+kBNsIo+oNpaH25W0xq9DwqAaZg9bh0=
-X-Gm-Gg: ATEYQzwIeeRPs4W0wjjBNFLZyP6Lr+ervOmCZ+AUtuDv4rSloN3lpjgOHte8Es1zEXy
- tb1W79AZWvEja8ExxZzopMeqFZQ4G0kpURYSLySv+kLh5RJi3XnfnEX+BJ+Gfj7ElFhpBQzYO4A
- 5YLxfcOandCTJNUn1w7BADuMWbXgXB2QVpCObYfjQFz7nTNp7HU8mJO+WmqtGCLTGr2Qc6hr/YW
- LHCN41oJUQDO19DiVT0WzHXY70PmTN+A5j7CHwhabHwYKuHe/UwHjIluoliTDE2kjC8hXDOadgC
- 4G7O4+3ujQa2eqd2eifonbPlhBzjg3voynLEbRQ9zmVrzlgE
-X-Received: by 2002:a05:690c:4424:b0:798:6f13:2419 with SMTP id
- 00721157ae682-79a90bce798mr96296727b3.37.1774224499042; Sun, 22 Mar 2026
- 17:08:19 -0700 (PDT)
+ AJvYcCXhEgLEchoD4IHFU4rmhOxgmU3z/YGdInrwDGj7TH/fBDNK2HhtdqtnUUb+zKqN6bFEjne/s/bbhRk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyBl6WNEKPmH/hw1641bAowWu3Ub3+JSRkndK40nRTzS2A7uxsz
+ IGp6tIEXIfRdYHU685aMvZz9bk6oOVLOcvMEGrCgqZ1DVgA9kNO1QxV6
+X-Gm-Gg: ATEYQzyCGTFCR5MUf/4KwXtsHmWQV3117xNDniaNIIBaJrc+mwv5DmoOctpHkYaKFv3
+ H1YCj2qe3bw/LmsrBG0aFb04acJzcKsgFWHrShkImJ0LEP9Sl0pzXAJNAJZb814ZVW8/aB1N0u5
+ RAlPH6Z6GtjYQ5aZzipSz3zXF6dtTzLnS5YqKSUsNCBVmIRpeOLqX6wyN3GrDfrCaKqAbpijhQC
+ fgXJPbThWuL8goSNibUHayrkXpxSvjblU2Ao1GOP9uFKmWQuzx1yGbZPLRnwToc8eeBWvvaEGV3
+ oNoKPhEingcE5snX/G4O+5PZpmhOnEc/Vm6YSVa0s0Rnx7DmIQNwH9g+zFLnwL4XaDJNXKBhzh9
+ XXyTJzx684BwImnBb4RRL1tjwZt1Kgg2FknxgXuMTNjqZTaES3amW/s3FZzw4BZ/8LsoRj1j0IF
+ r2nXhXOcr/YsrgTvBto/eNHf2eGjcmqhho5Yd9f/h+29J+NTlj
+X-Received: by 2002:a05:6808:444b:b0:455:7fe4:b215 with SMTP id
+ 5614622812f47-467575d484amr1587635b6e.53.1773408299425; 
+ Fri, 13 Mar 2026 06:24:59 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:24:59 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org,
+ Maciej Falkowski <maciej.falkowski@linux.intel.com>,
+ Karol Wachowski <karol.wachowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 59/65] accel/ivpu: implement IVPU_DBG_* as a dyndbg
+ classmap
+Date: Fri, 13 Mar 2026 07:20:24 -0600
+Message-ID: <20260313132103.2529746-60-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
- <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
- <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
-In-Reply-To: <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
-From: =?UTF-8?Q?Alejandra_Gonz=C3=A1lez?= <blyxyas@gmail.com>
-Date: Mon, 23 Mar 2026 01:07:43 +0100
-X-Gm-Features: AQROBzBsI6copsViR8GCb5s4kn_1rinKOMbl-9Inr9UPp4mS88b9cJGUv5vqwNA
-Message-ID: <CAGeanHfNwP6Zs3LSfc9eEO7_LG0kK-jO24oUd7BjxrQbndEmNw@mail.gmail.com>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
- interface
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
- linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,39 +101,159 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 7:57=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Wed, Mar 18, 2026 at 7:31=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia=
-.com> wrote:
-> >
-> > Anyway, the fix is simple, just need to do // SAFETY*: as Miguel sugges=
-ts
-> > here, instead of // SAFETY:
-> > https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dP=
-id89LExw@mail.gmail.com/
->
-> So, to clarify, I suggested it as a temporary thing we could do if we
-> want to use that "fake `unsafe` block in macro matcher" pattern more
-> and more.
->
-> i.e. if we plan to use the pattern more, then I am happy to ask
-> upstream if it would make sense for Clippy to recognize it (or perhaps
-> it is just a false negative instead of a false positive, given
-> `impl_device_context_deref`), so that we don't need a hacked safety
-> tag (Cc'ing Alejandra).
+Invoke DRM_CLASSMAP_DEFINE to create a classmap of
+class-ids/categories for ivpu_dbg().
 
-The team is a bit hesitant on adding comment-specific syntax apart
-from the widely used (and already on clippy) `// SAFETY` comments.
+This brings static-key optimized-off benefits to the ivpu_dbg()
+callsites.  DRM_CLASSMAP_PARAM_REF wires the sysfs kparam to the
+classmap.
 
-I'm pushing for some more comments specific to the Rust4Linux project,
-because we already tailor some lints for specific projects (such as the
-Safety Critical Rust Consortium), but adding more than new types of
-comments is a bit much.
+This is the 1st real-world example of a module avoiding another
+module's classmap's class_id range reservation.
 
-On this specific lint emission, I'll see if I can get it fixed,
-because it's a false
-positive.
+Its also something of an oddity: it "is" a DRM module only cuz
 
-Cheers,
-Alejandra.
+1. CONFIG_DRM_ACCEL_IVPU exists.
+
+2. code therefore uses CONFIG_DRM_USE_DYNAMIC_DEBUG, so must also use
+   it's dependent wrappers: DRM_CLASSMAP_*
+
+accel/amdxdna is already using drm.debug via dev_dbg(), so it is more
+fully DRM but iirc its a single call.
+
+Anyway, to play nice with DRM, we change all the constants, from
+macros calling BIT(X), to an explicit "enum ivpu_dbg_category"
+starting at 16 to avoid DRM_UT_CORE..RES.  This is all in an indef to
+avoid changing the constants for the non-dyndbg case.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/accel/ivpu/ivpu_drv.c | 27 +++++++++++++++++++--
+ drivers/accel/ivpu/ivpu_drv.h | 45 ++++++++++++++++++++++++++++++-----
+ 2 files changed, 64 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+index dd3a486df5f1..2d7d290eb8bb 100644
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2020-2025 Intel Corporation
+  */
+ 
++#include <linux/dynamic_debug.h>
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+@@ -37,8 +38,30 @@
+ #define DRIVER_VERSION_STR "1.0.0 " UTS_RELEASE
+ #endif
+ 
+-int ivpu_dbg_mask;
+-module_param_named(dbg_mask, ivpu_dbg_mask, int, 0644);
++unsigned long ivpu_dbg_mask;
++
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++
++module_param_named(dbg_mask, ivpu_dbg_mask, ulong, 0644);
++#else
++DRM_CLASSMAP_DEFINE(ivpu_dbg_classes, DD_CLASS_TYPE_DISJOINT_BITS,
++		IVPU_DBG_REG,
++		"IVPU_DBG_REG",
++		"IVPU_DBG_IRQ",
++		"IVPU_DBG_MMU",
++		"IVPU_DBG_FILE",
++		"IVPU_DBG_MISC",
++		"IVPU_DBG_FW_BOOT",
++		"IVPU_DBG_PM",
++		"IVPU_DBG_IPC",
++		"IVPU_DBG_BO",
++		"IVPU_DBG_JOB",
++		"IVPU_DBG_JSM",
++		"IVPU_DBG_KREF",
++		"IVPU_DBG_RPM",
++		"IVPU_DBG_MMU_MAP");
++DRM_CLASSMAP_PARAM_REF(dbg_mask, ivpu_dbg_mask, ivpu_dbg_classes, p);
++#endif
+ MODULE_PARM_DESC(dbg_mask, "Driver debug mask. See IVPU_DBG_* macros.");
+ 
+ int ivpu_test_mode;
+diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_drv.h
+index 6378e23e0c97..b59aa0759e26 100644
+--- a/drivers/accel/ivpu/ivpu_drv.h
++++ b/drivers/accel/ivpu/ivpu_drv.h
+@@ -63,6 +63,10 @@
+ 
+ #define IVPU_SCHED_MODE_AUTO -1
+ 
++extern unsigned long ivpu_dbg_mask;
++
++#if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
++
+ #define IVPU_DBG_REG	 BIT(0)
+ #define IVPU_DBG_IRQ	 BIT(1)
+ #define IVPU_DBG_MMU	 BIT(2)
+@@ -79,6 +83,41 @@
+ #define IVPU_DBG_MMU_MAP BIT(13)
+ #define IVPU_DBG_IOCTL   BIT(14)
+ 
++#define ivpu_dbg(vdev, type, fmt, args...) do {				\
++	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))			\
++		dev_dbg((vdev)->drm.dev, "[%s] " fmt, #type, ##args);	\
++} while (0)
++
++#else /* !!CONFIG_DRM_USE_DYNAMIC_DEBUG */
++
++enum ivpu_dbg_category {
++	/*
++	 * since accels are drm-devices (CONFIG_DRM_ACCEL_*), adjust
++	 * IVPU_DBG_* to avoid DRMs 0..10 class_id reservations.
++	 */
++	IVPU_DBG_REG = 16,
++	IVPU_DBG_IRQ,
++	IVPU_DBG_MMU,
++	IVPU_DBG_FILE,
++	IVPU_DBG_MISC,
++	IVPU_DBG_FW_BOOT,
++	IVPU_DBG_PM,
++	IVPU_DBG_IPC,
++	IVPU_DBG_BO,
++	IVPU_DBG_JOB,
++	IVPU_DBG_JSM,
++	IVPU_DBG_KREF,
++	IVPU_DBG_RPM,
++	IVPU_DBG_MMU_MAP,
++	IVPU_DBG_IOCTL
++};
++
++#define ivpu_dbg(vdev, type, fmt, ...)                    \
++	_dynamic_func_call_cls(IVPU_DBG_##type, fmt, __dynamic_dev_dbg,	\
++			       (vdev)->drm.dev, fmt, ##__VA_ARGS__)
++
++#endif /* !!CONFIG_DRM_USE_DYNAMIC_DEBUG */
++
+ #define ivpu_err(vdev, fmt, ...) \
+ 	drm_err(&(vdev)->drm, "%s(): " fmt, __func__, ##__VA_ARGS__)
+ 
+@@ -93,11 +132,6 @@
+ 
+ #define ivpu_info(vdev, fmt, ...) drm_info(&(vdev)->drm, fmt, ##__VA_ARGS__)
+ 
+-#define ivpu_dbg(vdev, type, fmt, args...) do {                                \
+-	if (unlikely(IVPU_DBG_##type & ivpu_dbg_mask))                         \
+-		dev_dbg((vdev)->drm.dev, "[%s] " fmt, #type, ##args);          \
+-} while (0)
+-
+ #define IVPU_WA(wa_name) (vdev->wa.wa_name)
+ 
+ #define IVPU_PRINT_WA(wa_name) do {					\
+@@ -208,7 +242,6 @@ struct ivpu_file_priv {
+ 	bool aborted;
+ };
+ 
+-extern int ivpu_dbg_mask;
+ extern u8 ivpu_pll_min_ratio;
+ extern u8 ivpu_pll_max_ratio;
+ extern int ivpu_sched_mode;
+-- 
+2.53.0
+
