@@ -4,79 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611D0F483C0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AB6F483D4
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B94A10E523;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6750D10E525;
 	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2oR8TKY";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="AGqe1FGw";
 	dkim-atps=neutral
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B928410EC2D
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:07 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-467161c4b7aso1096018b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:07 -0700 (PDT)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B797010EC0F
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:03 +0000 (UTC)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-467166cb638so882140b6e.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408307; x=1774013107; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408243; x=1774013043; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=p9IAEzSkGuy9vSx6TA0Y4hBOc80UNfiz/9RCZw4zMCM=;
- b=i2oR8TKY/R2X6sLI27lCBt1nqczzoCDssX0XKuFs1L+odyHeZqlq8uiDjqQi1VlaH9
- O3c4PGZYVANroQt754gwle7io1ECS6HgB85bBFWIqQdBW92Nc0JXhmxhce2PtwOBaxT/
- GO1AO0QngBsPzeqygAnJGO2+GT4rPmX8vrxHEdwcy0+9RBmL8YQy7kh7XYpCbYPr/qOw
- syKeUTMql/i0ZwKHOXl4WzZ5A3mU8/gXe26VZ+tsuaT2lC3Y57bIPrrlBtSTAJ+oM4mc
- k2jvBjXkV8+HZFminrknsPEV+YWXcxydmmHvq2YONxkGfP5da34nKTfExrekcsjTzHf4
- NzAw==
+ bh=1lq5jaJPqLqnk3f4baOzmy3HWsNUAD6m3P658X9bd80=;
+ b=AGqe1FGw7lbep3ljCAlRAytG+Qzamz5ZM2Rg9SLSHr3aB911wU52NVTuAPVSH+ncnZ
+ Hj2407vdxpl/SdKIjRJm6ga9TFzxWQdmGf72gSQYDcfqv8aIOOSUT1hoXzpeKyLFYU3H
+ 9eGVuX/BXXvJTqsHzDugDz9iDIAAdDNysSojeMH5rgvKZvAZ0Mk4nOtqpHc5zlcDapbz
+ tkfTPTEb8IhxNEALadCb1MbRdR8YPzRqVXAxoVonBR9S10JNz8WktRK0yu29fl8yF879
+ CRBXiZY6IDIbNr9j/KsHyzCH5oE+O/+Y1ezgKlMNNi7Zuw/FOYRLrpR+o8uuTISLlUzF
+ nmDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408307; x=1774013107;
+ d=1e100.net; s=20251104; t=1773408243; x=1774013043;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=p9IAEzSkGuy9vSx6TA0Y4hBOc80UNfiz/9RCZw4zMCM=;
- b=YqY1+1risMhG/WP7ARvQ0a/5qGdGfSiblrmxWjXebT66GK9JGPavSRwT856UR0FjjO
- rVUx0wtvRt1OJ96s6G4OCarbmXP5B453Fw5f1oBASonS8FfeGLGjxebaxpd8a/+HjM2X
- D+sMFV41zDRKprtgbQUdgyioT5/nY7nILOWmiTURlzjcxMFp3Ao/QaqpDKriMT28Si9l
- 6VHKUOmyoflPCOaH7wbyqeHb3mRW9EI7ckAj+kJ41VgV+n5Cx4s7LkcppHvru+YHO9Ap
- ihmDtR6WkgRvMaUCwNt/EvWzpYdqM3HEvDeTrOFTu6W48M+nYMD/Fgr29lryx9a9mCp4
- lvcg==
+ bh=1lq5jaJPqLqnk3f4baOzmy3HWsNUAD6m3P658X9bd80=;
+ b=GNnslqx4InFgwP2wuu0GSqXWSZWpOP5Pif9oQ+XvQoHmL7HSvJjQ6VwMOCqiX7Mce3
+ WSxW073Hwg1dCnb5rr8m5Yxi0nHo5qDccou2xAXnWsmbOW0J25IrTCYlETkXdY8EIgus
+ 5FhpMKVUgW7/GLkdjt0WiYZZKJqszlRuDHkb+VIGxoeGVVPWOlM2uTuhEqccLaALqg9h
+ GKmnsNkkGN5BDMiI3LjFAWx/1T4FwY9b5up5yzkiq5uTaWuPg9sYeZ5U+sn0W9cEPhaO
+ e+170JqDaP4LrSosB6epCdiJQoO5N6wLWKnmf8nusANBy2wDHrjj35EbLbBL7flCKnPl
+ Yleg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUY6gElnX9Npz7WHxzL2Bn2FxzJkhN4CpeDa1At1xBxEmH2bXHENkEKeN7qBC61meonqoLI5WwDqY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyTFlPMOOI4mZk/GuD8YsZ/LpxlVChgQ/E9ZEGrU0zl+u/TrkBi
- TeA7ETdH/E1eL9slHy002X2/oF2SNzLSVzfkRUW+n90bFEnpPbDfDvjX
-X-Gm-Gg: ATEYQzyM49rM88F46bIX+GSmV+boh21q/9yfF6AtXxGF5hzZb5wF2sNAt/q90Caliip
- ZqX0nfA80Y6bagjhdCYNIxP1AQy7p8znO8h3VUnrJuQH/Ai/aOZl2bMOUahd34AYAn+ogeSaI6L
- J/pWpqMvOxfgT2ErlUt3sFqY+sTxfDua98kWqgqnWeYmahTFgYc89JyHaVA9EZt7BvbhHRBJw1+
- XCEZA7uEpCVOhKxuxS+A6aUtvFrRq9WM/MtqkYLVkkwIVAh3lwmg7lwi6KXYT2g/puGjJkCwaSg
- x1e4q21DXYcozQ2L96O2ANSC011qsuOKjg4W0GBLsEu/HynQ14nMUYJpuV1ej2g4cuH+KZTeQMT
- hmD5i4ChPTKk98ftPsgiJK8kZh7/JKzvZms1lNZPwnR/VzXNNlotS9YiZhTjOT8c7djR9MIEs69
- qSZtG6FANUohnmA9RTtgot4/a19ClXnCjbCymwFo2KQc/8NfRT
-X-Received: by 2002:a05:6808:1912:b0:467:4a4e:5a80 with SMTP id
- 5614622812f47-467575aef9cmr1688429b6e.45.1773408306845; 
- Fri, 13 Mar 2026 06:25:06 -0700 (PDT)
+ AJvYcCXfs7V9OUAWTf9FTFQzpDZ/6IHgtU8UmbXTTsJWbUVm/8sSN1aWa/cgz8kdXv3i79VNyYklqmxL110=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz6dA3zixm6nkbmqs3Pnl/OOdJAL8ztoNgfT5opHXp9vJIgI4PN
+ HBARqYnY2M4CAMlTY5hXOCvWy+//sq3Zh2YRkZi5dPZFQiRn39KVjfBq
+X-Gm-Gg: ATEYQzx1OpwMhnQcsBO4WbwP8wMGRL9916PGtLSC+t4y0LNNVDXJIUg45XP1nhEFJ2+
+ CJwjjMDlLczq1bwmlU5QGgSQ2PXvOH700uq5SKbJBocI9NH2HhmvPh7KRjqKz6RmqajDm5B38oX
+ 7YOObtmDPDk2QRZsPsOgxoBiZoMpLH+Yu+t0+hJE+wGykxiSP+iGABUxEIxWBZPHxR7e8EhGCVs
+ e2M173misatJIwKmH9QKBZZ7HrGMKyvGMFRtji77Z1WJeoDSdR+ZAemDj2TvVaEKo9JhuSpH6Qt
+ DULv/p/89tnmwWmfauIcRdl0HimNeYDgtuYu4yRiKep1j9vOiMZIm93SmgdcLkBHL5xpmpg4q8p
+ 1Rxyi9b8WhuCZ3vLNz8tUZIJBKy40KYKMPvOIZFiyWpdeCSCo3IkewYVTI+48AZnk+W80EJcWC0
+ nfKyx7kCd8zf5qWv1ZJg77m2Rjr60D+0zdA+mvkjTCWYTtn8a3
+X-Received: by 2002:a05:6808:1592:b0:467:42ab:2f69 with SMTP id
+ 5614622812f47-467572f2c8emr1586112b6e.34.1773408242720; 
+ Fri, 13 Mar 2026 06:24:02 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.05
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:25:06 -0700 (PDT)
+ Fri, 13 Mar 2026 06:24:02 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Matthew Auld <matthew.auld@intel.com>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, louis.chauvet@bootlin.com,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 63/65] drm_buddy: fix 64-bit truncation in power-of-2
- rounding
-Date: Fri, 13 Mar 2026 07:20:28 -0600
-Message-ID: <20260313132103.2529746-64-jim.cromie@gmail.com>
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 30/65] dyndbg: resolve "protection" of class'd pr_debug
+Date: Fri, 13 Mar 2026 07:19:55 -0600
+Message-ID: <20260313132103.2529746-31-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -98,99 +97,390 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
-unsigned long internally, which on 32-bit architectures (like arm32) is
-a 32-bit type.
+classmap-v1 code protected class'd pr_debugs from unintended
+changes by unclassed/_DFLT queries:
 
-drm_test_buddy_alloc_exceeds_max_order() uses the on a u64 value,
-where they silently truncate the 10GB allocation, giving unexpected
-success in DRM-CI.  (see below the snip).
+  # - to declutter examples:
+  alias ddcmd='echo $* > /proc/dynamic_debug/control'
 
-Fix this by replacing the standard macros with safe 64-bit
-power-of-two calculations using ilog2().
+  # IOW, this should NOT alter drm.debug settings
+  ddcmd -p
+
+  # Instead, you must name the class to change it.
+  # Protective but tedious
+  ddcmd class DRM_UT_CORE +p
+
+  # Or do it the (old school) subsystem way
+  # This is ABI !!
+  echo 1 > /sys/module/drm/parameters/debug
+
+Since the debug sysfs-node is ABI, if dyndbg is going to implement it,
+it must also honor its settings; it must at least protect against
+accidental changes to its classes from legacy queries.
+
+The protection allows all previously conceived queries to work the way
+they always have; ie select the same set of pr_debugs, despite the
+inclusion of whole new classes of pr_debugs.
+
+But that choice has 2 downsides:
+
+1. "name the class to change it" makes a tedious long-winded
+interface, needing many commands to set DRM_UT_* one at a time.
+
+2. It makes the class keyword special in some sense; the other
+keywords skip only on query mismatch, otherwise the code falls thru to
+adjust the pr-debug site.
+
+ Jason Baron	didn't like v1 on point 2.
+ Louis Chauvet	didn't like recent rev on point 1 tedium.
+
+But that said: /sys/ is ABI, so this must be reliable:
+
+  #> echo 0x1f > /sys/module/drm/parameters/debug
+
+It 'just works' without dyndbg underneath; we must deliver that same
+stability.  Convenience is secondary.
+
+The new resolution:
+
+If ABI is the blocking issue, then no ABI means no blocking issue.
+IOW, if the classmap has no presence under /sys/*, ie no PARAM, there
+is no ABI to guard, and no reason to enforce a tedious interface.
+
+In the future, if DRM wants to alter this protection, that is
+practical, but I think default-on is the correct mode.
+
+So atm classes without a PARAM are unprotected at >control, allowing
+admins their shortcuts.  I think this could satisfy all viewpoints.
+
+That said, theres also a possibility of wildcard classes:
+
+   #> ddcmd class '*' +p
+
+Currently, the query-class is exact-matched against each module's
+classmaps.names.  This gives precise behavior, a good basis.
+
+But class wildcards are possible, they just did'nt appear useful for
+DRM, whose classmap names are a flat DRM_UT_* namespace.
+
+IOW, theres no useful selectivity there:
+
+   #> ddcmd class "DRM_*" +p		# these enable every DRM_* class
+   #> ddcmd class "DRM_UT_*" +p
+
+   #> ddcmd class "DRM_UT_V*" +p	# finally select just 1: DRM_UT_VBL
+   #> ddcmd class "DRM_UT_D*" +p	# but this gets 3
+
+   #> ddcmd class "D*V*" +p		# here be dragons
+
+But there is debatable utility in the feature.
+
+   #> ddcmd class __DEFAULT__ -p	# what about this ?
+   #> ddcmd -p				# thats what this does. automatically
+
+Anyway, this patch does:
+
+1. adds link field from _ddebug_class_map to the .controlling_param
+
+2. sets it in ddebug_match_apply_kparam(), during modprobe/init,
+   when options like drm.debug=VAL are handled.
+
+3. ddebug_class_has_param() now checks .controlling_param
+
+4. ddebug_class_wants_protection() macro renames 3.
+   this frames it as a separable policy decision
+
+5. ddebug_match_desc() gets the most attention:
+
+a. move classmap consideration to the bottom
+   this insures all other constraints act 1st.
+   allows simpler 'final' decisions.
+
+b. split class choices cleanly on query:
+   class FOO vs none, and class'd vs _DPRINTK_CLASS_DFLT site.
+
+c. calls 4 when applying a class-less query to a class'd pr_debug
+   here we need a new fn to find the classmap with this .class_id
+
+d. calls new ddebug_find_classmap_by_class_id().
+   when class-less query looks at a class'd pr_debug.
+   finds classmap, which can then decide, currently by PARAM existence.
+
+NOTES:
+
+protection is only against class-less queries, explicit "class FOO"
+adjustments are allowed (that is the mechanism).
+
+The drm.debug sysfs-node heavily under-specifies the class'd pr_debugs
+it controls; none of the +mfls prefixing flags have any effect, and
+each callsite remains individually controllable. drm.debug just
+toggles the +p flag for all the modules' class'd pr_debugs.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
+ include/linux/dynamic_debug.h |  14 ++--
+ lib/dynamic_debug.c           | 128 +++++++++++++++++++++++++++-------
+ 2 files changed, 111 insertions(+), 31 deletions(-)
 
-    [23:19:40] [PASSED] drm_test_buddy_alloc_clear
-    [23:19:40] [PASSED] drm_test_buddy_alloc_range_bias
-    [23:19:41] [PASSED] drm_test_buddy_fragmentation_performance
-    [23:19:41]     # drm_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/drm/tests/drm_buddy_test.c:889
-    [23:19:41]     Expected err == -22, but
-    [23:19:41]         err == 0 (0x0)
-    [23:19:41] ------------[ cut here ]------------
-    [23:19:41] WARNING: drivers/gpu/drm/drm_buddy.c:405 at drm_buddy_fini+0x114/0x1b8, CPU#0: kunit_try_catch/74
-    [23:19:41] CPU: 0 UID: 0 PID: 74 Comm: kunit_try_catch Tainted: G                 N  7.0.0-rc1-gdfb0bcedd08a #1 VOLUNTARY
-    [23:19:41] Tainted: [N]=TEST
-    [23:19:41] Hardware name: Generic DT based system
-    [23:19:41] Call trace:
-    [23:19:41]  unwind_backtrace from show_stack+0x10/0x14
-    [23:19:41]  show_stack from dump_stack_lvl+0x3c/0x4c
-    [23:19:41]  dump_stack_lvl from __warn+0xe8/0x1c4
-    [23:19:41]  __warn from warn_slowpath_fmt+0xa4/0xc0
-    [23:19:41]  warn_slowpath_fmt from drm_buddy_fini+0x114/0x1b8
-    [23:19:41]  drm_buddy_fini from drm_test_buddy_alloc_exceeds_max_order+0x1c8/0x36c
-    [23:19:41]  drm_test_buddy_alloc_exceeds_max_order from kunit_try_run_case+0x78/0x1c8
-    [23:19:41]  kunit_try_run_case from kunit_generic_run_threadfn_adapter+0x1c/0x34
-    [23:19:41]  kunit_generic_run_threadfn_adapter from kthread+0x108/0x134
-    [23:19:41]  kthread from ret_from_fork+0x14/0x28
-    [23:19:41] Exception stack(0xf0bd5fb0 to 0xf0bd5ff8)
-    [23:19:41] 5fa0:                                     00000000 00000000 00000000 00000000
-    [23:19:41] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-    [23:19:41] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-    [23:19:41] ---[ end trace 0000000000000000 ]---
-    [23:19:41]     # drm_test_buddy_alloc_exceeds_max_order: drivers/gpu/drm/drm_buddy.c:406: buddy_fini() root
-    [23:19:41] ------------[ cut here ]------------
-    [23:19:41] WARNING: drivers/gpu/drm/drm_buddy.c:414 at drm_buddy_fini+0x1b4/0x1b8, CPU#0: kunit_try_catch/74
-    [23:19:41] CPU: 0 UID: 0 PID: 74 Comm: kunit_try_catch Tainted: G        W        N  7.0.0-rc1-gdfb0bcedd08a #1 VOLUNTARY
-    [23:19:41] Tainted: [W]=WARN, [N]=TEST
-    [23:19:41] Hardware name: Generic DT based system
-    [23:19:41] Call trace:
-    [23:19:41]  unwind_backtrace from show_stack+0x10/0x14
-    [23:19:41]  show_stack from dump_stack_lvl+0x3c/0x4c
-    [23:19:41]  dump_stack_lvl from __warn+0xe8/0x1c4
-    [23:19:41]  __warn from warn_slowpath_fmt+0xa4/0xc0
-    [23:19:41]  warn_slowpath_fmt from drm_buddy_fini+0x1b4/0x1b8
-    [23:19:41]  drm_buddy_fini from drm_test_buddy_alloc_exceeds_max_order+0x1c8/0x36c
-    [23:19:41]  drm_test_buddy_alloc_exceeds_max_order from kunit_try_run_case+0x78/0x1c8
-    [23:19:41]  kunit_try_run_case from kunit_generic_run_threadfn_adapter+0x1c/0x34
-    [23:19:41]  kunit_generic_run_threadfn_adapter from kthread+0x108/0x134
-    [23:19:41]  kthread from ret_from_fork+0x14/0x28
-    [23:19:41] Exception stack(0xf0bd5fb0 to 0xf0bd5ff8)
-    [23:19:41] 5fa0:                                     00000000 00000000 00000000 00000000
-    [23:19:41] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-    [23:19:41] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-    [23:19:41] ---[ end trace 0000000000000000 ]---
-    [23:19:41] [FAILED] drm_test_buddy_alloc_exceeds_max_order
-    [23:19:41]     # drm_buddy: Testing DRM buddy manager, with random_seed=0xacce106c
-    [23:19:41]     # module: drm_buddy_test
-    [23:19:41] # drm_buddy: pass:8 fail:1 skip:0 total:9
----
- drivers/gpu/buddy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 52686672e99f..ed4d33a30687 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -1091,7 +1091,7 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
- 	u64 modify_size;
- 	int err;
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 4c36c2a4801a..a1454db1bcb0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -76,6 +76,7 @@ enum ddebug_class_map_type {
+  * map @class_names 0..N to consecutive constants starting at @base.
+  */
+ struct _ddebug_class_map {
++	struct _ddebug_class_param *controlling_param;
+ 	const struct module *mod;	/* NULL for builtins */
+ 	const char *mod_name;
+ 	const char **class_names;
+@@ -259,7 +260,12 @@ struct _ddebug_class_param {
+  *
+  * Creates a sysfs-param to control the classes defined by the
+  * exported classmap, with bits 0..N-1 mapped to the classes named.
+- * This version keeps class-state in a private long int.
++ *
++ * Since sysfs-params are ABI, this also protects the classmap'd
++ * pr_debugs from un-class'd `echo -p > /proc/dynamic_debug/control`
++ * changes.
++ *
++ * This keeps class-state in a private long int.
+  */
+ #define DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _var, _flags)		\
+ 	static unsigned long _name##_bvec;				\
+@@ -272,10 +278,8 @@ struct _ddebug_class_param {
+  * @_var:   name of the (exported) classmap var defining the classes/bits
+  * @_flags: flags to be toggled, typically just 'p'
+  *
+- * Creates a sysfs-param to control the classes defined by the
+- * exported clasmap, with bits 0..N-1 mapped to the classes named.
+- * This version keeps class-state in user @_bits.  This lets drm check
+- * __drm_debug elsewhere too.
++ * Like DYNAMIC_DEBUG_CLASSMAP_PARAM, but maintains param-state in
++ * extern @_bits.  This lets DRM check __drm_debug elsewhere too.
+  */
+ #define DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(_name, _bits, _var, _flags)	\
+ 	__DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _bits, _var, _flags)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index a1c3141372d1..e9fa0c8868db 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -206,6 +206,50 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+ 	return NULL;
+ }
  
--	modify_size = rounddown_pow_of_two(size);
-+	modify_size = 1ULL << ilog2(size);
- 	pages = modify_size >> ilog2(mm->chunk_size);
- 	order = fls(pages) - 1;
- 	if (order == 0)
-@@ -1318,7 +1318,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
++static bool ddebug_class_in_range(const int class_id, const struct _ddebug_class_map *map)
++{
++	return (class_id >= map->base &&
++		class_id < map->base + map->length);
++}
++
++static struct _ddebug_class_map *
++ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
++{
++	struct _ddebug_class_map *map;
++	struct _ddebug_class_user *cli;
++	int i;
++
++	for_subvec(i, map, di, maps)
++		if (ddebug_class_in_range(class_id, map))
++			return map;
++
++	for_subvec(i, cli, di, users)
++		if (ddebug_class_in_range(class_id, cli->map))
++			return cli->map;
++
++	return NULL;
++}
++
++/*
++ * classmaps-V1 protected classes from changes by legacy commands
++ * (those selecting _DPRINTK_CLASS_DFLT by omission).  This had the
++ * downside that saying "class FOO" for every change can get tedious.
++ *
++ * V2 is smarter, it protects class-maps if the defining module also
++ * calls DYNAMIC_DEBUG_CLASSMAP_PARAM to create a sysfs parameter.
++ * Since the author wants the knob, we should assume they intend to
++ * use it (in preference to "class FOO +p" >control), and want to
++ * trust its settings.  This gives protection when its useful, and not
++ * when its just tedious.
++ */
++static inline bool ddebug_class_has_param(const struct _ddebug_class_map *map)
++{
++	return !!(map->controlling_param);
++}
++
++/* re-framed as a policy choice */
++#define ddebug_class_wants_protection(map) (ddebug_class_has_param(map))
++
+ /*
+  * Search the tables for _ddebug's which match the given `query' and
+  * apply the `flags' and `mask' to them.  Returns number of matching
+@@ -214,11 +258,10 @@ ddebug_find_valid_class(struct _ddebug_info const *di, const char *query_class,
+  */
+ static bool ddebug_match_desc(const struct ddebug_query *query,
+ 			      struct _ddebug *dp,
+-			      int valid_class)
++			      struct _ddebug_info *di,
++			      int selected_class)
+ {
+-	/* match site against query-class */
+-	if (dp->class_id != valid_class)
+-		return false;
++	struct _ddebug_class_map *site_map;
  
- 	/* Roundup the size to power of 2 */
- 	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
--		size = roundup_pow_of_two(size);
-+		size = 1ULL << (ilog2(size - 1) + 1);
- 		min_block_size = size;
- 		/*
- 		 * Normalize the requested size to min_block_size for regular allocations.
+ 	/* match against the source filename */
+ 	if (query->filename &&
+@@ -255,7 +298,29 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
+ 	    dp->lineno > query->last_lineno)
+ 		return false;
+ 
+-	return true;
++	/*
++	 * above are all satisfied, so we can make final decisions:
++	 * 1- class FOO or implied class __DEFAULT__
++	 * 2- site.is_classed or not
++	 */
++	if (query->class_string) {
++		/* class FOO given, exact match required */
++		return (dp->class_id == selected_class);
++	}
++	/* query class __DEFAULT__ by omission. */
++	if (dp->class_id == _DPRINTK_CLASS_DFLT) {
++		/* un-classed site */
++		return true;
++	}
++	/* site is class'd */
++	site_map = ddebug_find_map_by_class_id(di, dp->class_id);
++	if (!site_map) {
++		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions",
++			  dp->class_id, di->mod_name);
++		return false;
++	}
++	/* module(-param) decides protection */
++	return !ddebug_class_wants_protection(site_map);
+ }
+ 
+ static int ddebug_change(const struct ddebug_query *query, struct flag_settings *modifiers)
+@@ -265,33 +330,31 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
+ 	unsigned int newflags;
+ 	unsigned int nfound = 0;
+ 	struct flagsbuf fbuf, nbuf;
+-	struct _ddebug_class_map *map = NULL;
+-	int valid_class;
++	int selected_class;
+ 
+ 	/* search for matching ddebugs */
+ 	mutex_lock(&ddebug_lock);
+ 	list_for_each_entry(dt, &ddebug_tables, link) {
+ 		struct _ddebug_info *di = &dt->info;
++		struct _ddebug_class_map *mods_map;
+ 
+ 		/* match against the module name */
+ 		if (query->module &&
+ 		    !match_wildcard(query->module, di->mod_name))
+ 			continue;
+ 
++		selected_class = _DPRINTK_CLASS_DFLT;
+ 		if (query->class_string) {
+-			map = ddebug_find_valid_class(&dt->info, query->class_string,
+-						      &valid_class);
+-			if (!map)
++			mods_map = ddebug_find_valid_class(di, query->class_string,
++							   &selected_class);
++			if (!mods_map)
+ 				continue;
+-		} else {
+-			/* constrain query, do not touch class'd callsites */
+-			valid_class = _DPRINTK_CLASS_DFLT;
+ 		}
+ 
+ 		for (i = 0; i < di->descs.len; i++) {
+ 			struct _ddebug *dp = &di->descs.start[i];
+ 
+-			if (!ddebug_match_desc(query, dp, valid_class))
++			if (!ddebug_match_desc(query, dp, di, selected_class))
+ 				continue;
+ 
+ 			nfound++;
+@@ -656,6 +719,7 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ }
+ 
+ /* apply a new class-param setting */
++
+ static int ddebug_apply_class_bitmap(const struct _ddebug_class_param *dcp,
+ 				     const unsigned long *new_bits,
+ 				     const unsigned long old_bits,
+@@ -1107,12 +1171,6 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
+ 	return dp;
+ }
+ 
+-static bool ddebug_class_in_range(const int class_id, const struct _ddebug_class_map *map)
+-{
+-	return (class_id >= map->base &&
+-		class_id < map->base + map->length);
+-}
+-
+ static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp)
+ {
+ 	struct _ddebug_class_map *map;
+@@ -1237,25 +1295,36 @@ static void ddebug_sync_classbits(const struct kernel_param *kp, const char *mod
+ 	}
+ }
+ 
+-static void ddebug_match_apply_kparam(const struct kernel_param *kp,
+-				      const struct _ddebug_class_map *map,
+-				      const char *mod_name)
++static struct _ddebug_class_param *
++ddebug_get_classmap_kparam(const struct kernel_param *kp,
++			   const struct _ddebug_class_map *map)
+ {
+ 	struct _ddebug_class_param *dcp;
+ 
+ 	if (kp->ops != &param_ops_dyndbg_classes)
+-		return;
++		return NULL;
+ 
+ 	dcp = (struct _ddebug_class_param *)kp->arg;
+ 
+-	if (map == dcp->map) {
++	return (map == dcp->map)
++		? dcp : (struct _ddebug_class_param *)NULL;
++}
++
++static void ddebug_match_apply_kparam(const struct kernel_param *kp,
++				      struct _ddebug_class_map *map,
++				      const char *mod_name)
++{
++	struct _ddebug_class_param *dcp = ddebug_get_classmap_kparam(kp, map);
++
++	if (dcp) {
++		map->controlling_param = dcp;
+ 		v2pr_info(" kp:%s.%s =0x%lx", mod_name, kp->name, *dcp->bits);
+ 		vpr_cm_info(map, " %s maps ", mod_name);
+ 		ddebug_sync_classbits(kp, mod_name);
+ 	}
+ }
+ 
+-static void ddebug_apply_params(const struct _ddebug_class_map *cm, const char *mod_name)
++static void ddebug_apply_params(struct _ddebug_class_map *cm, const char *mod_name)
+ {
+ 	const struct kernel_param *kp;
+ #if IS_ENABLED(CONFIG_MODULES)
+@@ -1275,6 +1344,13 @@ static void ddebug_apply_params(const struct _ddebug_class_map *cm, const char *
+ 	}
+ }
+ 
++/*
++ * called from add_module, ie early. it can find controlling kparams,
++ * which can/does? enable protection of this classmap from class-less
++ * queries, on the grounds that the user created the kparam, means to
++ * use it, and expects it to reflect reality.  We should oblige him,
++ * and protect those classmaps from classless "-p" changes.
++ */
+ static void ddebug_apply_class_maps(const struct _ddebug_info *di)
+ {
+ 	struct _ddebug_class_map *cm;
 -- 
 2.53.0
 
