@@ -4,88 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC2ADF483D1
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64D0F483CB
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00ED10E52C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 955EE10E52B;
 	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="HCmzpJZm";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQ/ULjna";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD9F10EC1D
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:54 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-4671cbce2feso976076b6e.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:54 -0700 (PDT)
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
+ [209.85.210.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0046E10EBEC
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:12:07 +0000 (UTC)
+Received: by mail-ot1-f49.google.com with SMTP id
+ 46e09a7af769-7d74c1157a4so2209171a34.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408293; x=1774013093; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773407527; x=1774012327; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ves6/eFJLAs0HG68Znj+VH4wZtUdDvx4ZnDak47UPW8=;
- b=HCmzpJZmxi9a7DnbKerMWSIhWQF7UXL8eGUb0SvcU8745rmGSlCC+CebuJCvRAqoE0
- FGclb8dhe87X6biLkNTv9cM7kjRRuO3t6Yki9GIOdu+K5yWdNbSjFUloo5LjgUuaz43T
- I8ps2fvs5GlWL9VKA7/9LdrrJjLKZo4Ixje+TC7PfDx43yHVcAiVwfyI0L/Ytjm/6ZZv
- SrszsoFVXunk2Hoisx1ShBrMJVoIr7PG33/wgllyV9CTjhc9vwOIzExeHFsYKYaT82fL
- /6Lq2PyMIs6hsTcyrUVJxK7+BDDLHAf1Zc1qGaDDrRY4nmpBfn24R4f18jcmnyii09D5
- V8Pg==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=eQ/ULjnaqKu27dgcYx6ISKGTt3dDhRu+UXIH7gH4shZ5/zTnnQHZL+eJk4JSIIigtf
+ 4d4u9gyltZHXmA5UaRIP1HhrkAVtm44YzAeNpIu+rgKwejT/phvx34/P99G/0+lc3S9u
+ ZLdlRix/elXTVF7z0akOGbtM6pYxx1o7i/HMPmCp6i7rGCiqEYssCxIlZxZL4lXpaqI9
+ QQARYMfgWNRB81W4rB8ZoMbshMJIFn3jFtkUAVU7eZutXVwGmc28L1mx4CZ7/XPytwIR
+ V3CP7nSDlpUySyWUTNuuDeV6ePlk3AuwfbPYCG9MENqfORflCmP/wiFmAi8agOibcq2M
+ 5dEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408293; x=1774013093;
+ d=1e100.net; s=20251104; t=1773407527; x=1774012327;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ves6/eFJLAs0HG68Znj+VH4wZtUdDvx4ZnDak47UPW8=;
- b=FI7nyznUQHKEaYoOSi53EN7LsXoq3VKng3qinQDV1dS/od0PTY64HRJbHRdTwuLDJT
- lZ8aLvvxK0zRlHCohcWKL8K/BlVdAzeAhFWFhuXsmLZDy1VpXmOv5TwGVjOjQfjh6wVZ
- /6u0oOUM6ZEvCpCenuscSFBQnXZqpFrCnQ9WeaqEIJ79ajFR8etjbolz7dnDBj43ovWr
- cT5UEbcmittaOSo8lOymZBHab/qihuqCHgFWpNKt89+64X6yNudSuhZcRLnhTdxmRQp8
- rMQ4t7bimqlh2yzS2FMELE1PnEPUcsKoyVoJBFQJIv1xCqWeUdQplo9P50282tOPQyE2
- Tgcg==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=KswEeOWawxbgLMzAcw9bytEhvaaxunVKHs0JUKe4cOu4uytDmJRe/+dLpHgmy7oFvN
+ tHCcavRnU0hspGudXxE/2jFrDfVDAi25QDDODpHk8aZ0aE/oscPuuQ1rnlVxKejDt/QO
+ KK31M7Ctv78y5Z97+2zsmAMEPON9igXDWW2KVvEOtvSX3X9qAL+6rygK0S2v0umivUsX
+ qvGy54Jii36GUIcAl5gWIFqUGSxj6DaNhHVmPgBYrNvPzsqD5hQHvYxakIVa0WLuYotR
+ RVMt9UeeQndAW8R2HPllgvEl2JLmLxkynCvA5sOGw8AemN+AcXLFatreh0PFB7kBICCx
+ 0z1A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXhxZFUVP0a0EFDZAWtV5DqjTc5VbyTBg5aZr6G2P2jlfrDoiMccDtT2ImuYAiyR6JEn3HMWcSm7i8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGatIb19fY5QrMY1BF1DK1ypFoiS+b1ATiaFZHaSp6Ud1GjlQB
- /rZWEEKVTzoL6U8PU7qEeKoyeXKDH38tuc5DY7WtFwjlZzfLB04d6dz8
-X-Gm-Gg: ATEYQzw0af7ejfFieoDhQq241dZoqg7f9ZgYW102G3bciPKax+X6YsywROc87uRCJ8c
- qI+TuigwGOVjFQv7KZwRs30crV78Y0LDVdFUBiNaIhs20gXUK0h9gND87VtKnvN/MrJhXhIeciz
- C88HG6YvoauIixjfZXFdPAnj+KC2J1brRwRymJBTlRsvh7StnkGyxeS1vv4ZjXjmlEl2AJB2jgO
- gsOe3WRFpuTUK499ajqy98hxNlXbG0zGL7DE8pF+9teHd93D0cTi92vbN6Wm/KzDBPmD5izdpxd
- D6E4FxvdJdUsdCQc2c0vvwN8XoGz+ImC/FE64QPDygKYWgbtQpa/fgclBjyz49BborlrVVuhu/r
- Xsx3FEVgYdq/C5Xiy+PAiz7gL7SDSTvT7CyATp6gXJzjL9AOfrsKlFf5N1eBj/jLMATj09Gltdp
- q3uU5J+itKwGA4Iv6tpl8R8OitRUZGyuBWqYF/BZheL9fOAGFJ
-X-Received: by 2002:a05:6808:1b10:b0:467:254:b90 with SMTP id
- 5614622812f47-4675704a335mr1612471b6e.10.1773408293451; 
- Fri, 13 Mar 2026 06:24:53 -0700 (PDT)
+ AJvYcCU6pPxvTUDIEDdIxVheWCar1e3EWMujV6Ray1odKZF+t4sL+W5sUjy1ejC2E7dA0JdkDprD68QzmHQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwwXQBdmMHf9bGqVqq+9Y/+LdFSc01Up54X6sOwSvWR4bcw+fOw
+ VuJNUQrbG40qwZoYcNgyVdPYUmyhVwjjAFb/8tIPyflr7GCPHeBMT5Kn
+X-Gm-Gg: ATEYQzwLDaHEW5mh1WsyzYfviLvDscuPPLd13xiFAAgAr/WstNrwJU4b14PZiwk5Dex
+ scfN5BqZFGyyyKlfDZZFndAZdftZMhMNtX3/WgVzITU711R6+9HNkuUOtMV1mXJYDzwMPO1hCIY
+ ACu8D2dI5BPGPK6H+YgJL8VI2ZZkzQpeuTSfknG7aqWx/hynh8OHC2rNrNIZRYr9gTTF5Qf36Qk
+ +XVbTWlJsJr0+JM8qJFtC2r7zNp7qKwrnVYtrGVIw7ypghReU+lsljtJyM8wq5n+2G0Il3KtILE
+ GQkYkxQ397cWILzXgsX5STzmunqS+gRlncd5t12Wt7DDMse0Rg1QRlXyezIMNpR/dRKEZhyMx27
+ OS75s3ZVKkELGS+fsStkstCqTqJX+2JcocTvu3R/X8gNAQYkOJE3DC1BtlGwXNkwNNXDwcpk1fz
+ /OMUAlLC9YbcFez95j6C+2BPCMmClU8A/mEwvTSOt0S8ymUweifsq5VZ/1QT4=
+X-Received: by 2002:a05:6830:64c8:b0:7d7:5bb2:568d with SMTP id
+ 46e09a7af769-7d7825771e3mr1924422a34.28.1773407526988; 
+ Fri, 13 Mar 2026 06:12:06 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.51
+ 46e09a7af769-7d76ae90586sm6733728a34.22.2026.03.13.06.12.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:53 -0700 (PDT)
+ Fri, 13 Mar 2026 06:12:06 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Dave Airlie <airlied@redhat.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+To: Andrew Morton <akpm@linux-foundation.org>, Jason Baron <jbaron@akamai.com>,
+ Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 56/65] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl driver
-Date: Fri, 13 Mar 2026 07:20:21 -0600
-Message-ID: <20260313132103.2529746-57-jim.cromie@gmail.com>
+Subject: [PATCH v11 02/65] dyndbg: factor ddebug_match_desc out from
+ ddebug_change
+Date: Fri, 13 Mar 2026 07:09:09 -0600
+Message-ID: <20260313131045.2526422-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+In-Reply-To: <20260313131045.2526422-1-jim.cromie@gmail.com>
+References: <20260313131045.2526422-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,28 +97,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The qxl driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+ddebug_change() is a big (~100 lines) function with a nested for loop.
+
+The outer loop walks the per-module ddebug_tables list, and does
+module stuff: it filters on a query's "module FOO*" and "class BAR",
+failures here skip the entire inner loop.
+
+The inner loop (60 lines) scans a module's descriptors.  It starts
+with a long block of filters on function, line, format, and the
+validated "BAR" class (or the legacy/_DPRINTK_CLASS_DFLT).
+
+These filters "continue" past pr_debugs that don't match the query
+criteria, before it falls through the code below that counts matches,
+then adjusts the flags and static-keys.  This is unnecessarily hard to
+think about.
+
+So move the per-descriptor filter-block into a boolean function:
+ddebug_match_desc(desc), and change each "continue" to "return false".
+This puts a clear interface in place, so any future changes are either
+inside, outside, or across this interface.
+
+also fix checkpatch complaints about spaces and braces.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/qxl/qxl_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ lib/dynamic_debug.c | 83 +++++++++++++++++++++++++--------------------
+ 1 file changed, 47 insertions(+), 36 deletions(-)
 
-diff --git a/drivers/gpu/drm/qxl/qxl_drv.c b/drivers/gpu/drm/qxl/qxl_drv.c
-index 2bbb1168a3ff..73998bb331d9 100644
---- a/drivers/gpu/drm/qxl/qxl_drv.c
-+++ b/drivers/gpu/drm/qxl/qxl_drv.c
-@@ -67,6 +67,8 @@ module_param_named(modeset, qxl_modeset, int, 0400);
- MODULE_PARM_DESC(num_heads, "Number of virtual crtcs to expose (default 4)");
- module_param_named(num_heads, qxl_num_crtc, int, 0400);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 18a71a9108d3..6b1e983cfedc 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -172,6 +172,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+  * callsites, normally the same as number of changes.  If verbose,
+  * logs the changes.  Takes ddebug_lock.
+  */
++static bool ddebug_match_desc(const struct ddebug_query *query,
++			      struct _ddebug *dp,
++			      int valid_class)
++{
++	/* match site against query-class */
++	if (dp->class_id != valid_class)
++		return false;
 +
- static struct drm_driver qxl_driver;
- static struct pci_driver qxl_pci_driver;
++	/* match against the source filename */
++	if (query->filename &&
++	    !match_wildcard(query->filename, dp->filename) &&
++	    !match_wildcard(query->filename,
++			    kbasename(dp->filename)) &&
++	    !match_wildcard(query->filename,
++			    trim_prefix(dp->filename)))
++		return false;
++
++	/* match against the function */
++	if (query->function &&
++	    !match_wildcard(query->function, dp->function))
++		return false;
++
++	/* match against the format */
++	if (query->format) {
++		if (*query->format == '^') {
++			char *p;
++			/* anchored search. match must be at beginning */
++			p = strstr(dp->format, query->format + 1);
++			if (p != dp->format)
++				return false;
++		} else if (!strstr(dp->format, query->format)) {
++			return false;
++		}
++	}
++
++	/* match against the line number range */
++	if (query->first_lineno &&
++	    dp->lineno < query->first_lineno)
++		return false;
++	if (query->last_lineno &&
++	    dp->lineno > query->last_lineno)
++		return false;
++
++	return true;
++}
++
+ static int ddebug_change(const struct ddebug_query *query,
+ 			 struct flag_settings *modifiers)
+ {
+@@ -204,42 +250,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 		for (i = 0; i < dt->num_ddebugs; i++) {
+ 			struct _ddebug *dp = &dt->ddebugs[i];
  
+-			/* match site against query-class */
+-			if (dp->class_id != valid_class)
+-				continue;
+-
+-			/* match against the source filename */
+-			if (query->filename &&
+-			    !match_wildcard(query->filename, dp->filename) &&
+-			    !match_wildcard(query->filename,
+-					   kbasename(dp->filename)) &&
+-			    !match_wildcard(query->filename,
+-					   trim_prefix(dp->filename)))
+-				continue;
+-
+-			/* match against the function */
+-			if (query->function &&
+-			    !match_wildcard(query->function, dp->function))
+-				continue;
+-
+-			/* match against the format */
+-			if (query->format) {
+-				if (*query->format == '^') {
+-					char *p;
+-					/* anchored search. match must be at beginning */
+-					p = strstr(dp->format, query->format+1);
+-					if (p != dp->format)
+-						continue;
+-				} else if (!strstr(dp->format, query->format))
+-					continue;
+-			}
+-
+-			/* match against the line number range */
+-			if (query->first_lineno &&
+-			    dp->lineno < query->first_lineno)
+-				continue;
+-			if (query->last_lineno &&
+-			    dp->lineno > query->last_lineno)
++			if (!ddebug_match_desc(query, dp, valid_class))
+ 				continue;
+ 
+ 			nfound++;
 -- 
 2.53.0
 
