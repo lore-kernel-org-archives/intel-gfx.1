@@ -4,81 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21002F483C3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53B27F483C4
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FA1C10E513;
-	Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DEA810E527;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="OI0Ulaf9";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3kl09Ol";
 	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB95710EC2A
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:29 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-4671cbce2feso975923b6e.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:29 -0700 (PDT)
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2652810EC24
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:40 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-45f053b7b90so1444845b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408269; x=1774013069; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408279; x=1774013079; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=omqdlqhqg9w8rP5QQ/+0ZYQHRwMpTry/COrsHclV4zI=;
- b=OI0Ulaf9MBkuL8UHNfULduu+KrXKjJsEIpkkpzwthZOaB/jUt/HI5VxNXqC3g5stHo
- BVzKDTh3tHvsNdfLFLW3rJwKuE3u76XK+HN1Xx7ITnv7+8vxGxIDNkOu/ROULNSljE5Z
- 2TvmxnBVrCjwbdlMJUGqBwB1dg8fq4Lkz7Usd22Mqaw8k1ufRrbbtouXRFkxCtyIM2E2
- y4Y8ItWCXeHlE2qDR5c0DUcLmlZHxV/cMcBNdS3KjSgZePxZ4IhpYDJOX/Xce/JJ1y8X
- 4OgJsFhhP82cg+dwVudc26cunjG6PupJDZ8RJQWR8yZFWDA8Mr3P8aYbW8MOFWseB52e
- SYsQ==
+ bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
+ b=m3kl09OlQN5dK2iZ3NA0J2efr132PpZtDsIPxBXmaAKJ4RI0ksQkuzxGLA6izbl41V
+ k74ar3fx3+22dsxwwqDJLTrI77Fppo8C7usxpODu7DgqrKgG+//9SEg13QZE0dMNV2Od
+ iDuopc7myG6Bq6sgV9TWhkzhBbx/oMXUABnmnhW3DX4GBTXsNZqxM9nEtW8oS3PI3q11
+ eVue2eMom4TE8QvVJGeCqAyG9PYXV1iV91BGY+xom+yXKM/vc2nrTq+ZeSHJm1I8wU+Y
+ /ek9E0mOkrZfncmtkCXwH4Y0r6Oxc3AOKju4dNqkaCsMMOcEuyDgMmItIbHudzGrXqGj
+ ZtNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408269; x=1774013069;
+ d=1e100.net; s=20251104; t=1773408279; x=1774013079;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=omqdlqhqg9w8rP5QQ/+0ZYQHRwMpTry/COrsHclV4zI=;
- b=ZG044CfCIvLfqhPHpa1QCQOXMr5NA+jJQHiffucIBIc+/+5GKoquodbgP3rrEnc34N
- ocgCXObqgHHYCeHq5jA53SfunXgUxRX33DGlNS7o4P5ee0VzK17qsBqT80xB/s58DHeL
- JL/F09QNdbxOF+W9+ToiVqHTK/itUZBWQM8Q/4DlX76An9DLMOIc8CYiMRX7sbe7nkZX
- /FJsNX/uY3MrEUDIrf2gsYto+o5y7fgszJPmzrfIuoq6zFyZXI8KvT+k3cF407T4tuO4
- roqYxYx56ZwLwh4GFqRljXpa7g5UZ0bnj1xc1HP0XXsEpELVdj5+CRtgnRwq4TIAlQEe
- 4wNQ==
+ bh=rnDJitpTduufuEe6X95vH8IiBFUBoxeB6eQQOPNaxFg=;
+ b=P8J683qL8EA6c0WkCxjHl/oHE6P8gxW/eSpTqwMKiBB5yLdB2Ni5S7s15UnTDl9y+E
+ rknqRWMrcmeG1GehsL+ApRAde+lCZ803UmX4L+Tw7gb6yhWOPOlyxaDfg6ydJQ0i5dGg
+ 2oKDo3XL2qxrMjl3rDjha0vqvieBzYaeWgD50gjvlQf20txT+iKUg/JgiHg06iI2+z2x
+ WtRRxb6qByTIamqHZyobS3rSq9XXgsP8ZQgT1GVYgxEU/7otgAA+0GtLodiQgs++RX32
+ sCRDuZ5eVj93aBQ2+nB0dIct4fcTti8dBE88LhqCoYTrsaJ3KnDP1h4R3Awmz6hDd3TK
+ 43SA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVeXNAYdjwcoDj3bPoDRi2DZGneBiDq7h68cAUogCX49czTDGodjyxGZs7yJor+8zON9bzK/ZtWidE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+irNfQeyZcsa8PSEefz022nBEsPJ2Fyi3XbZQT3khH86FR72B
- LTG9M5DU+auhZujpfrrmUxsvQOyR3+GYqQrgKKmKubwiKOtulkUu0qKI
-X-Gm-Gg: ATEYQzxRiDp4P2c1C/KjoDN1IRLEIYcuimXKO9DnM3qhwOq4lr27cvYdwbzl5WB/iYI
- GMCqI5OYNFOCea/Le+9GvVJ4ninz24xPGKEWnEGp65oCwksTVsm3YxnILXO7pouCRWm9BtxBb+b
- ENZPtIHtahg5IYus0y+gn0M7G3Cf+o3DzcuxK4IefqNkmG2Yk2yit4ccqvAWr8eEZZbxXdHc/K2
- Z3+IDHXhOQXukALXdOPIfU6ZFiifP+ulx/scY9g4Rz0v/8rLZYOUXpAvYf0zyHx11gh01YyTRXP
- Q3Oej4AqoiMeWI7C0zY/6C8Ncsd/6UffiIcpgTQheOPM9WnCp2vuuao5xq8JPi5Rcb0x67aCyGp
- 801kdAAdAAJXLGOKPqY2DtCn7+ISduQaaRc23SpcboDl7DP+cfOd+Rzz48FYH9+0wIjxoTUFBrh
- bivvQ9ez3XLzsz+HmTzPGs1Npz6qwKphQ17buN8utqfaxXKb45
-X-Received: by 2002:a05:6808:2218:b0:467:cda:f189 with SMTP id
- 5614622812f47-467572ede3dmr1790509b6e.32.1773408268910; 
- Fri, 13 Mar 2026 06:24:28 -0700 (PDT)
+ AJvYcCWItiN1qxLI4lVbBiruztI5nzwAGPhCY+ghPfVYhNra0K836ZPuPgItEhFpHMK1/6waNUxGCl+IV6I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YynXYWxpNHkYTydcDxQ4KOdITW6Xw22fBzedOelKpmRG/t5c+tP
+ 2GgWpuZfs+Qsk3Q+pp2Fr5DMcHWlBcz8jJwFB6Tr5AgvZF+g7/gN8a2M
+X-Gm-Gg: ATEYQzzcVkiMkzw8zARbYJ2AJ1Ytg5d1WNdWA+0c5fz7zY5ICiWQvt/e3481u7dAPkI
+ nmJI9j6yIun1YTFsYHR6eGLs5fusuhWkK8u8IY0ek5sNXGxJX6llQKX678Z6TaJoSrub2wu+iRK
+ TaVRoV4Cp49gJzSbl3HZxcIoAiyCP3KE7O0bBFppxkqLGz6xpb8D8y5MgaPbSNLkhdKd5DEajYe
+ xy7OQWFDVIFRjNmS0RMclVdxoCxcgcXDFje5L4in6uEvARdluPMuNl//6mn2m/AZXrkUkzx/adx
+ 9LALhnzAoo8OWOK6AgtGZpfWPVT//JbH/QfzOg/3bqeqhTpjXV3C4weVEj3AWOCXleYQFoap5ta
+ Ir0g2Bys4tB4ppwrn2WnE90LyQo81+XkOugcYjhZq7dG8ireEmSVswdLowwoIaqMDChZOSR1e8G
+ kVEU+QosjL1Uicmjyepf3FpIQRXILK7bzlGrTEdJnqGaRDF4EK
+X-Received: by 2002:a05:6808:11cb:b0:464:305e:8fcc with SMTP id
+ 5614622812f47-4675713631amr1649395b6e.20.1773408279143; 
+ Fri, 13 Mar 2026 06:24:39 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.27
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:28 -0700 (PDT)
+ Fri, 13 Mar 2026 06:24:38 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jim Cromie <jim.cromie@gmail.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 43/65] drm-dyndbg: DRM_CLASSMAP_USE in nouveau
-Date: Fri, 13 Mar 2026 07:20:08 -0600
-Message-ID: <20260313132103.2529746-44-jim.cromie@gmail.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 48/65] drm-dyndbg: add DRM_CLASSMAP_USE to etnaviv
+Date: Fri, 13 Mar 2026 07:20:13 -0600
+Message-ID: <20260313132103.2529746-49-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -100,43 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
-
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+etnaviv has 5 DRM_UT_CORE debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs as well as plain-old pr_debug()s
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/gpu/drm/etnaviv/etnaviv_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 5d8475e4895e..d205b58aff70 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -74,17 +74,7 @@
- #include "nouveau_uvmm.h"
- #include "nouveau_sched.h"
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+index 08aca9035fc1..ef4423d4987f 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
+@@ -26,6 +26,8 @@
+ #include "etnaviv_mmu.h"
+ #include "etnaviv_perfmon.h"
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
 +DRM_CLASSMAP_USE(drm_debug_classes);
- 
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
++
+ /*
+  * DRM operations:
+  */
 -- 
 2.53.0
 
