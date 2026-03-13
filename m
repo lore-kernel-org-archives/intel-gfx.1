@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 724E8EC01DF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E295BF4613D
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 952D410E503;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A016E10E508;
 	Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVhvGoYp";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="nd/Pq6GT";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C52C10EC05
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:41 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-463f00cda04so1374700b6e.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:41 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54D3310EBF1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:10 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-4670464029eso1288853b6e.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408220; x=1774013020; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408189; x=1774012989; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=o/myr2hp6uBA+KWlkM+krb2AJfDnLypCssuuL9Sraxc=;
- b=jVhvGoYp6rfuAQ10yhKjzqhklqPSPBHipCLjN+5ipZaKcS6lRYc07qkGIYRis3KARY
- mqs/lChGHPzbTEkbh1s/OyV7/RhOlJ6YwXganhTkOa1hLMQD/aBOsNvKg+MWYP1eyp3o
- 0rd7HrhtNT7WxPEnARIwgGzS4oLabp1S0v8zpwNrpLDK1sAV2ALupqwdDa1m/dRbmLm7
- cv9LwknhqO2C8HcGchR9mozFcudxXyRxDxdrIGms9/auXb2tiK27NEigRaasXZOrG8sp
- FdiUj6HMfsxVJiwzIxGeNBay4fTcN2UyL0a34x9kZ4Ih6p+x4dN77aE5WIq/UXMSlL1U
- Iblg==
+ bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
+ b=nd/Pq6GT3nGpTT+SwcRtjUEdQPnAKTWNE/CT6RIuMu974vq71a2L+kutdFp51duJaI
+ ew2wY7xP83poJz+C2RAo1aQNVIaRZifelsnced5HP7ZmTWxVmln6S/qE1SeDZeHPiina
+ /pybKCTDVCV9HmTeqp0IA4wy1Xxuizzb3C+Eo3VUDTcxfW8ReddsXeiBdiaj606ohT6y
+ bBTxKmAJKpgP0Gj52vj4xZxwgtaMTH3R7RtZXDWNxWQ8YdjiT9DzwDpVxyIOEt4LlNwd
+ YuZiU55aaIIhxaSCOdiP7aWWI7vdIkfaiuSopAjzOaGFJ0mNNZGAJPLOUTjTG7UzqL3c
+ 6QCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408220; x=1774013020;
+ d=1e100.net; s=20251104; t=1773408189; x=1774012989;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=o/myr2hp6uBA+KWlkM+krb2AJfDnLypCssuuL9Sraxc=;
- b=PsX/CsUVL3F6/k9oFCizHsWlINdEHCEvbhltFpjD3u3n8WLdjmRVMLErtU7EAylGZV
- kEhLsXCbsLZDZPr0DzrLG7PcJ5xiOT7EZ93zZ+O6/L0Ik00CXljT2UKtCkEF+D/fm9Lm
- H2MTtalnczNpC7iZzdWuzXPWT5l0iZTFdcY+Gpm9HU+ZQfx9wQZ/KwMDgoIe766AWNNJ
- IlYdkfgm7iI2aN1U9EqDymzqLxin53QhIslnaMoZDbyhOKBHZVxCvGTDeqD8JWMOz+nT
- IIJngcLEf6UJUeo6EY9q7nLZngg2NbQ3yRf/rQqfVm3uwLe5bgquCKyP5eSaLWBnLx//
- syTA==
+ bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
+ b=EEvrH2wB+UNWYD3NqKVkCzQ96yFndh3MwNQL54ID6RY0RYSFNjE07aIghVMJGQexvr
+ wmxJfDjtK32BaKrw3yudrohUwGd5t4iC/Szjk5UsE1V/sJDzOEBqKbkv3Q250+MKPhYp
+ HwXuzJcB25gw10I/XFCHByOK2ESi7S3nk3GlEOl6GqJ3+5OlsuAqBcoqnzgy3thchkHr
+ DzjLo7riYScTi6MMCLj70Nk0YPSr2pCbq6LlZhNP6Wl5fQp2ck3EfH2OLxO8XHDA7Bnb
+ BPV1rRMqgQlnWQpM1hjGCMhqyRqluB/iTWLVmHMaq2rPiasYDrx8SpNnWqMQ0cwohabj
+ SpTw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVPgU/w9+6/XoqLrY8Z6ZsvdJfSIFxeU9dknLJp2KU5SzSCs5hhmRPPVcIxcQrpCbdFYheLErZzlsI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzIRaz7bNtb6Xo+vIKsY5hsMon5/iOd/r6gbJpF/wFKvY6BpD0u
- nJqhlXSDCwoACt1rI1DyE3r4WOBnye8SWGMdbRV/+bYpFONBkdXMscSL
-X-Gm-Gg: ATEYQzw9xNVNdQh7qP7xpmQrnL6zuwiq7ndIQwCT5d+ghp2DXdbpPrdbyx/2juFa0rB
- yk0tEIfRntncn828u7StoGtYA4e76f/iXSVVVBxhPWN6zfcECnQKPWOgZbpclORgE85RJPRpstB
- O3dGd+VhQqP0pp4zUPolQDkNGvv813Jd4Fmrcjs/NnIZy6BywO4ZLCMvkfCrzPuJXc0OMO8Bnv1
- NJOcL+ErCJECprQpF+qkCVS1bdt/Z5uC4cnZPgMg9nWsJlPcWjbXOyaMyYxVQNkBxNT8pDewN5s
- TZx5sjaPI6erIQxG903S5n8nzH7t7WOqCRb/SsIelh4OQQjPlZ8uHSNjAp/F9sfMBeFfgZXJZp/
- YrFf9kdXccLExqWdfLS4lmL0qm75wnBfSqwOH5+4Mi028SLepJB2P+6dCjarnPi2UBNsGVNJ0HO
- gx7Dh65HS5TwL0KUcu+WHorB6hM/x0SCtaT5boxaeTUMzhNpIT
-X-Received: by 2002:a05:6808:6604:b0:45c:8fa8:7497 with SMTP id
- 5614622812f47-46757530482mr1581686b6e.34.1773408220142; 
- Fri, 13 Mar 2026 06:23:40 -0700 (PDT)
+ AJvYcCWp8KJmdtKGfUxcXcw5ZcVTC1H8/5jg4jWu9+aJ/lFhixU6iR27kZ7uS5z4ADp6YSVxzwwj7HliLPk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5izgZVSGdFO/6bFoVCeo0WB51N/YbncKJLQmOBGGolJ0M+vuZ
+ rEf+J+NxhQBvzE/rrZOsj3Poa4DNp9TPmlSxTXQiVJIa+bjtsOiwa1Vt
+X-Gm-Gg: ATEYQzwNtJtk7HeJHGTCqZ2KePbsFwuUekm5rWYFraINVes8Y+oK/0RC8742gUgXCNm
+ xRpOQmuqHC1b7ldl+S8JCMz+Rg1X/hWvRbaIw+FLHGgS3xSRUahifaH5Gn6rIiJCt+rhmPCRQJS
+ QJ9ziV5SG01ABXd82R0ya/kSAYNFZ7Bs2u46KwsRYaI0zsy0ZuHhLdf54XmBL/MaEFOpiJAmenD
+ k0fb/H352jOiVjQrAvHMJp3n4Idi1aQI/zCi51e9BOs1Umf49oNl2WU2SnCfE12IdjvWyUV0kcj
+ lB321rUmSLwYXSjaX70n8pKjKJ/9R1G/lfA0bCk6I5SGmtt3/4LIcm63jTC1QJxApNU3b9Xvv/x
+ sU9KjY9pqSl2yQvXjlUfjg9QROSG+2DA87XXextk15ZjZiat90xxH8ZEYO4rfWFx0iIl2xtE21T
+ GJP/XQGYNrVDnvfS7MZ+S9gHN746hFhXCxCyccz4Dfsd2RfJ3k1kxGDlXGmqw=
+X-Received: by 2002:a05:6808:4f49:b0:467:1941:1f18 with SMTP id
+ 5614622812f47-4675715ea52mr1607049b6e.14.1773408189500; 
+ Fri, 13 Mar 2026 06:23:09 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.38
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:39 -0700 (PDT)
+ Fri, 13 Mar 2026 06:23:09 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
  gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- linux-kernel@vger.kernel.org
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
 Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  christian.koenig@amd.com, matthew.auld@intel.com,
@@ -73,10 +73,10 @@ Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 21/65] dyndbg: change __dynamic_func_call_cls* macros into
- expressions
-Date: Fri, 13 Mar 2026 07:19:46 -0600
-Message-ID: <20260313132103.2529746-22-jim.cromie@gmail.com>
+Subject: [PATCH v11 07/65] dyndbg: reword "class unknown,
+ " to "class:_UNKNOWN_"
+Date: Fri, 13 Mar 2026 07:19:32 -0600
+Message-ID: <20260313132103.2529746-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -98,60 +98,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
-(expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
-the invoked macro has a do-while-0 wrapper, and is not an expression.
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-   if (cond && (drm_dbg("expr-form"),1)) {
-      ... do some more stuff
-   }
-
-Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
-macros into expressions, by replacing the do-while-0s with a ({ })
-wrapper.  In the common usage, the trailing ';' converts the
-expression into a statement.
-
-   drm_dbg("statement form");
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it uniquely greppable.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b6198ecc854d..80160028461a 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -224,24 +224,24 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
-  * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
-  * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
-  */
--#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
-+#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
- 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
- 	if (DYNAMIC_DEBUG_BRANCH(id)) {				\
- 		func(&id, ##__VA_ARGS__);			\
- 		__dynamic_dump_stack(id);			\
- 	}							\
--} while (0)
-+})
- #define __dynamic_func_call(id, fmt, func, ...)				\
- 	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
- 				func, ##__VA_ARGS__)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 6b1e983cfedc..a9caf84ddb22 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
  
--#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
-+#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
- 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
- 	if (DYNAMIC_DEBUG_BRANCH(id)) {					\
- 		func(__VA_ARGS__);					\
- 		__dynamic_dump_stack(id);				\
- 	}								\
--} while (0)
-+})
- #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
- 	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
- 					fmt, func, ##__VA_ARGS__)
 -- 
 2.53.0
 
