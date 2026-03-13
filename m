@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB65F483C3
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C099F483C6
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAA6010E54B;
-	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC0210E52E;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="WdlIUNs8";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="M0onIEeZ";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4507C10EC23
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:04 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-464ba2bb3aeso1297464b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:04 -0700 (PDT)
+Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
+ [209.85.167.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7850D10EC2D
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:09 +0000 (UTC)
+Received: by mail-oi1-f180.google.com with SMTP id
+ 5614622812f47-46704177508so1466352b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408303; x=1774013103; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408309; x=1774013109; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
- b=WdlIUNs8jVU09TTFtkAQFzt/PZG5qNnFsuuiRJ/khBU3BGmXcnCbsIcu8vfLV3fcgT
- apUX3jzndETlbFP1+3sIKYcSjCAEmZYSh6l1qlZ6tluzI5vmqMRavC0h/Eb9Gv29rpQ+
- fLnJCVCH6tuQWZkUc9HwIWzbwDScdvApQGdljvcugN5aWzqOPXNVoF1UNe9SbAfqjvHI
- CJVBZRUXPXny05aMX/zJu8wptnX0vM2v8L046QZfXYUY+OU3s4AESnIcN79Qkn49byZ7
- 6oXusQ86GB2d/ktYEzZpQU0mHHWjvym6L64cm339HFCLL8wlh4KqeL1YkebgbO9TMmCr
- Z/cg==
+ bh=Vn6BBWYTc8CIB4CSHYkkNij4NNRuRZw5Ruqls3nbhKU=;
+ b=M0onIEeZhjz0W/fGLMWCsS4Nj8KWPQVDt0w8YKlksHVdh10v5eCHMyeFwxJ6RRiJfw
+ AKnhHayg6TUbV5suJcEfyUGtbNbVswCUp8UMqu72v/WQJBOMR/nNoG4DbMPPc35RrmIX
+ JnkU8qRqM8itmkM0ppkmztfDknz5AyVuk/yX9DpoAoMNxG+LEdZ2mgvqFKsZj51rUIjj
+ 46EcJI/wPATI/1svVZ5Q9wx8pF2xPFMJcTMaOOFW8KjBEsqz6kiiV77/vsEaHPe7bYgK
+ sLjjY2p35UZQ6JUvn228XVxDI3R5FTqdUoQq7/O55qLq3PN8gsXoX6o296LmY+Gh7uN9
+ dgnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408303; x=1774013103;
+ d=1e100.net; s=20251104; t=1773408309; x=1774013109;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
- b=LHn1UNUEmYIpnoTSpTGfrLR5BXn31Bivd9QOTyE0bK0g1uAMNc+4L+SWyIiHRoATi2
- ow0xT3mdk15iIm/zvu8orDTUYv+lhrhot9LegrOFvBXt7bQYNC3MMmj04uvbLHQae9dL
- Az2KDPkF0+fjicrmtsC0Oqb3Ei2Plun4wrVqeusfhi8VdUJV07IzncTkuL/dKiZBcMDK
- mejheoZsW5vy7g9Pzb1sqtVBXN9H+vVZk3V9/jVb1u8UgOv028a2JDQmLX5gPm9JkmyR
- Mgzhsbza0fs1WZdWaCHpb4kKUmM6JCy4ZVVkYj9QN+/A9Ebyvt9opT2o4f7OCi6pcIJK
- cxAQ==
+ bh=Vn6BBWYTc8CIB4CSHYkkNij4NNRuRZw5Ruqls3nbhKU=;
+ b=aUq6oRUTz/RcC9gehqj9poWS0CTUrrrn/+jXtPPV2jCja4luvSZbPvyzFiL34Ljpor
+ LeVRWETeruoIw5DqL0H22/4eh7cLTfHQlIDV1mEElmGyPxFNJYxblxoD63nZWZmeEatC
+ UthSCWAlAvYzfjJ0Qb8aYGFGRsP5KkWnYW1hCTR+jfGTLCmi7zsuvNinR9/vcgp5MaJ3
+ g9xsiUZITL9uHSDszoX9B1CI6NPyBArZ80qE2DVXHvNyJiTAizTms7IMf1nC3bqNX5wQ
+ C4Ov3kZts8ZHohfe3u7azvjgMDFPJKzyg0wJ7nZLdL/yv8N8VKyyai66ylhlibst/9QO
+ DRTw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV9RMVE96tPufvQDMnba+kWgIqogSb3NWR/NMXdtnrBapQJRupBvjAohQzFmaV9CdpozFdIvouZ4cM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJFWcRdiM8M7XDc51P7FAmaCrVzTjpQ01iKD9lVmrEC1xAWaZz
- thoGOphQmoY60UCMo181XxhazQ0KL231kLfpGS2VTWr37vpvICXnwUYT
-X-Gm-Gg: ATEYQzzvr5zTxZ0oksBCuJPKtBSj+BUrgYixn2hbE5ZDwqG4n4iyzyojaM0hW77hNlr
- 2FT5+HmwKHoY/VC11HaFNiSBuNzWLHV8epacXbk175+RyVmQSZ2fzDE3NJg3NXyVhndzY/381TO
- vFg9ArOOd+F3QJAsHDW1tJuHd2JdQKWTTtJzKYVmuPLe/c68L9KND2NEn39UKSF+sqRKBFNraMC
- Mvw4K0xJNG+zVVq/PGtCNEN7XGaJW4BPl/fmmoBp2HZG6Ej1zpd1hnd2YZXGn2Rmd5Ltsv2/srb
- Cac7cbHmHeAryc+DiW9lMpEE8S2+rheKYHTA/xdXaTdX36fQLTjTFasj6VHMQ9KvOa3xffXbel4
- a2rsg8oMtf+ZCyhWjPXSQIIbL6vI3C5nX3RG/s/5qvtqiVsZBnOJ56gGxqrhetDx19QUEsVOS4F
- 7GxlssblMQpprRee8QdAthUcdy0aG790n0nImcutaTPA2KPdIz
-X-Received: by 2002:a05:6808:190e:b0:467:2be4:9e33 with SMTP id
- 5614622812f47-4675552dd65mr1929280b6e.6.1773408303348; 
- Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
+ AJvYcCXIIpDxzLtrc+PNwuS/tOd6Zg458ZW/yxV8uwpbSX2rYPJ1PIz1dKv5BrldtdRu9AcqqBIyzLv22d8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywg/UltHOv4KyPITa6TXhWI0WVcLNo/AFk76K+98H3VQx7osiO5
+ EFCFldCu3ByKZGeaYJ8BRy0BVD9xVX2XrxRvkzQtSoU5RfOmna3G7Sf/
+X-Gm-Gg: ATEYQzy6eqsUfs5NzURlnMD8GCS2uQySN870slTpibDDHzt1p79SJqjDSy2NiIYpkdr
+ ohxlBO8jG77fjTOYnU8Cb9Y3EgiYkX8TaXeOURJscyPgjZU1B4G/og9dW+zXTA4MmE1bbuPnCJ9
+ 4JQke+uRfZ1nBpHyFa/CGVQ7wh/m4NDCK0IDFPy9i1VFGUA9LAPcVv4fZL4IcgjICBFbI0WinBF
+ YGShBo9kVUwTZTS6JSBUH/eE44dkUcCnO7Gw48+p7jkFTYpgXNVwbk4fz0Fj9+TP5SIhG1aOEuH
+ GaPDdGpuhqXfyMf4+f1SRlbaaLj5oANHKIWQzsm8wXojl+i4SUKGGqmL4Svhd89eu/XTCmjYa0e
+ ZUcWpO/qdJXyoBtDmi5lCWCBd8J11qD8FdU0qAFKnVLfanYXXesI6dKfUdetI9TVQ2v6T1PDSCh
+ 2+s/LoVrjblFXViVKtnyPFwFTakornybwiL/mDCgy+yvvQ0C2s
+X-Received: by 2002:a05:6808:1302:b0:467:17f3:68bb with SMTP id
+ 5614622812f47-467576d3042mr1687190b6e.59.1773408308527; 
+ Fri, 13 Mar 2026 06:25:08 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.01
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:08 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, "Rob Herring (Arm)" <robh@kernel.org>,
- Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
-Date: Fri, 13 Mar 2026 07:20:26 -0600
-Message-ID: <20260313132103.2529746-62-jim.cromie@gmail.com>
+ gregkh@linuxfoundation.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Luca Coelho <luciano.coelho@intel.com>,
+ Jani Nikula <jani.nikula@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 64/65] drm_print: fix drm_printer dynamic debug bypass
+Date: Fri, 13 Mar 2026 07:20:29 -0600
+Message-ID: <20260313132103.2529746-65-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -98,35 +100,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
-to tell dynamic-debug what classmap enables them.
-Also include drm/drm_print.h explicitly.
+drm_debug_enabled([1]) is the canonical bit-test for drm.debug.
 
+Commit 6ce6fae84536 ("drm_print: optimize drm_debug_enabled for
+jump-label") did several things:
+
+A- renamed [1] to drm_debug_enabled_raw()
+
+B- introduced __drm_debug_enabled(), which evald to either 'true' or
+   _raw([A]), depending upon [2] CONFIG_DRM_USE_DYNAMIC_DEBUG=y/n.
+
+C- altered *dev_dbg() to call __drm_debug_enabled().
+
+D- redefined [1] to drm_debug_enabled_instrumented().  This called
+   _raw(), but added a pr_debug() too.  This allowed us to see how
+   where and often remaining callsites were called.
+
+When [2]=y, [B] short-circuited the bit-test, since dyndbg's wrapper
+macro had already set the callsite reachable/unreachable.
+
+Later, commit 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm
+device specific printer") added __drm_printfn_dbg(), but mistakenly
+used the internal bypass __drm_debug_enabled() instead of the
+canonical drm_debug_enabled(). This went unnoticed because at the
+time, [2]=y was marked BROKEN.
+
+Because __drm_printfn_dbg() is a shared callback where the callpath is
+not directly guarded by dyndbg's static-key, checking the bypass macro
+caused it to evaluate to 'true' and always print, ignoring the drm.debug
+bit-mask entirely.
+
+This results in a flood of messages in environments with slow serial
+consoles, as seen in DRM-CI on i915 CML devices. When IGT causes a
+mismatch in intel_pipe_config_compare(), the resulting UART storm
+causes a hard timeout after 20 minutes (see below the snip).
+
+To fix this, change __drm_printfn_dbg() to use the explicit
+drm_debug_enabled_instrumented() instead. This ensures the bit-test is
+performed at runtime for this unguarded helper, stopping the UART storm.
+
+[1] drm_debug_enabled
+[2] CONFIG_DRM_USE_DYNAMIC_DEBUG
+
+Fixes: 9fd6f61a297e ("drm/print: add drm_dbg_printer() for drm device specific printer")
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/ethosu/ethosu_drv.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 9992193d7338..a0b8cb81a359 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -17,12 +17,15 @@
- #include <drm/drm_gem.h>
- #include <drm/drm_accel.h>
- #include <drm/ethosu_accel.h>
-+#include <drm/drm_print.h>
+some of the many:
+
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:57:pipe A] fastset requirement not met in hw.adjusted_mode.crtc_vsync_start (expected 0, found 1083)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:57:pipe A] fastset requirement not met in hw.adjusted_mode.crtc_vsync_end (expected 0, found 1097)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:57:pipe A] fastset requirement not met in hw.adjusted_mode.crtc_vtotal (expected 0, found 1116)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:57:pipe A] fastset requirement not met in hw.adjusted_mode.crtc_vblank_end (expected 0, found 1116)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 112800)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 141000)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 141000)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 61040)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 76300)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in hw.adjusted_mode.crtc_clock (expected 0, found 76300)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in port_clock (expected 0, found 216000)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in port_clock (expected 0, found 216000)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in port_clock (expected 0, found 270000)
+ i915 0000:00:02.0: [drm:intel_pipe_config_compare [i915]] [CRTC:82:pipe B] fastset requirement not met in port_clock (expected 0, found 270000)
+---
+ drivers/gpu/drm/drm_print.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index ceede094ff13..b431881de2c1 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -214,7 +214,7 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
+ 	const struct drm_device *drm = p->arg;
+ 	const struct device *dev = drm ? drm->dev : NULL;
  
- #include "ethosu_drv.h"
- #include "ethosu_device.h"
- #include "ethosu_gem.h"
- #include "ethosu_job.h"
+-	if (!__drm_debug_enabled(p->category))
++	if (!drm_debug_enabled_instrumented(p->category))
+ 		return;
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static int ethosu_ioctl_dev_query(struct drm_device *ddev, void *data,
- 				  struct drm_file *file)
- {
+ 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
 -- 
 2.53.0
 
