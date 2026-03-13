@@ -4,101 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0692DF483CC
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF448F483D5
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD8910E559;
-	Mon, 23 Mar 2026 16:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DBFAB10E532;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jOZ5g/GN";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ewo/WpHF";
 	dkim-atps=neutral
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
- [74.125.224.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5AB310EB23
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 17:26:19 +0000 (UTC)
-Received: by mail-yx1-f54.google.com with SMTP id
- 956f58d0204a3-64ca423ad53so2496957d50.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 10:26:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774027579; cv=none;
- d=google.com; s=arc-20240605;
- b=K/dchNO2l55rjqwa/5Qd4esp0YsYoAKmjjJZGfltp5dv7/NxXYFLDlhn5vPhzgw00c
- LO+OSh/704dyYrG8WCQog4rAzjsAJFBKPvR/Fp7w4V4Frz2B85JRJAhti/HzhCHrPq4i
- kh+HJ8SV1iIutPgDpFrkiEBdn4TVVEYrcKe61DCtjOP9t1IcYvxFSztK01OTsKy7uaVv
- sej//FjX9BallWp1+0hwOdjUcT+4LMThJZetSIXrzZYcEHGCWM0AH7SD3vBB6/Ko5x62
- q9A40V4fg08pjb3LtZBNUoiJXxwjCS0cLExaDjU8wrdCfUZA1nagSbk/C2wzVwKUQ2iR
- TubA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- fh=QJGSXL9GZ92a89+DlKsDvqMHPDvw/mwGVYWYDPlnIYE=;
- b=FuyWc0rm8vGAc6u91wH3BYett1uOOHS0oUMHQWesk0u0+08ecInFC0rpLEVpb7N5z5
- q9UJra/reTSiAWRzrlyXbGIV6Cvr8Yv18aiuWS50okJmYpyTnO1OjJqE+hGfRBZOpoCq
- YsVoWAl4LYffIj4PtShZtP8NueP2P4jVX4mtkrVZF2fbbNtNdlTw63QFCHjWedsZRGBW
- Ka+IW4PugwDgC8XzqvS5MNPYtFK1aETFVAPmzGRPPg6lpJk82wXEltgIBACotM3RKv90
- zK+7Dhx1oBx4m+GrBY2bFYGc7BJBZFOtz453KMdhEBcijKkcJ4C2NbdaBkj0KcEWbDQP
- fGow==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1513710EC13
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:47 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-467161c4a1cso841995b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774027579; x=1774632379; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773408286; x=1774013086; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- b=jOZ5g/GNpWjiPQn6fcUx6KHfCZmbLNDvmaIIfNDWYqBst4A/Hm1MOIpKJ6Y1cdFP43
- 4cZ+y6hyacc6tVquPGlhlIpS00gUy610LH6OTWE4sa1vf7oJRWDJdDuv6XDydeFLb1um
- +xWAWZ9Quj6DEsXC2wTJkzTDZ9qerrZRzD27n5XEEXcFLQTIlEkFaXB24t+wlwsMttuC
- qLW9B9RIhvNxqh7IFMNiuJzOW0myTmSR/NJt0wU/rS4N3hPgo/yl5ZYoEHzTRugpwRZM
- rwfK9aEVFkWH6B8Xu8r0qcNnEQd291q3hg+J9tC1s7u/2LrqpiZhdRLkxOADE8HZDnzD
- 93JA==
+ bh=z5CIU7Xv1sd29xtDEeVm5EwbYfV92LBvg9qr7+GGg2w=;
+ b=Ewo/WpHFfm09kx5VmoNF8fezqzX7lZXSL9w261wvhsvP/Vmj0XQqLxSDCJMb3crqcS
+ ciOSFuGZZBwRsTScKZ3f4h9qqUeM2/pyxok7xJO1x/A0HOuWMXPPBWCqysO8qXVm8qVW
+ BOoMV0KqYp94hvNyx5RUqjwTjVyc6pC27hMUaB0Va99EIjpVDlw0GNN1CpF05TDfnKvC
+ aIrlEsuLB7mNcgWWzOv1aNVgdzoo+30kwkSa7S8n+U5ZkUWyCpCi54cWaOvc9MzfmVS7
+ 2M22QOwxQh7bEApSPzIYqYrBKOQrJnKk8tm4or5jlHaizuefCY0m4rn0SE+8FsQqhhnu
+ 8Q2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774027579; x=1774632379;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773408286; x=1774013086;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
- b=itwFWUiU2YlMqO7Tiqh8f/zoxgYnnl1kzat42U7Ef0TD7BK97lSatd8ED6BgFkMvq8
- TQRs6i+5aO09pbFd35UwpJtc2p0Kru+TFegUGHDm6zzxXX0kd0zLh6HK2WMLr3dVFsQw
- 8YobXIb9ga0/X44hl69HZ1+APVby7d2v3mvLlwoxrpRYM14q9xNhQ/VXHu3y9gkYUxUT
- J4+1KJFYA9mPADMqO1k0kxts/RTMKyRM4+l/YwtjoyPho3q85j6OTgW67HdqTD3vLOAL
- /u/6/Xxx9MiPUPDYoRZjjGaJH/rl5mlY2EXHOQ9k+MDGInaez4sLSg+loj2V923e63/Q
- Zqcw==
+ bh=z5CIU7Xv1sd29xtDEeVm5EwbYfV92LBvg9qr7+GGg2w=;
+ b=MTaCHf5nk2ypXOmI6k61CUN5FESYE7wV3p0uj6q5OGvV56e782bYT5L7dRh/P+aAmV
+ VeAqT+/glW1760Fw7gKz7LKuE9A/7thFkC2VvuUytIo8mJCb3GkIxkoOHVK8tTbnSdMu
+ AZo+hoiqLklG2YN0OlHmgpcwkOyTnEwzlE36LSPsEbhg3QikumuQQBEIkogdhJJC8RC3
+ S9c8d6pCpMaa7dHjPPG6X6gTe6fKDS9GnWPKGEK+C9+FzO43Hh1rfLn3Km2NO0YQx/3Q
+ Y6Cpd6vM1sd53Dg0bi1W7usS7aHF7bVqvx2ZJ7P9rG7OWxewdYqS1DcfhGdRFSYzuLiB
+ qJhw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUeNLHG7nAJ94i/3Zk5htyv743WuiqvcWNiKmihVs8BFcz2RCZ5Fvbrb0CQlfvtGTBrcWf1hVWfEyY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyW0nX+Bhg5AF3oB4KRzdqYARtk81nno2AQKK3N0LfCfBy+zcE9
- uN2pJzqiKbj1H20BbjDhSL4mtWCSh8Ar03wLtlgJ4qo0YMU90EHiIEsG0ZKwtmwc90Z/iH6PSgr
- OvbtQxreA6x1JSgMWrRae9weVnwc3CxU=
-X-Gm-Gg: ATEYQzyODvsWxb4Jg5iE4dmVHEsqyPnPpnOZ4nr7pGqNdyccr/Y3cDRfWXVJIwLVe/A
- qCTiifiQwomGbM8ObVUiMivYjihRIPt0HaUvQmbpOmtkLtC/qECB75TQfmFz9IWDNQKSGF/+1G+
- W+chtHGesci7OrKmodKNAYvr0CRGcuN2LfHvxgw5k4WnUzTohSss1tQ9BwPODLmEtDBPTBCFujv
- dbFMUqd9kviEnO+fIsZXMgfWRgzI6NQMU+5g69CLjE/BufQHWD52wUu5uoYvgQ7r++CTloUvMM0
- fdrp
-X-Received: by 2002:a53:b6c5:0:b0:64c:9aa7:549d with SMTP id
- 956f58d0204a3-64eaa78df37mr3443072d50.38.1774027578377; Fri, 20 Mar 2026
- 10:26:18 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-2-jim.cromie@gmail.com>
- <177402491426.6181.12855763650074831089.b4-review@b4>
-In-Reply-To: <177402491426.6181.12855763650074831089.b4-review@b4>
-From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 11:25:51 -0600
-X-Gm-Features: AaiRm52mzW6EX86AA5Jjc_AE9pPFD7jbLjCUGPg_V9Sh6yOZDr0TEo5Rj5JOx1Q
-Message-ID: <CAJfuBxzYUdM=HJ1yc=bTCHuRfPSznRZCPdfq_hfJSW7zxk4pEg@mail.gmail.com>
-Subject: Re: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
- alignment
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ AJvYcCV8daXyFfvpSR761+CgwKDPqweUWwMQ9KJQGfmFVblJutwtaB4Rbn6+W7dOmgRwVtju8YdsHMYRNXU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJU06/HCHiSNQbqhBXK+Fsj90Y5b/9WPdnRJ2LhifJ6XJotDdd
+ sOAlvVbq5kYhumiJLMOLkxNHoTjmB+Vi47YwE5CGKfrVJ0k37LYq6y49
+X-Gm-Gg: ATEYQzxn2n3s5SeRiie4+tEvi27Q7t34boq2GwtDovWHSaBFRsuYn6eDTwdqNW41ixe
+ Y/SOQPVPaFaZBBTzD2rzAJ76dO3yw3mB3PldvebAbgfGG8x9weEiyx6g1Xr+OSO8JEkPXiKOJDz
+ d4WAYG3ss7g0qRlESk2z+TSGrJGGuf6uM/JlkPyBYA33X77wVe0NyMZ32OTrM9rtIob1unw4lEI
+ aS1iF+4a5amwMbbC+7/vdHzKdpVE6ITtcDZgv+zq55xESibOcEgHtXbErY6ULoVl0EArCVe7jPZ
+ +lOFB//2T4/SVWC43OF8F4MjeTSff6EikafgoHPN8Q0uotdWu6ES3A3Ns0bZQZQ53OKOZDIo+FF
+ iOfZyYhzi5bspKWLj52bXwfGGAMo1kcEuASLsbEF35sGpM1ut3o4R/SA/yTAvSMpapmjeH1myUv
+ hWhDjRr8kwOef7dMws/YvhCxeZa5dafM+D1SSRACoYm+n7h271
+X-Received: by 2002:a05:6808:1302:b0:467:e7b:6fc4 with SMTP id
+ 5614622812f47-467575dca9dmr1665945b6e.45.1773408286169; 
+ Fri, 13 Mar 2026 06:24:46 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:24:45 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Louis Chauvet <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH v11 52/65] drm-dyndbg: add DRM_CLASSMAP_USE to vkms driver
+Date: Fri, 13 Mar 2026 07:20:17 -0600
+Message-ID: <20260313132103.2529746-53-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,98 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:41=E2=80=AFAM Louis Chauvet
-<louis.chauvet@bootlin.com> wrote:
->
-> On Fri, 13 Mar 2026 07:19:26 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
-te:
-> > [...]
-> > smaller alignments, *and* scripts/sorttable.c does not tolerate the
-> > added ALIGN(8) padding.
-> >
+The vkms driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
-More specifically, it counts records in 2 sections, and insists
-they're the same count,
-and there's no slop/extra space.  the align(8) broke that last constraint.
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ drivers/gpu/drm/vkms/vkms_drv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> > Reported-by: kernel test robot <oliver.sang@intel.com>
-> > Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.c=
-om
-> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
->
-> comments may be wrong.
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+index 95020765c4c2..e22c15f045d1 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.c
++++ b/drivers/gpu/drm/vkms/vkms_drv.c
+@@ -40,6 +40,8 @@
+ 
+ static struct vkms_config *default_config;
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ static bool enable_cursor = true;
+ module_param_named(enable_cursor, enable_cursor, bool, 0444);
+ MODULE_PARM_DESC(enable_cursor, "Enable/Disable cursor support");
+-- 
+2.53.0
 
-
-in v12, I found a way to use the makefile to conditionally include a "heade=
-r"
-file which invokes DYNAMIC_DEBUG_CLASSMAP_USE().
-
-In doing this, I encountered some lost sections (lacking a KEEP in modules)
-which I fixed by reusing the codetag.lds.h model, to make dyndbg.lds.h,
-which reuses the (now separated out) BOUNDED_SECTION* macros,
-and contains MOD_DYNDBG_SECTIONS(). which scripts/module.lds.S invokes.
-So, those comments are now obsolete.
-
-
->
-> >
-> >
-> > diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vm=
-linux.lds.h
-> > index eeb070f330bd..a2ba7e3d9994 100644
-> > --- a/include/asm-generic/vmlinux.lds.h
-> > +++ b/include/asm-generic/vmlinux.lds.h
-> > @@ -212,11 +212,13 @@
-> > [ ... skip 7 lines ... ]
-> >
-> >  #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)   \
-> > +     . =3D ALIGN(8);                                                  =
- \
-> >       _label_##_BEGIN_ =3D .;                                          =
- \
-> >       KEEP(*(_sec_))                                                  \
-> >       _label_##_END_ =3D .;
->
-> This affects a lot of existing BOUNDED_SECTION_BY. I agree that it is
-> not a big issue (most of them already have ALIGN(8) or ALIGN(32), but
-> some have ALIGN(4) or just not aligned at all). I think this can increase
-> the size of the kernel in other places.
->
-> What do you think about a new macro or a
-> BOUNDED_SECTION_BY_ALIGNED(sec,label,align) with explicit aligement?
-
-Thats not crazy, but Im not sure its justified by the 6 lines that the
-_ALIGNED() variant would save.  It does add some modest complexity to
-the macros.
-
-
->
-> > @@ -867,15 +869,21 @@
-> > [ ... skip 15 lines ... ]
-> >       . =3D ALIGN(2);                                                  =
- \
-> >       .orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {             \
-> > -             BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)            \
-> > +             __start_orc_unwind =3D .;                                =
- \
-> > +             KEEP(*(.orc_unwind))                                    \
-> > +             __stop_orc_unwind =3D .;                                 =
- \
->
-> You already noticed an issue here for example, and you had to manually
-> expand the macro to "disable" the align. This is error-prone, I think it =
-is
-> better to keep BOUNDED_SECTION_BY here.
->
-
-I'll look at it - there is a stack of 3-4 macros that would need adjusting.
-
-> Note: I don't understand well linker scripts and all the implications, my
->
-> Note: I don't understand well linker scripts and all the implications, my
->
-> --
-> Louis Chauvet <louis.chauvet@bootlin.com>
-
-thanks Louis,
-Jim
