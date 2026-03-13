@@ -4,83 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6050AF483D2
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2B97F483E1
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAC0510E57B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B61B10E569;
 	Mon, 23 Mar 2026 16:03:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I2gXa++t";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="RHqeQIaI";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C154D10E045
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 19:00:47 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-35b95e21ccaso101642a91.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:00:47 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5BCD10EC11
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:23 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-4670464029eso1289621b6e.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773774047; x=1774378847; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408263; x=1774013063; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=G5pUoPYvzvdY/i+3VyCKmXdQJFa9RgqmeQepWrHmR+w=;
- b=I2gXa++t1BbszbhmMQv4hFVcP6r+PL/rryMMDT1X8IFx6bFjeroNKkYJ3sNxovPQ3T
- 0538Np60Q1KGSrQfYgV6cbSG442RbaLwXkI+CWZzxy4wZfB2HWNFnGBXpg67xD35ZhEN
- jjOA3JwsZu20JZgT30e5y9PZU6WlMINkClmvD6GM3NgiVOzYutru5mhXsLDTTnM9caI/
- mSostH9WauluE1sMUDZYWE5frzuBo+v7aXgaU3P55Ie8aaOKer+sLRF0vmuHNtq7lOaW
- ZK3zJ3hrzuMB3BSejca3Ly1EGUNJTMmJsixVSRRS2bYufPAhqx1XWF38kU/RTMdPFyN0
- StUQ==
+ bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
+ b=RHqeQIaIWe1JqhhrXvX8ug6w/Q2CufFrX51kU/fBLeqBBLuoNvzOxaSgHBvxew6cB/
+ K5IyIEGOvQ5TYToxsDutQ9L4kbWKfFFf2AklK2dC5vnk2JW9tY1DOda0rpYQ1+Fq6pvX
+ 6uerzeDB3YQhrLt/8481YkSWN55ufMzep9BnAm2bK0AcSFVm5kgthW+grT6jSAaMux0J
+ fxSY93WxXVuJEi8HbiFXrFmqO6W/ZZXewt2BcCkdzATnRRmioD2uvWfNipyY3ZaaSvvd
+ KFCzY6+VO9MM2DE2AQVvINmcKRUTCgHOa1sauKKZ6MZG64kNiOfpbGdJiPyKOb4OoLLq
+ ypSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773774047; x=1774378847;
+ d=1e100.net; s=20251104; t=1773408263; x=1774013063;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=G5pUoPYvzvdY/i+3VyCKmXdQJFa9RgqmeQepWrHmR+w=;
- b=K4kd2EYPi+A5ReICirWpdK2MBjyOSpCIkBWad2Kn7eet322Ss/ppKgTCyRyDFpMug2
- Co7LTZ5dbsWKEG+Fct26Px0BxDl/oO3j/5VDu3eJgytLBVl7haKIbDzKWnpyBQpGc/yQ
- x32TDILvox+MqmNiCYS985e/HCUx6Ni3OXnKHbMRz+WV1PvDSnqg1+azJRoElsFx0lU8
- H7hvFizq7E0vX8dhkU2qUxq3rMKteyfc/lZ2Atbrti0mSj3n1LRquN7GeMfnMrECggAs
- pT+NJAURILLOnx4iSy8C8sZ0T7sQkUwvBuc+lRWLGpeYkVRPzCL5T6Hh5twqpn4dp/Pn
- Yrcg==
+ bh=irTrrnawNz+DXC6VSfC9mZGBC+I85t9C/e5XGxZ5eAQ=;
+ b=QI+JqdfZTcfG+qDOf19HnArYIp6xHUPpG/BaZpgivwkyX/P0rPrmRCf2E12CXfCrJe
+ k909oEXBf+U4mS/SMq/WHOBWeJEUlDosPUuKOgz3oQ4+EsfeEKzliV3v4x8g7dNjmsrj
+ QdTvRHhqxLz5ONB7L53Htze6yiV5BUIkkbP9V0wYyApjhwQWvyeg1idBdSk9hSjHVVhK
+ B8qNWvrcZxmY4BrQeQjm088wNBrmRO7D4+nkcCjt90X9bt7qdt7kcz96ZrqEPwK+znfy
+ gr3+XN6xC6DY2+nyUKD5IAGTOawGoqiEgoUtjqNF/6BtROajCcoqM90D75DZbJ89SqV3
+ lJxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXdCDEhxFKA2+GNq0lqTdFeMXPpuHEF2Ok70jTxYb857s6NFdT+KapuZOgmsJjH2SCvvUwIvcv9Rmk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YytJyqgD+PgqN9JigMbX41DgV2Vu1iv4eygZK00XYScy76hhk3G
- GYKaUCrjeWBsg2noB44USEGqy2UrcCcv7qAVDZMr+g7bW3nChbz15Abw
-X-Gm-Gg: ATEYQzzUmAowjru2nb2drUpqrRCeH5hVQGkvtmr73ZIWvAZ9/Z7j6+OlJ6QWw/fxn7S
- NtFpLMVn3o6m2eCt8GlHxuQouMrpSbe1v639A2I7zNBy1h/0Q7QHavj6+QkJzosqWqPERtqeHEd
- bynZdGjdq++UtJovxGmLNDGzpEhJgrOs77hS1cap0vd/5pjouQje7sk8bwBOs8cum0nu7V3pTZ7
- 2oWMAFLzpsfsTX9VZnJVHy73S6DK4Rr0XAwunholD/BjHwgspU1jTkv7JAZX6gG/EIBDWtr1SkB
- OTuqhGwY1QH5NAxSdJs7IL9HadtRtT3fULYgkpkrmIHgnfPwnOtT9gqHuzCZfcZ6B2xJaHmA0bl
- gxUGJcB5QgPiucQ65Ap4KkH0gjFZ85PJPoy8CM2lhXeCjwLVv5Eg0/KCj523B1AbgfURTXeRy9J
- oYEDErQOx18JawYDduM7zMLJkZtOX4EF1k0a29dIbRtUoCQhn2nRKfj6vsKeotH1c1J+tEuM8y8
- ZvJaWSswpg0dwdQ3U8JDl1SitBmOHYc0M5CUww4RdlC/0PJaJahfjnJ4TmgBv2YfW9fqw==
-X-Received: by 2002:a17:90b:3a47:b0:35b:9f51:a755 with SMTP id
- 98e67ed59e1d1-35badc14391mr3481930a91.18.1773774047144; 
- Tue, 17 Mar 2026 12:00:47 -0700 (PDT)
-Received: from 2045D.localdomain (76.sub-72-110-123.myvzw.com. [72.110.123.76])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35bba5a2c60sm196240a91.9.2026.03.17.12.00.39
+ AJvYcCUX/qibreuP9w8Gdz/1nsaMCR41fUkTvhc9GCGzbHjmWZowrYjQDW03Y1Bw5rQC10pUh4ht8+S0kQo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yywp+LRBbzCFT5Gn821+7GSE69eFgIZXUtTLGgGCZn12n/Zyl6e
+ 6LlX67r+3Sc/MvxvLCB4t9X7opnwFlz9FZr4BYBp18D9cbyLd2OcGFeT
+X-Gm-Gg: ATEYQzxrd7Q7LHnZ4Q8KcniHV81EGyVqlIGuYAAsi18Kc6oe22JoRKMOx/0yp/nVAdk
+ OpxfTH4PmKQnqnfeGr3r4lJvpgrqiKRk47/Zweq3Uz3BhigFeV1CXdGlmujikZGyX5u9tmgFJZe
+ C+2VGEdedtvpyQ9fnx3FcDC/5jEU0HL3DTvU1pwtpaNtNo8q4DwoGHiihlLOo/3Iz8RxKUXzMZ2
+ CziHX6YtO5pQ7SKuKt+VfkjHLbavt12R1Y6S3E0C4b5oN7Ag06A0SUA7A+A75ax8WqgljIH6cju
+ V9GvzDR5EQmaOYp1L3yD8n+FROZY3SuqFoZJKDMfhIVVqPfX8oUTu3VfRQVJ+Edtgj3ZDEyEYpO
+ gpiYu3nhYkyM1HC14O5WaJyEGcbt9ZioG/l9Uv7fv/1KsTrTjt/MuPUrzr6LlISqMiaqgXdKf+q
+ EZ7N2V2BxezxlZdiO2mU+o3gGV42NEmo9OGjYQ1USnv48KTRp6
+X-Received: by 2002:a05:6808:302c:b0:467:4a7:e3f6 with SMTP id
+ 5614622812f47-467570efaf8mr1550885b6e.2.1773408262974; 
+ Fri, 13 Mar 2026 06:24:22 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 12:00:46 -0700 (PDT)
-From: Gui-Dong Han <hanguidong02@gmail.com>
-To: gregkh@linuxfoundation.org,
-	dakr@kernel.org,
-	rafael@kernel.org
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org,
- akaieurus@gmail.com, me@ziyao.cc, Gui-Dong Han <hanguidong02@gmail.com>
-Subject: [PATCH 2/4] debugfs: fix placement of EXPORT_SYMBOL_GPL for
- debugfs_create_str()
-Date: Wed, 18 Mar 2026 02:59:11 +0800
-Message-ID: <20260317185920.43387-3-hanguidong02@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260317185920.43387-1-hanguidong02@gmail.com>
-References: <20260317185920.43387-1-hanguidong02@gmail.com>
+ Fri, 13 Mar 2026 06:24:22 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Jim Cromie <jim.cromie@gmail.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 40/65] drm-dyndbg: DRM_CLASSMAP_USE in i915 driver
+Date: Fri, 13 Mar 2026 07:20:05 -0600
+Message-ID: <20260313132103.2529746-41-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,36 +100,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The EXPORT_SYMBOL_GPL() for debugfs_create_str was placed incorrectly
-away from the function definition. Move it immediately below the
-debugfs_create_str() function where it belongs.
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-Fixes: d60b59b96795 ("debugfs: Export debugfs_create_str symbol")
-Signed-off-by: Gui-Dong Han <hanguidong02@gmail.com>
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
+
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- fs/debugfs/file.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_params.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index a941d73251b0..edd6aafbfbaa 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -1047,7 +1047,6 @@ ssize_t debugfs_read_file_str(struct file *file, char __user *user_buf,
+diff --git a/drivers/gpu/drm/i915/i915_params.c b/drivers/gpu/drm/i915/i915_params.c
+index 34ed82bb1b1a..40c5e0014686 100644
+--- a/drivers/gpu/drm/i915/i915_params.c
++++ b/drivers/gpu/drm/i915/i915_params.c
+@@ -29,17 +29,7 @@
+ #include "i915_params.h"
+ #include "i915_drv.h"
  
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(debugfs_create_str);
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
- static ssize_t debugfs_write_file_str(struct file *file, const char __user *user_buf,
- 				      size_t count, loff_t *ppos)
-@@ -1142,6 +1141,7 @@ void debugfs_create_str(const char *name, umode_t mode,
- 	debugfs_create_mode_unsafe(name, mode, parent, value, &fops_str,
- 				   &fops_str_ro, &fops_str_wo);
- }
-+EXPORT_SYMBOL_GPL(debugfs_create_str);
- 
- static ssize_t read_file_blob(struct file *file, char __user *user_buf,
- 			      size_t count, loff_t *ppos)
+ #define i915_param_named(name, T, perm, desc) \
+ 	module_param_named(name, i915_modparams.name, T, perm); \
 -- 
-2.43.0
+2.53.0
 
