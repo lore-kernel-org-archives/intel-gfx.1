@@ -4,78 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1417F483CB
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28A9CF483DE
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFAD110E533;
-	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B494510E55E;
+	Mon, 23 Mar 2026 16:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="JYdwpci1";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xf6siehN";
 	dkim-atps=neutral
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4643410EC23
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:58 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-467166cb638so882550b6e.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:58 -0700 (PDT)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1F2110EC20
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:10 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-45f053b7b90so1445183b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408297; x=1774013097; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408310; x=1774013110; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=JYdwpci1Yd7N3lJxHR/Ue0LFCgIZrz5BNSRVr37NSRL3qI8GEbpoAkROUuGz+0wKXw
- xF7RSwgveMEzzEl51Sxfzf9KpXkii9DB3y6OrloIoUF33OP+/8U2aaqzrwJPuSqtMLHV
- d6x8RFZeA8dfRXyZm9C81mbcz8MZUuFcaUz52KLpZ3QgrszPO1qyRHLsxFWET8ZGlIhk
- gTQJ6waZhVrJGsnX2/3RiqR9idjCjZ/PBa2Y7dJNpE+5teFq4aejZR5de9609RQ/0dnx
- qBK5jQF4C4KvK3wKYeNna8SLaEAQirCRsdeT0L49RbN715dqg7wH0p4hH4g/AZTUhLe3
- NLkw==
+ bh=BxHe4+DOmq20FSC3herHJvg5metbXtBJFuJ219tBZ0M=;
+ b=Xf6siehNjFLZmeEgQQjXRyZVc6onqF1TTF0KANSL+iqu1ysJM/IcBVie0OhbepNZgD
+ JIVWUUgJQ3u/d3nm4jFrBp9UcD6aA5PTkHPMbUTh//17JBrKPPWftJ8PKzNo3ZyUv7de
+ Fd1VN3FR6n0Q1p6Az/4Oo9YCfm1ie7xFbsLaNtTr6MlxwRerxmfevrDwGEErEcfnSbtD
+ y0DRjv8zS6+DgKKjzJ/ZrlJebW2YNHhGAhFo3e6HQrb/tzxhQdQ/r4MeQdjX6aDQVNkG
+ Pw+/iz5idWPoJ3Y6+o5j3xedMJCycXyoikbhYygCvfU4UZoOWvmu3bWK6CYwUB8+LPV+
+ WF3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408297; x=1774013097;
+ d=1e100.net; s=20251104; t=1773408310; x=1774013110;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=hBHtiu7RBfu3vOtPaPGJr2RtUQCA9co5j8JbNYPANZDNgkfpFLOLQTxkl+m+wpaEKu
- LxoXOdDkLG6LLbZYsy6G554iBn8toaFGtvbWP39PI+PwwLOBQfI4OLwOGvtlrh1LimLV
- EU2BXhH01YcgLXsDrcGe7MfMC8MRtIaMK/cp1HSAyBS5/GkShISwGvAHjzx4yPpEkiK2
- xsTtIld3RxxMkiNEIdIx/8U5TeXLFdMEUH7jicCQxiO373AEAwwgfxUINJMr8usAiJtb
- ork6nTk5uVfg6OiBYQig6rCrmPKuHCEehOMc/ZUMwK0RTC/wCO+5SpqS9h91W8/D9PW8
- 8Haw==
+ bh=BxHe4+DOmq20FSC3herHJvg5metbXtBJFuJ219tBZ0M=;
+ b=qKPxAdaHNM1ZxLKQoZ1PBzrO/CPNZ/HZptlzEa2/2H7qb3KLWpGhxu1aOC+Urf4Ho7
+ Adnn2XMXAusX0IpHaJt2fu7vWxiXC9cjwQfajy1FJlLv2bjHNuUtE+CgDWGkvw+/t42q
+ xIkluHw1k96nuqyl6lbo56fPaiYsIc4dCsLNO0I4v2pgqiBnZLPnBNHsdBviOwMi3l2d
+ CzV0Ku8/1KMb2htuYz9RIpIyz3d65y8iQmQiNxrIrPH8pNTtn8O/KRBV9F7sRrt5S1tU
+ MPI4sFi2bIjExVoL9I0vqluEJY+LTbAJqmCzGAauAkem0GypeKUh2owoyx4UEjSfYG3Q
+ 3ekQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV/OwdyOz4D4SadDFsDRi+QHyGrrDBqnIOtGnUgHs1owDLmS/B2Mn32RQs5kaNr8ohjYihO+2F8Pcw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxTwsvjyzyswdRQTBOiWRYPxSIBOzwD6v7DaUR4dYR4QDLO8cD9
- fxNbzx6jMKruxgaWioXWRdox5d0lzizmXZJhT48pvpOMdQS/m9sgks8x
-X-Gm-Gg: ATEYQzzi44Le5aEU3PFCYVIf5844yJ6GsEgYNEvk4IaKHSUCGDEswz7hleWXauWKGZx
- t5cgiOEp0bF6ZdevtkhrXH+B6iMhNBpuDz1TxOuPoFjvwGyLL+3xRMLFc1U9WjcZFMsUoAEHt+q
- m2PqXngQIjpeEvlZm+3PhHkNfEtYTXUZr0wmrp9PgRuHXHyQXZey9VaISAR4WCXex1eGoKlK89y
- lQZdykivwE3IPbQCcViEP/DvF82Ky/DTj/TnV/+PqThRJjLuEr602NxQ+fq8golwf5qoMFxzxVW
- gb3/yAleY5hpP1OAYoNVxUfopCjSVxSEYQw31RKExaSX2Wu5X/+3b08Hkdy+Xrdv3rAlKd7kpVr
- ebO6EIB9kUftR4VtOQo5JZ/uYBhjAjcZG3GJt1mzngdDJekss6l3z6LflgBhSsxbEiSNTeGNH1b
- IqsEovRAAWXhT58DrzKtQISkQFqWp5jBKHHBH5/5Gitc+Ho8Mf
-X-Received: by 2002:a05:6808:670b:b0:450:275b:d942 with SMTP id
- 5614622812f47-467570374e6mr1313194b6e.10.1773408297398; 
- Fri, 13 Mar 2026 06:24:57 -0700 (PDT)
+ AJvYcCXIT7vS2Z1Ih9Bgp1BJHhZ0lwn+CnbuJbBHhFJpUZ+mvdtJxdIjADvfHOgzc4GtKC0nEL54rQHAw4A=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxVogK6FrevaK/8y4mxPYNi397MzqU2CYL6gSW2Hn+80CsemU/k
+ MvKOQzXKWVhxWrAr5OZPYsvviSi5dFANW0ValKNKjIBsYKJ7b4/TtMn1
+X-Gm-Gg: ATEYQzwaCdJX9u4BZxNov9dAd2cmNPrwQ+Tz7CClYZhr318uGM40hG+DN8l6CJWGnGR
+ L3hfD7H/WxCI5T9Q+z96AluTfSVztr1+eEIrhncOt7xOOSepYr14QFGkOqKENQxepWbGXyE2oy2
+ HUWqMYLAP0GxosV+zsn84sxYjaCcc6UhprS8PVV118gbUgg6qzv1DUtJNiky7hbKpHpTBC0diyL
+ Ox6wZa+CfMSo9ASkTS1L58/LVckPn1QjDJQhJmo8ARVx1+GkB1gmvBzc6veGWMhVG0yICNAAse6
+ FKnmJ/Gp3mUP0SetaDJze2C748wnRsjG9/vN/ykjBre4p61xJyUM/nIXqoZGUiHJKQVJHoSPyYL
+ YtT4XPjPRCRsjV0F9xBYWfsGbRj58/9DNTYLBqVX1p1s+zEvnB61K9esAHXjlvJ5h+SNOyAS5AD
+ x/phd6Jziq5fffAGQpC4wid9OqJoC+Aucyl9ke3tK6hwncdrwm
+X-Received: by 2002:a05:6808:118e:b0:467:268d:31cc with SMTP id
+ 5614622812f47-46757144050mr1803892b6e.26.1773408310188; 
+ Fri, 13 Mar 2026 06:25:10 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.55
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:56 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:09 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ gregkh@linuxfoundation.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
  ville.syrjala@linux.intel.com, christian.koenig@amd.com,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 58/65] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
-Date: Fri, 13 Mar 2026 07:20:23 -0600
-Message-ID: <20260313132103.2529746-59-jim.cromie@gmail.com>
+Subject: [PATCH v11 65/65] drm_vblank: use dyndbg's static-key to avoid
+ flag-check
+Date: Fri, 13 Mar 2026 07:20:30 -0600
+Message-ID: <20260313132103.2529746-66-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -97,46 +100,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y and CONFIG_DYNAMIC_DEBUG=n,
-accelerator modules are currently missing the _dynamic_func_call_cls
-macro, due to its conditional definition in dynamic_debug.h, which
-depends upon -DDYNAMIC_DEBUG_MODULE.
+drm_crtc_vblank_helper_get_vblank_timestamp_internal() is called about
+~100 times per sec, on a single display. It currently calls
+drm_debug_enabled(DRM_UT_VBL) to avoid doing ktime_to_timespec64()
+conversions when the debug logging is disabled.
 
-So add that to subir-ccflags for all accels, in accel/Makefile.
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=Y, the drm_debug_enabled() is
+redundant, because the following drm_dbg_vbl() already carries a
+static-key optimization.
 
-Notes:
+So move the ktime conversions into the drm_dbg_vbl() argument list,
+then they are guarded natively by the static key. This avoids the
+double-check entirely.
 
-The added "indirection" allows modules to individually enable
-dynamic-debug, where a CONFIG_ option would be global to the build.
-
-Several accelerator modules make drm*dbg() calls, so in effect they
-*are* DRM modules.
+TBD: if CONFIG_DRM_USE_DYNAMIC_DEBUG=N, this does the ktime
+conversions unconditionally, so this might not be prudent (yet).
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/Makefile | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_vblank.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-index 1d3a7251b950..44db786ea223 100644
---- a/drivers/accel/Makefile
-+++ b/drivers/accel/Makefile
-@@ -1,8 +1,13 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f78bf37f1e0a..0dac7eec2066 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -803,15 +803,11 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+ 	 */
+ 	*vblank_time = ktime_sub_ns(etime, delta_ns);
  
-+# several accel modules use drm*dbg, so they *are* DRM modules.
-+# When built with only CONFIG_DYNAMIC_DEBUG_CORE
-+# (and not CONFIG_DYNAMIC_DEBUG), they need this flag
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += -DDYNAMIC_DEBUG_MODULE
-+
- obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
- obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
- obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
- obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
- obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
--obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-\ No newline at end of file
-+obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+-	if (!drm_debug_enabled(DRM_UT_VBL))
+-		return true;
+-
+-	ts_etime = ktime_to_timespec64(etime);
+-	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+-
+ 	drm_dbg_vbl(dev,
+ 		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
+-		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
++		    pipe, hpos, vpos,
++		    (ts_etime = ktime_to_timespec64(etime), &ts_etime),
++		    (ts_vblank_time = ktime_to_timespec64(*vblank_time), &ts_vblank_time),
+ 		    duration_ns / 1000, i);
+ 
+ 	return true;
 -- 
 2.53.0
 
