@@ -4,133 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86227F4613B
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3562DFC72D2
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E979910E4EE;
-	Mon, 23 Mar 2026 16:03:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 369E910E4F3;
+	Mon, 23 Mar 2026 16:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VRtVHlls";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRjL78P2";
 	dkim-atps=neutral
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE2310E274
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:42:00 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-2c0c9994199so147923eec.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:42:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773844920; cv=none;
- d=google.com; s=arc-20240605;
- b=RtyxLtPgEwz4XoD80JOno3+FoQmyk9RRsJftBpZtIJSkHzkEgq93mpr62iXupfO03d
- Ghk9yiaAufPhNW1OGePmmLUfgt0WCb1tC/YumVwgoaFBep6PnPNO8dWV70KbggMgDf2i
- 89hEAbSO6ekD+0mO1M5mmPDpYttYJjLtPIQeU8JyX6iQNcjsu7rNk8QXslOXUqPhjK5X
- XC9+cmmTpFRvjtbtJau1vV3NP4ANcLXlxjj4gocwSXuqpQXEp57aC4V1qUSSQLwx2258
- /pvL0aczGsZ8ZmXwZmit/LgIKkXDJcz6W6WdIrPjEk2ykWl9PSDfW95S+hMNRZFnyZzF
- GLKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
- fh=51Lu5vqzoDkJeXGBT7Cy8D/XSOBYE58gfQoMW0LGB9w=;
- b=eCzr8p4nUxjJUI2JyMTc7DBpjLbp3feT+7hbnnGaYA//W5b4D6npN8T/LFHpMh0iV2
- U+gdGpMolqgnNMyO/QgkTfn8F0mzxiS+ySo5yeMqddEWbgKoK9tuQicuUafq+wet6Jwb
- HhKFXehkL6r2BsyLmmYvy/LCGNyabvWgz2MqdVf1+obCAdBJykReSwbg28kzfS6IGw+c
- 3Yo5QSn+qhlJ1bTMHIKejXlS3M0vy4H6ViwdJb06b5f/6QcZTf6sxEX7P8Vzy/CseICc
- mYKoa46jAKDlqmlp7iBvZrHzDf10vKz+heUai/j0gcLnikEpBBrbaE7WIbVp4v66MjKs
- qvng==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
+ [209.85.167.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0427110EC01
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:03 +0000 (UTC)
+Received: by mail-oi1-f182.google.com with SMTP id
+ 5614622812f47-4671cbce626so1072237b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773844920; x=1774449720; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773408182; x=1774012982; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
- b=VRtVHllsYbUfS99x8ZJ5g4p32kEK+wtGik6SRcit90VBBH3EYlfQvrWNK/tzalFF1H
- 8wZkA7EkU80PjeueroLcaAIw9QUWh0vkexlBYUyjfR8smumbcQbUg50DdmaGxRhpf1CN
- qmSE+vyb4lIRosAVGh/7tpW5LldPt5aSoI6zTzlzK2nMsVqoIj+/IbT8MbdxkaXcQTgk
- 3qNAT1/I1MJyie16WYZrzWbXNgWmd2ksC636kT67MAXZpBaJaYMVQeXoyvqAcdzV+jBo
- emYB/hHO63xnRO7ZqfTZbwbhWeRgeIPbJQ157/IUZqB5lz/o/3g50Ou2B4IvpBx7vlfM
- 50SA==
+ bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
+ b=gRjL78P2WiIT9cmbDtRi+CrWYdpZAiqP0uIV6oZnv7djMc16grHFgpfoX5hBoBG3LZ
+ 5A0rnMWuOnt7Vuu7ltR+hOYGxX1Xx8lTKovanKIc9dh0glIjM6xnc51wGx05jk1eU0s2
+ RBgwnAJBpgoB0URUpj+Z7ZcQCQqSIV8rovxLD4qtYxdAtHEH29bH9uzkF2N3rOJK4vV8
+ +I8aMEWRrh94BxWqYcavL7YPgOIWMqs2FE+1anKnq9kA4RK8zuKQZaET6A2Vi0zOgd7a
+ VcJxf+ahwUV7S99IlTilJMwvxpDS/QNqq6O97sJLEYAcy9w4cpKJMCThw2a9/lfufQRn
+ nhzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773844920; x=1774449720;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773408182; x=1774012982;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
- b=CqFU0wf4iAW229v6LW5zG95EE9fE3hrLpvrd/i4B8DR4/fZlUNtSjgzdwgrQnu/qBg
- 9kJ+TxRCMjSFb259bIeHzFYJH8QbSNomU0Im4rL9WwUcmsNsURFnE2UhDHV47Varg+Jp
- is5lc33vyqurgk5ce3ryalOM7Oqir/OyY4sQ+3BFgo0OjCVMlRGRyoa7xGmgXlv+qDCW
- G0KJy+6to/9wMO/rTXuCAorBE6PTzkdnby313CqSUYEa7RCAAeU7mYCuRfVfXcosS3Ty
- 8qhfoJdvVoonFUWtB1HOqZIrO3DLXnN7blJ6aE/XjPwmumf3ORkuJrNAIX0QJlwXSJTh
- aChA==
+ bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
+ b=fExSmBk/OqgsYPa+N60pPbYP06ZUxndgjPr2687jTFWXf44331HAMQ/EVzdlRDTYsU
+ O61ITSBo8SSRY286gSxzT7KSsGHSQYs8bgrcktYQxMQDIQDivele9oCE6JlEPElRj5Li
+ HgZqPLyH+0bhe6WtnSDzpUYM6Uys1/cDDV73xVbWwHwUoLqnbZppinUFW0zL9ii5XGPy
+ eYxsGKrscYsAnml7csTLy/iwrkxDo5bBoRGsd4cyRvCFQ7vB5+i81mOWTUCLEqaIZ2xE
+ jnI2jeWOrgvrqnCHW9CSK5Yv4pDAVCvtpdAWRll8/6UwGGNGqK9qezkGLN1sYMsrpaGm
+ WWvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAks5W85b3DgwDDiyvt8D7hnIHxrpaVu6bSk9zBLWCdMX4Va5pgyVjoenBeeedmCDWhE2YNi96+lw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyqNpCtProZNqIvTC0m4P5COVBReR+MOQEyB+tpfNQkopsCeJWP
- 508h4OnQLdoPGDeMb20zM3F8iwituu0eXoSzyw3E+c5Z2+NpESVERyrZpbZ521mODwyy7SIHnz4
- fpg8ouzNDMqzKr5Bk/vLRfpCC+7YIQP4=
-X-Gm-Gg: ATEYQzxgsy55mNkBcfwRpnOpz8bbYlslhMw9T1Ra/qNdWolYlzOMq03SrBIuHWbm5dX
- ehl9emZ7BcQxNgqspnCR4PhHBt/ZNjjpdVIS1o91i2DY7uUh8xW5lo/dwW+CooxNAqKUmVA17/C
- Bj8uytzbsrNp+WdeUcX2j3jLNFpt9dermSqljGJz+k4nsLL5vn/o9hFRVRV2awRIwBWKC2NWPRR
- 3JPZ58XervY354JkEi6ADfKlPjuwAncm+KB2wkNe0qifKHEYS90jv23B9IbhbCgDx7QTCR0Q+xM
- z8kbYYP3nmSNkiF9GgvvUzVITW2K5pGB9EGLdGHkfNVNli0guuMBzWzjTj+ZhW6QiuBZ4W3pMRr
- J1HkcHGBaQQSL5VT8F3wx05M=
-X-Received: by 2002:a05:7300:3724:b0:2be:1f56:ed32 with SMTP id
- 5a478bee46e88-2c0e4f79e7amr877942eec.1.1773844919477; Wed, 18 Mar 2026
- 07:41:59 -0700 (PDT)
+ AJvYcCVoSKMCZZAQhCns16H+8ZDxOcPSYlXG5K/Fgk0zFhAeRChMbg9F6+m/FZFTi+PKvqq8QIuoUaHTDUk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz9Ss3Q4M49sSkuXXOqtV9nGinuoe7go1WVeo7vOBijrVemongF
+ W+oH3eJul+Lxuq/pi8IfChnRzVhk/9QOY3vyJ11oZ0M5HE+6HsM08TkT
+X-Gm-Gg: ATEYQzw6/Eho0IhJO69X3HnpQ9YH4GjdN/TBQBnVsbOrKjYtXOcwTO9B2cS5932w0x+
+ PV3pxhpJNvXM8qJDj/a0aQgH/WpyEzf/RL4mp8UjzosGwTjzOTjvcT9CFUCZIVbysFM10cdK98v
+ mfyhLKFSrRpKjHgxTz9zyAOKhtaJHAjE9hyeGaPNBOW5EGahGngrE7cf73gZ/+5qT7X0Yx4orcG
+ UGjiOJT6b5jY1Ms6e3amDB682x7iRjJfrFlorQbDuSM+bZY0cCuN4eRFBQ4S3syUqyqrMGkPAQY
+ KPCl0wagZ40Cs15J4ZA+KiBgEJEBZeVEUHHP7K5NgW4s0LYuFkQ6dFO2txd5j859IM4UVzvtcMk
+ p+8B6bPV0bwj59sEXRmUxGY9BrayB4rbnqvF4FtztSAyvHDs5j5jFwT4pIg0jmNmMj1VsAxDu6I
+ +MlsVyArhf3lAI5VvhsoeGVcaK8JUr04DBkae0yuGUe71ecNLV
+X-Received: by 2002:a05:6808:19aa:b0:467:284:b3cb with SMTP id
+ 5614622812f47-4675701cd1dmr1817809b6e.2.1773408182075; 
+ Fri, 13 Mar 2026 06:23:02 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:23:01 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
+ linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 03/65] dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
+Date: Fri, 13 Mar 2026 07:19:28 -0600
+Message-ID: <20260313132103.2529746-4-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com>
- <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
- <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
- <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
- <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
-In-Reply-To: <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 18 Mar 2026 15:41:44 +0100
-X-Gm-Features: AaiRm52glbQ5k03i38HLvFJrknMe1XNNnKvvWBogM8moiNwsNZDgYGGN20TDKPc
-Message-ID: <CANiq72nad-60tOJeAfkvHTFrWXQS_wbG4JUGQNnkjm_NvhhaYw@mail.gmail.com>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
- interface
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>,
- Joel Fernandes <joelagnelf@nvidia.com>, 
- linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
- Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,20 +97,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 3:31=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
-rote:
->
-> In principle this is possible using
->
-> #[path =3D "pci/pci.rs"]
-> pub mod pci;
+Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
+original macro-defn down under the big ifdef.  Do it now so future
+changes have a cleaner starting point.
 
-No, I meant supported natively, i.e. without having to write an extra
-file everywhere (which could perhaps be simpler as just a symlink
-instead).
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 43 ++++++++++++++++++-----------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-We could also generate the `mod.rs` on the fly, but that means a clean
-tree isn't great for tooling etc.
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 05743900a116..a10adac8e8f0 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -93,27 +93,6 @@ struct ddebug_class_map {
+ 	enum class_map_type map_type;
+ };
+ 
+-/**
+- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
+- * @_var:   a struct ddebug_class_map, passed to module_param_cb
+- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
+- * @_base:  offset of 1st class-name. splits .class_id space
+- * @classes: class-names used to control class'd prdbgs
+- */
+-#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
+-	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
+-	static struct ddebug_class_map __aligned(8) __used		\
+-		__section("__dyndbg_classes") _var = {			\
+-		.mod = THIS_MODULE,					\
+-		.mod_name = KBUILD_MODNAME,				\
+-		.base = _base,						\
+-		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
+-		.class_names = _var##_classnames,			\
+-	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
+-
+ /* encapsulate linker provided built-in (or module) dyndbg data */
+ struct _ddebug_info {
+ 	struct _ddebug *descs;
+@@ -138,6 +117,27 @@ struct ddebug_class_param {
+ #if defined(CONFIG_DYNAMIC_DEBUG) || \
+ 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
+ 
++/**
++ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
++ * @_var:   a struct ddebug_class_map, passed to module_param_cb
++ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
++ * @_base:  offset of 1st class-name. splits .class_id space
++ * @classes: class-names used to control class'd prdbgs
++ */
++#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
++	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
++	static struct ddebug_class_map __aligned(8) __used		\
++		__section("__dyndbg_classes") _var = {			\
++		.mod = THIS_MODULE,					\
++		.mod_name = KBUILD_MODNAME,				\
++		.base = _base,						\
++		.map_type = _maptype,					\
++		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.class_names = _var##_classnames,			\
++	}
++#define NUM_TYPE_ARGS(eltype, ...)				\
++	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
++
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+ 
+@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
+ 
+ #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
+ #define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#define DECLARE_DYNDBG_CLASSMAP(...)
+ 
+ #define dynamic_pr_debug(fmt, ...)					\
+ 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
+-- 
+2.53.0
 
-Cheers,
-Miguel
