@@ -4,70 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95203F483C6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFADDF483C5
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98B6D10E506;
-	Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E08F10E520;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ywSd66Uw";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="czQYIsQL";
 	dkim-atps=neutral
-X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
- Sat, 21 Mar 2026 11:06:12 UTC
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CC310E251;
- Sat, 21 Mar 2026 11:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
- s=iohv2404; t=1774091170;
- bh=kDysuZ/sz32qVE18mBLkk7WL702+dG/9fna8ZhLYBpU=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ywSd66UwFPwV4h8vGCaoHXKH796Jt1vv7IOJjM+nOedWBjEt2+XkTlQAKapEbv8e3
- mCssZZLib/HzBfev6MWM4B4BOo2kH8RNlga4JaAvOr0ldG8kMV7oDw4EId/wF48Hq2
- OTFPmfYLwqj3ty2pTUCyqpQMIckFCIMPBYeujT/M=
-X-QQ-mid: zesmtpsz9t1774090656ta6086d6a
-X-QQ-Originating-IP: LVy3dnYOiA9pf1Xme6SfgEJkFwBB0Hbmkt7OsA+5xis=
-Received: from localhost.localdomain ( [116.172.93.199])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 21 Mar 2026 18:57:33 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 12091318665540782229
-EX-QQ-RecipientCnt: 14
-From: Kexin Sun <kexinsun@smail.nju.edu.cn>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
- yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
-Subject: [PATCH] drm/i915: fix outdated i915_vma_get_fence() references in kdoc
-Date: Sat, 21 Mar 2026 18:57:33 +0800
-Message-Id: <20260321105733.6391-1-kexinsun@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 862F710EC11
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:35 +0000 (UTC)
+Received: by mail-oi1-f172.google.com with SMTP id
+ 5614622812f47-4672076355aso1531025b6e.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773408275; x=1774013075; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=czQYIsQLuF0FbFYZUigIVCp87VtIq/aJP+Cs1Map0OEeb/Aqe+jrbZX5uynErI8zUn
+ K4VVtESQDcdG4chFk7XYBSSeXrj/iO2vD6wMH4p2gC5K2+7dWLz7J/zMRIlR6L4VZGvf
+ TEH5s9TlcbUDuzJxqMW+9vwV+USKQ85tOcE5BtehWHd4y71D19xRJFjrCL87wZBasuGL
+ BDsJNo+p5PnOQJ4egT4dc1+rF15alaL/i3j4D7W82DuWlbN0ctsJOcYCrsX/wYGs6tGZ
+ pNUapJoxm0chOOsjA87x4eEEHadfupZ9z6lao3aRu+doWBB4s9LwU04mTC8zac9if+Hv
+ YKqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773408275; x=1774013075;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=Y8r7CJpm4Ra6NQRMscJ1mA2KSWB6N3O63fFRm4I2OICwoFkJCRxs3P0noK/aXiSsAe
+ RHeHmfi5ylvfZAdyVbzTOXAwjNZ1D62ae0K9XgCB+zAkSJl/NcdqOakj/vbejW7J1782
+ 7d0BOwyr42Pe+zVxl913741OY1Dpb2GaShKE6JLKa01LeK5xaQGGmmDCYxv0RFyCp1Oo
+ NXZYsqrIu6WIdu3ZymRCA+YTdy8+S93ftsjlzAQ4+3fL0WR17zV1WrXgXvn5Zbzf05fv
+ hMP3xoGIWP9i2MVtXjXVW9DTgDEixTdxc9X36O93pFrItT4tns6J0pqREeDZqoLBk+gF
+ noLQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU0yWS9QqqByAAdJWozlgT8eZVpkaBBSWb3BEF9rZh63fFJq7Ur7g8laUjxF7NxKvm9X2Ktq1wE5TY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywj92LYMX0513QctnE5OMOJb5cb+1A74vGH5xdNVg+VwpGUTfCe
+ 8NiWBD6WiQ6xtbLmA0c7Ku3aDMNNmAUd8eEYzxcb33E2U8FXtxQV8j1R
+X-Gm-Gg: ATEYQzyb0RbenQkJtgGxJKWFJChTRP0EpLwFLCwpRzMA72enF6LCUF3AeUrZgX1SNmf
+ T+5nlYcXTrjFsil++BUDX4rycdCOCr80m5WTVG2cfvNGumACYAiI7+ZsVTJI/9wWVJVYVu79xAQ
+ ryGDVt7WA9Biph1GMD0fVDQupJU84fWWSrFJn/O9AVlZxKWSfWeRmbCpOJvA4roTUcNxxfQgzQO
+ TUNbGEMT6ptiItOmBP5RSjpAH6bwMbyhsNh0B/7t1BIeFTrl4AERVhrnTp632zHcOGjxrGS83tW
+ v4/om9c8j/XrC7NxUdo5AkqCF2OVlsrjkkjScX4pfcFPTdidRkEtXHAY/PShQzEOEKPfCEgSxB3
+ oDzUu+FcJ16u7VqracpbObDJzKVgnjk2UH8AN/WHqrL3Vs4CpqaYwBoNYhXqHM6i1VSOUu02tF+
+ f4TJ0DNMn7c8D28jmfbCnafYS9D1k5NoRKJcKcfa1YdsXk1vcw
+X-Received: by 2002:a05:6808:c162:b0:463:ab56:9ed1 with SMTP id
+ 5614622812f47-467570952f1mr1501954b6e.6.1773408274705; 
+ Fri, 13 Mar 2026 06:24:34 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:24:34 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 46/65] drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
+Date: Fri, 13 Mar 2026 07:20:11 -0600
+Message-ID: <20260313132103.2529746-47-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
-X-QQ-XMAILINFO: MAlUHnGeA8XKToyLYZNgiGpYerZFiPHxbOI5aNG6Nqs0GcLSgoKIPc0t
- jl3ym0VdO6R+z///99SvDo7J9D7f10RFMYY5sXdzlCHpgXnTqcxzVFXlKd0u0GTzJtEUWw1
- 9K8zaZB1VyiWDTFZEa3gYYbjK88KzOHlC6fbBOYfygasBEQD7lv3ZgW04JCXa1qf3VeNEsa
- TBhDSpM8TsMPMptMBtOII7ICQFmcCfc7hMC6oII/yl/7EtpKEKmMw4G/Ra5sW9x9uhQaQ/1
- kCkSS4bI8/a69Jk8Hl58tuXavjoL3yvtN15EHlbvastLMl/01Kah02oHloYCAr8wHX0SOtu
- pC5o1cVKmYAjdorepJdbIlYukWvl2xXsTzWmxqAoGnoPnNQS0qjJIIlctCkXMTy2uVKmE7n
- XTN4bF816/l4QAaWE4s9uJ+urSQb7fcs6kxAnLzwRGEbqGYz3/If3sTRWp2U/j8c2XHu8R2
- iBDPVavndDuBtOZvkyuEavh/w5ZCAMwSCA2YmP6lBrZzAmZc2DjfoO9B1YBkKhie+Kt8fEw
- 3JpTi54QOJF7ATuUwoQ1PIMsECdtYQXRlGMBSSy86p5GGgmqOBhrNhDO8CPYXd4gq5dIogt
- G8GzdgVktGhZWKN9ERM4+uqcCi23bmq3XbZUNotkJygvGI6NSl2vULzXsD+AIiW9RPv4tvz
- Re1X5gXVXpvPqHYyfcCjc5GcAsweps84aOg0+KmvLbArkJ5UgUm7YZcanVYmg87/+MHTzHd
- tsCn+REWsosGyYNuktWqv6InyMimneKKMATZxpbXcGXdXsFZpL3gR6+lnbLbhnz2nkSfl8D
- qOFcx2L0Yeo/Q5XocYxo2+F2CNS9ewPFpDA9q4H5e/qGoiEjdiBo9cDcaPEpQI1H7jDysZZ
- QqFoCxPmBrnt/IjSIuvv1PtqP7qWTJdaqIuTQ6Hfh+S+mA1kUOAokT3vQ/3Uq1yR63dHG7x
- Q8Mm5lTGXfaSJOaITpfP3YOS1p0QVv+s2h82KpmTDU9ZCHSeqMLKsEC4uY1epXjvHnKiz0p
- u6EleKYwpfB3CIQTkSwbLCDytD95X5QwHVaBVEmLbT4FYxlPcfrtU8GTJkTUs5AONc1INLM
- 5zsB5uDP4Mz1jsv5eGcBV2tEOccbzwxNw==
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,43 +99,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The function i915_vma_get_fence() was merged into
-i915_vma_pin_fence() by commit 3bd4073524fa ("drm/i915:
-Consolidate get_fence with pin_fence").
+tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
-Remove the stale sentence that tells callers to synchronize
-fencing state by calling i915_vma_get_fence() first, and fix
-the Returns description: i915_vma_pin_fence() returns int
-(0 on success, negative error code on failure), not bool as
-the old i915_vma_get_fence() did.
-
-Assisted-by: unnamed:deepseek-v3.2 coccinelle
-Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/i915/i915_vma.h | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/sysfb/simpledrm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
-index 8054047840aa..14ad66f8b398 100644
---- a/drivers/gpu/drm/i915/i915_vma.h
-+++ b/drivers/gpu/drm/i915/i915_vma.h
-@@ -369,14 +369,13 @@ void i915_vma_unpin_iomap(struct i915_vma *vma);
-  * @vma: vma to pin fencing for
-  *
-  * This pins the fencing state (whether tiled or untiled) to make sure the
-- * vma (and its object) is ready to be used as a scanout target. Fencing
-- * status must be synchronize first by calling i915_vma_get_fence():
-+ * vma (and its object) is ready to be used as a scanout target.
-  *
-  * The resulting fence pin reference must be released again with
-  * i915_vma_unpin_fence().
-  *
-  * Returns:
-- * True if the vma has a fence, false otherwise.
-+ * 0 on success, negative error code on failure.
+diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
+index 7a95d2dacd9d..8958e115abc1 100644
+--- a/drivers/gpu/drm/sysfb/simpledrm.c
++++ b/drivers/gpu/drm/sysfb/simpledrm.c
+@@ -35,6 +35,8 @@
+ #define DRIVER_MAJOR	1
+ #define DRIVER_MINOR	0
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /*
+  * Helpers for simplefb
   */
- int __must_check i915_vma_pin_fence(struct i915_vma *vma);
- void i915_vma_revoke_fence(struct i915_vma *vma);
 -- 
-2.25.1
+2.53.0
 
