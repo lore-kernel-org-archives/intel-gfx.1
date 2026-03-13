@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E594EC01DF
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CBBCD58B00
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7243010E467;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2BE110E4D6;
 	Mon, 23 Mar 2026 16:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="cKeTrWaO";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="WlPnBfD2";
 	dkim-atps=neutral
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D02110EC13
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:43 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-4672076355aso1531119b6e.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:43 -0700 (PDT)
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A118810E121
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:14 +0000 (UTC)
+Received: by mail-oi1-f181.google.com with SMTP id
+ 5614622812f47-46708149af2so1222898b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408282; x=1774013082; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408194; x=1774012994; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QeA7b49GNmqPBpy8bbweHTxpApMcFe3iFgz41hqVwCU=;
- b=cKeTrWaO8+7NbjvlsLvxuJdULdr8/5E1ueOEF+gFvVZT5/OfTShPZOtz48zOx0P9jj
- L7VRYk0b9JURzCuOmD6iprkxhORHgbHP7aGyMjFiMV+tCILx69JoO32SpRrpG5Dz1qLa
- lY8chmEwKPvddi1oFmLWBYV5z6/iCVZ1AgnNoPZk8YL1l+GwCH3AANM/sIZ9q+G7wEKR
- q6KxhvXyN+7XsoRDXF4J4YdtDz1c4QnfoxSsvaV5evo8UHI7x1RPgr+1iMmZK4RHFOta
- 9ZEqML1c9B6gOvmTUcbNev0Zw+frDhx8a0p9eE5yOLZ/NWh05fhS2K0TpDopBEQknjgI
- HmSg==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=WlPnBfD2ikkHx6z98gzW9KZsxQ79SjmFVGsIFvb4gIeRclv9o/NVPVmmklXGIPliZU
+ EpnR6Ch/Shbs+/lo0h/8ggG1/aijyiogv93k3Aouta1SpEsg2gbY7a02rLUQ83OJzlsV
+ dYwiC8t0ROXtgwhHWVNeGdo+7ro6C+OKyX9+1Mf5z38mNfOjX66SCmuudX9EdlnVNTR2
+ 0lKTjka44O4biP3/aPrqeRzCG5FPwKoPVS5EA/jSXmOvAepyinUADi70Qb+L0pJn/Jq8
+ tOkrkXSZIMoyXQWA1A+xnTduz0g6ZMekSyjYxSKoQJXQoPk8bVR9EH3YONHt/iyhO3C0
+ KgSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408282; x=1774013082;
+ d=1e100.net; s=20251104; t=1773408194; x=1774012994;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=QeA7b49GNmqPBpy8bbweHTxpApMcFe3iFgz41hqVwCU=;
- b=OJjcZJ9+dEUaIF86A/jzknEznXOzm16kxfTfj5j4U6Ho2PG9K3AVMQmdMrrLnzRMzk
- 9ouB3VjiOY34ff+bhvFSAq2QlXIF5MDAqPO9C7JuRwb8KpgTUixLnxDM/4FrZV90n0CP
- ur6VB5xov2RCl0KCuuBiIE4Dnnp0/S9OEReauebiQoSZoXDiQRRPFfAjPrwUmte5JXhk
- G3ogkf4CbotDjrb05espLRMLkDbmwINP2mTMa3CUCLjf6S6TDbOfdMT8FgIfi5/qm+zi
- oSL6aGI6JBn4gNkMzqxwZlTisTBMxG/KEN1qryFwtqRiIGdYokmtDQLMkS7lpwqABIKL
- ym7w==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=Wb3xqC2PnNRqLeZ62b53Nd7SNOt/h+neSh2xV4egZQKVK5zzxnluAb4HMOBMOkUaSk
+ SH7DItjJyy5E3Orb5nMDCfdpeQLOFo812mjmOsvgSPCxt0cs0FL4f1+yiNYGGKg1lLSY
+ jAb9vJW1hK3sbSrMGD/I1I+MXj+Diagy6vl/9dgGxQgi9fdKHcIUXSNtvIKxMLsMMziA
+ YNOERR06qzP7vWIPnEmp/Z6F5MsEBE2TZ2rEiEjpCmuIKHmcsTO1R3JpWYPojleAA7TL
+ c1xvOq/GsF1kHu9xn4DHYX8I4vjtbfPWxkpHeouN1BgCqzjzBMWwvymVTtNXb92+tIYn
+ IO2g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWgSMHp5uutZ291kQ8MFKG/GvwdJuy5hjGU7keRhtThI4zhl1AtBNOpZVBH6+0K8ii33aWbdv/Z/x0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwA8J9ETTnvmtxKoj8mf0eLehHMSggg6IxaMlVogcUkwqbleYV7
- o5qYo/nbBjUrd5LbtPIg33CQuD0Drdz/zg+t4y/01RznCTqCVyQvpXX9
-X-Gm-Gg: ATEYQzxyQM8p8wh7AVXXJLoukEKmBSwdBPyhEiFBoKmCFga1KLunkIgGP+3Mx7LGey0
- GZyBI5mCCAE1TYuItjT44Z70/Tdr0karSAyPunAM5D5D627M6iVa7b3tJ8dzMA0vUdKc9v8b7UJ
- L0yaRFk0V6XrLMUFo1e2P7kk4MN/zkfNH7MnEUPaR3l9bMZfaPINym98J2raIEc2VT4YtRe9Hs/
- ykSIr2l+GUXbVGSp6Vl34liEOWnSAH8UJtL0/FPoRyUHMSfBdY6s8UgufSsAR27uM5cVMoxbea7
- BG/guSAAtAmHjWd6LUmH5Juu1MAcdeuE1J2/z0Y+ze7lGAf2ROUYoLOmQM7HDNqvavWTomlTMFK
- OnjoitMXhcEj2/JFkDj7cC/660k9bPbBVktDyqtX2NHgPQOWODRUDHTR5NyqgXicuc4eVs+XAUz
- AkvBdpnPHVQ1ecxbqNYNkZ0z21MoJvGW7141PJzTodznIe3Ds3
-X-Received: by 2002:a05:6808:c2c8:b0:44f:78fb:7b11 with SMTP id
- 5614622812f47-4675753904dmr1572573b6e.39.1773408282489; 
- Fri, 13 Mar 2026 06:24:42 -0700 (PDT)
+ AJvYcCUNjLO862cHGr3nuPVgOzoaL1pBc1PziBsMfWWwNbylgetWMLfKXQImljUC05gwlbGWCdp6xvG6KiA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9VScRW/uEIKIGfImtQ3hY5SxvC2KeGHSVTzhEBpbw1DRNF3YY
+ 33LWl38NbxZLSUVFXoCUbuo8hHzLjvkNM9jtlP8w1mPtR/P/M/RPG4XX
+X-Gm-Gg: ATEYQzxasu9QzMftx6kcm0rDHzL9tYTp0STVlCrBxZ7Qtvv5Me30qkygon5wVHNuJPW
+ 2JvRlS3ZBCTCvTIo9vW5P/ACeZGD/hQ8rk/6RrHEDyfglEENrs/3wNQIxn9fZr0/TZ5ticAzf3e
+ acxbRnDz9TWIjFavjKzOTvFeCMHz81GaDQhLmzRs8XsosYHgAk3LL2PaM8IAn59BOjZAcSyE4PY
+ vmsVse29iaM7pOvsHTst3mOgUcc4su10nkvzM3ek9xwYrlkXmwtiQB0YFxRj1KBwfnzhQ2+qdP7
+ f5Zfx5rCQRb9ii8gSgG/siGCFBL5xsUwxy1Q6MqMZSEyEflpZZ35fV2eygHYJV/N7qUl2aDol64
+ ivsOQKHj7s6EfaeEGrDFOsmbxcFD6hUXlJBG61TOFdkaKq1N3iZvNxm4AjF1IrZibjeM3kFN4xZ
+ xs2oUTac6ErYqNg5eQvYVGOcxk7PsnJPVs80dqy53uhNDNQtex
+X-Received: by 2002:a05:6808:1b24:b0:450:d471:dce5 with SMTP id
+ 5614622812f47-4675701babbmr1568851b6e.6.1773408193868; 
+ Fri, 13 Mar 2026 06:23:13 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.41
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:42 -0700 (PDT)
+ Fri, 13 Mar 2026 06:23:13 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, matthew.auld@intel.com,
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
  arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v11 50/65] drm-dyndbg: add DRM_CLASSMAP_USE to radeon
-Date: Fri, 13 Mar 2026 07:20:15 -0600
-Message-ID: <20260313132103.2529746-51-jim.cromie@gmail.com>
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 09/65] dyndbg: drop NUM_TYPE_ARRAY
+Date: Fri, 13 Mar 2026 07:19:34 -0600
+Message-ID: <20260313132103.2529746-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,28 +97,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-radeon has some DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg about its use of
-the class'd debugs.
+ARRAY_SIZE works here, since array decl is complete.
 
+no functional change
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index 87fd6255c114..a7133fb6377d 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -254,6 +254,8 @@ static const struct pci_device_id pciidlist[] = {
- };
- MODULE_DEVICE_TABLE(pci, pciidlist);
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 441305277914..92627a03b4d1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -132,11 +132,9 @@ struct ddebug_class_param {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
+ 	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static const struct drm_driver kms_driver;
- 
- static bool radeon_support_enabled(struct device *dev,
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
 -- 
 2.53.0
 
