@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA49DF483C5
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E59BBF483C4
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30CC010E522;
-	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 750F310E53C;
+	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=rthansen-dk.20230601.gappssmtp.com header.i=@rthansen-dk.20230601.gappssmtp.com header.b="R7v7A78w";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQrwk93L";
 	dkim-atps=neutral
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2ED110EA08
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 12:54:06 +0000 (UTC)
-Received: by mail-ed1-f54.google.com with SMTP id
- 4fb4d7f45d1cf-661cfb9f3aaso764369a12.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 05:54:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773924845; cv=none;
- d=google.com; s=arc-20240605;
- b=ggGR+sGnmKavN3NHexvJzBnaG2m2mTl5Brt99vEV1OVGMvqUlzm1VOAA7qdRByVK0+
- LPYJr2+iZVcR+/dgGySPnj0zof8JjwJ0eWG9A2jSvLogI4Am4ThtaPAuX22MK6/29l/2
- UOYLxOBoEdlgUaYS88jW5YA1k1PWx8RUIShdlwZRKpRc/oSabIltW22wuxyT65kXyna9
- hupjxqDMR2xT8+/A4hF4Qt0+x4SXO1FA+TgbXXdiRB111IqwhswlsaXrJAKnfpfLXJw+
- LLp3g0HLcMG2EyLZqHywcDdcdzi6HaktjvZd/XKo4T/73LXSSn4NA/tyjttWVDb0mvct
- 17pA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
- fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
- b=N2FSItCqEiJI0fJr+19cSp5tly/gK6wGOWXz+47eX8f/8xB7vmqVlSWGmVYG0u6rPl
- 7WA6W5A40v9+ySMCta7+OGW4VF30wOJtJ+JFc+YImBl0y9VsghvDs4dmQKqJpbp/Sj7P
- QnQuSM0oGyUo9DxqFA6nRdVsp8jZFf7iaRM4iK3EE4fwGfWkgIgqbVb99CDCokFJZkDP
- LWRy8/B/5o2guYwlOjLvRWXHZatzT1pCYMSbofIwex6D2YERtPD75uC99kqemSEkmFp6
- 0SX8C0nYV+3IWUSGyc3g1h+jiwgQV7yUvkyexgRVNFZxGx8u9Lz+VeA7+w0GlB9meura
- DWCw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F29A410EBFA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:22 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-4671119c1c0so1595105b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=rthansen-dk.20230601.gappssmtp.com; s=20230601; t=1773924845; x=1774529645;
- darn=lists.freedesktop.org; 
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
- b=R7v7A78wyBHQE91qvX8l2EEyFigBdbLHCB09HwrUKm58ox7PZrNn3NybXMl+1CM6JE
- 6NrW2NqHBPpXcAVPzDJU+nHIe72UUFRO3cL9sjdahGMR5C8/kKz23yG+JMLv+T1OSlpJ
- ZmYF9dnhCRUZesHqSfvjcwizQTrKf7jD5TIGnDx8VnNujqy/6ZwizXpbaYclw+EFZYKk
- J4JcD2vY7L7w/JsIBQBbPKbTrymMd+hOM18jCJa6d8/ectUui3UQUxzt0Rvj4DNahhLU
- 1FoCmMTVrpKyE8ZyilvaRzSXefmjNAKj34cT+Plueoi7xg+6TlXN+rGRClikQwSjLCvk
- MUJw==
+ d=gmail.com; s=20230601; t=1773408202; x=1774013002; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
+ b=kQrwk93LE62KbrsLbEFRGVmaI/Bz0SEXQ5grieklpiQ8itw5IjbMcy5en4rL+P9sBG
+ y7TmRkUcDqibsoZA2nVML/3PoCWRqTh444NC12Jwjvv0DgWPW3Ue7oXGtATFBT2CRfsq
+ rAeQ71t5gj/1QD1wHZMvq3po766gTHyB5TWEtxbkgYldpVR2+jqwRbxk8cR1HYXHQn5f
+ jIpH+U4R93vsQuh6HpvaAJkXKrWz/mdfglNVxGI1MNv7jm6a7VslNuepuZtV1+Mel1pz
+ cVvdMNVVZaolDzOwf4yQX1DGQo8O9JeauCT+lKXFSX+bASKK/XFLbd7jFTja8WB18gWn
+ cRTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773924845; x=1774529645;
- h=to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
- b=fDB6f6Vf9TRk88MN7v7qsezn3+Ghwlje4SBJeQUjDUyhTxYTVYQqN8UolMqAiEbgmI
- yXHgqoA6kMmVHYd0lfV6zWir5g1wzTR5/tCI6TqTJ/fVqZQaANhD6ChfJ8rqZ0niQ7qg
- CznH1KfqKt/L0tvg5OQK4wizpDnaGCE7++ZVyjSpIKWP/pHCs2dNpG3c/27GdyHG5ESj
- goAh8t1B1jduQtCGvimKPsGpFHiicCtug6F6+5eQhpDI0awhQJ4JBbPXCa8bG9qJ5Q5i
- iJafic/cLZqW0JDuWfZETLhD8mg6cvDFihCg3IUTrVWMEUJkFfncsjiS110HQcZuPRTa
- MD9A==
-X-Gm-Message-State: AOJu0YwVJ5jTq/5vrAIphQGZjk5+FAAupHXzKA7o08fD29ihfin+BXfy
- JQ05CIdwLJKWPpi+yOx4V+aJIazdpt7Q2duU0H1Xfl3cfuaTQw4i8W21yd1OlvkIcYe/k8+nuNP
- dhwHDia2sXWRTF9g6T5OjwECaLjAgyXWEorCTFrL3M4TwLSXokxVxzYs=
-X-Gm-Gg: ATEYQzxlyeOpvsdiDNz2fTyS/qM3aVVahPvyPD+p2E7em7R6C2HPyCWWHHmuAEqs4hm
- JUQ33I8su7AROsTknsKv+kw54oPH2yBd/FnI8n+fiJsDP8/ja9sh5Fv9LenWEUFuNScLtyNbLbO
- xGZjCJlqLW/DLc0HPqSktJgllNW/MzJpVTUn4yO3CMR7VawpQlOWmjVKMy4ybAdRPJccK3a6h+Q
- TDKez32Il4Jwk1ixxea6u4eIrsoGxgIKraViTViCtfvCifesUhHR46tt5csVRJBhwjHEPUj3sBu
- 2d6t7JzoKMjKJVWJ7Eiq0iei0dhYHxXrjc2DrEaE/49IUzQCLP+QPgwbOfnmmPi3mOBg2Q==
-X-Received: by 2002:a05:6402:2746:b0:660:475:9403 with SMTP id
- 4fb4d7f45d1cf-667b2c197d8mr4745999a12.29.1773924844564; Thu, 19 Mar 2026
- 05:54:04 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1773408202; x=1774013002;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
+ b=qa5GGN/wjE/2pEuxQEIFx3aSDotVgMUNDnPW5mREDLGE+y7UL+u9aIZ8dHepDvSS2E
+ NvyeGKP0wTRkJtc52a/tQcqH7DA+A16S7nPVgaNMJM7tGc0TDso9a2k8J3GZzl4A2ZAx
+ MiKQlKloG+V+fo/lU4v6EidPPpC16EHSfGJ1IOcF/A2d5Wt38h6mWdniB35Q8ooMJNrz
+ WffdZTYVOuxG8yXjvPwSmHq3H7RFyUXi4p3lnqFxWpbl8DE3TPoHHds1hGr42GR9hERw
+ HOV3slpMMBcpOJpQzACd3lD47Bs2Lrk3G8yF5rCBIe+1lWnyzN3eAHiwl2V1Y3e0uYNC
+ jNog==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUbnjMEntvbPn8D5R4NKM6+cUybYdt5TB472E7gXHhJf9e8HCU6wTUga8Y5MFOZneaHDUCa3/zUv98=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkMUNfPjaBBvV8RjLHAlUFa4vjF4GxCYe1TJu4nM4tiNizwr/v
+ kF1PZ7RMSKwl9azBqfPVt+hDMh2oztlsx0n5H+ajU/n1h7ufSb1uB2c0
+X-Gm-Gg: ATEYQzyvLXnIFpUPSU6fmfE8svoQW4DrG/5VcYGFw4G1eF5Na2fSU/1R8V3DzIcbEHk
+ U7eaaEk5MtNE7hxMW4zoBXGody2aasY2/8DwNYPPwyxjY3cwA1/8SebI7CFApz/xGH5sXgtttRA
+ KRPAIruJUFJrAMsnX+/hy5leGo1LyMFHy5F2N8n6CPpcd2LCnWzco63XuTTHWSBAOWborDOdF2u
+ QnXpocLbrDG6MxVtHWWpjLP7hXuVlwB3NvkoVRVd9OK8INvfZKzmj6yRPbHHS4eaoXoK8wsmRdW
+ 9DNNc1weSkyIvySEJq0HZpmgtYbD6V+QRclOirNrJZWMe09yxo3n264CbsGWM7w87hMFX5tG7o7
+ NWKI8fjIfQaI3kDjomjNRbJvQWftvgjfQjLF/pmfDckJe2b9+AqZVUi4voc8V5cCAAxi2xjtqo0
+ mFUu45NAdrgr9Ck0shWFFggO95uV6/V2LXqsX9K97shdTvarjbdH2gitv+iPk=
+X-Received: by 2002:a05:6808:1a21:b0:467:13b5:8ae6 with SMTP id
+ 5614622812f47-4675704ae1cmr1541416b6e.4.1773408202078; 
+ Fri, 13 Mar 2026 06:23:22 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:23:21 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Andrew Morton <akpm@linux-foundation.org>,
+ Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 13/65] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+Date: Fri, 13 Mar 2026 07:19:38 -0600
+Message-ID: <20260313132103.2529746-14-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-From: Kim Hansen <kim@rthansen.dk>
-Date: Thu, 19 Mar 2026 13:53:38 +0100
-X-Gm-Features: AaiRm51YVIJ0992DrSPLmbo49io34ai-IdKTOWLfakSly1u11keAqe2ma9ZaaEk
-Message-ID: <CAEGYRW4jQd=D99NZVYsH8yg1g5zGq=Y2959Jwsw_wtSen2ydjA@mail.gmail.com>
-Subject: Re: [Intel-gfx] [PATCH 2/2] drm: Schedule the HPD poll work on the
- system unbound workqueue
-To: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000380162064d60100e"
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,76 +97,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000380162064d60100e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+old_bits arg is currently a pointer to the input bits, but this could
+allow inadvertent changes to the input by the fn.  Disallow this.
+And constify new_bits while here.
 
-It seems I am still having this issue, I had ghostty and Slack freezing on
-me the other day, and Claude pointed to this issue as the root cause.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ lib/dynamic_debug.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-The reason it pointed to i915 was lines like this in dmesg:
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 4313c8803007..a18f4bc63473 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -607,7 +607,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
+ 
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits,
++				     const unsigned long *new_bits,
++				     const unsigned long old_bits,
+ 				     const char *query_modname)
+ {
+ #define QUERY_SIZE 128
+@@ -616,12 +617,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
+ 
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
++		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+@@ -633,9 +634,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+ }
+@@ -691,7 +692,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -701,7 +702,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+ 
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -755,7 +756,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+ 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, mod_name);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -768,7 +769,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
+-- 
+2.53.0
 
-Mar 19 01:32:41 aleph kernel: workqueue: i915_hpd_poll_init_work [i915]
-hogged CPU for >10000us 2051 times, consider switching to WQ_UNBOUND
-
-Hardware: Intel CometLake-U GT2 UHD Graphics (i915), kernel
-6.17.0-109014-tuxedo, Wayland/GNOME/Mutter session, triggered by docking
-station hot-swap.
-
-I have recompiled the module with the following patch and now the warnings
-don't show up in my logs when I attach/detach my docking station.
-
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -262,7 +262,7 @@
-              goto cleanup_wq_flip;
-      }
-
--     display->wq.unordered =3D alloc_workqueue("display_unordered", 0, 0);
-+     display->wq.unordered =3D alloc_workqueue("display_unordered",
-WQ_UNBOUND, 0);
-      if (!display->wq.unordered) {
-              ret =3D -ENOMEM;
-              goto cleanup_wq_cleanup;
-
-Can this fix be merged as is, or should I do other testing?
-
-Kind regards,
-Kim Hansen
-
---=20
-Kim Rydhof Thor Hansen
-Rylev=C3=A6nget 22
-2880 Bagsv=C3=A6rd
-Phone: +45 3091 2437
-
---000000000000380162064d60100e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>It seems I am still having this issue, I had ghostty =
-and Slack freezing on me the other day, and Claude pointed to this issue as=
- the root cause.<br><br>The reason it pointed to i915 was lines like this i=
-n dmesg:<br><br>Mar 19 01:32:41 aleph kernel: workqueue: i915_hpd_poll_init=
-_work [i915] hogged CPU for &gt;10000us 2051 times, consider switching to W=
-Q_UNBOUND<br><br>Hardware: Intel CometLake-U GT2 UHD Graphics (i915), kerne=
-l 6.17.0-109014-tuxedo, Wayland/GNOME/Mutter session, triggered by docking =
-station hot-swap.<br><br>I have recompiled the module with the following pa=
-tch and now the warnings don&#39;t show up in my logs when I attach/detach =
-my docking station.<br><br>--- a/drivers/gpu/drm/i915/display/intel_display=
-_driver.c<br>+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c<br>@=
-@ -262,7 +262,7 @@<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto=
- cleanup_wq_flip;<br>=C2=A0 =C2=A0 =C2=A0 }<br><br>- =C2=A0 =C2=A0 display-=
-&gt;wq.unordered =3D alloc_workqueue(&quot;display_unordered&quot;, 0, 0);<=
-br>+ =C2=A0 =C2=A0 display-&gt;wq.unordered =3D alloc_workqueue(&quot;displ=
-ay_unordered&quot;, WQ_UNBOUND, 0);<br>=C2=A0 =C2=A0 =C2=A0 if (!display-&g=
-t;wq.unordered) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =
-=3D -ENOMEM;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto clean=
-up_wq_cleanup;<br><br>Can this fix be merged as is, or should I do other te=
-sting?<br><br>Kind regards,<br>Kim Hansen</div><div><br></div><span class=
-=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
-ignature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Kim Rydh=
-of Thor Hansen<br>Rylev=C3=A6nget 22<br>2880 Bagsv=C3=A6rd<br>Phone: +45 30=
-91 2437</div></div></div></div>
-
---000000000000380162064d60100e--
