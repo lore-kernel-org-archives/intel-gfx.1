@@ -4,103 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C193F4613D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B683BD58B00
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F9B210E4D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A9BB10E4FD;
 	Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oq93M5Yp";
+	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHhoQ1LH";
 	dkim-atps=neutral
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B795A10E5D4
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 01:53:47 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-4043b909ed4so4106204fac.3
- for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 18:53:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773798827; cv=none;
- d=google.com; s=arc-20240605;
- b=RJi748rRCRrRnV+lmlJarF2XcCLTjFNb68IL9o39Io8igqXZ6PUhVj4N8qQuBcM1hu
- Z8VCWeUkedSMNhZVy7eyuGuygkNJBS5jz27WZ6tnqNfYsHT2vesD1qpbx9XV/4KfLDTl
- 2t3KnSmYrIdyGA9M7B+BVXLqf8U5xd+hEsEc44A6CQsqmMZ4MstIjxA2gEkKdLmQTz13
- vpwyjXcZUu/eXFO/ehQVNac5a61hEcNb+QVLrv7VnmuBFAL6x9+dx1h8O6pzP8FCZjs1
- IvU8z/Bsi5XwA6+I1lFOyuVnINEoYeEnRLStPsjMoWd7IgxY2KrVqGZA15YM99xwtbBG
- OAHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=cp9Ep/hNNUKT/Q107TyB692cBkvdQAk6sieLmz8xQmg=;
- fh=y+9Ejl92RIFaY60gXgKdM71YWphLSGuOavjO/NHeSMI=;
- b=FP8Yhfu7Tu+GmQtdtKPe1wQSZVhCf3UZir+UU8n4M2/iJJL4mw8lwqYZxFnFfGE+eV
- jiAT6IdOOo0EngB8LWlB2MERTgs5TUqyOnLC7spL/sMY7RKWCV2lhZI3F6tTiHtF/AMc
- DQRPym+9PR811RQocUGF/Hx4NkUG9eMLrrbnjy0htRCj1JWKMwAEeHydj0BqA+3MnR64
- lFiLFP0NfsrjA6h7XSjBwceESHQxZAuHIS/FWQ5fqEnB8nuBQ042L5cw9sCAYzDywW3o
- duRQes0pOSMs8DtXazKFnjSLNI5HIT0QriEtzzj9dB9Q2yy/YMjFGj0kkOYUp8EtUtxE
- KF0Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 050E510EC15
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:26 +0000 (UTC)
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-4648447e29bso834121b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773798827; x=1774403627; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773408265; x=1774013065; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=cp9Ep/hNNUKT/Q107TyB692cBkvdQAk6sieLmz8xQmg=;
- b=Oq93M5Ypo1IoM7uJy+2vr0sn4ZxZhrqkYVsw6Nv47twXCyOnHMbw0DJVvMuRhPQ3//
- pfuyJ6URGsE3NZlha0G4+APHPdgH2bpqylpDdS1IKs/e385IL70aSCuIiePA+8VDE6xw
- H/dzbAQGlxFfrnA/L/Kj5Wwn6m7myDpJIqMg4GPJ74ZHHaVe1vKLWskvo1HNZWyB0Z8s
- ZpsAyZTkGqltxWOKPUgrMQxbVsbb/f/ShP85qOHeTz7suMqNgkmXAIzakfWQXUmMmsm+
- 5hVvGi/BtvRaJl0W7EzLNOwZ7xDaV7OGet7LwWeykxsyy5TAqpJPgRpi7mqvX5OIeuq5
- eFdQ==
+ bh=nWuUyl3pJMGaRe5YpqoxGiWQwsY1kd47fne8B+3aeoU=;
+ b=JHhoQ1LHbhboxKzHssmKPQavUUSA9XfexDh9MzwWt/CfUYvXh9u2emKWta+s/Lgi9s
+ cVmZU5HRH+g8VRE6LxWxAqwy4sOm/KqiT98i0VsooX/633mPOAPYrNlAjlraNOSuOc15
+ jxGKEa0+ChhjZvhvdlDUfbB8Ey8euoRQixOx3OV9YlcMdN/iCAxpnEhRSz+DfQMOJ073
+ myeJJIGOmdbX54vquwxbRytPL7kimfIqXQH5kjzO5z/lj2ZN9/aZTswOWrsROZK/0iEs
+ 2rICOXrSdVrU//84Vn0TahNNtJZf9AeeTc+aCG5R5idzVKWb9jRb53+PZDs3ZQtTnmU+
+ 9aAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773798827; x=1774403627;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773408265; x=1774013065;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=cp9Ep/hNNUKT/Q107TyB692cBkvdQAk6sieLmz8xQmg=;
- b=Uj40dmbo527J0qgqZgtblBArrktvcidiuyOJAQ7VDbFT9sbSnjBwhpabPP/3ifLWmH
- umuY2J8ePmS30kIbP4vlLlDmelkTldMskhb9daoN+erTe8w2Wn0Otc8r65NGSMGx9rrE
- QLGxC0blEmR0wWiJ0FhQlWm8O/jPpS7pbb+GrOuRdX604NQwZA2ppaarNbUqlK8r3UYl
- zvhlw5lEoiecSftf6frwDy/0WqcEatl8pZHAwl7D/Msk55V8sIb/1+CWSaAhDiLi9dpp
- 1Wzhh8QtyqFqHZLx7fui2ud2ClHJnYx8sHUfT5nGxnOYoUH2lcnSIlcaRyXb1kSyIvCF
- 79xw==
+ bh=nWuUyl3pJMGaRe5YpqoxGiWQwsY1kd47fne8B+3aeoU=;
+ b=eMfLgZC9GO361z2evRjYVWIFrwTbLGdGmwbFSc0DTKcfglcLaj8nE9tutR/M9vhy9o
+ OsCG9zXPniMzdoVtoJ5gxg5/6C1/EjPR481KmQRpfexxP15/Q6/xRqu0sI36VvWdoRkG
+ 2Tk+Fxj4q6cvqtR3i4YNkiagw4VBHPCdODWxM3C7Nigixm2AkMjAx9nM0Z2zrWir9FTE
+ GGDJ+TluMA5lQTIWFwjcS/4Qq0taG/D34xHbYHhNQPP6tqzAAjAziL2g4kiSTcaw3V4F
+ cjVoCnoJ/2K3BpHLHTqfmkIyyFJ8o5/U+ki6Wk3zgwTIZG/N072t23WJaeNAYoqCbw+p
+ FmWA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2njpYZCe4OkNEqkjVcqAv3YZFqrp5z2vydg8Yw0oOVh9nKsf4zpXSnzyhnGtKqvASRiIESBpOmCE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5y0lHpHcUEe78C8zxwxLSGdWk3Y2iKv7KOjmXV7QeT27Yta0d
- HQWS5lhQ7Rqjj7T703e3h0yI8eT6I5A9002LpPxvaFOHdjxkjpq1QDcyO73ijj2wS2/p3fB8NTu
- kAlddfH+6br4MTmX5vDWmi1BQFWYaOHs=
-X-Gm-Gg: ATEYQzzumk9GqtnQ5dFiA/XzivlIySmURlJKSC/T9RhjSR4I+yCkfrMNXdtiPqh/u4e
- rbFwb6vUrxe1P+zQHiAYIMcGg1TWk8uX2AYOin1QpdAVarr6s6gHnGpx9JQUTp5S3l8FVvcKqtg
- +3eO+k+bv8w7dAhWp/E4Fer5Jm0rEp+yIU4+aats1M51E/fTWE6CINpH/e8nVAQ2i7I/YqaaJC1
- MzyPh088vUiacxcFBgVEiswC6eTNIAhOroYR5KjfjlDFKsmagJNSqYPSgkZVD8MTqP6DfAEuP1/
- XUFT9SPXcli2bUaqIGenlsgq9Wbwwke4gQWlmbod5KGMM0j9JRoTCROHDgOWP/HXFiwR/mZaJXe
- 77D9juY+fZQ==
-X-Received: by 2002:a05:6870:ebcb:b0:417:1ba0:7320 with SMTP id
- 586e51a60fabf-41bd41cda0bmr1126217fac.33.1773798826608; Tue, 17 Mar 2026
- 18:53:46 -0700 (PDT)
+ AJvYcCUltWc3VIbEi4dWyoF6M8j7hWJJgZH8Zdwf39MkalCv+HIIVqZdGzXlZrmQOOFx0iObJi5mE8JGYo4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxRzzq5yLej3cYOFwmSI2cfcXd09a8ovZWMJ6V4Nhku5lM8qT0W
+ 3FtiiSCGjHSutCyjWY+HZfr9chmlUNOyehZKAQkY6wFFeA+gyQq0k0r6
+X-Gm-Gg: ATEYQzzmmm2d2ESjTFG0SmS3xX00yUaWu6SWnRDWJHcGWRS4FtwU66xIIW8jwLccb1d
+ RhaBcr3b36SNWx9pI6DNtReRKMsxzaFkB+AeG1J0Gk8PwqUShtyE7JdE4mzd+o/xMrfV9ZN9QB+
+ oiWfLiKD7jtLCFgNMKXKhWuwKVNi21o1fZ34kMju2ErG+DQ+dBCkkIQm3FDm2HFhAdDsD8EifI+
+ 7BTOCflEilWI6aE3VkbxnICU+vEQaWJjgvdHwQzd9ehtHZlY/sALpdSKSbqf+6agcFSE4xAlbt5
+ 8B/4QBwWyRkr4YlcFHrFiOePtDJjuKxe4p/okjqL7X4fmAhL6qKC8HTXRQT2jE9Q7N7vR50uITE
+ fJ73lcGj0A67/WVutVPFBP1MyUCY+wBTyCgOHUFpVirZclLTlbJn8+XTnozSynAJIV5fbcdALit
+ gCe2vgKdzZ2xHdGIcvdnFtybF16vLvzAjKoVil6yojniX4Wnt/
+X-Received: by 2002:a05:6808:30a7:b0:467:100d:22ad with SMTP id
+ 5614622812f47-4675708e938mr1535630b6e.18.1773408265054; 
+ Fri, 13 Mar 2026 06:24:25 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:24:24 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Jim Cromie <jim.cromie@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 41/65] drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
+Date: Fri, 13 Mar 2026 07:20:06 -0600
+Message-ID: <20260313132103.2529746-42-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-References: <20260317185920.43387-1-hanguidong02@gmail.com>
- <20260317191538.43535-1-hanguidong02@gmail.com>
- <c14b399c9c6bf96f8c7d33615561b0d787ff175b@intel.com>
-In-Reply-To: <c14b399c9c6bf96f8c7d33615561b0d787ff175b@intel.com>
-From: Gui-Dong Han <hanguidong02@gmail.com>
-Date: Wed, 18 Mar 2026 09:53:36 +0800
-X-Gm-Features: AaiRm52nR_v9OD3YNBiYZ0KMPL0_wApDenMFnYnmDk762NDAGBxD5i0lDEEX0xA
-Message-ID: <CALbr=LadoX8g--rtU==HQfNQ9f1=KP=7AS-PGfooKaSbnYPz+Q@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/i915/display: initialize string params to empty
- strings
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: gregkh@linuxfoundation.org, dakr@kernel.org, rafael@kernel.org, 
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, 
- airlied@gmail.com, simona@ffwll.ch, gustavo.sousa@intel.com, 
- demarchi@kernel.org, jouni.hogander@intel.com, luciano.coelho@intel.com, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org, 
- akaieurus@gmail.com, me@ziyao.cc
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,57 +98,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 4:12=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
->
-> On Wed, 18 Mar 2026, Gui-Dong Han <hanguidong02@gmail.com> wrote:
-> > Passing NULL to debugfs_create_str() causes a NULL pointer dereference
-> > upon reading, and is no longer permitted. Change the default values of
-> > dmc_firmware_path and vbt_firmware to empty strings ("").
-> >
-> > Existing code that consumes these parameters already verifies both
-> > pointer validity and string length, so empty strings are handled
-> > correctly. Furthermore, heap allocation is not required here: these
-> > debugfs parameters are created with strictly read-only permissions
-> > (0400). As a result, the debugfs write operation is never invoked,
-> > meaning the static empty string will not be erroneously freed by
-> > kfree().
-> >
-> > Fixes: e9913f0bd2e1 ("drm/i915/display: move dmc_firmware_path to displ=
-ay params")
-> > Fixes: 29292bc6cc37 ("drm/i915/display: Move vbt_firmware module parame=
-ter under display")
-> > Signed-off-by: Gui-Dong Han <hanguidong02@gmail.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display_params.h | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/driv=
-ers/gpu/drm/i915/display/intel_display_params.h
-> > index b95ecf728daa..0a8cad98d480 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_params.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-> > @@ -23,8 +23,8 @@ struct drm_printer;
-> >   *       debugfs file
-> >   */
-> >  #define INTEL_DISPLAY_PARAMS_FOR_EACH(param) \
-> > -     param(char *, dmc_firmware_path, NULL, 0400) \
-> > -     param(char *, vbt_firmware, NULL, 0400) \
-> > +     param(char *, dmc_firmware_path, "", 0400) \
-> > +     param(char *, vbt_firmware, "", 0400) \
->
-> Admittedly this is all very convoluted, but these NULL pointers (or
-> pointers to them) are never passed to debugfs_create_str().
+Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
+DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
+than re-declaring it redundantly, and error-prone-ly.
 
-Hi Jani,
+This resolves the appearance of "class:_UNKNOWN_" in the control file
+for the driver's drm_dbg()s.
 
-Thanks for your review.
+Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
 
-Could you elaborate on why they are never passed? Looking at
-intel_display_debugfs_params.c, the intel_display_debugfs_params()
-function iterates over INTEL_DISPLAY_PARAMS_FOR_EACH using the
-REGISTER macro. This eventually calls
-_intel_display_param_create_file(), which uses _Generic to dispatch
-char ** types to debugfs_create_str().
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+---
+ drivers/gpu/drm/drm_crtc_helper.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
 
-Thanks.
+diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
+index 5de9aaa5ba04..31c5294b252c 100644
+--- a/drivers/gpu/drm/drm_crtc_helper.c
++++ b/drivers/gpu/drm/drm_crtc_helper.c
+@@ -50,17 +50,7 @@
+ 
+ #include "drm_crtc_helper_internal.h"
+ 
+-DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+-			"DRM_UT_CORE",
+-			"DRM_UT_DRIVER",
+-			"DRM_UT_KMS",
+-			"DRM_UT_PRIME",
+-			"DRM_UT_ATOMIC",
+-			"DRM_UT_VBL",
+-			"DRM_UT_STATE",
+-			"DRM_UT_LEASE",
+-			"DRM_UT_DP",
+-			"DRM_UT_DRMRES");
++DRM_CLASSMAP_USE(drm_debug_classes);
+ 
+ /**
+  * DOC: overview
+-- 
+2.53.0
+
