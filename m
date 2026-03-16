@@ -4,90 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2720DFB5E87
-	for <intel-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 23:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83196FB5E8B
+	for <intel-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 23:35:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 973F710E40D;
-	Mon, 16 Mar 2026 23:19:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1615E10E0A9;
+	Mon, 16 Mar 2026 23:35:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="gGSO2LNz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S5URnk2R";
 	dkim-atps=neutral
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D909B10E3FF;
- Mon, 16 Mar 2026 23:19:28 +0000 (UTC)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62GLEeGt1337612; Mon, 16 Mar 2026 23:19:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=corp-2025-04-25; bh=hCmO/
- 1KujtmmSOaFMR02A3UTYBXh1Y4xq14rESz5/Ls=; b=gGSO2LNzhz9reMs3kP3bc
- iF1S0WDVMaCj2gkQryL27ZgVPMKUA9cMHfUDqdhmp9wlg3PpO2li9jbJU8wplVov
- WqbkUuQlCRNl4wnBz6EhGvIhDAjqBxXqB+tHElIP34YK4Ws9PtL6IVxqkIabfptN
- zs+d7/O0c6Y+CoiF6CoDNE7ry6sou044UCwtWJASRSGM48ticzM4e5D/VMoCfvOp
- VCJfSGCUJsNAa/5rvbH4de5UOvljsjOOgyppvtfyX9S7Ow8C1zCOtxFYaXhGqOsr
- m7M4x3L5jgSn9m7lLLoidMQpk7xbTbswpRwAlrxPClbdJhDdvVnuJPtc6+nMJnZL
- A==
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4cvy9ru6r3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 16 Mar 2026 23:19:24 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
- with ESMTP id 62GLXk2T002732; Mon, 16 Mar 2026 23:19:23 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 4cvx4khd7r-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 16 Mar 2026 23:19:23 +0000
-Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 62GNJJ2i000736;
- Mon, 16 Mar 2026 23:19:23 GMT
-Received: from ca-dev112.us.oracle.com (ca-dev112.us.oracle.com
- [10.129.136.47])
- by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 4cvx4khd77-2; Mon, 16 Mar 2026 23:19:23 +0000
-From: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: samasth.norway.ananda@oracle.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, rodrigo.vivi@intel.com
-Subject: [PATCH v2 1/2] drm/i915/gmbus: fix spurious timeout on 512-byte burst
- reads
-Date: Mon, 16 Mar 2026 16:19:19 -0700
-Message-ID: <20260316231920.135438-2-samasth.norway.ananda@oracle.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260316231920.135438-1-samasth.norway.ananda@oracle.com>
-References: <20260316231920.135438-1-samasth.norway.ananda@oracle.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62FB110E0A9
+ for <intel-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 23:35:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773704140; x=1805240140;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=g7KRRG9WQu6x+ONbYI7yb+n+LOtAz6aLwcLQMd/7oNo=;
+ b=S5URnk2RhIH9gxk2odHIc9qwB7+ti1Mc/KMSmtx70Vas9shFvv4+v5OI
+ vHk16NwvWy79FOSRmUFIgt+B+yJ+8RS3Z8wrPCS/T3+Fkx037QUExta/C
+ +N43hS0fuXeVUb1cmLRp+x7SNS73/zNAV3lD0xKYwR5TuR2ubrRawCdH3
+ LzwmCZ4umUgAvh3hrG9LECVd6waBl7k10bsLOnajummwIOee9SFPBiC/8
+ NJyIZaIqFP/OHXqGId2wVBzquXobI4lVUFETdXtEXzDjXtuiVAS60i7cV
+ cSs2VjXCidcFa3IO0LCn2UZeBtbsxRF1Yk0MoySx8270w4NllgvFw/dP+ A==;
+X-CSE-ConnectionGUID: zYdpG2ItQuK+wBcVAeHl+Q==
+X-CSE-MsgGUID: 9uem4JcIRIyE0WOSWB04Mw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11731"; a="74434969"
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="74434969"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 16:35:40 -0700
+X-CSE-ConnectionGUID: rq539omcTaybbJU1GZnR+w==
+X-CSE-MsgGUID: xTgpp/+vSx690m4Gi+WkPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,124,1770624000"; d="scan'208";a="222138027"
+Received: from chu13-desk.fm.intel.com ([10.80.209.210])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 16:35:38 -0700
+From: Austin Hu <austin.hu@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com,
+	maarten.lankhorst@linux.intel.com
+Subject: [PATCH 1/2] drm/i915/plane: don't assume the linked Y Plane is
+ invisible
+Date: Mon, 16 Mar 2026 16:32:53 -0700
+Message-Id: <20260316233254.393640-1-austin.hu@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-16_06,2026-03-16_06,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- phishscore=0 spamscore=0
- adultscore=0 malwarescore=0 mlxlogscore=999 suspectscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2603050001
- definitions=main-2603160193
-X-Authority-Analysis: v=2.4 cv=X5Vf6WTe c=1 sm=1 tr=0 ts=69b88ffc b=1 cx=c_pps
- a=zPCbziy225d3KhSqZt3L1A==:117
- a=zPCbziy225d3KhSqZt3L1A==:17
- a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22
- a=3I1J8UUJPc9JN9BFgKH3:22 a=yPCof4ZbAAAA:8 a=OGXoSQydl6qUY9OtpiYA:9 cc=ntf
- awl=host:12272
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE5NCBTYWx0ZWRfX8gkcCytPSfQh
- osXP/qS9QX7SoD1JLLsojgWSg4PL/+CvRiciqjrIsPXu9svDApglnEv50Ly8Yxt9co77i2qWq89
- qPyoaEI7DQsdHFbHl/1wF+Mk8SoiNZ8qyTlMLFqqeAnnyhvL8Yltuzzvifim0MYgcuNqLWwBEkP
- MkAcQm1zFUmDf5d8OgeAUAwenB7A9+OIpDG6uPJKL30M0FH4TahUYP82eeS/ewVgv6kk9nUgxQd
- SnJxPTn6cEfaXB5RpxOjidX27oKbt4vGW+LG+VD9yK7fZPoarRxy8xuCcq+L0T5R8C06+n1qDY/
- SrwuE0/xct0uCd3T92/O+BHafUdpfMWhZH/eLA2O+eW5NhnkJaYYsqmgttSnR4JoRKAPl3jR2fi
- Q4MlTnNIRs9vi9JxRilD4K+1C0SDP5y8ZezfHzSQ/oVZtNv1Q8/7TCn19fDKUd/vuJf6Won9Hi2
- ffljrJT2UK94PyINjV1XPZl/OwoG0Gi7ieiQMd4o=
-X-Proofpoint-GUID: mYphgop-aD6w7Ztb95pRGmHPCVOPeh0R
-X-Proofpoint-ORIG-GUID: mYphgop-aD6w7Ztb95pRGmHPCVOPeh0R
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,34 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When reading exactly 512 bytes with burst read enabled, the
-extra_byte_added path breaks out of the inner do-while without
-decrementing len. The outer while(len) then re-enters and gmbus_wait()
-times out since all data has been delivered. Decrement len before the
-break so the outer loop terminates correctly.
+DRM would pop up warning complaining that the linked Y Plane is
+visible, when destroying all old Plane links of previous frame
+which has YUV semiplanar buffer to be DMAed by 2 Planes
+respectively. But when testing the passed buffers (layers) during
+current frame atomic commit, the previously linked Plane may be
+configured with another RGB buffer (layer) from user mode, so that
+its UAPI visible is set (by intel_plane_check_clipping()) before
+it'd be unlinked (by unlink_nv12_plane()).
 
-Fixes: d5dc0f43f268 ("drm/i915/gmbus: Enable burst read")
-Signed-off-by: Samasth Norway Ananda <samasth.norway.ananda@oracle.com>
+So not to assume the linked Y plane is invisible when unlinking it
+for current frame.
+
+Signed-off-by: Austin Hu <austin.hu@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_gmbus.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_plane.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
-index df48f27f1cc1..dd79a866b87e 100644
---- a/drivers/gpu/drm/i915/display/intel_gmbus.c
-+++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
-@@ -495,8 +495,10 @@ gmbus_xfer_read_chunk(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index e06a0618b4c6..3d945fe99b67 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -1510,7 +1510,6 @@ static void link_nv12_planes(struct intel_crtc_state *crtc_state,
+ static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+ 			      struct intel_plane_state *plane_state)
+ {
+-	struct intel_display *display = to_intel_display(plane_state);
+ 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
  
- 		val = intel_de_read_fw(display, GMBUS3(display));
- 		do {
--			if (extra_byte_added && len == 1)
-+			if (extra_byte_added && len == 1) {
-+				len--;
- 				break;
-+			}
+ 	plane_state->planar_linked_plane = NULL;
+@@ -1518,8 +1517,6 @@ static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+ 	if (!plane_state->is_y_plane)
+ 		return;
  
- 			*buf++ = val & 0xff;
- 			val >>= 8;
+-	drm_WARN_ON(display->drm, plane_state->uapi.visible);
+-
+ 	plane_state->is_y_plane = false;
+ 
+ 	crtc_state->enabled_planes &= ~BIT(plane->id);
 -- 
-2.50.1
+2.34.1
 
