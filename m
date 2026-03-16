@@ -4,130 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6EAEC01B0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4776CF483C0
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8555210E510;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81E0B10E50E;
 	Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hls9sLPd";
+	dkim=pass (1024-bit key; unprotected) header.d=antgroup.com header.i=@antgroup.com header.b="sDUb6zes";
 	dkim-atps=neutral
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA9B910E733
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 18:57:27 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-2c0c7267500so5393eec.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 11:57:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773860247; cv=none;
- d=google.com; s=arc-20240605;
- b=GffEy2DACJMvQYrMHMcu9wTN9XIHDFkHUhIyf15tUQXb51qCu1Y1Qbc9o1F5/JJ+ZO
- Py3u+NZMDt6ZIQl4JrDdIXOJ66yCIBN9ivXkUwZPX3SKziymZ2PqYWibzJrZ17PWWtlL
- zJuiPNcIprPW8StEdRoDcCnkluQQAYYy5Ng/5VdaNoE+fNHL1Be2pa+1iLv4Kn844Aok
- DvmxLLRnyw7JgzijzG8/HuMpIAhJAoOfJiVJAJclB1UYRasR+gBtfYH4PH7GccdIH9sW
- jrTaGkkmplXr00pDzkWGKXb0eog/K5Tnt13otLTpobQGze3em8ebfSS+IX6E6ydXZzJw
- 0LXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- fh=GD+MRjzAlvsC4xwoKSpOUlMlapg6ESJaQOFmZdNcFqY=;
- b=Sf8gR19h3SwkR1hhCbIy4jKKH1Gd+nLQlr8tukBbGh2navzRJHzm38hTwgwgk8Ii+S
- EcnhSZwNE0TBWayXuEvMiDmi0baDWu+l9nJGae5kV3p14VtV8lnCuailsCYXvREpIqu8
- PakfiQ7JMYbsbNRn4Xo/Z4Hdk18fUFdmoANkK+zdoVT/WYgwhwgBGdN1UnZKSUwvMq21
- grrk7ZHnGGFsitlFcZCXxUlMOHne/aiz2unhvmhtN/K0NbSFsdL1yQMD0a7J6Ufm07S8
- KzpchSH8KcMMGlo89Og6r7gVcT5SNCtgYo0KlTK/bAalrpDCvfI6gvw/H8bj5Ew7E27E
- +cgA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com
+ [115.124.28.220])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D91510E2AF;
+ Mon, 16 Mar 2026 03:53:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773860247; x=1774465047; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- b=hls9sLPdPRx7gKm2di3aMw2U4eOoEz7UL1WQuwlgmSVnwttmdt5y3dmL6ifcOEIPm6
- vrrOEbeNXy3TVfnEm89bUrAf2dQ2n2Hg7X5bICkUMdC1wuJgnDVthMzkTACUH0dki0Pa
- ba8a7Yr0Qd5tu4BFRsVH/vFH95M2ttgA5ZlLadSrmsZTog02L1DjqGm1IKAk9IyBp3Kf
- 7pq9Uem0z0W1RHuHX3+FZyMXfWHEcl04Ue1fqTnqdjs3o4ftWaGArAH66masDZ8xzSm/
- 4ZPs2eD8zzbFGTW5Tgn7LwbRB+LF5nwVfebtJzIv6vm3rVID9I5dt03Z0uautMoxF6oh
- DK7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773860247; x=1774465047;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- b=ZlIXV0zaR77+o3CXSENkc9QTXSkS3FjCT3SulFh/Yk1OY8Y/ruBPEImA8CVERL/r2b
- fYs1PdF+CPsDTGNpfEbnQ8ellwNo14UKb/SL/+8ckQXSJHi1e8mn8Ft114Tsw4ag06/a
- 2x0JHg3a8Ew/r2U3ckQYWQh6+dOZ6JVRrDuX5YY6Y1X9Sm3k2kZNYuHLC42rxwAytG0s
- a76bpmMInWsSKXiSb2Ntgih5BDIMMOHQWncYJP87yc5ET+QzNZXH4jWYq27bWHSuBtNx
- DyMgQ9PMmDHrIjWYtGp+//m2zgP9o+wNGmsJJYcuUtNqYOof+rnYItHzTdAIHuLFUPkE
- OUEQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVzH0fyNNBnTpBwKxr7hXbOksvcafF2cw7jij+BqRetfZ2uOALrKZ65i+jOlM4T6rtLtTB6oE48FQk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoT/meCKQJ/gP5/Xgvpoe3PCPwbkWTEI3Py05m8YG6QbujmYqs
- 3Tkl+v4hnMeS9a+EIkyrjrOJB/CSsA8rIFeYkbcIoXkA5YWk4MrCFi7U5W3IH8Gv3S3vpe2ascB
- tyB6SP1v33uApj4DifLi8JEwoYk8SoPE=
-X-Gm-Gg: ATEYQzykHJLRA6i9EbMIsXLKPmSjlLeONzHObP2VhVmuEhIMbQkKBlCa8AjccDd5ogB
- kXqJhidV/LigLMT5Oha8HzHyHYUL70KQExBXs020gqyY6+EqgXvJcoeK3iw54feuL7zcfJfcDra
- QHHNOzHOz7L0Fg4BvQgR0YncxuKfWev1jdC9MPIlvQH/lL7TIrtWVQqNlTkGOlu5DBxO1w8OjN8
- tAFj2NZho9Gr3tmnGAM4QKLzAUpcao2XFmclCeapIEFAKxgY1eiNvnK7Uhk1DU+kWAGPWZNWx2r
- aY8grNsU9fmS9EpqXxLHHIxlVfw0MZknpZj8st02STms2TppUvkJheuuOhBHW1CrOGo6m3lBAwV
- bfCW/xWvEIQt5aIfx4LsEpKQ=
-X-Received: by 2002:a05:7300:f191:b0:2be:9886:d4ff with SMTP id
- 5a478bee46e88-2c0e50fefe8mr982481eec.2.1773860246896; Wed, 18 Mar 2026
- 11:57:26 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
- <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
-In-Reply-To: <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 18 Mar 2026 19:57:14 +0100
-X-Gm-Features: AaiRm52hIUr0vzgoavDmbzyJmg3hgU_AUfgRxMfUiR8zNc5S5daML4wMbNTdaCA
-Message-ID: <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
- interface
-To: Joel Fernandes <joelagnelf@nvidia.com>,
- =?UTF-8?Q?Alejandra_Gonz=C3=A1lez?= <blyxyas@gmail.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
+ d=antgroup.com; s=default;
+ t=1773633198; h=From:To:Subject:Date:Message-Id:MIME-Version;
+ bh=EYW9eEgTMJ7uWMekujL7MMTcejAzJsQIxJcJx52I16g=;
+ b=sDUb6zesK5Ok6Qmugc1SK2OSCozwPuRn8Rn/HLr3iKFhSeIOAZnq3T6EnIVpu3SlRF0eSmh4XNVOUF9dlvx6eysRExOuPGhCHfjxxWRJ6yf2Oytwt0ouvS4qsGKJtv+UxuVBAZ+kZJ0NiTDDDa6vM4yk99qhS0RMoa1NFfWjNFg=
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R921e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033032053168;
+ MF=houwenlong.hwl@antgroup.com; NM=1; PH=DS; RN=47; SR=0;
+ TI=SMTPD_---.gt1LISf_1773632892; 
+Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
+ fp:SMTPD_---.gt1LISf_1773632892 cluster:ay29) by smtp.aliyun-inc.com;
+ Mon, 16 Mar 2026 11:48:13 +0800
+From: Hou Wenlong <houwenlong.hwl@antgroup.com>
+To: linux-kernel@vger.kernel.org
+Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Alvin Lee <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ausef Yousof <auyousof@amd.com>,
+ Bhuvanachandra Pinninti <bpinnint@amd.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
+ Chris Park <chris.park@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>,
+ Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
+ dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
+ Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+ Jun Lei <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
+ Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Lohita Mudimela <lohita.mudimela@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
+ Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
+ Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
+Subject: [PATCH 2/2] drm/amd/display: Rename enum 'pixel_format' to
+ 'dc_pixel_format'
+Date: Mon, 16 Mar 2026 11:46:29 +0800
+Message-Id: <d3b123a7d3192947e2eb4c33cd10cbaa8c79dfc1.1773629419.git.houwenlong.hwl@antgroup.com>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
+References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,30 +85,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 7:31=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.c=
-om> wrote:
->
-> Anyway, the fix is simple, just need to do // SAFETY*: as Miguel suggests
-> here, instead of // SAFETY:
-> https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid=
-89LExw@mail.gmail.com/
+Rename the enum 'pixel_format' to 'dc_pixel_format' to avoid potential
+name conflicts with the pixel_format struct defined in
+include/video/pixel_format.h.
 
-So, to clarify, I suggested it as a temporary thing we could do if we
-want to use that "fake `unsafe` block in macro matcher" pattern more
-and more.
+Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 4 ++--
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h                | 2 +-
+ drivers/gpu/drm/amd/display/dc/dc_spl_translate.c           | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c   | 4 ++--
+ drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 4 ++--
+ drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h           | 2 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/transform.h           | 2 +-
+ 7 files changed, 11 insertions(+), 10 deletions(-)
 
-i.e. if we plan to use the pattern more, then I am happy to ask
-upstream if it would make sense for Clippy to recognize it (or perhaps
-it is just a false negative instead of a false positive, given
-`impl_device_context_deref`), so that we don't need a hacked safety
-tag (Cc'ing Alejandra).
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 03d125f794b0..cadc52728108 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -742,10 +742,10 @@ struct clock_source *resource_find_used_clk_src_for_sharing(
+ 	return NULL;
+ }
+ 
+-static enum pixel_format convert_pixel_format_to_dalsurface(
++static enum dc_pixel_format convert_pixel_format_to_dalsurface(
+ 		enum surface_pixel_format surface_pixel_format)
+ {
+-	enum pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
++	enum dc_pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
+ 
+ 	switch (surface_pixel_format) {
+ 	case SURFACE_PIXEL_FORMAT_GRPH_PALETA_256_COLORS:
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index cfa569a7bff1..81d12df8f54e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -218,7 +218,7 @@ enum surface_pixel_format {
+ 
+ 
+ /* Pixel format */
+-enum pixel_format {
++enum dc_pixel_format {
+ 	/*graph*/
+ 	PIXEL_FORMAT_UNINITIALIZED,
+ 	PIXEL_FORMAT_INDEX8,
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+index 37d1a79e8241..854d50ab1a6c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
+@@ -63,7 +63,8 @@ static void populate_inits_from_splinits(struct scl_inits *inits,
+ 	inits->h_c = dc_fixpt_from_int_dy(spl_inits->h_filter_init_int_c, spl_inits->h_filter_init_frac_c >> 5, 0, 19);
+ 	inits->v_c = dc_fixpt_from_int_dy(spl_inits->v_filter_init_int_c, spl_inits->v_filter_init_frac_c >> 5, 0, 19);
+ }
+-static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format, const enum pixel_format pixel_format)
++static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format,
++					   const enum dc_pixel_format pixel_format)
+ {
+ 	if (pixel_format < PIXEL_FORMAT_INVALID)
+ 		*spl_pixel_format = (enum spl_pixel_format)pixel_format;
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
+index 808bca9fb804..0d2c9fcd3362 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
+@@ -102,7 +102,7 @@ static int dpp1_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
+ 	}
+ }
+ 
+-static bool dpp1_dscl_is_video_format(enum pixel_format format)
++static bool dpp1_dscl_is_video_format(enum dc_pixel_format format)
+ {
+ 	if (format >= PIXEL_FORMAT_VIDEO_BEGIN
+ 			&& format <= PIXEL_FORMAT_VIDEO_END)
+@@ -111,7 +111,7 @@ static bool dpp1_dscl_is_video_format(enum pixel_format format)
+ 		return false;
+ }
+ 
+-static bool dpp1_dscl_is_420_format(enum pixel_format format)
++static bool dpp1_dscl_is_420_format(enum dc_pixel_format format)
+ {
+ 	if (format == PIXEL_FORMAT_420BPP8 ||
+ 			format == PIXEL_FORMAT_420BPP10)
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+index a62c4733ed3b..e2489eaf0004 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
+@@ -94,7 +94,7 @@ static int dpp401_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
+ 	}
+ }
+ 
+-static bool dpp401_dscl_is_video_format(enum pixel_format format)
++static bool dpp401_dscl_is_video_format(enum dc_pixel_format format)
+ {
+ 	if (format >= PIXEL_FORMAT_VIDEO_BEGIN
+ 			&& format <= PIXEL_FORMAT_VIDEO_END)
+@@ -103,7 +103,7 @@ static bool dpp401_dscl_is_video_format(enum pixel_format format)
+ 		return false;
+ }
+ 
+-static bool dpp401_dscl_is_420_format(enum pixel_format format)
++static bool dpp401_dscl_is_420_format(enum dc_pixel_format format)
+ {
+ 	if (format == PIXEL_FORMAT_420BPP8 ||
+ 			format == PIXEL_FORMAT_420BPP10)
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+index a61d12ec61bc..b4a95807b73b 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
+@@ -240,7 +240,7 @@ struct default_adjustment {
+ 	enum dc_color_space out_color_space;
+ 	enum dc_color_space in_color_space;
+ 	enum dc_color_depth color_depth;
+-	enum pixel_format surface_pixel_format;
++	enum dc_pixel_format surface_pixel_format;
+ 	enum graphics_csc_adjust_type csc_adjust_type;
+ 	bool force_hw_default;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
+index 5a1d9b708a9d..30990355985d 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
+@@ -160,7 +160,7 @@ struct scaler_data {
+ 	struct scaling_ratios ratios;
+ 	struct scl_inits inits;
+ 	struct sharpness_adj sharpness;
+-	enum pixel_format format;
++	enum dc_pixel_format format;
+ 	struct line_buffer_params lb_params;
+ 	// Below struct holds the scaler values to program hw registers
+ 	struct dscl_prog_data dscl_prog_data;
+-- 
+2.31.1
 
-But if we could put it outside, then we wouldn't need any of that.
-Unsafe macros support could help perhaps here, which I have had it in
-our wishlist too (https://github.com/Rust-for-Linux/linux/issues/354),
-but I guess the fake block could still be useful to make only certain
-macro arms unsafe? (Perhaps Rust could allow `unsafe` just at the
-start of each arm for that...).
-
-Cheers,
-Miguel
