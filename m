@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3562DFC72D2
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16404FC72DA
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 369E910E4F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CDF810E4F9;
 	Mon, 23 Mar 2026 16:03:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="gRjL78P2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B1pGTCDK";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0427110EC01
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:03 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-4671cbce626so1072237b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:02 -0700 (PDT)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9662710E1B9
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 19:00:28 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-3585ec417f6so88643a91.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:00:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408182; x=1774012982; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773774028; x=1774378828; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
- b=gRjL78P2WiIT9cmbDtRi+CrWYdpZAiqP0uIV6oZnv7djMc16grHFgpfoX5hBoBG3LZ
- 5A0rnMWuOnt7Vuu7ltR+hOYGxX1Xx8lTKovanKIc9dh0glIjM6xnc51wGx05jk1eU0s2
- RBgwnAJBpgoB0URUpj+Z7ZcQCQqSIV8rovxLD4qtYxdAtHEH29bH9uzkF2N3rOJK4vV8
- +I8aMEWRrh94BxWqYcavL7YPgOIWMqs2FE+1anKnq9kA4RK8zuKQZaET6A2Vi0zOgd7a
- VcJxf+ahwUV7S99IlTilJMwvxpDS/QNqq6O97sJLEYAcy9w4cpKJMCThw2a9/lfufQRn
- nhzA==
+ bh=N2RhT/UW1C987y6pJfFZ8RN5SYowSBt72Kbbj9XR2UU=;
+ b=B1pGTCDKomwHTuyf3+Wg7w3iKPNLvGrLGgPp4cp8nhZgHkD4ekYXmy0VRCcncA2hof
+ gLaBKm8Tzz2u7X7NRwCbIDfJv1I76wVGgdXA5JrU8CvG4d1/863xRGoWS0CeNV/KCzm/
+ k+RJYQLis+EOdH5QAZrew6k2nBK792+zYRBpSzOcI77WcjFebr1bLmxG26XqUsZZHUX2
+ C4ZglIvBrNIi3E500JSHZmq3ewhy/PK8DmNrXm5pRar8Y8ikazG7i+MhCA43KJYYU92/
+ tSlJqBaHJLkEnplKTtmI3stbxMndxftOjspN1oniyYl3bEfABjqzgtuwtpYoCX3GMFtr
+ 98Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408182; x=1774012982;
+ d=1e100.net; s=20251104; t=1773774028; x=1774378828;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
- b=fExSmBk/OqgsYPa+N60pPbYP06ZUxndgjPr2687jTFWXf44331HAMQ/EVzdlRDTYsU
- O61ITSBo8SSRY286gSxzT7KSsGHSQYs8bgrcktYQxMQDIQDivele9oCE6JlEPElRj5Li
- HgZqPLyH+0bhe6WtnSDzpUYM6Uys1/cDDV73xVbWwHwUoLqnbZppinUFW0zL9ii5XGPy
- eYxsGKrscYsAnml7csTLy/iwrkxDo5bBoRGsd4cyRvCFQ7vB5+i81mOWTUCLEqaIZ2xE
- jnI2jeWOrgvrqnCHW9CSK5Yv4pDAVCvtpdAWRll8/6UwGGNGqK9qezkGLN1sYMsrpaGm
- WWvQ==
+ bh=N2RhT/UW1C987y6pJfFZ8RN5SYowSBt72Kbbj9XR2UU=;
+ b=Yku0TfNBKIAC5HJRKxT792erg8vf5Hbj1r1pH5mZjB67QcY+gvi4UxZU6+APrReZmy
+ q4C3CKywbOaYRs03/HTUvb14LhtIFvIFhGhoJBfWTCrRjEYZomF7wHW1E6mO8ZS6sNZ9
+ /OMgQV+5UOUoSh6t6ecqz5lDnTzDPWzTM6+vUShkwyHj+5p0/5FWlRgPqT0Q5EkpDKBD
+ Su83JPstG6L6wuP3Cbf927uTymVxACcDOsEbr49UT2i6xwnE/FqbEf/dxZlPMmQt99wJ
+ IhWa7qj9keK6UvSI8EDkgwxjWyEOY/HClwCyWAjEm733OuOrS0177O9YnCEQDN8dYIvh
+ 2U7w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVoSKMCZZAQhCns16H+8ZDxOcPSYlXG5K/Fgk0zFhAeRChMbg9F6+m/FZFTi+PKvqq8QIuoUaHTDUk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz9Ss3Q4M49sSkuXXOqtV9nGinuoe7go1WVeo7vOBijrVemongF
- W+oH3eJul+Lxuq/pi8IfChnRzVhk/9QOY3vyJ11oZ0M5HE+6HsM08TkT
-X-Gm-Gg: ATEYQzw6/Eho0IhJO69X3HnpQ9YH4GjdN/TBQBnVsbOrKjYtXOcwTO9B2cS5932w0x+
- PV3pxhpJNvXM8qJDj/a0aQgH/WpyEzf/RL4mp8UjzosGwTjzOTjvcT9CFUCZIVbysFM10cdK98v
- mfyhLKFSrRpKjHgxTz9zyAOKhtaJHAjE9hyeGaPNBOW5EGahGngrE7cf73gZ/+5qT7X0Yx4orcG
- UGjiOJT6b5jY1Ms6e3amDB682x7iRjJfrFlorQbDuSM+bZY0cCuN4eRFBQ4S3syUqyqrMGkPAQY
- KPCl0wagZ40Cs15J4ZA+KiBgEJEBZeVEUHHP7K5NgW4s0LYuFkQ6dFO2txd5j859IM4UVzvtcMk
- p+8B6bPV0bwj59sEXRmUxGY9BrayB4rbnqvF4FtztSAyvHDs5j5jFwT4pIg0jmNmMj1VsAxDu6I
- +MlsVyArhf3lAI5VvhsoeGVcaK8JUr04DBkae0yuGUe71ecNLV
-X-Received: by 2002:a05:6808:19aa:b0:467:284:b3cb with SMTP id
- 5614622812f47-4675701cd1dmr1817809b6e.2.1773408182075; 
- Fri, 13 Mar 2026 06:23:02 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.00
+ AJvYcCVKJC+gQa2pxtAvofGSMRs+cZwGQU3rd68tkYialxHfQlyLBHFBQxpfDcaCwbxdHo4HmwPKO/hKMeE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzEk8+Q6zlSmDeaDSDH/CFFKkoGNEjFjJR9ReZCZFUOk4jJfcA2
+ SViLVM+LuvIxyvc6q5Yg58lq1m8Ucy6rxrf+L0EmoECntcZ1XlVeH1Oz
+X-Gm-Gg: ATEYQzxj3vmaL+k/njdi0BW9q/9Swmn9QGFK67dP527tNz1ZMy01iVXzYiv9NpYXwJ4
+ 4vIFNAf+bkCNP0lMk5JMfKqCsbLcQfPQGEqpaw8K1FM6TrtLtdnyZbk0zUqyk3Wx/qE4nBq48xc
+ bk+s0v+yuKTvSi4l7GSpPJZiJUBA6Reuf/yOYPa7O2XYVXnJae7dpgvzkg7LcqF1dgVrF2kT37b
+ YSIHOZjvEwsVFC8mtyzCoKjBrin9p+E2HRDJiFjlbS93Y4b6tc056UMQ45DIZLdLgQQwlluJPVE
+ S+0PAmxxAYDSLHEUJ4Ij5phVbDi2sQtcw845MVSKCBBkSpC7WMhyCMk6GTKAnmBhBMSFuqxDaaD
+ xK1NpjFXEXR2L8my5hIPhNUFlaTvCh1gQFxCtiSqpyP/wNq0oYj3RaP00AK8LxZbkf0u7EaZi2U
+ X+1BzSYxqG8HIq37dH8cznGuiTsC1DgjeDx/auFd2w0xCScYChwe+zCu66JmR5ceb6SC49bE3g3
+ JCAbITXiwXluoN//qN8aLJopf3GBfAf3sRGtNrqKA/fUbDO45LgEd+nzqPQGDiQV10mrA==
+X-Received: by 2002:a17:90b:35cb:b0:35b:92ba:66e4 with SMTP id
+ 98e67ed59e1d1-35bb99b2ce2mr555490a91.7.1773774027874; 
+ Tue, 17 Mar 2026 12:00:27 -0700 (PDT)
+Received: from 2045D.localdomain (76.sub-72-110-123.myvzw.com. [72.110.123.76])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35bba5a2c60sm196240a91.9.2026.03.17.12.00.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:01 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 03/65] dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
-Date: Fri, 13 Mar 2026 07:19:28 -0600
-Message-ID: <20260313132103.2529746-4-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ Tue, 17 Mar 2026 12:00:27 -0700 (PDT)
+From: Gui-Dong Han <hanguidong02@gmail.com>
+To: gregkh@linuxfoundation.org,
+	dakr@kernel.org,
+	rafael@kernel.org
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org,
+ akaieurus@gmail.com, me@ziyao.cc, Gui-Dong Han <hanguidong02@gmail.com>,
+ yangshiguang <yangshiguang@xiaomi.com>
+Subject: [PATCH 1/4] debugfs: check for NULL pointer in debugfs_create_str()
+Date: Wed, 18 Mar 2026 02:59:10 +0800
+Message-ID: <20260317185920.43387-2-hanguidong02@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260317185920.43387-1-hanguidong02@gmail.com>
+References: <20260317185920.43387-1-hanguidong02@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
@@ -97,83 +96,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
-original macro-defn down under the big ifdef.  Do it now so future
-changes have a cleaner starting point.
+Passing a NULL pointer to debugfs_create_str() leads to a NULL pointer
+dereference when the debugfs file is read. Following upstream
+discussions, forbid the creation of debugfs string files with NULL
+pointers. Add a WARN_ON() to expose offending callers and return early.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Fixes: 9af0440ec86e ("debugfs: Implement debugfs_create_str()")
+Reported-by: yangshiguang <yangshiguang@xiaomi.com>
+Closes: https://lore.kernel.org/lkml/2025122221-gag-malt-75ba@gregkh/
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Gui-Dong Han <hanguidong02@gmail.com>
 ---
- include/linux/dynamic_debug.h | 43 ++++++++++++++++++-----------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ fs/debugfs/file.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 05743900a116..a10adac8e8f0 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -93,27 +93,6 @@ struct ddebug_class_map {
- 	enum class_map_type map_type;
- };
- 
--/**
-- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-- * @_var:   a struct ddebug_class_map, passed to module_param_cb
-- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-- * @_base:  offset of 1st class-name. splits .class_id space
-- * @classes: class-names used to control class'd prdbgs
-- */
--#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
--	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
--	static struct ddebug_class_map __aligned(8) __used		\
--		__section("__dyndbg_classes") _var = {			\
--		.mod = THIS_MODULE,					\
--		.mod_name = KBUILD_MODNAME,				\
--		.base = _base,						\
--		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
--		.class_names = _var##_classnames,			\
--	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
--
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
- 	struct _ddebug *descs;
-@@ -138,6 +117,27 @@ struct ddebug_class_param {
- #if defined(CONFIG_DYNAMIC_DEBUG) || \
- 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
- 
-+/**
-+ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-+ * @_var:   a struct ddebug_class_map, passed to module_param_cb
-+ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-+ * @_base:  offset of 1st class-name. splits .class_id space
-+ * @classes: class-names used to control class'd prdbgs
-+ */
-+#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
-+	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	static struct ddebug_class_map __aligned(8) __used		\
-+		__section("__dyndbg_classes") _var = {			\
-+		.mod = THIS_MODULE,					\
-+		.mod_name = KBUILD_MODNAME,				\
-+		.base = _base,						\
-+		.map_type = _maptype,					\
-+		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.class_names = _var##_classnames,			\
-+	}
-+#define NUM_TYPE_ARGS(eltype, ...)				\
-+	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
+diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
+index 3376ab6a519d..a941d73251b0 100644
+--- a/fs/debugfs/file.c
++++ b/fs/debugfs/file.c
+@@ -1127,7 +1127,7 @@ static const struct file_operations fops_str_wo = {
+  *          directory dentry if set.  If this parameter is %NULL, then the
+  *          file will be created in the root of the debugfs filesystem.
+  * @value: a pointer to the variable that the file should read to and write
+- *         from.
++ *         from. This pointer and the string it points to must not be %NULL.
+  *
+  * This function creates a file in debugfs with the given name that
+  * contains the value of the variable @value.  If the @mode variable is so
+@@ -1136,6 +1136,9 @@ static const struct file_operations fops_str_wo = {
+ void debugfs_create_str(const char *name, umode_t mode,
+ 			struct dentry *parent, char **value)
+ {
++	if (WARN_ON(!value || !*value))
++		return;
 +
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
- 
-@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
- #define DYNAMIC_DEBUG_BRANCH(descriptor) false
-+#define DECLARE_DYNDBG_CLASSMAP(...)
- 
- #define dynamic_pr_debug(fmt, ...)					\
- 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
+ 	debugfs_create_mode_unsafe(name, mode, parent, value, &fops_str,
+ 				   &fops_str_ro, &fops_str_wo);
+ }
 -- 
-2.53.0
+2.43.0
 
