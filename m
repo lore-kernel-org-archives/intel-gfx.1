@@ -4,87 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3CE3F483C3
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A5F8F483C5
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A14110E59B;
-	Mon, 23 Mar 2026 16:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C5D610E5A2;
+	Mon, 23 Mar 2026 16:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cy2pEatb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BEub/dV/";
 	dkim-atps=neutral
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7643110EC16
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:50 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-4671cbce626so1073286b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:50 -0700 (PDT)
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0186B10E045
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 19:00:02 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-35b95a7444bso1948911a91.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:00:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408290; x=1774013090; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hVWjZWuErU/TT0M/gLtU2+Pv2Hf/DF/3aPzw5cJbYqU=;
- b=Cy2pEatbmGnoDRrLfCijQ5Qka7X715kGRZl6XvU8E5Ha7mV3HsiKtgOoJ7BcQ9P/hr
- shN8lfkRgtXwwRXFq/1IMrYBqJRkLsBzcLCpbIgakMYs1Q3azBDH9f2RzT1gC6L/dJxP
- aX2AUwpIlGIgPpqpf70f+5fpyUputSEhXKPVrsYNTCtsEXGxzFDEcRl9DnOWTB8rlQT1
- 1eyqhG3GiV1JdoSF0/GHcTMWUbbpqoJCJzeGKmSDqPJLw13W1mGHiCjAprRORlf4eMEi
- gbQB2HuHmGthvQWo2DzE4TUg/bQPnN0zR+4ZTI4TUvmtKoa6ibSNzVRH4SRJi57rmgu9
- HO8Q==
+ d=gmail.com; s=20230601; t=1773774001; x=1774378801; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=1PcwMDnihsdnmKVOsfDRGKcGqZ39RTcsdWpVCxqwOIE=;
+ b=BEub/dV/KEDCBqElcqY1iOT7telyykWiEskpih60A78hpRcaKAqkonDjbp/FfPnERU
+ gNYFRqkTRb1BDz/wT34t5XhAVEtl6++7fhPl/vHLfgoRMHO7PaGU2HzgLV2XQhAvbW4V
+ 8c8dans6hLrK3tc/EwzY9lnFh256+3lLrGkrHghZuN4C5TRMIdk6Nm7T+EElgKi0S4nG
+ jezs/OQJkE+O67njcjY0hKarERgDn0etL8nP6XNwVFvHLzzNGZJTXKewOnDleC0A7/LG
+ o/RFdvhhLaFa4aN+Is2sE4mipG1QmjQwy5ABn4+jveIWUfyq44q62OPjphwAltHAaP5u
+ KOSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408290; x=1774013090;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=hVWjZWuErU/TT0M/gLtU2+Pv2Hf/DF/3aPzw5cJbYqU=;
- b=tAZVdWri3YPpk7hHMyfwes/3WxBCtiBE39zR5GLFuUc7ZWyW3MIKyImljXr4ke13Mg
- W/k0VRfm7qAULJeKcV5SB3wMZdgnnT7iKQoq1eCHBHaXS+xlHXyLY9yXxebAO3nb0xkE
- 05cCGWWRI8jommnXg41IGVSB/rBQAp/oUNzxv0hNw3NU+fMV4gi2jwNe7mV6xKNAJipd
- 6a6MSkyFcVpctGdRfwJlZWy7p8zh1Or2KIyhBK/RYfc9u1VgvYkcORQwd13LQ6/AjLpK
- k/JAkvh0zoczQZDPivyDONp/Urqz211nvgQlgTo2kETwB7NJ5m7Jb7bvFH9o1rCpTn0t
- S3gQ==
+ d=1e100.net; s=20251104; t=1773774001; x=1774378801;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=1PcwMDnihsdnmKVOsfDRGKcGqZ39RTcsdWpVCxqwOIE=;
+ b=IThJl1IOQRO9sXrmOX7pZW+/q7IBME1vBNNC9gEoZtTuLc5pzWlllXMu6sUJmRzXTT
+ K3FyQ9kZ+G3/Q15+dEAcB9GQjzCZszpKYRKkadtzqk5h2Og2dwtFoCgKnJIKuMordI8s
+ Bf7QkWWb3BVQFDgWhqquXHqLKPQiylw3NU3nibE/+2NgyH0OzaonkhU/qxlvkdPPNkUQ
+ 9PTb/IWHTFSTx7+KmQDWfx5xoh7TSrhZNsteg//rz+fA35mKG52pIatXCT6Ho4zdQR+V
+ l6g/pHKXwrCDpxWyyGbnqknozCmRGOGU5sNtmc6kh4mMK1uA982Apk+jlqeNwzht3pQh
+ Uw+Q==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVV/B+F7Kkv6HJG6mD6Ovbo7vwoxRQ8xChNF8rsRxCDfgVyoDskf4vcIEbI/SV33nRrvh0lrnsJBmM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1zrRL0Wfsk9VpWdUbi9zNlTOYcxgjn7j+hR0UrZ1qHHjAbyM2
- odgLUwiflvjeYxwtGc5Kn12QWSyKTBaZYd47AjwGv8Q45adaw4YYKZgP
-X-Gm-Gg: ATEYQzzbPNjEJTcmFAKWY3+Ggr9z7xWnEAsjFZVPPqUyKB3KPW8QGOGS7gb4GjtMQR2
- D1CsyIQ66gcv9r7F4DVmE+bVjmIJXd1mP9ngDW61qH005C2Of8Enf8rhLGRcR711IxPZAZWMNH3
- kZFzgeoiL52ZfK1nygFX7eX4kk4eJt0U2vmkRMAMZlenBj0CUdu1yVdyuOyIu1ixyPHavvVm2Ye
- 9CpKQf3sJe9X/tJaTggxj164Ft/l0skvXJ+Wkklsp+ebqJ3aOmGlPa94r8uiJMjacpoTppIIqst
- ci/WLkurdbZ2trxdYW74o6AR9lHmA9Mqw4IroUSPvDjunTx4ayI/ynrWQTbd1ZjXW5LVwniEK8p
- agJIbdrgASwwLz/3ZVcOMM89QsrMeeS9QzAzxv/mbzB15cUfSV26gwhsaAjqGsXPunbnprL8VKV
- jQzCTxYBbOgaD/9WZq9JBnSr/mBakq2vQ39QaDYaO5jPlgv0ie
-X-Received: by 2002:a05:6808:2386:b0:450:89ee:922c with SMTP id
- 5614622812f47-467570dd9e9mr1673636b6e.27.1773408289722; 
- Fri, 13 Mar 2026 06:24:49 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.48
+ AJvYcCXw1ArmbevgI72jLLPWZFWto1oF68CPTJ+vTEowWRYBt7s/05aNEkWldBKleY1kvliY/R57Ul8ijRo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwS4fU1aI/fdYCoDHpQA01Vc5QaIgUBdn6OmLfnu6B+wuZ4wNo6
+ 252eLLS68UwreQDJK2GsZ4LERx4n0RQB/kpRFYRGTKq/40c5a9VDFZZc
+X-Gm-Gg: ATEYQzyvMArc/OTX38Lceu1DTE3zXW2DztdPm7xH4JREUU8DVw6h+akId43MaGI+yJk
+ UCiKO6rXfkvsBHKVHW3jTFNluw11d/C1ZFs5SJlXVOGDSsNMGZAW/tR3Qo+YUEO7pN56z92ewef
+ BemplMXkvXT9Vn3awMVDIgnpojJ+ud3bMXQ+LmsDMspqnxdz1iF641bY44BqttkDTx0snQpKzXF
+ /hm2cTMkgwIegLqox5bshljId725eW9dq6o3zfquML1PIpkGdBMgMGWPz9MmaP5jTsBE6AH9vhi
+ v5rOj/1S2qooBEghf42cFzwQaI0QMcLh5WYzKhiqrsgwJ4EeiQfT24AAT4qq/wAFqDVZXHmtZii
+ FTgOhLcDkCBQkWJCc02hzHB1iWw41jhrrATp3PsLobIwZHFBM2YdIoRfdV8qwCH/CxstNh3+LKo
+ ZAykKY/4D1zIxTA8YDwHOCBFXsZveZ8EAB3cBbqlFfMAJRMhM7Goj4jP41C1nFSs6MIYnl2ck5V
+ dCMjaCP+9D3BhjeCe2YmnYOt5CQ+TF65AU+CSq4VjngXqDPdE8nsP6xLgn6pZ4CH6YmRw==
+X-Received: by 2002:a17:90b:1dcd:b0:34c:35ce:3c5f with SMTP id
+ 98e67ed59e1d1-35bb9e45688mr490920a91.5.1773774001443; 
+ Tue, 17 Mar 2026 12:00:01 -0700 (PDT)
+Received: from 2045D.localdomain (76.sub-72-110-123.myvzw.com. [72.110.123.76])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35bba5a2c60sm196240a91.9.2026.03.17.11.59.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:49 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Dave Airlie <airlied@redhat.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 54/65] drm-dyndbg: add DRM_CLASSMAP_USE to mgag200 driver
-Date: Fri, 13 Mar 2026 07:20:19 -0600
-Message-ID: <20260313132103.2529746-55-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ Tue, 17 Mar 2026 12:00:01 -0700 (PDT)
+From: Gui-Dong Han <hanguidong02@gmail.com>
+To: gregkh@linuxfoundation.org,
+	dakr@kernel.org,
+	rafael@kernel.org
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-sound@vger.kernel.org,
+ akaieurus@gmail.com, me@ziyao.cc, Gui-Dong Han <hanguidong02@gmail.com>
+Subject: [PATCH 0/4] debugfs: disallow NULL string creation and fix callers
+Date: Wed, 18 Mar 2026 02:59:09 +0800
+Message-ID: <20260317185920.43387-1-hanguidong02@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,28 +92,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The mgag200 driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+A recent bug report [1] highlighted a NULL pointer dereference when
+reading a debugfs string file created with a NULL pointer. The community
+discussed the issue and agreed that creating string nodes with NULL is
+invalid and should be forbidden at creation time [2]. Since no fix was
+submitted following the discussion, I have implemented the agreed
+solution.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/mgag200/mgag200_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+Patch 1 modifies debugfs_create_str() to reject NULL pointers, returning
+early and triggering a WARN_ON to expose offending callers.
 
-diff --git a/drivers/gpu/drm/mgag200/mgag200_drv.c b/drivers/gpu/drm/mgag200/mgag200_drv.c
-index a32be27c39e8..02a703e5de80 100644
---- a/drivers/gpu/drm/mgag200/mgag200_drv.c
-+++ b/drivers/gpu/drm/mgag200/mgag200_drv.c
-@@ -28,6 +28,8 @@ static int mgag200_modeset = -1;
- MODULE_PARM_DESC(modeset, "Disable/Enable modesetting");
- module_param_named(modeset, mgag200_modeset, int, 0400);
- 
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- int mgag200_init_pci_options(struct pci_dev *pdev, u32 option, u32 option2)
- {
- 	struct device *dev = &pdev->dev;
+Patch 2 is a code hygiene fix. While modifying the file, I noticed the
+EXPORT_SYMBOL_GPL for debugfs_create_str() was misplaced far away from
+the function body. This patch moves it to the correct location.
+
+I carefully audited existing callers across the kernel tree. Some
+drivers passing NULL have already been independently identified and
+fixed [3]. The remaining two subsystems (soundwire and drm/i915) are
+addressed in patches 3 and 4 by initializing their respective string
+parameters to empty strings (""). The existing logic in both subsystems
+correctly and safely handles empty strings.
+
+[1] https://lore.kernel.org/lkml/17647e4c.d461.19b46144a4e.Coremail.yangshiguang1011@163.com/
+[2] https://lore.kernel.org/lkml/2025122221-gag-malt-75ba@gregkh/
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=8cc27f5c6dd1
+
+Gui-Dong Han (4):
+  debugfs: check for NULL pointer in debugfs_create_str()
+  debugfs: fix placement of EXPORT_SYMBOL_GPL for debugfs_create_str()
+  soundwire: debugfs: initialize firmware_file to empty string
+  drm/i915/display: initialize string params to empty strings
+
+ drivers/gpu/drm/i915/display/intel_display_params.h | 4 ++--
+ drivers/soundwire/debugfs.c                         | 5 +++--
+ fs/debugfs/file.c                                   | 7 +++++--
+ 3 files changed, 10 insertions(+), 6 deletions(-)
+
 -- 
-2.53.0
+2.43.0
 
