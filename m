@@ -4,84 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D9BF483CF
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D219F483D0
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD4AE10E51C;
-	Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA5C110E51D;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="dp0V0cci";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="APFO8JnJ";
 	dkim-atps=neutral
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91B5C10EBFB
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:08 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-467161c4b89so1364719b6e.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:08 -0700 (PDT)
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4224E10E120
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:30:46 +0000 (UTC)
+Received: by mail-dl1-f48.google.com with SMTP id
+ a92af1059eb24-12711867ca1so444946c88.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:30:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773844245; cv=none;
+ d=google.com; s=arc-20240605;
+ b=K0ySIc57Vdw0AIXVJc9PhbiPyR0z9JZs+d7jBfW3WcKovULpjT+OXE+OGXB67dRk1q
+ LQpvm58xBWa8AdoPaJaxcHjdagXfMuBsLtOpqEVXpkrb9wtvQDQxc0NXOdF0vV1aCaQ+
+ RHerD7NCD/l3Cj1X8YthoEZAJ+fUVrdfwP8vzkcYhJUgb2RBESPwLaRlsTNZg/GNNLGS
+ mcdATBWMb27xjLANL+1EzDxO35PeugFFs5v7d0RuKrGFTdTbS6b5iHSds26nU3Tdlxld
+ YW5YeugQDrJ9tqM2zqzg2Qy0NY0wKmCmSB8Hu87KIlhoOCJEa3gANkPNdvxeOH/v/9R9
+ 09kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ fh=e7fg+1nZqp63TC7OVHHGQh2y0BXc0UHYyMyy4MsmACw=;
+ b=RN5dvoq8D7jF+X62/h5eXSJ7rRHwzuKnNNLQb5DMJwRBCqChbXunvCXa3YNYs100eH
+ IVLzZtfZ9ClYhOmSGCiQ6hBvIiG2LOxWHYDiFq4MC959xtq5EUqkUl5ZW0YW8lUfHtWf
+ WuqJZw6OqDiEitRGhcAHMLlUlbS8ZR2nzwMBhvXRfm/IMvrKY2ouDJlZE5pfv58pmwWz
+ H4IbgWIqg+nizP4Etrij0sAv4hbWHHgtffCMm+DdyVOesh8+522hqC0RQ0wUF89mQZY6
+ tETuFgwzVXCj3Ys2y7YPY33m41PYH5E+HVwsKRgN9rg0vdUHZIV5lTBV/3zFzMVQMVYJ
+ iuKA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408188; x=1774012988; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773844245; x=1774449045; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=R/SjSwC+RMF8YRDI51sil3K6xHtCNjZlX0uljPPVd8o=;
- b=dp0V0cciEDCn+h31DffW5GB6xhZcH+5M6/0ypUrTGL0leHGsL4FQMlPdUKcRuL2GUg
- lbsbXGRgRczLzu0c/n/OWnZmQpDC5xjCWTMpBsGl+JbWzOeKfAGmKLH7IHCsrFvJyhGh
- ImEGcx/MBOvkUxsWwUQ6ZXj8hQkdfIAz8TIji312M7kWvvYesZnJBgbj/w2Y+c9UHWXz
- maOieuGvIlu+wZPIShhLVFOVpGcO3K0D2Xt0WsjcDvX90P8mG737XFHGFUFU+WsVwOyr
- sX9HR/5HIdI7I2YCqe50fqM6tE6iZNmVCUok0CONUWHDzFVIg4vYyzrAmFYacdvDfmIE
- tb1A==
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ b=APFO8JnJ1yOoESUujcgaa6jVuaKJ+IvM89d3gFOWGcbiaYfaF8HgHZ5zc6lRral7r3
+ ux2M8j6RSBU0vZ24PNLPK15xLa+ASU6gnt5Op8mDHwASbjJEuDEvQylNbQz8yO/G7yw9
+ DdKbVOiN8J3DWqQADX4jPbr/V25XaW/0jzMyeHfCLkPViNXj3thVDqhw0/WzU7R3m55R
+ SHZ/rziRd90fvETjLOvH3outj3i1jSnekOBcz+ZjlwuwgEZ+x1CTXb9dVZ4rikrJDYPo
+ EpOAWkx+JhMC61oj78qloUcNQ+bL+a4xRuEgJ9QTSFKz3nt2QlvH3RysOtepAOYQhDm7
+ S4WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408188; x=1774012988;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773844245; x=1774449045;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=R/SjSwC+RMF8YRDI51sil3K6xHtCNjZlX0uljPPVd8o=;
- b=ItNkqk9QULwhfJblOG+ggCIaHJW/eOQbd8EN1N33evBJXn09LcLAY1e9MCGSj9FDoe
- 2sLbtJ727AO4eOsWKwGpQ+TSG5EAsLFihQXArZJoopQFGKBgTSbvCL66mMb/gazIO0rU
- pDgBWfkygL7e0GFPAkLCNpJaCHF7DgA40CnoqzF9FeYTHL+GpmbH9L5mpb/+9Av2bK0l
- rTGTpC6IEAnboxSiOPE3XVELsE9mPKjw+V0UV5+JhLij3gSi68JIcSxVaRKVpUWmI9dC
- 7c3Al5cxz1e6C8TN6W1WupkPXhEqHVWKnfGPQJgZJ5wi1qRktH/VG+79kEoB5Tu3oWzD
- k6CQ==
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ b=DIPDFdWs3q2rbODCjI4uzjBr4mDfgI5WLlxPN3sDeKvZmk8g5cRR0ggXvlyVY81hBe
+ RAQFmrOaY/NRqAooKMOSl9xuqpkffn8C8YUNW6Tz9xwSATRfKfYd6EHaEj9rxCaeUT4Y
+ qncLqguVGwn8lhrXL6seDnj2wRyiyEI3+bIqU7NmI5eioFCsLusKNj7MgRkDy3bp1uDc
+ b8sQM7BdNe0uhk34+01B0s100y/sJlDLUsv3PnNSBYd1VDjxZPQodLd6B9CL9F/b8SZF
+ vaHjgSqzL3AoJuA1BlV01vovPxx6KH9UBy6KZiXrKI6iwkqCg1H420aKuEvtadf/73OI
+ rNxA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVsoyULMnu6PJtrF4jztYvXarleex3XKo896Cf+P+3OEBMcldQj8icOSOXfBaOcaCIAvOXT3FZ3cNE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxkXlRuuzao2UWd4p4Vt6VFjcjTgXcQGJfgUffUA9IAoTLRhLXY
- +K+dkLBHgZ2hK4Por634Bl0bAhslRcsqmslSwL9tioSt1IKP+q9CItLF
-X-Gm-Gg: ATEYQzys1Lp21qhmzcSIathMMzATy8RHhHDhRa/FwVh/SnQppgQMlosM8jpa/ge4/l+
- wa/W26xLhFKRVNih8g3GqXlODs3NvX0L+IAnOy9rT3tY5/TAWAF80x/X+/Rqvog/ebYjaAria8K
- y+N5cIhq8mHDWd20X2ODx96N/rhN96K3o4MaPwQqudaJ2s6vLreF1y39zp7OlAIRXduZu2GiapB
- +M4X/11SoO+D8WqI/FpihP6/AOkxia9I5WQQjvUu1DL01rt2UiDpRqlNCOdkuIZ6y5hPggvr8p6
- f21IO75PeTNBfWXB4r2jaluOexIqaV8UIXL0/TnWECPJaZH7OoW+eqouXmY6eO3YzpaoVsaxx0q
- P3VGTu75oPB31zIgYOcLnwT84fW+jxB5Dp9jhbexavoMFMHmdO3adp8kbHL7kPmPousERb1njPT
- bZfHIEwdamaPSuLgzHOFX8uQVkfHZ9XjmUN1VdHuqEKRtqk8/G
-X-Received: by 2002:a05:6808:c188:b0:45e:e088:5f3e with SMTP id
- 5614622812f47-467575cda13mr1872198b6e.49.1773408187615; 
- Fri, 13 Mar 2026 06:23:07 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:07 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 06/65] test-dyndbg: fixup CLASSMAP usage error
-Date: Fri, 13 Mar 2026 07:19:31 -0600
-Message-ID: <20260313132103.2529746-7-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCXJNxD4NK2Ql0NnbaGA2JV03Z1nMzyj8QDxLE6A6Sd6PWSLHyVkgXZRRvNgB8DkBsfMJ49LFCiUL3Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxgpafdDP7fztoChn7BXj0sj2qHLPjiKi6Oqx1cNWX+DT/FSRmz
+ JkDWq5afkM/dvRaypThSaTWm1XxfslfD7BUO+eTELGAMKly/nPlUVleH/cx65Pd9+6W/01EB5Fg
+ 5PdUajL662fJ08T2BdUwzzL596kwAej4=
+X-Gm-Gg: ATEYQzzDSWYFcQETuq3352opDn0v6XiQLZm4D/ABRxKI87x4SXkWEohEu7BYOIMlRdS
+ c+hPlU5VKXBfpxtJ3si3jb9UsXcB5an/NCa95eLViMVpTqOj4Twgrbei1xMzoGA++J3tvZa6mLb
+ r8bnel+YQF86Z3eBMGG4Wj+g2Wz9Xy74ORoX5F8sgv4WjFpyIKVBJ6pg6WJkollAbJ4ueIxT2mZ
+ YseHKP8zohTQspXt7yyMGFtdgQM1qmz5Vs9t2jYDTEnMYMhVp3CNA8pO+VdNw1an+zJairHrXN4
+ u2AiDLg1J5+sV1V2EArsKtENLK6vQPhKiZUxtfAo4COIRf/u7/ro1asfC8sZ5b2jKGIiDODSfr6
+ GSvXUWSym
+X-Received: by 2002:a05:7301:1e96:b0:2bd:fa8f:77f4 with SMTP id
+ 5a478bee46e88-2c0e518610dmr846274eec.4.1773844245396; Wed, 18 Mar 2026
+ 07:30:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com>
+ <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
+ <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
+ <CAH5fLgjUMaC5v3SERZLosdD1ajU-fvKSgNq6OgbBBcoTS21-Sg@mail.gmail.com>
+In-Reply-To: <CAH5fLgjUMaC5v3SERZLosdD1ajU-fvKSgNq6OgbBBcoTS21-Sg@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 18 Mar 2026 15:30:32 +0100
+X-Gm-Features: AaiRm50bVmwgAQrBl1Sd2LWxaRmG-ZY7uRxgxq5LrbNAlb0we3rijRktUCTLM4o
+Message-ID: <CANiq72=GGicUCODkY3C8U53wQfsuRYeu9GiwrM5eFhkP99kiHw@mail.gmail.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,42 +144,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-commit 6ea3bf466ac6 ("dyndbg: test DECLARE_DYNDBG_CLASSMAP, sysfs nodes")
+On Wed, Mar 18, 2026 at 11:59=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> =
+wrote:
+>
+> I'm not sure we have discussed it in detail yet. Both are used in-tree.
 
-A closer look at test_dynamic_debug.ko logging output reveals a macro
-usage error:
+Yeah, we have discussed this several times in the list and in meetings
+-- please see by other reply.
 
-lib/test_dynamic_debug.c:105 [test_dynamic_debug]do_cats =p "LOW msg\n" class:MID
-lib/test_dynamic_debug.c:106 [test_dynamic_debug]do_cats =p "MID msg\n" class:HI
-lib/test_dynamic_debug.c:107 [test_dynamic_debug]do_cats =_ "HI msg\n" class unknown, _id:13
+The handful existing ones I think were all created by Lina (so perhaps
+some were kept as-is to avoid extra modifications of the patch -- not
+sure) or by you (so those don't count ;)
 
-107 says: HI is unknown, and 105,106 have a LOW/MID and MID/HI skew.
-
-DECLARE_DYNDBG_CLASSMAP() _base arg must equal the enum's 1st value,
-in this case it was _base + 1.  This leaves HI class un-selectable.
-
-NB: the macro could better validate its arguments.
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- lib/test_dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 77c2a669b6af..396144cf351b 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -75,7 +75,7 @@ DD_SYS_WRAP(disjoint_bits, p);
- DD_SYS_WRAP(disjoint_bits, T);
- 
- /* symbolic input, independent bits */
--enum cat_disjoint_names { LOW = 11, MID, HI };
-+enum cat_disjoint_names { LOW = 10, MID, HI };
- DECLARE_DYNDBG_CLASSMAP(map_disjoint_names, DD_CLASS_TYPE_DISJOINT_NAMES, 10,
- 			"LOW", "MID", "HI");
- DD_SYS_WRAP(disjoint_names, p);
--- 
-2.53.0
-
+Cheers,
+Miguel
