@@ -4,71 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0604FC72CA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86227F4613B
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BDDF10E4D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E979910E4EE;
 	Mon, 23 Mar 2026 16:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=antgroup.com header.i=@antgroup.com header.b="ICjBAjIP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VRtVHlls";
 	dkim-atps=neutral
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Mon, 16 Mar 2026 03:52:11 UTC
-Received: from out28-146.mail.aliyun.com (out28-146.mail.aliyun.com
- [115.124.28.146])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B243210E2AF;
- Mon, 16 Mar 2026 03:52:11 +0000 (UTC)
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
+ [74.125.82.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE2310E274
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:42:00 +0000 (UTC)
+Received: by mail-dy1-f174.google.com with SMTP id
+ 5a478bee46e88-2c0c9994199so147923eec.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:42:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773844920; cv=none;
+ d=google.com; s=arc-20240605;
+ b=RtyxLtPgEwz4XoD80JOno3+FoQmyk9RRsJftBpZtIJSkHzkEgq93mpr62iXupfO03d
+ Ghk9yiaAufPhNW1OGePmmLUfgt0WCb1tC/YumVwgoaFBep6PnPNO8dWV70KbggMgDf2i
+ 89hEAbSO6ekD+0mO1M5mmPDpYttYJjLtPIQeU8JyX6iQNcjsu7rNk8QXslOXUqPhjK5X
+ XC9+cmmTpFRvjtbtJau1vV3NP4ANcLXlxjj4gocwSXuqpQXEp57aC4V1qUSSQLwx2258
+ /pvL0aczGsZ8ZmXwZmit/LgIKkXDJcz6W6WdIrPjEk2ykWl9PSDfW95S+hMNRZFnyZzF
+ GLKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
+ fh=51Lu5vqzoDkJeXGBT7Cy8D/XSOBYE58gfQoMW0LGB9w=;
+ b=eCzr8p4nUxjJUI2JyMTc7DBpjLbp3feT+7hbnnGaYA//W5b4D6npN8T/LFHpMh0iV2
+ U+gdGpMolqgnNMyO/QgkTfn8F0mzxiS+ySo5yeMqddEWbgKoK9tuQicuUafq+wet6Jwb
+ HhKFXehkL6r2BsyLmmYvy/LCGNyabvWgz2MqdVf1+obCAdBJykReSwbg28kzfS6IGw+c
+ 3Yo5QSn+qhlJ1bTMHIKejXlS3M0vy4H6ViwdJb06b5f/6QcZTf6sxEX7P8Vzy/CseICc
+ mYKoa46jAKDlqmlp7iBvZrHzDf10vKz+heUai/j0gcLnikEpBBrbaE7WIbVp4v66MjKs
+ qvng==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=antgroup.com; s=default;
- t=1773633129; h=From:To:Subject:Date:Message-Id:MIME-Version;
- bh=OED2UqpsODjwgj7WIlX0Yih4RVuBc+4p//C/zveDf7Q=;
- b=ICjBAjIPLiafKrFIAUpeSX0lt+qdbO3l6q7yYzOMG7Y8lWIw56RTh/UiRRd+Zn0lRLUH98SOpnZpZA61gCIWEB4UQq3VAGA/rdaAzVfxPv9+V7CA8ufJxuSnfQ6vjsM1l2jGMXOJU7E04Gmpn/m3neGHMKT7Z+JhUae4i+Dp4RM=
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=maildocker-contentspam033037032089;
- MF=houwenlong.hwl@antgroup.com; NM=1; PH=DS; RN=47; SR=0;
- TI=SMTPD_---.gt4DdjB_1773632822; 
-Received: from localhost(mailfrom:houwenlong.hwl@antgroup.com
- fp:SMTPD_---.gt4DdjB_1773632822 cluster:ay29) by smtp.aliyun-inc.com;
- Mon, 16 Mar 2026 11:47:03 +0800
-From: Hou Wenlong <houwenlong.hwl@antgroup.com>
-To: linux-kernel@vger.kernel.org
-Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>,
- Alex Deucher <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>,
- Alvin Lee <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ausef Yousof <auyousof@amd.com>,
- Bhuvanachandra Pinninti <bpinnint@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Chris Park <chris.park@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
- Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jun Lei <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
- Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Lohita Mudimela <lohita.mudimela@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-Subject: [PATCH 0/2] drm: Fix namespace clashes with 'pixel_format'
-Date: Mon, 16 Mar 2026 11:46:27 +0800
-Message-Id: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
-X-Mailer: git-send-email 2.31.1
+ d=gmail.com; s=20230601; t=1773844920; x=1774449720; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
+ b=VRtVHllsYbUfS99x8ZJ5g4p32kEK+wtGik6SRcit90VBBH3EYlfQvrWNK/tzalFF1H
+ 8wZkA7EkU80PjeueroLcaAIw9QUWh0vkexlBYUyjfR8smumbcQbUg50DdmaGxRhpf1CN
+ qmSE+vyb4lIRosAVGh/7tpW5LldPt5aSoI6zTzlzK2nMsVqoIj+/IbT8MbdxkaXcQTgk
+ 3qNAT1/I1MJyie16WYZrzWbXNgWmd2ksC636kT67MAXZpBaJaYMVQeXoyvqAcdzV+jBo
+ emYB/hHO63xnRO7ZqfTZbwbhWeRgeIPbJQ157/IUZqB5lz/o/3g50Ou2B4IvpBx7vlfM
+ 50SA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773844920; x=1774449720;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=RTOE29KKEh2RCMQf09/Yf7/7d6oQT0Su+sy1NG6/ao4=;
+ b=CqFU0wf4iAW229v6LW5zG95EE9fE3hrLpvrd/i4B8DR4/fZlUNtSjgzdwgrQnu/qBg
+ 9kJ+TxRCMjSFb259bIeHzFYJH8QbSNomU0Im4rL9WwUcmsNsURFnE2UhDHV47Varg+Jp
+ is5lc33vyqurgk5ce3ryalOM7Oqir/OyY4sQ+3BFgo0OjCVMlRGRyoa7xGmgXlv+qDCW
+ G0KJy+6to/9wMO/rTXuCAorBE6PTzkdnby313CqSUYEa7RCAAeU7mYCuRfVfXcosS3Ty
+ 8qhfoJdvVoonFUWtB1HOqZIrO3DLXnN7blJ6aE/XjPwmumf3ORkuJrNAIX0QJlwXSJTh
+ aChA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVAks5W85b3DgwDDiyvt8D7hnIHxrpaVu6bSk9zBLWCdMX4Va5pgyVjoenBeeedmCDWhE2YNi96+lw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqNpCtProZNqIvTC0m4P5COVBReR+MOQEyB+tpfNQkopsCeJWP
+ 508h4OnQLdoPGDeMb20zM3F8iwituu0eXoSzyw3E+c5Z2+NpESVERyrZpbZ521mODwyy7SIHnz4
+ fpg8ouzNDMqzKr5Bk/vLRfpCC+7YIQP4=
+X-Gm-Gg: ATEYQzxgsy55mNkBcfwRpnOpz8bbYlslhMw9T1Ra/qNdWolYlzOMq03SrBIuHWbm5dX
+ ehl9emZ7BcQxNgqspnCR4PhHBt/ZNjjpdVIS1o91i2DY7uUh8xW5lo/dwW+CooxNAqKUmVA17/C
+ Bj8uytzbsrNp+WdeUcX2j3jLNFpt9dermSqljGJz+k4nsLL5vn/o9hFRVRV2awRIwBWKC2NWPRR
+ 3JPZ58XervY354JkEi6ADfKlPjuwAncm+KB2wkNe0qifKHEYS90jv23B9IbhbCgDx7QTCR0Q+xM
+ z8kbYYP3nmSNkiF9GgvvUzVITW2K5pGB9EGLdGHkfNVNli0guuMBzWzjTj+ZhW6QiuBZ4W3pMRr
+ J1HkcHGBaQQSL5VT8F3wx05M=
+X-Received: by 2002:a05:7300:3724:b0:2be:1f56:ed32 with SMTP id
+ 5a478bee46e88-2c0e4f79e7amr877942eec.1.1773844919477; Wed, 18 Mar 2026
+ 07:41:59 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com>
+ <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
+ <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
+ <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
+ <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
+In-Reply-To: <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 18 Mar 2026 15:41:44 +0100
+X-Gm-Features: AaiRm52glbQ5k03i38HLvFJrknMe1XNNnKvvWBogM8moiNwsNZDgYGGN20TDKPc
+Message-ID: <CANiq72nad-60tOJeAfkvHTFrWXQS_wbG4JUGQNnkjm_NvhhaYw@mail.gmail.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Alexandre Courbot <acourbot@nvidia.com>,
+ Joel Fernandes <joelagnelf@nvidia.com>, 
+ linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,29 +146,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The 'pixel_format' structure is defined in include/video/pixel_format.h.
-However, DRM also defines a local structure with the same name, which
-leads to namespace clashes as reported in [0]. As suggested in [1],
-rename the 'pixel_format' definitions in drivers/drm by adding a prefix
-to avoid the conflict.
+On Wed, Mar 18, 2026 at 3:31=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
+rote:
+>
+> In principle this is possible using
+>
+> #[path =3D "pci/pci.rs"]
+> pub mod pci;
 
-[0]: https://lore.kernel.org/lkml/aahBPzflrEJ2FPx0@sirena.org.uk
-[1]: https://lore.kernel.org/lkml/20260313122808.GAabQC2Bmul9Odt-dX@fat_crate.local
+No, I meant supported natively, i.e. without having to write an extra
+file everywhere (which could perhaps be simpler as just a symlink
+instead).
 
-Hou Wenlong (2):
-  drm/i915/gvt: Rename struct 'pixel_format' to 'gvt_pixel_format'
-  drm/amd/display: Rename enum 'pixel_format' to 'dc_pixel_format'
+We could also generate the `mod.rs` on the fly, but that means a clean
+tree isn't great for tooling etc.
 
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 4 ++--
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h                | 2 +-
- drivers/gpu/drm/amd/display/dc/dc_spl_translate.c           | 3 ++-
- drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c   | 4 ++--
- drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 4 ++--
- drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h           | 2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/transform.h           | 2 +-
- drivers/gpu/drm/i915/gvt/fb_decoder.c                       | 6 +++---
- 8 files changed, 14 insertions(+), 13 deletions(-)
-
---
-2.31.1
-
+Cheers,
+Miguel
