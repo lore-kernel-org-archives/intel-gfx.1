@@ -4,85 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92D82F4613B
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1589BEC01B0
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 728B710E4A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F4E10E4A5;
 	Mon, 23 Mar 2026 16:03:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="mBj6Vi2M";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fn/6vfKJ";
 	dkim-atps=neutral
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
- [209.85.210.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F382E10EBF6
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:11:41 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- 46e09a7af769-7d76a331ebbso1423381a34.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:11:41 -0700 (PDT)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA2CF10E11C
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:21:46 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-2bd5658b901so379420eec.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:21:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773843706; cv=none;
+ d=google.com; s=arc-20240605;
+ b=hcbxBE9CPw1M++qGsaHsqa2ALsPq8WLHuAMr/WYt3J7QC//L/OMLZfTmtOJkoddfAI
+ cr988hyhuIXSXzkdLkgKI1VNFeQRNGPPSrD/VS/OCikoGHP9avisYKvImZrR68Lb4elh
+ KC0Tx5ibwgq+Z/JFttsKNuH0awXv+hdHyQgNQrmjyyDQo/tz42AlbxqYx8tEY5R4pEdH
+ YjwMAGWHyB9w0Lg2QvS/OFrUBcg8doc8Tj/ntoJQMAlYQ5DnmtX7cKiBH94npD9qAc2/
+ cfOP364xOxwlSC/AAXBTXbojxks27WQKzXI/dTVIVP93IbYZMU8YJV9oZzMcqvgATgP3
+ PAow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=N50RuEjVo0iFefZqItqTOtUCCVZJT3+xKOol5E25ZQw=;
+ fh=joE4A1wiaZbgI2qpB93qpFDzmqxqzIHiAJnyFP60xqE=;
+ b=GfW6U9Dox8JOB7S/83fSVeQp5Mx+lJlGvLCK0/Wu2YqxN/pRgxLjJlpycvb91yOktF
+ IVLqoYZHZ+HQSU24qAlAn8sTGttQVLXb8pPwfekFfh3s88HkMiwfKhP1O0KJNBrdQcgp
+ ooYaA1hPFG0e8KruVbei3+hSgIzgenfObemxV/deMQq815fuGF/UBgE9nbeiBW2hkqOg
+ z5o3vokof58HPJDNFXmDHnyEiuU2Dlw+j/JpdQ0+fPmdOSULOcNQIN//DRwWzja/6Ggp
+ 0mhDjW+P9qjs/GrcmOM5UFJcXKZilueQ3xcdR7uzNw6gPqaF7V6C4x36PNZn/0eLn2Q0
+ 0s0g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773407501; x=1774012301; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773843706; x=1774448506; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=J7LRJl13Yqup7eJj7JB8u2raYRuugKEd6d7nm5DRaag=;
- b=mBj6Vi2MDxTFYIK/A9AgbY2ZgG+K1INm0YEZ1FvjMjql5fLh8qPHrsUSeIzunwcRsg
- Fznf72wJCp0rq9KPuUbje87jDh0kzB9pe/+psZedK1RsP7y83xTX9Hc7UJAC7KSdP/qD
- jonOPQNiTb6gsLhxZWmYUhS7lNX95m1L6FOjkvvh40sH0lvGiuWMiaX9fWBLqJolvcRi
- RqPNQurZl8uTQRO7BxHFilIjeF/0VHNoxab4nHJVjRtMYgd6EEEkjLmLTt6Vo5e4Rt74
- AZv0pzL2Ihm+hn9mQ9atVQEDVLkoCQOE7Pmji9rLcPvGd48jpvP5PC3ZjMExky5WhzZf
- htmg==
+ bh=N50RuEjVo0iFefZqItqTOtUCCVZJT3+xKOol5E25ZQw=;
+ b=Fn/6vfKJAm1PXIA+PjVSinbVk50X9xttHklztIQGz3nIKnd9QCJmU4Y3KXdS3HR9P6
+ Yf/n9ZvcGlAmtezUQW4HDqvYlZEodElBA9jNszqClTI+1hT1rdvBYi0/ZZ8VxXz61hSm
+ 2PoqXjdBsBVPOAJb8IzHPcMgXRRnskoTgIf8yHvh634XbgT2yQSk7in4PV8LXLLJ+yH3
+ LpYYM3A7Nn+aes5Qx84UrOsqTQ/SGjlWyZKJ96nOnCXk/ZOE8zBYpV28V4CqSvZft/5F
+ J3oT0LVWwyobrkp2B1ArTRqFpxliEEq2PpivGxli/1m7PKbJnPXPQQEWfCoR7QVrWD1U
+ 4ofQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773407501; x=1774012301;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773843706; x=1774448506;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=J7LRJl13Yqup7eJj7JB8u2raYRuugKEd6d7nm5DRaag=;
- b=REbsDwAvJHJBGaNn0KskF9792+4iUvzrphyEW8irv+yaSgQzQjvQXZEZNYkSONEqkX
- 9EXTDMyvF5zscUMvf5+9f/KbfRCGFc6Aj040qa86v7Ymf3ujaZBjJjZK8RwG2ZFnKQE+
- dPaALPP0h9xxDq0UhOT+df29OxEnrENx/uddTxa5GwofrtQb+Z2t1RKTU++DeXCRX6Y0
- QpRvnhzaTjuZboPRIVpL9OX4QgZ3h6ANhSQzea9gmuGF0hD8Orgaoh18QJELHr8IuesL
- b76RfsDqgMZAspDpuQ5XMuSeD26G2RGqbXvlhghGqwHW+zXOse+iYbwCUewD+IiqqeO/
- YKVQ==
+ bh=N50RuEjVo0iFefZqItqTOtUCCVZJT3+xKOol5E25ZQw=;
+ b=LECHm/oddD7tdZPqa7M+iVcMPrLQUMFHYOGaBvFWXnqGYImXCk2+mH0oYLc9HbQN9V
+ pJY9fFdki1aeEQtRZ1Bzp/3trKcr6qGvFzKPfjM3QgX69eUEYlpF2znqPKH+hd9JB+Rh
+ LPSLkug2X/gDg1vg7Zqx4ZXvPUuIl12nl8e22+ufbZ35P2dtkORYYLEcsecOqeSjGN27
+ 8f0eFNZb5f+6xZr76zl9fpYlaI8b+HEbzhU/gtk1AAxLujp33kzOWIiLOoTUeaCSp7nk
+ aUoVu9TonHR4YTdLLpnuQaFQbJ6ec7WM+J3hY8/PhzPW9/5XmdoUbNr09/BWiu2h2Y2/
+ Goiw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCURPvvCCgduoW2PupEXSq2pDACmhBTSHmTDIrEUCJWiHVWo5meyCTeym9/RPiGoyB90r5zeN04w4jk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNVIS1/dZ9JJEVMiXp2jYhpySb5cPgk04VmKtet5h+T3PljMkF
- AGGnX47HFiY3mGrC+jVxfiBjozoWi26d87UKn5CpJTpoBYjlNAjc8w+l
-X-Gm-Gg: ATEYQzwmeHKR7TP5BAxti/arEob+jYHhm2ahNkHA/y4wW/YxPcU/AOzlZ5DCwaq9PZx
- hQOCmkyo1mUW5RsP03XxPF3XhVchVXiur3y60wVuTEz5IUcwdp+SIEJh9tSPmGAY0zRaarkER/E
- dwAVfc8veT7Jt/j1LxvNSGvEU17Ri3jz+3oqc4icsM9xN5ezfxL+pu74xcI5jy/Z4Knb3jY4WRN
- xDPtoeaRbD+YInHxzmxPNka0hlk3usBbVhEzsHfP/Cik2Y/mzSdO11DDFwe6JcxQNYBzRu6fzxF
- UgDZInE+1aerMB/3OiI07mfNUDtdrFYMsAotLL4Szv6Ur+kIZw/orlcUgvJew7R9bL+r/QYdTLF
- k/5e44XS4zsJNnQwEdI3OnHj+xwvb4o+vHM5cJcWLsfxkXY1/AgiNgS3xMeG13Df6//TM2QW8db
- j2WF6buH8qXbIP2KlQepOd1QUIyd3yiUJ8PPzvjIJiSlbXMb6D
-X-Received: by 2002:a05:6830:258c:b0:7d1:586a:32a2 with SMTP id
- 46e09a7af769-7d78232b1a0mr2235981a34.0.1773407500985; 
- Fri, 13 Mar 2026 06:11:40 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 46e09a7af769-7d76ae90586sm6733728a34.22.2026.03.13.06.11.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:11:40 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>, linux-arch@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- kernel test robot <oliver.sang@intel.com>
-Subject: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
- alignment
-Date: Fri, 13 Mar 2026 07:09:08 -0600
-Message-ID: <20260313131045.2526422-2-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313131045.2526422-1-jim.cromie@gmail.com>
-References: <20260313131045.2526422-1-jim.cromie@gmail.com>
+ AJvYcCXz6e1oGpHBrL46WLXEDmenLdyAHpiMsjcwVpJrFLiNgdrpqsdRBoSt63nXhZOB2S/ZGw6ceyuf79I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZhfI+FjUtANA/ugNbTg9OrkjoCfs4ZWxXORrkq/RQddg5v+CZ
+ Sg8VzDp4OHJM4H+7jiVsCS/qpKhWdfmVS1X31zW4Vb5Jq1jb4MVVtr+n+hwbrNL/Flzl4/dT0PX
+ gX1700CTgLyyKJQ38lxqbPiS4c339ZBo=
+X-Gm-Gg: ATEYQzyezkUPitQefeH8BHrpSsmtPYSUmOllyN8GnGXhIuJPs3J57ZP3A6Id5kjhGlh
+ u519wOIeOsy1acvN+OeoFbOQmXpHpqg6WQIVOG4bWCU76ag0Qd50GhPHQEa8xnS2KmpIVGw9I73
+ ++1DRyLkC3WR5lIaZmthYumPyfyYYe8toQzPaTozt18rGdQlGe8o4nXnCJnKgX22RgHpuambLeq
+ moFuYqYrHRvxrJhY4orOsdZb/mPc8zA9nMTGiRbYByV6JhT1Fo41JnT10XcGlZLpp/od9zcPI5Y
+ y0axYyVu46OiYtLyT+k0MwoX8R0nkkBY2rnVvV/NYcoETU4OZuihHwZiCyj75545izg4dNp1E6l
+ IJ8MTAMEdJcktysNfAEu/QTc=
+X-Received: by 2002:a05:7300:3724:b0:2be:1f56:ed32 with SMTP id
+ 5a478bee46e88-2c0e4f79e7amr862302eec.1.1773843705849; Wed, 18 Mar 2026
+ 07:21:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com>
+ <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
+ <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
+In-Reply-To: <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 18 Mar 2026 15:21:33 +0100
+X-Gm-Features: AaiRm52hYvm4SlfuaD_e2Ur_BKHJMunoPzi20wYq7repEoz5nN2Go3Dpr2oWwgo
+Message-ID: <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Joel Fernandes <joelagnelf@nvidia.com>, 
+ linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,87 +143,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When dyndbg classmaps get used (later in this series), the
-__dyndbg_classes section (which has 28 byte structs on i386), causes
-mis-alignment of the following __dyndbg section, resulting in a NULL
-pointer deref in dynamic_debug_init().
+On Wed, Mar 18, 2026 at 11:54=E2=80=AFAM Alexandre Courbot <acourbot@nvidia=
+.com> wrote:
+>
+> Ah, so there is a rationale for using a `mod.rs` file after all. What
+> are the project-wide guidelines re: `foo.rs` vs `foo/mod.rs`?
 
-To fix this, employ belt + suspenders:
+Quoting myself from a few years ago:
 
-1. move __dyndbg section above __dyndbg_classes.  This restores it to
-its original position directly after the ALIGN(8), and fixes the
-immediate problem.
+  I don't have a strong opinion either way -- this was originally done
+  to improve fuzzy searching, see commit 829c2df153d7 ("rust: move `net`
+  and `sync` modules to uniquely-named files") upstream:
 
-2. add ALIGN(8) to the BOUNDED_SECTION* macros.  This aligns all
-existing sections using the macro, and also fixes a future
-dyndbg_class_* addition which would suffer the same misalignment on
-i386.  Many of the existing macro uses already have a preceding ALIGN,
-these are now redundant, but are harmless, so are left to avoid churn.
+    This is so that each file in the module has a unique name instead of th=
+e
+    generic `mod.rs` name. It makes it easier to open files when using fuzz=
+y
+    finders like `fzf` once names are unique.
 
-3. remove BOUNDED_SECTION* uses in ORC_UNWINDER sections.  These have
-smaller alignments, *and* scripts/sorttable.c does not tolerate the
-added ALIGN(8) padding.
+Another reason was that it is what upstream Rust recommends:
 
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.com
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/asm-generic/vmlinux.lds.h | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+  "Prior to rustc 1.30, using `mod.rs` files was the way to load a
+module with nested children. It is encouraged to use the new naming
+convention as it is more consistent, and avoids having many files
+named mod.rs within a project."
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index eeb070f330bd..a2ba7e3d9994 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -212,11 +212,13 @@
- #endif
- 
- #define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_BEGIN_##_label_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_END_##_label_ = .;
- 
- #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_label_##_BEGIN_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_label_##_END_ = .;
-@@ -383,8 +385,8 @@
- 	*(__tracepoints)						\
- 	/* implement dynamic printk debug */				\
- 	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
- 	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-@@ -867,15 +869,21 @@
- #ifdef CONFIG_UNWINDER_ORC
- #define ORC_UNWIND_TABLE						\
- 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
-+		__start_orc_header = .;					\
-+		KEEP(*(.orc_header))					\
-+		__stop_orc_header = .;					\
- 	}								\
- 	. = ALIGN(4);							\
- 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
--		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
-+		__start_orc_unwind_ip = .;				\
-+		KEEP(*(.orc_unwind_ip))					\
-+		__stop_orc_unwind_ip = .;				\
- 	}								\
- 	. = ALIGN(2);							\
- 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
-+		__start_orc_unwind = .;					\
-+		KEEP(*(.orc_unwind))					\
-+		__stop_orc_unwind = .;					\
- 	}								\
- 	text_size = _etext - _stext;					\
- 	. = ALIGN(4);							\
--- 
-2.53.0
+  https://doc.rust-lang.org/reference/items/modules.html#r-items.mod.outlin=
+ed.search-mod
+  https://doc.rust-lang.org/edition-guide/rust-2018/path-changes.html#no-mo=
+re-modrs
 
+Now, several other people have argued for the other way over the years.
+
+For instance, one reason is that tab completion can be smoother with
+`mod.rs`, e.g. every time you complete something like
+`rust/kernel/sync`, you have to decide whether you want `sync.rs` or
+`sync/`, and then if you wanted the folder, you have to tab-complete
+again.
+
+So I guess it depends if you use more the shell TAB (like Linus really
+values on the C folders) or the fuzzy finder (like Wedson argued for
+in the commit referenced above).
+
+I personally don't want to bias it one way or the other [*], but
+please let's avoid having both mixed if possible (unless there is a
+reason not to). I can put the result in the new guidelines rules list
+file.
+
+I hope that gives some context!
+
+[*] I would have preferred a middle ground like  modules being inside
+but repeating the folder name, e.g. `.../pci/pci.rs`, but I doubt that
+will ever be supported upstream since one probably wants to support
+the other ways at the same time.
+
+Cheers,
+Miguel
