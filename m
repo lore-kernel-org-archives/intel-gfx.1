@@ -4,38 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE44103E17A
-	for <intel-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 14:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 333D1103E193
+	for <intel-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 14:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6184010E71B;
-	Wed, 18 Mar 2026 14:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B916410E135;
+	Wed, 18 Mar 2026 14:56:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PLG63xwv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I6pcsti3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 270BB10E274;
- Wed, 18 Mar 2026 14:43:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8EE010E135;
+ Wed, 18 Mar 2026 14:56:07 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id DBA884082A;
- Wed, 18 Mar 2026 14:43:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00284C19421;
- Wed, 18 Mar 2026 14:43:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 81B3A60054;
+ Wed, 18 Mar 2026 14:49:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59F4BC19421;
+ Wed, 18 Mar 2026 14:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773844996;
- bh=u09Mfz2oaK3eFSNZEBbTIAth83cK6rCPlN/GqyTfmgM=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To:From;
- b=PLG63xwvR24HD+XRf5cIoXpB6gh/EZwGvlYiSAWfypMrqe6k149dqeTeFuuOlHOzk
- fcG/KWD2k6CF2gw8wZ70N5s1KGkhpWr0bZ6nj9ecBLJXrgBjuX5q8TqMjGEIeN3crF
- v04TSv3PsLfnKRjuFmX+477UMqR3tBmetg2zHzpmS0G3XTXt4LzNtbLeulLOnWGh69
- RszEmfLO8Vd+CTGg+m7CRnid4OA9PSrcl4HWxc6qxPalVR9qBLjogmPkWYqo+vYULp
- vQWpMOPg/0zvKylcbrrPprf4ruVLQtYMeYr8CX3v5Oui7WNBP/BidARKIxRYx7GqJN
- khYLlO+156bnw==
+ s=k20201202; t=1773845360;
+ bh=aW5bvrmFz8ackGklJ4CM2BaQvUtm6FdrgZ0HSt1ERN8=;
+ h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
+ b=I6pcsti3DOkZesWqbbB3khzQEteyRi+wVmUNphXAjJHu1ODx62i2Q+YR2c5pAayQ8
+ 8XNWCGplmSzR0A0APJdcVKApXnN5wGWr1q6AI8dUxKzQbiAh0dnkxSD75eLFdyJkMn
+ +62QBlD5kbQToTYE6D41hF39MCPPMeQeBhHRk0FUNqtE86B9Mkkzl7PgMvxbY+qkIM
+ 5O3pVDfY0R/jQZrY6UcCvRjDC7Qd0kyhHQ7P/fr0LZg1ojoowq3nr/HKraQNQrdYoc
+ ykFINyhjEDAQ+BbYscs2vs/zFeO2NEsvuaUr3AYed2kDBowOcRl2Y20Hz6jfpGZNwe
+ KtHvQE3OBIzUQ==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Mar 2026 15:43:05 +0100
-Message-Id: <DH5ZKGFWJ0B3.21DGB876S2FYE@kernel.org>
-Cc: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Alexandre Courbot"
+Date: Wed, 18 Mar 2026 15:49:08 +0100
+Message-Id: <DH5ZP3IUEWMD.TOOZSEUTLV85@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
+ list interface
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Alexandre Courbot"
  <acourbot@nvidia.com>, "Joel Fernandes" <joelagnelf@nvidia.com>,
  <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
  Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
@@ -66,17 +69,15 @@ Cc: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>, "Alexandre Courbot"
  <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
  <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
  <linux-fbdev@vger.kernel.org>
-To: "Alice Ryhl" <aliceryhl@google.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
- list interface
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
 References: <20260317201710.934932-1-joelagnelf@nvidia.com>
  <20260317201710.934932-2-joelagnelf@nvidia.com>
  <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
  <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
  <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
  <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
-In-Reply-To: <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
+ <CANiq72nad-60tOJeAfkvHTFrWXQS_wbG4JUGQNnkjm_NvhhaYw@mail.gmail.com>
+In-Reply-To: <CANiq72nad-60tOJeAfkvHTFrWXQS_wbG4JUGQNnkjm_NvhhaYw@mail.gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,20 +93,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed Mar 18, 2026 at 3:31 PM CET, Alice Ryhl wrote:
-> On Wed, Mar 18, 2026 at 3:21=E2=80=AFPM Miguel Ojeda
-> <miguel.ojeda.sandonis@gmail.com> wrote:
->> [*] I would have preferred a middle ground like  modules being inside
->> but repeating the folder name, e.g. `.../pci/pci.rs`, but I doubt that
->> will ever be supported upstream since one probably wants to support
->> the other ways at the same time.
-
-I very much like this, because, as you said, the pci/ vs. pci.rs completion
-issue is indeed annoying me a bit. :)
-
-> In principle this is possible using
+On Wed Mar 18, 2026 at 3:41 PM CET, Miguel Ojeda wrote:
+> On Wed, Mar 18, 2026 at 3:31=E2=80=AFPM Alice Ryhl <aliceryhl@google.com>=
+ wrote:
+>>
+>> In principle this is possible using
+>>
+>> #[path =3D "pci/pci.rs"]
+>> pub mod pci;
 >
-> #[path =3D "pci/pci.rs"]
-> pub mod pci;
+> No, I meant supported natively, i.e. without having to write an extra
+> file everywhere (which could perhaps be simpler as just a symlink
+> instead).
 
-Not exactly pretty, but if it works I think it's worth.
+What do you mean with extra file?
+
+renamed:    rust/kernel/pci.rs -> rust/kernel/pci/pci.rs
+
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 34b924819288..4b6396aec030 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -131,6 +131,7 @@
+ pub mod opp;
+ pub mod page;
+ #[cfg(CONFIG_PCI)]
++#[path =3D "pci/pci.rs"]
+ pub mod pci;
+ pub mod pid_namespace;
+ pub mod platform;
