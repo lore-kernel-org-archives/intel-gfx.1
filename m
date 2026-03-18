@@ -4,84 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B7A8F4613B
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6EAEC01B0
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C663310E509;
-	Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8555210E510;
+	Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="Au+TW1wa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hls9sLPd";
 	dkim-atps=neutral
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5698710EC0A
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:01 +0000 (UTC)
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-4670464029eso1289410b6e.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:01 -0700 (PDT)
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA9B910E733
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 18:57:27 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-2c0c7267500so5393eec.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 11:57:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773860247; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GffEy2DACJMvQYrMHMcu9wTN9XIHDFkHUhIyf15tUQXb51qCu1Y1Qbc9o1F5/JJ+ZO
+ Py3u+NZMDt6ZIQl4JrDdIXOJ66yCIBN9ivXkUwZPX3SKziymZ2PqYWibzJrZ17PWWtlL
+ zJuiPNcIprPW8StEdRoDcCnkluQQAYYy5Ng/5VdaNoE+fNHL1Be2pa+1iLv4Kn844Aok
+ DvmxLLRnyw7JgzijzG8/HuMpIAhJAoOfJiVJAJclB1UYRasR+gBtfYH4PH7GccdIH9sW
+ jrTaGkkmplXr00pDzkWGKXb0eog/K5Tnt13otLTpobQGze3em8ebfSS+IX6E6ydXZzJw
+ 0LXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
+ fh=GD+MRjzAlvsC4xwoKSpOUlMlapg6ESJaQOFmZdNcFqY=;
+ b=Sf8gR19h3SwkR1hhCbIy4jKKH1Gd+nLQlr8tukBbGh2navzRJHzm38hTwgwgk8Ii+S
+ EcnhSZwNE0TBWayXuEvMiDmi0baDWu+l9nJGae5kV3p14VtV8lnCuailsCYXvREpIqu8
+ PakfiQ7JMYbsbNRn4Xo/Z4Hdk18fUFdmoANkK+zdoVT/WYgwhwgBGdN1UnZKSUwvMq21
+ grrk7ZHnGGFsitlFcZCXxUlMOHne/aiz2unhvmhtN/K0NbSFsdL1yQMD0a7J6Ufm07S8
+ KzpchSH8KcMMGlo89Og6r7gVcT5SNCtgYo0KlTK/bAalrpDCvfI6gvw/H8bj5Ew7E27E
+ +cgA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408240; x=1774013040; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1773860247; x=1774465047; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZxTkOltoVAiRQNIiLPEo11+229bHMC78x0TMXlU2wIM=;
- b=Au+TW1wapgMyvc3Dzjn+VPZTiRP4wXMF3C/5RE8dkFAKXkzi3gagiqiO8pfy+y8yw7
- HHa19wwfN5OLn+EmY6iIyTwybTCyfSuJzqGlv0QajXCtaSG+THwiNQIEe81QIPVTacvW
- yvsLdWZSb67WarGNh1mebTFu4H0wKDsK92Xrxhv1ptkSg8EGPlxMv0ZKmbGOjxwIYmEP
- YvQWJshIgsEt/5rVRgCC0tVO5XCVN/mhNg+/ykNStlGw0AMmo2PXvnTyM/bfLJ8EuWom
- ShiUjDZal2rmemm7WncKnY6rTrSJ5AJ9rlyu4QJR5gOC6q3+Pzkv+SMLGIrl58Y97uvQ
- gNEA==
+ bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
+ b=hls9sLPdPRx7gKm2di3aMw2U4eOoEz7UL1WQuwlgmSVnwttmdt5y3dmL6ifcOEIPm6
+ vrrOEbeNXy3TVfnEm89bUrAf2dQ2n2Hg7X5bICkUMdC1wuJgnDVthMzkTACUH0dki0Pa
+ ba8a7Yr0Qd5tu4BFRsVH/vFH95M2ttgA5ZlLadSrmsZTog02L1DjqGm1IKAk9IyBp3Kf
+ 7pq9Uem0z0W1RHuHX3+FZyMXfWHEcl04Ue1fqTnqdjs3o4ftWaGArAH66masDZ8xzSm/
+ 4ZPs2eD8zzbFGTW5Tgn7LwbRB+LF5nwVfebtJzIv6vm3rVID9I5dt03Z0uautMoxF6oh
+ DK7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408240; x=1774013040;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773860247; x=1774465047;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ZxTkOltoVAiRQNIiLPEo11+229bHMC78x0TMXlU2wIM=;
- b=esBSLSFAuBBYIEIT18QQbI42OeKbIZdW6hURgQu8Q3M6bNQrV30de7W7Q6axtzEemV
- 5YZQh/D8dWtL1SpspxWPTM6SjJ37nBcavMVlMiIPKNGesucjxgfIuBrGeeddfZP9LXJZ
- GuFS8FmvCGPio/DE6sWbmildFUQhDBCYah54wzbA2TpuT2ppOiCdMR9lGAiKgADQgOxx
- UtPvDlliT+7MiQi5Dq1LhuzDMvmAf/LaeDifX2dPbkwcoB8BeqszRS1t4wvefNOzSyry
- DcBotfaLNpJiAGQa++jDUPmmHs8XSW0BZhh2+ELGfmwCsw5pfjpoiQ7xoPKt+gsbclS/
- 7Awg==
+ bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
+ b=ZlIXV0zaR77+o3CXSENkc9QTXSkS3FjCT3SulFh/Yk1OY8Y/ruBPEImA8CVERL/r2b
+ fYs1PdF+CPsDTGNpfEbnQ8ellwNo14UKb/SL/+8ckQXSJHi1e8mn8Ft114Tsw4ag06/a
+ 2x0JHg3a8Ew/r2U3ckQYWQh6+dOZ6JVRrDuX5YY6Y1X9Sm3k2kZNYuHLC42rxwAytG0s
+ a76bpmMInWsSKXiSb2Ntgih5BDIMMOHQWncYJP87yc5ET+QzNZXH4jWYq27bWHSuBtNx
+ DyMgQ9PMmDHrIjWYtGp+//m2zgP9o+wNGmsJJYcuUtNqYOof+rnYItHzTdAIHuLFUPkE
+ OUEQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWecjaQOTomu6V9EjaWoNvxXhEzFpshBmv53Uv8+QlfjXbc0cIDnnVGc7wsn9N90bbertNUNQy51Tg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9eq5yQThkn8ntVLdIYSsDebe84pvPERLN3lUgILCZ7gptOfn5
- hagQKc4cnRHpLOa1GKZd7qGGM+NxyO5Ho1j/cnXfXHpvi+9/+vQ0EC0w
-X-Gm-Gg: ATEYQzzV2zH19kTfrDpCkxHYlotdlJ8MwV7oAr/ieV4EVvzS6qqK0Y4bVnfqJRy1Xbz
- nHIYdqbaDKHz9BsOXD/AtVlDErNwFYpFrjxWzLzmVoZFYX0SZclWCtsNghYmXeZtsw1wGOmlwve
- Yy6oiEExlKeobs5Z76n8tAzxUEtLaKFZASPIva/t7r33HtcPf7x5OyLArD2zjtbYpmoNI8NZlMB
- d3WRtD+Hi8PMb0AxpDhyWaqou7SLnmv0+uX4R3VsqoMykpIjddkXRbyrfZYqObRfmQ+5pGukRzh
- FX/Ff8eQErUDaWJKBLghngLMW+GqYIiYticCP6Fs5GBku42FojxI+g2aSWTPMjV9VGWPZ1XptKc
- brCRwgH5r5Og3g1mWv/efJkHRSPLqgK7ibhpV2T2iDtYt89CUOGzwlGnxg1OyIDMShQdfNIXa8x
- PhGHJ9YWtUWARxmUgaDdmptHosFlUej0kjZ01TANR9+rvggwd8
-X-Received: by 2002:a05:6808:5292:b0:45e:bfe0:21f2 with SMTP id
- 5614622812f47-467570ecc8fmr1454885b6e.10.1773408240480; 
- Fri, 13 Mar 2026 06:24:00 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:59 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 29/65] selftests-dyndbg: add test_mod_submod
-Date: Fri, 13 Mar 2026 07:19:54 -0600
-Message-ID: <20260313132103.2529746-30-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCVzH0fyNNBnTpBwKxr7hXbOksvcafF2cw7jij+BqRetfZ2uOALrKZ65i+jOlM4T6rtLtTB6oE48FQk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxoT/meCKQJ/gP5/Xgvpoe3PCPwbkWTEI3Py05m8YG6QbujmYqs
+ 3Tkl+v4hnMeS9a+EIkyrjrOJB/CSsA8rIFeYkbcIoXkA5YWk4MrCFi7U5W3IH8Gv3S3vpe2ascB
+ tyB6SP1v33uApj4DifLi8JEwoYk8SoPE=
+X-Gm-Gg: ATEYQzykHJLRA6i9EbMIsXLKPmSjlLeONzHObP2VhVmuEhIMbQkKBlCa8AjccDd5ogB
+ kXqJhidV/LigLMT5Oha8HzHyHYUL70KQExBXs020gqyY6+EqgXvJcoeK3iw54feuL7zcfJfcDra
+ QHHNOzHOz7L0Fg4BvQgR0YncxuKfWev1jdC9MPIlvQH/lL7TIrtWVQqNlTkGOlu5DBxO1w8OjN8
+ tAFj2NZho9Gr3tmnGAM4QKLzAUpcao2XFmclCeapIEFAKxgY1eiNvnK7Uhk1DU+kWAGPWZNWx2r
+ aY8grNsU9fmS9EpqXxLHHIxlVfw0MZknpZj8st02STms2TppUvkJheuuOhBHW1CrOGo6m3lBAwV
+ bfCW/xWvEIQt5aIfx4LsEpKQ=
+X-Received: by 2002:a05:7300:f191:b0:2be:9886:d4ff with SMTP id
+ 5a478bee46e88-2c0e50fefe8mr982481eec.2.1773860246896; Wed, 18 Mar 2026
+ 11:57:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
+ <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
+In-Reply-To: <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 18 Mar 2026 19:57:14 +0100
+X-Gm-Features: AaiRm52hIUr0vzgoavDmbzyJmg3hgU_AUfgRxMfUiR8zNc5S5daML4wMbNTdaCA
+Message-ID: <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Joel Fernandes <joelagnelf@nvidia.com>,
+ =?UTF-8?Q?Alejandra_Gonz=C3=A1lez?= <blyxyas@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,126 +143,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This new test-fn runs 3 module/submodule modprobe scenarios, variously
-using both the generic dyndbg=<queries> modprobe arg, and the
-test-module's classmap-params to manipulate the test-mod*'s pr_debugs.
-In all cases, the current flag-settings are counted and tested vs
-expectations.
+On Wed, Mar 18, 2026 at 7:31=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.c=
+om> wrote:
+>
+> Anyway, the fix is simple, just need to do // SAFETY*: as Miguel suggests
+> here, instead of // SAFETY:
+> https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid=
+89LExw@mail.gmail.com/
 
-The 3rd scenario recapitulates the DRM_USE_DYNAMIC_DEBUG=y failure.
+So, to clarify, I suggested it as a temporary thing we could do if we
+want to use that "fake `unsafe` block in macro matcher" pattern more
+and more.
 
-1. 2 modprobes (super then sub), with separate dyndbg=class-settings
-   check module specific flag settings
+i.e. if we plan to use the pattern more, then I am happy to ask
+upstream if it would make sense for Clippy to recognize it (or perhaps
+it is just a false negative instead of a false positive, given
+`impl_device_context_deref`), so that we don't need a hacked safety
+tag (Cc'ing Alejandra).
 
-2. modprobe submod, supermod is auto-loaded
-   set supermod class-params
-   check expected enablements in super & submod
+But if we could put it outside, then we wouldn't need any of that.
+Unsafe macros support could help perhaps here, which I have had it in
+our wishlist too (https://github.com/Rust-for-Linux/linux/issues/354),
+but I guess the fake block could still be useful to make only certain
+macro arms unsafe? (Perhaps Rust could allow `unsafe` just at the
+start of each arm for that...).
 
-3. modprobe super, with param=setting (like drm.debug=0x1ef)
-   modprobe submod
-   validate submod's class'd pr_debugs get properly enabled
-
-The test uses multi-queries, with both commas and percents (to avoid
-spaces and quoting).  This is the main reason the test wasn't earlier
-in the patchset, closer to the classmap patches its validating.
-
-With some tedium, the tests could be refactored to split out early
-tests which avoid multi-cmds, and test only the class-params.
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- .../dynamic_debug/dyndbg_selftest.sh          | 73 +++++++++++++++++++
- 1 file changed, 73 insertions(+)
-
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 513f6cb1db1d..09937dca3056 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -279,10 +279,83 @@ function test_percent_splitting {
-     ifrmmod test_dynamic_debug
- }
- 
-+function test_mod_submod {
-+    echo -e "${GREEN}# TEST_MOD_SUBMOD ${NC}"
-+    if [ $LACK_TMOD -eq 1 ]; then
-+	echo "SKIP - test requires test-dynamic-debug.ko"
-+	return
-+    fi
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    ddcmd =_
-+
-+    # modprobe with class enablements
-+    modprobe test_dynamic_debug \
-+	dyndbg=class,D2_CORE,+pf%class,D2_KMS,+pt%class,D2_ATOMIC,+pm
-+
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    modprobe test_dynamic_debug_submod
-+    check_match_ct test_dynamic_debug_submod 23 -r
-+    check_match_ct '\[test_dynamic_debug\]' 23 -r
-+    check_match_ct test_dynamic_debug 46 -r
-+
-+    # no enablements propagate here
-+    check_match_ct =pf 1
-+    check_match_ct =pt 1
-+    check_match_ct =pm 1
-+
-+    # change classes again, this time submod too
-+    ddcmd class,D2_CORE,+mf%class,D2_KMS,+lt%class,D2_ATOMIC,+ml "# add some prefixes"
-+    check_match_ct =pmf 1
-+    check_match_ct =plt 1
-+    check_match_ct =pml 1
-+    #  submod changed too
-+    check_match_ct =mf 1
-+    check_match_ct =lt 1
-+    check_match_ct =ml 1
-+
-+    # now work the classmap-params
-+    # fresh start, to clear all above flags (test-fn limits)
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    modprobe test_dynamic_debug_submod # get supermod too
-+
-+    echo 1 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 4 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( V1-3 + D2_CORE )
-+    check_match_ct =p 8
-+    echo 3 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_CORE, D2_DRIVER )
-+    check_match_ct =p 4
-+    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
-+    echo 0 > /sys/module/test_dynamic_debug/parameters/p_level_num
-+    # 2 mods * ( D2_DRIVER, D2_KMS, D2_ATOMIC )
-+    check_match_ct =p 6
-+
-+    # recap DRM_USE_DYNAMIC_DEBUG regression
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+    # set super-mod params
-+    modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
-+    check_match_ct =p 7
-+    modprobe test_dynamic_debug_submod
-+    # see them picked up by submod
-+    check_match_ct =p 14
-+    ifrmmod test_dynamic_debug_submod
-+    ifrmmod test_dynamic_debug
-+}
-+
- tests_list=(
-     basic_tests
-+    # these require test_dynamic_debug*.ko
-     comma_terminator_tests
-     test_percent_splitting
-+    test_mod_submod
- )
- 
- # Run tests
--- 
-2.53.0
-
+Cheers,
+Miguel
