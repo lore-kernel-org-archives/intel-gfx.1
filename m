@@ -4,84 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 468EEF483DB
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA49DF483C5
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B86C710E549;
-	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30CC010E522;
+	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="RiWaQVpr";
+	dkim=pass (2048-bit key; unprotected) header.d=rthansen-dk.20230601.gappssmtp.com header.i=@rthansen-dk.20230601.gappssmtp.com header.b="R7v7A78w";
 	dkim-atps=neutral
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E99F810EBF7
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:24 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-467161c4a1cso841485b6e.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:24 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2ED110EA08
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 12:54:06 +0000 (UTC)
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-661cfb9f3aaso764369a12.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 05:54:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773924845; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ggGR+sGnmKavN3NHexvJzBnaG2m2mTl5Brt99vEV1OVGMvqUlzm1VOAA7qdRByVK0+
+ LPYJr2+iZVcR+/dgGySPnj0zof8JjwJ0eWG9A2jSvLogI4Am4ThtaPAuX22MK6/29l/2
+ UOYLxOBoEdlgUaYS88jW5YA1k1PWx8RUIShdlwZRKpRc/oSabIltW22wuxyT65kXyna9
+ hupjxqDMR2xT8+/A4hF4Qt0+x4SXO1FA+TgbXXdiRB111IqwhswlsaXrJAKnfpfLXJw+
+ LLp3g0HLcMG2EyLZqHywcDdcdzi6HaktjvZd/XKo4T/73LXSSn4NA/tyjttWVDb0mvct
+ 17pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
+ fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
+ b=N2FSItCqEiJI0fJr+19cSp5tly/gK6wGOWXz+47eX8f/8xB7vmqVlSWGmVYG0u6rPl
+ 7WA6W5A40v9+ySMCta7+OGW4VF30wOJtJ+JFc+YImBl0y9VsghvDs4dmQKqJpbp/Sj7P
+ QnQuSM0oGyUo9DxqFA6nRdVsp8jZFf7iaRM4iK3EE4fwGfWkgIgqbVb99CDCokFJZkDP
+ LWRy8/B/5o2guYwlOjLvRWXHZatzT1pCYMSbofIwex6D2YERtPD75uC99kqemSEkmFp6
+ 0SX8C0nYV+3IWUSGyc3g1h+jiwgQV7yUvkyexgRVNFZxGx8u9Lz+VeA7+w0GlB9meura
+ DWCw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408204; x=1774013004; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=MC2lsh0Qhp0IwkFoRFt/G0LqEbae5jgNK4VV9aW2FC4=;
- b=RiWaQVprFNCVimjz6rjT3J7i5Fj3/F9N2Qu1Uu5A58mVO+PheRF+8Jye6fW77qiGT+
- Mk3N+b7hlfxebKA2FlQtqBIiZ2FUo0hKem19rQayjvwxMBgFU4ByrOGyLqPwWcBUTdo2
- 8rnFYvBoxTixoqi8dMIeQ4heA75BTJczbXw4Q944h1vYdf6Ni0IYqG4CRr+LFlySqNE3
- XAhFi/vS7LhhEUn7bVjNTPvkWA0z4EUnTGEiBMYo7RP69bfdX3sLU6Tn5SXu9w2spMlq
- fboXbCmqC0EjJBS7D3krL8MNIMrc4h4mGHZoniIjM2lGVJ9M7Ye4xD+DPuwDBmlBLaeF
- lisQ==
+ d=rthansen-dk.20230601.gappssmtp.com; s=20230601; t=1773924845; x=1774529645;
+ darn=lists.freedesktop.org; 
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
+ b=R7v7A78wyBHQE91qvX8l2EEyFigBdbLHCB09HwrUKm58ox7PZrNn3NybXMl+1CM6JE
+ 6NrW2NqHBPpXcAVPzDJU+nHIe72UUFRO3cL9sjdahGMR5C8/kKz23yG+JMLv+T1OSlpJ
+ ZmYF9dnhCRUZesHqSfvjcwizQTrKf7jD5TIGnDx8VnNujqy/6ZwizXpbaYclw+EFZYKk
+ J4JcD2vY7L7w/JsIBQBbPKbTrymMd+hOM18jCJa6d8/ectUui3UQUxzt0Rvj4DNahhLU
+ 1FoCmMTVrpKyE8ZyilvaRzSXefmjNAKj34cT+Plueoi7xg+6TlXN+rGRClikQwSjLCvk
+ MUJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408204; x=1774013004;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=MC2lsh0Qhp0IwkFoRFt/G0LqEbae5jgNK4VV9aW2FC4=;
- b=JrSp/NwGRJxKRaPYaeLPpnWPvqbPlVXJbSG3AA0suGEtzsQ/hzNAiCPaPWgaufYj1K
- J/okNsHkfo5HKHix2pChJN/38XsRsLPTSQR8hl5Lvc6/fXAdzhF/vh2wOuzuOuy9/nkb
- E4wOUO7eoU1hRZDCrJHxbjRenCpTs9U8/j1Wa0HOENaYEh32kfUeNWfd/KVNWElo8PAe
- 5ixQl2s+0l50t7haI/mquwXLfTcSw8Fl9POEZzF5g18g5i82/qAiKDG91YG78HBt+ZPk
- qw4F8tl7c3oU/qUi5uttVpAxCvTjARASYbA8v7rCIC3m6RXShtihZryLcsItjYz0PqMJ
- Ap9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUnmt6pnVgCPR7ed3BdooaQA3AAzmneaL5lkQpL7rjkjzI2OUZTnpT70+62W8Hi8On5uKOE0HmOyKw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgSxZqh61AajO2T6DnUeI4OOH3zbSlNpsDfeEiA5VF3UmQd7Py
- BGTiDR/iO4xEQAvUcJoDT3lDRUV6KxdgnuOSIynyXkdtiBVhcj+g6yvQ
-X-Gm-Gg: ATEYQzzgI8p38xrYwctfb+s6R/LuPDgr5mkodQGqm7g3t3PO0hG7TF6YdbZWFeUT1Zw
- /7YT0RbQFhX4QnH0RYMsghO7xDus03oivItel5PRoX3/RkuusiV+fdBPn+aAm6U6EeFF7jOQ3tu
- NRIZzDlzuJBGcEIBXDRGGJB1YkXxOKmIBpgKi/lQtHHo2wWqjqkkf93qYaILw6WpU/O+YwwqZsX
- sDgo3zPa6ph9QHZhXnNNYxlHAr3hZHNev/3Da/pFXU+bc6fWwYQjNuYNSzwPkKIinMU4sV6VlBa
- E3hn28nZTMLOLwhUbPn8p1HK8Z+PkHfcPZGgShtyAGU/Z9+6m/JGl5EPR+tEeSq7WVTDs6007s4
- cHkwm/G9el7QAw0s0D4c2EAKmIpaHsShDBWGOgWLr2y9uOin6Y593+D9LLS16IdDAn+gSD3ertz
- FYEPEhCjRwuMjQPkYUErDSjeCnaaeCxfNLXFPk6x3aFCuu+JGYKQPcJuilraA=
-X-Received: by 2002:a05:6808:1641:b0:467:2be4:9e39 with SMTP id
- 5614622812f47-46757550476mr1689903b6e.39.1773408204096; 
- Fri, 13 Mar 2026 06:23:24 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:23 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 14/65] dyndbg: replace classmap list with a vector
-Date: Fri, 13 Mar 2026 07:19:39 -0600
-Message-ID: <20260313132103.2529746-15-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ d=1e100.net; s=20251104; t=1773924845; x=1774529645;
+ h=to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=DLiCkrz7AHfNi0GfKLlB1iit8LOHyJ6r6tfRz4m72Wc=;
+ b=fDB6f6Vf9TRk88MN7v7qsezn3+Ghwlje4SBJeQUjDUyhTxYTVYQqN8UolMqAiEbgmI
+ yXHgqoA6kMmVHYd0lfV6zWir5g1wzTR5/tCI6TqTJ/fVqZQaANhD6ChfJ8rqZ0niQ7qg
+ CznH1KfqKt/L0tvg5OQK4wizpDnaGCE7++ZVyjSpIKWP/pHCs2dNpG3c/27GdyHG5ESj
+ goAh8t1B1jduQtCGvimKPsGpFHiicCtug6F6+5eQhpDI0awhQJ4JBbPXCa8bG9qJ5Q5i
+ iJafic/cLZqW0JDuWfZETLhD8mg6cvDFihCg3IUTrVWMEUJkFfncsjiS110HQcZuPRTa
+ MD9A==
+X-Gm-Message-State: AOJu0YwVJ5jTq/5vrAIphQGZjk5+FAAupHXzKA7o08fD29ihfin+BXfy
+ JQ05CIdwLJKWPpi+yOx4V+aJIazdpt7Q2duU0H1Xfl3cfuaTQw4i8W21yd1OlvkIcYe/k8+nuNP
+ dhwHDia2sXWRTF9g6T5OjwECaLjAgyXWEorCTFrL3M4TwLSXokxVxzYs=
+X-Gm-Gg: ATEYQzxlyeOpvsdiDNz2fTyS/qM3aVVahPvyPD+p2E7em7R6C2HPyCWWHHmuAEqs4hm
+ JUQ33I8su7AROsTknsKv+kw54oPH2yBd/FnI8n+fiJsDP8/ja9sh5Fv9LenWEUFuNScLtyNbLbO
+ xGZjCJlqLW/DLc0HPqSktJgllNW/MzJpVTUn4yO3CMR7VawpQlOWmjVKMy4ybAdRPJccK3a6h+Q
+ TDKez32Il4Jwk1ixxea6u4eIrsoGxgIKraViTViCtfvCifesUhHR46tt5csVRJBhwjHEPUj3sBu
+ 2d6t7JzoKMjKJVWJ7Eiq0iei0dhYHxXrjc2DrEaE/49IUzQCLP+QPgwbOfnmmPi3mOBg2Q==
+X-Received: by 2002:a05:6402:2746:b0:660:475:9403 with SMTP id
+ 4fb4d7f45d1cf-667b2c197d8mr4745999a12.29.1773924844564; Thu, 19 Mar 2026
+ 05:54:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+From: Kim Hansen <kim@rthansen.dk>
+Date: Thu, 19 Mar 2026 13:53:38 +0100
+X-Gm-Features: AaiRm51YVIJ0992DrSPLmbo49io34ai-IdKTOWLfakSly1u11keAqe2ma9ZaaEk
+Message-ID: <CAEGYRW4jQd=D99NZVYsH8yg1g5zGq=Y2959Jwsw_wtSen2ydjA@mail.gmail.com>
+Subject: Re: [Intel-gfx] [PATCH 2/2] drm: Schedule the HPD poll work on the
+ system unbound workqueue
+To: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="000000000000380162064d60100e"
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,182 +98,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Classmaps are stored in an elf section/array, but currently are
-individually list-linked onto dyndbg's per-module ddebug_table for
-operation. This is unnecessary.
+--000000000000380162064d60100e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Just like dyndbg's descriptors, classes are packed in compile order;
-so even with many builtin modules employing multiple classmaps, each
-modules' maps are packed contiguously, and can be treated as a
-array-start-address & array-length.
+It seems I am still having this issue, I had ghostty and Slack freezing on
+me the other day, and Claude pointed to this issue as the root cause.
 
-So this drops the whole list building operation done in
-ddebug_attach_module_classes(), and removes the list-head members.
-The "select-by-modname" condition is reused to find the start,end of
-the subrange.
+The reason it pointed to i915 was lines like this in dmesg:
 
-NOTE: This "filter-by-modname" on classmaps should really be done in
-ddebug_add_module(1); ie at least one step closer to ddebug_init(2),
-which already splits up pr-debug descriptors into subranges by
-modname, then calls (1) on each.  (2) knows nothing of classmaps
-currently, and doesn't need to.  For now, just add comment.
+Mar 19 01:32:41 aleph kernel: workqueue: i915_hpd_poll_init_work [i915]
+hogged CPU for >10000us 2051 times, consider switching to WQ_UNBOUND
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- include/linux/dynamic_debug.h |  1 -
- lib/dynamic_debug.c           | 62 ++++++++++++++++++-----------------
- 2 files changed, 32 insertions(+), 31 deletions(-)
+Hardware: Intel CometLake-U GT2 UHD Graphics (i915), kernel
+6.17.0-109014-tuxedo, Wayland/GNOME/Mutter session, triggered by docking
+station hot-swap.
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 92627a03b4d1..9fd36339db52 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -84,7 +84,6 @@ enum class_map_type {
- };
- 
- struct ddebug_class_map {
--	struct list_head link;
- 	struct module *mod;
- 	const char *mod_name;	/* needed for builtins */
- 	const char **class_names;
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index a18f4bc63473..94a66c8537ab 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -45,10 +45,11 @@ extern struct ddebug_class_map __start___dyndbg_classes[];
- extern struct ddebug_class_map __stop___dyndbg_classes[];
- 
- struct ddebug_table {
--	struct list_head link, maps;
-+	struct list_head link;
- 	const char *mod_name;
--	unsigned int num_ddebugs;
- 	struct _ddebug *ddebugs;
-+	struct ddebug_class_map *classes;
-+	unsigned int num_ddebugs, num_classes;
- };
- 
- struct ddebug_query {
-@@ -149,12 +150,13 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
- }
- 
- static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
--							  const char *class_string, int *class_id)
-+							const char *class_string,
-+							int *class_id)
- {
- 	struct ddebug_class_map *map;
--	int idx;
-+	int i, idx;
- 
--	list_for_each_entry(map, &dt->maps, link) {
-+	for (map = dt->classes, i = 0; i < dt->num_classes; i++, map++) {
- 		idx = match_string(map->class_names, map->length, class_string);
- 		if (idx >= 0) {
- 			*class_id = idx + map->base;
-@@ -165,7 +167,6 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
- 	return NULL;
- }
- 
--#define __outvar /* filled by callee */
- /*
-  * Search the tables for _ddebug's which match the given `query' and
-  * apply the `flags' and `mask' to them.  Returns number of matching
-@@ -227,7 +228,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
- 	struct ddebug_class_map *map = NULL;
--	int __outvar valid_class;
-+	int valid_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
-@@ -1134,9 +1135,10 @@ static void *ddebug_proc_next(struct seq_file *m, void *p, loff_t *pos)
- 
- static const char *ddebug_class_name(struct ddebug_iter *iter, struct _ddebug *dp)
- {
--	struct ddebug_class_map *map;
-+	struct ddebug_class_map *map = iter->table->classes;
-+	int i, nc = iter->table->num_classes;
- 
--	list_for_each_entry(map, &iter->table->maps, link)
-+	for (i = 0; i < nc; i++, map++)
- 		if (class_in_range(dp->class_id, map))
- 			return map->class_names[dp->class_id - map->base];
- 
-@@ -1220,30 +1222,31 @@ static const struct proc_ops proc_fops = {
- 	.proc_write = ddebug_proc_write
- };
- 
--static void ddebug_attach_module_classes(struct ddebug_table *dt,
--					 struct ddebug_class_map *classes,
--					 int num_classes)
-+static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug_info *di)
- {
- 	struct ddebug_class_map *cm;
--	int i, j, ct = 0;
-+	int i, nc = 0;
- 
--	for (cm = classes, i = 0; i < num_classes; i++, cm++) {
-+	/*
-+	 * Find this module's classmaps in a subrange/wholerange of
-+	 * the builtin/modular classmap vector/section.  Save the start
-+	 * and length of the subrange at its edges.
-+	 */
-+	for (cm = di->classes, i = 0; i < di->num_classes; i++, cm++) {
- 
- 		if (!strcmp(cm->mod_name, dt->mod_name)) {
--
--			v2pr_info("class[%d]: module:%s base:%d len:%d ty:%d\n", i,
--				  cm->mod_name, cm->base, cm->length, cm->map_type);
--
--			for (j = 0; j < cm->length; j++)
--				v3pr_info(" %d: %d %s\n", j + cm->base, j,
--					  cm->class_names[j]);
--
--			list_add(&cm->link, &dt->maps);
--			ct++;
-+			if (!nc) {
-+				v2pr_info("start subrange, class[%d]: module:%s base:%d len:%d ty:%d\n",
-+					  i, cm->mod_name, cm->base, cm->length, cm->map_type);
-+				dt->classes = cm;
-+			}
-+			nc++;
- 		}
- 	}
--	if (ct)
--		vpr_info("module:%s attached %d classes\n", dt->mod_name, ct);
-+	if (nc) {
-+		dt->num_classes = nc;
-+		vpr_info("module:%s attached %d classes\n", dt->mod_name, nc);
-+	}
- }
- 
- /*
-@@ -1275,10 +1278,9 @@ static int ddebug_add_module(struct _ddebug_info *di, const char *modname)
- 	dt->num_ddebugs = di->num_descs;
- 
- 	INIT_LIST_HEAD(&dt->link);
--	INIT_LIST_HEAD(&dt->maps);
- 
- 	if (di->classes && di->num_classes)
--		ddebug_attach_module_classes(dt, di->classes, di->num_classes);
-+		ddebug_attach_module_classes(dt, di);
- 
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
-@@ -1391,8 +1393,8 @@ static void ddebug_remove_all_tables(void)
- 	mutex_lock(&ddebug_lock);
- 	while (!list_empty(&ddebug_tables)) {
- 		struct ddebug_table *dt = list_entry(ddebug_tables.next,
--						      struct ddebug_table,
--						      link);
-+						     struct ddebug_table,
-+						     link);
- 		ddebug_table_free(dt);
- 	}
- 	mutex_unlock(&ddebug_lock);
--- 
-2.53.0
+I have recompiled the module with the following patch and now the warnings
+don't show up in my logs when I attach/detach my docking station.
 
+--- a/drivers/gpu/drm/i915/display/intel_display_driver.c
++++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+@@ -262,7 +262,7 @@
+              goto cleanup_wq_flip;
+      }
+
+-     display->wq.unordered =3D alloc_workqueue("display_unordered", 0, 0);
++     display->wq.unordered =3D alloc_workqueue("display_unordered",
+WQ_UNBOUND, 0);
+      if (!display->wq.unordered) {
+              ret =3D -ENOMEM;
+              goto cleanup_wq_cleanup;
+
+Can this fix be merged as is, or should I do other testing?
+
+Kind regards,
+Kim Hansen
+
+--=20
+Kim Rydhof Thor Hansen
+Rylev=C3=A6nget 22
+2880 Bagsv=C3=A6rd
+Phone: +45 3091 2437
+
+--000000000000380162064d60100e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>It seems I am still having this issue, I had ghostty =
+and Slack freezing on me the other day, and Claude pointed to this issue as=
+ the root cause.<br><br>The reason it pointed to i915 was lines like this i=
+n dmesg:<br><br>Mar 19 01:32:41 aleph kernel: workqueue: i915_hpd_poll_init=
+_work [i915] hogged CPU for &gt;10000us 2051 times, consider switching to W=
+Q_UNBOUND<br><br>Hardware: Intel CometLake-U GT2 UHD Graphics (i915), kerne=
+l 6.17.0-109014-tuxedo, Wayland/GNOME/Mutter session, triggered by docking =
+station hot-swap.<br><br>I have recompiled the module with the following pa=
+tch and now the warnings don&#39;t show up in my logs when I attach/detach =
+my docking station.<br><br>--- a/drivers/gpu/drm/i915/display/intel_display=
+_driver.c<br>+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c<br>@=
+@ -262,7 +262,7 @@<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto=
+ cleanup_wq_flip;<br>=C2=A0 =C2=A0 =C2=A0 }<br><br>- =C2=A0 =C2=A0 display-=
+&gt;wq.unordered =3D alloc_workqueue(&quot;display_unordered&quot;, 0, 0);<=
+br>+ =C2=A0 =C2=A0 display-&gt;wq.unordered =3D alloc_workqueue(&quot;displ=
+ay_unordered&quot;, WQ_UNBOUND, 0);<br>=C2=A0 =C2=A0 =C2=A0 if (!display-&g=
+t;wq.unordered) {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =
+=3D -ENOMEM;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto clean=
+up_wq_cleanup;<br><br>Can this fix be merged as is, or should I do other te=
+sting?<br><br>Kind regards,<br>Kim Hansen</div><div><br></div><span class=
+=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
+ignature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div>Kim Rydh=
+of Thor Hansen<br>Rylev=C3=A6nget 22<br>2880 Bagsv=C3=A6rd<br>Phone: +45 30=
+91 2437</div></div></div></div>
+
+--000000000000380162064d60100e--
