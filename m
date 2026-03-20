@@ -4,86 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FBF8F483C7
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97C31F483CC
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CAB510E521;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 672A310E524;
 	Mon, 23 Mar 2026 16:03:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="c+wULDJl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NV6Ysiew";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E6F610EC12
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:13 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-464ba2bb3aeso1296980b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:13 -0700 (PDT)
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0017810E102
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 23:30:22 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-64e8cdafeffso3679365d50.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:30:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774049422; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gV+b1kY2YXNIv1aUYdf4eHE1JiK+HjpSBmdfjIGeTDPnuFyLIUrtVxHScZ/Ac4iPMy
+ xYNdADUlDIsRBTcm1dgKgJYDAyHbDVhpgHsuUF7mhBAzrA+cLHah50NjKZnqGjgU+AKm
+ cKSFLKT5uJp3oUQbtxREojgAQtIF9n6WPfrisQwv6zzd1k7f40ixmO7HR68wUsheCOtf
+ f8xglMBGF+Ej77HJ4RtYPjKPvUjM0zcBW5P6DS+Sez2S+MO3KqbHvWcrsDS1PNMWBfvg
+ R9tEpK/jqTH2PT8Hq8pqdOpyOpDKsQ9BDxd/LT+lNJCS/GhfWExhQ0lzR+ed+Vxo6lul
+ A4RA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=gGm27wM+81bWCfb+V5biCQ0jTOal6htbF3yNa3Lpemo=;
+ fh=7F2qUd8J7L9oLcuFZ7Prap9tgM02mw2Yl1ipKEz8Jxk=;
+ b=dql9ng5UCsK6PVRmyQCZQq3UfVsgNa3x1J9Dny4ehCnCqavdUsTZIKt76JWqNs9g7Q
+ aezF/1tEgBP2c9y4S5JmEg95y0GUeCD0uTl+XegRlPF5BszxBf14UyknZHK9dU0hnFpf
+ 0Q5n7GK8WtLex1kejkjnSP09CvYZmOXEGtmJ3zSA5HpbSAVv1JU2Ghl9gpF71rsJhuU5
+ bMesJBrlrDtLqIm7xQI7m82oCBSsoKImuqHGXIYhoBnW9q2KeAfAGtc/8zkAvskVFMqK
+ x/IYs2MZRdIiI24mjeLG2SCHFEYCYfGKaiSFxY78Xpq3c0nyx8Kx3zpJbKr1Z5yzWjd9
+ cQsA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408252; x=1774013052; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1774049422; x=1774654222; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ctYWbn5zpBxXKFAUFmjBfsapEiOXJnCJVZtfjZFl2eo=;
- b=c+wULDJlfHph7p2oCOqbbfRX9rrZpxRpgfnR/mFKfv86NGGscjA0sy5CI4SFN7LFPo
- Z1oG4MPg+RZafDhT3s4Bvz8GXhWEcdd2Kad/6teKHVL2XQwWo/MgEoT7ykJZHL3uxdqE
- JllTXJSudradDk+TL1cxktNZcwkOUIVc98/rWL4JfOrY1yWtU+QMT7NDENqe7TFMsqIw
- sH7ws06WF36i6zzlIa65iXnD8CYCvgYZzO+dY0OH6/m0F9BAQPKlT5/sW9+J582CO8pn
- F6nBqWUp4sLG3KWnoCDczPjKC/Dd7qf4i+K7tXSiMMO53QW0SaM4BghnVnx+CdbOg3B4
- qr5A==
+ bh=gGm27wM+81bWCfb+V5biCQ0jTOal6htbF3yNa3Lpemo=;
+ b=NV6YsiewSSNPsqrX7X4BwL3zNJeycxL/qa7XszUSuZhIOJSGUXNen3VFEAs8/cYSzU
+ PXo0WfxCOAVqheJUGRr6P+TS3ECcHuFmuC2Bvy6SigneanYEKswbPfO3hC727hu/k1BO
+ EQ01a4myHwGl5Sp2rGoFmOuMPc2zbNfxjbynkOLwWHAlJNaZzkjbO5Llg7qL63F2u0L0
+ J4U36Ar/HHykSdMKoi2pdyKZ6sLuVVGLFRD6OOGDw+44REH3qrN+acvNdP+3yvql2c5R
+ G5RodL2tEeU9HM++mSORBl+bzk+tw5azZHrFU8ofNZ+fs52I7BrVIVCnYIixskQSD23h
+ q8sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408252; x=1774013052;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1774049422; x=1774654222;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ctYWbn5zpBxXKFAUFmjBfsapEiOXJnCJVZtfjZFl2eo=;
- b=CRmy06+qI8YmyzZ7EODYv4Opac9JE0gzyRUnNAT7Rfw6X9HpsA1U9RexBAvU152kIV
- XrS6u9x+cqc72f4/lM9jYGJs6fyLRw+i0NekHXKRAy71Htrcpc669VuibrDN7Jjg67Bb
- 3JS34BN4vpjwAx8Ti1ufS5Xeed8ecuHRTvMxGHuI23m48ihd0ZFlPzv2M4Y17IWB2iAh
- wF3tqvYHrbN1Va8SnMiX8WBeSg2R8YxbmoTtY7H8LYICsSkVq44CwaatOfL3GhPSaozo
- TaLPmW6MNcZDhVlv19LEcLpl7Bps3IXzmfHuMdnmXwuY6vRk4R98Op7CdlbIcbj0/7O+
- IZbw==
+ bh=gGm27wM+81bWCfb+V5biCQ0jTOal6htbF3yNa3Lpemo=;
+ b=VVMjyUSg8PBsbrMsJSbttNXpPOf6qlGRn3dFfU3vbFlHEq1/X0MeGXR+FYu0441Yxs
+ GtRC2kVXqpe5CHUFferVtftozO2KxairzJq7R8K4ytd296KfZHLE5YTMAFK56VDpuCs1
+ ee/Dcrs40V35w1q+FcjRFRTjFPExiVVwKN4M7oPyYzczcWQNByCvk1jbG07cFN2MKTgK
+ fIGoCo6OQRJcldGikMVhXOZco+KY8RJaM86dOb1cLiFpMSIvrM2GKPg5qoryn3kp2A0T
+ m5oSn+x4qnIbYXj22oAAh1YXQfiVjXIUppzQfgaxH52L5XNj3wLLUgaclOCjFOwsWXMm
+ SZIw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXU+7JZsBaSF0cYY0Hapfolc1fah0pPvloeYUwDbQpqr5sB7uuAwbpNyaHt5xCPAbRpdLfHrYZupFs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOyKctZ6zxrwz9cpK98mgBCekyJ25/RR1yBENXWxPbyWb0CiND
- 0dgpVdglPIMVIgzxSy1WHPCNBmNcT7PqWHBpnW8PpmdmsaAzem0YKeOb
-X-Gm-Gg: ATEYQzzpN3JvS9DfSeyzYYGiyMDE0B8R+MoHPxtphT/EfmZmaxmaB5pu68jJPsQQ5l5
- NcMGd1XQBpRoYKVQa8jHZvTk59EVSmaV+eNMvf2lCZIcOS+N0viPlw+k3dIaQ/XKZzTPAcfoAEC
- /moJcqrf7g6Pxb8J0O4F1DTMmh8EKgS8On9/lgP9E2eRjqP24XQjhhHMk4cAcm/Pwbn/Js3fje9
- OMsd+6fS7eHlR25p2F3oFMUymNnSrH8B72Ul6Iy3D3c3i/HdwpCXWg/xrc8XDUL7wltpvugDNS+
- akNIaFqJaT0mfOlF7vtBTrnprdWWs+yJJLE13KT/5WvehcpstvjrC7t4QzS+0fIfpdqAgVdRV8V
- /d2fjwPCkE8azkyHcnGY7pGq4ox2KVS5GN9iAH7Sd+oj59hMim6agQkb87SrrfUAslfJ2AwvCRx
- zKBfOfIydUt2AhVzwQeP6sXqCIL4WV25ICgABvi5IasOBN64+t
-X-Received: by 2002:a05:6808:14c8:b0:467:5f1:fcac with SMTP id
- 5614622812f47-4675552aa1cmr1830167b6e.5.1773408252422; 
- Fri, 13 Mar 2026 06:24:12 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:11 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 35/65] drm-dyndbg: adapt drm core to use dyndbg
- classmaps-v2
-Date: Fri, 13 Mar 2026 07:20:00 -0600
-Message-ID: <20260313132103.2529746-36-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCUHQN3gLO7NQpBgbGRQ7yHKkrnPV4uMBnJPESydb5ngjTANTxddPB8UY5fssjwwXbz/dfY7ssiBKlA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyb6DxtY9Tv5VFOjiRwUsMcvj8SD2QNGhVKxXvEzKeBf0gC/OKc
+ OD86MZ3vVTFQH7WfqRNf4kb3h02bev5bJfxUJgHDufAl+oroRMXXUUArga/26HZUwgZP9dIrvZJ
+ 55HIzwIQrFGokbBn5t1KTRuKwsS08wzE=
+X-Gm-Gg: ATEYQzw8qQSvsDwK9Skwk7ZsyYAG+pE216iNHeoMIJsdF/hQTHup5SVY1ebCjlTolXf
+ uJzz9LDSW5eHTZLICIwG9JsuEb8dsC43tbpl//DJMMvImXPP+b5EzfEhYfQj4PvB1XfQAWGSXPX
+ XGvH6M9JD7oCA0SnC5cOWAdjXPHdDBZ2WGqPD0dH9NHmEhBejqdDhJ24v+XkSSpSFnHAc2Zaae6
+ EyPP3KJeXJRxy6A3gNlDoKWWnFw8DDHXDDg7EVpfRwK49hw+0pGCyt3eYv3AyBqhdk9QRQGaEFq
+ tzhb
+X-Received: by 2002:a05:690e:e88:b0:64c:2590:e454 with SMTP id
+ 956f58d0204a3-64eaabf5724mr4407440d50.14.1774049421463; Fri, 20 Mar 2026
+ 16:30:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-60-jim.cromie@gmail.com>
+ <177402491476.6181.12723360930731783132.b4-review@b4>
+In-Reply-To: <177402491476.6181.12723360930731783132.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 17:29:55 -0600
+X-Gm-Features: AaiRm52E-e5beknCm0D3IoqJOtVzVrqihcI488lZobOssZKy_IBRdDrXcsBQ3Ac
+Message-ID: <CAJfuBxwihP5ANOqgEmQAJF_PcHsa54T7Urn486DqbOy6rtcPHQ@mail.gmail.com>
+Subject: Re: [PATCH v11 59/65] accel/ivpu: implement IVPU_DBG_* as a dyndbg
+ classmap
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -100,100 +115,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried to
-do too much.  Its replaced by DYNAMIC_DEBUG_CLASSMAP_DEFINE which
-creates & EXPORTs a classmap, and DYNAMIC_DEBUG_CLASSMAP_USE which
-refers to that exported classmap, creating a module dependency.  DRM
-gets DRM_CLASSMAP_* wrappers to hide the DRM_USE_DYNAMIC_DEBUG ifdef.
+On Fri, Mar 20, 2026 at 10:43=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:20:24 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > [...]
+> > Anyway, to play nice with DRM, we change all the constants, from
+> > macros calling BIT(X), to an explicit "enum ivpu_dbg_category"
+> > starting at 16 to avoid DRM_UT_CORE..RES.  This is all in an indef to
+> > avoid changing the constants for the non-dyndbg case.
+> >
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>
+> Hello,
+>
+> I have a maybe dumb question: if you enable CONFIG_DRM_USE_DYNAMIC_DEBUG,
+> then the meaning of ivpu_dbg_mask will change no?
+>
+> In one case you will have to use ivpu_dbg_mask=3D0x01 and in the other ca=
+se
+> you need ivpu_dbg_mask=3D0x10. I think this is very missleading.
+>
+> In this case, I think it will be way easier to completly change the
+> expected value for ivpu_dbg_mask to have the same behavior with or withou=
+t
+> dyndbg.
 
-The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they still
-redundantly re-declare the classmap, but we can convert the drivers
-later to DYNDBG_CLASSMAP_USE, at which point they'll respond to the
-echo class FOO >control commands.
+yes, it takes a bit more explaining certainly.
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
-this ignored a checkpatch
- WARNING: Argument 'name' is not used in function-like macro
- #70: FILE: include/drm/drm_print.h:148:
- +#define DRM_CLASSMAP_USE(name)
+The reason I kept the old numbers for the old way was to preserve obviousne=
+ss.
 
-the macro is empty, and correct. only 1 arg is expected.
+The /sys/modules/ivpu/parameter/<name> maps bits 0..N, not 16..N+16
+I didnt want to fiddle with the conversion, and possibly get it wrong
+(miss something).
 
-v++: fix old CLASSBITS/CLASSMAP comment
----
- drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
- include/drm/drm_print.h     | 13 ++++++++++++-
- 2 files changed, 25 insertions(+), 13 deletions(-)
+> In addition, I think this could be nice to have a "rule" like: "cores"
+> should use LSB for their classes, "drivers" should use MSB for theirs
+> clases.
+>
+> This way, if DRM decide to create a new class there is less chance of
+> conflicts.
+>
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index ded9461df5f2..d07e7953c9fc 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -56,18 +56,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
- #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
- module_param_named(debug, __drm_debug, ulong, 0600);
- #else
--/* classnames must match vals of enum drm_debug_category */
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+/* classnames must match value-symbols of enum drm_debug_category */
-+DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
-+		    DRM_UT_CORE,
-+		    "DRM_UT_CORE",
-+		    "DRM_UT_DRIVER",
-+		    "DRM_UT_KMS",
-+		    "DRM_UT_PRIME",
-+		    "DRM_UT_ATOMIC",
-+		    "DRM_UT_VBL",
-+		    "DRM_UT_STATE",
-+		    "DRM_UT_LEASE",
-+		    "DRM_UT_DP",
-+		    "DRM_UT_DRMRES");
- 
- static struct ddebug_class_param drm_debug_bitmap = {
- 	.bits = &__drm_debug,
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index ab017b05e175..b743ee3f8f5e 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -96,7 +96,10 @@ extern unsigned long __drm_debug;
-  *
-  */
- enum drm_debug_category {
--	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
-+	/*
-+	 * These enum-names are reused in DRM_CLASSMAP_DEFINE to
-+	 * expose them as classes in /proc/dynamic_debug/control
-+	 */
- 	/**
- 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
- 	 * drm_memory.c, ...
-@@ -141,6 +144,14 @@ enum drm_debug_category {
- 	DRM_UT_DRMRES
- };
- 
-+#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
-+#define DRM_CLASSMAP_DEFINE(...)    DYNAMIC_DEBUG_CLASSMAP_DEFINE(__VA_ARGS__)
-+#define DRM_CLASSMAP_USE(name)      DYNAMIC_DEBUG_CLASSMAP_USE(name)
-+#else
-+#define DRM_CLASSMAP_DEFINE(...)
-+#define DRM_CLASSMAP_USE(name)
-+#endif
-+
- static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
- {
- 	return unlikely(__drm_debug & BIT(category));
--- 
-2.53.0
+some guidance makes sense, Im not so sure a hard rule wouldnt just over-spe=
+cify.
 
+a simple rule would be reserve-in-8-bit-chunks.
+drm.debug has 10-12 bits (not sure exactly) leaving 4-6 for "growth".
+So I started IVPU_DBG_* at 16 iirc.
+
+Theres also some question if ACCEL should have their own set of debug-class=
+es,
+or should be reusing DRM_UT_*.  currently we have both,
+1 or 2 accel/* drivers use DRM_UT_CORE (but no others IIRC),
+
+ivpu had many, so I took it as a real-world example of the need
+for multiple classes (not just the test-dynamic-debug* scenario).
+
+This maybe isnt optimal.  But it might be premature to fit the strait-jacke=
+t.
+
+> >
+> >
+> > diff --git a/drivers/accel/ivpu/ivpu_drv.h b/drivers/accel/ivpu/ivpu_dr=
+v.h
+> > index 5b34b6f50e69..ef5a96b961fc 100644
+> > --- a/drivers/accel/ivpu/ivpu_drv.h
+> > +++ b/drivers/accel/ivpu/ivpu_drv.h
+> > @@ -81,6 +85,41 @@
+> > [ ... skip 9 lines ... ]
+> > +
+> > +enum ivpu_dbg_category {
+> > +     /*
+> > +      * since accels are drm-devices (CONFIG_DRM_ACCEL_*), adjust
+> > +      * IVPU_DBG_* to avoid DRMs 0..10 class_id reservations.
+> > +      */
+>
+> Here that could be nice to start the enum at 48, so there is a real hole
+> between "core" and "drivers" categories.
+
+Im unconvinced the distinction is that clear -
+DRM_UT_CORE is used in drivers, as are KMS and ATOMIC ( iirc)
+And is ACCEL classes core or drivers ? probably a bit of both ??
+
+
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
