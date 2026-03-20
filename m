@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E1810987AB
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D07F10987A5
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 16:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D094D10EBF0;
-	Fri, 20 Mar 2026 16:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDE0C10EBF5;
+	Fri, 20 Mar 2026 16:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RaVDsqxt";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="NHg1o9NM";
 	dkim-atps=neutral
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00CE410EBED;
- Fri, 20 Mar 2026 16:43:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0693C10EBF5
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 16:43:37 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 07E24C56690;
- Fri, 20 Mar 2026 16:43:54 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 6405CC5668D;
+ Fri, 20 Mar 2026 16:44:01 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 8314D600E0;
- Fri, 20 Mar 2026 16:43:28 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id DDDD3600E0;
+ Fri, 20 Mar 2026 16:43:35 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E9AE710450CB4; Fri, 20 Mar 2026 17:43:23 +0100 (CET)
+ with ESMTPSA id 7A99810450CB4; Fri, 20 Mar 2026 17:43:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774025007; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1774025014; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=u2irWJj0gSwo/hD+sJSAqBIW49XR+qilqH6rOzV9ckw=;
- b=RaVDsqxtLIOTib2L37VOLAxHyIiSoO/XNfNVWPmk0atNj7Opa5FznPSuT2xXzGO+9IXzQw
- 9hV89SA8Mw15WPtNFTgqQnXezbQGmqNTtASCdrTfquWKhO/FMUUuskAchIasLMyREPr2T7
- n2EwT3DKwrbbfkd+RE64tbjte/E8fpah8JVJGaRRyq4u89g8ezSI6lVtkHB0aVFf+gIgRi
- tDFEbpvglLwO1bYxcU2N6g7BFg0YCpwP5m501j6jzHOiq44F3SI+Oplrq/v3OUjdKmTv51
- VGjx/lwaTuojOFOY6KlH7ZctDRshovsk1bZUL4hL1m/h0Pg5ohRLTYnB3sAhMQ==
+ bh=31ASMBAKkCZvbIzzChCZn5t+eyClecR9X8s5jtDmP5A=;
+ b=NHg1o9NMEYO/YqP50q0DLf78w/7C9WTrG8BX3HhIMIhHA6xDR57nzHfd4yt8NGGRBZ79WF
+ tfhQD9pK926vJjbA22OyePC9uSOSCoE32/StlzqwW4ntiMh4TiAF4qLRh+Gr617zqtzCRD
+ ETSQxxgzZXTMEiH+XpdwQ1McYT1xeWLqJOmqRlVAaY61chGGSpc3CGYQGgSStA2RuICEuG
+ bsQ6cwtScKqiYSAevCm8e5R6fglXauWceaf7BsxN4JByGKHVTDO/6a+e57IVq3S9ZblToV
+ W6eqDCzH+zXh3TVpLQGQujbzXJ8Jgsg8ixtYeo1fdBgaZcgYr/AiuLqlJ442Pw==
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 56/65] drm-dyndbg: add DRM_CLASSMAP_USE to the qxl
- driver
+Subject: Re: [PATCH v11 58/65] accel: add -DDYNAMIC_DEBUG_MODULE to
+ subdir-ccflags
 From: Louis Chauvet <louis.chauvet@bootlin.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org
@@ -48,27 +48,27 @@ Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-In-Reply-To: <20260313132103.2529746-57-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-59-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-57-jim.cromie@gmail.com>
+ <20260313132103.2529746-59-jim.cromie@gmail.com>
 Date: Fri, 20 Mar 2026 17:41:54 +0100
-Message-Id: <177402491472.6181.11420545166040585097.b4-review@b4>
+Message-Id: <177402491475.6181.8616252067426369904.b4-review@b4>
 X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=347;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=801;
  i=louis.chauvet@bootlin.com; h=from:subject:message-id;
- bh=Wln1btqiOdoJL+aZuONw53NtRihFFb3e7pL78OtbwU4=;
- b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjb/S0Cb1DqZD01fiQm1l5B3flibTP4bl3Ew
- HbN1JQK0BaJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOI5ag/+KfYnSUH8Gi6lXGx5/guVM+nwH7SWzzd
- PdjdDfK7BT5YUNOaP+cmvCNAzWkH4B5d1p1j0ZaMvaJsE5wpv8oqXze4x95X014lWQ1I0Hyx8tS
- 0DdgkR7cBX15jhs0Vk2D/6uNseyavP5WJ4dUJCea+f6LrIWkoReg5ckmUotgvjLyftAadmD9JKa
- HKtDJ6THU2ethb0jK6ZxCEsGRSwJsxW7StL2qcEOFej+kzkt8iCSQ8kCGQBMegVLUPNnJmytFuL
- ELuLy2hl/KukA2G9oEtrtdI8xgAwJNQiyY9tR9oC3mocyCwGcr5JuNWKwsq8ccqPIj2cUKBJest
- AKv4cf6alhlnaIj7wzL+DxLMQAh16MGgwNEBOvRIWzysujDoQPROYsvzv9jQijk+dvLn4uO9G3e
- cCmBkDNvJr13aymyi4gfvHYrIhVkRnIMIVJ4XoAbwgcLvNZxuDf8cH/KtWAb2X08GsdK1pIoiFe
- vjicEPD0CL8ddFYnDjmp/BDRxyFs7L5pkuWa1muxdnMTDF1AcMXSiwmt0/rKHAa0MNNs1UWv81w
- uRgBMa6wTdqcZOk4fWhbwn0mlEfiAoI0HSaDsSoIqAdx1RnwuUQ02l2y3+am2iY8RPtV2meC2iZ
- keYqGV2XV9rj6EGjAKBllWOYRoVk/aUKTnl92yC42hraZV7se+Gk=
+ bh=X28ibDJAvuYjj7yiqUww7MeGkFuQWXoLEUYWDJtjJsg=;
+ b=owEBiQJ2/ZANAwAIASCtLsZbECziAcsmYgBpvXjbTOgnLMV490pkxQ5lFoXQ2Ia8lJTVcfSlB
+ XYlncmO3fmJAk8EAAEIADkWIQRPj7g/vng8MQxQWQQgrS7GWxAs4gUCab142xsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMSwyLDIACgkQIK0uxlsQLOITthAAw6HTYJqumqo29pNJSwsbdr0yjd2bqSB
+ ng1wMfJcbPGXE1S5bcKz9nFANQdA8zPbLQJWeW8Ptei3ymNmwq6ZYeQgPme6x9zpz1bNwGscTMo
+ 3Z5fcZaWnrDs1cqkr2s4D8LiBfWw6B2rmyl86war2CKsNRGQeTl+nNK4S7Rc5BhB/Zz9B9bE9q2
+ cowda5yEYUjFEBnjQtUeC1ie8aLxagYgbl9l+BgJ361Vd+rqNyloDHv8ic8EHiwaxaa5V5IcgXT
+ DX3B6WsFSWUN6Bm1FR/76RW8wj6spGansLDaXROOVikwJVNibKFlfl8FR3egAe5qs4nOlmmhPdq
+ yqsiFCQHxkUWHmHrzWWsnDHmIOGOTAkYW39IL4sX7deCuL2Hn5Z+/V4kDR8cC1f2bw3+Xldknpi
+ jAQaGWOyWrQm1f/mM8uF54txUaBB0TjBcsh8Ujxy/WcDQ6/M+LZAqfpvhmIx0LMI3wUZLOfc+RA
+ kSDeC2LOuXWoMYMpvWAw+x8/kj9wLk7251M0CbFL5Wc66ZIk66YgjYmOVFcdkC2eL2l9dhbtnT5
+ g/6vg2FMWBE+U8D/X4ciGxQ684Ew4uEsfedDGLgacHGc/XI2h1eK3se8o1N5lVxxVJLvh0G7OZy
+ C0wYCgNMJp/xQoJXxhLQOzJTrDrQXfvQh0YjwDuzHVbricXs+h5o=
 X-Developer-Key: i=louis.chauvet@bootlin.com; a=openpgp;
  fpr=8B7104AE9A272D6693F527F2EC1883F55E0B40A5
 X-Last-TLS-Session-Version: TLSv1.3
@@ -87,10 +87,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 13 Mar 2026 07:20:21 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
-> The qxl driver has a number of DRM_UT_* debugs, make them
-> controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-> that the module uses them.
+On Fri, 13 Mar 2026 07:20:23 -0600, Jim Cromie <jim.cromie@gmail.com> wrote:
+> diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+> index 1d3a7251b950..44db786ea223 100644
+> --- a/drivers/accel/Makefile
+> +++ b/drivers/accel/Makefile
+> @@ -1,8 +1,13 @@
+> [ ... skip 9 lines ... ]
+>  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+>  obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+>  obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
+> -obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+> \ No newline at end of file
+> +obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+
+This is an unrelated change, if you do a new iteration it could be nice to
+remove the newline.
+
+With or without this change:
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 
