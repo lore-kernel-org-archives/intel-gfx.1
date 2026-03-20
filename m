@@ -4,150 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADE91093177
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 03:58:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D30251093176
+	for <intel-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 04:57:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09B110E881;
-	Fri, 20 Mar 2026 03:58:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2B4810E87B;
+	Fri, 20 Mar 2026 04:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WjSqGQgh";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="U+3zs/jd";
 	dkim-atps=neutral
 Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010001.outbound.protection.outlook.com
- [40.93.198.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A004010E86C;
- Fri, 20 Mar 2026 03:58:52 +0000 (UTC)
+ (mail-westcentralusazon11010067.outbound.protection.outlook.com
+ [40.93.198.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61DB010E878;
+ Fri, 20 Mar 2026 04:57:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hgb4hx5j9B5EZXO4j1kpDpCrPz7r9wuFUIEaWt4u6yArC+HXMbjnC+fawt/P8jKQmqSZbBHpcR5kXy2IrHDQw+tti1s3nghMMy0PQpYAyHwha7CCaYWNH/9dUi5Px91ZbTovK9QfewfFYYtOsNhiANh7cLvsnAG1VHJMJjU1k8zoGvyQbS/0/BYlOS6GfuGEWwATH3GLevHY8HB6+xClmeaQ7vUmz5kYpXy77qEcp4hxnwjORRJkPvzNwwHhKiy5W/Mx9YArn4yo3jPUkOsv5dVJGe4i6ZgHNBS86GVYcEbR1yPImYbDVenhwBesD6r4/v9ZzIhuL3bMzz2O3qGHOw==
+ b=PRPi3rSJzr5cl0EpBJ14JMFGm0r72GEsy/X4pcPt21GG+C6r7r4NaBBV1xwqt1PAJJo3FhwIWgF5msxTSWx+Vuhb12KtyLdT4Lbzpk+Mt3h05i/ZkbTA5p7oHw4GHLBGl9FdXhfZ+8w4MEWalVl3/Zrj7bAMBztXl4nNj+e42i6DKT9ukeV0M3sN+FVzNvDCTsBZtbCDHXjTwENjLHCgguw20Bv4bOr01g7ts38en2gwuszlkAK4DvI/jwmIQ8XP+gPTCGZ5hX4gz9UVW3X86L57sEkPCtGCXyWkkte//qcUXL8DElfukRSvWw3KOlseEc3zGINj8IDIQaUjpxRBpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3tlLblkfYgEkE1wLy7+yWutLX3Jkp+j2N6yUcXaBwlg=;
- b=DJxx57HSxi9TQ4wcZyCbeXNLpdB3jXEMpTGRD1A7C/91Il67ZlGFs2tf31pQRUUCmPlSSXPTqgEnQZW0dQuE0U73rSn78UUcF5iDhs6m3GqZRrUacWoHCy5HzG2iYUbHNSV4y6ZuhQesthfHTv3k4QRbOTPq5QuBSI6jSrWD1TKrvrDrv7jG9gS10hx5gnBeSD3V69mdgfcejiJkfVLKYS0TO9LtzSIQHGva54nZUqZcU84gpGtSaRnsgkhkdIa/JCVvBOSS0c+AO+/6M37x5cfSSCOev5hT6geSA8J65hkta2J9DTyXR8kLsfQi6vA0WZj/pCS87jOiJNq3C1adVw==
+ bh=a8mu+hppfAii2Oy+pp+HkPKMm0NDU7Xfm+XwQ8L+2hk=;
+ b=nG8TZRw3aF4PYfC4673lqZaU/G0kL38cQ3hlva7DC4QZbC/xyVkEq00xVIn3d/a7jmIvc2ejeVnTdoBPEt7XR8/c/xtxXtjVx8JwTmclGCJ5i4JE7CKLTuRksvreQ/Bn8aop0rBn5OFzl3SDiCcV6RsYoTdSbWHDLsWtzhrn8uTC6yE5DWsaweethgCbApEe++AfF1y0ooTasXyt9HREGG+KI2lwCbbkNEXMc8GRlyN9sFpOfFlbSQYWBWDgYr06GNOGKoixz0aHa0Tz7/qcG1NNN5wk25POlS0wmh4kx9+1USS1ENwy/1Qu6G9Md9hSJG1wFJgsx6rpAZOW/rjehQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3tlLblkfYgEkE1wLy7+yWutLX3Jkp+j2N6yUcXaBwlg=;
- b=WjSqGQghzjlLLgyA98Bz6Syfb3KMudifW4ThpGT2u2ytVA5OwWUgPhkyN2crt57ow18r9ffsbaZWoZQoh1Rp4geV2YnRTjrS8VNPMJSPJX7OP4wdw788zzTvxF9mduWBg3s9YnVs/Ce6pP+++xfIbMZ7zOtKANImY+zNx9haRl8=
+ bh=a8mu+hppfAii2Oy+pp+HkPKMm0NDU7Xfm+XwQ8L+2hk=;
+ b=U+3zs/jddwjXCQOWR644T0hBKRPk5MWTOW/6n/Hnu3hkOMZ9K8JUMJyQM0hy+d5wKAPHvJv47jlJ4Ggfc2NAS0GsfRQO6pWhPJVl+C4rfkcOgdSMeik2zzKVNEe9ew0C8UTol/331ZsWi9tMqt1jfJTh2vJ0RyfgwMsvYbC/998R6YSESRCbfYGnAeTyP/ANgErNBUdWSTcq0rGHyuRNcZYyf0RN+Stnf0SQJm5bLTuOB4E5RNC80yqFm+y39LtgQyny91yXQqjYD8SDrYtXOp7asvMLpxd4coDCJlWsEX9Ds81LNP1Zz9tAguMKmbz68uCn3JpnpxFKz2NC6NoSow==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by IA1PR12MB6436.namprd12.prod.outlook.com (2603:10b6:208:3ac::12) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ MW4PR12MB7310.namprd12.prod.outlook.com (2603:10b6:303:22c::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.12; Fri, 20 Mar
- 2026 03:58:48 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 03:58:48 +0000
-Message-ID: <7476bdd2-be51-4444-b0ac-bbc1d3225d4e@amd.com>
-Date: Thu, 19 Mar 2026 21:58:43 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amd/display: Rename enum 'pixel_format' to
- 'dc_pixel_format'
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Alvin Lee <alvin.lee2@amd.com>, 
- amd-gfx@lists.freedesktop.org, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Ausef Yousof
- <auyousof@amd.com>, Bhuvanachandra Pinninti <bpinnint@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Charlene Liu <charlene.liu@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Chris Park <chris.park@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
- Dillon Varone <dillon.varone@amd.com>,
- Dmytro Laktyushkin <dmytro.laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Gustavo Sousa <gustavo.sousa@intel.com>,
- Harold Sun <Harold.Sun@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- intel-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Jun Lei
- <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>,
- Leo Chen <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Lohita Mudimela <lohita.mudimela@amd.com>,
- Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Wayne Lin <wayne.lin@amd.com>,
- Wenjing Liu <wenjing.liu@amd.com>, Yan Li <yan.li@amd.com>,
- Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>
-References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
- <d3b123a7d3192947e2eb4c33cd10cbaa8c79dfc1.1773629419.git.houwenlong.hwl@antgroup.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <d3b123a7d3192947e2eb4c33cd10cbaa8c79dfc1.1773629419.git.houwenlong.hwl@antgroup.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0305.namprd04.prod.outlook.com
- (2603:10b6:303:82::10) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Fri, 20 Mar
+ 2026 04:57:22 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
+ 04:57:22 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v14 2/2] MAINTAINERS: gpu: buddy: Update reviewer
+Date: Fri, 20 Mar 2026 00:57:11 -0400
+Message-Id: <20260320045711.43494-3-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260320045711.43494-1-joelagnelf@nvidia.com>
+References: <20260320045711.43494-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYXPR02CA0041.namprd02.prod.outlook.com
+ (2603:10b6:930:cc::6) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA1PR12MB6436:EE_
-X-MS-Office365-Filtering-Correlation-Id: fc3cfceb-3137-4af3-61f0-08de8634fd24
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW4PR12MB7310:EE_
+X-MS-Office365-Filtering-Correlation-Id: e9485529-7850-495f-1737-08de863d2bbf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|22082099003|56012099003|18002099003|7053199007;
-X-Microsoft-Antispam-Message-Info: OxteHf3qfv5BcWEMVSvmzj0FIgEsqfEuxH/hoNXVlFoT0uXk3E9tp258cdS5TI9DM8EHJl5APToSmU+/ucwZvFJdtRrbJU74MGVuNBRo/CN9G7m1YviMSpks0i2ixdhFzQT2nyZmML8jeOWA/B13sAgluSDgV9NCwcP4Kq2NyE2YNPkCzxEFaGlBiPISjW2QYhMihOAY4eXElpY9NeyZi8hlJeLvR6mbWRfdqOyaUJSejOG5BWuJ4BK9fT/h6hF9hkSXquQDowB3S6lC/KEh/qaiMp/5QpVzxb9yLXYlMNHGpwmmoZUJoIYaHW8ImmyLzK8uCKeVjTMPkC2XvQdHgxz2H8M8Z1R/PBpPUM3Vn3YySoemCgiXRAuWRMbA95KCR1UXv29GD0KG+4X6M7qXbPP0+kuy9OLDfh6gZ/WmYpPu2rb1YRBM91twpu35fpFgM651q0X2PlKFgsuTaOVwvOFj8QvXqRNPlDPwKndcM8O6czvAsdOWGFWeILMewSUUnUmcdW8Sbx7MN5atI9Cjs8SRHp6rxlpXwaThA6oNI1gHI0zslwJTEMYvmrxZ/ueQV9yEYRWUUV5wFIn/Ubn8OBxhN4J7vsvAXuxJmfkTV7SWFAkF/CCH8f0w7KxvVn/70gRTu1t1Uwgl/bcc9yEbzCi8jpuvxYtxnUf1tZZMVm5qukzPbGljm8YuHKYV9vuyZM3HtwzctLdTNaw5ZbC6NbArMy33YhZLvV3IwWGXDDQ=
+ ARA:13230040|366016|376014|7416014|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 5NRv5SlTofTouvo8muntGYxwRnIsMZymESPpNt+OY7HxGb6YOxN92EdSg9IDedMuw8uvX5IiLtygalXgsG4pKkjzvBHbsADVGPIWWeFnRifTPnMu+g57qVPQKLcJ85Adu1BLN1bvNvBLTIaeBXXGUaWcjvetniXDiUEBQUcV0SAy1s+VUi5nFVD2cORnlGKmiTghVkOCZn8rskAVFOYexfrsCKgA0hy8/YxslA4ceAmJCbMo1n7sfZHRHV67HANuRb3/ZdKSjNJRgb0a/dHfUwWXsUoI+P6lIMgeWeqSdRIui0AyLZ9L0DKJRIbhQF+GHIaZRavI84pX4CLVoCoz9oHdKYfOGyyNvTkRvbuOCqi4Rt0Fq4EO46SqnaAwKz1S4mfkV/HLH07hXu0IDF8WpU6h4/sVZCm3mqyNMCSP77xgcCMUV6w0d4UIxfoxSEnRuKbnXAWZaoQJjQXfdIG0CrURfAkYENwLlc6i+9Ca3VFTlUWLovKdZDoPj5vZcSaHIoPGiAxjoG6F7hAcIOaJHdZyz6JOsZzQv41FH3VEiLOtGozpA3Onsy+CffqR7q8gKC2AFyxf8lSBkP3H46mstbDEDOKEhdYOBxXZZdD28cl6rXuoI7aO6S3eDXjpdi9Hd+SwcK7bt/P/+Bdo8o7C/BNvSu70K0MInCS+Koq3EjqhG8AhItXi6Wvmspf+pKdlG4wpCG+1ho98FzVe4zwB2/4yyztgPMINLqOLv9+nZBPWFN+aeQpEX8X5PGfgTgUz
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(22082099003)(56012099003)(18002099003)(7053199007);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L2U0REtIYm5ES3JRbW9rK0E2NG4xMzNZM1BoMFdMRGEyVjlhRFZ1cUh4TCsw?=
- =?utf-8?B?eWhQZmdQNWdjNUpKSVBLV1hQd0pzMy80VjYvM0N2Sk9IVml0OXBla05oK21p?=
- =?utf-8?B?L3A1UVBReVo1dm45aEY3Y3dib1BqR3dsVmJoVlFtd2xBU0xUbUVYd002OTFz?=
- =?utf-8?B?dW5aMkpIQ2VhUkMwcWFwT2pYeGQxV2VNN1A0U0x0MVNOZi8wdDNRUGdZbDBv?=
- =?utf-8?B?OGE5dCtwNkpVTDRYSHZ3NVBINDY0QmhJbWVabnpJK0RPYkprT3pjWTdoNnJM?=
- =?utf-8?B?ZkRXWHhleWRmL0VoY3h6bjArNzM0TUNnbS9wYVhTQm81SnNMVUhlMnpadk55?=
- =?utf-8?B?VlUrUFNOZUlpaHZ5QmNSTVhGSC9HWEYxYUN2Z0FKR2swTXF4Z3ovYXYxQVh2?=
- =?utf-8?B?WWhQVnJjdUgzcFhQNjU2WW5SWFkwRGgrNEdNTmM5M3ExZEEvV2o3TnNnNy9T?=
- =?utf-8?B?Rk5CakY1Z0xJUGJmdkxZdlF3eVk2NnFZMDRFdk5HMlgvU1pvZ1RFbFRSdzY0?=
- =?utf-8?B?aGJYSmRITzJFZzh6azZLZyt5NDN2VE83Zjd6VUQ2dERaSGx2Y2tuZ29UV2Zo?=
- =?utf-8?B?VUtidFpZenZqNVdWc0JIOEVuRzZQaUowekhTOTMyejVpcmpQTHpjKzBLaHNy?=
- =?utf-8?B?S082YVF4ZWZTbUtibTlpcCtJeG56MWo0UlpZTmxVWmUzbm5TNFQranR1SVZ0?=
- =?utf-8?B?V0kyM2FlL0dDNHFGb3dFM29hd2RNbjlRVG5ENXduNmRDK25ueVk3eVNxc3VE?=
- =?utf-8?B?L1lYYzFrZUx6ZWpGUm5TV2E3YkhjbW5PYUFrNjYxb2FWV1A4ZUtDOUJXYnpI?=
- =?utf-8?B?TUdIcVdESUVubjBkTWdKTmp0T1h0cnc1UHpDOUx4Z3NiNlBQUWJJeXV5SndF?=
- =?utf-8?B?bUN4dWdhaHlWZTVxc0dUYU0zMXZ6MnFlcjFjLzN2WEdtaVllZGthNFVsTm1H?=
- =?utf-8?B?bVcrNXE0NHRMY3VUYXZqb0gzbkdlZENtSUp4Wm9TWGoyZlc1STBELzhnd3Y1?=
- =?utf-8?B?V1JvUkRMcUhjVWl3Rzh2RWsrb0x0M2ZPb0QwUVJrdW9yUXo0ajhoNHFyK1NJ?=
- =?utf-8?B?YlJQa0FZVmgzYzBjSVFJZ2FOYkY2QUY5MjF4THY0UGFGMDl3eFhoUG5qSmw2?=
- =?utf-8?B?Rkd2VTZBTlFTNWZWVk1pV0dzdkZRRmo5MEx0eDlxYVZMTVNJUFd0MU1FUVJ4?=
- =?utf-8?B?ZGFlY2RQRVV3WFJrNDNJRlFqRnNJSlk1S0ZqRldsTjBLbnExYzBpMFV5Wk9y?=
- =?utf-8?B?d3MyUFZ6RTZrRHlsR0RabEVwK0J2NVlaZVkvbXhqdkJsV281L293OEFUeDNK?=
- =?utf-8?B?cmJhYndET3NicHBkRS9URFNoV05QRjZkRGVNTnZVOUN0WE5odk8xakNtNmRN?=
- =?utf-8?B?NCsxSXh0Z3RPZ1Y1NzNzeUN6cWdaN3oyTkl0anZJU21Wa2VRS2JEZU12emFF?=
- =?utf-8?B?YUhhZy9ISlRHWSt5RmlydE8vMjZjcTgyRUlaTkdrSEd0bitFQlBNSjVNMVQ1?=
- =?utf-8?B?TjhLTkI4NXF5SEhORXlMaTFNTVRhVmo1NHR6MXMzMllLWUIyUFBEMW5LZzFU?=
- =?utf-8?B?UE1EVUNjZTM0RUlMQWpnZkZON2FGbWF5SFFxTWE2RGcxSW9tZDFHYzQ2QmpM?=
- =?utf-8?B?TFd2YVNtdUpXdWdFNUZURzFNRjF2bmZQM2ZXMUVRZklHV3lUN2FnQXVtZDhJ?=
- =?utf-8?B?VkN5Q2dzdjBSMTZ1aW03SXUrY3FpZUdxVTliTEp1MisrenZlV3B2aE01QlB1?=
- =?utf-8?B?REFFSVUycjN1Z2RzM2c3bFZTSkM4UXByQmJ6eEQ3eThNVFVOeGhCc1U1Lzhq?=
- =?utf-8?B?VERiTWNLSVQxMWk4RC9TVkVzVVhoTC9LNm94Qzl0WkVTM0lDdStOc2J2eXJj?=
- =?utf-8?B?bmczc0dXSmNlem92SXM0Q3ZmcUJ0Sm5JVldIbk9yQ1JaQUJhSlpiN0paRFFN?=
- =?utf-8?B?c0M0NEFVNzlqUHN6aFYvQm4wVHFFbHNNOFM3dElNZUZJVGk5Uk16MDBVWS9M?=
- =?utf-8?B?YzJTTTgwcW93bkdmM1JjVGpOZGZvYnRsYUhuNkpaQitlYVRucDd4b1FDeUx4?=
- =?utf-8?B?Q2daQklrcjVLWjczMG91Y2lWVURnbzcwUlVmeVRxTEswR3AzREhGLzRKSngv?=
- =?utf-8?B?WkdvQUExaGdsNmZqbFRhYm5sNzFCQzVXMG5BTVMvVjZVanNlU24zR2JVYXlz?=
- =?utf-8?B?cEh2QU92K2tQN2xWSkUrRjVIdlZETDFzNmcwR3d5d3VUcjRhMDBQdzBQRitX?=
- =?utf-8?B?SGo2MmpLOHB1WmYxTlpybXRpKzNFSUxXMGFEeTFXZ0lZZ3J6M3FrR1dOWk5D?=
- =?utf-8?Q?XDrCHE6+Kf3GLijj6f?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc3cfceb-3137-4af3-61f0-08de8634fd24
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?R9t/lRGLwrIKX/hnCRZifh7IQLBUJSy4nRPa7l4hdppTEyAKOVHdSYfbVxp3?=
+ =?us-ascii?Q?0bxFmpoWT7V4wS02g2hFzb7JDPGuDeDTaBnHjU2mMm6oNEKi9zjH3elnp7LV?=
+ =?us-ascii?Q?3RQ+d4OjhkIvp2KStoKFCiXycEaEGW2RTz735PbpVtb25wtEcQX04LgyxMbP?=
+ =?us-ascii?Q?DfVe9jYTY6veg0/R/IPj8l9f5CPhtljOxqjVcrWdIq+9idv4yOjucogyFt59?=
+ =?us-ascii?Q?bo7wxn1mWlUfVF+sHnxd2bGIPkauIYRmMEokTcCzC3jpcQXcC1eIro9y9e/O?=
+ =?us-ascii?Q?qyJpOEgo0tFkYROBXxfsJr47qdBX5KCUBBIYuA/hV4uG87AJVNeKlzHhf5Ry?=
+ =?us-ascii?Q?U7dNTbjMbiSv5lLO4K75W0K1AK7HT0MSqG8aDQIDN/wiWYSEhjuVz/XZMjLX?=
+ =?us-ascii?Q?VqhTWetRHTecDOb062njZJsbWY1kb9NolwqdakhZQWCpIk9E1eG32x09nacX?=
+ =?us-ascii?Q?ryeIrnxaXqfPz9FfZet88LK1pDwhROJ3nHTbacqJjKHMdKuq63N9VXUiGmyd?=
+ =?us-ascii?Q?nnOUrLmlRWuZ5DBpoNDawp4CmpZ41A/4CC9HmaVAQzGnFd8a2LzNPOfvcIyt?=
+ =?us-ascii?Q?TYwaZSKcxhpvbZJxJJAiOA9RxhqPu/vqTOqx3nMucc+oEbz0YN29BcppGDmF?=
+ =?us-ascii?Q?mWiBHB7QCm4r3xU+m1mmGUMCvxqCx1jVYWO/J0psWIL1xy0WEahiSwb7RWtp?=
+ =?us-ascii?Q?FqcdQRcHc+otDV2gQMOjrP1lRDcaIp0hnrizejrkDNVm4B45hytBIWTt846c?=
+ =?us-ascii?Q?XQZrD2BI1DjTpD9tGYYyhkwgM8DUvMtls7kiitOvWYo3DcJprjFBcqOijw6H?=
+ =?us-ascii?Q?yeocttQab4NgFOqtd3bPVmTS0ppPoBmubSxpQkBrkiOV2MkeA6Ef/hnR8Wk/?=
+ =?us-ascii?Q?rAFmttrGEC1lIPKfrrBenJA16kLXlKBFzaJmMaxR3QZVcRtbrvSPzWp12oOq?=
+ =?us-ascii?Q?5I+hdXHsowbAcEK9jR1vhNuZJcwHMvkcjidqV68s4+eqHgY17LlKfDN/wzQ1?=
+ =?us-ascii?Q?urDifIZc6tDluUtSLYdw7lZJozt3jDHeUNZ6Sa1FZJastCvKD8ntJScfxsWf?=
+ =?us-ascii?Q?IwynoR2vJ0vgPojd6RD2gwkEzFdICKXL4D2nb77heUaApkZ16qRHTv04BcuO?=
+ =?us-ascii?Q?456TZ7+xN7+nwtQnsL/oL5A2q3pBWULBofMBIRvPGtJch4+3J8jFI1nOmVQR?=
+ =?us-ascii?Q?Wl5b7Ms6gMPaFGOulYwncxmnsOlY3igMDMoCkvO/LkSu0sjNcJ4xW/8wmYWG?=
+ =?us-ascii?Q?PNWoOQ5cKku2SShc6wckFFvQsPjBtvkzyX9oyNzrs59AYQq6d5+w4+jOGA6Y?=
+ =?us-ascii?Q?VWIi1tAa7+nGkLMCOdZq3wk0SOl32HijqQC+EGNVzNsBg+LRKEdfZYdGBBJy?=
+ =?us-ascii?Q?FcEUv+qnha2mZOhztdzCVBYhNPt5Bj/98fSHcFmbSv0fBY2Vq7sp+qeFZG3s?=
+ =?us-ascii?Q?kn2c9nxNzT+kG+IBMI9m3iUUpblZvCQT+2M6C9y6YpbJaq1o0KqKJIL4CuV5?=
+ =?us-ascii?Q?Rn2NlRhlUdTbPisojYGifvem/mEP/lv/vuS1Z/npR4cRbaIH/AmExRQFypAp?=
+ =?us-ascii?Q?2XRDuhWVYHfEY//KoAIrsmcYY3iurPIFJhdlXwsv0XQ/gWtJli7nS3DHka4D?=
+ =?us-ascii?Q?fn8yD1BNJuN+cRUk3DxqzSJUBT1wh0cRR2CtmgXySjbrDYx5NK5enymtON1b?=
+ =?us-ascii?Q?lW+FQrZPqjpcB18MiAD7qW7NtsTKkhH61+8b6t3/0wK3D93UCKWN+wSt0r4z?=
+ =?us-ascii?Q?k1ySq5qTuA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9485529-7850-495f-1737-08de863d2bbf
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 03:58:47.9055 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2026 04:57:22.0007 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xVWwqArT4+nz/wAJZcv/jK4BR8u7NyfV5gxT2dfnGEAAbEEMD6Y2nfB/dJpX49kphUuW1AIS7I6slIeRd3nugQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6436
+X-MS-Exchange-CrossTenant-UserPrincipalName: g7H+0Tye3VgnGs8DfSXkof5Jd0+yj4cJYAeHcnfXtdjG8rRMzfk0xpGFkRrZrydBjyDzkOLlUXYajtZwbaB+rg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7310
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,141 +160,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Christian Koenig mentioned he'd like to step down from the reviewer
+role for the GPU buddy allocator. Joel Fernandes is stepping in as
+reviewer with agreement from Matthew Auld and Arun Pravin.
 
-On 3/15/26 21:46, Hou Wenlong wrote:
-> [Some people who received this message don't often get email from houwenlong.hwl@antgroup.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Rename the enum 'pixel_format' to 'dc_pixel_format' to avoid potential
-> name conflicts with the pixel_format struct defined in
-> include/video/pixel_format.h.
-> 
-> Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
-> ---
->   drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 4 ++--
->   drivers/gpu/drm/amd/display/dc/dc_hw_types.h                | 2 +-
->   drivers/gpu/drm/amd/display/dc/dc_spl_translate.c           | 3 ++-
->   drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c   | 4 ++--
->   drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c | 4 ++--
->   drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h           | 2 +-
->   drivers/gpu/drm/amd/display/dc/inc/hw/transform.h           | 2 +-
->   7 files changed, 11 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> index 03d125f794b0..cadc52728108 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-> @@ -742,10 +742,10 @@ struct clock_source *resource_find_used_clk_src_for_sharing(
->          return NULL;
->   }
-> 
-> -static enum pixel_format convert_pixel_format_to_dalsurface(
-> +static enum dc_pixel_format convert_pixel_format_to_dalsurface(
->                  enum surface_pixel_format surface_pixel_format)
->   {
-> -       enum pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
-> +       enum dc_pixel_format dal_pixel_format = PIXEL_FORMAT_UNKNOWN;
-> 
->          switch (surface_pixel_format) {
->          case SURFACE_PIXEL_FORMAT_GRPH_PALETA_256_COLORS:
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> index cfa569a7bff1..81d12df8f54e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
-> @@ -218,7 +218,7 @@ enum surface_pixel_format {
-> 
-> 
->   /* Pixel format */
-> -enum pixel_format {
-> +enum dc_pixel_format {
->          /*graph*/
->          PIXEL_FORMAT_UNINITIALIZED,
->          PIXEL_FORMAT_INDEX8,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> index 37d1a79e8241..854d50ab1a6c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_spl_translate.c
-> @@ -63,7 +63,8 @@ static void populate_inits_from_splinits(struct scl_inits *inits,
->          inits->h_c = dc_fixpt_from_int_dy(spl_inits->h_filter_init_int_c, spl_inits->h_filter_init_frac_c >> 5, 0, 19);
->          inits->v_c = dc_fixpt_from_int_dy(spl_inits->v_filter_init_int_c, spl_inits->v_filter_init_frac_c >> 5, 0, 19);
->   }
-> -static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format, const enum pixel_format pixel_format)
-> +static void populate_splformat_from_format(enum spl_pixel_format *spl_pixel_format,
-> +                                          const enum dc_pixel_format pixel_format)
->   {
->          if (pixel_format < PIXEL_FORMAT_INVALID)
->                  *spl_pixel_format = (enum spl_pixel_format)pixel_format;
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> index 808bca9fb804..0d2c9fcd3362 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn10/dcn10_dpp_dscl.c
-> @@ -102,7 +102,7 @@ static int dpp1_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
->          }
->   }
-> 
-> -static bool dpp1_dscl_is_video_format(enum pixel_format format)
-> +static bool dpp1_dscl_is_video_format(enum dc_pixel_format format)
->   {
->          if (format >= PIXEL_FORMAT_VIDEO_BEGIN
->                          && format <= PIXEL_FORMAT_VIDEO_END)
-> @@ -111,7 +111,7 @@ static bool dpp1_dscl_is_video_format(enum pixel_format format)
->                  return false;
->   }
-> 
-> -static bool dpp1_dscl_is_420_format(enum pixel_format format)
-> +static bool dpp1_dscl_is_420_format(enum dc_pixel_format format)
->   {
->          if (format == PIXEL_FORMAT_420BPP8 ||
->                          format == PIXEL_FORMAT_420BPP10)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> index a62c4733ed3b..e2489eaf0004 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp_dscl.c
-> @@ -94,7 +94,7 @@ static int dpp401_dscl_get_pixel_depth_val(enum lb_pixel_depth depth)
->          }
->   }
-> 
-> -static bool dpp401_dscl_is_video_format(enum pixel_format format)
-> +static bool dpp401_dscl_is_video_format(enum dc_pixel_format format)
->   {
->          if (format >= PIXEL_FORMAT_VIDEO_BEGIN
->                          && format <= PIXEL_FORMAT_VIDEO_END)
-> @@ -103,7 +103,7 @@ static bool dpp401_dscl_is_video_format(enum pixel_format format)
->                  return false;
->   }
-> 
-> -static bool dpp401_dscl_is_420_format(enum pixel_format format)
-> +static bool dpp401_dscl_is_420_format(enum dc_pixel_format format)
->   {
->          if (format == PIXEL_FORMAT_420BPP8 ||
->                          format == PIXEL_FORMAT_420BPP10)
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> index a61d12ec61bc..b4a95807b73b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hw_shared.h
-> @@ -240,7 +240,7 @@ struct default_adjustment {
->          enum dc_color_space out_color_space;
->          enum dc_color_space in_color_space;
->          enum dc_color_depth color_depth;
-> -       enum pixel_format surface_pixel_format;
-> +       enum dc_pixel_format surface_pixel_format;
->          enum graphics_csc_adjust_type csc_adjust_type;
->          bool force_hw_default;
->   };
-> diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> index 5a1d9b708a9d..30990355985d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> +++ b/drivers/gpu/drm/amd/display/dc/inc/hw/transform.h
-> @@ -160,7 +160,7 @@ struct scaler_data {
->          struct scaling_ratios ratios;
->          struct scl_inits inits;
->          struct sharpness_adj sharpness;
-> -       enum pixel_format format;
-> +       enum dc_pixel_format format;
->          struct line_buffer_params lb_params;
->          // Below struct holds the scaler values to program hw registers
->          struct dscl_prog_data dscl_prog_data;
-> --
-> 2.31.1
-> 
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cd9505d3be60..3353cbf98be1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -8946,7 +8946,7 @@ F:	include/drm/ttm/
+ GPU BUDDY ALLOCATOR
+ M:	Matthew Auld <matthew.auld@intel.com>
+ M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+-R:	Christian Koenig <christian.koenig@amd.com>
++R:	Joel Fernandes <joelagnelf@nvidia.com>
+ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
+ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+-- 
+2.34.1
 
