@@ -4,85 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C87F483DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0692DF483CC
 	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99F9010E540;
-	Mon, 23 Mar 2026 16:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD8910E559;
+	Mon, 23 Mar 2026 16:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="RrrYxXJg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jOZ5g/GN";
 	dkim-atps=neutral
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8CA310EBFC
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:04 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-466f1c3c627so1552465b6e.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:04 -0700 (PDT)
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
+ [74.125.224.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5AB310EB23
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 17:26:19 +0000 (UTC)
+Received: by mail-yx1-f54.google.com with SMTP id
+ 956f58d0204a3-64ca423ad53so2496957d50.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 10:26:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774027579; cv=none;
+ d=google.com; s=arc-20240605;
+ b=K/dchNO2l55rjqwa/5Qd4esp0YsYoAKmjjJZGfltp5dv7/NxXYFLDlhn5vPhzgw00c
+ LO+OSh/704dyYrG8WCQog4rAzjsAJFBKPvR/Fp7w4V4Frz2B85JRJAhti/HzhCHrPq4i
+ kh+HJ8SV1iIutPgDpFrkiEBdn4TVVEYrcKe61DCtjOP9t1IcYvxFSztK01OTsKy7uaVv
+ sej//FjX9BallWp1+0hwOdjUcT+4LMThJZetSIXrzZYcEHGCWM0AH7SD3vBB6/Ko5x62
+ q9A40V4fg08pjb3LtZBNUoiJXxwjCS0cLExaDjU8wrdCfUZA1nagSbk/C2wzVwKUQ2iR
+ TubA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
+ fh=QJGSXL9GZ92a89+DlKsDvqMHPDvw/mwGVYWYDPlnIYE=;
+ b=FuyWc0rm8vGAc6u91wH3BYett1uOOHS0oUMHQWesk0u0+08ecInFC0rpLEVpb7N5z5
+ q9UJra/reTSiAWRzrlyXbGIV6Cvr8Yv18aiuWS50okJmYpyTnO1OjJqE+hGfRBZOpoCq
+ YsVoWAl4LYffIj4PtShZtP8NueP2P4jVX4mtkrVZF2fbbNtNdlTw63QFCHjWedsZRGBW
+ Ka+IW4PugwDgC8XzqvS5MNPYtFK1aETFVAPmzGRPPg6lpJk82wXEltgIBACotM3RKv90
+ zK+7Dhx1oBx4m+GrBY2bFYGc7BJBZFOtz453KMdhEBcijKkcJ4C2NbdaBkj0KcEWbDQP
+ fGow==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408184; x=1774012984; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20230601; t=1774027579; x=1774632379; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
- b=RrrYxXJgnrKWeN0l+QdbWnq5Foal5clfVF061dMEPL/IM3MbnAGcDokk5XsfDsB0Pf
- ZaD4/JHNhj4moCvr+tTmuJogZ8AOQnSqv/XXYAdwVOdUIy7r2ECME1QWJu33kD2mqJmT
- SZWQVO7le+P21RnaXTxcCazgM7N+Hq/zqArjHoZx+APjMzP8Q8clBLmaTIyvKE5F4Euu
- CQJNR3NY1yAfr3iyZHVAwkEJ/JQ9RF0VsiVO9Nq36PPJpHChW4W47JK3LUsi+yJRCa+1
- Qou6jjW3aYSuRUZASneMTonBOgeMgc2gD5YGQh/jIErfDK9XO4WsjtbVvfroqkgp6Cp0
- Z1XA==
+ bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
+ b=jOZ5g/GNpWjiPQn6fcUx6KHfCZmbLNDvmaIIfNDWYqBst4A/Hm1MOIpKJ6Y1cdFP43
+ 4cZ+y6hyacc6tVquPGlhlIpS00gUy610LH6OTWE4sa1vf7oJRWDJdDuv6XDydeFLb1um
+ +xWAWZ9Quj6DEsXC2wTJkzTDZ9qerrZRzD27n5XEEXcFLQTIlEkFaXB24t+wlwsMttuC
+ qLW9B9RIhvNxqh7IFMNiuJzOW0myTmSR/NJt0wU/rS4N3hPgo/yl5ZYoEHzTRugpwRZM
+ rwfK9aEVFkWH6B8Xu8r0qcNnEQd291q3hg+J9tC1s7u/2LrqpiZhdRLkxOADE8HZDnzD
+ 93JA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408184; x=1774012984;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1774027579; x=1774632379;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
- b=GEMWOYi6pPGltk7gp2pdw1RSvmj28NFRmt20KbcRcgsPOL4mPsNLkdnFO0umMwGWUN
- XWNzTThS0oIAlba7XH4D7jfk9YtBDHye93zNE0Kbm+c7yyCrtCDOXxuYDjGrvNz+BYj2
- vY689dT7xK6EY+/I60jfL+8j/naqfX5tPzgbF/QBwYyDxprfDvCpUoJqX6d7r1URTNlJ
- QcLF4SdW0agbkLBpdMgN1oeQt13hqFghBfx26JGXI9ozYOf8X8+RJHNenWRFVF/JwnI7
- CJ9S0zK2ODoGQM5+NzVo6uhy8yS2G0tOKm+VGWiJUH/zaZfCOyABWkIC6dqQshSXWe29
- 8PnQ==
+ bh=Tj3p8eyqsxs0jrqaosm095XCJBb6sVTFmtKJ+h8XxqE=;
+ b=itwFWUiU2YlMqO7Tiqh8f/zoxgYnnl1kzat42U7Ef0TD7BK97lSatd8ED6BgFkMvq8
+ TQRs6i+5aO09pbFd35UwpJtc2p0Kru+TFegUGHDm6zzxXX0kd0zLh6HK2WMLr3dVFsQw
+ 8YobXIb9ga0/X44hl69HZ1+APVby7d2v3mvLlwoxrpRYM14q9xNhQ/VXHu3y9gkYUxUT
+ J4+1KJFYA9mPADMqO1k0kxts/RTMKyRM4+l/YwtjoyPho3q85j6OTgW67HdqTD3vLOAL
+ /u/6/Xxx9MiPUPDYoRZjjGaJH/rl5mlY2EXHOQ9k+MDGInaez4sLSg+loj2V923e63/Q
+ Zqcw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWEA0cJMW2XqLA4j8034QXuOJspMvK7BI657rJUZW+odpAQA5nF11fucJZP3DIPIgrTc5iB2DFZM2g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTKEuzJIrUockYUD5eKi2y+D7fyVLbU0zIXOUdDL9adFg69ENV
- Sybf8cCUvRhB8RFY5C3QA/Wk3Zv8HzCOY/vT9FFSAha6s1RjBaZClo4n
-X-Gm-Gg: ATEYQzxQy80KOFOvGa6DoA/WaT2/kbcISzA4AB4wh/+6dnEV5tcub1LGXbrmjnqEIur
- drxQnWxobHI/EMXYlwsws0VqMImzczrbiwIHLY4/y2PIg5KvH6oQ6D8gOZlCRkD2P/DSXvliX+A
- zPdgVqkX3gCc9eMV7s8SduPfoIPX3nbiMLex5RY6Om83hoHjOl0EEiB3uaO2oIM8RDZQAyp1JkK
- qcx6sCdrcajFGBUXtMNFSWCc35uLn6KvSSVe57FrXRBcKvqcx80H33pLV5flyzKrqVkqir7cG30
- KRrMptXdJYD26IGr4UvX8p7dT2H0jMgU40Kc8eXtigjv0T2DJz4lhKnQy9S7gnd3C7X6g/DACpp
- 5Lyc7GWYGlu0FBI+bBJ2oF37oOKEqZ8e2Iuq61DqaXOPuSlubKHoHx4jG8F8iN9w0u4oGQK6Jn0
- t/7hHHMHh9INOeeLvIWGQzgV467uzCBLw8JDXmFM7KxNyfIoPx7Vjg3d8sKeA=
-X-Received: by 2002:a05:6808:1203:b0:466:fb74:1ec9 with SMTP id
- 5614622812f47-467570ef685mr1573218b6e.4.1773408183890; 
- Fri, 13 Mar 2026 06:23:03 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:03 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 04/65] docs/dyndbg: update examples \012 to \n
-Date: Fri, 13 Mar 2026 07:19:29 -0600
-Message-ID: <20260313132103.2529746-5-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCUeNLHG7nAJ94i/3Zk5htyv743WuiqvcWNiKmihVs8BFcz2RCZ5Fvbrb0CQlfvtGTBrcWf1hVWfEyY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyW0nX+Bhg5AF3oB4KRzdqYARtk81nno2AQKK3N0LfCfBy+zcE9
+ uN2pJzqiKbj1H20BbjDhSL4mtWCSh8Ar03wLtlgJ4qo0YMU90EHiIEsG0ZKwtmwc90Z/iH6PSgr
+ OvbtQxreA6x1JSgMWrRae9weVnwc3CxU=
+X-Gm-Gg: ATEYQzyODvsWxb4Jg5iE4dmVHEsqyPnPpnOZ4nr7pGqNdyccr/Y3cDRfWXVJIwLVe/A
+ qCTiifiQwomGbM8ObVUiMivYjihRIPt0HaUvQmbpOmtkLtC/qECB75TQfmFz9IWDNQKSGF/+1G+
+ W+chtHGesci7OrKmodKNAYvr0CRGcuN2LfHvxgw5k4WnUzTohSss1tQ9BwPODLmEtDBPTBCFujv
+ dbFMUqd9kviEnO+fIsZXMgfWRgzI6NQMU+5g69CLjE/BufQHWD52wUu5uoYvgQ7r++CTloUvMM0
+ fdrp
+X-Received: by 2002:a53:b6c5:0:b0:64c:9aa7:549d with SMTP id
+ 956f58d0204a3-64eaa78df37mr3443072d50.38.1774027578377; Fri, 20 Mar 2026
+ 10:26:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-2-jim.cromie@gmail.com>
+ <177402491426.6181.12855763650074831089.b4-review@b4>
+In-Reply-To: <177402491426.6181.12855763650074831089.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 11:25:51 -0600
+X-Gm-Features: AaiRm52mzW6EX86AA5Jjc_AE9pPFD7jbLjCUGPg_V9Sh6yOZDr0TEo5Rj5JOx1Q
+Message-ID: <CAJfuBxzYUdM=HJ1yc=bTCHuRfPSznRZCPdfq_hfJSW7zxk4pEg@mail.gmail.com>
+Subject: Re: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
+ alignment
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,55 +115,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
-changed the control-file to display format strings with "\n" rather
-than "\012".  Update the docs to match the new reality.
+On Fri, Mar 20, 2026 at 10:41=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
+>
+> On Fri, 13 Mar 2026 07:19:26 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > [...]
+> > smaller alignments, *and* scripts/sorttable.c does not tolerate the
+> > added ALIGN(8) padding.
+> >
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- .../admin-guide/dynamic-debug-howto.rst       | 20 +++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+More specifically, it counts records in 2 sections, and insists
+they're the same count,
+and there's no slop/extra space.  the align(8) broke that last constraint.
 
-diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 095a63892257..4b14d9fd0300 100644
---- a/Documentation/admin-guide/dynamic-debug-howto.rst
-+++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
- 
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
--  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
--  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =_ "    %s\012"
--  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =_ "    %s\012"
-+  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
-+  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-+  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =_ "    %s\n"
-+  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =_ "    %s\n"
- 
- The 3rd space-delimited column shows the current flags, preceded by
- a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
-@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
- 
-   :#> ddcmd '-p; module main func run* +p'
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =p "    %s\012"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =p "    %s\012"
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
- 
--- 
-2.53.0
+> > Reported-by: kernel test robot <oliver.sang@intel.com>
+> > Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.c=
+om
+> > Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+>
+> comments may be wrong.
 
+
+in v12, I found a way to use the makefile to conditionally include a "heade=
+r"
+file which invokes DYNAMIC_DEBUG_CLASSMAP_USE().
+
+In doing this, I encountered some lost sections (lacking a KEEP in modules)
+which I fixed by reusing the codetag.lds.h model, to make dyndbg.lds.h,
+which reuses the (now separated out) BOUNDED_SECTION* macros,
+and contains MOD_DYNDBG_SECTIONS(). which scripts/module.lds.S invokes.
+So, those comments are now obsolete.
+
+
+>
+> >
+> >
+> > diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vm=
+linux.lds.h
+> > index eeb070f330bd..a2ba7e3d9994 100644
+> > --- a/include/asm-generic/vmlinux.lds.h
+> > +++ b/include/asm-generic/vmlinux.lds.h
+> > @@ -212,11 +212,13 @@
+> > [ ... skip 7 lines ... ]
+> >
+> >  #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)   \
+> > +     . =3D ALIGN(8);                                                  =
+ \
+> >       _label_##_BEGIN_ =3D .;                                          =
+ \
+> >       KEEP(*(_sec_))                                                  \
+> >       _label_##_END_ =3D .;
+>
+> This affects a lot of existing BOUNDED_SECTION_BY. I agree that it is
+> not a big issue (most of them already have ALIGN(8) or ALIGN(32), but
+> some have ALIGN(4) or just not aligned at all). I think this can increase
+> the size of the kernel in other places.
+>
+> What do you think about a new macro or a
+> BOUNDED_SECTION_BY_ALIGNED(sec,label,align) with explicit aligement?
+
+Thats not crazy, but Im not sure its justified by the 6 lines that the
+_ALIGNED() variant would save.  It does add some modest complexity to
+the macros.
+
+
+>
+> > @@ -867,15 +869,21 @@
+> > [ ... skip 15 lines ... ]
+> >       . =3D ALIGN(2);                                                  =
+ \
+> >       .orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {             \
+> > -             BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)            \
+> > +             __start_orc_unwind =3D .;                                =
+ \
+> > +             KEEP(*(.orc_unwind))                                    \
+> > +             __stop_orc_unwind =3D .;                                 =
+ \
+>
+> You already noticed an issue here for example, and you had to manually
+> expand the macro to "disable" the align. This is error-prone, I think it =
+is
+> better to keep BOUNDED_SECTION_BY here.
+>
+
+I'll look at it - there is a stack of 3-4 macros that would need adjusting.
+
+> Note: I don't understand well linker scripts and all the implications, my
+>
+> Note: I don't understand well linker scripts and all the implications, my
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
+
+thanks Louis,
+Jim
