@@ -4,125 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB42F483C1
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:05:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70A97F483C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:05:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D767610E5B2;
-	Mon, 23 Mar 2026 16:05:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0FB7610E5B5;
+	Mon, 23 Mar 2026 16:05:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SP3day0O";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nKjWhvAP";
 	dkim-atps=neutral
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B8EE10E825
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:03:59 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso480754eec.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:03:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773842639; cv=none;
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com
+ [74.125.224.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF4F410EA70
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 17:36:34 +0000 (UTC)
+Received: by mail-yx1-f44.google.com with SMTP id
+ 956f58d0204a3-64acd19e1dfso1978058d50.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 10:36:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774028194; cv=none;
  d=google.com; s=arc-20240605;
- b=SV91dv17AIf4LYZ8zBUOJTS6pD4NgPe1g0X5dfAjjy9gIiJSiuvG34CVqDGPkhCYNh
- MmHOxREaM6pec0+J4N0o5A2+CJYBZ+iwer2QbU40BiTWgQQOmOkQTo1DUyuJfdCnWB+2
- xPPZLVYRX1bh5xVY1VQ5WPxpy0QO3WHARcfvleZSxvO65iw2DMBqA4l2MjJA8qsGVMmy
- Bv9Dc9jTo40Ful2ETrDhrqzt3fizwhTGExyKhtGscrcEaUo8mCe0BTXwkVpyVqYhp63Q
- zFTbyA49bmdGAFTcYaGSLKg5TQm+0BPkZlgikx40jN/rjm6wybMo7vRlbKEEmoV8+ZVy
- 6+8w==
+ b=eYHwR15VcEPMY8PJhHiJdCVaG2mldundJQ8l91ItWCLDO5qV7DlnTu5X+UwHijmIhe
+ NyggfqFOOwQzHozoGO9bSu9G8ZgZ/6gSlZlQQEnO81pgp/ucsrYriYC4yOJKgshfEEw/
+ zvbHDb6YruWW73oMoAn4t8XfB+UgV9yZCz5JU3WFfaEcjxPXPMV4WvcSot7rW07AyJyb
+ Q2pFAuecBhA5VwJW4ud9bFR3pUxkj8OYMklDfNU8y41yTOF4Uvs4xa8v58wpF5BHBvy2
+ 9DudvnGrtGORSCeQateN8JnPnuMhHzeQMRqNqatZZ9mEP9WgtyBG47/1VvUna/zdFUab
+ ZCeg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
- fh=/DkNFjAgGTPxdhojCktGLuxSccXa/K3UELnLVJe/SsI=;
- b=Ffq6YMu762G08i17ZSQQG01OGdsxBlegqrSiim45WJcwKn+J7nKkh+vE0u9k88TTl/
- VDUXzIdmlBYEqbOogkR13dz/1K7B/K6Qp2jt7i7OYe1oeDbAVrmiWcTKBbpJ+dwsbmFJ
- Y0t3BoFp/5BQ/UBRtcNFlxDVoYrGd0Gh0XBY2qkQnaeH/EgV1ActWgmY9zqP8ze038ds
- 3u02qjlL/srxce0mhc6fZnTzXo2ixT7dVmR9fa9YWI8+b9rrmgbx7uiX8I4CRLu2rBFe
- WY0TH+zIe3YjzCyFb5/Pr2VvK6ZgrRPUaUahkBhQiYqrBxVMTeKUUthLun9lOInCtnL5
- e+7A==; darn=lists.freedesktop.org
+ bh=BgGZTOzZCC8ovn7k66XyuhZliqBNi9YYaqpJPuy2zpc=;
+ fh=HFwP0yl3k/0CX24IszCpJLVJ1Tu+RIyMws6fdrjP0cw=;
+ b=CcTm0hraInwjbyO+SdRYCwyH93JIQnXKhY8iQNwBB4saVqya2oopaX8j0DCyVG8vH9
+ t4kWTcpTSHhFyje62XUjB5qCERUeNsQofOFq8wjmkU8SeRqaPtESlgS8NHfkxWJ7Ucol
+ +E6oNnnFdTxS6m5irTcoNOMEudjdQK5oCX2gZ8mt+Dyf611FHFW0AudUk329LaUWAkEP
+ vFDtYFJIBhYQOa2W9AbYTyTphmdc480u4t18AlDFkPxlJnyrrD5xPlL1Op0hnvgL97zs
+ D6wGP7nN3T+FTwLVGlFDOCo1bo9gS62nd6LQkTL+4wLqVGnlry13s9IgXIjVn9+icQvO
+ /n0A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773842639; x=1774447439; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1774028194; x=1774632994; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
- b=SP3day0Oj1/DjmRsdSyPMUjcp7kcdrq1r2LXRBcppvHqjaVbg2DfE3Tt2aO9sP+SCL
- FlumoOqH/KiCk+ke+0A+w6l4K+3rQA929h8DWAlc98BtNpAYgAM5ST6OUNaoZMfq3apA
- trVFMVqhsG6ESM3trF/LoKrJ1/QvbpZqLyM6iG6yLu4oSWMJnwadH7ovP3j6n7oDDf49
- YDFX1qOuZNNu8rCyHXzZ7857+F1qSq6KrjnCp9mHCnXNjnLWMoK7WT2TN1eg9UpToaiK
- iZosSFEBYX/VOD5d0F++HRFKCfCqz8wGlL8opS1K+hQsXqLQ9HvqwlLUV5JfyihExxX5
- IEkw==
+ bh=BgGZTOzZCC8ovn7k66XyuhZliqBNi9YYaqpJPuy2zpc=;
+ b=nKjWhvAPSaT3zuQMVGrpua3VamU6vnb1satxxSu70jcVV6JAEq8VyCoH0OH6IyPOuh
+ A5n2nSbKsLv5wtlcw9A44XJ+jDLbDAB49M28EFttNNiAyLLgRwtLOhtnaMIxPJcsqJI7
+ wSPvIGCpEfQgjVIWllXn2fSiOt+OyayVHu4VK+wCERcQh4gkBvXkj2ouu0KnwjgVuujI
+ 5tFujABDlFp2qWRqPa52VVIFDz+yhfZmjw6175rpyGB2M9OaoO938gxal6XRKiR5efkb
+ VZ+P5RmoQBXO8w2Bii1mQZyIwWLkSZhg7o2Ih2xg43LpwtIEm7cPpFRS28J5L1GQEgQr
+ Q34Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773842639; x=1774447439;
+ d=1e100.net; s=20251104; t=1774028194; x=1774632994;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
- b=oM0L2BpA0UWFO8Gvj5L0E/GGky/+3yveJTxWJbclS/FZFKEU+2mQ91NhSSFbpR7CHL
- rViqEbr4bBqEhmA/BeEeG0gIl2RKO+gpkZt44BGQG+XsgspIPn6xE3vJFx33vp5eVbbl
- z//Ivz2xCUw6j21jRgwPrvE2bkOExug4IBFw3fnCZCF4R8T/8vmqILnMWXzRDDx4HX1c
- ePqNtWUhC7sAfmUm3BOACTDgTlWCFmVi+Y37blrBjGQqXoWQVkIega9TMbpkiH5ldqXw
- z14v0xXFNE9z300iOhWtj016N3pgYstSjbjYfiz6MVvocWkzC8iR+xb70nbNYWBRm+NP
- kxrA==
+ bh=BgGZTOzZCC8ovn7k66XyuhZliqBNi9YYaqpJPuy2zpc=;
+ b=R1lgSP7Ljj4b1H+C3qO8sVHlmfLwCtw0VIMbsUf53F51L6pUQ2k0VKtziDCbi6F6hO
+ LStaXKXKvAKkITH2hxPe+Ia+1YrxSZcmW9yeyWocem+/TtwvzVD8SBHu/N7fftHWo+BY
+ NDmopzX8G7F3JMSGdO14yWzxkOboY0VH8a+BMCSM81aOffCoBQNBuhLInaawZo2Wtbny
+ RGOrdkpKXsQabyG08En/SKwzt9GuxEGpF21AlYzRa3QoBCIgf8dstUtNGfXidt4qQia/
+ jKl83CvWJeQcXNDZgdg/D6xW3R6I+YS1/9HwsXON2Oiu3iI6S5VqocwjY6lnranLB+T5
+ lsNA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWfABHFNCOT7ox3J0MyWvmutB0oCULbpFU50zVj1CJu+Ercj/REtD1fz2zTPfqrsiobd3G4va72Vhc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywo2kEOqsNwsa05DlamI4yl296dyL78CvLf778ZALNHhJhWgenr
- ZbYVCDyWa3kjHpli28HUUb97hQ08dO9nyuB8YDkWOjGuUjUz5soiWL4nzeL6mTu4hoxZ3s2SIde
- dIBAHLln5E9hT615XEHGTy22rGmyVO+E=
-X-Gm-Gg: ATEYQzwcRyc++wCs+hsJPbGt2M/kfjF7wrR+TOp/SfXCDh5qZgUmxkzf4IqS9NujaSj
- hTW/9Web/KeXlKIl5G398LJ3GnsgjPv+w42DuDV36fO2oIAGsKbYgR2wXOVqymuWXWfgKdeNyRe
- egYTfh3J7ms9iTYeyIGA3ijlTw3t9FX7QXtQ8wKTe5chSybJTsw16i1stT3dPsT6Z53Gbi0nLNK
- 8JIRhdk+GtTztwNqhJHOVAhTEEiYijcVuKkqIATqoPRvVTtbGrb8snRYcxysv31dsKTlql4i3qv
- uPD3Zymwp9ksLm8WIZkvW4+uGZVO/JrPgeKCZ6JJ9Hi2LhxDMGN277kVnDT15uS0pG8QxsZ3+E2
- /xgFDo8bi3AEFtTpsbgHyMhQ=
-X-Received: by 2002:a05:7301:1e92:b0:2bd:d8e6:90a0 with SMTP id
- 5a478bee46e88-2c0e5071063mr859030eec.3.1773842638629; Wed, 18 Mar 2026
- 07:03:58 -0700 (PDT)
+ AJvYcCU83juqMO5IdBB5gbmfn3M8uIK6DU7jQh0MGlNQKPXUDiCCfJcpIDA0IyTyMkJ3uVdyDb6Bl4Wx2e0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxfg1z6lKnCMZt6bD9KfUJKhDlgJyMxHIBoxuWE9RQkk1odUXXb
+ 1+EZ7VD91V/6EG2QZ/2QsQAFiNhWXrfhBO5x7oux//OMq6gKHDPC3GA3SJ4k+wmUUE2OXbhPTPT
+ 8pL40kGKiqJR+EkEZsd1SH0L2W8wlovE=
+X-Gm-Gg: ATEYQzwBDxuZwRGDPIKrAbFI6DdPJi6yXrzKvYKpQzfMTrzU1WxjiR8Ju5FobmtAVhh
+ qUIYGr8aCfzHrJN3gbO0i0ehxVN9o8xTaAccT88MQSKwPjEvgTpqFoSFwIxL7KR7zJ/aMTPRbvS
+ M2kuZXf+7uLvEjao/I49q+0cJBuKZgT6nh1T4Txb6MA+yA0cnFhOeZLhRAA+a4i/76xpoV8Jpiw
+ iHHx/MKHly1O3KWAtn0BYNQEwCAp2La/A3NqARL2cCxw/88ZmDy06WRf9S2Gt5hAKztnC3K1Jf5
+ 2G/4
+X-Received: by 2002:a53:bb08:0:b0:64c:9c10:c09 with SMTP id
+ 956f58d0204a3-64eaa7b37demr3014158d50.51.1774028193589; Fri, 20 Mar 2026
+ 10:36:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
-In-Reply-To: <abqdUBqchnVFo7Qk@google.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 18 Mar 2026 15:03:46 +0100
-X-Gm-Features: AaiRm52jPRFXXf03k9diVYR0ZGnNxGkoAlPwk0mwDAEpyLjxWwYifunzB4OTgFU
-Message-ID: <CANiq72koBNCeXFh7uX5GHRJoAu7fyhttDHHN0WZzx9Q74F=mWg@mail.gmail.com>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
- interface
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- David Airlie <airlied@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, 
- Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
- Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-17-jim.cromie@gmail.com>
+ <177402491432.6181.1032037030316089534.b4-review@b4>
+In-Reply-To: <177402491432.6181.1032037030316089534.b4-review@b4>
+From: jim.cromie@gmail.com
+Date: Fri, 20 Mar 2026 11:36:07 -0600
+X-Gm-Features: AaiRm523rwSycvdGB1zaTykXeTcT9kD3zP9a6PiLV5_LFsq_fGCRDaXzKyLP7BM
+Message-ID: <CAJfuBxy4Tqg5nsgLHgYFEX0F=3h_XkSD5skmy+GypoTBwB+a1w@mail.gmail.com>
+Subject: Re: [PATCH v11 16/65] dyndbg,
+ module: make proper substructs in _ddebug_info
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
@@ -141,21 +115,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 1:40=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
-rote:
+On Fri, Mar 20, 2026 at 10:41=E2=80=AFAM Louis Chauvet
+<louis.chauvet@bootlin.com> wrote:
 >
-> My build triggers this warning:
+> On Fri, 13 Mar 2026 07:19:41 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+te:
+> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
+g.h
+> > index 9fd36339db52..b84518b70a6e 100644
+> > --- a/include/linux/dynamic_debug.h
+> > +++ b/include/linux/dynamic_debug.h
+> > @@ -83,30 +83,42 @@ enum class_map_type {
+> > [ ... skip 3 lines ... ]
+> > -struct ddebug_class_map {
+> > -     struct module *mod;
+> > -     const char *mod_name;   /* needed for builtins */
+> > +struct _ddebug_class_map {
+> > +     struct module *mod;     /* NULL for builtins */
+> > +     const char *mod_name;
+>
+> mod_name is not needed for builtins anymore?
 
-I reported that in the previous version -- Joel, you said you used the
-workaround I mentioned, but I don't see it here.
+it is needed still for builtins, because the mod ptr is null,
+which can supply mod_name for loadable modules.
+I can restore the comment if you think its still helpful / not redundant.
 
-Did you decide otherwise and retested and you couldn't reproduce it?
+>
+> > @@ -125,8 +137,8 @@ struct ddebug_class_param {
+> >   */
+> >  #define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)          \
+> >       static const char *_var##_classnames[] =3D { __VA_ARGS__ };      =
+ \
+> > -     static struct ddebug_class_map __aligned(8) __used              \
+> > -             __section("__dyndbg_classes") _var =3D {                 =
+ \
+> > +     static struct _ddebug_class_map __aligned(8) __used             \
+>
+> Maybe a dumb question: in a previous patch you added ALIGN(8) for the sam=
+e
+> __section, both are really needed?
 
-It is fine either way -- I am asking because if we decide to keep and
-use that "fake `unsafe` block" pattern, then I should create the issue
-to ask Clippy to support it.
+its a different macro, so I think it is needed.
+Note that the macro is deprecated, and will be removed
+as soon as DRM uses are dropped.
 
-Thanks!
+>
+> >
+> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+> > index cb7bfe8729a7..f47fdb769d7a 100644
+> > --- a/lib/dynamic_debug.c
+> > +++ b/lib/dynamic_debug.c
+> > @@ -1254,18 +1255,18 @@ static void ddebug_attach_module_classes(struct=
+ ddebug_table *dt, struct _ddebug
+> > [ ... skip 13 lines ... ]
+> >               }
+> >       }
+> >       if (nc) {
+> > -             dt->num_classes =3D nc;
+> > +             dt->info.maps.len =3D nc;
+> >               vpr_info("module:%s attached %d classes\n", dt->mod_name,=
+ nc);
+>
+> IIUC, maps and classes are the same thing, can you do a s/classes/maps/ i=
+n
+> the vpr_*?
 
-Cheers,
-Miguel
+yes - class_maps is probably clearest - closest match to code too.
+
+>
+> --
+> Louis Chauvet <louis.chauvet@bootlin.com>
