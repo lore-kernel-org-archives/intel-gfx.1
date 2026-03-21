@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF96FF483D3
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3157F483CF
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0324510E567;
-	Mon, 23 Mar 2026 16:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FE6610E557;
+	Mon, 23 Mar 2026 16:03:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q5cWqo8N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OqeQrTcq";
 	dkim-atps=neutral
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
- [74.125.224.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6156910EB2A
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:09:15 +0000 (UTC)
-Received: by mail-yx1-f53.google.com with SMTP id
- 956f58d0204a3-64ad46a44easo2059681d50.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 11:09:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774030154; cv=none;
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
+ [74.125.224.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E31B10E1AE
+ for <intel-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 13:57:40 +0000 (UTC)
+Received: by mail-yx1-f50.google.com with SMTP id
+ 956f58d0204a3-64ad79dfb7cso3553585d50.2
+ for <intel-gfx@lists.freedesktop.org>; Sat, 21 Mar 2026 06:57:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774101459; cv=none;
  d=google.com; s=arc-20240605;
- b=P3pre/SaaVu8X9Pi2o+RfVtxCetWjeBepqjKxWtZKFDG6Fc188ORzeXKCgaQZkf71z
- QU1hWx3fz7oewEgIEey8/+Mn2xGCWrRx1kG0KRTDShRC6p1AeQJ+ay6qD6xa8rI7jZn9
- 5QI1948r9OWBjvg4JZ5RoFlmZcDWsToQqXBn8LLDF22ae5TE+pCt0ascXb+z9hA2VKpT
- 9CYyQN8w6U1VKSElXPQp4iTfN6rWDlKc271E1GKGyGb5aYKyVjLja35ck5LLbpXvpLOL
- I6LvAfVwpLkvcQMJFYRHNKK355yfdQyfZwYfYCjfov38WNbfMFP6PZ4mEW05RQcbxcW/
- GCpg==
+ b=JATklXBRvUfiR6HjwXaohamLbq7pGXxB48R8hbd41OMke89iOu9oMy/vXpJHTrw+eN
+ o1Sg7tpEPm7IJVRM+fvNJz8bUeUHI1v9n2uqGV+UtBNZRc9F7jrnWl67ThPj7y7fq+5L
+ vALkvqmE69aW6G1wsR40ZhMqbV22c/cD9h4OWzfg2ahjXyNyTwuQjkvkpR0/lNu3Ic1U
+ A7DeHo5o8xl8CWdBQ2ip5MxSyWhGHML/9f2wbA3FswXb523Unco4GoH5z1Xk6JopjrT/
+ oa5oP3SkyIchul415ZjvU05v229leNumg8I11UpEDSFTC81X9fJh/3+EAIr5/cNLts2D
+ OuDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=AWhS4iaGoaPOka2Ug+rWFyTKYlbaHwFlyjwq3H7YvsM=;
- fh=k/LvYW5YDU7x+VDNrZavDGWHd389DwycM+2xEdQyuLQ=;
- b=dc2BYXABL6gP+ERt51bpPMVevcFT9jcsh9lZ1g/tNaE839hV8/4UVn+7oK+R/E1aJE
- 7fh/0wTXHtTaJ3okzwsAAHmLQO/NZk0dYbMdy4LSFNI4psZM3yxO8ZOohojYoznk0qVp
- f8Xmp2wM0nBDScCwpYxdXiMcpfCw8j/9upFFzEyiM+yT0ROVfy2UP1N8gWu4hhMvxbpr
- W15ZG+95+QOBVIyUmN7DWhzupIPcA5BUos+VR+V6GGcwLbyH4TSO8IHd+wKhDYq3kO6p
- kM+ebTFlU99LYFAcqp7roUGE7fTD/JjxDOmtyhY2Ao5CElRtk/RcRJOuDzpEFfa7J76J
- ZFiQ==; darn=lists.freedesktop.org
+ bh=7EPArrwVbc5ps73sNakpJn6v2WkMzJH48rSxaue61sE=;
+ fh=j/lU5pwN4XB0vDJY98T1SUc/SlscLaBFvYzHOk0BtY8=;
+ b=IDXhY8Vvx8lHg0SY4O4pCK5EpTBTn7xwGv0o5Opbf8UBGj8V2nFxSysL4PUG9IQwPc
+ 3WAkSyh8wXzZTY7VNYFmi9fwZMmCIAVjmNp/CxLMT4I/twclgr4G3U/ASG4SYqeG2/fC
+ rmaVcW878wIv/spdkLVQVA9fT4zkSVyrFAbyJ4Jq6JEvPk4qjlpwlRAZWfCrSWk+AuzP
+ ClWn8qGYrtkHcp67FU2a0G+PzPXFgUlERg9UkkxpSWueD6RUX4u+8GRmNAJxw1wYboFZ
+ jqUEgc4YvVWofj96oGwGLPA6pd2B3jD1flxDl6Sqq3qIsOnWVzArgMCMpYDunCGs9Np6
+ 59+w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774030154; x=1774634954; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1774101459; x=1774706259; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AWhS4iaGoaPOka2Ug+rWFyTKYlbaHwFlyjwq3H7YvsM=;
- b=Q5cWqo8NPQoOiU7mAU8XFfDwxfZn0n1os4c8lo4CjVg6z3QGqjnuewocQrW7pva4AU
- 3N0/1040N9/YRnzd5M/x0CqKEEYoY9aKkk+k5+5cjGFjxgxVLpLwX3HqWa/XO7aC0dF9
- V8e7eOGIxFiOnTQKWN7yVnKT6KWfiweBRbAgcqhiwM5wDsySlyNRxumJ8vdmYPY1ef5G
- Ksf9TzAEmV/v2CyQiyBJsfw+DexSg1VBJ9mGNwum+qZQVMvBOKqA9bpwPLbo+Tja4FlG
- 6y6B6VxvTAWVCuvqjcLVXVPhXeNv+KLMyDvDjKbCDBDJCXcPTVz1v49+iP98Os+BdfBw
- j5fg==
+ bh=7EPArrwVbc5ps73sNakpJn6v2WkMzJH48rSxaue61sE=;
+ b=OqeQrTcqmyAZMuF7te2GIi2jgApHZUeIQUgcOhD0oO2uukKIicevUW6xk12BtY1TSj
+ WK8kDMu0WRhmyFtp5qcpnMo5iLqnfzNbZGli36LgLD3Dsncj+aNZ5Gn7sP+BxXRREeRM
+ 67AXiv2ll/lWX5f2/XYIeXzw2NTbs2ukLuyyU10x9egZLubwP1J1jEnII+3YAEOh7uOk
+ P5KqSmTxO65mDxZtkgq+QNxDjoXVS0QaaPri5lEKODVPzykFSe8Hu92kACp4TN9pUKzg
+ PzU4Q/VpwKufC5HHzu2D2xgaqbOCh3Cz74b8pDygtOK+oQxBf5DbGYVos9Ofy2T6n1bG
+ 51Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774030154; x=1774634954;
+ d=1e100.net; s=20251104; t=1774101459; x=1774706259;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AWhS4iaGoaPOka2Ug+rWFyTKYlbaHwFlyjwq3H7YvsM=;
- b=sCSSx+XVs3FibXlMe0pbF+pOcCDp/UiYdQtmdWd3gN7Bo526L5WGkc13UWvFxPVPqP
- osF9KgupBTFpP8FwsrQiceTz+8cNX+eQ1Drj6DJLeWmrAeSZLKTqUukWv4HnzUAjtfGl
- I4J07Y3FBmeiUJ0ta5+unA/EVgbdHb4ZB/s/m36YUkzrPs4mNZC16SVBoSNBZs8yK0Jz
- BtQ1GN9kTUeOn748fZbIzxf7Z7i1bmeDwSm21Sd+y8F6UptsS1NIdFpuwkiQKzSQYnIK
- 5+ntT9BSiyWjaO2Bc0S3JzUU/u0JemyKjAPMKUPM0LKAu0MWlwW5LYeMCYYMLkuawrr3
- ioOQ==
+ bh=7EPArrwVbc5ps73sNakpJn6v2WkMzJH48rSxaue61sE=;
+ b=YlGVvMqO8qCJ4tY11/vMPFXWHIC/qmA4QMhx9iCGZO1iLL8vxGFE1bi8Nie2HvjouP
+ I+v1G8PdwoH+yUrHfk8yYlL1wkjdEMqzuZHXxFqrSGXzjOhlmnfyIyPAB1wITrYsAL4g
+ HSS7YAaSQJPg5hNw0oKKTXfRONO61BzR3l+UForbDCeCUgak0VLd9doKS/M7oh2Aj44f
+ 7H2aT7NqrzZDtm0oKJCM0mvxgwXk0IfWbNdABE4jEMishvHOT02p/Th1COX/8WIGwl9s
+ sd695iYUiiNDTzohe8D6zzSDQP0HSpX2PqP9H38+V7qvXB8tSCdzmUT55uqBKBc52RQx
+ KSiA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUQz4trnn9Q6hCNPF4Z4is/7t5hASmr2qPuy6ffRlV9MW/Lta6U6Xm8US2wEYZCIaSjSAW1hrKMuCU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YybPQxiYavxkD3eqxS5eoALo9+tp9XHq1M2iXS4v4JGxuUiA3vA
- +8fYfc9EK5+oNedI/9apmYrkkWavpyselq/sJxoCYO7ept0z7vcqE9a6cYmBcAJnXqwgJZ5Hy+9
- dNaXTRxWBXqcRmbGr052pnaPEh5SPZeE=
-X-Gm-Gg: ATEYQzw3SawL9hWptx7Zc7PVNkL/t44+kcR2MfLhJPQEMyiur+4x3RgIw+7Mpj7Z6Vi
- iNmV4KYppDEbn8dS2AHt4zprCQiv75TCmZ4AOGnFNvK/QMRQTifmm32/KqRqHB2vx4kpxpFQVjj
- Hujz5B/Vfk5ys3xX3SMC38lDJlwKxfESMr/mR/SNHXeWIMlM5v2pYB75dpVmwbMhKjBXl6UtxVe
- w32aC5+3m+1APRJ3WXVQfvqgVlimZvTJJ+bVYTPuVyX5BYlpyzmG5S11lNmrIwgXqXv+Q/SAl5L
- +hH3
-X-Received: by 2002:a53:d7c8:0:b0:64c:f90c:743b with SMTP id
- 956f58d0204a3-64eaa764fe2mr3121177d50.41.1774030154371; Fri, 20 Mar 2026
- 11:09:14 -0700 (PDT)
+ AJvYcCXWyhL7383cx0jxTlYhZwGuH8op8vAukj6M2cNedz7bXH5btEtVv0vUpUOFPWJQ7Bo9yTf14MSqs58=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzu8NZbVYjyV2/swBPcpDT4nrkS+F0FuguLC5hRo5Csh2bBdSfS
+ 7HO48b1MCPCRTWxLEW3Cu90QvusKisifPK2Xz/QGsrMTVXizvAA8Fw1VoxVgMcJdVVhLqT+OZYF
+ 5eDmZw00fZVus+wF1Yn+JD+ursFV2u1A=
+X-Gm-Gg: ATEYQzytIwNv6jmc1n3J1zfZWo2aaHooRh7QFiVp3LlnL6ABmEEf9CfQvyDsyuNLlW/
+ UMjY0lg3PnO1XDjT588bKy9lw8MUO09/MjpWqR7l/LYU+ciySzdD1CTflS7PHDVouyWAN0CTvdN
+ XePl3cYstxpVTdadLoris5eKI26sYk2kVORQiJNnYsPZn+pgQsSBOjb0XZMgnWiu9+jpm2jptgs
+ xFNYjVyvZS6kPjTHUDwJoIIj85N7j77Jox/7ljew+1FfHm7jau3H9jvkuG7a2QV/xRR8FEViSPj
+ KdZg
+X-Received: by 2002:a05:690e:430e:b0:64c:973e:874b with SMTP id
+ 956f58d0204a3-64eaa87157amr4846578d50.75.1774101458924; Sat, 21 Mar 2026
+ 06:57:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-33-jim.cromie@gmail.com>
- <177402491454.6181.12972283720507136037.b4-review@b4>
-In-Reply-To: <177402491454.6181.12972283720507136037.b4-review@b4>
+ <20260313132103.2529746-64-jim.cromie@gmail.com>
+ <177402491483.6181.11788631907510647484.b4-review@b4>
+In-Reply-To: <177402491483.6181.11788631907510647484.b4-review@b4>
 From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 12:08:48 -0600
-X-Gm-Features: AaiRm52OI33ofFnw-Ol-4xRbb4iS7hd6Ofimy35v4GvSaV31JzwNtCu7GJCPT2U
-Message-ID: <CAJfuBxwnKXG4d92WOOpiXRDXjFrYFnvfbKXaG5nn4nm4pVyqdQ@mail.gmail.com>
-Subject: Re: [PATCH v11 32/65] dyndbg: Harden classmap and callsite validation
+Date: Sat, 21 Mar 2026 07:57:13 -0600
+X-Gm-Features: AaiRm53vuyc7die3mB1r_bZxe4JdiA3Dmzfd_np6AsN6-8INJ152fSJj4AtuU3U
+Message-ID: <CAJfuBxxOS7zohPDcgDAPmGBXyY8yGOZfkU_-V=5r-qXUBcpo5w@mail.gmail.com>
+Subject: Re: [PATCH v11 63/65] drm_buddy: fix 64-bit truncation in power-of-2
+ rounding
 To: Louis Chauvet <louis.chauvet@bootlin.com>
 Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
  gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
@@ -114,68 +115,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
+On Fri, Mar 20, 2026 at 10:43=E2=80=AFAM Louis Chauvet
 <louis.chauvet@bootlin.com> wrote:
 >
-> On Fri, 13 Mar 2026 07:19:57 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
+> On Fri, 13 Mar 2026 07:20:28 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
 te:
-> > diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debu=
-g.h
-> > index 0d1245aefc69..28684cfc0937 100644
-> > --- a/include/linux/dynamic_debug.h
-> > +++ b/include/linux/dynamic_debug.h
-> > @@ -262,6 +262,8 @@ struct _ddebug_class_param {
+> > [...]
+> > drm_test_buddy_alloc_exceeds_max_order() uses the on a u64 value,
+> > where they silently truncate the 10GB allocation, giving unexpected
+> > success in DRM-CI.  (see below the snip).
 > >
-> >  #define __DYNAMIC_DEBUG_CLASSMAP_USE(_var, _offset, _uname)          \
-> >       extern struct _ddebug_class_map _var;                           \
-> > +     static_assert((_offset) >=3D 0 && (_offset) < _DPRINTK_CLASS_DFLT=
-, \
-> > +                   "classmap use offset must be in 0..62");          \
+> > Fix this by replacing the standard macros with safe 64-bit
+> > power-of-two calculations using ilog2().
 >
-> Can't you also check the offset+base?
-
-If I dont already check, I can. theyre all constants.
-
+> This is a general DRM bug, if you send a new iteration, can you move it a=
+t
+> then start so it can be applied easly?
 >
+
+Yes.  I also sent it separately so it could be just picked up.
+
 > >
-> > diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-> > index 2083a8546460..635df6edb4cf 100644
-> > --- a/lib/dynamic_debug.c
-> > +++ b/lib/dynamic_debug.c
-> > @@ -1404,9 +1404,8 @@ static void ddebug_apply_class_users(const struct=
- _ddebug_info *di)
-> >       (__dst)->info._vec.len =3D __nc;                                 =
- \
-> >  })
 > >
-> > -static int __maybe_unused
-> > -ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-> > -                        u64 *reserved_ids)
-> > +static int ddebug_class_range_overlap(struct _ddebug_class_map *cm,
-> > +                                   u64 *reserved_ids)
+> > diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+> > index b27761246d4b..ff158cc1d27e 100644
+> > --- a/drivers/gpu/buddy.c
+> > +++ b/drivers/gpu/buddy.c
+> > @@ -915,7 +915,7 @@ static int __alloc_contig_try_harder(struct gpu_bud=
+dy *mm,
+> >       u64 modify_size;
+> >       int err;
+> >
+> > -     modify_size =3D rounddown_pow_of_two(size);
+> > +     modify_size =3D 1ULL << ilog2(size);
 >
-> I think you can remove the __maybe_unused earlier in the series (23/65
-> seems to use it).
-
-yeah that sounds correct.
-
+> Thanks for catching this issue!
 >
-> > @@ -1454,10 +1471,33 @@ static int ddebug_add_module(struct _ddebug_inf=
-o *di)
-> > [ ... skip 5 lines ... ]
-> > +     /* validate class map types and the per-module 0..62 class_id spa=
-ce */
-> > +     for_subvec(i, cm, &dt->info, maps) {
-> > +             if (cm->map_type > DD_CLASS_TYPE_LEVEL_NUM) {
-> > +                     pr_err("module %s has unknown classmap type %d\n"=
-, dt->info.mod_name, cm->map_type);
-> > +                     goto cleanup;
-> > +             }
+> To avoid this kind of issue later / in other parts of the kernel, maybe y=
+ou
+> can change the macro itself to properly handle u64? I am thinking about
+> something similar to ilog2[1]:
 >
-> I think this check could be inserted earlier.
-
-ya this could be compile-time too.
-
+> ( \
+>         (sizeof(n) <=3D 4) ?              \
+>         __rounddown_pow_of_two_u32(n) : \
+>         __rounddown_pow_of_two_u64(n)   \
+> )
 >
+> [1]:https://elixir.bootlin.com/linux/v6.19.8/source/include/linux/log2.h#=
+L156-L164
+>
+
+I will take a look, but if you have an itch, dont hesitate.
+
 > --
 > Louis Chauvet <louis.chauvet@bootlin.com>
