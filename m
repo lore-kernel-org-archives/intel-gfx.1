@@ -4,85 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE3A1F483C2
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95203F483C6
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:03:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3450F10E50B;
-	Mon, 23 Mar 2026 16:03:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B6D10E506;
+	Mon, 23 Mar 2026 16:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gmail.com header.i=@gmail.com header.b="AaF/Apbi";
+	dkim=pass (1024-bit key; unprotected) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="ywSd66Uw";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C460110EBF8
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:49 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-466ec4c6852so1372642b6e.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408229; x=1774013029; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=j2MYJzJHADFhmDlQmMQlbImDYfLHhfEQ7IriPsfmok0=;
- b=AaF/Apbijun7Cv0lz+Xam8ftDdVFzHsSMtDYju7MucCTl/ZXiTSyxvYpakqzODdkUG
- +3nGdEFeASKvPJvp7vBMDriXU0MFypUQhmm3zHrKnewF60e2WYTl7IeYmBrNFiU+FOuh
- 6B1JTghwuRAwjjlY76Z/anANP72NVV/jls8+fccgvuzL5tSojQtI7atMeFi+Y8VzEbQ8
- BaWTynikekUMn6GlNIYJr/srLiGoPktENs9K1eCudF5fuIu95Cu5OWjAt17PIxCQ65tD
- qvcf73HocStSBs49hYvFqM7xbPJP/BwwVfEqKm3sHbTuqpFp9aEuizwmdTr63mso3cYX
- GB9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408229; x=1774013029;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=j2MYJzJHADFhmDlQmMQlbImDYfLHhfEQ7IriPsfmok0=;
- b=UmtnmYftqIGS9HGRG3RTEl4zKD3j95k9Srv3wqaAs+4tgUQDiFKmsT5bucJ0Yzk4qY
- s7juZg67Wwez2JUC+tq6KVFbZZHEZzYpcT9fHjzlcCC2XO9kqAO7Q8AO+AthO4TKowV+
- UeD2DrYTpPq4RxdhgqP4MPYN2YHjeYCwurvFHiBvlydvY1zLnZQ46kzik1TBFGlbCB8V
- P74ykFCrxVWMaqVbM+daDM6TKXiuD9bui5lZFhFEaQHGbkURweiBiUMsztIlvUDS+6Lw
- TaDCGBNsNsT+75fA/3lOUKo/hr7aMqkUXCO/wPKaj3kV6HN/9xbUK2iSpO1CJ4x7Jlzo
- f43Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVrKPUSp25tMqvwAG29p6RvfJABHqQzPvMnanWM+IjLkH4oRhe95Z2tYXg1iNguMuvfzFx3OTaibVc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtBXNkI1CXmKqcED7d0U8h0t4hLQpzE6sjjz9QYigH19rEna7G
- iW0WQ0c0BQMIXco0g7rMcEoqKUCYuUw+s7UmtY4ndNawmDaLPiWPijlx
-X-Gm-Gg: ATEYQzx3JlLMRSL3fRytbFq7Bcjzq0+HynE8imoLkXsg8O0WmaM4SZdyHlVgchJntuE
- 9/359BXGIZy6ngppis9RpKYsTmpviT2lbv24teUizR1iSXLNa7l9xE/MU08KEcLxGEwwTiLpx5o
- HafhBkUw5HXtOsV5OzOcIUQz1wrdW3XfiuOLT877XxT9m4BiyBCLPsgiwF0skjYxR1HfT8rgRwp
- Vmi8Jk/8Wmgb8a710UGST4mSC0yW5NJTb4behjcEygqc+hRIG7M6otL+a6EqzgeV2yxkVtHAVxG
- F5aHy5ZVlVzPlzySixY+NE3fPZMxv0vCbAKLSt0sNRS2YI6Nz/dTbvksnX6qFi9O56LfH1e5rgA
- pP6RmiFoPDi1LKI2d1N9j71hlaeZV1VEXY5LZxhBCDmXPDb5SHasyrbV3MgMQ2qMUVa+6PNOflk
- PzQTfoh2YHwW65xV1qUtgIzEp1fC7Y6Pw0aUjRnUtzjFSkH9gR
-X-Received: by 2002:a05:6808:c2d1:b0:467:26e4:728e with SMTP id
- 5614622812f47-467575c42d6mr1645259b6e.49.1773408228837; 
- Fri, 13 Mar 2026 06:23:48 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:48 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 24/65] dyndbg: check DYNAMIC_DEBUG_CLASSMAP_DEFINE args at
- compile-time
-Date: Fri, 13 Mar 2026 07:19:49 -0600
-Message-ID: <20260313132103.2529746-25-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+X-Greylist: delayed 460 seconds by postgrey-1.36 at gabe;
+ Sat, 21 Mar 2026 11:06:12 UTC
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15CC310E251;
+ Sat, 21 Mar 2026 11:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+ s=iohv2404; t=1774091170;
+ bh=kDysuZ/sz32qVE18mBLkk7WL702+dG/9fna8ZhLYBpU=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=ywSd66UwFPwV4h8vGCaoHXKH796Jt1vv7IOJjM+nOedWBjEt2+XkTlQAKapEbv8e3
+ mCssZZLib/HzBfev6MWM4B4BOo2kH8RNlga4JaAvOr0ldG8kMV7oDw4EId/wF48Hq2
+ OTFPmfYLwqj3ty2pTUCyqpQMIckFCIMPBYeujT/M=
+X-QQ-mid: zesmtpsz9t1774090656ta6086d6a
+X-QQ-Originating-IP: LVy3dnYOiA9pf1Xme6SfgEJkFwBB0Hbmkt7OsA+5xis=
+Received: from localhost.localdomain ( [116.172.93.199])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Sat, 21 Mar 2026 18:57:33 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 12091318665540782229
+EX-QQ-RecipientCnt: 14
+From: Kexin Sun <kexinsun@smail.nju.edu.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: julia.lawall@inria.fr, xutong.ma@inria.fr, kexinsun@smail.nju.edu.cn,
+ yunbolyu@smu.edu.sg, ratnadiraw@smu.edu.sg
+Subject: [PATCH] drm/i915: fix outdated i915_vma_get_fence() references in kdoc
+Date: Sat, 21 Mar 2026 18:57:33 +0800
+Message-Id: <20260321105733.6391-1-kexinsun@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrgz:qybglogicsvrgz5b-0
+X-QQ-XMAILINFO: MAlUHnGeA8XKToyLYZNgiGpYerZFiPHxbOI5aNG6Nqs0GcLSgoKIPc0t
+ jl3ym0VdO6R+z///99SvDo7J9D7f10RFMYY5sXdzlCHpgXnTqcxzVFXlKd0u0GTzJtEUWw1
+ 9K8zaZB1VyiWDTFZEa3gYYbjK88KzOHlC6fbBOYfygasBEQD7lv3ZgW04JCXa1qf3VeNEsa
+ TBhDSpM8TsMPMptMBtOII7ICQFmcCfc7hMC6oII/yl/7EtpKEKmMw4G/Ra5sW9x9uhQaQ/1
+ kCkSS4bI8/a69Jk8Hl58tuXavjoL3yvtN15EHlbvastLMl/01Kah02oHloYCAr8wHX0SOtu
+ pC5o1cVKmYAjdorepJdbIlYukWvl2xXsTzWmxqAoGnoPnNQS0qjJIIlctCkXMTy2uVKmE7n
+ XTN4bF816/l4QAaWE4s9uJ+urSQb7fcs6kxAnLzwRGEbqGYz3/If3sTRWp2U/j8c2XHu8R2
+ iBDPVavndDuBtOZvkyuEavh/w5ZCAMwSCA2YmP6lBrZzAmZc2DjfoO9B1YBkKhie+Kt8fEw
+ 3JpTi54QOJF7ATuUwoQ1PIMsECdtYQXRlGMBSSy86p5GGgmqOBhrNhDO8CPYXd4gq5dIogt
+ G8GzdgVktGhZWKN9ERM4+uqcCi23bmq3XbZUNotkJygvGI6NSl2vULzXsD+AIiW9RPv4tvz
+ Re1X5gXVXpvPqHYyfcCjc5GcAsweps84aOg0+KmvLbArkJ5UgUm7YZcanVYmg87/+MHTzHd
+ tsCn+REWsosGyYNuktWqv6InyMimneKKMATZxpbXcGXdXsFZpL3gR6+lnbLbhnz2nkSfl8D
+ qOFcx2L0Yeo/Q5XocYxo2+F2CNS9ewPFpDA9q4H5e/qGoiEjdiBo9cDcaPEpQI1H7jDysZZ
+ QqFoCxPmBrnt/IjSIuvv1PtqP7qWTJdaqIuTQ6Hfh+S+mA1kUOAokT3vQ/3Uq1yR63dHG7x
+ Q8Mm5lTGXfaSJOaITpfP3YOS1p0QVv+s2h82KpmTDU9ZCHSeqMLKsEC4uY1epXjvHnKiz0p
+ u6EleKYwpfB3CIQTkSwbLCDytD95X5QwHVaBVEmLbT4FYxlPcfrtU8GTJkTUs5AONc1INLM
+ 5zsB5uDP4Mz1jsv5eGcBV2tEOccbzwxNw==
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:23 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,87 +83,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add __DYNAMIC_DEBUG_CLASSMAP_CHECK to implement the following
-arg-checks at compile-time:
+The function i915_vma_get_fence() was merged into
+i915_vma_pin_fence() by commit 3bd4073524fa ("drm/i915:
+Consolidate get_fence with pin_fence").
 
-	0 <= _base < 63
-	class_names is not empty
-	class_names[0] is a string
-	(class_names.length + _base) < 63
+Remove the stale sentence that tells callers to synchronize
+fencing state by calling i915_vma_get_fence() first, and fix
+the Returns description: i915_vma_pin_fence() returns int
+(0 on success, negative error code on failure), not bool as
+the old i915_vma_get_fence() did.
 
-These compile-time checks will prevent several simple misuses, and
-will issue obvious errors if violated.
-
-4 such examples are added to test_dynamic_debug_submod.ko, and will
-fail compilation if -DDD_MACRO_ARGCHECK is added to cflags.  This
-wouldn't be a useful CONFIG_ item, since it breaks the build.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Assisted-by: unnamed:deepseek-v3.2 coccinelle
+Signed-off-by: Kexin Sun <kexinsun@smail.nju.edu.cn>
 ---
- include/linux/dynamic_debug.h |  9 +++++++++
- lib/test_dynamic_debug.c      | 13 ++++++++++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/i915_vma.h | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 74ed18a038bd..d3889173abf3 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -181,6 +181,14 @@ struct _ddebug_class_param {
-  * __pr_debug_cls(22, "no such class"); compiles but is not reachable
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 8054047840aa..14ad66f8b398 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
+@@ -369,14 +369,13 @@ void i915_vma_unpin_iomap(struct i915_vma *vma);
+  * @vma: vma to pin fencing for
+  *
+  * This pins the fencing state (whether tiled or untiled) to make sure the
+- * vma (and its object) is ready to be used as a scanout target. Fencing
+- * status must be synchronize first by calling i915_vma_get_fence():
++ * vma (and its object) is ready to be used as a scanout target.
+  *
+  * The resulting fence pin reference must be released again with
+  * i915_vma_unpin_fence().
+  *
+  * Returns:
+- * True if the vma has a fence, false otherwise.
++ * 0 on success, negative error code on failure.
   */
- 
-+#define __DYNAMIC_DEBUG_CLASSMAP_CHECK(_clnames, _base)			\
-+	static_assert(((_base) >= 0 && (_base) < _DPRINTK_CLASS_DFLT),	\
-+		      "_base must be in 0..62");			\
-+	static_assert(ARRAY_SIZE(_clnames) > 0,				\
-+		      "classnames array size must be > 0");		\
-+	static_assert((ARRAY_SIZE(_clnames) + (_base)) < _DPRINTK_CLASS_DFLT, \
-+		      "_base + classnames.length exceeds range")
-+
- /**
-  * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
-  * @_var:   name of the classmap, exported for other modules coordinated use.
-@@ -194,6 +202,7 @@ struct _ddebug_class_param {
-  */
- #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	__DYNAMIC_DEBUG_CLASSMAP_CHECK(_var##_classnames, (_base));	\
- 	extern struct _ddebug_class_map _var;				\
- 	struct _ddebug_class_map __aligned(8) __used			\
- 		__section("__dyndbg_class_maps") _var = {		\
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 1ba4be9a403a..b2bdfdfb6ba1 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -133,7 +133,7 @@ DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
-  * Enable with -Dflag on compile to test overlapping class-id range
-  * detection.  This should warn on modprobes.
-  */
--DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
- #endif
- 
- #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
-@@ -146,8 +146,19 @@ DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
- DYNAMIC_DEBUG_CLASSMAP_USE(map_disjoint_bits);
- DYNAMIC_DEBUG_CLASSMAP_USE(map_level_num);
- 
-+#if defined(DD_MACRO_ARGCHECK)
-+/*
-+ * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-+ * These will break compilation.
-+ */
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
- #endif
- 
-+#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
-+
- /* stand-in for all pr_debug etc */
- #define prdbg(SYM) __pr_debug_cls(SYM, #SYM " msg\n")
- 
+ int __must_check i915_vma_pin_fence(struct i915_vma *vma);
+ void i915_vma_revoke_fence(struct i915_vma *vma);
 -- 
-2.53.0
+2.25.1
 
