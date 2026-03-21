@@ -4,155 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B0121099B30
-	for <intel-gfx@archiver.kernel.org>; Fri, 20 Mar 2026 22:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6961099B4C
+	for <intel-gfx@archiver.kernel.org>; Sat, 21 Mar 2026 00:06:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41FAD10E02D;
-	Fri, 20 Mar 2026 22:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D5C10E12A;
+	Sat, 21 Mar 2026 00:06:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JwwbPjVa";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ck50Y3A0";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6962E10E02D;
- Fri, 20 Mar 2026 22:17:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774045076; x=1805581076;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=O5/KobwFgO2RB8kKsqOsBuF8CC0NNVjwgwUNnPsRqb4=;
- b=JwwbPjVan31ZRfpUmmstERftWVxsWpdjafLZKN0M/UwtF8b22JvJ77mS
- 319t7TNJ45BbWJKKrpPNHQ7BP0i7xQIlT1dSvlhTu1jiUfssFhsayWltq
- 36nhkgKk9lxvjPqH5jWF97pGDmumkbGSiyntst8y+3iIOo3HhN1zGbA0f
- raW4E/7Z0q7gnfprH+rP9n0symVVhv2k/Rfe1wRF8PKqFvYAHpUuMIoSk
- Zo72+M5FMrXvOHBK60KQKPlHemIky5m4aVs/L0msDLM2PnhBsP7Fo/Mzz
- vJJNUddMDATWXz7uNaZJ8HS9XN+zBwpDf1kzDk8/ThUQyELlK7UsOz3t8 g==;
-X-CSE-ConnectionGUID: Bm3dZKlmTCKbInnUurDvXw==
-X-CSE-MsgGUID: +jQ4a2PLTs2kTnJT1r9iXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11735"; a="75046647"
-X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; d="scan'208";a="75046647"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2026 15:17:55 -0700
-X-CSE-ConnectionGUID: GU9Dibo5SXiynX5CsjBoIw==
-X-CSE-MsgGUID: CAl5ByI6RwOfgiMOjmiP8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,132,1770624000"; d="scan'208";a="228143775"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Mar 2026 15:17:55 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 20 Mar 2026 15:17:54 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 20 Mar 2026 15:17:54 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.6) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 20 Mar 2026 15:17:54 -0700
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012060.outbound.protection.outlook.com [52.101.43.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A88710E12A;
+ Sat, 21 Mar 2026 00:06:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F0WXUxQ6r/+LGskNFo+BQVPnVGreVw+7gq9LYqu6UmRg/2b3iLGZQQd/hEskiOq1aGT+h0qZqOgLwj1+7x5UvL0lPnhDk3FxMUVCZEpMWAGdQntSMAdkJTwMVe8AFp9cHoiMco3Q1uxiEpUbWkNqZua4r3EVuBcBm2k9V9yigukb2lRN/fm2qRfHUr308+hJaWYMq41vp9ubJBz5458WHY01bJEFuqCMd/aMV8fbxctVrZ4sDrfuZsLdMuH0XVE7GQYUgh7++/2zCORyUWh4iZw/K46I6XnzZ0jU5suxvShq8wOhnOKdi4lBpd78Tgz4xrS1SJCxv0ljsiF1IcMtaA==
+ b=ofm+bshZPKsVzkhS4G/eqhlytwcLo2sdD70PJW5kUAZ0RDqeu4q5PE+uWyenoAVktNnIrWgsShos/rSEG/5LwPu+D7CP+oGTyRZOmMhU06SfErFMsTLOq7szdB0/lyuXnLMOX0pS27lOQlEreAQnYN0LJDmxcT41V4/y6MzB/7vLkRjzgV0YXHtsch026Nt7LNEHjx8x2EWTMtFQzSSbAPNN8aw6A8bBOXR5X1s36535/OTpiXJZuPXQEsR/S9EMssekptZI3dtq5+3QqNLhN6KCfQSgOZ+UDZW2fBQqLTMQgROgZFP4h9o+LEAxR8ku3udAVHnr9qj1+jHvCK8zQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uMXREfkuN/y6gfZ6H02iWe3/0JMuZJ6ZOcjFCOph2DU=;
- b=kZGsKgaxyGoP2hXiJeIZ+CxmXI2mY4h7f2VHcRnHRJ+Gm9eRCwvyFXlsjiPDUdzUI/uS+WK4ldd97tajZBnNcGwy8+0Hjcwbi7/iGZf+RURLYfuvpLZr6fzmRrVjc3jn9/SiVWZhF4Iyhq/a9oorKuOSzsLy2Ar9sGET/NwhOSQcymtGbTHcSE1RdLtB5dOXVzI73/kmP7ODG0sTG2pnoW5Pm/RRMX16pq9O4rdyMCRG9DjkDX1Zwf/1FV8ofkZQgm5WraHhZrDj7RbmNyKoT9HNN6YdoFIaTs13EUtZiGWU+CS1I5ClwltrOUKt0UsJ5gNr8AaoHMzKgEclPr7QuQ==
+ bh=MPe0rge1WKsxgBFo549+3nELOcKrdvGnKsiNyaqjsP4=;
+ b=onm91WbjbcSqQhtJIDccfD2XpO/9gnTJD3R6FoFkZYfY3G9eKiPhpX9ky+zlc0/SLavmW4nKmHItEIMbkr6ZWIM6hcxWRDpr3Bz9JZfDbkVmzogCu/Al4VQedvn4al8WfH1NLq6DUPawC8jq4ai+6/0LuBFWbNrlebv4deCuUZjVOsM8siPtZVK5Gc0IA/f6ilfp919tXOTa7hBMbiZH29cW41WZphTCeDO2z2pgCVtREZm+VL2myPpdNEqUN4OtGYjQX+zcaI+7yl0JcA8f2ZgwBOaIUEnFXaL0qs0EgOOJpNN+8YqlFf8gR83E1K6aAcaxE22Z/eHeZ03B3jGpKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com (2603:10b6:8:bd::12) by
- IA3PR11MB9352.namprd11.prod.outlook.com (2603:10b6:208:575::22) with
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MPe0rge1WKsxgBFo549+3nELOcKrdvGnKsiNyaqjsP4=;
+ b=ck50Y3A0gP5zOglQ26qP/SuKWUdGAAmyjO7aunRGqYWqfQzu5u8Rmc9YMUS04iWN6310mWiwFOovtDwyM0l0CklZUsdf7wlk6arTutR0Q9kF8ZKJ5T8ZkJRWmhwFVsjEoLiu2vCRrPVhaov1MsmHsCBqfpoz5bRCYt3QXn3bk0IIaSFx4XBlP1IlqD19ga+ekjH1bzMNjCFOMRuNGTuUKfjwGGaFrWXEgkurW2C1BZ7T5uZKR1F8oG2OiNmTYuTqzY/ZRULpXox5DLO6P1nn+wqkAFcWrSJox4BJxm5cNf+V25T6HE5UxxBBnMZ+ggosVaDwR83GT91L3MFKpFUxdA==
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SJ2PR12MB8805.namprd12.prod.outlook.com (2603:10b6:a03:4d0::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.14; Fri, 20 Mar
- 2026 22:17:50 +0000
-Received: from DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680]) by DM4PR11MB6360.namprd11.prod.outlook.com
- ([fe80::22d9:ae03:5db1:680%5]) with mapi id 15.20.9745.007; Fri, 20 Mar 2026
- 22:17:49 +0000
-From: "Shankar, Uma" <uma.shankar@intel.com>
-To: "Deak, Imre" <imre.deak@intel.com>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.15; Sat, 21 Mar
+ 2026 00:06:31 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9745.007; Sat, 21 Mar 2026
+ 00:06:31 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Alexandre Courbot <acourbot@nvidia.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?utf-8?B?QmrDtnJuIFJveSBCYXJvbg==?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
+ Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Dave Airlie
+ <airlied@redhat.com>, Daniel Almeida <daniel.almeida@collabora.com>, Koen
+ Koning <koen.koning@linux.intel.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "rust-for-linux@vger.kernel.org"
+ <rust-for-linux@vger.kernel.org>, Nikola Djukic <ndjukic@nvidia.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jonathan Corbet
+ <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Vivi Rodrigo <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rui Huang <ray.huang@amd.com>, Matthew
+ Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>, Lucas
+ De Marchi <lucas.demarchi@intel.com>, =?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?=
+ <thomas.hellstrom@linux.intel.com>, Helge Deller <deller@gmx.de>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, John Hubbard
+ <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Timur Tabi
+ <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>, Andrea Righi
+ <arighi@nvidia.com>, Andy Ritger <ARitger@nvidia.com>, Zhi Wang
+ <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>, Philipp Stanner
+ <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, Alexey Ivanov
+ <alexeyi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
+ "joel@joelfernandes.org" <joel@joelfernandes.org>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
  "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] drm/i915/dp_tunnel: Fix error handling when clearing
- stream BW in atomic state
-Thread-Topic: [PATCH] drm/i915/dp_tunnel: Fix error handling when clearing
- stream BW in atomic state
-Thread-Index: AQHcuEwCUjLU2tChGUCnKMCH7JQobLW3THTQgAA2RICAAHrdQA==
-Date: Fri, 20 Mar 2026 22:17:49 +0000
-Message-ID: <DM4PR11MB6360D58A28A90753E1F6996AF44CA@DM4PR11MB6360.namprd11.prod.outlook.com>
-References: <20260320092900.13210-1-imre.deak@intel.com>
- <DM4PR11MB63602830F5D63903389EF2DAF44CA@DM4PR11MB6360.namprd11.prod.outlook.com>
- <ab1f_WvJCZZRR5eK@ideak-desk.lan>
-In-Reply-To: <ab1f_WvJCZZRR5eK@ideak-desk.lan>
+ "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v14 2/2] MAINTAINERS: gpu: buddy: Update reviewer
+Thread-Topic: [PATCH v14 2/2] MAINTAINERS: gpu: buddy: Update reviewer
+Thread-Index: AQHcuCYJpk4kz77CC0+Kkr7kSII3UrW3Vl6AgADGeec=
+Date: Sat, 21 Mar 2026 00:06:31 +0000
+Message-ID: <67D3DBE2-643E-411A-9C21-245926E6EAAA@nvidia.com>
+References: <20260320045711.43494-1-joelagnelf@nvidia.com>
+ <20260320045711.43494-3-joelagnelf@nvidia.com>
+ <DH7LP20OY5TJ.3ICBGXWHA7LQV@nvidia.com>
+In-Reply-To: <DH7LP20OY5TJ.3ICBGXWHA7LQV@nvidia.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6360:EE_|IA3PR11MB9352:EE_
-x-ms-office365-filtering-correlation-id: fd6d25dd-7687-4cfb-41ed-08de86ce85cc
+x-ms-traffictypediagnostic: DS0PR12MB6486:EE_|SJ2PR12MB8805:EE_
+x-ms-office365-filtering-correlation-id: 363fd863-ec41-4ad9-dc46-08de86ddb4ba
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|56012099003|22082099003|7053199007|38070700021;
-x-microsoft-antispam-message-info: A3RWtXs404gQFjo6z8pGj2Uv7PoLFrOU4QR2VT8ff69AjGRfos/Pj15U7YE2eJQToUr/8xJOJ2dyxzPVEwPu2NIVmOVgX3TmgfXWMlyBBJ7wiHcx0Ct6JS/2JcGmgjqsrcv3gEGfPxR9VcWIDmnP/c7UfJjtFfon2hfA+75JsHRw88p9Nc/9OFrvCjvAyr9oyquGBFDmcROJkBbBDlpL7m+Uc4Q2OedLbQtGT7XjTKWmvyYMhn4QYXE8zrFl3khlH8pmIkxNNQhBwm14opdOzqPFobtzqbNPrMXVl9C2aUgWttEX20xpWbpy82BW+2QDipZBTS7RoHexxVNbdiBxNZXVwfpVjngTmKgPYkeQhOPH59v9hKt1qhhyLLMcNwDx0Zr51iqX6DtvNTyFovCNtJTQY5JCt7G/wj+dY8h1StQFvQXNB4/3LebU4JZHenAr7MimCc3uCry4BPxOqqpvrAiYVHjdVXUIldeh4BXcxGCh1m8z4L5lQ9rJ2SPwIcPUtvBvMTueoURj/kr7L4dWBe1B21XvotkwOxzo79sCAfWy5MlpD5FRrFy18rmpPAC6ZZ7Gmd9aW6eQZsZ+smPOx7ceLSH4+iRbWBit0DeSRIHq30oqvB/ti6sSqoWCZWl9G7rOkRqqj3SPAhm5zQmzkMAmWIC245tP0+3DhsnfdsFXQETUN85VogvYPo73RUld6LZ7oBQaAC7zsvBpS2nUZvkW+sIEncb6ZC0Bi8xj7tdrtrJQjQf6wqBigxNFeEMYRdEuSddeE9IQsoS6qWAhUWjBDYpVSq/X4hO5VBMs0TM=
+ ARA:13230040|366016|1800799024|7416014|376014|38070700021|18002099003|22082099003|56012099003;
+x-microsoft-antispam-message-info: 9gG6dmWjYdsWWBLLUhe5SokRo29IXR2ETO5CvwBHpKbfEA3AX9YJgWfvQ5TVcO9I2kVtOUce7HKmeDTYLrN5VuCeCOQezoRvnd3xADpAirSFbu8O12u0RNSRc/w8Ho4B9NHW1VxaPSBo/0epkhLegRmTjvx7I/jAFIgW32cSV3yfZijvCYBJGOuAo9+Trvb6hZXjH2ySCvs44nZME8aaAz6JqWtLjK5qM1ZzTvPIaaSyK8nmc3ahXy0Ewo3gFpW2uz+j8bEc0DeJbOcrnCnTOuR0JOQv/eAQGszk8wwZ6dOLOpMfztAAuhg5rjIoapoD7z8HmTb/SljFmbZjmLBMJVE/szaVi0m7QorPMjqwviRjdGf5rt0SF8kaNUaJvL5ZLYeSF5Pu1ynTIT+4SBHzKzXFijv5Qzqinkjwr8OP8wyp9HdsrLpOwcT9cpUIhTikMNl0GGwcu3jOEhP3d0TJxiponJ4Ljvopo33dWrMQ4cx7YICTc9Dpundxxvt4tdiEXgIGi82zARnk0rBYplQAyaeXDzqi3boSAdabzIj1F982waiGxS6Yoqq5oMzQF1QgxtfGqySu+J3tpW8+6ZHNRYGzdJEbuxMrOpKlAUFp2rgG+itjhlKfz/ueZ5a7JEcpLzIecCDSmjcDkMcrQ+T5Az3zo8GS+NiB0ad/Jzp6Qi5o7nWXb6b0muzOFmZfAmG2pxQ1nV6OYhXZyVB6wEWWm43+cV+s6hAKeEgt3nN3NkfF7B/dvkvd/troKqALOBIMfRqkf5uEgwBc/FeGUxacFIlrshhW8jHNeSnBL3Pk2cM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6360.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(56012099003)(22082099003)(7053199007)(38070700021);
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?ueZRfXHvtQ/dDRf37xQnl5VEw3xUKh5mUYlsJiRCojpx6UT5t6MBPTnBAG?=
- =?iso-8859-1?Q?5Eg38+RVjgNKZ9LKBBEQmw5HWXyp5NV6pf/0qvEDQGS2RFTNcHmZhMD7GP?=
- =?iso-8859-1?Q?hzcnIy6CojdvkEtodQMcLxnbXg+Nz4EAt01g4EZp7Lo2OvMLTAK2l0hPXu?=
- =?iso-8859-1?Q?Nvg+Sw/V7snmeRKNSZt1BgU/mzV5gVq67GAEXHEElLiIGj3GqpDp6r6IaO?=
- =?iso-8859-1?Q?9nC1SfQDjH9n6TCI0N6aI2iiCqUcrFhABGznxfd3qa+ZdMf4UU7HklXNjp?=
- =?iso-8859-1?Q?DdBVNFHa18o+NVtt7Yw9QkiaLH1PAd/iIw/Pc8zmOLymmegSo3l21WaVyq?=
- =?iso-8859-1?Q?snncsGUfm9axRHs3LAFM1G6sl/+yblRqzvZkJCVBgm0HOzw0ya3iPhzEjF?=
- =?iso-8859-1?Q?IToPynw/D2DXCXSAtN3J5MO2rXTA9c6BVo2mDKXoNKUTvgQtWsq3foGCUF?=
- =?iso-8859-1?Q?R96iAmiyNdd+bwsKo4gTes/+B18DFE57SegLM3DMqxAIOiQdu9oRv2k72K?=
- =?iso-8859-1?Q?kIZ3I0BXvexbbmHcMj0WReNmKKMAr0qZzkJPZwubbRsrJptudlGPTVKjb+?=
- =?iso-8859-1?Q?IKfE8PWrg9VoDA8dtSaQo451Gr3CzHIMIvMEKGK7nATk1ttfltdtXb0RLE?=
- =?iso-8859-1?Q?NsmA19Tvx0XHf1iwpEMuFIAXKpdc/FJlAf7gsSvj/SnWVq5w5RFbXBGO4E?=
- =?iso-8859-1?Q?e/SfgpiZMXPe8BbmMRRlE9CA1dA1BEO7B24swtZc7xfCUTONV8CLPdWPQ/?=
- =?iso-8859-1?Q?z5j4YtEl3duXAZunhQwpgTlTJNerwXBUSrx6uyIPWx2JqTrCwtptzv6vjF?=
- =?iso-8859-1?Q?+79lToMhxgLbwzZi8/RyQhQyIb2cR85mizyboGRnI98MHoSz/rgrOz+BL1?=
- =?iso-8859-1?Q?PydLQv5QVJxxFU0HTL6tUs0HLdrrYchp1FnHui+z5Ib437J9rmi9JbzKw3?=
- =?iso-8859-1?Q?oZoBLaRk5gnqjnWTkxeMVFhUs7tuNKAifzlK25ewxuijbfhPA1S9PjO55+?=
- =?iso-8859-1?Q?H9Z17CUuhu0YhA1CWDLSyKFGH792Jkth5e1bKhAyRAtVy+oPwl/BhuV2J4?=
- =?iso-8859-1?Q?x9+jIqm+DsW2i4CgPt/Jh7zYEs9GXW5miP0TWSIHfrWl1RElGOZafcC+px?=
- =?iso-8859-1?Q?MFn/TRQzNQDXM9PZyOVjYMqDIT4wtnHYSnGk9Ji0GIfrFJzlud7GD308dj?=
- =?iso-8859-1?Q?hVHB2Sa1749gNAgGUQhM3Z+MfojNRQ+6Cu26WRr/aZbNRVUkbTKNjoRrqd?=
- =?iso-8859-1?Q?xFbAXn1I3WbHswnQk7CLCUhM4J4WnjY3WWF/V7bKblALf/vH33/6JRZuKn?=
- =?iso-8859-1?Q?kHfxiA8RC77oKZlgOhSCkJFhQHeUFkT+UcAn2m1moCxu1uVjrQcc39qFtq?=
- =?iso-8859-1?Q?BvgHU4KGSbl26at99QXAdLoBVbcKr77aUEc+rtVyeoUGRuw3TL8pFyAYuL?=
- =?iso-8859-1?Q?nFhfdd8haI2E/34iZPwiurCA0xTSe845fXg34R1tho3TUwj8JJa4LyDVGy?=
- =?iso-8859-1?Q?Z3LjC/eO6Ixz8S5C+EPqrXyI1D7KewPeHMpnLGlja1oKtTx6se965TWKHz?=
- =?iso-8859-1?Q?hwJrCtnwpFj4XWfZJa3Azpmjnr0qm8eoFCcEELg9T2WXM7zQVH4gC5Ur7u?=
- =?iso-8859-1?Q?FJwABrGFGH0SSFo29n/hcoUZxlnRAFwrVxkKY1ZqiCCbo9L/REYUm4QAJE?=
- =?iso-8859-1?Q?Fi82jq1YaGT4Tnxe3RtUzFjCxY0YDXF0bAztIqu9gUf0ZxncPh8qDNeijR?=
- =?iso-8859-1?Q?Hmz9bPU6rf6k7qEXBpT95eZGeUYkxCUuIVRQbRw8aAY1hHKRqPqVN6k7Rd?=
- =?iso-8859-1?Q?Vi2guhN1AA=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cjlHVXFGcmdlSWZQRVZtUWQ1NVRnbDFjWjE5dElaTFN5L3d3K3VTZTFtdVRY?=
+ =?utf-8?B?S0V2VWdTVE1DdmlUMDdrdnBDNE1QcVg4NlA1dFRqV3pBLzU1L0xhbFFRNEtn?=
+ =?utf-8?B?QUZaUWl4djVhVnBEOEpScHNZSC8rSjlVVHE0NVFnVnUwS2Yrd29PMHlGTnJk?=
+ =?utf-8?B?ZkUxbysrbVpHQXlacVVzcy90SFMxeHJ1amxoTi92cDVJRHEzblpGMzMyUzk2?=
+ =?utf-8?B?cWUxVTY0N2RtUldwTWZLdjc4V2pTclN1bVRJUEJGUTNmcWNOOTU3MklQTXZO?=
+ =?utf-8?B?QWg3cER6VGg1UnVuUEtEZXRQUTBuWXJrSmpyQndJY3VQeUtCUXI1UG00c1c1?=
+ =?utf-8?B?WVpGZys2K2NxUW8vSW1XdTRzcnZqNTVuNEkrQlRrTUo3S05QS3A4eFc0aU85?=
+ =?utf-8?B?YVQ5Y0NuQVpmSHFnUFhEUktWMW5WcFZzTVJ3UlhrNWkvc3gwY3hYN1AvU0Rx?=
+ =?utf-8?B?TzJKZytsMkZsaDVqMmZJSTN4bkRNQnZqYkR2V3EySXBhcTltUFZtRmlod2dB?=
+ =?utf-8?B?ZlFyWkNDUTVDQWJPZmtHMkxRMVNFK3JhVmp3R2xjTXF2czNFcXpsL1RpQ0E4?=
+ =?utf-8?B?eTBUYnBtU3h6b041QlRya3hENGJVRERJTnI2MUwvS2hETms0R1B0d1NFSGRW?=
+ =?utf-8?B?dUpYaFdlcjVzcEtLRXdzMU9xTnpmeVBOU0tKVjY5ZHI1OTBCZkEzR2N5RmZY?=
+ =?utf-8?B?cklmK0RDZEhLNWc0YWRGVzJkRGkxbkxjSWtDYXpPdnJlcmNIQWRXMkhaQXFE?=
+ =?utf-8?B?Wkg3VmkyNmNoUUtyNmpLWlErZ3BYbmlvanJCYWJOdzcxM0ZINVJoSUFMaHQ0?=
+ =?utf-8?B?eWRMVzFzWUI0b1lSVVpBNkYxZEtSYUFERjlRMk1VSTJPUjJvRFR3OFA1Vjhq?=
+ =?utf-8?B?dW5YZmp5elNlcktHemdoVnRvNDJxODRhWkhhWmZGbFZNdGFRMXR6V1dZcnZZ?=
+ =?utf-8?B?ZUlqUGNMRmUvVkk5emk3a3BiRTEwYjJ5a3BkNWdJL0lYZHg1bktCaG1vdU1o?=
+ =?utf-8?B?ci9NRXN5aWVpbGR1M2pJazVxbDRWc1Rucm1jd2FVS0xMUmZRMHJsT3dSK1h5?=
+ =?utf-8?B?Rzg0NFJuMHlUQUJOSTF5dWVDbFNwRXFxWHpmWGJwaGpyZDRiOTFIREJjUkNq?=
+ =?utf-8?B?UWpkQlphRWp4N29PMUgvak5mTTk2OFB4aTdaUExsVUtibmtMNDBNQnVzRTNy?=
+ =?utf-8?B?UlE4ZmFxTnhNdmw0N2JtbTU1NTF4OHdtWjY4c0RDYmIxSjIyMmRQZnhXcHpl?=
+ =?utf-8?B?anp1T0M3MUdOMy9wcmZBdGd3TGpjSVI2VkdaSUY0QUNyR0xoMENHWHd4YkZV?=
+ =?utf-8?B?azY1dmpVczBqTDZUWGZBZEgxOXloUU91STA5cGN1MEc1Q3Z2b0hBRUVkWitk?=
+ =?utf-8?B?Rk9lM1I4ZVNKMy9YRVM3S1hWZ2F3OURMcDJyYisyTlJJUXdYTmxTL2x1NlNG?=
+ =?utf-8?B?U3VyazZsOVpqbkJqZUxLQ0FVaHlscDlpYytNYW1weWU3WjdVZjZsbXE2djBl?=
+ =?utf-8?B?WU95bUxoVTBVUnkrSmsySERiTEJGZGROWmVDQ1lpemsvckdPRmRZbUJsd0F3?=
+ =?utf-8?B?WFJBYVhKWE9od2dYQktGTUZPL1ZpWVppa0tjT2ExeHZ1U0tUYUxiWmh5NWZu?=
+ =?utf-8?B?Nk05NFBueUo3bnNzMEE4UGpSaVpzMTh6aFp4czJURi84TURkSmJvY2hBRmJC?=
+ =?utf-8?B?UHdjNkdaQmRYMjBRckRtbUk2VHJ1aWkyd3ZGNm9qQjJkazdqOVF2V1loMVYv?=
+ =?utf-8?B?WDN6azVBRW83WThEL085QkdkQ2J0Y3JZenZ2a1ZrUC9Pamhwck1oeTROT2Nn?=
+ =?utf-8?B?ZmxMV3FVSVpxWUlmY3UzLzI5MW9wVkF4ZTRwanVDcHBRNTVjejFsTUdnbzg4?=
+ =?utf-8?B?cWRBNmFoVi9hT1RkOGZ1SjJkWExvZld3SEt3RVZiQlQ5M2MvRXpjMTdpemJq?=
+ =?utf-8?B?K2NUR3RsTEVKOWk2MHc5VWZtdnFkU2RXKzhxSHhTR3I5amFSOFVKTk1pODRS?=
+ =?utf-8?B?Z3hjdlFOb2xHaWthbUZlZFhRS2J6KzdKbVpMeHk2bVFMN0d4T0p6eFI0SmpN?=
+ =?utf-8?B?Q09Lb25zV3B3SjFjeHFjV3ZMNDBNSVFvamxmblRhWXc5Rzd5NmhHNFc3MHp2?=
+ =?utf-8?B?QkdWZmdhci9HOFJrNHZSbFUyRUkrUENhdjBrWUZYNGdKQVlIMUlLK3prRk8v?=
+ =?utf-8?B?bUtpM1dHbG1hYzAxdzRmajluT1dZNEZ6ZTlqN0NReTVjdXdvNnVZNHZrdk9N?=
+ =?utf-8?B?UVRaUGJtcXNuVjBxMWxLSWFDVXJ0ZmwrelVuWG9PeFJMTHN0UlVtRjdaak5B?=
+ =?utf-8?B?d1NrcGQzNFY1WTZQWjYzMlpMM2xMQW81bkp4WEtmdFJPWlBhQ3ZSdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: MSRJyL0Y/FCV8Falu147+xRRaLL73tgykFiCxcqWbgeXUWKU86JHVm32NLDD68PYOX5LNeHBotXkgJmEScgJ7+z4ZR6GyYAEuN1rCEvOPyh/NnFJUCKuxaTw02cBmZtNiaJKas5vNMhM003U+HITpt38k7CnXQskY+lkwwRZ8kQrzHI2K52mPGQHIQTv3sj/ZiCy2d45q/DDhNvj3t9RpQhvbp0Qi6FrPEPII506dPw9MLRWnw+cwj+ZMZMQd1fMt/Gr1UGesshRoeUjHI6IHzFWfzPsMMkOegRaj97DjNxpTfrAVBzVSunkNqeQRciMJPIq0jzBCYc8YsEALzwLuw==
+X-OriginatorOrg: Nvidia.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6360.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd6d25dd-7687-4cfb-41ed-08de86ce85cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2026 22:17:49.8836 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 363fd863-ec41-4ad9-dc46-08de86ddb4ba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2026 00:06:31.0866 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hBHE2Y+vdO0/hh/H37ce26MwLua8YtSNg2XyhBT4RLT3KLok2tdTPHOh/+D7Fg2r7y7mqGLP5kdTNE1WQWF+eg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9352
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-userprincipalname: n7F+OPPJUgqtpdW+R3zpb7IOjL6w7xa7ua9yidMgxabatFEwKkoktof4SQQAcUQKd0QFsuMl80Ly+ty6uoa3gA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8805
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,209 +171,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: Deak, Imre <imre.deak@intel.com>
-> Sent: Friday, March 20, 2026 8:26 PM
-> To: Shankar, Uma <uma.shankar@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Vill=
-e Syrj=E4l=E4
-> <ville.syrjala@linux.intel.com>; stable@vger.kernel.org
-> Subject: Re: [PATCH] drm/i915/dp_tunnel: Fix error handling when clearing=
- stream
-> BW in atomic state
->=20
-> On Fri, Mar 20, 2026 at 01:42:58PM +0200, Shankar, Uma wrote:
-> >
-> >
-> > > -----Original Message-----
-> > > From: Deak, Imre <imre.deak@intel.com>
-> > > Sent: Friday, March 20, 2026 2:59 PM
-> > > To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> > > Cc: Shankar, Uma <uma.shankar@intel.com>; Ville Syrj=E4l=E4
-> > > <ville.syrjala@linux.intel.com>; stable@vger.kernel.org
-> > > Subject: [PATCH] drm/i915/dp_tunnel: Fix error handling when
-> > > clearing stream BW in atomic state
-> > >
-> > > Clearing the DP tunnel stream BW in the atomic state involves
-> > > getting the tunnel group state, which can fail. Handle the error acco=
-rdingly.
-> > >
-> > > This fixes at least one issue where
-> > > drm_dp_tunnel_atomic_set_stream_bw()
-> > > failed to get the tunnel group state returning -EDEADLK, which wasn't=
- handled.
-> > > This lead to the ctx->contended warn later in modeset_lock() while
-> > > taking a WW mutex for another object in the same atomic state, and
-> > > thus within the same already contended WW context.
-> > >
-> > > Moving intel_crtc_state_alloc() later would avoid freeing
-> > > saved_state on the error path; this stable patch leaves that simplifi=
-cation for a
-> follow-up.
-> > >
-> > > Cc: Uma Shankar <uma.shankar@intel.com>
-> > > Cc: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > > Cc: <stable@vger.kernel.org> # v6.9+
-> > > Fixes: a4efae87ecb2 ("drm/i915/dp: Compute DP tunnel BW during
-> > > encoder state
-> > > computation")
-> > > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > > ---
-> > >  drivers/gpu/drm/i915/display/intel_display.c  |  8 +++++++-
-> > >  .../gpu/drm/i915/display/intel_dp_tunnel.c    | 20 +++++++++++++----=
---
-> > >  .../gpu/drm/i915/display/intel_dp_tunnel.h    | 11 ++++++----
-> > >  3 files changed, 28 insertions(+), 11 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> > > b/drivers/gpu/drm/i915/display/intel_display.c
-> > > index ee501009a251f..882db77c0bbcd 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > > @@ -4640,6 +4640,7 @@ intel_crtc_prepare_cleared_state(struct
-> > > intel_atomic_state *state,
-> > >  	struct intel_crtc_state *crtc_state =3D
-> > >  		intel_atomic_get_new_crtc_state(state, crtc);
-> > >  	struct intel_crtc_state *saved_state;
-> > > +	int err;
-> > >
-> > >  	saved_state =3D intel_crtc_state_alloc(crtc);
-> > >  	if (!saved_state)
-> > > @@ -4648,7 +4649,12 @@ intel_crtc_prepare_cleared_state(struct
-> > > intel_atomic_state *state,
-> > >  	/* free the old crtc_state->hw members */
-> > >  	intel_crtc_free_hw_state(crtc_state);
-> > >
-> > > -	intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
-> > > +	err =3D intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
-> > > +	if (err) {
-> > > +		kfree(saved_state);
-> > > +
-> > > +		return err;
-> > > +	}
-> > >
-> > >  	/* FIXME: before the switch to atomic started, a new pipe_config wa=
-s
-> > >  	 * kzalloc'd. Code that depends on any field being zero should be
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-> > > b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-> > > index 1fd1ac8d556d8..7363c98172971 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.c
-> > > @@ -659,19 +659,27 @@ int
-> > > intel_dp_tunnel_atomic_compute_stream_bw(struct
-> > > intel_atomic_state *state,
-> > >   *
-> > >   * Clear any DP tunnel stream BW requirement set by
-> > >   * intel_dp_tunnel_atomic_compute_stream_bw().
-> > > + *
-> > > + * Returns 0 in case of success, a negative error code otherwise.
-> > >   */
-> > > -void intel_dp_tunnel_atomic_clear_stream_bw(struct intel_atomic_stat=
-e
-> *state,
-> > > -					    struct intel_crtc_state *crtc_state)
-> > > +int intel_dp_tunnel_atomic_clear_stream_bw(struct intel_atomic_state=
- *state,
-> > > +					   struct intel_crtc_state *crtc_state)
-> > >  {
-> > >  	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> > > +	int err;
-> > >
-> > >  	if (!crtc_state->dp_tunnel_ref.tunnel)
-> > > -		return;
-> > > +		return 0;
-> > > +
-> > > +	err =3D drm_dp_tunnel_atomic_set_stream_bw(&state->base,
-> > > +						 crtc_state->dp_tunnel_ref.tunnel,
-> > > +						 crtc->pipe, 0);
-> > > +	if (err)
-> > > +		return err;
-> > >
-> > > -	drm_dp_tunnel_atomic_set_stream_bw(&state->base,
-> > > -					   crtc_state->dp_tunnel_ref.tunnel,
-> > > -					   crtc->pipe, 0);
-> > >  	drm_dp_tunnel_ref_put(&crtc_state->dp_tunnel_ref);
-> >
-> > Hi Imre,
-> > Should we not drop reference even in case of failure, is this intention=
-al ?
->=20
-> Yes, the early return in case of an error, preserving the tunnel referenc=
-e in the
-> crtc state is intentional. The error here will make the whole commit fail=
- and the
-> atomic state - within that the crtc state - being freed. That crtc state =
-freeing will
-> drop this reference, see intel_crtc_destroy_state().
->=20
-> Aside: it wouldn't cause a functional problem to drop the reference as yo=
-u suggest
-> in case of the earlier error either - the related dropping of the referen=
-ce in
-> intel_crtc_destroy_state() described above would be skipped then. But I s=
-till think
-> the usual early return - as done in the patch - in case of an error is th=
-e logically
-> correct way.
-
-Thanks for the explanation Imre, sounds good.
-
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-
-> >
-> > Regards,
-> > Uma Shankar
-> >
-> > > +
-> > > +	return 0;
-> > >  }
-> > >
-> > >  /**
-> > > diff --git a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > > b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > > index 7f0f720e8dcad..10ab9eebcef69 100644
-> > > --- a/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > > +++ b/drivers/gpu/drm/i915/display/intel_dp_tunnel.h
-> > > @@ -40,8 +40,8 @@ int
-> > > intel_dp_tunnel_atomic_compute_stream_bw(struct
-> > > intel_atomic_state *state,
-> > >  					     struct intel_dp *intel_dp,
-> > >  					     const struct intel_connector
-> *connector,
-> > >  					     struct intel_crtc_state *crtc_state); -
-> void
-> > > intel_dp_tunnel_atomic_clear_stream_bw(struct intel_atomic_state *sta=
-te,
-> > > -					    struct intel_crtc_state *crtc_state);
-> > > +int intel_dp_tunnel_atomic_clear_stream_bw(struct intel_atomic_state=
- *state,
-> > > +					   struct intel_crtc_state *crtc_state);
-> > >
-> > >  int intel_dp_tunnel_atomic_add_state_for_crtc(struct intel_atomic_st=
-ate
-> *state,
-> > >  					      struct intel_crtc *crtc); @@ -88,9
-> +88,12 @@
-> > > intel_dp_tunnel_atomic_compute_stream_bw(struct
-> > > intel_atomic_state *state,
-> > >  	return 0;
-> > >  }
-> > >
-> > > -static inline void
-> > > +static inline int
-> > >  intel_dp_tunnel_atomic_clear_stream_bw(struct intel_atomic_state *st=
-ate,
-> > > -				       struct intel_crtc_state *crtc_state) {}
-> > > +				       struct intel_crtc_state *crtc_state) {
-> > > +	return 0;
-> > > +}
-> > >
-> > >  static inline int
-> > >  intel_dp_tunnel_atomic_add_state_for_crtc(struct intel_atomic_state
-> > > *state,
-> > > --
-> > > 2.49.1
-> >
+DQoNCj4gT24gTWFyIDIwLCAyMDI2LCBhdCA4OjE24oCvQU0sIEFsZXhhbmRyZSBDb3VyYm90IDxh
+Y291cmJvdEBudmlkaWEuY29tPiB3cm90ZToNCj4gDQo+IO+7v09uIEZyaSBNYXIgMjAsIDIwMjYg
+YXQgMTo1NyBQTSBKU1QsIEpvZWwgRmVybmFuZGVzIHdyb3RlOg0KPj4gQ2hyaXN0aWFuIEtvZW5p
+ZyBtZW50aW9uZWQgaGUnZCBsaWtlIHRvIHN0ZXAgZG93biBmcm9tIHRoZSByZXZpZXdlcg0KPj4g
+cm9sZSBmb3IgdGhlIEdQVSBidWRkeSBhbGxvY2F0b3IuIEpvZWwgRmVybmFuZGVzIGlzIHN0ZXBw
+aW5nIGluIGFzDQo+PiByZXZpZXdlciB3aXRoIGFncmVlbWVudCBmcm9tIE1hdHRoZXcgQXVsZCBh
+bmQgQXJ1biBQcmF2aW4uDQo+PiANCj4+IFNpZ25lZC1vZmYtYnk6IEpvZWwgRmVybmFuZGVzIDxq
+b2VsYWduZWxmQG52aWRpYS5jb20+DQo+IA0KPiBUaGlzIGlzIG1pc3NpbmcgdGhlIEFja2VkLWJ5
+cyB5b3UgY29sbGVjdGVkIG9uIHYxMy4NCg0KVGhhbmsgeW91LCB3b3VsZCBEYW5pbG8gYmUgd2ls
+bGluZyB0byBhZGQgaXQgb25seSBhcHBseSBzbyBJIGRvIG5vdCBuZWVkIHRvIHJlc2VuZD8gQWNr
+cyBhcmUgZnJvbSBNYXRoZXcsIEFydW4gYW5kIENocmlzdGlhbi4NCg0KDQoNCg==
