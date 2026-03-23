@@ -4,101 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4293F483C2
-	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:05:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B94D6F483C1
+	for <intel-gfx@archiver.kernel.org>; Mon, 23 Mar 2026 16:10:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5696310E5B7;
-	Mon, 23 Mar 2026 16:05:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A6410E263;
+	Mon, 23 Mar 2026 16:10:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HgNFAUq0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ECcKQQMM";
 	dkim-atps=neutral
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB4FB10EB00
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 18:15:51 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-64caaacb9bcso1990679d50.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 20 Mar 2026 11:15:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774030551; cv=none;
- d=google.com; s=arc-20240605;
- b=gg7xw8LXk2sXROwEB9WrgtmdsjOeMTVXNHcRlicW8eZMuY7miAZ2Xpluv9Ly0Dmuhv
- Fk1BR1PFEkolSgadApaWIMjV7J04sC9PRt9RSATQgexHO8pY/zEAPRDhSKmrkmPeUxgf
- 8RPwQ0ZifXRcsPVcK6cicsDxSilg7J86VjNNJWEmXLRsLfLb1dMFS8ku06Oqj/yQy/Hc
- aP7TVZXAozbL0lQNGp6Mri+2P09XC8qkVC9dnxrSa0JCeVjktBfYyEk8TVb5e2xBszne
- eLpNqm7ex74l4uG5o8ShRZOdLHaZzDaOsk6rYYQQ8ihFAVlJNqzNptVDml2mqetF4RpY
- uB9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
- fh=YUh96mzKrKT/nsQiFdVd7YJaKn/hr8ENXJAFdyT2nzo=;
- b=QtI/+7vwl2jlvjr44Mlz614ix5mtLyv4QXurv1O2cH7NEtl6G7sID3RjMxKzZU0sEs
- Oon8V1y5FG6GOlmMlcwKCVHkONOfjfvolykQ7nsLAIJEuJl9vIIs0dHW1tcdxZURqymy
- OR1K3NRJWxNuZkVSe4tt/9/zC9fbSfjcC4M6TIMRRnQ1pqv2xuoKbvhtRAI3qQRIEC34
- mV12SLvvsmwHBMQ+2r5CxxdDtvuqmtsiDD6r/kq5q4+YUYqKk8UKBNZaiCZwZG20gzaO
- jkPEynxx/1/p570pHEWsUNIerYr6bSs+9rJ4/mWDxMAW3Quf3/E5RvKC0ERgOK5njher
- OM9g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1774030551; x=1774635351; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
- b=HgNFAUq0Hgyiw4zqw3JgpV0k0nbDWJydu24VMfUWtYQna+PmQ6RaWNYT/uWn00NVAi
- soJwDvNOzhXjPxepn/j32sje7SpaG+PvCuTe82490IjW1mRurXGcEU2t1Tfx4bbY8bTv
- yObon8XLsqbwtWFCKC6z4IBMs2+zqYMHVrVfdm7JndzaopaWHlDf/2CgiOMS4XOJJ5+T
- aFJimKhyY9IcRVSx3fr37rzLUYzsk9QWoKU8PBLlts4rMODpi6S4L9clcKak8LddQf2l
- EhKypPRVIsoHOyncX80e9DgR/hdbxavjR1HXTZkguvE1e9h5O/zAy61uYwMfUM4W6g8m
- Mb7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774030551; x=1774635351;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=yqVOmyZ2Z9NpjvmKpf4W2/OoeWedoqj5iVulCJB7QGg=;
- b=Fh4GEojtAzXnEEgIp2GzRWlH2en8TfNaHIqOMZVq2VIsZ53vb/Sc2pN/GWSXtrETf/
- FSBG4vlllAmrVxaXpRVN7tlENCqeqQrEl75Zb27DoKA0RqEnMeqEfWb3dTTiU4/8eTPj
- KgN1RyUUpgI+SXO3iKh93UJDu0RBOpqGJq09bx5hCZqej1EMQ+ZCiaSiqTRxSL/ZZUF3
- pkhPDPLN6fSrdzy2W1mSNkxyFckfreK/BQh8YWlJThsq/xx41D0gcoWcCfRgTi1UjnjV
- iJ0HzP/LqiyvYjuWTSkow7otztQWFI7kOa20mo7BMkQAgfennK/NdNCn6Cn1JIMZTVOp
- xwVw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUTCtzBEWMDhr/sK0BtU1tAm2h3w31it4HHz5lchRzwZTyy2pwv7BV9dTPuMoNAhuXnrsLUKKiabiA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx+UQtoiKIAfNiQoDIy+A31p/Qi4/U/Z2WqHxNedA7IgNiIcyEd
- OdfLrsY5X2YZ5vx9OD456MklzJpBQhXdT6gHMjA5z7+In52vimcHrl+UqSZEIIW+LzduHdFlCeR
- py/9Phkwnw8dACXehlaMqAS9xnFvqFvM=
-X-Gm-Gg: ATEYQzy72z90+PLIWZwvqlKO1+2UGjyem7dYFD2ZfpfFjgaWAO3vIZdot0KkNgRP+vN
- tLnNUfX6+/3P/2ZmT5WaMkt07wsJmIdsgZrR8smXiBUReo/GffDHEsbNZ5OyXumHQboe/NUb9XA
- ljZT7iv+aF73PixO/NlqslYW6lqswV2g3KHjR3fAWKEPM1i+nH7DYP19qGHdiotaSE1S64wWQwO
- Tx1mhxc1jSO2cyJQ4d0go7k07zak5NFSQr/vAHHO/zBirf9p4rynbT1J8SzLrw4ysZ/GMVZGC4b
- jTNO
-X-Received: by 2002:a53:c052:0:10b0:64e:a220:295c with SMTP id
- 956f58d0204a3-64eaa6de30amr3530515d50.23.1774030550487; Fri, 20 Mar 2026
- 11:15:50 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B672710E02E;
+ Mon, 23 Mar 2026 16:10:50 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 79C2443AAA;
+ Mon, 23 Mar 2026 16:10:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83931C2BC9E;
+ Mon, 23 Mar 2026 16:10:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774282250;
+ bh=ZoF6xupyTlTv3+792NBhfg/e7BseX4uCTwsWp6/Ht5o=;
+ h=Date:From:To:Cc:Subject:From;
+ b=ECcKQQMMWU2dOCMAt5/a29k+/CM78UaRqJB2AIlhQmkr+pJbb9NNKHBe5fjIfSfby
+ 5Q61bd8MSML5hT0XC1RFwswkg5SF3eThQg51onLwHHvckIm4/Y8u3DDGNCEdQ8fYkI
+ /mEofa/HxUC9h5WmsrXgUt+cy20BPIo1BkwDofIdDL5XtM4IYwLWOgK651JMxoXmT9
+ WlpdgReSsRkgHpXM3NhYNhrzOf/6yQBARoBqNnBmYFQZI5HzWAi47dMxTKKtOFewzM
+ Qd7TdU6mNW0uIX+OgNS/Lmn//JB+LuyQLr/LTCxzx3sjgAfxMchREDSJv0NLv8Ougm
+ ndJ4bIQ9MntGA==
+Date: Mon, 23 Mar 2026 16:10:45 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: linux-next: manual merge of the drm-intel tree with the
+ drm-intel-fixes tree
+Message-ID: <acFmBW6nKf6-3ufe@sirena.org.uk>
 MIME-Version: 1.0
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
- <20260313132103.2529746-34-jim.cromie@gmail.com>
- <177402491455.6181.14143715499365255565.b4-review@b4>
-In-Reply-To: <177402491455.6181.14143715499365255565.b4-review@b4>
-From: jim.cromie@gmail.com
-Date: Fri, 20 Mar 2026 12:15:24 -0600
-X-Gm-Features: AaiRm50oHJtX5DOcrlwYqkPT1yywLsHi6Mo-IWiyIyjkVSYXdjkPbyeG6tTGqzc
-Message-ID: <CAJfuBxxJBPxG9uYp2XrKF4952ika8AitSUq=ExT0N+_VZqKEAg@mail.gmail.com>
-Subject: Re: [PATCH v11 33/65] docs/dyndbg: add classmap info to howto
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
- gregkh@linuxfoundation.org, mripard@kernel.org, tzimmermann@suse.de, 
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
- ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 23 Mar 2026 16:03:24 +0000
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="aL9nb2R2bPSwnBDn"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,50 +63,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2026 at 10:42=E2=80=AFAM Louis Chauvet
-<louis.chauvet@bootlin.com> wrote:
->
-> On Fri, 13 Mar 2026 07:19:58 -0600, Jim Cromie <jim.cromie@gmail.com> wro=
-te:
-> > diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Docume=
-ntation/admin-guide/dynamic-debug-howto.rst
-> > index 0a42b9de55ac..734be0b5fe9a 100644
-> > --- a/Documentation/admin-guide/dynamic-debug-howto.rst
-> > +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-> > @@ -218,6 +211,25 @@ line
-> > [ ... skip 13 lines ... ]
-> > +
-> > +.. note::
-> > +
-> > +    Unlike other keywords, classes are "name-to-change", not
-> > +    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
-> > +
->
-> Why did you move the class description?
-> Is there a way to add a link to _dyndbg-classmaps? (I don't know well the
-> rst syntax)
 
-I think I moved it to the bottom cuz its the latest keyword, and the
-longest description.
-(theyre not alphabetical, they could be, should they be ?)
+--aL9nb2R2bPSwnBDn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+Hi all,
 
->
-> > @@ -395,3 +412,98 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``=
-.
-> > [ ... skip 45 lines ... ]
-> > +DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this map=
-s
-> > +classnames (a list of strings) onto class-ids consecutively, starting
-> > +at _base.
-> > +
-> > +DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
-> > +call this to refer to the var _DEFINEd elsewhere (and exported).
->
-> (if you reorder the patches to merge the "basic" stuff, don't forget to
-> move the _USE_ and offset explaination in a second documentation patch)
->
-> Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
->
-> --
-> Louis Chauvet <louis.chauvet@bootlin.com>
+Today's linux-next merge of the drm-intel tree got a conflict in:
+
+  drivers/gpu/drm/i915/display/intel_plane.c
+
+between commit:
+
+  bfa71b7a9dc6b ("drm/i915: Unlink NV12 planes earlier")
+
+=66rom the drm-intel-fixes tree and commits:
+
+  017ecd0498557 ("drm/i915: Unlink NV12 planes earlier")
+  7b3a14322d1a8 ("drm/i915: Relocate unlink_nv12_plane()")
+  c5121204ad991 ("drm/i915: Skip redundant NV12 plane unlinking")
+
+=66rom the drm-intel tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/i915/display/intel_plane.c
+index 076b9b3564816,5390ceb21ca42..0000000000000
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@@ -437,7 -437,29 +437,29 @@@ void intel_plane_copy_hw_state(struct i
+  }
+ =20
+  static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+- 			      struct intel_plane_state *plane_state);
++ 			      struct intel_plane_state *plane_state)
++ {
++ 	struct intel_display *display =3D to_intel_display(plane_state);
++ 	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
++=20
++ 	if (!plane_state->planar_linked_plane)
++ 		return;
++=20
++ 	plane_state->planar_linked_plane =3D NULL;
++=20
++ 	if (!plane_state->is_y_plane)
++ 		return;
++=20
++ 	drm_WARN_ON(display->drm, plane_state->uapi.visible);
++=20
++ 	plane_state->is_y_plane =3D false;
++=20
++ 	crtc_state->enabled_planes &=3D ~BIT(plane->id);
++ 	crtc_state->active_planes &=3D ~BIT(plane->id);
++ 	crtc_state->update_planes |=3D BIT(plane->id);
++ 	crtc_state->data_rate[plane->id] =3D 0;
++ 	crtc_state->rel_data_rate[plane->id] =3D 0;
++ }
+ =20
+  void intel_plane_set_invisible(struct intel_crtc_state *crtc_state,
+  			       struct intel_plane_state *plane_state)
+@@@ -1512,31 -1534,6 +1534,6 @@@ static void link_nv12_planes(struct int
+  	icl_link_nv12_planes(uv_plane_state, y_plane_state);
+  }
+ =20
+- static void unlink_nv12_plane(struct intel_crtc_state *crtc_state,
+- 			      struct intel_plane_state *plane_state)
+- {
+- 	struct intel_display *display =3D to_intel_display(plane_state);
+- 	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
+-=20
+- 	if (!plane_state->planar_linked_plane)
+- 		return;
+-=20
+- 	plane_state->planar_linked_plane =3D NULL;
+-=20
+- 	if (!plane_state->is_y_plane)
+- 		return;
+-=20
+- 	drm_WARN_ON(display->drm, plane_state->uapi.visible);
+-=20
+- 	plane_state->is_y_plane =3D false;
+-=20
+- 	crtc_state->enabled_planes &=3D ~BIT(plane->id);
+- 	crtc_state->active_planes &=3D ~BIT(plane->id);
+- 	crtc_state->update_planes |=3D BIT(plane->id);
+- 	crtc_state->data_rate[plane->id] =3D 0;
+- 	crtc_state->rel_data_rate[plane->id] =3D 0;
+- }
+-=20
+  static int icl_check_nv12_planes(struct intel_atomic_state *state,
+  				 struct intel_crtc *crtc)
+  {
+@@@ -1550,17 -1547,6 +1547,6 @@@
+  	if (DISPLAY_VER(display) < 11)
+  		return 0;
+ =20
+- 	/*
+- 	 * Destroy all old plane links and make the Y plane invisible
+- 	 * in the crtc_state->active_planes mask.
+- 	 */
+- 	for_each_new_intel_plane_in_state(state, plane, plane_state, i) {
+- 		if (plane->pipe !=3D crtc->pipe)
+- 			continue;
+-=20
+- 		unlink_nv12_plane(crtc_state, plane_state);
+- 	}
+-=20
+  	if (!crtc_state->nv12_planes)
+  		return 0;
+ =20
+
+--aL9nb2R2bPSwnBDn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBZgUACgkQJNaLcl1U
+h9AIzwf+ISvVVdgyEcks5gQhMPiY6ZQJnrEsybRPvGC+0xBAL01/09v/+3vLLkiw
+a8QzekfS2/ErTHjAC3s6h8Slx4Sr05mKcry69xQkl6sU4322W9pVHyMmvDgaGj/i
+w+KUHIUrryjwyPUE5OrPOaEgG63ls0pUtYSB9WyCpwFwJ9jmjcikIz7fYqXd6hpw
+9zjXDc4K+EEuwRCCrB9AKbeRzW7SBKag2xQURd+6FUvDFvr4xA1Sll+IJ1jNvP6t
+oiDRfMYHl7Kv6W/h5OnP+lCdSm+YF/DHpDw71onMF6iI2NsrFeK0FAH7gFdSlSF7
+uEnZhCLN38ZJfH8vbTP2LoNu054Skg==
+=YpWH
+-----END PGP SIGNATURE-----
+
+--aL9nb2R2bPSwnBDn--
