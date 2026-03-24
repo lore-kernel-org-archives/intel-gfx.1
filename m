@@ -4,36 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38026F54ACE
-	for <intel-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 15:26:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFA2EF54ADA
+	for <intel-gfx@archiver.kernel.org>; Tue, 24 Mar 2026 16:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81F910E6E8;
-	Tue, 24 Mar 2026 15:26:43 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A50D10E698;
- Tue, 24 Mar 2026 15:26:42 +0000 (UTC)
-Received: from 87-93-178-238.bb.dnainternet.fi ([87.93.178.238]
- helo=[192.168.101.111])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1w53eH-00000003cNx-3BxI; Tue, 24 Mar 2026 17:26:38 +0200
-Message-ID: <825849b65c16a959a4880bf9e4a476eaf3fd2927.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>, 
- Luca Coelho <luciano.coelho@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- jani.nikula@linux.intel.com
-Date: Tue, 24 Mar 2026 17:26:28 +0200
-In-Reply-To: <acKoAdGa3s1S5Pqm@intel.com>
-References: <20260324143420.310800-1-luciano.coelho@intel.com>
- <20260324143420.310800-8-luciano.coelho@intel.com>
- <acKoAdGa3s1S5Pqm@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 748BC10E720;
+	Tue, 24 Mar 2026 16:02:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="P/FNneop";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8852F10E71A;
+ Tue, 24 Mar 2026 16:01:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1774368107; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GSHLWSvL1ey7UKnEBHr54QllXY25zi/iQYdBm7ghNiOOdAHUi8fcb6NpCFMfO+Qbc+cO/STQto2RMa2ohRzCJ0juDO8itcchMeh1NSB+QrkN/oMF/d1UktGUEqBCT5MF7NuxnvGNm+Yx0aOu/pKNxd8qWyz4ct7lkkkTHcd1fVo=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1774368107;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=mu1XGj5EiVT5drNcReQYQM3PhOjoRRxgQTVeHo55NM8=; 
+ b=cPx4mz3NM6wUCjjDUa7wMoSJOctK4qnKBGZjE91hXLlUlTEVqj7BDTBhRx7Pwkh7iYQGjAssKdK3tHrWmXOt/OXqiaKqzSPZZ2YVbtwtE7rDa9PMIbBX4P059F8C2Rg5BYjMt3tU63jR4CRxR9w4xApr4gRhoIKQ5B3owG1vApc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774368107; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=mu1XGj5EiVT5drNcReQYQM3PhOjoRRxgQTVeHo55NM8=;
+ b=P/FNneoplZ4So8iGyT1GqXJyB034CB0kLTbF3pDKjudgCA8V/XUqkaYs8yD35acY
+ mLMDxTVIwJeMxR9AcQ0U/04UZ73EpIoCPca8bVGMiyPld1Qb1CHpWPbqpWxAEXMbMJ1
+ cJFUvVdrz3WQeeO74tqIHbxWj5a95wDiK1PQnAz8=
+Received: by mx.zohomail.com with SMTPS id 1774368105495460.86037447788044;
+ Tue, 24 Mar 2026 09:01:45 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 24 Mar 2026 17:01:05 +0100
+Subject: [PATCH v11 01/22] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
 MIME-Version: 1.0
-Subject: Re: [PATCH 7/8] drm/i915/display: move pre-HSW clock gating init to
- display
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260324-color-format-v11-1-605559af4fb4@collabora.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+In-Reply-To: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>
+X-Mailer: b4 0.15.0
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,408 +91,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-24 at 17:04 +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
-> On Tue, Mar 24, 2026 at 04:29:56PM +0200, Luca Coelho wrote:
-> > Move the remaining pre-HSW display clock gating programming into
-> > display.
-> >=20
-> > This also drops display register includes from intel_clock_gating.c.
-> >=20
-> > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-> > ---
-> >  .../i915/display/intel_display_clock_gating.c | 100 ++++++++++++++++
-> >  .../i915/display/intel_display_clock_gating.h |  12 ++
-> >  drivers/gpu/drm/i915/intel_clock_gating.c     | 109 +-----------------
-> >  3 files changed, 118 insertions(+), 103 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c =
-b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> > index 0b2edf6acb79..5809c49dccf0 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> > @@ -6,11 +6,13 @@
-> >  #include <drm/intel/intel_gmd_misc_regs.h>
-> > =20
-> >  #include "intel_de.h"
-> > +#include "i9xx_plane_regs.h"
-> >  #include "intel_display.h"
-> >  #include "intel_display_clock_gating.h"
-> >  #include "intel_display_regs.h"
-> > =20
-> >  #include "i915_drv.h"
-> > +#include "i915_reg.h"
-> > =20
-> >  static void intel_display_gen9_init_clock_gating(struct intel_display =
-*display,
-> >  						 bool has_llc)
-> > @@ -156,3 +158,101 @@ void intel_display_hsw_init_clock_gating(struct i=
-ntel_display *display)
-> >  	intel_display_hsw_init_clock_gating_common(display,
-> >  						   HSW_UNMASK_VBL_TO_REGS_IN_SRD);
-> >  }
-> > +
-> > +void intel_display_disable_trickle_feed(struct intel_display *display)
-> > +{
-> > +	enum pipe pipe;
-> > +
-> > +	for_each_pipe(display, pipe) {
-> > +		intel_de_rmw(display, DSPCNTR(display, pipe), 0,
-> > +			     DISP_TRICKLE_FEED_DISABLE);
-> > +
-> > +		intel_de_rmw(display, DSPSURF(display, pipe), 0, 0);
-> > +		intel_de_posting_read(display, DSPSURF(display, pipe));
-> > +	}
-> > +}
-> > +
-> > +void intel_display_ilk_init_clock_gating(struct intel_display *display=
-)
-> > +{
-> > +	struct drm_i915_private *i915 =3D to_i915(display->drm);
-> > +	u32 dspclk_gate =3D ILK_VRHUNIT_CLOCK_GATE_DISABLE;
-> > +
-> > +	/*
-> > +	 * Required for FBC
-> > +	 * WaFbcDisableDpfcClockGating:ilk
-> > +	 */
-> > +	dspclk_gate |=3D ILK_DPFCRUNIT_CLOCK_GATE_DISABLE |
-> > +		       ILK_DPFCUNIT_CLOCK_GATE_DISABLE |
-> > +		       ILK_DPFDUNIT_CLOCK_GATE_ENABLE;
-> > +
-> > +	intel_de_write(display, PCH_3DCGDIS0,
-> > +		       MARIUNIT_CLOCK_GATE_DISABLE |
-> > +		       SVSMUNIT_CLOCK_GATE_DISABLE);
-> > +	intel_de_write(display, PCH_3DCGDIS1, VFMUNIT_CLOCK_GATE_DISABLE);
->=20
-> Those two aren't display things.
+From: Werner Sembach <wse@tuxedocomputers.com>
 
-Oops, you're right.  I'll fix it.
+Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+force_yuv420_output case.
 
---
-Cheers,
-Luca.
+Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+there is no reason to use RGB when the display
+reports drm_mode_is_420_only() even on a non HDMI connection.
 
+This patch also moves both checks in the same if-case. This  eliminates an
+extra else-if-case.
 
->=20
-> > +
-> > +	intel_de_write(display, ILK_DISPLAY_CHICKEN2,
-> > +		       intel_de_read(display, ILK_DISPLAY_CHICKEN2) |
-> > +		       ILK_DPARB_GATE | ILK_VSDPFD_FULL);
-> > +	dspclk_gate |=3D ILK_DPARBUNIT_CLOCK_GATE_ENABLE;
-> > +	intel_de_write(display, DISP_ARB_CTL,
-> > +		       intel_de_read(display, DISP_ARB_CTL) |
-> > +		       DISP_FBC_WM_DIS);
-> > +
-> > +	if (IS_IRONLAKE_M(i915)) {
-> > +		/* WaFbcAsynchFlipDisableFbcQueue:ilk */
-> > +		intel_de_rmw(display, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DIS);
-> > +		intel_de_rmw(display, ILK_DISPLAY_CHICKEN2, 0, ILK_DPARB_GATE);
-> > +	}
-> > +
-> > +	intel_de_write(display, ILK_DSPCLK_GATE_D, dspclk_gate);
-> > +	intel_de_rmw(display, ILK_DISPLAY_CHICKEN2, 0, ILK_ELPIN_409_SELECT);
-> > +
-> > +	intel_display_disable_trickle_feed(display);
-> > +}
-> > +
-> > +void intel_display_gen6_init_clock_gating(struct intel_display *displa=
-y)
-> > +{
-> > +	u32 dspclk_gate =3D ILK_VRHUNIT_CLOCK_GATE_DISABLE;
-> > +
-> > +	intel_de_write(display, ILK_DSPCLK_GATE_D, dspclk_gate);
-> > +	intel_de_rmw(display, ILK_DISPLAY_CHICKEN2, 0, ILK_ELPIN_409_SELECT);
-> > +
-> > +	intel_de_write(display, ILK_DISPLAY_CHICKEN1,
-> > +		       intel_de_read(display, ILK_DISPLAY_CHICKEN1) |
-> > +		       ILK_FBCQ_DIS | ILK_PABSTRETCH_DIS);
-> > +	intel_de_write(display, ILK_DISPLAY_CHICKEN2,
-> > +		       intel_de_read(display, ILK_DISPLAY_CHICKEN2) |
-> > +		       ILK_DPARB_GATE | ILK_VSDPFD_FULL);
-> > +	intel_de_write(display, ILK_DSPCLK_GATE_D,
-> > +		       intel_de_read(display, ILK_DSPCLK_GATE_D) |
-> > +		       ILK_DPARBUNIT_CLOCK_GATE_ENABLE |
-> > +		       ILK_DPFDUNIT_CLOCK_GATE_ENABLE);
-> > +
-> > +	intel_display_disable_trickle_feed(display);
-> > +}
-> > +
-> > +void intel_display_ivb_init_clock_gating(struct intel_display *display=
-)
-> > +{
-> > +	intel_de_write(display, ILK_DSPCLK_GATE_D, ILK_VRHUNIT_CLOCK_GATE_DIS=
-ABLE);
-> > +	intel_de_rmw(display, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DIS);
-> > +}
-> > +
-> > +void intel_display_g4x_init_clock_gating(struct intel_display *display=
-)
-> > +{
-> > +	struct drm_i915_private *i915 =3D to_i915(display->drm);
-> > +	u32 dspclk_gate =3D VRHUNIT_CLOCK_GATE_DISABLE |
-> > +			  OVRUNIT_CLOCK_GATE_DISABLE |
-> > +			  OVCUNIT_CLOCK_GATE_DISABLE;
-> > +
-> > +	if (IS_GM45(i915))
-> > +		dspclk_gate |=3D DSSUNIT_CLOCK_GATE_DISABLE;
-> > +
-> > +	intel_de_write(display, DSPCLK_GATE_D, dspclk_gate);
-> > +
-> > +	intel_display_disable_trickle_feed(display);
-> > +}
-> > +
-> > +void intel_display_i965gm_init_clock_gating(struct intel_display *disp=
-lay)
-> > +{
-> > +	intel_de_write(display, DSPCLK_GATE_D, 0);
-> > +}
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h =
-b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> > index 0eb240f2f69e..9eebfc4a6ebe 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> > @@ -17,6 +17,12 @@ void intel_display_glk_init_clock_gating(struct inte=
-l_display *display);
-> >  void intel_display_bdw_hsw_init_clock_gating(struct intel_display *dis=
-play);
-> >  void intel_display_bdw_init_clock_gating(struct intel_display *display=
-);
-> >  void intel_display_hsw_init_clock_gating(struct intel_display *display=
-);
-> > +void intel_display_disable_trickle_feed(struct intel_display *display)=
-;
-> > +void intel_display_ilk_init_clock_gating(struct intel_display *display=
-);
-> > +void intel_display_gen6_init_clock_gating(struct intel_display *displa=
-y);
-> > +void intel_display_ivb_init_clock_gating(struct intel_display *display=
-);
-> > +void intel_display_g4x_init_clock_gating(struct intel_display *display=
-);
-> > +void intel_display_i965gm_init_clock_gating(struct intel_display *disp=
-lay);
-> >  #else
-> >  static inline void intel_display_skl_init_clock_gating(struct intel_di=
-splay *display) {}
-> >  static inline void intel_display_kbl_init_clock_gating(struct intel_di=
-splay *display) {}
-> > @@ -26,6 +32,12 @@ static inline void intel_display_glk_init_clock_gati=
-ng(struct intel_display *dis
-> >  static inline void intel_display_bdw_hsw_init_clock_gating(struct inte=
-l_display *display) {}
-> >  static inline void intel_display_bdw_init_clock_gating(struct intel_di=
-splay *display) {}
-> >  static inline void intel_display_hsw_init_clock_gating(struct intel_di=
-splay *display) {}
-> > +static inline void intel_display_disable_trickle_feed(struct intel_dis=
-play *display) {}
-> > +static inline void intel_display_ilk_init_clock_gating(struct intel_di=
-splay *display) {}
-> > +static inline void intel_display_gen6_init_clock_gating(struct intel_d=
-isplay *display) {}
-> > +static inline void intel_display_ivb_init_clock_gating(struct intel_di=
-splay *display) {}
-> > +static inline void intel_display_g4x_init_clock_gating(struct intel_di=
-splay *display) {}
-> > +static inline void intel_display_i965gm_init_clock_gating(struct intel=
-_display *display) {}
-> >  #endif
-> > =20
-> >  #endif /* __INTEL_DISPLAY_CLOCK_GATING_H__ */
-> > diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/dr=
-m/i915/intel_clock_gating.c
-> > index a8e3eb6f06c8..98c048387a0a 100644
-> > --- a/drivers/gpu/drm/i915/intel_clock_gating.c
-> > +++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-> > @@ -29,11 +29,8 @@
-> >  #include <drm/intel/intel_gmd_misc_regs.h>
-> >  #include <drm/intel/intel_gmd_interrupt_regs.h>
-> > =20
-> > -#include "display/i9xx_plane_regs.h"
-> > -#include "display/intel_display.h"
-> >  #include "display/intel_display_clock_gating.h"
-> >  #include "display/intel_display_core.h"
-> > -#include "display/intel_display_regs.h"
-> >  #include "gt/intel_engine_regs.h"
-> >  #include "gt/intel_gt.h"
-> >  #include "gt/intel_gt_mcr.h"
-> > @@ -68,74 +65,9 @@ static void glk_init_clock_gating(struct drm_i915_pr=
-ivate *i915)
-> >  	intel_display_glk_init_clock_gating(i915->display);
-> >  }
-> > =20
-> > -static void g4x_disable_trickle_feed(struct drm_i915_private *dev_priv=
-)
-> > -{
-> > -	struct intel_display *display =3D dev_priv->display;
-> > -	enum pipe pipe;
-> > -
-> > -	for_each_pipe(display, pipe) {
-> > -		intel_uncore_rmw(&dev_priv->uncore, DSPCNTR(display, pipe),
-> > -				 0, DISP_TRICKLE_FEED_DISABLE);
-> > -
-> > -		intel_uncore_rmw(&dev_priv->uncore, DSPSURF(display, pipe),
-> > -				 0, 0);
-> > -		intel_uncore_posting_read(&dev_priv->uncore,
-> > -					  DSPSURF(display, pipe));
-> > -	}
-> > -}
-> > -
-> >  static void ilk_init_clock_gating(struct drm_i915_private *i915)
-> >  {
-> > -	u32 dspclk_gate =3D ILK_VRHUNIT_CLOCK_GATE_DISABLE;
-> > -
-> > -	/*
-> > -	 * Required for FBC
-> > -	 * WaFbcDisableDpfcClockGating:ilk
-> > -	 */
-> > -	dspclk_gate |=3D ILK_DPFCRUNIT_CLOCK_GATE_DISABLE |
-> > -		   ILK_DPFCUNIT_CLOCK_GATE_DISABLE |
-> > -		   ILK_DPFDUNIT_CLOCK_GATE_ENABLE;
-> > -
-> > -	intel_uncore_write(&i915->uncore, PCH_3DCGDIS0,
-> > -			   MARIUNIT_CLOCK_GATE_DISABLE |
-> > -			   SVSMUNIT_CLOCK_GATE_DISABLE);
-> > -	intel_uncore_write(&i915->uncore, PCH_3DCGDIS1,
-> > -			   VFMUNIT_CLOCK_GATE_DISABLE);
-> > -
-> > -	/*
-> > -	 * According to the spec the following bits should be set in
-> > -	 * order to enable memory self-refresh
-> > -	 * The bit 22/21 of 0x42004
-> > -	 * The bit 5 of 0x42020
-> > -	 * The bit 15 of 0x45000
-> > -	 */
-> > -	intel_uncore_write(&i915->uncore, ILK_DISPLAY_CHICKEN2,
-> > -			   (intel_uncore_read(&i915->uncore, ILK_DISPLAY_CHICKEN2) |
-> > -			    ILK_DPARB_GATE | ILK_VSDPFD_FULL));
-> > -	dspclk_gate |=3D ILK_DPARBUNIT_CLOCK_GATE_ENABLE;
-> > -	intel_uncore_write(&i915->uncore, DISP_ARB_CTL,
-> > -			   (intel_uncore_read(&i915->uncore, DISP_ARB_CTL) |
-> > -			    DISP_FBC_WM_DIS));
-> > -
-> > -	/*
-> > -	 * Based on the document from hardware guys the following bits
-> > -	 * should be set unconditionally in order to enable FBC.
-> > -	 * The bit 22 of 0x42000
-> > -	 * The bit 22 of 0x42004
-> > -	 * The bit 7,8,9 of 0x42020.
-> > -	 */
-> > -	if (IS_IRONLAKE_M(i915)) {
-> > -		/* WaFbcAsynchFlipDisableFbcQueue:ilk */
-> > -		intel_uncore_rmw(&i915->uncore, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DI=
-S);
-> > -		intel_uncore_rmw(&i915->uncore, ILK_DISPLAY_CHICKEN2, 0, ILK_DPARB_G=
-ATE);
-> > -	}
-> > -
-> > -	intel_uncore_write(&i915->uncore, ILK_DSPCLK_GATE_D, dspclk_gate);
-> > -
-> > -	intel_uncore_rmw(&i915->uncore, ILK_DISPLAY_CHICKEN2, 0, ILK_ELPIN_40=
-9_SELECT);
-> > -
-> > -	g4x_disable_trickle_feed(i915);
-> > -
-> > +	intel_display_ilk_init_clock_gating(i915->display);
-> >  	intel_pch_init_clock_gating(i915->display);
-> >  }
-> > =20
-> > @@ -152,11 +84,7 @@ static void gen6_check_mch_setup(struct drm_i915_pr=
-ivate *i915)
-> > =20
-> >  static void gen6_init_clock_gating(struct drm_i915_private *i915)
-> >  {
-> > -	u32 dspclk_gate =3D ILK_VRHUNIT_CLOCK_GATE_DISABLE;
-> > -
-> > -	intel_uncore_write(&i915->uncore, ILK_DSPCLK_GATE_D, dspclk_gate);
-> > -
-> > -	intel_uncore_rmw(&i915->uncore, ILK_DISPLAY_CHICKEN2, 0, ILK_ELPIN_40=
-9_SELECT);
-> > +	intel_display_gen6_init_clock_gating(i915->display);
-> > =20
-> >  	intel_uncore_write(&i915->uncore, GEN6_UCGCTL1,
-> >  			   intel_uncore_read(&i915->uncore, GEN6_UCGCTL1) |
-> > @@ -191,19 +119,6 @@ static void gen6_init_clock_gating(struct drm_i915=
-_private *i915)
-> >  	 *
-> >  	 * WaFbcAsynchFlipDisableFbcQueue:snb
-> >  	 */
-> > -	intel_uncore_write(&i915->uncore, ILK_DISPLAY_CHICKEN1,
-> > -			   intel_uncore_read(&i915->uncore, ILK_DISPLAY_CHICKEN1) |
-> > -			   ILK_FBCQ_DIS | ILK_PABSTRETCH_DIS);
-> > -	intel_uncore_write(&i915->uncore, ILK_DISPLAY_CHICKEN2,
-> > -			   intel_uncore_read(&i915->uncore, ILK_DISPLAY_CHICKEN2) |
-> > -			   ILK_DPARB_GATE | ILK_VSDPFD_FULL);
-> > -	intel_uncore_write(&i915->uncore, ILK_DSPCLK_GATE_D,
-> > -			   intel_uncore_read(&i915->uncore, ILK_DSPCLK_GATE_D) |
-> > -			   ILK_DPARBUNIT_CLOCK_GATE_ENABLE  |
-> > -			   ILK_DPFDUNIT_CLOCK_GATE_ENABLE);
-> > -
-> > -	g4x_disable_trickle_feed(i915);
-> > -
-> >  	intel_pch_init_clock_gating(i915->display);
-> > =20
-> >  	gen6_check_mch_setup(i915);
-> > @@ -338,10 +253,7 @@ static void ivb_init_clock_gating(struct drm_i915_=
-private *i915)
-> >  {
-> >  	struct intel_display *display =3D i915->display;
-> > =20
-> > -	intel_uncore_write(&i915->uncore, ILK_DSPCLK_GATE_D, ILK_VRHUNIT_CLOC=
-K_GATE_DISABLE);
-> > -
-> > -	/* WaFbcAsynchFlipDisableFbcQueue:ivb */
-> > -	intel_uncore_rmw(&i915->uncore, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DIS=
-);
-> > +	intel_display_ivb_init_clock_gating(display);
-> > =20
-> >  	/* WaDisableBackToBackFlipFix:ivb */
-> >  	intel_uncore_write(&i915->uncore, IVB_CHICKEN3,
-> > @@ -370,7 +282,7 @@ static void ivb_init_clock_gating(struct drm_i915_p=
-rivate *i915)
-> >  	intel_uncore_rmw(&i915->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG,
-> >  			 0, GEN7_SQ_CHICKEN_MBCUNIT_SQINTMOB);
-> > =20
-> > -	g4x_disable_trickle_feed(i915);
-> > +	intel_display_disable_trickle_feed(display);
-> > =20
-> >  	intel_uncore_rmw(&i915->uncore, GEN6_MBCUNIT_SNPCR, GEN6_MBC_SNPCR_MA=
-SK,
-> >  			 GEN6_MBC_SNPCR_MED);
-> > @@ -443,21 +355,12 @@ static void chv_init_clock_gating(struct drm_i915=
-_private *i915)
-> > =20
-> >  static void g4x_init_clock_gating(struct drm_i915_private *i915)
-> >  {
-> > -	u32 dspclk_gate;
-> > -
-> >  	intel_uncore_write(&i915->uncore, RENCLK_GATE_D1, 0);
-> >  	intel_uncore_write(&i915->uncore, RENCLK_GATE_D2, VF_UNIT_CLOCK_GATE_=
-DISABLE |
-> >  			   GS_UNIT_CLOCK_GATE_DISABLE |
-> >  			   CL_UNIT_CLOCK_GATE_DISABLE);
-> >  	intel_uncore_write(&i915->uncore, RAMCLK_GATE_D, 0);
-> > -	dspclk_gate =3D VRHUNIT_CLOCK_GATE_DISABLE |
-> > -		OVRUNIT_CLOCK_GATE_DISABLE |
-> > -		OVCUNIT_CLOCK_GATE_DISABLE;
-> > -	if (IS_GM45(i915))
-> > -		dspclk_gate |=3D DSSUNIT_CLOCK_GATE_DISABLE;
-> > -	intel_uncore_write(&i915->uncore, DSPCLK_GATE_D, dspclk_gate);
-> > -
-> > -	g4x_disable_trickle_feed(i915);
-> > +	intel_display_g4x_init_clock_gating(i915->display);
-> >  }
-> > =20
-> >  static void i965gm_init_clock_gating(struct drm_i915_private *i915)
-> > @@ -466,7 +369,7 @@ static void i965gm_init_clock_gating(struct drm_i91=
-5_private *i915)
-> > =20
-> >  	intel_uncore_write(uncore, RENCLK_GATE_D1, I965_RCC_CLOCK_GATE_DISABL=
-E);
-> >  	intel_uncore_write(uncore, RENCLK_GATE_D2, 0);
-> > -	intel_uncore_write(uncore, DSPCLK_GATE_D, 0);
-> > +	intel_display_i965gm_init_clock_gating(i915->display);
-> >  	intel_uncore_write(uncore, RAMCLK_GATE_D, 0);
-> >  	intel_uncore_write16(uncore, DEUC, 0);
-> >  	intel_uncore_write(uncore,
-> > --=20
-> > 2.53.0
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Tested-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 646fbdd5688b..86a64e98e8a1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6713,12 +6713,9 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+ 	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if (drm_mode_is_420_also(info, mode_in)
+-			&& aconnector
+-			&& aconnector->force_yuv420_output)
++	if (drm_mode_is_420_only(info, mode_in) ||
++	    (aconnector && aconnector->force_yuv420_output &&
++	     drm_mode_is_420_also(info, mode_in)))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+ 			&& aconnector
+
+-- 
+2.53.0
+
