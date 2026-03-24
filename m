@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6066E106B506
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84AA9106B50B
 	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAEF710E83E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7E1310E857;
 	Wed, 25 Mar 2026 11:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rJmBc0EJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LgW9jBot";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58FB510E6F3
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 15:21:01 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-486fd5360d4so15936005e9.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 08:21:01 -0700 (PDT)
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
+ [209.85.221.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F00DD10E6D5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 13:47:50 +0000 (UTC)
+Received: by mail-wr1-f54.google.com with SMTP id
+ ffacd0b85a97d-43b871dd06eso175202f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 06:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774365660; x=1774970460; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774360069; x=1774964869; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=7OzgNpqU6eet2fbRMq8dZ2mybCRMoXFURk4qYo16yQU=;
- b=rJmBc0EJ73YA1/5VLG3SOvQtu7UtEmkigf5XCgQ2GbpbPNgTzdP30BPIxxNKO/jPmb
- 7C0EJe2+baKaF51hK9oZy4CDKTULplc43mOBKv9TZTVhH1yRbRbL0R0QbW/VeoqmwcL5
- ILKbInuPT497q8mnZI6DIDhAyBW9HZuc0NyX9cccfq9Oyv0hJJDr3tQFh8XXCBzNLI01
- h19FTkjoOQSfwyzqf+vuu35NIEuXPEkcLxNZiDPwtNMM6ecuN/77jjTpoUu983aUsoE1
- szJC/YRwEJfqzKgjztXpW+1L/vsol1MbBdlNB0i0PlfiQ8W1HJbW82oBMxw9K2nDlnlD
- 9n5Q==
+ bh=NGfhZzKVYIP6RlfjAEGnGSAhqoey9TRFFzSxoh0MDiY=;
+ b=LgW9jBotyRn2glR0owwB2W6gTwd3vf8bRFmfd0xXEYWbiuTmwNC1gnYAZhVJR1udxH
+ +9XVTuYg4o6mv1JzHIhGiH92KDIk9kFqFYPj4Wz6OOM1vv5vOUjNvqzQGuZvjxr+aKNa
+ CjVUUkhn/jDEr1+uaGKNV7N8RjJtX898fq/9iE1QbJ7cvxec8H5tflCbiXfmLNE6z3G4
+ Dm/BnGk/tuqqM9TYj0ncvMLsiA+UjhthJHuAYbzMxq4cF4bFuvV7awGJyvpuQnGvvYOP
+ 6hg7+tZNhCOqPdUMD8EuDHqt7SMaWHiEHcXz+hzbl5W1AUI8/xDgKSZ4/FJB2m3sHQ2h
+ 0BTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774365660; x=1774970460;
+ d=1e100.net; s=20251104; t=1774360069; x=1774964869;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=7OzgNpqU6eet2fbRMq8dZ2mybCRMoXFURk4qYo16yQU=;
- b=Lhr/vEhZ9BoydpNaG2iUXLSxUC7c6+/olNGdw5QsvMxJuB6ANA71Z7gC6KmoGLbdZP
- K/6LOF6LU7z9kdczTRW3NPNAgISG0Cc5qH0/dTl9iyAgoXCZihnL1r61UJcPyFRLszOr
- dfceGyqzXiLKoMk9YXBfxpdYSuyQmF0zkeZ+BAZbC8g+DlgwdB5i3fJJZSntkL6RG61u
- Ohs97LiFijgTp86fpfcWmfZbUJUagrfLI2yPxE1g5cykA5QhI4aLopJTL8pdK1byFj7+
- GYXVPzo/LtTni32vQl40YksyqQTsuregnX3T3s8jMn432zrSR9Ou+DuiBf5qs+Wfl/7r
- Vc+A==
-X-Gm-Message-State: AOJu0YxuHFixJEiQ8FABxOc9JP7jkb0vDwN44mTqoHFs0id1Ua6/Hbyf
- Clyvwxnl8jiTDEFEuKraUjQyehnD0YIIMl2aU1vLGksT9UQqkzpwH60w
-X-Gm-Gg: ATEYQzx+8AKNUiKRJO4QW6ccOQ2/D/TZCR4Z+l9in3GJ1080QM9D5Nkonp3fttJ4Yp1
- Ld4SAAwu9emmYJ+PuVgA1RdxI9uSnYT37OsxGwNFGcZiGQRQHvU/RmZeEMY821YWqgV2vgU6eUZ
- SM4TLGMOstBzj26tMLCxFCPfWsbXEI5eFBjuY/kHpV7cDUHlhYGgAhdEpLJEkgbQ+zWY06l9Y3+
- wJV9vc9C8fQTFeMPe/hhkp+GRUCB1mRVC4FEWczZXxwumEA8ULmvTeWgfaF5d3irM7SrtFlhGXb
- y0NYsJPoPAiuz/RRNM1VuXi6L6JGlyaK5pF2OQFCh3u8X52rJgQgWRxgzdZKDx8zzjBoJ/OhAS+
- Rc4jxk8IV3otx1rynXdIuHREpYD4F9C2P8y20eaRpy4RwWLOgP9QfMMktm0QQ0PTgx34yEpcJe4
- ttBbpOd62tQcIFz6NzZtk0Hx9/oNXR5w==
-X-Received: by 2002:a05:600c:3b22:b0:485:3e19:9e01 with SMTP id
- 5b1f17b1804b1-4871608460fmr2201525e9.28.1774365659521; 
- Tue, 24 Mar 2026 08:20:59 -0700 (PDT)
+ bh=NGfhZzKVYIP6RlfjAEGnGSAhqoey9TRFFzSxoh0MDiY=;
+ b=WO75cnwmmQC3n1qqpKqy28sGDClYgiQirwNmSyMEE33sZgGGB+0INKNiRu8eq9UspV
+ pjxyOUW6y/pEJm3R/Zq8haXmDDr4yZ/v9NFyYNuXybi/vgwPXT2w+0GvMVH468GTmmJB
+ F1bxBMmLc5YwYVXANjGfdBM1jZbkK/HEcgQPr7vAgaPWzSxqYnuorHV2ndHLO8eiHACZ
+ ioIIC3ZYnFZoIo3ZKpZBl6iKjtuwoHk76LgTTpcWSYOaWNmY8b5WyhlYpuO68jh6HvCx
+ JJKA7I2GitEMhUezEGW2Jj3ltWPn0eIqmuKIlGaqAF8NaDHCRnGOqpwvSQi/tNH1+VQw
+ gbFw==
+X-Gm-Message-State: AOJu0YzJqLBIykR1UU3FK50Xv85XHz7q6ZngUpK0krO58McCs7NVrZW8
+ Llcxgek+FIee3ETKvJxDATCD7fbPz+odNSD3U0PmqZXoQ7Yk/5u0bbdxP7A4bVlX
+X-Gm-Gg: ATEYQzxIu6DsICtSj+3h8YlwyQHWB4s/BhC1BmRPD2EP2Cfn58/US2Qm2JWSMPJ7lay
+ VsDkbhbMvG4tb8IK64vrCc1KEZMg0iewiSO+mFeClWTws6NJIxKemy/N077Qrsd1eb4pCweY4Bp
+ rQkF5whNAMrAuMhvLEO+0gsz4AiLq/vjpoYDt0Kcq3pA4dvKgCrnKyWOLSzcfIKb4J9Vvl9e2G3
+ AwuVrPVuFvAeGByQ55VCeKNYm64u/ZvEp5YNll/xsNOjfSbVeavjdUXqvq3jckPBmdE/Bj4TTj0
+ zmHiW+ylHWZkQarUOLBzn15WzI4BN3cbbch2D7Lw+mdx0mVHx/HH+9SVWMAMdxbz9XyoddM4I10
+ DDimAlhoQkSeS8RNVaimrBsvUwbuZbGhExb80IAxKamEvdjXcvyTI0bLEdeC1k4idcp5NXe64aK
+ LApyY4wrQ6kMAvrr429hVX3t+jrH3nKQ==
+X-Received: by 2002:a5d:64c6:0:b0:439:b486:ba6b with SMTP id
+ ffacd0b85a97d-43b64281531mr22669866f8f.39.1774360068914; 
+ Tue, 24 Mar 2026 06:47:48 -0700 (PDT)
 Received: from zinco04.TojiM4 ([197.146.60.227])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48710fa0e35sm53968565e9.3.2026.03.24.08.20.58
+ ffacd0b85a97d-43b86fbb195sm1834492f8f.14.2026.03.24.06.47.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 08:20:59 -0700 (PDT)
+ Tue, 24 Mar 2026 06:47:48 -0700 (PDT)
 From: Yassine Mounir <sosohero200@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, security@kernel.org,
- Yassine Mounir <sosohero200@gmail.com>
-Subject: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in eb_relocate_vma
-Date: Tue, 24 Mar 2026 11:17:41 -0400
-Message-ID: <20260324151741.29338-1-sosohero200@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: joonas.lahtinen@linux.intel.com, security@kernel.org,
+ rodrigo.vivi@intel.com, Yassine Mounir <sosohero200@gmail.com>
+Subject: [PATCH] drm/i915: Fix UAF race between relocation and GEM_CLOSE
+Date: Tue, 24 Mar 2026 09:47:18 -0400
+Message-ID: <20260324134718.27331-1-sosohero200@gmail.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -86,43 +85,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fix a race condition in Linux 7.0-rc2 where a GEM object could be freed
-during relocation if userspace closes the handle concurrently.
+A use-after-free (UAF) vulnerability was identified in the i915 driver 
+within eb_relocate_vma. The issue arises from a race condition where 
+a concurrent DRM_IOCTL_GEM_CLOSE can drop the GEM object's reference 
+count to zero while the relocation thread is still processing entries.
 
-The fix involves pinning the object lifetime using i915_gem_object_get()
-before the relocation loop and releasing it via i915_gem_object_put()
-in the common exit path (out label), ensuring symmetry in both success
-and error paths.
+This results in the kernel attempting to access freed memory in 
+eb_relocate_entry, leading to a display pipeline hang and potential 
+system instability.
 
-This v2 rebases the change to the new 'gem/' directory structure in
-the current mainline tree and addresses potential memory leaks in
-early error returns.
+Fix:
+Wrap the relocation phase with i915_gem_object_get() and 
+i915_gem_object_put() to ensure the object remains valid throughout 
+the operation, even if user-space requests to close the handle.
 
+Reported-by: Yassine Mounir (Toji1) <sosohero200@gmail.com>
 Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/i915_gem_execbuffer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index e7918f896..0468c0551 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -1528,6 +1528,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
- 	if (unlikely(!access_ok(urelocs, remain * sizeof(*urelocs))))
- 		return -EFAULT;
+--- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+@@ -1542,7 +1542,11 @@ eb_relocate_vma(struct i915_execbuffer *eb, struct i915_vma *vma)
+ 		if (ret)
+ 			return ret;
  
-+	i915_gem_object_get(ev->vma->obj);
- 	do {
- 		struct drm_i915_gem_relocation_entry *r = stack;
- 		unsigned int count =
-@@ -1588,6 +1589,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
- 		urelocs += ARRAY_SIZE(stack);
- 	} while (remain);
- out:
-+	i915_gem_object_put(ev->vma->obj);
- 	reloc_cache_reset(&eb->reloc_cache, eb);
- 	return remain;
- }
--- 
-2.53.0
-
++		/* Hold a reference to prevent UAF during concurrent GEM_CLOSE */
++		i915_gem_object_get(vma->obj);
+ 		ret = eb_relocate_entry(eb, vma, rel);
++		i915_gem_object_put(vma->obj);
++
+ 		if (ret)
+ 			return ret;
+ 	}
