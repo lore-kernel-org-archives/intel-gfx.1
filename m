@@ -4,91 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6711A106B50D
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:58:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D79106B50B
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A87310E864;
-	Wed, 25 Mar 2026 11:58:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4372810E871;
+	Wed, 25 Mar 2026 11:58:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZfjM+Vkd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h+fo6/H5";
 	dkim-atps=neutral
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C530110E81A
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 08:21:10 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-7d55b97f358so1372213a34.3
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 01:21:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774426870; cv=none;
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
+ [209.85.210.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C264F10E6E3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 14:38:36 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ 46e09a7af769-7d9b21d1461so2201689a34.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 07:38:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774363116; cv=none;
  d=google.com; s=arc-20240605;
- b=APoy1gm/IETbO/g8jZZYIB8WBa+5jmATVbV2nP7Vjaf9GdW/Mc2QX7Wo8THq0nJw6u
- xv65VqQJVRx2K45vEBYwED9InsDMFIInkVXRl8FvidhOiqDZ0pdDDkn0hBcrP5EnzhZf
- NdrCMQfXbvmxbUkJfLNa0iCbhHHzJeuHNETq4tBWAbcJKIBVn9RX2jLKdPYtZ6EXp0lx
- TwVic0RpRh7QS0KvE+yd8928qVC2C2YFmnkkAAD5vN0DtnQ3ZIUGmHocZK3TjU3PVTBy
- yueuLJaD7xTXavsyT3nl2HzvJwjbnNPAgHJHb7V1gmYVJAK1ndwvKC+V6YMp+WXXz0qD
- nrnA==
+ b=BLLZW93XscXuRaQuEemfhD2mrooiaIAaH19XqUA0eThLyuOYp3PsoIAXpRSxhkgxJO
+ HBTw92ggUMcnpYtFDgV4DUVRPdaseZWmAlGuz12Ha8NJaWYAvkUcMgsNJNfWUXKWVWRo
+ WYmBJVlF6rKV2yma5ybNePIw/SxYbs5LJdnmgp/7uZbfbmK/z/IlEyuqWcH5SUQUDgPL
+ J1s4uaGABihbpGmZuJGzY0905n4Sx3k/XBNBlftJPHEUWUEs2vjyL7rfl6ZhmAFQ50v4
+ CRwov2aG2H3lOflkxGjVAamzS5dav+OflMzm/tNuk9tHxsRmYF6YXjrgzzXG1fEwtVXW
+ OXkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=lmlMzdTsIGDorh9X+EMSHVxDHXWPV7NeX8y2bW1CyiA=;
- fh=x33IyECuU9LPkhp2tImw0qyV1UVwBApPO0cbM6oTVDQ=;
- b=Wv63tNp7TuxAGkW++DjwCv8/59DoExb54OMHy6CQIBw4P2itFNIQmV+U2k0HSL5fYC
- W4Xikwc/81GRALvnlqv0uHhoUD7qB9VxCcEHAZU16M17C7NUsrt5FBqXF16tqGflxWc7
- DtOy5QWceXxWsy60wbkL+cLeKvQrFH+9dBUlOSmTJ2wh4kKr/k6/8xZ61ffFPEvZrRi7
- gTrNmo1EafLIE6pWPlSGYwRkN1l3Em8qEsQkihIIyQzYw5AB+W9uqaTsDUgG2sZb2j+W
- c7tpL8MoXvaTyuGlM8u56mMbi6yDETH8Br6semQQ/UwAk0iMRW83ibCfChe/egdO3lw9
- Gpxg==; darn=lists.freedesktop.org
+ bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
+ fh=t7VpN6WMhD3AbUOkfNaORR58zNSibwiBVzyOMyzecjY=;
+ b=fzTC/2iBEw4nqAp9zEuXH3/dROL3kL2i8oZcwOExX7ImkvSmukQl/s0ikz0eBRoZkZ
+ 5sPJixjtDPnWcfdnbQ9raH1fgl+FPusEIxMKvzB3GwxRgt7QvKSXFV6NEF5fOoKtA9CS
+ e2QAnRHKZYAb145jb3MCouXx257fnUnHsc4Y0Og0lvcX8R6NZi1xklOXjPi4E8eAyaqA
+ 8oWDoYkJSGUrNKwOM8SYrA/AlC6iMDlNEyfa6m+HVwHdJrFDGkNDwjSIaM6VtG5qXGEv
+ l9gnPCHNm/fmVw36F3u8M+brgiHKUa8U0tbgb05Hld82fbOaq7IugoFMhEp182hoI6d1
+ M1KA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774426870; x=1775031670; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774363116; x=1774967916; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lmlMzdTsIGDorh9X+EMSHVxDHXWPV7NeX8y2bW1CyiA=;
- b=ZfjM+Vkd9JPXUaQHdYPYe+kAhIUZAcVEDLMkgtBzQMJRyKGTZ1wMhg2e8flyny/+SM
- lEsxGsh6dPmKHTGvwTqVwzMTfstquLo3A9/nHCwzPqiAz8MCRHRw9TDQs6xfjloSr2mO
- S3/MQggWIMiKgtoDcB1Soirec3GJAslM4gkv1ecmx9s06J+vULPCJrvxJVewZlspnKQ/
- 1sOKujhmVfd6ys4ecQv5KxLik6nwtyzBDS36FStFgTQ6BDXTiRb1LYb5bqGwgSCDO7s1
- W7BS3t42FTR/VPcOpYTWpaFpuSTuj7fVkMCZIAvF20sgZvleDcP/l/qpATWZkRUmhzfd
- wDvg==
+ bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
+ b=h+fo6/H5cfCQ95Pqdm79/V0ZG5crJMTpofPBkMGK0PH20uagEXZTo0orgo8N1U96/p
+ 4W934uQtgBTd2B+xWMKePsWH9Az+k/rPfom7wkhOPASds9YuQPd+FMxfQFfjSedp0Q52
+ xHVnq09QjNO7fsKQr4A4lofvkoym7eZt0zwuUnzduoHWeWC1XYJHf8J+75zmr/mIfqWp
+ Umc4QV/PEwawnh56xEw4lWTyv14N5x6GIj0fMeNxnAFQj1U9SB32r7KPey33Kjdg8BuD
+ R0P1dbDtP7QIpQFBCK+JdLin9SZVZwaxxdnBz5cFCO5GEMcfVWS1bIFmyK8bL+P6mltE
+ UPRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774426870; x=1775031670;
+ d=1e100.net; s=20251104; t=1774363116; x=1774967916;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=lmlMzdTsIGDorh9X+EMSHVxDHXWPV7NeX8y2bW1CyiA=;
- b=MzjJhxRTsAzhxz0lKFCIHyi5p0c496g30woBNqcd2Ygm9Aeptp/yrvsM+cpKHSXtXw
- QWgO9iKsi4n3p7DGsV29sXfwc/KhSC6wJx6wtHVI0xQGSegd+w2qsdHV0+0nBoDU2jE2
- v92jJrpYDF0sPApcfIz+bsVWmKmYPwOr3BvNQzxAMveOmp6wQr5NJ3LDLKtds5Ta0Mgu
- LzTTBa5OLz2Hixa5z0cwWkOisWIaDgdXqiQu8niZio5ABl4V0le21BELod63kp+9/Qjn
- EBzSMBqZqbzcloppKmLlGx/OTAGGg+eNrScpkqpMuslIU4xNoeZM89ojYWZdyZF8q3fb
- 9boA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUPxGvVrz2u/qPuMi84ra23BamgRSWfHRUGQySlSEYtSti6qeLQwJVY/qQSV1QgVkoDEYH5Gxp2P/w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxqfKIUAMXsk7u8h6ByyAcS/sKs2MHdWpLXCT/Jxd7iZQG5Iw7m
- lA/mzbopl1+S5HImGxzrddewEkwPEguTLdt2H08Ln/2A2P3CxxQ0ZhfWOPtJwkS9mfx1YXddjYG
- emCfHMHjwlsTQZS3l9s6uH8OD7cdHJZA=
-X-Gm-Gg: ATEYQzzqdUpIcoqpgAn45AusaaXDu1oOjc9Akb5df14JSDZXDF5x2hD7kMvZVx0gU2k
- C79BOCV91hlw9WRzQe2ZloOyJfssfmJVXeX2Ck8ibXhWVe9TL81WQYUEUyg6nPht6qPEuGQ/ly2
- LtWU1VmT9PfZDjnFeZPJmX1osNtoLQSqPawL8jXIn9JrV7er0JSPyAn4KmOpOCrWEI215DTeeVl
- nG8i+SEEs82NcjIZb2Wo9p77S8Rkj5u8SY/zudso/v/gBHr5U7/hGuY+siqJyA04On8UnEaH3UC
- 9o+Q1Q==
-X-Received: by 2002:a05:6830:3493:b0:7d8:7d95:fa59 with SMTP id
- 46e09a7af769-7d9d648a53emr1432330a34.0.1774426869760; Wed, 25 Mar 2026
- 01:21:09 -0700 (PDT)
+ bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
+ b=L4yPKiht9E46DP/5yPCrMEptMV3THqBp7xZ22sq14HV/4DlB06wFxGeqmxofB4xhG3
+ o04/mK2K7H3UOcIJCxhGdDcZV9mdX8baym7U3cmOtffe8mg8UFJGVjGYHW2ZLz8FYqI4
+ EBF2ghXIEAo+6t0OrAjT5eU7pjMq1oX1ET1UJdNvkW9ZtiM3eSpY00FVv+tT2S4Pt9ML
+ cMhSkrE8PgVEBFlAZ5kuj/NO7P2LDYQwGimc84iajvZ+psnrge0lVVeOXOcZlpCQcFTS
+ a8g9yptaAIhzyUv5h2dAX9tKT4LCVo6rFpEuL+B684ZhD7s/ay48RO8SvRBgspSi2bmV
+ +d+Q==
+X-Gm-Message-State: AOJu0Ywx/8uXpy0wvCmWqIv8X+RvCm+2UD3qsqJTgNGZbw6MujELpl4S
+ 2YYLzjDH5yz9C+vHWi0JThbehXvSiivQZ0u/pmV9RNfbm4GBd99GGyTeCxra/X9UEhzx+/BN7zq
+ j7cn8rAWxdcM27nHHjYrbb7fegaxtsGI=
+X-Gm-Gg: ATEYQzx5H9KtyiWtzRFzfeoZA60YXxL0BQHLjUNWNWlv6bqys/DZgNWtaWAi48/1I+9
+ IpznIfbCsqvfHTzr4vwanwSo//SpLmeok31t5kKtExXx7JDg/rwXWrV02KU7yEGwi+7jkH3DyUx
+ CdgtupBXKFzFk1MbixXqXPYRNtEfH/VCpuQvOIeTuP4+f89w13zXY+LaQBrC4a52OLPbZmSiW4X
+ C+PQS7QuNjoBaf2GnDpAglnlIur5fNGjhgYZdITzJdDjb4Qr87D64bggqDvp2aNy/aH9d7jTqLr
+ rktQ2Zi1sFxD1lLlbRQ=
+X-Received: by 2002:a05:6830:2649:b0:7d9:d3f9:a82f with SMTP id
+ 46e09a7af769-7d9d4f5b9f3mr1417a34.10.1774363115506; Tue, 24 Mar 2026 07:38:35
+ -0700 (PDT)
 MIME-Version: 1.0
-References: <20260324151741.29338-1-sosohero200@gmail.com>
- <177442567303.11552.5320450093167124387@jlahtine-mobl>
-In-Reply-To: <177442567303.11552.5320450093167124387@jlahtine-mobl>
+References: <20260324134718.27331-1-sosohero200@gmail.com>
+ <2026032453-depletion-various-b39f@gregkh>
+In-Reply-To: <2026032453-depletion-various-b39f@gregkh>
 From: Yassine Mounir <sosohero200@gmail.com>
-Date: Wed, 25 Mar 2026 09:20:58 +0100
-X-Gm-Features: AaiRm50K3VEKRI_noKFYmYycYQSggh19V4ZcGKgt6M-RpiliamhLXRTojrNLA6Q
-Message-ID: <CANq=4mAEmEQWTUBpDJAgaiw930NUzL6-7EV-Y2WqLGst2YWLiw@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/i915/gem: Fix UAF race in eb_relocate_vma
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, security@kernel.org
-Content-Type: multipart/alternative; boundary="0000000000004087f7064dd4f337"
+Date: Tue, 24 Mar 2026 10:38:24 -0400
+X-Gm-Features: AaiRm50cziF8olqPYG3fyV50MHL9v32hpyhvNyLU62jxWqIfwJZFnDUECBcvuGw
+Message-ID: <CANq=4mC4ppxPYShPdQiZ6k44v5oue+NhcY8qXYBV6kEgoSWgiQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915: Fix UAF race between relocation and GEM_CLOSE
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com, 
+ security@kernel.org, rodrigo.vivi@intel.com
+Content-Type: multipart/alternative; boundary="00000000000033cf8f064dc61bc1"
 X-Mailman-Approved-At: Wed, 25 Mar 2026 11:57:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,200 +103,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000004087f7064dd4f337
+--00000000000033cf8f064dc61bc1
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Joonas,
-Thank you for the detailed feedback. I apologize for the double tag and the
-direct submission to Greg; I'm still refining my workflow.
-I will:
-Find the original commit for the Fixes: tag using git blame.
-Amend the commit message to include the 'low-on-memory' context and remove
-redundant code descriptions.
-Capture the crash signature using dmesg/pstore as requested.
-I'll submit v3 once I have the crash logs ready.
-Best regards,
-Yassine(toji1)
+*Hi Greg,*
 
-On Wed, Mar 25, 2026, 9:01 AM Joonas Lahtinen <
-joonas.lahtinen@linux.intel.com> wrote:
+*My apologies for the confusion. I realized I was developing against a
+distribution kernel (6.18.12-kali). I understand now why the file paths do
+not match the current upstream tree.*
 
-> You somehow included [PATCH v2] twice in the subject line and directly
-> sent it to Greg for some reason?
->
-> Please maybe use git format-patch and review the resulting files or
-> send-email with dry run option before sending.
->
-> Quoting Yassine Mounir (2026-03-24 17:17:41)
-> > Fix a race condition in Linux 7.0-rc2
->
-> I don't believe this is a good way of putting it, it makes it sound like
-> it got introduced in 7.0-rc2 and would be regression. Instead you could
-> use git blame to find the patch that introduced the buggy code and
-> supply a Fixes: tag.
->
-> As for the commit message can just say "Fix a race condition where GEM ..."
->
-> > where a GEM object could be freed
-> > during relocation if userspace closes the handle concurrently.
->
-> Maybe amend here that this only triggers on low-on-memory conditions.
->
-> > The fix involves pinning the object lifetime using i915_gem_object_get()
-> > before the relocation loop and releasing it via i915_gem_object_put()
-> > in the common exit path (out label), ensuring symmetry in both success
-> > and error paths.
->
-> This we can see from the code, no need to describe it here.
->
-> Please supply the UAF crash signature in some format as requested earlier.
-> If you won't be able to enable KASAN, please do try to use netlink or
-> pstore
-> to capture the dmesg.
->
-> Regards, Joonas
->
-> > This v2 rebases the change to the new 'gem/' directory structure in
-> > the current mainline tree and addresses potential memory leaks in
-> > early error returns.
+*Regarding the logic: The race condition happens specifically during the
+eb_relocate_entry call when a concurrent GEM_CLOSE drops the reference
+count to zero. The i915_gem_object_get is intended to pin the object's
+lifetime during this critical relocation window.*
+
+*I will now rebase this fix against the latest drm-tip / mainline tree,
+remove the 'Reported-by' tag as suggested, and submit a v2 for review.*
+
+*Thank you for your guidance.* *Best regards,*
+
+*Yassine (Toji1)*
+
+Le mar. 24 mars 2026 =C3=A0 10:27, Greg KH <gregkh@linuxfoundation.org> a =
+=C3=A9crit :
+
+> On Tue, Mar 24, 2026 at 09:47:18AM -0400, Yassine Mounir wrote:
+> > A use-after-free (UAF) vulnerability was identified in the i915 driver
+> > within eb_relocate_vma. The issue arises from a race condition where
+> > a concurrent DRM_IOCTL_GEM_CLOSE can drop the GEM object's reference
+> > count to zero while the relocation thread is still processing entries.
 > >
+> > This results in the kernel attempting to access freed memory in
+> > eb_relocate_entry, leading to a display pipeline hang and potential
+> > system instability.
+> >
+> > Fix:
+> > Wrap the relocation phase with i915_gem_object_get() and
+> > i915_gem_object_put() to ensure the object remains valid throughout
+> > the operation, even if user-space requests to close the handle.
+> >
+> > Reported-by: Yassine Mounir (Toji1) <sosohero200@gmail.com>
 > > Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
+>
+> No need for a reported-by when you create and sign off on a change.
+>
 > > ---
-> >  drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
-> >  1 file changed, 2 insertions(+)
+> >  drivers/gpu/drm/i915/i915_gem_execbuffer.c | 4 ++++
+> >  1 file changed, 4 insertions(+)
 > >
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > index e7918f896..0468c0551 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-> > @@ -1528,6 +1528,7 @@ static int eb_relocate_vma(struct i915_execbuffer
-> *eb, struct eb_vma *ev)
-> >         if (unlikely(!access_ok(urelocs, remain * sizeof(*urelocs))))
-> >                 return -EFAULT;
+> > --- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+> > +++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
+>
+> There is no such file name in the current kernel tree, what version did
+> you make this against?
+>
+>
+> > @@ -1542,7 +1542,11 @@ eb_relocate_vma(struct i915_execbuffer *eb,
+> struct i915_vma *vma)
+> >               if (ret)
+> >                       return ret;
 > >
-> > +       i915_gem_object_get(ev->vma->obj);
-> >         do {
-> >                 struct drm_i915_gem_relocation_entry *r = stack;
-> >                 unsigned int count =
-> > @@ -1588,6 +1589,7 @@ static int eb_relocate_vma(struct i915_execbuffer
-> *eb, struct eb_vma *ev)
-> >                 urelocs += ARRAY_SIZE(stack);
-> >         } while (remain);
-> >  out:
-> > +       i915_gem_object_put(ev->vma->obj);
-> >         reloc_cache_reset(&eb->reloc_cache, eb);
-> >         return remain;
-> >  }
-> > --
-> > 2.53.0
-> >
+> > +             /* Hold a reference to prevent UAF during concurrent
+> GEM_CLOSE */
+> > +             i915_gem_object_get(vma->obj);
+> >               ret =3D eb_relocate_entry(eb, vma, rel);
+> > +             i915_gem_object_put(vma->obj);
+> > +
+>
+> What prevents the object from going away right after the put call here?
+>
+> thanks,
+>
+> greg k-h
 >
 
---0000000000004087f7064dd4f337
+--00000000000033cf8f064dc61bc1
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Hi Joonas,<div dir=3D"auto">Thank you for the detailed fe=
-edback. I apologize for the double tag and the direct submission to Greg; I=
-&#39;m still refining my workflow.</div><div dir=3D"auto">I will:</div><div=
- dir=3D"auto">Find the original commit for the Fixes: tag using git blame.<=
-/div><div dir=3D"auto">Amend the commit message to include the &#39;low-on-=
-memory&#39; context and remove redundant code descriptions.</div><div dir=
-=3D"auto">Capture the crash signature using dmesg/pstore as requested.</div=
-><div dir=3D"auto">I&#39;ll submit v3 once I have the crash logs ready.</di=
-v><div dir=3D"auto">Best regards,</div><div dir=3D"auto">Yassine(toji1)</di=
-v></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"lt=
-r" class=3D"gmail_attr">On Wed, Mar 25, 2026, 9:01 AM Joonas Lahtinen &lt;<=
-a href=3D"mailto:joonas.lahtinen@linux.intel.com">joonas.lahtinen@linux.int=
-el.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">You somehow i=
-ncluded [PATCH v2] twice in the subject line and directly<br>
-sent it to Greg for some reason?<br>
-<br>
-Please maybe use git format-patch and review the resulting files or<br>
-send-email with dry run option before sending.<br>
-<br>
-Quoting Yassine Mounir (2026-03-24 17:17:41)<br>
-&gt; Fix a race condition in Linux 7.0-rc2<br>
-<br>
-I don&#39;t believe this is a good way of putting it, it makes it sound lik=
-e<br>
-it got introduced in 7.0-rc2 and would be regression. Instead you could<br>
-use git blame to find the patch that introduced the buggy code and<br>
-supply a Fixes: tag.<br>
-<br>
-As for the commit message can just say &quot;Fix a race condition where GEM=
- ...&quot;<br>
-<br>
-&gt; where a GEM object could be freed<br>
-&gt; during relocation if userspace closes the handle concurrently.<br>
-<br>
-Maybe amend here that this only triggers on low-on-memory conditions.<br>
-<br>
-&gt; The fix involves pinning the object lifetime using i915_gem_object_get=
-()<br>
-&gt; before the relocation loop and releasing it via i915_gem_object_put()<=
+<div dir=3D"ltr"><p><b>Hi Greg,</b></p><p><b>My apologies for the confusion=
+. I realized I was developing against a distribution kernel (6.18.12-kali).=
+ I understand now why the file paths do not match the current upstream tree=
+.</b></p><p><b>Regarding the logic: The race condition happens specifically=
+ during the <code>eb_relocate_entry</code> call when a concurrent <code>GEM=
+_CLOSE</code> drops the reference count to zero. The <code>i915_gem_object_=
+get</code> is intended to pin the object&#39;s lifetime during this critica=
+l relocation window.</b></p><p><b>I will now rebase this fix against the la=
+test <code>drm-tip</code> / <code>mainline</code> tree, remove the &#39;Rep=
+orted-by&#39; tag as suggested, and submit a v2 for review.</b></p><p><b>Th=
+ank you for your guidance.</b>
+<b>Best regards,</b>=C2=A0</p><p><b>Yassine (Toji1)</b></p></div><br><div c=
+lass=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_=
+attr">Le=C2=A0mar. 24 mars 2026 =C3=A0=C2=A010:27, Greg KH &lt;<a href=3D"m=
+ailto:gregkh@linuxfoundation.org">gregkh@linuxfoundation.org</a>&gt; a =C3=
+=A9crit=C2=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
+n Tue, Mar 24, 2026 at 09:47:18AM -0400, Yassine Mounir wrote:<br>
+&gt; A use-after-free (UAF) vulnerability was identified in the i915 driver=
+ <br>
+&gt; within eb_relocate_vma. The issue arises from a race condition where <=
 br>
-&gt; in the common exit path (out label), ensuring symmetry in both success=
+&gt; a concurrent DRM_IOCTL_GEM_CLOSE can drop the GEM object&#39;s referen=
+ce <br>
+&gt; count to zero while the relocation thread is still processing entries.=
 <br>
-&gt; and error paths.<br>
-<br>
-This we can see from the code, no need to describe it here.<br>
-<br>
-Please supply the UAF crash signature in some format as requested earlier.<=
-br>
-If you won&#39;t be able to enable KASAN, please do try to use netlink or p=
-store<br>
-to capture the dmesg.<br>
-<br>
-Regards, Joonas<br>
-<br>
-&gt; This v2 rebases the change to the new &#39;gem/&#39; directory structu=
-re in<br>
-&gt; the current mainline tree and addresses potential memory leaks in<br>
-&gt; early error returns.<br>
 &gt; <br>
+&gt; This results in the kernel attempting to access freed memory in <br>
+&gt; eb_relocate_entry, leading to a display pipeline hang and potential <b=
+r>
+&gt; system instability.<br>
+&gt; <br>
+&gt; Fix:<br>
+&gt; Wrap the relocation phase with i915_gem_object_get() and <br>
+&gt; i915_gem_object_put() to ensure the object remains valid throughout <b=
+r>
+&gt; the operation, even if user-space requests to close the handle.<br>
+&gt; <br>
+&gt; Reported-by: Yassine Mounir (Toji1) &lt;<a href=3D"mailto:sosohero200@=
+gmail.com" target=3D"_blank">sosohero200@gmail.com</a>&gt;<br>
 &gt; Signed-off-by: Yassine Mounir &lt;<a href=3D"mailto:sosohero200@gmail.=
-com" target=3D"_blank" rel=3D"noreferrer">sosohero200@gmail.com</a>&gt;<br>
+com" target=3D"_blank">sosohero200@gmail.com</a>&gt;<br>
+<br>
+No need for a reported-by when you create and sign off on a change.<br>
+<br>
 &gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++<br>
-&gt;=C2=A0 1 file changed, 2 insertions(+)<br>
+&gt;=C2=A0 drivers/gpu/drm/i915/i915_gem_execbuffer.c | 4 ++++<br>
+&gt;=C2=A0 1 file changed, 4 insertions(+)<br>
 &gt; <br>
-&gt; diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/=
-gpu/drm/i915/gem/i915_gem_execbuffer.c<br>
-&gt; index e7918f896..0468c0551 100644<br>
-&gt; --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c<br>
-&gt; +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c<br>
-&gt; @@ -1528,6 +1528,7 @@ static int eb_relocate_vma(struct i915_execbuffe=
-r *eb, struct eb_vma *ev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(!access_ok(urelocs, rema=
-in * sizeof(*urelocs))))<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -E=
-FAULT;<br>
+&gt; --- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c<br>
+&gt; +++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c<br>
+<br>
+There is no such file name in the current kernel tree, what version did<br>
+you make this against?<br>
+<br>
+<br>
+&gt; @@ -1542,7 +1542,11 @@ eb_relocate_vma(struct i915_execbuffer *eb, str=
+uct i915_vma *vma)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0return ret;<br>
 &gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_get(ev-&gt;vma-&gt;obj);<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0do {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct dr=
-m_i915_gem_relocation_entry *r =3D stack;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned =
-int count =3D<br>
-&gt; @@ -1588,6 +1589,7 @@ static int eb_relocate_vma(struct i915_execbuffe=
-r *eb, struct eb_vma *ev)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0urelocs +=
-=3D ARRAY_SIZE(stack);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} while (remain);<br>
-&gt;=C2=A0 out:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_put(ev-&gt;vma-&gt;obj);<b=
-r>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reloc_cache_reset(&amp;eb-&gt;reloc_c=
-ache, eb);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return remain;<br>
-&gt;=C2=A0 }<br>
-&gt; -- <br>
-&gt; 2.53.0<br>
-&gt;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Hold a reference t=
+o prevent UAF during concurrent GEM_CLOSE */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_get(v=
+ma-&gt;obj);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D eb_reloc=
+ate_entry(eb, vma, rel);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_put(v=
+ma-&gt;obj);<br>
+&gt; +<br>
+<br>
+What prevents the object from going away right after the put call here?<br>
+<br>
+thanks,<br>
+<br>
+greg k-h<br>
 </blockquote></div>
 
---0000000000004087f7064dd4f337--
+--00000000000033cf8f064dc61bc1--
