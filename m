@@ -4,63 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AC2CFEC11B
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6066E106B506
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D759B10E865;
-	Wed, 25 Mar 2026 11:52:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAEF710E83E;
+	Wed, 25 Mar 2026 11:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n+XAElBf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rJmBc0EJ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1739210E86F;
- Wed, 25 Mar 2026 11:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774439557; x=1805975557;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=QhtljNxSdZ7hFFMeOsWBFFxco+6TsCBP/7/s1kCLoZE=;
- b=n+XAElBfCwdcHSWE1cz/iUsErTSz+BOxQ38ionI+tsXd5aKNOLJo6RTc
- rs+3VXYHGwIGp/Gm1orcNs/RN5G0IzvNfqJJJCA6D/dR6plgw+3SWC8z2
- No6nxNmXI7V4GkXwxjbSALtAB3oXuFW6Mq6YugMU3lWZJGAUPxtvYnByr
- D3LViAuVOclljRoegq3edPAv8vlKjDl+yrM5+xzInlVVCRqlqdZMqkd3i
- Mh3EExB941LG9LSvN43g/87OuaiYp2XNNGb+9UnQP38lGp9hjLiMZ4vQq
- trRRwRoYrO6riHtboK0PbV3lIsSLUjHoSqbmgTcNoDs+4QZGcJKiUpN2k Q==;
-X-CSE-ConnectionGUID: tn09CMBxSeCjiZYUrU84nA==
-X-CSE-MsgGUID: TLpIPqcpS06l994Y3UjcKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="86550971"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="86550971"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:52:36 -0700
-X-CSE-ConnectionGUID: 8HGyItj9TgSkSRa2HOKAGw==
-X-CSE-MsgGUID: BkXrAjpBRGy5UjajPynpcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="248179538"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.117])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:52:34 -0700
-Date: Wed, 25 Mar 2026 13:52:31 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
- chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com
-Subject: Re: [PATCH v3 04/26] drm/i915/writeback: Add some preliminary
- writeback definitions
-Message-ID: <acPMf-mh689g7TuO@intel.com>
-References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
- <20260325110744.1096786-5-suraj.kandpal@intel.com>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58FB510E6F3
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 15:21:01 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-486fd5360d4so15936005e9.1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 08:21:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774365660; x=1774970460; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=7OzgNpqU6eet2fbRMq8dZ2mybCRMoXFURk4qYo16yQU=;
+ b=rJmBc0EJ73YA1/5VLG3SOvQtu7UtEmkigf5XCgQ2GbpbPNgTzdP30BPIxxNKO/jPmb
+ 7C0EJe2+baKaF51hK9oZy4CDKTULplc43mOBKv9TZTVhH1yRbRbL0R0QbW/VeoqmwcL5
+ ILKbInuPT497q8mnZI6DIDhAyBW9HZuc0NyX9cccfq9Oyv0hJJDr3tQFh8XXCBzNLI01
+ h19FTkjoOQSfwyzqf+vuu35NIEuXPEkcLxNZiDPwtNMM6ecuN/77jjTpoUu983aUsoE1
+ szJC/YRwEJfqzKgjztXpW+1L/vsol1MbBdlNB0i0PlfiQ8W1HJbW82oBMxw9K2nDlnlD
+ 9n5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774365660; x=1774970460;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7OzgNpqU6eet2fbRMq8dZ2mybCRMoXFURk4qYo16yQU=;
+ b=Lhr/vEhZ9BoydpNaG2iUXLSxUC7c6+/olNGdw5QsvMxJuB6ANA71Z7gC6KmoGLbdZP
+ K/6LOF6LU7z9kdczTRW3NPNAgISG0Cc5qH0/dTl9iyAgoXCZihnL1r61UJcPyFRLszOr
+ dfceGyqzXiLKoMk9YXBfxpdYSuyQmF0zkeZ+BAZbC8g+DlgwdB5i3fJJZSntkL6RG61u
+ Ohs97LiFijgTp86fpfcWmfZbUJUagrfLI2yPxE1g5cykA5QhI4aLopJTL8pdK1byFj7+
+ GYXVPzo/LtTni32vQl40YksyqQTsuregnX3T3s8jMn432zrSR9Ou+DuiBf5qs+Wfl/7r
+ Vc+A==
+X-Gm-Message-State: AOJu0YxuHFixJEiQ8FABxOc9JP7jkb0vDwN44mTqoHFs0id1Ua6/Hbyf
+ Clyvwxnl8jiTDEFEuKraUjQyehnD0YIIMl2aU1vLGksT9UQqkzpwH60w
+X-Gm-Gg: ATEYQzx+8AKNUiKRJO4QW6ccOQ2/D/TZCR4Z+l9in3GJ1080QM9D5Nkonp3fttJ4Yp1
+ Ld4SAAwu9emmYJ+PuVgA1RdxI9uSnYT37OsxGwNFGcZiGQRQHvU/RmZeEMY821YWqgV2vgU6eUZ
+ SM4TLGMOstBzj26tMLCxFCPfWsbXEI5eFBjuY/kHpV7cDUHlhYGgAhdEpLJEkgbQ+zWY06l9Y3+
+ wJV9vc9C8fQTFeMPe/hhkp+GRUCB1mRVC4FEWczZXxwumEA8ULmvTeWgfaF5d3irM7SrtFlhGXb
+ y0NYsJPoPAiuz/RRNM1VuXi6L6JGlyaK5pF2OQFCh3u8X52rJgQgWRxgzdZKDx8zzjBoJ/OhAS+
+ Rc4jxk8IV3otx1rynXdIuHREpYD4F9C2P8y20eaRpy4RwWLOgP9QfMMktm0QQ0PTgx34yEpcJe4
+ ttBbpOd62tQcIFz6NzZtk0Hx9/oNXR5w==
+X-Received: by 2002:a05:600c:3b22:b0:485:3e19:9e01 with SMTP id
+ 5b1f17b1804b1-4871608460fmr2201525e9.28.1774365659521; 
+ Tue, 24 Mar 2026 08:20:59 -0700 (PDT)
+Received: from zinco04.TojiM4 ([197.146.60.227])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48710fa0e35sm53968565e9.3.2026.03.24.08.20.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Mar 2026 08:20:59 -0700 (PDT)
+From: Yassine Mounir <sosohero200@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, security@kernel.org,
+ Yassine Mounir <sosohero200@gmail.com>
+Subject: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in eb_relocate_vma
+Date: Tue, 24 Mar 2026 11:17:41 -0400
+Message-ID: <20260324151741.29338-1-sosohero200@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260325110744.1096786-5-suraj.kandpal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+X-Mailman-Approved-At: Wed, 25 Mar 2026 11:57:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,310 +86,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 04:37:22PM +0530, Suraj Kandpal wrote:
-> Add some preliminary definitions like, output type and transcoder
-> related to the writeback functionality.
-> 
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_acpi.c     |  1 +
->  .../drm/i915/display/intel_crtc_state_dump.c  |  2 +-
->  drivers/gpu/drm/i915/display/intel_display.c  |  3 +-
->  drivers/gpu/drm/i915/display/intel_display.h  |  4 +++
->  .../drm/i915/display/intel_display_device.c   | 29 +++++++++++++++++--
->  .../drm/i915/display/intel_display_device.h   |  2 +-
->  .../drm/i915/display/intel_display_limits.h   |  2 ++
->  .../drm/i915/display/intel_display_power.c    |  4 +++
->  .../drm/i915/display/intel_display_power.h    |  2 ++
->  .../drm/i915/display/intel_display_types.h    |  1 +
->  10 files changed, 44 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_acpi.c b/drivers/gpu/drm/i915/display/intel_acpi.c
-> index e06f324027be..89b8d3b4f1f2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_acpi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_acpi.c
-> @@ -256,6 +256,7 @@ static u32 acpi_display_type(struct intel_connector *connector)
->  		break;
->  	case DRM_MODE_CONNECTOR_Unknown:
->  	case DRM_MODE_CONNECTOR_VIRTUAL:
-> +	case DRM_MODE_CONNECTOR_WRITEBACK:
->  		display_type = ACPI_DISPLAY_TYPE_OTHER;
+Fix a race condition in Linux 7.0-rc2 where a GEM object could be freed
+during relocation if userspace closes the handle concurrently.
 
-I don't think we want to add this stuff to the DIDL/etc.
-Something somewhere needs to exclude these from that.
+The fix involves pinning the object lifetime using i915_gem_object_get()
+before the relocation loop and releasing it via i915_gem_object_put()
+in the common exit path (out label), ensuring symmetry in both success
+and error paths.
 
->  		break;
->  	default:
-> diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> index 234843b8f83a..4e9e880d2778 100644
-> --- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> +++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
-> @@ -53,7 +53,6 @@ intel_dump_infoframe(struct intel_display *display,
->  }
->  
->  #define OUTPUT_TYPE(x) [INTEL_OUTPUT_ ## x] = #x
-> -
+This v2 rebases the change to the new 'gem/' directory structure in
+the current mainline tree and addresses potential memory leaks in
+early error returns.
 
-Spurious change.
+Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  static const char * const output_type_str[] = {
->  	OUTPUT_TYPE(UNUSED),
->  	OUTPUT_TYPE(ANALOG),
-> @@ -67,6 +66,7 @@ static const char * const output_type_str[] = {
->  	OUTPUT_TYPE(DSI),
->  	OUTPUT_TYPE(DDI),
->  	OUTPUT_TYPE(DP_MST),
-> +	OUTPUT_TYPE(WRITEBACK),
->  };
->  
->  #undef OUTPUT_TYPE
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 10b6c6fcb03f..d433ffaadd65 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -3768,7 +3768,8 @@ static u8 hsw_panel_transcoders(struct intel_display *display)
->  	u8 panel_transcoder_mask = BIT(TRANSCODER_EDP);
->  
->  	if (DISPLAY_VER(display) >= 11)
-> -		panel_transcoder_mask |= BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1);
-> +		panel_transcoder_mask |= BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1) |
-> +				BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1);
-
-WD has existed at least since SKL. Looks like the tagging in BSpec is
-a bit inconsistent in that the filter only shows this for SKL+, but
-I *think* BDW has it already.
-
->  
->  	return panel_transcoder_mask;
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
-> index 552a59d19e0f..07d9f62e0866 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display.h
-> @@ -66,6 +66,10 @@ static inline const char *transcoder_name(enum transcoder transcoder)
->  		return "DSI A";
->  	case TRANSCODER_DSI_C:
->  		return "DSI C";
-> +	case TRANSCODER_WD_0:
-> +		return "WD 0";
-> +	case TRANSCODER_WD_1:
-> +		return "WD 1";
->  	default:
->  		return "<invalid>";
->  	}
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-> index be55ef8ea617..129b1c561847 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_device.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-> @@ -22,6 +22,7 @@
->  #include "intel_display_wa.h"
->  #include "intel_fbc.h"
->  #include "intel_step.h"
-> +#include "intel_writeback_reg.h"
->  
->  __diag_push();
->  __diag_ignore_all("-Woverride-init", "Allow field initialization overrides for display info");
-> @@ -145,12 +146,16 @@ static const struct intel_display_device_info no_display = {};
->  		[TRANSCODER_B] = PIPE_B_OFFSET, \
->  		[TRANSCODER_C] = PIPE_C_OFFSET, \
->  		[TRANSCODER_EDP] = PIPE_EDP_OFFSET, \
-> +		[TRANSCODER_WD_0] = PIPE_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = PIPE_WD1_OFFSET, \
->  	}, \
->  	.trans_offsets = { \
->  		[TRANSCODER_A] = TRANSCODER_A_OFFSET, \
->  		[TRANSCODER_B] = TRANSCODER_B_OFFSET, \
->  		[TRANSCODER_C] = TRANSCODER_C_OFFSET, \
->  		[TRANSCODER_EDP] = TRANSCODER_EDP_OFFSET, \
-> +		[TRANSCODER_WD_0] = TRANSCODER_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = TRANSCODER_WD1_OFFSET, \
->  	}
->  
->  #define CHV_PIPE_OFFSETS \
-> @@ -581,7 +586,8 @@ static const struct platform_desc hsw_desc = {
->  		.__runtime_defaults.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
->  		.__runtime_defaults.cpu_transcoder_mask =
->  		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
-> -		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP),
-> +		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) |
-> +		BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1),
->  		.__runtime_defaults.port_mask = BIT(PORT_A) | BIT(PORT_B) | BIT(PORT_C) | BIT(PORT_D) | BIT(PORT_E),
->  		.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A),
->  	},
-> @@ -678,7 +684,8 @@ static const struct intel_display_device_info skl_display = {
->  	.__runtime_defaults.pipe_mask = BIT(PIPE_A) | BIT(PIPE_B) | BIT(PIPE_C),
->  	.__runtime_defaults.cpu_transcoder_mask =
->  	BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
-> -	BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP),
-> +	BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) |
-> +	BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1),
->  	.__runtime_defaults.port_mask = BIT(PORT_A) | BIT(PORT_B) | BIT(PORT_C) | BIT(PORT_D) | BIT(PORT_E),
->  	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A),
->  };
-> @@ -830,6 +837,7 @@ static const struct platform_desc cml_desc = {
->  		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
->  		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) | \
->  		BIT(TRANSCODER_DSI_A) | BIT(TRANSCODER_DSI_C), \
-> +		BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_0), \
->  	.__runtime_defaults.port_mask = BIT(PORT_A) | BIT(PORT_B) | BIT(PORT_C)
->  
->  static const enum intel_step bxt_steppings[] = {
-> @@ -884,6 +892,8 @@ static const struct platform_desc glk_desc = {
->  		[TRANSCODER_EDP] = PIPE_EDP_OFFSET, \
->  		[TRANSCODER_DSI_0] = PIPE_DSI0_OFFSET, \
->  		[TRANSCODER_DSI_1] = PIPE_DSI1_OFFSET, \
-> +		[TRANSCODER_WD_0] = PIPE_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = PIPE_WD1_OFFSET, \
->  	}, \
->  	.trans_offsets = { \
->  		[TRANSCODER_A] = TRANSCODER_A_OFFSET, \
-> @@ -892,6 +902,8 @@ static const struct platform_desc glk_desc = {
->  		[TRANSCODER_EDP] = TRANSCODER_EDP_OFFSET, \
->  		[TRANSCODER_DSI_0] = TRANSCODER_DSI0_OFFSET, \
->  		[TRANSCODER_DSI_1] = TRANSCODER_DSI1_OFFSET, \
-> +		[TRANSCODER_WD_0] = TRANSCODER_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = TRANSCODER_WD1_OFFSET, \
->  	}, \
->  	IVB_CURSOR_OFFSETS, \
->  	ICL_COLORS, \
-> @@ -905,6 +917,7 @@ static const struct platform_desc glk_desc = {
->  		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
->  		BIT(TRANSCODER_C) | BIT(TRANSCODER_EDP) | \
->  		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
-> +		BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1), \
->  	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A)
->  
->  static const u16 icl_port_f_ids[] = {
-> @@ -975,6 +988,8 @@ static const struct platform_desc ehl_desc = {
->  		[TRANSCODER_D] = PIPE_D_OFFSET, \
->  		[TRANSCODER_DSI_0] = PIPE_DSI0_OFFSET, \
->  		[TRANSCODER_DSI_1] = PIPE_DSI1_OFFSET, \
-> +		[TRANSCODER_WD_0] = PIPE_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = PIPE_WD1_OFFSET, \
->  	}, \
->  	.trans_offsets = { \
->  		[TRANSCODER_A] = TRANSCODER_A_OFFSET, \
-> @@ -983,6 +998,8 @@ static const struct platform_desc ehl_desc = {
->  		[TRANSCODER_D] = TRANSCODER_D_OFFSET, \
->  		[TRANSCODER_DSI_0] = TRANSCODER_DSI0_OFFSET, \
->  		[TRANSCODER_DSI_1] = TRANSCODER_DSI1_OFFSET, \
-> +		[TRANSCODER_WD_0] = TRANSCODER_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = TRANSCODER_WD1_OFFSET, \
->  	}, \
->  	TGL_CURSOR_OFFSETS, \
->  	ICL_COLORS, \
-> @@ -997,6 +1014,7 @@ static const struct platform_desc ehl_desc = {
->  		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) | \
->  		BIT(TRANSCODER_C) | BIT(TRANSCODER_D) | \
->  		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1), \
-> +		BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1), \
->  	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A)
->  
->  static const u16 tgl_uy_ids[] = {
-> @@ -1142,6 +1160,8 @@ static const struct platform_desc adl_s_desc = {
->  		[TRANSCODER_D] = PIPE_D_OFFSET,					\
->  		[TRANSCODER_DSI_0] = PIPE_DSI0_OFFSET,				\
->  		[TRANSCODER_DSI_1] = PIPE_DSI1_OFFSET,				\
-> +		[TRANSCODER_WD_0] = PIPE_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = PIPE_WD1_OFFSET, \
->  	},									\
->  	.trans_offsets = {							\
->  		[TRANSCODER_A] = TRANSCODER_A_OFFSET,				\
-> @@ -1150,6 +1170,8 @@ static const struct platform_desc adl_s_desc = {
->  		[TRANSCODER_D] = TRANSCODER_D_OFFSET,				\
->  		[TRANSCODER_DSI_0] = TRANSCODER_DSI0_OFFSET,			\
->  		[TRANSCODER_DSI_1] = TRANSCODER_DSI1_OFFSET,			\
-> +		[TRANSCODER_WD_0] = TRANSCODER_WD0_OFFSET, \
-> +		[TRANSCODER_WD_1] = TRANSCODER_WD1_OFFSET, \
->  	},									\
->  	TGL_CURSOR_OFFSETS,							\
->  										\
-> @@ -1169,7 +1191,8 @@ static const struct intel_display_device_info xe_lpd_display = {
->  	.__runtime_defaults.cpu_transcoder_mask =
->  		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |
->  		BIT(TRANSCODER_C) | BIT(TRANSCODER_D) |
-> -		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1),
-> +		BIT(TRANSCODER_DSI_0) | BIT(TRANSCODER_DSI_1) |
-> +		BIT(TRANSCODER_WD_0) | BIT(TRANSCODER_WD_1),
->  	.__runtime_defaults.port_mask = BIT(PORT_A) | BIT(PORT_B) |
->  		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
->  };
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-> index 1170ac346615..90aa629595db 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_device.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-> @@ -292,7 +292,7 @@ struct intel_display_runtime_info {
->  	u32 rawclk_freq;
->  
->  	u8 pipe_mask;
-> -	u8 cpu_transcoder_mask;
-> +	u16 cpu_transcoder_mask;
-
-Ugh. You'll need to go over the entire codebase to make sure we never
-use u8 for transcoder masks.
-
->  	u16 port_mask;
->  
->  	u8 num_sprites[I915_MAX_PIPES];
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_limits.h b/drivers/gpu/drm/i915/display/intel_display_limits.h
-> index 453f7b720815..a99e269b1aee 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_limits.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_limits.h
-> @@ -45,6 +45,8 @@ enum transcoder {
->  	TRANSCODER_DSI_1,
->  	TRANSCODER_DSI_A = TRANSCODER_DSI_0,	/* legacy DSI */
->  	TRANSCODER_DSI_C = TRANSCODER_DSI_1,	/* legacy DSI */
-> +	TRANSCODER_WD_0,
-> +	TRANSCODER_WD_1,
->  
->  	I915_MAX_TRANSCODERS
->  };
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index ec96b141c74c..448f1c57439d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -79,6 +79,10 @@ intel_display_power_domain_str(enum intel_display_power_domain domain)
->  		return "TRANSCODER_DSI_A";
->  	case POWER_DOMAIN_TRANSCODER_DSI_C:
->  		return "TRANSCODER_DSI_C";
-> +	case POWER_DOMAIN_TRANSCODER_WD_0:
-> +		return "TRANSCODER_WD_0";
-> +	case POWER_DOMAIN_TRANSCODER_WD_1:
-> +		return "TRANSCODER_WD_1";
->  	case POWER_DOMAIN_TRANSCODER_VDSC_PW2:
->  		return "TRANSCODER_VDSC_PW2";
->  	case POWER_DOMAIN_PORT_DDI_LANES_A:
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-> index d616d5d09cbe..fc24d7153ef8 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-> @@ -42,6 +42,8 @@ enum intel_display_power_domain {
->  	POWER_DOMAIN_TRANSCODER_EDP,
->  	POWER_DOMAIN_TRANSCODER_DSI_A,
->  	POWER_DOMAIN_TRANSCODER_DSI_C,
-> +	POWER_DOMAIN_TRANSCODER_WD_0,
-> +	POWER_DOMAIN_TRANSCODER_WD_1,
-
-This patch is doing about a dozen different things. Please split it up.
-
->  
->  	/* VDSC/joining for eDP/DSI transcoder (ICL) or pipe A (TGL) */
->  	POWER_DOMAIN_TRANSCODER_VDSC_PW2,
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index e2496db1642a..a43625e30430 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -83,6 +83,7 @@ enum intel_output_type {
->  	INTEL_OUTPUT_DSI = 9,
->  	INTEL_OUTPUT_DDI = 10,
->  	INTEL_OUTPUT_DP_MST = 11,
-> +	INTEL_OUTPUT_WRITEBACK = 12,
->  };
->  
->  enum hdmi_force_audio {
-> -- 
-> 2.34.1
-
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index e7918f896..0468c0551 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -1528,6 +1528,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 	if (unlikely(!access_ok(urelocs, remain * sizeof(*urelocs))))
+ 		return -EFAULT;
+ 
++	i915_gem_object_get(ev->vma->obj);
+ 	do {
+ 		struct drm_i915_gem_relocation_entry *r = stack;
+ 		unsigned int count =
+@@ -1588,6 +1589,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 		urelocs += ARRAY_SIZE(stack);
+ 	} while (remain);
+ out:
++	i915_gem_object_put(ev->vma->obj);
+ 	reloc_cache_reset(&eb->reloc_cache, eb);
+ 	return remain;
+ }
 -- 
-Ville Syrjälä
-Intel
+2.53.0
+
