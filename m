@@ -4,90 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D79106B50B
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:58:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42179106B50C
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 12:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4372810E871;
-	Wed, 25 Mar 2026 11:58:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCC8710E87B;
+	Wed, 25 Mar 2026 12:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h+fo6/H5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aazDhW+s";
 	dkim-atps=neutral
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C264F10E6E3
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 14:38:36 +0000 (UTC)
-Received: by mail-ot1-f47.google.com with SMTP id
- 46e09a7af769-7d9b21d1461so2201689a34.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 24 Mar 2026 07:38:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774363116; cv=none;
- d=google.com; s=arc-20240605;
- b=BLLZW93XscXuRaQuEemfhD2mrooiaIAaH19XqUA0eThLyuOYp3PsoIAXpRSxhkgxJO
- HBTw92ggUMcnpYtFDgV4DUVRPdaseZWmAlGuz12Ha8NJaWYAvkUcMgsNJNfWUXKWVWRo
- WYmBJVlF6rKV2yma5ybNePIw/SxYbs5LJdnmgp/7uZbfbmK/z/IlEyuqWcH5SUQUDgPL
- J1s4uaGABihbpGmZuJGzY0905n4Sx3k/XBNBlftJPHEUWUEs2vjyL7rfl6ZhmAFQ50v4
- CRwov2aG2H3lOflkxGjVAamzS5dav+OflMzm/tNuk9tHxsRmYF6YXjrgzzXG1fEwtVXW
- OXkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
- fh=t7VpN6WMhD3AbUOkfNaORR58zNSibwiBVzyOMyzecjY=;
- b=fzTC/2iBEw4nqAp9zEuXH3/dROL3kL2i8oZcwOExX7ImkvSmukQl/s0ikz0eBRoZkZ
- 5sPJixjtDPnWcfdnbQ9raH1fgl+FPusEIxMKvzB3GwxRgt7QvKSXFV6NEF5fOoKtA9CS
- e2QAnRHKZYAb145jb3MCouXx257fnUnHsc4Y0Og0lvcX8R6NZi1xklOXjPi4E8eAyaqA
- 8oWDoYkJSGUrNKwOM8SYrA/AlC6iMDlNEyfa6m+HVwHdJrFDGkNDwjSIaM6VtG5qXGEv
- l9gnPCHNm/fmVw36F3u8M+brgiHKUa8U0tbgb05Hld82fbOaq7IugoFMhEp182hoI6d1
- M1KA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774363116; x=1774967916; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
- b=h+fo6/H5cfCQ95Pqdm79/V0ZG5crJMTpofPBkMGK0PH20uagEXZTo0orgo8N1U96/p
- 4W934uQtgBTd2B+xWMKePsWH9Az+k/rPfom7wkhOPASds9YuQPd+FMxfQFfjSedp0Q52
- xHVnq09QjNO7fsKQr4A4lofvkoym7eZt0zwuUnzduoHWeWC1XYJHf8J+75zmr/mIfqWp
- Umc4QV/PEwawnh56xEw4lWTyv14N5x6GIj0fMeNxnAFQj1U9SB32r7KPey33Kjdg8BuD
- R0P1dbDtP7QIpQFBCK+JdLin9SZVZwaxxdnBz5cFCO5GEMcfVWS1bIFmyK8bL+P6mltE
- UPRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774363116; x=1774967916;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Q2P2X5a3SvzdfNG+ptErUvhhDJG9k3IfKPvzAZtm4fo=;
- b=L4yPKiht9E46DP/5yPCrMEptMV3THqBp7xZ22sq14HV/4DlB06wFxGeqmxofB4xhG3
- o04/mK2K7H3UOcIJCxhGdDcZV9mdX8baym7U3cmOtffe8mg8UFJGVjGYHW2ZLz8FYqI4
- EBF2ghXIEAo+6t0OrAjT5eU7pjMq1oX1ET1UJdNvkW9ZtiM3eSpY00FVv+tT2S4Pt9ML
- cMhSkrE8PgVEBFlAZ5kuj/NO7P2LDYQwGimc84iajvZ+psnrge0lVVeOXOcZlpCQcFTS
- a8g9yptaAIhzyUv5h2dAX9tKT4LCVo6rFpEuL+B684ZhD7s/ay48RO8SvRBgspSi2bmV
- +d+Q==
-X-Gm-Message-State: AOJu0Ywx/8uXpy0wvCmWqIv8X+RvCm+2UD3qsqJTgNGZbw6MujELpl4S
- 2YYLzjDH5yz9C+vHWi0JThbehXvSiivQZ0u/pmV9RNfbm4GBd99GGyTeCxra/X9UEhzx+/BN7zq
- j7cn8rAWxdcM27nHHjYrbb7fegaxtsGI=
-X-Gm-Gg: ATEYQzx5H9KtyiWtzRFzfeoZA60YXxL0BQHLjUNWNWlv6bqys/DZgNWtaWAi48/1I+9
- IpznIfbCsqvfHTzr4vwanwSo//SpLmeok31t5kKtExXx7JDg/rwXWrV02KU7yEGwi+7jkH3DyUx
- CdgtupBXKFzFk1MbixXqXPYRNtEfH/VCpuQvOIeTuP4+f89w13zXY+LaQBrC4a52OLPbZmSiW4X
- C+PQS7QuNjoBaf2GnDpAglnlIur5fNGjhgYZdITzJdDjb4Qr87D64bggqDvp2aNy/aH9d7jTqLr
- rktQ2Zi1sFxD1lLlbRQ=
-X-Received: by 2002:a05:6830:2649:b0:7d9:d3f9:a82f with SMTP id
- 46e09a7af769-7d9d4f5b9f3mr1417a34.10.1774363115506; Tue, 24 Mar 2026 07:38:35
- -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFC7910E842;
+ Wed, 25 Mar 2026 12:08:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774440505; x=1805976505;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=+rSuulWREqsT9iIQHpMZ2xXUjDOiIEet/x3Vo+41FFk=;
+ b=aazDhW+sszQEh5vHnjfPKGri+HDpPVO07uERoY7FmunccJQ/Gk8Bm8xY
+ YdxKPJlStO4nh35TTh/Ize0ceVCrQICrWXO6ZzaICjoMoONi4bUdKR81E
+ 4cBZnA+FSooLl4JIM2A6UpQPUHFkdvsgOb/K60rPsmweOf/t7RVlwV9iM
+ hGt3GzQBof8olx+OyRBJHd7oe1VHhegTtOpv4zZeLBAZN0Wx5qQnpwFS7
+ zYQfaOLcDLb6YRLPLh95AeCL1Ue/0xptpj1CDW4r7/79nMisI/pEHXcg3
+ B5n5jwbd3z59Brw0+eD+hQdzfmw9rRD/sWUnzyq6ruShONk+OJNLsWcjC A==;
+X-CSE-ConnectionGUID: rxWGhecWSBKPvcFuXlMHpA==
+X-CSE-MsgGUID: q+Hei6XBRvG3Y7jawr9gJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="79381712"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="79381712"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 05:08:24 -0700
+X-CSE-ConnectionGUID: QEdL+GMYT/mFtnXreBv48g==
+X-CSE-MsgGUID: RutsHh+oQwiGJyAFrtesfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="255161043"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 05:08:22 -0700
+Date: Wed, 25 Mar 2026 14:08:18 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
+ chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com
+Subject: Re: [PATCH v3 08/26] drm/i915/writeback: Define encoder->get_hw_state
+Message-ID: <acPQMrMRziNrueWg@intel.com>
+References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
+ <20260325110744.1096786-9-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-References: <20260324134718.27331-1-sosohero200@gmail.com>
- <2026032453-depletion-various-b39f@gregkh>
-In-Reply-To: <2026032453-depletion-various-b39f@gregkh>
-From: Yassine Mounir <sosohero200@gmail.com>
-Date: Tue, 24 Mar 2026 10:38:24 -0400
-X-Gm-Features: AaiRm50cziF8olqPYG3fyV50MHL9v32hpyhvNyLU62jxWqIfwJZFnDUECBcvuGw
-Message-ID: <CANq=4mC4ppxPYShPdQiZ6k44v5oue+NhcY8qXYBV6kEgoSWgiQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915: Fix UAF race between relocation and GEM_CLOSE
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com, 
- security@kernel.org, rodrigo.vivi@intel.com
-Content-Type: multipart/alternative; boundary="00000000000033cf8f064dc61bc1"
-X-Mailman-Approved-At: Wed, 25 Mar 2026 11:57:58 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260325110744.1096786-9-suraj.kandpal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,162 +75,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---00000000000033cf8f064dc61bc1
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Mar 25, 2026 at 04:37:26PM +0530, Suraj Kandpal wrote:
+> Define the get_hw_state function for encoder which
+> get's the encoder state, pipe config.
+> 
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> ---
+>  .../gpu/drm/i915/display/intel_writeback.c    | 49 +++++++++++++++++++
+>  .../drm/i915/display/intel_writeback_reg.h    |  3 ++
+>  2 files changed, 52 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_writeback.c b/drivers/gpu/drm/i915/display/intel_writeback.c
+> index 765f62fa38f8..64769609aefe 100644
+> --- a/drivers/gpu/drm/i915/display/intel_writeback.c
+> +++ b/drivers/gpu/drm/i915/display/intel_writeback.c
+> @@ -17,7 +17,9 @@
+>  #include "intel_de.h"
+>  #include "intel_display_driver.h"
+>  #include "intel_display_types.h"
+> +#include "intel_display_utils.h"
+>  #include "intel_writeback.h"
+> +#include "intel_writeback_reg.h"
+>  
+>  struct intel_writeback_connector {
+>  	struct intel_connector connector;
+> @@ -98,6 +100,52 @@ static const struct drm_connector_helper_funcs conn_helper_funcs = {
+>  	.mode_valid = intel_writeback_mode_valid,
+>  };
+>  
+> +static bool
+> +intel_writeback_get_hw_state(struct intel_encoder *encoder,
+> +			     enum pipe *pipe)
+> +{
+> +	struct intel_display *display = to_intel_display(encoder);
+> +	u8 pipe_mask = 0;
+> +	u32 tmp;
+> +
+> +	/* TODO need to be done for both the wd transcoder */
 
-*Hi Greg,*
+The encoder should know its transcoder.
 
-*My apologies for the confusion. I realized I was developing against a
-distribution kernel (6.18.12-kali). I understand now why the file paths do
-not match the current upstream tree.*
+> +	tmp = intel_de_read(display,
+> +			    TRANSCONF_WD(TRANSCODER_WD_0));
+> +	if (!(tmp & WD_TRANS_ENABLE))
+> +		return false;
 
-*Regarding the logic: The race condition happens specifically during the
-eb_relocate_entry call when a concurrent GEM_CLOSE drops the reference
-count to zero. The i915_gem_object_get is intended to pin the object's
-lifetime during this critical relocation window.*
+Is this register really different enough from the norm to
+warrant its own register definitions?
 
-*I will now rebase this fix against the latest drm-tip / mainline tree,
-remove the 'Reported-by' tag as suggested, and submit a v2 for review.*
+> +
+> +	tmp = intel_de_read(display,
+> +			    WD_TRANS_FUNC_CTL(TRANSCODER_WD_0));
+> +
+> +	if (!(tmp & TRANS_WD_FUNC_ENABLE))
+> +		return false;
+> +
+> +	switch (tmp & WD_INPUT_SELECT_MASK) {
+> +	case WD_INPUT_PIPE_A:
+> +		pipe_mask |= BIT(PIPE_A);
+> +		break;
+> +	case WD_INPUT_PIPE_B:
+> +		pipe_mask |= BIT(PIPE_B);
+> +		break;
+> +	case WD_INPUT_PIPE_C:
+> +		pipe_mask |= BIT(PIPE_C);
+> +		break;
+> +	case WD_INPUT_PIPE_D:
+> +		pipe_mask |= BIT(PIPE_D);
+> +		break;
+> +	default:
+> +		MISSING_CASE(tmp & WD_INPUT_SELECT_MASK);
+> +		fallthrough;
+> +	}
+> +
+> +	if (pipe_mask == 0)
+> +		return false;
+> +
+> +	*pipe = ffs(pipe_mask) - 1;
 
-*Thank you for your guidance.* *Best regards,*
+What's the point of this pipe_mask?
 
-*Yassine (Toji1)*
+> +
+> +	return true;
+> +}
+> +
+>  int intel_writeback_init(struct intel_display *display)
+>  {
+>  	struct intel_encoder *encoder;
+> @@ -122,6 +170,7 @@ int intel_writeback_init(struct intel_display *display)
+>  	encoder->type = INTEL_OUTPUT_WRITEBACK;
+>  	encoder->pipe_mask = ~0;
+>  	encoder->cloneable = 0;
+> +	encoder->get_hw_state = intel_writeback_get_hw_state;
+>  
+>  	connector = &writeback_conn->connector;
+>  	ret = intel_writeback_connector_alloc(connector);
+> diff --git a/drivers/gpu/drm/i915/display/intel_writeback_reg.h b/drivers/gpu/drm/i915/display/intel_writeback_reg.h
+> index ffe302ef3dd9..5e7c6c99d191 100644
+> --- a/drivers/gpu/drm/i915/display/intel_writeback_reg.h
+> +++ b/drivers/gpu/drm/i915/display/intel_writeback_reg.h
+> @@ -19,6 +19,9 @@
+>  /* Gen12 WD */
+>  #define _MMIO_WD(tc, wd0, wd1)	_MMIO_TRANS((tc) - TRANSCODER_WD_0, wd0, wd1)
+>  
+> +#define TRANSCONF_WD(tc)	_MMIO_WD(tc,\
+> +				PIPE_WD0_OFFSET,\
+> +				PIPE_WD1_OFFSET)
+>  #define WD_TRANS_ENABLE		REG_BIT(31)
+>  #define WD_TRANS_STATE		REG_BIT(30)
+>  
+> -- 
+> 2.34.1
 
-Le mar. 24 mars 2026 =C3=A0 10:27, Greg KH <gregkh@linuxfoundation.org> a =
-=C3=A9crit :
-
-> On Tue, Mar 24, 2026 at 09:47:18AM -0400, Yassine Mounir wrote:
-> > A use-after-free (UAF) vulnerability was identified in the i915 driver
-> > within eb_relocate_vma. The issue arises from a race condition where
-> > a concurrent DRM_IOCTL_GEM_CLOSE can drop the GEM object's reference
-> > count to zero while the relocation thread is still processing entries.
-> >
-> > This results in the kernel attempting to access freed memory in
-> > eb_relocate_entry, leading to a display pipeline hang and potential
-> > system instability.
-> >
-> > Fix:
-> > Wrap the relocation phase with i915_gem_object_get() and
-> > i915_gem_object_put() to ensure the object remains valid throughout
-> > the operation, even if user-space requests to close the handle.
-> >
-> > Reported-by: Yassine Mounir (Toji1) <sosohero200@gmail.com>
-> > Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
->
-> No need for a reported-by when you create and sign off on a change.
->
-> > ---
-> >  drivers/gpu/drm/i915/i915_gem_execbuffer.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > --- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c
-> > +++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c
->
-> There is no such file name in the current kernel tree, what version did
-> you make this against?
->
->
-> > @@ -1542,7 +1542,11 @@ eb_relocate_vma(struct i915_execbuffer *eb,
-> struct i915_vma *vma)
-> >               if (ret)
-> >                       return ret;
-> >
-> > +             /* Hold a reference to prevent UAF during concurrent
-> GEM_CLOSE */
-> > +             i915_gem_object_get(vma->obj);
-> >               ret =3D eb_relocate_entry(eb, vma, rel);
-> > +             i915_gem_object_put(vma->obj);
-> > +
->
-> What prevents the object from going away right after the put call here?
->
-> thanks,
->
-> greg k-h
->
-
---00000000000033cf8f064dc61bc1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p><b>Hi Greg,</b></p><p><b>My apologies for the confusion=
-. I realized I was developing against a distribution kernel (6.18.12-kali).=
- I understand now why the file paths do not match the current upstream tree=
-.</b></p><p><b>Regarding the logic: The race condition happens specifically=
- during the <code>eb_relocate_entry</code> call when a concurrent <code>GEM=
-_CLOSE</code> drops the reference count to zero. The <code>i915_gem_object_=
-get</code> is intended to pin the object&#39;s lifetime during this critica=
-l relocation window.</b></p><p><b>I will now rebase this fix against the la=
-test <code>drm-tip</code> / <code>mainline</code> tree, remove the &#39;Rep=
-orted-by&#39; tag as suggested, and submit a v2 for review.</b></p><p><b>Th=
-ank you for your guidance.</b>
-<b>Best regards,</b>=C2=A0</p><p><b>Yassine (Toji1)</b></p></div><br><div c=
-lass=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_=
-attr">Le=C2=A0mar. 24 mars 2026 =C3=A0=C2=A010:27, Greg KH &lt;<a href=3D"m=
-ailto:gregkh@linuxfoundation.org">gregkh@linuxfoundation.org</a>&gt; a =C3=
-=A9crit=C2=A0:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
-n Tue, Mar 24, 2026 at 09:47:18AM -0400, Yassine Mounir wrote:<br>
-&gt; A use-after-free (UAF) vulnerability was identified in the i915 driver=
- <br>
-&gt; within eb_relocate_vma. The issue arises from a race condition where <=
-br>
-&gt; a concurrent DRM_IOCTL_GEM_CLOSE can drop the GEM object&#39;s referen=
-ce <br>
-&gt; count to zero while the relocation thread is still processing entries.=
-<br>
-&gt; <br>
-&gt; This results in the kernel attempting to access freed memory in <br>
-&gt; eb_relocate_entry, leading to a display pipeline hang and potential <b=
-r>
-&gt; system instability.<br>
-&gt; <br>
-&gt; Fix:<br>
-&gt; Wrap the relocation phase with i915_gem_object_get() and <br>
-&gt; i915_gem_object_put() to ensure the object remains valid throughout <b=
-r>
-&gt; the operation, even if user-space requests to close the handle.<br>
-&gt; <br>
-&gt; Reported-by: Yassine Mounir (Toji1) &lt;<a href=3D"mailto:sosohero200@=
-gmail.com" target=3D"_blank">sosohero200@gmail.com</a>&gt;<br>
-&gt; Signed-off-by: Yassine Mounir &lt;<a href=3D"mailto:sosohero200@gmail.=
-com" target=3D"_blank">sosohero200@gmail.com</a>&gt;<br>
-<br>
-No need for a reported-by when you create and sign off on a change.<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/i915_gem_execbuffer.c | 4 ++++<br>
-&gt;=C2=A0 1 file changed, 4 insertions(+)<br>
-&gt; <br>
-&gt; --- a/drivers/gpu/drm/i915/i915_gem_execbuffer.c<br>
-&gt; +++ b/drivers/gpu/drm/i915/i915_gem_execbuffer.c<br>
-<br>
-There is no such file name in the current kernel tree, what version did<br>
-you make this against?<br>
-<br>
-<br>
-&gt; @@ -1542,7 +1542,11 @@ eb_relocate_vma(struct i915_execbuffer *eb, str=
-uct i915_vma *vma)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ret)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return ret;<br>
-&gt;=C2=A0 <br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Hold a reference t=
-o prevent UAF during concurrent GEM_CLOSE */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_get(v=
-ma-&gt;obj);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D eb_reloc=
-ate_entry(eb, vma, rel);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i915_gem_object_put(v=
-ma-&gt;obj);<br>
-&gt; +<br>
-<br>
-What prevents the object from going away right after the put call here?<br>
-<br>
-thanks,<br>
-<br>
-greg k-h<br>
-</blockquote></div>
-
---00000000000033cf8f064dc61bc1--
+-- 
+Ville Syrjälä
+Intel
