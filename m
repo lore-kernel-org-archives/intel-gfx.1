@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 695BC103A9A9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3C82FEC11B
 	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:08:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ABB610E86A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 628F010E86C;
 	Wed, 25 Mar 2026 11:08:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cXHgCqBg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UsUHpLXD";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF5E110E86A;
- Wed, 25 Mar 2026 11:08:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E761410E865;
+ Wed, 25 Mar 2026 11:08:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774436908; x=1805972908;
+ t=1774436903; x=1805972903;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=htzkNd46e2DvZy+sYfLmq5rVpGJtBSoe5iUZVdkezGQ=;
- b=cXHgCqBgqtmo3YlsSs3bwr+vrA/FAlMKwt7PQnQGu+jj5Owtz5g35KO5
- qpbDJMazNnI0a6Mo/MI2T0w2gMqoVSxdZYEgLBRGhTm34dWW8pOh6pFbn
- 2wTVcczRZ8j4f1x2sV/7oqo0Z+RLs7rNyjuH+PzaOtgNNu60UAQLWzoMU
- Ygyt7ZoDjq8oAn6R7o3maYgEP6xMdX1OzmzcApLoEJox7bI43MWWadRxy
- bQ6VTk9EDLI+2WbyYXYxSG1olhOdiXFasM38KJJXbKclo3Jdff/8cnwGk
- o77Q0/O5I94ZvfnY4/auSUCcKO1xrUmUMQZOgvxNi/6gZN+ktn2pkJkV8 Q==;
-X-CSE-ConnectionGUID: +Rpeh0nSQH6dq+7h+2+XOw==
-X-CSE-MsgGUID: JVMBxJ8NQAOKljdafrWiwA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="93047527"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="93047527"
+ bh=p+9PZgOJtXhdVe7z5ER1GWY+9EdC0tMiZdNow41wc7g=;
+ b=UsUHpLXDmNxDqZMp2l9kzidGLcKHIDv2lTNiMcr/KUcCfuSiTPV2YSEY
+ zjB6JJ5DlMgg7Ty5uKMEThYiEWOFSZTgkJ1aaBpVABQtfkB3Td/tAw0Rv
+ vIcz6ftoQkC699FhyA0gIf0yiZCHVsz4U7604lfKm4YJAbzKq8JiuQRY5
+ wOmZMdttqNcF1wPj7lbEs9rJI0QnV1bGKRlR3xE6f8XsulwE/HP3hJJ4J
+ +HbyK/beO7OneMPWxjTtiQ+6+SXmSw9eXRz7J5d/BTuW/Von+fJCJdF/N
+ L6srAhMLnmmbjVG0sRf7ggR18D7V8RX0wnzdPfWVcZ7r6oUlxm9IazUVK g==;
+X-CSE-ConnectionGUID: wFG86n1BSqygrwlB170ViA==
+X-CSE-MsgGUID: sh6/IiQMT3OX3NiHSollqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="93047523"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="93047523"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:08:27 -0700
-X-CSE-ConnectionGUID: qw2bsRCcQiWckofJ3LQxgA==
-X-CSE-MsgGUID: vYI8jsckR4OmD05mF9bmWw==
+ 25 Mar 2026 04:08:23 -0700
+X-CSE-ConnectionGUID: xw1rLlvBTwWWSGlHp15fog==
+X-CSE-MsgGUID: ZiNB9QV1THSIKJjh2j066g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="219798389"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="219798379"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa006.fm.intel.com with ESMTP; 25 Mar 2026 04:08:25 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 25 Mar 2026 04:08:21 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
  chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v3 15/26] drm/i915/writeback: Add connector atomic check
-Date: Wed, 25 Mar 2026 16:37:33 +0530
-Message-Id: <20260325110744.1096786-16-suraj.kandpal@intel.com>
+Subject: [PATCH v3 13/26] drm/i915/writeback: Define function for connector
+ function detect
+Date: Wed, 25 Mar 2026 16:37:31 +0530
+Message-Id: <20260325110744.1096786-14-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260325110744.1096786-1-suraj.kandpal@intel.com>
 References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
@@ -69,81 +70,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add connector helper function for atomic check which sets the
-mode_changed bit and checks if pixel format of fb is valid or not.
+detect function always returns connector_status_connected if
+writeback connector has been initialized.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- .../gpu/drm/i915/display/intel_writeback.c    | 49 +++++++++++++++++++
- 1 file changed, 49 insertions(+)
+ drivers/gpu/drm/i915/display/intel_writeback.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_writeback.c b/drivers/gpu/drm/i915/display/intel_writeback.c
-index 86b53e4603ae..ba4c162847c8 100644
+index b9350d97de09..e677cdfa6207 100644
 --- a/drivers/gpu/drm/i915/display/intel_writeback.c
 +++ b/drivers/gpu/drm/i915/display/intel_writeback.c
-@@ -167,6 +167,54 @@ static void intel_writeback_connector_destroy(struct drm_connector *connector)
- 	kfree(connector);
+@@ -154,11 +154,19 @@ static void intel_writeback_cleanup_job(struct drm_connector *connector,
+ 	job->priv = NULL;
  }
  
-+static int intel_writeback_check_format(u32 format)
++static enum drm_connector_status
++intel_writeback_detect(struct drm_connector *connector,
++		       bool force)
 +{
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(writeback_formats); i++) {
-+		if (writeback_formats[i] == format)
-+			return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int intel_writeback_atomic_check(struct drm_connector *connector,
-+					struct drm_atomic_state *state)
-+{
-+	struct drm_connector_state *conn_state =
-+		drm_atomic_get_new_connector_state(state, connector);
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_framebuffer *fb;
-+	int ret;
-+
-+	/* We return 0 since this is called while disabling writeback encoder */
-+	if (!conn_state->crtc)
-+		return 0;
-+
-+	/* We do not allow a blank commit when using writeback connector */
-+	if (!conn_state->writeback_job)
-+		return -EINVAL;
-+
-+	fb = conn_state->writeback_job->fb;
-+	if (!fb)
-+		return -EINVAL;
-+
-+	crtc_state = drm_atomic_get_new_crtc_state(state, conn_state->crtc);
-+	if (fb->width != crtc_state->mode.hdisplay ||
-+	    fb->height != crtc_state->mode.vdisplay)
-+		return -EINVAL;
-+
-+	ret = intel_writeback_check_format(fb->format->format);
-+	if (ret) {
-+		drm_dbg_kms(connector->dev,
-+			    "Unsupported drm format sent in writeback job\n");
-+		return ret;
-+	}
-+
-+	return 0;
++	return connector_status_connected;
 +}
 +
  static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
  	.destroy = drm_encoder_cleanup,
  };
-@@ -182,6 +230,7 @@ const struct drm_connector_funcs conn_funcs = {
- static const struct drm_connector_helper_funcs conn_helper_funcs = {
- 	.get_modes = intel_writeback_get_modes,
- 	.mode_valid = intel_writeback_mode_valid,
-+	.atomic_check = intel_writeback_atomic_check,
- 	.prepare_writeback_job = intel_writeback_prepare_job,
- 	.cleanup_writeback_job = intel_writeback_cleanup_job,
- };
+ 
+ const struct drm_connector_funcs conn_funcs = {
++	.detect = intel_writeback_detect,
+ 	.fill_modes = drm_helper_probe_single_connector_modes,
+ 	.atomic_duplicate_state = intel_digital_connector_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
 -- 
 2.34.1
 
