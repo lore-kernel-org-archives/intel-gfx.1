@@ -4,27 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F3DF109C02F
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 15:35:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69F59109C034
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 15:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF8A110E7BB;
-	Wed, 25 Mar 2026 15:34:59 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5EA910E7BB;
- Wed, 25 Mar 2026 15:34:58 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2E1010E1D6;
+	Wed, 25 Mar 2026 15:40:07 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j2Ly43je";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85E6F10E15F;
+ Wed, 25 Mar 2026 15:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774453207; x=1805989207;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=KpWRqnfn2KKx9CCG0GyuvAV6EokwwGAW4V17iSMngq0=;
+ b=j2Ly43jeqaj8I0h7clKDFjTKHbqGymqMF2898XsusXDtpxAUoHuOLB4E
+ 4uFHupup4VZ9wubkqu1B3ydIEKBw4EzSWs2Jgyl9ryWvvG0AARVUvLFF+
+ Bsr+sK3OlBWjzGwKX6P401qSksVoO3jdQSJ/70cfVLH1LLCK0rLURvnvz
+ Z3V6YGco3O4m38Kr13M6uBQ0vxTFNkvlMfrB9ykv8uczhKykSdxoV/JyY
+ WO0WBlurvsoRAPqnhqK5lRLXHUq+1Ht0TA/kMalwVXi9wwGlprTL4arTo
+ 4xKX/utDgJ5h9dDZ213kz4CV0sV5fekGt+u7G4zP9AZ3kUO8UJcwq295e g==;
+X-CSE-ConnectionGUID: /hD5fPUYTfi57aGK9vn8gA==
+X-CSE-MsgGUID: uNDRiALJTByhhri0Ds3vrg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11740"; a="75381499"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="75381499"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 08:40:07 -0700
+X-CSE-ConnectionGUID: ze0fWeg7TUSYluyZtWDJjQ==
+X-CSE-MsgGUID: a2wsMCdFS7SElKPQHnVZ8g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="262634792"
+Received: from administrator-system-product-name.igk.intel.com
+ ([10.91.214.181])
+ by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 08:40:05 -0700
+Date: Wed, 25 Mar 2026 16:40:02 +0100 (CET)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>
+cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ stable@vger.kernel.org, Mikhail Rudenko <mike.rudenko@gmail.com>
+Subject: Re: [PATCH 1/6] drm/i915/cdclk: Do the full CDCLK dance for
+ min_voltage_level changes
+In-Reply-To: <20260325135849.12603-2-ville.syrjala@linux.intel.com>
+Message-ID: <4790e7bb-c9b3-001b-9f1d-c9990721e2c0@intel.com>
+References: <20260325135849.12603-1-ville.syrjala@linux.intel.com>
+ <20260325135849.12603-2-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gem=3A?=
- =?utf-8?q?_Fix_UAF_race_in_eb=5Frelocate=5Fvma?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Yassine Mounir" <sosohero200@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Mar 2026 15:34:58 -0000
-Message-ID: <177445289872.397746.16219400014480737507@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260324151741.29338-1-sosohero200@gmail.com>
-In-Reply-To: <20260324151741.29338-1-sosohero200@gmail.com>
+Content-Type: multipart/mixed; BOUNDARY="8323329-1013487388-1774451849=:294612"
+Content-ID: <2951095b-2979-b733-5139-967941db4e64@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,20 +68,48 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Series: drm/i915/gem: Fix UAF race in eb_relocate_vma
-URL   : https://patchwork.freedesktop.org/series/163841/
-State : failure
+--8323329-1013487388-1774451849=:294612
+Content-Type: text/plain; CHARSET=ISO-8859-2; format=flowed
+Content-Transfer-Encoding: 8BIT
+Content-ID: <e61e61d2-5f39-3c08-b676-e546fa696723@intel.com>
 
-== Summary ==
+On Wed, 25 Mar 2026, Ville Syrjala wrote:
+> From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+>
+> Apparently I forgot about the pipe min_voltage_level when I
+> decoupled the CDCLK calculations from modesets. Even if the
+> CDCLK frequency doesn't need changing we may still need to
+> bump the voltage level to accommodate an increase in the
+> port clock frequency.
+>
+> Currently, even if there is a full modeset, we won't notice the
+> need to go through the full CDCLK calculations/programming,
+> unless the set of enabled/active pipes changes, or the
+> pipe/dbuf min CDCLK changes.
+>
+> Duplicate the same logic we use the pipe's min CDCLK frequency
+> to also deal with its min voltage level.
+>
+> Note that the 'allow_voltage_level_decrease' stuff isn't
+> really useful here since the min voltage level can only
+> change during a full modeset. But I think sticking to the
+> same approach in the three similar parts (pipe min cdclk,
+> pipe min voltage level, dbuf min cdclk) is a good idea.
+>
+> Cc: stable@vger.kernel.org
+> Tested-by: Mikhail Rudenko <mike.rudenko@gmail.com>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15826
+> Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
+> Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Address 'sosohero200@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
-If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
-Exception occurred during validation, bailing out!
+Reviewed-by: Micha³ Grzelak <michal.grzelak@intel.com>
 
-
+BR,
+Micha³
+--8323329-1013487388-1774451849=:294612--
