@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DBEAFEA806
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 05:00:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84F7FFEA80B
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 05:00:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1561F10E77F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B1410E780;
 	Wed, 25 Mar 2026 05:00:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j5IUaTwT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EjDSXA9d";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6024310E777;
- Wed, 25 Mar 2026 05:00:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0629A10E77A;
+ Wed, 25 Mar 2026 05:00:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774414803; x=1805950803;
+ t=1774414813; x=1805950813;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JvY8s2jz1OIsQl/wOX8hPswLAxP6xMf3M5W7eo/Wnuw=;
- b=j5IUaTwTH2SL2DhYmYZd7FTOiPA+/OoBPfCbv3UArmJEjkOuFVz7f+oA
- VeY1BrC1bE1cLEFUrf2gMkDR/fLw4OV6mrp3B7Nn14T/AfLQ0M5Fx/Zct
- 9CRY+Ix5B74UCBUI63wbXqXsJFliECBqlO/lKKIHR1ZqCT+fxrE6cdjox
- kB/UmtsJfIVO2f8Phw2lIRuL3PBvRi+s95gFJH6bsUCNsRmSCP1O7pimy
- Fn2Na6rFJY05qKRsLejMvTysOWliibyIOYpBRhNK28ES39s02N+5eewJ8
- vAOPPsT0ww/OQc8SR5lQblQv56J2zNTIAh+59GLQES6HtB7WPuGqBZkzb Q==;
-X-CSE-ConnectionGUID: q3v42v2yQkiuHZK8/9DW7Q==
-X-CSE-MsgGUID: z4myW9r9SH2GOgYPJaEbFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="86922325"
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="86922325"
+ bh=8cnTW65WR3nMkarcz+mSt6EPS+Jgvsoo3UIRSo5uyUI=;
+ b=EjDSXA9dRMzHt87EkY7rnhTG4+dMsBfSwquDZvHKwY6oGloxKF5Oo6op
+ ArPWTsgdYRs2eojSR4Gvzb0CV5x4uvizR0mv7YN8P9kjgLtVizGhD0zTV
+ hvnzH6AJerxjzuYnoqA/lZ3dOsQmqtB3Af2akIizwpsmrMKIALIbQfzMV
+ YDYDRKdD/v973R1ab0PzYcLJ4+sFmvgTO+aUg/zTvU/o7jMuKZEdguATF
+ TpGt/iBeOavezJz/sjoyfIxC0ZH2/8EjgNMPP63PItdM0iUyqYHsjdUCm
+ Umux+ikn1L23XBM9Pj9yQBNuMDJbP4VnlANEpANV7xalnsdl3m+A8jHGq g==;
+X-CSE-ConnectionGUID: K5hYe3ooQiCdJYDwf/0EXQ==
+X-CSE-MsgGUID: XetAoL3vSxO5CH5IXCoyag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="86922355"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="86922355"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2026 22:00:03 -0700
-X-CSE-ConnectionGUID: yP5ey+NWQrGdfDuOFIQIjg==
-X-CSE-MsgGUID: GBcjEcmuRoy8Q0eJ5nWv/w==
+ 24 Mar 2026 22:00:13 -0700
+X-CSE-ConnectionGUID: 16GlGgh8SPe+9Q1CFUkYCg==
+X-CSE-MsgGUID: V2bf0GdQTiCaFJaicgAKxA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="224580609"
+X-IronPort-AV: E=Sophos;i="6.23,139,1770624000"; d="scan'208";a="224580801"
 Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa008.jf.intel.com with ESMTP; 24 Mar 2026 22:00:00 -0700
+ by orviesa008.jf.intel.com with ESMTP; 24 Mar 2026 22:00:10 -0700
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
  chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com,
  Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v2 14/26] drm/i915/writeback: Define function to destroy
- writeback connector
-Date: Wed, 25 Mar 2026 10:29:04 +0530
-Message-Id: <20260325045916.984243-15-suraj.kandpal@intel.com>
+Subject: [PATCH v2 18/26] drm/i915/writeback: Define writeback frame capture
+ function
+Date: Wed, 25 Mar 2026 10:29:08 +0530
+Message-Id: <20260325045916.984243-19-suraj.kandpal@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260325045916.984243-1-suraj.kandpal@intel.com>
 References: <20260325045916.984243-1-suraj.kandpal@intel.com>
@@ -70,39 +70,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Define function to destroy the drm_writbeack_connector and
-drm_connector associated with it.
+Define the commit function to be called at atomic_commit_tail
+if drm_writeback_job is available. This function calls the
+capture function and queues the job to be called later via
+interrupt handler when the job is complete.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_writeback.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display.c  |  3 +
+ .../gpu/drm/i915/display/intel_writeback.c    | 58 +++++++++++++++++++
+ .../gpu/drm/i915/display/intel_writeback.h    |  4 ++
+ 3 files changed, 65 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index f8e1a3771015..d0fb827d9ae0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -126,6 +126,7 @@
+ #include "intel_vga.h"
+ #include "intel_vrr.h"
+ #include "intel_wm.h"
++#include "intel_writeback.h"
+ #include "skl_scaler.h"
+ #include "skl_universal_plane.h"
+ #include "skl_watermark.h"
+@@ -7590,6 +7591,8 @@ static void intel_atomic_commit_tail(struct intel_atomic_state *state)
+ 	/* FIXME probably need to sequence this properly */
+ 	intel_program_dpkgc_latency(state);
+ 
++	intel_writeback_atomic_commit(state);
++
+ 	intel_wait_for_vblank_workers(state);
+ 
+ 	/* FIXME: We should call drm_atomic_helper_commit_hw_done() here
 diff --git a/drivers/gpu/drm/i915/display/intel_writeback.c b/drivers/gpu/drm/i915/display/intel_writeback.c
-index 77b1ec19d3a0..a2a924edee52 100644
+index 7221da6f3d1e..317df2bf255a 100644
 --- a/drivers/gpu/drm/i915/display/intel_writeback.c
 +++ b/drivers/gpu/drm/i915/display/intel_writeback.c
-@@ -160,6 +160,12 @@ intel_writeback_detect(struct drm_connector *connector,
- 	return connector_status_connected;
- }
+@@ -50,6 +50,12 @@ static const u32 writeback_formats[] = {
+ 	DRM_FORMAT_XBGR2101010,
+ };
  
-+static void intel_writeback_connector_destroy(struct drm_connector *connector)
++static struct intel_writeback_connector
++*conn_to_intel_writeback_connector(struct intel_connector *connector)
 +{
-+	drm_connector_cleanup(connector);
-+	kfree(connector);
++	return container_of(connector, struct intel_writeback_connector, connector);
 +}
 +
- static const struct drm_encoder_funcs drm_writeback_encoder_funcs = {
- 	.destroy = drm_encoder_cleanup,
- };
-@@ -169,6 +175,7 @@ const struct drm_connector_funcs conn_funcs = {
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.atomic_duplicate_state = intel_digital_connector_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+	.destroy = intel_writeback_connector_destroy,
- };
+ static struct intel_writeback_connector
+ *enc_to_intel_writeback_connector(struct intel_encoder *encoder)
+ {
+@@ -223,6 +229,58 @@ static int intel_writeback_atomic_check(struct drm_connector *connector,
+ 	return 0;
+ }
  
- static const struct drm_connector_helper_funcs conn_helper_funcs = {
++static void intel_writeback_capture(struct intel_atomic_state *state,
++				    struct intel_connector *connector)
++{
++	struct intel_display *display = to_intel_display(connector);
++	struct intel_writeback_connector *wb_conn =
++		conn_to_intel_writeback_connector(connector);
++	enum transcoder trans = wb_conn->trans;
++	u32 val = 0;
++
++	val |= START_TRIGGER_FRAME | WD_FRAME_NUMBER(wb_conn->frame_num);
++	intel_de_rmw(display, WD_TRANS_FUNC_CTL(trans),
++		     START_TRIGGER_FRAME | WD_FRAME_NUMBER_MASK,
++		     val);
++
++	if (intel_de_wait_for_set_ms(display, WD_FRAME_STATUS(trans),
++				     WD_FRAME_COMPLETE, 50)) {
++		drm_dbg_kms(display->drm,
++			    "Frame was not captured after triggering a capture\n");
++		intel_de_rmw(display, WD_TRANS_FUNC_CTL(trans),
++			     STOP_TRIGGER_FRAME,
++			     STOP_TRIGGER_FRAME);
++	} else {
++		drm_writeback_signal_completion(&connector->base, 0);
++		intel_de_write(display, WD_FRAME_STATUS(trans), WD_FRAME_COMPLETE);
++		wb_conn->frame_num++;
++		if (wb_conn->frame_num > 7)
++			wb_conn->frame_num = 1;
++		wb_conn->job = NULL;
++	}
++}
++
++void intel_writeback_atomic_commit(struct intel_atomic_state *state)
++{
++	struct drm_connector *connector;
++	struct drm_connector_state *conn_state;
++	int i;
++
++	for_each_new_connector_in_state(&state->base, connector, conn_state, i) {
++		struct intel_connector *intel_connector = to_intel_connector(connector);
++
++		if (!conn_state)
++			return;
++
++		if (conn_state->writeback_job && conn_state->writeback_job->fb) {
++			WARN_ON(connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK);
++
++			drm_writeback_queue_job(connector, conn_state);
++			intel_writeback_capture(state, intel_connector);
++		}
++	}
++}
++
+ static void intel_writeback_enable_encoder(struct intel_atomic_state *state,
+ 					   struct intel_encoder *encoder,
+ 					   const struct intel_crtc_state *crtc_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_writeback.h b/drivers/gpu/drm/i915/display/intel_writeback.h
+index 5911684cb81a..3c145cf73e20 100644
+--- a/drivers/gpu/drm/i915/display/intel_writeback.h
++++ b/drivers/gpu/drm/i915/display/intel_writeback.h
+@@ -8,10 +8,14 @@
+ 
+ #include <linux/types.h>
+ 
++#include "intel_display_types.h"
++
++struct intel_atomic_state;
+ struct intel_display;
+ struct intel_writeback_connector;
+ 
+ int intel_writeback_init(struct intel_display *display);
++void intel_writeback_atomic_commit(struct intel_atomic_state *state);
+ 
+ #endif /* __INTEL_WRITEBACK_H__ */
+ 
 -- 
 2.34.1
 
