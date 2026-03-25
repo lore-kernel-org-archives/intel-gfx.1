@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0543A10A3D6C
-	for <intel-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 11:57:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1690A10A3D65
+	for <intel-gfx@archiver.kernel.org>; Thu, 26 Mar 2026 11:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7A810E9D4;
-	Thu, 26 Mar 2026 11:57:39 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C63E10E873
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 17:31:05 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-7d4c383f2fcso46134a34.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 10:31:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774459865; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21B9C10E2AD;
+	Thu, 26 Mar 2026 11:57:43 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GvDGdNRo";
+	dkim-atps=neutral
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
+ [209.85.210.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E098F10E7BE
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 15:43:35 +0000 (UTC)
+Received: by mail-ot1-f41.google.com with SMTP id
+ 46e09a7af769-7d7eb85fb81so2798376a34.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 25 Mar 2026 08:43:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1774453415; cv=none;
  d=google.com; s=arc-20240605;
- b=MOyclTooVoMrhSiYZ98JpO4r01KAcoaOMaXXuwyOkwhpuwGhh2eBpw4CxwkTdUbUvH
- aXF0mJmdR/9BP05wEyRzpZCigqQ9Q6XTX5wuDZtZEiJyDUg6WJ/zNn+N3iqhtvvqpBW3
- MqLe5+ovtGYM1dD/cNiVoaR6QgQTkbrd8fI9SO3YnI+1AffpQArUGZfS7jptAFcNKF8/
- mdzGxZ+34yk3HLzsfBDhWlDTImBo3NsT6YXKxvReZbH+UcRlqsWIsir6dBGhXHLYMZvL
- wbd1YnASo61BpoZUOmniMcP4D6gj6ttXWgPvCCqiU3XLZsUt2lgDHWDHqPCJXdpk4Aey
- zWSw==
+ b=Asnz8vQRHHrF5zY2qBELEaONGCASDJCdfas+BhoA3Z+VD2bIZ+Wd8YNRUFpXy3DEQG
+ mzAeHPf/6Y3h1DSKJj2Pg77rCbPIMcqCFWOPLuNuPRpr0K6agX265Qa1slgT5cryKy4M
+ xl1ZAtp3bXHjA/2M7V1KwZ4uLFfYGY/+ui4yCIG2oVv9HILFKnukfiLB/IMxDoJ6cFLb
+ 1fNGdmKE/wjBxI6sQkRAIa3KgUtSGar0zyNY4MLPNFr9WcvL1735jN5e95OPjDGD3nWR
+ YYjYqO2Ld0BhmDURaZ1P+3cs6dqAIDJlcvhYcJlKXsTa5nXuOsbAODEHrmXvDDgozGFi
+ avxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=OHptU9W40TSuD9eB1TqhvyWtbUTPZs2Sn4CfEzPvF3U=;
- fh=R5x5VGnXexl2FfqLM1sv0mZJvqM8ukSE/m47vWiX0r8=;
- b=gm1qR6BVj2pkFtDh1YUdoffrfJqe2IR9ZU9Xec87v72mU8HfYmZZTtJ5QhvkTI4Wyx
- U/8D8j9yI4JJ/5h9SHPjZJdumVFX3f3iugXe+hUsEn0cmpKqOR6o7jSD73HYF8BhB56S
- gPSgsDNuZ/dmixnE42gnqY2+cIuXk9WhiGSv3YNXFrb5cC/BeO1fFEOpC+5rrH4gm9nV
- iM4FFmigo0AQQEQy5OnZW4Tw7pH4oPIeZPdhsRHPspr+7lHGLD6Ulc2Ft2O9/rMvs3Lk
- i3ZBt7xKJUDc/oEP33eDelD67okP7Be2oL32GhagCPzcMyY7hN3k4rID3sHqv5H05GAQ
- Igbg==; darn=lists.freedesktop.org
+ bh=yD67tJcHEyvECseTpAMS4ucj6hqgxRFAky6vuFsny9E=;
+ fh=aVrWfkMMThNexWVkIPDyf/k4ZLUxkDWRfXytY+wYhHY=;
+ b=XTKPFhiR5Tj+erSIvGM6fTojga6IHuXw9+l+dddVqIG/PKyNV+YGvfc8U2fCdwUS+U
+ n94guocEbzy14kBGT5F3L/oXiOndlzNGj1EE45a4chO/j4uxSSx3Zg7MHa2C9zG6IiKc
+ 7gygDX4oK/4QKSyKAcqefkRMTHAeXIaQdxTslnQ4+xTuyi4sSJMppHwdbkxj3ZtDiovf
+ to6Ev/AkiWw9inPCoHvasFPbI0Jw2eaT/YCiXboQJTr/s2jVC7dKh+5Py4gs3+sBqgno
+ B02Kdd6O/ZYW7N9kfhKztTHqgl0cJe7izxJPIb+IknNX6sts81uX46LxN2CojsHoDtyu
+ 2W+w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774459865; x=1775064665; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774453415; x=1775058215; darn=lists.freedesktop.org;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=OHptU9W40TSuD9eB1TqhvyWtbUTPZs2Sn4CfEzPvF3U=;
- b=T2cahSm8rqCjBkKelDUrz30hrl6S9WrEDYWd4ZT1V995LNKb/H3elNT6OhgprDMCyW
- cjAnoCwCeVv2H+30gr8zL/bP05oQB+zzXanYxha1VJPelho+ybckg9+iLkkqsxMTVYRP
- GdUouXk+EmBREzneRKM1XUqySdnqPgIm/rq3UEymXogeCWCgrsSi7YU3bD6oc8ciX6OT
- 52kD0Vsp4zIFkrd1eaBmg1RjGFgyErbtZxlVNiWE1XfMz6+wt2hUMCRYI1ta7K6W4yna
- Wmm1J7HFerL7J2sr80F04VkyUfcEPTDrB23FT18vW8TJN8ZbVYeWNFtVlZLXwpMgxkLK
- vxfQ==
+ bh=yD67tJcHEyvECseTpAMS4ucj6hqgxRFAky6vuFsny9E=;
+ b=GvDGdNRol5TB9TFcd/81LILt6HVBw06XIz86JrRxQbt3Lf4kGhf5wr1fNAMKlVLSt6
+ c+vJh7ykTS59RUIwIj7YRt991p1n6DrR6rAmdzFej1rjTHZRJ4i4l1yJvye2nrolGj8/
+ yvd91rG8rY7V1ymQl6N6QevtWA5q4AGNCWyszFiW15sMMuBN0j5XiTwlLkZQVmnDp8Qb
+ +x2UuiHBPgJd7Ptzg0X2q+YQ8jnOaLEqSb0si2q9iYVHdIMFNIfKqAGih1C589u8U1cJ
+ byuy/SRPny1JruhQqk04xk+bXibDGp5d8iGK7KeDH56YtGGEBk6PKnC/Sc+cW1vfAq03
+ 9N5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774459865; x=1775064665;
+ d=1e100.net; s=20251104; t=1774453415; x=1775058215;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=OHptU9W40TSuD9eB1TqhvyWtbUTPZs2Sn4CfEzPvF3U=;
- b=CvK3+qs5N8ho1aKusWOam2FmNjlWWzitgrl8Ha4dK99Te1FofMvrqj9kjXGdWx4vtL
- FGJ3rxNjOr7VM5nYAbDcnJBDn4f/2UecMiLYlWCZoE0MFFvntVPDlpPj0xFqL/XVEUIS
- GhuNf3u41vSNcltwkGK5ACnL2IKmgR+1YxmC8vP3Qbieo8X1MvJPfB2q+QcvaJSyFDsl
- IVCoJdOwJlqmm5m1swRw0ea0Hhqdvyde75aUh62gTFMk1LRtJx6dS6qGipLdyILTF9fZ
- Ek7trnPYizmY4L1w7HaUfxdpXjqUhhbux0dRBh4cAe1waYdX6sQJDYK/V4h4QV+l1B7k
- f3/A==
+ bh=yD67tJcHEyvECseTpAMS4ucj6hqgxRFAky6vuFsny9E=;
+ b=XZLwvJJP0qwga/Zd9zTZhN5WFGRPYzGgducgbiAcDcFl4UxmJP7UlcJOutOLCnYbYh
+ 6ZDIlFTfU7/uP6aJRyPfcDRg2KQcw/sWdArGkFgmwgKsKgmtEZxcd7fnmGo/JR4eg3xY
+ LgqljBbq1CFKkoaiF/teNSPPduIVX449FCpbYRxebkr5W00isgtpUUx3hKGsJs1Ivl0D
+ LIozqS7lTIHf9ADcRwdWCd4pKSz5nCZRaPrcoboeqSbCN3Cj7C/iNNTIWvMDGze71aqL
+ bbC4XXfkN/jvjPMGfofzMBM2Z6ABviLKL25VkkyE8l9LBQJvzl/o0iAUgAodNVKhVQzw
+ WZfA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU1QduzIBbsNDnH77QWeLIUkim7LHby3ZwPCoxHIQnMREN2QlmC1MxgX05ES764CvmnVz4sArAwsRQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/Ibch0BgyGM5L4hTSsnOiJfiwURuxSHT3JSsoKd4DhAXU0dsK
- RKjwghYAAhzpAipXMQCN81TqrtzNyl+r7oF/byphFzokAO7n9Wy0iZ29OfB9SjT6wplC6Mro5CA
- RXUOC1vl8NiKMGXyhWW1WMiFizJBHCzg=
-X-Gm-Gg: ATEYQzwOpJOJEg/sRBJrfjJ4UKhi4ef7HDUB5CgRn0zxlLxXluffFX4nt3hC7yr+adm
- xs9rcDRvIAUxPrpv3IPEl+LF3jY74t+9U/XZsZ9cGYzTPeSEHk+hfjP2C6YQXnPKijDfP+2HY9T
- EA2UZIjkK8VgGB6kdXxyuKnNlwYGgOw5PmwIHNU/7nHoepMxVTw72d9tqURitzskLyoRmCHaXVW
- KWfw3S84vxWuwOzQmpVofMyi1f5O9SaBBDQx4Gd1qONbfYDlb6VoAAUGnHw8zaKYXEaHRi04VtI
- UHMxrE4=
-X-Received: by 2002:a05:6830:3509:b0:7d7:ecda:cc3f with SMTP id
- 46e09a7af769-7d9d62bad58mr2678296a34.0.1774459864523; Wed, 25 Mar 2026
- 10:31:04 -0700 (PDT)
+ AJvYcCU4lsLMlHR7+sDN74BXrodnHn1g2C1+WzGVKjsPmoPiLqD/KeAo5N1kxnEQKt4EiuwJjF30kfa9WIY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxaqUqZkFxKSyjS03GOFAqxJ+sqte7raTIHMmqx8r77K8Pbch/I
+ esom7/Vpht9ywz4udR0bNUKxLOquHxIrxBDIm7dL2zmQf8CYPeOSrpAElB7d4lkQ/d49DGVR4vn
+ ktHhbKNs8/z5Ek4a9LxtA/hKx5vq7UII=
+X-Gm-Gg: ATEYQzw/s8XxXv9/Eo91Kyuv68BN1F4i8ISeNOKvCV+rI41ENU4kv/P0TBqQGSD7d05
+ rIru06qeQTG6KwQ1FHHyB0BGh2Nw0lJ4aO0T2VqRw2J7uzaFOBQWd2Qybe18dTgXl0mdn0vQwqv
+ mMeeeYOY87K0StnWBOk3x+SzRrp8njLIPCPteI9HGbtJzjzqYqcKbLrEJ+cMuujG/3L0QxY2zPK
+ w7YLKOjb1LQUX0n0QgSb/qxyrqLp9NMzYy7biMCKCM67+BMjO3UQHayu9fAY9EUlLlwI/pMvI1N
+ tGPyr0YzezqRi+C39g==
+X-Received: by 2002:a05:6830:668d:b0:7d7:5559:3d1c with SMTP id
+ 46e09a7af769-7d9d661ee95mr2188210a34.1.1774453414758; Wed, 25 Mar 2026
+ 08:43:34 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260324151741.29338-1-sosohero200@gmail.com>
  <177442567303.11552.5320450093167124387@jlahtine-mobl>
  <CANq=4mAEmEQWTUBpDJAgaiw930NUzL6-7EV-Y2WqLGst2YWLiw@mail.gmail.com>
  <177444763778.66558.14341959485998155867@jlahtine-mobl>
- <acQDZJFtsEtm183A@intel.com>
- <CANq=4mDtmtz5ZFjCCoeAXEWN82J9m8+DLochsNc6BzfwJ6Pdpg@mail.gmail.com>
-In-Reply-To: <CANq=4mDtmtz5ZFjCCoeAXEWN82J9m8+DLochsNc6BzfwJ6Pdpg@mail.gmail.com>
+In-Reply-To: <177444763778.66558.14341959485998155867@jlahtine-mobl>
 From: Yassine Mounir <sosohero200@gmail.com>
-Date: Wed, 25 Mar 2026 13:30:52 -0400
-X-Gm-Features: AaiRm52zeAiE3Cx2mZNzPX27Y6JzmUvyy8XbjFtW3O9Ke7_8gPR0bTkKJgCNmYs
-Message-ID: <CANq=4mC3+B4akvpp=nr_w1bbnhDwUXx=EzyQtHQpR9DN=ewCMA@mail.gmail.com>
+Date: Wed, 25 Mar 2026 11:43:23 -0400
+X-Gm-Features: AaiRm52IDextfpKmWVkvfA9tVtrtRZyduH9GqvYCpRT7to9eSWZ4odqYmmh6G9I
+Message-ID: <CANq=4mA2naVHxRTDPqfJwq26DS8LPyY_KY+M2Picq89gmHD9UA@mail.gmail.com>
 Subject: Re: [PATCH v2] drm/i915/gem: Fix UAF race in eb_relocate_vma
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000e4a7bc064ddca128"
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: gregkh@linuxfoundation.org, intel-gfx@lists.freedesktop.org, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Content-Type: multipart/alternative; boundary="000000000000750dcc064ddb21e9"
 X-Mailman-Approved-At: Thu, 26 Mar 2026 11:57:38 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,147 +107,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000e4a7bc064ddca128
+--000000000000750dcc064ddb21e9
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"Hi Rodrigo, I've submitted the issue and the V2 patch under *#15882*. I've
-marked it as confidential as it addresses a potential UAF security risk.
-Looking forward to your review."
+Hi Joonas,
 
-On Wed, 25 Mar 2026 at 13:30, Yassine Mounir <sosohero200@gmail.com> wrote:
+I just finished testing the v3 patch on the latest *drm-tip* (commit
+gb2c69e09).
 
-> "Hi Rodrigo,
+It builds perfectly with no errors. I also booted it in QEMU into an
+initramfs shell to make sure everything is stable. Checked the dmesg with g=
+rep
+-i kasan and it's completely clean=E2=80=94no more use-after-free splats du=
+ring the
+initial driver loading and relocation paths.
+
+The i915_vma_get/put logic seems to be doing its job correctly. Let me know
+if you want me to run any specific IGT tests or if this is good to go.
+
+Thanks
+
+On Wed, 25 Mar 2026 at 10:07, Joonas Lahtinen <
+joonas.lahtinen@linux.intel.com> wrote:
+
+> Quoting Yassine Mounir (2026-03-25 10:20:58)
+> > Hi Joonas,
+> > Thank you for the detailed feedback. I apologize for the double tag and
+> the
+> > direct submission to Greg; I'm still refining my workflow.
 >
-> I am currently following your instructions to file the bug report on
-> GitLab. However, my new GitLab account is pending manual approval due to
-> the current spam restrictions on freedesktop.org. I have contacted the
-> admins for full permissions.
+> Ok, then to level set some expectations:
 >
-> In the meantime, I have prepared all the logs (KASAN splat from vanilla
-> drm-tip and the clean dmesg from the patched version). As soon as the
-> account is active, I will post the link here.
+> Have you actually confirmed that the code you have submitted compiles
+> and does fix the bug you reported?
 >
-> Thank you for your patience."
+> Expectation is that you run the reproducer on top of drm-tip and see a
+> crash where you pick the dmesg/KASAN splat from, then you run drm-tip
+> with the patch you have prepared and there is no crash.
 >
->
-> On Wed, 25 Mar 2026 at 11:47, Rodrigo Vivi <rodrigo.vivi@intel.com> wrote:
->
->> On Wed, Mar 25, 2026 at 04:07:17PM +0200, Joonas Lahtinen wrote:
->> > Quoting Yassine Mounir (2026-03-25 10:20:58)
->> > > Hi Joonas,
->> > > Thank you for the detailed feedback. I apologize for the double tag
->> and the
->> > > direct submission to Greg; I'm still refining my workflow.
->> >
->> > Ok, then to level set some expectations:
->> >
->> > Have you actually confirmed that the code you have submitted compiles
->> > and does fix the bug you reported?
->> >
->> > Expectation is that you run the reproducer on top of drm-tip and see a
->> > crash where you pick the dmesg/KASAN splat from, then you run drm-tip
->> > with the patch you have prepared and there is no crash.
->>
->> Exactly.
->>
->> Before any further submission, please let's get back to square 0 here.
->>
->> 0. Please file a bug to our gilab/issues:
->> https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
->>
->> Do that against the drm-tip branch and provide all the log information
->> from your experiments.
->>
->> 1. If you have a proposed patch, also please confirm that it actually fix
->> the issues that you are solving.
->>
->> 2. Whenever using AI to help you with the code please ensure you comply
->> with this:
->>
->> Documentation/process/generated-content.rst
->>
->> Thanks,
->> Rodrigo.
->>
->> >
->> > Regards, Joonas
->>
+> Regards, Joonas
 >
 
---000000000000e4a7bc064ddca128
+--000000000000750dcc064ddb21e9
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">&quot;Hi Rodrigo,
-I&#39;ve submitted the issue and the V2 patch under <b>#15882</b>. I&#39;ve=
- marked it as confidential as it addresses a potential UAF security risk. L=
-ooking forward to your review.&quot;</div><br><div class=3D"gmail_quote gma=
-il_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, 25 Mar 20=
-26 at 13:30, Yassine Mounir &lt;<a href=3D"mailto:sosohero200@gmail.com">so=
-sohero200@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex"><div dir=3D"ltr"><blockquote><p>&quot;Hi Rodrigo,</p><p>=
-I am currently following your instructions to file the bug report on GitLab=
-.
-However, my new GitLab account is pending manual approval due to the curren=
-t spam restrictions on <a href=3D"http://freedesktop.org" target=3D"_blank"=
->freedesktop.org</a>. I have contacted the admins for full permissions.</p>=
-<p>In the meantime, I have prepared all the logs (KASAN splat from vanilla =
-drm-tip and the clean dmesg from the patched version). As soon as the accou=
-nt is active, I will post the link here.</p><p>Thank you for your patience.=
-&quot;</p></blockquote></div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Wed, 25 Mar 2026 at 11:47, Rodrigo Vivi &lt;<a hr=
-ef=3D"mailto:rodrigo.vivi@intel.com" target=3D"_blank">rodrigo.vivi@intel.c=
-om</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-">On Wed, Mar 25, 2026 at 04:07:17PM +0200, Joonas Lahtinen wrote:<br>
-&gt; Quoting Yassine Mounir (2026-03-25 10:20:58)<br>
-&gt; &gt; Hi Joonas,<br>
-&gt; &gt; Thank you for the detailed feedback. I apologize for the double t=
-ag and the<br>
-&gt; &gt; direct submission to Greg; I&#39;m still refining my workflow.<br=
->
-&gt; <br>
-&gt; Ok, then to level set some expectations:<br>
-&gt; <br>
-&gt; Have you actually confirmed that the code you have submitted compiles<=
-br>
-&gt; and does fix the bug you reported?<br>
-&gt; <br>
-&gt; Expectation is that you run the reproducer on top of drm-tip and see a=
+<div dir=3D"ltr"><p>Hi Joonas,</p><p>I just finished testing the v3 patch o=
+n the latest <b>drm-tip</b> (commit gb2c69e09).</p><p>It builds perfectly w=
+ith no errors. I also booted it in QEMU into an initramfs shell to make sur=
+e everything is stable. Checked the dmesg with <code>grep -i kasan</code> a=
+nd it&#39;s completely clean=E2=80=94no more use-after-free splats during t=
+he initial driver loading and relocation paths.</p><p>The <code>i915_vma_ge=
+t/put</code> logic seems to be doing its job correctly. Let me know if you =
+want me to run any specific IGT tests or if this is good to go.</p><p>Thank=
+s</p></div><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D=
+"ltr" class=3D"gmail_attr">On Wed, 25 Mar 2026 at 10:07, Joonas Lahtinen &l=
+t;<a href=3D"mailto:joonas.lahtinen@linux.intel.com">joonas.lahtinen@linux.=
+intel.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">Quoting Yassine Mounir (2026-03-25 10:20:58)<br>
+&gt; Hi Joonas,<br>
+&gt; Thank you for the detailed feedback. I apologize for the double tag an=
+d the<br>
+&gt; direct submission to Greg; I&#39;m still refining my workflow.<br>
 <br>
-&gt; crash where you pick the dmesg/KASAN splat from, then you run drm-tip<=
-br>
-&gt; with the patch you have prepared and there is no crash.<br>
+Ok, then to level set some expectations:<br>
 <br>
-Exactly.<br>
+Have you actually confirmed that the code you have submitted compiles<br>
+and does fix the bug you reported?<br>
 <br>
-Before any further submission, please let&#39;s get back to square 0 here.<=
-br>
+Expectation is that you run the reproducer on top of drm-tip and see a<br>
+crash where you pick the dmesg/KASAN splat from, then you run drm-tip<br>
+with the patch you have prepared and there is no crash.<br>
 <br>
-0. Please file a bug to our gilab/issues:<br>
-<a href=3D"https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bu=
-gs.html" rel=3D"noreferrer" target=3D"_blank">https://drm.pages.freedesktop=
-.org/intel-docs/how-to-file-i915-bugs.html</a><br>
-<br>
-Do that against the drm-tip branch and provide all the log information<br>
-from your experiments.<br>
-<br>
-1. If you have a proposed patch, also please confirm that it actually fix<b=
-r>
-the issues that you are solving.<br>
-<br>
-2. Whenever using AI to help you with the code please ensure you comply<br>
-with this:<br>
-<br>
-Documentation/process/generated-content.rst<br>
-<br>
-Thanks,<br>
-Rodrigo.<br>
-<br>
-&gt; <br>
-&gt; Regards, Joonas<br>
-</blockquote></div>
+Regards, Joonas<br>
 </blockquote></div>
 
---000000000000e4a7bc064ddca128--
+--000000000000750dcc064ddb21e9--
