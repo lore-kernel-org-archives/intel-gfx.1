@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D70B9109C034
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 15:34:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F3DF109C02F
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 15:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6D310E002;
-	Wed, 25 Mar 2026 15:34:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF8A110E7BB;
+	Wed, 25 Mar 2026 15:34:59 +0000 (UTC)
 Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 455EA10E002;
- Wed, 25 Mar 2026 15:34:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5EA910E7BB;
+ Wed, 25 Mar 2026 15:34:58 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Enable_Pipe_writeback_=28?=
- =?utf-8?q?rev3=29?=
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gem=3A?=
+ =?utf-8?q?_Fix_UAF_race_in_eb=5Frelocate=5Fvma?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+To: "Yassine Mounir" <sosohero200@gmail.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 25 Mar 2026 15:34:21 -0000
-Message-ID: <177445286126.397745.6492166102368419208@a3b018990fe9>
+Date: Wed, 25 Mar 2026 15:34:58 -0000
+Message-ID: <177445289872.397746.16219400014480737507@a3b018990fe9>
 X-Patchwork-Hint: ignore
-References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
-In-Reply-To: <20260325110744.1096786-1-suraj.kandpal@intel.com>
+References: <20260324151741.29338-1-sosohero200@gmail.com>
+In-Reply-To: <20260324151741.29338-1-sosohero200@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,30 +43,14 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Enable Pipe writeback (rev3)
-URL   : https://patchwork.freedesktop.org/series/152104/
+Series: drm/i915/gem: Fix UAF race in eb_relocate_vma
+URL   : https://patchwork.freedesktop.org/series/163841/
 State : failure
 
 == Summary ==
 
-Error: make failed
-  CALL    scripts/checksyscalls.sh
-  DESCEND objtool
-  INSTALL libsubcmd_headers
-  LD [M]  drivers/gpu/drm/i915/i915.o
-  LD [M]  drivers/gpu/drm/i915/kvmgt.o
-  HDRTEST drivers/gpu/drm/i915/display/intel_writeback_helper.h
-In file included from <command-line>:
-./drivers/gpu/drm/i915/display/intel_writeback_helper.h:8:1: error: unknown type name ‘u32’
-    8 | u32 intel_get_ggtt_addr(struct i915_vma *vma);
-      | ^~~
-make[6]: *** [drivers/gpu/drm/i915/Makefile:460: drivers/gpu/drm/i915/display/intel_writeback_helper.hdrtest] Error 1
-make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/i915] Error 2
-make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
-make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
-make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
-make[1]: *** [/home/kbuild/kernel/Makefile:2105: .] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-Build failed, no error log produced
+Address 'sosohero200@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
 
