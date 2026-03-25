@@ -4,88 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BB2103A9A7
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:17:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D26C0103A9BE
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C12E10E6F4;
-	Wed, 25 Mar 2026 11:17:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F3B910E898;
+	Wed, 25 Mar 2026 11:42:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yla9zdcW";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Z2qgdx2g";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B39910E223;
- Wed, 25 Mar 2026 11:17:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55B2E10E898;
+ Wed, 25 Mar 2026 11:42:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774437476; x=1805973476;
+ t=1774438965; x=1805974965;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=kzuhQRAn6uUGiXGPYc75BqKQ9p/wHs0wNpdD+t4UBMY=;
- b=Yla9zdcWWHX1HkPgnE4+zQ3gN8PgLC0VclsRBbjBrK3ws5ArBfDQgDJu
- FEq4DHHY68Ssc53ISiV12/F6VMXu+vBSf0oB0puecZdZTKWdk2S033P3b
- ECkXc9rGc2P7IothmtlgNs0uUSC3rtffgUPXLiYHMM7cjtuCXbOCqSaYG
- 3qrdJtFccLb46wNNVi1jP3GsvVdyKGSjl3N//+qNAn9sl/kSZ0aBAHS0d
- v/11PUzia1NJxVzyTk0HP/wolLsZJcP6i1qz256eYQI4XFiT5uHo+xSJM
- JnIudgRGzfiFzH3gne6Vbnav8ZzUAAWi70qnaQQ8RffuD2o/W0TmaKX7m A==;
-X-CSE-ConnectionGUID: NVd9XR3iStGn/JspTXh0sw==
-X-CSE-MsgGUID: Pq9ZKxepStyv5AJLxiMrXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="78069095"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="78069095"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:17:55 -0700
-X-CSE-ConnectionGUID: +or7FRj0Qpuy3B/PzeXj8w==
-X-CSE-MsgGUID: zCxjcdGPTlafOHFSmBgCsg==
+ bh=fMmAk0NFAJtuGFn61U0Yj4PklC+raT1oFK5lbTqrGG4=;
+ b=Z2qgdx2gkrNDNXhRu3wrFpkAMaiP5KVHm6nKgy3XyiKqrsO3Mtvr095F
+ L6k2MmG3RKrY1iBfAqKm+pgb6AnI0iQ9cX1yIsZGgixJvcOBxJpqRfej0
+ oeFs5C6E4p50wyFJ/ACJDTjPkSX7zNugs76qgF5mDWjBxCPtGO4a53Ed6
+ UHNj2ThylRP5JJJuFydROZIT2s2HwMb7RQYnArqNgMlFXfhf5IkXamKSQ
+ Sn2c+erIDld5hqsyLUPw1lHOMwHK8mr7OZ+eb1G9SJ1ZoNKvfO1fnxJyP
+ i/ESIjYT+hgirRCTBwEhfxfJVF7DSw3+ou8bQeEkN9aNvwEps2h8D0EjL w==;
+X-CSE-ConnectionGUID: uDIqOVeBS0yu9aeati+6Dg==
+X-CSE-MsgGUID: ZLafYKuOSB+9zSiEgv4WUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="93049730"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="93049730"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:42:45 -0700
+X-CSE-ConnectionGUID: dwE7FGtBTOyyTbG+OOhmrA==
+X-CSE-MsgGUID: OIIMOzaAT4KwIBahYSfcrw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="226293924"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="247686295"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.117])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:17:46 -0700
-Date: Wed, 25 Mar 2026 13:17:44 +0200
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:42:42 -0700
+Date: Wed, 25 Mar 2026 13:42:40 +0200
 From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Werner Sembach <wse@tuxedocomputers.com>,
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
-Message-ID: <acPEWCZ2nvatVh08@intel.com>
-References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
- <20260324-color-format-v11-3-605559af4fb4@collabora.com>
- <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
- <acLrv5hLyNss-Px5@intel.com>
- <20260325-neat-elegant-raven-ebc9ab@houat>
- <acPA60Ci3n_t__xF@intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
+ chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com
+Subject: Re: [PATCH v3 03/26] drm/i915/writeback: Add writeback registers
+Message-ID: <acPKMLHvg08YGrrP@intel.com>
+References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
+ <20260325110744.1096786-4-suraj.kandpal@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
+In-Reply-To: <20260325110744.1096786-4-suraj.kandpal@intel.com>
 X-Patchwork-Hint: comment
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
@@ -104,108 +75,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
-> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
-> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
-> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
-> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
-> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
-> > > > > > +enum drm_connector_color_format {
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
-> > > > > > +	 * helpers should pick a suitable color format. All implementations of a
-> > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
-> > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
-> > > > > > +	 * semantics.
-> > > > > > +	 *
-> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
-> > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
-> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
-> > > > > > +	 * YCbCr 4:2:0.
-> > > > > > +	 *
-> > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
-> > > > > > +	 * format selection picks the first chain of bridge formats that works,
-> > > > > > +	 * as has already been the case before the introduction of the "color
-> > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
-> > > > > > +	 * bus output formats by preference, or agree on a unified auto format
-> > > > > > +	 * selection logic that's implemented in a common state helper (like
-> > > > > > +	 * how HDMI does it).
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
-> > > > > > +	 * not subsampled)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
-> > > > > > +	 * with horizontal subsampling)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
-> > > > > > +
-> > > > > > +	/**
-> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
-> > > > > > +	 * with horizontal and vertical subsampling)
-> > > > > > +	 */
-> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
-> > > > > 
-> > > > > Seems like this should document what the quantization range
-> > > > > should be for each format.
-> > > > > 
-> > > > 
-> > > > I don't think so? If you want per-component bit depth values,
-> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
-> > > > enum is more abstract than that, and is there to communicate
-> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
-> > > > by other properties.
-> > > > 
-> > > > If you mean the factor used for subsampling, then that'd only be
-> > > > relevant if YCBCR410 was supported where one chroma plane isn't
-> > > > halved but quartered in resolution. I suspect 4:1:0 will never
-> > > > be added; no digital display protocol standard supports it to my
-> > > > knowledge, and hopefully none ever will.
-> > > 
-> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
-> > > 
-> > > The i915 behaviour is that YCbCr is always limited range,
-> > > RGB can either be full or limited range depending on the 
-> > > "Broadcast RGB" property and other related factors.
-> > 
-> > So far the HDMI state has both the format and quantization range as
-> > different fields. I'm not sure we need to document the range in the
-> > format field, maybe only mention it's not part of the format but has a
-> > field of its own?
+On Wed, Mar 25, 2026 at 04:37:21PM +0530, Suraj Kandpal wrote:
+> Add writeback registers to its own file.
 > 
-> I think we only have it for RGB (on some drivers only?). For YCbCr
-> I think the assumption is limited range everywhere.
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
+> ---
+>  .../drm/i915/display/intel_writeback_reg.h    | 136 ++++++++++++++++++
+>  1 file changed, 136 insertions(+)
+>  create mode 100644 drivers/gpu/drm/i915/display/intel_writeback_reg.h
 > 
-> But I'm not really concerned about documenting struct members.
-> What I'm talking about is the *uapi* docs. Surely userspace
-> will want to know what the new property actually does so the
-> uapi needs to be documented properly. And down the line some
-> new driver might also implement the wrong behaviour if there
-> is no clear specification.
-> 
-> So I'm thinking (or perhaps hoping) the rule might be something like:
-> - YCbCr limited range 
-> - RGB full range if "Broadcast RGB" property is not present
-> - RGB full or limited range based on the "Broadcast RGB" property
->   if it's present
-> 
-> I think the "Broadcast RGB" property itself might also be lacking
-> proper uapi docs, so that may need to be remedied as well.
+> diff --git a/drivers/gpu/drm/i915/display/intel_writeback_reg.h b/drivers/gpu/drm/i915/display/intel_writeback_reg.h
+> new file mode 100644
+> index 000000000000..ffe302ef3dd9
+> --- /dev/null
+> +++ b/drivers/gpu/drm/i915/display/intel_writeback_reg.h
+> @@ -0,0 +1,136 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/*
+> + * Copyright © 2024 Intel Corporation
+> + */
+> +
+> +#ifndef __INTEL_WRITEBACK_REGS_H__
+> +#define __INTEL_WRITEBACK_REGS_H__
+> +
+> +#include "intel_display_reg_defs.h"
+> +
+> +/* WD 0 and 1 */
+> +#define TRANSCODER_WD0_OFFSET	0x6e000
+> +#define TRANSCODER_WD1_OFFSET	0x6d800
+> +
+> +/* WD 0 and 1 */
+> +#define PIPE_WD0_OFFSET		0x7e008
+> +#define PIPE_WD1_OFFSET		0x7d008
 
-Oh, and I think a bunch of infoframe code still needs changes to 
-set up the quantization range properly for YCbCr. i915 does handle
-that part correctly, but eg. hdmi_generate_avi_infoframe() does not.
-I didn't spot any changes to that in the series.
+These don't belong here.
+
+> +
+> +/* Gen12 WD */
+
+BDW+
+
+> +#define _MMIO_WD(tc, wd0, wd1)	_MMIO_TRANS((tc) - TRANSCODER_WD_0, wd0, wd1)
+
+'tc' is a name we never use anywhere else.
+
+> +
+> +#define WD_TRANS_ENABLE		REG_BIT(31)
+> +#define WD_TRANS_STATE		REG_BIT(30)
+> +
+> +/* WD transcoder control */
+> +#define _WD_TRANS_FUNC_CTL_0	0x6e400
+> +#define _WD_TRANS_FUNC_CTL_1	0x6ec00
+> +#define WD_TRANS_FUNC_CTL(tc)	_MMIO_WD(tc,\
+> +				_WD_TRANS_FUNC_CTL_0,\
+> +				_WD_TRANS_FUNC_CTL_1)
+> +
+> +#define TRANS_WD_FUNC_ENABLE		REG_BIT(31)
+> +#define WD_TRIGGERED_CAP_MODE_ENABLE	REG_BIT(30)
+> +#define START_TRIGGER_FRAME		REG_BIT(29)
+> +#define STOP_TRIGGER_FRAME		REG_BIT(28)
+> +#define WD_INPUT_SELECT_MASK		REG_GENMASK(14, 12)
+> +#define WD_INPUT_PIPE_A			REG_FIELD_PREP(WD_INPUT_SELECT_MASK, 0)
+> +#define WD_INPUT_PIPE_B			REG_FIELD_PREP(WD_INPUT_SELECT_MASK, 5)
+> +#define WD_INPUT_PIPE_C			REG_FIELD_PREP(WD_INPUT_SELECT_MASK, 6)
+> +#define WD_INPUT_PIPE_D			REG_FIELD_PREP(WD_INPUT_SELECT_MASK, 7)
+> +#define WD_COLOR_MODE_MASK		REG_GENMASK(22, 20)
+> +#define WD_CONTROL_POINTERS             REG_GENMASK(19, 18)
+> +#define WD_DISABLE_POINTERS             REG_FIELD_PREP(WD_CONTROL_POINTERS, 3)
+> +#define WD_PIX_FMT_YUYV			REG_FIELD_PREP(WD_COLOR_MODE_MASK, 1)
+> +#define WD_PIX_FMT_XYUV8888		REG_FIELD_PREP(WD_COLOR_MODE_MASK, 2)
+> +#define WD_PIX_FMT_XBGR8888		REG_FIELD_PREP(WD_COLOR_MODE_MASK, 3)
+> +#define WD_PIX_FMT_Y410			REG_FIELD_PREP(WD_COLOR_MODE_MASK, 4)
+> +#define WD_PIX_FMT_YUV422		REG_FIELD_PREP(WD_COLOR_MODE_MASK, 5)
+> +#define WD_PIX_FMT_XBGR2101010		REG_FIELD_PREP(WD_COLOR_MODE_MASK, 6)
+> +#define WD_PIX_FMT_RGB565		REG_FIELD_PREP(WD_COLOR_MODE_MASK, 7)
+> +#define WD_FRAME_NUMBER_MASK		REG_GENMASK(3, 0)
+> +#define WD_FRAME_NUMBER(n)		REG_FIELD_PREP(WD_FRAME_NUMBER_MASK, n)
+> +
+> +#define _WD_STRIDE_0			0x6e510
+> +#define _WD_STRIDE_1			0x6ed10
+> +#define WD_STRIDE(tc)			_MMIO_WD(tc,\
+> +					_WD_STRIDE_0,\
+> +					_WD_STRIDE_1)
+> +#define WD_STRIDE_MASK			REG_GENMASK(15, 6)
+> +
+> +#define _WD_STREAMCAP_CTL0		0x6e590
+> +#define _WD_STREAMCAP_CTL1		0x6ed90
+> +#define WD_STREAMCAP_CTL(tc)		_MMIO_WD(tc,\
+> +					_WD_STREAMCAP_CTL0,\
+> +					_WD_STREAMCAP_CTL1)
+> +
+> +#define WD_STREAM_CAP_MODE_EN		REG_BIT(31)
+> +#define WD_SLICING_STRAT_MASK		REG_GENMASK(25, 24)
+> +#define WD_SLICING_STRAT_1_1		REG_FIELD_PREP(WD_SLICING_STRAT_MASK, 0)
+> +#define WD_SLICING_STRAT_2_1		REG_FIELD_PREP(WD_SLICING_STRAT_MASK, 1)
+> +#define WD_SLICING_STRAT_4_1		REG_FIELD_PREP(WD_SLICING_STRAT_MASK, 2)
+> +#define WD_SLICING_STRAT_8_1		REG_FIELD_PREP(WD_SLICING_STRAT_MASK, 3)
+> +#define WD_STREAM_OVERRUN_STATUS	1
+> +
+> +#define _WD_SURF_0			0x6e514
+> +#define _WD_SURF_1			0x6ed14
+> +#define WD_SURF(tc)			_MMIO_WD(tc,\
+> +					_WD_SURF_0,\
+> +					_WD_SURF_1)
+> +
+> +#define _WD_IMR_0			0x6e560
+> +#define _WD_IMR_1			0x6ed60
+> +#define WD_IMR(tc)			_MMIO_WD(tc,\
+> +					_WD_IMR_0,\
+> +					_WD_IMR_1)
+> +#define WD_FRAME_COMPLETE_INT		REG_BIT(7)
+> +#define WD_GTT_FAULT_INT		REG_BIT(6)
+> +#define WD_VBLANK_INT			REG_BIT(5)
+> +#define WD_OVERRUN_INT			REG_BIT(4)
+> +#define WD_CAPTURING_INT		REG_BIT(3)
+> +#define WD_WRITE_COMPLETE_INT		REG_BIT(2)
+> +
+> +#define _WD_IIR_0			0x6e564
+> +#define _WD_IIR_1			0x6ed64
+> +#define WD_IIR(tc)			_MMIO_WD(tc,\
+> +					_WD_IIR_0,\
+> +					_WD_IIR_1)
+> +
+> +#define _WD_FRAME_STATUS_0		0x6e568
+> +#define _WD_FRAME_STATUS_1		0x6ed68
+> +#define WD_FRAME_STATUS(tc)		_MMIO_WD(tc,\
+> +					_WD_FRAME_STATUS_0,\
+> +					_WD_FRAME_STATUS_1)
+> +
+> +#define WD_FRAME_COMPLETE		REG_BIT(31)
+> +#define WD_STATE_MASK			REG_GENMASK(26, 24)
+> +#define WD_STATE_IDLE			REG_FIELD_PREP(WD_STATE_MASK, 0)
+> +#define WD_STATE_CAPSTART		REG_FIELD_PREP(WD_STATE_MASK, 1)
+> +#define WD_STATE_FRAME_START		REG_FIELD_PREP(WD_STATE_MASK, 2)
+> +#define WD_STATE_CAPACITIVE		REG_FIELD_PREP(WD_STATE_MASK, 3)
+> +#define WD_STATE_TG_DONE		REG_FIELD_PREP(WD_STATE_MASK, 4)
+> +#define WD_STATE_WDX_DONE		REG_FIELD_PREP(WD_STATE_MASK, 5)
+> +#define WD_STATE_QUICK_CAP		REG_FIELD_PREP(WD_STATE_MASK, 6)
+> +
+> +#define _WD_27_M_0			0x6e524
+> +#define _WD_27_M_1			0x6ed24
+> +#define WD_27_M(tc)			_MMIO_WD(tc,\
+> +					_WD_27_M_0,\
+> +					_WD_27_M_1)
+> +
+> +#define _WD_27_N_0			0x6e528
+> +
+> +/* Address looks wrong in bspec: */
+> +#define _WD_27_N_1			0x6ec28
+> +#define WD_27_N(tc)			_MMIO_WD(tc,\
+> +					_WD_27_N_0,\
+> +					_WD_27_N_1)
+> +
+> +#define _WD_TAIL_CFG_0			0x6e520
+> +#define _WD_TAIL_CFG_1			0x6ed20
+> +
+> +#define WD_TAIL_CFG(tc)			_MMIO_WD(tc,\
+> +					_WD_TAIL_CFG_0,\
+> +					_WD_TAIL_CFG_1)
+> +
+> +#endif /* __INTEL_WRITEBACK_REGS_H__ */
+> -- 
+> 2.34.1
 
 -- 
 Ville Syrjälä
