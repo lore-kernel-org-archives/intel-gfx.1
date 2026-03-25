@@ -4,57 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 060C4FEC11B
-	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:09:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12BB2103A9A7
+	for <intel-gfx@archiver.kernel.org>; Wed, 25 Mar 2026 11:17:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9210810E881;
-	Wed, 25 Mar 2026 11:09:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C12E10E6F4;
+	Wed, 25 Mar 2026 11:17:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l92A2CkN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Yla9zdcW";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6EC10E883;
- Wed, 25 Mar 2026 11:08:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B39910E223;
+ Wed, 25 Mar 2026 11:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774436933; x=1805972933;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=qzVz6f+nGYTCAQUGn2zwyrh5dhc7WFYlUeBYq+AQhTU=;
- b=l92A2CkNy7RBQj2w86c+23xW8W1jdPLxiIXXH5njWaWDLrUpFOgeFkxy
- G6i0z34R6pbrsxRuxaukKTFKpbynPfGqLQAEeZo1Iu8QLC3gPsGshFra6
- xCS2Izum18pt9Ty5FIuaGWVpKlKyLTkFNiA6j5LUzAYdEMakSebsZockP
- +5xD31vPrepq6+c4+u3fmaO1dWT5S0zq6qOq4TxOCGf3N0fCLuFgPTF9a
- 1mipmIFr8fvZQV5FLZh3xEh53yiXt/lzT5BGCEOJL3jqOC26+keAbzxI7
- 4ZvgUNOvdRMmAhTHSN0YdfoED0BgTS4MxHXWgehzzbRiE0/bPK9kvHbwp A==;
-X-CSE-ConnectionGUID: 2NlVfuEURcWjAcp7nZFiAQ==
-X-CSE-MsgGUID: BU1C7vm1QKe9FmWpp+oxpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="93047547"
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="93047547"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Mar 2026 04:08:53 -0700
-X-CSE-ConnectionGUID: MXeoyQrqThaLfAuB44kdsg==
-X-CSE-MsgGUID: slKT8LaUTtKuAU1tPnHwVg==
+ t=1774437476; x=1805973476;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=kzuhQRAn6uUGiXGPYc75BqKQ9p/wHs0wNpdD+t4UBMY=;
+ b=Yla9zdcWWHX1HkPgnE4+zQ3gN8PgLC0VclsRBbjBrK3ws5ArBfDQgDJu
+ FEq4DHHY68Ssc53ISiV12/F6VMXu+vBSf0oB0puecZdZTKWdk2S033P3b
+ ECkXc9rGc2P7IothmtlgNs0uUSC3rtffgUPXLiYHMM7cjtuCXbOCqSaYG
+ 3qrdJtFccLb46wNNVi1jP3GsvVdyKGSjl3N//+qNAn9sl/kSZ0aBAHS0d
+ v/11PUzia1NJxVzyTk0HP/wolLsZJcP6i1qz256eYQI4XFiT5uHo+xSJM
+ JnIudgRGzfiFzH3gne6Vbnav8ZzUAAWi70qnaQQ8RffuD2o/W0TmaKX7m A==;
+X-CSE-ConnectionGUID: NVd9XR3iStGn/JspTXh0sw==
+X-CSE-MsgGUID: Pq9ZKxepStyv5AJLxiMrXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11739"; a="78069095"
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="78069095"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:17:55 -0700
+X-CSE-ConnectionGUID: +or7FRj0Qpuy3B/PzeXj8w==
+X-CSE-MsgGUID: zCxjcdGPTlafOHFSmBgCsg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="219798463"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa006.fm.intel.com with ESMTP; 25 Mar 2026 04:08:50 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: sowmiya.s@intel.com, uma.shankar@intel.com, swati2.sharma@intel.com,
- chaitanya.kumar.borah@intel.com, arun.r.murthy@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v3 25/26] drm/i915/writeback: Make exception for writeback
- connector
-Date: Wed, 25 Mar 2026 16:37:43 +0530
-Message-Id: <20260325110744.1096786-26-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260325110744.1096786-1-suraj.kandpal@intel.com>
-References: <20260325110744.1096786-1-suraj.kandpal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.23,140,1770624000"; d="scan'208";a="226293924"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.117])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Mar 2026 04:17:46 -0700
+Date: Wed, 25 Mar 2026 13:17:44 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Werner Sembach <wse@tuxedocomputers.com>,
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <acPEWCZ2nvatVh08@intel.com>
+References: <20260324-color-format-v11-0-605559af4fb4@collabora.com>
+ <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <acPA60Ci3n_t__xF@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,319 +104,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Writeback connector is a special connector as it does not actually
-exist. This means a lot of checks and computations need to be skipped
-and exceptions need to be made when it comes to this connector.
-This commit contains all those changes for a writeback connector.
+On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrjälä wrote:
+> On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote:
+> > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrjälä wrote:
+> > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattaroli wrote:
+> > > > On Tuesday, 24 March 2026 18:00:45 Central European Standard Time Ville Syrjälä wrote:
+> > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Frattaroli wrote:
+> > > > > > +enum drm_connector_color_format {
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or display protocol
+> > > > > > +	 * helpers should pick a suitable color format. All implementations of a
+> > > > > > +	 * specific display protocol must behave the same way with "AUTO", but
+> > > > > > +	 * different display protocols do not necessarily have the same "AUTO"
+> > > > > > +	 * semantics.
+> > > > > > +	 *
+> > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YCbCr 4:2:0 if the
+> > > > > > +	 * bandwidth required for full-scale RGB is not available, or the mode
+> > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and output both support
+> > > > > > +	 * YCbCr 4:2:0.
+> > > > > > +	 *
+> > > > > > +	 * For display protocols other than HDMI, the recursive bridge chain
+> > > > > > +	 * format selection picks the first chain of bridge formats that works,
+> > > > > > +	 * as has already been the case before the introduction of the "color
+> > > > > > +	 * format" property. Non-HDMI bridges should therefore either sort their
+> > > > > > +	 * bus output formats by preference, or agree on a unified auto format
+> > > > > > +	 * selection logic that's implemented in a common state helper (like
+> > > > > > +	 * how HDMI does it).
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO = 0,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output format
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:4 output format (ie.
+> > > > > > +	 * not subsampled)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:2 output format (ie.
+> > > > > > +	 * with horizontal subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > +
+> > > > > > +	/**
+> > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:0 output format (ie.
+> > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > +	 */
+> > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
+> > > > > 
+> > > > > Seems like this should document what the quantization range
+> > > > > should be for each format.
+> > > > > 
+> > > > 
+> > > > I don't think so? If you want per-component bit depth values,
+> > > > DRM_FORMAT_* defines would be the appropriate values to use. This
+> > > > enum is more abstract than that, and is there to communicate
+> > > > YUV vs. RGB and chroma subsampling, with bit depth being handled
+> > > > by other properties.
+> > > > 
+> > > > If you mean the factor used for subsampling, then that'd only be
+> > > > relevant if YCBCR410 was supported where one chroma plane isn't
+> > > > halved but quartered in resolution. I suspect 4:1:0 will never
+> > > > be added; no digital display protocol standard supports it to my
+> > > > knowledge, and hopefully none ever will.
+> > > 
+> > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > 
+> > > The i915 behaviour is that YCbCr is always limited range,
+> > > RGB can either be full or limited range depending on the 
+> > > "Broadcast RGB" property and other related factors.
+> > 
+> > So far the HDMI state has both the format and quantization range as
+> > different fields. I'm not sure we need to document the range in the
+> > format field, maybe only mention it's not part of the format but has a
+> > field of its own?
+> 
+> I think we only have it for RGB (on some drivers only?). For YCbCr
+> I think the assumption is limited range everywhere.
+> 
+> But I'm not really concerned about documenting struct members.
+> What I'm talking about is the *uapi* docs. Surely userspace
+> will want to know what the new property actually does so the
+> uapi needs to be documented properly. And down the line some
+> new driver might also implement the wrong behaviour if there
+> is no clear specification.
+> 
+> So I'm thinking (or perhaps hoping) the rule might be something like:
+> - YCbCr limited range 
+> - RGB full range if "Broadcast RGB" property is not present
+> - RGB full or limited range based on the "Broadcast RGB" property
+>   if it's present
+> 
+> I think the "Broadcast RGB" property itself might also be lacking
+> proper uapi docs, so that may need to be remedied as well.
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  | 115 ++++++++++++++----
- .../drm/i915/display/intel_display_debugfs.c  |   3 +
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |   3 +
- drivers/gpu/drm/i915/display/intel_opregion.c |   2 +-
- drivers/gpu/drm/i915/display/intel_pmdemand.c |   3 +
- drivers/gpu/drm/i915/display/intel_vdsc.c     |   4 +
- .../gpu/drm/i915/display/intel_writeback.c    |   5 +
- .../gpu/drm/i915/display/intel_writeback.h    |   1 +
- 8 files changed, 110 insertions(+), 26 deletions(-)
+Oh, and I think a bunch of infoframe code still needs changes to 
+set up the quantization range properly for YCbCr. i915 does handle
+that part correctly, but eg. hdmi_generate_avi_infoframe() does not.
+I didn't spot any changes to that in the series.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index b4cf7153b7c8..e47b4e667fec 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -127,6 +127,7 @@
- #include "intel_vrr.h"
- #include "intel_wm.h"
- #include "intel_writeback.h"
-+#include "intel_writeback_reg.h"
- #include "skl_scaler.h"
- #include "skl_universal_plane.h"
- #include "skl_watermark.h"
-@@ -1639,6 +1640,9 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
- 
- 	intel_set_transcoder_timings(crtc_state);
- 
-+	if (intel_writeback_transcoder_is_wd(cpu_transcoder))
-+		return;
-+
- 	if (cpu_transcoder != TRANSCODER_EDP)
- 		intel_de_write(display, TRANS_MULT(display, cpu_transcoder),
- 			       crtc_state->pixel_multiplier - 1);
-@@ -2687,6 +2691,10 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
- 	crtc_vblank_start = adjusted_mode->crtc_vblank_start;
- 	crtc_vblank_end = adjusted_mode->crtc_vblank_end;
- 
-+	if (intel_writeback_transcoder_is_wd(cpu_transcoder)) {
-+		return;
-+	}
-+
- 	if (adjusted_mode->flags & DRM_MODE_FLAG_INTERLACE) {
- 		/* the chip adds 2 halflines automatically */
- 		crtc_vtotal -= 1;
-@@ -2881,6 +2889,15 @@ static void intel_get_transcoder_timings(struct intel_crtc *crtc,
- 	struct drm_display_mode *adjusted_mode = &pipe_config->hw.adjusted_mode;
- 	u32 tmp;
- 
-+	if (intel_writeback_transcoder_is_wd(cpu_transcoder)) {
-+		tmp = intel_de_read(display, TRANS_HTOTAL(display, cpu_transcoder));
-+		adjusted_mode->crtc_hdisplay = REG_FIELD_GET(HACTIVE_MASK, tmp) + 1;
-+
-+		tmp = intel_de_read(display, TRANS_VTOTAL(display, cpu_transcoder));
-+		adjusted_mode->crtc_vdisplay = REG_FIELD_GET(VACTIVE_MASK, tmp) + 1;
-+		return;
-+	}
-+
- 	tmp = intel_de_read(display, TRANS_HTOTAL(display, cpu_transcoder));
- 	adjusted_mode->crtc_hdisplay = REG_FIELD_GET(HACTIVE_MASK, tmp) + 1;
- 	adjusted_mode->crtc_htotal = REG_FIELD_GET(HTOTAL_MASK, tmp) + 1;
-@@ -3794,32 +3811,59 @@ static u8 hsw_enabled_transcoders(struct intel_crtc *crtc)
- 		u32 tmp = 0;
- 
- 		power_domain = POWER_DOMAIN_TRANSCODER(cpu_transcoder);
--		with_intel_display_power_if_enabled(display, power_domain)
--			tmp = intel_de_read(display,
--					    TRANS_DDI_FUNC_CTL(display, cpu_transcoder));
-+		if (cpu_transcoder == TRANSCODER_WD_0 ||
-+		    cpu_transcoder == TRANSCODER_WD_1) {
-+			with_intel_display_power_if_enabled(display, power_domain)
-+				tmp = intel_de_read(display,
-+						    WD_TRANS_FUNC_CTL(cpu_transcoder));
-+			if (!(tmp & TRANS_WD_FUNC_ENABLE))
-+				continue;
- 
--		if (!(tmp & TRANS_DDI_FUNC_ENABLE))
--			continue;
-+			switch (tmp & WD_INPUT_SELECT_MASK) {
-+			case WD_INPUT_PIPE_A:
-+				trans_pipe = PIPE_A;
-+				break;
-+			case WD_INPUT_PIPE_B:
-+				trans_pipe = PIPE_B;
-+				break;
-+			case WD_INPUT_PIPE_C:
-+				trans_pipe = PIPE_C;
-+				break;
-+			case WD_INPUT_PIPE_D:
-+				trans_pipe = PIPE_D;
-+				break;
-+			default:
-+				MISSING_CASE(tmp & WD_INPUT_SELECT_MASK);
-+				break;
-+			}
-+		} else {
-+			with_intel_display_power_if_enabled(display, power_domain)
-+				tmp = intel_de_read(display,
-+						    TRANS_DDI_FUNC_CTL(display, cpu_transcoder));
- 
--		switch (tmp & TRANS_DDI_EDP_INPUT_MASK) {
--		default:
--			drm_WARN(display->drm, 1,
--				 "unknown pipe linked to transcoder %s\n",
--				 transcoder_name(cpu_transcoder));
--			fallthrough;
--		case TRANS_DDI_EDP_INPUT_A_ONOFF:
--		case TRANS_DDI_EDP_INPUT_A_ON:
--			trans_pipe = PIPE_A;
--			break;
--		case TRANS_DDI_EDP_INPUT_B_ONOFF:
--			trans_pipe = PIPE_B;
--			break;
--		case TRANS_DDI_EDP_INPUT_C_ONOFF:
--			trans_pipe = PIPE_C;
--			break;
--		case TRANS_DDI_EDP_INPUT_D_ONOFF:
--			trans_pipe = PIPE_D;
--			break;
-+			if (!(tmp & TRANS_DDI_FUNC_ENABLE))
-+				continue;
-+
-+			switch (tmp & TRANS_DDI_EDP_INPUT_MASK) {
-+			default:
-+				drm_WARN(display->drm, 1,
-+					 "unknown pipe linked to transcoder %s\n",
-+					 transcoder_name(cpu_transcoder));
-+				fallthrough;
-+			case TRANS_DDI_EDP_INPUT_A_ONOFF:
-+			case TRANS_DDI_EDP_INPUT_A_ON:
-+				trans_pipe = PIPE_A;
-+				break;
-+			case TRANS_DDI_EDP_INPUT_B_ONOFF:
-+				trans_pipe = PIPE_B;
-+				break;
-+			case TRANS_DDI_EDP_INPUT_C_ONOFF:
-+				trans_pipe = PIPE_C;
-+				break;
-+			case TRANS_DDI_EDP_INPUT_D_ONOFF:
-+				trans_pipe = PIPE_D;
-+				break;
-+			}
- 		}
- 
- 		if (trans_pipe == crtc->pipe)
-@@ -3908,6 +3952,13 @@ static bool hsw_get_transcoder_state(struct intel_crtc *crtc,
- 			pipe_config->pch_pfit.force_thru = true;
- 	}
- 
-+	if (intel_writeback_transcoder_is_wd(pipe_config->cpu_transcoder)) {
-+		tmp = intel_de_read(display,
-+				    TRANSCONF_WD(pipe_config->cpu_transcoder));
-+
-+		return tmp & WD_TRANS_ENABLE;
-+	}
-+
- 	tmp = intel_de_read(display,
- 			    TRANSCONF(display, pipe_config->cpu_transcoder));
- 
-@@ -4017,7 +4068,8 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 	    DISPLAY_VER(display) >= 11)
- 		intel_get_transcoder_timings(crtc, pipe_config);
- 
--	if (transcoder_has_vrr(pipe_config))
-+	if (!intel_writeback_transcoder_is_wd(pipe_config->cpu_transcoder) &&
-+	    transcoder_has_vrr(pipe_config))
- 		intel_vrr_get_config(pipe_config);
- 
- 	intel_get_pipe_src_size(crtc, pipe_config);
-@@ -4030,6 +4082,8 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 			pipe_config->output_format = INTEL_OUTPUT_FORMAT_YCBCR444;
- 		else
- 			pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
-+	} else if (intel_writeback_transcoder_is_wd(pipe_config->cpu_transcoder)) {
-+		pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
- 	} else {
- 		pipe_config->output_format =
- 			bdw_get_pipe_misc_output_format(crtc);
-@@ -4056,6 +4110,7 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 	hsw_ips_get_config(pipe_config);
- 
- 	if (pipe_config->cpu_transcoder != TRANSCODER_EDP &&
-+	    !intel_writeback_transcoder_is_wd(pipe_config->cpu_transcoder) &&
- 	    !transcoder_is_dsi(pipe_config->cpu_transcoder)) {
- 		pipe_config->pixel_multiplier =
- 			intel_de_read(display,
-@@ -4064,6 +4119,16 @@ static bool hsw_get_pipe_config(struct intel_crtc *crtc,
- 		pipe_config->pixel_multiplier = 1;
- 	}
- 
-+	if (!intel_writeback_transcoder_is_wd(pipe_config->cpu_transcoder) &&
-+	    !transcoder_is_dsi(pipe_config->cpu_transcoder)) {
-+		tmp = intel_de_read(display, CHICKEN_TRANS(display, pipe_config->cpu_transcoder));
-+
-+		pipe_config->framestart_delay = REG_FIELD_GET(HSW_FRAME_START_DELAY_MASK, tmp) + 1;
-+	} else {
-+		/* no idea if this is correct */
-+		pipe_config->framestart_delay = 1;
-+	}
-+
- out:
- 	intel_display_power_put_all_in_set(display, &crtc->hw_readout_power_domains);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-index 2614c4863c87..350de3b3589d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
-@@ -202,6 +202,9 @@ static void intel_panel_info(struct seq_file *m,
- {
- 	const struct drm_display_mode *fixed_mode;
- 
-+	if (connector->base.connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-+		return;
-+
- 	if (list_empty(&connector->panel.fixed_modes))
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index f5d4f7146fbc..4e3b655dc025 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4830,6 +4830,9 @@ int intel_dpll_compute(struct intel_atomic_state *state,
- 	struct intel_display *display = to_intel_display(state);
- 	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
- 
-+	if (encoder->type == INTEL_OUTPUT_WRITEBACK)
-+		return 0;
-+
- 	if (drm_WARN_ON(display->drm, !dpll_mgr))
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_opregion.c b/drivers/gpu/drm/i915/display/intel_opregion.c
-index e25be56e678b..fe01b283f783 100644
---- a/drivers/gpu/drm/i915/display/intel_opregion.c
-+++ b/drivers/gpu/drm/i915/display/intel_opregion.c
-@@ -397,7 +397,7 @@ int intel_opregion_notify_encoder(struct intel_encoder *encoder,
- 	int ret;
- 
- 	/* don't care about old stuff for now */
--	if (!HAS_DDI(display))
-+	if (!HAS_DDI(display) || encoder->type == INTEL_OUTPUT_WRITEBACK)
- 		return 0;
- 
- 	/* Avoid port out of bounds checks if SWSCI isn't there. */
-diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.c b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-index 244806a26da3..e7b6e6d1ba63 100644
---- a/drivers/gpu/drm/i915/display/intel_pmdemand.c
-+++ b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-@@ -158,6 +158,9 @@ intel_pmdemand_update_phys_mask(struct intel_display *display,
- 	if (!encoder)
- 		return;
- 
-+	if (encoder->type == INTEL_OUTPUT_WRITEBACK)
-+		return;
-+
- 	if (intel_encoder_is_tc(encoder))
- 		return;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-index 6c09c6d99ffe..08594afdedd9 100644
---- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-+++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-@@ -20,6 +20,7 @@
- #include "intel_qp_tables.h"
- #include "intel_vdsc.h"
- #include "intel_vdsc_regs.h"
-+#include "intel_writeback.h"
- 
- bool intel_dsc_source_support(const struct intel_crtc_state *crtc_state)
- {
-@@ -1081,6 +1082,9 @@ void intel_dsc_get_config(struct intel_crtc_state *crtc_state)
- 	if (!intel_dsc_source_support(crtc_state))
- 		return;
- 
-+	if (intel_writeback_transcoder_is_wd(cpu_transcoder))
-+		return;
-+
- 	power_domain = intel_dsc_power_domain(crtc, cpu_transcoder);
- 
- 	wakeref = intel_display_power_get_if_enabled(display, power_domain);
-diff --git a/drivers/gpu/drm/i915/display/intel_writeback.c b/drivers/gpu/drm/i915/display/intel_writeback.c
-index 870fbfdddef5..52c2d8b91aff 100644
---- a/drivers/gpu/drm/i915/display/intel_writeback.c
-+++ b/drivers/gpu/drm/i915/display/intel_writeback.c
-@@ -53,6 +53,11 @@ static const u32 writeback_formats[] = {
- 	DRM_FORMAT_XBGR2101010,
- };
- 
-+bool intel_writeback_transcoder_is_wd(enum transcoder transcoder)
-+{
-+	return transcoder == TRANSCODER_WD_0 || transcoder == TRANSCODER_WD_1;
-+}
-+
- static struct intel_writeback_connector
- *conn_to_intel_writeback_connector(struct intel_connector *connector)
- {
-diff --git a/drivers/gpu/drm/i915/display/intel_writeback.h b/drivers/gpu/drm/i915/display/intel_writeback.h
-index 83a986753c4c..3a99a6526841 100644
---- a/drivers/gpu/drm/i915/display/intel_writeback.h
-+++ b/drivers/gpu/drm/i915/display/intel_writeback.h
-@@ -17,6 +17,7 @@ struct intel_writeback_connector;
- int intel_writeback_init(struct intel_display *display);
- void intel_writeback_atomic_commit(struct intel_atomic_state *state);
- void intel_writeback_isr_handler(struct intel_display *display);
-+bool intel_writeback_transcoder_is_wd(enum transcoder transcoder);
- 
- #endif /* __INTEL_WRITEBACK_H__ */
- 
 -- 
-2.34.1
-
+Ville Syrjälä
+Intel
