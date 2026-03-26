@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CA7610010C1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDDDBFF494F
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E65710E743;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4469210E741;
 	Mon, 30 Mar 2026 12:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JIOIMwNg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dtEyGh88";
 	dkim-atps=neutral
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com
- [209.85.160.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70CA410EBC6
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:24 +0000 (UTC)
-Received: by mail-oa1-f50.google.com with SMTP id
- 586e51a60fabf-40ef10ec84cso1060147fac.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:24 -0700 (PDT)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DFBF10EBC9
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:02 +0000 (UTC)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-464ba2bb3aeso744803b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551323; x=1775156123; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551301; x=1775156101; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
- b=JIOIMwNgut7zpMR8MY6Xy82gDArQYbm9cCsWN0ZFE21J40w277YRUOuNlCPk84KOi9
- 7/UyDl5h1agq1AtdRFRoCZTktR5iED2zCW0h4qZmkib2+KdNRv5xZh/1a3conav6jqIi
- dMnBkmeYVVmzgJU+yqntxT4d9oAORE/N13UB3PBW+3px71qTxNCSqoubbPnl4eb24Y+r
- M8ufdhKwPH/YZMAxfuh/ddMp6Zmq60bdJznVfAEePubGKm0utAzWmsTuq4m8OHetDYTv
- SPfNL2Jsp17+gOZXY1GnNMHhfp9NvcdoFbNGqa0lKHXEEZ6GUxFU/9CsTHq75m6g+Rkd
- IZtw==
+ bh=NLjFx8xvoYU6I9e8U5366NO9qUPUvtME5XDnhqfKA8c=;
+ b=dtEyGh88X+r5zpzihl27D8Up+IHI1Aklog6su6Gl8SXCxGlAosTsvK5DBfAPHSg6rx
+ 5JmlZY+5WTkR8cmVh3DKUiU5IGh2tq9SEmxCbombX23utRl5y7W4tFeNVq/7xmdVHEBX
+ PpXgGanBom7oZoC8fdOkX3pyN9FCyVcR2lZc9NQRupDvWnvfQiEwbviN89RJ+eRwxH8m
+ JkywqxPsVSg+EDcSFZEgY67cGR1nHcabq1FGuigf7RdZEikNzlcepL9BN6q0yGU63SXY
+ vP44iWe1xDrHzyEkch0FZ05c4x+qbTsQOLaw+13HJzQBxjb/CH711LmFWsreOgW4cCio
+ LOnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551323; x=1775156123;
+ d=1e100.net; s=20251104; t=1774551301; x=1775156101;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=PHBDIqz9/qVForB86mGxoTdQjucG23eTecUbThbELwQ=;
- b=gDTHnznDkRO66DAw8370PaFCVL9mvTumawAZN2RFhQp80B9kdpqnMqULrdApxi/WFI
- iNnEXvhmgK3NOeD2LnkmqYGt59719M58brWv8XpT/NqSH0P/BS/H0yfESCsg7TgPkHC1
- w3UlwZnmgUhKdr+KaD16YFoHpFHNFyV7TV490nFB4EiC8lT92TifK8am6Hct5C8Lhu/t
- IVnywo8zR4+FuHwXRmU5b0F/20Kp1y86MMlei5FxBFRtjtvXMYH2KFAaqoeBhtG8Q9yj
- vfUlhgq1pALx7/KflZzTtEFfzGW4vXBrNGERK3uc+pLyoiz4I2nnPxC5sVUyWqssodRu
- HDNw==
+ bh=NLjFx8xvoYU6I9e8U5366NO9qUPUvtME5XDnhqfKA8c=;
+ b=nusYqc0HzI6vP9tQjzhFXkqxq21j9Ii8P3whWq8j6qzN7ba8JNRx0A26nySXpnLejy
+ hGFzbCDzG2eI46HjRSQgY5D2uPcpOprfgwa6+qyfwyPpj91v5OAlzGET62jtUgyBzBtW
+ mcmyBl5H8B/10iJF41tNbpJxDrIRX88R4VJDUJSZrM7DkbmLIDOLkhy3QPbSFskgyjW1
+ mVvitf2LcHkrW4L6FkdF7wB+R5REL+B5FPSlmnT+UHTWfoBF17aMtQxOhyx0p3eO1agR
+ tX88MrrwJteDtZZLtRgdGWFRs3Mqhu38ffkzpqABfXl2YwoH4eMbWSIqpeLKYsjwP8BT
+ pgvQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUnpgqTkV5Mhj+4V8sQIVUfIi2fVqjWrAvLCTrSJUnLPHdHEh+6BvTxAKEgPdOnhU4dPdHItv4geZE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwITkR1ikbpvLKpLSSFyrJTyEdJYNECUWExHxmi9Y6EVKD7iGVh
- O0FVd+XN2UPq6fCpH1QO1TgMdSpwr7gFP+TDH3NpQcyVlIExdrMBJM23
-X-Gm-Gg: ATEYQzzhZ2RG4ypdZv7MuNKcasyejqkBulFih7omZ7aclwWijIcJQBpgJ/kA4qXE/P5
- Tga5pzTKTxptbbD/EJk4w06+bTD+EPdvZSCF6zSlBTYv1+JtTTxCKJZZgXmogV/g4kUVQz5gs5N
- fTeZjempf1exuPxJbwiYufQeyjHW62D8Yr4vZXEx0yFPm2RdlT3uwuit6JczuN6pVuuDgjllsD3
- KYfdIhIJEir4HGusP1OipgPSStDS5/f66inSLYS6LX4Jt0YkK0FEs3xqItn7VEGip30gB+3JQmX
- ZESzQmkLTM0na2XxIzi6YfFyg4xhZLkEdn2LPLGpk5Ua7lvwYQEHrgrYkZwLZaSYyv7rPYLGd7R
- K6wNNsrcSnNOAZq03WdL0qJyJIaKlS+BU46iFnP+0Zm1wopzqrR8X6sjwaIoTii4hNauwZYeDA6
- J2YnQ0948bdKlQZ86146jqU/6Z6z50hCaHHyNci42ilNrmmADQ
-X-Received: by 2002:a05:6871:520d:b0:417:5970:28ea with SMTP id
- 586e51a60fabf-41ca715a2acmr4330662fac.51.1774551323554; 
- Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+ AJvYcCVBioUwI4bzZeX2Ax+c3fYd3Q1CJ/z2qr7ZegClgM2ncqJoQHYMMoyW8p0Y8vXPcH0edN78ggXki+U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJxNJDVM5ka8hmyBB2KCwjICb2eFMZ8BZmVDdTOB/Puy3Qrwqi
+ 3J09I5BTD7IeANitTKVD8Ot2bWJ0lJa+p8hs3RX+FcydMNWEStOG/a7P
+X-Gm-Gg: ATEYQzwOMrqOL6yi2IWto/IUX0p0A6OXli7ZXXD07AQ7Wrd0c4s5jQFSgFDRsSjnkqG
+ Uok93X7LvmaN5bYuo/sGsnkvptsmtwymRzdNsv8EsXbezWFZg9Re2a+vXyMPPFaBlk2/1nm5nlI
+ 00OLRqEtUKQfwwjSPFE6T4khZp5JpdKTWu+9iQlblaRdtgE2PI3n2nFSzzjFgglU7potDoScyTH
+ ClelTcMnqZBnvxIKKEf0KGHAskesBp/CSsDsUk1D4vCo4wformAxbk/HpvkZkU3ZGq0U9AoKHIh
+ 2cbc/dXYC7VZwPxscAzGMM72Cb9/Q7KWnfal8zE3QbcEGZIY5CioL4Uss8+iBKKpDX44/00wPWa
+ VOemlpOrMBf8+80r+T312ChtYKVr5dIxIBUz1RR2c5ZrFc6I27s/l/iBJCVvwnb2q2e3c8QDA43
+ t/3KQLr5dsM+YdQzviqCA9omy0Lk+gIHK19PLOnGstVMgL5dbI
+X-Received: by 2002:a05:6808:3509:b0:466:f451:a0c0 with SMTP id
+ 5614622812f47-46a7a84537amr1185457b6e.1.1774551301362; 
+ Thu, 26 Mar 2026 11:55:01 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.22
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:23 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,16 +71,15 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Philipp Hahn <phahn-oss@avm.de>
-Subject: [PATCH v12 36/69] dyndbg: Ignore additional arguments from pr_fmt
-Date: Thu, 26 Mar 2026 12:53:40 -0600
-Message-ID: <20260326185413.1205870-37-jim.cromie@gmail.com>
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 21/69] dyndbg: hoist classmap-filter-by-modname up to
+ ddebug_add_module
+Date: Thu, 26 Mar 2026 12:53:25 -0600
+Message-ID: <20260326185413.1205870-22-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 30 Mar 2026 12:57:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -98,74 +97,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Philipp Hahn <phahn-oss@avm.de>
+The body of ddebug_attach_module_classes() is dominated by a
+code-block that finds the contiguous subrange of classmaps matching on
+modname, and saves it into the ddebug_table's info record.
 
-pr_fmt can be used to add a common prefix to any output from a module:
-	#define pr_fmt(fmt) KBUILD_MODNAME ".%s " fmt, __func__
+Implement this block in a macro to accommodate different component
+vectors in the "box" (as named in the for_subvec macro).  We will
+reuse this macro shortly.
 
-But adding additional arguments breaks dynamic debug:
-> error: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" passed 4 arguments, but takes just 3
-> |         pr_debug_ratelimited("%s", "Hello world!");
-> |                                                  ^
-> note: macro "DEFINE_DYNAMIC_DEBUG_METADATA_CLS" defined here
-> | #define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)       \
-> |
-> error: ‘DEFINE_DYNAMIC_DEBUG_METADATA_CLS’ undeclared (first use in this function)
-> |         DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, _DPRINTK_CLASS_DFLT, fmt)
-> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> note: in expansion of macro ‘DEFINE_DYNAMIC_DEBUG_METADATA’
-> |         DEFINE_DYNAMIC_DEBUG_METADATA(descriptor, pr_fmt(fmt));         \
-> |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> note: in expansion of macro ‘pr_debug_ratelimited’
-> |         pr_debug_ratelimited("%s", "Hello world!");
-> |         ^~~~~~~~~~~~~~~~~~~~
+And hoist its invocation out of ddebug_attach_module_classes() up into
+ddebug_add_module().  This moves the filtering step up closer to
+dynamic_debug_init(), which already segments the builtin pr_debug
+descriptors on their mod_name boundaries.
 
-Add an additional ', ...' to DEFINE_DYNAMIC_DEBUG_METADATA_CLS to slurp
-any additional argument, which `pr_fmt` might add.
-
-Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-[pr_fmt change on _submod]
-Reviewed-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 2 +-
- lib/test_dynamic_debug.c      | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+v10?- reordered params to match kdoc
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 1b401f398a3c..49f37d6a4eab 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -344,7 +344,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 		dump_stack();					\
+v12- refactor/rename: s/dd_mark_vector_subrange/dd_set_module_subrange/
+
+1. Renamed the macro from dd_mark_vector_subrange to
+   dd_set_module_subrange to better reflect its purpose of narrowing a
+   vector to a module-specific subrange.
+
+2. Simplified the arguments by removing the redundant _dst, as the _di
+   pointer already provides access to the target _ddebug_info struct.
+
+3. Refactored for Clarity: Instead of overwriting the struct's start
+   pointer while the for_subvec loop is using it to iterate, I
+   introduced a temporary __start variable. This avoids the "subtle"
+   side effect and makes the logic easier to follow.
+
+4. Updated Documentation: Improved the comment block to explicitly
+   state that the macro scans for the first match and counts
+   contiguous elements.
+---
+ lib/dynamic_debug.c | 37 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
+
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 21ba5cb3b406..443f0fd6e8c4 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -169,8 +169,8 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
  }
  
--#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt)	\
-+#define DEFINE_DYNAMIC_DEBUG_METADATA_CLS(name, cls, fmt, ...)	\
- 	static struct _ddebug  __aligned(8)			\
- 	__section("__dyndbg_descriptors") name = {		\
- 		.modname = KBUILD_MODNAME,			\
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index db555f5f8ea4..779309898422 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -23,7 +23,7 @@
-  * the usage clearer.
-  */
- #if defined(TEST_DYNAMIC_DEBUG_SUBMOD)
--  #define pr_fmt(fmt) "test_dd_submod: " fmt
-+  #define pr_fmt(fmt) "test_dd_submod: %s " fmt, __func__
- #else
-   #define pr_fmt(fmt) "test_dd: " fmt
- #endif
-@@ -214,7 +214,7 @@ static int __init test_dynamic_debug_init(void)
- 
- static void __exit test_dynamic_debug_exit(void)
+ static struct _ddebug_class_map *ddebug_find_valid_class(struct ddebug_table const *dt,
+-							const char *class_string,
+-							int *class_id)
++							 const char *class_string,
++							 int *class_id)
  {
--	pr_debug("exited\n");
-+	pr_debug_ratelimited("exited\n");
+ 	struct _ddebug_class_map *map;
+ 	int i, idx;
+@@ -1271,6 +1271,35 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ 	}
  }
  
- module_init(test_dynamic_debug_init);
++/*
++ * Narrow a _ddebug_info's vector (@_vec) to the contiguous subrange
++ * of elements where ->mod_name matches @__di->mod_name.
++ *
++ * This scans the @_di->_vec for the first element matching the module
++ * name, and counts contiguous matches to define the subrange.
++ *
++ * @_i:   caller-provided index var
++ * @_sp:  cursor into @_vec
++ * @_di:  pointer to the struct _ddebug_info to be narrowed
++ * @_vec: name of the vector member (must have .start and .len)
++ */
++#define dd_set_module_subrange(_i, _sp, _di, _vec) ({			\
++	struct _ddebug_info *__di = (_di);				\
++	typeof(__di->_vec.start) __start = NULL;			\
++	int __nc = 0;							\
++	for_subvec(_i, _sp, __di, _vec) {				\
++		if (!strcmp((_sp)->mod_name, __di->mod_name)) {		\
++			if (!__nc++)					\
++				__start = (_sp);			\
++		} else if (__nc) {					\
++			break; /* end of consecutive matches */		\
++		}							\
++	}								\
++	if (__nc)							\
++		__di->_vec.start = __start;				\
++	__di->_vec.len = __nc;						\
++})
++
+ /*
+  * Allocate a new ddebug_table for the given module
+  * and add it to the global list.
+@@ -1278,6 +1307,8 @@ static void ddebug_attach_module_classes(struct ddebug_table *dt, struct _ddebug
+ static int ddebug_add_module(struct _ddebug_info *di)
+ {
+ 	struct ddebug_table *dt;
++	struct _ddebug_class_map *cm;
++	int i;
+ 
+ 	if (!di->descs.len)
+ 		return 0;
+@@ -1299,6 +1330,8 @@ static int ddebug_add_module(struct _ddebug_info *di)
+ 
+ 	INIT_LIST_HEAD(&dt->link);
+ 
++	dd_set_module_subrange(i, cm, &dt->info, maps);
++
+ 	if (di->maps.len)
+ 		ddebug_attach_module_classes(dt, di);
+ 
 -- 
 2.53.0
 
