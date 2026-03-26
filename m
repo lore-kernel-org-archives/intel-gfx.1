@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A54410D14BD
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66B310D14BA
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7942010E737;
-	Mon, 30 Mar 2026 12:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAD2310E72D;
+	Mon, 30 Mar 2026 12:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pcfIllgo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XrHNz6CC";
 	dkim-atps=neutral
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 920A410EBF1
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:46 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-415c8a4d2e6so561802fac.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:46 -0700 (PDT)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6655A10EBF0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:16 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-4673790ab85so763184b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551346; x=1775156146; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551376; x=1775156176; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QuXW2pVB+6BOeyoEL7PCyteLSTsnkRNE1etSyCy+RQQ=;
- b=pcfIllgorXhiBb3aPESWJRL7y1GQUgFiOm5kjwHDtiJgv7b8WvqlPgaZxhSRFOjUuQ
- ZcdcjVMrnSMvcdVFTQVEDV5lSsab3RbI5A6t+ePjpv0BG18b/Hrtx7EjTUfry7wQl3UZ
- xKvFA0im0WiA405UPU7AYbFC2tztvpZO48Fbv4ENlWo5Cv54I3+DK99mVwLpiVl+usBj
- qtA4u6WZZTpnFJQSuPiEPL6yv/mEZ4iUTKhVo/44RWxaWLtn9/f4RS/DHXunGJEIJcKR
- CzBODzxfAYlS7QmLc9h6uj66oHPaNnagi3qO/Q7twukre6WrLBpP7YvRg68Jj324qUwL
- WJIw==
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=XrHNz6CCgaDEUAEukvcraDrd2glQXYXVpWkB7rhXY2nf3WX+5hlbxBnTALSuuh8Uwe
+ y0EzW8aSNpA5ez7iRydKoSlT69VBke5mS5l7s6jyyK1au7n7gtggTcnwkfVyiPCXX/Dy
+ yKLKAjuc4fQfL3yGyOYebh7AKGV5j+Fi8i8tB0+VUkq73FstiSgzA6lxS+VCJqwSciEG
+ q1pZPirCsrcfGun1fepGu+VrmR0MrHJCga/J+2N5Gaq5+gaG51tqGAsiFT8qjY0q1A04
+ 3QFgQrBLaoH86LYC9onq/Y1NBbJakcWVOTldKlTFcaJi2l7njV6h7wC+B5ngSoHHlBSS
+ yFlg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551346; x=1775156146;
+ d=1e100.net; s=20251104; t=1774551376; x=1775156176;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=QuXW2pVB+6BOeyoEL7PCyteLSTsnkRNE1etSyCy+RQQ=;
- b=LVe93brlOjcdo9QHdH1yD4wqmK3qZVs1P28CXz2QbLoJuVKsPUu2L6JzCMC0qQFczX
- qi0NbviMFhndxCBE1n8ZF4giwmt3q8ILhjHyQ6Sm9xTIPVfaCRyR6HcFRrpTTrSnZkz8
- RFEi6myHO7z2vyF1o6C80t+57jP3mKqY1ye7sRSy757HRg11WHZCBlw7ns4GTQyB0MN+
- XYwr/Lq7go8RF8wa49fgqRbvvR7I6MzhwADzxjfSVX8xB7JViZk6SGG8w6fzsOeCvrxK
- wrWYpkP55lV7MOsBLSJHVwF+1L/A3FPMcvLfSORuCggaauiMub/IRBPizVxqpvmIm2E4
- FunQ==
+ bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
+ b=ovvG+9n3zzQ61NDvFrWtvtt+4iEgG0UDLTS9P32Gvdn/dxDDKx5vwsH/WjZzuoXxt1
+ Bl4WQRQNLpthTWEhbVVz8gnX08vjpf/7T/7XY9s1gnwqVEHHEdsHYySDHIQIg+DMQweS
+ sdr5CawnhJTPvWxc/z0BMEsyQltgTG55tgwbJ74uFxTmvow4UHZEUY1gdDqMRZZ5zvr8
+ itjZSsSFb3674vMn0iCweeAhfWxhaeU/mOmgYSHgz2oGhfeDu0u0xBkC5+ixJokyynBt
+ /a/w8MYIZg8Ty9cykIeB+HvEw7drSFdK04M0nZYLIfbgWT0o6c1+Ocd1yluxk510xWSG
+ zgMA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWiO7+aQIyYTZpuO0kepsLAe/I9V7U+OCUtlTCWFy3h3FB3Ic1oN7SVRAB7qESQkXB3BblSw2Rns4M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBLPKRgEkbofSfoehcFevW8jvesBYlXCC45DUsNroeuUBe83wF
- 99Q4I/cczt+pR80fhHmRrVwLq8CDMqV5V3Dw97oohk6N+3n5+49Vjc4F
-X-Gm-Gg: ATEYQzwUpmUKZD9BbtoCcJHliKJomcPvaGk3sSrHoll/OkQ8Lq5qwYbUvsOzeF9+9/Y
- STfnPeJAY913hZGL8pn0nnaLip2VUkeUVwLKKFexeCTztmnxN8S92nGVVFpDX3jmzfb1PDX/SD1
- jbPvEEhFFoyI8nSDL899/C5D4CDZ5S+B54oi1/IVm556OnGwSv7kXm0JiRj7frgjKQTWef9htBO
- C+zD+L7AQ3B23YBpjA7bgWg4z/MbwsidMSsagiBhYPcM97afDr4vqyqwfQSWN+ZiJ+66gbAwt+9
- O0HiBcdI2Iwg/LpWn79tfc+MtkQuiPoY5jT+rNdyWqmF79vyJ/2fn9gghCf7U2bvFMW4StY79wx
- w0UCK/UNjPGNyLcgVEbZCsjAER4JkTm+oVpWTCOMItFvVUeHxu4+IHmTcCbsvVh6OXYMN/WTj8I
- TJe9fm7f8xjF19/2hPaXcHq5+WXpu0eTQA8tXLUNAHSGJLWWrg
-X-Received: by 2002:a05:6870:2e93:b0:41c:b780:93c with SMTP id
- 586e51a60fabf-41cb780158emr4153585fac.8.1774551345778; 
- Thu, 26 Mar 2026 11:55:45 -0700 (PDT)
+ AJvYcCW7f/XqTUhgB2wi8oegDGuT7W7u6Sjl5StEplbKJdmltzECCS93/70ltR498XT6duCeBABpq/pD/mQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzzh7e94MQ+LfPTDJTWsHJVGf+0qb4PZgDlkgAk/F36cT8OvxM3
+ Q4UFVQsyyB0gdrAx5DjzM97ji3ZH4oQoOZw2sjA9EfSsg2Mzpu5G0tZr
+X-Gm-Gg: ATEYQzxvggOvE32agfLL24c7wnY6q3jMvYJ8xHDSHaXwJgt9Kja1jBoG8YmjC3QMl07
+ ZLFwqJ2JqTSBjyqVKjuBAtdMvlI3tO+WOrmc9UMuA8qQ5hu2xNdxBV8te+xKKTc4zFW6ZTAvZ3S
+ tOW5z2GYylRGeHYdVnmJMM3sJpGOBGp0AZfe7uEmiUUvT91h9TxxIMR1CGQSZBAlT3qXyH0a9ln
+ xBFMKZVvRADkqpgjsKZI8t9VSTBQBTZsPyoAv5j442NdhyrCaa4ddTwQy+ltYJg2Jz0sdFuhYvw
+ rYH/I9Mg0MnaoXmechr+dIEUxKHywRKN25J4efQYQyj2sg6PHnMP9x1M+6KRryQO5pydVS6U3qJ
+ 4WwWoqZgzVH+qpeuv10hPJ3egnkRH/H8JOEJESFdo+ObbSpGISJ06HQ9myXFRHD+USa6BX9F6mO
+ G38dr1W4Ryg0Evri9ZV+acQZQ3ydqc0IVNJsjcYahE8jWhPLYS
+X-Received: by 2002:a05:6808:6f92:b0:467:db5:8b1c with SMTP id
+ 5614622812f47-46a5c610272mr3956953b6e.21.1774551375644; 
+ Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.44
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:45 -0700 (PDT)
+ Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 48/69] drm-dyndbg: DRM_CLASSMAP_USE in drm_dp_helper
-Date: Thu, 26 Mar 2026 12:53:52 -0600
-Message-ID: <20260326185413.1205870-49-jim.cromie@gmail.com>
+Subject: [PATCH v12 69/69] accel/rocket: call DRM_CLASSMAP_USE
+Date: Thu, 26 Mar 2026 12:54:13 -0600
+Message-ID: <20260326185413.1205870-70-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,44 +96,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
-
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+rocket.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+to tell dynamic-debug what classmap enables them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/accel/rocket/rocket_gem.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index a697cc227e28..308083e244d4 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -45,17 +45,7 @@
+diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
+index b6a385d2edfc..0d06857b96ad 100644
+--- a/drivers/accel/rocket/rocket_gem.c
++++ b/drivers/accel/rocket/rocket_gem.c
+@@ -11,6 +11,8 @@
+ #include "rocket_drv.h"
+ #include "rocket_gem.h"
  
- #include "drm_dp_helper_internal.h"
- 
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
 +DRM_CLASSMAP_USE(drm_debug_classes);
- 
- struct dp_aux_backlight {
- 	struct backlight_device *base;
++
+ static void rocket_gem_bo_free(struct drm_gem_object *obj)
+ {
+ 	struct rocket_gem_object *bo = to_rocket_bo(obj);
 -- 
 2.53.0
 
