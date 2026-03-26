@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A7F610D14AD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93AFD10D14AE
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C13ED10E6E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE7C210E6E6;
 	Mon, 30 Mar 2026 12:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DCXoe5FA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9J9CkT+";
 	dkim-atps=neutral
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 300DE10EB20
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:38 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-466f1c3c627so782760b6e.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:38 -0700 (PDT)
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B72310EBF0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:52 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-7d77b179b52so1176860a34.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551277; x=1775156077; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551351; x=1775156151; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aHUGvvDPJX5utgpnBEa/SBdGHOtXvC1eEVKqa9t2R0g=;
- b=DCXoe5FAy2foi5+D3Zzs9QnFxkjZyfnYh6DbIQB9hW+viUosHqEd+L7JLolsBbnFK8
- 8zEzIbSmU6ti5XaZnI8a1Vuz8xVocxKUZdutv039DdDjs3O2wZvm4EPbW70l1z5w3/zT
- sqb5/rsdLpiNlJ+2yktn7c1Qj3LfSPOOAkgFOLKc6Fz9L9tdpesOV9D84wYOf4hgEu62
- Ag+Sh+GQkv+cez/h+zIp9tNEcFtBMAW623vyk6PMbGjSlVLa6bgEqm1olAPfFbEbR2uZ
- l11z+Zc0TE/TDTragRrAtT0oHs+qG5Xg3kJefzwvn0MgbAokVlHwSQLTu2TJ/BKJTOea
- qrBg==
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=a9J9CkT+kUB+PG+4uyuxrBUUPB4aDXS4onJlaKHlmZKYYcCbEnbeGaO0ggHa/u0qOR
+ 5+V64ZG/9HDLNyB4Cc9OUCz2aKcbsyLcd0vuzvwXeXjC8TAQ8X2XQJtm3g2htadXH6g5
+ PGMH0Xe+F5Em/8T1MI5EA4b4o7IwOrkAoinn3QSodX5I33qW6q3IrBPTSP19uLfyOrNl
+ WQ/7nSNodYoasB0EkErai70C9+3Ff+/PmWM8Oq5IvHTG+LIhBNa3LV8GUoth7NBy9rfn
+ +uCE4GfZrD643hhRz8gKJyBHyCzczFzCStOYsmcRVmV2kUEZHH18h8YpK7bp1vCYOKnI
+ FEog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551277; x=1775156077;
+ d=1e100.net; s=20251104; t=1774551351; x=1775156151;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=aHUGvvDPJX5utgpnBEa/SBdGHOtXvC1eEVKqa9t2R0g=;
- b=XaM4Pwq1UuGnTfcazzdc0Az5TcynzFS9EbsFv/eJgvVZmJXq1pegadw22AVEirw0ZY
- BVbHecPHx8CLoYynpu9ZMgLY0Bc1P3EvaXK93XUb9tgX1FOQirRJuwuWfOB/aIq3kT3H
- Y9r7s8XpIztRkBTLyT7vtcI/Dtc16mu90dd2JDKqVDRYdXX7omaor0O/E/GCAPQ6nf55
- 4leOY2ruQa8gouNaFXbDjuMynDw3mHwjw+/g0sW1ZxFK7czZiacNjwHNA8mV1kf7Avfe
- +dCilKudfOlKZRDyfxvFqOAhMA6UuNrz6fVZXgzYhPQcvR13qh9Wv7As6XCzs7pXiS0H
- cIGg==
+ bh=4Ts/LFRGubV+qE5nUbczy5fsPH9e9tt1w1L0GvmpB2A=;
+ b=GtdFHD6b9c4SrHf59ZBn+7wgEuuAwXkPkpJYXf9smDnuHKbzDlGHRqWdKkR8cukoJh
+ 75n9sqSu9ID4g8Ky87Z0YgoTGgBR071c6RiTzG1PXalKOg6HHvxEaXiLX0NQuqVwjFCc
+ 9Ap8Z3iiqvhphXRedCwVyWpkPwGGZ4JPtEDq122JncL25uMZeGt4xR+OhgOZiVbwsf3Z
+ 75w5tnMyuv2yz9uNdsMUX9r2s7g5c2gYg0bLVYcZ0YfikLoBWlZOGJU1rCAnPYhqKN2D
+ 9VtqaGmxHmPTim62qXI/brlTFR/IuQktV/f45YKJVnCveNKYj8vKiLJUB2bIP7tl6Gxx
+ qTVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVYvAPVQM40dcES8vO+ZlWiLPEHqEbi1uLjVXCgHAYrpso+YAJ6swb4DvZb7uDU3MHDxI040SwS7UA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoK5a+itfamP/nkqTcLD22QOcPQP0jfy+slmI8Ru0KIafE6+Fq
- ARMdp8woS2GACQCoM+rP5Y/lOHzkMzUXy023kH6x55S2GRbVl53zuOa/
-X-Gm-Gg: ATEYQzyEs/xl01mvf/FPOkJygXwZ2rwrq/94WUbE8oePdHfwrEWedqXqyNEnnTUMA6x
- wRvqtBXDzg5LO/yYpv0pr4J1yHfHpNMKBd+9yPRJffSWaoilk4vtvYv1nmdwwdUXCJ7D2R3g0cx
- QqlR4Ux1PUFLn/M9nel76bzB+tw8rsKUtxmeb1VLTF5MJACruj0oBesZ/WdS2QfHwUzQe9XsjfV
- SFBoGKfrhfTjtH2hA2QV8JNO8cB9ECnDMwrJvchquRKYRJg5NowRz5kXn66hchJtvez7ANS5k6D
- dRremn7qpdwQtTgMPxqwQb5SxtzCqVniPl4E+Mx683QPTDM37phn84yhbOzMNVOTaZbw5Sv9mRq
- x6HiB99+B+a8HQU8tFd4LCESqQmLWxXJbCpRwGbAMQK3NhR7YrM5eXKlCT1XjkooTdWx7xDqZKJ
- QS1Clv9rtDWw6Xtv60zfXaM/Fhs2Y1bdOB3rsp3Z66SXICu/cz
-X-Received: by 2002:a05:6808:17aa:b0:467:bfa:bdae with SMTP id
- 5614622812f47-46a5c61027dmr3861126b6e.20.1774551277359; 
- Thu, 26 Mar 2026 11:54:37 -0700 (PDT)
+ AJvYcCXLtsTnJopiCzjAT8Q0VyxsyZUbMQWHzGiaqOmPoKVAB1aK+pe3LrQwHcTfPcz6WL85WfF2drbIaH8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzVe5ETYGua3QpOPRrf3bRvKeO8qvcha4ROUzlrc54b2OxPkz+P
+ EOAw7t0v6PF8M8Uy0i2QBPDXdjQ+yKneMf7k45vX2sXD8UozWVn06dcT
+X-Gm-Gg: ATEYQzwUK5Cd7HrLcPyDjP+JsUj3hvnHOmMfrKB0EL9yyaUVKTV+uw369t39bvVB5Z5
+ Yo+W7NVn2wRIml3zBGk6yl2g82EdyVEu5XmyqNGXpzAnsg1zleI1xghKUK6gf9vsJIdZQXLHWrM
+ PAbbzKMB+I1HIsXvcOGsg91RaycP1PBy8D9YDCeijq64dyS8PLu/vZ3ZKETq6GCj6Mv4IyymaHt
+ hpQc6KQBn3QQ4q+suh/a/CA5CMM732Bl/Qkcv1vmdHaYsDd0XgzpvrnUgXvqu/ycOv1Ms1LsNus
+ UKuAK9U41ZLrNUtW8fE+IHbpYku1B1ILUmTtZeLvyyau3S8QJdSwW9oavRUIwFIDmE+lMIeW+9a
+ OAZ+qMAtQYP/0r1PpaSSzIJC7D+y9Jwlk8YXZOPQASQNXLZGG7ZjdJ46Ax17VN9Q/BwJIChic57
+ SYgTk7ew61LSpJzn65MMUhtiFKKObyeUp4C9Z/dTYzHBMMpuZk
+X-Received: by 2002:a05:6820:152a:b0:67b:af3e:b1de with SMTP id
+ 006d021491bc7-67dff5a94a4mr3770147eaf.69.1774551351454; 
+ Thu, 26 Mar 2026 11:55:51 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.35
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:36 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:51 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,10 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 05/69] dyndbg: factor ddebug_match_desc out from
- ddebug_change
-Date: Thu, 26 Mar 2026 12:53:09 -0600
-Message-ID: <20260326185413.1205870-6-jim.cromie@gmail.com>
+Subject: [PATCH v12 52/69] drm-dyndbg: add DRM_CLASSMAP_USE to simpledrm
+Date: Thu, 26 Mar 2026 12:53:56 -0600
+Message-ID: <20260326185413.1205870-53-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -97,135 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ddebug_change() is a big (~100 lines) function with a nested for loop.
+tiny/simpledrm has 3 DRM_UT_DRIVER debugs, make them controllable when
+CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
+class'd debugs.
 
-The outer loop walks the per-module ddebug_tables list, and does
-module stuff: it filters on a query's "module FOO*" and "class BAR",
-failures here skip the entire inner loop.
-
-The inner loop (60 lines) scans a module's descriptors.  It starts
-with a long block of filters on function, line, format, and the
-validated "BAR" class (or the legacy/_DPRINTK_CLASS_DFLT).
-
-These filters "continue" past pr_debugs that don't match the query
-criteria, before it falls through the code below that counts matches,
-then adjusts the flags and static-keys.  This is unnecessarily hard to
-think about.
-
-So move the per-descriptor filter-block into a boolean function:
-ddebug_match_desc(desc), and change each "continue" to "return false".
-This puts a clear interface in place, so any future changes are either
-inside, outside, or across this interface.
-
-also fix checkpatch complaints about spaces and braces.
-
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 83 +++++++++++++++++++++++++--------------------
- 1 file changed, 47 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/sysfb/simpledrm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 18a71a9108d3..6b1e983cfedc 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -172,6 +172,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
-  * callsites, normally the same as number of changes.  If verbose,
-  * logs the changes.  Takes ddebug_lock.
+diff --git a/drivers/gpu/drm/sysfb/simpledrm.c b/drivers/gpu/drm/sysfb/simpledrm.c
+index 7a95d2dacd9d..8958e115abc1 100644
+--- a/drivers/gpu/drm/sysfb/simpledrm.c
++++ b/drivers/gpu/drm/sysfb/simpledrm.c
+@@ -35,6 +35,8 @@
+ #define DRIVER_MAJOR	1
+ #define DRIVER_MINOR	0
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ /*
+  * Helpers for simplefb
   */
-+static bool ddebug_match_desc(const struct ddebug_query *query,
-+			      struct _ddebug *dp,
-+			      int valid_class)
-+{
-+	/* match site against query-class */
-+	if (dp->class_id != valid_class)
-+		return false;
-+
-+	/* match against the source filename */
-+	if (query->filename &&
-+	    !match_wildcard(query->filename, dp->filename) &&
-+	    !match_wildcard(query->filename,
-+			    kbasename(dp->filename)) &&
-+	    !match_wildcard(query->filename,
-+			    trim_prefix(dp->filename)))
-+		return false;
-+
-+	/* match against the function */
-+	if (query->function &&
-+	    !match_wildcard(query->function, dp->function))
-+		return false;
-+
-+	/* match against the format */
-+	if (query->format) {
-+		if (*query->format == '^') {
-+			char *p;
-+			/* anchored search. match must be at beginning */
-+			p = strstr(dp->format, query->format + 1);
-+			if (p != dp->format)
-+				return false;
-+		} else if (!strstr(dp->format, query->format)) {
-+			return false;
-+		}
-+	}
-+
-+	/* match against the line number range */
-+	if (query->first_lineno &&
-+	    dp->lineno < query->first_lineno)
-+		return false;
-+	if (query->last_lineno &&
-+	    dp->lineno > query->last_lineno)
-+		return false;
-+
-+	return true;
-+}
-+
- static int ddebug_change(const struct ddebug_query *query,
- 			 struct flag_settings *modifiers)
- {
-@@ -204,42 +250,7 @@ static int ddebug_change(const struct ddebug_query *query,
- 		for (i = 0; i < dt->num_ddebugs; i++) {
- 			struct _ddebug *dp = &dt->ddebugs[i];
- 
--			/* match site against query-class */
--			if (dp->class_id != valid_class)
--				continue;
--
--			/* match against the source filename */
--			if (query->filename &&
--			    !match_wildcard(query->filename, dp->filename) &&
--			    !match_wildcard(query->filename,
--					   kbasename(dp->filename)) &&
--			    !match_wildcard(query->filename,
--					   trim_prefix(dp->filename)))
--				continue;
--
--			/* match against the function */
--			if (query->function &&
--			    !match_wildcard(query->function, dp->function))
--				continue;
--
--			/* match against the format */
--			if (query->format) {
--				if (*query->format == '^') {
--					char *p;
--					/* anchored search. match must be at beginning */
--					p = strstr(dp->format, query->format+1);
--					if (p != dp->format)
--						continue;
--				} else if (!strstr(dp->format, query->format))
--					continue;
--			}
--
--			/* match against the line number range */
--			if (query->first_lineno &&
--			    dp->lineno < query->first_lineno)
--				continue;
--			if (query->last_lineno &&
--			    dp->lineno > query->last_lineno)
-+			if (!ddebug_match_desc(query, dp, valid_class))
- 				continue;
- 
- 			nfound++;
 -- 
 2.53.0
 
