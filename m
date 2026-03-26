@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D92210D14AD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAAC010D14AF
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C13F10E734;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD53810E73E;
 	Mon, 30 Mar 2026 12:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UGP+rbLZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dWXrGn4C";
 	dkim-atps=neutral
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB69E10EB44
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:39 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-467fd082ffeso831197b6e.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:39 -0700 (PDT)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 755A510EBF1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:08 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-40f387a688dso1105534fac.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551279; x=1775156079; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551368; x=1775156168; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
- b=UGP+rbLZLU/x1o/F9wTro1qA/ivasRBmILme6zVVrINCRHnGOj3PUqx/BE008Mf4jF
- 655m34KxBZIYWbztqo6Gnks8+02OzKkAnDHQShb4jZfLcFzpv8Xl7QXJZNJVvVZAAhxn
- H8G3FyStbR4CIyZnvKkqImyxQ+jzW/4Uxi0fTB0qLiMYPYUVgzkozjUTy4wZek1keck/
- qzpk5hklKvzOzxGFhzPPyih0Km5KIrUIPaEEwia5EHifwdzy7HFE3jc24zWGk32LY9V+
- Jd7LKsnweTXhKAixN1MHw36wTXqkEIS5twjXnJhiXbTR3oWlOl+MsCASxSF7O89lxyNa
- +2rQ==
+ bh=NRlPoGa7+iUNjeM7pxa7WPegOcsigZPqzY0YzlOOctI=;
+ b=dWXrGn4CdyHwZe36ORUcenyNT/PfYW0BtBDSBhycZvEz9R1BLsWFAW3zzu6I/HcIOF
+ sZm4wZVk91lMabf8MlEO7eOTOu9SInbflgjyBRdgCIf4IDyC9GGe0wjixfgBJrpSKVRV
+ 70idqofDDxSbdPvHqJfo0jE+69L8mBUj7jetGFB3z7hagGgJnbeR9iJKvVMA19KzpE7W
+ 0CKIMhdfHgFEfsrsHkgN/OmoNxi/nkfN+hGP8yp9xR099LuNXgbqOlUZReKaYczashLf
+ Zsc4lr1adWPXdEs28eRo/DxKiAeW/4hWs38wFJT4lFQGVTGWrmw84xFXDrBLLPH4VH4b
+ 9yCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551279; x=1775156079;
+ d=1e100.net; s=20251104; t=1774551368; x=1775156168;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=AAl9+PvQAj0gWNHtBaTmlj5ZgTYMrxMbOjBXxAyMQwA=;
- b=TqXjLPGk018zZ9T2enbzQYeqbwkGtOpOgatif1SbD1xgnQrzvP8LEipwDC4f3PFyKp
- k8boD8kL2Dd5uf181mYcUh+nBwk9qKIy2IpRrAUs0WItOtJH8t+miPT9GX+mubOoVrI9
- cAOKgGlfZA+ZWEu9TP1ULIqN+8ibHmJh7T78A/nGz/LgIdXPtTopIO+EduJ+Sz2lMZuj
- gKT1ehHKEZEi/3swjyDht5yfjHMIm7ZambW8LoDWGR8RRYRGcdpw3IZOXieLYycopZCe
- XPhwxFZORwk919Xe3foX2Qm+0E/5vqouyDe/qRAIoOp9G49RKlmUGMZE2lPK6b9aLK8t
- yfhw==
+ bh=NRlPoGa7+iUNjeM7pxa7WPegOcsigZPqzY0YzlOOctI=;
+ b=A7j663zpQs+0cljddkeE2reBmd9EpKSxkhu7lT1/Ha5xS3kVLpToT1PFvpgVeRaBvh
+ a/Igr1PKgsMfAeK8j4jI+kx+MfiJhIvEw64Erk49XLzoNWqvXptzXIyEwv4ixWchAeea
+ eE1w9xYGov/Li9JeJOhX0oUTPHkpICSpg1l+fJYQe9QFbA1mFZrkoWM1e/9kU0aQMxqX
+ VHceK+L+NFcjHkVuINh48OryhBhg/RoC+JvIwHOLPwzwzjDpnKyKKPoPa1LnnXfRgaud
+ vpaxO6FsMgME/rCeElOVsUawqG45UaEJDcxydoNJmBbyXIK4I9ReXROz04RQ3f1mRldH
+ G3bA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUpAcw2eO7XNTuSJBXCxhlWLYx5FG9Nod3INkHxE8sqf6ztoxp3YkYqCx2QiTT/DMfqXT7y9TiNobc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzGhKGDqkTXD0YVHybwpvGCfrUlyZH9OiOCJGaMWYkq8zHtc343
- TLnqFK26w/NQHs9/w2cQVGY5wHA5phDWbyEl/RYJQIyikZNAu5B1pSnm
-X-Gm-Gg: ATEYQzw3f4U5C+8+ZN8+nrOjznz2C+OVg7bvgma8dexCjVudIUKVhdG0s7TuhmPUtxm
- qXUZykcMYY5z1CyRFw/wol0nOVnGgy4S1b1kRy2UqIQ1jaQ42hB2d7ICx5BXcD+OX0rGoPyHSMe
- RQsyTLtjYRmN4dJLtbqzoXVkptF0bWkOpIczjumwPkIFc5LruT4GzT437je52rdOnTFIc+VXej/
- kp0NG+g4z2IKl/gAXniIh6v77a7TD8hKFB6H/ZZY5+nVS+U1Y1mUq4EftHY0whM69deoW4ZmcVN
- AqeC4tqQYWDIyyaUrX1m1TNJFCgtz/UCxj0ggseI2yCoNXQbs7tHucJpzRYCKOAB/puc9uK3FH/
- PYZlep+Oi738dJuuo6jvf4QZjMYTCRoKS53SFp1xCaEuQBaxRRaHQD0zYTk5EitLTh2ZF1C6XyW
- 5Nma7dnHgvcBACSXMavAsRaG7e/FaHt+WSm6ydXYD/tcIOnxsDw5qMztRpnYI=
-X-Received: by 2002:a05:6808:1a07:b0:467:1633:a1a6 with SMTP id
- 5614622812f47-46a5c6728ebmr4492539b6e.13.1774551278780; 
- Thu, 26 Mar 2026 11:54:38 -0700 (PDT)
+ AJvYcCVr/uMxFnVD8vQ0PEqCf82+nFIV8NzTyg2b5ewDDzjjyxdML1w4nnpeelCbCw/+yquvv4gojJJh+b0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxkZes7E1G5Un8gWhpZUvLj6brd0icbW2BwuT/PcY5kCnkdrFeh
+ xKKsahwEuV/BUUwTY8fk8Eu4dN0EEYsXus3dPByCfLK0eTYtwyuaf8ch
+X-Gm-Gg: ATEYQzwtTIRjf4Ua/JkSfJ2DkihfUE6E7SBbx6H6QrMMRPpoH/qC7mkeYEblhutogOi
+ KyUP/aUOjB6zKrVGmWnhTqcelQW33ktCRnb/8I4d395xLpmvqDaQeVB3oub0YGB1vB53zxeB+mr
+ AYoC2pnYlgw4Moxh16+NWcZYZqflFx+xRm8uYSPVEu3au0dkAhjc9dYTI4iJ/nrrAOPDAtqdGYk
+ LUqa6XWmJy9xTzEA0gDYjinfg1W3j5Hl59Lwe54KAlkHLEA5jNfJaPpXQyvgELYlUAVaP/V9m0I
+ 1E4NfQJv31BUuAN8kl3BepXoC5JiwRiX0vAdu3dO5CgsMnStEqm7b3pRyTixbxlh0QMK9tMkq2w
+ hJeIyA9CJ5FyNWpcjxYapYm3U5VwUnImj3+fQXay2Uc2DDpsfz+iwDTh9Rkuy+x5aNtnslbloWE
+ noAYncEu/7j7zASll9MDNnHB8EdvZidkYqOXJ8VnbUyg8FYvVOCp8GrbjsQw0=
+X-Received: by 2002:a05:6870:b493:b0:409:6227:d313 with SMTP id
+ 586e51a60fabf-41ca70d655bmr4566906fac.35.1774551367549; 
+ Thu, 26 Mar 2026 11:56:07 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.37
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:38 -0700 (PDT)
+ Thu, 26 Mar 2026 11:56:07 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,10 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 06/69] dyndbg: add stub macro for DECLARE_DYNDBG_CLASSMAP
-Date: Thu, 26 Mar 2026 12:53:10 -0600
-Message-ID: <20260326185413.1205870-7-jim.cromie@gmail.com>
+Subject: [PATCH v12 63/69] drm-dyndbg: add DRM_CLASSMAP_USE to the
+ drm_gem_shmem_helper driver
+Date: Thu, 26 Mar 2026 12:54:07 -0600
+Message-ID: <20260326185413.1205870-64-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,83 +97,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the stub macro for !DYNAMIC_DEBUG builds, after moving the
-original macro-defn down under the big ifdef.  Do it now so future
-changes have a cleaner starting point.
+The drm_gem_shmem_helper driver has a number of DRM_UT_* debugs, make
+them controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling
+dyndbg that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 43 ++++++++++++++++++-----------------
- 1 file changed, 22 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 05743900a116..a10adac8e8f0 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -93,27 +93,6 @@ struct ddebug_class_map {
- 	enum class_map_type map_type;
- };
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 7b5a49935ae4..bcc2c870d304 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -26,6 +26,7 @@
+ #include <drm/drm_print.h>
  
--/**
-- * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-- * @_var:   a struct ddebug_class_map, passed to module_param_cb
-- * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-- * @_base:  offset of 1st class-name. splits .class_id space
-- * @classes: class-names used to control class'd prdbgs
-- */
--#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
--	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
--	static struct ddebug_class_map __aligned(8) __used		\
--		__section("__dyndbg_classes") _var = {			\
--		.mod = THIS_MODULE,					\
--		.mod_name = KBUILD_MODNAME,				\
--		.base = _base,						\
--		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
--		.class_names = _var##_classnames,			\
--	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--        (sizeof((eltype[]){__VA_ARGS__}) / sizeof(eltype))
--
- /* encapsulate linker provided built-in (or module) dyndbg data */
- struct _ddebug_info {
- 	struct _ddebug *descs;
-@@ -138,6 +117,27 @@ struct ddebug_class_param {
- #if defined(CONFIG_DYNAMIC_DEBUG) || \
- 	(defined(CONFIG_DYNAMIC_DEBUG_CORE) && defined(DYNAMIC_DEBUG_MODULE))
+ MODULE_IMPORT_NS("DMA_BUF");
++DRM_CLASSMAP_USE(drm_debug_classes);
  
-+/**
-+ * DECLARE_DYNDBG_CLASSMAP - declare classnames known by a module
-+ * @_var:   a struct ddebug_class_map, passed to module_param_cb
-+ * @_type:  enum class_map_type, chooses bits/verbose, numeric/symbolic
-+ * @_base:  offset of 1st class-name. splits .class_id space
-+ * @classes: class-names used to control class'd prdbgs
-+ */
-+#define DECLARE_DYNDBG_CLASSMAP(_var, _maptype, _base, ...)		\
-+	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	static struct ddebug_class_map __aligned(8) __used		\
-+		__section("__dyndbg_classes") _var = {			\
-+		.mod = THIS_MODULE,					\
-+		.mod_name = KBUILD_MODNAME,				\
-+		.base = _base,						\
-+		.map_type = _maptype,					\
-+		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.class_names = _var##_classnames,			\
-+	}
-+#define NUM_TYPE_ARGS(eltype, ...)				\
-+	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
-+
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
- 
-@@ -314,6 +314,7 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
- 
- #define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
- #define DYNAMIC_DEBUG_BRANCH(descriptor) false
-+#define DECLARE_DYNDBG_CLASSMAP(...)
- 
- #define dynamic_pr_debug(fmt, ...)					\
- 	no_printk(KERN_DEBUG pr_fmt(fmt), ##__VA_ARGS__)
+ /**
+  * DOC: overview
 -- 
 2.53.0
 
