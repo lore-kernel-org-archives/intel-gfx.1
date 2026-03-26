@@ -4,56 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5989F10D14A2
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 11:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D24DF10D14AD
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3E3210E66F;
-	Mon, 30 Mar 2026 11:37:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59FBC10E6DC;
+	Mon, 30 Mar 2026 12:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T8Q2u5Th";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h/P2q9m6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB4010E5F8;
- Mon, 30 Mar 2026 11:37:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774870675; x=1806406675;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=TXEd97w9FVCXv2P6XNc9iE6HhYb2FMPNY1EV5CGuWUg=;
- b=T8Q2u5ThRFEI//bm5KSv1d4e5uoekUyD92xwBEEAvip3vE6o9ihSq0dT
- +AXgQ8dV4yWhEJ5VBegqtREJOVETa+FflpUUKjIumfgD+3G9VVjmSbv4I
- Tx6TNd6OOCx2p61tD24wVnUMFEtUcKOCE0vI/nYxtJaxQAoSsZ6JwlVa8
- hqiDX6KNYeYmHhOSXX2Mk0m+91/fhwS7UGu5zXKkqrB8F8WSQtbQz6sLN
- Dc35uESiJNFw2G/LHMaS76ViTWb3CJi+etWM+a9MHqJqEQ3+GBpiF69+i
- +VmZTjn4xJQvlLHjYoMs7ONJglASxLNlM3EdpqGfRo8Wj6Lx6iNyU1GgA A==;
-X-CSE-ConnectionGUID: gbqSGR66QIaWU+6V84UWIA==
-X-CSE-MsgGUID: 8x5EJKOJQOW+g1r5cMZB8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="75571682"
-X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="75571682"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 04:37:53 -0700
-X-CSE-ConnectionGUID: qybKaPyhTSmfv8zLTcy+nQ==
-X-CSE-MsgGUID: n60Zd3eCQeuWzTBLxXT31w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="230079618"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.246.17])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Mar 2026 04:37:51 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- ville.syrjala@linux.intel.com
-Subject: Re: [CI] drm/i915/display: change pipe allocation order for
- discrete platforms
-In-Reply-To: <20260316121837.1264876-1-jani.nikula@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260316121837.1264876-1-jani.nikula@intel.com>
-Date: Mon, 30 Mar 2026 14:37:47 +0300
-Message-ID: <2db8f3e8adde89b85da08477ed3f4bd6b7392b5c@intel.com>
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B101110EB20
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:37 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-467161c4a1cso448569b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774551275; x=1775156075; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=TvJTZGwFnKZj+neDJ4vh0DEg0/Ks/7VePFt3kMjVxDw=;
+ b=h/P2q9m6kJtcjtecYpgpCnsfk7xikoTpYFXM8ndLg0o+ydGel2F3uZL+DOD/V5RHar
+ wWwwH2UtOcVkxaxE7VVsusvZ0JHcinKk5AFLWdHQWjHVBAkaXVuk4NTvQc5cyA9jP/Lt
+ FQKAYQlHCVxm+eKaQubjiGspNB/6VDvBGnHzLFFdOTgehmWJUiXPufZY6k6w5/g5q0kq
+ MTQC3PYDzu0H9MonxDOgMUpsplnT2SqH7ykjdOhEGrtvm9O4Io6iXAzFG63tMnMXRgJn
+ Lp3Jz/KNfd90pKwp8xyysHUHdK3XKlCf4IgaYJzMokPRefJoc+yPFaE3FDcjp0qqrQWp
+ xuJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774551275; x=1775156075;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=TvJTZGwFnKZj+neDJ4vh0DEg0/Ks/7VePFt3kMjVxDw=;
+ b=Gs9A4MQpbKE9lpr2GbRB8R8gBXr6pl46OR6SjbgqpsNE9dufTT+KEABvzn9TJWpGzU
+ +rIVZf61jrXEfcx/WNYCENk1tye91sc2Eyb9wwy8POG4yrVN8G0fQIXn5zzDUXZvXQMe
+ PVfEygOLznkI5PgZXy/40rnPF0tHTXNJdIxuvcD531qkRvO1gvXzawi58ryFIcFqNJ+u
+ ml73FOrOdiU3R/ZbTlSW5RMhDWkcNyH3gqltuDNIkwW2qk4OHGtaU+7s6kJDfMlS+ZfR
+ YTyKROxJFqktg5LVK+iXrVlehc+oG9AvSW84TBmVqOyE3UjmzbELvs8nVKQiLn5u37zH
+ +SQQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVoTPITRFinwYyArN9nmWWg9DLbAT+MC2kK6KmF6A0p6a2+7H8rgPkaVibSevwstFdbCb4zFy5+Wds=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxT7rE00QoYyMzwdNJJjLHghG8fEH6G+H/J8QRznbhjSXPHotAt
+ KNzs4mPJv7iLWTlKsF8SUXnKJOHe2l4q+fnEIs1/o8ASWYOnRqOu3nPm
+X-Gm-Gg: ATEYQzy6g6DfGYTWPerpJtcsGKhlycZRsZz0y79sfqWVWj6vcL61QSjBIPThXmp1h9w
+ C8Dimog/SwhU38+Gmmg+ZePLGTKko3XFRyOM/YHtQxkbycAI178+L4YLBAyuyQup0zXN58vfykM
+ 1iwS8/fjbWWDjgC95kosUKXDlJlz1RRoJXyBpoHHLY2B7b4eYZpXfSVBqPKLhzSdSbwuiDWtDMz
+ BUvBe/h7+Fl5GKjPq7i4YiTr2pOltjqc3zlBCamr/8ZebWtYWmIHcvFB86QzlH/HEZ6QJlttHvI
+ baK9ByH53oFnB/r4aIo6NJwiMyjD/OO7COYbEQ54Tg+KQuFUmDyZSBlL71AZP5uIYGGaO2yvw/m
+ Gw31Hfma3LoT9WdXiT8HjUo6rb3pqJo9+/Hihf5URR4EaDntKYOau+uWklcwjtyRt6YRzW0UzQz
+ g9ZiqOMrIdwGn5TbEH0v17kaVCtgir3jzc1YZ/HluTmw+1aIx4
+X-Received: by 2002:a05:6808:1995:b0:467:1c6b:ee14 with SMTP id
+ 5614622812f47-46a5c708135mr3630668b6e.33.1774551275278; 
+ Thu, 26 Mar 2026 11:54:35 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2026 11:54:34 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ jbaron@akamai.com, gregkh@linuxfoundation.org
+Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH v12 04/69] vmlinux.lds.h: drop unused HEADERED_SECTION* macros
+Date: Thu, 26 Mar 2026 12:53:08 -0600
+Message-ID: <20260326185413.1205870-5-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
+References: <20260326185413.1205870-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 30 Mar 2026 12:57:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,130 +96,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026, Jani Nikula <jani.nikula@intel.com> wrote:
-> When big joiner is enabled, it reserves the adjacent pipe as the
-> secondary pipe. This happens without the user space knowing, and
-> subsequent attempts at using the CRTC with that pipe will fail. If the
-> user space does not have a coping mechanism, i.e. trying another CRTC,
-> this leads to a black screen.
->
-> Try to reduce the impact of the problem on discrete platforms by mapping
-> the CRTCs to pipes in order A, C, B, and D. If the user space reserves
-> CRTCs in order, this should trick it to using pipes that are more likely
-> to be available for and after joining.
->
-> Limit this to discrete platforms, which have four pipes, and no eDP, a
-> combination that should benefit the most with least drawbacks.
+These macros are unused, no point in carrying them any more.
 
-Ville, I think it's time to review and, pretty soon, merge this.
+NB: these macros were just moved to bounded_sections.lds.h, from
+vmlinux.lds.h, which is the known entity, and therefore more
+meaningful in the 1-line summary, so thats what I used as the topic.
 
-Our IGT changes to deconflate CRTCs and pipes have been merged, and
-there's the removal of invalid igt_crtc_t at [1] left. The trybot CI
-results on i915 for swapping pipes B and C on all platforms, not just
-discrete like here, didn't break anything either anymore [2].
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/asm-generic/bounded_sections.lds.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-I'm contemplating slapping Cc: stable on this too.
-
-There's the FIXME on the CRTC index warning. With the A+C and B+D
-pairing there's no issue, the CRTC indexes remain in that order. But can
-we ever really end up with B+C pairing?
-
-
-BR,
-Jani.
-
-
-[1] https://lore.kernel.org/r/cover.1774856079.git.jani.nikula@intel.com
-[2] https://patchwork.freedesktop.org/series/163597/
-
-
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
->
-> ---
->
-> v2: Also remove WARN_ON()
->
-> v3: Limit to discrete
->
-> v4: Revamp
->
-> v5: Don't screw up the loop variable, dummy
->
-> We've fixed a ton of IGT assumptions on CRTC index == pipe, resending
-> the patch for CI to gauge where we're at.
-> ---
->  drivers/gpu/drm/i915/display/intel_crtc.c    | 29 ++++++++++++++++++--
->  drivers/gpu/drm/i915/display/intel_display.c |  2 ++
->  2 files changed, 28 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-> index b8189cd5d864..c7b6ebe8f3e2 100644
-> --- a/drivers/gpu/drm/i915/display/intel_crtc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-> @@ -393,8 +393,6 @@ static int __intel_crtc_init(struct intel_display *display, enum pipe pipe)
->  
->  	cpu_latency_qos_add_request(&crtc->vblank_pm_qos, PM_QOS_DEFAULT_VALUE);
->  
-> -	drm_WARN_ON(display->drm, drm_crtc_index(&crtc->base) != crtc->pipe);
-> -
->  	if (HAS_CASF(display) && crtc->num_scalers >= 2)
->  		drm_crtc_create_sharpness_strength_property(&crtc->base);
->  
-> @@ -406,6 +404,31 @@ static int __intel_crtc_init(struct intel_display *display, enum pipe pipe)
->  	return ret;
->  }
->  
-> +#define HAS_PIPE(display, pipe) (DISPLAY_RUNTIME_INFO(display)->pipe_mask & BIT(pipe))
-> +
-> +/*
-> + * Expose the pipes in order A, C, B, D on discrete platforms to trick user
-> + * space into using pipes that are more likely to be available for both a) user
-> + * space if pipe B has been reserved for the joiner, and b) the joiner if pipe A
-> + * doesn't need the joiner.
-> + *
-> + * Swap pipes B and C only if both are available i.e. not fused off.
-> + */
-> +static enum pipe reorder_pipe(struct intel_display *display, enum pipe pipe)
-> +{
-> +	if (!display->platform.dgfx || !HAS_PIPE(display, PIPE_B) || !HAS_PIPE(display, PIPE_C))
-> +		return pipe;
-> +
-> +	switch (pipe) {
-> +	case PIPE_B:
-> +		return PIPE_C;
-> +	case PIPE_C:
-> +		return PIPE_B;
-> +	default:
-> +		return pipe;
-> +	}
-> +}
-> +
->  int intel_crtc_init(struct intel_display *display)
->  {
->  	enum pipe pipe;
-> @@ -415,7 +438,7 @@ int intel_crtc_init(struct intel_display *display)
->  		    INTEL_NUM_PIPES(display), str_plural(INTEL_NUM_PIPES(display)));
->  
->  	for_each_pipe(display, pipe) {
-> -		ret = __intel_crtc_init(display, pipe);
-> +		ret = __intel_crtc_init(display, reorder_pipe(display, pipe));
->  		if (ret)
->  			return ret;
->  	}
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index b18ce0c36a64..f0843de362fb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -5971,6 +5971,8 @@ static int intel_atomic_check_joiner(struct intel_atomic_state *state,
->  		 * This works because the crtcs are created in pipe order,
->  		 * and the hardware requires primary pipe < secondary pipe as well.
->  		 * Should that change we need to rethink the logic.
-> +		 *
-> +		 * FIXME: What about with reordered pipes?
->  		 */
->  		if (WARN_ON(drm_crtc_index(&primary_crtc->base) >
->  			    drm_crtc_index(&secondary_crtc->base)))
-
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+index 280a893bbe29..416b2e6f6788 100644
+--- a/include/asm-generic/bounded_sections.lds.h
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -18,19 +18,4 @@
+ 
+ #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
+ 
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
 -- 
-Jani Nikula, Intel
+2.53.0
+
