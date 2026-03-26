@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF0C10D14B2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A34110D14B1
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 720BE10E74A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 171F510E742;
 	Mon, 30 Mar 2026 12:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k2rJ5HDF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="q7SaHxTh";
 	dkim-atps=neutral
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
- [209.85.160.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C54CD10EB82
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:45 +0000 (UTC)
-Received: by mail-oa1-f53.google.com with SMTP id
- 586e51a60fabf-40efc77933fso853332fac.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:45 -0700 (PDT)
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
+ [209.85.160.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 044BB10EB43
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:41 +0000 (UTC)
+Received: by mail-oa1-f48.google.com with SMTP id
+ 586e51a60fabf-4042fe53946so520045fac.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551285; x=1775156085; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551280; x=1775156080; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
- b=k2rJ5HDF1ha7PEtUWfC5Z8ZonvFK8KviMkOUsanftQekjClC9Dc6NUiftoY+Ei+BqK
- GvqEZTLwwglzDPGhVxvPM8x8dDCDRzGEbW/4h7xbp5oukTd96MaxzJD/xDyJNc2hJZDN
- B5ITDp/xrPoc77yLljW9UkgVl2GyCj5oOgJ9v+pdX3FbNposuIx4KvpXKGMhlU8UhlxZ
- EMxvI1abDiLlJBFy0W1jFDSMTSpvKr4aQCDOGYgo+z7C29yXpb0LAMt4IS/zvjzKu5Lc
- evccn8Q0uArQFHzSAgc8p5DeNhq7PzYzfYgrAwqcUqmEqjfN9uq34RGuIvQ1xx6VIFpN
- Wysg==
+ bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
+ b=q7SaHxTh7CfuOSjmFHrwJ5Ge22mn+MYijaUWx6/lV2YxeJgV4oMzqBBtBokfRKhj3D
+ MOL7OHE8gtcvhqxMgowHrB804KrIAO9bZWHRx4voIk5UmQQ3J4MKJvW2FsWD1RqPzEt5
+ gPjIsxEh/WSXBr2SoaKMFLL6jBYxeASnYwyTNvMGV3yuQsutLJgFvfggngz8xu+BZ57S
+ 4qA0Z15Ujb4AscWPIyGAosoOP2zKNo78P3lrGQglztMKTKjeeYhyx2D4mH6g0dlc8I5A
+ JcDIFapbiqfE8ETsV7nKuZQy+ifx7buDPHTQ8FrQ/HKbdf6tMj5AoGjutTl14y2AisiZ
+ ouUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551285; x=1775156085;
+ d=1e100.net; s=20251104; t=1774551280; x=1775156080;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
- b=ktDzZzRkI+3TWUzWADD3AqFpF3zjizuURq6D4yBQO2cL5lW+T8qNLWlHC/RnG+prGU
- TaDtbMcw7kR9ZpdCfSOc1hkSy+ty+ybI5fVdDRswa4j1FOcIqUPMS37Y4i3G+xG+wbbx
- kLGk7Py7+5yjrfgXpNQDEBhegq1kImQOTJA/GDAj+mwBGLtkJhNhj0gHYZeuJAbwa0zy
- ZTVEtaNG8smPOZsNwpKmwA7znDGI8rAlZW51zmtZApsalrr2mmfdlD3SXsQ2Tgyui0wa
- vxTz/h2w3Aj7JcHC7KZieUUB8DIMMYSL4oycHYdF+td7seQh/Dd5Y1Oz/l2YpI/De4zq
- tCtw==
+ bh=vld9IFfyvePqt5M1J9/OwioGOqjnLV2rFk+KzTunpXM=;
+ b=OUvY9IQpdGYohJZeVpyZAKO6yY5HZezckAMKBdlhbKgRqyYljAksfyEEnFyr5FXRzo
+ Sfsm747DsHpwuJjsFGkuDWZg4D82fExkKWTzFRv2QTSZQhuNrQqrRA8otwzUdWEiTFfo
+ RA3xCYi/7npplGS5934/3rjhsMVG0Wcjj4PuBNCBjdEdUSHijYjHenATWMDFu4yx/411
+ jrqA5iHvYBN7nJx3egb79H/TKkD/pC8dHxMzp4gFlGQ68tNTaX09BOmpb2HCrM8GcRnM
+ abhABNZaAmZe5CSrFkBOG460RZfumr/6QtLJqfDGGg0uAXoarR3hu0JKzC4OYEy1jBQ0
+ waow==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWDbwx2duIBSDpyuDrk5vmIAaOP27I4f0LHQaO8bGXLc9eYHqyg3g3GiMaEn2+qbLPkQ6dVuRxEjX4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFdVSL5U75RCb6Xyp3+0s9uE/eUjHxg4Um4qKaKJogpO9wj63p
- gtw6vyVZs5YJ6ZOdQmtOUmidcYrDsLF85vrr1VgIbKJSjPS1llvWvcaw
-X-Gm-Gg: ATEYQzxS2jB7WX0e1W7uBBAHMBIWo5Is1m8t0IVgg8sIqvodGlFy8erclsQvC/yjR3a
- Q4GqzQ0Y5DDNcVNKTIOrsOjhRKfDS9b+8yvsTwI48R3KpzVdl3IhDrUuSH+h2/19r1MQT66eTHu
- wESrfXPLDOBT1kZJhhKfoFARcJkolC3MpjXVMCMjrC74CMEgDT/7IGDJhUxpblPSa+DChYy03Ow
- IPqUk6lYC+NeRDqORXAoTHVXdR6CoCmJYOytKDaVJUGupHGPxkuk9Gt/qhg45vu+zkfxr2EvjCw
- TzDaEgVrqnMDEdSNbM+uDZg8gFB8GQliK4etEAgn8aat3QIOfFgJf8ZU0KYUQvVUV3ks5hpzjfQ
- q10xi24m3zKo7ARBWcPKxUUB2udtf0AuKocUZ8S3wgf2YgA2YRUEYb0W+UrSSssqiEf8eEH9Z0T
- Cmdhzc4ViDY+NRdz13e+x1KVFGSpz53VJvCQiVWzfUI0Wf082yzs7cthcacLE=
-X-Received: by 2002:a05:6870:20c:b0:417:2156:ffea with SMTP id
- 586e51a60fabf-41ca6fcb4f3mr4549318fac.13.1774551284964; 
- Thu, 26 Mar 2026 11:54:44 -0700 (PDT)
+ AJvYcCUk+zCGIf1+4bdxtSI+Ywf9SM2taHeuj3Fd0Xl8jQ25k/kln7295L3SZjNEWHy9+63XR19a4wmN9x0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyz369xqHN2Ph/ZXNou+S9W1Q83nKeC42Um/APY0iABdNwfFUzN
+ 67Y8kiljTQLtgFYSxANa63+p5R7VGIDqPxycwR1RLsvj+NXqJzZrT7Lc
+X-Gm-Gg: ATEYQzwvG7vMSz96Al9kei9k2f6tm5ugRQ99gADnefr4Hoo+2hHB2vVCjt2RtMecPdQ
+ cYEWsPI4PqdFbQeusXzFT6AF0H92TECe0Fbkic1fq6R/Y64dt3hAg5Lop07w/J364Nue14Iek+J
+ BjMOGbVap9B9lx5sb3iAa7ohcE1LivDqYtiRNKcWcNw74OvVW8ek7hbURRsM1BWxx5PgBuZg08j
+ ThgRD24CZFnENAGtatQMLgBC5Af+CkXa9V+fgU2ranl/QAZhp5nAeB/B3l0i61VOqXnnMfMhzRn
+ +J8p6tbXnyf6e8KLAwZlKl/ayOWM0T46x9wDf4Ykm5kh4znIjU8s1lBbi3LmCWaBsKWaS+iJTQJ
+ cFUzEh2LuRl6rq7OdhTZIK/+MI+e3o1RK7ETFcdPyzYqO4pHXGwWqXDFk+V9416iblFigD4ZAnF
+ A5L8PD5QBULgh+xWx/tU4adgWSBpjX7rYtHF348GshUbZv5x24
+X-Received: by 2002:a05:6870:2e93:b0:41c:b780:93c with SMTP id
+ 586e51a60fabf-41cb780158emr4151613fac.8.1774551280220; 
+ Thu, 26 Mar 2026 11:54:40 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.43
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:54:44 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:39 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,10 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 10/69] dyndbg: reword "class unknown,
- " to "class:_UNKNOWN_"
-Date: Thu, 26 Mar 2026 12:53:14 -0600
-Message-ID: <20260326185413.1205870-11-jim.cromie@gmail.com>
+Subject: [PATCH v12 07/69] docs/dyndbg: update examples \012 to \n
+Date: Thu, 26 Mar 2026 12:53:11 -0600
+Message-ID: <20260326185413.1205870-8-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -97,32 +96,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When a dyndbg classname is unknown to a kernel module (as before
-previous patch), the callsite is un-addressable via >control queries.
-
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it uniquely greppable.
+commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
+changed the control-file to display format strings with "\n" rather
+than "\012".  Update the docs to match the new reality.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../admin-guide/dynamic-debug-howto.rst       | 20 +++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 6b1e983cfedc..a9caf84ddb22 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_putc(m, '\n');
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 095a63892257..4b14d9fd0300 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
+ 
+   :#> head -n7 /proc/dynamic_debug/control
+   # filename:lineno [module]function flags format
+-  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
+-  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
+-  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =_ "    %s\012"
+-  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =_ "    %s\012"
++  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
++  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
++  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =_ "    %s\n"
++  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =_ "    %s\n"
+ 
+ The 3rd space-delimited column shows the current flags, preceded by
+ a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
+@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
+ 
+   :#> ddcmd '-p; module main func run* +p'
+   :#> grep =p /proc/dynamic_debug/control
+-  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
+-  init/main.c:1426 [main]run_init_process =p "    %s\012"
+-  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
+-  init/main.c:1429 [main]run_init_process =p "    %s\012"
++  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
++  init/main.c:1426 [main]run_init_process =p "    %s\n"
++  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
++  init/main.c:1429 [main]run_init_process =p "    %s\n"
+ 
+ Error messages go to console/syslog::
  
 -- 
 2.53.0
