@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22BF210D14B0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6E2110D14B6
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B5C310E6F2;
-	Mon, 30 Mar 2026 12:57:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0EC10E6F6;
+	Mon, 30 Mar 2026 12:57:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Lgm8kYVx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f6sNWf4n";
 	dkim-atps=neutral
 Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
  [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5E0410EBD3
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39EF910EBF1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:02 +0000 (UTC)
 Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-417571c6083so746874fac.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:26 -0700 (PDT)
+ 586e51a60fabf-40f387a688dso1105457fac.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551326; x=1775156126; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551361; x=1775156161; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=U461BxJhRY45gNpAWL37hzV1gL48r7XKATdpr+1ais0=;
- b=Lgm8kYVxz4VV1XOLEvaGh9N7OWpoTsHXNkDRq57fTT7M2fgTTV2/r2s9c1BIhHqdsq
- pH/+bQp6EnucPLKf+9fbUcxBVHJVbX/U1hBe3+vyOt20UQdfqDroFrI+wjcXOYi+jUDq
- hDCrCWr7PkmdmjMoLI/SrjtkjF6wmFHGJjnV1tc3mMtvXzqfRxZVqzBecyQg/UXJRFg2
- 09tM1XuIZXcfICaa8sfNjsuNcTg758FXNojFN+wjbnhOylgzTnx2KncCKU3upDR3HxJg
- ZW3WTX4YfCTP+ePqLe8MoTwkQQnfcR7o2ptxpA+/hVdPT2MI6qg2iiNJHCS2aiUlRXyo
- 86uw==
+ bh=hkvDWdY7OmvSXSpjnEXWJTz2q+ynFgJjHoQA2h5Gn4E=;
+ b=f6sNWf4nDUQIKef+ex8VL4Cihv0ZtbNl98WZhd5bg5JWD2e0bybN0NSAIzH0JxO3Rw
+ YjGyIoJYrp6dc8zMNsvMo4IoWCreyEyJLcF/pG/SboNpr/Dyuhy7Pxmp57RwZ/NQ0797
+ /bIB6f7RV4KupxX9Si2zq5PzNbKkt+z5lZ+mqKOtv6lrOMXnVEJf6d2ac/+yAMUXqcoi
+ sAEsXwS90Uy0yRyZBXD+nQEkYUJZbVWaTTH6QXxjQdK4PnDn5nVokv0jeitEkZhVYYyw
+ 8GXV8C9LW9Kb8x9glPnhUicW51XlR4rS376ws8aZiipU33/RaDQnmlyXv3C3uFUNwaZB
+ 1vSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551326; x=1775156126;
+ d=1e100.net; s=20251104; t=1774551361; x=1775156161;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=U461BxJhRY45gNpAWL37hzV1gL48r7XKATdpr+1ais0=;
- b=L5MSUX79y8FJOGwHilnYCnUPZGbYDWKPjCeFlVRYXdfHeIHvhVx7POcanA4aBV1bp9
- b4ah/7r19iRvXOnHpcoTLavBOUT68n1Vd/scU3J9WaB8EScZlWcWKayMUuat0XTt3HgU
- 7s0XMqX86iW9G0+7doLFD3XGaYgZLGCldCJAOBQ8kN3RueJOPgZSnyVP+q5GUd5/Kxgo
- 6FEQ7uZGpi3gnByZtfbHCSzRQOMJPTIvh4ygbSJp33Fuo9ysHEwx9QhkWzmJH5FCMgpW
- OCfiBCdw1LkkZzPQJQrag/KOR7W36VoTODZUMnWL620c8F2gfukRIT2326VMWFlhqhLc
- 8INw==
+ bh=hkvDWdY7OmvSXSpjnEXWJTz2q+ynFgJjHoQA2h5Gn4E=;
+ b=JiwdN7AJGCup11MjPFoxyXOGoDuUJbvGmUeFyIXziDIZT3W78TWhmXP7pVb0KwVEOz
+ KtM109XGR8gZVNH4gbwWW0xc0P+WN0aQiIquoIrREnTxf1EyGBbaIsIUj5Dw1XVTrjXw
+ 1mjorY3PhjrajUCcFm51pTuKsAjbxx22tXP+i8shZ9d01+u4ygRpInmdyEIHQFhFcLQ3
+ Ht7dEjXp11tkhOzYBSfnoCsRn3AztgAU2QXprSDWlUyPSz/7pZz/OMtDoa2Gm7VZFi4u
+ 2Ov5l8EHZwXBKXDgbOi/gAm7piyC0zPLBulwFp+yELCAPvGQTzx/BMrZurlgpU3cvc9h
+ qWNw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWpE3z5mDheCpj4MkOCcip66UuQy7ZFG2MS6MXCea59PjW/MUcctHVKx8aKV3hNfQ8Gu+7b4isSo4k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0Ytcov+VRmvrGK3lRMdF8N7AcXE5l6oORiPvNqQWU9dxMqY+R
- 01ptksz4A2YoehEnSBL7kpshyEAmwca0HCELCV6StlioNQTHnNkE9BCg
-X-Gm-Gg: ATEYQzwcVPYyt7cW4Jby2/adsFbE93Uojq98fm0bs2jTpamiJbQvizOIj8P5ZMKRrpO
- pr3nHEnwiE4J7LbzFs4gaXouG71+20KdNj0Nt8ooKjV9OafZtaTsSpTFTo8vgu0fiXNa3BOBbXS
- mlGUdlTyrJexpdxW2SHanTBYPJTuUx/2s183xukg9FspInDTTB1LgUqLLoTOcGdBEooauSyePl/
- HE+J/SLPpaL6U+3w7SxH9Kj5OL32GsRkAo15frm2PuNrGHjHlgUUjh702au/HzRwIaO3HklkNEV
- SLdy+hrrSbfcCXtSRNwyzDhfrdsRXvl3zc9esvJrvaPH8CicCz5n16fIjFhtvJSBZi5hednQEt6
- mAlebzmDUPwzUcGhxSx/om/NOSf6cTBmt6sXGsKPJ/HJyMiT7nY351t60nTJ2tnzO8S5rqlm1k4
- I+xAcX03TFLVTI1HDkBwkojIiq0QYJ7FTjFOumep5Ch3ApQhKP
-X-Received: by 2002:a05:6870:5494:b0:3e7:fa5f:7269 with SMTP id
- 586e51a60fabf-41ca6d6a46dmr4909366fac.2.1774551325975; 
- Thu, 26 Mar 2026 11:55:25 -0700 (PDT)
+ AJvYcCXBCVpaHE3DmasLYGN/7wbA+2Dh/v9BO36VGxBHiCLwcsCKs5I1ZgZ5RD6Nahrs7pIiVV2PoVUZ8F8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyE7ZXKOadgaldeW0KUG5OpMLap9ygV81Ku1HraNiXNQJqn/J4k
+ QMJFMkQ0H1wO8cjGZH14VBFM4bTOWFwLtOEOPYZC00bV+pQiOFVfGJKt
+X-Gm-Gg: ATEYQzxxHO2k+pqISpUWfUKDI/7dA1dmTu6drJ8+3nE2cBrvNfI1jdRWXKOGeSJOIuo
+ q0q156lxV6LNFtsOi60xdx38HiMbbzzGVxHE++bSAyltZqlxu5neH7oHIUzPj5YUqm4g7qiKH+U
+ y31aFkT5IX8xbmnB0nA4Q3GeCXMERg7bgZdYCyiFh4dX4cCHWw7l1SpF6OT2ibJX8ywagVChfwe
+ WF/dsyLzL/f8XLN3TnpfkR4LWqVPPNo2PrWPOrH4xKr+FTXsf+C0CtVO2LgfOjh9QdGPU+n1D7V
+ kMOJ2AkPn+Ds1BTdCLbbUhPxMeN20JAUS7SZq7opM+b/rxVxjz1foS6K65yg8cZPJ3t1UE+acVr
+ fmBlUEAkPjU8njeByhXwGOxXOJHRrVKL3al2Ak5VLFWma0aGHh684WcZfE0Pep+ciAHPuOmngjq
+ 2Y6Op0Mp1teH7wckp8x6kqbnp/Z/xiSLKGjfHFJQrX3S4oF40T
+X-Received: by 2002:a05:6870:b14b:b0:417:56da:593c with SMTP id
+ 586e51a60fabf-41ca715dbeamr4692008fac.45.1774551361348; 
+ Thu, 26 Mar 2026 11:56:01 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.23
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:25 -0700 (PDT)
+ Thu, 26 Mar 2026 11:56:00 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,10 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 37/69] dyndbg-test: verify DYNAMIC_DEBUG_CLASSMAP_USE_()
- compile-time CHECK
-Date: Thu, 26 Mar 2026 12:53:41 -0600
-Message-ID: <20260326185413.1205870-38-jim.cromie@gmail.com>
+Subject: [PATCH v12 59/69] drm-dyndbg: add DRM_CLASSMAP_USE to udl driver
+Date: Thu, 26 Mar 2026 12:54:03 -0600
+Message-ID: <20260326185413.1205870-60-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -97,32 +96,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add another failing use-case, this time to verify that _USE properly
-rejects an offset > 62.  This is an incomplete test; the proper test
-is: classes.length + base + offset < 63, but the macro cannot test
-classes.length at compile-time.
+The udl driver has a number of DRM_UT_* debugs, make them
+controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
+that the module uses them.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/udl/udl_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 779309898422..72a1a1c89cb2 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -156,8 +156,9 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
- DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
--DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60, "one", "two", "three");
--DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 100);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
-+			      "base", "plus", "classes", "length", "too-big");
-+DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
- #endif
+diff --git a/drivers/gpu/drm/udl/udl_main.c b/drivers/gpu/drm/udl/udl_main.c
+index 08a0e9480d70..58fea20a1e81 100644
+--- a/drivers/gpu/drm/udl/udl_main.c
++++ b/drivers/gpu/drm/udl/udl_main.c
+@@ -21,6 +21,8 @@
  
- #endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
+ #define NR_USB_REQUEST_CHANNEL 0x12
+ 
++DRM_CLASSMAP_USE(drm_debug_classes);
++
+ #define MAX_TRANSFER (PAGE_SIZE*16 - BULK_SIZE)
+ #define WRITES_IN_FLIGHT (20)
+ #define MAX_VENDOR_DESCRIPTOR_SIZE 256
 -- 
 2.53.0
 
