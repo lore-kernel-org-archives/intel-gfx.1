@@ -4,82 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45F1110D14B7
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFD310D14B1
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D4A10E719;
-	Mon, 30 Mar 2026 12:57:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC25010E715;
+	Mon, 30 Mar 2026 12:57:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="izavzM6r";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zu+vi89M";
 	dkim-atps=neutral
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
- [209.85.160.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1A5810EBEF
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:29 +0000 (UTC)
-Received: by mail-oa1-f42.google.com with SMTP id
- 586e51a60fabf-404254ffe8aso774815fac.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACAA10E9E7
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 15:20:09 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-66b18af8c88so104957a12.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 08:20:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551329; x=1775156129; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=linuxfoundation.org; s=google; t=1774538407; x=1775143207;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
- b=izavzM6r3fKe0qk3c65nD4xsENxTsjUFoMxZtpFpXily1O4EngvisOya5qKP9bEbEI
- cjWSv0c12dUI+PnfrcJpwlbl31DV5mSyJcLBlDs9AxaV3B6p/oi7daq0IAanXxq7ciRf
- wu8ZjgrNwlxqDwd7nmPKa7tdbmBPmMWWN0INk89FLOvy8cmXflAtgBs2eLlY6kZfruQg
- 8L61MFB/0vIFScrtv45CIH+2IS4r7vOyJF7POwGtdrLa84u647SJZy+RPm9M95TqZ2JS
- hDIPPGQMra5LvVv+pK905/GdVATufteh9iMvvSUAaw/ek61BNGQA0FVKYHQwmUAwffwH
- cmuw==
+ bh=J5VwSVLrZu02gODrnOBU1zsYKEHs5QD8MREnECAvLw4=;
+ b=Zu+vi89M47MDC8jnXkdQOj2YbFkUCY99g8KSe+NPFODOz3IeUNlxmSKY377zf7eljt
+ 3jNgZtxogvpFJNWuW+D58X0po7NnNcXfkRVHC9WRNy/VlMOPch8vZpQaJY5jHFYac2uB
+ UuTfk6Av3elNARjTpYw1FswyXRBqY58TFgcMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551329; x=1775156129;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1774538407; x=1775143207;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=BSisvrIuxABye56v+k4UdRTAwS5HV0U80AJ6AJkDqLc=;
- b=r2298f2N2Kw3NoroyNmwcful950jixkiyDV8M713Ori5NZmJt5smrnaET7rNGciW/v
- 5IInSH+Qvae673/KBWIr+cle/8JdXlMTLocP/xaHfSSYqbKe/sxGMbwdNrsf2T9K6+RM
- ENtgExXSh2nuV2Z+WnFo6euOroo0MSqyABAN2oE0XCFKLLpC+iG+gfRJKwRQMbTolXXT
- HANZT9AuDO/mXxKuqHavb3+tOto6pGNAsyHTaiJG9N0Ynhw7zdl3FSLDQDl/mjUKra+N
- OI+WJXXEuF8meWiZ9u7VnQwCEBsVHZJbKh7ovjtA6t+HZuJEdHWg2Y4a1pdcSTu9bruX
- HWZg==
+ bh=J5VwSVLrZu02gODrnOBU1zsYKEHs5QD8MREnECAvLw4=;
+ b=oGvS+90ZK1C1sn2bfTWc7WVh9ZEbgC5imxFZHkJaBqW+g0pvvUv4NW9m8kqS8ioY9F
+ WRdJd8iOP1IqkEoaQiFOJeDjBv0N6gDP46foBWHYHvFbI74yXR17Dhciqg2DBL/8cYDJ
+ MKSK5FqEnb/PtcxgD+gAuSsrCVwR1+3Yh6EZpBXOnpMepTyiJ5xrgyeTenHQw0kKfq5k
+ u0thdIcW5lkRUcFWB0CEiT/vL/FL3ZoKK6AFZ7+z8ZS+BNAXMjOuwsSw/L4jzciw6w0Z
+ FCI1aiQHVMHVdP3+OH3zfD5UEkhZTwd701mGu7aUky9BcUo4sOf1bpLhrI1clLF3uQCT
+ EMng==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXmpatzNM6CqwMS58k4IIgS+/quGCD2e/AouY9U4/N0gru+2vJ1q/kczNTgneAVBL+GyPSfcFP1FBQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzu/EWbpudLGvAhkG3Ug5zM+N9WNXWxHej50ytPMKnvLFqTLij6
- j80Y7eXbBS1IC2vnUsJ3R4+Soz9Ajsq//ZE7IpcV94rN2XtF7d3mqOOj
-X-Gm-Gg: ATEYQzzqW37dmacNGcWM4RTYtrPahLO6QmwC1MM12k9m6pAL6eUXZnviRin4JOq9wdZ
- Bvm6RQ/35ZtVCZD5pkyBG0g+SzWLAJwe/c0qg623LF5PJgNlA98qU4xqn3iEb0eD7uiln1o0LGQ
- 5yBJaswSmcxMIGlZI4rsLYs98ywTKGAMcWu2IZj0Es3iLsSSk/koeCFGtpVYzA5mv4sfUpYCnbN
- 1QsAKFWrEW1/1irMfMlYJLzRJ87+urrL/chTBjEjri+BgUqK8NKTfFM1buqtd+uxj5gf9fKCZN6
- hA8R7V1MUKzfVQ2J3OySkuIG8pupURgScx2JYeZfPh9x6wmrtnGQ6z6SwhePGlRQrV2X0d6bSXS
- G3ty44vOv8PH6WoxvrelrMTZA1wyDMlBcaUQJnDtLWwQdydzoXTyy/xc/sVY7AijQWcCW0Wop2t
- vdPNNWSrnKDxspw0fQFMKBUdrL2jmOaMZCVwodUFK3zKcAcPJ21P774rG0pyM=
-X-Received: by 2002:a05:6870:b0e4:b0:40e:a9c5:5c32 with SMTP id
- 586e51a60fabf-41cd7b187d0mr1250153fac.8.1774551329111; 
- Thu, 26 Mar 2026 11:55:29 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:28 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 38/69] drm: use correct ccflags-y spelling
-Date: Thu, 26 Mar 2026 12:53:42 -0600
-Message-ID: <20260326185413.1205870-39-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+ AJvYcCVJFUVpOitrl3jLBjzhVbwsCPBWkCCJVXQliLpTb2lFTU38nwVyUF8pKJR6YD4N4Rpv2zaM+W9/AZ8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/Zkg6t5KSNFiBjviKgrUHkQedoU5gdRc1BlzP1yMQtS+A7Bqo
+ pApZbIOaIcHwIkRkFxV154+ihA/p+wUwS5NkOEe4Nm7/NdTaVHpfjIHMBth5KKheKj25FqS5X2l
+ r25COYCk=
+X-Gm-Gg: ATEYQzxtw2GNMVwkBCCJMEPAYp7I/ji+eNrX6bjiQKXjrQmPAxe9UWe+fCnRXGn415O
+ 9PFataC1FtvdVaDOt8bsj2Lh44Qbnk/QJWuybJrstRNQ4JG7jz81huNqkrmC3RuQwaAmeswmodL
+ CNmBW1CaGZUjfFXY0pLWCBoAX0Ccbl7wWu+M7YyVWSZmzeOnxJj3iOlfoeH0UovGUieUR/CW127
+ Qm8ClCCUYZGNjWYAzjKyuYrACM7uZOP5zueBpZHvTyQO+DXibEM+5+NzEWujsdd+vY6r66Pad2R
+ P6vwy4EKhe0biCYNBtaozFJCJNafPql4tDF+G8Wx6TqwzdNV0W5Gh5E2K/jubhl5Vt/0XH2eyTk
+ eZTculPDYyn/QfW4KlifN83+0dNAJUqecV5kB+GnVTt/iakjctNPaOAm/jWcmFCvkgtXCZDwH3a
+ giuUbNVBTWVC2+c2MAGu7d1a7k0hy/qafSwKdsI8H8s4SfsIteK42x3OXgY/4mU+BmyVtJGEs=
+X-Received: by 2002:a05:6402:46c6:b0:668:599e:1035 with SMTP id
+ 4fb4d7f45d1cf-66a8261ddbdmr4971832a12.2.1774538407223; 
+ Thu, 26 Mar 2026 08:20:07 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com.
+ [209.85.208.53]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66ad6a4ec00sm1144093a12.23.2026.03.26.08.20.06
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Mar 2026 08:20:06 -0700 (PDT)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-668d4751a3bso1559645a12.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 08:20:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXnF0br/WhYwqZsF/YxdXskpFBXedz012azaFUtq0rk5dyFDuBOmdTG/SI/uLhtvpNCDwJh5l8LF2c=@lists.freedesktop.org
+X-Received: by 2002:a05:6402:46d1:b0:66a:199d:12a with SMTP id
+ 4fb4d7f45d1cf-66a826d6b44mr4587446a12.24.1774538406265; Thu, 26 Mar 2026
+ 08:20:06 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260324151741.29338-1-sosohero200@gmail.com>
+ <acUnQkniqECI0QVY@intel.com>
+In-Reply-To: <acUnQkniqECI0QVY@intel.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Thu, 26 Mar 2026 08:19:49 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wg6JqsqxrdZi6ruuV0pf3PdYWo0tm_XBWe+r=NSnjvHRA@mail.gmail.com>
+X-Gm-Features: AQROBzBqAMCueS_SeETvVBTTiKjI_km_I1doFSxMVYDSlm03kmy_SF7PQp61KJE
+Message-ID: <CAHk-=wg6JqsqxrdZi6ruuV0pf3PdYWo0tm_XBWe+r=NSnjvHRA@mail.gmail.com>
+Subject: Re: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in
+ eb_relocate_vma
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Yassine Mounir <sosohero200@gmail.com>, g@web.codeaurora.org,
+ gregkh@linuxfoundation.org, 
+ intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com, 
+ rodrigo.vivi@intel.com, security@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 30 Mar 2026 12:57:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,36 +104,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Incorrectly spelled CFLAGS- failed to add -DDYNAMIC_DEBUG_MODULE,
-which disabled dynamic-debug in modules built with:
+On Thu, 26 Mar 2026 at 05:32, Ville Syrj=C3=A4l=C3=A4
+<ville.syrjala@linux.intel.com> wrote:
+>
+> Should we not do something like this?
+>
+> if (likely(vma && vma->vm =3D=3D vm))
+>         vma =3D i915_vma_tryget(vma);
+> + else
+> +       vma =3D NULL;
 
-CONFIG_DYNAMIC_DEBUG=n		# 1
-CONFIG_DYNAMIC_DEBUG_CORE=y	# 2
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y	# 3
+That looks much better. Returning a vma that you looked up inside rcu
+without gettin ga reference to it looks very wrong.
 
-NB: this adds the flag (when 3) more often than strictly needed;
-modules built with CONFIG_DYNAMIC_DEBUG=y (!1) don't need the flag.
-
-Fixes: 84ec67288c10 ("drm_print: wrap drm_*_dbg in dyndbg descriptor factory macro")
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
----
- drivers/gpu/drm/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index ec2c5ff82382..da36a9dbf170 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -3,7 +3,8 @@
- # Makefile for the drm device driver.  This driver provides support for the
- # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
- 
--CFLAGS-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
-+ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)		+= -DDYNAMIC_DEBUG_MODULE
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG)	+= -DDYNAMIC_DEBUG_MODULE
- 
- # Unconditionally enable W=1 warnings locally
- # --- begin copy-paste W=1 warnings from scripts/Makefile.warn
--- 
-2.53.0
-
+                  Linus
