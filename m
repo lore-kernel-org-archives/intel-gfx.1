@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4F0B10D14AE
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AF0C10D14B2
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE0D210E740;
-	Mon, 30 Mar 2026 12:58:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 720BE10E74A;
+	Mon, 30 Mar 2026 12:58:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CjHObJXX";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k2rJ5HDF";
 	dkim-atps=neutral
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D3510EBF0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:09 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-467161c4ba7so761453b6e.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:09 -0700 (PDT)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C54CD10EB82
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:45 +0000 (UTC)
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-40efc77933fso853332fac.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551369; x=1775156169; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551285; x=1775156085; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=S4W3w9+Cd3LB8UtvA4xSE2rspTRatyv6KzC/l1k+Ff0=;
- b=CjHObJXXc8iTOat71jFYbA0lC96kHEBouJWuxm+wM4YfaHcKhFCrj++EdKTfowfnwC
- t8a/S9O5YE6HtmHRuJg+G+Sllih551sfoQHTSBqqoZ2wgsCFG9WuFCFl4DgKfYHqY5wC
- tfRQIIr9fnVL3hbVAI30tDJQ49bACzyAdvI6UkP57QN0UYAzKg5QjFjGu3zuHP2Iy6IB
- qGr1oGsFfQssyphIjhBlCinGOM/Uo2lEtyXIR2XV54GAA/H8PHpawQgQDzDt2uA/P/bg
- +evSE6hdk+Iptp1CH/nC+uCdn2I7HHn8hSoc92ZR5knKv0zjPrq2F5iESzXZOPb568kW
- UPdQ==
+ bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
+ b=k2rJ5HDF1ha7PEtUWfC5Z8ZonvFK8KviMkOUsanftQekjClC9Dc6NUiftoY+Ei+BqK
+ GvqEZTLwwglzDPGhVxvPM8x8dDCDRzGEbW/4h7xbp5oukTd96MaxzJD/xDyJNc2hJZDN
+ B5ITDp/xrPoc77yLljW9UkgVl2GyCj5oOgJ9v+pdX3FbNposuIx4KvpXKGMhlU8UhlxZ
+ EMxvI1abDiLlJBFy0W1jFDSMTSpvKr4aQCDOGYgo+z7C29yXpb0LAMt4IS/zvjzKu5Lc
+ evccn8Q0uArQFHzSAgc8p5DeNhq7PzYzfYgrAwqcUqmEqjfN9uq34RGuIvQ1xx6VIFpN
+ Wysg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551369; x=1775156169;
+ d=1e100.net; s=20251104; t=1774551285; x=1775156085;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=S4W3w9+Cd3LB8UtvA4xSE2rspTRatyv6KzC/l1k+Ff0=;
- b=GSXEJi0xuWFuRHml7Jox/o9P1CFbgQLTAHz3T878+f3PEybD9OTxbgvCv95gJ4HN2J
- vogVAGyZe34IvTFp85RDCAjTxwARxNo7tVG7ZeO/A2n4Ce0pkpzLiMIu48yqGWCkXVTY
- f5FLoLRsa5sWywtjM9ELyAnC3b1vEz/m8xkclvcY3Q9JEM9gP7mWDWVQSiZ+Gv4XsOQH
- Vp+gZfCAWU75LSFIkK+c4l5T7hoB+o9tqHm70wPqu0tDPYlxmX09VDokujzfsp5Sr5PP
- 10BE2FUJNRPJn+vGPNCWBrWMXfOV03wcrO0N+RXIsbLO+KzMfyf5TJOaeogdUMaFjK0d
- Qj3w==
+ bh=Q0sBYQSvT/W3L1mc7F8xF1oVUSz9OX/m/AEikTG2UrU=;
+ b=ktDzZzRkI+3TWUzWADD3AqFpF3zjizuURq6D4yBQO2cL5lW+T8qNLWlHC/RnG+prGU
+ TaDtbMcw7kR9ZpdCfSOc1hkSy+ty+ybI5fVdDRswa4j1FOcIqUPMS37Y4i3G+xG+wbbx
+ kLGk7Py7+5yjrfgXpNQDEBhegq1kImQOTJA/GDAj+mwBGLtkJhNhj0gHYZeuJAbwa0zy
+ ZTVEtaNG8smPOZsNwpKmwA7znDGI8rAlZW51zmtZApsalrr2mmfdlD3SXsQ2Tgyui0wa
+ vxTz/h2w3Aj7JcHC7KZieUUB8DIMMYSL4oycHYdF+td7seQh/Dd5Y1Oz/l2YpI/De4zq
+ tCtw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXfEDp7cmnWq5Q0FV/EVV9N2CPIdjkAEkHsWvngNH+ybvhhkZyYxIdfC4vgrSw3Fn8/LkhadUfcxHQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHfDAkeAgEZ3eCiDxvf0gnCVH6YHiRo13hsqoFMdLeLHhyh1Pp
- 50O7mMbXvmd4a1pgCk2aCh7tk9FXoBqcQOq8kCizQJs+37JVTfzylR8C
-X-Gm-Gg: ATEYQzy7KJiGt2XELCtLPdiGWyaUeZM/RrjSIf9lWc9LCxUCB9YpDnn3tpLd6rBnEeF
- hNJu4qXzahPdGN0Xa/jYtI+qpI45vvSYTGv5W0imIEGr0/kBxLcdr2nFuTjA/tNhNwHSy5mVWxr
- 94UbaxAuAQF1fTTeT5Q1UkDdZnGPfRbLTC4SdesSFiM7edsVEOVsOD7/9r6uyxXes38rmCTcxn6
- SBjpV/j+USw0FSUy4mma4eWyozz87H0Kufmj5484eEzLwkGci1qVP8c6DoLTIFRiuq1Frziq3ID
- cOq2csWpaqUimqIgfrOie9jTwaruZwVISdVHMtw/dRNpBj4K08OtEl4HLKvxlSqWAF+qZMdbCf2
- WfvMjmpNIXB+gsdiM0YZTeBFDWFIkyJWt4nWN7vwtxHFKW53dPYdDVOb4K71w6xSmqYg9QbV1mG
- +obPY+78eWoDr6yWBhS49aJPo2a5mHkxf9t+4vPCvdawK7AQj5
-X-Received: by 2002:a05:6808:1807:b0:468:4b3:d12d with SMTP id
- 5614622812f47-46a7a88ab56mr1246480b6e.11.1774551369095; 
- Thu, 26 Mar 2026 11:56:09 -0700 (PDT)
+ AJvYcCWDbwx2duIBSDpyuDrk5vmIAaOP27I4f0LHQaO8bGXLc9eYHqyg3g3GiMaEn2+qbLPkQ6dVuRxEjX4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxFdVSL5U75RCb6Xyp3+0s9uE/eUjHxg4Um4qKaKJogpO9wj63p
+ gtw6vyVZs5YJ6ZOdQmtOUmidcYrDsLF85vrr1VgIbKJSjPS1llvWvcaw
+X-Gm-Gg: ATEYQzxS2jB7WX0e1W7uBBAHMBIWo5Is1m8t0IVgg8sIqvodGlFy8erclsQvC/yjR3a
+ Q4GqzQ0Y5DDNcVNKTIOrsOjhRKfDS9b+8yvsTwI48R3KpzVdl3IhDrUuSH+h2/19r1MQT66eTHu
+ wESrfXPLDOBT1kZJhhKfoFARcJkolC3MpjXVMCMjrC74CMEgDT/7IGDJhUxpblPSa+DChYy03Ow
+ IPqUk6lYC+NeRDqORXAoTHVXdR6CoCmJYOytKDaVJUGupHGPxkuk9Gt/qhg45vu+zkfxr2EvjCw
+ TzDaEgVrqnMDEdSNbM+uDZg8gFB8GQliK4etEAgn8aat3QIOfFgJf8ZU0KYUQvVUV3ks5hpzjfQ
+ q10xi24m3zKo7ARBWcPKxUUB2udtf0AuKocUZ8S3wgf2YgA2YRUEYb0W+UrSSssqiEf8eEH9Z0T
+ Cmdhzc4ViDY+NRdz13e+x1KVFGSpz53VJvCQiVWzfUI0Wf082yzs7cthcacLE=
+X-Received: by 2002:a05:6870:20c:b0:417:2156:ffea with SMTP id
+ 586e51a60fabf-41ca6fcb4f3mr4549318fac.13.1774551284964; 
+ Thu, 26 Mar 2026 11:54:44 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.07
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:56:08 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:44 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,10 +72,10 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 64/69] drm-dyndbg: restore CONFIG_DRM_USE_DYNAMIC_DEBUG
- un-BROKEN
-Date: Thu, 26 Mar 2026 12:54:08 -0600
-Message-ID: <20260326185413.1205870-65-jim.cromie@gmail.com>
+Subject: [PATCH v12 10/69] dyndbg: reword "class unknown,
+ " to "class:_UNKNOWN_"
+Date: Thu, 26 Mar 2026 12:53:14 -0600
+Message-ID: <20260326185413.1205870-11-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -97,55 +97,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Time for some thorough CI.
+When a dyndbg classname is unknown to a kernel module (as before
+previous patch), the callsite is un-addressable via >control queries.
 
-NOTE: the previous ~18 1-liner patches adding DRM_CLASSMAP_USE, can be
-replaced by a single call to DYNAMIC_DEBUG_CLASSMAP_USE, from a source
-file linked into all drm drivers & helpers.
+The control-file displays this condition as "class unknown,"
+currently.  That spelling is sub-optimal/too-generic, so change it to
+"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
+make it uniquely greppable.
 
-Heres how it works:
-
-1- drm/drm_dyndbg_classmap_user.h calls the macro.
-   This is a weird header, since it declares a record (inside an ifdef).
-
-2. drm/Makefile: ccflags-subdir-$(DRM_USE_DYNAMIC_DEBUG)
-   adds -include $(drm-src)/drm_dyndbg_classmap_user.h
-   This "header" is compiled into every object file in every module
-
-3. the DYNAMIC_DEBUG_CLASSMAP_USE macro is altered to declare the
-   classmap-user records as __weak, and to place them into the
-   .gnu.linkonce.d.__dyndbg_class_user.* section.  This allows
-   multiple declarations in a module to collapse to 1 record.
-
-4. dyndbg.lds.h's MOD_DYNDBG_SECTIONS() renames the section, stripping
-   the .gnu.linkonce.d prefix, so kernel/module/main can find the
-   section and dyndbg can process it as before.
-
-5. drm/Makefile: adds several ccflags-$(MODNAME)-DRM_DYNDBG_USER_SKIP
-   definitions, this is one of the ifdefs in [1].  Its needed to break
-   the dependency loop that is created when drm.ko depends upon
-   itself, or when drm-quirks that it depends upon also depend on it.
-
-So this works, but it is weird (horrible, hacky, obscure, marvelous),
-and I dont have asbestos underwear.
-
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/Kconfig.debug | 1 -
- 1 file changed, 1 deletion(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/Kconfig.debug b/drivers/gpu/drm/Kconfig.debug
-index 05dc43c0b8c5..6c83b1276870 100644
---- a/drivers/gpu/drm/Kconfig.debug
-+++ b/drivers/gpu/drm/Kconfig.debug
-@@ -1,7 +1,6 @@
- config DRM_USE_DYNAMIC_DEBUG
- 	bool "use dynamic debug to implement drm.debug"
- 	default n
--	depends on BROKEN
- 	depends on DRM
- 	depends on DYNAMIC_DEBUG || DYNAMIC_DEBUG_CORE
- 	depends on JUMP_LABEL
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 6b1e983cfedc..a9caf84ddb22 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
+ 		if (class)
+ 			seq_printf(m, " class:%s", class);
+ 		else
+-			seq_printf(m, " class unknown, _id:%d", dp->class_id);
++			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
+ 	}
+ 	seq_putc(m, '\n');
+ 
 -- 
 2.53.0
 
