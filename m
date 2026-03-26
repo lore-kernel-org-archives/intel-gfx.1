@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6326F10D14AF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBEF910D14B1
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D320710E6EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7AC010E6E0;
 	Mon, 30 Mar 2026 12:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Eq/vLxtn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjqwWb5G";
 	dkim-atps=neutral
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BA810EBE9
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:32 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-40ee9b945d5so940470fac.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:32 -0700 (PDT)
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com
+ [209.85.160.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB13910EAF8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:31 +0000 (UTC)
+Received: by mail-oa1-f42.google.com with SMTP id
+ 586e51a60fabf-41708f6aa5fso873544fac.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551332; x=1775156132; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551271; x=1775156071; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b4jWe/O/TQKg+phAG4swgxb5r2uUue/0h3/17ze4tn4=;
- b=Eq/vLxtncKNQ+ZEU+/X/bBiUdcJeQX+Y+rJ3mYIYSExKM7jeAoOhpXkc1TNq8mjCUV
- CEJ660E8nk1QvqprFC6edxAii9GDA9WcjkRejGV0xQJyDfswjS+TgJk8R/AaCsMvVIub
- WdQ2PlQx8Ng851XkUjcU0HAq+auqTJUkCJAsiONxgyhyAXENMV4LZCC+pw2cn17GrcmP
- vH8zj3PfuVjW1NJULbrRRhfW2DGV8W6ZmDJ1ibFEr0iwt/06hwHrqNWgJWyFNTgDZxcP
- JiYXKK0mrs2sNY9/IqkjiDqqKegOyo9kSzmgXd15h4OQ8JYUC8lyJXuo3swq7xAekAae
- kbfQ==
+ bh=gYmxGb7uQeQFtcBU/KNsuA+yly7Rfm4LYjwUpGocOHU=;
+ b=TjqwWb5GfAnUTWbVAzSskWTaDEPtTz/b7OPVQN/5Ma5Wuf1I567u6DSkxA7iOaovgQ
+ IDzHtKn+TzhVCrYhcnDKf1k5sTOpzmgWDa9s+Y3ACvs5B0Xivzk6m7P6CEggnzumVrnS
+ buj+xiaFONeP2nQYiZpNFCh8JCghweLMKIGfsdRLyTsvSULY0uO4KexWEIGU+9taJgLA
+ B7JUTKsQfvV1BvRc5oXaAkYNK5qgUlSdWN8J6Wo1hGI/bSHnVzWsw6aIlz7/m3lnwZc0
+ jwyrC0Djr9CSuXCXYPAzjKO1vEku83BXVv+e1QmnouzWVkOzW23qUQgQ1WRfPqALUbYH
+ MsJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551332; x=1775156132;
+ d=1e100.net; s=20251104; t=1774551271; x=1775156071;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=b4jWe/O/TQKg+phAG4swgxb5r2uUue/0h3/17ze4tn4=;
- b=fAxio33M0/+TYWIxiItKfCUQKb9HAKv4R6PsZEv/1hdJ3SJhjRsvloT5620ZYA0Bl1
- 00EPeG9ZNFqkk/bbsoENoAtQEB/FGezQKkSn56tvuE+Pa+8D8OoXQW4Lj4WApapspIG3
- Z5iFLjQyEVEBHDwrdTda9wg/PM/nC7bPsEBwZuP//iogYreylXdcFk8rPvb3mHZP/pe2
- uW0V6yU1edSkDgDOMm7E4rCtUq97ZymoyoRcPw6AzofuPpeJYB8VJxVm58lNzM6M+/vE
- 3NyIas9O/WTbDWyBPhSpvzWBjlOmNoVwkn9rYNN8nuCLKXRutWpzIg1fWpt3fG0Fx8is
- G4QA==
+ bh=gYmxGb7uQeQFtcBU/KNsuA+yly7Rfm4LYjwUpGocOHU=;
+ b=jWTh8WU+lfNMxT/PhRLHMMdFIHNIwql1YJB9HbJSSrpV2LGmbc4eoTGeXl9U5bY9Af
+ G2sxQREVOigwMdfj0khaX0BTjEqv8tXCKNkBK6Vgf7IJWJPhOeaoLUn3z2+/ndeZqs0i
+ zZuSqlf3S3Sfelp/wV/zlIQW5icmWY6GK2jdo7dtnux0W+ZdT6z9oII7rOpuPcZXelrY
+ M0BCPik1RabgeG9xGs6zhBjnFkkyFKK7gs3nBweKpSd8ipFmfaVr1/koi6XyhMJ7Md6Y
+ vMjgPT+W1Z5+g1luEx8xqjvyVz9V8p8rXkuljh7fgNN1ub+QYppWZIjJ2nO4w14UT06F
+ ibHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVplH2fDnsEaF0OfL2PwskbHwEJF+H/XSA6LjZ0hXtn+bTw2dDbyKbM0+CpeXXL1vb9+0IQL7gEnU4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJ2MtfF/dpB8DviWXGlAL4Y1EtbLfoznaC8VaZoGXz9p96dzyQ
- g6qjhGHXg/hXPOYTq+TGWOEd/4u+aRCGeAxwWFMMagPjbp1LozR7+QIeS6NstQ==
-X-Gm-Gg: ATEYQzzp8ynRwEs7wO8G04UG7xFMurILegrMZ7WylLAJa7Y6W43TO8fB5bKZNPtuiO7
- t/r5qBpnfAobP52X9aFuBOVuUcZMWIgH1eqqyGNfYxTaQfdpAKH2rupxjP1unS3/dxKYUSdpTdd
- +0hZjcop2Q3YShh12vkwqcwPQZ2jlh2iFo4BHaH5mUciKD8D36hIKqKF1R8+H+3GwsUAkldc1yG
- wrfW4NP67O/DiRlth8O5JiWXc1Vgbs3v7lub450x8xka8mkqef5FNz1gnuHYAdGtBAWKmh4Lyzt
- fmEAbskZt1p/bRnIaejTsI2Esiib13oIrOnJMo3zUUkkf7hU0THCt0cHmshcsTvvvSZPQVkZ1I3
- VBM0qW3l+yox3Y0uNNVtrXqj874yoYwa5eT/Auf8tvO/0XpMUKVsMQCH7q7kmMUN2hsWXpvx4l0
- hnKOVy66DCPtLEzLtjkiXJuBu5od8R51mU7dwMu28VYhzNeITI
-X-Received: by 2002:a05:6870:194b:b0:409:9a0b:b733 with SMTP id
- 586e51a60fabf-41ca6d6a50emr4662736fac.10.1774551332051; 
- Thu, 26 Mar 2026 11:55:32 -0700 (PDT)
+ AJvYcCWlJcpHm/LWzdDJtV9x5X2vCTNx32qHw/uGKl8JEGamrbN+AvkF89662W3jaqbScVTeVafejjWzmuA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyHaUKO41BXSU/tqIDcHYApic7gZv8PyjT/dhJ0FxERZ6KqS9Li
+ u1oRJ7tpyYrPfO+PiIaWDz2XoxDTGe63NCyOO5JVjqpE1+jWVncFa36Z
+X-Gm-Gg: ATEYQzy8bLgUscPTdRY7/KTTXt8yXxl7XUQ3ap8ZNKUnO9EOcSgSXnhs1zhmNpM+IGu
+ X4KXHSjPBVYseBgA0TLV6O06vfErmrkBWYvBO5QE9qQqzArghRvVLLyYwvLlfqfGot7/qphXbVL
+ yEcRwz3qC1N1glAkDfbi7sbCtC4T8/AL1aDYuNL/DEo1GNth20Rse/Gh5tToDF2sC/mZDQxbxNW
+ ZSODtdAxP//uFBbDarzUYFB8l3tKFgTuOULv9oBRxqpp0SF/nMgboNl6A/gqrgbPoZ3rcNE1PEx
+ YFlEROO7dHW9uNm+Q6RvSPwzmuGmoMl5Ir621LEfbEyXlb6udah+7wpp5vUgE8wKi2Y5lkEtm6v
+ VF9wtBJ/G7bplS9Gg/LXSVcmniQde4NZDCiW0H65uoZlltBgVhtIuWvx8Blw2P0nBhSV3LICr1b
+ jvyt+k95NwqS52g2DVWZgApFfFhLB5mBM7+zAj5Dh+lBBKB3ld
+X-Received: by 2002:a05:6870:8131:b0:417:ab68:fbaf with SMTP id
+ 586e51a60fabf-41ca6ddbde6mr5024881fac.20.1774551271056; 
+ Thu, 26 Mar 2026 11:54:31 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.29
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:31 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:30 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,10 +71,12 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 39/69] drm_buddy: fix power-of-2 rounding errs
-Date: Thu, 26 Mar 2026 12:53:43 -0600
-Message-ID: <20260326185413.1205870-40-jim.cromie@gmail.com>
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ kernel test robot <oliver.sang@intel.com>
+Subject: [PATCH v12 01/69] dyndbg: fix NULL ptr on i386 due to section
+ mis-alignment
+Date: Thu, 26 Mar 2026 12:53:05 -0600
+Message-ID: <20260326185413.1205870-2-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,100 +98,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
-unsigned long internally, which on 32-bit architectures (like arm32) is
-a 32-bit type.
+When dyndbg classmaps get used (later in this series), the
+__dyndbg_classes section (which has 28 byte structs on i386), causes
+mis-alignment of the following __dyndbg section, resulting in a NULL
+pointer deref in dynamic_debug_init().
 
-drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
-where they silently truncate the 10GB allocation, giving unexpected
-success in DRM-CI.  (see below the snip).
+Fix this by:
 
-Fix this by replacing the those macros with safe 64-bit power-of-two
-calculations using ilog2().
+Adding ALIGN(8) to the BOUNDED_SECTION* macros.  This aligns all
+sections using those macros, including the problem section above.
+Almost all the other macro uses are already ALIGN(8), either
+directly or by being below one.
 
+Removing BOUNDED_SECTION* uses in ORC_UNWINDER sections.  These
+explicitly have smaller alignments, and using the modified macros here
+would override that aligment, which scripts/sorttable.c does not
+tolerate.
+
+Move __dyndbg section back above __dyndbg_classes, restoring its
+orignal position.  This is cosmetic, given the alignment added to the
+macros.
+
+Reported-by: kernel test robot <oliver.sang@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.com
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-On DRM-CI, I encountered this kunit:arm32 failure.
+ include/asm-generic/vmlinux.lds.h | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-[23:19:40] [PASSED] drm_test_buddy_alloc_clear
-[23:19:40] [PASSED] drm_test_buddy_alloc_range_bias
-[23:19:41] [PASSED] drm_test_buddy_fragmentation_performance
-[23:19:41]     # drm_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/drm/tests/drm_buddy_test.c:889
-[23:19:41]     Expected err == -22, but
-[23:19:41]         err == 0 (0x0)
-[23:19:41] ------------[ cut here ]------------
-[23:19:41] WARNING: drivers/gpu/drm/drm_buddy.c:405 at drm_buddy_fini+0x114/0x1b8, CPU#0: kunit_try_catch/74
-[23:19:41] CPU: 0 UID: 0 PID: 74 Comm: kunit_try_catch Tainted: G                 N  7.0.0-rc1-gdfb0bcedd08a #1 VOLUNTARY
-[23:19:41] Tainted: [N]=TEST
-[23:19:41] Hardware name: Generic DT based system
-[23:19:41] Call trace:
-[23:19:41]  unwind_backtrace from show_stack+0x10/0x14
-[23:19:41]  show_stack from dump_stack_lvl+0x3c/0x4c
-[23:19:41]  dump_stack_lvl from __warn+0xe8/0x1c4
-[23:19:41]  __warn from warn_slowpath_fmt+0xa4/0xc0
-[23:19:41]  warn_slowpath_fmt from drm_buddy_fini+0x114/0x1b8
-[23:19:41]  drm_buddy_fini from drm_test_buddy_alloc_exceeds_max_order+0x1c8/0x36c
-[23:19:41]  drm_test_buddy_alloc_exceeds_max_order from kunit_try_run_case+0x78/0x1c8
-[23:19:41]  kunit_try_run_case from kunit_generic_run_threadfn_adapter+0x1c/0x34
-[23:19:41]  kunit_generic_run_threadfn_adapter from kthread+0x108/0x134
-[23:19:41]  kthread from ret_from_fork+0x14/0x28
-[23:19:41] Exception stack(0xf0bd5fb0 to 0xf0bd5ff8)
-[23:19:41] 5fa0:                                     00000000 00000000 00000000 00000000
-[23:19:41] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-[23:19:41] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[23:19:41] ---[ end trace 0000000000000000 ]---
-[23:19:41]     # drm_test_buddy_alloc_exceeds_max_order: drivers/gpu/drm/drm_buddy.c:406: buddy_fini() root
-[23:19:41] ------------[ cut here ]------------
-[23:19:41] WARNING: drivers/gpu/drm/drm_buddy.c:414 at drm_buddy_fini+0x1b4/0x1b8, CPU#0: kunit_try_catch/74
-[23:19:41] CPU: 0 UID: 0 PID: 74 Comm: kunit_try_catch Tainted: G        W        N  7.0.0-rc1-gdfb0bcedd08a #1 VOLUNTARY
-[23:19:41] Tainted: [W]=WARN, [N]=TEST
-[23:19:41] Hardware name: Generic DT based system
-[23:19:41] Call trace:
-[23:19:41]  unwind_backtrace from show_stack+0x10/0x14
-[23:19:41]  show_stack from dump_stack_lvl+0x3c/0x4c
-[23:19:41]  dump_stack_lvl from __warn+0xe8/0x1c4
-[23:19:41]  __warn from warn_slowpath_fmt+0xa4/0xc0
-[23:19:41]  warn_slowpath_fmt from drm_buddy_fini+0x1b4/0x1b8
-[23:19:41]  drm_buddy_fini from drm_test_buddy_alloc_exceeds_max_order+0x1c8/0x36c
-[23:19:41]  drm_test_buddy_alloc_exceeds_max_order from kunit_try_run_case+0x78/0x1c8
-[23:19:41]  kunit_try_run_case from kunit_generic_run_threadfn_adapter+0x1c/0x34
-[23:19:41]  kunit_generic_run_threadfn_adapter from kthread+0x108/0x134
-[23:19:41]  kthread from ret_from_fork+0x14/0x28
-[23:19:41] Exception stack(0xf0bd5fb0 to 0xf0bd5ff8)
-[23:19:41] 5fa0:                                     00000000 00000000 00000000 00000000
-[23:19:41] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-[23:19:41] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[23:19:41] ---[ end trace 0000000000000000 ]---
-[23:19:41] [FAILED] drm_test_buddy_alloc_exceeds_max_order
-[23:19:41]     # drm_buddy: Testing DRM buddy manager, with random_seed=0xacce106c
-[23:19:41]     # module: drm_buddy_test
-[23:19:41] # drm_buddy: pass:8 fail:1 skip:0 total:9
----
- drivers/gpu/drm/drm_buddy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
-index dbf984f8e301..8f23fb615d47 100644
---- a/drivers/gpu/drm/drm_buddy.c
-+++ b/drivers/gpu/drm/drm_buddy.c
-@@ -919,7 +919,7 @@ static int __alloc_contig_try_harder(struct drm_buddy *mm,
- 	u64 modify_size;
- 	int err;
+diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
+index 1e1580febe4b..58daa551420b 100644
+--- a/include/asm-generic/vmlinux.lds.h
++++ b/include/asm-generic/vmlinux.lds.h
+@@ -212,11 +212,13 @@
+ #endif
  
--	modify_size = rounddown_pow_of_two(size);
-+	modify_size = 1ULL << ilog2(size);
- 	pages = modify_size >> ilog2(mm->chunk_size);
- 	order = fls(pages) - 1;
- 	if (order == 0)
-@@ -1140,7 +1140,7 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+ #define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	. = ALIGN(8);							\
+ 	_BEGIN_##_label_ = .;						\
+ 	KEEP(*(_sec_))							\
+ 	_END_##_label_ = .;
  
- 	/* Roundup the size to power of 2 */
- 	if (flags & DRM_BUDDY_CONTIGUOUS_ALLOCATION) {
--		size = roundup_pow_of_two(size);
-+		size = 1ULL << (ilog2(size - 1) + 1);
- 		min_block_size = size;
- 	/* Align size value to min_block_size */
- 	} else if (!IS_ALIGNED(size, min_block_size)) {
+ #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
++	. = ALIGN(8);							\
+ 	_label_##_BEGIN_ = .;						\
+ 	KEEP(*(_sec_))							\
+ 	_label_##_END_ = .;
+@@ -869,15 +871,21 @@
+ #ifdef CONFIG_UNWINDER_ORC
+ #define ORC_UNWIND_TABLE						\
+ 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
++		__start_orc_header = .;					\
++		KEEP(*(.orc_header))					\
++		__stop_orc_header = .;					\
+ 	}								\
+ 	. = ALIGN(4);							\
+ 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
+-		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
++		__start_orc_unwind_ip = .;				\
++		KEEP(*(.orc_unwind_ip))					\
++		__stop_orc_unwind_ip = .;				\
+ 	}								\
+ 	. = ALIGN(2);							\
+ 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
+-		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
++		__start_orc_unwind = .;					\
++		KEEP(*(.orc_unwind))					\
++		__stop_orc_unwind = .;					\
+ 	}								\
+ 	text_size = _etext - _stext;					\
+ 	. = ALIGN(4);							\
 -- 
 2.53.0
 
