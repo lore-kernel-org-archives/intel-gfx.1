@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1FE81049501
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3563010F3DC8
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 484D010E730;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDC6C10E744;
 	Mon, 30 Mar 2026 12:58:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fjHGcEFO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Whj8soNe";
 	dkim-atps=neutral
-Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com
- [209.85.210.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1617310EBEC
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:45 +0000 (UTC)
-Received: by mail-ot1-f48.google.com with SMTP id
- 46e09a7af769-7d750eeaec3so614880a34.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:45 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8872110EBED
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:36 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-466ec4c6852so809518b6e.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551344; x=1775156144; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551336; x=1775156136; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nWuUyl3pJMGaRe5YpqoxGiWQwsY1kd47fne8B+3aeoU=;
- b=fjHGcEFOgLVsNaraPwck5y7Jp9PvsX8kFcuyCRrjSl4fGtB91AnzfOaP254y1rXMSC
- waKm6Dr+FC+G7mJwuCdo1ZwXumMDvZIxY9C4H8boWCbstVBwCoy9Klx7OmFFe7nlEDZI
- vLUCL8NpcRKQeqYaGYXN5KVFhR93M5plKF330v2fLNf1+xr708WWv1QehbIodALPCToI
- ovSdwup/S7hUKbNR6ZXXHTs+yy0JTDM2cLj5mgLOzNOk5+YV5/CjQjmvKaBksuiJ+Naw
- 7rMm2zx0kQY5me8qbN/nOvqEoG4JlVnTmjS7JLSXv+8ZgA9utrzQZNXF1bRd9YscSUvi
- ezcw==
+ bh=odzxhFrE/OaIR8r3wWCi5vPBwW9g54UQJlDBz7itpic=;
+ b=Whj8soNecmKGgQWvasvwBJ29mkqJii6kC7a7rxjOYRkJYrXzfpL1c3N07i3fB/9AGJ
+ LM4tVWKJUAoybNderynx7yoML9KQ16lr41+/kmtDHdW7ptwpxl+dfNdlPgnXljfhxEEe
+ GOKcVJbeI9A2rATpJpC0Ez5K3n3Gsocu3oU+sVfq3A3RNzlCevWWrYgIwRFkpl15ojg0
+ ZG6IqGtxrLFNAQhMCukitFBdEX622/Z+6w+suLHMqbbmvqu2XZQWAE4ox/bqqWpvUwJx
+ Amg9PodlpY5oNfXriWyzbX1pP8CTEwlLAnerXJN+IM5LelGW4BemopcfWQT6fugm2NX2
+ VtUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551344; x=1775156144;
+ d=1e100.net; s=20251104; t=1774551336; x=1775156136;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=nWuUyl3pJMGaRe5YpqoxGiWQwsY1kd47fne8B+3aeoU=;
- b=cP9GE4GgKfVibjPdxpZeporYCCefh1pzmvOfN2UFehBuUJX+/fJ2RsHp0n8jUsDy31
- qAeb8Y9C9kspJIWZNAqO1ugsICjgx7U9KiAJiLM3ZXCE46YTKuMkjGA6bwCnLQCN21Dw
- nzTq3SCzR8nGBeqpfa9O6BBUuHTTM3UxCIXNZ9hvkiAciX+aRz9Q5YYahj6GZAwzUMPV
- ApwDPZzdji5NlO7yWtfdm+W+1VLguuNoh5ol2DeIwkrrPBKrYmQNx4IRUBnudlpkrbqZ
- ZXcWYbLVPfEKqzdWqy93QyXSf/XJIFxDljhT2G85MUVDs18bOYHsNyYi43cZH9tThmHi
- uk0A==
+ bh=odzxhFrE/OaIR8r3wWCi5vPBwW9g54UQJlDBz7itpic=;
+ b=G/bv5yEu9i8Ky65IShYDENMdNbnpAc+NePbhT411qxDuJInrKbwNMAu1JpJ/DIAP4W
+ 6+7ZrgxlTNYGA4NVbFDnQCDFCkdt37803Ysh3LihjZD8F40oYB3qD+oypPnSSIm5NVpY
+ TJ84HwQ4HVWwMPZjS8mZMTyGRPIOf/PHiGNiGSO+HTrKw8lvoAqwsouOyGSce6Agoqqt
+ uaqtnoUrgAuBPzbC4lDomLY/aMeEz1SLTOw23JPU4UJRunnQNBw34jSRTlvvNdfvz52v
+ L3xZZBxXPgljSaRnxgX8jBn9wPcmW8f+fpJ6/w1HIy34TFmevlsXtzQT6Uv5MG+94Amj
+ 9ziA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWQcneIj1eXoyiQC0jkFjVUo28RSceu06SJ3vsO6rSdu2WTv9KNXTPm7XD7wpMyyPeAKhBbInA+4sw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxTM4ZOLq2d6bp+PCwzP4zP04vx9r/EjeRqtX9ujHfUGvbWxQEG
- jrG2zOCC2CbNVVoZ4l7MwOpnPC07Pnc4h/IvmmgQXbIwsmrLX8eQtTXD
-X-Gm-Gg: ATEYQzxX7OHWJWXsnmonqeIIa9bAStgcTbYX9Cfo+RTIxnx019m/CTh2ohEhF7XFXVA
- eLMnSjzeux4VJETfmOZGh4nudvlV0H1AQmULdLYTLJ8QXgJR5CppEBp33Thp2QUgcJ3OLVSb3cE
- 2dKMFNzCzU6oL8mjtb4t5rKYF/pDAf/jK7T5GhdCHhQgIdXPKiMCvIitI7Vz/HqMlVYnjyqGnK6
- 281zT+MzbYoSJO4RoNp+JbRYB1VEVj0UjHW4a2yRSD3iAW8Rkk8+b7aUV4RVa3G9LgCtUa83XsV
- xFovhMXe2jfhFYimC2M02npgtWLZlbJt47lDQNZH0RgdXLoPdAe0Vl6uU+G2Ucduh49gibCvI+5
- ynZ6RecC0jLLsxFixUn9scxcih3ANCty/qMdJSRv+6RosPsI9r1vuwILYOqzTfdCaoRJk3DNPJo
- Tn/csiRrQ6spXtG6suubo19zDGYI5y7Z9XZFbrdyYYm4gEmXy5
-X-Received: by 2002:a05:6820:2223:b0:67d:e140:3451 with SMTP id
- 006d021491bc7-67dff3d219emr4887862eaf.11.1774551344312; 
- Thu, 26 Mar 2026 11:55:44 -0700 (PDT)
+ AJvYcCXw6t/Nw06L3bWBUxTcBt84wWxPFLQEZQUc85SikRSkD6LYbyheSTEDp2RfhTvbpMnWjL8kBChZc3k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzW+tPfSW1Se9MFUZoq7FQ8KHlBk549yACam8PHN+NeMbWdhZQM
+ qf0SU4fEKAYJ649BjAHSLBMjtAPK+gJtwfURDQoduW4GLpabJI6bEEPD
+X-Gm-Gg: ATEYQzynLoAEG2WqZ/wwckiE4bR5rYKHpavOT2ojTyF7wBBg2VbnOt9QRx/YwWfzwDn
+ vqeh8ATE6yf27jPdcHxKBlF0ndYkVMsBK6eArTw9ACgtd+zmelUCiSOnWkxujPbdgOJHmvKVC9/
+ 7M9TsXeCvFRGZ8VbYoA2hG58kFoEyDsgASaJ5cglbekullGZg8ofhGu3PJMjPqPMxgrpZw97PHs
+ DhFIjq6EpJ3007IWk3NiRvlbX9v87F1Nw4y/IHsL9lP/xZg3rAwr8V/w3+1VtS0KqcuRf9O6Ygz
+ 3+Tucl3BX7x/P8xgFbStBgavYeX2iDbMFjT3KebljZxvYAa+/heShC2q80KQ7/RXtCHR//pY0e+
+ NuGU/f4T+4t2gO9hNu33mc9sSk2kC8FBsm/cmivQpf0bS3mL5c80CKz/3DTV4+OS1BNFtXdekNe
+ Eqmi8SnHcdHFffT+DCxJrhfkWwa8gGB2br8qURaRfYVsQuHng3
+X-Received: by 2002:a05:6808:5246:b0:467:1f90:412d with SMTP id
+ 5614622812f47-46a5c5a5802mr3709128b6e.11.1774551335668; 
+ Thu, 26 Mar 2026 11:55:35 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.43
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:43 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:35 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,10 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 47/69] drm-dyndbg: DRM_CLASSMAP_USE in drm_crtc_helper
-Date: Thu, 26 Mar 2026 12:53:51 -0600
-Message-ID: <20260326185413.1205870-48-jim.cromie@gmail.com>
+Subject: [PATCH v12 41/69] drm_vblank: avoid bit-test when
+ DRM_USE_DYNAMIC_DEBUG=y
+Date: Thu, 26 Mar 2026 12:53:45 -0600
+Message-ID: <20260326185413.1205870-42-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,44 +97,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+drm_crtc_vblank_helper_get_vblank_timestamp_internal() is called about
+~100 times per sec, on a single display. It currently calls
+drm_debug_enabled(DRM_UT_VBL) to avoid doing ktime_to_timespec64()
+conversions when drm_dbg_vbl() is disabled.
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=Y, that bit-test is redundant,
+because its also done by the static-key inside drm_dbg_vbl().
 
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
+In this case, we can move the ktime conversions into the drm_dbg_vbl()
+argument list (using a comma operator to evaluate the assignment, then
+pass the address of its LHS).  Then the __dynamic_func_call() wrapping
+the func guards the arg-list too, avoiding its evaluation when its not
+being printed.
+
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=N, the bit-test is needed, because
+the conversion in the arg-list is not guarded, and we'd do the
+conversions even when the callsite is disabled.
+
+We can optimize for both Y/N cases by changing
+drm_debug_enabled(DRM_UT_VBL) to __drm_debug_enabled(DRM_UT_VBL).
+This gives us the short-circuit when the static-key guard is there,
+and the bit-test by drm_debug_enabled_raw() otherwise.
+
+TLDR: we could change __drm_debug_enabled() to call _instrumented()
+instead of _raw() for the =N case, but that should be accompanied by
+some experiments and results.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/drm_crtc_helper.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+-v12-
+restore (previously dropped) drm_debug_enabled, with __ alterations.
+---
+ drivers/gpu/drm/drm_vblank.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_crtc_helper.c b/drivers/gpu/drm/drm_crtc_helper.c
-index 5de9aaa5ba04..31c5294b252c 100644
---- a/drivers/gpu/drm/drm_crtc_helper.c
-+++ b/drivers/gpu/drm/drm_crtc_helper.c
-@@ -50,17 +50,7 @@
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f78bf37f1e0a..8ec025e12c67 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -803,15 +803,14 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+ 	 */
+ 	*vblank_time = ktime_sub_ns(etime, delta_ns);
  
- #include "drm_crtc_helper_internal.h"
+-	if (!drm_debug_enabled(DRM_UT_VBL))
++	if (!__drm_debug_enabled(DRM_UT_VBL))
+ 		return true;
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
+-	ts_etime = ktime_to_timespec64(etime);
+-	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+-
+ 	drm_dbg_vbl(dev,
+ 		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
+-		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
++		    pipe, hpos, vpos,
++		    (ts_etime = ktime_to_timespec64(etime), &ts_etime),
++		    (ts_vblank_time = ktime_to_timespec64(*vblank_time), &ts_vblank_time),
+ 		    duration_ns / 1000, i);
  
- /**
-  * DOC: overview
+ 	return true;
 -- 
 2.53.0
 
