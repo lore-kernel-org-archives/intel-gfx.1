@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66B310D14BA
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F2C10D14BB
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAD2310E72D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B45AC10E728;
 	Mon, 30 Mar 2026 12:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XrHNz6CC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L4w1+dS2";
 	dkim-atps=neutral
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6655A10EBF0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:16 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-4673790ab85so763184b6e.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:16 -0700 (PDT)
+Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
+ [209.85.161.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0152810EBC6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:54 +0000 (UTC)
+Received: by mail-oo1-f44.google.com with SMTP id
+ 006d021491bc7-67e00a230adso837719eaf.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551376; x=1775156176; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551294; x=1775156094; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
- b=XrHNz6CCgaDEUAEukvcraDrd2glQXYXVpWkB7rhXY2nf3WX+5hlbxBnTALSuuh8Uwe
- y0EzW8aSNpA5ez7iRydKoSlT69VBke5mS5l7s6jyyK1au7n7gtggTcnwkfVyiPCXX/Dy
- yKLKAjuc4fQfL3yGyOYebh7AKGV5j+Fi8i8tB0+VUkq73FstiSgzA6lxS+VCJqwSciEG
- q1pZPirCsrcfGun1fepGu+VrmR0MrHJCga/J+2N5Gaq5+gaG51tqGAsiFT8qjY0q1A04
- 3QFgQrBLaoH86LYC9onq/Y1NBbJakcWVOTldKlTFcaJi2l7njV6h7wC+B5ngSoHHlBSS
- yFlg==
+ bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
+ b=L4w1+dS20npyWOJQsM4WDDaXkFhjtieVvSGbRRx9+HJLSZonIblaYxjgHAuuvvYLRh
+ y1uIzD5KgRwvMY6bzK4zExYVJW7UtLdgcrYwEOm9U1WPO3h+QPejXAYtc9lcO1j6c+w+
+ ni99t0/05VYysA4cBZi/94h7AJBptVgt92WNb8WxunBCxcDg6wTW4X020I6p8dJ3aUyk
+ Bhvpk0bpZy0l4cd7WCQ0swNdtA3NrYFcXdEz2ntMxdtZqUsxR0XFXlas6kkHEn2wj+0b
+ YsVfCCS1j6jJmHvtuqZAkY4EMZc9QesqPDHgBkf+9Ie3kt7sxSNYrcGHAZV8PpDxNyZE
+ 8PVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551376; x=1775156176;
+ d=1e100.net; s=20251104; t=1774551294; x=1775156094;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=FB+tfLWkD+EbK14YUmCdfR6TCrKrYU/mryJ+Tht/PKw=;
- b=ovvG+9n3zzQ61NDvFrWtvtt+4iEgG0UDLTS9P32Gvdn/dxDDKx5vwsH/WjZzuoXxt1
- Bl4WQRQNLpthTWEhbVVz8gnX08vjpf/7T/7XY9s1gnwqVEHHEdsHYySDHIQIg+DMQweS
- sdr5CawnhJTPvWxc/z0BMEsyQltgTG55tgwbJ74uFxTmvow4UHZEUY1gdDqMRZZ5zvr8
- itjZSsSFb3674vMn0iCweeAhfWxhaeU/mOmgYSHgz2oGhfeDu0u0xBkC5+ixJokyynBt
- /a/w8MYIZg8Ty9cykIeB+HvEw7drSFdK04M0nZYLIfbgWT0o6c1+Ocd1yluxk510xWSG
- zgMA==
+ bh=Lr3BXrtiuAvHSgc8/DPsjTxu/hA/+WXgrNkg64S657g=;
+ b=jGS1zITB16FLBcrFblIDBspN8jydygowSfQRKy76aREO1BI7tlSnacxatQErfknHni
+ FR+aYDib3+gE5ylsW5SRMY0cNaeH3qDMNhNQzXRhcYfVxIJNPN1ji68E0j1+h1lPqvJg
+ j76JHTvXdNRMn4B2rOtWaupeY9vJVCyO/7yAbTz07y+NnC+zU9AqOAzFTSnhby38vSX9
+ +guw3JuT+8Vccln1KsjOjOy8tJzQXP37nLZaviqmS7Nozpeec9Hqg27DaqZvLWQXeuGo
+ Uj7vPLDqbnm6OAjfxWOYMeTsF8lNvBzfJn3/OdwcF5RyEyLjmVHcDWUMOD9jul11Qs2H
+ Mtzw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7f/XqTUhgB2wi8oegDGuT7W7u6Sjl5StEplbKJdmltzECCS93/70ltR498XT6duCeBABpq/pD/mQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzzh7e94MQ+LfPTDJTWsHJVGf+0qb4PZgDlkgAk/F36cT8OvxM3
- Q4UFVQsyyB0gdrAx5DjzM97ji3ZH4oQoOZw2sjA9EfSsg2Mzpu5G0tZr
-X-Gm-Gg: ATEYQzxvggOvE32agfLL24c7wnY6q3jMvYJ8xHDSHaXwJgt9Kja1jBoG8YmjC3QMl07
- ZLFwqJ2JqTSBjyqVKjuBAtdMvlI3tO+WOrmc9UMuA8qQ5hu2xNdxBV8te+xKKTc4zFW6ZTAvZ3S
- tOW5z2GYylRGeHYdVnmJMM3sJpGOBGp0AZfe7uEmiUUvT91h9TxxIMR1CGQSZBAlT3qXyH0a9ln
- xBFMKZVvRADkqpgjsKZI8t9VSTBQBTZsPyoAv5j442NdhyrCaa4ddTwQy+ltYJg2Jz0sdFuhYvw
- rYH/I9Mg0MnaoXmechr+dIEUxKHywRKN25J4efQYQyj2sg6PHnMP9x1M+6KRryQO5pydVS6U3qJ
- 4WwWoqZgzVH+qpeuv10hPJ3egnkRH/H8JOEJESFdo+ObbSpGISJ06HQ9myXFRHD+USa6BX9F6mO
- G38dr1W4Ryg0Evri9ZV+acQZQ3ydqc0IVNJsjcYahE8jWhPLYS
-X-Received: by 2002:a05:6808:6f92:b0:467:db5:8b1c with SMTP id
- 5614622812f47-46a5c610272mr3956953b6e.21.1774551375644; 
- Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
+ AJvYcCXVin4fmI96yMxIFBcR7SNuxEeEEjknD53COefE9JTXQWyAgNWxLD+sKhC5Q3hTOHen97W4ll4bBzw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzzjh8y9ozVZrWqlfJAq4kpg3tyJycrmDgfNhHa5GDGiYybYPX5
+ O8UXzX6R67RThrcy/g+/0zqlsadk1ruGCaAvk29pg/gPGb4G9504n4AP
+X-Gm-Gg: ATEYQzz6/OSEuAD928uGNSGtC7rQceiaxo+8o1ztqY4CUb19JgTj67CKRSCdkBMWhVi
+ wps3M2J48CqND32e3PrEO4UkYYHfSD8s2IrePswYM/zpVrojRyYjkwlminlD8nYxZMAAQebPPf3
+ GTPSOB+6Z5by2jCmRXe0r83h0MQ3MScwDpuBGFXhTmvqjQ7eQrY35BrPFQb7YZcVEI2cq0XpcKg
+ tRKMWTu0YF3GxNbN6x/qmcANHTt2Fyvjy3lfsgzbgRiC9WakXRLFpB6tsfP7oEfjZM+veXIgENi
+ pG3LnBCsSQA9B291BMdVwaVRfe9RsTAmr8mHwn3tkhOT3hqj2jnVQ2d7tPy8ihCuktMg/k6vR9f
+ d5vVFQCauXRP8yaf1fJn3AM5PAZNLOm5GmPujVP/FLA1hAQpzVrqDnKCJY7bp7pJI8SvMglmTNi
+ jfqHkkH6W9fpsWaQ0fDL6SPPncKmb8Vl3VT/jwDUFjygbB8MfbVymN3tWNGzA=
+X-Received: by 2002:a05:6820:210c:b0:67c:1d90:3949 with SMTP id
+ 006d021491bc7-67dff4fc06dmr4216223eaf.48.1774551294126; 
+ Thu, 26 Mar 2026 11:54:54 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.14
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:56:15 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:53 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,9 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 69/69] accel/rocket: call DRM_CLASSMAP_USE
-Date: Thu, 26 Mar 2026 12:54:13 -0600
-Message-ID: <20260326185413.1205870-70-jim.cromie@gmail.com>
+Subject: [PATCH v12 16/69] dyndbg: tighten fn-sig of ddebug_apply_class_bitmap
+Date: Thu, 26 Mar 2026 12:53:20 -0600
+Message-ID: <20260326185413.1205870-17-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,27 +96,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-rocket.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
-to tell dynamic-debug what classmap enables them.
+old_bits arg is currently a pointer to the input bits, but this could
+allow inadvertent changes to the input by the fn.  Disallow this.
+And constify new_bits while here.
 
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/rocket/rocket_gem.c | 2 ++
- 1 file changed, 2 insertions(+)
+ lib/dynamic_debug.c | 21 +++++++++++----------
+ 1 file changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/accel/rocket/rocket_gem.c b/drivers/accel/rocket/rocket_gem.c
-index b6a385d2edfc..0d06857b96ad 100644
---- a/drivers/accel/rocket/rocket_gem.c
-+++ b/drivers/accel/rocket/rocket_gem.c
-@@ -11,6 +11,8 @@
- #include "rocket_drv.h"
- #include "rocket_gem.h"
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 4313c8803007..a18f4bc63473 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -607,7 +607,8 @@ static int ddebug_exec_queries(char *query, const char *modname)
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- static void rocket_gem_bo_free(struct drm_gem_object *obj)
+ /* apply a new class-param setting */
+ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+-				     unsigned long *new_bits, unsigned long *old_bits,
++				     const unsigned long *new_bits,
++				     const unsigned long old_bits,
+ 				     const char *query_modname)
  {
- 	struct rocket_gem_object *bo = to_rocket_bo(obj);
+ #define QUERY_SIZE 128
+@@ -616,12 +617,12 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 	int matches = 0;
+ 	int bi, ct;
+ 
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("apply bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	for (bi = 0; bi < map->length; bi++) {
+-		if (test_bit(bi, new_bits) == test_bit(bi, old_bits))
++		if (test_bit(bi, new_bits) == test_bit(bi, &old_bits))
+ 			continue;
+ 
+ 		snprintf(query, QUERY_SIZE, "class %s %c%s", map->class_names[bi],
+@@ -633,9 +634,9 @@ static int ddebug_apply_class_bitmap(const struct ddebug_class_param *dcp,
+ 		v2pr_info("bit_%d: %d matches on class: %s -> 0x%lx\n", bi,
+ 			  ct, map->class_names[bi], *new_bits);
+ 	}
+-	if (*new_bits != *old_bits)
++	if (*new_bits != old_bits)
+ 		v2pr_info("applied bitmap: 0x%lx to: 0x%lx for %s\n", *new_bits,
+-			  *old_bits, query_modname ?: "'*'");
++			  old_bits, query_modname ?: "'*'");
+ 
+ 	return matches;
+ }
+@@ -691,7 +692,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 				continue;
+ 			}
+ 			curr_bits ^= BIT(cls_id);
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, dcp->bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, *dcp->bits, NULL);
+ 			*dcp->bits = curr_bits;
+ 			v2pr_info("%s: changed bit %d:%s\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id]);
+@@ -701,7 +702,7 @@ static int param_set_dyndbg_classnames(const char *instr, const struct kernel_pa
+ 			old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 			curr_bits = CLASSMAP_BITMASK(cls_id + (wanted ? 1 : 0 ));
+ 
+-			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, &old_bits, NULL);
++			totct += ddebug_apply_class_bitmap(dcp, &curr_bits, old_bits, NULL);
+ 			*dcp->lvl = (cls_id + (wanted ? 1 : 0));
+ 			v2pr_info("%s: changed bit-%d: \"%s\" %lx->%lx\n", KP_NAME(kp), cls_id,
+ 				  map->class_names[cls_id], old_bits, curr_bits);
+@@ -755,7 +756,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 			inrep &= CLASSMAP_BITMASK(map->length);
+ 		}
+ 		v2pr_info("bits:0x%lx > %s.%s\n", inrep, mod_name ?: "*", KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &inrep, dcp->bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &inrep, *dcp->bits, mod_name);
+ 		*dcp->bits = inrep;
+ 		break;
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+@@ -768,7 +769,7 @@ static int param_set_dyndbg_module_classes(const char *instr,
+ 		old_bits = CLASSMAP_BITMASK(*dcp->lvl);
+ 		new_bits = CLASSMAP_BITMASK(inrep);
+ 		v2pr_info("lvl:%ld bits:0x%lx > %s\n", inrep, new_bits, KP_NAME(kp));
+-		totct += ddebug_apply_class_bitmap(dcp, &new_bits, &old_bits, mod_name);
++		totct += ddebug_apply_class_bitmap(dcp, &new_bits, old_bits, mod_name);
+ 		*dcp->lvl = inrep;
+ 		break;
+ 	default:
 -- 
 2.53.0
 
