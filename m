@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35F5510D14B5
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4D810D14AF
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4678910E70E;
-	Mon, 30 Mar 2026 12:57:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9479810E720;
+	Mon, 30 Mar 2026 12:57:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dkjCJnPg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TG25N/Z3";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F5B10EBF2
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:56:12 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-4680a2493a2so535467b6e.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:56:12 -0700 (PDT)
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com
+ [209.85.161.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD3310EB82
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:54:42 +0000 (UTC)
+Received: by mail-oo1-f46.google.com with SMTP id
+ 006d021491bc7-67e00a230adso837625eaf.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:54:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551372; x=1775156172; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551282; x=1775156082; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=dkjCJnPgmwZXQDBSDoi4aUBvvDBV3dRyMClnqWfixRKMZiVaJ1gFMO9H7oZzwSkgyT
- cSZkqTprD3AzNqcs3OfIVGaOWUvWDT2Ox/yzC/xgbRDPEeqCBNXBUNZu/ynKZ0ab7CFy
- Do1vcb3l9QJF9zOWPsp4Gg8aRHTCj5gtET66AIdrZV9Vmnkb+8lS4mCdBW+pVYEqnb7K
- MRDtwIE9RfQ27NlRewnjxi7VE/6HkZ8KGBAYaMy6zgv/h4cd9IoRdPKZomUieaZPS3fU
- v93H1PvKkr8gDB+D3WuaDSVjN5bbl+UqUFV7HYjfLshM1GLr3SYlS1tF5UO9b1c/qAtL
- 7xdg==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=TG25N/Z3YTgPWXOmXhWjfDAVnM5B6uECwSBVH/Jwb7R/cwOeUBFflRFIfFwpgz6hk5
+ aG9SGOFnS8nEvkQIeSuO/6t1xRe2TDfpXzuztD8A7oXMCbejTrgkGkVsW9GKizhZcdR2
+ UFWLdT6p40MNOkwM573U3qV/2qzAfs4FviP5SwdAXVSZS2uny7XXGINMT95ZN1aJMhZh
+ ne8k9pVBnY65GsX7R1+fypPJzgZGmUHfkLnIcbAk8WCgMi4ajlR6n000Hw5jA1fpj+I2
+ bLCmFNRi4pm909OaqfQtdnZSJv6zpQo0UDDRlXZTRvHjLMYcZ3p257Lo39PWik60xBgc
+ 35VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551372; x=1775156172;
+ d=1e100.net; s=20251104; t=1774551282; x=1775156082;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=NDrEVSsHN3/NxzQ31ZhlYG+/I6Z2jtFfe5b8tEwBAEg=;
- b=OawiGS4eQuQZ+k7/wZyMFvQDtRl//9+XG9BAo4keGJf7TQXnpT5EcQ0JPsVw6ZYiF1
- VyR7nEJMj2cta96dnr1i17NBYtdkgYne6lsAl1LMTzoftGBr9eGJ/x/YL7k36xKl4Noo
- 14Kzrs1gvZFNphAOy4CGV+NgH06nwk9JAftAC5TLhYdv6mUk+Cmmmc8vCDeMPSwi9/74
- UZgqA8UW6y9dIZ6sp5ursK4KiceWiBojTwK2fhzWxhi6zsYhHjAn6fIBPYyrC/PeW9NO
- DMZhwDu6sZQOgIvTLaW6Sy9NtgRhA2jYMSW1yKu2LSbQC3+fsZRTpomZHOqmyq0/ocgf
- wCOg==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=EnFHq7cATlsy/blr55dIroWdDU0HOEkX4w0bycL3P3i+pJQuiXyoW/1TSecqjD2UZo
+ DjwjyM5myafZ/TQsmcFFDyw3r6yDQrn312rbBG7U+YYXMdi2exIjUsI7mxzIVffYVv4e
+ UJptmyaXLGRs4/UY9xpfssR0iHDapKezHeDQROFrHQb55JrGj+KuzuD+nOl6qQAgkCsr
+ D+qSCUz50ULC3r4IfQvEXo2L7EyAoG4kDB7WobhAUygrraX9EaHSH8M0Th7q/PQvMefw
+ Tn3e0sp+iVwglW6bBF6Iwg7eAOhQyyawH4UHzate6CMPTKgwPlU3/ZUAUFP4rVRQ2wqI
+ u3aw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWSkPfSE5jYrRipiTnDqs6K/RelJJ4gwMljyRqFotuR1rD1SVwVcG13sIn4aS4H853uMFHnsZeLzXU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzHWhwgPVlLzfMYen3wHUdXF0GLo2UKwlxExqiTpGIUUhEZhkgj
- svk2wtSt8Bo8zOrIMGmkVzAbJqeU1jM63QInVVVsi6W3j6kwVllX34pz
-X-Gm-Gg: ATEYQzzHC1vP6FgKtoEbvsaMNfZG3DcvgQWSd0Ed/cbv8UX5mi9xx0GLVBwn4X5bNRV
- 9l6yGd1ui0XjKYCkeGnhkUV3yqC6tIeBOv/XwwkAn0xfvo6x+BZyYjG83F3jG+2tV45FQ6w/T9V
- YTWFw1qjo/W434MCFPFIPQr+g+TDXJKTRUwtgh7eGD5Wfsyq7avv8lh2XocXSgVEPYliU6bPLMW
- YIo0NSmZj++nw/DszJx2SxPmmFG7vnm595VGuaFSILAo+m5teojlW8Khk+qOl4jpsXb0OIGhInB
- Ebqz6J5xxNVvuRUZ9nogvvmxAH6uCskgJxBg5LFrM4lEROWHwkyA9LU1zQ+wKc7KZ2opvaaBysb
- v1yEMOTZ/0AVDnhf85zPRK8/VMrZllEmN+233ZPZW8tkDnmK+kp4V1Q2Rs3KJ5CXxv9IzkT7GwK
- OcboBUsFluXJpnE7YQRPJCPvuUd2cdgymQtcCwafeY25xQdwrm
-X-Received: by 2002:a05:6808:c295:b0:467:2926:123d with SMTP id
- 5614622812f47-46a5c77d4b2mr3987875b6e.47.1774551371661; 
- Thu, 26 Mar 2026 11:56:11 -0700 (PDT)
+ AJvYcCXL4C+k+oM1M0rTOW34BHysAoXaRRFeq7jLM/9v57bEVHVz9YH9Ls0yCMKcIMQHY66i+C5teWJgIT8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YydL8R1FqaC985rCQRNOApcGNUda0UNQXfHLjOdYW6HjBfvl84I
+ ngxRIvdxPz20sSVonVO2gVbFgHe9qGKHkQ7iEGSGo/K22ItAVfVAxlFs
+X-Gm-Gg: ATEYQzzbgyN2cxPLx7ZbVEjrUG/GfAS8nTPguhhaWG6JM8v0KXQkua8J06ijjNzYoRU
+ NdBrv24LNiz+OCKgdv3gMSwgeZ9aeRsO5G2tQGvMkzRWhzN36WCA7U5thdFJ6tvrYwVSDjRU/IO
+ 2aaxiiw2BqCVaLWYQG61C+SU4HkdJL7MgGf6UC03xSYDoNnu7JGTjAWffHIxXCUwk0w0ABY+PR2
+ +xyJrjHc8x8bz6vJXDj5dUjYrkr6uO2Q70yhdGoQT+FW4CG8qKKqVoLSXVawZts3u93JFxC9CyT
+ oeFflsnDMnK5hvRd0fx1qQ0WZMBVRRoiXJ17NczHOBkVk8kKoDpazrnA4Wx4jJn2ApMTM7OuN91
+ LY8SjzsnfC1V9emnxiW26/dWNhqbXwjZQHMDOsaf/8bQl4m/kdJGcFFBWDgKGr2XPzKJyyl3z8t
+ 6Gc+lF8nzzm9tXi7qxKbBKAg5NxF/HBKAu2ZHuzrn9LzTFHK+5
+X-Received: by 2002:a05:6820:174b:b0:67c:2af2:a66a with SMTP id
+ 006d021491bc7-67dff37caf7mr4976746eaf.11.1774551281759; 
+ Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.56.10
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.54.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:56:11 -0700 (PDT)
+ Thu, 26 Mar 2026 11:54:41 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -71,10 +71,11 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 66/69] accel: add -DDYNAMIC_DEBUG_MODULE to subdir-ccflags
-Date: Thu, 26 Mar 2026 12:54:10 -0600
-Message-ID: <20260326185413.1205870-67-jim.cromie@gmail.com>
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+Subject: [PATCH v12 08/69] docs/dyndbg: explain flags parse 1st
+Date: Thu, 26 Mar 2026 12:53:12 -0600
+Message-ID: <20260326185413.1205870-9-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,46 +97,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y and CONFIG_DYNAMIC_DEBUG=n,
-accelerator modules are currently missing the _dynamic_func_call_cls
-macro, due to its conditional definition in dynamic_debug.h, which
-depends upon -DDYNAMIC_DEBUG_MODULE.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
-So add that to subir-ccflags for all accels, in accel/Makefile.
-
-Notes:
-
-The added "indirection" allows modules to individually enable
-dynamic-debug, where a CONFIG_ option would be global to the build.
-
-Several accelerator modules make drm*dbg() calls, so in effect they
-*are* DRM modules.
-
+cc: linux-doc@vger.kernel.org
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/accel/Makefile | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../admin-guide/dynamic-debug-howto.rst         | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
-index 1d3a7251b950..44db786ea223 100644
---- a/drivers/accel/Makefile
-+++ b/drivers/accel/Makefile
-@@ -1,8 +1,13 @@
- # SPDX-License-Identifier: GPL-2.0-only
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 4b14d9fd0300..9c2f096ed1d8 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
-+# several accel modules use drm*dbg, so they *are* DRM modules.
-+# When built with only CONFIG_DYNAMIC_DEBUG_CORE
-+# (and not CONFIG_DYNAMIC_DEBUG), they need this flag
-+subdir-ccflags-$(CONFIG_DRM_USE_DYNAMIC_DEBUG) += -DDYNAMIC_DEBUG_MODULE
+-
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
+-keywords are:::
++Note that since the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword and value.  Flag errs will hide keyword errs::
 +
- obj-$(CONFIG_DRM_ACCEL_AMDXDNA)		+= amdxdna/
- obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
- obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
- obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
- obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
--obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
-\ No newline at end of file
-+obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
++keywords are::
+ 
+   match-spec ::= 'func' string |
+ 		 'file' string |
 -- 
 2.53.0
 
