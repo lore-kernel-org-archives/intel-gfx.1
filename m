@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DDBAFF494F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C0110D14B2
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:57:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BECD010E6E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA33E10E6ED;
 	Mon, 30 Mar 2026 12:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jH8JNCjP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IRkNoAg8";
 	dkim-atps=neutral
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
- [209.85.160.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9F9F10EBF1
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:53 +0000 (UTC)
-Received: by mail-oa1-f43.google.com with SMTP id
- 586e51a60fabf-4138136f02eso902523fac.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:53 -0700 (PDT)
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
+ [209.85.160.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50CB210EBE6
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:39 +0000 (UTC)
+Received: by mail-oa1-f44.google.com with SMTP id
+ 586e51a60fabf-41c0aae84e5so970799fac.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551353; x=1775156153; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1774551338; x=1775156138; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=v7n8LRPhTnKwHNdLKddxIC02c+MckVOPZFH0J7I21NQ=;
- b=jH8JNCjPnhoEXU8PXBKagfcumi83KxobSi9w6zSWsuLksp4W8J2B1gRcw772lV+oWG
- Z0pvsdQs15w1LZhq4r0oPX2zvEGnTctTZPFjg3TDovnf00IspfboybiKY3V++3SDFV3b
- 7TRfM6q5V2mv+FEgitJ0HADKEBszbxqcT4EvNqpURVvc0y2ZRdI+/Ti8dtyChAMjUX4C
- NTVpOOGBQDiz7VoQXwM4oKRsWgdA6Oge8C7pJDih8T4/rG0rGS/bhNP9ZV0BiV8U4wjY
- kbrBXkImgcBLHCwTQzZH+AJkg2SNnVAc4AOynGxJTaJ0k7nNkiQKglLDd5k8bgWY/zD8
- OYRg==
+ bh=b4VPaN2JxzLfP79BRo4ZYIGptPdGN0vKlLM6mj5G4BY=;
+ b=IRkNoAg8SByesDEF+uk8nhT05MlMq48mRLLLsGblUY5GKiiWnp4Ol6/A2wsG2m9hQj
+ 5XzqXhjE4yCXmQwIFQAsKqZdne46cjgZth38hj8DST2t0YXaWmFE4DkkOAc9bj+leXBf
+ DVei8oAFE7P05Douo3mdX+ffyiLmduHq2+B8PQylqQssryBQRCzF3E5wFY3PO7K/+Q6H
+ RDjpvbzZ3YOgMzdgar5ohcx5RGO5RI9HJGSPAbaJ+BkNi1yOkce1bbfZG/V40gySLxBf
+ EyR4FuGy9LSnv5jP8fYhg+1GLeMKqZAS4BS6ekWX0i3kT6fBEKm10SMboq29yXe+aMJI
+ oAvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551353; x=1775156153;
+ d=1e100.net; s=20251104; t=1774551338; x=1775156138;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=v7n8LRPhTnKwHNdLKddxIC02c+MckVOPZFH0J7I21NQ=;
- b=ISBNvbZT/+xriUeZJ/w0gmrKRu7Z/A5EsPKmVa8qGDP6cAUZuepflueT44gdxt47t5
- q8cDHERTceJfEi17+I3Pz9vYnIaVY0BQjaOjYnCYuD+RbxC6bQeauxvP+FbZJ4euGd2/
- BsuqWkjaXsr1kzAyhY1kmSKjUI2m2UJnjBJUqwZ2niDEvE0u4RnOKfMvf3GCi3wQIA6C
- DNVzJENB3MiZ74TF8kj3Pgi7ZPR+bJ/TiCJN+K29kFdBjMUmSHWBhG7vggqmDUpOGZQF
- dlLAf4bnQEDVYY8hJHalxvgxYOjxreTfSpVL3qrDytpqwTHBzXSc+Er1pinTjpiAzD8/
- PHww==
+ bh=b4VPaN2JxzLfP79BRo4ZYIGptPdGN0vKlLM6mj5G4BY=;
+ b=iIYV2ugj4MKfcREFSpuL0XsYIb2o57A3jpfznvOx2DbwIpZttR4W9MPay5t4dogVl8
+ nS7NX/LXD1gu6x60XVyFKd0by5gkMWkETlDsXhEgXvx4oSy5PhVXzv07J59peTsaxyK3
+ Wfat4LDq7aw0+L1dg0wK9oSan1SS5+qBWjYX0zgi6SC6URva+6+sRBhqz0dm0QmOs9DM
+ wCZAuZhTpRbYEKZ0Uej5gbE/08lMBP7NPDKsfhmK7g/SA760OEaIZBqGsx+hgUk7NAEQ
+ 53nf67RPzgdkI5HNXgD+cujTeJCTg/CiWHfo2cToY7wZGjICuif435OToGFjpYvFx7yO
+ bjXw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWOLSS5xKq3yHXg+cO1sXAqL9VNba0QTehpRhIt3GvdOHpKajYb3adlMnXJC2myp25jrWoC719x3Qs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxR4awl5asBhOTRzT8D29m4wfKJA3AVthAfaPwIE1NgaW7/HS3E
- grTgpxzTeGSL5tYVmduRlpeGeANMIUhN7MsGOCbVbA5ezr14UUq9+6ie
-X-Gm-Gg: ATEYQzxveK0wBjCHCP2UQLbajOrNoqe1b+3wGHFiNEsDDbuTxbg7qYN9aeXO4WFGcoc
- fdDjFn8beo5oSqCoCwVVxhnaTBmXnkmprz/t4bo0e/POqAGjhQsDhmSXtn7aSBdb0ryTfQL/YPl
- MFzn0XYcpZ67E63sVEfLLklyK+UVHZq34ivaGTSinR2fBWYskh57PELrmcm+H2jEZ/BhYODjw+V
- rP1k1P79fU0hEuYbJ3ff6oN2hpYRaJxBD3sk/DboOS8HkB2ASpbAnvsWvgg26hMa/jo/1HDhDjP
- pBwXFZIG+4IYlmpwxadprY8DwITBU0oYzuCOa1QI8hPZ2xR6ZfhBb44o0N5LdGqnqcltOnafrh8
- Tsdpk4x/tsiF+EO1Bi/xxioH2IFnZ57s8/URaQwWW5qCI0iVYoSDazdevqNSTw3NF+d2Y1BoPHc
- PHo9jPTHVfnv9b6YnISdekfhSpsKaycW0xoXbFcUwt1BkXPZvT
-X-Received: by 2002:a05:6871:608:b0:41c:305b:14d0 with SMTP id
- 586e51a60fabf-41ca7049e58mr4680983fac.35.1774551352968; 
- Thu, 26 Mar 2026 11:55:52 -0700 (PDT)
+ AJvYcCWXe8wWKo7CN9B0jT3eb51IFeYH1KNh7Mxg868b9HC45LWmUNtk46tx4Lut7khctAQbEuUjWf8Urc0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxXmocSBsTkVh6Rt68s74DRXjALwp3Cr2SeQjC/ZXtrAJx3y5v5
+ FM32/8nsqcsFNRTUU2VquYXmIAdq6FFu4xwXyWvB3vmJp07OXbYOIyIp
+X-Gm-Gg: ATEYQzzLMhhd3xvwEXttJL4QCv5+b3MLiYMvVfP8W9IJu3lPnsWCh0Jk05gdtfB2Sb8
+ uigyf42wygRsMZ5V+L2tFh2NdFtaaTZO+JUCTc+oqkT8HUMgazkHUtNE5Qm1eZopr6jbESPeJUJ
+ mc+bgDx6ze0laI8e1C2/bk0Phv1LhtecufiyhfWECJ0KvkXFvet+X2HbLh77MVIOcpgQjAmPCML
+ ezgjaIkKrDQLJDZC/HVVdwnYwYs0seZPhdHRbFhqpILXXa5UK4aqxI5cjWqOosZ2GEP0LoE8bUi
+ RxlDK0FCVxyQMbXrIa5BPu76uD8Zbdwq8rVzKgU7H4A56aHdbrIutzqqBt7vioa+KrNKyt/avM6
+ GJD0Ef5sjfFQ92SkrHPsTCq8O+1Sz2w/vkziQVi0RtLz7NWchRxs0Z0rOm+cu61RENNLpIcnpTM
+ cqWSyHlvXo0KKGFbA7zIzdOOMX/qYqq+UzfEKIRVDJB2hP7AuO
+X-Received: by 2002:a05:6871:4604:b0:409:95c6:f2dd with SMTP id
+ 586e51a60fabf-41ca6e9ff1emr4767565fac.22.1774551338399; 
+ Thu, 26 Mar 2026 11:55:38 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.51
+ 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:52 -0700 (PDT)
+ Thu, 26 Mar 2026 11:55:38 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  jbaron@akamai.com, gregkh@linuxfoundation.org
@@ -72,9 +72,10 @@ Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
  louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
  ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 53/69] drm-dyndbg: add DRM_CLASSMAP_USE to bochs
-Date: Thu, 26 Mar 2026 12:53:57 -0600
-Message-ID: <20260326185413.1205870-54-jim.cromie@gmail.com>
+Subject: [PATCH v12 43/69] drm-dyndbg: adapt DRM to invoke
+ DYNAMIC_DEBUG_CLASSMAP_PARAM
+Date: Thu, 26 Mar 2026 12:53:47 -0600
+Message-ID: <20260326185413.1205870-44-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
 References: <20260326185413.1205870-1-jim.cromie@gmail.com>
@@ -96,28 +97,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-tiny/bochs has 5 DRM_UT_* debugs, make them controllable when
-CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg that the module has
-class'd debugs.
+Invoke DYNAMIC_DEBUG_CLASSMAP_PARAM to hook drm.debug (__drm_debug) to the
+DRM_UT_* classmap, replacing the ad-hoc wiring previously doing it.
+
+Add DRM_CLASSMAP_* adapter macros to selectively use
+DYNAMIC_DEBUG_CLASSMAP_* when DRM_USE_DYNAMIC_DEBUG=y is configured.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/tiny/bochs.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/drm_print.c | 8 ++------
+ include/drm/drm_print.h     | 4 ++++
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/tiny/bochs.c b/drivers/gpu/drm/tiny/bochs.c
-index 222e4ae1abbd..8f04666e7def 100644
---- a/drivers/gpu/drm/tiny/bochs.c
-+++ b/drivers/gpu/drm/tiny/bochs.c
-@@ -63,6 +63,8 @@ static int bochs_modeset = -1;
- static int defx = 1024;
- static int defy = 768;
+diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
+index c0ec866f31dd..9cdc547e3f85 100644
+--- a/drivers/gpu/drm/drm_print.c
++++ b/drivers/gpu/drm/drm_print.c
+@@ -70,12 +70,8 @@ DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
+ 		    "DRM_UT_DP",
+ 		    "DRM_UT_DRMRES");
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
+-static struct ddebug_class_param drm_debug_bitmap = {
+-	.bits = &__drm_debug,
+-	.flags = "p",
+-	.map = &drm_debug_classes,
+-};
+-module_param_cb(debug, &param_ops_dyndbg_classes, &drm_debug_bitmap, 0600);
++DRM_CLASSMAP_PARAM_REF(debug, __drm_debug, drm_debug_classes, p);
 +
- module_param_named(modeset, bochs_modeset, int, 0444);
- MODULE_PARM_DESC(modeset, "enable/disable kernel modesetting");
+ #endif
  
+ void __drm_puts_coredump(struct drm_printer *p, const char *str)
+diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
+index b743ee3f8f5e..94064ec6c229 100644
+--- a/include/drm/drm_print.h
++++ b/include/drm/drm_print.h
+@@ -147,9 +147,13 @@ enum drm_debug_category {
+ #ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
+ #define DRM_CLASSMAP_DEFINE(...)    DYNAMIC_DEBUG_CLASSMAP_DEFINE(__VA_ARGS__)
+ #define DRM_CLASSMAP_USE(name)      DYNAMIC_DEBUG_CLASSMAP_USE(name)
++#define DRM_CLASSMAP_PARAM_REF(...) DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(__VA_ARGS__)
++#define DRM_CLASSMAP_PARAM(...)     DYNAMIC_DEBUG_CLASSMAP_PARAM(__VA_ARGS__)
+ #else
+ #define DRM_CLASSMAP_DEFINE(...)
+ #define DRM_CLASSMAP_USE(name)
++#define DRM_CLASSMAP_PARAM_REF(...)
++#define DRM_CLASSMAP_PARAM(...)
+ #endif
+ 
+ static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
 -- 
 2.53.0
 
