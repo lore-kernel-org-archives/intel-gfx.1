@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B990F10BA434
-	for <intel-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 06:43:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3DAC10BA435
+	for <intel-gfx@archiver.kernel.org>; Fri, 27 Mar 2026 06:43:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E054B10ECB2;
-	Fri, 27 Mar 2026 06:43:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E491110ECB4;
+	Fri, 27 Mar 2026 06:43:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GdLHfolO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LP2wRS57";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E88010ECB1;
- Fri, 27 Mar 2026 06:43:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4F5810ECB3;
+ Fri, 27 Mar 2026 06:43:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774593822; x=1806129822;
+ t=1774593824; x=1806129824;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=L+HwGRCoUT4GHqMbFBwBT4E+GOssWBoeKho0Uu6v2js=;
- b=GdLHfolOJkWkjN/JrlXTggidWkrmjVOJYTslixNtU1F8RNneixa0JZXx
- 6HeV7djIbZ/q2QYJMmCd6wO85eBK4XNx4EgAjfvNGRhcgJ+gf74hOUaWW
- +EzNeUVe9hj+lQSNqYviLaf1ikkjzC0VKGTRJxJeRteOyMcVHRBxM1gTN
- +Vaq9L+6m93QhgoYBrVTucd2d7WFTKfKgh7fr3qWG1SCF5Ca5u3CU7orT
- a0Bf9fDm7wj29RdX2jbrAI1e/D/FUjjTnC7crS/piapWlvkykJhnySshK
- igEsasDJEwnmMqDiKT8qbhOEPMUJCPIbuLiZINxvl1OMkhIzs4LYMZlyp w==;
-X-CSE-ConnectionGUID: YbRMBTHcSzSXxRxTSWYWgw==
-X-CSE-MsgGUID: HQFoHKmhSPu66aKO07LgFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75684250"
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75684250"
+ bh=HxG+YxZbwpHmxN8UrSRq3JiIjjgqeBahM2p8ixMdXeY=;
+ b=LP2wRS576J5xcazAIbkUSEedkM4QfhvQf3yQOrQzo1P3TrdLQBDmQr4m
+ zCIopg6wTfJZYGRYNabCZBFpQoNBeFNCTlwOPrE4lGY1HVCZVNKNkcCBd
+ RrQixUXwbczensxGOKBfXx5SXRhw0g+UkpWLebPe+CmXhZtqQJecXH08Z
+ /w9b3KsW8zYnnNbG86ryGHkTWCwWB09qwhr/drAgzHmRSBvQnPDZ2MC5b
+ vmqBhz69Y1yM0Zsgjwqr0IHAD6CAiMAwFxA7eZVxqlI7KKPGpTzGuPi+q
+ jTZ1MqITb131FbcRfXnBkE9pzBYC7FQNqpV0+2bdh9NhpfYlESYVI5mN6 A==;
+X-CSE-ConnectionGUID: /RfbyxxDR2aAPNqaOofzmg==
+X-CSE-MsgGUID: /hn5Zc5RT4aY3KMsOT/A1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11741"; a="75684251"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="75684251"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 23:43:42 -0700
-X-CSE-ConnectionGUID: /s+0FceUR/2q9lZs7vdrnw==
-X-CSE-MsgGUID: jfHUFKUdQse3ESL80XouDg==
+ 26 Mar 2026 23:43:43 -0700
+X-CSE-ConnectionGUID: Z5cfiofrRSuOBdv5Q2D6Ow==
+X-CSE-MsgGUID: ULOtdydXSlKkyUbqK7nVzQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="222313851"
+X-IronPort-AV: E=Sophos;i="6.23,143,1770624000"; d="scan'208";a="222313857"
 Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Mar 2026 23:43:41 -0700
+ 26 Mar 2026 23:43:42 -0700
 From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: suraj.kandpal@intel.com
-Subject: [PATCH v5 1/2] drm/i915/dmc: Remove invalid PIPEDMC interrupt bits
-Date: Fri, 27 Mar 2026 12:14:52 +0530
-Message-ID: <20260327064453.2241523-2-dibin.moolakadan.subrahmanian@intel.com>
+Subject: [PATCH v5 2/2] drm/i915/dmc: Enable PIPEDMC_ERROR interrupt
+Date: Fri, 27 Mar 2026 12:14:53 +0530
+Message-ID: <20260327064453.2241523-3-dibin.moolakadan.subrahmanian@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260327064453.2241523-1-dibin.moolakadan.subrahmanian@intel.com>
 References: <20260327064453.2241523-1-dibin.moolakadan.subrahmanian@intel.com>
@@ -68,39 +68,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On display version 35+ PIPEDMC_ATS_FAULT and
-PIPEDMC_GTT_FAULT interrupt bits are no longer defined.
-
-Update the interrupt mask to drop these.
+Enable PIPEDMC_ERROR interrupt bit for display version 35+.
 
 Changes in v2:
 - Move PIPEDMC_ERROR interrupt enable to a separate patch (Ville Syrjala)
 Changes in v3:
 - Add Bspec reference (Suraj Kandpal)
 Changes in v4:
-- Move bspec position in commit message(Suraj Kandpal)
+- Add TODO to check the enablement of PIPEDMC_ERROR for PTL (Suraj Kandpal)
+Changes in v5:
+- Move TODO to the beginning of pipedmc_interrupt_mask() (Suraj Kandpal)
 
 Bspec: 70296
 Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dmc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dmc.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
-index 1667a829e708..1d2e09471ba4 100644
+index 1d2e09471ba4..2104164e136e 100644
 --- a/drivers/gpu/drm/i915/display/intel_dmc.c
 +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
-@@ -505,6 +505,9 @@ static void pipedmc_clock_gating_wa(struct intel_display *display, bool enable)
+@@ -505,8 +505,13 @@ static void pipedmc_clock_gating_wa(struct intel_display *display, bool enable)
  
  static u32 pipedmc_interrupt_mask(struct intel_display *display)
  {
-+	if (DISPLAY_VER(display) >= 35)
-+		return PIPEDMC_FLIPQ_PROG_DONE;
-+
++	/*
++	 * TODO: Check if PIPEDMC_ERROR bit enabling causes errors
++	 * on PTL, enable it if validation passes
++	 */
+ 	if (DISPLAY_VER(display) >= 35)
+-		return PIPEDMC_FLIPQ_PROG_DONE;
++		return PIPEDMC_FLIPQ_PROG_DONE |
++			PIPEDMC_ERROR;
+ 
  	/*
  	 * FIXME PIPEDMC_ERROR not enabled for now due to LNL pipe B
- 	 * triggering it during the first DC state transition. Figure
 -- 
 2.43.0
 
