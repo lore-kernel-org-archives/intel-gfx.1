@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A4DDFF493F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8972FF4941
 	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 04:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 790C810E2B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A187410E2B8;
 	Mon, 30 Mar 2026 04:22:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RZHOcjhw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CpKen0i0";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0945C10E2B8;
- Mon, 30 Mar 2026 04:22:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4776410E2A0;
+ Mon, 30 Mar 2026 04:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774844532; x=1806380532;
+ t=1774844529; x=1806380529;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=5cW2FCibFvSHNgBH78UGUtxwxJ658xGT7zSnghT/zeo=;
- b=RZHOcjhwMsjHNNPjJhd6EPx5V1R0PuGHmG/eDT4Z/Z1MhP+lc9unc1NZ
- UHBQZvvrOOyNWdPivG8eQhz+/WcppNm7+ZVOtsFbHl2VWUpgv7dzEAVVv
- TCNcGUNEBYPyLjYdT1ncOciguPX+OHgorpW+JA1UvHLtJAuUdQPCpcyh8
- fhXikZ0btFSLJlsuQVYqzOk1sdMu3Yz/dbeJ/xIMftNzGrgkfGZSxJE8W
- MBw4xu5f9oqzn9RzIWSgWD0IuWq285bPsJ6tWDHpu2C5OphtiqQN68IC/
- 9eu4sEB2U8eXoSjOKDVTnlMbhLg4OGcXFQxCzCv7gsxDlYhZLOKPHUceb g==;
-X-CSE-ConnectionGUID: Aq+sd7HERu6au3qnwTJmfg==
-X-CSE-MsgGUID: LTu+hGB2SDOe/8wbXxpRxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="87218224"
-X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="87218224"
+ bh=WbWi6PwBUWyF29gRl4R64Pp34kqEchhuYA4bCxBUp3Y=;
+ b=CpKen0i08cS4U0QShjQBF1naltB7TPh07Y2dSxPmduWO7x6JP0zUoThq
+ PDUYULimI8Q3ABXTYI/CfxQIKR3q/Kcq9k4Z5jt3gaXG28/GL3e9ahZ+e
+ bIP0lmHT2vbtDsWgWQdppvk5TYjhVfFBvWs7nz3VMk/N9OPNb7MBy1pgX
+ xpX9jnoNxEydAaR+BNVTOE+/TKKQEr5SecJWvpo1dorZJv9ZPgz3H7HMZ
+ e2BVLqWAevXkdev4BQl30cJWP7pFIX7prDt95pT+Zb6SudlpFWJ9kHCUS
+ eRjb+58Gs2ui3xoiDkEYL0S/UgN/ngOlqVL3ZiLCaw5hNNIoVivdX/rWV Q==;
+X-CSE-ConnectionGUID: qO6g7lJkRISOA0nlIzFrbw==
+X-CSE-MsgGUID: 6bCYRSg4T2my3vRARAnolQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="87218223"
+X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="87218223"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2026 21:22:12 -0700
-X-CSE-ConnectionGUID: /h78MnstQq63S6n3p1iZoQ==
-X-CSE-MsgGUID: Rm9mqv1jRHK97CLxWB1ynQ==
+ 29 Mar 2026 21:22:09 -0700
+X-CSE-ConnectionGUID: zgrYyYMyQdmMxBQafOeZ7A==
+X-CSE-MsgGUID: R7R9/jQmT0GWmdYbUdaIPQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="263871130"
+X-IronPort-AV: E=Sophos;i="6.23,149,1770624000"; d="scan'208";a="263871119"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2026 21:22:09 -0700
+ 29 Mar 2026 21:22:07 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
- animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Subject: [PATCH 05/19] drm/i915/dp: Fix readback for target_rr in Adaptive
- Sync SDP
-Date: Mon, 30 Mar 2026 09:36:42 +0530
-Message-ID: <20260330040656.4116502-6-ankit.k.nautiyal@intel.com>
+ animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 04/19] drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+Date: Mon, 30 Mar 2026 09:36:41 +0530
+Message-ID: <20260330040656.4116502-5-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
 References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,33 +69,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Correct the bit-shift logic to properly readback the 10 bit target_rr from
-DB3 and DB4.
+Add additional DPCDs required to be configured to support VRR with Panel
+Replay. These DPCDs are specifically required for configuring Adaptive Sync
+SDP and are introduced in DP v2.1.
 
-v2: Align the style with readback for vtotal. (Ville)
+v2:
+ - Correct the shift for the bits. (Ville)
+ - Add DP_PR_ prefix for the PR-related fields.
+v3:
+ - Use macro values in their shifted form to match the convention (Ville)
 
-Fixes: 12ea89291603 ("drm/i915/dp: Add Read/Write support for Adaptive Sync SDP")
-Cc: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/drm/display/drm_dp.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 602efaf500bd..49eeb35973a1 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -5298,7 +5298,7 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
- 	as_sdp->length = sdp->sdp_header.HB3 & DP_AS_SDP_LENGTH_MASK;
- 	as_sdp->mode = sdp->db[0] & DP_AS_SDP_OPERATION_MODE_MASK;
- 	as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
--	as_sdp->target_rr = (u64)sdp->db[3] | ((u64)sdp->db[4] & 0x3);
-+	as_sdp->target_rr = ((sdp->db[4] & 0x3) << 8) | sdp->db[3];
- 	as_sdp->target_rr_divider = sdp->db[4] & 0x20 ? true : false;
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 8d172863eba3..93a188113d36 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -775,6 +775,11 @@
+ # define DP_PANEL_REPLAY_SU_Y_GRANULARITY_EXTENDED_VAL_SEL_MASK  (0xf << 3)
+ # define DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE		 (1 << 7)
  
- 	return 0;
++#define PANEL_REPLAY_CONFIG3				0x11a /* DP 2.1 */
++# define DP_PR_AS_SDP_SETUP_TIME_T1			(0 << 6)
++# define DP_PR_AS_SDP_SETUP_TIME_DYNAMIC		(1 << 6) /* DP 2.1 Table 2-227 */
++# define DP_PR_AS_SDP_SETUP_TIME_T2			(2 << 6)
++
+ #define DP_PAYLOAD_ALLOCATE_SET		    0x1c0
+ #define DP_PAYLOAD_ALLOCATE_START_TIME_SLOT 0x1c1
+ #define DP_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT 0x1c2
 -- 
 2.45.2
 
