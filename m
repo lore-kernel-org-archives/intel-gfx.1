@@ -4,84 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F46710D14AD
-	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 12:58:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A2810D14AD
+	for <intel-gfx@archiver.kernel.org>; Mon, 30 Mar 2026 13:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECDCC10E751;
-	Mon, 30 Mar 2026 12:58:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF90910E765;
+	Mon, 30 Mar 2026 13:02:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l7A8l/Ng";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HvLHbDyq";
 	dkim-atps=neutral
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE2810EBEC
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 18:55:37 +0000 (UTC)
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-7d7422b4ff1so428588a34.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 26 Mar 2026 11:55:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774551337; x=1775156137; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jaS+vAPe+o14cf01tnHTOxQ9DFEqgjCQ99ScUUNb7AU=;
- b=l7A8l/NgaYmte1+s/N3GaZ26vD/wdo3Jqkkct2+QjMzrTiDaRUWixPeiq0tnaUgq/y
- AyEt4r7nrS0ZODSD/NVNLNe/iDsU607Q58Pl1gPhwRF4P6QhlUvlpkxKKgK71W8v8L2D
- BPLWlN/wUtN69cbttSDd3IEqiyug9cYd+c/wCvfu7HEctBVKepiUJj/03zr2nw31gHyz
- S24+1WKAwRoaVJd62MPz2BK7hAveyJEz/vEtzXst34tsojb4s00R/8NXZk/u2Rdjqyjf
- nS/wZE9KL3QlLDxJ6PARJZPpXdtZES2P8BCw2VD3CppMbNjVet3SPT+fzzbngDIWb3xO
- E1dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774551337; x=1775156137;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jaS+vAPe+o14cf01tnHTOxQ9DFEqgjCQ99ScUUNb7AU=;
- b=fDUxjM5ffvtnsoxblij7ifPqcI7TxgyEkp35LzCmp9eQCTzaReeu3hLcNLes/toshg
- Xici9DvN19Zep8CqsVw+BeRzb1Da7NCBPLv0pKGrzAXiHuPb/7pfB07bYkl79BCmcDT7
- FUQtUJGgXrPwrsd5nIKsS+FwVIQpCDO/w1hVdBenLVBDUUaNfX00hNFmE2qttFSEP/nz
- FO4cwllG2aYXnm1Dp8XDeaYwu80dQlBeD+LKUgN2d/JTaqSDpjHY9ISf6Pnfy2fUJ40p
- tjoON2EVv+veQls8LCRb5VIsnP9ZiJ+8uJulYjBZKA/GF55QbmW9gBOw2BE3riabyN5D
- e00w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW3v1B7332tlU6aLL2arBGZbQ9In31ZWfDOwWAfx2rLssasfFH2iPNdBjTD9eso5WVNmgLRioKujm8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnIiR+djrnYjUaYn5XVp3/Ndr4GboiLtzMwDpiIvbNMZMNErL7
- 0wt/HvO0oYz5I/74UiQp9JuYozqXWt//IW1O5KIhLJHz6+qwwrKi+cZf
-X-Gm-Gg: ATEYQzxy2Vq7H9nfGRbQnOlRKZkeH4HwoDIMzU8XIH1U7MlbTYOygoahoC61K05/kIU
- BgnPE80VGLl1BFq2hGq51/hY01wYiLT1YjKRcDMNjlJQsA6N0lMpKBJbQBIpbGdRuVQYD64d5PR
- 9uif87kj1lhWa8JVLz/IFm3rFOtJm2Nc9t9OX0R7HydOdmgOpFc7dXUMrn7IY4+2Rj77cQTZ4bZ
- S2zVtKhuRFQSYYNMR2Hzd9RdYMuRMPDzNotSbkf0yBWhyga+tbzagLc6FqriV9m8L49ZLE6Wuto
- Pc/H9aQN8cQ7LaWHeX491Ypy6Cpncx/kMfrp2iL+gkgPW4r/sLpufNxROFbz5wL2hPVlpb69SLq
- 4SgsfS8DU5h+Z9b8vyh0UIpDKxcOJyxQNSrCZfpKgTXybi/hev389KEjq3y6X5SVS0FXOntLnZi
- I3rx/BaoH7/WUybwk8Sov6t/r8cHhiQdy9/4ltXLt8sdAxxVCV
-X-Received: by 2002:a05:6820:338a:20b0:67e:f8c:6bcf with SMTP id
- 006d021491bc7-67e0f8c6db0mr1039841eaf.21.1774551337025; 
- Thu, 26 Mar 2026 11:55:37 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 586e51a60fabf-41cc7760c08sm3075171fac.4.2026.03.26.11.55.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Mar 2026 11:55:36 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- jbaron@akamai.com, gregkh@linuxfoundation.org
-Cc: jim.cromie@gmail.com, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v12 42/69] drm-dyndbg: adapt drm core to use dyndbg
- classmaps-v2
-Date: Thu, 26 Mar 2026 12:53:46 -0600
-Message-ID: <20260326185413.1205870-43-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260326185413.1205870-1-jim.cromie@gmail.com>
-References: <20260326185413.1205870-1-jim.cromie@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5213E10E765;
+ Mon, 30 Mar 2026 13:02:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1774875765; x=1806411765;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GizUeGuhOI6xqg7Gi5GFQac9an3uswH4AB9nvvujSkM=;
+ b=HvLHbDyqZUPGcp9G2RmXfBTO7EkUhHNQzmFWqUWQOuUzQSVILco0Ua0W
+ Az5nF9W9lQNKl4pTW6mjh93gESr6a1x60wLfOFPF0fb7Gx2myGzeMbxNH
+ KfGk3ykMJagC+gHzBwGOxWHrWxLKj3EPN+2Ti1JMarf+sDQKrxVTu/Zm8
+ amO5bQKTV79jkNrcse+E87/g6+Ofd/X7lcaBbRKnp6fFFulFVht/hrWXw
+ rxdsnQCihI60V8RHAJFRIs6NyY8CV/b3ZlGxZsIWjCqLZsY+GCO3hpD3j
+ Oo7Ng0ueVV0sQdFxzRoV0DTdn0xASQZv/vpXm/QxaAJKoo1EKRFOo/jzI w==;
+X-CSE-ConnectionGUID: UQaJvIKNSlCKmPszM+HQuA==
+X-CSE-MsgGUID: KmGY9/foSnmmiuWV6UZvWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11743"; a="78462862"
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="78462862"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 06:02:44 -0700
+X-CSE-ConnectionGUID: O7VNdxBgSyCNn3lUdpfmEw==
+X-CSE-MsgGUID: z0+omlpkRQCGcB8hFius/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,150,1770624000"; d="scan'208";a="263988591"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.17])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Mar 2026 06:02:41 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 0/3] drm/{i915,xe}: finish switching to common step.h header
+Date: Mon, 30 Mar 2026 16:02:33 +0300
+Message-ID: <cover.1774875688.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 30 Mar 2026 12:57:43 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,100 +69,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-dyndbg's CLASSMAP-v1 api was broken; DECLARE_DYNDBG_CLASSMAP tried to
-do too much.  Its replaced by DYNAMIC_DEBUG_CLASSMAP_DEFINE which
-creates & EXPORTs a classmap, and DYNAMIC_DEBUG_CLASSMAP_USE which
-refers to that exported classmap, creating a module dependency.  DRM
-gets DRM_CLASSMAP_* wrappers to hide the DRM_USE_DYNAMIC_DEBUG ifdef.
+The remaining ones from the step.h conversion which were pending some
+merges and backmerges.
 
-The drivers still use DECLARE_DYNDBG_CLASSMAP for now, so they still
-redundantly re-declare the classmap, but we can convert the drivers
-later to DYNDBG_CLASSMAP_USE, at which point they'll respond to the
-echo class FOO >control commands.
+Jani Nikula (3):
+  drm/xe/step: switch to the shared step definitions with i915
+  drm/xe/step: switch from enum xe_step to intel_step naming
+  drm/i915/display: switch to including common step file directly
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
-this ignored a checkpatch
- WARNING: Argument 'name' is not used in function-like macro
- #70: FILE: include/drm/drm_print.h:148:
- +#define DRM_CLASSMAP_USE(name)
+ drivers/gpu/drm/i915/display/intel_cdclk.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      |  2 +-
+ .../drm/i915/display/intel_display_device.c   |  2 +-
+ .../drm/i915/display/intel_display_power.c    |  2 +-
+ .../gpu/drm/i915/display/intel_display_wa.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_fbc.c      |  2 +-
+ drivers/gpu/drm/i915/display/intel_flipq.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c |  2 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |  2 +-
+ .../drm/i915/display/skl_universal_plane.c    |  2 +-
+ .../drm/xe/compat-i915-headers/intel_step.h   | 13 ----
+ drivers/gpu/drm/xe/tests/xe_pci.c             |  4 +-
+ drivers/gpu/drm/xe/xe_step.c                  |  2 +-
+ drivers/gpu/drm/xe/xe_step.h                  |  4 +-
+ drivers/gpu/drm/xe/xe_step_types.h            | 61 +------------------
+ 18 files changed, 20 insertions(+), 90 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/intel_step.h
 
-the macro is empty, and correct. only 1 arg is expected.
-
-v++: fix old CLASSBITS/CLASSMAP comment
----
- drivers/gpu/drm/drm_print.c | 25 +++++++++++++------------
- include/drm/drm_print.h     | 13 ++++++++++++-
- 2 files changed, 25 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 9b622345e2eb..c0ec866f31dd 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -56,18 +56,19 @@ MODULE_PARM_DESC(debug, "Enable debug output, where each bit enables a debug cat
- #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
- module_param_named(debug, __drm_debug, ulong, 0600);
- #else
--/* classnames must match vals of enum drm_debug_category */
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+/* classnames must match value-symbols of enum drm_debug_category */
-+DRM_CLASSMAP_DEFINE(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS,
-+		    DRM_UT_CORE,
-+		    "DRM_UT_CORE",
-+		    "DRM_UT_DRIVER",
-+		    "DRM_UT_KMS",
-+		    "DRM_UT_PRIME",
-+		    "DRM_UT_ATOMIC",
-+		    "DRM_UT_VBL",
-+		    "DRM_UT_STATE",
-+		    "DRM_UT_LEASE",
-+		    "DRM_UT_DP",
-+		    "DRM_UT_DRMRES");
- 
- static struct ddebug_class_param drm_debug_bitmap = {
- 	.bits = &__drm_debug,
-diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
-index ab017b05e175..b743ee3f8f5e 100644
---- a/include/drm/drm_print.h
-+++ b/include/drm/drm_print.h
-@@ -96,7 +96,10 @@ extern unsigned long __drm_debug;
-  *
-  */
- enum drm_debug_category {
--	/* These names must match those in DYNAMIC_DEBUG_CLASSBITS */
-+	/*
-+	 * These enum-names are reused in DRM_CLASSMAP_DEFINE to
-+	 * expose them as classes in /proc/dynamic_debug/control
-+	 */
- 	/**
- 	 * @DRM_UT_CORE: Used in the generic drm code: drm_ioctl.c, drm_mm.c,
- 	 * drm_memory.c, ...
-@@ -141,6 +144,14 @@ enum drm_debug_category {
- 	DRM_UT_DRMRES
- };
- 
-+#ifdef CONFIG_DRM_USE_DYNAMIC_DEBUG
-+#define DRM_CLASSMAP_DEFINE(...)    DYNAMIC_DEBUG_CLASSMAP_DEFINE(__VA_ARGS__)
-+#define DRM_CLASSMAP_USE(name)      DYNAMIC_DEBUG_CLASSMAP_USE(name)
-+#else
-+#define DRM_CLASSMAP_DEFINE(...)
-+#define DRM_CLASSMAP_USE(name)
-+#endif
-+
- static inline bool drm_debug_enabled_raw(enum drm_debug_category category)
- {
- 	return unlikely(__drm_debug & BIT(category));
 -- 
-2.53.0
+2.47.3
 
