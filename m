@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42B310F92F0
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 18:34:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 780FBFF60F4
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 18:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8D3E10EB3F;
-	Tue, 31 Mar 2026 18:34:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2BE410EB17;
+	Tue, 31 Mar 2026 18:34:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T8KNyp/v";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KzKq9Rei";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C043B10EAC6;
- Tue, 31 Mar 2026 18:34:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 815E310EB62;
+ Tue, 31 Mar 2026 18:34:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774982078; x=1806518078;
+ t=1774982084; x=1806518084;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WOlZR+66L6Cjv1/7NuA5AR8JN3m83KLleQ5M+T18wJk=;
- b=T8KNyp/vdSlOXCQRbpbCDmPeXKl7IwZClwQGUe5lpex5qTHQkTESqEc/
- iBKw5naQSGtlQI8UY+QFvOyl18QCGNvs4icqyS6VS6SUjSZtKrAn6nR4E
- 6WDbA8TBsFUV7F1OULPHA+Il+rakCS88ISeEmpzvQRMHw3V57GZ7XZI3C
- HZqLMpGhMpCJBl/GPGkRuSmSnNuFf2fz4jIdxZn3q6UrCIKkK4jDUmH2m
- PNNcoLiUqT3rwnAtzimQGnV9tVv/hsKl/PuD3+Xvj9o7yUWwyNUvWSCb0
- LBjqVTLu4uydWaCPOGhUu01Nb1jr6cNRXYDuJKH69cv2UCh7N8Vq5MyPp A==;
-X-CSE-ConnectionGUID: k6NF48WQQEOnhsJOlXyruQ==
-X-CSE-MsgGUID: quL4Bq1rTTqp82vGRf+Isg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86705176"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="86705176"
+ bh=Od0D1Tyo7F2jCotEsZ1WhvgEtNG5Zk+1Z6xkSDyW82o=;
+ b=KzKq9ReiWMtFLducga+JPNSrulSUk73LaSTBcBxssAey/D1ArnPUtFDS
+ 0tKXzCZycRGT28nEemSk9TkCvPB8JqYZTsXtOKyrKOwkbCNJIUCw/LY2d
+ ubN4BKlKjARt1TjCnOU2sHOw0lvChjy2Fxue8b+C8M4K/oHEEwMMAxSrh
+ 4a4CZ57IWBfgTvqJngAbfELDzKEdOO2MCTTkYUwd3+1YKPjTKJxZ6Q6AH
+ 7ci0bRyWUO7+kIVUd5WaMTHdtqr/mtN1hXrJFMy5kd5zqHmL3FuLJYMuF
+ zUl8Uy14O3+YjAaW8OosIH3yvR6Auq/9sEbR+a103IcffZpsx+n+kgvi+ g==;
+X-CSE-ConnectionGUID: Ym2JUhrwR4CyY3QLU5aC2A==
+X-CSE-MsgGUID: WjJalE+DS1WW+NIBU/eBsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="86705191"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="86705191"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 11:34:38 -0700
-X-CSE-ConnectionGUID: Ege215fXTQGhKpSFwR1ALQ==
-X-CSE-MsgGUID: +A2cuAbARISzoz9HRQAOqQ==
+ 31 Mar 2026 11:34:43 -0700
+X-CSE-ConnectionGUID: bOOC0qVQRQOVPoWmNnFdKQ==
+X-CSE-MsgGUID: Q1ekhwb1TxC1QOvJK6DD9w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="256944477"
+X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="256944510"
 Received: from administrator-system-product-name.igk.intel.com (HELO
  dev-417.igk.intel.com) ([10.91.214.181])
- by orviesa002.jf.intel.com with ESMTP; 31 Mar 2026 11:34:37 -0700
+ by orviesa002.jf.intel.com with ESMTP; 31 Mar 2026 11:34:43 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v1 07/16] drm/i915/bios: parse EHL's VS/PE Override Block #57
-Date: Tue, 31 Mar 2026 20:33:23 +0200
-Message-ID: <20260331183332.1773886-8-michal.grzelak@intel.com>
+Subject: [PATCH v1 11/16] drm/i915/buf_trans: override encoder->get_buf_trans
+ when asked
+Date: Tue, 31 Mar 2026 20:33:27 +0200
+Message-ID: <20260331183332.1773886-12-michal.grzelak@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260331183332.1773886-1-michal.grzelak@intel.com>
 References: <20260331183332.1773886-1-michal.grzelak@intel.com>
@@ -72,73 +73,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Parse content of VBT #57 into buffers' table. In case of EHL we cannot
-parse the content by simply casting pointer to the memory location since
-VBT #57 contains more fields than it is actually needed.
+Overwrite encoder->get_buf_trans with override_buf_trans() hook when
+port asks to override default Vswing / Preemphasis tables.
 
-Parse VBT #57 going row-wise since VBT #57 is a contiguous block.
+Overriding proper consists of:
+1) getting buffers' table via cached pointer in intel_encoder;
+2) checking if the index to the table has already been computed;
+3) computing & storing the most appropriate index;
+4) accessing desired buf_trans with the index;
+5) pointing allocated buf_trans_entry to the accessed buf_trans.
 
-Reuse LOW() macro for extracting lower byte out of u32 value read from
-Block 57.
+Assume 0 as the default index when finding the most specific index
+failed.
 
-Equivalently, extraction of lower byte could be done by cast to (u8).
-This approach would have the advantage of dropping "drm/i915/buf_trans:
-switch from u8 to u32" patch.
+There are no changes to intel_ddi_dp_level() since selection of correct
+row of intel_ddi_buf_trans_entry is same as when no override request has
+been done.
+
+vswing_preemph_compute_index() feels like should be done in
+override_vswing_preemph() during parse_ddi_ports() from intel_bios.c
+instead of override_buf_trans(). Points 2) & 3) then could be omitted
+from override_buf_trans(). In reality it is not trivial because index
+computation depends on port_clock properties from crtc_state. Checking
+those in intel_bios.c is out of my idea as of now.
 
 Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_bios.c | 31 +++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ .../drm/i915/display/intel_ddi_buf_trans.c    | 55 +++++++++++++++++++
+ 1 file changed, 55 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-index c09af91ab55f..f2f1a57dbdbc 100644
---- a/drivers/gpu/drm/i915/display/intel_bios.c
-+++ b/drivers/gpu/drm/i915/display/intel_bios.c
-@@ -2188,6 +2188,35 @@ parse_compression_parameters(struct intel_display *display)
- 	}
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+index de5f6f89374e..06c2869d3e7a 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
+@@ -3,6 +3,8 @@
+  * Copyright © 2020 Intel Corporation
+  */
+ 
++#include <drm/drm_print.h>
++
+ #include "intel_cx0_phy.h"
+ #include "intel_ddi.h"
+ #include "intel_ddi_buf_trans.h"
+@@ -1784,6 +1786,56 @@ xe3plpd_get_lt_buf_trans(struct intel_encoder *encoder,
+ 		return intel_get_buf_trans(&xe3plpd_lt_trans_dp14, n_entries);
  }
  
-+static void
-+parse_vswing_preemph_icl(union intel_ddi_buf_trans_entry **bufs_table,
-+			     const struct bdb_vswing_preemph *block)
++static union ddi_vswing_preemph_index
++vswing_preemph_compute_index(struct intel_encoder *encoder,
++			     const struct intel_crtc_state *crtc_state)
 +{
-+	union intel_ddi_buf_trans_entry *entry;
-+	const u32 *tables = block->tables;
-+	u32 num_rows = 10;
-+	size_t offset = 0;
-+	size_t row_width;
-+	const u32 *vals;
++	struct intel_display *display = to_intel_display(encoder);
++	union ddi_vswing_preemph_index index;
 +
-+	row_width = block->num_columns * sizeof(*tables);
++	drm_dbg_kms(display->drm, "using default VS/PE Override index");
++	index = (union ddi_vswing_preemph_index) 0;
 +
-+	for (int idx = 0; idx < block->num_tables; idx++) {
-+		for (int row = 0; row < num_rows; row++) {
-+			vals = &tables[offset];
-+
-+			entry = &bufs_table[idx][row];
-+			entry->icl.dw2_swing_sel = LOW(vals[0]);
-+			entry->icl.dw7_n_scalar = LOW(vals[1]);
-+			entry->icl.dw4_cursor_coeff = LOW(vals[2]);
-+			entry->icl.dw4_post_cursor_2 = LOW(vals[3]);
-+			entry->icl.dw4_post_cursor_1 = LOW(vals[4]);
-+
-+			offset += row_width;
-+		}
-+	}
++	return index;
 +}
 +
- static void
- parse_vswing_preemph_snps(union intel_ddi_buf_trans_entry **bufs_table,
- 			  const struct bdb_vswing_preemph *block)
-@@ -2276,6 +2305,8 @@ parse_vswing_preemph_override(struct intel_display *display)
- 		parse_vswing_preemph_snps(bufs_table, block);
- 	} else if (display->platform.battlemage) {
- 		parse_vswing_preemph_snps(bufs_table, block);
-+	} else if (display->platform.elkhartlake) {
-+		parse_vswing_preemph_icl(bufs_table, block);
- 	} else {
- 		drm_dbg_kms(display->drm, "Vswing / Preemph Override not yet supported on the platform\n");
- 		bufs_table = NULL;
++static int
++vswing_preemph_cast_index(struct intel_display *display,
++			   union ddi_vswing_preemph_index index)
++{
++	return 0;
++}
++
++static const struct intel_ddi_buf_trans *
++override_buf_trans(struct intel_encoder *encoder,
++		   const struct intel_crtc_state *crtc_state,
++		   int *n_entries)
++{
++	struct intel_display *display = to_intel_display(encoder);
++
++	struct intel_ddi_buf_trans *buf_trans;
++	struct ddi_vswing_preemph *vswing_preemph;
++	union ddi_vswing_preemph_index index;
++	u32 idx;
++
++	index = encoder->vswing_preemph->index;
++	idx = vswing_preemph_cast_index(display, index);
++
++	if (idx < 0) {
++		index = vswing_preemph_compute_index(encoder, crtc_state);
++		vswing_preemph = (void *) encoder->vswing_preemph;
++		vswing_preemph->index = index;
++		idx = vswing_preemph_cast_index(display, index);
++	}
++
++	buf_trans = (void *) encoder->vswing_preemph->buf_trans;
++
++	buf_trans->entries = display->vbt.vswing_preemph.bufs_table[idx];
++	buf_trans->num_entries = display->vbt.vswing_preemph.num_rows;
++
++	return intel_get_buf_trans(buf_trans, n_entries);
++}
++
+ void intel_ddi_buf_trans_init(struct intel_encoder *encoder)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+@@ -1851,4 +1903,7 @@ void intel_ddi_buf_trans_init(struct intel_encoder *encoder)
+ 
+ 		MISSING_CASE(pdev->device);
+ 	}
++
++	if (encoder->vswing_preemph->buf_trans)
++		encoder->get_buf_trans = override_buf_trans;
+ }
 -- 
 2.45.2
 
