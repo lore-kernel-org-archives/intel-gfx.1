@@ -4,153 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D353109B467
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 13:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5306A109B467
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 13:35:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4160310E9DA;
-	Tue, 31 Mar 2026 13:34:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iuroECi0";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F4B10E9C2;
- Tue, 31 Mar 2026 13:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774964046; x=1806500046;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=fOzngS0glXnj/nalB0pgE0CZNzp6tVZfijsjUSppLPw=;
- b=iuroECi08rjFzQRfrZes7KGEPky5IVrR3OyeA6Ore8kcq3SSYIgh7XSO
- 12n29KkeWGWbl5VZyyYfI791RYNNVDuJ1hw/GUAxwlwT48aEJGykMYVFj
- xX09zoFQmle9iKX+Z67FRIG4iJc0u/t4nAcl1ZVGriACc637GmpezAx8T
- Sh2JC/L4Od53CsY6HnbwK5IP/7pR4NhqChxqucgBIOnuOzgL2BpJPDC0M
- CJTF/O8ELUVZNf41Ekxa95OYH2KhhLlert3o66i9i5ULVZiActeFLDwda
- UPJUOXWFU+uMddoYUs/TnWt43q3bVplaprZ3LhRLNoO3ZjGDXSRbPgurt w==;
-X-CSE-ConnectionGUID: jyRMqQLTRIWkM/Jal0/8AA==
-X-CSE-MsgGUID: kwDGRuUrS8OcgfSDtYfOOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11745"; a="87368317"
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="87368317"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 06:33:59 -0700
-X-CSE-ConnectionGUID: QgdKEq8JTqKTwr7QO/SuXw==
-X-CSE-MsgGUID: 1FZ1gr2mSn2hZGopaugHRw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,152,1770624000"; d="scan'208";a="230432216"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 06:33:58 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 06:33:56 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 06:33:56 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.55) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 06:33:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CB/VEdFBdZpK6b6l2ovSm52FRN03h7wJJ4yX8f5AO42JHRB5l2hQahqlF2Y1YrPLUgk9a78Fvxc5VJWWIK8CArthbe5fBnZronBAN0F7En7ETP4dlAd9vhn+SQ2NEHPKM8vLpaZr9uSboJ/YC+bUWsYkIi7r9UXdG3PEfkGPy+QTei4HTvVlj1e1OGZK5teffOZQ85tsQZntIDNCXHxRB0Z2WXJx6ybUbQmtpdte7PPbrl4zQecXXj+N2LaVUumcqAGE6Ln3iuCN82rOkaPyZzXbG65BdPYRnWhn5UWSS5g3dFJYwrjoZ8KnNR0OQO+zwSFyQaz9aKKKCadmTKZDHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MdJnq6h6FU13zIs13QEBjfSxlSY8lcweAL8sG7K+C7M=;
- b=erIrO4RYz8DMLdI9oSbL4OitWb09+AcV+V+C46mLpxRpM//Ba2H9SCSes/eI6G564GRNikFd+F4hDHRITNmiNZv5135ShkyJyVov+CqLFT8LYoPSjkwAHVWvt/DI846pQV4PhvCRzvzkDYMD9gELNpezMk7xiLgPMV0giiL922deViox2/IhsE21Q6mr9039pxgyiUWkQgq+Yo6Xrp1wtp/QDd9NCOX7H+5mDmFikPve8Hs0cYWRcyOeJD2yplhtveD+AiwUQhcxFaVnzbAUlsk4CcYNJnbLdZ/vHZIDWhn76U57UafFrs/bXBUk5C8nwdWN2M0S+jUV0+jlXuToPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA1PR11MB6467.namprd11.prod.outlook.com (2603:10b6:208:3a5::18)
- by SJ2PR11MB7598.namprd11.prod.outlook.com (2603:10b6:a03:4c6::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 13:33:48 +0000
-Received: from IA1PR11MB6467.namprd11.prod.outlook.com
- ([fe80::7aa6:c6db:3d15:8973]) by IA1PR11MB6467.namprd11.prod.outlook.com
- ([fe80::7aa6:c6db:3d15:8973%4]) with mapi id 15.20.9769.014; Tue, 31 Mar 2026
- 13:33:47 +0000
-From: "Garg, Nemesa" <nemesa.garg@intel.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Subject: RE: [PATCH 9/9] drm/i915/casf: Integrate the sharpness filter
- properly into the scaler code
-Thread-Topic: [PATCH 9/9] drm/i915/casf: Integrate the sharpness filter
- properly into the scaler code
-Thread-Index: AQHcvXBzcVK21K1Q7kOQXJvp2lBH+7XIbBEAgAA+KkA=
-Date: Tue, 31 Mar 2026 13:33:47 +0000
-Message-ID: <IA1PR11MB6467A67B68E435ADC991BDF0E353A@IA1PR11MB6467.namprd11.prod.outlook.com>
-References: <20260326223139.19116-1-ville.syrjala@linux.intel.com>
- <20260326223139.19116-10-ville.syrjala@linux.intel.com>
- <acuYVhpNeDzvHJ7e@intel.com>
-In-Reply-To: <acuYVhpNeDzvHJ7e@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR11MB6467:EE_|SJ2PR11MB7598:EE_
-x-ms-office365-filtering-correlation-id: da7f6823-20a3-4fe8-cc1d-08de8f2a2370
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: eEQruoJrGEq9R2SSVzMVgRrOZGCcu1KOH3vZUy/zyk2xOg99gp7HGtJtTH1tUlCJxktKX8OecqZogTvQdnUf0E0RrbbgZ/ZiwLZbtPjiKs24IzuKd+K0eoe1qLR52R/tl+KVfo3qGo75DFdS5PO/SCKu9nAhf58p+fNUZMmVrKhBzDpx31OcD7gyGW1Z/Ig4sd5fnlXAsOkhWk7nhWrwqKrtG9/8OyRCth194VSoZxsYtHCoY9aSZavpWqVc70uBp6apaM1/9WUyRYbYSa3L30qUWWITolk+Q5rFA24qY8Bwbp8qQkDYEocdA+VjcMpt8ZTUNUwxOJSLgMKWXy2s/6vdXOgZPcBmQxjD4MlRLPvx292b9lr6XVeP+C/DH4umOAipG99PJeVUnkYSAtFC6ziHdrx/6+3MLk99PES18Q25eMTM8t3/1AcsR9i2s46oIhymsapUXy3OpgHBqJ9InUgCV9MQzGIKNxhYGZK5lVbjO9FRgRF1nQi6ZQ6NFUdj2ef1rdq6iCUeQOlD987Fz2PaVLy6OJfztVBZHu1Ei1gBslRARtN+N1oIbjsMeXtTh6Wlx6GzfNRlSnhkoCXrtrq2AyeXymg+s80Dl1W4EJBFdCSHjdSYjqQZm94P6TgWgrII1dPb0RMJOpOmVGhpx0WYLgtPr4JpgRxBMlHhOCfv7BJbpkK8IlI7HEn/EUyMjItaym8Ku7lqCXTvXlxVx24JiwVlHAMueRywuB2xZNlpKiFmnHFtUhMtj6RyQ9MEwG9vnY0hyJcMlkEyjxGg4WdqKivTC0qWWPYo2MpnjB0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR11MB6467.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?BzarEhRbbcAZK1yamDdU797PQ6xHAZuUPjudVskUeHcJuLuTzRCNW421WV?=
- =?iso-8859-1?Q?/jR559WTYojJayHz/PsOrUBIkOoO4oO0aAnO1ct/ADajKCBRJYUSnneAfB?=
- =?iso-8859-1?Q?2ALzVFdneQs65/yJmBUL+M5Yw6eHWrgxbgAo7xxJVisB67PahwMaPqJxG/?=
- =?iso-8859-1?Q?vRyFmkz4bdgycqCp0I1ZGbCAzEgPxv0jw4s+YSdRZopPwzjlW29G1bOMcH?=
- =?iso-8859-1?Q?oYPz8hfX5FM3oymIbTrs6ULjPJDueAqYIFhBf+0YkEjW8yKSRVvjV5rBaI?=
- =?iso-8859-1?Q?1EcqeJRHp+1021DQKkhL8bdZH+t1EfRo2JfZBIR1iIxNW27kiaF/0BnGr2?=
- =?iso-8859-1?Q?deN8AuVLUClPMpzvUsMBgE5yGmtB8hgoBVndA7549mnjRBNhcMQqQhG2IK?=
- =?iso-8859-1?Q?hOAOssKqaA1n5/b/dwhSZi8dN+4u1VenmeOTRXr3CTaqTlbWflrduOzKUU?=
- =?iso-8859-1?Q?qsJgn6oPrUmTomaYflcjeHdgl4QqWyB/jQRfz12tE/zjfOd70uijDaAiRG?=
- =?iso-8859-1?Q?3Tt54ZUweEj2qaHBWO8nixE/caIdMHOL3ns/ByAAaZpyZ2diSRpSRIZp/P?=
- =?iso-8859-1?Q?19V18Ai9JkrwjDXfjLJN4st25/+dxuKluy3xMR7t7KeyPCL0XJc6qQI2ll?=
- =?iso-8859-1?Q?efTvmUPcsH4Ji4m9ez41A575HZn/IYf9qoSczB34fel2+b0HYU5aUNY5gg?=
- =?iso-8859-1?Q?qTgJq9BzmTKqFgpv8oXSMhPbJxcWD36lFGKsLqS1jl61sSkzlWyTHw7MqZ?=
- =?iso-8859-1?Q?S+dSd8fx4cEe/oSdX7HYcQiZoaqGVtHLxMAZj38uiLyKC4/jBocthL0CSM?=
- =?iso-8859-1?Q?uQ2DxAcw1H/cAaxX2azaxy0Iq/lfZfpODhKiUmYGEDb2undQ7pLB+XsS1K?=
- =?iso-8859-1?Q?Hxs5h6mjz8fRmDV6awttQZYtvq5AGNZlFWohnYD4BiWbWGirew4nPiH65y?=
- =?iso-8859-1?Q?vsdqRaZsSEZVJ7pt/SFRIEH1OjGoiM/NllXKQXD+MtiMW3Qgx6PYxb4kyU?=
- =?iso-8859-1?Q?ohMsvnQ0g+/FJ9skZQH/isCr/zF2pb6ZxSYxjregIHk45cPDJMarlvtzGM?=
- =?iso-8859-1?Q?bpa5hGD4GW8nSZEsZGoBijXWhp6Q1rc0+UkrzlMWIxZakjWWJsoUYlUKzp?=
- =?iso-8859-1?Q?BvR3+q9iUHklKAq4m88WEivzlguLC+67kfQOX2mFTbJD79k/vWxPy1Ip0k?=
- =?iso-8859-1?Q?GLVbgSkVU+bIm8zD5CC0fZKh3RH6CuQVsQW9ETONlG+C8mhwDO5sBURxwC?=
- =?iso-8859-1?Q?b/pxf0wtcec8Gf24V9u6pa42q24K8yPQ92EMecSVVwkVa5pzlbw4peiLyg?=
- =?iso-8859-1?Q?+l2o/9DW6b/D4l4Wym201JnPCG+ym+1qsf3IYBJOMWNL7Ug4g6EXKFWipt?=
- =?iso-8859-1?Q?ZJEOEwYrzdHG3SvPSYfjVl+nuo+QC8Zc3HVf/g/LnrWdEmKefvOLc3JEgW?=
- =?iso-8859-1?Q?Woqs+17pY2HXW5/oZDFR1Smgjvk0pQf3n6YmrE5W7r8RmYGw6GcTlMhLcs?=
- =?iso-8859-1?Q?AAOGSKBSBkBaPsCWOI92hAC5jDv7GQnLopO3eTDCd/bszf04gHMkgIbDK3?=
- =?iso-8859-1?Q?nuKYoJCyo8QAs8g1fQUSlF+Fj9qjtuYaU4zEsnm5repxRJPKzNJGyFcNNE?=
- =?iso-8859-1?Q?+lBaJ7pSQgAKfGpgpU6xMhLTnqf/+sXL+lNjeTXoLtRgejH0QUlMxpt1im?=
- =?iso-8859-1?Q?RX/Ijs9Yu0Ng1bNFUwzKw+/y2EbbVkOaG7hwnqxe6UxIMlXHAfy/xBaL97?=
- =?iso-8859-1?Q?yFq+9veYy0WI7EnvG1YUqfNhGN8U1MpT76Xp2p6nYpKRaTTcDVyht/wdWz?=
- =?iso-8859-1?Q?+KAChnArLA=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	by gabe.freedesktop.org (Postfix) with ESMTP id E16EE10E954;
+	Tue, 31 Mar 2026 13:35:08 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8D2810EADD;
+ Tue, 31 Mar 2026 13:35:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8612169230793365207=="
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: oIDYjqk7+TFCZ5nt18UT608ZVmJ+iqHlpNzyTzc4g7ikdjoadWs7B+tct+iTdCXCOVsky0nbEO88cns93DZZNgFqxZUL4qAltFBeY8qheu1I2DWe3d61Gl1KPUO68PqGy628FJA9mhqlNq+dK9oJnm/T9KqiNa1/w6GRwqv1LlshTRXh6vfSDjCS/+7NJ7BT6Yc/z1pEZPmcQaFhhpGCAQNOVrBps8P7OJ05rE94m5xBqQ4goPNT+++/D0pRRjva86xgxvJB0lfe8H5AYajShwUNBZymZHAbSbu9kBDKtTjHrwSdPsYSwY18bgrCQwLwvyex+MzCJVCQkdGVjVXyDQ==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6467.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da7f6823-20a3-4fe8-cc1d-08de8f2a2370
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Mar 2026 13:33:47.9012 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EIigqnFb8/PTExzHK1rTSWQVDrh+21Uo2t5k00AwO+inubznJC+4Ox/KRncFjlEi1vAeh64fDi0iCmlxjjIO6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB7598
-X-OriginatorOrg: intel.com
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_move_more_dis?=
+ =?utf-8?q?play_dependencies_from_i915_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Luca Coelho" <luciano.coelho@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 31 Mar 2026 13:35:07 -0000
+Message-ID: <177496410792.415443.7587874071477556419@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260331121608.1016333-1-luciano.coelho@intel.com>
+In-Reply-To: <20260331121608.1016333-1-luciano.coelho@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,335 +37,300 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============8612169230793365207==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915: move more display dependencies from i915 (rev2)
+URL   : https://patchwork.freedesktop.org/series/163786/
+State : success
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18256 -> Patchwork_163786v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_163786v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@dmabuf@all-tests@dma_fence_chain:
+    - fi-skl-6600u:       NOTRUN -> [SKIP][1]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@dmabuf@all-tests@dma_fence_chain.html
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#15656])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][4] -> [DMESG-FAIL][5] ([i915#12061]) +1 other test dmesg-fail
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-mtlp-8/igt@i915_selftest@live.html
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-dg2-8:          [PASS][6] -> [DMESG-FAIL][7] ([i915#12061]) +1 other test dmesg-fail
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-dg2-8/igt@i915_selftest@live.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-dg2-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][8] -> [DMESG-FAIL][9] ([i915#12061]) +1 other test dmesg-fail
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
+    - bat-mtlp-9:         [PASS][10] -> [DMESG-FAIL][11] ([i915#12061]) +1 other test dmesg-fail
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][12] ([i915#7707]) +1 other test skip
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-adls-6:         NOTRUN -> [SKIP][13] ([i915#4103]) +1 other test skip
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  * igt@kms_dsc@dsc-basic:
+    - bat-adls-6:         NOTRUN -> [SKIP][14] ([i915#3555] / [i915#3840])
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - bat-adls-6:         NOTRUN -> [SKIP][15]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - bat-adls-6:         NOTRUN -> [SKIP][16] ([i915#5354])
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-mmap-gtt:
+    - bat-adls-6:         NOTRUN -> [SKIP][17] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - bat-adls-6:         NOTRUN -> [SKIP][18] ([i915#3555])
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-read:
+    - bat-adls-6:         NOTRUN -> [SKIP][19] ([i915#3291]) +2 other tests skip
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - fi-skl-6600u:       [INCOMPLETE][20] ([i915#15859]) -> [PASS][21]
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/fi-skl-6600u/igt@i915_selftest@live.html
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@gem_contexts:
+    - fi-skl-6600u:       [INCOMPLETE][22] -> [PASS][23]
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/fi-skl-6600u/igt@i915_selftest@live@gem_contexts.html
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@i915_selftest@live@gem_contexts.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#15859]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15859
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#3840]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3840
+  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
 
 
-> -----Original Message-----
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Sent: Tuesday, March 31, 2026 3:18 PM
-> To: intel-gfx@lists.freedesktop.org
-> Cc: intel-xe@lists.freedesktop.org; Garg, Nemesa <nemesa.garg@intel.com>
-> Subject: Re: [PATCH 9/9] drm/i915/casf: Integrate the sharpness filter pr=
-operly
-> into the scaler code
->=20
-> On Fri, Mar 27, 2026 at 12:31:39AM +0200, Ville Syrjala wrote:
-> > From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> >
-> > The sharpness filter is just a special mode of the pipe scaler.
-> > It doesn't warrant all this special casing everywhere. Just integrate
-> > it properly into the scaler code so that it's treated no different
-> > from the other pipe scaler uses (scaling,centering, YCbCr 4:2:0
-> > output).
-> >
-> > Cc: Nemesa Garg <nemesa.garg@intel.com>
-> > Signed-off-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_casf.c    | 62 ++------------
-> >  drivers/gpu/drm/i915/display/intel_casf.h    |  6 +-
-> >  drivers/gpu/drm/i915/display/intel_display.c | 34 +-------
-> >  drivers/gpu/drm/i915/display/intel_pfit.c    | 13 ++-
-> >  drivers/gpu/drm/i915/display/skl_scaler.c    | 85 ++++++++------------
-> >  drivers/gpu/drm/i915/display/skl_scaler.h    |  2 -
-> >  6 files changed, 53 insertions(+), 149 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_casf.c
-> > b/drivers/gpu/drm/i915/display/intel_casf.c
-> > index 21e84a4f9ff5..c2d2746c5f04 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_casf.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_casf.c
-> > @@ -75,20 +75,6 @@ static void intel_casf_filter_lut_load(const struct
-> intel_crtc_state *crtc_state
-> >  			       sharpness_lut[i]);
-> >  }
-> >
-> > -void intel_casf_update_strength(const struct intel_crtc_state
-> > *crtc_state) -{
-> > -	struct intel_display *display =3D to_intel_display(crtc_state);
-> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> > -	int win_size;
-> > -
-> > -	intel_de_rmw(display, SHARPNESS_CTL(crtc->pipe),
-> FILTER_STRENGTH_MASK,
-> > -		     FILTER_STRENGTH(crtc_state->pch_pfit.casf.strength));
-> > -
-> > -	win_size =3D intel_de_read(display, SKL_PS_WIN_SZ(crtc->pipe, 1));
-> > -
-> > -	intel_de_write_fw(display, SKL_PS_WIN_SZ(crtc->pipe, 1), win_size);
-> > -}
-> > -
-> >  static void intel_casf_compute_win_size(struct intel_crtc_state
-> > *crtc_state)  {
-> >  	const struct drm_display_mode *mode =3D &crtc_state-
-> >hw.adjusted_mode;
-> > @@ -102,19 +88,15 @@ static void intel_casf_compute_win_size(struct
-> intel_crtc_state *crtc_state)
-> >  		crtc_state->pch_pfit.casf.win_size =3D
-> SHARPNESS_FILTER_SIZE_7X7;  }
-> >
-> > +static void intel_casf_scaler_compute_coef(struct intel_crtc_state
-> > +*crtc_state);
-> > +
-> >  int intel_casf_compute_config(struct intel_crtc_state *crtc_state)  {
-> >  	struct intel_display *display =3D to_intel_display(crtc_state);
-> >
-> > -	if (!HAS_CASF(display))
-> > +	if (crtc_state->hw.sharpness_strength =3D=3D 0)
-> >  		return 0;
-> >
-> > -	if (crtc_state->hw.sharpness_strength =3D=3D 0) {
-> > -		crtc_state->pch_pfit.casf.enable =3D false;
-> > -		crtc_state->pch_pfit.casf.strength =3D 0;
-> > -		return 0;
-> > -	}
-> > -
-> >  	/* CASF with joiner not supported in hardware */
-> >  	if (crtc_state->joiner_pipes) {
-> >  		drm_dbg_kms(display->drm, "CASF not supported with
-> joiner\n"); @@
-> > -136,7 +118,7 @@ int intel_casf_compute_config(struct intel_crtc_state
-> > *crtc_state)
-> >
-> >  	intel_casf_compute_win_size(crtc_state);
-> >
-> > -	intel_casf_scaler_compute_config(crtc_state);
-> > +	intel_casf_scaler_compute_coef(crtc_state);
-> >
-> >  	return 0;
-> >  }
-> > @@ -161,14 +143,6 @@ void intel_casf_sharpness_get_config(struct
-> intel_crtc_state *crtc_state)
-> >  	}
-> >  }
-> >
-> > -bool intel_casf_needs_scaler(const struct intel_crtc_state
-> > *crtc_state) -{
-> > -	if (crtc_state->pch_pfit.casf.enable)
-> > -		return true;
-> > -
-> > -	return false;
-> > -}
-> > -
-> >  static int casf_coeff_tap(int i)
-> >  {
-> >  	return i % SCALER_FILTER_NUM_TAPS;
-> > @@ -240,7 +214,7 @@ static void convert_sharpness_coef_binary(struct
-> scaler_filter_coeff *coeff,
-> >  	}
-> >  }
-> >
-> > -void intel_casf_scaler_compute_config(struct intel_crtc_state
-> > *crtc_state)
-> > +static void intel_casf_scaler_compute_coef(struct intel_crtc_state
-> > +*crtc_state)
-> >  {
-> >  	const u16 *filtercoeff;
-> >  	u16 filter_coeff[SCALER_FILTER_NUM_TAPS];
-> > @@ -264,32 +238,8 @@ void intel_casf_scaler_compute_config(struct
-> intel_crtc_state *crtc_state)
-> >  	}
-> >  }
-> >
-> > -void intel_casf_enable(const struct intel_crtc_state *crtc_state)
-> > +void intel_casf_setup(const struct intel_crtc_state *crtc_state)
-> >  {
-> > -	struct intel_display *display =3D to_intel_display(crtc_state);
-> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> > -	u32 sharpness_ctl;
-> > -
-> >  	intel_casf_filter_lut_load(crtc_state);
-> > -
-> >  	intel_casf_write_coeff(crtc_state);
-> > -
-> > -	sharpness_ctl =3D FILTER_EN | FILTER_STRENGTH(crtc_state-
-> >pch_pfit.casf.strength);
-> > -
-> > -	sharpness_ctl |=3D crtc_state->pch_pfit.casf.win_size;
-> > -
-> > -	intel_de_write(display, SHARPNESS_CTL(crtc->pipe), sharpness_ctl);
-> > -
-> > -	skl_scaler_setup_casf(crtc_state);
-> > -}
-> > -
-> > -void intel_casf_disable(const struct intel_crtc_state *crtc_state) -{
-> > -	struct intel_display *display =3D to_intel_display(crtc_state);
-> > -	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> > -
-> > -	intel_de_write(display, SKL_PS_CTRL(crtc->pipe, 1), 0);
-> > -	intel_de_write(display, SKL_PS_WIN_POS(crtc->pipe, 1), 0);
-> > -	intel_de_write(display, SHARPNESS_CTL(crtc->pipe), 0);
-> > -	intel_de_write(display, SKL_PS_WIN_SZ(crtc->pipe, 1), 0);
-> >  }
-> > diff --git a/drivers/gpu/drm/i915/display/intel_casf.h
-> > b/drivers/gpu/drm/i915/display/intel_casf.h
-> > index c4f984b73348..3ebb7522af0a 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_casf.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_casf.h
-> > @@ -11,11 +11,7 @@
-> >  struct intel_crtc_state;
-> >
-> >  int intel_casf_compute_config(struct intel_crtc_state *crtc_state);
-> > -void intel_casf_update_strength(const struct intel_crtc_state
-> > *new_crtc_state);  void intel_casf_sharpness_get_config(struct
-> > intel_crtc_state *crtc_state); -void intel_casf_enable(const struct
-> > intel_crtc_state *crtc_state); -void intel_casf_disable(const struct
-> > intel_crtc_state *crtc_state); -void
-> > intel_casf_scaler_compute_config(struct intel_crtc_state *crtc_state);
-> > -bool intel_casf_needs_scaler(const struct intel_crtc_state
-> > *crtc_state);
-> > +void intel_casf_setup(const struct intel_crtc_state *crtc_state);
-> >
-> >  #endif /* __INTEL_CASF_H__ */
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c
-> > b/drivers/gpu/drm/i915/display/intel_display.c
-> > index e02e69467871..58a654ca0d20 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -58,7 +58,6 @@
-> >  #include "intel_audio.h"
-> >  #include "intel_bo.h"
-> >  #include "intel_bw.h"
-> > -#include "intel_casf.h"
-> >  #include "intel_cdclk.h"
-> >  #include "intel_clock_gating.h"
-> >  #include "intel_color.h"
-> > @@ -988,24 +987,6 @@ static bool audio_disabling(const struct
-> intel_crtc_state *old_crtc_state,
-> >  		 memcmp(old_crtc_state->eld, new_crtc_state->eld,
-> MAX_ELD_BYTES) !=3D
-> > 0);  }
-> >
-> > -static bool intel_casf_enabling(const struct intel_crtc_state *new_crt=
-c_state,
-> > -				const struct intel_crtc_state *old_crtc_state)
-> > -{
-> > -	if (!new_crtc_state->hw.active)
-> > -		return false;
-> > -
-> > -	return is_enabling(pch_pfit.casf.enable, old_crtc_state,
-> new_crtc_state);
-> > -}
-> > -
-> > -static bool intel_casf_disabling(const struct intel_crtc_state *old_cr=
-tc_state,
-> > -				 const struct intel_crtc_state *new_crtc_state)
-> > -{
-> > -	if (!new_crtc_state->hw.active)
-> > -		return false;
-> > -
-> > -	return is_disabling(pch_pfit.casf.enable, old_crtc_state,
-> new_crtc_state);
-> > -}
-> > -
-> >  static bool intel_crtc_lobf_enabling(const struct intel_crtc_state
-> *old_crtc_state,
-> >  				     const struct intel_crtc_state
-> *new_crtc_state)  { @@ -1187,9
-> > +1168,6 @@ static void intel_pre_plane_update(struct intel_atomic_state
-> *state,
-> >  	if (audio_disabling(old_crtc_state, new_crtc_state))
-> >  		intel_encoders_audio_disable(state, crtc);
-> >
-> > -	if (intel_casf_disabling(old_crtc_state, new_crtc_state))
-> > -		intel_casf_disable(new_crtc_state);
-> > -
-> >  	intel_drrs_deactivate(old_crtc_state);
-> >
-> >  	if (hsw_ips_pre_update(state, crtc)) @@ -4308,14 +4286,9 @@ static
-> > int intel_crtc_atomic_check(struct intel_atomic_state *state,
-> >  		return ret;
-> >  	}
-> >
-> > -	ret =3D intel_casf_compute_config(crtc_state);
-> > -	if (ret)
-> > -		return ret;
-> > -
-> >  	if (DISPLAY_VER(display) >=3D 9) {
-> >  		if (intel_crtc_needs_modeset(crtc_state) ||
-> > -		    intel_crtc_needs_fastset(crtc_state) ||
-> > -		    intel_casf_needs_scaler(crtc_state)) {
-> > +		    intel_crtc_needs_fastset(crtc_state)) {
-> >  			ret =3D skl_update_scaler_crtc(crtc_state);
-> >  			if (ret)
-> >  				return ret;
-> > @@ -6817,11 +6790,6 @@ static void intel_pre_update_crtc(struct
-> intel_atomic_state *state,
-> >  			intel_vrr_set_transcoder_timings(new_crtc_state);
-> >  	}
-> >
-> > -	if (intel_casf_enabling(new_crtc_state, old_crtc_state))
-> > -		intel_casf_enable(new_crtc_state);
-> > -	else if (new_crtc_state->pch_pfit.casf.strength !=3D old_crtc_state-
-> >pch_pfit.casf.strength)
-> > -		intel_casf_update_strength(new_crtc_state);
-> > -
-> >  	intel_fbc_update(state, crtc);
-> >
-> >  	drm_WARN_ON(display->drm,
-> !intel_display_power_is_enabled(display,
-> > POWER_DOMAIN_DC_OFF)); diff --git
-> > a/drivers/gpu/drm/i915/display/intel_pfit.c
-> > b/drivers/gpu/drm/i915/display/intel_pfit.c
-> > index 6dda496190e0..e04ca960f115 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_pfit.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-> > @@ -186,6 +186,7 @@ static int pch_panel_fitting(struct intel_crtc_stat=
-e
-> *crtc_state,
-> >  			     const struct drm_connector_state *conn_state)  {
-> >  	struct intel_display *display =3D to_intel_display(crtc_state);
-> > +	struct intel_crtc *crtc =3D to_intel_crtc(crtc_state->uapi.crtc);
-> >  	const struct drm_display_mode *adjusted_mode =3D
-> >  		&crtc_state->hw.adjusted_mode;
-> >  	int pipe_src_w =3D drm_rect_width(&crtc_state->pipe_src);
-> > @@ -195,7 +196,8 @@ static int pch_panel_fitting(struct intel_crtc_stat=
-e
-> *crtc_state,
-> >  	/* Native modes don't need fitting */
-> >  	if (adjusted_mode->crtc_hdisplay =3D=3D pipe_src_w &&
-> >  	    adjusted_mode->crtc_vdisplay =3D=3D pipe_src_h &&
-> > -	    crtc_state->output_format !=3D INTEL_OUTPUT_FORMAT_YCBCR420)
-> > +	    crtc_state->output_format !=3D INTEL_OUTPUT_FORMAT_YCBCR420
-> &&
-> > +	    crtc_state->hw.sharpness_strength =3D=3D 0)
-> >  		return 0;
-> >
-> >  	switch (conn_state->scaling_mode) {
-> > @@ -249,6 +251,15 @@ static int pch_panel_fitting(struct intel_crtc_sta=
-te
-> *crtc_state,
-> >  		return -EINVAL;
-> >  	}
-> >
-> > +	if (crtc_state->hw.sharpness_strength &&
-> > +	    (width !=3D pipe_src_w || height !=3D pipe_src_h ||
-> > +	     crtc_state->output_format !=3D INTEL_OUTPUT_FORMAT_RGB)) {
->=20
-> We should probably also reject
->  sharpness_strength !=3D 0 && scaling_filter !=3D DEFAULT
->=20
-> I suppose it's not strictly needed because we only allow sharpness with 1=
-:1
-> scaling, and that makes the nearest neighbor filter a NOP.
-> But probably a good idea to make the uapi behaviour consistent, especiall=
-y if
-> we later add other filter modes that maybe aren't NOPs.
->=20
-Yes for now it will work but better to add to reduce future noise.
+Build changes
+-------------
 
-> > +		drm_dbg_kms(display->drm,
-> > +			    "[CRTC:%d:%s] no scaling/YCbCr output with
-> sharpness filter\n",
-> > +			    crtc->base.base.id, crtc->base.name);
-> > +		return -EINVAL;
-> > +	}
-> > +
-> >  	drm_rect_init(&crtc_state->pch_pfit.dst,
-> >  		      x, y, width, height);
-> >  	crtc_state->pch_pfit.enabled =3D true;
->=20
-> --
-> Ville Syrj=E4l=E4
-> Intel
+  * Linux: CI_DRM_18256 -> Patchwork_163786v2
+
+  CI-20190529: 20190529
+  CI_DRM_18256: 779129c7868f4c7205901d6e57b25de52b411d1c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8839: 8839
+  Patchwork_163786v2: 779129c7868f4c7205901d6e57b25de52b411d1c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/index.html
+
+--===============8612169230793365207==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: move more display dependencies from i915 (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/163786/">https://patchwork.freedesktop.org/series/163786/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18256 -&gt; Patchwork_163786v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_163786v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests@dma_fence_chain:</p>
+<ul>
+<li>fi-skl-6600u:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@dmabuf@all-tests@dma_fence_chain.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_dsc@dsc-basic:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3840">i915#3840</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-read:</p>
+<ul>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/fi-skl-6600u/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15859">i915#15859</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@i915_selftest@live.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gem_contexts:</p>
+<ul>
+<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18256/fi-skl-6600u/igt@i915_selftest@live@gem_contexts.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163786v2/fi-skl-6600u/igt@i915_selftest@live@gem_contexts.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18256 -&gt; Patchwork_163786v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18256: 779129c7868f4c7205901d6e57b25de52b411d1c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8839: 8839<br />
+  Patchwork_163786v2: 779129c7868f4c7205901d6e57b25de52b411d1c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8612169230793365207==--
