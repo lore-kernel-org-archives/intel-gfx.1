@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4797C1061B39
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 11:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1D71061B37
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 11:41:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D4BC810EAC2;
-	Tue, 31 Mar 2026 11:41:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 203B110E8C0;
+	Tue, 31 Mar 2026 11:41:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JuL8uE2p";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cJNY6fWD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1789110EA52;
- Tue, 31 Mar 2026 11:41:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D575110EADD;
+ Tue, 31 Mar 2026 11:41:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774957280; x=1806493280;
+ t=1774957290; x=1806493290;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=IoXl7HRXK6/VhlS+9dOFyXodk8ehJ4U8iNt8Soix3o0=;
- b=JuL8uE2pR9SvBRoCqW/yz901y7697IUV9lfR3/yQKpQkMeijP5Dk08HE
- Kt5hkp/UpT2QTfQPGeip3BNFQKfyE5Ow6Wteo0aggDiqXtiWwHlTW+ioU
- +Jt/3pzSoZ0JrX4e+Rr5jBFg3HdkG0QBkFDXIjqPoixUKsYD9D5M7urXi
- NmVJLO32KP3GBO+vzIyZCYiANw1HOSvDwu7DTZ8O7RdWlxl0otT0Aqai2
- u9WWO3788kyX4PxgtGi9Cp22U364+IfuzfeV6KdOP7qSpcSvv5jl/b/+Z
- Ozc2k2LGmbtguX4ETmcvLZMlB9a01QffYR6zMUtLAEeIiL1UfNvJ28aJe A==;
-X-CSE-ConnectionGUID: PfS+TdjiTzy+I1rMTCFGVQ==
-X-CSE-MsgGUID: X57OewEPTcerFfS63A27AA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="75854125"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="75854125"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:41:19 -0700
-X-CSE-ConnectionGUID: EJpvEuvHR1et5Uo+LxIVGA==
-X-CSE-MsgGUID: JamHQK0uQTS1RB28eSS06A==
+ bh=iqrcHnsfhHWitFgf6aLlnh3ZyTvJrtdjVSns+P9SIM4=;
+ b=cJNY6fWDGszPzr8AlsUF/yWJBS8Y764vuztEAPxZjuAOROmVZ+g4oShx
+ SURfpfh8s/UMJiDkdJxeLwR0zNGSWargFzFEvtZHgwKLzJQqCYErHZesa
+ pOqji+0P7CNHGQIwhWcDaBZoJKmOxzjB1Dq7pN6BfC8APeufg4Wp4GusC
+ n3mH8mx1NkkoquxsPV7VHkG2UUlZpvEVawq2tFVXiu2LCoi2iEbvKWVE2
+ 3l6LGLyMdkuaeeTBxJIrl8RJlYKx64gyw3H8fFekLeCEMxjDHt/FL8ghU
+ tIuB8QtiBDwLzDJu4DEL+k9G5D/emz8aOgyfWKVnVNWeHmGwm9I0GST3+ g==;
+X-CSE-ConnectionGUID: mNm68LB2Qmu/hlLfTsgv6A==
+X-CSE-MsgGUID: dhUR1xyHRSaILYvWHTqsWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="87358413"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="87358413"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:30 -0700
+X-CSE-ConnectionGUID: DgkwroZJTTGkoPlfUDCBxg==
+X-CSE-MsgGUID: lps/8PdzTBCOR8eCFQ7Ovg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="231167664"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="264280416"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.246.73])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:41:18 -0700
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:27 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH 3/5] drm/i915/dram: prefer display abstractions for VLV
- sideband
-Date: Tue, 31 Mar 2026 14:40:56 +0300
-Message-ID: <c971f1a1eccceeb5599ccea5909443afe24b20d3.1774957233.git.jani.nikula@intel.com>
+Subject: [PATCH 5/5] drm/{i915,
+ xe}: add shared header for VLV IOSF sideband units and registers
+Date: Tue, 31 Mar 2026 14:40:58 +0300
+Message-ID: <41b060b0d6453de39ca775eab10ee12b25c45b7d.1774957233.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1774957233.git.jani.nikula@intel.com>
 References: <cover.1774957233.git.jani.nikula@intel.com>
 MIME-Version: 1.0
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,52 +73,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Use the display wrappers for VLV sideband in dram code.
+Move vlv_iosf_sb_reg.h to include/drm/intel/vlv_iosf_sb_regs.h. Use
+_regs.h suffix to align better with other register headers. Move enum
+vlv_iosf_sb_unit there as well, breaking the final include tie related
+to IOSF sideband between display and i915 core.
+
+With this, we can completely remove the xe compat vls_iosf_sb*.h
+headers.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dram.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ .../i915/display/intel_display_power_map.c    |  2 +-
+ .../i915/display/intel_display_power_well.c   |  1 -
+ drivers/gpu/drm/i915/display/intel_parent.c   |  2 +-
+ drivers/gpu/drm/i915/display/vlv_sideband.h   |  3 +-
+ drivers/gpu/drm/i915/vlv_iosf_sb.h            | 14 +------
+ .../drm/xe/compat-i915-headers/vlv_iosf_sb.h  | 42 -------------------
+ .../xe/compat-i915-headers/vlv_iosf_sb_reg.h  |  6 ---
+ .../drm/intel/vlv_iosf_sb_regs.h              | 18 ++++++--
+ 8 files changed, 19 insertions(+), 69 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h
+ rename drivers/gpu/drm/i915/vlv_iosf_sb_reg.h => include/drm/intel/vlv_iosf_sb_regs.h (95%)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dram.c b/drivers/gpu/drm/i915/display/intel_dram.c
-index bd281d4b4c05..1686f808a084 100644
---- a/drivers/gpu/drm/i915/display/intel_dram.c
-+++ b/drivers/gpu/drm/i915/display/intel_dram.c
-@@ -16,7 +16,7 @@
- #include "intel_mchbar_regs.h"
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_map.c b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+index 65204d68a759..3400080d78d2 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_map.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_map.c
+@@ -4,13 +4,13 @@
+  */
+ 
+ #include <drm/drm_print.h>
++#include <drm/intel/vlv_iosf_sb_regs.h>
+ 
+ #include "intel_display_core.h"
+ #include "intel_display_power_map.h"
+ #include "intel_display_power_well.h"
+ #include "intel_display_regs.h"
+ #include "intel_display_types.h"
+-#include "vlv_iosf_sb_reg.h"
+ 
+ #define __LIST_INLINE_ELEMS(__elem_type, ...) \
+ 	((__elem_type[]) { __VA_ARGS__ })
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+index f96a5088d138..6fbfd46461b0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+@@ -34,7 +34,6 @@
+ #include "intel_vga.h"
+ #include "skl_watermark.h"
+ #include "vlv_dpio_phy_regs.h"
+-#include "vlv_iosf_sb_reg.h"
+ #include "vlv_sideband.h"
+ 
+ /*
+diff --git a/drivers/gpu/drm/i915/display/intel_parent.c b/drivers/gpu/drm/i915/display/intel_parent.c
+index 4e01423a0392..47ce3b6fdd5b 100644
+--- a/drivers/gpu/drm/i915/display/intel_parent.c
++++ b/drivers/gpu/drm/i915/display/intel_parent.c
+@@ -19,10 +19,10 @@
+ 
+ #include <drm/drm_print.h>
+ #include <drm/intel/display_parent_interface.h>
++#include <drm/intel/vlv_iosf_sb_regs.h>
+ 
+ #include "intel_display_core.h"
  #include "intel_parent.h"
- #include "intel_uncore.h"
 -#include "vlv_iosf_sb.h"
-+#include "vlv_sideband.h"
  
- struct dram_dimm_info {
- 	u16 size;
-@@ -109,9 +109,9 @@ static unsigned int chv_mem_freq(struct intel_display *display)
- {
- 	u32 val;
+ /* dpt */
+ struct intel_dpt *intel_parent_dpt_create(struct intel_display *display,
+diff --git a/drivers/gpu/drm/i915/display/vlv_sideband.h b/drivers/gpu/drm/i915/display/vlv_sideband.h
+index 8751a070b0ae..60a66abc1649 100644
+--- a/drivers/gpu/drm/i915/display/vlv_sideband.h
++++ b/drivers/gpu/drm/i915/display/vlv_sideband.h
+@@ -6,8 +6,7 @@
  
--	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_CCK));
--	val = vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_CCK, CCK_FUSE_REG);
--	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_CCK));
-+	vlv_cck_get(display);
-+	val = vlv_cck_read(display, CCK_FUSE_REG);
-+	vlv_cck_put(display);
+ #include <linux/types.h>
  
- 	switch ((val >> 2) & 0x7) {
- 	case 3:
-@@ -125,9 +125,9 @@ static unsigned int vlv_mem_freq(struct intel_display *display)
- {
- 	u32 val;
+-#include "vlv_iosf_sb.h"
+-#include "vlv_iosf_sb_reg.h"
++#include <drm/intel/vlv_iosf_sb_regs.h>
  
--	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_PUNIT));
--	val = vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_PUNIT, PUNIT_REG_GPU_FREQ_STS);
--	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_PUNIT));
-+	vlv_punit_get(display);
-+	val = vlv_punit_read(display, PUNIT_REG_GPU_FREQ_STS);
-+	vlv_punit_put(display);
+ enum dpio_phy;
+ struct intel_display;
+diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.h b/drivers/gpu/drm/i915/vlv_iosf_sb.h
+index e4002d5b5a2e..8129ba11c750 100644
+--- a/drivers/gpu/drm/i915/vlv_iosf_sb.h
++++ b/drivers/gpu/drm/i915/vlv_iosf_sb.h
+@@ -8,23 +8,11 @@
  
- 	switch ((val >> 6) & 3) {
- 	case 0:
+ #include <linux/types.h>
+ 
+-#include "vlv_iosf_sb_reg.h"
++#include <drm/intel/vlv_iosf_sb_regs.h>
+ 
+ struct drm_device;
+ struct drm_i915_private;
+ 
+-enum vlv_iosf_sb_unit {
+-	VLV_IOSF_SB_BUNIT,
+-	VLV_IOSF_SB_CCK,
+-	VLV_IOSF_SB_CCU,
+-	VLV_IOSF_SB_DPIO,
+-	VLV_IOSF_SB_DPIO_2,
+-	VLV_IOSF_SB_FLISDSI,
+-	VLV_IOSF_SB_GPIO,
+-	VLV_IOSF_SB_NC,
+-	VLV_IOSF_SB_PUNIT,
+-};
+-
+ void vlv_iosf_sb_init(struct drm_i915_private *i915);
+ void vlv_iosf_sb_fini(struct drm_i915_private *i915);
+ 
+diff --git a/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h b/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h
+deleted file mode 100644
+index 69e1935e9cdf..000000000000
+--- a/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb.h
++++ /dev/null
+@@ -1,42 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2013-2021 Intel Corporation
+- */
+-
+-#ifndef _VLV_IOSF_SB_H_
+-#define _VLV_IOSF_SB_H_
+-
+-#include <linux/types.h>
+-
+-#include "vlv_iosf_sb_reg.h"
+-
+-struct drm_device;
+-
+-enum vlv_iosf_sb_unit {
+-	VLV_IOSF_SB_BUNIT,
+-	VLV_IOSF_SB_CCK,
+-	VLV_IOSF_SB_CCU,
+-	VLV_IOSF_SB_DPIO,
+-	VLV_IOSF_SB_DPIO_2,
+-	VLV_IOSF_SB_FLISDSI,
+-	VLV_IOSF_SB_GPIO,
+-	VLV_IOSF_SB_NC,
+-	VLV_IOSF_SB_PUNIT,
+-};
+-
+-static inline void vlv_iosf_sb_get(struct drm_device *drm, unsigned long ports)
+-{
+-}
+-static inline u32 vlv_iosf_sb_read(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr)
+-{
+-	return 0;
+-}
+-static inline int vlv_iosf_sb_write(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr, u32 val)
+-{
+-	return 0;
+-}
+-static inline void vlv_iosf_sb_put(struct drm_device *drm, unsigned long ports)
+-{
+-}
+-
+-#endif /* _VLV_IOSF_SB_H_ */
+diff --git a/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h b/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h
+deleted file mode 100644
+index cb7fa8e794a6..000000000000
+--- a/drivers/gpu/drm/xe/compat-i915-headers/vlv_iosf_sb_reg.h
++++ /dev/null
+@@ -1,6 +0,0 @@
+-/* SPDX-License-Identifier: MIT */
+-/*
+- * Copyright © 2023 Intel Corporation
+- */
+-
+-#include "../../i915/vlv_iosf_sb_reg.h"
+diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb_reg.h b/include/drm/intel/vlv_iosf_sb_regs.h
+similarity index 95%
+rename from drivers/gpu/drm/i915/vlv_iosf_sb_reg.h
+rename to include/drm/intel/vlv_iosf_sb_regs.h
+index f977fb3b6e17..42d1def5534b 100644
+--- a/drivers/gpu/drm/i915/vlv_iosf_sb_reg.h
++++ b/include/drm/intel/vlv_iosf_sb_regs.h
+@@ -3,8 +3,20 @@
+  * Copyright © 2022 Intel Corporation
+  */
+ 
+-#ifndef _VLV_IOSF_SB_REG_H_
+-#define _VLV_IOSF_SB_REG_H_
++#ifndef _VLV_IOSF_SB_REGS_H_
++#define _VLV_IOSF_SB_REGS_H_
++
++enum vlv_iosf_sb_unit {
++	VLV_IOSF_SB_BUNIT,
++	VLV_IOSF_SB_CCK,
++	VLV_IOSF_SB_CCU,
++	VLV_IOSF_SB_DPIO,
++	VLV_IOSF_SB_DPIO_2,
++	VLV_IOSF_SB_FLISDSI,
++	VLV_IOSF_SB_GPIO,
++	VLV_IOSF_SB_NC,
++	VLV_IOSF_SB_PUNIT,
++};
+ 
+ /* See configdb bunit SB addr map */
+ #define BUNIT_REG_BISOC				0x11
+@@ -177,4 +189,4 @@
+ #define  CCK_FREQUENCY_STATUS_SHIFT		8
+ #define  CCK_FREQUENCY_VALUES			(0x1f << 0)
+ 
+-#endif /* _VLV_IOSF_SB_REG_H_ */
++#endif /* _VLV_IOSF_SB_REGS_H_ */
 -- 
 2.47.3
 
