@@ -4,160 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E24C1061B39
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 11:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E70271061B37
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 11:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B28710EA52;
-	Tue, 31 Mar 2026 11:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85CAE10EAC4;
+	Tue, 31 Mar 2026 11:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LLnsPwzj";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D6zgZbIh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C97E510EA40;
- Tue, 31 Mar 2026 11:41:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9EF10EA94;
+ Tue, 31 Mar 2026 11:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1774957280; x=1806493280;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=8j2T6BR8LUpI3LMqR76k9TkYtVO2rmo7bppO21SbTPk=;
- b=LLnsPwzjOJ9AA+JxG5y1FvvN14pETQJYcE0mH+TbyQD741KKgLuMSXXg
- Z5Zf8n3q/DcluCmV+a0glbg/VxUtFyVlLNZIyiKOhoC6ct6JG5ESw3QGB
- b44xtwb0vWXQIqS+gEa2zlA2eKyUYovgbzcq6slyveUhPheZi/DONmPhS
- 5DgStsVOzhaKwV64XZajetr5wtCPFfdBy5IB2eLWraQwwMHvj9DuRpZGo
- GHoBrQY9rkiM8atyI2TCx8Pzq9l/X6tVD8XS1mvJibgQj3p7NP/n46eDo
- Vb4sfxHB6d79XXe6ugwOCOkDKMn/SSzzUAIYUYPmsKMqV7SMV9yKuGvtr w==;
-X-CSE-ConnectionGUID: LW/uhnNdRVCMFblTI0Myfw==
-X-CSE-MsgGUID: /el5gBNVQg2j6FrvvnEJuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="87431912"
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="87431912"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:41:19 -0700
-X-CSE-ConnectionGUID: 5nnKFFg5Q2usvkd0BEvY4A==
-X-CSE-MsgGUID: 0M5lE2isTKqjYK1GVseWyA==
+ t=1774957284; x=1806493284;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=oOzKzutH98YBmprkq+/u0O1cGJTjB5Dk7oMqFrsrylE=;
+ b=D6zgZbIhUvWukDhKqZqFHX+SnMjTiwpct8jy2rLyBuFdpPESW20C6QrY
+ VNRW10iQsSxk1X5SRD1hI6XGX8Ivd7GNHmj/I1pW9xFZwb+hrvMv0xq4Q
+ emJdD+PoN191XQNwVPZFTwtAgFe1seSchoSPDMfp48m9ZGBLI9QXfxMRD
+ e7xE1BfVE8DyUbDwT8P0Q1bVhC23OBNWoIMBfSsO8XtbhOLC2tovuvhJO
+ HJOSX7b7CikapXhqDbXANEwirj6RAS6z2h0nE/kJLtajqcdfGz+ZwptC5
+ i/RT3DEVfnG1Xs+2GdvZux2y8Fa5ScZHU4axlzdLAQbKOR/GkrnOYlMHf w==;
+X-CSE-ConnectionGUID: Ju0bsmflR/qLo35dhedLIA==
+X-CSE-MsgGUID: 9P4eUjAhTwGoCjVurDjWdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11744"; a="75854127"
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="75854127"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:24 -0700
+X-CSE-ConnectionGUID: 7zJ+Gn9FRr6FpUImsSoGmA==
+X-CSE-MsgGUID: 7U9kj+91Q8iK3qtcrwuOFA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="223042316"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Mar 2026 04:41:18 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 04:41:17 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 31 Mar 2026 04:41:17 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.60)
- by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 31 Mar 2026 04:41:17 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ELMBwDVQuFoISRdSipApPLlJZ4JcZ2GcKBaoiteJZv0HmKd3nQtPaoM5G0TdYlol1Dp5L+GoER8NJNN+c1k5duObq5iTFyVsXiYUq09CceKXEpFl9v8mSvcycl6XjGpEhiAXe93OZ3TR6j00ZXJh0d93NywypqfNsFyuOskYyMpYEGPrn+lQDZELkYKqYsHWDfMqLZENFme+mxRq2+/vgwMiCF1ZGvdN3ueHAkSDxGYGWiyr8ydvfcU6F3FusF6nXLne3vryHhq+gW7Y0FtzLFeT8GnL7WV/YA61/dAL5zJkOPY+ooqwi/9GOD1eP24AH/MNvzbPMCG/26u196gHnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TvAwWM5r4vIGeguX/Ze0KTYOY87jgLriBpbc4b9z/T4=;
- b=cvQvNyoKpJNzZ4zYVbgR0+A9wCRPFFMyClRpXO8OwbE73jUN9rPkuEFYm12JGZBLk1z7mwwCc50L/P3l42pUzCFxW2WG55wcgP5kaAt8J2yeXSe/0FBJf+9SJpfSuknoJhrImOOZqTqTnzck12KD/pCmlXEFih7PzW7PkjiuiZIWf1/pjhUxdmF0qnnA+lx+Xs2L5hpz3wqOtq3Yn1tEmeuMFSzHOtojaAQ5aozZrkTl1gxbLfTEceNiS/RekycabI8dRKHpbnad5I+ClFQvSnNC00y6suY8qnEDVC51XppxgckNL77+Yeq9x8y2kBGDGwKNkzjjzim6tCE1AN91Ow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by MN0PR11MB6277.namprd11.prod.outlook.com (2603:10b6:208:3c3::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.15; Tue, 31 Mar
- 2026 11:41:13 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%4]) with mapi id 15.20.9723.013; Tue, 31 Mar 2026
- 11:41:13 +0000
-Message-ID: <f4630288-72fd-479a-b413-816a4bd4ca12@intel.com>
-Date: Tue, 31 Mar 2026 17:11:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/19] drm/dp: Add DPCD for configuring AS SDP for PR + VRR
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <jouni.hogander@intel.com>,
- <animesh.manna@intel.com>
-References: <20260330040656.4116502-1-ankit.k.nautiyal@intel.com>
- <20260330040656.4116502-5-ankit.k.nautiyal@intel.com>
- <acq-qi3C8B8rQ4o8@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <acq-qi3C8B8rQ4o8@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0108.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b5::16) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+X-IronPort-AV: E=Sophos;i="6.23,151,1770624000"; d="scan'208";a="231167674"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.73])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Mar 2026 04:41:22 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 4/5] drm/i915: move VLV IOSF sideband to display parent
+ interface
+Date: Tue, 31 Mar 2026 14:40:57 +0300
+Message-ID: <15dfc67b58f5b5b381be0f9bc66d60b43bebfecf.1774957233.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1774957233.git.jani.nikula@intel.com>
+References: <cover.1774957233.git.jani.nikula@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|MN0PR11MB6277:EE_
-X-MS-Office365-Filtering-Correlation-Id: 153da0c5-556e-428a-f7f7-08de8f1a6944
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|22082099003|56012099003; 
-X-Microsoft-Antispam-Message-Info: nxtsM28GidTdROyV+bt0HZKZZPpxCXUkvp/4BxAwk3Wbe/iewYLdBjnC1Yv0NUfAdado9JMHZzMlNIgSj22tdm7pAp10aEEGHhmU+mMIe1vKJF8Mf8kcyus6iZ6YNgnvW73cqefLUi6w2/1S5PaYcICDkGYKVvbwUGK2ITELHIqs7LGgNZ3Lvwz/8DCDfMkj6Qh7fboOZ49PnWdobelAjCOTHvuL9VCqYS+0H4AAHuCZQXY92VIYnFH6cVxYx4ehMe0rucDcCEElAw2tpzb+OkhEFk7K6aF/i2igj8bjV+thFAbMs98j/r4x3rzs6PAeurgz9UXJPDVdUZ1pehFf1I+OUoSlItp02BfKdx/clX7RvN1RPLGGqkr5W5Rq/EsV1S/nDbESIWIdVxHWmGF0AwY7jVHq0VTMR35DeAnxOBeLGLVIgmOr+MqDQykdJW/pPARVKBEGe1J6C26L7RBvuLNDjWUan3Dm5eGiWia5KvBw3F1K8h5irnJ53NY3BYwoj3WdLs91JKbJzfZXZTbvBHLJ2DTfWUpXZUA9WCrfCUfQAKudofAqGAbJJtrvSggyrsPIT88N8OttqyiHj98WtEHYMy1BCdQWSD5fUw1L0g86CDlRWHcMUgBWjoAcKWNjOe62zSWNj37jYPlxYPT6W1waD+s0uFDXcuzCgK9I+KrKnD/mzChLYjtdv5O60CibgTKwzX5KI+TmafIMYrR5dDhEGh9GLO4qSi7DIXTVVZg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q0FCeVd5SmVzU09aNHJXVmJmNWd6eFgzcFRPQWNELzFkS3V4a3pUVVQ3RmVS?=
- =?utf-8?B?ZEt4WWFmVjZ3REVuQ0FGaUNjSExLTHdjdmxhczBMa0FBTWRzWHJBZ3JXWktC?=
- =?utf-8?B?TTJWNVQxMHFld0dHaWl3NUhlanFYM3VWSTRCazdPNnJmcDZtSUpUQnRBTnlR?=
- =?utf-8?B?WUFIcDVQQ3d0Yk1UYTZLZVpsNlVHUGVmeThQS2JRRStNaHMwSTRzVldYWHUv?=
- =?utf-8?B?Y25EY1VMa3JDY2hQempRMjF3eUljVmJYYzRpeG9NWEsvY1lOUHNPZW1jS3dW?=
- =?utf-8?B?K3JPTmQrTExhU3JWQlQwUW03Y1pyRFpac0J5endLWnJ3Z1FOUHF1WlFaNDBa?=
- =?utf-8?B?b1VmVzlCYzNYVjJINmgycWdVa0xaREhqRGJLRk9XeUhxODNhMUZIb1htWlV0?=
- =?utf-8?B?T2pIYU9vU3N3SHo2aGV5Q3hLWHRNM2I1Z29BMFhtZHdWekcyMTZEc0ErOHBM?=
- =?utf-8?B?bkRCeUhsS3V0NnZidmR6ZjUxT2hoWjNHOXM0Z3lGM2Ura3JBSWFLOVBaektJ?=
- =?utf-8?B?NTMzbjlQRndrM0lXcmV1Tjd0L3haWmdRUUJyMmFjOFA3VWc1Y2RXWTJuRDlJ?=
- =?utf-8?B?N0lMazlWeVY2OWp4U3FwZmxaT1lFOThFRUx2YUE5L240ZHNpWEVjaW55cW5U?=
- =?utf-8?B?OUh1SWcxam1UZWZKRWsrWmhUMXV2ekpISGQzQUtqQ0toZ1BQYWhBeVJDOWFp?=
- =?utf-8?B?SXRwMm0vS2hFdXArd29sVkcxcWZRRkY5UFhaVDhLTmlETC9ZZHMvdmhUNWV4?=
- =?utf-8?B?VGtlVGppcXNIY0FDMGxkeTRSdUo1WllmL3NtOXlGWGUzQzFRZ2lXektoVWlx?=
- =?utf-8?B?anNzQk9ZM1RyaDNwV2lZOWVDeU1LQWtiQlZOeVExMjhpVHdLSno0YUh6YUFJ?=
- =?utf-8?B?emZhVUJncU9EMGxTQm45bUUzVTdodG11RzI5NG9adWJzaVVSZjRWUUZLSmxM?=
- =?utf-8?B?MzJVTE05cFpUbC9Wd0NGMjVZanBFV2M0c1VZaEd2OXVKNnBBbnNBK08wd0p0?=
- =?utf-8?B?d0p5b1FuaG1IemFFa2hBdUowMDhzQ0puaUp6dStCdTNTeVN0TWZ1Q05WSnNo?=
- =?utf-8?B?endvY3VXRlM4VjJrM3pmaGQzNm1WNStyOWF0bWhjRGNGeTBjSzJkWWdJK1ZJ?=
- =?utf-8?B?Q0tJenB6cWVESHl3UUlSbXZpY3FGZWFyYnpQV1RNTUFlWE51dkMwVk1TS05W?=
- =?utf-8?B?ZjVyR3UrYk1sUGdjWmgwKzhzUEFPamxWZTBaZkVvTFpkVmVQTDBWUllidzRh?=
- =?utf-8?B?ZzNlM1NQWEZFTG1CRjFaSWJXU24wc2JlZzdUdk4rbDVZWDFyVDZMMUp1SWQv?=
- =?utf-8?B?blEzT056dGxRMWlzMFVtQS8yTTdNdlp2M1RUc3N6TXcxQ0RadmtiWFN5Uity?=
- =?utf-8?B?N0NDQS9ieUovSnI4MTUrQmFEVVp3NGJFTkVHRlZNZEdxd0lNYUhyOEp0MVdQ?=
- =?utf-8?B?aGptcmFxbENMM0NJc2dvU0JXdm5rbStsUVU4cjVBZm1WUjh4aThqaXMvOU5N?=
- =?utf-8?B?VGFBWitLeGh2azgwNlpJdkZyY2lkdnlJMEpxcnUzNDlqUHpFNTY3amJzTU9h?=
- =?utf-8?B?S1NiaENhUzc2dUFLUGkxbjhCUlpSQ0pVcXFyeThEaVJCWFZXVjViRWk3NCtU?=
- =?utf-8?B?ekJ1NWVraTRuVlk0cmpRZmlxSHRDQTV5dnZmeTFSUmd2WXhmbW9CT1lGaFdi?=
- =?utf-8?B?NGd4VU9mNkJKNXV5RU55Sk91akI5cmJhRExUaVVtd2xxdHB0RTRiT3RDRDF4?=
- =?utf-8?B?Kzkvb3NwKy84cklLVWU5RGRid3dIK1g3RkEybUlWWENra0NEUGdZNHhkR2VE?=
- =?utf-8?B?aEJ2enZ2SjNjVTdjcndFY3d1bkFWeWVOU05XcXFjYVkvR1pNankvK1BxSjRo?=
- =?utf-8?B?VWlpLzdvb0Y4cU9EQzZrYzVmWTU3RlJ3VGtJaCtCQ3lBTm11Zlp2THh3SUZh?=
- =?utf-8?B?bzJsaW5Rd1dEVWpoZTJFZWVmS0xLbUZMVkRZUzJ2VUwyUFJTSHIrR0RtNHFq?=
- =?utf-8?B?UHpjNGRrOUo4TWdiSEtCeFhpSGVkelZQQzJWRlpvSktEbnJiZGg1eXpPRjd2?=
- =?utf-8?B?dGlMekFSb2Q2RmREK2FYSTUvV05ia1I2a0RpTWZhT0hBek4xMFRzYVQ1T2hm?=
- =?utf-8?B?ZWNPcUFxandCQjU3eVlSKzNnTnJ1L0U4MEVRdDdoMHlvLzIwMEhOUzV5dVhx?=
- =?utf-8?B?VW5yY3JYaDNLclpHNUxnZHM5REJYRE91YVhydnVGTTZ2ZHB0Z29LRmREVUtG?=
- =?utf-8?B?RU1zNHZIQ1dIOFBBNXNhUXBNVTY3cmRxQ1E1dXl5bHdNZjJRK0pTOVdQQ0ZX?=
- =?utf-8?B?NnZQS1o0L28zMm5uaC9qQ2l1aE8ySEJoSXRpUWRVcGthYzhLZ0xJU1hlYnVr?=
- =?utf-8?Q?+DGKuBeXzcVSZNnc=3D?=
-X-Exchange-RoutingPolicyChecked: LrDp86XA7Yhlvbt0rAVtgDYlVcQjEt0uY70+b6gZvmmbWOyxhyr08PfdL7Q21KC8iGdTyFP0dj4ujAcNbh6EfffhA62IXQ8MnsxAm3x1tLEAUYA5F5JuxkpMD3vjNkA2mdTcKpS4HRAteGUhpI6EDlB8V85G56fCW7RMplaGPmBuzT6Vg4dZNeiQK+A+NftJarBfA6aXh2UrLyudYnFljqv+JjgUYQvXDQh7IJj4HkLdORSIYFKjrjXQLZUURLLhGCMK1UXEIyv5uNTTGR/SexXlPV4/rbcvYzMY5N0TqFHuc17/fMOE2vE+Sww3/ZfHxyq/aihyPjkO/t+jai47qQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 153da0c5-556e-428a-f7f7-08de8f1a6944
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Mar 2026 11:41:13.5755 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DipURinLnGv2S+e6i/dPV1b2aSNcIP2BzkC12VtPYzmjwCbmAjvy27m9Jjyu2kliQo5fpSvu1ScSrMqBHGayq4Oyap9SxYZ5180HgN4OcNU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR11MB6277
-X-OriginatorOrg: intel.com
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,54 +72,393 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Remove another direct dependency from display to i915 core by moving the
+VLV IOSF sideband calls to the display parent interface. Xe doesn't need
+this, so it'll remain optional and NULL.
 
-On 3/30/2026 11:49 PM, Ville Syrjälä wrote:
-> On Mon, Mar 30, 2026 at 09:36:41AM +0530, Ankit Nautiyal wrote:
->> Add additional DPCDs required to be configured to support VRR with Panel
->> Replay. These DPCDs are specifically required for configuring Adaptive Sync
->> SDP and are introduced in DP v2.1.
->>
->> v2:
->>   - Correct the shift for the bits. (Ville)
->>   - Add DP_PR_ prefix for the PR-related fields.
->> v3:
->>   - Use macro values in their shifted form to match the convention (Ville)
->>
->> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> ---
->>   include/drm/display/drm_dp.h | 5 +++++
->>   1 file changed, 5 insertions(+)
->>
->> diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
->> index 8d172863eba3..93a188113d36 100644
->> --- a/include/drm/display/drm_dp.h
->> +++ b/include/drm/display/drm_dp.h
->> @@ -775,6 +775,11 @@
->>   # define DP_PANEL_REPLAY_SU_Y_GRANULARITY_EXTENDED_VAL_SEL_MASK  (0xf << 3)
->>   # define DP_PANEL_REPLAY_SU_REGION_SCANLINE_CAPTURE		 (1 << 7)
->>   
->> +#define PANEL_REPLAY_CONFIG3				0x11a /* DP 2.1 */
-> I would still define a DP_PR_AS_SDP_SETUP_TIME_MASK here, to
-> make it clear which bits are part of this.
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c   | 16 +++---
+ drivers/gpu/drm/i915/display/intel_parent.c  | 34 ++++++++++++
+ drivers/gpu/drm/i915/display/intel_parent.h  |  7 +++
+ drivers/gpu/drm/i915/display/vlv_sideband.c  | 55 ++++++++++----------
+ drivers/gpu/drm/i915/i915_driver.c           |  1 +
+ drivers/gpu/drm/i915/vlv_iosf_sb.c           |  8 +++
+ drivers/gpu/drm/i915/vlv_iosf_sb.h           |  2 +
+ include/drm/intel/display_parent_interface.h | 11 ++++
+ 8 files changed, 99 insertions(+), 35 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index 8e0424a2c16f..4a663dddf896 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -691,10 +691,10 @@ static void vlv_set_cdclk(struct intel_display *display,
+ 	 */
+ 	wakeref = intel_display_power_get(display, POWER_DOMAIN_DISPLAY_CORE);
+ 
+-	vlv_iosf_sb_get(display->drm,
+-			BIT(VLV_IOSF_SB_CCK) |
+-			BIT(VLV_IOSF_SB_BUNIT) |
+-			BIT(VLV_IOSF_SB_PUNIT));
++	intel_parent_vlv_iosf_get(display,
++				  BIT(VLV_IOSF_SB_CCK) |
++				  BIT(VLV_IOSF_SB_BUNIT) |
++				  BIT(VLV_IOSF_SB_PUNIT));
+ 
+ 	val = vlv_punit_read(display, PUNIT_REG_DSPSSPM);
+ 	val &= ~DSPFREQGUAR_MASK;
+@@ -740,10 +740,10 @@ static void vlv_set_cdclk(struct intel_display *display,
+ 		val |= 3000 / 250; /* 3.0 usec */
+ 	vlv_bunit_write(display, BUNIT_REG_BISOC, val);
+ 
+-	vlv_iosf_sb_put(display->drm,
+-			BIT(VLV_IOSF_SB_CCK) |
+-			BIT(VLV_IOSF_SB_BUNIT) |
+-			BIT(VLV_IOSF_SB_PUNIT));
++	intel_parent_vlv_iosf_put(display,
++				  BIT(VLV_IOSF_SB_CCK) |
++				  BIT(VLV_IOSF_SB_BUNIT) |
++				  BIT(VLV_IOSF_SB_PUNIT));
+ 
+ 	intel_update_cdclk(display);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_parent.c b/drivers/gpu/drm/i915/display/intel_parent.c
+index 2e3bad2b3e6b..4e01423a0392 100644
+--- a/drivers/gpu/drm/i915/display/intel_parent.c
++++ b/drivers/gpu/drm/i915/display/intel_parent.c
+@@ -22,6 +22,7 @@
+ 
+ #include "intel_display_core.h"
+ #include "intel_parent.h"
++#include "vlv_iosf_sb.h"
+ 
+ /* dpt */
+ struct intel_dpt *intel_parent_dpt_create(struct intel_display *display,
+@@ -338,6 +339,39 @@ void intel_parent_stolen_node_free(struct intel_display *display, const struct i
+ 	display->parent->stolen->node_free(node);
+ }
+ 
++/* vlv iosf */
++void intel_parent_vlv_iosf_get(struct intel_display *display, unsigned long unit_mask)
++{
++	if (drm_WARN_ON_ONCE(display->drm, !display->parent->vlv_iosf))
++		return;
++
++	display->parent->vlv_iosf->get(display->drm, unit_mask);
++}
++
++void intel_parent_vlv_iosf_put(struct intel_display *display, unsigned long unit_mask)
++{
++	if (drm_WARN_ON_ONCE(display->drm, !display->parent->vlv_iosf))
++		return;
++
++	display->parent->vlv_iosf->put(display->drm, unit_mask);
++}
++
++u32 intel_parent_vlv_iosf_read(struct intel_display *display, enum vlv_iosf_sb_unit unit, u32 addr)
++{
++	if (drm_WARN_ON_ONCE(display->drm, !display->parent->vlv_iosf))
++		return 0;
++
++	return display->parent->vlv_iosf->read(display->drm, unit, addr);
++}
++
++int intel_parent_vlv_iosf_write(struct intel_display *display, enum vlv_iosf_sb_unit unit, u32 addr, u32 val)
++{
++	if (drm_WARN_ON_ONCE(display->drm, !display->parent->vlv_iosf))
++		return -EINVAL;
++
++	return display->parent->vlv_iosf->write(display->drm, unit, addr, val);
++}
++
+ /* vma */
+ int intel_parent_vma_fence_id(struct intel_display *display, const struct i915_vma *vma)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_parent.h b/drivers/gpu/drm/i915/display/intel_parent.h
+index 2013e5ed5aa9..1e89d24163cc 100644
+--- a/drivers/gpu/drm/i915/display/intel_parent.h
++++ b/drivers/gpu/drm/i915/display/intel_parent.h
+@@ -6,6 +6,7 @@
+ 
+ #include <linux/types.h>
+ 
++enum vlv_iosf_sb_unit;
+ struct dma_fence;
+ struct drm_file;
+ struct drm_gem_object;
+@@ -109,6 +110,12 @@ u64 intel_parent_stolen_node_size(struct intel_display *display, const struct in
+ struct intel_stolen_node *intel_parent_stolen_node_alloc(struct intel_display *display);
+ void intel_parent_stolen_node_free(struct intel_display *display, const struct intel_stolen_node *node);
+ 
++/* vlv iosf */
++void intel_parent_vlv_iosf_get(struct intel_display *display, unsigned long unit_mask);
++void intel_parent_vlv_iosf_put(struct intel_display *display, unsigned long unit_mask);
++u32 intel_parent_vlv_iosf_read(struct intel_display *display, enum vlv_iosf_sb_unit unit, u32 addr);
++int intel_parent_vlv_iosf_write(struct intel_display *display, enum vlv_iosf_sb_unit unit, u32 addr, u32 val);
++
+ /* vma */
+ int intel_parent_vma_fence_id(struct intel_display *display, const struct i915_vma *vma);
+ 
+diff --git a/drivers/gpu/drm/i915/display/vlv_sideband.c b/drivers/gpu/drm/i915/display/vlv_sideband.c
+index a9c812da3c91..068f58bd9a2b 100644
+--- a/drivers/gpu/drm/i915/display/vlv_sideband.c
++++ b/drivers/gpu/drm/i915/display/vlv_sideband.c
+@@ -6,71 +6,72 @@
+ #include "intel_display_core.h"
+ #include "intel_display_types.h"
+ #include "intel_dpio_phy.h"
++#include "intel_parent.h"
+ #include "vlv_sideband.h"
+ 
+ void vlv_bunit_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_BUNIT));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_BUNIT));
+ }
+ 
+ u32 vlv_bunit_read(struct intel_display *display, u32 reg)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_BUNIT, reg);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_BUNIT, reg);
+ }
+ 
+ void vlv_bunit_write(struct intel_display *display, u32 reg, u32 val)
+ {
+-	vlv_iosf_sb_write(display->drm, VLV_IOSF_SB_BUNIT, reg, val);
++	intel_parent_vlv_iosf_write(display, VLV_IOSF_SB_BUNIT, reg, val);
+ }
+ 
+ void vlv_bunit_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_BUNIT));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_BUNIT));
+ }
+ 
+ void vlv_cck_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_CCK));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_CCK));
+ }
+ 
+ u32 vlv_cck_read(struct intel_display *display, u32 reg)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_CCK, reg);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_CCK, reg);
+ }
+ 
+ void vlv_cck_write(struct intel_display *display, u32 reg, u32 val)
+ {
+-	vlv_iosf_sb_write(display->drm, VLV_IOSF_SB_CCK, reg, val);
++	intel_parent_vlv_iosf_write(display, VLV_IOSF_SB_CCK, reg, val);
+ }
+ 
+ void vlv_cck_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_CCK));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_CCK));
+ }
+ 
+ void vlv_ccu_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_CCU));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_CCU));
+ }
+ 
+ u32 vlv_ccu_read(struct intel_display *display, u32 reg)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_CCU, reg);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_CCU, reg);
+ }
+ 
+ void vlv_ccu_write(struct intel_display *display, u32 reg, u32 val)
+ {
+-	vlv_iosf_sb_write(display->drm, VLV_IOSF_SB_CCU, reg, val);
++	intel_parent_vlv_iosf_write(display, VLV_IOSF_SB_CCU, reg, val);
+ }
+ 
+ void vlv_ccu_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_CCU));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_CCU));
+ }
+ 
+ void vlv_dpio_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_DPIO) | BIT(VLV_IOSF_SB_DPIO_2));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_DPIO) | BIT(VLV_IOSF_SB_DPIO_2));
+ }
+ 
+ static enum vlv_iosf_sb_unit vlv_dpio_phy_to_unit(struct intel_display *display,
+@@ -91,7 +92,7 @@ u32 vlv_dpio_read(struct intel_display *display, enum dpio_phy phy, int reg)
+ 	enum vlv_iosf_sb_unit unit = vlv_dpio_phy_to_unit(display, phy);
+ 	u32 val;
+ 
+-	val = vlv_iosf_sb_read(display->drm, unit, reg);
++	val = intel_parent_vlv_iosf_read(display, unit, reg);
+ 
+ 	/*
+ 	 * FIXME: There might be some registers where all 1's is a valid value,
+@@ -109,65 +110,65 @@ void vlv_dpio_write(struct intel_display *display,
+ {
+ 	enum vlv_iosf_sb_unit unit = vlv_dpio_phy_to_unit(display, phy);
+ 
+-	vlv_iosf_sb_write(display->drm, unit, reg, val);
++	intel_parent_vlv_iosf_write(display, unit, reg, val);
+ }
+ 
+ void vlv_dpio_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_DPIO) | BIT(VLV_IOSF_SB_DPIO_2));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_DPIO) | BIT(VLV_IOSF_SB_DPIO_2));
+ }
+ 
+ void vlv_flisdsi_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_FLISDSI));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_FLISDSI));
+ }
+ 
+ u32 vlv_flisdsi_read(struct intel_display *display, u32 reg)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_FLISDSI, reg);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_FLISDSI, reg);
+ }
+ 
+ void vlv_flisdsi_write(struct intel_display *display, u32 reg, u32 val)
+ {
+-	vlv_iosf_sb_write(display->drm, VLV_IOSF_SB_FLISDSI, reg, val);
++	intel_parent_vlv_iosf_write(display, VLV_IOSF_SB_FLISDSI, reg, val);
+ }
+ 
+ void vlv_flisdsi_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_FLISDSI));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_FLISDSI));
+ }
+ 
+ void vlv_nc_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_NC));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_NC));
+ }
+ 
+ u32 vlv_nc_read(struct intel_display *display, u8 addr)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_NC, addr);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_NC, addr);
+ }
+ 
+ void vlv_nc_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_NC));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_NC));
+ }
+ 
+ void vlv_punit_get(struct intel_display *display)
+ {
+-	vlv_iosf_sb_get(display->drm, BIT(VLV_IOSF_SB_PUNIT));
++	intel_parent_vlv_iosf_get(display, BIT(VLV_IOSF_SB_PUNIT));
+ }
+ 
+ u32 vlv_punit_read(struct intel_display *display, u32 addr)
+ {
+-	return vlv_iosf_sb_read(display->drm, VLV_IOSF_SB_PUNIT, addr);
++	return intel_parent_vlv_iosf_read(display, VLV_IOSF_SB_PUNIT, addr);
+ }
+ 
+ int vlv_punit_write(struct intel_display *display, u32 addr, u32 val)
+ {
+-	return vlv_iosf_sb_write(display->drm, VLV_IOSF_SB_PUNIT, addr, val);
++	return intel_parent_vlv_iosf_write(display, VLV_IOSF_SB_PUNIT, addr, val);
+ }
+ 
+ void vlv_punit_put(struct intel_display *display)
+ {
+-	vlv_iosf_sb_put(display->drm, BIT(VLV_IOSF_SB_PUNIT));
++	intel_parent_vlv_iosf_put(display, BIT(VLV_IOSF_SB_PUNIT));
+ }
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index 385a634c3ed0..c10cab38935a 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -780,6 +780,7 @@ static const struct intel_display_parent_interface parent = {
+ 	.rpm = &i915_display_rpm_interface,
+ 	.rps = &i915_display_rps_interface,
+ 	.stolen = &i915_display_stolen_interface,
++	.vlv_iosf = &i915_display_vlv_iosf_interface,
+ 	.vma = &i915_display_vma_interface,
+ 
+ 	.fence_priority_display = fence_priority_display,
+diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.c b/drivers/gpu/drm/i915/vlv_iosf_sb.c
+index 38a75651b0dc..1f0332b4ad0d 100644
+--- a/drivers/gpu/drm/i915/vlv_iosf_sb.c
++++ b/drivers/gpu/drm/i915/vlv_iosf_sb.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <drm/drm_print.h>
++#include <drm/intel/display_parent_interface.h>
+ 
+ #include "i915_drv.h"
+ #include "i915_iosf_mbi.h"
+@@ -229,3 +230,10 @@ void vlv_iosf_sb_fini(struct drm_i915_private *i915)
+ 	if (IS_VALLEYVIEW(i915) || IS_CHERRYVIEW(i915))
+ 		mutex_destroy(&i915->vlv_iosf_sb.lock);
+ }
++
++const struct intel_display_vlv_iosf_interface i915_display_vlv_iosf_interface = {
++	.get = vlv_iosf_sb_get,
++	.put = vlv_iosf_sb_put,
++	.read = vlv_iosf_sb_read,
++	.write = vlv_iosf_sb_write,
++};
+diff --git a/drivers/gpu/drm/i915/vlv_iosf_sb.h b/drivers/gpu/drm/i915/vlv_iosf_sb.h
+index e2fea29a30ea..e4002d5b5a2e 100644
+--- a/drivers/gpu/drm/i915/vlv_iosf_sb.h
++++ b/drivers/gpu/drm/i915/vlv_iosf_sb.h
+@@ -34,4 +34,6 @@ void vlv_iosf_sb_put(struct drm_device *drm, unsigned long unit_mask);
+ u32 vlv_iosf_sb_read(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr);
+ int vlv_iosf_sb_write(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr, u32 val);
+ 
++extern const struct intel_display_vlv_iosf_interface i915_display_vlv_iosf_interface;
++
+ #endif /* _VLV_IOSF_SB_H_ */
+diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
+index 97ec94a2e749..c0d18d5577f3 100644
+--- a/include/drm/intel/display_parent_interface.h
++++ b/include/drm/intel/display_parent_interface.h
+@@ -6,6 +6,7 @@
+ 
+ #include <linux/types.h>
+ 
++enum vlv_iosf_sb_unit;
+ struct dma_fence;
+ struct drm_crtc;
+ struct drm_device;
+@@ -176,6 +177,13 @@ struct intel_display_stolen_interface {
+ 	void (*node_free)(const struct intel_stolen_node *node);
+ };
+ 
++struct intel_display_vlv_iosf_interface {
++	void (*get)(struct drm_device *drm, unsigned long unit_mask);
++	void (*put)(struct drm_device *drm, unsigned long unit_mask);
++	u32 (*read)(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr);
++	int (*write)(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr, u32 val);
++};
++
+ struct intel_display_vma_interface {
+ 	int (*fence_id)(const struct i915_vma *vma);
+ };
+@@ -235,6 +243,9 @@ struct intel_display_parent_interface {
+ 	/** @stolen: Stolen memory. */
+ 	const struct intel_display_stolen_interface *stolen;
+ 
++	/** @vlv_iosf: VLV IOSF sideband. Optional. */
++	const struct intel_display_vlv_iosf_interface *vlv_iosf;
++
+ 	/** @vma: VMA interface. Optional. */
+ 	const struct intel_display_vma_interface *vma;
+ 
+-- 
+2.47.3
 
-  I think I added that in previous implementation, but dropped in this. 
-I will add it again.
-
-Regards,
-
-Ankit
-
->
-> With that
-> Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
->
->> +# define DP_PR_AS_SDP_SETUP_TIME_T1			(0 << 6)
->> +# define DP_PR_AS_SDP_SETUP_TIME_DYNAMIC		(1 << 6) /* DP 2.1 Table 2-227 */
->> +# define DP_PR_AS_SDP_SETUP_TIME_T2			(2 << 6)
->> +
->>   #define DP_PAYLOAD_ALLOCATE_SET		    0x1c0
->>   #define DP_PAYLOAD_ALLOCATE_START_TIME_SLOT 0x1c1
->>   #define DP_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT 0x1c2
->> -- 
->> 2.45.2
