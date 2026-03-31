@@ -4,53 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A8F2109B46D
-	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 13:35:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1393A109B472
+	for <intel-gfx@archiver.kernel.org>; Tue, 31 Mar 2026 13:52:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E461E10E95D;
-	Tue, 31 Mar 2026 13:35:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 617F110E909;
+	Tue, 31 Mar 2026 13:52:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="HMGWt68q";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bi248at1";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09BF510E1DE;
- Tue, 31 Mar 2026 13:35:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1774964109; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=nh024V5/6apg0ZihOIWYvLW4Me1c/q02G6xc8/dlc07Ik/aVdrPdnOYhBYdTX3K3thbxZKJDK4DvQWirzIj6q8dotTvMEhZxTPm4At6gA6/Hbqju7FkTLHME4tWYLRFi3FMqTxb0yi2OK0kueNrFAGSIJ3V/RmbWRvXzSMGnFEc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1774964109;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=hc7ZXy7iPAJ9l43ijItZ3lwM+XClvjkTosZx6H9KVOs=; 
- b=FfBNmzzPw+dYMc2/4AS3rHPQn3i6khzXML9/64NxTgjrYoX21JKR/6hZ8LWAYo/Fgvwe8wrjiQ3usV1ciHJgS5q2hEc+SQp42xCn/5OV5rP7aN2ALiGxAXrFivmztiFcP00puLHOOqm+at7kbepiSrjj4XJBBQHtpFdomjiaM6A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1774964109; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=hc7ZXy7iPAJ9l43ijItZ3lwM+XClvjkTosZx6H9KVOs=;
- b=HMGWt68qXJTtYjlXS2AaYs61bBvo6FTWvBXNszZR88aykgtwvK6DM2/7+hGR8+7q
- ZfTFfgEoRAOsECvC5++vxlVaojPT5782r2yKFHO1LOiA/xy81vIhHi1xsOKEStTBlP8
- 4uX64q8fpIekJahB1H+aU17/TDeOlN3Bpsv1uFeI=
-Received: by mx.zohomail.com with SMTPS id 1774964107929434.5571937826678;
- Tue, 31 Mar 2026 06:35:07 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: intel-gfx@lists.freedesktop.org,
- Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 4/9] drm/i915/dp: Restructure the sink/output format
- selection
-Date: Tue, 31 Mar 2026 15:35:04 +0200
-Message-ID: <2479715.CQOukoFCf9@workhorse>
-In-Reply-To: <20260330235339.29479-5-ville.syrjala@linux.intel.com>
-References: <20260330235339.29479-1-ville.syrjala@linux.intel.com>
- <20260330235339.29479-5-ville.syrjala@linux.intel.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37FE310E380;
+ Tue, 31 Mar 2026 13:52:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1774965152;
+ bh=XYVYqXCJ1Dbzl2BCR+UrXAQuUmvTJy7A7k5GRda7KSQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=bi248at1IoRZHdobgE2WSIfEdpEIUeKp+Na1jam/dN396FtSE2ArsaVfESWD4/PAu
+ P47X23Smqlq6HwJVki39PTlIeiJsUes7lLrLJG1wmY7ZJ9cEMA2zGLkgzYNuk/ctn4
+ 8lY3GQSXAIyuRbO5tpGxDAXV76mHZSqLx5+Pgm3htfQETE/4cNh0KzQ113O8CCqgbQ
+ oiCdMoUHLs7UPYajkvuMQmNnwPmeFxx+AyuxgzMtIGWHz/vTpDyOccC7K8P04YrvKz
+ GTcvPpW59SvHCZCTJHPSEigYt7d6yHb8YJsk3tfZe41qqe//54qDVxuF9WHm0aPsCk
+ cAeBPbFaVqFKg==
+Received: from fluorite (unknown [194.136.85.206])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits)
+ server-digest SHA256) (No client certificate requested)
+ (Authenticated sender: pq)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 607AE17E64CE;
+ Tue, 31 Mar 2026 15:52:30 +0200 (CEST)
+Date: Tue, 31 Mar 2026 16:52:24 +0300
+From: Pekka Paalanen <pekka.paalanen@collabora.com>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Nicolas Frattaroli
+ <nicolas.frattaroli@collabora.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Andrzej Hajda <andrzej.hajda@intel.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
+ <hjc@rock-chips.com>, Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Werner Sembach <wse@tuxedocomputers.com>, Andri
+ Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v11 03/22] drm: Add new general DRM property "color format"
+Message-ID: <20260331165224.602f840f@fluorite>
+In-Reply-To: <accfKbYPbH7EgAMc@intel.com>
+References: <20260324-color-format-v11-3-605559af4fb4@collabora.com>
+ <acLDPYuaVI2-12JX@intel.com> <23910073.EfDdHjke4D@workhorse>
+ <acLrv5hLyNss-Px5@intel.com>
+ <20260325-neat-elegant-raven-ebc9ab@houat>
+ <acPA60Ci3n_t__xF@intel.com>
+ <20260325-magnificent-ultraviolet-oarfish-baefbc@houat>
+ <acQsw3Wi_xVlBZ8d@intel.com>
+ <20260326-pumpkin-goshawk-of-stamina-0ccb84@houat>
+ <acVzwRyk_J24GrJ4@intel.com> <accfKbYPbH7EgAMc@intel.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; boundary="Sig_/Z9vd7qNP90QhQD=w6cW_nRl";
+ protocol="application/pgp-signature"; micalg=pgp-sha256
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,220 +91,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 31 March 2026 01:53:34 Central European Summer Time Ville Syrja=
-la wrote:
-> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->=20
-> Restructure intel_dp_compute_output_format() to resemble the new
-> intel_hdmi_compute_output_formats().
->=20
-> Again, we basically have two main code paths:
-> - YCbCr 4:2:0 only modes
-> - everything else including YCbCr 4:2:0 also modes
->=20
-> Take the exact same approach with the DP code, making the
-> format selection much less convoluted.
->=20
-> Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 98 +++++++++++++++++--------
->  1 file changed, 69 insertions(+), 29 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index 4955bd8b11d7..230b45acde29 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -1371,6 +1371,28 @@ intel_dp_mode_valid_downstream(struct intel_connec=
-tor *connector,
->  	return MODE_OK;
->  }
-> =20
-> +static enum drm_mode_status
-> +intel_dp_sink_format_valid(struct intel_connector *connector,
-> +			   const struct drm_display_mode *mode,
-> +			   enum intel_output_format sink_format)
-> +{
-> +	const struct drm_display_info *info =3D &connector->base.display_info;
-> +
-> +	switch (sink_format) {
-> +	case INTEL_OUTPUT_FORMAT_YCBCR420:
-> +		if (!connector->base.ycbcr_420_allowed ||
-> +		    !drm_mode_is_420(info, mode))
-> +			return MODE_NO_420;
-> +
-> +		return MODE_OK;
-> +	case INTEL_OUTPUT_FORMAT_RGB:
-> +		return MODE_OK;
-> +	default:
-> +		MISSING_CASE(sink_format);
-> +		return MODE_BAD;
-> +	}
-> +}
-> +
+--Sig_/Z9vd7qNP90QhQD=w6cW_nRl
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-I think here we'll want another
-=2D--
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915=
-/display/intel_dp.c
-index e23162fc3f8b..a1dc089c54f5 100644
-=2D-- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1373,6 +1373,11 @@ intel_dp_sink_format_valid(struct intel_connector *c=
-onnector,
+On Sat, 28 Mar 2026 02:22:01 +0200
+Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com> wrote:
+
+> On Thu, Mar 26, 2026 at 07:58:25PM +0200, Ville Syrj=C3=A4l=C3=A4 wrote:
+> > On Thu, Mar 26, 2026 at 06:02:47PM +0100, Maxime Ripard wrote: =20
+> > > On Wed, Mar 25, 2026 at 08:43:15PM +0200, Ville Syrj=C3=A4l=C3=A4 wro=
+te: =20
+> > > > On Wed, Mar 25, 2026 at 03:56:58PM +0100, Maxime Ripard wrote: =20
+> > > > > On Wed, Mar 25, 2026 at 01:03:07PM +0200, Ville Syrj=C3=A4l=C3=A4=
+ wrote: =20
+> > > > > > On Wed, Mar 25, 2026 at 09:24:27AM +0100, Maxime Ripard wrote: =
 =20
-                return MODE_OK;
-        case INTEL_OUTPUT_FORMAT_RGB:
-+               return MODE_OK;
-+       case INTEL_OUTPUT_FORMAT_YCBCR444:
-+               if (!(info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCB=
-CR444)))
-+                       return MODE_BAD;
-+
-                return MODE_OK;
-        default:
-                MISSING_CASE(sink_format);
-=2D--
-
-though this time, no bpc related changes. With that fixed, I get
-YCbCr444 at 10bpc as well as 8bpc. Can't test 4:2:0 for what appears
-to be unrelated userspace reasons, though the KMS property's enum
-value is exposed properly.
-
->  int intel_dp_max_hdisplay_per_pipe(struct intel_display *display)
->  {
->  	return DISPLAY_VER(display) >=3D 30 ? 6144 : 5120;
-> @@ -3330,41 +3352,59 @@ static int
->  intel_dp_compute_output_format(struct intel_encoder *encoder,
->  			       struct intel_crtc_state *crtc_state,
->  			       struct drm_connector_state *conn_state,
-> -			       bool respect_downstream_limits)
-> +			       bool respect_downstream_limits,
-> +			       enum intel_output_format sink_format)
->  {
-> -	struct intel_display *display =3D to_intel_display(encoder);
->  	struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
->  	struct intel_connector *connector =3D intel_dp->attached_connector;
-> -	const struct drm_display_info *info =3D &connector->base.display_info;
->  	const struct drm_display_mode *adjusted_mode =3D &crtc_state->hw.adjust=
-ed_mode;
-> -	bool ycbcr_420_only;
-> -	int ret;
-> =20
-> -	ycbcr_420_only =3D drm_mode_is_420_only(info, adjusted_mode);
-> -
-> -	if (ycbcr_420_only && !connector->base.ycbcr_420_allowed) {
-> -		drm_dbg_kms(display->drm,
-> -			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling ba=
-ck to RGB.\n");
-> -		crtc_state->sink_format =3D INTEL_OUTPUT_FORMAT_RGB;
-> -	} else {
-> -		crtc_state->sink_format =3D intel_dp_sink_format(connector, adjusted_m=
-ode);
-> -	}
-> +	if (intel_dp_sink_format_valid(connector, adjusted_mode,
-> +				       sink_format) !=3D MODE_OK)
-> +		return -EINVAL;
-> =20
-> +	crtc_state->sink_format =3D sink_format;
->  	crtc_state->output_format =3D intel_dp_output_format(connector, crtc_st=
-ate->sink_format);
-> =20
-> -	ret =3D intel_dp_compute_link_config(encoder, crtc_state, conn_state,
-> -					   respect_downstream_limits);
-> -	if (ret) {
-> -		if (crtc_state->sink_format =3D=3D INTEL_OUTPUT_FORMAT_YCBCR420 ||
-> -		    !connector->base.ycbcr_420_allowed ||
-> -		    !drm_mode_is_420_also(info, adjusted_mode))
-> -			return ret;
-> -
-> -		crtc_state->sink_format =3D INTEL_OUTPUT_FORMAT_YCBCR420;
-> -		crtc_state->output_format =3D intel_dp_output_format(connector,
-> -								   crtc_state->sink_format);
-> -		ret =3D intel_dp_compute_link_config(encoder, crtc_state, conn_state,
-> -						   respect_downstream_limits);
-> +	return intel_dp_compute_link_config(encoder, crtc_state, conn_state,
-> +					    respect_downstream_limits);
-
-With the removal of intel_dp_sink_format in this function, I wonder
-if we can get rid of it entirely now. It's only called in
-intel_dp_mode_min_link_bpp_x16, which seems to be used for bandwidth
-limitation calculations (where YCbCr444 vs RGB444 doesn't matter, so
-we're fine in that regard).
-
-Judging by the "min" in the function name, I assume it should be
-using INTEL_OUTPUT_FORMAT_YCBCR420 in drm_mode_is_420_also cases,
-whereas right now it only gets this from intel_dp_sink_format if
-the mode is drm_mode_is_420_only. So I think removing
-intel_dp_sink_format entirely as a follow-up, and folding a
-corrected minimum bandwidth computation that uses 420 if
-drm_mode_is_420 into intel_dp_mode_min_link_bpp_x16 would make
-sense, unless I'm totally misunderstanding the code here.
-
-> +}
-> +
-> +static int
-> +intel_dp_compute_formats(struct intel_encoder *encoder,
-> +			 struct intel_crtc_state *crtc_state,
-> +			 struct drm_connector_state *conn_state,
-> +			 bool respect_downstream_limits)
-> +{
-> +	struct intel_display *display =3D to_intel_display(encoder);
-> +	struct intel_dp *intel_dp =3D enc_to_intel_dp(encoder);
-> +	struct intel_connector *connector =3D intel_dp->attached_connector;
-> +	const struct drm_display_info *info =3D &connector->base.display_info;
-> +	const struct drm_display_mode *adjusted_mode =3D &crtc_state->hw.adjust=
-ed_mode;
-> +	int ret;
-> +
-> +	if (drm_mode_is_420_only(info, adjusted_mode)) {
-> +		ret =3D intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-> +						     respect_downstream_limits,
-> +						     INTEL_OUTPUT_FORMAT_YCBCR420);
-> +
-> +		if (ret) {
-> +			drm_dbg_kms(display->drm,
-> +				    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling b=
-ack to RGB.\n");
-> +
-> +			ret =3D intel_dp_compute_output_format(encoder, crtc_state, conn_stat=
-e,
-> +							     respect_downstream_limits,
-> +							     INTEL_OUTPUT_FORMAT_RGB);
-> +		}
-> +	} else {
-> +		ret =3D intel_dp_compute_output_format(encoder, crtc_state, conn_state,
-> +						     respect_downstream_limits,
-> +						     INTEL_OUTPUT_FORMAT_RGB);
-> +
-> +		if (ret && drm_mode_is_420_also(info, adjusted_mode))
-> +			ret =3D intel_dp_compute_output_format(encoder, crtc_state, conn_stat=
-e,
-> +							     respect_downstream_limits,
-> +							     INTEL_OUTPUT_FORMAT_YCBCR420);
->  	}
-> =20
->  	return ret;
-> @@ -3539,9 +3579,9 @@ intel_dp_compute_config(struct intel_encoder *encod=
-er,
->  	 * Try to respect downstream TMDS clock limits first, if
->  	 * that fails assume the user might know something we don't.
->  	 */
-> -	ret =3D intel_dp_compute_output_format(encoder, pipe_config, conn_state=
-, true);
-> +	ret =3D intel_dp_compute_formats(encoder, pipe_config, conn_state, true=
-);
->  	if (ret)
-> -		ret =3D intel_dp_compute_output_format(encoder, pipe_config, conn_stat=
-e, false);
-> +		ret =3D intel_dp_compute_formats(encoder, pipe_config, conn_state, fal=
-se);
->  	if (ret)
->  		return ret;
-> =20
+> > > > > > > On Tue, Mar 24, 2026 at 09:53:35PM +0200, Ville Syrj=C3=A4l=
+=C3=A4 wrote: =20
+> > > > > > > > On Tue, Mar 24, 2026 at 08:10:11PM +0100, Nicolas Frattarol=
+i wrote: =20
+> > > > > > > > > On Tuesday, 24 March 2026 18:00:45 Central European Stand=
+ard Time Ville Syrj=C3=A4l=C3=A4 wrote: =20
+> > > > > > > > > > On Tue, Mar 24, 2026 at 05:01:07PM +0100, Nicolas Fratt=
+aroli wrote: =20
+> > > > > > > > > > > +enum drm_connector_color_format {
+> > > > > > > > > > > +	/**
+> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_AUTO: The driver or =
+display protocol
+> > > > > > > > > > > +	 * helpers should pick a suitable color format. All=
+ implementations of a
+> > > > > > > > > > > +	 * specific display protocol must behave the same w=
+ay with "AUTO", but
+> > > > > > > > > > > +	 * different display protocols do not necessarily h=
+ave the same "AUTO"
+> > > > > > > > > > > +	 * semantics.
+> > > > > > > > > > > +	 *
+> > > > > > > > > > > +	 * For HDMI, "AUTO" picks RGB, but falls back to YC=
+bCr 4:2:0 if the
+> > > > > > > > > > > +	 * bandwidth required for full-scale RGB is not ava=
+ilable, or the mode
+> > > > > > > > > > > +	 * is YCbCr 4:2:0-only, as long as the mode and out=
+put both support
+> > > > > > > > > > > +	 * YCbCr 4:2:0.
+> > > > > > > > > > > +	 *
+> > > > > > > > > > > +	 * For display protocols other than HDMI, the recur=
+sive bridge chain
+> > > > > > > > > > > +	 * format selection picks the first chain of bridge=
+ formats that works,
+> > > > > > > > > > > +	 * as has already been the case before the introduc=
+tion of the "color
+> > > > > > > > > > > +	 * format" property. Non-HDMI bridges should theref=
+ore either sort their
+> > > > > > > > > > > +	 * bus output formats by preference, or agree on a =
+unified auto format
+> > > > > > > > > > > +	 * selection logic that's implemented in a common s=
+tate helper (like
+> > > > > > > > > > > +	 * how HDMI does it).
+> > > > > > > > > > > +	 */
+> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_AUTO =3D 0,
+> > > > > > > > > > > +
+> > > > > > > > > > > +	/**
+> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_RGB444: RGB output f=
+ormat
+> > > > > > > > > > > +	 */
+> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_RGB444,
+> > > > > > > > > > > +
+> > > > > > > > > > > +	/**
+> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR444: YCbCr 4:4:=
+4 output format (ie.
+> > > > > > > > > > > +	 * not subsampled)
+> > > > > > > > > > > +	 */
+> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
+> > > > > > > > > > > +
+> > > > > > > > > > > +	/**
+> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR422: YCbCr 4:2:=
+2 output format (ie.
+> > > > > > > > > > > +	 * with horizontal subsampling)
+> > > > > > > > > > > +	 */
+> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
+> > > > > > > > > > > +
+> > > > > > > > > > > +	/**
+> > > > > > > > > > > +	 * @DRM_CONNECTOR_COLOR_FORMAT_YCBCR420: YCbCr 4:2:=
+0 output format (ie.
+> > > > > > > > > > > +	 * with horizontal and vertical subsampling)
+> > > > > > > > > > > +	 */
+> > > > > > > > > > > +	DRM_CONNECTOR_COLOR_FORMAT_YCBCR420, =20
+> > > > > > > > > >=20
+> > > > > > > > > > Seems like this should document what the quantization r=
+ange
+> > > > > > > > > > should be for each format.
+> > > > > > > > > >  =20
+> > > > > > > > >=20
+> > > > > > > > > I don't think so? If you want per-component bit depth val=
+ues,
+> > > > > > > > > DRM_FORMAT_* defines would be the appropriate values to u=
+se. This
+> > > > > > > > > enum is more abstract than that, and is there to communic=
+ate
+> > > > > > > > > YUV vs. RGB and chroma subsampling, with bit depth being =
+handled
+> > > > > > > > > by other properties.
+> > > > > > > > >=20
+> > > > > > > > > If you mean the factor used for subsampling, then that'd =
+only be
+> > > > > > > > > relevant if YCBCR410 was supported where one chroma plane=
+ isn't
+> > > > > > > > > halved but quartered in resolution. I suspect 4:1:0 will =
+never
+> > > > > > > > > be added; no digital display protocol standard supports i=
+t to my
+> > > > > > > > > knowledge, and hopefully none ever will. =20
+> > > > > > > >=20
+> > > > > > > > No, I mean the quantization range (16-235 vs. 0-255 etc).
+> > > > > > > >=20
+> > > > > > > > The i915 behaviour is that YCbCr is always limited range,
+> > > > > > > > RGB can either be full or limited range depending on the=20
+> > > > > > > > "Broadcast RGB" property and other related factors. =20
+> > > > > > >=20
+> > > > > > > So far the HDMI state has both the format and quantization ra=
+nge as
+> > > > > > > different fields. I'm not sure we need to document the range =
+in the
+> > > > > > > format field, maybe only mention it's not part of the format =
+but has a
+> > > > > > > field of its own? =20
+> > > > > >=20
+> > > > > > I think we only have it for RGB (on some drivers only?). For YC=
+bCr
+> > > > > > I think the assumption is limited range everywhere.
+> > > > > >=20
+> > > > > > But I'm not really concerned about documenting struct members.
+> > > > > > What I'm talking about is the *uapi* docs. Surely userspace
+> > > > > > will want to know what the new property actually does so the
+> > > > > > uapi needs to be documented properly. And down the line some
+> > > > > > new driver might also implement the wrong behaviour if there
+> > > > > > is no clear specification. =20
+> > > > >=20
+> > > > > Ack
+> > > > >  =20
+> > > > > > So I'm thinking (or perhaps hoping) the rule might be something=
+ like:
+> > > > > > - YCbCr limited range=20
+> > > > > > - RGB full range if "Broadcast RGB" property is not present =20
+> > > > >=20
+> > > > > Isn't it much more complicated than that for HDMI though? My
+> > > > > recollection was that any VIC but VIC1 would be limited range, and
+> > > > > anything else full range? =20
+> > > >=20
+> > > > Do we have some driver that implements the CTA-861 CE vs. IT mode
+> > > > logic but doesn't expose the "Broadcast RGB" property? I was hoping
+> > > > those would always go hand in hand now. =20
+> > >=20
+> > > I'm not sure. i915 and the HDMI state helpers handle it properly (I
+> > > think?) but it looks like only vc4 registers the Broadcast RGB proper=
+ty
+> > > and uses the HDMI state helpers.
+> > >=20
+> > > And it looks like amdgpu registers Broadcast RGB but doesn't use
+> > > drm_default_rgb_quant_range() which seems suspicious? =20
+> >=20
+> > If they want just manual full vs. limited then they should
+> > limit the property to not expose the "auto" option at all.
+> >=20
+> > amdgpu also ties this in with the "colorspace" property, which
+> > originally in i915 only controlled the infoframes/etc. But on
+> > amdgpu it now controls various aspects of output color
+> > transformation. The end result is that the property is a complete
+> > mess with most of the values making no sense. And for whatever
+> > reason everyone involved refused to remove/deprecate the
+> > nonsensical values :/
+> >=20
+> > Looks like this series should make sure the documentation for
+> > the "colorspace" property is in sync with the new property
+> > as well. Currently now it's giving conflicting information. =20
+>=20
+> After pondering about this a bit more I guess we could actually
+> use this to make all the values of the colorspace property make
+> some sense.
+>=20
+> Since we won't have to worry about that RGB->YCbCr 4:2:0
+> fallback when using and explicit color format, all we'd have
+> to do is explicitly reject the nonsensical combinations:
+>=20
+> color_format_and_colorspace_ok()
+> {
+> 	switch (color_format) {
+> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
+> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
+> 	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
+> 		switch (colorspace) {
+> 		case DRM_MODE_COLORIMETRY_NO_DATA:
+> 		case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
+> 		case DRM_MODE_COLORIMETRY_BT601_YCC:
+> 		case DRM_MODE_COLORIMETRY_BT709_YCC:
+> 		case DRM_MODE_COLORIMETRY_XVYCC_601:
+> 		case DRM_MODE_COLORIMETRY_XVYCC_709:
+> 		case DRM_MODE_COLORIMETRY_SYCC_601:
+> 		case DRM_MODE_COLORIMETRY_OPYCC_601:
+> 		case DRM_MODE_COLORIMETRY_BT2020_CYCC:
+> 		case DRM_MODE_COLORIMETRY_BT2020_YCC:
+> 		case DRM_MODE_COLORIMETRY_BT709_YCC:
+> 			return true;
+> 		default:
+> 			return false;
+> 		}
+> 		break;
+> 	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
+> 		switch (colorspace) {
+> 		case DRM_MODE_COLORIMETRY_NO_DATA:
+> 		case DRM_MODE_COLORIMETRY_OPRGB:
+> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
+> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
+> 		case DRM_MODE_COLORIMETRY_RGB_WIDE_FIXED:
+> 		case DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT:
+> 		case DRM_MODE_COLORIMETRY_OPRGB:
+> 		case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
+> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> 			return true;
+> 		default
+> 			return false;
+> 		}
+> 		break;
+> 	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
+> 		switch (colorspace) {
+> 		case DRM_MODE_COLORIMETRY_NO_DATA:
+> 		case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> 		case DRM_MODE_COLORIMETRY_BT2020_YCC:
+> 			return true;
+> 		default:
+> 			return false;
+> 		}
+> 	default:
+> 		bad;
+> 	}
+> }
+>=20
+> And then presumably the colorspace property is the thing that should
+> dictate which conversion matrix to use. So something like this:
+>=20
+> csc_matrix()
+> {
+> 	switch (colorspace) {
+> 	case DRM_MODE_COLORIMETRY_SMPTE_170M_YCC:
+> 	case DRM_MODE_COLORIMETRY_BT601_YCC:
+> 	case DRM_MODE_COLORIMETRY_XVYCC_601:
+> 	case DRM_MODE_COLORIMETRY_SYCC_601:
+> 	case DRM_MODE_COLORIMETRY_OPYCC_601:
+> 		return 601;
+> 	case DRM_MODE_COLORIMETRY_BT709_YCC:
+> 	case DRM_MODE_COLORIMETRY_XVYCC_709:
+> 		return 709;
+> 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+> 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+> 		return 2020;
+> 	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
+> 		return 2020_const;
+> 	case DRM_MODE_COLORIMETRY_NO_DATA:
+> 		return vdisplay >=3D 720 ? 709 : 601;
+> 	default:
+> 		bad;
+> 	}
+> }
 >=20
 
+Hi Ville,
+
+I believe the RGB-to-YCbCr matrix choice belongs in a colorop in the
+CRTC color pipeline. It would be really nice to let go of the
+requirement that the KMS color pipeline can be only in full-range RGB.
+
+I imagine being able to scan out a YCbCr limited range buffer as-is
+would be really useful for professional broadcasting industry and
+particularly PLUGE testing which relies on being able to send the
+sub-black and super-white YCbCr values for monitor calibration.
+
+However, if there is an "auto" value in the colorop (implies the
+input to the colorop must be full-range RGB) or the colorop is missing,
+then your proposal could be used there.
 
 
+Thanks,
+pq
 
+--Sig_/Z9vd7qNP90QhQD=w6cW_nRl
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmnL0ZgACgkQI1/ltBGq
+qqcQXRAAk537VpzaLk6JptQFZZC+yWq3R7PPR4QT9azf+7XBONUhkwSc+GHslxaY
+G/GN1Yp+ULNnLZs2CYuJEHXbL0Sb8LI/kMdxvMgWpkQsL3eZL6QdpQUxD5+mMvMi
+hboB2wCy+i/nSdHx9TekifPgKPSxtypqlOaJcnYJnPouAJ631ukaezrIe4x4/d7+
+e8qrkNq/sekMkwKdMpnbu9srnQ+mvWG9mZAhWfG5GfUdNNYP6tZ55BAjMBrqAdzo
+ln8JlhSTwh8J/qxPNfhotQkDSm4aoMxoUQBE08aqdQX5VJuWcESgVy9NQiI624nv
+g62s5wyxPf5VOKLfRAW11oAgSXwJKoNNxozVaQqFFWDfs/AmFjs2Y1hU5k0MWpkK
+8sD30brwIwpYNVcSQJ+E5cx5iD5NvAd0vQgp2GhOrOn9tOoAz2OjiT6Le6JNe6Rs
+uFtt0Wr6uL5/AsBw+Bg3SjtwXDHHTY/Vgd3jSEm0LXSkD3n3PJL2bqkuuZdpT9Wx
+S2LrtYrru10WUpC18YynXLi8Nt2Sqot4R++V6DhyQfnDhFoLsiIs7RU+nsKKFCVB
+uFybvcs51NyZI/Q3Kf5YGREmh20K4XS1NzY5dASlGgZSdyyMcxooGCihm1YLZTwC
+CbTrUxRsPu5uS8GdkVxwn25+ezSTBChxUXU33ZEkxltq0eJT0Po=
+=g/43
+-----END PGP SIGNATURE-----
+
+--Sig_/Z9vd7qNP90QhQD=w6cW_nRl--
