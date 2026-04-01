@@ -4,96 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7315E85375
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 15:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A9CE8536F
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 15:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8776610E43D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCD3810F21F;
 	Fri,  3 Apr 2026 15:11:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBJzCsq7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ldZpXaL1";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14C8C10F4D1;
- Thu,  2 Apr 2026 21:58:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B9BAC403EA;
- Thu,  2 Apr 2026 21:58:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D96C116C6;
- Thu,  2 Apr 2026 21:58:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775167106;
- bh=QvUc9vANqYsb1luDp8UYk1f8BqkeVaTMVXLV75eutnQ=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=KBJzCsq7TNcgHpU+TWPAd3W8YuuJXdgpviR9Ow38UzYp/E+eDMYCQdUq5+04/Mnru
- vF8yruBgH9Kqoxj3RdUA00tDQnEgnr1qE7AXbmqG7qka9IVu/f1eZKTg86JWT+ETrn
- TjxI1jdECoYVYFvAydaPvhTr0DLyOkSNS0rHhfEWArmmkmeciwTpFwX+5aQHpstoUl
- foXfbAlUvknuR2UINHvJ3kK1f5ozCCWUSVy6PFFL3eEN4gpoDz+keSHvFP6Ep2zvPe
- Ej2doeiB7lotVTyVy6ov80wS5IsFWdnGSH4WR6z1XJ7lBV9TObDwXGWdYhpggyK3MT
- 1b1VbHt8uneOw==
-Date: Thu, 2 Apr 2026 15:58:18 -0600 (MDT)
-From: Paul Walmsley <pjw@kernel.org>
-To: Yury Norov <ynorov@nvidia.com>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Theodore Ts'o <tytso@mit.edu>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexander Duyck <alexanderduyck@fb.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Alexandra Winter <wintera@linux.ibm.com>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, Anna Schumaker <anna@kernel.org>, 
- Anton Yakovlev <anton.yakovlev@opensynergy.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Aswin Karuvally <aswin@linux.ibm.com>, Borislav Petkov <bp@alien8.de>, 
- Carlos Maiolino <cem@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Chao Yu <chao@kernel.org>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Christian Brauner <brauner@kernel.org>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- David Airlie <airlied@gmail.com>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Dongsheng Yang <dongsheng.yang@linux.dev>, 
- Eric Dumazet <edumazet@google.com>, 
- Eric Van Hensbergen <ericvh@kernel.org>, 
- Heiko Carstens <hca@linux.ibm.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, Ingo Molnar <mingo@redhat.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Janosch Frank <frankja@linux.ibm.com>, Jaroslav Kysela <perex@perex.cz>, 
- Jens Axboe <axboe@kernel.dk>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Latchesar Ionkov <lucho@ionkov.net>, Linus Walleij <linusw@kernel.org>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Mark Brown <broonie@kernel.org>, 
- Michael Ellerman <mpe@ellerman.id.au>, Miklos Szeredi <miklos@szeredi.hu>, 
- Namhyung Kim <namhyung@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Paolo Abeni <pabeni@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
- Paul Walmsley <pjw@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Sean Christopherson <seanjc@google.com>, Simona Vetter <simona@ffwll.ch>, 
- Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Vasily Gorbik <gor@linux.ibm.com>, 
- Will Deacon <will@kernel.org>, Yury Norov <yury.norov@gmail.com>, 
- Zheng Gu <cengku@gmail.com>, linux-kernel@vger.kernel.org, x86@kernel.org, 
- linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
- linux-riscv@lists.infradead.org, kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-block@vger.kernel.org, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- dm-devel@lists.linux.dev, netdev@vger.kernel.org, 
- linux-spi@vger.kernel.org, linux-ext4@vger.kernel.org, 
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-mm@kvack.org, 
- linux-perf-users@vger.kernel.org, v9fs@lists.linux.dev, 
- virtualization@lists.linux.dev, linux-sound@vger.kernel.org
-Subject: Re: [PATCH 8/8] arch: use rest_of_page() macro where appropriate
-In-Reply-To: <20260304012717.201797-9-ynorov@nvidia.com>
-Message-ID: <ee15482d-22a8-9686-ba64-d216b25d8e68@kernel.org>
-References: <20260304012717.201797-1-ynorov@nvidia.com>
- <20260304012717.201797-9-ynorov@nvidia.com>
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFE710ED2B
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 12:26:34 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-b9c11eba219so132375866b.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 01 Apr 2026 05:26:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775046393; x=1775651193; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=gNPoJV1+9P6HlUjxEIUEsSTm7esF137eU6g0yQ13nXA=;
+ b=ldZpXaL1YlebOumO+8omK2Oac3H0fKq1uZYsyhY0xZXYsihiuxHAlGFghjpNUUyWib
+ 0paZBLZss4Cv5tdkqNv07TiG9vtpnl7SXZ51vxQ/x5yz+2lZ6/BgZUoJWuSLqaeXze+v
+ LGfnwjgEx/F3oOA0Z4H92pBLxMwqtG2nyxfmmYbeVW2tiXMDONyCtHV31b15p1ZrdF5V
+ zD3AshJJ05izxCKR+31Wokk2voSlXKApxEpSwXmAHIpqQTuFV+h8ogRgjsxMWGOBQEAj
+ wKl1EDZkGP5aHQ5yLRzbJHh988SdltT5sMG4s3p/KtlcWkvYDPYNUql7NWycPOb376/i
+ 51WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775046393; x=1775651193;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=gNPoJV1+9P6HlUjxEIUEsSTm7esF137eU6g0yQ13nXA=;
+ b=mB10GVL94iF9yGarJA5QvRNjgc+2Q6fuzKDn9qDmZ/O1Rzpj4E9IOfyVZkc6qem3tx
+ w/mkFgd4880mPogb48f0ORorab7wWc2mfXxrMDM9f0/P4ZtJ7lacHWyJ2I4QLPkD9IKg
+ mhiNHybtnbV6aH3Sn5LcP1ZCU69+QkyLXwLnj8U8qTlcTHdjTY8uwrW5arsAzAStj2IT
+ Do4J7vTLI8nT82lyaEe8aY0MQ2kfkxFJ2HFanxkujkyKNZR+wTMoSE3NvpApx6qErqwD
+ Bp3UCNHhOoejrAo9bL1EtyH4geaedB4Kh8vNatWmNB31BfuikoZJTlPlFteuvC2FJL4Z
+ GZuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWYVSXfl2bgc0IHu5QfuUebqEgw/lz3MqjjrGZiXlEK0/hXnFfG5BaHT0PAr5CUbS/0kHDK2jKyiGU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6+ysZnyJt3fZmm2Gh7Z6KCkTAzLoRAm3bmeuZoN6wf/efssuU
+ vsqFzENbfIZCqsfAOynt0zAQaSMl+umo0sl8E9x4IbNJPvnZBywhX6Nf
+X-Gm-Gg: ATEYQzzjK9xQnnhbTgmhSz7h1UdLjL+NcxX3CQWt1U9He9qvwIWs/1qBBypeEUlfFbr
+ KXoT0/tE95z9ysEkEOGyS5+pzkePUpOkLIsUhgdX3zRZ5S4Ze66sGMbWBKnmVTeGyFFCsh/JlIf
+ NN8CVmJDnJ/yKZxHlgp63s6jFP9YRHfY0ZawSIj6JhXfDyPmbAtGbPeBtJ8yKdeK2lklVDwm1iH
+ PPvZk7uD979UF4nAfMjwOY5Zr+WuETRlGELrmmplqpp/mvFDBsnpqfNmYC0iKfG5CSo5mkxCwFF
+ 9PswShyLYkEdWlR8DLrQPmi393V/MIQvCqyyZ66wxNfpcdUjIavf9MxHtIMIsDNcgYBExUJ7CdI
+ +Vi341Be1NqVcUpky6GPok8pmRhnM4KlcrNYxAAR1UlERnGFf1bQN2DOEqeCk5G151N2cSnCJlK
+ ft7ZvSj99rsrnZNpXVK3+218N4UutDzCa1AVjB8UjsIp9H8U60u7ITS1M50DGGvqk=
+X-Received: by 2002:a17:906:dc9:b0:b96:996c:8605 with SMTP id
+ a640c23a62f3a-b9c1391fdbemr175359966b.23.1775046392631; 
+ Wed, 01 Apr 2026 05:26:32 -0700 (PDT)
+Received: from JTOLLET-M-FKW7.cisco.com
+ ([2603:5004:20a0:100a:a4bc:ddcb:75a8:39fd])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b9b7b1a5924sm518156666b.32.2026.04.01.05.26.31
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 01 Apr 2026 05:26:32 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+X-Google-Original-From: Jerome Tollet <jtollet@cisco.com>
+To: ville.syrjala@linux.intel.com
+Cc: arun.r.murthy@intel.com, ankit.k.nautiyal@intel.com,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Jerome Tollet <jtollet@cisco.com>
+Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
+ TMDS_Scrambler_Status
+Date: Wed,  1 Apr 2026 14:26:13 +0200
+Message-ID: <20260401122613.76354-1-jtollet@cisco.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ac0AQ_74Tukshr__@intel.com>
+References: <ac0AQ_74Tukshr__@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 03 Apr 2026 15:11:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,13 +95,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 3 Mar 2026, Yury Norov wrote:
+Hi Ville, Ankit,
 
-> Switch arch code to using the macro. No functional changes intended.
-> 
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+Thanks for the review.
 
-Acked-by: Paul Walmsley <pjw@kernel.org> # arch/riscv
+Ankit, Arun Murthy also reviewed the patch (in the [PATCH v2] thread)
+and asked for the HDMI 2.0 spec section reference in the code comment.
+The requirement comes from Section 10.4.1 (SCDC scrambling enable
+sequence), Table 10-19, register 0x21 (TMDS_Scrambler_Status), bit 0.
+Could you confirm the exact sub-section in your copy of the spec and
+add it to the comment in v3?
 
-
-- Paul
+Thanks,
+Jérôme
