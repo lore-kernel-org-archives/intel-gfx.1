@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7176010FCADE
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 20:40:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFA1410FCAE8
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Apr 2026 21:26:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E300E10E0D0;
-	Wed,  1 Apr 2026 20:40:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6042D10ECCA;
+	Wed,  1 Apr 2026 21:26:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X85qpzzg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BMuIL/QR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44FE710E061;
- Wed,  1 Apr 2026 20:40:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775076046; x=1806612046;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=ExUNQl0sgFIZHppRM1yVAyjI7X6W10ODM2MRKea6Z1g=;
- b=X85qpzzgGF6ns9AoPJXAWSy78jnd733NG2wtdYub8BSoNLJ+BaqosXJ3
- g01Dia3N2FKOCgZiPQq/8PXyW8l4mln/V1/QgM6xED7Xk9eYnbW1EPDcc
- AYmXbDB8IX+W54/rkUFiV1YsTxoHLNTnhu9OEEdXSuJz1FbY7TRzkHkEy
- xRyoAAnHVO5McOHSoqq0nR7TfzO1G78hvaU+Vk55dwH36z79rgyC79+ZS
- 5rtxzHUS8GFklU1EGcFZjMcG4+0n9wpDo6U5krUxBw2ru1Eu+1BJOkCZU
- aX+QmsiEm5PQZNKPCCEptj5cW3FD102xxgq++MHxxEXeENTWZARfyIdBd A==;
-X-CSE-ConnectionGUID: WIvcZv9LQCuMygZFqnfu8w==
-X-CSE-MsgGUID: BLnHzyGnRZK5j+fVEyRpuQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11746"; a="76145004"
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="76145004"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 13:40:46 -0700
-X-CSE-ConnectionGUID: t1PmiKBUSBWfTZBj38J3mw==
-X-CSE-MsgGUID: KFTtHLuqT7W/HoqIf+1Z9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,153,1770624000"; d="scan'208";a="257258506"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.199])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2026 13:40:44 -0700
-Date: Wed, 1 Apr 2026 23:40:41 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nemesa Garg <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/pfit: Prevent negative coordinates in center mode
-Message-ID: <ac2CyZQA9ku8jk78@intel.com>
-References: <20260331181656.77300-1-nemesa.garg@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37A2710ECCA
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Apr 2026 21:26:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 11D26444AD;
+ Wed,  1 Apr 2026 21:26:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDD2C4CEF7;
+ Wed,  1 Apr 2026 21:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775078770;
+ bh=qSSFaZBfLTIqOw+aXnDW/au5YBKlCp2ysGicVT2cvpE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BMuIL/QRK0o7CZ88Dw/NCfPBiUgEyC9utXqkfiZVNW1B/cbPl1Nmc+1wcVF4Qc0aR
+ 5GdzaOU2GgNs0SLfoW/IdbiYO7TohNmSz5zLGjUe55TmWV3gTwqgnxMCkQ+Ku1dUh4
+ 5DrD9xwA1oCvu8Mfmy1e4gk3OkOKJVIENZ0AeLM2LJykXu3qCkHi95BdmmbGVzmi63
+ VcU+eIzKr5s7iflU9bs3MuzH3W9n3HwEn/rniqPbMm9ZxBHFHG9VNXjAZjNMtZOYi7
+ LIfScBCCmQ51TiJLF9tf99q0UwvKUVyu7Uz4zP8vQVJsdj59IPjdQ0jm9LlqoybiBp
+ LNq3RpPXXHqhg==
+Date: Wed, 1 Apr 2026 23:26:07 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com, 
+ krzysztof.karas@intel.com
+Subject: Re: [PATCH] drm/i915/gt: fix refcount underflow in
+ intel_engine_park_heartbeat
+Message-ID: <ac2KBMAJHRkV4d7s@zenone.zhora.eu>
+References: <d4c1c14255688dd07cc8044973c4f032a8d1559e.1775038106.git.sebastian.brzezinka@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260331181656.77300-1-nemesa.garg@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+In-Reply-To: <d4c1c14255688dd07cc8044973c4f032a8d1559e.1775038106.git.sebastian.brzezinka@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,54 +58,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 31, 2026 at 11:46:56PM +0530, Nemesa Garg wrote:
-> When the pipe_src width or height are greater than adjusted_mode hdisplay
-> and vdisplay, computed x and y offsets for center mode can be negative.
-> Writing negative values into the pch_fit registers result in a state error.
-> Add a check to clamp these values so that they are never negative.
+Hi Sebastian,
+
+...
+
+> Fix this by replacing the non-atomic pointer read + separate clear with
+> xchg() in both racing paths. xchg() is a single indivisible hardware
+> instruction that atomically reads the old pointer and writes NULL. This
+> guarantees only one of the two concurrent callers obtains the non-NULL
+> pointer and performs the put, the other gets NULL and skips it.
 > 
-> v2: Compare in terms of pipe_src width and height.[Ville]
-> 
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15880
+> Fixes: 058179e72e09 ("drm/i915/gt: Replace hangcheck by heartbeats")
+
+Cc: <stable@vger.kernel.org> # v5.5+
+
+> Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_pfit.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
+>  .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 26 +++++++++++++------
+>  1 file changed, 18 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/i915/display/intel_pfit.c
-> index 6dda496190e0..0edd29eef6ad 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pfit.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-> @@ -186,6 +186,7 @@ static int pch_panel_fitting(struct intel_crtc_state *crtc_state,
->  			     const struct drm_connector_state *conn_state)
->  {
->  	struct intel_display *display = to_intel_display(crtc_state);
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
->  	const struct drm_display_mode *adjusted_mode =
->  		&crtc_state->hw.adjusted_mode;
->  	int pipe_src_w = drm_rect_width(&crtc_state->pipe_src);
-> @@ -200,6 +201,16 @@ static int pch_panel_fitting(struct intel_crtc_state *crtc_state,
+> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+> index b279878dca29..a3830627ef81 100644
+> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
+> @@ -148,10 +148,12 @@ static void heartbeat(struct work_struct *wrk)
+>  	/* Just in case everything has gone horribly wrong, give it a kick */
+>  	intel_engine_flush_submission(engine);
 >  
->  	switch (conn_state->scaling_mode) {
->  	case DRM_MODE_SCALE_CENTER:
-> +		if (adjusted_mode->crtc_hdisplay < pipe_src_w ||
-> +		    adjusted_mode->crtc_vdisplay < pipe_src_h) {
-> +			drm_dbg_kms(display->drm,
-> +				    "[CRTC:%d:%s] pfit center mode source (%dx%d) exceeds display (%dx%d)\n",
-> +				    crtc->base.base.id, crtc->base.name,
-> +				    width, height,
+> -	rq = engine->heartbeat.systole;
+> -	if (rq && i915_request_completed(rq)) {
+> -		i915_request_put(rq);
+> -		engine->heartbeat.systole = NULL;
+> +	rq = xchg(&engine->heartbeat.systole, NULL);
+> +	if (rq) {
+> +		if (i915_request_completed(rq))
+> +			i915_request_put(rq);
+> +		else
+> +			engine->heartbeat.systole = rq;
 
-These should should be pipe_src_* as well.
+Well spotted, Sebastian!
 
-> +				    adjusted_mode->crtc_hdisplay,
-> +				    adjusted_mode->crtc_vdisplay);
-> +			return -EINVAL;
-> +		}
->  		width = pipe_src_w;
->  		height = pipe_src_h;
->  		x = (adjusted_mode->crtc_hdisplay - width + 1)/2;
+>  	}
+>  
+>  	if (!intel_engine_pm_get_if_awake(engine))
+> @@ -232,8 +234,11 @@ static void heartbeat(struct work_struct *wrk)
+>  unlock:
+>  	mutex_unlock(&ce->timeline->mutex);
+>  out:
+> -	if (!engine->i915->params.enable_hangcheck || !next_heartbeat(engine))
+> -		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
+> +	if (!engine->i915->params.enable_hangcheck || !next_heartbeat(engine)) {
+> +		rq = xchg(&engine->heartbeat.systole, NULL);
+> +		if (rq)
+> +			i915_request_put(rq);
+> +	}
+>  	intel_engine_pm_put(engine);
+>  }
+>  
+> @@ -247,8 +252,13 @@ void intel_engine_unpark_heartbeat(struct intel_engine_cs *engine)
+>  
+>  void intel_engine_park_heartbeat(struct intel_engine_cs *engine)
+>  {
+> -	if (cancel_delayed_work(&engine->heartbeat.work))
+> -		i915_request_put(fetch_and_zero(&engine->heartbeat.systole));
+> +	struct i915_request *rq;
+
+nit: this should go inside the if statement.
+
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+
+Nice patch, Sebastian. Two very little nitpicks that I can take
+care of before merging.
+
+Thank you,
+Andi
+
+> +	if (cancel_delayed_work(&engine->heartbeat.work)) {
+> +		rq = xchg(&engine->heartbeat.systole, NULL);
+> +		if (rq)
+> +			i915_request_put(rq);
+> +	}
+>  }
+>  
+>  void intel_gt_unpark_heartbeats(struct intel_gt *gt)
 > -- 
-> 2.25.1
-
--- 
-Ville Syrjälä
-Intel
+> 2.52.0
+> 
