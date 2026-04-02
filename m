@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4CC4CC6B33
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 08:34:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF7E9CC6B33
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Apr 2026 08:35:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AB8010F143;
-	Thu,  2 Apr 2026 08:34:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3301E10EF65;
+	Thu,  2 Apr 2026 08:35:06 +0000 (UTC)
 Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B339910EF65;
- Thu,  2 Apr 2026 08:34:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA2010EF65;
+ Thu,  2 Apr 2026 08:35:05 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============6200479144159231179=="
+ boundary="===============5384309593357467842=="
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pfit=3A_Prevent_?=
  =?utf-8?q?negative_coordinates_in_center_mode_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Nemesa Garg" <nemesa.garg@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 02 Apr 2026 08:34:37 -0000
-Message-ID: <177511887766.427328.11932893431290003721@a3b018990fe9>
+Date: Thu, 02 Apr 2026 08:35:05 -0000
+Message-ID: <177511890558.427328.10902597450266701703@a3b018990fe9>
 X-Patchwork-Hint: ignore
 References: <20260402061310.111073-1-nemesa.garg@intel.com>
 In-Reply-To: <20260402061310.111073-1-nemesa.garg@intel.com>
@@ -41,7 +41,7 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6200479144159231179==
+--===============5384309593357467842==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -108,7 +108,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164188v3/index.html
 
---===============6200479144159231179==
+--===============5384309593357467842==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -174,4 +174,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============6200479144159231179==--
+--===============5384309593357467842==--
