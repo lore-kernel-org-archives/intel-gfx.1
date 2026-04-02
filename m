@@ -4,47 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6DB4E85367
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 13:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7315E85375
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 15:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F9D010F09A;
-	Fri,  3 Apr 2026 13:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8776610E43D;
+	Fri,  3 Apr 2026 15:11:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B76j39VB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBJzCsq7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5054810F09A;
- Fri,  3 Apr 2026 13:34:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14C8C10F4D1;
+ Thu,  2 Apr 2026 21:58:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8741860008;
- Fri,  3 Apr 2026 13:34:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7CDC4CEF7;
- Fri,  3 Apr 2026 13:34:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B9BAC403EA;
+ Thu,  2 Apr 2026 21:58:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D96C116C6;
+ Thu,  2 Apr 2026 21:58:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775223258;
- bh=DIQBYZ6MxzsBXUsvvT5LPGWQpjkKRzlO7KjSmq9vf/g=;
- h=Date:From:To:Cc:Subject:From;
- b=B76j39VBvZQCc1lZ+ZMYq5neJjLTDH000ePKPUmYheBMZeYqwkIyR6wd9gfpW1i44
- J0wcDAoJvBCCTddm+8LWUnb1+Rlgliv7VghoYbppbAbYhXuWjhnYvtyHgAvC5uAVpQ
- QrhU5X8BiMAsizLNrfxUUYQI1KtfYRWoJ94DIWXVE2ao3u8kkbUuzTNhxm5pw5h+Br
- 2mXNYRllwe1ScKkAjhgDO2keu0I3ZYsmXu2/AzF/Rykkay6luc7fTXIkAHGBHKwCZL
- pSCYEYzokbgAD1kF2Yutui8Alrc8WF2axhPEKmNBPVGvY/4C35to4HXGduC+sI0itK
- nHpd5hdfx67Pw==
-Date: Fri, 3 Apr 2026 14:34:14 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: Dave Airlie <airlied@redhat.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>
-Subject: linux-next: manual merge of the drm-misc tree with the drm tree
-Message-ID: <ac_B1p2wNP2Nk1RM@sirena.org.uk>
+ s=k20201202; t=1775167106;
+ bh=QvUc9vANqYsb1luDp8UYk1f8BqkeVaTMVXLV75eutnQ=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=KBJzCsq7TNcgHpU+TWPAd3W8YuuJXdgpviR9Ow38UzYp/E+eDMYCQdUq5+04/Mnru
+ vF8yruBgH9Kqoxj3RdUA00tDQnEgnr1qE7AXbmqG7qka9IVu/f1eZKTg86JWT+ETrn
+ TjxI1jdECoYVYFvAydaPvhTr0DLyOkSNS0rHhfEWArmmkmeciwTpFwX+5aQHpstoUl
+ foXfbAlUvknuR2UINHvJ3kK1f5ozCCWUSVy6PFFL3eEN4gpoDz+keSHvFP6Ep2zvPe
+ Ej2doeiB7lotVTyVy6ov80wS5IsFWdnGSH4WR6z1XJ7lBV9TObDwXGWdYhpggyK3MT
+ 1b1VbHt8uneOw==
+Date: Thu, 2 Apr 2026 15:58:18 -0600 (MDT)
+From: Paul Walmsley <pjw@kernel.org>
+To: Yury Norov <ynorov@nvidia.com>
+cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Theodore Ts'o <tytso@mit.edu>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexander Duyck <alexanderduyck@fb.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Alexandra Winter <wintera@linux.ibm.com>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, Anna Schumaker <anna@kernel.org>, 
+ Anton Yakovlev <anton.yakovlev@opensynergy.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Aswin Karuvally <aswin@linux.ibm.com>, Borislav Petkov <bp@alien8.de>, 
+ Carlos Maiolino <cem@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Chao Yu <chao@kernel.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Dongsheng Yang <dongsheng.yang@linux.dev>, 
+ Eric Dumazet <edumazet@google.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, Ingo Molnar <mingo@redhat.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Jens Axboe <axboe@kernel.dk>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Latchesar Ionkov <lucho@ionkov.net>, Linus Walleij <linusw@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Mark Brown <broonie@kernel.org>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Miklos Szeredi <miklos@szeredi.hu>, 
+ Namhyung Kim <namhyung@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+ Paul Walmsley <pjw@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Sean Christopherson <seanjc@google.com>, Simona Vetter <simona@ffwll.ch>, 
+ Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Will Deacon <will@kernel.org>, Yury Norov <yury.norov@gmail.com>, 
+ Zheng Gu <cengku@gmail.com>, linux-kernel@vger.kernel.org, x86@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+ linux-riscv@lists.infradead.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-block@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ dm-devel@lists.linux.dev, netdev@vger.kernel.org, 
+ linux-spi@vger.kernel.org, linux-ext4@vger.kernel.org, 
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, linux-mm@kvack.org, 
+ linux-perf-users@vger.kernel.org, v9fs@lists.linux.dev, 
+ virtualization@lists.linux.dev, linux-sound@vger.kernel.org
+Subject: Re: [PATCH 8/8] arch: use rest_of_page() macro where appropriate
+In-Reply-To: <20260304012717.201797-9-ynorov@nvidia.com>
+Message-ID: <ee15482d-22a8-9686-ba64-d216b25d8e68@kernel.org>
+References: <20260304012717.201797-1-ynorov@nvidia.com>
+ <20260304012717.201797-9-ynorov@nvidia.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="vMrcI1uf3QTFOhA3"
-Content-Disposition: inline
+Content-Type: text/plain; charset=US-ASCII
+X-Mailman-Approved-At: Fri, 03 Apr 2026 15:11:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,125 +110,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 3 Mar 2026, Yury Norov wrote:
 
---vMrcI1uf3QTFOhA3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> Switch arch code to using the macro. No functional changes intended.
+> 
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
 
-Hi all,
+Acked-by: Paul Walmsley <pjw@kernel.org> # arch/riscv
 
-Today's linux-next merge of the drm-misc tree got a conflict in:
 
-  drivers/gpu/drm/drm_gem_shmem_helper.c
-
-between commits:
-
-  d9a4a2021d4a5 ("Merge tag 'drm-misc-next-2026-03-12' of https://gitlab.fr=
-eedesktop.org/drm/misc/kernel into drm-next")
-  f6225b546dfcc ("BackMerge tag 'v7.0-rc6' into drm-next")
-
-=66rom the drm tree and commit:
-
-  6fdfd24017756 ("Merge drm/drm-fixes into drm-misc-next-fixes")
-
-=66rom the drm-misc tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined drivers/gpu/drm/drm_gem_shmem_helper.c
-index 2062ca6078330,545933c7f7121..0000000000000
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@@ -554,6 -554,21 +554,21 @@@ int drm_gem_shmem_dumb_create(struct dr
-  }
-  EXPORT_SYMBOL_GPL(drm_gem_shmem_dumb_create);
- =20
-+ static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
-+ {
-+ 	struct vm_area_struct *vma =3D vmf->vma;
-+ 	struct drm_gem_object *obj =3D vma->vm_private_data;
-+ 	struct drm_gem_shmem_object *shmem =3D to_drm_gem_shmem_obj(obj);
-+ 	loff_t num_pages =3D obj->size >> PAGE_SHIFT;
-+ 	pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff; /* page offset withi=
-n VMA */
-+=20
-+ 	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >=3D num_pages))
-+ 		return;
-+=20
-+ 	file_update_time(vma->vm_file);
-+ 	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-+ }
-+=20
-  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
-  				 unsigned long pfn)
-  {
-@@@ -566,8 -581,23 +581,23 @@@
- =20
-  		if (aligned &&
-  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-+ 			vm_fault_t ret;
-+=20
-  			pfn &=3D PMD_MASK >> PAGE_SHIFT;
-- 			return vmf_insert_pfn_pmd(vmf, pfn, false);
-+=20
-+ 			/* Unlike PTEs which are automatically upgraded to
-+ 			 * writeable entries, the PMD upgrades go through
-+ 			 * .huge_fault(). Make sure we pass the "write" info
-+ 			 * along in that case.
-+ 			 * This also means we have to record the write fault
-+ 			 * here, instead of in .pfn_mkwrite().
-+ 			 */
-+ 			ret =3D vmf_insert_pfn_pmd(vmf, pfn,
-+ 						 vmf->flags & FAULT_FLAG_WRITE);
-+ 			if (ret =3D=3D VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-+ 				drm_gem_shmem_record_mkwrite(vmf);
-+=20
-+ 			return ret;
-  		}
-  #endif
-  	}
-@@@ -655,19 -685,7 +685,7 @@@ static void drm_gem_shmem_vm_close(stru
- =20
-  static vm_fault_t drm_gem_shmem_pfn_mkwrite(struct vm_fault *vmf)
-  {
-- 	struct vm_area_struct *vma =3D vmf->vma;
-- 	struct drm_gem_object *obj =3D vma->vm_private_data;
-- 	struct drm_gem_shmem_object *shmem =3D to_drm_gem_shmem_obj(obj);
-- 	loff_t num_pages =3D obj->size >> PAGE_SHIFT;
-- 	pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff; /* page offset withi=
-n VMA */
--=20
-- 	if (drm_WARN_ON(obj->dev, !shmem->pages || page_offset >=3D num_pages))
-- 		return VM_FAULT_SIGBUS;
--=20
-- 	file_update_time(vma->vm_file);
--=20
-- 	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
--=20
-+ 	drm_gem_shmem_record_mkwrite(vmf);
-  	return 0;
-  }
- =20
-
---vMrcI1uf3QTFOhA3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnPwdUACgkQJNaLcl1U
-h9B1Gwf+NXKrf2ldubiQjKciUi5bMoq+Jop0S+8phbRwnKtKTKlL5YfwwOkKBEtF
-kUMjJX9O4EZSdCBDNGqPtG0IBnSprmyY6AYh7PiI7ZU2p/K3najYVsIh1G/5663/
-jNpNH392O7mxgLUZ4JMNhZ5/hxDBrH+sKY24ndlhgb2Fr5oTLVwSOjCuBnia+oZy
-v5cbO7eYqPXSEnWnVFx90B5NoDJyGTllG2/On63oGi7hItkr54g8nj5Br+7a+/px
-0N19drURyfHRDXKItoY8v9LHOC8vYAKxQpZ94dPI7k06kP16nCZXZZZcN/DJaQLI
-CbCBmfUO1Gz86rVj+dO+sRNAPMYvZQ==
-=6sMy
------END PGP SIGNATURE-----
-
---vMrcI1uf3QTFOhA3--
+- Paul
