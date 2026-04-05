@@ -4,92 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B289E88D6D
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Apr 2026 22:12:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78260E9D80C
+	for <intel-gfx@archiver.kernel.org>; Sun,  5 Apr 2026 15:47:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1F8410E0B8;
-	Fri,  3 Apr 2026 22:12:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D576810E180;
+	Sun,  5 Apr 2026 15:47:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MB8cbVB8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LaDYnW/r";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93DFB10E0B8
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Apr 2026 22:12:37 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-66bd4e0560fso4521679a12.0
- for <intel-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 15:12:37 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEF8210E181
+ for <intel-gfx@lists.freedesktop.org>; Sun,  5 Apr 2026 15:47:14 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-488b0e1b870so3621145e9.2
+ for <intel-gfx@lists.freedesktop.org>; Sun, 05 Apr 2026 08:47:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1775254356; x=1775859156;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bYVlZ9BrWH45Sab7lCDUUe8Uv7vpGtXKpc6xapq4sqc=;
- b=MB8cbVB8RKHto6pwci1b/HQuTQMB6Fudsr3xMfb7fGDYCE1zVs3T3C75+WXG2ojlJM
- 3s3KYkgS9+towsCeuFiU2kWjDLlTUj1wmzDZvXZ7L3M6W6ZZmTeVHfx+80HND6CPSW8A
- cMFdVnAU8A8njBB0cT0gXlLgjK/1e03aG3RzU=
+ d=gmail.com; s=20251104; t=1775404033; x=1776008833; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=lB+a99wJ5dswQkzQkoOsmekXtXL1XOz/X3cfxAbGqiM=;
+ b=LaDYnW/rpoTNyZHDJt1Gqeua2qqwK2ekrpzVQvQMHYsMUKrYA9URoRRAYSs0jikty+
+ 17Y027gbwXfSU2d2RraTQkl8BAISxynu5itTB5vxZqS4uVeZi1eswaFj/44hBggqQ4fW
+ 6Ff1aanVe9+wSlidBLWixdbvs/Qg0mlv2hyi45ZTDjTS3U5HH7MvXnehYNEWljs4Awff
+ 7aOsxbAP8ZIek7OM0DGKR90GJDTKHfgVaDC7uijnzKi7fzj6Wzpm+nfSg2X+qXST9QDf
+ CgQt4+pW+WsWPiLhntvqTPXhApN7ymVSyWxpzBArU9IVDYMvfAYNoPHwYTuNOa2XzFNx
+ B2qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775254356; x=1775859156;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=bYVlZ9BrWH45Sab7lCDUUe8Uv7vpGtXKpc6xapq4sqc=;
- b=EL7zyaBoLRxwXBkFZYtdZ8sOKRMcgs6NKiSepuKEVunebgv1T6h9+KbAHvpbDBv1N+
- Qg1IDZmH85VTkq1MdPu09kKVeGopSOQ57sskPDQG4BgEUaYO32RMdt99iseI1xShXuGT
- PMtLwflvFLldx0wOXSJME3EYcwmW6P88lPvkodOq13eAYaWrJWPUR5laJmwYGAQrrAQI
- hhYAYi0oauhowHG8eofXtFSZW1jb22ENzfTAeKiSB1lagdRFP3MuCMHYzVldK+K9bOKG
- 58LcBKJbWz+FQyHZcDySg3G4gGiC1s7vbQzjNY3PC5HRBzyPIY2T7AH3To7/IsH/zogD
- xFyA==
+ d=1e100.net; s=20251104; t=1775404033; x=1776008833;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=lB+a99wJ5dswQkzQkoOsmekXtXL1XOz/X3cfxAbGqiM=;
+ b=k85Cvby1+Cb8pVSP/lVLAATrUN5W61uG6NhmGN5tX+nDBBYTTMOQwK+4rdpdPpYdNq
+ L8g5z92SXJFQibC0zxlgzig0KGTLZ+W1SzhxLuzDRkrpp42T22XfPXY9jgIxvRO2bwMH
+ RzSnfoyDQr7BZ8u/nbAz8mOdpQjfj6QuKnzA9HUHhm4PbhCbT7z8MsS3ilYP2i2j1pus
+ 3j363OD0xdXWp2cd3kAQ4JjghZJxfeKD6lU9zKz2lSVOr14y1z18nzX93cTbF/kl5lPz
+ zmYriz21zUKV47JeHXAHExEYB9hzDA8Ha3Gt8JNwYXR+bzjFTWN0wMQwISstrQ9oLtzJ
+ Chag==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXzPW56oJRtIcu/FTHkQkxBcgBRh7GmOJMf66Y52Vz6g3Wd2qTk4HkqzCnCQyYn4CDefLRKoQALfjY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGI1OtYmJCS3dtq8jEBbNL1Y4bo7H1fbL6zYEkJ7Zp6fXgOB9o
- JvRH6Q579dyJ2/PS903mlu5zKUf8MbABUEU8LoiFobAOnFISmMbfzDADkFeUZM6xAhQhq2wt0ZP
- AABfIuao=
-X-Gm-Gg: AeBDieupd530sXfVjwW556Mrx8sLYAZyY0ql+re8iRx3wUI1uijzWtWgnw9MuEwp9lT
- Eu+sO80okicYVa5fMOdgz/Q0CEw4cyHbOaRnWFD4AXRHnP2cv/PWlP+VByw7DHcA1Ei67fBqIGo
- gaD4CEZdAnU2wo7c1dQVnB9N9reW2J+02MUZvhXL5vcIrZJVS+9RB09GiyzbHW/naTeLrHRFOxe
- jmM/YcD6cSTsE9DK2PYLhW7dxUFWAZaHvu58aWWBqejy/XPxUOKrsVBcRqmC5+n7jdrB7wynE2s
- tyim+PgfFn4Y/u0ehX8H4lRIkOd++5EQWciU19vuRwInM3ae5cB/K2w6HOBuxOzLLf8NkHiH+cT
- 7J6fv0CCYJrtOxbIi4ttjNg58xTXtY+iHm36O+Zp5Sr5znVRJj3dYrYVdqArgT/Bxkai4Vfazur
- ugzVVC19wV5eqV+mcfNpgt1evq5rnG122dCAt7EdDviG+DPOMpqR64mr4np00rRa8kTryWO4Si7
- qRslkLEwA==
-X-Received: by 2002:a17:907:a0c9:b0:b97:b88c:386b with SMTP id
- a640c23a62f3a-b9c4713ebbcmr416730566b.29.1775254355567; 
- Fri, 03 Apr 2026 15:12:35 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com.
- [209.85.218.46]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b9c3c9721c1sm246021166b.2.2026.04.03.15.12.34
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Apr 2026 15:12:35 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-b980b35534eso532631066b.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 03 Apr 2026 15:12:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCV7/jL/SyXXZwkgDkf5hUUCgaOmJIvmeLvEUQBNt2D+RSz8e55TG6VZyx8C9rmchRUwMu6pUZM1LUY=@lists.freedesktop.org
-X-Received: by 2002:a17:907:1c10:b0:b97:be1a:3bac with SMTP id
- a640c23a62f3a-b9c4710f732mr388508766b.26.1775254353985; Fri, 03 Apr 2026
- 15:12:33 -0700 (PDT)
+ AJvYcCWJC3yG0QXzJLLgQXoNAojJ57ZeJ7N1e9GB0lc9AmkaLtcFvOew04PLbxMxHkAlh/IeLLNAZSR1uIM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw4bg1nJApj7wcGWDpTtMxLGu3AZWY3rZKwJddhdw7Iq5o2Q7HU
+ sYHY4zco6uw7wW9dz0RfJSuES/r1jl8ZRW/pe8CcIReHVnAyaH8wNCzQ
+X-Gm-Gg: AeBDietNDo52Q6CA+29dSEDIQRt+2TtCMfq+RqbljB30Lz93vw5KpOI5L+FyDp7zM1q
+ ZBw73QU00nrDLMikUHxIpJYbv06bXJ8e5ctAbV21JAlRCZx+h8ACPz32qsuRE7QztYI56eupr+Z
+ KopUpsAyegT+O8Z9COJJzFNllBBZe/yPYFjAc/YrUI9YQ1iMXR2poqsr3lr02sCuBfIRZLhVxL6
+ ICcDAlku94ABAJxNtT0mLKaNMPVUVzIfFqWlan0VEpZDB7b+nkh4aQe6NV9x3NROnF4drK3nDPl
+ KaSjTc5kM0gD/R8hnF+ng9gqUHNZ2h/F/mibKRZjcLD3it7RYRTN4VZNOEeoTnojgPLFo8fCxeq
+ rBKXDvQ17uKkl2QBT56A9bAvlDJXKfUMVgI/GtS0FYcQaxWwQS8fKJAWcKp/j7ESPTO1JAgFKyR
+ 1UGeSoisgtPhU2Mx+5MSIfA6EUoplxLq8VM5cSBmGlv7bkA/k/FhTUuZEjmkrhkZswjq2UHHkJA
+ op0p+VxesS3
+X-Received: by 2002:a05:600c:3b23:b0:488:869c:edaf with SMTP id
+ 5b1f17b1804b1-488996df052mr128364685e9.8.1775404032826; 
+ Sun, 05 Apr 2026 08:47:12 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e4f52easm34255338f8f.36.2026.04.05.08.47.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 05 Apr 2026 08:47:12 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Carlier <devnexen@gmail.com>
+Subject: [PATCH v3] drm: use get_random_u64() where appropriate
+Date: Sun,  5 Apr 2026 16:47:10 +0100
+Message-ID: <20260405154710.4638-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260324151741.29338-1-sosohero200@gmail.com>
- <acUnQkniqECI0QVY@intel.com>
-In-Reply-To: <acUnQkniqECI0QVY@intel.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Fri, 3 Apr 2026 15:12:17 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj=h9z-Qp+xm1oSURRGHO3wexzG7MyLqU8gSQbastwgdw@mail.gmail.com>
-X-Gm-Features: AQROBzCnmUV4IoS2rR9_AmBSZkxHDMINnWsU1NiGbmHT4DUsT2gSWthNREGLeQc
-Message-ID: <CAHk-=wj=h9z-Qp+xm1oSURRGHO3wexzG7MyLqU8gSQbastwgdw@mail.gmail.com>
-Subject: Re: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in
- eb_relocate_vma
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Dave Airlie <airlied@gmail.com>
-Cc: Yassine Mounir <sosohero200@gmail.com>, g@web.codeaurora.org,
- gregkh@linuxfoundation.org, 
- intel-gfx@lists.freedesktop.org, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, security@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,31 +93,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 26 Mar 2026 at 05:32, Ville Syrj=C3=A4l=C3=A4
-<ville.syrjala@linux.intel.com> wrote:
->
-> Ignoring the AI slop aspect, I did have a quick look at the code a bit
-> and noticed this:
->
-> eb_lookup_vma() {
->         ...
->         rcu_read_lock();
->         vma =3D radix_tree_lookup(...);
->         if (likely(vma && vma->vm =3D=3D vm))
->                 vma =3D i915_vma_tryget(vma);
->         rcu_read_unlock();
->         if (likely(vma))
->                 return vma;
->         ...
-> }
->
-> So if we somehow get a vma with the wrong vm there then we
-> return the vma without grabbing a reference to it.
+Use the typed random integer helpers instead of
+get_random_bytes() when filling a single integer variable.
+The helpers return the value directly, require no pointer
+or size argument, and better express intent.
 
-The fix for this seems to have gotten lost and wasn't in the recent
-drm pull request.
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_hdcp_gsc.c | 2 +-
+ drivers/gpu/drm/xe/xe_gsc_submit.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-I can just fix it up by myself, but it would be good to have proper
-authorship and sign-off. Please?
+diff --git a/drivers/gpu/drm/i915/i915_hdcp_gsc.c b/drivers/gpu/drm/i915/i915_hdcp_gsc.c
+index 168b9ccbef3e..a0510f5ab25c 100644
+--- a/drivers/gpu/drm/i915/i915_hdcp_gsc.c
++++ b/drivers/gpu/drm/i915/i915_hdcp_gsc.c
+@@ -196,7 +196,7 @@ static ssize_t intel_hdcp_gsc_msg_send(struct intel_hdcp_gsc_context *gsc_contex
+ 
+ 	memset(header_in, 0, msg_size_in);
+ 	memset(header_out, 0, msg_size_out);
+-	get_random_bytes(&host_session_id, sizeof(u64));
++	host_session_id = get_random_u64();
+ 	intel_gsc_uc_heci_cmd_emit_mtl_header(header_in, HECI_MEADDRESS_HDCP,
+ 					      msg_size_in, host_session_id);
+ 	memcpy(gsc_context->hdcp_cmd_in + sizeof(*header_in), msg_in, msg_in_len);
+diff --git a/drivers/gpu/drm/xe/xe_gsc_submit.c b/drivers/gpu/drm/xe/xe_gsc_submit.c
+index 08082b596501..195f99e6c3a8 100644
+--- a/drivers/gpu/drm/xe/xe_gsc_submit.c
++++ b/drivers/gpu/drm/xe/xe_gsc_submit.c
+@@ -49,7 +49,7 @@ u64 xe_gsc_create_host_session_id(void)
+ {
+ 	u64 host_session_id;
+ 
+-	get_random_bytes(&host_session_id, sizeof(u64));
++	host_session_id = get_random_u64();
+ 	host_session_id &= ~HOST_SESSION_CLIENT_MASK;
+ 	return host_session_id;
+ }
+-- 
+2.53.0
 
-             Linus
