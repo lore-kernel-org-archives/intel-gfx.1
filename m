@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D48C2FF5104
-	for <intel-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 15:39:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F1A9FF5104
+	for <intel-gfx@archiver.kernel.org>; Tue,  7 Apr 2026 15:40:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 579F010E0C7;
-	Tue,  7 Apr 2026 15:39:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="H7pcD8hk";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F8E10E0C7;
- Tue,  7 Apr 2026 15:39:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775576365; x=1807112365;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=moUd4iXb2iqikd0DQ17ZYD4h6ve91Db+tpoInYDuAYo=;
- b=H7pcD8hkYYEaugGDDbDGh4UbzPQXHvT9ggBrepK1y9x+W95TZ274xcLY
- r5h7nnUjqQfPmzgL7EY/HMtRlM7rUsa86L3a2EuJ3PYxHXp6gpYtG+eKp
- 6YqokqzWsynO6ADqZt57aO57T1GPpvzd/NltVwWf04fI+KuPkTpFul41m
- A2i8aZ1WygjHC7riNKy4z/S9DCm5R/b9dorGJ/B1Vi3JHmhLU1Jurgq9u
- SBMtiSp3Odn7Qxj+moeJzeWWStN6IYHQrSu4OFgHj3PODmgISgx8mooRy
- M3jD7xeNPsRl+LwO3CT99N6MUi+XeS981pRQ+lwA7evz+qki+rF22AXOc A==;
-X-CSE-ConnectionGUID: BjkOLaUCTqaGPUxNZSg/yQ==
-X-CSE-MsgGUID: NMQwgLm4T2Wi7UMWiKC16Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="79132000"
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="79132000"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 08:39:25 -0700
-X-CSE-ConnectionGUID: 75Mmt5w8Tp2xywNbW9xjzw==
-X-CSE-MsgGUID: n1YpNpFKQCC27KEcKSxR9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,165,1770624000"; d="scan'208";a="232236252"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.211])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Apr 2026 08:39:23 -0700
-Date: Tue, 7 Apr 2026 18:39:20 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Nemesa Garg <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH] drm/i915/pfit: Prevent negative coordinates in center mode
-Message-ID: <adUlKBUubNU6vZjl@intel.com>
-References: <20260402061310.111073-1-nemesa.garg@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA5910E45A;
+	Tue,  7 Apr 2026 15:40:08 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D88B10E45A;
+ Tue,  7 Apr 2026 15:40:07 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8451177147231308913=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260402061310.111073-1-nemesa.garg@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_relocate_mchb?=
+ =?utf-8?q?ar_and_pci_regs_headers?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 07 Apr 2026 15:40:07 -0000
+Message-ID: <177557640736.438154.2663760640325965963@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <cover.1775559414.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1775559414.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,64 +37,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Apr 02, 2026 at 11:43:10AM +0530, Nemesa Garg wrote:
-> When the pipe_src width or height are greater than adjusted_mode hdisplay
-> and vdisplay, computed x and y offsets for center mode can be negative.
-> Writing negative values into the pch_fit registers result in a state error.
-> Add a check to clamp these values so that they are never negative.
-> 
-> v2: Compare in terms of pipe_src width and height.[Ville]
-> v3: Change width/height to pipe_src_w/h in logging. [Ville]
-> 
-> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+--===============8451177147231308913==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Thanks. Applied to drm-intel-next.
+== Series Details ==
 
-In the future please look into using the git format-patch -v<n>
-and git send-email --in-reply-to knobs, especially for single
-patches. Makes it easier to find the new versions of the patch.
-When reposting a whole series one should not use --in-reply-to
-however.
+Series: drm/i915: relocate mchbar and pci regs headers
+URL   : https://patchwork.freedesktop.org/series/164441/
+State : success
 
-> ---
->  drivers/gpu/drm/i915/display/intel_pfit.c | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pfit.c b/drivers/gpu/drm/i915/display/intel_pfit.c
-> index 6dda496190e0..2dec4ccf74ce 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pfit.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pfit.c
-> @@ -186,6 +186,7 @@ static int pch_panel_fitting(struct intel_crtc_state *crtc_state,
->  			     const struct drm_connector_state *conn_state)
->  {
->  	struct intel_display *display = to_intel_display(crtc_state);
-> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
->  	const struct drm_display_mode *adjusted_mode =
->  		&crtc_state->hw.adjusted_mode;
->  	int pipe_src_w = drm_rect_width(&crtc_state->pipe_src);
-> @@ -200,6 +201,16 @@ static int pch_panel_fitting(struct intel_crtc_state *crtc_state,
->  
->  	switch (conn_state->scaling_mode) {
->  	case DRM_MODE_SCALE_CENTER:
-> +		if (adjusted_mode->crtc_hdisplay < pipe_src_w ||
-> +		    adjusted_mode->crtc_vdisplay < pipe_src_h) {
-> +			drm_dbg_kms(display->drm,
-> +				    "[CRTC:%d:%s] pfit center mode source (%dx%d) exceeds display (%dx%d)\n",
-> +				    crtc->base.base.id, crtc->base.name,
-> +				    pipe_src_w, pipe_src_h,
-> +				    adjusted_mode->crtc_hdisplay,
-> +				    adjusted_mode->crtc_vdisplay);
-> +			return -EINVAL;
-> +		}
->  		width = pipe_src_w;
->  		height = pipe_src_h;
->  		x = (adjusted_mode->crtc_hdisplay - width + 1)/2;
-> -- 
-> 2.25.1
+== Summary ==
 
--- 
-Ville Syrjälä
-Intel
+CI Bug Log - changes from CI_DRM_18286 -> Patchwork_164441v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164441v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-6:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18286/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-14:         [DMESG-FAIL][3] ([i915#12061]) -> [PASS][4] +1 other test pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18286/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18286 -> Patchwork_164441v1
+
+  CI-20190529: 20190529
+  CI_DRM_18286: 87b52c2ff4f00eff41866d728f82d2b109c397f7 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8850: 8850
+  Patchwork_164441v1: 87b52c2ff4f00eff41866d728f82d2b109c397f7 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/index.html
+
+--===============8451177147231308913==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: relocate mchbar and pci regs headers</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164441/">https://patchwork.freedesktop.org/series/164441/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18286 -&gt; Patchwork_164441v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164441v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18286/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18286/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164441v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18286 -&gt; Patchwork_164441v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18286: 87b52c2ff4f00eff41866d728f82d2b109c397f7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8850: 8850<br />
+  Patchwork_164441v1: 87b52c2ff4f00eff41866d728f82d2b109c397f7 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8451177147231308913==--
