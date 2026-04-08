@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 675BDFD5F8F
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E810FD5F97
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 08:29:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0476B10E577;
-	Wed,  8 Apr 2026 08:22:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E87CB10E576;
+	Wed,  8 Apr 2026 08:29:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hLlifKEI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lw7xVvIr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C40F110E56F;
- Wed,  8 Apr 2026 08:22:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D41D110E576;
+ Wed,  8 Apr 2026 08:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775636542; x=1807172542;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=4XqkLUqsPHURs40NnsQ9++Lt/2ymwhNbeUyatge12O4=;
- b=hLlifKEI+j9qTO339MkW87qxMByUbu3XumwGU0LFNP7uuY8rdouPUwap
- pGEsKJl7/cIEaoYz1JvartQiSL6Q1iath5+a8n1HH4tBiX501Ij5jt/BZ
- t9Oj8TC0kdKVz95sIL1lwjzTc7Jb4PbkTIpHHZU6FubQbMHU8OhY9spH1
- mpvkHUkWiDtguQlEsd1IpEqTsNbDUyiQTcFiuT3nJDhuXD1pGQlbYBwRv
- QB8Q7w2F2GStGYIrxEik1EP1QFMtHh2TxDomDhTe2RyaLGny9uv02Mmgj
- fgOMe6+QmrzzhdjMxqmNaMLNvoYDS2cbfIQNBujZPklQUEMRhDgAtAWUl A==;
-X-CSE-ConnectionGUID: DV4p87++SzSd6f7W7EAN+Q==
-X-CSE-MsgGUID: ptJRx68cT6CBSzlWKcqSUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="88068056"
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="88068056"
+ t=1775636957; x=1807172957;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=3siODLB5V/yPd6lZ9g1a9Gjy3AKlFGIkt23ubmghYx4=;
+ b=lw7xVvIrB8R7CEZSIwaLMz5cqVsOf4oq3aSGdamPMBROcOCSVWtrQ3kY
+ G5vmlAKuPHgZnVgDpnAZYid2eny/1zUst55RkvSOz6nZ8oDd78DGxS6hU
+ 3aFL0951Ll2pRA46uJH8i87+JWeK8zwFNcdoTvanAc3y1X00U3SgXZZNl
+ Eob6r8kxJEhEPRO4IqmYz8XYiPO0DWD/kRaEMS2S8Car28DQHc5YJMimu
+ IwmmghOb/nRW+B/nQbOWsms3LYgd7zdhlmDwT+FYyqzqskqQeEkCBFZKA
+ 1ZfHVIPAGAZaSHiglCNnoZpzdtFl+RGietx3ew3rx17+csD9FNgCOKU/i Q==;
+X-CSE-ConnectionGUID: 5BHGLG72TUKQM84x1Og5Lw==
+X-CSE-MsgGUID: Qwf5Oyg0RI+PZOMv+v6odA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11752"; a="88068630"
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="88068630"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 01:22:22 -0700
-X-CSE-ConnectionGUID: D5fUjobRQc6FXpHfNErIbA==
-X-CSE-MsgGUID: 4IMlqeSYRqCrcTH28Te/3w==
+ 08 Apr 2026 01:29:17 -0700
+X-CSE-ConnectionGUID: m6qE6bSRTFS9ZI5CfyKC8Q==
+X-CSE-MsgGUID: 8QhkZyg8QpOBG6L3Wtti7A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="224115711"
-Received: from krybak-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.32])
+X-IronPort-AV: E=Sophos;i="6.23,167,1770624000"; d="scan'208";a="224116556"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.1])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 01:22:20 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	jani.nikula@intel.com
-Subject: [PATCH 2/2] drm/bridge: prefer drm_printf_indent() over inline \t
-Date: Wed,  8 Apr 2026 11:22:11 +0300
-Message-ID: <20260408082211.3040194-2-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260408082211.3040194-1-jani.nikula@intel.com>
-References: <20260408082211.3040194-1-jani.nikula@intel.com>
+ 08 Apr 2026 01:29:15 -0700
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+To: Intel graphics driver community testing & development
+ <intel-gfx@lists.freedesktop.org>
+Cc: Direct Rendering Infrastructure - Development
+ <dri-devel@lists.freedesktop.org>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Linus Torvalds <torvalds@linuxfoundation.org>
+Subject: [PATCH] drm/i915/gem: Don't use VMA from wrong VM in EXECBUF
+Date: Wed,  8 Apr 2026 11:28:59 +0300
+Message-ID: <20260408082859.69823-1-joonas.lahtinen@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,44 +72,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We have a helper drm_printf_indent() for tab indenting the prints. It
-makes the actual strings more readable, and highlights the indented
-parts better in source.
+Do not pick VMA with non-matching VM (ppGTT) on quick path
+of BO handle lookup for a given EXECBUF call. VMA from wrong VM
+could be picked if same BO is repeatedly used in EXECBUF
+calls on same context with alternating VMs (ppGTTs).
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+Also avoids returning a VMA without increasing the refcount,
+which may potentially lead to UAF.
+
+References: https://lore.kernel.org/all/20260324151741.29338-1-sosohero200@gmail.com/
+Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Linus Torvalds <torvalds@linuxfoundation.org>
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index d6f512b73389..bac1aae497e0 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1613,18 +1613,17 @@ static void drm_bridge_debugfs_show_bridge(struct drm_printer *p,
- 
- 	drm_printf(p, "bridge[%u]: %ps\n", idx, bridge->funcs);
- 
--	drm_printf(p, "\trefcount: %u%s\n", refcount,
--		   lingering ? " [lingering]" : "");
-+	drm_printf_indent(p, 1, "refcount: %u%s\n", refcount,
-+			  lingering ? " [lingering]" : "");
- 
--	drm_printf(p, "\ttype: [%d] %s\n",
--		   bridge->type,
--		   drm_get_connector_type_name(bridge->type));
-+	drm_printf_indent(p, 1, "type: [%d] %s\n", bridge->type,
-+			  drm_get_connector_type_name(bridge->type));
- 
- 	/* The OF node could be freed after drm_bridge_remove() */
- 	if (bridge->of_node && !lingering)
--		drm_printf(p, "\tOF: %pOFfc\n", bridge->of_node);
-+		drm_printf_indent(p, 1, "OF: %pOFfc\n", bridge->of_node);
- 
--	drm_printf(p, "\tops: [0x%x]", bridge->ops);
-+	drm_printf_indent(p, 1, "ops: [0x%x]", bridge->ops);
- 	if (bridge->ops & DRM_BRIDGE_OP_DETECT)
- 		drm_puts(p, " detect");
- 	if (bridge->ops & DRM_BRIDGE_OP_EDID)
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index bd608cea396f..7463c3262651 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -897,6 +897,8 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
+ 		if (likely(vma && vma->vm == vm))
+ 			vma = i915_vma_tryget(vma);
++		else
++			vma = NULL;
+ 		rcu_read_unlock();
+ 		if (likely(vma))
+ 			return vma;
 -- 
-2.47.3
+2.53.0
 
