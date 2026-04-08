@@ -4,62 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 641AAEA3C4E
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:09:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C016EA3C4E
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:14:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E973B10E7D7;
-	Thu,  9 Apr 2026 12:09:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFA1610E7DC;
+	Thu,  9 Apr 2026 12:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="d/Gn3ehz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iDFEMjhF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2197F10E7D7
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 12:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775736567; x=1807272567;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=rmPV6+YKa7hn84Qjgcw54T9MVNN0RRPpL2fS68Rg7G4=;
- b=d/Gn3ehzuwajAXXsv0A9lxE41boAG3KLWdDAR2QKZpw7iN4v4ghyS+GP
- AHZoXDqz9HFUILB60xyM50pIGg+ST/9/KDTCVAd7Nekfu49ZWve/YjMnx
- fxmnMyQ+skRf1N0oDBwBICzj+VWGEmjNreE25X79WPSOZrKyJPHFcKbkJ
- IuZFyk+s5GcvUVsMpYigJYKuDJghl6QhTkpd8gzzHGpP/QWID+B46kWZV
- UzpM6IIjbeptl2Cfsac1Pla4Ktv8hROuWDMTnPFbj0Bk0MXuOj+7G/x5k
- EEcRNSuB2oQ8vb+M3E2LgnwTNihCXZg1r9QyoSThoiULi64uD3GphtoPs w==;
-X-CSE-ConnectionGUID: Gw0ie248RFOV3WkCoHn/Yw==
-X-CSE-MsgGUID: SV8WwOGeRKauC1bt5N78OQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76858834"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="76858834"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 05:09:26 -0700
-X-CSE-ConnectionGUID: cWp0GOKOTF+zRQZa3fOEwg==
-X-CSE-MsgGUID: 3Vgt785UQvmHCkvxqfsVzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="230424131"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.83])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 05:09:25 -0700
-Message-ID: <6bf5ddf0441044f3ba94218efc891cf7e11d8a84.camel@linux.intel.com>
-Subject: Re: [RFC v5 1/2] drm/i915/selftests: Prevent userspace mapping
- invalidation
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, 
- intel-gfx@lists.freedesktop.org
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Sebastian Brzezinka	
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Date: Thu, 09 Apr 2026 14:09:22 +0200
-In-Reply-To: <20260409080825.2191535-2-krzysztof.karas@intel.com>
-References: <20260409080825.2191535-1-krzysztof.karas@intel.com>
- <20260409080825.2191535-2-krzysztof.karas@intel.com>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5627D10E03A
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 22:02:16 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43d17bb1c1dso168428f8f.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 15:02:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775685734; x=1776290534; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Y/wNq1qmjQxiqNtpEVenaKUauEvpMKc+7XYTfNVpOOk=;
+ b=iDFEMjhFwcND5XVKp8tOREGUCtpncwcTKyy++TyYsT/2MSymkL7L1DwVo8NmkMm4nt
+ 8+Ta8oBmmbtT+B9X80/rnnuYlvoxjbewfpt7YlQwfpQPoA+hBsRTwhsUV24NEYoNsgW3
+ oj3YDsu9cJAcHx7EA4SJcNxeEdv1sMbDn7aNUrQpiS7K1ia55aJU/qSv2D9INGvUDMoR
+ NYDHJwGxGPdOxKPIAanSu8ZQJfUOg3FgRtPJ8V2cw/+dl1VTNe5Xri8nFbZ1cxFuFSXg
+ icQc1TJ79AplIFTzRxY+Aqw56O/C6OyX7wQ+ZE7jvWQgrDyVYL+Z/2yCbwbw5yZD+DbF
+ 2yTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775685734; x=1776290534;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y/wNq1qmjQxiqNtpEVenaKUauEvpMKc+7XYTfNVpOOk=;
+ b=cfCvycVs5v4xM7ZKBdzAEX+rKdSqtHmfzFTANdzS7mU3H2Kh9Yr9O5WNujPd8iGexp
+ O3Gxaocjkb8Mgaiprlvj/CSLWer1P9DnXrrwXK057hbLn5ZjrPOVR/f4MfWtYkq+0pep
+ RsZeW70jrgdEEpsoe0GznfqFJrfycjTePWYDLM4GlGDhkeler2l8SCKFFQljtNtMfl8u
+ V+MF32A1xNnXEGcau+vmJu+WX41XElFIk7L7pZyblBhgat4OO5S72got5C383GlbeWkT
+ Fzzp+RTIQiHxyxSpAL4k3fyY10xEL1zotvyYfSKfM75bwPLrMGxNDHJ1FuPHpD7cM7Hj
+ sqkw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8EXoOYYTohDgnM76oXsQ6EwbyUGXFvHFYdp6BtALZowEyScZZvI4AARH94/rKAD16evQecmDCi28=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy3Mt5uk+1qqBwkrfMjxHzu183qGyTSI1tdYTFsLECQeKPgAyUu
+ qk/a5w4t6PtPMB74Qo9Pbtc5IdX3e0m77U9ojuAJV3qbMhbgi0KdR+Iy
+X-Gm-Gg: AeBDiesZrvn8TibvufN7vz8kHvD2bJoYGFifly90UQcXfjtJVdhWdiMMNWGztBKRcII
+ 7JwGg54Pgf+7P5L6Mv3XQlkz/3rOeH4xdlKOIs2kWjhjaWQ8Z/w4Zxo3ubbEPDiYeRl5X6kKxqv
+ h96vb2U+QM5F7UptU+InKRXTIG/8Dl9cdIReWU2gVIVwAb42Bv2cpagNS+bL4E0NH9JZjgp/ShY
+ ppBOhDm00Rwg+mnjh6Z5FOvfqe7/7u0Ynh5+iNRzzREgGysMNSrvCmsQRcr6nG0MqLjp6FNUGv/
+ vPZdrNRzBGqJh2mSXRAJKH8kDW5CZgHS1Ck8IDs2L/f3hYfpRH2OdFOFrwiBMjEGPHCloPZKo2+
+ UvIRUmajyZi/Qsc8caVtIl1+LpS/xND2zRb53cbhVnSnfDf02Wjq4I7Gk6AdiXlOr6KgL8LIxb8
+ g3k6kEOH1ytJe2vf6jjoeUDjxb9toMhexV7jBbG3ceUzlCtF4=
+X-Received: by 2002:a05:6000:4201:b0:43b:3d80:b0b9 with SMTP id
+ ffacd0b85a97d-43d29295ed7mr34849194f8f.12.1775685734366; 
+ Wed, 08 Apr 2026 15:02:14 -0700 (PDT)
+Received: from DESKTOP-K4142FH.localdomain ([197.146.147.164])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43d1e4d282esm61373268f8f.18.2026.04.08.15.02.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2026 15:02:13 -0700 (PDT)
+From: Yassine Mounir <sosohero200@gmail.com>
+To: joonas.lahtinen@linux.intel.com
+Cc: ville.syrjala@linux.intel.com, torvalds@linuxfoundation.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yassine Mounir <sosohero200@gmail.com>
+Subject: [PATCH v3] drm/i915/gem: Fix relocation race and simplify VMA lookup
+Date: Wed,  8 Apr 2026 23:01:45 +0100
+Message-ID: <20260408220145.4428-1-sosohero200@gmail.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 09 Apr 2026 12:14:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,161 +89,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Pin the object lifetime in eb_relocate_vma() using i915_gem_object_get()
+and i915_gem_object_put() to prevent a Use-After-Free (UAF) if the
+handle is closed concurrently during relocation.
 
-On Thu, 2026-04-09 at 08:08 +0000, Krzysztof Karas wrote:
-> Migration testing in i915 assumes current task's address space
-> to allocate new userspace mapping and uses it without
-> registering real user for that address space in mm_struct.
-> On single NUMA node setups PCI probe executes in the same
-> context as userspace process calling the test (i915_selftest
-> from IGT), but when multiple nodes are available, the PCI code
-> puts probe into a kernel workqueue. This switches execution in
-> a kworker, which does not have its own address space in
-> userspace and must borrow such memory from another process, so
-> "current->active_mm" is unknown at the start of the test.
->=20
-> It was observed that mm->mm_users would occasionally be 0
-> or drop to 0 during the test due to short delay between
-> scheduling and executing work in forked process, which reaped
-> userspace mappings, further leading to failures upon reading
-> from userland memory.
->=20
-> Prevent this by adding a PID parameter to a trusted task, so its
-> mm struct may be used if needed.
->=20
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14204
-> Fixes: 34b1c1c71d37 ("i915/selftest/igt_mmap: let mmap tests run in kthre=
-ad")
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v2 (Janusz):
->  * Reword and shorten commit message to be more precise.
->  * Reorder variable declarations to follow upside down christmas
->  tree style.
->=20
-> v3 (Andi):
->  * Prevent PID and mm leaks.
->  * Remove a flag and use mm pointer to determine whether to
->  release references to the memory.
->=20
-> v4:
->  * Revert !current->mm check. (Janusz, Sebastian)
->  * Drop refernce to mm sooner. (Janusz)
->  * Ensure kthread_use_mm did its job. (Janusz)
->=20
-> v5 (Janusz):
->  * Remove missing PID warning.
->=20
->  drivers/gpu/drm/i915/i915_selftest.h          |  1 +
->  .../gpu/drm/i915/selftests/i915_selftest.c    | 43 +++++++++++++++++++
->  2 files changed, 44 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/i915_selftest.h b/drivers/gpu/drm/i915/=
-i915_selftest.h
-> index 72922028f4ba..e29ca298e7eb 100644
-> --- a/drivers/gpu/drm/i915/i915_selftest.h
-> +++ b/drivers/gpu/drm/i915/i915_selftest.h
-> @@ -35,6 +35,7 @@ struct i915_selftest {
->  	unsigned long timeout_jiffies;
->  	unsigned int timeout_ms;
->  	unsigned int random_seed;
-> +	unsigned int userspace_pid;
->  	char *filter;
->  	int mock;
->  	int live;
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_selftest.c b/drivers/gpu=
-/drm/i915/selftests/i915_selftest.c
-> index 8460f0a70d04..2c169148c053 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_selftest.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_selftest.c
-> @@ -186,6 +186,8 @@ static int __run_selftests(const char *name,
->  			   unsigned int count,
->  			   void *data)
->  {
-> +	int u_pid_nr =3D i915_selftest.userspace_pid;
-> +	struct mm_struct *mm =3D NULL;
->  	int err =3D 0;
-> =20
->  	while (!i915_selftest.random_seed)
-> @@ -201,6 +203,42 @@ static int __run_selftests(const char *name,
->  	pr_info(DRIVER_NAME ": Performing %s selftests with st_random_seed=3D0x=
-%x st_timeout=3D%u\n",
->  		name, i915_selftest.random_seed, i915_selftest.timeout_ms);
-> =20
-> +	/**
-> +	 * If we are running in a kthread on a multi NUMA system and the user p=
-assed
-> +	 * a valid PID of a userspace task, then we may borrow its address spac=
-e
-> +	 * to prepare a safe environment for the mmap selftests.
-> +	 */
-> +	if (!current->mm) {
+Additionally, simplify eb_lookup_vma() by removing the redundant
+vma->vm == vm check. As noted by Joonas, this check is unnecessary since
+commit d4433c7600f7. Removing it also avoids the "insane" logic of
+returning a VMA without a reference, satisfying the sanity requirements
+requested by Linus.
 
-Please extend this condition over u_pid_nr actually provided by a user
-(not 0?), otherwise we will be trying to get current->mm of a process
-with default i915_selftest.userspace_pid and submitting a warning if
-not successful.
+Fixes: d4433c7600f7 ("drm/i915: Multi-vm support")
+Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
-Thanks,
-Janusz
+Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +		struct pid *u_pid =3D find_get_pid(u_pid_nr);
-> +		struct task_struct *task;
-> +
-> +		if (!u_pid) {
-> +			pr_warn("Could not find PID: %d\n", u_pid_nr);
-> +			goto run_tests;
-> +		}
-> +
-> +		task =3D get_pid_task(u_pid, PIDTYPE_PID);
-> +		put_pid(u_pid);
-> +		if (!task) {
-> +			pr_warn("Could not find userspace task for PID: %d\n", u_pid_nr);
-> +			goto run_tests;
-> +		}
-> +
-> +		mm =3D get_task_mm(task);
-> +		put_task_struct(task);
-> +		if (!mm) {
-> +			pr_warn("Could not find address space of task with PID: %d\n", u_pid_=
-nr);
-> +			goto run_tests;
-> +		}
-> +
-> +		kthread_use_mm(mm);
-> +		mmput_async(mm);
-> +		if (unlikely(!current->mm)) {
-> +			pr_warn("Could not set mm as current->mm\n");
-> +		}
-> +	}
-> +
-> +run_tests:
->  	/* Tests are listed in order in i915_*_selftests.h */
->  	for (; count--; st++) {
->  		if (!st->enabled)
-> @@ -226,6 +264,9 @@ static int __run_selftests(const char *name,
->  		 st->name, err))
->  		err =3D -1;
-> =20
-> +	if (mm)
-> +		kthread_unuse_mm(mm);
-> +
->  	return err;
->  }
-> =20
-> @@ -507,6 +548,8 @@ void igt_hexdump(const void *buf, size_t len)
->  module_param_named(st_random_seed, i915_selftest.random_seed, uint, 0400=
-);
->  module_param_named(st_timeout, i915_selftest.timeout_ms, uint, 0400);
->  module_param_named(st_filter, i915_selftest.filter, charp, 0400);
-> +module_param_named(st_userspace_pid, i915_selftest.userspace_pid, uint, =
-0400);
-> +MODULE_PARM_DESC(st_userspace_pid, "For usage in tests that map userspac=
-e memory and require address space with controllable lifetime.");
-> =20
->  module_param_named_unsafe(mock_selftests, i915_selftest.mock, int, 0400)=
-;
->  MODULE_PARM_DESC(mock_selftests, "Run selftests before loading, using mo=
-ck hardware (0:disabled [default], 1:run tests then load driver, -1:run tes=
-ts then leave dummy module)");
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+index 942f4eed8..65ce54b20 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
+@@ -896,7 +896,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+ 
+ 		rcu_read_lock();
+ 		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
+-		if (likely(vma && vma->vm == vm))
++		if (likely(vma))
+ 			vma = i915_vma_tryget(vma);
+ 		else
+ 			vma = NULL;
+-- 
+2.51.0
+
