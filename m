@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C016EA3C4E
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:14:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 181AAEA3C59
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 12:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA1610E7DC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF39A10E7DB;
 	Thu,  9 Apr 2026 12:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iDFEMjhF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ficMmKKl";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5627D10E03A
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 22:02:16 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-43d17bb1c1dso168428f8f.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 15:02:16 -0700 (PDT)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E582210E0FD
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 22:49:46 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48374014a77so3041985e9.3
+ for <intel-gfx@lists.freedesktop.org>; Wed, 08 Apr 2026 15:49:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775685734; x=1776290534; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1775688585; x=1776293385; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Y/wNq1qmjQxiqNtpEVenaKUauEvpMKc+7XYTfNVpOOk=;
- b=iDFEMjhFwcND5XVKp8tOREGUCtpncwcTKyy++TyYsT/2MSymkL7L1DwVo8NmkMm4nt
- 8+Ta8oBmmbtT+B9X80/rnnuYlvoxjbewfpt7YlQwfpQPoA+hBsRTwhsUV24NEYoNsgW3
- oj3YDsu9cJAcHx7EA4SJcNxeEdv1sMbDn7aNUrQpiS7K1ia55aJU/qSv2D9INGvUDMoR
- NYDHJwGxGPdOxKPIAanSu8ZQJfUOg3FgRtPJ8V2cw/+dl1VTNe5Xri8nFbZ1cxFuFSXg
- icQc1TJ79AplIFTzRxY+Aqw56O/C6OyX7wQ+ZE7jvWQgrDyVYL+Z/2yCbwbw5yZD+DbF
- 2yTw==
+ bh=7OdNfoZnqr0v4RceVf6TB8CrzAVNeGuw2KpT1xVp+LI=;
+ b=ficMmKKljJ7ckLaB8mz4CgwsJK2bjQgUKxrjZYJBwYNvxbXml4jBgH9pL38Y5r0Qsc
+ aUCAJqgCiSYEoUmpvSXWKdtUmZXdghaKcEzSQvIP1HD3XcJvtaMFlfBtLY/Qt2rarH+F
+ cZ6Pw8IwoFtcZKnScj/txuQxEICPO6IaMKlMcneK+PomqFex/07307FO2ljX70RB9/XC
+ z0SVilHmd2uGHj2XKeCirnhRHci6Hz5u9eyPxzaTRP0rBL4BlxfzrDRieosi9vDKQqza
+ ehmC3k7N1ujmsgBF80MGsHE4lbW/WcC++lRirCI3QuoYe7+0jiPEm8vLjcs3u70DfgA9
+ DLPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775685734; x=1776290534;
+ d=1e100.net; s=20251104; t=1775688585; x=1776293385;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Y/wNq1qmjQxiqNtpEVenaKUauEvpMKc+7XYTfNVpOOk=;
- b=cfCvycVs5v4xM7ZKBdzAEX+rKdSqtHmfzFTANdzS7mU3H2Kh9Yr9O5WNujPd8iGexp
- O3Gxaocjkb8Mgaiprlvj/CSLWer1P9DnXrrwXK057hbLn5ZjrPOVR/f4MfWtYkq+0pep
- RsZeW70jrgdEEpsoe0GznfqFJrfycjTePWYDLM4GlGDhkeler2l8SCKFFQljtNtMfl8u
- V+MF32A1xNnXEGcau+vmJu+WX41XElFIk7L7pZyblBhgat4OO5S72got5C383GlbeWkT
- Fzzp+RTIQiHxyxSpAL4k3fyY10xEL1zotvyYfSKfM75bwPLrMGxNDHJ1FuPHpD7cM7Hj
- sqkw==
+ bh=7OdNfoZnqr0v4RceVf6TB8CrzAVNeGuw2KpT1xVp+LI=;
+ b=Vm/TzfD9dku5sRui/mYHH22ql0Gtq53CaWtzlBVgb724B8W9RzC/voKouL7cVEUUEw
+ x5S39ytDPsXuBP/goYq4/4R90QprzNogzn0X93+PzomiLNu7FFXUE7cBUjAWaA7y4Cov
+ 3cmp7m1gZwuXH/Dv4g2Oxii8lkNCfSzSdsGgtIk+3qAeIADzuyrpoIfxC8m+QfukgtoP
+ WaR4KlQ6jPgJfI9GTOjzjrHb54nzUgP7Zo+mpXDOBVBA4b2OVd/BvKmcUVj4OmV/DlZv
+ 8MFohjxILDyAsiakoOlHM+nEvLzWOAETMY5BgVu47hqvDWbuRkq+eu2m+3u74l5U0ZVM
+ tJBw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU8EXoOYYTohDgnM76oXsQ6EwbyUGXFvHFYdp6BtALZowEyScZZvI4AARH94/rKAD16evQecmDCi28=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy3Mt5uk+1qqBwkrfMjxHzu183qGyTSI1tdYTFsLECQeKPgAyUu
- qk/a5w4t6PtPMB74Qo9Pbtc5IdX3e0m77U9ojuAJV3qbMhbgi0KdR+Iy
-X-Gm-Gg: AeBDiesZrvn8TibvufN7vz8kHvD2bJoYGFifly90UQcXfjtJVdhWdiMMNWGztBKRcII
- 7JwGg54Pgf+7P5L6Mv3XQlkz/3rOeH4xdlKOIs2kWjhjaWQ8Z/w4Zxo3ubbEPDiYeRl5X6kKxqv
- h96vb2U+QM5F7UptU+InKRXTIG/8Dl9cdIReWU2gVIVwAb42Bv2cpagNS+bL4E0NH9JZjgp/ShY
- ppBOhDm00Rwg+mnjh6Z5FOvfqe7/7u0Ynh5+iNRzzREgGysMNSrvCmsQRcr6nG0MqLjp6FNUGv/
- vPZdrNRzBGqJh2mSXRAJKH8kDW5CZgHS1Ck8IDs2L/f3hYfpRH2OdFOFrwiBMjEGPHCloPZKo2+
- UvIRUmajyZi/Qsc8caVtIl1+LpS/xND2zRb53cbhVnSnfDf02Wjq4I7Gk6AdiXlOr6KgL8LIxb8
- g3k6kEOH1ytJe2vf6jjoeUDjxb9toMhexV7jBbG3ceUzlCtF4=
-X-Received: by 2002:a05:6000:4201:b0:43b:3d80:b0b9 with SMTP id
- ffacd0b85a97d-43d29295ed7mr34849194f8f.12.1775685734366; 
- Wed, 08 Apr 2026 15:02:14 -0700 (PDT)
+ AJvYcCVtx/hyqjWf6iwvmNHJ3M4XbILSPhH0ls1DPohvsXHjHzyED6OwKR5kokHt2C29sngo8TUzM9aMbNE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxvfrJJialtgq+lIg2qZz+qrhwpmGKhQoc7hqS+gGRJ1YRD7alm
+ XLDTAr15bYV6HO1rasxJefXQKfNF6KaRXXPzuoXzUYmrxji64i4zecfO
+X-Gm-Gg: AeBDietqaNnGedObkPcklgR7vWxm7LQmkBEtS7LZAWZ/d+9bQmY8FdqKKGLW+0QUMXQ
+ VwbKi8disLlzKae01XlsvqEHaL3T5BVDRQi3cA4F8Sp6L3u22KyB8VVuMQ8LEzC9EWHlLBGuDWt
+ tkupOFUwrqs6AIC1mCgE6LXDeEwRI/CWccmG98IP0s63jNyoDY2aB2uQ+jipHdKDKzhGQCJNwEX
+ j6RbZ4X+GCqIooqbxSZRaRrs/BRtzPEqrizx20ICMc7ejWeDwRjNrzl2LwdWzsWYSkFW1RHbt4+
+ 27X8njfrtfmVpcbLk07Ny6+kI7sYx/K1znadW1E4ru4HfBg2phu0u7L3U/UdvNKXoODk+GC4bIh
+ YjU5GcnNLVSv+etESjk45InVmWqjR/FVOBMWEw0G/DGRbMrsCnm3k/sVEpZAv6a0UHtmUTTcpfc
+ Ik9gDkPUwKrVYYkt8A1stFAVXvIL/imETYgR0BA2kldV3I9lE=
+X-Received: by 2002:a5d:67cb:0:b0:43b:4d25:95ac with SMTP id
+ ffacd0b85a97d-43d29281058mr23466724f8f.1.1775688584962; 
+ Wed, 08 Apr 2026 15:49:44 -0700 (PDT)
 Received: from DESKTOP-K4142FH.localdomain ([197.146.147.164])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43d1e4d282esm61373268f8f.18.2026.04.08.15.02.13
+ ffacd0b85a97d-43d1e4d2738sm63318408f8f.24.2026.04.08.15.49.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2026 15:02:13 -0700 (PDT)
+ Wed, 08 Apr 2026 15:49:44 -0700 (PDT)
 From: Yassine Mounir <sosohero200@gmail.com>
 To: joonas.lahtinen@linux.intel.com
 Cc: ville.syrjala@linux.intel.com, torvalds@linuxfoundation.org,
  intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Yassine Mounir <sosohero200@gmail.com>
-Subject: [PATCH v3] drm/i915/gem: Fix relocation race and simplify VMA lookup
-Date: Wed,  8 Apr 2026 23:01:45 +0100
-Message-ID: <20260408220145.4428-1-sosohero200@gmail.com>
+Subject: [PATCH v4] drm/i915/gem: Fix relocation race and simplify VMA lookup
+Date: Wed,  8 Apr 2026 23:49:05 +0100
+Message-ID: <20260408224905.5918-1-sosohero200@gmail.com>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -105,22 +105,42 @@ Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 
 Signed-off-by: Yassine Mounir <sosohero200@gmail.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-index 942f4eed8..65ce54b20 100644
+index 942f4eed8..50eeb4771 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_execbuffer.c
-@@ -896,7 +896,7 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
+@@ -896,10 +896,8 @@ static struct i915_vma *eb_lookup_vma(struct i915_execbuffer *eb, u32 handle)
  
  		rcu_read_lock();
  		vma = radix_tree_lookup(&eb->gem_context->handles_vma, handle);
 -		if (likely(vma && vma->vm == vm))
 +		if (likely(vma))
  			vma = i915_vma_tryget(vma);
- 		else
- 			vma = NULL;
+-		else
+-			vma = NULL;
+ 		rcu_read_unlock();
+ 		if (likely(vma))
+ 			return vma;
+@@ -1529,7 +1527,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 	 */
+ 	if (unlikely(!access_ok(urelocs, remain * sizeof(*urelocs))))
+ 		return -EFAULT;
+-
++	i915_gem_object_get(ev->vma->obj);
+ 	do {
+ 		struct drm_i915_gem_relocation_entry *r = stack;
+ 		unsigned int count =
+@@ -1590,6 +1588,7 @@ static int eb_relocate_vma(struct i915_execbuffer *eb, struct eb_vma *ev)
+ 		urelocs += ARRAY_SIZE(stack);
+ 	} while (remain);
+ out:
++	i915_gem_object_put(ev->vma->obj);
+ 	reloc_cache_reset(&eb->reloc_cache, eb);
+ 	return remain;
+ }
 -- 
 2.51.0
 
