@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B39CF10F996E
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 18:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDDAF10F996C
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Apr 2026 18:54:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D335010E6CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C686F10E6CC;
 	Wed,  8 Apr 2026 18:54:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BEk2eGWr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LLdzGQWm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F06C410E6CA
- for <intel-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 18:54:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96A1F10E6CA
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Apr 2026 18:54:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
  t=1775674472; x=1807210472;
- h=from:subject:date:message-id:mime-version:
- content-transfer-encoding:to:cc;
- bh=wtFv4q6Igh83C9HR7oKsGsRhoYbHA/0FAvr6k8aQDoM=;
- b=BEk2eGWrY3v/jklDpoRc5xaq9g2xHeELNV5RMTOmP3cN9N/8dz8Fz/ok
- d3QmFXldZUTppYaMrls20h2/bFDzb7KrgM0QARWJpF5Quox/7CuWzpCr+
- Z4fQ+u4zuNlDelYR2otOHiiCHl9nIOp4maUBlpU37TWXxfnG6nDw+4hOS
- PscWbwYIJEBr7KuTy/Q7jWGC5CSwTXtG+i7KOQbh4ycwzgMXwbqI6cnA3
- vyp/6xLRFQQzX+KCBr2uSnMJNaXDC0qyWak6geMWNBSFFdH3ow3fLueQ5
- JYfw0bEEOnR+5WWbpu7IE0bOdrBKBU6mfjay78nSwCSuFGFy8348odfGs g==;
-X-CSE-ConnectionGUID: 3a/mxAiBSfGn1wht4AGZMA==
-X-CSE-MsgGUID: 93tq26VcQa2mY9XciNd7zw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="99297005"
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="99297005"
+ h=from:date:subject:mime-version:content-transfer-encoding:
+ message-id:references:in-reply-to:to:cc;
+ bh=AMYxdUzE+MVkr2BGtO0by5nhCzM8vL04v62Djzw/JPQ=;
+ b=LLdzGQWmB/TAdNe2ZLEibaGlOPwwv6QwiQg0kq4eBtw8WTFeV3eCV7Ky
+ XB7beX+fcsxhvyoJdpLub9irlMzXhLLhA9NL5txNOZFqk1XLws0YpPQuw
+ ghKaFGoACp2y7+Us4Yd3aSdHDw+mYl44uaHBg4dXpavsqVMXi05HIuYer
+ nIn6B1KtcI370+ibeXd67HaPL6N4YPg/XEW/iLCGaoDh2NYyZTPgbrFkx
+ UfdNo+IMuUS5HWSBQv84fuT717Xc5GcVXfVf1IzQyTTeRumnKr5E2O2Wl
+ /KEdECXmTYBbVAc+7Mfpti5eqRY29+KDxZqqR4ZNo6chSonB3OLD/ouDO Q==;
+X-CSE-ConnectionGUID: anPhfHphRxeZznypdwRSNQ==
+X-CSE-MsgGUID: 8elz5NpBQSugqNZWrR8PBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="99297024"
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="99297024"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 11:54:02 -0700
-X-CSE-ConnectionGUID: fiGKCF8mTC+cSfC4qhs7mg==
-X-CSE-MsgGUID: HPNoA4pQRXC7yX7lPe97vg==
+ 08 Apr 2026 11:54:07 -0700
+X-CSE-ConnectionGUID: QRxrFYc4TDKqm3mMfufFdg==
+X-CSE-MsgGUID: ztMOTY6wRM2JJ3kGNu8xag==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="228786701"
+X-IronPort-AV: E=Sophos;i="6.23,168,1770624000"; d="scan'208";a="228786749"
 Received: from aschofie-mobl2.amr.corp.intel.com (HELO [192.168.1.19])
  ([10.124.220.211])
  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Apr 2026 11:54:00 -0700
+ 08 Apr 2026 11:54:05 -0700
 From: Gustavo Sousa <gustavo.sousa@intel.com>
-Subject: [PATCH 0/4] drm/i915/bw: Split bandwidth params into platform- and
- display-IP-specific structs
-Date: Wed, 08 Apr 2026 15:52:58 -0300
-Message-Id: <20260408-separate-platform-from-diplay-ip-specific-bw-params-v1-0-23c53afa7db0@intel.com>
+Date: Wed, 08 Apr 2026 15:53:01 -0300
+Subject: [PATCH 3/4] drm/i915/bw: Rename struct intel_sa_info to
+ intel_display_bw_params
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3N0QrCMAyF4VcZuTYQNy3iq4gXbZdqwK4lGdMx9
- u5WLz/4OWcDYxU2uHYbKC9iUqaG46GD+PTTg1HGZuipd3SiCxpXr35mrC8/p6IZk5aMozSvKBW
- tcpQkEcMbf2k2dOeQgidHQ2Boy1U5yef/ervv+xcqQe0AhQAAAA==
-X-Change-ID: 20260408-separate-platform-from-diplay-ip-specific-bw-params-65bfba0603be
+Message-Id: <20260408-separate-platform-from-diplay-ip-specific-bw-params-v1-3-23c53afa7db0@intel.com>
+References: <20260408-separate-platform-from-diplay-ip-specific-bw-params-v1-0-23c53afa7db0@intel.com>
+In-Reply-To: <20260408-separate-platform-from-diplay-ip-specific-bw-params-v1-0-23c53afa7db0@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Matt Roper <matthew.d.roper@intel.com>, 
  Gustavo Sousa <gustavo.sousa@intel.com>
@@ -73,34 +71,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Some of the parameters of used in display bandwidth calculations are
-tied to the platform and are orthogonal to the display IP.  After talking
-with the hardware team, we now have the information (and Bspec has been
-updated) that the members deprogbwlimit and derating of struct
-intel_sa_info are such platform-specific ones.
-
-With that, we are now able to make the driver code more aligned with the
-hardware by splitting structs intel_sa_info into two different structs:
-one that is platform-specific and another that is display-IP-specific.
-
-That change also allows us to simplify how we select the parameters for
-the calculation.
+To align with struct intel_platform_bw_params, rename struct
+intel_sa_info to intel_display_bw_params.  Also add comments to contrast
+their purposes.
 
 Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 ---
-Gustavo Sousa (4):
-      drm/i915/bw: Extract platform-specific parameters
-      drm/i915/bw: Deduplicate intel_sa_info instances
-      drm/i915/bw: Rename struct intel_sa_info to intel_display_bw_params
-      drm/i915/bw: Extract get_display_bw_params()
+ drivers/gpu/drm/i915/display/intel_bw.c | 38 ++++++++++++++++++++-------------
+ 1 file changed, 23 insertions(+), 15 deletions(-)
 
- drivers/gpu/drm/i915/display/intel_bw.c | 239 +++++++++++++++++++++-----------
- 1 file changed, 160 insertions(+), 79 deletions(-)
----
-base-commit: f074368a55893ee121ba2920497b6c25e265d190
-change-id: 20260408-separate-platform-from-diplay-ip-specific-bw-params-65bfba0603be
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 654876215ace..64c6f18346bb 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -375,6 +375,10 @@ static int icl_sagv_max_dclk(const struct intel_qgv_info *qi)
+ 	return dclk;
+ }
+ 
++/*
++ * Bandwidth parameters that are tied to the platform (as opposed to struct
++ * intel_display_bw_params).
++ */
+ struct intel_platform_bw_params {
+ 	u8 deprogbwlimit;
+ 	u8 derating;
+@@ -496,34 +500,38 @@ static const struct intel_platform_bw_params *get_platform_bw_params(struct inte
+ 	return ret;
+ }
+ 
+-struct intel_sa_info {
++/*
++ * Bandwidth parameters that are tied to the display IP (as opposed to struct
++ * intel_platform_bw_params).
++ */
++struct intel_display_bw_params {
+ 	u16 displayrtids;
+ 	u8 deburst;
+ };
+ 
+-static const struct intel_sa_info icl_sa_info = {
++static const struct intel_display_bw_params icl_disp_bw_params = {
+ 	.deburst = 8,
+ 	.displayrtids = 128,
+ };
+ 
+-static const struct intel_sa_info tgl_sa_info = {
++static const struct intel_display_bw_params tgl_disp_bw_params = {
+ 	.deburst = 16,
+ 	.displayrtids = 256,
+ };
+ 
+-static const struct intel_sa_info rkl_sa_info = {
++static const struct intel_display_bw_params rkl_disp_bw_params = {
+ 	.deburst = 8,
+ 	.displayrtids = 128,
+ };
+ 
+-static const struct intel_sa_info xelpdp_sa_info = {
++static const struct intel_display_bw_params xelpdp_disp_bw_params = {
+ 	.deburst = 32,
+ 	.displayrtids = 256,
+ };
+ 
+ static int icl_get_bw_info(struct intel_display *display,
+ 			   const struct dram_info *dram_info,
+-			   const struct intel_sa_info *sa)
++			   const struct intel_display_bw_params *disp_bw_params)
+ {
+ 	struct intel_qgv_info qi = {};
+ 	const struct intel_platform_bw_params *plat_bw_params = get_platform_bw_params(display);
+@@ -544,7 +552,7 @@ static int icl_get_bw_info(struct intel_display *display,
+ 
+ 	dclk_max = icl_sagv_max_dclk(&qi);
+ 	maxdebw = min(plat_bw_params->deprogbwlimit * 1000, dclk_max * 16 * 6 / 10);
+-	ipqdepth = min(ipqdepthpch, sa->displayrtids / num_channels);
++	ipqdepth = min(ipqdepthpch, disp_bw_params->displayrtids / num_channels);
+ 	qi.deinterleave = DIV_ROUND_UP(num_channels, is_y_tile ? 4 : 2);
+ 
+ 	for (i = 0; i < num_groups; i++) {
+@@ -552,7 +560,7 @@ static int icl_get_bw_info(struct intel_display *display,
+ 		int clpchgroup;
+ 		int j;
+ 
+-		clpchgroup = (sa->deburst * qi.deinterleave / num_channels) << i;
++		clpchgroup = (disp_bw_params->deburst * qi.deinterleave / num_channels) << i;
+ 		bi->num_planes = (ipqdepth - clpchgroup) / clpchgroup + 1;
+ 
+ 		bi->num_qgv_points = qi.num_points;
+@@ -595,7 +603,7 @@ static int icl_get_bw_info(struct intel_display *display,
+ 
+ static int tgl_get_bw_info(struct intel_display *display,
+ 			   const struct dram_info *dram_info,
+-			   const struct intel_sa_info *sa)
++			   const struct intel_display_bw_params *disp_bw_params)
+ {
+ 	struct intel_qgv_info qi = {};
+ 	const struct intel_platform_bw_params *plat_bw_params = get_platform_bw_params(display);
+@@ -634,7 +642,7 @@ static int tgl_get_bw_info(struct intel_display *display,
+ 	peakbw = num_channels * DIV_ROUND_UP(qi.channel_width, 8) * dclk_max;
+ 	maxdebw = min(plat_bw_params->deprogbwlimit * 1000, peakbw * DEPROGBWPCLIMIT / 100);
+ 
+-	ipqdepth = min(ipqdepthpch, sa->displayrtids / num_channels);
++	ipqdepth = min(ipqdepthpch, disp_bw_params->displayrtids / num_channels);
+ 	/*
+ 	 * clperchgroup = 4kpagespermempage * clperchperblock,
+ 	 * clperchperblock = 8 / num_channels * interleave
+@@ -647,7 +655,7 @@ static int tgl_get_bw_info(struct intel_display *display,
+ 		int clpchgroup;
+ 		int j;
+ 
+-		clpchgroup = (sa->deburst * qi.deinterleave / num_channels) << i;
++		clpchgroup = (disp_bw_params->deburst * qi.deinterleave / num_channels) << i;
+ 
+ 		if (i < num_groups - 1) {
+ 			bi_next = &display->bw.max[i + 1];
+@@ -886,16 +894,16 @@ void intel_bw_init_hw(struct intel_display *display)
+ 	if (DISPLAY_VERx100(display) >= 1401 && display->platform.dgfx) {
+ 		xe2_hpd_get_bw_info(display, dram_info);
+ 	} else if (DISPLAY_VER(display) >= 14) {
+-		tgl_get_bw_info(display, dram_info, &xelpdp_sa_info);
++		tgl_get_bw_info(display, dram_info, &xelpdp_disp_bw_params);
+ 	} else if (display->platform.dg2) {
+ 		dg2_get_bw_info(display);
+ 	} else if (DISPLAY_VER(display) >= 12) {
+ 		if (display->platform.rocketlake)
+-			tgl_get_bw_info(display, dram_info, &rkl_sa_info);
++			tgl_get_bw_info(display, dram_info, &rkl_disp_bw_params);
+ 		else
+-			tgl_get_bw_info(display, dram_info, &tgl_sa_info);
++			tgl_get_bw_info(display, dram_info, &tgl_disp_bw_params);
+ 	} else if (DISPLAY_VER(display) == 11) {
+-		icl_get_bw_info(display, dram_info, &icl_sa_info);
++		icl_get_bw_info(display, dram_info, &icl_disp_bw_params);
+ 	}
+ }
+ 
 
-Best regards,
---  
-Gustavo Sousa <gustavo.sousa@intel.com>
+-- 
+2.53.0
 
