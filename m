@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4116CF34C4B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F4AF34C4D
 	for <intel-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6F210E424;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD9B210E428;
 	Mon, 13 Apr 2026 12:26:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="OcWU6p4E";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TdHFtusw";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B49D510E82C;
- Thu,  9 Apr 2026 17:09:08 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C997210E844;
+ Thu,  9 Apr 2026 17:09:39 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id A8F561A3255;
- Thu,  9 Apr 2026 17:09:07 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 7329EC5C18D;
+ Thu,  9 Apr 2026 17:10:13 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7B402603E4;
- Thu,  9 Apr 2026 17:09:07 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id AA0F8603E4;
+ Thu,  9 Apr 2026 17:09:38 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4A52E104501A3; 
- Thu,  9 Apr 2026 19:09:02 +0200 (CEST)
+ with ESMTPSA id A4965104501B9; 
+ Thu,  9 Apr 2026 19:09:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775754545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775754577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=PUrev3OwtF7+aQkaLQNcxHy9DAd6gNcwgyZHwoDRdgs=;
- b=OcWU6p4Eq4OVCUQGSq0OR24F3SV9U9aoJdhjwYfqGnATABnWmw3hYwQNxsrBWr7LFEN0wY
- +zjRqf2kiNbPo/mU9nW61kDj5CwC7jaSAc5Gy3rkPy5Fj6M7a6/HMc++qZJDBCIVp5SsPv
- dJE7aBu08Dc+AWujlXmml9BdfZqEFleNP2qMh7AKwPjvG6avstJ/DraY1cnCzO32nFb0hm
- MbWiVfy6jfzGcJ3GtebCNIHq3TMe8Qh8ej8R1eIvUEP/2XYnx7UGtypJKwFS4d41ddVztJ
- uP4X8e1sExgc0UDbrUrd84ESpva7V1NRlz9nbV2ut6fF2cmdpdkXxjNkFsekMA==
+ bh=80i2+SV+RLyeafvPAz3gjWWOqBFxeYH5P0a7No+38o8=;
+ b=TdHFtuswVi6gUMeZnFkAQ1h9pYxWbUEmNzplgQT7MQIoLxVUeKQh9ZW6VmZx0JcElV0nTT
+ ndiz9X1DMeZeUk8msd8gSMDWTxx2+1v+CUTZ2scRfTPMvu2Bf2YU9h2Xe2RIj4vns7A716
+ z5h9gRlT4iPBE+tVe1Yp3+1eSh1qr2E6PmB2LNubQzYatkW9NOJ6mwUB2QsEtWFhOjQ3Dm
+ D3KuHtVoL2McBeRsbNBCDGt/hapKZI1sw3s2gEOsQOX2gPJkgiOZUHjeQ0aFejaI+t0+7g
+ optEMjLs5g2b4/YnM4lbdoqcSSe9QIytTPOi6B16/duv4oJJLdD/30s7jfvwqw==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Thu, 09 Apr 2026 19:08:20 +0200
-Subject: [PATCH RFC 04/12] drm/i915/display: Switch to
- drmm_mode_config_init() and drop manual cleanup
+Date: Thu, 09 Apr 2026 19:08:28 +0200
+Subject: [PATCH RFC 12/12] drm/mediatek: Use dp_connector helpers to report
+ link training state
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-feat_link_cap-v1-4-7069e8199ce2@bootlin.com>
+Message-Id: <20260409-feat_link_cap-v1-12-7069e8199ce2@bootlin.com>
 References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 In-Reply-To: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -86,129 +86,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace drm_mode_config_init() with drmm_mode_config_init() in
-intel_mode_config_init(). The managed variant automatically registers
-drm_mode_config_cleanup() with devres, so drivers must no longer call it
-directly.
+Set DRM_BRIDGE_OP_DP and populate dp_link_train_caps with the supported
+link rates, lane counts, voltage swing and pre-emphasis levels so the
+bridge connector uses drmm_connector_dp_init() and exposes the link
+training state properties to userspace.
 
-Since intel_mode_config_cleanup() was solely a wrapper combining
-intel_atomic_global_obj_cleanup() and drm_mode_config_cleanup(), and the
-latter is now handled by DRM core, remove it entirely. Instead, register
-intel_atomic_global_obj_cleanup() as a devres action so it still runs just
-before drm_mode_config_cleanup() during teardown, preserving the correct
-cleanup ordering.
-
-Change intel_mode_config_init() to return int to propagate any error from
-drmm_mode_config_init().
+Store per-lane voltage swing and pre-emphasis values in
+mtk_dp_train_info and report the negotiated link parameters via
+drm_connector_dp_set_link_train_properties() on training completion.
+Clear them via drm_connector_dp_reset_link_train_properties() when a
+disconnect is detected in the HPD event thread.
 
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
- .../gpu/drm/i915/display/intel_display_driver.c    | 37 ++++++++++++++--------
- 1 file changed, 24 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 23bfecc983e8d..d02393053cef4 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -12,6 +12,7 @@
- #include <drm/display/drm_dp_mst_helper.h>
+This patch has still not been tested. I am in the process of finding the
+hardware for that.
+---
+ drivers/gpu/drm/mediatek/mtk_dp.c | 34 +++++++++++++++++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+index c52cc7c2e2006..119718c1374c5 100644
+--- a/drivers/gpu/drm/mediatek/mtk_dp.c
++++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+@@ -10,6 +10,7 @@
  #include <drm/drm_atomic_helper.h>
- #include <drm/drm_client_event.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_privacy_screen_consumer.h>
- #include <drm/drm_print.h>
-@@ -48,6 +49,7 @@
- #include "intel_fbdev.h"
- #include "intel_fdi.h"
- #include "intel_flipq.h"
-+#include "intel_global_state.h"
- #include "intel_gmbus.h"
- #include "intel_hdcp.h"
- #include "intel_hotplug.h"
-@@ -111,13 +113,28 @@ static const struct drm_mode_config_helper_funcs intel_mode_config_funcs = {
- 	.atomic_commit_setup = drm_dp_mst_atomic_setup_commit,
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_dp_connector.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+@@ -72,6 +73,8 @@ struct mtk_dp_train_info {
+ 	/* link_rate is in multiple of 0.27Gbps */
+ 	int link_rate;
+ 	int lane_count;
++	u8 vswing[4];
++	u8 preemphasis[4];
+ 	unsigned int channel_eq_pattern;
  };
  
--static void intel_mode_config_init(struct intel_display *display)
-+static void intel_atomic_global_obj_cleanup_action(struct drm_device *drm, void *data)
+@@ -1561,6 +1564,9 @@ static void mtk_dp_train_update_swing_pre(struct mtk_dp *mtk_dp, int lanes,
+ 		mtk_dp_set_swing_pre_emphasis(mtk_dp, lane, swing, preemphasis);
+ 		drm_dp_dpcd_writeb(&mtk_dp->aux, DP_TRAINING_LANE0_SET + lane,
+ 				   val);
++
++		mtk_dp->train_info.vswing[lane] = swing;
++		mtk_dp->train_info.preemphasis[lane] = preemphasis;
+ 	}
+ }
+ 
+@@ -1812,6 +1818,21 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
+ 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
+ }
+ 
++static int mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
 +{
-+	intel_atomic_global_obj_cleanup((struct intel_display *)data);
++	struct drm_connector_dp_link_train dp_link_train;
++
++	dp_link_train.rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
++	dp_link_train.nlanes = mtk_dp->train_info.lane_count;
++
++	for (int i = 0; i < mtk_dp->train_info.lane_count; i++) {
++		dp_link_train.v_swing[i] = 1 << mtk_dp->train_info.vswing[i];
++		dp_link_train.pre_emph[i] = 1 << mtk_dp->train_info.preemphasis[i];
++	}
++
++	return drm_connector_dp_set_link_train_properties(mtk_dp->conn, &dp_link_train);
 +}
 +
-+static int intel_mode_config_init(struct intel_display *display)
+ static int mtk_dp_training(struct mtk_dp *mtk_dp)
  {
- 	struct drm_mode_config *mode_config = &display->drm->mode_config;
-+	int ret;
-+
-+	ret = drmm_mode_config_init(display->drm);
-+	if (ret)
-+		return ret;
+ 	int ret;
+@@ -1892,7 +1913,7 @@ static int mtk_dp_training(struct mtk_dp *mtk_dp)
+ 	mtk_dp_training_set_scramble(mtk_dp, true);
+ 	mtk_dp_set_enhanced_frame_mode(mtk_dp);
  
--	drm_mode_config_init(display->drm);
- 	INIT_LIST_HEAD(&display->global.obj_list);
- 
-+	ret = drmm_add_action_or_reset(display->drm,
-+				       intel_atomic_global_obj_cleanup_action,
-+				       display);
-+	if (ret)
-+		return ret;
-+
- 	mode_config->min_width = 0;
- 	mode_config->min_height = 0;
- 
-@@ -148,12 +165,8 @@ static void intel_mode_config_init(struct intel_display *display)
- 	}
- 
- 	intel_cursor_mode_config_init(display);
--}
- 
--static void intel_mode_config_cleanup(struct intel_display *display)
--{
--	intel_atomic_global_obj_cleanup(display);
--	drm_mode_config_cleanup(display->drm);
-+	return 0;
+-	return 0;
++	return mtk_dp_report_link_train(mtk_dp);
  }
  
- static void intel_plane_possible_crtcs_init(struct intel_display *display)
-@@ -255,7 +268,9 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+ static void mtk_dp_video_enable(struct mtk_dp *mtk_dp, bool enable)
+@@ -2004,6 +2025,7 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
+ 			mtk_dp->need_debounce = false;
+ 			mod_timer(&mtk_dp->debounce_timer,
+ 				  jiffies + msecs_to_jiffies(100) - 1);
++			drm_connector_dp_reset_link_train_properties(mtk_dp->conn);
+ 		} else {
+ 			mtk_dp_aux_panel_poweron(mtk_dp, true);
  
- 	intel_dmc_init(display);
+@@ -2742,6 +2764,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
  
--	intel_mode_config_init(display);
-+	ret = intel_mode_config_init(display);
-+	if (ret)
-+		goto cleanup_wq_unordered;
+ static int mtk_dp_probe(struct platform_device *pdev)
+ {
++	static const u32 dp_rates[] = {162000, 270000, 540000, 810000};
++	static const struct drm_connector_dp_link_train_caps dp_link_train_caps = {
++		.nlanes = DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE,
++		.nrates = ARRAY_SIZE(dp_rates),
++		.rates = dp_rates,
++		.v_swings = DRM_DP_VOLTAGE_SWING_LEVEL_MASK,
++		.pre_emphs = DRM_DP_PRE_EMPH_LEVEL_MASK,
++	};
+ 	struct mtk_dp *mtk_dp;
+ 	struct device *dev = &pdev->dev;
+ 	int ret;
+@@ -2809,6 +2839,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
  
- 	ret = intel_cdclk_init(display);
- 	if (ret)
-@@ -456,7 +471,7 @@ int intel_display_driver_probe_nogem(struct intel_display *display)
+ 	mtk_dp->bridge.of_node = dev->of_node;
+ 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
++	mtk_dp->bridge.dp_link_train_caps = &dp_link_train_caps;
++	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
  
- 	ret = intel_crtc_init(display);
- 	if (ret)
--		goto err_mode_config;
-+		return ret;
- 
- 	intel_plane_possible_crtcs_init(display);
- 	intel_dpll_init(display);
-@@ -497,8 +512,6 @@ int intel_display_driver_probe_nogem(struct intel_display *display)
- 
- err_hdcp:
- 	intel_hdcp_component_fini(display);
--err_mode_config:
--	intel_mode_config_cleanup(display);
- 
- 	return ret;
- }
-@@ -618,8 +631,6 @@ void intel_display_driver_remove_noirq(struct intel_display *display)
- 
- 	intel_hdcp_component_fini(display);
- 
--	intel_mode_config_cleanup(display);
--
- 	intel_dp_tunnel_mgr_cleanup(display);
- 
- 	intel_overlay_cleanup(display);
+ 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
+ 		/*
 
 -- 
 2.43.0
