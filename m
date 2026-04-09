@@ -4,96 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B378F31E4A
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F845F31E4A
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0757510E891;
-	Thu,  9 Apr 2026 15:50:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aU0gjCo0";
-	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 341AD10E891
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 15:50:27 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-66b2d49ffb0so1292024a12.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 08:50:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linuxfoundation.org; s=google; t=1775749826; x=1776354626;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=L9vE8utreJV2gsMmo4bJCky+B4KUezIvBvEreyJlMS4=;
- b=aU0gjCo0c5E0H+ciFqwkB8yioGzcz3xzG9mK8PI1DVxXxIaiX27ORKsKceIqBBYwYe
- W/H6O1g52ksQUCUaPX0sx5XI3EjPinJXN66fOL712jLxnYA5Jmdtc887LS8epbJi014e
- 6Diw+kGx2LIRmyfROgo2fZm8ENupmW0rK0wwY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775749826; x=1776354626;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=L9vE8utreJV2gsMmo4bJCky+B4KUezIvBvEreyJlMS4=;
- b=i6HXQBYQhF79hWvfAPAEziFXUes0uFjBJF5gibjKq3r7+rlrM/otvudX/BW10vowfA
- +WriE/k97Ku8/bDbMbX6U3XXsC+8Hfb3Yvj5Og82tjvUleRZB+W+Ieh76VyOfsv/YV7S
- 3sKMvXqYeZcn05X+rcXS4aaXz9XV30O4DmnuxSizXEleX8LAuQZR3J+ttE6XpNq1D+bP
- rrJ0VtlKD0OZbcUEHjjdAAq5jwlzr1jwJ3tlqjVhxvIwylfMVZoNkUL5EktYduhes11z
- ZZ6BRxiegx7wOw+AVEWoDHc0Ke222ZWXRRRywH404Pt1Ttwul4wkLb39nQsLhbMIjABM
- IGuQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJxDOV0MCdGG86hZCW1GSzntEtKlyp0LOvW75+RKZcPNKZawdK36MPhnOdHGP7ICmDLP7/uj5yshg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxSF0w+lMUsU71L3PTvEDKdCmrJxbV0k+H5IO9njtl2BLT9YOst
- oPqh9Q53RvQ2pDXW8jbx6ee+eBZ+SYCCnZ9QVVsMgk6C6wrARJ7NeanRPcc1FR3ctvTEpjLGDlL
- E7/jJEDffrQ==
-X-Gm-Gg: AeBDievn3rs59RQiDChIowOVHFBDqHUq/QtLFsnqjl4h50AFCCiFxTWD04J/K1MEPoh
- kU3oGDKWSNuEb1z3lV7br9ILuvjaL7kDRpscvZpR5KUdUMottMvbsvv+fD8zv2bH4ZttA/msoSL
- 5QwcfA+GANqXicWgxwp1AYhbrPNsvitSSBUaNXTRaKRBzzF+Wg8U45PWosEwuBJXSbFgl3J2SiD
- DDOiQPXmkTsg5lN3yPXVrd8XfBmxbIJ5u/Vfn6NtG60JiH+9W9fkgDVtc6NvCZv+W4hLitQza3M
- BG4o1gnCV9ohp36817XO5ZCr30OQgNOs9DiqQfe3fGa8wg52jmuDEr1PRenuFfJp1jCtMlOau17
- Cv/hkynL3K+PW/6smxp846GwrwF4YTS9mRgOo2hhtm0eRaby5fg/0eaFEjBOzaBoG6zWS+hOvVY
- i1/dCC/VtLXz3y8DRX9SEpYEpZKLiUkkxC9lrNXSGaQU6plxSfwTt8gXzBAdTlUTr6S5khNsY=
-X-Received: by 2002:a05:6402:304a:20b0:66e:4180:b5fa with SMTP id
- 4fb4d7f45d1cf-66e4180b67emr9207629a12.12.1775749826052; 
- Thu, 09 Apr 2026 08:50:26 -0700 (PDT)
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com.
- [209.85.218.43]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-66e02f389absm5790558a12.13.2026.04.09.08.50.24
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Apr 2026 08:50:25 -0700 (PDT)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-b9c3e2cf3c0so168834066b.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 08:50:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AJvYcCXCMytPLHRhgPoH7H0lKCO5abKUTbZQcPYpXkkfIHxjXeFmbd6vfK/2OWJhI8WWzXKoE7HuMWx6XJg=@lists.freedesktop.org
-X-Received: by 2002:a17:906:d009:b0:b96:e0b1:ccf4 with SMTP id
- a640c23a62f3a-b9c67b474e1mr987999466b.47.1775749824692; Thu, 09 Apr 2026
- 08:50:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF4DF10E894;
+	Thu,  9 Apr 2026 15:50:34 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C24910E893;
+ Thu,  9 Apr 2026 15:50:33 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20260324151741.29338-1-sosohero200@gmail.com>
- <acUnQkniqECI0QVY@intel.com>
- <CAHk-=wj=h9z-Qp+xm1oSURRGHO3wexzG7MyLqU8gSQbastwgdw@mail.gmail.com>
- <177557988645.129480.6094289548721099346@jlahtine-mobl>
- <CAHk-=wjcSt1gGnQZoyNvodky_6WEDxC=1+gQHywiOvOjw1+GUA@mail.gmail.com>
- <adddrlQojq8fo2iE@gsse-cloud1.jf.intel.com>
-In-Reply-To: <adddrlQojq8fo2iE@gsse-cloud1.jf.intel.com>
-From: Linus Torvalds <torvalds@linuxfoundation.org>
-Date: Thu, 9 Apr 2026 08:50:08 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wi_drr4Ls9KtXW1k8L2FUDF0YdnyjvKmPgLXHDFnnRWEg@mail.gmail.com>
-X-Gm-Features: AQROBzCjSl5NMaYv3GihKyQP4VStOMX95vJjpJ2BenMZKgMzIiin_WmdOYImCIA
-Message-ID: <CAHk-=wi_drr4Ls9KtXW1k8L2FUDF0YdnyjvKmPgLXHDFnnRWEg@mail.gmail.com>
-Subject: Re: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in
- eb_relocate_vma
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Dave Airlie <airlied@gmail.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- Yassine Mounir <sosohero200@gmail.com>, g@web.codeaurora.org,
- gregkh@linuxfoundation.org, 
- intel-gfx@lists.freedesktop.org, rodrigo.vivi@intel.com, security@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gem=3A?=
+ =?utf-8?q?_Fix_relocation_race_and_simplify_VMA_lookup_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Yassine Mounir" <sosohero200@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 09 Apr 2026 15:50:33 -0000
+Message-ID: <177574983309.447266.13878241011170240364@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260408224905.5918-1-sosohero200@gmail.com>
+In-Reply-To: <20260408224905.5918-1-sosohero200@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,34 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 9 Apr 2026 at 01:05, Matthew Brost <matthew.brost@intel.com> wrote:
->
-> I dealt with some complete AI slop today reporting a hallucination.
-> It was a subtle reference-counting issue that, if well documented,
-> probably shouldn=E2=80=99t have been flagged. IMO, it=E2=80=99s an opport=
-unity to clean
-> up the code or at least document why it works. Yes, annoying, even more
-> so if less actively maintained status=E2=80=94but in general it flags han=
-d-wavy,
-> questionable code that needs an explanation.
+== Series Details ==
 
-Some of the slop reports are indeed "that code may work well, but it
-looks odd because it has a pattern that is typically a bug".
+Series: drm/i915/gem: Fix relocation race and simplify VMA lookup (rev2)
+URL   : https://patchwork.freedesktop.org/series/164622/
+State : failure
 
-And others are _just_ pure hallucinations.
+== Summary ==
 
-But I think that lately quite a noticeable percentage of reports have
-become very much valid. As you say, Sashiko tends to be quite good.
-Even when it flags something unnecessarily and there's no actual
-problem, there's likely to be a reason for the question.
+Address 'sosohero200@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
-And we've seen some truly stellar reports too. Things that are deep
-and subtle, and the AI is 100% correct.
 
-So anybody who thinks that all AI is slop is in denial about the current st=
-ate.
-
-             Linus
