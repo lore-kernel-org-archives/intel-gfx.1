@@ -4,73 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 762D8F34C53
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3A47F34C4B
 	for <intel-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:26:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C89110E42B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EFF810E42C;
 	Mon, 13 Apr 2026 12:26:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="XgDbUsd0";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="G+GjrKxf";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3928410E416
- for <intel-gfx@lists.freedesktop.org>; Mon, 13 Apr 2026 12:10:19 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B209210E82E
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 17:09:04 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 9C3ADC5C183;
- Mon, 13 Apr 2026 12:10:53 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A08B41A324F;
+ Thu,  9 Apr 2026 17:09:03 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id EEFD25FFB9;
- Mon, 13 Apr 2026 12:10:16 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6E8D7603E4;
+ Thu,  9 Apr 2026 17:09:03 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AA50A104500A2; 
- Mon, 13 Apr 2026 14:10:02 +0200 (CEST)
+ with ESMTPSA id 31D461045019C; 
+ Thu,  9 Apr 2026 19:08:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776082215; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775754541; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=dhpDLI3GbjEnq5ea2C3CSlaeOYOoDERSaq/PhF217/g=;
- b=XgDbUsd0kza50SBVz4+wc3tba3Gea/Rw9Wtl9Oh3cj1zYYyx83GshUatFgLe99itaxWAJf
- dbLqFjb/kWwi0Lrqgc0awLQeFS+zivNYqgAQVEqYi8w3nolcV+k65uHo3kdCaoU8FmQRYi
- FNnxTfJNQn5FvhrAeOubTD8A5Hs74ZXx+AAtTu4zM20gVeAwAclh1G1dVmBb9dY1Eir7Jq
- fvH5aaDiIW27DKzBoQbqfzu2fOc/1o1RsElFMmpjnd6CCy0Z1XUpibM/HsTJ3u3RLvDctq
- J8mv0Uvt+qvEaqgfRTVFVct2t/QHp9kY5w5CLgxJtUaDj7TEc6nIau/Ea77HiQ==
-Date: Mon, 13 Apr 2026 14:10:00 +0200
+ bh=ni70mQN+06B9PrFWju5Vc9jCJGly/AFJiVYl7kDxCyk=;
+ b=G+GjrKxfsxCSIWMIv+pwZvAagbcJbW9sMgZKMpbqpi3Zq5sFrJCjuNZ+bUlmD0zHIiUX6y
+ 8tm1vdGx6zVwq9775jZ5CXlTLM65igo19UXwJ65CFvWPVdJsXmGUSM33E9Rot3O0YQ9Ps+
+ dkFawd9NFVZiT5xRQTCspEo7EYjHUlYopKFq5ublJE/7ECFUKchcdmq+k1wPtI6yxUvc9b
+ le/PKC4/7QYmxbvSsfTA9lvy/4L2taX2/Cyy7m2430v4dJRR/Xn2f+HOAX5NWcVttAGqfC
+ uQ6ToIINYfd0UoCfq2VBfq4GgnzXbOx8s45R4x86t0J8tQq+PKGPwPrQXXyZrA==
 From: Kory Maincent <kory.maincent@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Jani
- Nikula <jani.nikula@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
- Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
- Anholt <eric@anholt.net>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
- <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>, Chris Wilson
- <chris@chris-wilson.co.uk>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
- Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: Re: [PATCH RFC 00/12] Add support for DisplayPort link training
- information report
-Message-ID: <20260413141000.0e190dcc@kmaincent-XPS-13-7390>
-In-Reply-To: <u4ononk4cpccx77gvlywtfen5rmyslvr72v7olkhdrjf65aqce@xo777vofhcan>
-References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
- <adgNxaFhbQaxC5E_@intel.com>
- <u4ononk4cpccx77gvlywtfen5rmyslvr72v7olkhdrjf65aqce@xo777vofhcan>
-Organization: bootlin
-X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
+Date: Thu, 09 Apr 2026 19:08:19 +0200
+Subject: [PATCH RFC 03/12] drm/i915/display/intel_dp: Drop redundant
+ intel_dp_aux_fini() on init failure
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260409-feat_link_cap-v1-3-7069e8199ce2@bootlin.com>
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+In-Reply-To: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>, 
+ Jesse Barnes <jbarnes@virtuousgeek.org>, Eric Anholt <eric@anholt.net>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Chris Wilson <chris@chris-wilson.co.uk>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Mark Yacoub <markyacoub@google.com>, Sean Paul <seanpaul@google.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Simona Vetter <simona.vetter@ffwll.ch>, 
+ Kory Maincent <kory.maincent@bootlin.com>
+X-Mailer: b4 0.14-dev-d4707
 X-Last-TLS-Session-Version: TLSv1.3
 X-Mailman-Approved-At: Mon, 13 Apr 2026 12:26:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -88,63 +86,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 10 Apr 2026 00:36:09 +0300
-Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> wrote:
+intel_dp_aux_fini() is already invoked via intel_dp_encoder_flush_work()
+in the encoder destroy path (intel_dp_encoder_destroy() and
+intel_ddi_encoder_destroy()). Calling it explicitly when
+intel_edp_init_connector() fails before jumping to the fail label
+therefore results in a double invocation. Drop the redundant call.
 
-> On Thu, Apr 09, 2026 at 11:36:21PM +0300, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Thu, Apr 09, 2026 at 07:08:16PM +0200, Kory Maincent wrote: =20
-> > > DisplayPort link training negotiates the physical-layer parameters ne=
-eded
-> > > for a reliable connection: lane count, link rate, voltage swing,
-> > > pre-emphasis, and optionally Display Stream Compression (DSC). Curren=
-tly,
-> > > each driver exposes this state in its own way, often through
-> > > driver-specific debugfs entries, with no standard interface for users=
-pace
-> > > diagnostic and monitoring tools.
-> > >=20
-> > > This series introduces a generic, DRM-managed framework for exposing =
-DP
-> > > link training state as standard connector properties, modeled after t=
-he
-> > > existing HDMI helper drmm_connector_hdmi_init().
-> > >=20
-> > > The new drmm_connector_dp_init() helper initializes a DP connector and
-> > > registers the following connector properties to expose the negotiated=
- link
-> > > state to userspace:
-> > >=20
-> > > - num_lanes:      negotiated lane count (1, 2 or 4)
-> > > - link_rate:      negotiated link rate
-> > > - dsc_en:         whether Display Stream Compression is active
-> > > - voltage_swingN: per-lane voltage swing level (lanes 0-3)
-> > > - pre_emphasisN:  per-lane pre-emphasis level (lanes 0-3) =20
-> >=20
-> > I don't see why any real userspace would be interested in those (apart
-> > from maybe DSC). If this is just for diagnostics and whatnot then I
-> > think sysfs/debugfs could be a better fit. =20
->=20
-> I'd agree here. Please consider implementing it as a debugfs interface,
-> possibly reusing the Intel's format.
+Fixes: c191eca110a37 ("drm/i915: Move intel_connector->unregister to connector->early_unregister")
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Sorry, I completely forgot to include a paragraph explaining the rationale
-behind using DRM properties.
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 4955bd8b11d7a..71f206adbebd3 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -7232,10 +7232,8 @@ intel_dp_init_connector(struct intel_digital_port *dig_port,
+ 		connector->get_hw_state = intel_connector_get_hw_state;
+ 	connector->sync_state = intel_dp_connector_sync_state;
+ 
+-	if (!intel_edp_init_connector(intel_dp, connector)) {
+-		intel_dp_aux_fini(intel_dp);
++	if (!intel_edp_init_connector(intel_dp, connector))
+ 		goto fail;
+-	}
+ 
+ 	intel_dp_set_source_rates(intel_dp);
+ 	intel_dp_set_common_rates(intel_dp);
 
-This DisplayPort link information report was requested by OSes to allow the=
-m to
-assess the capabilities of each DisplayPort connector on the system, and to
-guide users from the most to least capable ones. It will also enable the OS=
- to
-warn the user when a cable is too long or experiencing noise (indicated by =
-high
-voltage swing and pre-emphasis levels).
+-- 
+2.43.0
 
-Since this is information that OSes will consume on a regular basis, exposi=
-ng
-it directly as DRM properties seems the most appropriate approach.=20
-
-Regards,
---=20
-K=C3=B6ry Maincent, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
