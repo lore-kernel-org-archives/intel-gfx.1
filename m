@@ -4,76 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFA85F31E4F
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:48:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B378F31E4A
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 15:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4593B10E889;
-	Thu,  9 Apr 2026 15:48:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0757510E891;
+	Thu,  9 Apr 2026 15:50:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="b6cQ1MND";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aU0gjCo0";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01D4310E88B;
- Thu,  9 Apr 2026 15:48:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1775749708; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=HZ7UC2u8ytn5vUFVNHy7j4Ta5t5PJzFVU3rLMYP4yOfUNB4iuMO6tu9gO/0h0Acm9nZnQG9iF/oRLK5c/NaNmOvrBx2e5jR3PUgjxSDa6yTq82Q9fbsNT2iGYoore6x/kwklmluGq/G51DcT7mO114IX8kyJ1N3EPyk+C/k7mjA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1775749708;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LBk/DR4fSC6qCd6jwGfcqZk47KlihYhACpKua31EgFU=; 
- b=fvPOCFnU/F9WAJqEYLJPA82LwQxpPBRXKkxyWMkg+X0WJFSS8x54sCatwZN0ArciAi9oJdObA/rAIqw3d1VFy7C2K4hvfeufaD4xYZPnfpzEu4nUg1lXDCE5A6WcEB2Aros/yN0V6w4wWTI7cKh420JfdPFjoZyyxSRmwybzltA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1775749708; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=LBk/DR4fSC6qCd6jwGfcqZk47KlihYhACpKua31EgFU=;
- b=b6cQ1MND96Mc353Vuuj0Piw9j25Xrqos6zBnKKLH4dHbqwI634+U/aik3J1N2TIF
- /7LUlD2cayug2M4zZqA004DZ80DWBsqxXCsLoZxb9DmxKv2U96vkY8wzLEccVyEdomB
- y6eNxWkAilr+Vl9nPtsk6VgRL+7z2x4jZKwyxfEc=
-Received: by mx.zohomail.com with SMTPS id 1775749706968386.2922289978144;
- Thu, 9 Apr 2026 08:48:26 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 09 Apr 2026 17:45:15 +0200
-Subject: [PATCH v12 25/25] drm/connector: Update docs of "colorspace" for
- color format prop
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 341AD10E891
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 15:50:27 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-66b2d49ffb0so1292024a12.3
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 08:50:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google; t=1775749826; x=1776354626;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=L9vE8utreJV2gsMmo4bJCky+B4KUezIvBvEreyJlMS4=;
+ b=aU0gjCo0c5E0H+ciFqwkB8yioGzcz3xzG9mK8PI1DVxXxIaiX27ORKsKceIqBBYwYe
+ W/H6O1g52ksQUCUaPX0sx5XI3EjPinJXN66fOL712jLxnYA5Jmdtc887LS8epbJi014e
+ 6Diw+kGx2LIRmyfROgo2fZm8ENupmW0rK0wwY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775749826; x=1776354626;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=L9vE8utreJV2gsMmo4bJCky+B4KUezIvBvEreyJlMS4=;
+ b=i6HXQBYQhF79hWvfAPAEziFXUes0uFjBJF5gibjKq3r7+rlrM/otvudX/BW10vowfA
+ +WriE/k97Ku8/bDbMbX6U3XXsC+8Hfb3Yvj5Og82tjvUleRZB+W+Ieh76VyOfsv/YV7S
+ 3sKMvXqYeZcn05X+rcXS4aaXz9XV30O4DmnuxSizXEleX8LAuQZR3J+ttE6XpNq1D+bP
+ rrJ0VtlKD0OZbcUEHjjdAAq5jwlzr1jwJ3tlqjVhxvIwylfMVZoNkUL5EktYduhes11z
+ ZZ6BRxiegx7wOw+AVEWoDHc0Ke222ZWXRRRywH404Pt1Ttwul4wkLb39nQsLhbMIjABM
+ IGuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXJxDOV0MCdGG86hZCW1GSzntEtKlyp0LOvW75+RKZcPNKZawdK36MPhnOdHGP7ICmDLP7/uj5yshg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSF0w+lMUsU71L3PTvEDKdCmrJxbV0k+H5IO9njtl2BLT9YOst
+ oPqh9Q53RvQ2pDXW8jbx6ee+eBZ+SYCCnZ9QVVsMgk6C6wrARJ7NeanRPcc1FR3ctvTEpjLGDlL
+ E7/jJEDffrQ==
+X-Gm-Gg: AeBDievn3rs59RQiDChIowOVHFBDqHUq/QtLFsnqjl4h50AFCCiFxTWD04J/K1MEPoh
+ kU3oGDKWSNuEb1z3lV7br9ILuvjaL7kDRpscvZpR5KUdUMottMvbsvv+fD8zv2bH4ZttA/msoSL
+ 5QwcfA+GANqXicWgxwp1AYhbrPNsvitSSBUaNXTRaKRBzzF+Wg8U45PWosEwuBJXSbFgl3J2SiD
+ DDOiQPXmkTsg5lN3yPXVrd8XfBmxbIJ5u/Vfn6NtG60JiH+9W9fkgDVtc6NvCZv+W4hLitQza3M
+ BG4o1gnCV9ohp36817XO5ZCr30OQgNOs9DiqQfe3fGa8wg52jmuDEr1PRenuFfJp1jCtMlOau17
+ Cv/hkynL3K+PW/6smxp846GwrwF4YTS9mRgOo2hhtm0eRaby5fg/0eaFEjBOzaBoG6zWS+hOvVY
+ i1/dCC/VtLXz3y8DRX9SEpYEpZKLiUkkxC9lrNXSGaQU6plxSfwTt8gXzBAdTlUTr6S5khNsY=
+X-Received: by 2002:a05:6402:304a:20b0:66e:4180:b5fa with SMTP id
+ 4fb4d7f45d1cf-66e4180b67emr9207629a12.12.1775749826052; 
+ Thu, 09 Apr 2026 08:50:26 -0700 (PDT)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com.
+ [209.85.218.43]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66e02f389absm5790558a12.13.2026.04.09.08.50.24
+ for <intel-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 09 Apr 2026 08:50:25 -0700 (PDT)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-b9c3e2cf3c0so168834066b.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 09 Apr 2026 08:50:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXCMytPLHRhgPoH7H0lKCO5abKUTbZQcPYpXkkfIHxjXeFmbd6vfK/2OWJhI8WWzXKoE7HuMWx6XJg=@lists.freedesktop.org
+X-Received: by 2002:a17:906:d009:b0:b96:e0b1:ccf4 with SMTP id
+ a640c23a62f3a-b9c67b474e1mr987999466b.47.1775749824692; Thu, 09 Apr 2026
+ 08:50:24 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-color-format-v12-25-ce84e1817a27@collabora.com>
-References: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
-In-Reply-To: <20260409-color-format-v12-0-ce84e1817a27@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.1
+References: <20260324151741.29338-1-sosohero200@gmail.com>
+ <acUnQkniqECI0QVY@intel.com>
+ <CAHk-=wj=h9z-Qp+xm1oSURRGHO3wexzG7MyLqU8gSQbastwgdw@mail.gmail.com>
+ <177557988645.129480.6094289548721099346@jlahtine-mobl>
+ <CAHk-=wjcSt1gGnQZoyNvodky_6WEDxC=1+gQHywiOvOjw1+GUA@mail.gmail.com>
+ <adddrlQojq8fo2iE@gsse-cloud1.jf.intel.com>
+In-Reply-To: <adddrlQojq8fo2iE@gsse-cloud1.jf.intel.com>
+From: Linus Torvalds <torvalds@linuxfoundation.org>
+Date: Thu, 9 Apr 2026 08:50:08 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wi_drr4Ls9KtXW1k8L2FUDF0YdnyjvKmPgLXHDFnnRWEg@mail.gmail.com>
+X-Gm-Features: AQROBzCjSl5NMaYv3GihKyQP4VStOMX95vJjpJ2BenMZKgMzIiin_WmdOYImCIA
+Message-ID: <CAHk-=wi_drr4Ls9KtXW1k8L2FUDF0YdnyjvKmPgLXHDFnnRWEg@mail.gmail.com>
+Subject: Re: [PATCH v2] [PATCH v2] drm/i915/gem: Fix UAF race in
+ eb_relocate_vma
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Dave Airlie <airlied@gmail.com>, 
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
+ Yassine Mounir <sosohero200@gmail.com>, g@web.codeaurora.org,
+ gregkh@linuxfoundation.org, 
+ intel-gfx@lists.freedesktop.org, rodrigo.vivi@intel.com, security@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,36 +109,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The colorspace property's documentation states that BT2020_RGB and
-BT2020_YCC are equivalent, and the output format depends on the driver.
+On Thu, 9 Apr 2026 at 01:05, Matthew Brost <matthew.brost@intel.com> wrote:
+>
+> I dealt with some complete AI slop today reporting a hallucination.
+> It was a subtle reference-counting issue that, if well documented,
+> probably shouldn=E2=80=99t have been flagged. IMO, it=E2=80=99s an opport=
+unity to clean
+> up the code or at least document why it works. Yes, annoying, even more
+> so if less actively maintained status=E2=80=94but in general it flags han=
+d-wavy,
+> questionable code that needs an explanation.
 
-Now that there is a "color format" property that userspace can use to
-explicitly set a format, update the colorspace docs to mention this.
+Some of the slop reports are indeed "that code may work well, but it
+looks odd because it has a pattern that is typically a bug".
 
-The behaviour here is not changed for userspace that doesn't know about
-the color format property yet, as the color format property defaults to
-"AUTO", where the choice of output format is left up to drivers.
+And others are _just_ pure hallucinations.
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_connector.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+But I think that lately quite a noticeable percentage of reports have
+become very much valid. As you say, Sashiko tends to be quite good.
+Even when it flags something unnecessarily and there's no actual
+problem, there's likely to be a reason for the question.
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 0da136a93dd6..71c58fa15aa0 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2573,7 +2573,8 @@ EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
-  *		conversion matrix and convert to the appropriate quantization
-  *		range.
-  *		The variants BT2020_RGB and BT2020_YCC are equivalent and the
-- *		driver chooses between RGB and YCbCr on its own.
-+ *		driver chooses between RGB and YCbCr based on the color format
-+ *		property.
-  *
-  *	SMPTE_170M_YCC:
-  *	BT709_YCC:
+And we've seen some truly stellar reports too. Things that are deep
+and subtle, and the AI is 100% correct.
 
--- 
-2.53.0
+So anybody who thinks that all AI is slop is in denial about the current st=
+ate.
 
+             Linus
