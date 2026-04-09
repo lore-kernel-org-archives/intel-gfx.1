@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7F4AF34C4D
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:26:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE65F34C4F
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Apr 2026 12:26:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD9B210E428;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57AFE10E421;
 	Mon, 13 Apr 2026 12:26:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="TdHFtusw";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="DjUrLR5y";
 	dkim-atps=neutral
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C997210E844;
- Thu,  9 Apr 2026 17:09:39 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4B410E836
+ for <intel-gfx@lists.freedesktop.org>; Thu,  9 Apr 2026 17:09:16 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 7329EC5C18D;
- Thu,  9 Apr 2026 17:10:13 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 72F6C4E429AB;
+ Thu,  9 Apr 2026 17:09:15 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id AA0F8603E4;
- Thu,  9 Apr 2026 17:09:38 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3DCDD603E4;
+ Thu,  9 Apr 2026 17:09:15 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id A4965104501B9; 
- Thu,  9 Apr 2026 19:09:33 +0200 (CEST)
+ with ESMTPSA id 496B2104501B9; 
+ Thu,  9 Apr 2026 19:09:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1775754577; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1775754553; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=80i2+SV+RLyeafvPAz3gjWWOqBFxeYH5P0a7No+38o8=;
- b=TdHFtuswVi6gUMeZnFkAQ1h9pYxWbUEmNzplgQT7MQIoLxVUeKQh9ZW6VmZx0JcElV0nTT
- ndiz9X1DMeZeUk8msd8gSMDWTxx2+1v+CUTZ2scRfTPMvu2Bf2YU9h2Xe2RIj4vns7A716
- z5h9gRlT4iPBE+tVe1Yp3+1eSh1qr2E6PmB2LNubQzYatkW9NOJ6mwUB2QsEtWFhOjQ3Dm
- D3KuHtVoL2McBeRsbNBCDGt/hapKZI1sw3s2gEOsQOX2gPJkgiOZUHjeQ0aFejaI+t0+7g
- optEMjLs5g2b4/YnM4lbdoqcSSe9QIytTPOi6B16/duv4oJJLdD/30s7jfvwqw==
+ bh=wX7pWpmziBNvFcnTaf8fwuS1/DS6EX90GHY6UzJaV7c=;
+ b=DjUrLR5y0kyp5a69sBPx7vxDI68E2p+JWQxYiCEIdcla6HbZUbQbCnuGg5PCZ+KmSzMpNU
+ 4SaxwgWrjgqzkivNaTqTWQrunfRupR7MlPkZq1rsyAa/GqaOLnta5kjeIkehhzZM6Zpsd6
+ OGOF2N15lIYlAprXd6Qykxh67y7KS2nDRSYiIn2NwkI7E+E2PofJBs5zHiO1JhopqW6plC
+ QeqraZs69QyjajhNQkDnbzB8wEtKy7/xn44CRktZdvKafiMdLMsUxWbqGDGrAq0vJbgj0s
+ QR5X/f+dXNO+HGqAW8cg7RoCKAiWczknwepO7OI16ymzEg1OrH6MrvEuTGj2bQ==
 From: Kory Maincent <kory.maincent@bootlin.com>
-Date: Thu, 09 Apr 2026 19:08:28 +0200
-Subject: [PATCH RFC 12/12] drm/mediatek: Use dp_connector helpers to report
- link training state
+Date: Thu, 09 Apr 2026 19:08:22 +0200
+Subject: [PATCH RFC 06/12] drm/i915/display: Switch to managed for plane
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260409-feat_link_cap-v1-12-7069e8199ce2@bootlin.com>
+Message-Id: <20260409-feat_link_cap-v1-6-7069e8199ce2@bootlin.com>
 References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 In-Reply-To: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -86,120 +85,703 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Set DRM_BRIDGE_OP_DP and populate dp_link_train_caps with the supported
-link rates, lane counts, voltage swing and pre-emphasis levels so the
-bridge connector uses drmm_connector_dp_init() and exposes the link
-training state properties to userspace.
+The current i915 driver uses non-managed function to create plane. It
+is not an issue yet, but in order to comply with the latest DRM
+requirement, convert this code to use drm and device managed helpers.
 
-Store per-lane voltage swing and pre-emphasis values in
-mtk_dp_train_info and report the negotiated link parameters via
-drm_connector_dp_set_link_train_properties() on training completion.
-Clear them via drm_connector_dp_reset_link_train_properties() when a
-disconnect is detected in the HPD event thread.
-
+Assisted-by: Claude Code:2.1.90
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 ---
+ drivers/gpu/drm/i915/display/i9xx_plane.c          |  97 ++++++++---------
+ drivers/gpu/drm/i915/display/intel_cursor.c        |  41 ++++---
+ drivers/gpu/drm/i915/display/intel_plane.c         |  45 +-------
+ drivers/gpu/drm/i915/display/intel_plane.h         |   5 +-
+ drivers/gpu/drm/i915/display/intel_sprite.c        | 119 ++++++++++-----------
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 102 +++++++++---------
+ 6 files changed, 181 insertions(+), 228 deletions(-)
 
-This patch has still not been tested. I am in the process of finding the
-hardware for that.
----
- drivers/gpu/drm/mediatek/mtk_dp.c | 34 +++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index c52cc7c2e2006..119718c1374c5 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -10,6 +10,7 @@
+diff --git a/drivers/gpu/drm/i915/display/i9xx_plane.c b/drivers/gpu/drm/i915/display/i9xx_plane.c
+index 9c16753a1f3ba..032c56b478dfc 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_plane.c
++++ b/drivers/gpu/drm/i915/display/i9xx_plane.c
+@@ -8,6 +8,7 @@
  #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_crtc.h>
-+#include <drm/drm_dp_connector.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
-@@ -72,6 +73,8 @@ struct mtk_dp_train_info {
- 	/* link_rate is in multiple of 0.27Gbps */
- 	int link_rate;
- 	int lane_count;
-+	u8 vswing[4];
-+	u8 preemphasis[4];
- 	unsigned int channel_eq_pattern;
- };
+ #include <drm/drm_blend.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
  
-@@ -1561,6 +1564,9 @@ static void mtk_dp_train_update_swing_pre(struct mtk_dp *mtk_dp, int lanes,
- 		mtk_dp_set_swing_pre_emphasis(mtk_dp, lane, swing, preemphasis);
- 		drm_dp_dpcd_writeb(&mtk_dp->aux, DP_TRAINING_LANE0_SET + lane,
- 				   val);
+ #include "i9xx_plane.h"
+@@ -882,7 +883,6 @@ static unsigned int i9xx_plane_min_alignment(struct intel_plane *plane,
+ static const struct drm_plane_funcs i965_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = i965_plane_format_mod_supported,
+@@ -892,7 +892,6 @@ static const struct drm_plane_funcs i965_plane_funcs = {
+ static const struct drm_plane_funcs i8xx_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = i8xx_plane_format_mod_supported,
+@@ -923,32 +922,15 @@ static void i9xx_disable_tiling(struct intel_plane *plane)
+ struct intel_plane *
+ intel_primary_plane_create(struct intel_display *display, enum pipe pipe)
+ {
++	struct intel_plane_state *plane_state;
+ 	struct intel_plane *plane;
+ 	const struct drm_plane_funcs *plane_funcs;
+ 	unsigned int supported_rotations;
+ 	const u64 *modifiers;
+ 	const u32 *formats;
+ 	int num_formats;
+-	int ret, zpos;
+-
+-	plane = intel_plane_alloc();
+-	if (IS_ERR(plane))
+-		return plane;
+-
+-	plane->pipe = pipe;
+-	/*
+-	 * On gen2/3 only plane A can do FBC, but the panel fitter and LVDS
+-	 * port is hooked to pipe B. Hence we want plane A feeding pipe B.
+-	 */
+-	if (HAS_FBC(display) && DISPLAY_VER(display) < 4 &&
+-	    INTEL_NUM_PIPES(display) == 2)
+-		plane->i9xx_plane = (enum i9xx_plane_id) !pipe;
+-	else
+-		plane->i9xx_plane = (enum i9xx_plane_id) pipe;
+-	plane->id = PLANE_PRIMARY;
+-	plane->frontbuffer_bit = INTEL_FRONTBUFFER(pipe, plane->id);
+-
+-	intel_fbc_add_plane(i9xx_plane_fbc(display, plane->i9xx_plane), plane);
++	enum i9xx_plane_id i9xx_plane;
++	int zpos;
+ 
+ 	if (display->platform.valleyview || display->platform.cherryview) {
+ 		formats = vlv_primary_formats;
+@@ -984,6 +966,46 @@ intel_primary_plane_create(struct intel_display *display, enum pipe pipe)
+ 	else
+ 		plane_funcs = &i8xx_plane_funcs;
+ 
++	/*
++	 * On gen2/3 only plane A can do FBC, but the panel fitter and LVDS
++	 * port is hooked to pipe B. Hence we want plane A feeding pipe B.
++	 */
++	if (HAS_FBC(display) && DISPLAY_VER(display) < 4 &&
++	    INTEL_NUM_PIPES(display) == 2)
++		i9xx_plane = (enum i9xx_plane_id)!pipe;
++	else
++		i9xx_plane = (enum i9xx_plane_id)pipe;
 +
-+		mtk_dp->train_info.vswing[lane] = swing;
-+		mtk_dp->train_info.preemphasis[lane] = preemphasis;
- 	}
++	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_TILING_X);
++
++	if (DISPLAY_VER(display) >= 5 || display->platform.g4x)
++		plane = drmm_universal_plane_alloc(display->drm, struct intel_plane, base,
++						   0, plane_funcs,
++						   formats, num_formats,
++						   modifiers,
++						   DRM_PLANE_TYPE_PRIMARY,
++						   "primary %c", pipe_name(pipe));
++	else
++		plane = drmm_universal_plane_alloc(display->drm, struct intel_plane, base,
++						   0, plane_funcs,
++						   formats, num_formats,
++						   modifiers,
++						   DRM_PLANE_TYPE_PRIMARY,
++						   "plane %c",
++						   plane_name(i9xx_plane));
++
++	kfree(modifiers);
++
++	if (IS_ERR(plane))
++		return plane;
++
++	plane->pipe = pipe;
++	plane->i9xx_plane = i9xx_plane;
++	plane->id = PLANE_PRIMARY;
++	plane->frontbuffer_bit = INTEL_FRONTBUFFER(pipe, plane->id);
++
++	intel_fbc_add_plane(i9xx_plane_fbc(display, plane->i9xx_plane), plane);
++
+ 	if (display->platform.valleyview || display->platform.cherryview)
+ 		plane->min_cdclk = vlv_plane_min_cdclk;
+ 	else if (display->platform.broadwell || display->platform.haswell)
+@@ -1069,28 +1091,12 @@ intel_primary_plane_create(struct intel_display *display, enum pipe pipe)
+ 
+ 	plane->disable_tiling = i9xx_disable_tiling;
+ 
+-	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_TILING_X);
+-
+-	if (DISPLAY_VER(display) >= 5 || display->platform.g4x)
+-		ret = drm_universal_plane_init(display->drm, &plane->base,
+-					       0, plane_funcs,
+-					       formats, num_formats,
+-					       modifiers,
+-					       DRM_PLANE_TYPE_PRIMARY,
+-					       "primary %c", pipe_name(pipe));
+-	else
+-		ret = drm_universal_plane_init(display->drm, &plane->base,
+-					       0, plane_funcs,
+-					       formats, num_formats,
+-					       modifiers,
+-					       DRM_PLANE_TYPE_PRIMARY,
+-					       "plane %c",
+-					       plane_name(plane->i9xx_plane));
+-
+-	kfree(modifiers);
++	plane_state = kzalloc_obj(*plane_state);
++	if (!plane_state)
++		return ERR_PTR(-ENOMEM);
+ 
+-	if (ret)
+-		goto fail;
++	intel_plane_state_reset(plane_state, plane);
++	plane->base.state = &plane_state->uapi;
+ 
+ 	if (display->platform.cherryview && pipe == PIPE_B) {
+ 		supported_rotations =
+@@ -1114,11 +1120,6 @@ intel_primary_plane_create(struct intel_display *display, enum pipe pipe)
+ 	intel_plane_helper_add(plane);
+ 
+ 	return plane;
+-
+-fail:
+-	intel_plane_free(plane);
+-
+-	return ERR_PTR(ret);
  }
  
-@@ -1812,6 +1818,21 @@ static void mtk_dp_train_change_mode(struct mtk_dp *mtk_dp)
- 	mtk_dp_reset_swing_pre_emphasis(mtk_dp);
+ static int i9xx_format_to_fourcc(int format)
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 18d1014de3613..2493baf25fbe2 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -9,6 +9,7 @@
+ #include <drm/drm_blend.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_vblank.h>
+ 
+@@ -971,7 +972,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ static const struct drm_plane_funcs intel_cursor_plane_funcs = {
+ 	.update_plane = intel_legacy_cursor_update,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = intel_cursor_format_mod_supported,
+@@ -1004,11 +1004,23 @@ struct intel_plane *
+ intel_cursor_plane_create(struct intel_display *display,
+ 			  enum pipe pipe)
+ {
++	struct intel_plane_state *plane_state;
+ 	struct intel_plane *cursor;
+-	int ret, zpos;
++	int zpos;
+ 	u64 *modifiers;
+ 
+-	cursor = intel_plane_alloc();
++	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_NONE);
++
++	cursor = drmm_universal_plane_alloc(display->drm, struct intel_plane, base,
++					    0, &intel_cursor_plane_funcs,
++					    intel_cursor_formats,
++					    ARRAY_SIZE(intel_cursor_formats),
++					    modifiers,
++					    DRM_PLANE_TYPE_CURSOR,
++					    "cursor %c", pipe_name(pipe));
++
++	kfree(modifiers);
++
+ 	if (IS_ERR(cursor))
+ 		return cursor;
+ 
+@@ -1056,20 +1068,12 @@ intel_cursor_plane_create(struct intel_display *display,
+ 	if (display->platform.i845g || display->platform.i865g || HAS_CUR_FBC(display))
+ 		cursor->cursor.size = ~0;
+ 
+-	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_NONE);
+-
+-	ret = drm_universal_plane_init(display->drm, &cursor->base,
+-				       0, &intel_cursor_plane_funcs,
+-				       intel_cursor_formats,
+-				       ARRAY_SIZE(intel_cursor_formats),
+-				       modifiers,
+-				       DRM_PLANE_TYPE_CURSOR,
+-				       "cursor %c", pipe_name(pipe));
+-
+-	kfree(modifiers);
++	plane_state = kzalloc_obj(*plane_state);
++	if (!plane_state)
++		return ERR_PTR(-ENOMEM);
+ 
+-	if (ret)
+-		goto fail;
++	intel_plane_state_reset(plane_state, cursor);
++	cursor->base.state = &plane_state->uapi;
+ 
+ 	if (DISPLAY_VER(display) >= 4)
+ 		drm_plane_create_rotation_property(&cursor->base,
+@@ -1088,11 +1092,6 @@ intel_cursor_plane_create(struct intel_display *display,
+ 	intel_plane_helper_add(cursor);
+ 
+ 	return cursor;
+-
+-fail:
+-	intel_plane_free(cursor);
+-
+-	return ERR_PTR(ret);
  }
  
-+static int mtk_dp_report_link_train(struct mtk_dp *mtk_dp)
-+{
-+	struct drm_connector_dp_link_train dp_link_train;
+ void intel_cursor_mode_config_init(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index 5390ceb21ca42..05c2dc0902f5c 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -62,8 +62,8 @@
+ #include "skl_universal_plane.h"
+ #include "skl_watermark.h"
+ 
+-static void intel_plane_state_reset(struct intel_plane_state *plane_state,
+-				    struct intel_plane *plane)
++void intel_plane_state_reset(struct intel_plane_state *plane_state,
++			     struct intel_plane *plane)
+ {
+ 	memset(plane_state, 0, sizeof(*plane_state));
+ 
+@@ -72,47 +72,6 @@ static void intel_plane_state_reset(struct intel_plane_state *plane_state,
+ 	plane_state->scaler_id = -1;
+ }
+ 
+-struct intel_plane *intel_plane_alloc(void)
+-{
+-	struct intel_plane_state *plane_state;
+-	struct intel_plane *plane;
+-
+-	plane = kzalloc_obj(*plane);
+-	if (!plane)
+-		return ERR_PTR(-ENOMEM);
+-
+-	plane_state = kzalloc_obj(*plane_state);
+-	if (!plane_state) {
+-		kfree(plane);
+-		return ERR_PTR(-ENOMEM);
+-	}
+-
+-	intel_plane_state_reset(plane_state, plane);
+-
+-	plane->base.state = &plane_state->uapi;
+-
+-	return plane;
+-}
+-
+-void intel_plane_free(struct intel_plane *plane)
+-{
+-	intel_plane_destroy_state(&plane->base, plane->base.state);
+-	kfree(plane);
+-}
+-
+-/**
+- * intel_plane_destroy - destroy a plane
+- * @plane: plane to destroy
+- *
+- * Common destruction function for all types of planes (primary, cursor,
+- * sprite).
+- */
+-void intel_plane_destroy(struct drm_plane *plane)
+-{
+-	drm_plane_cleanup(plane);
+-	kfree(to_intel_plane(plane));
+-}
+-
+ /**
+  * intel_plane_duplicate_state - duplicate plane state
+  * @plane: drm plane
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
+index 5a8f2f3baab5f..56221619a2b29 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.h
++++ b/drivers/gpu/drm/i915/display/intel_plane.h
+@@ -55,9 +55,8 @@ void intel_plane_update_arm(struct intel_dsb *dsb,
+ void intel_plane_disable_arm(struct intel_dsb *dsb,
+ 			     struct intel_plane *plane,
+ 			     const struct intel_crtc_state *crtc_state);
+-struct intel_plane *intel_plane_alloc(void);
+-void intel_plane_free(struct intel_plane *plane);
+-void intel_plane_destroy(struct drm_plane *plane);
++void intel_plane_state_reset(struct intel_plane_state *plane_state,
++			     struct intel_plane *plane);
+ struct drm_plane_state *intel_plane_duplicate_state(struct drm_plane *plane);
+ void intel_plane_destroy_state(struct drm_plane *plane,
+ 			       struct drm_plane_state *state);
+diff --git a/drivers/gpu/drm/i915/display/intel_sprite.c b/drivers/gpu/drm/i915/display/intel_sprite.c
+index 6a65f92e8a031..f285d15734ee5 100644
+--- a/drivers/gpu/drm/i915/display/intel_sprite.c
++++ b/drivers/gpu/drm/i915/display/intel_sprite.c
+@@ -36,6 +36,7 @@
+ #include <drm/drm_blend.h>
+ #include <drm/drm_color_mgmt.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_rect.h>
+ 
+@@ -1563,7 +1564,6 @@ static bool vlv_sprite_format_mod_supported(struct drm_plane *_plane,
+ static const struct drm_plane_funcs g4x_sprite_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = g4x_sprite_format_mod_supported,
+@@ -1573,7 +1573,6 @@ static const struct drm_plane_funcs g4x_sprite_funcs = {
+ static const struct drm_plane_funcs snb_sprite_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = snb_sprite_format_mod_supported,
+@@ -1583,7 +1582,6 @@ static const struct drm_plane_funcs snb_sprite_funcs = {
+ static const struct drm_plane_funcs vlv_sprite_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = vlv_sprite_format_mod_supported,
+@@ -1594,18 +1592,69 @@ struct intel_plane *
+ intel_sprite_plane_create(struct intel_display *display,
+ 			  enum pipe pipe, int sprite)
+ {
++	struct intel_plane_state *plane_state;
+ 	struct intel_plane *plane;
+ 	const struct drm_plane_funcs *plane_funcs;
+ 	unsigned int supported_rotations;
+ 	const u64 *modifiers;
+ 	const u32 *formats;
+ 	int num_formats;
+-	int ret, zpos;
++	int zpos;
 +
-+	dp_link_train.rate = drm_dp_bw_code_to_link_rate(mtk_dp->train_info.link_rate);
-+	dp_link_train.nlanes = mtk_dp->train_info.lane_count;
++	if (display->platform.valleyview || display->platform.cherryview) {
++		if (display->platform.cherryview && pipe == PIPE_B) {
++			formats = chv_pipe_b_sprite_formats;
++			num_formats = ARRAY_SIZE(chv_pipe_b_sprite_formats);
++		} else {
++			formats = vlv_sprite_formats;
++			num_formats = ARRAY_SIZE(vlv_sprite_formats);
++		}
 +
-+	for (int i = 0; i < mtk_dp->train_info.lane_count; i++) {
-+		dp_link_train.v_swing[i] = 1 << mtk_dp->train_info.vswing[i];
-+		dp_link_train.pre_emph[i] = 1 << mtk_dp->train_info.preemphasis[i];
++		plane_funcs = &vlv_sprite_funcs;
++	} else if (DISPLAY_VER(display) >= 7) {
++		formats = snb_sprite_formats;
++		num_formats = ARRAY_SIZE(snb_sprite_formats);
++
++		plane_funcs = &snb_sprite_funcs;
++	} else {
++		if (display->platform.sandybridge) {
++			formats = snb_sprite_formats;
++			num_formats = ARRAY_SIZE(snb_sprite_formats);
++
++			plane_funcs = &snb_sprite_funcs;
++		} else {
++			formats = g4x_sprite_formats;
++			num_formats = ARRAY_SIZE(g4x_sprite_formats);
++
++			plane_funcs = &g4x_sprite_funcs;
++		}
 +	}
 +
-+	return drm_connector_dp_set_link_train_properties(mtk_dp->conn, &dp_link_train);
-+}
++	if (display->platform.cherryview && pipe == PIPE_B) {
++		supported_rotations =
++			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180 |
++			DRM_MODE_REFLECT_X;
++	} else {
++		supported_rotations =
++			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
++	}
 +
- static int mtk_dp_training(struct mtk_dp *mtk_dp)
- {
- 	int ret;
-@@ -1892,7 +1913,7 @@ static int mtk_dp_training(struct mtk_dp *mtk_dp)
- 	mtk_dp_training_set_scramble(mtk_dp, true);
- 	mtk_dp_set_enhanced_frame_mode(mtk_dp);
++	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_TILING_X);
++
++	plane = drmm_universal_plane_alloc(display->drm, struct intel_plane, base,
++					   0, plane_funcs,
++					   formats, num_formats, modifiers,
++					   DRM_PLANE_TYPE_OVERLAY,
++					   "sprite %c", sprite_name(display, pipe, sprite));
++	kfree(modifiers);
  
--	return 0;
-+	return mtk_dp_report_link_train(mtk_dp);
+-	plane = intel_plane_alloc();
+ 	if (IS_ERR(plane))
+ 		return plane;
+ 
++	plane->pipe = pipe;
++	plane->id = PLANE_SPRITE0 + sprite;
++	plane->frontbuffer_bit = INTEL_FRONTBUFFER(pipe, plane->id);
++
+ 	if (display->platform.valleyview || display->platform.cherryview) {
+ 		plane->update_noarm = vlv_sprite_update_noarm;
+ 		plane->update_arm = vlv_sprite_update_arm;
+@@ -1621,16 +1670,6 @@ intel_sprite_plane_create(struct intel_display *display,
+ 		/* FIXME undocumented for VLV/CHV so not sure what's actually needed */
+ 		if (intel_scanout_needs_vtd_wa(display))
+ 			plane->vtd_guard = 128;
+-
+-		if (display->platform.cherryview && pipe == PIPE_B) {
+-			formats = chv_pipe_b_sprite_formats;
+-			num_formats = ARRAY_SIZE(chv_pipe_b_sprite_formats);
+-		} else {
+-			formats = vlv_sprite_formats;
+-			num_formats = ARRAY_SIZE(vlv_sprite_formats);
+-		}
+-
+-		plane_funcs = &vlv_sprite_funcs;
+ 	} else if (DISPLAY_VER(display) >= 7) {
+ 		plane->update_noarm = ivb_sprite_update_noarm;
+ 		plane->update_arm = ivb_sprite_update_arm;
+@@ -1652,11 +1691,6 @@ intel_sprite_plane_create(struct intel_display *display,
+ 
+ 		if (intel_scanout_needs_vtd_wa(display))
+ 			plane->vtd_guard = 64;
+-
+-		formats = snb_sprite_formats;
+-		num_formats = ARRAY_SIZE(snb_sprite_formats);
+-
+-		plane_funcs = &snb_sprite_funcs;
+ 	} else {
+ 		plane->update_noarm = g4x_sprite_update_noarm;
+ 		plane->update_arm = g4x_sprite_update_arm;
+@@ -1671,44 +1705,14 @@ intel_sprite_plane_create(struct intel_display *display,
+ 
+ 		if (intel_scanout_needs_vtd_wa(display))
+ 			plane->vtd_guard = 64;
+-
+-		if (display->platform.sandybridge) {
+-			formats = snb_sprite_formats;
+-			num_formats = ARRAY_SIZE(snb_sprite_formats);
+-
+-			plane_funcs = &snb_sprite_funcs;
+-		} else {
+-			formats = g4x_sprite_formats;
+-			num_formats = ARRAY_SIZE(g4x_sprite_formats);
+-
+-			plane_funcs = &g4x_sprite_funcs;
+-		}
+ 	}
+ 
+-	if (display->platform.cherryview && pipe == PIPE_B) {
+-		supported_rotations =
+-			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180 |
+-			DRM_MODE_REFLECT_X;
+-	} else {
+-		supported_rotations =
+-			DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
+-	}
++	plane_state = kzalloc_obj(*plane_state);
++	if (!plane_state)
++		return ERR_PTR(-ENOMEM);
+ 
+-	plane->pipe = pipe;
+-	plane->id = PLANE_SPRITE0 + sprite;
+-	plane->frontbuffer_bit = INTEL_FRONTBUFFER(pipe, plane->id);
+-
+-	modifiers = intel_fb_plane_get_modifiers(display, INTEL_PLANE_CAP_TILING_X);
+-
+-	ret = drm_universal_plane_init(display->drm, &plane->base,
+-				       0, plane_funcs,
+-				       formats, num_formats, modifiers,
+-				       DRM_PLANE_TYPE_OVERLAY,
+-				       "sprite %c", sprite_name(display, pipe, sprite));
+-	kfree(modifiers);
+-
+-	if (ret)
+-		goto fail;
++	intel_plane_state_reset(plane_state, plane);
++	plane->base.state = &plane_state->uapi;
+ 
+ 	drm_plane_create_rotation_property(&plane->base,
+ 					   DRM_MODE_ROTATE_0,
+@@ -1728,9 +1732,4 @@ intel_sprite_plane_create(struct intel_display *display,
+ 	intel_plane_helper_add(plane);
+ 
+ 	return plane;
+-
+-fail:
+-	intel_plane_free(plane);
+-
+-	return ERR_PTR(ret);
+ }
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 11ba42c67e3ed..6d6b108bf7e46 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -7,6 +7,7 @@
+ #include <drm/drm_blend.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_fourcc.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_print.h>
+ 
+ #include "intel_bo.h"
+@@ -2690,7 +2691,6 @@ static bool tgl_plane_format_mod_supported(struct drm_plane *_plane,
+ static const struct drm_plane_funcs skl_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = skl_plane_format_mod_supported,
+@@ -2700,7 +2700,6 @@ static const struct drm_plane_funcs skl_plane_funcs = {
+ static const struct drm_plane_funcs icl_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = icl_plane_format_mod_supported,
+@@ -2710,7 +2709,6 @@ static const struct drm_plane_funcs icl_plane_funcs = {
+ static const struct drm_plane_funcs tgl_plane_funcs = {
+ 	.update_plane = drm_atomic_helper_update_plane,
+ 	.disable_plane = drm_atomic_helper_disable_plane,
+-	.destroy = intel_plane_destroy,
+ 	.atomic_duplicate_state = intel_plane_duplicate_state,
+ 	.atomic_destroy_state = intel_plane_destroy_state,
+ 	.format_mod_supported = tgl_plane_format_mod_supported,
+@@ -2850,6 +2848,7 @@ struct intel_plane *
+ skl_universal_plane_create(struct intel_display *display,
+ 			   enum pipe pipe, enum plane_id plane_id)
+ {
++	struct intel_plane_state *plane_state;
+ 	const struct drm_plane_funcs *plane_funcs;
+ 	struct intel_plane *plane;
+ 	enum drm_plane_type plane_type;
+@@ -2858,10 +2857,50 @@ skl_universal_plane_create(struct intel_display *display,
+ 	const u64 *modifiers;
+ 	const u32 *formats;
+ 	int num_formats;
+-	int ret;
+ 	u8 caps;
+ 
+-	plane = intel_plane_alloc();
++	if (DISPLAY_VER(display) >= 11)
++		formats = icl_get_plane_formats(display, pipe,
++						plane_id, &num_formats);
++	else if (DISPLAY_VER(display) >= 10)
++		formats = glk_get_plane_formats(display, pipe,
++						plane_id, &num_formats);
++	else
++		formats = skl_get_plane_formats(display, pipe,
++						plane_id, &num_formats);
++
++	if (DISPLAY_VER(display) >= 12)
++		plane_funcs = &tgl_plane_funcs;
++	else if (DISPLAY_VER(display) == 11)
++		plane_funcs = &icl_plane_funcs;
++	else
++		plane_funcs = &skl_plane_funcs;
++
++	if (plane_id == PLANE_1)
++		plane_type = DRM_PLANE_TYPE_PRIMARY;
++	else
++		plane_type = DRM_PLANE_TYPE_OVERLAY;
++
++	if (DISPLAY_VER(display) >= 12)
++		caps = tgl_plane_caps(display, pipe, plane_id);
++	else if (DISPLAY_VER(display) == 11)
++		caps = icl_plane_caps(display, pipe, plane_id);
++	else if (DISPLAY_VER(display) == 10)
++		caps = glk_plane_caps(display, pipe, plane_id);
++	else
++		caps = skl_plane_caps(display, pipe, plane_id);
++
++	modifiers = intel_fb_plane_get_modifiers(display, caps);
++
++	plane = drmm_universal_plane_alloc(display->drm, struct intel_plane, base,
++					   0, plane_funcs,
++					   formats, num_formats, modifiers,
++					   plane_type,
++					   "plane %d%c", plane_id + 1,
++					   pipe_name(pipe));
++
++	kfree(modifiers);
++
+ 	if (IS_ERR(plane))
+ 		return plane;
+ 
+@@ -2940,50 +2979,12 @@ skl_universal_plane_create(struct intel_display *display,
+ 			plane->can_async_flip = skl_plane_can_async_flip;
+ 	}
+ 
+-	if (DISPLAY_VER(display) >= 11)
+-		formats = icl_get_plane_formats(display, pipe,
+-						plane_id, &num_formats);
+-	else if (DISPLAY_VER(display) >= 10)
+-		formats = glk_get_plane_formats(display, pipe,
+-						plane_id, &num_formats);
+-	else
+-		formats = skl_get_plane_formats(display, pipe,
+-						plane_id, &num_formats);
++	plane_state = kzalloc_obj(*plane_state);
++	if (!plane_state)
++		return ERR_PTR(-ENOMEM);
+ 
+-	if (DISPLAY_VER(display) >= 12)
+-		plane_funcs = &tgl_plane_funcs;
+-	else if (DISPLAY_VER(display) == 11)
+-		plane_funcs = &icl_plane_funcs;
+-	else
+-		plane_funcs = &skl_plane_funcs;
+-
+-	if (plane_id == PLANE_1)
+-		plane_type = DRM_PLANE_TYPE_PRIMARY;
+-	else
+-		plane_type = DRM_PLANE_TYPE_OVERLAY;
+-
+-	if (DISPLAY_VER(display) >= 12)
+-		caps = tgl_plane_caps(display, pipe, plane_id);
+-	else if (DISPLAY_VER(display) == 11)
+-		caps = icl_plane_caps(display, pipe, plane_id);
+-	else if (DISPLAY_VER(display) == 10)
+-		caps = glk_plane_caps(display, pipe, plane_id);
+-	else
+-		caps = skl_plane_caps(display, pipe, plane_id);
+-
+-	modifiers = intel_fb_plane_get_modifiers(display, caps);
+-
+-	ret = drm_universal_plane_init(display->drm, &plane->base,
+-				       0, plane_funcs,
+-				       formats, num_formats, modifiers,
+-				       plane_type,
+-				       "plane %d%c", plane_id + 1,
+-				       pipe_name(pipe));
+-
+-	kfree(modifiers);
+-
+-	if (ret)
+-		goto fail;
++	intel_plane_state_reset(plane_state, plane);
++	plane->base.state = &plane_state->uapi;
+ 
+ 	if (DISPLAY_VER(display) >= 13)
+ 		supported_rotations = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_180;
+@@ -3033,11 +3034,6 @@ skl_universal_plane_create(struct intel_display *display,
+ 	intel_plane_helper_add(plane);
+ 
+ 	return plane;
+-
+-fail:
+-	intel_plane_free(plane);
+-
+-	return ERR_PTR(ret);
  }
  
- static void mtk_dp_video_enable(struct mtk_dp *mtk_dp, bool enable)
-@@ -2004,6 +2025,7 @@ static irqreturn_t mtk_dp_hpd_event_thread(int hpd, void *dev)
- 			mtk_dp->need_debounce = false;
- 			mod_timer(&mtk_dp->debounce_timer,
- 				  jiffies + msecs_to_jiffies(100) - 1);
-+			drm_connector_dp_reset_link_train_properties(mtk_dp->conn);
- 		} else {
- 			mtk_dp_aux_panel_poweron(mtk_dp, true);
- 
-@@ -2742,6 +2764,14 @@ static int mtk_dp_edp_link_panel(struct drm_dp_aux *mtk_aux)
- 
- static int mtk_dp_probe(struct platform_device *pdev)
- {
-+	static const u32 dp_rates[] = {162000, 270000, 540000, 810000};
-+	static const struct drm_connector_dp_link_train_caps dp_link_train_caps = {
-+		.nlanes = DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE,
-+		.nrates = ARRAY_SIZE(dp_rates),
-+		.rates = dp_rates,
-+		.v_swings = DRM_DP_VOLTAGE_SWING_LEVEL_MASK,
-+		.pre_emphs = DRM_DP_PRE_EMPH_LEVEL_MASK,
-+	};
- 	struct mtk_dp *mtk_dp;
- 	struct device *dev = &pdev->dev;
- 	int ret;
-@@ -2809,6 +2839,8 @@ static int mtk_dp_probe(struct platform_device *pdev)
- 
- 	mtk_dp->bridge.of_node = dev->of_node;
- 	mtk_dp->bridge.type = mtk_dp->data->bridge_type;
-+	mtk_dp->bridge.dp_link_train_caps = &dp_link_train_caps;
-+	mtk_dp->bridge.ops = DRM_BRIDGE_OP_DP;
- 
- 	if (mtk_dp->bridge.type == DRM_MODE_CONNECTOR_eDP) {
- 		/*
+ void
 
 -- 
 2.43.0
