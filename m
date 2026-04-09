@@ -4,61 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70838EA3C23
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 10:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9E0EA3C23
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Apr 2026 10:24:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13C7F10E443;
-	Thu,  9 Apr 2026 10:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1E2110E780;
+	Thu,  9 Apr 2026 10:24:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Adr0pZd0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="klzChuTZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A52D310E7C1;
- Thu,  9 Apr 2026 10:16:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86EEA10E77D;
+ Thu,  9 Apr 2026 10:24:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775729781; x=1807265781;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=nITPsTmoCLZHCGfdEYVi/PHve9vaT24pRkavOGA+wlg=;
- b=Adr0pZd05pEbyzvN94xV865crIPGx9aqHP4fUw6eV8rQ1/9756Bp6lYG
- 6JDw3mkFvPKMWRfM4f+SIJBelM9L+z+3Q53FIbg6IJUqKzpV3nkh0mNrN
- 59aWa7cEGcbWWGGJGgsfLFqasNcScr7X/CyPireCsTxQpgsL3KBwFQn0H
- OA+uT1ixitYsaVOMg27uiUTKn0FDUfgN+FgIKGOfVpO5X0WpDR00Fdlt7
- 6q9tsrcXnDPN0z4rFWP2gGQceOzd1X/rL4BzZyY3+pwJh+AXHxe/HuZcx
- i6QOglfbLBHQUwsLaLIqs+fdDP93fwuDHTJS3q3QqThaSMK0WmZRwHdP7 A==;
-X-CSE-ConnectionGUID: 0wBlgh6YRgKuiuJIrghujw==
-X-CSE-MsgGUID: TELGd4iBRIqS1FSsP6ABJw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="80591456"
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="80591456"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 03:16:21 -0700
-X-CSE-ConnectionGUID: boGkG1wbSIaQWiQeQYAjkQ==
-X-CSE-MsgGUID: 6ciOUkk9QcimKVdB0ZLtdQ==
+ t=1775730294; x=1807266294;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=A5ne7mfOtPom5trDXxrA2WkFZkJcl9vXjEhixiCVQFU=;
+ b=klzChuTZivFyk0UnYF1SD6IHlwn2Sp6hf860/iQEtF1KZE693aKZ5MaD
+ /Vj3uyJBkrU0BoGZM98P0oYpt5CLcIZsr0NBqiN4Pwg0yYTGkHCVPKvJO
+ Rw+VPwKPQvSz+Dbl4iGTcxcl7kLbpVYO4R48TTZQNT4/d5c7MAACUQXVx
+ abZ4p9g4oRHJjesIzwwNSxHRUQNiBEXvzHgwMv7fDg/bHvOsCYkcEGa+q
+ BdgHG1w8rYvpVhCCAtQGnayo/Uq0q4XvcVukISOqHXjiElHLqdRk2hN8b
+ GsUbcp52NiSa+QrT79bb7IldqsbkV3S1Nk1eAL5bk9HuFTzkQ4/smTVOB A==;
+X-CSE-ConnectionGUID: jLlnX4VvTvuol+r9UshOMQ==
+X-CSE-MsgGUID: PROF0j5VSJqZDVWJzK1H0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11753"; a="76449841"
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="76449841"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 03:24:53 -0700
+X-CSE-ConnectionGUID: iSTR2pl8Quud9rGUwIiLUg==
+X-CSE-MsgGUID: SIWOAyjKQka3Q8G6KmLLyQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="223981004"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Apr 2026 03:16:19 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 9/9] drm/i915/dp: Make the RGB fallback for "4:2:0 only"
- modes the last resort
-Date: Thu,  9 Apr 2026 13:15:39 +0300
-Message-ID: <20260409101539.22032-10-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260409101539.22032-1-ville.syrjala@linux.intel.com>
-References: <20260409101539.22032-1-ville.syrjala@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="6.23,169,1770624000"; d="scan'208";a="228661168"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.151])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2026 03:24:49 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <add6fPHRC7Bc8Uri@jlahtine-mobl>
+References: <add6fPHRC7Bc8Uri@jlahtine-mobl>
+Subject: Re: [PULL] drm-intel-fixes
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Date: Thu, 09 Apr 2026 13:24:46 +0300
+Message-ID: <177573028627.53749.1013951458023110256@jlahtine-mobl>
+User-Agent: alot/0.12.dev7+g16b50e5f
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,34 +77,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Quoting Joonas Lahtinen (2026-04-09 13:07:56)
+> Hi Dave & Sima,
+>=20
+> Here's still a drm-intel-fixes PR towards 7.0. Took a few more hours
+> as Linus seems to prefer the EXECBUF fix via -fixes rather than -next.
+>=20
+> One display fix for SU area WARN in PSR code, for GT refcount underflow
+> fix in hangcheck and removal condition on execbuf BO processing which
+> gives a false alert of a bug in mainline.
 
-Currently we take the Hail Mary RGB fallback for "4:2:0 only" modes
-already during the first pass when respect_downstream_limits==true.
-It seems better to try everything else first (like ignoring TMDS
-clock limits) while still preferring 4:2:0, and only if everything
-else has failed fall back to RGB.
+Also, if you haven't been following all the discussion, the execbuf
+cleanup here removes the need for the fix that Linus applied himself to
+v7.0-rc7. This just removes the condition check that is always true,
+avoiding false alarm of a bug in current mainline.
 
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 945994fe681b..35b8fb5740aa 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3410,7 +3410,7 @@ intel_dp_compute_formats(struct intel_encoder *encoder,
- 						     respect_downstream_limits,
- 						     INTEL_OUTPUT_FORMAT_YCBCR420);
- 
--		if (ret) {
-+		if (ret && !respect_downstream_limits) {
- 			drm_dbg_kms(display->drm,
- 				    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
- 
--- 
-2.52.0
-
+Regards, Joonas
