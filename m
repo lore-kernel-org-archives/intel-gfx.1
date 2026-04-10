@@ -4,56 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09122F459EB
-	for <intel-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 15:05:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E8F2F459F4
+	for <intel-gfx@archiver.kernel.org>; Fri, 10 Apr 2026 15:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57CAF10E987;
-	Fri, 10 Apr 2026 15:05:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA65610E992;
+	Fri, 10 Apr 2026 15:19:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="S77eX6Hm";
+	dkim=pass (2048-bit key; unprotected) header.d=mit.edu header.i=@mit.edu header.b="VM9pR3FU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B8D410E979;
- Fri, 10 Apr 2026 15:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775833533; x=1807369533;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WYLqyRKspXU7koAGrI1XsfSlzZIJzpYpSap5c/OboqQ=;
- b=S77eX6HmIv4E7RRjnZyW3W1qOjh75ZzcHtKSavscKCMjqiM7MhdXhgt8
- 6QjDZ/68Fv1ng/foI0OanFYY0Ho+oRNGnyGYIj4v0Qhi6WhDCx7ehAg/Q
- z8qWtcbxs532zoEMtqOF4+SQd7LcBXNYyBvzS1Yyabn9ZlI/OScBk46vL
- GnmOSCF2phWxLZmMAa7TlduCKaPHolH7jtT6ios6Aocq/GYadga775Qt8
- GhKkG2h90CZgquOlJ0jpeSsfcCduAHe2CnupH9qTR55JOrfDEDWNGCfTy
- rn5Txf+3jW/5QoZLoUxNk9kZVJhRqvSDmG8v8jd414R9T1lst0M0JcE9/ w==;
-X-CSE-ConnectionGUID: fTay6+NrQJ2sWaGpj8iCgg==
-X-CSE-MsgGUID: hrMtE16xRnmx9EODlLin4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="76743769"
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="76743769"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 08:05:30 -0700
-X-CSE-ConnectionGUID: n6hpzBVQRUymcCVjkvVw6A==
-X-CSE-MsgGUID: lkJ3TilLQTSDkCjAOviOWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="224802736"
-Received: from zzombora-mobl1 (HELO localhost) ([10.245.244.89])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 08:05:29 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 10/10] drm/i915: Reject BIOS FB rotation in common code
-Date: Fri, 10 Apr 2026 18:04:49 +0300
-Message-ID: <20260410150449.9699-11-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260410150449.9699-1-ville.syrjala@linux.intel.com>
-References: <20260410150449.9699-1-ville.syrjala@linux.intel.com>
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6800710E992
+ for <intel-gfx@lists.freedesktop.org>; Fri, 10 Apr 2026 15:19:10 +0000 (UTC)
+Received: from trampoline.thunk.org
+ (pool-173-48-116-90.bstnma.fios.verizon.net [173.48.116.90])
+ (authenticated bits=0) (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 63AFIonm015842
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Apr 2026 11:18:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1775834338; bh=eTlXD+fEi5OyNbu4TxRTwpDmEzFd2ThBwniicSqJG9M=;
+ h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
+ b=VM9pR3FUqiyu4dGQLYjxtn5fwtIzfU7ySZMp0abbH18xV6/gDABRi9uB743lXz8hh
+ DLg+D58JGiw6cmfTe96qrNZsfI1LrX8CH4Z4SZsryjUI4LnJNSYnME68kmTAWN0bac
+ +APmObxjmRctPfSGmHJbriSXfrkN55pWYIbiVRfu2y0ECqpOPHSJun6K+BHM+LkVI2
+ DM7T+QYmlRWbU/sqPlO03FdXluf2F9iRmmuiDmCsbPLwL4U9izV2zs90P/AyWnNi7/
+ WJE2W3FtW9KojAgen2wKI5w3YJJGh4CS8IuF5T47bMgUta6WPQzUW9F7QaunmIRgXz
+ enYXQQPwNnobw==
+Received: by trampoline.thunk.org (Postfix, from userid 15806)
+ id 0D7462E00E1; Fri, 10 Apr 2026 11:18:48 -0400 (EDT)
+From: "Theodore Ts'o" <tytso@mit.edu>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Philipp Hahn <phahn-oss@avm.de>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+Subject: Re: [PATCH 04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Fri, 10 Apr 2026 11:18:40 -0400
+Message-ID: <177583430870.2758959.6171961359325912353.b4-ty@b4>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,52 +85,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-Reject 90/270 degree rotated BIOS framebuffers in common
-code. Currently skl_get_initial_plane_config() already rejects
-these, but we may want to implement the missing parts there
-so that skl_get_initial_plane_config() could be reused for
-general plane state verification purposes.
+On Tue, 10 Mar 2026 12:48:30 +0100, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+> 
+> Change generated with coccinelle.
 
-90/270 degree rotated framebuffers require two completely
-separate GGTT mappings (0 degree for the CPU, 270 degree
-for the display engine), and the rest of the BIOS FB
-takeover code is not prepared for that.
+Applied, thanks!
 
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_initial_plane.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+[04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
+        commit: 1d749e110277ce4103f27bd60d6181e52c0cc1e3
 
-diff --git a/drivers/gpu/drm/i915/display/intel_initial_plane.c b/drivers/gpu/drm/i915/display/intel_initial_plane.c
-index e3d1b2d1669c..0e5cd45f01cc 100644
---- a/drivers/gpu/drm/i915/display/intel_initial_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_initial_plane.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/iopoll.h>
- 
-+#include <drm/drm_blend.h>
- #include <drm/drm_print.h>
- #include <drm/intel/display_parent_interface.h>
- 
-@@ -101,6 +102,15 @@ intel_alloc_initial_plane_obj(struct intel_display *display,
- 		return NULL;
- 	}
- 
-+	/*
-+	 * Would need to preserve the 270 degree rotated
-+	 * GGTT mapping used by the display hardware.
-+	 */
-+	if (drm_rotation_90_or_270(plane_config->rotation)) {
-+		drm_dbg_kms(display->drm, "90/270 degree rotation not supported for initial FB\n");
-+		return NULL;
-+	}
-+
- 	return display->parent->initial_plane->alloc_obj(display->drm, plane_config);
- }
- 
+Best regards,
 -- 
-2.52.0
-
+Theodore Ts'o <tytso@mit.edu>
