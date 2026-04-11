@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45C91F3ED5C
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Apr 2026 17:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E09B6F3ED50
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Apr 2026 18:14:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D31BD10E258;
-	Sat, 11 Apr 2026 17:46:27 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VIF5G7N7";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB75710E21E
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Apr 2026 17:46:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775929582; x=1807465582;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NpqjcaNwNhP8PmhtFv9drlgAIv1TTcwxLYnfET8yZ2M=;
- b=VIF5G7N7yVvV2cNOka1K2cZS+CTcZoDzmkEalTrhqcdvcFNndLJ1n5bm
- IzN10dP6gB87ofC0zMuhQ+IrbTg4S5EYKX1rRQmjPfHlhkl4BAaLoOz52
- bpYlTF3c7UXA4JvT9CtOx0ITxCD+p26wk74R9TnrNDDD6bhHiPxyP6K4Z
- GSN8pLOw++rIJ7w+t2cjQoqGbEItwasULENG/lM28KQaVlARx9NEGHKAU
- 16/hiCkQCrq2syW9Xnu7/QtViawBTs6omrNnHHCLosPycbG1DSrWszWP7
- 5A6sTTmJRiTka9KG3PW4lXYLhkKmn2o+UURvI0IyFXnWg1rRFqYD1l4d+ A==;
-X-CSE-ConnectionGUID: T24HauBbSGOTY12vI8pZbQ==
-X-CSE-MsgGUID: P9ZqrEqaRK2CUKSA6aCCqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="99564233"
-X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="99564233"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2026 10:46:22 -0700
-X-CSE-ConnectionGUID: r4UjhFiZTGSrGyRNFpfaGg==
-X-CSE-MsgGUID: 3o8bcap2Q9SLwNRacmQAIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="222899876"
-Received: from administrator-system-product-name.igk.intel.com (HELO
- dev-417.igk.intel.com) ([10.91.214.181])
- by fmviesa009.fm.intel.com with ESMTP; 11 Apr 2026 10:46:20 -0700
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Nemesa Garg <nemesa.garg@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v2 07/10] drm/i915/scaler: unloop scaler readout that is run
- once
-Date: Sat, 11 Apr 2026 19:45:23 +0200
-Message-ID: <20260411174526.2850179-8-michal.grzelak@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260411174526.2850179-1-michal.grzelak@intel.com>
-References: <20260411174526.2850179-1-michal.grzelak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E42310E1ED;
+	Sat, 11 Apr 2026 18:14:21 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A14310E1ED;
+ Sat, 11 Apr 2026 18:14:19 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1699105103411013136=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_=3A_drm/i915/display=3A_U?=
+ =?utf-8?q?se_ceiling_division_for_NV12_UV_surface_offset_calculation?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Vidya Srinivas" <vidya.srinivas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sat, 11 Apr 2026 18:14:19 -0000
+Message-ID: <177593125954.453422.10391377417581380164@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260411171521.162189-1-vidya.srinivas@intel.com>
+In-Reply-To: <20260411171521.162189-1-vidya.srinivas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,78 +37,179 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Most of the loop's code is run once because of the continue statement at
-it's start and break statement at it's end. Kick it out of the loop.
+--===============1699105103411013136==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Suggested-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
----
- drivers/gpu/drm/i915/display/skl_scaler.c | 34 ++++++++++++-----------
- 1 file changed, 18 insertions(+), 16 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/skl_scaler.c b/drivers/gpu/drm/i915/display/skl_scaler.c
-index 6d9080ec74ce0..e71d9c036a1e7 100644
---- a/drivers/gpu/drm/i915/display/skl_scaler.c
-+++ b/drivers/gpu/drm/i915/display/skl_scaler.c
-@@ -951,36 +951,38 @@ void skl_scaler_get_config(struct intel_crtc_state *crtc_state)
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct intel_crtc_scaler_state *scaler_state = &crtc_state->scaler_state;
- 	int scaler_id;
-+	u32 pos, size;
- 
- 	/* find scaler attached to this pipe */
- 	for (scaler_id = 0; scaler_id < crtc->num_scalers; scaler_id++) {
--		u32 ctl, pos, size;
-+		u32 ctl;
- 
- 		ctl = intel_de_read(display, SKL_PS_CTRL(crtc->pipe, scaler_id));
- 		if ((ctl & (PS_SCALER_EN | PS_BINDING_MASK)) != (PS_SCALER_EN | PS_BINDING_PIPE))
- 			continue;
- 
--		if (scaler_has_casf(display, scaler_id))
--			intel_casf_sharpness_get_config(crtc_state);
--
--		crtc_state->pch_pfit.enabled = true;
--
--		pos = intel_de_read(display, SKL_PS_WIN_POS(crtc->pipe, scaler_id));
--		size = intel_de_read(display, SKL_PS_WIN_SZ(crtc->pipe, scaler_id));
--
--		drm_rect_init(&crtc_state->pch_pfit.dst,
--			      REG_FIELD_GET(PS_WIN_XPOS_MASK, pos),
--			      REG_FIELD_GET(PS_WIN_YPOS_MASK, pos),
--			      REG_FIELD_GET(PS_WIN_XSIZE_MASK, size),
--			      REG_FIELD_GET(PS_WIN_YSIZE_MASK, size));
--
--		scaler_state->scalers[scaler_id].in_use = true;
- 		break;
- 	}
- 
- 	if (scaler_id == crtc->num_scalers)
- 		return;
- 
-+	if (scaler_has_casf(display, scaler_id))
-+		intel_casf_sharpness_get_config(crtc_state);
-+
-+	crtc_state->pch_pfit.enabled = true;
-+
-+	pos = intel_de_read(display, SKL_PS_WIN_POS(crtc->pipe, scaler_id));
-+	size = intel_de_read(display, SKL_PS_WIN_SZ(crtc->pipe, scaler_id));
-+
-+	drm_rect_init(&crtc_state->pch_pfit.dst,
-+		      REG_FIELD_GET(PS_WIN_XPOS_MASK, pos),
-+		      REG_FIELD_GET(PS_WIN_YPOS_MASK, pos),
-+		      REG_FIELD_GET(PS_WIN_XSIZE_MASK, size),
-+		      REG_FIELD_GET(PS_WIN_YSIZE_MASK, size));
-+
-+	scaler_state->scalers[scaler_id].in_use = true;
-+
- 	scaler_state->scaler_id = scaler_id;
- 	if (scaler_id >= 0)
- 		scaler_state->scaler_users |= (1 << SKL_CRTC_INDEX);
--- 
-2.45.2
+Series: : drm/i915/display: Use ceiling division for NV12 UV surface offset calculation
+URL   : https://patchwork.freedesktop.org/series/164740/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18315 -> Patchwork_164740v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): fi-glk-j4005 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164740v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][1] ([i915#2190])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@parallel-random-engines:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@gem_lmem_swapping@parallel-random-engines.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18315/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_psr@psr-primary-page-flip:
+    - fi-glk-j4005:       NOTRUN -> [SKIP][5] +12 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@kms_psr@psr-primary-page-flip.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [DMESG-FAIL][6] ([i915#12061]) -> [PASS][7] +1 other test pass
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18315/bat-mtlp-8/igt@i915_selftest@live.html
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/bat-mtlp-8/igt@i915_selftest@live.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18315 -> Patchwork_164740v1
+
+  CI-20190529: 20190529
+  CI_DRM_18315: dcbfa16156e0733d93e1039011bcbc28e4f9ee15 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8854: 93abaf0170728f69bc27577e5b405f7a2a01b6fd @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164740v1: dcbfa16156e0733d93e1039011bcbc28e4f9ee15 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/index.html
+
+--===============1699105103411013136==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>: drm/i915/display: Use ceiling division for NV12 UV surface offset calculation</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164740/">https://patchwork.freedesktop.org/series/164740/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18315 -&gt; Patchwork_164740v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): fi-glk-j4005 <br />
+  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164740v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18315/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-page-flip:</p>
+<ul>
+<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/fi-glk-j4005/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> +12 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18315/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v1/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18315 -&gt; Patchwork_164740v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18315: dcbfa16156e0733d93e1039011bcbc28e4f9ee15 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8854: 93abaf0170728f69bc27577e5b405f7a2a01b6fd @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164740v1: dcbfa16156e0733d93e1039011bcbc28e4f9ee15 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1699105103411013136==--
