@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 951E2F3ED59
-	for <intel-gfx@archiver.kernel.org>; Sat, 11 Apr 2026 17:46:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30296F3ED5B
+	for <intel-gfx@archiver.kernel.org>; Sat, 11 Apr 2026 17:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B006F10E213;
-	Sat, 11 Apr 2026 17:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE3E810E214;
+	Sat, 11 Apr 2026 17:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P0X2VARP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VKGedmgo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD1E10E210
- for <intel-gfx@lists.freedesktop.org>; Sat, 11 Apr 2026 17:46:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0859110E214
+ for <intel-gfx@lists.freedesktop.org>; Sat, 11 Apr 2026 17:46:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775929575; x=1807465575;
+ t=1775929579; x=1807465579;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=wAXU+alPmMGK7D/rL/ovkNDPBTL8iGQN3AfvmIqHxzA=;
- b=P0X2VARP07jeLKbO6aE0MrlFzYvi6W/tdpiS/UMwiOe7lBsAyBTWGAXn
- o398W1pPlj4aZc5Jjs5wPrngtEHP8xRCVbfQ6zhfuCvuuRbtp6m2KTaDn
- Az5YCx4FpX7Slmta1pSAZiPv9gtAqoYnd2TDa9tV6mPM9Xy/B5676t+K5
- Am/TJ38OFa2plY0APd4cwfpBNTE7NwtTW6S9wlaf52Ta6KVZXby5TLCOJ
- 3ovMwebkAvEPyQzN4jahxQURWXhNOZHFwZty1BQGc+OlsH+tSodJR/j6c
- GPKG89FecPmnfOv+J+HeJXgNrO8cs7HYf75KJIzjj3FBQnzd6+pI1tp4Z w==;
-X-CSE-ConnectionGUID: VA4P7oYBRQyKxE8Be4O5PQ==
-X-CSE-MsgGUID: JaBUk5QKRJaksk9NmbQSKw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="99564212"
-X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="99564212"
+ bh=5MWVYL/afAvuk7/me77FAgEnOvBQIXRWn6DJMoMgcb4=;
+ b=VKGedmgozJFBVrgqpEfe98+YKDUNTmK0gi+mX+G74RgmiU0HBce3UpYm
+ suk6aR0C0Lww0PFRhVxfWP1gGemdEPh3fUaU1/5Vr01r18LbhE7hCOG3g
+ xenkEwHMjd+eOUxGfzNrOMAmLrM29xzc+52990jJKuCYwos2fk0DvcEdA
+ PhrOfkIMSyL4NmXljG3Rn4YPx4HAhPSaUg+g43w0z4Iny/wh84JRS/pzc
+ WPwpzBnWWihKsG3VOXaec9nyVkN5mzo9/r1nyQd7mUSXfde9wiP2dCFvf
+ C1jcYG6xXVWJEuxhec6sqgkGzrVAXpcRL3Y0IJ1zR9GYb9GaNlERLGAlN w==;
+X-CSE-ConnectionGUID: Nck8KDjgQuqq6HU5g5zm4A==
+X-CSE-MsgGUID: reBCqgi+T3aMmi/Sx7Shdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11755"; a="99564225"
+X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="99564225"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2026 10:46:14 -0700
-X-CSE-ConnectionGUID: xTOE2wBbTRyIVn+MH/DODg==
-X-CSE-MsgGUID: 1MXexefdSxGYAABSPQuSwA==
+ 11 Apr 2026 10:46:18 -0700
+X-CSE-ConnectionGUID: Ymv5LgwASyWjjbzNatYq4g==
+X-CSE-MsgGUID: ga8j7t6PROiRN7mbcxS7rQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="222899826"
+X-IronPort-AV: E=Sophos;i="6.23,173,1770624000"; d="scan'208";a="222899849"
 Received: from administrator-system-product-name.igk.intel.com (HELO
  dev-417.igk.intel.com) ([10.91.214.181])
- by fmviesa009.fm.intel.com with ESMTP; 11 Apr 2026 10:46:13 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 11 Apr 2026 10:46:16 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
  Nemesa Garg <nemesa.garg@intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v2 01/10] drm/i915/casf: fix comment typos
-Date: Sat, 11 Apr 2026 19:45:17 +0200
-Message-ID: <20260411174526.2850179-2-michal.grzelak@intel.com>
+Subject: [PATCH v2 04/10] drm/i915/casf: rename sumcoeff into sum_coeff
+Date: Sat, 11 Apr 2026 19:45:20 +0200
+Message-ID: <20260411174526.2850179-5-michal.grzelak@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260411174526.2850179-1-michal.grzelak@intel.com>
 References: <20260411174526.2850179-1-michal.grzelak@intel.com>
@@ -72,27 +72,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Remove superfluous whitespace character and fix the spelling.
+Stick to using snake_case in intel_casf_scaler_compute_coeff() where
+it is possible.
 
 Cc: Nemesa Garg <nemesa.garg@intel.com>
 Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_casf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_casf.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_casf.c b/drivers/gpu/drm/i915/display/intel_casf.c
-index c2d2746c5f041..9a306aee21994 100644
+index b9643548d1822..cafd21a036320 100644
 --- a/drivers/gpu/drm/i915/display/intel_casf.c
 +++ b/drivers/gpu/drm/i915/display/intel_casf.c
-@@ -162,7 +162,7 @@ static u32 casf_coeff(const struct intel_crtc_state *crtc_state, int t)
+@@ -218,7 +218,7 @@ static void intel_casf_scaler_compute_coeff(struct intel_crtc_state *crtc_state)
+ {
+ 	const u16 *filtercoeff;
+ 	u16 filter_coeff[SCALER_FILTER_NUM_TAPS];
+-	u16 sumcoeff = 0;
++	u16 sum_coeff = 0;
+ 	int i;
  
- /*
-  * 17 phase of 7 taps requires 119 coefficients in 60 dwords per set.
-- * To enable casf:  program scaler coefficients with the coeffients
-+ * To enable casf: program scaler coefficients with the coefficients
-  * that are calculated and stored in pch_pfit.casf.coeff as per
-  * SCALER_COEFFICIENT_FORMAT
-  */
+ 	if (crtc_state->pch_pfit.casf.win_size == 0)
+@@ -229,10 +229,10 @@ static void intel_casf_scaler_compute_coeff(struct intel_crtc_state *crtc_state)
+ 		filtercoeff = filtercoeff_3;
+ 
+ 	for (i = 0; i < SCALER_FILTER_NUM_TAPS; i++)
+-		sumcoeff += *(filtercoeff + i);
++		sum_coeff += *(filtercoeff + i);
+ 
+ 	for (i = 0; i < SCALER_FILTER_NUM_TAPS; i++) {
+-		filter_coeff[i] = (*(filtercoeff + i) * 100 / sumcoeff);
++		filter_coeff[i] = (*(filtercoeff + i) * 100 / sum_coeff);
+ 		convert_sharpness_coeff_binary(&crtc_state->pch_pfit.casf.coeff[i],
+ 					      filter_coeff[i]);
+ 	}
 -- 
 2.45.2
 
