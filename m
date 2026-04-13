@@ -4,48 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2706AED7B9A
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 10:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DD6AF9D0C8
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 12:10:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8705D10E06D;
-	Tue, 14 Apr 2026 10:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C84E10E422;
+	Tue, 14 Apr 2026 12:10:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CwwKUyli";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="syyNFaz4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9367510E06D
- for <intel-gfx@lists.freedesktop.org>; Tue, 14 Apr 2026 10:25:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4950243045;
- Tue, 14 Apr 2026 10:25:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78AEFC2BCB4;
- Tue, 14 Apr 2026 10:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776162359;
- bh=zfUclQwCQMcTFGwQkm93CYEfEeaHT9/PFou3kTysz/o=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=CwwKUyli5Bxcv0Pi2b0TO4voxXpqtT3KK6ow3OuHL6E/U7RnTU3uVfTkv2tEE8Dq6
- i0RjPv6JZK+e+P1W9nDADj8qQ7Qu0z7ojmjZYCaID5lVi0J8IEFm/KQfLurCXx/wFr
- gFA0GDS2PhE9nEJO4gDYNhAkndZRQCek6mN0g7PXFc+afEy7MsbDLDJqha+1ToZplX
- hzNQh9yumII0Sz/8fXQjA+1Bn1eKCFVmRIW7cjKBz/vHcBB6HY2NgATCAxy4/obXTE
- ZZGCD1ovcRhZ0LSWYL9S2lSdgT+0g4tfofbZ2ShyOObFYdNRLMiZXV+nChdc+o4zwj
- kmuBtBA70Ufnw==
-Date: Tue, 14 Apr 2026 12:25:54 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Jia Yao <jia.yao@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, stable@vger.kernel.org, 
- Shuicheng Lin <shuicheng.lin@intel.com>, Matt Roper <matthew.d.roper@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Maciej Plewka <maciej.plewka@intel.com>
-Subject: Re: [PATCH v2] drm/i915/dg2: Add per-context control for
- Wa_22013059131
-Message-ID: <ad4V09-JiU4kH2BW@zenone.zhora.eu>
-References: <20260410140619.736008-1-jia.yao@intel.com>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76E9B10E450;
+ Mon, 13 Apr 2026 12:34:17 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id A959C1A31E4;
+ Mon, 13 Apr 2026 12:34:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6D14A5FFB9;
+ Mon, 13 Apr 2026 12:34:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 10AAC10450229; 
+ Mon, 13 Apr 2026 14:34:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776083654; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=W8Wq0XFDTnCET+9d1u1+KkWzNdxSiwKVtLFGfiPbxXY=;
+ b=syyNFaz4M5CS3w/qw5wtQg2RUzkQnw7q8wpoWJoj2F/6PjYErOhqgA15EFQePTJFBA4UUF
+ LSoYPrX+6nQZSqeG+B4U4C4xWZ1ulEKEh0Ey4sQyQWMzsQ6tAryHHJei5nGcYHXOoxDecC
+ MEHdbtnzQcIZmpBy0guw4bo6EI9a3soHuL6Iia5wgs5TjoAu7fZyVJG+ga+5ODGi/+U2VG
+ 5Hif4ZnGHGfMoRaK7RFojvStP0nVD+NWuhg11+AM9pkSYzPTLZPJvgxhSIVupZBkt6H3R8
+ zRfNZdNIdvMsN5cINpliwzzvjzglbX6zYtJZaEhq4n3qR6E/vUiX3TK/CIPkKw==
+Date: Mon, 13 Apr 2026 14:34:02 +0200
+From: Kory Maincent <kory.maincent@bootlin.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Dave
+ Airlie <airlied@redhat.com>, Jesse Barnes <jbarnes@virtuousgeek.org>, Eric
+ Anholt <eric@anholt.net>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Chun-Kuang Hu
+ <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Matthias
+ Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Chris Wilson
+ <chris@chris-wilson.co.uk>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, Mark Yacoub <markyacoub@google.com>, Sean
+ Paul <seanpaul@google.com>, Louis Chauvet <louis.chauvet@bootlin.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Subject: Re: [PATCH RFC 10/12] drm/i915/display/dp: Adopt dp_connector
+ helpers to expose link training state
+Message-ID: <20260413143402.76f5c3c9@kmaincent-XPS-13-7390>
+In-Reply-To: <e253ca4fa0b493032a7b35a0a20689b9d9e0c4e7@intel.com>
+References: <20260409-feat_link_cap-v1-0-7069e8199ce2@bootlin.com>
+ <20260409-feat_link_cap-v1-10-7069e8199ce2@bootlin.com>
+ <e253ca4fa0b493032a7b35a0a20689b9d9e0c4e7@intel.com>
+Organization: bootlin
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260410140619.736008-1-jia.yao@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
+X-Mailman-Approved-At: Tue, 14 Apr 2026 12:10:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,24 +86,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Jia,
+On Fri, 10 Apr 2026 19:26:53 +0300
+Jani Nikula <jani.nikula@linux.intel.com> wrote:
 
-...
+> On Thu, 09 Apr 2026, Kory Maincent <kory.maincent@bootlin.com> wrote:
+> > Switch the i915 DP connector initialization from drmm_connector_init()
+> > to drmm_connector_dp_init(), providing the source link capabilities
+> > (supported lane counts, link rates, DSC support, voltage swing and
+> > pre-emphasis levels).
+> >
+> > Add intel_dp_report_link_train() to collect the negotiated link
+> > parameters (rate, lane count, DSC enable, per-lane voltage swing and
+> > pre-emphasis) and report them via
+> > drm_connector_dp_set_link_train_properties() once link training complet=
+es
+> > successfully.
+> >
+> > Reset the link training properties via
+> > drm_connector_dp_reset_link_train_properties() when the connector is
+> > reported as disconnected or when the display device is disabled, so
+> > the exposed state always reflects the current link status.
+> >
+> > Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_dp.c            | 31
+> > +++++++++++++++++++--- .../gpu/drm/i915/display/intel_dp_link_training.=
+c  |
+> > 25 +++++++++++++++++ 2 files changed, 52 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> > b/drivers/gpu/drm/i915/display/intel_dp.c index
+> > 2af64de9c81de..641406bdc0cc9 100644 ---
+> > a/drivers/gpu/drm/i915/display/intel_dp.c +++
+> > b/drivers/gpu/drm/i915/display/intel_dp.c @@ -45,6 +45,7 @@
+> >  #include <drm/display/drm_hdmi_helper.h>
+> >  #include <drm/drm_atomic_helper.h>
+> >  #include <drm/drm_crtc.h>
+> > +#include <drm/drm_dp_connector.h>
+> >  #include <drm/drm_edid.h>
+> >  #include <drm/drm_fixed.h>
+> >  #include <drm/drm_managed.h>
+> > @@ -6337,8 +6338,10 @@ intel_dp_detect(struct drm_connector *_connector,
+> >  	drm_WARN_ON(display->drm,
+> >  		    !drm_modeset_is_locked(&display->drm->mode_config.connection_mut=
+ex));
+> > =20
+> > -	if (!intel_display_device_enabled(display))
+> > +	if (!intel_display_device_enabled(display)) {
+> > +		drm_connector_dp_reset_link_train_properties(_connector);
+> >  		return connector_status_disconnected;
+> > +	}
+> > =20
+> >  	if (!intel_display_driver_check_access(display))
+> >  		return connector->base.status;
+> > @@ -6388,6 +6391,8 @@ intel_dp_detect(struct drm_connector *_connector,
+> > =20
+> >  		intel_dp_tunnel_disconnect(intel_dp);
+> > =20
+> > +		drm_connector_dp_reset_link_train_properties(_connector);
+> > +
+> >  		goto out_unset_edid;
+> >  	}
+> > =20
+> > @@ -7162,10 +7167,12 @@ intel_dp_init_connector(struct intel_digital_po=
+rt
+> > *dig_port, struct intel_connector *connector)
+> >  {
+> >  	struct intel_display *display =3D to_intel_display(dig_port);
+> > +	struct drm_connector_dp_link_train_caps link_caps;
+> >  	struct intel_dp *intel_dp =3D &dig_port->dp;
+> >  	struct intel_encoder *encoder =3D &dig_port->base;
+> >  	struct drm_device *dev =3D encoder->base.dev;
+> >  	enum port port =3D encoder->port;
+> > +	u32 *rates;
+> >  	int type;
+> > =20
+> >  	if (drm_WARN(dev, dig_port->max_lanes < 1,
+> > @@ -7213,8 +7220,25 @@ intel_dp_init_connector(struct intel_digital_port
+> > *dig_port, type =3D=3D DRM_MODE_CONNECTOR_eDP ? "eDP" : "DP",
+> >  		    encoder->base.base.id, encoder->base.name);
+> > =20
+> > -	drmm_connector_init(dev, &connector->base,
+> > &intel_dp_connector_funcs,
+> > -			    type, &intel_dp->aux.ddc);
+> > +	intel_dp_set_source_rates(intel_dp);
+> > +	link_caps.nlanes =3D DRM_DP_1LANE | DRM_DP_2LANE | DRM_DP_4LANE;
+> > +	link_caps.nrates =3D intel_dp->num_source_rates;
+> > +	rates =3D kzalloc_objs(*rates, intel_dp->num_source_rates);
+> > +	if (!rates)
+> > +		goto fail;
+> > +
+> > +	for (int i =3D 0; i < intel_dp->num_source_rates; i++)
+> > +		rates[i] =3D intel_dp->source_rates[i];
+> > +
+> > +	link_caps.rates =3D rates;
+> > +	link_caps.dsc =3D true; =20
+>=20
+> You have a source, you have a sink, and you have a link between the two.
+>=20
+> Source rates do not reflect the link rates common between source and
+> sink.
+>=20
+> DSC depends on source and sink, and it's not statically "true" for
+> either, and depends on a bunch of things.
 
-> +	case I915_CONTEXT_PARAM_WA_22013059131:
-> +		if (args->size)
-> +			ret = -EINVAL;
-> +		else if (args->value)
-> +			pc->user_flags |= BIT(UCONTEXT_WA_22013059131);
-> +		else
-> +			pc->user_flags &= ~BIT(UCONTEXT_WA_22013059131);
-> +		break;
+At init, we are reporting the capabilities of the source. So we list every
+link rates that the source can achieve and we report that the source is DSC
+capable which it is IIUC the code. Or maybe I am missing something?
 
-Should we check here for the platform type?
-
-Andi
-
-> +
->  	case I915_CONTEXT_PARAM_RECOVERABLE:
->  		if (args->size)
->  			ret = -EINVAL;
+Regards,
+--=20
+K=C3=B6ry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
