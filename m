@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4DBF9D0C9
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 12:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA9F5F9D0CA
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Apr 2026 13:31:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B44EB10E5EA;
-	Tue, 14 Apr 2026 12:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74A8C10E5FF;
+	Tue, 14 Apr 2026 13:31:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="lnzUFzMc";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="btaCxH8t";
 	dkim-atps=neutral
-X-Greylist: delayed 586 seconds by postgrey-1.36 at gabe;
- Mon, 13 Apr 2026 23:19:37 UTC
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F75D10E3E9;
- Mon, 13 Apr 2026 23:19:37 +0000 (UTC)
-Received: from [192.168.178.25] (i5C75F434.versanet.de [92.117.244.52])
- (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 844A22FC0050;
- Tue, 14 Apr 2026 01:09:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1776121789;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=hQrMwPP7AHLmS/HZHFmEI9yHSkcu3d1286G7GgdZmck=;
- b=lnzUFzMc8tS/LQJUk3N++EhewZ4Xl0jhWsrh36ybYuup546Mqtl6HeGQwLpGY3QkwtdXcL
- fRu+cVGa7t9cHYTzJfDhHkm4VlgSKIZbZ5YN6/mWC0Wh+vdFBOILh8259gmlipKz4tuTgp
- oNCsCvq51JbX3DoXfasx9OLb2I/MlcY=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-Message-ID: <38ba8502-4a9b-4881-9bac-7833ef755d77@tuxedocomputers.com>
-Date: Tue, 14 Apr 2026 01:09:47 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E0E810E5FC;
+ Tue, 14 Apr 2026 13:31:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776173488; x=1807709488;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=RAGj0BRheN//JbqmKXZg0RPj/DrBZcNxLGNN0k0Sgag=;
+ b=btaCxH8tkPQCnASOOIyFykwUwqOwwAtgBCUf3pHdDCOzffBMTnDW/ddq
+ 5yFSGcympEc3SJhs5vk75BqKAjiNzWtFer+WFoqDNwy6bvwJsL2qbGXUE
+ 1lVOap8CXuRjEme4eAGbvYg2jQEpkj6C4QKS4uLoldW2JCuya2UsdTS1g
+ xQ5UfomrL619+m9f4khXgT4diXSNcQrDVmxmz3DZc8iVeJvI2SkLn9vHL
+ IGaKyR/1BuHCnDLvKNcfzHd+7b2N6DUwBbrlBVohkty0aRoIKttpLNnDU
+ 5ytrmzCM4J77YZaZm4Kkvxs2rUHai5WguZsrkgN3EEj5xD339y/VroLU0 Q==;
+X-CSE-ConnectionGUID: ZSzH5oSuRDeYvj0K8lb/DA==
+X-CSE-MsgGUID: TKd96YzERdy8KkbFgtj7LQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11759"; a="102587539"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="102587539"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2026 06:31:28 -0700
+X-CSE-ConnectionGUID: YAfTFO8iQC24JH4tiYWksQ==
+X-CSE-MsgGUID: /dmoFTEqTIu7Ky/IFfXu9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="229221824"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.238])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Apr 2026 06:31:25 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Animesh Manna <animesh.manna@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: uma.shankar@intel.com, dibin.moolakadan.subrahmanian@intel.com, Animesh
+ Manna <animesh.manna@intel.com>
+Subject: Re: [PATCH v4 01/13] drm/i915/cmtg: Add intel_cmtg_is_allowed() for
+ CMTG
+In-Reply-To: <20260412103712.4021213-2-animesh.manna@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260412103712.4021213-1-animesh.manna@intel.com>
+ <20260412103712.4021213-2-animesh.manna@intel.com>
+Date: Tue, 14 Apr 2026 16:31:21 +0300
+Message-ID: <26027f9989a2f963236ac3a41d69ca910d4e7069@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/backlight: Remove try_vesa_interface
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com
-References: <20260224031322.2568874-1-suraj.kandpal@intel.com>
-Content-Language: en-US
-From: Werner Sembach <wse@tuxedocomputers.com>
-In-Reply-To: <20260224031322.2568874-1-suraj.kandpal@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Tue, 14 Apr 2026 12:10:11 +0000
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,99 +73,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-Am 24.02.26 um 04:13 schrieb Suraj Kandpal:
-> Remove try_vesa_interface. This is because we now make VESA Interface
-> as a fallback mechanism for Panels which needs VESA DPCD AUX backlight
-> mechanism to work but have a broken VBT indicating otherwise.
-> While at in sneak in a small comment cleanup too.
-
-Just a heads up: I ran into some devices that don't auto select the intel 
-interface and don't work with the vesa interface, but ran in the return -ENODEV 
-case before and then still had a working backlight. This patch stops backlight 
-control working on these devices. So there seems to be another fallback that 
-this patch overwrites?
-
-Explicitly forcing the intel interface via module property makes the backlight 
-control work again.
-
-I will do some more research and then write a proper bug report, but just to let 
-you know that this patch will cause a regression bug in its current form.
-
-Best regards,
-
-Werner
-
+On Sun, 12 Apr 2026, Animesh Manna <animesh.manna@intel.com> wrote:
+> CMTG will be enabled only with DC3co, so add a separate function
+> intel_cmtg_is_allowed() to check the prerequisites for enabling CMTG.
+> DC3co will be enabled in a separate patch.
 >
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15679
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> v2:
+> - Remove separate flag for DC3co from crtc_state. [Uma, Dibin]
+>
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 > ---
->   .../drm/i915/display/intel_dp_aux_backlight.c | 19 +++++++------------
->   1 file changed, 7 insertions(+), 12 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_cmtg.c | 15 +++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_cmtg.h |  2 ++
+>  2 files changed, 17 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index eb05ef4bd9f6..a8e9872566cd 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -644,9 +644,10 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->   	struct intel_dp *intel_dp = intel_attached_dp(connector);
->   	struct drm_device *dev = connector->base.dev;
->   	struct intel_panel *panel = &connector->panel;
-> -	bool try_intel_interface = false, try_vesa_interface = false;
-> +	bool try_intel_interface = false;
->   
-> -	/* Check the VBT and user's module parameters to figure out which
-> +	/*
-> +	 * Check the VBT and user's module parameters to figure out which
->   	 * interfaces to probe
->   	 */
->   	switch (display->params.enable_dpcd_backlight) {
-> @@ -655,7 +656,6 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->   	case INTEL_DP_AUX_BACKLIGHT_AUTO:
->   		switch (panel->vbt.backlight.type) {
->   		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
-> -			try_vesa_interface = true;
->   			break;
->   		case INTEL_BACKLIGHT_DISPLAY_DDI:
->   			try_intel_interface = true;
-> @@ -668,20 +668,12 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->   		if (panel->vbt.backlight.type != INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
->   			try_intel_interface = true;
->   
-> -		try_vesa_interface = true;
-> -		break;
-> -	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
-> -		try_vesa_interface = true;
->   		break;
->   	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
->   		try_intel_interface = true;
->   		break;
->   	}
->   
-> -	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
-> -	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
-> -		try_vesa_interface = true;
-> -
->   	/*
->   	 * Since Intel has their own backlight control interface, the majority of machines out there
->   	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
-> @@ -694,6 +686,9 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->   	 * panel with Intel's OUI - which is also required for us to be able to detect Intel's
->   	 * backlight interface at all. This means that the only sensible way for us to detect both
->   	 * interfaces is to probe for Intel's first, and VESA's second.
-> +	 *
-> +	 * Also there is a chance some VBT's may advertise false Intel backlight support even if the
-> +	 * tcon's DPCD says otherwise. This mean we keep VESA interface as fallback in that case.
->   	 */
->   	if (try_intel_interface && intel_dp_aux_supports_hdr_backlight(connector) &&
->   	    intel_dp->edp_dpcd[0] <= DP_EDP_14b) {
-> @@ -703,7 +698,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
->   		return 0;
->   	}
->   
-> -	if (try_vesa_interface && intel_dp_aux_supports_vesa_backlight(connector)) {
-> +	if (intel_dp_aux_supports_vesa_backlight(connector)) {
->   		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP backlight controls\n",
->   			    connector->base.base.id, connector->base.name);
->   		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
+> diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
+> index e1fdc6fe9762..1debed43cf2c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
+> @@ -16,6 +16,7 @@
+>  #include "intel_display_device.h"
+>  #include "intel_display_power.h"
+>  #include "intel_display_regs.h"
+> +#include "intel_display_types.h"
+>  
+>  /**
+>   * DOC: Common Primary Timing Generator (CMTG)
+> @@ -185,3 +186,17 @@ void intel_cmtg_sanitize(struct intel_display *display)
+>  
+>  	intel_cmtg_disable(display, &cmtg_config);
+>  }
+> +
+> +bool intel_cmtg_is_allowed(const struct intel_crtc_state *crtc_state)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc_state);
+> +	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+> +	struct i915_power_domains *power_domains = &display->power.domains;
+> +
+> +	if ((cpu_transcoder == TRANSCODER_A || cpu_transcoder == TRANSCODER_B) &&
+> +	    DISPLAY_VER(display) == 35 && intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP) &&
+> +	    power_domains->target_dc_state == DC_STATE_EN_DC3CO)
+
+intel_cmtg.c has no business accessing struct i915_power_domains members
+directly. It belongs to intel_display_power.c.
+
+BR,
+Jani.
+
+> +		return true;
+> +
+> +	return false;
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.h b/drivers/gpu/drm/i915/display/intel_cmtg.h
+> index ba62199adaa2..7692cc98cf87 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cmtg.h
+> +++ b/drivers/gpu/drm/i915/display/intel_cmtg.h
+> @@ -7,7 +7,9 @@
+>  #define __INTEL_CMTG_H__
+>  
+>  struct intel_display;
+> +struct intel_crtc_state;
+>  
+>  void intel_cmtg_sanitize(struct intel_display *display);
+> +bool intel_cmtg_is_allowed(const struct intel_crtc_state *crtc_state);
+>  
+>  #endif /* __INTEL_CMTG_H__ */
+
+-- 
+Jani Nikula, Intel
