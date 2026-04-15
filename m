@@ -4,115 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D233F8A16C
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 12:30:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E1BF8A16F
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C719C10E13B;
-	Thu, 16 Apr 2026 12:30:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A20B710E1E7;
+	Thu, 16 Apr 2026 13:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aREs4pY9";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="K+Xe7zoN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F152F10E13B;
- Thu, 16 Apr 2026 12:30:53 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 91B2640474;
- Thu, 16 Apr 2026 12:30:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8D2C2BCAF;
- Thu, 16 Apr 2026 12:30:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776342653;
- bh=0+upWZt1SQSfIz6OgmfLK1joGZgudnQ2lP+Bv+7s1DM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=aREs4pY9AFWiyPis1yCUHi655kH6F2cmateO3OS3vwiWh4XGstegazkXh9fTeJRQW
- F7PNlGo+5uv4JS1ghUA7GmLt/nGdKTIiz0N3eNo0k9qdgxnlZ6UVo1xvuY/jm0Jsgz
- 6OXZlHvLM95FlzgQqthFFGhbIejPY5s4jQOos8SHiaMv+4GNWDNJ4NBjKmastJKLl9
- B+kLcT7cwceOa9aKNihg3CZG+65E3BtgCcBvAVf5SIS4E47zAqVB8uUKfjkayyutdK
- 0Jj6v6r/4toyxe6BrveBQ3dEYq/LaiTL2nhXiDsBmOQK54Y4zcD7qDew9ISAzQHpha
- d9g1fsIICa3fA==
-Message-ID: <1fba96bd-124d-431d-8de8-78688c248600@kernel.org>
-Date: Thu, 16 Apr 2026 14:30:37 +0200
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB04610E226
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 13:06:33 +0000 (UTC)
+Received: by mail-qk1-f182.google.com with SMTP id
+ af79cd13be357-8c6f21c2d81so507849685a.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 06:06:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1776258392;
+ x=1776863192; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AjPmFnZ3ltIWGyywLfHNdU76wOgW6psantaHXQ/II4o=;
+ b=K+Xe7zoNRu+e1trCX8cBigbG2i+SuXKh6e9Jz9T9kJIkQuAdMVSlNUGTfqE4zxCeuE
+ hp8c8TqmlIqYlO+Rb9DOJZe4qQzo9HDlS7m3S+0W8mDyhDPN++GO3pi9OYQYZm/2Webk
+ v99og+cNgQH7pIUYFwRh34uq/TgQqh5AWkLlyf1X5KPm5PolyW3zaxIttgXDmmKHrHHC
+ 781Zzk6h4zx3RaFXfMuUZ4aO1O+do7NVEkveaJFimt5kB96WIu50h6YwP9wMHTWUoKMw
+ 1xsMMYYSD+trosp9s3/PhU38AXeFJjmvyamO7p4JghLzxpEdNdgQW8h9R1l1juMag9YU
+ FgmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776258392; x=1776863192;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AjPmFnZ3ltIWGyywLfHNdU76wOgW6psantaHXQ/II4o=;
+ b=LFcrHpLUo09+hjolbRLrGJlPstDqffbel5UYkNR5BI8WQONLF36d9hkc3vLGLq50I4
+ J3dWuHABiCaSFQlrPZoVIUPQsb58uLgrtF8rYEVjwxYJz0TWafGA1uJN/d3prp+C043A
+ /ZPOK3pHdEMLavEfzxJB3r/fOK52305vTI0sBUIlBT+BMM9pzG7CbD9W9TGq0LR54Rs5
+ F5zetF19jSZVaidgchpJIJpYfMdDX6B+C7XzrphqkMWqBX4cI0GKcEMhk8ai8WY8jHyD
+ QoWDmjxt8hV+H91HFIjtE32W5VUCnnzWWuAUukZ3qwjMIaxJWOCfVdyj5El/2bVkLQlB
+ GATw==
+X-Gm-Message-State: AOJu0Ywqb7vjH37WKFVyIbML2jG5eIVFg3r5GgaAN0MwembQQbndLWLz
+ SSVaZNm8vtsrP19welaiWtlsd7kq0Um63dJ2v3DGJlR/G6wa3zqFu/fbuF9DZmtsnadFkq9Zl2K
+ kwosFJabaGx904CEDibfKnmZiokvZ9QVp9vJ0GMDTdwwXZ84r4b2sTbMrNKG+Nb6iC3aHTRDMkP
+ KyM93UZDRDlNljCs/Lyoui866rKxbPh9RcxXHW3rnTOmbxMiLhi4PoBY0=
+X-Gm-Gg: AeBDies9JTiKA2DXx800kZhcrelteJE4kwY4j/XJLxFL4UaV3HIxpgZZwW6kST6CSU6
+ 2i2zgHZmidnl2zA+pc6Vvnq3bZjjNu90WE5ux9XJPGBiXZzJ6Qr/1GBi3YUR9ds7pwo4Lr44mQx
+ NWWJoJgMJrD4vUUy2vmZHzpj9feGw342LUAiJeSNnLgBf6suoOOhG3HI9WEcwRHMVVVIEqwgOlR
+ xDesbGXiE0pyzB3sJAYIPttTflxRLShyzC89nXEZX+6CsvUBVTYMUuRy1UZEKNsPNfeGUbU+uWp
+ N/w9fys6Uc/ehHKhTTYNf6ggmGFZufzC4wSuFKSXfA8Hh2AiLrJPX67+tXCkJZoH22L9wP2JFb5
+ FyNnvpsmDCXyFE+Uuhn+Zk28j+vtUxRPXrrVx/MSybWmhaQLymXymnk2DCk3ANaY7FHk6wQ7L7j
+ 48d2OF/lPdKIDkXrkYW03S8r8YYd3DZ9Tw+iib5ZVsmR6ynpaGiyLYC/x2dYY0107VYSPoPiM9p
+ ZT98llW5Cvp9le6nrHEhU4+PWoH8ygdjVi1XUAugCw=
+X-Received: by 2002:a05:620a:290d:b0:8c6:ff8f:58af with SMTP id
+ af79cd13be357-8ddcf7ab003mr3225225285a.51.1776258391861; 
+ Wed, 15 Apr 2026 06:06:31 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500:8e39:827f:e928:9eb7])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8e4f31f95f9sm125192385a.43.2026.04.15.06.06.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Apr 2026 06:06:30 -0700 (PDT)
+From: Jake S <j@metarealtyinc.ca>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, rodrigo.vivi@intel.com,
+ Jake S <j@metarealtyinc.ca>
+Subject: [PATCH 1/2] drm/edid: populate monitor_range from DisplayID Adaptive
+ Sync block
+Date: Wed, 15 Apr 2026 09:06:25 -0400
+Message-ID: <20260415130626.10523-2-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260415130626.10523-1-j@metarealtyinc.ca>
+References: <20260415130626.10523-1-j@metarealtyinc.ca>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/61] Coccinelle: Prefer IS_ERR_OR_NULL over manual NULL
- check
-To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
- cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
-Cc: Julia Lawall <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 16 Apr 2026 13:19:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,51 +94,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 10/03/2026 12:48, Philipp Hahn wrote:
-> Find and convert uses of IS_ERR() plus NULL check to IS_ERR_OR_NULL().
-> 
-> There are several cases where `!ptr && WARN_ON[_ONCE](IS_ERR(ptr))` is
-> used:
-> - arch/x86/kernel/callthunks.c:215 WARN_ON_ONCE
-> - drivers/clk/clk.c:4561 WARN_ON_ONCE
-> - drivers/interconnect/core.c:793 WARN_ON
-> - drivers/reset/core.c:718 WARN_ON
-> The change is not 100% semantical equivalent as the warning will now
-> also happen when the pointer is NULL.
-> 
-> To: Julia Lawall <Julia.Lawall@inria.fr>
-> To: Nicolas Palix <nicolas.palix@imag.fr>
-> Cc: cocci@inria.fr
-> Cc: linux-kernel@vger.kernel.org
-> 
-> ---
-> drivers/clocksource/mips-gic-timer.c:283 looks suspicious: ret != clk,
-> but Daniel Lezcano verified it as cottect.
-> 
-> There are some cases where the checks are part of a larger expression:
-> - mm/kmemleak.c:1095
-> - mm/kmemleak.c:1155
-> - mm/kmemleak.c:1173
-> - mm/kmemleak.c:1290
-> - mm/kmemleak.c:1328
-> - mm/kmemleak.c:1241
-> - mm/kmemleak.c:1310
-> - mm/kmemleak.c:1258
-> - net/netlink/af_netlink.c:2670
-> Thanks to Julia Lawall for the help to also handle them.
-> 
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  scripts/coccinelle/api/is_err_or_null.cocci | 125 ++++++++++++++++++++++++++++
->  1 file changed, 125 insertions(+)
-> 
+The DRM EDID parser only reads monitor range (min/max vfreq) from the
+base EDID Display Range Limits descriptor (tag 0xFD). Many modern eDP
+OLED panels ship with a DisplayID v2.0 extension containing an Adaptive
+Sync Data Block (tag 0x2B) that declares the VRR range, but no base
+EDID range limits descriptor at all.
 
-Neither this, nor try from 2011, nor any future try should be accepted,
-because it creates impression IS_ERR_OR_NULL is somehow okay. No, it is
-not okay, it is a discouraged pattern leading to less readable and
-maintainable code. We should not have therefore any tools suggesting
-usage of IS_ERR_OR_NULL, because people will be converting poor code
-into that, instead of fixing that poor code.
+This leaves info->monitor_range zeroed on Intel/Nouveau/etc, while
+amdgpu has a private workaround (parse_edid_displayid_vrr). Add generic
+drm_get_monitor_range_displayid() so all drivers benefit.
 
-Best regards,
-Krzysztof
+Handles both tag 0x2B (Adaptive Sync, CTA-861.6) and tag 0x25 (Dynamic
+Video Timing Range Limits, DisplayID v2.0 section 4.5).
+
+Only fills in monitor_range as a fallback when the base EDID parsing
+found nothing, preserving existing behavior for panels with proper Range
+Limits descriptors.
+
+Tested on Dell XPS 2026 (Intel Panther Lake, LG Display OLED eDP,
+3200x2000, VRR 20-120Hz via DisplayID tag 0x2B).
+
+Signed-off-by: Jake S <j@metarealtyinc.ca>
+---
+ gpu/drm/drm_edid.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/gpu/drm/drm_edid.c b/gpu/drm/drm_edid.c
+index 68390e7..ebefd18 100644
+--- a/gpu/drm/drm_edid.c
++++ b/gpu/drm/drm_edid.c
+@@ -6567,6 +6567,57 @@ static void drm_get_monitor_range(struct drm_connector *connector,
+ 		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
+ }
+ 
++/*
++ * Parse DisplayID v2.0 Adaptive Sync Data Block (tag 0x2B) as a fallback
++ * when the base EDID has no Range Limits descriptor. Many modern eDP OLED
++ * panels only advertise their VRR range via DisplayID, not base EDID.
++ *
++ * Also handles tag 0x25 (Dynamic Video Timing Range Limits).
++ */
++static void drm_get_monitor_range_displayid(struct drm_connector *connector,
++					    const struct drm_edid *drm_edid)
++{
++	struct drm_display_info *info = &connector->display_info;
++	const struct displayid_block *block;
++	struct displayid_iter iter;
++
++	if (info->monitor_range.min_vfreq && info->monitor_range.max_vfreq)
++		return;
++
++	displayid_iter_edid_begin(drm_edid, &iter);
++	displayid_iter_for_each(block, &iter) {
++		const u8 *data = (const u8 *)block + sizeof(*block);
++		int len = block->num_bytes;
++		u16 min_vfreq, max_vfreq;
++
++		if (block->tag == 0x2b && len >= 6) {
++			/* Adaptive Sync Data Block (CTA-861.6) */
++			min_vfreq = data[2];
++			max_vfreq = data[3] | ((u16)(data[4] & 0x3) << 8);
++		} else if (block->tag == DATA_BLOCK_2_DYNAMIC_VIDEO_TIMING &&
++			   len >= 6) {
++			/* Dynamic Video Timing Range Limits (DisplayID v2.0) */
++			int offset = ((data[0] >> 3) & 0x3) ? 5 : 3;
++
++			if (len < offset + 3)
++				continue;
++			min_vfreq = data[offset];
++			max_vfreq = data[offset + 1] |
++				    ((u16)(data[offset + 2] & 0x3) << 8);
++		} else {
++			continue;
++		}
++
++		if (max_vfreq && min_vfreq && max_vfreq > min_vfreq) {
++			info->monitor_range.min_vfreq = min_vfreq;
++			info->monitor_range.max_vfreq = max_vfreq;
++			break;
++		}
++	}
++	displayid_iter_end(&iter);
++}
++
++
+ static void drm_parse_vesa_specific_block(struct drm_connector *connector,
+ 					  const struct displayid_block *block)
+ {
+@@ -6756,6 +6807,8 @@ static void update_display_info(struct drm_connector *connector,
+ 
+ 	drm_get_monitor_range(connector, drm_edid);
+ 
++	drm_get_monitor_range_displayid(connector, drm_edid);
++
+ 	if (edid->revision < 3)
+ 		goto out;
+ 
+-- 
+2.53.0
+
