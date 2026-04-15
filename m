@@ -4,77 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 273D0F8A16F
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:19:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F921F8A176
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A9A410E1F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD55D10E89B;
 	Thu, 16 Apr 2026 13:19:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="oF/feQem";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="NDk/fgZQ";
 	dkim-atps=neutral
-Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
- [209.85.222.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A7610E226
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 13:06:31 +0000 (UTC)
-Received: by mail-qk1-f177.google.com with SMTP id
- af79cd13be357-8cb38e86cf2so610878985a.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 06:06:31 -0700 (PDT)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EEB810E73B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 19:39:14 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-8d68bcf50fdso818362785a.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 12:39:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1776258389;
- x=1776863189; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=0gNoNrQVjNt0zcqpJEvCkIoUDFsKLs4nqY7HiFFeVWk=;
- b=oF/feQemJ4u+l8Ay3iIZ7Fw2GEkZGAH9uELgBZebilKu60LjTqyQfIxF08VS8y/IoX
- j41WNuTvdQddK2SBZfRVTLvPO14BBRvykmgZofoCLsUfioPy/DMvavljfnvp7SyQZF0F
- b5iQ96IgfUaZp4rvtQriD4ChWZG4ievyBCR2ScX6AXNlbZE7tsjkOgYKz3hamDzv5Jzl
- 6W2xysaJYbFkktIVFq6QFji7uOofd4Auys05XbDeNWuQhX4OGZUTagjlvEFZjBgA0eab
- dHc1VrR455LxxvmJqk1XCOK1XY4RqbUOJqreCR7GxngT7d4VmrQqVnjFyQu163t17NlC
- w2dA==
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1776281953;
+ x=1776886753; darn=lists.freedesktop.org; 
+ h=date:references:in-reply-to:subject:cc:to:from
+ :content-transfer-encoding:mime-version:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=OBFBxNBSTTxIBo6jQ9Ed1NU8hv/XV5Shu7D1Vz0KsLg=;
+ b=NDk/fgZQB9mAcCJC5WWS7vMmBbDQz5K31xxK783WnHdGNS2hpyNzXdZOh6HpLHCeJG
+ EBWlLLT4MW2mdnVxe6SkLxi6END/Mvnsq2xITthwwTM5UzIy3P4RGafV68YiaQpzyDVC
+ 4hPThha0Ols1qpi38HINVuIxPbC/A3n2R5OckP/gSuYAlXYlHRrRCZ56uoB4fm5/rzqX
+ bS1DCTwnUy+2fICrv1rn1MNwBiw2hJuHJ44FIPaAAwWS9k/f/qh8ODPlkvqZNFVTxndG
+ 42eEoqwuPZF+ry7ud0JXwXL54TlKc1VTPyNQUDSPQIk+9+5n+CiU9l9K8lcwksxpDShm
+ oBYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776258389; x=1776863189;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0gNoNrQVjNt0zcqpJEvCkIoUDFsKLs4nqY7HiFFeVWk=;
- b=ZewCngURjOmWv4L6lvkyK6tyree1biuycv/iwOVqZVHGJ2gtDRs0sWNQIxADAKBMz4
- rpyFaIS+rL0WFm6g52N5BPCU+uxVSr1iRl/Ub7JkuPuqh6ZaCBJOZsWbf7ZILdoCF7yx
- 4A5ZXzCDarSqH0euwfaUfqQ9rg7e8NqDUf/yo+87Pt0+WaJZljEevWXc72hxBT5Ko5dm
- KUp2RYwXkK7UL9N9fll6RacXFbM66lwHop127mbyX4Q6QPZsr5bpfWHZK1jnObX36hQ6
- 5WB6iIY5Wxrcvu1dcDxgNXW2cmi49bGvqZWGGaXkRdePcF/te6zkYfgh8f/WLQPNWLpj
- Kg1g==
-X-Gm-Message-State: AOJu0YyY2UvKENt1ZEWgTg2Sr1t1tCeRNHGyt3SoaVgik7D3fL7f1RbE
- 9E+3KTCn/VkSAia73KeTf7cpbOqzbMeL/y9oD9qGBc64o3wXK5TcsnENk5L312LRR+WadN8tuSv
- lEfnp7tRXfZExj092+r2LMzBdEFvPDch7zrdIcTcltBqam55DdMhMajZ3VhVFkzEo/y4GCzRa12
- 3eyGlpHWejVFXKUY+wtEEVzK0MfOPH2VKif7WTxFYUt7BaQ4c1duVuyWY=
-X-Gm-Gg: AeBDiet+3p7CimEm6pCfE8CB2nlWBI7SXaQ8kRbNWcOIZ4Bniatr9nLKpvW2c4PXnIa
- tAkoj1tACpzD3B9EZSqqJ0hA8DdTR8NYjKO0SQZLcqESnkh7gT8C+OpLNTwrtTlCStk5GQAhlnF
- nEN9kwIfsWCg1OdDCBrbbea4BIMdu3dj1/zgS/J8NBOtO7SoV/MXwOMZDiSk4HWOxjLSX3vXMb8
- ZsOkMcLMN40iAgqUPpzmr+3jHpLZan8IhAJ+PFLgpD+K+A1SiQDdIpWFXkO9I0e3FAVeMqwC5ED
- nkR90gZMDEp8q/eYejx+X3pfoXg9TgrT2v0EPjbFRkPPzWW4SXLYaw0GN9+wNbQ8qi7MmaKrWaT
- NGWn1U1sguKV0qYa4d9MMemq6JuWovNL7pLW0dkNwrMDOsQYN/24LZzOWzqu5fWofy1YLBKEvOD
- E55A+RMac9DEKXS6mMZ2WCibPZ5S1kf76FNbhFLWXNo+93GF/r7M6JXtNGNqqX7zSpVeBCbG1b4
- kI+JJdPIThNd46YeZ0DGB2zpQmuN9D4Rfq2JbxB890=
-X-Received: by 2002:a05:620a:4489:b0:8b2:e666:70d with SMTP id
- af79cd13be357-8ddcf7ae416mr3077721685a.43.1776258389235; 
- Wed, 15 Apr 2026 06:06:29 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500:8e39:827f:e928:9eb7])
+ d=1e100.net; s=20251104; t=1776281953; x=1776886753;
+ h=date:references:in-reply-to:subject:cc:to:from
+ :content-transfer-encoding:mime-version:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OBFBxNBSTTxIBo6jQ9Ed1NU8hv/XV5Shu7D1Vz0KsLg=;
+ b=jbbFjsTadlkf154AGK4Kgs/yV5cCD5fz+amTLW+f9VzM/FC0HCV6AAp7ujABzqYdTM
+ 6MYuWT/3AmYc6TKXDc5JHH7bQwU9jJSF2BPrJA2ZszpC1HMdqXFRLrnFJKHZEzw2T1fM
+ TYaIWlyhHpYiMRu5zHFZ7DaLRWMcn0/7hA1AEMZmc2wD9VHzJNiGM56HooLvAMc4erI7
+ 0CM+oYZTKxRPzdz/85M3SlJGRaEFh7sW0523MXaB6XxuNEzloK2nEl89VRHir5eKw2ns
+ ZUVwyHlde9V4EkqVWF5MMJCUBjpsU3WGkKp+/Ja+rX1VnTPClKqlAGVdyGrAgQA8xTz/
+ 8CLw==
+X-Gm-Message-State: AOJu0YwJRP+TK5p/uOLRVEkp8JBr/zqXvDbl9HCFr3TbJP+UKK1w3rV/
+ 5aHFN0Cogarwzf8YbwXEiG2sRsy/CC9CzOORVxk7R8W0rC/sCRep8neTXMDeZcfS0yQce2G2cyH
+ sgCZLSy46Y5/kbkIw9BS/ZrxakHG9VVPL+HW6bDjy8MtAYx/zw+gsoTzsPtWPst9gN8SUeUzAZi
+ cbRT/kNjfqi+XzqtcTsBQo0DBJnjxOHq5pddnUdGMaww6G6goL05OvaQI=
+X-Gm-Gg: AeBDietHthOzLcuKiyvDLm+aPfwfzqnP51Lg9cVhwZEB0o4+YBuvZEixLgKjHPE2qmv
+ qIU3ENKm7xLWtCoan57aQrgIZrylMwiF21YzTccz5dkUXQU/lqwJiHwuzz/8y9fjn5phPY0EmO7
+ q0OcieHG0AmVJqnQMArUJOsu1qtJb8yfovd6mkuWESOskwBlckITKWYYKZP4AF1O33uV0w/seqK
+ ejhQzp2pBzIyaFxZoklC7rrjNwC+Gm5wMumX1JehrlQ2O4NQf112AbcGGof+mK0rkDGnZ3VF4mA
+ afj0qyYzm5QFIG2PsuYzUsDRx3nCWc22QgfvBXr8UhREbTd6gSLXTGXi7c3WyuSJbNVYjGsZw+I
+ HJpeLn5GsaD31LA4IACIFjrzMth62D7I42oRSGNTDftIMthINbEJXcCoX69qdMLMX08qPI6snsj
+ 3Oklw0nuqyiGTucdxhyOIgmF85t1bDacEmrBTLkDMI2q/rE46qZ1agfAFg2UaJkhN0z0QWA+S5v
+ H13wg37I2nIRDmAFlrTvToCx7HXKXCd4cqs2PsKi0w=
+X-Received: by 2002:a05:622a:a192:b0:50d:efc1:841d with SMTP id
+ d75a77b69052e-50defc18f77mr209163071cf.23.1776281953156; 
+ Wed, 15 Apr 2026 12:39:13 -0700 (PDT)
+Received: from [127.0.1.1] ([2607:fea8:e5:500:8e39:827f:e928:9eb7])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8e4f31f95f9sm125192385a.43.2026.04.15.06.06.27
+ 6a1803df08f44-8ae6cbbc1bdsm18245406d6.38.2026.04.15.12.39.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Apr 2026 06:06:28 -0700 (PDT)
+ Wed, 15 Apr 2026 12:39:12 -0700 (PDT)
+Message-ID: <69dfe960.050a0220.1c3509.e29e@mx.google.com>
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 From: Jake S <j@metarealtyinc.ca>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, rodrigo.vivi@intel.com,
- Jake S <j@metarealtyinc.ca>
-Subject: [PATCH 0/2] drm: Enable eDP VRR for panels with DisplayID Adaptive
- Sync
-Date: Wed, 15 Apr 2026 09:06:24 -0400
-Message-ID: <20260415130626.10523-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH 2/2] drm/i915/display: allow eDP VRR when EDID has
+ adaptive sync range
+In-Reply-To: <20260415130626.10523-3-j@metarealtyinc.ca>
+References: <20260415130626.10523-1-j@metarealtyinc.ca>
+ <20260415130626.10523-3-j@metarealtyinc.ca>
+Date: Wed, 15 Apr 2026 19:39:11 +0000
 X-Mailman-Approved-At: Thu, 16 Apr 2026 13:19:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,48 +93,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Many 2025-2026 laptops (Dell XPS, Framework, etc.) ship with OLED eDP
-panels that support VRR 20-120Hz. These panels advertise their VRR
-capability through a DisplayID v2.0 Adaptive Sync Data Block (tag 0x2B)
-in their EDID. VRR works fine on Windows.
-
-On Linux, VRR is broken due to two issues:
-
-1. The DRM EDID parser (drm_edid.c) only reads monitor range from the
-   base EDID Display Range Limits descriptor (tag 0xFD). It does not
-   parse the DisplayID Adaptive Sync block. This leaves monitor_range
-   zeroed. AMD's driver has a private workaround; the generic DRM
-   layer does not.
-
-2. The Intel display driver (intel_vrr.c) gates eDP VRR on a VBT
-   (Video BIOS Table) firmware flag. Most OEMs don't set this flag
-   because the Windows driver doesn't need it. This blocks VRR even
-   when the EDID clearly declares support.
-
-This series fixes both issues:
- - Patch 1 adds generic DisplayID Adaptive Sync parsing to drm_edid.c,
-   benefiting all DRM drivers.
- - Patch 2 relaxes the Intel eDP VRR gate to also accept EDID-based
-   capability when the VBT flag is absent.
-
-Tested on Dell XPS 2026 (Intel Panther Lake, xe driver, LG Display
-OLED 3200x2000). VRR 20-120Hz confirmed via kernel vblank event
-tracing -- display dynamically varies between 32Hz (idle) and 120Hz
-(active rendering).
-
-Related work: Adriano Vero posted a similar DisplayID range parsing
-patch to LKML (2026-03-28) which has not yet been merged.
-
-GitHub: https://github.com/jibsta210/edp-vrr-linux
-
-Jake S (2):
-  drm/edid: populate monitor_range from DisplayID Adaptive Sync block
-  drm/i915/display: allow eDP VRR when EDID has adaptive sync range
-
- gpu/drm/drm_edid.c               | 53 ++++++++++++++++++++++++++++++++
- gpu/drm/i915/display/intel_vrr.c |  7 ++++-
- 2 files changed, 59 insertions(+), 1 deletion(-)
-
--- 
-2.53.0
-
+SGkgVmlsbGUsCgo+IEl0J3MgaW4gdGhlIExGUCBwb3dlciBibG9jayAoNDQpLgoKWW91J3JlIHJp
+Z2h0IC0tIEkgY2hlY2tlZCBhbmQgaW50ZWxfdmJ0X2RlY29kZSBzaG93czoKCiAgQkRCIGJsb2Nr
+IDQ0IC0gTEZQIHBvd2VyIGNvbnNlcnZhdGlvbiBmZWF0dXJlcyBibG9jazoKICAgIFZhcmlhYmxl
+IFJlZnJlc2ggUmF0ZSAoVlJSKTogeWVzCgpBbmQgbG9va2luZyBhdCB0aGUgY29kZSwgcGFuZWwt
+PnZidC52cnIgZGVmYXVsdHMgdG8gdHJ1ZSBhdCBsaW5lCjEzNzAgb2YgaW50ZWxfYmlvcy5jIGFu
+eXdheS4gU28gdGhlIFZCVCBnYXRlIHdhcyBuZXZlciB0aGUgcHJvYmxlbS4KClRoZSBhY3R1YWwg
+aXNzdWUgaXMgdGhlIGZpbmFsIGNoZWNrIGluIGludGVsX3Zycl9pc19jYXBhYmxlKCk6CgogIHJl
+dHVybiBpbmZvLT5tb25pdG9yX3JhbmdlLm1heF92ZnJlcSAtIG1pbl92ZnJlcSA+IDEwOwoKbW9u
+aXRvcl9yYW5nZSBpcyAwLzAgYmVjYXVzZSB0aGlzIHBhbmVsJ3MgRURJRCBoYXMgbm8gYmFzZSBi
+bG9jawpSYW5nZSBMaW1pdHMgZGVzY3JpcHRvciAodGFnIDB4RkQpLiBUaGUgVlJSIHJhbmdlIGlz
+IG9ubHkgaW4gdGhlCkRpc3BsYXlJRCB2Mi4wIEFkYXB0aXZlIFN5bmMgYmxvY2sgKHRhZyAweDJC
+KSwgd2hpY2ggZHJtX2VkaWQuYwpkb2Vzbid0IHBhcnNlIGludG8gbW9uaXRvcl9yYW5nZS4KClNv
+IHBhdGNoIDIvMiAodGhlIFZCVCByZWxheGF0aW9uKSBpcyB1bm5lY2Vzc2FyeSBhbmQgSSdsbCBk
+cm9wIGl0LgpPbmx5IHBhdGNoIDEvMiAocGFyc2luZyBEaXNwbGF5SUQgdGFnIDB4MkIgaW50byBt
+b25pdG9yX3JhbmdlKSBpcwpuZWVkZWQuIEknbGwgc2VuZCBhIHYyIHdpdGgganVzdCB0aGF0IHBh
+dGNoLgoKU29ycnkgZm9yIHRoZSBub2lzZSBvbiB0aGUgVkJUIGZyb250IC0tIHNob3VsZCBoYXZl
+IHRyYWNlZCB0aGUKYWN0dWFsIGZhaWx1cmUgcGF0aCBtb3JlIGNhcmVmdWxseSBiZWZvcmUgYXNz
+dW1pbmcuCgpUaGFua3MsCkpha2UK
