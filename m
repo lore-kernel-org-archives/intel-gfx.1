@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06B8BF433CC
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 23:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0C95F433D2
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 23:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0702310E7E7;
-	Wed, 15 Apr 2026 23:47:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258CE10E7EB;
+	Wed, 15 Apr 2026 23:47:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jbm6K3V1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DG8BazPE";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A09D910E7DD;
- Wed, 15 Apr 2026 23:47:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D245710E7EB;
+ Wed, 15 Apr 2026 23:47:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776296844; x=1807832844;
+ t=1776296849; x=1807832849;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Dcj6C+KyfnfcjWgVCjJ/EkDyt8jAd3R53h/ubjY/qaY=;
- b=Jbm6K3V11DntZh1mWQvJIqj2xsTm90BoZ2iCN1goLPRMF/6jG1BO3YtW
- 9eqSmx3GAtMURAs2UZNGuNOuIg4Kb03cTw/1Z6V89Hh71V+3gXljF89ik
- EWtMMnWAksluMZV3StaBeT/qbgVnFOUhsN+kQEspLUKHYoJesx4uwcpaI
- jKFh/b4sn0rqMeDWFLymv0ui5BjrKiIYLN7WytDO2t2kBrVA09uVZrKT9
- izRYLvRdOf5nZoVQMFxfmExttOb+Tqh0q2rbI4u9Imb6DRJBrKVL9Xs9G
- FfFxlNZ+Ou0FkV2F/H9CBxowmjg3zZkrRlD6famDZNgRVNu3/LP57Pb1h w==;
-X-CSE-ConnectionGUID: rp+xeOuOQ1SB8zcxxFhgtw==
-X-CSE-MsgGUID: 6OhTUxfSRAGs+Z6MJ3ANkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11760"; a="77403517"
-X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="77403517"
+ bh=5TnU16qwzY84s0zac7MDC8Zzx8YZ8CvG2T26iDucaRM=;
+ b=DG8BazPE85ysDQiLp5rWLnxMnLTQYMXR1IV+BPFcMniHXXM8ZDPkJJaw
+ vlgckYEnvtaRFqfIDa7Mq/tlpB6eUeVQsqcAcnCZZ2XUNZdytez7GYaV/
+ ClSIOa1uM5mv8XuSVAanyHO4u4w9fzipOl+smv/5oaRmhrF6DOXNA/jfB
+ O5IVdJl3NnKkJtn8FmbLImidor9CqDwmiQ5gOOvRbZmqljDFO6yY/h5mX
+ jZA3E2VG3ge9eSe6s9m8a2nG2P2kcctK/MjF5UjWviX422rmahou91nuS
+ hyBz34GwaSdNf4L/SwFcOaTs3GhKeNm17kBZEtH3fQLiotdwAro2+HEQs g==;
+X-CSE-ConnectionGUID: 9QmukUuRS9Gr6wZ+PTNh6g==
+X-CSE-MsgGUID: q9nmu+9hSzK0fs/adUtHKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11760"; a="77403524"
+X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="77403524"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 16:47:24 -0700
-X-CSE-ConnectionGUID: Clqc4M+KRPiF9e50Hh0nvw==
-X-CSE-MsgGUID: DQEjyqyrSSm455VE9RC1mA==
+ 15 Apr 2026 16:47:29 -0700
+X-CSE-ConnectionGUID: I9kCYi8ARXmzP9fJUBEh5Q==
+X-CSE-MsgGUID: Dwh1kylpRTCdXxhn5wnocw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="235511222"
+X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="235511244"
 Received: from administrator-system-product-name.igk.intel.com (HELO
  dev-417.igk.intel.com) ([10.91.214.181])
- by fmviesa005.fm.intel.com with ESMTP; 15 Apr 2026 16:47:22 -0700
+ by fmviesa005.fm.intel.com with ESMTP; 15 Apr 2026 16:47:28 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v2 23/32] drm/i915/buf_trans: enumerate C20's VS/PE-O indices
-Date: Thu, 16 Apr 2026 01:46:30 +0200
-Message-ID: <20260415234639.3577774-24-michal.grzelak@intel.com>
+Subject: [PATCH v2 27/32] drm/i915/bios: shrink all ICL's VS/PE tables
+Date: Thu, 16 Apr 2026 01:46:34 +0200
+Message-ID: <20260415234639.3577774-28-michal.grzelak@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260415234639.3577774-1-michal.grzelak@intel.com>
 References: <20260415234639.3577774-1-michal.grzelak@intel.com>
@@ -72,81 +72,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Encapsulate C20's VS/PE-O's indices in enum snps_c20_vspeo_index.
+Each value present in ICL's VS/PE-O table is stored on u32. In order to
+match values' size this causes icl_ddi_buf_trans to increase it's size.
 
-Treat error case as referring to index -1. Refer to it as C20_ERR.
-
-Tables 1-4 are not used at all and are most likely to be zeroed. Refer
-to them as _C20_unusedN.
-
-5th table is used for any mode below DP 2.0 (exclusive). Refer to it as
-C20_DP14.
-
-6th table is used for any mode above DP 2.0 (inclusive). Refer to it as
-C20_DP20.
-
-Indices for other tables have not yet been observed to be used as of
-now.
+Nevertheless, the actual value from each ICL's VS/PE-O table is fully
+encoded in the lowest byte. Extract the lowest byte by casting to u8 and
+using it as deparsed value. This way there is no need to inflate default
+tables.
 
 Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c |  8 ++++----
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h | 12 ++++++++++++
- 2 files changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bios.c          | 10 +++++-----
+ drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h | 10 +++++-----
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index ff2ae498a616b..5d1d258f6b6a6 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -1786,21 +1786,21 @@ xe3plpd_get_lt_buf_trans(struct intel_encoder *encoder,
- 		return intel_get_buf_trans(&xe3plpd_lt_trans_dp14, n_entries);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index e3ff273f4e944..e8fc826f361b6 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2202,11 +2202,11 @@ parse_vswing_preemph_icl(union intel_ddi_buf_trans_entry **bufs_mtrx,
+ 			vals = &tables[offset];
  
--static int
-+static enum snps_c20_vspeo_index
- snps_c20_compute_index(const struct intel_crtc_state *crtc_state)
- {
- 	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		if (intel_dp_is_uhbr(crtc_state))
--			return 5;
-+			return C20_DP20;
- 		else
--			return 4;
-+			return C20_DP14;
- 	}
+ 			entry = &bufs_mtrx[idx][row];
+-			entry->icl.dw2_swing_sel = vals[0];
+-			entry->icl.dw7_n_scalar = vals[1];
+-			entry->icl.dw4_cursor_coeff = vals[2];
+-			entry->icl.dw4_post_cursor_2 = vals[3];
+-			entry->icl.dw4_post_cursor_1 = vals[4];
++			entry->icl.dw2_swing_sel = (u8) vals[0];
++			entry->icl.dw7_n_scalar = (u8) vals[1];
++			entry->icl.dw4_cursor_coeff = (u8) vals[2];
++			entry->icl.dw4_post_cursor_2 = (u8) vals[3];
++			entry->icl.dw4_post_cursor_1 = (u8) vals[4];
  
- 	drm_WARN(to_intel_display(crtc_state)->drm, 1,
- 		 "non-DP (%d) encoder asks to compute VS/PE-O index\n",
- 		 crtc_state->output_types);
- 
--	return -1;
-+	return C20_ERR;
- }
- 
- static enum lt_vspeo_index
+ 			offset += block->num_columns;
+ 		}
 diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-index 30fafeeaf62f2..e182fbe9590c5 100644
+index bfb6de45a94e2..a8c998fa339e6 100644
 --- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
 +++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-@@ -86,6 +86,18 @@ enum lt_vspeo_index {
- 	LT_DP21
+@@ -25,11 +25,11 @@ struct bxt_ddi_buf_trans {
  };
  
-+enum snps_c20_vspeo_index {
-+	C20_ERR = -1,
-+
-+	_C20_unused0 = 0,
-+	_C20_unused1,
-+	_C20_unused2,
-+	_C20_unused3,
-+
-+	C20_DP14 = 4,
-+	C20_DP20
-+};
-+
- bool is_hobl_buf_trans(const struct intel_ddi_buf_trans *table);
+ struct icl_ddi_buf_trans {
+-	u32 dw2_swing_sel;
+-	u32 dw7_n_scalar;
+-	u32 dw4_cursor_coeff;
+-	u32 dw4_post_cursor_2;
+-	u32 dw4_post_cursor_1;
++	u8 dw2_swing_sel;
++	u8 dw7_n_scalar;
++	u8 dw4_cursor_coeff;
++	u8 dw4_post_cursor_2;
++	u8 dw4_post_cursor_1;
+ };
  
- void intel_ddi_buf_trans_init(struct intel_encoder *encoder);
+ struct icl_mg_phy_ddi_buf_trans {
 -- 
 2.45.2
 
