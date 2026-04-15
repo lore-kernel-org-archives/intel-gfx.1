@@ -4,80 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72E1BF8A16F
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BD96F8A173
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 13:19:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A20B710E1E7;
-	Thu, 16 Apr 2026 13:19:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8DD10E1EE;
+	Thu, 16 Apr 2026 13:19:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="K+Xe7zoN";
+	dkim=pass (2048-bit key; unprotected) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="ltoAS3xo";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB04610E226
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 13:06:33 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-8c6f21c2d81so507849685a.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 06:06:33 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com
+ [209.85.217.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3909610E736
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 19:08:33 +0000 (UTC)
+Received: by mail-vs1-f49.google.com with SMTP id
+ ada2fe7eead31-60fee2fa3b8so1189728137.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 15 Apr 2026 12:08:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1776258392;
- x=1776863192; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=AjPmFnZ3ltIWGyywLfHNdU76wOgW6psantaHXQ/II4o=;
- b=K+Xe7zoNRu+e1trCX8cBigbG2i+SuXKh6e9Jz9T9kJIkQuAdMVSlNUGTfqE4zxCeuE
- hp8c8TqmlIqYlO+Rb9DOJZe4qQzo9HDlS7m3S+0W8mDyhDPN++GO3pi9OYQYZm/2Webk
- v99og+cNgQH7pIUYFwRh34uq/TgQqh5AWkLlyf1X5KPm5PolyW3zaxIttgXDmmKHrHHC
- 781Zzk6h4zx3RaFXfMuUZ4aO1O+do7NVEkveaJFimt5kB96WIu50h6YwP9wMHTWUoKMw
- 1xsMMYYSD+trosp9s3/PhU38AXeFJjmvyamO7p4JghLzxpEdNdgQW8h9R1l1juMag9YU
- FgmQ==
+ d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1776280112;
+ x=1776884912; darn=lists.freedesktop.org; 
+ h=date:references:in-reply-to:subject:cc:to:from
+ :content-transfer-encoding:mime-version:message-id:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=p7DUpKepUcTvz1aYRk2xwKoLLVYxkuA8yuF8RSnjHh4=;
+ b=ltoAS3xogpdIZRXMOuFEPOH6JUtndxxbGk29d0+nuigTTP6SxWmCpWyKFKYOP0BqkP
+ T4NSF542vqjI46R/1uyrcUG5+FhMn85QICXzLzj5yN3za3Q5HATqzi8XBXWmvgNyt8rW
+ NfB7DLIunlzUaV9ZqZc5uuGkkmup4ie33/00OQLjBUd3AHgfnqqv7vO0YpkaHPbR7P63
+ WhrH9C/444SdClpHmlSJUNf6dfQcnNaSIJ/RQf+EaoJIliqSvi1AQzIGFDgdASsgcuF0
+ 2NOWeL67if/MxCHNYDNei+6ieWGhTINU90NNRYwQwdKJ/Wx26gah2fqiJPfPO8Fp8dpm
+ le/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776258392; x=1776863192;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=AjPmFnZ3ltIWGyywLfHNdU76wOgW6psantaHXQ/II4o=;
- b=LFcrHpLUo09+hjolbRLrGJlPstDqffbel5UYkNR5BI8WQONLF36d9hkc3vLGLq50I4
- J3dWuHABiCaSFQlrPZoVIUPQsb58uLgrtF8rYEVjwxYJz0TWafGA1uJN/d3prp+C043A
- /ZPOK3pHdEMLavEfzxJB3r/fOK52305vTI0sBUIlBT+BMM9pzG7CbD9W9TGq0LR54Rs5
- F5zetF19jSZVaidgchpJIJpYfMdDX6B+C7XzrphqkMWqBX4cI0GKcEMhk8ai8WY8jHyD
- QoWDmjxt8hV+H91HFIjtE32W5VUCnnzWWuAUukZ3qwjMIaxJWOCfVdyj5El/2bVkLQlB
- GATw==
-X-Gm-Message-State: AOJu0Ywqb7vjH37WKFVyIbML2jG5eIVFg3r5GgaAN0MwembQQbndLWLz
- SSVaZNm8vtsrP19welaiWtlsd7kq0Um63dJ2v3DGJlR/G6wa3zqFu/fbuF9DZmtsnadFkq9Zl2K
- kwosFJabaGx904CEDibfKnmZiokvZ9QVp9vJ0GMDTdwwXZ84r4b2sTbMrNKG+Nb6iC3aHTRDMkP
- KyM93UZDRDlNljCs/Lyoui866rKxbPh9RcxXHW3rnTOmbxMiLhi4PoBY0=
-X-Gm-Gg: AeBDies9JTiKA2DXx800kZhcrelteJE4kwY4j/XJLxFL4UaV3HIxpgZZwW6kST6CSU6
- 2i2zgHZmidnl2zA+pc6Vvnq3bZjjNu90WE5ux9XJPGBiXZzJ6Qr/1GBi3YUR9ds7pwo4Lr44mQx
- NWWJoJgMJrD4vUUy2vmZHzpj9feGw342LUAiJeSNnLgBf6suoOOhG3HI9WEcwRHMVVVIEqwgOlR
- xDesbGXiE0pyzB3sJAYIPttTflxRLShyzC89nXEZX+6CsvUBVTYMUuRy1UZEKNsPNfeGUbU+uWp
- N/w9fys6Uc/ehHKhTTYNf6ggmGFZufzC4wSuFKSXfA8Hh2AiLrJPX67+tXCkJZoH22L9wP2JFb5
- FyNnvpsmDCXyFE+Uuhn+Zk28j+vtUxRPXrrVx/MSybWmhaQLymXymnk2DCk3ANaY7FHk6wQ7L7j
- 48d2OF/lPdKIDkXrkYW03S8r8YYd3DZ9Tw+iib5ZVsmR6ynpaGiyLYC/x2dYY0107VYSPoPiM9p
- ZT98llW5Cvp9le6nrHEhU4+PWoH8ygdjVi1XUAugCw=
-X-Received: by 2002:a05:620a:290d:b0:8c6:ff8f:58af with SMTP id
- af79cd13be357-8ddcf7ab003mr3225225285a.51.1776258391861; 
- Wed, 15 Apr 2026 06:06:31 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500:8e39:827f:e928:9eb7])
+ d=1e100.net; s=20251104; t=1776280112; x=1776884912;
+ h=date:references:in-reply-to:subject:cc:to:from
+ :content-transfer-encoding:mime-version:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=p7DUpKepUcTvz1aYRk2xwKoLLVYxkuA8yuF8RSnjHh4=;
+ b=Lx60nMfOySSiWtbOkOvcXp2Sq3/rXsbadZfyjDQpxpxMFIcownBzTN+Ryx0BTdse3j
+ YwTnI70x7O1Iu7Dy5d58Dp+nJEqovoLhHwv0/H9E07f1Z3yA90kjSrPRdRpE0IY8DRez
+ B97VH8Cwozd5UZcGUD22PFYBa5axcH3CyLiy9sTWTDNNXswQC6mxt/FTpBP6Qw+h1U5Y
+ VO1glGgviuIKOtGo9fLTXLHKlRzLRt2Ag1BN8BhY+quTblhFQhUtf+bZzhqGAR53xr4Y
+ LUHi+u27O2tKExieHmej1kCRAVJQkdgHLR5TDFJJwDqxX/s5txpDDw4L/+M27ADe0dZE
+ AGbw==
+X-Gm-Message-State: AOJu0Yyhr9AoULlBP+Z+dJMcVSyOETTpmQhHjCm9tlqSiQwNq3IUHwc/
+ TgDNAoy4fhMktfS9IDfrsZAJbXSGhkdfZ5+PaUhC+2Em4TioPiti9bDpj8HIRRMVe5d/dub1b5X
+ W4tiZZw6+YRA8RRhCbjUTDc3Z3YNewgOQzdMBIqNuBS702jy3X70s0gVsOeRNMBWgDHLOdKP3or
+ foE9JeKGbxHOw03Q0Ff+L/gmlQANXT1sAA3vs42RYtoSRO8SAr8Qt79SI=
+X-Gm-Gg: AeBDietpq0MtQ4CiSw6CHgf6Qq1CC3DYUu/PJ+9H2NWGSPYGpT/dQCE256uDhGRugHr
+ oxLyo7iJtgLWdOc9R8v57LyBGaoduBq0hBFNsB/A+EuXoFo3tn9yXyeiDnxZe8hO1lZq95XOJko
+ M8S9JpbEkcg/iWdsCykh8xKVyh8narRv0m+WQAO7BYekVvjKWwcJFBB5jMhMFaSah91xvpbYKwk
+ G5wn5LAdT/3TfbpuXn6by/1vZDeeP1wPPB16HJXQC+0S41pgPXsn+tCk8sa8cFmOtH1TSgfdvtF
+ HxJ8rx8iWP95M5PJSXCRplN6aqfW8vL2cObINELzu98mBpLtv8v67egqg4V/Zx4V8Z8wqcW/X/d
+ 9Ut5gIzZ1Z6pXer0SfT+eLKuj1bPDac/GnoZQK7j9096w9r8s9TtG31/RslDnbqUFhh4MTs7kJ3
+ rBbp1ltXOOlV9Ve2xfUm0TfN1m8+oaPI5c7/0N4CIti3hbcjtSAFcZGlFWg3dd0Ut0uIdpw61nZ
+ oshNqLTmHZhe95ZIXkYNnHrnabFxex9YSHsJ2Osi8s=
+X-Received: by 2002:a05:6102:1621:b0:608:6d10:e415 with SMTP id
+ ada2fe7eead31-609fe9b1602mr9781543137.8.1776280111672; 
+ Wed, 15 Apr 2026 12:08:31 -0700 (PDT)
+Received: from [127.0.1.1] ([2607:fea8:e5:500:8e39:827f:e928:9eb7])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8e4f31f95f9sm125192385a.43.2026.04.15.06.06.29
+ 6a1803df08f44-8ae6cda4fa0sm18569186d6.36.2026.04.15.12.08.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Apr 2026 06:06:30 -0700 (PDT)
+ Wed, 15 Apr 2026 12:08:31 -0700 (PDT)
+Message-ID: <69dfe22f.050a0220.301b30.5755@mx.google.com>
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 From: Jake S <j@metarealtyinc.ca>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, rodrigo.vivi@intel.com,
- Jake S <j@metarealtyinc.ca>
-Subject: [PATCH 1/2] drm/edid: populate monitor_range from DisplayID Adaptive
- Sync block
-Date: Wed, 15 Apr 2026 09:06:25 -0400
-Message-ID: <20260415130626.10523-2-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260415130626.10523-1-j@metarealtyinc.ca>
+Cc: dri-devel@lists.freedesktop.org, ville.syrjala@linux.intel.com
+Subject: Re: [PATCH 2/2] drm/i915/display: allow eDP VRR when EDID has
+ adaptive sync range
+In-Reply-To: <20260415130626.10523-3-j@metarealtyinc.ca>
 References: <20260415130626.10523-1-j@metarealtyinc.ca>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260415130626.10523-3-j@metarealtyinc.ca>
+Date: Wed, 15 Apr 2026 19:08:30 +0000
 X-Mailman-Approved-At: Thu, 16 Apr 2026 13:19:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,102 +93,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DRM EDID parser only reads monitor range (min/max vfreq) from the
-base EDID Display Range Limits descriptor (tag 0xFD). Many modern eDP
-OLED panels ship with a DisplayID v2.0 extension containing an Adaptive
-Sync Data Block (tag 0x2B) that declares the VRR range, but no base
-EDID range limits descriptor at all.
-
-This leaves info->monitor_range zeroed on Intel/Nouveau/etc, while
-amdgpu has a private workaround (parse_edid_displayid_vrr). Add generic
-drm_get_monitor_range_displayid() so all drivers benefit.
-
-Handles both tag 0x2B (Adaptive Sync, CTA-861.6) and tag 0x25 (Dynamic
-Video Timing Range Limits, DisplayID v2.0 section 4.5).
-
-Only fills in monitor_range as a fallback when the base EDID parsing
-found nothing, preserving existing behavior for panels with proper Range
-Limits descriptors.
-
-Tested on Dell XPS 2026 (Intel Panther Lake, LG Display OLED eDP,
-3200x2000, VRR 20-120Hz via DisplayID tag 0x2B).
-
-Signed-off-by: Jake S <j@metarealtyinc.ca>
----
- gpu/drm/drm_edid.c | 53 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
-
-diff --git a/gpu/drm/drm_edid.c b/gpu/drm/drm_edid.c
-index 68390e7..ebefd18 100644
---- a/gpu/drm/drm_edid.c
-+++ b/gpu/drm/drm_edid.c
-@@ -6567,6 +6567,57 @@ static void drm_get_monitor_range(struct drm_connector *connector,
- 		    info->monitor_range.min_vfreq, info->monitor_range.max_vfreq);
- }
- 
-+/*
-+ * Parse DisplayID v2.0 Adaptive Sync Data Block (tag 0x2B) as a fallback
-+ * when the base EDID has no Range Limits descriptor. Many modern eDP OLED
-+ * panels only advertise their VRR range via DisplayID, not base EDID.
-+ *
-+ * Also handles tag 0x25 (Dynamic Video Timing Range Limits).
-+ */
-+static void drm_get_monitor_range_displayid(struct drm_connector *connector,
-+					    const struct drm_edid *drm_edid)
-+{
-+	struct drm_display_info *info = &connector->display_info;
-+	const struct displayid_block *block;
-+	struct displayid_iter iter;
-+
-+	if (info->monitor_range.min_vfreq && info->monitor_range.max_vfreq)
-+		return;
-+
-+	displayid_iter_edid_begin(drm_edid, &iter);
-+	displayid_iter_for_each(block, &iter) {
-+		const u8 *data = (const u8 *)block + sizeof(*block);
-+		int len = block->num_bytes;
-+		u16 min_vfreq, max_vfreq;
-+
-+		if (block->tag == 0x2b && len >= 6) {
-+			/* Adaptive Sync Data Block (CTA-861.6) */
-+			min_vfreq = data[2];
-+			max_vfreq = data[3] | ((u16)(data[4] & 0x3) << 8);
-+		} else if (block->tag == DATA_BLOCK_2_DYNAMIC_VIDEO_TIMING &&
-+			   len >= 6) {
-+			/* Dynamic Video Timing Range Limits (DisplayID v2.0) */
-+			int offset = ((data[0] >> 3) & 0x3) ? 5 : 3;
-+
-+			if (len < offset + 3)
-+				continue;
-+			min_vfreq = data[offset];
-+			max_vfreq = data[offset + 1] |
-+				    ((u16)(data[offset + 2] & 0x3) << 8);
-+		} else {
-+			continue;
-+		}
-+
-+		if (max_vfreq && min_vfreq && max_vfreq > min_vfreq) {
-+			info->monitor_range.min_vfreq = min_vfreq;
-+			info->monitor_range.max_vfreq = max_vfreq;
-+			break;
-+		}
-+	}
-+	displayid_iter_end(&iter);
-+}
-+
-+
- static void drm_parse_vesa_specific_block(struct drm_connector *connector,
- 					  const struct displayid_block *block)
- {
-@@ -6756,6 +6807,8 @@ static void update_display_info(struct drm_connector *connector,
- 
- 	drm_get_monitor_range(connector, drm_edid);
- 
-+	drm_get_monitor_range_displayid(connector, drm_edid);
-+
- 	if (edid->revision < 3)
- 		goto out;
- 
--- 
-2.53.0
-
+SGkgVmlsbGUsCgo+IEFGQUlDUyB0aGUgV2luZG93cyBkcml2ZXIgZG9lcyByZXNwZWN0IHRoYXQg
+VkJUIGJpdC4gU28gd2Ugc2hvdWxkIHRvby4KClRoYXQncyBmYWlyIC0tIEkgZG9uJ3QgaGF2ZSB2
+aXNpYmlsaXR5IGludG8gdGhlIFdpbmRvd3MgZHJpdmVyCmludGVybmFscyBzbyBJIGNhbid0IHNh
+eSBkZWZpbml0aXZlbHkgd2hldGhlciBpdCBjaGVja3MgVkJUIG9yIG5vdC4KCldoYXQgSSBjYW4g
+Y29uZmlybSBpcyB0aGUgZW5kLXVzZXIgcmVzdWx0OiBvbiB0aGlzIERlbGwgWFBTIDIwMjYKKFBh
+bnRoZXIgTGFrZSksIFZSUiAyMC0xMjBIeiB3b3JrcyBvbiBXaW5kb3dzIGJ1dCBub3Qgb24gTGlu
+dXggd2l0aAp0aGUgc2FtZSBmaXJtd2FyZS4gVGhlIFZCVCBkb2VzIG5vdCBjb250YWluIGEgVlJS
+IGZsYWcgZm9yIHRoaXMgcGFuZWwKYXQgYWxsIC0tIGludGVsX3ZidF9kZWNvZGUgc2hvd3Mgbm8g
+VlJSLXJlbGF0ZWQgZmllbGRzIGluIHRoZSBjaGlsZApkZXZpY2UgYmxvY2suCgpTbyBlaXRoZXIg
+V2luZG93cyBoYXMgYSBmYWxsYmFjayBwYXRoIHdoZW4gVkJUIGRvZXNuJ3QgZGVjbGFyZSBWUlIs
+Cm9yIERlbGwncyBJbnRlbCBEQ0ggZHJpdmVyIHNoaXBzIHdpdGggYSBkcml2ZXItc2lkZSBvdmVy
+cmlkZS4gRWl0aGVyCndheSwgdGhlIHBhbmVsIGNsZWFybHkgc3VwcG9ydHMgVlJSICh0aGUgRURJ
+RCdzIERpc3BsYXlJRCBleHRlbnNpb24KZXhwbGljaXRseSBkZWNsYXJlcyBBZGFwdGl2ZSBTeW5j
+IDIwLTEyMEh6KSwgYW5kIGl0IHdvcmtzIGluIHByYWN0aWNlCm9uIHRoaXMgaGFyZHdhcmUuCgpG
+cmFtZXdvcmsgbGFwdG9wIHVzZXJzIGhhdmUgcmVwb3J0ZWQgdGhlIHNhbWUgY2xhc3Mgb2YgaXNz
+dWUgd2l0aAp0aGVpciBCT0UgcGFuZWxzLgoKSWYgcmVzcGVjdGluZyBWQlQgaXMgaW1wb3J0YW50
+IChhbmQgSSB1bmRlcnN0YW5kIHRoZSByZWFzb25pbmcgLS0KT0VNIHZhbGlkYXRpb24pLCB3b3Vs
+ZCBzb21ldGhpbmcgbGlrZSBhIHF1aXJrIHRhYmxlIG9yIGEgbW9kdWxlCnBhcmFtZXRlciBiZSBh
+biBhY2NlcHRhYmxlIGFsdGVybmF0aXZlPyBJJ2QgcmF0aGVyIGhhdmUgYW55IHBhdGggdG8KbWFr
+aW5nIHRoaXMgd29yayB0aGFuIG5vIHBhdGguCgpUaGFua3MgZm9yIHRoZSByZXZpZXcuCgpKYWtl
+Cg==
