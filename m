@@ -4,28 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 442D7F42125
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 18:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 397CBF4213B
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 19:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C84B610E07C;
-	Wed, 15 Apr 2026 18:22:24 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA33F10E07C;
- Wed, 15 Apr 2026 18:22:22 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6503764710167489142=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFCFC10E75C;
+	Wed, 15 Apr 2026 19:16:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GFjTEZc7";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA1B10E74D;
+ Wed, 15 Apr 2026 19:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776280599; x=1807816599;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=u9Jk6XIJWWR1cJ56Q1L2GEys47wi/1PVK05xIE3RW7E=;
+ b=GFjTEZc7ZCaeDI23BFBXa+L+OGvCteqTO6lYkWjX6DmDLBtuLVnfpeLo
+ ZyXxXw9lO0avXUtGgSzt0CGL3I0EbZYPZ8O9m07Zt70KuczMgARUhptbC
+ W+WOkh47SyE9k5UnjQyRB8+pB5CT+dDXKUN3rFkN0oqXUMNEvm3GRqcI8
+ FKVU+RrL8rX/qMQ3gzsKKPd1LzeQkuWcyOGKvZsSNbRsyF49A063r5yuk
+ U1f78DJ4UOn1aFqVdYhZbyYIQGFhxeXjYwNjwHlwNkRhQP2F1otoZZVxh
+ cGtCn2zlpEXSgAmM9BhEtyCvxloKVBvvAzmXJ9kZcL4exUlNuvea6cdIA w==;
+X-CSE-ConnectionGUID: PFK+mSwCRUCZkaIyz3J3Hw==
+X-CSE-MsgGUID: Xygyorb3SLaWIiFqMLW6IQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11760"; a="102735580"
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="102735580"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2026 12:16:39 -0700
+X-CSE-ConnectionGUID: XMFb1mE4T1+16wGKQTjYIg==
+X-CSE-MsgGUID: Zmenxb6jQPyuRTcRJoQQbw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,179,1770624000"; d="scan'208";a="230359127"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.108])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2026 12:16:37 -0700
+Date: Wed, 15 Apr 2026 22:16:34 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jake S <j@metarealtyinc.ca>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/i915/display: allow eDP VRR when EDID has
+ adaptive sync range
+Message-ID: <ad_kEgDZiDIPy1Cs@intel.com>
+References: <20260415130626.10523-1-j@metarealtyinc.ca>
+ <20260415130626.10523-3-j@metarealtyinc.ca>
+ <69dfe22f.050a0220.301b30.5755@mx.google.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_=3A_drm/i915/display=3A_U?=
- =?utf-8?q?se_ceiling_division_for_NV12_UV_surface_offset_calculation_=28rev?=
- =?utf-8?q?3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Srinivas, Vidya" <vidya.srinivas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Apr 2026 18:22:22 -0000
-Message-ID: <177627734288.464821.14907984459996505146@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260411171521.162189-1-vidya.srinivas@intel.com>
-In-Reply-To: <20260411171521.162189-1-vidya.srinivas@intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <69dfe22f.050a0220.301b30.5755@mx.google.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,183 +72,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6503764710167489142==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, Apr 15, 2026 at 07:08:30PM +0000, Jake S wrote:
+> Hi Ville,
+> 
+> > AFAICS the Windows driver does respect that VBT bit. So we should too.
+> 
+> That's fair -- I don't have visibility into the Windows driver
+> internals so I can't say definitively whether it checks VBT or not.
+> 
+> What I can confirm is the end-user result: on this Dell XPS 2026
+> (Panther Lake), VRR 20-120Hz works on Windows but not on Linux with
+> the same firmware. The VBT does not contain a VRR flag for this panel
+> at all -- intel_vbt_decode shows no VRR-related fields in the child
+> device block.
 
-== Series Details ==
+It's in the LFP power block (44).
 
-Series: : drm/i915/display: Use ceiling division for NV12 UV surface offset calculation (rev3)
-URL   : https://patchwork.freedesktop.org/series/164740/
-State : success
+> 
+> So either Windows has a fallback path when VBT doesn't declare VRR,
+> or Dell's Intel DCH driver ships with a driver-side override.
 
-== Summary ==
+My cursory glance didn't spot any registry key stuff in there
+either. That I think is the usual "screw proper design and just
+hack it" approach for the Windows driver.
 
-CI Bug Log - changes from CI_DRM_18334 -> Patchwork_164740v3
-====================================================
+> Either
+> way, the panel clearly supports VRR (the EDID's DisplayID extension
+> explicitly declares Adaptive Sync 20-120Hz), and it works in practice
+> on this hardware.
+> 
+> Framework laptop users have reported the same class of issue with
+> their BOE panels.
+> 
+> If respecting VBT is important (and I understand the reasoning --
+> OEM validation), would something like a quirk table or a module
+> parameter be an acceptable alternative? I'd rather have any path to
+> making this work than no path.
 
-Summary
--------
+One can always hack up the VBT and use the firmware loader
+to override it.
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_164740v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@late_gt_pm:
-    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [PASS][5] -> [DMESG-WARN][6] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arls-5:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/bat-arls-5/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [SKIP][9] ([i915#13030]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#13030]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18334 -> Patchwork_164740v3
-
-  CI-20190529: 20190529
-  CI_DRM_18334: 4c59525db84aca677fd9f052e662912ad9d88448 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8859: 8d537f073bd4d30da991ab868bee2310ca664401 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_164740v3: 4c59525db84aca677fd9f052e662912ad9d88448 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/index.html
-
---===============6503764710167489142==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>: drm/i915/display: Use ceiling division for NV12 UV surface offset calculation (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164740/">https://patchwork.freedesktop.org/series/164740/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18334 -&gt; Patchwork_164740v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_164740v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@late_gt_pm:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_hdmi_inject@inject-audio:</p>
-<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18334/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13030">i915#13030</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164740v3/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18334 -&gt; Patchwork_164740v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18334: 4c59525db84aca677fd9f052e662912ad9d88448 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8859: 8d537f073bd4d30da991ab868bee2310ca664401 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_164740v3: 4c59525db84aca677fd9f052e662912ad9d88448 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6503764710167489142==--
+-- 
+Ville Syrjälä
+Intel
