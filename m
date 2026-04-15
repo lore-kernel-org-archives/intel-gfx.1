@@ -4,145 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AB79F433C0
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 21:08:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79420F433CD
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 22:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBE8410E7C4;
-	Wed, 15 Apr 2026 21:08:39 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nJNmCEuZ";
-	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010068.outbound.protection.outlook.com
- [40.93.198.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6753610E7C4;
- Wed, 15 Apr 2026 21:08:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dKfCSgx570HsRyVRuMsoYQomFn2OMlgR6KZkZMNz1eIISmKMLTe+COPbWTZBZwSGF/5bYMg7WoJUwdAYqE15Z7TKuAGYjVl5f8nI8Sbve1ggrIibgDJRTJ5/YPfVx14mBFfZdUV2Ju8HWzSVMqiY3+CM4xnHxrVuWJV277xpbnHgNPDHs9kATLHGtHPlFhmzwNhVi9MO40/4LrvqZ/F3YxHFqps38DshH/C0HDU043DLrSgcniNAD9T4fGFCdXaKFgfiX9qSuw2EE2Edpkhwr9wQbAxAuB5cqGpRvXRZWFo97QDFaP1SRKbmSacE2luEJIZtKZHZ7iyWrOsGUUfE6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Z5ekdCAL+z0+qFAGmXWpRhnb7mvYZZHEwk7q/UhNy0=;
- b=ceQK2SpKIyic3tzHwHYPN/tG3ST5aa9wQg4wJz0N7Rp40JupEDKsWt+umlf1iy2maiL3alaAsBtIy2en47zqJ93jm/jD1Q0jgCfMGUFbbrSRIdHAPz2tdcSq3WDGrNBF7Hr25ISjXurzwkQckBp3nUPawHl4bGgmZ/gGkAKOrV1VQM7f7Ir1JmvnV7lbofatwW2tsp6ql5g5Bg+bmjdJu7aFS4eXkTeK1/QEVSiV+sod9QIbboVFK63mWfSxgsYMcutnB+G0TSMfKCryO9rk4wpz3AWNtWrfB1MIed92Eo4QUVmowNheYCd+iGruUjW5FgNqgoTOAiCQ4uXXZpwx/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Z5ekdCAL+z0+qFAGmXWpRhnb7mvYZZHEwk7q/UhNy0=;
- b=nJNmCEuZhqXpG3dVZBf+yjGbY7CRKPlcdW3JM8hQcAzS/hfylL50a4Gc4oCDkkEgoMUD7k436rTLXlmt7UciuyU5frhGFUPwqxqxmg46yGchEHs/YbKICfZFfcMwJrAs2v6FXqfUu5M14bEMr90ksobul0Nei8gWnrh4OGkYrE3PGMbUp7Jl+rAaNawDDJJ1nKnOx9aPes0zRhIfDJZv6XltBpnKrtQRWHwISqtY5i7gaJMjnpCLwFT3NIA6WUn5wny1KLHtA4l3poYHuOtsx1tbGzi8GPGJ5m80FmZc0UWEO7APP3O3Kc/S861SfvuRdvs9g7WDLqawOZSpDzIy4w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- CH3PR12MB8993.namprd12.prod.outlook.com (2603:10b6:610:17b::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9818.20; Wed, 15 Apr
- 2026 21:06:28 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9818.017; Wed, 15 Apr 2026
- 21:06:28 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v11 14/20] gpu: nova-core: mm: Add Virtual Memory Manager
-Date: Wed, 15 Apr 2026 17:05:41 -0400
-Message-Id: <20260415210548.3776595-14-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260415210548.3776595-1-joelagnelf@nvidia.com>
-References: <20260415210548.3776595-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: CY5PR15CA0005.namprd15.prod.outlook.com
- (2603:10b6:930:14::18) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 137FA10E1FA;
+	Wed, 15 Apr 2026 22:10:05 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9EE310E1FA;
+ Wed, 15 Apr 2026 22:10:03 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6866287262227220941=="
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CH3PR12MB8993:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10a4c091-81e6-4c16-eb89-08de9b32dc82
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: QZDP9TJKRCZr6rvMLFgyQGZMKjHwDIktdJGI2MUEQ1YgabXNUYD8dH/JAuZBC9GbpICv5oBKhJhTSgjvc3OKX+Ra2cIxDNP/ehlb7lbMeBHWx0E+HWeu4KBgWCC8ypx4S5Ek97LjxoB3ocAxuYp0TVshTM2nUjI1lPeSUfROj1f/cWoCTfO1UoKkCrKYle5O1PFyQ6/2MkGzC40NLE6rYTN0Kzw7e2SqPqNimZj15Y279BH9qUEpT12qn5ppTnX4a10SQo7mbSQcAL71UcIO/sj5wUa7zokwhruxRtNPAZSTVIcdvDsENIGOztC5rq+nd370t7l2mq4FWVLzdssA7qLKdzzf6bPC64GUuKwA4GmHJqbzWPoJzTHe6R98yI10pojM5Vm7ziT3pFZidi7D97SjQkKkSWv1X410DLl7tshRbMxvpLnbTQLueeM0/vGTc69GWTOlQ1v/YMhU7KwU1zkB9yhaex24b/zc2aUMyB11uzyzos2Jeq4OTpKNTKXnl/juvjaQCJI3NGOzYGyYfRRdN8T3LBu+rUGUmpoqoMAIsT7f1xC7HqrF7QVlp+I2lVqFIAYoJbd+iFYNndCLoK5dIXp6AcBPUmkI6TdggWgWDFVb4ljNSHb1bx48daJiOXRqfSD+BjnyN4oZJSgYSkxkTZ7rLwahksRfFvvVKW/ObBT9/A+OcNzZGUvllpAzqlypAwhvc5WfFg+yyARBWiDa0dnGrQ1GqG/lYXwQ9fo=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Df865shGFde/arM9IQ+iRbMVYLuFvnoccOdxy1pzxTulwuqEiz1JkSba96MO?=
- =?us-ascii?Q?vEdwGaS0vuv4tybKyezZ/pt3obnC2gC7X6CFo0x6V35/RoZRuxpKMWYt5jLB?=
- =?us-ascii?Q?W2PEVPie3w1G+pJdZyFHD1PQYhwjMssDnQzhksC1nfoGtMkCj0BcwiuyS63R?=
- =?us-ascii?Q?g0KzUxoBjyxp5Z1wE4JUI9BZZS6lZn8aaN3Wi+0obbtsf+OqA4whJ9YUBdgQ?=
- =?us-ascii?Q?Ie8WpaJa5LVQus2RWXIIKK4soSboJAtspKqd+UONpiJghBTr31PEzHJJaw5J?=
- =?us-ascii?Q?xcyetmyliiTYqQomVm7WrQIsMeYKt7gjAqm+qvyxfBEZ8pxSgBcuXIkvPRyj?=
- =?us-ascii?Q?BJxwFFWvstRUHusTibB2LzykEPZUI9j55/mJUCFMzO02DveJs+p5BBl5LlwF?=
- =?us-ascii?Q?OY38dxjLDgTJPG0zT1A74eMMEk0klGfH7AzpxIQFvGjwPJibmjbzllHt3eYc?=
- =?us-ascii?Q?zLiwneI396hGgQBAt3EN3Q/V37/VE6Qk91RTC2XY6+2FeCdE+g9q1io5xQMZ?=
- =?us-ascii?Q?Vp8a+CnyVdMtaarxuheLbzXVPqbhKSRHm6v2gQ/78eg3cy5L7uP86hZkjfC6?=
- =?us-ascii?Q?V4qjtnpeDKPlqZt7pD3IKeYNl8LuWldpGNxpVFf8mAQ+UdNOBC+QWwsNhH7L?=
- =?us-ascii?Q?pOz3i2J1XkO/9oWkGgFavcloI0gTXVYER+MWqvF3FopuNEi2uaDD/j0ccpg9?=
- =?us-ascii?Q?FzxHkspOXPcNROrgiAIcdnPY+HO2yinx3HRky17jeF5shZRbmQ7+Xjchp1B+?=
- =?us-ascii?Q?9Axl3ASinTYA21TBKeB0DPzV87Fgwt98xrBTgmekdx77oqc8AtPjf3so+w1/?=
- =?us-ascii?Q?lrEGxC/2coS/WcnYsm+sAxvMJEKGRF5F3XMXtJldrdvrJfhb+mCXU+leu6YL?=
- =?us-ascii?Q?W7ciZFWH8I3ecFWOyo7z13IPzRZ345ZEaToWOnNu+IuqqmwPuC8HjsN4c3OH?=
- =?us-ascii?Q?8JoVlE7vs2blk/pPJedEynCkySGrDF9698SsfU8RWB2sZdoJZm56HEEfdtPu?=
- =?us-ascii?Q?umTnbdpb9181wfWoZdN94j16JIb05jxY7MshWxduhAnU8tFfuLxV2yjLYr07?=
- =?us-ascii?Q?XaSbaBO+Sy42i1CAMn9PMUrvWAJuqM6m9VSTGW24NJ1UWyujamobHvYv2rUk?=
- =?us-ascii?Q?Pk8e5XI8BvecuVwywx3O7Q89nO24iaZcYqSHB3GHndkwIk+L5Yzn2mt0O7QX?=
- =?us-ascii?Q?YCretmlGmCoaHdRPu2vpjWUJ8bJVxeH1lM9M5k6q4V6BHfF5x0P9GZgl2apo?=
- =?us-ascii?Q?ksgu5sKi3hJzp8s31Bdf81mrB7nUsSXy4a/p3e33Hb1JNGaRQdMzPHxiqOpz?=
- =?us-ascii?Q?eejQcfW1I51RbxZ0i8/UqlnXS7nIktjpquel3/Ndz2wKg2aaoZOkgBHSDMan?=
- =?us-ascii?Q?cozUHgZQGRDat2PQumgydeFCEEDhN+pbO7Cy92zxyREraH+8lIoQGC3obM0Z?=
- =?us-ascii?Q?muKVkocHwjyuB8vFaHbRrGTXTR/Gb1bEnBvLYF6rvRFS8RA82nZio4Roe8SB?=
- =?us-ascii?Q?q2prgFhh3J81hhp+VnnQicsDegkeir3UEoxJsmy8IRh7a76hsBq7xPmTp5ew?=
- =?us-ascii?Q?3DgACSA48e07HO/EQe29NDmSbRKJM0PCF8QPP6InzsKhW6AkNzZiXOZgHqFL?=
- =?us-ascii?Q?F0HoLo9nZU6oaCxZx1FroGG/NKspIH29Lxy7GBZw3egLfJRZ9JSWCeqqc3fD?=
- =?us-ascii?Q?bB5uwh9oe+dag8aOhbkC/0Y76CoZOqvgswQff9jlGyL9C2iO5fiRvuTbFBw3?=
- =?us-ascii?Q?6LCl9zi/tA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10a4c091-81e6-4c16-eb89-08de9b32dc82
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2026 21:06:28.5725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LzaGZQ6B9oHYySBFJVeKiERhd6a7aqjNldunq6PHN/dB4WCONqNp1oYdsMw4PiPY9c4lAlLuwzOOO9bE+Ta8vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8993
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/reset=3A_Expose_?=
+ =?utf-8?q?=22display=5Freset=5Fcount=22_in_debugfs_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 15 Apr 2026 22:10:03 -0000
+Message-ID: <177629100394.465352.5208316558246594941@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260415210411.24750-1-ville.syrjala@linux.intel.com>
+In-Reply-To: <20260415210411.24750-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,106 +37,230 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the Virtual Memory Manager (VMM) infrastructure for GPU address
-space management. Each Vmm instance manages a single address space
-identified by its Page Directory Base (PDB) address, used for Channel,
-BAR1 and BAR2 mappings.
+--===============6866287262227220941==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Mapping APIs and virtual address range tracking are added in later
-commits.
+== Series Details ==
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/mm.rs     |  1 +
- drivers/gpu/nova-core/mm/vmm.rs | 63 +++++++++++++++++++++++++++++++++
- 2 files changed, 64 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/vmm.rs
+Series: drm/i915/reset: Expose "display_reset_count" in debugfs (rev4)
+URL   : https://patchwork.freedesktop.org/series/164675/
+State : success
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index af398e94dd16..87fd6f0b956e 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -27,6 +27,7 @@ fn from(pfn: Pfn) -> Self {
- pub(super) mod pagetable;
- pub(crate) mod pramin;
- pub(super) mod tlb;
-+pub(super) mod vmm;
- 
- use kernel::{
-     bitfield,
-diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
-new file mode 100644
-index 000000000000..d92495a4579d
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/vmm.rs
-@@ -0,0 +1,63 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Virtual Memory Manager for NVIDIA GPU page table management.
-+//!
-+//! The [`Vmm`] provides high-level page mapping and unmapping operations for GPU
-+//! virtual address spaces (Channels, BAR1, BAR2). It wraps the page table walker
-+//! and handles TLB flushing after modifications.
-+
-+use kernel::{
-+    gpu::buddy::AllocatedBlocks,
-+    prelude::*, //
-+};
-+
-+use crate::mm::{
-+    pagetable::{
-+        walk::{PtWalk, WalkResult},
-+        MmuVersion, //
-+    },
-+    GpuMm,
-+    Pfn,
-+    Vfn,
-+    VramAddress, //
-+};
-+
-+/// Virtual Memory Manager for a GPU address space.
-+///
-+/// Each [`Vmm`] instance manages a single address space identified by its Page
-+/// Directory Base (`PDB`) address. The [`Vmm`] is used for Channel, BAR1 and
-+/// BAR2 mappings.
-+pub(crate) struct Vmm {
-+    /// Page Directory Base address for this address space.
-+    pdb_addr: VramAddress,
-+    /// MMU version used for page table layout.
-+    mmu_version: MmuVersion,
-+    /// Page table allocations required for mappings.
-+    page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
-+}
-+
-+impl Vmm {
-+    /// Create a new [`Vmm`] for the given Page Directory Base address.
-+    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
-+        // Only MMU v2 is supported for now.
-+        if mmu_version != MmuVersion::V2 {
-+            return Err(ENOTSUPP);
-+        }
-+
-+        Ok(Self {
-+            pdb_addr,
-+            mmu_version,
-+            page_table_allocs: KVec::new(),
-+        })
-+    }
-+
-+    /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
-+    pub(super) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
-+        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
-+
-+        match walker.walk_to_pte_lookup(mm, vfn)? {
-+            WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
-+            WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
-+        }
-+    }
-+}
--- 
-2.34.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_18335 -> Patchwork_164675v4
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/index.html
+
+Participating hosts (42 -> 39)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164675v4 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_debugfs@read-all-entries:
+    - bat-adlp-9:         [DMESG-WARN][3] ([i915#15673]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-adlp-9/igt@core_debugfs@read-all-entries.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-adlp-9/igt@core_debugfs@read-all-entries.html
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [DMESG-WARN][5] ([i915#13735]) -> [PASS][6] +80 other tests pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@i915_selftest@live@mman:
+    - bat-atsm-1:         [DMESG-FAIL][7] ([i915#14204]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-atsm-1/igt@i915_selftest@live@mman.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-atsm-1/igt@i915_selftest@live@mman.html
+
+  * igt@i915_selftest@live@sanitycheck:
+    - fi-kbl-7567u:       [DMESG-WARN][9] ([i915#13735]) -> [PASS][10] +79 other tests pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-kbl-7567u:       [DMESG-WARN][11] ([i915#13735] / [i915#180]) -> [PASS][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [DMESG-WARN][13] ([i915#13735] / [i915#15673]) -> [PASS][14] +49 other tests pass
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - fi-kbl-7567u:       [DMESG-WARN][15] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][16] +52 other tests pass
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+#### Warnings ####
+
+  * igt@i915_selftest@live:
+    - bat-atsm-1:         [DMESG-FAIL][17] ([i915#12061] / [i915#14204]) -> [DMESG-FAIL][18] ([i915#12061])
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-atsm-1/igt@i915_selftest@live.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-atsm-1/igt@i915_selftest@live.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#14204]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14204
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18335 -> Patchwork_164675v4
+
+  CI-20190529: 20190529
+  CI_DRM_18335: 45975e225ecbf4cdb6f1283f37f3589101f0a7ac @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8860: db5eb72e9ca0c8f7e39b9bfd88da1b28a85c9f8f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164675v4: 45975e225ecbf4cdb6f1283f37f3589101f0a7ac @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/index.html
+
+--===============6866287262227220941==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/reset: Expose &quot;display_reset_count&quot; in debugfs (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164675/">https://patchwork.freedesktop.org/series/164675/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18335 -&gt; Patchwork_164675v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/index.html</p>
+<h2>Participating hosts (42 -&gt; 39)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164675v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_debugfs@read-all-entries:</p>
+<ul>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-adlp-9/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-adlp-9/igt@core_debugfs@read-all-entries.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> +80 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@mman:</p>
+<ul>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-atsm-1/igt@i915_selftest@live@mman.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14204">i915#14204</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-atsm-1/igt@i915_selftest@live@mman.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> +79 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +52 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18335/bat-atsm-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14204">i915#14204</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164675v4/bat-atsm-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18335 -&gt; Patchwork_164675v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18335: 45975e225ecbf4cdb6f1283f37f3589101f0a7ac @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8860: db5eb72e9ca0c8f7e39b9bfd88da1b28a85c9f8f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164675v4: 45975e225ecbf4cdb6f1283f37f3589101f0a7ac @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6866287262227220941==--
