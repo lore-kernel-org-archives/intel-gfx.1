@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AAFF433D0
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Apr 2026 23:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEAF5F433D0
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Apr 2026 00:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7075E10E802;
-	Wed, 15 Apr 2026 23:47:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZSH62i+u";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9500110E7EC;
- Wed, 15 Apr 2026 23:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1776296852; x=1807832852;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=XzGwAc1B0hTY+RI+VXHfDblS9YZqO4TDHVkYnmrpHII=;
- b=ZSH62i+uEw6xPQlPaiIX280OENA8jKBEQxMRcJSXKg/1X5mFrTKGAhgw
- EZ5c42ngq5zPAwkoYk/WIkT2lkElGhIG3a8kbpSTLgC6DaqnbHk8Blt7X
- 5Sb9y+GI+ldxngVZrbUTK/qqG96WTRgED/2/NgAfwY/7uO3czAN9Sxt+8
- VbbxjzYwSKobYLJjuyTNTf9ScclmojefR88HyIDVuJXn9Jpd4dy/KxNKb
- TJu01cMgZvzlfx+5LP8FbBUKknSCdpjKZecinzpY6c+l9fn/MArDosFu1
- i2pT4sXcesAJEVOQxDAhsI2dP7zdj/PKobglFwjsiFwrCktkIE1luCIqr g==;
-X-CSE-ConnectionGUID: ZEwg0BGeQTaqpQ7J9T8+jQ==
-X-CSE-MsgGUID: FVNYfmQqS4yPRf8Sv3+M4A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11760"; a="77403528"
-X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="77403528"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Apr 2026 16:47:31 -0700
-X-CSE-ConnectionGUID: Q5Z3zyBoQgKl4zSiRs3g/w==
-X-CSE-MsgGUID: H9AQQN0ARf2g3XcXwsMYEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,181,1770624000"; d="scan'208";a="235511251"
-Received: from administrator-system-product-name.igk.intel.com (HELO
- dev-417.igk.intel.com) ([10.91.214.181])
- by fmviesa005.fm.intel.com with ESMTP; 15 Apr 2026 16:47:30 -0700
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v2 29/32] drm/i915/buf_trans: enumerate EHL's VS/PE-O indices
-Date: Thu, 16 Apr 2026 01:46:36 +0200
-Message-ID: <20260415234639.3577774-30-michal.grzelak@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260415234639.3577774-1-michal.grzelak@intel.com>
-References: <20260415234639.3577774-1-michal.grzelak@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52A8610E781;
+	Thu, 16 Apr 2026 00:05:29 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0782510E776;
+ Thu, 16 Apr 2026 00:05:28 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2707133633635976502=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm=3A_handle_IRQ=5FHPD_e?=
+ =?utf-8?q?vents_correctly?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 16 Apr 2026 00:05:28 -0000
+Message-ID: <177629792802.466384.10936373439638188113@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
+In-Reply-To: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,95 +37,183 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Encapsulate EHL's VS/PE-O's indices in enum ehl_vspeo_index.
+--===============2707133633635976502==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Use index of -1 as an indication of error case. Refer to it as EHL_ERR.
+== Series Details ==
 
-1st VS/PE-O's table is used for external DP with modes below HBR2
-(exclusive). With same supported modes, it is also used for eDP that
-does not use low vswing. 1st table is also used as a fallback for
-non-DPs. Refer to it as EHL_DP_HBR.
+Series: drm: handle IRQ_HPD events correctly
+URL   : https://patchwork.freedesktop.org/series/164957/
+State : success
 
-2nd table is used for external DP with modes above HBR2 (inclusive).
-With same supported modes, it is also used for eDP that does not use low
-vswing. Refer to it as EHL_EDP_HBR2.
+== Summary ==
 
-3rd table is used for eDP supporting HBR3 and using low vswing. Refer to
-it as EHL_EDP_HBR3.
+CI Bug Log - changes from CI_DRM_18337 -> Patchwork_164957v1
+====================================================
 
-Indices for other tables have not yet been observed to be used as of
-now.
+Summary
+-------
 
-Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c | 12 ++++++------
- drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h |  8 ++++++++
- 2 files changed, 14 insertions(+), 6 deletions(-)
+  **SUCCESS**
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-index 6001515acc1db..9b39774434c66 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.c
-@@ -1786,31 +1786,31 @@ xe3plpd_get_lt_buf_trans(struct intel_encoder *encoder,
- 		return intel_get_buf_trans(&xe3plpd_lt_trans_dp14, n_entries);
- }
- 
--static int
-+static enum ehl_vspeo_index
- ehl_compute_index(struct intel_encoder *encoder,
- 		  const struct intel_crtc_state *crtc_state)
- {
- 	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP)) {
- 		if (use_edp_low_vswing(encoder)) {
- 			if (crtc_state->port_clock > 540000)
--				return 2;
-+				return EHL_COMBO_EDP_HBR3;
- 			else
--				return 1;
-+				return EHL_COMBO_EDP_HBR2;
- 		}
- 	}
- 
- 	if (intel_crtc_has_dp_encoder(crtc_state)) {
- 		if (crtc_state->port_clock > 270000)
--			return 1;
-+			return EHL_COMBO_EDP_HBR2;
- 		else
--			return 0;
-+			return EHL_COMBO_DP_HBR;
- 	}
- 
- 	drm_WARN(to_intel_display(crtc_state)->drm, 1,
- 		 "non-DP (%d) encoder asks to compute VS/PE-O index\n",
- 		 crtc_state->output_types);
- 
--	return -1;
-+	return EHL_ERR;
- }
- 
- static enum snps_c10_vspeo_index
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-index a8c998fa339e6..aa2a47445af76 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-+++ b/drivers/gpu/drm/i915/display/intel_ddi_buf_trans.h
-@@ -107,6 +107,14 @@ enum snps_c10_vspeo_index {
- 	C10_EDP_HBR3
- };
- 
-+enum ehl_vspeo_index {
-+	EHL_ERR = -1,
-+
-+	EHL_COMBO_DP_HBR = 0,
-+	EHL_COMBO_EDP_HBR2,
-+	EHL_COMBO_EDP_HBR3
-+};
-+
- bool is_hobl_buf_trans(const struct intel_ddi_buf_trans *table);
- 
- void intel_ddi_buf_trans_init(struct intel_encoder *encoder);
--- 
-2.45.2
+  No regressions found.
 
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164957v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] ([i915#15622])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-arlh-3/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-arlh-3/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@gt_heartbeat:
+    - bat-arlh-3:         [PASS][3] -> [INCOMPLETE][4] ([i915#15845])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-arlh-3/igt@i915_selftest@live@gt_heartbeat.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-arlh-3/igt@i915_selftest@live@gt_heartbeat.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-dg2-8:          [DMESG-FAIL][5] ([i915#12061]) -> [PASS][6] +1 other test pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-dg2-8/igt@i915_selftest@live.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-dg2-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-14:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [FAIL][9] ([i915#14867]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#14867]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867
+  [i915#15622]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15622
+  [i915#15845]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15845
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18337 -> Patchwork_164957v1
+
+  CI-20190529: 20190529
+  CI_DRM_18337: b2dbef367fba940bdaca7a3a3645c4be3d3c8ff9 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8861: 63a08403d58b652dcab80da02d6078386da78c17 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164957v1: b2dbef367fba940bdaca7a3a3645c4be3d3c8ff9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/index.html
+
+--===============2707133633635976502==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm: handle IRQ_HPD events correctly</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164957/">https://patchwork.freedesktop.org/series/164957/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18337 -&gt; Patchwork_164957v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164957v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-arlh-3/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-arlh-3/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15622">i915#15622</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_heartbeat:</p>
+<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-arlh-3/igt@i915_selftest@live@gt_heartbeat.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-arlh-3/igt@i915_selftest@live@gt_heartbeat.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15845">i915#15845</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18337/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14867">i915#14867</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164957v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18337 -&gt; Patchwork_164957v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18337: b2dbef367fba940bdaca7a3a3645c4be3d3c8ff9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8861: 63a08403d58b652dcab80da02d6078386da78c17 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164957v1: b2dbef367fba940bdaca7a3a3645c4be3d3c8ff9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2707133633635976502==--
