@@ -4,79 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51EF9F5A8A5
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 18:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EBD5F5A8AA
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 18:06:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D856110E726;
-	Mon, 20 Apr 2026 18:05:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A561510E727;
+	Mon, 20 Apr 2026 18:05:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nyDTjNdv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRjPIkEH";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4416310E2BE
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 14:14:51 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-671a827adccso1239138a12.2
- for <intel-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 07:14:51 -0700 (PDT)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
+ [209.85.217.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 473BD10E036
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 12:18:11 +0000 (UTC)
+Received: by mail-vs1-f43.google.com with SMTP id
+ ada2fe7eead31-6058a955e04so431205137.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 17 Apr 2026 05:18:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776428290; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GljA1d9iGjSGbR5LI2pH+lzuZWFuWmgHwEZpZXn6974X2lLSyHDDRu/H6jPfIljVqF
+ FDMbpFfTwszvUevKe7IMrqB5iaSBqLd7HlqYL5Uzmkm1vO1rnGEf8g+76Fmo/GeQGkil
+ sTPNpK0N3kdqfr5ZjglMfLKXPqxQBdu/SK0eGRVNPl65Fb+oppWLPbcMMdmluzJ4NtFU
+ ZaYV3dMNoZxb9ehRWEGL8oc6mfSC1I1+WFbbtTpW1bYZLdDR1DP7dTNeQlGS0xwXrz5o
+ 8JzxsDmzYXQzVPT5r/YrKiNp4fQkzWYMLuiLOfthCmrnMMZQCSuH0hYCxHRGl3j2wD3p
+ BLOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ fh=IQjK765ovZ3mv/RcMZO57P1D4UgSwZl/DSQGnM2p8Wk=;
+ b=eQW6kdYdqHajxikxpZk/yMWauqVBl86l9VNA8nwsw25xFYPliDUh8ohVTECXASXlj5
+ Y712bnXvVCsWZqKvUjFm4W0U2p2vxLLv7/D6/Kii1krCMYuno5aZAqiUtyi3Tbi8sjEj
+ VuhzG4Y5tNPqYChCfHrydHZdneZHH8PbOQ4xDfQh/NhwinBICjTo73DIq9N2kHj11Dg4
+ Uvg1H95X2EdRPolr7UXvEdI22YCxt0ccwXvoIRpJ3UuL5BZLXeo4P7ehBEgHDkNbmH0k
+ i4XTLa7nHZ5COiswWAPtgPm4N88R8XVa1ccrNfN5J4jWweTXrUAJffgsAN0o1SWFEsPh
+ yXzg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776435289; x=1777040089; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1776428290; x=1777033090; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9bE/23HHr5NxJFT3TiQRbeJBBfxsF0ZdYwl1CCK2/W0=;
- b=nyDTjNdvY9DPQhvvhbHh0ISYdpyWveO40DnoCDPn2llV7ItcRE4fifg4RmBVtB4Yq7
- 8qsF2WoU9BjAWYxIPJDgce2H8KtxL79KpAViz67oZV+vAkAkN0jmY29oU5SVmK9mnMpR
- cl55bVb+By1+joCrCD6lBX9q6QuyFRo10JsAVNaMG/FhX6zLam4J9s9GXLJz2LPvOOB6
- aZgBtMZ6gwl14a0HAHBJ8O0eWfFb51GzIrAb8FSc/h3eWF76BdLjcByoR/9OqKbP6tyb
- YItEsjQOqA3j4teQsvUzSiGTlAETd0o3HfSM2/nvJac0cCmSfpJacKBDvklJ0PK7TgAk
- bCJg==
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ b=bRjPIkEH3YZ6zkrUU0L0mCtsbhdFrJVBkeldrhNPs+m0yr4+QpHPn95+YAuGQQ04yL
+ iodv7FtvR6Rv5Yt0ODWguCFw33fI9xk8/IEzw3mWn0f6N0yRb+fJv0hyC6GLZ2k1I9Ol
+ 93fGeDfWVegZoaIE45zD8tur3DkV8ck+gjzYTbYJSDH3EhhaJNndY72DDzZXlyKVtTd8
+ UMEvRzz6CUYx0bOmLMvjmci8puDEjDy2wudHvYBHwCgMf1gub7mB910kpCA67xudVmaO
+ xMFFUDARZFvbSSJublaHazTHjkbnnJtuA1R4YEnxmH6wYVCpnbYhkOT+t2/mISqFrgIR
+ CsDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776435289; x=1777040089;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1776428290; x=1777033090;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9bE/23HHr5NxJFT3TiQRbeJBBfxsF0ZdYwl1CCK2/W0=;
- b=IBasuCG2e994QLesA+h5zS/9tXnnfWc1vNjQg0yaozMikzx+ViaL4379SjqJCnNsQo
- SXyDrGQkGwj60QIJy9TCVIsz2+YNqiHgY3JeXY4EuW1mXb7VWBoEsgAUbEUJ0bd9kYKY
- t+hCuqMlGq6rxZkMKXc9ywzyhAtsOOTC4V/LPOIeyzQh29BE3wEqw+DsuBwc0l/5GEYt
- ecq8xmkno4qL5JCC3jpYbi/EAMe//nM7kl4a7gChKSyOtzvFowiJsAvuAgckGCeEibfH
- 0wEkpGiCIL3yv5dlivV9/L4vMlr6C7b3UjUojhTFHQPYwKh3Dexaclhf9cdrkWS5d8nB
- 8SXQ==
-X-Gm-Message-State: AOJu0YyXlY6fT0d/ERzHfXIfGMBpapRLdOzlBFt68qbpf1+bpOOoUaYM
- gx//o50Dsgcz4dvpSWtJwT29JvnZyQhQuV9UmYL3ZDsOigvDv4vVSP0HyMQ1K8xAvlJJlA==
-X-Gm-Gg: AeBDiesBWhsKUVVcvs6VYrNacD31rxiF0E2H7R4B5s2PdOO9dPKSTuihuoGzQorllDY
- FC0uuGX71zqbw95sECdOWMrGj7luBseuGXGlkYjANmeit5LcEio5hh6TwgbCGO8/pV1Zgl2+vhL
- 04dOyvoJ4dcj+ZskH6Ymlr21Jzyc78PruQb0KPIdijhFDyHn7x1de649Tk4s7r1y7skmlifiY+x
- A0M9je14AD0ZM7rrRD3/RoqspUr+syyDdobSUmUgdxfzh36I7NI8c0RSskwhx2pjIqIYMd2JFNq
- yr0TIqCXHv9M5jQcsEKdWVKZuedCZaX69p9ahapbf9hQholRWJbNuLgUTQA2cbShKrpkA/EB6bm
- 2MjQzVghrgX1aTAAauqLxfbrgTEs0YcaQjRFS0+MUfKmsmeSu+42Na/8dSK/bxMTqXMKiyNTrU3
- 5pq2L9I7iI4Vly2PIPCX+jSmbXO83Tbf6rVLmDncZqPRMJCmn5CfKzccWJUut/QHMR+41wSJk/N
- N8zLIP6jPjD
-X-Received: by 2002:a05:6402:34cd:b0:672:c1b0:1f3d with SMTP id
- 4fb4d7f45d1cf-672c1b020bcmr1345145a12.8.1776435289044; 
- Fri, 17 Apr 2026 07:14:49 -0700 (PDT)
-Received: from JTOLLET-M-FKW7.cisco.com
- ([2603:5004:20a0:100c:b964:8d24:d15b:f122])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-672c4d455e9sm458744a12.14.2026.04.17.07.14.47
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Fri, 17 Apr 2026 07:14:48 -0700 (PDT)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-X-Google-Original-From: Jerome Tollet <jtollet@cisco.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- ville.syrjala@linux.intel.com, ankit.k.nautiyal@intel.com,
- arun.r.murthy@intel.com, jani.nikula@linux.intel.com,
- Jerome Tollet <jtollet@cisco.com>
-Subject: [PATCH v3] drm/i915/hdmi: Poll for 200 msec for TMDS_Scrambler_Status
-Date: Fri, 17 Apr 2026 16:14:32 +0200
-Message-ID: <20260417141432.7556-1-jtollet@cisco.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
-References: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
+ bh=cDMhKxQZOBW41kLl446l1EJd+PVPbWKyXfIiDzkTED4=;
+ b=A+5dKydLo0IZ3JDw9Vx0+7eumOrs1+LyKZwuBS5vKOjwBIt705j2LgI011tylWHiy2
+ jdaMj70FtY4FPMFqP+I4kSiIlCo3a7DvS8y+W3E7cMoqxKZuIKnC1seyvz0homOkZ7hl
+ oL2yUBPAm/aSFjrZMuapE+rYDc1VhPclrqkGv8Rh7n/hpqCvZJxPy9+KjQdODV7zKK/n
+ ZlAekuG+0ymnbjUiXLKCg9eWJwdfI9V79wjAQwdZZIlQQqM+3FH8T3RXYAYRvS7f3+jL
+ K0mZZbyfopdztYrhnF2hnGHGeMqFlY8XKfd9C+T+FklnlBtU0ACS8TrSPYIvoWdU0NAq
+ h32w==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+A0c2UfZ1TxOw4ibFwYlYBnA1jgxMbnv1IfKVe2gJXFftoq9quhdCSPDxYHI9FWd3+iNEGCyW844Q=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyy5KloKfkZgeNQpOZSBd/sCZD52ABXS0hMHFqeaxFDcS5Zkw1h
+ wbL5afy+FiDwZw232pVyKexnkFZXIua/eU8/AcSfsz0ljOYOPRi/PcrvuLFqFGEjTRcSL7z6zYs
+ NicSBooy+2qRDCJp3GHpL0tq5uQH73eI=
+X-Gm-Gg: AeBDievGyCxi+y1lcz+gAvf8BvB6RQCtLPTKJ44vJ/ekB0rugLNJGa1o8UaZ6cJK00S
+ uY4fciR7E7CuLWIMTsEyB5ganRBY0cfI+B/81svTvcEifi1TPxxtOj0n8yLeat9eo4ujsjKO5FV
+ Ox4+n3br8aUoGg3B7qnrdbbTnC9eivBkl+Y87eHgYKTX56XelC88UV12+IBY/TB4Gaik9MjmAJt
+ kxD58ZhR7f0EILVa+gKGB6hlCGnOfUMjyeIF0hELWxNJTS4e9dmgIq+owyO2wA+VHEhXzO+4BjV
+ s8R6lkTZ8rQMea0HJg==
+X-Received: by 2002:a67:e703:0:b0:602:afbc:ae78 with SMTP id
+ ada2fe7eead31-616fb89ea6emr791230137.2.1776428289898; Fri, 17 Apr 2026
+ 05:18:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260416-hpd-irq-events-v1-0-1ab1f1cfb2b2@oss.qualcomm.com>
+ <20260416-hpd-irq-events-v1-6-1ab1f1cfb2b2@oss.qualcomm.com>
+In-Reply-To: <20260416-hpd-irq-events-v1-6-1ab1f1cfb2b2@oss.qualcomm.com>
+From: Pengyu Luo <mitltlatltl@gmail.com>
+Date: Fri, 17 Apr 2026 20:17:26 +0800
+X-Gm-Features: AQROBzDTVswzyUjJ6xkXYjkzbvzXgr8nk22CVU17PBSoxKtVUOrPnYmdya4d4B0
+Message-ID: <CAH2e8h4rLZB3E8Rdwy_LtfwtwAKZCOgL18fRFVqGBx32Cm2N2Q@mail.gmail.com>
+Subject: Re: [PATCH 6/6] usb: typec: ucsi: huawei-gaokun: pass down HPD_IRQ
+ events
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Nikita Travkin <nikita@trvn.ru>, 
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 20 Apr 2026 18:05:58 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,105 +135,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HDMI 2.0 section 6.1.3.1 specifies that after enabling
-Scrambling_Enable and starting scrambled video transmission, the source
-should poll Scrambling_Status until it reads 1 or until a timeout of
-200 ms expires.
+On Thu, Apr 16, 2026 at 7:22=E2=80=AFAM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> Pass IRQ_HPD events to the HPD bridge, letting those to be delivered to
+> the DisplayPort driver.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Add a polling step after enabling the HDMI port to check the scrambling
-status when HDMI scrambling is enabled.
+Reviewed-by: Pengyu Luo <mitltlatltl@gmail.com>
 
-On some HDMI 2.0 sinks, omitting this check can result in 4K@60Hz
-(594 MHz) failing to come up correctly because the sink has not yet
-finished its scrambling setup. In practice, waiting for the scrambling
-status here fixes such sinks.
-
-While this synchronous polling is not itself explicitly required for
-correct modeset sequencing, HDMI 2.0 section 6.1.3.1 does recommend it
-as the way for the source to verify that the TMDS link is functioning
-correctly with scrambling enabled.
-
-v3:
- - Add explicit HDMI 2.0 section reference in code comment
- - Clarify commit message around the observed sink fix
-
-v2:
- - Poll TMDS_Scrambler_Status for up to 200 ms instead of using a fixed
-   delay
-
-Reported-by: Jerome Tollet <jtollet@cisco.com>
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/6868
-Link: https://lore.kernel.org/dri-devel/20251230091037.5603-1-jerome.tollet@gmail.com/
-Signed-off-by: Jerome Tollet <jtollet@cisco.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c  |  2 ++
- drivers/gpu/drm/i915/display/intel_hdmi.c | 25 +++++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_hdmi.h |  2 ++
- 3 files changed, 29 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index cb91d07cdaa6..c708b713f0e8 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -3506,6 +3506,8 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
- 	}
-
- 	intel_ddi_buf_enable(encoder, buf_ctl);
-+
-+	intel_hdmi_poll_for_scrambling_enable(crtc_state, connector);
- }
-
- static void intel_ddi_enable(struct intel_atomic_state *state,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 055e68810d0d..958d939ae6ee 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2694,6 +2694,31 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
- 	drm_connector_attach_max_bpc_property(&connector->base, 8, 12);
- }
-
-+/*
-+ * HDMI 2.0 spec, section 6.1.3.1 (Scrambling Control): after
-+ * enabling Scrambling_Enable and starting scrambled video
-+ * transmission, poll Scrambling_Status for up to 200 ms.
-+ */
-+void
-+intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_state,
-+				      struct drm_connector *_connector)
-+{
-+	struct intel_connector *connector = to_intel_connector(_connector);
-+	struct intel_display *display = to_intel_display(crtc_state);
-+	bool scrambling_enabled = false;
-+	int ret;
-+
-+	if (!crtc_state->hdmi_scrambling)
-+		return;
-+
-+	/* Poll for a max of 200 msec as per HDMI spec */
-+	ret = poll_timeout_us(scrambling_enabled = drm_scdc_get_scrambling_status(&connector->base),
-+			      scrambling_enabled, 1000, 200 * 1000, false);
-+	if (ret)
-+		drm_dbg_kms(display->drm,
-+			    "[CONNECTOR:%d:%s] Timed out waiting for scrambling enable\n",
-+			    connector->base.base.id, connector->base.name);
-+}
-+
- /*
-  * intel_hdmi_handle_sink_scrambling: handle sink scrambling/clock ratio setup
-  * @encoder: intel_encoder
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index be2fad57e4ad..0fa3661568e8 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -70,5 +70,7 @@ void hsw_read_infoframe(struct intel_encoder *encoder,
- 			const struct intel_crtc_state *crtc_state,
- 			unsigned int type,
- 			void *frame, ssize_t len);
-+void intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_state,
-+					   struct drm_connector *_connector);
-
- #endif /* __INTEL_HDMI_H__ */
---
-2.45.2
+Best wishes,
+Pengyu
