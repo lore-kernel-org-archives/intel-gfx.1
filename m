@@ -4,35 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3BF3F5A8B6
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 20:09:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 182EDF5A8B8
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 20:15:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DFC710EB3D;
-	Mon, 20 Apr 2026 20:09:24 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76DB510EB3B;
- Mon, 20 Apr 2026 20:09:23 +0000 (UTC)
-Received: from 88-113-64-214.elisa-laajakaista.fi ([88.113.64.214]
- helo=[192.168.100.133])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1wEuvo-00000004RLY-1S1H; Mon, 20 Apr 2026 23:09:21 +0300
-Message-ID: <bf26824b19eb5015841e1cfb2bd5568758308c61.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Luca Coelho
- <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, ville.syrjala@linux.intel.com
-Date: Mon, 20 Apr 2026 23:09:19 +0300
-In-Reply-To: <198b43cfbace2bc2746bee69ca55f2dc2f37e066@intel.com>
-References: <20260420103705.3453499-1-luciano.coelho@intel.com>
- <20260420103705.3453499-9-luciano.coelho@intel.com>
- <198b43cfbace2bc2746bee69ca55f2dc2f37e066@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6AB10E201;
+	Mon, 20 Apr 2026 20:14:59 +0000 (UTC)
+Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4447F10E201;
+ Mon, 20 Apr 2026 20:14:58 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 8/8] drm/i915: remove HAS_PCH_NOP() dependency from
- clock gating
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm=3A_handle_IRQ=5FHPD_e?=
+ =?utf-8?q?vents_correctly_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 20 Apr 2026 20:14:58 -0000
+Message-ID: <177671609827.478721.7373776983793102724@a3b018990fe9>
+X-Patchwork-Hint: ignore
+References: <20260420-hpd-irq-events-v2-0-402ffe27e9e9@oss.qualcomm.com>
+In-Reply-To: <20260420-hpd-irq-events-v2-0-402ffe27e9e9@oss.qualcomm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,46 +37,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-04-20 at 15:21 +0300, Jani Nikula wrote:
-> On Mon, 20 Apr 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
-> > intel_pch_init_clock_gating() already handles unsupported PCH types,
-> > including PCH_NOP, by doing nothing.
-> >=20
-> > Drop the explicit HAS_PCH_NOP() check from the IVB clock gating
-> > path and always call the display helper directly.  This removes one
-> > more direct dependency on display-side PCH macros from
-> > intel_clock_gating.c.
-> >=20
-> > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/intel_clock_gating.c | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/dr=
-m/i915/intel_clock_gating.c
-> > index 12559db84cf4..d185199c43b8 100644
-> > --- a/drivers/gpu/drm/i915/intel_clock_gating.c
-> > +++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-> > @@ -290,8 +290,7 @@ static void ivb_init_clock_gating(struct drm_i915_p=
-rivate *i915)
-> >  	intel_uncore_rmw(&i915->uncore, GEN6_MBCUNIT_SNPCR, GEN6_MBC_SNPCR_MA=
-SK,
-> >  			 GEN6_MBC_SNPCR_MED);
-> > =20
-> > -	if (!HAS_PCH_NOP(display))
-> > -		intel_pch_init_clock_gating(display);
-> > +	intel_pch_init_clock_gating(display);
->=20
-> With this, you could also do
->=20
->  -#include "display/intel_display_core.h"
->  +#include "display/intel_pch.h"
+== Series Details ==
 
-Yes! Good catch.
+Series: drm: handle IRQ_HPD events correctly (rev2)
+URL   : https://patchwork.freedesktop.org/series/164957/
+State : failure
 
---
-Cheers,
-Luca.
+== Summary ==
+
+Error: make failed
+  CALL    scripts/checksyscalls.sh
+  DESCEND objtool
+  INSTALL libsubcmd_headers
+  CC [M]  drivers/usb/typec/mux/nb7vpq904m.o
+In file included from drivers/usb/typec/mux/nb7vpq904m.c:14:
+./include/drm/bridge/aux-bridge.h:52:1: error: expected identifier or ‘(’ before ‘{’ token
+   52 | {
+      | ^
+./include/drm/bridge/aux-bridge.h:49:20: warning: ‘drm_aux_hpd_bridge_notify_extra’ used but never defined
+   49 | static inline void drm_aux_hpd_bridge_notify_extra(struct device *dev,
+      |                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make[6]: *** [scripts/Makefile.build:289: drivers/usb/typec/mux/nb7vpq904m.o] Error 1
+make[5]: *** [scripts/Makefile.build:549: drivers/usb/typec/mux] Error 2
+make[4]: *** [scripts/Makefile.build:549: drivers/usb/typec] Error 2
+make[3]: *** [scripts/Makefile.build:549: drivers/usb] Error 2
+make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
+make[1]: *** [/home/kbuild2/kernel/Makefile:2105: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+Build failed, no error log produced
+
+
