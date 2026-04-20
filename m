@@ -4,27 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE011F5A8BB
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 20:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C68E4F5A8C6
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Apr 2026 20:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BF1210EB41;
-	Mon, 20 Apr 2026 20:29:25 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD9310EB49;
- Mon, 20 Apr 2026 20:29:24 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6419264128348489380=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2685B10EB49;
+	Mon, 20 Apr 2026 20:47:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZkF6jCoo";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5DD710E18F;
+ Mon, 20 Apr 2026 20:47:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1776718050; x=1808254050;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=10NS7fD9VfJLl3D/1Qk0UsFN7Oc3WXIc7Xild9/Lkmw=;
+ b=ZkF6jCoo5IP0wnm5U2/eJo/saZMNvklAQ8JywZR1lpOWyN/sMPjr3eDF
+ IP02Wm7/ZedytBwvAcjSZJwnieCj8zAGzj7pleb+T/wYiuIJ6Hd2qsKas
+ HTIWMCAA5er1N15u03koS1Ex3EhdeOin83vzHn7M1aHSlgLar53oDZsEB
+ ZTeGba61ezWAZUyOMVC9JCWNJziHZqGEXcvDUlH1/LpfJQ2A01Z0t1o+b
+ t84K3KLcIYMiF7zeeNOHN9pNVBvz2wkPx5+k4+/JLOolXJaHLMRstdcFn
+ U19Xb1llCj/is/zssDbfRKhKGnx8FvroFn03NbRs7HyGiLRJfyp+SMZkA w==;
+X-CSE-ConnectionGUID: 0roAoTuvQ86UOQUm8cuMRQ==
+X-CSE-MsgGUID: vvL8PRBQQB+C06kWaiYa+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11762"; a="100302149"
+X-IronPort-AV: E=Sophos;i="6.23,190,1770624000"; d="scan'208";a="100302149"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 13:47:30 -0700
+X-CSE-ConnectionGUID: yxdxndQJRCCYs6azg1QxdA==
+X-CSE-MsgGUID: FXm6Wx6gSLqapkGdZC9DpA==
+X-ExtLoop1: 1
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO hazy.intel.com)
+ ([10.245.244.229])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Apr 2026 13:47:28 -0700
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	jani.nikula@linux.intel.com
+Subject: [PATCH] drm/i915: remove unused DPLL_TEST register definitions
+Date: Mon, 20 Apr 2026 23:46:47 +0300
+Message-ID: <20260420204715.3906215-1-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/xe=3A_update_stolen_m?=
- =?utf-8?q?emory_preferance_comparison_using_pages?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 20 Apr 2026 20:29:24 -0000
-Message-ID: <177671696458.477004.11091026152751153211@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260420133006.255851-1-vinod.govindapillai@intel.com>
-In-Reply-To: <20260420133006.255851-1-vinod.govindapillai@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,181 +63,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6419264128348489380==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Remove the old DPLL_TEST register definitions from i915_reg.h.
 
-== Series Details ==
+They are no longer used anywhere in the driver.
 
-Series: drm/xe: update stolen memory preferance comparison using pages
-URL   : https://patchwork.freedesktop.org/series/165166/
-State : failure
+Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+---
+ drivers/gpu/drm/i915/i915_reg.h | 12 ------------
+ 1 file changed, 12 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
+index 5d99b99b0c57..68bd0b3a6f83 100644
+--- a/drivers/gpu/drm/i915/i915_reg.h
++++ b/drivers/gpu/drm/i915/i915_reg.h
+@@ -509,18 +509,6 @@
+ #define   IVB_SPR_STRETCH_MAX_X2	REG_FIELD_PREP(IVB_SPR_STRETCH_MAX_MASK, 2)
+ #define   IVB_SPR_STRETCH_MAX_X1	REG_FIELD_PREP(IVB_SPR_STRETCH_MAX_MASK, 3)
+ 
+-#define DPLL_TEST	_MMIO(0x606c)
+-#define   DPLLB_TEST_SDVO_DIV_1		(0 << 22)
+-#define   DPLLB_TEST_SDVO_DIV_2		(1 << 22)
+-#define   DPLLB_TEST_SDVO_DIV_4		(2 << 22)
+-#define   DPLLB_TEST_SDVO_DIV_MASK	(3 << 22)
+-#define   DPLLB_TEST_N_BYPASS		(1 << 19)
+-#define   DPLLB_TEST_M_BYPASS		(1 << 18)
+-#define   DPLLB_INPUT_BUFFER_ENABLE	(1 << 16)
+-#define   DPLLA_TEST_N_BYPASS		(1 << 3)
+-#define   DPLLA_TEST_M_BYPASS		(1 << 2)
+-#define   DPLLA_INPUT_BUFFER_ENABLE	(1 << 0)
+-
+ #define D_STATE		_MMIO(0x6104)
+ #define  DSTATE_GFX_RESET_I830			(1 << 6)
+ #define  DSTATE_PLL_D3_OFF			(1 << 3)
+-- 
+2.53.0
 
-CI Bug Log - changes from CI_DRM_18349 -> Patchwork_165166v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_165166v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_165166v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_165166v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live:
-    - fi-kbl-8809g:       [PASS][1] -> [ABORT][2] +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/fi-kbl-8809g/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/fi-kbl-8809g/igt@i915_selftest@live.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_165166v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arls-5:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-arls-5/igt@i915_selftest@live@workarounds.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-dg2-14:         [DMESG-FAIL][5] ([i915#12061]) -> [PASS][6] +1 other test pass
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-    - bat-mtlp-9:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18349 -> Patchwork_165166v1
-
-  CI-20190529: 20190529
-  CI_DRM_18349: da91cb4e6137507f74e4da41c39d0260b4cd1201 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8863: 5b279a8b71dc1672099205a1a9e8135c7c7fadb5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_165166v1: da91cb4e6137507f74e4da41c39d0260b4cd1201 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/index.html
-
---===============6419264128348489380==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/xe: update stolen memory preferance comparison using pages</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/165166/">https://patchwork.freedesktop.org/series/165166/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18349 -&gt; Patchwork_165166v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_165166v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_165166v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_165166v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>fi-kbl-8809g:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/fi-kbl-8809g/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/fi-kbl-8809g/igt@i915_selftest@live.html">ABORT</a> +1 other test abort</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_165166v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live@workarounds:<ul>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18349/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165166v1/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18349 -&gt; Patchwork_165166v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18349: da91cb4e6137507f74e4da41c39d0260b4cd1201 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8863: 5b279a8b71dc1672099205a1a9e8135c7c7fadb5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_165166v1: da91cb4e6137507f74e4da41c39d0260b4cd1201 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6419264128348489380==--
