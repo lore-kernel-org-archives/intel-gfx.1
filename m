@@ -4,27 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA53DF9B5E5
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 08:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0273F9B5F6
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Apr 2026 09:23:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3774C10E22B;
-	Wed, 22 Apr 2026 08:51:40 +0000 (UTC)
-Received: from a3b018990fe9 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB94110E22B;
- Wed, 22 Apr 2026 08:51:38 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2704031963957619283=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16D7C10E997;
+	Wed, 22 Apr 2026 09:23:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="SdjYoXB4";
+	dkim-atps=neutral
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75E3610E98A;
+ Wed, 22 Apr 2026 09:23:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=lSqPa1PdmXI2jpkxmLTsPfh8jceAyrsRpIgBAmWEFSk=; b=SdjYoXB4e3eTeS+jgZukX6E879
+ rNfencW57vICi/oaA1/zhjb0/YTLZYyNArHIJyO2QuPLabv7ayFwG/V9HPAbEuYWYsy+ECMJcLmMD
+ 8DXOOAL2TNOJh4YsSOe5sm3ZG8y6X+5FV8TvF01gB5UdXa9ZG01cC00FvN9laqSsuUXj+O0Tm36W9
+ 8KFTWP+9qp6Ce0IL8cMnsm0CsvrZZBHoKisGkklipulnm8kFW/txkaMdoKJ+JtPN5yRpmBxZCaD6p
+ qGrovYUqwMjheHPYbw69t5XZs3Br3bL2E7qb2Cer6Y5FzC2cZfKHejs5C8FoE1B6wfh5jCzrx40EP
+ Z91zRiuQ==;
+Received: from
+ 2001-1c00-8d85-4b00-266e-96ff-fe07-7dcc.cable.dynamic.v6.ziggo.nl
+ ([2001:1c00:8d85:4b00:266e:96ff:fe07:7dcc]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1wFTo1-0000000BVot-0Nc6; Wed, 22 Apr 2026 09:23:37 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 94F393008E2; Wed, 22 Apr 2026 11:23:35 +0200 (CEST)
+Date: Wed, 22 Apr 2026 11:23:35 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: John Stultz <jstultz@google.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ willy@infradead.org, linux-kernel@vger.kernel.org,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "Kurmi, Suresh Kumar" <suresh.kumar.kurmi@intel.com>,
+ "Saarinen, Jani" <jani.saarinen@intel.com>, ravitejax.veesam@intel.com
+Subject: Re: Regression on linux-next (next-20260324 )
+Message-ID: <20260422092335.GH3102924@noisy.programming.kicks-ass.net>
+References: <df391df3-3a3b-4a65-b3c7-ffe3ab50ee83@intel.com>
+ <20260330195037.GW2872@noisy.programming.kicks-ass.net>
+ <20260420130318.GD3102924@noisy.programming.kicks-ass.net>
+ <CANDhNCq=oizzud3hH3oqGzTrcjB8OwGeineJ3mwZuGdDWG8fRQ@mail.gmail.com>
+ <20260421101521.GO3102624@noisy.programming.kicks-ass.net>
+ <95651a71-1adf-45ba-83eb-5744bc6d4a52@amd.com>
+ <20260421143752.GD1064669@noisy.programming.kicks-ass.net>
+ <bc5e8c5c-fc9c-4efc-b1a9-98c43c6a8762@amd.com>
+ <CANDhNCr-+x8pTLhXZW=ATHaKTYEmXMPukz4+t8P-FeJ11Jrz9Q@mail.gmail.com>
+ <20260421205647.GL3126523@noisy.programming.kicks-ass.net>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_Use?=
- =?utf-8?q?_safe_userspace_memory_for_mappings?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Apr 2026 08:51:38 -0000
-Message-ID: <177684789875.484982.8184246843069736890@a3b018990fe9>
-X-Patchwork-Hint: ignore
-References: <20260421061716.3341529-1-krzysztof.karas@intel.com>
-In-Reply-To: <20260421061716.3341529-1-krzysztof.karas@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260421205647.GL3126523@noisy.programming.kicks-ass.net>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,315 +71,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2704031963957619283==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, Apr 21, 2026 at 10:56:48PM +0200, Peter Zijlstra wrote:
+> Excellent, I'll write it up tomorrow.
 
-== Series Details ==
+How's this? It 'passes' the ww_mutex selftest thing in so far as that I
+get the same:
 
-Series: drm/i915/selftests: Use safe userspace memory for mappings
-URL   : https://patchwork.freedesktop.org/series/165202/
-State : success
+[    2.312369] Beginning ww (wound) mutex selftests
+[    4.853240] stress (stress_inorder_work) failed with -35
+[    9.379572] Beginning ww (die) mutex selftests
+[   16.435831] All ww mutex selftests passed
 
-== Summary ==
+before the offending commit and after this patch.
 
-CI Bug Log - changes from CI_DRM_18350 -> Patchwork_165202v1
-====================================================
+---
+Subject: Subject: locking/mutex: Fix ww_mutex wait_list operations
+From: Peter Zijlstra <peterz@infradead.org>
+Date: Wed Apr 22 10:38:41 CEST 2026
 
-Summary
--------
+Chaitanya and John reported commit 25500ba7e77c ("locking/mutex: Remove the
+list_head from struct mutex") wrecked ww_mutex.
 
-  **SUCCESS**
+Specifically there were 2 issues:
 
-  No regressions found.
+ - __ww_waiter_prev() had the termination condition wrong; it would terminate
+   when the previous entry was the first, which results in a truncated
+   iteration: W3, W2, (no W1).
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/index.html
+ - __mutex_add_waiter(@pos != NULL), as used by __ww_waiter_add() /
+   __ww_mutex_add_waiter(); this inserts @waiter before @pos (which is what
+   list_add_tail() does). But this should then also update lock->first_waiter.
 
-Participating hosts (41 -> 40)
-------------------------------
+Much thanks to Prateek for spotting the __mutex_add_waiter() issue!
 
-  Additional (1): fi-rkl-11600 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+Fixes: 25500ba7e77c ("locking/mutex: Remove the list_head from struct mutex")
+Reported-by: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Closes: https://lore.kernel.org/r/af005996-05e9-4336-8450-d14ca652ba5d%40intel.com
+Reported-by: John Stultz <jstultz@google.com>
+Closes: https://lore.kernel.org/r/CANDhNCq%3Doizzud3hH3oqGzTrcjB8OwGeineJ3mwZuGdDWG8fRQ%40mail.gmail.com
+Debugged-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+---
+ kernel/locking/mutex.c    |   40 +++++++++++++++++++++++++++-------------
+ kernel/locking/ww_mutex.h |   34 ++++++++++++++++++++++++++++++++--
+ 2 files changed, 59 insertions(+), 15 deletions(-)
 
-Known issues
-------------
-
-  Here are the changes found in Patchwork_165202v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@dmabuf@all-tests:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][1] ([i915#15931])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@dmabuf@all-tests.html
-
-  * igt@fbdev@eof:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][2] ([i915#2582]) +3 other tests skip
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@fbdev@eof.html
-
-  * igt@fbdev@info:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][3] ([i915#1849] / [i915#2582])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@fbdev@info.html
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][4] ([i915#2190])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@basic:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][5] ([i915#4613]) +3 other tests skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_lmem_swapping@basic.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][6] ([i915#15656])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][7] ([i915#7707]) +1 other test skip
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_flip@basic-flip-vs-wf_vblank:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][8] ([i915#3637]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_flip@basic-flip-vs-wf_vblank.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][9]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_frontbuffer_tracking@basic:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][10] ([i915#1849] / [i915#5354])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_frontbuffer_tracking@basic.html
-
-  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][11] ([i915#11190]) +16 other tests skip
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][12] ([i915#5354])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-page-flip:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][13] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_psr@psr-primary-page-flip.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][14] ([i915#3555])
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-flip:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][15] ([i915#3708])
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@prime_vgem@basic-fence-flip.html
-
-  * igt@prime_vgem@basic-read:
-    - fi-rkl-11600:       NOTRUN -> [SKIP][16] ([i915#3291] / [i915#3708]) +2 other tests skip
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@prime_vgem@basic-read.html
-
-  
-#### Possible fixes ####
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [DMESG-WARN][17] ([i915#13400]) -> [PASS][18]
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18350/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#11190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#15931]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931
-  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
-  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
-  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#3637]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637
-  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * IGT: IGT_8863 -> IGTPW_14883
-  * Linux: CI_DRM_18350 -> Patchwork_165202v1
-
-  CI-20190529: 20190529
-  CI_DRM_18350: 898b5aa235c5b269d6c745fd84270b296aa75469 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGTPW_14883: 8e8a5056519241b7fc441bea1d39c5be054370d6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  IGT_8863: 5b279a8b71dc1672099205a1a9e8135c7c7fadb5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_165202v1: 898b5aa235c5b269d6c745fd84270b296aa75469 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/index.html
-
---===============2704031963957619283==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: Use safe userspace memory for mappings</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/165202/">https://patchwork.freedesktop.org/series/165202/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18350 -&gt; Patchwork_165202v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/index.html</p>
-<h2>Participating hosts (41 -&gt; 40)</h2>
-<p>Additional (1): fi-rkl-11600 <br />
-  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_165202v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@dmabuf@all-tests:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@dmabuf@all-tests.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931">i915#15931</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@eof:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@fbdev@eof.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@fbdev@info:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_flip@basic-flip-vs-wf_vblank:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_flip@basic-flip-vs-wf_vblank.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637">i915#3637</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_frontbuffer_tracking@basic:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_frontbuffer_tracking@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190">i915#11190</a>) +16 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-page-flip:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-flip:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@prime_vgem@basic-fence-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-read:</p>
-<ul>
-<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/fi-rkl-11600/igt@prime_vgem@basic-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_pm_rpm@basic-rte:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18350/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165202v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>IGT: IGT_8863 -&gt; IGTPW_14883</li>
-<li>Linux: CI_DRM_18350 -&gt; Patchwork_165202v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18350: 898b5aa235c5b269d6c745fd84270b296aa75469 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGTPW_14883: 8e8a5056519241b7fc441bea1d39c5be054370d6 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  IGT_8863: 5b279a8b71dc1672099205a1a9e8135c7c7fadb5 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_165202v1: 898b5aa235c5b269d6c745fd84270b296aa75469 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2704031963957619283==--
+--- a/kernel/locking/mutex.c
++++ b/kernel/locking/mutex.c
+@@ -198,27 +198,43 @@ static inline void __mutex_clear_flag(st
+ }
+ 
+ /*
+- * Add @waiter to a given location in the lock wait_list and set the
+- * FLAG_WAITERS flag if it's the first waiter.
++ * Add @waiter to the @lock wait_list and set the FLAG_WAITERS flag if it's
++ * the first waiter.
++ *
++ * When @pos, @waiter is added before the waiter indicated by @pos. Otherwise
++ * @waiter will be added to the tail of the list.
+  */
+ static void
+ __mutex_add_waiter(struct mutex *lock, struct mutex_waiter *waiter,
+-		   struct mutex_waiter *first)
++		   struct mutex_waiter *pos)
+ 	__must_hold(&lock->wait_lock)
+ {
++	struct mutex_waiter *first = lock->first_waiter;
++
+ 	hung_task_set_blocker(lock, BLOCKER_TYPE_MUTEX);
+ 	debug_mutex_add_waiter(lock, waiter, current);
+ 
+-	if (!first)
+-		first = lock->first_waiter;
++	if (pos) {
++		/*
++		 * Insert @waiter before @pos.
++		 */
++		list_add_tail(&waiter->list, &pos->list);
++		/*
++		 * If @pos == @first, then @waiter will be the new first.
++		 */
++		if (pos == first)
++			lock->first_waiter = waiter;
++		return;
++	}
+ 
+ 	if (first) {
+ 		list_add_tail(&waiter->list, &first->list);
+-	} else {
+-		INIT_LIST_HEAD(&waiter->list);
+-		lock->first_waiter = waiter;
+-		__mutex_set_flag(lock, MUTEX_FLAG_WAITERS);
++		return;
+ 	}
++
++	INIT_LIST_HEAD(&waiter->list);
++	lock->first_waiter = waiter;
++	__mutex_set_flag(lock, MUTEX_FLAG_WAITERS);
+ }
+ 
+ static void
+@@ -229,10 +245,8 @@ __mutex_remove_waiter(struct mutex *lock
+ 		__mutex_clear_flag(lock, MUTEX_FLAGS);
+ 		lock->first_waiter = NULL;
+ 	} else {
+-		if (lock->first_waiter == waiter) {
+-			lock->first_waiter = list_first_entry(&waiter->list,
+-							      struct mutex_waiter, list);
+-		}
++		if (lock->first_waiter == waiter)
++			lock->first_waiter = list_next_entry(waiter, list);
+ 		list_del(&waiter->list);
+ 	}
+ 
+--- a/kernel/locking/ww_mutex.h
++++ b/kernel/locking/ww_mutex.h
+@@ -6,6 +6,19 @@
+ #define MUTEX_WAITER	mutex_waiter
+ #define WAIT_LOCK	wait_lock
+ 
++/*
++ *           +--------+
++ *           | first  |
++ *           +--------+
++ *                |
++ *                v
++ *  +----+     +----+     +----+
++ *  | W3 | <-> | W1 | <-> | W2 |
++ *  +----+     +----+     +----+
++ *    ^                     ^
++ *    +---------------------+
++ */
++
+ static inline struct mutex_waiter *
+ __ww_waiter_first(struct mutex *lock)
+ 	__must_hold(&lock->wait_lock)
+@@ -13,26 +26,43 @@ __ww_waiter_first(struct mutex *lock)
+ 	return lock->first_waiter;
+ }
+ 
++/*
++ * for (cur = __ww_waiter_first(); cur; cur = __ww_waiter_next())
++ *
++ * Should iterate like: W1, W2, W3
++ */
+ static inline struct mutex_waiter *
+ __ww_waiter_next(struct mutex *lock, struct mutex_waiter *w)
+ 	__must_hold(&lock->wait_lock)
+ {
+ 	w = list_next_entry(w, list);
++	/*
++	 * Terminate if the next entry is the first again, that has already
++	 * been observed.
++	 */
+ 	if (lock->first_waiter == w)
+ 		return NULL;
+ 
+ 	return w;
+ }
+ 
++/*
++ * for (cur = __ww_waiter_last(); cur; cur = __ww_waiter_prev())
++ *
++ * Should iterate like: W3, W2, W1
++ */
+ static inline struct mutex_waiter *
+ __ww_waiter_prev(struct mutex *lock, struct mutex_waiter *w)
+ 	__must_hold(&lock->wait_lock)
+ {
+-	w = list_prev_entry(w, list);
++	/*
++	 * Terminate at the first entry, the previous entry of first is the
++	 * last and that has already been observed.
++	 */
+ 	if (lock->first_waiter == w)
+ 		return NULL;
+ 
+-	return w;
++	return list_prev_entry(w, list);
+ }
+ 
+ static inline struct mutex_waiter *
