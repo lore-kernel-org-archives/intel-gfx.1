@@ -4,92 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3094AFB44D8
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 12:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CA4FE521D
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 12:37:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F388410F56F;
-	Fri, 24 Apr 2026 12:37:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AFD010F574;
+	Fri, 24 Apr 2026 12:37:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gHaBXUc7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IF6EoyQq";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E21410E07B
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 15:52:13 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a3d1561e38so4792422e87.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Apr 2026 08:52:13 -0700 (PDT)
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B15A410F28B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 20:55:03 +0000 (UTC)
+Received: by mail-oi1-f172.google.com with SMTP id
+ 5614622812f47-479d4df9035so2814394b6e.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Apr 2026 13:55:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776873131; x=1777477931; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=RNnGez9KIYhAWfYZKM7eASvp+SAAnmhGa5DxdGzAeNY=;
- b=gHaBXUc7NzsiSGA2cLFxlfjpVSUahJxA7TQx2Xgf42dIa7PEDbUtcQ5ilv87ovAvx+
- ciKNJy83fCIk5MuyRntlPD4ap8eFaMZ1rkXha+JSU1O4CppVkNTAi8ozOrXCmHG01tNG
- BjW4Imjef1q2ppROEjxUmUVQNTmpUIhmzlla9e6HOA/yDViXNCJfqeDMYHD6dbHO4wdY
- YQgAACZea45Q0X5GxAYl08t4bM7JWgIh9LvJFbrV1Xnvbv/nEfap7M6iM14mX7mqSx4F
- hVXM2fThSjcVRDy0rjr75CeoKtHNMOiga32C3Bj6I+ign6FsShLbISKpRuAh49juBWm3
- +pPA==
+ d=gmail.com; s=20251104; t=1776977703; x=1777582503; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
+ b=IF6EoyQqVd1nMSfmgelgwZO71+j93UwogAGI85TtBTvo2ylXiBiNVadMwbuLaAPHdt
+ +vIHRFP5PKMaVfqc+Y1YOe2Jqe2OrtM4sEn451ninotNGYLX1deM/JGsYJHcWO0tS1bF
+ 0T80Dq/HKznhP3XOLGkhyLfhOLtmJRaJUDH6mcBex9Mv0KJMRKlJEVg0xvb1bdAC1Cwz
+ eknGbXHusIoUmCihpLN1ZLW9iSj7vR8k0m7AT50Pde2lqzeLsJD48sei00SbcX3E4Kcr
+ Indu5x1hFoX3Y2j6MlrhxauKSf100nZs9/zbxsn0sPZFQ9eScydSxD7XCGmPA4OHs7v6
+ UHVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776873131; x=1777477931;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=RNnGez9KIYhAWfYZKM7eASvp+SAAnmhGa5DxdGzAeNY=;
- b=np/oKTBYD8Qo3WepETCXq5g/3+WMB4vvZUgOhcBJzjZ0QfvNv2lQt1BAeRJ4tl+S9/
- Qu0DBBdX3B8sWrxmULY8dzO4jJFEAVOQYjs2XFLo3ggMzaW5jDHXvm335H7ibzjmI9bl
- i8SQpz1IOKD1YqxE7CbAYZUUin2zhpYnXUdkGScRJxUCweFDu8hUnJP4Y/Q29RCLUQSU
- 2OFnS9fCV4fXX5sfYNreQR+bUNkbtvqlyNeaWpKE1VHCvJdur3I7eSBg4J6oZ4BtKd52
- sgAWJXgz/IHj7aUtvyB72crckgXhLdgh0SBl9Xs7jhfo0S0s9sIGD8fMXRrPIE11Mkss
- jIxg==
+ d=1e100.net; s=20251104; t=1776977703; x=1777582503;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
+ b=HbyE+P7lP7+Uq7v+wm63m0El1xbluHnCQSpjqjPXVn7QYbqXqcxb+zSD7qBA1RS8eT
+ h5T9Ulunz9YSWSLcJIOpAo3BSAcnIvaFvmrZZw7AXXhVpBYK1IiEVQmwh3I7eEiOKj2w
+ Y71vZnBh33oSgwZCd8K+6q2xJezOYqwLVMUT61Xsmk0WHED+gpRZDJQDJiH4UlSo/O1R
+ zoPe459KHYuPal3JmOZ4hrPwQlV9Owo5xYtV0QnZz00+Ld9HbH8oTJ6U3emOROw+Kx/n
+ 707JPygQeWbpwF2Z+nsH6PG+xZUySX2kOo6oPz/xCZIgPWRoKkdYn1jvDDX56mWxP6+Y
+ UfYQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/R7A+L/ldUh/Kd6WB9Z4TcofwihJPAl20SaEaxASlLXJT82rV9YnXmUc0hHTvIJONxYr4p4b0DqDo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwtmYYJvTo2eYdJShv0VRspDKlHlUyTCwpL/TFfQDhEY4rFoO5u
- hOdQcTYrG+OdiEMxKGOu+haRNkatLQTp1KgVWMpuVKwO98NIFi4MFFPN
-X-Gm-Gg: AeBDiets0+8dEBV2ZTEBDojE0nySBwfOsw7stSTjWRP6Nr9D5C5O/Yfr3dDyIusobLo
- jEP2DPVeX0p3Gv1mg6GyGYxq0CF7HWwK3eJy9rFlOqSajgNLXU9KJ5IGABv/Zi/7+HsJJT5MGpK
- hZhHNsdPxSl3dIN4b78+VlqOki9ZbV7AhxJCPbmskM2x8cL1swFbm5Mc2TDjqsP1nOR5kbvZEka
- PvOBZMVEJX6ROngy6XkT18ajxByX3XlsV/AOsTEJmQD71+P1lGSeIT4SCVSzH9ULaCMmnyqyqfL
- yTCN18Ii5R+U7L2SoCFHuywKsePro6wB1OssD3XVqBMWc5Xd/t2wf5BPBEiNeDLGSoGetN+7qKn
- ogsZ4fDfSbRZa68x4jdp/ATlFSqg47Seme3XuLjhqcsx7ZDMOiD1hwbd0geSSdQRUkA68ysMLIi
- n6EhhuKojkuGhesFaR2SRKJHu3ghXnZqxSo9A4aqUBAcfk5d363/ozDw==
-X-Received: by 2002:a05:6512:6cf:b0:5a2:bebd:45b5 with SMTP id
- 2adb3069b0e04-5a4172bb8efmr8192442e87.4.1776873130944; 
- Wed, 22 Apr 2026 08:52:10 -0700 (PDT)
-Received: from primary-ws.local ([188.234.148.119])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a4185ad11fsm4480896e87.14.2026.04.22.08.52.09
+ AFNElJ/QZ/YRNP53tmC1KhJrmW0G2SU/FsDsI4h+gfsve1+cbJWsVRy/kDdJt3nSt+Xm2d9/6FR2C8Lp/0w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyr6hHpPpXSVVMFfCmd2lOUqFPmx60gG8kDyGqyJRgbYwlPcSI/
+ U2spd1Qd44xFKyzdm5aQLTrNGPCJBcspKdvpYuFND1lHjilWh03JOC++
+X-Gm-Gg: AeBDietVcNJ+n6HbWdRkSXzYvShQA5syu08tNITePp88oJe2dKagrI8SJ08zhrUqK56
+ CImXdJ/za5mx++Tu9cPxeGodWiBUPZFBTEuIcueqPZhTpg2aa1l/GLAV9l5Xghlt8AfxdypgLx0
+ bh46a7jAIShrjUO9ZqSqZzj3i8sLBLmPbCxO/WhGHga9I4rEh6PnDzTK63fK5xERD4w20twfTmh
+ tRo1SHfHsyAxpQJ77Wsqn4zUlvjYLxFyhuowednfMluN8gVicQ9jF1XEl5jRMSpeJVw3/u1MU2x
+ PVqTkvSfvhgTJTiahmwF2Sb4oOB7wjnAw96iOXmrXqskFOxroIhLWa/yrnnIIQPsQJb/QCJ9WZT
+ BToxmamKugtXHN0g4hbZAJ+c/Q6MXuoD1Qp4hVWKuyI+vqNOfvFcD7NkRtcUmMce4RSLHSk87ch
+ opfEmxvBcrizs53DkT6n/mQg2AVa4HJ8h0fuumlW7kF59AjvnlCu8CH8r8asQnlo3AF5EAdGa2
+X-Received: by 2002:a05:6808:4f0a:b0:468:698:a626 with SMTP id
+ 5614622812f47-4799bf4b93dmr13762368b6e.22.1776977702799; 
+ Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
+Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
+ [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Apr 2026 08:52:10 -0700 (PDT)
-Message-ID: <2a93eae0c4b364d44fffe3840dcbb0a60a1c6114.camel@gmail.com>
-Subject: Re: Regression on linux-next (next-20260324 )
-From: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>, "Borah, Chaitanya Kumar"	
- <chaitanya.kumar.borah@intel.com>, willy@infradead.org, 
- linux-kernel@vger.kernel.org, "intel-gfx@lists.freedesktop.org"	
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"	
- <intel-xe@lists.freedesktop.org>, "Kurmi, Suresh Kumar"	
- <suresh.kumar.kurmi@intel.com>, "Saarinen, Jani" <jani.saarinen@intel.com>,
- ravitejax.veesam@intel.com
-Date: Wed, 22 Apr 2026 20:52:08 +0500
-In-Reply-To: <20260422092335.GH3102924@noisy.programming.kicks-ass.net>
-References: <df391df3-3a3b-4a65-b3c7-ffe3ab50ee83@intel.com>
- <20260330195037.GW2872@noisy.programming.kicks-ass.net>
- <20260420130318.GD3102924@noisy.programming.kicks-ass.net>
- <CANDhNCq=oizzud3hH3oqGzTrcjB8OwGeineJ3mwZuGdDWG8fRQ@mail.gmail.com>
- <20260421101521.GO3102624@noisy.programming.kicks-ass.net>
- <95651a71-1adf-45ba-83eb-5744bc6d4a52@amd.com>
- <20260421143752.GD1064669@noisy.programming.kicks-ass.net>
- <bc5e8c5c-fc9c-4efc-b1a9-98c43c6a8762@amd.com>
- <CANDhNCr-+x8pTLhXZW=ATHaKTYEmXMPukz4+t8P-FeJ11Jrz9Q@mail.gmail.com>
- <20260421205647.GL3126523@noisy.programming.kicks-ass.net>
- <20260422092335.GH3102924@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc45) 
+ Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Thu, 23 Apr 2026 14:53:53 -0600
+Subject: [PATCH v14 12/92] dyndbg: drop NUM_TYPE_ARRAY
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-12-2b809a8019d0@gmail.com>
+References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
+In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+ Aaron Tomlin <atomlin@atomlin.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Patrik Jakobsson <patrik.r.jakobsson@gmail.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, Ruben Wauters <rubenru09@aol.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, 
+ Maciej Falkowski <maciej.falkowski@linux.intel.com>, 
+ Karol Wachowski <karol.wachowski@linux.intel.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Liu Ying <victor.liu@nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Lucas Stach <l.stach@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>, 
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Jani Nikula <jani.nikula@intel.com>, Luca Coelho <luciano.coelho@intel.com>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>
+Cc: linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, spice-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org, 
+ etnaviv@lists.freedesktop.org, Jim Cromie <jim.cromie@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=982;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=y0aqiZzD4/dauxqWGWZpTeZQeDGgmhoKACp8yCx31Lc=;
+ b=0ylBEG5Zr2L9JzVM3p0QOGGNJYPJlqcvdgDfrferqn+IIjg0mF/DXa7yY98RemD0Q77UWcis8
+ afOWJy3fK3tDbGja7wdbkN+8vIczS7ipTPRP52IXbHMq4ogKAy8+JGS
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Fri, 24 Apr 2026 12:37:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,236 +185,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2026-04-22 at 11:23 +0200, Peter Zijlstra wrote:
->=20
-> How's this? It 'passes' the ww_mutex selftest thing in so far as that
-> I
-> get the same:
->=20
-> [=C2=A0=C2=A0=C2=A0 2.312369] Beginning ww (wound) mutex selftests
-> [=C2=A0=C2=A0=C2=A0 4.853240] stress (stress_inorder_work) failed with -3=
-5
-> [=C2=A0=C2=A0=C2=A0 9.379572] Beginning ww (die) mutex selftests
-> [=C2=A0=C2=A0 16.435831] All ww mutex selftests passed
->=20
-> before the offending commit and after this patch.
->=20
-> ---
-> Subject: Subject: locking/mutex: Fix ww_mutex wait_list operations
-> From: Peter Zijlstra <peterz@infradead.org>
-> Date: Wed Apr 22 10:38:41 CEST 2026
->=20
-> Chaitanya and John reported commit 25500ba7e77c ("locking/mutex:
-> Remove the
-> list_head from struct mutex") wrecked ww_mutex.
->=20
-> Specifically there were 2 issues:
->=20
-> =C2=A0- __ww_waiter_prev() had the termination condition wrong; it would
-> terminate
-> =C2=A0=C2=A0 when the previous entry was the first, which results in a
-> truncated
-> =C2=A0=C2=A0 iteration: W3, W2, (no W1).
->=20
-> =C2=A0- __mutex_add_waiter(@pos !=3D NULL), as used by __ww_waiter_add() =
-/
-> =C2=A0=C2=A0 __ww_mutex_add_waiter(); this inserts @waiter before @pos (w=
-hich
-> is what
-> =C2=A0=C2=A0 list_add_tail() does). But this should then also update lock=
--
-> >first_waiter.
->=20
-> Much thanks to Prateek for spotting the __mutex_add_waiter() issue!
->=20
-> Fixes: 25500ba7e77c ("locking/mutex: Remove the list_head from struct
-> mutex")
-> Reported-by: "Borah, Chaitanya Kumar"
-> <chaitanya.kumar.borah@intel.com>
-> Closes:
-> https://lore.kernel.org/r/af005996-05e9-4336-8450-d14ca652ba5d%40intel.co=
-m
-> Reported-by: John Stultz <jstultz@google.com>
-> Closes:
-> https://lore.kernel.org/r/CANDhNCq%3Doizzud3hH3oqGzTrcjB8OwGeineJ3mwZuGdD=
-WG8fRQ%40mail.gmail.com
-> Debugged-by: K Prateek Nayak <kprateek.nayak@amd.com>
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-> ---
-> =C2=A0kernel/locking/mutex.c=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 40 +++++++++=
-++++++++++++++++++--------
-> -----
-> =C2=A0kernel/locking/ww_mutex.h |=C2=A0=C2=A0 34 ++++++++++++++++++++++++=
-++++++++--
-> =C2=A02 files changed, 59 insertions(+), 15 deletions(-)
->=20
-> --- a/kernel/locking/mutex.c
-> +++ b/kernel/locking/mutex.c
-> @@ -198,27 +198,43 @@ static inline void __mutex_clear_flag(st
-> =C2=A0}
-> =C2=A0
-> =C2=A0/*
-> - * Add @waiter to a given location in the lock wait_list and set the
-> - * FLAG_WAITERS flag if it's the first waiter.
-> + * Add @waiter to the @lock wait_list and set the FLAG_WAITERS flag
-> if it's
-> + * the first waiter.
-> + *
-> + * When @pos, @waiter is added before the waiter indicated by @pos.
-> Otherwise
-> + * @waiter will be added to the tail of the list.
-> =C2=A0 */
-> =C2=A0static void
-> =C2=A0__mutex_add_waiter(struct mutex *lock, struct mutex_waiter *waiter,
-> -		=C2=A0=C2=A0 struct mutex_waiter *first)
-> +		=C2=A0=C2=A0 struct mutex_waiter *pos)
-> =C2=A0	__must_hold(&lock->wait_lock)
-> =C2=A0{
-> +	struct mutex_waiter *first =3D lock->first_waiter;
-> +
-> =C2=A0	hung_task_set_blocker(lock, BLOCKER_TYPE_MUTEX);
-> =C2=A0	debug_mutex_add_waiter(lock, waiter, current);
-> =C2=A0
-> -	if (!first)
-> -		first =3D lock->first_waiter;
-> +	if (pos) {
-> +		/*
-> +		 * Insert @waiter before @pos.
-> +		 */
-> +		list_add_tail(&waiter->list, &pos->list);
-> +		/*
-> +		 * If @pos =3D=3D @first, then @waiter will be the new
-> first.
-> +		 */
-> +		if (pos =3D=3D first)
-> +			lock->first_waiter =3D waiter;
-> +		return;
-> +	}
-> =C2=A0
-> =C2=A0	if (first) {
-> =C2=A0		list_add_tail(&waiter->list, &first->list);
-> -	} else {
-> -		INIT_LIST_HEAD(&waiter->list);
-> -		lock->first_waiter =3D waiter;
-> -		__mutex_set_flag(lock, MUTEX_FLAG_WAITERS);
-> +		return;
-> =C2=A0	}
-> +
-> +	INIT_LIST_HEAD(&waiter->list);
-> +	lock->first_waiter =3D waiter;
-> +	__mutex_set_flag(lock, MUTEX_FLAG_WAITERS);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static void
-> @@ -229,10 +245,8 @@ __mutex_remove_waiter(struct mutex *lock
-> =C2=A0		__mutex_clear_flag(lock, MUTEX_FLAGS);
-> =C2=A0		lock->first_waiter =3D NULL;
-> =C2=A0	} else {
-> -		if (lock->first_waiter =3D=3D waiter) {
-> -			lock->first_waiter =3D
-> list_first_entry(&waiter->list,
-> -							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct
-> mutex_waiter, list);
-> -		}
-> +		if (lock->first_waiter =3D=3D waiter)
-> +			lock->first_waiter =3D list_next_entry(waiter,
-> list);
-> =C2=A0		list_del(&waiter->list);
-> =C2=A0	}
-> =C2=A0
-> --- a/kernel/locking/ww_mutex.h
-> +++ b/kernel/locking/ww_mutex.h
-> @@ -6,6 +6,19 @@
-> =C2=A0#define MUTEX_WAITER	mutex_waiter
-> =C2=A0#define WAIT_LOCK	wait_lock
-> =C2=A0
-> +/*
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 +--------=
-+
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | first=
-=C2=A0 |
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 +--------=
-+
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 |
-> + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 v
-> + *=C2=A0 +----+=C2=A0=C2=A0=C2=A0=C2=A0 +----+=C2=A0=C2=A0=C2=A0=C2=A0 +=
-----+
-> + *=C2=A0 | W3 | <-> | W1 | <-> | W2 |
-> + *=C2=A0 +----+=C2=A0=C2=A0=C2=A0=C2=A0 +----+=C2=A0=C2=A0=C2=A0=C2=A0 +=
-----+
-> + *=C2=A0=C2=A0=C2=A0 ^=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ^
-> + *=C2=A0=C2=A0=C2=A0 +---------------------+
-> + */
-> +
-> =C2=A0static inline struct mutex_waiter *
-> =C2=A0__ww_waiter_first(struct mutex *lock)
-> =C2=A0	__must_hold(&lock->wait_lock)
-> @@ -13,26 +26,43 @@ __ww_waiter_first(struct mutex *lock)
-> =C2=A0	return lock->first_waiter;
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * for (cur =3D __ww_waiter_first(); cur; cur =3D __ww_waiter_next())
-> + *
-> + * Should iterate like: W1, W2, W3
-> + */
-> =C2=A0static inline struct mutex_waiter *
-> =C2=A0__ww_waiter_next(struct mutex *lock, struct mutex_waiter *w)
-> =C2=A0	__must_hold(&lock->wait_lock)
-> =C2=A0{
-> =C2=A0	w =3D list_next_entry(w, list);
-> +	/*
-> +	 * Terminate if the next entry is the first again, that has
-> already
-> +	 * been observed.
-> +	 */
-> =C2=A0	if (lock->first_waiter =3D=3D w)
-> =C2=A0		return NULL;
-> =C2=A0
-> =C2=A0	return w;
-> =C2=A0}
-> =C2=A0
-> +/*
-> + * for (cur =3D __ww_waiter_last(); cur; cur =3D __ww_waiter_prev())
-> + *
-> + * Should iterate like: W3, W2, W1
-> + */
-> =C2=A0static inline struct mutex_waiter *
-> =C2=A0__ww_waiter_prev(struct mutex *lock, struct mutex_waiter *w)
-> =C2=A0	__must_hold(&lock->wait_lock)
-> =C2=A0{
-> -	w =3D list_prev_entry(w, list);
-> +	/*
-> +	 * Terminate at the first entry, the previous entry of first
-> is the
-> +	 * last and that has already been observed.
-> +	 */
-> =C2=A0	if (lock->first_waiter =3D=3D w)
-> =C2=A0		return NULL;
-> =C2=A0
-> -	return w;
-> +	return list_prev_entry(w, list);
-> =C2=A0}
-> =C2=A0
-> =C2=A0static inline struct mutex_waiter *
+ARRAY_SIZE works here, since array decl is complete.
 
+no functional change
 
-Confirmed on an independent userspace-visible reproducer: Resident
-Evil 2/3/4/9 under Proton on AMD Zen4 + RX 7900 XTX, which hangs
-deterministically during level load on current master (main thread
-parked in futex_waitv). With this patch applied on top of master,
-both RE2 and RE9 complete a full playthrough with save-resume on two
-independent workstations (ASUS and ASRock B650). No hang, no splats.
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Symptom details and third bisect log are in the separate thread at
-https://lore.kernel.org/r/CABXGCsO5fKq2nD9nO8yO1z50ZzgCPWqueNXHANjntaswoOh2=
-Dg@mail.gmail.com
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 441305277914..92627a03b4d1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -132,11 +132,9 @@ struct ddebug_class_param {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
+ 	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
+ 
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
 
-Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+-- 
+2.53.0
 
---=20
-Thanks,
-Mikhail
