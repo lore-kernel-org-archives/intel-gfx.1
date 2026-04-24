@@ -4,57 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FCEDFED3DA
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49C34FED3DA
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 14:57:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55F6B10F5ED;
-	Fri, 24 Apr 2026 14:50:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BE910E3E3;
+	Fri, 24 Apr 2026 14:57:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="axOnln/M";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jNG4mHcr";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE28310F5E9;
- Fri, 24 Apr 2026 14:50:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FLTUu00A34zhv++jHW0rYABgVFly3ZQoIZYBXgXodXE=; b=axOnln/Mf0P7CC8Y+9DDbJwm7S
- 754or0hSqFh+SZX4wcqG4w+TcORnZrgk5eyCMz6IetSkkjMKDArZFGOFUG6uDo2wmUO5xBAcKVvvO
- NHpBazYsowwSvScWhoOglCGQxI/nafk88V9yir7hs+AUvSKWLtJe4RSLAXqoIn+Nx5A9MFa5uD6Nu
- NGRP9/Oap0/2phhcbiV9KxkloVluw3RdermZxYKQsAMurN32uQdHbANlHhB5ZO0XyTDBquILrfIJW
- hB/EZsOVtYHdg+Qq1GbqMuwb8z2ZqkUg2fAr3zPp3IHXXxB/Aq2NDSdddvGLkcfDDgdFD7nLns5+Y
- d5+UVwow==;
-Received: from [186.208.73.228] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wGHqw-001dgZ-Kh; Fri, 24 Apr 2026 16:49:58 +0200
-Message-ID: <7149c957-43e9-4ad4-bfae-307d2eb5146b@igalia.com>
-Date: Fri, 24 Apr 2026 11:49:53 -0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C69F110E3E3
+ for <intel-gfx@lists.freedesktop.org>; Fri, 24 Apr 2026 14:57:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777042664; x=1808578664;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pNexVISFV1fEA/By7Tr1MMjsRpdfva456BR0PaYXwao=;
+ b=jNG4mHcruWKiTN3KF87vFYwa2ZCEkhJF4TtsAFAVaabegrQZvUuK1PD0
+ wURpTev2VgcbVBipqTM46UrfHHgWZ/V02gvXIqufnyn5crNcGoBsFr2d0
+ +uqm71ELG7KR3r8xxpGrmN82j3Nx4ye7iCCO6ewy444Z1ED2DL2uqQY/0
+ 3a1YdWZkqnEx5h/nKUW2slksdUBksgBhJLnaRpICDxPo76+gnY4Kxyvvl
+ 1ZAyXncIdiE5A4bHV5G9xwU1K5MQknDqvuyVlqL7ZxTl20bOmPnlyf5KN
+ yvO2h2sN8f9IU3zIit2vlHSjKhK3DeIYDyTBQ2P9qFiMJHocm/khBxmCc w==;
+X-CSE-ConnectionGUID: AWsuSuU2Q0WHTEQFDeKarA==
+X-CSE-MsgGUID: 0ArEfVXKTmqZLZND+rztCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11766"; a="78080995"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="78080995"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 07:57:43 -0700
+X-CSE-ConnectionGUID: K66Iya5kQ8WNuym8hgU12g==
+X-CSE-MsgGUID: oKE+KCOeQcGBLaJt/inO9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="237311462"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.89])
+ by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 07:57:42 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH] drm/i915/sdvo: use the i2c bus locking functions
+Date: Fri, 24 Apr 2026 17:57:38 +0300
+Message-ID: <20260424145738.251138-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/13] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: harry.wentland@amd.com, louis.chauvet@bootlin.com, contact@emersion.fr,
- alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
- maarten.lankhorst@intel.com, pekka.paalanen@collabora.com,
- pranay.samala@intel.com, swati2.sharma@intel.com
-References: <20260408051514.608781-1-chaitanya.kumar.borah@intel.com>
- <20260408051514.608781-2-chaitanya.kumar.borah@intel.com>
- <c15ff4ca-79c3-4e65-bcc3-24e74adc2636@igalia.com>
- <e4eced80-8b22-473d-8add-7e4a517937f8@intel.com>
- <1483a913-dede-4daf-ac82-0329656a3d17@igalia.com>
- <0543a055-c910-407a-b26c-3ecb9908f52c@intel.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <0543a055-c910-407a-b26c-3ecb9908f52c@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,14 +68,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Use i2c_lock_bus(), i2c_trylock_bus(), and i2c_unlock_bus() instead of
+poking at i2c adapter's lock_ops directly.
 
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_sdvo.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-On 23/04/2026 06:38, Borah, Chaitanya Kumar wrote:
-> Regarding the IGTs they are yet to be upstreamed with this version of 
-> the series as we are still working out how to use CRC matching for 
-> pass criteria. (As i915/xe does not have writeback hooked up yet)
-
-Out of curiousity, are you working on adding writeback support to them?
-
-Melissa
+diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
+index 2e1af9e869de..f65b1e307aaf 100644
+--- a/drivers/gpu/drm/i915/display/intel_sdvo.c
++++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
+@@ -3314,7 +3314,7 @@ static void proxy_lock_bus(struct i2c_adapter *adapter,
+ 	struct intel_sdvo_ddc *ddc = adapter->algo_data;
+ 	struct intel_sdvo *sdvo = ddc->sdvo;
+ 
+-	sdvo->i2c->lock_ops->lock_bus(sdvo->i2c, flags);
++	i2c_lock_bus(sdvo->i2c, flags);
+ }
+ 
+ static int proxy_trylock_bus(struct i2c_adapter *adapter,
+@@ -3323,7 +3323,7 @@ static int proxy_trylock_bus(struct i2c_adapter *adapter,
+ 	struct intel_sdvo_ddc *ddc = adapter->algo_data;
+ 	struct intel_sdvo *sdvo = ddc->sdvo;
+ 
+-	return sdvo->i2c->lock_ops->trylock_bus(sdvo->i2c, flags);
++	return i2c_trylock_bus(sdvo->i2c, flags);
+ }
+ 
+ static void proxy_unlock_bus(struct i2c_adapter *adapter,
+@@ -3332,7 +3332,7 @@ static void proxy_unlock_bus(struct i2c_adapter *adapter,
+ 	struct intel_sdvo_ddc *ddc = adapter->algo_data;
+ 	struct intel_sdvo *sdvo = ddc->sdvo;
+ 
+-	sdvo->i2c->lock_ops->unlock_bus(sdvo->i2c, flags);
++	i2c_unlock_bus(sdvo->i2c, flags);
+ }
+ 
+ static const struct i2c_lock_operations proxy_lock_ops = {
+-- 
+2.47.3
 
