@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 070FBFE5203
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AF8AFE5205
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 10:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 40E3E10F4F2;
-	Fri, 24 Apr 2026 10:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBCF110F4F3;
+	Fri, 24 Apr 2026 10:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="earn/RZS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZZ5QKNet";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA8EA10F4E2;
- Fri, 24 Apr 2026 10:19:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D55810F4F1;
+ Fri, 24 Apr 2026 10:19:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BEBE0445AA;
- Fri, 24 Apr 2026 10:19:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1673EC2BCB8;
- Fri, 24 Apr 2026 10:19:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 19BF044709;
+ Fri, 24 Apr 2026 10:19:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658CEC2BCF7;
+ Fri, 24 Apr 2026 10:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777025966;
- bh=rE/WZBw6Q0jt5fysoRp8YLFy3Df9deHa3egfMVbBxqY=;
+ s=k20201202; t=1777025974;
+ bh=ADrjMl7mpDtwIFQps9vB928G+b6i67xO6MVoZtVVknc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=earn/RZSBwV/l63lQ4u7mNAiwGPbXk3SXuK5/WYoeiHs1o66deeo0Ivkqg4JjS3a6
- 62/FAWJ+0YV7A1llFLYowW8O/LwdYsY6HSuwwgyzthGoMOaeJNdKCDUPqNGNzlEiYd
- 7oVhvUkaYzsplPkXz+PxS7E5S0rUcqiUdHar0k+UVICQmViGYoPC7E4XdXr8RXAc1t
- H7SQ/5QYkwRUE3aB9Oqbk97pTEpgfYugpyeSeudpIaGgm4UJtNCdZ5lswmt868DWon
- POuc6ZLGS063Nc9JYtx6iBPdWOzsIb7hj54T+6C7IBY1wl1XeLJDVv0l8NAPUFJ+OL
- VznFvbUJYXR5A==
+ b=ZZ5QKNetkN/X5ZxdvMG2nnWbXdIB4LS2VJo4FixXx9lAukRoQy1FeWH85SHS9v3LB
+ 9ZhDsw0eimOgz6qVs91Comnxd5s3hTah0fwKt2wlZf0VjXTmtBRbOWJa1AdOq/orx2
+ 9Y9VpSQ7SphCtzMgJimeJPKZsT3w9Gw0le2MESJqm26DJkJmXZ+nlkF9RE7mrcVqcq
+ zwcJeUukDFHg0ixPZbrzimLUUe3+B6BZhhis/N5dYDd/MJxrpcgE6EJejYSs2yISdu
+ AoV1lUq2LD/ailu1wHXTS/gDz4dWWjTV9x9C5gn3Ua31h6q3cfGXk6XtvhX8OR5fjm
+ iRPBAFAMI8vwA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 24 Apr 2026 12:18:49 +0200
-Subject: [PATCH v3 09/20] drm/atomic-state-helper: Rename
- __drm_atomic_helper_plane_state_reset()
+Date: Fri, 24 Apr 2026 12:18:52 +0200
+Subject: [PATCH v3 12/20] drm/crtc: Add new atomic_create_state callback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260424-drm-mode-config-init-v3-9-8b68d9db0d8b@kernel.org>
+Message-Id: <20260424-drm-mode-config-init-v3-12-8b68d9db0d8b@kernel.org>
 References: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 In-Reply-To: <20260424-drm-mode-config-init-v3-0-8b68d9db0d8b@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -65,15 +64,14 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, Daniel Stone <daniels@collabora.com>, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Maxime Ripard <mripard@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+ Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4722; i=mripard@kernel.org;
- h=from:subject:message-id; bh=rE/WZBw6Q0jt5fysoRp8YLFy3Df9deHa3egfMVbBxqY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnXvSd/dOmeDHpP9H5ZD/k38/FdZpz7rAHMh6fOmj/
- 8VLllis6JjCwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATefKNsVTsutn7Ky9DlhlI
- bNkq6LFb+GL8HuGjKwQvTY+cI3P8+fXPmh9ZV+ZO716izNrMbPWIjbFhzn8r78+LAx7wcqtuypx
- lqTDxruPDh/v72qOuX/aTe72164qL0abuMvauS8tLSx7frakHAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7554; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=ADrjMl7mpDtwIFQps9vB928G+b6i67xO6MVoZtVVknc=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDJmvnXtdlJsub7zl3tot7Xxqyvv03ztvyWQs8PR6WVvMX
+ mA2ZerEjqksDMKcDLJiiixPZMJOL29fXOVgv/IHzBxWJpAhDFycAjCRm5WM9f5/v3gcKQnyYP7w
+ /KTQ89pj9p3Sk2wSe0PjeWU67HZ81Dt8/Neiaxn+MywnzF9Wrb5uF2ND99wJr6fz7PhoMJ+R82/
+ UZYeVd5h/9yqZXLL+f/p+bNakhftlq2YG1D675SZ8PCtvgYUaAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -91,117 +89,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-__drm_atomic_helper_plane_state_reset() is used to initialize a newly
-allocated drm_plane_state, and is being typically called by the
-drm_plane_funcs.reset implementation.
+Commit 47b5ac7daa46 ("drm/atomic: Add new atomic_create_state callback
+to drm_private_obj") introduced a new pattern for allocating drm object
+states.
 
-Since we want to consolidate DRM objects state allocation around the
-atomic_create_state callback that will only allocate and initialize a
-new drm_plane_state instance, we will need to call
-__drm_atomic_helper_plane_state_reset() from both the reset and
-atomic_create hooks.
+Instead of relying on the reset() callback, it created a new
+atomic_create_state hook. This is helpful because reset is a bit
+overloaded: it's used to create the initial software state, reset it,
+but also reset the hardware.
 
-To avoid any confusion, we can thus rename
-__drm_atomic_helper_plane_state_reset() to
-__drm_atomic_helper_plane_state_init().
+It can also be used either at probe time, to create the initial state
+and possibly reset the hardware to an expected default, but also during
+suspend/resume.
 
-Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+Both these cases come with different expectations too: during the
+initialization, we want to initialize all states, but during
+suspend/resume, drm_private_states for example are expected to be kept
+around.
+
+reset() also isn't fallible, which makes it harder to handle
+initialization errors properly. This is only really relevant for some
+drivers though, since all the helpers for reset only create a new
+state, and don't touch the hardware at all.
+
+It was thus decided to create a new hook that would allocate and
+initialize a pristine state without any side effect:
+atomic_create_state to untangle a bit some of it, and to separate the
+initialization with the actual reset one might need during a
+suspend/resume.
+
+Continue the transition to the new pattern with CRTCs.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c  | 12 ++++++------
- drivers/gpu/drm/i915/display/intel_plane.c |  2 +-
- include/drm/drm_atomic_state_helper.h      |  2 +-
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/drm_atomic_state_helper.c | 47 +++++++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_mode_config.c         | 21 +++++++++++++-
+ include/drm/drm_atomic_state_helper.h     |  4 +++
+ include/drm/drm_crtc.h                    | 16 +++++++++++
+ 4 files changed, 87 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index e1f3d05ad347..285efbf29520 100644
+index 9cd8550cabb7..b7da134c8c50 100644
 --- a/drivers/gpu/drm/drm_atomic_state_helper.c
 +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -235,19 +235,19 @@ void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
- 	kfree(state);
- }
- EXPORT_SYMBOL(drm_atomic_helper_crtc_destroy_state);
+@@ -103,10 +103,32 @@ __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
  
+ 	crtc->state = crtc_state;
+ }
+ EXPORT_SYMBOL(__drm_atomic_helper_crtc_reset);
+ 
++/**
++ * __drm_atomic_helper_crtc_create_state - initializes crtc state
++ * @crtc: crtc object
++ * @state: new state to initialize
++ *
++ * Initializes the newly allocated @state, usually required when
++ * initializing the drivers.
++ *
++ * @state is assumed to be zeroed.
++ *
++ * This is useful for drivers that subclass @drm_crtc_state.
++ */
++void __drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc,
++					   struct drm_crtc_state *state)
++{
++	__drm_atomic_helper_crtc_state_init(state, crtc);
++
++	if (drm_dev_has_vblank(crtc->dev))
++		drm_crtc_vblank_reset(crtc);
++}
++EXPORT_SYMBOL(__drm_atomic_helper_crtc_create_state);
++
  /**
-- * __drm_atomic_helper_plane_state_reset - resets plane state to default values
-+ * __drm_atomic_helper_plane_state_init - Initializes the plane state
-  * @plane_state: atomic plane state, must not be NULL
-  * @plane: plane object, must not be NULL
+  * drm_atomic_helper_crtc_reset - default &drm_crtc_funcs.reset hook for CRTCs
+  * @crtc: drm CRTC
   *
-  * Initializes the newly allocated @plane_state with default
-- * values. This is useful for drivers that subclass the CRTC state.
-+ * values. This is useful for drivers that subclass the plane state.
-  */
--void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
--					   struct drm_plane *plane)
-+void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
-+					  struct drm_plane *plane)
- {
- 	u64 val;
+  * Resets the atomic state for @crtc by freeing the state pointer (which might
+@@ -122,10 +144,35 @@ void drm_atomic_helper_crtc_reset(struct drm_crtc *crtc)
  
- 	plane_state->plane = plane;
- 	plane_state->rotation = DRM_MODE_ROTATE_0;
-@@ -295,11 +295,11 @@ void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *plane_state,
- 							   plane->hotspot_y_property,
- 							   &val))
- 			plane_state->hotspot_y = val;
- 	}
+ 	__drm_atomic_helper_crtc_reset(crtc, crtc_state);
  }
--EXPORT_SYMBOL(__drm_atomic_helper_plane_state_reset);
-+EXPORT_SYMBOL(__drm_atomic_helper_plane_state_init);
+ EXPORT_SYMBOL(drm_atomic_helper_crtc_reset);
  
++/**
++ * drm_atomic_helper_crtc_create_state - default &drm_crtc_funcs.atomic_create_state hook for crtcs
++ * @crtc: crtc object
++ *
++ * Initializes a pristine @drm_crtc_state.
++ *
++ * This is useful for drivers that don't subclass @drm_crtc_state.
++ *
++ * RETURNS:
++ * Pointer to new crtc state, or ERR_PTR on failure.
++ */
++struct drm_crtc_state *drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc)
++{
++	struct drm_crtc_state *state;
++
++	state = kzalloc_obj(*state);
++	if (!state)
++		return ERR_PTR(-ENOMEM);
++
++	__drm_atomic_helper_crtc_create_state(crtc, state);
++
++	return state;
++}
++EXPORT_SYMBOL(drm_atomic_helper_crtc_create_state);
++
  /**
-  * __drm_atomic_helper_plane_reset - reset state on plane
-  * @plane: drm plane
-  * @plane_state: plane state to assign
-@@ -313,11 +313,11 @@ EXPORT_SYMBOL(__drm_atomic_helper_plane_state_reset);
-  */
- void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
- 				     struct drm_plane_state *plane_state)
- {
- 	if (plane_state)
--		__drm_atomic_helper_plane_state_reset(plane_state, plane);
-+		__drm_atomic_helper_plane_state_init(plane_state, plane);
- 
+  * __drm_atomic_helper_crtc_duplicate_state - copy atomic CRTC state
+  * @crtc: CRTC object
+  * @state: atomic CRTC state
+  *
+diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+index 10b7815cbe48..182d9a8104e7 100644
+--- a/drivers/gpu/drm/drm_mode_config.c
++++ b/drivers/gpu/drm/drm_mode_config.c
+@@ -196,10 +196,26 @@ static int drm_mode_config_plane_create_state(struct drm_plane *plane)
  	plane->state = plane_state;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_plane_reset);
  
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index 5390ceb21ca4..d013d9228d0b 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -65,11 +65,11 @@
- static void intel_plane_state_reset(struct intel_plane_state *plane_state,
- 				    struct intel_plane *plane)
- {
- 	memset(plane_state, 0, sizeof(*plane_state));
- 
--	__drm_atomic_helper_plane_state_reset(&plane_state->uapi, &plane->base);
-+	__drm_atomic_helper_plane_state_init(&plane_state->uapi, &plane->base);
- 
- 	plane_state->scaler_id = -1;
+ 	return 0;
  }
  
- struct intel_plane *intel_plane_alloc(void)
++static int drm_mode_config_crtc_create_state(struct drm_crtc *crtc)
++{
++	struct drm_crtc_state *crtc_state;
++
++	if (!crtc->funcs->atomic_create_state)
++		return 0;
++
++	crtc_state = crtc->funcs->atomic_create_state(crtc);
++	if (IS_ERR(crtc_state))
++		return PTR_ERR(crtc_state);
++
++	crtc->state = crtc_state;
++
++	return 0;
++}
++
+ /**
+  * drm_mode_config_reset - call ->reset callbacks
+  * @dev: drm device
+  *
+  * This functions calls all the crtc's, encoder's and connector's ->reset
+@@ -227,13 +243,16 @@ void drm_mode_config_reset(struct drm_device *dev)
+ 			plane->funcs->reset(plane);
+ 		else if (plane->funcs->atomic_create_state)
+ 			drm_mode_config_plane_create_state(plane);
+ 	}
+ 
+-	drm_for_each_crtc(crtc, dev)
++	drm_for_each_crtc(crtc, dev) {
+ 		if (crtc->funcs->reset)
+ 			crtc->funcs->reset(crtc);
++		else if (crtc->funcs->atomic_create_state)
++			drm_mode_config_crtc_create_state(crtc);
++	}
+ 
+ 	drm_for_each_encoder(encoder, dev)
+ 		if (encoder->funcs && encoder->funcs->reset)
+ 			encoder->funcs->reset(encoder);
+ 
 diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-index 900672c6ea90..44e8850aae7f 100644
+index e7fbbfdc5d69..129762b99de6 100644
 --- a/include/drm/drm_atomic_state_helper.h
 +++ b/include/drm/drm_atomic_state_helper.h
-@@ -51,11 +51,11 @@ struct drm_crtc_state *
+@@ -43,10 +43,14 @@ struct drm_device;
+ void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
+ 					  struct drm_crtc *crtc);
+ void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+ 				    struct drm_crtc_state *state);
+ void drm_atomic_helper_crtc_reset(struct drm_crtc *crtc);
++void __drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc,
++					   struct drm_crtc_state *state);
++struct drm_crtc_state *
++drm_atomic_helper_crtc_create_state(struct drm_crtc *crtc);
+ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
+ 					      struct drm_crtc_state *state);
+ struct drm_crtc_state *
  drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc);
  void __drm_atomic_helper_crtc_destroy_state(struct drm_crtc_state *state);
- void drm_atomic_helper_crtc_destroy_state(struct drm_crtc *crtc,
- 					  struct drm_crtc_state *state);
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 312fc1e745d2..41ea6eadf36f 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -636,10 +636,26 @@ struct drm_crtc_funcs {
+ 	 * 0 on success or a negative error code on failure.
+ 	 */
+ 	int (*set_property)(struct drm_crtc *crtc,
+ 			    struct drm_property *property, uint64_t val);
  
--void __drm_atomic_helper_plane_state_reset(struct drm_plane_state *state,
-+void __drm_atomic_helper_plane_state_init(struct drm_plane_state *state,
- 					   struct drm_plane *plane);
- void __drm_atomic_helper_plane_reset(struct drm_plane *plane,
- 				     struct drm_plane_state *state);
- void drm_atomic_helper_plane_reset(struct drm_plane *plane);
- void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
++	/**
++	 * @atomic_create_state:
++	 *
++	 * Allocates a pristine, initialized, state for the CRTC object
++	 * and returns it. This callback must have no side effects: in
++	 * particular, the returned state must not be assigned to the
++	 * object's state pointer and it must not affect the hardware
++	 * state.
++	 *
++	 * RETURNS:
++	 *
++	 * A new, pristine, CRTC state instance or an error pointer
++	 * on failure.
++	 */
++	struct drm_crtc_state *(*atomic_create_state)(struct drm_crtc *crtc);
++
+ 	/**
+ 	 * @atomic_duplicate_state:
+ 	 *
+ 	 * Duplicate the current atomic state for this CRTC and return it.
+ 	 * The core and helpers guarantee that any atomic state duplicated with
 
 -- 
 2.53.0
