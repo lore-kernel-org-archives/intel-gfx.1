@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD0C7FE51F1
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 09:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC786FE51F5
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 09:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5D910EA53;
-	Fri, 24 Apr 2026 09:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5559410ED80;
+	Fri, 24 Apr 2026 09:31:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VhTNAk5W";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nILlWpkp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F28C710EA53;
- Fri, 24 Apr 2026 09:24:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDBE10ED80;
+ Fri, 24 Apr 2026 09:31:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777022679; x=1808558679;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=oitUF1Y2wKw0Sg5Co+E//s4pI24lfsMrp6rJj102O6o=;
- b=VhTNAk5WSvK4gUqRL2Sk+YGSHiNIOOfDG8Tm3wXzqwJf/lzRaoEqPxjk
- OuC8FwxOlJ2+YdRKqO0k0SVGpxRIPIw34irj9DqvA75xzxAl4h1QFIrcq
- kdv4QQwV/jWAGaK3TAdOMGw/8gDIgx+LqQjwgVJKi/LqtUjMTPtmEfyPs
- tBzNr8wUkf6vLLZa+PpMe5O7bYcFofm3/R0YnyX+8fMI8xyHfIIz9hZIh
- 3pzYQsMmIb/dGIWsdIsMjNpvUBCxc/ZbepkHFRBc0QyJxXDczqBYJVTOD
- RPM0KkkJsEpDne1MurfYD4cld+81Eb9Jio+xazCXx6lsZ3PvhvqTub6gC w==;
-X-CSE-ConnectionGUID: y4d0gTG1RNim/7hjRGj3AA==
-X-CSE-MsgGUID: lAIYKNjETFCpT1aI5QWnjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81607541"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81607541"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:24:38 -0700
-X-CSE-ConnectionGUID: C0/Cn3wDSZePxGsI1ZKYtw==
-X-CSE-MsgGUID: z/ggxEIEQs+roxh2LbgVEQ==
+ t=1777023090; x=1808559090;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=vXK6PQ9+ieMSCgXS/b2U+R9UAXUrgo/WiNU0fk90m5A=;
+ b=nILlWpkpIBHEbCV8wINUYEVanvX+m2zM/j2rHlKbFLtr+r81pMbQNOq5
+ K4FiUtiX9Rqnen2JsAdOp5M8OkO3IysgWtLId9RSysvP9HAdPyWBPA/J6
+ fx72mHl8SoCUkIQC7O5Jt1r9i7drSQjKU1mxq5L7N+VRKZrCRhZRrsGE5
+ SmVDdk6oTd1NNLRG2RvRVyOqA+H9cirwucu8cs0bb7AdKxfJp+dwgq2Jv
+ b7SYDVAbsrth1UaELN+MwBOx/yoARV2zbva9pZptzz8q1h0ZgKm2ANgry
+ Pt6uRHiqV8yv7MjMHSEuLb51Z2okMrIs/sbbtLtLV9/vMDRFt/fZy1Z+X g==;
+X-CSE-ConnectionGUID: RQaLGL3KQg+1TN+Csn2KfA==
+X-CSE-MsgGUID: 5pcF35AbR3a57LHfH3GaYA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81859285"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81859285"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 02:31:30 -0700
+X-CSE-ConnectionGUID: 8H5+MV1pTJ+D1qwclHoM+Q==
+X-CSE-MsgGUID: zuOCIOFHT4qota9715YEoA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="271029306"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228572885"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:24:29 -0700
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 02:31:28 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 3/3] drm/i915/dp: Skip AS SDP for DP branch devices
-Date: Fri, 24 Apr 2026 14:39:42 +0530
-Message-ID: <20260424090942.3060291-4-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/7] drm/dp: AS SDP cleanups and additions for Panel Replay +
+ VRR
+Date: Fri, 24 Apr 2026 14:46:39 +0530
+Message-ID: <20260424091646.3060549-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260424090942.3060291-1-ankit.k.nautiyal@intel.com>
-References: <20260424090942.3060291-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -69,32 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, VRR is not implmented for DP branch devices.
-So skip sending AS SDP for them.
+This is a subset of patches separated from the series at
+https://patchwork.freedesktop.org/series/164512/ for merging.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+These are drm-core (drm/dp) patches that clean up and extend the
+Adaptive Sync SDP definitions and helpers in preparation for
+Panel Replay + VRR support.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a08e32c912a0..2e9db6f570c5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3174,6 +3174,12 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
- 	if (!intel_dp->as_sdp_supported)
- 		return false;
- 
-+	/*
-+	 * #TODO Implement AS SDP for DP branch device.
-+	 */
-+	if (drm_dp_is_branch(intel_dp->dpcd))
-+		return false;
-+
- 	return crtc_state->vrr.enable;
- }
- 
+Ankit Nautiyal (7):
+  drm/dp: Rename and relocate AS SDP payload field masks
+  drm/dp: Clean up DPRX feature enumeration macros
+  drm/dp: Add bits for AS SDP FAVT Payload Fields Parsing support
+  drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+  drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
+  drm/dp: Add a helper to get the SDP type as a string
+  drm/dp: Add target_rr_divider field in AS SDP logging
+
+ drivers/gpu/drm/display/drm_dp_helper.c | 39 ++++++++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dp.c |  4 +--
+ include/drm/display/drm_dp.h            | 20 +++++++++----
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 4 files changed, 52 insertions(+), 12 deletions(-)
+
 -- 
 2.45.2
 
