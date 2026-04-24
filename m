@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0712BFE51F5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BB05FE51F2
 	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 09:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB2910F462;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF26E10F477;
 	Fri, 24 Apr 2026 09:31:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ik1GXcZt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Stb8/5Yr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1211810F477;
- Fri, 24 Apr 2026 09:31:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E0F210F47F;
+ Fri, 24 Apr 2026 09:31:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777023098; x=1808559098;
+ t=1777023101; x=1808559101;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DfawlLkld6l04G7pQhdlUOA6zhvrcwlU27/BF7g4Wd8=;
- b=ik1GXcZtrkfDGH/Aig6TboQnyzT2yyYo2fxq1HwAhEo58ZqaeWCrDlqs
- dia/KSHjKPU6z8rHn3+MdAuXqWWRb4QPF5ifKcZnc9RV+OQGirkIXgscb
- ul8g1kBJ17EQAthJNKiMJ8TNaztq6mjjEi+0/1CWkaVnwXurX43rqPlgC
- T8foptgPhL62YeKdQSFZ1k2NUU+mRzh63MsdMDwRCBA9F7Aih6AnwiAWM
- YOzZi2Pl3UqWymqQK1C1Hhxn/C4xoBk3P501g9DUyMsUX0BvModbQZ3hS
- npD/2jL9kE7kkzP8rJPZLTf+bztKh3iMPSUHm7CRNFUmVgj4Qmy8fsING A==;
-X-CSE-ConnectionGUID: WEsjfQ25QUa2u/BMislfnw==
-X-CSE-MsgGUID: ERu0MqL9QiCHxLV1OZYKXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81859296"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81859296"
+ bh=uDfnAhuPeQpYybCGDkoBbLrE24EWqvm4HBK5ycB3WjE=;
+ b=Stb8/5Yrz1w4ZsPa1/wDmJZBGlfzUG3jlSJEWUQqOKGbWJ6AdpZpsfFw
+ sEkrpkSrTomWSk793WOx2YhEJH48Sx9BLqYzcN42xPPrMkcCaCcU7K1pI
+ oCpORrhs2VdyNRdp2kC/hmcd91VP+wSr582n1oSXLCbPOvHgoW+Cm9l9q
+ bqHEoDyMrdHO4K3sOiS/2fvagcTjVSAGMjZirZDtgCrP6W41O0DkkOWMG
+ aEBGQJ6OmLppsY4GiBJWTuZxUPHdsOwGxri1oONxYkHc16a6cBLiuqz8a
+ HKFVr9jQLc0hYJnApGWVQv8oA8deS/Pzh934hDk71UWfO0/alB56ffuga A==;
+X-CSE-ConnectionGUID: cSianU/YQVaQQA3AYvIWAw==
+X-CSE-MsgGUID: kWMkg4zJRgi4r+IzxfQ77g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81859302"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81859302"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:31:38 -0700
-X-CSE-ConnectionGUID: ZUv0sLaTRU2mi/ve5uaYOA==
-X-CSE-MsgGUID: ZkAKuYcRT0ii8NtC+2RKYA==
+ 24 Apr 2026 02:31:41 -0700
+X-CSE-ConnectionGUID: 0H2qq5KkR0GfETmZJK6EPQ==
+X-CSE-MsgGUID: vJCcbtnLRueccQfzIgUz+A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228572934"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228572947"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:31:36 -0700
+ 24 Apr 2026 02:31:40 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 5/7] drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
-Date: Fri, 24 Apr 2026 14:46:44 +0530
-Message-ID: <20260424091646.3060549-6-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 7/7] drm/dp: Add target_rr_divider field in AS SDP logging
+Date: Fri, 24 Apr 2026 14:46:46 +0530
+Message-ID: <20260424091646.3060549-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260424091646.3060549-1-ankit.k.nautiyal@intel.com>
 References: <20260424091646.3060549-1-ankit.k.nautiyal@intel.com>
@@ -68,41 +68,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add new field in struct drm_dp_as_sdp to store coasting vtotal.
-This is used by the sinks that support Panel Replay and Asynchronous
-timing during PR Active to derive refresh rate, when AS SDP transmission
-is stopped by the source.
+The field target_rr_divider is missing from the AS SDP logging.
+Add it and print the divider value (1.001 or 1.000) as per the DP 2.1 spec.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c | 1 +
- include/drm/display/drm_dp_helper.h     | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/display/drm_dp_helper.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index a697cc227e28..e29958f8b0b6 100644
+index 102328d9022d..c8421099a3ac 100644
 --- a/drivers/gpu/drm/display/drm_dp_helper.c
 +++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3512,6 +3512,7 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
+@@ -3537,6 +3537,8 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
+ 		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
+ 	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
+ 	drm_printf(p, "    target_rr: %d\n", as_sdp->target_rr);
++	drm_printf(p, "    target_rr_divider: %s\n",
++		   as_sdp->target_rr_divider ? "1.001" : "1.000");
  	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
  	drm_printf(p, "    duration_decr_ms: %d\n", as_sdp->duration_decr_ms);
  	drm_printf(p, "    operation_mode: %d\n", as_sdp->mode);
-+	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
- }
- EXPORT_SYMBOL(drm_dp_as_sdp_log);
- 
-diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-index 1d0acd58f486..8c2d77a032f0 100644
---- a/include/drm/display/drm_dp_helper.h
-+++ b/include/drm/display/drm_dp_helper.h
-@@ -126,6 +126,7 @@ struct drm_dp_as_sdp {
- 	int duration_decr_ms;
- 	bool target_rr_divider;
- 	enum operation_mode mode;
-+	int coasting_vtotal;
- };
- 
- void drm_dp_as_sdp_log(struct drm_printer *p,
 -- 
 2.45.2
 
