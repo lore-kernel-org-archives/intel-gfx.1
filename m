@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CEA6FE51F4
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 09:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2D1FE51FA
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Apr 2026 09:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1740110F466;
-	Fri, 24 Apr 2026 09:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B92EC10F480;
+	Fri, 24 Apr 2026 09:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nx47BqPf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kJYageSc";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B087D10F477;
- Fri, 24 Apr 2026 09:31:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8220410F480;
+ Fri, 24 Apr 2026 09:49:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777023100; x=1808559100;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=HE73IoN21SAiR407neVozQ8QA+lJHkcqoWp2mIAwHRo=;
- b=nx47BqPfCbF597hllwUNajtWI2/Gq8/im0XDwYF/haf4vLqnGpSjoqw/
- oJK+ytgxvmku6wX4eprEPekdnT/Rw0eIgH7SXQkTVaX04hJ6zclorBu7D
- l51rVO3kSkqQIkg4dhgsVTO5AvE+HhCr7vZouLCsdICjpVT8ZlK3sfIeK
- sZBpMcheTh9L6iO9hpmHxInOo0Dm/s6W+BkJNsnlKvQDHY+R2a9enjGkR
- qswxVSpFUmxofzNPscRl0JI3tt83+v/F51u3P4n1WTTYDdZH2qJsu0ohF
- 2IFElQM9NjqqSCKMWkfJV39L4Vka1jOxzyLq807qaxZWsd3wtSw2e+/kf w==;
-X-CSE-ConnectionGUID: dmkmeSjDTaq1bLsY3rDbkA==
-X-CSE-MsgGUID: DwcjByRfRIGxmY8LtfiPkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="81859300"
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="81859300"
+ t=1777024150; x=1808560150;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=08D5P+AyE7rGBQ7qwlWONRGL+2cm5LGWwy2TbXsuL/U=;
+ b=kJYageSc5msFV0Opt+VejWQSx6ft7xKnHWSx3c5OP8w6qHCz12SL/IdB
+ ejFLFxarD9joFUrr/R1l3sEjm2ay0xmf9fwyXhfd8Xys6tgpmNtATMe6G
+ A2/E1UF1jRZYPjTYn4HeG/unFuSc2cNkikcgOBRPE8uXNtk4IQvquoEQ8
+ 4QVww/SzDWmbdLyitwO/Irexol1HCaMsPaXjumbpSyjgRtAlqXDns/TUs
+ Wqwc2dfoVTqxSf7UpXilX9Ojsj2sIR7pBPsoCplxFSv9rWAy75HivzalG
+ /gje18tjTbJ9wt7cGskSveOjRmDyUZnhuU3E+2t6P58T3PSbHhAAmA0aM w==;
+X-CSE-ConnectionGUID: pqFDo30FRJO6IExpSVBS3A==
+X-CSE-MsgGUID: 5hM4MZPnSlepZCXAvj+QQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11765"; a="88612845"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="88612845"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:31:40 -0700
-X-CSE-ConnectionGUID: R+3mRlLVRX+iWgDJHLPJPQ==
-X-CSE-MsgGUID: rDwfmFazT2+Yoh3JUr8Vbw==
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2026 02:49:09 -0700
+X-CSE-ConnectionGUID: xpFE9/6MQNurQHal6LZvUQ==
+X-CSE-MsgGUID: d0DZqdiaQHKJ5AcaoMTkOQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228572943"
+X-IronPort-AV: E=Sophos;i="6.23,196,1770624000"; d="scan'208";a="228575629"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Apr 2026 02:31:38 -0700
+ 24 Apr 2026 02:49:08 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 6/7] drm/dp: Add a helper to get the SDP type as a string
-Date: Fri, 24 Apr 2026 14:46:45 +0530
-Message-ID: <20260424091646.3060549-7-ankit.k.nautiyal@intel.com>
+Subject: [RESEND PATCH 0/7] AS SDP cleanups and additions for Panel Replay +
+ VRR
+Date: Fri, 24 Apr 2026 15:04:17 +0530
+Message-ID: <20260424093424.3060805-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260424091646.3060549-1-ankit.k.nautiyal@intel.com>
-References: <20260424091646.3060549-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,73 +68,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Introduce dp_sdp_type_get_name() to get the SDP type as a string.
-Use this to log the SDP type based on the sdp_type fields of the
-VSC and AS SDPs instead of the hardcoded strings.
+Resending with dri-devel added to the recipients, which was
+missed in the original submission.
 
-While at it, rename "SDP : AS_SDP" to "SDP : Adaptive Sync"
+This is a subset of patches separated from the series at
+https://patchwork.freedesktop.org/series/164512/ for merging.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 36 ++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 4 deletions(-)
+These are drm-core (drm/dp) patches that clean up and extend the
+Adaptive Sync SDP definitions and helpers in preparation for
+Panel Replay + VRR support.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index e29958f8b0b6..102328d9022d 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3487,10 +3487,38 @@ static const char *dp_content_type_get_name(enum dp_content_type content_type)
- 	}
- }
- 
-+static const char *dp_sdp_type_get_name(unsigned char type)
-+{
-+	switch (type) {
-+	case DP_SDP_AUDIO_TIMESTAMP:
-+		return "Audio Timestamp";
-+	case DP_SDP_AUDIO_STREAM:
-+		return "Audio Stream";
-+	case DP_SDP_EXTENSION:
-+		return "Extension";
-+	case DP_SDP_AUDIO_COPYMANAGEMENT:
-+		return "Audio Copy Management";
-+	case DP_SDP_ISRC:
-+		return "ISRC";
-+	case DP_SDP_VSC:
-+		return "VSC";
-+	case DP_SDP_PPS:
-+		return "PPS";
-+	case DP_SDP_VSC_EXT_VESA:
-+		return "VSC EXT VESA";
-+	case DP_SDP_VSC_EXT_CEA:
-+		return "VSC EXT CEA";
-+	case DP_SDP_ADAPTIVE_SYNC:
-+		return "Adaptive Sync";
-+	default:
-+		return "Unknown";
-+	}
-+}
-+
- void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
- {
--	drm_printf(p, "DP SDP: VSC, revision %u, length %u\n",
--		   vsc->revision, vsc->length);
-+	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
-+		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
- 	drm_printf(p, "    pixelformat: %s\n",
- 		   dp_pixelformat_get_name(vsc->pixelformat));
- 	drm_printf(p, "    colorimetry: %s\n",
-@@ -3505,8 +3533,8 @@ EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
- 
- void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp)
- {
--	drm_printf(p, "DP SDP: AS_SDP, revision %u, length %u\n",
--		   as_sdp->revision, as_sdp->length);
-+	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
-+		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
- 	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
- 	drm_printf(p, "    target_rr: %d\n", as_sdp->target_rr);
- 	drm_printf(p, "    duration_incr_ms: %d\n", as_sdp->duration_incr_ms);
+Ankit Nautiyal (7):
+  drm/dp: Rename and relocate AS SDP payload field masks
+  drm/dp: Clean up DPRX feature enumeration macros
+  drm/dp: Add bits for AS SDP FAVT Payload Fields Parsing support
+  drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+  drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
+  drm/dp: Add a helper to get the SDP type as a string
+  drm/dp: Add target_rr_divider field in AS SDP logging
+
+ drivers/gpu/drm/display/drm_dp_helper.c | 39 ++++++++++++++++++++++---
+ drivers/gpu/drm/i915/display/intel_dp.c |  4 +--
+ include/drm/display/drm_dp.h            | 20 +++++++++----
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 4 files changed, 52 insertions(+), 12 deletions(-)
+
 -- 
 2.45.2
 
