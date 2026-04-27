@@ -4,85 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83280FF8860
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 11:52:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C4D1FF8862
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Apr 2026 12:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29A2110E6E1;
-	Mon, 27 Apr 2026 11:52:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2F710E704;
+	Mon, 27 Apr 2026 12:08:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hAM7QCOl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VkOTBX5j";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1222510E16B
- for <intel-gfx@lists.freedesktop.org>; Sun, 26 Apr 2026 21:17:51 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2ab46931cf1so71812135ad.0
- for <intel-gfx@lists.freedesktop.org>; Sun, 26 Apr 2026 14:17:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1777238270; cv=none;
- d=google.com; s=arc-20240605;
- b=THL+Rt2vj91niIKDtTwR5dOnKABrHBNd5PX7QARJcJrN2THpyuibC9mXDLoRENpGiO
- 4405q41/hQa1xe5RJRYtEB69+4vE3ofIR8FZ2O8GUAyCT9DDad+zdqYTyXMeoj/bQry9
- /7xP0RCrQK54VrgYXEr/CvB11Z+A559hrLLRzPA9nyaUOXUX8JZhss6NQ/Y7SPK1t82o
- O/F3Q+lMuqQ/QT95guZhZquOu7wPL/kk9Tbssew6sigo8oAsWNX1MieP77SJKb4P2exj
- pK7liWNGFnRPsRFrSLHANiYy/Mo9seWcRPUkp3C6tMeU5WPc2tk/s/AScw1FVMdOHs0F
- bGww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=1NyE1GcJkFnTQ67ZXLoj8uZYOxorTNNfciDFyof8eR4=;
- fh=hiO5FTRHR7JBydXSqw+zoudDtfYFVW0QAiiID6CvOLU=;
- b=BA4r35GVcAOF3+6ZHUmKLustvca920YAg0+njqPLhp8r+EilHorE3Xklc8zFTXfnvs
- lqFWUz/IqmIrQ6I1OMPEo4zvz27nAwH2Hv5aC1v0LftIYqNhtBkrmyxgLXtNl62nKRQ7
- x3ojwkjV/l64ODkxOmCIjHKpeHAbBw+zxJWcUHK0X/UD1NLIKA0QS4B+IUZv03IAXM9w
- k+qtG/OmkKwYNVvYaTWgKxe5SMXRV2/Eoo0WLWu1oYg6BDQy8POKsxeUtVVCHqeHW6VI
- weI5F2Br6um6CznDB/EL/MW3aE6Lo7vARgDWHjrvjuDfBJjd6g2HGQ+6AA1fKaG4pCUt
- E2SQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777238270; x=1777843070; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=1NyE1GcJkFnTQ67ZXLoj8uZYOxorTNNfciDFyof8eR4=;
- b=hAM7QCOltd9XqiPeM+3t1GSN0j0gxxmvzcWbIWszATO+rKM8LCDkKlLvuzU/PsjUOo
- 4gN71FMucvWj4hNBvLuaWgnOz10ZQT9lt0nbc6sgXaw5Ox2vdRALs3p4eV8tYFfm45P8
- Z8i4A2pJh8Tk1jSogpJUwKiRlrnoX8SRPZlJU2tHU9stFZmZnrByQiFlABGlxHngfwMn
- 9eYpGUGlQhqwGQiDu6iK3Ha/OP2LVzDP3SBXHXhyuABA6cUUDRxv9dwsqAIXYfjiQuxL
- Uv19fEv6O0nD/EM4VZ+ijRTGKDdagDeiLZBR9Crs6b1d3ExGhL7rY0ErvVx5RPPhM/m6
- lEng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777238270; x=1777843070;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=1NyE1GcJkFnTQ67ZXLoj8uZYOxorTNNfciDFyof8eR4=;
- b=N0E2HFmipvlt0xTFniqy2+6uj8NjF2UQV0/6rjhpHo4Ck8loPELrXK/LZNR+pHQtO4
- ghgncsMn0kixW0vptFbu8SnVoN4SuXxmBS+fwVHi9Yd9z2bMIA5Fv/MYBYeLNYsBHgZk
- LGjOs6HGGa6EWs/Ijpn41aaT75XX1U2ROJBAaEx/FIAIjDUAK1zpThFvb861dLTqSnkK
- junI3tRDF/ZjJzZgAOePK9T4GrYEyQTQV8Z4SeSekdIbpi4wu2cXJT239gK4xXSGxjdp
- ziFilWW5gaZdTAwH6j7k46D5yz8uIlwh039Czw0Aw7+c/UJa1c3bfQAN11MFCPmhKIQI
- 0f9g==
-X-Gm-Message-State: AOJu0YwmZQkUW3z7PjpV594pgqkPmRJIbHwvrscRi06Xd491tNem8x4d
- I1XUKclOCt7/h7ZR+7ga+YfY7Mi8Gf7y9BWHf4WIKJQvSewgArBY+9q/bYIrpQExCY/B3xYTwpL
- kXgEyP6wvKjqWzdLcqkNvP4wl5NCRdZ2tmk5t
-X-Gm-Gg: AeBDiesRiPXwzKUstUXxisK9fkkz0yCNilT9WcOzZHZ45D/KTTaqUDAvDvOyOdyPG16
- rmil+cQ7pGsg28kUsLMRzT1Vi2So8BDysH+BOO7FfD4kiWRN8GUE+wMEdjxVM2w/3pJwKzSRzRi
- lOCDglXyxU5XkAviDcw5/olXRXerW/5dkccnEUlbFloyKNaNXqeVO7gr8DyzVSd+de06JVBm0sL
- nzdOXMPoTPLut1biWsebykON7/Xcq+ZhHGtTDDAdTRTqV8Tm7Qivg9frmpXQfX1exJTadUQ2y5L
- nfNlcz6Bdg8YoV4xhA==
-X-Received: by 2002:a17:902:bb96:b0:2b2:5168:2f82 with SMTP id
- d9443c01a7336-2b5f9ed4d0cmr213777345ad.24.1777238269893; Sun, 26 Apr 2026
- 14:17:49 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53EB910E6FB;
+ Mon, 27 Apr 2026 12:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1777291708; x=1808827708;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=DmfW0hm9wVvC31iCkllRRcS7mmqhKQOPd4gMsqqzd6Y=;
+ b=VkOTBX5j4i83adk4qLMf0xXy5pRLSFz5mhFlOsoFX+u0dmh4PHr/K2sv
+ kMdtJpN/Ia57KhlxBEyrCn9/phfQewPgYlJwQQ0Ztck89OhQ7hSMXmHOR
+ 0pRBuQ492+7Qwd8ko8dmybdsM56Enbkp5Xe5m5JuGkuowbG2My46scEge
+ uB6mxicuRMgx9I8mqiWhz4EPCvuVIhISflN7/DE5ohOsskC4HwtMawFtU
+ CAPy73UIXrPryUpg8q95jy5kUeFSi5hLgBGX4Cz6pd+8HSwFR0jdg8zWD
+ L6LZtnR87zbC78R8qAMz4+USbB1hTdVKHTJ4/CiHNa3FCOOkdUDrYv7MM Q==;
+X-CSE-ConnectionGUID: LzIHsYTuSzaXL3LB7WADPg==
+X-CSE-MsgGUID: FA+K+mAoSdyYTA1cl98q0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11768"; a="89555952"
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="89555952"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2026 05:08:28 -0700
+X-CSE-ConnectionGUID: iUaeqL5rRkiQzSJjUXustg==
+X-CSE-MsgGUID: zTRAsHXhQy26nk449wrmsw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,202,1770624000"; d="scan'208";a="256934261"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.116])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Apr 2026 05:08:26 -0700
+Date: Mon, 27 Apr 2026 15:08:24 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 16/16] drm/i915: Consolidate the intel_plane_(un)pin_fb()
+ implementations
+Message-ID: <ae9RuL-ExovJcLBC@intel.com>
+References: <20260423165346.20884-1-ville.syrjala@linux.intel.com>
+ <20260423165346.20884-17-ville.syrjala@linux.intel.com>
+ <a3b6afe8ae552996f0afeb64e20c18054ef88255@intel.com>
 MIME-Version: 1.0
-From: Andrea Rabbaglietti <rabbagliettiandrea@gmail.com>
-Date: Sun, 26 Apr 2026 23:17:13 +0200
-X-Gm-Features: AQROBzAjY01URB-J3EGt7U3bwJ7bU0SFfwu6QP9jrDq1jDOB9wGwTgfFmQOFMVY
-Message-ID: <CAENjc+zL0MVJR+t2YzofgiAQ_yqcjTO8kXNg9iNbK=VChVXpSw@mail.gmail.com>
-Subject: [PATCH] drm/xe: fix possible GGTT write ordering issue causing hard
- freeze on Lunar Lake
-To: intel-gfx@lists.freedesktop.org
-Cc: sonny@milton.pro
-Content-Type: multipart/mixed; boundary="000000000000c23a2e0650638703"
-X-Mailman-Approved-At: Mon, 27 Apr 2026 11:52:17 +0000
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a3b6afe8ae552996f0afeb64e20c18054ef88255@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,210 +75,517 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000c23a2e0650638703
-Content-Type: multipart/alternative; boundary="000000000000c23a2b0650638701"
+On Fri, Apr 24, 2026 at 04:30:40PM +0300, Jani Nikula wrote:
+> On Thu, 23 Apr 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >
+> > Currently i915 and each implement their own versions of
+> 
+> and xe?
+> 
+> > intel_plane_(un)pin(). Now that we have the fb_pin parent
+> > interface we can consolidate this to a single implementation.
+> >
+> > The result is a mixture of the i915 and xe implementations.
+> > The reuse_vma() hack comes from xe (and i915 doesn't implement
+> > that part of the parent interface, and the pin_params are
+> > taken from i915 since the platforms supported by i915 need
+> > more things.
+> 
+> One somewhat complicated and spread out comment inline. Other than that,
+> 
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_cursor.c |   1 -
+> >  drivers/gpu/drm/i915/display/intel_fb_pin.h |  27 -----
+> >  drivers/gpu/drm/i915/display/intel_plane.c  | 118 +++++++++++++++++++-
+> >  drivers/gpu/drm/i915/display/intel_plane.h  |   3 +
+> >  drivers/gpu/drm/i915/i915_fb_pin.c          | 116 +------------------
+> >  drivers/gpu/drm/xe/display/xe_fb_pin.c      |  82 +-------------
+> >  6 files changed, 126 insertions(+), 221 deletions(-)
+> >  delete mode 100644 drivers/gpu/drm/i915/display/intel_fb_pin.h
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+> > index 18d1014de361..52347668f27d 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_cursor.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+> > @@ -21,7 +21,6 @@
+> >  #include "intel_display_utils.h"
+> >  #include "intel_display_wa.h"
+> >  #include "intel_fb.h"
+> > -#include "intel_fb_pin.h"
+> >  #include "intel_frontbuffer.h"
+> >  #include "intel_plane.h"
+> >  #include "intel_psr.h"
+> > diff --git a/drivers/gpu/drm/i915/display/intel_fb_pin.h b/drivers/gpu/drm/i915/display/intel_fb_pin.h
+> > deleted file mode 100644
+> > index 6ff17d3e2cf5..000000000000
+> > --- a/drivers/gpu/drm/i915/display/intel_fb_pin.h
+> > +++ /dev/null
+> > @@ -1,27 +0,0 @@
+> > -/* SPDX-License-Identifier: MIT */
+> > -/*
+> > - * Copyright © 2021 Intel Corporation
+> > - */
+> > -
+> > -#ifndef __INTEL_FB_PIN_H__
+> > -#define __INTEL_FB_PIN_H__
+> > -
+> > -#include <linux/types.h>
+> > -
+> > -struct drm_gem_object;
+> > -struct i915_vma;
+> > -struct intel_fb_pin_params;
+> > -struct intel_plane_state;
+> > -struct i915_gtt_view;
+> > -struct iosys_map;
+> > -
+> > -struct i915_vma *
+> > -intel_fb_pin_to_ggtt(struct drm_gem_object *obj,
+> > -		     const struct intel_fb_pin_params *pin_params,
+> > -		     int *out_fence_id);
+> > -
+> > -int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
+> > -		       const struct intel_plane_state *old_plane_state);
+> > -void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state);
+> > -
+> > -#endif
+> > diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+> > index e50e1a15410a..f132fa955d21 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_plane.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_plane.c
+> > @@ -44,6 +44,7 @@
+> >  #include <drm/drm_gem_atomic_helper.h>
+> >  #include <drm/drm_panic.h>
+> >  #include <drm/drm_print.h>
+> > +#include <drm/intel/display_parent_interface.h>
+> >  
+> >  #include "i9xx_plane_regs.h"
+> >  #include "intel_cdclk.h"
+> > @@ -53,7 +54,6 @@
+> >  #include "intel_display_trace.h"
+> >  #include "intel_display_types.h"
+> >  #include "intel_fb.h"
+> > -#include "intel_fb_pin.h"
+> >  #include "intel_fbdev.h"
+> >  #include "intel_parent.h"
+> >  #include "intel_plane.h"
+> > @@ -1191,6 +1191,122 @@ int intel_plane_check_src_coordinates(struct intel_plane_state *plane_state)
+> >  	return 0;
+> >  }
+> >  
+> > +static unsigned int
+> > +intel_plane_fb_min_alignment(const struct intel_plane_state *plane_state)
+> > +{
+> > +	const struct intel_framebuffer *fb = to_intel_framebuffer(plane_state->hw.fb);
+> > +
+> > +	return fb->min_alignment;
+> 
+> (1)
+> 
+> > +}
+> > +
+> > +static unsigned int
+> > +intel_plane_fb_min_phys_alignment(const struct intel_plane_state *plane_state)
+> > +{
+> > +	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+> > +	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> > +
+> > +	if (!intel_plane_needs_physical(plane))
+> > +		return 0;
+> > +
+> > +	return plane->min_alignment(plane, fb, 0);
+> > +}
+> > +
+> > +static unsigned int
+> > +intel_plane_fb_vtd_guard(const struct intel_plane_state *plane_state)
+> > +{
+> > +	return intel_fb_view_vtd_guard(plane_state->hw.fb,
+> > +				       &plane_state->view,
+> > +				       plane_state->hw.rotation);
+> > +}
+> > +
+> > +int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+> > +		       const struct intel_plane_state *old_plane_state)
+> > +{
+> > +	struct intel_display *display = to_intel_display(plane_state);
+> > +	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+> > +	const struct intel_framebuffer *fb =
+> > +		to_intel_framebuffer(plane_state->hw.fb);
+> > +	const struct intel_framebuffer *old_fb =
+> > +		to_intel_framebuffer(old_plane_state->hw.fb);
+> > +	struct i915_vma *ggtt_vma = NULL;
+> > +	struct i915_vma *dpt_vma = NULL;
+> > +	int fence_id = -1;
+> > +	u32 offset = 0;
+> > +	int ret;
+> > +
+> > +	/* hack for xe since it can't keep track of vmas properly */
+> > +	ggtt_vma = intel_parent_fb_pin_reuse_vma(display,
+> > +						 old_plane_state->ggtt_vma,
+> > +						 intel_fb_bo(&old_fb->base),
+> > +						 &old_plane_state->view.gtt,
+> > +						 intel_fb_bo(&fb->base),
+> > +						 &plane_state->view.gtt,
+> > +						 &offset);
+> > +	if (ggtt_vma)
+> > +		goto got_vma;
+> > +
+> > +	if (!intel_fb_uses_dpt(&fb->base)) {
+> > +		struct intel_fb_pin_params pin_params = {
+> > +			.view = &plane_state->view.gtt,
+> > +			.alignment = intel_plane_fb_min_alignment(plane_state),
+> 
+> So this is equal to i915, and uses (1) above.
+> 
+> > +			.phys_alignment = intel_plane_fb_min_phys_alignment(plane_state),
+> > +			.vtd_guard = intel_plane_fb_vtd_guard(plane_state),
+> > +			.needs_cpu_lmem_access = intel_fb_needs_cpu_access(&fb->base),
+> > +			.needs_low_address = intel_plane_needs_low_address(display),
+> > +			.needs_physical = intel_plane_needs_physical(plane),
+> > +			.needs_fence = intel_plane_needs_fence(display),
+> > +		};
+> > +
+> > +		ret = intel_parent_fb_pin_ggtt_pin(display, intel_fb_bo(&fb->base),
+> > +						   &pin_params, &ggtt_vma, &offset,
+> > +						   intel_plane_uses_fence(plane_state) ? &fence_id : NULL);
+> > +	} else {
+> > +		struct intel_fb_pin_params pin_params = {
+> > +			.view = &plane_state->view.gtt,
+> > +			.alignment = intel_plane_fb_min_alignment(plane_state),
+> > +			.needs_cpu_lmem_access = intel_fb_needs_cpu_access(&fb->base),
+> > +		};
+> > +
+> > +		ret = intel_parent_fb_pin_dpt_pin(display, intel_fb_bo(&fb->base),
+> > +						  fb->dpt, &pin_params,
+> > +						  &dpt_vma, &ggtt_vma, &offset);
+> > +	}
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +got_vma:
+> > +	plane_state->dpt_vma = dpt_vma;
+> > +	plane_state->ggtt_vma = ggtt_vma;
+> > +	plane_state->fence_id = fence_id;
+> > +
+> > +	plane_state->surf = offset + plane->surf_offset(plane_state);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
+> > +{
+> > +	struct intel_display *display = to_intel_display(old_plane_state);
+> > +	const struct intel_framebuffer *fb =
+> > +		to_intel_framebuffer(old_plane_state->hw.fb);
+> > +
+> > +	if (!intel_fb_uses_dpt(&fb->base)) {
+> > +		intel_parent_fb_pin_ggtt_unpin(display,
+> > +					       old_plane_state->ggtt_vma,
+> > +					       old_plane_state->fence_id);
+> > +
+> > +		old_plane_state->ggtt_vma = NULL;
+> > +		old_plane_state->fence_id = -1;
+> > +	} else {
+> > +		intel_parent_fb_pin_dpt_unpin(display, fb->dpt,
+> > +					      old_plane_state->dpt_vma,
+> > +					      old_plane_state->ggtt_vma);
+> > +
+> > +		old_plane_state->dpt_vma = NULL;
+> > +		old_plane_state->ggtt_vma = NULL;
+> > +	}
+> > +}
+> > +
+> >  static int add_dma_resv_fences(struct dma_resv *resv,
+> >  			       struct drm_plane_state *new_plane_state)
+> >  {
+> > diff --git a/drivers/gpu/drm/i915/display/intel_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
+> > index 7b5456f56f42..a6338bba72d9 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_plane.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_plane.h
+> > @@ -92,5 +92,8 @@ int intel_plane_atomic_check(struct intel_atomic_state *state);
+> >  bool intel_plane_format_mod_supported_async(struct drm_plane *plane,
+> >  					    u32 format,
+> >  					    u64 modifier);
+> > +int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
+> > +		       const struct intel_plane_state *old_plane_state);
+> > +void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state);
+> >  
+> >  #endif /* __INTEL_PLANE_H__ */
+> > diff --git a/drivers/gpu/drm/i915/i915_fb_pin.c b/drivers/gpu/drm/i915/i915_fb_pin.c
+> > index cedefee46fbf..1034cb767e9f 100644
+> > --- a/drivers/gpu/drm/i915/i915_fb_pin.c
+> > +++ b/drivers/gpu/drm/i915/i915_fb_pin.c
+> > @@ -3,20 +3,9 @@
+> >   * Copyright © 2021 Intel Corporation
+> >   */
+> >  
+> > -/**
+> > - * DOC: display pinning helpers
+> > - */
+> > -
+> >  #include <drm/drm_print.h>
+> >  #include <drm/intel/display_parent_interface.h>
+> >  
+> > -#include "display/intel_display_core.h"
+> > -#include "display/intel_display_types.h"
+> > -#include "display/intel_fb.h"
+> > -#include "display/intel_fb_pin.h"
+> > -#include "display/intel_parent.h"
+> > -#include "display/intel_plane.h"
+> > -
+> >  #include "gem/i915_gem_domain.h"
+> >  #include "gem/i915_gem_object.h"
+> >  
+> > @@ -114,7 +103,7 @@ intel_fb_pin_to_dpt(struct drm_gem_object *_obj, struct intel_dpt *dpt,
+> >  	return vma;
+> >  }
+> >  
+> > -struct i915_vma *
+> > +static struct i915_vma *
+> >  intel_fb_pin_to_ggtt(struct drm_gem_object *_obj,
+> >  		     const struct intel_fb_pin_params *pin_params,
+> >  		     int *out_fence_id)
+> > @@ -230,34 +219,6 @@ static void intel_fb_unpin_vma(struct i915_vma *vma, int fence_id)
+> >  	i915_vma_put(vma);
+> >  }
+> >  
+> > -static unsigned int
+> > -intel_plane_fb_min_alignment(const struct intel_plane_state *plane_state)
+> > -{
+> > -	const struct intel_framebuffer *fb = to_intel_framebuffer(plane_state->hw.fb);
+> > -
+> > -	return fb->min_alignment;
+> > -}
+> > -
+> > -static unsigned int
+> > -intel_plane_fb_min_phys_alignment(const struct intel_plane_state *plane_state)
+> > -{
+> > -	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+> > -	const struct drm_framebuffer *fb = plane_state->hw.fb;
+> > -
+> > -	if (!intel_plane_needs_physical(plane))
+> > -		return 0;
+> > -
+> > -	return plane->min_alignment(plane, fb, 0);
+> > -}
+> > -
+> > -static unsigned int
+> > -intel_plane_fb_vtd_guard(const struct intel_plane_state *plane_state)
+> > -{
+> > -	return intel_fb_view_vtd_guard(plane_state->hw.fb,
+> > -				       &plane_state->view,
+> > -				       plane_state->hw.rotation);
+> > -}
+> > -
+> >  static int i915_fb_pin_ggtt_pin(struct drm_gem_object *obj,
+> >  				const struct intel_fb_pin_params *pin_params,
+> >  				struct i915_vma **out_ggtt_vma,
+> > @@ -336,81 +297,6 @@ static void i915_fb_pin_dpt_unpin(struct intel_dpt *dpt,
+> >  		i915_dpt_unpin_from_ggtt(dpt);
+> >  }
+> >  
+> > -int intel_plane_pin_fb(struct intel_plane_state *plane_state,
+> > -		       const struct intel_plane_state *old_plane_state)
+> > -{
+> > -	struct intel_display *display = to_intel_display(plane_state);
+> > -	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
+> > -	const struct intel_framebuffer *fb =
+> > -		to_intel_framebuffer(plane_state->hw.fb);
+> > -	struct i915_vma *ggtt_vma = NULL;
+> > -	struct i915_vma *dpt_vma = NULL;
+> > -	int fence_id = -1;
+> > -	u32 offset;
+> > -	int ret;
+> > -
+> > -	if (!intel_fb_uses_dpt(&fb->base)) {
+> > -		struct intel_fb_pin_params pin_params = {
+> > -			.view = &plane_state->view.gtt,
+> > -			.alignment = intel_plane_fb_min_alignment(plane_state),
+> > -			.phys_alignment = intel_plane_fb_min_phys_alignment(plane_state),
+> > -			.vtd_guard = intel_plane_fb_vtd_guard(plane_state),
+> > -			.needs_cpu_lmem_access = intel_fb_needs_cpu_access(&fb->base),
+> > -			.needs_low_address = intel_plane_needs_low_address(display),
+> > -			.needs_physical = intel_plane_needs_physical(plane),
+> > -			.needs_fence = intel_plane_needs_fence(display),
+> > -		};
+> > -
+> > -		ret = intel_parent_fb_pin_ggtt_pin(display, intel_fb_bo(&fb->base),
+> > -						   &pin_params, &ggtt_vma, &offset,
+> > -						   intel_plane_uses_fence(plane_state) ? &fence_id : NULL);
+> > -		if (ret)
+> > -			return ret;
+> > -	} else {
+> > -		struct intel_fb_pin_params pin_params = {
+> > -			.view = &plane_state->view.gtt,
+> > -			.alignment = intel_plane_fb_min_alignment(plane_state),
+> > -			.needs_cpu_lmem_access = intel_fb_needs_cpu_access(&fb->base),
+> > -		};
+> > -
+> > -		ret = intel_parent_fb_pin_dpt_pin(display, intel_fb_bo(&fb->base),
+> > -						  fb->dpt, &pin_params,
+> > -						  &dpt_vma, &ggtt_vma, &offset);
+> > -		if (ret)
+> > -			return ret;
+> > -	}
+> > -
+> > -	plane_state->dpt_vma = dpt_vma;
+> > -	plane_state->ggtt_vma = ggtt_vma;
+> > -	plane_state->fence_id = fence_id;
+> > -	plane_state->surf = offset + plane->surf_offset(plane_state);
+> > -
+> > -	return 0;
+> > -}
+> > -
+> > -void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
+> > -{
+> > -	struct intel_display *display = to_intel_display(old_plane_state);
+> > -	const struct intel_framebuffer *fb =
+> > -		to_intel_framebuffer(old_plane_state->hw.fb);
+> > -
+> > -	if (!intel_fb_uses_dpt(&fb->base)) {
+> > -		intel_parent_fb_pin_ggtt_unpin(display,
+> > -					       old_plane_state->ggtt_vma,
+> > -					       old_plane_state->fence_id);
+> > -
+> > -		old_plane_state->ggtt_vma = NULL;
+> > -		old_plane_state->fence_id = -1;
+> > -	} else {
+> > -		intel_parent_fb_pin_dpt_unpin(display, fb->dpt,
+> > -					      old_plane_state->dpt_vma,
+> > -					      old_plane_state->ggtt_vma);
+> > -
+> > -		old_plane_state->dpt_vma = NULL;
+> > -		old_plane_state->ggtt_vma = NULL;
+> > -	}
+> > -}
+> > -
+> >  static void i915_fb_pin_get_map(struct i915_vma *vma, struct iosys_map *map)
+> >  {
+> >  	iosys_map_set_vaddr_iomem(map, i915_vma_get_iomap(vma));
+> > diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> > index c92c30ceba36..19f4d45f5acb 100644
+> > --- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> > +++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+> > @@ -6,11 +6,12 @@
+> >  #include <drm/intel/display_parent_interface.h>
+> >  #include <drm/ttm/ttm_bo.h>
+> >  
+> > -#include "intel_display_core.h"
+> > -#include "intel_display_types.h"
+> > +/* FIXME move the types to parent interface? */
+> > +#include "i915_gtt_view_types.h"
+> > +
+> > +/* FIXME move intel_remapped_info_size() & co. to parent interface? */
+> >  #include "intel_fb.h"
+> > -#include "intel_fb_pin.h"
+> > -#include "intel_parent.h"
+> > +
+> >  #include "xe_bo.h"
+> >  #include "xe_device.h"
+> >  #include "xe_display_vma.h"
+> > @@ -491,79 +492,6 @@ xe_fb_pin_reuse_vma(struct i915_vma *old_ggtt_vma,
+> >  	return NULL;
+> >  }
+> >  
+> > -int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
+> > -		       const struct intel_plane_state *old_plane_state)
+> > -{
+> > -	struct intel_display *display = to_intel_display(new_plane_state);
+> > -	const struct intel_framebuffer *fb = to_intel_framebuffer(new_plane_state->hw.fb);
+> > -	const struct intel_framebuffer *old_fb = to_intel_framebuffer(old_plane_state->hw.fb);
+> > -	struct drm_gem_object *obj = intel_fb_bo(&fb->base);
+> > -	struct intel_plane *plane = to_intel_plane(new_plane_state->uapi.plane);
+> > -	struct intel_fb_pin_params pin_params = {
+> > -		.view = &new_plane_state->view.gtt,
+> > -		.alignment = plane->min_alignment(plane, &fb->base, 0),
+> 
+> However xe had something different here.
+> 
+> Basically fb->min_alignment is initialized to intel_fb_min_alignment(),
+> which does call plane->min_alignment() for all planes, and works it out
+> from there.
+> 
+> Could or should we have switched xe to use fb->min_alignment here as an
+> intermediate step? It kind of sticks out as a change in this patch.
 
---000000000000c23a2b0650638701
-Content-Type: text/plain; charset="UTF-8"
+I'm pretty sure there was a patch floating around for that.
+Not sure why it didn't get pushed. Maybe just due to the general
+apathy surrounding the xe fb code...
 
-Hi,
-this patch attempts to fix a reproducible system freeze on Intel Lunar
-Lake platforms
-under GPU load.
+> 
+> 
+> > -		.needs_cpu_lmem_access = intel_fb_needs_cpu_access(&fb->base),
+> > -	};
+> > -	struct i915_vma *ggtt_vma = NULL;
+> > -	struct i915_vma *dpt_vma = NULL;
+> > -	int fence_id = -1;
+> > -	u32 offset;
+> > -	int ret;
+> > -
+> > -	ggtt_vma = intel_parent_fb_pin_reuse_vma(display,
+> > -						 old_plane_state->ggtt_vma,
+> > -						 intel_fb_bo(&old_fb->base),
+> > -						 &old_plane_state->view.gtt,
+> > -						 intel_fb_bo(&fb->base),
+> > -						 &new_plane_state->view.gtt,
+> > -						 &offset);
+> > -	if (ggtt_vma)
+> > -		goto got_vma;
+> > -
+> > -	if (!intel_fb_uses_dpt(&fb->base)) {
+> > -		ret = intel_parent_fb_pin_ggtt_pin(display, obj, &pin_params,
+> > -						   &ggtt_vma, &offset, NULL);
+> > -		if (ret)
+> > -			return ret;
+> > -	} else {
+> > -		ret = intel_parent_fb_pin_dpt_pin(display, obj, fb->dpt,
+> > -						  &pin_params, &dpt_vma,
+> > -						  &ggtt_vma, &offset);
+> > -		if (ret)
+> > -			return ret;
+> > -	}
+> > -
+> > -got_vma:
+> > -	new_plane_state->dpt_vma = dpt_vma;
+> > -	new_plane_state->ggtt_vma = ggtt_vma;
+> > -	new_plane_state->fence_id = fence_id;
+> > -	new_plane_state->surf = offset + plane->surf_offset(new_plane_state);
+> > -
+> > -	return 0;
+> > -}
+> > -
+> > -void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
+> > -{
+> > -	struct intel_display *display = to_intel_display(old_plane_state);
+> > -	const struct intel_framebuffer *fb = to_intel_framebuffer(old_plane_state->hw.fb);
+> > -
+> > -	if (!intel_fb_uses_dpt(&fb->base)) {
+> > -		intel_parent_fb_pin_ggtt_unpin(display,
+> > -					       old_plane_state->ggtt_vma,
+> > -					       old_plane_state->fence_id);
+> > -
+> > -		old_plane_state->ggtt_vma = NULL;
+> > -		old_plane_state->fence_id = -1;
+> > -	} else {
+> > -		intel_parent_fb_pin_dpt_unpin(display, fb->dpt,
+> > -					      old_plane_state->dpt_vma,
+> > -					      old_plane_state->ggtt_vma);
+> > -
+> > -		old_plane_state->dpt_vma = NULL;
+> > -		old_plane_state->ggtt_vma = NULL;
+> > -	}
+> > -}
+> > -
+> >  static void xe_fb_pin_get_map(struct i915_vma *vma, struct iosys_map *map)
+> >  {
+> >  	*map = vma->bo->vmap;
+> 
+> -- 
+> Jani Nikula, Intel
 
-This patch is based on work by @sonny@milton.pro <sonny@milton.pro>
-
-Tested on:
-- CPU: Intel Core Ultra 7 258V (Lunar Lake)
-- Machine: Lenovo ThinkPad X9-14
-- Distro: Fedora 43
-- Kernel: 7.0.0 (mainline)
-
-## Problem
-
-Under sustained GPU load (e.g. FurMark VK), the system would hard freeze:
-- complete system lockup (no SSH, no TTY)
-- no useful dmesg output after the freeze
-
-The issue was reliably reproducible within minutes.
-
-## Root cause hypothesis
-
-The freeze appears to be related to GGTT PTE writes not being properly
-flushed/ordered, possibly leading to invalid memory state when pinning
-framebuffer VMA (xe_pin_fb_vma).
-
-## Solution
-
-Wrap GGTT update paths with forcewake to ensure MMIO write flushing /
-ordering.
-
-## Results
-
-After applying this patch:
-- system is stable
-- no freezes observed after >6 hours of continuous GPU stress and in 7 days
-of daily use.
-
-## Notes
-
-I am available for further testing if needed.
-
-Credits to @sonny@milton.pro for the original patch.
-
-Thanks,
-Andrea Rabbaglietti
-
---000000000000c23a2b0650638701
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><br><span>Hi,</span><br><span>this patch attempts to =
-fix a reproducible system freeze on Intel Lunar Lake</span><span>=C2=A0plat=
-forms under GPU load.</span></div><div><br></div><div><span>This patch is b=
-ased on work by=C2=A0<a class=3D"gmail_plusreply" id=3D"plusReplyChip-1" hr=
-ef=3D"mailto:sonny@milton.pro" tabindex=3D"-1">@sonny@milton.pro</a>=C2=A0<=
-/span><br><br><span>Tested on:</span><br><span>  - CPU: Intel Core Ultra 7 =
-258V (Lunar Lake)</span><br><span>  - Machine: Lenovo ThinkPad X9-14</span>=
-<br><span>  - Distro: Fedora 43</span><br><span>  - Kernel: 7.0.0 (mainline=
-)</span><br><span><br></span></div><div><span>## Problem</span></div><div><=
-br><span>Under sustained GPU load (e.g. FurMark VK), the system would hard =
-freeze:</span><br><span>  - complete system lockup (no SSH, no TTY)</span><=
-br><span>  - no useful dmesg output after the freeze</span><br><br><span>Th=
-e issue was reliably reproducible within minutes.</span><br><br><span>## Ro=
-ot cause hypothesis</span><br><br><span>The freeze appears to be related to=
- GGTT PTE writes not being properly</span><br><span>flushed/ordered, possib=
-ly leading to invalid memory state when pinning</span><br><span>framebuffer=
- VMA (xe_pin_fb_vma).</span><br><br><span>## Solution</span><br><br><span>W=
-rap GGTT update paths with forcewake to ensure MMIO write flushing /</span>=
-<br><span>ordering.</span><br><br><span>## Results</span><br><br><span>Afte=
-r applying this patch:</span><br><span>  - system is stable</span><br><span=
->  - no freezes observed after &gt;6 hours of continuous GPU stress and in =
-7 days of daily use.</span><br><br><span>## Notes</span><br><br><span>I am =
-available for further testing if needed.</span><br><br><span>Credits to=C2=
-=A0<a class=3D"gmail_plusreply" id=3D"plusReplyChip-0">@</a></span><a class=
-=3D"gmail_plusreply" id=3D"plusReplyChip-0">sonny@milton.pro</a><span>=C2=
-=A0for the original patch.</span><br><br><span>Thanks,</span><br><span>Andr=
-ea Rabbaglietti</span></div></div>
-
---000000000000c23a2b0650638701--
-
---000000000000c23a2e0650638703
-Content-Type: text/x-patch; charset="UTF-8"; name="lnl-forcewake-fix-7.0.0-rc7.patch"
-Content-Disposition: attachment; 
-	filename="lnl-forcewake-fix-7.0.0-rc7.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mog9q6s10>
-X-Attachment-Id: f_mog9q6s10
-
-RnJvbSBiMmUxNjkwNjdmMGI0OWU4Yzg0MWRhYzk0MGU5NjJiN2U0N2Y0ZTMwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBOaWtvbGF5IE1pa2hheWxvdiA8c29ubnlAbWlsdG9uLnBybz4K
-RGF0ZTogRnJpLCAxNyBBcHIgMjAyNiAyMjo0ODo0MCArMDcwMApTdWJqZWN0OiBbUEFUQ0hdIGRy
-bS94ZS9nZ3R0OiBQcm90ZWN0IEdHVFQgd3JpdGUgcGF0aHMgd2l0aCBGT1JDRVdBS0UgdG8KIHBy
-ZXZlbnQgTU1JTyBwaXBlbGluZSBzdGFsbCBvbiBMTkwKTUlNRS1WZXJzaW9uOiAxLjAKQ29udGVu
-dC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNmZXItRW5jb2Rp
-bmc6IDhiaXQKCk9uIEx1bmFyIExha2UsIFdBIDE1MDE1NDA0NDI1ICh4ZV9tbWlvLmM6MTMxKSBm
-bHVzaGVzIHRoZSBDUFUgTU1JTyB3cml0ZQpwaXBlbGluZSBieSBpc3N1aW5nIDQgZHVtbXkgd3Jp
-dGVzIHRvIGEgc2NyYXRjaCByZWdpc3RlciBiZWZvcmUgZXZlcnkKTU1JTyByZWFkLiBUaGlzIGZs
-dXNoIGlzIHRyaWdnZXJlZCBvbmx5IG9uIHRoZSByZWFkIHBhdGguIEdHVFQgaW5zZXJ0CnBhdGhz
-ICh4ZV9nZ3R0X2luc2VydF9ub2RlX3RyYW5zZm9ybSwgX194ZV9nZ3R0X2luc2VydF9ib19hdCkg
-aXNzdWUKYmF0Y2hlcyBvZiB3cml0ZXEoKSB0byBHU00gd2l0aCBubyBpbnRlcnZlbmluZyByZWFk
-cywgc28gdGhlIHBpcGVsaW5lCm5ldmVyIGRyYWlucyBiZXR3ZWVuIHdyaXRlcy4KCldoZW4gdGhl
-IENQVSBzdG9yZSBxdWV1ZSBmaWxscyAoQkVSVDogZnNtX3N0YXRlPTB4MTApLCBhbnkgc3Vic2Vx
-dWVudApNTUlPIHdyaXRlIHN0YWxscyBpbmRlZmluaXRlbHksIGNhdXNpbmcgYSBmdWxsIHBsYXRm
-b3JtIGZyZWV6ZS4gVGhlCiJGT1JDRVdBS0Ugc3R1Y2sgYXQgdmFsdWUgNiIgc2VlbiBpbiBhbGwg
-Y29sbGVjdGVkIGNyYXNoIGR1bXBzIGlzIGEKZG93bnN0cmVhbSBzeW1wdG9tOiBmb3JjZXdha2Ug
-cmVxdWVzdCB3cml0ZXMgYWxzbyBzdGFsbCBpbiB0aGUgc2FtZQpjb25nZXN0ZWQgcGlwZWxpbmUu
-CgpXcmFwcGluZyB0aGUgd3JpdGUgcGF0aHMgaW4geGVfd2l0aF9mb3JjZV93YWtlKCkgcmVzb2x2
-ZXMgdGhpcyBiZWNhdXNlCnhlX2ZvcmNlX3dha2VfZ2V0KCkgcG9sbHMgdGhlIEFDSyByZWdpc3Rl
-ciB2aWEgeGVfbW1pb193YWl0MzIoKSwgd2hpY2gKaXMgYSByZWFkIHRoYXQgdHJpZ2dlcnMgbW1p
-b19mbHVzaF9wZW5kaW5nX3dyaXRlcygpIGFzIGEgc2lkZSBlZmZlY3QuClRoaXMgaW5qZWN0cyBh
-IHBpcGVsaW5lIGZsdXNoIGJlZm9yZSBhbmQgYWZ0ZXIgZWFjaCB3cml0ZSBiYXRjaC4gVGhlCmZp
-eCB3b3JrcyBiZWNhdXNlIG9mIHRoaXMgQUNLIHBvbGxpbmcgc2lkZSBlZmZlY3QsIG5vdCBiZWNh
-dXNlIHRoZQpyZWdpc3RlcnMgcmVxdWlyZSBmb3JjZXdha2UgZm9yIHBvd2VyIGRvbWFpbiByZWFz
-b25zLgoKQXBwbHkgdGhpcyBwcm90ZWN0aW9uIHRvOgogIC0geGVfZ2d0dF9pbnNlcnRfbm9kZV90
-cmFuc2Zvcm0oKSBhbmQgX194ZV9nZ3R0X2luc2VydF9ib19hdCgpOiB3cmFwCiAgICB0aGUgUFRF
-IHdyaXRlIGJhdGNoZXMgKHByaW1hcnkgY3Jhc2ggcGF0aCwgbW9zdCBpbXBhY3RmdWwgY2hhbmdl
-KQogIC0gZ2d0dF91cGRhdGVfYWNjZXNzX2NvdW50ZXIoKTogd3JhcCB0aGUgV2FfMjIwMTkzMzg0
-ODcgR01EX0lEIGJhcnJpZXIKICAgIHdyaXRlOyB3aXRob3V0IHRoaXMgdGhlIGJhcnJpZXIgd3Jp
-dGUgaXRzZWxmIGNhbiBzdGFsbCB0aGUgcGlwZWxpbmUKICAtIHhlX2dndHRfaW52YWxpZGF0ZSgp
-OiB3cmFwIHRoZSBleGlzdGluZyBiYXJyaWVyIHJlYWQgaW4gRk9SQ0VXQUtFCiAgICB0byBwcmV2
-ZW50IGEgaGFuZyBpZiBHdUMgaGFzIHBsYWNlZCB0aGUgR1QgaW50byBSQzYKClRoZSBjcmFzaCBp
-cyBXYXlsYW5kLWV4Y2x1c2l2ZSBiZWNhdXNlIFdheWxhbmQgY29uY2VudHJhdGVzIHRocmVlCnBh
-dHRlcm5zIHNpbXVsdGFuZW91c2x5OiBmcmVxdWVudCBHR1RUIGluc2VydHMgZm9yIHRpbGVkK0ND
-UwpmcmFtZWJ1ZmZlcnMgcGVyIG5ldyBjbGllbnQgYnVmZmVyLCBEU0IgaGFyZHdhcmUgRE1BIGJh
-dGNoaW5nIH45NjAKZGlzcGxheSByZWdpc3RlciB3cml0ZXMgcGVyIGF0b21pYyBjb21taXQgd2l0
-aG91dCBwZXItd3JpdGUgZm9yY2V3YWtlLAphbmQgRkxJUFEgcmVnaXN0ZXIgc3Rvcm1zIG9uIExO
-TC9QVEwgbm9uLVBTUiBwYXRocy4gWG9yZyB1c2VzIGxpbmVhcgpmcmFtZWJ1ZmZlcnMgYW5kIGxl
-Z2FjeSBjdXJzb3IvZmxpcCBwYXRocyB0aGF0IGF2b2lkIGFsbCB0aHJlZS4KClRoaXMgcGF0Y2gg
-aW5jb3Jwb3JhdGVzIGNoYW5nZXMgb3JpZ2luYWxseSBwcm9wb3NlZCBieSBNw6FydG9uIFZpZ2gK
-KEBtcnRudmdoKSBjb3ZlcmluZyB4ZV9nZ3R0X2luc2VydF9ub2RlX3RyYW5zZm9ybSgpIGFuZApf
-X3hlX2dndHRfaW5zZXJ0X2JvX2F0KCksIHNlZToKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
-b3JnL2RybS94ZS9rZXJuZWwvLS93b3JrX2l0ZW1zLzc1MTMjbm90ZV8zNDE4NzYxCgpUZXN0ZWQg
-b24gVGhpbmtQYWQgWDEgQ2FyYm9uIEdlbiAxMyAoQ29yZSBVbHRyYSA3IDI1OFYsIExOTCwgWzgw
-ODY6NjRhMF0KcmV2IDA0IHN0ZXBwaW5nIEIwKSwgZURQICsgSERNSSBkdWFsLW1vbml0b3IgV2F5
-bGFuZCAoSHlwcmxhbmQpLCBnYW1pbmcKd29ya2xvYWRzIChEb29tIDIwMTYgdmlhIFByb3Rvbik6
-IDEgd2VlayB1cHRpbWUgdnMuIGNyYXNoIHdpdGhpbiAyaApiZWZvcmUgdGhlIGZpeC4KCkxpbms6
-IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0veGUva2VybmVsLy0vd29ya19pdGVt
-cy83NTEzClNpZ25lZC1vZmYtYnk6IE5pa29sYXkgTWlraGF5bG92IDxzb25ueUBtaWx0b24ucHJv
-PgotLS0KIGRyaXZlcnMvZ3B1L2RybS94ZS94ZV9nZ3R0LmMgfCA0NiArKysrKysrKysrKysrKysr
-KysrKysrKysrKysrLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAzNiBpbnNlcnRpb25zKCspLCAx
-MCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0veGUveGVfZ2d0dC5j
-IGIvZHJpdmVycy9ncHUvZHJtL3hlL3hlX2dndHQuYwppbmRleCAzNTUyZmEzY2FjNGIuLjk5NjQ4
-YjFkMWRhZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3hlL3hlX2dndHQuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0veGUveGVfZ2d0dC5jCkBAIC0yMCw2ICsyMCw4IEBACiAjaW5jbHVkZSAi
-cmVncy94ZV9yZWdzLmgiCiAjaW5jbHVkZSAieGVfYXNzZXJ0LmgiCiAjaW5jbHVkZSAieGVfYm8u
-aCIKKyNpbmNsdWRlICJ4ZV9kZXZpY2UuaCIKKyNpbmNsdWRlICJ4ZV9mb3JjZV93YWtlLmgiCiAj
-aW5jbHVkZSAieGVfZ3RfcHJpbnRrLmgiCiAjaW5jbHVkZSAieGVfZ3RfdHlwZXMuaCIKICNpbmNs
-dWRlICJ4ZV9tYXAuaCIKQEAgLTIwNyw3ICsyMDksMTIgQEAgc3RhdGljIHZvaWQgZ2d0dF91cGRh
-dGVfYWNjZXNzX2NvdW50ZXIoc3RydWN0IHhlX2dndHQgKmdndHQpCiAJbG9ja2RlcF9hc3NlcnRf
-aGVsZCgmZ2d0dC0+bG9jayk7CiAKIAlpZiAoKCsrZ2d0dC0+YWNjZXNzX2NvdW50ICUgbWF4X2d0
-dF93cml0ZXMpID09IDApIHsKKwkJdW5zaWduZWQgaW50IGZ3X3JlZjsKKworCQlmd19yZWYgPSB4
-ZV9mb3JjZV93YWtlX2dldChndF90b19mdyhhZmZlY3RlZF9ndCksIFhFX0ZXX0dUKTsKIAkJeGVf
-bW1pb193cml0ZTMyKCZhZmZlY3RlZF9ndC0+bW1pbywgR01EX0lELCAweDApOworCQlpZiAoZndf
-cmVmKQorCQkJeGVfZm9yY2Vfd2FrZV9wdXQoZ3RfdG9fZncoYWZmZWN0ZWRfZ3QpLCBmd19yZWYp
-OwogCQlnZ3R0LT5hY2Nlc3NfY291bnQgPSAwOwogCX0KIH0KQEAgLTU3OCwxMiArNTg1LDE0IEBA
-IHN0YXRpYyB2b2lkIHhlX2dndHRfaW52YWxpZGF0ZShzdHJ1Y3QgeGVfZ2d0dCAqZ2d0dCkKIAlz
-dHJ1Y3QgeGVfZGV2aWNlICp4ZSA9IHRpbGVfdG9feGUoZ2d0dC0+dGlsZSk7CiAKIAkvKgotCSAq
-IFhYWDogQmFycmllciBmb3IgR0dUVCBwYWdlcy4gVW5zdXJlIGV4YWN0bHkgd2h5IHRoaXMgcmVx
-dWlyZWQgYnV0Ci0JICogd2l0aG91dCB0aGlzIExOTCBpcyBoYXZpbmcgaXNzdWVzIHdpdGggdGhl
-IEd1QyByZWFkaW5nIHNjcmF0Y2ggcGFnZQotCSAqIHZzLiBjb3JyZWN0IEdHVFQgcGFnZS4gTm90
-IHBhcnRpY3VsYXJseSBhIGhvdCBjb2RlIHBhdGggc28gYmxpbmRseQotCSAqIGRvIGEgbW1pbyBy
-ZWFkIGhlcmUgd2hpY2ggcmVzdWx0cyBpbiBHdUMgcmVhZGluZyBjb3JyZWN0IEdHVFQgcGFnZS4K
-KwkgKiBCYXJyaWVyIGZvciBHR1RUIHBhZ2VzLiBXaXRob3V0IHRoaXMgTE5MIGhhcyBpc3N1ZXMg
-d2l0aCBHdUMKKwkgKiByZWFkaW5nIHNjcmF0Y2ggcGFnZSB2cy4gY29ycmVjdCBHR1RUIHBhZ2Uu
-IE5vdCBhIGhvdCBjb2RlIHBhdGgKKwkgKiBzbyBibGluZGx5IGRvIGEgbW1pbyByZWFkIGhlcmUu
-IFdyYXAgaW4gRk9SQ0VXQUtFIHRvIHByZXZlbnQgYQorCSAqIGhhbmcgaWYgR3VDIGhhcyBwbGFj
-ZWQgdGhlIEdUIGludG8gUkM2LgogCSAqLwotCXhlX21taW9fcmVhZDMyKHhlX3Jvb3RfdGlsZV9t
-bWlvKHhlKSwgVkZfQ0FQX1JFRyk7CisJeGVfd2l0aF9mb3JjZV93YWtlKGZ3X3JlZiwgZ3RfdG9f
-ZncoZ2d0dC0+dGlsZS0+cHJpbWFyeV9ndCksIFhFX0ZXX0dUKSB7CisJCXhlX21taW9fcmVhZDMy
-KHhlX3Jvb3RfdGlsZV9tbWlvKHhlKSwgVkZfQ0FQX1JFRyk7CisJfQogCiAJLyogRWFjaCBHVCBp
-biBhIHRpbGUgaGFzIGl0cyBvd24gVExCIHRvIGNhY2hlIEdHVFQgbG9va3VwcyAqLwogCWdndHRf
-aW52YWxpZGF0ZV9ndF90bGIoZ2d0dC0+dGlsZS0+cHJpbWFyeV9ndCk7CkBAIC03NjgsMTAgKzc3
-NywxOCBAQCBzdHJ1Y3QgeGVfZ2d0dF9ub2RlICp4ZV9nZ3R0X2luc2VydF9ub2RlX3RyYW5zZm9y
-bShzdHJ1Y3QgeGVfZ2d0dCAqZ2d0dCwKIAlpZiAocmV0KQogCQlnb3RvIGVycl91bmxvY2s7CiAK
-LQlpZiAodHJhbnNmb3JtKQotCQl0cmFuc2Zvcm0oZ2d0dCwgbm9kZSwgcHRlX2ZsYWdzLCBnZ3R0
-LT5wdF9vcHMtPmdndHRfc2V0X3B0ZSwgYXJnKTsKLQllbHNlCi0JCXhlX2dndHRfbWFwX2JvKGdn
-dHQsIG5vZGUsIGJvLCBwdGVfZmxhZ3MpOworCS8qCisJICogRW5zdXJlIEdUIGlzIGF3YWtlIGZv
-ciBHR1RUIFBURSB3cml0ZXMgdmlhIHdyaXRlcSgpIHRvIEdTTS4KKwkgKiBXaXRob3V0IEZPUkNF
-V0FLRSwgdGhlc2Ugd3JpdGVzIGNhbiBoaXQgYSBwb3dlcmVkLWRvd24gR1Qgd2hlbgorCSAqIEd1
-QyBpcyBpbiBSQzYsIGNhdXNpbmcgYSBzeXN0ZW0gaGFuZyAoZXNwZWNpYWxseSBmcm9tIHRoZQor
-CSAqIF9feGVfcGluX2ZiX3ZtYSBkaXNwbGF5IHBhdGggb24gTHVuYXIgTGFrZSkuCisJICovCisJ
-eGVfd2l0aF9mb3JjZV93YWtlKGZ3X3JlZiwgZ3RfdG9fZncoZ2d0dC0+dGlsZS0+cHJpbWFyeV9n
-dCksIFhFX0ZXX0dUKSB7CisJCWlmICh0cmFuc2Zvcm0pCisJCQl0cmFuc2Zvcm0oZ2d0dCwgbm9k
-ZSwgcHRlX2ZsYWdzLCBnZ3R0LT5wdF9vcHMtPmdndHRfc2V0X3B0ZSwgYXJnKTsKKwkJZWxzZQor
-CQkJeGVfZ2d0dF9tYXBfYm8oZ2d0dCwgbm9kZSwgYm8sIHB0ZV9mbGFncyk7CisJfQogCiAJbXV0
-ZXhfdW5sb2NrKCZnZ3R0LT5sb2NrKTsKIAlyZXR1cm4gbm9kZTsKQEAgLTg0Myw3ICs4NjAsMTYg
-QEAgc3RhdGljIGludCBfX3hlX2dndHRfaW5zZXJ0X2JvX2F0KHN0cnVjdCB4ZV9nZ3R0ICpnZ3R0
-LCBzdHJ1Y3QgeGVfYm8gKmJvLAogCQl1MTYgcGF0X2luZGV4ID0gdGlsZV90b194ZShnZ3R0LT50
-aWxlKS0+cGF0LmlkeFtjYWNoZV9tb2RlXTsKIAkJdTY0IHB0ZSA9IGdndHQtPnB0X29wcy0+cHRl
-X2VuY29kZV9mbGFncyhibywgcGF0X2luZGV4KTsKIAotCQl4ZV9nZ3R0X21hcF9ibyhnZ3R0LCBi
-by0+Z2d0dF9ub2RlW3RpbGVfaWRdLCBibywgcHRlKTsKKwkJLyoKKwkJICogRW5zdXJlIEdUIGlz
-IGF3YWtlIGZvciBHR1RUIFBURSB3cml0ZXMgdmlhIHdyaXRlcSgpCisJCSAqIHRvIEdTTS4gV2l0
-aG91dCBGT1JDRVdBS0UsIHRoZXNlIHdyaXRlcyBjYW4gaGl0IGEKKwkJICogcG93ZXJlZC1kb3du
-IEdUIHdoZW4gR3VDIGlzIGluIFJDNiwgY2F1c2luZyBhIHN5c3RlbQorCQkgKiBoYW5nLgorCQkg
-Ki8KKwkJeGVfd2l0aF9mb3JjZV93YWtlKGZ3X3JlZiwgZ3RfdG9fZncoZ2d0dC0+dGlsZS0+cHJp
-bWFyeV9ndCksIFhFX0ZXX0dUKSB7CisJCQl4ZV9nZ3R0X21hcF9ibyhnZ3R0LCBiby0+Z2d0dF9u
-b2RlW3RpbGVfaWRdLCBibywKKwkJCQkgICAgICAgcHRlKTsKKwkJfQogCX0KIAltdXRleF91bmxv
-Y2soJmdndHQtPmxvY2spOwogCi0tIAoyLjUzLjAKCg==
---000000000000c23a2e0650638703--
+-- 
+Ville Syrjälä
+Intel
