@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7845FF885A
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 08:00:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20AA8FF886C
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 08:48:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4827D10EA6D;
-	Tue, 28 Apr 2026 08:00:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F9B10E319;
+	Tue, 28 Apr 2026 08:48:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZqVzOWnz";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XtccGLYb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDD1D10EA7F;
- Tue, 28 Apr 2026 07:59:56 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61E6810E2F7;
+ Tue, 28 Apr 2026 08:48:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777363196; x=1808899196;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=OKHzVlsKok+QZVWV/dSh2CtfkOOK6/cQ95XjlS1qiec=;
- b=ZqVzOWnzIcK5FhW3l838SsBU44FkuTdkD14/hdPxngpYIzqCUz30URsR
- iq1QWVprNhhtluArV4tD2nj7pKciXgnL2IqLsIJ+z+MUsDbB+bCwR/Pvw
- pt9uDKBAZMsrq1LYnRQOLUa1DE6muf/rJlReIqaZIOz+iUFq9q2S1bnG7
- OaRpenEeeGN7x5wL0P2ffDvHtN+O4FDu1kJz48WsrQvrJmxLix2pqwFPq
- j2ri8O3LLCaSU6+rYO6JpQDh3Oc00x7Fxb4VcJ0hfJndyAc1jQfbInkau
- vHXKGfJTv0cqukUW0IJoio9tLvXSjuavxTiqraoGSiJx+naRhSRUkSfTF A==;
-X-CSE-ConnectionGUID: WrvQonVeSkiuqU/CbCKzuA==
-X-CSE-MsgGUID: X4vOP1fNRquEfpp9wDwAIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="82115920"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="82115920"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:59:56 -0700
-X-CSE-ConnectionGUID: QjYTgiMwSBuRw7QFSgDoXA==
-X-CSE-MsgGUID: baGbELLwQu2agKf+0YvWqw==
+ t=1777366085; x=1808902085;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IRAF5zhru/eFAdZIN2pA1DvNsp9shPsXdvm8s/M4BQI=;
+ b=XtccGLYbey3ns7pOPQ2tmIXfLPEH03fhCyxHMhhKg2B2voacUvVIbXAe
+ eORJqZvB6U4VgGvV3KSLDXmXgj0jMUWwxwVv2EIiAVEImZHinSV1EmTQs
+ e7lYaf51wY2JmCBVLHixS5kDFqH/AXe8m7hi4fGPeeVAUtGPLvyat8I4T
+ SVBUk6PcrJqpGP34Y0jyvfLe4LTAKC6pvUUF7+b5g4QhYl6mU9s5juVOU
+ /RzuIGgyIeCuuF+8cgZBMJ7+V94BJ235DjPjNMIt6HT/yD9ASRPwyEoI/
+ O49xhIOhsVA18LvhfeAzgV27I4xbBp6G4CRxBv+YgvGhDNG9fsXApS9qL A==;
+X-CSE-ConnectionGUID: N2CIJ9h+TNWOzgJITRy5tA==
+X-CSE-MsgGUID: c957NrdwRqm9FnPQ5BhHyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="89357629"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="89357629"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 01:48:04 -0700
+X-CSE-ConnectionGUID: 9bip5/eNSfOCuC8Z4jJb8Q==
+X-CSE-MsgGUID: M+cqAYNyS0KIvr0F/zywjw==
 X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="229538619"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:59:54 -0700
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 01:48:02 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 9/9] drm/dp: Use drm_printf_indent for DP SDP logging
-Date: Tue, 28 Apr 2026 13:14:57 +0530
-Message-ID: <20260428074457.3566918-10-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/2] drm/i915/intel_panel: Fix seamless VRR mode switching for
+ DRRS panels
+Date: Tue, 28 Apr 2026 14:03:21 +0530
+Message-ID: <20260428083323.3745772-1-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
-References: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,69 +68,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently the DP SDP log helpers use spaces for indentation. Switch to
-tabs for indentation and use drm_printf_indent to keep the format
-strings readable.
+Currently intel_panel_fixed_mode() can return a lower refresh rate mode
+for VRR panels if the lower refresh rate mode is first in the list.
+This creates problems for seamless switch features like LRR and
+Seamless-DRRS, as it results in changes to vsync_start/end causing a
+full modeset instead of a seamless switch.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/display/drm_dp_helper.c | 36 +++++++++++++------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+This is particularly problematic for DRRS panels on platforms without
+double buffered M/N support for LNL+ (display version 20+), where
+seamless clock changes are not possible.
 
-diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
-index fc550b48fd85..4bf7b783ac39 100644
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3519,15 +3519,16 @@ void drm_dp_vsc_sdp_log(struct drm_printer *p, const struct drm_dp_vsc_sdp *vsc)
- {
- 	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
- 		   dp_sdp_type_get_name(vsc->sdp_type), vsc->revision, vsc->length);
--	drm_printf(p, "    pixelformat: %s\n",
--		   dp_pixelformat_get_name(vsc->pixelformat));
--	drm_printf(p, "    colorimetry: %s\n",
--		   dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
--	drm_printf(p, "    bpc: %u\n", vsc->bpc);
--	drm_printf(p, "    dynamic range: %s\n",
--		   dp_dynamic_range_get_name(vsc->dynamic_range));
--	drm_printf(p, "    content type: %s\n",
--		   dp_content_type_get_name(vsc->content_type));
-+
-+	drm_printf_indent(p, 1, "pixelformat: %s\n",
-+			  dp_pixelformat_get_name(vsc->pixelformat));
-+	drm_printf_indent(p, 1, "colorimetry: %s\n",
-+			  dp_colorimetry_get_name(vsc->pixelformat, vsc->colorimetry));
-+	drm_printf_indent(p, 1, "bpc: %u\n", vsc->bpc);
-+	drm_printf_indent(p, 1, "dynamic range: %s\n",
-+			  dp_dynamic_range_get_name(vsc->dynamic_range));
-+	drm_printf_indent(p, 1, "content type: %s\n",
-+			  dp_content_type_get_name(vsc->content_type));
- }
- EXPORT_SYMBOL(drm_dp_vsc_sdp_log);
- 
-@@ -3535,14 +3536,15 @@ void drm_dp_as_sdp_log(struct drm_printer *p, const struct drm_dp_as_sdp *as_sdp
- {
- 	drm_printf(p, "DP SDP: %s, revision %u, length %u\n",
- 		   dp_sdp_type_get_name(as_sdp->sdp_type), as_sdp->revision, as_sdp->length);
--	drm_printf(p, "    vtotal: %d\n", as_sdp->vtotal);
--	drm_printf(p, "    target rr: %d\n", as_sdp->target_rr);
--	drm_printf(p, "    duration increase ms: %d\n", as_sdp->duration_incr_ms);
--	drm_printf(p, "    duration decrease ms: %d\n", as_sdp->duration_decr_ms);
--	drm_printf(p, "    operation mode: %d\n", as_sdp->mode);
--	drm_printf(p, "    target rr divider: %s\n",
--		   as_sdp->target_rr_divider ? "1.001" : "1.000");
--	drm_printf(p, "    coasting vtotal: %d\n", as_sdp->coasting_vtotal);
-+
-+	drm_printf_indent(p, 1, "vtotal: %d\n", as_sdp->vtotal);
-+	drm_printf_indent(p, 1, "target rr: %d\n", as_sdp->target_rr);
-+	drm_printf_indent(p, 1, "duration increase ms: %d\n", as_sdp->duration_incr_ms);
-+	drm_printf_indent(p, 1, "duration decrease ms: %d\n", as_sdp->duration_decr_ms);
-+	drm_printf_indent(p, 1, "operation mode: %d\n", as_sdp->mode);
-+	drm_printf_indent(p, 1, "target rr divider: %s\n",
-+			  as_sdp->target_rr_divider ? "1.001" : "1.000");
-+	drm_printf_indent(p, 1, "coasting vtotal: %d\n", as_sdp->coasting_vtotal);
- }
- EXPORT_SYMBOL(drm_dp_as_sdp_log);
- 
+This series attempts to fixe this by:
+1. Adding a helper to get the highest refresh rate mode from the list of
+   fixed modes for a connector.
+2. When a seamless switch to a lower mode is desired, making
+   intel_panel_fixed_mode() return the highest refresh rate mode,
+   provided the requested rate is in VRR range. The vblank is then
+   extended to provide the desired refresh rate.
+
+To determine whether a full modeset or seamless switch is intended, the
+connector state is checked for the allow_modeset flag. A nullable
+conn_state parameter is added to intel_panel_fixed_mode() and
+intel_panel_compute_config() for this purpose.
+
+Ankit Nautiyal (2):
+  drm/i915/intel_panel: Add a helper to get the highest refresh rate
+    mode
+  drm/i915/intel_panel: Use highest refresh rate mode for seamless VRR
+    changes
+
+ drivers/gpu/drm/i915/display/icl_dsi.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp.c    |  6 +--
+ drivers/gpu/drm/i915/display/intel_dsi.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_dvo.c   |  6 +--
+ drivers/gpu/drm/i915/display/intel_lvds.c  |  4 +-
+ drivers/gpu/drm/i915/display/intel_panel.c | 50 ++++++++++++++--------
+ drivers/gpu/drm/i915/display/intel_panel.h |  8 +++-
+ drivers/gpu/drm/i915/display/intel_sdvo.c  |  8 ++--
+ drivers/gpu/drm/i915/display/vlv_dsi.c     |  2 +-
+ 9 files changed, 54 insertions(+), 34 deletions(-)
+
 -- 
 2.45.2
 
