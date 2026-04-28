@@ -4,63 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A76FFFF885D
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 07:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 568D7FF885D
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Apr 2026 07:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19AB210EA56;
-	Tue, 28 Apr 2026 07:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA12910EA5F;
+	Tue, 28 Apr 2026 07:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hh4tSedt";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bC9Ge2DD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C217D10EA56;
- Tue, 28 Apr 2026 07:53:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5D3610EA5B;
+ Tue, 28 Apr 2026 07:59:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777362814; x=1808898814;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=2HU+bYGOaOHV4bZ+H1s+Tmr9rRQ2uPY8JrdazvpN124=;
- b=Hh4tSedthi2rwhEQD4FXtuFOW9+ugj82V1xnkHLl61L3tQd9eHRH6Jd3
- sdKhW4+ycI6TVevhPebIFhPMXZMHCbYvFm9Appe/jSmdlY6C+8mNR//Xg
- jgtTUYjxGJFQlWeYT4fvc1/xVgyBCH8Sw9lER4TqJuLGCupL/oavhjqbP
- mBoNcgDrmwop+kaBG4M1gZvdmZC68tuQjrnRtebRhWWtfHlu85+pdM7Yu
- l8Ep7hH/mSwFb5a7NMesankdRUAr2DlzNDu9HyZJRnGhGmsd1lIddehQ5
- pG1tgE2I0di3DrCa+yOBUf04wIIwOj7+JiF3LWAB+foE7PzVgak7f23qH Q==;
-X-CSE-ConnectionGUID: mMe9MYwCQvGnZyTTW9Df/w==
-X-CSE-MsgGUID: O/X6aVjkRpyvJEXBKftsGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="77967975"
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="77967975"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:53:34 -0700
-X-CSE-ConnectionGUID: ag4TNEdmS7a4jffy5xO3Qw==
-X-CSE-MsgGUID: QEHt1kUQQDS8Qu2MqfbzUg==
+ t=1777363177; x=1808899177;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=pgnMgeFHgcdZiD+QYScLixA3JIcWgj6imfhAqT2uDiA=;
+ b=bC9Ge2DDe+MAU2FyPBxB7anL12CC/2W0ZVv4RyHkqAsXnI5hwy2iDvas
+ Ob8LzWn7+SGVFF9X0Y0U3NZQsRU+AsFDp8kBNINRzTEnc9e5Fy166mg/A
+ UfijZP/CRa/73Toy1T3OeDBTSRh7MnefJxlsChpOedSzrXwPwr/K9jKxT
+ hNvf9wPD4TyFeriE61YuI73lNiEp1u/gE+efCgRDW+W6erYsQgSScKzMW
+ 3ajh0y/rOThqmDx2/XHd+Fw0n6QDbeMETV1hL/G2kgzN+PL6hSdnokqQH
+ ixTxM8R1n5XkTKQ5S9eJt/n8fz+A/E1/X9wYnCRlgp6Ki0YNtLHuPmaPD w==;
+X-CSE-ConnectionGUID: bCeC8k29RXul+n1MALeYhw==
+X-CSE-MsgGUID: kIFEcZZkSDmTVyYOinQBsg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11769"; a="82115895"
+X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="82115895"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:59:37 -0700
+X-CSE-ConnectionGUID: waNo1va1ShqjsYYaC3I+Dw==
+X-CSE-MsgGUID: 2brYyKAVSMmHUJfupgwqyQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,203,1770624000"; d="scan'208";a="237838007"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.244.208])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2026 00:53:30 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>, Zhenyu Wang
- <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH][next] drm/i915/gvt: Avoid
- -Wflex-array-member-not-at-end warning
-In-Reply-To: <ae_4GkBsNl_0SYTm@kspp>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <ae_4GkBsNl_0SYTm@kspp>
-Date: Tue, 28 Apr 2026 10:53:28 +0300
-Message-ID: <4d5f5949b34f7bba00ed570ad2098074aa0c05f5@intel.com>
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Apr 2026 00:59:35 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH 0/9] AS SDP cleanups and additions for Panel Replay + VRR
+Date: Tue, 28 Apr 2026 13:14:48 +0530
+Message-ID: <20260428074457.3566918-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,84 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 27 Apr 2026, "Gustavo A. R. Silva" <gustavoars@kernel.org> wrote:
-> -Wflex-array-member-not-at-end was introduced in GCC-14, and we are
-> getting ready to enable it, globally.
->
-> Use the TRAILING_OVERLAP() helper to fix the following warning:
->
-> drivers/gpu/drm/i915/gvt/opregion.c:126:40: warning: structure containing a flexible array member is not at the end of another structure [-Wflex-array-member-not-at-end]
->
-> This helper creates a union between a flexible-array member (FAM)
-> and a set of members that would otherwise follow it. This overlays
-> the trailing members onto the FAM while preserving the original
-> memory layout.
->
-> Lastly, the static_assert() ensures the alignment between the FAM and
-> struct efp_child_device_config child0; is not inadvertently changed,
-> and it's intentionally placed inmediately after the related structure
-> (that is, no blank line in between).
->
-> Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> ---
->  drivers/gpu/drm/i915/gvt/opregion.c | 20 ++++++++++++--------
->  1 file changed, 12 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-> index d6e76ba31d60..efe457c02788 100644
-> --- a/drivers/gpu/drm/i915/gvt/opregion.c
-> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
-> @@ -122,17 +122,21 @@ struct vbt {
->  	struct bdb_data_header general_features_header;
->  	struct bdb_general_features general_features;
->  
-> -	struct bdb_data_header general_definitions_header;
-> -	struct bdb_general_definitions general_definitions;
-> -
-> -	struct efp_child_device_config child0;
-> -	struct efp_child_device_config child1;
-> -	struct efp_child_device_config child2;
-> -	struct efp_child_device_config child3;
-> -
->  	struct bdb_data_header driver_features_header;
->  	struct bdb_driver_features driver_features;
-> +
-> +	struct bdb_data_header general_definitions_header;
-> +
-> +	/* Must be last as it ends in a flexible-array member. */
-> +	TRAILING_OVERLAP(struct bdb_general_definitions, general_definitions, devices,
-> +		struct efp_child_device_config child0;
-> +		struct efp_child_device_config child1;
-> +		struct efp_child_device_config child2;
-> +		struct efp_child_device_config child3;
-> +	);
+This is a subset of patches separated from the series at
+https://patchwork.freedesktop.org/series/164512/ for merging.
 
-So this impacts the generation of a binary blob, parsed by the client OS
-driver. In theory, the order of the BDB blocks shouldn't matter, but who
-knows.
+These are drm-core (drm/dp) patches that clean up and extend the
+Adaptive Sync SDP definitions and helpers in preparation for
+Panel Replay + VRR support.
 
-Anyway, I'm more worried about inadvertent padding potentially being
-introduced. struct vbt should have __packed attribute, which is missing,
-but I also think the union and the struct within TRAILING_OVERLAP()
-should also have __packed.
+Rev2:
+ - Refactor SDP logging to use space-separated field and
+   drm_printf_indent. (Ville, Jani)
 
-Like, if struct efp_child_device_config gets extended by one byte,
-what's going to happen with padding? It's __packed on its own, but IIUC
-that doesn't automatically apply to the enclosing structs or unions.
+Ankit Nautiyal (9):
+  drm/dp: Rename and relocate AS SDP payload field masks
+  drm/dp: Clean up DPRX feature enumeration macros
+  drm/dp: Add bits for AS SDP FAVT Payload Fields Parsing support
+  drm/dp: Add DPCD for configuring AS SDP for PR + VRR
+  drm/dp: Refactor AS SDP logging to use space-separated field names
+  drm/dp: Store coasting vtotal in struct drm_dp_as_sdp
+  drm/dp: Add a helper to get the SDP type as a string
+  drm/dp: Add target_rr_divider field in AS SDP logging
+  drm/dp: Use drm_printf_indent for DP SDP logging
 
->  };
-> +static_assert(offsetof(struct vbt, general_definitions.devices) ==
-> +	      offsetof(struct vbt, child0));
-
-Perhaps also assert child1 offset is child0 offset + sizeof(struct
-efp_child_device_config)? That should cover the padding, right?
-
-BR,
-Jani.
-
->  
->  static void virt_vbt_generation(struct vbt *v)
->  {
+ drivers/gpu/drm/display/drm_dp_helper.c | 69 ++++++++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_dp.c |  4 +-
+ include/drm/display/drm_dp.h            | 20 ++++---
+ include/drm/display/drm_dp_helper.h     |  1 +
+ 4 files changed, 68 insertions(+), 26 deletions(-)
 
 -- 
-Jani Nikula, Intel
+2.45.2
+
