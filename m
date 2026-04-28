@@ -4,59 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F781FF8873
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 16:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD4EBCD13D3
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Apr 2026 16:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C21B210E249;
-	Thu, 30 Apr 2026 16:19:23 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fhiNySzA";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68A3110E249;
- Thu, 30 Apr 2026 16:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777565962; x=1809101962;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=wNfwGmios/51puYJcqvvl0+jV95R+p4ue2UEgPx6WDs=;
- b=fhiNySzA3F93z0Xa1ui3bd5CcJmlMhmxUsXnjoQf4kIuDa0etf89SDVT
- yawm1LCcZMrxTrjSgGPlsIzMVeRWpAeMK6wYlKCRXzD4T93zw35j6dxYR
- Pp47kIAOs8vVzRttx2wv9bSURCPaV+o1CAXaAbTl7RNyxm48zKtDECpBj
- VkJoXrsJ6pVfbNUj2P1CzLlzH7EnoyUK0iw9YDHtSGS/mbQG1aZGLa/L+
- 3dLsOtly5VUwkL9rcvqycpXsWROqCP5Qc31S7X8YwtDJm66s7xF9XQq0A
- XXk+z88OAEpeDp5r2zRi2bswLPD0BlDJECuPm0f65fB/0SK8RSqobsymb w==;
-X-CSE-ConnectionGUID: mGqwaFEeRbCBewwEZi2FGQ==
-X-CSE-MsgGUID: o56sKl+2R4av4fcxcF8TaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11772"; a="81101203"
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="81101203"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 09:19:22 -0700
-X-CSE-ConnectionGUID: xaTvRY6PQ7Kzm2sN+VHAiQ==
-X-CSE-MsgGUID: lndSGkW5TJS7/J3MM/5DQA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,208,1770624000"; d="scan'208";a="239636555"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.115])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2026 09:19:20 -0700
-From: Ville Syrjala <ville.syrjala@linux.intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	Jani Nikula <jani.nikula@intel.com>
-Subject: [PATCH v2 12/16] drm/xe: Restructure reuse_vma()
-Date: Thu, 30 Apr 2026 19:19:16 +0300
-Message-ID: <20260430161916.7382-1-ville.syrjala@linux.intel.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260423165346.20884-13-ville.syrjala@linux.intel.com>
-References: <20260423165346.20884-13-ville.syrjala@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7589510E46A;
+	Thu, 30 Apr 2026 16:39:57 +0000 (UTC)
+X-Greylist: delayed 537 seconds by postgrey-1.36 at gabe;
+ Tue, 28 Apr 2026 11:29:53 UTC
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 0591210E6D1;
+ Tue, 28 Apr 2026 11:29:52 +0000 (UTC)
+Received: from gate.crashing.org (localhost [127.0.0.1])
+ by gate.crashing.org (8.18.1/8.18.1/Debian-2) with ESMTP id 63SBKIxF1057213;
+ Tue, 28 Apr 2026 06:20:18 -0500
+Received: (from segher@localhost)
+ by gate.crashing.org (8.18.1/8.18.1/Submit) id 63SBKHXo1057211;
+ Tue, 28 Apr 2026 06:20:17 -0500
+X-Authentication-Warning: gate.crashing.org: segher set sender to
+ segher@kernel.crashing.org using -f
+Date: Tue, 28 Apr 2026 06:20:17 -0500
+From: Segher Boessenkool <segher@kernel.crashing.org>
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Laight <david.laight.linux@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, linux-alpha@vger.kernel.org,
+ Yury Norov <yury.norov@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-snps-arc@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+ sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
+ dmaengine@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-fsi@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-fsdevel@vger.kernel.org,
+ ocfs2-devel@lists.linux.dev, bpf@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org,
+ linux-x25@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-sound@vger.kernel.org, sound-open-firmware@alsa-project.org,
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-m68k@vger.kernel.org,
+ linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-arch@vger.kernel.org
+Subject: Re: [RFC PATCH v1 7/9] x86: Add unsafe_copy_from_user()
+Message-ID: <afCX8WlnEFUei1y6@gate>
+References: <cover.1777306795.git.chleroy@kernel.org>
+ <0ee46bb228d97163fbdc14f2a7c52b93d8bc34ce.1777306795.git.chleroy@kernel.org>
+ <ae-j2_QirCySZD02@yury>
+ <63a4d0f6-0eb3-48cd-9f98-bf7b223b2606@kernel.org>
+ <ae-2yLWSGnfeTvh1@yury>
+ <CAHk-=wgPrLy0FR3sEWBYQuNAac1axDASYMnTuPuxEU0WytzL7w@mail.gmail.com>
+ <ae_jeJLlVWjJ4sOY@yury>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ae_jeJLlVWjJ4sOY@yury>
+X-Mailman-Approved-At: Thu, 30 Apr 2026 16:39:57 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,102 +81,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Hi!
 
-Restructure reuse_vma() into a form that doesn't need the plane
-state structs, and rename the result to xe_fb_pin_reuse_vma().
-This will become the new fb_pin parent interface.
+On Mon, Apr 27, 2026 at 06:30:16PM -0400, Yury Norov wrote:
+> On Mon, Apr 27, 2026 at 02:52:05PM -0700, Linus Torvalds wrote:
+> > On Mon, 27 Apr 2026 at 12:19, Yury Norov <ynorov@nvidia.com> wrote:
+> > >
+> > > This is what Linus said when added x86 implementation for copy_from_user()
+> > > in c512c69187197:
+> > 
+> > Note that some things have happily changed in the six+ years since...
+> > 
+> > >   That's partly because we have no current users of it, but also partly
+> > >   because the copy_from_user() case is slightly different and cannot
+> > >   efficiently be implemented in terms of a unsafe_get_user() loop (because
+> > >   gcc can't do asm goto with outputs).
+> > 
+> > now everybody can do asm goto with outputs.
+> > 
+> > Yes, it's disabled on older versions, so it's not *always* available,
+> > but all modern versions do it. And if you care about performance, you
+> > won't be using an old compiler.
+> 
+> The minimal GCC version is 8.1, and asm goto with outputs is supported
+> since GCC-11. That would brake the build, if we just switch to using it
+> without "CC_IS_GCC && (GCC_VERSION >= 110100)" guard.
+> 
+> Is it worth to maintain 2 version of the function? I don't know...
 
-v2: Fix memcmp() arguments
+GCC 11 was released five years and a day ago.  The last GCC 11 release
+(that of 11.5) is not even two years ago though (but there will be no
+more!)
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/xe/display/xe_fb_pin.c | 48 ++++++++++++++------------
- 1 file changed, 25 insertions(+), 23 deletions(-)
+So it would be not conservative at all to require GCC 11 as minimum now,
+some people might even call it a bit aggressive.  But in a year (or
+maybe two) the lay of the land will be rather different.
 
-diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-index bdd6a4da0997..ac5b814fcca0 100644
---- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
-+++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-@@ -486,36 +486,31 @@ static void xe_fb_pin_dpt_unpin(struct intel_dpt *dpt,
- 	__xe_unpin_fb_vma(ggtt_vma);
- }
- 
--static bool reuse_vma(struct intel_plane_state *new_plane_state,
--		      const struct intel_plane_state *old_plane_state)
-+static struct i915_vma *
-+xe_fb_pin_reuse_vma(struct i915_vma *old_ggtt_vma,
-+		    struct drm_gem_object *old_obj,
-+		    const struct i915_gtt_view *old_view,
-+		    struct drm_gem_object *new_obj,
-+		    const struct i915_gtt_view *new_view,
-+		    u32 *out_offset)
- {
--	struct intel_plane *plane = to_intel_plane(new_plane_state->uapi.plane);
--	struct i915_vma *vma;
--
--	if (old_plane_state->hw.fb == new_plane_state->hw.fb &&
--	    !memcmp(&old_plane_state->view.gtt,
--		    &new_plane_state->view.gtt,
--		    sizeof(new_plane_state->view.gtt))) {
--		vma = old_plane_state->ggtt_vma;
--		goto found;
--	}
--
--	return false;
-+	if (old_ggtt_vma && old_obj == new_obj &&
-+	    !memcmp(old_view, new_view, sizeof(*new_view))) {
-+		refcount_inc(&old_ggtt_vma->ref);
- 
--found:
--	refcount_inc(&vma->ref);
--	new_plane_state->ggtt_vma = vma;
-+		*out_offset = xe_ggtt_node_addr(old_ggtt_vma->node);
- 
--	new_plane_state->surf = xe_ggtt_node_addr(new_plane_state->ggtt_vma->node) +
--		plane->surf_offset(new_plane_state);
-+		return old_ggtt_vma;
-+	}
- 
--	return true;
-+	return NULL;
- }
- 
- int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
- 		       const struct intel_plane_state *old_plane_state)
- {
--	struct intel_framebuffer *fb = to_intel_framebuffer(new_plane_state->hw.fb);
-+	const struct intel_framebuffer *fb = to_intel_framebuffer(new_plane_state->hw.fb);
-+	const struct intel_framebuffer *old_fb = to_intel_framebuffer(old_plane_state->hw.fb);
- 	struct drm_gem_object *obj = intel_fb_bo(&fb->base);
- 	struct intel_plane *plane = to_intel_plane(new_plane_state->uapi.plane);
- 	struct intel_fb_pin_params pin_params = {
-@@ -529,8 +524,14 @@ int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
- 	u32 offset;
- 	int ret;
- 
--	if (reuse_vma(new_plane_state, old_plane_state))
--		return 0;
-+	ggtt_vma = xe_fb_pin_reuse_vma(old_plane_state->ggtt_vma,
-+				       intel_fb_bo(&old_fb->base),
-+				       &old_plane_state->view.gtt,
-+				       intel_fb_bo(&fb->base),
-+				       &new_plane_state->view.gtt,
-+				       &offset);
-+	if (ggtt_vma)
-+		goto got_vma;
- 
- 	if (!intel_fb_uses_dpt(&fb->base)) {
- 		ret = xe_fb_pin_ggtt_pin(obj, &pin_params,
-@@ -544,6 +545,7 @@ int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
- 			return ret;
- 	}
- 
-+got_vma:
- 	new_plane_state->dpt_vma = dpt_vma;
- 	new_plane_state->ggtt_vma = ggtt_vma;
- 	new_plane_state->fence_id = fence_id;
--- 
-2.52.0
 
+Segher
