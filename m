@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD847CD13DA
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:26:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97732FF8877
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Apr 2026 10:26:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB4C710EF81;
-	Wed, 29 Apr 2026 10:26:05 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D11ocZzZ";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA2610EF80;
- Wed, 29 Apr 2026 10:26:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777458364; x=1808994364;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=8wrZ8Laf/Xi4Yy3lMSyXOZvipz+/dxB+IxF/cxsvVRk=;
- b=D11ocZzZg9APqVmU+rQjQzim8d1Yy0/OH3oK+uwyup8eX0cPcqTc/+Hi
- q5G4SMqp2bNBJ9vef89lm/a3Ns0gAsNUWOZ/UuBC8nqDLJY1GUbJmg9MV
- Vvqve6pFJah8dLvZimvXTzEZwthiE5jBkV8ZltMxcklUecMep25BdMSLQ
- 91wfFKJoquxvl2rsUZ6L8CdZZbDjgBXqkSpbKH56HEbpvTpF2/I0mN1D7
- ZD+bfHj7nFlZfqG8jBj7ffvDsjWcZuNA8y78dSGz0nn8y7g4T3dxBxS0U
- teUbW2U3DdNi+i7Vgiam+GmemtpVJCORNgQsp3FGU+KZA56W4ZbZc5MDv A==;
-X-CSE-ConnectionGUID: FTqcETyuSr6ltTg/uDy6OQ==
-X-CSE-MsgGUID: ETBoB+e7RA2G1z2Nel6LjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11770"; a="103838223"
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="103838223"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 03:26:04 -0700
-X-CSE-ConnectionGUID: RRMV+QViRWKgc++g2Xjeng==
-X-CSE-MsgGUID: xK7VLyj1SIiQew/Bl2fxAA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,205,1770624000"; d="scan'208";a="257784579"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.245.175])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2026 03:26:02 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 15/15] drm/i915/irq: add intel_display_irq_handler() to irq
- funcs
-Date: Wed, 29 Apr 2026 13:24:55 +0300
-Message-ID: <4c2be8d52d11977f67d3d52ebf6414d4c0a341ef.1777458161.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1777458161.git.jani.nikula@intel.com>
-References: <cover.1777458161.git.jani.nikula@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3579B10EF85;
+	Wed, 29 Apr 2026 10:26:11 +0000 (UTC)
+Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DCAC10EF82;
+ Wed, 29 Apr 2026 10:26:09 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1182602717017428458=="
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Add_D?=
+ =?utf-8?q?C3CO_support_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Dibin Moolakadan Subrahmanian" <dibin.moolakadan.subrahmanian@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 29 Apr 2026 10:26:09 -0000
+Message-ID: <177745836936.24335.6788157025207810019@5ab824fced77>
+X-Patchwork-Hint: ignore
+References: <20260429092707.485696-1-dibin.moolakadan.subrahmanian@intel.com>
+In-Reply-To: <20260429092707.485696-1-dibin.moolakadan.subrahmanian@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,422 +37,326 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Call the platform specific display irq handler hooks via
-intel_display_irq_handler(). Add master_ctl to struct
-intel_display_irq_state, and pass the state pointer to the handler where
-necessary.
+--===============1182602717017428458==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- .../gpu/drm/i915/display/intel_display_irq.c  | 95 ++++++++++++++++---
- .../gpu/drm/i915/display/intel_display_irq.h  | 11 +--
- drivers/gpu/drm/i915/i915_irq.c               | 48 +++-------
- drivers/gpu/drm/xe/display/xe_display.c       |  2 +-
- 4 files changed, 98 insertions(+), 58 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.c b/drivers/gpu/drm/i915/display/intel_display_irq.c
-index 662081e274bf..5aec1bedbd61 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.c
-@@ -23,6 +23,7 @@
- #include "intel_fifo_underrun.h"
- #include "intel_gmbus.h"
- #include "intel_hotplug_irq.h"
-+#include "intel_lpe_audio.h"
- #include "intel_parent.h"
- #include "intel_pipe_crc_regs.h"
- #include "intel_plane.h"
-@@ -596,8 +597,8 @@ static void i9xx_pipestat_irq_ack(struct intel_display *display,
- 	spin_unlock(&display->irq.lock);
- }
- 
--void i915_pipestat_irq_handler(struct intel_display *display,
--			       u32 iir, const u32 pipe_stats[I915_MAX_PIPES])
-+static void i915_pipestat_irq_handler(struct intel_display *display,
-+				      u32 iir, const u32 pipe_stats[I915_MAX_PIPES])
- {
- 	bool blc_event = false;
- 	enum pipe pipe;
-@@ -620,8 +621,8 @@ void i915_pipestat_irq_handler(struct intel_display *display,
- 		intel_opregion_asle_intr(display);
- }
- 
--void i965_pipestat_irq_handler(struct intel_display *display,
--			       u32 iir, const u32 pipe_stats[I915_MAX_PIPES])
-+static void i965_pipestat_irq_handler(struct intel_display *display,
-+				      u32 iir, const u32 pipe_stats[I915_MAX_PIPES])
- {
- 	bool blc_event = false;
- 	enum pipe pipe;
-@@ -647,8 +648,8 @@ void i965_pipestat_irq_handler(struct intel_display *display,
- 		intel_gmbus_irq_handler(display);
- }
- 
--void valleyview_pipestat_irq_handler(struct intel_display *display,
--				     const u32 pipe_stats[I915_MAX_PIPES])
-+static void valleyview_pipestat_irq_handler(struct intel_display *display,
-+					    const u32 pipe_stats[I915_MAX_PIPES])
- {
- 	enum pipe pipe;
- 
-@@ -1020,7 +1021,8 @@ void ilk_display_irq_master_enable(struct intel_display *display, u32 de_ier, u3
- 		intel_de_write_fw(display, SDEIER, sde_ier);
- }
- 
--bool ilk_display_irq_handler(struct intel_display *display)
-+static bool ilk_display_irq_handler(struct intel_display *display,
-+				    const struct intel_display_irq_state *state)
- {
- 	u32 de_iir;
- 	bool handled = false;
-@@ -1404,7 +1406,7 @@ static void gen8_read_and_ack_pch_irqs(struct intel_display *display, u32 *pch_i
- 		intel_de_write(display, PICAINTERRUPT_IER, pica_ier);
- }
- 
--void gen8_de_irq_handler(struct intel_display *display, u32 master_ctl)
-+static void gen8_de_irq_handler(struct intel_display *display, u32 master_ctl)
- {
- 	u32 iir;
- 	enum pipe pipe;
-@@ -1565,6 +1567,14 @@ void gen8_de_irq_handler(struct intel_display *display, u32 master_ctl)
- 	}
- }
- 
-+static bool gen8_display_irq_handler(struct intel_display *display,
-+				     const struct intel_display_irq_state *state)
-+{
-+	gen8_de_irq_handler(display, state->master_ctl);
-+
-+	return true;
-+}
-+
- u32 gen11_gu_misc_irq_ack(struct intel_display *display, const u32 master_ctl)
- {
- 	u32 iir;
-@@ -1589,7 +1599,8 @@ void gen11_gu_misc_irq_handler(struct intel_display *display, const u32 iir)
- 		intel_opregion_asle_intr(display);
- }
- 
--void gen11_display_irq_handler(struct intel_display *display)
-+static bool gen11_display_irq_handler(struct intel_display *display,
-+				      const struct intel_display_irq_state *state)
- {
- 	u32 disp_ctl;
- 
-@@ -1605,6 +1616,8 @@ void gen11_display_irq_handler(struct intel_display *display)
- 	intel_de_write(display, GEN11_DISPLAY_INT_CTL, GEN11_DISPLAY_IRQ_ENABLE);
- 
- 	intel_display_rpm_assert_unblock(display);
-+
-+	return true;
- }
- 
- static void i915gm_irq_cstate_wa_enable(struct intel_display *display)
-@@ -1920,8 +1933,8 @@ static void vlv_display_error_irq_ack(struct intel_display *display,
- 	intel_de_write(display, VLV_EMR, emr);
- }
- 
--void vlv_display_error_irq_handler(struct intel_display *display,
--				   u32 eir, u32 dpinvgtt)
-+static void vlv_display_error_irq_handler(struct intel_display *display,
-+					  u32 eir, u32 dpinvgtt)
- {
- 	drm_dbg(display->drm, "Master Error, EIR 0x%08x\n", eir);
- 
-@@ -2020,6 +2033,28 @@ static void i9xx_display_irq_ack(struct intel_display *display,
- 	i9xx_pipestat_irq_ack(display, state->iir, state->pipe_stats);
- }
- 
-+static bool i965_display_irq_handler(struct intel_display *display,
-+				     const struct intel_display_irq_state *state)
-+{
-+	if (state->hotplug_status)
-+		i9xx_hpd_irq_handler(display, state->hotplug_status);
-+
-+	i965_pipestat_irq_handler(display, state->iir, state->pipe_stats);
-+
-+	return true;
-+}
-+
-+static bool i915_display_irq_handler(struct intel_display *display,
-+				     const struct intel_display_irq_state *state)
-+{
-+	if (state->hotplug_status)
-+		i9xx_hpd_irq_handler(display, state->hotplug_status);
-+
-+	i915_pipestat_irq_handler(display, state->iir, state->pipe_stats);
-+
-+	return true;
-+}
-+
- static u32 vlv_error_mask(void)
- {
- 	/* TODO enable other errors too? */
-@@ -2088,6 +2123,28 @@ static void vlv_display_irq_ack(struct intel_display *display,
- 	i9xx_pipestat_irq_ack(display, state->iir, state->pipe_stats);
- }
- 
-+static bool vlv_display_irq_handler(struct intel_display *display,
-+				    const struct intel_display_irq_state *state)
-+{
-+	u32 lpe_mask = I915_LPE_PIPE_A_INTERRUPT | I915_LPE_PIPE_B_INTERRUPT;
-+
-+	if (display->platform.cherryview)
-+		lpe_mask |= I915_LPE_PIPE_C_INTERRUPT;
-+
-+	if (state->iir & lpe_mask)
-+		intel_lpe_audio_irq_handler(display);
-+
-+	if (state->hotplug_status)
-+		i9xx_hpd_irq_handler(display, state->hotplug_status);
-+
-+	if (state->iir & I915_MASTER_ERROR_INTERRUPT)
-+		vlv_display_error_irq_handler(display, state->eir, state->dpinvgtt);
-+
-+	valleyview_pipestat_irq_handler(display, state->pipe_stats);
-+
-+	return true;
-+}
-+
- static void ibx_display_irq_reset(struct intel_display *display)
- {
- 	if (HAS_PCH_NOP(display))
-@@ -2476,39 +2533,46 @@ struct intel_display_irq_funcs {
- 	void (*reset)(struct intel_display *display);
- 	void (*postinstall)(struct intel_display *display);
- 	void (*ack)(struct intel_display *display, struct intel_display_irq_state *state);
-+	bool (*handler)(struct intel_display *display, const struct intel_display_irq_state *state);
- };
- 
- struct intel_display_irq_funcs gen11_display_irq_funcs = {
- 	.reset = gen11_display_irq_reset,
- 	.postinstall = gen11_de_irq_postinstall,
-+	.handler = gen11_display_irq_handler,
- };
- 
- struct intel_display_irq_funcs gen8_display_irq_funcs = {
- 	.reset = gen8_display_irq_reset,
- 	.postinstall = gen8_de_irq_postinstall,
-+	.handler = gen8_display_irq_handler,
- };
- 
- struct intel_display_irq_funcs vlv_display_irq_funcs = {
- 	.reset = vlv_display_irq_reset,
- 	.postinstall = vlv_display_irq_postinstall,
- 	.ack = vlv_display_irq_ack,
-+	.handler = vlv_display_irq_handler,
- };
- 
- struct intel_display_irq_funcs ilk_display_irq_funcs = {
- 	.reset = ilk_display_irq_reset,
- 	.postinstall = ilk_de_irq_postinstall,
-+	.handler = ilk_display_irq_handler,
- };
- 
- struct intel_display_irq_funcs i965_display_irq_funcs = {
- 	.reset = i9xx_display_irq_reset,
- 	.postinstall = i965_display_irq_postinstall,
- 	.ack = i9xx_display_irq_ack,
-+	.handler = i965_display_irq_handler,
- };
- 
- struct intel_display_irq_funcs i915_display_irq_funcs = {
- 	.reset = i9xx_display_irq_reset,
- 	.postinstall = i915_display_irq_postinstall,
- 	.ack = i9xx_display_irq_ack,
-+	.handler = i915_display_irq_handler,
- };
- 
- void intel_display_irq_reset(struct intel_display *display)
-@@ -2528,6 +2592,15 @@ void intel_display_irq_ack(struct intel_display *display,
- 		display->irq.funcs->ack(display, state);
- }
- 
-+bool intel_display_irq_handler(struct intel_display *display,
-+			       const struct intel_display_irq_state *state)
-+{
-+	if (!display->irq.funcs->handler)
-+		return true;
-+
-+	return display->irq.funcs->handler(display, state);
-+}
-+
- void intel_display_irq_init(struct intel_display *display)
- {
- 	spin_lock_init(&display->irq.lock);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_irq.h b/drivers/gpu/drm/i915/display/intel_display_irq.h
-index 3773a31e48f2..a1227cee885a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_irq.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_irq.h
-@@ -51,14 +51,12 @@ void bdw_disable_vblank(struct drm_crtc *crtc);
- 
- void ilk_display_irq_master_disable(struct intel_display *display, u32 *de_ier, u32 *sde_ier);
- void ilk_display_irq_master_enable(struct intel_display *display, u32 de_ier, u32 sde_ier);
--bool ilk_display_irq_handler(struct intel_display *display);
--void gen8_de_irq_handler(struct intel_display *display, u32 master_ctl);
--void gen11_display_irq_handler(struct intel_display *display);
- 
- u32 gen11_gu_misc_irq_ack(struct intel_display *display, const u32 master_ctl);
- void gen11_gu_misc_irq_handler(struct intel_display *display, const u32 iir);
- 
- struct intel_display_irq_state {
-+	u32 master_ctl;
- 	u32 iir;
- 	u32 eir;
- 	u32 hotplug_status;
-@@ -69,6 +67,7 @@ struct intel_display_irq_state {
- void intel_display_irq_reset(struct intel_display *display);
- void intel_display_irq_postinstall(struct intel_display *display);
- void intel_display_irq_ack(struct intel_display *display, struct intel_display_irq_state *state);
-+bool intel_display_irq_handler(struct intel_display *display, const struct intel_display_irq_state *state);
- 
- u32 i9xx_display_irq_enable_mask(struct intel_display *display);
- 
-@@ -76,12 +75,6 @@ u32 i915_pipestat_enable_mask(struct intel_display *display, enum pipe pipe);
- void i915_enable_pipestat(struct intel_display *display, enum pipe pipe, u32 status_mask);
- void i915_disable_pipestat(struct intel_display *display, enum pipe pipe, u32 status_mask);
- 
--void i915_pipestat_irq_handler(struct intel_display *display, u32 iir, const u32 pipe_stats[I915_MAX_PIPES]);
--void i965_pipestat_irq_handler(struct intel_display *display, u32 iir, const u32 pipe_stats[I915_MAX_PIPES]);
--void valleyview_pipestat_irq_handler(struct intel_display *display, const u32 pipe_stats[I915_MAX_PIPES]);
--
--void vlv_display_error_irq_handler(struct intel_display *display, u32 eir, u32 dpinvgtt);
--
- void intel_display_irq_init(struct intel_display *display);
- 
- void i915gm_irq_cstate_wa(struct intel_display *display, bool enable);
-diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_irq.c
-index bb65ce9d09b2..30ce462e92ab 100644
---- a/drivers/gpu/drm/i915/i915_irq.c
-+++ b/drivers/gpu/drm/i915/i915_irq.c
-@@ -38,8 +38,6 @@
- 
- #include "display/intel_display_irq.h"
- #include "display/intel_hotplug.h"
--#include "display/intel_hotplug_irq.h"
--#include "display/intel_lpe_audio.h"
- 
- #include "gt/intel_breadcrumbs.h"
- #include "gt/intel_gt.h"
-@@ -287,17 +285,7 @@ static irqreturn_t valleyview_irq_handler(int irq, void *arg)
- 		if (pm_iir)
- 			gen6_rps_irq_handler(&to_gt(dev_priv)->rps, pm_iir);
- 
--		if (state.iir & (I915_LPE_PIPE_A_INTERRUPT |
--				 I915_LPE_PIPE_B_INTERRUPT))
--			intel_lpe_audio_irq_handler(display);
--
--		if (state.hotplug_status)
--			i9xx_hpd_irq_handler(display, state.hotplug_status);
--
--		if (state.iir & I915_MASTER_ERROR_INTERRUPT)
--			vlv_display_error_irq_handler(display, state.eir, state.dpinvgtt);
--
--		valleyview_pipestat_irq_handler(display, state.pipe_stats);
-+		intel_display_irq_handler(display, &state);
- 	} while (0);
- 
- 	pmu_irq_stats(dev_priv, ret);
-@@ -362,18 +350,7 @@ static irqreturn_t cherryview_irq_handler(int irq, void *arg)
- 		intel_uncore_write(&dev_priv->uncore, VLV_IER, ier);
- 		intel_uncore_write(&dev_priv->uncore, GEN8_MASTER_IRQ, GEN8_MASTER_IRQ_CONTROL);
- 
--		if (state.iir & (I915_LPE_PIPE_A_INTERRUPT |
--				 I915_LPE_PIPE_B_INTERRUPT |
--				 I915_LPE_PIPE_C_INTERRUPT))
--			intel_lpe_audio_irq_handler(display);
--
--		if (state.hotplug_status)
--			i9xx_hpd_irq_handler(display, state.hotplug_status);
--
--		if (state.iir & I915_MASTER_ERROR_INTERRUPT)
--			vlv_display_error_irq_handler(display, state.eir, state.dpinvgtt);
--
--		valleyview_pipestat_irq_handler(display, state.pipe_stats);
-+		intel_display_irq_handler(display, &state);
- 	} while (0);
- 
- 	pmu_irq_stats(dev_priv, ret);
-@@ -420,7 +397,7 @@ static irqreturn_t ilk_irq_handler(int irq, void *arg)
- 		ret = IRQ_HANDLED;
- 	}
- 
--	if (ilk_display_irq_handler(display))
-+	if (intel_display_irq_handler(display, NULL))
- 		ret = IRQ_HANDLED;
- 
- 	if (GRAPHICS_VER(i915) >= 6) {
-@@ -482,8 +459,11 @@ static irqreturn_t gen8_irq_handler(int irq, void *arg)
- 
- 	/* IRQs are synced during runtime_suspend, we don't require a wakeref */
- 	if (master_ctl & ~GEN8_GT_IRQS) {
-+		const struct intel_display_irq_state state = {
-+			.master_ctl = master_ctl,
-+		};
- 		disable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
--		gen8_de_irq_handler(display, master_ctl);
-+		intel_display_irq_handler(display, &state);
- 		enable_rpm_wakeref_asserts(&dev_priv->runtime_pm);
- 	}
- 
-@@ -535,7 +515,7 @@ static irqreturn_t gen11_irq_handler(int irq, void *arg)
- 
- 	/* IRQs are synced during runtime_suspend, we don't require a wakeref */
- 	if (master_ctl & GEN11_DISPLAY_IRQ)
--		gen11_display_irq_handler(display);
-+		intel_display_irq_handler(display, NULL);
- 
- 	gu_misc_iir = gen11_gu_misc_irq_ack(display, master_ctl);
- 
-@@ -602,7 +582,7 @@ static irqreturn_t dg1_irq_handler(int irq, void *arg)
- 	gen11_gt_irq_handler(gt, master_ctl);
- 
- 	if (master_ctl & GEN11_DISPLAY_IRQ)
--		gen11_display_irq_handler(display);
-+		intel_display_irq_handler(display, NULL);
- 
- 	gu_misc_iir = gen11_gu_misc_irq_ack(display, master_ctl);
- 
-@@ -906,10 +886,7 @@ static irqreturn_t i915_irq_handler(int irq, void *arg)
- 		if (state.iir & I915_MASTER_ERROR_INTERRUPT)
- 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
- 
--		if (state.hotplug_status)
--			i9xx_hpd_irq_handler(display, state.hotplug_status);
--
--		i915_pipestat_irq_handler(display, state.iir, state.pipe_stats);
-+		intel_display_irq_handler(display, &state);
- 	} while (0);
- 
- 	pmu_irq_stats(dev_priv, ret);
-@@ -1013,10 +990,7 @@ static irqreturn_t i965_irq_handler(int irq, void *arg)
- 		if (state.iir & I915_MASTER_ERROR_INTERRUPT)
- 			i9xx_error_irq_handler(dev_priv, eir, eir_stuck);
- 
--		if (state.hotplug_status)
--			i9xx_hpd_irq_handler(display, state.hotplug_status);
--
--		i965_pipestat_irq_handler(display, state.iir, state.pipe_stats);
-+		intel_display_irq_handler(display, &state);
- 	} while (0);
- 
- 	pmu_irq_stats(dev_priv, IRQ_HANDLED);
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 736a5e6938d6..4f283fb79554 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -214,7 +214,7 @@ void xe_display_irq_handler(struct xe_device *xe, u32 master_ctl)
- 		return;
- 
- 	if (master_ctl & DISPLAY_IRQ)
--		gen11_display_irq_handler(display);
-+		intel_display_irq_handler(display, NULL);
- }
- 
- void xe_display_irq_enable(struct xe_device *xe, u32 gu_misc_iir)
--- 
-2.47.3
+Series: drm/i915/display: Add DC3CO support (rev3)
+URL   : https://patchwork.freedesktop.org/series/163939/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18378 -> Patchwork_163939v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): fi-rkl-11600 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_163939v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@dmabuf@all-tests:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][1] ([i915#15931])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@dmabuf@all-tests.html
+
+  * igt@fbdev@eof:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][2] ([i915#2582]) +3 other tests skip
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@fbdev@eof.html
+
+  * igt@fbdev@info:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][3] ([i915#1849] / [i915#2582])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@fbdev@info.html
+
+  * igt@gem_huc_copy@huc-copy:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][4] ([i915#2190])
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_huc_copy@huc-copy.html
+
+  * igt@gem_lmem_swapping@basic:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][5] ([i915#4613]) +3 other tests skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_lmem_swapping@basic.html
+
+  * igt@gem_tiled_pread_basic@basic:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][6] ([i915#15656])
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_tiled_pread_basic@basic.html
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][7] -> [DMESG-FAIL][8] ([i915#12061]) +1 other test dmesg-fail
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-mtlp-8/igt@i915_selftest@live.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-dg2-8:          [PASS][9] -> [DMESG-FAIL][10] ([i915#12061]) +1 other test dmesg-fail
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-dg2-8/igt@i915_selftest@live.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-dg2-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][11] -> [DMESG-FAIL][12] ([i915#12061]) +1 other test dmesg-fail
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-arls-5/igt@i915_selftest@live@workarounds.html
+    - bat-arls-6:         [PASS][13] -> [DMESG-FAIL][14] ([i915#12061]) +1 other test dmesg-fail
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-arls-6/igt@i915_selftest@live@workarounds.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-arls-6/igt@i915_selftest@live@workarounds.html
+
+  * igt@intel_hwmon@hwmon-read:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][15] ([i915#7707]) +1 other test skip
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@intel_hwmon@hwmon-read.html
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][16] ([i915#3637]) +3 other tests skip
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_flip@basic-flip-vs-wf_vblank.html
+
+  * igt@kms_force_connector_basic@force-load-detect:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][17]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_force_connector_basic@force-load-detect.html
+
+  * igt@kms_frontbuffer_tracking@basic:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][18] ([i915#1849] / [i915#5354])
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_frontbuffer_tracking@basic.html
+
+  * igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][19] ([i915#11190]) +16 other tests skip
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24.html
+
+  * igt@kms_pm_backlight@basic-brightness:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][20] ([i915#5354])
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_pm_backlight@basic-brightness.html
+
+  * igt@kms_psr@psr-primary-page-flip:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][21] ([i915#1072] / [i915#9732]) +3 other tests skip
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_psr@psr-primary-page-flip.html
+
+  * igt@kms_setmode@basic-clone-single-crtc:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][22] ([i915#3555])
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_setmode@basic-clone-single-crtc.html
+
+  * igt@prime_vgem@basic-fence-flip:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][23] ([i915#3708])
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@prime_vgem@basic-fence-flip.html
+
+  * igt@prime_vgem@basic-read:
+    - fi-rkl-11600:       NOTRUN -> [SKIP][24] ([i915#3291] / [i915#3708]) +2 other tests skip
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@prime_vgem@basic-read.html
+
+  
+  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
+  [i915#11190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
+  [i915#15931]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931
+  [i915#1849]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849
+  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
+  [i915#2582]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582
+  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
+  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
+  [i915#3637]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637
+  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
+  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
+  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
+  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
+  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18378 -> Patchwork_163939v3
+
+  CI-20190529: 20190529
+  CI_DRM_18378: 1db870ffb55b6414a78d7609ba7e08adf880dfc5 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8879: 02b0e01dd9a5a3ab1efe976bb8c4f13cfcdbab1a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_163939v3: 1db870ffb55b6414a78d7609ba7e08adf880dfc5 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/index.html
+
+--===============1182602717017428458==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Add DC3CO support (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/163939/">https://patchwork.freedesktop.org/series/163939/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18378 -&gt; Patchwork_163939v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): fi-rkl-11600 <br />
+  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_163939v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@dmabuf@all-tests:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@dmabuf@all-tests.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931">i915#15931</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@fbdev@eof:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@fbdev@eof.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@fbdev@info:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@fbdev@info.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2582">i915#2582</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_huc_copy@huc-copy:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_lmem_swapping@basic:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_tiled_pread_basic@basic:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18378/bat-arls-6/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/bat-arls-6/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@intel_hwmon@hwmon-read:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_flip@basic-flip-vs-wf_vblank:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_flip@basic-flip-vs-wf_vblank.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3637">i915#3637</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_force_connector_basic@force-load-detect:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_frontbuffer_tracking@basic:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_frontbuffer_tracking@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1849">i915#1849</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_pipe_crc_basic@compare-crc-sanitycheck-xr24.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11190">i915#11190</a>) +16 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_backlight@basic-brightness:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_psr@psr-primary-page-flip:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_setmode@basic-clone-single-crtc:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-fence-flip:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@prime_vgem@basic-fence-flip.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@prime_vgem@basic-read:</p>
+<ul>
+<li>fi-rkl-11600:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163939v3/fi-rkl-11600/igt@prime_vgem@basic-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>) +2 other tests skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18378 -&gt; Patchwork_163939v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18378: 1db870ffb55b6414a78d7609ba7e08adf880dfc5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8879: 02b0e01dd9a5a3ab1efe976bb8c4f13cfcdbab1a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_163939v3: 1db870ffb55b6414a78d7609ba7e08adf880dfc5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1182602717017428458==--
