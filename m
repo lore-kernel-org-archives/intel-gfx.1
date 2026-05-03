@@ -4,135 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 874C8FF886F
-	for <intel-gfx@archiver.kernel.org>; Mon,  4 May 2026 12:43:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24E5BFF885A
+	for <intel-gfx@archiver.kernel.org>; Mon,  4 May 2026 12:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 134C210E68A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F20510E6A7;
 	Mon,  4 May 2026 12:43:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="GwRk+e9C";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WSEFqopo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pI//y/az";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CE6510E471
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 21:30:42 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 63UGImDp2122428
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 21:30:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EYg1mHZ78qeUHVxwPW5soi9NfELbaGNPD7XescIFQxE=; b=GwRk+e9C/NctBONv
- CIKu36r0sw9XwAGbMoUqHqk8F3VsXA1Z1IX+hsOk3wgNN/JYTVQvbelDoTs3yzuo
- w8ezTKWH7Cya2BXuC44TAdPlRU8SQmaJcMNXiKYwjOFvyRGDKVQfv7I2qgynfWTY
- r3EApPmP70ekVWgvhzJfgC6bVqHdGWbty3vae3lGMFqfi8tOR8I2JqlQts85BqhM
- 8out9exLsmmNUug79lT5bf9BYWkq6CJsA+vrOol8mk12K5q2bS7qoM5EkB+ewhcY
- Vr6TDrt5AHoCmUfADKd0AGe5/EbNQ87zJKvejDFn3FAwN2iZke4/njr9CTXoUrl3
- 5870vQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4dvag4sc4n-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 21:30:41 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id
- 5a478bee46e88-2ddd8ef5343so1448434eec.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 30 Apr 2026 14:30:41 -0700 (PDT)
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA82010E16C
+ for <intel-gfx@lists.freedesktop.org>; Sun,  3 May 2026 03:45:41 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-35fbca04006so1514220a91.1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 02 May 2026 20:45:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1777584641; x=1778189441;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=EYg1mHZ78qeUHVxwPW5soi9NfELbaGNPD7XescIFQxE=;
- b=WSEFqoporXxHCW/yHV6+IY25uYiKY9qEyb4INbuPK/5WJEDixFTCLwyutvztF3VSxc
- SUTyc/5rx7tJ7sMwvReZLwB1sTPr6DdqgBcn2sk90QKiExk6z2eActKy1lGYVTk7Umjf
- jJ2WfBvg8S2yqfSdLvrhC0yL9tjcSnmWy+OO9hGvSHoeiZbhxS+V+nt9v5z+hr+lMbae
- NrZA/wfYm8/95q+//VAQu86ooXim/pXqQFOrUZYeW4vLnd78YwrLLrhXehJDx4B1XAyo
- krpe1cUO2UPNRu7jdB6/nj098dnx/A63l0o3vJuChfXXsCasbEVkM3XiNa3Kx4WslKeg
- fpcg==
+ d=gmail.com; s=20251104; t=1777779941; x=1778384741; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SI2MBPlJf9O7ukydYqfXIQUzeildkAOurtWd8SQi+24=;
+ b=pI//y/az09OvWTAVBRVXwpH6H4OEt9QCCGL+3fWU1VEfJxivkPeZXCSljNH8IDgTOP
+ zstjhYN1B/1IU/OIhzHuQTVo0obJR4wD4VC4o2EMao5Qfu5xeHwerDD/qUruuAEWs2hC
+ IYTqZ9qVv5iiDyEdVh1/jpN2OTYEsnCg/cCmQ3JuouWu2P345ftKv2DXztK7BCx03tWU
+ zsfutVL9ob0/lnjBdAwlovQfRP6wOfyJSqPC68RcEywagEP8vCMon3gy5jpUz5KgeaJ+
+ Wh9BOk7lEJz3CT08xvtMUokySrE4w+5XMJ2F8kpIyZHKO5aTbvfaVW991mQX3lPqt9kF
+ ed4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777584641; x=1778189441;
- h=content-transfer-encoding:mime-version:date:message-id:subject
- :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=EYg1mHZ78qeUHVxwPW5soi9NfELbaGNPD7XescIFQxE=;
- b=VxRzIifSr3yVx8T/ur7NCTAQP+hdm9oHXdZ/z7foFsHJUiJta+G152Y1F0k891tv0h
- oWwUgDPqS/usD0QiHm+geQ+DxUXbFT9EH3r4qiNGXtoQJlaT7npI7qgunnzU81Yd7zw9
- Bs3cIYRi3z6VKLhd0zadF60I4TDFdoN1g9V9cemFD2F2Uwr2937FKBItLIJjE3aMKPIS
- BHaWlk1G3pC7mOHjRTec/TOAJWlOLpC7ct7xgTiznKmdsKIwAr4s3z1aGtVF/1dlxm44
- oThL/uQ+nqbJu2lCxQmnGcE1EdeC2Ictl1Sw5Ud3UlIT+5Ap/7+MWQ7TtXMbyFu4nABy
- v/gg==
+ d=1e100.net; s=20251104; t=1777779941; x=1778384741;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SI2MBPlJf9O7ukydYqfXIQUzeildkAOurtWd8SQi+24=;
+ b=Ql1D8/OfEI+9zy4kQpgNbZFT3sIFJ6s+10WWNRZj1P0o3lDbG7T6TH0KMzeWuf6VxO
+ QYIO8o0p/33vx5fnXk2sjDZLO0nFJfcm0RAibUdHA2rWvMGSG6dvY+QLdaetjoYm6wS9
+ ayUmmcDWLnrgABvE6zVDKZaoAmFKzi6XhFVZZvcoCsIZZ9y7x3NO+VODtA9WgqBreHfE
+ LzYLPqFEen/RMflTNW76bpmjtc++lEh9wSrj4Oly6TysEvemMYeaqssuIwnymznBsxSv
+ c1w80Rqbu5kJNvLCIxynSx1S55i809p4lagZAc8l8w5IqHFb0vvokafvzcFVWhXguOo6
+ 2V5A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9shZWhj0VkSAv0YK/y+BLeQDAtBtyigU6hwYvoxuAnY4tE5orgA8NGLocg24kCd3fWqqVppVeloZ4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2QZzWMCIVdCVyEoU2SuPs5b7lAnZkTwYVKEQQDTVZ3Vxq6K9q
- STw3/fWJmBPBd/KMnlQUd5QA8q4jz1T0ALkMdv2/jEBMIgqonr/khYTMI+s1rUIh4HPm6JYFsBk
- JCL3BnIbeBhzU8+sQhL36mNx/B40R99jucfylbLPnKAZv7ZjZIIIAxbS0kEURhyshTLiGQXs=
-X-Gm-Gg: AeBDiessXbD3HanBmrh40cuaM8JeBOo5KF0gb90eEwH9M9AKvYM/tQqCyi6Z2lxOBPW
- SaEbpMZfcGYxxY0jiInkl6xbcHT1lo5HkOUhTNyxWTKszmenyaTwxfHjRBDUV38OGoeSdtKa7Nw
- MiaKo91gobHfFPVfxdgjhpGJCjdqTV2wr/rJgFqlR82uDYqL3rDiYcUHZ1DUHty5OqYxtdLl5Gw
- A6g7YQ8/QBqWF364DFsXyZoN2joRIlc39t8tUYSQua81kqPTA157/ZFWL8FyscEvvJB7+1l8yie
- n6noANQnzjdqQbinKYuh1rqeHLChl3E3UlJhopAJ4iFMXUNXPgojF51m1as3BWPsXHuATObKvef
- eEySZNzrQkknCMWmk9pk+eWtgU3FQxJkuZYZwxi43boMOs7WtwzNXOLD3cdqCzwVBSpSGJ8i4PB
- gZZSMK9tpODj8=
-X-Received: by 2002:a05:7300:e402:b0:2dd:6937:79d5 with SMTP id
- 5a478bee46e88-2ed3d5c6b8fmr2496710eec.8.1777584641141; 
- Thu, 30 Apr 2026 14:30:41 -0700 (PDT)
-X-Received: by 2002:a05:7300:e402:b0:2dd:6937:79d5 with SMTP id
- 5a478bee46e88-2ed3d5c6b8fmr2496677eec.8.1777584640462; 
- Thu, 30 Apr 2026 14:30:40 -0700 (PDT)
-Received: from hu-jjohnson-lv.qualcomm.com (Global_NAT1.qualcomm.com.
- [129.46.96.20]) by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2ee38d79eb9sm2504861eec.8.2026.04.30.14.30.39
+ AFNElJ/O6UgCz3o/4wKDIt15ahoRQBHMLJlF89lCKYEGV+tptjBQJGMmZUsIKgy/HJzA0H6V0cGjAImObps=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7GLa3Y9jRqOGAVxgjcgBzathrRw6oJwRlGtY4JHWRgkGEDxtf
+ LYSAtGGFXqp7imz6cNIVVG+U52dVMvBvd/KHZvGyuXpWQsaMlhDrqzYv
+X-Gm-Gg: AeBDiesrOS1J/aXQQrYomNeWgRIc/gGCgIgM7J+GdKrS9xBbaJ1mzgGjp2D2L1qCIjZ
+ 1qo+jYCmbKlWyQfwXjEKWPS+b1/em6n26tZLqd6KBprXfG4keXgLI6oIVN/J0gPiA+AnHrfMDHc
+ B5D4DSQu50kihyRztoXZVfNOlH4VRMlQrF0j2uoMJhFkDm8qw9pqzOvGvXjFj0+fDjervFiK9tg
+ TXo3tx6Nquo+2YVaDRI+gw5OCT5iprPyDa8e+0KH9C+wM3U3hLXGWSW+27dTxCr3fMDbNqHl7YP
+ p2vqFJXgiBtKWv+5yhh/NEOxWTxrniyxU0iNP/WFFw02aUok3cq9dNL+s7pCk3dLAbyLYiQdKOn
+ oQxIdbQz2B2tFNUU3D/XAgJMPGO3RWd59G7gof542KQNGvrgg7I79kEWAsJnwRZRCyUz56JIkSd
+ WxdMQ0jde4RRjwRZ2iaTHbLKX4bjz2QzVoZe4E5PgZLJRYYvmO+C20snq2CdGNvKkn
+X-Received: by 2002:a17:90b:5887:b0:35e:581c:6bca with SMTP id
+ 98e67ed59e1d1-3650cd25673mr5014165a91.3.1777779941198; 
+ Sat, 02 May 2026 20:45:41 -0700 (PDT)
+Received: from jester ([159.192.33.28]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-364bdf54203sm10082989a91.7.2026.05.02.20.45.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2026 14:30:39 -0700 (PDT)
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-To: tj@kernel.org, tony.luck@intel.com, jani.nikula@linux.intel.com,
- ap420073@gmail.com, jv@jvosburgh.net, freude@linux.ibm.com,
- bcrl@kvack.org, trondmy@kernel.org, longman@redhat.com,
- kees@kernel.org, pengdonglin <dolinux.peng@gmail.com>
-Cc: bigeasy@linutronix.de, hdanton@sina.com, paulmck@kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- linux-nfs@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org,
- netdev@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-wireless@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-s390@vger.kernel.org, cgroups@vger.kernel.org
-In-Reply-To: <20250916044735.2316171-1-dolinux.peng@gmail.com>
-References: <20250916044735.2316171-1-dolinux.peng@gmail.com>
-Subject: Re: (subset) [PATCH v3 00/14] Remove redundant
- rcu_read_lock/unlock() in spin_lock
-Message-Id: <177758463946.1848985.4916088351427792183.b4-ty@oss.qualcomm.com>
-Date: Thu, 30 Apr 2026 14:30:39 -0700
+ Sat, 02 May 2026 20:45:40 -0700 (PDT)
+From: Jonas Emilsson <jonas.emilsson@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Jonas Emilsson <jonas.emilsson@gmail.com>, Imre Deak <imre.deak@intel.com>,
+ Lyude Paul <lyude@redhat.com>, stable@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/dp_mst: Handle torn-down topology gracefully in
+ drm_dp_mst_topology_queue_probe()
+Date: Sun,  3 May 2026 05:45:33 +0200
+Message-ID: <20260503034533.1023686-1-jonas.emilsson@gmail.com>
+X-Mailer: git-send-email 2.51.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: hnFk4VRwLI4MkUTT86gsL-EErjFpMtR5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDMwMDIyMiBTYWx0ZWRfX6dXNjQRBAxlg
- ReQ/pqYIZHeF0WLFB2RFt2KgGbmUGnr0XTCC7SJxEUCm+xDxAJ0P51q6k4eLybnX2zrVcFUQVLZ
- I4lIIsICSP7kvIJQAapLaArNSBCZW18/W1CH3Mt+wOb4ekFROk/YZA7H5cc5PTjiQttmxJB4ht0
- ggEZMjPQy7XkGst9QNFpOVp2XYgWvalbY7u/urP9SfzBrXuB2/5seBHJDhX8QgLynTiBpXF+D/w
- Va1OK131wiazWiVOv2dinArlawS51Q7/nbXLyy6PeOORlNYwUO0V49RXG/uU/T//bHidDJANKDf
- 9EPFXtEuAExQP+tNgWYZvcXRtlynKZj0o2vh+65n68WC7Guw6rALXYKPknWagBMeVurDQ0uqkS+
- XUx4IRCyeUnnHdd4581AET7elrUVYdXeswSpFjlr/oW5C/1X3n/I6eF4eptV/5wVhzrqlzt7UsN
- fLJeemqLCA15Z7uV3BA==
-X-Authority-Analysis: v=2.4 cv=UcxhjqSN c=1 sm=1 tr=0 ts=69f3ca01 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=R8he2_Gm4Sd0DFq6ycoA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: hnFk4VRwLI4MkUTT86gsL-EErjFpMtR5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-30_06,2026-04-30_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0
- impostorscore=0 adultscore=0 spamscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2604200000 definitions=main-2604300222
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 04 May 2026 12:43:41 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,25 +88,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+A hotplug or link-loss event can tear down the MST topology
+(setting mgr->mst_state = false and mgr->mst_primary = NULL) concurrently
+with a caller invoking drm_dp_mst_topology_queue_probe(). Since the check
+is already performed under mgr->lock, the condition is not a programming
+error but a valid race -- the topology was valid when the caller decided
+to call this function, but was torn down before the lock was acquired.
 
-On Tue, 16 Sep 2025 12:47:21 +0800, pengdonglin wrote:
-> Since commit a8bb74acd8efe ("rcu: Consolidate RCU-sched update-side function definitions")
-> there is no difference between rcu_read_lock(), rcu_read_lock_bh() and
-> rcu_read_lock_sched() in terms of RCU read section and the relevant grace
-> period. That means that spin_lock(), which implies rcu_read_lock_sched(),
-> also implies rcu_read_lock().
-> 
-> There is no need no explicitly start a RCU read section if one has already
-> been started implicitly by spin_lock().
-> 
-> [...]
+Replace the drm_WARN_ON() with a graceful early return. This eliminates
+spurious kernel warnings and the resulting compositor crashes observed
+when connecting/disconnecting DP MST monitors, while keeping the correct
+behavior of doing nothing when MST is not active. A drm_dbg_mst() trace
+is added so the skipped probe remains observable under MST debug logging.
 
-Applied, thanks!
+The existing WARN_ON(mgr->mst_primary) in drm_dp_mst_topology_mgr_set_mst()
+already catches the case where the topology is initialized twice, so no
+diagnostic coverage is lost.
 
-[14/14] wifi: ath9k: Remove redundant rcu_read_lock/unlock() in spin_lock
-        commit: c4f518736472c8cfbf1d304e01c631babd2bbf34
+Fixes: dbaeef363ea5 ("drm/dp_mst: Add a helper to queue a topology probe")
+Cc: Imre Deak <imre.deak@intel.com>
+Cc: Lyude Paul <lyude@redhat.com>
+Cc: stable@vger.kernel.org
+Cc: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: Jonas Emilsson <jonas.emilsson@gmail.com>
+---
+ drivers/gpu/drm/display/drm_dp_mst_topology.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+index 8757972e8..0cb341ce1 100644
+--- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+@@ -3738,8 +3738,10 @@ void drm_dp_mst_topology_queue_probe(struct drm_dp_mst_topology_mgr *mgr)
+ {
+ 	mutex_lock(&mgr->lock);
+
+-	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
++	if (!mgr->mst_state || !mgr->mst_primary) {
++		drm_dbg_mst(mgr->dev, "queue_probe skipped: topology torn down\n");
+ 		goto out_unlock;
++	}
+
+ 	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
 -- 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+2.51.2
 
