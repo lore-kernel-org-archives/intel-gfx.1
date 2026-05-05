@@ -4,84 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D996CD3427
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 May 2026 12:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A358CD343F
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 May 2026 12:16:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33BB710F0A2;
-	Thu,  7 May 2026 12:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0851810E058;
+	Thu,  7 May 2026 12:16:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ilKC27ot";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NGfnXAcx";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 240DB10F0A8
- for <intel-gfx@lists.freedesktop.org>; Thu,  7 May 2026 12:15:42 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-488e1a8ac40so7710845e9.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 07 May 2026 05:15:42 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+ [209.85.208.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABB6810E0AD
+ for <intel-gfx@lists.freedesktop.org>; Tue,  5 May 2026 05:37:38 +0000 (UTC)
+Received: by mail-ed1-f41.google.com with SMTP id
+ 4fb4d7f45d1cf-678adefbd26so9046739a12.3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 04 May 2026 22:37:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778156141; x=1778760941; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=c0hToDKSMnxbi/5ufvYd8KJ5BjxBoSfijUk4UFSKZpU=;
- b=ilKC27ot4EEvI21VKPUYtgZzCjaUSSEhXqvfKyBnio1jEnhBTYo9GwfbAAkkNUgG26
- 76Pe44gC4KbhLuwwCGbiYTsxGJyW5QULuYFammpThnPg61yGCPgbGTk8xCvJzZuBu+5j
- Vv3ZEXXDZIuSTPVTcwfIlfiOQbSJLoxgCftuDz9Z/JE9KG0xpfMDz2NoMZg4gca+pNns
- 0pb+S+ii8vn8POlVpGv/F83tCvIo1rbouJFfhjdIeIbnsw+qs35aiGL09sGresQUnbtj
- 2jCCqN6+T2mUlESn0DtF1IRbyxi7s4Q/DtguAmjqgKjolKlhx9nqCJMyOsbnk+1cIjm1
- SQtQ==
+ d=gmail.com; s=20251104; t=1777959457; x=1778564257; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=uk2zQJuUcVQqnV7jIPl8Or1ZVzIynOuYpI8KTaDKwo4=;
+ b=NGfnXAcx6b7X5i+hJF6+xm/eHr57KQPnlrLap/361rDrIRSZg6dMLjgt02cXoTmj4Q
+ /5KGJTyM75qwIO4f4y9bcuUmpW9CeaFrjSTeUSozmyxaGWTCj8KPC4Ab/MPZg4O+3oD2
+ iMZQ8h33CwYJDIafqqtGEwwThOn3ON+N/Cp/IgsXC2ps1ru4hEKc43TEtnITrOQJ4pbZ
+ cCU49xtqnEoQ+KcBh2C8kEYblB6G3Zz8prcXFHI7n0N7KrF12CMalv0Ihk+KZxzmgDA4
+ pn5elTS59B2bC5tI1ZEP7WFXaP0PDe96SmYJ/vvVyvx81p7p6l6ejFswi1xBNkgdMdou
+ gHSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778156141; x=1778760941;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=c0hToDKSMnxbi/5ufvYd8KJ5BjxBoSfijUk4UFSKZpU=;
- b=K+IHSD7cGJQ4fHmBy3UnQman/S1gOWxzrcfaOZ9bGxn08II6YqkCaAUuwxfuZ8IDRa
- TMt5m8V5bOONV54CDo5WXhCsZd7jCffAhMMLdekQVktpLFcqrQpn9plop00RexW5hrj3
- ZpmiAJ4pvqLj4f4GZCQ/lv3+IOFP6wYTnxdnJ7+SlQQyQ1geCgP3H6+sZSmCXiUsjc2Y
- BjtqRWB+ejMK/wKJ3o2RVvI8bwcRXOyzk63Uz5KiuXFzj87A147imvxH9Ib21XFv4Nf+
- Sm0jXosvT+oBMKuMtQk/icAVSmTbBpALvwY6cfpA9u9qi05Q96PzqFssu7om9Mxbm2wN
- 6wOw==
+ d=1e100.net; s=20251104; t=1777959457; x=1778564257;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=uk2zQJuUcVQqnV7jIPl8Or1ZVzIynOuYpI8KTaDKwo4=;
+ b=h7XmBasX979X8fTmFR4WQx3WLD8jDMx/JEwTk+/pzG5ycKTkzVdk0pDrMHPUHA9B9z
+ li4S96PLqFc32EExN+6hwnbNzlmaJW4y88+nhhYmXjOmQ8fjNgfX/gV5N20CZXI7SLRt
+ cIlmSarRLMC32CBdv0A/IymJrzE+LQJTB+6gGXGgNEHffhT2nI+7XAWdHbnTSYBThdrq
+ mafuBWHuQNvcikm7x49wQCoVNqmJzQZnlQitQcVAYhgy/d7Zc4Ya7PXMFXnvCsi4O7ix
+ Nu1eM0A3wAEOLPnEBaiMbvPdP4OX6ZKEWXL40S23W1i3eDjunk3vq4P7/P4Ge9JS5IsU
+ kUeg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/1ppqIsmBZcildvRmqX1LeiZ45Db8DGvWSc21ufi61oOWLKB89x0TdlaYET/lsZHgAmFtnBe0DXXM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYj5JArgTn6lpp0EY53J4D3Pzl5KN9Sa004YiO8onYApeoQ/Vp
- kLUhec0nuTFaNCgqaSGnO9+qiNSm6XLqQVWs8N6KrIAgnaXf7IdHubTH
-X-Gm-Gg: AeBDievLAQPryKYmzHpfKsumwahFMKTUWMDXDzK91Q+GgTYiHLmwNfa2+Jlex0RYKbs
- w+Lx7CQSQ8bKiLdjgQ6ghLiopHzcGqrOakQ8jL8qzcwkRTXoyC0xqNh/bqPRH5Wezz09w5bYL0Q
- Jxwph5o9WRCJ7pxhBCjz0qXdZXJTF8+m5hWKCqaQHuy2VMjLlxSDMtSKAXN70RpFPMfjDpUmWQ6
- Q7zWhZn42UOSALrEbrmwp+gfXNz7Wo4q+Ewo0HyoqPmfZKSmzLWtnWXhgM547RVg8VbFSSoyqJ9
- AFWQDQj7XH+AwCm9emkMt4KxY5omteGJosGAl4Vskest/gW5q9WYov05uJrmqi9CxMzGYw2R2ds
- mOLQdI84Gu/uZ4wueeAJ6ur++83dh4W3iAcLL+0eZCNYJZRGZZVpG6JJqXVR1Sx/2pg5Ypbi6+d
- r1q83YcIUYo5+99vjxf1gw5fTh+Tm+eRm9umORpGvUyavIx3V0imPCK+rU7/0nbej01Vz4xvwU/
- tC4jIhkseB0UCzvkCfAceEX
-X-Received: by 2002:a05:600c:871b:b0:48a:592c:e655 with SMTP id
- 5b1f17b1804b1-48e51f45eddmr121794395e9.17.1778156140136; 
- Thu, 07 May 2026 05:15:40 -0700 (PDT)
-Received: from orome (p200300e41f1c9800f22f74fffe1f3a53.dip0.t-ipconnect.de.
- [2003:e4:1f1c:9800:f22f:74ff:fe1f:3a53])
+ AFNElJ/4muKJNzHKwSWL9xaMkhecrYdbvDfYzxK1a0hF28MsNQ7R6YW3Nnb98lafMryoNpxibABTdvVqFsE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxIKbFL/Q74Pgk2qIgPF3SCSg1MdEeiZKm9FA9eAgq9X8H96xi
+ +0o1RmttWZZ3Kb2nv+vV345uszKsW07YKpnEy74iJSqVq/cMLqiXKW77
+X-Gm-Gg: AeBDiesSQYkZ9ikmrhyPk7Ug4nTqkfjMsAdeEAm+OFhJLAmbAUk041ESmy6lgZE5ATt
+ VEUoFRk2spCnlWzb+8q4zRanAzjUsSb4utbJQ2pIMBy2nFFrTFM5CGKqQJVjXeSbrP5TzxC88XU
+ vMthovy7dKm0hnyhF31jIVo7IbiB2LOiwPZfUpN5kNPZwqFK/GSNnBl72niRZ5j7vmbD1Vppb/e
+ r9xkc5tW2QonF05fk7d1WbcQ1mrZ35x+0zgyln0otuAD1rNsyPWzld+MmagaKyK6A1RND6C1ku9
+ apF72H8iqZM9032uOGk3d4Vn30KMtTFN5oJVY5nYocdxqfaX5D0X5F/GXVkPXNfZzbf3+2k6TGQ
+ EaaPpAJTGxdy14GecX4KmqtkQPy/9l7xkTCRObFC881ZXhfaw1PMAs3a5L8WMphfJYbGL2rCJGN
+ XyAXAHfGL+cGnuPyl0ZMCJ71FY/37o33A5BzQ9Vhsj51UExfjsKKx97DTFxlya+dwvfYMBmV1tR
+ TgwnXI=
+X-Received: by 2002:a17:907:3e1d:b0:bc2:df19:b48e with SMTP id
+ a640c23a62f3a-bc2df19b65fmr348544866b.34.1777959456885; 
+ Mon, 04 May 2026 22:37:36 -0700 (PDT)
+Received: from JTOLLET-M-FKW7.cisco.com
+ ([2603:5004:20a0:100c:46ca:8ac1:59:13e3])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48e530b212esm52203795e9.1.2026.05.07.05.15.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2026 05:15:38 -0700 (PDT)
-Date: Thu, 7 May 2026 14:15:36 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
- DRI <dri-devel@lists.freedesktop.org>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>, 
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the pinctrl-intel tree
-Message-ID: <afyCC_FE9QL5VBBm@orome>
-References: <3b729608ad4bc3bb161c3779a9768b12@kernel.org>
+ a640c23a62f3a-bc2e55d98f9sm122694466b.8.2026.05.04.22.37.34
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Mon, 04 May 2026 22:37:36 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+To: ankit.k.nautiyal@intel.com
+Cc: arun.r.murthy@intel.com, intel-gfx@lists.freedesktop.org,
+ Jerome Tollet <jerome.tollet@gmail.com>
+Subject: Re: [RESEND] drm/i915/hdmi: Poll for 200 msec for
+ TMDS_Scrambler_Status
+Date: Tue,  5 May 2026 07:37:33 +0200
+Message-ID: <20260505053733.74136-1-jerome.tollet@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
+References: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="zxepztxp53sv2ewk"
-Content-Disposition: inline
-In-Reply-To: <3b729608ad4bc3bb161c3779a9768b12@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 07 May 2026 12:16:52 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,44 +93,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Ankit, Arun,
 
---zxepztxp53sv2ewk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: linux-next: build failure after merge of the pinctrl-intel tree
-MIME-Version: 1.0
+I submitted patch v3 on April 20th but CI is blocked because my address
+jerome.tollet@gmail.com is not on the Intel GFX CI allowlist.
 
-On Thu, May 07, 2026 at 12:47:48PM +0200, Thierry Reding wrote:
-> Hi all,
->=20
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
+I contacted i915-ci-infra@lists.freedesktop.org twice (April 24th and
+April 30th) but received no response.
 
-Sorry about the misleading subject. This was indeed introduced after
-merging the drm-misc tree, not pinctrl-intel. I need to look closer at
-the templates that are generated.
+Could you help get this unblocked?
 
-Thierry
+Series: https://patchwork.freedesktop.org/series/160028/
 
---zxepztxp53sv2ewk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmn8gmUACgkQ3SOs138+
-s6HcUA//TIusmk3FnAe7we2CgaOJ+sqg8vpo8WhTR3tp61urf1xbiecKbG0xC7ou
-QJykdzlYPfSJYlEnJrSEakUAfpohy/38qKYtmguUVBfCH2YA3tuCFVy+9ElidkpF
-QWbUwHQ5NjJnr5rMIVnZDzcOM52NWfozCF+nXS4JRwA9krPK7FQI+yftv/ystF+c
-o8ur3EofGq6BQg885XNFd2FRGlsJsYBA9v6OWwKx4M83tKvlA2u65+vUPsNbo9So
-X+7fBWqK3P9jf/r0gBxImInqgkPcNwggNMG++u+Ngj9dxaNa5UDRAC+DgqJPAMef
-8C/2nofhRjWRSHxlWSgoWc2wmjUOFv85G3rQDr5cipG0b9Ws2b0dJFPCJf3wIaUU
-bYRGl3OoEMI6TP5vdNnST0P/Z/9NFxRWpBEA5tVogpEbVw29mfTeLzlQzNorjppq
-ldulosvdNBuRNUhMelHYX6DQ47WmDSdCJBfLtsSvXiiEhtYGHmgg1Z0GtusVAE9j
-yEWdNbQi6hJnj69wraT96UeW5YjTQkRqWlAcAYiIkQ/eUWlv85ComEu/IQZNsS4r
-qYw4RSmVUbhAcPT1LBNPjYqQDc2kEESrZRnYWFXv4EwXvcDFgSpXIQO3YhHRXASd
-GTByz1YcHtIBEjIRkVUGiICQb8ox/Fq3/wdK/F9NTLKnA5wzHcE=
-=NXs4
------END PGP SIGNATURE-----
-
---zxepztxp53sv2ewk--
+Thanks,
+Jerome
