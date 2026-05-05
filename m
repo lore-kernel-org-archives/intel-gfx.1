@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E9E8FF885A
-	for <intel-gfx@archiver.kernel.org>; Tue,  5 May 2026 08:41:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D896FF885A
+	for <intel-gfx@archiver.kernel.org>; Tue,  5 May 2026 09:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F83510E9EE;
-	Tue,  5 May 2026 08:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022B210E42C;
+	Tue,  5 May 2026 09:16:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hIlQ6xC8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ct0rprXE";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7787C10E9EE
- for <intel-gfx@lists.freedesktop.org>; Tue,  5 May 2026 08:41:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02F8F10E0F1;
+ Tue,  5 May 2026 09:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1777970515; x=1809506515;
+ t=1777972616; x=1809508616;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=Qtxnoy7BH2bi+vFGp0AFWv2ozIaHTdP/+U01o/6+bRM=;
- b=hIlQ6xC8r4idaRcM6N7KM4OcnN62Gf71fAyE2P3w5NrvDE3e1Yf8NQKN
- /w6dJJqC1v9ngJNVLuxkKUY3+lZ7zizmuZfKgPMqLnyc3+IF2TnCByrkd
- SdPJsPbp9BdNWTXAzypYszKKOKuNz5oQNfs7cnbzlohxYdNJyKSieCahq
- weNwphdFS9IyPFBqLnsgBzIn+z3FOJQzi7eBDbhadd1An5Vfn+1Vj9PHb
- K9x/uyvv+dNrT6EvZ3NnB3Srr4urdCimfH5rxnGhEhoCCM6Y6H4rs+tCI
- 9pJrYTJiGrmfrsDWRb9ypU80gfzszUQvgHBYiPcGlqW5+ZBE2WL9/HY9u A==;
-X-CSE-ConnectionGUID: Ido3d21US/+vlMV54ZKrmg==
-X-CSE-MsgGUID: cESuaReTRMSQ8is2o9fcRA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78740907"
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="78740907"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 May 2026 01:41:55 -0700
-X-CSE-ConnectionGUID: i9v8ypeSTySoQ/YFEUfc6g==
-X-CSE-MsgGUID: evI0DIgnQJGBF75CnMKiNw==
+ bh=O/+F1FuTyMlqTiyDMdls+PKaIOICmHcg65+7XwlYPg8=;
+ b=Ct0rprXELeUYjoDmfcRAfuqe9dK/uj3RH5orQC0AdQgdAP+XZf7oldsH
+ 3s1JnjSZ3vZWs9s8pOXk9swpBLL85o6fBCersnaxvXz2q4X6eqGFzFbgB
+ Y9RIEqSmw2cav3Y3kGSUczwL60EnClHAVia7TUcMP7jpka/9+GUiIdKCB
+ rUGBv1zfi3t4Pfawpk3bzqQ4Rh4R55AivLkytEcCAqImMEMz1c4s9dkZV
+ ICnSLRCKzoZ2IrGR5QIAzK9LfGTAGHs6ov2yGJcsOpZCsLHiTxwguG+/e
+ I/0G5ZbE08M5PNZG8gTwqT3WXFrdXmufmRlBMhWpsQrFDxdmR0E7LNpMV A==;
+X-CSE-ConnectionGUID: M8DrBZJ5QP+LywYQKKtnsQ==
+X-CSE-MsgGUID: XG9oJZHJSke5kiCJMyfTMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11776"; a="78887960"
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="78887960"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 May 2026 02:16:55 -0700
+X-CSE-ConnectionGUID: Y1O+9djhR4WGSJB4bIr9tQ==
+X-CSE-MsgGUID: xfAyxY/dSxGVofW8pghd0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="229269366"
+X-IronPort-AV: E=Sophos;i="6.23,217,1770624000"; d="scan'208";a="234752496"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.55])
- by fmviesa009-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 01:41:54 -0700
+ by orviesa006-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 May 2026 02:16:53 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH] drm/i915/irq: drop unnecessary forward declarations and
- includes
-Date: Tue,  5 May 2026 11:41:50 +0300
-Message-ID: <20260505084150.3346378-1-jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ ville.syrjala@linux.intel.com
+Subject: [RESEND 0/4] drm/i915/display: start switching to display specific
+ reg types
+Date: Tue,  5 May 2026 12:16:44 +0300
+Message-ID: <cover.1777972548.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
@@ -68,37 +72,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The i915_irq.h header has a bunch of leftover forward declarations and
-includes. Remove them.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- drivers/gpu/drm/i915/i915_irq.h | 7 -------
- 1 file changed, 7 deletions(-)
+Jani Nikula (4):
+  drm/i915/display: add typedef for intel_reg_t and use it
+  drm/i915/display: add struct intel_irq_regs and use it
+  drm/i915/display: add struct intel_error_regs and use it
+  drm/i915/display: define and use intel_reg_{offset,equal,valid}()
+    helpers
 
-diff --git a/drivers/gpu/drm/i915/i915_irq.h b/drivers/gpu/drm/i915/i915_irq.h
-index 5c87d6d41c74..108a187618de 100644
---- a/drivers/gpu/drm/i915/i915_irq.h
-+++ b/drivers/gpu/drm/i915/i915_irq.h
-@@ -6,18 +6,11 @@
- #ifndef __I915_IRQ_H__
- #define __I915_IRQ_H__
- 
--#include <linux/ktime.h>
- #include <linux/types.h>
- 
- #include "i915_reg_defs.h"
- 
--enum pipe;
--struct drm_crtc;
--struct drm_device;
--struct drm_display_mode;
- struct drm_i915_private;
--struct intel_crtc;
--struct intel_encoder;
- struct intel_uncore;
- 
- void intel_irq_init(struct drm_i915_private *dev_priv);
+ drivers/gpu/drm/i915/display/g4x_dp.c         |  4 +-
+ drivers/gpu/drm/i915/display/g4x_dp.h         | 10 ++--
+ drivers/gpu/drm/i915/display/g4x_hdmi.c       |  2 +-
+ drivers/gpu/drm/i915/display/g4x_hdmi.h       |  6 +--
+ drivers/gpu/drm/i915/display/icl_dsi.c        |  2 +-
+ drivers/gpu/drm/i915/display/intel_audio.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_color.c    |  4 +-
+ .../gpu/drm/i915/display/intel_combo_phy.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_crt.c      |  6 +--
+ drivers/gpu/drm/i915/display/intel_crt.h      |  6 +--
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  2 +-
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 26 +++++-----
+ drivers/gpu/drm/i915/display/intel_ddi.h      |  6 +--
+ drivers/gpu/drm/i915/display/intel_de.c       | 30 +++++------
+ drivers/gpu/drm/i915/display/intel_de.h       | 48 +++++++++---------
+ drivers/gpu/drm/i915/display/intel_display.c  |  8 +--
+ drivers/gpu/drm/i915/display/intel_display.h  | 10 ++--
+ .../drm/i915/display/intel_display_device.c   |  2 +-
+ .../gpu/drm/i915/display/intel_display_irq.c  | 20 ++++----
+ .../drm/i915/display/intel_display_power.c    |  4 +-
+ .../i915/display/intel_display_power_well.c   |  8 +--
+ .../drm/i915/display/intel_display_reg_defs.h | 35 +++++++++++++
+ .../gpu/drm/i915/display/intel_display_regs.h | 50 +++++++++----------
+ .../drm/i915/display/intel_display_types.h    | 12 ++---
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 50 +++++++++----------
+ drivers/gpu/drm/i915/display/intel_dmc_wl.c   | 14 +++---
+ drivers/gpu/drm/i915/display/intel_dmc_wl.h   |  6 +--
+ drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
+ drivers/gpu/drm/i915/display/intel_dp_aux.c   | 28 +++++------
+ drivers/gpu/drm/i915/display/intel_dpio_phy.c |  8 +--
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 32 ++++++------
+ drivers/gpu/drm/i915/display/intel_dsb.c      | 22 ++++----
+ drivers/gpu/drm/i915/display/intel_dsb.h      | 10 ++--
+ drivers/gpu/drm/i915/display/intel_dvo_dev.h  |  2 +-
+ drivers/gpu/drm/i915/display/intel_fdi.c      | 12 ++---
+ .../drm/i915/display/intel_fifo_underrun.c    |  4 +-
+ drivers/gpu/drm/i915/display/intel_gmbus.c    |  4 +-
+ drivers/gpu/drm/i915/display/intel_hdcp.c     |  2 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 28 +++++------
+ drivers/gpu/drm/i915/display/intel_lt_phy.c   |  6 +--
+ drivers/gpu/drm/i915/display/intel_lvds.c     |  6 +--
+ drivers/gpu/drm/i915/display/intel_lvds.h     |  6 +--
+ drivers/gpu/drm/i915/display/intel_mchbar.c   | 14 +++---
+ drivers/gpu/drm/i915/display/intel_mchbar.h   |  8 +--
+ .../gpu/drm/i915/display/intel_pch_display.c  | 14 +++---
+ drivers/gpu/drm/i915/display/intel_pps.c      | 38 +++++++-------
+ drivers/gpu/drm/i915/display/intel_psr.c      | 36 ++++++-------
+ drivers/gpu/drm/i915/display/intel_sdvo.c     |  6 +--
+ drivers/gpu/drm/i915/display/intel_sdvo.h     | 10 ++--
+ drivers/gpu/drm/i915/display/intel_snps_phy.c |  4 +-
+ drivers/gpu/drm/i915/display/intel_tc.c       | 10 ++--
+ drivers/gpu/drm/i915/display/intel_vblank.c   |  2 +-
+ drivers/gpu/drm/i915/display/intel_vdsc.c     | 10 ++--
+ drivers/gpu/drm/i915/display/intel_vga.c      |  4 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c        | 16 +++---
+ 55 files changed, 377 insertions(+), 342 deletions(-)
+
 -- 
 2.47.3
 
