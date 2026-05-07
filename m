@@ -4,75 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAD40CD484C
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E126CD37BE
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E34810E79B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E213610E7A0;
 	Mon, 11 May 2026 14:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNKQNnRH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A2B4D7yi";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 469F110E101
- for <intel-gfx@lists.freedesktop.org>; Sat,  9 May 2026 16:24:28 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-46fab5f4f59so154713b6e.1
- for <intel-gfx@lists.freedesktop.org>; Sat, 09 May 2026 09:24:28 -0700 (PDT)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 668EC10E29B
+ for <intel-gfx@lists.freedesktop.org>; Thu,  7 May 2026 15:55:20 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-50fb1932b62so7294921cf.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 07 May 2026 08:55:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778343867; x=1778948667; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1778169319; x=1778774119; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
- b=bNKQNnRH3frfDVqRmtApxVheo+ntM2oqFfI/tvJLuA2LryNMQprnT6kI05IJ9o/x25
- nTC0Y96M6O8KgR4InBS4pjeG4QhDAqbEs7lSNp+gvaxRrtko1PfOsgRXdC8hbhiX4vJ1
- pkXHqFPd41PrdwBx4J0YZNpbbythPPS7b4AM6vy8WFk+ZK9ILDKtsQkZj/SNFiF3t/Ov
- /QS+WjOOdBY1p2wCT9EIFq7GiM4h1Y2OssaiqvBs0QS/NzXhcqKZz6qwQLL8oCUry10n
- rZw8qXI80K2lPDDoVzt4VCohOIGEtj6tdRp2zNIjey+umzcw5gQGHhtzROit3ssA8toW
- +IUg==
+ bh=lWM+10h5MUyRseSBiItZP2GSRhredA2eS6xYxv/W1C0=;
+ b=A2B4D7yi6HrFu+vnQ9OcMMYSFMgJDBpTo9mGlPsB46lRGWdBpjKJVKTTaZ0RUWYLcw
+ h0Zl6FGJKKDiKswXhXMc1qrcrwTLv7NRwtFDX31fDsi0ncok5yxjVHbaiviD/fzIpnPT
+ ZuN1hbajjN+gG3MHJIWIO3qZlyRdGzPcqhy8qeOxfXnto0saO4Dr8+DnHNfDDZfhu86O
+ vFvxr3t9IX+OgpdI5Lq7hRN2HyTIj5ALKLWsnTRgbZ8TDUHilOmXz42JLGyxs9fvxMfL
+ UQyMM1sTr3HPlCkQY3pm1em9UjWuN6p2b6MjiYlXybd8kXw82/b/am/Sv/AQdrIxzKen
+ BKBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778343867; x=1778948667;
+ d=1e100.net; s=20251104; t=1778169319; x=1778774119;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
- b=o58m77Pz2G0DPYYgQjX2MN4xHgYDp9v3oXl8btLoJflE+vzjYn4mxuB6oBfr0jaHzm
- IORnCgECgpP3blcRmn/SbebDUV3MTpSxQixUm1jGX1cdRblsFOx2rMpt+rCX7ROGzBIz
- S+X4XDQPN4W4NtBy8V0dRzifKBCdajld6NHDVrPERjCyUsBx9BHi1rx1ey2253relNHU
- xrszM+zZPafy3U5fnVOJ/T6J6tVmKXshuO3XkG1tPiTD11Jti/w/1ufDuM9lt+GDv1Pk
- TeLeyE3zu5rsd20Evh7vOnXI7B0W6AT0zsN9Y2lN0CzJ01MW43H8KVmUvRWIGs3iBerg
- KztA==
-X-Gm-Message-State: AOJu0YzTpueDB93rEDB+di++3dSVfS8UuiZ21ruudDTnyESzwfEtllkL
- glPnH+1ROddpT8LLX69/0u3jU38IBx4HcsOy6LfMshw8j6oPGJ9MG+LB513kR/Jft98=
-X-Gm-Gg: Acq92OEPWauZpjHCW9qmcAnsRrX5CBEIeKeni13ya4J5dmSWPfOO5MLtOhr7KxfHJ32
- X0Zx1sZBUFUppE77Q8RSxvYt37aRE1bHf+TavnVGUVV7km3y5snPG8jYI+GoAl1bUPU9/5S3mhY
- 0B8wsVciRMt/GD6o/mpgL3+vM3o1ZbAFM/07pCY7LAGvxUTPt4oFIaWoElGQjpOGwbFlys53D3R
- d03RL/yJ+vdhlOdMMoxUurkOop6XY9SFFvjR3jTzmdT68H1+emxZPWeLfNZU2YMsGPLPYtjdQQT
- X9D50d7tAGjnu3VZXIrOcDSQg+NXCstWEM6aqXzQhitHVttBbhVRptJP6oCqXc6sxaLyzS4sehn
- 7etOYI14AvuyCfgiLg0PE5E5+xFQWixFt9hdYQa+Rzy+wu9cC8wp7iP0nyk1u7T9T5ojYtQar0L
- Lz55NO/kl7CW7mpghFBF45lg+7NYmiR6rMsU/2LMpDFjhS2UAZqANh4ciMeE+6h7QU5hJbl+/fk
- d/5Xx1V/7ZQPJXDrpTrTxz+7Im3hMpAegI=
-X-Received: by 2002:a05:6808:19a3:b0:467:53b0:b414 with SMTP id
- 5614622812f47-480451ce0c8mr5800487b6e.6.1778343867067; 
- Sat, 09 May 2026 09:24:27 -0700 (PDT)
-Received: from localhost ([136.49.184.116]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-47c763b2c87sm17071559b6e.4.2026.05.09.09.24.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 09:24:26 -0700 (PDT)
-From: Aaron Esau <aaron1esau@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- mika.kahola@intel.com, stable@vger.kernel.org,
- Aaron Esau <aaron1esau@gmail.com>
-Subject: [PATCH 3/3] drm/i915/cx0: return errors from CX0 PLL enable on failure
-Date: Sat,  9 May 2026 11:24:07 -0500
-Message-ID: <20260509162407.510539-4-aaron1esau@gmail.com>
+ bh=lWM+10h5MUyRseSBiItZP2GSRhredA2eS6xYxv/W1C0=;
+ b=Ajb17LqTGPaB6QU2vRNx0prmjixZmwmjaeTDxGu4b0HN2FVg29hLrnEmRr4p8fe8vs
+ pl+0kUKMh+4DAzq3/PcSVTdRgW8GTJykTonnaN2JAbamxQuePMANcbBPnCebrUBQb/TK
+ xOwaNSY9L4ewhI6BZgHIt4AQ4wzHppwW3hvipAhDHTbx74amt3DxG6YIhLKhvVTd/5r2
+ 0XAe/6A7T2kBWxLtHIXoqVzIRAl+kAnGBCDFtAyrB1Hb9J2d2NCf0NyZ7Ndi3WyZ1Fk1
+ XInIBAG2I4kECzRBNlwuCenzV0M7R0Vd00ltF9+zYitcYAtKSudM1zYK7ao5dnmj4Z/l
+ wfXA==
+X-Gm-Message-State: AOJu0Yz2Ma38RnKq3IYdlGz3gfIXUC5W1cSAp7hhN6kumm/bXCHd2+JG
+ /c7FceA3H6Ruf/edh/w5JSSzXzQQ1ZTh44hRBiFz7eAh4bJMyNAfZl8/C5eGxgoMYn8=
+X-Gm-Gg: AeBDieswGm0k7PW3Ct4lDYjlJ0sDTSXJ6W2KbtYsLTjFLTdgSo1AuEWlLGSM18RzNem
+ gzWBU9oPxM2GyfLKP7I9pVjG25+Lpf5cS76/xi6SAmCuTs+mWj/dTVlDzIa2v4vJcgK4szEO7LV
+ 4w4M8KpudlTnC82oAV9vfQNZ6qO1yBSbmhy2HaFOgx7A2iygW13q4rUNGdl+3RueVxIEo4WYyLI
+ OrLEICwzD3PMToG+fod/kW/DZtMLQhNFb0UisFEXrz7ShT0hjQQmld4TSkqaZLGU0hcJXWfTb6U
+ 0hc7mCO2SI1NUJ1sr85EwNfxgujKdLNd3vncoZv4P670VLWGyzOee0eI2PezN1LG5vzeePeb9Np
+ R9N9mZeL3Utpw7M1kL+uFlpIJzkfHii564M7x198hRhlm0tYi5Ova9N6wvHFUXg6BluQZwfF75b
+ BL1bBzSXznvwq+qJLCtZKQbzc8fg4SLY3DTj53s59P0J9WVBSCq4Ms5tGtXpUfpd7plsHJNkLzy
+ 3cN/SfGCA==
+X-Received: by 2002:a05:622a:5e0f:b0:509:2858:3c63 with SMTP id
+ d75a77b69052e-51461c31c60mr117627021cf.23.1778169319242; 
+ Thu, 07 May 2026 08:55:19 -0700 (PDT)
+Received: from JTOLLET-M-FKW7.cisco.com
+ ([2603:5004:20a0:100a:af70:41c7:fc15:4203])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8b534ac8ef3sm219635096d6.0.2026.05.07.08.55.18
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 07 May 2026 08:55:18 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+To: ankit.k.nautiyal@intel.com
+Cc: intel-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/i915/hdmi: Poll for 200 msec for TMDS_Scrambler_Status
+Date: Thu,  7 May 2026 17:55:16 +0200
+Message-ID: <20260507155516.60972-1-jerome.tollet@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
+In-Reply-To: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
+References: <20260113143107.1446909-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 11 May 2026 14:40:35 +0000
@@ -91,177 +89,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_cx0pll_enable() silently continues when the PHY fails to come
-out of SOC reset or the PLL fails to lock. When the CX0 PHY MSGBUS
-is unresponsive, this causes all subsequent PLL register writes to be
-silently dropped and the PLL lock request to time out, leaving the
-display hardware in a broken state.
+HDMI 2.0 section 6.1.3.1 specifies that after enabling
+Scrambling_Enable and starting scrambled video transmission, the source
+should poll Scrambling_Status until it reads 1 or until a timeout of
+200 ms expires.
 
-Return -ETIMEDOUT from intel_cx0_phy_lane_reset() when the PHY fails
-to come out of SOC reset. Return -ETIMEDOUT from intel_cx0pll_enable()
-when the PLL fails to lock. Propagate these errors through
-intel_mtl_pll_enable() and mtl_pll_enable() to the shared DPLL
-framework, which (as of the previous patch) will abort the CRTC
-enable sequence rather than driving a pipe with a non-functional PLL.
+Add a polling step after enabling the HDMI port to check the scrambling
+status when HDMI scrambling is enabled.
 
-Fixes: 51390cc0e00a ("drm/i915/mtl: Add Support for C10 PHY message bus and pll programming")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Esau <aaron1esau@gmail.com>
+On some HDMI 2.0 sinks, omitting this check can result in 4K@60Hz
+(594 MHz) failing to come up correctly because the sink has not yet
+finished its scrambling setup. In practice, waiting for the scrambling
+status here fixes such sinks.
+
+While this synchronous polling is not itself explicitly required for
+correct modeset sequencing, HDMI 2.0 section 6.1.3.1 does recommend it
+as the way for the source to verify that the TMDS link is functioning
+correctly with scrambling enabled.
+
+v3:
+ - Add explicit HDMI 2.0 section reference in code comment
+ - Clarify commit message around the observed sink fix
+
+v2:
+ - Poll TMDS_Scrambler_Status for up to 200 ms instead of using a fixed
+   delay
+
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/6868
+Signed-off-by: Jerome Tollet <jerome.tollet@gmail.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Reviewed-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 47 ++++++++++++-------
- drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  6 +--
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  4 +-
- 3 files changed, 34 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/i915/display/intel_ddi.c  |  2 ++
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 26 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.h |  2 ++
+ 3 files changed, 30 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 4cacea802..f5c8444ef 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -3103,8 +3103,8 @@ static u32 intel_cx0_get_pclk_refclk_ack(u8 lane_mask)
- 	return val;
- }
- 
--static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
--				     bool lane_reversal)
-+static int intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
-+				    bool lane_reversal)
- {
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum port port = encoder->port;
-@@ -3121,10 +3121,12 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
- 
- 	if (intel_de_wait_for_set_us(display, XELPDP_PORT_BUF_CTL1(display, port),
- 				     XELPDP_PORT_BUF_SOC_PHY_READY,
--				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US))
--		drm_warn(display->drm,
--			 "PHY %c failed to bring out of SOC reset\n",
--			 phy_name(phy));
-+				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US)) {
-+		drm_err(display->drm,
-+			"PHY %c failed to bring out of SOC reset\n",
-+			phy_name(phy));
-+		return -ETIMEDOUT;
-+	}
- 
- 	intel_de_rmw(display, XELPDP_PORT_BUF_CTL2(display, port), lane_pipe_reset,
- 		     lane_pipe_reset);
-@@ -3160,6 +3162,8 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
- 		drm_warn(display->drm,
- 			 "PHY %c failed to bring out of lane reset\n",
- 			 phy_name(phy));
-+
-+	return 0;
- }
- 
- static void intel_cx0_program_phy_lane(struct intel_encoder *encoder, int lane_count,
-@@ -3220,17 +3224,18 @@ static u32 intel_cx0_get_pclk_pll_ack(u8 lane_mask)
- 	return val;
- }
- 
--static void intel_cx0pll_enable(struct intel_encoder *encoder,
--				const struct intel_cx0pll_state *pll_state)
-+static int intel_cx0pll_enable(struct intel_encoder *encoder,
-+			       const struct intel_cx0pll_state *pll_state)
- {
- 	int port_clock = pll_state->use_c10 ? pll_state->c10.clock : pll_state->c20.clock;
- 	struct intel_display *display = to_intel_display(encoder);
- 	enum phy phy = intel_encoder_to_phy(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
-+	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
- 	bool lane_reversal = dig_port->lane_reversal;
- 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
- 					  INTEL_CX0_LANE0;
--	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
-+	int ret;
- 
- 	/*
- 	 * Lane reversal is never used in DP-alt mode, in that case the
-@@ -3246,7 +3251,9 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	intel_program_port_clock_ctl(encoder, pll_state, port_clock, lane_reversal);
- 
- 	/* 2. Bring PHY out of reset. */
--	intel_cx0_phy_lane_reset(encoder, lane_reversal);
-+	ret = intel_cx0_phy_lane_reset(encoder, lane_reversal);
-+	if (ret)
-+		goto out;
- 
- 	/*
- 	 * 3. Change Phy power state to Ready.
-@@ -3296,9 +3303,12 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 	if (intel_de_wait_us(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
- 			     intel_cx0_get_pclk_pll_ack(INTEL_CX0_BOTH_LANES),
- 			     intel_cx0_get_pclk_pll_ack(maxpclk_lane),
--			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL))
--		drm_warn(display->drm, "Port %c PLL not locked\n",
--			 phy_name(phy));
-+			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL)) {
-+		drm_err(display->drm, "Port %c PLL not locked\n",
-+			phy_name(phy));
-+		ret = -ETIMEDOUT;
-+		goto out;
-+	}
- 
- 	/*
- 	 * 11. Follow the Display Voltage Frequency Switching Sequence After
-@@ -3320,7 +3330,10 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
- 						    XELPDP_P2_STATE_READY);
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index ebefa889bc8c..8659d1861c2a 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -3505,6 +3505,8 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
  	}
  
-+out:
- 	intel_cx0_phy_transaction_end(encoder, wakeref);
+ 	intel_ddi_buf_enable(encoder, buf_ctl);
 +
-+	return ret;
++	intel_hdmi_poll_for_scrambling_enable(crtc_state, connector);
  }
  
- void intel_mtl_tbt_pll_calc_state(struct intel_dpll_hw_state *hw_state)
-@@ -3458,11 +3471,11 @@ void intel_mtl_tbt_pll_enable_clock(struct intel_encoder *encoder, int port_cloc
- 		       port_clock);
+ static void intel_ddi_enable(struct intel_atomic_state *state,
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 05e898d10a2b..234866310c14 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2693,6 +2693,32 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
+ 		drm_connector_attach_max_bpc_property(&connector->base, 8, 12);
  }
  
--void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  struct intel_dpll *pll,
--			  const struct intel_dpll_hw_state *dpll_hw_state)
-+int intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			 struct intel_dpll *pll,
-+			 const struct intel_dpll_hw_state *dpll_hw_state)
- {
--	intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
-+	return intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
- }
++/*
++ * HDMI 2.0 spec, section 6.1.3.1 (Scrambling Control): after
++ * enabling Scrambling_Enable and starting scrambled video
++ * transmission, poll Scrambling_Status for up to 200 ms.
++ */
++void
++intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_state,
++				      struct drm_connector *_connector)
++{
++	struct intel_connector *connector = to_intel_connector(_connector);
++	struct intel_display *display = to_intel_display(crtc_state);
++	bool scrambling_enabled = false;
++	int ret;
++
++	if (!crtc_state->hdmi_scrambling)
++		return;
++
++	/* Poll for a max of 200 msec as per HDMI spec */
++	ret = poll_timeout_us(scrambling_enabled = drm_scdc_get_scrambling_status(&connector->base),
++			      scrambling_enabled, 1000, 200 * 1000, false);
++	if (ret)
++		drm_dbg_kms(display->drm,
++			    "[CONNECTOR:%d:%s] Timed out waiting for scrambling enable\n",
++			    connector->base.base.id, connector->base.name);
++}
++
+ /*
+  * intel_hdmi_handle_sink_scrambling: handle sink scrambling/clock ratio setup
+  * @encoder: intel_encoder
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
+index be2fad57e4ad..0fa3661568e8 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.h
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
+@@ -70,5 +70,7 @@ void hsw_read_infoframe(struct intel_encoder *encoder,
+ 			const struct intel_crtc_state *crtc_state,
+ 			unsigned int type,
+ 			void *frame, ssize_t len);
++void intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_state,
++					   struct drm_connector *_connector);
  
- void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index ae98ac23e..1d6cc32d7 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -28,9 +28,9 @@ struct intel_hdmi;
- void intel_clear_response_ready_flag(struct intel_encoder *encoder,
- 				     int lane);
- bool intel_encoder_is_c10phy(struct intel_encoder *encoder);
--void intel_mtl_pll_enable(struct intel_encoder *encoder,
--			  struct intel_dpll *pll,
--			  const struct intel_dpll_hw_state *dpll_hw_state);
-+int intel_mtl_pll_enable(struct intel_encoder *encoder,
-+			 struct intel_dpll *pll,
-+			 const struct intel_dpll_hw_state *dpll_hw_state);
- void intel_mtl_pll_disable(struct intel_encoder *encoder);
- enum icl_port_dpll_id
- intel_mtl_port_pll_type(struct intel_encoder *encoder,
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 78fd2e5f9..ce31deadc 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -4441,9 +4441,7 @@ static int mtl_pll_enable(struct intel_display *display,
- 	if (drm_WARN_ON(display->drm, !encoder))
- 		return -ENODEV;
- 
--	intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
--
--	return 0;
-+	return intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
- }
- 
- static void mtl_pll_disable(struct intel_display *display,
+ #endif /* __INTEL_HDMI_H__ */
 -- 
 2.54.0
 
