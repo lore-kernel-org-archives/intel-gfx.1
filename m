@@ -4,50 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805F3CD3427
-	for <intel-gfx@archiver.kernel.org>; Thu,  7 May 2026 12:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F07D6CD3427
+	for <intel-gfx@archiver.kernel.org>; Thu,  7 May 2026 12:20:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 158FC10F0C4;
-	Thu,  7 May 2026 12:16:53 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ispras.ru header.i=@ispras.ru header.b="VaR7Nx4i";
-	dkim-atps=neutral
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Thu, 07 May 2026 08:14:19 UTC
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AFEC10F074;
- Thu,  7 May 2026 08:14:19 +0000 (UTC)
-Received: from debian.lan (unknown [95.24.24.108])
- by mail.ispras.ru (Postfix) with ESMTPSA id 0FEE945A1D2A;
- Thu,  7 May 2026 08:06:04 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 0FEE945A1D2A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
- s=default; t=1778141164;
- bh=t6msmjqawU/IEsj5CPxud70TuqJjAjCucEWvMJ3Guhk=;
- h=From:To:Cc:Subject:Date:From;
- b=VaR7Nx4iurJc2k38ZCC7sKPUbG60TZzh7zWCskj64/r4czrnXDx1pFOSS1dizzxNP
- wBq7v7eOONtbPocEz7tHcevL23XJV6XUduTbRQL971Nov5XqcgXBwRfmg4XIKQdCUS
- +SkSk6FIcNQkkmyra6AbeboWACBXhpWV3ReiyMnA=
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Fedor Pchelkin <pchelkin@ispras.ru>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- Matt Roper <matthew.d.roper@intel.com>,
- Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: fix up region size calculation for flushing
- dcache lines
-Date: Thu,  7 May 2026 11:05:43 +0300
-Message-ID: <20260507080544.57053-1-pchelkin@ispras.ru>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D59410F0E7;
+	Thu,  7 May 2026 12:20:37 +0000 (UTC)
+Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0B6310F06F;
+ Thu,  7 May 2026 12:20:36 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 07 May 2026 12:16:52 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/gt=3A_?=
+ =?utf-8?q?fix_up_region_size_calculation_for_flushing_dcache_lines?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Fedor Pchelkin" <pchelkin@ispras.ru>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 07 May 2026 12:20:36 -0000
+Message-ID: <177815643678.47681.10105881158322302766@5ab824fced77>
+X-Patchwork-Hint: ignore
+References: <20260507080544.57053-1-pchelkin@ispras.ru>
+In-Reply-To: <20260507080544.57053-1-pchelkin@ispras.ru>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +37,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Computing region size for flushing dcache lines currently involves
+== Series Details ==
 
-  execlists->csb_size * sizeof(execlists->csb_status)
+Series: drm/i915/gt: fix up region size calculation for flushing dcache lines
+URL   : https://patchwork.freedesktop.org/series/166136/
+State : failure
 
-while the second operand should represent the size of the csb status array
-element (u64), not the size of the pointer variable.  It works on a 64-bit
-kernel, but it's not correct for exotic 32-bit ones and may result in an
-incomplete flush when the number of csb entries covers more than a single
-cacheline.
+== Summary ==
 
-Found by Linux Verification Center (linuxtesting.org) with Svace static
-analysis tool.
+Address 'pchelkin@ispras.ru' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
 
-Fixes: dc0406820ee7 ("drm/i915/gt: Drop invalidate_csb_entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
----
-
-The patch is against drm-intel/drm-intel-next,
-HEAD:775fb670745015d679a65f948b3da0fbff3f100c
-
- drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-index 1359fc9cb88e..31037ee3c2c4 100644
---- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-+++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
-@@ -2833,7 +2833,7 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
- 	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
- 	drm_clflush_virt_range(execlists->csb_status,
- 			       execlists->csb_size *
--			       sizeof(execlists->csb_status));
-+			       sizeof(execlists->csb_status[0]));
- 
- 	/* Once more for luck and our trusty paranoia */
- 	ENGINE_WRITE(engine, RING_CONTEXT_STATUS_PTR,
--- 
-2.53.0
 
