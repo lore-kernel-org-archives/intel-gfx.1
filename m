@@ -4,151 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEDCBCD37A7
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 May 2026 12:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10D51CD3436
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 May 2026 12:40:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74CD310F4A5;
-	Fri,  8 May 2026 12:39:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83FAB10F497;
+	Fri,  8 May 2026 12:40:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LsqOpSiE";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AjS48Seo";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A1D10F49C;
- Fri,  8 May 2026 12:39:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A935A10F497
+ for <intel-gfx@lists.freedesktop.org>; Fri,  8 May 2026 12:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778243947; x=1809779947;
- h=date:from:to:cc:subject:message-id:reply-to:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=CSEd1l2Ns1J9GpL1vod4RXVgUnlaa4pl0ZmmeyXWiCU=;
- b=LsqOpSiEFIiZ1mPD0BTzrRkk4w9UvVEYb9JvH3MvN8U1fIguHuN9mJZc
- fpDppSR34baHtLY5MlvnKcr0KY9yKaW3d/h44uwdsCNGcy1cpNw3MAdgc
- E5tgqsPy9uz9ffPLe8axPY3zvjnbpvmiycKWPf7Y1AIhpiYQ8LT5+XPLW
- SrhGgj6DOANb7GcjthGUtOfppI5hzJM4vVSnM6UIGTxee8isgbEQo7WuC
- 6LAvTD1pkK6qcM1eTBtHyVmBFloCkvEJlm2UFiGgM9Kl0VYgBbfBNvyVt
- 6dL723ZonjXN0QtR5Y0vjZUYMxn2XCN2GHa/FpB4sA+QQk6mwbrUndlku g==;
-X-CSE-ConnectionGUID: KOT1ETj1RBKjIAhwD0X6OQ==
-X-CSE-MsgGUID: yQA/kMDXRR+fgvj9TrujHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="101882982"
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="101882982"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 05:39:07 -0700
-X-CSE-ConnectionGUID: 6lMuSkEGS+6U3vEPo1dY8w==
-X-CSE-MsgGUID: IfjFiv2uSc2MXnGQoiCv4A==
+ t=1778244050; x=1809780050;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2sJkROZAh6Hff/DaVQBve9t+vJREpqTKtF9lHNA9KHE=;
+ b=AjS48SeogkR7/IgOQ0ars9rsXjoJNup8gQbDWf9fwxaHfGXg5W740juG
+ ax9CfHIojBfFpbXeH455E9mX57HDrMDfvJJQ28RU9Qt9BuQy5XKp81Na8
+ gcoR9CSnD5aAHqLFmbzsdBQFOgvBLyx3IbwJ8dkjFTDWegyY6/Gq0PoxP
+ 7FyDlSl6BR+c41qOOoPE1tlPdURVYrTgJhsiw2WONJya1iqQN4z7ITX5H
+ kwFUqKDUHMqHrH+k9VkmtJgUDQUs09PFWzl3Javsl6vSOAFwLLX2K9Tfx
+ CISOaBo2RX9RNSywKfMkOKReUmhkkRn9XvQ6bKUtockoJKcCZ8zTvbeCW w==;
+X-CSE-ConnectionGUID: l76n9AUKQ/2Vj/UWuNxzGQ==
+X-CSE-MsgGUID: 5fRSVwt0QPuZDerJcLd3oQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11779"; a="79317374"
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="79317374"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 05:40:49 -0700
+X-CSE-ConnectionGUID: atym7dInQ7ey/bmOeotN3w==
+X-CSE-MsgGUID: r3K7ItInTs6RKGjTxwOUXg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="267136503"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2026 05:39:06 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 8 May 2026 05:39:06 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Fri, 8 May 2026 05:39:06 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.64) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Fri, 8 May 2026 05:39:05 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LehfL5KjeF8CeXhcQz9MreVWcNZkcn1h8fJuTROXAUOQ2DaqOr2sj3eDh1311gRNfGwmlQuy0CZrgMFYxP3F2Zk9hB9apF/xqmEz78IhqJR/soEJ/mIw89vJuWmnr0wsCol0+EVkeQF3bG0Vva9yl2yIi7W5MF3njHr55M3+JK9zzRsA8k8EKd2hBRJyaDh1x2mAUJ8REllTKEzvhGSKQI1ACLw21/ggEnUft5hyZV4uofy4U+CMkcddCkCz6PZJ3SNTEvLWYvO7aCebIoPttuLcmmVd0cTYGn1zlVLgL4yMUObMc1yfFRP16sK+v/wES9w0akRED1mH3gR2Ev3EpA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tEdbm1KMsEOnndW44s18VfGE/NPkDlydBmD78V0mLyc=;
- b=oFCDgRqlqe7Vib0NOhBKaHHER00HoUsUU0bvh9Se5o0Wt6LR3hFD67FHi2hdNPPkCI0uECmnG4RPBU6Rkg8trSdxqGrhHfwSGxnE+rGbHbupNNmQigmqMNwYIE5QlnH959oLqTaiQP52nOqJ2/tYqtAzL6VlgjPvi7wYNJto1Ark4JzGM+HiMHvAk54qbOpuW+zTqjgh9RwT6BtyIoXrCwGRGdll/Ryl20PmPq6an3BpVFMRqcdK+K/c3gQrFZ5pg4i1honZtxJUrw4XEFAHEYWnYMVfBxXg4mi2eSbFlnuOg+kjrdXM6D3gyynZN0Tvegr+dFC35WEGLmCM2CsMzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com (2603:10b6:a03:2d1::10)
- by EAYPR11MB9948.namprd11.prod.outlook.com (2603:10b6:303:2d2::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.18; Fri, 8 May
- 2026 12:39:02 +0000
-Received: from SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::9ca5:4d1d:db45:f523]) by SJ0PR11MB4845.namprd11.prod.outlook.com
- ([fe80::9ca5:4d1d:db45:f523%5]) with mapi id 15.20.9891.008; Fri, 8 May 2026
- 12:39:02 +0000
-Date: Fri, 8 May 2026 15:38:55 +0300
-From: Imre Deak <imre.deak@intel.com>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/i915/ddi: Fix cleanup after DP connector init
- failure
-Message-ID: <af3ZX8JZHwo91I6t@ideak-desk.lan>
-References: <20260507065940.2046690-1-imre.deak@intel.com>
- <789f07e13b359dff1f4fb273a4a27dea7eb51883.camel@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <789f07e13b359dff1f4fb273a4a27dea7eb51883.camel@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-X-ClientProxiedBy: GV2PEPF0001A326.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:401::68f) To SJ0PR11MB4845.namprd11.prod.outlook.com
- (2603:10b6:a03:2d1::10)
+X-IronPort-AV: E=Sophos;i="6.23,223,1770624000"; d="scan'208";a="260201936"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.67])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2026 05:40:47 -0700
+Date: Fri, 8 May 2026 14:40:45 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com,
+ krzysztof.karas@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: skip __i915_request_skip() for already
+ signaled requests
+Message-ID: <af3ZzUW3dobsTjmC@ashyti-mobl2.lan>
+References: <fe76921d35b6ae85aa651822726d0d9815aa5362.1776339012.git.sebastian.brzezinka@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR11MB4845:EE_|EAYPR11MB9948:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b6a1bcb-52bf-48dd-5b5c-08deacfec8c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|56012099003|22082099003|3023799003|18002099003;
-X-Microsoft-Antispam-Message-Info: kSkQCpB0qBmoTdkRsLjRcjz/Zde7iPhcWedFG/rH5t3CDMu0NKy3n9d0hlUFdN92G6b62lHtJYI3DMyhxuYS81/iQpGUqdsfAfb0pesxkRxaIdCcb+myp7WUEQcaTVbC9xiV+PtLndLb/KV5lHbVvAOmaD9zd/OvhgvbNEbeoC97QtqjgWdTiMRAWX169ZGyls4oigezsHQjPK9bKD0demhJ6kKO+1GwCDjdH9JrMqhLgnPu0csr657ApkL1q4R8BC/wkWEy+zXvXOBkTUXtKM3p0U49g9ggBOpPD3d8dZh1weqVwhmD/BiS//QOyv+R3LtxPUIrzMzsizMB3mW9/lBMdTWaPRfP/ZxJnTp6R1zvZrEal/9qcvxXl6QcrdFiVmpOMapnkwWOuU+AmNTmGD7zcRgDAh63MFuRxwp4cwaop7qE6PDkpZooqw3542uuFrhc9+FlNuEa7f/wPGbiikzzebXLWSoIrms7kba7j5J3vMffIy1KvIcpP4HV7+87kprriin3FBd7vRnXSfRUBN+qIhtgW3r8icBXbaccXlCFUoEBhpnsaKTPi0IFFLicYjSxWQLSlql++C5bKUBfYRLimzmvyeqvU63ynAbdPHua3deVzMyK4vZYgAE7V8G8SKwhtn0XgAcrVoNL3KWVLm+o6UDWTZTvkM99vHXFnBpXA5ENJAU5ibYHsG7I9Jna
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR11MB4845.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(56012099003)(22082099003)(3023799003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?gXRahOpBP/8v1wBn3Q+siJH5zDHh5UEZIJYFqOluNQmTOB1XJu9HL3dP0+?=
- =?iso-8859-1?Q?zgER+NrH0QC2D9ggtSfTrJ4BltiX2hXxIPxhcAN5WTotoebyF2paCUiftw?=
- =?iso-8859-1?Q?GKO7X/rrqZC985Ah0Jo7yoKX6eUMtSDG1bYGRZescaSybKpc8ZDIhCA3BH?=
- =?iso-8859-1?Q?Eh/t4bCk66RHwOSlPPQLKr0ehlpOlPdQgglus62kIoVJERwRIVXfL6Tm8O?=
- =?iso-8859-1?Q?ByknUqlzbeGnRo7hqd2R2RtWZVhVJM51z2iTI2iUPIK4xzzLIEBcxF2oW9?=
- =?iso-8859-1?Q?6Z6hP4PXtz/Mm2dLLIfr/eXx0gCoW1YIMDSpRQwyHyZTTn45FbDaNYEQG4?=
- =?iso-8859-1?Q?4cWYhSlc56bKFYViJF6rUKyMajcarpmPKdIZHbDj7V+k7L1dguJ9mVqjFb?=
- =?iso-8859-1?Q?Uph0k+3ZVK/DTCVrp3n0gNM1RNI9Datt1Iugb5Tb1pEG+Ox+GluFVrRLXT?=
- =?iso-8859-1?Q?ppF82UwuSht7xvc+KxcOiRIMxP2y259GOewVl/sH71Ty+9uwukqPYBEcDP?=
- =?iso-8859-1?Q?BQh7M9RntIcPN2MNdXziFv/5YeOEyhyPB5l6bvcZhkWeSaKsvgF7rTPfHy?=
- =?iso-8859-1?Q?3OwlI3JhzsPiw6/H3iiArjug3q7/FpoJLQHNnNcYOCD3xq4decbIs7/kYs?=
- =?iso-8859-1?Q?1wA/ScZ6BIO11C0z+hGnraV1lldtLfJv6yCmhE8JU6opWLrCvxy5qRiYD0?=
- =?iso-8859-1?Q?2goeqHNZ/T73k79WLV1GySPw8OjGTFQY5RjKaR11jo9yWpiUCr7w0iLqf1?=
- =?iso-8859-1?Q?5sot6dVO6RNAy1vrlbX1H+R5rfhNm/YcE9jSJjoiCmzbeSuB34aYDBTxVX?=
- =?iso-8859-1?Q?KKMoaqlS2UcBKQJu7W3qeRgIPpLtFZN8neNMgGlpqBckcYiSS66eFE4vAi?=
- =?iso-8859-1?Q?F2UemVWDJYoYHxhyLxonBvKGd929F8AAumE3kRCvRbacTviqA439f1m/36?=
- =?iso-8859-1?Q?G3AIAJtNNBUl/hiQVhRb5VuODhDPL2lR1cNis0lnFIf8RKRVritoSd9bh5?=
- =?iso-8859-1?Q?1akqVixotMir1GtQ+0+UDLJjq9u2qA9u27KQOiTkEJWrcZxMh7lmL+GTOW?=
- =?iso-8859-1?Q?BQxbvxnWwHqlhZeIJoSSwV/vCb28+yiA+f+cCJRg5g27K1cjnsZ8cprI01?=
- =?iso-8859-1?Q?vs5r1XOOd1wey4ck356UoBXzU9cRJunIRm+N/Rtu5Pb7nTq8FUskjzlTUi?=
- =?iso-8859-1?Q?ix68BPETEfTjBJN7+riB3jYLnwM5nYrvj6pZvvnjMfa+5tC5XmIdLaHn0M?=
- =?iso-8859-1?Q?DMMKCF/SFhmglbNE+C3N7E7CjsUSuaACWGNoJnnuSnhk1Jy06S+f22P5Gc?=
- =?iso-8859-1?Q?wHYevOqvQcgppHrPMvOT3KdO+ja+ZIEjbJMN63RL4J7TLcgWzEeFvyC68f?=
- =?iso-8859-1?Q?zNlPQEiPEbcKPiMBfrxKZMCymC+qUU8vd5FIPR6QdUGP82dJtqaCjH0CYw?=
- =?iso-8859-1?Q?ZRAaosRxiNHNGdOPBw2QQwP6J+K8UOnm64nlWVWTnJsJw6rm7EXmTEDVgd?=
- =?iso-8859-1?Q?tX1pRm49crQq5RiYgTkSmsFA2RgBL9N0IPv/V195IutKIJiTroDqMnXwiG?=
- =?iso-8859-1?Q?8l0RyJ+Lt1ZDw4WrdC0wU3CRa/XUn0Sl9PprHvtl189cLo3VZU3rZ8g9Jy?=
- =?iso-8859-1?Q?u/zaN84VT8rz718s9JfgNO+8M66G0QtrU0ELW20tjgQ9xPuPrz/4MyGZIs?=
- =?iso-8859-1?Q?UMrBDQi+H+33qvfDwJHusNX8LWrO56DCvViF9CweTekX2SxJ53ht9q2pGO?=
- =?iso-8859-1?Q?xLqnOXq6FDfWoBQ4SxBwnju/yxvcrpGVqOXxfaTMhCmTAIwyJkkjffv9r6?=
- =?iso-8859-1?Q?lBRjGJAP0w=3D=3D?=
-X-Exchange-RoutingPolicyChecked: RqGCRUhJBovyNyZLwN+d5sasN6p4tqXEdfVkmEvJTR+HPKoEcf4G2npz5r4gEqJKkRW8h9AMYpmGqQ8TSjlDmN4kge14DjRMixDcv+2jeAfQs6zp717AFwrAhC+hqe9Q+EmyxMYC73s3Tcmf1CjQKdxtYmzg/IYotHH0pcGPTPQDGyjKix6ZseiSb8V2DEIiwwPo2RqLbENi3enVY3Tg7rUL3gWtQM+wlYQHYDaSi0HpRwXzG/GK5zgLv3Cckfi6KDtfGcYIEbPHc/9mOYxOsYhM4FymZsJKaI20i5AX+8dhXH8t5UJipPDOwlC8rO0aLvRxhN9vQ9ow/kMYXi69Vw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b6a1bcb-52bf-48dd-5b5c-08deacfec8c4
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR11MB4845.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 12:39:02.5025 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LClXAL9Ab7e07S6h0vtLJJ1+Xqz288FAzogVytzOExA8L52pZ5Abl8ltDIwrpwxgAFToyACorLleuAxSejaIrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR11MB9948
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fe76921d35b6ae85aa651822726d0d9815aa5362.1776339012.git.sebastian.brzezinka@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,85 +67,43 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: imre.deak@intel.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 08, 2026 at 03:26:43PM +0300, Hogander, Jouni wrote:
-> On Thu, 2026-05-07 at 09:59 +0300, Imre Deak wrote:
-> > Fix the error path during DDI encoder/connector initialization by
-> > calling the missing TC port cleanup function.
-> > 
-> > This fixes the leaked TC port state.
-> 
-> Do we need "Fixes:" line here? Otherwise patch looks ok:
+Hi Sebastian,
 
-Wondered about it too. Fixes: involves the automatic stable backporting
-of the patch and the criteria for a stable backport is whether the patch
-fixes an actual usecase for someone. The likelihood for that is close to
-0, it's an error path and even if that ran for someone (due to -ENOMEM)
-the leaks wouldn't be the real issue.
+On Thu, Apr 16, 2026 at 01:31:18PM +0200, Sebastian Brzezinka wrote:
+> After a GPU reset the HWSP is zeroed, so previously completed
+> requests appear incomplete. If such a request is picked up during
+> reset_rewind() and marked guilty, i915_request_set_error_once()
+> returns early (fence already signaled), leaving fence.error without
+> a fatal error code. The subsequent __i915_request_skip() then hits:
+> ```
+> GEM_BUG_ON(!fatal_error(rq->fence.error))
+> ```
+> 
+> Fixes a kernel BUG observed on Sandy Bridge (Gen6) during
+> heartbeat-triggered engine resets.
+> ```
+> kernel BUG at drivers/gpu/drm/i915/i915_request.c:556!
+> RIP: __i915_request_skip+0x15e/0x1d0 [i915]
+> ...
+> __i915_request_reset+0x212/0xa70 [i915]
+> reset_rewind+0xe4/0x280 [i915]
+> intel_gt_reset+0x30d/0x5b0 [i915]
+> heartbeat+0x516/0x530 [i915]
+> ```
+> 
+> Guard __i915_request_skip() with i915_request_signaled(), if the
+> fence is already signaled, the ring content is committed and there
+> is nothing left to skip.
+> 
+> Cc: stable@vger.kernel.org
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/13729
+> Fixes: 36e191f0644b ("drm/i915: Apply i915_request_skip() on submission")
+> Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 
-> Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
-> 
-> > 
-> > Signed-off-by: Imre Deak <imre.deak@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_ddi.c | 13 ++++++++-----
-> >  1 file changed, 8 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > index 2681940a5cfe3..e37cc32ee83ed 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> > @@ -5411,7 +5411,7 @@ void intel_ddi_init(struct intel_display
-> > *display,
-> >  	if (need_aux_ch(encoder, init_dp)) {
-> >  		dig_port->aux_ch = intel_dp_aux_ch(encoder);
-> >  		if (dig_port->aux_ch == AUX_CH_NONE)
-> > -			goto err;
-> > +			goto err_aux_ch_init;
-> >  	}
-> >  
-> >  	/*
-> > @@ -5447,7 +5447,7 @@ void intel_ddi_init(struct intel_display
-> > *display,
-> >  		dig_port->unlock = intel_tc_port_unlock;
-> >  
-> >  		if (intel_tc_port_init(dig_port, is_legacy) < 0)
-> > -			goto err;
-> > +			goto err_aux_ch_init;
-> >  	}
-> >  
-> >  	drm_WARN_ON(display->drm, port > PORT_I);
-> > @@ -5478,7 +5478,7 @@ void intel_ddi_init(struct intel_display
-> > *display,
-> >  
-> >  	if (init_dp) {
-> >  		if (intel_ddi_init_dp_connector(dig_port))
-> > -			goto err;
-> > +			goto err_dp_connector_init;
-> >  
-> >  		dig_port->hpd_pulse = intel_dp_hpd_pulse;
-> >  
-> > @@ -5492,12 +5492,15 @@ void intel_ddi_init(struct intel_display
-> > *display,
-> >  	 */
-> >  	if (encoder->type != INTEL_OUTPUT_EDP && init_hdmi) {
-> >  		if (intel_ddi_init_hdmi_connector(dig_port))
-> > -			goto err;
-> > +			goto err_dp_connector_init;
-> >  	}
-> >  
-> >  	return;
-> >  
-> > -err:
-> > +err_dp_connector_init:
-> > +	if (intel_encoder_is_tc(encoder))
-> > +		intel_tc_port_cleanup(dig_port);
-> > +err_aux_ch_init:
-> >  	drm_encoder_cleanup(&encoder->base);
-> >  	kfree(dig_port);
-> >  }
-> 
+Merged to drm-intel-gt-next.
+
+Thanks,
+Andi
