@@ -4,27 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45D5ACD3445
-	for <intel-gfx@archiver.kernel.org>; Fri,  8 May 2026 16:13:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70D13CD3445
+	for <intel-gfx@archiver.kernel.org>; Fri,  8 May 2026 16:23:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D837510F517;
-	Fri,  8 May 2026 16:13:39 +0000 (UTC)
-Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2442210F517;
- Fri,  8 May 2026 16:13:38 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8404852797369791421=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74AD310F563;
+	Fri,  8 May 2026 16:23:44 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gMZ2tUQZ";
+	dkim-atps=neutral
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013064.outbound.protection.outlook.com
+ [40.93.196.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8864610F540;
+ Fri,  8 May 2026 16:23:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nRebC2iyyyPJnPsZuNl23/Qg8SyXx1Q9AELop1jcBcSPIxaHiVx0qtFv4c7EJHZowz95iZeeZ2K7fQsUbYZ8CdyP0FEiik+ZccJw+uAPmcyq0KvsXBvRI3xbn8bhjpkkxpnoU9nafoXrQwMyqV2gpBBbJPKR+nJxDKyeBzH+t9BHCdwi6szW5hzMD8AZWs5WaVzFmdkugVqzxiQ+ZoX9m7yAZ8EieNfLa2ki5a+FdZbQan+HXGew8Zwx5aRFLoqwRyfJtJ5QQWxtQ2nmB9bpMu/QbHhAFRzSh+gmQmFrUIuqsl9ImCrcwtQWS8w1Y8LeKTbpGVwVDSBjloGdX3Wk8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vis0L2KatZQR2CksV+rGxrARGyTVYjkhMv07RPu98+o=;
+ b=hBaXeMSwIr0r/YXf4YeeUJHBUbwwiAaCrzBHn1TWsn1KS+ybiP06d7JdNaBFPH+/KJcOKmk5VUFVXGcmbDvTfCSsyw23zNoghSrXgQ0p2sU+4adV+c2b4YOWOmeoSw5tl6Y7639fH4aV6kIS0Ocqvg2Q2PqOjUel7o83nZiS5WmBagP+mfld+ZVZC52pPekDzYyzBrA71FAjyq5FRPeyj+cq3iC5Ss2MjtktAgo9YHGv5WnAvebkdB0pSp/AOP3iVzoo7Zhz7v/LE53ERY3jzJ5PmX38Fh4fVEEQTVHytybhCAAeoXC6uBSAn6PvvHWFD+zypHBoa5nuq8jtdC6Hqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vis0L2KatZQR2CksV+rGxrARGyTVYjkhMv07RPu98+o=;
+ b=gMZ2tUQZud95gtEsV9tqx5C+nZpnjCkIJ/Nl6OKdb6ZTdKeWIZJQC70okxNVXp/+26FykF//X+GCLIh5YpBfEhGfW9ziJlBxIoDn0Zq7SFXDMh9Empe0OHyOJwn4o28w9Avk03OAvWibCOWFMPGbkEvnfVtBqXnRiemY8nO32/4=
+Received: from BL1PR13CA0405.namprd13.prod.outlook.com (2603:10b6:208:2c2::20)
+ by MN6PR12MB8544.namprd12.prod.outlook.com (2603:10b6:208:47f::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Fri, 8 May
+ 2026 16:23:32 +0000
+Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
+ (2603:10b6:208:2c2:cafe::ca) by BL1PR13CA0405.outlook.office365.com
+ (2603:10b6:208:2c2::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.25.11 via Frontend Transport; Fri, 8
+ May 2026 16:23:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9891.9 via Frontend Transport; Fri, 8 May 2026 16:23:30 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 8 May
+ 2026 11:23:27 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v3 2/2] gpu/tests/buddy: add clear-tracker allocation latency
+ benchmarks
+Date: Fri, 8 May 2026 21:53:10 +0530
+Message-ID: <20260508162310.57080-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260508162310.57080-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260508162310.57080-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Fix_potential?=
- =?utf-8?q?_UAF_in_TTM_object_purge_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 08 May 2026 16:13:38 -0000
-Message-ID: <177825681813.52561.8411162440279921699@5ab824fced77>
-X-Patchwork-Hint: ignore
-References: <20260508122612.469227-2-janusz.krzysztofik@linux.intel.com>
-In-Reply-To: <20260508122612.469227-2-janusz.krzysztofik@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|MN6PR12MB8544:EE_
+X-MS-Office365-Filtering-Correlation-Id: 255c2239-5072-48b9-af03-08dead1e2434
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|36860700016|82310400026|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: cXr0W+Kids0hAjscpqm8EaU78v+M1MUHTdDyH/JdWgamLrlniA3E7c5lvTj33599aA5S2tjSnU9lAQhJ07GsibGm8WcHG50sidprLbAGb1zgblO80lrBUMd/ZWLLiIVU6fH+WF2uMEogRjh5tA19liPR4WsW6s39zUbANyWBNc0kB3B1najGrkdgBKW9RW03ThRQXQWYvADfx1LNFH/Zeuw4HfP8FX40k8GVv6ZA11Icjn6bL2phI4tRYr9cOEoqAmA58IjlpfN97c0GmVXzOd/T4bhDdNh0vd9uGlOt85Uz4BI9V4agmlNDMcntWmzs80gFpH+cNB1clFFSe7m+ZKi7jPv1Vtnge+TeZAFHDmobsAJ2ln0KZ/TTIEODO7Cm0vJ+AJSYdbJu1e+ZDTuQ977E2q7hprfHRQZ1QjNB69K1aNDe93V73QqHdWq+jmm2WKR1qE+Onnt1vy8NdapApCAvf0zC/xwKK9ku23LOFyt62lR0+dMlgW6KHJIVZNRkeis7CvRaWgf3avEjXPtIvNJ6VX1WttjYJSDIV9xCEx8xHUU1eg95qME8TuKAb3pFx9R7tAEwFmxVb1mB4vwMbycBp3zLOJlZMcUpZopOwIOyE+D8DQ+3kpXdh1/htsdc1ZrXqmb/blu6wrWTWqI+SQcqc1cxQUugik51f/hTlAmFXLePmqMgp0hRn1xRK33MPJfteyvs1dMLKhnCwXCtLcCrx0x9VgDL0ijwn7tLFaQ=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /RiDdAj5W0EAekZUu4vgD9AtDXXI71zX5g5gbxxNpuc6mNx0sSrxR3vRJwLUce9VNwHf4D6F6y+4f1GzJFQK5EfSrQL5PPxg/gkklCEXnAF5ILv4wRSjxakr51cBq4O3ifzJEUUNGLp0S2J8W0S9+du9EyEwT6r6E80x8t12eiSyYOy2DHPjodEaV/HLFek/pqwDy8GCzyIpUUYWzlRWjjtYxg8q3vb2AR/TC/JBYWgSHBXhh2HB8451EvXR2kLkeWgaAy2pW5SaPGE3jxkxEmpGz0N6Oj1Eu6DY0Xrem1KVRFqmepMClocHZl+Mw8/x1O7/tXxl13qnA1E7YR/Shipz72b7emikRP1WG0mgd77m/VaMHy02vgWYPZQYnxNFGcqVJ917leUYK+H3dz3/PcX6CJfc6OxuB2RhKWOiD+zAbszBRkiD7KHNYJ11jq6t
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2026 16:23:30.0810 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 255c2239-5072-48b9-af03-08dead1e2434
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8544
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,290 +112,200 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8404852797369791421==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Add gpu_test_buddy_clear_tracker_performance test case that measures
+allocation latency before and after replacing the dual-tree /
+force_merge design with a decoupled clear tracker.
 
-== Series Details ==
+Two scenarios are covered.
 
-Series: drm/i915: Fix potential UAF in TTM object purge (rev2)
-URL   : https://patchwork.freedesktop.org/series/166126/
-State : success
+1. Single contiguous allocation after fragmentation. A 4 GiB pool is
+   filled with 4 KiB blocks and freed in alternating clear/dirty order,
+   so every buddy pair ends up split across the two trees and cannot
+   coalesce at free() time. A single contiguous 4 GiB allocation then
+   takes ~61 ms on the dual-tree design (the alloc path has to invoke
+   __force_merge() to climb back up to max_order) and ~25 ms with the
+   clear tracker (the pool is already coalesced at free() time).
 
-== Summary ==
+2. Repeated allocations from a fragmented pool. Same 4 GiB pool, freed
+   with even-indexed blocks cleared and odd-indexed dirty so every
+   adjacent buddy pair sits on opposite sides of the merge barrier.
+   16384 x 256 KiB allocations then take ~80 ms on the dual-tree
+   design (each alloc pays the __force_merge() cost) and ~39 ms with
+   the clear tracker (free-time merging makes each alloc an O(log N)
+   split).
 
-CI Bug Log - changes from CI_DRM_18455 -> Patchwork_166126v2
-====================================================
+v2:
+ - Removed unwanted sub tests
 
-Summary
--------
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/tests/gpu_buddy_test.c | 127 ++++++++++++++++++++++++++---
+ 1 file changed, 117 insertions(+), 10 deletions(-)
 
-  **SUCCESS**
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index e0d24a4542b2..5495d0b8ec0c 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -38,7 +38,7 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 	};
+ 	struct list_head allocated[ARRAY_SIZE(alignments)];
+ 	unsigned int i, max_subtree_align = 0;
+-	int ret, tree, order;
++	int ret, order;
+ 	struct gpu_buddy mm;
+ 
+ 	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
+@@ -93,15 +93,13 @@ static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+ 		gpu_buddy_free_list(&mm, &allocated[i], 0);
+ 
+ 		for (order = 0; order <= mm.max_order; order++) {
+-			{
+-				node = mm.free_tree[order].rb_node;
+-				if (!node)
+-					continue;
+-
+-				block = container_of(node, struct gpu_buddy_block, rb);
+-				max_subtree_align = max(max_subtree_align,
+-							block->subtree_max_alignment);
+-			}
++			node = mm.free_tree[order].rb_node;
++			if (!node)
++				continue;
++
++			block = container_of(node, struct gpu_buddy_block, rb);
++			max_subtree_align = max(max_subtree_align,
++						block->subtree_max_alignment);
+ 		}
+ 
+ 		KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
+@@ -285,6 +283,114 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
+ }
+ 
++static void gpu_test_buddy_clear_tracker_performance(struct kunit *test)
++{
++	struct gpu_buddy_block *block, *tmp;
++	unsigned long elapsed_ms;
++	LIST_HEAD(clear_blocks);
++	LIST_HEAD(dirty_blocks);
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	LIST_HEAD(results);
++	ktime_t start, end;
++	int i, count;
++
++	/*
++	 * Contiguous alloc latency after alternating clear/dirty fragmentation
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, partition them into
++	 * alternating cleared and dirty sets, then free both.  In the old
++	 * dual-tree design every adjacent buddy pair has one cleared half and
++	 * one dirty half, so the pair sits on opposite sides of the clear/dirty
++	 * merge barrier and cannot be coalesced at free() time.  The pool
++	 * stays fully fragmented and the subsequent contiguous 4 GiB allocation
++	 * has to invoke __force_merge() to climb back up to max_order before
++	 * it can succeed.  With the clear-tracker design buddy pairs coalesce
++	 * unconditionally during free(), so the pool is already at max_order
++	 * before the timed alloc begins and __force_merge() is not needed.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
++						      &results, 0),
++			       "contiguous alloc failed\n");
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Contiguous alloc after fragmentation: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++
++	/*
++	 * Repeated alloc throughput from a maximally fragmented pool
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
++	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
++	 * ensures every adjacent buddy pair has one cleared half and one dirty
++	 * half, so each pair lands on opposite sides of the old merge barrier.
++	 * Each of the 16 384 x 256 KiB allocations in the timed loop has to
++	 * pay the __force_merge() cost on the alloc path under the old design.
++	 * With the clear-tracker design the pool collapses to one max_order
++	 * block during free(), so each alloc is a simple O(log N) split.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	for (i = 0; i < SZ_4G / SZ_256K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_4K,
++							      &results, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_256K);
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static void gpu_test_buddy_alloc_range_bias(struct kunit *test)
+ {
+ 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
+@@ -1398,6 +1504,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_clear_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+-- 
+2.34.1
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/index.html
-
-Participating hosts (41 -> 40)
-------------------------------
-
-  Additional (1): bat-adls-6 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_166126v2 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@dmabuf@all-tests:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#15931])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@dmabuf@all-tests.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#15656])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@i915_selftest@live:
-    - bat-dg2-8:          [PASS][4] -> [DMESG-FAIL][5] ([i915#12061]) +1 other test dmesg-fail
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-dg2-8/igt@i915_selftest@live.html
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-dg2-8/igt@i915_selftest@live.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][6] ([i915#7707]) +1 other test skip
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#4103]) +1 other test skip
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#3555] / [i915#3840])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][9]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#5354])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][11] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][12] ([i915#3555])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][13] ([i915#3291]) +2 other tests skip
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-arlh-3:         [DMESG-FAIL][14] ([i915#12061]) -> [PASS][15] +1 other test pass
-   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html
-    - bat-arls-5:         [DMESG-FAIL][16] ([i915#12061]) -> [PASS][17] +1 other test pass
-   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-arls-5/igt@i915_selftest@live@workarounds.html
-   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
-    - bat-dg2-14:         [DMESG-FAIL][18] ([i915#12061]) -> [PASS][19] +1 other test pass
-   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-dg2-14/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [DMESG-WARN][20] ([i915#13400]) -> [PASS][21]
-   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#15931]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#3840]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3840
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18455 -> Patchwork_166126v2
-
-  CI-20190529: 20190529
-  CI_DRM_18455: 77eab7037c06504f1d405c099a263cfe1ff84dcd @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8900: 529869b7d0fba64ed67819111079ff269bc8159a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_166126v2: 77eab7037c06504f1d405c099a263cfe1ff84dcd @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/index.html
-
---===============8404852797369791421==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Fix potential UAF in TTM object purge (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166126/">https://patchwork.freedesktop.org/series/166126/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18455 -&gt; Patchwork_166126v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/index.html</p>
-<h2>Participating hosts (41 -&gt; 40)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_166126v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@dmabuf@all-tests:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@dmabuf@all-tests.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15931">i915#15931</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3840">i915#3840</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-arlh-3/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-arlh-3/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18455/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166126v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18455 -&gt; Patchwork_166126v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18455: 77eab7037c06504f1d405c099a263cfe1ff84dcd @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8900: 529869b7d0fba64ed67819111079ff269bc8159a @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_166126v2: 77eab7037c06504f1d405c099a263cfe1ff84dcd @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8404852797369791421==--
