@@ -4,49 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97951CD484D
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAD40CD484C
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E54010E79C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E34810E79B;
 	Mon, 11 May 2026 14:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=kcore.it header.i=@kcore.it header.b="WYXmb1qC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bNKQNnRH";
 	dkim-atps=neutral
-X-Greylist: delayed 984 seconds by postgrey-1.36 at gabe;
- Sun, 10 May 2026 17:46:38 UTC
-Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9F410E133;
- Sun, 10 May 2026 17:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
- s=spark; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=TJ58bbmrh+pyeR1MRXgtBNPGCye/bC7K9b1jnY3KMLk=; b=WYXmb1qCPjPTtZM1Q/ywAGdcx5
- p/7/ajKQNAjoaf+Sy40DyWLpxQwen6YuyortBavxEosoHFMCbUXNEZFM8zTiom99HyDHvYIKus1KI
- H4Cm0cPBZP4zTx0QSt6Y6RBOOPdjPPFJu7Jvoj5sHXjl/D8Xi3eurMAJ9Lw1oyG+lUMQ=;
-Received: from mnencia by spark.kcore.it with local (Exim 4.96)
- (envelope-from <mnencia@kcore.it>) id 1wM7yj-000BFA-2l;
- Sun, 10 May 2026 19:30:09 +0200
-Date: Sun, 10 May 2026 19:30:09 +0200
-From: Marco Nenciarini <mnencia@kcore.it>
-To: Aaron Esau <aaron1esau@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Mika Kahola <mika.kahola@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 0/3] drm/i915/cx0: fix PLL enable failure handling on
- Meteor Lake
-Message-ID: <agDAocAQF_wpZYs5@spark.kcore.it>
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
+ [209.85.167.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 469F110E101
+ for <intel-gfx@lists.freedesktop.org>; Sat,  9 May 2026 16:24:28 +0000 (UTC)
+Received: by mail-oi1-f171.google.com with SMTP id
+ 5614622812f47-46fab5f4f59so154713b6e.1
+ for <intel-gfx@lists.freedesktop.org>; Sat, 09 May 2026 09:24:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1778343867; x=1778948667; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
+ b=bNKQNnRH3frfDVqRmtApxVheo+ntM2oqFfI/tvJLuA2LryNMQprnT6kI05IJ9o/x25
+ nTC0Y96M6O8KgR4InBS4pjeG4QhDAqbEs7lSNp+gvaxRrtko1PfOsgRXdC8hbhiX4vJ1
+ pkXHqFPd41PrdwBx4J0YZNpbbythPPS7b4AM6vy8WFk+ZK9ILDKtsQkZj/SNFiF3t/Ov
+ /QS+WjOOdBY1p2wCT9EIFq7GiM4h1Y2OssaiqvBs0QS/NzXhcqKZz6qwQLL8oCUry10n
+ rZw8qXI80K2lPDDoVzt4VCohOIGEtj6tdRp2zNIjey+umzcw5gQGHhtzROit3ssA8toW
+ +IUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778343867; x=1778948667;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vYSUkeQk08X5s5eiMKardz3dR/jsqi1HIQzkNjMFZNU=;
+ b=o58m77Pz2G0DPYYgQjX2MN4xHgYDp9v3oXl8btLoJflE+vzjYn4mxuB6oBfr0jaHzm
+ IORnCgECgpP3blcRmn/SbebDUV3MTpSxQixUm1jGX1cdRblsFOx2rMpt+rCX7ROGzBIz
+ S+X4XDQPN4W4NtBy8V0dRzifKBCdajld6NHDVrPERjCyUsBx9BHi1rx1ey2253relNHU
+ xrszM+zZPafy3U5fnVOJ/T6J6tVmKXshuO3XkG1tPiTD11Jti/w/1ufDuM9lt+GDv1Pk
+ TeLeyE3zu5rsd20Evh7vOnXI7B0W6AT0zsN9Y2lN0CzJ01MW43H8KVmUvRWIGs3iBerg
+ KztA==
+X-Gm-Message-State: AOJu0YzTpueDB93rEDB+di++3dSVfS8UuiZ21ruudDTnyESzwfEtllkL
+ glPnH+1ROddpT8LLX69/0u3jU38IBx4HcsOy6LfMshw8j6oPGJ9MG+LB513kR/Jft98=
+X-Gm-Gg: Acq92OEPWauZpjHCW9qmcAnsRrX5CBEIeKeni13ya4J5dmSWPfOO5MLtOhr7KxfHJ32
+ X0Zx1sZBUFUppE77Q8RSxvYt37aRE1bHf+TavnVGUVV7km3y5snPG8jYI+GoAl1bUPU9/5S3mhY
+ 0B8wsVciRMt/GD6o/mpgL3+vM3o1ZbAFM/07pCY7LAGvxUTPt4oFIaWoElGQjpOGwbFlys53D3R
+ d03RL/yJ+vdhlOdMMoxUurkOop6XY9SFFvjR3jTzmdT68H1+emxZPWeLfNZU2YMsGPLPYtjdQQT
+ X9D50d7tAGjnu3VZXIrOcDSQg+NXCstWEM6aqXzQhitHVttBbhVRptJP6oCqXc6sxaLyzS4sehn
+ 7etOYI14AvuyCfgiLg0PE5E5+xFQWixFt9hdYQa+Rzy+wu9cC8wp7iP0nyk1u7T9T5ojYtQar0L
+ Lz55NO/kl7CW7mpghFBF45lg+7NYmiR6rMsU/2LMpDFjhS2UAZqANh4ciMeE+6h7QU5hJbl+/fk
+ d/5Xx1V/7ZQPJXDrpTrTxz+7Im3hMpAegI=
+X-Received: by 2002:a05:6808:19a3:b0:467:53b0:b414 with SMTP id
+ 5614622812f47-480451ce0c8mr5800487b6e.6.1778343867067; 
+ Sat, 09 May 2026 09:24:27 -0700 (PDT)
+Received: from localhost ([136.49.184.116]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-47c763b2c87sm17071559b6e.4.2026.05.09.09.24.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 09 May 2026 09:24:26 -0700 (PDT)
+From: Aaron Esau <aaron1esau@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
+ mika.kahola@intel.com, stable@vger.kernel.org,
+ Aaron Esau <aaron1esau@gmail.com>
+Subject: [PATCH 3/3] drm/i915/cx0: return errors from CX0 PLL enable on failure
+Date: Sat,  9 May 2026 11:24:07 -0500
+Message-ID: <20260509162407.510539-4-aaron1esau@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
 References: <20260509162407.510539-1-aaron1esau@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="H+WTlR/4MbHBIrr6"
-Content-Disposition: inline
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 11 May 2026 14:40:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,89 +91,177 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+intel_cx0pll_enable() silently continues when the PHY fails to come
+out of SOC reset or the PLL fails to lock. When the CX0 PHY MSGBUS
+is unresponsive, this causes all subsequent PLL register writes to be
+silently dropped and the PLL lock request to time out, leaving the
+display hardware in a broken state.
 
---H+WTlR/4MbHBIrr6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Return -ETIMEDOUT from intel_cx0_phy_lane_reset() when the PHY fails
+to come out of SOC reset. Return -ETIMEDOUT from intel_cx0pll_enable()
+when the PLL fails to lock. Propagate these errors through
+intel_mtl_pll_enable() and mtl_pll_enable() to the shared DPLL
+framework, which (as of the previous patch) will abort the CRTC
+enable sequence rather than driving a pipe with a non-functional PLL.
 
-Hi Aaron,
+Fixes: 51390cc0e00a ("drm/i915/mtl: Add Support for C10 PHY message bus and pll programming")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aaron Esau <aaron1esau@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 47 ++++++++++++-------
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  6 +--
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c |  4 +-
+ 3 files changed, 34 insertions(+), 23 deletions(-)
 
-Short version: same regression reproduces on Arrow Lake-P with a
-different NVIDIA SKU, and NVreg_EnableS0ixPowerManagement=3D1 is already
-set on this machine. The S0ix knob alone is not sufficient to suppress
-the race here, so the i915 side of the fix matters even on systems
-where the NVIDIA workaround is in place.
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+index 4cacea802..f5c8444ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
+@@ -3103,8 +3103,8 @@ static u32 intel_cx0_get_pclk_refclk_ack(u8 lane_mask)
+ 	return val;
+ }
+ 
+-static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
+-				     bool lane_reversal)
++static int intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
++				    bool lane_reversal)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	enum port port = encoder->port;
+@@ -3121,10 +3121,12 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
+ 
+ 	if (intel_de_wait_for_set_us(display, XELPDP_PORT_BUF_CTL1(display, port),
+ 				     XELPDP_PORT_BUF_SOC_PHY_READY,
+-				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US))
+-		drm_warn(display->drm,
+-			 "PHY %c failed to bring out of SOC reset\n",
+-			 phy_name(phy));
++				     XELPDP_PORT_BUF_SOC_READY_TIMEOUT_US)) {
++		drm_err(display->drm,
++			"PHY %c failed to bring out of SOC reset\n",
++			phy_name(phy));
++		return -ETIMEDOUT;
++	}
+ 
+ 	intel_de_rmw(display, XELPDP_PORT_BUF_CTL2(display, port), lane_pipe_reset,
+ 		     lane_pipe_reset);
+@@ -3160,6 +3162,8 @@ static void intel_cx0_phy_lane_reset(struct intel_encoder *encoder,
+ 		drm_warn(display->drm,
+ 			 "PHY %c failed to bring out of lane reset\n",
+ 			 phy_name(phy));
++
++	return 0;
+ }
+ 
+ static void intel_cx0_program_phy_lane(struct intel_encoder *encoder, int lane_count,
+@@ -3220,17 +3224,18 @@ static u32 intel_cx0_get_pclk_pll_ack(u8 lane_mask)
+ 	return val;
+ }
+ 
+-static void intel_cx0pll_enable(struct intel_encoder *encoder,
+-				const struct intel_cx0pll_state *pll_state)
++static int intel_cx0pll_enable(struct intel_encoder *encoder,
++			       const struct intel_cx0pll_state *pll_state)
+ {
+ 	int port_clock = pll_state->use_c10 ? pll_state->c10.clock : pll_state->c20.clock;
+ 	struct intel_display *display = to_intel_display(encoder);
+ 	enum phy phy = intel_encoder_to_phy(encoder);
+ 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
++	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
+ 	bool lane_reversal = dig_port->lane_reversal;
+ 	u8 maxpclk_lane = lane_reversal ? INTEL_CX0_LANE1 :
+ 					  INTEL_CX0_LANE0;
+-	struct ref_tracker *wakeref = intel_cx0_phy_transaction_begin(encoder);
++	int ret;
+ 
+ 	/*
+ 	 * Lane reversal is never used in DP-alt mode, in that case the
+@@ -3246,7 +3251,9 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 	intel_program_port_clock_ctl(encoder, pll_state, port_clock, lane_reversal);
+ 
+ 	/* 2. Bring PHY out of reset. */
+-	intel_cx0_phy_lane_reset(encoder, lane_reversal);
++	ret = intel_cx0_phy_lane_reset(encoder, lane_reversal);
++	if (ret)
++		goto out;
+ 
+ 	/*
+ 	 * 3. Change Phy power state to Ready.
+@@ -3296,9 +3303,12 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 	if (intel_de_wait_us(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port),
+ 			     intel_cx0_get_pclk_pll_ack(INTEL_CX0_BOTH_LANES),
+ 			     intel_cx0_get_pclk_pll_ack(maxpclk_lane),
+-			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL))
+-		drm_warn(display->drm, "Port %c PLL not locked\n",
+-			 phy_name(phy));
++			     XELPDP_PCLK_PLL_ENABLE_TIMEOUT_US, NULL)) {
++		drm_err(display->drm, "Port %c PLL not locked\n",
++			phy_name(phy));
++		ret = -ETIMEDOUT;
++		goto out;
++	}
+ 
+ 	/*
+ 	 * 11. Follow the Display Voltage Frequency Switching Sequence After
+@@ -3320,7 +3330,10 @@ static void intel_cx0pll_enable(struct intel_encoder *encoder,
+ 						    XELPDP_P2_STATE_READY);
+ 	}
+ 
++out:
+ 	intel_cx0_phy_transaction_end(encoder, wakeref);
++
++	return ret;
+ }
+ 
+ void intel_mtl_tbt_pll_calc_state(struct intel_dpll_hw_state *hw_state)
+@@ -3458,11 +3471,11 @@ void intel_mtl_tbt_pll_enable_clock(struct intel_encoder *encoder, int port_cloc
+ 		       port_clock);
+ }
+ 
+-void intel_mtl_pll_enable(struct intel_encoder *encoder,
+-			  struct intel_dpll *pll,
+-			  const struct intel_dpll_hw_state *dpll_hw_state)
++int intel_mtl_pll_enable(struct intel_encoder *encoder,
++			 struct intel_dpll *pll,
++			 const struct intel_dpll_hw_state *dpll_hw_state)
+ {
+-	intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
++	return intel_cx0pll_enable(encoder, &dpll_hw_state->cx0pll);
+ }
+ 
+ void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+index ae98ac23e..1d6cc32d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
+@@ -28,9 +28,9 @@ struct intel_hdmi;
+ void intel_clear_response_ready_flag(struct intel_encoder *encoder,
+ 				     int lane);
+ bool intel_encoder_is_c10phy(struct intel_encoder *encoder);
+-void intel_mtl_pll_enable(struct intel_encoder *encoder,
+-			  struct intel_dpll *pll,
+-			  const struct intel_dpll_hw_state *dpll_hw_state);
++int intel_mtl_pll_enable(struct intel_encoder *encoder,
++			 struct intel_dpll *pll,
++			 const struct intel_dpll_hw_state *dpll_hw_state);
+ void intel_mtl_pll_disable(struct intel_encoder *encoder);
+ enum icl_port_dpll_id
+ intel_mtl_port_pll_type(struct intel_encoder *encoder,
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index 78fd2e5f9..ce31deadc 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -4441,9 +4441,7 @@ static int mtl_pll_enable(struct intel_display *display,
+ 	if (drm_WARN_ON(display->drm, !encoder))
+ 		return -ENODEV;
+ 
+-	intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
+-
+-	return 0;
++	return intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
+ }
+ 
+ static void mtl_pll_disable(struct intel_display *display,
+-- 
+2.54.0
 
-Hardware:
-  Dell Pro Max 16 Premium (MA16250)
-  Intel Arrow Lake-P, Arc Pro 140T iGPU [8086:7d51]
-  NVIDIA RTX PRO 1000 Blackwell [10de:2db8]
-  NVIDIA driver 595.71.05 (open kernel modules)
-
-Kernel: 7.0.4+deb13-amd64 (Debian 7.0.4-1~bpo13+1).
-
-NVIDIA module options:
-  NVreg_EnableS0ixPowerManagement=3D1
-  NVreg_PreserveVideoMemoryAllocations=3D1
-  NVreg_DynamicPowerManagement=3D0x00
-
-Representative trace from a recent boot, ~45 minutes in, on the
-internal eDP panel. The trigger was a VT switch out of the graphical
-session via systemd-logind (vt_ioctl, fbcon_switch,
-intel_fbdev_pan_display), not a direct s2idle resume; a suspend/resume
-cycle had occurred earlier in the same boot:
-
-  i915 0000:00:02.0: [drm] *ERROR* Failed to bring PHY A to idle.
-  i915 0000:00:02.0: [drm] *ERROR* PHY A Read 0c70 failed after 3 retries.
-  i915 0000:00:02.0: [drm] *ERROR* PHY A Write 0c70 failed after 3 retries.
-  i915 0000:00:02.0: [drm] *ERROR* Timeout waiting for DDI BUF A to get act=
-ive
-  i915 0000:00:02.0: [drm] *ERROR* Timed out waiting for DP idle patterns
-  i915 0000:00:02.0: [drm] *ERROR* [CRTC:149:pipe A] flip_done timed out
-  i915 0000:00:02.0: [drm] *ERROR* [CRTC:149:pipe A] mismatch in port_clock
-                                   (expected 540000, found 61440)
-  WARNING ... intel_modeset_verify_crtc+0x325/0x550 [i915]
-  WARNING ... verify_single_dpll_state+0x1a2/0x560 [i915]
-
-After this point, every suspend/resume cycle in the same boot is
-followed by [CONNECTOR:506:eDP-1] commit wait timed out, which is the
-symptom your series is meant to make the driver fail cleanly on.
-
-Happy to test the series on this hardware. Let me know whether you
-prefer it tested against the current posting on drm-tip, or if a v2 is
-in flight.
-
-One small note: the cover-letter title says Meteor Lake, but the
-cx0/C10 PHY path is shared with Arrow Lake-P (and Lunar Lake), so the
-scope of the fix is wider than the title suggests. Worth widening in
-v2 if you respin.
-
-Thanks,
-Marco
-
---=20
-Marco Nenciarini - mnencia@kcore.it
-7C23 B804 3E65 D298 0A21  B6E2 589F 03F0 1BA5 5038
-
---H+WTlR/4MbHBIrr6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEfCO4BD5l0pgKIbbiWJ8D8BulUDgFAmoAwKAACgkQWJ8D8Bul
-UDgNlBAAjBBS1Ph+31LDOsuy/1ezA8j6S6cHo0pJWtgSNqNoQUBsfj5CrfiAHB4P
-HnK65pEuyUhAPSK3SijI2lGNs5qlHiMvdcs+vY4sU6OiT7DW4oQ1cUv8v6V981zY
-yZKfA0eeJbp/kxGgEKddCwD7qaZSxv3HFSUk/Xb4niR8Ma1alxwyrcQGpuL1aQ1E
-vgEy21nRy+tqIiowbKKmEqyvDnNEEUxWw60XZR/sr/3JzzVhzqrYeOjqSpKT7EYZ
-eix6asWQnLsEuQ5DimWBR4G8DFDDD+2RtwXHoo9pp/jhLLDEk/9hZptQRfdz6Cug
-gJQpx1TalvftNOUI9kp80cqRBNI/UfMdOuMv97p8ptKmUodnjFe/b282DvEB5eH8
-nKxdumfg/3OdRSOmM9OrFhCIMrYza8yn9ZNFWGPybZi0RG0GJSI3n+aIOoAWzmQo
-89JFFmU1aGrPLA5kJbyLaX5GDDaBeXQ1vfSgqB9Vuk5QXRETh9fwWdS2/WobTR+7
-IlVXg8r1v8lkiUeiqFLs6yQfzhZnzFZZPDt4EClYp7IiHathwmhmQaHhbwM2hyp/
-p1lDuyagjOYykvWHMmD0402/EpReSzeQ0Qt+gOUVAX9yuzwS7efq9hwEAXlHitSp
-uMVtVusODO2rX68NXXKduB6QTZspNXx9vzyS6Ac/uKwELP+vHH8=
-=Dt7q
------END PGP SIGNATURE-----
-
---H+WTlR/4MbHBIrr6--
