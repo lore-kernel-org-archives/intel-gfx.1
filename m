@@ -4,77 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A71BCD484F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C2D0CD484C
 	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 599FD10E7AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0FAB10E7B6;
 	Mon, 11 May 2026 14:40:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dQdwaU2n";
+	dkim=pass (2048-bit key; unprotected) header.d=tripos.ovh header.i=@tripos.ovh header.b="A3iTObZQ";
 	dkim-atps=neutral
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
- [209.85.160.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DBA210E3D2
- for <intel-gfx@lists.freedesktop.org>; Sat,  9 May 2026 16:24:27 +0000 (UTC)
-Received: by mail-oa1-f54.google.com with SMTP id
- 586e51a60fabf-40850555c56so382050fac.3
- for <intel-gfx@lists.freedesktop.org>; Sat, 09 May 2026 09:24:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778343866; x=1778948666; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=agw8Xmb0yn99pL/oH0Zm03pOn4MhFsZEOxVqcmxAjFE=;
- b=dQdwaU2n4O1qYjpX2C+I1fuEmAV9+IMj0/gJ+urgEj/X9Hfcb37mOJSrpr+NE6+kUZ
- YBtvskXBnkStawVfHxjTrR+8FXFQlqVKWwOBKPgMieDBI+6oNfemJohprn7o377cxK6P
- YTLEUCb/zyViV7qr6nclZi36nPV73D6878JEatEyZnoMhevYpK+Yb7MbQVa6U3p4b1jM
- VOJehMmjMrjJLONqKYFK8JVYe3HqysxItCmRz1g0qGF18uHLtivpdZ3539bQK40lrSPE
- oFubzmZvpYl1VbDS/b/td1sx0dNKIsSM8MowY8+YkFu5hvOb3sKRXJ3irEUqR9NEiYaS
- oZ7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778343866; x=1778948666;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=agw8Xmb0yn99pL/oH0Zm03pOn4MhFsZEOxVqcmxAjFE=;
- b=pdvS4B+iR9ueKJeSSnXElDNMOdSIX6TgJLcPWBCrZIzrpmHmVa3DpnqDgm1j4NBoBB
- 8qlXsP75JlcIlZTb06Ua6glqSw/+DfiggpP55uFr15L1OPLhDVdI2B/MUsXrR/mLPW0z
- UYRlsdhINtEhYltx22pd/hUKpeolN9Ner9S2pV9UpKKsn9nNYAZLN9zqHbCBxZkh6eth
- 1CaXolkR+keeq2fZ2y7LuYxsDiKxG5/uwOQtwfJJTMy0cl7840brvVSKFWI9L5/IfP+b
- kByRoWyNVpmhDpv30OPmV6BwZE01w/C7OyRXCAF835AETLWsfrZzMuGSdBxVaqNX9Zyj
- PLbw==
-X-Gm-Message-State: AOJu0YxhAPAPcL1YTsWqxCWcJGf/iw/ts+52ZXu/fGgoS2Lb91wCy1e+
- chL/ZhYjPCuqXKxXTpW+/GhlkZ0YmeLdXP4J3c7sNkpoyOvT24W6/020U5WPVsggzS0=
-X-Gm-Gg: Acq92OHVi37k7nCRTCFVsXYdShp+QQ5jbUywLhZtx/aehUoV5Fn7kXoFkOwg7EYyIMZ
- UIoXkwAyVBu01Ugkv1VoUInw4nuGum912EdtaTlQHhL2tJ2SIb6i/dMHBJd891yvoz9073X+AQB
- 5ch802Dk4A6U6Sng3MX+WRNrWBTZiQvUjFgmVmXvdRGOFJiNwLhdPTcRifZzDpqbVK0J4Bvksl7
- TvDu3vCXyFsKiIpYA8rbGR8G6N1nH0xang6azIVfElATLifYjqLjxeRAVyYTjYIouGZUUeLswx1
- Aqu+GWM7IPYIyWVWuLgh6igz740B95HREh2AZgR5w7ATWNmO28y0N3GV1CGUOx57DaN4QvEp0fL
- KnuGshqrcsqZUAwtOuxq6safMHH4plUfZobhFiMFkPIx5i/wVM9syM7CXkqQzl6HOjHfGRXeT46
- H3ADZyL72c6xo8fhmio2MHjM+qZ1hZ6ZM8yvsIJCRRfXXEhrjPeOqpDSNfNJWZLdtn5PTORW62y
- FY9AVdnoeJR39cuzXMXZIFF
-X-Received: by 2002:a05:6870:2d5:b0:434:2a0e:1560 with SMTP id
- 586e51a60fabf-434f60ee4edmr6394699fac.2.1778343865970; 
- Sat, 09 May 2026 09:24:25 -0700 (PDT)
-Received: from localhost ([136.49.184.116]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-43557371c56sm4590698fac.9.2026.05.09.09.24.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 09:24:25 -0700 (PDT)
-From: Aaron Esau <aaron1esau@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- mika.kahola@intel.com, stable@vger.kernel.org,
- Aaron Esau <aaron1esau@gmail.com>
-Subject: [PATCH 2/3] drm/i915/dpll: add error propagation to DPLL enable path
-Date: Sat,  9 May 2026 11:24:06 -0500
-Message-ID: <20260509162407.510539-3-aaron1esau@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9119710E05F
+ for <intel-gfx@lists.freedesktop.org>; Sun, 10 May 2026 15:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tripos.ovh;
+ s=protonmail2; t=1778428330; x=1778687530;
+ bh=tpBvBiwRYkWgUJ657ds+2xgvdxZ77pB+LcCHtKIW2cA=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=A3iTObZQUsn9bUuWrOn2O6xv8JwC0dDwLZ/pqyRnx4FWo6gLDP2s/OShp2HwQ+Qef
+ bNDxgpnF/1SKcZcxVctyAEy0my9PahmH0lBgPI+xqYXhVncqeKWIGTAJUnodnPPxdG
+ QxbjTU/XdjBo1vL91r9kMmxJpW+hMKQxriStfARPRyi14oaCowEDlXPUf88DqkasGQ
+ nDkLuzvGx6kBm6+wQ4k67CtRkiZpWCnETLLVCkigjHgnEMCrHnTEYfjRS7qd2tUrJs
+ D2OmI/ITmjqqkQuZZ41LPh0fZmg2BO4AREOtv2JpQHxfet1ORXee+3j7SP2cCj3c53
+ G954u0+3ADzBw==
+Date: Sun, 10 May 2026 15:52:03 +0000
+To: dev@lankhorst.se
+From: Dominik Klonowski <dklonowski@tripos.ovh>
+Cc: intel-gfx@lists.freedesktop.org
+Subject: =?utf-8?Q?Tested:_i915-rt_v6_05+06/24_on_Kaby_Lake_(ThinkPad_13_2nd_Gen)_=E2=80=94_partial_fix?=
+Message-ID: <34d3f45c-38e7-4685-8e0f-4be0117d1908@tripos.ovh>
+Feedback-ID: 104024397:user:proton
+X-Pm-Message-ID: 6ffbc14816f9a8c5ae2d7479289d5c4916b95609
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed;
+ boundary="b1=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8"
 X-Mailman-Approved-At: Mon, 11 May 2026 14:40:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,363 +54,220 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The .enable callback in struct intel_dpll_funcs returns void, providing
-no way to report PLL enable failures to callers. This leaves
-_intel_enable_shared_dpll() and intel_dpll_enable() unable to detect
-when a PLL fails to lock, causing pll->on to be set to true
-unconditionally and the CRTC enable sequence to proceed against a
-non-functional PLL.
+--b1=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8
+Content-Type: multipart/alternative;
+ boundary="b2=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8"
 
-Change the .enable callback to return int. Update all implementations
-to return 0 (no functional change for platforms where enable cannot
-fail). Thread the error through _intel_enable_shared_dpll() and
-intel_dpll_enable(), rolling back active_mask and power domain state
-on failure.
+--b2=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Update hsw_crtc_enable() and ilk_pch_enable() to check the return
-value and bail out before attempting to drive a pipe with no working
-PLL.
+SGkgTWFhcnRlbiwKCkkgdGVzdGVkIHBhdGNoZXMgMDUvMjQgYW5kIDA2LzI0IGZyb20geW91ciBp
+OTE1LXJ0IHY2IHNlcmllcyAoY2hlcnJ5LXBpY2tlZCBvbnRvIDYuMTIuODUsIERlYmlhbiAxMykg
+b24gYSBUaGlua1BhZCAxMyAybmQgR2VuICgyMEoyUzBQRTAwKSwgSW50ZWwgaTMtNzEwMFUsIEhE
+IEdyYXBoaWNzIDYyMCwgZURQIHBhbmVsLgoKQmVmb3JlIHRoZSBwYXRjaGVzIChlbmFibGVfcHNy
+PTEpOiBpbnRlcm1pdHRlbnQgaGFyZCBsb2NrcyBvbiBsaWQtb3BlbiBldmVudCwgcmVxdWlyaW5n
+IEVDIHBvd2VyIGN5Y2xlLiBKb3VybmFsIHNob3dlZDoKCmk5MTUgMDAwMDowMDowMi4wOiBbZHJt
+XSAqRVJST1IqIEF0b21pYyB1cGRhdGUgZmFpbHVyZSBvbiBwaXBlIEEKCihzdGFydD01NDQwOSBl
+bmQ9NTQ0MTApIHRpbWUgMTM3IHVzLCBtaW4gMTA3MywgbWF4IDEwNzksCgpzY2FubGluZSBzdGFy
+dCAxMDcxLCBlbmQgMTA4MQoKU3lzdGVtIHVucmVjb3ZlcmFibGUgYWZ0ZXIgdGhpcyBldmVudC4K
+QWZ0ZXIgdGhlIHBhdGNoZXMgKGVuYWJsZV9wc3I9MSwgfjMgaG91cnMgcnVudGltZSk6IG9uZSBh
+dG9taWMgdXBkYXRlIGZhaWx1cmUgb2JzZXJ2ZWQsIHN5c3RlbSBzdXJ2aXZlZCBhbmQgY29udGlu
+dWVkIG5vcm1hbGx5OgoKaTkxNSAwMDAwOjAwOjAyLjA6IFtkcm1dICpFUlJPUiogQXRvbWljIHVw
+ZGF0ZSBmYWlsdXJlIG9uIHBpcGUgQQoKKHN0YXJ0PTcwNzA0IGVuZD03MDcwNSkgdGltZSAxNTYg
+dXMsIG1pbiAxMDczLCBtYXggMTA3OSwKCnNjYW5saW5lIHN0YXJ0IDEwNzIsIGVuZCAxMDczCgpU
+aGUgdmlvbGF0aW9uIG5hcnJvd2VkIGZyb20gMiBzY2FubGluZXMgZWFybHkgLyAxMCBzY2FubGlu
+ZXMgaW50byBhY3RpdmUgcmVnaW9uIChmYXRhbCkgdG8gMSBzY2FubGluZSBlYXJseSAvIDEgc2Nh
+bmxpbmUgaW50byBhY3RpdmUgcmVnaW9uIChzdXJ2aXZhYmxlKS4gTm8gZnVydGhlciBoYXJkIGxv
+Y2tzIG9ic2VydmVkIHNvIGZhci4KCklzIHRoZSByZW1haW5pbmcgMS1zY2FubGluZSBqaXR0ZXIg
+ZXhwZWN0ZWQgdG8gYmUgYWRkcmVzc2VkIGJ5IGxhdGVyIHBhdGNoZXMgaW4gdGhlIHNlcmllcywg
+b3IgaXMgdGhlcmUgYSBzZXBhcmF0ZSB0aW1pbmcgaXNzdWUgb24gdGhpcyBoYXJkd2FyZSB3b3J0
+aCBpbnZlc3RpZ2F0aW5nPwoKSSBhbSBhdHRhY2hpbmcgdGhlIGV4YWN0IHBhdGNoZmlsZSBhcHBs
+aWVkIGFnYWluc3QgdW5wYWNrZWQga2VybmVsIHNvdXJjZXMgYXMgcHJvdmlkZWQgYnkgRGViaWFu
+IHRoZW1zZWx2ZXMuIHN0ZXBzIHRvIHJlcHJvZHVjZToKCmFwdC1nZXQgaW5zdGFsbCBsaW51eC1z
+b3VyY2UtNi4xMgpjZCAvdXNyL3NyYzt0YXIgeGYgbGludXgtc291cmNlLTYuMTIudGFyLnh6CmNk
+IGxpbnV4LXNvdXJjZS02LjEyLwpwYXRjaCAtcDEgPCAvdG1wL3Bzci5wYXRjaApjcCAvdXNyL3Ny
+Yy9saW51eC1jb25maWctNi4xMi9jb25maWcuYW1kNjRfbm9uZV9hbWQ2NC54eiAuY29uZmlnLnh6
+CnVueHogLmNvbmZpZy54egptYWtlIG9sZGNvbmZpZwptYWtlIC1qNCBiaW5kZWItcGtnIExPQ0FM
+VkVSU0lPTj0tcHNyLWZpeAoKKC4uLikKZHBrZyAtaSAuLi9saW51eC1pbWFnZS02LjEyLjg1LXBz
+ci1maXhfNi4xMi44NS0yX2FtZDY0LmRlYgpkcGtnIC1pIC4uL2xpbnV4LWhlYWRlcnMtNi4xMi44
+NS1wc3ItZml4XzYuMTIuODUtMl9hbWQ2NC5kZWIKW3JlYm9vdF0KCmRva2xAZHQxMzp+JCB1bmFt
+ZSAtcgoKNi4xMi44NS1wc3ItZml4CmRva2xAZHQxMzp+JCBzdWRvIGNhdCAvc3lzL21vZHVsZS9p
+OTE1L3BhcmFtZXRlcnMvZW5hYmxlX3BzcgoxCgpJJ20gaGFwcHkgdG8gdGVzdCBmdXJ0aGVyIHBh
+dGNoZXMgb3IgcHJvdmlkZSBhZGRpdGlvbmFsIGRpYWdub3N0aWNzIGlmIHVzZWZ1bC4gVGhlIGhh
+cmR3YXJlIGlzIGF2YWlsYWJsZSBmb3IgcmVndWxhciB0ZXN0aW5nLgoKTm90ZTogdGhpcyB1bml0
+IGhhcyBldmFsdWF0aW9uL25vbi1yZXRhaWwgZmlybXdhcmUgKFBob2VuaXggU2VjdXJlQ29yZSwg
+YnVpbGQgMDkvMTMvMjIsICJGT1IgRVZBTFVBVElPTiBPTkxZLiBOT1QgRk9SIFJFU0FMRSIpLCB3
+aGljaCBtYXkgYWZmZWN0IEFDUEkvRUMgYmVoYXZpb3IgY29tcGFyZWQgdG8gcmV0YWlsIHVuaXRz
+LgoKVGVzdGVkLWJ5OiBEb21pbmlrIEtsb25vd3NraSBbPGRrbG9ub3dza2lAdHJpcG9zLm92aD5d
+KG1haWx0bzpka2xvbm93c2tpQHRyaXBvcy5vdmgpCkhhcmR3YXJlOiBUaGlua1BhZCAxMyAybmQg
+R2VuIDIwSjJTMFBFMDAsIGkzLTcxMDBVLCBIRCBHcmFwaGljcyA2MjAKS2VybmVsOiA2LjEyLjg1
+K2RlYmlhbjEzLCBwYXRjaGVzIDA1KzA2IG9mIGk5MTUtcnQgdjYgY2hlcnJ5LXBpY2tlZA==
 
-No functional change on any platform yet, as all .enable callbacks
-return 0. A subsequent patch will make the CX0 PHY PLL enable path
-return errors on failure.
+--b2=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Aaron Esau <aaron1esau@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_display.c  | 10 ++-
- drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 87 ++++++++++++++-----
- drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  2 +-
- .../gpu/drm/i915/display/intel_pch_display.c  |  7 +-
- 4 files changed, 80 insertions(+), 26 deletions(-)
+PCFET0NUWVBFIGh0bWw+DQo8aHRtbD4NCiAgPGhlYWQ+DQoNCiAgICA8bWV0YSBodHRwLWVxdWl2
+PSJjb250ZW50LXR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD1VVEYtOCI+DQogIDwv
+aGVhZD4NCiAgPGJvZHk+DQogICAgPHANCmNsYXNzPSJmb250LWNsYXVkZS1yZXNwb25zZS1ib2R5
+IGJyZWFrLXdvcmRzIHdoaXRlc3BhY2Utbm9ybWFsIGxlYWRpbmctWzEuN10iPkhpDQogICAgICBN
+YWFydGVuLDwvcD4NCiAgICA8cA0KY2xhc3M9ImZvbnQtY2xhdWRlLXJlc3BvbnNlLWJvZHkgYnJl
+YWstd29yZHMgd2hpdGVzcGFjZS1ub3JtYWwgbGVhZGluZy1bMS43XSI+SQ0KICAgICAgdGVzdGVk
+IHBhdGNoZXMgMDUvMjQgYW5kIDA2LzI0IGZyb20geW91ciBpOTE1LXJ0IHY2IHNlcmllcw0KICAg
+ICAgKGNoZXJyeS1waWNrZWQgb250byA2LjEyLjg1LCBEZWJpYW4gMTMpIG9uIGEgVGhpbmtQYWQg
+MTMgMm5kIEdlbg0KICAgICAgKDIwSjJTMFBFMDApLCBJbnRlbCBpMy03MTAwVSwgSEQgR3JhcGhp
+Y3MgNjIwLCBlRFAgcGFuZWwuPC9wPg0KICAgIDxwDQpjbGFzcz0iZm9udC1jbGF1ZGUtcmVzcG9u
+c2UtYm9keSBicmVhay13b3JkcyB3aGl0ZXNwYWNlLW5vcm1hbCBsZWFkaW5nLVsxLjddIj48c3Ry
+b25nPkJlZm9yZQ0KICAgICAgICB0aGUgcGF0Y2hlczwvc3Ryb25nPiAoZW5hYmxlX3Bzcj0xKTog
+aW50ZXJtaXR0ZW50IGhhcmQgbG9ja3Mgb24NCiAgICAgIGxpZC1vcGVuIGV2ZW50LCByZXF1aXJp
+bmcgRUMgcG93ZXIgY3ljbGUuIEpvdXJuYWwgc2hvd2VkOjxicj4NCiAgICA8L3A+DQogICAgPHBy
+ZT48c3Bhbj48c3Bhbj5pOTE1IDAwMDA6MDA6MDIuMDogW2RybV0gKkVSUk9SKiBBdG9taWMgdXBk
+YXRlIGZhaWx1cmUgb24gcGlwZSBBDQo8L3NwYW4+PC9zcGFuPjxzcGFuPihzdGFydD01NDQwOSBl
+bmQ9NTQ0MTApIHRpbWUgMTM3IHVzLCBtaW4gMTA3MywgbWF4IDEwNzksDQo8L3NwYW4+PHNwYW4+
+c2NhbmxpbmUgc3RhcnQgMTA3MSwgZW5kIDEwODE8L3NwYW4+DQo8c3Bhbj48L3NwYW4+PC9wcmU+
+DQogICAgPHANCmNsYXNzPSJmb250LWNsYXVkZS1yZXNwb25zZS1ib2R5IGJyZWFrLXdvcmRzIHdo
+aXRlc3BhY2Utbm9ybWFsIGxlYWRpbmctWzEuN10iPjxzcGFuPjxicj4NCiAgICAgIDwvc3Bhbj5T
+eXN0ZW0gdW5yZWNvdmVyYWJsZSBhZnRlciB0aGlzIGV2ZW50Ljxicj4NCiAgICAgIDxzdHJvbmc+
+QWZ0ZXIgdGhlIHBhdGNoZXM8L3N0cm9uZz4gKGVuYWJsZV9wc3I9MSwgfjMgaG91cnMNCiAgICAg
+IHJ1bnRpbWUpOiBvbmUgYXRvbWljIHVwZGF0ZSBmYWlsdXJlIG9ic2VydmVkLCBzeXN0ZW0gc3Vy
+dml2ZWQgYW5kDQogICAgICBjb250aW51ZWQgbm9ybWFsbHk6PGJyPg0KICAgIDwvcD4NCiAgICA8
+cHJlPjxzcGFuPjxzcGFuPmk5MTUgMDAwMDowMDowMi4wOiBbZHJtXSAqRVJST1IqIEF0b21pYyB1
+cGRhdGUgZmFpbHVyZSBvbiBwaXBlIEENCjwvc3Bhbj48L3NwYW4+PHNwYW4+KHN0YXJ0PTcwNzA0
+IGVuZD03MDcwNSkgdGltZSAxNTYgdXMsIG1pbiAxMDczLCBtYXggMTA3OSwNCjwvc3Bhbj48c3Bh
+bj5zY2FubGluZSBzdGFydCAxMDcyLCBlbmQgMTA3Mzwvc3Bhbj4NCjxzcGFuPjwvc3Bhbj48L3By
+ZT4NCiAgICA8cA0KY2xhc3M9ImZvbnQtY2xhdWRlLXJlc3BvbnNlLWJvZHkgYnJlYWstd29yZHMg
+d2hpdGVzcGFjZS1ub3JtYWwgbGVhZGluZy1bMS43XSI+VGhlDQogICAgICB2aW9sYXRpb24gbmFy
+cm93ZWQgZnJvbSAyIHNjYW5saW5lcyBlYXJseSAvIDEwIHNjYW5saW5lcyBpbnRvDQogICAgICBh
+Y3RpdmUgcmVnaW9uIChmYXRhbCkgdG8gMSBzY2FubGluZSBlYXJseSAvIDEgc2NhbmxpbmUgaW50
+byBhY3RpdmUNCiAgICAgIHJlZ2lvbiAoc3Vydml2YWJsZSkuIE5vIGZ1cnRoZXIgaGFyZCBsb2Nr
+cyBvYnNlcnZlZCBzbyBmYXIuPC9wPg0KICAgIDxwDQpjbGFzcz0iZm9udC1jbGF1ZGUtcmVzcG9u
+c2UtYm9keSBicmVhay13b3JkcyB3aGl0ZXNwYWNlLW5vcm1hbCBsZWFkaW5nLVsxLjddIj5Jcw0K
+ICAgICAgdGhlIHJlbWFpbmluZyAxLXNjYW5saW5lIGppdHRlciBleHBlY3RlZCB0byBiZSBhZGRy
+ZXNzZWQgYnkgbGF0ZXINCiAgICAgIHBhdGNoZXMgaW4gdGhlIHNlcmllcywgb3IgaXMgdGhlcmUg
+YSBzZXBhcmF0ZSB0aW1pbmcgaXNzdWUgb24gdGhpcw0KICAgICAgaGFyZHdhcmUgd29ydGggaW52
+ZXN0aWdhdGluZz88YnI+DQogICAgPC9wPg0KICAgIDxwDQpjbGFzcz0iZm9udC1jbGF1ZGUtcmVz
+cG9uc2UtYm9keSBicmVhay13b3JkcyB3aGl0ZXNwYWNlLW5vcm1hbCBsZWFkaW5nLVsxLjddIj5J
+DQogICAgICBhbSBhdHRhY2hpbmcgdGhlIGV4YWN0IHBhdGNoZmlsZSBhcHBsaWVkIGFnYWluc3Qg
+dW5wYWNrZWQga2VybmVsDQogICAgICBzb3VyY2VzIGFzIHByb3ZpZGVkIGJ5IERlYmlhbiB0aGVt
+c2VsdmVzLiBzdGVwcyB0byByZXByb2R1Y2U6PC9wPg0KICAgIDxwcmUNCmNsYXNzPSJmb250LWNs
+YXVkZS1yZXNwb25zZS1ib2R5IGJyZWFrLXdvcmRzIHdoaXRlc3BhY2Utbm9ybWFsIGxlYWRpbmct
+WzEuN10iPmFwdC1nZXQgaW5zdGFsbCBsaW51eC1zb3VyY2UtNi4xMg0KY2QgL3Vzci9zcmM7dGFy
+IHhmIGxpbnV4LXNvdXJjZS02LjEyLnRhci54eg0KY2QgbGludXgtc291cmNlLTYuMTIvDQpwYXRj
+aCAtcDEgJmx0OyAvdG1wL3Bzci5wYXRjaA0KY3AgL3Vzci9zcmMvbGludXgtY29uZmlnLTYuMTIv
+Y29uZmlnLmFtZDY0X25vbmVfYW1kNjQueHogLmNvbmZpZy54eg0KdW54eiAuY29uZmlnLnh6DQpt
+YWtlIG9sZGNvbmZpZw0KbWFrZSAtajQgYmluZGViLXBrZyBMT0NBTFZFUlNJT049LXBzci1maXg8
+L3ByZT4NCiAgICA8cHJlDQpjbGFzcz0iZm9udC1jbGF1ZGUtcmVzcG9uc2UtYm9keSBicmVhay13
+b3JkcyB3aGl0ZXNwYWNlLW5vcm1hbCBsZWFkaW5nLVsxLjddIj4oLi4uKQ0KZHBrZyAtaSAuLi9s
+aW51eC1pbWFnZS02LjEyLjg1LXBzci1maXhfNi4xMi44NS0yX2FtZDY0LmRlYg0KZHBrZyAtaSAu
+Li9saW51eC1oZWFkZXJzLTYuMTIuODUtcHNyLWZpeF82LjEyLjg1LTJfYW1kNjQuZGViDQpbcmVi
+b290XQ0KPC9wcmU+DQogICAgPHByZT5kb2tsQGR0MTM6fiQgdW5hbWUgLXINCg0KNi4xMi44NS1w
+c3ItZml4DQpkb2tsQGR0MTM6fiQgc3VkbyBjYXQgL3N5cy9tb2R1bGUvaTkxNS9wYXJhbWV0ZXJz
+L2VuYWJsZV9wc3INCjE8L3ByZT4NCiAgICA8cA0KY2xhc3M9ImZvbnQtY2xhdWRlLXJlc3BvbnNl
+LWJvZHkgYnJlYWstd29yZHMgd2hpdGVzcGFjZS1ub3JtYWwgbGVhZGluZy1bMS43XSI+SSdtDQog
+ICAgICBoYXBweSB0byB0ZXN0IGZ1cnRoZXIgcGF0Y2hlcyBvciBwcm92aWRlIGFkZGl0aW9uYWwg
+ZGlhZ25vc3RpY3MgaWYNCiAgICAgIHVzZWZ1bC4gVGhlIGhhcmR3YXJlIGlzIGF2YWlsYWJsZSBm
+b3IgcmVndWxhciB0ZXN0aW5nLsKgPGJyPg0KICAgIDwvcD4NCiAgICA8cA0KY2xhc3M9ImZvbnQt
+Y2xhdWRlLXJlc3BvbnNlLWJvZHkgYnJlYWstd29yZHMgd2hpdGVzcGFjZS1ub3JtYWwgbGVhZGlu
+Zy1bMS43XSI+Tm90ZToNCiAgICAgIHRoaXMgdW5pdCBoYXMgZXZhbHVhdGlvbi9ub24tcmV0YWls
+IGZpcm13YXJlIChQaG9lbml4IFNlY3VyZUNvcmUsDQogICAgICBidWlsZCAwOS8xMy8yMiwgIkZP
+UiBFVkFMVUFUSU9OIE9OTFkuIE5PVCBGT1IgUkVTQUxFIiksIHdoaWNoIG1heQ0KICAgICAgYWZm
+ZWN0IEFDUEkvRUMgYmVoYXZpb3IgY29tcGFyZWQgdG8gcmV0YWlsIHVuaXRzLjwvcD4NCiAgICA8
+cA0KY2xhc3M9ImZvbnQtY2xhdWRlLXJlc3BvbnNlLWJvZHkgYnJlYWstd29yZHMgd2hpdGVzcGFj
+ZS1ub3JtYWwgbGVhZGluZy1bMS43XSI+VGVzdGVkLWJ5Og0KICAgICAgRG9taW5payBLbG9ub3dz
+a2kgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmRrbG9ub3dz
+a2lAdHJpcG9zLm92aCI+Jmx0O2RrbG9ub3dza2lAdHJpcG9zLm92aCZndDs8L2E+PGJyPg0KICAg
+ICAgSGFyZHdhcmU6IFRoaW5rUGFkIDEzIDJuZCBHZW4gMjBKMlMwUEUwMCwgaTMtNzEwMFUsIEhE
+IEdyYXBoaWNzDQogICAgICA2MjDCoDxicj4NCiAgICAgIEtlcm5lbDogNi4xMi44NStkZWJpYW4x
+MywgcGF0Y2hlcyAwNSswNiBvZiBpOTE1LXJ0IHY2DQogICAgICBjaGVycnktcGlja2VkPC9wPg0K
+ICAgIDxwDQpjbGFzcz0iZm9udC1jbGF1ZGUtcmVzcG9uc2UtYm9keSBicmVhay13b3JkcyB3aGl0
+ZXNwYWNlLW5vcm1hbCBsZWFkaW5nLVsxLjddIj48YnI+DQogICAgPC9wPg0KICAgIDxwPjxicj4N
+CiAgICA8L3A+DQogIDwvYm9keT4NCjwvaHRtbD4NCg==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 0f82bf771..74bfeed31 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1645,8 +1645,14 @@ static void hsw_crtc_enable(struct intel_atomic_state *state,
- 
- 	intel_encoders_pre_pll_enable(state, crtc);
- 
--	if (new_crtc_state->intel_dpll)
--		intel_dpll_enable(new_crtc_state);
-+	if (new_crtc_state->intel_dpll) {
-+		if (intel_dpll_enable(new_crtc_state)) {
-+			drm_err(display->drm,
-+				"[CRTC:%d:%s] PLL enable failed, aborting crtc enable\n",
-+				crtc->base.base.id, crtc->base.name);
-+			return;
-+		}
-+	}
- 
- 	intel_encoders_pre_enable(state, crtc);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-index 9aa84a430..78fd2e5f9 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
-@@ -69,9 +69,9 @@ struct intel_dpll_funcs {
- 	 * Hook for enabling the pll, called from intel_enable_dpll() if
- 	 * the pll is not already enabled.
- 	 */
--	void (*enable)(struct intel_display *display,
--		       struct intel_dpll *pll,
--		       const struct intel_dpll_hw_state *dpll_hw_state);
-+	int (*enable)(struct intel_display *display,
-+		      struct intel_dpll *pll,
-+		      const struct intel_dpll_hw_state *dpll_hw_state);
- 
- 	/*
- 	 * Hook for disabling the pll, called from intel_disable_dpll()
-@@ -245,14 +245,28 @@ intel_tc_pll_enable_reg(struct intel_display *display,
- 	return MG_PLL_ENABLE(tc_port);
- }
- 
--static void _intel_enable_shared_dpll(struct intel_display *display,
--				      struct intel_dpll *pll)
-+static int _intel_enable_shared_dpll(struct intel_display *display,
-+				     struct intel_dpll *pll)
- {
-+	int ret;
-+
- 	if (pll->info->power_domain)
- 		pll->wakeref = intel_display_power_get(display, pll->info->power_domain);
- 
--	pll->info->funcs->enable(display, pll, &pll->state.hw_state);
-+	ret = pll->info->funcs->enable(display, pll, &pll->state.hw_state);
-+	if (ret) {
-+		drm_err(display->drm, "%s: PLL enable failed (err %d)\n",
-+			pll->info->name, ret);
-+		pll->on = false;
-+		if (pll->info->power_domain)
-+			intel_display_power_put(display, pll->info->power_domain,
-+						pll->wakeref);
-+		return ret;
-+	}
-+
- 	pll->on = true;
-+
-+	return 0;
- }
- 
- static void _intel_disable_shared_dpll(struct intel_display *display,
-@@ -270,17 +284,20 @@ static void _intel_disable_shared_dpll(struct intel_display *display,
-  * @crtc_state: CRTC, and its state, which has a DPLL
-  *
-  * Enable DPLL used by @crtc.
-+ *
-+ * Returns: 0 on success, negative error code on failure.
-  */
--void intel_dpll_enable(const struct intel_crtc_state *crtc_state)
-+int intel_dpll_enable(const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
- 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
- 	struct intel_dpll *pll = crtc_state->intel_dpll;
- 	unsigned int pipe_mask = intel_crtc_joined_pipe_mask(crtc_state);
- 	unsigned int old_mask;
-+	int ret = 0;
- 
- 	if (drm_WARN_ON(display->drm, !pll))
--		return;
-+		return -EINVAL;
- 
- 	mutex_lock(&display->dpll.lock);
- 	old_mask = pll->active_mask;
-@@ -305,10 +322,14 @@ void intel_dpll_enable(const struct intel_crtc_state *crtc_state)
- 
- 	drm_dbg_kms(display->drm, "enabling %s\n", pll->info->name);
- 
--	_intel_enable_shared_dpll(display, pll);
-+	ret = _intel_enable_shared_dpll(display, pll);
-+	if (ret)
-+		pll->active_mask &= ~pipe_mask;
- 
- out:
- 	mutex_unlock(&display->dpll.lock);
-+
-+	return ret;
- }
- 
- /**
-@@ -577,7 +598,7 @@ static void ibx_assert_pch_refclk_enabled(struct intel_display *display)
- 				 "PCH refclk assertion failure, should be active but is disabled\n");
- }
- 
--static void ibx_pch_dpll_enable(struct intel_display *display,
-+static int ibx_pch_dpll_enable(struct intel_display *display,
- 				struct intel_dpll *pll,
- 				const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -604,6 +625,8 @@ static void ibx_pch_dpll_enable(struct intel_display *display,
- 	intel_de_write(display, PCH_DPLL(id), hw_state->dpll);
- 	intel_de_posting_read(display, PCH_DPLL(id));
- 	udelay(200);
-+
-+	return 0;
- }
- 
- static void ibx_pch_dpll_disable(struct intel_display *display,
-@@ -707,7 +730,7 @@ static const struct intel_dpll_mgr pch_pll_mgr = {
- 	.compare_hw_state = ibx_compare_hw_state,
- };
- 
--static void hsw_ddi_wrpll_enable(struct intel_display *display,
-+static int hsw_ddi_wrpll_enable(struct intel_display *display,
- 				 struct intel_dpll *pll,
- 				 const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -717,9 +740,11 @@ static void hsw_ddi_wrpll_enable(struct intel_display *display,
- 	intel_de_write(display, WRPLL_CTL(id), hw_state->wrpll);
- 	intel_de_posting_read(display, WRPLL_CTL(id));
- 	udelay(20);
-+
-+	return 0;
- }
- 
--static void hsw_ddi_spll_enable(struct intel_display *display,
-+static int hsw_ddi_spll_enable(struct intel_display *display,
- 				struct intel_dpll *pll,
- 				const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -728,6 +753,8 @@ static void hsw_ddi_spll_enable(struct intel_display *display,
- 	intel_de_write(display, SPLL_CTL, hw_state->spll);
- 	intel_de_posting_read(display, SPLL_CTL);
- 	udelay(20);
-+
-+	return 0;
- }
- 
- static void hsw_ddi_wrpll_disable(struct intel_display *display,
-@@ -1300,10 +1327,11 @@ static const struct intel_dpll_funcs hsw_ddi_spll_funcs = {
- 	.get_freq = hsw_ddi_spll_get_freq,
- };
- 
--static void hsw_ddi_lcpll_enable(struct intel_display *display,
-+static int hsw_ddi_lcpll_enable(struct intel_display *display,
- 				 struct intel_dpll *pll,
- 				 const struct intel_dpll_hw_state *hw_state)
- {
-+	return 0;
- }
- 
- static void hsw_ddi_lcpll_disable(struct intel_display *display,
-@@ -1393,7 +1421,7 @@ static void skl_ddi_pll_write_ctrl1(struct intel_display *display,
- 	intel_de_posting_read(display, DPLL_CTRL1);
- }
- 
--static void skl_ddi_pll_enable(struct intel_display *display,
-+static int skl_ddi_pll_enable(struct intel_display *display,
- 			       struct intel_dpll *pll,
- 			       const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -1413,15 +1441,19 @@ static void skl_ddi_pll_enable(struct intel_display *display,
- 
- 	if (intel_de_wait_for_set_ms(display, DPLL_STATUS, DPLL_LOCK(id), 5))
- 		drm_err(display->drm, "DPLL %d not locked\n", id);
-+
-+	return 0;
- }
- 
--static void skl_ddi_dpll0_enable(struct intel_display *display,
-+static int skl_ddi_dpll0_enable(struct intel_display *display,
- 				 struct intel_dpll *pll,
- 				 const struct intel_dpll_hw_state *dpll_hw_state)
- {
- 	const struct skl_dpll_hw_state *hw_state = &dpll_hw_state->skl;
- 
- 	skl_ddi_pll_write_ctrl1(display, pll, hw_state);
-+
-+	return 0;
- }
- 
- static void skl_ddi_pll_disable(struct intel_display *display,
-@@ -2053,7 +2085,7 @@ static const struct intel_dpll_mgr skl_pll_mgr = {
- 	.compare_hw_state = skl_compare_hw_state,
- };
- 
--static void bxt_ddi_pll_enable(struct intel_display *display,
-+static int bxt_ddi_pll_enable(struct intel_display *display,
- 			       struct intel_dpll *pll,
- 			       const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -2158,6 +2190,8 @@ static void bxt_ddi_pll_enable(struct intel_display *display,
- 	temp &= ~LANESTAGGER_STRAP_OVRD;
- 	temp |= hw_state->pcsdw12;
- 	intel_de_write(display, BXT_PORT_PCS_DW12_GRP(phy, ch), temp);
-+
-+	return 0;
- }
- 
- static void bxt_ddi_pll_disable(struct intel_display *display,
-@@ -4007,7 +4041,7 @@ static void adlp_cmtg_clock_gating_wa(struct intel_display *display, struct inte
- 		drm_dbg_kms(display->drm, "Unexpected flags in TRANS_CMTG_CHICKEN: %08x\n", val);
- }
- 
--static void combo_pll_enable(struct intel_display *display,
-+static int combo_pll_enable(struct intel_display *display,
- 			     struct intel_dpll *pll,
- 			     const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -4029,9 +4063,11 @@ static void combo_pll_enable(struct intel_display *display,
- 	adlp_cmtg_clock_gating_wa(display, pll);
- 
- 	/* DVFS post sequence would be here. See the comment above. */
-+
-+	return 0;
- }
- 
--static void icl_tbt_pll_enable(struct intel_display *display,
-+static int icl_tbt_pll_enable(struct intel_display *display,
- 			       struct intel_dpll *pll,
- 			       const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -4050,9 +4086,11 @@ static void icl_tbt_pll_enable(struct intel_display *display,
- 	icl_pll_enable(display, pll, TBT_PLL_ENABLE);
- 
- 	/* DVFS post sequence would be here. See the comment above. */
-+
-+	return 0;
- }
- 
--static void mg_pll_enable(struct intel_display *display,
-+static int mg_pll_enable(struct intel_display *display,
- 			  struct intel_dpll *pll,
- 			  const struct intel_dpll_hw_state *dpll_hw_state)
- {
-@@ -4075,6 +4113,8 @@ static void mg_pll_enable(struct intel_display *display,
- 	icl_pll_enable(display, pll, enable_reg);
- 
- 	/* DVFS post sequence would be here. See the comment above. */
-+
-+	return 0;
- }
- 
- static void icl_pll_disable(struct intel_display *display,
-@@ -4392,16 +4432,18 @@ static int mtl_pll_get_freq(struct intel_display *display,
- 	return intel_cx0pll_calc_port_clock(encoder, &dpll_hw_state->cx0pll);
- }
- 
--static void mtl_pll_enable(struct intel_display *display,
-+static int mtl_pll_enable(struct intel_display *display,
- 			   struct intel_dpll *pll,
- 			   const struct intel_dpll_hw_state *dpll_hw_state)
- {
- 	struct intel_encoder *encoder = get_intel_encoder(display, pll);
- 
- 	if (drm_WARN_ON(display->drm, !encoder))
--		return;
-+		return -ENODEV;
- 
- 	intel_mtl_pll_enable(encoder, pll, dpll_hw_state);
-+
-+	return 0;
- }
- 
- static void mtl_pll_disable(struct intel_display *display,
-@@ -4422,10 +4464,11 @@ static const struct intel_dpll_funcs mtl_pll_funcs = {
- 	.get_freq = mtl_pll_get_freq,
- };
- 
--static void mtl_tbt_pll_enable(struct intel_display *display,
-+static int mtl_tbt_pll_enable(struct intel_display *display,
- 			       struct intel_dpll *pll,
- 			       const struct intel_dpll_hw_state *hw_state)
- {
-+	return 0;
- }
- 
- static void mtl_tbt_pll_disable(struct intel_display *display,
-diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-index 5b71c8605..21fae6fd0 100644
---- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-+++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
-@@ -435,7 +435,7 @@ int intel_dpll_get_freq(struct intel_display *display,
- bool intel_dpll_get_hw_state(struct intel_display *display,
- 			     struct intel_dpll *pll,
- 			     struct intel_dpll_hw_state *dpll_hw_state);
--void intel_dpll_enable(const struct intel_crtc_state *crtc_state);
-+int intel_dpll_enable(const struct intel_crtc_state *crtc_state);
- void intel_dpll_disable(const struct intel_crtc_state *crtc_state);
- void intel_dpll_swap_state(struct intel_atomic_state *state);
- void intel_dpll_init(struct intel_display *display);
-diff --git a/drivers/gpu/drm/i915/display/intel_pch_display.c b/drivers/gpu/drm/i915/display/intel_pch_display.c
-index 16619f7be..cb979a946 100644
---- a/drivers/gpu/drm/i915/display/intel_pch_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_pch_display.c
-@@ -399,7 +399,12 @@ void ilk_pch_enable(struct intel_atomic_state *state,
- 	 * get_dpll unconditionally resets the pll - we need that
- 	 * to have the right LVDS enable sequence.
- 	 */
--	intel_dpll_enable(crtc_state);
-+	if (intel_dpll_enable(crtc_state)) {
-+		drm_err(display->drm,
-+			"[CRTC:%d:%s] PCH PLL enable failed, aborting PCH enable\n",
-+			crtc->base.base.id, crtc->base.name);
-+		return;
-+	}
- 
- 	/* set transcoder timing, panel must allow it */
- 	assert_pps_unlocked(display, pipe);
--- 
-2.54.0
+
+--b2=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8--
+
+--b1=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8
+Content-Type: text/x-patch; charset=UTF-8; name=intel-psr-on-vblank-fix.patch
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=intel-psr-on-vblank-fix.patch
+
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92YmxhbmsuaAkyMDI2LTA1
+LTEwIDA4OjM0OjE4Ljc0MjczNDgyMiArMDAwMAorKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9k
+aXNwbGF5L2ludGVsX3ZibGFuay5oCTIwMjYtMDUtMTAgMDg6MzQ6MTguNzQ3NjEwNTA1ICswMDAw
+CkBAIC0zNiw2ICszNiw3IEBACiBib29sIGludGVsX2NydGNfZ2V0X3ZibGFua190aW1lc3RhbXAo
+c3RydWN0IGRybV9jcnRjICpjcnRjLCBpbnQgKm1heF9lcnJvciwKIAkJCQkgICAgIGt0aW1lX3Qg
+KnZibGFua190aW1lLCBib29sIGluX3ZibGFua19pcnEpOwogaW50IGludGVsX2dldF9jcnRjX3Nj
+YW5saW5lKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjKTsKK2ludCBfX2ludGVsX2dldF9jcnRjX3Nj
+YW5saW5lKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjKTsKIHZvaWQgaW50ZWxfd2FpdF9mb3JfcGlw
+ZV9zY2FubGluZV9zdG9wcGVkKHN0cnVjdCBpbnRlbF9jcnRjICpjcnRjKTsKIHZvaWQgaW50ZWxf
+d2FpdF9mb3JfcGlwZV9zY2FubGluZV9tb3Zpbmcoc3RydWN0IGludGVsX2NydGMgKmNydGMpOwog
+dm9pZCBpbnRlbF9jcnRjX3VwZGF0ZV9hY3RpdmVfdGltaW5ncyhjb25zdCBzdHJ1Y3QgaW50ZWxf
+Y3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxh
+eS9pbnRlbF9jcnRjLmMJMjAyNi0wNS0xMCAwODozNzo0Ny40ODMxOTkzOTggKzAwMDAKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9jcnRjLmMJMjAyNi0wNS0xMCAwODoz
+Nzo0Ny40ODY4MTQxODkgKzAwMDAKQEAgLTYwNCw3ICs2MDQsNyBAQAogCXN0cnVjdCBpbnRlbF9j
+cnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZSA9CiAJCWludGVsX2F0b21pY19nZXRfbmV3X2NydGNf
+c3RhdGUoc3RhdGUsIGNydGMpOwogCWVudW0gcGlwZSBwaXBlID0gY3J0Yy0+cGlwZTsKLQlpbnQg
+c2NhbmxpbmVfZW5kID0gaW50ZWxfZ2V0X2NydGNfc2NhbmxpbmUoY3J0Yyk7CisJaW50IHNjYW5s
+aW5lX2VuZCA9IF9faW50ZWxfZ2V0X2NydGNfc2NhbmxpbmUoY3J0Yyk7CiAJdTMyIGVuZF92Ymxf
+Y291bnQgPSBpbnRlbF9jcnRjX2dldF92YmxhbmtfY291bnRlcihjcnRjKTsKIAlrdGltZV90IGVu
+ZF92YmxfdGltZSA9IGt0aW1lX2dldCgpOwogCXN0cnVjdCBkcm1faTkxNV9wcml2YXRlICpkZXZf
+cHJpdiA9IHRvX2k5MTUoY3J0Yy0+YmFzZS5kZXYpOwotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkx
+NS9kaXNwbGF5L2ludGVsX3ZibGFuay5jCTIwMjYtMDUtMTAgMDg6Mzg6MDMuOTIwODYzOTY3ICsw
+MDAwCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdmJsYW5rLmMJMjAy
+Ni0wNS0xMCAwODozODowMy45Mzc5MzQ3NDEgKzAwMDAKQEAgLTIzMyw3ICsyMzMsNyBAQAogICog
+aW50ZWxfZGVfcmVhZF9mdygpLCBvbmx5IGZvciBmYXN0IHJlYWRzIG9mIGRpc3BsYXkgYmxvY2ss
+IG5vIG5lZWQgZm9yCiAgKiBmb3JjZXdha2UgZXRjLgogICovCi1zdGF0aWMgaW50IF9faW50ZWxf
+Z2V0X2NydGNfc2NhbmxpbmUoc3RydWN0IGludGVsX2NydGMgKmNydGMpCitpbnQgX19pbnRlbF9n
+ZXRfY3J0Y19zY2FubGluZShzdHJ1Y3QgaW50ZWxfY3J0YyAqY3J0YykKIHsKIAlzdHJ1Y3QgaW50
+ZWxfZGlzcGxheSAqZGlzcGxheSA9IHRvX2ludGVsX2Rpc3BsYXkoY3J0Yyk7CiAJc3RydWN0IGRy
+bV92YmxhbmtfY3J0YyAqdmJsYW5rID0gZHJtX2NydGNfdmJsYW5rX2NydGMoJmNydGMtPmJhc2Up
+OwpAQCAtNjYzLDI0ICs2NjMsMTMgQEAKIAlzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSA9
+IHRvX2ludGVsX2Rpc3BsYXkoY3J0Yyk7CiAJbG9uZyB0aW1lb3V0ID0gbXNlY3NfdG9famlmZmll
+c190aW1lb3V0KDEpOwogCXdhaXRfcXVldWVfaGVhZF90ICp3cSA9IGRybV9jcnRjX3ZibGFua193
+YWl0cXVldWUoJmNydGMtPmJhc2UpOwotCURFRklORV9XQUlUKHdhaXQpOwogCWludCBzY2FubGlu
+ZTsKIAogCWlmIChldmFkZS0+bWluIDw9IDAgfHwgZXZhZGUtPm1heCA8PSAwKQogCQlyZXR1cm4g
+MDsKIAotCWZvciAoOzspIHsKLQkJLyoKLQkJICogcHJlcGFyZV90b193YWl0KCkgaGFzIGEgbWVt
+b3J5IGJhcnJpZXIsIHdoaWNoIGd1YXJhbnRlZXMKLQkJICogb3RoZXIgQ1BVcyBjYW4gc2VlIHRo
+ZSB0YXNrIHN0YXRlIHVwZGF0ZSBieSB0aGUgdGltZSB3ZQotCQkgKiByZWFkIHRoZSBzY2FubGlu
+ZS4KLQkJICovCi0JCXByZXBhcmVfdG9fd2FpdCh3cSwgJndhaXQsIFRBU0tfVU5JTlRFUlJVUFRJ
+QkxFKTsKLQotCQlzY2FubGluZSA9IGludGVsX2dldF9jcnRjX3NjYW5saW5lKGNydGMpOwotCQlp
+ZiAoc2NhbmxpbmUgPCBldmFkZS0+bWluIHx8IHNjYW5saW5lID4gZXZhZGUtPm1heCkKLQkJCWJy
+ZWFrOwotCisJc2NhbmxpbmUgPSBfX2ludGVsX2dldF9jcnRjX3NjYW5saW5lKGNydGMpOworCXdo
+aWxlIChzY2FubGluZSA+PSBldmFkZS0+bWluICYmIHNjYW5saW5lIDw9IGV2YWRlLT5tYXgpIHsK
+IAkJaWYgKCF0aW1lb3V0KSB7CiAJCQlkcm1fZXJyKGRpc3BsYXktPmRybSwKIAkJCQkiUG90ZW50
+aWFsIGF0b21pYyB1cGRhdGUgZmFpbHVyZSBvbiBwaXBlICVjXG4iLApAQCAtNjkwLDEzICs2Nzks
+MTUgQEAKIAogCQlsb2NhbF9pcnFfZW5hYmxlKCk7CiAKLQkJdGltZW91dCA9IHNjaGVkdWxlX3Rp
+bWVvdXQodGltZW91dCk7CisJCXRpbWVvdXQgPSB3YWl0X2V2ZW50X3RpbWVvdXQoKndxLAorCQkJ
+KHsgc2NhbmxpbmUgPSBpbnRlbF9nZXRfY3J0Y19zY2FubGluZShjcnRjKTsKKwkJCSAgIHNjYW5s
+aW5lIDwgZXZhZGUtPm1pbiB8fCBzY2FubGluZSA+IGV2YWRlLT5tYXg7IH0pLAorCQkJdGltZW91
+dCk7CiAKIAkJbG9jYWxfaXJxX2Rpc2FibGUoKTsKKwkJc2NhbmxpbmUgPSBfX2ludGVsX2dldF9j
+cnRjX3NjYW5saW5lKGNydGMpOwogCX0KIAotCWZpbmlzaF93YWl0KHdxLCAmd2FpdCk7Ci0KIAkv
+KgogCSAqIE9uIFZMVi9DSFYgRFNJIHRoZSBzY2FubGluZSBjb3VudGVyIHdvdWxkIGFwcGVhciB0
+bwogCSAqIGluY3JlbWVudCBhcHByb3guIDEvMyBvZiBhIHNjYW5saW5lIGJlZm9yZSBzdGFydCBv
+ZiB2YmxhbmsuCi0tLSBjdXJzb3Itb25seSBwYXRjaCBmb3IgaW50ZWxfbGVnYWN5X2N1cnNvcl91
+cGRhdGUgLS0tCgotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX2N1cnNv
+ci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfY3Vyc29yLmMKQEAg
+LTgwMCw1ICs4MDAsNiBAQCBpbnRlbF9sZWdhY3lfY3Vyc29yX3VwZGF0ZShzdHJ1Y3QgZHJtX3Bs
+YW5lICpfcGxhbmUsCiAJc3RydWN0IGludGVsX2NydGNfc3RhdGUgKm5ld19jcnRjX3N0YXRlOwog
+CXN0cnVjdCBpbnRlbF92YmxhbmtfZXZhZGVfY3R4IGV2YWRlOworCWJvb2wgaGFzX3ZibGFuayA9
+IGZhbHNlOwogCWludCByZXQ7CiAKIAkvKgpAQCAtODk2LDE4ICs4OTYsMTggQEAgaW50ZWxfbGVn
+YWN5X2N1cnNvcl91cGRhdGUoc3RydWN0IGRybV9wbGFuZSAqX3BsYW5lLAogCWludGVsX3Bzcl9s
+b2NrKGNydGNfc3RhdGUpOwogCiAJaWYgKCFkcm1fV0FSTl9PTigmaTkxNS0+ZHJtLCBkcm1fY3J0
+Y192YmxhbmtfZ2V0KCZjcnRjLT5iYXNlKSkpIHsKKwkJaGFzX3ZibGFuayA9IHRydWU7CisKIAkJ
+LyoKIAkJICogVE9ETzogbWF5YmUgY2hlY2sgaWYgd2UncmUgc3RpbGwgaW4gUFNSCiAJCSAqIGFu
+ZCBza2lwIHRoZSB2YmxhbmsgZXZhc2lvbiBlbnRpcmVseT8KIAkJICovCiAJCWludGVsX3Bzcl93
+YWl0X2Zvcl9pZGxlX2xvY2tlZChjcnRjX3N0YXRlKTsKIAogCQlsb2NhbF9pcnFfZGlzYWJsZSgp
+OwogCiAJCWludGVsX3ZibGFua19ldmFkZSgmZXZhZGUpOwotCi0JCWRybV9jcnRjX3ZibGFua19w
+dXQoJmNydGMtPmJhc2UpOwogCX0gZWxzZSB7CiAJCWxvY2FsX2lycV9kaXNhYmxlKCk7CiAJfQog
+CkBAIC05MjEsOCArOTIxLDExIEBAIGludGVsX2xlZ2FjeV9jdXJzb3JfdXBkYXRlKHN0cnVjdCBk
+cm1fcGxhbmUgKl9wbGFuZSwKIAlsb2NhbF9pcnFfZW5hYmxlKCk7CiAKIAlpbnRlbF9wc3JfdW5s
+b2NrKGNydGNfc3RhdGUpOwogCisJaWYgKGhhc192YmxhbmspCisJCWRybV9jcnRjX3ZibGFua19w
+dXQoJmNydGMtPmJhc2UpOworCiAJaWYgKG9sZF9wbGFuZV9zdGF0ZS0+Z2d0dF92bWEgIT0gbmV3
+X3BsYW5lX3N0YXRlLT5nZ3R0X3ZtYSkgewogCQlkcm1fdmJsYW5rX3dvcmtfaW5pdCgmb2xkX3Bs
+YW5lX3N0YXRlLT51bnBpbl93b3JrLCAmY3J0Yy0+YmFzZSwKIAkJCQkgICAgIGludGVsX2N1cnNv
+cl91bnBpbl93b3JrKTsKIAo=
+
+--b1=_00ULkW50IjV4oXUtjujH7pa1wBFSDoF6FzdAEjriF8--
 
