@@ -4,83 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC70CD484A
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97951CD484D
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCFBC10E53F;
-	Mon, 11 May 2026 14:40:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E54010E79C;
+	Mon, 11 May 2026 14:40:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WOBBFwBp";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=kcore.it header.i=@kcore.it header.b="WYXmb1qC";
 	dkim-atps=neutral
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD4510E6C3
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 May 2026 11:58:22 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-7c23248f3a3so10698637b3.1
- for <intel-gfx@lists.freedesktop.org>; Mon, 11 May 2026 04:58:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778500701; cv=none;
- d=google.com; s=arc-20240605;
- b=HYbduX4EGgav8kof9ae29WbHMdyX0H4ecExTvcii0NnaLRFHPAXwmHZAJTrzzxCsz/
- d4LWFZLheOdDZm2FW+ReutBD6oFQUyC/+0+dlvEHrqq+O0LTW2ENg+CEUdV5id89cRj3
- ZO0MmBS7KBSZGKIB+HqgxYubxuZJ57Un+cJuooKoju0Zv+b0KWGcRcVQcKvC2HE7bgY/
- K7efyZ3le0fSXApYfbQdfCDXkEJ/4EeA27qsxQc20QLzuixksS/AxKeuPMNc2plxOyFA
- fnxlsD/ER2ktJ6V0pYjUFQCETIuXqVxgOxmcAw8QtDu0qyEtfLhxOYE1o/2gsclwhaaa
- vI9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
- fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
- b=dvZAbdgnbZu8zfhptskHih12eFvScpmd2ROtT3ruB9B4pK1Gzu1D/gQXU15ljmwg+2
- M5nKLzhN1K2cb4z6OmPBU2w/dqxj1UtXYZfbDCWR1ioiIvQMe7CKhInnIBXjjV+fZMsi
- FcLdJrnm4vL2yZK+/1mun2TX1yeAuZLkslpvtBrtJdWDB9z95/OUFFl4jrBb1H4O+mlT
- teP4U03L2B936zsDTGfTSc4dyPsG5zFtuj+Vf/6M0spAyHmnA+OPshlcqA/3jRvQDCqT
- rTdX0/b6xdn6vfeNa10uM44jzC2pfgGaV4LvWAnFhOu1Pft8hNDB5ZToTPyDLcrrnXx8
- UrdQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778500701; x=1779105501; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
- b=WOBBFwBpSTDdqr0APpZylRs3l+KUytYx18lXgjdw6pdEaTB9VPbJifXcrHcCe5Pmg1
- 2AsS4UKmOGKxwh3BxOQxRpDpw0FrInGvmrJAM4qGNFu1pfD7Sm/0Cj7yBOVW0EDpjKhf
- 2SSRN5/Z1lQAo2UNkFHYEYdp2Zx2kNgUHEOoqR/HZFXToRPRLGec+mAkAz1qgViqky3G
- 12KIQV/Z5opDDoHLS5VdYD37IwGJ+x5a7i07fX9gWZxpF8JPYSe4haaw2KBuDQmhMzS0
- Woy0jqBvqC5eaCiT6pSjPLCzQ3+1bkRKLJ+r9ttp6tvKevVtXqNZqrAMgIpFjkQhxshy
- X0ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778500701; x=1779105501;
- h=to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
- b=HzrGqTXfVQodm1Y+faZMFG2H4VrfPStvU+dP67BnwdXaT1XtZJ1LmxDv5vyd7ksQj9
- pTN8L1WZi9byIvNjlMNFEbXEQUkISF+PI1uv+fHUzRNaLtLKokWULQ5zTnO9njWNHtJn
- +dYC1VjP4HL7Q5lze2B2aDtRrP2ofFj/dUwLmLyxS1KMmlWu6EjkiAaZ9+t6ZKz1u2SD
- RpPGnaZPCkhYqB/IPwRnv9lxf9+nmjvFY5K+WId3l4Tg5U0W6KWew9O6ZWfAVR5DK4dX
- 9jvJJ/GBSQIdncGk7FPjQ84PsUSm4iXcC+2Mmx+SpMA5iE2Lm2tLeGDn98Jk2ctw3yVH
- v2OA==
-X-Gm-Message-State: AOJu0YxEO77kD4rGc/J/jtyi300CsLg/sE0aAKhIqQSBll3KeeGQsNvO
- fECgksLK7NUc34QU+/4MoGoxcRnx8lGfaQQMCQWQLplMUmeueEFdVE7PEiLYxF1nRrx2a2s2iUq
- +zLsRcdzhCht9lm/6eyWL+Y8PjI+oGIanFXmLCCE=
-X-Gm-Gg: Acq92OEb5yelXtOK2d7bhjudbJlKw/nANzNQOP6BqN6VA1pjK8rLCM9Z9ay7gXGMp2j
- Eu/5ly1GtHtmeQVWjq22UT42mBK0ZAcrEAaI79uJ2S3jp0SxM4xx0lTC8ASNLkSKkPrTm3fISX2
- St0U7zbpJ33jYKIaCA2Fp63oe3OhAR4KJlMaOmn/PRvo1lFo27cVuCZrWg9HnZ9rVC2USdylieQ
- bchS028BusJxHjdV1hNlCZakyUc6rwFZSxm4vWDGewFqlnKbe6a1V9NcveEdyq6U7544cl0hmJG
- exio2CSeZCNcdNIqKDwkzXrpSLupSVbjf2wh0+ubnQ==
-X-Received: by 2002:a05:690c:10:b0:7b4:657d:bd5d with SMTP id
- 00721157ae682-7bdf5e89316mr266186717b3.30.1778500700664; Mon, 11 May 2026
- 04:58:20 -0700 (PDT)
+X-Greylist: delayed 984 seconds by postgrey-1.36 at gabe;
+ Sun, 10 May 2026 17:46:38 UTC
+Received: from spark.kcore.it (spark.kcore.it [49.13.27.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9F410E133;
+ Sun, 10 May 2026 17:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kcore.it;
+ s=spark; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=TJ58bbmrh+pyeR1MRXgtBNPGCye/bC7K9b1jnY3KMLk=; b=WYXmb1qCPjPTtZM1Q/ywAGdcx5
+ p/7/ajKQNAjoaf+Sy40DyWLpxQwen6YuyortBavxEosoHFMCbUXNEZFM8zTiom99HyDHvYIKus1KI
+ H4Cm0cPBZP4zTx0QSt6Y6RBOOPdjPPFJu7Jvoj5sHXjl/D8Xi3eurMAJ9Lw1oyG+lUMQ=;
+Received: from mnencia by spark.kcore.it with local (Exim 4.96)
+ (envelope-from <mnencia@kcore.it>) id 1wM7yj-000BFA-2l;
+ Sun, 10 May 2026 19:30:09 +0200
+Date: Sun, 10 May 2026 19:30:09 +0200
+From: Marco Nenciarini <mnencia@kcore.it>
+To: Aaron Esau <aaron1esau@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Mika Kahola <mika.kahola@intel.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] drm/i915/cx0: fix PLL enable failure handling on
+ Meteor Lake
+Message-ID: <agDAocAQF_wpZYs5@spark.kcore.it>
+References: <20260509162407.510539-1-aaron1esau@gmail.com>
 MIME-Version: 1.0
-From: Daniel Burnfield <daniel.burnfield@gmail.com>
-Date: Mon, 11 May 2026 07:58:09 -0400
-X-Gm-Features: AVHnY4Jlenqa3ZDbsRlYWzbnfsFHJXwBPw_Kh3epQRBNhtORoXEQ41JqBwwwhaw
-Message-ID: <CALQ5wkrXhFBYHYpj1WU6u8unXqwq7jhN9_gheMcc6m12xFG09w@mail.gmail.com>
-Subject: Subject: i915 initialization failure on Apple Mac mini 6,1 and 7,1
- with kernel 6.12+
-To: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="0000000000007ef86c0651897690"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="H+WTlR/4MbHBIrr6"
+Content-Disposition: inline
+In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
 X-Mailman-Approved-At: Mon, 11 May 2026 14:40:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,100 +63,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000007ef86c0651897690
-Content-Type: text/plain; charset="UTF-8"
+
+--H+WTlR/4MbHBIrr6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-*Hardware:*
+Hi Aaron,
 
-   - Apple Mac mini 6,1 (Late 2012), Intel HD Graphics 4000, chip-ID
-   8086:0166
-   - Apple Mac mini 7,1 (Late 2014), Intel HD Graphics 5000, chip-ID
-   8086:0a26
-   - Firmware: Apple EFI (UEFI)
+Short version: same regression reproduces on Arrow Lake-P with a
+different NVIDIA SKU, and NVreg_EnableS0ixPowerManagement=3D1 is already
+set on this machine. The S0ix knob alone is not sufficient to suppress
+the race here, so the i915 side of the fix matters even on systems
+where the NVIDIA workaround is in place.
 
-*OS:* MX Linux 25.1 (Debian Trixie base)
+Hardware:
+  Dell Pro Max 16 Premium (MA16250)
+  Intel Arrow Lake-P, Arc Pro 140T iGPU [8086:7d51]
+  NVIDIA RTX PRO 1000 Blackwell [10de:2db8]
+  NVIDIA driver 595.71.05 (open kernel modules)
 
-*Problem:* i915 fails to initialize on kernel 6.12.x and later on both Mac
-mini models. The system falls back to llvmpipe software rendering. The
-driver field reports N/A in inxi output.
+Kernel: 7.0.4+deb13-amd64 (Debian 7.0.4-1~bpo13+1).
 
-*Working kernel:* 6.1.0-42-amd64 (Debian Bookworm) initializes i915
-correctly on both models and produces full hardware acceleration =E2=80=94 =
-Mesa
-Intel HD Graphics 4000/5000 with OpenGL 4.5.
+NVIDIA module options:
+  NVreg_EnableS0ixPowerManagement=3D1
+  NVreg_PreserveVideoMemoryAllocations=3D1
+  NVreg_DynamicPowerManagement=3D0x00
 
-*Key dmesg errors on 6.12 without nomodeset:*
+Representative trace from a recent boot, ~45 minutes in, on the
+internal eDP panel. The trigger was a VT switch out of the graphical
+session via systemd-logind (vt_ioctl, fbcon_switch,
+intel_fbdev_pan_display), not a direct s2idle resume; a suspend/resume
+cycle had occurred earlier in the same boot:
 
-DMAR-IR: Failed to enable irq remapping. You are vulnerable to
-irq-injection attacks.
-pci 0000:05:00.0: bridge window [mem size 0x00200000]: failed to assign
-pci 0000:05:00.0: bridge window [mem size 0x00200000 64bit pref]:
-failed to assign
-pci 0000:05:06.0: bridge window [io size 0x1000]: failed to assign
-wl: module verification failed: signature and/or required key missing
-=E2=80=94 tainting kernel
+  i915 0000:00:02.0: [drm] *ERROR* Failed to bring PHY A to idle.
+  i915 0000:00:02.0: [drm] *ERROR* PHY A Read 0c70 failed after 3 retries.
+  i915 0000:00:02.0: [drm] *ERROR* PHY A Write 0c70 failed after 3 retries.
+  i915 0000:00:02.0: [drm] *ERROR* Timeout waiting for DDI BUF A to get act=
+ive
+  i915 0000:00:02.0: [drm] *ERROR* Timed out waiting for DP idle patterns
+  i915 0000:00:02.0: [drm] *ERROR* [CRTC:149:pipe A] flip_done timed out
+  i915 0000:00:02.0: [drm] *ERROR* [CRTC:149:pipe A] mismatch in port_clock
+                                   (expected 540000, found 61440)
+  WARNING ... intel_modeset_verify_crtc+0x325/0x550 [i915]
+  WARNING ... verify_single_dpll_state+0x1a2/0x560 [i915]
 
-*Notable:* No i915 messages appear in dmesg at all under 6.12 without
-nomodeset =E2=80=94 the module never attempts to load. Under 6.1 with the s=
-ame
-hardware, i915 loads and initializes cleanly.
+After this point, every suspend/resume cycle in the same boot is
+followed by [CONNECTOR:506:eDP-1] commit wait timed out, which is the
+symptom your series is meant to make the driver fail cleanly on.
 
-*With nomodeset:* System boots to GUI using llvmpipe. i915 is never
-attempted.
+Happy to test the series on this hardware. Let me know whether you
+prefer it tested against the current posting on drm-tip, or if a v2 is
+in flight.
 
-*Workaround:* Boot with kernel 6.1.0-42-amd64 from Debian Bookworm without
-nomodeset. Full hardware acceleration works correctly.
+One small note: the cover-letter title says Meteor Lake, but the
+cx0/C10 PHY path is shared with Arrow Lake-P (and Lunar Lake), so the
+scope of the fix is wider than the title suggests. Worth widening in
+v2 if you respin.
 
-*Request:* Please investigate the PCI bridge resource assignment and
-DMAR-IR regression affecting Apple EFI hardware on kernel 6.12+. These Mac
-mini models are well within the supported hardware range for the i915
-driver and worked correctly on earlier kernels.
-Thank you
-Dan Burnfield
+Thanks,
+Marco
 
---0000000000007ef86c0651897690
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--=20
+Marco Nenciarini - mnencia@kcore.it
+7C23 B804 3E65 D298 0A21  B6E2 589F 03F0 1BA5 5038
 
-<div dir=3D"ltr"><p></p>
-<p><strong>Hardware:</strong></p>
-<ul>
-<li>Apple Mac mini 6,1 (Late 2012), Intel HD Graphics 4000, chip-ID 8086:01=
-66</li>
-<li>Apple Mac mini 7,1 (Late 2014), Intel HD Graphics 5000, chip-ID 8086:0a=
-26</li>
-<li>Firmware: Apple EFI (UEFI)</li>
-</ul>
-<p><strong>OS:</strong> MX Linux 25.1 (Debian Trixie base)</p>
-<p><strong>Problem:</strong> i915 fails to initialize on kernel 6.12.x and =
-later on both Mac mini models. The system falls back to llvmpipe software r=
-endering. The driver field reports N/A in inxi output.</p>
-<p><strong>Working kernel:</strong> 6.1.0-42-amd64 (Debian Bookworm) initia=
-lizes i915 correctly on both models and produces full hardware acceleration=
- =E2=80=94 Mesa Intel HD Graphics 4000/5000 with OpenGL 4.5.</p>
-<p><strong>Key dmesg errors on 6.12 without nomodeset:</strong></p>
-<pre><code>DMAR-IR: Failed to enable irq remapping. You are vulnerable to i=
-rq-injection attacks.
-pci 0000:05:00.0: bridge window [mem size 0x00200000]: failed to assign
-pci 0000:05:00.0: bridge window [mem size 0x00200000 64bit pref]: failed to=
- assign
-pci 0000:05:06.0: bridge window [io size 0x1000]: failed to assign
-wl: module verification failed: signature and/or required key missing =E2=
-=80=94 tainting kernel
-</code></pre>
-<p><strong>Notable:</strong> No i915 messages appear in dmesg at all under =
-6.12 without nomodeset =E2=80=94 the module never attempts to load. Under 6=
-.1 with the same hardware, i915 loads and initializes cleanly.</p>
-<p><strong>With nomodeset:</strong> System boots to GUI using llvmpipe. i91=
-5 is never attempted.</p>
-<p><strong>Workaround:</strong> Boot with kernel 6.1.0-42-amd64 from Debian=
- Bookworm without nomodeset. Full hardware acceleration works correctly.</p=
->
-<p><strong>Request:</strong> Please investigate the PCI bridge resource ass=
-ignment and DMAR-IR regression affecting Apple EFI hardware on kernel 6.12+=
-. These Mac mini models are well within the supported hardware range for th=
-e i915 driver and worked correctly on earlier kernels.</p>
-Thank you<div>Dan Burnfield</div></div>
+--H+WTlR/4MbHBIrr6
+Content-Type: application/pgp-signature; name="signature.asc"
 
---0000000000007ef86c0651897690--
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEfCO4BD5l0pgKIbbiWJ8D8BulUDgFAmoAwKAACgkQWJ8D8Bul
+UDgNlBAAjBBS1Ph+31LDOsuy/1ezA8j6S6cHo0pJWtgSNqNoQUBsfj5CrfiAHB4P
+HnK65pEuyUhAPSK3SijI2lGNs5qlHiMvdcs+vY4sU6OiT7DW4oQ1cUv8v6V981zY
+yZKfA0eeJbp/kxGgEKddCwD7qaZSxv3HFSUk/Xb4niR8Ma1alxwyrcQGpuL1aQ1E
+vgEy21nRy+tqIiowbKKmEqyvDnNEEUxWw60XZR/sr/3JzzVhzqrYeOjqSpKT7EYZ
+eix6asWQnLsEuQ5DimWBR4G8DFDDD+2RtwXHoo9pp/jhLLDEk/9hZptQRfdz6Cug
+gJQpx1TalvftNOUI9kp80cqRBNI/UfMdOuMv97p8ptKmUodnjFe/b282DvEB5eH8
+nKxdumfg/3OdRSOmM9OrFhCIMrYza8yn9ZNFWGPybZi0RG0GJSI3n+aIOoAWzmQo
+89JFFmU1aGrPLA5kJbyLaX5GDDaBeXQ1vfSgqB9Vuk5QXRETh9fwWdS2/WobTR+7
+IlVXg8r1v8lkiUeiqFLs6yQfzhZnzFZZPDt4EClYp7IiHathwmhmQaHhbwM2hyp/
+p1lDuyagjOYykvWHMmD0402/EpReSzeQ0Qt+gOUVAX9yuzwS7efq9hwEAXlHitSp
+uMVtVusODO2rX68NXXKduB6QTZspNXx9vzyS6Ac/uKwELP+vHH8=
+=Dt7q
+-----END PGP SIGNATURE-----
+
+--H+WTlR/4MbHBIrr6--
