@@ -4,62 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80CADCD37AC
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 09:33:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA6C9CD37B9
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 12:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09F3E10E151;
-	Mon, 11 May 2026 09:33:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oKuflpx4";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87FAC10E06B;
- Mon, 11 May 2026 09:33:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778492010; x=1810028010;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Nxn/SJxFgpyHXhNu+xmkiMum9B7+qkLommG6kbe2hTk=;
- b=oKuflpx4ss9kvxOozisGS+qdHjKihtTeMAQQ98MfjttgzHB1OX3GsTSE
- fNdh6o9Hzt92jXx9G76vFmru+oi8XcjXu99jrjn1elnFqtUmdxAiVwuZ0
- /DkRQgC1iDUoQrBV8Q5xqjgSe7tVHGgsUbzVxU888OckM6MmNiJcQT8m2
- tkewwO/TAHCo9ZDztERBEBLT3kp5MEbpj1ZXcD0s1Oe2LuyVIW5dp4YRk
- pf1BL0eDLyViUU/3Rn4dk5iDWfObN9Y2heVj3+oq6mU/rGxVIdrVh0T59
- F++6KXh0HNKove9oKHwSK/6fvgPVLl78Cl0NgcxNZpBXO540IOcFodhl2 w==;
-X-CSE-ConnectionGUID: lVDG/9wfTlyrC7+n2SyNGA==
-X-CSE-MsgGUID: J8kTdF3vTayfqiY59xJAZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11782"; a="90751103"
-X-IronPort-AV: E=Sophos;i="6.23,228,1770624000"; d="scan'208";a="90751103"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 02:33:29 -0700
-X-CSE-ConnectionGUID: zwhdx/fdQZSUhe4FLlBejw==
-X-CSE-MsgGUID: SYQIv4xNSNWmwSjhhkCBJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,228,1770624000"; d="scan'208";a="241376626"
-Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
- ([10.245.244.253])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 May 2026 02:33:25 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Aaron Esau <aaron1esau@gmail.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net, mika.kahola@intel.com, stable@vger.kernel.org, Aaron
- Esau <aaron1esau@gmail.com>, Marco Nenciarini <mnencia@kcore.it>, Imre
- Deak <imre.deak@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH 0/3] drm/i915/cx0: fix PLL enable failure handling on
- Meteor Lake
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
-Date: Mon, 11 May 2026 12:33:21 +0300
-Message-ID: <cdf591ba648d7b3d6a4ae5fead14f5faa92e52ca@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5E910E098;
+	Mon, 11 May 2026 12:04:32 +0000 (UTC)
+Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6EDD10E098;
+ Mon, 11 May 2026 12:04:30 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8664728555210864478=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5B1?=
+ =?utf-8?q?/2=5D_drm/i915/ddi=3A_Fix_cleanup_after_DP_connector_init_failure?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 11 May 2026 12:04:30 -0000
+Message-ID: <177850107093.56505.7818765225200565477@5ab824fced77>
+X-Patchwork-Hint: ignore
+References: <20260507065940.2046690-1-imre.deak@intel.com>
+In-Reply-To: <20260507065940.2046690-1-imre.deak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,85 +37,211 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 09 May 2026, Aaron Esau <aaron1esau@gmail.com> wrote:
-> On Meteor Lake with a hybrid Intel/NVIDIA GPU setup, s2idle resume can
-> leave the CX0 PHY MSGBUS unresponsive. When this happens, the PLL
-> enable sequence silently fails: register writes via MSGBUS are dropped,
-> the PLL never locks, but the driver marks it as enabled and proceeds to
-> drive the pipe.
->
-> The root cause of the MSGBUS becoming unresponsive appears to be the
-> NVIDIA dGPU not participating in S0ix (addressed via the
-> NVreg_EnableS0ixPowerManagement module parameter). However, the i915
-> driver should handle PLL enable failures gracefully regardless of the
-> trigger.
+--===============8664728555210864478==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The way I read this is: There's an issue with an out-of-tree proprietary
-driver, you can only reproduce the issue with said proprietary driver,
-and the upstream driver should jump through hoops to workaround the
-issue in the proprietary driver, in ways that we won't be able to test
-in our CI. And the expectation to work around this upstream is because
-you can't really do anything about the proprietary driver.
+== Series Details ==
 
-Is that about right?
+Series: series starting with [1/2] drm/i915/ddi: Fix cleanup after DP connector init failure
+URL   : https://patchwork.freedesktop.org/series/166105/
+State : success
 
-Apart from adding a bunch of generic error handling code superficially
-unrelated to the proprietary driver.
+== Summary ==
 
-The reason the CRTC enable path generally doesn't have error propagation
-is that 1) the allowed errors on atomic commit are *very* limited, 2)
-nonblocking commits are even more limited, and 3) even on failures the
-display pipe must be running.
+CI Bug Log - changes from CI_DRM_18438 -> Patchwork_166105v1
+====================================================
 
-You simply can't bail out in the middle of hsw_crtc_enable() like
-suggested in patch 2.
+Summary
+-------
 
-See [1] for more. Also see parts about tainted kernels in [2].
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_18438 and Patchwork_166105v1:
+
+### New IGT tests (5) ###
+
+  * igt@gem_exec_basic@basic@ccs0-smem:
+    - Statuses : 10 pass(s)
+    - Exec time: [0.0, 0.00] s
+
+  * igt@gem_exec_fence@basic-await@ccs0:
+    - Statuses : 10 pass(s)
+    - Exec time: [0.07, 0.12] s
+
+  * igt@gem_exec_fence@basic-busy@ccs0:
+    - Statuses : 10 pass(s)
+    - Exec time: [0.05, 0.06] s
+
+  * igt@gem_exec_fence@basic-wait@ccs0:
+    - Statuses : 10 pass(s)
+    - Exec time: [0.05, 0.06] s
+
+  * igt@gem_exec_fence@nb-await@ccs0:
+    - Statuses : 10 pass(s)
+    - Exec time: [0.06, 0.10] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_166105v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-dg2-8:          [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18438/bat-dg2-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/bat-dg2-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@gt_lrc:
+    - bat-mtlp-9:         [PASS][3] -> [INCOMPLETE][4] ([i915#16055]) +1 other test incomplete
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18438/bat-mtlp-9/igt@i915_selftest@live@gt_lrc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/bat-mtlp-9/igt@i915_selftest@live@gt_lrc.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#16055]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16055
 
 
-BR,
-Jani.
+Build changes
+-------------
+
+  * Linux: CI_DRM_18438 -> Patchwork_166105v1
+
+  CI-20190529: 20190529
+  CI_DRM_18438: 30f8a0629f6924f24369cac9161b1a9741880259 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8899: 3e5747e536f148bf232049e49a00e2b683f91a83 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_166105v1: 30f8a0629f6924f24369cac9161b1a9741880259 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/index.html
+
+--===============8664728555210864478==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
-[1] https://docs.kernel.org/gpu/drm-kms.html#c.drm_mode_config_funcs
-[2] https://docs.kernel.org/admin-guide/reporting-issues.html
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
 
->
-> This series:
->   1. Fixes intel_cx0_pll_is_enabled() to check the hardware ACK bit,
->      not just the driver-set REQUEST bit, so a PLL that failed to lock
->      is correctly reported as disabled.
->   2. Adds error propagation through the DPLL enable path: changes the
->      .enable callback to return int, threads errors through
->      _intel_enable_shared_dpll() and intel_dpll_enable(), and checks
->      the result in hsw_crtc_enable() and ilk_pch_enable().
->   3. Makes the CX0 PLL enable path return -ETIMEDOUT when the PHY
->      fails to come out of reset or the PLL fails to lock.
->
-> Found on a Lenovo ThinkPad with Intel Ultra 7 155H and NVIDIA RTX 2000
-> Ada. Kernel traces before each crash:
->
->   i915: Failed to bring PHY A to idle.
->   i915: PHY A Read 0c70 failed after 3 retries.
->   i915: Timeout waiting for DDI BUF A to get active
->   i915: [CRTC:149:pipe A] flip_done timed out
->
-> Aaron Esau (3):
->   drm/i915/cx0: check PLL ACK bit in intel_cx0_pll_is_enabled()
->   drm/i915/dpll: add error propagation to DPLL enable path
->   drm/i915/cx0: return errors from CX0 PLL enable on failure
->
->  drivers/gpu/drm/i915/display/intel_cx0_phy.c  | 54 ++++++++----
->  drivers/gpu/drm/i915/display/intel_cx0_phy.h  |  6 +-
->  drivers/gpu/drm/i915/display/intel_display.c  | 10 ++-
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 87 ++++++++++++++-----
->  drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  2 +-
->  .../gpu/drm/i915/display/intel_pch_display.c  |  7 +-
->  6 files changed, 117 insertions(+), 49 deletions(-)
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [1/2] drm/i915/ddi: Fix cleanup after DP connector init failure</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166105/">https://patchwork.freedesktop.org/series/166105/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
 
--- 
-Jani Nikula, Intel
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18438 -&gt; Patchwork_166105v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_18438 and Patchwork_166105v1:</p>
+<h3>New IGT tests (5)</h3>
+<ul>
+<li>
+<p>igt@gem_exec_basic@basic@ccs0-smem:</p>
+<ul>
+<li>Statuses : 10 pass(s)</li>
+<li>Exec time: [0.0, 0.00] s</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@basic-await@ccs0:</p>
+<ul>
+<li>Statuses : 10 pass(s)</li>
+<li>Exec time: [0.07, 0.12] s</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@basic-busy@ccs0:</p>
+<ul>
+<li>Statuses : 10 pass(s)</li>
+<li>Exec time: [0.05, 0.06] s</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@basic-wait@ccs0:</p>
+<ul>
+<li>Statuses : 10 pass(s)</li>
+<li>Exec time: [0.05, 0.06] s</li>
+</ul>
+</li>
+<li>
+<p>igt@gem_exec_fence@nb-await@ccs0:</p>
+<ul>
+<li>Statuses : 10 pass(s)</li>
+<li>Exec time: [0.06, 0.10] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_166105v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18438/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@gt_lrc:</p>
+<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18438/bat-mtlp-9/igt@i915_selftest@live@gt_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166105v1/bat-mtlp-9/igt@i915_selftest@live@gt_lrc.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16055">i915#16055</a>) +1 other test incomplete</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18438 -&gt; Patchwork_166105v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18438: 30f8a0629f6924f24369cac9161b1a9741880259 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8899: 3e5747e536f148bf232049e49a00e2b683f91a83 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_166105v1: 30f8a0629f6924f24369cac9161b1a9741880259 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8664728555210864478==--
