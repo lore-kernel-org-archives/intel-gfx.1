@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A53BCD4840
-	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 18:45:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81117CD4840
+	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 19:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 010B910E237;
-	Mon, 11 May 2026 18:45:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFED910E89B;
+	Mon, 11 May 2026 19:13:49 +0000 (UTC)
 Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3085910E237;
- Mon, 11 May 2026 18:45:30 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D974910E1EE;
+ Mon, 11 May 2026 19:13:47 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0062148494150272969=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/cx0=3A?=
- =?utf-8?q?_fix_PLL_enable_failure_handling_on_Meteor_Lake?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Adaptive_S?=
+ =?utf-8?q?ync_SDP_readback_fixes?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Aaron Esau" <aaron1esau@gmail.com>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 11 May 2026 18:45:30 -0000
-Message-ID: <177852513019.58691.10090074260535361540@5ab824fced77>
+Date: Mon, 11 May 2026 19:13:47 -0000
+Message-ID: <177852682788.58691.4222433112244085365@5ab824fced77>
 X-Patchwork-Hint: ignore
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
+References: <20260511123218.1589830-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260511123218.1589830-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,16 +41,105 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============0062148494150272969==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915/cx0: fix PLL enable failure handling on Meteor Lake
-URL   : https://patchwork.freedesktop.org/series/166328/
-State : failure
+Series: drm/i915/dp: Adaptive Sync SDP readback fixes
+URL   : https://patchwork.freedesktop.org/series/166318/
+State : success
 
 == Summary ==
 
-Address 'aaron1esau@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
-If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
-Exception occurred during validation, bailing out!
+CI Bug Log - changes from CI_DRM_18467 -> Patchwork_166318v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166318v1/index.html
+
+Participating hosts (42 -> 39)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18467 -> Patchwork_166318v1
+
+  CI-20190529: 20190529
+  CI_DRM_18467: f8ee23694aa6be213355905a78f79bb1b0861565 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8902: d28bd0b9e0347c58ca9b012c02de7e2ad5ffe847 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_166318v1: f8ee23694aa6be213355905a78f79bb1b0861565 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166318v1/index.html
+
+--===============0062148494150272969==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Adaptive Sync SDP readback fixes</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166318/">https://patchwork.freedesktop.org/series/166318/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166318v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166318v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18467 -&gt; Patchwork_166318v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166318v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 39)</h2>
+<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18467 -&gt; Patchwork_166318v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18467: f8ee23694aa6be213355905a78f79bb1b0861565 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8902: d28bd0b9e0347c58ca9b012c02de7e2ad5ffe847 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_166318v1: f8ee23694aa6be213355905a78f79bb1b0861565 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0062148494150272969==--
