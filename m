@@ -4,78 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F30CD37AC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAC70CD484A
 	for <intel-gfx@archiver.kernel.org>; Mon, 11 May 2026 14:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD05510E797;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCFBC10E53F;
 	Mon, 11 May 2026 14:40:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GqZXOw6o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WOBBFwBp";
 	dkim-atps=neutral
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 303E110E101
- for <intel-gfx@lists.freedesktop.org>; Sat,  9 May 2026 16:24:26 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-7dbcb45153cso209931a34.3
- for <intel-gfx@lists.freedesktop.org>; Sat, 09 May 2026 09:24:26 -0700 (PDT)
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FD4510E6C3
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 May 2026 11:58:22 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-7c23248f3a3so10698637b3.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 11 May 2026 04:58:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1778500701; cv=none;
+ d=google.com; s=arc-20240605;
+ b=HYbduX4EGgav8kof9ae29WbHMdyX0H4ecExTvcii0NnaLRFHPAXwmHZAJTrzzxCsz/
+ d4LWFZLheOdDZm2FW+ReutBD6oFQUyC/+0+dlvEHrqq+O0LTW2ENg+CEUdV5id89cRj3
+ ZO0MmBS7KBSZGKIB+HqgxYubxuZJ57Un+cJuooKoju0Zv+b0KWGcRcVQcKvC2HE7bgY/
+ K7efyZ3le0fSXApYfbQdfCDXkEJ/4EeA27qsxQc20QLzuixksS/AxKeuPMNc2plxOyFA
+ fnxlsD/ER2ktJ6V0pYjUFQCETIuXqVxgOxmcAw8QtDu0qyEtfLhxOYE1o/2gsclwhaaa
+ vI9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
+ fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
+ b=dvZAbdgnbZu8zfhptskHih12eFvScpmd2ROtT3ruB9B4pK1Gzu1D/gQXU15ljmwg+2
+ M5nKLzhN1K2cb4z6OmPBU2w/dqxj1UtXYZfbDCWR1ioiIvQMe7CKhInnIBXjjV+fZMsi
+ FcLdJrnm4vL2yZK+/1mun2TX1yeAuZLkslpvtBrtJdWDB9z95/OUFFl4jrBb1H4O+mlT
+ teP4U03L2B936zsDTGfTSc4dyPsG5zFtuj+Vf/6M0spAyHmnA+OPshlcqA/3jRvQDCqT
+ rTdX0/b6xdn6vfeNa10uM44jzC2pfgGaV4LvWAnFhOu1Pft8hNDB5ZToTPyDLcrrnXx8
+ UrdQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778343865; x=1778948665; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LO2P0xIyQDisD90PKW6kTEf7ozKUuDCN/MlNOVEwtA8=;
- b=GqZXOw6oXghP0yIrow/tU24BgNnJyQXl+7h1EJHsugVbpI802zf1C+53cbwCAgTa7w
- r40ua542vETZ3WwwdTlgc8sP8CYQafyflucoNp6B9G8C2MjMEwlvke3Icz4Pc8jGoFwP
- k3KYuJIsa38gxqbrJNxJ68qFXz6MWWGUAM570glqJHzaKUpUS5og/uRNowXREq4Zhzmh
- LJxm1uIf4ndADEdUapWPUqVRFYb5rN9+PYqnRdvUIUD+46pjLhGTw6gaTHaXzmZeirrj
- 90su9JlTGOqRqabb3KH7XAHErJafSNDX10GSoknhvUJrLIZn5q+dBRhBOXuQcJa2vWta
- YIRQ==
+ d=gmail.com; s=20251104; t=1778500701; x=1779105501; darn=lists.freedesktop.org;
+ h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
+ b=WOBBFwBpSTDdqr0APpZylRs3l+KUytYx18lXgjdw6pdEaTB9VPbJifXcrHcCe5Pmg1
+ 2AsS4UKmOGKxwh3BxOQxRpDpw0FrInGvmrJAM4qGNFu1pfD7Sm/0Cj7yBOVW0EDpjKhf
+ 2SSRN5/Z1lQAo2UNkFHYEYdp2Zx2kNgUHEOoqR/HZFXToRPRLGec+mAkAz1qgViqky3G
+ 12KIQV/Z5opDDoHLS5VdYD37IwGJ+x5a7i07fX9gWZxpF8JPYSe4haaw2KBuDQmhMzS0
+ Woy0jqBvqC5eaCiT6pSjPLCzQ3+1bkRKLJ+r9ttp6tvKevVtXqNZqrAMgIpFjkQhxshy
+ X0ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778343865; x=1778948665;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=LO2P0xIyQDisD90PKW6kTEf7ozKUuDCN/MlNOVEwtA8=;
- b=KxXQZ5UYZPADQPROLZQ+EFuiuRf97zxjmwi2Na6IVIjLSYya1OTMxP1Nbx8OK50537
- 7eyQyNhbGlWnURwe0wVKiqQfN/KhwLsf41wR2Y+eofSqs0s192IUSJXe85JsLU0fCslj
- KRT2Ki7KySrY1jInSl95HIQf11JoEBlpDyRYfxfo43uglzlkDDhRNLaIA4L0no6N9Q+C
- K+D5QxGe7ISRErqBWebz+p+XA+9PLZhxQetF/Pu1lp8n5OaZPXQCxkXXXNQ9Lhsqu+2l
- rmGPetmN5eZK/4wv/uQAQMwAvz1sW+FuNtBgWY/bTkDzT0VWGiQs3FDnAm8JiJZT6GIC
- TkxQ==
-X-Gm-Message-State: AOJu0YzMiy45G1aYy/dpt0BCPMvDy/A3WTsifHZ8WY8zB8120gKA9jgR
- G/5BfW4z+rdGdAhTB07yC+u44YKiUwbvxVpy0z5Dlir9jEuTnLmiz2tu1VrbEV/jtuk=
-X-Gm-Gg: Acq92OEIgyTOWCgUXu42rd4Iw1O+na7bzlgVV6kqBjTcdkrm4qDgh1CEGiinQ4O9rpb
- /AUMssOWi+TpH938i5fdaOjTLuvcTLIuXf1zn5aA40miH1xVMFGE6C/Deb4q9uT7TS70WTv+bP2
- Wx5d0rJg4fycEZzG8Cm6z5XRRlqAKYjtTLPOQcSKzq1E4MfDyIPm86z03ViBtPtXqrSJDZ2uAbX
- 4bUIVbtycxgdDrfI5Z9iiYRsNDfLiEFhDfHzHcQMWMfKrV89nEB9SGby6Ivi590eZri4pFrHfDW
- 21PpaTNqEWTySqB1zhW0vpX5mzE5kcSKx0QAAEsfkeGbHOsaPLv4x12iYGJbznihtbC6kMhSKaE
- h3eFiq0LsSIwxFmdWO0AfyCCshzkIuS84F61l8aE8J4VuSH+lyGa1oMcxdanSOoQWG21Z5MzfSl
- hcrKySHJpKsnuOFfggDchmLmHsMjpbaJjy8KWtoVs2M7dcLUpsYnbGj9LM7WWkAebgafA1EzyiX
- TvZ9Fji9v+eiZharlK2aEB0
-X-Received: by 2002:a05:6870:fbac:b0:434:357:6dcd with SMTP id
- 586e51a60fabf-434fc418c5amr6222410fac.8.1778343865106; 
- Sat, 09 May 2026 09:24:25 -0700 (PDT)
-Received: from localhost ([136.49.184.116]) by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-435571099a4sm4623244fac.7.2026.05.09.09.24.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 09 May 2026 09:24:24 -0700 (PDT)
-From: Aaron Esau <aaron1esau@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net,
- mika.kahola@intel.com, stable@vger.kernel.org,
- Aaron Esau <aaron1esau@gmail.com>
-Subject: [PATCH 1/3] drm/i915/cx0: check PLL ACK bit in
- intel_cx0_pll_is_enabled()
-Date: Sat,  9 May 2026 11:24:05 -0500
-Message-ID: <20260509162407.510539-2-aaron1esau@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260509162407.510539-1-aaron1esau@gmail.com>
-References: <20260509162407.510539-1-aaron1esau@gmail.com>
+ d=1e100.net; s=20251104; t=1778500701; x=1779105501;
+ h=to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=svYukfDqK3QrRdRVfkV17a9HSKJFLg9SQzDQTJ5q3EY=;
+ b=HzrGqTXfVQodm1Y+faZMFG2H4VrfPStvU+dP67BnwdXaT1XtZJ1LmxDv5vyd7ksQj9
+ pTN8L1WZi9byIvNjlMNFEbXEQUkISF+PI1uv+fHUzRNaLtLKokWULQ5zTnO9njWNHtJn
+ +dYC1VjP4HL7Q5lze2B2aDtRrP2ofFj/dUwLmLyxS1KMmlWu6EjkiAaZ9+t6ZKz1u2SD
+ RpPGnaZPCkhYqB/IPwRnv9lxf9+nmjvFY5K+WId3l4Tg5U0W6KWew9O6ZWfAVR5DK4dX
+ 9jvJJ/GBSQIdncGk7FPjQ84PsUSm4iXcC+2Mmx+SpMA5iE2Lm2tLeGDn98Jk2ctw3yVH
+ v2OA==
+X-Gm-Message-State: AOJu0YxEO77kD4rGc/J/jtyi300CsLg/sE0aAKhIqQSBll3KeeGQsNvO
+ fECgksLK7NUc34QU+/4MoGoxcRnx8lGfaQQMCQWQLplMUmeueEFdVE7PEiLYxF1nRrx2a2s2iUq
+ +zLsRcdzhCht9lm/6eyWL+Y8PjI+oGIanFXmLCCE=
+X-Gm-Gg: Acq92OEb5yelXtOK2d7bhjudbJlKw/nANzNQOP6BqN6VA1pjK8rLCM9Z9ay7gXGMp2j
+ Eu/5ly1GtHtmeQVWjq22UT42mBK0ZAcrEAaI79uJ2S3jp0SxM4xx0lTC8ASNLkSKkPrTm3fISX2
+ St0U7zbpJ33jYKIaCA2Fp63oe3OhAR4KJlMaOmn/PRvo1lFo27cVuCZrWg9HnZ9rVC2USdylieQ
+ bchS028BusJxHjdV1hNlCZakyUc6rwFZSxm4vWDGewFqlnKbe6a1V9NcveEdyq6U7544cl0hmJG
+ exio2CSeZCNcdNIqKDwkzXrpSLupSVbjf2wh0+ubnQ==
+X-Received: by 2002:a05:690c:10:b0:7b4:657d:bd5d with SMTP id
+ 00721157ae682-7bdf5e89316mr266186717b3.30.1778500700664; Mon, 11 May 2026
+ 04:58:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Daniel Burnfield <daniel.burnfield@gmail.com>
+Date: Mon, 11 May 2026 07:58:09 -0400
+X-Gm-Features: AVHnY4Jlenqa3ZDbsRlYWzbnfsFHJXwBPw_Kh3epQRBNhtORoXEQ41JqBwwwhaw
+Message-ID: <CALQ5wkrXhFBYHYpj1WU6u8unXqwq7jhN9_gheMcc6m12xFG09w@mail.gmail.com>
+Subject: Subject: i915 initialization failure on Apple Mac mini 6,1 and 7,1
+ with kernel 6.12+
+To: intel-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="0000000000007ef86c0651897690"
 X-Mailman-Approved-At: Mon, 11 May 2026 14:40:35 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,48 +97,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_cx0_pll_is_enabled() only checks the PCLK_PLL_REQUEST bit in
-PORT_CLOCK_CTL, which is set by the driver during the PLL enable
-sequence. It does not check the PCLK_PLL_ACK bit, which is the
-hardware's response indicating the PLL actually locked.
+--0000000000007ef86c0651897690
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When the CX0 PHY MSGBUS is unresponsive (e.g. after a failed s2idle
-resume), the PLL register programming via MSGBUS silently fails and
-the PLL never locks, but intel_cx0_pll_is_enabled() returns true
-because the driver-set REQUEST bit is present. This causes all
-downstream state readout and verification to operate on a PLL that
-is not actually enabled.
+*Hardware:*
 
-Check both the REQUEST and ACK bits so that a PLL is only reported
-as enabled when the hardware has confirmed it locked.
+   - Apple Mac mini 6,1 (Late 2012), Intel HD Graphics 4000, chip-ID
+   8086:0166
+   - Apple Mac mini 7,1 (Late 2014), Intel HD Graphics 5000, chip-ID
+   8086:0a26
+   - Firmware: Apple EFI (UEFI)
 
-Fixes: bf8531990380 ("drm/i915/display: Allow display PHYs to reset power state")
-Cc: stable@vger.kernel.org
-Cc: Mika Kahola <mika.kahola@intel.com>
-Signed-off-by: Aaron Esau <aaron1esau@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+*OS:* MX Linux 25.1 (Debian Trixie base)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 7288065d2..4cacea802 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -3581,9 +3581,12 @@ static bool intel_cx0_pll_is_enabled(struct intel_encoder *encoder)
- 	struct intel_display *display = to_intel_display(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	u8 lane = dig_port->lane_reversal ? INTEL_CX0_LANE1 : INTEL_CX0_LANE0;
-+	u32 val;
- 
--	return intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port)) &
--			     intel_cx0_get_pclk_pll_request(lane);
-+	val = intel_de_read(display, XELPDP_PORT_CLOCK_CTL(display, encoder->port));
-+
-+	return (val & intel_cx0_get_pclk_pll_request(lane)) &&
-+	       (val & intel_cx0_get_pclk_pll_ack(lane));
- }
- 
- void intel_mtl_tbt_pll_disable_clock(struct intel_encoder *encoder)
--- 
-2.54.0
+*Problem:* i915 fails to initialize on kernel 6.12.x and later on both Mac
+mini models. The system falls back to llvmpipe software rendering. The
+driver field reports N/A in inxi output.
 
+*Working kernel:* 6.1.0-42-amd64 (Debian Bookworm) initializes i915
+correctly on both models and produces full hardware acceleration =E2=80=94 =
+Mesa
+Intel HD Graphics 4000/5000 with OpenGL 4.5.
+
+*Key dmesg errors on 6.12 without nomodeset:*
+
+DMAR-IR: Failed to enable irq remapping. You are vulnerable to
+irq-injection attacks.
+pci 0000:05:00.0: bridge window [mem size 0x00200000]: failed to assign
+pci 0000:05:00.0: bridge window [mem size 0x00200000 64bit pref]:
+failed to assign
+pci 0000:05:06.0: bridge window [io size 0x1000]: failed to assign
+wl: module verification failed: signature and/or required key missing
+=E2=80=94 tainting kernel
+
+*Notable:* No i915 messages appear in dmesg at all under 6.12 without
+nomodeset =E2=80=94 the module never attempts to load. Under 6.1 with the s=
+ame
+hardware, i915 loads and initializes cleanly.
+
+*With nomodeset:* System boots to GUI using llvmpipe. i915 is never
+attempted.
+
+*Workaround:* Boot with kernel 6.1.0-42-amd64 from Debian Bookworm without
+nomodeset. Full hardware acceleration works correctly.
+
+*Request:* Please investigate the PCI bridge resource assignment and
+DMAR-IR regression affecting Apple EFI hardware on kernel 6.12+. These Mac
+mini models are well within the supported hardware range for the i915
+driver and worked correctly on earlier kernels.
+Thank you
+Dan Burnfield
+
+--0000000000007ef86c0651897690
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p></p>
+<p><strong>Hardware:</strong></p>
+<ul>
+<li>Apple Mac mini 6,1 (Late 2012), Intel HD Graphics 4000, chip-ID 8086:01=
+66</li>
+<li>Apple Mac mini 7,1 (Late 2014), Intel HD Graphics 5000, chip-ID 8086:0a=
+26</li>
+<li>Firmware: Apple EFI (UEFI)</li>
+</ul>
+<p><strong>OS:</strong> MX Linux 25.1 (Debian Trixie base)</p>
+<p><strong>Problem:</strong> i915 fails to initialize on kernel 6.12.x and =
+later on both Mac mini models. The system falls back to llvmpipe software r=
+endering. The driver field reports N/A in inxi output.</p>
+<p><strong>Working kernel:</strong> 6.1.0-42-amd64 (Debian Bookworm) initia=
+lizes i915 correctly on both models and produces full hardware acceleration=
+ =E2=80=94 Mesa Intel HD Graphics 4000/5000 with OpenGL 4.5.</p>
+<p><strong>Key dmesg errors on 6.12 without nomodeset:</strong></p>
+<pre><code>DMAR-IR: Failed to enable irq remapping. You are vulnerable to i=
+rq-injection attacks.
+pci 0000:05:00.0: bridge window [mem size 0x00200000]: failed to assign
+pci 0000:05:00.0: bridge window [mem size 0x00200000 64bit pref]: failed to=
+ assign
+pci 0000:05:06.0: bridge window [io size 0x1000]: failed to assign
+wl: module verification failed: signature and/or required key missing =E2=
+=80=94 tainting kernel
+</code></pre>
+<p><strong>Notable:</strong> No i915 messages appear in dmesg at all under =
+6.12 without nomodeset =E2=80=94 the module never attempts to load. Under 6=
+.1 with the same hardware, i915 loads and initializes cleanly.</p>
+<p><strong>With nomodeset:</strong> System boots to GUI using llvmpipe. i91=
+5 is never attempted.</p>
+<p><strong>Workaround:</strong> Boot with kernel 6.1.0-42-amd64 from Debian=
+ Bookworm without nomodeset. Full hardware acceleration works correctly.</p=
+>
+<p><strong>Request:</strong> Please investigate the PCI bridge resource ass=
+ignment and DMAR-IR regression affecting Apple EFI hardware on kernel 6.12+=
+. These Mac mini models are well within the supported hardware range for th=
+e i915 driver and worked correctly on earlier kernels.</p>
+Thank you<div>Dan Burnfield</div></div>
+
+--0000000000007ef86c0651897690--
