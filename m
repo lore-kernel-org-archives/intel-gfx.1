@@ -4,27 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5B1CD4851
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 May 2026 10:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3C24CD4851
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 May 2026 10:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E68CF10E270;
-	Tue, 12 May 2026 10:43:31 +0000 (UTC)
-Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F26DF10E270;
- Tue, 12 May 2026 10:43:30 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6048222925646695144=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7017C10E11B;
+	Tue, 12 May 2026 10:45:48 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Nd2Hlz8W";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77CDF10E11B;
+ Tue, 12 May 2026 10:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1778582748; x=1810118748;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=byaVFHUwvts6/LFnPLYfvfc246ZQDro/177MK5/Ulso=;
+ b=Nd2Hlz8WLzi+EpbDbhippmRcBvoXW5oWYcWwTc+NAeHUMAmhFwRtqxx0
+ uNw00WSDw7WCqJj90ElH/EuS0bscvG6jEh+96AZaFyrGiT65r3SJT8d6T
+ DTJ7lV5KeRA/PwjGNBlV944KihjHaix0JcJvpA6ST5g1YCIurWY/T7ItE
+ xv2Bism/wWcUamCvmsX8ZTR6qLpvfzLGhGhI/L/ZMWvgGvNYJOylehFLl
+ rXz5hdcZPnwepXGsaTxt1SQ3k0BITemjkwErSRBtjHdJ1rKDUPTodY/Wy
+ GtGOFqDlho68R+idPkDQ0Gd5WGqo8oh8hZ8UbSas+2CboNn4uM4A/pNrP A==;
+X-CSE-ConnectionGUID: SBvrkBtMT/6NV49jd1hJGw==
+X-CSE-MsgGUID: t9jq0KnmTi2wG3pIStshcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11783"; a="89790361"
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="89790361"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 03:45:47 -0700
+X-CSE-ConnectionGUID: ArpE1PKiRbeDUllS6lygyA==
+X-CSE-MsgGUID: dljJdHxoRKGD56+H4Q6HUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,230,1770624000"; d="scan'208";a="261227152"
+Received: from vpanait-mobl.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.203])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 May 2026 03:45:45 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 08/14] drm/xe: Print a debug message if we have no
+ stolen for the initial FB
+In-Reply-To: <20260511214122.8468-9-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260511214122.8468-1-ville.syrjala@linux.intel.com>
+ <20260511214122.8468-9-ville.syrjala@linux.intel.com>
+Date: Tue, 12 May 2026 13:45:41 +0300
+Message-ID: <a7fc052011cc1525083eb509f9dd88e78bdf5464@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_Revert_=22i915=3A_don=27t?=
- =?utf-8?q?_use_a_vma_that_didn=27t_match_the_context_VM=22?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 12 May 2026 10:43:30 -0000
-Message-ID: <177858261098.61304.3721147809568681212@5ab824fced77>
-X-Patchwork-Hint: ignore
-References: <20260512085848.208008-1-joonas.lahtinen@linux.intel.com>
-In-Reply-To: <20260512085848.208008-1-joonas.lahtinen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,196 +70,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6048222925646695144==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 12 May 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> Inform the poor sop reading the logs why the initial FB was rejected
+> if there is no stolen memory.
+>
+> Technically this should perhaps be an error since the plane is known
+> to be enabled at this point, and if there is no stolen then it clearly
+> can't be scanning out from anywhere. But maybe there are some
+> virtualization passthrough cases and whatnot where we might not be
+> able to get access to stolen, so keep it as debug (same as i915).
+>
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Series: Revert "i915: don't use a vma that didn't match the context VM"
-URL   : https://patchwork.freedesktop.org/series/166398/
-State : failure
+> ---
+>  drivers/gpu/drm/xe/display/xe_initial_plane.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/=
+drm/xe/display/xe_initial_plane.c
+> index 14ac4cd8b7ff..b7e0685351bb 100644
+> --- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> +++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+> @@ -67,10 +67,14 @@ initial_plane_bo(struct xe_device *xe,
+>  			    "Using phys_base=3D%pa, based on initial plane programming\n",
+>  			    &phys_base);
+>  	} else {
+> -		struct ttm_resource_manager *stolen =3D ttm_manager_type(&xe->ttm, XE_=
+PL_STOLEN);
+> +		struct ttm_resource_manager *stolen;
+>=20=20
+> -		if (!stolen)
+> +		stolen =3D ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
+> +		if (!stolen) {
+> +			drm_dbg_kms(&xe->drm, "No stolen for initial FB\n");
+>  			return NULL;
+> +		}
+> +
+>  		phys_base =3D base;
+>  		flags |=3D XE_BO_FLAG_STOLEN;
+>  	}
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_18473 -> Patchwork_166398v1
-====================================================
-
-Summary
--------
-
-  **FAILURE**
-
-  Serious unknown changes coming with Patchwork_166398v1 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_166398v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/index.html
-
-Participating hosts (42 -> 39)
-------------------------------
-
-  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
-
-Possible new issues
--------------------
-
-  Here are the unknown changes that may have been introduced in Patchwork_166398v1:
-
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@guc:
-    - fi-skl-6600u:       [PASS][1] -> [INCOMPLETE][2] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-skl-6600u/igt@i915_selftest@live@guc.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/fi-skl-6600u/igt@i915_selftest@live@guc.html
-
-  
-Known issues
-------------
-
-  Here are the changes found in Patchwork_166398v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live:
-    - bat-mtlp-8:         [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-mtlp-8/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-mtlp-8/igt@i915_selftest@live.html
-    - bat-dg2-8:          [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-8/igt@i915_selftest@live.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-dg2-8/igt@i915_selftest@live.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [PASS][7] -> [DMESG-WARN][8] ([i915#15673]) +48 other tests dmesg-warn
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  
-#### Possible fixes ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - bat-rpls-4:         [DMESG-WARN][9] ([i915#13400]) -> [PASS][10]
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-
-  
-  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18473 -> Patchwork_166398v1
-
-  CI-20190529: 20190529
-  CI_DRM_18473: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8903: 6f88532e2fe22529195cc2f8cabff93d994688f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_166398v1: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/index.html
-
---===============6048222925646695144==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Revert &quot;i915: don&#x27;t use a vma that didn&#x27;t match the context VM&quot;</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166398/">https://patchwork.freedesktop.org/series/166398/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18473 -&gt; Patchwork_166398v1</h1>
-<h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_166398v1 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_166398v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_166398v1:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@guc:<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-skl-6600u/igt@i915_selftest@live@guc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/fi-skl-6600u/igt@i915_selftest@live@guc.html">INCOMPLETE</a> +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_166398v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +48 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@core_hotunplug@unbind-rebind:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166398v1/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18473 -&gt; Patchwork_166398v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18473: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8903: 6f88532e2fe22529195cc2f8cabff93d994688f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_166398v1: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6048222925646695144==--
+--=20
+Jani Nikula, Intel
