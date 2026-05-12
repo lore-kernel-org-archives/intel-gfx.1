@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 552A1CD4851
-	for <intel-gfx@archiver.kernel.org>; Tue, 12 May 2026 13:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1EA8CD4F24
+	for <intel-gfx@archiver.kernel.org>; Tue, 12 May 2026 14:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA40410EAE9;
-	Tue, 12 May 2026 13:47:33 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UGj8nDJe";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2BE110EAEA;
- Tue, 12 May 2026 13:47:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778593653; x=1810129653;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=axnefGPYFL6LOcuwTaBAEGHGBEvZTk+EQUYRQBzxXo8=;
- b=UGj8nDJeovPYUDqxerzucgoiQl/56CS/1o82/OKQBa0eBek/bojvt7aG
- kzkDr5VbZF9gTc/IdkOjs9S2OQnVD9RPb9tmd6l/nhuu1JsFPldlsJya2
- 6HvD7ELOwuMvLQVe95UxHUXPExWDJb7PReddfyICXHd2HkNKd5L8+vOa/
- q01fjAs5lSlMUsqiav9U4mai3RMSikCYsOyXg4X1NnyQb5p49qphABq5k
- EfzhI/Iy5X9rVgl0ZsmdGuFg3iOikBY/kTcqpH91umFhnSsyblpqHgDTC
- psFan4V/IiFADjBNtW1ojmsp/AeKmMu7MrW+riU5dzQuWyp2crXyohg+h w==;
-X-CSE-ConnectionGUID: aZaQfL6TQFO+MXL48YhKYQ==
-X-CSE-MsgGUID: of15aCtdTsiJiqb6Ynva7Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11784"; a="90604355"
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="90604355"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 06:47:33 -0700
-X-CSE-ConnectionGUID: tHeEen83SmSW2q0gXCw+Uw==
-X-CSE-MsgGUID: 5/ntyGwbR4SugvUkadQjug==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,231,1770624000"; d="scan'208";a="261257400"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 May 2026 06:47:30 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jani.nikula@linux.intel.com,
- navaremanasi@google.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 6/6] drm/i915/intel_panel: Refine VRR fixed mode selection for
- DRRS panels
-Date: Tue, 12 May 2026 19:02:49 +0530
-Message-ID: <20260512133249.2475882-7-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260512133249.2475882-1-ankit.k.nautiyal@intel.com>
-References: <20260512133249.2475882-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5908710EB2F;
+	Tue, 12 May 2026 14:02:03 +0000 (UTC)
+Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD47810EB3A;
+ Tue, 12 May 2026 14:02:02 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4541423816813696110=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/atomic=3A_Rework_init?=
+ =?utf-8?q?ial_state_allocation_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maxime Ripard" <mripard@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 12 May 2026 14:02:02 -0000
+Message-ID: <177859452283.61708.7681186870075888663@5ab824fced77>
+X-Patchwork-Hint: ignore
+References: <20260512-drm-mode-config-init-v4-0-591dfdcc1bf9@kernel.org>
+In-Reply-To: <20260512-drm-mode-config-init-v4-0-591dfdcc1bf9@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,167 +37,186 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There are two kinds of VRR panels with fixed modes to consider:
+--===============4541423816813696110==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Type 1: Modes with different clocks (e.g. 60Hz @ 347MHz, 120Hz @ 695MHz)
-For such panels, it is not possible to seamlessly switch from a lower RR
-mode to a higher RR mode, since at lower clock we cannot increase the
-clock without a full modeset. But seamless switch from 120Hz to 60Hz can
-be achieved by running at the same (higher) clock and just extending the
-vtotal.
+== Series Details ==
 
-Type 2: Modes with same clock but different vtotal
-Here the clock is the same, so we can go from higher RR to lower RR or
-vice versa just by changing the vtotal. Seamless switching is possible
-in both directions.
+Series: drm/atomic: Rework initial state allocation (rev3)
+URL   : https://patchwork.freedesktop.org/series/163608/
+State : success
 
-The previous change makes intel_panel_fixed_mode() always return the
-highest refresh rate mode for all VRR panels. This works well for Type 2
-panels since there is no clock advantage from picking a lower mode.
+== Summary ==
 
-However for Type 1 (seamless DRRS) panels, if the user sets the
-allow_modeset flag they really want a lower RR mode with a lower clock
-to save power. So avoid selecting the highest RR mode when allow_modeset
-is set for such panels.
+CI Bug Log - changes from CI_DRM_18473 -> Patchwork_163608v3
+====================================================
 
-Also, for seamless DRRS panels on platforms with double-buffered M/N
-support, the clock can be changed on the fly, so we don't need the
-highest RR + vtotal adjustment approach.
+Summary
+-------
 
-To understand the user requirement for full modeset/seamless switch, add
-a nullable struct drm_atomic_commit state parameter to
-intel_panel_fixed_mode() to check the allow_modeset flag.
+  **SUCCESS**
 
-Note: The mode_valid callers pass NULL since they have no atomic state.
-In that case use the existing approach to select the closest-match to
-avoid pruning valid modes.
+  No regressions found.
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_panel.c | 35 ++++++++++++++++++----
- drivers/gpu/drm/i915/display/intel_panel.h |  3 +-
- drivers/gpu/drm/i915/display/intel_sdvo.c  |  5 ++--
- 3 files changed, 34 insertions(+), 9 deletions(-)
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/index.html
 
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 1c2a8cd454be..cc228ff81510 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.c
-+++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -72,8 +72,10 @@ static bool is_best_fixed_mode(int vrefresh, int fixed_mode_vrefresh,
- }
- 
- static bool need_higher_rr_mode(struct intel_connector *connector,
--				const struct drm_display_mode *mode)
-+				const struct drm_display_mode *mode,
-+				const struct drm_atomic_commit *state)
- {
-+	struct intel_display *display = to_intel_display(connector);
- 	int vrefresh = drm_mode_vrefresh(mode);
- 
- 	if (!intel_vrr_is_capable(connector))
-@@ -82,12 +84,33 @@ static bool need_higher_rr_mode(struct intel_connector *connector,
- 	if (!intel_vrr_is_in_range(connector, vrefresh))
- 		return false;
- 
--	return true;
-+	if (!state)
-+		return false;
-+
-+	/*
-+	 * If Seamless switch requested, use highest RR mode + vtotal
-+	 * adjustment, unless DRRS with double-buffered M/N which
-+	 * can change the clock on the fly.
-+	 */
-+	if (!state->allow_modeset) {
-+		if (intel_panel_drrs_type(connector) == DRRS_TYPE_SEAMLESS &&
-+		    HAS_DOUBLE_BUFFERED_M_N(display))
-+			return false;
-+		return true;
-+	}
-+
-+	/*
-+	 * If full modeset is allowed, then for DRRS panels, use nearest mode
-+	 * (lower clock saves power). For non-DRRS VRR panels, use highest RR
-+	 * mode (no clock advantage from picking a lower mode).
-+	 */
-+	return intel_panel_drrs_type(connector) != DRRS_TYPE_SEAMLESS;
- }
- 
- const struct drm_display_mode *
- intel_panel_fixed_mode(struct intel_connector *connector,
--		       const struct drm_display_mode *mode)
-+		       const struct drm_display_mode *mode,
-+		       const struct drm_atomic_commit *state)
- {
- 	const struct drm_display_mode *fixed_mode, *best_mode = NULL;
- 	int vrefresh = drm_mode_vrefresh(mode);
-@@ -97,7 +120,7 @@ intel_panel_fixed_mode(struct intel_connector *connector,
- 	 * which we can then reduce to match the requested
- 	 * vrefresh by extending the vblank length.
- 	 */
--	if (need_higher_rr_mode(connector, mode))
-+	if (need_higher_rr_mode(connector, mode, state))
- 		return intel_panel_highest_vrefresh_mode(connector);
- 
- 	list_for_each_entry(fixed_mode, &connector->panel.fixed_modes, head) {
-@@ -229,7 +252,7 @@ int intel_panel_compute_config(struct intel_connector *connector,
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 	const struct drm_display_mode *fixed_mode =
--		intel_panel_fixed_mode(connector, adjusted_mode);
-+		intel_panel_fixed_mode(connector, adjusted_mode, state);
- 	int vrefresh, fixed_mode_vrefresh;
- 	bool is_vrr;
- 
-@@ -435,7 +458,7 @@ intel_panel_mode_valid(struct intel_connector *connector,
- 		       int *target_clock)
- {
- 	const struct drm_display_mode *fixed_mode =
--		intel_panel_fixed_mode(connector, mode);
-+		intel_panel_fixed_mode(connector, mode, NULL);
- 
- 	if (target_clock)
- 		*target_clock = mode->clock;
-diff --git a/drivers/gpu/drm/i915/display/intel_panel.h b/drivers/gpu/drm/i915/display/intel_panel.h
-index 3c4ff6735c21..c44323918768 100644
---- a/drivers/gpu/drm/i915/display/intel_panel.h
-+++ b/drivers/gpu/drm/i915/display/intel_panel.h
-@@ -33,7 +33,8 @@ const struct drm_display_mode *
- intel_panel_preferred_fixed_mode(struct intel_connector *connector);
- const struct drm_display_mode *
- intel_panel_fixed_mode(struct intel_connector *connector,
--		       const struct drm_display_mode *mode);
-+		       const struct drm_display_mode *mode,
-+		       const struct drm_atomic_commit *state);
- const struct drm_display_mode *
- intel_panel_downclock_mode(struct intel_connector *connector,
- 			   const struct drm_display_mode *adjusted_mode);
-diff --git a/drivers/gpu/drm/i915/display/intel_sdvo.c b/drivers/gpu/drm/i915/display/intel_sdvo.c
-index e11c1dfc602a..0574a027526a 100644
---- a/drivers/gpu/drm/i915/display/intel_sdvo.c
-+++ b/drivers/gpu/drm/i915/display/intel_sdvo.c
-@@ -797,7 +797,7 @@ intel_sdvo_create_preferred_input_timing(struct intel_sdvo *intel_sdvo,
- 
- 	if (IS_LVDS(intel_sdvo_connector)) {
- 		const struct drm_display_mode *fixed_mode =
--intel_panel_fixed_mode(&intel_sdvo_connector->base, mode);
-+			intel_panel_fixed_mode(&intel_sdvo_connector->base, mode, NULL);
- 
- 		if (fixed_mode->hdisplay != args.width ||
- 		    fixed_mode->vdisplay != args.height)
-@@ -1564,7 +1564,8 @@ static void intel_sdvo_pre_enable(struct intel_atomic_state *state,
- 	/* lvds has a special fixed output timing. */
- 	if (IS_LVDS(intel_sdvo_connector)) {
- 		const struct drm_display_mode *fixed_mode =
--			intel_panel_fixed_mode(&intel_sdvo_connector->base, mode);
-+			intel_panel_fixed_mode(&intel_sdvo_connector->base,
-+					       mode, conn_state->state);
- 
- 		intel_sdvo_get_dtd_from_mode(&output_dtd, fixed_mode);
- 	} else {
--- 
-2.45.2
+Participating hosts (42 -> 40)
+------------------------------
 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_163608v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [PASS][1] -> [DMESG-FAIL][2] ([i915#12061]) +1 other test dmesg-fail
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-mtlp-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-mtlp-8/igt@i915_selftest@live.html
+    - bat-dg2-8:          [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-8/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-dg2-8/igt@i915_selftest@live.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [PASS][5] -> [DMESG-FAIL][6] ([i915#12061]) +1 other test dmesg-fail
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-arls-5/igt@i915_selftest@live@workarounds.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][7] -> [DMESG-WARN][8] ([i915#15673]) +48 other tests dmesg-warn
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - bat-rpls-4:         [DMESG-WARN][9] ([i915#13400]) -> [PASS][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-dg2-14:         [DMESG-FAIL][11] ([i915#12061]) -> [PASS][12] +1 other test pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18473 -> Patchwork_163608v3
+
+  CI-20190529: 20190529
+  CI_DRM_18473: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8903: 6f88532e2fe22529195cc2f8cabff93d994688f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_163608v3: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/index.html
+
+--===============4541423816813696110==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/atomic: Rework initial state allocation (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/163608/">https://patchwork.freedesktop.org/series/163608/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18473 -&gt; Patchwork_163608v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_163608v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-mtlp-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +48 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@workarounds:</p>
+<ul>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18473/bat-dg2-14/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_163608v3/bat-dg2-14/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18473 -&gt; Patchwork_163608v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18473: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8903: 6f88532e2fe22529195cc2f8cabff93d994688f8 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_163608v3: b83102e9c06357b09f2cfbe944269786cb6985c4 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4541423816813696110==--
