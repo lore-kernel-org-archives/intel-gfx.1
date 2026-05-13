@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 836D7CD4851
-	for <intel-gfx@archiver.kernel.org>; Wed, 13 May 2026 12:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5503ECD4F24
+	for <intel-gfx@archiver.kernel.org>; Wed, 13 May 2026 12:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E829310EE1D;
-	Wed, 13 May 2026 12:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5BAC10E310;
+	Wed, 13 May 2026 12:22:36 +0000 (UTC)
 Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBAD610EE3C;
- Wed, 13 May 2026 12:22:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C9710E310;
+ Wed, 13 May 2026 12:22:35 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============1553149296476277972=="
+ boundary="===============7086986224584581124=="
 MIME-Version: 1.0
 Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_add_display_i?=
  =?utf-8?q?rq_hooks_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 13 May 2026 12:22:27 -0000
-Message-ID: <177867494771.67481.5704888826883122402@5ab824fced77>
+Date: Wed, 13 May 2026 12:22:35 -0000
+Message-ID: <177867495598.67482.382931381357675004@5ab824fced77>
 X-Patchwork-Hint: ignore
 References: <cover.1778666967.git.jani.nikula@intel.com>
 In-Reply-To: <cover.1778666967.git.jani.nikula@intel.com>
@@ -41,7 +41,7 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1553149296476277972==
+--===============7086986224584581124==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -148,7 +148,7 @@ Build changes
 
 For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165935v2/index.html
 
---===============1553149296476277972==
+--===============7086986224584581124==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -243,4 +243,4 @@ Content-Transfer-Encoding: 7bit
 </body>
 </html>
 
---===============1553149296476277972==--
+--===============7086986224584581124==--
