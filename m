@@ -4,59 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8498ECD343F
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 09:58:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AFF4CD4851
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 10:20:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 205E610F4F2;
-	Fri, 15 May 2026 09:58:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFC6E10E5FF;
+	Fri, 15 May 2026 10:20:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EiQW1pR4";
+	dkim=pass (2048-bit key; unprotected) header.d=worksmobile.com header.i=@worksmobile.com header.b="n8kHmuWE";
+	dkim=pass (1024-bit key; unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="Zc9nNL6n";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 093A610F4D5;
- Fri, 15 May 2026 09:58:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778839097; x=1810375097;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=fYWEs6S/Jv/dRRNX82nz/jNJYVjOgt3uQPdwbEUCAVg=;
- b=EiQW1pR4N59Frf0dkN4ANBl9kCAUVUNnvsc/A3Men3F77/jpFCojbmG2
- B8umSXARaIDZFViUJrdB23nIIzA4d+bedIBNWmfmmqVpym3b4nOOvLphV
- ovltwnGGBZiE//Ic38HpeoLHwx6SC+3FPlpNxG7qtgwkx5Dso7Vihj24u
- HLcf12cla9hexgMS1fh3xmboXIshDnUVW20+mWX8LN9hI4Mb42thBjFAE
- 1hSZjceZXj4VsHYwbRsNJvHsTk4DA5XgI6RoA4OjFVR1s/IEQsNZgDiQC
- 0BE+VEuvzFDB5ZINWUe9TBqggCCUUxDs84HNIUro9XVP4fWU4u1I47y3E A==;
-X-CSE-ConnectionGUID: +eLDFMLlSx+8N0ZQR404Aw==
-X-CSE-MsgGUID: 7ZnLKtpMSdq+2befXd9QTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="82360384"
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="82360384"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 02:58:16 -0700
-X-CSE-ConnectionGUID: YxSHagJTTYiEKhfZ5Z7lxQ==
-X-CSE-MsgGUID: xL/BolAhT9u9gpYyECbyxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="235601815"
-Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
- jhogande-mobl3.intel.com) ([10.245.246.20])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 02:58:15 -0700
-From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
-Subject: [PATCH v2 4/4] drm/i915/psr: Apply SDP on prior scanline workaround
- for Xe3p
-Date: Fri, 15 May 2026 12:57:56 +0300
-Message-ID: <20260515095756.2799483-5-jouni.hogander@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260515095756.2799483-1-jouni.hogander@intel.com>
-References: <20260515095756.2799483-1-jouni.hogander@intel.com>
+X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
+ Thu, 14 May 2026 19:42:33 UTC
+Received: from cvsmtppost105.wmail.worksmobile.com
+ (cvsmtppost105.wmail.worksmobile.com [125.209.209.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5766510E3DB
+ for <intel-gfx@lists.freedesktop.org>; Thu, 14 May 2026 19:42:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=worksmobile.com;
+ s=s20171120; t=1778787150;
+ bh=1eHtKfnZZvV2FZWSbFdMFCZ/Jeqh4dQweFotTtU0Uak=;
+ h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+ X-Works-Security;
+ b=n8kHmuWElZGmiBaw0VKb3pQgBkPBbzRCcjMfvQiLc1uIJsH8+c7aG/tlQmgqwlgBl
+ GqMHpIGk8xi1sUoaSIUU2rTfALamHYaUASDLa6vTkEcx8j6pMhZFc0L8bE8OUch8/y
+ /ZNnpZaBAqZcv/OR53ocUwspk/z8hHZtnyHhJbk/HV4eLZwCW8PqZW5n5+sjBwy8ok
+ So17h+JjaMJJXHPTRLBe6maPxx8+1cBGYf6wzq/vuJ2bYdSyGeTasLSyyqz0njUgJv
+ f2KA1V/xpHwNvXLqQb/mWaFTrq75XtF2fE+uN3fkmtN8RVkRfaYJRI/X8TZD1SSI95
+ pBabM9LX+o/pg==
+X-Originating-IP: 163.152.163.130
+Received: from cvsendbo001.wmail ([10.113.20.163])
+ by cvsmtppost105.wmail.worksmobile.com with ESMTP id V-k3iwlWTcClvV6sWv-7zA
+ for <intel-gfx@lists.freedesktop.org>;
+ Thu, 14 May 2026 19:32:30 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=korea.ac.kr;
+ s=naverworks; t=1778787150;
+ bh=1eHtKfnZZvV2FZWSbFdMFCZ/Jeqh4dQweFotTtU0Uak=;
+ h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+ X-Works-Security;
+ b=Zc9nNL6nQmVpoqHx3BhhpSVgEdphZnO22JN7CihzTL/vanUJo7RFGjGO9fT9gOHRP
+ hggV07eGEVMd7EaiU4HQhOXF24/hg6C5JGXUaJ7Go3SNeH+6UjbZkEhbyIcrIJXEUq
+ GZ8Zr4BtdzWI/JevJzUZAl0umBZrKqvlgwGP0+Og=
+X-Session-ID: DSRmjtN-SyWT0Zk01YbWfA
+X-Originating-IP: 163.152.163.130
+X-Works-Send-Opt: penljAIYjHm/FqM9FqJYFxMqFNwYjAg=
+X-Works-Smtp-Source: A9K9Fq2XFqJZ+HmlFAbd+6E=
+Received: from s2lab05.. ([163.152.163.130])
+ by jvnsmtp403.gwmail.worksmobile.com with ESMTP id DSRmjtN-SyWT0Zk01YbWfA
+ for <multiple recipients>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Thu, 14 May 2026 19:32:29 -0000
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/i915/gt: Use IS_ERR() check for kernel_context() in
+ selftests
+Date: Fri, 15 May 2026 04:32:27 +0900
+Message-Id: <20260514193227.2472962-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Fri, 15 May 2026 10:20:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,66 +83,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In Xe3p there is an HW optimization done. When there is an SU triggered in
-Capture state, Link will be kept ON post Capture CRC SDP. Before valid SU
-pixels Intel source will transmit dummy pixels. Some TCONS are improperly
-considering these dummy pixels as a valid pixel data. Prior Xe3p link was
-was turned off even if there was SU triggered in capture state and no dummy
-pixels were transmitted. These dummy pixels are problem only if SDP on
-prior scanline is used and Early Transport is not in use. The workaround is
-to start SU area always at scanline 0.
+kernel_context() returns an error pointer on failure, never NULL, so
+the NULL checks on its return value are unreachable. On a real
+allocation failure the subsequent dereference of the returned ERR_PTR
+(e.g. ctx_hi->sched.priority = ...) would oops the test kernel.
 
-v2: use intel_display_wa
+Use IS_ERR() and propagate the actual error via PTR_ERR() in
+live_preempt(), live_late_preempt(), live_preempt_timeout() and
+preempt_client_init().
 
-Bspec: 74741, 79482
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
 ---
- drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
- drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
- drivers/gpu/drm/i915/display/intel_psr.c        | 5 +++++
- 3 files changed, 8 insertions(+)
+ drivers/gpu/drm/i915/gt/selftest_execlists.c | 28 ++++++++++++--------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
-index 7d3d63a59882..2094eda09c91 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
-@@ -136,6 +136,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
- 		return DISPLAY_VER(display) == 20 &&
- 			IS_DISPLAY_VERx100_STEP(display, 3000,
- 						STEP_A0, STEP_B0);
-+	case INTEL_DISPLAY_WA_16029024088:
-+		return DISPLAY_VER(display) >= 35;
- 	case INTEL_DISPLAY_WA_18034343758:
- 		return DISPLAY_VER(display) == 20 ||
- 			(display->platform.pantherlake &&
-diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
-index 15fec843f15e..9cdd148ea4fa 100644
---- a/drivers/gpu/drm/i915/display/intel_display_wa.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
-@@ -52,6 +52,7 @@ enum intel_display_wa {
- 	INTEL_DISPLAY_WA_16023588340,
- 	INTEL_DISPLAY_WA_16025573575,
- 	INTEL_DISPLAY_WA_16025596647,
-+	INTEL_DISPLAY_WA_16029024088,
- 	INTEL_DISPLAY_WA_18034343758,
- 	INTEL_DISPLAY_WA_22010178259,
- 	INTEL_DISPLAY_WA_22010947358,
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 2f78d76c4ee1..8d8a9ff31718 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2913,6 +2913,11 @@ intel_psr_apply_su_area_workarounds(struct intel_crtc_state *crtc_state)
- 	    crtc_state->splitter.enable)
- 		crtc_state->psr2_su_area.y1 = 0;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_execlists.c b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+index 21e5ed9f72a30..36f51805f74e3 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_execlists.c
++++ b/drivers/gpu/drm/i915/gt/selftest_execlists.c
+@@ -1742,13 +1742,15 @@ static int live_preempt(void *arg)
+ 	int err = -ENOMEM;
  
-+	if (intel_display_wa(display, INTEL_DISPLAY_WA_16029024088) &&
-+	    crtc_state->req_psr2_sdp_prior_scanline &&
-+	    !crtc_state->enable_psr2_su_region_et)
-+		crtc_state->psr2_su_area.y1 = 0;
-+
- 	/* Wa 14019834836 */
- 	if (DISPLAY_VER(display) == 30)
- 		intel_psr_apply_pr_link_on_su_wa(crtc_state);
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
+-		return -ENOMEM;
++	if (IS_ERR(ctx_hi))
++		return PTR_ERR(ctx_hi);
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	if (igt_spinner_init(&spin_hi, gt))
+@@ -1834,12 +1836,14 @@ static int live_late_preempt(void *arg)
+ 	int err = -ENOMEM;
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
+-		return -ENOMEM;
++	if (IS_ERR(ctx_hi))
++		return PTR_ERR(ctx_hi);
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 
+ 	if (igt_spinner_init(&spin_hi, gt))
+ 		goto err_ctx_lo;
+@@ -1934,8 +1938,8 @@ struct preempt_client {
+ static int preempt_client_init(struct intel_gt *gt, struct preempt_client *c)
+ {
+ 	c->ctx = kernel_context(gt->i915, NULL);
+-	if (!c->ctx)
+-		return -ENOMEM;
++	if (IS_ERR(c->ctx))
++		return PTR_ERR(c->ctx);
+ 
+ 	if (igt_spinner_init(&c->spin, gt))
+ 		goto err_ctx;
+@@ -3384,13 +3388,15 @@ static int live_preempt_timeout(void *arg)
+ 		return 0;
+ 
+ 	ctx_hi = kernel_context(gt->i915, NULL);
+-	if (!ctx_hi)
+-		return -ENOMEM;
++	if (IS_ERR(ctx_hi))
++		return PTR_ERR(ctx_hi);
+ 	ctx_hi->sched.priority = I915_CONTEXT_MAX_USER_PRIORITY;
+ 
+ 	ctx_lo = kernel_context(gt->i915, NULL);
+-	if (!ctx_lo)
++	if (IS_ERR(ctx_lo)) {
++		err = PTR_ERR(ctx_lo);
+ 		goto err_ctx_hi;
++	}
+ 	ctx_lo->sched.priority = I915_CONTEXT_MIN_USER_PRIORITY;
+ 
+ 	if (igt_spinner_init(&spin_lo, gt))
 -- 
-2.43.0
+2.34.1
 
