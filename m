@@ -4,53 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5BDECD4851
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 08:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13CFECD4851
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 08:26:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4520D10E629;
-	Fri, 15 May 2026 08:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A28A110F3CA;
+	Fri, 15 May 2026 08:26:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HOykemlu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZZHgiqj6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B43810E629;
- Fri, 15 May 2026 08:24:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEE010F3CA;
+ Fri, 15 May 2026 08:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778833489; x=1810369489;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=Y4lvcR5GIrIxt/8BQHn+pNvyz+7XPSraK99OmJ9Hwrk=;
- b=HOykemlu9ybSaOqLAbvOTyi/pEronyH32ZbrmCE62xGwRHzH6Gegfl3P
- u+s7dPg45thMhp36AAdbv+RObmMa7rXFwn0p+MJpeehkwEY15FE6iRW0j
- 3WeU83bBpL4S3KlP1PN+G19AQ0CsSyij2APMXZsTxRwuxd8Ya2COjmnN4
- Hr124J28GeuavsOcU+bphHUtZ90sl2fLZG+NkT2O/uzDcWH9zGeh6HXz9
- Q9fHM2SAC0MJHimY5zKhTtrM7lN5No/uy2wARF+aT9y/ZAblcQzH8qkSJ
- abKL+WApdYG+RrswmYN3vZsegW/piNTvh0XHCTxqIOLZ2Zs7uGfuZlJi7 g==;
-X-CSE-ConnectionGUID: xoo8rr8ETCO3SSdU1vu/kw==
-X-CSE-MsgGUID: gmPo+ZYKQ2GTRSDHXk4duA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="67315877"
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="67315877"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 01:24:49 -0700
-X-CSE-ConnectionGUID: C/gDNrbRSTS9DetS4bl+8A==
-X-CSE-MsgGUID: TMFxvvm6Q9K2fHF0+OJ+2g==
+ t=1778833595; x=1810369595;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=pM9LBdf+qEY0gHKZZJcPA9iGg5XWc1ed6iXwYY/4pzQ=;
+ b=ZZHgiqj62lng06uOOud0/D8tX+KVMjiuVIQHHB8t+tpJZ7h5nQoWCKxJ
+ uMcFFSKckz3z+2CaW3W2zT/fI+HLHyeGkomJGXBrlMjC3ljqXDqFxpVZG
+ mEJjgZCubhxmuPqoBfxQUeNfOseTokCTxhS+hnAP7xT3DEmXgGBjJf6oW
+ gWD057mqjBrUiGZFT7PgOkc3tTe7H9U982JNmc/pItJN56wfQrwHCb2Dm
+ ysCF8HZdkZlPBf+qPWx1QtQ6znn3EQR+mTQ0YFyxjlCB8W4s6gUn4p2fs
+ RGJ/XN22S8AeJmmkDzqxjjAPEpC4irjjyQCxCeL9R+vx7lKqlSmTKWl6O A==;
+X-CSE-ConnectionGUID: XLubfoNoQwKIisqzsHsbeA==
+X-CSE-MsgGUID: T5DIn3lQSVSh7l6E4g0xYQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="90889722"
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="90889722"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2026 01:26:34 -0700
+X-CSE-ConnectionGUID: Ff2H5J9YROKv4E5V1xe+4A==
+X-CSE-MsgGUID: mReUAsQWSFybiPIPfV60Eg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="237773066"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa010.jf.intel.com with ESMTP; 15 May 2026 01:24:48 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/display: Use PIPEDMC_FRMTMSTMP on display ver >= 30
-Date: Fri, 15 May 2026 13:54:43 +0530
-Message-Id: <20260515082443.975592-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="242628784"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.71])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 May 2026 01:26:33 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: Gustavo Sousa <gustavo.sousa@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Gustavo Sousa <gustavo.sousa@intel.com>
+Subject: Re: [PATCH v3 1/5] drm/i915/bw: Don't call intel_dram_info() too early
+In-Reply-To: <20260514-separate-platform-from-diplay-ip-specific-bw-params-v3-1-68727d6fe3ec@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260514-separate-platform-from-diplay-ip-specific-bw-params-v3-0-68727d6fe3ec@intel.com>
+ <20260514-separate-platform-from-diplay-ip-specific-bw-params-v3-1-68727d6fe3ec@intel.com>
+Date: Fri, 15 May 2026 11:26:29 +0300
+Message-ID: <1607a6c47f563d56cb315a7b556a80303ee8a55b@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,77 +71,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Starting with display version 30, the per-pipe frame timestamp is read
-from the PIPEDMC register block (PIPEDMC_FRMTMSTMP) instead of the
-legacy PIPE_FRMTMSTMP MMIO. Extend PIPE_FRMTMSTMP() to take the display
-and select the appropriate register based on DISPLAY_VER(), and update
-all callers (intel_vblank, intel_initial_plane) accordingly.
+On Thu, 14 May 2026, Gustavo Sousa <gustavo.sousa@intel.com> wrote:
+> If we end-up bailing early from intel_bw_init_hw() due to
+> !HAS_DISPLAY(display), the call to intel_dram_info() to initialize
+> dram_info will be meaningless.  Move the call to be done after that
+> check.
+>
+> Cc: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Gustavo Sousa <gustavo.sousa@intel.com>
 
-Bspec: 79482
-WA: 14022946399
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_regs.h  | 7 +++++--
- drivers/gpu/drm/i915/display/intel_initial_plane.c | 4 ++--
- drivers/gpu/drm/i915/display/intel_vblank.c        | 4 ++--
- 3 files changed, 9 insertions(+), 6 deletions(-)
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 4321f8b529da..579f802215d3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -3149,8 +3149,11 @@ enum skl_power_gate {
- /* g4x+, except vlv/chv! */
- #define _PIPE_FRMTMSTMP_A		0x70048
- #define _PIPE_FRMTMSTMP_B		0x71048
--#define PIPE_FRMTMSTMP(pipe)		\
--	_MMIO_PIPE(pipe, _PIPE_FRMTMSTMP_A, _PIPE_FRMTMSTMP_B)
-+#define _PIPEDMC_FRMTMSTMP_A		0x5f0ac
-+#define _PIPEDMC_FRMTMSTMP_B		0x5f4ac
-+#define PIPE_FRMTMSTMP(display, pipe)	(DISPLAY_VER(display) >= 30 ? \
-+	_MMIO_PIPE(pipe, _PIPEDMC_FRMTMSTMP_A, _PIPEDMC_FRMTMSTMP_B) : \
-+	_MMIO_PIPE(pipe, _PIPE_FRMTMSTMP_A, _PIPE_FRMTMSTMP_B))
- 
- /* g4x+, except vlv/chv! */
- #define _PIPE_FLIPTMSTMP_A		0x7004C
-diff --git a/drivers/gpu/drm/i915/display/intel_initial_plane.c b/drivers/gpu/drm/i915/display/intel_initial_plane.c
-index 034fe199c2a1..004cbdb6be32 100644
---- a/drivers/gpu/drm/i915/display/intel_initial_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_initial_plane.c
-@@ -34,9 +34,9 @@ void intel_initial_plane_vblank_wait(struct intel_crtc *crtc)
- 		return;
- 	}
- 
--	start_ts = intel_de_read(display, PIPE_FRMTMSTMP(crtc->pipe));
-+	start_ts = intel_de_read(display, PIPE_FRMTMSTMP(display, crtc->pipe));
- 
--	ret = poll_timeout_us(end_ts = intel_de_read(display, PIPE_FRMTMSTMP(crtc->pipe)),
-+	ret = poll_timeout_us(end_ts = intel_de_read(display, PIPE_FRMTMSTMP(display, crtc->pipe)),
- 			      end_ts != start_ts, 1000, 1000 * 1000, false);
- 	if (ret)
- 		drm_warn(display->drm, "[CRTC:%d:%s] early vblank wait timed out\n",
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 28d81199792e..52ff47936f9e 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -157,7 +157,7 @@ static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
- 		 * is sampled at every start of vertical blank.
- 		 */
- 		scan_prev_time = intel_de_read_fw(display,
--						  PIPE_FRMTMSTMP(crtc->pipe));
-+						  PIPE_FRMTMSTMP(display, crtc->pipe));
- 
- 		/*
- 		 * The TIMESTAMP_CTR register has the current
-@@ -166,7 +166,7 @@ static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
- 		scan_curr_time = intel_de_read_fw(display, IVB_TIMESTAMP_CTR);
- 
- 		scan_post_time = intel_de_read_fw(display,
--						  PIPE_FRMTMSTMP(crtc->pipe));
-+						  PIPE_FRMTMSTMP(display, crtc->pipe));
- 	} while (scan_post_time != scan_prev_time);
- 
- 	return div_u64(mul_u32_u32(scan_curr_time - scan_prev_time,
+> ---
+>  drivers/gpu/drm/i915/display/intel_bw.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+> index 9c3a9bbb49f6..7eef693b51ad 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bw.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bw.c
+> @@ -791,11 +791,13 @@ static unsigned int icl_qgv_bw(struct intel_display *display,
+>  
+>  void intel_bw_init_hw(struct intel_display *display)
+>  {
+> -	const struct dram_info *dram_info = intel_dram_info(display);
+> +	const struct dram_info *dram_info;
+>  
+>  	if (!HAS_DISPLAY(display))
+>  		return;
+>  
+> +	dram_info = intel_dram_info(display);
+> +
+>  	/*
+>  	 * Starting with Xe3p_LPD, the hardware tells us whether memory has ECC
+>  	 * enabled that would impact display bandwidth.  However, so far there
+
 -- 
-2.34.1
-
+Jani Nikula, Intel
