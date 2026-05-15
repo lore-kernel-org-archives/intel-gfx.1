@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8998BCD4F25
-	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 09:58:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8498ECD343F
+	for <intel-gfx@archiver.kernel.org>; Fri, 15 May 2026 09:58:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184FC10F4F9;
-	Fri, 15 May 2026 09:58:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205E610F4F2;
+	Fri, 15 May 2026 09:58:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XqCWn1mx";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EiQW1pR4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4200110F4EC;
- Fri, 15 May 2026 09:58:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 093A610F4D5;
+ Fri, 15 May 2026 09:58:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778839093; x=1810375093;
+ t=1778839097; x=1810375097;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=PB3o/v38CvIpbvzELNMw4y3mg5yk2SkByRpEI+qzrEw=;
- b=XqCWn1mxcmfYogRyvDS6huVaa50n9cJlV9qPIDbshcqEzrWK6qA3W0QD
- OmBDh7v9LtdYOZiAf/TI0k1FcInMfis5ASY6BNOSyARz7JFXdnPZWaoIQ
- 8gVojPXI6c2Y0uIeziOGBzch2iN0jgPIuG5zYL4A3cd2DaV5/lf9hZ8dH
- uwxFgtF7YX9kPIfJtbFK1d6vB7fyb/+A2FOaVKNe1DR3A8Krxn37ovKQo
- kZF6pfesr8ySFau6BfsRDWGkR9C75R3yYe1BFOHnwdMsa6BafS02E5SDp
- USbcMFk0ixJQMQ1ncRL9ZFhFVWQQkn4UN5/+KKvtIuKoAuzz2LVjWHo8N Q==;
-X-CSE-ConnectionGUID: 67mlbujQSJWSRXz88OcXeQ==
-X-CSE-MsgGUID: nSzSD+waSVuBC8HfKUlZhQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="82360380"
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="82360380"
+ bh=fYWEs6S/Jv/dRRNX82nz/jNJYVjOgt3uQPdwbEUCAVg=;
+ b=EiQW1pR4N59Frf0dkN4ANBl9kCAUVUNnvsc/A3Men3F77/jpFCojbmG2
+ B8umSXARaIDZFViUJrdB23nIIzA4d+bedIBNWmfmmqVpym3b4nOOvLphV
+ ovltwnGGBZiE//Ic38HpeoLHwx6SC+3FPlpNxG7qtgwkx5Dso7Vihj24u
+ HLcf12cla9hexgMS1fh3xmboXIshDnUVW20+mWX8LN9hI4Mb42thBjFAE
+ 1hSZjceZXj4VsHYwbRsNJvHsTk4DA5XgI6RoA4OjFVR1s/IEQsNZgDiQC
+ 0BE+VEuvzFDB5ZINWUe9TBqggCCUUxDs84HNIUro9XVP4fWU4u1I47y3E A==;
+X-CSE-ConnectionGUID: +eLDFMLlSx+8N0ZQR404Aw==
+X-CSE-MsgGUID: 7ZnLKtpMSdq+2befXd9QTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11786"; a="82360384"
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="82360384"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 02:58:13 -0700
-X-CSE-ConnectionGUID: zZMD+8h8Q1uKFGD0dFOMCA==
-X-CSE-MsgGUID: nuOdHML3SP6qd3tTlZ6pvA==
+ 15 May 2026 02:58:16 -0700
+X-CSE-ConnectionGUID: YxSHagJTTYiEKhfZ5Z7lxQ==
+X-CSE-MsgGUID: xL/BolAhT9u9gpYyECbyxg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="235601807"
+X-IronPort-AV: E=Sophos;i="6.23,236,1770624000"; d="scan'208";a="235601815"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO
  jhogande-mobl3.intel.com) ([10.245.246.20])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 May 2026 02:58:11 -0700
+ 15 May 2026 02:58:15 -0700
 From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH v2 2/4] drm/i915/psr: Read Intel DPCD workaround register
-Date: Fri, 15 May 2026 12:57:54 +0300
-Message-ID: <20260515095756.2799483-3-jouni.hogander@intel.com>
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+Subject: [PATCH v2 4/4] drm/i915/psr: Apply SDP on prior scanline workaround
+ for Xe3p
+Date: Fri, 15 May 2026 12:57:56 +0300
+Message-ID: <20260515095756.2799483-5-jouni.hogander@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260515095756.2799483-1-jouni.hogander@intel.com>
 References: <20260515095756.2799483-1-jouni.hogander@intel.com>
@@ -72,57 +72,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Read Intel DPCD workaround register and store it into
-intel_connector->dp.psr_caps. psr_caps was chosen as currently it contains
-only PSR workaround for PSR2 SDP on prior scanline implementation.
+In Xe3p there is an HW optimization done. When there is an SU triggered in
+Capture state, Link will be kept ON post Capture CRC SDP. Before valid SU
+pixels Intel source will transmit dummy pixels. Some TCONS are improperly
+considering these dummy pixels as a valid pixel data. Prior Xe3p link was
+was turned off even if there was SU triggered in capture state and no dummy
+pixels were transmitted. These dummy pixels are problem only if SDP on
+prior scanline is used and Early Transport is not in use. The workaround is
+to start SU area always at scanline 0.
 
+v2: use intel_display_wa
+
+Bspec: 74741, 79482
 Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 1 +
- drivers/gpu/drm/i915/display/intel_psr.c           | 9 ++++++++-
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display_wa.c | 2 ++
+ drivers/gpu/drm/i915/display/intel_display_wa.h | 1 +
+ drivers/gpu/drm/i915/display/intel_psr.c        | 5 +++++
+ 3 files changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 26e59110e743..5ca66f745e5b 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -584,6 +584,7 @@ struct intel_connector {
- 
- 		struct {
- 			u8 dpcd[EDP_PSR_RECEIVER_CAP_SIZE];
-+			u8 intel_wa_dpcd;
- 
- 			bool support;
- 			bool su_support;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
+index 7d3d63a59882..2094eda09c91 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.c
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
+@@ -136,6 +136,8 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
+ 		return DISPLAY_VER(display) == 20 &&
+ 			IS_DISPLAY_VERx100_STEP(display, 3000,
+ 						STEP_A0, STEP_B0);
++	case INTEL_DISPLAY_WA_16029024088:
++		return DISPLAY_VER(display) >= 35;
+ 	case INTEL_DISPLAY_WA_18034343758:
+ 		return DISPLAY_VER(display) == 20 ||
+ 			(display->platform.pantherlake &&
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
+index 15fec843f15e..9cdd148ea4fa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.h
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
+@@ -52,6 +52,7 @@ enum intel_display_wa {
+ 	INTEL_DISPLAY_WA_16023588340,
+ 	INTEL_DISPLAY_WA_16025573575,
+ 	INTEL_DISPLAY_WA_16025596647,
++	INTEL_DISPLAY_WA_16029024088,
+ 	INTEL_DISPLAY_WA_18034343758,
+ 	INTEL_DISPLAY_WA_22010178259,
+ 	INTEL_DISPLAY_WA_22010947358,
 diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 9958230a3dd9..749057e96647 100644
+index 2f78d76c4ee1..8d8a9ff31718 100644
 --- a/drivers/gpu/drm/i915/display/intel_psr.c
 +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -44,6 +44,7 @@
- #include "intel_display_wa.h"
- #include "intel_dmc.h"
- #include "intel_dp.h"
-+#include "intel_dpcd.h"
- #include "intel_dp_aux.h"
- #include "intel_dp_tunnel.h"
- #include "intel_dsb.h"
-@@ -720,8 +721,14 @@ static void _psr_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *co
- 			    connector->dp.psr_caps.su_support ? "" : "not ");
- 	}
+@@ -2913,6 +2913,11 @@ intel_psr_apply_su_area_workarounds(struct intel_crtc_state *crtc_state)
+ 	    crtc_state->splitter.enable)
+ 		crtc_state->psr2_su_area.y1 = 0;
  
--	if (connector->dp.psr_caps.su_support)
-+	if (connector->dp.psr_caps.su_support) {
-+		ret = drm_dp_dpcd_read_byte(&intel_dp->aux,
-+					    INTEL_DPCD_INTEL_WA_REGISTER_CAPS,
-+					    &connector->dp.psr_caps.intel_wa_dpcd);
-+		if (ret < 0)
-+			return;
- 		_psr_compute_su_granularity(intel_dp, connector);
-+	}
- }
- 
- void intel_psr_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *connector)
++	if (intel_display_wa(display, INTEL_DISPLAY_WA_16029024088) &&
++	    crtc_state->req_psr2_sdp_prior_scanline &&
++	    !crtc_state->enable_psr2_su_region_et)
++		crtc_state->psr2_su_area.y1 = 0;
++
+ 	/* Wa 14019834836 */
+ 	if (DISPLAY_VER(display) == 30)
+ 		intel_psr_apply_pr_link_on_su_wa(crtc_state);
 -- 
 2.43.0
 
