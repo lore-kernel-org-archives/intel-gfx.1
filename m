@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11A4CCD4851
-	for <intel-gfx@archiver.kernel.org>; Sun, 17 May 2026 02:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89522CD4F3C
+	for <intel-gfx@archiver.kernel.org>; Sun, 17 May 2026 03:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A304C10E22F;
-	Sun, 17 May 2026 02:47:15 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Plu2nauT";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8E0C10E22F;
- Sun, 17 May 2026 02:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1778986034; x=1810522034;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NnVmRh74bzU4s0rzDm5vd1frnNUHKvjU0xREINI6OyY=;
- b=Plu2nauTOpoTJnA2ejUAAdEWzyaKl4N9X3qYyUkzkxxVOE3dA/x3cNQf
- 3EiCcoG0mJA7nhU7+wYgzQkdS98BXeUzodzEnBWNgXqsFocQlbzqNG1YW
- RE6ZDlPqPPa9bjfCJtnFJWQ91N3rWEySEofdNt0javkqfSHvIwcAPe+oe
- n/Rs4KwzQGWm1o1NqqQ2y4tH/3jZ1o4oyER7xFSA8+qgwnUHvXls1ybGW
- cz5p3/cD+bRLtvEYmgylTdLeWpz4C7MCf6Y9g6HHIl4QJFoS7xL7alb5O
- PggqWgzrUoOFkLunqc42I+yjyxH/xGPhN1FjAnY9T5rrdP+8FTuclbAUh Q==;
-X-CSE-ConnectionGUID: 3PK6+0BpTt+nOco36X+ztQ==
-X-CSE-MsgGUID: A3EF0EhCR4aWR7yy/OnaHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11788"; a="79601236"
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="79601236"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 May 2026 19:47:14 -0700
-X-CSE-ConnectionGUID: 1N7paj3LQpyVohbL9WqelA==
-X-CSE-MsgGUID: eoxxLsgQRo2cyPZKeErH2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,239,1770624000"; d="scan'208";a="244055009"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa005.jf.intel.com with ESMTP; 16 May 2026 19:47:12 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
- Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
-Date: Sun, 17 May 2026 08:17:09 +0530
-Message-Id: <20260517024709.1016121-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260515155340.1000997-1-suraj.kandpal@intel.com>
-References: <20260515155340.1000997-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB2510E23B;
+	Sun, 17 May 2026 03:35:23 +0000 (UTC)
+Received: from 5ab824fced77 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E7610E236;
+ Sun, 17 May 2026 03:35:22 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5297940218077359939=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Use_P?=
+ =?utf-8?q?IPEDMC=5FFRMTMSTMP_on_display_ver_=3E=3D_30_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 17 May 2026 03:35:22 -0000
+Message-ID: <177898892219.77485.15771569806641079907@5ab824fced77>
+X-Patchwork-Hint: ignore
+References: <20260515082443.975592-1-suraj.kandpal@intel.com>
+In-Reply-To: <20260515082443.975592-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,90 +37,161 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 40d2f5820951dee818d05c14677277048bd85f9f.
+--===============5297940218077359939==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Removing the try_vesa_interface gate caused a backlight regression on
-panels whose VBT correctly reports INTEL_BACKLIGHT_DISPLAY_DDI and whose
-PWM path is the actual backlight control, but whose DPCD optimistically
-advertises DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
-After the commit such panels silently bind to the VESA AUX backlight
-funcs; AUX writes complete but the panel ignores them, leaving
-brightness stuck (no-op backlight). Observed on at least KBL and TGL
-eDP setups.
+== Series Details ==
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- .../drm/i915/display/intel_dp_aux_backlight.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+Series: drm/i915/display: Use PIPEDMC_FRMTMSTMP on display ver >= 30 (rev2)
+URL   : https://patchwork.freedesktop.org/series/166635/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index a8d56ebf06a2..7a6c07f6aaeb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -691,10 +691,9 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
--	bool try_intel_interface = false;
-+	bool try_intel_interface = false, try_vesa_interface = false;
- 
--	/*
--	 * Check the VBT and user's module parameters to figure out which
-+	/* Check the VBT and user's module parameters to figure out which
- 	 * interfaces to probe
- 	 */
- 	switch (display->params.enable_dpcd_backlight) {
-@@ -703,6 +702,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
- 		switch (panel->vbt.backlight.type) {
- 		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
-+			try_vesa_interface = true;
- 			break;
- 		case INTEL_BACKLIGHT_DISPLAY_DDI:
- 			try_intel_interface = true;
-@@ -715,12 +715,20 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 		if (panel->vbt.backlight.type != INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
- 			try_intel_interface = true;
- 
-+		try_vesa_interface = true;
-+		break;
-+	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
-+		try_vesa_interface = true;
- 		break;
- 	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
- 		try_intel_interface = true;
- 		break;
- 	}
- 
-+	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
-+	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
-+		try_vesa_interface = true;
-+
- 	/*
- 	 * Since Intel has their own backlight control interface, the majority of machines out there
- 	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
-@@ -733,9 +741,6 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	 * panel with Intel's OUI - which is also required for us to be able to detect Intel's
- 	 * backlight interface at all. This means that the only sensible way for us to detect both
- 	 * interfaces is to probe for Intel's first, and VESA's second.
--	 *
--	 * Also there is a chance some VBTs may advertise false Intel backlight support even if the
--	 * TCON DPCD says otherwise. This means we keep VESA interface as fallback in that case.
- 	 */
- 	if (try_intel_interface && intel_dp->edp_dpcd[0] <= DP_EDP_14b &&
- 	    intel_dp_aux_supports_hdr_backlight(connector)) {
-@@ -745,7 +750,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 		return 0;
- 	}
- 
--	if (intel_dp_aux_supports_vesa_backlight(connector)) {
-+	if (try_vesa_interface && intel_dp_aux_supports_vesa_backlight(connector)) {
- 		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP backlight controls\n",
- 			    connector->base.base.id, connector->base.name);
- 		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
--- 
-2.34.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_18499 -> Patchwork_166635v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_166635v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_selftest@live:
+    - bat-dg2-8:          [PASS][3] -> [DMESG-FAIL][4] ([i915#12061]) +1 other test dmesg-fail
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-dg2-8/igt@i915_selftest@live.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-dg2-8/igt@i915_selftest@live.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@workarounds:
+    - bat-arls-5:         [DMESG-FAIL][5] ([i915#12061]) -> [PASS][6] +1 other test pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-arls-5/igt@i915_selftest@live@workarounds.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-arls-5/igt@i915_selftest@live@workarounds.html
+    - bat-mtlp-9:         [DMESG-FAIL][7] ([i915#12061]) -> [PASS][8] +1 other test pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
+
+  
+  [i915#12061]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18499 -> Patchwork_166635v2
+
+  CI-20190529: 20190529
+  CI_DRM_18499: d47455904378e2bd24294dae67bfc7e442f58c40 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8917: 65d691069f26fc2a42c79e2364241320b85d48bc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_166635v2: d47455904378e2bd24294dae67bfc7e442f58c40 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/index.html
+
+--===============5297940218077359939==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Use PIPEDMC_FRMTMSTMP on display ver &gt;= 30 (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166635/">https://patchwork.freedesktop.org/series/166635/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18499 -&gt; Patchwork_166635v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_166635v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live:</p>
+<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-dg2-8/igt@i915_selftest@live.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-dg2-8/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) +1 other test dmesg-fail</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live@workarounds:<ul>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-arls-5/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-arls-5/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18499/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/12061">i915#12061</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166635v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18499 -&gt; Patchwork_166635v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18499: d47455904378e2bd24294dae67bfc7e442f58c40 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8917: 65d691069f26fc2a42c79e2364241320b85d48bc @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_166635v2: d47455904378e2bd24294dae67bfc7e442f58c40 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5297940218077359939==--
