@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 173BDCD5BAC
-	for <intel-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C812CD4851
+	for <intel-gfx@archiver.kernel.org>; Tue, 19 May 2026 11:32:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E08210EC6C;
-	Tue, 19 May 2026 11:23:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15F5A10E3AF;
+	Tue, 19 May 2026 11:32:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m+gDn2Zb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FL8xqPha";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B365310EC6C;
- Tue, 19 May 2026 11:23:03 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1103510E3AF
+ for <intel-gfx@lists.freedesktop.org>; Tue, 19 May 2026 11:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779189784; x=1810725784;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=3GmO9xt/RY4f28hUdvLLrD45bl+dJTBiQF/Nu1qTpnw=;
- b=m+gDn2ZbW0chCoPnR94GD1pnUoEvnOEcnSX14bjGSfl6KOGQnQFXXNRt
- H9aQE9YfC7rOK+5z0uGS281nvP2M7nGDQDiQvKA9zcVimQwynruWL9Cgi
- g4TfGS1m0Upqsq5t59VKIajB5muqIYV6zvLXPSW/c+BMWqwdYbPwbeN+D
- nOY0UKHRj2Z7Zfar++Ot5QII+DUizod/UsctzM2N5pOPyeSA3XRMvgBtk
- LMcPohI081Isnk8AmLgQxizta0k7s8obVsvXok0zT6musm6GdylX80XR9
- fId8r7k2okvr7zdG1lCVPddnNzSdJAsGl/Ai/BDTgcfZ0VvVunLHm87Os A==;
-X-CSE-ConnectionGUID: /vByM0OEQ5aybII7No2n8Q==
-X-CSE-MsgGUID: 0QNVY4wISXOBFbnal1bz1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="97498519"
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="97498519"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 04:23:03 -0700
-X-CSE-ConnectionGUID: wazGstbwSWCSo0IBNPWebQ==
-X-CSE-MsgGUID: 3CIcZx2mTXKLHw/wQQdxuQ==
+ t=1779190359; x=1810726359;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=e0nlgJiYj4hSbSVr0OSCZpZLe072mBj3kTee0SEX5Is=;
+ b=FL8xqPhacgYAXfA+/6D4TyYNYAPBfZOsdEgL0u571RciAmKmmDk9o9qV
+ wGPgzlWjyNDFZzXS9UoaBS+9sqs31x7/WqqkaMlknTjZ1NZUFlBU5w2dP
+ 9FNs7t56wWgD65fkPONIPPid3A9yMCR40XV0IO6Wc2W7RYLhow1u3eB57
+ XnvxpO9MZfXCFGHQ2tfq5Wk91vJXb6QuJG6IiFqfCvP1GtWe5S9zhUK8c
+ NKG0f20umRG+ZcTfJ4ssbp/TZdcjKGKHXvJDxme/J9Pl96WHig/LD/rgO
+ P2XwgW8YNYx3wsqylP9I+yMx4lMFe8oo6UZwdo0e1PG50rhNC4zSwkh1L w==;
+X-CSE-ConnectionGUID: ECHLT3edSEOqIvXj+yUOjA==
+X-CSE-MsgGUID: WKeNC2mXTASB+70JDKsquQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11790"; a="91458055"
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="91458055"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2026 04:32:39 -0700
+X-CSE-ConnectionGUID: djM3GYkhTces6YYVZHkMnQ==
+X-CSE-MsgGUID: RK3OnbBpSRmVQ66aknJn/w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="239606458"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO hazy.intel.com)
- ([10.245.245.12])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 May 2026 04:23:02 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Subject: [PATCH 4/4] drm/i915/display: harden shift in
- intel_pmdemand_update_phys_mask()
-Date: Tue, 19 May 2026 14:11:16 +0300
-Message-ID: <20260519112243.1454375-5-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260519112243.1454375-1-luciano.coelho@intel.com>
-References: <20260519112243.1454375-1-luciano.coelho@intel.com>
+X-IronPort-AV: E=Sophos;i="6.23,243,1770624000"; d="scan'208";a="237126468"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.15])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 May 2026 04:32:36 -0700
+Date: Tue, 19 May 2026 13:32:33 +0200
+From: Andi Shyti <andi.shyti@linux.intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: Re: [PATCH v10 0/2] drm/i915/selftests: Use safe userspace memory
+ for mappings
+Message-ID: <agxKUQDuDthp2WLD@ashyti-mobl2.lan>
+References: <20260508080214.1979686-1-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260508080214.1979686-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,32 +72,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-BIT() takes a non-negative shift amount, but phy is of type enum phy,
-which can in theory be PHY_NONE (-1).
+Hi Krzysztof,
 
-This is not a problem with the current implementation, because phy is
-always valid when this code is reached (Type-C encoders are rejected
-earlier), but it's more robust to store it as unsigned int so the
-shifts are always well-defined.
+> Krzysztof Karas (2):
+>   drm/i915/selftests: Prevent userspace mapping invalidation
+>   drm/i915/selftests: Run vma tests only if current->mm is present
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_pmdemand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+merged in drm-intel-gt-next.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_pmdemand.c b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-index 7819b724795b..d02ac2408e29 100644
---- a/drivers/gpu/drm/i915/display/intel_pmdemand.c
-+++ b/drivers/gpu/drm/i915/display/intel_pmdemand.c
-@@ -150,7 +150,7 @@ intel_pmdemand_update_phys_mask(struct intel_display *display,
- 				struct intel_pmdemand_state *pmdemand_state,
- 				bool set_bit)
- {
--	enum phy phy;
-+	unsigned int phy;
- 
- 	if (DISPLAY_VER(display) < 14)
- 		return;
--- 
-2.53.0
-
+Thanks,
+Andi
