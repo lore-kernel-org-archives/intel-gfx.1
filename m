@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D1C8CD5BB4
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 May 2026 13:33:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E488CD5BB8
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 May 2026 13:33:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F32E10F19A;
-	Thu, 21 May 2026 13:33:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9612E10F31A;
+	Thu, 21 May 2026 13:33:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gKeaVp4g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eL7P5sQO";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6A1610E515;
- Thu, 21 May 2026 13:33:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD0C310F311;
+ Thu, 21 May 2026 13:33:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DE51E4460A;
- Thu, 21 May 2026 13:33:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93D611F01572;
+ by sea.source.kernel.org (Postfix) with ESMTP id 2B203445E1;
+ Thu, 21 May 2026 13:33:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D38751F00A3E;
  Thu, 21 May 2026 13:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1779370406;
- bh=mCDvxzUe4SUE/8My5CdCqwCgEMUsyBtFnEQMMX6d/s8=;
+ bh=Mj7DVCvMStdFPb34OrcUAAH1hWW4OYzU+C7hp9VpbjY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=gKeaVp4g+fZOCB2d1zbjK4W3dvda303iCxWkDVj8H14UNIIGY3gLpzELeZZiKDuA0
- 6JIfunc/nVUvSrBIfRk900oxZ2787B+gF2h77BXqscTXGWlKDLIlSThYYzXi6Zaf6k
- rSGRMLv44XHHzSMHgbqg/hi8HytIpEFrRSPhR2+NF71x4bQnEWRMd+fmzjPChz9SHD
- l99zEnTWxInewz9sw/ltbjS6dRQ4fdJNXiQJ67R4+Wc+4RYmFsK3aPla3MQMOLPRtt
- Du0AZ41GslozrTV5c51WftQYxJqxNJ5tdYXIlfTZ4AdLpFEJ8Cy0CdC8iVcMT6c/cM
- 6A9cOjvqn/5+A==
+ b=eL7P5sQOnRUqovuCINXrhkkCMFQg4gJz9lHl+mo5l/7tWzuLIYX1MykUtmft4cIo2
+ M+FcdXMoQ4rswOfqo73Od6nx4/NZcLe4hChmGlU7e8EHcktUR9bbKkyMDXjIyfyf9B
+ eV78dkZWgUFtYC1qxRKZKBtpzjNh1YNv+xYbvGb/59goFKFuu3NOIeGjgRpvSgtIPo
+ 8ivmmDGfUlUajD9Xi2Zb0jv40IpLIkZ1zlVqLGUDtdGxm942GdK2191iVOUAdgY/d9
+ LkEDqWs4BcK2jEMPeiyQHLfliXA1m2lVAX62EVolUfTIC9T8HiuTytz5hngxpheUFV
+ LHEYk2tMnbFvw==
 From: Kees Cook <kees@kernel.org>
 To: Luis Chamberlain <mcgrof@kernel.org>
 Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
@@ -94,19 +94,20 @@ Cc: Kees Cook <kees@kernel.org>, Pengpeng Hou <pengpeng@iscas.ac.cn>,
  virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: [PATCH 02/11] panic: Replace panic_print_get() with generic helper
-Date: Thu, 21 May 2026 06:33:15 -0700
-Message-Id: <20260521133326.2465264-2-kees@kernel.org>
+Subject: [PATCH 06/11] moduleparam: Add seq_buf-based .get callback alongside
+ .get_str
+Date: Thu, 21 May 2026 06:33:19 -0700
+Message-Id: <20260521133326.2465264-6-kees@kernel.org>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260521133315.work.845-kees@kernel.org>
 References: <20260521133315.work.845-kees@kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=866; i=kees@kernel.org;
- h=from:subject; bh=We2iaIAjr+4pDVj6nN4taHbnlsqb7PEX4Rc0M//7Kt8=;
- b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nAumTnkv6GXi6mHz69T5F/eS51xN2sf9+OYJ/5tKM
- a7BKpWXOkpZGMS4GGTFFFmC7NzjXDzetoe7z1WEmcPKBDKEgYtTACZy9S/Db7YGn+v9lrVPV4gu
- m3xhJm8Bs3PHO2Ofhg7+Rze8/k6O/Mzw3yuT8f9jHfbF7g9KrUVDtZlPT9yg9mVa1fd5W55tLpg
- ayQcA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3696; i=kees@kernel.org;
+ h=from:subject; bh=T4N6FoAPN5e2cqvWSGS7oEs1xiLk99wdr1LKck0ur78=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDFn8nIs2HH8iHuPEcem9X7HM2rJrS2LZVs8vP/M+reLdF
+ K3trxtfdZSyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAExEwZOR4alreLoXi13roV/i
+ 9/tfrbvsVLZZb2L3Qh33TS8N1v2/U8fwT//2x1KTz9OUg91P7LvT39NrdVL4qeIHRzc9ZcnAHRc
+ /cgAA
 X-Developer-Key: i=kees@kernel.org; a=openpgp;
  fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 Content-Transfer-Encoding: 8bit
@@ -125,34 +126,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since panic_print_get() just calls the ulong helper directly, there is
-no need for it to exist as a wrapper.
+Add a new struct kernel_param_ops::get callback whose signature
+takes a struct seq_buf instead of a raw char buffer:
+
+  int (*get)(struct seq_buf *sb, const struct kernel_param *kp);
+
+The previously-legacy .get field is now .get_str (char *buffer);
+.get is the new seq_buf-aware form.  param_attr_show() prefers .get
+when set, otherwise falls back to .get_str.  WARN_ON_ONCE() if both
+are set.  Return contract for .get:
+
+  < 0 : errno propagated to userspace; seq_buf contents discarded
+  = 0 : success; length derived from seq_buf_used()
+  > 0 : forbidden; the dispatcher WARN_ON_ONCE()s and treats as 0
+
+The default policy on seq_buf_has_overflowed() is silent truncation,
+matching scnprintf()/sysfs_emit() behaviour.  Callbacks that want a
+specific overflow errno can check seq_buf_has_overflowed() and
+return their preferred error.
+
+No callbacks use .get yet; the legacy path is still the only one in use
+after this commit. A subsequent commit teaches DEFINE_KERNEL_PARAM_OPS
+to route initializers by type.
 
 Signed-off-by: Kees Cook <kees@kernel.org>
 ---
- kernel/panic.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ include/linux/moduleparam.h | 13 ++++++++++++-
+ kernel/params.c             | 26 ++++++++++++++++++++++++--
+ 2 files changed, 36 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 20feada5319d..42e5ebde4585 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -1214,14 +1214,9 @@ static int panic_print_set(const char *val, const struct kernel_param *kp)
- 	return  param_set_ulong(val, kp);
+diff --git a/include/linux/moduleparam.h b/include/linux/moduleparam.h
+index f5f4148e2504..c52120f6ac28 100644
+--- a/include/linux/moduleparam.h
++++ b/include/linux/moduleparam.h
+@@ -7,6 +7,7 @@
+ #include <linux/build_bug.h>
+ #include <linux/compiler.h>
+ #include <linux/init.h>
++#include <linux/seq_buf.h>
+ #include <linux/stringify.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+@@ -62,7 +63,17 @@ struct kernel_param_ops {
+ 	unsigned int flags;
+ 	/* Returns 0, or -errno.  arg is in kp->arg. */
+ 	int (*set)(const char *val, const struct kernel_param *kp);
+-	/* Returns length written or -errno.  Buffer is 4k (ie. be short!) */
++	/*
++	 * Format the parameter's value into @s.  Return 0 on success
++	 * (length derived from seq_buf_used()) or -errno on error.
++	 * Exactly one of .get and .get_str should be set; the dispatcher
++	 * WARNs and prefers .get if both are.
++	 */
++	int (*get)(struct seq_buf *s, const struct kernel_param *kp);
++	/*
++	 * Returns length written or -errno.  Buffer is 4k (ie. be short!).
++	 * Deprecated: callbacks should implement .get instead.
++	 */
+ 	int (*get_str)(char *buffer, const struct kernel_param *kp);
+ 	/* Optional function to free kp->arg when module unloaded. */
+ 	void (*free)(void *arg);
+diff --git a/kernel/params.c b/kernel/params.c
+index 6852caea1785..4eda2d23ddf2 100644
+--- a/kernel/params.c
++++ b/kernel/params.c
+@@ -553,12 +553,34 @@ static ssize_t param_attr_show(const struct module_attribute *mattr,
+ {
+ 	int count;
+ 	const struct param_attribute *attribute = to_param_attr(mattr);
++	const struct kernel_param_ops *ops = attribute->param->ops;
+ 
+-	if (!attribute->param->ops->get_str)
++	if (!ops->get && !ops->get_str)
+ 		return -EPERM;
+ 
++	WARN_ON_ONCE(ops->get && ops->get_str);
++
+ 	kernel_param_lock(mk->mod);
+-	count = attribute->param->ops->get_str(buf, attribute->param);
++	if (ops->get) {
++		struct seq_buf s;
++
++		seq_buf_init(&s, buf, PAGE_SIZE);
++		count = ops->get(&s, attribute->param);
++		if (count >= 0) {
++			WARN_ON_ONCE(count > 0);
++			count = seq_buf_used(&s);
++			/* Make sure string is terminated. */
++			seq_buf_str(&s);
++			/*
++			 * If overflowed, reduce count by 1 for trailing
++			 * NUL byte.
++			 */
++			if (seq_buf_has_overflowed(&s))
++				count--;
++		}
++	} else {
++		count = ops->get_str(buf, attribute->param);
++	}
+ 	kernel_param_unlock(mk->mod);
+ 	return count;
  }
- 
--static int panic_print_get(char *val, const struct kernel_param *kp)
--{
--	return  param_get_ulong(val, kp);
--}
--
- static const struct kernel_param_ops panic_print_ops = {
- 	.set	= panic_print_set,
--	.get	= panic_print_get,
-+	.get	= param_get_ulong,
- };
- __core_param_cb(panic_print, &panic_print_ops, &panic_print, 0644);
- 
 -- 
 2.34.1
 
