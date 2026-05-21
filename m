@@ -4,35 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7726CCD5BA6
-	for <intel-gfx@archiver.kernel.org>; Thu, 21 May 2026 06:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6707DCD4F3D
+	for <intel-gfx@archiver.kernel.org>; Thu, 21 May 2026 07:15:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB16110E0E0;
-	Thu, 21 May 2026 06:47:57 +0000 (UTC)
-Received: from coelho.fi (coelho.fi [88.99.146.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B628110E0E0;
- Thu, 21 May 2026 06:47:56 +0000 (UTC)
-Received: from 91-152-155-144.elisa-laajakaista.fi ([91.152.155.144]
- helo=[192.168.100.133])
- by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
- (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
- id 1wPxCA-00000005NAR-0npe; Thu, 21 May 2026 09:47:52 +0300
-Message-ID: <2bb5651ead8635bde0af9a1a1883b9cd0051689a.camel@coelho.fi>
-From: Luca Coelho <luca@coelho.fi>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Luca Coelho
- <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-Date: Thu, 21 May 2026 09:47:49 +0300
-In-Reply-To: <44b3a002fbba80bdafd440fcbb8c912bb1243765@intel.com>
-References: <20260519112243.1454375-1-luciano.coelho@intel.com>
- <20260519112243.1454375-2-luciano.coelho@intel.com>
- <44b3a002fbba80bdafd440fcbb8c912bb1243765@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1F4010E460;
+	Thu, 21 May 2026 07:15:00 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="CO4rzz9O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W2m8vZ1Q";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="CO4rzz9O";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="W2m8vZ1Q";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB17810E465
+ for <intel-gfx@lists.freedesktop.org>; Thu, 21 May 2026 07:14:59 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4B5B76B251;
+ Thu, 21 May 2026 07:14:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779347698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
+ b=CO4rzz9ORacUxWBa+frxjJZT07Wj3zDB3smtz9Lriw11ANbEBX0LUeZcd3gZNvEmrBq++k
+ M8Uc4Rd7XUHiDOXW4hDyAXlQVBlIirHqB9y+O1jOmoMDweZIiLBN/KIHlfy0VdtR+xZ0RD
+ 0SfxcnstW0G1koFnuxbjhV6OHoC81GM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779347698;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
+ b=W2m8vZ1QmjvcmoHZ843EmjIzpSy8355oCMZG+8D9ODreKPuojXhhyX+sj/oOYPvglmB8/H
+ 3FqYUJfdunXNSRDQ==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=CO4rzz9O;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=W2m8vZ1Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1779347698; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
+ b=CO4rzz9ORacUxWBa+frxjJZT07Wj3zDB3smtz9Lriw11ANbEBX0LUeZcd3gZNvEmrBq++k
+ M8Uc4Rd7XUHiDOXW4hDyAXlQVBlIirHqB9y+O1jOmoMDweZIiLBN/KIHlfy0VdtR+xZ0RD
+ 0SfxcnstW0G1koFnuxbjhV6OHoC81GM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1779347698;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SaSIERTp3yn7OQ9va/0lj1DC5PxkP2DR5u8ubcmHH44=;
+ b=W2m8vZ1QmjvcmoHZ843EmjIzpSy8355oCMZG+8D9ODreKPuojXhhyX+sj/oOYPvglmB8/H
+ 3FqYUJfdunXNSRDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1ED0A593AC;
+ Thu, 21 May 2026 07:14:58 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Y5T6BvKwDmokLQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 21 May 2026 07:14:58 +0000
+Date: Thu, 21 May 2026 09:14:56 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-fixes
+Message-ID: <20260521071456.GA14644@localhost.localdomain>
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/4] drm/i915/display: harden masks in
- HSW_AUD_PIN_ELD_CP_VLD macros
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ RCPT_COUNT_TWELVE(0.00)[16];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ MISSING_XM_UA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,localhost.localdomain:mid,gitlab.freedesktop.org:url];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 4B5B76B251
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,67 +125,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-05-19 at 14:49 +0300, Jani Nikula wrote:
-> On Tue, 19 May 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
-> > HSW_AUD_PIN_ELD_CP_VLD has a 4-bit field per transcoder for
-> > TRANSCODER_A..TRANSCODER_D only (bits 0..15).  Any other transcoder
-> > value (TRANSCODER_EDP, TRANSCODER_DSI_*, INVALID_TRANSCODER) is not
-> > valid here.
-> >=20
-> > This is not a problem with the current implementation, because trans
-> > is always valid when these macros are called, but it's more robust to
-> > mask the index to the low 2 bits so the shift is always well-defined.
-> >=20
-> > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_audio_regs.h | 16 ++++++++++++----
-> >  1 file changed, 12 insertions(+), 4 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/display/intel_audio_regs.h b/drivers/=
-gpu/drm/i915/display/intel_audio_regs.h
-> > index 4c31844d21df..25df7af4f67f 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_audio_regs.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_audio_regs.h
-> > @@ -109,12 +109,20 @@
-> >  #define _HSW_AUD_EDID_DATA_B		0x65150
-> >  #define HSW_AUD_EDID_DATA(trans)	_MMIO_TRANS(trans, _HSW_AUD_EDID_DATA=
-_A, _HSW_AUD_EDID_DATA_B)
-> > =20
-> > +/*
-> > + * HSW_AUD_PIN_ELD_CP_VLD has a 4-bit field per transcoder for
-> > + * TRANSCODER_A..TRANSCODER_D only (bits 0..15).  Any other transcoder
-> > + * value (TRANSCODER_EDP, TRANSCODER_DSI_*, INVALID_TRANSCODER) is not
-> > + * valid here.  Mask the index to the low 2 bits so the shift is
-> > + * always well-defined.
-> > + */
-> >  #define HSW_AUD_PIPE_CONV_CFG		_MMIO(0x6507c)
-> >  #define HSW_AUD_PIN_ELD_CP_VLD		_MMIO(0x650c0)
-> > -#define   AUDIO_INACTIVE(trans)		((1 << 3) << ((trans) * 4))
-> > -#define   AUDIO_OUTPUT_ENABLE(trans)	((1 << 2) << ((trans) * 4))
-> > -#define   AUDIO_CP_READY(trans)		((1 << 1) << ((trans) * 4))
-> > -#define   AUDIO_ELD_VALID(trans)	((1 << 0) << ((trans) * 4))
-> > +#define   __AUDIO_MASK_TRANS(trans)	(((unsigned int)(trans) & 0x3) * 4=
-)
-> > +#define   AUDIO_INACTIVE(trans)		((u32)BIT(3) << __AUDIO_MASK_TRANS(tr=
-ans))
-> > +#define   AUDIO_OUTPUT_ENABLE(trans)	((u32)BIT(2) << __AUDIO_MASK_TRAN=
-S(trans))
-> > +#define   AUDIO_CP_READY(trans)		((u32)BIT(1) << __AUDIO_MASK_TRANS(tr=
-ans))
-> > +#define   AUDIO_ELD_VALID(trans)	((u32)BIT(0) << __AUDIO_MASK_TRANS(tr=
-ans))
->=20
-> Please use REG_BIT() instead of (u32)BIT().
+Hi Dave, Sima,
 
-Yeah, looks much nicer, thanks.  I converted it to use REG_BIT().
+this is this weekly PR for drm-misc-fixes.
 
+Best regards
+Thomas
 
-> All of this would be cleaner with the REG_GENMASK() stuff too.
+drm-misc-fixes-2026-05-21:
+Short summary of fixes pull:
 
-I don't see how REG_GENMASK() could be used here.  We're handling
-single-bits only, with a shift to get it in the proper place, so it's
-not really a mask.
+amdxdna:
+- remove mmap and export for ubuf
 
---
-Cheers,
-Luca.
+bridge:
+- chipone-icn6211: managed bridge cleanup
+- lt66121: acquire reset GPIO
+- megachips: fix clean up on failed IRQ requests
+
+gem:
+- clean up LRU locking
+
+v3d:
+- fix UAF in error code paths
+- release GEM-object ref on free'd jobs
+
+virtio:
+- use uninterruptible resv locking in plane updates
+The following changes since commit 0a9c56dd387605d17dabeedd9fdd2c4c1d0bab7b:
+
+  drm/loongson: Use managed KMS polling (2026-05-15 08:50:54 +0200)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-05-21
+
+for you to fetch changes up to 9af1b6e175c82daf4b423da339a722d8e67a735a:
+
+  drm/virtio: use uninterruptible resv lock for plane updates (2026-05-20 18:12:11 +0300)
+
+----------------------------------------------------------------
+Short summary of fixes pull:
+
+amdxdna:
+- remove mmap and export for ubuf
+
+bridge:
+- chipone-icn6211: managed bridge cleanup
+- lt66121: acquire reset GPIO
+- megachips: fix clean up on failed IRQ requests
+
+gem:
+- clean up LRU locking
+
+v3d:
+- fix UAF in error code paths
+- release GEM-object ref on free'd jobs
+
+virtio:
+- use uninterruptible resv locking in plane updates
+
+----------------------------------------------------------------
+Boris Brezillon (1):
+      drm/gem: Make the GEM LRU lock part of drm_device
+
+Deepanshu Kartikey (1):
+      drm/virtio: use uninterruptible resv lock for plane updates
+
+Julien Chauveau (1):
+      drm/bridge: it66121: acquire reset GPIO in probe
+
+Lizhi Hou (1):
+      accel/amdxdna: Remove mmap and export support for ubuf
+
+Maíra Canal (2):
+      drm/v3d: Fix use-after-free of CPU job query arrays on error path
+      drm/v3d: Release indirect CSD GEM reference on CPU job free
+
+Osama Abdelkader (2):
+      drm/bridge: chipone-icn6211: use devm_drm_bridge_add in i2c probe
+      drm/bridge: megachips: remove bridge when irq request fails
+
+ drivers/accel/amdxdna/amdxdna_gem.c                |  9 +++-
+ drivers/accel/amdxdna/amdxdna_gem.h                |  2 +
+ drivers/accel/amdxdna/amdxdna_ubuf.c               | 50 ----------------------
+ drivers/gpu/drm/bridge/chipone-icn6211.c           |  4 +-
+ drivers/gpu/drm/bridge/ite-it66121.c               |  5 +++
+ .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   | 16 ++++---
+ drivers/gpu/drm/drm_drv.c                          |  2 +
+ drivers/gpu/drm/drm_gem.c                          | 36 +++++++---------
+ drivers/gpu/drm/msm/msm_drv.c                      | 11 +++--
+ drivers/gpu/drm/msm/msm_drv.h                      |  7 ---
+ drivers/gpu/drm/msm/msm_gem.c                      | 33 +++++++-------
+ drivers/gpu/drm/msm/msm_gem_shrinker.c             |  4 +-
+ drivers/gpu/drm/msm/msm_gem_submit.c               |  6 +--
+ drivers/gpu/drm/msm/msm_gem_vma.c                  | 12 +++---
+ drivers/gpu/drm/msm/msm_ringbuffer.c               |  6 +--
+ drivers/gpu/drm/v3d/v3d_sched.c                    | 16 +------
+ drivers/gpu/drm/v3d/v3d_submit.c                   | 22 ++++++++--
+ drivers/gpu/drm/virtio/virtgpu_drv.h               |  1 +
+ drivers/gpu/drm/virtio/virtgpu_gem.c               | 17 ++++++++
+ drivers/gpu/drm/virtio/virtgpu_plane.c             | 10 ++++-
+ include/drm/drm_device.h                           |  7 +++
+ include/drm/drm_gem.h                              | 20 ++++-----
+ 22 files changed, 143 insertions(+), 153 deletions(-)
+
+-- 
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
