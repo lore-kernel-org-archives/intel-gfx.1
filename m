@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 460F6CD5BB3
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 18:21:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39FE7CD5BB3
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 18:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEF8610E290;
-	Fri, 22 May 2026 18:21:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1F4510E299;
+	Fri, 22 May 2026 18:51:21 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 311D410E288;
- Fri, 22 May 2026 18:21:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F11A810E296;
+ Fri, 22 May 2026 18:51:19 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============3861384700918194754=="
+ boundary="===============4961243961254392899=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_fixes_to_DRM_doc_=26_para?=
- =?utf-8?q?meter=27s_print_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Remove_drm=5F?=
+ =?utf-8?q?dev=5Funregister=28=29_from_the_error_path_during_i915=5Fdriver?=
+ =?utf-8?q?=5Fregister=28=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
+To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 22 May 2026 18:21:54 -0000
-Message-ID: <177947411419.1247.754386054773204014@6beec6c84f66>
+Date: Fri, 22 May 2026 18:51:19 -0000
+Message-ID: <177947587997.1247.10662252509361098443@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <20260522135520.1862848-1-michal.grzelak@intel.com>
-In-Reply-To: <20260522135520.1862848-1-michal.grzelak@intel.com>
+References: <20260522154356.47588-2-krzysztof.niemiec@intel.com>
+In-Reply-To: <20260522154356.47588-2-krzysztof.niemiec@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,73 +42,58 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3861384700918194754==
+--===============4961243961254392899==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: fixes to DRM doc & parameter's print (rev2)
-URL   : https://patchwork.freedesktop.org/series/167035/
-State : failure
+Series: drm/i915: Remove drm_dev_unregister() from the error path during i915_driver_register()
+URL   : https://patchwork.freedesktop.org/series/167117/
+State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_18542 -> Patchwork_167035v2
+CI Bug Log - changes from CI_DRM_18542 -> Patchwork_167117v1
 ====================================================
 
 Summary
 -------
 
-  **FAILURE**
+  **SUCCESS**
 
-  Serious unknown changes coming with Patchwork_167035v2 absolutely need to be
-  verified manually.
-  
-  If you think the reported changes have nothing to do with the changes
-  introduced in Patchwork_167035v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
-  to document this new failure mode, which will reduce false positives in CI.
+  No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167117v1/index.html
 
-Participating hosts (42 -> 39)
+Participating hosts (42 -> 40)
 ------------------------------
 
-  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
-Possible new issues
--------------------
 
-  Here are the unknown changes that may have been introduced in Patchwork_167035v2:
+Changes
+-------
 
-### IGT changes ###
-
-#### Possible regressions ####
-
-  * igt@i915_selftest@live@guc_multi_lrc:
-    - bat-arls-5:         [PASS][1] -> [INCOMPLETE][2] +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18542/bat-arls-5/igt@i915_selftest@live@guc_multi_lrc.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/bat-arls-5/igt@i915_selftest@live@guc_multi_lrc.html
-
-  
+  No changes found
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_18542 -> Patchwork_167035v2
+  * Linux: CI_DRM_18542 -> Patchwork_167117v1
 
   CI-20190529: 20190529
   CI_DRM_18542: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_8936: 98b65acc4f6edf68cd52b30f27b83049c4c5c83b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_167035v2: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_167117v1: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167117v1/index.html
 
---===============3861384700918194754==
+--===============4961243961254392899==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -127,46 +113,34 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>fixes to DRM doc &amp; parameter&#x27;s print (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167035/">https://patchwork.freedesktop.org/series/167035/</a></td></tr>
-<tr><td><b>State:</b></td><td>failure</td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915: Remove drm_dev_unregister() from the error path during i915_driver_register()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167117/">https://patchwork.freedesktop.org/series/167117/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167117v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167117v1/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_18542 -&gt; Patchwork_167035v2</h1>
+    <h1>CI Bug Log - changes from CI_DRM_18542 -&gt; Patchwork_167117v1</h1>
 <h2>Summary</h2>
-<p><strong>FAILURE</strong></p>
-<p>Serious unknown changes coming with Patchwork_167035v2 absolutely need to be<br />
-  verified manually.</p>
-<p>If you think the reported changes have nothing to do with the changes<br />
-  introduced in Patchwork_167035v2, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
-  to document this new failure mode, which will reduce false positives in CI.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
-<h2>Possible new issues</h2>
-<p>Here are the unknown changes that may have been introduced in Patchwork_167035v2:</p>
-<h3>IGT changes</h3>
-<h4>Possible regressions</h4>
-<ul>
-<li>igt@i915_selftest@live@guc_multi_lrc:<ul>
-<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18542/bat-arls-5/igt@i915_selftest@live@guc_multi_lrc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167035v2/bat-arls-5/igt@i915_selftest@live@guc_multi_lrc.html">INCOMPLETE</a> +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167117v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_18542 -&gt; Patchwork_167035v2</li>
+<li>Linux: CI_DRM_18542 -&gt; Patchwork_167117v1</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_18542: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_8936: 98b65acc4f6edf68cd52b30f27b83049c4c5c83b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_167035v2: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_167117v1: 60d51bdeabf700864c26264c51b146a86b0a9124 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============3861384700918194754==--
+--===============4961243961254392899==--
