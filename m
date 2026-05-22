@@ -4,58 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF90CD5BB3
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 15:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD592CD5BB0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 16:05:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25FB110F5A7;
-	Fri, 22 May 2026 15:44:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EF3910F66F;
+	Fri, 22 May 2026 16:05:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Y8K+EWUe";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wlc9Ronw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4253E10F5A7;
- Fri, 22 May 2026 15:44:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 233BE10F66F;
+ Fri, 22 May 2026 16:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779464651; x=1811000651;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3hPN50lE7sE9kvVCaDHALMpPcktKyFGVGRLMr9kW2GY=;
- b=Y8K+EWUeTO/Q2I8AWMY3zQ4J3HSWW70nGESJnbGpoO0/JWsedwrEiAk3
- Bke96vMeaH68COHPWcgVxCPbqqN6R7LC3hRvwfVpxb3C3vLAtjfU5a1e1
- Oj6dOLRfP00XLSO/1tev7EmRLufYI+ljTja/Cd1TUdNjkhLkHQG7QfAFk
- QHvThpYWH22VqXQFjff03zyngWFQYC2wB+4UeBNsHY8qjBemqY3TDJtHJ
- TwH+i6dp7dOUmeLPyurTebC0VHAlfoitEn5mCd3YNxX0Kw9HGoCmrh9vD
- /KbzizbIZ/SDeUQ775r+vZ/FBMmBQNKgC0rNtz49UsPN8/qDC2qZJo4Zb w==;
-X-CSE-ConnectionGUID: MB6jdKmnRS2sM86WPVhKkg==
-X-CSE-MsgGUID: kuOrG6JwS/2IFdYq3nA0Lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="79545726"
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="79545726"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 08:44:11 -0700
-X-CSE-ConnectionGUID: T1MP5dJSTwyUCv87yk6fAw==
-X-CSE-MsgGUID: ITx4K2EFQ+OM0pztxedTZA==
+ t=1779465943; x=1811001943;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=fTUNoFZyy7EBcUq9ZCmahafGTt795AI65INNlB1D4G0=;
+ b=Wlc9RonwLaPtPJ9f1eeaMIPdGclnJeglXQEPOOed1fPjssSi+PO640xU
+ 7IS86CJJEY0togDxX7S/TVe2J/GtDB30leGN+r0FJdtiGTZDkTW85M7gk
+ /nJ1L+CFUOyXDGlJcSp9NV3wWpZ0diwslOI3f4l5CL5vbd3PVC2/hM9nd
+ JNgFjK/VxDEMIhhF9gzVyGkLSwPU7cVQg0Qn3DB5EMYuxf7T7DI0gMSpK
+ HvJtpOjjFWsL/UL9FIMas7qcUZ83KOLbJnoNhdP0Xmw3cUiKlx4TuTr7z
+ YwIqTnWzJyWBG9kFbvHSTgtLjW66YtAzr/tOMpOIzLjga5c5R/8kYfdII Q==;
+X-CSE-ConnectionGUID: q5ZFxXA3RCaLwSJTJua6Kg==
+X-CSE-MsgGUID: Ms7UU3Y+TEKNW+4BwyH7MA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11794"; a="84016359"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="84016359"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 09:05:42 -0700
+X-CSE-ConnectionGUID: lxjDr8JPSuO7SrY33SEw/Q==
+X-CSE-MsgGUID: AyxjBh2KRK6AXeYIjgDH2w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="236511547"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.245.34])
- by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 May 2026 08:44:08 -0700
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [PATCH] drm/i915: Remove drm_dev_unregister() from the error path
- during i915_driver_register()
-Date: Fri, 22 May 2026 17:43:57 +0200
-Message-ID: <20260522154356.47588-2-krzysztof.niemiec@intel.com>
-X-Mailer: git-send-email 2.45.2
-MIME-Version: 1.0
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="237916967"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 09:05:42 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 22 May 2026 09:05:41 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Fri, 22 May 2026 09:05:41 -0700
+Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.41) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Fri, 22 May 2026 09:05:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ivemhZjMR/uAVQTD/zHN08sHjSorCUoLk4/mY7a6s5xP5TgCBrsjfec7XeAut1XZJdxF3ZZ0/etWaQ4IXF3HLH4fxLF1iCC2JQouGuUDseLhK5qfAVlz8FtZJ9hvqydNfi32XVnz88E4VvnV5C7SiJyQh82oZRG1xtfeERF9X3q9Jb3gBXgkWtK2+Lol/2DTT7tUdZR2TL4pKHb9CDY7aMkOP5Nj/0oVTlW94Jznt/Pm5ABhn6Gr+YFYpD2eZLXJe/q/MfsVNg5kVE5wfIDsy6EJeqY7aYk71JbYurVJIWtORcfrYusrHk3rAjmN3L3IoTzKnxnznh/jyTDmITB7AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=18sqDyKOoRe1adGpbK64gte+sZKwoaitzaCanx5c7GY=;
+ b=Uit+OBeB5iD/LlAoWjwFuyKxxsUUxujai0CHR61gnAc3bcACATc74XB0oCfsLAmKlfhb4dj1HK0pYTqwEuZZTnPSQpQLzVfazxpXnCG2bZxADj7pcvXJzh3rACdCPorUUPeLSVkN29coT++uVocMIXvP7XxkyRrdK8ZLj1pKTbhffPLWTZbJewTZSn5cei9h85RCaT4BCAnrRnH7604IejuE59kLd0GN1tBY+9K0pUW5kbJ4/4YbXtZ2O0ZReEywMdhe7ZkLoX4TV00zjKafNk24h96tRq2E1806tvwZKVzbRA886H/JEZNTapigSN+lFj3RgLAAVbQijaHO+OccEg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com (2603:10b6:208:573::17)
+ by CH3PR11MB8415.namprd11.prod.outlook.com (2603:10b6:610:17b::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Fri, 22 May
+ 2026 16:05:39 +0000
+Received: from IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa]) by IA3PR11MB9273.namprd11.prod.outlook.com
+ ([fe80::31a4:58c:e3b5:43fa%4]) with mapi id 15.20.9913.009; Fri, 22 May 2026
+ 16:05:38 +0000
+From: Imre Deak <imre.deak@intel.com>
+To: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
+CC: =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH v2 1/4] drm/i915/dp: Reset link params after a DPRX capability
+ change
+Date: Fri, 22 May 2026 19:05:11 +0300
+Message-ID: <20260522160514.2628249-2-imre.deak@intel.com>
+X-Mailer: git-send-email 2.49.1
+In-Reply-To: <20260522160514.2628249-1-imre.deak@intel.com>
+References: <20260522160514.2628249-1-imre.deak@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: GVX0EPF0005F70D.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:400::38e) To IA3PR11MB9273.namprd11.prod.outlook.com
+ (2603:10b6:208:573::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA3PR11MB9273:EE_|CH3PR11MB8415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5cea0534-8653-4c24-67f3-08deb81bf752
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|18002099003|56012099003|22082099003|11063799006|3023799007|6133799003;
+X-Microsoft-Antispam-Message-Info: aJbHZYc2MAtMo0exNCnUAjixnyYPjJuiJjUgatkcn3JO1ng99FLAHWB8aOUtqs2fjEbOOrReiBiQk1urv/oz423Sg6ykokWO1O8k93QEUe0cILtjGVVuDbVN0PFLV6kE734tkJxhOfK7bkuONHJaR2/QU9OITW+LUX60c/YQxhihoV7tQp+50tOeZyZ9+z20/GOyEELUMmCdKU2cf9g79jmPNtMbWnGrrLiFZEh4Xj2zjeZb4JCV1CInSGOLcBd7Bm6/qp770ROmkF0FVtvyH0fPMyZyASmHSk8IE2zUhlWIbFVVxpELuYsvShZpQuVxzVFma108mscxq+PzTgVaG78cx5a9E73yMLZ/OnVPvahJXyLybWwiiLLaXwq3VsZLFizZ6xMZy4JQeWpy7oHqGZWRoAB8xswVFOjhZN5BN/aoN/XR06QevR4qWfIkV09pWp7UtGg0Zzr9JE2nNxG/5BEoKlsn5Snh7gAwA0do+8mS3ODYiia4rWd79CsDF5+5lGoFiLJkz0mPH+FLk865UOzEnUN8k6SkSLBp815Z3RMbe5pJqSvZQiRrMDRFPyrjOibNk0Ja7y8Pjxg58VdEEbBtmFCxzJWy4fc9dtgfPmeI22WIW2cmTibCZHZQqiuow6IVoV3lyM71bG5MVRpsouYG3ArjbomwiLMv1ymcHThlNYs6bzLvnXd25DrjoRrH
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA3PR11MB9273.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(18002099003)(56012099003)(22082099003)(11063799006)(3023799007)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHhQUW56MkNlaEhzMC83M3VCQ3d0ZHZyQ1FLdEkrUnZZb1p2NGw1T3BWL3Rk?=
+ =?utf-8?B?N2kyeWt4RW51TWNkMnVHeWpyS3QvNUNjaWJRL0VhSVFMOElRdnJmMlBRY3VZ?=
+ =?utf-8?B?dWJNR2hYaktzcDBUSWwzcTZqb3d2VW1qOElNaUFXaXVTR0REVUx1dHZDM2xn?=
+ =?utf-8?B?dmxlSVU0ZVNrK0poQ2FTdnhXSEUzZlUxd0ZadXRmZlJWTEo0Z3NqQ2ZkcjZK?=
+ =?utf-8?B?aDVBRE5EUk5Ma3VNaSs5bHdUYnhzTktYeithVnRHYlFETTF1NWg2ZkFTcGMr?=
+ =?utf-8?B?VlF1VGdFZHI2bkpRK1JHOXpqU2ZrTGF3WXZZR2NQd0k2SWt1WnJhSkh1ZDcv?=
+ =?utf-8?B?alo1dnBJK3JOQkV4eEM1a25QdWVCWVN1OVl4WHhpdVh6eWZISEtWdE11QTJx?=
+ =?utf-8?B?T3ZHVVo3UHExN3BKb1RWbEd5bm42VHZyZS9xTjNIOEw3NHdSUzVkRWdwOTBT?=
+ =?utf-8?B?TkhPb3puVlF1NURYUFc1NkUxWVBES3k5eFptTmRLR2RvWkNJUk56bUhublNr?=
+ =?utf-8?B?VHZLbjRHTFVESHZTWUNDd0ZCRXVmbXF2UEF4bmMzNVJZZEI3K3Y0cG8xeHBk?=
+ =?utf-8?B?c21xZEIrTzFuT1p1a3dheXhOU29xOVZMVnNmZnBYRGNUbVpSVUpYR3ZIbEhy?=
+ =?utf-8?B?U2RzSlF3TXoxdGdDRXlGYnZodko4N2c5SkNMd2tPRjU1UFg5VWp1ekx5TmNL?=
+ =?utf-8?B?RkxwMkUwcEdXdHUvYjM4Z2dPdGRGenFRZ2RRZ3RRd2ZoeHBOakdXRDNQZkZk?=
+ =?utf-8?B?U3JuVE44SlE5bExwSXA5ckxOTFY4OVlNdG1nMk5zNmxidlRNNGh4Q3ZGajlF?=
+ =?utf-8?B?TVhpckh2ZWZ1c1dYVlFVR0VmSTBBTVVEeTYxb0JEWmUzSlZBQmNnYUY0VWxy?=
+ =?utf-8?B?QUQ2dlpZZXlKT2I3SGp5bU1JRWtUR3c1Yk5sN25qZmlRa0JPRWZ5T3IvRUg1?=
+ =?utf-8?B?WlhDbmw4RjFsQ1BoUVhzZWV6VExDU1BKTFZWcUZvMytkRExrdHNpSkhCNWZx?=
+ =?utf-8?B?TUUxVlgvcTdhOVlaQWZJbVpwK1loTGdlcmYzQy9aTU5xQ3BDajdPMXgwN3dW?=
+ =?utf-8?B?R0pOOWNPendBaW5zZ3h6ZXZOS2JkUER1dEs2N0tXVWIzQXlVSDVMaGRDQmpa?=
+ =?utf-8?B?UHFiTTdoeVRmSWt5RGRIZEFONzg4YWVETzVMbC9odUgzTjRVU3dKbmtiMWRJ?=
+ =?utf-8?B?WWdxNnA1akordDBPYW95ZXBCY2hnWVZUQzV6Ky9jcTVWckg5QUNmWFdRbFdF?=
+ =?utf-8?B?R25hbS9US2VidGRFKy9wdGVuaVkwUHp2N0hpWVNxMlhuQXliOFdSNTUrWnhh?=
+ =?utf-8?B?QitHbHIySHJUMDRWNDhJUEVhT2JoZ1kxSWVyQkFiSnVXZmNxeDBIREVVVHN1?=
+ =?utf-8?B?clk5QjFiRk1zZ0l4QWFQUS9zeWFMWWJwT3lZbnU0ZXhjMUxIYllVbmlyQWV5?=
+ =?utf-8?B?KzZRZkZSOGp3OGMyeGJOaE9KU1IrWEdNd1BHMGFMRGNUeU55Tk1zMmZsMCtV?=
+ =?utf-8?B?bjdtdEdNV1JSK29XVFZ3NGVSU2VIZzdIWkZaelltNy9sajNpYUFQeHA0SHdN?=
+ =?utf-8?B?eCt4T2dlSFlrZVk4YTh3ZUllMnVqTUp6NTczbFhrM004cE9qWGFsbnJBL2NO?=
+ =?utf-8?B?dUtuMnZHdDJXb2VCOFltV2lzMDd3bUQrekVZSzZ4NGVUUHJDNlQ3ODFWdkFa?=
+ =?utf-8?B?d3VYVTRQRkRHckRyaEJ2M2k0Z2pFbVBpaEdydmp0RzgyMkZWcTgvalVXQ3A3?=
+ =?utf-8?B?bUl1dERnK3E3ZlFpY3pmclhDaWxEeis3TFRkOHV3U2o2eHg4TEllVlhqQWtU?=
+ =?utf-8?B?RVJCRjdjbEx3bG0zaVhvaUdZaWtjWEZ6OUlBelJmdmhzYXUwUnFWbW1nYmZL?=
+ =?utf-8?B?RFFoNUJNRnpuNG9XUjNvdnlNOFgzOGNVRytYRkJ0azh6R2hsL1M2SzhVTkpx?=
+ =?utf-8?B?aUFKK3BiaWFZQ0FSU1ZXSERDUElhSTh6U0R2OE81WVcvSTcyR0FIL3ZmRmY2?=
+ =?utf-8?B?ZTM0K2N0YWZUZ0JpSW1VRUNqYndLSU1heXNOWG94SzlISHphMVdSNnNsanlY?=
+ =?utf-8?B?OTU1RXBLQ1lRTWFSRTBORXArUXlXcXdQZTFvaURKa1Y0anZiOElaR3FLcGZi?=
+ =?utf-8?B?R29yWFZsMzhKWVdHVnljWVkwSEVNRGJia2pOYkNhb0NBZ1BJdTVMUUZhdHRq?=
+ =?utf-8?B?RlZidlVZUktWOTR2Tjh3b2VVZFBtMjlkaDVyNHlSbUczRHU0VHhrc3hERUpW?=
+ =?utf-8?B?MVhqLzZJblozbGNhQU9TL00vaTgvVFIvWDZkQWVEWkJJMXk1ZmJvN2VGS2ZR?=
+ =?utf-8?B?NlY3RWxoQWxEM0lhMUQwZk9qdTZ1OThnU3ovM2EyUWRsNHVRaGJZUT09?=
+X-Exchange-RoutingPolicyChecked: Mu/cVpV31sZRTfqLInRWQgq1HGSyInSNIP3IDlQLPck94PfIIMsBLB+/hHszOXmZ4tanSaRKWN2EwmMvE1thybZTu+2f5SpRx7GWuDznfoK3DWzb6Mc2+h1bwTFaRmYlfX0+223D1vKQbzIoU7XoHkHGFdwqNIzXTFYLZrdBBDtTtAzKut7vyMj3dyuC5uSSVAd5Iggfli8GaNvhUyIqc1c8lhdoGctex5hOvNWSCzINUBpnxsWMnbhMgVZeAboRmaEDfpeq1k/kvK/cMxcPQZ515sVGTk0QjcqI/dyesjv8glGpuWIFKt0ov8NVeX+DzwuND8Ndwn8KmUVObRyuOw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cea0534-8653-4c24-67f3-08deb81bf752
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9273.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 May 2026 16:05:38.8020 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4AZ+QlFS4r5ntXQzSwH9lMw1yNzlD+HagD+iHcdKZbN7D3oV63GJ4Q/xuz1Whs0q5IxCqI6KU1VZA6+wfRNWUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8415
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +170,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-During driver probe, in i915_driver_register(), if drm_dev_register()
-fails, the code enters into an error path. In it, a call to
-drm_dev_unregister() is made as part of cleanup in case drm_dev_register()
-returns an error. However, this is unnecessary, as in case of an error
-drm_dev_register() undoes its own setup in its own error path.
+There is no reason to distinguish between DPRX capability changes
+signaled via a long HPD and via an RX_CAP_CHANGED HPD IRQ.
 
-Calling drm_dev_unregister() after a failed drm_dev_register() also
-generates a superfluous WARN_ON() from drm_client_sysrq_unregister().
-drm_client_sysrq_register() is only called in drm_dev_register() if
-there was no error in the latter. drm_dev_unregister() calls
-drm_client_sysrq_unregister() as it expects to be called after a successful
-drm_dev_register(), in which case the _sysrq_register() counterpart is
-called. However, if the call to drm_dev_register() failed,
-_sysrq_register() is never called; calling drm_dev_unregister() will
-cause _sysrq_unregister() to be called (unconditionally) with no
-corresponding _sysrq_register() call before it, which is caught in the
-aforementioned WARN_ON().
+Both cases result in reading out the DPRX capabilities and updating the
+corresponding sink and common capabilities cached in intel_dp, however
+only the long HPD resets the link training/recovery state and MST link
+probe parameters correspondingly. The link training/recovery state may
+contain reduced maximum link rate/lane count values left over from a
+previous link training failure.
 
-Remove the redundant call to drm_dev_unregister() in case
-drm_dev_register() returns an error.
+Based on the above after an RX_CAP_CHANGED increased the link rate, lane
+count parameters the maximum link rate/lane count in the link
+training/recovery state may remain below these, leaving the newly added
+valid configurations unavailable for subsequent modesets in an
+inconsistent way.
 
-Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Handle RX_CAP_CHANGED IRQs the same way as long HPDs and reset the link
+recovery state and MST link probe parameters in that case as well.
+
+v2: Set intel_dp::reset_link_params instead of using a helper for this.
+    (Ville).
+
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Imre Deak <imre.deak@intel.com>
 ---
- drivers/gpu/drm/i915/i915_driver.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index c10cab38935a..10e16002050a 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -638,7 +638,6 @@ static int i915_driver_register(struct drm_i915_private *dev_priv)
- 	if (ret) {
- 		i915_probe_error(dev_priv,
- 				 "Failed to register driver for userspace access!\n");
--		drm_dev_unregister(&dev_priv->drm);
- 		i915_pmu_unregister(dev_priv);
- 		i915_gem_driver_unregister(dev_priv);
- 		return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 1920d2f026665..940e73ad451d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -6000,8 +6000,10 @@ static bool intel_dp_handle_link_service_irq(struct intel_dp *intel_dp, u8 irq_m
+ 	drm_WARN_ON(display->drm, irq_mask & ~(INTEL_DP_LINK_SERVICE_IRQ_MASK_SST |
+ 					       INTEL_DP_LINK_SERVICE_IRQ_MASK_MST));
+ 
+-	if (irq_mask & RX_CAP_CHANGED)
++	if (irq_mask & RX_CAP_CHANGED) {
++		intel_dp->reset_link_params = true;
+ 		reprobe_needed = true;
++	}
+ 
+ 	if (irq_mask & LINK_STATUS_CHANGED)
+ 		intel_dp_check_link_state(intel_dp);
 -- 
-2.45.2
+2.49.1
 
