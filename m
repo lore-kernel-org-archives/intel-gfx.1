@@ -4,38 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78A92CD5BAC
-	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 10:46:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F46CD5BB0
+	for <intel-gfx@archiver.kernel.org>; Fri, 22 May 2026 11:38:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2D2110E152;
-	Fri, 22 May 2026 10:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0A5A10F554;
+	Fri, 22 May 2026 11:38:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="kt3c2Kmi";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L3vkmebk";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 629F310E152
- for <intel-gfx@lists.freedesktop.org>; Fri, 22 May 2026 10:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1779446762;
- bh=dAtXxGCgvOtJ+hnhpgogMyJ2i2JqfHCN+p727aDxaBk=;
- h=From:To:Cc:Subject:Date:From;
- b=kt3c2KmiYh+P6x5UaxOz0he8bZ6t0atYiJORm6yUf378iSXz2929Gj6yydE2rligF
- 8qcdFhu/JoWH+sCb21p4iKkqta77Pos1aXmPImVOxa7YZd3kPndHtRcwfIunZMBM+F
- kmU2kvP+Ck7+H7Keub1cOWE445KSa1bcShiPthgfESXj3wLAEzEi+YjC3J95ZBm7AP
- KXsHdH21g2z1MeInuX3OdGxv+EAqWrLzrSIcQBoTY0DJYnQMTbVNam7rVC2Yw2qQR2
- d3ORWjOkQYQ+LxN62wEq7vTf2yzxwD15i1XacyfMC6NX/iMB8A6hywwH+5uOXmkE/L
- SapScFyH0K99Q==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <dev@lankhorst.se>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
-Subject: [PATCH] drm/i915: Remove useless comment about MTRR.
-Date: Fri, 22 May 2026 12:45:48 +0200
-Message-ID: <20260522104548.980226-1-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81AA310F554
+ for <intel-gfx@lists.freedesktop.org>; Fri, 22 May 2026 11:38:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779449904; x=1810985904;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=FC0M9i5xnJMwyKOa2/NMfu0dmZaYSZHcyjuhvwOMH0s=;
+ b=L3vkmebk1/5APfwz0PEDMRCuTNPjR15XdoCdZtZnLBF/3S2UxlT0N/XG
+ r/qA9BQ4xRxws03teY2I95g9AIUXMuYJxxuzlzFJ5fHYW29HVWJMwLCtD
+ pzz4YmKBrANqMP/G2/tRa/IO04aszbaQQ9Zjw759MEz506JvZ9SGYFIeY
+ 6yE95EDM7thGxd0eIQ0wu4NRMeHnFh+klxETWe7v0C2p9/y0LdWyL0/yf
+ ILcdAUv+ZYlZnM74fHRNS3abfX1CRrOjXLganDgyNvnqqGID3eP+F1Z4G
+ TxiH9vCsXF7iPxMEzSw+FKSK+my0MUth6R5Ld7UOKTH9DuWqzYj+Tj/e7 w==;
+X-CSE-ConnectionGUID: ebXioTz9TzCdo/tAuqcf5g==
+X-CSE-MsgGUID: CVXppIwnR4e19D9OLJlOVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11793"; a="91486526"
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="91486526"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 04:38:24 -0700
+X-CSE-ConnectionGUID: JXhGYrRxRAWaBwxj2L1WUQ==
+X-CSE-MsgGUID: gj3dAVu7QwGKJgDnwM63qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,162,1774335600"; d="scan'208";a="236668794"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.1])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 May 2026 04:38:23 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, intel-gfx@lists.freedesktop.org
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH] drm/i915: Remove useless comment about MTRR.
+In-Reply-To: <20260522104548.980226-1-dev@lankhorst.se>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260522104548.980226-1-dev@lankhorst.se>
+Date: Fri, 22 May 2026 14:38:20 +0300
+Message-ID: <4f1a1b0020a584e7f15e4b82e61d912c5ad2558e@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,30 +71,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Commit 792d2b9a1259 ("drm: drop mtrr from i915"), added this comment,
-drop it since it since MTRR no longer exists since 2013 and is removed
-by commit 281856477cda ("drm: rip out drm_core_has_MTRR checks").
+On Fri, 22 May 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
+> Commit 792d2b9a1259 ("drm: drop mtrr from i915"), added this comment,
+> drop it since it since MTRR no longer exists since 2013 and is removed
+> by commit 281856477cda ("drm: rip out drm_core_has_MTRR checks").
+>
+> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/i915_driver.c | 3 ---
- 1 file changed, 3 deletions(-)
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index f06b2e8cf7d4b..0363dbd231b75 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -1869,9 +1869,6 @@ static const struct drm_ioctl_desc i915_ioctls[] = {
- #define DRIVER_PATCHLEVEL	0
- 
- static const struct drm_driver i915_drm_driver = {
--	/* Don't use MTRRs here; the Xserver or userspace app should
--	 * deal with them for Intel hardware.
--	 */
- 	.driver_features =
- 	    DRIVER_GEM |
- 	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_SYNCOBJ |
--- 
-2.53.0
 
+> ---
+>  drivers/gpu/drm/i915/i915_driver.c | 3 ---
+>  1 file changed, 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i9=
+15_driver.c
+> index f06b2e8cf7d4b..0363dbd231b75 100644
+> --- a/drivers/gpu/drm/i915/i915_driver.c
+> +++ b/drivers/gpu/drm/i915/i915_driver.c
+> @@ -1869,9 +1869,6 @@ static const struct drm_ioctl_desc i915_ioctls[] =
+=3D {
+>  #define DRIVER_PATCHLEVEL	0
+>=20=20
+>  static const struct drm_driver i915_drm_driver =3D {
+> -	/* Don't use MTRRs here; the Xserver or userspace app should
+> -	 * deal with them for Intel hardware.
+> -	 */
+>  	.driver_features =3D
+>  	    DRIVER_GEM |
+>  	    DRIVER_RENDER | DRIVER_MODESET | DRIVER_ATOMIC | DRIVER_SYNCOBJ |
+
+--=20
+Jani Nikula, Intel
