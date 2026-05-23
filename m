@@ -4,60 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A9FDCD5BB1
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 12:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BC5CD5BC8
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:02:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEDEA10E636;
-	Tue, 26 May 2026 12:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35E6F10E4D3;
+	Tue, 26 May 2026 13:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J21OT58x";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ExwsO3CI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71C7F10E636;
- Tue, 26 May 2026 12:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779800177; x=1811336177;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=o0GDSroeBgbkNV7kJY8BPgilG8roM24s7s1qdo/24qY=;
- b=J21OT58xtYtcZnyq8UVHVwiZuhcLSbwmDniOIbSl4m5W0n7WsNa81Tnf
- AyhPB+40tfuIVnghzkMlvM0nfgBFLCUpIY4CxAn+kPkoOYrbxlx/Pwaqe
- SfLTe+VDDc2m3qGeRr4YTgAlpqE1S9K5HZDD9nHmJwmQ1yUBKXfmTFyQC
- K885a77C6duZ8Xoct5MlUKhDE7YKvaYcHkAl0Fz8SGjnebAlxU754xKNM
- PWjpepmykg5pwgDLSPQI8IB8+NSO9i3L2/kZFsEw/OUz36KwzD3R5LAGA
- Bm3LuWY+CBtNBCJbaGmO0J5dWElCdCJT8MgF6n/WI8CL9WaK3MD8aK4Gl w==;
-X-CSE-ConnectionGUID: pXzslc3aS/eFpZ+5ERrioA==
-X-CSE-MsgGUID: 45vaSv3nTqGhQRftJ1OHow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="84465965"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="84465965"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 05:56:17 -0700
-X-CSE-ConnectionGUID: cYo+L8E3R9yR5XfdloDVcw==
-X-CSE-MsgGUID: 4oZYXNqUSG+Yg2Pj3LT8CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="238897544"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
- ([10.245.244.104])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 05:56:15 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com,
-	imre.deak@intel.com
-Subject: [PATCH 3/3] drm/i915/power: drop resume parameter from
- intel_display_power_init_hw()
-Date: Tue, 26 May 2026 15:55:59 +0300
-Message-ID: <63666514d457f548c69ccd35c02f2b8200ca08a1.1779800132.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1779800132.git.jani.nikula@intel.com>
-References: <cover.1779800132.git.jani.nikula@intel.com>
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85D4F10E309
+ for <intel-gfx@lists.freedesktop.org>; Sat, 23 May 2026 15:41:30 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-36974217d4eso5367672a91.2
+ for <intel-gfx@lists.freedesktop.org>; Sat, 23 May 2026 08:41:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779550890; x=1780155690; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+ bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
+ b=ExwsO3CIx3xEyreCPIAJ5fqhz9hJRSYl9pKkj3oY4/3IMSHPTgrPJRB4M3xk48F9TV
+ wb68oNnwQre8IQ1VlQwi2ZGUqpG0q9aGt2l2m/5MiYQ6ydoQSsLezzZUKUH5ClE49MTE
+ UtaE6n6XR0Ancqx7hIc+gsWfdyP6VxoXf2tKirm7zDMgcQDENlYnisM06WbkYv0fkxP6
+ XCxGYcIH4Xm4ePprmbHE8yhY22NjvsoFVnPKeV44M82pB9mEovpKIFVEPhXbwAWB0U2M
+ JcW2xtS6MJe3gzq+ZrCxlsKYzLbwb4UTaA4EvjVhJcndwRfZoby3rcMlPS5YJwN9ne8Y
+ y/4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779550890; x=1780155690;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
+ b=DMAXXPxBrqXoNrNeCke3+lESa2XzaNZqXfMro4sKDWwbgSGq2M3DpZlDZPb5A+9wkn
+ A08bbsjj+nfSOZELvy1TGUU9/th6Igz33WFS0oUUkc67mx8KvGKrNKVbigTNK00iylpL
+ WfP5vaYKPi1aS1e451iZZA6hoXjScDOv2s8/bJnyyKCqAYLTcHUHDfqjDVrUpWMes4Ug
+ t7hDmBdXCSp1aQ7hodp7VhhR/MF517eV2WzYCZeVfLA+19wQa8TnlirRrvWA/j3/2aRU
+ JEbAcehnPas2YoruajeiEbdBSCY3IjYEoZjGJ8iHrF4wd6ClhyYQfrUfPLbBx1di2M+t
+ fOKg==
+X-Gm-Message-State: AOJu0YwdZQESmDGX0zk6v+9K1gT1fBZ1Z0NmUuxt3yiu/+xtVmtN0oCK
+ wPIodCOPXR539N09PjR4ixhS1C2G0ctMi31qzPCiGOllh2l+lNFNH9la
+X-Gm-Gg: Acq92OG9yEjB3u92goCGm8puj/J2lBz9hwQousoZt+5EAWm9k7b9gFk+0+A6rWxvQYw
+ ZPdn8P0YoX4nRhCWpba1FD1klS/fU5QT+4dIt+VIxHJ45BR+tobcBko7bMyt7J7cMZHywHTuZPp
+ 8gJIVfyYD3+Q2pAa1bDPYKcgrBDY2nDOsccpyDd1vUcp0mFW2YdVI7MQiSGvGWdwt8xYwAab/iZ
+ IArjNzWGrerc3Sqz3dnPa5Znjf4qmqvqw6O69NdfguE/rUQW6jIULQjmnwWwRJp+bALkNEfNR5c
+ ktJRED3Fd/57PW/f2ZhT4w6Tyhfb/8ze0oAOHq54e1r7hiDF8Zzm8xIK7TfoZc1sDUSQZidNTw2
+ m98f+/19OclTh2KLfk877ykCJZA6/LQJNBY5caG3GrwEu59Ahe//f4aBJJOsH4Bfva34WkWPTJG
+ vjs2xJrF3ViRfiuW1MtfKGLTHKA+biIlQZsCTqpi5ygnSTMv7dB2WQ1Vmu51gBAoPiPmOcKy6rY
+ 78=
+X-Received: by 2002:a17:903:19e8:b0:2b0:6e4a:32d0 with SMTP id
+ d9443c01a7336-2beb06a6053mr89764875ad.35.1779550889927; 
+ Sat, 23 May 2026 08:41:29 -0700 (PDT)
+Received: from nixos-office (mx-ll-171.5.30-148.dynamic.3bb.co.th.
+ [171.5.30.148]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2beb5695c40sm45239765ad.5.2026.05.23.08.41.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 23 May 2026 08:41:28 -0700 (PDT)
+From: Julian Braha <julianbraha@gmail.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
+Subject: [PATCH v2] drm/i915: use 'depends on' with visible DEBUG_OBJECTS for
+ DRM_I915_DEBUG and DRM_I915_SW_FENCE_DEBUG_OBJECTS
+Date: Sat, 23 May 2026 16:41:21 +0100
+Message-ID: <20260523154121.147103-1-julianbraha@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 26 May 2026 13:02:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,110 +89,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_power_domains_resume() calling intel_display_power_init_hw() with
-the resume parameter is an internal implementation detail. Hide it
-inside intel_display_power.c, and provide a clean external interface
-without the parameter.
+A previous version of this patch[1] accidentally introduced an unmet
+dependency bug, because DRM_I915_DEBUG selects
+DRM_I915_SW_FENCE_DEBUG_OBJECTS without also depending on DEBUG_OBJECTS.
 
-Cc: Imre Deak <imre.deak@intel.com>
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+DRM_I915_SW_FENCE_DEBUG_OBJECTS currently selects DEBUG_OBJECTS even though
+DEBUG_OBJECTS is visible to users. Other config options use 'depends on'
+for DEBUG_OBJECTS, so let's do the same here.
+
+This select-visible Kconfig misusage was detected by Kconfirm, a static
+analysis tool for Kconfig.
+
+Link 1: https://lore.kernel.org/all/20260502191932.4491-1-julianbraha@gmail.com/
+
+Signed-off-by: Julian Braha <julianbraha@gmail.com>
 ---
- .../drm/i915/display/intel_display_driver.c   |  2 +-
- .../drm/i915/display/intel_display_power.c    | 40 ++++++++++---------
- .../drm/i915/display/intel_display_power.h    |  2 +-
- 3 files changed, 24 insertions(+), 20 deletions(-)
+v2:
+- select PREEMPT_COUNT, avoid recursive dependency
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 6b7411f5c6a8..d0729936f681 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -218,7 +218,7 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
+ drivers/gpu/drm/i915/Kconfig.debug | 3 ++-
+ lib/Kconfig.debug                  | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
+index 3562a02ef7ad..657cdf49181e 100644
+--- a/drivers/gpu/drm/i915/Kconfig.debug
++++ b/drivers/gpu/drm/i915/Kconfig.debug
+@@ -35,6 +35,7 @@ config DRM_I915_REPLAY_GPU_HANGS_API
  
- 	intel_pmdemand_init_early(display);
+ config DRM_I915_DEBUG
+ 	bool "Enable additional driver debugging"
++	depends on DEBUG_OBJECTS
+ 	depends on DRM_I915
+ 	depends on EXPERT # only for developers
+ 	depends on !COMPILE_TEST # never built by robots
+@@ -153,7 +154,7 @@ config DRM_I915_TRACE_GTT
+ config DRM_I915_SW_FENCE_DEBUG_OBJECTS
+ 	bool "Enable additional driver debugging for fence objects"
+ 	depends on DRM_I915
+-	select DEBUG_OBJECTS
++	depends on DEBUG_OBJECTS
+ 	default n
+ 	help
+ 	  Choose this option to turn on extra driver debugging that may affect
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 8ff5adcfe1e0..6501b7040706 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -760,7 +760,7 @@ source "mm/Kconfig.debug"
  
--	intel_display_power_init_hw(display, false);
-+	intel_display_power_init_hw(display);
- 
- 	if (!HAS_DISPLAY(display))
- 		return 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-index 4264b9031938..88640bf1c5f7 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-@@ -1917,23 +1917,7 @@ static void assert_isp_power_gated(struct intel_display *display)
- 
- static void intel_power_domains_verify_state(struct intel_display *display);
- 
--/**
-- * intel_display_power_init_hw - initialize hardware power domain state
-- * @display: display device instance
-- * @resume: Called from resume code paths or not
-- *
-- * This function initializes the hardware power domain state and enables all
-- * power wells belonging to the INIT power domain. Power wells in other
-- * domains (and not in the INIT domain) are referenced or disabled by
-- * intel_modeset_readout_hw_state(). After that the reference count of each
-- * power well must match its HW enabled state, see
-- * intel_power_domains_verify_state().
-- *
-- * It will return with power domains disabled (to be enabled later by
-- * intel_display_power_enable()) and must be paired with
-- * intel_display_power_driver_remove().
-- */
--void intel_display_power_init_hw(struct intel_display *display, bool resume)
-+static void __intel_display_power_init_hw(struct intel_display *display, bool resume)
- {
- 	struct i915_power_domains *power_domains = &display->power.domains;
- 
-@@ -1984,6 +1968,26 @@ void intel_display_power_init_hw(struct intel_display *display, bool resume)
- 	power_domains->initializing = false;
- }
- 
-+/**
-+ * intel_display_power_init_hw - initialize hardware power domain state
-+ * @display: display device instance
-+ *
-+ * This function initializes the hardware power domain state and enables all
-+ * power wells belonging to the INIT power domain. Power wells in other
-+ * domains (and not in the INIT domain) are referenced or disabled by
-+ * intel_modeset_readout_hw_state(). After that the reference count of each
-+ * power well must match its HW enabled state, see
-+ * intel_power_domains_verify_state().
-+ *
-+ * It will return with power domains disabled (to be enabled later by
-+ * intel_display_power_enable()) and must be paired with
-+ * intel_display_power_driver_remove().
-+ */
-+void intel_display_power_init_hw(struct intel_display *display)
-+{
-+	__intel_display_power_init_hw(display, false);
-+}
-+
- /**
-  * intel_display_power_driver_remove - deinitialize hw power domain state
-  * @display: display device instance
-@@ -2152,7 +2156,7 @@ static void intel_power_domains_resume(struct intel_display *display)
- 	struct i915_power_domains *power_domains = &display->power.domains;
- 
- 	if (power_domains->display_core_suspended) {
--		intel_display_power_init_hw(display, true);
-+		__intel_display_power_init_hw(display, true);
- 		power_domains->display_core_suspended = false;
- 	} else {
- 		drm_WARN_ON(display->drm, power_domains->init_wakeref);
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power.h b/drivers/gpu/drm/i915/display/intel_display_power.h
-index be051911514f..a43fab19e530 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_power.h
-@@ -171,7 +171,7 @@ struct intel_display_power_domain_set {
- 
- int intel_display_power_init(struct intel_display *display);
- void intel_display_power_cleanup(struct intel_display *display);
--void intel_display_power_init_hw(struct intel_display *display, bool resume);
-+void intel_display_power_init_hw(struct intel_display *display);
- void intel_display_power_driver_remove(struct intel_display *display);
- void intel_display_power_enable(struct intel_display *display);
- void intel_display_power_disable(struct intel_display *display);
+ config DEBUG_OBJECTS
+ 	bool "Debug object operations"
+-	depends on PREEMPT_COUNT || !DEFERRED_STRUCT_PAGE_INIT
++	select PREEMPT_COUNT if !DEFERRED_STRUCT_PAGE_INIT
+ 	depends on DEBUG_KERNEL
+ 	help
+ 	  If you say Y here, additional code will be inserted into the
 -- 
-2.47.3
+2.54.0
 
