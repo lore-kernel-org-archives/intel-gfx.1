@@ -4,73 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BC5CD5BC8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B090CCD5BB1
 	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:02:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E6F10E4D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 433C010E629;
 	Tue, 26 May 2026 13:02:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ExwsO3CI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AYrP9ADM";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85D4F10E309
- for <intel-gfx@lists.freedesktop.org>; Sat, 23 May 2026 15:41:30 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-36974217d4eso5367672a91.2
- for <intel-gfx@lists.freedesktop.org>; Sat, 23 May 2026 08:41:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779550890; x=1780155690; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
- bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
- b=ExwsO3CIx3xEyreCPIAJ5fqhz9hJRSYl9pKkj3oY4/3IMSHPTgrPJRB4M3xk48F9TV
- wb68oNnwQre8IQ1VlQwi2ZGUqpG0q9aGt2l2m/5MiYQ6ydoQSsLezzZUKUH5ClE49MTE
- UtaE6n6XR0Ancqx7hIc+gsWfdyP6VxoXf2tKirm7zDMgcQDENlYnisM06WbkYv0fkxP6
- XCxGYcIH4Xm4ePprmbHE8yhY22NjvsoFVnPKeV44M82pB9mEovpKIFVEPhXbwAWB0U2M
- JcW2xtS6MJe3gzq+ZrCxlsKYzLbwb4UTaA4EvjVhJcndwRfZoby3rcMlPS5YJwN9ne8Y
- y/4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779550890; x=1780155690;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tlfATX24+gOXKKLMuPk5Ufobg0T/xx+iuzrEcxjjNAY=;
- b=DMAXXPxBrqXoNrNeCke3+lESa2XzaNZqXfMro4sKDWwbgSGq2M3DpZlDZPb5A+9wkn
- A08bbsjj+nfSOZELvy1TGUU9/th6Igz33WFS0oUUkc67mx8KvGKrNKVbigTNK00iylpL
- WfP5vaYKPi1aS1e451iZZA6hoXjScDOv2s8/bJnyyKCqAYLTcHUHDfqjDVrUpWMes4Ug
- t7hDmBdXCSp1aQ7hodp7VhhR/MF517eV2WzYCZeVfLA+19wQa8TnlirRrvWA/j3/2aRU
- JEbAcehnPas2YoruajeiEbdBSCY3IjYEoZjGJ8iHrF4wd6ClhyYQfrUfPLbBx1di2M+t
- fOKg==
-X-Gm-Message-State: AOJu0YwdZQESmDGX0zk6v+9K1gT1fBZ1Z0NmUuxt3yiu/+xtVmtN0oCK
- wPIodCOPXR539N09PjR4ixhS1C2G0ctMi31qzPCiGOllh2l+lNFNH9la
-X-Gm-Gg: Acq92OG9yEjB3u92goCGm8puj/J2lBz9hwQousoZt+5EAWm9k7b9gFk+0+A6rWxvQYw
- ZPdn8P0YoX4nRhCWpba1FD1klS/fU5QT+4dIt+VIxHJ45BR+tobcBko7bMyt7J7cMZHywHTuZPp
- 8gJIVfyYD3+Q2pAa1bDPYKcgrBDY2nDOsccpyDd1vUcp0mFW2YdVI7MQiSGvGWdwt8xYwAab/iZ
- IArjNzWGrerc3Sqz3dnPa5Znjf4qmqvqw6O69NdfguE/rUQW6jIULQjmnwWwRJp+bALkNEfNR5c
- ktJRED3Fd/57PW/f2ZhT4w6Tyhfb/8ze0oAOHq54e1r7hiDF8Zzm8xIK7TfoZc1sDUSQZidNTw2
- m98f+/19OclTh2KLfk877ykCJZA6/LQJNBY5caG3GrwEu59Ahe//f4aBJJOsH4Bfva34WkWPTJG
- vjs2xJrF3ViRfiuW1MtfKGLTHKA+biIlQZsCTqpi5ygnSTMv7dB2WQ1Vmu51gBAoPiPmOcKy6rY
- 78=
-X-Received: by 2002:a17:903:19e8:b0:2b0:6e4a:32d0 with SMTP id
- d9443c01a7336-2beb06a6053mr89764875ad.35.1779550889927; 
- Sat, 23 May 2026 08:41:29 -0700 (PDT)
-Received: from nixos-office (mx-ll-171.5.30-148.dynamic.3bb.co.th.
- [171.5.30.148]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2beb5695c40sm45239765ad.5.2026.05.23.08.41.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 23 May 2026 08:41:28 -0700 (PDT)
-From: Julian Braha <julianbraha@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH v2] drm/i915: use 'depends on' with visible DEBUG_OBJECTS for
- DRM_I915_DEBUG and DRM_I915_SW_FENCE_DEBUG_OBJECTS
-Date: Sat, 23 May 2026 16:41:21 +0100
-Message-ID: <20260523154121.147103-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCBA10E06C;
+ Sat, 23 May 2026 00:45:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id B5E3542A04;
+ Sat, 23 May 2026 00:45:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8D01F000E9;
+ Sat, 23 May 2026 00:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779497154;
+ bh=Z9Ii4kFnGASPrJVUv4pLJyz9ASaQSsUSFT2aMNSnQpw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=AYrP9ADMMstpZMK07X7RJX7Vi+LssxAckCYKP0qcdmy4tA9a9uGeNKXekQFeMbDY2
+ LDBidZU8qfyCeiIO2lTcwcq4IenY+1Wd9qlBghobsMk+v2M/w+YRP79CHe0dVbDprH
+ 6m4cKDcu9eoRxsj9K8pW3klTEaPK47F9haaWHiA44qhhUhE1d+q0p7agQTc1CqKY7Y
+ TIm3cavZyfg5Ocnp8Ulrf7LvNxFf6kEk1G4wZqQ5n3xAgZSAUkznMwff7nIEvl1Awg
+ MCkN/vkTJiTtDyoIlmLFKVmTKKTBPE0rS5dN7mvUamAdq3cIcL7ggZ6AdKA3393vQz
+ kGvcVXqs9FgPQ==
+From: SeongJae Park <sj@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: SeongJae Park <sj@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, Petr Pavlu <petr.pavlu@suse.com>,
+ Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>,
+ Benjamin Berg <benjamin.berg@intel.com>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ damon@lists.linux.dev
+Subject: Re: [PATCH 09/11] treewide: Convert custom kernel_param_ops .get
+ callbacks to seq_buf via cocci
+Date: Fri, 22 May 2026 17:45:43 -0700
+Message-ID: <20260523004543.86540-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260521133326.2465264-9-kees@kernel.org>
+References: 
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 26 May 2026 13:02:27 +0000
@@ -89,62 +121,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A previous version of this patch[1] accidentally introduced an unmet
-dependency bug, because DRM_I915_DEBUG selects
-DRM_I915_SW_FENCE_DEBUG_OBJECTS without also depending on DEBUG_OBJECTS.
++ damon@lists.linux.dev
 
-DRM_I915_SW_FENCE_DEBUG_OBJECTS currently selects DEBUG_OBJECTS even though
-DEBUG_OBJECTS is visible to users. Other config options use 'depends on'
-for DEBUG_OBJECTS, so let's do the same here.
+On Thu, 21 May 2026 06:33:22 -0700 Kees Cook <kees@kernel.org> wrote:
 
-This select-visible Kconfig misusage was detected by Kconfirm, a static
-analysis tool for Kconfig.
+> Using the following Coccinelle script, convert struct kernel_param_ops
+> .get callbacks from "char *" to "struct seq_buf *" when the only write
+> to the buffer is via a final call of scnprintf(), snprintf(), sprintf(),
+> or sysfs_emit().
+> 
+> Since seq_buf_printf() will return -1 on overflow, and struct
+> kernel_param_ops .get callbacks are expected to truncate without error,
+> we must ignore the return value from seq_buf_print() and always return 0
+> (as the length is calculated in the common dispatcher code).
+> 
+> @@
+> identifier FN, BUF, KP;
+> expression FMT;
+> expression list ARGS;
+> @@
+>  int FN(
+> -               char *BUF
+> +               struct seq_buf *BUF
+>                 , const struct kernel_param *KP)
+>  {
+>         ... when any
+> (
+> -       return scnprintf(BUF, PAGE_SIZE, FMT, ARGS);
+> |
+> -       return snprintf(BUF, PAGE_SIZE, FMT, ARGS);
+> |
+> -       return sprintf(BUF, FMT, ARGS);
+> |
+> -       return sysfs_emit(BUF, FMT, ARGS);
+> )
+> +       seq_buf_printf(BUF, FMT, ARGS);
+> +       return 0;
+>  }
+> 
+> No struct kernel_param_ops initializations need changing since
+> DEFINE_KERNEL_PARAM_OPS already routes the pointer to .get or .get_str
+> via _Generic based on the function signature, so converted callbacks
+> are automatically moved from the .get_str to the .get callback.
+> 
+> Signed-off-by: Kees Cook <kees@kernel.org>
+[...]
+>  mm/damon/lru_sort.c                           | 14 +++---
+>  mm/damon/reclaim.c                            | 14 +++---
+>  mm/damon/stat.c                               | 10 ++--
 
-Link 1: https://lore.kernel.org/all/20260502191932.4491-1-julianbraha@gmail.com/
+For the above DAMON changes,
 
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
----
-v2:
-- select PREEMPT_COUNT, avoid recursive dependency
+Reviewed-by: SeongJae Park <sj@kernel.org>
 
- drivers/gpu/drm/i915/Kconfig.debug | 3 ++-
- lib/Kconfig.debug                  | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 3562a02ef7ad..657cdf49181e 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -35,6 +35,7 @@ config DRM_I915_REPLAY_GPU_HANGS_API
- 
- config DRM_I915_DEBUG
- 	bool "Enable additional driver debugging"
-+	depends on DEBUG_OBJECTS
- 	depends on DRM_I915
- 	depends on EXPERT # only for developers
- 	depends on !COMPILE_TEST # never built by robots
-@@ -153,7 +154,7 @@ config DRM_I915_TRACE_GTT
- config DRM_I915_SW_FENCE_DEBUG_OBJECTS
- 	bool "Enable additional driver debugging for fence objects"
- 	depends on DRM_I915
--	select DEBUG_OBJECTS
-+	depends on DEBUG_OBJECTS
- 	default n
- 	help
- 	  Choose this option to turn on extra driver debugging that may affect
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 8ff5adcfe1e0..6501b7040706 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -760,7 +760,7 @@ source "mm/Kconfig.debug"
- 
- config DEBUG_OBJECTS
- 	bool "Debug object operations"
--	depends on PREEMPT_COUNT || !DEFERRED_STRUCT_PAGE_INIT
-+	select PREEMPT_COUNT if !DEFERRED_STRUCT_PAGE_INIT
- 	depends on DEBUG_KERNEL
- 	help
- 	  If you say Y here, additional code will be inserted into the
--- 
-2.54.0
+Thanks,
+SJ
 
+[...]
