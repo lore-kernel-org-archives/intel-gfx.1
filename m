@@ -4,106 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D97CD5BD0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:02:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23D51CD5BB1
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:02:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5139510E62D;
-	Tue, 26 May 2026 13:02:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1ABA310E632;
+	Tue, 26 May 2026 13:02:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W/qwAMS1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FRGkHE9j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 913B010E06C;
- Sat, 23 May 2026 00:38:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7697440390;
- Sat, 23 May 2026 00:38:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDCE81F000E9;
- Sat, 23 May 2026 00:38:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779496688;
- bh=ke0QgGP72oU1/KHDzVSs1lh/gkg7Mw8fFDTolKbzoHA=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=W/qwAMS1ok+56HAwvYiYz0R5wmKsD0RscuUhy5BVEzThMnr+wQxbKIW0Yk+lqtg0R
- dxN4FM+nLAHenqFi1JvSelOt20CYFnYpdSX3hvz5/mvzq/JXO7gcBTjSStG/A5FM8j
- 0Dk4RFZ90/nX0Xzby8V+5D3uQDTYP8o1bo3XSKlx4rKPB6vCO/Oui18woqanoP+n4U
- enXhw+/EJeP6Kw2ZiII29eiMOdyHFC3VD0U1T97Mm+aD6rZa6A+hyeA7zcgLPdsptw
- 8LWGxoojes1mewesgkVxxy+dLIhtJlwu3XyRYodcKxBzIRSnWjQs++a/owD5p2CmBM
- RNz3sazG7iMhQ==
-From: SeongJae Park <sj@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: SeongJae Park <sj@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, Petr Pavlu <petr.pavlu@suse.com>,
- Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
- Tiwei Bie <tiwei.btw@antgroup.com>,
- Benjamin Berg <benjamin.berg@intel.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
- linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
- qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
- linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 04/11] treewide: Convert struct kernel_param_ops
- initializers to DEFINE_KERNEL_PARAM_OPS
-Date: Fri, 22 May 2026 17:38:01 -0700
-Message-ID: <20260523003801.86344-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260521133326.2465264-4-kees@kernel.org>
-References: 
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9253F10E31E
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 May 2026 21:33:21 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id
+ 5b1f17b1804b1-4903f7a90d1so23416275e9.2
+ for <intel-gfx@lists.freedesktop.org>; Sun, 24 May 2026 14:33:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779658400; cv=none;
+ d=google.com; s=arc-20240605;
+ b=COY9aq47dFIgsWPIPQeMVZUdwKnNm2TI0eTmAkQRoNxR6/r3tzR9DqwATF6Fjl+nLF
+ TdNXd/sHs/HeTD2xu/JLcQz+w+ShrhZeIK5Fn1ppAdilhdRc2O5u0eyypGlKA1X+nL8P
+ 1XmEKk9tfHuAySEBSdvPdyQEFec6j3nex8TbikkrqbzinfOjCcFiBldeAn3dwHpFIWLz
+ wYuU6zAniVPzZ5ZjX2N/pC2k4s62Jz0wYHpQwT+UAIGFwcHX6i5uhmvzXvlYF9MMVKYy
+ KKbIHXKuIS0P9yPha7j/LocmZOhqeNLia0yDkJpo5JUjwGiei/zyklkZAmkTiuOugRa/
+ B6eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
+ fh=uezM7R+mYcXNf6o14zrtM8SQkBLTMh+rOPTujh6rs7I=;
+ b=UyCN2GLA2LWrixN+N3pxZn8YmJTlq6OQlxWBrDzpCa1VQULv1m2R96bUuYO4+Y8+0o
+ lRR+a0yjQTHn3fEIA/2ASvHBCgC4auHgY5WAWA61j3upnxZX/HbFqyvUUz0NSRNN1OjL
+ u7+gU38DfPwaRpCaBbYAQjRSkE1P1SEErqxo2awDddlQscdDo4EzJLenbRwakmJP21Lk
+ O4dg6uH0HDhqQVOwoqRK7sZFviLR+0CCqYccx18MF+js3Z5XCnKLGCfNO1LZsbKyxewh
+ VwRRMDn546ARHc5a4LsKgvOwUAfMoFK+F8Bxn1zmlMqAmGrYi65iGajk/SX/6w94MqrS
+ Yy/A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779658400; x=1780263200; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
+ b=FRGkHE9jAhuLY7lflKPlQcu98V+coRIiYtVFdgNep5JC9N/ZznUw6FrVr00qPB9klt
+ 9VxoNF1Y2m0bhaqs0yk3LuQkI01ChzmYiOkiiOsavveRredKXc+RoMAozcYyNkD8KVLs
+ chvgxwM0HKqd1qhS8d9xIdZxUbHh1T0sq/9fFlZCv3b6OB4SjH48h5Fbx/KsfrbVsDTg
+ T4ouxZ3SYp/hz+X/gaKTKE0ajn5Fse36U/aBkeSGU20SqQMwb8Rtp72mD19TA7Jp7RA/
+ 3V26W+Wja3fItUJG4UB7LJKT8JnM3jsV1BE9i//1m9AfopopnqMlqu1FHfjSrVnNHNjz
+ RdAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779658400; x=1780263200;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=RfBHHtWh1E5iPfg08hDGPxdg+iSUq3Vo7ZICvTuwHxk=;
+ b=ZQY/O/i86G21OHjBiIvNShyzUHL3gM5ruB7O5qn2viQN4m5qPjO274gxSnRJV0dR2J
+ gKhRDAyK/T/ENWVJy3ym/WgsV/AvSJkEM2noBSwwNqJ0AJtUnZfw0o8M+NeHdRJR3FRD
+ 8PbqSQti4KKZjPSTb4+Oh7vDZwVPvQkxVqhnB1thLQROZ0P3UCk2N23NNUYAEqfvD1tB
+ EjywWLDnZ/WzKQXUKOOqmUbDawaymj+t7Jy1OpuPVbZ/jeiE3npVddy7z5yqIEz/UQtt
+ RYD+QGSr8pzN5s3drYuzaz90No6am7OzPVoFp6ErE54ERaJmn0PSqJ4plUKjQoZ6j9vG
+ frhg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/LtCPHRmZYFwY6ZOJLksXu/j3FZ4ateIiOocIrDTBPPcVTeGk9W7gn9YRPdMOjrjgmcL73Nu4GpM0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwEpw5lKyjzeyyIIW0ac4G3Nr16wXuwOtMX6HFaCjYIFtxWcEj
+ UkcuGnWKOxC79XxEK18vAn4zeg+HZlx/cvRrjL4yBjhmwvxcF50YQQBlLacO5qsJl7TgKbG9Rtr
+ gSw8k7cHNCMwQUNMXos7Ldt9SM9bKbnw=
+X-Gm-Gg: Acq92OFdje2qSpCQEf/e2zPvTjGkts8HCG0EwNabvMMQpqg5PRjCma279MlU5FQi2ON
+ j1wcPSY/YT1aA7yq6X9cj5/zxYZbHjaUrWNCAHm5vVgD9N9ir/ELfYFaeBWOrgb9SGdXknpptGl
+ 7ZAjKa2sZBa1K7wlBF+f0Mk0GwmtE89wKx6BXojuCR/wvgdjTjJ+KblCraFLE7pr2gorbdljBA5
+ /6ahZTzkUGIhvLL/+d/J3QeoowVi1CpXGLWPXEgAcsIDWg03New8V4HyGor90yJ+bo/0bwBSTgB
+ 3KmjhUQ4SUVGg9uOgWMovzRjLk15u4Czt4rX9DYAPhhKqQ/CP/Vf
+X-Received: by 2002:a05:600c:19cb:b0:490:507c:bdb1 with SMTP id
+ 5b1f17b1804b1-490507cbed4mr133267705e9.15.1779658399829; Sun, 24 May 2026
+ 14:33:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Misty Robinson <11111577m@gmail.com>
+Date: Sun, 24 May 2026 17:33:09 -0400
+X-Gm-Features: AVHnY4LYUQ0Tyb2yqL4DCU3LkzUo1pVpr98xcI4oG9pyvGMAS9XPi4QkbHlPExg
+Message-ID: <CAFufjN0cNAx9=xfNOTVZzm9wi8TjWGCRd0Bu_7P_QQUHj_BYNw@mail.gmail.com>
+Subject: Re: [PATCH v5 05/19] drm/mode-config: Document drm_private_obj
+ exclusion from drm_mode_config_reset()
+To: mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex.hung@amd.com, 
+ andrzej.hajda@intel.com, contact@emersion.fr, corbet@lwn.net, 
+ daniels@collabora.com, dave.stevenson@raspberrypi.com, 
+ dmitry.baryshkov@oss.qualcomm.com, dri-devel@lists.freedesktop.org, 
+ harry.wentland@amd.com, intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, joonas.lahtinen@linux.intel.com, 
+ jyri.sarha@iki.fi, kernel-list@raspberrypi.com, 
+ laurent.pinchart+renesas@ideasonboard.com, 
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev, 
+ maarten.lankhorst@linux.intel.com, mcanal@igalia.com, mwen@igalia.com, 
+ neil.armstrong@linaro.org, rfoss@kernel.org, rodrigo.vivi@intel.com, 
+ samuel@sholland.org, sebastian.wick@redhat.com, simona@ffwll.ch, 
+ skhan@linuxfoundation.org, tomi.valkeinen@ideasonboard.com, 
+ tursulin@ursulin.net, tzimmermann@suse.de, wens@kernel.org
+Content-Type: multipart/alternative; boundary="000000000000be51920652970205"
 X-Mailman-Approved-At: Tue, 26 May 2026 13:02:27 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,44 +115,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 21 May 2026 06:33:17 -0700 Kees Cook <kees@kernel.org> wrote:
-
-> Using Coccinelle, rewrite every struct kernel_param_ops initializer that
-> sets .get into a DEFINE_KERNEL_PARAM_OPS-family macro invocation,
-> for example:
-> 
-> @@
-> declarer name DEFINE_KERNEL_PARAM_OPS;
-> identifier OPS;
-> expression SET, GET;
-> @@
-> - const struct kernel_param_ops OPS = {
-> -       .set = SET,
-> -       .get = GET,
-> - };
-> + DEFINE_KERNEL_PARAM_OPS(OPS, SET, GET);
-> 
-> Using the macro for initialization means future changes can manipulate
-> the struct layout and callback prototypes without having to change every
-> initializer.
-> 
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
-[...]
->  mm/damon/lru_sort.c                           | 19 ++---
->  mm/damon/reclaim.c                            | 19 ++---
->  mm/damon/stat.c                               |  6 +-
-[...]
->  samples/damon/mtier.c                         |  6 +-
->  samples/damon/prcl.c                          |  6 +-
->  samples/damon/wsse.c                          |  6 +-
-
-For the above DAMON part changes,
-
-Reviewed-by: SeongJae Park <sj@kernel.org>
+--000000000000be51920652970205
+Content-Type: text/plain; charset="UTF-8"
 
 
-Thanks,
-SJ
 
-[...]
+--000000000000be51920652970205
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="auto"></div>
+
+--000000000000be51920652970205--
