@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CD5FCD5BBF
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 May 2026 05:40:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB90CD5BC0
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 May 2026 06:43:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B625710E3F0;
-	Mon, 25 May 2026 05:40:56 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ivjUAv1t";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA09410E3ED;
- Mon, 25 May 2026 05:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779687650; x=1811223650;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=VAddU59+bV4OCs4G5S3Jr84R2nLR9lUqK1x7vyvzIIA=;
- b=ivjUAv1tb0U4xnGzH7OXoZ/uQW2l6IPAtq5sfeBNV6D5Obsw4R3J5ME9
- Uw3SfqfZM/6BKeDv1v2p0nqbRSToLZTbG/bQeNbaOH+mdlKEAb+sMAAyb
- t26aT91J7drj0UWs0m2iyU5BVYFfvSbiTwbdsqR9t5xyCoKnrs0uIZjlK
- xrnTnJcuVDRpTKw03KlPs8A5RLWLnvT3OIiuYR9L4oc0BHmyEdPbr/zG+
- 41nB39UyHfyV4Xk47qyX8TBj8PR8tDbGZVRL8vUYSu6VkDmCBtjTSVu4U
- NUG/cVvLR1woVrEG9cyqbLUsNLEIGQejxA/fhrlO6r5IClh1Onwqz9V3S w==;
-X-CSE-ConnectionGUID: vg919gJXTxqLqQsbDNO0Rw==
-X-CSE-MsgGUID: YOhbCIcBQkSZdcw2HJDUyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11796"; a="68030805"
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="68030805"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2026 22:40:50 -0700
-X-CSE-ConnectionGUID: 0IN+JC/HSwuoJsNqzdvQnQ==
-X-CSE-MsgGUID: OJA0Ys5uTYCPnVaioEFE4Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="237306566"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 May 2026 22:40:48 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
- animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 09/11] drm/i915/dp: Compute and include coasting vtotal for AS
- SDP
-Date: Mon, 25 May 2026 10:52:33 +0530
-Message-ID: <20260525052235.560741-10-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260525052235.560741-1-ankit.k.nautiyal@intel.com>
-References: <20260525052235.560741-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9AA010E0A6;
+	Mon, 25 May 2026 06:43:12 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4DE10E0A6;
+ Mon, 25 May 2026 06:43:11 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0036236663908032201=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_Adaptive-Sync_SDP_for?=
+ =?utf-8?q?_PR_with_Link_ON_+_Auxless-ALPM_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 25 May 2026 06:43:11 -0000
+Message-ID: <177969139150.4244.9698356572041733550@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260525052235.560741-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260525052235.560741-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,93 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DP v2.1 allows the source to temporarily suspend Adaptive-Sync SDP
-transmission while Panel Replay is active when the sink supports
-asynchronous video timing.
+--===============0036236663908032201==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-In such cases, the sink relies on the last transmitted AS SDP timing
-information to maintain the refresh rate. To support this behavior,
-compute and populate the coasting vtotal field in the AS SDP payload.
+== Series Details ==
 
-Include coasting vtotal in AS SDP packing, unpacking, and comparison,
-and set it during late AS SDP configuration for PR with Aux-less ALPM
-when asynchronous video timing is supported.
+Series: Fix Adaptive-Sync SDP for PR with Link ON + Auxless-ALPM (rev4)
+URL   : https://patchwork.freedesktop.org/series/164512/
+State : success
 
-Note:
-The coasting vtotal value is fully under driver control i.e. the HW does
-not overwrite these payload bytes. HW only samples the PR_ALPM_CTL[AS SDP
-Transmission in Active Disable] bit during PR active state and reflects it
-in the AS SDP payload at the appropriate time.
+== Summary ==
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_display.c |  3 ++-
- drivers/gpu/drm/i915/display/intel_dp.c      | 20 ++++++++++++++++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+CI Bug Log - changes from CI_DRM_18544 -> Patchwork_164512v4
+====================================================
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 6c8935f69db1..514c2e5c28cd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4892,7 +4892,8 @@ intel_compare_dp_as_sdp(const struct drm_dp_as_sdp *a,
- 		a->duration_incr_ms == b->duration_incr_ms &&
- 		a->duration_decr_ms == b->duration_decr_ms &&
- 		a->target_rr_divider == b->target_rr_divider &&
--		a->mode == b->mode;
-+		a->mode == b->mode &&
-+		a->coasting_vtotal == b->coasting_vtotal;
- }
- 
- static bool
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6aac52750798..a3aa0dadf0e1 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3216,6 +3216,22 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	} else {
- 		as_sdp->mode = DP_AS_SDP_AVT_FIXED_VTOTAL;
- 	}
-+
-+	/*
-+	 * For Panel Replay with Async Video Timing support, the source can
-+	 * disable sending the AS SDP during PR Active state. In that case,
-+	 * the sink needs the coasting vtotal value to maintain the refresh
-+	 * rate. The HW only samples this on PR_ALPM_CTL[AS SDP Transmission
-+	 * in Active Disable], which we never program, so providing the value
-+	 * unconditionally when the sink advertises the capability is safe.
-+	 *
-+	 * #TODO:
-+	 * If we ever advertise support for coasting at other refresh targets,
-+	 * this logic could be revisited. For now, use the minimum refresh rate
-+	 * as the only safe coasting value.
-+	 */
-+	if (intel_psr_pr_async_video_timing_supported(intel_dp))
-+		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
- }
- 
- static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-@@ -5195,6 +5211,9 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
- 	if (as_sdp->target_rr_divider)
- 		sdp->db[4] |= 0x20;
- 
-+	sdp->db[7] = as_sdp->coasting_vtotal & 0xFF;
-+	sdp->db[8] = (as_sdp->coasting_vtotal >> 8) & 0xFF;
-+
- 	return length;
- }
- 
-@@ -5379,6 +5398,7 @@ int intel_dp_as_sdp_unpack(struct drm_dp_as_sdp *as_sdp,
- 	as_sdp->vtotal = (sdp->db[2] << 8) | sdp->db[1];
- 	as_sdp->target_rr = ((sdp->db[4] & 0x3) << 8) | sdp->db[3];
- 	as_sdp->target_rr_divider = sdp->db[4] & 0x20 ? true : false;
-+	as_sdp->coasting_vtotal = (sdp->db[8] << 8) | sdp->db[7];
- 
- 	return 0;
- }
--- 
-2.45.2
+Summary
+-------
 
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164512v4 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - fi-glk-j4005:       [DMESG-FAIL][1] ([i915#14808]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18544/fi-glk-j4005/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/fi-glk-j4005/igt@i915_selftest@live.html
+
+  
+  [i915#14808]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18544 -> Patchwork_164512v4
+
+  CI-20190529: 20190529
+  CI_DRM_18544: 7ce39e849680d6c0bf2795bbb4d986ecd1649d88 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8936: 98b65acc4f6edf68cd52b30f27b83049c4c5c83b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164512v4: 7ce39e849680d6c0bf2795bbb4d986ecd1649d88 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/index.html
+
+--===============0036236663908032201==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix Adaptive-Sync SDP for PR with Link ON + Auxless-ALPM (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164512/">https://patchwork.freedesktop.org/series/164512/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18544 -&gt; Patchwork_164512v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164512v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>fi-glk-j4005:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18544/fi-glk-j4005/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/14808">i915#14808</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v4/fi-glk-j4005/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18544 -&gt; Patchwork_164512v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18544: 7ce39e849680d6c0bf2795bbb4d986ecd1649d88 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8936: 98b65acc4f6edf68cd52b30f27b83049c4c5c83b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164512v4: 7ce39e849680d6c0bf2795bbb4d986ecd1649d88 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0036236663908032201==--
