@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D68B9CD5BBF
-	for <intel-gfx@archiver.kernel.org>; Mon, 25 May 2026 09:40:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 245ECCD5BD5
+	for <intel-gfx@archiver.kernel.org>; Mon, 25 May 2026 10:06:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7031C10E084;
-	Mon, 25 May 2026 09:40:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2670410E1AE;
+	Mon, 25 May 2026 10:06:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KO39SrHQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZDsJ0+xY";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0BA10E084;
- Mon, 25 May 2026 09:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779702005; x=1811238005;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=Pb8ZxQLNtSWGEc+bq65SJao1sGnUBNpWPTxHc1Pbs1c=;
- b=KO39SrHQ/CJjX+WdBUsgSZAPkM7gB7dhe/EMkI2K2g9rO4v4Z3KGyreK
- hmLr+wUZ0Czuf/7jYdzHeqiiO8JVXpSFb/YyAq92S39uLgzRw8U/NcTJa
- f5xJtbuclLNtPqbuWLDzJikRj9NWZiwH8zp9Z6MhKOm4ER/cTJzyuk6+f
- Gfcrw/Oo062svXp+jQu0/MlTMtrR4dMXv6bkJBJCcs2bhwH9DZulhUxRI
- Eo7QPALG0oynXVRISSzcy3swfyOhrs92laFVUh0IMfkynQyci1bhuzHc/
- 37nBepT+T7PdXytUTbe52ezt/aFPrfxkcwVj1MdSrn5b412VAuZ4lGm6l A==;
-X-CSE-ConnectionGUID: 8rfbNAaNTwae6lLxpwn2Gg==
-X-CSE-MsgGUID: WGiq7rKsQXmbOxJgwQmMiA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11796"; a="80375622"
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="80375622"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 02:40:05 -0700
-X-CSE-ConnectionGUID: 9KGJoRI7Tz6kKYzesS1/IA==
-X-CSE-MsgGUID: DgFjbGTLThq4/L2V7xvC9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; d="scan'208";a="245836079"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.216])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 02:40:02 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Maarten Lankhorst <dev@lankhorst.se>, "Borah, Chaitanya Kumar"
- <chaitanya.kumar.borah@intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Chandra Konduru
- <chandra.konduru@intel.com>, dri-devel@lists.freedesktop.org, Matt Roper
- <matthew.d.roper@intel.com>
-Subject: Re: [PATCH] drm/intel/display: Add support for pipe background
- color (v4)
-In-Reply-To: <f1f09a62-b36e-4ddf-b42c-dad300a72aef@lankhorst.se>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260505200133.636584-2-dev@lankhorst.se>
- <a734e41d-3665-402b-a56a-43fd4f8819ff@intel.com>
- <fef9056c-460e-4a49-bed8-f2882109e886@linux.intel.com>
- <090aca95-975d-4564-8b44-30df139800b5@intel.com>
- <f1f09a62-b36e-4ddf-b42c-dad300a72aef@lankhorst.se>
-Date: Mon, 25 May 2026 12:39:58 +0300
-Message-ID: <a24f9d8ecff945b2cdc032ae95bdc834ee9c248a@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0143210E0EC;
+ Mon, 25 May 2026 10:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=KeLK658QmCH7IgJWMWEnzpdGIlWN20VYRs/4kJ7rwMw=; b=ZDsJ0+xYDw8YqtwJTAhskuIpJr
+ qYjly7icz97wBknWf4+ub8meXe25vhWvcsMrVe+e7kxno9VLQnqWA3M4It7kwROQcNiuj2O11bI+V
+ 2apCIwHejehKdws0ACWlSbC7taJXmVu5C62hazm+kdnzw7mvlkCmuXMSgGxFxD5IkFRzDAU2tBVSt
+ prQInAD7BOd5Vy5MfoTT8ejOG8gKRkjzdJ9W1zh/oATmaZNDTqLd0vw8f1zzWAckNX2lJCqwqyJJt
+ M8QAzcLJ3hm1xQtdqSjYyeH8XiHmMYUTRsksmcNo7lFITfwuMGLKQy80JTbLJnfKH7HmP0wzVjOrh
+ 17qIsXZA==;
+Received: from [79.117.146.159] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wRSBm-007xuT-NA; Mon, 25 May 2026 12:05:38 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v7 2/4] drm/colorop: make lut(1/3)d_interpolation mutable
+Date: Mon, 25 May 2026 11:49:59 +0200
+Message-ID: <20260525100524.304263-3-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260525100524.304263-1-mwen@igalia.com>
+References: <20260525100524.304263-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,31 +76,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 22 May 2026, Maarten Lankhorst <dev@lankhorst.se> wrote:
-> Den 2026-05-18 kl. 12:47, skrev Borah, Chaitanya Kumar:
->> I will leave the name change up to your discretion. The i915 CI needs a re-run, though.
->> 
->> With the typo and checkpatch issues fixed, LGTM.
->> 
->> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> 
->
-> Addressed and renamed the functions.
-> Pushed!
+As it's not immutable anymore, any changes should be handled by
+drm_colorop_state. Move their enum and make it correctly behaves as
+mutable.
 
-Please do not change patches while applying.
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic.c      |  4 ++--
+ drivers/gpu/drm/drm_atomic_uapi.c |  8 ++++----
+ drivers/gpu/drm/drm_colorop.c     | 16 ++++++++++++++--
+ include/drm/drm_colorop.h         | 28 ++++++++++++++--------------
+ 4 files changed, 34 insertions(+), 22 deletions(-)
 
-It's only okay to tweak commit messages, whitespace and maybe comments,
-but function renames need a new version on the list. There are no
-exceptions.
-
-Commit e2d57ceaa72d ("drm/intel/display: Add support for pipe background
-color (v4)") in the tree says it's v4 and references this patch, but
-they're not the same.
-
-
-BR,
-Jani.
-
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 170de30c28ae..080aec5a9774 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -830,7 +830,7 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 	case DRM_COLOROP_1D_LUT:
+ 		drm_printf_indent(p, 1, "size=%d\n", colorop->size);
+ 		drm_printf_indent(p, 1, "interpolation=%s\n",
+-				  drm_get_colorop_lut1d_interpolation_name(colorop->lut1d_interpolation));
++				  drm_get_colorop_lut1d_interpolation_name(state->lut1d_interpolation));
+ 		drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? state->data->base.id : 0);
+ 		break;
+ 	case DRM_COLOROP_CTM_3X4:
+@@ -842,7 +842,7 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 	case DRM_COLOROP_3D_LUT:
+ 		drm_printf_indent(p, 1, "size=%d\n", colorop->size);
+ 		drm_printf_indent(p, 1, "interpolation=%s\n",
+-				  drm_get_colorop_lut3d_interpolation_name(colorop->lut3d_interpolation));
++				  drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
+ 		drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? state->data->base.id : 0);
+ 		break;
+ 	default:
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 6441b55cc274..78423905051e 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -751,13 +751,13 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
+ 	if (property == colorop->bypass_property) {
+ 		state->bypass = val;
+ 	} else if (property == colorop->lut1d_interpolation_property) {
+-		colorop->lut1d_interpolation = val;
++		state->lut1d_interpolation = val;
+ 	} else if (property == colorop->curve_1d_type_property) {
+ 		state->curve_1d_type = val;
+ 	} else if (property == colorop->multiplier_property) {
+ 		state->multiplier = val;
+ 	} else if (property == colorop->lut3d_interpolation_property) {
+-		colorop->lut3d_interpolation = val;
++		state->lut3d_interpolation = val;
+ 	} else if (property == colorop->data_property) {
+ 		return drm_atomic_color_set_data_property(colorop, state,
+ 							  property, val);
+@@ -782,7 +782,7 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ 	else if (property == colorop->bypass_property)
+ 		*val = state->bypass;
+ 	else if (property == colorop->lut1d_interpolation_property)
+-		*val = colorop->lut1d_interpolation;
++		*val = state->lut1d_interpolation;
+ 	else if (property == colorop->curve_1d_type_property)
+ 		*val = state->curve_1d_type;
+ 	else if (property == colorop->multiplier_property)
+@@ -790,7 +790,7 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
+ 	else if (property == colorop->size_property)
+ 		*val = colorop->size;
+ 	else if (property == colorop->lut3d_interpolation_property)
+-		*val = colorop->lut3d_interpolation;
++		*val = state->lut3d_interpolation;
+ 	else if (property == colorop->data_property)
+ 		*val = (state->data) ? state->data->base.id : 0;
+ 	else
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 764d12060666..65fec53f70fa 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -342,7 +342,6 @@ int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, struct drm_color
+ 
+ 	colorop->lut1d_interpolation_property = prop;
+ 	drm_object_attach_property(&colorop->base, prop, interpolation);
+-	colorop->lut1d_interpolation = interpolation;
+ 
+ 	/* data */
+ 	ret = drm_colorop_create_data_prop(dev, colorop);
+@@ -442,7 +441,6 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
+ 
+ 	colorop->lut3d_interpolation_property = prop;
+ 	drm_object_attach_property(&colorop->base, prop, interpolation);
+-	colorop->lut3d_interpolation = interpolation;
+ 
+ 	/* data */
+ 	ret = drm_colorop_create_data_prop(dev, colorop);
+@@ -521,6 +519,20 @@ static void __drm_colorop_state_reset(struct drm_colorop_state *colorop_state,
+ 							   &val))
+ 			colorop_state->curve_1d_type = val;
+ 	}
++
++	if (colorop->lut1d_interpolation_property) {
++		if (!drm_object_property_get_default_value(&colorop->base,
++							   colorop->lut1d_interpolation_property,
++							   &val))
++			colorop_state->lut1d_interpolation = val;
++	}
++
++	if (colorop->lut3d_interpolation_property) {
++		if (!drm_object_property_get_default_value(&colorop->base,
++							   colorop->lut3d_interpolation_property,
++							   &val))
++			colorop_state->lut3d_interpolation = val;
++	}
+ }
+ 
+ /**
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index 53a2148082d5..d08a6a8a8392 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -183,6 +183,20 @@ struct drm_colorop_state {
+ 	 */
+ 	struct drm_property_blob *data;
+ 
++	/**
++	 * @lut1d_interpolation:
++	 *
++	 * Interpolation for DRM_COLOROP_1D_LUT
++	 */
++	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
++
++	/**
++	 * @lut3d_interpolation:
++	 *
++	 * Interpolation for DRM_COLOROP_3D_LUT
++	 */
++	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
++
+ 	/** @state: backpointer to global drm_atomic_commit */
+ 	struct drm_atomic_commit *state;
+ };
+@@ -306,20 +320,6 @@ struct drm_colorop {
+ 	 */
+ 	uint32_t size;
+ 
+-	/**
+-	 * @lut1d_interpolation:
+-	 *
+-	 * Interpolation for DRM_COLOROP_1D_LUT
+-	 */
+-	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
+-
+-	/**
+-	 * @lut3d_interpolation:
+-	 *
+-	 * Interpolation for DRM_COLOROP_3D_LUT
+-	 */
+-	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
+-
+ 	/**
+ 	 * @lut1d_interpolation_property:
+ 	 *
 -- 
-Jani Nikula, Intel
+2.53.0
+
