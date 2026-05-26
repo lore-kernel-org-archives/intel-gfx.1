@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C70BBCD5BB1
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC538CD6E40
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 16:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324C710E710;
-	Tue, 26 May 2026 16:47:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FD1E10E719;
+	Tue, 26 May 2026 16:47:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lMNfjFzp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ijMTe0Hh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B12910E709;
- Tue, 26 May 2026 16:47:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA0710E705;
+ Tue, 26 May 2026 16:46:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9A74C60123;
- Tue, 26 May 2026 16:47:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754241F00A3E;
- Tue, 26 May 2026 16:47:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7B0CE417A7;
+ Tue, 26 May 2026 16:46:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADB8B1F00A3D;
+ Tue, 26 May 2026 16:46:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1779814023;
- bh=l0uRAKmoTcdWxVl0y1aWEcfZ605CPR74dshkiJ4lpGE=;
+ s=k20260515; t=1779814017;
+ bh=BpKk6Gij2WxsoBaa/RiasDHSglHxtZ5uMjAEt5+zsC8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=lMNfjFzp79AS7CVyY8in+XHD6I6i5vGvtV7O8VGUBcvjcbipm0kJv+LTIXiMcpNXD
- lAMOHzOY+i/fYM62RfPCgmdVzBvGgxzu75ri4SvgT9Dc0tulZJED0uwUJLd1HVxNXc
- ZHDIQ9Z0LHjlTvShqwJsyNcWvGxAyoX1P3FVFEjJ8h0xqPgS8XbRanyYziP9RdN1am
- SvKENY1G2Ezy41+YlkPIOc0VvK3ZkULVAHAZFZz2AtqxIz+yfZXC4syFuhGMw+QAiv
- POxnbLaU4P0WFzxStwIBq5kbvWCOWwDrOOmxKuR8o/02T5qLtTBwG0i2DY/9MC1kuP
- /UAQGH9lRjOHA==
+ b=ijMTe0Hh5rDIv4EEV3z5fQQzYT+oGWilemNb+CDA1DGAOKvS3UC4ZlxAWKhdElDfM
+ 8qsqoHB5ZOtnmrBFhQCsUgkErTTQt7lbxns4Q1tSgSD9eKCvrl6kv3lda6Lrs2UFKf
+ oSC5MO3uV2O0bP5bmCExONb1k0hnzUCfWRFgjW0ce1kOBjVG0hFhRkMkeAWPQGOyR5
+ JT1aNmuaTBNb6ANoqwRnmhSLtJvJqooxa6x4vzuySGtHMB29Z4uC8dLvQ292zPp4F4
+ cKZW8/oY+kW2kmX5qEg7Ek7Ek+tknOeGqSR/b4GgzndiGPDeJQL9+AXYbuMqs98kdd
+ k1ZPUcNrIzPjw==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 26 May 2026 18:46:25 +0200
-Subject: [PATCH v6 13/19] drm/atomic-state-helper: Rename
- __drm_atomic_helper_connector_state_reset()
+Date: Tue, 26 May 2026 18:46:23 +0200
+Subject: [PATCH v6 11/19] drm/atomic-state-helper: Rename
+ __drm_atomic_helper_crtc_state_reset()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260526-drm-mode-config-init-v6-13-852346394200@kernel.org>
+Message-Id: <20260526-drm-mode-config-init-v6-11-852346394200@kernel.org>
 References: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
 In-Reply-To: <20260526-drm-mode-config-init-v6-0-852346394200@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -69,12 +69,12 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4078; i=mripard@kernel.org;
- h=from:subject:message-id; bh=qaSP70ZhrUcMPjOf7+v4uq6SslBv0gdUuCOqJYZwmRw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmi52JsL33Zu/D77IfMtaV7FvyzkV9t/GCb+bcZ4bcy7
- nvsEDVz6ZjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATsQxmbPhwYq/i68gS4dZe
- q2sPIi5d7H3wbmvkO+3fPa/yYjMnG3/5dPPEEW/TPX1ZwhyS2tJSCowNJ5dwr77PrF4e6G5j77I
- sRFU/bUuhCI+0zibN7kguF99vF/l0Jiy9YXM3Rzyb34znwlwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4452; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=uLHaGHSP9UQjQQ5jBIAoXbBwJSEBPtjOM2YeKkN0O2Q=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFmi56Jlvidp5nI+jp7Cd1PlSGBqp5Dc4UD3FxP9k7NZJ
+ B8sZQ7qmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABNJLWKsLzGv9dm7a/Uu5idP
+ FoWxv5r/o+DT5UMZq/49rl329ILGqiUGclb3q14G8+62WrtUIETGi7E+7f3qPes6t2v3l/zdatC
+ buefZ/8htc5nlTRoKghZfPNTcMGtbgcHWLqHSA4s+sn2212AHAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -92,94 +92,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-__drm_atomic_helper_connector_state_reset() is used to initialize a
-newly allocated drm_connector_state, and is being typically called by
-the drm_connector_funcs.reset implementation.
+__drm_atomic_helper_crtc_state_reset() is used to initialize a newly
+allocated drm_crtc_state, and is being typically called by the
+drm_crtc_funcs.reset implementation.
 
 Since we want to consolidate DRM objects state allocation around the
 atomic_create_state callback that will only allocate and initialize a
-new drm_connector_state instance, we will need to call
-__drm_atomic_helper_connector_state_reset() from both the reset and
+new drm_crtc_state instance, we will need to call
+__drm_atomic_helper_crtc_state_reset() from both the reset and
 atomic_create hooks.
 
 To avoid any confusion, we can thus rename
-__drm_atomic_helper_connector_state_reset() to
-__drm_atomic_helper_connector_state_init().
+__drm_atomic_helper_crtc_state_reset() to
+__drm_atomic_helper_crtc_state_init().
 
 Suggested-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 12 ++++++------
+ drivers/gpu/drm/drm_atomic_state_helper.c | 10 +++++-----
+ drivers/gpu/drm/i915/display/intel_crtc.c |  2 +-
  include/drm/drm_atomic_state_helper.h     |  2 +-
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index 8762171c9432..e2e5a1b8a820 100644
+index ab171bfe6e86..b277f92f4532 100644
 --- a/drivers/gpu/drm/drm_atomic_state_helper.c
 +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -474,24 +474,24 @@ void drm_atomic_helper_plane_destroy_state(struct drm_plane *plane,
- 	kfree(state);
- }
- EXPORT_SYMBOL(drm_atomic_helper_plane_destroy_state);
+@@ -61,25 +61,25 @@
+  * For other drivers the building blocks are split out, see the documentation
+  * for these functions.
+  */
  
  /**
-- * __drm_atomic_helper_connector_state_reset - reset the connector state
-+ * __drm_atomic_helper_connector_state_init - Initialize the connector state
-  * @conn_state: atomic connector state, must not be NULL
-- * @connector: connectotr object, must not be NULL
-+ * @connector: connector object, must not be NULL
+- * __drm_atomic_helper_crtc_state_reset - reset the CRTC state
++ * __drm_atomic_helper_crtc_state_init - Initialize the CRTC state
+  * @crtc_state: atomic CRTC state, must not be NULL
+  * @crtc: CRTC object, must not be NULL
   *
-  * Initializes the newly allocated @conn_state with default
-  * values. This is useful for drivers that subclass the connector state.
+  * Initializes the newly allocated @crtc_state with default
+  * values. This is useful for drivers that subclass the CRTC state.
   */
  void
--__drm_atomic_helper_connector_state_reset(struct drm_connector_state *conn_state,
--					  struct drm_connector *connector)
-+__drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
-+					 struct drm_connector *connector)
+-__drm_atomic_helper_crtc_state_reset(struct drm_crtc_state *crtc_state,
+-				     struct drm_crtc *crtc)
++__drm_atomic_helper_crtc_state_init(struct drm_crtc_state *crtc_state,
++				    struct drm_crtc *crtc)
  {
- 	conn_state->connector = connector;
+ 	crtc_state->crtc = crtc;
+ 	crtc_state->background_color = DRM_ARGB64_PREP(0xffff, 0, 0, 0);
  }
--EXPORT_SYMBOL(__drm_atomic_helper_connector_state_reset);
-+EXPORT_SYMBOL(__drm_atomic_helper_connector_state_init);
+-EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_reset);
++EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_init);
  
  /**
-  * __drm_atomic_helper_connector_reset - reset state on connector
-  * @connector: drm connector
-  * @conn_state: connector state to assign
-@@ -506,11 +506,11 @@ EXPORT_SYMBOL(__drm_atomic_helper_connector_state_reset);
+  * __drm_atomic_helper_crtc_reset - reset state on CRTC
+  * @crtc: drm CRTC
+  * @crtc_state: CRTC state to assign
+@@ -94,11 +94,11 @@ EXPORT_SYMBOL(__drm_atomic_helper_crtc_state_reset);
  void
- __drm_atomic_helper_connector_reset(struct drm_connector *connector,
- 				    struct drm_connector_state *conn_state)
+ __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+ 			       struct drm_crtc_state *crtc_state)
  {
- 	if (conn_state)
--		__drm_atomic_helper_connector_state_reset(conn_state, connector);
-+		__drm_atomic_helper_connector_state_init(conn_state, connector);
+ 	if (crtc_state)
+-		__drm_atomic_helper_crtc_state_reset(crtc_state, crtc);
++		__drm_atomic_helper_crtc_state_init(crtc_state, crtc);
  
- 	connector->state = conn_state;
- }
- EXPORT_SYMBOL(__drm_atomic_helper_connector_reset);
+ 	if (drm_dev_has_vblank(crtc->dev))
+ 		drm_crtc_vblank_reset(crtc);
  
+ 	crtc->state = crtc_state;
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
+index 03de219f7a64..7486f2dc60ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc.c
+@@ -179,11 +179,11 @@ struct intel_crtc_state *intel_crtc_state_alloc(struct intel_crtc *crtc)
+ void intel_crtc_state_reset(struct intel_crtc_state *crtc_state,
+ 			    struct intel_crtc *crtc)
+ {
+ 	memset(crtc_state, 0, sizeof(*crtc_state));
+ 
+-	__drm_atomic_helper_crtc_state_reset(&crtc_state->uapi, &crtc->base);
++	__drm_atomic_helper_crtc_state_init(&crtc_state->uapi, &crtc->base);
+ 
+ 	crtc_state->cpu_transcoder = INVALID_TRANSCODER;
+ 	crtc_state->master_transcoder = INVALID_TRANSCODER;
+ 	crtc_state->hsw_workaround_pipe = INVALID_PIPE;
+ 	crtc_state->scaler_state.scaler_id = -1;
 diff --git a/include/drm/drm_atomic_state_helper.h b/include/drm/drm_atomic_state_helper.h
-index 213f7e298008..9634a70e0401 100644
+index 8d1ef268fdef..0bb72453464a 100644
 --- a/include/drm/drm_atomic_state_helper.h
 +++ b/include/drm/drm_atomic_state_helper.h
-@@ -68,11 +68,11 @@ struct drm_plane_state *
- drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane);
- void __drm_atomic_helper_plane_destroy_state(struct drm_plane_state *state);
- void drm_atomic_helper_plane_destroy_state(struct drm_plane *plane,
- 					  struct drm_plane_state *state);
+@@ -38,11 +38,11 @@ struct drm_connector_state;
+ struct drm_private_obj;
+ struct drm_private_state;
+ struct drm_modeset_acquire_ctx;
+ struct drm_device;
  
--void __drm_atomic_helper_connector_state_reset(struct drm_connector_state *conn_state,
-+void __drm_atomic_helper_connector_state_init(struct drm_connector_state *conn_state,
- 					       struct drm_connector *connector);
- void __drm_atomic_helper_connector_reset(struct drm_connector *connector,
- 					 struct drm_connector_state *conn_state);
- void drm_atomic_helper_connector_reset(struct drm_connector *connector);
- void drm_atomic_helper_connector_tv_reset(struct drm_connector *connector);
+-void __drm_atomic_helper_crtc_state_reset(struct drm_crtc_state *state,
++void __drm_atomic_helper_crtc_state_init(struct drm_crtc_state *state,
+ 					  struct drm_crtc *crtc);
+ void __drm_atomic_helper_crtc_reset(struct drm_crtc *crtc,
+ 				    struct drm_crtc_state *state);
+ void drm_atomic_helper_crtc_reset(struct drm_crtc *crtc);
+ void __drm_atomic_helper_crtc_duplicate_state(struct drm_crtc *crtc,
 
 -- 
 2.54.0
