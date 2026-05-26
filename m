@@ -4,161 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3360FCD5BCF
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 04:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B854FCD5BCF
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 06:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C286110E466;
-	Tue, 26 May 2026 04:52:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB17810E4D5;
+	Tue, 26 May 2026 06:53:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Vgv++MVW";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="Z3K5vl6q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDA610E203;
- Tue, 26 May 2026 04:52:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779771131; x=1811307131;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=fpCo2Qp+l0mheIQ+SEvEp7UH3Nbg5efyBNfvRR81MaQ=;
- b=Vgv++MVW33hBMqVZuvqKXV+8NYr+9Jg7vmtFJSzy06fs+okwV9BBntj/
- fh4XcDxS7NftqacCSvIr5RMycYiQsIlVSIY+UAfhlp6ctVHaOjHPP3ZpA
- hdChtIYPINKk8d3fTAEZigGae+DiixMT2t46K7ZmuGpKGarTIlMuJMmOU
- 9pHwUNoIX0BtKq5Nda/EWaeAk8Pug3KGD9B0GQBZfaMYsH1C4O0s2arcj
- ee/VlaPMfea3FQojwSs85qR+ZNc216ICDBNe4VqwoMKaiMKkzBXuOSCk2
- 2mghNMl6c7NkuiRXHR7F5L9iP8O0ADP8aJGhpllT0EMlkXYi6pLU0TUCw w==;
-X-CSE-ConnectionGUID: keldeYS9QBewlK5OK1Jmvw==
-X-CSE-MsgGUID: 08YHcEYdSTSu7bfYR0tVyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="80634211"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="80634211"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 21:52:11 -0700
-X-CSE-ConnectionGUID: 5rIql6pxTJ6ezxfLe5qnwA==
-X-CSE-MsgGUID: dPHDXI1FQqGMRQfeRdxdKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="246759245"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 May 2026 21:52:11 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 25 May 2026 21:52:09 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 25 May 2026 21:52:09 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.49)
- by edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 25 May 2026 21:52:09 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DSxRqbWP5k/Xk4VKQgaoAjwawBteM2jghrEn2P8f5V62zboxKmdMjZ4wCmTQpT2N3YBapb/HVXaG9TX8jhm1mxjLRXNHi7hGzmJi7klIuzePWva2PFKapMlp2FB6KehaOzH8/AIKaNb8Oxy9jUKE+o7V4ZBm8cyWqEw1jlbI0/DN8kNMgRlpKWskG7hEgqVF4wmRyPVJUHaGzVkCno8gbBjC7W2cn9Sy6PdJFCyWTvncyIH8pDuRpe5P/w1MgWZw7QVMIdljeKXthqIAE/eI4Ub8uFJ3tXtbFlfsRAlQGF1neFG9QBAHly8qIqphpyZDw+NRk+Crz0zpfWX1Px15vA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQvTWA91SdDPKkkzc1LKhe3tx6LHVXYGXvRqn127RZc=;
- b=agv29DziGa9E3IoYwjFnAeKqAiPQUbLaF6hgH8/d1HmYc6oAeIF/b+gCbOIvzZrC/GOmHEHJWldw9ZbT/GvtXd3VANklhbGKFFnM67K3PXp6mHctxF2iHUy65P7w5uLSEcF/W7qW4d+eZPCwKLLNtFObUS14Lm6nhEdwBv7nS6AREmC7C9A7+V4reUEAEBacbzDHdzhurz388qc20IJEzCg3p+LRQBIjmAGV9JExaUCM6QBIy/gJc1MQOzBy5rfnqGQANiEaZ4getq2A6qOkSHKXIMCFb3Jgl3nN/HtJUDH+n8w80gWUR7Q++iPtgmww7ay0L2nU7A6t8tTly2zDxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by CY5PR11MB6512.namprd11.prod.outlook.com (2603:10b6:930:40::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 04:52:07 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.21.0048.016; Tue, 26 May 2026
- 04:52:07 +0000
-Message-ID: <373eb66a-c075-47e1-92b7-ca7104a720cd@intel.com>
-Date: Tue, 26 May 2026 10:21:58 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] drm/print: describe 6th & 9th bit of drm.debug
-Content-Language: en-GB
-To: =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
-CC: <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>
-References: <20260522135520.1862848-1-michal.grzelak@intel.com>
- <20260522135520.1862848-2-michal.grzelak@intel.com>
- <26630a3e-7757-4fa4-1415-7ede60d98305@intel.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <26630a3e-7757-4fa4-1415-7ede60d98305@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA0PR01CA0122.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:11d::16) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC4F10E4A7
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 May 2026 06:53:11 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-459bf19e87bso5943364f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Mon, 25 May 2026 23:53:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1779778389; x=1780383189; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=yXWASYjT/jE4WzpKhE8nVhHkzGwmPlTITkkcMF0D8BI=;
+ b=Z3K5vl6q6p5EbeZinZFefQTbXguFU0mPuP+SYkHCWUdSq27x9/NzMUy/+8R7Ov7gDW
+ /uuiZe9A0RkbA/wcxzhXDBMGrI1+u3tXqvqOsQznEPre/4x+DnN3MGn85drfPZjSD2zD
+ Aem+G0czoOj16TW62YQ2YSFt6eRJP7jIYCbUg+55ZuK0MHNzgN3pFPvWJ4cIb92UlLX7
+ G7DfLbzBKXfBIxq9rldtRmCgC22LGSh3J/cPSCOZZGFf5tQKHVJhzrjJCL++mWcAwhBr
+ PIF+5emLmoevoaVmVTZ/WeKQoTFFRCKWQwLiQxTQmG+//r/91KEXuryXBU3MUOdQ7Efj
+ z2fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1779778389; x=1780383189;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=yXWASYjT/jE4WzpKhE8nVhHkzGwmPlTITkkcMF0D8BI=;
+ b=cQvEhe/AOSCqwt6L5dqMqXvCPPjsFN5x06KG2/P9M7iSjJHslT2sGdv5U50sBrowiy
+ cXVlwsLlfj2szjmDFfusOQ2QM+DWQkqYfKBcnpyNIUEq7Zm2YIv1wduu02+bMUYRbtNN
+ rDOAkMBWuj3P/1sBy1/n1xd4vLNw2nIDDS6oifGJ7qAXcJwv/5vL/D9C68wLoUIXVUv/
+ /DR0jArbIvPBEFyopVxHssShDUvGWY6XZp6asjz998vB8UGx4cz5+FqV5Q9ESdT22+bz
+ f6r0kcOJYN/21Z2EoGyTALjFYXy8m7JygBLg5h+ZIbzls3teIEFXXrSfKcTJdV3IisZ+
+ 69rg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+ysZUVYbLlAjdcBKIUbSwrteRdKm4yeqLLz6vpXoQ4LG99NuWOl33lpVOIyip4/FpVORyptxC725E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxyTSnmu4Mm1jAvmWrPKtekw0YY+AKrgOU5fXF+m9GpcO3IwNy/
+ ODNcOLtNExqK3BN1LfkQ4ThQfJD+jF+42tZ+CDeTAGMm52DH0emj0hbvJe/gogvuS0Y=
+X-Gm-Gg: Acq92OGuB7S+urjw3B+Ad4thzYXBGnoO/ziPDRveAdwWkfI/CbiWDiCXHmxNajP64g5
+ RCv8UjCffRHs1unRLhbs2zK1FGDfmng3LiM7xct+D2BVbpOp0OuMnBPvRKa+EvIXfFvHBi/n+rZ
+ pW2Wyzm3QpZNZP9cW7+fmXhOElmWtkDtNjB06gMr42GE4nSSgUi6b2CVuD0EZH+YQPpt3+PBxYx
+ HCetHu7ifBzEYLhp+LH/WFOeBY5Rcj+OjnZQos971UmqulnLUfLGSs6GPslNrR3bgNX7aFmjNtR
+ snfF8/svZyeYTk2pPzr81UvZEj8+IAgz8n03GHBos8o24ADESPbq8EOjlNYtHY1+cOKjZ6fAcCO
+ Ad8rZbHlxYV5dsLMv6At9rUs+odIYrY876wx6nJeSJvLBplju//9Pyb6jfRz+UYBC9S+jxCt4Ed
+ +hnSopJfR62Fz63rFbM6rKBJzJvi+cnuYRA3t/zKBBZEqB31IDhx3AFBkEMtaDZAnoSa+6K+OdC
+ QWMNEHY/1dOX/T2YrLn/6FwHJFyTltYVfEqrqCXTbt6YOxicg6/ljT53+0eflEMH5xc9iLudYn+
+ +fCE
+X-Received: by 2002:a05:6000:2003:b0:43b:4136:1e6f with SMTP id
+ ffacd0b85a97d-45eb38e4b46mr29516257f8f.38.1779778389230; 
+ Mon, 25 May 2026 23:53:09 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45eb6c9ba2esm33848641f8f.8.2026.05.25.23.53.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 May 2026 23:53:08 -0700 (PDT)
+Message-ID: <88c5ca1d-eeda-4023-bc7a-397b92780db9@suse.com>
+Date: Tue, 26 May 2026 08:53:06 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|CY5PR11MB6512:EE_
-X-MS-Office365-Filtering-Correlation-Id: f48a703f-47bd-4d8f-345e-08debae289b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|18002099003|56012099003|22082099003|3023799007|4143699003|11063799006|10086099003;
-X-Microsoft-Antispam-Message-Info: URwDRIfUNEkVNOE+yW5bO1m9ZxMDOmlzPmfIjdLeBdyBEASWeCrV++M9+Z/Hx5Ow9UL0Muj+urs7k7P28QaT9yP6KMvWjzrAxd7yP0kPq2bGGXCjdE1KhMAAAAGrnE8SyEc9uBV56obfo3YokcCH7L5TRbz1qg8HhtiXTpqb/OXlKbR4cF1Ph8inLcMhzb/2OacH4SSrqHATyBFnBccuQxRv2soOtnJvFcZ0NeGKpmp2vQytw0fXq58hpYQthMAf7odNUo1iEMQ/683J7fW/PqPLFeKrK1KtX/fP50Wh0jy8P2AUeHJ6MXnLh88Vm3geHM0ljP3l7/ejgHEFI/2OBM8+6xf7uOHOOOfs1OrAWHcdRlMIfjTpNakP4Oga3f8xfki5PlbpLmlZevJfkjjA5Mbim8JaAKcfoR7k4VcJL7h4uw7NxXaoujHC8/NeKWxmX+S7/wdrjpCd5brGumHYpN69UISaFDl4mIsATTATWfPe9kU6zjGtTzNBdt+1d7Kv/KmXCEtQsmeCyC0SBu+NUywduh60VTwOwyErkENdEegwgl2dRw+AptAnFQZzKL9Pf7KzWueLNnx0ozNeo4/eUHWViwV4NPToVr1Ycn0EQgqNbt9w86QxIT7hwvZ8ZdXcig4085NaHZ6GpmMH3y3jM7HchS6LMTLAQylOZM9EZKUBuwKJg9PPkvGxNYJFCqlJ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(18002099003)(56012099003)(22082099003)(3023799007)(4143699003)(11063799006)(10086099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Q2IwN25mWjdMQWRET09sVGEvSWdMZFg5RnA2d0Q0OSsrSU9DTCtPaHNPUGtO?=
- =?utf-8?B?RkZkTVZrRiszZUJmMDdQQkFGVUJnM3pMeHE3YURIRlduMnlkQmJkR2xMMThR?=
- =?utf-8?B?U0NMRnFCS1hyOCttRVBVQnlpcDN1SFlDYVBrMWRqNWVBTjJIY2Fsd3liMUNk?=
- =?utf-8?B?YWp3MUFScmxPVTVZeFhuQ0RoSm5aTG95azM0a0p4MlhiY29ZTnMzMFR4RjFo?=
- =?utf-8?B?V09WU3AyUUtnd1c0MGwwZFBBSld6bjREKzBIRTdsVStwaUYzZE1TTjJ1VnZq?=
- =?utf-8?B?V0J6b1k5azUyamtQaHpaTGNoREVkYlBpWitPYnVKcmRtMWxuUVErVnAwVG4r?=
- =?utf-8?B?SndqZkc4M3d5alVJV20zbDczQlZ4dTVwdDJaVC9mNWJBTzlyRGlXSi96Qzk5?=
- =?utf-8?B?MGVtUytNREZrSWorQWtoeXkwSDhzYWRLWi9kTkoxNkdMb2VSck56MXdQUGxX?=
- =?utf-8?B?cDhGUVdJcEQ1OW8xWTlCbzVwQ3ZKa1BVRWNRRzg1NmgzdE15VmVlazYwd0NB?=
- =?utf-8?B?eWt5alc0TEZCUlEydlRxUytZSktscnA3Y3E2TzBSTkIxQWYrWkJ3WDNYN2x1?=
- =?utf-8?B?b2hFcmw3LzFUWmNlZk5KUnJGeWRiQ0lJc0x6ZnlKdmY4NStTSVM2U1ora2dN?=
- =?utf-8?B?R1hSbkZyV0RFbWQ0RkJpeExYUkpJMC9nWG00a0lCdURlUmJuTnkrUklORlVC?=
- =?utf-8?B?TFpvY1lKd3k5dnNSUHY5d0YwdUkyS0MxaUFQYjRRYlRqaVlMSUJINWx3U1hk?=
- =?utf-8?B?bHRjdmtPM0RRSGdFTzlGaVgydTZYT0lCeG11ZlFmM2NFSjhLa0swKzZaTEha?=
- =?utf-8?B?VDJuUklsaDNQcWg5RWdxdGx5QjFXV3RLM0psaVdjVVhGSDBIZFRETEFEN252?=
- =?utf-8?B?M0s5SCtkL0x2UjcwV3lNWVFKYVd5eGh3cE1PVHhwMHNhbnBwRDh6RXFRQzdo?=
- =?utf-8?B?NE9MMXZqajU5Q3B1MGN4MmZYTmdhczk0YVovbkF0YStBYXlYb2pET1VJbk93?=
- =?utf-8?B?d29OMGdyam1WUWhKeVpFNTBFU1BZTVoyNkRaNU01VVdBWnNUMklkQVZpZ0VG?=
- =?utf-8?B?VlQ5NEh5L0ltd0RPSm5pd2R3Q1lDdEdIVC96SzZwazBZaHVBWHc4TjV6UW5K?=
- =?utf-8?B?STlvTWJpdDBLMUVhb1ByN3BnZWZ2TmZyUFgzZUNnZ2tLUzJSamlrb2Ezd1Yy?=
- =?utf-8?B?dVRHamJCL0RTMlBkYjk4QVhrRlIvOGk3SXlkejVENjhJYTlkMzVGT3JTdk1O?=
- =?utf-8?B?b0R2V3NhMUhhQW1lbmZHM3MrMkJsbUlRUXpjaVlOUEhHRHdkbkhDakx1anIx?=
- =?utf-8?B?YkdlSHhyS0Y4dkdOUG14eDYybVVBK1hmTmdwZXRtQU9acUFjQ2lVVGxzN2Rv?=
- =?utf-8?B?dkx0NXQzVHRwOEhYTnpnTGo4aUpvRGNJWUpwYkkrM2pIYW1aVGxmWjkrdm40?=
- =?utf-8?B?WGJQWXNjeVhtK3lNZURoSVlUNE55ZEpwT0RPcWlTR2l0KzdFNEtXQklLbzM1?=
- =?utf-8?B?UFdmcU44VUl6VjFhcmJzL1EvNzM2UDJSZVVQeGlMTjhNSFU1UkdCb1VyaHNX?=
- =?utf-8?B?TEtSaDFmUlpQRHNDZ240dFRiY29YaHhWQzN3dHFFNGdaK1pBQlVNZDEyNlcw?=
- =?utf-8?B?V3ZDcFFpemtFbVhVRVdscHo0RXExTDRsMWFsdVNFcUZUbm5OY24xMnVjd2lr?=
- =?utf-8?B?RWJJNjVHcWFCQVpNRm1nT0JlcTZDVlFweEVkM2FRa1EwclQvQXNpUkJNU3FU?=
- =?utf-8?B?Zk1HNFdIYlRsRVFZRFJkZmRZNEkrYUNvZnBjTEphdEZxakYvTFhaWlZPd2Vt?=
- =?utf-8?B?UVBrY0xKczFQTXc2cnp3M1FtTFhUTllTQ3gxcldBUVpHSEhoajZxRmI0VzZv?=
- =?utf-8?B?TitOYVpKZVhhOU1FdS9xb3g1OEw5NktIT0lmU2lIUlZ2ekZUZW15SXpzNHpL?=
- =?utf-8?B?R3M0MmNjaUZGQUp1MWllZDhtaGw5SmFZVjc4a0RBYm1vcVpUeEdXUkUvZWRZ?=
- =?utf-8?B?STVaT0dFZW0rU0FXMjJieVJOQ2RKbVJKcEhCSkhoT2xBeklYVDQ1R0RVQWNk?=
- =?utf-8?B?dG9CRFI0TGttaDJZYXBLaEl5eG1vVW4xRnlSTTU3RDdZRTFxd2syRzRkY3ZM?=
- =?utf-8?B?UG81TWQ4QnlrVVloOUN4VWhKcXdUUHRzN2VhaHcvcWhydVdLWnAvQ3VYdlpO?=
- =?utf-8?B?WUM5a2tpc3ExdEpSK3hERXdSaGVMbXZ2VVZXZWRwZDZXMGtvRjIzOTVuUTl4?=
- =?utf-8?B?bEFUSmZKL2oxZWIxejVGMlJvUFU1VjFUd21YVlRJRkdrRjhmYlpzK1E4Z2Qw?=
- =?utf-8?B?UmlhWHJZVm5oS2VJK1VqNXVpL3N5T214cWdMSGZQa3d0TWZ2SXhnbXZHcjhO?=
- =?utf-8?Q?XQ1BNYYKyKE50bpk=3D?=
-X-Exchange-RoutingPolicyChecked: KMSgHNhwe3WhaSCF0F6RO6VH7eTe+lfbfsmjtAR5ep6EXwEVlAGeTRwyXdHb8G8DCVHHwORqnRyBZu8/lIaFiTs/im67p87ER22Na126DU2WxDl26ExRZF01TbOYdE4/HNXHo3LLjB3ews2RaHhby7kwgIzGMSSVlEnLq2ZIjYDX2NBzsOkhCWm4a6hjiHXQuwKwIJcqZQ9NXNs5AYaq2VCK3rsg4Mwi7KDLTeGUnb8jmjMi1gF8ZbqBUlkLc9RXfpAhnGukVSEWqgc4LR2bW4SnJUVMwwJVQ53DdudDmd3Ic7IWfJt5HQ60Y9ZRIWQP1kj4Pz5XS+wOuhbqOfoROw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f48a703f-47bd-4d8f-345e-08debae289b2
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 04:52:07.1622 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4vPzU26DW/5ZzRg4VKNjrQCdEfTAC3W/6qkrvhcgAu2NGDaaX2w0MsIQcvuuUmPirwz+LspaoT2UjwGkWQhelZkGoZKivnuJWsnFbNDDzzU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6512
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/11] Convert moduleparams to seq_buf
+To: Kees Cook <kees@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Pengpeng Hou
+ <pengpeng@iscas.ac.cn>, Richard Weinberger <richard@nod.at>,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Corey Minyard <corey@minyard.net>, Gabriel Somlo <somlo@cmu.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Bart Van Assche <bvanassche@acm.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Hannes Reinecke <hare@suse.de>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
+ Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+ =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
+ Tiwei Bie <tiwei.btw@antgroup.com>, Benjamin Berg <benjamin.berg@intel.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "David E. Box" <david.e.box@linux.intel.com>,
+ "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
+ Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
+ <akpm@linux-foundation.org>, John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
+ dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, apparmor@lists.ubuntu.com,
+ linux-security-module@vger.kernel.org, linux-um@lists.infradead.org,
+ linux-acpi@vger.kernel.org, openipmi-developer@lists.sourceforge.net,
+ qemu-devel@nongnu.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-pm@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-serial@vger.kernel.org,
+ linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
+ virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-arch@vger.kernel.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
+References: <20260521133315.work.845-kees@kernel.org>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260521133315.work.845-kees@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,72 +153,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 5/23/2026 1:25 AM, Michał Grzelak wrote:
-> On Fri, 22 May 2026, Michał Grzelak wrote:
->> Setting 6th or 9th bit of drm.debug change debug logging. Meanwhile
->> `modinfo drm` does not inform about it at all.
->>
->> Add info to MODULE_PARAM_DESC(debug, ...) about setting 6th and 9th bit
->> basing on DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, ...). Match
->> description of corresponding bits with enum drm_debug_category. Include
->> 9th bit in the example with enabling all possible logging provided at
->> comment at include/drm/drm_print.h.
->>
->> Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+On 5/21/26 3:33 PM, Kees Cook wrote:
+> Hi,
 > 
-> What should have been added here is R-B: tag provided by Chaitanya,
-> which currently is very much absent. The omission was not intentional.
+> I tried to trim the CC list here, but it's still pretty huge...
 > 
-
-No worries :) still LGTM
-
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-
-
-> BR,
-> Michał
+> We've had a long-standing issue with "write to a string pointer" callbacks
+> that don't bounds check the destination (and for which the bounds is
+> also not part of the callback prototype, even if it is "known" to be
+> PAGE_SIZE, which sysfs_emit() depends on). Both moduleparams and sysfs
+> use this pattern. As a first step, and to test the migration method,
+> migrate moduleparams first.
 > 
->> ---
->> drivers/gpu/drm/drm_print.c | 4 +++-
->> include/drm/drm_print.h     | 2 +-
->> 2 files changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
->> index ded9461df5f2..86cef1a37678 100644
->> --- a/drivers/gpu/drm/drm_print.c
->> +++ b/drivers/gpu/drm/drm_print.c
->> @@ -50,8 +50,10 @@ MODULE_PARM_DESC(debug, "Enable debug output, where 
->> each bit enables a debug cat
->> "\t\tBit 3 (0x08)  will enable PRIME messages (prime code)\n"
->> "\t\tBit 4 (0x10)  will enable ATOMIC messages (atomic code)\n"
->> "\t\tBit 5 (0x20)  will enable VBL messages (vblank code)\n"
->> +"\t\tBit 6 (0x40)  will enable STATE messages (atomic state code)\n"
->> "\t\tBit 7 (0x80)  will enable LEASE messages (leasing code)\n"
->> -"\t\tBit 8 (0x100) will enable DP messages (displayport code)");
->> +"\t\tBit 8 (0x100) will enable DP messages (displayport code)\n"
->> +"\t\tBit 9 (0x200) will enable DRMRES messages (managed resources 
->> code)");
->>
->> #if !defined(CONFIG_DRM_USE_DYNAMIC_DEBUG)
->> module_param_named(debug, __drm_debug, ulong, 0600);
->> diff --git a/include/drm/drm_print.h b/include/drm/drm_print.h
->> index ab017b05e175..2adc5ac688e1 100644
->> --- a/include/drm/drm_print.h
->> +++ b/include/drm/drm_print.h
->> @@ -87,7 +87,7 @@ extern unsigned long __drm_debug;
->>  *  - drm.debug=0x2 will enable DRIVER messages
->>  *  - drm.debug=0x3 will enable CORE and DRIVER messages
->>  *  - ...
->> - *  - drm.debug=0x1ff will enable all messages
->> + *  - drm.debug=0x3ff will enable all messages
->>  *
->>  * An interesting feature is that it's possible to enable verbose 
->> logging at
->>  * run-time by echoing the debug value in its sysfs node::
->> -- 
->> 2.45.2
->>
->>
+> There are 2 "mechanical" treewide patches that are handled by Coccinelle:
+> - treewide: Convert struct kernel_param_ops initializers to DEFINE_KERNEL_PARAM_OPS
+> - treewide: Convert custom kernel_param_ops .get callbacks to seq_buf via cocci
+> 
+> The last treewide patch is manual, and may need to be broken up into
+> per-subsystem patches, though I'd prefer to avoid this, as it would
+> extend the migration from 1 relase to at least 2 releases. (1 to
+> release the migration infrastructure, then 1 release to collect all the
+> subsystem changes, and possibly 1 more release to remove the migration
+> infrastructure.)
+> 
+> Thoughts, questions?
 
+This looks reasonable to me. I added a few minor comments on the patches
+but they already look solid.
+
+-- 
+Thanks,
+Petr
