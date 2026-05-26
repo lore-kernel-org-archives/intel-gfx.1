@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68C7CCD6E47
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F20C1CD5BD0
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA1E310E51A;
-	Tue, 26 May 2026 14:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A81810E631;
+	Tue, 26 May 2026 14:09:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="j3eaS33p";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QeT0j4v+";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 126D810E4EB;
- Tue, 26 May 2026 14:09:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700BA10E50A;
+ Tue, 26 May 2026 14:09:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779804592; x=1811340592;
+ t=1779804597; x=1811340597;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qYH+aLPRK3wALhhnBBxRgoquBgawFEQMf0fIG7cLfBY=;
- b=j3eaS33ptnOdDQfBYSwYRqKENQ3hTuM7/SWjGuHrWUOhTto3PzNuU5U1
- iGunNMb2gO/nXi/BWlFonI6hZ6szDeHbqXsm18+++zgaTXHjVlFj0Dfgk
- 4ne7mCfSc9tzPumHWNkrXxuAdgC/OTUsm4xxQCt5nEAk+h54+U7wSyL/8
- 1YTJgzfTt9KSyOfmhpAEMgNuJB/p+/HFisKTly5tNt9TXH0TQX+LnfApI
- BCh0yCJ++JbhvB27njUyIIgC14JITBQnfkklhP1MZMknFIqtSu55hWY4n
- 7ytsMxcBdfVSe56u+luKivcbPMxgIBUtCwv00z1C+BDtCimcpwtPT6f0E g==;
-X-CSE-ConnectionGUID: nJvMF5UsSNWGJVatdB69bg==
-X-CSE-MsgGUID: E+a5Jsr4Tc6BQogsrrwFBQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="98041745"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="98041745"
+ bh=yd8PLqc/cmu6kp3WbSVb/WVeuAZMCHMa6jSzsVmxUts=;
+ b=QeT0j4v+3nl8ZQIyV/42oMLtZo/OIMaO7/4YiZ9wYoA1+A5LOqyQzDdB
+ 2Xo+2/UxjU77AXvoCLvROKoyo+HEh5Kx/qFN/9OJp8OGz5U52iQdpkE4l
+ zcMYZcBT0BVjBMqqXMlzFIBHfEUMGuZqqXNR3aJgKRhpcUo1NmCabeNyH
+ UIz/sSf6g8GVsMhbylPY1eTq89QvNj84+Ajyd6rkr+dG9NpfDyHo3gzg2
+ lVeqTS1tZTPWHGR9rXUJa9pTW/daj7NfGmJ8MzAWDJZVPG8sW25A+OP6C
+ uHwiZ6LRKLKFWnUGeTpqPDfndwugKKAX8OZkSnYj1KfQFkk5D2gLSHiu/ Q==;
+X-CSE-ConnectionGUID: 0SZeaz2lSACmN2bXA8G0mA==
+X-CSE-MsgGUID: 4nj+s/oAQTmJxJr7C9QpqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="98041753"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="98041753"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 07:09:51 -0700
-X-CSE-ConnectionGUID: hAcX0sOjSMyLGu/jkj48bw==
-X-CSE-MsgGUID: j46d9sXdSp+R+wRKRJ3Kfw==
+ 26 May 2026 07:09:57 -0700
+X-CSE-ConnectionGUID: ccNJ+kUkQs6icWgf0FMTsA==
+X-CSE-MsgGUID: u6QMx4AuT3uC4thlkHoCOw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="235578152"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="235578166"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by fmviesa009.fm.intel.com with ESMTP; 26 May 2026 07:09:48 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 26 May 2026 07:09:54 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: uma.shankar@intel.com, dibin.moolakadan.subrahmanian@intel.com,
  ville.syrjala@linux.intel.com, jani.nikula@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v7 06/15] drm/i915/cmtg: Set transcoder mn for CMTG
-Date: Tue, 26 May 2026 19:08:02 +0530
-Message-Id: <20260526133811.2621675-7-animesh.manna@intel.com>
+Subject: [PATCH v7 08/15] drm/i915/cmtg: Add a hook to make eDP transcoder
+ secondary
+Date: Tue, 26 May 2026 19:08:04 +0530
+Message-Id: <20260526133811.2621675-9-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260526133811.2621675-1-animesh.manna@intel.com>
 References: <20260526133811.2621675-1-animesh.manna@intel.com>
@@ -69,74 +70,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Program CMTG link M/N.
+Program DDI_FUNC_CTL2 to configure the eDP transcoder as secondary
+to the CMTG transcoder.
+
+v2:
+- Update commit header to be more clear. [Uma]
 
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cmtg.c    | 13 +++++++++++++
- drivers/gpu/drm/i915/display/intel_cmtg.h    |  1 +
- drivers/gpu/drm/i915/display/intel_display.c |  5 ++++-
- 3 files changed, 18 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_cmtg.c | 13 +++++++++++++
+ drivers/gpu/drm/i915/display/intel_cmtg.h |  1 +
+ 2 files changed, 14 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-index fc8d85fcbc4a..b66894407e6a 100644
+index 63e430f7e63b..34715280d65d 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-@@ -327,3 +327,16 @@ void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state)
- 
- 	intel_de_write(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
+@@ -359,3 +359,16 @@ void intel_cmtg_enable_sync(const struct intel_crtc_state *crtc_state)
+ 			 transcoder_name(cpu_transcoder));
+ 	}
  }
 +
-+void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state)
++void intel_cmtg_enable_ddi(const struct intel_crtc_state *crtc_state)
 +{
 +	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cmtg_transcoder = to_cmtg_transcoder(crtc_state->cpu_transcoder);
-+	const struct intel_link_m_n *m_n = &crtc_state->dp_m_n;
++	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
 +
 +	if (!intel_cmtg_is_allowed(crtc_state))
 +		return;
 +
-+	intel_de_write(display, PIPE_LINK_M1(display, cmtg_transcoder), m_n->link_m);
-+	intel_de_write(display, PIPE_LINK_N1(display, cmtg_transcoder), m_n->link_n);
++	intel_de_rmw(display, TRANS_DDI_FUNC_CTL2(display, cpu_transcoder), 0, CMTG_SECONDARY_MODE);
++
++	drm_dbg_kms(display->drm, "CMTG: %s enabled\n", transcoder_name(cpu_transcoder));
 +}
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.h b/drivers/gpu/drm/i915/display/intel_cmtg.h
-index c92e3a62ff0d..6796eb727eef 100644
+index 64ff6a19948a..12abbafa7d08 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg.h
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg.h
 @@ -11,6 +11,7 @@
  struct intel_display;
  struct intel_crtc_state;
  
-+void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state);
++void intel_cmtg_enable_ddi(const struct intel_crtc_state *crtc_state);
+ void intel_cmtg_enable_sync(const struct intel_crtc_state *crtc_state);
+ void intel_cmtg_set_m_n(const struct intel_crtc_state *crtc_state);
  void intel_cmtg_set_vrr_timings(const struct intel_crtc_state *crtc_state);
- void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state);
- void intel_cmtg_set_timings(const struct intel_crtc_state *crtc_state, bool lrr);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index f8bcd1fcddca..354eca79bac0 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -1615,6 +1615,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
- 					       &crtc_state->dp_m2_n2);
- 	}
- 
-+	intel_cmtg_set_m_n(crtc_state);
- 	intel_set_transcoder_timings(crtc_state);
- 
- 	if (cpu_transcoder != TRANSCODER_EDP)
-@@ -6662,9 +6663,11 @@ static void intel_pipe_fastset(const struct intel_crtc_state *old_crtc_state,
- 	    display->platform.broadwell || display->platform.haswell)
- 		hsw_set_linetime_wm(new_crtc_state);
- 
--	if (new_crtc_state->update_m_n)
-+	if (new_crtc_state->update_m_n) {
- 		intel_cpu_transcoder_set_m1_n1(crtc, new_crtc_state->cpu_transcoder,
- 					       &new_crtc_state->dp_m_n);
-+		intel_cmtg_set_m_n(new_crtc_state);
-+	}
- 
- 	if (new_crtc_state->update_lrr)
- 		intel_set_transcoder_timings_lrr(new_crtc_state);
 -- 
 2.29.0
 
