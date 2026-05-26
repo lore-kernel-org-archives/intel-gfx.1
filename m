@@ -4,54 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036CCCD5BC8
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:11:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B691CD5BB1
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8097010E173;
-	Tue, 26 May 2026 13:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E80A510E06E;
+	Tue, 26 May 2026 14:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PXZTyHH5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OIFg1xn1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1445610E173
- for <intel-gfx@lists.freedesktop.org>; Tue, 26 May 2026 13:11:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2354510E47A;
+ Tue, 26 May 2026 14:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779801061; x=1811337061;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=eEqaUk7OC5E6TAruqUfMbnkFvdOi4GXKt5/05lTwxbU=;
- b=PXZTyHH5XlRJbHy9bzMVm6H40TDoOkrkAtURtw84iv2fWnM3a0VQZ1E2
- 9683ENX17r6I1/Zr8xYxv+ILOmi5zz4u0aDYNbHDD2afHfMQ3/DzWui1m
- XwWwc6VmtYkB+yzjN+pNp8go71wqTt1fX00jbQE6k8ri8+/fi5RQQjxhb
- geF7jIG/ksk9OdMXv8AzPkXXQYckgNim8O+GcJdgw357oI8dQatk2xtt2
- q1aQOfJg1JOUYNFpQLDMv1enVTuANaWdUM/7YHEpSt5kXdHedCzCIOdFu
- 6zNbj2ViPPTpWBZPvNT+j7j9oo+vMcTu/w4PdZleKheexrYAZvPRXWwVJ Q==;
-X-CSE-ConnectionGUID: Oc7BWOWoS2eCLApMrGdFhg==
-X-CSE-MsgGUID: CWBclrIeTnqQJOVZJhsUrw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="91182912"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="91182912"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 06:11:00 -0700
-X-CSE-ConnectionGUID: 8dHS1r6hSjqfjYiTc4yREw==
-X-CSE-MsgGUID: vtzKGPoeSh6/8e8gttpcwg==
+ t=1779804294; x=1811340294;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=TgT9LDq2kYaUG6HVhkJp8m29INgs6e9gVuG3YkZghuM=;
+ b=OIFg1xn16/0hLv0CkuG1q1v7FOaYw6WaeDY/8cIyzRfUQM6EvMvqg59H
+ tUrJ4Rw0WH8H5PeEe+04V5pTTchneUQbXFFhj47vy5NPaVvCJJyBFrx4c
+ 1xOIukk/O/Pjkuhi47NfTxX89kVYkEAYAjCv9pmKnmZxGKL37yRgtSKig
+ N0lNpNbbERLwrLeUYmFLVbs2p9veko/pNkcRxK+17zWef8v3c1TxSGOlq
+ DjzohfRhnNE11t0FXtvfWNtbrNL4FhiyKnfT2lQ7asun4iBF40/tYmQ8E
+ t6CmEhJWNTPSySXA+Tzu62Rs8nnqhPhaDb7+c26bfHd2bx50HLiXWVkMB A==;
+X-CSE-ConnectionGUID: 7WWBuHQjQjeL2ho8JdGI5w==
+X-CSE-MsgGUID: VUHYWTYESU2peemU0S92cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="90917177"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="90917177"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 07:04:53 -0700
+X-CSE-ConnectionGUID: 8NbAQ789QqW9VmPnH7uAlQ==
+X-CSE-MsgGUID: xv27fnZiQeS4P5oUWkpRfw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="245953742"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 06:10:59 -0700
-Date: Tue, 26 May 2026 15:10:57 +0200 (CEST)
-From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/i915: relocate intel_hpd_cancel_work() call
-In-Reply-To: <20260516101852.1373108-1-jani.nikula@intel.com>
-Message-ID: <ad9f755c-7beb-c72f-a81c-8f4c624219c9@intel.com>
-References: <20260516101852.1373108-1-jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="265786380"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.182])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 07:04:52 -0700
+Date: Tue, 26 May 2026 17:04:49 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 10/11] drm/i915/dp: Enable AS SDP whenever VRR is
+ possible or PR !async
+Message-ID: <ahWogS4DDNpXFj4U@intel.com>
+References: <20260525052235.560741-11-ankit.k.nautiyal@intel.com>
+ <20260526064309.585054-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="8323329-1630270024-1779801060=:1544314"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260526064309.585054-1-ankit.k.nautiyal@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,27 +74,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Tue, May 26, 2026 at 12:13:09PM +0530, Ankit Nautiyal wrote:
+> Currently AS SDP is only configured when VRR is enabled.
+> With optimized guardband, we also need to account for wakeup time and other
+> relevant details that depend on the AS SDP position whenever AS SDP is
+> enabled. If a feature enabling AS SDP gets turned on later (after modeset),
+> the guardband might not be sufficient and may need to increase, triggering
+> a full modeset.
+> 
+> Additionally, for Panel Replay with Aux-less ALPM where the sink does
+> not support asynchronous video timing in PR active, the source must
+> keep transmitting Adaptive-Sync SDPs while PR is active.
+> 
+> So, always send AS SDP whenever there is a possibility to use it for VRR
+> OR for Panel Replay for synchronization.
+> 
+> v2: Check if AS SDP can be used for synchronization for VRR or PR. (Ville)
+> v3: Use intel_psr_needs_alpm_aux_less() instead of
+>     intel_alpm_is_alpm_aux_less() to avoid including the LOBF case. (Ville)
+>     Modify the commit message and subject.
+> 
+> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index a3aa0dadf0e1..87d7857fbafa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3181,7 +3181,11 @@ static bool intel_dp_needs_as_sdp(struct intel_dp *intel_dp,
+>  	if (drm_dp_is_branch(intel_dp->dpcd))
+>  		return false;
+>  
+> -	return crtc_state->vrr.enable;
+> +	if (intel_psr_needs_alpm_aux_less(intel_dp, crtc_state) &&
 
---8323329-1630270024-1779801060=:1544314
-Content-Type: text/plain; charset=ISO-8859-2; format=flowed
-Content-Transfer-Encoding: 8BIT
+That depends on stuff computed by intel_psr_compute_config() but
+currently that is called after intel_dp_compute_as_sdp() (which
+is where intel_dp_needs_as_sdp() gets called). I can't immediately
+see any other dependencies between those two functions so looks
+like we could just reorder the calls.
 
-On Sat, 16 May 2026, Jani Nikula wrote:
-> The i915 and xe calls to display, in particular for
-> probe/cleanup/suspend/resume, need to be unified. It does not help to
-> have the related calls scattered around. As a small step forward,
-> relocate the intel_hpd_cancel_work() call from intel_irq_uninstall() to
-> i915_driver_remove().
->
-> Note that the other intel_irq_uninstall() call sites don't need the
-> call, as they're on error paths where hotplug hasn't been enabled yet.
->
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> +	    !intel_psr_pr_async_video_timing_supported(intel_dp))
+> +		return true;
+> +
+> +	return intel_vrr_possible(crtc_state);
+>  }
+>  
+>  static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+> -- 
+> 2.45.2
 
-Reviewed-by: Micha³ Grzelak <michal.grzelak@intel.com>
-
-BR,
-Micha³
---8323329-1630270024-1779801060=:1544314--
+-- 
+Ville Syrjälä
+Intel
