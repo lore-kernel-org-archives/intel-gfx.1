@@ -4,56 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C36F9CD5BC8
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:02:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036CCCD5BC8
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 13:11:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385CD10E638;
-	Tue, 26 May 2026 13:02:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8097010E173;
+	Tue, 26 May 2026 13:11:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=mariushoch.de header.i=@mariushoch.de header.b="F3QtkMbl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PXZTyHH5";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B285810E07D;
- Fri, 22 May 2026 13:33:59 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gMR7m1Tk5z9vW6;
- Fri, 22 May 2026 15:33:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mariushoch.de;
- s=MBO0001; t=1779456836;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=4BUXRuiqN1T0XX4kbeEy0p/e7jk2H+WrGjIQ1HSIWaY=;
- b=F3QtkMblDw/liKW6kKobiYY+kRckH6o2j8Nb4fOQbK9DqdfdkUV9PSkcmO2PapEtToPT1l
- 4IAPVyF1C0V2AQDP8DNO6u9iZRGspuTMxXhz8RJMKm8ZHjcrLeLfeZk2vhMdff493SHbCX
- tYsvAmSmCsnU+ByXIYJdwB6DRjpclAnS62j7aOAsCfcjAOJoA1yqmgg/WYhg0MeaRKoywp
- j6QuliOAAYSSM1K82WPVYreEULUHRnSwaAZ/IMlkYeTxs/8l06Xi8my/kp++hhX1GuCCpy
- wLsSrYh8lWoRwsbjJmBiARqbav6jrJ6Aw//+482VlC09iYKVevTPFuzBZUJUZQ==
-Message-ID: <6c580606-19dc-4b46-9cba-175ec32a5fac@mariushoch.de>
-Date: Fri, 22 May 2026 15:33:50 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1445610E173
+ for <intel-gfx@lists.freedesktop.org>; Tue, 26 May 2026 13:11:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779801061; x=1811337061;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=eEqaUk7OC5E6TAruqUfMbnkFvdOi4GXKt5/05lTwxbU=;
+ b=PXZTyHH5XlRJbHy9bzMVm6H40TDoOkrkAtURtw84iv2fWnM3a0VQZ1E2
+ 9683ENX17r6I1/Zr8xYxv+ILOmi5zz4u0aDYNbHDD2afHfMQ3/DzWui1m
+ XwWwc6VmtYkB+yzjN+pNp8go71wqTt1fX00jbQE6k8ri8+/fi5RQQjxhb
+ geF7jIG/ksk9OdMXv8AzPkXXQYckgNim8O+GcJdgw357oI8dQatk2xtt2
+ q1aQOfJg1JOUYNFpQLDMv1enVTuANaWdUM/7YHEpSt5kXdHedCzCIOdFu
+ 6zNbj2ViPPTpWBZPvNT+j7j9oo+vMcTu/w4PdZleKheexrYAZvPRXWwVJ Q==;
+X-CSE-ConnectionGUID: Oc7BWOWoS2eCLApMrGdFhg==
+X-CSE-MsgGUID: CWBclrIeTnqQJOVZJhsUrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="91182912"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="91182912"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 06:11:00 -0700
+X-CSE-ConnectionGUID: 8dHS1r6hSjqfjYiTc4yREw==
+X-CSE-MsgGUID: vtzKGPoeSh6/8e8gttpcwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="245953742"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 May 2026 06:10:59 -0700
+Date: Tue, 26 May 2026 15:10:57 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/i915: relocate intel_hpd_cancel_work() call
+In-Reply-To: <20260516101852.1373108-1-jani.nikula@intel.com>
+Message-ID: <ad9f755c-7beb-c72f-a81c-8f4c624219c9@intel.com>
+References: <20260516101852.1373108-1-jani.nikula@intel.com>
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/i915: Don't set min_cdclk in the initial crtc_state
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Joe Perches <joe@perches.com>,
- Mika Kahola <mika.kahola@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260521180722.328317-2-mail@mariushoch.de>
- <ag91h3UbwPQ7cmXg@intel.com>
-Content-Language: en-US
-From: Marius Hoch <mail@mariushoch.de>
-In-Reply-To: <ag91h3UbwPQ7cmXg@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 26 May 2026 13:02:27 +0000
+Content-Type: multipart/mixed;
+ boundary="8323329-1630270024-1779801060=:1544314"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,97 +67,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thanks for the quick reply!
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 21/05/2026 23:13, Ville SyrjÃ¤lÃ¤ wrote:
-> On Thu, May 21, 2026 at 08:07:12PM +0200, Marius Hoch wrote:
->> Setting the min_cdclk this early means that intel_cdclk_atomic_check
->> (called via intel_atomic_check) will not pick up the initial min_cdclk, as
->> there is no change between the old and new atomic states.
-> If there is no change then there is no need to change the CDCLK.
-As far as I see, the problem is that the minimal CDCLK is reflected in 
-the initial crtc_state, but there is no direct connection to the actual 
-(hardware) CDCLK, which can be lower at this point. I'll add some more 
-details below.
-> It's hard to say what you're really trying to work around here.
+--8323329-1630270024-1779801060=:1544314
+Content-Type: text/plain; charset=ISO-8859-2; format=flowed
+Content-Transfer-Encoding: 8BIT
+
+On Sat, 16 May 2026, Jani Nikula wrote:
+> The i915 and xe calls to display, in particular for
+> probe/cleanup/suspend/resume, need to be unified. It does not help to
+> have the related calls scattered around. As a small step forward,
+> relocate the intel_hpd_cancel_work() call from intel_irq_uninstall() to
+> i915_driver_remove().
 >
-> Please a file a new bug at
-> https://gitlab.freedesktop.org/drm/intel/issues/new and
-> attach the full dmesg from boot with 'log_buf_len=4M drm.debug=0xe'
-> passed to he kernel cmdline.
-Makes sense, I've filed 
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16209 for that.
-
-As far as I see, the CDCLK is updated based on / for an atomic change in 
-the following way: intel_atomic_check calls intel_cdclk_atomic_check to 
-update the CDCLK iff needed. In order to find out if a CDCLK calc is 
-needed, intel_cdclk_atomic_check in turn (via intel_cdclk_atomic_check 
-and intel_crtcs_calc_min_cdclk) calls intel_cdclk_update_crtc_min_cdclk. 
-In intel_cdclk_update_crtc_min_cdclk, the old and the new min_cdclk get 
-compared, and if there's a change, the CDCLK will be recalculated.
-
-The issue here is that we start out with the min_cdclk set (to 158400 in 
-the GLK case) in the initial / old atomic state (which is not reflected 
-in the actual / hardware state). Thus intel_cdclk_update_crtc_min_cdclk 
-won't be able to detect a change here (as both the old and the new 
-atomic state have the same min_cdclk), and thus won't indicate that the 
-CDCLK needs to be recalculated (even though the actual CDCLK might be 
-lower as min_cdclk, as can be seen on the dmesg attached in the ticket).
-
-If you want to see this addressed in another way, I'm happy to provide 
-another patch. Also I'm happy to provide more details, if needed.
-
+> Note that the other intel_irq_uninstall() call sites don't need the
+> call, as they're on error paths where hotplug hasn't been enabled yet.
 >
->> This is
->> problematic, especially on Gemini Lake, where the picture gets unstable if
->> the CDCLK is too low (see vlv_dsi_min_cdclk).
-See beb29980026f / 
-https://lore.kernel.org/all/20190430125119.7478-1-stanislav.lisovskiy@intel.com/ 
-and the tickets linked from there for context here. See also 
-cf696856bc54, which fixed a regression related to this Gemini Lake quirk 
-before.
->>
->> This was introduced in 7a8d9cfa6db0, which states that the min_cdclk must
->> be set before calling intel_compute_global_watermarks. However, as the
->> only place that calls intel_compute_global_watermarks is
->> intel_atomic_check, right after setting the min_cdclk on new_crtc_state,
->> there is no need to set the min_cdclk initially.
->>
->> This surfaced as a bug on my IdeaPad Duet 3 after ba91b9eecb47, leading
->> to the screen output being completely garbled initially (when asking for
->> the dm-crypt passphrase). It recovers after the passphrase prompt, as this
->> only affects the initial state.
-I've bisected this problem to ba91b9eecb47 initially, and naively adding 
-the intel_modeset_calc_cdclk back after intel_modeset_checks in 
-intel_atomic_check also fixes this issue 
-(https://github.com/mariushoch/linux/commit/5d083fe47a9c0c10afcdf5b5cff5683cbfb3fe22).
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 
->>
->> Tested on an IdeaPad Duet 3 10IGL5-LTE (with UHD Graphics 605).
->>
->> Cc: stable@vger.kernel.org
->> Fixes: 7a8d9cfa6db0 ("drm/i915: Compute per-crtc min_cdclk earlier")
->> Signed-off-by: Marius Hoch <mail@mariushoch.de>
->> ---
->>   drivers/gpu/drm/i915/display/intel_modeset_setup.c | 5 -----
->>   1 file changed, 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
->> index 4086f16a12bf..9278856375e9 100644
->> --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
->> +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
->> @@ -865,11 +865,6 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
->>   				    crtc_state->plane_min_cdclk[plane->id]);
->>   		}
->>   
->> -		crtc_state->min_cdclk = intel_crtc_min_cdclk(crtc_state);
->> -
->> -		drm_dbg_kms(display->drm, "[CRTC:%d:%s] min_cdclk %d kHz\n",
->> -			    crtc->base.base.id, crtc->base.name, crtc_state->min_cdclk);
->> -
->>   		intel_pmdemand_update_port_clock(display, pmdemand_state, pipe,
->>   						 crtc_state->port_clock);
->>   	}
->> -- 
->> 2.54.0
+Reviewed-by: Micha³ Grzelak <michal.grzelak@intel.com>
 
+BR,
+Micha³
+--8323329-1630270024-1779801060=:1544314--
