@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA600CD5BD0
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:30:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 236CDCD5BB1
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:53:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B29C210E6AE;
-	Tue, 26 May 2026 14:30:36 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="klmHdAEw";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2170A10E695;
- Tue, 26 May 2026 14:30:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=cSnwpH826zG+aCRPJzfw8hJJ/S+BJpSQ5BQzAsOm7wU=; b=klmHdAEwHjR6ulnkyMVa4AUqiN
- otpBub8LejGHtmC0Jkw6/4JEtK6385OchOoPDcubZtsEWN5OuJHT9ls4keURhZS+AjMk9PRvVAycl
- wv/l27PbNSbe2hTaDcish1A7jcHKT1mvtlnl8ifmjFpqPAnbG8mgQhVD2wUvAS1FQHspKv4IISEVL
- RzhEHUqnybE7jcbvtudAFkIbHbRJ1M6KZX++oPIMQFCGvE6RK5nGe6LovamjnO8pOw18oLYaImIdj
- iRbIl7JXHLPSN3zyEk5OQJwcq8HuJNIBsid/BdSbAwzwr2TnNCMiPSqP28kh0RuYZmpX2qjQIne3c
- 7FczzxjQ==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wRsn0-008TUc-4Y; Tue, 26 May 2026 16:29:50 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- simona@ffwll.ch, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
- Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- John Harrison <John.Harrison@Igalia.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/3] don't allow changes to inactive colorops
-Date: Tue, 26 May 2026 16:17:07 +0200
-Message-ID: <20260526142940.504911-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B620810E4F4;
+	Tue, 26 May 2026 14:53:13 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5BE410E4F4;
+ Tue, 26 May 2026 14:53:12 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3066216257595022472=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/power=3A_renames?=
+ =?utf-8?q?=2C_cleanups?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 26 May 2026 14:53:12 -0000
+Message-ID: <177980719280.10865.10278257905601995659@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <cover.1779800132.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1779800132.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,40 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series is a follow-up of what was discussed in [1] and on #wayland
-IRC channel regarding policy and userspace expectations on changes in
-colorop properties and the current status of the color pipeline in which
-the colorop is part of. In short, we agreed that userspace can change
-properties of colorops that are currently part of an active color
-pipeline or when the pipeline is switching status in the same commit.
-However, userspace cannot change colorop properties of inactive color
-pipeline in the expactation that it will be activated at some point in
-the future.
+--===============3066216257595022472==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Userspace also expects persistence of color pipeline already set, even
-if it becomes inactive for a while, when activated, colorop settings
-previouly set should be preserved.
+== Series Details ==
 
-In addition, I found some bugs on IGT tests when this policy is applied.
-So I sent some bug fixes [2]. The rest of the series in [1] was detached
-in [3] since there is no dependecy between them.
+Series: drm/i915/power: renames, cleanups
+URL   : https://patchwork.freedesktop.org/series/167278/
+State : success
 
-[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
-[2] https://lore.kernel.org/dri-devel/20260525100524.304263-1-mwen@igalia.com/
-[3] https://lore.kernel.org/igt-dev/20260526140752.503380-1-mwen@igalia.com/
+== Summary ==
 
-Melissa Wen (3):
-  drm/atomic: only add states of active or transient active colorops
-  drm/atomic: duplicate state of all colorops
-  drm/atomic: reject colorop update from inactive color pipeline
+CI Bug Log - changes from CI_DRM_18555 -> Patchwork_167278v1
+====================================================
 
- drivers/gpu/drm/drm_atomic.c        | 126 ++++++++++++++++++++++++++--
- drivers/gpu/drm/drm_atomic_helper.c |   9 +-
- 2 files changed, 120 insertions(+), 15 deletions(-)
+Summary
+-------
 
--- 
-2.53.0
+  **SUCCESS**
 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167278v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18555 -> Patchwork_167278v1
+
+  CI-20190529: 20190529
+  CI_DRM_18555: ba2b29e3db52fcd75c2dc6d76d81f26eb59b7e33 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8937: 8937
+  Patchwork_167278v1: ba2b29e3db52fcd75c2dc6d76d81f26eb59b7e33 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167278v1/index.html
+
+--===============3066216257595022472==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/power: renames, cleanups</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167278/">https://patchwork.freedesktop.org/series/167278/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167278v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167278v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18555 -&gt; Patchwork_167278v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167278v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18555 -&gt; Patchwork_167278v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18555: ba2b29e3db52fcd75c2dc6d76d81f26eb59b7e33 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8937: 8937<br />
+  Patchwork_167278v1: ba2b29e3db52fcd75c2dc6d76d81f26eb59b7e33 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3066216257595022472==--
