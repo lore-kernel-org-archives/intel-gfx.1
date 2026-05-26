@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16BB9CD6E40
-	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:09:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 888E6CD6E43
+	for <intel-gfx@archiver.kernel.org>; Tue, 26 May 2026 14:09:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 774F010E4B8;
-	Tue, 26 May 2026 14:09:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C526D10E503;
+	Tue, 26 May 2026 14:09:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="L0o9nOpM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g1YuEi2R";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E4510E4B8;
- Tue, 26 May 2026 14:09:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCD0A10E4B8;
+ Tue, 26 May 2026 14:09:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779804589; x=1811340589;
+ t=1779804590; x=1811340590;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=pE6wCSSvFvr0PdvWjKVc+/quVfLcXssIekC5U3bpr5U=;
- b=L0o9nOpMEzR6jhuGri7bxDtpjxqR4JK16DoaLK53JrIeartHfNuB8wRC
- kHeybbaRxGeUzzDIPM57bOGbLRAirI5qCYdmsEoqJLOtStKTv20wS/Gd9
- e76IIsA0g0/nNdc72BLGl7HzZoEh0NzVJJ5TlWQIsk8WuWvJCIQ28UlB/
- kxMbWKQl5ECCyU4g7E2LszXR8Kp4+XHK9y5J02FADhOHY3WsSlwtbaPif
- kSlOf4C7OZSBJrBBnaXGQMhBYPBWBVYB9imq1JJv0WLz3tq8Y/AEbhtjo
- ex9KeXx4Kt0VzmK0HvreynE8HXEr1S+tpHVLGmYTeHlICqabkOthvJzCQ Q==;
-X-CSE-ConnectionGUID: 3pCqnYg8Ryuj0XXk4VP2Uw==
-X-CSE-MsgGUID: l7QtEvEbSwek/Ah7oHHWxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="98041721"
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="98041721"
+ bh=wWmQIYsjBJQazrPawjANR7Ck8b1EVI+pfDVEohJAc8I=;
+ b=g1YuEi2Rn+y0v8k2X8Wg7VoTRFRU3Sf1R5UZHT4/vOUyQNsE69SSPhej
+ rApGyKOlIc/dC7krz1R+LdB3LOuvQ7dEnPQG2MiaWZIlPWzk12vCGsvvz
+ C5c9JAuYTDPcorxl0vIBMm202yIh/T14YNerTqxiX9SJqRow/XQd4ipia
+ Q+E38jCYXNVSbeBlMQ03ZzeoPdZupFXlNZ0z7S1bcHUkMAAGV7QHSuMdv
+ iGgZ5YRPW2Gic9NSX+OB9Iso6ivArKUoO974h/tzAYvAcPGERUsrgA6X/
+ 7Zad+UvPrvVMcyq6YG9ys8++EdaYtPCZtnQ4aKQ1WeTgbPcGdjKu+W6y6 g==;
+X-CSE-ConnectionGUID: EERzmSqRQZqKSlEJw8qaCA==
+X-CSE-MsgGUID: KWPKtLkESW2NG6ANZ6T0Fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11797"; a="98041737"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="98041737"
 Received: from fmviesa009.fm.intel.com ([10.60.135.149])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 07:09:40 -0700
-X-CSE-ConnectionGUID: lt+bmMgOTUqMbyhTx73f+w==
-X-CSE-MsgGUID: Xf40facQRzieqU2Hdi5azg==
+ 26 May 2026 07:09:48 -0700
+X-CSE-ConnectionGUID: zu6qyJEfSHSpKUXxyZ7CGA==
+X-CSE-MsgGUID: jXO0SmCMQUKWClnyxCU71A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="235578118"
+X-IronPort-AV: E=Sophos;i="6.24,169,1774335600"; d="scan'208";a="235578146"
 Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.223.74.76])
- by fmviesa009.fm.intel.com with ESMTP; 26 May 2026 07:09:37 -0700
+ by fmviesa009.fm.intel.com with ESMTP; 26 May 2026 07:09:45 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: uma.shankar@intel.com, dibin.moolakadan.subrahmanian@intel.com,
  ville.syrjala@linux.intel.com, jani.nikula@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v7 02/15] drm/i915/cmtg: Set CMTG clock select
-Date: Tue, 26 May 2026 19:07:58 +0530
-Message-Id: <20260526133811.2621675-3-animesh.manna@intel.com>
+Subject: [PATCH v7 05/15] drm/i915/cmtg: Program VRR registers of CMTG
+Date: Tue, 26 May 2026 19:08:01 +0530
+Message-Id: <20260526133811.2621675-6-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260526133811.2621675-1-animesh.manna@intel.com>
 References: <20260526133811.2621675-1-animesh.manna@intel.com>
@@ -69,113 +69,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Program the CMTG Clock Select register based on the transcoder used.
+Program the VRR registers of CMTG, as the VRR timing generator
+will always be enabled for NVL.
 
-v2:
-- Correct mask for PHY B. [Jani]
-- Use REG_FIELD_PREP() for enable value. [Dibin]
-- Extend cmtg clock select for xe3plpd. [Dibin]
+v2: Use sw state instead of reading from hardware. [Jani]
+v3: Program cmtg vrr control and timing registers along with
+vrr transcoder registers.
 
-v3:
-- CMTG support removed for old platform.
-
-v4:
-- Optimize further with else-if. [Uma]
-- Correct CMTG_CLK_SEL_B_MASK. [Uma]
-
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cmtg.c     | 22 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_cmtg.h     |  1 +
- .../gpu/drm/i915/display/intel_cmtg_regs.h    |  2 ++
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  5 +++++
- 4 files changed, 30 insertions(+)
+ drivers/gpu/drm/i915/display/intel_cmtg.c | 34 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_cmtg.h |  2 ++
+ drivers/gpu/drm/i915/display/intel_vrr.c  |  5 ++++
+ 3 files changed, 41 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-index a279f3dcd1ec..fbc8a4f2b9cb 100644
+index 0e730afbb4ab..fc8d85fcbc4a 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-@@ -197,3 +197,25 @@ bool intel_cmtg_is_allowed(const struct intel_crtc_state *crtc_state)
+@@ -16,6 +16,7 @@
+ #include "intel_display_power.h"
+ #include "intel_display_regs.h"
+ #include "intel_display_types.h"
++#include "intel_vrr_regs.h"
  
- 	return false;
+ /**
+  * DOC: Common Primary Timing Generator (CMTG)
+@@ -293,3 +294,36 @@ void intel_cmtg_set_timings(const struct intel_crtc_state *crtc_state, bool lrr)
+ 	intel_de_write(display, TRANS_SET_CONTEXT_LATENCY(display, cmtg_transcoder),
+ 		       crtc_state->set_context_latency);
  }
 +
-+void intel_cmtg_set_clk_select(const struct intel_crtc_state *crtc_state)
++void intel_cmtg_set_vrr_timings(const struct intel_crtc_state *crtc_state)
 +{
 +	struct intel_display *display = to_intel_display(crtc_state);
-+	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
-+	u32 clk_sel_clr = 0;
-+	u32 clk_sel_set = 0;
++	enum transcoder cmtg_transcoder = to_cmtg_transcoder(crtc_state->cpu_transcoder);
 +
 +	if (!intel_cmtg_is_allowed(crtc_state))
 +		return;
 +
-+	if (cpu_transcoder == TRANSCODER_A) {
-+		clk_sel_clr = CMTG_CLK_SEL_A_MASK;
-+		clk_sel_set = CMTG_CLK_SELECT_PHYA_ENABLE;
-+	} else if (cpu_transcoder == TRANSCODER_B) {
-+		clk_sel_clr = CMTG_CLK_SEL_B_MASK;
-+		clk_sel_set = CMTG_CLK_SELECT_PHYB_ENABLE;
-+	}
++	intel_de_write(display, TRANS_VRR_VMIN(display, cmtg_transcoder), crtc_state->vrr.vmin - 1);
++	intel_de_write(display, TRANS_VRR_VMAX(display, cmtg_transcoder), crtc_state->vrr.vmax - 1);
++	intel_de_write(display, TRANS_VRR_FLIPLINE(display, cmtg_transcoder),
++		       crtc_state->vrr.flipline - 1);
++}
 +
-+	if (clk_sel_set)
-+		intel_de_rmw(display, CMTG_CLK_SEL, clk_sel_clr, clk_sel_set);
++void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++	enum transcoder cmtg_transcoder = to_cmtg_transcoder(crtc_state->cpu_transcoder);
++	u32 vrr_ctl;
++
++	if (!intel_cmtg_is_allowed(crtc_state))
++		return;
++
++	vrr_ctl = VRR_CTL_VRR_ENABLE | VRR_CTL_FLIP_LINE_EN |
++		  XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
++
++	/* TODO: The code below may need to be revisited once CMRR is enabled */
++	if (crtc_state->cmrr.enable)
++		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
++
++	intel_de_write(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
 +}
 diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.h b/drivers/gpu/drm/i915/display/intel_cmtg.h
-index ed540581738f..87092ce6d67b 100644
+index 53a44f505dd2..c92e3a62ff0d 100644
 --- a/drivers/gpu/drm/i915/display/intel_cmtg.h
 +++ b/drivers/gpu/drm/i915/display/intel_cmtg.h
-@@ -11,6 +11,7 @@
+@@ -11,6 +11,8 @@
  struct intel_display;
  struct intel_crtc_state;
  
-+void intel_cmtg_set_clk_select(const struct intel_crtc_state *crtc_state);
++void intel_cmtg_set_vrr_timings(const struct intel_crtc_state *crtc_state);
++void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state);
+ void intel_cmtg_set_timings(const struct intel_crtc_state *crtc_state, bool lrr);
+ void intel_cmtg_set_clk_select(const struct intel_crtc_state *crtc_state);
  void intel_cmtg_sanitize(struct intel_display *display);
- bool intel_cmtg_is_allowed(const struct intel_crtc_state *crtc_state);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_cmtg_regs.h b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
-index 945a35578284..4a80b88d88fd 100644
---- a/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_cmtg_regs.h
-@@ -10,8 +10,10 @@
- 
- #define CMTG_CLK_SEL			_MMIO(0x46160)
- #define CMTG_CLK_SEL_A_MASK		REG_GENMASK(31, 29)
-+#define CMTG_CLK_SELECT_PHYA_ENABLE	REG_FIELD_PREP(CMTG_CLK_SEL_A_MASK, 0x4)
- #define CMTG_CLK_SEL_A_DISABLED		REG_FIELD_PREP(CMTG_CLK_SEL_A_MASK, 0)
- #define CMTG_CLK_SEL_B_MASK		REG_GENMASK(15, 13)
-+#define CMTG_CLK_SELECT_PHYB_ENABLE	REG_FIELD_PREP(CMTG_CLK_SEL_B_MASK, 0x6)
- #define CMTG_CLK_SEL_B_DISABLED		REG_FIELD_PREP(CMTG_CLK_SEL_B_MASK, 0)
- 
- #define TRANS_CMTG_CTL_A		_MMIO(0x6fa88)
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 24a51ab21b55..acf48a25b1d6 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -9,6 +9,7 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 1b09992ce9fd..1260ceb7958e 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -7,6 +7,7 @@
  #include <drm/drm_print.h>
  
  #include "intel_alpm.h"
 +#include "intel_cmtg.h"
- #include "intel_cx0_phy.h"
- #include "intel_cx0_phy_regs.h"
+ #include "intel_crtc.h"
+ #include "intel_de.h"
  #include "intel_display_regs.h"
-@@ -3418,10 +3419,14 @@ void intel_mtl_pll_enable(struct intel_encoder *encoder,
- void intel_mtl_pll_enable_clock(struct intel_encoder *encoder,
- 				const struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 
- 	if (intel_tc_port_in_tbt_alt_mode(dig_port))
- 		intel_mtl_tbt_pll_enable_clock(encoder, crtc_state->port_clock);
+@@ -334,6 +335,8 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state)
+ 		       intel_vrr_fixed_rr_hw_vmax(crtc_state) - 1);
+ 	intel_de_write(display, TRANS_VRR_FLIPLINE(display, cpu_transcoder),
+ 		       intel_vrr_fixed_rr_hw_flipline(crtc_state) - 1);
 +
-+	if (HAS_LT_PHY(display))
-+		intel_cmtg_set_clk_select(crtc_state);
++	intel_cmtg_set_vrr_timings(crtc_state);
  }
  
- /*
+ static
+@@ -932,6 +935,8 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
+ 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
+ 
+ 	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
++
++	intel_cmtg_set_vrr_ctl(crtc_state);
+ }
+ 
+ static void intel_vrr_tg_disable(const struct intel_crtc_state *old_crtc_state)
 -- 
 2.29.0
 
