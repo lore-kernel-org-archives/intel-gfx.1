@@ -4,58 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95985CD5BDE
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 04:29:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C08CD5BDE
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 05:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31F3410E748;
-	Wed, 27 May 2026 04:29:28 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jgSMv9zP";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B70C210E744;
- Wed, 27 May 2026 04:29:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779856155; x=1811392155;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=7qHL3V6jKnXzkrS2PEbOaMY5JXK1+OFeIDWiVIghjCE=;
- b=jgSMv9zP5O0BX+fxkXIMHIOPlI0YPzL+2x94dq3euLiMoCfvjGTcXf+b
- 7i/sgxBGnguI6bLuhXX9nzs3PMu40Alf5JRJdDKbFvSZoIeaDaLPXlNiD
- Q0i8I/wjPvR0sW+0cDDASnx9OIcI5b7WxRSu7+/Y5p4M+VH6zxj9cpheM
- CPDQ5pR0AUwBAItbisBSbxrMqaQ+rNepomIdj0aL/8poLH0AXR7NlefQX
- a3ThxOUWna7X4CSAQMg1wfajwFoTKjoqXoaq3UqUMsH+O1CwuGtIoaRrs
- 5LgFpFpM6dM+ziJuiNJPeZji6i5ogIgIo587jn+vBJk+LAT/sWl4+kNPX Q==;
-X-CSE-ConnectionGUID: slCdBVvlSQm8UKRQXMHWgQ==
-X-CSE-MsgGUID: 4GUCtjLkSteEG+ktDpBHyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11798"; a="80405831"
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="80405831"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 21:29:11 -0700
-X-CSE-ConnectionGUID: H0RZEwQ2R5q24yFkkqo1Ww==
-X-CSE-MsgGUID: /iRciQ8FSzeamlDEegdecg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,170,1774335600"; d="scan'208";a="272452460"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 May 2026 21:29:10 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, jouni.hogander@intel.com,
- animesh.manna@intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 12/12] drm/i915/dp: Account for AS_SDP guardband only when
- enabled
-Date: Wed, 27 May 2026 09:40:50 +0530
-Message-ID: <20260527041050.601735-13-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260527041050.601735-1-ankit.k.nautiyal@intel.com>
-References: <20260527041050.601735-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B315B10E23C;
+	Wed, 27 May 2026 05:20:29 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8A7910E23C;
+ Wed, 27 May 2026 05:20:27 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7949220999452647570=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_Adaptive-Sync_SDP_for?=
+ =?utf-8?q?_PR_with_Link_ON_+_Auxless-ALPM_=28rev6=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 27 May 2026 05:20:27 -0000
+Message-ID: <177985922794.13777.18085695956843871913@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260527041050.601735-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260527041050.601735-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,43 +37,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently the intel_dp_sdp_min_guardband() accounts for AS_SDP for all
-platforms that support adaptive sync SDP even for configurations where
-it cannot be enabled. Instead account for adaptive sync SDP guardband
-only when it is enabled.
+--===============7949220999452647570==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index a84fd6bb4053..c9236d6f656a 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -7539,7 +7539,6 @@ int intel_dp_get_lines_for_sdp(const struct intel_crtc_state *crtc_state, u32 ty
- int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
- 			       bool assume_all_enabled)
- {
--	struct intel_display *display = to_intel_display(crtc_state);
- 	int sdp_guardband = 0;
- 
- 	if (assume_all_enabled ||
-@@ -7554,8 +7553,8 @@ int intel_dp_sdp_min_guardband(const struct intel_crtc_state *crtc_state,
- 		sdp_guardband = max(sdp_guardband,
- 				    intel_dp_get_lines_for_sdp(crtc_state, DP_SDP_PPS));
- 
--	if ((assume_all_enabled && HAS_AS_SDP(display)) ||
--	    crtc_state->infoframes.enable & intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
-+	if (crtc_state->infoframes.enable &
-+	    intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC))
- 		sdp_guardband = max(sdp_guardband,
- 				    intel_dp_get_lines_for_sdp(crtc_state, DP_SDP_ADAPTIVE_SYNC));
- 
--- 
-2.45.2
+Series: Fix Adaptive-Sync SDP for PR with Link ON + Auxless-ALPM (rev6)
+URL   : https://patchwork.freedesktop.org/series/164512/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18558 -> Patchwork_164512v6
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_164512v6 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +80 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18558/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#15673]) +49 other tests dmesg-warn
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18558/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18558 -> Patchwork_164512v6
+
+  CI-20190529: 20190529
+  CI_DRM_18558: 14d3e29c36bea707856f5c03dbf7b0ef73fdeb85 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8938: b024a3b67372962ff6e643d3998c5cf5acc07081 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_164512v6: 14d3e29c36bea707856f5c03dbf7b0ef73fdeb85 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/index.html
+
+--===============7949220999452647570==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix Adaptive-Sync SDP for PR with Link ON + Auxless-ALPM (rev6)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164512/">https://patchwork.freedesktop.org/series/164512/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18558 -&gt; Patchwork_164512v6</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_164512v6 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18558/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +80 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18558/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164512v6/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) +49 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18558 -&gt; Patchwork_164512v6</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18558: 14d3e29c36bea707856f5c03dbf7b0ef73fdeb85 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8938: b024a3b67372962ff6e643d3998c5cf5acc07081 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_164512v6: 14d3e29c36bea707856f5c03dbf7b0ef73fdeb85 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7949220999452647570==--
