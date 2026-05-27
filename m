@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7BDDCD6E45
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 19:00:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92C67CD6E48
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 19:00:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67A1710E93A;
-	Wed, 27 May 2026 19:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E84010E939;
+	Wed, 27 May 2026 19:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TuWgxFkP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b+7HpFTr";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F35D210E93C;
- Wed, 27 May 2026 19:00:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D44010E939;
+ Wed, 27 May 2026 19:00:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779908441; x=1811444441;
+ t=1779908446; x=1811444446;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=CmLmXM37YZQAUNc26P0DWBhkoIDUS7J4kTHrtaSpXwI=;
- b=TuWgxFkPTKiWekDl1s/D2CV7OmNUwfOEPgdELqUERcipx4vT0KKllwIq
- ti8ds2JLSfecEs4CkspdUhSj0b3e+z7wcwJpuhdOZpYkz+Q66T3UZDJRq
- eFrcb9k9ax5O+SDE6xcU0Q2ah2hqqVrDB3044EipJeSIh7evbQbxTqBGC
- U0wutgUnT7Y92mUxVewaRXIiSZG2m/idvY1mEVr95ki5TiLfsvokGJnFC
- SXgZqfNettjUlYt20LCJSaqYwxaOJhmvoPFqM93nxjue2X/GsjnwJ1FzF
- EnciJ/qletsxMNhDzc3cruLyGzOV7BvnAx4cgYV3id9YXoHu3rOHjfImY g==;
-X-CSE-ConnectionGUID: h04iUyhHRcqMqYLSKwt8aQ==
-X-CSE-MsgGUID: 0fZqOAkWRcejmnYov4G/Nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="80602141"
-X-IronPort-AV: E=Sophos;i="6.24,172,1774335600"; d="scan'208";a="80602141"
+ bh=CPQ6fLlml3rWBsXufp0JPr2U0Um2VUiAXhwSHEQtc9Q=;
+ b=b+7HpFTrC0CLo72X1/j8jGfAGS5k9ocwffFtpNjPL8a4V+RD+LKDGa1P
+ a8/ePMZke4PPvj//zX39cTugFrsol0599iWeP+65k05zRAS8XCa9WCyVC
+ uX5CbETarVKi/ybzrOve8n1NOBF5GxLf8gd+YY0RNm78jI0onUZxbc7dh
+ yIxJLsGRA1mopj83Irl13gOUPJ2QiOs0SAll7g+A7bldjZCoIREGvt30O
+ Em59kINLrESK+fqjuyPMJJV1Q9gQkQ/oOzPkyljkTMnZ6TH/TaKY8a3Ki
+ PTZrpQtDRjBWDDwaSKchC2sRPpmTaYI9pnDUsW5756SPUwnrz9J381ml8 A==;
+X-CSE-ConnectionGUID: 1GoMB9NpSKy1aLcjHIPlXA==
+X-CSE-MsgGUID: Hk4HV4SAQSS4o9kKQ+flmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="80602147"
+X-IronPort-AV: E=Sophos;i="6.24,172,1774335600"; d="scan'208";a="80602147"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 12:00:41 -0700
-X-CSE-ConnectionGUID: TD+7utD8R16XObK/Fyn8rQ==
-X-CSE-MsgGUID: 5P/yOfTYRfGV+jrf5DsHgA==
+ 27 May 2026 12:00:46 -0700
+X-CSE-ConnectionGUID: 9yc7psCmRsWxq8NpaqHaOQ==
+X-CSE-MsgGUID: JYPMAH8iQNCewvcSUDr9Pg==
 X-ExtLoop1: 1
 Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 12:00:39 -0700
+ 27 May 2026 12:00:44 -0700
 From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [CI 07/17] drm/i915/display: Add HAS_DC3CO() macro
-Date: Thu, 28 May 2026 00:29:54 +0530
-Message-ID: <20260527190004.118730-8-dibin.moolakadan.subrahmanian@intel.com>
+Subject: [CI 11/17] drm/i915/display: Enable DC3CO idle protocol in ALPM
+Date: Thu, 28 May 2026 00:29:58 +0530
+Message-ID: <20260527190004.118730-12-dibin.moolakadan.subrahmanian@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260527190004.118730-1-dibin.moolakadan.subrahmanian@intel.com>
 References: <20260527190004.118730-1-dibin.moolakadan.subrahmanian@intel.com>
@@ -66,28 +66,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add HAS_DC3CO() to identify platforms supporting DC3CO.
-DC3CO is supported from display version 35 onwards.
+Add PR_ALPM_CTL_USE_DC3CO_IDLE_PROTOCOL bit definition and set it
+when DC3CO is allowed.
+
+Changes in v2:
+- Squash "Define DC3CO idle protocol bit in PR_ALPM_CTL"
+  into this patch (Uma Shankar)
+- Use intel_display_power_dc3co_allowed(display)
+  instead of intel_dc3co_allowed(state)
 
 BSpec: 75253
 Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_device.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 6 ++++++
+ drivers/gpu/drm/i915/display/intel_psr_regs.h | 1 +
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index acb9ca87dda7..f77b3da2cff5 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -159,6 +159,7 @@ struct intel_display_platforms {
- #define HAS_CUR_FBC(__display)		(!HAS_GMCH(__display) && IS_DISPLAY_VER(__display, 7, 13))
- #define HAS_D12_PLANE_MINIMIZATION(__display)	((__display)->platform.rocketlake || (__display)->platform.alderlake_s)
- #define HAS_DBUF_OVERLAP_DETECTION(__display)	(DISPLAY_RUNTIME_INFO(__display)->has_dbuf_overlap_detection)
-+#define HAS_DC3CO(__display)		(DISPLAY_VER(__display) >= 35)
- #define HAS_DDI(__display)		(DISPLAY_INFO(__display)->has_ddi)
- #define HAS_DISPLAY(__display)		(DISPLAY_RUNTIME_INFO(__display)->pipe_mask != 0)
- #define HAS_DMC(__display)		(DISPLAY_RUNTIME_INFO(__display)->has_dmc)
+diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
+index a7350ce8e716..6394d1568b54 100644
+--- a/drivers/gpu/drm/i915/display/intel_alpm.c
++++ b/drivers/gpu/drm/i915/display/intel_alpm.c
+@@ -389,6 +389,12 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+ 			if (crtc_state->disable_as_sdp_when_pr_active)
+ 				pr_alpm_ctl |= PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE;
+ 
++			if (intel_display_power_dc3co_allowed(display) &&
++			    intel_display_power_dc3co_supported(display))
++				pr_alpm_ctl |= PR_ALPM_CTL_USE_DC3CO_IDLE_PROTOCOL;
++			else
++				pr_alpm_ctl &= ~PR_ALPM_CTL_USE_DC3CO_IDLE_PROTOCOL;
++
+ 			intel_de_write(display, PR_ALPM_CTL(display, cpu_transcoder),
+ 				       pr_alpm_ctl);
+ 		}
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index 8afbf5a38335..16a9e3af198d 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -268,6 +268,7 @@
+ 
+ #define _PR_ALPM_CTL_A	0x60948
+ #define PR_ALPM_CTL(dev_priv, tran)	_MMIO_TRANS2(dev_priv, tran, _PR_ALPM_CTL_A)
++#define  PR_ALPM_CTL_USE_DC3CO_IDLE_PROTOCOL			BIT(7)
+ #define  PR_ALPM_CTL_ALLOW_LINK_OFF_BETWEEN_AS_SDP_AND_SU	BIT(6)
+ #define  PR_ALPM_CTL_RFB_UPDATE_CONTROL				BIT(5)
+ #define  PR_ALPM_CTL_AS_SDP_TRANSMISSION_IN_ACTIVE_DISABLE	BIT(4)
 -- 
 2.43.0
 
