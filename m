@@ -4,60 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6741CD6E45
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 14:51:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4347CD5BD5
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 14:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50D1E10E850;
-	Wed, 27 May 2026 14:51:51 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EA9010E84E
- for <intel-gfx@lists.freedesktop.org>; Wed, 27 May 2026 14:51:43 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 52B7D6B30A;
- Wed, 27 May 2026 14:51:23 +0000 (UTC)
-Authentication-Results: smtp-out1.suse.de;
-	none
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CC4E75A8AA;
- Wed, 27 May 2026 14:51:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 4KerMOoEF2qsegAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 27 May 2026 14:51:22 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: mripard@kernel.org, maarten.lankhorst@linux.intel.com, airlied@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, admin@kodeit.net,
- gargaditya08@proton.me, paul@crapouillou.net, jani.nikula@linux.intel.com,
- mhklinux@outlook.com, zack.rusin@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-mips@vger.kernel.org, virtualization@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v3 07/10] drm/damage-helper: Remove old state from
- drm_atomic_helper_damage_merged()
-Date: Wed, 27 May 2026 16:46:26 +0200
-Message-ID: <20260527145113.241595-8-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260527145113.241595-1-tzimmermann@suse.de>
-References: <20260527145113.241595-1-tzimmermann@suse.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8221910E261;
+	Wed, 27 May 2026 14:59:51 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dF0UhV0D";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFB2E89D5C;
+ Wed, 27 May 2026 14:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779893990; x=1811429990;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=FAbH234keFB8+i1huwykY+tAC8RSfTfFf0XQdfes0v8=;
+ b=dF0UhV0DvCbnS1UyMiIvayBx4IbCPEgLMm/Ji/lo2RFl/J2WdgiEg4EE
+ u7ubMA+5eNvBB4fnpl+mbUMUKccRRaXqeomtUmAxwphsuwoV3SmJLLfhs
+ fswKFtzIJxJdhtMLT7o4xbunaC06DzY8UVPgkvJxZnMPExjGf3AkDag9o
+ jsN6VvldnXcBfyzT1o7E4F0ElcUr4MPbOH4jR7UEHYr0ovSpaudheiqMQ
+ OPCjvSW6jErRlZr6jTTCTyWOrRBvT93iwAFEEzCUF1vTnystUJ2ykXGLj
+ 4z++WVBFzxsmFah5qev3xs8e7m7aTKiHNbkhcp3TRZr+wQ15G8nWSivTw g==;
+X-CSE-ConnectionGUID: W026wrAXSQC99BDPg8jg+g==
+X-CSE-MsgGUID: BRBHDrtaR92dw/Yx3ngjBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="103399642"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="103399642"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2026 07:59:50 -0700
+X-CSE-ConnectionGUID: RhO1crVMSUypYCYz0Xf30g==
+X-CSE-MsgGUID: tHc2C5QQThCEFqzTYIiVJQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="238090679"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.80])
+ by fmviesa010-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 May 2026 07:59:43 -0700
+Date: Wed, 27 May 2026 17:59:38 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 2/3] drm/{i915, xe}: move xe display shutdown and pm
+ hooks to intel_display_driver.c
+Message-ID: <ahcG2uqriNbcB8qY@intel.com>
+References: <cover.1779887154.git.jani.nikula@intel.com>
+ <b5d9bda0d181b8e1bb0834a977d2b632416a4a2c.1779887154.git.jani.nikula@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Queue-Id: 52B7D6B30A
-X-Rspamd-Pre-Result: action=no action; module=replies;
- Message is reply to one we originated
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.00 / 50.00];
-	REPLY(-4.00)[]
+In-Reply-To: <b5d9bda0d181b8e1bb0834a977d2b632416a4a2c.1779887154.git.jani.nikula@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,294 +73,567 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Nothing in drm_atomic_helper_damage_merged() requires the old
-plane state. Remove the parameter and mass-convert callers.
+On Wed, May 27, 2026 at 04:06:25PM +0300, Jani Nikula wrote:
+> Move the xe display glue code for shutdown and pm hooks from
+> xe_display.c to intel_display_driver.c. This is a small step towards
+> unifying the display interfaces between i915 and xe drivers. The code
+> belongs in display, not in i915 or xe driver. Neither the xe nor i915
+> core code should be calling deep into display functionality.
+> 
+> The high level functions are obviously modeled after the xe driver
+> now. The i915 driver needs to start calling them as well. For this, they
+> may need to be further changed and refactored, but this needs to happen
+> in display side.
+> 
+> Clean up xe_display.c includes as many of them become unnecessary.
+> 
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_driver.c   | 189 ++++++++++++++++++
+>  .../drm/i915/display/intel_display_driver.h   |  12 ++
+>  drivers/gpu/drm/xe/display/xe_display.c       | 185 ++---------------
+>  3 files changed, 214 insertions(+), 172 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index d0729936f681..15ba4c2ac985 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -43,6 +43,7 @@
+>  #include "intel_dp_tunnel.h"
+>  #include "intel_dpll.h"
+>  #include "intel_dpll_mgr.h"
+> +#include "intel_encoder.h"
+>  #include "intel_fb.h"
+>  #include "intel_fbc.h"
+>  #include "intel_fbdev.h"
+> @@ -780,3 +781,191 @@ void intel_display_driver_resume(struct intel_display *display)
+>  	if (state)
+>  		drm_atomic_commit_put(state);
+>  }
+> +
+> +/*
+> + * FIXME: The below interfaces are currently only being called from the xe
+> + * driver code. They need to be unified with the needs of the i915 driver hooks,
+> + * and i915 needs to migrate over to them.
+> + */
+> +
+> +void intel_display_driver_shutdown(struct intel_display *display)
+> +{
+> +	intel_display_power_disable(display);
+> +	drm_client_dev_suspend(display->drm);
+> +
+> +	if (intel_display_device_present(display)) {
+> +		drm_kms_helper_poll_disable(display->drm);
+> +		intel_display_driver_disable_user_access(display);
+> +		intel_display_driver_suspend(display);
+> +	}
+> +
+> +	intel_display_flush_cleanup_work(display);
+> +	intel_dp_mst_suspend(display);
+> +	intel_encoder_block_all_hpds(display);
+> +	intel_hpd_cancel_work(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		intel_display_driver_suspend_access(display);
+> +
+> +	intel_encoder_suspend_all(display);
+> +	intel_encoder_shutdown_all(display);
+> +
+> +	intel_opregion_suspend(display, PCI_D3cold);
+> +
+> +	intel_dmc_suspend(display);
+> +}
+> +
+> +void intel_display_driver_shutdown_late(struct intel_display *display)
+> +{
+> +	/*
+> +	 * The only requirement is to reboot with display DC states disabled,
+> +	 * for now leaving all display power wells in the INIT power domain
+> +	 * enabled.
+> +	 */
+> +	intel_display_power_driver_remove(display);
+> +}
+> +
+> +static bool suspend_to_idle(void)
+> +{
+> +#if IS_ENABLED(CONFIG_ACPI_SLEEP)
+> +	if (acpi_target_system_state() < ACPI_STATE_S3)
+> +		return true;
+> +#endif
+> +	return false;
+> +}
+> +
+> +void intel_display_driver_pm_enable_d3cold(struct intel_display *display)
+> +{
+> +	/*
+> +	 * We do a lot of poking in a lot of registers, make sure they work
+> +	 * properly.
+> +	 */
+> +	intel_display_power_disable(display);
 
-Most callers now no longer require the old plane state in their plane's
-atomic_update helper. Remove it as well.
+This stuff is not meant for runtime pm. xe just has some
+obnoxious hacks in its runtime pm code to allow it to call
+incorrect functions from its runtime pm paths without
+deadlocks/etc.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/ast/ast_cursor.c           |  3 +--
- drivers/gpu/drm/drm_damage_helper.c        |  4 +---
- drivers/gpu/drm/drm_mipi_dbi.c             |  3 +--
- drivers/gpu/drm/i915/display/intel_plane.c | 11 ++---------
- drivers/gpu/drm/i915/display/intel_psr.c   |  3 +--
- drivers/gpu/drm/sitronix/st7586.c          |  3 +--
- drivers/gpu/drm/tiny/gm12u320.c            |  2 +-
- drivers/gpu/drm/tiny/ili9225.c             |  3 +--
- drivers/gpu/drm/tiny/repaper.c             |  2 +-
- drivers/gpu/drm/tiny/sharp-memory.c        |  3 +--
- drivers/gpu/drm/virtio/virtgpu_plane.c     |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c       |  4 +---
- include/drm/drm_damage_helper.h            |  3 +--
- 13 files changed, 14 insertions(+), 32 deletions(-)
+I think the xe hacks need to be killed and runtime pm
+implemented there *correctly* before we base any common
+code on the xe implementation.
 
-diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
-index fd19c45f2abe..12d5f93eec5f 100644
---- a/drivers/gpu/drm/ast/ast_cursor.c
-+++ b/drivers/gpu/drm/ast/ast_cursor.c
-@@ -251,7 +251,6 @@ static void ast_cursor_plane_helper_atomic_update(struct drm_plane *plane,
- 	struct drm_plane_state *plane_state = drm_atomic_get_new_plane_state(state, plane);
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
- 	struct drm_framebuffer *fb = plane_state->fb;
--	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct ast_device *ast = to_ast_device(plane->dev);
- 	struct drm_rect damage;
- 	u64 dst_off = ast_plane->offset;
-@@ -266,7 +265,7 @@ static void ast_cursor_plane_helper_atomic_update(struct drm_plane *plane,
- 	 * engine to the offset.
- 	 */
- 
--	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &damage)) {
-+	if (drm_atomic_helper_damage_merged(plane_state, &damage)) {
- 		const u8 *argb4444 = ast_cursor_plane_get_argb4444(ast_cursor_plane,
- 								   shadow_plane_state,
- 								   &damage);
-diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-index 28f26234523d..28b847636253 100644
---- a/drivers/gpu/drm/drm_damage_helper.c
-+++ b/drivers/gpu/drm/drm_damage_helper.c
-@@ -296,7 +296,6 @@ EXPORT_SYMBOL(drm_atomic_helper_damage_iter_next);
- 
- /**
-  * drm_atomic_helper_damage_merged - Merged plane damage
-- * @old_state: Old plane state for validation.
-  * @state: Plane state from which to iterate the damage clips.
-  * @rect: Returns the merged damage rectangle
-  *
-@@ -309,8 +308,7 @@ EXPORT_SYMBOL(drm_atomic_helper_damage_iter_next);
-  * Returns:
-  * True if there is valid plane damage otherwise false.
-  */
--bool drm_atomic_helper_damage_merged(const struct drm_plane_state *old_state,
--				     const struct drm_plane_state *state,
-+bool drm_atomic_helper_damage_merged(const struct drm_plane_state *state,
- 				     struct drm_rect *rect)
- {
- 	struct drm_atomic_helper_damage_iter iter;
-diff --git a/drivers/gpu/drm/drm_mipi_dbi.c b/drivers/gpu/drm/drm_mipi_dbi.c
-index 25cf04d029f7..4da201c38c93 100644
---- a/drivers/gpu/drm/drm_mipi_dbi.c
-+++ b/drivers/gpu/drm/drm_mipi_dbi.c
-@@ -380,7 +380,6 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
- 	struct drm_plane_state *plane_state = plane->state;
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
- 	struct drm_framebuffer *fb = plane_state->fb;
--	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct drm_rect rect;
- 	int idx;
- 
-@@ -388,7 +387,7 @@ void drm_mipi_dbi_plane_helper_atomic_update(struct drm_plane *plane,
- 		return;
- 
- 	if (drm_dev_enter(plane->dev, &idx)) {
--		if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
-+		if (drm_atomic_helper_damage_merged(plane_state, &rect))
- 			mipi_dbi_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
- 					  &shadow_plane_state->fmtcnv_state);
- 		drm_dev_exit(idx);
-diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
-index a1f9558d53af..f4ef23dee26e 100644
---- a/drivers/gpu/drm/i915/display/intel_plane.c
-+++ b/drivers/gpu/drm/i915/display/intel_plane.c
-@@ -346,7 +346,6 @@ static void intel_plane_clear_hw_state(struct intel_plane_state *plane_state)
- 
- static void
- intel_plane_copy_uapi_plane_damage(struct intel_plane_state *new_plane_state,
--				   const struct intel_plane_state *old_uapi_plane_state,
- 				   const struct intel_plane_state *new_uapi_plane_state)
- {
- 	struct intel_display *display = to_intel_display(new_plane_state);
-@@ -356,10 +355,9 @@ intel_plane_copy_uapi_plane_damage(struct intel_plane_state *new_plane_state,
- 	if (DISPLAY_VER(display) < 12)
- 		return;
- 
--	if (!drm_atomic_helper_damage_merged(&old_uapi_plane_state->uapi,
--					     &new_uapi_plane_state->uapi,
-+	if (!drm_atomic_helper_damage_merged(&new_uapi_plane_state->uapi,
- 					     damage))
--		/* Incase helper fails, mark whole plane region as damage */
-+		/* In case the helper fails, mark whole plane region as damage */
- 		*damage = drm_plane_state_src(&new_uapi_plane_state->uapi);
- }
- 
-@@ -815,7 +813,6 @@ static int plane_atomic_check(struct intel_atomic_state *state,
- 	const struct intel_plane_state *old_plane_state =
- 		intel_atomic_get_old_plane_state(state, plane);
- 	const struct intel_plane_state *new_primary_crtc_plane_state;
--	const struct intel_plane_state *old_primary_crtc_plane_state;
- 	struct intel_crtc *crtc = intel_crtc_for_pipe(display, plane->pipe);
- 	const struct intel_crtc_state *old_crtc_state =
- 		intel_atomic_get_old_crtc_state(state, crtc);
-@@ -830,15 +827,11 @@ static int plane_atomic_check(struct intel_atomic_state *state,
- 
- 		new_primary_crtc_plane_state =
- 			intel_atomic_get_new_plane_state(state, primary_crtc_plane);
--		old_primary_crtc_plane_state =
--			intel_atomic_get_old_plane_state(state, primary_crtc_plane);
- 	} else {
- 		new_primary_crtc_plane_state = new_plane_state;
--		old_primary_crtc_plane_state = old_plane_state;
- 	}
- 
- 	intel_plane_copy_uapi_plane_damage(new_plane_state,
--					   old_primary_crtc_plane_state,
- 					   new_primary_crtc_plane_state);
- 
- 	intel_plane_copy_uapi_to_hw_state(new_plane_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 9382ad1e01d8..073eb296236d 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3015,8 +3015,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		src = drm_plane_state_src(&new_plane_state->uapi);
- 		drm_rect_fp_to_int(&src, &src);
- 
--		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
--						     &new_plane_state->uapi, &damaged_area))
-+		if (!drm_atomic_helper_damage_merged(&new_plane_state->uapi, &damaged_area))
- 			continue;
- 
- 		damaged_area.y1 += new_plane_state->uapi.dst.y1 - src.y1;
-diff --git a/drivers/gpu/drm/sitronix/st7586.c b/drivers/gpu/drm/sitronix/st7586.c
-index 28b2245f6b79..2cc0312595a4 100644
---- a/drivers/gpu/drm/sitronix/st7586.c
-+++ b/drivers/gpu/drm/sitronix/st7586.c
-@@ -176,7 +176,6 @@ static void st7586_plane_helper_atomic_update(struct drm_plane *plane,
- 	struct drm_plane_state *plane_state = plane->state;
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
- 	struct drm_framebuffer *fb = plane_state->fb;
--	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct drm_rect rect;
- 	int idx;
- 
-@@ -186,7 +185,7 @@ static void st7586_plane_helper_atomic_update(struct drm_plane *plane,
- 	if (!drm_dev_enter(plane->dev, &idx))
- 		return;
- 
--	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
-+	if (drm_atomic_helper_damage_merged(plane_state, &rect))
- 		st7586_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
- 				&shadow_plane_state->fmtcnv_state);
- 
-diff --git a/drivers/gpu/drm/tiny/gm12u320.c b/drivers/gpu/drm/tiny/gm12u320.c
-index d73dfebb4353..880b965e283a 100644
---- a/drivers/gpu/drm/tiny/gm12u320.c
-+++ b/drivers/gpu/drm/tiny/gm12u320.c
-@@ -582,7 +582,7 @@ static void gm12u320_pipe_update(struct drm_simple_display_pipe *pipe,
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
- 	struct drm_rect rect;
- 
--	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
-+	if (drm_atomic_helper_damage_merged(state, &rect))
- 		gm12u320_fb_mark_dirty(state->fb, &shadow_plane_state->data[0], &rect);
- }
- 
-diff --git a/drivers/gpu/drm/tiny/ili9225.c b/drivers/gpu/drm/tiny/ili9225.c
-index 5bf52a8fd75b..d821a659a585 100644
---- a/drivers/gpu/drm/tiny/ili9225.c
-+++ b/drivers/gpu/drm/tiny/ili9225.c
-@@ -185,7 +185,6 @@ static void ili9225_plane_helper_atomic_update(struct drm_plane *plane,
- 	struct drm_plane_state *plane_state = plane->state;
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
- 	struct drm_framebuffer *fb = plane_state->fb;
--	struct drm_plane_state *old_plane_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct drm_rect rect;
- 	int idx;
- 
-@@ -195,7 +194,7 @@ static void ili9225_plane_helper_atomic_update(struct drm_plane *plane,
- 	if (!drm_dev_enter(drm, &idx))
- 		return;
- 
--	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect))
-+	if (drm_atomic_helper_damage_merged(plane_state, &rect))
- 		ili9225_fb_dirty(&shadow_plane_state->data[0], fb, &rect,
- 				 &shadow_plane_state->fmtcnv_state);
- 
-diff --git a/drivers/gpu/drm/tiny/repaper.c b/drivers/gpu/drm/tiny/repaper.c
-index c8270591afc7..531831d2b73f 100644
---- a/drivers/gpu/drm/tiny/repaper.c
-+++ b/drivers/gpu/drm/tiny/repaper.c
-@@ -837,7 +837,7 @@ static void repaper_pipe_update(struct drm_simple_display_pipe *pipe,
- 	if (!pipe->crtc.state->active)
- 		return;
- 
--	if (drm_atomic_helper_damage_merged(old_state, state, &rect))
-+	if (drm_atomic_helper_damage_merged(state, &rect))
- 		repaper_fb_dirty(state->fb, shadow_plane_state->data,
- 				 &shadow_plane_state->fmtcnv_state);
- }
-diff --git a/drivers/gpu/drm/tiny/sharp-memory.c b/drivers/gpu/drm/tiny/sharp-memory.c
-index 506e6432e70d..1dacd41ddbaa 100644
---- a/drivers/gpu/drm/tiny/sharp-memory.c
-+++ b/drivers/gpu/drm/tiny/sharp-memory.c
-@@ -241,7 +241,6 @@ static int sharp_memory_plane_atomic_check(struct drm_plane *plane,
- static void sharp_memory_plane_atomic_update(struct drm_plane *plane,
- 					     struct drm_atomic_commit *state)
- {
--	struct drm_plane_state *old_state = drm_atomic_get_old_plane_state(state, plane);
- 	struct drm_plane_state *plane_state = plane->state;
- 	struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(plane_state);
- 	struct sharp_memory_device *smd;
-@@ -251,7 +250,7 @@ static void sharp_memory_plane_atomic_update(struct drm_plane *plane,
- 	if (!smd->crtc.state->active)
- 		return;
- 
--	if (drm_atomic_helper_damage_merged(old_state, plane_state, &rect))
-+	if (drm_atomic_helper_damage_merged(plane_state, &rect))
- 		sharp_memory_fb_dirty(plane_state->fb, shadow_plane_state->data,
- 				      &rect, &shadow_plane_state->fmtcnv_state);
- }
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 1d1b27ece62a..4728047315a2 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -260,7 +260,7 @@ static void virtio_gpu_primary_plane_update(struct drm_plane *plane,
- 		return;
- 	}
- 
--	if (!drm_atomic_helper_damage_merged(old_state, plane->state, &rect))
-+	if (!drm_atomic_helper_damage_merged(plane->state, &rect))
- 		return;
- 
- 	bo = gem_to_virtio_gpu_obj(plane->state->fb->obj[0]);
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-index 4139837f4caf..f0df2b1c8465 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-@@ -977,7 +977,6 @@ vmw_stdu_primary_plane_prepare_fb(struct drm_plane *plane,
- 	enum stdu_content_type new_content_type;
- 	struct vmw_framebuffer_surface *new_vfbs;
- 	uint32_t hdisplay = new_state->crtc_w, vdisplay = new_state->crtc_h;
--	struct drm_plane_state *old_state = plane->state;
- 	struct drm_rect rect;
- 	int ret;
- 
-@@ -1101,8 +1100,7 @@ vmw_stdu_primary_plane_prepare_fb(struct drm_plane *plane,
- 		struct vmw_surface *surf = vmw_user_object_surface(&vps->uo);
- 		struct vmw_resource *res = &surf->res;
- 
--		if (!res->res_dirty && drm_atomic_helper_damage_merged(old_state,
--								       new_state,
-+		if (!res->res_dirty && drm_atomic_helper_damage_merged(new_state,
- 								       &rect)) {
- 			/*
- 			 * At some point it might be useful to actually translate
-diff --git a/include/drm/drm_damage_helper.h b/include/drm/drm_damage_helper.h
-index fafe29b50fc6..b5a4de779db6 100644
---- a/include/drm/drm_damage_helper.h
-+++ b/include/drm/drm_damage_helper.h
-@@ -77,8 +77,7 @@ drm_atomic_helper_damage_iter_init(struct drm_atomic_helper_damage_iter *iter,
- bool
- drm_atomic_helper_damage_iter_next(struct drm_atomic_helper_damage_iter *iter,
- 				   struct drm_rect *rect);
--bool drm_atomic_helper_damage_merged(const struct drm_plane_state *old_state,
--				     const struct drm_plane_state *state,
-+bool drm_atomic_helper_damage_merged(const struct drm_plane_state *state,
- 				     struct drm_rect *rect);
- 
- #endif
+We should perhaps start from the i915 implementation
+instead. That might help properly highlight all the
+bogus things that xe is doing.
+
+> +
+> +	intel_display_flush_cleanup_work(display);
+> +
+> +	intel_opregion_suspend(display, PCI_D3cold);
+> +
+> +	intel_dmc_suspend(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		intel_hpd_poll_enable(display);
+> +}
+> +
+> +void intel_display_driver_pm_disable_d3cold(struct intel_display *display)
+> +{
+> +	intel_dmc_resume(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		drm_mode_config_reset(display->drm);
+> +
+> +	intel_display_driver_init_hw(display);
+> +
+> +	intel_hpd_init(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		intel_hpd_poll_disable(display);
+> +
+> +	intel_opregion_resume(display);
+> +
+> +	intel_display_power_enable(display);
+> +}
+> +
+> +void intel_display_driver_pm_suspend(struct intel_display *display)
+> +{
+> +	bool s2idle = suspend_to_idle();
+> +
+> +	/*
+> +	 * We do a lot of poking in a lot of registers, make sure they work
+> +	 * properly.
+> +	 */
+> +	intel_display_power_disable(display);
+> +	drm_client_dev_suspend(display->drm);
+> +
+> +	if (intel_display_device_present(display)) {
+> +		drm_kms_helper_poll_disable(display->drm);
+> +		intel_display_driver_disable_user_access(display);
+> +		intel_display_driver_suspend(display);
+> +	}
+> +
+> +	intel_display_flush_cleanup_work(display);
+> +
+> +	intel_encoder_block_all_hpds(display);
+> +
+> +	intel_hpd_cancel_work(display);
+> +
+> +	if (intel_display_device_present(display)) {
+> +		intel_display_driver_suspend_access(display);
+> +		intel_encoder_suspend_all(display);
+> +	}
+> +
+> +	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
+> +
+> +	intel_dmc_suspend(display);
+> +}
+> +
+> +void intel_display_driver_pm_suspend_late(struct intel_display *display)
+> +{
+> +	bool s2idle = suspend_to_idle();
+> +
+> +	intel_display_power_suspend_late(display, s2idle);
+> +}
+> +
+> +void intel_display_driver_pm_resume_early(struct intel_display *display)
+> +{
+> +	intel_display_power_resume_early(display);
+> +}
+> +
+> +void intel_display_driver_pm_resume(struct intel_display *display)
+> +{
+> +	intel_dmc_resume(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		drm_mode_config_reset(display->drm);
+> +
+> +	intel_display_driver_init_hw(display);
+> +
+> +	if (intel_display_device_present(display))
+> +		intel_display_driver_resume_access(display);
+> +
+> +	intel_hpd_init(display);
+> +
+> +	intel_encoder_unblock_all_hpds(display);
+> +
+> +	if (intel_display_device_present(display)) {
+> +		intel_display_driver_resume(display);
+> +		drm_kms_helper_poll_enable(display->drm);
+> +		intel_display_driver_enable_user_access(display);
+> +	}
+> +
+> +	if (intel_display_device_present(display))
+> +		intel_hpd_poll_disable(display);
+> +
+> +	intel_opregion_resume(display);
+> +
+> +	drm_client_dev_resume(display->drm);
+> +
+> +	intel_display_power_enable(display);
+> +}
+> +
+> +void intel_display_driver_pm_runtime_suspend(struct intel_display *display)
+> +{
+> +	intel_hpd_poll_enable(display);
+> +}
+> +
+> +void intel_display_driver_pm_runtime_suspend_late(struct intel_display *display)
+> +{
+> +	/*
+> +	 * If xe_display_pm_suspend_late() is not called, it is likely
+> +	 * that we will be on dynamic DC states with DMC wakelock enabled. We
+> +	 * need to flush the release work in that case.
+> +	 */
+> +	intel_dmc_wl_flush_release_work(display);
+> +}
+> +
+> +void intel_display_driver_pm_runtime_resume(struct intel_display *display)
+> +{
+> +	intel_hpd_init(display);
+> +	intel_hpd_poll_disable(display);
+> +	skl_watermark_ipc_update(display);
+> +}
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.h b/drivers/gpu/drm/i915/display/intel_display_driver.h
+> index 5270c26a32e0..e4ce17efe793 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.h
+> @@ -26,6 +26,8 @@ void intel_display_driver_remove_nogem(struct intel_display *display);
+>  void intel_display_driver_unregister(struct intel_display *display);
+>  int intel_display_driver_suspend(struct intel_display *display);
+>  void intel_display_driver_resume(struct intel_display *display);
+> +void intel_display_driver_shutdown(struct intel_display *display);
+> +void intel_display_driver_shutdown_late(struct intel_display *display);
+>  
+>  /* interface for intel_display_reset.c */
+>  int __intel_display_driver_resume(struct intel_display *display,
+> @@ -38,5 +40,15 @@ void intel_display_driver_suspend_access(struct intel_display *display);
+>  void intel_display_driver_resume_access(struct intel_display *display);
+>  bool intel_display_driver_check_access(struct intel_display *display);
+>  
+> +void intel_display_driver_pm_enable_d3cold(struct intel_display *display);
+> +void intel_display_driver_pm_disable_d3cold(struct intel_display *display);
+> +void intel_display_driver_pm_suspend(struct intel_display *display);
+> +void intel_display_driver_pm_suspend_late(struct intel_display *display);
+> +void intel_display_driver_pm_resume_early(struct intel_display *display);
+> +void intel_display_driver_pm_resume(struct intel_display *display);
+> +void intel_display_driver_pm_runtime_suspend(struct intel_display *display);
+> +void intel_display_driver_pm_runtime_suspend_late(struct intel_display *display);
+> +void intel_display_driver_pm_runtime_resume(struct intel_display *display);
+> +
+>  #endif /* __INTEL_DISPLAY_DRIVER_H__ */
+>  
+> diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+> index a18af4d96dd1..6aba5668e4df 100644
+> --- a/drivers/gpu/drm/xe/display/xe_display.c
+> +++ b/drivers/gpu/drm/xe/display/xe_display.c
+> @@ -6,36 +6,22 @@
+>  #include "xe_display.h"
+>  #include "regs/xe_irq_regs.h"
+>  
+> -#include <linux/fb.h>
+> -
+> -#include <drm/drm_client.h>
+> -#include <drm/drm_client_event.h>
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_managed.h>
+> -#include <drm/drm_probe_helper.h>
+>  #include <drm/intel/display_member.h>
+>  #include <drm/intel/display_parent_interface.h>
+> -#include <uapi/drm/xe_drm.h>
+>  
+> -#include "intel_acpi.h"
+>  #include "intel_audio.h"
+>  #include "intel_bw.h"
+> -#include "intel_display.h"
+> -#include "intel_display_core.h"
+>  #include "intel_display_device.h"
+>  #include "intel_display_driver.h"
+>  #include "intel_display_irq.h"
+> -#include "intel_display_types.h"
+> -#include "intel_dmc.h"
+> -#include "intel_dmc_wl.h"
+> -#include "intel_dp.h"
+> +#include "intel_display_power.h"
+>  #include "intel_dram.h"
+> -#include "intel_encoder.h"
+>  #include "intel_fbdev.h"
+>  #include "intel_hdcp.h"
+>  #include "intel_hotplug.h"
+>  #include "intel_opregion.h"
+> -#include "skl_watermark.h"
+>  #include "xe_device.h"
+>  #include "xe_display_bo.h"
+>  #include "xe_display_pcode.h"
+> @@ -235,97 +221,14 @@ void xe_display_irq_postinstall(struct xe_device *xe)
+>  	intel_display_irq_postinstall(display);
+>  }
+>  
+> -static bool suspend_to_idle(void)
+> -{
+> -#if IS_ENABLED(CONFIG_ACPI_SLEEP)
+> -	if (acpi_target_system_state() < ACPI_STATE_S3)
+> -		return true;
+> -#endif
+> -	return false;
+> -}
+> -
+> -static void xe_display_enable_d3cold(struct xe_device *xe)
+> -{
+> -	struct intel_display *display = xe->display;
+> -
+> -	if (!xe->info.probe_display)
+> -		return;
+> -
+> -	/*
+> -	 * We do a lot of poking in a lot of registers, make sure they work
+> -	 * properly.
+> -	 */
+> -	intel_display_power_disable(display);
+> -
+> -	intel_display_flush_cleanup_work(display);
+> -
+> -	intel_opregion_suspend(display, PCI_D3cold);
+> -
+> -	intel_dmc_suspend(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		intel_hpd_poll_enable(display);
+> -}
+> -
+> -static void xe_display_disable_d3cold(struct xe_device *xe)
+> -{
+> -	struct intel_display *display = xe->display;
+> -
+> -	if (!xe->info.probe_display)
+> -		return;
+> -
+> -	intel_dmc_resume(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		drm_mode_config_reset(&xe->drm);
+> -
+> -	intel_display_driver_init_hw(display);
+> -
+> -	intel_hpd_init(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		intel_hpd_poll_disable(display);
+> -
+> -	intel_opregion_resume(display);
+> -
+> -	intel_display_power_enable(display);
+> -}
+> -
+>  void xe_display_pm_suspend(struct xe_device *xe)
+>  {
+>  	struct intel_display *display = xe->display;
+> -	bool s2idle = suspend_to_idle();
+>  
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	/*
+> -	 * We do a lot of poking in a lot of registers, make sure they work
+> -	 * properly.
+> -	 */
+> -	intel_display_power_disable(display);
+> -	drm_client_dev_suspend(&xe->drm);
+> -
+> -	if (intel_display_device_present(display)) {
+> -		drm_kms_helper_poll_disable(&xe->drm);
+> -		intel_display_driver_disable_user_access(display);
+> -		intel_display_driver_suspend(display);
+> -	}
+> -
+> -	intel_display_flush_cleanup_work(display);
+> -
+> -	intel_encoder_block_all_hpds(display);
+> -
+> -	intel_hpd_cancel_work(display);
+> -
+> -	if (intel_display_device_present(display)) {
+> -		intel_display_driver_suspend_access(display);
+> -		intel_encoder_suspend_all(display);
+> -	}
+> -
+> -	intel_opregion_suspend(display, s2idle ? PCI_D1 : PCI_D3cold);
+> -
+> -	intel_dmc_suspend(display);
+> +	intel_display_driver_pm_suspend(display);
+>  }
+>  
+>  void xe_display_shutdown(struct xe_device *xe)
+> @@ -335,29 +238,7 @@ void xe_display_shutdown(struct xe_device *xe)
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	intel_display_power_disable(display);
+> -	drm_client_dev_suspend(&xe->drm);
+> -
+> -	if (intel_display_device_present(display)) {
+> -		drm_kms_helper_poll_disable(&xe->drm);
+> -		intel_display_driver_disable_user_access(display);
+> -		intel_display_driver_suspend(display);
+> -	}
+> -
+> -	intel_display_flush_cleanup_work(display);
+> -	intel_dp_mst_suspend(display);
+> -	intel_encoder_block_all_hpds(display);
+> -	intel_hpd_cancel_work(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		intel_display_driver_suspend_access(display);
+> -
+> -	intel_encoder_suspend_all(display);
+> -	intel_encoder_shutdown_all(display);
+> -
+> -	intel_opregion_suspend(display, PCI_D3cold);
+> -
+> -	intel_dmc_suspend(display);
+> +	intel_display_driver_shutdown(display);
+>  }
+>  
+>  void xe_display_pm_runtime_suspend(struct xe_device *xe)
+> @@ -368,22 +249,21 @@ void xe_display_pm_runtime_suspend(struct xe_device *xe)
+>  		return;
+>  
+>  	if (xe->d3cold.allowed) {
+> -		xe_display_enable_d3cold(xe);
+> +		intel_display_driver_pm_enable_d3cold(display);
+>  		return;
+>  	}
+>  
+> -	intel_hpd_poll_enable(display);
+> +	intel_display_driver_pm_runtime_suspend(display);
+>  }
+>  
+>  void xe_display_pm_suspend_late(struct xe_device *xe)
+>  {
+>  	struct intel_display *display = xe->display;
+> -	bool s2idle = suspend_to_idle();
+>  
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	intel_display_power_suspend_late(display, s2idle);
+> +	intel_display_driver_pm_suspend_late(display);
+>  }
+>  
+>  void xe_display_pm_runtime_suspend_late(struct xe_device *xe)
+> @@ -394,14 +274,9 @@ void xe_display_pm_runtime_suspend_late(struct xe_device *xe)
+>  		return;
+>  
+>  	if (xe->d3cold.allowed)
+> -		xe_display_pm_suspend_late(xe);
+> +		intel_display_driver_pm_suspend_late(display);
+>  
+> -	/*
+> -	 * If xe_display_pm_suspend_late() is not called, it is likely
+> -	 * that we will be on dynamic DC states with DMC wakelock enabled. We
+> -	 * need to flush the release work in that case.
+> -	 */
+> -	intel_dmc_wl_flush_release_work(display);
+> +	intel_display_driver_pm_runtime_suspend_late(display);
+>  }
+>  
+>  void xe_display_shutdown_late(struct xe_device *xe)
+> @@ -411,12 +286,7 @@ void xe_display_shutdown_late(struct xe_device *xe)
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	/*
+> -	 * The only requirement is to reboot with display DC states disabled,
+> -	 * for now leaving all display power wells in the INIT power domain
+> -	 * enabled.
+> -	 */
+> -	intel_display_power_driver_remove(display);
+> +	intel_display_driver_shutdown_late(display);
+>  }
+>  
+>  void xe_display_pm_resume_early(struct xe_device *xe)
+> @@ -426,7 +296,7 @@ void xe_display_pm_resume_early(struct xe_device *xe)
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	intel_display_power_resume_early(display);
+> +	intel_display_driver_pm_resume_early(display);
+>  }
+>  
+>  void xe_display_pm_resume(struct xe_device *xe)
+> @@ -436,34 +306,7 @@ void xe_display_pm_resume(struct xe_device *xe)
+>  	if (!xe->info.probe_display)
+>  		return;
+>  
+> -	intel_dmc_resume(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		drm_mode_config_reset(&xe->drm);
+> -
+> -	intel_display_driver_init_hw(display);
+> -
+> -	if (intel_display_device_present(display))
+> -		intel_display_driver_resume_access(display);
+> -
+> -	intel_hpd_init(display);
+> -
+> -	intel_encoder_unblock_all_hpds(display);
+> -
+> -	if (intel_display_device_present(display)) {
+> -		intel_display_driver_resume(display);
+> -		drm_kms_helper_poll_enable(&xe->drm);
+> -		intel_display_driver_enable_user_access(display);
+> -	}
+> -
+> -	if (intel_display_device_present(display))
+> -		intel_hpd_poll_disable(display);
+> -
+> -	intel_opregion_resume(display);
+> -
+> -	drm_client_dev_resume(&xe->drm);
+> -
+> -	intel_display_power_enable(display);
+> +	intel_display_driver_pm_resume(display);
+>  }
+>  
+>  void xe_display_pm_runtime_resume(struct xe_device *xe)
+> @@ -474,13 +317,11 @@ void xe_display_pm_runtime_resume(struct xe_device *xe)
+>  		return;
+>  
+>  	if (xe->d3cold.allowed) {
+> -		xe_display_disable_d3cold(xe);
+> +		intel_display_driver_pm_disable_d3cold(display);
+>  		return;
+>  	}
+>  
+> -	intel_hpd_init(display);
+> -	intel_hpd_poll_disable(display);
+> -	skl_watermark_ipc_update(display);
+> +	intel_display_driver_pm_runtime_resume(display);
+>  }
+>  
+>  
+> -- 
+> 2.47.3
+
 -- 
-2.54.0
-
+Ville Syrjälä
+Intel
