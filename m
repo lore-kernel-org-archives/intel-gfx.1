@@ -4,27 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15407CD5BD5
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 12:56:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FABCCD5BD0
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 13:06:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9009D10E266;
-	Wed, 27 May 2026 12:56:48 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE2110E266;
- Wed, 27 May 2026 12:56:47 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5916914827513605719=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id A945B10E7C3;
+	Wed, 27 May 2026 13:06:33 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BXVZdy+b";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F5B10E7B4;
+ Wed, 27 May 2026 13:06:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1779887192; x=1811423192;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eAAv9pFpAFZKh3mc08x6245C/O5qmDdlqFl7efGK6aU=;
+ b=BXVZdy+bWi/LJ/UrEcnmMd1vh4R9yl/1hQ+hzDcV0JqqtriT9qALXVbL
+ JkcgjHooNSFWP999dF0MMak8d/8hyLAHj9pxH+y6fmvRdsFyheYc86/Ht
+ rUgWs61uyi8taddtpRlbm/lDOHb6ubtLUa08Rm4hkHS7yaYJdag7HkzyU
+ nCnOf81Y+6xnivixWgZ7kbkpNcAmw4OKExLUniW3NaVnjTBCFCrzd+8RP
+ smIpuRL8QMggDcTOAVh6syTJYGKatqEjnqZvPzxIf4zx2VMhCX63JwBdy
+ 37LfzyCCQuYAuECEvxwq4UyDJ4LfOyyi06GC/2erau49el0UPi6R2x0+O Q==;
+X-CSE-ConnectionGUID: 5IJ1AxYGSj22q8DvIvFUfQ==
+X-CSE-MsgGUID: AxDSsKHoRu6ADufcpGmsRA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="79751338"
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="79751338"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 May 2026 06:06:31 -0700
+X-CSE-ConnectionGUID: wgr7nTtdRn61dhHQ7G82UA==
+X-CSE-MsgGUID: /BW8VKw+TBCY9k/WLa49Fw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; d="scan'208";a="246512502"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.38])
+ by orviesa004-auth.jf.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 May 2026 06:06:29 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH 0/3] drm/{i915,
+ xe}: relocate shutdown and pm hooks from xe to display
+Date: Wed, 27 May 2026 16:06:23 +0300
+Message-ID: <cover.1779887154.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_DSC_max_delta_bpp_support?=
- =?utf-8?q?_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nemesa Garg" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 27 May 2026 12:56:47 -0000
-Message-ID: <177988660744.15289.842048370755118259@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260527110849.3943338-1-nemesa.garg@intel.com>
-In-Reply-To: <20260527110849.3943338-1-nemesa.garg@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +66,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5916914827513605719==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 
-== Series Details ==
+Jani Nikula (3):
+  drm/xe/display: rename xe_display_pm_shutdown*() to
+    xe_display_shutdown*()
+  drm/{i915,xe}: move xe display shutdown and pm hooks to
+    intel_display_driver.c
+  drm/i915/display: move d3cold allowed handling to parent interface
 
-Series: DSC max delta bpp support (rev3)
-URL   : https://patchwork.freedesktop.org/series/165143/
-State : success
+ .../drm/i915/display/intel_display_driver.c   | 203 +++++++++++++++++
+ .../drm/i915/display/intel_display_driver.h   |  10 +
+ drivers/gpu/drm/i915/display/intel_parent.c   |   5 +
+ drivers/gpu/drm/i915/display/intel_parent.h   |   1 +
+ drivers/gpu/drm/xe/display/xe_display.c       | 204 ++----------------
+ drivers/gpu/drm/xe/display/xe_display.h       |  10 +-
+ drivers/gpu/drm/xe/xe_device.c                |   4 +-
+ include/drm/intel/display_parent_interface.h  |   3 +
+ 8 files changed, 250 insertions(+), 190 deletions(-)
 
-== Summary ==
+-- 
+2.47.3
 
-CI Bug Log - changes from CI_DRM_18560 -> Patchwork_165143v3
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165143v3/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18560 -> Patchwork_165143v3
-
-  CI-20190529: 20190529
-  CI_DRM_18560: 971288d0e77f7a0d356287121ce549ab5dad570a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8938: b024a3b67372962ff6e643d3998c5cf5acc07081 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_165143v3: 971288d0e77f7a0d356287121ce549ab5dad570a @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165143v3/index.html
-
---===============5916914827513605719==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>DSC max delta bpp support (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/165143/">https://patchwork.freedesktop.org/series/165143/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165143v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165143v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18560 -&gt; Patchwork_165143v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165143v3/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18560 -&gt; Patchwork_165143v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18560: 971288d0e77f7a0d356287121ce549ab5dad570a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8938: b024a3b67372962ff6e643d3998c5cf5acc07081 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_165143v3: 971288d0e77f7a0d356287121ce549ab5dad570a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5916914827513605719==--
