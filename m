@@ -4,48 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2AFCCD6E43
-	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 19:00:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31D0CD6E4B
+	for <intel-gfx@archiver.kernel.org>; Wed, 27 May 2026 19:00:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59FC310E928;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD32110E944;
 	Wed, 27 May 2026 19:00:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kQ2hzh7v";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h0thJdLT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EE7310E937;
- Wed, 27 May 2026 19:00:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95FDE10E945;
+ Wed, 27 May 2026 19:00:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1779908444; x=1811444444;
+ t=1779908449; x=1811444449;
  h=from:to:subject:date:message-id:in-reply-to:references:
  mime-version:content-transfer-encoding;
- bh=m6ENMEOndhvWvCPY713OuGNdOIVZHnyS7w9tl8eLHTg=;
- b=kQ2hzh7vSGY2oXyFO3/dY9ncmEI9xWyJtBG/Gp8FRDcUOisnST2O71eH
- CXtI4iXWzmtuz7fR6BoBmqLEFxpBQ7QctEfnNzl87EkDwnnkv28RKX1nv
- TD6o0mawj4HLfS/F657rx5W5KuYQuRGXYEEhJxxStVfGUBPxEtsFy54rS
- wj/+ygh/hYWcIR6uBhlY+U/W1vH8qdWpNlM5YI5llbQwmU0uSiq55UHMf
- w41pBh5c6bFjcEBLTOK4ir4Yj+BcNEGKua2dSsYjsU+pUdgMjwP9UD0fe
- JRsAg8tlthOI/jnfdJpEP1Md80uWKF4Mwl6PWb7Apx8i5CCw9bHbiO53E Q==;
-X-CSE-ConnectionGUID: j/UZnOMbRTeg+UCDF3U2mg==
-X-CSE-MsgGUID: PXz1u6HARv+ZQCng0h73Bw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="80602143"
-X-IronPort-AV: E=Sophos;i="6.24,172,1774335600"; d="scan'208";a="80602143"
+ bh=uELendxsGHmmIZpsJg3xz1a42I3EU5h+66kmOfu2qos=;
+ b=h0thJdLT4uN81/lFk01VPkYH9/nnl4dL8AlI9kmiqEhPINVff7ocFqhX
+ +nXUrKFle+9WAe4ImMr0+IAWys6cbQ8SsF6CGAFOir8bomN20ql5Nz1GK
+ /rgiZUB/HSKtAha0/tmYPt0DsFTtNkLKeuY+ExPAoPSFiP/WbzfzNw8hT
+ P8heSLZPwFdJDODpihFUaY4jgxg1GpBTQi755o5hXcMzfpU8l1cEMsnRB
+ kSvIeO4aSYjpkB7Kkf12jjoo+E5lPZb/x3cH5PRoZQ2EM/BY5FBvWcn5f
+ yr9KwcE4Y3P3bygIfSAygifK4zBH8DDJr6oyzuJ7/j0QeNaAMaYoSUzHu g==;
+X-CSE-ConnectionGUID: 2+ezgCWiS2qGBhX0LiLhrw==
+X-CSE-MsgGUID: EwB/W8bdTYOMgWZ7YMGfOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="80602152"
+X-IronPort-AV: E=Sophos;i="6.24,172,1774335600"; d="scan'208";a="80602152"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 12:00:43 -0700
-X-CSE-ConnectionGUID: 5gTbqqvYSAKnIFILQmyLKA==
-X-CSE-MsgGUID: o1Tp/sKrTt2ACEPlqw+FyQ==
+ 27 May 2026 12:00:48 -0700
+X-CSE-ConnectionGUID: 0Ufz2vfLQvW1918VnhWPjA==
+X-CSE-MsgGUID: gsYx8K9uRuOSohH+v4Vjmg==
 X-ExtLoop1: 1
 Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 May 2026 12:00:42 -0700
+ 27 May 2026 12:00:47 -0700
 From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [CI 09/17] drm/i915/display: Store DC3CO eligibility in PSR state
-Date: Thu, 28 May 2026 00:29:56 +0530
-Message-ID: <20260527190004.118730-10-dibin.moolakadan.subrahmanian@intel.com>
+Subject: [CI 13/17] drm/i915/display: Add helper to enable DC counter
+Date: Thu, 28 May 2026 00:30:00 +0530
+Message-ID: <20260527190004.118730-14-dibin.moolakadan.subrahmanian@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260527190004.118730-1-dibin.moolakadan.subrahmanian@intel.com>
 References: <20260527190004.118730-1-dibin.moolakadan.subrahmanian@intel.com>
@@ -66,75 +66,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Store DC3CO eligibility in intel_dp->psr during
-intel_psr_post_plane_update() so PSR configuration
-can take DC3CO into account.
-
-This will be used to control PSR2 parameters such as idle frames.
-
-Changes in v2:
-- Use intel_display_power_dc3co_allowed(display) instead
-  of intel_dc3co_allowed(state)
-
-Changes in v4:
-- Update psr.dc3co_eligible before
-  intel_psr_enable_locked() call (sashiko)
+Add xe3lpd_enable_dc_count() to enable the DC_COUNT_EN register.
+Also define DC_STATE_DC3CO_RESIDENCY to read DC3CO residency.
+Needed to retrieve DC residency for DC3CO.
 
 Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h | 2 ++
- drivers/gpu/drm/i915/display/intel_psr.c           | 7 +++++++
- 2 files changed, 9 insertions(+)
+ drivers/gpu/drm/i915/display/intel_display_power_well.c | 5 +++++
+ drivers/gpu/drm/i915/display/intel_display_power_well.h | 1 +
+ drivers/gpu/drm/i915/display/intel_display_regs.h       | 5 +++++
+ drivers/gpu/drm/i915/display/intel_dmc.c                | 3 +++
+ 4 files changed, 14 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 156e52aa1bab..d6c2dd40949e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1774,6 +1774,8 @@ struct intel_psr {
- 	ktime_t last_exit;
- 	bool sink_not_reliable;
- 	bool irq_aux_error;
-+	/* DC3CO eligibility used to control PSR configuration */
-+	bool dc3co_eligible;
- 	u16 su_w_granularity;
- 	u16 su_y_granularity;
- 	bool source_panel_replay_support;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 730ca7af7873..d4b294beecef 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2300,6 +2300,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
- 	intel_dp->psr.active_non_psr_pipes = 0;
- 	intel_dp->psr.pkg_c_latency_used = 0;
-+	intel_dp->psr.dc3co_eligible = false;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+index 3ea080d0e21e..0e7e6a2b1547 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
+@@ -866,6 +866,11 @@ void gen9_set_dc_state(struct intel_display *display, u32 state)
+ 	power_domains->dc_state = val & mask;
  }
  
- /**
-@@ -3090,10 +3091,14 @@ void intel_psr_post_plane_update(struct intel_atomic_state *state,
- 	const struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	struct intel_encoder *encoder;
-+	bool dc3co_eligible;
- 
- 	if (!crtc_state->has_psr)
- 		return;
- 
-+	dc3co_eligible = intel_display_power_dc3co_allowed(display) &&
-+			      intel_display_power_dc3co_supported(display);
++void xe3lpd_enable_dc_count(struct intel_display *display)
++{
++	intel_de_write(display, DC_COUNT_EN, DC_COUNT_EN_COUNTER_ENABLE);
++}
 +
- 	verify_panel_replay_dsc_state(crtc_state);
+ static void xe3lpd_enable_dc3co(struct intel_display *display)
+ {
+ 	drm_dbg_kms(display->drm, "Enabling DC3CO\n");
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.h b/drivers/gpu/drm/i915/display/intel_display_power_well.h
+index 8f5524da2d06..0ce64b894436 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power_well.h
++++ b/drivers/gpu/drm/i915/display/intel_display_power_well.h
+@@ -159,6 +159,7 @@ void gen9_set_dc_state(struct intel_display *display, u32 state);
+ void gen9_disable_dc_states(struct intel_display *display);
+ void bxt_enable_dc9(struct intel_display *display);
+ void bxt_disable_dc9(struct intel_display *display);
++void xe3lpd_enable_dc_count(struct intel_display *display);
  
- 	for_each_intel_encoder_mask_with_psr(state->base.dev, encoder,
-@@ -3121,6 +3126,8 @@ void intel_psr_post_plane_update(struct intel_atomic_state *state,
- 			keep_disabled = true;
- 		}
+ extern const struct i915_power_well_ops i9xx_always_on_power_well_ops;
+ extern const struct i915_power_well_ops chv_pipe_power_well_ops;
+diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
+index fee9ce085075..d9efe5b0ba46 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
+@@ -3090,6 +3090,11 @@ enum skl_power_gate {
+ #define  DC_STATE_DEBUG_MASK_CORES	(1 << 0)
+ #define  DC_STATE_DEBUG_MASK_MEMORY_UP	(1 << 1)
  
-+		intel_dp->psr.dc3co_eligible = dc3co_eligible;
++#define DC_COUNT_EN			_MMIO(0x457B4)
++#define DC_COUNT_EN_COUNTER_ENABLE	REG_BIT(31)
 +
- 		if (!psr->enabled && !keep_disabled)
- 			intel_psr_enable_locked(intel_dp, crtc_state);
- 		else if (psr->enabled && !crtc_state->wm_level_disabled)
++#define DC_STATE_DC3CO_RESIDENCY	_MMIO(0x457B8)
++
+ #define D_COMP_BDW			_MMIO(0x138144)
+ 
+ /* Pipe WM_LINETIME - watermark line time */
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index 4785001644f5..a133785c815b 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -941,6 +941,9 @@ void intel_dmc_load_program(struct intel_display *display)
+ 
+ 	gen9_set_dc_state_debugmask(display);
+ 
++	if (DISPLAY_VER(display) >= 35)
++		xe3lpd_enable_dc_count(display);
++
+ 	pipedmc_clock_gating_wa(display, false);
+ }
+ 
 -- 
 2.43.0
 
