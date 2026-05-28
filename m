@@ -4,85 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19FF8CD6E43
-	for <intel-gfx@archiver.kernel.org>; Thu, 28 May 2026 23:17:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 232C6CD6E43
+	for <intel-gfx@archiver.kernel.org>; Thu, 28 May 2026 23:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4AD10F6F3;
-	Thu, 28 May 2026 23:17:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="ez5z8Y3m";
-	dkim-atps=neutral
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBBF10F6F3
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 May 2026 23:17:13 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-4855003fa6cso4612018b6e.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 May 2026 16:17:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1780010232; x=1780615032;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=vTeBdjW8HIH85jcvkS5iTaSEeXnu+jYoMCs0/egef4U=;
- b=ez5z8Y3mMGfO+5w84trHsmLIjAwflHeNv+jLU/258TlNkqJqahpT6NIkWvFC3nSjdo
- NFH6CHrGRzapSvlhRtGuz+gqcwqhAd24qbxHMRxrhTTEV5JFxIq7yiG0hcTmMlCKEcla
- M9tX9/r6FNE78WdGVYs4Qw1Asqw8r5Ch+s/7A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780010232; x=1780615032;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=vTeBdjW8HIH85jcvkS5iTaSEeXnu+jYoMCs0/egef4U=;
- b=GoAvnh13rnwowBT7oQjXYWIaYmbCzdmORZzxTf0cYAGNTUAXynm1rinSTr0gQ9e5aw
- /wlfXbG42vvl+CZID3nUiBGezqF4y3xemZsrMzYiOgYNc7fgg9xTxcOCKxdpoVHySBlA
- lGz3n5UKJNBjHfhNLQpVfP+iXhXiPrCvkWcFDFjSZ8Mo1kw/npb3jcyqLcUsAR4odHPU
- DrKBgDf00CZmev9fNynJbxjmiaZvl+bK5QY/s9Vi7x3vfDXozWCoNN4AmIsPjx4TAEUD
- 7j8yBY7MgS20+t7f7Nv/oOYPOuQongTayCBWd0jKpuRYL0TARoGDNYYjQbSZjE6/Zv++
- +EqA==
-X-Gm-Message-State: AOJu0Yy4cIckl6Chwqa4M5Qk4Gn8imvUvZzMUFr52njkvvzKE2vGWrhl
- b0tFsN3WWahtteu+3dLRXS+8RH5WI6u72o1G06AXh0qbwyom0RYc9uhkerY9pV3xYjOBp/8yJLr
- gQKsc2E96
-X-Gm-Gg: Acq92OFPcjXOZVbL2QEj7ItLKdTjRN4tZ2CtoH6dh4WN8Xn+WwfSf5LMOKkeM5E3yiE
- 8AWKWhL+pNVdxHVIjhD2XCA8GJKFpOr76OdKfk/cSlaD20yeV39Dkg8juvOAX1qbS5dwR7BpqWS
- Fk+cpqrXAcoFVuUuR91/vm1GGSk5YoPUxXiLQCNkcmqLD2d+3XwaY9c74mEBntd4+hC5tmeiOUN
- 8Hr9LPKcUY+vbtVBTfoQ5acc5f0diAeCghHBpTZrPs4cQDpQm+Xr/jPOFzR11SoHvjq+KU7RBZX
- hA31q2s0TxGH4QZOhRj/jL9j3ZIoIWv5KOT6blbkSuoVYjRrCRV5Dtp1YJ7fNfFJk3AY3euflXQ
- BRpR0kBOWRgGSKyrzdI+Qwgjh8p4X7jCuhGUfuTQBxzSf99Yc/7ZuQbntNCkkhRp8a/4dUPcdPY
- 6jk2+BTye6rxIDlOiI/8PdYLaRbCnmnWmL7YsUU4+d3am2Q+WX3+6TGUCs+TpuAA0X2iVrlFq9J
- Ko1PLZ7Rck=
-X-Received: by 2002:a05:6808:3403:b0:455:f0e4:4f89 with SMTP id
- 5614622812f47-485e69d5289mr416061b6e.3.1780010232498; 
- Thu, 28 May 2026 16:17:12 -0700 (PDT)
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com.
- [209.85.160.41]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-48554736ecdsm10374419b6e.14.2026.05.28.16.17.08
- for <intel-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 May 2026 16:17:11 -0700 (PDT)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-43acf1694daso7653574fac.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 May 2026 16:17:08 -0700 (PDT)
-X-Received: by 2002:a05:6870:214b:b0:423:9219:4c6 with SMTP id
- 586e51a60fabf-43c8c3ee10cmr157564fac.13.1780010227881; Thu, 28 May 2026
- 16:17:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFA1B10F6F6;
+	Thu, 28 May 2026 23:18:13 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C122E10F6F6;
+ Thu, 28 May 2026 23:18:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20260511053213.3122314-1-chaitanya.kumar.borah@intel.com>
- <20260511053213.3122314-5-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260511053213.3122314-5-chaitanya.kumar.borah@intel.com>
-From: Sean Paul <seanpaul@chromium.org>
-Date: Thu, 28 May 2026 19:16:30 -0400
-X-Gmail-Original-Message-ID: <CAOw6vb+Q=WzaFpHgbBYmxvQajL=dcEO9PAmfAP0mZ7DQT4Emew@mail.gmail.com>
-X-Gm-Features: AVHnY4J662srQ9Hu_UDZ5nTbfLq_lZ8rwnh6EIbPFEATsb1wHNC_KLvW4cwrkhA
-Message-ID: <CAOw6vb+Q=WzaFpHgbBYmxvQajL=dcEO9PAmfAP0mZ7DQT4Emew@mail.gmail.com>
-Subject: Re: [PATCH v3 4/4] drm/i915: Fix color blob reference handling in
- intel_plane_state
-To: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- ville.syrjala@linux.intel.com, uma.shankar@intel.com, pranay.samala@intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_series_starting?=
+ =?utf-8?q?_with_=5Bv3=2C1/2=5D_drm/i915/color=3A_Fix_step_discontinuity_in_?=
+ =?utf-8?q?Post-CSC_Gamma_LUT?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Sean Paul" <sean@poorly.run>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 28 May 2026 23:18:12 -0000
+Message-ID: <178001029278.22055.8875151838656522276@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260528230817.2455072-1-sean@poorly.run>
+In-Reply-To: <20260528230817.2455072-1-sean@poorly.run>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,88 +38,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2026 at 1:56=E2=80=AFAM Chaitanya Kumar Borah
-<chaitanya.kumar.borah@intel.com> wrote:
->
-> Take proper references for hw color blobs (degamma_lut, gamma_lut,
-> ctm, lut_3d) in intel_plane_duplicate_state() and drop them in
-> intel_plane_destroy_state().
->
-> v2:
-> - handle blobs in hw state clear
->
-> Fixes: 3b7476e786c2 ("drm/i915/color: Add framework to program PRE/POST C=
-SC LUT")
-> Fixes: a78f1b6baf4d ("drm/i915/color: Add framework to program CSC")
-> Fixes: 65db7a1f9cf7 ("drm/i915/color: Add 3D LUT to color pipeline")
+== Series Details ==
 
-These are in 6.19+, you probably want cc stable as well.
+Series: series starting with [v3,1/2] drm/i915/color: Fix step discontinuity in Post-CSC Gamma LUT
+URL   : https://patchwork.freedesktop.org/series/167492/
+State : failure
 
-Sean
+== Summary ==
 
-> Reviewed-by: Pranay Samala <pranay.samala@intel.com> #v1
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_plane.c | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm=
-/i915/display/intel_plane.c
-> index 559eef467dda..54b2c32473cc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-> @@ -145,6 +145,15 @@ intel_plane_duplicate_state(struct drm_plane *plane)
->         if (intel_state->hw.fb)
->                 drm_framebuffer_get(intel_state->hw.fb);
->
-> +       if (intel_state->hw.degamma_lut)
-> +               drm_property_blob_get(intel_state->hw.degamma_lut);
-> +       if (intel_state->hw.gamma_lut)
-> +               drm_property_blob_get(intel_state->hw.gamma_lut);
-> +       if (intel_state->hw.ctm)
-> +               drm_property_blob_get(intel_state->hw.ctm);
-> +       if (intel_state->hw.lut_3d)
-> +               drm_property_blob_get(intel_state->hw.lut_3d);
-> +
->         return &intel_state->uapi;
->  }
->
-> @@ -168,6 +177,16 @@ intel_plane_destroy_state(struct drm_plane *plane,
->         __drm_atomic_helper_plane_destroy_state(&plane_state->uapi);
->         if (plane_state->hw.fb)
->                 drm_framebuffer_put(plane_state->hw.fb);
-> +
-> +       if (plane_state->hw.degamma_lut)
-> +               drm_property_blob_put(plane_state->hw.degamma_lut);
-> +       if (plane_state->hw.gamma_lut)
-> +               drm_property_blob_put(plane_state->hw.gamma_lut);
-> +       if (plane_state->hw.ctm)
-> +               drm_property_blob_put(plane_state->hw.ctm);
-> +       if (plane_state->hw.lut_3d)
-> +               drm_property_blob_put(plane_state->hw.lut_3d);
-> +
->         kfree(plane_state);
->  }
->
-> @@ -340,6 +359,14 @@ static void intel_plane_clear_hw_state(struct intel_=
-plane_state *plane_state)
->  {
->         if (plane_state->hw.fb)
->                 drm_framebuffer_put(plane_state->hw.fb);
-> +       if (plane_state->hw.degamma_lut)
-> +               drm_property_blob_put(plane_state->hw.degamma_lut);
-> +       if (plane_state->hw.gamma_lut)
-> +               drm_property_blob_put(plane_state->hw.gamma_lut);
-> +       if (plane_state->hw.ctm)
-> +               drm_property_blob_put(plane_state->hw.ctm);
-> +       if (plane_state->hw.lut_3d)
-> +               drm_property_blob_put(plane_state->hw.lut_3d);
->
->         memset(&plane_state->hw, 0, sizeof(plane_state->hw));
->  }
-> --
-> 2.25.1
->
+Address 'sean@poorly.run' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/177871/ (on built-in)
+
+
