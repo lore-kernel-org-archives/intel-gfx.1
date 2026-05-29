@@ -4,95 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 703AACD6E57
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97278CD6E64
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:40:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFFC5113425;
-	Mon,  1 Jun 2026 14:40:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16ED7113422;
+	Mon,  1 Jun 2026 14:40:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="m1RRpBr2";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mm9lGvge";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6202710F6AB
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 May 2026 22:35:45 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a86704c74eso56e87.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 28 May 2026 15:35:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780007744; cv=none;
- d=google.com; s=arc-20240605;
- b=BEnpUXP8qJRvMABnZVIzjRNYf/qpyCxa9mooeSPs01v6fUS4nHqyNYXPNOO+YSb1y1
- 6kgRkuwSy4y6NGfdhJWDBxWy5cTtchqW7mJmK5t8TlDyZBxMaAo8G4ixfAc4YLuMerPo
- gs9XtnLuqGRyUtH/RzuKB2LgvXFKZQN6q6qe0D5SX1n2b0yEvSeYywWTpn0jGXHXwCYo
- hZ7fwPJ5vl1kUdLc+8sLCWKLUMyR6cxCkALTDr1BpTGSuOZp/frZLWT8BGVeH1wCaJDt
- 6YXa/73+6A7CaJR692GgZHwVbONFYvhGQRsn6nhU7fymietrspA5W6AjO+ZB0ptsv+ei
- 0z6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=lIvOXaXwTeXkMfopHgPR/A+WpNgIoLHOtB39AhMBijQ=;
- fh=0G52ukHEseVNoLnJkQJc5eViTv8+Papr0daRDlSintU=;
- b=eMIXHDLQqtbp0Wmbzt6M5gZ5AD+nckOFQcT/kleujw0OUlSF6DygDfxoGuplcco4hK
- QTz0zJfoY/xSEB49S0NJ8vuKWfx41UuYGvJB2Hncdc73pR76tzNQc+DcsxPv5wOPqDE3
- 1FTyN41T3gFi+Rv5QqDiTu2KhgJsFIZC2pzxAc5aBLVW024to2CYElLGqxVMa1Pd0UyN
- aJh9B0AnbPfzlHQejf2G+4GuZt6yDg4DtXc5UlMygCTuzWvQLLINNc9wq2/52seTfrFU
- bZNJmeTNYEO3m+dxHBKUwIwbJpWVO5j9CqImv91msrNUxozNJVYVGQLCjGVq8ABaZQaQ
- vVAw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1780007744; x=1780612544;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=lIvOXaXwTeXkMfopHgPR/A+WpNgIoLHOtB39AhMBijQ=;
- b=m1RRpBr2wDctEtcf+a99Nu5WSnIu/AlsHB5SJjKihAAl2d9/MxhfG5LTtNtY490R3h
- 08LjySOJ1kof/lxvoKhfnXw1wq7G9e1W+XdbDTdofFv/jBBY3//xjyO8ChV3dByT4n7V
- gtxydKG2rrhUguC8nXGezNlYNCYUbvzlzdkgK4vlrp3tN2PXWyZpgFtKIh8YBOvPRb9h
- Dj0HPd2AJ9TFkdcqUvpBr4bxQfsZ9nFMv138VEYUro8uVOcaroFNJRWi10LDoGNGMj6F
- TCMGb79OWN7/ShjoulAoraih04py3PFyZbF4x+H0OWBeyl+HQP5JX0tpUef7op28t98f
- dROw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780007744; x=1780612544;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lIvOXaXwTeXkMfopHgPR/A+WpNgIoLHOtB39AhMBijQ=;
- b=kGZJOqZtqrXw+qelqxJCKetEPjVwwa2KyPjnr7wopnWixEXB7D/BQ3cT4q5arxKkad
- rAMvOC2pYJG+5MTpQbZoEuByFuE9N3l1704ZDIWyFunFaF7FlT9SBn6Tq0OH//zra1su
- P5uUPEA6MnKw63rI78w3fuv0bnpDJEcj+mE+9fLybjn+BIcLCExiVji7bW8eIJi0Nz92
- XMtza3BRGWHJtNycKSXReCIN6iSv432fOOVRmUk/9EWVRRIIz8eOmI+mM8SJ0tTT6VK2
- GZVW4YQK1ynpv641liPkrGVc53ByKJNxq97oq+K+3P9KV3dMRtw4lo1Q5oRp7GLFEoOB
- u1KA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+lXJErZsgJkZrn1qJj34sLCV6aS5CVBOi8/2u4twbYhXk96e2fYhgmM62WEPCp8uN7JqGQCd88b04=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyaQjA4LNMNkmX7j7yYKVzJtCZhXihMis+paSJykSjQXhU87SlE
- BJ6ADlzzcYQjoaXF0OrP2KWS8oR2+8GghdI7V2uP4oObpsKl3JllFZfWMX0TN/X+ZCZw4g4UvMR
- Av7g7m3hDmkN7IwCqw14yC2M9yZIcoE8wvNsmPJNk
-X-Gm-Gg: Acq92OFMhuIljG5JSJoCD2EyeRhp/fxeb1o1a+vuQf7YMoKhJWq16m0CxEgvOiPxiya
- K5Xd/1y9rn841Iq4WLZGM1PRZ40Vq372eoT2EEP9FNXLCp83MM0M0CcBsTdlAoDG//bliSZMeq5
- wiD6RK3EXVW8ndpLe7RD04RGUXwsfGLuveRG+aFJtXDfoHm9Cooac9Gk7OD1ps+4oHQOXJLfpEg
- fzXjTIX6jvh6qENnfZNDPCqvKD07zcRTIv0zFLNeLhaecAzca9b+E6tbfz+nFufifY4/7YETJIq
- dyQAblusT9LDXoscpY1FIOCMN2C0GusS5RXXi1sj8XTCvyWNVT0Rk4IhkeQ=
-X-Received: by 2002:a05:6512:258a:b0:5aa:4c72:8732 with SMTP id
- 2adb3069b0e04-5aa5907530fmr35641e87.10.1780007743102; Thu, 28 May 2026
- 15:35:43 -0700 (PDT)
+Received: from mail-m9362.xmail.ntesmail.com (mail-m9362.xmail.ntesmail.com
+ [103.126.93.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86762112001;
+ Fri, 29 May 2026 14:26:23 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40596a441;
+ Fri, 29 May 2026 22:26:19 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, Maarten Lankhorst <dev@lankhorst.se>,
+ jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, clrkwllms@kernel.org, rostedt@goodmis.org,
+ jerome.anand@intel.com, pierre-louis.bossart@linux.dev, tiwai@suse.de,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn
+Subject: Re: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE
+ audio irq
+Date: Fri, 29 May 2026 22:25:56 +0800
+Message-Id: <20260529142556.3833775-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260529122137.VZtFvQvw@linutronix.de>
+References: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
+ <20260529074816.k1K16jyy@linutronix.de>
+ <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
+ <20260529122137.VZtFvQvw@linutronix.de>
 MIME-Version: 1.0
-References: <20260511053213.3122314-1-chaitanya.kumar.borah@intel.com>
- <ahjBbUwF_8jcXKHY@google.com>
-In-Reply-To: <ahjBbUwF_8jcXKHY@google.com>
-From: Ray Juang <radford@google.com>
-Date: Thu, 28 May 2026 15:35:04 -0700
-X-Gm-Features: AVHnY4LLBzoQhstbNlLSXedrI8TTDb0rZTJCtsYcYczc_kkW95WhWrmsyePM5m4
-Message-ID: <CAJ4HTqXaeWZ_1s0+m8SrY7V7YGAxwqG69xO6GHSSXdUiEuuokw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] More Fixes for color pipeline
-To: Brian Geffon <bgeffon@google.com>
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, ville.syrjala@linux.intel.com, 
- uma.shankar@intel.com, pranay.samala@intel.com, gildekel@google.com, 
- seanpaul@google.com
-Content-Type: multipart/alternative; boundary="0000000000003a027e0652e85917"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e7420fd2803a1kunme34de274a313e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHR4eVhkeTBhNS0MaSklKSlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktJSE
+ 5DQ1VKS0tVS1kG
+DKIM-Signature: a=rsa-sha256;
+ b=mm9lGvgeNttz3NAtznE5f1qkRm9D0UUEThEA9OVg2hrp1oTSq8zU2XQMC/qAy3pnUl10kBsAucyUf0RzDc3zG6ZLOP1VTKvCTbAv1P5dNgFrHveQdhIAatf47XRnXJK9B7/KjQrvRHsAGjBsd+weBz5FOoOyJPFURqGcniXCPSA=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=XIcFOKByaKlp7A36dRzcZgy0gMLVUvtFvUu9QwhQsDM=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Mon, 01 Jun 2026 14:40:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,118 +69,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---0000000000003a027e0652e85917
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks Sebastian and Maarten.
 
-Thanks! We've tested the patch series in
-https://patchwork.freedesktop.org/series/166293/ and confirmed that they
-resolve a severe memory leak contributing to 100-120 kb/s memory growth
-during animation or video playback. We also confirmed in our IGT test suite
-that the tests pass when the patches were in place. It would be helpful if
-we can get the patches in.
+I understand this fix is already covered by Maarten's i915 PREEMPT_RT
+series and that the series is still pending review.
 
-On Thu, May 28, 2026 at 3:28=E2=80=AFPM Brian Geffon <bgeffon@google.com> w=
-rote:
+I'll drop this standalone patch and won't pursue a stable-targeted
+version.
 
-> On Mon, May 11, 2026 at 11:02:09AM +0530, Chaitanya Kumar Borah wrote:
-> > v3:
-> > - Re-arrange patches
->
-> We've been impacted by this on PTL devices. Ray has tested and can
-> provide more details.
->
-> In the meantime can we ask that a maintainer take a look?
->
-> >
-> > v2:
-> > - Make dependency on atomic state more explicit (Ville)
-> > - handle blobs in hw state clear
-> >
-> > Chaitanya Kumar Borah (4):
-> >   drm/i915/display: Copy color pipeline from plane in the primary joine=
-r
-> >     pipe
-> >   drm/i915/display: Don=E2=80=99t use atomic state back-pointer to deri=
-ve color
-> >     pipeline
-> >   drm/i915: Avoid programming color HW blocks for NV12 Y planes
-> >   drm/i915: Fix color blob reference handling in intel_plane_state
-> >
-> >  drivers/gpu/drm/i915/display/intel_cursor.c   |  2 +-
-> >  .../drm/i915/display/intel_initial_plane.c    |  2 +-
-> >  drivers/gpu/drm/i915/display/intel_plane.c    | 77 ++++++++++++++-----
-> >  drivers/gpu/drm/i915/display/intel_plane.h    |  5 +-
-> >  4 files changed, 61 insertions(+), 25 deletions(-)
-> >
->
-> Thanks!
-> Brian
->
-> > --
-> > 2.25.1
-> >
->
+This issue was independently found by our static analysis and validated
+with a no-device QEMU harness. If the extra analysis or validation
+details are useful for the ongoing series, I can share them separately.
 
---0000000000003a027e0652e85917
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks! We&#39;ve tested the patch series in=C2=A0<a href=
-=3D"https://patchwork.freedesktop.org/series/166293/" target=3D"_blank">htt=
-ps://patchwork.freedesktop.org/series/166293/</a> and confirmed that they r=
-esolve a severe memory leak contributing to 100-120 kb/s memory growth duri=
-ng animation or video playback. We also confirmed in our IGT test suite tha=
-t the tests pass when the patches were in place. It would be helpful if we =
-can get the patches in.</div><br><div class=3D"gmail_quote"><div dir=3D"ltr=
-" class=3D"gmail_attr">On Thu, May 28, 2026 at 3:28=E2=80=AFPM Brian Geffon=
- &lt;<a href=3D"mailto:bgeffon@google.com" target=3D"_blank">bgeffon@google=
-.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
-ex">On Mon, May 11, 2026 at 11:02:09AM +0530, Chaitanya Kumar Borah wrote:<=
-br>
-&gt; v3:<br>
-&gt; - Re-arrange patches<br>
-<br>
-We&#39;ve been impacted by this on PTL devices. Ray has tested and can<br>
-provide more details.<br>
-<br>
-In the meantime can we ask that a maintainer take a look?<br>
-<br>
-&gt; <br>
-&gt; v2:<br>
-&gt; - Make dependency on atomic state more explicit (Ville)<br>
-&gt; - handle blobs in hw state clear<br>
-&gt; <br>
-&gt; Chaitanya Kumar Borah (4):<br>
-&gt;=C2=A0 =C2=A0drm/i915/display: Copy color pipeline from plane in the pr=
-imary joiner<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pipe<br>
-&gt;=C2=A0 =C2=A0drm/i915/display: Don=E2=80=99t use atomic state back-poin=
-ter to derive color<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pipeline<br>
-&gt;=C2=A0 =C2=A0drm/i915: Avoid programming color HW blocks for NV12 Y pla=
-nes<br>
-&gt;=C2=A0 =C2=A0drm/i915: Fix color blob reference handling in intel_plane=
-_state<br>
-&gt; <br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_cursor.c=C2=A0 =C2=A0|=C2=A0 =
-2 +-<br>
-&gt;=C2=A0 .../drm/i915/display/intel_initial_plane.c=C2=A0 =C2=A0 |=C2=A0 =
-2 +-<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_plane.c=C2=A0 =C2=A0 | 77 +++=
-+++++++++++-----<br>
-&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_plane.h=C2=A0 =C2=A0 |=C2=A0 =
-5 +-<br>
-&gt;=C2=A0 4 files changed, 61 insertions(+), 25 deletions(-)<br>
-&gt;<br>
-<br>
-Thanks!<br>
-Brian<br>
-<br>
-&gt; -- <br>
-&gt; 2.25.1<br>
-&gt; <br>
-</blockquote></div>
-
---0000000000003a027e0652e85917--
+Best regards,
+Runyu
