@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EEB4CD6E4A
-	for <intel-gfx@archiver.kernel.org>; Fri, 29 May 2026 11:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A1A8CD6E52
+	for <intel-gfx@archiver.kernel.org>; Fri, 29 May 2026 11:04:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF4910FD32;
-	Fri, 29 May 2026 11:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4823B10FD3B;
+	Fri, 29 May 2026 11:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Zk1gjaPB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KvI4809i";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F4C10FD43;
- Fri, 29 May 2026 11:04:53 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 532B510FD22;
+ Fri, 29 May 2026 11:04:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780052693; x=1811588693;
+ t=1780052685; x=1811588685;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=TCLmU8lio1Uw42gnoyBa7rsgrUKhINqgypGM6DUiDpA=;
- b=Zk1gjaPBXyEhjy/0m0PxwLMmMCpeFc1MSLVCh9o2PQSDz17SHf5Q/Glv
- mqLC9rUwiXxcpf3GBsyABpDY9NQ9qrM0Xtl2NbgVqeMfMVx9W7pu+BgW0
- Isv0IBp6AUV2qWAq4QTqICdbOejo9RIpY9egpEBoOsKNQYtYUy6+y5O/m
- r3aPkXNehYTBvqa1nx9oLzBEHCT170fGRtWNNWFomaPL/s6akzYbHnkby
- CtRcDWir8wiwR/ZOZyi912jPbmYuTaL4WpQKfqHv/Y6gHTqaXwniN+CZJ
- F4IKY4fwP1scdUJDA5lkOSzp1PnqhTeEY11tZd4cZ4/LSTGWN54mik/aH A==;
-X-CSE-ConnectionGUID: eflBr2nzRWSwR8MbCrokig==
-X-CSE-MsgGUID: YiskkfTnTZ2I+vLduaY7rQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="80629247"
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="80629247"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 04:04:53 -0700
-X-CSE-ConnectionGUID: unojGXsRQhui+g5eonBkvw==
-X-CSE-MsgGUID: dDfX2k58Tx2F6lc4Hvp6Yg==
+ bh=OSBmgubsgnHv+DN89HxpuvBoLZnii19fHSBWfEMqlCA=;
+ b=KvI4809iKeFePK8lvAWOyg4ELszgZc+JFh8cmsrNXKAPkGZSMxdbplOe
+ eCrq9RsbknmVnsRbNxEHiX1jEWh6wkI2qNTIbIKvNoURzl7dgZTrX88wy
+ 6wf9sPlDIdReZ5qS94t5wcCzlnWRJw5j/ooU+6ckiWEXEMEzUhJ+KGz6S
+ yDUsPWPMZt0VMPuDtFGnD0WHR5PZk33ehItrlpAVxgu72ng3tLi40ChbF
+ k1OGgMXzNFrTUnZm6cG1HDSiT9m73Yx1aQCUgHey4SQ6H/0hGxpVi9AqC
+ YWRh0wN9if1oBWainLx2WvumyMmSdYIdOtiy6HeOzSyqkXWxYPPgAmylD A==;
+X-CSE-ConnectionGUID: pfxShsDwTc+7Iam5ZCz+Wg==
+X-CSE-MsgGUID: k4aAcQa6TSCvx/E4fjqDMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11800"; a="92377775"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="92377775"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 04:04:45 -0700
+X-CSE-ConnectionGUID: h5YoBOO/TTiBh9XYp8zCaA==
+X-CSE-MsgGUID: DOMdsnYQR0On6n7EyCLcvA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="236470847"
+X-IronPort-AV: E=Sophos;i="6.24,175,1774335600"; d="scan'208";a="246840884"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.244.147])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 May 2026 04:04:51 -0700
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 May 2026 04:04:38 -0700
 From: Jani Nikula <jani.nikula@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com, imre.deak@intel.com
-Subject: [PATCH 08/24] drm/xe/display: relocate the xe_display_shutdown*()
- functions
-Date: Fri, 29 May 2026 14:03:52 +0300
-Message-ID: <e56ff63e94eacdf60340a0808d758d2854a1a31f.1780051905.git.jani.nikula@intel.com>
+Subject: [PATCH 05/24] drm/xe/display: drop duplicate intel_dp_mst_suspend()
+ call
+Date: Fri, 29 May 2026 14:03:49 +0300
+Message-ID: <fdb44e0cc7503e19703aa787ba382147e2df598b.1780051905.git.jani.nikula@intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1780051905.git.jani.nikula@intel.com>
 References: <cover.1780051905.git.jani.nikula@intel.com>
@@ -72,129 +72,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Group the xe_display_shutdown() and xe_display_shutdown_late() functions
-together, away from the pm hooks.
+intel_display_driver_suspend() already calls
+intel_dp_mst_suspend(). Remove the duplicate call.
 
 Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 ---
- drivers/gpu/drm/xe/display/xe_display.c | 90 ++++++++++++-------------
- 1 file changed, 45 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/xe/display/xe_display.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 3567b3018083..aab3ac1b70e1 100644
+index 6e82dc70ca89..8d55e7a37d6d 100644
 --- a/drivers/gpu/drm/xe/display/xe_display.c
 +++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -191,6 +191,51 @@ void xe_display_unregister(struct xe_device *xe)
- 	intel_display_driver_unregister(display);
- }
+@@ -342,7 +342,6 @@ void xe_display_pm_shutdown(struct xe_device *xe)
+ 		intel_display_driver_suspend(display);
+ 	}
  
-+void xe_display_shutdown(struct xe_device *xe)
-+{
-+	struct intel_display *display = xe->display;
-+
-+	if (!xe->info.probe_display)
-+		return;
-+
-+	intel_display_power_disable(display);
-+	drm_client_dev_suspend(&xe->drm);
-+
-+	if (intel_display_device_present(display)) {
-+		drm_kms_helper_poll_disable(&xe->drm);
-+		intel_display_driver_disable_user_access(display);
-+		intel_display_driver_pm_suspend(display);
-+	}
-+
-+	intel_encoder_block_all_hpds(display);
-+	intel_hpd_cancel_work(display);
-+
-+	if (intel_display_device_present(display))
-+		intel_display_driver_suspend_access(display);
-+
-+	intel_encoder_suspend_all(display);
-+	intel_encoder_shutdown_all(display);
-+
-+	intel_opregion_suspend(display, PCI_D3cold);
-+
-+	intel_dmc_suspend(display);
-+}
-+
-+void xe_display_shutdown_late(struct xe_device *xe)
-+{
-+	struct intel_display *display = xe->display;
-+
-+	if (!xe->info.probe_display)
-+		return;
-+
-+	/*
-+	 * The only requirement is to reboot with display DC states disabled,
-+	 * for now leaving all display power wells in the INIT power domain
-+	 * enabled.
-+	 */
-+	intel_display_power_driver_remove(display);
-+}
-+
- /* IRQ-related functions */
+-	intel_dp_mst_suspend(display);
+ 	intel_encoder_block_all_hpds(display);
+ 	intel_hpd_cancel_work(display);
  
- void xe_display_irq_handler(struct xe_device *xe, u32 master_ctl)
-@@ -326,36 +371,6 @@ void xe_display_pm_suspend(struct xe_device *xe)
- 	intel_dmc_suspend(display);
- }
- 
--void xe_display_shutdown(struct xe_device *xe)
--{
--	struct intel_display *display = xe->display;
--
--	if (!xe->info.probe_display)
--		return;
--
--	intel_display_power_disable(display);
--	drm_client_dev_suspend(&xe->drm);
--
--	if (intel_display_device_present(display)) {
--		drm_kms_helper_poll_disable(&xe->drm);
--		intel_display_driver_disable_user_access(display);
--		intel_display_driver_pm_suspend(display);
--	}
--
--	intel_encoder_block_all_hpds(display);
--	intel_hpd_cancel_work(display);
--
--	if (intel_display_device_present(display))
--		intel_display_driver_suspend_access(display);
--
--	intel_encoder_suspend_all(display);
--	intel_encoder_shutdown_all(display);
--
--	intel_opregion_suspend(display, PCI_D3cold);
--
--	intel_dmc_suspend(display);
--}
--
- void xe_display_pm_runtime_suspend(struct xe_device *xe)
- {
- 	struct intel_display *display = xe->display;
-@@ -400,21 +415,6 @@ void xe_display_pm_runtime_suspend_late(struct xe_device *xe)
- 	intel_dmc_wl_flush_release_work(display);
- }
- 
--void xe_display_shutdown_late(struct xe_device *xe)
--{
--	struct intel_display *display = xe->display;
--
--	if (!xe->info.probe_display)
--		return;
--
--	/*
--	 * The only requirement is to reboot with display DC states disabled,
--	 * for now leaving all display power wells in the INIT power domain
--	 * enabled.
--	 */
--	intel_display_power_driver_remove(display);
--}
--
- void xe_display_pm_resume_early(struct xe_device *xe)
- {
- 	struct intel_display *display = xe->display;
 -- 
 2.47.3
 
