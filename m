@@ -4,54 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97278CD6E64
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:40:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4871ACD6E65
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:40:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16ED7113422;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED95113424;
 	Mon,  1 Jun 2026 14:40:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="mm9lGvge";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hZrnfinu";
 	dkim-atps=neutral
-Received: from mail-m9362.xmail.ntesmail.com (mail-m9362.xmail.ntesmail.com
- [103.126.93.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86762112001;
- Fri, 29 May 2026 14:26:23 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 40596a441;
- Fri, 29 May 2026 22:26:19 +0800 (GMT+08:00)
+X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
+ Sun, 31 May 2026 15:36:26 UTC
+Received: from mail-m81140.netease.com (mail-m81140.netease.com [47.88.81.140])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30D0910E6CA;
+ Sun, 31 May 2026 15:36:25 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 4079b06e0;
+ Sun, 31 May 2026 23:31:18 +0800 (GMT+08:00)
 From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, Maarten Lankhorst <dev@lankhorst.se>,
- jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, rodrigo.vivi@intel.com,
  joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
  simona@ffwll.ch, clrkwllms@kernel.org, rostedt@goodmis.org,
  jerome.anand@intel.com, pierre-louis.bossart@linux.dev, tiwai@suse.de,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE
+ linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn,
+ runyu.xiao@seu.edu.cn
+Subject: [PATCH v2] drm/i915/audio: use generic_handle_irq_safe() for LPE
  audio irq
-Date: Fri, 29 May 2026 22:25:56 +0800
-Message-Id: <20260529142556.3833775-1-runyu.xiao@seu.edu.cn>
+Date: Sun, 31 May 2026 23:31:08 +0800
+Message-Id: <20260531153108.1448185-1-runyu.xiao@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529122137.VZtFvQvw@linutronix.de>
-References: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
- <20260529074816.k1K16jyy@linutronix.de>
- <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
- <20260529122137.VZtFvQvw@linutronix.de>
+In-Reply-To: <20260531152307.1283430-1-runyu.xiao@seu.edu.cn>
+References: <20260531152307.1283430-1-runyu.xiao@seu.edu.cn>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e7420fd2803a1kunme34de274a313e
+X-HM-Tid: 0a9e7ea9333803a1kunmf881f88610bfb5
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHR4eVhkeTBhNS0MaSklKSlYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktJSE
- 5DQ1VKS0tVS1kG
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSE8ZVkIZTk9KGkkaQhhCSlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
+ NVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
- b=mm9lGvgeNttz3NAtznE5f1qkRm9D0UUEThEA9OVg2hrp1oTSq8zU2XQMC/qAy3pnUl10kBsAucyUf0RzDc3zG6ZLOP1VTKvCTbAv1P5dNgFrHveQdhIAatf47XRnXJK9B7/KjQrvRHsAGjBsd+weBz5FOoOyJPFURqGcniXCPSA=;
+ b=hZrnfinuQpp+r6EHpu+x9payITlyKfPOR79KX5meBd9GCPDgyk9e2jwsXx9RoMM4x+JSzruYEWlWoWM63xqwus+t6AZpD6WnsWbFMjTMlUmhuwYQw5MFqeweWLxIC0hZXpgpMPXZZh+Y0YTslx/xFfmbQwrU3haqaX9etiEWJ40=;
  c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=XIcFOKByaKlp7A36dRzcZgy0gMLVUvtFvUu9QwhQsDM=;
+ bh=hDaIee1qAflFeBZV4uLANTtsezA1dAxOljNHIOSLk9U=;
  h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Mon, 01 Jun 2026 14:40:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -69,17 +67,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thanks Sebastian and Maarten.
+intel_lpe_audio_irq_handler() forwards the LPE audio child IRQ from the
+i915 parent IRQ path with generic_handle_irq(). The forwarded child top
+half is not an independent hardirq entry point; it inherits the context
+of the outer i915 interrupt dispatch path.
 
-I understand this fix is already covered by Maarten's i915 PREEMPT_RT
-series and that the series is still pending review.
+This becomes a problem when the parent IRQ runs in threaded context, for
+example on PREEMPT_RT or other forced-threading configurations. i915
+requests the parent IRQ with IRQF_SHARED and without IRQF_NO_THREAD, so
+the forwarded child handler can run with local IRQs enabled. That
+violates the expected top-half execution semantics and can trigger an
+"enabled interrupts" WARN.
 
-I'll drop this standalone patch and won't pursue a stable-targeted
-version.
+The issue was identified on Linux v6.18.21 by our static analysis tool
+and then manually reviewed on the i915 child-IRQ forwarding sites after
+commit 8cadce97bf26 ("drm/i915/gsc: mei interrupt top half should be in
+irq disabled context") fixed the same helper contract for the GSC path.
 
-This issue was independently found by our static analysis and validated
-with a no-device QEMU harness. If the extra analysis or validation
-details are useful for the ongoing series, I can share them separately.
+It was then validated with a reproducible QEMU no-device parent/child
+IRQ harness that registers a threaded parent IRQ and a child IRQ
+handler, then exercises both generic_handle_irq() and
+generic_handle_irq_safe() under the same threaded parent context. In the
+plain-helper phase, the child handler ran with irqs_disabled=0 and
+triggered an "enabled interrupts" WARN. In the safe-helper phase, the
+same child handler ran with irqs_disabled=1. This is family-level
+runtime evidence for the same IRQ forwarding misuse pattern. No
+Baytrail/Cherrytrail hardware was available to run the real i915 LPE
+path end-to-end.
 
-Best regards,
-Runyu
+Use generic_handle_irq_safe() here so the forwarded LPE audio child IRQ
+runs with local IRQs disabled even when the outer i915 dispatch path is
+threaded.
+
+Link: https://lore.kernel.org/all/20260310115709.2276203-16-dev@lankhorst.se/
+Fixes: eef57324d926 ("drm/i915: setup bridge for HDMI LPE audio driver")
+Suggested-by: Maarten Lankhorst <dev@lankhorst.se>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+v2:
+- Add Link: tag to Maarten's PREEMPT_RT series
+- Add Suggested-by: Maarten Lankhorst
+- Drop Cc: stable@vger.kernel.org per Sebastian's feedback
+- Keep as a standalone patch per Jani's suggestion
+
+ drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+index 42284e9928f2..ac1dfd592a9f 100644
+--- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+@@ -263,7 +263,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
+ 	if (!HAS_LPE_AUDIO(display))
+ 		return;
+ 
+-	ret = generic_handle_irq(display->audio.lpe.irq);
++	ret = generic_handle_irq_safe(display->audio.lpe.irq);
+ 	if (ret)
+ 		drm_err_ratelimited(display->drm,
+ 				    "error handling LPE audio irq: %d\n", ret);
+-- 
+2.34.1
