@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9516CD6E55
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 16:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26346CD5BD1
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 16:12:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35EB6113547;
-	Mon,  1 Jun 2026 16:06:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IhotfZaS";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAED7113547;
- Mon,  1 Jun 2026 16:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780329994; x=1811865994;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=YIKGmZls65LFaND2Ua7xRisHFghzgdnli7tXVJf/080=;
- b=IhotfZaSTyNcgITKxF2cocY9wSTHt21WrBDeBXukvGx8XRaMBZ4swxDc
- O+DYeLQaU1LJ7EKcITe6r/4r/fWxvjkR7y6wRbJV/BOkHGOUb/N31S1YA
- mvx8YGxzu9CRRCQGno6z1eFmVAPjBomt1mnXzat1aSVINnwgI0ofLCdY2
- AHahMUw3OptshkBhTQEOHA57DpihN1q+iSXw8ywdh6NrvZJOwZ5IcHyFJ
- MlW39r+mGT6NkoK5u+BKj/0VDf/CVXn2Dm1k5pd2yGgta91+AE21USbhJ
- 5xcim6Tx5e58jcWfIC46FpZY1Z3kOhZrc4T/JaxrTJwQw6xr7kiDUf7Ah Q==;
-X-CSE-ConnectionGUID: X7Tz3tm+SPKoJJsAbgcdwA==
-X-CSE-MsgGUID: FreAoyEcRsGU34dN8RU9tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="91778599"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="91778599"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 09:06:33 -0700
-X-CSE-ConnectionGUID: /cWqhkn0TFSfDfR951FsQQ==
-X-CSE-MsgGUID: PEFTB6saSjuQZnFSG0Wbhw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="239448717"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.121])
- by fmviesa010-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 09:06:31 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, James Xiong
- <james.xiong@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- gustavo.sousa@intel.com, imre.deak@intel.com
-Subject: Re: [PATCH v4] drm/i915/dmc: fix assert_dmc_loaded WARN during
- async firmware load
-In-Reply-To: <ahmzeOA79VxnmWD3@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260511173101.723421-1-james.xiong@intel.com>
- <ahmzeOA79VxnmWD3@intel.com>
-Date: Mon, 01 Jun 2026 19:06:29 +0300
-Message-ID: <4d4f6487b407c8e92860f857fb2c50ef26d0bc75@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2A1F113565;
+	Mon,  1 Jun 2026 16:12:40 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71B35113565;
+ Mon,  1 Jun 2026 16:12:39 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7017259789203493438=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/drrs=3A_Synchron?=
+ =?utf-8?q?ize_drrs_activate_with_debugfs?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 01 Jun 2026 16:12:39 -0000
+Message-ID: <178033035945.32261.7698384105221394456@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260601144255.1481931-1-arun.r.murthy@intel.com>
+In-Reply-To: <20260601144255.1481931-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,86 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 29 May 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Mon, May 11, 2026 at 10:31:01AM -0700, James Xiong wrote:
->> During driver probe, DMC firmware is loaded asynchronously via a
->> workqueue. There is a race between parse_dmc_fw() setting the payload
->> pointer (making has_dmc_id_fw() return true) and intel_dmc_load_program()
->> writing the firmware to hardware registers. If the probe thread calls
->> intel_dmc_enable_pipe() -> assert_dmc_loaded() in this window via
->> intel_modeset_setup_hw_state(), it sees parsed payload but stale HW
->> registers, triggering a ~20% intermittent WARNING on ADL-N warm boot.
->>=20
->> v2: Fix by calling intel_dmc_wait_fw_load() in
->>     intel_modeset_setup_hw_state() before iterating the CRTCs (Gustavo
->>     Sousa).
->>=20
->> v3: Move intel_dmc_wait_fw_load() into intel_dmc_enable_pipe() itself
->>     so the function is self-contained (Jani Nikula, Gustavo Sousa).
->>=20
->> Fixes: 3af2ff0840be ("drm/i915: Enable a PIPEDMC whenever its correspond=
-ing pipe is enabled")
->> Signed-off-by: James Xiong <james.xiong@intel.com>
->> Reviewed-by: Gustavo Sousa <gustavo.sousa@intel.com>
->> ---
->>  drivers/gpu/drm/i915/display/intel_dmc.c | 7 ++++++-
->>  1 file changed, 6 insertions(+), 1 deletion(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/=
-i915/display/intel_dmc.c
->> index 0df4f42ba3e3..4151eae92744 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dmc.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dmc.c
->> @@ -786,7 +786,12 @@ void intel_dmc_enable_pipe(const struct intel_crtc_=
-state *crtc_state)
->>  	enum pipe pipe =3D crtc->pipe;
->>  	enum intel_dmc_id dmc_id =3D PIPE_TO_DMC_ID(pipe);
->>=20=20
->> -	if (!is_valid_dmc_id(dmc_id) || !has_dmc_id_fw(display, dmc_id))
->> +	if (!is_valid_dmc_id(dmc_id))
->> +		return;
->> +
->> +	intel_dmc_wait_fw_load(display);
->
-> I was going to say that intel_flipq_init() already did that, but
-> looks like that's called later not before.
->
-> I think what we probably want is an unconditional
-> intel_dmc_wait_fw_load() somewhere before this so that the whole
-> thing isn't so random.
+--===============7017259789203493438==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Now there's v4 doing this at [1]
+== Series Details ==
 
-I just didn't want the wait in modeset setup [2], because it just ends
-up being a pile of random calls and nobody remembers why the order is
-what it is.
+Series: drm/i915/drrs: Synchronize drrs activate with debugfs
+URL   : https://patchwork.freedesktop.org/series/167672/
+State : success
 
-And when there's no need to wait for dmc loading at that point, we'll
-end up waiting anyway for no reason, slowing down boot. Hence the "wait
-where we *actually* need it".
+== Summary ==
 
-BR,
-Jani.
+CI Bug Log - changes from CI_DRM_18597 -> Patchwork_167672v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/index.html
+
+Participating hosts (42 -> 39)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_167672v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][1] -> [FAIL][2] ([i915#16115])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18597/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#16115]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16115
 
 
-[1] https://lore.kernel.org/r/20260601154743.1127698-1-james.xiong@intel.com
+Build changes
+-------------
 
-[2] https://lore.kernel.org/r/c071d6473256af2a2c281a4d148630269106a51a@inte=
-l.com
+  * Linux: CI_DRM_18597 -> Patchwork_167672v1
+
+  CI-20190529: 20190529
+  CI_DRM_18597: b64812e86f4a787e10be1ab9f48b9e6dab23376c @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8943: 8943
+  Patchwork_167672v1: b64812e86f4a787e10be1ab9f48b9e6dab23376c @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/index.html
+
+--===============7017259789203493438==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
 
->
->> +
->> +	if (!has_dmc_id_fw(display, dmc_id))
->>  		return;
->>=20=20
->>  	if (!can_enable_pipedmc(crtc_state)) {
->> --=20
->> 2.34.1
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
 
---=20
-Jani Nikula, Intel
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/drrs: Synchronize drrs activate with debugfs</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167672/">https://patchwork.freedesktop.org/series/167672/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18597 -&gt; Patchwork_167672v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 39)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_167672v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18597/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167672v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16115">i915#16115</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18597 -&gt; Patchwork_167672v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18597: b64812e86f4a787e10be1ab9f48b9e6dab23376c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8943: 8943<br />
+  Patchwork_167672v1: b64812e86f4a787e10be1ab9f48b9e6dab23376c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7017259789203493438==--
