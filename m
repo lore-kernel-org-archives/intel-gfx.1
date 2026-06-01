@@ -4,52 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69BC4CD6E55
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:44:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ABD2CD5BD1
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01274113445;
-	Mon,  1 Jun 2026 14:44:13 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TS1ImEQO";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5C48113445;
- Mon,  1 Jun 2026 14:44:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780325052; x=1811861052;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=xtoFAbkTKEFgnElqKg5w1jTnifHZ3k2NP+RDG2iXTnA=;
- b=TS1ImEQOXokuTERklAW/zKv8sUAN/f+r5p4+urFWEnWcs7F/ZFmirxSX
- l1GNMY/FqwxXx3yThWV8caG656ueH1qIfESfdJNw1Cr0et7743XGbv1yu
- +3aqPWqYDmljl7NESG3aFLh+X5F9Wlgi+gPcwScPDYKapNJvwfHqhGNa0
- QBrMO9latIn7F+t37B3KLWxDg4SAvlQspIpi24XAmhyMpKMoTL8DCLqzm
- 1GrREc9Tz16gcQXlLAPH5b5Mb8Jhb98944n5QtJJD1g1hVrYih5GANIDx
- K0vANGmBaoDlVJZCTKUli8AQLyXKmVL7Rtnj3oJYqMCsDF+XLz9t/9pds w==;
-X-CSE-ConnectionGUID: c+Zj5SnUSle0LFXG1HkI1A==
-X-CSE-MsgGUID: CnGrMhtjRg+BkwC6H6PAkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="91765659"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="91765659"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 07:44:11 -0700
-X-CSE-ConnectionGUID: /n3Pj4sqQ7yV65E+2W/t0g==
-X-CSE-MsgGUID: xHIdjm2XT2CCs/6nTGv98w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="239420067"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa010.fm.intel.com with ESMTP; 01 Jun 2026 07:44:10 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH] drm/i915/drrs: Synchronize drrs activate with debugfs
-Date: Mon,  1 Jun 2026 20:12:55 +0530
-Message-Id: <20260601144255.1481931-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE70F113458;
+	Mon,  1 Jun 2026 14:57:07 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BABB113462;
+ Mon,  1 Jun 2026 14:57:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_Refco?=
+ =?utf-8?q?unt_for_fec_enable/disable?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 01 Jun 2026 14:57:06 -0000
+Message-ID: <178032582610.32237.3085349701192578594@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260601142943.1481728-1-arun.r.murthy@intel.com>
+In-Reply-To: <20260601142943.1481728-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,59 +37,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Honor the drrs deactivate coming from debugfs and keep it disabled until
-the same is enabled from the user.
+== Series Details ==
 
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_types.h |  2 ++
- drivers/gpu/drm/i915/display/intel_drrs.c          | 10 ++++++++++
- 2 files changed, 12 insertions(+)
+Series: drm/i915/display: Refcount for fec enable/disable
+URL   : https://patchwork.freedesktop.org/series/167664/
+State : failure
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 84bd0d993197..709595bde8d3 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1537,6 +1537,8 @@ struct intel_crtc {
- 		unsigned int busy_frontbuffer_bits;
- 		enum transcoder cpu_transcoder;
- 		struct intel_link_m_n m_n, m2_n2;
-+		/* Runtime override; set to keep DRRS off across commits. */
-+		bool force_disabled;
- 	} drrs;
- 
- 	struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_drrs.c b/drivers/gpu/drm/i915/display/intel_drrs.c
-index 0fdb32ef241c..6bebb04034e6 100644
---- a/drivers/gpu/drm/i915/display/intel_drrs.c
-+++ b/drivers/gpu/drm/i915/display/intel_drrs.c
-@@ -165,6 +165,12 @@ void intel_drrs_activate(const struct intel_crtc_state *crtc_state)
- 
- 	mutex_lock(&crtc->drrs.mutex);
- 
-+	/* don't re-arm DRRS if forcefully disabled by debugfs */
-+	if (crtc->drrs.force_disabled) {
-+		mutex_unlock(&crtc->drrs.mutex);
-+		return;
-+	}
-+
- 	crtc->drrs.cpu_transcoder = crtc_state->cpu_transcoder;
- 	crtc->drrs.m_n = crtc_state->dp_m_n;
- 	crtc->drrs.m2_n2 = crtc_state->dp_m2_n2;
-@@ -376,6 +382,10 @@ static int intel_drrs_debugfs_ctl_set(void *data, u64 val)
- 
- 	drm_dbg_kms(display->drm, "Manually %sactivating DRRS\n", val ? "" : "de");
- 
-+	mutex_lock(&crtc->drrs.mutex);
-+	crtc->drrs.force_disabled = !val;
-+	mutex_unlock(&crtc->drrs.mutex);
-+
- 	if (val)
- 		intel_drrs_activate(crtc_state);
- 	else
--- 
-2.25.1
+== Summary ==
+
+Error: make failed
+  DESCEND objtool
+  INSTALL libsubcmd_headers
+  CC [M]  drivers/gpu/drm/i915/display/intel_ddi.o
+In file included from ./include/linux/kernel.h:22,
+                 from ./include/linux/iopoll.h:9,
+                 from drivers/gpu/drm/i915/display/intel_ddi.c:28:
+drivers/gpu/drm/i915/display/intel_ddi.c: In function ‘intel_ddi_seed_fec_refcounts’:
+drivers/gpu/drm/i915/display/intel_display.h:217:41: error: ‘struct drm_device’ has no member named ‘pipe_list’; did you mean ‘filelist’?
+  217 |                             &(display)->pipe_list, \
+      |                                         ^~~~~~~~~
+./include/linux/container_of.h:20:33: note: in definition of macro ‘container_of’
+   20 |         void *__mptr = (void *)(ptr);                                   \
+      |                                 ^~~
+./include/linux/list.h:643:9: note: in expansion of macro ‘list_entry’
+  643 |         list_entry((ptr)->next, type, member)
+      |         ^~~~~~~~~~
+./include/linux/list.h:819:20: note: in expansion of macro ‘list_first_entry’
+  819 |         for (pos = list_first_entry(head, typeof(*pos), member);        \
+      |                    ^~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_display.h:216:9: note: in expansion of macro ‘list_for_each_entry’
+  216 |         list_for_each_entry((crtc), \
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_ddi.c:2117:9: note: in expansion of macro ‘for_each_intel_crtc’
+ 2117 |         for_each_intel_crtc(display->drm, crtc) {
+      |         ^~~~~~~~~~~~~~~~~~~
+In file included from ./include/linux/container_of.h:5:
+drivers/gpu/drm/i915/display/intel_display.h:217:41: error: ‘struct drm_device’ has no member named ‘pipe_list’; did you mean ‘filelist’?
+  217 |                             &(display)->pipe_list, \
+      |                                         ^~~~~~~~~
+./include/linux/build_bug.h:80:56: note: in definition of macro ‘__static_assert’
+   80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+      |                                                        ^~~~
+./include/linux/container_of.h:21:9: note: in expansion of macro ‘static_assert’
+   21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+      |         ^~~~~~~~~~~~~
+./include/linux/container_of.h:21:23: note: in expansion of macro ‘__same_type’
+   21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+      |                       ^~~~~~~~~~~
+./include/linux/list.h:632:9: note: in expansion of macro ‘container_of’
+  632 |         container_of(ptr, type, member)
+      |         ^~~~~~~~~~~~
+./include/linux/list.h:643:9: note: in expansion of macro ‘list_entry’
+  643 |         list_entry((ptr)->next, type, member)
+      |         ^~~~~~~~~~
+./include/linux/list.h:819:20: note: in expansion of macro ‘list_first_entry’
+  819 |         for (pos = list_first_entry(head, typeof(*pos), member);        \
+      |                    ^~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_display.h:216:9: note: in expansion of macro ‘list_for_each_entry’
+  216 |         list_for_each_entry((crtc), \
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_ddi.c:2117:9: note: in expansion of macro ‘for_each_intel_crtc’
+ 2117 |         for_each_intel_crtc(display->drm, crtc) {
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_display.h:217:41: error: ‘struct drm_device’ has no member named ‘pipe_list’; did you mean ‘filelist’?
+  217 |                             &(display)->pipe_list, \
+      |                                         ^~~~~~~~~
+./include/linux/build_bug.h:80:56: note: in definition of macro ‘__static_assert’
+   80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+      |                                                        ^~~~
+./include/linux/container_of.h:21:9: note: in expansion of macro ‘static_assert’
+   21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+      |         ^~~~~~~~~~~~~
+./include/linux/container_of.h:22:23: note: in expansion of macro ‘__same_type’
+   22 |                       __same_type(*(ptr), void),                        \
+      |                       ^~~~~~~~~~~
+./include/linux/list.h:632:9: note: in expansion of macro ‘container_of’
+  632 |         container_of(ptr, type, member)
+      |         ^~~~~~~~~~~~
+./include/linux/list.h:643:9: note: in expansion of macro ‘list_entry’
+  643 |         list_entry((ptr)->next, type, member)
+      |         ^~~~~~~~~~
+./include/linux/list.h:819:20: note: in expansion of macro ‘list_first_entry’
+  819 |         for (pos = list_first_entry(head, typeof(*pos), member);        \
+      |                    ^~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_display.h:216:9: note: in expansion of macro ‘list_for_each_entry’
+  216 |         list_for_each_entry((crtc), \
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_ddi.c:2117:9: note: in expansion of macro ‘for_each_intel_crtc’
+ 2117 |         for_each_intel_crtc(display->drm, crtc) {
+      |         ^~~~~~~~~~~~~~~~~~~
+././include/linux/compiler_types.h:610:27: error: expression in static assertion is not an integer
+  610 | #define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
+      |                           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./include/linux/build_bug.h:80:56: note: in definition of macro ‘__static_assert’
+   80 | #define __static_assert(expr, msg, ...) _Static_assert(expr, msg)
+      |                                                        ^~~~
+./include/linux/container_of.h:21:9: note: in expansion of macro ‘static_assert’
+   21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+      |         ^~~~~~~~~~~~~
+./include/linux/container_of.h:21:23: note: in expansion of macro ‘__same_type’
+   21 |         static_assert(__same_type(*(ptr), ((type *)0)->member) ||       \
+      |                       ^~~~~~~~~~~
+./include/linux/list.h:632:9: note: in expansion of macro ‘container_of’
+  632 |         container_of(ptr, type, member)
+      |         ^~~~~~~~~~~~
+./include/linux/list.h:643:9: note: in expansion of macro ‘list_entry’
+  643 |         list_entry((ptr)->next, type, member)
+      |         ^~~~~~~~~~
+./include/linux/list.h:819:20: note: in expansion of macro ‘list_first_entry’
+  819 |         for (pos = list_first_entry(head, typeof(*pos), member);        \
+      |                    ^~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_display.h:216:9: note: in expansion of macro ‘list_for_each_entry’
+  216 |         list_for_each_entry((crtc), \
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_ddi.c:2117:9: note: in expansion of macro ‘for_each_intel_crtc’
+ 2117 |         for_each_intel_crtc(display->drm, crtc) {
+      |         ^~~~~~~~~~~~~~~~~~~
+In file included from ./include/linux/random.h:8,
+                 from ./include/linux/nodemask.h:94,
+                 from ./include/linux/numa.h:6,
+                 from ./include/linux/cpumask.h:15,
+                 from ./arch/x86/include/asm/paravirt.h:19,
+                 from ./arch/x86/include/asm/cpuid/api.h:57,
+                 from ./arch/x86/include/asm/processor.h:19,
+                 from ./arch/x86/include/asm/timex.h:5,
+                 from ./include/linux/timex.h:67,
+                 from ./include/linux/time32.h:13,
+                 from ./include/linux/time.h:60,
+                 from ./include/linux/jiffies.h:10,
+                 from ./include/linux/ktime.h:25,
+                 from ./include/linux/iopoll.h:11:
+drivers/gpu/drm/i915/display/intel_display.h:217:41: error: ‘struct drm_device’ has no member named ‘pipe_list’; did you mean ‘filelist’?
+  217 |                             &(display)->pipe_list, \
+      |                                         ^~~~~~~~~
+./include/linux/list.h:810:37: note: in definition of macro ‘list_entry_is_head’
+  810 |         list_is_head(&pos->member, (head))
+      |                                     ^~~~
+drivers/gpu/drm/i915/display/intel_display.h:216:9: note: in expansion of macro ‘list_for_each_entry’
+  216 |         list_for_each_entry((crtc), \
+      |         ^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/i915/display/intel_ddi.c:2117:9: note: in expansion of macro ‘for_each_intel_crtc’
+ 2117 |         for_each_intel_crtc(display->drm, crtc) {
+      |         ^~~~~~~~~~~~~~~~~~~
+make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/i915/display/intel_ddi.o] Error 1
+make[5]: *** [scripts/Makefile.build:548: drivers/gpu/drm/i915] Error 2
+make[4]: *** [scripts/Makefile.build:548: drivers/gpu/drm] Error 2
+make[3]: *** [scripts/Makefile.build:548: drivers/gpu] Error 2
+make[2]: *** [scripts/Makefile.build:548: drivers] Error 2
+make[1]: *** [/home/kbuild/kernel/Makefile:2143: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
+Build failed, no error log produced
+
 
