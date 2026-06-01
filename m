@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 327B2CD5BD1
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 08:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB01DCD6E60
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 08:54:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E38E112F78;
-	Mon,  1 Jun 2026 08:17:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 701FA112FF6;
+	Mon,  1 Jun 2026 08:54:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WbbpFVt4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jl/j0TF/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB729112F58;
- Mon,  1 Jun 2026 08:17:51 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C65F112FF6;
+ Mon,  1 Jun 2026 08:54:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780301872; x=1811837872;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=azAN9ioMofgssmczHhEEadQWCShkURa4kQQDJQnD3Y0=;
- b=WbbpFVt40DyHoqr8eM9qj56e4HTpX6KLp9s1IJpotXIsO1EtTtLkXOFW
- 2iwlACWRTNPy1/sKgADeIl1pywxJtrtevo09/rM9bEEZlbZRO3vFz8fxs
- 914QQapr035mppiv+ZGIQuOqmfQJBbA6MZb7/Wc+A8Onxq66MuqW7ldt1
- 5q+1AL/UDYHzkCdm6ps9TLUZxTQHyAVQ/mR0ZoM2tsOHaTkgP5pZkDrH8
- b6kN0PpCVORTFtTkx04qSnR9481O7WSm/BI0JhJOSp2qpCimgwXApIlhp
- 2nhWY7kR4l5aj52yk5HDtWVBoKQcX/07Af9YF+aKMw8WIC/EfokHiZ7Zc A==;
-X-CSE-ConnectionGUID: 3uh3XngnQqysO1ta58fI/w==
-X-CSE-MsgGUID: 5ZpesHjHS3qLFpoqzrWF+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="80786203"
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="80786203"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 01:17:46 -0700
-X-CSE-ConnectionGUID: Or1Hpxm3TPqOpDmMOA8qZA==
-X-CSE-MsgGUID: /kX5L0UGRUidwwCtfFcNCA==
+ t=1780304055; x=1811840055;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=c9HlXcEAdvTM6+CBMhetv2vX5c/8fXhmDAqJ3A10Tfg=;
+ b=jl/j0TF/QboseO8L5N+TkQYEYX/shihizMYLsmNbFDB5sG/64auVZoMz
+ +gVgEwzxwNJzrgPiP8WoQiblcbAjoe3xFbxgQjxARnjAoEbJi9iuXyVzD
+ O+R6fVwGXCf5pG9uTb0rdpdOcpDJXO6qKd99DC2qaLucD5A7EKzGNuLxb
+ tG7NdkFhd0Lwzcl68IFztWzrZFvW+eJa+TdOMmd+4u9GGiEKSPiLFaYNs
+ d4rQ+3uIE9twqnRKPSrtKMNk1HrNiIP/9r/IucbhRkV6cOcjV8UNX0DaR
+ AQFA20qCRgWmISg96DKyf+maO0td53SRMDndEfxGFsYm8vihiLpI2T+/3 A==;
+X-CSE-ConnectionGUID: 7lNPdN+RS/6OaO1E2Rw51Q==
+X-CSE-MsgGUID: 5ZdiI8NAQ0uziLpLAu8dXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11803"; a="91368913"
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="91368913"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 01:54:14 -0700
+X-CSE-ConnectionGUID: RlVy59T6QYCSUpm0bRhQmA==
+X-CSE-MsgGUID: aYLuWIu6Tl6Xu12AAiiJ/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="248602111"
-Received: from abityuts-desk.ger.corp.intel.com (HELO hazy) ([10.245.245.124])
- by fmviesa005-auth.fm.intel.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Jun 2026 01:17:44 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	jani.nikula@linux.intel.com
-Subject: [PATCH v4 3/4] drm/i915/display: harden shift in
- intel_ddi_compute_config_late()
-Date: Mon,  1 Jun 2026 11:14:34 +0300
-Message-ID: <20260601081730.3146922-4-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260601081730.3146922-1-luciano.coelho@intel.com>
-References: <20260601081730.3146922-1-luciano.coelho@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,180,1774335600"; d="scan'208";a="239110418"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by fmviesa006.fm.intel.com with ESMTP; 01 Jun 2026 01:54:12 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, uma.shankar@intel.com,
+ chaitanya.kumar.borah@intel.com, pranay.samala@intel.com
+Subject: [v4 0/3] More Fixes for color pipeline
+Date: Mon,  1 Jun 2026 13:59:50 +0530
+Message-Id: <20260601082953.128539-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,33 +67,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-BIT() takes a non-negative shift amount, but cpu_transcoder is of type
-enum transcoder, which can in theory be INVALID_TRANSCODER (-1).
+v4:
+- Remove already merged patch
+  86ed2d96db19 ("drm/i915/display: Copy color pipeline from plane in the primary joiner pipe")
+- drop the extra spaces before ='s (Jani)
 
-This is not a problem with the current implementation, because
-cpu_transcoder is always valid when this code is reached, but it's
-more robust to cast to unsigned so the shift is always well-defined.
+v3:
+- Re-arrange patches
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- drivers/gpu/drm/i915/display/intel_ddi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v2:
+- Make dependency on atomic state more explicit (Ville)
+- handle blobs in hw state clear
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index 205978c9feb6..cbdadb6cade4 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -4635,8 +4635,8 @@ static int intel_ddi_compute_config_late(struct intel_encoder *encoder,
- 
- 	if (crtc_state->master_transcoder == crtc_state->cpu_transcoder) {
- 		crtc_state->master_transcoder = INVALID_TRANSCODER;
--		crtc_state->sync_mode_slaves_mask =
--			port_sync_transcoders & ~BIT(crtc_state->cpu_transcoder);
-+		crtc_state->sync_mode_slaves_mask = port_sync_transcoders &
-+			~REG_BIT(crtc_state->cpu_transcoder);
- 	}
- 
- 	return 0;
+Chaitanya Kumar Borah (3):
+  drm/i915/display: Don’t use atomic state back-pointer to derive color
+    pipeline
+  drm/i915: Avoid programming color HW blocks for NV12 Y planes
+  drm/i915: Fix color blob reference handling in intel_plane_state
+
+ drivers/gpu/drm/i915/display/intel_cursor.c   |  2 +-
+ .../drm/i915/display/intel_initial_plane.c    |  2 +-
+ drivers/gpu/drm/i915/display/intel_plane.c    | 71 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_plane.h    |  5 +-
+ 4 files changed, 58 insertions(+), 22 deletions(-)
+
 -- 
-2.53.0
+2.25.1
 
