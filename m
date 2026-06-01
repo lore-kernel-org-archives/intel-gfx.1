@@ -4,57 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A355CD6E57
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59AABCD6E64
 	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:40:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B0C11342C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9D58113430;
 	Mon,  1 Jun 2026 14:40:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="nw5t7x6/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c6GaRZ6j";
 	dkim-atps=neutral
-Received: from mail-m93222.xmail.ntesmail.com (mail-m93222.xmail.ntesmail.com
- [103.126.93.222])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 552F610E66B;
- Sun, 31 May 2026 15:23:20 +0000 (UTC)
-Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
- by smtp.qiye.163.com (Hmail) with ESMTP id 4079b061e;
- Sun, 31 May 2026 23:23:16 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, Maarten Lankhorst <dev@lankhorst.se>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, clrkwllms@kernel.org, rostedt@goodmis.org,
- jerome.anand@intel.com, pierre-louis.bossart@linux.dev, tiwai@suse.de,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, jianhao.xu@seu.edu.cn
-Subject: Re: [PATCH] drm/i915/audio: use generic_handle_irq_safe() for LPE
- audio irq
-Date: Sun, 31 May 2026 23:23:07 +0800
-Message-Id: <20260531152307.1283430-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <89e4e6258c62e0e2829038dd4f5a29cc530b4344@intel.com>
-References: <20260528154551.3708290-1-runyu.xiao@seu.edu.cn>
- <20260529074816.k1K16jyy@linutronix.de>
- <2023cf0e-85a8-4128-857d-cae806ff0e58@lankhorst.se>
- <20260529122137.VZtFvQvw@linutronix.de>
- <20260529142556.3833775-1-runyu.xiao@seu.edu.cn>
- <89e4e6258c62e0e2829038dd4f5a29cc530b4344@intel.com>
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44718113149
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 10:17:48 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-91550ec5026so13811085a.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 01 Jun 2026 03:17:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780309067; x=1780913867; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Uyi2sYWA7KnoTyDbcBaVRwZrLhvu1wK8b394EY11sq8=;
+ b=c6GaRZ6j+HxLvwfoAgRNBzYfbkJSZ2wLcMeDsccQO4gGeHl0fNLV2/Z4BT1cHxKAGs
+ j2j9w740mE6aveYd9zuQlROVzsRCp6jZSXNnjtkq7sYDjW/fEStuHqKLSPMA0wg5tIPm
+ nfJ6sFFrEqCJJLnRboeCmMxOkJcP6IUIZd6/mgj12TbOlSDjmqDCvWuFKKb1RhCc0bWe
+ z5Ud12MDIu67bEBphcsWoTD1FT4uyg4z+ExrcmcKMUtxxlii9Mfk36NGyJU/PIIXQdDl
+ 0DcOVfCKK6xbglJfp5pV4IM4ZgUL9ekmBaRJ/7bnmRnzwkJXFlwpu2pVpqNKL3dFAsGo
+ obxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780309067; x=1780913867;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Uyi2sYWA7KnoTyDbcBaVRwZrLhvu1wK8b394EY11sq8=;
+ b=RsPlOsih/xPCwMZKpI8U1KRJafMnVnGelXROX/8DWG1U9VTBah4VPvGplubRFlvNWH
+ 0YT3CYU5Tr3ryUEVcZ82zew8Q0yNtPfwPv0gaByMSmgpl/Y6Q4KaA1ApJbTToZjcSA9D
+ 8wAFpTXyVPJPfY/jYk/o+HLZnj9OimQ6lVF6QAl/wQrt6Jm00mQQEAPFPHfGCof3ifrf
+ UGvPAsPDg2O4dUdCSjhHdly7fAsyLUOcpVL38IMxw3LiX56RR5s8CtLQzUgrjUHQGVh0
+ mk8nk5dhiSY7ALxeS+GFI9MOnCSYX/Uju5QbeKbl03zLu8HvISWAG55wSufk1sqc7Q3n
+ YqrQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/ycAuzo6SY1/zG61CirnhAY7206x1w1jFH4t8cb3Jiq/T57ZbE3sLpjhgmASokzi3rYHRb5ePMpy8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyM7JTl4mrFfhowsC9WAk15gL2ZZKq+Rf98jejuc6WA2gEQg9Jz
+ TxKI2qsKsTfLlX9z1SwIDoajC1w5yVdSsK8tJlsvkVw11MBpe0cQdGxh
+X-Gm-Gg: Acq92OH0u12Cg29nZLYvH6J9/ua1jZcfuTpxiLEhEIsEQ+SZxdy6G+aTiAeOBRmm5TK
+ yEqgTc6A0nCl3fPfsqvb8ODTNOejUt7+LHDWzBbBToJUFTuEv9HEUUd0hGvlfGpjYUtNpeqZ5vn
+ c9RlnOA6legUaemaPh5ec+L2l00yGwZjqK1uHOdbBLRstfKKa+Rqk/GP2EgMZidpJGfMigoS0gJ
+ Gf6WlgLbgAZQrcyr5ipv8VfRzHlsaAx5YsS+8XWPR8hhgahxr7IKfpwxjxwbPm0RtE2cpygNyvF
+ Erqs0+VkSo4mwGH1V14+mdcxVls6MoUhhoDP/auRqASgYqMATSqYMYsBhKCtlrcLYvhwIs+PPUu
+ H7nWSigrq55m/Ufc+TG5wOR6iLOra0o/XsHDiRUk6cMbP9uAnJscyGWfpgBB0Nm4jLXAQBccQF+
+ /g13sivngLPKz6wOhT1lhPwN1TQgGhuXUAWm3Qyd2Ijr1HQHM3NWcsQ2jLQGMvxN1vBYtwH2PUe
+ SxJ35Lwcq8FJf714vGS
+X-Received: by 2002:a05:620a:6111:b0:915:4ca0:1210 with SMTP id
+ af79cd13be357-9154ca013ffmr513150185a.3.1780309067135; 
+ Mon, 01 Jun 2026 03:17:47 -0700 (PDT)
+Received: from debian-t14-gen1-fuhrysteve.fuhry.app
+ (6.sub-75-230-138.myvzw.com. [75.230.138.6])
+ by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-91532486089sm976503585a.17.2026.06.01.03.17.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 03:17:46 -0700 (PDT)
+From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
+To: arun.r.murthy@intel.com
+Cc: Stephen Fuhry <fuhrysteve@gmail.com>,
+	intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/display: Refcount for fec enable/disable
+Date: Mon,  1 Jun 2026 06:17:43 -0400
+Message-ID: <20260601101743.1676771-1-fuhrysteve@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260519070959.648987-1-arun.r.murthy@intel.com>
+References: <20260519070959.648987-1-arun.r.murthy@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e7ea1d80c03a1kunmeba3563a10bb70
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTx0ZVhkZQkwdTEkYGhkZGFYeHw
- 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktJSE
- 5DQ1VKS0tVS1kG
-DKIM-Signature: a=rsa-sha256;
- b=nw5t7x6/l8f6HAlZDcLLGMPbptweip4K4qDJP30Pu+gaL/IYyMv7uZnRnT8dWa3y/eTVDhBc5tCzQaK9o5Ktw+68G+u8WFurCa27xJjheQnYNetk/kZUXjJ5dw1i6vcdfTkRSoS/Py5/41rpG/sVcrcNkTDe2VLpLyq2oAUqE0c=;
- c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
- bh=MfgaZITVjf+xSp/VVqdccCnPFjcq7/aWQ93a8bo464M=;
- h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Mon, 01 Jun 2026 14:40:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,14 +92,6 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thanks, Jani.
+From: Stephen Fuhry <fuhrysteve@gmail.com>
 
-That makes sense. I'll keep this as a standalone patch and respin it
-without the stable tag.
-
-Maarten, I understand the same fix is also present in your PREEMPT_RT
-series. If you think it would be helpful, I can add a Link: tag to that
-series in the next revision to make the overlap explicit.
-
-Best regards,
-Runyu
+Tested-by: Stephen Fuhry <fuhrysteve@gmail.com>
