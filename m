@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76749CD6E56
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 10:16:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF66DCD6E56
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 10:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E7010E78C;
-	Mon,  1 Jun 2026 10:16:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8463310E761;
+	Mon,  1 Jun 2026 10:20:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="bG97OOPA";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="dSuDXQdD";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A040C10E78C
- for <intel-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 10:16:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CDE910E75F
+ for <intel-gfx@lists.freedesktop.org>; Mon,  1 Jun 2026 10:20:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1780308964;
+ s=mimecast20190719; t=1780309204;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
- b=bG97OOPAoHu9sfEqhiUz+D42kqucPKFn4+sshDR/VXpNGLmDVaTEgP2R54uiN2L3HHo2zO
- jzvjYnrPIG4a3Jzhet9bvw/ibed2K84i6Ofv5Wc+4N19MY+Z1W2OQ3QyccwWNqWYrsA6Y5
- yHQkjhDV+Vc7NUW2GqIz90nagSVmSFw=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=2pmaS/rwYkc2+fCZTYV9toIp0r3BjOevXJeqgzIBH1c=;
+ b=dSuDXQdDCzNAVZiCjvB/P1Xu1TtN1dPKDHA2SJleY8i2CVuw6V5baoyUkvRfCRWpqMoHtO
+ 226rdxOwEVpHh2nklbFTIiNyGFzFT+YgRFL6AWjtUfZrC6SYvw8ea+2Zqwrm6rgkNbrXDp
+ jQtKLwp1jobEez+wOC0trG/tx52EMMg=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-590-Fp-vQwvbPQaIu-d6MXfOmA-1; Mon, 01 Jun 2026 06:16:03 -0400
-X-MC-Unique: Fp-vQwvbPQaIu-d6MXfOmA-1
-X-Mimecast-MFC-AGG-ID: Fp-vQwvbPQaIu-d6MXfOmA_1780308962
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-490ae4d89e2so3130675e9.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 01 Jun 2026 03:16:03 -0700 (PDT)
+ us-mta-654-JFhUZx8cOM6hCZZNQyuJ-g-1; Mon, 01 Jun 2026 06:20:01 -0400
+X-MC-Unique: JFhUZx8cOM6hCZZNQyuJ-g-1
+X-Mimecast-MFC-AGG-ID: JFhUZx8cOM6hCZZNQyuJ-g_1780309200
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-45ef55779d1so1467040f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 01 Jun 2026 03:20:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780308962; x=1780913762;
+ d=1e100.net; s=20251104; t=1780309200; x=1780914000;
  h=mime-version:message-id:date:references:in-reply-to:subject:cc:to
  :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Ec/J4tNvrAMdwkOq5RTOf80WrT+IRWDMG7cFT7/0gaw=;
- b=AT79/nxfbesNFmh3002RI9ONmlzMSbRJoslKaukNCNBKO3fsatuwK2mgUdV270q3AO
- GnntUg/BZR71Eg6FnNcyoA0trN9lzbzDOkYDVOQN+f5DGWn3olR70brcsWJBXRM+owqO
- 9Rfzdkisvx3c9g+SzJix59xn4VI4ZhG01U3WWcgRHV/l8xF8KuMeKAQUqpvv9Z+wPsP4
- YqVjZPcsQkklEYK5gRrEPopevTGTiIKtARFyOW+y9Nzwj1YpLFIx99wzqUvTd6y3j+HJ
- osjgcH7/+drk+VpbphES6F+o6jGTWtaIjFgbYWzkcu1Bc2y4lQR6RANPgO8OmcztaTqK
- dTGg==
+ bh=2pmaS/rwYkc2+fCZTYV9toIp0r3BjOevXJeqgzIBH1c=;
+ b=Cm86Q7NY+BP0Ov48l+2T2LG/etP4U4FRuGTmPSwmIp2ooYNLu8PHFw43XvjDodD3cQ
+ VOcJJLt6ZB+1Q44VigZOmDPxsbPEGgp+T81M1KZUIfF3j9/jTj2RQ0mWnFgeGP3iW6Pq
+ 21M6EJ44e0Nx+zp9/C/5OeUTj7y02EK+ryWfVE6DHQQ/nbLFd8DHbJZICs5F6XQMKyFA
+ eC0er/7iVGNuuBkDdQBswlkgKVFJ5D+BeBP70FXoeAkn9v0aL2tBMN/B8brivL31s7nN
+ 9KnXrpd/H2hY70IK3upv8I3L09Z/l6FVwXg3lYCLAN2oKUH4+SKG88lzSM1vnQoTXege
+ AuTw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+NRzJ3OH8ml/dPeUoM7n4Vp5d1jLM1mOkCe87OMGgPb1HdYxoB4ayiDkfE5fOe8TTE7em+cKjyO+8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwrbBaXHZQpxWiFHEwMF6UYZbMHwhkqp5JEJ/9pIoUCwOxn0CCT
- DTlOCguKihaKcP+uhpBHneRXCkFNSULcUeisuziVGjkZPG3jWfwFY3yz4f0XENKe4PbBlwA89at
- gFhK3nflTbgYwMZo0q6FmPWrS5/wK/UtIKub/7PxuzPifV4AVh5IgGUo1IICiEBgFapoF0koBFH
- LSww==
-X-Gm-Gg: Acq92OHXEN2jvp+1jvINFtvU3vcQM86yQeyEa9LTLZtjrwj/8P0UYbWaUD7z+cpSuVn
- VwncTPUdmWiYTHGH+1LTiX4QSy7QmLIzB0X4564O3Qc9jl6fhyQV+1SCsZjckjl64+r3TH41Imj
- e8PenFDb2H+OfHddt2p80yXTcHx2U+g/tMsM5S5Ixq2ZaSb1IK4V/aORZQnnw6VSD2aToAifYer
- N0//xZkvB2jk6t6QUqXxSkii/0gHz29szdUGIxeG4bPTH1mTLK+/f/gNpHJ66TAjZ8INj8+OQiw
- f7tsjJ3hZ91xX7dHVqs6sjp4eK57TxzAcN96Dsvr8oPlyVi1VaVAxECI7MfAmAli1xkyz17MIYJ
- 5EtgmFTsWTgpaTHd+j5MdOWLyrjbpi1o2OGz7YATjGO/8AimEUyxaJA2j51ANemxmz5TQFaWTUD
- 7FDQIFQmgS4oqUiy0=
-X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id
- 5b1f17b1804b1-490a29838b6mr211911525e9.24.1780308962206; 
- Mon, 01 Jun 2026 03:16:02 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c06:b0:490:a298:3859 with SMTP id
- 5b1f17b1804b1-490a29838b6mr211910935e9.24.1780308961705; 
- Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+ AFNElJ/odrnAts0PyO9JR004R00fS/xfpBA3+MGrqOtTIT9FOv9W67AXoQIi13jeFLwe5jxxoj1blRAjWoU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy7ea4gnKRSA+/XY8/AEJvGbgu+wzQ/rMdYc4QzWrHvWRt3sgvw
+ DxDchl6bwgx64+AQt0mbK5ON2OKQVLPk7nuMBt21wH7CzWdC07aBaW+Eb53+ILcS52oWf4MQxxN
+ iJn2yAEfrzFzn/8w6MwvempYn7GzeiJPh7EoCdMBibyDNC/xu5NJzlxkTaWhN1ppM+0OEng==
+X-Gm-Gg: Acq92OG1c9UvtUPiZ7fABkpCaTEPJ/ypiDXhQ7pfC9LYh/TnxTqH1MRofhYwkZigbRP
+ uXRtHoP2xl/QiL5MXVyal5EFaIRNdeReyYe9VZgHW6KIMxmT3SSw+FAWBfRAkYcNAPzbUWBWUVW
+ Vx/jK/VcHPwcILfAv1Js+gzzfw2+ehOykvSEmeNSnt4G+oCDP+qcYGLFoIaNeefMCLcqvt7Wc8j
+ fjqqJXKO7Z4XrB1TC8yU7JgwOs1sXyurHgic5N9D17w6wLxxOEs7lrMxfWAHVLGoZD8PPfarg0I
+ w/QaXiliMAXR0Cp+pF78enYoj/znVsxycd4DBReeD4UwBClb31FFuEhypKzdIUrExLME8fcWkP5
+ Om+/UU1KWDkKuSKSlKvOd+AX5cZdgLlM0cRspztliCEpDQBJtCuKKTfr7rW5/LBiu7mE9+YgiBN
+ yxjNw0dTnBYwoNJRQ=
+X-Received: by 2002:a05:6000:2581:b0:45e:f8d0:d22c with SMTP id
+ ffacd0b85a97d-45ef8d0d485mr18400673f8f.25.1780309199699; 
+ Mon, 01 Jun 2026 03:19:59 -0700 (PDT)
+X-Received: by 2002:a05:6000:2581:b0:45e:f8d0:d22c with SMTP id
+ ffacd0b85a97d-45ef8d0d485mr18400611f8f.25.1780309199267; 
+ Mon, 01 Jun 2026 03:19:59 -0700 (PDT)
 Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef32fabcasm23621879f8f.0.2026.06.01.03.16.00
+ ffacd0b85a97d-45ef354cf0dsm24570236f8f.17.2026.06.01.03.19.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 03:16:01 -0700 (PDT)
+ Mon, 01 Jun 2026 03:19:58 -0700 (PDT)
 From: Javier Martinez Canillas <javierm@redhat.com>
 To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
  maarten.lankhorst@linux.intel.com, airlied@redhat.com, airlied@gmail.com,
@@ -79,17 +78,17 @@ To: Thomas Zimmermann <tzimmermann@suse.de>, mripard@kernel.org,
 Cc: dri-devel@lists.freedesktop.org, linux-hyperv@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-mips@vger.kernel.org, virtualization@lists.linux.dev, Thomas
- Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 01/10] drm/damage-helper: Do not alter damage clips
- on modeset, but ignore them
-In-Reply-To: <20260530185716.65688-2-tzimmermann@suse.de>
+ Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 02/10] drm/atomic-helpers: Evaluate plane damage
+ after atomic_check
+In-Reply-To: <20260530185716.65688-3-tzimmermann@suse.de>
 References: <20260530185716.65688-1-tzimmermann@suse.de>
- <20260530185716.65688-2-tzimmermann@suse.de>
-Date: Mon, 01 Jun 2026 12:16:00 +0200
-Message-ID: <87y0gylg67.fsf@ocarina.mail-host-address-is-not-set>
+ <20260530185716.65688-3-tzimmermann@suse.de>
+Date: Mon, 01 Jun 2026 12:19:57 +0200
+Message-ID: <87v7c2lfzm.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: eQVGdfH_OyP5GIHb3G4WCbOWz3hdhS0vI1O0fntbgas_1780308962
+X-Mimecast-MFC-PROC-ID: MfUJz-hC-07ilkTyLW5hm7N0Q-ipinuwfY68Ghjvo7o_1780309200
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -109,78 +108,39 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Thomas Zimmermann <tzimmermann@suse.de> writes:
 
-Hello Thomas,
-
-> User space supplies rectangles for damage clipping in a plane property.
-> For full mode sets, drivers still require a full plane update. In this
-> case, leave the information as-is and set the ignore_damage_clips flag
-> instead. The damage iterator will later ignore any damage information.
+> Each plane's and CRTC's atomic_check might trigger a full modeset. As
+> this affects the plane's damage handling, evaluate damage clips after
+> running the atomic_check helpers.
 >
-> Also fixes a bug where ignore_damage_clips was not cleared across plane-
-> state duplications.
+> Examples can be found in a number of drivers, such as ast, gud, ingenic,
+> mgag200 or vmwgfx, which all set mode_changed in the CRTC state to true.
+> Ingenic even re-evaluates damage information in its plane's atomic_check.
+> Doing this after the atomic_check helpers ran benefits all drivers.
 >
-> Leaving the damage information as-is might be helpful to drivers that
-> benefit from this information even on full modesets (e.g., for cache
-> management). It will also help with consolidating the damage-handling
-> logic.
->
-> Also add a new unit test that evaluates the ignore_damage_clips flag. It
-> sets two damage clips plus the flag and tests if the reported damage
-> covers the entire framebuffer.
->
-> v4:
-> - slightly reword the commit description
+> There's already a damage evaluation before the calls to atomic_check.
+> With a few fixes to drivers, this can be removed.
 >
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
 > Acked-by: Zack Rusin <zack.rusin@broadcom.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.10+
 > ---
->  drivers/gpu/drm/drm_atomic_state_helper.c     |  1 +
->  drivers/gpu/drm/drm_damage_helper.c           |  6 ++--
->  .../gpu/drm/tests/drm_damage_helper_test.c    | 28 +++++++++++++++++++
->  3 files changed, 31 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/drm_atomic_helper.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-> index cc70508d4fdb..84d5231ccac1 100644
-> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-> @@ -359,6 +359,7 @@ void __drm_atomic_helper_plane_duplicate_state(struct drm_plane *plane,
->  	state->fence = NULL;
->  	state->commit = NULL;
->  	state->fb_damage_clips = NULL;
-> +	state->ignore_damage_clips = false;
->  	state->color_mgmt_changed = false;
->  }
-
-I would split this as a separate patch since is the bug you are fixing for
-commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to
-ignore damage clips").
-
->  EXPORT_SYMBOL(__drm_atomic_helper_plane_duplicate_state);
-> diff --git a/drivers/gpu/drm/drm_damage_helper.c b/drivers/gpu/drm/drm_damage_helper.c
-> index 74a7f4252ecf..945fac8dc27b 100644
-> --- a/drivers/gpu/drm/drm_damage_helper.c
-> +++ b/drivers/gpu/drm/drm_damage_helper.c
-> @@ -78,10 +78,8 @@ void drm_atomic_helper_check_plane_damage(struct drm_atomic_commit *state,
->  		if (WARN_ON(!crtc_state))
->  			return;
->  
-> -		if (drm_atomic_crtc_needs_modeset(crtc_state)) {
-> -			drm_property_blob_put(plane_state->fb_damage_clips);
-> -			plane_state->fb_damage_clips = NULL;
-> -		}
-> +		if (drm_atomic_crtc_needs_modeset(crtc_state))
-> +			plane_state->ignore_damage_clips = true;
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 51f39edc31ed..4c37299e8ccb 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -1065,6 +1065,10 @@ drm_atomic_helper_check_planes(struct drm_device *dev,
+>  		}
 >  	}
->  }
+>  
+> +	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+> +		drm_atomic_helper_check_plane_damage(state, new_plane_state);
+> +	}
+> +
 
-This makes sense to me as well and I agree that re-using the flag for this
-is better than making plane_state->fb_damage_clips == NULL the condition.
-
-As mentioned though, I would make it a separate patch. Both changes look
-good to me:
+I wonder if it's worth to mention this in the drm_atomic_helper_check_planes()
+function kernel-doc comment. But regardless, the change makes sense to me:
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 
