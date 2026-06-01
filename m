@@ -4,156 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFA4CD5BD1
-	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 13:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E5ACCD6E57
+	for <intel-gfx@archiver.kernel.org>; Mon,  1 Jun 2026 14:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C40B113363;
-	Mon,  1 Jun 2026 13:39:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E318D10E804;
+	Mon,  1 Jun 2026 14:31:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XnMm+cG0";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BfqTVKTi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B08C113363;
- Mon,  1 Jun 2026 13:39:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BD6910E804;
+ Mon,  1 Jun 2026 14:31:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780321179; x=1811857179;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=5JbIOii+KvJYc4MvuEqhKcjyiZ4JK0IoFy74AlLSxjI=;
- b=XnMm+cG03/0NHTaQHlkqQKneaMlnnlko3AbgKcmikuDaUJXo+IjyBRXi
- htvpk7+ikk1A5GcgFZ1QvX6ig3wGskjEgtrXB54LElkXuO+fg5jheXSDO
- vY+K9IWJGCiwDGZPQP3GiX6Vza3Z1rswXymf2Y2bK0Ug480Ax8PcdVOIk
- aPAWO/IKrcxH0xUNimnVrK4DEfhwc5xfF4W4QkMNKbVfzlqpI4aBZ8TOr
- 7HIjeZwAsYQejIopT3BPDAg4+z8+bW5laLLfVEPYpMV7713qG/m+UJcGV
- Vb7rnajph51Lbi44JXXv68hKoZt2eher1j9Z62NviILmIM6azsqsbZHUQ A==;
-X-CSE-ConnectionGUID: v9soRXFFQseHt89q6ojyXQ==
-X-CSE-MsgGUID: lnzZInNTQlmsXUN9muwXYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="91649766"
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="91649766"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 06:39:39 -0700
-X-CSE-ConnectionGUID: dKZXe+H2TbW58McD/MkuWQ==
-X-CSE-MsgGUID: qSm401q9RGSJd17n2UvnDQ==
+ t=1780324262; x=1811860262;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=RY5vQ3nIM6Q+0ZvuSuyg9eXR4w3jXIkq3C5Ae0SIB6s=;
+ b=BfqTVKTia/FHSZYc95bAB/RiecmGpsaZBMVCRC5HJiLeEMI9gya3mcBr
+ vGoB5nyiojpWt1SUokbBvIXrEZN2+CsH2vkgBF28ZuBAFwZ/cXVHnQXFl
+ gxjCZfIEREJiYEBqCH0afUqhjVmYDknXwZrxfp+UmKkh+Tjo655PdUMue
+ TXyZ032VUmsgESmXJUvza90Qi79JYbUmSHjt5QFPqu9qrpCfagucRH3wL
+ Vi/QiHySa0E9bZujrq2Nn9wm6JQ+f3mH7356a9rYx0fpIMaQbQlb6y83I
+ EPaWFuhQUMIZBW96oT+xCb2mBf/Ky+GqHdLSwNaeVSBKTfQwBe5H8Wji7 A==;
+X-CSE-ConnectionGUID: Kd1op5NrRUuNe+u9HYRWbQ==
+X-CSE-MsgGUID: ati0/gzzR4CL3Y1gK89iiA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="106529931"
+X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="106529931"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2026 07:31:02 -0700
+X-CSE-ConnectionGUID: 52mnO6jtQCm1pDzsal5RDw==
+X-CSE-MsgGUID: A8WUt+XQTZ+p+cMbuG2Dwg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,181,1774335600"; d="scan'208";a="243696585"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jun 2026 06:39:38 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 1 Jun 2026 06:39:38 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Mon, 1 Jun 2026 06:39:38 -0700
-Received: from CY3PR05CU001.outbound.protection.outlook.com (40.93.201.19) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Mon, 1 Jun 2026 06:39:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=is68InW5SVzolU8AWtJWqF/gVPKtNWBOVPy6HeMKmW4RCZb2nixsLAeWPIzdS3wppr2j3gi6XSZ/nEolo1CeALfuWCOr0SNPmS3a4LrSGb41zVK78I5f+YfqJ7Frhu35teoETO2ZS20rQDitE4ypxkVWTH61QCFf9tuiAOMy65YUPpBOn5AMeJ3Wogs0EAaDjTvPcMSACe8nhvSwrGeOy5kNBw92IcgoLKjJPN/MMCfUbUAgnZGwBhcCSpg/SybH4fNAcVArAe4eC82Xz9Sax5ODEoUrEtClPQw8EVHdjemUfqf4KwJCDko8O195etPPTWEQxvQYVtne3jQX3C8acg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IMQIvO7r/Ly3paT+fLGqoT/NAb3DateUaKiFrmse6P0=;
- b=dixFF/lOdX8wd4tMBv7oa7DhG/Bgf2Sa88aQyNE/i5KtKzlNmXNVnrUbnErNTWsiKblRO5u/ljyDkDpZDre7EqHtJubMBHEoutOHjdEISnjJeyVw8ImpHSvt+ki1y46lNFSbRAsveYK7RoQLNcSG1lXcfddnyaI/nn2Zv9G2YEtJ7UsYHx3scGLR2xSQDC5J1WCbz8BEEyTo0VDefFxklJWFNJRcOPIRs08yvVWTq5vEjcXIU8n7wqse4DoS+T4iGsj/eR4r7hvjFV1w4NkAWbUnal3y+5SWZSWB1syS9kx7q3P/wHZiFxMm3gMTGy3mmqpmmlQno2f7jhiZBZRmCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS0PR11MB8049.namprd11.prod.outlook.com (2603:10b6:8:116::6) by
- CY5PR11MB6308.namprd11.prod.outlook.com (2603:10b6:930:20::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.48.14; Mon, 1 Jun 2026 13:39:29 +0000
-Received: from DS0PR11MB8049.namprd11.prod.outlook.com
- ([fe80::603c:772d:6793:d4eb]) by DS0PR11MB8049.namprd11.prod.outlook.com
- ([fe80::603c:772d:6793:d4eb%6]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
- 13:39:29 +0000
-From: "Manna, Animesh" <animesh.manna@intel.com>
-To: =?iso-8859-1?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, "Shankar,
- Uma" <uma.shankar@intel.com>, Dibin Moolakadan Subrahmanian
- <dibin.moolakadan.subrahmanian@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>
-Subject: RE: [PATCH v7 08/15] drm/i915/cmtg: Add a hook to make eDP transcoder
- secondary
-Thread-Topic: [PATCH v7 08/15] drm/i915/cmtg: Add a hook to make eDP
- transcoder secondary
-Thread-Index: AQHc7RlcXF6lohw+b06RMtXN/ktvLrYk2CwAgATknfA=
-Date: Mon, 1 Jun 2026 13:39:29 +0000
-Message-ID: <DS0PR11MB804963FDDBB67275A6697004F9152@DS0PR11MB8049.namprd11.prod.outlook.com>
-References: <20260526133811.2621675-1-animesh.manna@intel.com>
- <20260526133811.2621675-9-animesh.manna@intel.com>
- <ahlv1JSW-psLZ1Lg@intel.com>
-In-Reply-To: <ahlv1JSW-psLZ1Lg@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR11MB8049:EE_|CY5PR11MB6308:EE_
-x-ms-office365-filtering-correlation-id: b63d3d13-8e67-49cf-51dc-08debfe334ad
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|4143699003|22082099003|38070700021|18002099003|11063799006|56012099006;
-x-microsoft-antispam-message-info: PsFspfvp2p6YoaCO7UP4SQ5ezkWwJDsP7NRes/XLaUjv0xRM2vrwiy/hT9b4dz5MYmy8U0+twRHYmSyyhEKLABhV2DPBtbTCnbflHHwP2qkXiCKDmICrYX8W+UaoGElqovOQdh/s3yBUk3LSdZMhoEFPUwKrGQv5NTgaE/JVSsolhO7321a5lCtdEkC3n3zhWL49iyMuP/ocPuW3loQBG0ecDCfozbhUobvTvobcFk5haGJ6cn2t8qh+nUl/5TDgxhGhWLxXl7h8c1CQI1IKLVSxMsWeMM8vdFfpGiNDMYB12sU6D+QhxEDCCL3kzPTdXEIrXiCJ89cXTV+4tQBhsgi/pm7l+VAMrvNUq7/Z7BLLkTYx3pzLnyRvoiw1P4Li1upkSnVVDZAqZHvc7PR7ik4M7Peno9ONJytRiFo3P/JqoMcTcvW7CIA8gsT0iNfG3bRNofA5Rhmdh7qA3f/A5ecqOU7C8/G/FpT/29C4Qw4n/H3BMDMCkLMozNoCpWR4LM09APIshlhnEm8qiBnbvqsO9NOnoRBOpqSDPg3IFdr0u8IEaOCrPyW2eCTo8noWmVqAhPr/ahJw1HK37mZiViE+3GHqy4aEl6I+6Y2ObNSDF8gBBCocLUOPnqFjR/IbFTii9mlSeETfsxGLcWKPe5uU3bYQkdP+AlX6oVr8KnLq7EyCUk5gkhvrBDp+cMSusWZ1GDrnBi3pUnjCv5R9U/9rWoQuYgqCDJ3mnxYAnxPbs7NXZkZhoOO+T/9oNO4V
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR11MB8049.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(4143699003)(22082099003)(38070700021)(18002099003)(11063799006)(56012099006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?HI45WTaddP+RM838SteoV78P2cW30Mi/2+/jwzotWzh4Hm0z56zs7wWdBQ?=
- =?iso-8859-1?Q?H5mbvJANfCwtQx0n48J4yICQveyHINZUR7zarKPry9VyieFOlIEDifbyQf?=
- =?iso-8859-1?Q?dezdl5ED4FVke0bvIVoBjwi1kaM8r5nIaWJJwHJffWPMfAmWqzbgEvKpmP?=
- =?iso-8859-1?Q?AMqFwEbF8NVmf31zsA9EFgoyjAFJmAh2nKSvdd0qRzqfu3wjlWhcPQGEdI?=
- =?iso-8859-1?Q?w3J7qC3jkybTcqNgGeKbBtAV6pj4trgDODf7DPo/8vIFuwAYlNZcmk/0xO?=
- =?iso-8859-1?Q?a9pxPtstaftgb45oqheRbJhCb8/gpCsfEZETQx8/zskAO4Eg8ovDJEcAjp?=
- =?iso-8859-1?Q?mvdlGGOOhasN3iGa8lE+jWHS3UXgKI5AYUG9IJi4df+smEdD7SdhpbNyKM?=
- =?iso-8859-1?Q?jgmUbNVo7SeqquNl6fY1CSya91ldDJAgRPlIHZ9nHoPFz9dPU5Jn2OdZqq?=
- =?iso-8859-1?Q?A7HQ9haF+FcgX6oBVOMHYKT5XJKG76xRh3H/9aMEYWBbAVNcuqgsLmVoLn?=
- =?iso-8859-1?Q?Bl1mZMbBOqf5/c9zAEkUzermwAneo4vdCOJW3eLHM2hxoR5GF8DBLfrgF4?=
- =?iso-8859-1?Q?bGHIfUc0YLSSItsU4LU/i83OLBD22DwBy2uqZ2q7uCX3looA5Py5OuYQi6?=
- =?iso-8859-1?Q?Da8I1Zto3mRhU5qygZr1orHRlWkmBatvcMpBUz4F1bp1Xx6X9UPWdgGNqx?=
- =?iso-8859-1?Q?5kraf0k2QHA6uwG0UhcKSqe1okWHwz05+vy2F+DF+jwTIfqvDXp2s3wouA?=
- =?iso-8859-1?Q?J1ReLEfrtgJxm/H/OVqLW5kz2D+FMHi/7qge23Tqaz80zdTbvdVUIU1nnp?=
- =?iso-8859-1?Q?82cHZoU5gPG4yC7pCSHqMpaZfRzs6gRg6B3hFi7BLPCa6EtqhtWKPIdV45?=
- =?iso-8859-1?Q?ap7pBAgBtG8jnYVgG+ZDFvn6iL5NNF4ifAg1BXiiGtiLGTX7Ysad4RfS9b?=
- =?iso-8859-1?Q?kq11leCGCAovib3T4azsHblebVt8yzu+TWc9qmF9cfXQgIW0CKwCIQYCCL?=
- =?iso-8859-1?Q?XstV90sqbEMlKrcfNi6ihiUoYe9kghdt0/0s9WAPgHkAUzHQPWcdr5UPh7?=
- =?iso-8859-1?Q?wjq6r7VVPtZlWXDcBHBSTkXi2GEhUtRM6gVgyl+uQEE2QBAHk1iKJeR8wW?=
- =?iso-8859-1?Q?Hf46RFpd3tXWDjzDIdQ1AFsO/djFHGWbGmOu4YnW5XPN1DRPxhB5GAYp1R?=
- =?iso-8859-1?Q?QaNMYIwaCTpKp9PwVwu8ll6BB6Qovxw2Wk+/dEQSWZqR1yMzb+ue3hgUrQ?=
- =?iso-8859-1?Q?nHohUnZ6qpc9ffT5FsfdllWv+EgMWNjUmMs84bZ4ZpRbHykGS0aInIznhs?=
- =?iso-8859-1?Q?m0v+fNLxIotq4AYCjYlUspHiwXQq2xObTqq3+9ReKU527ZD2oARpU5W4yV?=
- =?iso-8859-1?Q?JzFI7ib8YbzYLeO32mSB/csUEQxHQqtS/9VkrWRzsO+BQqSfcQv0onm7np?=
- =?iso-8859-1?Q?spvpHa74Q8AldqWM3mlp/E6R69DkqAlLUSAaZY0v9c7L5mrzkD4GaRAALi?=
- =?iso-8859-1?Q?ufpvmvtmCTCoLNdwvWafCJ0lt0SVwam3atTFJEE/ZsW5iRhs3wZhViOvE3?=
- =?iso-8859-1?Q?iYBMDaa4S6t6ceInQc50REbLhwBMpmPP4IZlQVmNDdDEb+whGoGkkEmi1q?=
- =?iso-8859-1?Q?SYDX8yyMazAuwpFwgczjoIHP4M11dcp6pk4Vbv1sR8HIEkkE0w9GMfs86+?=
- =?iso-8859-1?Q?n4f5Tu6LpwCeijgaNczvE736renYvPZXRogvguJE8CgqtXThStsfTpB0+L?=
- =?iso-8859-1?Q?Va0VVKI5FLSGm84OEvnkIHd9/1dpY0AdluY9WYcUMPXMt4Kq6LBzcFUpi0?=
- =?iso-8859-1?Q?uZpBZrs8eg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by fmviesa003.fm.intel.com with ESMTP; 01 Jun 2026 07:31:00 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Arun R Murthy <arun.r.murthy@intel.com>,
+ Stephen Fuhry <fuhrysteve@gmail.com>
+Subject: [PATCH] drm/i915/display: Refcount for fec enable/disable
+Date: Mon,  1 Jun 2026 19:59:43 +0530
+Message-Id: <20260601142943.1481728-1-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Vhj7ctoHRBCap27fNJsgRgJ+y6IMiRkiyvD0b7XLOG7Ha8LfRtc6P596M0lkpZa3CoASLmuADKESjbysMb3syEWto/WdOfSJVj8RMspvJpC/d9tx8MFeelGSO+Tg2b1wyWbh/Dg/AXe3//GcmbJ5TkIYFjEr7Od/IAZTgZwdMzdBxfY3Dkx11wwBl3P58xlaK2coL5jwr0JSuHQDxxXYX6XHF7YgRgY2RKGS7Jd7hid2PA8HVCrY3vT6et8avNmolT9KDbdrT8fE60eiLHs56WkzFsz7mZh0E01fi2/PSR58f1uTueCWxgfl9HfP2DO9a9uLn7prinpTtvsF1pNulA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB8049.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b63d3d13-8e67-49cf-51dc-08debfe334ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2026 13:39:29.5005 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: f0MUdBupfIm9k63Jhh5qGup8hrWcE39JJuzoaDsEVnGmMC+C3UxV1UvUlI0x8RV9xeeskqUGB696alVuRt+ufQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6308
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,89 +65,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+The FEC_ENABLE bit is per port basis and is enabled/disabled on ddi
+pre_enable and post_disable. This fec is shared across the mst streams
+and can be enabled per stream basis as well.
+So have a refcount to track the usage of FEC and then enable/disable
+accordingly.
 
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16073
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+Tested-by: Stephen Fuhry <fuhrysteve@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 66 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_ddi.h      |  1 +
+ .../drm/i915/display/intel_display_types.h    | 12 ++++
+ .../drm/i915/display/intel_modeset_setup.c    |  6 ++
+ 4 files changed, 85 insertions(+)
 
-> -----Original Message-----
-> From: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
-> Sent: Friday, May 29, 2026 4:22 PM
-> To: Manna, Animesh <animesh.manna@intel.com>
-> Cc: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org; Shan=
-kar,
-> Uma <uma.shankar@intel.com>; Dibin Moolakadan Subrahmanian
-> <dibin.moolakadan.subrahmanian@intel.com>; Nikula, Jani
-> <jani.nikula@intel.com>
-> Subject: Re: [PATCH v7 08/15] drm/i915/cmtg: Add a hook to make eDP
-> transcoder secondary
->=20
-> On Tue, May 26, 2026 at 07:08:04PM +0530, Animesh Manna wrote:
-> > Program DDI_FUNC_CTL2 to configure the eDP transcoder as secondary to
-> > the CMTG transcoder.
-> >
-> > v2:
-> > - Update commit header to be more clear. [Uma]
-> >
-> > Reviewed-by: Uma Shankar <uma.shankar@intel.com>
-> > Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_cmtg.c | 13 +++++++++++++
-> > drivers/gpu/drm/i915/display/intel_cmtg.h |  1 +
-> >  2 files changed, 14 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c
-> > b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> > index 63e430f7e63b..34715280d65d 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> > @@ -359,3 +359,16 @@ void intel_cmtg_enable_sync(const struct
-> intel_crtc_state *crtc_state)
-> >  			 transcoder_name(cpu_transcoder));
-> >  	}
-> >  }
-> > +
-> > +void intel_cmtg_enable_ddi(const struct intel_crtc_state *crtc_state)
-> > +{
-> > +	struct intel_display *display =3D to_intel_display(crtc_state);
-> > +	enum transcoder cpu_transcoder =3D crtc_state->cpu_transcoder;
-> > +
-> > +	if (!intel_cmtg_is_allowed(crtc_state))
-> > +		return;
-> > +
-> > +	intel_de_rmw(display, TRANS_DDI_FUNC_CTL2(display,
-> cpu_transcoder),
-> > +0, CMTG_SECONDARY_MODE);
->=20
-> We already have a place where we configure TRANS_DDI_FUNC_CTL2.
-> Why is this not there?
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 86520848892e..e12a3d6d6a67 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2096,6 +2096,47 @@ void intel_ddi_disable_clock(struct intel_encoder *encoder)
+ 		encoder->disable_clock(encoder);
+ }
+ 
++/**
++ * intel_ddi_seed_fec_refcounts - Seed per-port FEC refcounts from active CRTCs
++ * @display: display device
++ *
++ * intel_digital_port::fec_active_streams is the per-port refcount that gates
++ * programming of the shared DP_TP_CTL_FEC_ENABLE bit. After initial HW state
++ * readout (driver load, resume, GPU reset takeover), the persistent
++ * crtc_state->fec_enable values reflect what HW currently has; we need to
++ * align the refcount with that so the first paired disable doesn't underflow
++ * and the next enable doesn't incorrectly skip programming the HW bit.
++ *
++ * Must be called once after intel_modeset_readout_hw_state(), before any new
++ * modeset commit can run.
++ */
++void intel_ddi_seed_fec_refcounts(struct intel_display *display)
++{
++	struct intel_crtc *crtc;
++
++	for_each_intel_crtc(display->drm, crtc) {
++		const struct intel_crtc_state *crtc_state =
++			to_intel_crtc_state(crtc->base.state);
++		struct intel_encoder *encoder;
++
++		if (!crtc_state->hw.active || !crtc_state->fec_enable)
++			continue;
++
++		for_each_intel_encoder(display->drm, encoder) {
++			struct intel_digital_port *dig_port;
++
++			if (encoder->base.crtc != &crtc->base)
++				continue;
++			if (!intel_encoder_is_dig_port(encoder))
++				continue;
++
++			dig_port = enc_to_dig_port(encoder);
++			dig_port->fec_active_streams++;
++			break;
++		}
++	}
++}
++
+ void intel_ddi_sanitize_encoder_pll_mapping(struct intel_encoder *encoder)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
+@@ -2413,12 +2454,22 @@ static void intel_ddi_enable_fec(struct intel_encoder *encoder,
+ 				 const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 	int i;
+ 	int ret;
+ 
+ 	if (!crtc_state->fec_enable)
+ 		return;
+ 
++	/*
++	 * FEC is link-wide: DP_TP_CTL_FEC_ENABLE is per-port while
++	 * crtc_state->fec_enable is per-stream. For DP MST, several streams
++	 * on this port share the bit. Only program HW on the first stream
++	 * needing FEC; subsequent streams just bump the refcount.
++	 */
++	if (dig_port->fec_active_streams++ > 0)
++		return;
++
+ 	intel_de_rmw(display, dp_tp_ctl_reg(encoder, crtc_state),
+ 		     0, DP_TP_CTL_FEC_ENABLE);
+ 
+@@ -2454,10 +2505,25 @@ static void intel_ddi_disable_fec(struct intel_encoder *encoder,
+ 				  const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
++	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
+ 
+ 	if (!crtc_state->fec_enable)
+ 		return;
+ 
++	/*
++	 * FEC is a link-wide property and DP_TP_CTL_FEC_ENABLE is a per-port
++	 * register, but crtc_state->fec_enable is per-stream. For DP MST,
++	 * multiple streams on the same port share this bit. Refcount the
++	 * active FEC users on the port and only clear the HW bit when the
++	 * last user goes away, otherwise tearing down one MST stream would
++	 * disable FEC for sibling streams still using it.
++	 */
++	if (drm_WARN_ON(display->drm, dig_port->fec_active_streams <= 0))
++		return;
++
++	if (--dig_port->fec_active_streams > 0)
++		return;
++
+ 	intel_de_rmw(display, dp_tp_ctl_reg(encoder, crtc_state),
+ 		     DP_TP_CTL_FEC_ENABLE, 0);
+ 	intel_de_posting_read(display, dp_tp_ctl_reg(encoder, crtc_state));
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
+index 580ecb09b8b6..3678c28a0dc9 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.h
++++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+@@ -78,6 +78,7 @@ int intel_ddi_toggle_hdcp_bits(struct intel_encoder *intel_encoder,
+ 			       enum transcoder cpu_transcoder,
+ 			       bool enable, u32 hdcp_mask);
+ void intel_ddi_sanitize_encoder_pll_mapping(struct intel_encoder *encoder);
++void intel_ddi_seed_fec_refcounts(struct intel_display *display);
+ int intel_ddi_level(struct intel_encoder *encoder,
+ 		    const struct intel_crtc_state *crtc_state,
+ 		    int lane);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index f44be5c689ae..84bd0d993197 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1987,6 +1987,18 @@ struct intel_digital_port {
+ 	struct ref_tracker *ddi_io_wakeref;
+ 	struct ref_tracker *aux_wakeref;
+ 
++	/*
++	 * Number of active streams on this port currently using FEC.
++	 *
++	 * DP_TP_CTL_FEC_ENABLE is a per-port (link-wide) HW bit, but
++	 * crtc_state->fec_enable is per-stream. For DP MST several streams
++	 * share the same port and therefore the same FEC enable bit. Track
++	 * how many active streams want FEC so that the HW bit is only
++	 * programmed on the first enable and only cleared on the last
++	 * disable. Modified under the modeset locks.
++	 */
++	int fec_active_streams;
++
+ 	struct intel_tc_port *tc;
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index e88082c8caac..14f038b8ef81 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -950,6 +950,12 @@ void intel_modeset_setup_hw_state(struct intel_display *display,
+ 
+ 	intel_modeset_readout_hw_state(display);
+ 
++	/*
++	 * Seed per-port FEC refcounts from the just-populated active
++	 * crtc_states before anything can issue an enable/disable.
++	 */
++	intel_ddi_seed_fec_refcounts(display);
++
+ 	/* HW state is read out, now we need to sanitize this mess. */
+ 	get_encoder_power_domains(display);
+ 
+-- 
+2.25.1
 
-The idea here to enable primary eDP transcoder first and then enable CMTG. =
-Later make eDP transcoder secondary to CMTG.
-So not added in intel_ddi_enable().
-
-Regards,
-Animesh
-=20
->=20
-> > +
-> > +	drm_dbg_kms(display->drm, "CMTG: %s enabled\n",
-> > +transcoder_name(cpu_transcoder)); }
-> > diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.h
-> > b/drivers/gpu/drm/i915/display/intel_cmtg.h
-> > index 64ff6a19948a..12abbafa7d08 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_cmtg.h
-> > +++ b/drivers/gpu/drm/i915/display/intel_cmtg.h
-> > @@ -11,6 +11,7 @@
-> >  struct intel_display;
-> >  struct intel_crtc_state;
-> >
-> > +void intel_cmtg_enable_ddi(const struct intel_crtc_state
-> > +*crtc_state);
-> >  void intel_cmtg_enable_sync(const struct intel_crtc_state
-> > *crtc_state);  void intel_cmtg_set_m_n(const struct intel_crtc_state
-> > *crtc_state);  void intel_cmtg_set_vrr_timings(const struct
-> > intel_crtc_state *crtc_state);
-> > --
-> > 2.29.0
->=20
-> --
-> Ville Syrj=E4l=E4
-> Intel
