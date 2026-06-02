@@ -4,59 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90A81CD6E69
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 10:30:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4357DCD6E56
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 11:12:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBFD310FB91;
-	Wed,  3 Jun 2026 10:30:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08B910FC1D;
+	Wed,  3 Jun 2026 11:12:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZUiWkIGH";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Ti2dzOHu";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 634A410FB75;
- Wed,  3 Jun 2026 10:30:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780482646; x=1812018646;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=+o0nU3Fx162eyxsoNvnUFfGHK6gbbBVlEk6LSDt3N2c=;
- b=ZUiWkIGHmk/bUVgbWAGjjWQ7oV1KPGCv2l53nUMAzxpfHEfsX3meHRIz
- ecqjN62W0BPBsZFaA/KPbbfnht8fAolZJWyntiEIAPTZETI0dnR4izlEC
- Xzyv2eUHfHHO8gnMA9BUcPXg1ocMq3+vWjJ5HinZQ7qtILHxnnW/7BHHz
- bSC+63x6ZDGGsloYMpiDe9d2FuIF0mD7a7F6pIMaq3/EWTqfzBFCdWzM2
- /STPi9cIKRWWJC3Lf6/ea4ascKFSp7lA3kZ1SXdP9PdVYa5jPA31uSoPw
- 4RQsRyTEeefDjXJWwrc+kNeDTxnLo2FMaeMp94mUmV66mRuBpjJxJJEb2 A==;
-X-CSE-ConnectionGUID: Em1e7Q7LSYqgBrfss2OeFg==
-X-CSE-MsgGUID: 4rlTbaCwTq6K4vhTmuywCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81316526"
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="81316526"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 03:30:45 -0700
-X-CSE-ConnectionGUID: Cq9ieJebQ+KCsjOczaBhsA==
-X-CSE-MsgGUID: +31VtOuHS1mBytnk9wzvcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,185,1774335600"; d="scan'208";a="249104959"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.189])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2026 03:30:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>, rajat.gupta@oss.qualcomm.com,
- jani.saarinen@intel.com, simona@ffwll.ch, airlied@gmail.com,
- mripard@kernel.org, maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH] drm/dumb-buffer: Drop buffer-size limits for now
-In-Reply-To: <20260602112842.252279-1-tzimmermann@suse.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260602112842.252279-1-tzimmermann@suse.de>
-Date: Wed, 03 Jun 2026 13:30:37 +0300
-Message-ID: <d161a00845f2b3df00c319ddc8706a9a1ca372d2@intel.com>
+X-Greylist: delayed 302 seconds by postgrey-1.36 at gabe;
+ Tue, 02 Jun 2026 00:50:29 UTC
+Received: from mail-m10231.netease.com (mail-m10231.netease.com
+ [154.81.10.231])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7E9810EAC7;
+ Tue,  2 Jun 2026 00:50:29 +0000 (UTC)
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 40a97ffdf;
+ Tue, 2 Jun 2026 08:45:23 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, dev@lankhorst.se, bigeasy@linutronix.de,
+ matthew.brost@intel.com, uma.shankar@intel.com,
+ pierre-louis.bossart@linux.dev, jerome.anand@intel.com, tiwai@suse.de,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, runyu.xiao@seu.edu.cn
+Subject: [PATCH v3] drm/i915/display: Fix intel_lpe_audio_irq_handler for
+ PREEMPT-RT
+Date: Tue,  2 Jun 2026 08:45:15 +0800
+Message-Id: <20260602004515.1907422-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e85cad60c03a1kunm98872be714fe1a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSRlKVh8ZH0JISEIfHkkeTVYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ hOQ0NVSktLVUtZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=Ti2dzOHuZ+eP9EKi43hV1XIsRxjizMtyRKkcgt1l3Nna6v4l2J3LM1fV6Wurhn13xyDm2i8FQY25rkmz6E0CVSzMtNVWqLlWP2VVqaZhOEd24Q/AqqQ02kZGA8YQtLmagg+L1edwNPYljRCAlFVvlrkIOFuD41fOJI6fcDyfSvc=;
+ c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1; 
+ bh=2x4m2SDWFct7gym+P9m9x6fbIOlasM7XxWO3aU11vLY=;
+ h=date:mime-version:subject:message-id:from;
+X-Mailman-Approved-At: Wed, 03 Jun 2026 11:12:41 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,54 +64,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 02 Jun 2026, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> The size limits break some of the CI tests. So drop them for now. Keep
-> the other overflow tests from commit 5ab62dd3687b ("drm: prevent integer
-> overflows in dumb buffer creation helpers") in place.
->
-> There is still a pre-existing overflow check for 32-bit type limits in
-> drm_mode_create_dumb() that will catch the really absurd size requests.
-> Drivers that still do not use drm_mode_size_dumb() should be updated. The
-> helper calculates dumb-buffer geometry with overflow checks.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: 5ab62dd3687b ("drm: prevent integer overflows in dumb buffer creation helpers")
-> Reported-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Closes: https://lore.kernel.org/dri-devel/ddf0233e50044059c85279f928661563ef6a55bf@intel.com/
-> Cc: Rajat Gupta <rajat.gupta@oss.qualcomm.com>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
+From: Maarten Lankhorst <dev@lankhorst.se>
 
-Thanks for following up. Maybe we need to return to this with less
-urgency.
+The LPE audio interrupt comes from the i915 interrupt handler. It
+should be in irq disabled context.
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+With PREEMPT_RT enabled, the IRQ handler is threaded.
+Because intel_lpe_audio_irq_handler() may be called in threaded IRQ context,
+generic_handle_irq_safe API disables the interrupts before calling LPE's
+interrupt top half handler.
 
-> ---
->  drivers/gpu/drm/drm_dumb_buffers.c | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_dumb_buffers.c b/drivers/gpu/drm/drm_dumb_buffers.c
-> index e60130b2bb0c..8e9ff17538e7 100644
-> --- a/drivers/gpu/drm/drm_dumb_buffers.c
-> +++ b/drivers/gpu/drm/drm_dumb_buffers.c
-> @@ -201,13 +201,6 @@ int drm_mode_create_dumb(struct drm_device *dev,
->  	if (!args->width || !args->height || !args->bpp)
->  		return -EINVAL;
->  
-> -	/* Reject unreasonable inputs early.  Dumb buffers are for software
-> -	 * rendering; nothing legitimate needs more than 8192x8192 at 32bpp.
-> -	 * This prevents overflows in downstream alignment helpers.
-> -	 */
-> -	if (args->width >= 8192 || args->height >= 8192 || args->bpp > 32)
-> -		return -EINVAL;
-> -
->  	/* overflow checks for 32bit size calculations */
->  	if (args->bpp > U32_MAX - 8)
->  		return -EINVAL;
->
-> base-commit: a980196655477a8f5067112946401fe52e510664
+This fixes braswell audio issues with RT enabled.
 
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+v3:
+- Rebase the standalone patch on Maarten Lankhorst's original fix
+- Keep Maarten Lankhorst as author per Sebastian's feedback
+- Carry forward Maarten's Reviewed-by tags
+
+ drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+index 42284e9928f2..ac1dfd592a9f 100644
+--- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
+@@ -263,7 +263,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
+ 	if (!HAS_LPE_AUDIO(display))
+ 		return;
+ 
+-	ret = generic_handle_irq(display->audio.lpe.irq);
++	ret = generic_handle_irq_safe(display->audio.lpe.irq);
+ 	if (ret)
+ 		drm_err_ratelimited(display->drm,
+ 				    "error handling LPE audio irq: %d\n", ret);
 -- 
-Jani Nikula, Intel
+2.34.1
