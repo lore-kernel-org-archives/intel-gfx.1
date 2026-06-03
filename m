@@ -4,110 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCB86CD6E56
-	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 11:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44201CD6E6A
+	for <intel-gfx@archiver.kernel.org>; Wed,  3 Jun 2026 11:27:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA79F10FC25;
-	Wed,  3 Jun 2026 11:12:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0B8510FC6A;
+	Wed,  3 Jun 2026 11:27:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="JD/rgItE";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="s34N3cAq";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FD8710E944;
- Mon,  1 Jun 2026 20:25:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=6/5W0G6Gs1Q9GB3IxcldPERQvThA7tz7U249bqa4a9U=; b=JD/rgItEItTF3waKZU0fyhZfOO
- p6KhOF2dIKsWbBlXDH6Szda6v6pwxYE0KSLQ6p9Jvu4aC0kMd1Jp91bHbXXGW1JY4kLAuzDZFSXs9
- P7bQk5/xrqJRa6GrGWdxnMhnM9cOr/Mh7DhOreUlDgBnF2TcRdtGfQbRd9WsBVDwHFqfKKNmW2p+o
- Eq81r5ZCto6v0j62Ti/4LX0nmYsBAqhcbZ6JenvK3VL8pcuJJabuzAf2wJL1ohACsCSDs/sp5+nbD
- m2tuZulS6JhmLQAZ2oWemvoJrOfuaHp1Sctzmp2YTWfFeramTBO8sylg/IQVtL1hc2i3NQH4Kt9qQ
- +ovW+CfA==;
-Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red
- Hat Linux)) id 1wU9Av-00000000iHG-2DOC;
- Mon, 01 Jun 2026 20:23:53 +0000
-Date: Mon, 1 Jun 2026 21:23:53 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Kees Cook <kees@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
- Pengpeng Hou <pengpeng@iscas.ac.cn>, stable@vger.kernel.org,
- Petr Pavlu <petr.pavlu@suse.com>, Richard Weinberger <richard@nod.at>,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Len Brown <lenb@kernel.org>, Corey Minyard <corey@minyard.net>,
- Gabriel Somlo <somlo@cmu.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Bart Van Assche <bvanassche@acm.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <hansg@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Hannes Reinecke <hare@suse.de>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Alan Stern <stern@rowland.harvard.edu>,
- Jason Wang <jasowang@redhat.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
- Jason Baron <jbaron@akamai.com>, Jim Cromie <jim.cromie@gmail.com>,
- Tiwei Bie <tiwei.btw@antgroup.com>,
- Benjamin Berg <benjamin.berg@intel.com>,
- Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "David E. Box" <david.e.box@linux.intel.com>,
- "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Vinod Koul <vkoul@kernel.org>,
- Frank Li <Frank.Li@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
- Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Alexander Potapenko <glider@google.com>,
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Georgia Garcia <georgia.garcia@canonical.com>, kvm@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-modules@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, qemu-devel@nongnu.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-pm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-serial@vger.kernel.org, linux-usb@vger.kernel.org,
- usb-storage@lists.one-eyed-alien.net,
- virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-arch@vger.kernel.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH 01/11] params: bound array element output to the caller's
- page buffer
-Message-ID: <ah3qWZ4cqhrbHZcl@casper.infradead.org>
-References: <20260521133315.work.845-kees@kernel.org>
- <20260521133326.2465264-1-kees@kernel.org>
- <20260521174631.71a06440@pumpkin>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3997210FC60;
+ Wed,  3 Jun 2026 11:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SskacXz9nn9lh6X6a6P91EXX6t2deHKrepH0n7+A9Zk=; b=s34N3cAqiTFiFsUGSuXnF9zJRh
+ 5buVIAQFeoer6w+qFj/tKG7ivF386OjXm+kgR+PA13uhDX9Nn1IfXQUHKWmxPwM8HzCsRrTM3eG6d
+ yW4lMTtXNH2Vx3ElWAWIw2QBFUisVSryGEs9aLmwZS/tMi18b0M9zeAhCqcIiP015G3OzbKWONxgu
+ Enw8rKlCEq7lRIqmv+rr6aBWT+1owuUrWxKy+eKZQ1Qi5gyWfVKnSXPURya4ONHc1/dKY4wZpeh/j
+ bKWbkA9GtPrDbyX5+fUL3e+z6WWuoKgoXL39HU0y0SJW6FQZa182YHn7qIvFC0FEjWETdCxS71Pvu
+ RHM2m1iw==;
+Received: from [79.117.146.159] (helo=[192.168.1.135])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wUjkn-00C92S-6G; Wed, 03 Jun 2026 13:27:21 +0200
+Message-ID: <cb0599d2-9dd5-4e93-b21e-b843f4a79182@igalia.com>
+Date: Wed, 3 Jun 2026 13:27:18 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260521174631.71a06440@pumpkin>
-X-Mailman-Approved-At: Wed, 03 Jun 2026 11:12:41 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] drm/atomic: only add states of active or transient
+ active colorops
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Alex Hung <alex.hung@amd.com>,
+ airlied@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ simona@ffwll.ch, tzimmermann@suse.de
+Cc: Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ John Harrison <John.Harrison@Igalia.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ "harry.wentland@amd.com" <harry.wentland@amd.com>
+References: <20260526142940.504911-1-mwen@igalia.com>
+ <20260526142940.504911-2-mwen@igalia.com>
+ <e8aaf4da-8fb6-4d6a-95d6-563ac0562b49@amd.com>
+ <4452e675c4853faf665b520a8932a960946206bb@intel.com>
+ <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <f9e5f9ed-ed15-40ae-9330-44f8c42f5f98@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,16 +82,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2026 at 05:46:31PM +0100, David Laight wrote:
-> On Thu, 21 May 2026 06:33:14 -0700
-> Kees Cook <kees@kernel.org> wrote:
-> > Collect each element into a temporary PAGE_SIZE buffer first and then
-> > copy only the remaining space into the caller's page buffer.
-> 
-> Should this be using a 4k buffer on all architectures?
-> Initially perhaps just using a different name for the constant until
-> all the associated PAGE_SIZE limits have been removed.
 
-If we're acually going to think about this, even 4KiB is too big.
-An 80x25 terminal is 2000 bytes (assuming no utf8), so 4KiB is two
-entire screenfuls.  Limiting to 2048 would seem reasonable to me.
+
+On 01/06/2026 11:24, Borah, Chaitanya Kumar wrote:
+>
+>
+> On 5/29/2026 7:16 PM, Jani Nikula wrote:
+>> On Tue, 26 May 2026, Alex Hung <alex.hung@amd.com> wrote:
+>>> On 5/26/26 08:17, Melissa Wen wrote:
+>>>> Only consider affected colorop states those that are part of an active
+>>>> color pipeline or a pipeline that is about to be activated or
+>>>> deactivated in the same atomic commit, i.e., colorop is in the 
+>>>> chain of
+>>>> old/new plane color pipeline property. To cover color_pipeline
+>>>> deactivation, remove the condition for plane_state->color_pipeline.
+>>>>
+>>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_atomic.c | 67 
+>>>> +++++++++++++++++++++++++++++++-----
+>>>>    1 file changed, 58 insertions(+), 9 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/drm_atomic.c 
+>>>> b/drivers/gpu/drm/drm_atomic.c
+>>>> index 170de30c28ae..4fb3a23e862a 100644
+>>>> --- a/drivers/gpu/drm/drm_atomic.c
+>>>> +++ b/drivers/gpu/drm/drm_atomic.c
+>>>> @@ -812,6 +812,59 @@ static int drm_atomic_plane_check(const struct 
+>>>> drm_plane_state *old_plane_state,
+>>>>        return 0;
+>>>>    }
+>>>>    +/*
+>>>> + * This function walks old and new plane state color pipelines and 
+>>>> adds all
+>>>> + * colorops in use by @plane to the atomic configuration @state. 
+>>>> This is useful
+>>>> + * when an atomic commit needs to check all currently enabled or 
+>>>> about to be
+>>>> + * enabled colorop on @plane, e.g. when changing the mode. This 
+>>>> also avoids
+>>>> + * including colorop states that are not part of the atomic state.
+>>>> + *
+>>>> + * Returns:
+>>>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the 
+>>>> error is EDEADLK
+>>>> + * then the w/w mutex code has detected a deadlock and the entire 
+>>>> atomic
+>>>> + * sequence must be restarted. All other errors are fatal.
+>>>> + */
+>>>> +static int
+>>>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+>>>> +                 struct drm_plane *plane)
+>>>> +{
+>>>> +    struct drm_colorop *colorop;
+>>>> +    struct drm_colorop_state *colorop_state;
+>>>> +    struct drm_plane_state *new_plane_state, *old_plane_state;
+>>>> +
+>>>> +    new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>>>> +    old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>>>> +
+>>>> +    if (WARN_ON(!new_plane_state || !old_plane_state))
+>>>> +        return -EINVAL;
+>>>> +
+>>>> +    drm_dbg_atomic(plane->dev,
+>>>> +               "Adding old+new pipeline colorops for 
+>>>> [PLANE:%d:%s]\n",
+>>>> +               plane->base.id, plane->name);
+>>>> +
+>>>> +    for (colorop = new_plane_state->color_pipeline;
+>>>> +         colorop;
+>>>> +         colorop = colorop->next) {
+>>>
+>>> This for-loop is used 5 times in this patchset. How about a macro in
+>>> drm_colorop.h?
+>>>
+>>> #define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
+>>>       for ((colorop) = (pipeline); (colorop); (colorop) = 
+>>> (colorop)->next)
+>>
+>> Is there a reason struct drm_colorop reinvents lists and doesn't have
+>> struct list_head node?
+>>
+>
+> I believe that's because the "next" colorop is exposed as a property 
+> (of the current colorop) to userspace. Since the chain is already 
+> described by the property, a struct list_head would be redundant.
+
+Also, each color pipeline is an immutable chain of colorops where the 
+sequence and position matter: once the chain is built, colorops are 
+never added, removed, replaced or walked in reverse. It's a forward-only 
+chain that ends when next == NULL, and it directly matches userspace 
+mapping. Another point to take into account is that there is no struct 
+drm_color_pipeline to hold a list_head yet, since each color pipeline is 
+identified by the first colorop element in the chain. Maybe we will want 
+a container to link a given pre-blend color pipeline to a specific 
+post-blend color pipeline for example, but linking pre- to post-blend 
+color pipelines is something we are still not clear about.
+
+Melissa
+
+>
+> Harry, others can chime in.
+>
+> ==
+> Chaitanya
+>
+>> BR,
+>> Jani.
+>>
+>>>
+>>>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>>>> +        if (IS_ERR(colorop_state))
+>>>> +            return PTR_ERR(colorop_state);
+>>>> +    }
+>>>> +
+>>>> +    /* Same color pipeline as new; no point walking old. */
+>>>> +    if (new_plane_state->color_pipeline == 
+>>>> old_plane_state->color_pipeline)
+>>>> +        return 0;
+>>>> +
+>>>> +    for (colorop = old_plane_state->color_pipeline;
+>>>> +         colorop;
+>>>> +         colorop = colorop->next) {
+>>>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>>>> +        if (IS_ERR(colorop_state))
+>>>> +            return PTR_ERR(colorop_state);
+>>>> +    }
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>    static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>>>>                           const struct drm_colorop_state *state)
+>>>>    {
+>>>> @@ -1591,11 +1644,9 @@ drm_atomic_add_affected_planes(struct 
+>>>> drm_atomic_commit *state,
+>>>>            if (IS_ERR(plane_state))
+>>>>                return PTR_ERR(plane_state);
+>>>>    -        if (plane_state->color_pipeline) {
+>>>> -            ret = drm_atomic_add_affected_colorops(state, plane);
+>>>> -            if (ret)
+>>>> -                return ret;
+>>>> -        }
+>>>> +        ret = drm_atomic_add_pipeline_colorops(state, plane);
+>>>> +        if (ret)
+>>>> +            return ret;
+>>>>        }
+>>>>        return 0;
+>>>>    }
+>>>> @@ -1607,10 +1658,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+>>>>     * @plane: DRM plane
+>>>>     *
+>>>>     * This function walks the current configuration and adds all 
+>>>> colorops
+>>>> - * currently used by @plane to the atomic configuration @state. 
+>>>> This is useful
+>>>> - * when an atomic commit also needs to check all currently enabled 
+>>>> colorop on
+>>>> - * @plane, e.g. when changing the mode. It's also useful when 
+>>>> re-enabling a plane
+>>>> - * to avoid special code to force-enable all colorops.
+>>>> + * currently used by @plane to the atomic configuration @state. 
+>>>> It's useful
+>>>> + * when re-enabling a plane to avoid special code to force-enable 
+>>>> all colorops.
+>>>>     *
+>>>>     * Since acquiring a colorop state will always also acquire the 
+>>>> w/w mutex of the
+>>>>     * current plane for that colorop (if there is any) adding all 
+>>>> the colorop states for
+>>>
+>>
+>
+
