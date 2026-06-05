@@ -4,81 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90873CD6E7C
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 12:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ACA2CD6E79
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 12:27:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DF3111A7FF;
-	Fri,  5 Jun 2026 12:22:22 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VotzUqye";
-	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF3DE10E469
- for <intel-gfx@lists.freedesktop.org>; Fri,  5 Jun 2026 06:07:50 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2bea7176c72so10203135ad.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780639670; x=1781244470; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
- b=VotzUqye4l8ufsB0FJ8tEP7J+6cOElz5twrd8zV4DPpK/zK1E1ttRIrbeIrBIGCxv0
- 2F3yleNhIa43o/iPh9dVPdjrFasLMXzfv+9bDEXbYSQtC09FvxBnC/vYjE3AD4MlDpbr
- iE5F2PwXU/0QWKjRlJDMgl5aCsqOqQWalXbP0WPHEYDBHdPU+T+Tv168u0sR8OLljtxs
- +3olFCZFSZpekkp9Mh3GpoE+3GcHUJE70pXX2os2VxIfhE/tv4tDuvc0e73PoZNNaKkB
- 3GaDmkYG6pUMZRAo+Dq0WsDhm6tSjBMLKMY98fHpnmGXxE5KeiNIqQQw5YTkE2H4nXiE
- FAPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780639670; x=1781244470;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=M5WkcatAHhLMBNeD67NubkG9Mg0FFDk4z9wml5JZOUU=;
- b=jLe/jPvzsRjwcmZI/P/QrqN9NkFOubxJ7ONy/X2dddLqKH21BqB1JagdhYqdRGIdOs
- Knj066P+O6BSWY9HkFhzlYOjJAga6dIH1VMvnyIH4yHv9Z7X7I5dq0wTBDm0abpB9EMz
- n0EjxxFpxRtaS5Uza4wntaetTMwaDqpi/heJJD3gunxYp/t65SsP8pA20UryfH3R1bBt
- RhU2XGZbCmyy2nUbG7kv5PWiib32+I6pNsaWzHNFIS1zCdQq7s+NiRq2n0Oh935lW2Xw
- 0fMC6MYf6tIk6IpkIuZIDZ/E/2MxA5TwdUhzcI4za4Eq8N9e4sVQTVInTzRqq6pfJxNH
- epbw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9fW+Z70Y5zQngj92lQZ07MROMVEvUSuWoOJVobznW3PDdSLzr3wdSCGhtlwJnCxOpos1YR9LdN2fk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVkqkx9WMc7Ivr2LF1/Y+sD+DOBivtoON8zUOwxbStEoo5C+si
- /Vc2OcmJXaF4fDH/BCDbf79AhJ0qFkSzGGcoQDdzySw47DjuXpT65lKN
-X-Gm-Gg: Acq92OHMxcPR+XS/bzisdPbvJIaXVI9xTua0V3FA/AqKPVoAEVAZMnhn1RalLzoBjJD
- eWRCnkj433faI0BlSkfICRJaziptky2EWpmNY2iAmkpy4EfTXoFeFhkJ8Nz+GUikPfPKVPEgY+d
- fwU+3gv5A2mmPitCYdPCnmRM9bImrpGE5SJLixC435BIpf+CLF9ykXxt/Xi4YeQ1JHk0zW0fTFH
- DdFG128YEwngR85f7gAYN75WkfZ9JGli1TmbKye1XgNsZ3bLcvzMrxLBb3HZ6+paNm57cFrb+HB
- F1ZB+AUkyBjqlg8+YskZE6JLrbeZ/lgYxvKosqgaf4OCgfqyHl3U8AGU6xxg3M5LNnWCrUvlW62
- C4fsek8n1PdLuPJnD51Buuqsup0CSZ/qyu8ThGJIU18O1cGJv7i+TC45HPF2m/zCkbcPPfDrzmO
- pgrLZQvq7TJCD34POB
-X-Received: by 2002:a17:902:fc46:b0:2c0:b9a1:6493 with SMTP id
- d9443c01a7336-2c1e7b082b4mr20237105ad.10.1780639670162; 
- Thu, 04 Jun 2026 23:07:50 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c1646e5c51sm77298475ad.0.2026.06.04.23.07.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 23:07:49 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Imre Deak <imre.deak@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] drm/i915/dp_tunnel: fix CRTC hw state cleanup ordering
-Date: Fri,  5 Jun 2026 14:05:27 +0800
-Message-ID: <20260605060527.1443552-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2F8C11A810;
+	Fri,  5 Jun 2026 12:27:33 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26D1D11A810;
+ Fri,  5 Jun 2026 12:27:32 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 05 Jun 2026 12:22:20 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/dp=5Ft?=
+ =?utf-8?q?unnel=3A_fix_CRTC_hw_state_cleanup_ordering?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 05 Jun 2026 12:27:32 -0000
+Message-ID: <178066245215.47432.8570997613198877078@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260605060527.1443552-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260605060527.1443552-1-lgs201920130244@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,53 +37,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_crtc_prepare_cleared_state() frees the old CRTC hw state before
-calling intel_dp_tunnel_atomic_clear_stream_bw(). The latter can fail
-while looking up the DP tunnel group state, for example with -EDEADLK.
+== Series Details ==
 
-If that happens, the function returns without completing the cleared
-state preparation, leaving the duplicated CRTC state with its hw color
-blob references already dropped. The failed atomic state will then be
-cleared by the atomic core, which can drop the same references again.
+Series: drm/i915/dp_tunnel: fix CRTC hw state cleanup ordering
+URL   : https://patchwork.freedesktop.org/series/167952/
+State : failure
 
-Move the hw state release after the DP tunnel stream BW clear has
-succeeded. Keep the temporary state allocation before the failable DP
-tunnel operation so an allocation failure cannot happen after the stream
-BW has already been cleared.
+== Summary ==
 
-Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Address 'lgs201920130244@gmail.com' is not on the allowlist, which prevents CI from being triggered for this patch.
+If you want Intel GFX CI to accept this address, please contact the script maintainers at i915-ci-infra@lists.freedesktop.org.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/178831/ (on built-in)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index ad2fe10b6b1f..0c015bc6c9fd 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -4646,9 +4646,6 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
- 	if (!saved_state)
- 		return -ENOMEM;
- 
--	/* free the old crtc_state->hw members */
--	intel_crtc_free_hw_state(crtc_state);
--
- 	err = intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
- 	if (err) {
- 		kfree(saved_state);
-@@ -4656,6 +4653,9 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
- 		return err;
- 	}
- 
-+	/* free the old crtc_state->hw members */
-+	intel_crtc_free_hw_state(crtc_state);
-+
- 	/* FIXME: before the switch to atomic started, a new pipe_config was
- 	 * kzalloc'd. Code that depends on any field being zero should be
- 	 * fixed, so that the crtc_state can be safely duplicated. For now,
--- 
-2.43.0
 
