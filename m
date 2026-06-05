@@ -4,53 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A13C6CD8C81
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 16:04:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B13BCCD6E7C
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 16:04:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEDF10E50C;
-	Fri,  5 Jun 2026 16:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49FC810E631;
+	Fri,  5 Jun 2026 16:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n7MsUInZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mA20H2rT";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94A3D10E4EB;
- Fri,  5 Jun 2026 16:04:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E25BD10E511;
+ Fri,  5 Jun 2026 16:04:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780675490; x=1812211490;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=uOvb9FNQLLPSkmOurOFMCczNwFq9mOmfW/UG5EL+xzw=;
- b=n7MsUInZIgBZae7VjKuVsVuBRF+9K7rb0cUScCe4p7MXIGNuXBxmfRON
- JFbC/ukMl7zm+SR1IzoZH0Wmqfxm6x2Ya5xFS0Mzth0e229d8G2JRdSjc
- AEYsf+Cr1gGCvRoSVKT4CsuEPB1hzVRS6p2sVJROo10jMaj1GTTisMQg7
- eKdpqaMERoXDtzpDNWCSmgFbV+06ouI0UNqLK7Z/GEHgIwvSw5BeaUwIB
- IMoXRoTHiR/P0lTE1kpbR2UIzoiJ/ZWDWaB0besjFERtC8pzkhTO7bSi4
- 4jVGhTCmgr7LfFr/g9IMGcOwGiD478N+zfXOFdl+sj1AsHx7YQYr1hMHz Q==;
-X-CSE-ConnectionGUID: BsBsBcdVQTSzErFfh6MEUA==
-X-CSE-MsgGUID: mUKGeFXTRDK0ixP9bzCDNQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="98928767"
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; d="scan'208";a="98928767"
+ t=1780675493; x=1812211493;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=GrhNLs/f5Ggoz30GnyY+xb9tJm+PFeyVExDE70WACXY=;
+ b=mA20H2rT1iB0F8+XmdWdlenL54lcpkxXewMqP94OmGYAU9IZgkS8f/sI
+ TkwWBxu9zpW05H1G4ipjpyHPedLcbTPNbwNAcpbrtekL1LNXRD1QNsOoC
+ 5cPiDkuiaSK/Co6t7gWrUQXRbnpihYsJFOO1u+pa2mA5WP94+EuhcZ63F
+ 20tC/G1FrtdOwiPdr+YYjeM8AzP83VKlrmbnjDez0p4etG2dYLVAfr2w5
+ HbyJKWFYFINmUi0LGHyJAAHEdi8BF904o/oxyIgwpjAVSUt8GoOG0gNrE
+ vXeMvxdTW2DLLpU/fEKATePkr6D6RYmXtXS2oEJkkaSTXKW2tpKy0CR3L w==;
+X-CSE-ConnectionGUID: tMzF4IJuSB2AqZClxUs4iw==
+X-CSE-MsgGUID: QCXT7DqyRvqb6dIZF8oRpw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11808"; a="98928774"
+X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; d="scan'208";a="98928774"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 09:04:50 -0700
-X-CSE-ConnectionGUID: Sfnv4seDTPauk0RtzUg0qQ==
-X-CSE-MsgGUID: 0WirT43YSkmlzXx2fnqICw==
+ 05 Jun 2026 09:04:53 -0700
+X-CSE-ConnectionGUID: PPZqQAA7TbWZ4e6lBE36aw==
+X-CSE-MsgGUID: /BP5JwIYQJSx7Z1bxHssnQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; d="scan'208";a="268566301"
+X-IronPort-AV: E=Sophos;i="6.24,189,1774335600"; d="scan'208";a="268566308"
 Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2026 09:04:47 -0700
+ 05 Jun 2026 09:04:51 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: saurabhg.gupta@intel.com, alex.zuo@intel.com, jonathan.cavitt@intel.com,
  raag.jadav@intel.com
-Subject: [PATCH 0/5] drm/{i915,
- xe}: Refactor generic_handle_irq_safe() error messages
-Date: Sat,  6 Jun 2026 00:04:39 +0800
-Message-ID: <20260605160444.3833295-1-jonathan.cavitt@intel.com>
+Subject: [PATCH 2/5] drm/xe/heci: Use xe print functions in xe_heci_gsc.c
+Date: Sat,  6 Jun 2026 00:04:41 +0800
+Message-ID: <20260605160444.3833295-3-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260605160444.3833295-1-jonathan.cavitt@intel.com>
+References: <20260605160444.3833295-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -68,44 +69,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently, all but one uses of generic_handle_irq_safe() report error
-messages using .*_err_ratelimited() error reporting helper functions.
-These helper functions declare their error messages in the following
-form:
+Update xe_heci_gsc.c to use the xe error reporting helper functions in
+xe_printk.h instead of directly calling the associated drm print
+functions from drm_print.h
 
-"error handling [COMPONENT NAME] irq: %d\n"
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+---
+ drivers/gpu/drm/xe/xe_heci_gsc.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-.*_err_ratelimited() already logs "error" as a part of the error
-message, so declaring the error is redundant.  Reword it.
-
-The last usage of generic_handle_irq_safe() is in xe_i2c_irq_present(),
-and it currently lacks the same error reporting as in the other cases.
-This is not intentional, so put some logging there.
-
-While we're here, we should also update the XE cases to use
-xe_err_ratelimited() instead of directly calling drm_err_ratelimited().
-However, mixing drm error reporting functions with xe error reporting
-functions in the same file looks unprofessional, so update all drm error
-reporting functions in xe_heci_gsc.c and xe_i2c.c to use their xe
-counterparts.
-
-This includes updating drm_warn_once() to use xe_warn_once() instead.
-Unfortunately, xe_warn_once() does not exist, so create it.
-
-Jonathan Cavitt (5):
-  drm/xe/printk: Add xe_warn_once()
-  drm/xe/heci: Use xe print functions in xe_heci_gsc.c
-  drm/xe/i2c: Use xe print functions in xe_i2c.c
-  drm/{i915, xe}: Refactor generic_handle_irq_safe() error messages
-  drm/xe/i2c: Report i2c irq handler issue
-
- .../gpu/drm/i915/display/intel_lpe_audio.c    |  2 +-
- drivers/gpu/drm/i915/gt/intel_gsc.c           |  2 +-
- drivers/gpu/drm/xe/xe_heci_gsc.c              | 21 +++++++++----------
- drivers/gpu/drm/xe/xe_i2c.c                   | 11 ++++++----
- drivers/gpu/drm/xe/xe_printk.h                |  3 +++
- 5 files changed, 22 insertions(+), 17 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
+index 5af8903e10af..d716371fbbe9 100644
+--- a/drivers/gpu/drm/xe/xe_heci_gsc.c
++++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
+@@ -8,10 +8,9 @@
+ #include <linux/pci.h>
+ #include <linux/sizes.h>
+ 
+-#include <drm/drm_print.h>
+-
+ #include "xe_device_types.h"
+ #include "xe_heci_gsc.h"
++#include "xe_printk.h"
+ #include "regs/xe_gsc_regs.h"
+ #include "xe_platform_types.h"
+ #include "xe_survivability_mode.h"
+@@ -112,13 +111,13 @@ static int heci_gsc_irq_setup(struct xe_device *xe)
+ 
+ 	heci_gsc->irq = irq_alloc_desc(0);
+ 	if (heci_gsc->irq < 0) {
+-		drm_err(&xe->drm, "gsc irq error %d\n", heci_gsc->irq);
++		xe_err(xe, "gsc irq error %d\n", heci_gsc->irq);
+ 		return heci_gsc->irq;
+ 	}
+ 
+ 	ret = heci_gsc_irq_init(heci_gsc->irq);
+ 	if (ret < 0)
+-		drm_err(&xe->drm, "gsc irq init failed %d\n", ret);
++		xe_err(xe, "gsc irq init failed %d\n", ret);
+ 
+ 	return ret;
+ }
+@@ -151,7 +150,7 @@ static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *
+ 
+ 	ret = auxiliary_device_init(aux_dev);
+ 	if (ret < 0) {
+-		drm_err(&xe->drm, "gsc aux init failed %d\n", ret);
++		xe_err(xe, "gsc aux init failed %d\n", ret);
+ 		kfree(adev);
+ 		return ret;
+ 	}
+@@ -159,7 +158,7 @@ static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *
+ 	heci_gsc->adev = adev; /* needed by the notifier */
+ 	ret = auxiliary_device_add(aux_dev);
+ 	if (ret < 0) {
+-		drm_err(&xe->drm, "gsc aux add failed %d\n", ret);
++		xe_err(xe, "gsc aux add failed %d\n", ret);
+ 		heci_gsc->adev = NULL;
+ 
+ 		/* adev will be freed with the put_device() and .release sequence */
+@@ -190,7 +189,7 @@ int xe_heci_gsc_init(struct xe_device *xe)
+ 	}
+ 
+ 	if (!def || !def->name) {
+-		drm_warn(&xe->drm, "HECI is not implemented!\n");
++		xe_warn(xe, "HECI is not implemented!\n");
+ 		return 0;
+ 	}
+ 
+@@ -215,7 +214,7 @@ void xe_heci_gsc_irq_handler(struct xe_device *xe, u32 iir)
+ 		return;
+ 
+ 	if (!xe->info.has_heci_gscfi) {
+-		drm_warn_once(&xe->drm, "GSC irq: not supported");
++		xe_warn_once(xe, "GSC irq: not supported");
+ 		return;
+ 	}
+ 
+@@ -224,7 +223,7 @@ void xe_heci_gsc_irq_handler(struct xe_device *xe, u32 iir)
+ 
+ 	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
+ 	if (ret)
+-		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
++		xe_err_ratelimited(xe, "error handling GSC irq: %d\n", ret);
+ }
+ 
+ void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
+@@ -235,7 +234,7 @@ void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
+ 		return;
+ 
+ 	if (!xe->info.has_heci_cscfi) {
+-		drm_warn_once(&xe->drm, "CSC irq: not supported");
++		xe_warn_once(xe, "CSC irq: not supported");
+ 		return;
+ 	}
+ 
+@@ -244,5 +243,5 @@ void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
+ 
+ 	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
+ 	if (ret)
+-		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
++		xe_err_ratelimited(xe, "error handling GSC irq: %d\n", ret);
+ }
 -- 
 2.53.0
 
