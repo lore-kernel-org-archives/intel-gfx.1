@@ -4,57 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A776ECD6E79
-	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 02:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AFB1CD6E6B
+	for <intel-gfx@archiver.kernel.org>; Fri,  5 Jun 2026 07:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7DC011A3D0;
-	Fri,  5 Jun 2026 02:59:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4F1E11A4D3;
+	Fri,  5 Jun 2026 07:08:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="C73xk66I";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="kL+qe9jF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8BE11A3CF;
- Fri,  5 Jun 2026 02:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780628372; x=1812164372;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=KiUvZJUYR/ZJKYfDh3e7XZbzRiNHUscQ36slfbIP8yE=;
- b=C73xk66IbtgGqI1/8xMRhz824Jp2GAxsnmxGbHDk09JY8ajZ+X0xlKJ+
- ORjREJKKn2ZvfknxY980RDtyzW815xHey01q8bo1FipDQ2LJDwT48AtQF
- earQRY5ZrBHtblL1flMC1Gko9PDJbJZdOGwNaPq5YFz39Igo8ZrQdmAFh
- 1ntd0r4Vf30pCNc1nIervlUIsoDT98xdY+XIDQu80aeKpwBiF/2geL5VL
- 6XunsFvZfGip54oyhrYBF8w40+wuP4ac5h3armUHkOEGQe+bQQBQKFxsw
- 0hU11pq1k1f59wkDFeChYRw5D1r1qyUCe0xoBWqwLQ/8dBseL5RyfZJL7 g==;
-X-CSE-ConnectionGUID: XSZkjjwbTWeoCo1pBNiFLQ==
-X-CSE-MsgGUID: Hp+9UJHGSjWuQo6HlUwmsg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="85314543"
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="85314543"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 19:59:32 -0700
-X-CSE-ConnectionGUID: vD3gR+S9QJmtTkgc/OvC3Q==
-X-CSE-MsgGUID: K0Pgboj0R/eitQfmPuY7yA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,188,1774335600"; d="scan'208";a="242232264"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Jun 2026 19:59:31 -0700
-Date: Fri, 5 Jun 2026 04:59:28 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- saurabhg.gupta@intel.com, alex.zuo@intel.com
-Subject: Re: [PATCH v2] drm/{i915, xe}: Refactor generic_handle_irq_safe()
- error messages
-Message-ID: <aiI7kNwFk1ZV0FSy@black.igk.intel.com>
-References: <20260604202548.3817343-1-jonathan.cavitt@intel.com>
- <aiI6FCvDEITTnHyc@black.igk.intel.com>
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Fri, 05 Jun 2026 07:08:56 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [194.59.206.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB7011A4D2;
+ Fri,  5 Jun 2026 07:08:56 +0000 (UTC)
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWskw3pGWz4HNY;
+ Fri,  5 Jun 2026 09:00:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1780642808;
+ bh=C4LywOONUo9mM7SYCl9JaZ1nEcm3gsy9ldzredo9jW0=;
+ h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+ b=kL+qe9jFQlDIIFWazrdM9DPHT8ZxTESUvlVZ5eHBkQwY4fZJyPV4J/Csp8xt7zZFy
+ XACWiPgKk8OtyQMUjwLIy5KrvZZvz6LoN9g8tljf4aHhAydHkLFGzSCzrFIJbcP4SS
+ 45Elvf7avy7ydyXoj3kTM6C/ZPUgcF6eX82AkWy6h2p94+uiGe1Cg1UP0lTTqBf4ls
+ 3BaNScqlouL3TNQa1GcTX8dn/4jcAmoKLqevI92Ayls7BJEnfbV7DATNj6bmh8V1mo
+ +b+mSwKmcZAv/xf7WreQ3u3vIAgyUs/177aIu//SKSetVjXqnUP4EKBt0zuLpSIhNh
+ e1uRHnOTYDUeA==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4gWshp18Q2z7wPS;
+ Fri,  5 Jun 2026 08:58:18 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy01-mors.netcup.net (Postfix) with ESMTPS id 4gWshl5Cl8z8tXj;
+ Fri,  5 Jun 2026 08:58:15 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 6D2A65F9DD;
+ Fri,  5 Jun 2026 08:58:14 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <ffac6caf-0376-4a0c-908e-b89cce48d28f@leemhuis.info>
+Date: Fri, 5 Jun 2026 08:58:13 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aiI6FCvDEITTnHyc@black.igk.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "drm/i915/backlight: Remove try_vesa_interface"
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+To: Tvrtko Ursulin <tursulin@igalia.com>, Dave Airlie <airlied@gmail.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: ankit.k.nautiyal@intel.com, arun.r.murthy@intel.com,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+References: <20260515155340.1000997-1-suraj.kandpal@intel.com>
+ <20260517024709.1016121-1-suraj.kandpal@intel.com>
+ <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <53a2a8dd-d1b6-41c5-ade2-7ed870d074ac@leemhuis.info>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178064269494.1178932.8212265372479905459@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: 6D2A65F9DD
+X-NC-CID: yZFu1qiK5+qb6kd4Rl2AdMorZ6t1O6HYlhAKMN1jnvJ0Ik1JIE4=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,108 +91,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 05, 2026 at 04:53:12AM +0200, Raag Jadav wrote:
-> On Fri, Jun 05, 2026 at 04:25:48AM +0800, Jonathan Cavitt wrote:
-> > Currently, all but one uses of generic_handle_irq_safe() report error
-> > messages using .*_err_ratelimited() error reporting helper functions.
-> > These helper functions declare their error messages in the following
-> > form:
-> > 
-> > "error handling [COMPONENT NAME] irq: %d\n"
-> > 
-> > .*_err_ratelimited() already logs "error" as a part of the error
-> > message, so declaring the error is redundant.  Reword it.
-> > 
-> > The last usage of generic_handle_irq_safe() is in xe_i2c_irq_present(),
-> > and it currently lacks the same error reporting as in the other cases.
-> > This is not intentional, so put some logging here.
+On 6/4/26 15:55, Thorsten Leemhuis wrote:
+> On 5/17/26 04:47, Suraj Kandpal wrote:
+>> This reverts commit 40d2f5820951dee818d05c14677277048bd85f9f.
+>>
+>> Removing the try_vesa_interface gate caused a backlight regression on
+>> panels whose VBT correctly reports INTEL_BACKLIGHT_DISPLAY_DDI and whose
+>> PWM path is the actual backlight control, but whose DPCD optimistically
+>> advertises DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
+>> After the commit such panels silently bind to the VESA AUX backlight
+>> funcs; AUX writes complete but the panel ignores them, leaving
+>> brightness stuck (no-op backlight). Observed on at least KBL and TGL
+>> eDP setups.
 > 
-> Since you're here, also update these to xe_err_ratelimited() and
-> xe_gt_err_ratelimited().
+> Lo! What's the status of this regression fix? It's a -next for two weeks
+> now as f30fddb4402313 ("Revert "drm/i915/backlight: Remove
+> try_vesa_interface""), but from the outside and checking
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/commits/drm-intel-fixes
+> it looks like it's scheduled for merging in the next cycle.
 
-Atleast the xe ones.
+Resending to Tvrtko, who sent the i915 PR yesterday (which didn't
+contain that fix), as well as Dave and Simona.
 
-Raag
+FWIW, due to the lack of response to various inquiries I'm considering
+to ask Linus to directly pick up the mentioned regression fix to ensure
+it makes it into rc7.
 
-> > v2:
-> > - Use drm_err_ratelimited() correctly (jcavitt)
-> > 
-> > Suggested-by: Raag Jadav <raag.jadav@intel.com>
-> > Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_lpe_audio.c | 2 +-
-> >  drivers/gpu/drm/i915/gt/intel_gsc.c            | 2 +-
-> >  drivers/gpu/drm/xe/xe_heci_gsc.c               | 4 ++--
-> >  drivers/gpu/drm/xe/xe_i2c.c                    | 5 ++++-
-> >  4 files changed, 8 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/i915/display/intel_lpe_audio.c b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-> > index 022ad18044bf..e756ed1d1132 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_lpe_audio.c
-> > @@ -265,7 +265,7 @@ void intel_lpe_audio_irq_handler(struct intel_display *display)
-> >  	ret = generic_handle_irq_safe(display->audio.lpe.irq);
-> >  	if (ret)
-> >  		drm_err_ratelimited(display->drm,
-> > -				    "error handling LPE audio irq: %d\n", ret);
-> > +				    "failed to handle LPE audio irq: %d\n", ret);
-> >  }
-> >  
-> >  /**
-> > diff --git a/drivers/gpu/drm/i915/gt/intel_gsc.c b/drivers/gpu/drm/i915/gt/intel_gsc.c
-> > index 050d909fb4f8..c2d76b0bc5fe 100644
-> > --- a/drivers/gpu/drm/i915/gt/intel_gsc.c
-> > +++ b/drivers/gpu/drm/i915/gt/intel_gsc.c
-> > @@ -286,7 +286,7 @@ static void gsc_irq_handler(struct intel_gt *gt, unsigned int intf_id)
-> >  
-> >  	ret = generic_handle_irq_safe(gt->gsc.intf[intf_id].irq);
-> >  	if (ret)
-> > -		gt_err_ratelimited(gt, "error handling GSC irq: %d\n", ret);
-> > +		gt_err_ratelimited(gt, "failed to handle GSC irq: %d\n", ret);
-> >  }
-> >  
-> >  void intel_gsc_irq_handler(struct intel_gt *gt, u32 iir)
-> > diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
-> > index 5af8903e10af..640db27137de 100644
-> > --- a/drivers/gpu/drm/xe/xe_heci_gsc.c
-> > +++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
-> > @@ -224,7 +224,7 @@ void xe_heci_gsc_irq_handler(struct xe_device *xe, u32 iir)
-> >  
-> >  	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
-> >  	if (ret)
-> > -		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
-> > +		drm_err_ratelimited(&xe->drm, "failed to handle GSC irq: %d\n", ret);
-> >  }
-> >  
-> >  void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
-> > @@ -244,5 +244,5 @@ void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
-> >  
-> >  	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
-> >  	if (ret)
-> > -		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
-> > +		drm_err_ratelimited(&xe->drm, "failed to handle GSC irq: %d\n", ret);
-> >  }
-> > diff --git a/drivers/gpu/drm/xe/xe_i2c.c b/drivers/gpu/drm/xe/xe_i2c.c
-> > index 706783863d07..fa5fdf3a1024 100644
-> > --- a/drivers/gpu/drm/xe/xe_i2c.c
-> > +++ b/drivers/gpu/drm/xe/xe_i2c.c
-> > @@ -177,12 +177,15 @@ static bool xe_i2c_irq_present(struct xe_device *xe)
-> >  void xe_i2c_irq_handler(struct xe_device *xe, u32 master_ctl)
-> >  {
-> >  	struct xe_mmio *mmio = xe_root_tile_mmio(xe);
-> > +	int ret;
-> >  
-> >  	if (!(master_ctl & I2C_IRQ) || !xe_i2c_irq_present(xe))
-> >  		return;
-> >  
-> >  	/* Forward interrupt to I2C adapter */
-> > -	generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > +	ret = generic_handle_irq_safe(xe->i2c->adapter_irq);
-> > +	if (ret)
-> > +		drm_err_ratelimited(&xe->drm, "failed to handle i2c irq: %d\n", ret);
-> >  
-> >  	/* Deassert after I2C adapter clears the interrupt */
-> >  	xe_mmio_rmw32(mmio, I2C_CONFIG_CMD, 0, PCI_COMMAND_INTX_DISABLE);
-> > -- 
-> > 2.53.0
-> > 
+In case anyone wonder what regression I'm talking about:
+
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16015 /
+https://lore.kernel.org/lkml/CADo9pHjr-zZ9C3%2B026y5%2BXOGPSeRzSJMCHof27TVPtAUNgTc8A@mail.gmail.com/
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16043
+* https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16097 /
+https://lore.kernel.org/lkml/d2de7933-e650-4b19-8d88-90d66693dcfc@message-id.googlemail.com/
+
+Ciao, Thorsten
+
+> But I think it should be merged this cycle (ideally before -rc7, as
+> Linus wants all known regression fixed by -rc6), as it fixes a
+> regression that is known since the -rc1 days. I already asked for the
+> mainlining plans in gitlab tickets about a week ago (and since then
+> affected users spoke up, too), but there was no conclusive answer for
+> the plans, which is why I'm trying this way now.
+> 
+> Ciao, Thorsten
+> 
+> 
+>> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+>> ---
+>>  .../drm/i915/display/intel_dp_aux_backlight.c | 19 ++++++++++++-------
+>>  1 file changed, 12 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> index a8d56ebf06a2..7a6c07f6aaeb 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+>> @@ -691,10 +691,9 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	struct intel_dp *intel_dp = intel_attached_dp(connector);
+>>  	struct drm_device *dev = connector->base.dev;
+>>  	struct intel_panel *panel = &connector->panel;
+>> -	bool try_intel_interface = false;
+>> +	bool try_intel_interface = false, try_vesa_interface = false;
+>>  
+>> -	/*
+>> -	 * Check the VBT and user's module parameters to figure out which
+>> +	/* Check the VBT and user's module parameters to figure out which
+>>  	 * interfaces to probe
+>>  	 */
+>>  	switch (display->params.enable_dpcd_backlight) {
+>> @@ -703,6 +702,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	case INTEL_DP_AUX_BACKLIGHT_AUTO:
+>>  		switch (panel->vbt.backlight.type) {
+>>  		case INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE:
+>> +			try_vesa_interface = true;
+>>  			break;
+>>  		case INTEL_BACKLIGHT_DISPLAY_DDI:
+>>  			try_intel_interface = true;
+>> @@ -715,12 +715,20 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  		if (panel->vbt.backlight.type != INTEL_BACKLIGHT_VESA_EDP_AUX_INTERFACE)
+>>  			try_intel_interface = true;
+>>  
+>> +		try_vesa_interface = true;
+>> +		break;
+>> +	case INTEL_DP_AUX_BACKLIGHT_FORCE_VESA:
+>> +		try_vesa_interface = true;
+>>  		break;
+>>  	case INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL:
+>>  		try_intel_interface = true;
+>>  		break;
+>>  	}
+>>  
+>> +	/* For eDP 1.5 and above we are supposed to use VESA interface for brightness control */
+>> +	if (intel_dp->edp_dpcd[0] >= DP_EDP_15)
+>> +		try_vesa_interface = true;
+>> +
+>>  	/*
+>>  	 * Since Intel has their own backlight control interface, the majority of machines out there
+>>  	 * using DPCD backlight controls with Intel GPUs will be using this interface as opposed to
+>> @@ -733,9 +741,6 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  	 * panel with Intel's OUI - which is also required for us to be able to detect Intel's
+>>  	 * backlight interface at all. This means that the only sensible way for us to detect both
+>>  	 * interfaces is to probe for Intel's first, and VESA's second.
+>> -	 *
+>> -	 * Also there is a chance some VBTs may advertise false Intel backlight support even if the
+>> -	 * TCON DPCD says otherwise. This means we keep VESA interface as fallback in that case.
+>>  	 */
+>>  	if (try_intel_interface && intel_dp->edp_dpcd[0] <= DP_EDP_14b &&
+>>  	    intel_dp_aux_supports_hdr_backlight(connector)) {
+>> @@ -745,7 +750,7 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+>>  		return 0;
+>>  	}
+>>  
+>> -	if (intel_dp_aux_supports_vesa_backlight(connector)) {
+>> +	if (try_vesa_interface && intel_dp_aux_supports_vesa_backlight(connector)) {
+>>  		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Using VESA eDP backlight controls\n",
+>>  			    connector->base.base.id, connector->base.name);
+>>  		panel->backlight.funcs = &intel_dp_vesa_bl_funcs;
+> 
+
