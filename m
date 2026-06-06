@@ -4,60 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1328DCD8C9F
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:44:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69722CD8CAB
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:44:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D58AB10F3F8;
-	Mon,  8 Jun 2026 13:44:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="psUWKsdT";
-	dkim-atps=neutral
-X-Greylist: delayed 435 seconds by postgrey-1.36 at gabe;
- Mon, 08 Jun 2026 09:20:19 UTC
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com
- [162.62.57.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8AC10F02C;
- Mon,  8 Jun 2026 09:20:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1780910415;
- bh=+fqbAYNvBbhGamEyI6RgTGYGo+FJfa7zUeW6Q86NOV8=;
- h=From:To:Cc:Subject:Date;
- b=psUWKsdTDZ6GD9X2lJNlMg8P7OxnhMcLo6W4Q0+W7jv1/QlpYT+PBjYzf+0F74Dsz
- +grCdj2edWkmVU6wjp/kR1AUcsWbLWUvgWijXq1DT14Q88lmA2SZvG+Raz1c/5zRcy
- cPBGf9wiURjKzOAneD3k7AkVIJzSy+Me8a9qdx5A=
-Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
- by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
- id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
-X-QQ-mid: xmsmtpt1780909967t9w3ffs40
-Message-ID: <tencent_41186F27AF2C13B660C14ED5E6E14759800A@qq.com>
-X-QQ-XMAILINFO: OEqHD1PnWCNqOwCy+d3Obi9zlJvkegDosYWvNDkri1MFywdxVJZCdKfyufQj6D
- skDDJabPGMemcLZtw0pYckoBoSZi8WP7aHN5LBRm8AvhQB0x6iqad2zqIhuWEFO33c81Qqdxyl23
- 626sMZ3z67sFPAaJtij3QToZaciVzv7wpqx8bO36bQeNQ2TnQBRKTpc3DFUIHnNQDWZng/4B5P+G
- X/AyqPmMWnK6LyfixxCyfWHxx2I/WlHcKhjjhcgUq6ZtpMcyUOs5PHlnvn7lTf7Qr+t+R35FLrh1
- qvWFTJS0f3DiousnC1PM/fNU6XXNwSz0IEW7CX3VMqrY7vihAuuUj3UElw5ncaeSOZWA1mbmGQU0
- 4s18cr7FFX5tBi4nFw6P5vNftCl97TQhTqsAuF3gLQJ6VsGeiT9gz3cIaVtaHh8u8NNv2ZesJi3Q
- yWs42OApmvgXHGAGRYJwRwEm+hPx0iekZyYq2pnXfW6XygxrgKPjMUbI95i+s2wQIxF426TzENkx
- Nxo9SOtfmVB928GCf3XF+E47SphWD2ZWw7KfCL2jnqqyF13m4plabOOS702/fI3WVvKSvZ4SoOD8
- Jp17QRzPuUMYlkZLGnAQ1f9v08dqn1ZAsT5v+6j8u6muXQNpyC30YpuCemB/VADN5PlLmopEWzwg
- c94NvyUd7PXQVJ26w+EbqGwQomt3DUcDmzv9QUWIqF60zR8a2do0tvuh6kjD3+Kg0ZqRyyHZ4fDP
- TaDkYRhaHXHS7oVwEgU7pIOZCMgf4pJJttanY2wpF42NOl4OTm4mx+plXralSed2c5mvHVFg97R2
- ijZiNFWqCK03lJfu7ruTwiK9xXDTKqXeZ67xFoKfRX9VuwItYYUvb+1/zKjX3E01oQtdDpZ7pL6p
- nGcyLVJxf58T3ec1+oJWy+nm3kK/a1Sk11wnQB2d2VAH1xb9kcKCh1vzm0cRqAUwGOf6ml3RRDhI
- 1Qv6JCWrXa9bEAYmzT3QCV1z0MLSFGpDrNDHifkDDqPVD+kncL1nYvrNsxvdAWb4tcznrQfX3uZi
- rutQTEWcLkt/L7lE0SrMD96KpxEh22GZwIRyZiQST071C3vgOd
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: chafi <chafiprc@foxmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Yu Zhang <chafiprc@foxmail.com>
-Subject: [PATCH 1/3] drm/i915/dsi: Program TRANS_HSYNC register for dual-link
- command mode
-Date: Mon,  8 Jun 2026 17:12:42 +0800
-X-OQ-MSGID: <20260608091245.462464-1-chafiprc@foxmail.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 835C410F3FA;
+	Mon,  8 Jun 2026 13:44:08 +0000 (UTC)
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17F4410E030;
+ Sat,  6 Jun 2026 10:35:46 +0000 (UTC)
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+ by APP-01 (Coremail) with SMTP id qwCowAA329P+9yNqhGG8AA--.9968S2;
+ Sat, 06 Jun 2026 18:35:42 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: zhenyuw.linux@gmail.com, zhi.wang.linux@gmail.com,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Wentao Liang <vulab@iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/i915/gvt: fix refcount leak in intel_vgpu_shadow_mm_pin()
+Date: Sat,  6 Jun 2026 10:35:19 +0000
+Message-Id: <20260606103519.57715-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 08 Jun 2026 13:44:06 +0000
+X-CM-TRANSID: qwCowAA329P+9yNqhGG8AA--.9968S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF4rtw1fGFWUCw48CFy5XFb_yoW8XF4fpr
+ WrXry3ArsxAr4aq3yDAw1FkFy3Ca1Ik345Wr1kGwnrK3Z0ya4jyFyYka4UWry8GrWxXw1S
+ vryUGay3uF1DZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+ 0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
+ 1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+ 628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+ IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+ MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+ WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+ 6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+ BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
+X-Originating-IP: [36.110.52.2]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCQ4KA2ojcpPxkgAAsF
+X-Mailman-Approved-At: Mon, 08 Jun 2026 13:44:07 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,73 +64,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Yu Zhang <chafiprc@foxmail.com>
+intel_vgpu_pin_mm() unconditionally increments the mm's pincount at
+the start.  If the subsequent shadow ppgtt creation fails, the
+function returns an error but leaves the pincount incremented.
+Callers must therefore always call intel_vgpu_unpin_mm() after
+intel_vgpu_pin_mm() returns, regardless of success or failure, to
+balance the reference.
 
-The TRANS_HSYNC register programming and dual-link hsync halving is
-placed inside the is_vid_mode() guard, so it only runs for video mode.
-Command mode dual-link DSI also needs this:
+In intel_vgpu_shadow_mm_pin(), when the pinning of the shadow mm
+fails, the error path returns immediately without unpinning.  This
+leaks the pincount reference that was already taken.  All other error
+paths in the same function correctly unpin on failure, making this an
+obvious omission.
 
-1. Without TRANS_HSYNC written, the hardware retains an inconsistent
-   state, leading to errors on modeset:
+Add the missing intel_vgpu_unpin_mm() call before returning the error.
 
-   [drm] *ERROR* mismatch in hw.pipe_mode.crtc_hsync_start
-   (expected 2762, found 1380)
-
-2. The hsync_start/end are not halved for each link, so the hardware
-   stores per-link values while the software expects full values.
-
-Fix this by moving the dual-link hsync halving and TRANS_HSYNC write
-outside the is_vid_mode() guard, making them unconditional for all
-DSI modes.
-
-Fixes: d1aeb5f399d9 ("drm/i915/icl: Configure DSI transcoder timings")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
+Fixes: d8235b5e5584 ("drm/i915/gvt: Move common workload preparation into prepare_workload()")
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/display/icl_dsi.c | 21 ++++++++++-----------
- 1 file changed, 10 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/i915/gvt/scheduler.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index 951f30a64..c667d5941 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -950,7 +950,6 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 			       HACTIVE(hactive - 1) | HTOTAL(htotal - 1));
+diff --git a/drivers/gpu/drm/i915/gvt/scheduler.c b/drivers/gpu/drm/i915/gvt/scheduler.c
+index 15fdd514ca83..30d879b37c84 100644
+--- a/drivers/gpu/drm/i915/gvt/scheduler.c
++++ b/drivers/gpu/drm/i915/gvt/scheduler.c
+@@ -698,6 +698,7 @@ intel_vgpu_shadow_mm_pin(struct intel_vgpu_workload *workload)
+ 
+ 	ret = intel_vgpu_pin_mm(workload->shadow_mm);
+ 	if (ret) {
++		intel_vgpu_unpin_mm(workload->shadow_mm);
+ 		gvt_vgpu_err("fail to vgpu pin mm\n");
+ 		return ret;
  	}
- 
--	/* TRANS_HSYNC register to be programmed only for video mode */
- 	if (is_vid_mode(intel_dsi)) {
- 		if (intel_dsi->video_mode == NON_BURST_SYNC_PULSE) {
- 			/* BSPEC: hsync size should be atleast 16 pixels */
-@@ -961,18 +960,18 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 
- 		if (hback_porch < 16)
- 			drm_err(display->drm, "hback porch < 16 pixels\n");
-+	}
- 
--		if (intel_dsi->dual_link) {
--			hsync_start /= 2;
--			hsync_end /= 2;
--		}
-+	if (intel_dsi->dual_link) {
-+		hsync_start /= 2;
-+		hsync_end /= 2;
-+	}
- 
--		for_each_dsi_port(port, intel_dsi->ports) {
--			dsi_trans = dsi_port_to_transcoder(port);
--			intel_de_write(display,
--				       TRANS_HSYNC(display, dsi_trans),
--				       HSYNC_START(hsync_start - 1) | HSYNC_END(hsync_end - 1));
--		}
-+	for_each_dsi_port(port, intel_dsi->ports) {
-+		dsi_trans = dsi_port_to_transcoder(port);
-+		intel_de_write(display,
-+			       TRANS_HSYNC(display, dsi_trans),
-+			       HSYNC_START(hsync_start - 1) | HSYNC_END(hsync_end - 1));
- 	}
- 
- 	/* program TRANS_VTOTAL register */
 -- 
-2.43.0
+2.34.1
 
