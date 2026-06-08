@@ -4,60 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55099CD8C92
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:44:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1540CD8CA4
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:44:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADFDF10F3F4;
-	Mon,  8 Jun 2026 13:44:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 508E110F3F9;
+	Mon,  8 Jun 2026 13:44:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="Ixts1PTr";
+	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="k0CkhSSu";
 	dkim-atps=neutral
-X-Greylist: delayed 1697 seconds by postgrey-1.36 at gabe;
- Mon, 08 Jun 2026 09:44:31 UTC
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
- [203.205.221.153])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8C6310F078;
- Mon,  8 Jun 2026 09:44:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1780911868;
- bh=gkEGl6klor+eq4IPgefmvgOhe0uBLMOYG1nnW7uhDxI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Ixts1PTrxIvsqsJ31J0CfO0eICCfrZ91XlU/NvEW1Pq6K3XZ2V1BkDcSoO1nolWQ9
- 0CK3Tq0mulnXVP/sLef8ql8HZk0X7Uir/or56k5Apa6J7p1m/GkXPAUGW44xmhaT69
- WU8u+0YkMFVen/3SiCii/U6wybgoqXbI+TvcQk0U=
-Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
- by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
- id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
-X-QQ-mid: xmsmtpt1780909979t5qps3k3l
-Message-ID: <tencent_F96A6D2FFEB6459BF167B2F2F27E8B016C06@qq.com>
-X-QQ-XMAILINFO: NsH3EniEpYuY++gQphxxtp/UKwZBf4XhDzLzDtrRZifbrTQvBxvaNEq0FlYZbL
- 3qBQKHdMw5W4QsLhqXaGMdfm39g98LLduA+c5gFDTrPAGre/FTj/68z2V3QbOvIWEea1Tml0OYKZ
- 0e2K0fuB8TX3h6PpQi0C9D7H31XmQ+DZb4aQau/sAOvyZEe8/KhklLVHUhrGU+PG/kFAlSMvPowR
- jKJZ90m8aAcjQP2iDOjwCaQjyu8Mp4U+YL0SVLENDPsSQ6yIxDrOMLobvM3TghuPDgN/y1s5TnGu
- iPm5Oo4hmGU98luxc2/4W6z0URNdTbKCeD1f0FP76Qk00QJGb9kN7h9FjPW5o1QuJpCX4xIGyF7Z
- XF5yA+vE+9N1kw0ul2cnJnI4Q312pwmS5kDolmJ6kyUVznoE6OZbxmREmMNSL3RnKxT3iJM0NlC/
- 7PfR0q2aWT25nZ3ycYymyACUujfkLtsu4QRzCA2fMkBtD46b+xVpiMHiDDljU79PrH8KsxODZ+/u
- w7on4AMawXrIO+0SURa/Gq4N0DNlhp9Dpc6WiIdhd6uD6xeVsOkscOM5KeKKrDRg33GSZ/wtcyr7
- vqyzmRCjxwDyWacQ80+lTJ64PJ+OFZNKRas8FrcqWNKDkGeTzlyViWMY1upQZoYOJ64OODUntFVd
- ZA08suZCY/AvfTBoy1ughid9o6a0TKe/ie1nErLzvBnoPIrlbFS+x68XNCIL0+QvzP015TZD9XL+
- 05fjlVyFgcP3KDwiLGhTSGiDcTDICKMxHtUcVyHVH51M/Yf8i0NTHXw3SJw4BUqlCSfYp5Eng1J9
- r/l/HINXICrBL2IBjilcbeenPxfF5aNMLX/JUpcCQrNRL5UeiByLqbAD3WYBf5jF3mUwzFIAT3G2
- 7FqyNNYCVnsKJBOOskMH9NoCcTOqyn+dKYtTw5woI+fxNyeugH5YE9lfeIbiry01q47d3z/XAh8x
- PdqWtk9xgbG/TXJnDNRWQ6N/qvfqcNn1DCJShy80Whwe1HCUlNwwfEoXdrHKsceeZIJ2qwHLxV1z
- /DqzRI52XYpXnlmqga7620aSnnqZ6Kc+/edfo7951LHBZuTexx
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: chafi <chafiprc@foxmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Yu Zhang <chafiprc@foxmail.com>
-Subject: [PATCH 3/3] drm/i915/dsi: Fix TE pin configuration for dual-link DSI
-Date: Mon,  8 Jun 2026 17:12:44 +0800
-X-OQ-MSGID: <20260608091245.462464-3-chafiprc@foxmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260608091245.462464-1-chafiprc@foxmail.com>
-References: <20260608091245.462464-1-chafiprc@foxmail.com>
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Mon, 08 Jun 2026 08:44:34 UTC
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79F8910EF72;
+ Mon,  8 Jun 2026 08:44:34 +0000 (UTC)
+Received: from francesco-nb (xcpe-178-82-120-96.dyn.res.sunrise.net
+ [178.82.120.96])
+ by mail11.truemail.it (Postfix) with ESMTPA id CE9F41FC18;
+ Mon,  8 Jun 2026 10:39:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+ s=default; t=1780907957;
+ bh=z8UFPckcbkUDtOhYm05+yDC1pbRjWLGHos3Y900ReCg=; h=From:To:Subject;
+ b=k0CkhSSuENH6FvKBjSYNZqeeBs0nsjwzBN7/rWsUL39SC6f99XSrqQBMKFB57XHrd
+ 3I8h/qU+JaiL9PImIm+fRWgEURAlZsg+f6eiqkez2YVTzhHqLybK219HsDvkbDoqI3
+ dM4IMHjgbC49Y7YiW/j9OtVVLjStJ5biCTWGGtjXn9zPcit2UxxQjslLiDtDhtZmzZ
+ WnS/Mwz1fHg9p3qzbaIODY+ZdLF/BHd/P7MLF2aAX0JID2Crf3q5aUUGWFvUbsd9pF
+ mK+nMKrowzyVzDHOpjAZ3SxbAStwTG5WA+EKfecTWhcLrCP3Gi+iVMNM8iNungmUR7
+ MjXbLTJ+8CuiQ==
+Date: Mon, 8 Jun 2026 10:39:11 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Adrien Grassein <adrien.grassein@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Pengyu Luo <mitltlatltl@gmail.com>, Nikita Travkin <nikita@trvn.ru>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org
+Subject: Re: [PATCH v4 4/8] drm/bridge: pass extra events to the HPD callback
+Message-ID: <20260608083911.GA35760@francesco-nb>
+References: <20260608-hpd-irq-events-v4-0-30b62b335487@oss.qualcomm.com>
+ <20260608-hpd-irq-events-v4-4-30b62b335487@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260608-hpd-irq-events-v4-4-30b62b335487@oss.qualcomm.com>
 X-Mailman-Approved-At: Mon, 08 Jun 2026 13:44:07 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,37 +91,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Yu Zhang <chafiprc@foxmail.com>
+On Mon, Jun 08, 2026 at 12:33:05AM +0300, Dmitry Baryshkov wrote:
+> The DisplayPort standard defines a special kind of HPD events called
+> IRQ_HPD. These events are used to notify DP Source about the events on
+> the Sink side.
+> 
+> Bridge drivers report these events through the
+> drm_bridge_hpd_notify_extra(). Pass down the extra status to the HPD
+> callback, specified during the drm_bridge_hpd_enable(), letting
+> underlying drivers (e.g. drm_bridge_connector) to receive these events.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-gen11_dsi_config_util_pin() skips UTIL_PIN configuration for any port
-mask that includes PORT_B. For dual-link (PORT_A | PORT_B), PORT_A
-still needs UTIL_PIN as TE (Tearing Effect) input. Without it, vblank
-interrupts never fire and flip_done operations time out on command
-mode dual-link panels.
-
-Only PORT_B-only configurations should skip this step, as TE comes
-from the slave DSI1 through GPIO in that case.
-
-Fixes: 963bbdb32b47 ("drm/i915/dsi: add support for ICL+ native MIPI GPIO sequence")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
----
- drivers/gpu/drm/i915/display/icl_dsi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index f579cba28..cb60aad92 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -1113,7 +1113,7 @@ static void gen11_dsi_config_util_pin(struct intel_encoder *encoder,
- 	 * for dual link/DSI1 TE is from slave DSI1
- 	 * through GPIO.
- 	 */
--	if (is_vid_mode(intel_dsi) || (intel_dsi->ports & BIT(PORT_B)))
-+	if (is_vid_mode(intel_dsi) || intel_dsi->ports == BIT(PORT_B))
- 		return;
- 
- 	tmp = intel_de_read(display, UTIL_PIN_CTL);
--- 
-2.43.0
+Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com> # lt8912b
 
