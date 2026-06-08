@@ -4,53 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 006A6CD8CA4
-	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:25:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A529CD8C9D
+	for <intel-gfx@archiver.kernel.org>; Mon,  8 Jun 2026 13:44:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80C7210F3B7;
-	Mon,  8 Jun 2026 13:25:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A46910F3F3;
+	Mon,  8 Jun 2026 13:44:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LFuXZcB2";
+	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="PzWSBM9a";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C2D10F3B6;
- Mon,  8 Jun 2026 13:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780925108; x=1812461108;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=90+OGpURpXUilNv4PiAZxQHU1o5EBbJSgeyu4BiXMbg=;
- b=LFuXZcB27+9s54b8GUE7kuexnD04LuWVb7RA2tz2Rv2izzdc2eedKeBb
- 4i7mBt5O3GWTFxo1zNqe6c/cjekFT7gMrPWZ0k1xfMPjTQyFM6dFcFvga
- e6p9jFYItm8tRwslVS4PnLDPeb/EHxZ+A6+F8nNQM953Q4HYYDmzg40ML
- MoVpyXp36fucZcy45jL6zPM8Da7Z/bA1QXbUlfbsKlhbFCfzgEpfQgV1c
- mLtbDioFQq19f1LmgeR+/wqVnscGiAYtlHU8MalrokkUw5Xc2zHgasEf1
- HnL5ejJ5tHbPUWnd4JE1m+f1k9UiEwkuReb7pbtkeZi8IcO3D1J05qfWe g==;
-X-CSE-ConnectionGUID: jUZ86IDlQ26LWdjh2sq6sQ==
-X-CSE-MsgGUID: jBMmFdFhSnOlZThwuJIMag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11810"; a="81634474"
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="81634474"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 06:25:07 -0700
-X-CSE-ConnectionGUID: WPHVFntzSU2QzbqTx8/rqQ==
-X-CSE-MsgGUID: 0Weiyyq4TDGWfZMokDVumA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,194,1774335600"; d="scan'208";a="244694459"
-Received: from display-adls.igk.intel.com ([10.211.131.198])
- by orviesa010.jf.intel.com with ESMTP; 08 Jun 2026 06:25:07 -0700
-From: Mika Kahola <mika.kahola@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Mika Kahola <mika.kahola@intel.com>
-Subject: [PATCH] drm/i915/display: Skip generic pipe dpll_hw_state compare on
- LT PHY
-Date: Mon,  8 Jun 2026 13:25:05 +0000
-Message-ID: <20260608132505.1849158-1-mika.kahola@intel.com>
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
+ [162.62.57.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 455ED10F02C;
+ Mon,  8 Jun 2026 09:20:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+ s=s201512; t=1780910417;
+ bh=Zk1OdM/FO04pIv727zNRuWZ1i1r0L3Cf7ZaDQS1VgWA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=PzWSBM9alNqXMoa2mM71LqLO153CwfbsVMcI0DEtnZe8dsXV1+HyYDjZaldxTmIGi
+ dD5QNS1nZ3gVMqwW6J4qk9ZZGNzp6d2tO5cPikLbD3GFlpt61iGZ1BYEpMXYtNZQKD
+ RbYCbHLi/aS4J1WvV5/J78xav7Re6DbLtwSITSB0=
+Received: from chafi-Matebook-Ubuntu.. ([117.25.98.102])
+ by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+ id 32F830C7; Mon, 08 Jun 2026 17:12:47 +0800
+X-QQ-mid: xmsmtpt1780909978t83o855lm
+Message-ID: <tencent_AEC2C2C7582DD97B19BFA51196A256151F05@qq.com>
+X-QQ-XMAILINFO: N1MQIlrHEcYy/L89GIYSaW/e9aFe/SJF0uC3bXmon5vt/U7LMi+32NnruVI7rS
+ KguiKs5agSU/BSXlNnpt5SKG2wmzDlD6o+xeAtnERJmcUWvCCL/OHsCCEIVIB6+QAIyN9mCVpKmg
+ ySA6IyaXMmXsalXWYryIoBMbg7vWQlK7XiYG6eEG8HBNK+oPzYCADVeCc/uJKfLrXPbNT+AuhwCp
+ eVKmXU89LvhPxAsgZdgvPoCfLZUwKbJLsApqdpq9AW4grP2XdzmmYU1Bg3TjgbOp/FyWPaZNP4Ar
+ EvuoXS1IB+t9ze07rifiT8lr5l6KRSTISC6DVFWom0wF6uB7Atapf8BmAJ7jVfLEa1U1ppz8uCzp
+ zOVIwBJLCeYafF5jNvOfG/WvDDxBab9ELsMziPbx3MwzSPWper5ONHYlDAujigFXDCrIbjLRwWGX
+ H4CfIuP5LHTaPYpKrh9MJYNWLVvDbZvqKLyems4IW6HJUPC1G/6U51TUVHqOVZ5YhHPErr2Q2y1r
+ RjpW6gqhW8mVBBvoBp1+F543cJ2Pn8xPNQRc8Xy8wwMmQse+fish1CxoU5XdWpvIp/GxBzSFSdY4
+ gHiENFpT8NBBS7rQortD24PeJyQWIeGEdL4W9FwAjK+tCzOB9tT35NsQOvl6uY8h1KLYC2b3nqn3
+ IfyDVmKKM+6geJy1ITDO1WLD/j/u8IG0o8oMAoRWtsTGHCNhP26rcqoCaaJLM7Swa7Il0QnVmm5V
+ 6DNOSJE20cLQ7iyy512sPdDrsOMP3m0uwCKv1IWDx2yM2vf6kOMw/xDKR1cMaBKiK/24ZdlYPpj/
+ E22JlHuri4neDlDRNcP1OCw1RiP0dte5c7aONRyJ3vg3YCZor9vkFPyJ9UqufWtQVmZUyZlWh6AV
+ vTNS+/X1nKmaZq8c5mDlWqkF8MWu0sPzf5U7NcjFlhLZYLHhcKotuRZNox+JHKBkHISGhY1dERBw
+ 0C4nwxTuJ63WTJ56g14YSYTkoTHoq4+LRUQREE4UcJ55/Yph+poWg3/iHdt1exHXApVpfbEFSi/5
+ yot/aS5Jr0BmO4gQUf34QTh4ythxgzjpmy+wNJAg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: chafi <chafiprc@foxmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Yu Zhang <chafiprc@foxmail.com>
+Subject: [PATCH 2/3] drm/i915/dsi: Fix hsync readout for dual-link command mode
+Date: Mon,  8 Jun 2026 17:12:43 +0800
+X-OQ-MSGID: <20260608091245.462464-2-chafiprc@foxmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260608091245.462464-1-chafiprc@foxmail.com>
+References: <20260608091245.462464-1-chafiprc@foxmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 08 Jun 2026 13:44:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,42 +72,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-LT PHY PLL readout is only partially reliable, and the LT PHY code
-already documents that only a subset of the state can be read back
-reliably after power gating.
+From: Yu Zhang <chafiprc@foxmail.com>
 
-The generic pipe-state verification compares dpll_hw_state as part of
-intel_pipe_config_compare(), which can trigger false-positive
-"pipe state doesn't match!" warnings on LT PHY platforms. DPLL-specific
-verification already exists via intel_dpll_state_verify().
+gen11_dsi_get_timings() only doubles hsync_start/end for dual-link
+DSI in video mode. For command mode dual-link, the hardware stores
+per-link values (e.g. hsync_start=1380 instead of 2762), but the
+readout does not compensate, causing:
 
-Skip the generic dpll_hw_state pipe-state compare on LT PHY platforms
-and rely on the dedicated DPLL verification path instead.
+  [drm] *ERROR* hw.pipe_mode.crtc_hsync_start (expected 2762, found 1380)
 
-Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+Fix this by applying the dual-link hsync doubling unconditionally,
+matching the SET side where hsync is now halved for all modes.
+
+Fixes: d1aeb5f399d9 ("drm/i915/icl: Configure DSI transcoder timings")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <chafiprc@foxmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 2fa10f858279..85ad2bc4963d 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5374,8 +5374,12 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	if (display->dpll.mgr)
- 		PIPE_CONF_CHECK_P(intel_dpll);
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index c667d5941..f579cba28 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -1527,11 +1527,9 @@ static void gen11_dsi_get_timings(struct intel_encoder *encoder,
+ 	adjusted_mode->crtc_hblank_start = adjusted_mode->crtc_hdisplay;
+ 	adjusted_mode->crtc_hblank_end = adjusted_mode->crtc_htotal;
  
--	/* FIXME convert everything over the dpll_mgr */
--	if (display->dpll.mgr || HAS_GMCH(display))
-+	/*
-+	 * LT PHY PLL readout is only partially reliable and the PLL state
-+	 * is already verified via intel_dpll_state_verify(). Avoid false
-+	 * positives from the generic pipe state comparison.
-+	 */
-+	if ((display->dpll.mgr || HAS_GMCH(display)) && !HAS_LT_PHY(display))
- 		PIPE_CONF_CHECK_PLL(dpll_hw_state);
- 
- 	PIPE_CONF_CHECK_X(dsi_pll.ctrl);
+-	if (intel_dsi->operation_mode == INTEL_DSI_VIDEO_MODE) {
+-		if (intel_dsi->dual_link) {
+-			adjusted_mode->crtc_hsync_start *= 2;
+-			adjusted_mode->crtc_hsync_end *= 2;
+-		}
++	if (intel_dsi->dual_link) {
++		adjusted_mode->crtc_hsync_start *= 2;
++		adjusted_mode->crtc_hsync_end *= 2;
+ 	}
+ 	adjusted_mode->crtc_vblank_start = adjusted_mode->crtc_vdisplay;
+ 	adjusted_mode->crtc_vblank_end = adjusted_mode->crtc_vtotal;
 -- 
 2.43.0
 
