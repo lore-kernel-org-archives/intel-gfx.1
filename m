@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8668CD98C3
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3029ECD98C5
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BB9010E254;
-	Tue,  9 Jun 2026 13:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAEBF10E3BB;
+	Tue,  9 Jun 2026 13:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="CpXqR0D8";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="YYIJiCTk";
 	dkim-atps=neutral
-Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com
- [95.215.58.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 647F610E0D9
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:37:49 +0000 (UTC)
+Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com
+ [95.215.58.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C590E10E0D3
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986514;
+ t=1780986417;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=smwcSwpSx3877vgkJVhF1DUcaQotbwHyv2wtpxTd7yQ=;
- b=CpXqR0D8sDUMklAOU53IFxyjHsOAHr7bre1RxmD/ICXb8vVnoTPwyiQ7PJllPlM2do2vji
- CZWIYF0tP4l5AIedEPdZwtoflwzjSpnKrsJsyiN0Col7fpwtC3VkX3UiTLeELwoG0QQZ8s
- IRkZWlzKv1ScExqwZEUL82ocOW2B5Z0=
+ bh=Np0x5OABf11sd/lWEcYRius1zQG4TmMrbP89pTQvYBE=;
+ b=YYIJiCTkH8MjZ7BoGs7INCC4Vg7NTV50EYqh5qyQzaNnUUn/ixKMeAHTMaJlWsazr68AZc
+ 9cDm4beZcV6ZDk9JRuLp/AOZC3eNoRHb5vZWf2PEag6On3FypjVNmaFjgVo30iqjkj1FaQ
+ vdscYyTKn9RpAnTOcvy8RuzssJ18YbI=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,9 +76,9 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 09/14] spi: stm32-qspi: Open-code message transfer walk
-Date: Tue,  9 Jun 2026 14:25:21 +0800
-Message-ID: <20260609062526.94907-7-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 04/14] drm/i915/gt: Open-code active timeline walk
+Date: Tue,  9 Jun 2026 14:25:16 +0800
+Message-ID: <20260609062526.94907-2-kaitao.cheng@linux.dev>
 In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <20260609062526.94907-1-kaitao.cheng@linux.dev>
@@ -104,36 +104,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stm32_qspi_transfer_one_message() can
-consume the following transfer as part of the current operation and then
-advance the loop cursor to that entry.
+before entering the loop body. __intel_gt_unset_wedged() drops
+timelines->lock while waiting on a fence and then restarts the walk from
+the list head after the lock is reacquired.
 
-Keep the transfer walk open-coded so the loop step observes that cursor
-update and skips the consumed transfer. This preserves the existing
-message sequencing semantics and prepares the code for the list iterator
-update.
+Keep the loop open-coded so the next timeline is selected after that
+restart logic has run. This preserves the existing lock-drop traversal
+semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/spi/spi-stm32-qspi.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_reset.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index df1bbacec90a..27d82a578c9f 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -577,7 +577,10 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
+diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
+index adff482a6c9c..fe0d87e248a7 100644
+--- a/drivers/gpu/drm/i915/gt/intel_reset.c
++++ b/drivers/gpu/drm/i915/gt/intel_reset.c
+@@ -1077,7 +1077,9 @@ static bool __intel_gt_unset_wedged(struct intel_gt *gt)
+ 	 * No more can be submitted until we reset the wedged bit.
+ 	 */
+ 	spin_lock(&timelines->lock);
+-	list_for_each_entry(tl, &timelines->active_list, link) {
++	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
++	     !list_entry_is_head(tl, &timelines->active_list, link);
++	     tl = list_next_entry(tl, link)) {
+ 		struct dma_fence *fence;
  
- 	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
- 
--	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
-+	for (transfer = list_first_entry(&msg->transfers,
-+					 typeof(*transfer), transfer_list);
-+	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
-+	     transfer = list_next_entry(transfer, transfer_list)) {
- 		u8 dummy_bytes = 0;
- 
- 		memset(&op, 0, sizeof(op));
+ 		fence = i915_active_fence_get(&tl->last_request);
 -- 
 2.43.0
 
