@@ -4,158 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D3EBCD8CA8
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 12:14:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04DCCD8CAA
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 12:44:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B671B10E2CA;
-	Tue,  9 Jun 2026 12:14:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E392310E2FA;
+	Tue,  9 Jun 2026 12:44:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UxgznhMx";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CMrfh2uj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A71B710E280;
- Tue,  9 Jun 2026 12:14:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781007255; x=1812543255;
- h=message-id:date:subject:to:references:from:in-reply-to:
- content-transfer-encoding:mime-version;
- bh=MgQmZWZsWTA0S+ktTKWFAu4filvNAIUbiVfIEVlUHnA=;
- b=UxgznhMx8bZcP/arR7sE/0pIG3t97AxIqwEFy8JYPbSXvG0iH7wioZXX
- OV/o8cCZw4KeG8YolTt/Mw54oL6rECHaYC85IyaPqbYNUAenCLzMGl1CN
- uQrIcmElYjwhZuCQ4TyEn+TWRNP7JIFsRFfybZl2DT+P4Eg+q6fydABhg
- kmcuq4a2bj4OQIqi+AJ0Ahg8srJ63JrIraATztg8D1SeF32GkwUspyLip
- Mjd6HG0uXExohuvWk4DfkoefN1TrNADoPiu3nBWczQMcJVT3y5fAckOZp
- ntq78MwLducjudtWNsqzW6zMc/gXkNcZKb9+6PiyDFb41694gwxctmcKj g==;
-X-CSE-ConnectionGUID: 0uW8SlNzSrKaaMVWvNLHAQ==
-X-CSE-MsgGUID: Dq2UcWLCTOmaHW1rYeGWGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="92328748"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="92328748"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 05:14:15 -0700
-X-CSE-ConnectionGUID: QCQyIeq5RxOHccYvQu03hw==
-X-CSE-MsgGUID: NsS0KZxzQ7OIyHRdLYfJfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="244696074"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 05:14:15 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 9 Jun 2026 05:14:14 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37 via Frontend Transport; Tue, 9 Jun 2026 05:14:14 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.53)
- by edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.37; Tue, 9 Jun 2026 05:14:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ywHrTYOUFFciBrSKMx9/ah5J/FOK6ey4yVcbG/S5W78tOHVlS5TOIRKvM8QfVOrbj7cKR12O/uGNLxkYKYVPuezRL7KAngxyukZRqfPE70ZbGb+wYXXbmeABcPaCnYcc3p6QCOnIf80YtPbvt7WwI86ZsHPCrVFmRhUY29Fd4lywX8VfkDo/VnoS467ImKtAI/MG3g8bz5lfP3RpEVXdpSJKhcVTr/ycerU0iCP2y6GEyIiWYCigJKZRLnoJf2lryCxCwavFw7UeDe3++dcUbYdvha/wi5WO/jCwSPjuvgqW85l2JAvzBM50ITEtnZMrB4Nksxzqj763mEVHedNYMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hCFhV8m4ZcbrFPaxox+jG6/Vty6ES/nr1F5ywPmd5a0=;
- b=mL4ZmMwWK4c007ONKZFvgQvfF4iwfC/QISA/QItXNAc9ZXZd1LsLxejy6kdBiXxXTOzdjRzytf/Rp6h2a6DQK/2C/RNtnxkNWf6eYULDAnmU7WCLO+yncUma3jYxDNOdPCiTbG6hhWfIjIf4pgn/GbaDZT6Mo1ikq4cR9b3NZYYIM9BH+FveoZaEhve3ULCELXu5uf2ctbpRItXou0dEDJ5EugrudHRdbkZ3WjgKbxwTiOsogLrPW8XvZexiFW5jb76zz8LnYP9ia3sVhn0cZSjQj17e7eW67Oy7nr/opYYT9+6lo7JfI9yBpfhTygIP3joZCpURx+5UisOQw4kGUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com (2603:10b6:5:390::22)
- by PH3PPF46CD353BF.namprd11.prod.outlook.com (2603:10b6:518:1::d1b) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.15; Tue, 9 Jun 2026
- 12:14:12 +0000
-Received: from DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4]) by DM4PR11MB5341.namprd11.prod.outlook.com
- ([fe80::68b9:ea3c:8166:3cc4%3]) with mapi id 15.21.0092.011; Tue, 9 Jun 2026
- 12:14:11 +0000
-Message-ID: <52f74617-93ff-417c-a48d-4a2c58262e1f@intel.com>
-Date: Tue, 9 Jun 2026 17:44:05 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] drm/i915/psr: Stop using intel_dsc_enabled_on_link to
- detect crtc DSC status
-To: =?UTF-8?Q?Jouni_H=C3=B6gander?= <jouni.hogander@intel.com>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>
-References: <20260608141124.144878-1-jouni.hogander@intel.com>
- <20260608141124.144878-3-jouni.hogander@intel.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <20260608141124.144878-3-jouni.hogander@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1a7::14) To DM4PR11MB5341.namprd11.prod.outlook.com
- (2603:10b6:5:390::22)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA8910E2EC;
+ Tue,  9 Jun 2026 12:44:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1781009057; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=OS0U/44soszsEoN6ZmzngssCU3s70+unAvQR8ZQjwRFOQqDebU+Qcs4qg1+XJmxLsdPwLvzC085ajmtG8NXnmsa2ILqJuOhgaKnByzPKRLCUOo70okRR3AAFbJOCxzARGovYynruJnwYasdcsAbA/szjbbVxdYV2IvGTaUsZoK8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1781009057;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=CNKubhS0QonMf1muTkJvppOmUteXfapIj8XI4VEBLgw=; 
+ b=WXniooboGt5XTrkRt+VZuv9nVZycLHmxVhDp6uyyuXdOL3NruK7gqI4qKZBr0AYY7ysFCEoTnjc6wi3Nhrq5DtXL7Hnd+cnqKBTUdGOXWeO9+41oMrVwQk0Yo3S9+lsXT9eSZH3cZXMAsOiAtBEWEnVVegT6DwBFO/cMIptOhuc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1781009057; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=CNKubhS0QonMf1muTkJvppOmUteXfapIj8XI4VEBLgw=;
+ b=CMrfh2ujKjzdligL7bMnVC0oGztFgf0Vv1FJBxGosSRCBEqHd2+bOWITvwoPzL9n
+ MqgV0fePK7UDIAnmDyf5fctn51Ebs3++cigSPqZN0obOC1v26Fa6xVvW/UdDBVU7Nhq
+ n+fZYNJDCAWdbKgFpQtn/t4z1j8dfz3MrosgnKyM=
+Received: by mx.zohomail.com with SMTPS id 1781009054810600.3173341087239;
+ Tue, 9 Jun 2026 05:44:14 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v17 00/28] Add new general DRM property "color format"
+Date: Tue, 09 Jun 2026 14:43:47 +0200
+Message-Id: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB5341:EE_|PH3PPF46CD353BF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2040564f-73c4-4f1f-faa7-08dec6209d71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: r/GqrKymCarvm6jHxxqsoEFG13nRv7VzgpNxAUR18scwK3cnW6ItaCRF8qbbp77EellwFy56bp+vyoM65x6G6GeFBnT65MCjYJmjQh8up41OX6DZPPeAQNpHKjkBJBEqdfktsRBHNxZ9wEcWh3RpHybXg10qZT6SV7Iyu/1vfNTicbDJdXlGOzL+lW85OECGBXZr6dbSWyrSH/XuvL4YB0zjU1ZcuGGTWcFBaLTqNCQU7bb0kqdQIgUcZK0ZO4/oyDtHF77SYqPgPHm4k11WamfuTKms0McGqaNbGIzrdhD1DatTlkD0U1AZYJ6BHSCf0quijb7m9kJ0nR3tRybyPLUUoXGCx6VZVTo8x9c+bmxg2wGdQFS0wvdY36frLnY3+yG7OhOYAGGl5qdXoliFmngspvYdOimbgrlpD00rnNqKzeodWi6961jT/tTRiSV3Y6oZIwULeSEfIi0HvZYi3iOzaVMa1xsYtDCxEIY8YkN+SvKzs7BS2z6/K17ZwOfJ5Htmj69+cSNz0NI6YE8RteAO5g8LV68vbX2n5fCHoFF5LqIPZIebhn+jH8rsPpfIOhct9TDbGlaEfNDqpFfGhd9rjSp+io4paRtLFtVptXCqfHucGmyibkkd5KW3h+eyQOJnxz77GuZFbS9EJHYNv426N4ngqgA2tv8jkXltOY1X6LYqe/cEe+4jCGPHN8pK
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB5341.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1JOQzF5UHU2d1JHT0ltNUJSRDdMc3pCTzkyRjhnUk0zMDV2R0E5MURYL1Bh?=
- =?utf-8?B?NTdodGNTNUx1Rk1nR2xvOTJCK0VlZGpuNzM5bjBXMkFNWlN6d2ttQmoreHNh?=
- =?utf-8?B?Rkpac0ZRUFlVUFdhV3NVME1mb1ZiWDdCMEhENDhmMUN0R282WmhpNnhvRHky?=
- =?utf-8?B?QkJVSURHQlVOQzIrQkVKTVFOdzk4R0FTNXFsLzI3ZXFVU1VtTEpUU2h1ci9X?=
- =?utf-8?B?aGxCWFk4WTVkbi9tRUQ3NEluSzUvcmpuSFdxaDlBaWFRM3RmVFUwRHdHdnBO?=
- =?utf-8?B?ZGNSa291eWhoZGwyWEFsT1Rwc1RLMnRoRmFsS21qVmpPaVVRSEkzZ3ZtcHZX?=
- =?utf-8?B?NTJyTlh5M3ZtVnBmdVl6MTlaU1FvenBIY2FKY2FNSmVuc1NJSjl2cVBHRmVn?=
- =?utf-8?B?SUFOTWdQMDZ0LzdiamhpakRnckxGT0N3RGlSdERrM3hoblRqUHRXVGk0bkFQ?=
- =?utf-8?B?dkEzZkhLRWdHekNmOVRNSFlINmRvRU5hMnJXdk1PdVFUSEQwTWJtem1Ja1BW?=
- =?utf-8?B?VU94OXdvV0JDcW96clVKMDAzc2hTU3ROWWNrS1dJeUVzZ0xlaUNmdVM3OGJC?=
- =?utf-8?B?cUlxQ2xzcVlRbU8ra041elVwRDdGMUJRS3FndEJZN2t5K0NyVU5udHJUeWZz?=
- =?utf-8?B?dWwwcENtNjFDSWh3cW1EQnY3cVlLTUlEL1NSNkpHZHA0OEU4M2dLNGJ6ZzVo?=
- =?utf-8?B?a05yN3B1RzYxNWlZSUQzTnkzZlpyQ2tnN3d1WkF2aVhBZUJjR0pHeTdwQi80?=
- =?utf-8?B?anFFMGhXNEIwRnlDNm5Pc1V1Q2VZYUsyYjdhZ2pwNUdRSVU4R3lQRnc1TlBi?=
- =?utf-8?B?VGJSU0RzUkRJaFdVMldNQ0tHdWc4cWdjSCtlWmVoeXkvK013bFdWcHVZVkFP?=
- =?utf-8?B?bUU3WG1GM2hCUmU4M3FDZVk2dVUzcWdXM1hLV1lua1Z5SzZLbzhNMGczS2E5?=
- =?utf-8?B?eHFxRGJrbWQ3U3RkYlVzWk82TU5tM1Q4U2hJK3RRdUZaUGkxN0kzaitudTM5?=
- =?utf-8?B?cmlyTDVqQk42MEFadExzMU5Yd2gvaCtiRHFjMzVFdWNNcVVkZnZaZGFSbUtI?=
- =?utf-8?B?NlkrQnl0ZWlvM2lWaS84akErbTB5R3hLTkNuZ2tmNXRMWWdrd3hTakdiQVNV?=
- =?utf-8?B?RVExblZ6NjBvbFlXVVQ2SXpBZDFEWFVIQkRadFRBTXpOM3lvcWFvMjA0ZGJR?=
- =?utf-8?B?eHo2RFFBcEhIaDVSTGR2cUt2MXY1VEVqenAzbFlFeGFJMWNHVWVra1puNURo?=
- =?utf-8?B?eU03Q0xQZkxjNllGaTV5cThDdVNPdENiZnRhRENMMHVSZGFCNjR2V3VXekQ1?=
- =?utf-8?B?UWl1c0g1T0tNZjFtdW9aV2ZndlowNTRLY2NMK0JtWXN0cmpmTlh4NGRmWDdx?=
- =?utf-8?B?U3ZjWkpUdm9ZRkVXOHpqRWZrdkhSMUZSYk1nV3F5VDdocnJZZFVSRUI3WFpn?=
- =?utf-8?B?cnQ4Ym9ORHNtb09QWFNPQzJFUklXUXZ5VENQZVQ2c0xFTjh2VUt5eDlQa1dm?=
- =?utf-8?B?N3ordmxmSTRaMVJab2VWS1hFWFZBV3BYMWdzRW1vd1EvaDI0K0VkMDdtQ0lH?=
- =?utf-8?B?RDJDY1NsK0hNTjNYRW5JL2JnL2NwRXhqREtsQmQ3NzRCZ2NBT054clZhRHR3?=
- =?utf-8?B?YVZFNXJVU2xDRjFobUNhYTcxd2FqdEpNL3VnSC9RZjZjOUEwSUNPbzZSL25a?=
- =?utf-8?B?dm13OE1kRDAreGVRU3N2ekIyclUzM3JuZjFVYlpiN2FSUDZqNksvQkFXRTM0?=
- =?utf-8?B?M3F0K1VsU01hQytkN1VRLy9WZ3JRYUJCaThkayttYjJiVXZrNzJEeDZBRWFr?=
- =?utf-8?B?dldDQlFtNWlhOHBIeGo5d3FrbktGelRLMEd5Z0ZPd3JlNUUwRktKTTF0eHVq?=
- =?utf-8?B?UytWT21NSFB5WlhRemhSYXM0WURHdWp5eTRHdk5PUldzaXVmaGcxMDZzSTRV?=
- =?utf-8?B?OU5XenZUR0FyamwxNHFrT216RmpDVlpHdFFRaFJnakdGcGVtcGNzM1JQVzM5?=
- =?utf-8?B?WWZ4ZnI4UWMwdDZQOGJsajJUdlZ2ZlNCNE15N1FyTWNzQk03S05Ibmw5T2xS?=
- =?utf-8?B?WnFJVUlWUTFyRDJObWJvQzU4RVpycjJPV3pVNkpwMlFVc2pTTENZd1ltdWgv?=
- =?utf-8?B?YWRlZ0ZWTDB6bm9jSkNFd3p2bUprZy9WV1FocjdlWk9GYWJoTnpPcVJ5dk9x?=
- =?utf-8?B?V1phZGZ0RlBxMGdiZVJqSTh0Tk1PcGZOTVVBNENIeWRlTWtMcm1oclNPYnVD?=
- =?utf-8?B?UGMvQ1FYZkkzZ2pQNlFnR0NnczRxelI1Y05OaENHN2l0bGsrLzBnZWRHQlFh?=
- =?utf-8?B?UDA2d2FReDh2eFJsM0twR0tJUXJnU3VXVUJoNzJtd1dTdis5UGhCM2hQaHhp?=
- =?utf-8?Q?InmSUtPiZV/29JlE=3D?=
-X-Exchange-RoutingPolicyChecked: D1yZhOLTLSPgVXTO3WbFVB2OZBB3yXhiOMoPYU0uc0LnH+pk9sGb2LcxUJWVdUOW5zjgxQWCAEMEwzfzdXR/26CEr2hO25NEMQRXbNA/GUaunybRBPrV3PRuYhl1l0C1bRrYMCPKErPB9BpBDT8u73elhsWy9gUXZKEEhEqk7ejMNtrxiv8hfC1bBgZjh/ZPw3h4GuHdkq7FNePRJUVMcJrenoqQBreKborpftAFU1MlrvRCJYYoS9M/r4w0jeYBMM6ygcDJUpaKNHlkco6tuwaI8KtJtESr2hSZNYMbOYDNBGZ2zDmgFnNzBM+vp3z156Lp0E40g9BKg0WBI5JV4Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2040564f-73c4-4f1f-faa7-08dec6209d71
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB5341.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 12:14:11.9220 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EsW6yTIqsG2POEZxrZAI1/2+qT6dUfHExU1NEK/O99wYxyrd8PhWSCTlfqZKrsfrez9qCVDsfPzLbjy80MMjZrhUyxpucSWii5hvwRno0+c=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPF46CD353BF
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SS27bMBAG4KsYWpcuZ/jOqvcIsuCzJmBZKaUIK
+ QLfvZTb1CpNdCeK4Mf5h/MxzLHkOA9Ph4+hxDXPebrUBagvh8Gf7OV7JDnUHwNSFEBREz+dp0L
+ SVEa7EG5SqDtOgWZDPfJaYsrvN+/5pa5TmUaynEq0fxFqAIBRxcyRGyYJkNGW/DYf17MN36p+t
+ m4q9uin8Y9Y4o+3Wtjymx2cnWOtYhzz8nQIZSRjnv3Xzw9yie/LsN19yvMylZ+3aCu/Hb2FAFD
+ /hlg5oYSGGBS6AI7SpooNW8UOaLuwigpIFjUmCA4i9AD5CUgKCA0gK6CcBqsU+EBdD1D/A1QFY
+ lKGBhuVpr4H6DuAIBtAV0AoRB9BiRBEDzA7ANsmmq0HQnvmTHAqph4A9C4wKhoB6isQWwmpLYC
+ WukvAjkDeErBVQYUQxiaeHO8SeCc4NS2BlfBR8wgalEXVJdiOANYSbAvimAo8JGd5PwjfEfhAb
+ DPJubEcjPcu9IOIOyEQW2KbSoTkgElvQsIuIffEQxXbXCJnnHoRuWIPxPV6/QVXDDo9QwQAAA=
+ =
+X-Change-ID: 20251028-color-format-49fd202b7183
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Daniel Stone <daniel@fooishbar.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, 
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Marius Vlad <marius.vlad@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Andy Yan <andyshrk@163.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,113 +103,400 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hello,
 
-On 6/8/2026 7:41 PM, Jouni Högander wrote:
-> Intel_dsc_enabled_on_link is not really about DSC being enabled on crtc. It
-> is telling if FEC is enabled on link.
+this is a follow-up to
+https://lore.kernel.org/all/20250911130739.4936-1-marius.vlad@collabora.com/
+which in of itself is a follow-up to
+https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is/ where
+a new DRM connector property has been added allowing users to
+force a particular color format.
 
-Hmm... This is a bit unclear to me.
+That in turn was actually also a follow-up from Werner Sembach's posted at
+https://lore.kernel.org/dri-devel/20210630151018.330354-1-wse@tuxedocomputers.com/
 
-As per commit 470b84af457e ("drm/i915/dp_mst: Recompute all MST link 
-CRTCs if DSC gets enabled on the link")
+As the number of cooks have reached critical mass, I'm hoping I'll be
+the last person to touch this particular series.
 
-We wanted to do away with FEC tracking, and instead tracked DSC. FEC for 
-UHBR was not getting filled so it makes sense to track DSC (FEC being 
-mandatory for DP DSC).
+We have an implementation in Weston at
+https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1825 that
+adds support for this property. This patch series has been tested
+against that MR on i915 (HDMI, DP), amdgpu (HDMI, DP) and on rockchip
+(HDMI).
 
- From commit message for commit 470b84af457e
+You can also manually test this with modetest like so, but beware that
+this is a non-atomic invocation, so testing YUV420 like this will result
+in weird outcomes if only some of the modes support YUV420:
 
-"...
+  $ modetest -s 115:1920x1080-60@NV12 -w 115:'color format':4
 
-Based on the above, to be able to determine the DSC state on both
+where 115 is the connector ID and '4' is the enum value for a particular
+color format.
 
-non-UHBR and UHBR MST links, track the more generic DSC-enabled-on-link
+General notes on the approach taken by me: instead of silently switching
+to a different format than was explicitly requested, or even worse,
+outputting something to the sink the sink doesn't support, bubble up an
+error to userspace instead. "color format" is a "I want this" type
+property, not a "force this" type property, i.e. the kernel will respect
+the limits imposed by the hardware.
 
-state (instead of the FEC-enabled-on-link state) for each CRTC in
+Things I've tested:
+- HDMI (YCbCr 4:4:4 + YCbCr 4:2:2 (8-bit) + RGB + Auto) on RK3588
+- HDMI (YCbCr 4:4:4 + YCbCr 4:2:2 (8-bit) + RGB + Auto) on RK3576
+- HDMI (YCbCr 4:4:4, YCbCr 4:2:0, RGB, Auto) + DP (YCbCr 4:4:4, RGB,
+  Auto) on Intel N97 (i915).
+- HDMI (YCbCr 4:4:4, YCbCr 4:2:2, YCbCr 4:2:0, RGB, Auto) + DP (YCbCr
+  4:4:4, RGB, Auto) on an AMD Radeon RX 550 (amdgpu).
 
-intel_link_bw_limits."
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Changes in v17:
+- Rebase onto drm-misc-next
+- Reorder i915 patches to end of series
+- Link to v16: https://patch.msgid.link/20260523-color-format-v16-0-24340c5e4732@collabora.com
 
-So to me it appears that we were actually concerned about DSC and not 
-FEC and started using intel_dsc_enabled_on_link()
+Changes in v16:
+- drm/i915/dp: Don't check for dfp conversion to determine ycbcr444
+  output capability
+- drm/i915/dp: Replicate intel_dp_has_hdmi_sink check for YCBCR444 as well
+- drm/i915/dp: Reorder formats and checks in sink_format_valid
+- drm/i915/hdmi: Fix inverted HAS_GMCH check for YCBCR444 capability
+- drm/i915/hdmi: Add has_hdmi_sink check to YCBCR444 sink_format_valid
+- drm/i915/hdmi: Reorder formats in sink_format_valid
+- drm/i915/hdmi: Drop documentation for internal function
+- Link to v15: https://patch.msgid.link/20260522-color-format-v15-0-21fb136c9df2@collabora.com
 
-(later, fec_enable was unused and removed).
+Changes in v15:
+- Drop redundant drm_connector_color_format_valid() function
+- dw-hdmi-qp-rockchip: make dw_hdmi_qp_rockchip_get_vop_format()'s
+  return type int, check bstate for IS_ERR rather than NULL, and pass up
+  error codes to caller
+- rebase onto recent drm-tip, necessitating
+  s/drm_atomic_state/drm_atomic_commit/ in the KUnit tests
+- Link to v14: https://patch.msgid.link/20260423-color-format-v14-0-449a419ccbd4@collabora.com
 
-Perhaps I am missing some context?
+Changes in v14:
+- i915: Check for source support of YCbCr444 in both the sink format
+  validation and when registering the properites on the connectors.
+- i915: Split HDMI and DP implementations into separate patches, with
+  their own supported color formats masks.
+- Link to v13: https://patch.msgid.link/20260413-color-format-v13-0-ab37d4dfba48@collabora.com
 
-> Instead of intel_dsc_enabled_on_link
-> check status directly from crtc->dsc.compression_enable.
+Changes in v13:
+- Introduce a new drm_connector_funcs member that returns the
+  connector state's color format with additional bells and whistles.
+- Implement this new func in drm_bridge_connector to return whatever the
+  HDMI implementation did if an HDMI bridge is present.
+- Call into the drm_connector.h function wrapping this new func in the
+  recursive bridge chain bus format selection code.
+- Link to v12: https://patch.msgid.link/20260409-color-format-v12-0-ce84e1817a27@collabora.com
 
-I agree to this part though. We can separate it out in any case.
+Changes in v12:
+- Rebase on top of Ville's i915 format selection cleanup series
+- i915: Reimplement based on new format selection code. Drop the DP-MST
+  implementation, as sinks with different sets of supported formats
+  complicate the matter.
+- Adjust documentation on drm_connector_color_format enum values to
+  mention quantization ranges.
+- Add documentation to drm-kms page to document the string values for
+  the property. Mostly the same documentation as the enum values, but
+  from a more userspace-centric perspective. This is done in the patch
+  that introduces the property, but I didn't drop the existing R-b as
+  it isn't a functional change.
+- Update documentation of "colorspace" property to mention that "color
+  format" property controls the output format.
+- amdgpu: Remove property from DP-MST, as it's unclear whether it'd work
+  properly with sinks that have different sets of supported formats
+- Link to v11: https://patch.msgid.link/20260324-color-format-v11-0-605559af4fb4@collabora.com
 
+Changes in v11:
+- amdgpu: fix property registration on DP-MST
+- i915: fix property registration on DP-MST
+- rebase on drm-tip, which includes Maxime's refactor series that was
+  previously declared a dependency of this series
+- Link to v10: https://lore.kernel.org/r/20260305-color-format-v10-0-a58c68a11868@collabora.com
 
-Regards,
+Changes in v10:
+- Make DRM_OUTPUT_COLOR_FORMAT_COUNT and
+  DRM_CONNECTOR_COLOR_FORMAT_COUNT part of the enum definition (thanks
+  to Maxime)
+- Preemptively avoid the warning that would be generated by the
+  enumification of DRM_OUTPUT_COLOR_FORMAT_COUNT by modifying the
+  problematic switch statement in drm_hdmi_state_helper's
+  sink_supports_format_bpc.
+- drm/bridge: Change HDMI check from checking for the last bridge having
+  a DRM_BRIDGE_OP_HDMI in ops to checking if last_bridge->type is HDMIA.
+  This is not quite the suggestion Dmitry had, but according to the
+  documentation of the drm_bridge.type member, and the
+  display-connector.c code, it should be correct.
+- Combine drm_mode_create_color_format_property and
+  drm_connector_attach_color_format_property into one function named the
+  latter. (thanks to Dmitry Baryshkov)
+- Change author of 'drm: Add new general DRM property "color format"'
+  to myself as it has by now changed quite a bit, and add Andri and
+  Werner as Co-developed-by, as per Andri's suggestion.
+- hdmi-state-helper: Rework hdmi_compute_config to make code flow more
+  obvious, and drop Dmitry's R-b as a consequence (thanks to Maxime)
+- Move dw-hdmi-qp's atomic_get_output_bus_fmts into
+  drm_bridge_helper.c, along with kernel doc string (thanks to Dmitry)
+- Future-proof the aforementioned get_output_bus_fmts use of hweight8 on
+  the supported_formats bitmask with a BUILD_BUG_ON.
+- Add a KUnit test for the HDMI output bus formats helper
+- Link to v9: https://lore.kernel.org/r/20260227-color-format-v9-0-658c3b9db7ef@collabora.com
 
-Ankit
+Changes in v9:
+- Document what the "AUTO" behaviour is in the color format enum (thanks
+  to Maxime)
+- drm/bridge: dw-hdmi-qp: Fix a rebase oopsie that reintroduced some
+  functions that were dropped. (thanks to Cristian)
+- drm/bridge: Shuffle "1:1" in the bridge fmt selection docs to earlier
+  in the sentence. (thanks to Randy Dunlap)
+- i915: Check chosen output format against requested format for dp-mst
+- All color format driver implementations: rebase and rework on top of
+  Maxime's series
+- As part of this rework, rename drm_color_format_enum to
+  drm_connector_color_format
+- drm kunit tests: rework for the new enums. Changes were trivial, so
+  trailers were kept
+- Link to v8: https://lore.kernel.org/r/20260216-color-format-v8-0-5722ce175dd5@collabora.com
 
->
-> Also rename intel_dsc_enabled_on_link as intel_fec_enabled_on_link.
->
-> Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-> ---
->   drivers/gpu/drm/i915/display/intel_psr.c  | 6 +++---
->   drivers/gpu/drm/i915/display/intel_vdsc.c | 2 +-
->   drivers/gpu/drm/i915/display/intel_vdsc.h | 2 +-
->   3 files changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> index ad2f6c79f5808..f58200d38ac2c 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -1740,7 +1740,7 @@ static bool intel_sel_update_config_valid(struct intel_crtc_state *crtc_state,
->   		if (!connector->dp.panel_replay_caps.su_support)
->   			goto unsupported;
->   
-> -		if (intel_dsc_enabled_on_link(crtc_state) &&
-> +		if (crtc_state->dsc.compression_enable &&
->   		    connector->dp.panel_replay_caps.dsc_support !=
->   		    INTEL_DP_PANEL_REPLAY_DSC_SELECTIVE_UPDATE) {
->   			drm_dbg_kms(display->drm,
-> @@ -1840,7 +1840,7 @@ static bool _panel_replay_compute_config(struct intel_crtc_state *crtc_state,
->   		return false;
->   	}
->   
-> -	if (intel_dsc_enabled_on_link(crtc_state) &&
-> +	if (crtc_state->dsc.compression_enable &&
->   	    connector->dp.panel_replay_caps.dsc_support ==
->   	    INTEL_DP_PANEL_REPLAY_DSC_NOT_SUPPORTED) {
->   		drm_dbg_kms(display->drm,
-> @@ -3235,7 +3235,7 @@ verify_panel_replay_dsc_state(const struct intel_crtc_state *crtc_state)
->   		return;
->   
->   	drm_WARN_ON(display->drm,
-> -		    intel_dsc_enabled_on_link(crtc_state) &&
-> +		    crtc_state->dsc.compression_enable &&
->   		    crtc_state->panel_replay_dsc_support ==
->   		    INTEL_DP_PANEL_REPLAY_DSC_NOT_SUPPORTED);
->   }
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.c b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> index 8f06c3a4d56df..35c93fcbb6427 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.c
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.c
-> @@ -431,7 +431,7 @@ void intel_dsc_enable_on_crtc(struct intel_crtc_state *crtc_state)
->   	crtc_state->dsc.compression_enable = true;
->   }
->   
-> -bool intel_dsc_enabled_on_link(const struct intel_crtc_state *crtc_state)
-> +bool intel_fec_enabled_on_link(const struct intel_crtc_state *crtc_state)
->   {
->   	struct intel_display *display = to_intel_display(crtc_state);
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_vdsc.h b/drivers/gpu/drm/i915/display/intel_vdsc.h
-> index 3372f8694054d..60d86399808c0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_vdsc.h
-> +++ b/drivers/gpu/drm/i915/display/intel_vdsc.h
-> @@ -28,7 +28,7 @@ void intel_dsc_enable(const struct intel_crtc_state *crtc_state);
->   void intel_dsc_disable(const struct intel_crtc_state *crtc_state);
->   int intel_dsc_compute_params(struct intel_crtc_state *pipe_config);
->   void intel_dsc_enable_on_crtc(struct intel_crtc_state *crtc_state);
-> -bool intel_dsc_enabled_on_link(const struct intel_crtc_state *crtc_state);
-> +bool intel_fec_enabled_on_link(const struct intel_crtc_state *crtc_state);
->   void intel_dsc_get_config(struct intel_crtc_state *crtc_state);
->   enum intel_display_power_domain
->   intel_dsc_power_domain(struct intel_crtc *crtc, enum transcoder cpu_transcoder);
+Changes in v8:
+- Drop "drm/rockchip: vop2: Fix YUV444 output", as the original problem
+  could not be reproduced anymore, and the justification did not make
+  sense.
+- Remove the 12-bit format from "drm/rockchip: vop2: Recognise 10/12-bit
+  YUV422 as YUV formats".
+- Refactor to keep the original DRM_COLOR_FORMAT bitshifted defines
+  as-is, but introduce a new drm_color_format_enum enum.
+- Adjust conversion functions for the newly refactored enum, ensuring
+  they only return valid enum values, and only convert in directions
+  that open up no error value cans of worms.
+- Rework the property uapi code for the newly refactored enum, since
+  it no longer needs to do any bitshifting or ffs().
+- Rework all the device drivers for the new enum.
+- Rework all the tests for the refactored enum.
+- Rework the hdmi state helper for the new enum, and also make it more
+  explicit about the auto behaviour by not relying on a conversion
+  function to map AUTO to RGB, but do this in the framework itself.
+- rockchip dw_hdmi_qp: Fix the GRF value to check for color >= 0 instead
+  of color > 0, as the latter broke switching back to RGB.
+- Rebase onto a recent drm-tip. This necessitated blindly reworking some
+  of the i915 dp-mst code.
+- Drop the __maybe_unused edid test patch, as I could no longer
+  reproduce the build warnings I added it for. I blame ghosts.
+- drm_bridge tests: remove "destroyed" member from struct
+  drm_bridge_chain_priv and all associated code, as it was not used in
+  any test.
+- Link to v7: https://lore.kernel.org/r/20260121-color-format-v7-0-ef790dae780c@collabora.com
+
+Changes in v7:
+- Fix drm_bridge kunit test build failure caused by rebasing across an
+  API change.
+- Make compilers shut up about unused EDID definitions in the test
+  suites.
+- Empty line checkpatch fixes that b4 prep --check didn't catch.
+- Link to v6: https://lore.kernel.org/r/20260121-color-format-v6-0-7b81a771cd0b@collabora.com
+
+Changes in v6:
+- Checkpatch fixes
+- Add drm_bridge.c kerneldoc fix patch to b4 deps so the kernel docs
+  required for every contribution to the subsystem can be built
+- dw-hdmi-qp core has gained the atomic_get_output_bus_fmts bridge func,
+  which allows it to participate in the drm_bridge chain recursive format
+  selection code properly.
+- The Rockchip dw-hdmi-qp integration now no longer reimplements the
+  color format logic (improperly), but reads the bus format of the first
+  bridge as set by the recursive bridge format selection. If the input
+  format is FIXED, it'll use the output format. Otherwise, the input
+  format is used.
+- In the synopsys drivers, YUV422 uses the same bus format as the non-qp
+  hdmi encoder driver. Probably correcter this way. The Rockchip vop2
+  is_yuv function has been extended to recognise this format as well.
+- KUnit tests for drm_bridge chains are now included, which exercise the
+  chain's recursive bus format selection.
+- On HDMI connectors, the drm_bridge bus format selection will try to target
+  the color format that the HDMI layer came up with. This means the AUTO
+  logic is not duplicated for HDMI connectors.
+- The enum conversion function commit gained a function for converting
+  from hdmi_colorspace to drm_color_format, and its author changed as no
+  original code remains anyway. Marius is still included as a
+  Co-developer.
+- Some tests for the HDMI state helper's mode_valid have been written.
+  They are incomplete as we lack a test EDID for a 420-also mode that
+  would violate the clock constraints on RGB. I hacked one together with
+  a hex editor, but it reports a too high of a clock rate, and there's
+  no EDID editor I could find which supports these extension blocks.
+- The color_format KUnit tests have been more heavily parameterised, the
+  auto case absorbed into other tests, and the comments around them
+  rewritten.
+- Add a few paragraphs of documentation that explain the bridge format
+  selection, and how to make use of it in a display driver.
+- Link to v5: https://lore.kernel.org/r/20251128-color-format-v5-0-63e82f1db1e1@collabora.com
+
+Changes in v5:
+- Rebase onto drm-tip
+- Drop DRM_MODE_COLOR_FORMAT_* as an enum
+- Unify DRM_COLOR_FORMAT_NONE and DRM_COLOR_FORMAT_AUTO, with AUTO being
+  0. This makes conversion and general logic much easier.
+- Adjust the drm_color_format enum to not needlessly renumber the
+  existing defines, as it doesn't need to correspond to how HDMI numbers
+  them.
+- Make the DRM-to-HDMI conversion function static inline __pure, because
+  the assembly it generates is tiny, and the function is pure.
+- Don't accept nothing as the list of supported color formats for
+  registration of the property.
+- Drop the per-connector variants of the color format registration
+  function, as it's not needed.
+- drm_hdmi_state_helper: Fix mode_valid rejecting 420-only modes.
+- drm_hdmi_state_helper: Only fall back to YUV420 with
+  DRM_COLOR_FORMAT_AUTO.
+- drm_hdmi_state_helper: Remove redundant AUTO->RGB condition, as the
+  conversion already does this.
+- Add KUnit tests for hdmi_compute_config.
+- drm/bridge: Refactor bus_format_is_color_fmt and add a few more YUV422
+  formats.
+- Register the color format property in drmm_connector_hdmi_init based
+  on the supported HDMI formats passed to it. This means rockchip
+  dw_hdmi_qp no longer needs to register it.
+- amdgpu: Simplify YUV420 logic
+- amdgpu: Don't try to pick YUV444 on YUV420-only modes
+- i915: Try to make behaviour more or less the same as that of the drm
+  hdmi state helper.
+- rockchip dw_hdmi_qp: Set supported HDMI formats
+- rockchip dw_hdmi_qp: Set the right VO GRF values depending on color
+  format.
+- rockchip dw_hdmi_qp: Act on the color format property in this driver,
+  rather than in VOP2, by setting the bus_format appropriately.
+- rockchip VOP2: Can the BCSH-based implementation. BCSH isn't available
+  on all video ports of the hardware, and the code was extremely
+  suspect. Instead, plug into the existing YUV-to-RGB/RGB-to-YUV code,
+  which can be done now that the HDMI driver sets the bus format.
+- A whole bunch of Rockchip VOP2 fixes.
+- Link to v4: https://lore.kernel.org/r/20251117-color-format-v4-0-0ded72bd1b00@collabora.com
+
+Changes in v4:
+- Rebase onto next-20251117
+- Get rid of HDMI_COLORSPACE_AUTO
+- Split hdmi_compute_config change into separate patch
+- Add missing symbol export for color_format_to_hdmi_colorspace to fix
+  builds in certain configurations
+- Drop "drm: Pass supported color formats straight onto drm_bridge"
+- Make dw-hdmi-qp set the platform data's supported color formats as
+  the bridge's supported HDMI color formats
+- drm_hdmi_state_helper: pass requested color format to
+  hdmi_compute_format_bpc if set.
+- drm_bridge: limit the bus formats to those explicitly requested with
+  the color format property during the atomic bridge check call,
+  specifically in drm_atomic_bridge_chain_select_bus_fmts.
+- i915: Remove INTEL_OUTPUT_FORMAT_AUTO, as automatic format selection
+  does not need to involve the hardware state
+- i915: Deduplicate ntel_output_format_to_drm_color_format code by
+  moving it as a static inline __pure function into a shared header
+- i915: rework logic in HDMI, DP and DP-MST output config functions to
+  remove redundant locals, simplify execution flow, and return an error
+  to userspace if an explicit color_format request can't be satisfied.
+- i915: assign myself as the author and make the others Co-developers,
+  so that they don't get the blame for any of my bugs.
+- amdgpu: refactor fill_stream_properties_from_drm_display_mode to
+  improve readability and ensure that impossible color format requests
+  get bubbled up to userspace as errors
+- amdgpu: don't pick YUV444 over RGB.
+- amdgpu: assign authorship to myself, with others as Co-developers, as
+  logic was modified and the blame should fall on me
+- dw_hdmi_qp-rockchip: set the supported color formats platform data
+  member
+- rockchip: remove drm property registration for rk3066_hdmi and
+  inno_hdmi. None of the platforms that use these use vop2 as the
+  video output processor.
+- Link to v3: https://lore.kernel.org/all/20250911130739.4936-1-marius.vlad@collabora.com/
+
+Changes in v3 by mvlad compared to Andri's v2 series:
+- renamed the property to just 'color format'
+- the property is added dynamically similar to the Colorspace property
+- a key point from previous comments was that drivers should advertise
+  the color formats they support and userspace would query EDID and
+  perform an intersection from those color formats which users can
+  further use. With this patch set each driver that adds this property
+  has such list of hard-coded color formats, but fundamentally the idea
+  is that driver can query the HW and do that on its own. The
+  infrastructure is now in place to allow to do that
+- by default the 'AUTO' color format is set. With this patch series that
+  has been introduced as a fallback to RGB. Drivers could further
+  customize this behavour and could perform additional checks on the sink
+  to pick another suitable color format they'd like for AUTO
+- drm_bridge bridge code has been improved to allow initialization with
+  the same color formats list as the DRM connector property. Similarly, bpc
+  pick-up now takes the color format into consideration when deciding
+  which bpc to choose from
+- The new DRM color format re-uses HDMI_COLORPSACE enum and provides an
+  enum translations between the two to avoid touching all other drivers that
+  use HDMI_COLORPSACE enum. I believe at this point that this allows the
+  least amount of disruption and avoids a massive bike shedding around
+  that part
+- a rockchip implementation has been by my colleague Derek Foreman
+- YUV444 color format has been added in i915
+- address comment about "Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A
+  check" where aconnector might be invalid
+- Link to v2: https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is/
+
+---
+Nicolas Frattaroli (27):
+      drm/display: hdmi-state-helper: Use default case for unsupported formats
+      drm: Add new general DRM property "color format"
+      drm/connector: Let connectors have a say in their color format
+      drm/display: bridge_connector: Use HDMI color format for HDMI conns
+      drm/bridge: Act on the DRM color format property
+      drm/atomic-helper: Add HDMI bridge output bus formats helper
+      drm/display: hdmi-state-helper: Act on color format DRM property
+      drm/display: hdmi-state-helper: Try subsampling in mode_valid
+      drm/amdgpu: Implement "color format" DRM property
+      drm/rockchip: Add YUV422 output mode constants for VOP2
+      drm/rockchip: vop2: Add RK3576 to the RG swap special case
+      drm/rockchip: vop2: Recognise 10-bit YUV422 as YUV format
+      drm/rockchip: vop2: Set correct output format for RK3576 YUV422
+      drm/bridge: dw-hdmi-qp: Use common HDMI output bus fmts helper
+      drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property
+      drm/rockchip: dw_hdmi_qp: Set supported_formats platdata
+      drm/connector: Register color format property on HDMI connectors
+      drm/tests: hdmi: Add tests for the color_format property
+      drm/tests: hdmi: Add tests for HDMI helper's mode_valid
+      drm/tests: bridge: Add KUnit tests for bridge chain format selection
+      drm/tests: bridge: Add test for HDMI output bus formats helper
+      drm/bridge: Document bridge chain format selection
+      drm/connector: Update docs of "colorspace" for color format prop
+      drm/i915/hdmi: Add YCBCR444 handling for sink formats
+      drm/i915/dp: Add YCBCR444 handling for sink formats
+      drm/i915/hdmi: Implement "color format" DRM property
+      drm/i915/dp: Implement "color format" DRM property
+
+Werner Sembach (1):
+      drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+
+ Documentation/gpu/drm-kms-helpers.rst              |   6 +
+ Documentation/gpu/drm-kms.rst                      |   6 +
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  91 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |   1 +
+ drivers/gpu/drm/display/drm_bridge_connector.c     |  24 +
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  53 +-
+ drivers/gpu/drm/drm_atomic_helper.c                |  86 ++
+ drivers/gpu/drm/drm_atomic_uapi.c                  |   4 +
+ drivers/gpu/drm/drm_bridge.c                       | 104 ++-
+ drivers/gpu/drm/drm_connector.c                    | 178 +++-
+ drivers/gpu/drm/i915/display/intel_dp.c            |  81 +-
+ drivers/gpu/drm/i915/display/intel_hdmi.c          |  76 +-
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 111 ++-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |   4 +
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  21 +-
+ drivers/gpu/drm/tests/drm_bridge_test.c            | 971 +++++++++++++++++++++
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 345 ++++++++
+ include/drm/drm_atomic_helper.h                    |   7 +
+ include/drm/drm_connector.h                        |  96 ++
+ 19 files changed, 2228 insertions(+), 37 deletions(-)
+---
+base-commit: f2f4e6d45fecc6ead92bf5ea06a04a00c245904e
+change-id: 20251028-color-format-49fd202b7183
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
