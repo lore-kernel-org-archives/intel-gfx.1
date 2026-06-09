@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 436AFCD8CA4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05C02CD98C9
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A4CA10E3F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78FF410E3E7;
 	Tue,  9 Jun 2026 13:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="UtZFil2Q";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Z8zV2BjC";
 	dkim-atps=neutral
-Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com
- [95.215.58.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB12810E0D4
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
+ [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3D510E0BC
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:22:48 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986436;
+ t=1780985728;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ImZshMJ6+rspWDeU8PSyvvgq3b/Nfm8OW56yaLbG3dc=;
- b=UtZFil2Qiyf1bDjOVvq/sutmRnZDzRBz0mxmZmocH7V7GJ3JZLqhNR8l1YcXQOvn7aT91+
- 3CdWLOMklrI+61UeG3BWmhHLYUDDgSi0l5QZOgmd5IAalJcZZgGNxEgjE6g9mU5olbJqo8
- QJQ9UeAjc0f/P6GAuyrqcyNXuq5/3yk=
+ bh=OIHUqXQmUUYiluUxjJGbqlbmrFVz6UQUb/30/LyGMbo=;
+ b=Z8zV2BjCyIIWmJUOuq+lpPC144tcwa3dYQzA0MbEaPU04Q8HQiL3ytDgkjwXu7qSG5Vt1G
+ 8EHmclu6rvc8oemzxv47fNi8tHF1o9R4NOTCl0imYYdSuEjWYjWaCaZ0rzlyzknIGPhr36
+ Z9cyhUeg/Vahz+UVQh1W/YpfPZkITdc=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +76,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 05/14] drm/i915: Open-code DFS dependency list walk
-Date: Tue,  9 Jun 2026 14:25:17 +0800
-Message-ID: <20260609062526.94907-3-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 01/14] drbd: Open-code transfer log list walk
+Date: Tue,  9 Jun 2026 14:13:34 +0800
+Message-ID: <20260609061347.93688-2-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -104,33 +103,35 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. __i915_schedule() builds its DFS work list
-while walking it by moving newly discovered dependencies to the tail.
+before entering the loop body. That is the desired behaviour for the
+common case, but this transfer log walk temporarily drops
+resource->req_lock and revalidates the cursor before continuing.
 
-Keep the DFS walk open-coded so the next dependency is resolved after any
-tail moves performed by the body. This preserves the existing traversal
-semantics and prepares the code for the list iterator update.
+Keep the loop open-coded so the next request is derived after the body
+has completed and after the cursor has been adjusted. This preserves the
+existing traversal semantics and prepares the code for the list iterator
+update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 4 +++-
+ drivers/block/drbd/drbd_debugfs.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index aec1342402ca..da1f60282df8 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -190,7 +190,9 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	 * end result is a topological list of requests in reverse order, the
- 	 * last element in the list is the request we must execute first.
- 	 */
--	list_for_each_entry(dep, &dfs, dfs_link) {
-+	for (dep = list_first_entry(&dfs, typeof(*dep), dfs_link);
-+	     !list_entry_is_head(dep, &dfs, dfs_link);
-+	     dep = list_next_entry(dep, dfs_link)) {
- 		struct i915_sched_node *node = dep->signaler;
+diff --git a/drivers/block/drbd/drbd_debugfs.c b/drivers/block/drbd/drbd_debugfs.c
+index 12460b584bcb..e90cead90e9d 100644
+--- a/drivers/block/drbd/drbd_debugfs.c
++++ b/drivers/block/drbd/drbd_debugfs.c
+@@ -308,7 +308,9 @@ static void seq_print_resource_transfer_log_summary(struct seq_file *m,
  
- 		/* If we are already flying, we know we have no signalers */
+ 	seq_puts(m, "n\tdevice\tvnr\t" RQ_HDR);
+ 	spin_lock_irq(&resource->req_lock);
+-	list_for_each_entry(req, &connection->transfer_log, tl_requests) {
++	for (req = list_first_entry(&connection->transfer_log, typeof(*req), tl_requests);
++	     !list_entry_is_head(req, &connection->transfer_log, tl_requests);
++	     req = list_next_entry(req, tl_requests)) {
+ 		unsigned int tmp = 0;
+ 		unsigned int s;
+ 		++count;
 -- 
 2.43.0
 
