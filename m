@@ -4,120 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10888CD98C6
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 20:12:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B92FCD8CA8
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 22:09:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37D2E10E608;
-	Tue,  9 Jun 2026 20:12:04 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="Io6GWpt6";
-	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDE8210E209
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 20:12:01 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-36da8439078so5325023a91.2
- for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jun 2026 13:12:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781035921; cv=none;
- d=google.com; s=arc-20240605;
- b=EJj3lyF9oxzUDhnKtWTaXy/Q6DLNjK/0Qa1l/V0vwDu73F5ZSCLA0R199dj90l9Ygv
- HA/hERmCGgh0+MDbjuAuiCLCmNK2DdXw6cqe7kZWQ9ZK3ofq/XDVV06pmd5uyL2rA81L
- 1IWJATLD74BCCbCaAvG2+6Wgh0DvSTFj2P4rxHSDYPuEheOFdFvh9uU4GFriwso3nNXB
- O+Z1+DrSDleFKYnZyTujEn3Ab8AO/nkG58QQGAJNGZpf0WFO8Z1+Hs6M8Y1DgWhi0o+9
- iN13s/4JAYR7Go3pjEqN3WEpQNow/uzIvE/agPloVhdt70Jbr2L0uv58vFDfxWgH6jW0
- KdwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=1TP2hUiA2w4UiubJG1d5nR2maW5WDwIWjpRzO+M+ax0=;
- fh=TY5Fo87a1Y/sDwTnSNxa/KKhElMFlh14aoNAQONl2PM=;
- b=UavElBIzfkAVYz42SOsuvzux+e3R8w2hNVcCgi+WCPRjWjzXdcc7GMSSQdUzagbPz7
- keqvXNhyeA7TC3ZK1c/G84jYGcuG+AfPLaBQeY2nuI3Qs1/lSszf5dOoCN0AMdJkrwbV
- BTdyF/cApewiPVEKn5mZJUM6qbYy1cINCkaXr0ncL18U93C3iUPM9oIMpvNdwmGR+lQi
- 0GXEaQNcb5F4IJX9Nl1eNaqWjpb2yYnK6kpIt6IY3x4DFDqkJPuZGD2h+I1cRpUj4Yan
- 8dgZbXhSFTqRpzEs0Govljmekb4mTOVJKB+5WJoguA3XAej5HfUzTGkavtgPdJF08wEX
- OcBw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fooishbar.org; s=google; t=1781035921; x=1781640721;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=1TP2hUiA2w4UiubJG1d5nR2maW5WDwIWjpRzO+M+ax0=;
- b=Io6GWpt62/Gv/hyGboRumqyDPBqmK48RMS/LWQjoe3l1/+gg0mPwtFR9RZrYo5zrMF
- dTHM7QPQvj2OCdN8wF9jDgVSd8skMH9J50XOyWbjVJkdybrgmS7t4Gb9KClxygrdkO1F
- Fb0hfjjjguTi1bdiMnBUARPpimPf238PplHHiGjzC0MH+Vbvt0kYoWtU9c+/AfFIaO4C
- AzAeG6aM7LnU1/ndPe5pSjvVEX8Fho9hHIZQICq+eeUlcDEZUqry93r+N3BmnmQ+kYNp
- 7W6Gjxl61cghxZi1rL0VU9OTjhofVrRSzstptUIzNhPBVPw+nIp7jwFMET7tbMzcwbw9
- EGSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781035921; x=1781640721;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=1TP2hUiA2w4UiubJG1d5nR2maW5WDwIWjpRzO+M+ax0=;
- b=XuPFDJLeP24vmSTXcOl3tI/NWzs/naKP5QJKN3zmhXNz9gfcdsePVGmPTCei239uv5
- PDRsKU4mscBfD8g+M/qtkKRHUO56Kegn6O4Yo2pEQQLwGW5LfUbCgcbALPHfFBmAfHww
- qcNjTeoJpj/fwRrH4jA7QGogWVuBMb5aGBN4VemsSj7/4s+u7WOY87K0hI/Tm/RnYOlR
- 9eeDsAXPslNHfvpVbBPfyQ3Gw0SqTyN9pNf1LvwMiPsehVXFJZILYF4hYUJChL0qNkL2
- 2do4Q2IGsw5RWWtB1pHAvzJul2zUEDauJSlkL02+xJDoIXrvNvV/Yx8jvbodx4uM+Mm9
- OJtQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/dl/FZ08CfhfAPgFqFL7BusjyvJKTvs8D8DDOkYFpgXZzV+ocDAJU7FZgkahCUjpkddrgSoaj2rfA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQuTgSc3yr3ZfKUqag8ycVvZL6hFccy+KOREB84B0O224S0Zni
- XNuMQQSf1lLtyHgmMvjGgTD0S/UoMJrxjDd+kJZ479s4hpyvkxNpcWNdjqfz3QbHdfVm8GjUmO7
- SbZCkjqkgoeyM66hYdC9cbpnzOieVdakdvdNp7o0Bjg==
-X-Gm-Gg: Acq92OE+qbo0nw8q6TlNxjIjPZgzkRO+2H9vD9HxZSNRiNO/yOARvRVa4UvkBw2R4cQ
- ooCQOJU6ArLilMHodll2BuXzqX9gqAFLnS1rPmH7XJLtua6OpNgyWXcjcjQ04aTh2kJ89lVU0v9
- SrKHezek4a1gFsoU8+dzSUcUqZuFG4/H6heUYXtthbVfXr+rcPTvNg9+yljj2Stf3x6vY51NSVV
- VlR3dtISIAUGrgxfCR/bIeXEjjSdi1E/9OHd/pDPcqpztMt6wbdwHL7el2WEba4S+EsW+RDJ+gL
- dahgrgEf9B+He4YUOQ==
-X-Received: by 2002:a17:90b:3bcb:b0:367:cb53:7435 with SMTP id
- 98e67ed59e1d1-370f1525ed1mr21923499a91.24.1781035921449; Tue, 09 Jun 2026
- 13:12:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 140BB10E3A3;
+	Tue,  9 Jun 2026 22:09:06 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 950D410E3A3;
+ Tue,  9 Jun 2026 22:09:04 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7821428637136350970=="
 MIME-Version: 1.0
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-In-Reply-To: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Tue, 9 Jun 2026 21:11:46 +0100
-X-Gm-Features: AVVi8Cf7R-IrVdYhsGfa6ARvQUl6VjYbn-pxlLXZ6UvxdCSIBKSlKWHfn1zLb40
-Message-ID: <CAPj87rNhTViuff5qWeoGkPgyRvP0uOAcUGpcJJPTkPR2b8fJcw@mail.gmail.com>
-Subject: Re: [PATCH v17 00/28] Add new general DRM property "color format"
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- wayland-devel@lists.freedesktop.org, Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Andy Yan <andyshrk@163.com>
-Content-Type: text/plain; charset="UTF-8"
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dg2=3A_Add_per-c?=
+ =?utf-8?q?ontext_control_for_Wa=5F22013059131_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jia Yao" <jia.yao@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 09 Jun 2026 22:09:04 -0000
+Message-ID: <178104294460.62501.16593197831572558638@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260609183002.1051500-1-jia.yao@intel.com>
+In-Reply-To: <20260609183002.1051500-1-jia.yao@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,31 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+--===============7821428637136350970==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Tue, 9 Jun 2026 at 13:44, Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com> wrote:
-> this is a follow-up to
-> https://lore.kernel.org/all/20250911130739.4936-1-marius.vlad@collabora.com/
-> which in of itself is a follow-up to
-> https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is/ where
-> a new DRM connector property has been added allowing users to
-> force a particular color format.
->
-> That in turn was actually also a follow-up from Werner Sembach's posted at
-> https://lore.kernel.org/dri-devel/20210630151018.330354-1-wse@tuxedocomputers.com/
->
-> As the number of cooks have reached critical mass, I'm hoping I'll be
-> the last person to touch this particular series.
+== Series Details ==
 
-Thanks for seeing this through!
+Series: drm/i915/dg2: Add per-context control for Wa_22013059131 (rev4)
+URL   : https://patchwork.freedesktop.org/series/164198/
+State : success
 
-I've pushed this now, minus the Intel patches which they can merge
-through their own tree. The AMD tree required a pretty trivial
-conflict resolution which seems to work OK here.
+== Summary ==
 
-Cheers,
-Daniel
+CI Bug Log - changes from CI_DRM_18653 -> Patchwork_164198v4
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v4/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18653 -> Patchwork_164198v4
+
+  CI-20190529: 20190529
+  CI_DRM_18653: 724e06af260b571e2d970d4a806ae3d620ff0b7a @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8956: 8956
+  Patchwork_164198v4: 724e06af260b571e2d970d4a806ae3d620ff0b7a @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v4/index.html
+
+--===============7821428637136350970==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dg2: Add per-context control for Wa_22013059131 (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/164198/">https://patchwork.freedesktop.org/series/164198/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18653 -&gt; Patchwork_164198v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_164198v4/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18653 -&gt; Patchwork_164198v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18653: 724e06af260b571e2d970d4a806ae3d620ff0b7a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8956: 8956<br />
+  Patchwork_164198v4: 724e06af260b571e2d970d4a806ae3d620ff0b7a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7821428637136350970==--
