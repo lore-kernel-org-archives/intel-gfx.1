@@ -4,52 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C20CCD98C7
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 12:04:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95B56CD8CA8
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 12:13:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F15A10E340;
-	Tue,  9 Jun 2026 12:04:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49F3510E2F6;
+	Tue,  9 Jun 2026 12:13:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YblHtYGF";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DYQnff+h";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E84A10E339;
- Tue,  9 Jun 2026 12:04:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781006665; x=1812542665;
- h=from:to:subject:date:message-id:in-reply-to:references:
- mime-version:content-transfer-encoding;
- bh=B7gLLfjZ7RBfJmkdyadwwOpACqitau5a0zRbAp4nmVA=;
- b=YblHtYGFGhUrCu8gNzZoukFZDNlCbTsyifr1jT3eLBal2E5H+r1tqqZ9
- ujOX+hLslbipA2QguC0gYU3H9evRc1F3cusjt93LXq9QNCB0+j1rO0gPW
- PJL4lJrFcmze9ybXIJ77fnQbUD2KLgW8wqIk0sy25/sJ3nHrhaD8srwhM
- UCSHQ8CQMnkZwfIRv178iOGoGvyHX+EZBfBEM+4dXLp0Fo44dqyPUFtU9
- tLlJ7MHmQJdfKOL6NoWGXOoYW01yHlFfp9RNVJE3MalmgYlU9rAcTNx0e
- ga20SREXBFGRg9ZSt+uxNy6XBxvJwZXqOUMBNbQ8Zps2ANnV/OqiAnQtw w==;
-X-CSE-ConnectionGUID: 2p2SrqbESN6KygasU6eehQ==
-X-CSE-MsgGUID: Zpf5dJ+4SmCjylIakd42mQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="99340449"
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="99340449"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 05:04:25 -0700
-X-CSE-ConnectionGUID: RWTXW0GSTpSV5cxTugSMeA==
-X-CSE-MsgGUID: nZoR/twAS+61IVkdPGFGcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,196,1774335600"; d="scan'208";a="244988479"
-Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Jun 2026 05:04:24 -0700
-From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Subject: [CI v3 34/36] drm/i915/display: Mask RO bits in gen9_write_dc_state()
-Date: Tue,  9 Jun 2026 17:32:48 +0530
-Message-ID: <20260609120250.867750-35-dibin.moolakadan.subrahmanian@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260609120250.867750-1-dibin.moolakadan.subrahmanian@intel.com>
-References: <20260609120250.867750-1-dibin.moolakadan.subrahmanian@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 98D0610E2F1;
+ Tue,  9 Jun 2026 12:13:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=xDanblzNrKwLMIWCMdcO9/e2GrHOcHnN+e83qP8r5xg=; b=DYQnff+h1I5WKLrCDZpfiXYUsF
+ WgUZXAk6NdzORRQC3A0hqmq66F1fIRHCwJtP03Ic75svhGxsg4pX6PZwYkpGG5e+p8ogXf4IB3mAV
+ WkEAI4iDYBSAAR8L0V4XItFuB7nvMYpnL1399A/fVntgAb+sMNpbP9heT8f6sAGQT88TjDYNMbiDA
+ 4I1lMsuSNMhC/qP0XpV0ukpsQMAfymXQLCoGhbt4FQ9RCa+lw2t27y0A3cuIaVGRQYa1nzwJtPHP5
+ gxNBvE0QHrZUTFcdZjy1XbyHRIHp4QI8GmOj2cApMN/Am4q3YjINToNI5X/Zh0cXyI8dVzfmjNAqB
+ MnEP/G7w==;
+Received: from [79.117.146.159] (helo=killbill.home)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wWvK0-00EvWP-R7; Tue, 09 Jun 2026 14:12:44 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
+ daniels@collabora.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 2/7] drm/atomic: reject colorop update from inactive color
+ pipeline
+Date: Tue,  9 Jun 2026 13:51:36 +0200
+Message-ID: <20260609121230.1358786-3-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260609121230.1358786-1-mwen@igalia.com>
+References: <20260609121230.1358786-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -67,88 +75,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DC_STATE_EN register has read-only status bits that are set by
-hardware on some platforms. These bits may cause the read-back
-verification loop in gen9_write_dc_state() to spuriously retry.
+Only allow updates on colorops that are part of an active pipeline, i.e.
+check if a colorop belongs to the color pipeline of a plane in its
+current, new or old state. If not, reject the state change of this
+inactive colorop. Performing this check later in drm_atomic_check_only()
+to remove the ordering dependency that would exist if done at the time
+of colorop property setting. Userspace is allowed to change colorops of
+an active color pipeline, or when activating or deactivating its
+pipeline in the same commit. However, changes in inactive color pipeline
+is not allowed.
 
-Mask the RO bits from the read-back comparison to prevent
-unnecessary retries.
-
-Changes in v2:
-- Rename patch from
-  "drm/i915/display: Use rmw in gen9_write_dc_state() to preserve non-DC
-bits"
-  to
-  "drm/i915/display: Mask RO bits in gen9_write_dc_state()"
-- Mask only RO bits rather than masking all non DC state bits
-  in DC_STATE_EN.  As the register has also some clear-on-write flags,
-  like 'Display DC*CO State Status DSI'(Imre Deak)
-
-Changes in v3:
-- Limit ro mask to read-back comparison.
-
-BSpec: 49437,69115
-Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../i915/display/intel_display_power_well.c   | 24 +++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 60 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_power_well.c b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-index 4f7144d72dc6..86ae0010fe01 100644
---- a/drivers/gpu/drm/i915/display/intel_display_power_well.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_power_well.c
-@@ -726,12 +726,28 @@ static void assert_can_disable_dc9(struct intel_display *display)
- 	  */
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 464562861408..960b52624deb 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -943,6 +943,55 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+ 	return 0;
  }
  
-+static u32 dc_state_ro_mask(struct intel_display *display)
++/**
++ * drm_atomic_colorop_check - check new colorop state
++ * @new_colorop_state: new colorop state to check
++ *
++ * Ensure that the colorop in @new_colorop_state belongs to an active color
++ * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
++ * property of current, old or new plane state.
++ *
++ * Returns: 0 on success, -EINVAL otherwise.
++ */
++static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_state)
 +{
-+	if (DISPLAY_VER(display) >= 20)
-+		return BIT(10) | BIT(11);
-+	else if (DISPLAY_VER(display) >= 13 && !display->platform.dg2)
-+		return BIT(10);
++	struct drm_atomic_commit *state = new_colorop_state->state;
++	struct drm_plane *plane = new_colorop_state->colorop->plane;
++	struct drm_plane_state *new_plane_state, *old_plane_state;
++	struct drm_colorop *colorop;
 +
-+	return 0;
++	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
++	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
++
++	/* No changes in the plane state. Check current-committed plane state */
++	if (!new_plane_state) {
++		for (colorop = plane->state->color_pipeline; colorop; colorop = colorop->next)
++			if (colorop == new_colorop_state->colorop)
++				return 0;
++		return -EINVAL;
++	}
++
++	if (WARN_ON(!old_plane_state))
++		return -EINVAL;
++
++	/* Check if the colorop is active in the new plane state */
++	for (colorop = new_plane_state->color_pipeline; colorop; colorop = colorop->next)
++		if (colorop == new_colorop_state->colorop)
++			return 0;
++
++	/* Same color pipeline as new; no point walking old. Colorop isn't active */
++	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
++		return -EINVAL;
++
++	/* Check if the colorop was active in the old plane state */
++	for (colorop = old_plane_state->color_pipeline; colorop; colorop = colorop->next)
++		if (colorop == new_colorop_state->colorop)
++			return 0;
++
++	/* Colorop is not part of an active color pipeline. */
++	return -EINVAL;
 +}
 +
- static void gen9_write_dc_state(struct intel_display *display,
- 				u32 state)
+ static void drm_atomic_colorop_print_state(struct drm_printer *p,
+ 					   const struct drm_colorop_state *state)
  {
- 	int rewrites = 0;
- 	int rereads = 0;
- 	u32 v;
-+	/*
-+	 * Mask out RO status bits from read-back comparison.
-+	 * HW may set these bits independently, so exclude them
-+	 * to prevent the verify loop from retrying due to RO bits mismatch.
-+	 */
-+	u32 ro_mask = dc_state_ro_mask(display);
+@@ -1792,6 +1841,8 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+ 	struct drm_plane *plane;
+ 	struct drm_plane_state *old_plane_state;
+ 	struct drm_plane_state *new_plane_state;
++	struct drm_colorop *colorop;
++	struct drm_colorop_state *new_colorop_state;
+ 	struct drm_crtc *crtc;
+ 	struct drm_crtc_state *old_crtc_state;
+ 	struct drm_crtc_state *new_crtc_state;
+@@ -1808,6 +1859,15 @@ int drm_atomic_check_only(struct drm_atomic_commit *state)
+ 			requested_crtc |= drm_crtc_mask(crtc);
+ 	}
  
- 	intel_de_write(display, DC_STATE_EN, state);
- 
-@@ -743,7 +759,7 @@ static void gen9_write_dc_state(struct intel_display *display,
- 	do  {
- 		v = intel_de_read(display, DC_STATE_EN);
- 
--		if (v != state) {
-+		if ((v & ~ro_mask) != (state & ~ro_mask)) {
- 			intel_de_write(display, DC_STATE_EN, state);
- 			rewrites++;
- 			rereads = 0;
-@@ -753,10 +769,10 @@ static void gen9_write_dc_state(struct intel_display *display,
- 
- 	} while (rewrites < 100);
- 
--	if (v != state)
-+	if ((v & ~ro_mask) != (state & ~ro_mask))
- 		drm_err(display->drm,
--			"Writing dc state to 0x%x failed, now 0x%x\n",
--			state, v);
-+			"Writing dc state to 0x%x failed, now 0x%x (ro_mask=0x%x)\n",
-+			state, v, ro_mask);
- 
- 	/* Most of the times we need one retry, avoid spam */
- 	if (rewrites > 1)
++	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
++		ret = drm_atomic_colorop_check(new_colorop_state);
++		if (ret) {
++			drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active color pipeline.\n",
++				       colorop->base.id, colorop->type);
++			return ret;
++		}
++	}
++
+ 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
+ 		ret = drm_atomic_plane_check(old_plane_state, new_plane_state);
+ 		if (ret) {
 -- 
-2.43.0
+2.53.0
 
