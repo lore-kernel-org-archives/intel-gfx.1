@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05C02CD98C9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C760ECD98CA
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78FF410E3E7;
-	Tue,  9 Jun 2026 13:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D16310E416;
+	Tue,  9 Jun 2026 13:54:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Z8zV2BjC";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="he6GgPtP";
 	dkim-atps=neutral
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B3D510E0BC
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:22:48 +0000 (UTC)
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
+ [95.215.58.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC5C710E0DE
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:40:27 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780985728;
+ t=1780987225;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=OIHUqXQmUUYiluUxjJGbqlbmrFVz6UQUb/30/LyGMbo=;
- b=Z8zV2BjCyIIWmJUOuq+lpPC144tcwa3dYQzA0MbEaPU04Q8HQiL3ytDgkjwXu7qSG5Vt1G
- 8EHmclu6rvc8oemzxv47fNi8tHF1o9R4NOTCl0imYYdSuEjWYjWaCaZ0rzlyzknIGPhr36
- Z9cyhUeg/Vahz+UVQh1W/YpfPZkITdc=
+ bh=ti3NlENGD1xy6UWHiAqUuIahNtRBbWZIyoTi26e3ue0=;
+ b=he6GgPtPJKyQqbLLyAMCJQtIvKnXUB6fnOtGZjDaTYP/O23mEyYFfmgA7fSp1I5PJAuubz
+ uogDJo9ao5ATKhsgMnU5RoyORS39z6zaONQVyBHWxiqTrRv3UhHxH+rJlHwsb4JDAF2E5W
+ TnJ4U0ZbWnBUHRJ9OloioR+ZJi737mM=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,11 +76,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 01/14] drbd: Open-code transfer log list walk
-Date: Tue,  9 Jun 2026 14:13:34 +0800
-Message-ID: <20260609061347.93688-2-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 11/14] locking/locktorture: Open-code ww mutex list walk
+Date: Tue,  9 Jun 2026 14:38:52 +0800
+Message-ID: <20260609063855.95710-2-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609063855.95710-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <20260609063855.95710-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -103,35 +104,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. That is the desired behaviour for the
-common case, but this transfer log walk temporarily drops
-resource->req_lock and revalidates the cursor before continuing.
+before entering the loop body. The ww-mutex torture path can move list
+entries while it resolves a wound/wait conflict and then continue from
+the adjusted cursor.
 
-Keep the loop open-coded so the next request is derived after the body
-has completed and after the cursor has been adjusted. This preserves the
-existing traversal semantics and prepares the code for the list iterator
-update.
+Keep the list walk open-coded so the loop step observes the cursor
+selected by the body. This preserves the existing stress-test traversal
+semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/block/drbd/drbd_debugfs.c | 4 +++-
+ kernel/locking/locktorture.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/block/drbd/drbd_debugfs.c b/drivers/block/drbd/drbd_debugfs.c
-index 12460b584bcb..e90cead90e9d 100644
---- a/drivers/block/drbd/drbd_debugfs.c
-+++ b/drivers/block/drbd/drbd_debugfs.c
-@@ -308,7 +308,9 @@ static void seq_print_resource_transfer_log_summary(struct seq_file *m,
+diff --git a/kernel/locking/locktorture.c b/kernel/locking/locktorture.c
+index e618bcf75e2d..0eb75e9bccaa 100644
+--- a/kernel/locking/locktorture.c
++++ b/kernel/locking/locktorture.c
+@@ -644,7 +644,9 @@ __acquires(torture_ww_mutex_2)
  
- 	seq_puts(m, "n\tdevice\tvnr\t" RQ_HDR);
- 	spin_lock_irq(&resource->req_lock);
--	list_for_each_entry(req, &connection->transfer_log, tl_requests) {
-+	for (req = list_first_entry(&connection->transfer_log, typeof(*req), tl_requests);
-+	     !list_entry_is_head(req, &connection->transfer_log, tl_requests);
-+	     req = list_next_entry(req, tl_requests)) {
- 		unsigned int tmp = 0;
- 		unsigned int s;
- 		++count;
+ 	ww_acquire_init(ctx, &torture_ww_class);
+ 
+-	list_for_each_entry(ll, &list, link) {
++	for (ll = list_first_entry(&list, typeof(*ll), link);
++	     !list_entry_is_head(ll, &list, link);
++	     ll = list_next_entry(ll, link)) {
+ 		int err;
+ 
+ 		err = ww_mutex_lock(ll->lock, ctx);
 -- 
 2.43.0
 
