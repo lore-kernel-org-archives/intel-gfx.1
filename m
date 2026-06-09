@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3029ECD98C5
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86538CD98C6
 	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAEBF10E3BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9AC10E3C3;
 	Tue,  9 Jun 2026 13:54:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="YYIJiCTk";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hgyxFnhu";
 	dkim-atps=neutral
-Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com
- [95.215.58.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C590E10E0D3
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
+ [95.215.58.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74DFC10E0DE
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:40:43 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986417;
+ t=1780987241;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=Np0x5OABf11sd/lWEcYRius1zQG4TmMrbP89pTQvYBE=;
- b=YYIJiCTkH8MjZ7BoGs7INCC4Vg7NTV50EYqh5qyQzaNnUUn/ixKMeAHTMaJlWsazr68AZc
- 9cDm4beZcV6ZDk9JRuLp/AOZC3eNoRHb5vZWf2PEag6On3FypjVNmaFjgVo30iqjkj1FaQ
- vdscYyTKn9RpAnTOcvy8RuzssJ18YbI=
+ bh=R2e4RVSJjtCpz/u6ASF4RY7PH6icfN90zoN6TTrfeHI=;
+ b=hgyxFnhuF4l7T94pV0BMD9VRFskJBHNhkiC30dWs4Jw/Cx7tBiCFIzMtCz8JTf/QVCudQK
+ z07KcgyACls2ySGp5r+J4DuVG8iPRdUghwC6xr3FFyfUHG0SFxabTCU19vDKNN5P9hEfxu
+ 9xKhmG76TuKP5lpbn8xQIbgW6qu8Hpw=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +76,12 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 04/14] drm/i915/gt: Open-code active timeline walk
-Date: Tue,  9 Jun 2026 14:25:16 +0800
-Message-ID: <20260609062526.94907-2-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 12/14] locking/ww_mutex: Open-code stress reorder list walk
+Date: Tue,  9 Jun 2026 14:38:53 +0800
+Message-ID: <20260609063855.95710-3-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609063855.95710-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
+ <20260609063855.95710-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -104,34 +104,34 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. __intel_gt_unset_wedged() drops
-timelines->lock while waiting on a fence and then restarts the walk from
-the list head after the lock is reacquired.
+before entering the loop body. stress_reorder_work() can move list
+entries while handling wound/wait locking conflicts and then continue
+from the adjusted cursor.
 
-Keep the loop open-coded so the next timeline is selected after that
-restart logic has run. This preserves the existing lock-drop traversal
+Keep the list walk open-coded so the loop step observes the cursor
+selected by the body. This preserves the existing stress-test traversal
 semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/gpu/drm/i915/gt/intel_reset.c | 4 +++-
+ kernel/locking/test-ww_mutex.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index adff482a6c9c..fe0d87e248a7 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -1077,7 +1077,9 @@ static bool __intel_gt_unset_wedged(struct intel_gt *gt)
- 	 * No more can be submitted until we reset the wedged bit.
- 	 */
- 	spin_lock(&timelines->lock);
--	list_for_each_entry(tl, &timelines->active_list, link) {
-+	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
-+	     !list_entry_is_head(tl, &timelines->active_list, link);
-+	     tl = list_next_entry(tl, link)) {
- 		struct dma_fence *fence;
+diff --git a/kernel/locking/test-ww_mutex.c b/kernel/locking/test-ww_mutex.c
+index 838d631544ed..08a6ab5ac041 100644
+--- a/kernel/locking/test-ww_mutex.c
++++ b/kernel/locking/test-ww_mutex.c
+@@ -519,7 +519,9 @@ static void stress_reorder_work(struct work_struct *work)
+ 	do {
+ 		ww_acquire_init(&ctx, stress->class);
  
- 		fence = i915_active_fence_get(&tl->last_request);
+-		list_for_each_entry(ll, &locks, link) {
++		for (ll = list_first_entry(&locks, typeof(*ll), link);
++		     !list_entry_is_head(ll, &locks, link);
++		     ll = list_next_entry(ll, link)) {
+ 			err = ww_mutex_lock(ll->lock, &ctx);
+ 			if (!err)
+ 				continue;
 -- 
 2.43.0
 
