@@ -4,30 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86538CD98C6
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 687FBCD8CAA
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB9AC10E3C3;
-	Tue,  9 Jun 2026 13:54:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A137110E35A;
+	Tue,  9 Jun 2026 13:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hgyxFnhu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="hAcwtJDC";
 	dkim-atps=neutral
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
- [95.215.58.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74DFC10E0DE
- for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:40:43 +0000 (UTC)
+X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
+ Tue, 09 Jun 2026 06:32:47 UTC
+Received: from out-180.mta1.migadu.com (out-180.mta1.migadu.com
+ [95.215.58.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C08610E0BD
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:32:47 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780987241;
+ t=1780986398;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=R2e4RVSJjtCpz/u6ASF4RY7PH6icfN90zoN6TTrfeHI=;
- b=hgyxFnhuF4l7T94pV0BMD9VRFskJBHNhkiC30dWs4Jw/Cx7tBiCFIzMtCz8JTf/QVCudQK
- z07KcgyACls2ySGp5r+J4DuVG8iPRdUghwC6xr3FFyfUHG0SFxabTCU19vDKNN5P9hEfxu
- 9xKhmG76TuKP5lpbn8xQIbgW6qu8Hpw=
+ bh=QgWAksApTGvLxjW8jDqRXxXlqcSTxmsvhz5k9DI0lic=;
+ b=hAcwtJDCWZFRSYLTEPue3KI/vBKMw7McXz6aBCAwYSHGbCZ8691Hb8Q9SEjvRfQxb72Tta
+ DvZFdo/ENYvZXhMqWs/CaNmhp2HC/ZidkwGpdCsM2noviPsBOF++1vKdv+wycU7cucS29B
+ gJe3i3hLPUY6TqgCUx2oYjH058D/AcI=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +78,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 12/14] locking/ww_mutex: Open-code stress reorder list walk
-Date: Tue,  9 Jun 2026 14:38:53 +0800
-Message-ID: <20260609063855.95710-3-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609063855.95710-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 03/14] drm/bridge: Open-code bridge chain list walks
+Date: Tue,  9 Jun 2026 14:25:15 +0800
+Message-ID: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609063855.95710-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -103,35 +104,45 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stress_reorder_work() can move list
-entries while handling wound/wait locking conflicts and then continue
-from the adjusted cursor.
+A later change will make list_for_each_entry_from() and
+list_for_each_entry_reverse() cache the next or previous element before
+entering the loop body. The bridge enable and disable ordering code
+adjusts its cursor to skip ranges that have already been handled.
 
-Keep the list walk open-coded so the loop step observes the cursor
-selected by the body. This preserves the existing stress-test traversal
+Keep those walks open-coded so the loop step observes the cursor
+selected by the body. This preserves the existing bridge ordering
 semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- kernel/locking/test-ww_mutex.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/locking/test-ww_mutex.c b/kernel/locking/test-ww_mutex.c
-index 838d631544ed..08a6ab5ac041 100644
---- a/kernel/locking/test-ww_mutex.c
-+++ b/kernel/locking/test-ww_mutex.c
-@@ -519,7 +519,9 @@ static void stress_reorder_work(struct work_struct *work)
- 	do {
- 		ww_acquire_init(&ctx, stress->class);
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index d6f512b73389..a538aabc4e0b 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -868,7 +868,8 @@ void drm_atomic_bridge_chain_post_disable(struct drm_bridge *bridge,
  
--		list_for_each_entry(ll, &locks, link) {
-+		for (ll = list_first_entry(&locks, typeof(*ll), link);
-+		     !list_entry_is_head(ll, &locks, link);
-+		     ll = list_next_entry(ll, link)) {
- 			err = ww_mutex_lock(ll->lock, &ctx);
- 			if (!err)
- 				continue;
+ 	encoder = bridge->encoder;
+ 
+-	list_for_each_entry_from(bridge, &encoder->bridge_chain, chain_node) {
++	for (; !list_entry_is_head(bridge, &encoder->bridge_chain, chain_node);
++	     bridge = list_next_entry(bridge, chain_node)) {
+ 		limit = NULL;
+ 
+ 		if (!list_is_last(&bridge->chain_node, &encoder->bridge_chain)) {
+@@ -962,7 +963,9 @@ void drm_atomic_bridge_chain_pre_enable(struct drm_bridge *bridge,
+ 
+ 	encoder = bridge->encoder;
+ 
+-	list_for_each_entry_reverse(iter, &encoder->bridge_chain, chain_node) {
++	for (iter = list_last_entry(&encoder->bridge_chain, typeof(*iter), chain_node);
++	     !list_entry_is_head(iter, &encoder->bridge_chain, chain_node);
++	     iter = list_prev_entry(iter, chain_node)) {
+ 		if (iter->pre_enable_prev_first) {
+ 			next = iter;
+ 			limit = bridge;
 -- 
 2.43.0
 
