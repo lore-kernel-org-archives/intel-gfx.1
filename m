@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92E0ECD8CB9
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BBA6CD8CA4
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 13:54:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51D3110E356;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C2A010E341;
 	Tue,  9 Jun 2026 13:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="isl8KKJu";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="r9H+J3Ut";
 	dkim-atps=neutral
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com
- [95.215.58.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C1410E0D9;
- Tue,  9 Jun 2026 06:37:50 +0000 (UTC)
+Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
+ [91.218.175.186])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DFA310E0E0
+ for <intel-gfx@lists.freedesktop.org>; Tue,  9 Jun 2026 06:42:50 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986497;
+ t=1780987356;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MR1hTzP95VNUKx7/pKpDVtm2601TjwJtZ4ASjUfdk1Y=;
- b=isl8KKJuAUNED6y7PqRYss/yrCZzRxABbNH7LLFjXBudV0mEVhbPjitoJS3k0/o1vcGfft
- s62so6ieDuNj/XVJ1vkk1Q7CcR4Ey2KkfWmakHlovNnr2LJm+7oGH2kB4IAdYCBbQxOFWn
- FuuaYym3pHtVPMmNAZdGoQnflBzoQlE=
+ bh=okGbZnshQDiTOCCUcLiGWJ/vXeEA5Q7ST0C3mLZj8lI=;
+ b=r9H+J3UthvdbJqCWseQmPy/6Gw04t2MD3O/3QZkG+FrfACMHjoHmAZhEA7T2/P7rXoTaRj
+ flnwXmsam8NnpyHmx73y4wEmRAzWN+xVg1sMhEn7tyW9qKpEVePYA4xXwp0ikhd+ORVe1t
+ m7DPL598qkuZ4CAlEebaO3UEKtTEsyk=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -76,12 +76,11 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kaitao Cheng <kaitao.cheng@linux.dev>,
  Kaitao Cheng <chengkaitao@kylinos.cn>
-Subject: [PATCH v2 08/14] spi: stm32-ospi: Open-code message transfer walk
-Date: Tue,  9 Jun 2026 14:25:20 +0800
-Message-ID: <20260609062526.94907-6-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Subject: [PATCH v2 13/14] ASoC: dapm: Open-code widget invalidation walk
+Date: Tue,  9 Jun 2026 14:41:21 +0800
+Message-ID: <20260609064122.95825-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -104,35 +103,33 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stm32_ospi_transfer_one_message() can
-consume the following transfer as part of the current operation and then
-advance the loop cursor to that entry.
+before entering the loop body. dapm_widget_invalidate_paths() appends
+newly reached widgets to the temporary work list while walking it.
 
-Keep the transfer walk open-coded so the loop step observes that cursor
-update and skips the consumed transfer. This preserves the existing
-message sequencing semantics and prepares the code for the list iterator
-update.
+Keep the work-list walk open-coded so the next widget is looked up after
+new widgets have been appended. This preserves the existing invalidation
+traversal semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/spi/spi-stm32-ospi.c | 4 +++-
+ sound/soc/soc-dapm.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 4461c6e24b9e..4dc2b56b4c20 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -675,7 +675,9 @@ static int stm32_ospi_transfer_one_message(struct spi_controller *ctrl,
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index d6192204e613..5bd921fca132 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -255,7 +255,9 @@ static __always_inline void dapm_widget_invalidate_paths(
+ 	list_add_tail(&w->work_list, &list);
+ 	w->endpoints[dir] = -1;
  
- 	gpiod_set_value_cansleep(cs_gpiod, true);
- 
--	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
-+	for (transfer = list_first_entry(&msg->transfers, typeof(*transfer), transfer_list);
-+	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
-+	     transfer = list_next_entry(transfer, transfer_list)) {
- 		u8 dummy_bytes = 0;
- 
- 		memset(&op, 0, sizeof(op));
+-	list_for_each_entry(w, &list, work_list) {
++	for (w = list_first_entry(&list, typeof(*w), work_list);
++	     !list_entry_is_head(w, &list, work_list);
++	     w = list_next_entry(w, work_list)) {
+ 		snd_soc_dapm_widget_for_each_path(w, dir, p) {
+ 			if (p->is_supply || !p->connect)
+ 				continue;
 -- 
 2.43.0
 
