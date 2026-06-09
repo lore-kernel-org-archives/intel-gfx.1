@@ -4,62 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3188CD98C5
-	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 11:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6786CD8CAA
+	for <intel-gfx@archiver.kernel.org>; Tue,  9 Jun 2026 11:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9831010E28D;
-	Tue,  9 Jun 2026 11:05:17 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Vy/A20Fi";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22B2410E271;
- Tue,  9 Jun 2026 11:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=hdXIQx3O8t+5fRWRaEGrsm+4NQb2B1dwQl8vnIUQGso=; b=Vy/A20FiViObB/9ILejxwRsAat
- 9kcmO+oqxoCf4FCdsQrKOaQkFqEGQ0hVxMXO2E8dd1pdUlQ82f7Y9vgepJmjmiX5bbXeQEdGYZD1U
- TNmhn7pm1GOG6SB0m+PrEQtVpkSWfrysYpQzxk/EntKjuQzhyWy+gQy4xTGr29jpZ6sFGdgMW54nS
- tTSYxaKGTdw6YjDWUfwGxQXZEDRGjDeh5GBAsDasm0SN35ewON4aDqbPh8ujZt9Yv3F0ea2kFlX4i
- Pxlyl3RIdo+IbHuPXZE4nct30Cok1h5F3ReijtGvP4KDIVzzKzBDvjNTRQs41lPcklHIMryzlPXFS
- xMQE8zeg==;
-Received: from [79.117.146.159] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wWuG2-00Etww-8q; Tue, 09 Jun 2026 13:04:34 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- harry.wentland@amd.com, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
- sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v9 1/4] drm/colorop: Remove read-only comments from
- interpolation fields
-Date: Tue,  9 Jun 2026 12:20:18 +0200
-Message-ID: <20260609110420.1298352-2-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260609110420.1298352-1-mwen@igalia.com>
-References: <20260609110420.1298352-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33EFA10E15B;
+	Tue,  9 Jun 2026 11:22:58 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98AF10E101;
+ Tue,  9 Jun 2026 11:22:57 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/atomic=3A_track_indiv?=
+ =?utf-8?q?idual_colorop_updates?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Melissa Wen" <mwen@igalia.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 09 Jun 2026 11:22:57 -0000
+Message-ID: <178100417775.59616.5150613550015416165@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260609110420.1298352-1-mwen@igalia.com>
+In-Reply-To: <20260609110420.1298352-1-mwen@igalia.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,63 +37,28 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+== Series Details ==
 
-The lut1d_interpolation and lut3d_interpolation fields and their
-associated properties were marked as read-only, but userspace
-can set them via drm_atomic_colorop_set_property().
+Series: drm/atomic: track individual colorop updates
+URL   : https://patchwork.freedesktop.org/series/168172/
+State : failure
 
-Fixes: 7fa3ee8c0a79 ("drm/colorop: Define LUT_1D interpolation")
-Fixes: db971856bbe0 ("drm/colorop: Add 3D LUT support to color pipeline")
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Fixes: 9ba25915efba ("drm/amd/display: Add support for sRGB EOTF in DEGAM block")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- include/drm/drm_colorop.h | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+== Summary ==
 
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index bd082854ca74..61cc8206b4c4 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -309,7 +309,6 @@ struct drm_colorop {
- 	/**
- 	 * @lut1d_interpolation:
- 	 *
--	 * Read-only
- 	 * Interpolation for DRM_COLOROP_1D_LUT
- 	 */
- 	enum drm_colorop_lut1d_interpolation_type lut1d_interpolation;
-@@ -317,7 +316,6 @@ struct drm_colorop {
- 	/**
- 	 * @lut3d_interpolation:
- 	 *
--	 * Read-only
- 	 * Interpolation for DRM_COLOROP_3D_LUT
- 	 */
- 	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
-@@ -325,7 +323,7 @@ struct drm_colorop {
- 	/**
- 	 * @lut1d_interpolation_property:
- 	 *
--	 * Read-only property for DRM_COLOROP_1D_LUT interpolation
-+	 * Property for DRM_COLOROP_1D_LUT interpolation
- 	 */
- 	struct drm_property *lut1d_interpolation_property;
- 
-@@ -353,7 +351,7 @@ struct drm_colorop {
- 	/**
- 	 * @lut3d_interpolation_property:
- 	 *
--	 * Read-only property for DRM_COLOROP_3D_LUT interpolation
-+	 * Property for DRM_COLOROP_3D_LUT interpolation
- 	 */
- 	struct drm_property *lut3d_interpolation_property;
- 
--- 
-2.53.0
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/168172/revisions/1/mbox/ not applied
+Applying: drm/colorop: Remove read-only comments from interpolation fields
+Applying: drm/colorop: make lut(1/3)d_interpolation props correctly behave as mutable
+error: sha1 information is lacking or useless (include/drm/drm_colorop.h).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0002 drm/colorop: make lut(1/3)d_interpolation props correctly behave as mutable
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
+
 
