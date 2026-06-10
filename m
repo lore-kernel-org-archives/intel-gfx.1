@@ -4,82 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6956FCD98C7
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 11:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59031CD8CB9
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 12:44:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33ADF10E5AE;
-	Wed, 10 Jun 2026 11:54:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E86E010E5F6;
+	Wed, 10 Jun 2026 12:44:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a8m9eQ+P";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="auAM5ll/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB4010E483;
- Wed, 10 Jun 2026 11:54:44 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE93610E5F6;
+ Wed, 10 Jun 2026 12:44:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781092485; x=1812628485;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=IBdSvbniv45jCKX2cc9fNGt2KfPPluvYcMxmenPPBM0=;
- b=a8m9eQ+PQeVhlZTCMjGLPcA2Y9U2Aw912dTp4B+8MOslLy51AuWkbKtU
- MBow95YbLgz+BaMoPWLBeB7YmLCbYg1wbbfOVynoBb84fkXCanK+SIJfr
- XGasThfEMrSvY/sDXk4w7zw+rn29XUHFEpqVtkGYWFBug1XM4P0jjJpHU
- 1JShHhInuxRKbxhmAs6R7cnNKx21NcO1R90rPZwEm5xPK+bs77TnyeWkS
- 3UvzjdUJQrBQ1FaqMokDLsZllB0zyEBHZ0hGkEHfR6sUN5gGjrTgM7AC+
- alGy5IvFrcbRAhaGiSNLEjkHq+OUHzx4xv4KYo/zD7jm58rrRv6sF3WkE A==;
-X-CSE-ConnectionGUID: mZgg+GRvQ5K+oItAoA9a1Q==
-X-CSE-MsgGUID: 3S5gGZ3wQ5OTSR2cw7bZfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="81789866"
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="81789866"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 04:54:44 -0700
-X-CSE-ConnectionGUID: YLk1Sbj9TlyqNzCagqc0RQ==
-X-CSE-MsgGUID: /M4SHBnES7ybbKKuTAV9eg==
+ t=1781095491; x=1812631491;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=hIWCz3UA4vNH9IueJBRqoaIAuCwHOvIq3PBAp5wQmDU=;
+ b=auAM5ll/K796DgQKcO2YBMLNn3Qn/BdI5HwLoxHbzrM2WZeiW29O07HP
+ bF0BjJfXWHFxBNvQXxKEtlw5fn5aF7+MvBzCzxFLb9ZMVxAX6KRnZ8xnp
+ uvCvNchD6sH2yPXT9yzU//JiAoyZMbhn9h62lTZdCaynszshZ7lD/qWpL
+ 6xoeyvdznfBu8LBjHetTH13CTJyCVeptXc+Gh1VOJm379MK79rDzzRcTC
+ njNMwVofXXWQq2qcF+FCN1f/Yr3xpGJr2kqoJzphOwc0O/RwBYBdufTMO
+ pJ22ay1BxzJ6hpS99A/+v+mA241251rhccMvhMf63/pRRvbeIbNOXulxP A==;
+X-CSE-ConnectionGUID: Nw/N3SubQomXGSH8CHp8hA==
+X-CSE-MsgGUID: ZRCYjFkDQ1KlcyfBQSdozA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11812"; a="92205677"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="92205677"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 05:44:50 -0700
+X-CSE-ConnectionGUID: G5I+w7t3QfOI/Z44Q2pZ1w==
+X-CSE-MsgGUID: kGGTfdADQ2ySA6y2DxnChg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="250439091"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.244.3])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Jun 2026 04:54:32 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
- <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
- =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>, Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
- <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan
- <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
- <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
- <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Daniel Stone
- <daniel@fooishbar.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH v17 21/28] drm/tests: bridge: Add KUnit tests for bridge
- chain format selection
-In-Reply-To: <gnicb4WkT1S4aQIC2G_naw@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260609-color-format-v17-0-35739b5782cc@collabora.com>
- <20260609-color-format-v17-21-35739b5782cc@collabora.com>
- <04ff70850213ae0f75486b1a27a7edb6fb4e71c3@intel.com>
- <gnicb4WkT1S4aQIC2G_naw@collabora.com>
-Date: Wed, 10 Jun 2026 14:54:29 +0300
-Message-ID: <596f0f063d6ef2ffb4c6640e3df5ed89d95b11dd@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="242024690"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.62])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 05:44:48 -0700
+Date: Wed, 10 Jun 2026 15:44:44 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Nemesa Garg <nemesa.garg@intel.com>
+Subject: Re: [PATCH v1 0/9] drm/i915/scaler: allocation cleanup
+Message-ID: <ailcPBpmqJ0wa7--@intel.com>
+References: <20260609231217.208357-1-michal.grzelak@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260609231217.208357-1-michal.grzelak@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,22 +73,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 10 Jun 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> If you don't want __maybe_unused, then sure, I'll move them into a new
-> .c file. Though I think the two are roughly equivalent in that I don't
-> think anyone is really trying to minimise the size of their KUnit
-> binaries.
+On Wed, Jun 10, 2026 at 01:12:08AM +0200, Michał Grzelak wrote:
+> Apparently during review of commit 17d70a0760f2 ("drm/i915/casf: Extract
+> scaler_has_casf()") I missed that argument plane_state isn't used
+> anymore. While at it couple other fixes included.
+> 
+> This series will almost surely need a better splitting than currently
+> is, but I hope now it is slightly easier to review.
+> 
+> BR,
+> Michał
+> 
+> 
+> Michał Grzelak (9):
+>   drm/i915/scaler: remove unused plane_state argument
+>   drm/i915/scaler: s/i/scaler_id/
 
-I think placing arrays in headers is bad practice, and we shouldn't set
-that example, kunit or not.
+Those seem fine.
 
-> I'll send a patch to move them to a .c
+>   drm/i915/scaler: de-Morgan-ize !scaler_has_casf()
+>   drm/i915/scaler: move independent CASF check
+>   drm/i915/scaler: check CASF before allocation's loop
+>   drm/i915/scaler: inline CASF scaler allocation
+>   drm/i915/scaler: linearize scaler allocation
+>   drm/i915/scaler: move CASF alloc check into
+>     intel_atomic_setup_scaler()
+>   drm/i915/scaler: move CASF alloc check into setup_crtc_scaler()
 
-Thanks.
+This looks like it's replacing a simple "does this scale have CASF?"
+check with some kind of more complicated special casing of the CASF
+scaler elsewhere. I don't like it.
 
-BR,
-Jani.
-
+> 
+>  drivers/gpu/drm/i915/display/skl_scaler.c | 43 ++++++++++++-----------
+>  1 file changed, 22 insertions(+), 21 deletions(-)
+> 
+> -- 
+> 2.45.2
 
 -- 
-Jani Nikula, Intel
+Ville Syrjälä
+Intel
