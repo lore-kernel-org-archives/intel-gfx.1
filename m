@@ -4,27 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AB63CD8C90
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 17:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C84CD8C90
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 17:31:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3FE10EB48;
-	Wed, 10 Jun 2026 17:08:46 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE9410EB46;
- Wed, 10 Jun 2026 17:08:45 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4274255431385244321=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E9B10E4B2;
+	Wed, 10 Jun 2026 17:31:55 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OoIDqObO";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA6E10E1C4;
+ Wed, 10 Jun 2026 17:31:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781112713; x=1812648713;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=B/YZfjmutsZZkHO47Np9ptYY/1Um+YYmQpt7mOTDUzs=;
+ b=OoIDqObOhmHbLhyg3EYOzDS9tMBPkaT8l5Fy42ivSytYt07cbEJBHxOs
+ huGuTO/P10FLC522hmMMj2HCFHqwr6scDeIK+Cl2vGOWIxRuCyAMe68fn
+ nDYhyBAQ1NXnWMTSNdZDnjHGqVKRoLqDRuENQ5CMjPOGm62K2NjD2Q+7n
+ 2TeKM+zBIQ9wDmMHAt7yiFW274FYxwXi7Ie7ISixxi8h7cttkmxg83LHM
+ WG8RaIx6BsKQKECiCwtoa6icHyZ1tbB9eThlo2DBTm3GfE7gLVElsX/Rx
+ WwlhthxM18YkhSW0K5GyNfEd7L+TooWyjKscRVSgf+oJ9Ugit+gXkQY2g w==;
+X-CSE-ConnectionGUID: KQCHUryZTZqA79R7XL5lJQ==
+X-CSE-MsgGUID: VNy30xX/T2OuyKIbQCebwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="92233576"
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="92233576"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 10:31:53 -0700
+X-CSE-ConnectionGUID: BsBZgVexRoShuvg035cFZA==
+X-CSE-MsgGUID: wNvcGwDsTjORIYyFkMfGrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,197,1774335600"; d="scan'208";a="239887752"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.3])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2026 10:31:51 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 02/14] drm/i915/cdclk: Pass CDCLK in MHz to pcode on DG2
+In-Reply-To: <20260610170652.5320-3-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260610170652.5320-1-ville.syrjala@linux.intel.com>
+ <20260610170652.5320-3-ville.syrjala@linux.intel.com>
+Date: Wed, 10 Jun 2026 20:31:48 +0300
+Message-ID: <4e72aea4331149f4f54016dfb884e171255ba483@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm=3A_Improve_logic_behi?=
- =?utf-8?q?nd_damage_handling_=28rev4=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 10 Jun 2026 17:08:45 -0000
-Message-ID: <178111132564.65390.15701413200995554019@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260610152505.260172-1-tzimmermann@suse.de>
-In-Reply-To: <20260610152505.260172-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +69,67 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4274255431385244321==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Wed, 10 Jun 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> We are currently trying to pass the CDCLK in kHz to the pcode
+> on DG2, while the pcode expects a value in MHz units. Adjust
+> the units appropriately.
 
-== Series Details ==
+How is it working? :o
 
-Series: drm: Improve logic behind damage handling (rev4)
-URL   : https://patchwork.freedesktop.org/series/166107/
-State : success
+Fixes: ?
 
-== Summary ==
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_cdclk.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm=
+/i915/display/intel_cdclk.c
+> index 9ca56bab281f..9718062d8d6c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> @@ -2703,8 +2703,10 @@ static void intel_cdclk_pcode_pre_notify(struct in=
+tel_atomic_state *state)
+>  	 * if CDCLK is decreasing or not changing, set bits 25:16 to current CD=
+CLK,
+>  	 * which basically means we choose the maximum of old and new CDCLK, if=
+ we know both
+>  	 */
+> -	if (change_cdclk)
+> +	if (change_cdclk) {
+>  		cdclk =3D max(new_cdclk_state->actual.cdclk, old_cdclk_state->actual.c=
+dclk);
+> +		cdclk =3D DIV_ROUND_UP(cdclk, 1000);
+> +	}
 
-CI Bug Log - changes from CI_DRM_18654 -> Patchwork_166107v4
-====================================================
+I'd consider s/cdclk/cdclk_mhz/g here and in intel_pcode_notify() to
+emphasize it's not kHz.
 
-Summary
--------
+>  	/*
+>  	 * According to "Sequence For Pipe Count Change",
+> @@ -2740,8 +2742,10 @@ static void intel_cdclk_pcode_post_notify(struct i=
+ntel_atomic_state *state)
+>  	 * According to "Sequence After Frequency Change",
+>  	 * set bits 25:16 to current CDCLK
+>  	 */
+> -	if (update_cdclk)
+> +	if (update_cdclk) {
+>  		cdclk =3D new_cdclk_state->actual.cdclk;
+> +		cdclk =3D DIV_ROUND_UP(cdclk, 1000);
+> +	}
 
-  **SUCCESS**
+Ditto.
 
-  No regressions found.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166107v4/index.html
+>=20=20
+>  	/*
+>  	 * According to "Sequence For Pipe Count Change",
 
-Participating hosts (42 -> 39)
-------------------------------
-
-  Missing    (3): bat-dg2-13 bat-adlp-6 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18654 -> Patchwork_166107v4
-
-  CI-20190529: 20190529
-  CI_DRM_18654: fc59f76558703febba8056be87d1c97d14f7485e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8956: 8956
-  Patchwork_166107v4: fc59f76558703febba8056be87d1c97d14f7485e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166107v4/index.html
-
---===============4274255431385244321==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm: Improve logic behind damage handling (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166107/">https://patchwork.freedesktop.org/series/166107/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166107v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166107v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18654 -&gt; Patchwork_166107v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166107v4/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): bat-dg2-13 bat-adlp-6 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18654 -&gt; Patchwork_166107v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18654: fc59f76558703febba8056be87d1c97d14f7485e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8956: 8956<br />
-  Patchwork_166107v4: fc59f76558703febba8056be87d1c97d14f7485e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4274255431385244321==--
+--=20
+Jani Nikula, Intel
