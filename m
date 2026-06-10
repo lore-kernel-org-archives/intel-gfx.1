@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA16CD8CB9
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:43:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51E75CD98CE
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:43:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A83E710E9F1;
-	Wed, 10 Jun 2026 14:43:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D869E10E9FC;
+	Wed, 10 Jun 2026 14:43:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="S/EuK96p";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="b+KKxMDO";
 	dkim-atps=neutral
-Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
- [95.215.58.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB1A10E72E
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 06:15:17 +0000 (UTC)
-Message-ID: <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com
+ [95.215.58.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78B0610E7C0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 08:19:44 +0000 (UTC)
+Message-ID: <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1781072103;
+ t=1781079581;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=GCPO9v7e2NaYcPW5zVGvXXPxzu/fCfdM58tRqJXSo9A=;
- b=S/EuK96pTXAWUBg+8TCiJYM+danZr1codL6zDdrR1CXWZbSAz8OZt88gSb3T73P2+Oj0bR
- ye5UJbetTGxWmds/F2K/tlbDAkWts/YSgQ0PrY0mv2jpzcQt2r4zQh26U4ohdHNt5eRxKb
- jqr9Nyh610YgX0sau/FOqrE+b1XuGGI=
-Date: Wed, 10 Jun 2026 14:14:06 +0800
+ bh=vgeT73qC1JMBtqJB2TUIr+4bit/wHx6kJFn5Pav/2f4=;
+ b=b+KKxMDOPPD9issjhumw6+KGbYM7wMtezvy5jEnscI0CZYz2NKMOHn33g1ku+yIj4Y2DTn
+ +Yag6Z6BDFL2Y2GchMx0dVC5s3t6GNYZv4TV2TeNkysaubM7HMus5UBFldLUBxBN8KRyYZ
+ t05b5xvQnStTsnzUuvWsLluFbGiay9I=
+Date: Wed, 10 Jun 2026 16:18:28 +0800
 MIME-Version: 1.0
 Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
  state
@@ -76,10 +76,12 @@ Cc: Thierry Reding <thierry.reding@kernel.org>,
  Takashi Iwai <tiwai@suse.com>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+ <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+ <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+In-Reply-To: <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -99,116 +101,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-在 2026/6/9 18:33, Christian König 写道:
-> On 6/9/26 08:13, Kaitao Cheng wrote:
->> From: Kaito Cheng <chengkaitao@kylinos.cn>
+
+
+在 2026/6/10 16:07, Christian König 写道:
+> On 6/10/26 08:14, Kaitao Cheng wrote:
+>> 在 2026/6/9 18:33, Christian König 写道:
+>>> On 6/9/26 08:13, Kaitao Cheng wrote:
+>>>> From: Kaito Cheng <chengkaitao@kylinos.cn>
+>>>>
+>>>> This series prepares for, and then updates, the list_for_each_entry()
+>>>> family so the common entry iterators cache their next or previous cursor
+>>>> before the loop body runs.
+>>>
+>>> Why in the world would we want to do that?
+>>>
+>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+>>>
+>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+>>>
+>>>> The first 13 patches open-code loops that intentionally depend on the
+>>>> old "derive the next entry from the current cursor at the end of the
+>>>> iteration" behaviour.  These loops append work to the list being walked,
+>>>> restart traversal after dropping a lock, skip an entry consumed by the
+>>>> current iteration, or otherwise adjust the cursor in the loop body.
+>>>
+>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
 >>
->> This series prepares for, and then updates, the list_for_each_entry()
->> family so the common entry iterators cache their next or previous cursor
->> before the loop body runs.
+>> Hi Christian and Andy Shevchenko,
+>>
+>> Thanks for taking a look. I would like to clarify the point you raised.
+>>
+>> The reason I started looking at this is the original motivation behind
+>> the _safe() variants.  They exist because some users need to remove, move
+>> or otherwise consume the current entry while walking the list.  In that
+>> case the next cursor has to be preserved before the loop body can modify
+>> the current entry.
+>>
+>> The unfortunate part is that this could not be expressed with the
+>> existing list_for_each_entry() interface without changing its calling
+>> convention.  The _safe() variants had to grow an extra argument for the
+>> temporary cursor, and that is why we ended up with a separate family of
+>> macros.
+>>
+>> But conceptually, the distinction does not have to be exposed as two
+>> different iterator families forever.  The difference is an implementation
+>> detail: whether the iterator keeps the next/previous cursor before the
+>> body runs.  This series makes the common list_for_each_entry() iterators
+>> do that internally, so the safe and non-safe forms can effectively be
+>> folded together, or at least the need for a separate public _safe()
+>> interface becomes much weaker.
+>>
+>> There is also a usability issue with the current _safe() interface.  The
+>> caller is forced to define a temporary cursor outside the macro and pass
+>> it in, even though almost all users never use that cursor directly.  It is
+>> just boilerplate required by the macro implementation.  I find that
+>> redundant and awkward: the temporary cursor is an internal detail of the
+>> iteration, but every caller has to spell it out.
+>>
+>> With the updated list_for_each_entry() implementation, that extra cursor
+>> can be kept inside the iterator itself.  Callers that only want to walk
+>> the list, including callers that delete or consume the current entry, no
+>> longer need to carry an otherwise-unused temporary variable just to make
+>> the macro work.
 > 
-> Why in the world would we want to do that?
+> Well the distinction between list_for_each_entry() and list_for_each_entry_safe() is *not* there because you need an extra variable to hold the next pointer, but because just 'iterating the list' and 'iterating the list while you modify it' are two distinct use cases.
 > 
-> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+> Apart from the technical implications this also has some documentation value for the code using it.
 > 
-> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+> What we could consider with C99 at hand is to have _safe() variants who uses a local hidden variable to hold the next element.
 > 
->> The first 13 patches open-code loops that intentionally depend on the
->> old "derive the next entry from the current cursor at the end of the
->> iteration" behaviour.  These loops append work to the list being walked,
->> restart traversal after dropping a lock, skip an entry consumed by the
->> current iteration, or otherwise adjust the cursor in the loop body.
+> Or maybe come up with a better name instead of _safe() because people seem to misunderstand that quite often.
 > 
-> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
-
-Hi Christian and Andy Shevchenko,
-
-Thanks for taking a look. I would like to clarify the point you raised.
-
-The reason I started looking at this is the original motivation behind
-the _safe() variants.  They exist because some users need to remove, move
-or otherwise consume the current entry while walking the list.  In that
-case the next cursor has to be preserved before the loop body can modify
-the current entry.
-
-The unfortunate part is that this could not be expressed with the
-existing list_for_each_entry() interface without changing its calling
-convention.  The _safe() variants had to grow an extra argument for the
-temporary cursor, and that is why we ended up with a separate family of
-macros.
-
-But conceptually, the distinction does not have to be exposed as two
-different iterator families forever.  The difference is an implementation
-detail: whether the iterator keeps the next/previous cursor before the
-body runs.  This series makes the common list_for_each_entry() iterators
-do that internally, so the safe and non-safe forms can effectively be
-folded together, or at least the need for a separate public _safe()
-interface becomes much weaker.
-
-There is also a usability issue with the current _safe() interface.  The
-caller is forced to define a temporary cursor outside the macro and pass
-it in, even though almost all users never use that cursor directly.  It is
-just boilerplate required by the macro implementation.  I find that
-redundant and awkward: the temporary cursor is an internal detail of the
-iteration, but every caller has to spell it out.
-
-With the updated list_for_each_entry() implementation, that extra cursor
-can be kept inside the iterator itself.  Callers that only want to walk
-the list, including callers that delete or consume the current entry, no
-longer need to carry an otherwise-unused temporary variable just to make
-the macro work.
-
->>
->> The final patch changes include/linux/list.h to keep a private cursor in
->> the common entry iterators while preserving the public macro interface.
->> The safe variants remain available when callers need the temporary
->> cursor explicitly or have stronger mutation requirements.
->>
->> Changes in v2 (Muchun Song, Andy Shevchenko):
->>  - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
->>    cursor change directly in the existing list_for_each_entry*() helpers.
->>  - Open-code special list walks that rely on updating the loop cursor in
->>    the body, preserving their existing traversal semantics.
->>
->> Link to v1:
->> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
->>
->> Kaitao Cheng (14):
->>   drbd: Open-code transfer log list walk
->>   firewire: core: Open-code topology list walk
->>   drm/bridge: Open-code bridge chain list walks
->>   drm/i915/gt: Open-code active timeline walk
->>   drm/i915: Open-code DFS dependency list walk
->>   drm/ttm: Open-code reservation list walk
->>   spi: fsi: Open-code message transfer walk
->>   spi: stm32-ospi: Open-code message transfer walk
->>   spi: stm32-qspi: Open-code message transfer walk
->>   spi: tegra210-quad: Open-code message transfer walk
->>   locking/locktorture: Open-code ww mutex list walk
->>   locking/ww_mutex: Open-code stress reorder list walk
->>   ASoC: dapm: Open-code widget invalidation walk
->>   list: Cache cursors in entry iterators
->>
->>  drivers/block/drbd/drbd_debugfs.c      |  4 ++-
->>  drivers/firewire/core-topology.c       |  4 ++-
->>  drivers/gpu/drm/drm_bridge.c           |  7 ++--
->>  drivers/gpu/drm/i915/gt/intel_reset.c  |  4 ++-
->>  drivers/gpu/drm/i915/i915_scheduler.c  |  4 ++-
->>  drivers/gpu/drm/ttm/ttm_execbuf_util.c |  4 ++-
->>  drivers/spi/spi-fsi.c                  |  5 ++-
->>  drivers/spi/spi-stm32-ospi.c           |  4 ++-
->>  drivers/spi/spi-stm32-qspi.c           |  5 ++-
->>  drivers/spi/spi-tegra210-quad.c        |  4 ++-
->>  include/linux/list.h                   | 46 ++++++++++++++++++++------
->>  kernel/locking/locktorture.c           |  4 ++-
->>  kernel/locking/test-ww_mutex.c         |  4 ++-
->>  sound/soc/soc-dapm.c                   |  4 ++-
->>  14 files changed, 78 insertions(+), 25 deletions(-)
->>
->> --
->> 2.43.0
->>
+> But mangling the two use cases together just because it is now technical possible is among the worst ideas I've ever heard.
 > 
+
+Should we revert to v1, or keep list_for_each_entry() and
+list_for_each_entry_safe() as they are, close this thread, and make no
+changes?
+
+Link to v1:
+https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+
+Or do you have any better suggestions?
 
 -- 
 Thanks
