@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 405ABCD98CE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00C6DCD98D0
 	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 17:44:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38E6410E528;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43AB210EB44;
 	Wed, 10 Jun 2026 17:44:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="y+FFoEgm";
+	dkim=pass (2048-bit key; secure) header.d=sms-medipool.de header.i=@sms-medipool.de header.b="WRhGzsKQ";
 	dkim-atps=neutral
 Received: from mail.sms-medipool.de (mail.sms-medipool.de [178.63.14.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB56F10E6B6;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A96C210E1C4;
  Wed, 10 Jun 2026 17:44:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sms-medipool.de;
  s=mail; t=1781113456;
- bh=bZFGpJySzKQnohFV+X73wcgkGlrAGFLBt7SXWrqmRUE=;
- h=From:To:Cc:Subject:Date:From;
- b=y+FFoEgmCKs2UtqTZ+eQF6SDY4ClnQ25/B8GOGBrrgn9GsgGWKb4nkvGmZx7WK/AT
- h457pi8JFimLGRnhNE5sFlTaj9257qS9giPdkSCMkgBOr6wHqf4M7OqWaS74Xm+ezV
- gJDxAn+eDxQkn/FsRH+JEg978hF/0DwQlh3xed/j/hfNptUPkWWAXvOIKkO1J3IWhW
- V5fpv/4wgoHD58rX/rm2i0oKRnnHHDcxpE6hU2l1M7rscpdR7VDUNusnc13czTkKqs
- NaG25aKWr+w4BOYnUiG9XqCgDeVGIdtEdVVBz82UgCSp2praSJoi3LK5AlX39I33Vf
- CH42WS/94gncA==
+ bh=YgVJz4WwQdlTleUrTkNoFqn5Uqj/4xhgLc17gnJGJ38=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=WRhGzsKQDfdcq5tJSSNLZTrOA/t203jrFrbsU4ZY7+WtHKpZjNHv+/cLOwgA1laq/
+ zIxTSyHsCCGkJGn1IAexeS71+74EQTueHWeldu+N0HmVE/wmgwdLybVgALfrk1VNaj
+ CaStcDbmkllSVElatKLHwwNrKPj1EP4MWj/Eazw4lpMZJA9W4m7nXrL3Roqe9psy//
+ DhU8jHLJeNfUQzqcLpqm8XjVWfAwZwIxOI+FSWe+8c24SKoNjcjGXE069jhTyTmnco
+ Jhg6hEV2LVDgev4+1AJxpkl0M0bImPgqLEHqxCXYGFwrlJ0NncQ2EVtWIMnGae6z7a
+ GVI8Cqxdhzyqw==
 Received: from mail.stoss-medica.de (mail.stoss-medica.de [213.147.17.40])
- by mail.sms-medipool.de (Postfix) with ESMTPS id D569311B52;
+ by mail.sms-medipool.de (Postfix) with ESMTPS id D680F11D3B;
  Wed, 10 Jun 2026 19:44:15 +0200 (CEST)
 Received: from NUC16-Linux.sb.golima.de ([95.88.98.111])
  by mail.stoss-medica.de (Kerio Connect 10.0.8 patch 2) with ESMTP;
- Wed, 10 Jun 2026 19:44:13 +0200
+ Wed, 10 Jun 2026 19:44:14 +0200
 From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
@@ -41,11 +41,13 @@ Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, alexander.kaplan@sms-medipool.de
-Subject: [PATCH 0/3] drm/i915/dp: Fix FRL rate selection and deep color for
- HDMI sinks behind FRL PCONs
-Date: Wed, 10 Jun 2026 19:44:10 +0200
-Message-ID: <20260610174413.5881-1-alexander.kaplan@sms-medipool.de>
+Subject: [PATCH 2/3] drm/i915/dp: Ignore the sink's DSC max FRL rate without a
+ PCON DSC encoder
+Date: Wed, 10 Jun 2026 19:44:12 +0200
+Message-ID: <20260610174413.5881-3-alexander.kaplan@sms-medipool.de>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260610174413.5881-1-alexander.kaplan@sms-medipool.de>
+References: <20260610174413.5881-1-alexander.kaplan@sms-medipool.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -64,82 +66,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-HDMI 2.1 sinks behind a DP to HDMI 2.1 PCON are currently limited to
-8bpc, and the FRL link often trains below what the hardware supports,
-because
+intel_dp_hdmi_sink_max_frl() limits the sink's max FRL rate by its
+DSC max FRL rate whenever the sink supports DSC 1.2.
+However, the DSC max FRL rate (HF-VSDB DSC_Max_FRL_Rate) only applies
+to compressed video transport, which requires a DSC 1.2 encoder in
+the PCON (configured via intel_dp_pcon_dsc_configure()).
+Without such an encoder the HDMI link always carries uncompressed
+video, for which the regular Max_FRL_Rate is the correct limit.
 
- 1) the sink's DSC max FRL rate caps the trained FRL rate even when
-    the PCON has no DSC encoder and thus never produces compressed
-    transport, and
+Applying the DSC limit unconditionally trains the FRL link at a lower
+rate than both the PCON and the sink support.
+E.g. an LG OLED G4 (Max_FRL_Rate 48 Gbps, DSC_Max_FRL_Rate 24 Gbps)
+behind a Synaptics VMM7100 PCON (PCON max FRL bw 48 Gbps, no DSC
+encoder):
 
- 2) the bpc computation validates HDMI sinks behind a branch device
-    against the sink's TMDS character rate limits even when the video
-    is transmitted over FRL.
+  Sink max rate from EDID = 24 Gbps
+  FRL trained with : 24 Gbps
 
-On a Panther Lake NUC (xe) with a Synaptics VMM7100 PCON and an LG
-OLED G4 (Max_FRL_Rate 48 Gbps, DSC_Max_FRL_Rate 24 Gbps, max TMDS
-character rate 600 MHz) this means: FRL trains at 24 instead of
-48 Gbps and 4k60 is limited to RGB 8bpc, while Windows (RGB 10bpc,
-FRL 40G) and macOS (RGB 12bpc, FRL 48G) drive the same hardware with
-deep color.
+while Windows/macOS train the same hardware at 40/48 Gbps.
+The too low FRL rate needlessly constrains the formats available to
+the sink.
 
-Patch 2 applies the sink's DSC max FRL rate only when the PCON
-actually has a DSC 1.2 encoder (the gate intel_dp_pcon_dsc_configure()
-already uses).
-Patch 3 makes intel_dp_hdmi_compute_bpc() validate the required
-bandwidth against the FRL bandwidth the link will be trained with,
-instead of the TMDS limits, for FRL-capable PCON+sink combos.
+Only apply the sink's DSC max FRL rate if the PCON has a DSC 1.2
+encoder, matching the gate in intel_dp_pcon_dsc_configure().
+PCONs with a DSC encoder keep the current conservative behavior,
+since the link is trained once and compressed transport may be used
+for any subsequent mode.
+With this the setup above trains at 48 Gbps.
 
-Patch 1 makes the link config prefer DSC over a dithered 6 bpc
-uncompressed output.
-This is a quality improvement on its own, but it is also ordered
-first for bisectability.
-Patches 2 and 3 open up RGB configurations on FRL links for which
-previously only the YCbCr 4:2:0 fallback existed, and modes which fit
-such a link uncompressed only with 6 bpc (e.g. 4k120 on a 4 lane HBR3
-link) would then select an RGB 6 bpc output.
-The tested Synaptics PCONs (two device families) cannot display a
-6 bpc stream at such pixel clocks, so without patch 1 this would
-trade the previous 4:2:0 picture for a black screen.
+Tested on PTL (xe) with the above PCON/sink combo.
 
-With the full series the setup above runs 4k60 at RGB 12bpc with HDR
-at FRL 48G, and 4k120 at RGB 12bpc (DSC, both SDR and HDR), stable
-across modesets, hotplugs and suspend/resume.
-This was also verified on a second Synaptics PCON device family (a
-TBT4 dock, SYNAa) and against a VMM7100 with a DP branch ID (where
-the HDMI paths stay inert).
+Fixes: 10fec80b48c5 ("drm/i915/display: Configure PCON for DSC1.1 to DSC1.2 encoding")
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+---
+ drivers/gpu/drm/i915/display/intel_dp.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-A related observation, left for a separate change:
-intel_dp_mode_valid_downstream() checks the FRL bandwidth only
-against the PCON's limit (not the sink's max FRL rate from the EDID)
-and skips the TMDS/dotclock checks even for non-FRL sinks behind an
-FRL capable PCON.
-Aligning it with the limit used in patch 3 would make .mode_valid()
-pruning consistent with the compute path.
-
-This series is the first part of a set of independent fixes for the
-USB-C to DP to HDMI 2.1 protocol converter (PCON) path, found and
-verified on an ASUS NUC 16 Pro (Panther Lake, xe driver) driving an
-LG OLED TV through Synaptics VMM7100 based adapters.
-Two dongle firmware lines and a TB4 dock were tested.
-Each series/patch stands on its own and can be merged independently.
-This series targets drm-intel, the DP helper patches of the set
-target drm-misc.
-
-The other parts, to follow shortly:
-  drm/dp: Avoid RBR on Synaptics VMM7100 PCONs failing channel EQ
-  drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
-  drm/dp: Service the CEC tunneling IRQ flags without CEC_IRQ in ESI1
-
-Alexander Kaplan (3):
-  drm/i915/dp: Prefer DSC over a 6 bpc uncompressed output
-  drm/i915/dp: Ignore the sink's DSC max FRL rate without a PCON DSC
-    encoder
-  drm/i915/dp: Check FRL bandwidth limits in the HDMI bpc computation
-
- drivers/gpu/drm/i915/display/intel_dp.c | 58 ++++++++++++++++++++++++-
- 1 file changed, 56 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 13cfccf60490..2831b274d88a 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -4254,7 +4254,14 @@ static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp)
+ 	rate_per_lane = info->hdmi.max_frl_rate_per_lane;
+ 	max_frl_rate = max_lanes * rate_per_lane;
+ 
+-	if (info->hdmi.dsc_cap.v_1p2) {
++	/*
++	 * The sink's DSC max FRL rate only applies to compressed video
++	 * transport, which requires a DSC 1.2 encoder in the PCON. Without
++	 * one the HDMI link always carries uncompressed video, for which
++	 * the regular max FRL rate is the limit.
++	 */
++	if (drm_dp_pcon_enc_is_dsc_1_2(intel_dp->pcon_dsc_dpcd) &&
++	    info->hdmi.dsc_cap.v_1p2) {
+ 		max_dsc_lanes = info->hdmi.dsc_cap.max_lanes;
+ 		dsc_rate_per_lane = info->hdmi.dsc_cap.max_frl_rate_per_lane;
+ 		if (max_dsc_lanes && dsc_rate_per_lane)
 -- 
 2.54.0
 
