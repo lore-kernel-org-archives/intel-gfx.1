@@ -4,99 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D38CD98C6
-	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAA16CD8CB9
+	for <intel-gfx@archiver.kernel.org>; Wed, 10 Jun 2026 14:43:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 587C110E9F8;
-	Wed, 10 Jun 2026 14:43:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A83E710E9F1;
+	Wed, 10 Jun 2026 14:43:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="piaj78gN";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="S/EuK96p";
 	dkim-atps=neutral
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com
- [74.125.224.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0BD510E6EC
- for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 03:56:30 +0000 (UTC)
-Received: by mail-yx1-f41.google.com with SMTP id
- 956f58d0204a3-6608c1a4215so7089006d50.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 09 Jun 2026 20:56:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781063790; cv=none;
- d=google.com; s=arc-20240605;
- b=h3spKzwVcJnHdU3CJ2qdHNLVgpL8zQ/ebqnb23EFWhOdypNBQz14x1vG7QddCztcJd
- lpmV8AThq0piMy+unG71gW0l+LCGin7QHNOa/SYDhC/aXlypkzhsr+o3TcSb83Iyj4Tn
- hbQNojXPWSz803JV3LidI3WR6MfC/MYjCJ4w6+66NM4Pei4LDZI8LCh/pS4NVAg85eOV
- 1fMbR0dX3SFa/MuDr9pSlA4aQqHk4Kz/x0wluethfCQlq+dZKBYLnArXzmH28YJxX4DU
- 8Osjm0XJFkUyagQSf6nF/MOmCJddxLxi73rIhPHlGQQOgcI95i3Tb30IBZEvZ9Qn+Z28
- 0XNw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=o2Y71ur2j8AWeXxKEtF9d/8FWw9ai/UzloR6wLp7LdY=;
- fh=1yfIhAoyx9w2HRdwH/eacEuCaCXmdTMfoo/UI+UjcBU=;
- b=RUbxs3mW071pgh4Xjv+aacZrz0URTVETbLc4oNATD1XO81lNeiWDdsLtBLS1IKqvZM
- iLNrdcrSgiCt8nnb98mAc475ziJmY8IhxU4tF5BJeI/dVWT0ksXkEdk2K7o5ahPTo8DT
- QQEqm7KrjLk7cbX9IWiplmrYqbCOqzZaLTWurCBPvWxCkPRJi39WtP/woRwmP/G1JSkP
- G7vj0THtIYQPVV2ciHTQUai/vJawqsuKVD7l/7oyERP4zlFcP4T+PjVkm9aCV60ukm4g
- CBV6I/EgQD3qIz5teC7TDj+Ei7ErP6kIHBSdv6+n2+OPe6mK+ofGKd1IvncRb4HgRh+i
- NINg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781063790; x=1781668590; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=o2Y71ur2j8AWeXxKEtF9d/8FWw9ai/UzloR6wLp7LdY=;
- b=piaj78gN/m1udGdPA7m5mJ0YXW6DHfKJlv0xm9gvVSnWxdmN9JjitVR0BAqFq8to77
- qlu4xGCfX8LoFwecNxVRqU19hdi2pHOQH/8iBOd6+ci856yvU75S7bESdrPSstnjtryd
- SiFmZIjaL4s4czco/1tBIHlwJxcHBCY6HfEYpVDHht95K7AR6XM65zdrax6ifUqoW0v5
- bUO0kshUyHwAzVtZwMNz3lO9GK/odbayPzjQM8TQZOfZyvBHPW9r3qPVQUPH0pU02Qbc
- XMb++xOqrzKZdvXOyV50zvHzdleQbJ2+3uT68r7HhEsU8teMo6ybAnQ1JHON6vWsLyVW
- mJ0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781063790; x=1781668590;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=o2Y71ur2j8AWeXxKEtF9d/8FWw9ai/UzloR6wLp7LdY=;
- b=YXl9gKhcdiEOUqhTLKyOXmqHNzEMRmR6xYUo8oGBv2+NRf8MyXYzbvjpw8XIwGtzJB
- mTQhh4asZrjCM4gvikNw7bcLTNMga7lObrj0BwcpE59zkWxK9U3mMGs7D7h7AgtVQ6K+
- YxV9TWfTLQVmJ/G7JDtH2m5/6peuSAgEfTg+snSodd1aMAdky62BdQwu3ja769QcbAx7
- PmvvBxPzTu06QyvjzMf7z/RNY5hpd7cpa7DjKfV/JEEMTzR84uwplg8S24N4J8hxCZi4
- WjczNeIlAub7wlv267uEud+YDJBh+4G9CEEzJcOrEWITiB56D1Dkep+jT9/IO2GohPpC
- 8VAw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9+cQUkYIcYV6TnZRZ1CvzxmEMmBoYDcROQOn/NiOGPVpDecUXUvew/gtVeVCyUp9cm93HIrVgYoXg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFp8VVwW7q+yJAuQQBBaExnpGWHpYQLokPC0PatIRmAOh+1gZY
- vfTOnx/cMCosmEbXmA8Z2erMqol/hSuPQKwLlt6Bm+bWlNy8U/S6l2BFC3NFqVoHIyyFHehp7uv
- tp2Fb/lRSCZzK7kuaTWYLJfaSKIudwyo=
-X-Gm-Gg: Acq92OEaC5zVM0E3plK5jjkP6FYhtlIv/5RSlYUpKXPTFUnBwUYsLgj8gXZDe4IHb1S
- qNUiijFc4i3Ol1IxNzjoX1kAH27pklQK/w6Nj4T71pMK11oQ2+g8XJCirskQalzmxpaKFQMyZao
- ZkszneVSZgHrXhfZUINR6jn0VLJgrw/0u+UB1n0MmIdI+gA0/T4PE3yNxRhOQy8P6wSAfZqqLFx
- Jldvr/OYB7lOh1oK0DTNrVh0JvGFXaJrl+kb0gFC0RdmyE4hkINoLuvSef5Htl3AOYJqbBpSCXc
- TgrpD/uV15HvBdobtEzGwrHdFowBCA==
-X-Received: by 2002:a05:690e:1242:b0:660:431b:8a5c with SMTP id
- 956f58d0204a3-6610a624fa8mr15634436d50.4.1781063789814; Tue, 09 Jun 2026
- 20:56:29 -0700 (PDT)
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
+ [95.215.58.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB1A10E72E
+ for <intel-gfx@lists.freedesktop.org>; Wed, 10 Jun 2026 06:15:17 +0000 (UTC)
+Message-ID: <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1781072103;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=GCPO9v7e2NaYcPW5zVGvXXPxzu/fCfdM58tRqJXSo9A=;
+ b=S/EuK96pTXAWUBg+8TCiJYM+danZr1codL6zDdrR1CXWZbSAz8OZt88gSb3T73P2+Oj0bR
+ ye5UJbetTGxWmds/F2K/tlbDAkWts/YSgQ0PrY0mv2jpzcQt2r4zQh26U4ohdHNt5eRxKb
+ jqr9Nyh610YgX0sau/FOqrE+b1XuGGI=
+Date: Wed, 10 Jun 2026 14:14:06 +0800
 MIME-Version: 1.0
-References: <20260605060527.1443552-1-lgs201920130244@gmail.com>
- <aiLe61REFDPGvZWM@ideak-desk.lan>
-In-Reply-To: <aiLe61REFDPGvZWM@ideak-desk.lan>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Wed, 10 Jun 2026 11:56:16 +0800
-X-Gm-Features: AVVi8Cdl7bjaaSoyIcwbk4y7y4tCXUvPuwgUj1XqVjclggrW4JUWxHkR6dTt11A
-Message-ID: <CANUHTR-gdPwagMqGbH+GfPVqWN2ygP6b-GTaUQe_AxZsi5RHfg@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915/dp_tunnel: fix CRTC hw state cleanup ordering
-To: imre.deak@intel.com
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
+ state
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Uma Shankar <uma.shankar@intel.com>, 
- =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>, 
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
+ <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 10 Jun 2026 14:43:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,70 +99,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Imre,
+在 2026/6/9 18:33, Christian König 写道:
+> On 6/9/26 08:13, Kaitao Cheng wrote:
+>> From: Kaito Cheng <chengkaitao@kylinos.cn>
+>>
+>> This series prepares for, and then updates, the list_for_each_entry()
+>> family so the common entry iterators cache their next or previous cursor
+>> before the loop body runs.
+> 
+> Why in the world would we want to do that?
+> 
+> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+> 
+> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+> 
+>> The first 13 patches open-code loops that intentionally depend on the
+>> old "derive the next entry from the current cursor at the end of the
+>> iteration" behaviour.  These loops append work to the list being walked,
+>> restart traversal after dropping a lock, skip an entry consumed by the
+>> current iteration, or otherwise adjust the cursor in the loop body.
+> 
+> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
 
-Thanks for the review.
+Hi Christian and Andy Shevchenko,
 
-On Fri, 5 Jun 2026 at 22:36, Imre Deak <imre.deak@intel.com> wrote:
->
-> On Fri, Jun 05, 2026 at 02:05:27PM +0800, Guangshuo Li wrote:
-> > intel_crtc_prepare_cleared_state() frees the old CRTC hw state before
-> > calling intel_dp_tunnel_atomic_clear_stream_bw(). The latter can fail
-> > while looking up the DP tunnel group state, for example with -EDEADLK.
-> >
-> > If that happens, the function returns without completing the cleared
-> > state preparation, leaving the duplicated CRTC state with its hw color
-> > blob references already dropped. The failed atomic state will then be
-> > cleared by the atomic core, which can drop the same references again.
-> >
-> > Move the hw state release after the DP tunnel stream BW clear has
-> > succeeded. Keep the temporary state allocation before the failable DP
-> > tunnel operation so an allocation failure cannot happen after the stream
-> > BW has already been cleared.
-> >
-> > Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >  drivers/gpu/drm/i915/display/intel_display.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> > index ad2fe10b6b1f..0c015bc6c9fd 100644
-> > --- a/drivers/gpu/drm/i915/display/intel_display.c
-> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> > @@ -4646,9 +4646,6 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
-> >       if (!saved_state)
-> >               return -ENOMEM;
-> >
-> > -     /* free the old crtc_state->hw members */
-> > -     intel_crtc_free_hw_state(crtc_state);
->
-> The fix is valid, however I think instead of this change it'd be better
-> to clear the blob reference pointers in intel_crtc_free_hw_state().
->
-> > -
-> >       err = intel_dp_tunnel_atomic_clear_stream_bw(state, crtc_state);
-> >       if (err) {
-> >               kfree(saved_state);
-> > @@ -4656,6 +4653,9 @@ intel_crtc_prepare_cleared_state(struct intel_atomic_state *state,
-> >               return err;
-> >       }
-> >
-> > +     /* free the old crtc_state->hw members */
-> > +     intel_crtc_free_hw_state(crtc_state);
-> > +
-> >       /* FIXME: before the switch to atomic started, a new pipe_config was
-> >        * kzalloc'd. Code that depends on any field being zero should be
-> >        * fixed, so that the crtc_state can be safely duplicated. For now,
-> > --
-> > 2.43.0
-> >
+Thanks for taking a look. I would like to clarify the point you raised.
 
-Agreed, clearing the blob reference pointers in
-intel_crtc_free_hw_state() makes the cleanup safe against repeated calls
-and avoids changing the ordering in intel_crtc_prepare_cleared_state().
+The reason I started looking at this is the original motivation behind
+the _safe() variants.  They exist because some users need to remove, move
+or otherwise consume the current entry while walking the list.  In that
+case the next cursor has to be preserved before the loop body can modify
+the current entry.
 
-I'll send a v2 with that change.
+The unfortunate part is that this could not be expressed with the
+existing list_for_each_entry() interface without changing its calling
+convention.  The _safe() variants had to grow an extra argument for the
+temporary cursor, and that is why we ended up with a separate family of
+macros.
 
-Best regards,
-Guangshuo
+But conceptually, the distinction does not have to be exposed as two
+different iterator families forever.  The difference is an implementation
+detail: whether the iterator keeps the next/previous cursor before the
+body runs.  This series makes the common list_for_each_entry() iterators
+do that internally, so the safe and non-safe forms can effectively be
+folded together, or at least the need for a separate public _safe()
+interface becomes much weaker.
+
+There is also a usability issue with the current _safe() interface.  The
+caller is forced to define a temporary cursor outside the macro and pass
+it in, even though almost all users never use that cursor directly.  It is
+just boilerplate required by the macro implementation.  I find that
+redundant and awkward: the temporary cursor is an internal detail of the
+iteration, but every caller has to spell it out.
+
+With the updated list_for_each_entry() implementation, that extra cursor
+can be kept inside the iterator itself.  Callers that only want to walk
+the list, including callers that delete or consume the current entry, no
+longer need to carry an otherwise-unused temporary variable just to make
+the macro work.
+
+>>
+>> The final patch changes include/linux/list.h to keep a private cursor in
+>> the common entry iterators while preserving the public macro interface.
+>> The safe variants remain available when callers need the temporary
+>> cursor explicitly or have stronger mutation requirements.
+>>
+>> Changes in v2 (Muchun Song, Andy Shevchenko):
+>>  - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
+>>    cursor change directly in the existing list_for_each_entry*() helpers.
+>>  - Open-code special list walks that rely on updating the loop cursor in
+>>    the body, preserving their existing traversal semantics.
+>>
+>> Link to v1:
+>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+>>
+>> Kaitao Cheng (14):
+>>   drbd: Open-code transfer log list walk
+>>   firewire: core: Open-code topology list walk
+>>   drm/bridge: Open-code bridge chain list walks
+>>   drm/i915/gt: Open-code active timeline walk
+>>   drm/i915: Open-code DFS dependency list walk
+>>   drm/ttm: Open-code reservation list walk
+>>   spi: fsi: Open-code message transfer walk
+>>   spi: stm32-ospi: Open-code message transfer walk
+>>   spi: stm32-qspi: Open-code message transfer walk
+>>   spi: tegra210-quad: Open-code message transfer walk
+>>   locking/locktorture: Open-code ww mutex list walk
+>>   locking/ww_mutex: Open-code stress reorder list walk
+>>   ASoC: dapm: Open-code widget invalidation walk
+>>   list: Cache cursors in entry iterators
+>>
+>>  drivers/block/drbd/drbd_debugfs.c      |  4 ++-
+>>  drivers/firewire/core-topology.c       |  4 ++-
+>>  drivers/gpu/drm/drm_bridge.c           |  7 ++--
+>>  drivers/gpu/drm/i915/gt/intel_reset.c  |  4 ++-
+>>  drivers/gpu/drm/i915/i915_scheduler.c  |  4 ++-
+>>  drivers/gpu/drm/ttm/ttm_execbuf_util.c |  4 ++-
+>>  drivers/spi/spi-fsi.c                  |  5 ++-
+>>  drivers/spi/spi-stm32-ospi.c           |  4 ++-
+>>  drivers/spi/spi-stm32-qspi.c           |  5 ++-
+>>  drivers/spi/spi-tegra210-quad.c        |  4 ++-
+>>  include/linux/list.h                   | 46 ++++++++++++++++++++------
+>>  kernel/locking/locktorture.c           |  4 ++-
+>>  kernel/locking/test-ww_mutex.c         |  4 ++-
+>>  sound/soc/soc-dapm.c                   |  4 ++-
+>>  14 files changed, 78 insertions(+), 25 deletions(-)
+>>
+>> --
+>> 2.43.0
+>>
+> 
+
+-- 
+Thanks
+Kaitao Cheng
+
