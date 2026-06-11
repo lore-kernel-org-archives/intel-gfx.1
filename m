@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF78DCD98CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:51:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B817CD98D2
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:51:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74DC510ED52;
-	Thu, 11 Jun 2026 07:51:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E62D410ED6E;
+	Thu, 11 Jun 2026 07:51:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gxfxcWRP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ObWrjzSk";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A3110ED41;
- Thu, 11 Jun 2026 07:51:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C938B10ED63;
+ Thu, 11 Jun 2026 07:51:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781164273; x=1812700273;
+ t=1781164277; x=1812700277;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=q6PqD2uwzQyjOb8tILJn6UCN+RFmYNiNCMtL+hf8Hyg=;
- b=gxfxcWRPhGM5ONFfIdfvVT9mkpQ7uWY26VwJl7MkWpZ/62Cv5Ahke5ht
- sA/8MG7O2VCvlY5L2zOlAyBjQpw8GPNZvL6CRxKlU+GhKMbWK/nVDdFIx
- h+U6PAyMvHpzFqbbglTizfJ0sUuSb+bAhUIT+rgFjR5U8G1SsfOKYDNGn
- aYYkT+iH+W5OyxnwSQ3ew3gvkQ6kXOhCeHN27CFyzayqTq3gdA88VeIFP
- ocdqh1UIZUpYfjRAgQmF8L+qA6CHb9jNQd/t8bImUWhzFR4/2z6Qzvb6Q
- L2EbFjPoZVPoRI1miKlQcfozpEFJAhvTz/ISpxisDxEGbcehVwO0CXwLY Q==;
-X-CSE-ConnectionGUID: CIm1SBWmRbyjXx6NlCh8lA==
-X-CSE-MsgGUID: vzP1/hodTk6hWn69tQKJkQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93078755"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="93078755"
+ bh=NoDn/xPHlksM31YYZnoYT/88ZmBU2bwc9oPH/7R2gaA=;
+ b=ObWrjzSkRQv0ugiVJF/IDK9nhoAMgm6YH5+WsvUP38ncB4a76vNNBMjv
+ vk3VRYjAsCmFdh5r7uQNsgi39LewblvdWMhfOWJpJSDrw15/01BRLxskt
+ AzYl5b78sU229TYtT1j7nTaigTwQTIskkw4UdsK2s9leYd+7Y/X4OKcJ4
+ mqmTAd2iqFQUbUGlRD6bjPV8b3p9QoyVCOxM1uk7CXkKmpqSK8bR7a93B
+ PPAQze868OwOhYffPcjLcke7AfhHBjixx+JKoxrxO3bJaz07VxKGrTWXR
+ hRsqmDPHZBZKTFXLQBLCmPpAJLKurY1gLCNMJhlTpNWxXTBEm523VF5sM Q==;
+X-CSE-ConnectionGUID: vWrFagxeTaa2VwgAm05VYA==
+X-CSE-MsgGUID: Ps5pfHd7SsWtVvZN2ZjTRw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93078760"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="93078760"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 00:51:13 -0700
-X-CSE-ConnectionGUID: curK6M2UR82dRw1oMFOReQ==
-X-CSE-MsgGUID: KF6FhG6LSx+jfwVNElU5Xg==
+ 11 Jun 2026 00:51:17 -0700
+X-CSE-ConnectionGUID: BCsWOefbRp+FJ9RHb/nPxQ==
+X-CSE-MsgGUID: D7yKrQGEQVGqAjhvnkDoEQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="251503358"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="251503368"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 00:51:10 -0700
+ 11 Jun 2026 00:51:14 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, arun.r.murthy@intel.com,
  jani.nikula@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v4 09/12] drm/i915/dp: Store SDP transmission lines in
- crtc_state
-Date: Thu, 11 Jun 2026 13:03:11 +0530
-Message-ID: <20260611073316.1439306-10-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v4 11/12] drm/i915/dip: Enable Common SDP Transmission line
+Date: Thu, 11 Jun 2026 13:03:13 +0530
+Message-ID: <20260611073316.1439306-12-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260611073316.1439306-1-ankit.k.nautiyal@intel.com>
 References: <20260611073316.1439306-1-ankit.k.nautiyal@intel.com>
@@ -70,54 +69,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Currently the driver only programs the transmission line for the
-Adaptive-Sync SDP, while the hardware controls the transmission lines for
-other SDPs.
+Enable programming of the common SDP transmission line on platforms that
+support it. Compute and program the common base transmission line and
+per-SDP stagger values from the crtc state during modeset, and disable the
+feature on pipe disable.
 
-Starting with Xe3p_lpd, the hardware allows the driver to program
-transmission lines for additional DP SDPs. Prepare for this by adding
-fields to struct intel_crtc_state to store SDP transmission lines, and
-include them in pipe config comparison.
+Currently, the stagger values are set as per the default policy of the
+Hardware. This can be optimized later if we come up with a specific driver
+policy to sequence the SDPs better.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dip.h     | 6 ++++++
- drivers/gpu/drm/i915/display/intel_display.c | 5 +++++
- 2 files changed, 11 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c |  3 +
+ drivers/gpu/drm/i915/display/intel_dip.c | 90 ++++++++++++++++++++++++
+ 2 files changed, 93 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dip.h b/drivers/gpu/drm/i915/display/intel_dip.h
-index e9959356226e..03ef749a79ca 100644
---- a/drivers/gpu/drm/i915/display/intel_dip.h
-+++ b/drivers/gpu/drm/i915/display/intel_dip.h
-@@ -51,6 +51,12 @@ struct intel_dip {
- 	 * The programmed transmit line is (Vtotal - value)
- 	 */
- 	u16 emp_as_sdp_tl;
-+	u16 gmp_sdp_tl;
-+	u16 pps_sdp_tl;
-+	u16 vsc_sdp_tl;
-+	u16 vsc_ext_sdp_tl;
-+	/* Common SDP Base transmission line (Xe3p_lpd+) */
-+	u16 cmn_sdp_tl;
- };
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index d2edfad295d5..ca9144add691 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -2727,6 +2727,8 @@ static void mtl_ddi_pre_enable_dp(struct intel_atomic_state *state,
+ 	/* 6.o Configure and enable FEC if needed */
+ 	intel_ddi_enable_fec(encoder, crtc_state);
  
- void intel_dip_sdp_tl_compute_config_late(struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index c84ee0e865ee..8807897538a4 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5508,6 +5508,11 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
- 	PIPE_CONF_CHECK_I(set_context_latency);
++	intel_dip_cmn_sdp_transmission_line_enable(crtc_state);
++
+ 	/* 7.a 128b/132b SST. */
+ 	if (!is_mst && intel_dp_is_uhbr(crtc_state)) {
+ 		/* VCPID 1, start slot 0 for 128b/132b, tu slots */
+@@ -3114,6 +3116,7 @@ static void intel_ddi_buf_disable(struct intel_encoder *encoder,
+ 			     DP_TP_CTL_ENABLE, 0);
+ 	}
  
- 	PIPE_CONF_CHECK_I(dip.emp_as_sdp_tl);
-+	PIPE_CONF_CHECK_I(dip.gmp_sdp_tl);
-+	PIPE_CONF_CHECK_I(dip.pps_sdp_tl);
-+	PIPE_CONF_CHECK_I(dip.vsc_sdp_tl);
-+	PIPE_CONF_CHECK_I(dip.vsc_ext_sdp_tl);
-+	PIPE_CONF_CHECK_I(dip.cmn_sdp_tl);
++	intel_dip_cmn_sdp_transmission_line_disable(crtc_state);
+ 	intel_ddi_disable_fec(encoder, crtc_state);
  
- #undef PIPE_CONF_CHECK_X
- #undef PIPE_CONF_CHECK_I
+ 	if (DISPLAY_VER(display) < 14)
+diff --git a/drivers/gpu/drm/i915/display/intel_dip.c b/drivers/gpu/drm/i915/display/intel_dip.c
+index 5cda9792d593..d60f9f8111b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_dip.c
++++ b/drivers/gpu/drm/i915/display/intel_dip.c
+@@ -11,6 +11,7 @@
+ #include "intel_dip_regs.h"
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
++#include "intel_hdmi.h"
+ 
+ u16 intel_dip_read_emp_as_sdp_tl(const struct intel_crtc_state *crtc_state)
+ {
+@@ -38,14 +39,103 @@ void intel_dip_write_emp_as_sdp_tl(const struct intel_crtc_state *crtc_state)
+ 		       EMP_AS_SDP_DB_TL(crtc_state->dip.emp_as_sdp_tl));
+ }
+ 
++static int intel_dip_sdp_stagger_to_tl(struct intel_crtc_state *crtc_state,
++				       int stagger)
++{
++	return crtc_state->dip.cmn_sdp_tl + stagger;
++}
++
++static
++void intel_dip_cmn_sdp_tl_compute_config_late(struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++	bool as_sdp;
++
++	if (!HAS_COMMON_SDP_TL(display))
++		return;
++
++	as_sdp = crtc_state->infoframes.enable &
++		 intel_hdmi_infoframe_enable(DP_SDP_ADAPTIVE_SYNC);
++	/*
++	 * When AS SDP is enabled :
++	 *  - The common SDP Transmission Line matches the EMP SDP Transmission Line.
++	 *
++	 * When AS SDP is disabled:
++	 *  - Bspec mentions the positions as lines of delayed vblank.
++	 *  - Guardband = 1st line of delayed vblank
++	 *  - Common SDP Transmission line is set to 2nd line of delayed vblank.
++	 */
++
++	if (as_sdp)
++		crtc_state->dip.cmn_sdp_tl = crtc_state->dip.emp_as_sdp_tl;
++	else
++		crtc_state->dip.cmn_sdp_tl = crtc_state->vrr.guardband - 1;
++
++	/*
++	 * Currently we are programming the default stagger values, but these
++	 * can be optimized if required, based on number of SDPs enabled.
++	 *
++	 * Default values of the Transmission lines for SDPs other than AS SDP:
++	 * VSC : CMN SDP Transmission line
++	 * GMP : CMN SDP Transmission line
++	 * PPS : CMN SDP Transmission line + 1
++	 * VSC_EXT: CMN SDP Transmission line + 2
++	 */
++	crtc_state->dip.vsc_sdp_tl = crtc_state->dip.cmn_sdp_tl;
++	crtc_state->dip.gmp_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, GMP_STAGGER_DEFAULT);
++	crtc_state->dip.pps_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, PPS_STAGGER_DEFAULT);
++	crtc_state->dip.vsc_ext_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, VSC_EXT_STAGGER_DEFAULT);
++}
++
+ void intel_dip_sdp_tl_compute_config_late(struct intel_crtc_state *crtc_state)
+ {
+ 	crtc_state->dip.emp_as_sdp_tl = intel_dp_get_as_sdp_transmission_line(crtc_state);
++
++	intel_dip_cmn_sdp_tl_compute_config_late(crtc_state);
++}
++
++static
++void intel_dip_cmn_sdp_transmission_line_get_config(struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
++	u16 vsc_ext_stagger, pps_stagger, gmp_stagger;
++	u32 val;
++
++	if (!HAS_COMMON_SDP_TL(display))
++		return;
++
++	val = intel_de_read(display, CMN_SDP_TL(display, cpu_transcoder));
++
++	if (!(val & TRANSMISSION_LINE_ENABLE))
++		return;
++
++	crtc_state->dip.cmn_sdp_tl = REG_FIELD_GET(BASE_TRANSMISSION_LINE_MASK, val);
++
++	/* SDP VSC uses same transmission line as CMN base transmission line */
++	crtc_state->dip.vsc_sdp_tl = crtc_state->dip.cmn_sdp_tl;
++
++	val = intel_de_read(display, CMN_SDP_TL_STGR_CTL(display, cpu_transcoder));
++
++	vsc_ext_stagger = REG_FIELD_GET(VSC_EXT_STAGGER_MASK, val);
++	pps_stagger = REG_FIELD_GET(PPS_STAGGER_MASK, val);
++	gmp_stagger = REG_FIELD_GET(GMP_STAGGER_MASK, val);
++
++	crtc_state->dip.vsc_ext_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, vsc_ext_stagger);
++	crtc_state->dip.pps_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, pps_stagger);
++	crtc_state->dip.gmp_sdp_tl =
++		intel_dip_sdp_stagger_to_tl(crtc_state, gmp_stagger);
+ }
+ 
+ void intel_dip_sdp_transmission_line_get_config(struct intel_crtc_state *crtc_state)
+ {
+ 	crtc_state->dip.emp_as_sdp_tl = intel_dip_read_emp_as_sdp_tl(crtc_state);
++	intel_dip_cmn_sdp_transmission_line_get_config(crtc_state);
+ }
+ 
+ static int intel_dip_sdp_tl_to_stagger(const struct intel_crtc_state *crtc_state,
 -- 
 2.45.2
 
