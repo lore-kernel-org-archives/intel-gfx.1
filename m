@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90310CD98CE
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A35CCD98CE
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AEDD10EA3B;
-	Fri, 12 Jun 2026 13:06:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31ADB10F4B5;
+	Fri, 12 Jun 2026 13:06:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="WXdGfeEV";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Hp8pOFHp";
 	dkim-atps=neutral
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com
- [91.218.175.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DFD410EEAD
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:05:38 +0000 (UTC)
-Message-ID: <0a333eb8-fc29-4b85-993e-6b726f4c7cf0@linux.dev>
+Received: from out-171.mta1.migadu.com (out-171.mta1.migadu.com
+ [95.215.58.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D22F10ECA8
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 04:43:24 +0000 (UTC)
+Message-ID: <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1781179534;
+ t=1781152991;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=5DWhVGO5QRW1VdI6faudwwsJfHG4kEahgJYviymqApU=;
- b=WXdGfeEVGSAo++golesa9RqlwDWjUI0heMbmJ+0qysjw6M0vMDyoHOMF4BIo7IvkX4TAc/
- st1Pw4GNLqtv7J36ZsIWUbhzXpD6Xr1bl3yfaJx2Itop5AMoYvIiJY7F17AB8z2GFhlVk4
- dNxzkmi6tes/wrxDPVh7NfIty6mQlso=
-Date: Thu, 11 Jun 2026 20:04:40 +0800
+ bh=amFobG45FitZxSTZMk37sKmrzp6+HTwygF2QRCMVESA=;
+ b=Hp8pOFHpWz66c6aS666mzKdGRUOg5trj2OOXjIC2FT49beQLeiNdwbdvku6y74Ze+FUPE+
+ E8RFdhLaOrZjL9dY7cSSbpn242HXv3fuPOtrI0a7ePuPhOCMW89fa+R0t1DoJD4yyOztEo
+ oTw51U8wnDSUmm+mYfNoclmpLJbmbns=
+Date: Thu, 11 Jun 2026 12:42:02 +0800
 MIME-Version: 1.0
 Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
  state
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Thierry Reding <thierry.reding@kernel.org>,
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
  Jonathan Hunter <jonathanh@nvidia.com>,
  Sowjanya Komatineni <skomatineni@nvidia.com>,
  Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
@@ -78,14 +78,10 @@ References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
  <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
  <ail4AvzqAOXNaU6N@ashevche-desk.local>
- <9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev>
- <aipbojSeMH-usARY@ashevche-desk.local>
- <83ba73d8-27d3-4ee9-a143-7dfe4cb827be@linux.dev>
- <aippVAj83dCzscTN@ashevche-desk.local>
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <aippVAj83dCzscTN@ashevche-desk.local>
+In-Reply-To: <ail4AvzqAOXNaU6N@ashevche-desk.local>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
@@ -107,128 +103,143 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 
-在 2026/6/11 15:52, Andy Shevchenko 写道:
-> On Thu, Jun 11, 2026 at 03:36:01PM +0800, Kaitao Cheng wrote:
->> 在 2026/6/11 14:54, Andy Shevchenko 写道:
->>> On Thu, Jun 11, 2026 at 12:42:02PM +0800, Kaitao Cheng wrote:
->>>> 在 2026/6/10 22:43, Andy Shevchenko 写道:
->>>>> On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
->>>>>> 在 2026/6/9 18:33, Christian König 写道:
->>>>>>> On 6/9/26 08:13, Kaitao Cheng wrote:
->>>
->>>>>>>> This series prepares for, and then updates, the list_for_each_entry()
->>>>>>>> family so the common entry iterators cache their next or previous cursor
->>>>>>>> before the loop body runs.
->>>>>>>
->>>>>>> Why in the world would we want to do that?
->>>>>>>
->>>>>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
->>>>>>>
->>>>>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
->>>>>>>
->>>>>>>> The first 13 patches open-code loops that intentionally depend on the
->>>>>>>> old "derive the next entry from the current cursor at the end of the
->>>>>>>> iteration" behaviour.  These loops append work to the list being walked,
->>>>>>>> restart traversal after dropping a lock, skip an entry consumed by the
->>>>>>>> current iteration, or otherwise adjust the cursor in the loop body.
->>>>>>>
->>>>>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
->>>>>>
->>>>>> Hi Christian and Andy Shevchenko,
->>>>>>
->>>>>> Thanks for taking a look. I would like to clarify the point you raised.
->>>>>>
->>>>>> The reason I started looking at this is the original motivation behind
->>>>>> the _safe() variants.  They exist because some users need to remove, move
->>>>>> or otherwise consume the current entry while walking the list.  In that
->>>>>> case the next cursor has to be preserved before the loop body can modify
->>>>>> the current entry.
->>>>>>
->>>>>> The unfortunate part is that this could not be expressed with the
->>>>>> existing list_for_each_entry() interface without changing its calling
->>>>>> convention.  The _safe() variants had to grow an extra argument for the
->>>>>> temporary cursor, and that is why we ended up with a separate family of
->>>>>> macros.
->>>>>>
->>>>>> But conceptually, the distinction does not have to be exposed as two
->>>>>> different iterator families forever.  The difference is an implementation
->>>>>> detail: whether the iterator keeps the next/previous cursor before the
->>>>>> body runs.  This series makes the common list_for_each_entry() iterators
->>>>>> do that internally, so the safe and non-safe forms can effectively be
->>>>>> folded together, or at least the need for a separate public _safe()
->>>>>> interface becomes much weaker.
->>>>>>
->>>>>> There is also a usability issue with the current _safe() interface.  The
->>>>>> caller is forced to define a temporary cursor outside the macro and pass
->>>>>> it in, even though almost all users never use that cursor directly.  It is
->>>>>> just boilerplate required by the macro implementation.  I find that
->>>>>> redundant and awkward: the temporary cursor is an internal detail of the
->>>>>> iteration, but every caller has to spell it out.
->>>>>
->>>>> Ah, I think the distinct macro families is that what we want.
->>>>> But the hiding of the parameter can be done inside list_for_each_*_safe().
->>>>> You can do a treewide change with coccinelle.
->>>>>
->>>>> Sorry if I didn't get the whole idea from your previous contributions.
->>>>>
->>>>> Note, even cases that would need a temporary cursor may be switched to
->>>>> new list_for_each_*_safe(), see how PCI macros for iterating over resources
->>>>> are implemented (include/linux/pci.h).
+在 2026/6/10 22:43, Andy Shevchenko 写道:
+> On Wed, Jun 10, 2026 at 02:14:06PM +0800, Kaitao Cheng wrote:
+>> 在 2026/6/9 18:33, Christian König 写道:
+>>> On 6/9/26 08:13, Kaitao Cheng wrote:
 >>>>
->>>> Thanks for your suggestions. I've written a demo based on your feedback.
->>>> Could you please review it and share your thoughts on this approach?
+>>>> This series prepares for, and then updates, the list_for_each_entry()
+>>>> family so the common entry iterators cache their next or previous cursor
+>>>> before the loop body runs.
 >>>
->>> Have you checked how many users actually need the temporary storage?
+>>> Why in the world would we want to do that?
+>>>
+>>> The safe and non-safe variants have very distinct use cases and that is completely intentional.
+>>>
+>>> What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+>>>
+>>>> The first 13 patches open-code loops that intentionally depend on the
+>>>> old "derive the next entry from the current cursor at the end of the
+>>>> iteration" behaviour.  These loops append work to the list being walked,
+>>>> restart traversal after dropping a lock, skip an entry consumed by the
+>>>> current iteration, or otherwise adjust the cursor in the loop body.
+>>>
+>>> Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
 >>
->> In Muchun's reply, he mentioned the following:
+>> Hi Christian and Andy Shevchenko,
 >>
->> There are 9,925 list_for_each_entry() call sites in total. Among them,
->> 9,919 do not require any adaptation, and only 6 need to be refactored:
+>> Thanks for taking a look. I would like to clarify the point you raised.
 >>
->> As for list_for_each_entry_safe(), there are 4,572 callers. 4,550 of them
->> can be directly replaced by the new list_for_each_entry(), while 22 cannot
->> be replaced
+>> The reason I started looking at this is the original motivation behind
+>> the _safe() variants.  They exist because some users need to remove, move
+>> or otherwise consume the current entry while walking the list.  In that
+>> case the next cursor has to be preserved before the loop body can modify
+>> the current entry.
 >>
->> https://lore.kernel.org/all/2B3BFA1E-08B8-42AB-87D6-A28BF15E5C58@linux.dev/
+>> The unfortunate part is that this could not be expressed with the
+>> existing list_for_each_entry() interface without changing its calling
+>> convention.  The _safe() variants had to grow an extra argument for the
+>> temporary cursor, and that is why we ended up with a separate family of
+>> macros.
 >>
->> I only used Coccinelle to scan for list_for_each_entry() call sites, and
->> found the 13 call sites shown in the current patch series, which cover
->> the 6 cases mentioned in Muchun's email. I have not yet run the Coccinelle
->> scan for list_for_each_entry_safe().
+>> But conceptually, the distinction does not have to be exposed as two
+>> different iterator families forever.  The difference is an implementation
+>> detail: whether the iterator keeps the next/previous cursor before the
+>> body runs.  This series makes the common list_for_each_entry() iterators
+>> do that internally, so the safe and non-safe forms can effectively be
+>> folded together, or at least the need for a separate public _safe()
+>> interface becomes much weaker.
 >>
->> If we need to handle all 9,925 list_for_each_entry() call sites or all 4,572
->> list_for_each_entry_safe() call sites in one go, would such a change be too
->> large? I expect it would affect almost every kernel subsystem.
+>> There is also a usability issue with the current _safe() interface.  The
+>> caller is forced to define a temporary cursor outside the macro and pass
+>> it in, even though almost all users never use that cursor directly.  It is
+>> just boilerplate required by the macro implementation.  I find that
+>> redundant and awkward: the temporary cursor is an internal detail of the
+>> iteration, but every caller has to spell it out.
 > 
-> If it's done by Linus himself during the day when he prepares -rc1, it's fine.
-> You would need to provide a good justification for the change, though.
+> Ah, I think the distinct macro families is that what we want.
+> But the hiding of the parameter can be done inside list_for_each_*_safe().
+> You can do a treewide change with coccinelle.
 > 
-> But in the above statistics the 4572 vs 4550, so the first step is to investigate
-> why temporary cursor is used in those 22 cases and what we can do to avoid that.
+> Sorry if I didn't get the whole idea from your previous contributions.
+> 
+> Note, even cases that would need a temporary cursor may be switched to
+> new list_for_each_*_safe(), see how PCI macros for iterating over resources
+> are implemented (include/linux/pci.h).
 
-Here is one example: in shmem_unuse() in mm/shmem.c, list_for_each_entry_safe()
-is used. In this case, the caller releases shmem_swaplist_lock inside the loop.
-During that window, the list may be modified, and the previously saved next may
-become stale. Therefore, next needs to be recomputed so that subsequent iteration
-is based on the latest list state.
+Thanks for your suggestions. I've written a demo based on your feedback.
+Could you please review it and share your thoughts on this approach?
 
-This leads to two possible approaches:
 
-1. Change list_for_each_entry_safe(pos, n, head, member) directly to
-list_for_each_entry_safe(pos, head, member). If we do this, the case
-above would need to be converted to an open-coded form.
+diff --git a/include/linux/list.h b/include/linux/list.h
+index 9df84a56a789..306554ab1841 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -7,6 +7,7 @@
+ #include <linux/stddef.h>
+ #include <linux/poison.h>
+ #include <linux/const.h>
++#include <linux/args.h>
 
-2. Support both forms, list_for_each_entry_safe(pos, n, head, member)
-and list_for_each_entry_safe(pos, head, member), as described in the
-link below.
-https://lore.kernel.org/all/9b98e860-11df-44bf-9a95-3046d2c274a6@linux.dev/
+ #include <asm/barrier.h>
 
-Do you have any other thoughts on this?
+@@ -911,20 +912,34 @@ static inline size_t list_count_nodes(struct list_head *head)
+        for (; !list_entry_is_head(pos, head, member);                  \
+             pos = list_prev_entry(pos, member))
 
->> I wonder whether it would be better to first provide the necessary
->> compatibility APIs, and then let each subsystem owner update their code as
->> appropriate. That would make the impact more controlled, similar to how
->> the current folio replacement of page is being handled.
++#define __list_for_each_entry_safe_internal(pos, next, head, member)   \
++       for (typeof(pos) next = list_next_entry(pos =                   \
++               list_first_entry(head, typeof(*pos), member), member);  \
++            !list_entry_is_head(pos, head, member);                    \
++            pos = next, next = list_next_entry(next, member))
++
++#define __list_for_each_entry_safe2(pos, head, member)                 \
++       __list_for_each_entry_safe_internal(pos, __UNIQUE_ID(next), head, member)
++
++#define __list_for_each_entry_safe3(pos, next, head, member)           \
++       for (pos = list_first_entry(head, typeof(*pos), member),        \
++               next = list_next_entry(pos, member);                    \
++            !list_entry_is_head(pos, head, member);                    \
++            pos = next, next = list_next_entry(next, member))
++
+ /**
+  * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
+  * @pos:       the type * to use as a loop cursor.
+- * @n:         another type * to use as temporary storage
+- * @head:      the head for your list.
+- * @member:    the name of the list_head within the struct.
++ * @...:       either (head, member) or (next, head, member)
++ *     @next:  another type * to use as optional temporary storage. The temporary
++ *             cursor is internal unless explicitly supplied by the caller.
++ *     @head:  the head for your list.
++ *     @member:the name of the list_head within the struct.
+  *
+  */
+-#define list_for_each_entry_safe(pos, n, head, member)                 \
+-       for (pos = list_first_entry(head, typeof(*pos), member),        \
+-               n = list_next_entry(pos, member);                       \
+-            !list_entry_is_head(pos, head, member);                    \
+-            pos = n, n = list_next_entry(n, member))
++#define list_for_each_entry_safe(pos, ...)                             \
++       CONCATENATE(__list_for_each_entry_safe, COUNT_ARGS(__VA_ARGS__))\
++               (pos, __VA_ARGS__)
+
+ /**
+  * list_for_each_entry_safe_continue - continue list iteration safe against removal
+
+>> With the updated list_for_each_entry() implementation, that extra cursor
+>> can be kept inside the iterator itself.  Callers that only want to walk
+>> the list, including callers that delete or consume the current entry, no
+>> longer need to carry an otherwise-unused temporary variable just to make
+>> the macro work.
+>>
+>>>> The final patch changes include/linux/list.h to keep a private cursor in
+>>>> the common entry iterators while preserving the public macro interface.
+>>>> The safe variants remain available when callers need the temporary
+>>>> cursor explicitly or have stronger mutation requirements.
+> 
+> 
+
 -- 
 Thanks
 Kaitao Cheng
