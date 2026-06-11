@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61AADCD98CC
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89523CD98D5
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 07:51:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C6D210ED5D;
-	Thu, 11 Jun 2026 07:51:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 213F110ED41;
+	Thu, 11 Jun 2026 07:51:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TzIvTSJk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TDMNFDft";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91DC310ED62;
- Thu, 11 Jun 2026 07:51:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5BBA10ED40;
+ Thu, 11 Jun 2026 07:51:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781164271; x=1812700271;
+ t=1781164275; x=1812700275;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=7LyB1E7yS+8fKyRQZUDHJkmePYa5Y5tiwX4BhAPiJsM=;
- b=TzIvTSJkKTfAGIkKSpYNXaAAcozzP4spV9BYDwxrYHuZYTyVHE4RNup1
- f9MCJ7OiQDRg1IwosN4ETUyedF+oZkaGMxP/pHY7sJpEOP9sO4bZOrWml
- EcYI0XK+gAoAuDdzJNM8NhRKOo+kYbUoVy+Vf8oD1n94FcyrZAp/6cWZA
- z3Ym20IBR9UAiZG+agYRhPM0BP1U3pVw7DnjSWaaaQrrgviiVEX4BKnyq
- lqWRdsgpKonMWL+BrgOk2rYvJ+mTr+5ZTw5JkSw2n6GMpvNpQgglkfCIC
- PKE465acvUYPaITGFgEpsqZSydiHzCtQHA5XzEgeDYQEw47zv5I7Sw8OV g==;
-X-CSE-ConnectionGUID: YKeijWbMS9at8SHzWoD1Iw==
-X-CSE-MsgGUID: OEgltodgShGAq3ob/CfI6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93078753"
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="93078753"
+ bh=9ivhXUxL6froDTFjWs4HQXYK5jqsNieutqqkSLpX55E=;
+ b=TDMNFDftFPYxu21CKJmQ9cuMS5tpl008ZOgh2k+Zh+b02YJwRq9Taq4p
+ AIHpR1JXFmBOIGsySeDog+k3xg0bhIaHYHvq6/r3h6zUpytfmSidAlQMS
+ ugOk6O8BIoi9xy971/8CM1sK7dZdhmd/KUlxF0OJLcqgXuPR1SvsTek+b
+ mdkrHu0vBDxcwlxwmEQgXq5qAjY7wHXSpzEl+a3GBAqfG8gWSPCowKba4
+ f2tDHhhf/hQKF2Wsk/L9Fk/0f4u3OikjfbFKhc0JvxnhbI1mwt91gEm1b
+ 88WHXdeB1mQJ7fGwvyPcMgOJqvTSz6W2IGPQKiEWLNP7ZkEQPh6O5Zam5 A==;
+X-CSE-ConnectionGUID: c9TG0NSVT7SHttCfjkl7dA==
+X-CSE-MsgGUID: Fs9KxsOLTcy3GWpPe4eoTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93078758"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="93078758"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 00:51:11 -0700
-X-CSE-ConnectionGUID: xUIi6Px1TA+aH1jrqzWZeQ==
-X-CSE-MsgGUID: wivXeW/SThibE3JuITcZ6A==
+ 11 Jun 2026 00:51:15 -0700
+X-CSE-ConnectionGUID: gwKwCuNZSxK+F69JCbRXWA==
+X-CSE-MsgGUID: i65TJFLoR56uWHWUvSDIZA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="251503352"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="251503363"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 00:51:08 -0700
+ 11 Jun 2026 00:51:12 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: ville.syrjala@linux.intel.com, arun.r.murthy@intel.com,
  jani.nikula@linux.intel.com, Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v4 08/12] drm/i915/display: Add HAS_COMMON_SDP_TL macro
-Date: Thu, 11 Jun 2026 13:03:10 +0530
-Message-ID: <20260611073316.1439306-9-ankit.k.nautiyal@intel.com>
+Subject: [PATCH v4 10/12] drm/i915/dp: Introduce helpers to enable/disable CMN
+ SDP Transmission line
+Date: Thu, 11 Jun 2026 13:03:12 +0530
+Message-ID: <20260611073316.1439306-11-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260611073316.1439306-1-ankit.k.nautiyal@intel.com>
 References: <20260611073316.1439306-1-ankit.k.nautiyal@intel.com>
@@ -69,35 +70,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a helper macro to detect CMN SDP TL support on platforms with display
-version 35 and above.
+Introduce helpers to program or disable CMN_SDP_TL and stagger registers
+using the state stored in crtc_state.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dip.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dip.c | 56 ++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dip.h |  2 +
+ 2 files changed, 58 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_dip.c b/drivers/gpu/drm/i915/display/intel_dip.c
+index 333314637db5..5cda9792d593 100644
+--- a/drivers/gpu/drm/i915/display/intel_dip.c
++++ b/drivers/gpu/drm/i915/display/intel_dip.c
+@@ -4,6 +4,8 @@
+  *
+  */
+ 
++#include <drm/drm_print.h>
++
+ #include "intel_de.h"
+ #include "intel_dip.h"
+ #include "intel_dip_regs.h"
+@@ -45,3 +47,57 @@ void intel_dip_sdp_transmission_line_get_config(struct intel_crtc_state *crtc_st
+ {
+ 	crtc_state->dip.emp_as_sdp_tl = intel_dip_read_emp_as_sdp_tl(crtc_state);
+ }
++
++static int intel_dip_sdp_tl_to_stagger(const struct intel_crtc_state *crtc_state,
++				       u16 sdp_transmission_line)
++{
++	return sdp_transmission_line - crtc_state->dip.cmn_sdp_tl;
++}
++
++void intel_dip_cmn_sdp_transmission_line_enable(const struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
++	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
++	int gmp_stagger;
++	int pps_stagger;
++	int vsc_ext_stagger;
++
++	if (!crtc_state->dip.cmn_sdp_tl)
++		return;
++
++	gmp_stagger = intel_dip_sdp_tl_to_stagger(crtc_state,
++						  crtc_state->dip.gmp_sdp_tl);
++
++	pps_stagger = intel_dip_sdp_tl_to_stagger(crtc_state,
++						  crtc_state->dip.pps_sdp_tl);
++
++	vsc_ext_stagger = intel_dip_sdp_tl_to_stagger(crtc_state,
++						      crtc_state->dip.vsc_ext_sdp_tl);
++
++	if (drm_WARN_ON(display->drm, gmp_stagger < 0))
++		return;
++	if (drm_WARN_ON(display->drm, pps_stagger < 0))
++		return;
++	if (drm_WARN_ON(display->drm, vsc_ext_stagger < 0))
++		return;
++
++	intel_de_write(display, CMN_SDP_TL_STGR_CTL(display, cpu_transcoder),
++		       GMP_STAGGER(gmp_stagger) |
++		       PPS_STAGGER(pps_stagger) |
++		       VSC_EXT_STAGGER(vsc_ext_stagger));
++
++	intel_de_write(display, CMN_SDP_TL(display, cpu_transcoder),
++		       TRANSMISSION_LINE_ENABLE |
++		       BASE_TRANSMISSION_LINE(crtc_state->dip.cmn_sdp_tl));
++}
++
++void intel_dip_cmn_sdp_transmission_line_disable(const struct intel_crtc_state *old_crtc_state)
++{
++	struct intel_display *display = to_intel_display(old_crtc_state);
++	enum transcoder cpu_transcoder = old_crtc_state->cpu_transcoder;
++
++	if (!old_crtc_state->dip.cmn_sdp_tl)
++		return;
++
++	intel_de_write(display, CMN_SDP_TL(display, cpu_transcoder), 0);
++}
 diff --git a/drivers/gpu/drm/i915/display/intel_dip.h b/drivers/gpu/drm/i915/display/intel_dip.h
-index 600dabbf7372..e9959356226e 100644
+index 03ef749a79ca..24d6228c2f8d 100644
 --- a/drivers/gpu/drm/i915/display/intel_dip.h
 +++ b/drivers/gpu/drm/i915/display/intel_dip.h
-@@ -32,6 +32,16 @@ struct intel_crtc_state;
- #define HAS_EMP_AS_SDP_TL(__display)	(DISPLAY_VERx100(__display) == 1401 || \
- 					 DISPLAY_VER(__display) >= 20)
+@@ -61,5 +61,7 @@ struct intel_dip {
  
-+/*
-+ * CMN SDP TL: Common Secondary Data Packet Transmission Line.
-+ *
-+ * Xe3p_lpd introduces new register CMN_SDP_TL to program a common SDP
-+ * Transmission line that will be used by the Hardware to position the
-+ * SDPs. Along with this, another new register CMN_SDP_TL_STGR_CTL is
-+ * also added to stagger the different SDPs.
-+ */
-+#define HAS_COMMON_SDP_TL(__display)      (DISPLAY_VER(__display) >= 35)
-+
- u16 intel_dip_read_emp_as_sdp_tl(const struct intel_crtc_state *crtc_state);
- void intel_dip_write_emp_as_sdp_tl(const struct intel_crtc_state *crtc_state);
+ void intel_dip_sdp_tl_compute_config_late(struct intel_crtc_state *crtc_state);
+ void intel_dip_sdp_transmission_line_get_config(struct intel_crtc_state *crtc_state);
++void intel_dip_cmn_sdp_transmission_line_enable(const struct intel_crtc_state *crtc_state);
++void intel_dip_cmn_sdp_transmission_line_disable(const struct intel_crtc_state *old_crtc_state);
  
+ #endif /* __INTEL_DIP_H__ */
 -- 
 2.45.2
 
