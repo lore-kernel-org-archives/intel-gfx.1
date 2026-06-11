@@ -4,170 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03397CD98C7
-	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 08:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE87CD98D2
+	for <intel-gfx@archiver.kernel.org>; Thu, 11 Jun 2026 08:09:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97B8610ED40;
-	Thu, 11 Jun 2026 08:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E4510E647;
+	Thu, 11 Jun 2026 08:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WGcCDjow";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jYIPSPO0";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013052.outbound.protection.outlook.com
- [40.107.201.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C48B510ED40;
- Thu, 11 Jun 2026 08:02:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BQLX8zabzpWc70aq8SJmqI3sePCP2cR5Qr1sS6LdgHtWyofcP7NGdX3sJtacptQ8rie7d7e2TraDAMNXLKK1FASa9BMdJY88m71DWL58vM8D1CQ3oN/JY9pN33EoRZB00huaPmZaLJIENjqd1U5BMtqkaI6RwFkGe+uDq0IsXdrJ6I1VtZ/8ybvdsVBH8FLTi66sK1/JgQHue+WlHsY7jZcvSbAJBZ3BwGpV5CAD6AjNtbdaQuncOqVZ1oQ4CIE3QjD6j5ecFF8akumVlxjLAgRZkIuUC7sZJ1uaM8kbJWcXBwch9GE1RGj7XJEbVBu6MZxHTCBYn1MFdOI0o7sEvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U1l4L2KZOkl3OQtjo8wiusThkx1Bv4k4J552WYRPRLo=;
- b=exXLzskEDD/BCKBF6KIqGWx1im6JtFEdWMNKr4j8fjo1s7CabcfzP62KxQB/Ve2sZU3dsMmSMqUWIfAmBNUv1q+KrEXciWonfJ+Mjvt7Dl1wRPYPlSesILu/BTS4EAqeUnK5khKBq11B04aMw2EU9ICSN0a4aVDLXDRSvr2Tt7t+/VCtv+qUSLRVdd1qWqAzK4ihAAdym5AA31DTqmC8rfE6m2HLj/kHTJqqNuKVq3RbijvyVhm8A21+hlP6pc3YyKBEVfwNhQEFchjV+uu6Vk5BvYjMPkKoI6v/s7I5fBCvfbJ/wvH3MqU1Kxzthn7D+bA29516WfTQeX7Eo1GDjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U1l4L2KZOkl3OQtjo8wiusThkx1Bv4k4J552WYRPRLo=;
- b=WGcCDjow4rqR2DPOb936zshpMU6RnT6hEz88DuoFTc5aX8agh59UpBO09eUJY4eiph3jElpmq+DGIsoIzo+PLA4o81/mDREPTeVW0MR1H5Y7edR6Ihy2snXl6LCrcMYGwvAxMfXxKnmJFBLMxDnGkbmZ6D8RmevMKm5mpOcoZpk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB8523.namprd12.prod.outlook.com (2603:10b6:8:18e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.13; Thu, 11 Jun
- 2026 08:02:04 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Thu, 11 Jun 2026
- 08:02:04 +0000
-Message-ID: <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
-Date: Thu, 11 Jun 2026 10:01:25 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
- drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
- <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
- <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
- <ail8iNvPrJnE7p58@ashevche-desk.local>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <ail8iNvPrJnE7p58@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MN0PR04CA0025.namprd04.prod.outlook.com
- (2603:10b6:208:52d::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 795F910E647;
+ Thu, 11 Jun 2026 08:09:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781165388; x=1812701388;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=L4FYyAVQZCE3K3P8p2yB3De6g3RB+38aLqosT3HGZyc=;
+ b=jYIPSPO0IKpZrtuz9cZd/b0epFytazfTc57R0SbN5VMkWJpZqZ6AWtIx
+ 0x5oXdGQxBYtEdsFZe9VkGCxVHTL549bOU6wMA2cEPRBU3XGg0NP9pFvx
+ Ej9xP5WLQNjJoJaMk4YTF6vRrVcTEBlSb1NDObf9aV/u/srw1lY/9g1Go
+ He1WN4Kuudf6d1Yg0sGHnpLfvUKeMWwJylpT/Ki55tZKQ5KyPvKK+7ALf
+ MASVft6Tji6bl1wK2tSmPJrtvR/CGCA32sStCRMFGRLQNmVLTkOQymFg5
+ SgIDVOdJ+e35muKmM9EMtkNZlvgjUUZHwoYAVJ3Iq7NjOTPFKNG2mVEfj w==;
+X-CSE-ConnectionGUID: CwwJVEseQO2tQfseBJrC4w==
+X-CSE-MsgGUID: FWcGQ1uqQAG3A2U8386btA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="85869890"
+X-IronPort-AV: E=Sophos;i="6.24,198,1774335600"; d="scan'208";a="85869890"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 01:09:47 -0700
+X-CSE-ConnectionGUID: dMfvpTBbQKmvi5jc5uj+Qw==
+X-CSE-MsgGUID: 3NWBx8IpT36mPP8cH8xpCA==
+X-ExtLoop1: 1
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.165])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Jun 2026 01:09:44 -0700
+Date: Thu, 11 Jun 2026 11:09:41 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Animesh Manna <animesh.manna@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ uma.shankar@intel.com, dibin.moolakadan.subrahmanian@intel.com,
+ jani.nikula@intel.com
+Subject: Re: [PATCH v8 04/20] drm/i915/display: Pass target transcoder to
+ intel_set_transcoder_timings()
+Message-ID: <aiptRZnAtlMivRUl@intel.com>
+References: <20260603195416.91639-1-animesh.manna@intel.com>
+ <20260603195416.91639-5-animesh.manna@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB8523:EE_
-X-MS-Office365-Filtering-Correlation-Id: d88b51d7-4a73-4e9d-b823-08dec78fb987
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|7416014|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: i763Z/yN9QSE/0E3zH19KNbxVfG91nw+dD37LePGrpOYWeKztx4BbBBN0gVnHiIAOLiRAHP/2IjK1C+1JW/JEi4+7m1e7H4CSsGKBEUdF4v9PJFCijiBp+MixrFPlkfNeMBbhrbCDUhXVqPohAIX5nL1ydLJu/ztwl8rQ9FOfd7ZXqtfmXo1tv+65UUgmgq/WnF+fEnr2MoIIetdBx4tEyDBCVohIe/jotzSim1dyrmHLgqg54RbfOV3tv+SnYb3bPkklyyQpAASrI3STfW3mDmHxbwqrJAUw+yK2DV7L3N9UhWtxftmJFqUgw6TK/ZNOi3M0qXQ95nE5c3SHiw1Z0ViunlP7WO/jz+1S0sMDOvgxetDYFb06syvbYIncDdiTe1HWM2XrpKLB+ExmML5spDiYLP6viSIKpNKemr8XHUgWm7kE3qRmc9+QQLX188QEc0zzjB2OiCqJfe4+1e3CvNbY1PmR2taeWJ5j6TPhIvfksDCL/0/giB1yUduXCxgGO3sbSJv30Ddy9XHqaZHoLxvUgCfjFBYChKfszzNVjGlUk0450V2mHguwaW0EUkArlYrYf82R3ghyDtSuONG7tXnBak6ITrwtfuTZCQiRLVExSzUiWQLfVWeiHwUwqRZpzHa2QN02GwecCkPPKxRbWm2Kmbdk0sWopFlVclhJqm9sGIB5kWpsQSULBGX5qide9FZsFs746Kg/4HIWO3lAg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z05Ncnc5L0JndER4cm1xV2o4MHlGOUJKTVdoS2RFQUYxYVF5VmQwZkVYS3Fm?=
- =?utf-8?B?T3ovYnpaYmw3WXB0MG9HOVY0WnRiM2ZnMVNnTExBSTVrZXV4Ylk0a3U2dzNQ?=
- =?utf-8?B?dGlXbmR3UnRRT0YvZmU0TmxpcCtCOTZualI5NHp3WTlhOUVRQ0MrSnVBbzRK?=
- =?utf-8?B?RExxVXh0a1hMUngrQWJEcTVuTm9uc0tJTGU2YW01cXdOUVRWQzkzTEhFRzFU?=
- =?utf-8?B?SGZsblBSOEFlYjlWTnM4eXpsaW1scG9IUEZOSVh4Zmg5V0dKNlVzZVI1WUlG?=
- =?utf-8?B?bFNFZy8vZXk1cmJRYnZWMWlPV2dVKzQzejdSUmdIZTlXQ2Q4S0pTOVRsNUZM?=
- =?utf-8?B?TVBpOTRpc2pFTCtrYi9iV3NpQmIwTDVObnpzOW5rSlpKWHBmYkdzUmZkMGZa?=
- =?utf-8?B?U3lvRHM0cjA0anpPODUraWFiYkZ4V2FuWUgwN0h4UThwRVArWmd4alBlNnMv?=
- =?utf-8?B?WDhXbStSSUl3UW05NEdydjFsdXRZQXJ6bDZIbXoxTGEwRHZKZzEvWFI3UjVV?=
- =?utf-8?B?U210UUlOdktsNkUyOVdHb3NlZEZBUGplNWV2dmpzUzIzZWVYbnBxSUl6ZWly?=
- =?utf-8?B?K043eGRXY1dLSENEb3dIanNWZExCakpyWGtxRE1XVXgzOEJzRWZOZE1TZy9o?=
- =?utf-8?B?NTdxbkoxaCsxVDhyYWplbzBQT3ZkR1BOak9SUHd1MUt3VG9FWkRhdjJJcG85?=
- =?utf-8?B?YS8vZXZYRVdhRWR3T0x2aVg3YjNxeTZZTURNczE5dmxDeWlPNWlTWkNSL1BY?=
- =?utf-8?B?bSszOVJqSXFIUTJZSlJrMlB5NEhocExWS0FXOXQvQ2lWRTVNSTVOY2JYSWpB?=
- =?utf-8?B?d01uYkE5cnZ5bmNHd25PR2hXTUZhMmpJMmQwN0FpQmFxL202U3lHQmdoMC9D?=
- =?utf-8?B?ckNKaVBQdzM3VkFpaE9taENkTkhuMEc4a3A0TnF3NEIrWkk3SWJvY3V6Uk55?=
- =?utf-8?B?YU1jcGhjNFdoNlNWbEVRUTJwK2FjN3FJUCtqejF6Ykw3RHVKdUhqeW9YNDJD?=
- =?utf-8?B?amlUSVYyRG9pSlNuS3dQbXpPWlZuUTZzWUlwSk4rREw3WUlQT292bTNMVGFk?=
- =?utf-8?B?SGFjMWt2eWxzenVCV0VtWU4rcmdEb1ZJYWhUSWtPSFVkajB4ajFBZ2w5Wlpy?=
- =?utf-8?B?bXcrSW9henRUZ2svRWtTdUVZSVZSZm0rUStZZE5uc3J4RkE0R0w0Z2pjaW5Z?=
- =?utf-8?B?YVQ3M0tyRno2V05YNVBpendvUCtISk1oWWU3clJseG8yV3ZOY25BMjJROG91?=
- =?utf-8?B?b2gzdm9MMHMrbmIrdlMvYi9ONmUvR2prb082QVJkWjJuKzFDMlpRVjZlbjFW?=
- =?utf-8?B?QngzRXZrdWIwYk1FQ2Fzd0xQM2kyWktCcWJ1WUtPcmVZR2FPbG5odDh3V3A3?=
- =?utf-8?B?WFdwYmxQbjZQaDVYWnRaQkdrTk1zbmthQjc1SXUzOEhocXpEZVZncEowTlZs?=
- =?utf-8?B?Qms2b05rLy9NYmhlQTRYNUxQWXJwYVg1a3ZFdzRqRWUzWWx5R251dVEybmhh?=
- =?utf-8?B?eFdOdkNVUlFQVGJkQ1FvTWhMejRPVWVnUGNON0RlbmZEK29PUm5hU3Z4U2lU?=
- =?utf-8?B?RkxwQnNFcS9LYTZuYVJhT0xWb0JtSHRwVDhSRTdmdnp0YzkwL2M0K29LVW9M?=
- =?utf-8?B?ejlXZlBHVWtaSExJYW4xUndBd2dtU1dMNnNpc3lNZFVDYytsUnFhUWs2VTNk?=
- =?utf-8?B?bzRGTzFPVjREZW85YTYxVFRXQ2w3MVN1UEdvY3hiZ2RBbUJCL1ZOQWw1dml5?=
- =?utf-8?B?ZS90VnhvaGZkN0lVY2pSTjVSdzdzUGdJMGI0MWhpcE9Ld09ESTNxMkZEelo0?=
- =?utf-8?B?eHc1cE10cW5VcWNZOXU5dXJzbWJXVytVZFE2NnlFa2dxZUhqSnM1dGNpSEhG?=
- =?utf-8?B?T2ZJeGY1YkNvQVZPRmV4MCsxbHo0NURMcFhRSmRYaHlHdTlLV0tPVk4rdjl0?=
- =?utf-8?B?QTJVc1AzM1ZOV1ltWmhMd3BuZDdGZXpleU5sVENERTZheEZZSjIrVVprSjlE?=
- =?utf-8?B?VEh6aEoxKy9FNDhtQXNUOXNCb1pJTFVjNVBNWXZYQ2VGM0hsRXBIQW5aT2R5?=
- =?utf-8?B?ZWNzMTJzWXlPbyt4ZktranRIeitjRzlpd2FiRmJJYXd1SzBKVSs1aDVFd2pZ?=
- =?utf-8?B?QVBXUWF5MjE5QkxadVVySXNkOWJvYkR2MFcyZ2VwZVhSbnBieENWcFRpUUsr?=
- =?utf-8?B?cjVMR01taHpERVNzamtHaktHTi9vRlBjWHk5am1NV3kyQUdLdElCWnR5YkpN?=
- =?utf-8?B?SnRyT2pKZzQ0UDJPTWZsb2xoQ2ZydE5mN1RheHNRamQyLzl0dldRRGo1LzJi?=
- =?utf-8?Q?OS33vQYzpuGM0t2bg0?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d88b51d7-4a73-4e9d-b823-08dec78fb987
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 08:02:04.1722 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T9Ieec8W5GNnHevvvWWrKeDSDvvpHyAMm34tm5sASpPik2PfNYwk289Hx6uDwMdK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8523
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260603195416.91639-5-animesh.manna@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,41 +75,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/10/26 17:02, Andy Shevchenko wrote:
-> On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
->> On 6/10/26 10:18, Kaitao Cheng wrote:
->>> 在 2026/6/10 16:07, Christian König 写道:
+On Thu, Jun 04, 2026 at 01:24:00AM +0530, Animesh Manna wrote:
+> Let intel_set_transcoder_timings() take the target transcoder as an
+> explicit argument instead of always using crtc_state->cpu_transcoder.
+> This makes the helper reusable for callers that need to program timings
+> for a transcoder other than the CRTC's CPU transcoder.
 > 
-> ...
+> Update all existing callers to pass crtc_state->cpu_transcoder so there
+> is no functional change.
 > 
->>> Should we revert to v1, or keep list_for_each_entry() and
->>> list_for_each_entry_safe() as they are, close this thread, and make no
->>> changes?
->>>
->>> Link to v1:
->>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
->>>
->>> Or do you have any better suggestions?
->>
->> v1 looks perfectly reasonable to me.
+> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 35 ++++++++++----------
+>  1 file changed, 18 insertions(+), 17 deletions(-)
 > 
-> But why not just hiding that once for all (in case they don't use the temporary
-> iterator)? Easy to automate, robust — everyone is happy?
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 8e269b71f18e..9031264a34fc 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -132,7 +132,8 @@
+>  #include "vlv_dsi_pll.h"
+>  #include "vlv_dsi_regs.h"
+>  
+> -static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state);
+> +static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
+> +					 enum transcoder transcoder);
+>  static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state);
+>  static void hsw_set_transconf(const struct intel_crtc_state *crtc_state);
+>  static void bdw_set_pipe_misc(struct intel_dsb *dsb,
+> @@ -1504,7 +1505,7 @@ static void ilk_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
+>  					       &crtc_state->dp_m2_n2);
+>  	}
+>  
+> -	intel_set_transcoder_timings(crtc_state);
+> +	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+>  
+>  	ilk_set_pipeconf(crtc_state);
+>  }
+> @@ -1635,7 +1636,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
+>  					       &crtc_state->dp_m2_n2);
+>  	}
+>  
+> -	intel_set_transcoder_timings(crtc_state);
+> +	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+>  
+>  	if (cpu_transcoder != TRANSCODER_EDP)
+>  		intel_de_write(display, TRANS_MULT(display, cpu_transcoder),
+> @@ -2048,7 +2049,7 @@ static void i9xx_configure_cpu_transcoder(const struct intel_crtc_state *crtc_st
+>  					       &crtc_state->dp_m2_n2);
+>  	}
+>  
+> -	intel_set_transcoder_timings(crtc_state);
+> +	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+>  
+>  	i9xx_set_pipeconf(crtc_state);
+>  }
+> @@ -2664,17 +2665,17 @@ transcoder_has_vrr(const struct intel_crtc_state *crtc_state)
+>  	return HAS_VRR(display) && !transcoder_is_dsi(cpu_transcoder);
+>  }
+>  
+> -static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
+> +static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
+> +					 enum transcoder transcoder)
+>  {
+>  	struct intel_display *display = to_intel_display(crtc_state);
+>  	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+>  	enum pipe pipe = crtc->pipe;
+> -	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+>  	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+>  	u32 crtc_vdisplay, crtc_vtotal, crtc_vblank_start, crtc_vblank_end;
+>  	int vsyncshift = 0;
+>  
+> -	drm_WARN_ON(display->drm, transcoder_is_dsi(cpu_transcoder));
+> +	drm_WARN_ON(display->drm, transcoder_is_dsi(transcoder));
 
-As far as I can see that is an extremely bad idea.
+If you want to rename the variable, then do so in a separate patch.
+Mixing the rename with other changes is destroying the signal to
+noise ratio of the patch.
 
-The distinction between the use cases of 'iterating the list' and 'iterating the list while you modify it' is completely intentional.
+>  
+>  	/* We need to be careful not to changed the adjusted mode, for otherwise
+>  	 * the hw state checker will get angry at the mismatch. */
+> @@ -2703,7 +2704,7 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+>  	 */
+>  	if (DISPLAY_VER(display) >= 13) {
+>  		intel_de_write(display,
+> -			       TRANS_SET_CONTEXT_LATENCY(display, cpu_transcoder),
+> +			       TRANS_SET_CONTEXT_LATENCY(display, transcoder),
+>  			       crtc_state->set_context_latency);
+>  
+>  		/*
+> @@ -2718,16 +2719,16 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+>  
+>  	if (DISPLAY_VER(display) >= 4 && DISPLAY_VER(display) < 35)
+>  		intel_de_write(display,
+> -			       TRANS_VSYNCSHIFT(display, cpu_transcoder),
+> +			       TRANS_VSYNCSHIFT(display, transcoder),
+>  			       vsyncshift);
+>  
+> -	intel_de_write(display, TRANS_HTOTAL(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_HTOTAL(display, transcoder),
+>  		       HACTIVE(adjusted_mode->crtc_hdisplay - 1) |
+>  		       HTOTAL(adjusted_mode->crtc_htotal - 1));
+> -	intel_de_write(display, TRANS_HBLANK(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_HBLANK(display, transcoder),
+>  		       HBLANK_START(adjusted_mode->crtc_hblank_start - 1) |
+>  		       HBLANK_END(adjusted_mode->crtc_hblank_end - 1));
+> -	intel_de_write(display, TRANS_HSYNC(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_HSYNC(display, transcoder),
+>  		       HSYNC_START(adjusted_mode->crtc_hsync_start - 1) |
+>  		       HSYNC_END(adjusted_mode->crtc_hsync_end - 1));
+>  
+> @@ -2740,13 +2741,13 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+>  	if (intel_vrr_always_use_vrr_tg(display))
+>  		crtc_vtotal = 1;
+>  
+> -	intel_de_write(display, TRANS_VTOTAL(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_VTOTAL(display, transcoder),
+>  		       VACTIVE(crtc_vdisplay - 1) |
+>  		       VTOTAL(crtc_vtotal - 1));
+> -	intel_de_write(display, TRANS_VBLANK(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_VBLANK(display, transcoder),
+>  		       VBLANK_START(crtc_vblank_start - 1) |
+>  		       VBLANK_END(crtc_vblank_end - 1));
+> -	intel_de_write(display, TRANS_VSYNC(display, cpu_transcoder),
+> +	intel_de_write(display, TRANS_VSYNC(display, transcoder),
+>  		       VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
+>  		       VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
+>  
+> @@ -2754,7 +2755,7 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+>  	 * programmed with the VTOTAL_EDP value. Same for VTOTAL_C. This is
+>  	 * documented on the DDI_FUNC_CTL register description, EDP Input Select
+>  	 * bits. */
+> -	if (display->platform.haswell && cpu_transcoder == TRANSCODER_EDP &&
+> +	if (display->platform.haswell && transcoder == TRANSCODER_EDP &&
+>  	    (pipe == PIPE_B || pipe == PIPE_C))
+>  		intel_de_write(display, TRANS_VTOTAL(display, pipe),
+>  			       VACTIVE(crtc_vdisplay - 1) |
+> @@ -2769,7 +2770,7 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+>  		 * followed by BE which DPRX devices are unable to handle.
+>  		 * https://groups.vesa.org/wg/DP/document/20494
+>  		 */
+> -		intel_de_write(display, DP_MIN_HBLANK_CTL(cpu_transcoder),
+> +		intel_de_write(display, DP_MIN_HBLANK_CTL(transcoder),
+>  			       crtc_state->min_hblank);
+>  	}
+>  }
+> -- 
+> 2.29.0
 
-See the bool type can be implemented by int as well, but it is just a different use case.
-
-Regards,
-Christian.
-
-> 
->> You should just include some patches in the same patch set to actually use
->> the new macros.
->>
->> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
->> the new macro I'm happy to review that.
-> 
-
+-- 
+Ville Syrj�l�
+Intel
