@@ -4,92 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0282CD98DB
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 373A8CD98D8
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3386710EA4A;
-	Fri, 12 Jun 2026 13:06:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD1A310F4B4;
+	Fri, 12 Jun 2026 13:06:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="rFXXpM7I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZJdse7YB";
 	dkim-atps=neutral
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com
- [91.218.175.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F13AE10E769
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 12:28:10 +0000 (UTC)
-Message-ID: <27b726c2-9b72-4b44-9d85-9b1aa12851a2@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1781180888;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=/UsUeGpou3lVapXWhjq32I6t+zBdHKuqjJl90iVDSiA=;
- b=rFXXpM7IJOrHQFdgRhKujVf5VdxV6jkKNFlDsX25IoXEP9KJZ8Dv8l5c0nKTafwKXUsRZ9
- 3BPFb1LLg9n4GliYQt3h1fAcAsjSrL2AfeU8aUx/g3f9LERtMslSnnlcG3/NjMtCHL+fHf
- 5Y0xERqt55aedIITIkiJCvpkmeFBkwg=
-Date: Thu, 11 Jun 2026 20:27:05 +0800
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com
+ [74.125.224.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4CE810F203
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 03:42:39 +0000 (UTC)
+Received: by mail-yx1-f53.google.com with SMTP id
+ 956f58d0204a3-66039d3efcbso573234d50.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 20:42:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1781235759; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bumCmRmUHzIRzfplGJqQMVQjtBag6NscQ3aK8S0h/zqWFV1y9CeH8aoqKIdcteWWtq
+ P0wt4f158DdY6fk1tLHbeQBTZemTR+/n5/pOHcCgoR9BMk/KNvZ04HcDtEtt2L7CoxH+
+ tEWQw2jk6C1zvCum7wz2uwVMVeoYnURQOVLK2GMFfTS3TW8k01Pisz9NmLBVfLDc3lmg
+ 2YcZnFuy6cCpswo2D0WRLKA1gf7cSEuiFioPsDWrZMxShEfJ1XfaLpxkahLo0lBO4sZz
+ TucilvV+0URJUE1SaaCWcRiG7pA8VFXeTDXoIM6/XtOREgbg6CARA92HoqVE0SIBE0rw
+ 0SrA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=F2b1FbuAbMKG8c113cKqrJ2bKBY8pM/9wTcVdHGIxkg=;
+ fh=ftxp895V6D4+w8w2IPkEODL0FatZEUBB+T/SZ/O4f34=;
+ b=OQSMTlm8/T+cLGsKs9vBsdc2LyLsq0QPxFA+trUZzeT5y/datam+YS4l77PKkkcaye
+ kL7RHAijcq1jDsokKEfJP7p82jbcuQ1Ip+JmsY7llsvX5ljpL37gb8YY2Gss+JT0eVPj
+ eHYF7jUrlXw3cl7Fz7eBn6Jvrs3roeBRWeAYpTxDoJBp3CYqV4bScUJqvj/9yiodVMqI
+ yvPbp2kMRdB2EWAjDOMy3Y94dXw9a7HxgQn4ybDIfVR3BTADybzvILlPIPKxK2beriBs
+ 1bR0YWvMm29HGiC53rCgy0vsWPEJCyLpA8IjBryFjfnue3tR1J0mWTm0dTPnRDUdZr1Z
+ MCaQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1781235759; x=1781840559; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=F2b1FbuAbMKG8c113cKqrJ2bKBY8pM/9wTcVdHGIxkg=;
+ b=ZJdse7YBljmIvcc0E2mphwxVGYoXeHNjWkGOYCkU77UWG3u7xkyVsUzXQL4lrZFXPw
+ ExTSrPrOaOpD2G8VEsmFlWOAxHAIU2WTpThODNd0cBkY9jHiIbEBig6XXbAexrEfWBkg
+ gZ77RV62FSkob0hnoVWErhLK/AkRgcahGlE7EJ1B/EL6oS2VBGiJAoLJXlMEcKelcMGP
+ CrbBcKmFXZMuxsQnFXcrunnBOZiOWCJN85G/OteQZx9vGw98UT1sHIpsJ9DhtXvVl78Z
+ noOdt4gGtbSmn2+QS65/zmsn3zQDLZADFMAtOWcBsGVhIfkuCi2Ppyxktqh4kFboNbVj
+ ubtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781235759; x=1781840559;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F2b1FbuAbMKG8c113cKqrJ2bKBY8pM/9wTcVdHGIxkg=;
+ b=bPGy/mE5tQoy1Bnw8Z3r2JsW07QPpNJaXuF3bsZWBNZB4GFcNcgHBdn0P4kBvzAlCn
+ E7+0uZp4AgD0R9qd2xsQjSacI4y1TAtCUUPq68hbgt5WtPXznQj+QbgTOyA1rhg49zHr
+ l7mHBZTSJ5fYt4J3e93Jbao4xKWYr0emolP1n3JMkKkwQP3iQugTe9xBKfC8YmuLgCNP
+ qhnFTqx46ZElEDA7WeP2XWGlFHkvFofIRkpAiytIQbyKZFAUOD6fUHBQCes/boDfRaXQ
+ 4s3MGTierd4BVZ6tR3c8UPqXaQ7Dowb7ph5+gTWs3cOhrQr3MXfpqNO5hK0T1LCgRC7x
+ QhBg==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+X56KRpWh8J8a93HmTCuumQLJUmPJ434phw6mgwfg6LC016+G+iwCyfiHYOX3jbF9zKd6E3tpRlic=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxUVCvjPDi/pdwdzBZiequhpqXZ5xmXDJir8pBD9JjMq3Dw3vzF
+ PIbEpd2bsqBTivyWqCz558STbTKBWvEWmL65UMuWWUpe26bk1699g4Xd18eb/ZJBowpd5mAb+kM
+ ZRNRPdLYLysIacYHxO1s/fV+l3WNxNOs=
+X-Gm-Gg: Acq92OG5wfnb3S79FkcPXeL5Vk/1j5+kw8LRPTAyopAO3cgjXq0Y1PRFr5mD8Mq2ZjY
+ FjIhTgppWKr3Y0Rrsye3xdTLbrtWlTDBXW524nkqUIAufcNFx6fNEh8k3l77bHM5C713ZakDA6y
+ vnCQIm59zURsW8bdPPTwfL3eFengUiaWi6Q5fSZCju7AlzbBf1cz7xsUMlB/+VvzNR3W4L/ZWt2
+ 6WbOebRB8CRsqqZWBMZHavtpBAj5htA3O6VYTMlPKYfVNi4/+MBBS+10m0sOWfb+Lc2W/BID72D
+ aUeProkw
+X-Received: by 2002:a05:690e:191b:b0:651:bd70:161b with SMTP id
+ 956f58d0204a3-66277f4c797mr925128d50.1.1781235758651; Thu, 11 Jun 2026
+ 20:42:38 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 00/14] list: Prepare entry iterators to cache cursor
- state
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
- <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
+References: <20260610035419.1596963-1-lgs201920130244@gmail.com>
+ <ail6r13cZSN5EPLx@ideak-desk.lan>
+In-Reply-To: <ail6r13cZSN5EPLx@ideak-desk.lan>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Fri, 12 Jun 2026 11:42:19 +0800
+X-Gm-Features: AVVi8Ce4po4Dg0d4OZSFYJGTZQPPjfgeS2QsqZx_6UblnVFzZSwcDHWE8ndszHg
+Message-ID: <CANUHTR84uSy15DCdXYr2DWPoJcx_0vnG3LfFb2x9Yt978K5tgA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/i915: clear CRTC color blob pointers after
+ dropping refs
+To: imre.deak@intel.com
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Waiman Long <longman@redhat.com>,
- drbd-dev@lists.linbit.com, linux-block@vger.kernel.org,
- linux1394-devel@lists.sourceforge.net, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-spi@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Christian Brauner
- <brauner@kernel.org>, David Howells <dhowells@redhat.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Kaito Cheng <chengkaitao@kylinos.cn>, Muchun Song <muchun.song@linux.dev>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
- <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
- <ail8iNvPrJnE7p58@ashevche-desk.local>
- <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
- <aipx1goKIsk40vrF@ashevche-desk.local>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-In-Reply-To: <aipx1goKIsk40vrF@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+ Uma Shankar <uma.shankar@intel.com>, 
+ =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 12 Jun 2026 13:06:10 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,67 +113,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Imre,
 
+Thanks for the review.
 
-在 2026/6/11 16:29, Andy Shevchenko 写道:
-> On Thu, Jun 11, 2026 at 10:01:25AM +0200, Christian König wrote:
->> On 6/10/26 17:02, Andy Shevchenko wrote:
->>> On Wed, Jun 10, 2026 at 11:11:34AM +0200, Christian König wrote:
->>>> On 6/10/26 10:18, Kaitao Cheng wrote:
->>>>> 在 2026/6/10 16:07, Christian König 写道:
-> 
-> ...
-> 
->>>>> Should we revert to v1, or keep list_for_each_entry() and
->>>>> list_for_each_entry_safe() as they are, close this thread, and make no
->>>>> changes?
->>>>>
->>>>> Link to v1:
->>>>> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
->>>>>
->>>>> Or do you have any better suggestions?
->>>>
->>>> v1 looks perfectly reasonable to me.
->>>
->>> But why not just hiding that once for all (in case they don't use the temporary
->>> iterator)? Easy to automate, robust — everyone is happy?
->>
->> As far as I can see that is an extremely bad idea.
->>
->> The distinction between the use cases of 'iterating the list' and 'iterating
->> the list while you modify it' is completely intentional.
+On Wed, 10 Jun 2026 at 22:54, Imre Deak <imre.deak@intel.com> wrote:
+>
+> On Wed, Jun 10, 2026 at 11:54:19AM +0800, Guangshuo Li wrote:
+> > intel_crtc_free_hw_state() drops the CRTC color blob references, but
+> > leaves the corresponding pointers unchanged.
+> >
+> > This can matter in intel_crtc_prepare_cleared_state(), which frees the
+> > old CRTC hw state before calling intel_dp_tunnel_atomic_clear_stream_bw().
+> > The latter can fail while looking up the DP tunnel group state, for
+> > example with -EDEADLK.
+> >
+> > If that happens, the function returns without completing the cleared
+> > state preparation. The failed atomic state will then be cleared by the
+> > atomic core and intel_crtc_free_hw_state() can be called again for the
+> > same state, dropping the same blob references again.
+> >
+> > Clear the blob pointers after dropping the references so repeated cleanup
+> > of the same CRTC hw state is safe.
+> >
+> > Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
+> > Suggested-by: Imre Deak <imre.deak@intel.com>
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+> > v2:
+> >   - Keep the original ordering in intel_crtc_prepare_cleared_state().
+> >   - Clear the blob reference pointers in intel_crtc_free_hw_state(), as
+> >     suggested by Imre.
+> >
+> >  drivers/gpu/drm/i915/display/intel_atomic.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+> > index 71b7325917b6..0cdae87e4bfc 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_atomic.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+> > @@ -294,6 +294,12 @@ static void intel_crtc_put_color_blobs(struct intel_crtc_state *crtc_state)
+> >  void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+> >  {
+> >       intel_crtc_put_color_blobs(crtc_state);
+> > +
+> > +     crtc_state->hw.degamma_lut = NULL;
+> > +     crtc_state->hw.gamma_lut = NULL;
+> > +     crtc_state->hw.ctm = NULL;
+> > +     crtc_state->pre_csc_lut = NULL;
+> > +     crtc_state->post_csc_lut = NULL;
+> >  }
+>
+> Could you still move the clearing closer where the refs are dropped, to
+> the end of intel_crtc_put_color_blobs()? Otherwise this looks ok to me.
+>
+> >
+> >  /**
+> > --
+> > 2.43.0
+> >
 
-I agree with this point. It is very reasonable for list_for_each_entry()
-to be used only for 'iterating the list'. In practice, however, we do not
-have an effective way to enforce that rule for users, whereas the distinction
-between bool and int can be enforced by the compiler. The 13 patches in the
-current series are all real examples where users modify the list while using
-list_for_each_entry(). Is a rule that cannot actually be enforced reasonable?
-This is just my humble opinion, and I am raising it here only for discussion.
+Sure, I'll move the pointer clearing to the end of
+intel_crtc_put_color_blobs() and send a v3.
 
-> What I meant is to keep the name, just drop the parameter (make it hidden and
-> being defined inside list_for_each_*_safe() cases).
-
-I agree with this approach, but the specific details still need to be settled,
-including the issue described in the link below.
-
-https://lore.kernel.org/all/0a333eb8-fc29-4b85-993e-6b726f4c7cf0@linux.dev/
-
-Of course, there is also the suffix-renaming issue raised by Christian.
-
->> See the bool type can be implemented by int as well, but it is just a
->> different use case.
-> 
->>>> You should just include some patches in the same patch set to actually use
->>>> the new macros.
->>>>
->>>> If you modify the files under drivers/dma-buf or drivers/gpu/drm/amd to use
->>>> the new macro I'm happy to review that.
->>>
->>
-> 
-
--- 
-Thanks
-Kaitao Cheng
-
+Best regards,
+Guangshuo
