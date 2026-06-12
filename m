@@ -4,80 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0D3BCD98CE
-	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32197CD8CA8
+	for <intel-gfx@archiver.kernel.org>; Fri, 12 Jun 2026 13:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 374D410F512;
-	Fri, 12 Jun 2026 13:06:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFF5F10EA33;
+	Fri, 12 Jun 2026 13:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lk6dgaTC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hkLVAASZ";
 	dkim-atps=neutral
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
- [209.85.219.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A762810E7D2
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 14:50:00 +0000 (UTC)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-8cccde72aceso12793626d6.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 07:50:00 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 502E210E926
+ for <intel-gfx@lists.freedesktop.org>; Fri, 12 Jun 2026 03:56:20 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2bf22d29dabso3535885ad.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 11 Jun 2026 20:56:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781189399; x=1781794199; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=DP19gLPJP1jpWVxngAoDyNJY7navrVqVsJRQOoZOUTs=;
- b=lk6dgaTCZS42EE4EwJTdpHyAw7btQBPHGxLvi38OKoEF7wTmLBBA6ruwtynriK1grx
- Dly+3RC+uC9/XUb5TsHgiijTng51IpvL5TGRCbHaOmrMdQZYfPoXGmSxeKa1LY6swDEG
- oJ1R2X+HimmzwIuABnbfNAwB6HnbH0lEzqnF2RU6mKPDkLCuE/zEb7YI+mBkVbjl6jeC
- rauRpXATsdZugh6cfPzYCIxlYat+nP6+DvN9kKG/JrPDqvXOcFqRlUb750bM0HEEmdc/
- /6aBkNfA8P11J37n6iHn3RsSXGpu9YVTMmhAjgNNqW7t5keOOFFl1a7XUV/pc3WtJWgK
- OK4Q==
+ d=gmail.com; s=20251104; t=1781236580; x=1781841380; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=dm7OkWfAzOKJ7RwOi6ZOCdSsUs6x+K0PjwZRlVnoBII=;
+ b=hkLVAASZ9HI+T1mf5y7OuzUGx7AwnF8rUl33de+F6kpRIFBRfAXBOGz+ywMlJuosTw
+ KGNIO7KAIq4feYnztr81krGSy7/PcQXtjBJ4RBiQcUFKzqJJGOIA1F1IqsRDJBOmLAbg
+ JV5RntGDLQ3tBsgqWQhaC8HxmQ3DTwDlKxAiv/guwuJtr6gPAtCK1On61LJPtqnqEIdS
+ cji1eCU1l5YjlXc0MlqB5iTKgDUtcySuGdjh35LICZ47d5nLSVOyo1UEnJyWe/OhcbGx
+ NJ3NnnomqbmLgfj3PBrLP9asXbcepe5VNln3yZ/B37q63gLIv/MRukV+/+SvvuJAeklF
+ 7vng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781189399; x=1781794199;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=DP19gLPJP1jpWVxngAoDyNJY7navrVqVsJRQOoZOUTs=;
- b=fmZGhqsKFgpnwpUOSdQLmzoQgKOPrYtfid6RzyJ1aDE1Bv3zD2pGzw5dL4bHgzl0Sa
- gQSakvXMjkyJnUicSRXvOPYu1106s6oWCkwynzOPEBa1f5ko0laPQn8VUeYe7A/3Lexb
- Ub8scdTZS2jD0pgSiCWg4ERAYTwoDifP184zhjeUwl2kLsgeXXNn2jKYBDPbspTcAZVm
- 4UqmMd1Xe2FaAzXwoxu4bJx5vszQ5A6BjUMJOdMwOdDpXk9OPCmsf5KXdH90Qj6o8sv+
- xN8DBFG1XvUx3fn/4NuPqCA6edlex1EreT6tuHpJSj7099VaG9vC8AZsj48wMezBdPBa
- f8qQ==
-X-Gm-Message-State: AOJu0YwM6Up469MxYfvYqPBnvT5dgieugmsKGgWRF8n9qsJUj5ieZ5uQ
- UzgxHHeqBSO6YEQEXl/mHdxrFpSin7AXNXaPHuFJjlO9JvJQ8dVX/4kjgZH8zgtJ
-X-Gm-Gg: Acq92OGbf2zxwJwd16I9RrvmS69PB1LLbXM/Q1+Ye8BwiYIFU2tPMU+yF2Dgbl4BzBj
- 22WNqkO97aUH28j0hJyAZHplSgPynqqIacEJuXY677mZT34Zq9mEUuB8blMSo7mEEwxnpcUd5Sw
- +4OTfAFo1g0K/qz2cQNP2hR7E00AmTgNuOrPYZlsVpjHKfC5/45+dcZv4LTiciUzf3TSi5ozgR/
- M1VHx4jpUmhbs+UmHEhyQ5Z261e4+0Eoyvymz9Lez+eAa+JIj2pYFb6CkIK/UXNvvkojGLgsOjo
- uZov0XXQ1zF4kEcPMmmDuFBunNSEX0yUfyL8mhQ1+g1YWwVrGyOF+k2htArJ+a42RhBUmkZ3Lzp
- lFxsOaKXgZvNmKcqxY6KEUOSFFdqSw0k2bkJJtoF56ECM8uiadLdxKJTG2oepkvp7FeBx1ZynYg
- t+LdW4RehbKy9e9syR0FtA9G5SZMI3IYeKadMJz044ej7FCHJrIoLBANa5CP9dhJAdkhxTAgjP4
- Kn8P07/ZTz5jDG5igtn0FQSFtsRrFUCpnpI21BXHSLVfFJbwTAqRzL2X/cAinqbGzaaq18coJXr
- 1w==
-X-Received: by 2002:a05:6214:33c2:b0:8d1:d1e1:835f with SMTP id
- 6a1803df08f44-8d1dc1a2588mr28820326d6.7.1781189399264; 
- Thu, 11 Jun 2026 07:49:59 -0700 (PDT)
-Received: from debian-t14-gen1-fuhrysteve.fuhry.app
- (6.sub-75-230-138.myvzw.com. [75.230.138.6])
+ d=1e100.net; s=20251104; t=1781236580; x=1781841380;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=dm7OkWfAzOKJ7RwOi6ZOCdSsUs6x+K0PjwZRlVnoBII=;
+ b=e4eSFKoQlT6bX4tdSHa+bGzs22nqUTKIWclQKeYZ0UTNA/g5xxnzLepx1xPQuw0ZhB
+ eP1yuKdskY+JJvy4QpSS2TkHY/NMK92GFRDUPbBw82+dWvngC6pBfjyBx7JPnsRpaUjS
+ gRmkd0nKUaBxZvA2HqeBkvKCE0XCaUxXRMKYtZuJbFG+Qrv2hRMdUZk6bN2pd+HKbfcZ
+ NmNH/cPIYhFTuWv3Ekp3GnJDBblNZbpw7oytB1VPVnsgmCcwMAw9doaffzAP0vUsa016
+ l2SvaWSI6DT4+olSjX9imgA1A3TF4KMIln+BU9j+AlcK18of1tCskUImVNpViLb0wone
+ qVQA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8JT82KUric5AF4XiiabRgH3n65Vb86PhSYKQo3hgwHZ55ItIwJM8j5dfT0Wfs60mptadcvORQKnns=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwhFU7jSCnPxDO7mX1rHFwhCiNhQsIvMlWaQ1R4vSQU2oMwjVSG
+ Kvj6K2KpWmRmnwSiR9zCP/gjkP/32TrPm3xAF1rphXGZn1WadxyvBa7x
+X-Gm-Gg: Acq92OEw0UF/eVyKAg7WSPQxMLxb+kJ3B9gsbTxTqKtBpwIGlpK7FjfmhsjNw0Amkro
+ 9iZM5ixPTfn3rVV/HCNRE1t5lNbkAY1Hk7rWramUyocnliXDsmFMhww+9AiSdEFHgWbjKogkKcZ
+ iJOGCAPK0Q3fhAT93xykwSFZHZwQN6L5nlXR1v9xhN7ZfIVajYkKZWNO6UlObzs4MnC6CRr5Osk
+ eHiksnvjlTZ89mVIpgkJ8EOgkyQJmeNCyfKbWnPsTcwX8qwf5Dznpw9NIjeJvF1GpDBOk2yszYO
+ HNFl6qWZGVh/qNmAeaSKhT4vp57Tu7/IfbxvB6/AL86zOFkMmjkpp52CPxOegtUPwcWbuPJBdyK
+ mtssAQMrCN8PRzHKBJzaPOEg6trqP5GlrxoysmP/PdFJNdQibskwtfQnFhMV+b1cy3sV/7dD1ZI
+ J/OVB2Lg==
+X-Received: by 2002:a17:903:3888:b0:2c2:7baf:139f with SMTP id
+ d9443c01a7336-2c41255f17dmr13462935ad.30.1781236579754; 
+ Thu, 11 Jun 2026 20:56:19 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8d1e7bc32acsm20141096d6.5.2026.06.11.07.49.57
+ d9443c01a7336-2c42fca9f44sm4748625ad.37.2026.06.11.20.56.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2026 07:49:59 -0700 (PDT)
-From: "Stephen J. Fuhry" <fuhrysteve@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Thu, 11 Jun 2026 20:56:19 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
- Animesh Manna <animesh.manna@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org,
- "Stephen J . Fuhry" <fuhrysteve@gmail.com>,
- sashiko AI review <sashiko-bot@kernel.org>
-Subject: [PATCH] drm/i915/display: fix ALPM error handling in psr_alpm_check()
-Date: Thu, 11 Jun 2026 10:49:56 -0400
-Message-ID: <20260611144956.710911-1-fuhrysteve@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260611125408.676626-1-fuhrysteve@gmail.com>
-References: <20260611125408.676626-1-fuhrysteve@gmail.com>
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ Imre Deak <imre.deak@intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>
+Subject: [PATCH v3] drm/i915: clear CRTC color blob pointers after dropping
+ refs
+Date: Fri, 12 Jun 2026 11:53:10 +0800
+Message-ID: <20260612035310.3013066-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 12 Jun 2026 13:06:10 +0000
@@ -96,40 +95,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_dp_short_pulse() calls intel_psr_short_pulse() before the direct
-intel_alpm_get_error() check.  For PSR2-enabled panels, intel_psr_short_pulse()
-calls psr_alpm_check(), which reads and clears DP_ALPM_LOCK_TIMEOUT_ERROR via
-intel_alpm_get_error().  The subsequent direct call in intel_dp_short_pulse()
-then reads zero and skips calling intel_alpm_disable() and setting
-sink_alpm_error, leaving LOBF potentially enabled despite the ALPM error.
+intel_crtc_put_color_blobs() drops the CRTC color blob references, but
+leaves the corresponding pointers unchanged.
 
-Fix this by having psr_alpm_check() also call intel_alpm_disable() and set
-sink_alpm_error when it handles an ALPM error.  This mirrors what the direct
-call in intel_dp_short_pulse() would have done, ensuring correct cleanup
-regardless of which code path consumes the error bit first.
+This can matter in intel_crtc_prepare_cleared_state(), which frees the
+old CRTC hw state before calling intel_dp_tunnel_atomic_clear_stream_bw().
+The latter can fail while looking up the DP tunnel group state, for
+example with -EDEADLK.
 
-intel_alpm_disable() is already called under psr->lock from
-intel_psr_disable_locked() for the Panel Replay path, so the lock ordering
-is established and safe.
+If that happens, the function returns without completing the cleared
+state preparation. The failed atomic state will then be cleared by the
+atomic core and intel_crtc_free_hw_state() can be called again for the
+same state, dropping the same blob references again.
 
-Suggested-by: sashiko AI review <sashiko-bot@kernel.org>
-Fixes: 2063174c22da ("drm/i915/lobf: Check for sink error and disable LOBF")
-Signed-off-by: Stephen J. Fuhry <fuhrysteve@gmail.com>
+Clear the blob pointers after dropping the references so repeated cleanup
+of the same CRTC hw state is safe.
+
+Fixes: fb69d0076e68 ("drm/i915/dp_tunnel: Fix error handling when clearing stream BW in atomic state")
+Suggested-by: Imre Deak <imre.deak@intel.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 2 ++
- 1 file changed, 2 insertions(+)
+v3:
+  - Move the blob pointer clearing to the end of
+    intel_crtc_put_color_blobs(), as suggested by Imre.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 9382ad1e01d8..0701c8b94aa2 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3869,6 +3869,8 @@ static void psr_alpm_check(struct intel_dp *intel_dp)
- 	if (intel_alpm_get_error(intel_dp)) {
- 		intel_psr_disable_locked(intel_dp);
- 		psr->sink_not_reliable = true;
-+		intel_alpm_disable(intel_dp);
-+		intel_dp->alpm.sink_alpm_error = true;
- 	}
+v2:
+  - Keep the original ordering in intel_crtc_prepare_cleared_state().
+  - Clear the blob reference pointers in intel_crtc_free_hw_state(), as
+    suggested by Imre.
+
+ drivers/gpu/drm/i915/display/intel_atomic.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_atomic.c b/drivers/gpu/drm/i915/display/intel_atomic.c
+index 71b7325917b6..a16e1cb7d41e 100644
+--- a/drivers/gpu/drm/i915/display/intel_atomic.c
++++ b/drivers/gpu/drm/i915/display/intel_atomic.c
+@@ -289,6 +289,12 @@ static void intel_crtc_put_color_blobs(struct intel_crtc_state *crtc_state)
+ 
+ 	drm_property_blob_put(crtc_state->pre_csc_lut);
+ 	drm_property_blob_put(crtc_state->post_csc_lut);
++
++	crtc_state->hw.degamma_lut = NULL;
++	crtc_state->hw.gamma_lut = NULL;
++	crtc_state->hw.ctm = NULL;
++	crtc_state->pre_csc_lut = NULL;
++	crtc_state->post_csc_lut = NULL;
  }
---
-2.39.5
+ 
+ void intel_crtc_free_hw_state(struct intel_crtc_state *crtc_state)
+-- 
+2.43.0
+
