@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF811CD98C5
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 15:28:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B452CD98DA
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 16:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 217BB10E50B;
-	Mon, 15 Jun 2026 15:28:46 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="naKvnPKj";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C6A410E505;
- Mon, 15 Jun 2026 15:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781537324; x=1813073324;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jbJy6h47RtheuI3fo3h3cMXQoSr559B606X+Z4Cx0ZU=;
- b=naKvnPKjyejdGCyhdOLsbIwZlmH7J8xldvL+TP3YZFmyrzp3/Oe5J8Ar
- SuJviQzoUNW65gygxSftJa5Wh6YinWNb3Mqe8nbQeFyrNheNKJenHwc7U
- pDgXbYxPQbNctsW32Tt+tLkAPeOHdZOfbuT+rd9NaaU1/rDC1dtJB0g3G
- IvT5pJM/vXqO4H0ZO8kWNgPQUh/KD9rJPb1AJ+/l0lKvmbauno4Zj6p5K
- CecQtg8SppwIV4lSS7Tjl0AQtqEoC8dkGGWxtzYxK39ISWvFYgUcFu7p2
- hmxdWuZQON+JYsEj7QtMjiqO8Iq5AMuNu6GvexA6aR9r9tKUnOmtC0TIO A==;
-X-CSE-ConnectionGUID: Z7Nr7O3YR9Kdh53vsVV6OA==
-X-CSE-MsgGUID: h48CdmGbTrWF+4ywSazEpA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="86181128"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="86181128"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 08:28:44 -0700
-X-CSE-ConnectionGUID: jIkCG+CYTZarRAMFdLnLuQ==
-X-CSE-MsgGUID: W7nwjW6qTDem5rZ180wDjw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="243335475"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.28])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 08:28:42 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH] drm/intel: drop driver include from mchbar_regs.h
-Date: Mon, 15 Jun 2026 18:28:37 +0300
-Message-ID: <20260615152837.1898991-1-jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
+	by gabe.freedesktop.org (Postfix) with ESMTP id B555B10E52B;
+	Mon, 15 Jun 2026 16:02:18 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A86910E52B;
+ Mon, 15 Jun 2026 16:02:17 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7725852215633514511=="
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/=7Bi915=2C_xe=7D/pani?=
+ =?utf-8?q?c=3A_drop_dependency_on_struct_intel=5Fframebuffer_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 15 Jun 2026 16:02:17 -0000
+Message-ID: <178153933723.79171.18356423103610339539@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <cover.1780394867.git.jani.nikula@intel.com>
+In-Reply-To: <cover.1780394867.git.jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,30 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Headers under include/ aren't supposed to try to include headers from
-driver directories, such as i915_reg_defs.h. Remove it.
+--===============7725852215633514511==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
----
- include/drm/intel/mchbar_regs.h | 2 --
- 1 file changed, 2 deletions(-)
+== Series Details ==
 
-diff --git a/include/drm/intel/mchbar_regs.h b/include/drm/intel/mchbar_regs.h
-index ca0d421be16c..66498ca5e40b 100644
---- a/include/drm/intel/mchbar_regs.h
-+++ b/include/drm/intel/mchbar_regs.h
-@@ -6,8 +6,6 @@
- #ifndef __INTEL_MCHBAR_REGS__
- #define __INTEL_MCHBAR_REGS__
- 
--#include "i915_reg_defs.h"
--
- /*
-  * MCHBAR mirror.
-  *
--- 
-2.47.3
+Series: drm/{i915, xe}/panic: drop dependency on struct intel_framebuffer (rev3)
+URL   : https://patchwork.freedesktop.org/series/167731/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18682 -> Patchwork_167731v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167731v3/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18682 -> Patchwork_167731v3
+
+  CI-20190529: 20190529
+  CI_DRM_18682: 0984dfdee2a4f9e1922fe919a6b469e115e23360 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8963: b19a1c7c50adbf0e090be48d9cbc90596a3434bf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_167731v3: 0984dfdee2a4f9e1922fe919a6b469e115e23360 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167731v3/index.html
+
+--===============7725852215633514511==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/{i915, xe}/panic: drop dependency on struct intel_framebuffer (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167731/">https://patchwork.freedesktop.org/series/167731/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167731v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167731v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18682 -&gt; Patchwork_167731v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167731v3/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18682 -&gt; Patchwork_167731v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18682: 0984dfdee2a4f9e1922fe919a6b469e115e23360 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8963: b19a1c7c50adbf0e090be48d9cbc90596a3434bf @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_167731v3: 0984dfdee2a4f9e1922fe919a6b469e115e23360 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7725852215633514511==--
