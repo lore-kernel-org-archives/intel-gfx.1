@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7C96CD98CF
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 18:48:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27F1ECD98CF
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 19:09:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44A5410E5CB;
-	Mon, 15 Jun 2026 18:48:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E53C10E5E0;
+	Mon, 15 Jun 2026 19:09:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oD1yFcOl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hMjp0kim";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDBA610E5CB;
- Mon, 15 Jun 2026 18:48:37 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74FF410E5DC;
+ Mon, 15 Jun 2026 19:09:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781549318; x=1813085318;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=NI55BDCmNqMNfR1pX8jjx4l31bhLrw5TA8JuyIMZLJ8=;
- b=oD1yFcOldsQxVOmaOr76QJGhlpkjF/d3oxV850Sd32cOLF33lGtYkibf
- 1m8MFMleLT6OtXhYpZIWtnkfOZCQ7VP0k1yFNC2gb8VXkoPxSYJ4NjSqt
- lxE/HVdRWHvPZvNK+md6tZH3JMFYavFr5fr1E5oIEFtH0nigb9l+uOeJR
- bfCEkd176J6C1WCZcaILqf72N6iGnzQYzmrBTbRlGS4zIdXDR2ZoZroHv
- roktjlzGF1N6IFD9XETdAEie0pIEBamgU9aKHYI6RjZA+RlBWMkdyzJ8M
- ZrY83C1uL6VIHadjXRJqdwTGL8co+Vi3aHIVWjKRlq9ns5SdqHAJ85GlR g==;
-X-CSE-ConnectionGUID: 65LYDOo5RMGP2aHV8TPlhg==
-X-CSE-MsgGUID: cci54TG3RUCCAyMmKi2pcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="81438594"
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="81438594"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 11:48:37 -0700
-X-CSE-ConnectionGUID: rdyMAXrkSiusGVgs3oueyA==
-X-CSE-MsgGUID: frAHjDv6QkSreUJFuTDHWQ==
+ t=1781550563; x=1813086563;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=VIflT9As0VEKi6gi7gX7lmg35U8/qQU2KCJksZGhEVo=;
+ b=hMjp0kimqByQR3ccpoAcJOTloAEOs+gpEjYyLkf8qtVMiWWNaq1avK6H
+ /JubtRUwfEBueXVenLRkwLzo4lBfw6T2ClVV67LW0tsUV15Ul3y0FWXVJ
+ imylzbzSkdwOjzsqYG8GHTFYiY1jkrB2fLcbvCqepBOMAsGeh5KDNbevj
+ dfqymktD/fpaxitAINAf/eCR61aV8hE4WyM9hws79Ocn7kyS1mpfeIL+J
+ FOOlxVYz8qarMYfhB4gBgQ3yhYWYMgmjrwUNSA2BdpSR+YArhsGOFjiUv
+ ReMINY0Mgd4/FABZH75a6ySYOVch2vy/SVa771Sojj8liJ47vHwyvp59d g==;
+X-CSE-ConnectionGUID: LipMgc1wSKKrtX/IXj6rXA==
+X-CSE-MsgGUID: AQgLvKFDTCSRau/r3XKHbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="82314195"
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="82314195"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 12:09:23 -0700
+X-CSE-ConnectionGUID: l+rnKYRzRt6y74DWB6BrDA==
+X-CSE-MsgGUID: HXhtet0pTTGoVwuq5rW8ew==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="247628634"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.28])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2026 11:48:36 -0700
-From: Jani Nikula <jani.nikula@intel.com>
+X-IronPort-AV: E=Sophos;i="6.24,206,1774335600"; d="scan'208";a="271265073"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by fmviesa002.fm.intel.com with ESMTP; 15 Jun 2026 12:09:21 -0700
+From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH 6/6] drm/{i915, xe}: move intel_hpd_cancel_work() to
- intel_display_driver_remove_noirq()
-Date: Mon, 15 Jun 2026 21:48:03 +0300
-Message-ID: <6be8d033a6c8d0038dc14100d3ee6612d6204770.1781549229.git.jani.nikula@intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1781549229.git.jani.nikula@intel.com>
-References: <cover.1781549229.git.jani.nikula@intel.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
+ Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH v2 0/3] drm/i915/scaler: allocation cleanup
+Date: Mon, 15 Jun 2026 21:08:36 +0200
+Message-ID: <20260615190839.1219417-1-michal.grzelak@intel.com>
+X-Mailer: git-send-email 2.45.2
 MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,53 +71,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_hpd_cancel_work() gets called before
-intel_display_driver_remove_noirq(). Move it there.
+Next version of [1]. Haven't came up with simpler CASF check than we
+currently have, thus to follow Ville's and Nemesa's remarks dropped the
+part of changing scaler allocation.
+Also changed return value in case of failure of intel_allocate_scaler()
+& skl_pipe_scaler_get_hw_state(), as pointed out by Jani.
 
-Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+BR,
+Michał
+
+[1] https://lore.kernel.org/intel-gfx/20260609231217.208357-1-michal.grzelak@intel.com
+
 ---
- drivers/gpu/drm/i915/display/intel_display_driver.c | 2 ++
- drivers/gpu/drm/i915/i915_driver.c                  | 1 -
- drivers/gpu/drm/xe/display/xe_display.c             | 1 -
- 3 files changed, 2 insertions(+), 2 deletions(-)
+Changelog:
+v1->v2
+- drop obfuscation of CASF check (Ville, Nemesa)
+- return proper error code (Jani)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index a1c91fbf737c..bb5301b90231 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -622,6 +622,8 @@ void intel_display_driver_remove_noirq(struct intel_display *display)
- 	if (!HAS_DISPLAY(display))
- 		return;
- 
-+	intel_hpd_cancel_work(display);
-+
- 	intel_display_driver_suspend_access(display);
- 
- 	/*
-diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
-index 68ab96b8195b..3ac7dc66085f 100644
---- a/drivers/gpu/drm/i915/i915_driver.c
-+++ b/drivers/gpu/drm/i915/i915_driver.c
-@@ -948,7 +948,6 @@ void i915_driver_remove(struct drm_i915_private *i915)
- 	intel_display_driver_remove(display);
- 
- 	intel_irq_uninstall(i915);
--	intel_hpd_cancel_work(display);
- 
- 	intel_display_driver_remove_noirq(display);
- 
-diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
-index 8be3e600838b..92a4573db28a 100644
---- a/drivers/gpu/drm/xe/display/xe_display.c
-+++ b/drivers/gpu/drm/xe/display/xe_display.c
-@@ -81,7 +81,6 @@ static void xe_display_fini_early(void *arg)
- 	if (!xe->info.probe_display)
- 		return;
- 
--	intel_hpd_cancel_work(display);
- 	intel_display_driver_remove_noirq(display);
- 	intel_display_driver_remove_nogem(display);
- 	intel_display_power_cleanup(display);
+
+Michał Grzelak (3):
+  drm/i915/scaler: remove unused plane_state argument
+  drm/i915/scaler: s/i/scaler_id/ again
+  drm/i915/scaler: return -EINVAL instead of -1
+
+ drivers/gpu/drm/i915/display/skl_scaler.c | 19 +++++++++----------
+ 1 file changed, 9 insertions(+), 10 deletions(-)
+
 -- 
-2.47.3
+2.45.2
 
