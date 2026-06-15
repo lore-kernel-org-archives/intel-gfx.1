@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 109BCCD98EC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5BA3CD98E2
 	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:19:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEF9F10E625;
-	Mon, 15 Jun 2026 20:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ACE410E638;
+	Mon, 15 Jun 2026 20:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Rci3VHpa";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="d/Taj2qF";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032FF10E682;
- Mon, 15 Jun 2026 20:18:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84F8B10E66C;
+ Mon, 15 Jun 2026 20:18:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554726;
- bh=/Fm27havni7MNlmsXqPxuEk9ti8anXosMDlKd+HcKVc=;
+ s=default; t=1781554724;
+ bh=j+kZhrKGeVLe6Kwb9Av2wRwsLfG3GUrsHoYClLpC+34=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Rci3VHpaTFaPvxPUSKRvdMqrwaUFfWdrltZYwsuE8l+teXxrO+lijPL3XqkpQzz2p
- t2CkZZpjTlcYTmAo96j/8T1H94J7hrnNDPJcTLfD8nbzCkIZM4XS8ct605r31yVvj4
- RAowckRwyRaIPPGABbmyRy73xfTpAzGV3JnamtSB0F+25NhCd5fWoXMHPqeC14N6ZP
- YkraVpJRHH+xIfp5Z2py+uxaLzX6LoOuiKhV9s4Xe14kV46ovXdq/OJZmSHSJy2jFG
- m4awEzoi0oqlyfKcGYuUhl394Far5cDg0mTwpcTyALD/l591WeeAwYkacmaRMJ/FEa
- RwA4DJ4VtatRg==
+ b=d/Taj2qFN2f/uPI3PALuhBZ4JgmLsrvEfik5z3NllJAvSZ9CN9ESjMi5nFDvsVeBH
+ rSrEpTPG5CcgXtaeXaYEB2vqNK+rM1/KQC7CqJ/b6XWJhiFnlgb/AjVZmQvz2z+Ger
+ Yn8gD1tkIA9VVgMW0xt3wUGF+baQmPnYk//Gr5ERwKGdbIYNzpaHfB+wIs7LPOtLin
+ HeHUV8APJ4lcLtc9VoCyRB21o8ZPTu0dHfstRCD1SiOwE3pvM+1s++/JjdT4jzYOkL
+ iOpb8hkM0J5LvGBstqejb50/xONGI4qaTW8jjWPV1ldKLi/Baa1fXWYQ1NBLaXb7s6
+ YAxv4r8rd5tsg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 23/27] PREEMPT_RT injection
-Date: Mon, 15 Jun 2026 22:18:41 +0200
-Message-ID: <20260615201846.307297-24-dev@lankhorst.se>
+Subject: [PATCH v8 19/27] drm/i915/gt: Set stop_timeout() correctly on
+ PREEMPT-RT
+Date: Mon, 15 Jun 2026 22:18:37 +0200
+Message-ID: <20260615201846.307297-20-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
 References: <20260615201846.307297-1-dev@lankhorst.se>
@@ -53,71 +54,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Also check if RCU is disabled for PREEMPT-RT, which is the case when
+local_bh_disable() is called.
+
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/Kconfig.debug | 15 ---------------
- drivers/gpu/drm/xe/Kconfig.debug   |  5 +++++
- kernel/Kconfig.preempt             |  4 ++--
- 3 files changed, 7 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/Kconfig.debug b/drivers/gpu/drm/i915/Kconfig.debug
-index 52a3a59b4ba2c..5977d0b262b85 100644
---- a/drivers/gpu/drm/i915/Kconfig.debug
-+++ b/drivers/gpu/drm/i915/Kconfig.debug
-@@ -233,21 +233,6 @@ config DRM_I915_LOW_LEVEL_TRACEPOINTS
+diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+index c0fd349a4600c..9dd9665128caa 100644
+--- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
+@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
  
- 	  If in doubt, say "N".
+ static unsigned long stop_timeout(const struct intel_engine_cs *engine)
+ {
+-	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
++	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
+ 		return 0;
  
--config DRM_I915_DEBUG_VBLANK_EVADE
--	bool "Enable extra debug warnings for vblank evasion"
--	depends on DRM_I915
--	default n
--	help
--	  Choose this option to turn on extra debug warnings for the
--	  vblank evade mechanism. This gives a warning every time the
--	  the deadline allotted for the vblank evade critical section
--	  is exceeded, even if there isn't an actual risk of missing
--	  the vblank.
--
--	  Recommended for driver developers only.
--
--	  If in doubt, say "N".
--
- config DRM_I915_DEBUG_RUNTIME_PM
- 	bool "Enable extra state checking for runtime PM"
- 	depends on DRM_I915
-diff --git a/drivers/gpu/drm/xe/Kconfig.debug b/drivers/gpu/drm/xe/Kconfig.debug
-index 01227c77f6d70..1d5f11c6e88f3 100644
---- a/drivers/gpu/drm/xe/Kconfig.debug
-+++ b/drivers/gpu/drm/xe/Kconfig.debug
-@@ -30,6 +30,11 @@ config DRM_XE_DEBUG
- 
- 	  If in doubt, say "N".
- 
-+config DRM_I915_DEBUG_VBLANK_EVADE
-+        def_bool y
-+        depends on DRM_XE
-+
-+
- config DRM_XE_DEBUG_VM
- 	bool "Enable extra VM debugging info"
- 	default n
-diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
-index 88c594c6d7fcd..11bec9be95405 100644
---- a/kernel/Kconfig.preempt
-+++ b/kernel/Kconfig.preempt
-@@ -90,9 +90,9 @@ config PREEMPT_LAZY
- endchoice
- 
- config PREEMPT_RT
--	bool "Fully Preemptible Kernel (Real-Time)"
--	depends on EXPERT && ARCH_SUPPORTS_RT && !COMPILE_TEST
-+	def_bool y
- 	select PREEMPTION
-+	depends on ARCH_SUPPORTS_RT
- 	help
- 	  This option turns the kernel into a real-time kernel by replacing
- 	  various locking primitives (spinlocks, rwlocks, etc.) with
+ 	/*
 -- 
 2.53.0
 
