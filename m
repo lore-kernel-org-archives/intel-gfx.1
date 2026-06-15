@@ -4,38 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FE46CD98F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFC41CD98E8
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:18:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 656B310E669;
-	Mon, 15 Jun 2026 20:18:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1B0510E663;
+	Mon, 15 Jun 2026 20:18:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="dPEAzaQv";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="RJR9S4qZ";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4D4010E663;
- Mon, 15 Jun 2026 20:18:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7885D10E66C;
+ Mon, 15 Jun 2026 20:18:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554722;
- bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
+ s=default; t=1781554721;
+ bh=S/FTXfDlSJZEN0utvgr5AbMw0NXJByU/h2NSpvWL7bw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dPEAzaQvPNWdoZss/I/w2ycDygOIg3L2dfWr++BMPFMpD9iUaLlKlVSjUU/vc4YYI
- mFNDL+fvKX7olRIC3v2pD45y+Gi0ckBSBBznwF1gzL0BtyTs63Mt3+QCr4+A1q1cQh
- NUWQI9TuewLHzcpdwHs4dULLOxkB5Wmv/YgQ+TdqPohKCctu+gh245Qq+jD24iqK/+
- 52HjrZKpGSWkHOzyorQKKgAZh2tYNgm7IW92/o1tJ65rJy3Lh5iUpeEpkDKxvWXPIb
- yMvEOLg1w1ySlD64gag1sA70X6Mj6QZu6EBDlXIZqy4nNVP2/Yq55boQKV9c/tAGYt
- XAr7MpQ2rI79g==
+ b=RJR9S4qZjmEgQe44JPT3a+Ze+73GSSQhn5SglyC5TuCqbdJvcfeJLzD60L8tsZLzF
+ IQt0tM05E6oqvUI707WqDZaBEZkIl4tWBpPx8kOJwHMGC9Z81Blz+8gAEgtCEtcgu1
+ 2w9XxiOEPFXf4WTACOWiis0nGOBw6kHwAT2noE/PDdwkXN3m5GoYHa8FWYIVs9Ernr
+ NIkw9Ux+1f5yl5pWm0ZzTdfGi4TTmYv70HoIiIhxnPkvVnrENRfe2vrjyNFP1Ddcci
+ A7U+7kMCkiPsYkKw/2dN28pklVT7bQOjL3YyeD1QKjSX0n9kLW/LH6NxmDbVmTrUg5
+ oXf39slPwFtJA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 16/27] drm/i915: Drop the irqs_disabled() check
-Date: Mon, 15 Jun 2026 22:18:34 +0200
-Message-ID: <20260615201846.307297-17-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v8 14/27] drm/i915/display: Make set_pipeconf use the fw
+ variants
+Date: Mon, 15 Jun 2026 22:18:32 +0200
+Message-ID: <20260615201846.307297-15-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
 References: <20260615201846.307297-1-dev@lankhorst.se>
@@ -56,46 +54,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+The calls are used inside the critical section when updating
+the gamma mode, and thus should use the _fw variants to prevent
+locks.
 
-The !irqs_disabled() check triggers on PREEMPT_RT even with
-i915_sched_engine::lock acquired. The reason is the lock is transformed
-into a sleeping lock on PREEMPT_RT and does not disable interrupts.
+Fixes following splat:
+| BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
+| in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid: 2115, name: modprobe
+| preempt_count: 0, expected: 0
+| RCU nest depth: 0, expected: 0
+| 4 locks held by modprobe/2115:
+|  #0: ffff99b9425161a0 (&dev->mutex){....}-{4:4}, at: __driver_attach+0xaf/0x1c0
+|  #1: ffffaa224810f6c0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: intel_initial_commit+0x4c/0x200 [i915]
+|  #2: ffffaa224810f6e8 (crtc_ww_class_mutex){+.+.}-{4:4}, at: intel_initial_commit+0x4c/0x200 [i915]
+|  #3: ffff99b94a6c9030 (&uncore->lock){+.+.}-{3:3}, at: gen6_write32+0x50/0x290 [i915]
+| irq event stamp: 513344
+| hardirqs last  enabled at (513343): [<ffffffff8ba8d84c>] _raw_spin_unlock_irqrestore+0x4c/0x60
+| hardirqs last disabled at (513344): [<ffffffffc1543646>] intel_pipe_update_start+0x216/0x2c0 [i915]
+| softirqs last  enabled at (512766): [<ffffffff8af045cf>] __local_bh_enable_ip+0x10f/0x170
+| softirqs last disabled at (512712): [<ffffffffc14dfb6a>] __i915_request_queue+0x3a/0x70 [i915]
+| CPU: 3 UID: 0 PID: 2115 Comm: modprobe Tainted: G        W           6.18.0-rc1+ #17 PREEMPT_{RT,(lazy)}
+| Tainted: [W]=WARN
+| Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./Z68 Pro3-M, BIOS P2.30 06/29/2012
+| Call Trace:
+|  <TASK>
+|  dump_stack_lvl+0x68/0x90
+|  __might_resched.cold+0xf0/0x12b
+|  rt_spin_lock+0x5f/0x200
+|  gen6_write32+0x50/0x290 [i915]
+|  ilk_set_pipeconf+0x12d/0x230 [i915]
+|  ilk_color_commit_arm+0x2d/0x70 [i915]
+|  intel_update_crtc+0x15b/0x690 [i915]
+|  intel_commit_modeset_enables+0xa6/0xd0 [i915]
+|  intel_atomic_commit_tail+0xd55/0x19a0 [i915]
+|  intel_atomic_commit+0x25d/0x2a0 [i915]
+|  drm_atomic_commit+0xad/0xe0 [drm]
+|  intel_initial_commit+0x16c/0x200 [i915]
+|  intel_display_driver_probe+0x2e/0x80 [i915]
+|  i915_driver_probe+0x791/0xc10 [i915]
+|  i915_pci_probe+0xd7/0x190 [i915]
 
-There is no need to check for disabled interrupts. The lockdep
-annotation below already check if the lock has been acquired by the
-caller and will yell if the interrupts are not disabled.
-
-Remove the !irqs_disabled() check.
-
-Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/i915_request.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df08..f66f8efc70629 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 2e3ade44f28ee..03b15765843a0 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -3042,8 +3042,9 @@ void i9xx_set_pipeconf(const struct intel_crtc_state *crtc_state)
  
- 	RQ_TRACE(request, "\n");
+ 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
  
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
+-	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
+-	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
++	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
++	/* posting read */
++	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
+ }
  
- 	/*
-@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
- 	 */
- 	RQ_TRACE(request, "\n");
+ static enum intel_output_format
+@@ -3238,8 +3239,9 @@ void ilk_set_pipeconf(const struct intel_crtc_state *crtc_state)
+ 	val |= TRANSCONF_FRAME_START_DELAY(crtc_state->framestart_delay - 1);
+ 	val |= TRANSCONF_MSA_TIMING_DELAY(crtc_state->msa_timing_delay);
  
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
+-	intel_de_write(display, TRANSCONF(display, cpu_transcoder), val);
+-	intel_de_posting_read(display, TRANSCONF(display, cpu_transcoder));
++	intel_de_write_fw(display, TRANSCONF(display, cpu_transcoder), val);
++	/* posting read */
++	intel_de_read_fw(display, TRANSCONF(display, cpu_transcoder));
+ }
  
- 	/*
+ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state)
 -- 
 2.53.0
 
