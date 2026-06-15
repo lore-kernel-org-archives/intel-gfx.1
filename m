@@ -4,35 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2FB7CD98DA
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:19:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 614FCCD98E7
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:19:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B874F10E69F;
-	Mon, 15 Jun 2026 20:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12A7310E6A0;
+	Mon, 15 Jun 2026 20:18:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="d9NGAgnK";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="OSI32251";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95FF110E625;
- Mon, 15 Jun 2026 20:18:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7177910E683;
+ Mon, 15 Jun 2026 20:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554727;
- bh=QZQHP6SZcmIxH0/+L/HEwqRhaltY7tmMssFrjZ10E1s=;
+ s=default; t=1781554726;
+ bh=bvf3RHGbi5q5Jtj6LoRjwYoOARoPWEB04P4tBVx9AYY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=d9NGAgnKDErUVrhEu/4x5zgRtdpuv1dmwSFvun+aByUgk5wWI3SSNrNyZxCgJeF9d
- VQ92db3tn5N3YGP++6Al9yWXGiZzOiz7RN+P/3mKMZuzGNGpy4EXQmaZv/kV0t7+xy
- OtOJyikO2LKLDQO2qHwGIQUfMeRqaJYhlZSzLdiBMsDC6H7N/Lnc48PSvfA9EK++Xz
- l/xo0rka6vgSwFtU+No3mqc9SgJ6fCk+laUwjh4Kgj/yyigV5e24H2xmaww6G98uUv
- 3g2ajLC5nHun7btulEbY52rz1/Rk6T+Wbb0MMCqq1zgDX8Si8G8iThP3WnkeIQU6x4
- CZYHyO9Q3lBRQ==
+ b=OSI32251xe/F7alWhz2OqA2pBbIYJme/caUeKIB5pMvVeWaXGqd3vaIyjzUR1Eadi
+ IT/2KIe4gbSX0JGgWTRutYrS0Rusp1h38lln8TtzGVb10uh+Zob2YitwcFB/q9EJjr
+ 3Z/XJ6j1EFfdMTDMLeshxNIBg0tMFocj14cuMYa0DSFwp9bcTD9xbWBeaH2GOiEmox
+ RGH8TmzJcKgDBACTaeCDL2kUpgrdsGDyN+VCxhOZYi3LV6ge0aWie2eNz75DLA44es
+ ZvYzZwft35h4yjhDahVbFR/xRcWOHWki8h76l8gklCIkzMIGTrsWUhWjLiRC0VDpWf
+ DAsvvFEJyUGhw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 24/27] FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-Date: Mon, 15 Jun 2026 22:18:42 +0200
-Message-ID: <20260615201846.307297-25-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v8 22/27] Revert "drm/i915: Depend on !PREEMPT_RT."
+Date: Mon, 15 Jun 2026 22:18:40 +0200
+Message-ID: <20260615201846.307297-23-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
 References: <20260615201846.307297-1-dev@lankhorst.se>
@@ -53,32 +55,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We're hitting a bug in CI where MAX_STACK_TRACE_ENTRIES is set too low.
-My guess is the repeated loading/unloading is creating multiples of the
-same entries. As a hack just reset lockdep. This might only be necessary
-for CI + PREEMPT_RT.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
+Once the known issues are addressed, it should be safe to enable the
+driver.
+
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- lib/Kconfig.debug | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 9b9f7c5935596..ec35b50068a73 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1625,9 +1625,8 @@ config LOCKDEP_CHAINS_BITS
- config LOCKDEP_STACK_TRACE_BITS
- 	int "Size for MAX_STACK_TRACE_ENTRIES (as Nth power of 2)"
- 	depends on LOCKDEP && !LOCKDEP_SMALL
--	range 10 26
--	default 21 if KASAN
--	default 19
-+	range 22 26
-+	default 22
- 	help
- 	  Try increasing this value if you hit "BUG: MAX_STACK_TRACE_ENTRIES too low!" message.
- 
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 5e939004b6463..40a9234e6e5dc 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -3,7 +3,6 @@ config DRM_I915
+ 	tristate "Intel 8xx/9xx/G3x/G4x/HD Graphics"
+ 	depends on DRM
+ 	depends on X86 && PCI
+-	depends on !PREEMPT_RT
+ 	select INTEL_GTT if X86
+ 	select INTERVAL_TREE
+ 	# we need shmfs for the swappable backing store, and in particular
 -- 
 2.53.0
 
