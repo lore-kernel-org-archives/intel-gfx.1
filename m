@@ -4,41 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 630AFCD98E2
-	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED8C8CD98DA
+	for <intel-gfx@archiver.kernel.org>; Mon, 15 Jun 2026 20:34:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D54FD10E69B;
-	Mon, 15 Jun 2026 20:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9DD10E687;
+	Mon, 15 Jun 2026 20:34:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="pORYLFZA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aunuM3Wr";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D15810E625;
- Mon, 15 Jun 2026 20:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1781554728;
- bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pORYLFZAeKbZf+N59n8X5e24r5r9ZYpmjigfDtMsO8Rae+4YfgAIn2Mi3hoiZ8rkQ
- bWhIGSS4xYX2mgXgLswzafh5HptpAVStIF8r4kuG2cwHA3ObYqK0qLAss7nL45vMBJ
- YDSCC6RAnzN+uEiEtWeK8LdJkSJaGsEbyk0eA5vsSaR6KMUdzXPEBQ/zbsDYSQSbdB
- 0uENefQf4pa4kX2N32cvfI/hRpvovAkreGqlKXRuJmRp/RuZKwd1a3F1epOJjIo2c8
- uQ4IW9JwWmJ0AF6tHBsp2nXtADe2CELEtn2Iml0h45VKe56AXU5vE5Ak7xlYL/Nc61
- +qcp1TA1bn1aw==
-From: Maarten Lankhorst <dev@lankhorst.se>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5E0310E66C;
+ Mon, 15 Jun 2026 20:34:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781555649; x=1813091649;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ajUm+NiL0ekiFLT1H5CJpRQUvuW2JdszuCXi7sh/WtU=;
+ b=aunuM3WrGm20FBYAFLjZ8RHI7mo30N8e98gykLXG4cZE2sR290Sa3LG2
+ HN7BWmYj6iiSt4imivKw7l81a23kP3RicfTqc/5/RqJBVkITVRJ+2jkTH
+ oQiaVbTxTEFoFQiKe0xNwn+HxlOpurakPChNNPiYzj3PSwvAcnoTQdTfT
+ W7mDZRDD8OfXey256ycSEQ/0kE14pm/D8wfcEqjGnVUaoguN5NNFqFpys
+ 57Kd8Py5IwnXneubyRMqAFVxwgh5atZedhe3OPzDzVj5mwRiEjC6fUQ2m
+ x6xly688r3fVtpC2r2fcSH2to3WV+ljnSdPyOpg9lS+D8gbKPdCY1sBR6 g==;
+X-CSE-ConnectionGUID: coYriyo5RKaVn+1bw0GK4w==
+X-CSE-MsgGUID: MAm4VAZ0RFqOLiUf7f03fg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="93694558"
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="93694558"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 13:34:08 -0700
+X-CSE-ConnectionGUID: 2x/i28pMSnitAVG4IEmIYw==
+X-CSE-MsgGUID: AY4AoYDITumj3zonCggw2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="252538403"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO
+ vgovind2-mobl4.intel.com) ([10.245.245.246])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jun 2026 13:34:06 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v8 25/27] drm/i915/gt: Add a spinlock to prevent starvation of
- irq_work.
-Date: Mon, 15 Jun 2026 22:18:43 +0200
-Message-ID: <20260615201846.307297-26-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260615201846.307297-1-dev@lankhorst.se>
-References: <20260615201846.307297-1-dev@lankhorst.se>
+Cc: vinod.govindapillai@intel.com,
+	ville.syrjala@linux.intel.com
+Subject: [PATCH v3 0/7] drm/i915/display: reduce the pm demand peak bw based
+ on display data rate
+Date: Mon, 15 Jun 2026 23:33:48 +0300
+Message-ID: <20260615203355.218578-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,74 +71,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+In xe3+, soc can lower the fabric frequency when the display
+needs less bandwidth than the minimum GV point. Also some cleanups
+in intel_bw.c
 
-IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
-and the interrupt will poll on signaler_active while the irq-work can't
-make progress.
+v1: pmdemand peak bw is updated to 20GB/s is the required data rate
+    is low and less than 20GB/s even though there are no QGV point
+    with 20GB/s. Only the peak_ww is changed based on the conditions 
 
-Solve this by adding a spinlock to prevent starvation and force
-completion.
+v2: At the time of BW info calculations, a new row is inserted with
+    peakbw as 20GB/s and deratebw also to 20GB/s and the required
+    pmdemand peakbw is automatically calculated based on the old
+    logic.
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
- 2 files changed, 8 insertions(+), 1 deletion(-)
+v3: change in the logic after Ville's refactoring of the intel_bw
+    code. An extra QGV point for this low peakbw threshold is added
+    Some cleanup patches from the v2 are dropped.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa8..c2b174bfa1418 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
- 		intel_breadcrumbs_disarm_irq(b);
- 
- 	rcu_read_lock();
-+	spin_lock(&b->signaler_active_sync);
- 	atomic_inc(&b->signaler_active);
- 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
- 		struct i915_request *rq;
-@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
- 		}
- 	}
- 	atomic_dec(&b->signaler_active);
-+	spin_unlock(&b->signaler_active_sync);
- 	rcu_read_unlock();
- 
- 	llist_for_each_safe(signal, sn, signal) {
-@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 	init_llist_head(&b->signaled_requests);
- 
- 	spin_lock_init(&b->irq_lock);
-+	spin_lock_init(&b->signaler_active_sync);
- 	init_irq_work(&b->irq_work, signal_irq_work);
- 
- 	b->irq_engine = irq_engine;
-@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 	if (release)
- 		intel_context_put(ce);
- 
--	while (atomic_read(&b->signaler_active))
-+	while (atomic_read(&b->signaler_active)) {
-+		spin_lock(&b->signaler_active_sync);
-+		spin_unlock(&b->signaler_active_sync);
- 		cpu_relax();
-+	}
- }
- 
- static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index bdf09fd67b6e7..28dae32628aab 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
- 	atomic_t signaler_active;
-+	spinlock_t signaler_active_sync;
- 
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
+Vinod Govindapillai (7):
+  drm/i915/wm: clear the plane ddb_y entries on plane disable
+  drm/i915/pm_demand: introduce HAS_PMDEMAND macro
+  drm/i915/display: sagv pre/post plane calls to check pmdemand support
+  drm/i915/bw: Extract icl_init_qgv_info()
+  drm/i915/bw: extract update_sagv_status()
+  drm/i915/bw: avoid replicating the update_sagv_status() calls
+  drm/i915/bw: introduce the peak bandwidth threshold
+
+ drivers/gpu/drm/i915/display/intel_bw.c       | 94 +++++++++++++------
+ .../drm/i915/display/intel_display_device.h   |  2 +
+ .../gpu/drm/i915/display/intel_display_irq.c  |  2 +-
+ .../drm/i915/display/intel_display_power.c    |  4 +-
+ drivers/gpu/drm/i915/display/intel_pmdemand.c | 12 +--
+ drivers/gpu/drm/i915/display/skl_watermark.c  |  8 +-
+ 6 files changed, 83 insertions(+), 39 deletions(-)
+
 -- 
-2.53.0
+2.43.0
 
