@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A937CD98DA
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 07:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 557C5CD98DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 07:48:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2D410E87F;
-	Tue, 16 Jun 2026 07:26:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E03F310E88A;
+	Tue, 16 Jun 2026 07:48:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IBm4jAtU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="B+NdRnot";
 	dkim-atps=neutral
-X-Greylist: delayed 346 seconds by postgrey-1.36 at gabe;
- Tue, 16 Jun 2026 07:26:56 UTC
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F3A810E87F;
- Tue, 16 Jun 2026 07:26:56 +0000 (UTC)
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4gfdh31D4Vz9tHd;
- Tue, 16 Jun 2026 09:21:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1781594467;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=nE49FpUiAmb6Y1+uDOtAxVOfoHmPp7grMB2vEXcHP7o=;
- b=IBm4jAtUKL94H7E36joCasUHmklSeL1XNau1vJ5p2jmHbYFkU5biiKY3rSXAmVxn6HK+lC
- 2nvGFHadlN6TSdESs7oTKScOM0yxYTnUewIAn2d6KNpoKMjvi5tWymIAn4xHQmp/SwPOxu
- RI0l/b/dInBK2tT+tar01OwMGezYnM1OyLVpuZB8kjzHk/Bi+0OxAYYpAyaC62pXHTSvN+
- PhzJdExNkVCtoX/uCrItTcYDbnyHkDHbJUhL4bAcxou925ZMOYw5cjo4v8xI8aSLta7Pko
- 52bgJcluHnSOpbcoaCbaESEizRCVPYnB4VHOn3xAF8T1X4MFeuIoEiwSs5GX0g==
-Message-ID: <18f0c14b-f973-4e1a-948b-5274cc36895c@mailbox.org>
-Date: Tue, 16 Jun 2026 09:21:01 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 974B010E88A;
+ Tue, 16 Jun 2026 07:48:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781596125; x=1813132125;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=gpwdHN/UeHj3EmW8+I4mXFeke+TXrK+/oJ9GD931vGc=;
+ b=B+NdRnotfmL0tKXKWN2o3CX5jdMZO+ZuLgwajE8En7l3C8mB6poXO917
+ Wx7ptEHpp14WfjucN0muYpyd/qpUBVRl423ZNVQhjaJaSpBbGQuqEs5d8
+ ccJFkaMNVlE/0P6y2RxsQNI/+cXn8CIxMvgFJo5hInzibCXCQv7zA/v0D
+ sgan69TQ56MYJwkNk7yLcFXOX879ADADRRl0MCv436ipI3Knvuxd47ORD
+ /3Db5At93I/XSmg/TqQ0q5wyWs89t0cEjpQNIoqCATAIdeqhTERDWUJ9E
+ oLRfKMLEwaRKKeKg/BVM2WvIk33YOD+S0uPyfKdxtt7PQxJYBmv3x2vfB A==;
+X-CSE-ConnectionGUID: rbdA3fWkTEWFP5OreN2uNw==
+X-CSE-MsgGUID: yxUbUP0rTtKFOmMI+cwNnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="105021057"
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="105021057"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 00:48:44 -0700
+X-CSE-ConnectionGUID: ZSMxa4KtTzi6MweniUbN+A==
+X-CSE-MsgGUID: bN4qTYEHSLSxB7m5gMulYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,207,1774335600"; d="scan'208";a="271417598"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by fmviesa002.fm.intel.com with ESMTP; 16 Jun 2026 00:48:42 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
+ ville.syrjala@linux.intel.com, suraj.kandpal@intel.com
+Subject: [PATCH v1] drm/i915/display: Program TRANS_VTOTAL from mode vtotal
+Date: Tue, 16 Jun 2026 13:08:05 +0530
+Message-ID: <20260616073805.779362-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Subject: Re: [PATCH 0/4] drm/i915: Work harder to enable VRR based refresh
- rate changes on eDP
-To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org
-References: <20260612144203.31715-1-ville.syrjala@linux.intel.com>
- <3d441831-71bc-49fd-823f-3af443e55b20@mailbox.org>
- <31da350f-adfc-4b2c-a7c5-5ed884ffd9ca@mailbox.org>
- <ai_40qUa-MVdbOEf@intel.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <ai_40qUa-MVdbOEf@intel.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: sbdbgcpnh31xpk64ojmys9mx1u8b6r3n
-X-MBO-RS-ID: 92707d3f935cd46cae9
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,23 +66,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 6/15/26 15:06, Ville Syrjälä wrote:
-> 
-> What we're doing here is selecting the actual timings to drive an internal laptop 
-> panel, given some random cooked up modeline from userspace.
+DP transcoder uses TRANS_VTOTAL to derive MSA VTotal. Avoid
+overriding crtc_vtotal to 1 on platform which supports VRR
+Timing generator and always program VTOTAL from mode timing
+in transcoder timing paths.
 
-How can user space know what cooked-up modes it can (not) expect to work with this?
+Bspec: 70001
+Fixes: 94f608992f8c ("drm/i915/display: Avoid use of VTOTAL.Vtotal bits")
+Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 17 -----------------
+ 1 file changed, 17 deletions(-)
 
-
-> We pick the actual mode from the set of "fixed modes" (ie. the modes
-> that the panel/system itself has reported as supported via
-> EDID/VBT/ACPI/etc.). For non-VRR panels we just pick the fixed mode
-> whose refresh rate is closest to the user specified mode, and reject
-> the commit if it's not close enough (<= 1 Hz).
-
-Can't programming different mode timings result in the panel blanking intermittently?
-
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index e2e4b00a8fa9..eb54f20b1859 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2731,15 +2731,6 @@ static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_sta
+ 		       HSYNC_START(adjusted_mode->crtc_hsync_start - 1) |
+ 		       HSYNC_END(adjusted_mode->crtc_hsync_end - 1));
+ 
+-	/*
+-	 * For platforms that always use VRR Timing Generator, the VTOTAL.Vtotal
+-	 * bits are not required. Since the support for these bits is going to
+-	 * be deprecated in upcoming platforms, avoid writing these bits for the
+-	 * platforms that do not use legacy Timing Generator.
+-	 */
+-	if (intel_vrr_always_use_vrr_tg(display))
+-		crtc_vtotal = 1;
+-
+ 	intel_de_write(display, TRANS_VTOTAL(display, cpu_transcoder),
+ 		       VACTIVE(crtc_vdisplay - 1) |
+ 		       VTOTAL(crtc_vtotal - 1));
+@@ -2826,14 +2817,6 @@ static void intel_set_transcoder_timings_lrr(const struct intel_crtc_state *crtc
+ 	intel_de_write(display, TRANS_VSYNC(display, cpu_transcoder),
+ 		       VSYNC_START(adjusted_mode->crtc_vsync_start - 1) |
+ 		       VSYNC_END(adjusted_mode->crtc_vsync_end - 1));
+-	/*
+-	 * For platforms that always use VRR Timing Generator, the VTOTAL.Vtotal
+-	 * bits are not required. Since the support for these bits is going to
+-	 * be deprecated in upcoming platforms, avoid writing these bits for the
+-	 * platforms that do not use legacy Timing Generator.
+-	 */
+-	if (intel_vrr_always_use_vrr_tg(display))
+-		crtc_vtotal = 1;
+ 
+ 	/*
+ 	 * The double buffer latch point for TRANS_VTOTAL
 -- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+2.48.1
+
