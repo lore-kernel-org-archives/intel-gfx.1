@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3CBCD98E1
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 21:49:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34B4ECD98D2
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 22:58:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9231410EB61;
-	Tue, 16 Jun 2026 21:49:00 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GkPOBNBh";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80BF910EB61;
- Tue, 16 Jun 2026 21:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781646539; x=1813182539;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=AX7H8IORXE9pwgOGNlV7s2gi2kbC4vKJ+wjrZzHy1Qs=;
- b=GkPOBNBhy5K27ott0TIs0f4SIC3rPfQpfMT0JewFUrcJVfvAo7TKqWgu
- RpGMJjeMFAuWEblVn4kc7Et5wPdd2ONOOUWJbHdpgmNZ+Gl5O/RoUqASz
- 3UXvIjM8JQfL5X6PUwC5kJOteOKHUc0svuEp9RygbiTXMnqVmOJ579fK5
- mUQviJ1U0KvUghrUswhb7NE26Tl9Ts4hooLxVKGYCpxRHjX6xF2S6rmVy
- 54pjzrT2X+g98QXAd9f1IuoSJy5yrPC4JqKoqm7aWC4C/p2rnkkbgbt7E
- GHndQ0sD4Dz6PPZpzziGKFu110fhATeYxUO5NrM/3zMz/Yiqr/S4uqr+X A==;
-X-CSE-ConnectionGUID: XQmuA9XgSiixn/VG4YSu+g==
-X-CSE-MsgGUID: amR7oVuYQ+6MZF817Hu75Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93098882"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="93098882"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 14:48:59 -0700
-X-CSE-ConnectionGUID: BHkKGzNUQMSc6R1zEwMwMA==
-X-CSE-MsgGUID: tpd8L0efTEmlZEcz1aI/Sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="247962851"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 14:48:57 -0700
-Date: Tue, 16 Jun 2026 23:48:55 +0200 (CEST)
-From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
-To: Vinod Govindapillai <vinod.govindapillai@intel.com>
-cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- ville.syrjala@linux.intel.com, matthew.d.roper@intel.com, 
- shawn.c.lee@intel.com
-Subject: Re: [PATCH v2] drm/i915/display: update to the BW buddy configuration
-In-Reply-To: <20260616184131.295013-1-vinod.govindapillai@intel.com>
-Message-ID: <6b19d341-f587-3edc-304f-6eda8cdbe3f1@intel.com>
-References: <20260616184131.295013-1-vinod.govindapillai@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD8710E2BD;
+	Tue, 16 Jun 2026 22:58:35 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CE7910E29E;
+ Tue, 16 Jun 2026 22:58:34 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6178050155134769067=="
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2010714063-1781646538=:605841"
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=5Flink=3A_Ref?=
+ =?utf-8?q?actor_DP_link_capability_logic_part1?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Imre Deak" <imre.deak@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 16 Jun 2026 22:58:34 -0000
+Message-ID: <178165071410.86642.17071206843993766859@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260616200849.3534628-1-imre.deak@intel.com>
+In-Reply-To: <20260616200849.3534628-1-imre.deak@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,65 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--===============6178050155134769067==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---8323329-2010714063-1781646538=:605841
-Content-Type: text/plain; format=flowed; charset=ISO-8859-2
-Content-Transfer-Encoding: 8BIT
+== Series Details ==
 
-Hi Vinod,
+Series: drm/i915/dp_link: Refactor DP link capability logic part1
+URL   : https://patchwork.freedesktop.org/series/168633/
+State : success
 
-On Tue, 16 Jun 2026, Vinod Govindapillai wrote:
-> Bspec has been updated for xe2_lpd+ platforms on how to handle
-> the bw buddy prgramming in case no matching memory configuration
+== Summary ==
 
-typo: *programming
+CI Bug Log - changes from CI_DRM_18691 -> Patchwork_168633v1
+====================================================
 
-Other than that:
-Reviewed-by: Micha³ Grzelak <michal.grzelak@intel.com>
+Summary
+-------
 
-BR,
-Micha³
+  **SUCCESS**
 
-> is found w.r.t the current page mask table. The recommendation
-> is to keep the default settings for the related registers as it
-> is without explicitly disabling the bw buddy.
->
-> v2: removed extra explanation
->
-> Bspec: 68871
-> Suggested-by: Ville Syrjala <ville.syrjala@intel.com>
-> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
-> ---
-> drivers/gpu/drm/i915/display/intel_display_power.c | 9 ++++++---
-> 1 file changed, 6 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
-> index 2e51dfcd5dce..3d348c5decee 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
-> @@ -1634,9 +1634,12 @@ static void tgl_bw_buddy_init(struct intel_display *display)
-> 	if (table[config].page_mask == 0) {
-> 		drm_dbg_kms(display->drm,
-> 			    "Unknown memory configuration; disabling address buddy logic.\n");
-> -		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
-> -			intel_de_write(display, BW_BUDDY_CTL(i),
-> -				       BW_BUDDY_DISABLE);
-> +
-> +		if (DISPLAY_VER(display) < 20) {
-> +			for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
-> +				intel_de_write(display, BW_BUDDY_CTL(i),
-> +					       BW_BUDDY_DISABLE);
-> +		}
-> 	} else {
-> 		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask)) {
-> 			intel_de_write(display, BW_BUDDY_PAGE_MASK(i),
-> -- 
-> 2.43.0
->
->
---8323329-2010714063-1781646538=:605841--
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168633v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18691 -> Patchwork_168633v1
+
+  CI-20190529: 20190529
+  CI_DRM_18691: 29ea43790111df065ed84e6cb076c64322c306f1 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8966: 9b33225c761bfe8c8c266bc56558d75c700029fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_168633v1: 29ea43790111df065ed84e6cb076c64322c306f1 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168633v1/index.html
+
+--===============6178050155134769067==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp_link: Refactor DP link capability logic part1</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168633/">https://patchwork.freedesktop.org/series/168633/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168633v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168633v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18691 -&gt; Patchwork_168633v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168633v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18691 -&gt; Patchwork_168633v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18691: 29ea43790111df065ed84e6cb076c64322c306f1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8966: 9b33225c761bfe8c8c266bc56558d75c700029fb @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_168633v1: 29ea43790111df065ed84e6cb076c64322c306f1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6178050155134769067==--
