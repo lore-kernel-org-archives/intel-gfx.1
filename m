@@ -4,61 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8995BCD98E4
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ECC2CD98E4
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 18:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23F1A10E825;
-	Tue, 16 Jun 2026 18:02:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 182D310E174;
+	Tue, 16 Jun 2026 18:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hz1aiLJ3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ESVXpZgK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18BD610E825;
- Tue, 16 Jun 2026 18:02:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54F5F10E174;
+ Tue, 16 Jun 2026 18:41:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781632975; x=1813168975;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=UoYLHCp2Z9ahkGulEfuot/G7zMgo35orEoYjbWb4HK0=;
- b=Hz1aiLJ3GU2jpXc/I1W2OS29tnvB6SvnG0xiS20GtOTSUlkWV32Wi/Ji
- ECbv4CcRiZiZNxSRYuthauqsk7Io5V+30rX1c2cHGHYQgGQpBc0JYRv3b
- 5HLF9O3rITX1y60nteIkAeH6xA0SVn10G3s21aN8UZgyU5i5FjDbYLfVz
- ykhPdSwb3l6flN0yrSG1yVqpORB+m9kPBhZItgfdwTvwa5xhOIPM2VkCz
- glR3xzMNS4oB7UtT9zTU7hp+Snd4bmpg27B9jggeINbvBcvYmv1Eur1EV
- ytmyaG1o1bNJdbuJZqFoWJZMS230dmbNCs5FGrHgGkpMAcmkRe1trjvyx w==;
-X-CSE-ConnectionGUID: xUz7H7RERD+bVWT5nY8hbw==
-X-CSE-MsgGUID: WmAhDrL3Rc2ZN/7WoaYERA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="81416901"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="81416901"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 11:02:55 -0700
-X-CSE-ConnectionGUID: YLV+Aq2WSn2sOZ3RZMjPJw==
-X-CSE-MsgGUID: r+sjLiTsSsye5e2e9w9iJQ==
+ t=1781635305; x=1813171305;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=z+YsEVwThl11k1+N/LUAJ6X3Pzi4ePmn/2wtKGpY8S4=;
+ b=ESVXpZgK62cN4T7OlZyAmwoTAHQxNxedw7Z7EQ+yJZNcxkMIFIxMjxha
+ dqOGu7NX3CQbFkv56TLTkQXLgdM0sDpw/cAKGbxiI2A3lWDnbB3qhFi7z
+ bFlzfo9FyzmcYU+iTr5aoEfsa2/I4NGQcnU5INrQmssrp0LfiVoFgjav/
+ nWp+27uzTnP477WHoaxnnVn9wDNRDEJ4gOfKrFRiTaezKgM/ViFH1Xi0j
+ OO6z3oZi8+Mej83/vobIkNHRilhd+Nh99jRDNXj3oOxUroTUD7iyalg+k
+ WP+2a5Hqf0ASyZxdHfhTeF2vQaFuMhsgZGrXaUKEhjhMXEmioHrv8+mOt g==;
+X-CSE-ConnectionGUID: x0SMaHYTTeuD4zrJDflGHg==
+X-CSE-MsgGUID: LiWD7JweTEuJznXTmQRN3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="82454998"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="82454998"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 11:41:45 -0700
+X-CSE-ConnectionGUID: 7HfNmbn7ThqqXa/BZHrMbg==
+X-CSE-MsgGUID: pf6EJlDWT2my4IeWRTcSVg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="246947196"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.245.15])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 11:02:53 -0700
-Date: Tue, 16 Jun 2026 21:02:49 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v2 1/2] drm/i915/dsb: shift delayed-vblank DSL wait start
- by one scanline
-Message-ID: <ajGPyauYMruBI0BN@intel.com>
-References: <20260608123711.1121908-1-ankit.k.nautiyal@intel.com>
- <20260608123711.1121908-2-ankit.k.nautiyal@intel.com>
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO
+ vgovind2-mobl4.intel.com) ([10.245.244.193])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2026 11:41:42 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, ville.syrjala@linux.intel.com,
+ matthew.d.roper@intel.com, shawn.c.lee@intel.com
+Subject: [PATCH v2] drm/i915/display: update to the BW buddy configuration
+Date: Tue, 16 Jun 2026 21:41:31 +0300
+Message-ID: <20260616184131.295013-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260608123711.1121908-2-ankit.k.nautiyal@intel.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,59 +69,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 08, 2026 at 06:07:09PM +0530, Ankit Nautiyal wrote:
-> In intel_dsb_wait_for_delayed_vblank() the VRR path issues a
-> WAIT_DSL_OUT(safe_window_start, vmin_safe_window_end) followed by a
-> WAIT_USEC for SCL+1 scanlines to land on the delayed vblank.
-> 
-> Experimentally, DSB appears to observe a slightly stale PIPEDSL value.
-> When the actual scanline has just reached safe_window_start, the DSB
-> may still see a value at or before that boundary when WAIT_DSL_OUT is
-> evaluated, causing the wait to complete immediately.
-> 
-> As a result, the subsequent WAIT_USEC executes too early, and the
-> flip-done interrupt fires roughly one frame ahead of the delayed vblank.
-> 
-> Shift the scanline start back by one to ensure the wait window is
-> entered reliably.
-> 
-> v2: Replace explicit one-scanline delay with scanline boundary
->     adjustment (safe_window_start - 1). (Ville)
-> 
-> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Bspec has been updated for xe2_lpd+ platforms on how to handle
+the bw buddy prgramming in case no matching memory configuration
+is found w.r.t the current page mask table. The recommendation
+is to keep the default settings for the related registers as it
+is without explicitly disabling the bw buddy.
 
-Reviewed-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+v2: removed extra explanation
 
-> ---
->  drivers/gpu/drm/i915/display/intel_dsb.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dsb.c b/drivers/gpu/drm/i915/display/intel_dsb.c
-> index fec8a56e21ea..07dd6318d9cc 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dsb.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dsb.c
-> @@ -902,9 +902,17 @@ void intel_dsb_wait_for_delayed_vblank(struct intel_atomic_state *state,
->  		 * the hardware itself guarantees that we're SCL lines
->  		 * away from the delayed vblank, and we won't be inside
->  		 * the vmin safe window so this extra wait does nothing.
-> +		 *
-> +		 * Experimentally, DSB may observe a slightly stale
-> +		 * PIPEDSL value. When the actual scanline has just reached
-> +		 * safe_window_start, WAIT_DSL_OUT may complete immediately
-> +		 * due to the stale value.
-> +		 *
-> +		 * Shift the start back by one scanline to ensure the wait
-> +		 * window is entered reliably.
->  		 */
->  		intel_dsb_wait_scanline_out(state, dsb,
-> -					    intel_vrr_safe_window_start(crtc_state),
-> +					    intel_vrr_safe_window_start(crtc_state) - 1,
->  					    intel_vrr_vmin_safe_window_end(crtc_state));
->  		/*
->  		 * When the push is sent during vblank it will trigger
-> -- 
-> 2.45.2
+Bspec: 68871
+Suggested-by: Ville Syrjala <ville.syrjala@intel.com>
+Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_power.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+index 2e51dfcd5dce..3d348c5decee 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_power.c
++++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+@@ -1634,9 +1634,12 @@ static void tgl_bw_buddy_init(struct intel_display *display)
+ 	if (table[config].page_mask == 0) {
+ 		drm_dbg_kms(display->drm,
+ 			    "Unknown memory configuration; disabling address buddy logic.\n");
+-		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
+-			intel_de_write(display, BW_BUDDY_CTL(i),
+-				       BW_BUDDY_DISABLE);
++
++		if (DISPLAY_VER(display) < 20) {
++			for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
++				intel_de_write(display, BW_BUDDY_CTL(i),
++					       BW_BUDDY_DISABLE);
++		}
+ 	} else {
+ 		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask)) {
+ 			intel_de_write(display, BW_BUDDY_PAGE_MASK(i),
 -- 
-Ville Syrjälä
-Intel
+2.43.0
+
