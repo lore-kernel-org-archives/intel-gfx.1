@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFD34CD98F0
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 14:53:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49FAFCD98DA
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 16:10:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3731E10EC48;
-	Tue, 16 Jun 2026 14:53:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZFX/71/b";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5F4A10EC1B;
- Tue, 16 Jun 2026 14:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781621610; x=1813157610;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xgGA+ugTjhJvibxqwV7pzmJMDXlgkaa4cZZXN3IlNP4=;
- b=ZFX/71/b0c35DnjIy5LJtSB3t0r4buf0KyVOA8Zqh+oFslv7Pnvc7/Ah
- ZhMZjjiidCxQe0OLo4FG9w/y5MttxBZ0VD+4wzNt2F5x3/2oymiGmySAw
- 6aSwpwdvuL5wZerFcZZf+/1IRP27jiUYAr5W0GLdVCrx4b7tU13z1eIsE
- OzsgwaWyU5vmWWoad+lWyc62Xqh/GYaPXVgcS+ubXp7E7HF5Qi9D72q47
- kAMsngllMG9H0HFeZOnFJj/vyGEZvik9jdT2maZNu9+46evzbyrbOUYby
- bYNaLwH0x7uzeh7f0Ls7H4D2Ujxm7JFVHl6Hy09zv/0rzU/ox5kpE1dXV Q==;
-X-CSE-ConnectionGUID: J0mPO9u5TLusJdRFqfTfHg==
-X-CSE-MsgGUID: ov/+KJrNRo2q2uIRGU06rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="69932849"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="69932849"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 07:53:30 -0700
-X-CSE-ConnectionGUID: tSEg4xcvRgCv9yXK8GT1+w==
-X-CSE-MsgGUID: xijs1TAcTAGp+jOtrQNBCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="285896362"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa001.jf.intel.com with ESMTP; 16 Jun 2026 07:53:28 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, ankit.k.nautiyal@intel.com,
- chaitanya.kumar.borah@intel.com
-Subject: [PATCH v2 10/11] drm/i915/vrr: Return from CMRR compute config in
- case of PSR2 enabled
-Date: Tue, 16 Jun 2026 20:12:31 +0530
-Message-ID: <20260616144233.832276-11-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260616144233.832276-1-mitulkumar.ajitkumar.golani@intel.com>
-References: <20260616144233.832276-1-mitulkumar.ajitkumar.golani@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D10698924B;
+	Tue, 16 Jun 2026 16:10:17 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C278924B;
+ Tue, 16 Jun 2026 16:10:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0075658472376459391=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Enable_CMRR_in_fixed-RR_V?=
+ =?utf-8?q?RR_path_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 16 Jun 2026 16:10:16 -0000
+Message-ID: <178162621626.85468.6859661269065768759@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260616144233.832276-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20260616144233.832276-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,31 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-CMRR is mutually exclusive to PSR2, hence return from CMRR if PSR2
-is already computed.
+--===============0075658472376459391==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/display/intel_vrr.c | 3 +++
- 1 file changed, 3 insertions(+)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 92ded2e68b01..2d5f0f17bf3c 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -233,6 +233,9 @@ intel_vrr_cmrr_compute_config(struct intel_crtc_state *crtc_state)
- 	if (!HAS_CMRR(display))
- 		return;
- 
-+	if (crtc_state->has_sel_update)
-+		return;
-+
- 	/* No CMRR ratio configured through debugfs */
- 	if (!crtc->cmrr.numerator)
- 		return;
--- 
-2.48.1
+Series: Enable CMRR in fixed-RR VRR path (rev2)
+URL   : https://patchwork.freedesktop.org/series/166819/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18686 -> Patchwork_166819v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_166819v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - bat-apl-1:          [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +37 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18686/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/bat-apl-1/igt@i915_selftest@live@sanitycheck.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18686 -> Patchwork_166819v2
+
+  CI-20190529: 20190529
+  CI_DRM_18686: 70646d7ea3ac559ed269c0a38cd3699fea4e1eeb @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8965: 8965
+  Patchwork_166819v2: 70646d7ea3ac559ed269c0a38cd3699fea4e1eeb @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/index.html
+
+--===============0075658472376459391==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Enable CMRR in fixed-RR VRR path (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166819/">https://patchwork.freedesktop.org/series/166819/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18686 -&gt; Patchwork_166819v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_166819v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@sanitycheck:<ul>
+<li>bat-apl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18686/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v2/bat-apl-1/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +37 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18686 -&gt; Patchwork_166819v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18686: 70646d7ea3ac559ed269c0a38cd3699fea4e1eeb @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8965: 8965<br />
+  Patchwork_166819v2: 70646d7ea3ac559ed269c0a38cd3699fea4e1eeb @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0075658472376459391==--
