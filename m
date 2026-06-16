@@ -4,50 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A507CD98E1
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 16:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F04D7CD98F0
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 16:23:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCA3110ECC7;
-	Tue, 16 Jun 2026 16:23:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CDCF10ECC8;
+	Tue, 16 Jun 2026 16:23:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gDd/m5M3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NRf6/7Dv";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09A0710ECC7;
- Tue, 16 Jun 2026 16:23:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E624010ECC3;
+ Tue, 16 Jun 2026 16:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781627009; x=1813163009;
+ t=1781627013; x=1813163013;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=imD7CpzN37DHmuJ6FKOoTHr/bK1qx2tCJvQi1LEG9oc=;
- b=gDd/m5M3HthouOB5tQSe9vYG4EAOLe3kASCdbGwGOi4KdV2ly/W83Hvc
- t0owNuyC4DMwNGkNsJ7jADo61cUzuObUydmYiMlkmyE+BuwZ0cuHBcKxd
- 4Gl8L5e2JRlZna06A6RFogGO+w23eS27VF8Z2HoqYJc7l6tP0ZIpa6H6/
- HNROJRiq5g+lzIdz+WtrK5pZIr0QKIdqV7HrwLYtioopuCbl+Nim4D5+2
- HXE8alOboa4LH4etvYCvdAtIvpICHGPHmasneln+GXt098tb/U08cz+fA
- ie2DdntUvAcnqI/WFYtAnuNmPPpl+gFgl/XXeFFbwDtaKZEGPYEiOdm/N Q==;
-X-CSE-ConnectionGUID: O+MR1pI+RH6B9/zcxCVPtw==
-X-CSE-MsgGUID: /m6sBs6XT7aXOjeqlsvt4Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93781327"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="93781327"
+ bh=SgZQA1kWXTj2s7LWxQLMXB9WUJLQG8Xyv4Ix7KRY+r4=;
+ b=NRf6/7DvICJJt8povOlsW8v81JYs5a0vFAofnbyN0tFrx9zm4HERY58H
+ fkK1AenEgQ+2v6gGWd36sEceDm/XdfZQotoT6WwPALNvlF2L559Q1jXFa
+ dCGPav3VXD0TAyUlBU5BKsox5v7EOSSSuz+59kJPv5i83JNoeCI/3gnOi
+ EKKl+M0BlJ7xQ8IaIXE72B2R+XgZ7scT3brylLUwWEqI4GV0lSJ8EVCld
+ q1ooI96kaA9WKGqkHqDh6/4uoX8zvjbYJ4TF8Qw069klxOz7IPbqnQxIx
+ FI0nbbmCvMFUsk3EM89RfvMsbu7tduuV5PaMKa0ZMFLbDMgoaXF96h2+B g==;
+X-CSE-ConnectionGUID: FJAam8APSNOSRP1CXUS+KQ==
+X-CSE-MsgGUID: 56pby4WfSmCTn1j1DCAkcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="93781338"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="93781338"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 09:23:29 -0700
-X-CSE-ConnectionGUID: OuafYiX7RfyXaR9e1mZN8g==
-X-CSE-MsgGUID: fvW/e8mqRwuZK+myRokgpw==
+ 16 Jun 2026 09:23:33 -0700
+X-CSE-ConnectionGUID: OmSgF8cRQjGwOiePsxe7qg==
+X-CSE-MsgGUID: QuxJRMclRzyMOEGlGOeHFw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="247693541"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="247693554"
 Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 09:23:28 -0700
+ 16 Jun 2026 09:23:32 -0700
 From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: uma.shankar@intel.com, animesh.manna@intel.com, jani.nikula@linux.intel.com
-Subject: [PATCH v6 12/16] drm/i915/display: PSR Add delayed work to exit DC3CO
-Date: Tue, 16 Jun 2026 21:51:50 +0530
-Message-ID: <20260616162154.2630995-13-dibin.moolakadan.subrahmanian@intel.com>
+Subject: [PATCH v6 14/16] drm/i915/display: Add DC3CO count and residency in
+ dmc debugfs
+Date: Tue, 16 Jun 2026 21:51:52 +0530
+Message-ID: <20260616162154.2630995-15-dibin.moolakadan.subrahmanian@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260616162154.2630995-1-dibin.moolakadan.subrahmanian@intel.com>
 References: <20260616162154.2630995-1-dibin.moolakadan.subrahmanian@intel.com>
@@ -68,171 +69,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For DC3CO, idle_frames is programmed to 0, so PSR does not
-enter deep sleep. Add delayed work to schedule DC3CO exit
-after an idle duration derived from frame time (minimum
-equivalent of 6 frames).
-
-The work is re-armed from the PSR flush path on relevant frontbuffer
-activity. Once the display remains idle, DC3CO is disabled, idle frames
-are reprogrammed to their normal value, and DC6 is enabled to allow
-deeper power savings.
-
-Changes in v2:
-- Squash "PSR set idle frames while exit from DC3CO"
-  into this patch (Uma Shankar)
-- Add cancel_delayed_work() in intel_psr_disable_locked()
-  before clearing dc3co_eligible (Uma Shankar)
+Expose DC3CO count and residency for xe3lp platforms via debugfs.
 
 Changes in v4:
-- Re-arm cancelled DC3CO work in psr resume
-- Schedule DC3CO work from intel_psr_post_plane_update(). This is to
-  make sure DC3CO work scheduling will happen even without psr flush,
-  which may be a valid scenario.
+- Keep dc5_reg register initialization to avoid any
+  invalid access (sashiko)
+
+Changes in v5:
+- Change XE3P_DMC_DC3CO_COUNT address to lower case (Manna Animesh).
 
 Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- .../drm/i915/display/intel_display_types.h    |  2 +
- drivers/gpu/drm/i915/display/intel_psr.c      | 62 ++++++++++++++++++-
- 2 files changed, 63 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dmc.c      | 9 ++++++++-
+ drivers/gpu/drm/i915/display/intel_dmc_regs.h | 2 ++
+ 2 files changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 30feed50a2d1..ebd00922bf3c 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1778,6 +1778,8 @@ struct intel_psr {
- 	bool irq_aux_error;
- 	/* DC3CO allowed used to control PSR configuration */
- 	bool dc3co_allowed;
-+	/* DC3CO disable work */
-+	struct delayed_work dc3co_work;
- 	u16 su_w_granularity;
- 	u16 su_y_granularity;
- 	bool source_panel_replay_support;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 091da8341b0f..822bc1d6af53 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -1774,6 +1774,51 @@ static bool intel_psr_needs_wa_18037818876(struct intel_dp *intel_dp,
- 		!crtc_state->has_sel_update);
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc.c b/drivers/gpu/drm/i915/display/intel_dmc.c
+index a133785c815b..5ffe2b1c3c51 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc.c
++++ b/drivers/gpu/drm/i915/display/intel_dmc.c
+@@ -1650,7 +1650,14 @@ static int intel_dmc_debugfs_status_show(struct seq_file *m, void *unused)
+ 		   DMC_VERSION_MINOR(dmc->version));
  
-+static void psr2_dc3co_disable_locked(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
+ 	if (DISPLAY_VER(display) >= 12) {
+-		if (display->platform.dgfx || DISPLAY_VER(display) >= 14) {
++		if (DISPLAY_VER(display) >= 35) {
++			dc5_reg = DG1_DMC_DEBUG_DC5_COUNT;
++			seq_printf(m, "DC3CO count: %d\n",
++				   intel_de_read(display, XE3P_DMC_DC3CO_COUNT));
 +
-+	if (intel_dp->psr.dc3co_allowed) {
-+		intel_dp->psr.dc3co_allowed = false;
-+		intel_display_power_set_target_dc_state(display, DC_STATE_EN_UPTO_DC6);
-+		psr2_program_idle_frames(intel_dp, psr_compute_idle_frames(intel_dp));
-+	}
-+}
++			seq_printf(m, "DC3CO residency: %d\n",
++				   intel_de_read(display, DC_STATE_DC3CO_RESIDENCY));
++		} else if (display->platform.dgfx || DISPLAY_VER(display) >= 14) {
+ 			dc5_reg = DG1_DMC_DEBUG_DC5_COUNT;
+ 		} else {
+ 			dc5_reg = TGL_DMC_DEBUG_DC5_COUNT;
+diff --git a/drivers/gpu/drm/i915/display/intel_dmc_regs.h b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+index 38e342b45af0..6b7978fb8986 100644
+--- a/drivers/gpu/drm/i915/display/intel_dmc_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_dmc_regs.h
+@@ -531,6 +531,8 @@ enum pipedmc_event_id {
+ #define TGL_DMC_DEBUG3		_MMIO(0x101090)
+ #define DG1_DMC_DEBUG3		_MMIO(0x13415c)
+ 
++#define XE3P_DMC_DC3CO_COUNT	_MMIO(0x8f05c)
 +
-+static void psr2_dc3co_disable_work(struct work_struct *work)
-+{
-+	struct intel_dp *intel_dp =
-+		container_of(work, typeof(*intel_dp), psr.dc3co_work.work);
-+
-+	mutex_lock(&intel_dp->psr.lock);
-+	psr2_dc3co_disable_locked(intel_dp);
-+	mutex_unlock(&intel_dp->psr.lock);
-+}
-+
-+static void
-+psr2_dc3co_flush_locked(struct intel_dp *intel_dp, unsigned int frontbuffer_bits,
-+			enum fb_op_origin origin)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	if (!intel_dp->psr.dc3co_allowed)
-+		return;
-+
-+	if (!intel_dp->psr.sel_update_enabled ||
-+	    !intel_dp->psr.active)
-+		return;
-+	/*
-+	 * At every frontbuffer flush flip event modified delay of delayed work,
-+	 * when delayed work schedules that means display has been idle.
-+	 */
-+	if (!(frontbuffer_bits &
-+	    INTEL_FRONTBUFFER_ALL_MASK(intel_dp->psr.pipe)))
-+		return;
-+
-+	mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
-+			 intel_dp->psr.dc3co_exit_delay);
-+}
-+
- static
- void intel_psr_set_non_psr_pipes(struct intel_dp *intel_dp,
- 				 struct intel_crtc_state *crtc_state)
-@@ -2331,6 +2376,7 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 	intel_dp->psr.psr2_sel_fetch_cff_enabled = false;
- 	intel_dp->psr.active_non_psr_pipes = 0;
- 	intel_dp->psr.pkg_c_latency_used = 0;
-+	cancel_delayed_work(&intel_dp->psr.dc3co_work);
- 	intel_dp->psr.dc3co_allowed = false;
- }
- 
-@@ -2361,6 +2407,7 @@ void intel_psr_disable(struct intel_dp *intel_dp,
- 
- 	mutex_unlock(&intel_dp->psr.lock);
- 	cancel_work_sync(&intel_dp->psr.work);
-+	cancel_delayed_work_sync(&intel_dp->psr.dc3co_work);
- }
- 
- /**
-@@ -2391,6 +2438,7 @@ void intel_psr_pause(struct intel_dp *intel_dp)
- 	mutex_unlock(&psr->lock);
- 
- 	cancel_work_sync(&psr->work);
-+	cancel_delayed_work_sync(&psr->dc3co_work);
- }
- 
- /**
-@@ -2417,8 +2465,13 @@ void intel_psr_resume(struct intel_dp *intel_dp)
- 		goto out;
- 	}
- 
--	if (--intel_dp->psr.pause_counter == 0)
-+	if (--intel_dp->psr.pause_counter == 0) {
- 		intel_psr_activate(intel_dp);
-+		/* re-arm cancelled dc3co work from pause */
-+		if (intel_dp->psr.dc3co_allowed)
-+			mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
-+					 intel_dp->psr.dc3co_exit_delay);
-+	}
- 
- out:
- 	mutex_unlock(&psr->lock);
-@@ -3174,6 +3227,11 @@ void intel_psr_post_plane_update(struct intel_atomic_state *state,
- 		 */
- 		intel_dp->psr.busy_frontbuffer_bits = 0;
- 
-+		if (intel_dp->psr.dc3co_allowed) {
-+			mod_delayed_work(display->wq.unordered, &intel_dp->psr.dc3co_work,
-+					 intel_dp->psr.dc3co_exit_delay);
-+		}
-+
- 		mutex_unlock(&psr->lock);
- 	}
- }
-@@ -3632,6 +3690,7 @@ void intel_psr_flush(struct intel_display *display,
- 		if (origin == ORIGIN_FLIP ||
- 		    (origin == ORIGIN_CURSOR_UPDATE &&
- 		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
-+			psr2_dc3co_flush_locked(intel_dp, frontbuffer_bits, origin);
- 			goto unlock;
- 		}
- 
-@@ -3690,6 +3749,7 @@ void intel_psr_init(struct intel_dp *intel_dp)
- 		intel_dp->psr.link_standby = connector->panel.vbt.psr.full_link;
- 
- 	INIT_WORK(&intel_dp->psr.work, intel_psr_work);
-+	INIT_DELAYED_WORK(&intel_dp->psr.dc3co_work, psr2_dc3co_disable_work);
- 	mutex_init(&intel_dp->psr.lock);
- }
- 
+ #define DMC_WAKELOCK_CFG	_MMIO(0x8F1B0)
+ #define  DMC_WAKELOCK_CFG_ENABLE REG_BIT(31)
+ #define DMC_WAKELOCK1_CTL	_MMIO(0x8F140)
 -- 
 2.43.0
 
