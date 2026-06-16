@@ -4,52 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA1EFCD98E6
-	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:45:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3BBFCD98EC
+	for <intel-gfx@archiver.kernel.org>; Tue, 16 Jun 2026 12:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 437D010EAC3;
-	Tue, 16 Jun 2026 12:45:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DD3310EAD8;
+	Tue, 16 Jun 2026 12:45:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eOZCBZ3q";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ji8fOSP4";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84E0310E312;
- Tue, 16 Jun 2026 12:45:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600AE10EAB6;
+ Tue, 16 Jun 2026 12:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781613919; x=1813149919;
- h=from:to:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=2necX3jAT0hNCItjlIH4n3mJRpK9q0RLb0Sub4S+wVw=;
- b=eOZCBZ3qqJ3UDlF4HaozDxetprqFaKFvTa0P24VYbPGbk4RwJEC+9U4p
- eN+Ha3v1m6lGaVwb7C8vYRHKSLt/YefeoqiJpWoQLdE5t8vnb8BtxhE0y
- UTw0peMXBsELDCsxQJaAZsQ/+VvMXBKO1bWzFeby2Vk5Fi0ia3de7NsTi
- XAAJzx8Ndst8vKrYrJe6wilJ+gsQMgtDecisMzPPCbXVDrE0F3Ia54Yhz
- BhRcAOIN3z7dMJyCLUmucwcPoydhGa1Ajkx6a25YMrXQF5VQ7S2gAq/vD
- coHUqSlmfqotbaF1k8h2wweAGBEThYHFUN6X9skuTViu9a3Vq1vSk393w g==;
-X-CSE-ConnectionGUID: aEK624EPTKeZyncNmgVbAA==
-X-CSE-MsgGUID: P5jyaVFGTQ+9IQrNM6jPqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="81513222"
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="81513222"
+ t=1781613923; x=1813149923;
+ h=from:to:subject:date:message-id:in-reply-to:references:
+ mime-version:content-transfer-encoding;
+ bh=6BTz+WKxDRFojDm0QGvIcyOOR94l/OXYj6t9Mg4oy18=;
+ b=ji8fOSP47jfAI8bO4VMon/2iNNiCsY91tFZRG8nb91KiH0Bl8yI4Y+or
+ aSK3kWPX4ylFabvOzDRKRLlQpWQ8x6u1vy6eRAoBDYUc89XlLKTZhGVV3
+ wuNrhabFjB5qFvprGn4lAsNrvtXERXD0olJ22FejlfZ5YnvpqQZ3xgd3H
+ OkszPE1dTZyr+xlX6yHc7qbR8yn5mCXFhtD08EJfknuJ+3yfDAPaWNkxw
+ Erzm7EjNZa067zPKmzkAIVHhgYZd/fFvbOC9JIyOWUhUtsSl6V+OPMV5R
+ XGZWhJ55xdIzVGYCo6Lm15dKFqun1Sxps6JTvC0q0wxJ3LtM7vNzAX591 A==;
+X-CSE-ConnectionGUID: 5Q901nozQWixdUa5jA/FOA==
+X-CSE-MsgGUID: B9nnI4++Q7y9+45OwxbpAg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11818"; a="81513228"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="81513228"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 05:45:18 -0700
-X-CSE-ConnectionGUID: cSnBsL5cRmWPhyb93XVhzw==
-X-CSE-MsgGUID: 9tJUVACMRlSZHZPeko22qw==
+ 16 Jun 2026 05:45:23 -0700
+X-CSE-ConnectionGUID: cD7wOMNuTQiE0XNhbPOYUQ==
+X-CSE-MsgGUID: llpbPpkbTeK43TapPee6+g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="244876242"
+X-IronPort-AV: E=Sophos;i="6.24,208,1774335600"; d="scan'208";a="244876251"
 Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jun 2026 05:45:17 -0700
+ 16 Jun 2026 05:45:22 -0700
 From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Subject: [CI v4 00/39] For CI only: DC3CO/CMTG validation series
-Date: Tue, 16 Jun 2026 18:13:36 +0530
-Message-ID: <20260616124416.2442161-1-dibin.moolakadan.subrahmanian@intel.com>
+Subject: [CI v4 04/39] drm/i915/display: Pass target transcoder to
+ intel_set_transcoder_timings()
+Date: Tue, 16 Jun 2026 18:13:40 +0530
+Message-ID: <20260616124416.2442161-5-dibin.moolakadan.subrahmanian@intel.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260616124416.2442161-1-dibin.moolakadan.subrahmanian@intel.com>
+References: <20260616124416.2442161-1-dibin.moolakadan.subrahmanian@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,100 +68,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This series is intended for CI validation only
-and is not intended for merging.
+From: Animesh Manna <animesh.manna@intel.com>
 
-Please provide review feedback on the original patch series:
+Let intel_set_transcoder_timings() take the target transcoder as an
+explicit argument instead of always using crtc_state->cpu_transcoder.
+This makes the helper reusable for callers that need to program timings
+for a transcoder other than the CRTC's CPU transcoder.
 
-* DC3CO: https://patchwork.freedesktop.org/series/163939/
-* CMTG: https://patchwork.freedesktop.org/series/157664/
+Update all existing callers to pass crtc_state->cpu_transcoder so there
+is no functional change.
 
-v2:
-- Rebase
-v3:
-- Rebase to dc3co v5 and cmtg v8.
-v4:
-- Rebase to dc3co v5 and cmtg v9.
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-Animesh Manna (19):
-  drm/i915/cmtg: Add intel_cmtg_is_allowed() for CMTG
-  drm/i915/cmtg: Set CMTG clock select
-  drm/i915/cmtg: Add CMTG transcoder offset in struct _device_info
-  drm/i915/display: Pass target transcoder to
-    intel_set_transcoder_timings()
-  drm/i915/display: Rename cpu_transcoder parameter to transcoder
-  drm/i915/display: Skip DP_MIN_HBLANK_CTL programming for CMTG
-    transcoders
-  drm/i915/display: Pass transcoder to
-    intel_set_transcoder_timings_lrr()
-  drm/i915/display: Rename cpu_transcoder parameter to transcoder in LRR
-    path
-  drm/i915/cmtg: Set timings for CMTG by using transcoder timing helpers
-  drm/i915/vrr: Pass transcoder to intel_vrr_set_fixed_rr_timings()
-  drm/i915/display: Rename cpu_transcoder parameter to transcoder in VRR
-    fixed-rr path
-  drm/i915/cmtg: Program VRR fixed-rate timings for CMTG transcoder
-  drm/i915/cmtg: Program VRR control register for CMTG transcoder
-  drm/i915/cmtg: Set link M/N for CMTG transcoder
-  drm/i915/cmtg: Add hook to enable CMTG with sync to port
-  drm/i915/cmtg: Add a hook to make eDP transcoder secondary
-  drm/i915/cmtg: Add trigger to enable/disable cmtg
-  drm/i915/cmtg: Restore CMTG after DC6 exit
-  drm/i915/cmtg: Add CMTG interrupt handling
-
-Dibin Moolakadan Subrahmanian (20):
-  drm/i915/cmtg: Modify existing hook to disable CMTG
-  drm/i915/cmtg: Add CMTG HWGB programming
-  drm/i915/cmtg: Add CMTG scan line programming
-  drm/i915/display: Remove TGL DC3CO support
-  drm/i915/display: Switch DC3CO enable from standalone bit to DC level
-    encoding
-  drm/i915/display: Use FIELD_PREP() for DC state enable bits
-  drm/i915/display: Add DC3CO DC_STATE enable/disable support
-  drm/i915/display: Add HAS_DC3CO() macro
-  drm/i915/display: Add DC3CO support check
-  drm/i915/psr: Add psr2 deep sleep helper API
-  drm/i915/display: Add DC3CO compute and set target state in commit
-    tail
-  drm/i915/display: Store DC3CO eligibility in PSR state
-  drm/i915/display: PSR2: Set idle_frames to 0 for DC3CO
-  drm/i915/display: Enable DC3CO idle protocol in ALPM
-  drm/i915/display: PSR Add delayed work to exit DC3CO
-  drm/i915/display: Add helper to enable DC counter
-  drm/i915/display: Add DC3CO count and residency in dmc debugfs
-  drm/i915/display: Guard CMTG function calls
-  drm/i915/display: Enable DC3CO DC state
-  drm/i915/display: Mask RO bits in gen9_write_dc_state()
-
- drivers/gpu/drm/i915/display/intel_alpm.c     |   5 +
- drivers/gpu/drm/i915/display/intel_cmtg.c     | 277 +++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_cmtg.h     |  17 ++
- .../gpu/drm/i915/display/intel_cmtg_regs.h    |  24 +-
- drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  11 +
- drivers/gpu/drm/i915/display/intel_display.c  |  96 +++---
- drivers/gpu/drm/i915/display/intel_display.h  |   4 +
- .../gpu/drm/i915/display/intel_display_core.h |   2 +
- .../drm/i915/display/intel_display_device.c   |  14 +
- .../drm/i915/display/intel_display_device.h   |   3 +-
- .../gpu/drm/i915/display/intel_display_irq.c  |  19 ++
- .../gpu/drm/i915/display/intel_display_irq.h  |   2 +
- .../drm/i915/display/intel_display_limits.h   |   2 +
- .../drm/i915/display/intel_display_power.c    | 176 ++++++++++-
- .../drm/i915/display/intel_display_power.h    |  40 +++
- .../i915/display/intel_display_power_well.c   |  73 +++--
- .../i915/display/intel_display_power_well.h   |   1 +
- .../gpu/drm/i915/display/intel_display_regs.h |  20 +-
- .../drm/i915/display/intel_display_types.h    |  11 +-
- drivers/gpu/drm/i915/display/intel_dmc.c      |  16 +-
- drivers/gpu/drm/i915/display/intel_dmc_regs.h |   2 +
- drivers/gpu/drm/i915/display/intel_dmc_wl.c   |   2 +-
- drivers/gpu/drm/i915/display/intel_psr.c      | 265 ++++++-----------
- drivers/gpu/drm/i915/display/intel_psr.h      |   1 +
- drivers/gpu/drm/i915/display/intel_psr_regs.h |   1 +
- drivers/gpu/drm/i915/display/intel_vrr.c      |  19 +-
- drivers/gpu/drm/i915/display/intel_vrr.h      |   4 +-
- 27 files changed, 834 insertions(+), 273 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index e2e4b00a8fa9..dceb70cf5397 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -132,7 +132,8 @@
+ #include "vlv_dsi_pll.h"
+ #include "vlv_dsi_regs.h"
+ 
+-static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state);
++static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
++					 enum transcoder cpu_transcoder);
+ static void intel_set_pipe_src_size(const struct intel_crtc_state *crtc_state);
+ static void hsw_set_transconf(const struct intel_crtc_state *crtc_state);
+ static void bdw_set_pipe_misc(struct intel_dsb *dsb,
+@@ -1504,7 +1505,7 @@ static void ilk_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
+ 					       &crtc_state->dp_m2_n2);
+ 	}
+ 
+-	intel_set_transcoder_timings(crtc_state);
++	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+ 
+ 	ilk_set_pipeconf(crtc_state);
+ }
+@@ -1635,7 +1636,7 @@ static void hsw_configure_cpu_transcoder(const struct intel_crtc_state *crtc_sta
+ 					       &crtc_state->dp_m2_n2);
+ 	}
+ 
+-	intel_set_transcoder_timings(crtc_state);
++	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+ 
+ 	if (cpu_transcoder != TRANSCODER_EDP)
+ 		intel_de_write(display, TRANS_MULT(display, cpu_transcoder),
+@@ -2048,7 +2049,7 @@ static void i9xx_configure_cpu_transcoder(const struct intel_crtc_state *crtc_st
+ 					       &crtc_state->dp_m2_n2);
+ 	}
+ 
+-	intel_set_transcoder_timings(crtc_state);
++	intel_set_transcoder_timings(crtc_state, crtc_state->cpu_transcoder);
+ 
+ 	i9xx_set_pipeconf(crtc_state);
+ }
+@@ -2664,12 +2665,12 @@ transcoder_has_vrr(const struct intel_crtc_state *crtc_state)
+ 	return HAS_VRR(display) && !transcoder_is_dsi(cpu_transcoder);
+ }
+ 
+-static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
++static void intel_set_transcoder_timings(const struct intel_crtc_state *crtc_state,
++					 enum transcoder cpu_transcoder)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+ 	enum pipe pipe = crtc->pipe;
+-	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	u32 crtc_vdisplay, crtc_vtotal, crtc_vblank_start, crtc_vblank_end;
+ 	int vsyncshift = 0;
 -- 
 2.43.0
 
