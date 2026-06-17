@@ -4,47 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A5D8CD98E4
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 15:15:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 672C5CD98E2
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 15:45:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 094CA10F027;
-	Wed, 17 Jun 2026 15:15:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SnQCGLuL";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A37D110F027;
- Wed, 17 Jun 2026 15:15:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 06DD160122;
- Wed, 17 Jun 2026 15:15:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 368EC1F00A3A;
- Wed, 17 Jun 2026 15:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1781709354;
- bh=PRtwX9XZuKeOePBQ1eaXIZKRl+06gjsxGdVK1OpTJto=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=SnQCGLuLG6CoDNtPjBGeifYyw4Q5oqmW4Wje3sAiyfVUKH81TG114bc1QrLiGivRX
- i6osstjx2OzdrQH8fZuKZEq+j38LZCpiO8ePbHj3Ix+jcdKUkIgDtQ+ydapMv7Qx61
- EpwcnJkvHen2ne2XtH2K5R3ZYJwJDYy1xnBteMsI=
-Date: Wed, 17 Jun 2026 11:15:52 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Ville Syrjala <ville.syrjala@linux.intel.com>, 
- intel-gfx@lists.freedesktop.org, tools@kernel.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 01/14] drm/i915/cdclk: Don't bail if pcode post nofify
- fails
-Message-ID: <20260617-horned-orthodox-zebu-625bcb@meerkat>
-References: <20260610170652.5320-1-ville.syrjala@linux.intel.com>
- <20260610170652.5320-2-ville.syrjala@linux.intel.com>
- <511da82834da302ac50a326c082c45f6134b2556@intel.com>
- <8c18eca330bd63182319a18f238e78f1c451ede2@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D48B910E49B;
+	Wed, 17 Jun 2026 15:45:42 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28E4F10E49B;
+ Wed, 17 Jun 2026 15:45:42 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2230078076855748791=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <8c18eca330bd63182319a18f238e78f1c451ede2@intel.com>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/edid=3A_fix_OOB_read_?=
+ =?utf-8?q?in_drm=5Fparse=5Ftiled=5Fblock=28=29_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Xiang Mei" <xmei5@asu.edu>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 17 Jun 2026 15:45:42 -0000
+Message-ID: <178171114216.90144.4769960295760360054@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260615184737.899892-1-xmei5@asu.edu>
+In-Reply-To: <20260615184737.899892-1-xmei5@asu.edu>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,28 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2026 at 04:29:16PM +0300, Jani Nikula wrote:
-> >> We already changed the actual cdclk frequency by the time we do
-> >> the pcode post notify. So skipping the subsequent readout is plain
-> >> wrong.
-> >
-> > Fixes: ?
-> 
-> Turns out posing the question about Fixes: trailer like that leads to b4
-> shazam literally adding that trailer. Please clean them up before
-> pushing!
-> 
-> Cc: tools@k.o and Konstantin, FYI
+--===============2230078076855748791==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-We now recognize this and properly change this to:
+== Series Details ==
 
-| Fixes: ¯\_(ツ)_/¯
+Series: drm/edid: fix OOB read in drm_parse_tiled_block() (rev2)
+URL   : https://patchwork.freedesktop.org/series/168708/
+State : success
 
-(Just kidding... I'll see if I can clean this up to be more discerning of the
-actual Fixes: format.)
+== Summary ==
 
-Thanks,
--K
+CI Bug Log - changes from CI_DRM_18696 -> Patchwork_168708v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168708v2/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18696 -> Patchwork_168708v2
+
+  CI-20190529: 20190529
+  CI_DRM_18696: f7cb2873b7430d84afd4ad4e4771d3f8ad03fbf9 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8969: 5a8fa64e48c3c30af9afa2824d6adb5ad2bcc5a3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_168708v2: f7cb2873b7430d84afd4ad4e4771d3f8ad03fbf9 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168708v2/index.html
+
+--===============2230078076855748791==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/edid: fix OOB read in drm_parse_tiled_block() (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168708/">https://patchwork.freedesktop.org/series/168708/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168708v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168708v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18696 -&gt; Patchwork_168708v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168708v2/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18696 -&gt; Patchwork_168708v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18696: f7cb2873b7430d84afd4ad4e4771d3f8ad03fbf9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8969: 5a8fa64e48c3c30af9afa2824d6adb5ad2bcc5a3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_168708v2: f7cb2873b7430d84afd4ad4e4771d3f8ad03fbf9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2230078076855748791==--
