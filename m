@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98825CD98E4
-	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 11:35:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80868CD98F0
+	for <intel-gfx@archiver.kernel.org>; Wed, 17 Jun 2026 11:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D3EB10E9DA;
-	Wed, 17 Jun 2026 11:35:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0CBE10EFBA;
+	Wed, 17 Jun 2026 11:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EWLE86Ph";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dzAaN8YX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4550610E9DA;
- Wed, 17 Jun 2026 11:35:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9DD10EFB4;
+ Wed, 17 Jun 2026 11:38:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781696128; x=1813232128;
+ t=1781696300; x=1813232300;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=g0xHTjIqR2d37ONez6BD2EmmdVtZAnasWCkPBmGnLT8=;
- b=EWLE86Phr32LBMc4vZuGnL7le0xowC9qaKMmG63EPoTpSQQ30V7DTkte
- /OUaRM/4x2CzXD2jiFrzUoYJvwVuX1u0/ZR4Tai0M9JmRWCPj4J+THiue
- I1+Toip4iooq8HxHeoCH3SAn0VCsjieYjIjQn7NbxSzovvaoopqc/IQwY
- RvMhLRIF89OrQUCB2Bn5tVbesr//K6oMA01J96UtvS3NCmEGG9JDGaAr/
- 1u369Iadljf78/Vq9ZkNFJ/TMmfSxeulKUlc6PnbfhoAwuwXOmnlEVCVh
- IJd8ynFDAxmuPpw1hoYmxCagqCS+9Z5Nd+6pEr3QrZIrbsvFDJNY3q/aS g==;
-X-CSE-ConnectionGUID: UF0BLAEKThukrZTh5S73nQ==
-X-CSE-MsgGUID: 6GDce3zDQfqjoAG3yemP6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="82386024"
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="82386024"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 04:35:28 -0700
-X-CSE-ConnectionGUID: 8kTu/oHITGSRY7tZL0ugeQ==
-X-CSE-MsgGUID: biTc0qhlTNKYh5WvaRN0EA==
+ bh=1U9KKPgGmyjcqMbOe5Px70RiIF+afP1QiBox3D0vvxI=;
+ b=dzAaN8YXuqU7GRhc+uVBFd6IviemKqM8kc1kmPVJ+OystFiRDPSA1lI/
+ GxyB+mF3vTaCFnruOKg2yZwWirp6CXQaXxplnNVJjzD0DSPvpyhMmwOH1
+ xe7nw7PM4CRvfWF9trt25uR3RDqJ0OMfVxk0KjeIn84GJOsf6Ca5VNurZ
+ TcykwPSDCqA81rnJVeM+NGTTe8CK/KGIOFSnCsPTnI7Y23lpJiNzFVbdV
+ IhXSZU+wHgtpIBsB3goPMV42NdupRbpAp/hZYZ2YIkwTrqVERsMjNzsuL
+ R5Rc0Rshjb0lovRaExcLpX6D7TBAIsw6u5C/wCHr2uo5UgXp5IDL1L5DZ A==;
+X-CSE-ConnectionGUID: BBpHRK6xTAKy90RsOFT1AA==
+X-CSE-MsgGUID: IWvpcR3GRJabeZj4XycqnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11819"; a="99898372"
+X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="99898372"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 04:38:20 -0700
+X-CSE-ConnectionGUID: 5LRS2+tnSEKCFI+wYxS6OA==
+X-CSE-MsgGUID: uZ9icDdpRjaEznkloO3ApQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,209,1774335600"; d="scan'208";a="271759762"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.158])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2026 04:35:26 -0700
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2026 04:38:18 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH] drm/i915/cx0: Remove unnecessary hdmi link rate
- function declaration
-In-Reply-To: <20260617041807.162927-1-suraj.kandpal@intel.com>
+To: Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, ville.syrjala@linux.intel.com,
+ matthew.d.roper@intel.com, shawn.c.lee@intel.com
+Subject: Re: [PATCH v2] drm/i915/display: update to the BW buddy configuration
+In-Reply-To: <20260616184131.295013-1-vinod.govindapillai@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260617041807.162927-1-suraj.kandpal@intel.com>
-Date: Wed, 17 Jun 2026 14:35:23 +0300
-Message-ID: <ab9cbb1273ae3c0a762060185b3d4bce9867c926@intel.com>
+References: <20260616184131.295013-1-vinod.govindapillai@intel.com>
+Date: Wed, 17 Jun 2026 14:38:15 +0300
+Message-ID: <4abfacf0bf38d230f5b5ed6236d2f28cd9a77f3e@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -71,32 +70,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 17 Jun 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> intel_cx0_phy_check_hdmi_link_rate is not used by anyone but is still
-> declared. Remove it.
-
-More specifically, the function does not exist.
-
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
+On Tue, 16 Jun 2026, Vinod Govindapillai <vinod.govindapillai@intel.com> wrote:
+> Bspec has been updated for xe2_lpd+ platforms on how to handle
+> the bw buddy prgramming in case no matching memory configuration
+> is found w.r.t the current page mask table. The recommendation
+> is to keep the default settings for the related registers as it
+> is without explicitly disabling the bw buddy.
 >
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> v2: removed extra explanation
+>
+> Bspec: 68871
+> Suggested-by: Ville Syrjala <ville.syrjala@intel.com>
+> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
 > ---
->  drivers/gpu/drm/i915/display/intel_cx0_phy.h | 1 -
->  1 file changed, 1 deletion(-)
+>  drivers/gpu/drm/i915/display/intel_display_power.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-> index 1428e7a5a318..95c20eb4b4b7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-> +++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-> @@ -60,7 +60,6 @@ void intel_cx0_phy_set_signal_levels(struct intel_encoder *encoder,
->  				     const struct intel_crtc_state *crtc_state);
->  void intel_cx0_powerdown_change_sequence(struct intel_encoder *encoder,
->  					 u8 lane_mask, u8 state);
-> -int intel_cx0_phy_check_hdmi_link_rate(struct intel_hdmi *hdmi, int clock);
->  void intel_cx0_setup_powerdown(struct intel_encoder *encoder);
->  bool intel_cx0_is_hdmi_frl(u32 clock);
->  u8 intel_cx0_read(struct intel_encoder *encoder, u8 lane_mask, u16 addr);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers/gpu/drm/i915/display/intel_display_power.c
+> index 2e51dfcd5dce..3d348c5decee 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
+> @@ -1634,9 +1634,12 @@ static void tgl_bw_buddy_init(struct intel_display *display)
+>  	if (table[config].page_mask == 0) {
+>  		drm_dbg_kms(display->drm,
+>  			    "Unknown memory configuration; disabling address buddy logic.\n");
+
+The debug logging becomes misleading for display >= 20.
+
+BR,
+Jani.
+
+> -		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
+> -			intel_de_write(display, BW_BUDDY_CTL(i),
+> -				       BW_BUDDY_DISABLE);
+> +
+> +		if (DISPLAY_VER(display) < 20) {
+> +			for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask))
+> +				intel_de_write(display, BW_BUDDY_CTL(i),
+> +					       BW_BUDDY_DISABLE);
+> +		}
+>  	} else {
+>  		for_each_set_bit(i, &abox_mask, BITS_PER_TYPE(abox_mask)) {
+>  			intel_de_write(display, BW_BUDDY_PAGE_MASK(i),
 
 -- 
 Jani Nikula, Intel
