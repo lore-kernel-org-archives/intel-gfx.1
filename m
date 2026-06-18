@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E06B5CD98F2
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 15:04:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F86ACD98F2
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 15:35:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70B8D10E7CA;
-	Thu, 18 Jun 2026 15:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C079210F34A;
+	Thu, 18 Jun 2026 15:35:47 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A4E510E4B5;
- Thu, 18 Jun 2026 15:04:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B783E10EDDE;
+ Thu, 18 Jun 2026 15:35:46 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============0146428866210734451=="
+ boundary="===============1937631056443154957=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dsi=3A_fix_i2c_a?=
- =?utf-8?q?dapter_reference_leak_in_i2c=5Fadapter=5Flookup=28=29_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_gpu/buddy=3A_bail_out_of_?=
+ =?utf-8?q?try=5Fharder_when_alignment_cannot_be_honoured?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ma Ke" <make_ruc2021@163.com>
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Jun 2026 15:04:25 -0000
-Message-ID: <178179506542.93659.12705452964736299159@6beec6c84f66>
+Date: Thu, 18 Jun 2026 15:35:46 -0000
+Message-ID: <178179694674.93659.3149666710144058697@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <20260614142250.2001136-1-make_ruc2021@163.com>
-In-Reply-To: <20260614142250.2001136-1-make_ruc2021@163.com>
+References: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20260618124755.2751205-1-Arunpravin.PaneerSelvam@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,20 +41,20 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0146428866210734451==
+--===============1937631056443154957==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/dsi: fix i2c adapter reference leak in i2c_adapter_lookup() (rev2)
-URL   : https://patchwork.freedesktop.org/series/168523/
+Series: gpu/buddy: bail out of try_harder when alignment cannot be honoured
+URL   : https://patchwork.freedesktop.org/series/168786/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_18701 -> Patchwork_168523v2
+CI Bug Log - changes from CI_DRM_18701 -> Patchwork_168786v1
 ====================================================
 
 Summary
@@ -64,46 +64,35 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168786v1/index.html
 
 Participating hosts (42 -> 40)
 ------------------------------
 
   Missing    (2): bat-dg2-13 fi-snb-2520m 
 
-Known issues
-------------
 
-  Here are the changes found in Patchwork_168523v2 that come from known issues:
+Changes
+-------
 
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@core_hotunplug@unbind-rebind:
-    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18701/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  No changes found
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_18701 -> Patchwork_168523v2
+  * Linux: CI_DRM_18701 -> Patchwork_168786v1
 
   CI-20190529: 20190529
   CI_DRM_18701: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_8973: 8973
-  Patchwork_168523v2: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_168786v1: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168786v1/index.html
 
---===============0146428866210734451==
+--===============1937631056443154957==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -123,42 +112,34 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/dsi: fix i2c adapter reference leak in i2c_adapter_lookup() (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168523/">https://patchwork.freedesktop.org/series/168523/</a></td></tr>
+<tr><td><b>Series:</b></td><td>gpu/buddy: bail out of try_harder when alignment cannot be honoured</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168786/">https://patchwork.freedesktop.org/series/168786/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168786v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168786v1/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_18701 -&gt; Patchwork_168523v2</h1>
+    <h1>CI Bug Log - changes from CI_DRM_18701 -&gt; Patchwork_168786v1</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168786v1/index.html</p>
 <h2>Participating hosts (42 -&gt; 40)</h2>
 <p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_168523v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@core_hotunplug@unbind-rebind:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18701/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168523v2/bat-rpls-4/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
+<h2>Changes</h2>
+<p>No changes found</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_18701 -&gt; Patchwork_168523v2</li>
+<li>Linux: CI_DRM_18701 -&gt; Patchwork_168786v1</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_18701: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_8973: 8973<br />
-  Patchwork_168523v2: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_168786v1: 042740faed137b53caa019b765fb327aaf703ca7 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============0146428866210734451==--
+--===============1937631056443154957==--
