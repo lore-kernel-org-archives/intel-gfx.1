@@ -4,28 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A678DCD98F2
-	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 10:55:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B806CCD98ED
+	for <intel-gfx@archiver.kernel.org>; Thu, 18 Jun 2026 11:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F48410F268;
-	Thu, 18 Jun 2026 10:55:55 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D92E110F260;
- Thu, 18 Jun 2026 10:55:54 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1284389040937204701=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E55710F275;
+	Thu, 18 Jun 2026 11:10:29 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="etyVOmPe";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A9710F275;
+ Thu, 18 Jun 2026 11:10:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1781781028; x=1813317028;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=XAi4LQz68mwbO06PgjspXhNjInqENaay3fnNGiXT14c=;
+ b=etyVOmPeohye6Vg1gzPkcTuNSusY1FmRtx/OyvphXg3ooOBah6F88rMx
+ XU23R0ENmMbH0vUtB89JTlqXO18J3+oW94uqN3+lM3kCsTrm6mX8NzPEp
+ pCbddauWXOYkzzFJDK6KmldWx80HdusNWOY31MFTu+sasX4XSS9yJ9Ta1
+ 8rR9s3uEQPNKt8nNo9g75mpq3tMeBYRI7nC/LMhmfMasMkDiW+0jxGSLh
+ YHi0dARjEMPYmpjLmTsvW8wuWzidxZP5YDiVPS98e7WOm2Q2p4VpkCpA7
+ ahBGvbgB8z5VhGXuvyR3C2k0Nt4zQdv/8NeSAuvRhcrERv/gqos1WUVdA A==;
+X-CSE-ConnectionGUID: I6sv/rC3SuSuLoF6rP2o2g==
+X-CSE-MsgGUID: 7WjL1XTcT825yEvtlxhcuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11820"; a="108157652"
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="108157652"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2026 04:10:28 -0700
+X-CSE-ConnectionGUID: De7huVCkSCexAOq+Mqo4Cg==
+X-CSE-MsgGUID: GAWHosKLSwW4vyQYKfskeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,211,1774335600"; d="scan'208";a="241962087"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.244.2])
+ by fmviesa009-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Jun 2026 04:10:25 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Colin Ian King <colin.i.king@gmail.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH][next] drm/i915/display: make read-only array rates
+ static const
+In-Reply-To: <20260608122427.48375-1-colin.i.king@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260608122427.48375-1-colin.i.king@gmail.com>
+Date: Thu, 18 Jun 2026 14:10:22 +0300
+Message-ID: <9714acffb335c9cc4ce6d6f2c0ce6fd7c5570b8c@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/psr=3A_Force_fas?=
- =?utf-8?q?tset_on_debugfs_write_for_each_connector_supporting_PSR_=28rev2?=
- =?utf-8?q?=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Hogander, Jouni" <jouni.hogander@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 18 Jun 2026 10:55:54 -0000
-Message-ID: <178178015488.93099.12571991769541656227@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260618095210.853339-1-jouni.hogander@intel.com>
-In-Reply-To: <20260618095210.853339-1-jouni.hogander@intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,109 +71,37 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1284389040937204701==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Mon, 08 Jun 2026, Colin Ian King <colin.i.king@gmail.com> wrote:
+> Don't populate the read-only array rates the stack at run time,
+> instead make it static const.
+>
+> Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
-== Series Details ==
+Thanks for the patch, pushed to drm-intel-next.
 
-Series: drm/i915/psr: Force fastset on debugfs write for each connector supporting PSR (rev2)
-URL   : https://patchwork.freedesktop.org/series/168148/
-State : success
+BR,
+Jani.
 
-== Summary ==
+> ---
+>  drivers/gpu/drm/i915/display/intel_hdmi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> index 9076c2b176ec..351a62654a8d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -71,7 +71,7 @@
+>  
+>  bool intel_hdmi_is_frl(u32 clock)
+>  {
+> -	u32 rates[] = { 300000, 600000, 800000, 1000000, 1200000 };
+> +	static const u32 rates[] = { 300000, 600000, 800000, 1000000, 1200000 };
+>  	int i;
+>  
+>  	for (i = 0; i < ARRAY_SIZE(rates); i++)
 
-CI Bug Log - changes from CI_DRM_18700 -> Patchwork_168148v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168148v2/index.html
-
-Participating hosts (42 -> 39)
-------------------------------
-
-  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18700 -> Patchwork_168148v2
-
-  CI-20190529: 20190529
-  CI_DRM_18700: 0e9939890b0f7e54f1d69774cb4e6fd9d66cb29e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8973: 8973
-  Patchwork_168148v2: 0e9939890b0f7e54f1d69774cb4e6fd9d66cb29e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168148v2/index.html
-
---===============1284389040937204701==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/psr: Force fastset on debugfs write for each connector supporting PSR (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168148/">https://patchwork.freedesktop.org/series/168148/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168148v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168148v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18700 -&gt; Patchwork_168148v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168148v2/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18700 -&gt; Patchwork_168148v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18700: 0e9939890b0f7e54f1d69774cb4e6fd9d66cb29e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8973: 8973<br />
-  Patchwork_168148v2: 0e9939890b0f7e54f1d69774cb4e6fd9d66cb29e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1284389040937204701==--
+-- 
+Jani Nikula, Intel
