@@ -4,27 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9CACD4F26
-	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 14:18:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A637CD98F2
+	for <intel-gfx@archiver.kernel.org>; Fri, 19 Jun 2026 14:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3DEB10F627;
-	Fri, 19 Jun 2026 14:18:16 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67F3210E09E;
- Fri, 19 Jun 2026 14:18:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC87C10F642;
+	Fri, 19 Jun 2026 14:41:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDA410F63C;
+ Fri, 19 Jun 2026 14:41:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F992601E2;
+ Fri, 19 Jun 2026 14:41:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3941F000E9;
+ Fri, 19 Jun 2026 14:41:39 +0000 (UTC)
+From: Geert Uytterhoeven <geert+renesas@glider.be>
+To: jgg@nvidia.com
+Cc: airlied@gmail.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ patches@lists.linux.dev, rodrigo.vivi@intel.com, simona@ffwll.ch,
+ sumit.semwal@linaro.org, tursulin@ursulin.net,
+ Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, kunit-dev@googlegroups.com
+Subject: Re: [PATCH 1/5] dma-buf: Change st-dma-resv.c to use kunit
+Date: Fri, 19 Jun 2026 16:41:37 +0200
+Message-ID: <20260619144137.1582409-1-geert+renesas@glider.be>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <1-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
+References: <1-v1-0a349a394eff+14110-dmabuf_kunit_jgg@nvidia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Add_support_for_DisplayPo?=
- =?utf-8?q?rt_link_training_information_report_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Kory Maincent" <kory.maincent@bootlin.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 19 Jun 2026 14:18:15 -0000
-Message-ID: <178187869542.96127.7236520994520842557@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
-In-Reply-To: <20260619-feat_link_cap-v2-0-a3dec4c02ad9@bootlin.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,35 +47,66 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+	Hi Jason,
 
-Series: Add support for DisplayPort link training information report (rev2)
-URL   : https://patchwork.freedesktop.org/series/164797/
-State : failure
+> Modernize the open coded test framework by using kunit.
+> 
+> The kunit tool can be used to build a kernel and run it in a VM with:
+> 
+> $ tools/testing/kunit/kunit.py run --build_dir build_kunit_x86_64 --arch x86_64 --kunitconfig ./drivers/dma-buf/.kunitconfig
+> 
+> Along with the other ways to run kunits.
+> 
+> To make the kunit tool work like this the DMABUF_KUNIT_TEST kconfig must
+> select DMA_SHARED_BUFFER to get it turned on without building a driver
+> using it.
+> 
+> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
 
-== Summary ==
+Thanks for your patch, which is now commit 15b9bde78baddc27 ("dma-buf:
+Change st-dma-resv.c to use kunit") upstream.
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/164797/revisions/2/mbox/ not applied
-Applying: drm: Introduce DisplayPort connector helpers with link training state
-Applying: drm/i915/display/dp: Adopt dp_connector helpers to expose link training state
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/i915/display/intel_dp.c
-M	drivers/gpu/drm/i915/display/intel_dp_link_training.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/i915/display/intel_dp_link_training.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_dp_link_training.c
-Auto-merging drivers/gpu/drm/i915/display/intel_dp.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/i915/display/intel_dp.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0002 drm/i915/display/dp: Adopt dp_connector helpers to expose link training state
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
+> --- /dev/null
+> +++ b/drivers/dma-buf/.kunitconfig
+> @@ -0,0 +1,2 @@
+> +CONFIG_KUNIT=y
+> +CONFIG_DMABUF_KUNIT_TEST=y
+> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
+> index 8d4f2f89f24e3c..7d13c8f4484dd3 100644
+> --- a/drivers/dma-buf/Kconfig
+> +++ b/drivers/dma-buf/Kconfig
+> @@ -54,6 +54,14 @@ config DMABUF_SELFTESTS
+>  	default n
+>  	depends on DMA_SHARED_BUFFER
+>  
+> +config DMABUF_KUNIT_TEST
+> +	tristate "KUnit tests for DMA-BUF" if !KUNIT_ALL_TESTS
+> +	depends on KUNIT
+> +	select DMA_SHARED_BUFFER
 
+This select means that enabling KUNIT_ALL_TESTS also enables extra
+functionality, which may not be desirable in a production system.
+Unfortunately DMA_SHARED_BUFFER is invisible, so just changing this from
+"select" to "depends on" may not be the most desirable solution.
 
+> +	default KUNIT_ALL_TESTS
+> +	help
+> +	   Enable kunit tests for DMA-BUF
+> +
+>  menuconfig DMABUF_HEAPS
+>  	bool "DMA-BUF Userland Memory Heaps"
+>  	select DMA_SHARED_BUFFER
+
+Gr{oetje,eeting}s,
+
+						Geert
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+							    -- Linus Torvalds
