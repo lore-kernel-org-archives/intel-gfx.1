@@ -4,49 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAB51C43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EE3C43602
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405E710E31A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC63010E338;
 	Wed,  1 Jul 2026 12:59:35 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEB7610E2BC;
- Wed,  1 Jul 2026 01:15:45 +0000 (UTC)
-X-UUID: 5e3d827674ea11f1aa26b74ffac11d73-20260701
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:59a2c9af-c72a-467c-8504-925202b3f0d0, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:b00560797b4d4c0002aaa9fc1d71ebea,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|123|136|850|865|898,TC:nil,Con
- tent:0|15|50,EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:ni
- l,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5e3d827674ea11f1aa26b74ffac11d73-20260701
-X-User: yaolu@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <yaolu@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 275424486; Wed, 01 Jul 2026 09:15:37 +0800
-From: yaolu@kylinos.cn
-To: yaolu@kylinos.cn
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- linux-kernel@vger.kernel.org, rodrigo.vivi@intel.com, tursulin@ursulin.net
-Subject: [PATCH v2] drm/i915/display: fix error handling in
- intel_display_driver_probe_noirq
-Date: Wed,  1 Jul 2026 09:15:33 +0800
-Message-Id: <20260701011533.16336-1-yaolu@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260630031652.67747-1-yaolu@kylinos.cn>
-References: <20260630031652.67747-1-yaolu@kylinos.cn>
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsyZ+1Ts";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 423AE10E343;
+ Sun, 21 Jun 2026 10:13:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7228F60051;
+ Sun, 21 Jun 2026 10:13:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8508F1F000E9;
+ Sun, 21 Jun 2026 10:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782036783;
+ bh=6XsKwg1GS9lT4/Q7bmwm9MowVi5d7q2SDPsQIWMoNaw=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=SsyZ+1TsvgLflg0juXYCjcA3pH8vd+Y9MqLc0jYTOhxn+P6dy4eY5MVrVxb5LOEoG
+ RrsJ0srGqaRi77KiHkc+wrXh1Emat3ZrzazsysIAaCQMNMGheBK5y3Hia7XGDjeIwh
+ LpelPKZxXhh8Y2s446VszI2jLhTRwLl2n4aoLyozgo8nfNqijIIBJo83nfZDkhDjVn
+ zeV/f4D/0nNSdjN56lwbs/1HvvZ3/sR6vxbzEQ0DhZ/vS4thbxkh+Wd09+S0HmhHwJ
+ J68RbJ78ssT3222GKOLcajGNFfc3WxJv5d4ocntPrsfqRDltQ6MWCkBxIPIk+xpkfW
+ jKewonDrI7TBQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Peter
+ Zijlstra <peterz@infradead.org>, Julia Lawall <julia.lawall@inria.fr>,
+ Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean
+ up kernel.h
+In-Reply-To: <20260621093811.168514984@kernel.org>
+References: <20260621093430.264983361@kernel.org>
+ <20260621093811.168514984@kernel.org>
+Date: Sun, 21 Jun 2026 12:13:00 +0200
+Message-ID: <87ik7cmcb7.ffs@fw13>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,95 +72,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Lu Yao <yaolu@kylinos.cn>
+On Sun, Jun 21 2026 at 05:34, Steven Rostedt wrote:
+> Instead of having trace_printk.h included in kernel.h, create a config
+> TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
+> Makefile to allow developers to add trace_printk() without the need to add
+> the include for it. Having it included in the Makefile keeps it from being
+> in the dependency chain and it will not waste extra CPU cycles for those
+> building the kernel without using trace_printk.
 
-Fix two bugs in the probe error path:
+IOW, you make it worse just because.
 
-1. If intel_mode_config_init() succeeded, after intel_xxx_init()
-   failed leaked the resources allocated by drm_mode_config_init().
-   Add a cleanup_mode_config label.
+With the header being separate I add the three trace_printk()s and the
+include to the source file I'm investigating. The recompile will build
+exactly this source file.
 
-2. intel_dmc_fini() was called on workqueue alloc failed paths but
-   intel_dmc_init() don't been invoked.  Move the dmc fini call in
-   cleanup_mode_config label.
+Having to enable the config knob will result in a full kernel rebuild
+for no value.
 
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
----
-v1->v2: don't move intel_dmc_init() advance
-  chencked by Sashiko AI and Jani
-  Link: https://lore.kernel.org/all/20260630032254.05B511F000E9@smtp.kernel.org/
-  Link: https://lore.kernel.org/all/677fb92771df1f9f491226bf006c157a007c16dc@intel.com/
+Seriously?
 
- .../drm/i915/display/intel_display_driver.c   | 20 ++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+Thanks,
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index d0729936f681..01770847fbdf 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -226,7 +226,7 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 	display->hotplug.dp_wq = alloc_ordered_workqueue("intel-dp", 0);
- 	if (!display->hotplug.dp_wq) {
- 		ret = -ENOMEM;
--		goto cleanup_pw_domain_dmc;
-+		goto cleanup_pw_domain;
- 	}
- 
- 	display->wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
-@@ -260,27 +260,27 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 
- 	ret = intel_cdclk_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	ret = intel_color_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	ret = intel_dbuf_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	ret = intel_dbuf_bw_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	ret = intel_bw_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	ret = intel_pmdemand_init(display);
- 	if (ret)
--		goto cleanup_wq_unordered;
-+		goto cleanup_mode_config;
- 
- 	intel_init_quirks(display);
- 
-@@ -288,6 +288,9 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 
- 	return 0;
- 
-+cleanup_mode_config:
-+	intel_mode_config_cleanup(display);
-+	intel_dmc_fini(display);
- cleanup_wq_unordered:
- 	destroy_workqueue(display->wq.unordered);
- cleanup_wq_cleanup:
-@@ -298,8 +301,7 @@ int intel_display_driver_probe_noirq(struct intel_display *display)
- 	destroy_workqueue(display->wq.modeset);
- cleanup_wq_dp:
- 	destroy_workqueue(display->hotplug.dp_wq);
--cleanup_pw_domain_dmc:
--	intel_dmc_fini(display);
-+cleanup_pw_domain:
- 	intel_display_power_driver_remove(display);
- cleanup_bios:
- 	intel_bios_driver_remove(display);
--- 
-2.25.1
+        tglx
+
 
