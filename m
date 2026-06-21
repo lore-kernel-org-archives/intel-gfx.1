@@ -4,57 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CC97CD98F2
-	for <intel-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 14:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E277CDB46D
+	for <intel-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 23:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 538AF10E3BA;
-	Sun, 21 Jun 2026 14:21:56 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com
- [216.40.44.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7826810E08B;
- Sun, 21 Jun 2026 14:21:54 +0000 (UTC)
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
- by unirelay07.hostedemail.com (Postfix) with ESMTP id 36393166CE4;
- Sun, 21 Jun 2026 14:21:51 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf19.hostedemail.com (Postfix) with ESMTPA id 1169420026; 
- Sun, 21 Jun 2026 14:21:46 +0000 (UTC)
-Date: Sun, 21 Jun 2026 14:24:07 +0100
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Yury Norov <yury.norov@gmail.com>, Steven Rostedt <rostedt@kernel.org>
-CC: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Julia Lawall <julia.lawall@inria.fr>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_1/2=5D_tracing=3A_Move_non-tra?=
- =?US-ASCII?Q?ce=5Fprintk_prototypes_back_to_kernel=2Eh?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <ajfiVTlCIVlqW3sh@yury>
-References: <20260621093430.264983361@kernel.org>
- <20260621093811.007634476@kernel.org> <ajfiVTlCIVlqW3sh@yury>
-Message-ID: <C4ED8F5F-042B-43B6-B17A-7C3E2743E48F@goodmis.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F78010E0E6;
+	Sun, 21 Jun 2026 23:21:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gZoeN74r";
+	dkim-atps=neutral
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
+ [209.85.222.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D16EE10E3FF
+ for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 23:21:21 +0000 (UTC)
+Received: by mail-qk1-f181.google.com with SMTP id
+ af79cd13be357-915d64fead9so484329785a.0
+ for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 16:21:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1782084080; cv=none;
+ d=google.com; s=arc-20240605;
+ b=bfFEtTNillxpJhSbk20zz5oiBY6FdlTYdOttQs638bpwrOji9HiyzgBK75nHgihGIL
+ cwU2rG3H9qD/f02jG/EmiewyeTO7JAPrmiF0rGuYNAad9530C663TA8UN2CoPV/pe40R
+ fq9RLa01A7i/gHMofq2jT0JGzx0ncGe6QBmMXwVzBbS/SnJBI6Hf5deFbfjkd1r9FB8x
+ LPz/XcrJGpNYyE9DxlrxiWTOfscgLeXFjDV4BsSCjhHLDJ2rmuXZpR+K3JlXE/nOTXEF
+ SrS7BQzcMSOZcYiKxkUFSpzrfiZcd/648Mm2kbyFP8gghUgKkXDhaIXoa8cgoVwOCoOz
+ Er/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=hxi8pAd5fXbOtgwDNhDucP856vxJgDI8S86xqAbImM4=;
+ fh=YEorl8bYw2fxN/LqMhTfYdSC4CHSiUtCBrVt5RxvFnk=;
+ b=Ynrz++i7HbbNVMXe1VyxBbjiQFaxzLXE28yG7GFpkyM4yBKsmm/R2OlXMuV5h3Wl6y
+ 4bCVnUwHeTei5z0J06CHjUKhCTDb2H3vH7yHKmvHuhlOLvNzfNeX9FzM4sMPoAG/2Ee4
+ bwz1H2oahLP9HBbtryX2TjLWyDUsbRK/iWOkE8PBbsVCS7YDNKMUATlqJDBHfG9JyVMO
+ Dq8XTf9tTDmcSCCTVur9LGTbfT5M//3PKSf8BLVlJratEbGGA4/sjvmjCS4p2Asopl6F
+ kbW4JHh7ca+ntPlHGyu7x5Hl3XVarGiKxIfXUssS/3PlxdF5JcnyF8CBN3eHZNGRBsVW
+ MYsA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1782084080; x=1782688880; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hxi8pAd5fXbOtgwDNhDucP856vxJgDI8S86xqAbImM4=;
+ b=gZoeN74rgR4YH2r/4d9OSEMUnaDsmehqyvAKy6vW5Z9CgPLNkUcLbRGljqjvXpyc6T
+ NicoCOeCUr/euYuCNuG10uAdPS5ZtusMZlr/9fr5K0yKq5TLZ+DKq044iYU9oPVAcnCo
+ wgIcDLhk5GCSY4yHkDlNbMGqO11XUrlH78uiMZVszZ+v65uHHc+BPIdAwRJ0uang25N1
+ qbHzVvpGYAgjjYeddYaPbJlhaLMthd+AtmCZNCZ1OPpckg+5zl2ybfSvEyAWMsKAb9iu
+ sfGu6zVPAovKY5PXfgl7kjpjD9PzQupxJEoj1cryadT7Zgh29LWiaWlrBB0uWSyKmyBH
+ tEjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782084080; x=1782688880;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=hxi8pAd5fXbOtgwDNhDucP856vxJgDI8S86xqAbImM4=;
+ b=TRrvdHCy0Lg2cUE5q7YFk6qFEz8ybmMSbFX93SNUZUYJRB+CnFhzJbGukqESOJxMYV
+ SeqWHtotx825gx3k0U92tmOXXde2W/uxk3ehxkA8/xCOT0xGs5CpaAx5sc0eec06+SYB
+ OeAo9iZv5e5TWn87oZNylfSibedtAoED3OguwkFEwRd/fKTTDLUBnpbJ/KywG0HF71IY
+ OADA8HfkPaarB6DVb15reB3Q7DF9o2jOAVjaOUFQQNBSBYPUfwApcGXDeSIRf/UWxZPX
+ DejzcE+wTIKjIi/bZ5Om7ev2wQ/EvHNhemKhXJ+/9qs7SywxbkPAl6XXZZ3yuEvCur1Y
+ DFcA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8PktWje1ETJJh0i9Jmr6raY1sPtVKTQJk3LIzTNqu3bPN78/3KDDjDTwQcutCIWLl8d6Z0ocbmcLU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxrp5Yw0bR5xMx5a+rYbFYOHkBvVyMq8pGNrblVATFXagBhQ579
+ frQtekAICzUuHTVJwb1HK9BjcTERUhpgz2Ha6uXBiuF+l1EjpMOBnz7TT2AsZmIjUZSLO5B+pve
+ ViiNFE1QcHo8R/lYjlyreGz7T5cjE95c=
+X-Gm-Gg: AfdE7cn78onrzTjSJYq3vIwKvZxYAMUIxdY1DzJ9NkDngHYaguisKq/uAyc9VSshI/6
+ esNyi8obkBmNztSxVID54kGb0fkit6T4FzukbXoKKMNUIeMJnZ5mh5V13EyqJfgj5ntBYyld9zf
+ LlwR84KEOpFCZxOSEOCA0lWW1LVfqZBfcoy2Whrz6Gj41ci3RwT0PWulBiJwpJIIdyp/+MzNTxJ
+ UwCqYEyj/FHf/T3+xj1ZYaZtKN9UK+wwqqWiLtGaM1kDpZ60v+0M0j7TAZJAm3tG4MCuGvsV7T6
+ j9LRWREO3wo56lwdBhQrLjo4nBP018ZqGLx2MYpiAk9xItZ45dG2VJj8txEidFI+duMun6BW/NR
+ v6Pi29r71HGPTZds=
+X-Received: by 2002:a05:620a:4053:b0:915:5216:e5bf with SMTP id
+ af79cd13be357-9208c625028mr1587487185a.22.1782084080570; Sun, 21 Jun 2026
+ 16:21:20 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <ajLy2brwvOZEFNNN@gsse-cloud1.jf.intel.com>
+ <ajL++rKbSpYgBRw6@gsse-cloud1.jf.intel.com>
+In-Reply-To: <ajL++rKbSpYgBRw6@gsse-cloud1.jf.intel.com>
+From: Dave Airlie <airlied@gmail.com>
+Date: Mon, 22 Jun 2026 09:21:08 +1000
+X-Gm-Features: AVVi8Cf985BzLxOdD7bf0TqUBm8eXlIQywh3agTZ7zRl3Lbgw2eToWnB5a8jug8
+Message-ID: <CAPM=9tzO2Cg2e5BRQrvwtX08pmaq+hOvBb=BuYWQ0beLyoU5uw@mail.gmail.com>
+Subject: Re: [PULL] drm-xe-next-fixes
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ dim-tools@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Stat-Signature: m5id8uysanmtioempn6emsnsdgs5phht
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 1169420026
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19WinE5LWQa8HzvFNjRdlGwYann5/w38N8=
-X-HE-Tag: 1782051706-894210
-X-HE-Meta: U2FsdGVkX183C80JzklQEIa+kgNTjJZOknF6vAmyswd98TyGVgTRC8SyVWsz19w9BPwppSUtPiaeZPJXrIQbsy98gLBfQ1cJQl7yzp34fic0gzv0s9hrB6mxeJXqinMntnlfXe73gJIH/D2pt50tZwbP93X5621Z+n1JPgBDPeg2Qqz5v4YTHrFVzIaZ3VcUXUAKuj/7BGAd4D8VuUGw+dkVUMzvtoZoN/seDFwcReGQTYquH+YMzJ815xl7wR46FpiJ9+THR6XRxVuJCVh6iJAhD/ahytYNQMcMNmgFRXblBTPxbXFH63lW5Djcit4yMB+uNazqknvOnTkAw3vbLAB4CMkaAooU09WOrb4dRD5m5BQTaIQKdR+GIKMYTEwoPVIlbOYXwm+XOsikcSvwWkIxSgSJzlVeOeQCU6+wcUsByy327CPzOKFxszsj4v/QYc8SsHkTU40=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,47 +116,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-
-On June 21, 2026 2:08:37 PM GMT+01:00, Yury Norov <yury=2Enorov@gmail=2Eco=
-m> wrote:
->On Sun, Jun 21, 2026 at 05:34:31AM -0400, Steven Rostedt wrote:
->> From: Steven Rostedt <rostedt@goodmis=2Eorg>
->>=20
->> In order to remove the include to trace_printk=2Eh from kernel=2Eh the =
-tracing
->> control prototypes need to be moved back into kernel=2Eh=2E That's beca=
-use
+On Thu, 18 Jun 2026 at 06:09, Matthew Brost <matthew.brost@intel.com> wrote=
+:
 >
->Please don't=2E Instead, you can split them out to trace_control=2Eh, and
->include where needed=2E I actually have a prototype for it, FYI:
+> On Wed, Jun 17, 2026 at 12:17:45PM -0700, Matthew Brost wrote:
+> > Hi Dave, Sima,
+> >
+> > Here are drm-xe-next-fixes for 7.2.
+> >
+> > Matt
+> >
+> > drm-xe-next-fixes-2026-06-17:
+> > The following changes since commit 52d4ab1ca790a668cc8f2c27017138b1c467=
+168c:
+> >
 >
->https://github=2Ecom/norov/linux/tree/trace_pritk3
+> Rodrigo pointed out that I omitted the summary here...
 >
-
-Sure, I have no problem adding another header for this=2E
-
->> they are used in other common header files like rcu=2Eh=2E There's no p=
-oint in
->> removing trace_printk=2Eh from kernel=2Eh if it just gets added back to=
- other
->> common headers=2E
->>=20
->> Prototypes are very cheap for the compiler and should not be an issue=
-=2E
+> The changes we have are:
 >
->It's not about cost, it's about mess=2E kernel=2Eh is included everywhere=
-=2E
->Is that API needed everywhere? No, it's needed in literally 10 files=2E
->So, no place in kernel=2Eh=2E
->=20
+> - Set TTM beneficial order to 9 in Xe
+> - Several error path cleanups
+> - Fix TDR for unstarted jobs on kernel queues
+> - Several TLB invalidation fixes related to suspending LR queues
+> - Some small RAS fixes
+> - Multi-queue suspend fix for LR queues
+> - Revert inclusion of NVL_S firmware
+>
+> I also generated this PR using the following command, though I=E2=80=99m =
+not sure it matters:
+> dim pull-request drm-xe-next-fixes origin/master
+>
+> Rather than:
+> dim pull-request drm-xe-next-fixes drm/drm-next
+>
+> Given these issues, please let me know if a regenerated PR would be prefe=
+rred.
 
-Well one of those files is rcu=2Eh which is also pretty much included ever=
-ywhere=2E But OK=2E
+All good, I checked the changes and edited the commit msg to add the change=
+log.
 
--- Steve=20
-
-
->>=20
->> 2=2E53=2E0
->>=20
+Dave.
