@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45EE3C43602
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBD3C43458
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC63010E338;
-	Wed,  1 Jul 2026 12:59:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB81010E378;
+	Wed,  1 Jul 2026 12:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SsyZ+1Ts";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="VJkqHKv6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="SB2Bld69";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 423AE10E343;
- Sun, 21 Jun 2026 10:13:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7228F60051;
- Sun, 21 Jun 2026 10:13:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8508F1F000E9;
- Sun, 21 Jun 2026 10:13:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782036783;
- bh=6XsKwg1GS9lT4/Q7bmwm9MowVi5d7q2SDPsQIWMoNaw=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=SsyZ+1TsvgLflg0juXYCjcA3pH8vd+Y9MqLc0jYTOhxn+P6dy4eY5MVrVxb5LOEoG
- RrsJ0srGqaRi77KiHkc+wrXh1Emat3ZrzazsysIAaCQMNMGheBK5y3Hia7XGDjeIwh
- LpelPKZxXhh8Y2s446VszI2jLhTRwLl2n4aoLyozgo8nfNqijIIBJo83nfZDkhDjVn
- zeV/f4D/0nNSdjN56lwbs/1HvvZ3/sR6vxbzEQ0DhZ/vS4thbxkh+Wd09+S0HmhHwJ
- J68RbJ78ssT3222GKOLcajGNFfc3WxJv5d4ocntPrsfqRDltQ6MWCkBxIPIk+xpkfW
- jKewonDrI7TBQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Peter
- Zijlstra <peterz@infradead.org>, Julia Lawall <julia.lawall@inria.fr>,
- Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean
- up kernel.h
-In-Reply-To: <20260621093811.168514984@kernel.org>
-References: <20260621093430.264983361@kernel.org>
- <20260621093811.168514984@kernel.org>
-Date: Sun, 21 Jun 2026 12:13:00 +0200
-Message-ID: <87ik7cmcb7.ffs@fw13>
+Received: from sendmail.purelymail.com (sendmail.purelymail.com
+ [34.202.193.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF6310E2E3
+ for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 03:01:21 +0000 (UTC)
+Authentication-Results: purelymail.com; auth=pass
+DKIM-Signature: a=rsa-sha256;
+ b=VJkqHKv6NTNxhw5O2PJ50MOqTaJn60FjLQMKMBpuYgcIN6GDk3IFXCDEc1QeOhkfnDQVT9g9Aezdg0bIyylnlYmDMdBd6M+c9iGxXDbILKYbuY72Mej8ovORFm3ZlAmsryE1KcSXuJ+/P6Q9bk5SEWwPuvMOwBn/TThdLuwYqeZdz9nYLkvKTV+tw4pKWyXbp/tRWEx8lhz7CSZxiBQy5/LbSWK+Qa2p9vKZt/sU7Gu3cZ3rgjUwVhYglel5RQEIQgzBz9Tw2Gn7vHIBVq7ldFWySqxKLT3B9xkboV551k+rTeXOTppZbUdOTnOW8FqQNhtrpkZpluHxdIX0hZIJew==;
+ s=purelymail1; d=rcpassos.me; v=1;
+ bh=/+xYg6jX1ozm5WfnL4XEE4N+y3jAKId7pgtNcgp8lNQ=;
+ h=Received:From:To:Subject:Date; 
+DKIM-Signature: a=rsa-sha256;
+ b=SB2Bld69AqLyhvJ9wWnJN6kF6iYLq2hweum0LmU0tyitxMQ8D7fBPXHEsciOMIFaVMQ6rtPu7YWnIUNDQpre9098uNPLYXXfMUyfDjCb6wUPHX3F/MhcmS54HZqqHqI5NJS6qPvijpK7LrZitMjCe7iZvONCOlrnWMGkTzPruUp7qSvj8Qs68deW9mc7GEeYStaIWWkM9lkRZ5Gl5xgH1vDPYRPA3ihjw/LUqAuIVWqwNh7IGVU2OetcN5QPibSBPdvJIHbMAFTipgfIE48w/MB4vGUXUDqZNWIrglD1/x5fqVV4WrWnbjHuX5W/u+xz7CEVcvtokSunJL/CUlQc6g==;
+ s=purelymail1; d=purelymail.com; v=1;
+ bh=/+xYg6jX1ozm5WfnL4XEE4N+y3jAKId7pgtNcgp8lNQ=;
+ h=Feedback-ID:Received:From:To:Subject:Date; 
+Feedback-ID: 45355:7809:null:purelymail
+X-Pm-Original-To: intel-gfx@lists.freedesktop.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -75715480; 
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Sun, 21 Jun 2026 03:01:12 +0000 (UTC)
+From: Rafael Passos <rafael@rcpassos.me>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ Randy Dunlap <rdunlap@infradead.org>, skhan@linuxfoundation.org,
+ Rafael Passos <rafael@rcpassos.me>
+Subject: [PATCH v2] Documentation: xe_drm: fix chars used for subsection
+Date: Sun, 21 Jun 2026 00:01:14 -0300
+Message-ID: <20260621030114.963405-1-rafael@rcpassos.me>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
+Content-Type: text/plain; charset=UTF-8
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,27 +63,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jun 21 2026 at 05:34, Steven Rostedt wrote:
-> Instead of having trace_printk.h included in kernel.h, create a config
-> TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
-> Makefile to allow developers to add trace_printk() without the need to add
-> the include for it. Having it included in the Makefile keeps it from being
-> in the dependency chain and it will not waste extra CPU cycles for those
-> building the kernel without using trace_printk.
+Fixes "ERROR: A level 2 section cannot be used here".
+Equal signs are reserved for document titles.
+This file docs gets imported by driver-uapi.rst,
+and the page title is defined the.
 
-IOW, you make it worse just because.
 
-With the header being separate I add the three trace_printk()s and the
-include to the source file I'm investigating. The recompile will build
-exactly this source file.
-
-Having to enable the config knob will result in a full kernel rebuild
-for no value.
-
-Seriously?
-
+Signed-off-by: Rafael Passos <rafael@rcpassos.me>
+---
+Hi, I send the v1 for this patch only for the linux-doc list.
+The v2 fixes this, and has improvements to the commit message.
 Thanks,
 
-        tglx
+Rafael
 
+ include/uapi/drm/xe_drm.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+index 48e9f1fdb78d..4dfb30e6c8a8 100644
+--- a/include/uapi/drm/xe_drm.h
++++ b/include/uapi/drm/xe_drm.h
+@@ -2537,21 +2537,21 @@ struct drm_xe_exec_queue_set_property {
+  * Refer to Documentation/netlink/specs/drm_ras.yaml for complete interfac=
+e specification.
+  *
+  * Node Registration
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * -----------------
+  *
+  * The driver registers DRM RAS nodes for each error severity level.
+  * enum drm_xe_ras_error_severity defines the node-id, while DRM_XE_RAS_ER=
+ROR_SEVERITY_NAMES maps
+  * node-id to node-name.
+  *
+  * Error Classification
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * --------------------
+  *
+  * Each node contains a list of error counters. Each error is identified b=
+y a error-id and
+  * an error-name. enum drm_xe_ras_error_component defines the error-id, wh=
+ile
+  * DRM_XE_RAS_ERROR_COMPONENT_NAMES maps error-id to error-name.
+  *
+  * User Interface
+- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++ * --------------
+  *
+  * To retrieve error values of a error counter, userspace applications sho=
+uld
+  * follow the below steps:
+--=20
+2.53.0
 
