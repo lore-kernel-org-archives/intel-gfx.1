@@ -4,92 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA65ECD98F0
-	for <intel-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 12:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B126ACD98F2
+	for <intel-gfx@archiver.kernel.org>; Sun, 21 Jun 2026 13:08:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DAC810E1A7;
-	Sun, 21 Jun 2026 12:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D7810E396;
+	Sun, 21 Jun 2026 13:08:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kZQO3pZj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qrjqWZ3v";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E53B710E277
- for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 12:55:35 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-46066e640easo2061348f8f.1
- for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 05:55:35 -0700 (PDT)
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com
+ [209.85.128.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18A8E10E396
+ for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 13:08:39 +0000 (UTC)
+Received: by mail-yw1-f171.google.com with SMTP id
+ 00721157ae682-7fdbd0960b9so28914457b3.3
+ for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 06:08:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782046534; x=1782651334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=WU+6TPSMrQeQnOmPDKoUDmLIYSzXbxEWNqGQFFhaaZU=;
- b=kZQO3pZjHUp8spcWhDbCJ9BYpSWKqCUnfD1rIV9tOWhua6yUXEhEkr0ndtKu6hOkap
- LVSTj1o3FTeKg3x47rzcjekqXu0FEhWs0BSNPMrSqQMTk3C4xnFytgQvoKDMmlMmco+U
- W/QqKSiaNkNz2TJr5/+NHbJHeZXwNxbGvS1zs1DVZE07tMlOHE5b/VyoJwTjKRveVfwC
- 3OwrZUnJe1Bw3ocdyz9Euhw5l+yP09uC+2ZYpna7ZeWq1W1d8mocVUhBpkKRrJyCXuQ2
- JnU7VXMIRTr66fmIDiUj1ksVCHDwwRxbv61/FYshpd6tfAB+w8kjEG92vM3A5uYdeoKo
- RShg==
+ d=gmail.com; s=20251104; t=1782047318; x=1782652118; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=JelQF+PgdiILboeOL52+qm2l/XNW/EjjD3ktKV3cKe4=;
+ b=qrjqWZ3vz+hY3C3NDdZ95QX+TwF+5h4R68ylMOJE1B0xjQhudBCXjnNlv87+WNBY5f
+ oLFBK5f0+WQGgl8joKA2v1tuZThAuQlfMmC2Wselh8AI+XRzfssDSqh62BEOkIa6e4bV
+ OuyuIkYV/vyE0QL1NAJ0Kz6zvuNf4xvAff3rER4RFS0d7e6pN5zb4W7igZB3YRg4h4x3
+ tfrPD7L1oV7B5QeXxPi+8MMFQO8/31fvmHVEkxMiKpQFNEp9VAm+LFKOH7Tff7yrjCnA
+ b3M+wnhNEX/3EI08Sk6Ly5AgAJTfqrnOWQM8QAMryx46JpzhcWjKXFYsYHHeoocao4xi
+ mNKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782046534; x=1782651334;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=WU+6TPSMrQeQnOmPDKoUDmLIYSzXbxEWNqGQFFhaaZU=;
- b=TsuM7NychY58Eg8EfVCAiUYYik27TcQFveqDbo1mNJ4mFFd0QoDoEx30rtNdOY1YM/
- /ZZJbCQL0LAGFDIU2SZb/wzt64FSvLVbmkaOtFRGl313cRBiqD7gm69u6aXgcFmnsKtD
- lgYdakBCGRf3OqAuhrd+1k7DxcJsMAdZ5ZhRY3vHqXwzVn2MfEWCs92pWHNGW+zdChWP
- AgnwKLARwUORVkVcmC9IBJ1JJVeHLIqsJ/fUB/8CWnzPPwV9BD0nMDepvBEzzSDkUUBd
- d923b2Nks5ej7P1P6fUGr3HC4auV+v18pFXEPP6p+ESWAFk7S5ce27jecFUQvGgC8VjU
- cqXA==
+ d=1e100.net; s=20251104; t=1782047318; x=1782652118;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=JelQF+PgdiILboeOL52+qm2l/XNW/EjjD3ktKV3cKe4=;
+ b=sENnwLHL4gYMz6M9xKuXxoRly0HgYURF2dUCjjSWB96pi2vjWxih+QJ/Bs9B0Op/Vy
+ LaSuQTb7j+EVMb/aICaTnG4pCjhyOQk714dW4tMxXqGmuYtCqV8d5vhp8p51Thr20E6i
+ ZMxEdR4jMIYcSDa57BxjPBR8lEDpvhwFLq5JSuWvQJ+CmSiX6y0K3YtTPr7fpvY4XLS8
+ BcPfUSo/S9Xq8f3kk3+tzWnZzAQL+AURM6zUg2Dm3YK5ZTXtjGG0bqHwiIrCDosAzMsy
+ Fn0SMPA8BvUGi/tU+hRoTwcy/bocOfVWIzgbEBtpBk0Xy9AjfWWN9rJ+TBeoEdJQ5aer
+ hGvg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8uy0GttM8++9uCDMZCb1dGHHccEr+KXmio9GxZfHnKtJMXLz+LZVfws7j/dbcX6ZzTthuLMNQgQu4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk/UlK/df+A94hej50afUduAqlEabZZK/yn1g92Iww7s/V2N80
- e2FjKsfmLrJ4KmbLNp2ckkL1/8+l1BUr+1Jb9ZhQZOszlHeiXlZqrZcL
-X-Gm-Gg: AfdE7clR71SDQGrDTtNVZJIX6EWaHICtEtWVizu7cxt85+trV58VNuV9GvKKVVIkxLZ
- llkR7ItCx7zrIYvOPnkMU0S21eOQu8A6J6hincHkjNWLZ+a9XfWc/QEbFiGEqHODfxU4PTBKk9e
- 0zlKuVs7yniwUaSbN+z6kCAC7kv2XRIuz/UKyFPYEnf2AVrwn6j2aFrx+3WdUQ8wGoYsCtFf8Nh
- Z5+4rh8WyonruceTFsCx+vAMtN8MEOQjSJKX7KcsYqOuboNkkV96M+s72lmdpxbn6a3Ty5xYPBm
- FSvJc9o6WGHBxQUgVav/CYOt2qQytOk9xwndZqWZ1wP7ILyAZ/ZYOqH04860td9kfdRgYyNDCFl
- JqP6GZpi9OR5UL0t9OjUIcqeEj2eWz/FKjKo9doaC7A4eT8D6zeEex7hhV7Dm1sjOkqY5sLcLZf
- 2CTi2ZOs9VRpCThInELhJ69bL+Xsv12rvNKvq8+bZOzORN5Z3hiA==
-X-Received: by 2002:a05:600c:e547:20b0:48f:d5b8:5b07 with SMTP id
- 5b1f17b1804b1-49240e81b22mr113459545e9.20.1782046534244; 
- Sun, 21 Jun 2026 05:55:34 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ AHgh+Ro4cjuRPbthXP0X28SgZZXoKU4+QtPuDvqMqxTP3dt17L2ntqgWL1zNKlkMVxOV4H+6orCu1Bg2kd0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzqApCCqXnCPqxj42PmX3XtNovyeiTkqSsyCpqm3wNehA5bWG2s
+ x9r0CibDd9/83yJuuIy8zJkHG83RjLxERXTZyuyhYF/W7pTduXvEz97r
+X-Gm-Gg: AfdE7cmilK5xDKmWOm2Kb/9C29p5bWU5qUC+XMmJnNIz42sv+9a9TmK470dh6JySIuu
+ +3PGC/bXUQNO5xNB2kZ58N4/iQqGpO+Fwesc9CXC7ptT6IkF5xhXRf6gWzwr6CpaFe1zySAlpiu
+ VaLk/osGO1a9fXgv5JYwlkLpyiK4prhme4gWorVq4avw6O1+dqIQEFx3Pa5nI2aVaJpzdMaiofy
+ b07tbcLEypBYO6tFN8MvuCBCW7rln4PNS4rstUYGfzlN31iYsCuVLgvFtiaPJs9vhLnU40nI+PO
+ LwOF7oqzM0nkGsHQehhOBeLSzZQwRcASVj8eUoNoMuo/zlNK8sLzlODWLBbo+guZwc5Xt4RQPrn
+ kdbOxdinkWQYveHlvivwobUeq1O2qqw8t/LH2PZ/VBXynPiM36hP+5k91eWoiAcZ1+pc8saqrHA
+ UpeOzp/EK2gh3E/7c45HzjEiN6Pk4bx7hnDzk=
+X-Received: by 2002:a05:690c:6881:b0:7fd:5297:28da with SMTP id
+ 00721157ae682-80139103c73mr119142517b3.49.1782047317965; 
+ Sun, 21 Jun 2026 06:08:37 -0700 (PDT)
+Received: from localhost (user-24-214-85-55.knology.net. [24.214.85.55])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49249238900sm129230375e9.4.2026.06.21.05.55.33
+ 00721157ae682-8025cf693f8sm20544597b3.15.2026.06.21.06.08.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Jun 2026 05:55:33 -0700 (PDT)
-Date: Sun, 21 Jun 2026 13:55:31 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Steven Rostedt <rostedt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Peter
- Zijlstra <peterz@infradead.org>, Julia Lawall <julia.lawall@inria.fr>, Yury
- Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
+ Sun, 21 Jun 2026 06:08:37 -0700 (PDT)
+From: Yury Norov <yury.norov@gmail.com>
+X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
+Date: Sun, 21 Jun 2026 09:08:37 -0400
+To: Steven Rostedt <rostedt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Julia Lawall <julia.lawall@inria.fr>,
+ Yury Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
  linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
  linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean
- up kernel.h
-Message-ID: <20260621135531.243375d9@pumpkin>
-In-Reply-To: <87ik7cmcb7.ffs@fw13>
+Subject: Re: [PATCH 1/2] tracing: Move non-trace_printk prototypes back to
+ kernel.h
+Message-ID: <ajfiVTlCIVlqW3sh@yury>
 References: <20260621093430.264983361@kernel.org>
- <20260621093811.168514984@kernel.org> <87ik7cmcb7.ffs@fw13>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+ <20260621093811.007634476@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260621093811.007634476@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,40 +106,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 21 Jun 2026 12:13:00 +0200
-Thomas Gleixner <tglx@kernel.org> wrote:
-
-> On Sun, Jun 21 2026 at 05:34, Steven Rostedt wrote:
-> > Instead of having trace_printk.h included in kernel.h, create a config
-> > TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
-> > Makefile to allow developers to add trace_printk() without the need to add
-> > the include for it. Having it included in the Makefile keeps it from being
-> > in the dependency chain and it will not waste extra CPU cycles for those
-> > building the kernel without using trace_printk.  
+On Sun, Jun 21, 2026 at 05:34:31AM -0400, Steven Rostedt wrote:
+> From: Steven Rostedt <rostedt@goodmis.org>
 > 
-> IOW, you make it worse just because.
-> 
-> With the header being separate I add the three trace_printk()s and the
-> include to the source file I'm investigating. The recompile will build
-> exactly this source file.
-> 
-> Having to enable the config knob will result in a full kernel rebuild
-> for no value.
+> In order to remove the include to trace_printk.h from kernel.h the tracing
+> control prototypes need to be moved back into kernel.h. That's because
 
-Indeed...
-Isn't trace_printk() just an extern?
-Having it defined somewhere isn't going to make any difference to build times.
+Please don't. Instead, you can split them out to trace_control.h, and
+include where needed. I actually have a prototype for it, FYI:
 
-	David
+https://github.com/norov/linux/tree/trace_pritk3
+
+> they are used in other common header files like rcu.h. There's no point in
+> removing trace_printk.h from kernel.h if it just gets added back to other
+> common headers.
+> 
+> Prototypes are very cheap for the compiler and should not be an issue.
+
+It's not about cost, it's about mess. kernel.h is included everywhere.
+Is that API needed everywhere? No, it's needed in literally 10 files.
+So, no place in kernel.h.
  
-
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  include/linux/kernel.h       | 18 ++++++++++++++++++
+>  include/linux/trace_printk.h | 17 -----------------
+>  2 files changed, 18 insertions(+), 17 deletions(-)
 > 
-> Seriously?
+> diff --git a/include/linux/kernel.h b/include/linux/kernel.h
+> index e5570a16cbb1..c3c68128827c 100644
+> --- a/include/linux/kernel.h
+> +++ b/include/linux/kernel.h
+> @@ -194,4 +194,22 @@ extern enum system_states system_state;
+>  # define REBUILD_DUE_TO_DYNAMIC_FTRACE
+>  #endif
+>  
+> +#ifdef CONFIG_TRACING
+> +void tracing_on(void);
+> +void tracing_off(void);
+> +int tracing_is_on(void);
+> +void tracing_snapshot(void);
+> +void tracing_snapshot_alloc(void);
+> +void tracing_start(void);
+> +void tracing_stop(void);
+> +#else
+> +static inline void tracing_start(void) { }
+> +static inline void tracing_stop(void) { }
+> +static inline void tracing_on(void) { }
+> +static inline void tracing_off(void) { }
+> +static inline int tracing_is_on(void) { return 0; }
+> +static inline void tracing_snapshot(void) { }
+> +static inline void tracing_snapshot_alloc(void) { }
+> +#endif
+> +
+>  #endif
+> diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
+> index 3d54f440dccf..879fed0805fd 100644
+> --- a/include/linux/trace_printk.h
+> +++ b/include/linux/trace_printk.h
+> @@ -35,15 +35,6 @@ enum ftrace_dump_mode {
+>  };
+>  
+>  #ifdef CONFIG_TRACING
+> -void tracing_on(void);
+> -void tracing_off(void);
+> -int tracing_is_on(void);
+> -void tracing_snapshot(void);
+> -void tracing_snapshot_alloc(void);
+> -
+> -extern void tracing_start(void);
+> -extern void tracing_stop(void);
+> -
+>  static inline __printf(1, 2)
+>  void ____trace_printk_check_format(const char *fmt, ...)
+>  {
+> @@ -176,16 +167,8 @@ __ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
+>  
+>  extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
+>  #else
+> -static inline void tracing_start(void) { }
+> -static inline void tracing_stop(void) { }
+>  static inline void trace_dump_stack(int skip) { }
+>  
+> -static inline void tracing_on(void) { }
+> -static inline void tracing_off(void) { }
+> -static inline int tracing_is_on(void) { return 0; }
+> -static inline void tracing_snapshot(void) { }
+> -static inline void tracing_snapshot_alloc(void) { }
+> -
+>  static inline __printf(1, 2)
+>  int trace_printk(const char *fmt, ...)
+>  {
+> -- 
+> 2.53.0
 > 
-> Thanks,
-> 
->         tglx
-> 
-> 
-> 
-
