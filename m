@@ -4,37 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1990CDB478
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA58CDE00B
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EC7110E818;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFF910E815;
 	Mon, 22 Jun 2026 18:10:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="acAiKXA+";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="EZb6Nw0C";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A7C10E803;
- Mon, 22 Jun 2026 18:10:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9869D10E7F7;
+ Mon, 22 Jun 2026 18:10:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151844;
- bh=aJ674jKfdfYzA1796ckniFKjkGKFKlysonuWe+TKQpQ=;
+ s=default; t=1782151840;
+ bh=GQhxUz+JN+YyJf3pXGopVoWZqYvs/Yb71b7mUuabTSk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=acAiKXA+bI/m9BvYsYkrT5cA4qzXvjlxCo5wkxMnoH2NCSjMdF6IQINOydgVbhLnY
- xSGNWdYns0tAJAMg1yFkQfolmgoQWF2/SPCVOGfig04eCtKRUlEGtmUKAZ7nqD8p+J
- TH+i1Em838f9XGTv7UasiRm61JubUFujtrP1l6qUl1TeN1UkIqvqmEwp6RiOOkk5RQ
- fCCW2RhY2lWfPy25bZHbdr2LJZFhSXHXAfrFh0QQ0ErLU79ZjoAwXz5Dskljicwrvs
- P7aT02xjT9vgdChX9EH/YQN525Kdo2gZlpLn9bepwqiu9Z7Oypqi+fCyFzKeTeX0Aj
- X2h+jXsB3rjLw==
+ b=EZb6Nw0C34pLl/Ta46QRVb1r8xwtlSSQFTOvTIDnjgTV3xEt3b4qgTYmmFvMsIb2b
+ m9AOdsALXAIeGcRXmefKXaRBGhFhFtm/z09m5H9oileOrJYtJ0GOiof+TuHApGNlc3
+ R0HfhyNbtAaydjfEPKFNgfgY2esUrWRUlCKWCStLE3XP8K3qvyou46gcrNeyjLcfaS
+ SEwl1P/+Bdnbm3Y3rPgb0N6GbTFtzrRDoAQdv8OCTspUtSZUySAx8rMSDnhArZ0z5M
+ yBp57majRsL24L3LaIJcFWxzClxmeiVGmj6KZKLgiGabX4QjDklLRBEEX4Gt5SMeh0
+ xydAH7gq8Dasw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "John B. Wyatt IV" <jwyatt@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 17/30] drm/i915/guc: Consider also RCU depth in busy loop.
-Date: Mon, 22 Jun 2026 20:10:30 +0200
-Message-ID: <20260622181044.39335-18-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH v9 11/30] drm/i915/display: Make icl_dsi_frame_update use _fw
+ too
+Date: Mon, 22 Jun 2026 20:10:24 +0200
+Message-ID: <20260622181044.39335-12-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -55,36 +54,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Don't use the dmc lock inside the vblank critical section,
+not even as last call.
 
-intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
-decide if it should busy-spin while waiting or if it may sleep.
-Both checks will report false on PREEMPT_RT if sleeping spinlocks are
-acquired leading to RCU splats while the function sleeps.
-
-Check also if RCU has been disabled.
-
-Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Reviewed-by: Uma Shankar <uma.shankar@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/icl_dsi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 053780f562c1a..b25fa8f4dc4bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
- {
- 	int err;
- 	unsigned int sleep_period_ms = 1;
--	bool not_atomic = !in_atomic() && !irqs_disabled();
-+	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
+index a549f1fac8103..277804638f207 100644
+--- a/drivers/gpu/drm/i915/display/icl_dsi.c
++++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+@@ -242,8 +242,8 @@ void icl_dsi_frame_update(struct intel_crtc_state *crtc_state)
+ 	else
+ 		return;
  
- 	/*
- 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
+-	intel_de_rmw(display, DSI_CMD_FRMCTL(port), 0,
+-		     DSI_FRAME_UPDATE_REQUEST);
++	intel_de_rmw_fw(display, DSI_CMD_FRMCTL(port), 0,
++			DSI_FRAME_UPDATE_REQUEST);
+ }
+ 
+ static void dsi_program_swing_and_deemphasis(struct intel_encoder *encoder)
 -- 
 2.53.0
 
