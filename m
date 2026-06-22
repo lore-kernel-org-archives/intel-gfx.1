@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE85CCD98F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:10:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5911FCDB475
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:10:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F176010E7FA;
-	Mon, 22 Jun 2026 18:10:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6450D10E7FF;
+	Mon, 22 Jun 2026 18:10:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="jhoIIBQC";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="KCqG2GVI";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013B710E7BF;
- Mon, 22 Jun 2026 18:10:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F5D10E7F0;
+ Mon, 22 Jun 2026 18:10:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151835;
- bh=BDqEyaLSf5oPui7QLPP/4vffKV9STElBBLDe6hW029Y=;
+ s=default; t=1782151839;
+ bh=07jvFRigIF4c2WP1/tQ0UqgvxYpJAG8Jfl5912+WIUE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jhoIIBQCnYG74X3pBY+EdL8n1+/jJ3YeSD6Nxf1g00wPBD/1Z/qWsq6VvVZ+rLl7G
- FbUNV+KkjkzbT/FxbBL5C8yD9Hanjeh13UpEXSIBuZiGlZkwwBKSVvrgFZCv49IFAR
- Mmsf6z8b/jllBxePEjIj1OW1NgWkHOpxZm6MgeApoQu5DlUBLufSlZM4jiJhWzgnsm
- 0TUdn0ibVydSpklXjUaW5e4n35uqspPse+GzI9w/30fco80DQrUHl6Bic7W+Pg16FS
- 2Hv/aVOlNoEPrGizKE6AoVmsjCLDUN6GVFzosP3Ki3C6bzKCxje4LRMXLICYdl1//6
- A/7x5spgxrM4w==
+ b=KCqG2GVI3BoAST8/HF/tyssQnkYEAMJ48qo0ESxCLEaksY0q+GONeHJVCsgDjS20n
+ 5cjrqK37qPw5hnB2u841BEr3fZAeRWyJztulKovnXQyIkmAr20mqrmfqrvSyE/J3ZB
+ HAFdiw3eaHo78kJWAT5wYsjryAGqDvHWVvuN6lNW3vZxlZ2XJlqRQ03f3aX2qG49P2
+ v//AJUE0g/r245BU6mGdLtIGqJsf1VzHRwPImXda8grGPGhPul3++0kMT2OsAZ8M3g
+ 5nxhUOizcyJK5OEdgQ0lo/UAw032ai0Mode0X4dPqdGFMxQYMSbik3AOs2QLjRMnsw
+ UrhM0WU/vy3Uw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 04/30] drm/intel/display: Convert vblank event handling to
- 2-stage arming
-Date: Mon, 22 Jun 2026 20:10:17 +0200
-Message-ID: <20260622181044.39335-5-dev@lankhorst.se>
+Subject: [PATCH v9 09/30] drm/i915/display: Make get_vblank_counter use
+ intel_de_read_fw()
+Date: Mon, 22 Jun 2026 20:10:22 +0200
+Message-ID: <20260622181044.39335-10-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -54,153 +54,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This is converts the vblank functions to be called with interrupts
-disabled, even on PREEMPT_RT kernels.
+Fixes the following lockdep splat on PREEMPT_RT:
+<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
+<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1373, name: xe_module_load
+<3> preempt_count: 1, expected: 0
+<3> RCU nest depth: 0, expected: 0
+<4> 11 locks held by xe_module_load/1373:
+<4>  #0: ffff888107b691a0 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x104/0x220
+<4>  #1: ffff88813cd30280 (&dev->clientlist_mutex){+.+.}-{3:3}, at: drm_client_register+0x32/0xe0
+<4>  #2: ffffffff837f88f8 (registration_lock){+.+.}-{3:3}, at: register_framebuffer+0x1b/0x50
+<4>  #3: ffffffff835985e0 (console_lock){+.+.}-{0:0}, at: fbcon_fb_registered+0x6f/0x90
+<4>  #4: ffff88812589e6a0 (&helper->lock){+.+.}-{3:3}, at: __drm_fb_helper_restore_fbdev_mode_unlocked+0x7b/0x110
+<4>  #5: ffff88813cd30158 (&dev->master_mutex){+.+.}-{3:3}, at: drm_master_internal_acquire+0x20/0x50
+<4>  #6: ffff88812589e488 (&client->modeset_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_locked+0x2a/0x1b0
+<4>  #7: ffffc9000031eef0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
+<4>  #8: ffffc9000031ef18 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
+<4>  #9: ffff888114f7b8b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
+<4>  #10: ffff88812a0cbbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
 
-Because the PREEMPT_RT kernel converts all spinlocks to rt-mutexes,
-the normal vblank functions cannot be used inside the critical section.
-
-Instead, prepare the vblank at the start, and then enable the vblank
-work after the hardware programming is completed.
-
-This allows us to keep programming the hardware with interrupts
-disabled, and still schedule completion on PREEMPT_RT on next vblank.
+This splat will happen otherwise on all tracepoints too, for similar reasons.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_crtc.c | 84 ++++++++++++-----------
- 1 file changed, 44 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/i915/display/intel_vblank.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_crtc.c b/drivers/gpu/drm/i915/display/intel_crtc.c
-index 805645318747f..34a159f7c9a43 100644
---- a/drivers/gpu/drm/i915/display/intel_crtc.c
-+++ b/drivers/gpu/drm/i915/display/intel_crtc.c
-@@ -527,6 +527,10 @@ static void intel_crtc_vblank_work_init(struct intel_crtc_state *crtc_state)
+diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
+index 07dca05332e5b..c0cc0a4c25dbe 100644
+--- a/drivers/gpu/drm/i915/display/intel_vblank.c
++++ b/drivers/gpu/drm/i915/display/intel_vblank.c
+@@ -132,7 +132,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
+ 	if (!vblank->max_vblank_count)
+ 		return 0;
  
- 	drm_vblank_work_init(&crtc_state->vblank_work, &crtc->base,
- 			     intel_crtc_vblank_work);
-+
-+	drm_vblank_work_schedule_disabled(&crtc_state->vblank_work,
-+					  drm_crtc_accurate_vblank_count(&crtc->base) + 1);
-+
- 	/*
- 	 * Interrupt latency is critical for getting the vblank
- 	 * work executed as early as possible during the vblank.
-@@ -571,6 +575,21 @@ int intel_scanlines_to_usecs(const struct drm_display_mode *adjusted_mode,
- 				adjusted_mode->crtc_clock);
+-	return intel_de_read(display, PIPE_FRMCOUNT_G4X(display, pipe));
++	return intel_de_read_fw(display, PIPE_FRMCOUNT_G4X(display, pipe));
  }
  
-+static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
-+{
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
-+	unsigned long irqflags;
-+
-+	if (!crtc_state->uapi.event)
-+		return;
-+
-+	drm_WARN_ON(crtc->base.dev, drm_crtc_vblank_get(&crtc->base) != 0);
-+
-+	spin_lock_irqsave(&crtc->base.dev->event_lock, irqflags);
-+	drm_crtc_prepare_arm_vblank_event(&crtc->base, crtc_state->uapi.event);
-+	spin_unlock_irqrestore(&crtc->base.dev->event_lock, irqflags);
-+}
-+
- /**
-  * intel_pipe_update_start() - start update of a set of display registers
-  * @state: the atomic state
-@@ -607,6 +626,8 @@ void intel_pipe_update_start(struct intel_atomic_state *state,
- 
- 	if (intel_crtc_needs_vblank_work(new_crtc_state))
- 		intel_crtc_vblank_work_init(new_crtc_state);
-+	else
-+		intel_crtc_arm_vblank_event(new_crtc_state);
- 
- 	if (state->base.legacy_cursor_update) {
- 		struct intel_plane *plane;
-@@ -684,23 +705,6 @@ static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end)
- static void dbg_vblank_evade(struct intel_crtc *crtc, ktime_t end) {}
- #endif
- 
--static void intel_crtc_arm_vblank_event(struct intel_crtc_state *crtc_state)
--{
--	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
--	unsigned long irqflags;
--
--	if (!crtc_state->uapi.event)
--		return;
--
--	drm_WARN_ON(crtc->base.dev, drm_crtc_vblank_get(&crtc->base) != 0);
--
--	spin_lock_irqsave(&crtc->base.dev->event_lock, irqflags);
--	drm_crtc_arm_vblank_event(&crtc->base, crtc_state->uapi.event);
--	spin_unlock_irqrestore(&crtc->base.dev->event_lock, irqflags);
--
--	crtc_state->uapi.event = NULL;
--}
--
- void intel_crtc_prepare_vblank_event(struct intel_crtc_state *crtc_state,
- 				     struct drm_pending_vblank_event **event)
- {
-@@ -754,29 +758,10 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 	 * event outside of the critical section - the spinlock might spin for a
- 	 * while ... */
- 	if (intel_crtc_needs_vblank_work(new_crtc_state)) {
--		drm_vblank_work_schedule(&new_crtc_state->vblank_work,
--					 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
--					 false);
--	} else {
--		intel_crtc_arm_vblank_event(new_crtc_state);
--	}
--
--	if (state->base.legacy_cursor_update) {
--		struct intel_plane *plane;
--		struct intel_plane_state *old_plane_state;
--		int i;
--
--		for_each_old_intel_plane_in_state(state, plane, old_plane_state, i) {
--			if (old_plane_state->hw.crtc == &crtc->base &&
--			    old_plane_state->unpin_work.vblank) {
--				drm_vblank_work_schedule(&old_plane_state->unpin_work,
--							 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
--							 false);
--
--				/* Remove plane from atomic state, cleanup/free is done from vblank worker. */
--				memset(&state->base.planes[i], 0, sizeof(state->base.planes[i]));
--			}
--		}
-+		drm_vblank_work_enable(&new_crtc_state->vblank_work);
-+	} else if (new_crtc_state->uapi.event) {
-+		drm_crtc_arm_prepared_vblank_event(new_crtc_state->uapi.event);
-+		new_crtc_state->uapi.event = NULL;
- 	}
- 
- 	/*
-@@ -800,6 +785,25 @@ void intel_pipe_update_end(struct intel_atomic_state *state,
- 
- 	local_irq_enable();
- 
-+	/* Run after local_irq_enable(), not timing sensitive */
-+	if (state->base.legacy_cursor_update) {
-+		struct intel_plane *plane;
-+		struct intel_plane_state *old_plane_state;
-+		int i;
-+
-+		for_each_old_intel_plane_in_state(state, plane, old_plane_state, i) {
-+			if (old_plane_state->hw.crtc == &crtc->base &&
-+			    old_plane_state->unpin_work.vblank) {
-+				drm_vblank_work_schedule(&old_plane_state->unpin_work,
-+							 drm_crtc_accurate_vblank_count(&crtc->base) + 1,
-+							 false);
-+
-+				/* Remove plane from atomic state, cleanup/free is done from vblank worker. */
-+				memset(&state->base.planes[i], 0, sizeof(state->base.planes[i]));
-+			}
-+		}
-+	}
-+
- 	if (intel_parent_vgpu_active(display))
- 		goto out;
- 
+ static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
 -- 
 2.53.0
 
