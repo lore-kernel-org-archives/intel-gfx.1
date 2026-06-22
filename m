@@ -4,49 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C71ECD98F2
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 14:52:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DD39CD98F2
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 15:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05D8C10E72C;
-	Mon, 22 Jun 2026 14:52:17 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="cRL7N3F4";
-	dkim-atps=neutral
-Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
- [136.143.188.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 848D510E72C
- for <intel-gfx@lists.freedesktop.org>; Mon, 22 Jun 2026 14:52:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782139933; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cGtEA7GBY9F2wlPq+KhKKp8Pil1s6SCKN5dPvsn8LVDVnbqBQLgTYuKaQYy+b9zV74ovWyd6irKH9PoxZ1EVe4/aOcDcLqzXUByabi4u8eVprWVlS/BG+1/ZyY0InNpAC2GKZrds+BA3bDn5jHBv1436aOJPBfYIVlXn7Ptgzok=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782139933;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=63C3hkJcUAjLx1Wo5SqhN4nguOHicwdTIcrGRX6qKsE=; 
- b=jQBpQM4xYNES21cnqQSZLdkT7ITXJF2RhjaiZQkAQ6w9tvd/aSiTWdSZMiVjIHl3BmPI5oUVDvCJT3LruLyxnxU/DlH32EK/xuNgbsHneSrVC5TA2Ubreade8hi9N6gGy44jBw8RJQO52BkbtWfdipuH3nnYfv9j9AUiJSQsf4E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=mark.filion@collabora.com;
- dmarc=pass header.from=<mark.filion@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782139933; 
- s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
- bh=63C3hkJcUAjLx1Wo5SqhN4nguOHicwdTIcrGRX6qKsE=;
- b=cRL7N3F4DTtF5AWek8KGrwvXtjKivdBNM4d2SQgPQkAuYtNwZsKfZmivOMWQ+H4I
- CQPFVAJ9OFGmACC0nTEYTfBupq6lRbjcvVFenN5KyEzilkdhyqfqTYcUTTI78WEgFkG
- NVfTk6RjItohqbKGXBqgS0ogbLCgVCWM5a3R7exM=
-Received: by mx.zohomail.com with SMTPS id 1782139931107957.8905132663732;
- Mon, 22 Jun 2026 07:52:11 -0700 (PDT)
-Message-ID: <cb2cc9c9b1263b48b8347424f3f9c534dda9eb14.camel@collabora.com>
-Subject: Reminder: Call for Proposals open for XDC 2026
-From: Mark Filion <mark.filion@collabora.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Mon, 22 Jun 2026 10:52:09 -0400
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id C74B110E745;
+	Mon, 22 Jun 2026 15:09:29 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED78A10E745;
+ Mon, 22 Jun 2026 15:09:27 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8327237476823875763=="
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Revert_=22drm/i915/psr=3A?=
+ =?utf-8?q?_Allow_SCL=3D0_on_platforms_with_always-on_VRR_TG=22?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Ankit Nautiyal" <ankit.k.nautiyal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 22 Jun 2026 15:09:27 -0000
+Message-ID: <178214096796.101529.15181579718691264618@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260622101736.2389991-1-ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260622101736.2389991-1-ankit.k.nautiyal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,30 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello!
+--===============8327237476823875763==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reminder - The CfP is now open for talks, workshops and demos at XDC
-2026. The deadline for submissions is Friday, 3 July 2026.
+== Series Details ==
 
-    https://xdc2026.x.org
+Series: Revert "drm/i915/psr: Allow SCL=0 on platforms with always-on VRR TG"
+URL   : https://patchwork.freedesktop.org/series/168927/
+State : success
 
-While any serious proposal will be gratefully considered, topics of
-interest to X.Org and freedesktop.org developers are encouraged. The
-program focus is on new development, ongoing challenges and anything
-else that will spark discussions among attendees in the hallway track.
+== Summary ==
 
-We are open to talks across all layers of the graphics stack, from the
-kernel to desktop environments / graphical applications and about how
-to make things better for the developers who build them. Head to the
-CfP page to learn more!
-  =20
-As usual, the conference is free of charge and open to the general
-public. If you plan on attending, please make sure to register as early
-as possible!
+CI Bug Log - changes from CI_DRM_18707 -> Patchwork_168927v1
+====================================================
 
-Best,
+Summary
+-------
 
-Mark
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168927v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18707 -> Patchwork_168927v1
+
+  CI-20190529: 20190529
+  CI_DRM_18707: 6583dd200482a34bb17e5dc54551f91f53b79798 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8976: 8976
+  Patchwork_168927v1: 6583dd200482a34bb17e5dc54551f91f53b79798 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168927v1/index.html
+
+--===============8327237476823875763==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Revert &quot;drm/i915/psr: Allow SCL=0 on platforms with always-on VRR TG&quot;</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168927/">https://patchwork.freedesktop.org/series/168927/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168927v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168927v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18707 -&gt; Patchwork_168927v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168927v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18707 -&gt; Patchwork_168927v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18707: 6583dd200482a34bb17e5dc54551f91f53b79798 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8976: 8976<br />
+  Patchwork_168927v1: 6583dd200482a34bb17e5dc54551f91f53b79798 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8327237476823875763==--
