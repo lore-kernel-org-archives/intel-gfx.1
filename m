@@ -4,35 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAEDCCDE004
-	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BBDCDE007
+	for <intel-gfx@archiver.kernel.org>; Mon, 22 Jun 2026 18:11:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E94F10E840;
-	Mon, 22 Jun 2026 18:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0765E10E84A;
+	Mon, 22 Jun 2026 18:10:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="RDcaYZ+8";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="B3ZG+pGM";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71F3610E837;
- Mon, 22 Jun 2026 18:10:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1BE010E817;
+ Mon, 22 Jun 2026 18:10:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782151853;
- bh=zgWc6CdMfk4NiQZZCTWOUXHX/knUgl/37EPaPM3oaDE=;
+ s=default; t=1782151849;
+ bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=RDcaYZ+8d110BlrGAzLbYTAR3FE//p82wClWJkiJmE/6/WVFhaaYlt1DFsKan01Rj
- 5GTARyKv2+lAFbWM2AITGrfqbDxrcHdPGSedGloROoW6ox+OGMUu4h2i3WgdPD3RD1
- e/9NbVY3f48nOWEhllvQ9KW52UGtbDSAzuCi46XG9XkuT9A0Ce7NXvtmIUrF5Slw9x
- z4T4LBx4Hk6YkncV9Hn8+rQ3/emGBzRu57k/pVdUc6T70GacoohUIlJxfneqnY3ET2
- 6vgAnkosLG1nuqnKAZ6CH+eGwGJxk0/XsMdfaTAH2rScy9psNiW19ixsh9LR1F+vNO
- 7C8ELkuuOVC3A==
+ b=B3ZG+pGMlrMwuQ4xU8fcEk2+3q1Io3U/oALg0AhxBbWkJdDqGI22JaaHBO2s85s7l
+ 4TM21uszb4g2mbyeqSoRMKVMgbGN5/gt9MlfsqNHy8MHxVx5YpxgVgfIS+qxlS5lqv
+ IkLPoztwtuNugdJsVhQ81rMXyfgX9Sa4sdsokqbOqXRakELH/9GRmAHrAo6sV6Z9I+
+ Dtja3DIACwjrqjXlBK4hYn6Drv9t3T1i0FccQ8U4PLmYsRZ0Lh/iae9w3527I+mz1+
+ 4cmJOGSDlpTadAxh85r60iFT4vGZfNzdbsmCytGXM8oqUsJUs8PIb7+N13hH8o9l3E
+ ZzxL5+Ldz49kg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9 30/30] drm/i915/guc: Make timestamp.lock a raw spinlock
-Date: Mon, 22 Jun 2026 20:10:43 +0200
-Message-ID: <20260622181044.39335-31-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v9 25/30] drm/i915/gt: Add a spinlock to prevent starvation of
+ irq_work.
+Date: Mon, 22 Jun 2026 20:10:38 +0200
+Message-ID: <20260622181044.39335-26-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-1-dev@lankhorst.se>
 References: <20260622181044.39335-1-dev@lankhorst.se>
@@ -53,133 +55,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Because the timestamp.lock is called from the perf lock,
-it has to be converted to a raw spinlock too.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This fixes another splat with a similar trace
-to the previous commit in perf_pmu.
+IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+and the interrupt will poll on signaler_active while the irq-work can't
+make progress.
+
+Solve this by adding a spinlock to prevent starvation and force
+completion.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  2 +-
- .../gpu/drm/i915/gt/uc/intel_guc_submission.c | 26 +++++++++----------
- 2 files changed, 14 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index b25fa8f4dc4bd..7f8feb0a9b97f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -252,7 +252,7 @@ struct intel_guc {
- 		 * @timestamp.lock: Lock protecting the below fields and
- 		 * the engine stats.
- 		 */
--		spinlock_t lock;
-+		raw_spinlock_t lock;
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index c10ac0ab3bfa8..c2b174bfa1418 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
  
- 		/**
- 		 * @timestamp.gt_stamp: 64-bit extended value of the GT
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 788e59cdfac9b..a3aee2daade7d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1330,7 +1330,7 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
- 	bool in_reset;
- 	intel_wakeref_t wakeref;
- 
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 
- 	/*
- 	 * If a reset happened, we risk reading partially updated engine
-@@ -1378,7 +1378,7 @@ static ktime_t guc_engine_busyness(struct intel_engine_cs *engine, ktime_t *now)
- 	if (total > stats->total)
- 		stats->total = total;
- 
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- 
- 	return ns_to_ktime(stats->total);
- }
-@@ -1442,7 +1442,7 @@ static void __reset_guc_busyness_stats(struct intel_guc *guc)
- 	unsigned long flags;
- 	ktime_t unused;
- 
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 
- 	guc_update_pm_timestamp(guc, &unused);
- 	for_each_engine(engine, gt, id) {
-@@ -1463,7 +1463,7 @@ static void __reset_guc_busyness_stats(struct intel_guc *guc)
- 		stats->running = 0;
+ 	rcu_read_lock();
++	spin_lock(&b->signaler_active_sync);
+ 	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		}
  	}
+ 	atomic_dec(&b->signaler_active);
++	spin_unlock(&b->signaler_active_sync);
+ 	rcu_read_unlock();
  
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
+ 	llist_for_each_safe(signal, sn, signal) {
+@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	init_llist_head(&b->signaled_requests);
+ 
+ 	spin_lock_init(&b->irq_lock);
++	spin_lock_init(&b->signaler_active_sync);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+ 	b->irq_engine = irq_engine;
+@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 	if (release)
+ 		intel_context_put(ce);
+ 
+-	while (atomic_read(&b->signaler_active))
++	while (atomic_read(&b->signaler_active)) {
++		spin_lock(&b->signaler_active_sync);
++		spin_unlock(&b->signaler_active_sync);
+ 		cpu_relax();
++	}
  }
  
- static void __update_guc_busyness_running_state(struct intel_guc *guc)
-@@ -1473,10 +1473,10 @@ static void __update_guc_busyness_running_state(struct intel_guc *guc)
- 	enum intel_engine_id id;
- 	unsigned long flags;
+ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index bdf09fd67b6e7..28dae32628aab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
+ 	atomic_t signaler_active;
++	spinlock_t signaler_active_sync;
  
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 	for_each_engine(engine, gt, id)
- 		engine->stats.guc.running = false;
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- }
- 
- static void __update_guc_busyness_stats(struct intel_guc *guc)
-@@ -1489,13 +1489,13 @@ static void __update_guc_busyness_stats(struct intel_guc *guc)
- 
- 	guc->timestamp.last_stat_jiffies = jiffies;
- 
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 
- 	guc_update_pm_timestamp(guc, &unused);
- 	for_each_engine(engine, gt, id)
- 		guc_update_engine_gt_clks(engine);
- 
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- }
- 
- static void __guc_context_update_stats(struct intel_context *ce)
-@@ -1503,9 +1503,9 @@ static void __guc_context_update_stats(struct intel_context *ce)
- 	struct intel_guc *guc = ce_to_guc(ce);
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 	lrc_update_runtime(ce);
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- }
- 
- static void guc_context_update_stats(struct intel_context *ce)
-@@ -1661,9 +1661,9 @@ void intel_guc_busyness_unpark(struct intel_gt *gt)
- 	if (!guc_submission_initialized(guc))
- 		return;
- 
--	spin_lock_irqsave(&guc->timestamp.lock, flags);
-+	raw_spin_lock_irqsave(&guc->timestamp.lock, flags);
- 	guc_update_pm_timestamp(guc, &unused);
--	spin_unlock_irqrestore(&guc->timestamp.lock, flags);
-+	raw_spin_unlock_irqrestore(&guc->timestamp.lock, flags);
- 	guc_enable_busyness_worker(guc);
- }
- 
-@@ -4865,7 +4865,7 @@ void intel_guc_submission_init_early(struct intel_guc *guc)
- 	INIT_WORK(&guc->submission_state.reset_fail_worker,
- 		  reset_fail_worker_func);
- 
--	spin_lock_init(&guc->timestamp.lock);
-+	raw_spin_lock_init(&guc->timestamp.lock);
- 	INIT_DELAYED_WORK(&guc->timestamp.work, guc_timestamp_ping);
- 
- 	guc->submission_state.sched_disable_delay_ms = SCHED_DISABLE_DELAY_MS;
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 -- 
 2.53.0
 
