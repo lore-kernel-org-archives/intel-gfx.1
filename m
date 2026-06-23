@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9369CCDB46F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 12:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EE11CD98F2
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 13:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F6F510EB37;
-	Tue, 23 Jun 2026 12:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96A7E10EB4F;
+	Tue, 23 Jun 2026 13:27:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="IRLI3ZAA";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="O6vdorvQ";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F10510EB37;
- Tue, 23 Jun 2026 12:57:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07D710EB4F;
+ Tue, 23 Jun 2026 13:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782219449;
- bh=JS0M9r7CwPet/6DU8JqLngOA8EMgWZN5+is1R4jMjvg=;
+ s=default; t=1782221233;
+ bh=MWINgKnez3Si9U+9oFKEzeA3B6yr8jWb5/gCHBL5Ulc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IRLI3ZAAejrmZH7VDmRcARI23Kz1vLDQvdTnBzz3SGNzoFTLNt05T0eCQxNbNJuvv
- qqTRV1KNPJs7zl9ecIw4NHBtOehTpYcfOTypEZ1mbraYFy3CcH4ID2alexpg1aElxw
- pTu+b7zTOxEU36lTUL8urHif5dQps8N9FDbEvsnzRDiuo8p0TM0vk7BaJ+6sPV75q7
- hADRPcExXk5GRdHHtB5op3vExwxKkTigZeGGbsGjf3RFVWbWlXoGglsKSG+ksIzpCg
- GWtsYfjYqohiwtz4I09LM+Mnt9/zGIZVpoguu2P6Fj9K0zaD4H5Z9W7Nk1WmRqtmyq
- bGtZG2iYVl5GQ==
+ b=O6vdorvQFrswI5pQDiW+P7TtQaEFCmHGC+5oOEftnhK/vZ17Ufx6ti/U+kKXYrU6D
+ dTCy4pkVunrV5yzSstgi5IZyX7l2lXEg1QC5YaTUK7+fEYDcPo8seEWwK/kSLg6b8L
+ vJC7NtL40HhuvL6ovhnjTzy4KayIOpkJk+RDUZ66u+8pHqQMEuiaLxuUUaomHD025T
+ o32L1aITl00BV5AX05TY++36v6i3AqXVZhtxRWCtbzUQKpSrI6bYAhtZ+5OEGmT32K
+ 5MUJW0vsDqFrDzIGlbQC48+jE2Fd6horAlC/HYmlZf1Xs/y6demnLubNPcMcaXTtLW
+ TIYJn6ZMJDW6g==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v9.5] drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
-Date: Tue, 23 Jun 2026 14:57:45 +0200
-Message-ID: <20260623125745.179419-1-dev@lankhorst.se>
+Subject: [PATCH v9.6] drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
+Date: Tue, 23 Jun 2026 15:27:34 +0200
+Message-ID: <20260623132734.227322-1-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260622181044.39335-31-dev@lankhorst.se>
 References: <20260622181044.39335-31-dev@lankhorst.se>
@@ -62,7 +62,7 @@ Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
-index 65771e54b9b51..f8bea3ec458d9 100644
+index 65771e54b9b51..d5fc47dcde3e3 100644
 --- a/drivers/gpu/drm/i915/i915_pmu.c
 +++ b/drivers/gpu/drm/i915/i915_pmu.c
 @@ -554,6 +554,9 @@ engine_event_status(struct intel_engine_cs *engine,
@@ -70,7 +70,7 @@ index 65771e54b9b51..f8bea3ec458d9 100644
  	switch (sample) {
  	case I915_SAMPLE_BUSY:
 +		/* The guc submission engine->busyness() callback has issues with CONFIG_PREEMPT_RT */
-+		if (CONFIG_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(engine->gt->uc))
++		if (IS_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(&engine->gt->uc))
 +			return -ENODEV;
  	case I915_SAMPLE_WAIT:
  		break;
