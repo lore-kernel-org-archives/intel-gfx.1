@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1145ECDB47F
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 22:47:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B034CDB481
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 22:47:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BCC810ED45;
-	Tue, 23 Jun 2026 22:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EED1210ED47;
+	Tue, 23 Jun 2026 22:47:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mNvVfcRk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eZo3zZrg";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5A2A10ED3B;
- Tue, 23 Jun 2026 22:47:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA85110ED46;
+ Tue, 23 Jun 2026 22:47:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782254872; x=1813790872;
+ t=1782254878; x=1813790878;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=a6VMNZ8MTAZTEi3aQeGU5wTnS1jQmmgILQzLjonQzs4=;
- b=mNvVfcRkLBdIOKF+kJDL1QIgnctr4m0DY1+fRDjpLF1/qj2SP0yQSScP
- Ztdo32bwLCqHblVpj1rGrw+p96HDC5JwunM78AaP0Q/tJdTxZLeWqF7mk
- 7Zof5jgGKsDASB/0rHLKkzYfvwxPfkvK8koOkFY9YBwAHj7QRkw41pI45
- SDeW/MKqNZewwBQUIUTBaBVO2liqGl2PUfKSLnNDhwtR6ZYptsnYBPT6N
- w1UbbRhxTzyrBdwWTjcWs8g1lUNaD/GFnbpUt6ivqmOLr4HWwxvyARcr0
- M0Q6i5lvkw3r8ZDMAxtp0Ssg9ZHasmX8DCg5NGa4BFLTuvghTT981dGLv w==;
-X-CSE-ConnectionGUID: 9ctiFUgyRo6Nh6tZrW/csA==
-X-CSE-MsgGUID: L48vVfTfQySwgcapsn+qTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="82775609"
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="82775609"
+ bh=fxL5K59sFnsZ5+7c0Tky7x5pQoRWPNNGKZcG0xQG0SQ=;
+ b=eZo3zZrg2yj+SlfOh0Q+rxk3ZCgvP4TS2dlHA92VUYGsUuvYT0UyOtbd
+ xT5nsQbzX6yuEkYJFtSp2uHmiBOKNOvQxTHkLFjDT4OZganlcpvdyDDht
+ EehPohAiEoZY8w8WoWOhwDCo37f1XgKf9IDekvF9ywJz+EsUk8xv4S0IE
+ tPrMPfKGb143WMBoQ3X+dckzErmUdFVTBU6NlVc0HBur75PkOt28hdHfC
+ Ceu0QAI5/3t9yjGFoYWmgip7rDnpiIaMxat53MAQORT0k5lMWO/HNyPm6
+ CWbfplUf+oCIIJX3aKOkzcYTalZTw7NwMeZHZp1iqlqMTQDPoXs/XTb9J A==;
+X-CSE-ConnectionGUID: j1NWxLGLQgG3krqOZIo9wQ==
+X-CSE-MsgGUID: KlqnYHTATISVf8ZnnO9Lyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="82775612"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="82775612"
 Received: from orviesa008.jf.intel.com ([10.64.159.148])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jun 2026 15:47:52 -0700
-X-CSE-ConnectionGUID: w32FD4OmRwKxfvjbz2HQFQ==
-X-CSE-MsgGUID: DaCqm5cRRBKCkUXEK4LzKA==
+ 23 Jun 2026 15:47:58 -0700
+X-CSE-ConnectionGUID: h2+9aEDSTI+SVAQ4ZRn/ag==
+X-CSE-MsgGUID: J6soQy1zRf+opQafnVsNww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="249497153"
+X-IronPort-AV: E=Sophos;i="6.24,221,1774335600"; d="scan'208";a="249497166"
 Received: from dev-417.igk.intel.com ([10.91.214.181])
- by orviesa008.jf.intel.com with ESMTP; 23 Jun 2026 15:47:50 -0700
+ by orviesa008.jf.intel.com with ESMTP; 23 Jun 2026 15:47:56 -0700
 From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
@@ -47,10 +47,10 @@ Cc: Mika Kahola <mika.kahola@intel.com>,
  Luca Coelho <luciano.coelho@intel.com>,
  Nemesa Garg <nemesa.garg@intel.com>, Imre Deak <imre.deak@intel.com>,
  =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-Subject: [PATCH v1 23/30] drm/i915/dp_link_caps: Add helper to reset max link
- limits
-Date: Wed, 24 Jun 2026 00:46:12 +0200
-Message-ID: <20260623224619.1949975-24-michal.grzelak@intel.com>
+Subject: [PATCH v1 26/30] drm/i915/dp_link_caps: Pass link_caps to static
+ functions
+Date: Wed, 24 Jun 2026 00:46:15 +0200
+Message-ID: <20260623224619.1949975-27-michal.grzelak@intel.com>
 X-Mailer: git-send-email 2.45.2
 In-Reply-To: <20260623224619.1949975-1-michal.grzelak@intel.com>
 References: <20260623224619.1949975-1-michal.grzelak@intel.com>
@@ -76,72 +76,126 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Imre Deak <imre.deak@intel.com>
 
-Add a helper to reset the link_caps::max_limits max link limits to the
-maximum common supported rate and lane count.
-
-This is needed by a follow-up change in the link training fallback code,
-which temporarily resets max_limits before searching for a fallback
-configuration.
+Pass the link_caps pointer to static functions in intel_dp_link_caps.c,
+as it holds the state with the relevant information.
 
 Signed-off-by: Imre Deak <imre.deak@intel.com>
 Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
 ---
- .../gpu/drm/i915/display/intel_dp_link_caps.c | 22 +++++++++++++++++++
- .../gpu/drm/i915/display/intel_dp_link_caps.h |  1 +
- 2 files changed, 23 insertions(+)
+ .../gpu/drm/i915/display/intel_dp_link_caps.c | 37 ++++++++++---------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
-index e568f00720d31..ae10200bdd934 100644
+index 43427e7cf422a..fc1061149ef2e 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
-@@ -160,6 +160,16 @@ static void set_max_link_limits_no_update(struct intel_dp_link_caps *link_caps,
- 	intel_dp->link.max_lane_count = max_link_limits->lane_count;
+@@ -118,10 +118,8 @@ int intel_dp_link_caps_max_common_lane_count(struct intel_dp_link_caps *link_cap
+ 	return link_caps->max_lane_count;
  }
  
-+static void reset_max_link_limits_no_update(struct intel_dp_link_caps *link_caps)
-+{
-+	struct intel_dp_link_config max_link_limits = {
-+		.rate = intel_dp_max_common_rate(link_caps->dp),
-+		.lane_count = intel_dp_link_caps_max_common_lane_count(link_caps),
-+	};
-+
-+	set_max_link_limits_no_update(link_caps, &max_link_limits);
-+}
-+
- /**
-  * intel_dp_link_caps_get_max_limits - get the current maximum link limits
-  * @link_caps: link capabilities state
-@@ -216,6 +226,18 @@ bool intel_dp_link_caps_set_max_limits(struct intel_dp_link_caps *link_caps,
- 	return true;
+-static int forced_lane_count(struct intel_dp *intel_dp)
++static int forced_lane_count(struct intel_dp_link_caps *link_caps)
+ {
+-	struct intel_dp_link_caps *link_caps = intel_dp->link.caps;
+-
+ 	if (!link_caps->forced_params.lane_count)
+ 		return 0;
+ 
+@@ -129,9 +127,9 @@ static int forced_lane_count(struct intel_dp *intel_dp)
+ 		     1, intel_dp_link_caps_max_common_lane_count(link_caps));
  }
  
-+/**
-+ * intel_dp_link_caps_reset_max_limits - reset the current maximum link limits
-+ * @link_caps: link capabilities state
-+ *
-+ * Reset the current maximum link limits to the maximum supported common link
-+ * rate and lane count.
-+ */
-+void intel_dp_link_caps_reset_max_limits(struct intel_dp_link_caps *link_caps)
-+{
-+	reset_max_link_limits_no_update(link_caps);
-+}
-+
- static int intel_dp_link_config_bw(struct intel_dp *intel_dp,
+-static int forced_link_rate(struct intel_dp *intel_dp)
++static int forced_link_rate(struct intel_dp_link_caps *link_caps)
+ {
+-	struct intel_dp_link_caps *link_caps = intel_dp->link.caps;
++	struct intel_dp *intel_dp = link_caps->dp;
+ 	int len;
+ 
+ 	if (!link_caps->forced_params.rate)
+@@ -147,14 +145,14 @@ static int forced_link_rate(struct intel_dp *intel_dp)
+ void intel_dp_link_caps_get_forced_params(struct intel_dp_link_caps *link_caps,
+ 					  struct intel_dp_link_config *forced_params)
+ {
+-	forced_params->rate = forced_link_rate(link_caps->dp);
+-	forced_params->lane_count = forced_lane_count(link_caps->dp);
++	forced_params->rate = forced_link_rate(link_caps);
++	forced_params->lane_count = forced_lane_count(link_caps);
+ }
+ 
+-static int intel_dp_link_config_rate(struct intel_dp *intel_dp,
++static int intel_dp_link_config_rate(struct intel_dp_link_caps *link_caps,
+ 				     const struct intel_dp_link_config_entry *lc)
+ {
+-	return intel_dp_common_rate(intel_dp, lc->link_rate_idx);
++	return intel_dp_common_rate(link_caps->dp, lc->link_rate_idx);
+ }
+ 
+ static int intel_dp_link_config_lane_count(const struct intel_dp_link_config_entry *lc)
+@@ -243,26 +241,28 @@ void intel_dp_link_caps_reset_max_limits(struct intel_dp_link_caps *link_caps)
+ 	reset_max_link_limits_no_update(link_caps);
+ }
+ 
+-static int intel_dp_link_config_bw(struct intel_dp *intel_dp,
++static int intel_dp_link_config_bw(struct intel_dp_link_caps *link_caps,
  				   const struct intel_dp_link_config_entry *lc)
  {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.h b/drivers/gpu/drm/i915/display/intel_dp_link_caps.h
-index c6c60b7888874..7baeb4359d2d4 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.h
-@@ -31,6 +31,7 @@ void intel_dp_link_caps_get_max_limits(struct intel_dp_link_caps *link_caps,
- 				       struct intel_dp_link_config *max_link_limits);
- bool intel_dp_link_caps_set_max_limits(struct intel_dp_link_caps *link_caps,
- 				       const struct intel_dp_link_config *max_link_limits);
-+void intel_dp_link_caps_reset_max_limits(struct intel_dp_link_caps *link_caps);
+-	return drm_dp_max_dprx_data_rate(intel_dp_link_config_rate(intel_dp, lc),
++	return drm_dp_max_dprx_data_rate(intel_dp_link_config_rate(link_caps, lc),
+ 					 intel_dp_link_config_lane_count(lc));
+ }
  
- bool intel_dp_link_caps_update(struct intel_dp *intel_dp,
- 			       const int *rates, int num_rates, int max_lane_count);
+ static int link_config_cmp_by_bw(const void *a, const void *b, const void *p)
+ {
+ 	struct intel_dp *intel_dp = (struct intel_dp *)p;	/* remove const */
++	struct intel_dp_link_caps *link_caps = intel_dp->link.caps;
++
+ 	const struct intel_dp_link_config_entry *lc_a = a;
+ 	const struct intel_dp_link_config_entry *lc_b = b;
+-	int bw_a = intel_dp_link_config_bw(intel_dp, lc_a);
+-	int bw_b = intel_dp_link_config_bw(intel_dp, lc_b);
++	int bw_a = intel_dp_link_config_bw(link_caps, lc_a);
++	int bw_b = intel_dp_link_config_bw(link_caps, lc_b);
+ 
+ 	if (bw_a != bw_b)
+ 		return bw_a - bw_b;
+ 
+-	return intel_dp_link_config_rate(intel_dp, lc_a) -
+-	       intel_dp_link_config_rate(intel_dp, lc_b);
++	return intel_dp_link_config_rate(link_caps, lc_a) -
++	       intel_dp_link_config_rate(link_caps, lc_b);
+ }
+ 
+ /* Return %true if the supported link parameters have changed. */
+@@ -333,7 +333,7 @@ void intel_dp_link_config_get(struct intel_dp *intel_dp, int idx, int *link_rate
+ 
+ 	lc = &link_caps->configs[idx];
+ 
+-	*link_rate = intel_dp_link_config_rate(intel_dp, lc);
++	*link_rate = intel_dp_link_config_rate(link_caps, lc);
+ 	*lane_count = intel_dp_link_config_lane_count(lc);
+ }
+ 
+@@ -414,8 +414,9 @@ static int i915_dp_force_link_rate_show(struct seq_file *m, void *data)
+ 	return 0;
+ }
+ 
+-static int parse_link_rate(struct intel_dp *intel_dp, const char __user *ubuf, size_t len)
++static int parse_link_rate(struct intel_dp_link_caps *link_caps, const char __user *ubuf, size_t len)
+ {
++	struct intel_dp *intel_dp = link_caps->dp;
+ 	char *kbuf;
+ 	const char *p;
+ 	int rate;
+@@ -458,7 +459,7 @@ static ssize_t i915_dp_force_link_rate_write(struct file *file,
+ 	int rate;
+ 	int err;
+ 
+-	rate = parse_link_rate(intel_dp, ubuf, len);
++	rate = parse_link_rate(link_caps, ubuf, len);
+ 	if (rate < 0)
+ 		return rate;
+ 
 -- 
 2.45.2
 
