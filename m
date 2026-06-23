@@ -4,98 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73173CD4F26
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 08:51:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EB8ACD4F26
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 09:13:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0337B10EA18;
-	Tue, 23 Jun 2026 08:51:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C201410EA2F;
+	Tue, 23 Jun 2026 09:13:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="nO/hURDq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Jnu1qWU0";
 	dkim-atps=neutral
-X-Greylist: delayed 576 seconds by postgrey-1.36 at gabe;
- Tue, 23 Jun 2026 08:51:42 UTC
-Received: from smtp-relay-internal-0.canonical.com
- (smtp-relay-internal-0.canonical.com [185.125.188.122])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C22C10EA18
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 08:51:42 +0000 (UTC)
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 706823F2C5
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 08:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1782204125;
- bh=YRUdbfA4V8+mw/54eWhWx7hbp+2WiDaQD/36neeUeQE=;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
- b=nO/hURDqPv0Hw+LeLdwYSAUk9XCKOBR9X3Z/uIukpBB3qVPz3Pw+1ESZJgjGJ14Pj
- nKO4TdZw5pW1QHKNGOc4HnV3dJxVarsK3IxuDleBCezW0zOPqHvE9C/erIscGYpVjy
- bq52dGJcTAj4QzxwpIjl4Rja+SCm01bq716vSYAFXPaAnlJSsuHh/RSXyidt7d3KAq
- tRNokxpmLunnnuk4TKtjmLpt0pUmKPvTOdjm28W79pIWLL+X4I6vG3n73M54UcEx6f
- amxwZsRaXibaFzggaJ4YcHAhUaBnr+TlH10lCJO0QgS5ZlGMARuGNuLo/BzZO59l3Y
- UBCOlIMc0AZpJ4drsYivLxXMABmq+CvzMwppXP0agREcOcThVUc54DwPW10QMvmKQw
- h+K1xspjEjve9A3kpo4snPags7/TC5pjfCn5aeQfe0hYmBLFPgz+Me5up9PvH2uz92
- macX5KHODPLXe6RDwJf2v0l5ghVB2jplbqqAv5IstVl8q7OtdS9M5sMyPAtEQ8Zh2v
- 0MLn8M3P+WDNaCvgAr1DlOJhh/OaOC1PUR0aBGpGdXzbon1jNpLYGERow5EtQs/GvK
- lHv2moGgCZ3pz3vNoglD686SDlGC1pd6RUDAcOV2qC7cFHjrhJaBROxO4Fe4623vsa
- Pkr2HLigBqiT+hT4YZb5y6j8=
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-8426ed9f24dso545585b3a.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 23 Jun 2026 01:42:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782204124; x=1782808924;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=YRUdbfA4V8+mw/54eWhWx7hbp+2WiDaQD/36neeUeQE=;
- b=Y1nbw9iqmB79WKVb78gczIGvfAVbC8pZ+toJ1pHQ6haGG++8g/PFkgeAxnEXT2Aa8G
- uWztgwofwL3S+Baj5dKxPihcpltehREjV3Z2AoWLVlHq2kp6/NmNJloR0ySzDltJDW05
- NNlIRzDAvwO2F2A2NEpY9RstqBL79ONQztJVsUOH15e/w8xnXEIbG1GoBK9JevtNfelA
- X7xNSw398BWQd+/ddKiTMlSwmKU0Do4Sv1dUct/09YKjoebbIdy/fha7S4szgdCZSZat
- RYv8rXBKEmpTN0ohzvyv2vPQZn5aENgusxqciNghsgchiICsCuMTcanP+GgEUzSKyWUv
- eZ2g==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8GcNK+/BHfoRGw7MmFsJpnS0FhEi9aTfB9nrdaKO51+IAotctXfu3hwufdCdAKSW+EaZ2f72Qk3Qo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwNho8in6d2twJlh2JvpsyZHJhcmTXa3JL9RWEYmCD0di8exENi
- iR9BCGV4W6w4d2ihVjIAYj125By1v3q5n3T37msumXajhnqtnWWjtikbqhXjrpzWnEGlC6nYvuh
- IhNresPYNshC6wQeNnPs8gvTKjlrEAddIlp67FE8nvroW2KxLaMXZeXpxaI8A3nXSQvHG2Mfu0l
- Pglr5RJ3a/zg==
-X-Gm-Gg: AfdE7clHcUOIR9TAuNZ0NJFPaVbQk4CFRBJBIeyDawexJHiU1dD0EeSfuZ9XjxSJTsw
- Ks8x1cLKjeXomu8+ECp9rt/DI2jkqCvPPVEX7oI7ne4/QtVuIElTD9rAHxdlJN8KhUEtUsYkanh
- e+2DDLxjkc+Hp3Irtir6o4QOji4t1x4a1fJAJf6mjAPzFTBJ477q9LeQm8qSkW1zeZCdv08yinY
- EZzUqWFRU56K4q8W7V3tq7ceHQT0ieQI3+PjCRwApYqJfilrdw2NSXvIuUAv2nma2lp84lFHi9R
- AYu80Xvp11IIN2PJpl0ttBUWXV2wLsKiuc7AJY7G2gUKgvdS1m7YbHDDgkUX853WwqmQZqclZSl
- qMuf445R8BsiWEvbkms67WRXqEyczvFs07gtPhYaGoaV4/rdu5uAbRkFtucXZCrPB9LZj0MwcI3
- AKn1pXMZU=
-X-Received: by 2002:a05:6a00:21cd:b0:835:447b:a2ac with SMTP id
- d2e1a72fcca58-84591b23f6emr2544149b3a.5.1782204124102; 
- Tue, 23 Jun 2026 01:42:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:21cd:b0:835:447b:a2ac with SMTP id
- d2e1a72fcca58-84591b23f6emr2544117b3a.5.1782204123617; 
- Tue, 23 Jun 2026 01:42:03 -0700 (PDT)
-Received: from localhost.localdomain ([103.155.100.6])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84564da30b5sm10828955b3a.25.2026.06.23.01.41.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 01:42:03 -0700 (PDT)
-From: Aaron Ma <aaron.ma@canonical.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Gwan-gyeong Mun <gwan-gyeong.mun@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>
-Subject: [PATCH] drm/i915/psr: Skip PSR exit for legacy cursor updates on LNL
-Date: Tue, 23 Jun 2026 16:41:37 +0800
-Message-ID: <20260623084137.3421894-1-aaron.ma@canonical.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1CD710EA2B;
+ Tue, 23 Jun 2026 09:13:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782206036; x=1813742036;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=aJPnT7jtSY9Orv8tcVp+XJHWQex1eAxy52Os3S+gJH4=;
+ b=Jnu1qWU0QM72bbAFZrwzy1qKLGm9BqsaAy79MN/tKpkf5U5EEXFB4yr9
+ bSnu/OT+42XA3I5vU1TRHo2dJgGcPGO1PleswDV0LQggh+0E+krBQBdCy
+ 4hEnaPj7PnGCWnNC/drM6QQr1BJ+mGiA5iogsdq+8jDqzTxc/R2Bxc+Yl
+ tTXM6RlyyGCue2bO7jTG132n8U4JCvmkw4cvlAO9DRzpmrX4FxycQFUZK
+ nr32Xdhdbz6YaqbVQN3bx723BIhmb3kan4akFdHQhPxZUbmJeducJaSwf
+ 220CnfLqPj5ChDkJUqO3m69/ao5NuF4bLGA3rUVqZKR2JJKe99gtgXL39 g==;
+X-CSE-ConnectionGUID: 8IzD6XzGTKy6U31OqC6Dnw==
+X-CSE-MsgGUID: EXt3oAWDTreWIOiXAq6PqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11825"; a="82948763"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="82948763"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 02:13:56 -0700
+X-CSE-ConnectionGUID: WKCp6T9XTImZ1dkPRngltg==
+X-CSE-MsgGUID: FwixhfvYSmapzGrKE15Acw==
+X-ExtLoop1: 1
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.35])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 02:13:54 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Nemesa Garg <nemesa.garg@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: Nemesa Garg <nemesa.garg@intel.com>, Ankit Nautiyal
+ <ankit.k.nautiyal@intel.com>
+Subject: Re: [PATCH 4/4] drm/i915/dp: Decode dsc max delta bpp from sink dpcd
+In-Reply-To: <20260619113905.1413453-5-nemesa.garg@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260619113905.1413453-1-nemesa.garg@intel.com>
+ <20260619113905.1413453-5-nemesa.garg@intel.com>
+Date: Tue, 23 Jun 2026 12:13:52 +0300
+Message-ID: <111b5aa834e7e94cd9bd487f5583594b21afb803@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,37 +71,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-ORIGIN_CURSOR_UPDATE falls through to _psr_flush_handle() on LNL
-(DISPLAY_VER >= 20), which calls intel_psr_exit(). Cursor plane updated
-via legacy ioctl (drmModeMoveCursor) does not dirty the primary
-frontbuffer, no PSR2 state change is needed. Match the existing
-ORIGIN_FLIP behavior by unconditionally returning early.
+On Fri, 19 Jun 2026, Nemesa Garg <nemesa.garg@intel.com> wrote:
+> Add intel_dp_dsc_max_delta_bppx16() to parse sink dsc max
+> delta bpp from dpcd when DP_DSC_MAX_BPP_DELTA_AVAILABILITY
+> is set. This helper decodes the delta range for both RGB/YCbCr444
+> and YCbCr420 formats from DP_DSC_MAX_BPP_DELTA.
+>
+> With this addition, the flow becomes:
+> 1. First, check for a format-specific range and use it to calculate
+> max compressed bpp.
+> 2. If not, check for sink supported max compressed bpp and
+> use that
+> 3. If this is also not there go with mandatory
+> max range supported bpp.
+>
+> v2: Reorder the check flow for max_bpp. [Ankit]
+> v3: Put RGB and YCbCr444 mask assignment in the same line. [Ankit]
+> v4: Zero max_bpp for reserved RGB/YCbCr444 delta values. [sashiko]
+>
+> Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Before this, the psr2_sel_fetch_enabled guard only prevented the early
-return when PSR2 selective fetch was active, sending cursor updates
-through intel_psr_exit() and causing a black line artifact on some
-panels during the exit/re-enable transition.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
-Fixes: ef39826c12b4 ("drm/i915/display: Fix glitches when moving cursor with PSR2 selective fetch enabled")
-Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
----
- drivers/gpu/drm/i915/display/intel_psr.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+for merging via drm-misc-next
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index e138982dc91f6..32bee6c03b754 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3771,8 +3771,7 @@ void intel_psr_flush(struct intel_display *display,
- 			goto unlock;
- 
- 		if (origin == ORIGIN_FLIP ||
--		    (origin == ORIGIN_CURSOR_UPDATE &&
--		     !intel_dp->psr.psr2_sel_fetch_enabled)) {
-+		    origin == ORIGIN_CURSOR_UPDATE) {
- 			tgl_dc3co_flush_locked(intel_dp, frontbuffer_bits, origin);
- 			goto unlock;
- 		}
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 43 +++++++++++++++++++++++--
+>  1 file changed, 41 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 3569e61e7fee..28b887ee5cf1 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -2184,17 +2184,56 @@ static int dsc_compute_link_config(struct intel_dp *intel_dp,
+>  	return -EINVAL;
+>  }
+>  
+> +static u16 intel_dp_dsc_max_delta_bppx16(const struct intel_connector *connector,
+> +					 enum intel_output_format output_format)
+> +{
+> +	const u8 *dsc_dpcd = connector->dp.dsc_dpcd;
+> +	u8 max_bpp_delta_v1 = dsc_dpcd[DP_DSC_MAX_BPP_DELTA_VERSION_1 - DP_DSC_SUPPORT];
+> +	int max_bpp;
+> +
+> +	if (!(dsc_dpcd[DP_DSC_MAX_BITS_PER_PIXEL_HI - DP_DSC_SUPPORT] &
+> +	    DP_DSC_MAX_BPP_DELTA_AVAILABILITY))
+> +		return 0;
+> +
+> +	switch (output_format) {
+> +	case INTEL_OUTPUT_FORMAT_RGB:
+> +	case INTEL_OUTPUT_FORMAT_YCBCR444:
+> +		max_bpp =  max_bpp_delta_v1 & DP_DSC_RGB_YCbCr444_MAX_BPP_DELTA_MASK;
+> +		if (max_bpp >= 1 && max_bpp <= 21)
+> +			max_bpp =  max_bpp + DP_DSC_BPP_DELTA_444 - 1;
+> +		else
+> +			max_bpp = 0;
+> +		break;
+> +	case INTEL_OUTPUT_FORMAT_YCBCR420:
+> +		max_bpp = (max_bpp_delta_v1 & DP_DSC_NATIVE_YCbCr420_MAX_BPP_DELTA_MASK) >>
+> +			  DP_DSC_BPP_DELTA_SHIFT_420;
+> +		if (max_bpp >= 1 && max_bpp <= 7)
+> +			max_bpp = max_bpp + DP_DSC_BPP_DELTA_420 - 1;
+> +		break;
+> +	default:
+> +		MISSING_CASE(output_format);
+> +		return 0;
+> +	}
+> +
+> +	return max_bpp << 4;
+> +}
+> +
+>  static
+>  u16 intel_dp_dsc_max_sink_compressed_bppx16(const struct intel_connector *connector,
+>  					    enum intel_output_format output_format,
+>  					    int bpc)
+>  {
+> -	u16 max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
+> +	u16 max_bppx16 = intel_dp_dsc_max_delta_bppx16(connector, output_format);
+> +
+> +	if (max_bppx16)
+> +		return max_bppx16;
+> +
+> +	max_bppx16 = drm_edp_dsc_sink_output_bpp(connector->dp.dsc_dpcd);
+>  
+>  	if (max_bppx16)
+>  		return max_bppx16;
+>  	/*
+> -	 * If support not given in DPCD 67h, 68h use the Maximum Allowed bit rate
+> +	 * If support not given in DPCD 67h, 68h, 6Eh, 6Fh use the Maximum Allowed bit rate
+>  	 * values as given in spec Table 2-157 DP v2.0
+>  	 */
+>  	switch (output_format) {
+
 -- 
-2.43.0
-
+Jani Nikula, Intel
