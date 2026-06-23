@@ -4,27 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20213CD98F2
-	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 12:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02B65CDB47C
+	for <intel-gfx@archiver.kernel.org>; Tue, 23 Jun 2026 12:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3E8E10EAF9;
-	Tue, 23 Jun 2026 12:49:15 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7280A10EAF9;
- Tue, 23 Jun 2026 12:49:14 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6254130800676210996=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6874E10EB24;
+	Tue, 23 Jun 2026 12:51:22 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CqIksUFA";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C35B10EB26;
+ Tue, 23 Jun 2026 12:51:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782219082; x=1813755082;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=RdjN7KHB2mcazyCo6F3VWPrM55qMSOrJSjCQ8CEfu0g=;
+ b=CqIksUFA+6RufqIMQJ+f8RMF/UhN32iTrOSehmlKsptfuzckqcfPQ5zP
+ dXyCAXjXGA4XYiN4rYuZ73BpNZuggUGQneVGYVyinPH+F+QkG3RaSxxPn
+ Z4yMluW8a5PKTpeq1P6XT1xLbONr6jkRHnw+3s56z2NNM1V19a4CtBSvb
+ 4QiIC/BQpy6N+vTWQIECvHvYF5gi483Eh2RfgN+ENuFPxG3h3w6bQr9U8
+ u0nWSxpO67qAA43yILjh4ZJzDH4iSTINd8lmn359rpLYhlqbg5gOhtt5y
+ JCg3c74WKyzyCPi94no/bQS6MK25oaGyUMpaVHb3f0R7Bsq5qfgHXHkdf g==;
+X-CSE-ConnectionGUID: 4VSpT1uLTei1woB7Du+C8w==
+X-CSE-MsgGUID: az92d8M0TqSu3xkhwnyWlA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="100387493"
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="100387493"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 05:51:21 -0700
+X-CSE-ConnectionGUID: ZqnM4pIvTqq+qxV18TH5sw==
+X-CSE-MsgGUID: EaxnHeK+TZW0BTJxBxnDww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,220,1774335600"; d="scan'208";a="249624909"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.67])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jun 2026 05:51:20 -0700
+From: Ville Syrjala <ville.syrjala@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Subject: [PATCH 1/6] drm/i915/gmbus: Rename GPIO pins
+Date: Tue, 23 Jun 2026 15:51:06 +0300
+Message-ID: <20260623125111.6632-2-ville.syrjala@linux.intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260623125111.6632-1-ville.syrjala@linux.intel.com>
+References: <20260623125111.6632-1-ville.syrjala@linux.intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Work_harder_t?=
- =?utf-8?q?o_enable_VRR_based_refresh_rate_changes_on_eDP_=28rev4=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?b?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 23 Jun 2026 12:49:14 -0000
-Message-ID: <178221895446.106003.2186657891709580506@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20260622213602.7244-1-ville.syrjala@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +68,187 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6254130800676210996==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Ville Syrjälä <ville.syrjala@linux.intel.com>
 
-== Series Details ==
+Replace the alphabetical GPIOA,GPIOB,... with numeric
+GPIO_0,GPIO_1,... This makes the naming scheme agree with
+BSpec. No idea why the alphabetical naming was originally
+chosen as BSpec never used that convention for the GPIO pins.
 
-Series: drm/i915: Work harder to enable VRR based refresh rate changes on eDP (rev4)
-URL   : https://patchwork.freedesktop.org/series/168444/
-State : success
+Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_gmbus.c | 124 ++++++++++-----------
+ 1 file changed, 62 insertions(+), 62 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_gmbus.c b/drivers/gpu/drm/i915/display/intel_gmbus.c
+index 049157c41fe2..9990e6391b03 100644
+--- a/drivers/gpu/drm/i915/display/intel_gmbus.c
++++ b/drivers/gpu/drm/i915/display/intel_gmbus.c
+@@ -54,21 +54,21 @@ struct intel_gmbus {
+ };
+ 
+ enum gmbus_gpio {
+-	GPIOA,
+-	GPIOB,
+-	GPIOC,
+-	GPIOD,
+-	GPIOE,
+-	GPIOF,
+-	GPIOG,
+-	GPIOH,
+-	__GPIOI_UNUSED,
+-	GPIOJ,
+-	GPIOK,
+-	GPIOL,
+-	GPIOM,
+-	GPION,
+-	GPIOO,
++	GPIO_0,
++	GPIO_1,
++	GPIO_2,
++	GPIO_3,
++	GPIO_4,
++	GPIO_5,
++	GPIO_6,
++	GPIO_7,
++	GPIO_8,
++	GPIO_9,
++	GPIO_10,
++	GPIO_11,
++	GPIO_12,
++	GPIO_13,
++	GPIO_14,
+ };
+ 
+ struct gmbus_pin {
+@@ -78,77 +78,77 @@ struct gmbus_pin {
+ 
+ /* Map gmbus pin pairs to names and registers. */
+ static const struct gmbus_pin gmbus_pins[] = {
+-	[GMBUS_PIN_SSC] = { "ssc", GPIOB },
+-	[GMBUS_PIN_VGADDC] = { "vga", GPIOA },
+-	[GMBUS_PIN_PANEL] = { "panel", GPIOC },
+-	[GMBUS_PIN_DPC] = { "dpc", GPIOD },
+-	[GMBUS_PIN_DPB] = { "dpb", GPIOE },
+-	[GMBUS_PIN_DPD] = { "dpd", GPIOF },
++	[GMBUS_PIN_SSC] = { "ssc", GPIO_1 },
++	[GMBUS_PIN_VGADDC] = { "vga", GPIO_0 },
++	[GMBUS_PIN_PANEL] = { "panel", GPIO_2 },
++	[GMBUS_PIN_DPC] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_DPB] = { "dpb", GPIO_4 },
++	[GMBUS_PIN_DPD] = { "dpd", GPIO_5 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_bdw[] = {
+-	[GMBUS_PIN_VGADDC] = { "vga", GPIOA },
+-	[GMBUS_PIN_DPC] = { "dpc", GPIOD },
+-	[GMBUS_PIN_DPB] = { "dpb", GPIOE },
+-	[GMBUS_PIN_DPD] = { "dpd", GPIOF },
++	[GMBUS_PIN_VGADDC] = { "vga", GPIO_0 },
++	[GMBUS_PIN_DPC] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_DPB] = { "dpb", GPIO_4 },
++	[GMBUS_PIN_DPD] = { "dpd", GPIO_5 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_skl[] = {
+-	[GMBUS_PIN_DPC] = { "dpc", GPIOD },
+-	[GMBUS_PIN_DPB] = { "dpb", GPIOE },
+-	[GMBUS_PIN_DPD] = { "dpd", GPIOF },
++	[GMBUS_PIN_DPC] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_DPB] = { "dpb", GPIO_4 },
++	[GMBUS_PIN_DPD] = { "dpd", GPIO_5 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_bxt[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpb", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpc", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "misc", GPIOD },
++	[GMBUS_PIN_1_BXT] = { "dpb", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpc", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "misc", GPIO_3 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_cnp[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpb", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpc", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "misc", GPIOD },
+-	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
++	[GMBUS_PIN_1_BXT] = { "dpb", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpc", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "misc", GPIO_3 },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIO_4 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_icp[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
+-	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
+-	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIOK },
+-	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIOL },
+-	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIOM },
+-	[GMBUS_PIN_13_TC5_TGP] = { "tc5", GPION },
+-	[GMBUS_PIN_14_TC6_TGP] = { "tc6", GPIOO },
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIO_9 },
++	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIO_10 },
++	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIO_11 },
++	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIO_12 },
++	[GMBUS_PIN_13_TC5_TGP] = { "tc5", GPIO_13 },
++	[GMBUS_PIN_14_TC6_TGP] = { "tc6", GPIO_14 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_dg1[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
+-	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIO_4 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_dg2[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
+-	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
+-	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIO_4 },
++	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIO_9 },
+ };
+ 
+ static const struct gmbus_pin gmbus_pins_mtp[] = {
+-	[GMBUS_PIN_1_BXT] = { "dpa", GPIOB },
+-	[GMBUS_PIN_2_BXT] = { "dpb", GPIOC },
+-	[GMBUS_PIN_3_BXT] = { "dpc", GPIOD },
+-	[GMBUS_PIN_4_CNP] = { "dpd", GPIOE },
+-	[GMBUS_PIN_5_MTP] = { "dpe", GPIOF },
+-	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIOJ },
+-	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIOK },
+-	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIOL },
+-	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIOM },
++	[GMBUS_PIN_1_BXT] = { "dpa", GPIO_1 },
++	[GMBUS_PIN_2_BXT] = { "dpb", GPIO_2 },
++	[GMBUS_PIN_3_BXT] = { "dpc", GPIO_3 },
++	[GMBUS_PIN_4_CNP] = { "dpd", GPIO_4 },
++	[GMBUS_PIN_5_MTP] = { "dpe", GPIO_5 },
++	[GMBUS_PIN_9_TC1_ICP] = { "tc1", GPIO_9 },
++	[GMBUS_PIN_10_TC2_ICP] = { "tc2", GPIO_10 },
++	[GMBUS_PIN_11_TC3_ICP] = { "tc3", GPIO_11 },
++	[GMBUS_PIN_12_TC4_ICP] = { "tc4", GPIO_12 },
+ };
+ 
+ static const struct gmbus_pin *get_gmbus_pin(struct intel_display *display,
+-- 
+2.53.0
 
-CI Bug Log - changes from CI_DRM_18709 -> Patchwork_168444v4
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168444v4/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18709 -> Patchwork_168444v4
-
-  CI-20190529: 20190529
-  CI_DRM_18709: 60326b17f877e12846167bf8ef83680b9875218a @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8979: 8979
-  Patchwork_168444v4: 60326b17f877e12846167bf8ef83680b9875218a @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168444v4/index.html
-
---===============6254130800676210996==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Work harder to enable VRR based refresh rate changes on eDP (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/168444/">https://patchwork.freedesktop.org/series/168444/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168444v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168444v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18709 -&gt; Patchwork_168444v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_168444v4/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18709 -&gt; Patchwork_168444v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18709: 60326b17f877e12846167bf8ef83680b9875218a @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8979: 8979<br />
-  Patchwork_168444v4: 60326b17f877e12846167bf8ef83680b9875218a @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6254130800676210996==--
