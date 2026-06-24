@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76A94CDE031
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31881CDE036
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 324F410F06E;
-	Wed, 24 Jun 2026 18:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4045110F075;
+	Wed, 24 Jun 2026 18:04:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="E4jFuVzV";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ZDROC0MH";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B268810F055;
- Wed, 24 Jun 2026 18:04:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C89A310F05E;
+ Wed, 24 Jun 2026 18:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324290;
- bh=QZQHP6SZcmIxH0/+L/HEwqRhaltY7tmMssFrjZ10E1s=;
+ s=default; t=1782324294;
+ bh=N5KhZ0RSeZ3StdcSSUx6eMBPMdhBmpPkvQhNVsbfOxU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=E4jFuVzVfC7yiclnU1EaN+xGr6SG2UlkM1saCeBo12xCk7u23o6HXsiTC59pZZ3hw
- PuMk4Fpq8B4U9W480BtBqSObYt357vksr5A1Hf6uhog5z16QMCVm3cxYoULOd6LM70
- GCCfdp4hkhi2ckje+RwR7QV/VZ74pwRVv7wcJBaSwjwOt3gYQoqmgahnjOWIL9hUxt
- R34mh2hhghNaOr8GoyiY6gTrClfuIaBEkJ9yoNBvHQir6+MZZ54RdNUcU7RyiM3H5B
- +vZkAALgavvChwX8uTOrZIfMAJXJq6Inhm3SoNpBDktPcM8AgAv0KwX+tKsJRIE0A9
- LcPXnF+SLTNBg==
+ b=ZDROC0MHByPb8J4rmZXNASFgSlWcWwgSKLxGdzQUc/9ghumYabdOsFjQgWBFR7PaO
+ oLHetK57DWyk2/dfyisVO22/p8BBrck6CY9DhZMkmnzE2c4OBmh4qhqOVyhHkIayc1
+ MW4qWN1vYzCNK3VE8DMJRq5+KuAtXTw+TUCdQxhnLglz9Yety0iHOK+3fwlpXM2rhy
+ 0ZxtjXhE1gVLaFPEmr5a3fli7jppgX5Jjw/sO/WfbRRH0utxyKu6dSiQZCUHgjt3LD
+ jc7zXxGQ9zj1bEt5gPeAzyrP6PCcRunas3Q9Bgsb+4Q1YTYx+oQBmXQLQ1rlgLJF6m
+ ygPGUIA/mNNUw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 24/30] FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-Date: Wed, 24 Jun 2026 20:04:51 +0200
-Message-ID: <20260624180459.1024068-25-dev@lankhorst.se>
+Subject: [PATCH v10 30/30] drm/i915: Disable "busy" pmu event on
+ CONFIG_PREEMPT_RT
+Date: Wed, 24 Jun 2026 20:04:57 +0200
+Message-ID: <20260624180459.1024068-31-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -53,32 +54,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We're hitting a bug in CI where MAX_STACK_TRACE_ENTRIES is set too low.
-My guess is the repeated loading/unloading is creating multiples of the
-same entries. As a hack just reset lockdep. This might only be necessary
-for CI + PREEMPT_RT.
+The busyness implementation for guc is incompatible with PMU,
+so disable it to prevent upsetting lockdep.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- lib/Kconfig.debug | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/i915_pmu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 9b9f7c5935596..ec35b50068a73 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1625,9 +1625,8 @@ config LOCKDEP_CHAINS_BITS
- config LOCKDEP_STACK_TRACE_BITS
- 	int "Size for MAX_STACK_TRACE_ENTRIES (as Nth power of 2)"
- 	depends on LOCKDEP && !LOCKDEP_SMALL
--	range 10 26
--	default 21 if KASAN
--	default 19
-+	range 22 26
-+	default 22
- 	help
- 	  Try increasing this value if you hit "BUG: MAX_STACK_TRACE_ENTRIES too low!" message.
- 
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 65771e54b9b51..f381e6f30d987 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -554,6 +554,10 @@ engine_event_status(struct intel_engine_cs *engine,
+ {
+ 	switch (sample) {
+ 	case I915_SAMPLE_BUSY:
++		/* The guc submission engine->busyness() callback has issues with CONFIG_PREEMPT_RT */
++		if (IS_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(&engine->gt->uc))
++			return -ENODEV;
++		break;
+ 	case I915_SAMPLE_WAIT:
+ 		break;
+ 	case I915_SAMPLE_SEMA:
 -- 
 2.53.0
 
