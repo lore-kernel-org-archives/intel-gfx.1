@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42313CDE035
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76A94CDE031
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B064710F05E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 324F410F06E;
 	Wed, 24 Jun 2026 18:04:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="eNrXJFft";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="E4jFuVzV";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78CDA10F05D;
- Wed, 24 Jun 2026 18:04:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B268810F055;
+ Wed, 24 Jun 2026 18:04:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324293;
- bh=veyMqeP/HHsUinNhNIPK3SHl0Euc6gBrTNuDuscCi+0=;
+ s=default; t=1782324290;
+ bh=QZQHP6SZcmIxH0/+L/HEwqRhaltY7tmMssFrjZ10E1s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eNrXJFftoT9QyFwtk00O1lgxEI0MZNaNlTXVB/tvZGDvQ/bkaTV4hQy3RUn6W+mPW
- P5tvJKcfyZq7go6FciC80s5TwJ9RihBsA+q8D4J/4mQ5bVAfVA9R7hE2FpKhTLC0GO
- Olx21J/+ZnmZoP/3RhUZ1yrIfKn2oOAoE5c2DvCvaFHHFJPpoDIz9C5lTLYF0WBhAk
- h87gS/Xu2Vs3sA5/GCIS9XrJWwfS5hkRbmaky17iYAUkGiXO6ycnLzeYvAitiBnvl/
- Krlu7biXSsRKe9M5TyPrUCd+YT1v2AL1EhtazHHzW0jWKdUj6+xfUqZ2NtJLYlQCMZ
- hdJghjuXwngnw==
+ b=E4jFuVzVfC7yiclnU1EaN+xGr6SG2UlkM1saCeBo12xCk7u23o6HXsiTC59pZZ3hw
+ PuMk4Fpq8B4U9W480BtBqSObYt357vksr5A1Hf6uhog5z16QMCVm3cxYoULOd6LM70
+ GCCfdp4hkhi2ckje+RwR7QV/VZ74pwRVv7wcJBaSwjwOt3gYQoqmgahnjOWIL9hUxt
+ R34mh2hhghNaOr8GoyiY6gTrClfuIaBEkJ9yoNBvHQir6+MZZ54RdNUcU7RyiM3H5B
+ +vZkAALgavvChwX8uTOrZIfMAJXJq6Inhm3SoNpBDktPcM8AgAv0KwX+tKsJRIE0A9
+ LcPXnF+SLTNBg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 28/30] drm/xe/display: Do not allocate into stolen for new
- framebuffers.
-Date: Wed, 24 Jun 2026 20:04:55 +0200
-Message-ID: <20260624180459.1024068-29-dev@lankhorst.se>
+Subject: [PATCH v10 24/30] FOR-CI: bump MAX_STACK_TRACE_ENTRIES
+Date: Wed, 24 Jun 2026 20:04:51 +0200
+Message-ID: <20260624180459.1024068-25-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -54,61 +53,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Prefer to use system memory for global framebuffers, and reserve
-the space for FBC use only.
-
-Now that multiple CRTC's can use FBC's, the simple heuristic
-of using less than half of stolen is no longer sufficient.
+We're hitting a bug in CI where MAX_STACK_TRACE_ENTRIES is set too low.
+My guess is the repeated loading/unloading is creating multiples of the
+same entries. As a hack just reset lockdep. This might only be necessary
+for CI + PREEMPT_RT.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/display/xe_display_bo.c | 33 ++++------------------
- 1 file changed, 6 insertions(+), 27 deletions(-)
+ lib/Kconfig.debug | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
-index a5080f6540d46..1bde12b509fcb 100644
---- a/drivers/gpu/drm/xe/display/xe_display_bo.c
-+++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
-@@ -153,33 +153,12 @@ static struct drm_gem_object *xe_display_bo_fbdev_create(struct drm_device *drm,
- 	struct xe_device *xe = to_xe_device(drm);
- 	struct xe_bo *obj;
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 9b9f7c5935596..ec35b50068a73 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -1625,9 +1625,8 @@ config LOCKDEP_CHAINS_BITS
+ config LOCKDEP_STACK_TRACE_BITS
+ 	int "Size for MAX_STACK_TRACE_ENTRIES (as Nth power of 2)"
+ 	depends on LOCKDEP && !LOCKDEP_SMALL
+-	range 10 26
+-	default 21 if KASAN
+-	default 19
++	range 22 26
++	default 22
+ 	help
+ 	  Try increasing this value if you hit "BUG: MAX_STACK_TRACE_ENTRIES too low!" message.
  
--	obj = ERR_PTR(-ENODEV);
--
--	if (xe_display_bo_fbdev_prefer_stolen(xe, size)) {
--		obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe),
--						size,
--						ttm_bo_type_kernel,
--						XE_BO_FLAG_FORCE_WC |
--						XE_BO_FLAG_STOLEN |
--						XE_BO_FLAG_GGTT,
--						false);
--		if (!IS_ERR(obj))
--			drm_info(&xe->drm, "Allocated fbdev into stolen\n");
--		else
--			drm_info(&xe->drm, "Allocated fbdev into stolen failed: %li\n", PTR_ERR(obj));
--	} else {
--		drm_info(&xe->drm, "Allocating fbdev: Stolen memory not preferred.\n");
--	}
--
--	if (IS_ERR(obj)) {
--		obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe), size,
--						ttm_bo_type_kernel,
--						XE_BO_FLAG_FORCE_WC |
--						XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
--						XE_BO_FLAG_GGTT,
--						false);
--	}
--
-+	obj = xe_bo_create_pin_map_novm(xe, xe_device_get_root_tile(xe), size,
-+					ttm_bo_type_kernel,
-+					XE_BO_FLAG_FORCE_WC |
-+					XE_BO_FLAG_VRAM_IF_DGFX(xe_device_get_root_tile(xe)) |
-+					XE_BO_FLAG_GGTT,
-+					false);
- 	if (IS_ERR(obj)) {
- 		drm_err(&xe->drm, "failed to allocate framebuffer (%pe)\n", obj);
- 		return ERR_PTR(-ENOMEM);
 -- 
 2.53.0
 
