@@ -4,36 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A419CDE021
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B9F1CDE02D
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9545210F057;
-	Wed, 24 Jun 2026 18:04:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2618510F073;
+	Wed, 24 Jun 2026 18:04:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="JCMqnJVo";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="gC432cOc";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6214510F029;
- Wed, 24 Jun 2026 18:04:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32CE510F04F;
+ Wed, 24 Jun 2026 18:04:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324280;
- bh=07jvFRigIF4c2WP1/tQ0UqgvxYpJAG8Jfl5912+WIUE=;
+ s=default; t=1782324289;
+ bh=bvf3RHGbi5q5Jtj6LoRjwYoOARoPWEB04P4tBVx9AYY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JCMqnJVoHVNLE8ehdObfdK6RZFJhQSl2Z4aQbHKazsPxEA2DdxWlDXmFGJCldiO8n
- ZOvYzVjafHFRmWLNLJgzAbyX/gpjcDR+QXkmfxB5nLEfjnb0dWG+WZr6DCghYS8fwF
- 1WNBfs6KEBEUCbdZYsAB2Uon21sqi3GFNuQ82m4F45PRPNxw6FHAUESUuSVsT7v899
- Y6/nYbkKjy6JCSzpBziT6HjdI4Qd8Vu8CMl3ct6UsXhh/Z3hd9QfTTclkRRiI+uLXw
- zlVFatPY2OjycSD4DzGPllkgiZUmGxD6/OLaa9IlEJXUZco44XtxoejC286asiOy8c
- gcFHpZ0S2cVyg==
+ b=gC432cOcX8sO2V87LDn9/xCinuuMj5FYgrLV4QcC/xkgZkhUMOtj3xTkrwDa9+9dF
+ KB5p7G/TFZ+fb07oET8g3U/wkDyLyYCWFWokx5Trkib6JOuz+D6t4Os1R/QddL+zEv
+ TctikC0TE2PhPM+Ri9BdhvVTB9AsVmZDmm8/4zU6CAKcWBZCJ0gVFimmlxJ9cTgGQy
+ BwgcPErZB943iMAuiK9U1V1rRHGdGJyTVYDpAq7PDM2OilA6SyjBQI/O3h8idVJazV
+ WHbCK2piOLu6+MseRs7LQnTUKOhk6t6MvMC5pmXpUVfDXs6pa/QmW7psWdL9mqeA1i
+ YU8J/ADdHpeXw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 09/30] drm/i915/display: Make get_vblank_counter use
- intel_de_read_fw()
-Date: Wed, 24 Jun 2026 20:04:36 +0200
-Message-ID: <20260624180459.1024068-10-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10 22/30] Revert "drm/i915: Depend on !PREEMPT_RT."
+Date: Wed, 24 Jun 2026 20:04:49 +0200
+Message-ID: <20260624180459.1024068-23-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -54,44 +55,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fixes the following lockdep splat on PREEMPT_RT:
-<3> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:48
-<3> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 1373, name: xe_module_load
-<3> preempt_count: 1, expected: 0
-<3> RCU nest depth: 0, expected: 0
-<4> 11 locks held by xe_module_load/1373:
-<4>  #0: ffff888107b691a0 (&dev->mutex){....}-{3:3}, at: __driver_attach+0x104/0x220
-<4>  #1: ffff88813cd30280 (&dev->clientlist_mutex){+.+.}-{3:3}, at: drm_client_register+0x32/0xe0
-<4>  #2: ffffffff837f88f8 (registration_lock){+.+.}-{3:3}, at: register_framebuffer+0x1b/0x50
-<4>  #3: ffffffff835985e0 (console_lock){+.+.}-{0:0}, at: fbcon_fb_registered+0x6f/0x90
-<4>  #4: ffff88812589e6a0 (&helper->lock){+.+.}-{3:3}, at: __drm_fb_helper_restore_fbdev_mode_unlocked+0x7b/0x110
-<4>  #5: ffff88813cd30158 (&dev->master_mutex){+.+.}-{3:3}, at: drm_master_internal_acquire+0x20/0x50
-<4>  #6: ffff88812589e488 (&client->modeset_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_locked+0x2a/0x1b0
-<4>  #7: ffffc9000031eef0 (crtc_ww_class_acquire){+.+.}-{0:0}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #8: ffffc9000031ef18 (crtc_ww_class_mutex){+.+.}-{3:3}, at: drm_client_modeset_commit_atomic+0x4c/0x2b0
-<4>  #9: ffff888114f7b8b8 (&intel_dp->psr.lock){+.+.}-{3:3}, at: intel_psr_lock+0xc5/0xf0 [xe]
-<4>  #10: ffff88812a0cbbc0 (&wl->lock){+.+.}-{2:2}, at: intel_dmc_wl_get+0x3c/0x140 [xe]
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-This splat will happen otherwise on all tracepoints too, for similar reasons.
+Once the known issues are addressed, it should be safe to enable the
+driver.
 
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/intel_vblank.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_vblank.c b/drivers/gpu/drm/i915/display/intel_vblank.c
-index 07dca05332e5b..c0cc0a4c25dbe 100644
---- a/drivers/gpu/drm/i915/display/intel_vblank.c
-+++ b/drivers/gpu/drm/i915/display/intel_vblank.c
-@@ -132,7 +132,7 @@ u32 g4x_get_vblank_counter(struct drm_crtc *crtc)
- 	if (!vblank->max_vblank_count)
- 		return 0;
- 
--	return intel_de_read(display, PIPE_FRMCOUNT_G4X(display, pipe));
-+	return intel_de_read_fw(display, PIPE_FRMCOUNT_G4X(display, pipe));
- }
- 
- static u32 intel_crtc_scanlines_since_frame_timestamp(struct intel_crtc *crtc)
+diff --git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig
+index 5e939004b6463..40a9234e6e5dc 100644
+--- a/drivers/gpu/drm/i915/Kconfig
++++ b/drivers/gpu/drm/i915/Kconfig
+@@ -3,7 +3,6 @@ config DRM_I915
+ 	tristate "Intel 8xx/9xx/G3x/G4x/HD Graphics"
+ 	depends on DRM
+ 	depends on X86 && PCI
+-	depends on !PREEMPT_RT
+ 	select INTEL_GTT if X86
+ 	select INTERVAL_TREE
+ 	# we need shmfs for the swappable backing store, and in particular
 -- 
 2.53.0
 
