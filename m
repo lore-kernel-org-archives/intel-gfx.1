@@ -4,69 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A53EBCDE002
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 10:31:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9DD4CDB47C
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 10:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 11FCD10EE85;
-	Wed, 24 Jun 2026 10:31:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c/pdAAqg";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDFE710EE7D;
- Wed, 24 Jun 2026 10:31:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782297111; x=1813833111;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=DtJ/CNN9GumTvr2hAj6sRgQ9MHu53c3lB1R067sVku8=;
- b=c/pdAAqgNnSqHxYEADCgqwqiXxMMAlZfV6+TclF6uviA63in/Q+eu0o2
- 8G2YYXMry8WTCu7vDb3WTrSYhVQhzpraWHvP1KdbwmhthtJOgPEp3X9RK
- o4W9ZIUrBo9W4Ey7nGNs4rBublR/m2VFjUcosa0llTsW7bxXYNHXmWzQg
- F+KTDZ4QM8JqeCPG7NsKKCdj2MOfA1TFpP7KzV11iSooieONVYpKxWAI5
- CMrbF7XAgAVG3EQlVVe2qklpXJZejAZYuGuKQwdQPsFNP/5kUCduZhFV3
- qXVEgq7OFZCZIcFUwuX3ELL8yoIQq9/RpRsmXnSSA6SV6G6cFPGC62RMw Q==;
-X-CSE-ConnectionGUID: AUr9s5GzRc+xOagyIMuimQ==
-X-CSE-MsgGUID: ViBzy96DQJ6TpwulJLLGbQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11826"; a="86898254"
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="86898254"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2026 03:31:50 -0700
-X-CSE-ConnectionGUID: gZSgSSrXSQGPs8UD06tZCg==
-X-CSE-MsgGUID: lU/PpAQQT8efGMJ9IEQrjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,222,1774335600"; d="scan'208";a="253690412"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.244])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2026 03:31:48 -0700
-Date: Wed, 24 Jun 2026 13:31:43 +0300
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: =?iso-8859-1?Q?Gabr=EDel_Arth=FAr_P=E9tursson?=
- <gabriel.petursson@jbtmarel.com>, 
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "tursulin@ursulin.net" <tursulin@ursulin.net>
-Subject: Re: [PATCH] drm/i915: Calculate CDCLK on modeset after sanitizing
- pre-os programming
-Message-ID: <ajuyD3vOdMdvbGqx@intel.com>
-References: <AM9PR06MB78601E2636164181A4689CC281EF2@AM9PR06MB7860.eurprd06.prod.outlook.com>
- <ajqXK-fZnty-YGCK@intel.com>
- <178228365985.16303.14222363163462260344@jlahtine-mobl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E1110EE84;
+	Wed, 24 Jun 2026 10:36:17 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D87410EE84;
+ Wed, 24 Jun 2026 10:36:16 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7030210547373632579=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178228365985.16303.14222363163462260344@jlahtine-mobl>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915=3A_Return_NULL_o?=
+ =?utf-8?q?n_error_in_active=5Finstance?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 24 Jun 2026 10:36:16 -0000
+Message-ID: <178229737644.110764.15906928153437045418@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260624090940.74840-1-joonas.lahtinen@linux.intel.com>
+In-Reply-To: <20260624090940.74840-1-joonas.lahtinen@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,38 +37,162 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 24, 2026 at 09:47:39AM +0300, Joonas Lahtinen wrote:
-> Quoting Ville Syrjälä (2026-06-23 17:24:43)
-> > This smells like the same thing I already fixed with
-> > commit 3f9de66f8acb ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
-> > without a full PLL re-enable")
-> > 
-> > Sadly it looks like I forgot to cc:stable it :/
-> > 
-> > Jani, can you pick that up for -fixes and slap a cc:stable on it?
-> 
-> I'll include it in drm-intel-next-fixes, do we have a
-> Fixes: tag to add?
+--===============7030210547373632579==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-It's been basically broken forever so the correct fixes
-tags probably aren't super useful.
+== Series Details ==
 
-However the nastier user visible regression happened in 
-commit ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from
-state->modeset") which therefore might make sense as a
-fixes tag. But if we put that in then I'm worried that it
-won't get backported to older kernels. I guess we could throw
-that in there along with the ancient commits that actually
-introduced the problem.
+Series: drm/i915: Return NULL on error in active_instance
+URL   : https://patchwork.freedesktop.org/series/169089/
+State : failure
 
-So something along the lines of:
-Fixes: ba91b9eecb47 ("drm/i915/cdclk: Decouple cdclk from state->modeset")
-Fixes: d66a21947e21 ("drm/i915/bxt: Sanitize CDCLK to fix breakage during S4 resume")
-Fixes: c73666f394fc ("drm/i915/skl: If needed sanitize bios programmed cdclk")
+== Summary ==
 
--- 
-Ville Syrjälä
-Intel
+CI Bug Log - changes from CI_DRM_18714 -> Patchwork_169089v1
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_169089v1 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_169089v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_169089v1:
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-bsw-nick:        [PASS][1] -> [ABORT][2] +1 other test abort
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18714/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html
+
+  
+Known issues
+------------
+
+  Here are the changes found in Patchwork_169089v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [PASS][3] -> [FAIL][4] ([i915#16115])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18714/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#16115]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16115
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18714 -> Patchwork_169089v1
+
+  CI-20190529: 20190529
+  CI_DRM_18714: b2817f6a1517bc9ecdef5229b84e8a44d983de82 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8982: 48befce9e6b0c0d371c4812bfff34a61319f68f1 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_169089v1: b2817f6a1517bc9ecdef5229b84e8a44d983de82 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/index.html
+
+--===============7030210547373632579==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915: Return NULL on error in active_instance</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169089/">https://patchwork.freedesktop.org/series/169089/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18714 -&gt; Patchwork_169089v1</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_169089v1 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_169089v1, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_169089v1:</p>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_selftest@live@late_gt_pm:<ul>
+<li>fi-bsw-nick:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18714/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/fi-bsw-nick/igt@i915_selftest@live@late_gt_pm.html">ABORT</a> +1 other test abort</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_169089v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18714/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169089v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16115">i915#16115</a>)</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18714 -&gt; Patchwork_169089v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18714: b2817f6a1517bc9ecdef5229b84e8a44d983de82 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8982: 48befce9e6b0c0d371c4812bfff34a61319f68f1 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_169089v1: b2817f6a1517bc9ecdef5229b84e8a44d983de82 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7030210547373632579==--
