@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9651BCDE028
-	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24B70CDE02E
+	for <intel-gfx@archiver.kernel.org>; Wed, 24 Jun 2026 18:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3959E10F056;
-	Wed, 24 Jun 2026 18:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FACD10F05D;
+	Wed, 24 Jun 2026 18:04:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="Z+o/pGWY";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="F+dqQSoB";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2564E10F031;
- Wed, 24 Jun 2026 18:04:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20E8510F06F;
+ Wed, 24 Jun 2026 18:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782324287;
- bh=j+kZhrKGeVLe6Kwb9Av2wRwsLfG3GUrsHoYClLpC+34=;
+ s=default; t=1782324292;
+ bh=8atRt4B/PXAXgr5z4WvxSpmOYT8k6lDmprmy2FqFD64=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z+o/pGWYlmNjVLNDSFC1tAySQR0Lo4i6sHw4tv8MCGRt3bAal0eCmGWaccLuMUjOX
- zZhPGMMa3faFVv4Z6DwZRhW2puY9GFeku1NMLsvPgm/uxh7iLtAEMul4pkZFF3Y1IK
- ZGY/5Giuoz9tuWNBLJL7MglrlSXieg6mE+Bqbn/NBxiYsTSjHi3qBvVRCYbagWx41F
- hnJ0TmimrHux31TnDhLHw+TJkQldk1PKvdrC+4ka/bLfC2bKSeol+Vq3RSbHzX7/BS
- jAUBKG4GlVP9xV4Ho4cHknDlKGSVgw5C2ohGKH8lo6yl0BJOuWhTZ1PD0YLtct7Z0A
- sxT6pq+JWgWKQ==
+ b=F+dqQSoBA499z2uduVM0wzEEFvGy5rM+fie4zoUr3crMv1cCFGT16IxL7UENHTuHw
+ /vMJHuPji/ErNd0OdUHUhwQpENf8/ptOvENuImWnQvCZHaLjZYIHgf0dZqBUFILr0+
+ TmQznogEFF7Ro1RcLSASxD94euum4AJwnFJzVCbT5Psr15d3sUkorUFkRhjGJEMYos
+ HAvdcqmNSANkR2GkCb5YshW4mp64Z5I1PXsYy14hwQSGlpa1X4GTm8x6xg/02LmhzW
+ ZueNZFItEraA/rcRFVVCSdYMvYKChIuWvWsEGtmAi14CYNG0oj6CLu0kAgZUkegsoN
+ iNog+FWkPr+bA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10 19/30] drm/i915/gt: Set stop_timeout() correctly on
- PREEMPT-RT
-Date: Wed, 24 Jun 2026 20:04:46 +0200
-Message-ID: <20260624180459.1024068-20-dev@lankhorst.se>
+Subject: [PATCH v10 26/30] drm/xe: Avoid using stolen memory for DPT.
+Date: Wed, 24 Jun 2026 20:04:53 +0200
+Message-ID: <20260624180459.1024068-27-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260624180459.1024068-1-dev@lankhorst.se>
 References: <20260624180459.1024068-1-dev@lankhorst.se>
@@ -54,27 +53,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also check if RCU is disabled for PREEMPT-RT, which is the case when
-local_bh_disable() is called.
+On systems with media GT, extra latency is added when accessing stolen
+memory when the GT is in MC6. Since we additionally aren't counting how
+much memory is used for stolen and we could in theory fill up the
+entire stolen area with DPT's, avoid using stolen and only use the
+default memory region.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/xe/display/xe_fb_pin.c | 33 +++++++-------------------
+ 1 file changed, 8 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c0fd349a4600c..9dd9665128caa 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index f93c98bec5b5f..86013ef532fd7 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
+ 		dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
+ 				 XE_PAGE_SIZE);
  
- static unsigned long stop_timeout(const struct intel_engine_cs *engine)
- {
--	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
-+	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
- 		return 0;
+-	if (IS_DGFX(xe))
+-		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+-						   dpt_size, ~0ull,
+-						   ttm_bo_type_kernel,
+-						   XE_BO_FLAG_VRAM0 |
+-						   XE_BO_FLAG_GGTT |
+-						   XE_BO_FLAG_PAGETABLE,
+-						   pin_params->alignment, false);
+-	else
+-		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+-						   dpt_size,  ~0ull,
+-						   ttm_bo_type_kernel,
+-						   XE_BO_FLAG_STOLEN |
+-						   XE_BO_FLAG_GGTT |
+-						   XE_BO_FLAG_PAGETABLE,
+-						   pin_params->alignment, false);
+-	if (IS_ERR(dpt))
+-		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
+-						   dpt_size,  ~0ull,
+-						   ttm_bo_type_kernel,
+-						   XE_BO_FLAG_SYSTEM |
+-						   XE_BO_FLAG_GGTT |
+-						   XE_BO_FLAG_PAGETABLE |
+-						   XE_BO_FLAG_FORCE_WC,
+-						   pin_params->alignment, false);
++	dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
++					   dpt_size,  ~0ull,
++					   ttm_bo_type_kernel,
++					   XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
++					   XE_BO_FLAG_GGTT |
++					   XE_BO_FLAG_PAGETABLE |
++					   XE_BO_FLAG_FORCE_WC,
++					   pin_params->alignment, false);
+ 	if (IS_ERR(dpt))
+ 		return PTR_ERR(dpt);
  
- 	/*
 -- 
 2.53.0
 
