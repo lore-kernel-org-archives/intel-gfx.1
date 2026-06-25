@@ -4,67 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9BFC44507
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B04C43602
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C127010EFC1;
-	Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4305B10EFC6;
+	Wed,  1 Jul 2026 12:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="IIXYhl7t";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T44en6Na";
 	dkim-atps=neutral
-Received: from mail-qk1-f202.google.com (mail-qk1-f202.google.com
- [209.85.222.202])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 042DB10E40C
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 21:45:18 +0000 (UTC)
-Received: by mail-qk1-f202.google.com with SMTP id
- af79cd13be357-92ad11e2197so203536385a.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782510317; x=1783115117;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=lMxEbUN4g5HJl8rBCPSd8i2j2INLA6ePpq/n8LCBKjc=;
- b=IIXYhl7t4dWST5nhiVysel1F+W3BpJOSvEapy+wMy5ICcsaV6ujzHwqs6bYI7q3sWR
- 5XyXDU3INuTkYz8dNhE7iwXT+HSZ6iZ+4Yoy/P4ffCFPFKz7miieY57PtVr7NI0bwFdk
- jiMVhSAYc8Oupy61RD98Ty6ncZnCW3SI0ozd/Ua9cL/1kIXoYk6RUK/1Iaz3Lm2HQrOu
- dHgA3YyFUuiElAY11TH3ZDjEh0oCxYziv6KzbQeEwQI2hJFIp5owZvGJnQrljA/zYxcX
- Q+Eh7hZnjWe2LQg3g/u+7w+XtaRDlpqjBs3YrNgZkAgo3Z8mhUvXvDKH3g7PjlbV12uH
- LeFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782510317; x=1783115117;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=lMxEbUN4g5HJl8rBCPSd8i2j2INLA6ePpq/n8LCBKjc=;
- b=Q8/rKof5fpFkfroOQ9jF5rlq37zIojoAh6JBcj49hxR1X5z5KlbBNzZJfle7mh1AM+
- HZ8wlg6Y9wXEVpSv8GR7yzNDP7KYSBMZZA+QZiHcMKUshW9yns/G5LccnsTdNr/mFvO/
- N54S+h4IDFlPlISm6rI/NueqnFkKjiWbvtmBUdTVR76QMHPUxhaSwbVmFTsPlMdQ51VU
- 3mjDodCNT/7QFw4M6PurPEH7ybg1VMrgzcadNXNXm3c+ToUv133YQ1fETk6n1wcQRlM8
- NnXNjMNUe8s71d+BhxYO667B3ezDvWZvszg6Hthkfl/GxnDOpRwDV9CpSof7sNV7OHaH
- ei2w==
-X-Gm-Message-State: AOJu0YwGyGc8dEbeXpRDyH+hy3On0J0DSmfSdkjn92J3ReBEg1o+/P/b
- ZCkTOv+fEFRR0nDn0Iw3dvleAMPit09GaYZ1wlV4lGS+gGp1J3Z7+LUPnZSnLUFuS+rhSau/J9H
- X6QYNP5p6jFQWqW0PQ1miyD5WGwaWDaQ6A3Gu5b5TYp3uzENdoldYDO7ZeNYK0cxPSDXtZzyvmh
- BWRjq6fQudvf58fyooxExjGkAqeM6vGKcqYkCt8KtxTiZ3BGhpNk6QFwHjWwI=
-X-Received: from qtbie6.prod.google.com ([2002:a05:622a:6986:b0:517:710d:afde])
- (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:1ba1:b0:519:8988:b107 with SMTP id
- d75a77b69052e-51a7276acbcmr117661791cf.6.1782510316492; 
- Fri, 26 Jun 2026 14:45:16 -0700 (PDT)
-Date: Fri, 26 Jun 2026 17:44:41 -0400
-In-Reply-To: <20260626214513.179943-1-gildekel@google.com>
-Mime-Version: 1.0
-References: <20260626214513.179943-1-gildekel@google.com>
-X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260626214513.179943-2-gildekel@google.com>
-Subject: [PATCH v3 1/2] drm/i915/display: Cache DP colorimetry support
- per-connector
-From: Gil Dekel <gildekel@google.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
- khaled.almahallawy@intel.com, navaremanasi@google.com, 
- Gil Dekel <gildekel@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C90DF10F247;
+ Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6E79143B07;
+ Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7681F00A3A;
+ Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782384214;
+ bh=olDhkqtxI30UfcWJ97Za0LqCZRLOxs3Rv1WfiI82UaQ=;
+ h=Date:From:To:Cc:Subject;
+ b=T44en6NaGlPGuxRlGZBX7xnth52c5FHMZA7AOZVAPYNjd0/OrfRoLodTcHRiLQybk
+ YHPoJMZyP0iX25n7G9jANVJXXjT2z//aa7wnRevhkJ0bI3u0YaLzPgTwOLcAbRt64j
+ ACmhmjoVdR07WL1bwoDOgc/oadNP+3aEkFJFaDkjj9n69C6YXWcorpHXSRZwvWTuMo
+ /nSOIt8LzbsdCM6rRxySNy5v7RD5esp/F39Dz65F50D+Tmp5AncdllaYY7jVXX+xRH
+ LpczgNSv52PoLL5Oxla7W8wbkAlEz02czNEPjic5fmsZKO6KeFuPL++VV9MmCK/mlb
+ QVwtXegLzsm0A==
+Received: from rostedt by gandalf with local (Exim 4.99.3)
+ (envelope-from <rostedt@kernel.org>) id 1wchYw-00000002W9c-0A36;
+ Thu, 25 Jun 2026 06:44:02 -0400
+Message-ID: <20260625104007.041432666@kernel.org>
+User-Agent: quilt/0.69
+Date: Thu, 25 Jun 2026 06:40:07 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
+ linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org
+Subject: [PATCH v4 0/2] tracing: Move non-trace_printk prototypes into
+ trace_controls.h
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,142 +73,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Query and cache colorimetry format support on a per-connector basis
-instead of checking the root port's DPCD capabilities directly.
+Remove trace_printk.h by creating a trace_controls.h for those places that
+need access to tracing prototypes like tracing_off() and for the places that
+need trace_printk() directly, to have it included directly.
 
-Introduce intel_dp_get_colorimetry_status_aux() to query colorimetry support
-over a given DP AUX channel. For SST, cache this during intel_dp_detect().
-For MST downstream ports, cache it using the port's sideband AUX
-in mst_connector_detect_ctx().
+Changse since v3: https://lore.kernel.org/all/20260624081806.120105649@kernel.org/
 
-This prepares the display driver to correctly identify colorimetry/VSC SDP
-support on downstream MST sinks, where checking the root port's capabilities
-incorrectly returns false.
+- Always include trace_controls.h in rcu.h (kernel test robot)
 
-Assisted-by: jetski:gemini-2.5-pro
-Signed-off-by: Gil Dekel <gildekel@google.com>
----
- .../gpu/drm/i915/display/intel_display_types.h |  1 +
- drivers/gpu/drm/i915/display/intel_dp.c        | 18 ++++++++++++++----
- drivers/gpu/drm/i915/display/intel_dp.h        |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c    | 13 +++++++++++--
- 4 files changed, 28 insertions(+), 6 deletions(-)
+  There are other configs that may include tracing_off() in rcu.h besides
+  the one that had the include of trace_controls.h. Just always include
+  it in that header to be safe.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index c048da7d6fea..428d55f9682f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -564,6 +564,7 @@ struct intel_connector {
- 		u8 dsc_hblank_expansion_quirk:1;
- 		u8 dsc_throughput_quirk:1;
- 		u8 dsc_decompression_enabled:1;
-+		u8 colorimetry_support:1;
- 
- 		struct {
- 			struct {
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6e3fa6662cbe..1de26c4c867f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3161,9 +3161,9 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
- 				     struct intel_crtc_state *crtc_state,
- 				     const struct drm_connector_state *conn_state)
- {
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_dp_vsc_sdp *vsc;
--
--	if ((!intel_dp->colorimetry_support ||
-+	if ((!connector->dp.colorimetry_support ||
- 	     !intel_dp_needs_vsc_sdp(crtc_state, conn_state)) &&
- 	    !crtc_state->has_psr)
- 		return;
-@@ -4438,16 +4438,21 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
- 			    str_enable_disable(tmp));
- }
- 
--static bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
-+bool intel_dp_get_colorimetry_status_aux(struct drm_dp_aux *aux)
- {
- 	u8 dprx = 0;
- 
--	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_DPRX_FEATURE_ENUMERATION_LIST,
-+	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST,
- 			      &dprx) != 1)
- 		return false;
- 	return dprx & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED;
- }
- 
-+static bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
-+{
-+	return intel_dp_get_colorimetry_status_aux(&intel_dp->aux);
-+}
-+
- static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
- 				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
- {
-@@ -6374,6 +6379,11 @@ intel_dp_detect(struct drm_connector *_connector,
- 						 status,
- 						 intel_dp->dpcd,
- 						 intel_dp->downstream_ports);
-+	if (status == connector_status_connected)
-+		connector->dp.colorimetry_support = intel_dp->colorimetry_support;
-+	else
-+		connector->dp.colorimetry_support = false;
-+
- out_vdd_off:
- 	intel_pps_vdd_off(intel_dp);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 02b691df6755..26b3a0eb354e 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -12,6 +12,7 @@ enum intel_output_format;
- enum pipe;
- enum port;
- struct drm_connector_state;
-+struct drm_dp_aux;
- struct drm_dp_desc;
- struct drm_dp_vsc_sdp;
- struct drm_encoder;
-@@ -78,6 +79,7 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
- bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
- 			      bool dsc_enabled_on_crtc);
- void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
-+bool intel_dp_get_colorimetry_status_aux(struct drm_dp_aux *aux);
- int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
- 				struct intel_crtc_state *pipe_config,
- 				struct drm_connector_state *conn_state,
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index ecc90e8faee1..5b76d12bb00f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1627,6 +1627,7 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
- 	struct intel_connector *connector = to_intel_connector(_connector);
- 	struct intel_display *display = to_intel_display(connector);
- 	struct intel_dp *intel_dp = connector->mst.dp;
-+	int status;
- 
- 	if (!intel_display_device_enabled(display))
- 		return connector_status_disconnected;
-@@ -1639,8 +1640,16 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
- 
- 	intel_dp_flush_connector_commits(connector);
- 
--	return drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
--				      connector->mst.port);
-+	status = drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
-+					connector->mst.port);
-+
-+	if (status == connector_status_connected)
-+		connector->dp.colorimetry_support =
-+			intel_dp_get_colorimetry_status_aux(&connector->mst.port->aux);
-+	else
-+		connector->dp.colorimetry_support = false;
-+
-+	return status;
- }
- 
- static const struct drm_connector_helper_funcs mst_connector_helper_funcs = {
--- 
-Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
+Steven Rostedt (2):
+      tracing: Move non-trace_printk prototypes into trace_controls.h
+      tracing: Remove trace_printk.h from kernel.h
 
+----
+ arch/powerpc/kvm/book3s_xics.c         |  1 +
+ arch/powerpc/xmon/xmon.c               |  1 +
+ arch/s390/kernel/ipl.c                 |  1 +
+ arch/s390/kernel/machine_kexec.c       |  1 +
+ drivers/gpu/drm/i915/gt/intel_gtt.h    |  1 +
+ drivers/gpu/drm/i915/i915_gem.h        |  2 ++
+ drivers/hwtracing/stm/dummy_stm.c      |  1 +
+ drivers/infiniband/hw/hfi1/trace_dbg.h |  1 +
+ drivers/tty/sysrq.c                    |  1 +
+ drivers/usb/early/xhci-dbc.c           |  1 +
+ fs/ext4/inline.c                       |  1 +
+ include/linux/ftrace.h                 |  2 ++
+ include/linux/kernel.h                 |  1 -
+ include/linux/sunrpc/debug.h           |  1 +
+ include/linux/trace_controls.h         | 54 ++++++++++++++++++++++++++++++++
+ include/linux/trace_printk.h           | 56 ++--------------------------------
+ kernel/debug/debug_core.c              |  1 +
+ kernel/panic.c                         |  1 +
+ kernel/rcu/rcu.h                       |  1 +
+ kernel/rcu/rcutorture.c                |  1 +
+ kernel/trace/ring_buffer_benchmark.c   |  1 +
+ kernel/trace/trace.h                   |  1 +
+ kernel/trace/trace_benchmark.c         |  1 +
+ lib/sys_info.c                         |  1 +
+ samples/fprobe/fprobe_example.c        |  1 +
+ samples/ftrace/ftrace-direct-too.c     |  1 -
+ samples/trace_printk/trace-printk.c    |  1 +
+ 27 files changed, 82 insertions(+), 55 deletions(-)
+ create mode 100644 include/linux/trace_controls.h
