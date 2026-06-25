@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C689FCDE001
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 15:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F14D2CDE00B
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 15:28:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 601DB10F310;
-	Thu, 25 Jun 2026 15:23:10 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="noaEykE2";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26D7A10F311;
- Thu, 25 Jun 2026 15:23:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782400989; x=1813936989;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=izqtDzGnHbtQxmtPbrBFDOh/jxd8obvs5oRqGmLQp8s=;
- b=noaEykE2DWWkb+54FQRSQlzSaaz+o6dQ+rNABvnEIfw6K/MCyyPaZ2x5
- 0dvcl0sd28WtzJOXfrTkjoBEovSHSpq9T/eUMoshizsnvt9F952Oa8hwW
- sE9jZFQakcsHIRgzrY4grbauiAEdXdsWTpQKsO4zfNI1gm8STp1O+HKDG
- x/f7JpAzIqDJ8Rkm/4pyzjGFgR0BtT3a5Ve0AAHIS2ze4oj33V/Kvq5Sc
- fv5TJNApDlFTG/ao+0MbowiXO/fhXUYbhCZLCCEftt75VeiYU66anpmMg
- I/tl5poJ790gw/oAZp9MPAuQhzDReBr/JEVHvHwD/SgPLDEJqC20BNjCg g==;
-X-CSE-ConnectionGUID: 0hps54/fTLecjMFNEcl80Q==
-X-CSE-MsgGUID: ebDy0K8tQayIp6L4ZmB/Rw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="83056872"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="83056872"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:22:57 -0700
-X-CSE-ConnectionGUID: b/SIcBjkR8K01b+45U1XYg==
-X-CSE-MsgGUID: cc8dx6h4S8SoRjjm6y4ZuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="251333019"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:22:56 -0700
-Date: Thu, 25 Jun 2026 17:22:53 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Andi Shyti <andi.shyti@linux.intel.com>
-Cc: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Andi Shyti <andi.shyti@kernel.org>
-Subject: Re: [PATCH] drm/i915/gt: Return bool values from a boolean helper
-Message-ID: <aj1HzUjokwiZCk7T@black.igk.intel.com>
-References: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7770310F30D;
+	Thu, 25 Jun 2026 15:28:01 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7621110F30D;
+ Thu, 25 Jun 2026 15:28:00 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0858531285453936151=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260625114442.2912230-1-andi.shyti@linux.intel.com>
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/vrr=3A_require_v?=
+ =?utf-8?q?alid_min/max_vfreq_for_VRR?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jani Nikula" <jani.nikula@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 25 Jun 2026 15:28:00 -0000
+Message-ID: <178240128047.118083.7865396651789922114@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260625131040.1051272-1-jani.nikula@intel.com>
+In-Reply-To: <20260625131040.1051272-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,40 +37,306 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 25, 2026 at 01:44:42PM +0200, Andi Shyti wrote:
-> intel_has_gpu_reset() returns logically correct values by
-> returning a function pointer when GPU reset is supported and
-> NULL otherwise. However, as a boolean helper, it is more
-> appropriate to return explicit true or false values.
-> 
-> Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-> ---
->  drivers/gpu/drm/i915/gt/intel_reset.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-> index b2cf672564dd..a3f198646e1d 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-> @@ -797,9 +797,9 @@ static int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask
->  bool intel_has_gpu_reset(const struct intel_gt *gt)
->  {
->  	if (!gt->i915->params.reset)
-> -		return NULL;
-> +		return false;
+--===============0858531285453936151==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-I know the logic remains the same but isn't this Fixes material?
+== Series Details ==
 
-Raag
+Series: drm/i915/vrr: require valid min/max vfreq for VRR
+URL   : https://patchwork.freedesktop.org/series/169198/
+State : success
 
-> -	return intel_get_gpu_reset(gt);
-> +	return !!intel_get_gpu_reset(gt);
->  }
->  
->  bool intel_has_reset_engine(const struct intel_gt *gt)
-> -- 
-> 2.53.0
-> 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18719 -> Patchwork_169198v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/index.html
+
+Participating hosts (42 -> 40)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+New tests
+---------
+
+  New tests have been introduced between CI_DRM_18719 and Patchwork_169198v1:
+
+### New IGT tests (15) ###
+
+  * igt@kms_pipe_crc_basic@hang-read-crc@pipe-b-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [1.22, 1.41] s
+
+  * igt@kms_pipe_crc_basic@hang-read-crc@pipe-c-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [1.23, 1.30] s
+
+  * igt@kms_pipe_crc_basic@hang-read-crc@pipe-d-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [1.22, 1.30] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.64, 0.70] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.63, 0.64] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.64] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc@pipe-b-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.62, 0.70] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc@pipe-c-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.64, 0.66] s
+
+  * igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.63, 0.64] s
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-b-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.58, 0.63] s
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.57] s
+
+  * igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.56, 0.59] s
+
+  * igt@kms_pipe_crc_basic@read-crc@pipe-b-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.58, 0.63] s
+
+  * igt@kms_pipe_crc_basic@read-crc@pipe-c-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.57] s
+
+  * igt@kms_pipe_crc_basic@read-crc@pipe-d-dp-3:
+    - Statuses : 2 pass(s)
+    - Exec time: [0.56, 0.59] s
+
+  
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_169198v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-kbl-7567u:       [SKIP][1] -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html
+
+  
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18719 -> Patchwork_169198v1
+
+  CI-20190529: 20190529
+  CI_DRM_18719: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8985: d5fe8732b8547454c38fdd220b55f6f0cc841a3b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_169198v1: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/index.html
+
+--===============0858531285453936151==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/vrr: require valid min/max vfreq for VRR</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169198/">https://patchwork.freedesktop.org/series/169198/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18719 -&gt; Patchwork_169198v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 40)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>New tests</h2>
+<p>New tests have been introduced between CI_DRM_18719 and Patchwork_169198v1:</p>
+<h3>New IGT tests (15)</h3>
+<ul>
+<li>
+<p>igt@kms_pipe_crc_basic@hang-read-crc@pipe-b-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [1.22, 1.41] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@hang-read-crc@pipe-c-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [1.23, 1.30] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@hang-read-crc@pipe-d-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [1.22, 1.30] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-b-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.64, 0.70] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-c-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.63, 0.64] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc-frame-sequence@pipe-d-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.64] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc@pipe-b-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.62, 0.70] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc@pipe-c-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.64, 0.66] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@nonblocking-crc@pipe-d-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.63, 0.64] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-b-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.58, 0.63] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-c-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.57] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc-frame-sequence@pipe-d-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.56, 0.59] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc@pipe-b-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.58, 0.63] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc@pipe-c-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.57] s</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc@pipe-d-dp-3:</p>
+<ul>
+<li>Statuses : 2 pass(s)</li>
+<li>Exec time: [0.56, 0.59] s</li>
+</ul>
+</li>
+</ul>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_169198v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@kms_hdmi_inject@inject-audio:<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169198v1/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18719 -&gt; Patchwork_169198v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18719: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8985: d5fe8732b8547454c38fdd220b55f6f0cc841a3b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_169198v1: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0858531285453936151==--
