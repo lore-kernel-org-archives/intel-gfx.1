@@ -4,27 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E59CDE008
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 11:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FD96CDE000
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 12:11:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E14D110F25E;
-	Thu, 25 Jun 2026 11:36:34 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D59D10F25E;
- Thu, 25 Jun 2026 11:36:33 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1312509502289138710=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA5310F279;
+	Thu, 25 Jun 2026 12:11:45 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hOAiF4Ku";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E8D010F279
+ for <intel-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 12:11:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782389505; x=1813925505;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=4RTKbkitcOMjvGsAIVLHY1k5xkmU4W3qB9H7A5Crcx8=;
+ b=hOAiF4Ku+kwbfDg57HKSyKYp0nrt3JbkJxxNf7B3mGt0wxS0XQXlYGAp
+ fYK59MzSv5QZ5jO/3+pjksbMqg5LbPAxB7uuOYxyzGvjAyUidVIskYDrM
+ eyiZtv2q0rbgptP+IdgKwA1u3TOQ7YHWg244JZ39U/9ulIwcCuqJky+Wg
+ Oh7wHUi23Aih+cY+OzDtNJqM9Mdvf8C8lifCCHw8YFt8uO2A9EIL+sakb
+ 2S8rkxXNEaSMjGi31q473td7IDtP48hBtsuia8aoXiyKbi1McUm7s1i2f
+ Dbl5MvfLxkeQlQpDK//R0zmhkQK7Qyk0z+buIptPC9fMH9VCWgpEqm+lX w==;
+X-CSE-ConnectionGUID: zdMF6FkfSaqnsUkfkEmCxA==
+X-CSE-MsgGUID: ++xn7iH5SLOhWz2xNoDQIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="94282435"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94282435"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 05:11:45 -0700
+X-CSE-ConnectionGUID: B7sQKSidSg2K32SffHmesQ==
+X-CSE-MsgGUID: lz2jBwjFRDqWegUGolBNTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="255557697"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.75])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 05:11:42 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/hdcp=3A_require_?=
- =?utf-8?q?monotonically_increasing_seq=5Fnum=5Fv?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 25 Jun 2026 11:36:33 -0000
-Message-ID: <178238739363.117194.7201174584019689660@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260625104407.1025614-1-jani.nikula@intel.com>
-In-Reply-To: <20260625104407.1025614-1-jani.nikula@intel.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <ajznzdwvxSv2YNHp@zenone.zhora.eu>
+References: <20260624090940.74840-1-joonas.lahtinen@linux.intel.com>
+ <178230031953.112641.4817434529385736057@jlahtine-mobl>
+ <ajvTjodx7LLj_BPO@zenone.zhora.eu>
+ <178236741262.19845.6184407491878204182@jlahtine-mobl>
+ <ajznzdwvxSv2YNHp@zenone.zhora.eu>
+Subject: Re: [PATCH] drm/i915: Return NULL on error in active_instanceg
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: Intel graphics driver community testing & development
+ <intel-gfx@lists.freedesktop.org>, Martin Hodo <martin.hodo@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas =?utf-8?q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, stable@vger.kernel.org
+To: Andi Shyti <andi.shyti@kernel.org>
+Date: Thu, 25 Jun 2026 15:11:39 +0300
+Message-ID: <178238949911.113301.5828200905284576123@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,169 +74,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1312509502289138710==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Quoting Andi Shyti (2026-06-25 11:50:50)
+> On Thu, Jun 25, 2026 at 09:03:32AM +0300, Joonas Lahtinen wrote:
 
-== Series Details ==
+<SNIP>
 
-Series: drm/i915/hdcp: require monotonically increasing seq_num_v
-URL   : https://patchwork.freedesktop.org/series/169186/
-State : success
+> The bug team is a different matter. Here we're talking about the
+> review process.
 
-== Summary ==
+What comes to the review process, you're entitled to express your
+opinion how things should be.
 
-CI Bug Log - changes from CI_DRM_18719 -> Patchwork_169186v1
-====================================================
+If you do a rundown of average time spent on mailing list after R-b
+before merge split per subsystem / driver and show some stats for
+patches that are less than 10 lines, and we can maybe talk further.
 
-Summary
--------
+Don't see the point otherwise. You do you, and me do me.
 
-  **SUCCESS**
+> > That's exactly what was done here. That's a fair ask, but asking for
+> > maintainers not to merge any code because of false positives is simply
+> > not.
+>=20
+> False positive or not, controversial or not, easy or difficult,
+> patches have *always* been blocked when BAT was red.
 
-  No regressions found.
+There's a very clear difference between random noise in BAT and something
+being wrong in BAT due to the patch. The whole reason for BAT to be establi=
+shed
+was to have a fast litmus test if the patch would break the world.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/index.html
+Original motivation was to avoid spinning up the more expensive shard
+runs if the litmus test doesn't pass. And it was recognized back then
+that we absolutely can't have false positives in BAT for things to work
+out reasonably.
 
-Participating hosts (42 -> 40)
-------------------------------
+> Otherwise, we might as well stop running automatic tests for
+> patches considered "non-controversial" and save CI resources.
 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+Now that you bring it up, that's exactly what we should be targeting.
 
-Known issues
-------------
+There is zero point in forcibly attaching test results to an individual
+patch if that patch has exactly zero coverage in the test set.
 
-  Here are the changes found in Patchwork_169186v1 that come from known issues:
+So for example here, if we would have some nice automated code coverage
+analysis that would have declared our tests don't have any coverage for
+the patch in question and skipped shards, that would have absolutely
+made sense (always allowing user to force the run, still).
 
-### IGT changes ###
+The shard test run for this specific patch offers no other value than
+an completely disconnected idle run of the test set. A completely
+disconnected idle run would probably be even more valuable as it
+wouldn't connect false positives to unrelated patch.
 
-#### Issues hit ####
+But I don't think we're there yet. So in the meanwhile let's try to
+live with limitations of reality and fix some bugs.
 
-  * igt@i915_selftest@live@sanitycheck:
-    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +79 other tests dmesg-warn
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-
-  * igt@kms_busy@basic@flip:
-    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#180])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [PASS][5] -> [DMESG-WARN][6] ([i915#13735] / [i915#15673] / [i915#180]) +51 other tests dmesg-warn
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-#### Warnings ####
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-kbl-7567u:       [SKIP][7] -> [DMESG-WARN][8] ([i915#13735] / [i915#15673] / [i915#180])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18719 -> Patchwork_169186v1
-
-  CI-20190529: 20190529
-  CI_DRM_18719: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8985: d5fe8732b8547454c38fdd220b55f6f0cc841a3b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_169186v1: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/index.html
-
---===============1312509502289138710==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/hdcp: require monotonically increasing seq_num_v</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169186/">https://patchwork.freedesktop.org/series/169186/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18719 -&gt; Patchwork_169186v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_169186v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@sanitycheck:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +79 other tests dmesg-warn</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_busy@basic@flip:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +51 other tests dmesg-warn</li>
-</ul>
-</li>
-</ul>
-<h4>Warnings</h4>
-<ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18719/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html">SKIP</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169186v1/fi-kbl-7567u/igt@kms_hdmi_inject@inject-audio.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18719 -&gt; Patchwork_169186v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18719: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8985: d5fe8732b8547454c38fdd220b55f6f0cc841a3b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_169186v1: adbc617250e16fb2db4a4c777b89440927cb8973 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1312509502289138710==--
+Regards, Joonas
