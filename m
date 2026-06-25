@@ -4,56 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EECE1CDB479
-	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 15:28:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5501ACDE001
+	for <intel-gfx@archiver.kernel.org>; Thu, 25 Jun 2026 15:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF3E10F329;
-	Thu, 25 Jun 2026 15:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F27DC10F311;
+	Thu, 25 Jun 2026 15:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mR+mD8iv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LWDXcJ+z";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9045A10F30E;
- Thu, 25 Jun 2026 15:28:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0AE10E219;
+ Thu, 25 Jun 2026 15:48:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782401280; x=1813937280;
+ t=1782402500; x=1813938500;
  h=date:from:to:cc:subject:in-reply-to:message-id:
  references:mime-version;
- bh=vfCzvBFrq4aqLZUqAlJsgQ9pz1xMZKJQzgI6UmSmEI4=;
- b=mR+mD8iv39CCTKUdUp5Pt6+kTmy+y4gsl2SODq2DTwts3rzPTel3jakx
- WZbBd+tB7g0l5cV6ZoF8C4XyhDfxRybwXhDOrH3SKxjqZTg8tgXEYuzrj
- zT2i9nwSmUHFkhfPClg+ouHvqlT6rtu1V8MsAKQhuYHCMxRXXHz9RyGZM
- x0vavCCWUGQQ3PUdlHs1IjJgcG1wjeG3ZF2W2U2G8N/zHYkbthjL0VIlS
- 0bpLgTx40ZgMgAKKyr4cDGoSj3gf62hQOAVVVAKZtRL0Ju+X/KFQ903P4
- mEEeaX7OyIf+Bq2oxVv6drJARWElzVt8r1xM5jjlG/5fY0dHupx2y7Vv3 A==;
-X-CSE-ConnectionGUID: EkzuD6E4Sbi+i2BQOKQAlA==
-X-CSE-MsgGUID: PbIqhp8QTGiXXI2bxjshgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11827"; a="83057522"
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="83057522"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:27:59 -0700
-X-CSE-ConnectionGUID: cwTZChLfQoOZDlSBPHTQUA==
-X-CSE-MsgGUID: qoEYF/gQQV+BhVfiKIQ0ow==
+ bh=1+A6gPT4LQUsY2QnTfPNBJkWRgFjnYZMeyYX+1UYPNk=;
+ b=LWDXcJ+zH+ZGMNgOmUOiKgzOkAHDM35/bFsuoLOrFa9OROAt2obIr4ZW
+ 5uyB3Brl5ShcoLLUC/+Pne3+SMPl5nPEUQrQGnwt7Dvrp0Gh08Z6n/Tph
+ 6F/qXqveor3a0fRRYx/3Ov2ZWwmpZTYi5W5Qj6+eB2ZmxTMMm3GfjW7LC
+ C2ngSYUd6kW9vaNMT19O+giUvV8xWYAoIWUftaqiptW1i8ch89grGbWoq
+ sJhqCt/v20yvl5xuFpK9mIRx2cMGUELJUA9TRxhB+LvKqymJ06XyfRk+A
+ 9vmpdcVMlGsA3VmLIjWu7Nq+MsCYMaemVVRwCzfb4eGyaYoXuOU4xmk3B A==;
+X-CSE-ConnectionGUID: TaTcoHFWR0+A5Xyn0QyxUw==
+X-CSE-MsgGUID: hrhsxAbuTKiTvefJk4k73A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11828"; a="94672790"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="94672790"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 08:48:19 -0700
+X-CSE-ConnectionGUID: bnTDR+9oSp2v6LlaA//k7g==
+X-CSE-MsgGUID: bsv1XPUrSYWzkAVo2KV/4g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="251337583"
+X-IronPort-AV: E=Sophos;i="6.24,224,1774335600"; d="scan'208";a="249751034"
 Received: from dev-417.igk.intel.com ([10.91.214.181])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2026 08:27:58 -0700
-Date: Thu, 25 Jun 2026 17:27:55 +0200 (CEST)
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2026 08:48:16 -0700
+Date: Thu, 25 Jun 2026 17:48:14 +0200 (CEST)
 From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
-To: Jani Nikula <jani.nikula@intel.com>
-cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Martin Hodo <martin.hodo@intel.com>, stable@vger.kernel.org, 
- Animesh Manna <animesh.manna@intel.com>, 
- =?ISO-8859-15?Q?Ville_Syrj=E4l=E4?= <ville.syrjala@intel.com>
-Subject: Re: [PATCH] drm/i915/bios: range check LFP Data Block panel_type2
-In-Reply-To: <20260625135130.1067872-1-jani.nikula@intel.com>
-Message-ID: <37079a8c-8eb7-aaa0-ed21-594f413210a2@intel.com>
-References: <20260625135130.1067872-1-jani.nikula@intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH 1/3] drivers/iommu: Unroll unsuccessful mapping
+In-Reply-To: <20260625134342.1102921-2-krzysztof.karas@intel.com>
+Message-ID: <5016dea0-5710-b0f9-754b-36d0c7325d46@intel.com>
+References: <20260625134342.1102921-1-krzysztof.karas@intel.com>
+ <20260625134342.1102921-2-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-253770812-1782401279=:605841"
+Content-Type: multipart/mixed; boundary="8323329-886975909-1782402498=:605841"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,103 +75,85 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-253770812-1782401279=:605841
-Content-Type: text/plain; charset=UTF-8; format=flowed
+--8323329-886975909-1782402498=:605841
+Content-Type: text/plain; format=flowed; charset=ISO-8859-2
 Content-Transfer-Encoding: 8BIT
 
-On Thu, 25 Jun 2026, Jani Nikula wrote:
-> While the panel_type from LFP Data Block is range checked, panel_type2
-> is not. Add a few helpers for range checking, and use them to not only
-> check panel_type2, but also imrove clarity and correctness in the panel
+Hi Krzysztof,
 
-typo: s/imrove/improve/
+I'm wondering about changing the prefix of patch's title into
+iommu/dma:, but there are commits changing dma-iommu.c having other
+prefixes as well; not sure if it matters.
 
-> type selection.
+On Thu, 25 Jun 2026, Krzysztof Karas wrote:
+> Currently, if iommu maps fewer bytes than requested (iova_len),
+> it proceeds to free the iova, but never tries to unmap already
+> touched bytes. This behavior may cause memory hogging down the
+> line.
 >
-> Discovered using AI-assisted static analysis confirmed by Intel Product
-> Security.
+> Correct that by unmapping before exiting.
 >
-> Reported-by: Martin Hodo <martin.hodo@intel.com>
-> Fixes: 6434cf630086 ("drm/i915/bios: calculate panel type as per child device index in VBT")
-> Cc: <stable@vger.kernel.org> # v6.0+
-> Cc: Animesh Manna <animesh.manna@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> drivers/iommu/dma-iommu.c | 10 ++++++++--
+> 1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 381b60d9e7ce..c4c058ba07ef 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -1515,8 +1515,14 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+> 	 * implementation - it knows better than we do.
+> 	 */
+> 	ret = iommu_map_sg(domain, iova, sg, nents, prot, GFP_ATOMIC);
+> -	if (ret < 0 || ret < iova_len)
+> +	if (ret < 0 || ret < iova_len) {
+> +		if (ret > 0) {
+> +			/* Unmap partially mapped bytes before freeing IOVA */
+> +			if (iommu_unmap(domain, iova, ret) != ret)
+> +				ret = -EIO;
+> +		}
+> 		goto out_free_iova;
+> +	}
 
-Reviewed-by: Michał Grzelak <michal.grzelak@intel.com>
+Also thinking whether not to split this into two separate if's,
+something like:
+
+ret = iommu_map_sg(domain, iova, sg, nents, prot, GFP_ATOMIC);
+if (ret < 0)
+ 	goto out_free_iova;
+
+if (ret < iova_len) {
+ 	if (ret > 0) {
+ 		/* Unmap partially mapped bytes before freeing IOVA */
+ 		if (iommu_unmap(domain, iova, ret) != ret)
+ 			ret = -EIO;
+ 	}
+
+ 	goto out_free_iova;
+}
+
+But that's probably just a matter of opinion. Whether it applies or not:
+
+Reviewed-by: Micha� Grzelak <michal.grzelak@intel.com>
 
 BR,
-Michał
+Micha�
 
-> ---
-> drivers/gpu/drm/i915/display/intel_bios.c | 29 +++++++++++++++++------
-> 1 file changed, 22 insertions(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
-> index 15ebadc72b88..0c420019e46a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_bios.c
-> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
-> @@ -623,6 +623,16 @@ get_lfp_data_tail(const struct bdb_lfp_data *data,
-> 		return NULL;
+> 	return __finalise_sg(dev, sg, nents, iova);
+>
+> @@ -1525,7 +1531,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+> out_restore_sg:
+> 	__invalidate_sg(sg, nents);
+> out:
+> -	if (ret != -ENOMEM && ret != -EREMOTEIO)
+> +	if (ret != -ENOMEM && ret != -EREMOTEIO && ret != -EIO)
+> 		return -EINVAL;
+> 	return ret;
 > }
->
-> +static bool is_panel_type_valid(int panel_type)
-> +{
-> +	return panel_type >= 0 && panel_type < 16;
-> +}
-> +
-> +static bool is_panel_type_valid_or_pnp(int panel_type)
-> +{
-> +	return is_panel_type_valid(panel_type) || panel_type == 0xff;
-> +}
-> +
-> static int opregion_get_panel_type(struct intel_display *display,
-> 				   const struct intel_bios_encoder_data *devdata,
-> 				   const struct drm_edid *drm_edid, bool use_fallback)
-> @@ -640,15 +650,21 @@ static int vbt_get_panel_type(struct intel_display *display,
-> 	if (!lfp_options)
-> 		return -1;
->
-> -	if (lfp_options->panel_type > 0xf &&
-> -	    lfp_options->panel_type != 0xff) {
-> +	if (!is_panel_type_valid_or_pnp(lfp_options->panel_type)) {
-> 		drm_dbg_kms(display->drm, "Invalid VBT panel type 0x%x\n",
-> 			    lfp_options->panel_type);
-> 		return -1;
-> 	}
->
-> -	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2)
-> +	if (devdata && devdata->child.handle == DEVICE_HANDLE_LFP2) {
-> +		if (!is_panel_type_valid_or_pnp(lfp_options->panel_type2)) {
-> +			drm_dbg_kms(display->drm, "Invalid VBT panel type 2 0x%x\n",
-> +				    lfp_options->panel_type2);
-> +			return -1;
-> +		}
-> +
-> 		return lfp_options->panel_type2;
-> +	}
->
-> 	drm_WARN_ON(display->drm,
-> 		    devdata && devdata->child.handle != DEVICE_HANDLE_LFP1);
-> @@ -762,13 +778,12 @@ static int get_panel_type(struct intel_display *display,
-> 				    panel_types[i].name, panel_types[i].panel_type);
-> 	}
->
-> -	if (panel_types[PANEL_TYPE_OPREGION].panel_type >= 0)
-> +	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
-> 		i = PANEL_TYPE_OPREGION;
-> 	else if (panel_types[PANEL_TYPE_VBT].panel_type == 0xff &&
-> -		 panel_types[PANEL_TYPE_PNPID].panel_type >= 0)
-> +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
-> 		i = PANEL_TYPE_PNPID;
-> -	else if (panel_types[PANEL_TYPE_VBT].panel_type != 0xff &&
-> -		 panel_types[PANEL_TYPE_VBT].panel_type >= 0)
-> +	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
-> 		i = PANEL_TYPE_VBT;
-> 	else
-> 		i = PANEL_TYPE_FALLBACK;
 > -- 
-> 2.47.3
+> 2.34.1
 >
 >
---8323329-253770812-1782401279=:605841--
+--8323329-886975909-1782402498=:605841--
