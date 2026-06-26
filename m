@@ -4,60 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEBC1C44500
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C9BFC44507
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF75610EFC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C127010EFC1;
 	Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="C4kpffoq";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="IIXYhl7t";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5370C10E03B;
- Mon, 22 Jun 2026 16:52:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 399EC43B13;
- Mon, 22 Jun 2026 16:52:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0041F000E9;
- Mon, 22 Jun 2026 16:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782147124;
- bh=KXhjFgbhEvwE+7GGBfh7My0VIVq6OjTLQwMtEz0hufY=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=C4kpffoqKELHy6h2iIonBbM+lwHOlkqgrFXueJXDfdgl75fDx8nTrSA+oGiGyoeAm
- 8CCy0uyoOREJUge4zC6mq+dv0w+QL43toIPSNlcNAZyZKDjugsy6al/c7V2Nxly4Pl
- B3u0wZw90AH5q2Vforbc/8novl4n4De9d7hKEY2j9fwmOHjRuuHlA8HYlkPOQSxTMr
- w8OjFxrmzo3xN9JG3zdPXZhL02HItS9kysxEXgHLRRSGAVfOqOYr/WF7zxLGK20H2R
- AQhZ61uSQFpPSM+xdZ5/Wi01z1P5qKOyIveeDb+LOtEbWIs/Vdg1dtFfhX3DZ+GRC2
- IABQXBNVHhFSA==
-Date: Mon, 22 Jun 2026 12:51:54 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
- Gleixner <tglx@kernel.org>, Julia Lawall <julia.lawall@inria.fr>, Yury
- Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
-Message-ID: <20260622125154.6f5b9b33@fedora>
-In-Reply-To: <08b3c961-18bb-43d9-8d7f-8a87bcad0afa@infradead.org>
-References: <20260621093430.264983361@kernel.org>
- <20260622083440.GX49951@noisy.programming.kicks-ass.net>
- <08b3c961-18bb-43d9-8d7f-8a87bcad0afa@infradead.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from mail-qk1-f202.google.com (mail-qk1-f202.google.com
+ [209.85.222.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042DB10E40C
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 21:45:18 +0000 (UTC)
+Received: by mail-qk1-f202.google.com with SMTP id
+ af79cd13be357-92ad11e2197so203536385a.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1782510317; x=1783115117;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:from:to:cc:subject:date:message-id:reply-to;
+ bh=lMxEbUN4g5HJl8rBCPSd8i2j2INLA6ePpq/n8LCBKjc=;
+ b=IIXYhl7t4dWST5nhiVysel1F+W3BpJOSvEapy+wMy5ICcsaV6ujzHwqs6bYI7q3sWR
+ 5XyXDU3INuTkYz8dNhE7iwXT+HSZ6iZ+4Yoy/P4ffCFPFKz7miieY57PtVr7NI0bwFdk
+ jiMVhSAYc8Oupy61RD98Ty6ncZnCW3SI0ozd/Ua9cL/1kIXoYk6RUK/1Iaz3Lm2HQrOu
+ dHgA3YyFUuiElAY11TH3ZDjEh0oCxYziv6KzbQeEwQI2hJFIp5owZvGJnQrljA/zYxcX
+ Q+Eh7hZnjWe2LQg3g/u+7w+XtaRDlpqjBs3YrNgZkAgo3Z8mhUvXvDKH3g7PjlbV12uH
+ LeFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782510317; x=1783115117;
+ h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
+ :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=lMxEbUN4g5HJl8rBCPSd8i2j2INLA6ePpq/n8LCBKjc=;
+ b=Q8/rKof5fpFkfroOQ9jF5rlq37zIojoAh6JBcj49hxR1X5z5KlbBNzZJfle7mh1AM+
+ HZ8wlg6Y9wXEVpSv8GR7yzNDP7KYSBMZZA+QZiHcMKUshW9yns/G5LccnsTdNr/mFvO/
+ N54S+h4IDFlPlISm6rI/NueqnFkKjiWbvtmBUdTVR76QMHPUxhaSwbVmFTsPlMdQ51VU
+ 3mjDodCNT/7QFw4M6PurPEH7ybg1VMrgzcadNXNXm3c+ToUv133YQ1fETk6n1wcQRlM8
+ NnXNjMNUe8s71d+BhxYO667B3ezDvWZvszg6Hthkfl/GxnDOpRwDV9CpSof7sNV7OHaH
+ ei2w==
+X-Gm-Message-State: AOJu0YwGyGc8dEbeXpRDyH+hy3On0J0DSmfSdkjn92J3ReBEg1o+/P/b
+ ZCkTOv+fEFRR0nDn0Iw3dvleAMPit09GaYZ1wlV4lGS+gGp1J3Z7+LUPnZSnLUFuS+rhSau/J9H
+ X6QYNP5p6jFQWqW0PQ1miyD5WGwaWDaQ6A3Gu5b5TYp3uzENdoldYDO7ZeNYK0cxPSDXtZzyvmh
+ BWRjq6fQudvf58fyooxExjGkAqeM6vGKcqYkCt8KtxTiZ3BGhpNk6QFwHjWwI=
+X-Received: from qtbie6.prod.google.com ([2002:a05:622a:6986:b0:517:710d:afde])
+ (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:622a:1ba1:b0:519:8988:b107 with SMTP id
+ d75a77b69052e-51a7276acbcmr117661791cf.6.1782510316492; 
+ Fri, 26 Jun 2026 14:45:16 -0700 (PDT)
+Date: Fri, 26 Jun 2026 17:44:41 -0400
+In-Reply-To: <20260626214513.179943-1-gildekel@google.com>
+Mime-Version: 1.0
+References: <20260626214513.179943-1-gildekel@google.com>
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
+Message-ID: <20260626214513.179943-2-gildekel@google.com>
+Subject: [PATCH v3 1/2] drm/i915/display: Cache DP colorimetry support
+ per-connector
+From: Gil Dekel <gildekel@google.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
+ khaled.almahallawy@intel.com, navaremanasi@google.com, 
+ Gil Dekel <gildekel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,19 +81,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 09:40:45 -0700
-Randy Dunlap <rdunlap@infradead.org> wrote:
+Query and cache colorimetry format support on a per-connector basis
+instead of checking the root port's DPCD capabilities directly.
 
-> > Did you forget your C 101 class? If you use a function, you gotta
-> > include the relevant header.  
-> 
-> Also item #1 in Documentation/process/submit-checklist.rst.
+Introduce intel_dp_get_colorimetry_status_aux() to query colorimetry support
+over a given DP AUX channel. For SST, cache this during intel_dp_detect().
+For MST downstream ports, cache it using the port's sideband AUX
+in mst_connector_detect_ctx().
 
-What is that? Remove all trace_printk()s before you submit?
+This prepares the display driver to correctly identify colorimetry/VSC SDP
+support on downstream MST sinks, where checking the root port's capabilities
+incorrectly returns false.
 
-Because that is what you should do. But now you also need to remember
-to remove the include <linux/trace_printk.h> too. Or, I guess if
-someone uses it a lot, they may just keep it in their files without the
-trace_printk()s.
+Assisted-by: jetski:gemini-2.5-pro
+Signed-off-by: Gil Dekel <gildekel@google.com>
+---
+ .../gpu/drm/i915/display/intel_display_types.h |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c        | 18 ++++++++++++++----
+ drivers/gpu/drm/i915/display/intel_dp.h        |  2 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c    | 13 +++++++++++--
+ 4 files changed, 28 insertions(+), 6 deletions(-)
 
--- Steve
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index c048da7d6fea..428d55f9682f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -564,6 +564,7 @@ struct intel_connector {
+ 		u8 dsc_hblank_expansion_quirk:1;
+ 		u8 dsc_throughput_quirk:1;
+ 		u8 dsc_decompression_enabled:1;
++		u8 colorimetry_support:1;
+ 
+ 		struct {
+ 			struct {
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 6e3fa6662cbe..1de26c4c867f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -3161,9 +3161,9 @@ static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
+ 				     struct intel_crtc_state *crtc_state,
+ 				     const struct drm_connector_state *conn_state)
+ {
++	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	struct drm_dp_vsc_sdp *vsc;
+-
+-	if ((!intel_dp->colorimetry_support ||
++	if ((!connector->dp.colorimetry_support ||
+ 	     !intel_dp_needs_vsc_sdp(crtc_state, conn_state)) &&
+ 	    !crtc_state->has_psr)
+ 		return;
+@@ -4438,16 +4438,21 @@ void intel_dp_configure_protocol_converter(struct intel_dp *intel_dp,
+ 			    str_enable_disable(tmp));
+ }
+ 
+-static bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
++bool intel_dp_get_colorimetry_status_aux(struct drm_dp_aux *aux)
+ {
+ 	u8 dprx = 0;
+ 
+-	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_DPRX_FEATURE_ENUMERATION_LIST,
++	if (drm_dp_dpcd_readb(aux, DP_DPRX_FEATURE_ENUMERATION_LIST,
+ 			      &dprx) != 1)
+ 		return false;
+ 	return dprx & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED;
+ }
+ 
++static bool intel_dp_get_colorimetry_status(struct intel_dp *intel_dp)
++{
++	return intel_dp_get_colorimetry_status_aux(&intel_dp->aux);
++}
++
+ static int intel_dp_read_dsc_dpcd(struct drm_dp_aux *aux,
+ 				  u8 dsc_dpcd[DP_DSC_RECEIVER_CAP_SIZE])
+ {
+@@ -6374,6 +6379,11 @@ intel_dp_detect(struct drm_connector *_connector,
+ 						 status,
+ 						 intel_dp->dpcd,
+ 						 intel_dp->downstream_ports);
++	if (status == connector_status_connected)
++		connector->dp.colorimetry_support = intel_dp->colorimetry_support;
++	else
++		connector->dp.colorimetry_support = false;
++
+ out_vdd_off:
+ 	intel_pps_vdd_off(intel_dp);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 02b691df6755..26b3a0eb354e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -12,6 +12,7 @@ enum intel_output_format;
+ enum pipe;
+ enum port;
+ struct drm_connector_state;
++struct drm_dp_aux;
+ struct drm_dp_desc;
+ struct drm_dp_vsc_sdp;
+ struct drm_encoder;
+@@ -78,6 +79,7 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
+ bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
+ 			      bool dsc_enabled_on_crtc);
+ void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
++bool intel_dp_get_colorimetry_status_aux(struct drm_dp_aux *aux);
+ int intel_dp_dsc_compute_config(struct intel_dp *intel_dp,
+ 				struct intel_crtc_state *pipe_config,
+ 				struct drm_connector_state *conn_state,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index ecc90e8faee1..5b76d12bb00f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1627,6 +1627,7 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
+ 	struct intel_connector *connector = to_intel_connector(_connector);
+ 	struct intel_display *display = to_intel_display(connector);
+ 	struct intel_dp *intel_dp = connector->mst.dp;
++	int status;
+ 
+ 	if (!intel_display_device_enabled(display))
+ 		return connector_status_disconnected;
+@@ -1639,8 +1640,16 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
+ 
+ 	intel_dp_flush_connector_commits(connector);
+ 
+-	return drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
+-				      connector->mst.port);
++	status = drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
++					connector->mst.port);
++
++	if (status == connector_status_connected)
++		connector->dp.colorimetry_support =
++			intel_dp_get_colorimetry_status_aux(&connector->mst.port->aux);
++	else
++		connector->dp.colorimetry_support = false;
++
++	return status;
+ }
+ 
+ static const struct drm_connector_helper_funcs mst_connector_helper_funcs = {
+-- 
+Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
+
