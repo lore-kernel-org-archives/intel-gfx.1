@@ -4,36 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B07C3C44520
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1957FC44523
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD4FC10F60D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D021910F610;
 	Fri, 26 Jun 2026 13:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="PA7CyiVn";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="YkmTIY8A";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5495410F5FC;
- Fri, 26 Jun 2026 13:42:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F028D10F60C;
+ Fri, 26 Jun 2026 13:42:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481331;
- bh=r10AAnKUQPrCjn4nwCrtFvliOfdGv8y4HVOMxu4pQsU=;
+ s=default; t=1782481335;
+ bh=SrqQAMYrLxDPK7Yj+2MrfgB0HHUwyS8YP/VDKTn/AAY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PA7CyiVnrS0+Jujf9DASbK+e/tjDg0pG2MnHV7D8m9kjay6t0sFjVy+pZotytEQnD
- bdDI96Z08ljQwQLpDoz5pYzbKcWBI2ZMYoITpLdxrLEXF9WdgytA+PmppLD1AjNyZJ
- lNvTSWXrzlKLDLh/I3xSFlt2P7vsf+h938ZKTmaAQu6uDfFRIm6MrnoJ2fj+Mxwio2
- hHpDMuBbk2NzBgSsJfb6kL31jDgZadpDNDhIAeig1K5EniTBsCrGRk9njEh0uZysV9
- xCHCwXR75wrbUBOWCcnpFnmjy+NR+RvsavnXBYuwI/eMs4kUKrIrSiFAx48WByiBXk
- igHceDfjqHHsQ==
+ b=YkmTIY8AvYHy0g8ezs9ZrY6JANLxSwF/fOzVnWMaF9EJSsUNvRAR0nEPArtUfZf4E
+ iu3alXwfDqmDd8JzL2VlBuN+iwi0TxlIjHM9p84fjXs9e/TujGeC4A6OW3Bu3eKII2
+ L0JpjvJyjIcUGY9omGHrWmIgsJ866c3hzeDoSEsLusd+gCeHio/jsVAb+fGPqSQUkb
+ Ga6MvNxOVIr468MITxFdZN3dImdkvZey7KUljc+O5intiVvoKifymfSBXHsiE7WnTv
+ we6nB0xmJ0xktOjQgjblAL3YzyUpjVlQJ6GAarBupbBS5IuSdWt1vbEiqxNnEt8zZ7
+ NOTBAAi9CNoig==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 20/29] drm/i915/display: Remove uncore lock from
- vlv_atomic_update_fifo
-Date: Fri, 26 Jun 2026 15:42:11 +0200
-Message-ID: <20260626134222.1198252-21-dev@lankhorst.se>
+Subject: [PATCH v10.5 27/29] drm/xe/display: Avoid using stolen memory for
+ framebuffer when media gt exists.
+Date: Fri, 26 Jun 2026 15:42:18 +0200
+Message-ID: <20260626134222.1198252-28-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -54,43 +54,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-TODO: Grab uncore lock during entire vblank evasion before disabling
-interrupts, and check what breaks?
+On systems with media GT, extra latency is added when accessing stolen
+memory when the GT is in MC6.
+
+Simply disable allocating stolen memory for framebuffers when media gt
+is found.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/display/i9xx_wm.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/xe/display/xe_display_bo.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
-index 86d1c9f7f0ff0..e07303f0b3cc4 100644
---- a/drivers/gpu/drm/i915/display/i9xx_wm.c
-+++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
-@@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
- 				   struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(crtc);
--	struct intel_uncore *uncore = to_intel_uncore(display->drm);
- 	const struct intel_crtc_state *crtc_state =
- 		intel_atomic_get_new_crtc_state(state, crtc);
- 	const struct vlv_fifo_state *fifo_state =
-@@ -1892,7 +1891,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
- 	 * intel_pipe_update_start() has already disabled interrupts
- 	 * for us, so a plain spin_lock() is sufficient here.
- 	 */
--	spin_lock(&uncore->lock);
+diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
+index 7fbac223b0977..a5080f6540d46 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_bo.c
++++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+@@ -130,6 +130,13 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
+ 	if (IS_DGFX(xe))
+ 		return false;
  
- 	switch (crtc->pipe) {
- 	case PIPE_A:
-@@ -1951,8 +1949,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
- 	}
++	/*
++	 * Avoid stolen memory when the media_gt exists,
++	 * because a lot of latency is added when media gt is in MC6
++	 */
++	if (xe_device_get_root_tile(xe)->media_gt)
++		return false;
++
+ 	if (XE_DEVICE_WA(xe, 22019338487_display))
+ 		return false;
  
- 	intel_de_read_fw(display, DSPARB(display));
--
--	spin_unlock(&uncore->lock);
- }
- 
- #undef VLV_FIFO
 -- 
 2.53.0
 
