@@ -4,35 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A58DC44511
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B07C3C44520
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2673110F60F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD4FC10F60D;
 	Fri, 26 Jun 2026 13:42:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="g7Qa+Oh6";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="PA7CyiVn";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05B9A10F5F5;
- Fri, 26 Jun 2026 13:42:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5495410F5FC;
+ Fri, 26 Jun 2026 13:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481333;
- bh=QZQHP6SZcmIxH0/+L/HEwqRhaltY7tmMssFrjZ10E1s=;
+ s=default; t=1782481331;
+ bh=r10AAnKUQPrCjn4nwCrtFvliOfdGv8y4HVOMxu4pQsU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=g7Qa+Oh6weAq6+EpjNbx1dNsqGuVUdyKw/DOGIaNT3Jhk765Y/1mOHTC94zcc0MSe
- qLe/n9AYqoqkEgp2oU/jkN7mwO0K8NxF8XIxoRJdkEy0JC26I4tw6+EydEQyc9G8fW
- eEeCHvUbbhREIatSDvYpaF/uIoAMhSZw9lKg5oGnvIm7FamlFTA/BLh4R6uafMeQvs
- 1RtLXzz2bJc8/hZqcedYp62o9wENpZBg8WmX7cboFeYcn1eb/VqpwMZEG0i9ETBYLs
- tUbxslAdEJkpZVElVlI2ZebBt5hsljLRXH3mkGlVjxiArd0HMWzYFwEg5IrhxrvWrv
- NfjRBZ5QzI+Dw==
+ b=PA7CyiVnrS0+Jujf9DASbK+e/tjDg0pG2MnHV7D8m9kjay6t0sFjVy+pZotytEQnD
+ bdDI96Z08ljQwQLpDoz5pYzbKcWBI2ZMYoITpLdxrLEXF9WdgytA+PmppLD1AjNyZJ
+ lNvTSWXrzlKLDLh/I3xSFlt2P7vsf+h938ZKTmaAQu6uDfFRIm6MrnoJ2fj+Mxwio2
+ hHpDMuBbk2NzBgSsJfb6kL31jDgZadpDNDhIAeig1K5EniTBsCrGRk9njEh0uZysV9
+ xCHCwXR75wrbUBOWCcnpFnmjy+NR+RvsavnXBYuwI/eMs4kUKrIrSiFAx48WByiBXk
+ igHceDfjqHHsQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 24/29] FOR-CI: bump MAX_STACK_TRACE_ENTRIES
-Date: Fri, 26 Jun 2026 15:42:15 +0200
-Message-ID: <20260626134222.1198252-25-dev@lankhorst.se>
+Subject: [PATCH v10.5 20/29] drm/i915/display: Remove uncore lock from
+ vlv_atomic_update_fifo
+Date: Fri, 26 Jun 2026 15:42:11 +0200
+Message-ID: <20260626134222.1198252-21-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -53,32 +54,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-We're hitting a bug in CI where MAX_STACK_TRACE_ENTRIES is set too low.
-My guess is the repeated loading/unloading is creating multiples of the
-same entries. As a hack just reset lockdep. This might only be necessary
-for CI + PREEMPT_RT.
+TODO: Grab uncore lock during entire vblank evasion before disabling
+interrupts, and check what breaks?
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- lib/Kconfig.debug | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/i915/display/i9xx_wm.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 9b9f7c5935596..ec35b50068a73 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -1625,9 +1625,8 @@ config LOCKDEP_CHAINS_BITS
- config LOCKDEP_STACK_TRACE_BITS
- 	int "Size for MAX_STACK_TRACE_ENTRIES (as Nth power of 2)"
- 	depends on LOCKDEP && !LOCKDEP_SMALL
--	range 10 26
--	default 21 if KASAN
--	default 19
-+	range 22 26
-+	default 22
- 	help
- 	  Try increasing this value if you hit "BUG: MAX_STACK_TRACE_ENTRIES too low!" message.
+diff --git a/drivers/gpu/drm/i915/display/i9xx_wm.c b/drivers/gpu/drm/i915/display/i9xx_wm.c
+index 86d1c9f7f0ff0..e07303f0b3cc4 100644
+--- a/drivers/gpu/drm/i915/display/i9xx_wm.c
++++ b/drivers/gpu/drm/i915/display/i9xx_wm.c
+@@ -1863,7 +1863,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 				   struct intel_crtc *crtc)
+ {
+ 	struct intel_display *display = to_intel_display(crtc);
+-	struct intel_uncore *uncore = to_intel_uncore(display->drm);
+ 	const struct intel_crtc_state *crtc_state =
+ 		intel_atomic_get_new_crtc_state(state, crtc);
+ 	const struct vlv_fifo_state *fifo_state =
+@@ -1892,7 +1891,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 	 * intel_pipe_update_start() has already disabled interrupts
+ 	 * for us, so a plain spin_lock() is sufficient here.
+ 	 */
+-	spin_lock(&uncore->lock);
  
+ 	switch (crtc->pipe) {
+ 	case PIPE_A:
+@@ -1951,8 +1949,6 @@ static void vlv_atomic_update_fifo(struct intel_atomic_state *state,
+ 	}
+ 
+ 	intel_de_read_fw(display, DSPARB(display));
+-
+-	spin_unlock(&uncore->lock);
+ }
+ 
+ #undef VLV_FIFO
 -- 
 2.53.0
 
