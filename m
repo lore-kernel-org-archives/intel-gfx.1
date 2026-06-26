@@ -4,35 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D866BC44522
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D86D4C4450B
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 13:42:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0E4F10F611;
-	Fri, 26 Jun 2026 13:42:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D238410F60B;
+	Fri, 26 Jun 2026 13:42:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="i23xqBh1";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="SQCv0I+H";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B14010F5F5;
- Fri, 26 Jun 2026 13:42:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB4DD10F5F5;
+ Fri, 26 Jun 2026 13:42:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782481335;
- bh=8atRt4B/PXAXgr5z4WvxSpmOYT8k6lDmprmy2FqFD64=;
+ s=default; t=1782481334;
+ bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i23xqBh1BGzGVdxefVLl9XYf7hxCiy/KkIg0mELDBMo7jlkwnzNZyadsuAPx1j9I6
- DxfQcnntMpD1bIJrWbsP3H5NuLdMBw2xy5R0NG4gilflgNbBAETlBFVoS0Whgq9CMe
- YKmNME/gMAsDOLwXnz2ZPSfAc9OY5hjG/ZTYEx9cnAZk1OwhJbsCJNZT27Bji60l6s
- zDKzCPdwzUj4Y5pLlzd8aoqybsAxGQ0tbVufFoPshlV7dwGvGxmmv/Mr+9w1N52roW
- Orj+a36FyKFEqx6GG187UV1StS/fnwHDJccrjmi8rIZf2n/a2jwRaKboGGXlwa3noL
- fxbcUB8l7BTRQ==
+ b=SQCv0I+HneZ5q/vGvPOzYqDruXkoc0fsZ8hRg9lPrJpeYIQpho6TF9nOe6bNjaRUK
+ iO0oXf5imxrsQzLfA6QE/7Puyh64zlE1h9NhnWmuVIhEzDDi8ezOYIuQ8nEv86EPZ/
+ 0hCwugSIW7hTHMQOKJZBsohbX3R2W4Ed0mTiIJaZ1onr3+A1SKZP8c4lSIztTnPdMW
+ kFaKZ3mikRcs/NARdZuolp8TvfUCiJ+vBqk7tb1QadZSztLr6lbyrMaUi9+jFmu9/m
+ Q7vUcsRneryH32Dnqa5Ig9x4aKP+oDF68KcAcqrT5miZMOefu2VlU4ErdEB8a2GYRO
+ r0JqBOw+PT0zw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v10.5 26/29] drm/xe: Avoid using stolen memory for DPT.
-Date: Fri, 26 Jun 2026 15:42:17 +0200
-Message-ID: <20260626134222.1198252-27-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v10.5 25/29] drm/i915/gt: Add a spinlock to prevent starvation
+ of irq_work.
+Date: Fri, 26 Jun 2026 15:42:16 +0200
+Message-ID: <20260626134222.1198252-26-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260626134222.1198252-1-dev@lankhorst.se>
 References: <20260626134222.1198252-1-dev@lankhorst.se>
@@ -53,61 +55,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On systems with media GT, extra latency is added when accessing stolen
-memory when the GT is in MC6. Since we additionally aren't counting how
-much memory is used for stolen and we could in theory fill up the
-entire stolen area with DPT's, avoid using stolen and only use the
-default memory region.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+and the interrupt will poll on signaler_active while the irq-work can't
+make progress.
+
+Solve this by adding a spinlock to prevent starvation and force
+completion.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/display/xe_fb_pin.c | 33 +++++++-------------------
- 1 file changed, 8 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-index f93c98bec5b5f..86013ef532fd7 100644
---- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
-+++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
-@@ -164,31 +164,14 @@ static int __xe_pin_fb_vma_dpt(struct drm_gem_object *obj,
- 		dpt_size = ALIGN(intel_rotation_info_size(&view->rotated) * 8,
- 				 XE_PAGE_SIZE);
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index c10ac0ab3bfa8..c2b174bfa1418 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
  
--	if (IS_DGFX(xe))
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size, ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_VRAM0 |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE,
--						   pin_params->alignment, false);
--	else
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size,  ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_STOLEN |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE,
--						   pin_params->alignment, false);
--	if (IS_ERR(dpt))
--		dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
--						   dpt_size,  ~0ull,
--						   ttm_bo_type_kernel,
--						   XE_BO_FLAG_SYSTEM |
--						   XE_BO_FLAG_GGTT |
--						   XE_BO_FLAG_PAGETABLE |
--						   XE_BO_FLAG_FORCE_WC,
--						   pin_params->alignment, false);
-+	dpt = xe_bo_create_pin_map_at_novm(xe, tile0,
-+					   dpt_size,  ~0ull,
-+					   ttm_bo_type_kernel,
-+					   XE_BO_FLAG_VRAM_IF_DGFX(tile0) |
-+					   XE_BO_FLAG_GGTT |
-+					   XE_BO_FLAG_PAGETABLE |
-+					   XE_BO_FLAG_FORCE_WC,
-+					   pin_params->alignment, false);
- 	if (IS_ERR(dpt))
- 		return PTR_ERR(dpt);
+ 	rcu_read_lock();
++	spin_lock(&b->signaler_active_sync);
+ 	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		}
+ 	}
+ 	atomic_dec(&b->signaler_active);
++	spin_unlock(&b->signaler_active_sync);
+ 	rcu_read_unlock();
  
+ 	llist_for_each_safe(signal, sn, signal) {
+@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	init_llist_head(&b->signaled_requests);
+ 
+ 	spin_lock_init(&b->irq_lock);
++	spin_lock_init(&b->signaler_active_sync);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+ 	b->irq_engine = irq_engine;
+@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 	if (release)
+ 		intel_context_put(ce);
+ 
+-	while (atomic_read(&b->signaler_active))
++	while (atomic_read(&b->signaler_active)) {
++		spin_lock(&b->signaler_active_sync);
++		spin_unlock(&b->signaler_active_sync);
+ 		cpu_relax();
++	}
+ }
+ 
+ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index bdf09fd67b6e7..28dae32628aab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
+ 	atomic_t signaler_active;
++	spinlock_t signaler_active_sync;
+ 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 -- 
 2.53.0
 
