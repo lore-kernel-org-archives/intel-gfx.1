@@ -4,31 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B17D4C43458
-	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 21:52:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9ABDC43458
+	for <intel-gfx@archiver.kernel.org>; Fri, 26 Jun 2026 23:43:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD0E10F71D;
-	Fri, 26 Jun 2026 21:52:39 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2BFD310F71D;
- Fri, 26 Jun 2026 21:52:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 27F62600AA;
- Fri, 26 Jun 2026 21:52:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35F311F000E9;
- Fri, 26 Jun 2026 21:52:36 +0000 (UTC)
-From: Andi Shyti <andi.shyti@linux.intel.com>
-To: dri-devel <dri-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Raag Jadav <raag.jadav@intel.com>, Andi Shyti <andi.shyti@kernel.org>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Subject: [PATCH v2] drm/i915/gt: Return bool values from a boolean helper
-Date: Fri, 26 Jun 2026 23:52:32 +0200
-Message-ID: <20260626215232.861416-1-andi.shyti@linux.intel.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A7DC10E407;
+	Fri, 26 Jun 2026 23:43:01 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="b5zWQgyN";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF3F010E407;
+ Fri, 26 Jun 2026 23:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1782517380; x=1814053380;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=I8rs60DsBcR37fJbgHh9PfUQXc3tqhDDIpWzeWAVvYU=;
+ b=b5zWQgyNKOs4zJXe02bL+LjWwJ2G5Rpek4P+BURa5lH3G0qctUg1zHqz
+ 1SlLGnPIBesz6MApNl9LB5KIAnthvhO/aur2GLNZKr7k4W08DrXQ0SzVQ
+ p5qnMwvw5SDt6e2tY53M2aWOQBVzhkd2NKjp8CR5AATegzodHeogbVKTO
+ Jf8Zi85UAPl0a1IB/J8WEFckGKdfzDv/G3f52bq3HkTPdR6J4P6TVnlF3
+ fazojjmzpsrwhths8Yjl2dIGiI1viVjhx30OfZvJhaoTTH9obH5zUObKo
+ qZ7Tk0CCb6SEnmyZhmAZATHKiyyZdyODDnMX5LvgrXjHtvR6l7p6t4MUi w==;
+X-CSE-ConnectionGUID: +NQBrraGSXOvtx3dc3X0gg==
+X-CSE-MsgGUID: tLPdxy8HTby6sQ9K+X6PFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11829"; a="85861085"
+X-IronPort-AV: E=Sophos;i="6.24,227,1774335600"; d="scan'208";a="85861085"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2026 16:43:00 -0700
+X-CSE-ConnectionGUID: 3mamcdI1TuqdY/VNEz5fCw==
+X-CSE-MsgGUID: WnVFdC+xRBWDoCP/9MaaDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,227,1774335600"; d="scan'208";a="248073733"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by fmviesa007.fm.intel.com with ESMTP; 26 Jun 2026 16:42:58 -0700
+From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@intel.com>,
+ Suraj Kandpal <suraj.kandpal@intel.com>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
+Subject: [PATCH v9 2/8] drm/i915/bios: store VBT #57's metadata in
+ intel_vbt_data
+Date: Sat, 27 Jun 2026 01:42:40 +0200
+Message-ID: <20260626234246.2446451-3-michal.grzelak@intel.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20260626234246.2446451-1-michal.grzelak@intel.com>
+References: <20260626234246.2446451-1-michal.grzelak@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -45,34 +73,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_has_gpu_reset() returns logically correct values by
-returning a function pointer when GPU reset is supported and
-NULL otherwise. However, as a boolean helper, it is more
-appropriate to return explicit true or false values.
+Store tables, number of tables, number of rows and number of columns in
+intel_vbt_data when search for the VBT #57 has succeeded. Structurize
+all VS/PE-O relevant metadata inside anonymous struct named as vspeo.
 
-Signed-off-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Link: https://lore.kernel.org/r/20260625114442.2912230-1-andi.shyti@linux.intel.com
+Presence of C20 or newer PHY causes each table to contain 16 rows. Each
+table contains 10 rows in case C20 PHY is absent. Use display version to
+determine number of rows since there is no helper in intel_bios.c to
+check presence of any C20+ PHY. pre-MTL platforms should have 10 rows
+while MTL+ should have 16 rows.
+
+v5->v6
+- add Bspec (Suraj)
+
+v3->v4
+- remove unnecessary init of VS/PE-O metadata (Suraj)
+- add helper for computing number of rows (Suraj)
+- fix num_rows's type (Jani, Suraj)
+- declare num_rows (Suraj)
+
+Bspec: 68963
+Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com> # v7
 ---
-v1 -> v2
-- don't use '!!' when returning function pointers. (Jani)
+ drivers/gpu/drm/i915/display/intel_bios.c         | 10 ++++++++++
+ drivers/gpu/drm/i915/display/intel_display_core.h |  7 +++++++
+ 2 files changed, 17 insertions(+)
 
- drivers/gpu/drm/i915/gt/intel_reset.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index b2cf672564dd..6053f3e8aa27 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -797,7 +797,7 @@ static int __intel_gt_reset(struct intel_gt *gt, intel_engine_mask_t engine_mask
- bool intel_has_gpu_reset(const struct intel_gt *gt)
- {
- 	if (!gt->i915->params.reset)
--		return NULL;
-+		return false;
- 
- 	return intel_get_gpu_reset(gt);
+diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+index 7728e1ffc9044..31f401bcb82ef 100644
+--- a/drivers/gpu/drm/i915/display/intel_bios.c
++++ b/drivers/gpu/drm/i915/display/intel_bios.c
+@@ -2185,6 +2185,11 @@ parse_compression_parameters(struct intel_display *display)
+ 	}
  }
+ 
++static int vswing_preemph_num_rows(struct intel_display *display)
++{
++	return DISPLAY_VER(display) >= 14 ? 16 : 10;
++}
++
+ static void
+ parse_vswing_preemph_override(struct intel_display *display)
+ {
+@@ -2198,6 +2203,11 @@ parse_vswing_preemph_override(struct intel_display *display)
+ 	/* pre-ICL GOPs don't have VBT #57 */
+ 	if (!block)
+ 		return;
++
++	display->vbt.vspeo.tables = block->tables;
++	display->vbt.vspeo.num_tables = block->num_tables;
++	display->vbt.vspeo.num_columns = block->num_columns;
++	display->vbt.vspeo.num_rows = vswing_preemph_num_rows(display);
+ }
+ 
+ static u8 translate_iboost(struct intel_display *display, u8 val)
+diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
+index 17f7d3abdb9c5..82754dceb3b84 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_core.h
++++ b/drivers/gpu/drm/i915/display/intel_display_core.h
+@@ -242,6 +242,13 @@ struct intel_vbt_data {
+ 	struct list_head display_devices;
+ 	struct list_head bdb_blocks;
+ 
++	struct {
++		const u32 *tables;
++		int num_tables;
++		int num_columns;
++		int num_rows;
++	} vspeo;
++
+ 	struct sdvo_device_mapping {
+ 		u8 initialized;
+ 		u8 dvo_port;
 -- 
-2.53.0
+2.45.2
 
