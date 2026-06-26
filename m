@@ -4,97 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8D1C44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6837C43458
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2B10EFD5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6136410EFD0;
 	Wed,  1 Jul 2026 12:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a5KeyFTe";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="uYwb7DGz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4768E10E106;
- Mon, 29 Jun 2026 19:26:00 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7F8DE600AA;
- Mon, 29 Jun 2026 19:25:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564721F000E9;
- Mon, 29 Jun 2026 19:25:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782761159;
- bh=RyicGxsSOzJTaoBcRQGH27oUytYBKCYLUF6jDOpzH7I=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=a5KeyFTeJjh7TJORUpSdmde4WrAK8BTgTPTho1LlZNtgrXh/Yqn9mD6/L1E9zfs8r
- e8za/mcjsoGeYfC+55PxZM0hLi0ZRJB+0Gbcm0U2F6Fn97SZIJM1N8XKGpsR2xQKrI
- yYMjTnXxd/YQ9zzdgYLIPjHCFJPa2KKvIAraY8mhyi19FlYp5ghqePfdzpdkTUseC1
- had3a1qZv4Z9B8qbb5LsCMcPsRJ2m5HWJRYLpaEMWR5rYHXsAk6QucmLYIa0UzO6lQ
- Pqa24H5c5iEEZidrzYUke9zV+idmE8KbclhOGbVFF/6WTC2VNdnFmcT1ViYuCVE/mn
- cARBGEsTONhTA==
-From: Lorenzo Stoakes <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-sound@vger.kernel.org
-Subject: [PATCH 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
-Date: Mon, 29 Jun 2026 20:25:24 +0100
-Message-ID: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
-References: <cover.1782760670.git.ljs@kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from mail-qt1-f201.google.com (mail-qt1-f201.google.com
+ [209.85.160.201])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23D7C10F518
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 21:45:17 +0000 (UTC)
+Received: by mail-qt1-f201.google.com with SMTP id
+ d75a77b69052e-51a19f736a1so23027761cf.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 14:45:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1782510316; x=1783115116;
+ darn=lists.freedesktop.org; 
+ h=cc:to:from:subject:message-id:mime-version:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=Cia7kgRPhjI1x3e7gMKFsSdD516IvT1B7tWFopyj8HA=;
+ b=uYwb7DGzwPuHqHm6jN3nq9ufwa3MTtjfL6d4+vBL0FI6x9zQqZ0/2tO8TKK8cr3heA
+ WIw2NvEUD+oQjjUXapzR/QFk/Z/vQFPqA3+FWcMX7wEvlp19juuoQS299T07s7D5m4Tk
+ V4Q2Snq7QxViIPSKDorLd3BcmNjaL5fIG0Wkrg7ACfmrRyPyGDuRY98sfQb0JFafdNAk
+ KO5lt7a28MaJzsafXwJJO+9NhPc83dtbczKTJN0KqlnuvTfTxZNhARfREXDjm6xuv6nE
+ qcyVY3IgsM/Nq7CvS7s8LiUocqhyPuzbg5lVbujjvl4eB3Dnwrm2lsxirBVKsK2y7xs2
+ om+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1782510316; x=1783115116;
+ h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=Cia7kgRPhjI1x3e7gMKFsSdD516IvT1B7tWFopyj8HA=;
+ b=WrD1e0iex3JbVfE1RtqyIe6XaZ8ToG6YBX0Ai1Klu8AqQm6hjQiqcH1rwr9yPv0CE+
+ grZaJ0FmP+LaMxXYdaSuUrWMdaagMUY52FU6tZ4tnPZmWyneIPL/VyzdGvo93AEhqKV3
+ roNXkPWdXbNIGNjRgnd0c5+pk+zIm8CQuKChlaAmf/njzaAvWJQbhHn+xsWUGgHk4bsK
+ EPlPP+8zjpkAeXFWcrbfE6pJdoLogP5BCXFjSTihDfJivI6tjM0K4/tM4e3p4hYceHH3
+ 7WD6itOHp+RrzkX1guLeulSP6D7ZSr92TfUhXQrjrKSpKHaigLJGDckG24oOQh7eQMDw
+ 8TsA==
+X-Gm-Message-State: AOJu0Yw/AOzWp+5EY6zf8hu+gd+HSUDwiDe/wteY8LJyoQHdYNloXrOw
+ vhOa+5LYavdwYT1gN/3GOY4VLeVaV9U+Gy4k/aXtxaITmNZjWztwDO6rZfb4dnySXA0lVRpZb/I
+ JqTBcUxCbkch36iI7L26TYl5V1DX8R7gnMZJ+Krhy0oI+22YHOzrXB17NPTtML6AdI1ATq2HLAw
+ KF2shbDIWqcgtwHAfCTkTGHuhveR2AkaScQZ9nykMGOMP62tgX7e+h09f0uoE=
+X-Received: from qtbea9.prod.google.com ([2002:a05:622a:5b09:b0:51a:8593:7099])
+ (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ac8:5f87:0:b0:51a:9a12:9f02 with SMTP id
+ d75a77b69052e-51a9a12be9emr9496141cf.36.1782510315081; 
+ Fri, 26 Jun 2026 14:45:15 -0700 (PDT)
+Date: Fri, 26 Jun 2026 17:44:40 -0400
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
+Message-ID: <20260626214513.179943-1-gildekel@google.com>
+Subject: [PATCH v3 0/2] drm/i915/display: Enable HDR over DP MST
+From: Gil Dekel <gildekel@google.com>
+To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
+ khaled.almahallawy@intel.com, navaremanasi@google.com, 
+ Gil Dekel <gildekel@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,96 +78,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These test whether the VMA has stack sematics, i.e. is able to grow upwards
-or downwards depending on the architecture.
+Currently, the Intel display driver does not support HDR over DP MST
+connections. This series enables this functionality.
 
-In order to account for arches which do not support upward-growing stacks,
-introduce VMA_GROWSUP whose definition depends on the architecture
-supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
-to account for this.
+To achieve this:
+1. We refactor colorimetry capability queries to query and cache the value
+   on a per-connector basis (for both SST and MST downstream sinks)
+   instead of checking the root port's DPCD register directly (which returns
+   false for MST hubs).
+2. We update the MST stream configuration to compute the required VSC and
+   HDR metadata SDPs.
+3. We set the transcoder's Video DIP registers on stream enable and during
+   fastsets (update_pipe) to propagate HDR metadata changes without forcing
+   a full modeset.
+4. We expose the max_bpc, HDR metadata, and DP Colorspace properties on
+   MST connectors.
 
-Update the VMA userland tests to reflect the changes
+Link to v1/v2 discussion:
+https://lore.kernel.org/r/20260625160020.2873859-1-gildekel@google.com
 
-No functional change intended.
+Changes in v3:
+- Stripped Gerrit Change-Id tags from commit messages.
+- Added Assisted-by: jetski:gemini-2.5-pro tags.
 
-Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
----
- include/linux/mm.h              | 21 ++++++++++++++++++---
- tools/testing/vma/include/dup.h |  4 ++++
- 2 files changed, 22 insertions(+), 3 deletions(-)
+Changes in v2:
+- Fixed critical Werror CI build break (-Wunused-but-set-variable) by
+  removing unused display variable in intel_dp_compute_vsc_sdp().
+- Resolved checkpatch warnings by hoisting variable declarations and
+  restoring missing blank lines.
+- Gated attaching MST HDR_OUTPUT_METADATA property on
+  intel_dp_has_gamut_metadata_dip() for consistency with SST.
+- Removed redundant direct max_bpc assignment on connector struct.
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 868b2334bff3..cf7df1569052 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -472,6 +472,7 @@ enum {
- #define VM_SAO		INIT_VM_FLAG(SAO)
- #elif defined(CONFIG_PARISC)
- #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
-+#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
- #elif defined(CONFIG_SPARC64)
- #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
- #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
-@@ -483,6 +484,7 @@ enum {
- #endif
- #ifndef VM_GROWSUP
- #define VM_GROWSUP	VM_NONE
-+#define VMA_GROWSUP	EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARM64_MTE
- #define VM_MTE		INIT_VM_FLAG(MTE)
-@@ -1563,11 +1565,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
- 		vma->vm_end >= vma->vm_mm->start_stack;
- }
- 
--static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
-+static inline bool vma_flags_can_grow(const vma_flags_t *flags)
- {
--	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
-+	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
-+		return true;
-+	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
-+		return true;
-+
-+	return false;
-+}
- 
--	if (!maybe_stack)
-+static inline bool vma_can_grow(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_grow(&vma->flags);
-+}
-+
-+static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
-+{
-+	if (!vma_can_grow(vma))
- 		return false;
- 
- 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 5d7d0afd7765..6f5bcd7fbcd8 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -245,8 +245,10 @@ enum {
- #define VM_STACK	INIT_VM_FLAG(STACK)
- #ifdef CONFIG_STACK_GROWS_UP
- #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
-+#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
- #else
- #define VM_STACK_EARLY	VM_NONE
-+#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARCH_HAS_PKEYS
- #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
-@@ -315,6 +317,8 @@ enum {
- 
- /* Bits set in the VMA until the stack is in its final location */
- #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
-+#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
-+	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
- 
- #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
- 		       VM_EXEC_BIT : VM_READ_BIT)
--- 
-2.54.0
+Gil Dekel (2):
+  drm/i915/display: Cache DP colorimetry support per-connector
+  drm/i915/display/mst: Enable HDR over DP MST
 
+ .../drm/i915/display/intel_display_types.h    |  1 +
+ drivers/gpu/drm/i915/display/intel_dp.c       | 25 ++++++++---
+ drivers/gpu/drm/i915/display/intel_dp.h       |  8 ++++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c   | 44 +++++++++++++++++--
+ 4 files changed, 68 insertions(+), 10 deletions(-)
+
+--
+Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
