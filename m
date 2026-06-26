@@ -4,66 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04D9C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A10BCC43327
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 048F510EF91;
-	Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDE0B10EF8D;
+	Wed,  1 Jul 2026 12:57:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Kml+Hmkk";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="spMon2RT";
 	dkim-atps=neutral
-Received: from mail-qt1-f201.google.com (mail-qt1-f201.google.com
- [209.85.160.201])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3545D10E21D
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 16:11:21 +0000 (UTC)
-Received: by mail-qt1-f201.google.com with SMTP id
- d75a77b69052e-51768072950so27978651cf.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 25 Jun 2026 09:11:21 -0700 (PDT)
+Received: from mail-qk1-f202.google.com (mail-qk1-f202.google.com
+ [209.85.222.202])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE01510F6F4
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 17:55:16 +0000 (UTC)
+Received: by mail-qk1-f202.google.com with SMTP id
+ af79cd13be357-92ae405b5eeso104862185a.0
+ for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 10:55:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782403880; x=1783008680;
+ d=google.com; s=20251104; t=1782496516; x=1783101316;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=YjaKi/4knKOQz2Kvz9Z/GYlanyeEUwdQjIak/LLLvcg=;
- b=Kml+HmkkGQihx0WT8TRt7H0eloDIu2907VZIH+VvDo3R9lSmAotU0/1yyMMhD09YXS
- 5naMJlxMF4KO6R1tlE1prIgjoOtAfXRdn23bCyBDm/ZMtnkL/v+xlU4zEY0Em6G5AaFY
- MRh7+8kO29rR/DHKSnxiA/suwzbPuJYy3ciO77iL0KhUNEyv8uI0J0HP9lLalJmALHlc
- CHp9ZMG6/Xf0M8x2g5JzfK8ZWCfpbH4TEQRadcg8wyJ9ewb+AUpG0g4jTcy8J8zo8YY4
- aHGITpuvBmNtW4gsZ+mhrJ4sK00f9LWLx+WHcYYLGqK2ZoHGTf3HSSTb1ulGvp2YzPAk
- JcNw==
+ bh=OBPKu9Cmc9J3C37pieRPjp05jyWuksA/b6kGx2OZKfQ=;
+ b=spMon2RTipYBYUcuJ0Ot0OSwGksPiEk3opV9USVL4tiPvJB3GoH1il+0lxboVNXPZw
+ blHrBYjNFYWzmwPdZg8YbThmIME589kBSuQib6eUeaFN47UgcvQwWt1Ba8yBMufGJFJh
+ 1T8dd9IP1OMAgmPSQIkCwHWX90QW1Pmo3b8tZqYBeN7w77Q1tXR9+pdl0s0wCEKsYTiN
+ 8S/d/bSReecwPksUlcTcXwx3Z+dnzI8FhgnBpMNLjp8RI6dksDvwQgR+WceZ74rWCEIa
+ RC60VS+goxF3u2gMuNoCEo9tlG/18GDz2ftuzYK54RA+FSxWVSgGXPML/n+VgcAL//6+
+ lN+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782403880; x=1783008680;
+ d=1e100.net; s=20251104; t=1782496516; x=1783101316;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=YjaKi/4knKOQz2Kvz9Z/GYlanyeEUwdQjIak/LLLvcg=;
- b=iMSgebVw33U6GzMgsrX4fsa+Vrd5XpPqsJi4VmZivAf5z+SFiW46JMMyOx1N/ESxMq
- a+p/h8Dh8YEZXaURcfzQ9wgPsvxaXHfDYcBz1CtDb3lRJJClzEuZwnNZSAt6GNa3BxqA
- mNC15TyjEursZ8X1consqvz8st5E2Zs9+ywo5ROLAw9gR7ZoALnGKdkP4b0AgFLrjlYZ
- OhsHG7UPzsFFafYC5aqqMKCdx6p0TA4c2F5NGzEwj3t9bmh9jms55s/8Q0xz3EKGsdeA
- yKDg8Wl3wGWJkeSxSGN+VYaykh1Sd+6W56NWs3RtMyhKOE3mei2vi8u/zTJczOPXfMRF
- xvxw==
-X-Gm-Message-State: AOJu0YzFiTglPNfuW9SZMMIPA46Xz3sfZFI4z000xoWuH2TDOcvSvZgL
- vjgVPGHkRjuqAAzPcHb2JYEUu5flfD3wyyL6zxzO0+GAok2/TfGHbm0RhSQpd/p561+38HYLWkA
- eRUoNSvu1ytvcNfR2TDhX6mHj1/yNJ3NM3apT8tcAhcAX8BPpzYunjJQJZacWk7X+RMEecM+BXv
- G/gqvXj4LkOsB+XOvhuwkX2uHvUV9y5I0luoQij2Yg79ZAywWAQvB6zbA+4kY=
-X-Received: from qtbga15.prod.google.com
- ([2002:a05:622a:590f:b0:51a:5054:ea47])
+ bh=OBPKu9Cmc9J3C37pieRPjp05jyWuksA/b6kGx2OZKfQ=;
+ b=VqnDueb7BPuRsbHaE6gWbFajqeDx2fCE+YT34jM1V2B0fgb755fH1EWBFIw3ZyvL2n
+ zX4Tas/QuXEkNGZciJCVROJAEbV6KkJgH3yFuwsy67ysAMI4ILN9UejH32sJfZ+O5dVx
+ 18xK9IGQNRlw1hdx2ERvlRvGMK4PxPsgS7mOboh3tuV8kMDZn2QjaPFzZXRRgLXdBAHz
+ CQhmHJaOKUfwq3w3ihZZN2xYtHAHpwBRgiVTIZUL/xSXSIx7F7Xu+nyymwQZDGxL1sEN
+ gHwSV4Y30rMDB58e191+/w3hTyyqFWh3E+nwty9iCoVfKpk69W31698PYX2u0oy97z2k
+ wX9A==
+X-Gm-Message-State: AOJu0Yz1h0I+QD5o4zQeW8vFTHpK4yJ1iKw6O74n3CzS1xWiohqSXmFQ
+ Hi4r8ncx7EgUAdNoKxx/oV6vaxdwTiBGOUk5cMj02U4qD0Frf2hdREj3hMlH5KBmreHJ39ocwd7
+ OwPW8G5GtynW9rkTy5MJtiYqt5jJmy5gpPqC+iR1F3oAjWUVrZaAgr03RvOm4/fs1GfY5cVeAt0
+ g3Fhz8ya9yxUDXHrBPyJ1/9hcqspUi9isQfwnNGRD7+X4OztYUPK+Yhf85GP0=
+X-Received: from qkntl9.prod.google.com ([2002:a05:620a:3b09:b0:915:7ecd:606b])
  (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
- 2002:ac8:6105:0:b0:519:5238:96dd with SMTP id
- d75a77b69052e-51a727f3e35mr43029081cf.41.1782403878891; 
- Thu, 25 Jun 2026 09:11:18 -0700 (PDT)
-Date: Thu, 25 Jun 2026 12:10:26 -0400
-In-Reply-To: <20260625161104.2893517-1-gildekel@google.com>
+ 2002:a05:620a:198f:b0:915:d10e:8c4f with SMTP id
+ af79cd13be357-9293dfbcb3emr1257302685a.53.1782496514898; 
+ Fri, 26 Jun 2026 10:55:14 -0700 (PDT)
+Date: Fri, 26 Jun 2026 13:54:22 -0400
+In-Reply-To: <20260626175510.3899476-1-gildekel@google.com>
 Mime-Version: 1.0
-References: <20260625161104.2893517-1-gildekel@google.com>
+References: <20260625160020.2873859-1-gildekel@google.com>
+ <20260626175510.3899476-1-gildekel@google.com>
 X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260625161104.2893517-2-gildekel@google.com>
-Subject: [PATCH 1/2] drm/i915/display: Cache DP colorimetry support
+Message-ID: <20260626175510.3899476-2-gildekel@google.com>
+Subject: [PATCH v2 1/2] drm/i915/display: Cache DP colorimetry support
  per-connector
 From: Gil Dekel <gildekel@google.com>
 To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: jani.nikula@intel.com, imre.deak@intel.com, khaled.almahallawy@intel.com, 
- navaremanasi@google.com, Gil Dekel <gildekel@google.com>
+Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
+ khaled.almahallawy@intel.com, navaremanasi@google.com, 
+ Gil Dekel <gildekel@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -93,13 +94,14 @@ This prepares the display driver to correctly identify colorimetry/VSC SDP
 support on downstream MST sinks, where checking the root port's capabilities
 incorrectly returns false.
 
+Change-Id: I48c69c04e8baeb30e8ce86a1ad4f25e727929cdb
 Signed-off-by: Gil Dekel <gildekel@google.com>
 ---
  .../gpu/drm/i915/display/intel_display_types.h |  1 +
  drivers/gpu/drm/i915/display/intel_dp.c        | 18 ++++++++++++++----
  drivers/gpu/drm/i915/display/intel_dp.h        |  2 ++
- drivers/gpu/drm/i915/display/intel_dp_mst.c    | 14 ++++++++++++--
- 4 files changed, 29 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c    | 13 +++++++++++--
+ 4 files changed, 28 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
 index c048da7d6fea..428d55f9682f 100644
@@ -186,17 +188,23 @@ index 02b691df6755..26b3a0eb354e 100644
  				struct intel_crtc_state *pipe_config,
  				struct drm_connector_state *conn_state,
 diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index ecc90e8faee1..dd3cd2ec3d50 100644
+index ecc90e8faee1..5b76d12bb00f 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1639,8 +1639,18 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
+@@ -1627,6 +1627,7 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
+ 	struct intel_connector *connector = to_intel_connector(_connector);
+ 	struct intel_display *display = to_intel_display(connector);
+ 	struct intel_dp *intel_dp = connector->mst.dp;
++	int status;
+ 
+ 	if (!intel_display_device_enabled(display))
+ 		return connector_status_disconnected;
+@@ -1639,8 +1640,16 @@ mst_connector_detect_ctx(struct drm_connector *_connector,
  
  	intel_dp_flush_connector_commits(connector);
  
 -	return drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
 -				      connector->mst.port);
-+	int status;
-+
 +	status = drm_dp_mst_detect_port(&connector->base, ctx, &intel_dp->mst.mgr,
 +					connector->mst.port);
 +
