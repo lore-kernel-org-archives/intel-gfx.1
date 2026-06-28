@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88FCCC44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF4FC43327
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20DF10E891;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABC3410E792;
 	Wed,  1 Jul 2026 12:59:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="qB9mfzRC";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="D2WEHFE7";
-	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4512510E170
- for <intel-gfx@lists.freedesktop.org>; Mon, 29 Jun 2026 00:34:59 +0000 (UTC)
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256;
- b=qB9mfzRCZYvoF9IRkZOjzjyQq8O/0jFLZFA0ucmORMzvxBxRp4K7/N7TLCoJt/cYyGfgDwXkJ/ZN6OU36pNb/Wqm/7kLI1+0lsE0q5csj72EEZSqi4zwPRD6Z+kzZWSeCDWIN6wa2wIgR6gnwCRf8PLT3Zu0uWK5mD1X3xq065sKFPS1OfULohLW291ewJoBDIE1jW+2aObKX3J6njkmUQ4Jge0LI8OphBFanZoSaDhZoK3URIOMkfpxB7mCgCNEf2WeG/T6tWohPPdTRrOBP77TEUmlicuKTNHIJyTnw5wa9Z5+QXge9SsiXUreaNTFJC0vW/DnE1EAMYDLdnudpQ==;
- s=purelymail2; d=rcpassos.me; v=1;
- bh=ZsfCjmQEzgl9BUa5k4KAiMGgZgn3+ETC4EaT4Dw+yFY=;
- h=Received:Date:From:To:Subject; 
-DKIM-Signature: a=rsa-sha256;
- b=D2WEHFE7KDUDAgT5dQJ2KVOBUCpPX/X8nLh3fGFXRxTK4KhZN9GKCzbm1/feLbn73x64KYgD2kR/EvbqzEMDdEHXALWVyptRG7M9czRgnr0eLf1UVRhQpSogE8v+EdRzuTuMIoA3sYQ2VbX8C29bkbLT7HUAndC/qGVZwpTSAT7I54M0JikPAoRfG6EfiwHoLhhGiv9qBq/qChOgFxw9T+ulxxODPN4TlBSLSEH/aPCbFGRk3ftGHeSaWr7hAYp/fnMJirWjYj31EmU4ZauF9XZPq9l7zU/iyriSQMCF93Z9pDmWxXCpgLZ2JnlHWy9KYaE8WDXMo79SZVl+Zu0PuQ==;
- s=purelymail2; d=purelymail.com; v=1;
- bh=ZsfCjmQEzgl9BUa5k4KAiMGgZgn3+ETC4EaT4Dw+yFY=;
- h=Feedback-ID:Received:Date:From:To:Subject; 
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 53992085;
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Mon, 29 Jun 2026 00:34:29 +0000 (UTC)
-Mime-Version: 1.0
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657FD10E55C;
+ Sun, 28 Jun 2026 03:55:33 +0000 (UTC)
+Received: from smtpclient.apple (unknown [117.182.74.7])
+ by APP-01 (Coremail) with SMTP id qwCowADXfdYKm0BqqCuqAw--.7249S5;
+ Sun, 28 Jun 2026 11:55:26 +0800 (CST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH] fix: drm/i915: __live_active_setup: kfree bypasses
+ kref_put in early   error path
+From: WenTao Liang <vulab@iscas.ac.cn>
+In-Reply-To: <20260626132252.38377-1-vulab@iscas.ac.cn>
+Date: Sun, 28 Jun 2026 11:55:15 +0800
+Cc: christian.koenig@amd.com, kees@kernel.org, tzimmermann@suse.de,
+ matthew.brost@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 28 Jun 2026 21:34:49 -0300
-Message-Id: <DJL413GMZH5Q.2S11VUVHGLLVF@rcpassos.me>
-From: "Rafael Passos" <rafael@rcpassos.me>
-To: "Randy Dunlap" <rdunlap@infradead.org>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v2] Documentation: xe_drm: fix chars used for subsection
-Cc: <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <skhan@linuxfoundation.org>, "Intel-xe"
- <intel-xe-bounces@lists.freedesktop.org>, "Rafael Passos"
- <rafael@rcpassos.me>
-X-Mailer: aerc 0.21.0
-References: <20260621030114.963405-1-rafael@rcpassos.me>
- <1a20e4bf-fd7f-453e-b7a8-c7feb0b077c6@infradead.org>
-In-Reply-To: <1a20e4bf-fd7f-453e-b7a8-c7feb0b077c6@infradead.org>
+Message-Id: <54DF0C1B-8F45-4191-A5DF-16C2CB1F78A6@iscas.ac.cn>
+References: <20260626132252.38377-1-vulab@iscas.ac.cn>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-CM-TRANSID: qwCowADXfdYKm0BqqCuqAw--.7249S5
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4xZF4fur4DuFWfJF1kZrb_yoW8GrWkpw
+ 4rJa4jyryfA3W7tay7uF4FqFyfX3ZxGFWxuw1qkw4fuw15C3W8J3sY9Fy7WF1UArZ3Gr13
+ AwnrtFyxt3WjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPEb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+ 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+ 8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
+ 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+ CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280
+ aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
+ CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvj
+ eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxw
+ CY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
+ JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1V
+ AFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xII
+ jxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
+ 8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
+ UjIFyTuYvjxU7miiUUUUU
+X-Originating-IP: [117.182.74.7]
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2pAhrYiNgAAsE
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,34 +70,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
-
-I just checked, and this issue is still present.
-Since the merge window just closed, I think it's a good time
-to send a ping :)
-
-On Sun Jun 21, 2026 at 1:07 AM -03, Randy Dunlap wrote:
-> On 6/20/26 8:01 PM, Rafael Passos wrote:
->> and the page title is defined the.
->
->                         defined there.
-
-Should I send a v3 of this patch fixing this minor typo ?
-
-I see the original email did not show up in Lore (just Randy's response).
-Should resend in cases like this ? In this case, while at it, just do a v3?
-
-> LGTM. Thanks.
->
-> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
-> Tested-by: Randy Dunlap <rdunlap@infradead.org>
-
-Also, if I were to send a new version (changing only the commit message),
-and the previous had Review/Tested tags, should I carry them in the new ver=
-sion?
-Or just send it as is?
 
 
-Thanks,
+> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 21:22=EF=BC=8CWenTao Liang =
+<vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
+>=20
+> When heap_fence_create fails, the early error path calls kfree(active)
+>  directly instead of __live_put(active), bypassing the kref_put path =
+that
+>  would call i915_active_fini for proper resource teardown. This skips
+>  cleanup of the i915_active state while the initial kref from =
+kref_init
+>  remains unbalanced.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 5361db1a33c7 ("drm/i915: Track i915_active using debugobjects")
+> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
+> ---
+> drivers/gpu/drm/i915/selftests/i915_active.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c =
+b/drivers/gpu/drm/i915/selftests/i915_active.c
+> index 9fea2fabeac4..8ec7859da762 100644
+> --- a/drivers/gpu/drm/i915/selftests/i915_active.c
+> +++ b/drivers/gpu/drm/i915/selftests/i915_active.c
+> @@ -91,7 +91,7 @@ __live_active_setup(struct drm_i915_private *i915)
+>=20
+> 	submit =3D heap_fence_create(GFP_KERNEL);
+> 	if (!submit) {
+> -		kfree(active);
+> +		__live_put(active);
+> 		return ERR_PTR(-ENOMEM);
+> 	}
+>=20
+> --=20
+> 2.39.5 (Apple Git-154)
 
-Rafael Passos
+Please ignore this patch. I will resend a proper version after
+learning the kernel submission process.
+
+Apologies for the noise.
+
+Best regards,
+WenTao Liang=
+
