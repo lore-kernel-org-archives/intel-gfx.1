@@ -4,58 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DE6CC43602
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:58:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF036C43602
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A913410EFCE;
-	Wed,  1 Jul 2026 12:58:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C29010EFD2;
+	Wed,  1 Jul 2026 12:58:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CPvoIDGL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="klEBAvxA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5CCC10E281;
- Sun, 21 Jun 2026 09:37:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB5B10EA13;
+ Mon, 29 Jun 2026 19:26:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 99C0F60051;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EEE1F000E9;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D2D50601BE;
+ Mon, 29 Jun 2026 19:26:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1611F00A3A;
+ Mon, 29 Jun 2026 19:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782034672;
- bh=3PM2SwKGUgQ1Wfor83rkZsilDOPTMWeMgpO7Hmp6Coc=;
- h=Date:From:To:Cc:Subject;
- b=CPvoIDGL14sCX5ylLaYUAhDC9lMcMiJh12IJzutGSGQKhhN/j3P7fMe1lw15m5Roc
- tHpoEk8Aby4R7yyQzmUbl4hKAdLn06DdHEiYs3o1201v2up+FU7xKvnepQ/nPPwDCI
- WFkQeLslfQ8Kj6y7aV8P00hG40B3FZDEvni22GswCCp3bAgMXKZfMgiJsONy+BOgVi
- k0p/zCAiBS0MY4A0IhU6SDokj6lXppltL7JA3pcuCP15DKxW8Mk4X/xfQ3c3P97y2z
- c5uOUbqO06EeOjVenm17mc5XrEaYLlP7aug5hC/9nFo5DtP/NtxZmsipMAfim8Ib+w
- nCbGOugNardpA==
-Received: from rostedt by gandalf with local (Exim 4.99.3)
- (envelope-from <rostedt@kernel.org>) id 1wbEd0-00000001qTd-46mY;
- Sun, 21 Jun 2026 05:38:10 -0400
-Message-ID: <20260621093430.264983361@kernel.org>
-User-Agent: quilt/0.69
-Date: Sun, 21 Jun 2026 05:34:30 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ s=k20260515; t=1782761176;
+ bh=kVNcj1n0t63iEIMvCjdqZpMGs73q5Ko9ggshfmmLkXE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=klEBAvxAFllrYroNuPJLJ6gpkhIWH2gTVoT+/xDpJL5trOYXohBGpPUklmeyy3M8s
+ V8yPCwMkEt0hiRNtDQFKpdz3l1uU7duIasGbSIztboWDM2ZAqiJD0rorDwfoqGlBAa
+ LG7rxtse+7tEtmE7jUNFo/a5he8kyou91LnB1mOd3C/3gEPhWsxleGxfu6UNzRLKT4
+ q/kle54fQbZ80BilK1fYXEKilUW+HJlbq+uSEtkk9SKLXzWuUuYgjrQUH6aBSmWp7O
+ s8EEU2+Bt7ipQc2WUzag4pdln2sWzLqlewf7/vmu4r9kXvNYawRuP/0vdC2aunN5Wg
+ EWS79jrl2lb4w==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 07/13] mm/vma: rename vma_get_page_prot to
+ vma_flags_to_page_prot
+Date: Mon, 29 Jun 2026 20:25:30 +0100
+Message-ID: <fc8ac30d03d29d236e76542b36432bba315aca60.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,42 +112,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-There's been complaints about trace_printk() being defined in kernel.h as it
-can increase the compilation time. As it is only used by some developers for
-debugging purposes, it should not be in kernel.h causing lots of wasted CPU
-cycles for those that do not ever care about it.
+Having vma_get_page_prot() refer to VMA flags and vma_set_page_prot() refer
+to a VMA is confusing.
 
-Instead, add a CONFIG_TRACE_PRINTK_DEBUGGING option that developers that do
-use it can set and not have to always remember to add #include <linux/trace_printk.h>
-to the files they add trace_printk() while debugging. It also means that
-those that do not have that config set will not have to worry about wasted
-CPU cycles as it is only include in the CFLAGS when the option is set, and
-its completely ignored otherwise.
+Rename vma_get_page_prot() to vma_flags_to_page_prot() to resolve this
+confusion.
 
-Steven Rostedt (2):
-      tracing: Move non-trace_printk prototypes back to kernel.h
-      tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean up kernel.h
+No functional change intended.
 
-----
- .../driver_development_debugging_guide.rst         |  2 +-
- Makefile                                           |  5 +++++
- arch/powerpc/kvm/book3s_xics.c                     |  1 +
- drivers/gpu/drm/i915/gt/intel_gtt.h                |  1 +
- drivers/gpu/drm/i915/i915_gem.h                    |  1 +
- drivers/hwtracing/stm/dummy_stm.c                  |  4 ++++
- drivers/infiniband/hw/hfi1/trace_dbg.h             |  1 +
- drivers/usb/early/xhci-dbc.c                       |  1 +
- fs/ext4/inline.c                                   |  1 +
- include/linux/kernel.h                             | 19 ++++++++++++++++++-
- include/linux/sunrpc/debug.h                       |  1 +
- include/linux/trace_printk.h                       | 22 +++-------------------
- kernel/trace/Kconfig                               | 10 ++++++++++
- kernel/trace/ring_buffer_benchmark.c               |  1 +
- kernel/trace/trace.h                               |  1 +
- samples/fprobe/fprobe_example.c                    |  1 +
- samples/ftrace/ftrace-direct-modify.c              |  1 +
- samples/ftrace/ftrace-direct-multi-modify.c        |  1 +
- samples/ftrace/ftrace-direct-multi.c               |  2 +-
- samples/ftrace/ftrace-direct-too.c                 |  2 +-
- samples/ftrace/ftrace-direct.c                     |  2 +-
- 21 files changed, 56 insertions(+), 24 deletions(-)
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ include/linux/mm.h              | 4 ++--
+ mm/vma.c                        | 2 +-
+ mm/vma.h                        | 2 +-
+ tools/testing/vma/include/dup.h | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 474b3698f565..c8336f68d7bb 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4568,7 +4568,7 @@ static inline bool range_in_vma_desc(const struct vm_area_desc *desc,
+ #ifdef CONFIG_MMU
+ pgprot_t vm_get_page_prot(vm_flags_t vm_flags);
+ 
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
+ 
+@@ -4581,7 +4581,7 @@ static inline pgprot_t vm_get_page_prot(vm_flags_t vm_flags)
+ {
+ 	return __pgprot(0);
+ }
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	return __pgprot(0);
+ }
+diff --git a/mm/vma.c b/mm/vma.c
+index 395b6619ecc1..fcdd2ac3ac68 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -56,7 +56,7 @@ struct mmap_state {
+ 		.pglen = PHYS_PFN(len_),				\
+ 		.vma_flags = vma_flags_,				\
+ 		.file = file_,						\
+-		.page_prot = vma_get_page_prot(vma_flags_),		\
++		.page_prot = vma_flags_to_page_prot(vma_flags_),	\
+ 	}
+ 
+ #define VMG_MMAP_STATE(name, map_, vma_)				\
+diff --git a/mm/vma.h b/mm/vma.h
+index 6a8abb8ae937..d6b48d596f44 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -524,7 +524,7 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+ #ifdef CONFIG_MMU
+ static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
+ {
+-	const pgprot_t prot = vma_get_page_prot(vma_flags);
++	const pgprot_t prot = vma_flags_to_page_prot(vma_flags);
+ 
+ 	return pgprot_modify(oldprot, prot);
+ }
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 813044781719..1ffac38a5377 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1555,7 +1555,7 @@ static inline int get_sysctl_max_map_count(void)
+ #define pgtable_supports_soft_dirty()	IS_ENABLED(CONFIG_MEM_SOFT_DIRTY)
+ #endif
+ 
+-static inline pgprot_t vma_get_page_prot(vma_flags_t vma_flags)
++static inline pgprot_t vma_flags_to_page_prot(vma_flags_t vma_flags)
+ {
+ 	const vm_flags_t vm_flags = vma_flags_to_legacy(vma_flags);
+ 
+-- 
+2.54.0
+
