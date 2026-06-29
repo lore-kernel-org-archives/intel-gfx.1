@@ -4,56 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AF4FC43327
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DC3EC43458
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABC3410E792;
-	Wed,  1 Jul 2026 12:59:20 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 657FD10E55C;
- Sun, 28 Jun 2026 03:55:33 +0000 (UTC)
-Received: from smtpclient.apple (unknown [117.182.74.7])
- by APP-01 (Coremail) with SMTP id qwCowADXfdYKm0BqqCuqAw--.7249S5;
- Sun, 28 Jun 2026 11:55:26 +0800 (CST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH] fix: drm/i915: __live_active_setup: kfree bypasses
- kref_put in early   error path
-From: WenTao Liang <vulab@iscas.ac.cn>
-In-Reply-To: <20260626132252.38377-1-vulab@iscas.ac.cn>
-Date: Sun, 28 Jun 2026 11:55:15 +0800
-Cc: christian.koenig@amd.com, kees@kernel.org, tzimmermann@suse.de,
- matthew.brost@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <54DF0C1B-8F45-4191-A5DF-16C2CB1F78A6@iscas.ac.cn>
-References: <20260626132252.38377-1-vulab@iscas.ac.cn>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
-X-CM-TRANSID: qwCowADXfdYKm0BqqCuqAw--.7249S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4xZF4fur4DuFWfJF1kZrb_yoW8GrWkpw
- 4rJa4jyryfA3W7tay7uF4FqFyfX3ZxGFWxuw1qkw4fuw15C3W8J3sY9Fy7WF1UArZ3Gr13
- AwnrtFyxt3WjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPEb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
- 0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
- 8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
- 64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
- CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280
- aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
- CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvj
- eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACI402YVCY1x02628vn2kIc2xKxw
- CY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8
- JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1V
- AFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xII
- jxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I
- 8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73
- UjIFyTuYvjxU7miiUUUUU
-X-Originating-IP: [117.182.74.7]
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2pAhrYiNgAAsE
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEAC410ED44;
+	Wed,  1 Jul 2026 12:59:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aLceiJFh";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD2110E9E5;
+ Mon, 29 Jun 2026 19:26:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F3B8342AD6;
+ Mon, 29 Jun 2026 19:26:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144CE1F000E9;
+ Mon, 29 Jun 2026 19:26:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782761170;
+ bh=UckrPyyaq5eQ3/ESdKIiCBv0nseBWr37AnyJxZAhDyA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=aLceiJFh+snHgwJGHP/qCXPhR7qJ8YyjaxrTlyR7D0hm5wLyHQY+iiA2uneyDGmJj
+ G1AZncsiLujD5kbc1tsdhnrkJC1E7rMCK1ujoj1v4UNRKHLZ2ORGgy2VUFnNGPcKDg
+ qaMyPLULt4Sx9ASgeeO/9di4CBbN4HFxF8uEtPuukCrlTuIeaGOoXMhYYoTszUhLhD
+ fvTqEJQb4R9AyFWNvK4MljxzMGQy1r1QEaCpWeY0/SsjhR5XfDBHn1Ges8h1q3P8fo
+ GY2yfWatCDrMfqmDF8fuVGk9e/dRAHn2Nv/h2jGdVSYE3pZVge2XsX8pZGvzj03VY4
+ zsNjEpharm7Yw==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 05/13] mm: prefer mm->def_vma_flags in mm logic
+Date: Mon, 29 Jun 2026 20:25:28 +0100
+Message-ID: <3b4ccdc38819b42ddc79ee5a795831208ac7986c.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,48 +111,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Currently mm->def_flags (of type vm_flags_t) is union'd with
+mm->def_vma_flags (of type vma_flags_t).
 
+As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
+to no longer be arbitrarily limited to a system word size for VMA flags),
+prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
 
-> 2026=E5=B9=B46=E6=9C=8826=E6=97=A5 21:22=EF=BC=8CWenTao Liang =
-<vulab@iscas.ac.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> When heap_fence_create fails, the early error path calls kfree(active)
->  directly instead of __live_put(active), bypassing the kref_put path =
-that
->  would call i915_active_fini for proper resource teardown. This skips
->  cleanup of the i915_active state while the initial kref from =
-kref_init
->  remains unbalanced.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 5361db1a33c7 ("drm/i915: Track i915_active using debugobjects")
-> Signed-off-by: WenTao Liang <vulab@iscas.ac.cn>
-> ---
-> drivers/gpu/drm/i915/selftests/i915_active.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_active.c =
-b/drivers/gpu/drm/i915/selftests/i915_active.c
-> index 9fea2fabeac4..8ec7859da762 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_active.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_active.c
-> @@ -91,7 +91,7 @@ __live_active_setup(struct drm_i915_private *i915)
->=20
-> 	submit =3D heap_fence_create(GFP_KERNEL);
-> 	if (!submit) {
-> -		kfree(active);
-> +		__live_put(active);
-> 		return ERR_PTR(-ENOMEM);
-> 	}
->=20
-> --=20
-> 2.39.5 (Apple Git-154)
+No functional change intended.
 
-Please ignore this patch. I will resend a proper version after
-learning the kernel submission process.
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+---
+ mm/debug.c |  2 +-
+ mm/mlock.c | 13 +++++++------
+ mm/mmap.c  | 11 ++++++-----
+ mm/vma.c   |  4 ++--
+ 4 files changed, 16 insertions(+), 14 deletions(-)
 
-Apologies for the noise.
-
-Best regards,
-WenTao Liang=
+diff --git a/mm/debug.c b/mm/debug.c
+index 497654b36f1a..f0a354a9496a 100644
+--- a/mm/debug.c
++++ b/mm/debug.c
+@@ -226,7 +226,7 @@ void dump_mm(const struct mm_struct *mm)
+ 		mm->numa_next_scan, mm->numa_scan_offset, mm->numa_scan_seq,
+ #endif
+ 		atomic_read(&mm->tlb_flush_pending),
+-		mm->def_flags, &mm->def_flags
++		vma_flags_to_legacy(mm->def_vma_flags), &mm->def_vma_flags
+ 	);
+ }
+ EXPORT_SYMBOL(dump_mm);
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 8c227fefa2df..9c87b3ced65f 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -699,26 +699,27 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ 
+ /*
+  * Take the MCL_* flags passed into mlockall (or 0 if called from munlockall)
+- * and translate into the appropriate modifications to mm->def_flags and/or the
+- * flags for all current VMAs.
++ * and translate into the appropriate modifications to mm->def_vma_flags and/or
++ * the flags for all current VMAs.
+  *
+  * There are a couple of subtleties with this.  If mlockall() is called multiple
+  * times with different flags, the values do not necessarily stack.  If mlockall
+  * is called once including the MCL_FUTURE flag and then a second time without
+- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_flags.
++ * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
+  */
+ static int apply_mlockall_flags(int flags)
+ {
+ 	VMA_ITERATOR(vmi, current->mm, 0);
++	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma, *prev = NULL;
+ 	vm_flags_t to_add = 0;
+ 
+-	current->mm->def_flags &= ~VM_LOCKED_MASK;
++	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
+ 	if (flags & MCL_FUTURE) {
+-		current->mm->def_flags |= VM_LOCKED;
++		vma_flags_set(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 
+ 		if (flags & MCL_ONFAULT)
+-			current->mm->def_flags |= VM_LOCKONFAULT;
++			vma_flags_set(&mm->def_vma_flags, VMA_LOCKONFAULT_BIT);
+ 
+ 		if (!(flags & MCL_CURRENT))
+ 			goto out;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 3ef603d5ff00..477f4a77361a 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -102,15 +102,16 @@ void vma_set_page_prot(struct vm_area_struct *vma)
+  */
+ static int check_brk_limits(unsigned long addr, unsigned long len)
+ {
++	const struct mm_struct *mm = current->mm;
++	const bool is_def_locked =
++		vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	unsigned long mapped_addr;
+ 
+ 	mapped_addr = get_unmapped_area(NULL, addr, len, 0, MAP_FIXED);
+ 	if (IS_ERR_VALUE(mapped_addr))
+ 		return mapped_addr;
+ 
+-	return mlock_future_ok(current->mm,
+-			      current->mm->def_flags & VM_LOCKED, len)
+-		? 0 : -EAGAIN;
++	return mlock_future_ok(mm, is_def_locked, len) ? 0 : -EAGAIN;
+ }
+ 
+ SYSCALL_DEFINE1(brk, unsigned long, brk)
+@@ -197,7 +198,7 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
+ 		goto out;
+ 
+ 	mm->brk = brk;
+-	if (mm->def_flags & VM_LOCKED)
++	if (vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT))
+ 		populate = true;
+ 
+ success:
+@@ -1247,7 +1248,7 @@ int vm_brk_flags(unsigned long addr, unsigned long request, bool is_exec)
+ 
+ 	vma = vma_prev(&vmi);
+ 	ret = do_brk_flags(&vmi, vma, addr, len, vma_flags);
+-	populate = ((mm->def_flags & VM_LOCKED) != 0);
++	populate = vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	mmap_write_unlock(mm);
+ 	userfaultfd_unmap_complete(mm, &uf);
+ 	if (populate && !ret)
+diff --git a/mm/vma.c b/mm/vma.c
+index 3d1ae3cae45f..fb4341943576 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3424,7 +3424,8 @@ struct vm_area_struct *__install_special_mapping(
+ 	if (unlikely(vma == NULL))
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	vm_flags |= mm->def_flags | VM_DONTEXPAND;
++	vma_set_range(vma, addr, addr + len, 0);
++	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+ 	if (pgtable_supports_soft_dirty())
+ 		vm_flags |= VM_SOFTDIRTY;
+ 	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+@@ -3432,7 +3433,6 @@ struct vm_area_struct *__install_special_mapping(
+ 
+ 	vma->vm_ops = ops;
+ 	vma->vm_private_data = priv;
+-	vma_set_range(vma, addr, addr + len, 0);
+ 
+ 	ret = insert_vm_struct(mm, vma);
+ 	if (ret)
+-- 
+2.54.0
 
