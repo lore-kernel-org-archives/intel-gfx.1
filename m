@@ -4,62 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B88CFC43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A251C43327
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49EEA10EF95;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD9810EFB8;
 	Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D0fpngk0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IIJQxKhw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C912E10F248;
- Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B4F810EA4D;
+ Mon, 29 Jun 2026 19:26:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 73B1B4012D;
- Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47DB81F000E9;
- Thu, 25 Jun 2026 10:43:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 23AF440569;
+ Mon, 29 Jun 2026 19:26:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7DF1F000E9;
+ Mon, 29 Jun 2026 19:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782384214;
- bh=So56zEOdEfiZU+vXcUQqeRQSzEvYq6PmDku1aeJMKLs=;
- h=Date:From:To:Cc:Subject:References;
- b=D0fpngk0P6IaMUg/fv2JW/n3Umw6ehE2vavcoRCFZVGOIYdkkIKj8QrcaqmMsrBL1
- 80qZCqxSYMgGZDTaiQ4H9rlKsdQm5bLEqtfC9vn2+eCJ9ByNXKH8vpy1s3XuZyRw5m
- TkjWReQzGL+Fa0dZ4SCdpdGSLsSLfztcwkWwgEq+D4OEX4No/2vy6nWwoguvgcgzmq
- 8oI8elnVnl438BD2vtSae8+F4shF/u1y+HbsNg3OPf67HtVJQINCf7jkbgjo9/SY6q
- NKZa1fGonzzRLrf8mzvB/6utE1xf+YCDXwQnw54Z6fduPScgik9Awd8H3pqa+5zcZJ
- 4QSlIX2Ku/s0w==
-Received: from rostedt by gandalf with local (Exim 4.99.3)
- (envelope-from <rostedt@kernel.org>) id 1wchYw-00000002WA7-0nb8;
- Thu, 25 Jun 2026 06:44:02 -0400
-Message-ID: <20260625104402.064484896@kernel.org>
-User-Agent: quilt/0.69
-Date: Thu, 25 Jun 2026 06:40:08 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ s=k20260515; t=1782761188;
+ bh=rJBKJgm9VGYkLKxlBKZ5aOjhCtASp65CFyjLBQGRzvQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=IIJQxKhweg39/BMqoHOH7kb0/Al+cJWTEI1hioVBPZaDB4qhB2Vb6gTAE5EgKd8i+
+ vKfSoPurTO8PIuLjyUs5WNhfD4gqH5sManMjAeS2pFtPAomy2K2tA9iwWFCCLRozBe
+ 80WBl+G+ksIR6HWSGPbvhb/38MdZ9vYyRBKIyMWVOS+AOWbhSlmW8yn0VL2dXg9Cqy
+ yP/BQIl71tGgb5bQL/hpBuwobEq79GN6SA2SmGSur13Y5GsCCLpCQRvCYn4h2DY6RM
+ 2uQTclqrErpsIcrjBfB0b+ymG/UVaPwZEumIFLlrW7N/vGNJmRnvO33VIBdwlXHg/1
+ 9OKljIZr4sLrA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH v4 1/2] tracing: Move non-trace_printk prototypes into
- trace_controls.h
-References: <20260625104007.041432666@kernel.org>
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Date: Mon, 29 Jun 2026 20:25:34 +0100
+Message-ID: <2db16db81538355ca65f778c246d2381c673cad4.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,335 +111,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Steven Rostedt <rostedt@goodmis.org>
+Replace use of the legacy vm_flags_t flags with vma_flags_t values
+throughout the mlock logic.
 
-Remove the prototypes of the code that is not associated with
-trace_printk() from trace_printk.h.
+Additionally update comments to reflect the changes to be consistent.
 
-These control functions as well as ftrace_dump() and trace_dump_stack()
-are used in cases where things go wrong.  The main use case is to do a
-trace_dump_stack(); tracing_off(); ftrace_dump(); in a place that detected
-that something went wrong, whereas, trace_printk() is added to normal code
-during debugging and removed before committing upstream. The dump code is
-fine to keep in production.
+No functional change intended.
 
-Suggested-by: Yury Norov <yury.norov@gmail.com>
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
-Changes since v3: https://patch.msgid.link/20260624081948.147764194@kernel.org
+ mm/mlock.c | 86 +++++++++++++++++++++++++++++-------------------------
+ 1 file changed, 46 insertions(+), 40 deletions(-)
 
-- Move include out of #if statement in rcu.h
-  kernel test robot found other configs that could require the
-  control functions in rcu.h. Just always include it in that file.
-
- arch/powerpc/xmon/xmon.c         |  1 +
- arch/s390/kernel/ipl.c           |  1 +
- arch/s390/kernel/machine_kexec.c |  1 +
- drivers/gpu/drm/i915/i915_gem.h  |  1 +
- drivers/tty/sysrq.c              |  1 +
- include/linux/trace_controls.h   | 54 ++++++++++++++++++++++++++++++++
- include/linux/trace_printk.h     | 51 ------------------------------
- kernel/debug/debug_core.c        |  1 +
- kernel/panic.c                   |  1 +
- kernel/rcu/rcu.h                 |  1 +
- kernel/rcu/rcutorture.c          |  1 +
- kernel/trace/trace.h             |  1 +
- kernel/trace/trace_benchmark.c   |  1 +
- lib/sys_info.c                   |  1 +
- 14 files changed, 66 insertions(+), 51 deletions(-)
- create mode 100644 include/linux/trace_controls.h
-
-diff --git a/arch/powerpc/xmon/xmon.c b/arch/powerpc/xmon/xmon.c
-index cb3a3244ae6f..2135f319e0dd 100644
---- a/arch/powerpc/xmon/xmon.c
-+++ b/arch/powerpc/xmon/xmon.c
-@@ -27,6 +27,7 @@
- #include <linux/highmem.h>
- #include <linux/security.h>
- #include <linux/debugfs.h>
-+#include <linux/trace_controls.h>
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 9c87b3ced65f..1634b125a519 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -329,7 +329,7 @@ static inline bool allow_mlock_munlock(struct folio *folio,
+ 	 * be split. And the pages are not in VM_LOCKed VMA
+ 	 * can be reclaimed.
+ 	 */
+-	if (!(vma->vm_flags & VM_LOCKED))
++	if (!vma_test(vma, VMA_LOCKED_BIT))
+ 		return true;
  
- #include <asm/ptrace.h>
- #include <asm/smp.h>
-diff --git a/arch/s390/kernel/ipl.c b/arch/s390/kernel/ipl.c
-index 3c346b02ceb9..baac66cc4de4 100644
---- a/arch/s390/kernel/ipl.c
-+++ b/arch/s390/kernel/ipl.c
-@@ -22,6 +22,7 @@
- #include <linux/debug_locks.h>
- #include <linux/vmalloc.h>
- #include <linux/secure_boot.h>
-+#include <linux/trace_controls.h>
- #include <asm/asm-extable.h>
- #include <asm/machine.h>
- #include <asm/diag.h>
-diff --git a/arch/s390/kernel/machine_kexec.c b/arch/s390/kernel/machine_kexec.c
-index baeb3dcfc1c8..33f9a89eb3ad 100644
---- a/arch/s390/kernel/machine_kexec.c
-+++ b/arch/s390/kernel/machine_kexec.c
-@@ -12,6 +12,7 @@
- #include <linux/delay.h>
- #include <linux/reboot.h>
- #include <linux/ftrace.h>
-+#include <linux/trace_controls.h>
- #include <linux/debug_locks.h>
- #include <linux/cpufeature.h>
- #include <asm/guarded_storage.h>
-diff --git a/drivers/gpu/drm/i915/i915_gem.h b/drivers/gpu/drm/i915/i915_gem.h
-index 20b3cb29cfff..1da8fb61c09e 100644
---- a/drivers/gpu/drm/i915/i915_gem.h
-+++ b/drivers/gpu/drm/i915/i915_gem.h
-@@ -116,6 +116,7 @@ int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file);
- #endif
+ 	/* folio_within_range() cannot take KSM, but any small folio is OK */
+@@ -368,7 +368,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		folio = pmd_folio(*pmd);
+ 		if (folio_is_zone_device(folio))
+ 			goto out;
+-		if (vma->vm_flags & VM_LOCKED)
++		if (vma_test(vma, VMA_LOCKED_BIT))
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -393,7 +393,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+ 		if (!allow_mlock_munlock(folio, vma, start, end, step))
+ 			goto next_entry;
  
- #if IS_ENABLED(CONFIG_DRM_I915_TRACE_GEM)
-+#include <linux/trace_controls.h>
- #define GEM_TRACE(...) trace_printk(__VA_ARGS__)
- #define GEM_TRACE_ERR(...) do {						\
- 	pr_err(__VA_ARGS__);						\
-diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
-index c2e4b31b699a..d3f72dc430b8 100644
---- a/drivers/tty/sysrq.c
-+++ b/drivers/tty/sysrq.c
-@@ -324,6 +324,7 @@ static const struct sysrq_key_op sysrq_showstate_blocked_op = {
- };
- 
- #ifdef CONFIG_TRACING
-+#include <linux/trace_controls.h>
- #include <linux/ftrace.h>
- 
- static void sysrq_ftrace_dump(u8 key)
-diff --git a/include/linux/trace_controls.h b/include/linux/trace_controls.h
-new file mode 100644
-index 000000000000..995b97e963b4
---- /dev/null
-+++ b/include/linux/trace_controls.h
-@@ -0,0 +1,54 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _LINUX_TRACE_CONTROLS_H
-+#define _LINUX_TRACE_CONTROLS_H
-+
-+
-+/*
-+ * General tracing related utility functions - trace_printk(),
-+ * tracing_on/tracing_off and tracing_start()/tracing_stop
-+ *
-+ * Use tracing_on/tracing_off when you want to quickly turn on or off
-+ * tracing. It simply enables or disables the recording of the trace events.
-+ * This also corresponds to the user space /sys/kernel/tracing/tracing_on
-+ * file, which gives a means for the kernel and userspace to interact.
-+ * Place a tracing_off() in the kernel where you want tracing to end.
-+ * From user space, examine the trace, and then echo 1 > tracing_on
-+ * to continue tracing.
-+ *
-+ * tracing_stop/tracing_start has slightly more overhead. It is used
-+ * by things like suspend to ram where disabling the recording of the
-+ * trace is not enough, but tracing must actually stop because things
-+ * like calling smp_processor_id() may crash the system.
-+ *
-+ * Most likely, you want to use tracing_on/tracing_off.
-+ */
-+enum ftrace_dump_mode {
-+	DUMP_NONE,
-+	DUMP_ALL,
-+	DUMP_ORIG,
-+	DUMP_PARAM,
-+};
-+
-+#ifdef CONFIG_TRACING
-+void tracing_on(void);
-+void tracing_off(void);
-+int tracing_is_on(void);
-+void tracing_snapshot(void);
-+void tracing_snapshot_alloc(void);
-+void tracing_start(void);
-+void tracing_stop(void);
-+void trace_dump_stack(int skip);
-+void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
-+#else
-+static inline void tracing_start(void) { }
-+static inline void tracing_stop(void) { }
-+static inline void tracing_on(void) { }
-+static inline void tracing_off(void) { }
-+static inline int tracing_is_on(void) { return 0; }
-+static inline void tracing_snapshot(void) { }
-+static inline void tracing_snapshot_alloc(void) { }
-+static inline void trace_dump_stack(int skip) { }
-+static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
-+#endif
-+
-+#endif /* _LINUX_TRACE_CONTROLS_H */
-diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
-index 3d54f440dccf..a488ea9e9f85 100644
---- a/include/linux/trace_printk.h
-+++ b/include/linux/trace_printk.h
-@@ -7,43 +7,7 @@
- #include <linux/stddef.h>
- #include <linux/stringify.h>
- 
--/*
-- * General tracing related utility functions - trace_printk(),
-- * tracing_on/tracing_off and tracing_start()/tracing_stop
-- *
-- * Use tracing_on/tracing_off when you want to quickly turn on or off
-- * tracing. It simply enables or disables the recording of the trace events.
-- * This also corresponds to the user space /sys/kernel/tracing/tracing_on
-- * file, which gives a means for the kernel and userspace to interact.
-- * Place a tracing_off() in the kernel where you want tracing to end.
-- * From user space, examine the trace, and then echo 1 > tracing_on
-- * to continue tracing.
-- *
-- * tracing_stop/tracing_start has slightly more overhead. It is used
-- * by things like suspend to ram where disabling the recording of the
-- * trace is not enough, but tracing must actually stop because things
-- * like calling smp_processor_id() may crash the system.
-- *
-- * Most likely, you want to use tracing_on/tracing_off.
-- */
--
--enum ftrace_dump_mode {
--	DUMP_NONE,
--	DUMP_ALL,
--	DUMP_ORIG,
--	DUMP_PARAM,
--};
--
- #ifdef CONFIG_TRACING
--void tracing_on(void);
--void tracing_off(void);
--int tracing_is_on(void);
--void tracing_snapshot(void);
--void tracing_snapshot_alloc(void);
--
--extern void tracing_start(void);
--extern void tracing_stop(void);
--
- static inline __printf(1, 2)
- void ____trace_printk_check_format(const char *fmt, ...)
- {
-@@ -149,8 +113,6 @@ int __trace_printk(unsigned long ip, const char *fmt, ...);
- extern int __trace_bputs(unsigned long ip, const char *str);
- extern int __trace_puts(unsigned long ip, const char *str);
- 
--extern void trace_dump_stack(int skip);
--
- /*
-  * The double __builtin_constant_p is because gcc will give us an error
-  * if we try to allocate the static variable to fmt if it is not a
-@@ -173,19 +135,7 @@ __ftrace_vbprintk(unsigned long ip, const char *fmt, va_list ap);
- 
- extern __printf(2, 0) int
- __ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
--
--extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
- #else
--static inline void tracing_start(void) { }
--static inline void tracing_stop(void) { }
--static inline void trace_dump_stack(int skip) { }
--
--static inline void tracing_on(void) { }
--static inline void tracing_off(void) { }
--static inline int tracing_is_on(void) { return 0; }
--static inline void tracing_snapshot(void) { }
--static inline void tracing_snapshot_alloc(void) { }
--
- static inline __printf(1, 2)
- int trace_printk(const char *fmt, ...)
- {
-@@ -196,7 +146,6 @@ ftrace_vprintk(const char *fmt, va_list ap)
- {
- 	return 0;
- }
--static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
- #endif /* CONFIG_TRACING */
- 
- #endif
-diff --git a/kernel/debug/debug_core.c b/kernel/debug/debug_core.c
-index b276504c1c6b..f9c83a470c98 100644
---- a/kernel/debug/debug_core.c
-+++ b/kernel/debug/debug_core.c
-@@ -27,6 +27,7 @@
- 
- #define pr_fmt(fmt) "KGDB: " fmt
- 
-+#include <linux/trace_controls.h>
- #include <linux/pid_namespace.h>
- #include <linux/clocksource.h>
- #include <linux/serial_core.h>
-diff --git a/kernel/panic.c b/kernel/panic.c
-index 213725b612aa..1415e910371d 100644
---- a/kernel/panic.c
-+++ b/kernel/panic.c
-@@ -9,6 +9,7 @@
-  * This function is used through-out the kernel (including mm and fs)
-  * to indicate a major problem.
+-		if (vma->vm_flags & VM_LOCKED)
++		if (vma_test(vma, VMA_LOCKED_BIT))
+ 			mlock_folio(folio);
+ 		else
+ 			munlock_folio(folio);
+@@ -417,8 +417,8 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
+  * @end - end of range in @vma
+  * @new_vma_flags - the new set of flags for @vma.
+  *
+- * Called for mlock(), mlock2() and mlockall(), to set @vma VM_LOCKED;
+- * called for munlock() and munlockall(), to clear VM_LOCKED from @vma.
++ * Called for mlock(), mlock2() and mlockall(), to set @vma VMA_LOCKED_BIT;
++ * called for munlock() and munlockall(), to clear VMA_LOCKED_BIT from @vma.
   */
-+#include <linux/trace_controls.h>
- #include <linux/debug_locks.h>
- #include <linux/sched/debug.h>
- #include <linux/interrupt.h>
-diff --git a/kernel/rcu/rcu.h b/kernel/rcu/rcu.h
-index fa6d30ce73d1..735a80df0b30 100644
---- a/kernel/rcu/rcu.h
-+++ b/kernel/rcu/rcu.h
-@@ -12,6 +12,7 @@
+ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+ 	unsigned long start, unsigned long end,
+@@ -431,14 +431,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
  
- #include <linux/slab.h>
- #include <trace/events/rcu.h>
-+#include <linux/trace_controls.h>
- 
+ 	/*
+ 	 * There is a slight chance that concurrent page migration,
+-	 * or page reclaim finding a page of this now-VM_LOCKED vma,
++	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
+ 	 * will call mlock_vma_folio() and raise page's mlock_count:
+ 	 * double counting, leaving the page unevictable indefinitely.
+-	 * Communicate this danger to mlock_vma_folio() with VM_IO,
+-	 * which is a VM_SPECIAL flag not allowed on VM_LOCKED vmas.
++	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
++	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
+ 	 * mmap_lock is held in write mode here, so this weird
+ 	 * combination should not be visible to other mmap_lock users;
+-	 * but WRITE_ONCE so rmap walkers must see VM_IO if VM_LOCKED.
++	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
+ 	 */
+ 	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+ 		vma_flags_set(new_vma_flags, VMA_IO_BIT);
+@@ -458,7 +458,7 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
  /*
-  * Grace-period counter management.
-diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-index 882a158ada7b..76bf0184b267 100644
---- a/kernel/rcu/rcutorture.c
-+++ b/kernel/rcu/rcutorture.c
-@@ -39,6 +39,7 @@
- #include <linux/srcu.h>
- #include <linux/slab.h>
- #include <linux/trace_clock.h>
-+#include <linux/trace_controls.h>
- #include <asm/byteorder.h>
- #include <linux/torture.h>
- #include <linux/vmalloc.h>
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 80fe152af1dd..2537c33ddd49 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -22,6 +22,7 @@
- #include <linux/ctype.h>
- #include <linux/once_lite.h>
- #include <linux/ftrace_regs.h>
-+#include <linux/trace_controls.h>
- #include <linux/llist.h>
+  * mlock_fixup  - handle mlock[all]/munlock[all] requests.
+  *
+- * Filters out "special" vmas -- VM_LOCKED never gets set for these, and
++ * Filters out "special" vmas -- VMA_LOCKED_BIT never gets set for these, and
+  * munlock is a no-op.  However, for some special vmas, we go ahead and
+  * populate the ptes.
+  *
+@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
+  */
+ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	       struct vm_area_struct **prev, unsigned long start,
+-	       unsigned long end, vm_flags_t newflags)
++	       unsigned long end, vma_flags_t *new_vma_flags)
+ {
+-	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
+ 	const vma_flags_t old_vma_flags = vma->flags;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	int nr_pages;
+ 	int ret = 0;
  
- #include "pid_list.h"
-diff --git a/kernel/trace/trace_benchmark.c b/kernel/trace/trace_benchmark.c
-index e19c32f2a938..69cc39008c36 100644
---- a/kernel/trace/trace_benchmark.c
-+++ b/kernel/trace/trace_benchmark.c
-@@ -3,6 +3,7 @@
- #include <linux/module.h>
- #include <linux/kthread.h>
- #include <linux/trace_clock.h>
-+#include <linux/trace_controls.h>
+-	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
++	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
+ 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
+ 		/*
+-		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
++		 * Don't set VMA_LOCKED_BIT or VM_LOCKONFAULT and don't count.
+ 		 * For secretmem, don't allow the memory to be unlocked.
+ 		 */
+ 		goto out;
+ 	}
  
- #define CREATE_TRACE_POINTS
- #include "trace_benchmark.h"
-diff --git a/lib/sys_info.c b/lib/sys_info.c
-index f32a06ec9ed4..e3c9ca05601b 100644
---- a/lib/sys_info.c
-+++ b/lib/sys_info.c
-@@ -8,6 +8,7 @@
- #include <linux/ftrace.h>
- #include <linux/nmi.h>
- #include <linux/sched/debug.h>
-+#include <linux/trace_controls.h>
- #include <linux/string.h>
- #include <linux/sysctl.h>
+-	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
++	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
+ 	if (IS_ERR(vma)) {
+ 		ret = PTR_ERR(vma);
+ 		goto out;
+@@ -493,7 +492,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	 * Keep track of amount of locked VM.
+ 	 */
+ 	nr_pages = (end - start) >> PAGE_SHIFT;
+-	if (!vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT))
++	if (!vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
+ 		nr_pages = -nr_pages;
+ 	else if (vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT))
+ 		nr_pages = 0;
+@@ -502,15 +501,15 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	/*
+ 	 * vm_flags is protected by the mmap_lock held in write mode.
+ 	 * It's okay if try_to_unmap_one unmaps a page just after we
+-	 * set VM_LOCKED, populate_vma_page_range will bring it back.
++	 * set VMA_LOCKED_BIT, populate_vma_page_range will bring it back.
+ 	 */
+-	if (vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT) &&
++	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT) &&
+ 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
+ 		/* No work to do, and mlocking twice would be wrong */
+ 		vma_start_write(vma);
+-		vma->flags = new_vma_flags;
++		vma->flags = *new_vma_flags;
+ 	} else {
+-		mlock_vma_pages_range(vma, start, end, &new_vma_flags);
++		mlock_vma_pages_range(vma, start, end, new_vma_flags);
+ 	}
+ out:
+ 	*prev = vma;
+@@ -518,7 +517,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ }
  
+ static int apply_vma_lock_flags(unsigned long start, size_t len,
+-				vm_flags_t flags)
++				const vma_flags_t *flags)
+ {
+ 	unsigned long nstart, end, tmp;
+ 	struct vm_area_struct *vma, *prev;
+@@ -543,18 +542,20 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
+ 	tmp = vma->vm_start;
+ 	for_each_vma_range(vmi, vma, end) {
+ 		int error;
+-		vm_flags_t newflags;
++		vma_flags_t newflags;
+ 
+ 		if (vma->vm_start != tmp)
+ 			return -ENOMEM;
+ 
+-		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
+-		newflags |= flags;
++		newflags = vma->flags;
++		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
++		vma_flags_set_mask(&newflags, *flags);
++
+ 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
+ 		tmp = vma->vm_end;
+ 		if (tmp > end)
+ 			tmp = end;
+-		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, newflags);
++		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
+ 		if (error)
+ 			return error;
+ 		tmp = vma_iter_end(&vmi);
+@@ -589,7 +590,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
+ 		end = start + len;
+ 
+ 	for_each_vma_range(vmi, vma, end) {
+-		if (vma->vm_flags & VM_LOCKED) {
++		if (vma_test(vma, VMA_LOCKED_BIT)) {
+ 			if (start > vma->vm_start)
+ 				count -= (start - vma->vm_start);
+ 			if (end < vma->vm_end) {
+@@ -615,7 +616,8 @@ static int __mlock_posix_error_return(long retval)
+ 	return retval;
+ }
+ 
+-static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t flags)
++static __must_check int do_mlock(unsigned long start, size_t len,
++				 vma_flags_t *flags)
+ {
+ 	unsigned long locked;
+ 	unsigned long lock_limit;
+@@ -664,24 +666,27 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
+ 
+ SYSCALL_DEFINE2(mlock, unsigned long, start, size_t, len)
+ {
+-	return do_mlock(start, len, VM_LOCKED);
++	vma_flags_t flags = mk_vma_flags(VMA_LOCKED_BIT);
++
++	return do_mlock(start, len, &flags);
+ }
+ 
+ SYSCALL_DEFINE3(mlock2, unsigned long, start, size_t, len, int, flags)
+ {
+-	vm_flags_t vm_flags = VM_LOCKED;
++	vma_flags_t vma_flags = mk_vma_flags(VMA_LOCKED_BIT);
+ 
+ 	if (flags & ~MLOCK_ONFAULT)
+ 		return -EINVAL;
+ 
+ 	if (flags & MLOCK_ONFAULT)
+-		vm_flags |= VM_LOCKONFAULT;
++		vma_flags_set(&vma_flags, VMA_LOCKONFAULT_BIT);
+ 
+-	return do_mlock(start, len, vm_flags);
++	return do_mlock(start, len, &vma_flags);
+ }
+ 
+ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ {
++	vma_flags_t flags = EMPTY_VMA_FLAGS;
+ 	int ret;
+ 
+ 	start = untagged_addr(start);
+@@ -691,7 +696,7 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+ 
+ 	if (mmap_write_lock_killable(current->mm))
+ 		return -EINTR;
+-	ret = apply_vma_lock_flags(start, len, 0);
++	ret = apply_vma_lock_flags(start, len, &flags);
+ 	mmap_write_unlock(current->mm);
+ 
+ 	return ret;
+@@ -705,14 +710,15 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+  * There are a couple of subtleties with this.  If mlockall() is called multiple
+  * times with different flags, the values do not necessarily stack.  If mlockall
+  * is called once including the MCL_FUTURE flag and then a second time without
+- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
++ * it, VMA_LOCKED_BIT and VMA_LOCKONFAULT_BIT will be cleared from
++ * mm->def_vma_flags.
+  */
+ static int apply_mlockall_flags(int flags)
+ {
+ 	VMA_ITERATOR(vmi, current->mm, 0);
+ 	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma, *prev = NULL;
+-	vm_flags_t to_add = 0;
++	vma_flags_t to_add = EMPTY_VMA_FLAGS;
+ 
+ 	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
+ 	if (flags & MCL_FUTURE) {
+@@ -726,20 +732,20 @@ static int apply_mlockall_flags(int flags)
+ 	}
+ 
+ 	if (flags & MCL_CURRENT) {
+-		to_add |= VM_LOCKED;
++		vma_flags_set(&to_add, VMA_LOCKED_BIT);
+ 		if (flags & MCL_ONFAULT)
+-			to_add |= VM_LOCKONFAULT;
++			vma_flags_set(&to_add, VMA_LOCKONFAULT_BIT);
+ 	}
+ 
+ 	for_each_vma(vmi, vma) {
+ 		int error;
+-		vm_flags_t newflags;
++		vma_flags_t newflags = vma->flags;
+ 
+-		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
+-		newflags |= to_add;
++		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
++		vma_flags_set_mask(&newflags, to_add);
+ 
+ 		error = mlock_fixup(&vmi, vma, &prev, vma->vm_start, vma->vm_end,
+-				    newflags);
++				    &newflags);
+ 		/* Ignore errors, but prev needs fixing up. */
+ 		if (error)
+ 			prev = vma;
 -- 
-2.53.0
-
+2.54.0
 
