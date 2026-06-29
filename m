@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69088C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDF50C43458
 	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:58:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F21AC10EFDF;
-	Wed,  1 Jul 2026 12:58:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6BD8810EFE4;
+	Wed,  1 Jul 2026 12:58:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BExgykrx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F+1lY+lC";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1072110EA1D;
- Mon, 29 Jun 2026 19:26:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F4E10EA23;
+ Mon, 29 Jun 2026 19:26:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 51A386014B;
- Mon, 29 Jun 2026 19:26:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2DC1F00A3E;
- Mon, 29 Jun 2026 19:26:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 081F7600C8;
+ Mon, 29 Jun 2026 19:26:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FCC1F00A3D;
+ Mon, 29 Jun 2026 19:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782761168;
- bh=hVd6ZuVqENj3zeMR4aL2t+2UMMhczNHM+gJ9snfAafg=;
+ s=k20260515; t=1782761173;
+ bh=gKmo4U1gXLGtJnRP+WhnxnFRqzwXuOB5h6v9uTSdV1s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=BExgykrxcgTd5RClbXfmFD5Hp/1Grb/Kjey3DiRaMUeFZgqydXxsDWyRIvpzoISG7
- /Iilv3IrxTXNlJUqKZNyr5TyZZvKbnpj8BmRYrG9ZFdN0Nb0i0NyJk8Sl7npMKfdti
- 1DTOuDeaNgSBKxd+05qng9++fyrY+sD0P/+0C6uNIMSgwntxptodo0GGuiVJ2fa7Xh
- tcbnSkYetMr8IMTjqAFSQc8sq/Xc+KvUA6heTO4Lwayd0uEmx/7h0R2T9dkwHlc5h+
- iCD7J6P0FnSJ3xPPyRVSFdOIImy48N18CmoYp7IbeVR4j1E/heYWHJ8ULXWfCEAyFn
- uHB+/Pwf3DOzg==
+ b=F+1lY+lCh4/ljg4cAF+WiIYMH69AbV51hkuC1jZywIIRJtnSTTT9Cl417kLqBvIL2
+ 8OgnOg+47T8fRg2he/k0Czan1lawmcrV1QOn8ALLq/c2Ln2nuZw+lUVlp9IBNBM7O9
+ ULuAgYhvU87+ozqV7cC/Uv3vF3QGLRPm547HTvpe+ig3eiPKismCLxZqLocHJJSRPE
+ ub2TJPIrtzztEsLj+o6x6PxyaZ56GCtceA3IiAP5fOpSWc8Uo+I5/jmojutM8causc
+ cQ+/HDIGoeC5yU7JzcyMSeGb6xZ0mYXeADHJM+UmSIQ/cxJ8RXeP+AGDV1OS3TxIGG
+ sMbSC7d+ndHmA==
 From: Lorenzo Stoakes <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
@@ -87,10 +87,10 @@ Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
  linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-sound@vger.kernel.org
-Subject: [PATCH 04/13] mm: update generic_get_unmapped_area[_topdown]() to use
- vma_flags_t
-Date: Mon, 29 Jun 2026 20:25:27 +0100
-Message-ID: <cef55b19f86c110952f13829aefa4859db3a70ed.1782760670.git.ljs@kernel.org>
+Subject: [PATCH 06/13] mm/vma: convert vm_pgprot_modify() to use vma_flags_t
+ and rename
+Date: Mon, 29 Jun 2026 20:25:29 +0100
+Message-ID: <548ba81b2971734d4d2143237ad1465bd1b2f525.1782760670.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
 References: <cover.1782760670.git.ljs@kernel.org>
@@ -112,135 +112,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-As part of the changes converting VMA flags from a system word size to a
-bitmap, extend this change to generic_get_unmapped_area() and
-generic_get_unmapped_area_topdown(), which also allows us to convert
-stack_guard_placement() as well.
+Update vm_pgprot_modify() to use the new VMA flags type vma_flags_t, and
+rename to vma_pgprot_modify() accordingly.
 
-We retain arch_get_unmapped_area() and arch_get_unmapped_area_topdown()
-as-is for now, using legacy_to_vma_flags() as necessary to do so.
+This is part of the ongoing work to convert vm_flags_t to vma_flags_t, in
+order to eliminate the arbitrary limit of the number of bits in a system
+word on available VMA flags.
+
+Update VMA userland tests accordingly, updating vma_set_page_prot() to no
+longer inline vma_pgprot_modify(), rather we can simply define
+vma_pgprot_modify() as a static inline function and the tests will pick it
+up from vma.h.
 
 No functional change intended.
 
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- arch/powerpc/mm/book3s64/slice.c |  6 ++++--
- include/linux/sched/mm.h         |  4 ++--
- mm/mmap.c                        | 16 ++++++++--------
- 3 files changed, 14 insertions(+), 12 deletions(-)
+ mm/mmap.c                       |  8 ++++----
+ mm/vma.c                        |  2 +-
+ mm/vma.h                        |  6 ++++--
+ tools/testing/vma/include/dup.h | 12 +++++-------
+ 4 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/arch/powerpc/mm/book3s64/slice.c b/arch/powerpc/mm/book3s64/slice.c
-index 28bec5bc7879..82127e31dca6 100644
---- a/arch/powerpc/mm/book3s64/slice.c
-+++ b/arch/powerpc/mm/book3s64/slice.c
-@@ -659,7 +659,8 @@ unsigned long arch_get_unmapped_area(struct file *filp,
- 	unsigned int psize;
- 
- 	if (radix_enabled())
--		return generic_get_unmapped_area(filp, addr, len, pgoff, flags, vm_flags);
-+		return generic_get_unmapped_area(filp, addr, len, pgoff, flags,
-+						 legacy_to_vma_flags(vm_flags));
- 
- 	if (filp && is_file_hugepages(filp))
- 		psize = file_to_psize(filp);
-@@ -679,7 +680,8 @@ unsigned long arch_get_unmapped_area_topdown(struct file *filp,
- 	unsigned int psize;
- 
- 	if (radix_enabled())
--		return generic_get_unmapped_area_topdown(filp, addr0, len, pgoff, flags, vm_flags);
-+		return generic_get_unmapped_area_topdown(filp, addr0, len,
-+				pgoff, flags, legacy_to_vma_flags(vm_flags));
- 
- 	if (filp && is_file_hugepages(filp))
- 		psize = file_to_psize(filp);
-diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
-index b301ec90740a..c8720d8e2158 100644
---- a/include/linux/sched/mm.h
-+++ b/include/linux/sched/mm.h
-@@ -203,11 +203,11 @@ unsigned long mm_get_unmapped_area_vmaflags(struct file *filp,
- unsigned long
- generic_get_unmapped_area(struct file *filp, unsigned long addr,
- 			  unsigned long len, unsigned long pgoff,
--			  unsigned long flags, vm_flags_t vm_flags);
-+			  unsigned long flags, vma_flags_t vma_flags);
- unsigned long
- generic_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
- 				  unsigned long len, unsigned long pgoff,
--				  unsigned long flags, vm_flags_t vm_flags);
-+				  unsigned long flags, vma_flags_t vma_flags);
- #else
- static inline void arch_pick_mmap_layout(struct mm_struct *mm,
- 					 const struct rlimit *rlim_stack) {}
 diff --git a/mm/mmap.c b/mm/mmap.c
-index 461ce510e12a..3ef603d5ff00 100644
+index 477f4a77361a..e834ec9273e3 100644
 --- a/mm/mmap.c
 +++ b/mm/mmap.c
-@@ -657,9 +657,9 @@ SYSCALL_DEFINE1(old_mmap, struct mmap_arg_struct __user *, arg)
-  * Determine if the allocation needs to ensure that there is no
-  * existing mapping within it's guard gaps, for use as start_gap.
-  */
--static inline unsigned long stack_guard_placement(vm_flags_t vm_flags)
-+static inline unsigned long stack_guard_placement(vma_flags_t vma_flags)
+@@ -80,13 +80,13 @@ core_param(ignore_rlimit_data, ignore_rlimit_data, bool, 0644);
+ /* Update vma->vm_page_prot to reflect vma->vm_flags. */
+ void vma_set_page_prot(struct vm_area_struct *vma)
  {
--	if (vm_flags & VM_SHADOW_STACK)
-+	if (vma_flags_test_single_mask(&vma_flags, VMA_SHADOW_STACK))
- 		return PAGE_SIZE;
+-	vm_flags_t vm_flags = vma->vm_flags;
++	vma_flags_t vma_flags = vma->flags;
+ 	pgprot_t vm_page_prot;
  
- 	return 0;
-@@ -701,7 +701,7 @@ unsigned long vm_unmapped_area(struct vm_unmapped_area_info *info)
- unsigned long
- generic_get_unmapped_area(struct file *filp, unsigned long addr,
- 			  unsigned long len, unsigned long pgoff,
--			  unsigned long flags, vm_flags_t vm_flags)
-+			  unsigned long flags, vma_flags_t vma_flags)
+-	vm_page_prot = vm_pgprot_modify(vma->vm_page_prot, vm_flags);
++	vm_page_prot = vma_pgprot_modify(vma->vm_page_prot, vma_flags);
+ 	if (vma_wants_writenotify(vma, vm_page_prot)) {
+-		vm_flags &= ~VM_SHARED;
+-		vm_page_prot = vm_pgprot_modify(vm_page_prot, vm_flags);
++		vma_flags_clear(&vma_flags, VMA_SHARED_BIT);
++		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
+ 	}
+ 	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
+ 	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
+diff --git a/mm/vma.c b/mm/vma.c
+index fb4341943576..395b6619ecc1 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2179,7 +2179,7 @@ bool vma_wants_writenotify(struct vm_area_struct *vma, pgprot_t vm_page_prot)
+ 	/* The open routine did something to the protections that pgprot_modify
+ 	 * won't preserve? */
+ 	if (pgprot_val(vm_page_prot) !=
+-	    pgprot_val(vm_pgprot_modify(vm_page_prot, vma->vm_flags)))
++	    pgprot_val(vma_pgprot_modify(vm_page_prot, vma->flags)))
+ 		return false;
+ 
+ 	/*
+diff --git a/mm/vma.h b/mm/vma.h
+index bcf0c2773449..6a8abb8ae937 100644
+--- a/mm/vma.h
++++ b/mm/vma.h
+@@ -522,9 +522,11 @@ static inline bool vma_wants_manual_pte_write_upgrade(struct vm_area_struct *vma
+ }
+ 
+ #ifdef CONFIG_MMU
+-static inline pgprot_t vm_pgprot_modify(pgprot_t oldprot, vm_flags_t vm_flags)
++static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags)
  {
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma, *prev;
-@@ -726,7 +726,7 @@ generic_get_unmapped_area(struct file *filp, unsigned long addr,
- 	info.length = len;
- 	info.low_limit = mm->mmap_base;
- 	info.high_limit = mmap_end;
--	info.start_gap = stack_guard_placement(vm_flags);
-+	info.start_gap = stack_guard_placement(vma_flags);
- 	if (filp && is_file_hugepages(filp))
- 		info.align_mask = huge_page_mask_align(filp);
- 	return vm_unmapped_area(&info);
-@@ -739,7 +739,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr,
- 		       unsigned long flags, vm_flags_t vm_flags)
- {
- 	return generic_get_unmapped_area(filp, addr, len, pgoff, flags,
--					 vm_flags);
-+					 legacy_to_vma_flags(vm_flags));
+-	return pgprot_modify(oldprot, vm_get_page_prot(vm_flags));
++	const pgprot_t prot = vma_get_page_prot(vma_flags);
++
++	return pgprot_modify(oldprot, prot);
  }
  #endif
  
-@@ -750,7 +750,7 @@ arch_get_unmapped_area(struct file *filp, unsigned long addr,
- unsigned long
- generic_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
- 				  unsigned long len, unsigned long pgoff,
--				  unsigned long flags, vm_flags_t vm_flags)
-+				  unsigned long flags, vma_flags_t vma_flags)
- {
- 	struct vm_area_struct *vma, *prev;
- 	struct mm_struct *mm = current->mm;
-@@ -778,7 +778,7 @@ generic_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
- 	info.length = len;
- 	info.low_limit = PAGE_SIZE;
- 	info.high_limit = arch_get_mmap_base(addr, mm->mmap_base);
--	info.start_gap = stack_guard_placement(vm_flags);
-+	info.start_gap = stack_guard_placement(vma_flags);
- 	if (filp && is_file_hugepages(filp))
- 		info.align_mask = huge_page_mask_align(filp);
- 	addr = vm_unmapped_area(&info);
-@@ -807,7 +807,7 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
- 			       unsigned long flags, vm_flags_t vm_flags)
- {
- 	return generic_get_unmapped_area_topdown(filp, addr, len, pgoff, flags,
--						 vm_flags);
-+						 legacy_to_vma_flags(vm_flags));
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 6f5bcd7fbcd8..813044781719 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1434,20 +1434,18 @@ struct vm_area_struct *vma_iter_next_range(struct vma_iterator *vmi)
  }
- #endif
  
+ bool vma_wants_writenotify(struct vm_area_struct *vma, pgprot_t vm_page_prot);
++static inline pgprot_t vma_pgprot_modify(pgprot_t oldprot, vma_flags_t vma_flags);
+ 
+ /* Update vma->vm_page_prot to reflect vma->vm_flags. */
+ static inline void vma_set_page_prot(struct vm_area_struct *vma)
+ {
+-	vm_flags_t vm_flags = vma->vm_flags;
++	vma_flags_t vma_flags = vma->flags;
+ 	pgprot_t vm_page_prot;
+ 
+-	/* testing: we inline vm_pgprot_modify() to avoid clash with vma.h. */
+-	vm_page_prot = pgprot_modify(vma->vm_page_prot, vm_get_page_prot(vm_flags));
+-
++	vm_page_prot = vma_pgprot_modify(vma->vm_page_prot, vma_flags);
+ 	if (vma_wants_writenotify(vma, vm_page_prot)) {
+-		vm_flags &= ~VM_SHARED;
+-		/* testing: we inline vm_pgprot_modify() to avoid clash with vma.h. */
+-		vm_page_prot = pgprot_modify(vm_page_prot, vm_get_page_prot(vm_flags));
++		vma_flags_clear(&vma_flags, VMA_SHARED_BIT);
++		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
+ 	}
+ 	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
+ 	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
 -- 
 2.54.0
 
