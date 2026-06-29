@@ -4,58 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAA7BC44500
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 441F4C44501
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C11010EFA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49E4E10EF93;
 	Wed,  1 Jul 2026 12:57:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ajlI+5u/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WOjc9JyG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA15310E545;
- Mon, 22 Jun 2026 08:53:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9427010E0EF;
+ Mon, 29 Jun 2026 19:25:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 903E04065A;
- Mon, 22 Jun 2026 08:53:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AC2D1F000E9;
- Mon, 22 Jun 2026 08:53:51 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 723DC60008;
+ Mon, 29 Jun 2026 19:25:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F6D1F000E9;
+ Mon, 29 Jun 2026 19:25:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782118436;
- bh=F0QDbKzbwJL5X7qHqHx3lNvTzGz2HWk2gVQO8+kpuo4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=ajlI+5u/5Lj2pViAZ/RRrobaBRBiwWG66TcLSclH6VgEiCX3pzDLlq48vZSrLl/X8
- 83z3ruboQqIDbVazIhHwx5JGip9lf+VbpxcPHWDw4gUbR2Bw69RzekHFOjw35JGN9n
- l49gtrdtrrpSxrgPKnZ20Ihao2CfoXdAXnGeH046LsVIeNBgYuAr6j2Bl9nhTwMRH1
- NVF5eY3swwkEMDcbxo+5cJInP+bkLasG/LJYc3V14JQcH8mspffB7CU3PNR9GftU3u
- 4KuHvQ9gz+PnSNbgojMjSyDZOSgzPCMpMUPB3eHzmTZ5JEKCdN/SpRFdTGAODdPinY
- wPF/FF/evMf3Q==
-Date: Mon, 22 Jun 2026 04:53:48 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Masami
- Hiramatsu <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Andrew Morton
- <akpm@linux-foundation.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, John Ogness <john.ogness@linutronix.de>, Thomas
- Gleixner <tglx@kernel.org>, Julia Lawall <julia.lawall@inria.fr>, Yury
- Norov <yury.norov@gmail.com>, linux-doc@vger.kernel.org,
- linux-kbuild@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH 0/2] tracing: Move trace_printk.h out of kernel.h
-Message-ID: <20260622045348.3e1a7833@fedora>
-In-Reply-To: <20260622083440.GX49951@noisy.programming.kicks-ass.net>
-References: <20260621093430.264983361@kernel.org>
- <20260622083440.GX49951@noisy.programming.kicks-ass.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+ s=k20260515; t=1782761156;
+ bh=uYIw6aQ9I+77XwEcGZ5sLAkEEwuPzF6gubx9MILGtr0=;
+ h=From:To:Cc:Subject:Date;
+ b=WOjc9JyG02UBcXhhgV9ic0phr0uZCFD5k0ILdv6ONhCv8Z1XYDxBYiwvpukl7K1Fg
+ a8aIrsAXippHTg2Wibb6tHWkzlE4E0fWXgBDrHzByOJL4F8jISF06sHckyYY+PF7tK
+ OiAiSmS9jz9wRn1oMBm18e5Uavo00IhgOxFuVQdHvJLDYYtq4uXlvS/eQXpk6KaIDD
+ GN3rVLuuxb69YleGJzixCH/hWeHWpFDPzoCr2KQROO1CK5H8VnjBM1FKT5hXUj42/o
+ WOenPbgoWzQyVU21Y69V/YrWJ0M+K8b+G7Zlo5u3zMESofU5MsPpKfLAYEn9kt+uGS
+ wlAF5pba2Dehg==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 00/13] convert more vm_flags_t users to vma_flags_t
+Date: Mon, 29 Jun 2026 20:25:23 +0100
+Message-ID: <cover.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,13 +109,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 22 Jun 2026 10:34:40 +0200
-Peter Zijlstra <peterz@infradead.org> wrote:
+This series makes further progress in converting usage of the deprecated
+vm_flags_t type to its replacement, vma_flags_t.
 
-> Did you forget your C 101 class? If you use a function, you gotta
-> include the relevant header.
+It focuses on mm, though updates some users of mm APIs also.
 
-If this was the way it was back in 2009, yeah sure. But the header
-wasn't need for 17 years. Now it suddenly will be.
+It updates:
 
--- Steve
+* The core do_mmap() code path for VMA mapping.
+* Unmapped area logic.
+* The usage of mm->def_vma_flags.
+* VMA page protection bit logic.
+* General usage of VMA flags in core mm code, mlock, mprotect, mremap.
+
+
+REVIEWER/MERGER NOTE: This is dependent on [0], which must be merged before
+this.
+
+[0]:https://lore.kernel.org/linux-mm/cover.1782735110.git.ljs@kernel.org/
+
+Lorenzo Stoakes (13):
+  mm: introduce vma_flags_can_grow() and vma_can_grow()
+  mm/vma: update do_mmap() to use vma_flags_t
+  mm: convert __get_unmapped_area() to use vma_flags_t
+  mm: update generic_get_unmapped_area[_topdown]() to use vma_flags_t
+  mm: prefer mm->def_vma_flags in mm logic
+  mm/vma: convert vm_pgprot_modify() to use vma_flags_t and rename
+  mm/vma: rename vma_get_page_prot to vma_flags_to_page_prot
+  mm: introduce vma_get_page_prot() and use it
+  mm/vma: update create_init_stack_vma() to use vma_flags_t
+  mm/vma: convert miscellaneous uses of VMA flags in core mm
+  mm/mlock: convert mlock code to use vma_flags_t
+  mm/mprotect: convert mprotect code to use vma_flags_t
+  mm/mremap: convert mremap code to use vma_flags_t
+
+ arch/mips/kernel/vdso.c                     |   4 +-
+ arch/powerpc/mm/book3s64/slice.c            |   6 +-
+ drivers/gpu/drm/drm_gem.c                   |   2 +-
+ drivers/gpu/drm/drm_gem_dma_helper.c        |   2 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c      |   2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c       |   2 +-
+ drivers/gpu/drm/exynos/exynos_drm_gem.c     |   6 +-
+ drivers/gpu/drm/i915/gem/i915_gem_mman.c    |  12 +-
+ drivers/gpu/drm/msm/msm_gem.c               |   2 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c       |   2 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c        |   2 +-
+ drivers/gpu/drm/omapdrm/omap_gem.c          |   6 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c |   2 +-
+ drivers/gpu/drm/tegra/gem.c                 |   2 +-
+ drivers/gpu/drm/virtio/virtgpu_vram.c       |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |   2 +-
+ drivers/gpu/drm/xe/xe_device.c              |   2 +-
+ drivers/gpu/drm/xe/xe_mmio_gem.c            |   2 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.c     |   2 +-
+ drivers/video/fbdev/core/fb_io_fops.c       |   2 +-
+ fs/aio.c                                    |   2 +-
+ fs/hugetlbfs/inode.c                        |   3 +-
+ include/linux/huge_mm.h                     |  10 +-
+ include/linux/memfd.h                       |   6 +-
+ include/linux/mm.h                          |  51 ++++--
+ include/linux/sched/mm.h                    |  16 +-
+ ipc/shm.c                                   |   3 +-
+ mm/debug.c                                  |   2 +-
+ mm/huge_memory.c                            |  21 +--
+ mm/memfd.c                                  |  15 +-
+ mm/mlock.c                                  |  97 ++++++------
+ mm/mmap.c                                   | 164 +++++++++++---------
+ mm/mprotect.c                               |  16 +-
+ mm/mremap.c                                 |  38 ++---
+ mm/nommu.c                                  |   3 +-
+ mm/util.c                                   |  10 +-
+ mm/vma.c                                    |  27 ++--
+ mm/vma.h                                    |   8 +-
+ mm/vma_exec.c                               |  20 ++-
+ sound/core/memalloc.c                       |   2 +-
+ tools/testing/vma/include/dup.h             |  22 ++-
+ 41 files changed, 339 insertions(+), 261 deletions(-)
+
+--
+2.54.0
