@@ -4,67 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22DB8C44509
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2EFBC43602
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C010F10EFC7;
-	Wed,  1 Jul 2026 12:57:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F410C10EFD7;
+	Wed,  1 Jul 2026 12:57:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="s4ycldpU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fdO1PP2g";
 	dkim-atps=neutral
-Received: from mail-qv1-f73.google.com (mail-qv1-f73.google.com
- [209.85.219.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 034DF10F6F8
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 17:55:18 +0000 (UTC)
-Received: by mail-qv1-f73.google.com with SMTP id
- 6a1803df08f44-8dba00e17b5so14036496d6.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 26 Jun 2026 10:55:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1782496517; x=1783101317;
- darn=lists.freedesktop.org; 
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:from:to:cc:subject:date:message-id:reply-to;
- bh=PMvFuTJKKGFEDS38/InD0yHebFzN7SPExIicLwKQFGI=;
- b=s4ycldpU8V32N4Vlf4G8mx/iJhboa7kmv4SYQxjaeA0XjjLRkjit0JeyP1iUiQNd8w
- 8S0F56DXrJIuL6Z04UGITA7c1VyQ2NjN3wqncnYA0UsN27wwV9Fer19w34tyi6+bwTUm
- tYJWOf94+WUOxB5waWjZ8iH3hzy3UUZUkVLUptdoXQpOM3Tq/J8GQeh9rnLjTTQBKrmT
- Kpj5b8ej3Zs1IuA94wfi646DNO3kmAPVeAPqcgpXajL+NfSSDpnN5u97Q2LZ/JfA7IlI
- QSnxR1xPXz0/SvdXGh4x9q6G7Z50MMFSHqrzhlHkp+8wOIvyiTIErKa3dmEMD7XR+Xjp
- /Jzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782496517; x=1783101317;
- h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
- :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=PMvFuTJKKGFEDS38/InD0yHebFzN7SPExIicLwKQFGI=;
- b=GOf3WUmfB2aKZPtQZ8kpa0WRRThCv7Jy/q+lvpnh2PeQdLessypsXBnRHX2KEeb8rw
- G2PsYIwfLOLoCwpXtj/CYDivkNYneX56WytythN1NWIjmADKqrsmBZSsNTTHmGgSyZvh
- 9+NX1p4CulH3GmAC0dvCiqIXr9ZMF9pGih0+frHIih1lrvXoylhvV2HoKzM3CZj5e15E
- G0EwtbnkfCSopndaErTIl3raD7DqEKLjH7712q5IlammMZOJsZJuYOXXq7A82zoiDpgO
- gw0Gmu/iKTyFvEvAJpZndtUkN7W7cdaHBmjSAo/GsGkQIsZNgra5RnLw7JBL+43CjTYz
- gL3Q==
-X-Gm-Message-State: AOJu0YwOTKyjs7auFXH9HCJzPdKKseIhvwqBAJuYLzeTmQLSi+Avef5l
- jU+W4O8nETgD9Q8KY55bX3dG7sPo/4QS7jLeCfuVHeq3YOLhMrBlkyV+UYeehfjP2JDGkxROtPz
- wrQ6JTDAT5wV4pDml74Q4FLSSS4xq28ptXI2kw5ZCtU26EXiOixiYQu7/MWeOUNr5iqOPboEWDV
- NG/exBa9PlJ53wAVTI4DyXXwGTUx91peu4vc6LRo6FyQGILalvctw3dr8cNp0=
-X-Received: from qvbon8.prod.google.com ([2002:a05:6214:4488:b0:8cc:ce57:77cd])
- (user=gildekel job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6214:246f:b0:8dd:fa4e:a4b8 with SMTP id
- 6a1803df08f44-8e6d657f8damr139312496d6.10.1782496516497; 
- Fri, 26 Jun 2026 10:55:16 -0700 (PDT)
-Date: Fri, 26 Jun 2026 13:54:23 -0400
-In-Reply-To: <20260626175510.3899476-1-gildekel@google.com>
-Mime-Version: 1.0
-References: <20260625160020.2873859-1-gildekel@google.com>
- <20260626175510.3899476-1-gildekel@google.com>
-X-Mailer: git-send-email 2.55.0.rc0.799.gd6f94ed593-goog
-Message-ID: <20260626175510.3899476-3-gildekel@google.com>
-Subject: [PATCH v2 2/2] drm/i915/display/mst: Enable HDR over DP MST
-From: Gil Dekel <gildekel@google.com>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: uma.shankar@intel.com, jani.nikula@intel.com, imre.deak@intel.com, 
- khaled.almahallawy@intel.com, navaremanasi@google.com, 
- Gil Dekel <gildekel@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C5CC10EA39;
+ Mon, 29 Jun 2026 19:26:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1543A43A16;
+ Mon, 29 Jun 2026 19:26:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21CD81F00A3E;
+ Mon, 29 Jun 2026 19:26:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782761191;
+ bh=7iylMldrhSOO1IEZlbk7MTKXM0GrQcJsQB4ToBzrfcg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=fdO1PP2gxmsSJuRPnWwcheJxMiMKiZBWn90xI79zJaMiV/YAWbO2W0UnkIARGEFmJ
+ bUUypPCeo0RpYETiZpTVAWC1ZJgInCqeTo7CPwT1NJ+iAS/OA2fkIDIiwkzF2IdCxJ
+ H1jkYqazpwvk7cCzjQ8KC3Eq3OzDzM19YONhlNaTINb3vxc5OIdkaX0FQvTizRIsMV
+ fFHMoQDX/6bV24SU/j+ksLGs/hI3k+hEd9nomwhzobiDnGLxs0IIuDY4YCRVYktHIy
+ Ns0cVUa1HvnaEuLjD4poIn0XFh/n+4WbEqsH7icPumiQlF5blcflwYpgekG7KvEtiI
+ s5/n6ZeMI4APw==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 12/13] mm/mprotect: convert mprotect code to use vma_flags_t
+Date: Mon, 29 Jun 2026 20:25:35 +0100
+Message-ID: <7ef626d8a12dc742cfc09d080be5dc09850e873a.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,142 +111,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute and attach VSC SDP and HDR metadata infoframes for logical MST
-stream connectors.
+Replace use of the legacy vm_flags_t flags with vma_flags_t values
+throughout the mprotect logic.
 
-Update mst_stream_enable() and implement mst_stream_update_pipe() to
-configure the transcoder's Video DIP registers with VSC and HDR infoframes.
-This allows fastsets (such as toggling HDR ON/OFF) to update the hardware
-without triggering a full modeset.
+Note that we retain the legacy vm_flags_t bit shifting code in
+do_mprotect_key(), deferring a vma_flags_t approach to this for the time
+being.
 
-Expose the max_bpc, HDR metadata, and DP Colorspace connector properties
-during MST connector initialization to enable userspace configuration.
+Additionally update comments to reflect the changes to be consistent.
 
-Change-Id: I4e79ec56a0a21650f5c70e80e4fd4d46f5fefaf9
-Signed-off-by: Gil Dekel <gildekel@google.com>
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c     |  9 +++---
- drivers/gpu/drm/i915/display/intel_dp.h     |  6 ++++
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 31 ++++++++++++++++++++-
- 3 files changed, 41 insertions(+), 5 deletions(-)
+ mm/mprotect.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1de26c4c867f..686782d9987f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3157,12 +3157,13 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 		as_sdp->coasting_vtotal = crtc_state->vrr.vmax;
- }
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index 9cbf932b028c..c9504b2a2525 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -40,7 +40,7 @@
  
--static void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
--				     struct intel_crtc_state *crtc_state,
--				     const struct drm_connector_state *conn_state)
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state)
+ static bool maybe_change_pte_writable(struct vm_area_struct *vma, pte_t pte)
  {
- 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
- 	struct drm_dp_vsc_sdp *vsc;
-+
- 	if ((!connector->dp.colorimetry_support ||
- 	     !intel_dp_needs_vsc_sdp(crtc_state, conn_state)) &&
- 	    !crtc_state->has_psr)
-@@ -3218,7 +3219,7 @@ intel_dp_in_hdr_mode(const struct drm_connector_state *conn_state)
- 	return hdr_metadata->hdmi_metadata_type1.eotf == HDMI_EOTF_SMPTE_ST2084;
- }
+-	if (WARN_ON_ONCE(!(vma->vm_flags & VM_WRITE)))
++	if (WARN_ON_ONCE(!vma_test(vma, VMA_WRITE_BIT)))
+ 		return false;
  
--static void
-+void
- intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
- 					    struct intel_crtc_state *crtc_state,
- 					    const struct drm_connector_state *conn_state)
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 26b3a0eb354e..29282540d6ca 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.h
-+++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -76,6 +76,12 @@ int intel_dp_compute_config(struct intel_atomic_state *state,
- 			    struct intel_encoder *encoder,
- 			    struct intel_crtc_state *pipe_config,
- 			    struct drm_connector_state *conn_state);
-+void intel_dp_compute_vsc_sdp(struct intel_dp *intel_dp,
-+			      struct intel_crtc_state *crtc_state,
-+			      const struct drm_connector_state *conn_state);
-+void intel_dp_compute_hdr_metadata_infoframe_sdp(struct intel_dp *intel_dp,
-+						 struct intel_crtc_state *crtc_state,
-+						 const struct drm_connector_state *conn_state);
- bool intel_dp_needs_8b10b_fec(const struct intel_crtc_state *crtc_state,
- 			      bool dsc_enabled_on_crtc);
- void intel_dp_dsc_reset_config(struct intel_crtc_state *crtc_state);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 5b76d12bb00f..d438e4942d9c 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -761,6 +761,10 @@ static int mst_stream_compute_config(struct intel_atomic_state *state,
+ 	/* Don't touch entries that are not even readable. */
+@@ -97,7 +97,7 @@ static bool can_change_shared_pte_writable(struct vm_area_struct *vma,
+ bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+ 			     pte_t pte)
+ {
+-	if (!(vma->vm_flags & VM_SHARED))
++	if (!vma_test(vma, VMA_SHARED_BIT))
+ 		return can_change_private_pte_writable(vma, addr, pte);
  
- 	intel_psr_compute_config(intel_dp, pipe_config, conn_state);
+ 	return can_change_shared_pte_writable(vma, pte);
+@@ -194,7 +194,7 @@ static __always_inline void set_write_prot_commit_flush_ptes(struct vm_area_stru
+ {
+ 	bool set_write;
  
-+	intel_dp_compute_vsc_sdp(intel_dp, pipe_config, conn_state);
-+
-+	intel_dp_compute_hdr_metadata_infoframe_sdp(intel_dp, pipe_config, conn_state);
-+
- 	return intel_dp_tunnel_atomic_compute_stream_bw(state, intel_dp, connector,
- 							pipe_config);
- }
-@@ -1332,6 +1336,8 @@ static void mst_stream_enable(struct intel_atomic_state *state,
+-	if (vma->vm_flags & VM_SHARED) {
++	if (vma_test(vma, VMA_SHARED_BIT)) {
+ 		set_write = can_change_shared_pte_writable(vma, ptent);
+ 		prot_commit_flush_ptes(vma, addr, ptep, oldpte, ptent, nr_ptes,
+ 				       /* idx = */ 0, set_write, tlb);
+@@ -811,8 +811,8 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
+ 		vm_unacct_memory(nrpages);
  
- 	intel_ddi_enable_transcoder_func(encoder, pipe_config);
+ 	/*
+-	 * Private VM_LOCKED VMA becoming writable: trigger COW to avoid major
+-	 * fault on access.
++	 * Private VMA_LOCKED_BIT VMA becoming writable: trigger COW to avoid
++	 * major fault on access.
+ 	 */
+ 	if (vma_flags_test(&new_vma_flags, VMA_WRITE_BIT) &&
+ 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT) &&
+@@ -886,7 +886,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 			goto out;
+ 		start = vma->vm_start;
+ 		error = -EINVAL;
+-		if (!(vma->vm_flags & VM_GROWSDOWN))
++		if (!vma_test(vma, VMA_GROWSDOWN_BIT))
+ 			goto out;
+ 	} else {
+ 		if (vma->vm_start > start)
+@@ -894,7 +894,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		if (unlikely(grows & PROT_GROWSUP)) {
+ 			end = vma->vm_end;
+ 			error = -EINVAL;
+-			if (!(vma->vm_flags & VM_GROWSUP))
++			if (!vma_test(vma, VMA_GROWSUP_BIT))
+ 				goto out;
+ 		}
+ 	}
+@@ -918,7 +918,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		}
  
-+	intel_dp_set_infoframes(primary_encoder, true, pipe_config, conn_state);
-+
- 	intel_vrr_transcoder_enable(pipe_config);
+ 		/* Does the application expect PROT_READ to imply PROT_EXEC */
+-		if (rier && (vma->vm_flags & VM_MAYEXEC))
++		if (rier && vma_test(vma, VMA_MAYEXEC_BIT))
+ 			prot |= PROT_EXEC;
  
- 	intel_ddi_clear_act_sent(encoder, pipe_config);
-@@ -1708,6 +1714,11 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
- 	if (connector->base.max_bpc_property)
- 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
- 
-+	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
-+		drm_connector_attach_hdr_output_metadata_property(&connector->base);
-+
-+	intel_attach_dp_colorspace_property(&connector->base);
-+
- 	return drm_connector_set_path_property(&connector->base, pathprop);
- }
- 
-@@ -1856,6 +1867,24 @@ static const struct drm_dp_mst_topology_cbs mst_topology_cbs = {
- 	.poll_hpd_irq = mst_topology_poll_hpd_irq,
- };
- 
-+static void mst_stream_update_pipe(struct intel_atomic_state *state,
-+				   struct intel_encoder *encoder,
-+				   const struct intel_crtc_state *crtc_state,
-+				   const struct drm_connector_state *conn_state)
-+{
-+	struct intel_encoder *primary_encoder = to_primary_encoder(encoder);
-+
-+	/* Fallback to standard DDI updates (like Audio) */
-+	intel_ddi_update_pipe(state, encoder, crtc_state, conn_state);
-+
-+	/*
-+	 * intel_ddi_update_pipe historically ignores MST for InfoFrames.
-+	 * We must explicitly update the Transcoder's Video DIP registers here
-+	 * so Atomic Fastsets (e.g. toggling HDR in the UI) propagate to the hardware.
-+	 */
-+	intel_dp_set_infoframes(primary_encoder, true, crtc_state, conn_state);
-+}
-+
- /* Create a fake encoder for an individual MST stream */
- static struct intel_dp_mst_encoder *
- mst_stream_encoder_create(struct intel_digital_port *dig_port, enum pipe pipe)
-@@ -1896,7 +1925,7 @@ mst_stream_encoder_create(struct intel_digital_port *dig_port, enum pipe pipe)
- 	encoder->disable = mst_stream_disable;
- 	encoder->post_disable = mst_stream_post_disable;
- 	encoder->post_pll_disable = mst_stream_post_pll_disable;
--	encoder->update_pipe = intel_ddi_update_pipe;
-+	encoder->update_pipe = mst_stream_update_pipe;
- 	encoder->pre_pll_enable = mst_stream_pre_pll_enable;
- 	encoder->pre_enable = mst_stream_pre_enable;
- 	encoder->enable = mst_stream_enable;
+ 		/*
 -- 
-Gil Dekel, Software Engineer, Google / ChromeOS Display and Graphics
+2.54.0
 
