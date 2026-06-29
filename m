@@ -4,62 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61F24C43327
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B8D1C44500
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8A6F10EFCD;
-	Wed,  1 Jul 2026 12:57:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D2B10EFD5;
+	Wed,  1 Jul 2026 12:57:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rzm1exK/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a5KeyFTe";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 434A410E281;
- Sun, 21 Jun 2026 09:37:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4768E10E106;
+ Mon, 29 Jun 2026 19:26:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A4A92442DE;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736F91F00ACA;
- Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F8DE600AA;
+ Mon, 29 Jun 2026 19:25:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 564721F000E9;
+ Mon, 29 Jun 2026 19:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782034672;
- bh=x9RfUMnEVGBBbeJMmrB9Gq2PF5/eRDSUHk1LH8SRFss=;
- h=Date:From:To:Cc:Subject:References;
- b=Rzm1exK/Lr8OogLStjal6NQ54TlzPxU1spXVGF47rnRCN+SslkRtrIOqYNh6cG32b
- DWLjBjfxm8Stmk+IREYorcGGIjlGobo4nZBUnfI3wBRukzhYvKaFS8Z5LK80sEBpso
- QK2Ylni+TtG0fxtrNfmhys6YcOOOAoBTl/+7j3zRZsngg//jPcAXr0MQ+GnkjyqHiS
- elj+dpTQt807df3xpqvs+xGjcXPREMTdSA5XRNJkIosiOI+0ytmFGbpwh2ICyUe1w1
- uQ6l2X4lossOjcfXnEK2DppwK4dXj93q8anlcicDuvy70Ul0Y5/8S4HzNtN5qUlNvY
- m8Ydamn19ejQw==
-Received: from rostedt by gandalf with local (Exim 4.99.3)
- (envelope-from <rostedt@kernel.org>) id 1wbEd1-00000001qUz-1Pst;
- Sun, 21 Jun 2026 05:38:11 -0400
-Message-ID: <20260621093811.168514984@kernel.org>
-User-Agent: quilt/0.69
-Date: Sun, 21 Jun 2026 05:34:32 -0400
-From: Steven Rostedt <rostedt@kernel.org>
-To: linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- John Ogness <john.ogness@linutronix.de>, Thomas Gleixner <tglx@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Julia Lawall <julia.lawall@inria.fr>, Yury Norov <yury.norov@gmail.com>,
- linux-doc@vger.kernel.org, linux-kbuild@vger.kernel.org,
+ s=k20260515; t=1782761159;
+ bh=RyicGxsSOzJTaoBcRQGH27oUytYBKCYLUF6jDOpzH7I=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=a5KeyFTeJjh7TJORUpSdmde4WrAK8BTgTPTho1LlZNtgrXh/Yqn9mD6/L1E9zfs8r
+ e8za/mcjsoGeYfC+55PxZM0hLi0ZRJB+0Gbcm0U2F6Fn97SZIJM1N8XKGpsR2xQKrI
+ yYMjTnXxd/YQ9zzdgYLIPjHCFJPa2KKvIAraY8mhyi19FlYp5ghqePfdzpdkTUseC1
+ had3a1qZv4Z9B8qbb5LsCMcPsRJ2m5HWJRYLpaEMWR5rYHXsAk6QucmLYIa0UzO6lQ
+ Pqa24H5c5iEEZidrzYUke9zV+idmE8KbclhOGbVFF/6WTC2VNdnFmcT1ViYuCVE/mn
+ cARBGEsTONhTA==
+From: Lorenzo Stoakes <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lucas Stach <l.stach@pengutronix.de>,
+ Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Helge Deller <deller@gmx.de>, Benjamin LaHaise <bcrl@kvack.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Kees Cook <kees@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
  linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-rdma@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-nfs@vger.kernel.org, kvm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean up
- kernel.h
-References: <20260621093430.264983361@kernel.org>
+ etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-sound@vger.kernel.org
+Subject: [PATCH 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
+Date: Mon, 29 Jun 2026 20:25:24 +0100
+Message-ID: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <cover.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,321 +111,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Steven Rostedt <rostedt@goodmis.org>
+These test whether the VMA has stack sematics, i.e. is able to grow upwards
+or downwards depending on the architecture.
 
-Instead of having trace_printk.h included in kernel.h, create a config
-TRACE_PRINTK_DEBUGGING that when set will update the CFLAGS in the
-Makefile to allow developers to add trace_printk() without the need to add
-the include for it. Having it included in the Makefile keeps it from being
-in the dependency chain and it will not waste extra CPU cycles for those
-building the kernel without using trace_printk.
+In order to account for arches which do not support upward-growing stacks,
+introduce VMA_GROWSUP whose definition depends on the architecture
+supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
+to account for this.
 
-Link: https://lore.kernel.org/all/CAHk-=wikCBeVFjVXiY4o-oepdbjAoir5+TcAgtL12c4u1TpZLQ@mail.gmail.com/
+Update the VMA userland tests to reflect the changes
 
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- .../debugging/driver_development_debugging_guide.rst   |  2 +-
- Makefile                                               |  5 +++++
- arch/powerpc/kvm/book3s_xics.c                         |  1 +
- drivers/gpu/drm/i915/gt/intel_gtt.h                    |  1 +
- drivers/gpu/drm/i915/i915_gem.h                        |  1 +
- drivers/hwtracing/stm/dummy_stm.c                      |  4 ++++
- drivers/infiniband/hw/hfi1/trace_dbg.h                 |  1 +
- drivers/usb/early/xhci-dbc.c                           |  1 +
- fs/ext4/inline.c                                       |  1 +
- include/linux/kernel.h                                 |  1 -
- include/linux/sunrpc/debug.h                           |  1 +
- include/linux/trace_printk.h                           |  5 +++--
- kernel/trace/Kconfig                                   | 10 ++++++++++
- kernel/trace/ring_buffer_benchmark.c                   |  1 +
- kernel/trace/trace.h                                   |  1 +
- samples/fprobe/fprobe_example.c                        |  1 +
- samples/ftrace/ftrace-direct-modify.c                  |  1 +
- samples/ftrace/ftrace-direct-multi-modify.c            |  1 +
- samples/ftrace/ftrace-direct-multi.c                   |  2 +-
- samples/ftrace/ftrace-direct-too.c                     |  2 +-
- samples/ftrace/ftrace-direct.c                         |  2 +-
- 21 files changed, 38 insertions(+), 7 deletions(-)
+ include/linux/mm.h              | 21 ++++++++++++++++++---
+ tools/testing/vma/include/dup.h |  4 ++++
+ 2 files changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/process/debugging/driver_development_debugging_guide.rst b/Documentation/process/debugging/driver_development_debugging_guide.rst
-index aca08f457793..3c87aa03622f 100644
---- a/Documentation/process/debugging/driver_development_debugging_guide.rst
-+++ b/Documentation/process/debugging/driver_development_debugging_guide.rst
-@@ -52,7 +52,7 @@ For the full documentation see :doc:`/core-api/printk-basics`
- Trace_printk
- ~~~~~~~~~~~~
- 
--Prerequisite: ``CONFIG_DYNAMIC_FTRACE`` & ``#include <linux/ftrace.h>``
-+Prerequisite: ``CONFIG_TRACE_PRINTK_DEBUGGING``
- 
- It is a tiny bit less comfortable to use than printk(), because you will have
- to read the messages from the trace file (See: :ref:`read_ftrace_log`
-diff --git a/Makefile b/Makefile
-index d1c595db55c9..2f5923d5393b 100644
---- a/Makefile
-+++ b/Makefile
-@@ -840,6 +840,11 @@ ifdef CONFIG_FUNCTION_TRACER
-   CC_FLAGS_FTRACE := -pg
- endif
- 
-+ifdef CONFIG_TRACE_PRINTK_DEBUGGING
-+  # Allow trace_printk() to be used anywhere without including the header.
-+  LINUXINCLUDE += -include $(srctree)/include/linux/trace_printk.h
-+endif
-+
- ifdef CONFIG_TRACEPOINTS
- # To check for unused tracepoints (tracepoints that are defined but never
- # called), run with:
-diff --git a/arch/powerpc/kvm/book3s_xics.c b/arch/powerpc/kvm/book3s_xics.c
-index 74a44fa702b0..ef5eb596a56e 100644
---- a/arch/powerpc/kvm/book3s_xics.c
-+++ b/arch/powerpc/kvm/book3s_xics.c
-@@ -26,6 +26,7 @@
- #if 1
- #define XICS_DBG(fmt...) do { } while (0)
- #else
-+#include <linux/trace_printk.h>
- #define XICS_DBG(fmt...) trace_printk(fmt)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 868b2334bff3..cf7df1569052 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -472,6 +472,7 @@ enum {
+ #define VM_SAO		INIT_VM_FLAG(SAO)
+ #elif defined(CONFIG_PARISC)
+ #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
++#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
+ #elif defined(CONFIG_SPARC64)
+ #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
+ #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
+@@ -483,6 +484,7 @@ enum {
  #endif
- 
-diff --git a/drivers/gpu/drm/i915/gt/intel_gtt.h b/drivers/gpu/drm/i915/gt/intel_gtt.h
-index b54ee4f25af1..f6f223090760 100644
---- a/drivers/gpu/drm/i915/gt/intel_gtt.h
-+++ b/drivers/gpu/drm/i915/gt/intel_gtt.h
-@@ -35,6 +35,7 @@
- #define I915_GFP_ALLOW_FAIL (GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN)
- 
- #if IS_ENABLED(CONFIG_DRM_I915_TRACE_GTT)
-+#include <linux/trace_printk.h>
- #define GTT_TRACE(...) trace_printk(__VA_ARGS__)
- #else
- #define GTT_TRACE(...)
-diff --git a/drivers/gpu/drm/i915/i915_gem.h b/drivers/gpu/drm/i915/i915_gem.h
-index 20b3cb29cfff..5cab1836dc1d 100644
---- a/drivers/gpu/drm/i915/i915_gem.h
-+++ b/drivers/gpu/drm/i915/i915_gem.h
-@@ -116,6 +116,7 @@ int i915_gem_open(struct drm_i915_private *i915, struct drm_file *file);
+ #ifndef VM_GROWSUP
+ #define VM_GROWSUP	VM_NONE
++#define VMA_GROWSUP	EMPTY_VMA_FLAGS
  #endif
- 
- #if IS_ENABLED(CONFIG_DRM_I915_TRACE_GEM)
-+#include <linux/trace_printk.h>
- #define GEM_TRACE(...) trace_printk(__VA_ARGS__)
- #define GEM_TRACE_ERR(...) do {						\
- 	pr_err(__VA_ARGS__);						\
-diff --git a/drivers/hwtracing/stm/dummy_stm.c b/drivers/hwtracing/stm/dummy_stm.c
-index 38528ffdc0b3..784f9af7ccba 100644
---- a/drivers/hwtracing/stm/dummy_stm.c
-+++ b/drivers/hwtracing/stm/dummy_stm.c
-@@ -14,6 +14,10 @@
- #include <linux/stm.h>
- #include <uapi/linux/stm.h>
- 
-+#ifdef DEBUG
-+#include <linux/trace_printk.h>
-+#endif
-+
- static ssize_t notrace
- dummy_stm_packet(struct stm_data *stm_data, unsigned int master,
- 		 unsigned int channel, unsigned int packet, unsigned int flags,
-diff --git a/drivers/infiniband/hw/hfi1/trace_dbg.h b/drivers/infiniband/hw/hfi1/trace_dbg.h
-index 58304b91380f..30df5e246586 100644
---- a/drivers/infiniband/hw/hfi1/trace_dbg.h
-+++ b/drivers/infiniband/hw/hfi1/trace_dbg.h
-@@ -103,6 +103,7 @@ __hfi1_trace_def(IOCTL);
-  */
- 
- #ifdef HFI1_EARLY_DBG
-+#include <linux/trace_printk.h>
- #define hfi1_dbg_early(fmt, ...) \
- 	trace_printk(fmt, ##__VA_ARGS__)
- #else
-diff --git a/drivers/usb/early/xhci-dbc.c b/drivers/usb/early/xhci-dbc.c
-index 41118bba9197..955c73bd601f 100644
---- a/drivers/usb/early/xhci-dbc.c
-+++ b/drivers/usb/early/xhci-dbc.c
-@@ -30,6 +30,7 @@ static struct xdbc_state xdbc;
- static bool early_console_keep;
- 
- #ifdef XDBC_TRACE
-+#include <linux/trace_printk.h>
- #define	xdbc_trace	trace_printk
- #else
- static inline void xdbc_trace(const char *fmt, ...) { }
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index 8045e4ff270c..0eff4a0c6a6c 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -934,6 +934,7 @@ static int ext4_da_convert_inline_data_to_extent(struct address_space *mapping,
+ #ifdef CONFIG_ARM64_MTE
+ #define VM_MTE		INIT_VM_FLAG(MTE)
+@@ -1563,11 +1565,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
+ 		vma->vm_end >= vma->vm_mm->start_stack;
  }
  
- #ifdef INLINE_DIR_DEBUG
-+#include <linux/trace_printk.h>
- void ext4_show_inline_dir(struct inode *dir, struct buffer_head *bh,
- 			  void *inline_start, int inline_size)
+-static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++static inline bool vma_flags_can_grow(const vma_flags_t *flags)
  {
-diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-index c3c68128827c..538655385089 100644
---- a/include/linux/kernel.h
-+++ b/include/linux/kernel.h
-@@ -31,7 +31,6 @@
- #include <linux/build_bug.h>
- #include <linux/sprintf.h>
- #include <linux/static_call_types.h>
--#include <linux/trace_printk.h>
- #include <linux/util_macros.h>
- #include <linux/wordpart.h>
+-	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
++	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
++		return true;
++	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
++		return true;
++
++	return false;
++}
  
-diff --git a/include/linux/sunrpc/debug.h b/include/linux/sunrpc/debug.h
-index ab61bed2f7af..7524f5d82fba 100644
---- a/include/linux/sunrpc/debug.h
-+++ b/include/linux/sunrpc/debug.h
-@@ -29,6 +29,7 @@ extern unsigned int		nlm_debug;
- # define ifdebug(fac)		if (unlikely(rpc_debug & RPCDBG_##fac))
+-	if (!maybe_stack)
++static inline bool vma_can_grow(const struct vm_area_struct *vma)
++{
++	return vma_flags_can_grow(&vma->flags);
++}
++
++static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
++{
++	if (!vma_can_grow(vma))
+ 		return false;
  
- # if IS_ENABLED(CONFIG_SUNRPC_DEBUG_TRACE)
-+#  include <linux/trace_printk.h>
- #  define __sunrpc_printk(fmt, ...)	trace_printk(fmt, ##__VA_ARGS__)
- # else
- #  define __sunrpc_printk(fmt, ...)	printk(KERN_DEFAULT fmt, ##__VA_ARGS__)
-diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
-index 879fed0805fd..66edec6d5dbf 100644
---- a/include/linux/trace_printk.h
-+++ b/include/linux/trace_printk.h
-@@ -1,11 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- #ifndef _LINUX_TRACE_PRINTK_H
- #define _LINUX_TRACE_PRINTK_H
-+#if !defined(__ASSEMBLY__) && !defined(__GENKSYMS__) && !defined(BUILD_VDSO)
- 
--#include <linux/compiler_attributes.h>
- #include <linux/instruction_pointer.h>
- #include <linux/stddef.h>
- #include <linux/stringify.h>
-+#include <linux/stdarg.h>
- 
- /*
-  * General tracing related utility functions - trace_printk(),
-@@ -181,5 +182,5 @@ ftrace_vprintk(const char *fmt, va_list ap)
- }
- static inline void ftrace_dump(enum ftrace_dump_mode oops_dump_mode) { }
- #endif /* CONFIG_TRACING */
--
-+#endif /* !defined(__ASSEMBLY__) && !defined(__GENKSYMS__) */
+ 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 5d7d0afd7765..6f5bcd7fbcd8 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -245,8 +245,10 @@ enum {
+ #define VM_STACK	INIT_VM_FLAG(STACK)
+ #ifdef CONFIG_STACK_GROWS_UP
+ #define VM_STACK_EARLY	INIT_VM_FLAG(STACK_EARLY)
++#define VMA_STACK_EARLY mk_vma_flags(VMA_STACK_EARLY_BIT)
+ #else
+ #define VM_STACK_EARLY	VM_NONE
++#define VMA_STACK_EARLY EMPTY_VMA_FLAGS
  #endif
-diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-index 084f34dc6c9f..ffbd1b0ce66e 100644
---- a/kernel/trace/Kconfig
-+++ b/kernel/trace/Kconfig
-@@ -210,6 +210,16 @@ menuconfig FTRACE
+ #ifdef CONFIG_ARCH_HAS_PKEYS
+ #define VM_PKEY_SHIFT ((__force int)VMA_HIGH_ARCH_0_BIT)
+@@ -315,6 +317,8 @@ enum {
  
- if FTRACE
+ /* Bits set in the VMA until the stack is in its final location */
+ #define VM_STACK_INCOMPLETE_SETUP (VM_RAND_READ | VM_SEQ_READ | VM_STACK_EARLY)
++#define VMA_STACK_INCOMPLETE_SETUP append_vma_flags(		\
++	VMA_STACK_EARLY, VMA_RAND_READ_BIT, VMA_SEQ_READ_BIT)
  
-+config TRACE_PRINTK_DEBUGGING
-+	bool "Debug with trace_printk()"
-+	help
-+	  If you need to debug with trace_printk(), instead of adding
-+	  include <linux/trace_printk.h> to every file you add a trace_printk
-+	  to, select this option and it will add trace_printk.h to all code
-+	  to allow tracing with trace_printk() with.
-+
-+	  If in doubt, select N
-+
- config TRACEFS_AUTOMOUNT_DEPRECATED
- 	bool "Automount tracefs on debugfs [DEPRECATED]"
- 	depends on TRACING
-diff --git a/kernel/trace/ring_buffer_benchmark.c b/kernel/trace/ring_buffer_benchmark.c
-index 593e3b59e42e..2bb25caebb75 100644
---- a/kernel/trace/ring_buffer_benchmark.c
-+++ b/kernel/trace/ring_buffer_benchmark.c
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2009 Steven Rostedt <srostedt@redhat.com>
-  */
- #include <linux/ring_buffer.h>
-+#include <linux/trace_printk.h>
- #include <linux/completion.h>
- #include <linux/kthread.h>
- #include <uapi/linux/sched/types.h>
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 80fe152af1dd..580a3deab1e9 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -13,6 +13,7 @@
- #include <linux/ftrace.h>
- #include <linux/trace.h>
- #include <linux/hw_breakpoint.h>
-+#include <linux/trace_printk.h>
- #include <linux/trace_seq.h>
- #include <linux/trace_events.h>
- #include <linux/compiler.h>
-diff --git a/samples/fprobe/fprobe_example.c b/samples/fprobe/fprobe_example.c
-index bfe98ce826f3..de81b9b4ca7d 100644
---- a/samples/fprobe/fprobe_example.c
-+++ b/samples/fprobe/fprobe_example.c
-@@ -12,6 +12,7 @@
- 
- #define pr_fmt(fmt) "%s: " fmt, __func__
- 
-+#include <linux/trace_printk.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/fprobe.h>
-diff --git a/samples/ftrace/ftrace-direct-modify.c b/samples/ftrace/ftrace-direct-modify.c
-index 1ba1927b548e..30d0f8e644c8 100644
---- a/samples/ftrace/ftrace-direct-modify.c
-+++ b/samples/ftrace/ftrace-direct-modify.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/trace_printk.h>
- #include <linux/module.h>
- #include <linux/kthread.h>
- #include <linux/ftrace.h>
-diff --git a/samples/ftrace/ftrace-direct-multi-modify.c b/samples/ftrace/ftrace-direct-multi-modify.c
-index 7a7822dfeb50..f64b929e19ec 100644
---- a/samples/ftrace/ftrace-direct-multi-modify.c
-+++ b/samples/ftrace/ftrace-direct-multi-modify.c
-@@ -1,4 +1,5 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/trace_printk.h>
- #include <linux/module.h>
- #include <linux/kthread.h>
- #include <linux/ftrace.h>
-diff --git a/samples/ftrace/ftrace-direct-multi.c b/samples/ftrace/ftrace-direct-multi.c
-index 3fe6ddaf0b69..d32644a49554 100644
---- a/samples/ftrace/ftrace-direct-multi.c
-+++ b/samples/ftrace/ftrace-direct-multi.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/trace_printk.h>
- #include <linux/module.h>
--
- #include <linux/mm.h> /* for handle_mm_fault() */
- #include <linux/ftrace.h>
- #include <linux/sched/stat.h>
-diff --git a/samples/ftrace/ftrace-direct-too.c b/samples/ftrace/ftrace-direct-too.c
-index bf2411aa6fd7..266fcb233301 100644
---- a/samples/ftrace/ftrace-direct-too.c
-+++ b/samples/ftrace/ftrace-direct-too.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/trace_printk.h>
- #include <linux/module.h>
--
- #include <linux/mm.h> /* for handle_mm_fault() */
- #include <linux/ftrace.h>
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
-diff --git a/samples/ftrace/ftrace-direct.c b/samples/ftrace/ftrace-direct.c
-index 5368c8c39cbb..85e0dff9b691 100644
---- a/samples/ftrace/ftrace-direct.c
-+++ b/samples/ftrace/ftrace-direct.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+#include <linux/trace_printk.h>
- #include <linux/module.h>
--
- #include <linux/sched.h> /* for wake_up_process() */
- #include <linux/ftrace.h>
- #if !defined(CONFIG_ARM64) && !defined(CONFIG_PPC32)
+ #define TASK_EXEC_BIT ((current->personality & READ_IMPLIES_EXEC) ? \
+ 		       VM_EXEC_BIT : VM_READ_BIT)
 -- 
-2.53.0
-
+2.54.0
 
