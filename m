@@ -4,59 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE5FFC43327
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 16:57:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E52C8C43458
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 20:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B8B010ECD8;
-	Tue, 30 Jun 2026 16:57:37 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="e4brlJz0";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C040510E23B;
- Tue, 30 Jun 2026 16:57:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Qrq29s1UmcG3ZbaxpiVVbSt+a5Mn05Ll4PFR7ojZOso=; b=e4brlJz0fiay1/iAA2Rhi9OPP6
- bG1+8VfWCnz87sz/T3sHuxkBBAvZTYVhPfUSomlqxkdTb1ClIs2bYzESk3aCB0MzEn3ATF+MT6J1S
- kWOG8t6zQAH0fcG/cEVfNm+FApVGSBv9R8Dhq/RX8hfxZTrMxiwBkmnVlW9TzRkisJ8g/A5x8lWkx
- /wPzHsZUJ0Cg/MYxa/2XhUCtds4mL5VJ5oDscP5DWiHTnlLL1AcW55JtlbSmWOVPvD3E+9mYWI+O5
- 0zCN6nt6qgioPyGVxuaQH7lfxwrsQz4BrOORt6KFrKnOSjbjH2eIFPsDbVpkH/TK1YRk0r0MIObGN
- U0Ca56SQ==;
-Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
- helo=[192.168.1.128]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1webm3-007Bke-Tz; Tue, 30 Jun 2026 18:57:27 +0200
-Message-ID: <0570d22d-bf3c-4c17-b50e-58f522f25ffb@igalia.com>
-Date: Tue, 30 Jun 2026 18:57:20 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 702AA10E240;
+	Tue, 30 Jun 2026 20:02:03 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD64210E240;
+ Tue, 30 Jun 2026 20:02:01 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2949993494238531627=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
- behind driver feature
-To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260630084229.529682-1-robert.mader@collabora.com>
- <20260630084229.529682-2-robert.mader@collabora.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260630084229.529682-2-robert.mader@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_i915=2ECI=2EBAT=3A_failure_for_drm/i915/gt=3A_Use_poll?=
+ =?utf-8?q?=5Ftimeout=5Fus_in_place_of_sliding_sleep_window_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 30 Jun 2026 20:02:01 -0000
+Message-ID: <178284972176.134778.17664670533535938794@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260630152511.1401029-1-jonathan.cavitt@intel.com>
+In-Reply-To: <20260630152511.1401029-1-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,67 +37,232 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============2949993494238531627==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+== Series Details ==
+
+Series: drm/i915/gt: Use poll_timeout_us in place of sliding sleep window (rev3)
+URL   : https://patchwork.freedesktop.org/series/169454/
+State : failure
+
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18736 -> Patchwork_169454v3
+====================================================
+
+Summary
+-------
+
+  **FAILURE**
+
+  Serious unknown changes coming with Patchwork_169454v3 absolutely need to be
+  verified manually.
+  
+  If you think the reported changes have nothing to do with the changes
+  introduced in Patchwork_169454v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them
+  to document this new failure mode, which will reduce false positives in CI.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/index.html
+
+Participating hosts (41 -> 40)
+------------------------------
+
+  Additional (1): bat-adls-6 
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Possible new issues
+-------------------
+
+  Here are the unknown changes that may have been introduced in Patchwork_169454v3:
+
+### CI changes ###
+
+#### Possible regressions ####
+
+  * boot:
+    - bat-dg2-8:          [PASS][1] -> [FAIL][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-8/boot.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-8/boot.html
+    - bat-arls-6:         [PASS][3] -> [FAIL][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arls-6/boot.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arls-6/boot.html
+    - bat-mtlp-8:         [PASS][5] -> [FAIL][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-mtlp-8/boot.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-mtlp-8/boot.html
+    - bat-arlh-2:         [PASS][7] -> [FAIL][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arlh-2/boot.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arlh-2/boot.html
+    - bat-atsm-1:         [PASS][9] -> [FAIL][10]
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-atsm-1/boot.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-atsm-1/boot.html
+    - bat-adlp-9:         [PASS][11] -> [FAIL][12]
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-9/boot.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-9/boot.html
+    - bat-rpls-4:         [PASS][13] -> [FAIL][14]
+   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-rpls-4/boot.html
+   [14]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-rpls-4/boot.html
+
+  
+
+### IGT changes ###
+
+#### Possible regressions ####
+
+  * igt@i915_module_load@load:
+    - bat-adlp-6:         [PASS][15] -> [ABORT][16]
+   [15]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-6/igt@i915_module_load@load.html
+   [16]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-6/igt@i915_module_load@load.html
+    - bat-arlh-3:         [PASS][17] -> [ABORT][18]
+   [17]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arlh-3/igt@i915_module_load@load.html
+   [18]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arlh-3/igt@i915_module_load@load.html
+    - bat-dg1-7:          [PASS][19] -> [INCOMPLETE][20]
+   [19]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg1-7/igt@i915_module_load@load.html
+   [20]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg1-7/igt@i915_module_load@load.html
+    - bat-twl-2:          [PASS][21] -> [INCOMPLETE][22]
+   [21]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-twl-2/igt@i915_module_load@load.html
+   [22]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-twl-2/igt@i915_module_load@load.html
+    - bat-twl-1:          [PASS][23] -> [INCOMPLETE][24]
+   [23]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-twl-1/igt@i915_module_load@load.html
+   [24]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-twl-1/igt@i915_module_load@load.html
+    - bat-dg2-14:         [PASS][25] -> [INCOMPLETE][26]
+   [25]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-14/igt@i915_module_load@load.html
+   [26]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-14/igt@i915_module_load@load.html
+    - bat-arls-5:         [PASS][27] -> [ABORT][28]
+   [27]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arls-5/igt@i915_module_load@load.html
+   [28]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arls-5/igt@i915_module_load@load.html
+    - bat-rplp-1:         [PASS][29] -> [INCOMPLETE][30]
+   [29]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-rplp-1/igt@i915_module_load@load.html
+   [30]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-rplp-1/igt@i915_module_load@load.html
+    - fi-cfl-guc:         [PASS][31] -> [INCOMPLETE][32]
+   [31]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/fi-cfl-guc/igt@i915_module_load@load.html
+   [32]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/fi-cfl-guc/igt@i915_module_load@load.html
+    - bat-mtlp-9:         [PASS][33] -> [ABORT][34]
+   [33]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-mtlp-9/igt@i915_module_load@load.html
+   [34]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-mtlp-9/igt@i915_module_load@load.html
+    - bat-dg2-9:          [PASS][35] -> [INCOMPLETE][36]
+   [35]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-9/igt@i915_module_load@load.html
+   [36]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-9/igt@i915_module_load@load.html
+    - bat-adlp-11:        [PASS][37] -> [ABORT][38]
+   [37]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-11/igt@i915_module_load@load.html
+   [38]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-11/igt@i915_module_load@load.html
+    - bat-dg1-6:          [PASS][39] -> [INCOMPLETE][40]
+   [39]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg1-6/igt@i915_module_load@load.html
+   [40]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg1-6/igt@i915_module_load@load.html
+    - bat-adls-6:         NOTRUN -> [INCOMPLETE][41]
+   [41]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adls-6/igt@i915_module_load@load.html
+
+  
 
 
-On 30/06/2026 10:42, Robert Mader wrote:
-> The client cap is currently advertised unconditionally, even for drivers that do
-> not support plane color pipelines. If clients supporting the later, like Wayland
-> compositors and drm_info, enable the client cap on sich drivers they will be
-> left without both color pipeline and the legacy properties COLOR_ENCODING and
-> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
->
-> Add a new driver feature and guard the client cap behind it, allowing
-> plane color pipeline and legacy YUV->RGB support to co-exist.
+Build changes
+-------------
 
-Ouch, that's indeed a problem. Nice catch!
+  * Linux: CI_DRM_18736 -> Patchwork_169454v3
 
-I'm not sure if this is the right way to go because plane color pipeline 
-can be supported per plane and per hw family.
-My suggestion would be to only deprecate COLOR_ENCODING and COLOR_RANGE 
-in drm_mode_object_get_properties() if a plane COLOR_PIPELINE property 
-is attached.
-WDYT?
+  CI-20190529: 20190529
+  CI_DRM_18736: 7100870965845da8c31005c07fd1b390bbe96b20 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8988: 8988
+  Patchwork_169454v3: 7100870965845da8c31005c07fd1b390bbe96b20 @ git://anongit.freedesktop.org/gfx-ci/linux
 
-Melissa
+== Logs ==
 
->
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
-> ---
->   drivers/gpu/drm/drm_ioctl.c | 2 ++
->   include/drm/drm_drv.h       | 6 ++++++
->   2 files changed, 8 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index ff193155129e..96fda92e31b9 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -374,6 +374,8 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->   		file_priv->supports_virtualized_cursor_plane = req->value;
->   		break;
->   	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-> +		if (!drm_core_check_feature(dev, DRIVER_PLANE_COLOR_PIPELINE))
-> +			return -EOPNOTSUPP;
->   		if (!file_priv->atomic)
->   			return -EINVAL;
->   		if (req->value > 1)
-> diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
-> index e09559495c5b..108ddd2c8d30 100644
-> --- a/include/drm/drm_drv.h
-> +++ b/include/drm/drm_drv.h
-> @@ -116,6 +116,12 @@ enum drm_driver_feature {
->   	 * the cursor planes to work correctly).
->   	 */
->   	DRIVER_CURSOR_HOTSPOT           = BIT(9),
-> +	/**
-> +	 * @DRIVER_PLANE_COLOR_PIPELINE:
-> +	 *
-> +	 * Driver supports PLANE_COLOR_PIPELINE.
-> +	 */
-> +	DRIVER_PLANE_COLOR_PIPELINE	= BIT(10),
->   
->   	/* IMPORTANT: Below are all the legacy flags, add new ones above. */
->   
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/index.html
 
+--===============2949993494238531627==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Use poll_timeout_us in place of sliding sleep window (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169454/">https://patchwork.freedesktop.org/series/169454/</a></td></tr>
+<tr><td><b>State:</b></td><td>failure</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18736 -&gt; Patchwork_169454v3</h1>
+<h2>Summary</h2>
+<p><strong>FAILURE</strong></p>
+<p>Serious unknown changes coming with Patchwork_169454v3 absolutely need to be<br />
+  verified manually.</p>
+<p>If you think the reported changes have nothing to do with the changes<br />
+  introduced in Patchwork_169454v3, please notify your bug team (I915-ci-infra@lists.freedesktop.org) to allow them<br />
+  to document this new failure mode, which will reduce false positives in CI.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/index.html</p>
+<h2>Participating hosts (41 -&gt; 40)</h2>
+<p>Additional (1): bat-adls-6 <br />
+  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Possible new issues</h2>
+<p>Here are the unknown changes that may have been introduced in Patchwork_169454v3:</p>
+<h3>CI changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>boot:<ul>
+<li>bat-dg2-8:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-8/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-8/boot.html">FAIL</a></li>
+<li>bat-arls-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arls-6/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arls-6/boot.html">FAIL</a></li>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-mtlp-8/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-mtlp-8/boot.html">FAIL</a></li>
+<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arlh-2/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arlh-2/boot.html">FAIL</a></li>
+<li>bat-atsm-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-atsm-1/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-atsm-1/boot.html">FAIL</a></li>
+<li>bat-adlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-9/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-9/boot.html">FAIL</a></li>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-rpls-4/boot.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-rpls-4/boot.html">FAIL</a></li>
+</ul>
+</li>
+</ul>
+<h3>IGT changes</h3>
+<h4>Possible regressions</h4>
+<ul>
+<li>igt@i915_module_load@load:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-6/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-6/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arlh-3/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arlh-3/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-dg1-7:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg1-7/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg1-7/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-twl-2:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-twl-2/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-twl-2/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-twl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-twl-1/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-twl-1/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-dg2-14:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-14/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-14/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-arls-5:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-arls-5/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-arls-5/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-rplp-1:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-rplp-1/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-rplp-1/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>fi-cfl-guc:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/fi-cfl-guc/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/fi-cfl-guc/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-mtlp-9/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-mtlp-9/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg2-9/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg2-9/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-adlp-11:        <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-adlp-11/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adlp-11/igt@i915_module_load@load.html">ABORT</a></li>
+<li>bat-dg1-6:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18736/bat-dg1-6/igt@i915_module_load@load.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-dg1-6/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169454v3/bat-adls-6/igt@i915_module_load@load.html">INCOMPLETE</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18736 -&gt; Patchwork_169454v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18736: 7100870965845da8c31005c07fd1b390bbe96b20 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8988: 8988<br />
+  Patchwork_169454v3: 7100870965845da8c31005c07fd1b390bbe96b20 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2949993494238531627==--
