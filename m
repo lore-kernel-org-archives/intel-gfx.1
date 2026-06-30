@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 641A7C43327
-	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 09:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 585E2C43458
+	for <intel-gfx@archiver.kernel.org>; Tue, 30 Jun 2026 09:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC75810EBB4;
-	Tue, 30 Jun 2026 09:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC7E110E1C5;
+	Tue, 30 Jun 2026 09:08:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mWaw4lvF";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NSZApVts";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AB1A10E4EC;
- Tue, 30 Jun 2026 09:00:58 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFFB110E1C5
+ for <intel-gfx@lists.freedesktop.org>; Tue, 30 Jun 2026 09:08:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782810059; x=1814346059;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=Kh/ZMHphYRi2/IiHFBlSWBCq0vIJ83CpnZAMRBCL+tA=;
- b=mWaw4lvFxtuDmmIn61JSLweDPQQ1VZOsAOgDx0Wm/2ABNeQ2M8YSVmJX
- q/DEXVE5bnUwIZEf6goB0CpBF24nW0mQfuM/1x2GArjhOTBQNzHW7jZB2
- Qg9EI8uwZA8OpaGZF+CMRqGyR4W3phGGnTdnUFQsG5QnJ4uknXMV4ampX
- qF38DRnRzBlb409TvpLH8aNgvTekSZUjxdjrPj40WXgXHpL2kLOJHuvFQ
- d+/GSDnG3QAzEJds5EJgN8ZP6dp8vto77kk1icmqrB7rTL6cp31gPVTJx
- r4GIMeRZxEmYkE0Nth9TTRZvLG9t5qsPOhS6WMaTXz8QJUUkMtEkNAgwR g==;
-X-CSE-ConnectionGUID: 766Pm34ZQkCh2qKjFG9waA==
-X-CSE-MsgGUID: qyoBZdx3SWidE9gUQd/k0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94667715"
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94667715"
+ t=1782810522; x=1814346522;
+ h=from:to:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=mVwEe0dkwiq7T1/nlc8BnWGflh3dEtY14BdVm58Zq7A=;
+ b=NSZApVtsDeu27iq18LIlUdPCCRu4OV6SMhRE+8TkkSlhIRZQcB/xo/Wb
+ sAO/ZQ9mo6F7TzGz7EMHLDYFGF5XYQ/6wFOboQFvRFYSq0qWDuPEQtxrU
+ L5UsofhKgXq0NoO4kJT66STxKQ1KvVvmctWxrQPUfgSd5bTKEs1ed3+mn
+ C+yT37DAVs4I6cp9UD73MY/9mb8YopMG07db2YJaEmAkAEr+shvWEXOFY
+ c6wVcX6rbpqLyeAk8E97A1lTAD9l2FYIaUUXkZ1Lck01Cg+C/83MpJcbY
+ zCJ8fCRPifTPxdLj1KahBR5U3GACJN8vlfiMABNxEJssZSokzQzEWOq/n g==;
+X-CSE-ConnectionGUID: i5Cu95o3SaCrQOJtYoQr6w==
+X-CSE-MsgGUID: I4+22e+HRLi5w3k5qYiEuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11832"; a="94900333"
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="94900333"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 02:00:59 -0700
-X-CSE-ConnectionGUID: kAk2lBK7QFmhK8htS0llvw==
-X-CSE-MsgGUID: YQiYLFzERu+eMRwmaw2MlQ==
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2026 02:08:41 -0700
+X-CSE-ConnectionGUID: CBsQh9SNQ1SiMjDXxCVhHQ==
+X-CSE-MsgGUID: UqDuLJKEQMWg7k3L+zITOA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="256603871"
-Received: from dibin-nuc7i7bnh.iind.intel.com ([10.190.239.19])
+X-IronPort-AV: E=Sophos;i="6.24,233,1774335600"; d="scan'208";a="256605012"
+Received: from amilburn-desk.amilburn-desk (HELO hazy.intel.com)
+ ([10.245.245.155])
  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jun 2026 02:00:57 -0700
-From: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: animesh.manna@intel.com,
-	uma.shankar@intel.com
-Subject: [PATCH 1/1] drm/i915/display/psr: Block DC3CO entry during active
- frame
-Date: Tue, 30 Jun 2026 14:29:28 +0530
-Message-ID: <20260630085928.1317279-2-dibin.moolakadan.subrahmanian@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260630085928.1317279-1-dibin.moolakadan.subrahmanian@intel.com>
-References: <20260630085928.1317279-1-dibin.moolakadan.subrahmanian@intel.com>
+ 30 Jun 2026 02:08:40 -0700
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Subject: [PATCH 0/2] drm/i915/display: reduce clock_gating interface between
+ core and display
+Date: Tue, 30 Jun 2026 12:03:25 +0300
+Message-ID: <20260630090829.2778879-1-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -70,70 +66,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Xe3P onwards, when PSR2 is enabled on a panel that does not support
-Early Transport, DC3CO can be entered in the middle of an
-active frame. This prevents the pipe from completing the frame
-and leaves it in a bad state that does not recover well,
-causing visible corruption on screen.
+Hi,
 
-Set CHICKEN_DCPR_4 bit 24 in the PSR2 enable path when Early Transport
-is not in use, to notify DMC to prevent DC3CO entry.
+As a follow up to my previous clock-gating patches, this series
+reduces the interface between core and display by combining all the
+platform-specific exported functions and letting the display code
+decide what to do for each platform.
 
-BSpec: 71483
-Signed-off-by: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
----
- .../gpu/drm/i915/display/intel_display_regs.h    |  3 +++
- drivers/gpu/drm/i915/display/intel_psr.c         | 16 ++++++++++++++++
- 2 files changed, 19 insertions(+)
+To do that I created an _init_early(), to hold functions that are
+called at the beginning of the clock gating initialization and another
+one to call the later functions, namely _init_late().
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 39e50423132f..754bb9b188b6 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -1747,6 +1747,9 @@
- #define XELPD_CHICKEN_DCPR_3			_MMIO(0x46438)
- #define   DMD_RSP_TIMEOUT_DISABLE		REG_BIT(19)
- 
-+#define XE3LPD_CHICKEN_DCPR_4			_MMIO(0x454a0)
-+#define   DCPR4_BLOCK_DC3CO_ACTIVE_FRAME	REG_BIT(24)
-+
- #define SKL_DFSM			_MMIO(0x51000)
- #define   SKL_DFSM_DISPLAY_PM_DISABLE	(1 << 27)
- #define   SKL_DFSM_DISPLAY_HDCP_DISABLE	(1 << 25)
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 911afb9cb24e..ad6ece3ce04d 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2103,6 +2103,18 @@ static void intel_psr_enable_source(struct intel_dp *intel_dp,
- 		else if (display->platform.alderlake_p)
- 			intel_de_rmw(display, CLKGATE_DIS_MISC, 0,
- 				     CLKGATE_DIS_MISC_DMASC_GATING_DIS);
-+
-+		/*
-+		 * HSD: 14026643300
-+		 * On Xe3P+, restrict DC3CO entry during active frame when PSR2 is
-+		 * enabled without panel Early Transport; required to avoid pipe bad state.
-+		 * DMC honours CHICKEN_DCPR_4 bit 24 to block DC3CO entry during active frame.
-+		 */
-+		if (HAS_DC3CO(display) &&
-+		    !intel_dp->psr.panel_replay_enabled &&
-+		    !intel_dp->psr.su_region_et_enabled)
-+			intel_de_rmw(display, XE3LPD_CHICKEN_DCPR_4,
-+				     0, DCPR4_BLOCK_DC3CO_ACTIVE_FRAME);
- 	}
- 
- 	/* Wa_16025596647 */
-@@ -2344,6 +2356,10 @@ static void intel_psr_disable_locked(struct intel_dp *intel_dp)
- 		else if (display->platform.alderlake_p)
- 			intel_de_rmw(display, CLKGATE_DIS_MISC,
- 				     CLKGATE_DIS_MISC_DMASC_GATING_DIS, 0);
-+
-+		if (HAS_DC3CO(display))
-+			intel_de_rmw(display, XE3LPD_CHICKEN_DCPR_4,
-+				     DCPR4_BLOCK_DC3CO_ACTIVE_FRAME, 0);
- 	}
- 
- 	if (intel_dp_is_edp(intel_dp))
+Please review.
+
+Cheers,
+Luca.
+
+
+Luca Coelho (2):
+  drm/i915/display: combine clock_gating init functions called early
+    into one
+  drm/i915/display: combine clock_gating init functions called late into
+    one
+
+ .../i915/display/intel_display_clock_gating.c | 71 +++++++++++++++----
+ .../i915/display/intel_display_clock_gating.h | 17 +----
+ drivers/gpu/drm/i915/intel_clock_gating.c     | 38 +++++-----
+ 3 files changed, 74 insertions(+), 52 deletions(-)
+
 -- 
-2.43.0
+2.53.0
 
