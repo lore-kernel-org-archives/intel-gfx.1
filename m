@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16957C43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:30:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E96D4C43602
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 07:56:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 900FC10E230;
-	Wed,  1 Jul 2026 07:30:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8723210E318;
+	Wed,  1 Jul 2026 07:56:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GpCd+XdB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A0prOKV8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C85DA10E230;
- Wed,  1 Jul 2026 07:30:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A59F10E310;
+ Wed,  1 Jul 2026 07:56:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1782891041; x=1814427041;
+ t=1782892589; x=1814428589;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=OYZHIPEYhfsH8T3WnWawsBUJdLa7fxv2rMb2oeqcjf4=;
- b=GpCd+XdBX2A3evL7kB5aLasNMspqJesyS/itM1KfFkMIu4zWD5t5vKU7
- GvZZ7qN/oLlJs50vmi8uS5Rruz2tLun6Tdu+uKWFTttkSyOOvHLQ4V0tT
- EBYQkCGJo3HEjbrn8e9NCv3cwZYuRdBCJruE6ELwMZsO8tPYGdQxUjpYg
- e0dlT3MSlASU1UzXt7V7l3Ivp6QlD667uinGvRFtAfN1iMWOWqz0uzmsD
- Ac7I/tivvojSeReB8NuPlqXeHGsg3k1bALGCLhXknC1Ewf9soehG4Z0ac
- xowlFdD+SuIibhm8iG/82/CJBRyuBln8qv/Eh0dtl/5D/Sc2Q12DlaXAj g==;
-X-CSE-ConnectionGUID: q2sd37YhReWfdVmIN1dzTA==
-X-CSE-MsgGUID: szKh1MJCRgavBXtDfoxwKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="94996796"
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="94996796"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 00:30:40 -0700
-X-CSE-ConnectionGUID: IEWKBaZ+TW+Od+RCPtAZMQ==
-X-CSE-MsgGUID: jDGjoYNlTJmF5eatM12dSw==
+ bh=cGLe2jx75wNr3SO1dAi4HYYNNyZgWcKZdidD0DgIzm4=;
+ b=A0prOKV8F95obfmXL8e4Us8wvW9f7y+MFpgQUCsjWlDUPJqPMBuJoKb5
+ mts92D+cVGKlPn5lg2OkhNOPQNph7+RyPGVv/Ged2n2sgAl5Z8r5O4Ovr
+ 4wwoTo15RruY/IPSwlH75iAtgfJNy/llre30t5M/Szn3KqktutojjcLLr
+ O+LIiwedGhohl/qZ5hnCQjXxlExExN1wDqvpuwct8I0Y/Ie/J0ggqrUrZ
+ IjH9rFwnguRgnxc0Z6G0Lt8SB1Nuq6YyCoPyYhEix5Z9M1740kGZUrjwP
+ re2WCTBNTmv/xvTHILJrd1KI+ocd/e7KTUX6Rip6lDp/ZHLwlNt+mKioR w==;
+X-CSE-ConnectionGUID: 0HM1AzMnQkqOk2EbPTGIIw==
+X-CSE-MsgGUID: 84zq3rZ6T+WPss2xz3nGvQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11833"; a="83489029"
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="83489029"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 00:56:29 -0700
+X-CSE-ConnectionGUID: KrA5ud6sRq6dQjHeghZzPA==
+X-CSE-MsgGUID: VBlF5NDCSt+kGDq48pNYbQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="276792913"
+X-IronPort-AV: E=Sophos;i="6.24,235,1774335600"; d="scan'208";a="250783155"
 Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
  ([10.245.244.25])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Jul 2026 00:30:37 -0700
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2026 00:56:27 -0700
 From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 To: Intel graphics driver community testing & development
  <intel-gfx@lists.freedesktop.org>
@@ -54,9 +54,9 @@ Cc: Direct Rendering Infrastructure - Development
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gem: Do not leak siblings[] on proto context error
-Date: Wed,  1 Jul 2026 10:30:30 +0300
-Message-ID: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
+Subject: [PATCH] drm/i915/gem: Fix NULL deref in I915_CONTEXT_PARAM_SSEU
+Date: Wed,  1 Jul 2026 10:55:55 +0300
+Message-ID: <20260701075555.52142-1-joonas.lahtinen@linux.intel.com>
 X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,9 +75,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-After a successful BALANCE/PARALLEL_SUBMIT extension on context
-creation, error during processing of next user extension leaks
-the siblings[] array. Fix that.
+Setting context engine slot N into I915_ENGINE_CLASS_INVALID /
+I915_ENGINE_CLASS_INVALID_NONE and attempting to apply
+I915_CONTEXT_PARAM_SSEU to the same slot N will deref NULL.
+Fix that.
 
 Discovered using AI-assisted static analysis confirmed by
 Intel Product Security.
@@ -91,61 +92,22 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Cc: <stable@vger.kernel.org> # v5.15+
 Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_context.c | 22 +++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-index aeafe1742d30..87fce2adfeef 100644
+index aeafe1742d30..347d1f2c05f5 100644
 --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
 +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-@@ -769,8 +769,8 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
- 		struct intel_engine_cs *engine;
+@@ -850,7 +850,7 @@ static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+ 		pe = &pc->user_engines[idx];
  
- 		if (copy_from_user(&ci, &user->engines[n], sizeof(ci))) {
--			kfree(set.engines);
--			return -EFAULT;
-+			err = -EFAULT;
-+			goto err;
- 		}
+ 		/* Only render engine supports RPCS configuration. */
+-		if (pe->engine->class != RENDER_CLASS)
++		if (!pe->engine || pe->engine->class != RENDER_CLASS)
+ 			return -EINVAL;
  
- 		memset(&set.engines[n], 0, sizeof(set.engines[n]));
-@@ -786,8 +786,8 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
- 			drm_dbg(&i915->drm,
- 				"Invalid engine[%d]: { class:%d, instance:%d }\n",
- 				n, ci.engine_class, ci.engine_instance);
--			kfree(set.engines);
--			return -ENOENT;
-+			err = -ENOENT;
-+			goto err;
- 		}
- 
- 		set.engines[n].type = I915_GEM_ENGINE_TYPE_PHYSICAL;
-@@ -800,15 +800,21 @@ static int set_proto_ctx_engines(struct drm_i915_file_private *fpriv,
- 					   set_proto_ctx_engines_extensions,
- 					   ARRAY_SIZE(set_proto_ctx_engines_extensions),
- 					   &set);
--	if (err) {
--		kfree(set.engines);
--		return err;
--	}
-+	if (err)
-+		goto err_extensions;
- 
- 	pc->num_user_engines = set.num_engines;
- 	pc->user_engines = set.engines;
- 
- 	return 0;
-+
-+err_extensions:
-+	for (n = 0; n < set.num_engines; n++)
-+		kfree(set.engines[n].siblings);
-+err:
-+	kfree(set.engines);
-+
-+	return err;
- }
- 
- static int set_proto_ctx_sseu(struct drm_i915_file_private *fpriv,
+ 		sseu = &pe->sseu;
 -- 
 2.54.0
 
