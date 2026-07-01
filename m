@@ -4,50 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FBD3C43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 12:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A532DC43602
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 13:09:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB81010E378;
-	Wed,  1 Jul 2026 12:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A66110E592;
+	Wed,  1 Jul 2026 13:09:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="VJkqHKv6";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="SB2Bld69";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
 	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF6310E2E3
- for <intel-gfx@lists.freedesktop.org>; Sun, 21 Jun 2026 03:01:21 +0000 (UTC)
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256;
- b=VJkqHKv6NTNxhw5O2PJ50MOqTaJn60FjLQMKMBpuYgcIN6GDk3IFXCDEc1QeOhkfnDQVT9g9Aezdg0bIyylnlYmDMdBd6M+c9iGxXDbILKYbuY72Mej8ovORFm3ZlAmsryE1KcSXuJ+/P6Q9bk5SEWwPuvMOwBn/TThdLuwYqeZdz9nYLkvKTV+tw4pKWyXbp/tRWEx8lhz7CSZxiBQy5/LbSWK+Qa2p9vKZt/sU7Gu3cZ3rgjUwVhYglel5RQEIQgzBz9Tw2Gn7vHIBVq7ldFWySqxKLT3B9xkboV551k+rTeXOTppZbUdOTnOW8FqQNhtrpkZpluHxdIX0hZIJew==;
- s=purelymail1; d=rcpassos.me; v=1;
- bh=/+xYg6jX1ozm5WfnL4XEE4N+y3jAKId7pgtNcgp8lNQ=;
- h=Received:From:To:Subject:Date; 
-DKIM-Signature: a=rsa-sha256;
- b=SB2Bld69AqLyhvJ9wWnJN6kF6iYLq2hweum0LmU0tyitxMQ8D7fBPXHEsciOMIFaVMQ6rtPu7YWnIUNDQpre9098uNPLYXXfMUyfDjCb6wUPHX3F/MhcmS54HZqqHqI5NJS6qPvijpK7LrZitMjCe7iZvONCOlrnWMGkTzPruUp7qSvj8Qs68deW9mc7GEeYStaIWWkM9lkRZ5Gl5xgH1vDPYRPA3ihjw/LUqAuIVWqwNh7IGVU2OetcN5QPibSBPdvJIHbMAFTipgfIE48w/MB4vGUXUDqZNWIrglD1/x5fqVV4WrWnbjHuX5W/u+xz7CEVcvtokSunJL/CUlQc6g==;
- s=purelymail1; d=purelymail.com; v=1;
- bh=/+xYg6jX1ozm5WfnL4XEE4N+y3jAKId7pgtNcgp8lNQ=;
- h=Feedback-ID:Received:From:To:Subject:Date; 
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: intel-gfx@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -75715480; 
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Sun, 21 Jun 2026 03:01:12 +0000 (UTC)
-From: Rafael Passos <rafael@rcpassos.me>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5415A10E469
+ for <intel-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 13:09:37 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 859C373BE5;
+ Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
+ b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
+ sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
+ TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782911375;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
+ b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
+ KWrVa8WKhZyZOCBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
+ b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
+ sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
+ TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1782911375;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
+ b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
+ KWrVa8WKhZyZOCBg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A22F779AA;
+ Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id HduLDI8RRWrucwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 01 Jul 2026 13:09:35 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- Randy Dunlap <rdunlap@infradead.org>, skhan@linuxfoundation.org,
- Rafael Passos <rafael@rcpassos.me>
-Subject: [PATCH v2] Documentation: xe_drm: fix chars used for subsection
-Date: Sun, 21 Jun 2026 00:01:14 -0300
-Message-ID: <20260621030114.963405-1-rafael@rcpassos.me>
-X-Mailer: git-send-email 2.53.0
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH] drm/i915/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+Date: Wed,  1 Jul 2026 15:07:23 +0200
+Message-ID: <20260701130929.234695-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
-X-Mailman-Approved-At: Wed, 01 Jul 2026 12:57:46 +0000
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.990];
+ MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
+ RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[12];
+ MIME_TRACE(0.00)[0:+];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,57 +107,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Fixes "ERROR: A level 2 section cannot be used here".
-Equal signs are reserved for document titles.
-This file docs gets imported by driver-uapi.rst,
-and the page title is defined the.
+Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
+helpers to ignore damage clips") introduced ignore_damage_clips to
+selectively ignore damage clipping in certain framebuffer changes. The
+mode-setting pipeline can disabled damage clippings for an atomic commit
+by setting ignore_damage_clips in struct drm_plane_state. The atomic
+commit will then do a full display update.
 
+Although the i915 driver does not modify the flag, DRM's damage iterator
+will soon rely on it. Calling drm_atomic_helper_check_plane_damage() right
+before drm_atomic_helper_damage_merged() guarantees that it has the correct
+state. The i915 driver does not do this elsewhere so far.
 
-Signed-off-by: Rafael Passos <rafael@rcpassos.me>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 ---
-Hi, I send the v1 for this patch only for the linux-doc list.
-The v2 fixes this, and has improvements to the commit message.
-Thanks,
+Taken with minor updates to the commit description from the series at
 
-Rafael
+  https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
+---
+ drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- include/uapi/drm/xe_drm.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
-index 48e9f1fdb78d..4dfb30e6c8a8 100644
---- a/include/uapi/drm/xe_drm.h
-+++ b/include/uapi/drm/xe_drm.h
-@@ -2537,21 +2537,21 @@ struct drm_xe_exec_queue_set_property {
-  * Refer to Documentation/netlink/specs/drm_ras.yaml for complete interfac=
-e specification.
-  *
-  * Node Registration
-- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+ * -----------------
-  *
-  * The driver registers DRM RAS nodes for each error severity level.
-  * enum drm_xe_ras_error_severity defines the node-id, while DRM_XE_RAS_ER=
-ROR_SEVERITY_NAMES maps
-  * node-id to node-name.
-  *
-  * Error Classification
-- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+ * --------------------
-  *
-  * Each node contains a list of error counters. Each error is identified b=
-y a error-id and
-  * an error-name. enum drm_xe_ras_error_component defines the error-id, wh=
-ile
-  * DRM_XE_RAS_ERROR_COMPONENT_NAMES maps error-id to error-name.
-  *
-  * User Interface
-- * =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-+ * --------------
-  *
-  * To retrieve error values of a error counter, userspace applications sho=
-uld
-  * follow the below steps:
---=20
-2.53.0
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 92af21d823a3..5a155f60110f 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -2949,6 +2949,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		src = drm_plane_state_src(&new_plane_state->uapi);
+ 		drm_rect_fp_to_int(&src, &src);
+ 
++		/* Prepare plane-damage state before using it */
++		drm_atomic_helper_check_plane_damage(&state->base, &new_plane_state->uapi);
++
+ 		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
+ 						     &new_plane_state->uapi, &damaged_area))
+ 			continue;
+-- 
+2.54.0
 
