@@ -4,94 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A532DC43602
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 13:09:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE843C43327
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 13:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A66110E592;
-	Wed,  1 Jul 2026 13:09:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F400710E38D;
+	Wed,  1 Jul 2026 13:33:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JIYPd0Nr";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="QR3r83Z2";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="EenuKiu2";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5415A10E469
- for <intel-gfx@lists.freedesktop.org>; Wed,  1 Jul 2026 13:09:37 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 859C373BE5;
- Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
- sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
- TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782911375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
- KWrVa8WKhZyZOCBg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1782911375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=JIYPd0NrDESaEC0NmfQ+rZ5XyecpBvPWMDTxc6jV6/+1pUSOzxREXC2J1e55hXlxiyZc5r
- sfPKKWwvoyQiUBcavtmdAQ0aws6VuR0NjZKGm2/vVRh0GMx+rA8y9jnycbb+0bNQDMPKb9
- TYiEVN9LntdlVhuL6qz2vCWaQCLZYO0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1782911375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
- bh=Wt51QxejWjuu6bJtZgDESWH3vxx2i2i9ZOd+J9IuiwY=;
- b=QR3r83Z2uF0BF+d9qP9zrIfvuNV4aYpVVBpNOWgFn+sQkkZf1pmkdFEnJj+B5VwcIkRsno
- KWrVa8WKhZyZOCBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3A22F779AA;
- Wed,  1 Jul 2026 13:09:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id HduLDI8RRWrucwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 01 Jul 2026 13:09:35 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>
-Subject: [PATCH] drm/i915/display: Handle struct
- drm_plane_state.ignore_damage_clips
-Date: Wed,  1 Jul 2026 15:07:23 +0200
-Message-ID: <20260701130929.234695-1-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F6A610E314;
+ Wed,  1 Jul 2026 13:33:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782912770; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Fr+ffJ+shEhGfx2Xx8c9Qmcguq5ShSEHRY8UHK2uikcoJrmyJN0mqBE5m69tw9a0GjFJJK2ZHiljtj7n1elao9c0EUXC0q3rTtkRLDIfZ/Bry9zRfUMaO2/N80OFUfY2Ru87j0PMBxQUJGR9r8tkrRspFLqEkBoP8FA/cKDK9wM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782912770;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=NCJFDZPpk2Nltv1OnCZcz9TBVpSBkOaYqsSl+0+3BqE=; 
+ b=LGkliixZVInpcr7ef/tpOHNITEYYC7vxVqQjXforxaPCUTmZxfGI1+H2XCYhMjWiB4TXkj5wiwCJHv/5CZRDMMsc3UIMVIiDhsEW3YzAZdIDLkgDPfro4xqsouPXlVxnK22cmkG3QY5Y82GU5/GjrEet83sXCKf9Ztf5LomeX4k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782912770; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=NCJFDZPpk2Nltv1OnCZcz9TBVpSBkOaYqsSl+0+3BqE=;
+ b=EenuKiu2ijrHWQFE9Sy76YtPQGepbJB0VmiQbtiC2wmY5JJnf5Yl3v4OS4NwSltU
+ Tgdcnn+PX2Dya7IL9XqzvMBKETKI25FIKAmChvf4xhuWpyWfQH28UcRCPRf7R56hQ9L
+ UBIdZkt1jfPjQrKmDZmivKYBIa9msFUaIfToDbfk=
+Received: by mx.zohomail.com with SMTPS id 1782912768462667.1922482526628;
+ Wed, 1 Jul 2026 06:32:48 -0700 (PDT)
+Message-ID: <11792a51-aeeb-428f-a793-607ff09558f3@collabora.com>
+Date: Wed, 1 Jul 2026 15:32:40 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-0.990];
- MIME_GOOD(-0.10)[text/plain]; ARC_NA(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com];
- FREEMAIL_TO(0.00)[linux.intel.com,intel.com,ursulin.net,gmail.com,ffwll.ch];
- RCVD_COUNT_TWO(0.00)[2]; RCPT_COUNT_TWELVE(0.00)[12];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 0/4] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+ behind driver feature
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Daniel Stone
+ <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260630084229.529682-1-robert.mader@collabora.com>
+ <3bc9d27b-2886-48df-a897-7e73f14a88a2@linux.intel.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <3bc9d27b-2886-48df-a897-7e73f14a88a2@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,42 +79,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
-helpers to ignore damage clips") introduced ignore_damage_clips to
-selectively ignore damage clipping in certain framebuffer changes. The
-mode-setting pipeline can disabled damage clippings for an atomic commit
-by setting ignore_damage_clips in struct drm_plane_state. The atomic
-commit will then do a full display update.
+Hi Maarten,
 
-Although the i915 driver does not modify the flag, DRM's damage iterator
-will soon rely on it. Calling drm_atomic_helper_check_plane_damage() right
-before drm_atomic_helper_damage_merged() guarantees that it has the correct
-state. The i915 driver does not do this elsewhere so far.
+On 01.07.26 12:41, Maarten Lankhorst wrote:
+> Hello,
+>
+> All you have to do is iterate over all planes at runtime until
+> one is found that has the pipeline property attached, it's not
+> a performance sensitive area and no locking is required for
+> testing if plane->color_pipeline_property is NULL.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
----
-Taken with minor updates to the commit description from the series at
+that's correct - I checked that before and while the amount of code 
+changes necessary to support such a 
+"check-planes-with-cap-enabled-and-reinitialize-without-cap-otherwise" 
+is not big (AFAICS it should be possible with under 100 lines in 
+Weston), it would need to be replicated in various Wayland compositors 
+and lots of apps with native DRM backend (drm_info, Gstreamer KMS sink, 
+MPV, Kodi etc.). The small change proposed here seems like a more 
+elegant solution to me.
 
-  https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
----
- drivers/gpu/drm/i915/display/intel_psr.c | 3 +++
- 1 file changed, 3 insertions(+)
+In a previous chat Pekka and Simon seemed to agree, quoting: "< 
+emersion> pq, you mean the cap is advertised regardless of driver 
+support? that sounds like a bug".
 
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 92af21d823a3..5a155f60110f 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2949,6 +2949,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		src = drm_plane_state_src(&new_plane_state->uapi);
- 		drm_rect_fp_to_int(&src, &src);
- 
-+		/* Prepare plane-damage state before using it */
-+		drm_atomic_helper_check_plane_damage(&state->base, &new_plane_state->uapi);
-+
- 		if (!drm_atomic_helper_damage_merged(&old_plane_state->uapi,
- 						     &new_plane_state->uapi, &damaged_area))
- 			continue;
+> You can also make drm_plane_create_color_pipeline_property set
+> the flag in drm_device::driver_features that the cap is supported.
+Automatically enabling the driver feature sounds like a reasonable 
+improvement - I'll try that, thanks!
+>
+> But the cap setting code's not really performance sensitive, it will
+> be called only a few times during boot at most. Perhaps check whether
+> the first crtc->primary plane has the cap is also sufficient.
+>
+> If you want to continue with a special driver cap, then please set
+> the flag for the xe driver too.
+Indeed, will do in case the approach mentioned above doesn't work out 
+for some reason.
+> Kind regards,
+> ~Maarten Lankhorst
+
+Regards and thanks for the feedback!
+
+>
+> On 6/30/26 10:42, Robert Mader wrote:
+>>  From the main commit:
+>>
+>> The client cap is currently advertised unconditionally, even for drivers that do
+>> not support plane color pipelines. If clients supporting the later, like Wayland
+>> compositors and drm_info, enable the client cap on sich drivers they will be
+>> left without both color pipeline and the legacy properties COLOR_ENCODING and
+>> COLOR_RANGE, effectively breaking YUV->RGB conversion support.
+>>
+>> Add a new driver feature and guard the client cap behind it, allowing
+>> plane color pipeline and legacy YUV->RGB support to co-exist.
+>>
+>> In case of VKMS make the client cap depend on the enable_plane_pipeline.
+>>
+>> The series can be easily tested with drm_info >= v2.10.0 and VKMS. Without the
+>> enable_plane_pipeline option - currently the default - the legacy flags
+>> COLOR_ENCODING and COLOR_RANGE should be advertised, just like older drm_info
+>> versions.
+>>
+>> ---
+>>
+>> Related series actually implementing the color pipeline replacement for the
+>> legacy flags:
+>> https://lists.freedesktop.org/archives/dri-devel/2026-June/575655.html
+>>
+>>
+>> Robert Mader (4):
+>>    drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE behind driver feature
+>>    drm/amdgpu: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>    drm/i915: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>    drm/vkms: Add DRIVER_PLANE_COLOR_PIPELINE driver feature
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
+>>   drivers/gpu/drm/drm_ioctl.c             | 2 ++
+>>   drivers/gpu/drm/i915/i915_driver.c      | 2 +-
+>>   drivers/gpu/drm/vkms/vkms_drv.c         | 6 +++++-
+>>   include/drm/drm_drv.h                   | 6 ++++++
+>>   5 files changed, 15 insertions(+), 3 deletions(-)
+>>
 -- 
-2.54.0
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
