@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ED5CC43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 23:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA3DDC43458
+	for <intel-gfx@archiver.kernel.org>; Wed,  1 Jul 2026 23:37:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A073110F105;
-	Wed,  1 Jul 2026 23:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11DFB10EFA9;
+	Wed,  1 Jul 2026 23:37:23 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4550A10E3F4;
- Wed,  1 Jul 2026 23:30:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4844C10E3F4;
+ Wed,  1 Jul 2026 23:37:22 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_convert_more_vm=5Fflags?=
- =?utf-8?q?=5Ft_users_to_vma=5Fflags=5Ft?=
+Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/display=3A_fix_e?=
+ =?utf-8?q?rror_handling_in_intel=5Fdisplay=5Fdriver=5Fprobe=5Fnoirq_=28rev2?=
+ =?utf-8?q?=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lorenzo Stoakes" <ljs@kernel.org>
+To: yaolu@kylinos.cn
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 01 Jul 2026 23:30:44 -0000
-Message-ID: <178294864427.140838.2153415744306457038@6beec6c84f66>
+Date: Wed, 01 Jul 2026 23:37:22 -0000
+Message-ID: <178294904225.140838.18311548714090230092@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <cover.1782760670.git.ljs@kernel.org>
-In-Reply-To: <cover.1782760670.git.ljs@kernel.org>
+References: <20260630031652.67747-1-yaolu@kylinos.cn>
+In-Reply-To: <20260630031652.67747-1-yaolu@kylinos.cn>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,25 +44,27 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: convert more vm_flags_t users to vma_flags_t
-URL   : https://patchwork.freedesktop.org/series/169610/
+Series: drm/i915/display: fix error handling in intel_display_driver_probe_noirq (rev2)
+URL   : https://patchwork.freedesktop.org/series/169615/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/169610/revisions/1/mbox/ not applied
-Applying: mm: introduce vma_flags_can_grow() and vma_can_grow()
-Applying: mm/vma: update do_mmap() to use vma_flags_t
-Applying: mm: convert __get_unmapped_area() to use vma_flags_t
-Applying: mm: update generic_get_unmapped_area[_topdown]() to use vma_flags_t
-Applying: mm: prefer mm->def_vma_flags in mm logic
-error: sha1 information is lacking or useless (mm/debug.c).
-error: could not build fake ancestor
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0005 mm: prefer mm->def_vma_flags in mm logic
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
+Error: make failed
+  DESCEND objtool
+  CC [M]  drivers/gpu/drm/i915/display/intel_display_driver.o
+drivers/gpu/drm/i915/display/intel_display_driver.c: In function ‘intel_display_driver_probe_noirq’:
+drivers/gpu/drm/i915/display/intel_display_driver.c:310:1: error: label ‘cleanup_wq_unordered’ defined but not used [-Werror=unused-label]
+  310 | cleanup_wq_unordered:
+      | ^~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+make[6]: *** [scripts/Makefile.build:289: drivers/gpu/drm/i915/display/intel_display_driver.o] Error 1
+make[5]: *** [scripts/Makefile.build:549: drivers/gpu/drm/i915] Error 2
+make[4]: *** [scripts/Makefile.build:549: drivers/gpu/drm] Error 2
+make[3]: *** [scripts/Makefile.build:549: drivers/gpu] Error 2
+make[2]: *** [scripts/Makefile.build:549: drivers] Error 2
+make[1]: *** [/home/kbuild/kernel/Makefile:2184: .] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 Build failed, no error log produced
 
 
