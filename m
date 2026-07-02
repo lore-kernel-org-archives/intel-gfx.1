@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3E7C43458
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFF9CC43602
 	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 13:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 06D7F10F366;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4644F10F39B;
 	Thu,  2 Jul 2026 13:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="SNO+TI3y";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="F10EZD2M";
 	dkim-atps=neutral
-Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
- [91.218.175.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EA5A10F2E2
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 11:16:06 +0000 (UTC)
+Received: from out-173.mta1.migadu.com (out-173.mta1.migadu.com
+ [95.215.58.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A2E10F355;
+ Thu,  2 Jul 2026 12:39:58 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782990951;
+ t=1782995985;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MXoiAeiZxppUV0bbr36tbNoILtIVkAZHXOhXlmlq9aE=;
- b=SNO+TI3ysBG4+DhR3hPTF1SvhO32c4IR52yjAPmkR78MakGGmD/cQOYIcE8MmMX2BXfJ/B
- PngJwUk8MPDHueMWfaVQgxbOjSa6VTjHZniUa88SClGCvA5JNzJYRen32CdMAokXiIgXtC
- 8TVZTPLK3UhpO1X2vjoT/Jd84+uq0gc=
+ bh=MSqvG6QTDeOE5qt8LI9tLb3iySB/2eramUM4HlZdPG8=;
+ b=F10EZD2MKuMsgIZGg+Kv4CpsFBAqfutqUSZV+CnlSj4mTRO6SM+hx7IFnwTXi02n4W5ksq
+ B3eV7EruPZaVg8GiZqN77RrtZjvlyRAPzkka+Z5kYwT5shcZ0occtt6vxWz8dsjkDZRJwI
+ jZvjN/4FCRiAB3/YW0BqvRoNYnrlgRU=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
@@ -61,11 +61,11 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
  linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-sound@vger.kernel.org
-Subject: Re: [PATCH 02/13] mm/vma: update do_mmap() to use vma_flags_t
-Date: Thu,  2 Jul 2026 19:15:31 +0800
-Message-Id: <20260702111531.64883-1-lance.yang@linux.dev>
-In-Reply-To: <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
-References: <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 08/13] mm: introduce vma_get_page_prot() and use it
+Date: Thu,  2 Jul 2026 20:38:45 +0800
+Message-Id: <20260702123845.95316-1-lance.yang@linux.dev>
+In-Reply-To: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
+References: <3bb8bdc4788230c33102166d56cbc5abfad9d4cb.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -87,116 +87,43 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On Mon, Jun 29, 2026 at 08:25:25PM +0100, Lorenzo Stoakes wrote:
->The core do_mmap() function accepts a vm_flags_t parameter which it then
->manipulates before passing to mmap_region() to do the heavy lifting of the
->memory mapping.
+On Mon, Jun 29, 2026 at 08:25:31PM +0100, Lorenzo Stoakes wrote:
+>There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Make
+>life easier by introducing vma_get_page_prot() parameterised by the VMA.
 >
->Update do_mmap() to instead accept a vma_flags_t parameter, and adjust all
->the logic within do_mmap() to manipulate this instead.
+>This also makes converting vm_get_page_prot() to vma_flags_t easier.
 >
->This is as part of the ongoing effort to convert VMA flags from a system
->word size to a bitmap type which allows us to unrestrict the number of VMA
->flags, as well as gain control over how VMA flag manipulation occurs.
->
->We do not cascade these changes to all functions which accept vm_flags_t,
->but rather use vma_flags_to_legacy() where necessary, specifically
->deferring converting calc_vm_prot_bits(), calc_vm_flag_bits() and
->__get_unmapped_area() to vma_flags_t.
->
->Also utilise the new vma_flags_can_grow() predicate which correctly handles
->the case of architectures without upward growing stacks.
->
->As part of this change, introduce VMA_SHADOW_STACK so we can correctly
->handle the case of the shadow stack not being defined.
+>Also update the userland VMA tests to reflect the change.
 >
 >No functional change intended.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
+> drivers/gpu/drm/drm_gem.c                   |  2 +-
+> drivers/gpu/drm/drm_gem_dma_helper.c        |  2 +-
+> drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+> drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  2 +-
+> drivers/gpu/drm/exynos/exynos_drm_gem.c     |  6 +++---
+> drivers/gpu/drm/i915/gem/i915_gem_mman.c    | 12 ++++++------
+> drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+> drivers/gpu/drm/nouveau/nouveau_gem.c       |  2 +-
+> drivers/gpu/drm/omapdrm/omap_fbdev.c        |  2 +-
+> drivers/gpu/drm/omapdrm/omap_gem.c          |  6 +++---
+> drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  2 +-
+> drivers/gpu/drm/tegra/gem.c                 |  2 +-
+> drivers/gpu/drm/virtio/virtgpu_vram.c       |  2 +-
+> drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c  |  2 +-
+> drivers/gpu/drm/xe/xe_device.c              |  2 +-
+> drivers/gpu/drm/xe/xe_mmio_gem.c            |  2 +-
+> drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+> drivers/video/fbdev/core/fb_io_fops.c       |  2 +-
 
-Not exactly a small one :) I stared at this patch for a while, hopefully
-don't miss anythig ...
+One missed?
 
-Just one tiny nit below. Overall, LGTM, feel free to add:
+drivers/gpu/drm/panthor/panthor_gem.c still has:
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+	vma->vm_page_prot = vm_get_page_prot(vma->vm_flags);
 
-[...]
->diff --git a/mm/mmap.c b/mm/mmap.c
->index 46174e706bbe..547352183214 100644
->--- a/mm/mmap.c
->+++ b/mm/mmap.c
-[...]
->@@ -488,23 +496,27 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
-> 		 * Check to see if we are violating any seals and update VMA
-> 		 * flags if necessary to avoid future seal violations.
-> 		 */
->-		err = memfd_check_seals_mmap(file, &vm_flags);
->+		err = memfd_check_seals_mmap(file, &vma_flags);
-> 		if (err)
-> 			return (unsigned long)err;
-> 	} else {
-> 		switch (flags & MAP_TYPE) {
-> 		case MAP_SHARED:
->-			if (vm_flags & (VM_GROWSDOWN|VM_GROWSUP))
->+			if (vma_flags_can_grow(&vma_flags))
-> 				return -EINVAL;
-> 			/*
-> 			 * Ignore pgoff.
-> 			 */
-> 			pgoff = 0;
->-			vm_flags |= VM_SHARED | VM_MAYSHARE;
->+			vma_flags_set(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT);
-> 			break;
->-		case MAP_DROPPABLE:
->-			if (VM_DROPPABLE == VM_NONE)
->+		case MAP_DROPPABLE: {
->+			vma_flags_t droppable = VMA_DROPPABLE;
->+
->+			if (vma_flags_empty(&droppable))
-> 				return -EOPNOTSUPP;
->+			vma_flags_set_mask(&vma_flags, droppable);
->+
-> 			/*
-> 			 * A locked or stack area makes no sense to be droppable.
-> 			 *
->@@ -515,23 +527,24 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
-> 			 */
-> 			if (flags & (MAP_LOCKED | MAP_HUGETLB))
-> 			        return -EINVAL;
->-			if (vm_flags & (VM_GROWSDOWN | VM_GROWSUP))
->+			if (vma_flags_can_grow(&vma_flags))
-> 			        return -EINVAL;
-> 
->-			vm_flags |= VM_DROPPABLE;
+Can use vma_get_page_prot(vma) too.
 
-Old code checked VM_GROWSDOWN|VM_GROWSUP before seting VM_DROPPABLE. New
-code flips that around. Hmm, shouldn't master, just made me look twice ;)
-
-Maybe keep old order?
-
-Cheers, Lance
-
->-
-> 			/*
-> 			 * If the pages can be dropped, then it doesn't make
-> 			 * sense to reserve them.
-> 			 */
->-			vm_flags |= VM_NORESERVE;
->+			vma_flags_set(&vma_flags, VMA_NORESERVE_BIT);
-> 
-> 			/*
-> 			 * Likewise, they're volatile enough that they
-> 			 * shouldn't survive forks or coredumps.
-> 			 */
->-			vm_flags |= VM_WIPEONFORK | VM_DONTDUMP;
->+			vma_flags_set(&vma_flags, VMA_WIPEONFORK_BIT,
->+				      VMA_DONTDUMP_BIT);
->+
-> 			fallthrough;
->+		}
-> 		case MAP_PRIVATE:
-> 			/*
-> 			 * Set pgoff according to addr for anon_vma.
 [...]
