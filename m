@@ -4,73 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68FCC43327
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 15:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF898C43602
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 15:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B80E10F43E;
-	Thu,  2 Jul 2026 15:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77C9B10F44D;
+	Thu,  2 Jul 2026 15:10:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="Dkh9RWL9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l0Osp2qv";
 	dkim-atps=neutral
-Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com
- [95.215.58.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95A4210F436
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 15:09:14 +0000 (UTC)
-Message-ID: <cf5a92d3-2c7e-41e6-afed-f2a4c9d1a774@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1783004941;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=GVgi/IDW6MB0ICHH5yTujujreeH5t5fHN661xjkq/74=;
- b=Dkh9RWL9rMIQE6Ur1L+lFP9fWBIPUF1EBlETBXiV1FwoU/+0F4n7u3+DtwQotZKTkFazHu
- oHVZr/Vs+FAfYKVbUxY57cWOfPctKhbPm5r74IEfkBs57Xoqgu/OIspBSvCnXq9uEYouaN
- h+ygMrTbcJpYGV90L9aTDp+5SWenOgM=
-Date: Thu, 2 Jul 2026 23:08:32 +0800
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC22510F447;
+ Thu,  2 Jul 2026 15:10:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783005030; x=1814541030;
+ h=date:from:to:cc:subject:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ZqPDId4rZ0crapCTq1eL01OWkFGEpp+rSALCnzW0tyc=;
+ b=l0Osp2qvQj8r9Rl/qUOI4inX7b5KLEEyySq1rStgx3n8N4ljHYEL9ws7
+ aQAUl/LZFE5vJszNyOCgaQd7F26UocEDRyGKCuUjxas02A0KWxfEBRskK
+ lE+3GPZjwDMY92XWdJbiyuzUdZQGbON1RjATGJiMfUFPJo75B7XU9oAoU
+ jvP2EtVzKFKeL7dKlrX0YcZ/fHjBOTFiGHdEuhf6L7MLVZvvF2aN63hDS
+ 6GCePCrImMVFaMcJ1Pip45T7GAiKX9rGVIGjbHNoehw9OeLd5/XkrBkPJ
+ vLyzBOtIId2xwwMUmNyHtOI2VcWZUeTVW+kjkMwEwiudXHCJEAupbP8Ys Q==;
+X-CSE-ConnectionGUID: 6NSTBeE4RoyX4AG2iV7Jaw==
+X-CSE-MsgGUID: Jdih+9KXSNel97Et777R4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="82751168"
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="82751168"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 08:10:29 -0700
+X-CSE-ConnectionGUID: wCXkafQbQ7OtQtjmelQETw==
+X-CSE-MsgGUID: C7earjokT/CYAXobTXsUJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,144,1779174000"; d="scan'208";a="254819431"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.232])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2026 08:10:26 -0700
+Date: Thu, 2 Jul 2026 17:10:09 +0200
+From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-xe-fixes
+Message-ID: <akZ_UbrL94G4F2iA@fedora>
 MIME-Version: 1.0
-Subject: Re: [PATCH 02/13] mm/vma: update do_mmap() to use vma_flags_t
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de,
- maddy@linux.ibm.com, mpe@ellerman.id.au, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- l.stach@pengutronix.de, inki.dae@samsung.com, sw0312.kim@samsung.com,
- kyungmin.park@samsung.com, krzk@kernel.org, peter.griffin@linaro.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, robin.clark@oss.qualcomm.com,
- lumag@kernel.org, lyude@redhat.com, dakr@kernel.org,
- tomi.valkeinen@ideasonboard.com, hjc@rock-chips.com, heiko@sntech.de,
- andy.yan@rock-chips.com, thierry.reding@kernel.org, mperttunen@nvidia.com,
- jonathanh@nvidia.com, kraxel@redhat.com, dmitry.osipenko@collabora.com,
- zack.rusin@broadcom.com, matthew.brost@intel.com,
- thomas.hellstrom@linux.intel.com, oleksandr_andrushchenko@epam.com,
- deller@gmx.de, bcrl@kvack.org, viro@zeniv.linux.org.uk, brauner@kernel.org,
- muchun.song@linux.dev, osalvador@suse.de, david@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, npache@redhat.com,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, hughd@google.com,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- jannh@google.com, pfalcato@suse.de, kees@kernel.org, perex@perex.cz,
- tiwai@suse.com, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
- linux-sound@vger.kernel.org
-References: <e0ac58ad2b88ff7e2f0024e3286b2e786f79ca32.1782760670.git.ljs@kernel.org>
- <20260702111531.64883-1-lance.yang@linux.dev> <akZwsS-_cywsXSjL@lucifer>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <akZwsS-_cywsXSjL@lucifer>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,71 +78,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Simona!
 
+Here's the drm-xe-fixes PR towards -rc2.
 
-On 2026/7/2 22:16, Lorenzo Stoakes wrote:
-> On Thu, Jul 02, 2026 at 07:15:31PM +0800, Lance Yang wrote:
-[...]
->>
->> [...]
->>> diff --git a/mm/mmap.c b/mm/mmap.c
->>> index 46174e706bbe..547352183214 100644
->>> --- a/mm/mmap.c
->>> +++ b/mm/mmap.c
->> [...]
->>> @@ -488,23 +496,27 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
->>> 		 * Check to see if we are violating any seals and update VMA
->>> 		 * flags if necessary to avoid future seal violations.
->>> 		 */
->>> -		err = memfd_check_seals_mmap(file, &vm_flags);
->>> +		err = memfd_check_seals_mmap(file, &vma_flags);
->>> 		if (err)
->>> 			return (unsigned long)err;
->>> 	} else {
->>> 		switch (flags & MAP_TYPE) {
->>> 		case MAP_SHARED:
->>> -			if (vm_flags & (VM_GROWSDOWN|VM_GROWSUP))
->>> +			if (vma_flags_can_grow(&vma_flags))
->>> 				return -EINVAL;
->>> 			/*
->>> 			 * Ignore pgoff.
->>> 			 */
->>> 			pgoff = 0;
->>> -			vm_flags |= VM_SHARED | VM_MAYSHARE;
->>> +			vma_flags_set(&vma_flags, VMA_SHARED_BIT, VMA_MAYSHARE_BIT);
->>> 			break;
->>> -		case MAP_DROPPABLE:
->>> -			if (VM_DROPPABLE == VM_NONE)
->>> +		case MAP_DROPPABLE: {
->>> +			vma_flags_t droppable = VMA_DROPPABLE;
->>> +
->>> +			if (vma_flags_empty(&droppable))
->>> 				return -EOPNOTSUPP;
->>> +			vma_flags_set_mask(&vma_flags, droppable);
->>> +
->>> 			/*
->>> 			 * A locked or stack area makes no sense to be droppable.
->>> 			 *
->>> @@ -515,23 +527,24 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
->>> 			 */
->>> 			if (flags & (MAP_LOCKED | MAP_HUGETLB))
->>> 			        return -EINVAL;
->>> -			if (vm_flags & (VM_GROWSDOWN | VM_GROWSUP))
->>> +			if (vma_flags_can_grow(&vma_flags))
->>> 			        return -EINVAL;
->>>
->>> -			vm_flags |= VM_DROPPABLE;
->>
->> Old code checked VM_GROWSDOWN|VM_GROWSUP before seting VM_DROPPABLE. New
->> code flips that around. Hmm, shouldn't master, just made me look twice ;)
->>
->> Maybe keep old order?
-> 
-> I guess I feared that defining droppable above then referencing it below would
-> be less clear?
-> 
-> Can move if you feel strongly about it, and sorry for making the move at the
-> same time as the general vm_flags_t -> vma_flags_t refactor as it does make that
-> less clear...
+Mostly various fixes sprinkled all over the place, with the notable
+exception of the RTP/OA whitelist fixes backport, manly by Ashutosh
 
-No need to churn just for me. Thanks :)
+Thanks,
+Thomas
+
+drm-xe-fixes-2026-07-02:
+Driver Changes:
+- Wedge from the timeout handler only after releasing the queue (Rodrigo)
+- Fix a NULL pointer dereference (Francois)
+- Remove redundant exec_queue_suspended (Lu)
+- RTP / OA whitelist fixes (Ashutosh, Gustavo, Thomas)
+- Return error on non-migratable faults requiring devmem (Matt Brost)
+- Skip FORCE_WC and vm_bound check for external dma-bufs (Matt Auld)
+- Hold notifier lock for write on inject test path (Shuicheng)
+- Drop bogus static from finish in force_invalidate (Shuicheng)
+- Fix double-free of managed BO in error path (Shuicheng)
+- Don't attempt to process FAST_REQ or EVENT relays (Michal)
+- Fix NPD in bo_meminfo (Matthew Auld)
+- Prevent invalid cursor access for purged BOs (Matthew Auld)
+- Fix offset alignment for MERT WHITELST_OA_MERT_MMIO_TRG (Ashutosh)
+The following changes since commit dc59e4fea9d83f03bad6bddf3fa2e52491777482:
+
+  Linux 7.2-rc1 (2026-06-28 12:01:31 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-07-02
+
+for you to fetch changes up to 959b5016e4646b55fd2fd0438932e4c4e9ce171f:
+
+  drm/xe/oa: Fix offset alignment for MERT WHITELIST_OA_MERT_MMIO_TRG (2026-07-02 12:29:44 +0200)
+
+----------------------------------------------------------------
+Driver Changes:
+- Wedge from the timeout handler only after releasing the queue (Rodrigo)
+- Fix a NULL pointer dereference (Francois)
+- Remove redundant exec_queue_suspended (Lu)
+- RTP / OA whitelist fixes (Ashutosh, Gustavo, Thomas)
+- Return error on non-migratable faults requiring devmem (Matt Brost)
+- Skip FORCE_WC and vm_bound check for external dma-bufs (Matt Auld)
+- Hold notifier lock for write on inject test path (Shuicheng)
+- Drop bogus static from finish in force_invalidate (Shuicheng)
+- Fix double-free of managed BO in error path (Shuicheng)
+- Don't attempt to process FAST_REQ or EVENT relays (Michal)
+- Fix NPD in bo_meminfo (Matthew Auld)
+- Prevent invalid cursor access for purged BOs (Matthew Auld)
+- Fix offset alignment for MERT WHITELST_OA_MERT_MMIO_TRG (Ashutosh)
+
+----------------------------------------------------------------
+Ashutosh Dixit (10):
+      drm/xe/rtp: Add RING_FORCE_TO_NONPRIV_DENY to OA whitelists
+      drm/xe/rtp: Maintain OA whitelists separately
+      drm/xe/rtp: Keep track of non-OA nonpriv slots
+      drm/xe/rtp: Generalize whitelist_apply_to_hwe
+      drm/xe/rtp: Save OA nonpriv registers to register save/restore lists
+      drm/xe/rtp: Toggle 'deny' bit to (de-)whitelist OA regs
+      drm/xe/rtp: (De-)whitelist OA registers for all hwe's for a gt
+      drm/xe/oa: (De-)whitelist OA registers on OA stream open/release
+      drm/xe/rtp: Ensure locking/ref counting for OA whitelists
+      drm/xe/oa: Fix offset alignment for MERT WHITELIST_OA_MERT_MMIO_TRG
+
+Francois Dugast (1):
+      drm/xe/pt: Fix NULL pointer dereference in xe_pt_zap_ptes_entry()
+
+Gustavo Sousa (1):
+      drm/xe/rtp: Add struct types for RTP tables
+
+Lu Yao (1):
+      drm/xe: Remove redundant exec_queue_suspended() check in submit_exec_queue()
+
+Matthew Auld (3):
+      drm/xe/display: skip FORCE_WC and vm_bound check for external dma-bufs
+      drm/xe: fix NPD in bo_meminfo()
+      drm/xe/pt: prevent invalid cursor access for purged BOs
+
+Matthew Brost (1):
+      drm/xe: Return error on non-migratable faults requiring devmem
+
+Michal Wajdeczko (1):
+      drm/xe/pf: Don't attempt to process FAST_REQ or EVENT relays
+
+Rodrigo Vivi (1):
+      drm/xe: wedge from the timeout handler only after releasing the queue
+
+Shuicheng Lin (3):
+      drm/xe/userptr: Hold notifier_lock for write on inject test path
+      drm/xe/userptr: Drop bogus static from finish in force_invalidate
+      drm/xe/hw_engine: Fix double-free of managed BO in error path
+
+Thomas Hellström (1):
+      drm/xe/rtp: Fix build error with clang < 21 and non-const initializers
+
+ drivers/gpu/drm/xe/display/xe_display_bo.c |   3 +-
+ drivers/gpu/drm/xe/display/xe_fb_pin.c     |   3 +-
+ drivers/gpu/drm/xe/tests/xe_rtp_test.c     | 103 +++++++++++------------------
+ drivers/gpu/drm/xe/xe_drm_client.c         |  12 +++-
+ drivers/gpu/drm/xe/xe_gt_debugfs.c         |   4 +-
+ drivers/gpu/drm/xe/xe_guc_relay.c          |  13 ++--
+ drivers/gpu/drm/xe/xe_guc_submit.c         |   9 ++-
+ drivers/gpu/drm/xe/xe_hw_engine.c          |  20 +++---
+ drivers/gpu/drm/xe/xe_hw_engine_types.h    |   8 +++
+ drivers/gpu/drm/xe/xe_oa.c                 |   7 ++
+ drivers/gpu/drm/xe/xe_oa_types.h           |   3 +
+ drivers/gpu/drm/xe/xe_pt.c                 |  67 ++++++++++++++-----
+ drivers/gpu/drm/xe/xe_reg_whitelist.c      | 102 ++++++++++++++++++++++++----
+ drivers/gpu/drm/xe/xe_reg_whitelist.h      |   4 ++
+ drivers/gpu/drm/xe/xe_rtp.c                |  31 ++++-----
+ drivers/gpu/drm/xe/xe_rtp.h                |  24 ++++++-
+ drivers/gpu/drm/xe/xe_rtp_types.h          |  10 +++
+ drivers/gpu/drm/xe/xe_svm.c                |   6 +-
+ drivers/gpu/drm/xe/xe_svm.h                |  15 ++++-
+ drivers/gpu/drm/xe/xe_tuning.c             |  45 ++++++-------
+ drivers/gpu/drm/xe/xe_userptr.c            |   2 +-
+ drivers/gpu/drm/xe/xe_wa.c                 |  89 +++++++++++++------------
+ 22 files changed, 376 insertions(+), 204 deletions(-)
