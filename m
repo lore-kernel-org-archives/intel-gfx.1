@@ -4,34 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4191C43458
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B586C43327
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32D9C10F218;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 974B510F21A;
 	Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="VukNlVDu";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="D0btf4eI";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E52A010F216;
- Thu,  2 Jul 2026 08:08:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8B0510F213;
+ Thu,  2 Jul 2026 08:08:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782979721;
- bh=T/OQGU8prg+GP3iTibN/WUfOED1EMA169ETe4ayUGKY=;
+ s=default; t=1782979720;
+ bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VukNlVDuWZWT/Mml+oDcB6cZIqy1Hcg/phx8JZD03P4uNtSszDQL9RQbNZ3IVpNIn
- pgRzmWcVQQNdUQLx8rehHhnqFl7R6OAOf6WzoTYWjmr0lB1Vivh8PU07SMfxnlp28N
- NbvFoRFroqMc9qIBdQK4xEuDPw1fBnIKjYb7jK69YPOinY3Aejt8lJydp4T6caY6sL
- dJ2pJJQf9qXOqIayBJBXqdFsdGxXRC6UkZsJlAT5dAEMbnPJwONuj7i1sDVU66+bV4
- zXjKEuI0zbiW1KNCZt7D/a9zyXuLIcpfcbyrqypwCXfX79jQc+iZ2wD8uIk4nzoAFO
- UeQohG/HdU/QQ==
+ b=D0btf4eIXzMHvKGqWTtKxSSrvjI6Cy1MH3UVRL0jK34OM+BABwSinMpoZlzDIOA5K
+ wJxi1IRr/5x7SwJRgk8PVbS98QuQF2O2HCuhLdc6WT7MdlULbI5TZa/RzKjzsx+Sy3
+ pbFBVn3fkzFNPGmYroP+LzJ1/NDxczeH48d2FG4SM/ON1BH8vz5hd0Uc7r7Y/GRRoY
+ AV5wSw/jRQPbG4/i40yOpg5U18W8AGLzVeVrDIB6xmnSfR0vdij2886tB6+7rlxB3m
+ +Csz0FJv9icTo/ONwwGwutsRvq9YwlX8GNiQD0P0JXbjaQ4A22YC0N9PyODGG8+pwm
+ mKs2+0tuTwqRw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 4/7] drm/i915/gt: Fix selftests on PREEMPT_RT
-Date: Thu,  2 Jul 2026 10:09:10 +0200
-Message-ID: <20260702080913.434121-5-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 2/7] drm/i915: Drop the irqs_disabled() check
+Date: Thu,  2 Jul 2026 10:09:08 +0200
+Message-ID: <20260702080913.434121-3-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260702080913.434121-1-dev@lankhorst.se>
 References: <20260702080913.434121-1-dev@lankhorst.se>
@@ -52,43 +55,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+The !irqs_disabled() check triggers on PREEMPT_RT even with
+i915_sched_engine::lock acquired. The reason is the lock is transformed
+into a sleeping lock on PREEMPT_RT and does not disable interrupts.
+
+There is no need to check for disabled interrupts. The lockdep
+annotation below already check if the lock has been acquired by the
+caller and will yell if the interrupts are not disabled.
+
+Remove the !irqs_disabled() check.
+
+Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/i915/i915_request.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-index 10e556a7eac45..c1eff9edd8a5e 100644
---- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-+++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
-@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
- 		st_engine_heartbeat_disable(engine);
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index d2c7b1090df08..f66f8efc70629 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
  
- 		ENGINE_TRACE(engine, "measuring idle time\n");
--		preempt_disable();
-+		migrate_disable();
- 		de = intel_engine_get_busy_time(engine, &t[0]);
- 		udelay(100);
- 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
--		preempt_enable();
-+		migrate_enable();
- 		dt = ktime_sub(t[1], t[0]);
- 		if (de < 0 || de > 10) {
- 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
-@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
- 		}
+ 	RQ_TRACE(request, "\n");
  
- 		ENGINE_TRACE(engine, "measuring busy time\n");
--		preempt_disable();
-+		migrate_disable();
- 		de = intel_engine_get_busy_time(engine, &t[0]);
- 		mdelay(100);
- 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
--		preempt_enable();
-+		migrate_enable();
- 		dt = ktime_sub(t[1], t[0]);
- 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
- 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
+ 
+ 	/*
+@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
+ 	 */
+ 	RQ_TRACE(request, "\n");
+ 
+-	GEM_BUG_ON(!irqs_disabled());
+ 	lockdep_assert_held(&engine->sched_engine->lock);
+ 
+ 	/*
 -- 
 2.53.0
 
