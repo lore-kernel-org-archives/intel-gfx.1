@@ -4,32 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DA18C44502
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 13:06:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 604BCC43602
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 13:06:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1CED410F395;
-	Thu,  2 Jul 2026 13:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A998610E4D0;
+	Thu,  2 Jul 2026 13:06:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="UUw36nfQ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ElylzNP2";
 	dkim-atps=neutral
-X-Greylist: delayed 431 seconds by postgrey-1.36 at gabe;
- Thu, 02 Jul 2026 07:35:36 UTC
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
- [95.215.58.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2942E10F1AC
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 07:35:36 +0000 (UTC)
+Received: from out-189.mta0.migadu.com (out-189.mta0.migadu.com
+ [91.218.175.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E02C10E4AD
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 11:42:06 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782977290;
+ t=1782992513;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=cdXAMvaGTLXZ4tRHqX+15mFjqPO5NJv7/lbzInUeZeM=;
- b=UUw36nfQUDO4ek5W5MoGxv/bQdNbTQycY1qQKAEoJymjql+ZXc8a2FUo9eNrafl6xDrEni
- 1302Z8Y+Ma+0qxdUDhBISoxry5nus7uGAN8fTkB0ZcU/zUf+14Ol9iIljWhjg5Yh/mt933
- 8BhSh84bNWygA1To4TaXOltx56F5hgs=
+ bh=vPHtV6pxZdlKjLiAMh+TI96h/MjbfgTMGiJB5aRI1Dw=;
+ b=ElylzNP2HZvUF6FtGgLgsW4vT0OTcdy2XorLGs6M4jbsXqc3kVIN25VDlrp06Kwp+MnkF0
+ 7eCUNpZQUAu53ooUNOnYLe8bcSqU2lbFmJuaAoucdQs+qEK4yKsjIpHuYOtBIHp/EvNPEl
+ ujU0zKbwsKGW+OA8vv+O0JU4vozY/FA=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
@@ -63,12 +61,12 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
  linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-sound@vger.kernel.org
-Subject: Re: [PATCH 01/13] mm: introduce vma_flags_can_grow() and
- vma_can_grow()
-Date: Thu,  2 Jul 2026 15:27:50 +0800
-Message-Id: <20260702072750.45641-1-lance.yang@linux.dev>
-In-Reply-To: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
-References: <f2e8c32515d328db62279cc8bab8398ea278d74f.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 04/13] mm: update generic_get_unmapped_area[_topdown]() to
+ use vma_flags_t
+Date: Thu,  2 Jul 2026 19:41:35 +0800
+Message-Id: <20260702114135.4189-1-lance.yang@linux.dev>
+In-Reply-To: <cef55b19f86c110952f13829aefa4859db3a70ed.1782760670.git.ljs@kernel.org>
+References: <cef55b19f86c110952f13829aefa4859db3a70ed.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -90,22 +88,20 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On Mon, Jun 29, 2026 at 08:25:24PM +0100, Lorenzo Stoakes wrote:
->These test whether the VMA has stack sematics, i.e. is able to grow upwards
->or downwards depending on the architecture.
+On Mon, Jun 29, 2026 at 08:25:27PM +0100, Lorenzo Stoakes wrote:
+>As part of the changes converting VMA flags from a system word size to a
+>bitmap, extend this change to generic_get_unmapped_area() and
+>generic_get_unmapped_area_topdown(), which also allows us to convert
+>stack_guard_placement() as well.
 >
->In order to account for arches which do not support upward-growing stacks,
->introduce VMA_GROWSUP whose definition depends on the architecture
->supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
->to account for this.
->
->Update the VMA userland tests to reflect the changes
+>We retain arch_get_unmapped_area() and arch_get_unmapped_area_topdown()
+>as-is for now, using legacy_to_vma_flags() as necessary to do so.
 >
 >No functional change intended.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
 
-Nice cleanup! Feel free to add:
+Nothing jumped out at me ;) Feel free to add:
 
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
