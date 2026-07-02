@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C277C43458
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 12:01:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D99C43602
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 12:17:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BC1B10F320;
-	Thu,  2 Jul 2026 12:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7751310E4B8;
+	Thu,  2 Jul 2026 12:17:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="O5la7sBy";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vK6IYk9g";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8D3A410F320;
- Thu,  2 Jul 2026 12:01:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id BDFFD10F34B;
+ Thu,  2 Jul 2026 12:17:38 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98D0D1655;
- Thu,  2 Jul 2026 05:01:06 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9CA01D15;
+ Thu,  2 Jul 2026 05:17:33 -0700 (PDT)
 Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9EAAB3F85F;
- Thu,  2 Jul 2026 05:01:08 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A4353F905;
+ Thu,  2 Jul 2026 05:17:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1782993671; bh=Q++t6UDjEPmAM1sRpwFz4r69sHx9kEtoP4L1SoBqxGQ=;
+ t=1782994658; bh=Wnn2Ksvw76sAIUTT1KSmFOtvZNloFjX2aZnafzdf1UQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=O5la7sBy9fpG9oKdnfnA7d5kfya6c7tw+A6LroXoItQlVAf1iyPXjjgCxSHX0d7Vg
- hIP+jrTnvTVFjlgfnrVCEIHoqJlHVFsg8UBSu4eTTScJh7rW6PCoFFGvCBZiVSLMHe
- tpk4DdMS5+Pi+vpx5n7NY+ZVX92QhgW61o7a2Ubc=
-Message-ID: <50d61140-15e2-471e-8a07-d4a3752ddcbc@arm.com>
-Date: Thu, 2 Jul 2026 13:01:06 +0100
+ b=vK6IYk9gGV1YLFWdtmNJ138PGUigoXO6KoGAs2xhe8xYj4Ie8oxMHU7qkepIguElP
+ keKbPz8EWxK01r1MWaM243c/uNeghukm+UWDWB2botZRsvuycY5oypm60m1JLQns60
+ R3uaSZGvWVURylQgZg0iJQivMo/r2FericMoXnDM=
+Message-ID: <73b486cb-e082-4c3e-a193-6629960efede@arm.com>
+Date: Thu, 2 Jul 2026 13:17:23 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] drm/i915/gem: split shared memory allocation table
- logic
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- Andi Shyti <andi.shyti@kernel.org>
+Subject: Re: [PATCH v2 3/3] drivers/iommu: Catch scatterlist length overflows
+To: Krzysztof Karas <krzysztof.karas@intel.com>
 Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>,
- Joerg Roedel <joro@8bytes.org>, =?UTF-8?Q?Micha=C5=82_Grzelak?=
- <michal.grzelak@intel.com>,
+ iommu@lists.linux.dev, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Andi Shyti <andi.shyti@linux.intel.com>,
+ =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 References: <20260701104437.236979-1-krzysztof.karas@intel.com>
- <20260701104437.236979-2-krzysztof.karas@intel.com>
- <akUibf3NyThHnXco@zenone.zhora.eu>
- <5yosfyp4yuvix56sc7uzsbelndiph2ibzzg747lyrklqjy4bxr@mbbbcvl2cczk>
+ <20260701104437.236979-4-krzysztof.karas@intel.com>
+ <b65c0f9f-184e-42fb-85dd-aa6c06dc91d8@arm.com>
+ <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
 From: Robin Murphy <robin.murphy@arm.com>
 Content-Language: en-GB
-In-Reply-To: <5yosfyp4yuvix56sc7uzsbelndiph2ibzzg747lyrklqjy4bxr@mbbbcvl2cczk>
+In-Reply-To: <bbh4gbq6eolkqwhcuou2fufcbpthxklb2nmawglhhxdzea6tpg@2j7xekrl64pj>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,102 +64,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 02/07/2026 7:18 am, Krzysztof Karas wrote:
-> Hi Andi,
+On 02/07/2026 7:22 am, Krzysztof Karas wrote:
+> Hi Robin,
 > 
-> thanks for reviewing!
+> thanks for a quick response!
 > 
-> On 2026-07-01 at 16:38:11 +0200, Andi Shyti wrote:
->> Hi Krzysztof,
+> On 2026-07-01 at 12:59:29 +0100, Robin Murphy wrote:
+>> On 01/07/2026 11:44 am, Krzysztof Karas wrote:
+>>> It is possible, when a very large mapping uses a single
+>>> scatterlist, that padding overflows scatterlist's length field.
+>>> This results in:
+>>>    1) silently wrapping the value
+>>>    2) smaller than desired mappings produced by iommu_map_sg
+>>>    3) leaving mapped bytes in memory (no iommu_unmap)
+>>>
+>>> Address this issue by adding overflow detection for previous
+>>> scatterlist length field.
 >>
->> On Wed, Jul 01, 2026 at 10:44:35AM +0000, Krzysztof Karas wrote:
->>> shmem_sg_alloc_table is a complex and hard to read function.
->>> Split its logic into smaller pieces to improve readability and
->>> reduce indentation. Change the main "for" loop into "while" to
->>> get rid of obscure iterator "i" and be more explicit in
->>> traversing scatterlist.
+>> Awesome, thanks for figuring it out! Looks like this must date all the way
+>> back:
 >>
->> any chance we can split this cleanup into smaller pieces?
-> Yeah, I'll work something out.
+>> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
+> Okay, thanks for pinpointing this commit, I'll add the tag in
+> the next version of this series.
 > 
 >>
 >>> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+>>> ---
+>>> v2:
+>>>    * Address overflows instead of unmapping erroneously mapped
+>>>    memory (Robin).
+>>>    * Put this patch last for easier reproduction of the issue.
+>>>
+>>>    drivers/iommu/dma-iommu.c | 14 ++++++++++++--
+>>>    1 file changed, 12 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+>>> index 9abaec0703ef..c403057577df 100644
+>>> --- a/drivers/iommu/dma-iommu.c
+>>> +++ b/drivers/iommu/dma-iommu.c
+>>> @@ -1493,8 +1493,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>>>    		 *   time through here (i.e. before it has a meaningful value).
+>>>    		 */
+>>>    		if (pad_len && pad_len < s_length - 1) {
+>>> -			prev->length += pad_len;
+>>> -			iova_len += pad_len;
+>>> +			if (overflows_type(prev->length + pad_len, prev->length)) {
+>>> +				/*
+>>> +				 * For large mappings spanning multiple GBs we
+>>> +				 * may not be able to fit all needed padding into
+>>> +				 * sg->length.
+>>> +				 */
+>>> +				ret = -EOVERFLOW;
+>>> +				goto out_restore_sg;
+>>> +			} else {
 >>
->> ...
+>> Nit: we don't really need an "else" after a goto, but it's hardly a big deal
+>> (however if you did want to respin, note also that the preferred title tag
+>> here is "iommu/dma: ...").
+> I'll be making another version anyway, so I can remove the
+> "else" and change the title :)
+
+Cool :)
+
+>> Either way,
 >>
->>> +static struct folio *shmem_shrink_get_folio(struct address_space *mapping,
->>> +					    unsigned long folio_index,
->>> +					    gfp_t gfp, unsigned int pages_left,
->>> +					    struct drm_i915_private *i915)
->>> +{
->>> +#define MAX_READS 2
->>
->> This MAX_READS here is very ugly! Just use 2 and explain it in a
->> comment. In the 'if' below you can check out of "if (... || i)"
->> and still explain it in a comment.
-> If we are on the topic of personal preferences, I'd prefer
-> moving this to a variable instead of leaving a magic number
-> buried in the code. The comment is unnecessary if you figure out
-> what this loop does and in the end "2" is just a number somebody
-> picked way back.
+>> Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+> Thanks!
+> 
+> would this r-b still hold after above minor changes, or would
+> you prefer to have one final look at the finished change and
+> then decide whether you give your r-b?
 
-FWIW since I'm looking at the thread - indeed if it's just a retry loop 
-and the actual index value isn't significant, then often a count-down 
-loop can be the most self-explanatory, e.g.:
-
-	int retries = 2;
-
-	while (retries--) {
-		...
-	}
-
-Or perhaps in this case:
-
-	do {
-		folio = shmem_read_folio();
-		if (IS_ERR(folio))
-			i915_gem_shrink();
-	while (!IS_ERR(folio) && --retries);
-	return folio;
+Indeed if it's just those tweaks then feel free to keep it, that's 
+usually what I mean by "either way".
 
 Cheers,
 Robin.
 
->>
->>> +	struct folio *folio;
->>> +	unsigned int i;
->>> +
->>> +	for (i = 0; i < MAX_READS; i++) {
->>> +		cond_resched();
->>> +		folio = shmem_read_folio_gfp(mapping, folio_index, gfp);
->>> +		if (!IS_ERR(folio) || i == MAX_READS - 1)
->>> +			return folio;
->>> +
->>> +		i915_gem_shrink(NULL, i915, 2 * pages_left, NULL,
->>
->> /pages_left/page_count/
-> I mean, sure, but is there a reason for using "count" instead of
-> "left"?
 > 
 >>
->>> +				I915_SHRINK_BOUND | I915_SHRINK_UNBOUND);
->>> +
->>
->> ...
->>
->>> +	}
->>> +
->>> +	/* Should never happen */
->>> +	WARN_ON_ONCE(1);
->>
->> no need.
-> Okay, I'll remove it.
-> 
+>> I'd imagine Joerg can take this as an IOMMU fix, but FWIW if you did want an
+>> ack to take it through drm-fixes to keep it with the i915 patches, I
+>> wouldn't foresee any significant risk of conflicts.
 >>
 >> Thanks,
->> Andi
+>> Robin.
 >>
->>> +	return ERR_PTR(-EINVAL);
->>> +}
+>>> +				prev->length += pad_len;
+>>> +				iova_len += pad_len;
+>>> +			}
+>>>    		}
+>>>    		iova_len += s_length;
+>>
 > 
 
