@@ -4,34 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2240FC44502
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDE1C43602
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 62BA110F21D;
-	Thu,  2 Jul 2026 08:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3931110F21F;
+	Thu,  2 Jul 2026 08:08:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="FYVyQ8Ep";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="jRkhdNqt";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F15C10F216;
- Thu,  2 Jul 2026 08:08:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB14B10F216;
+ Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782979722;
- bh=j+kZhrKGeVLe6Kwb9Av2wRwsLfG3GUrsHoYClLpC+34=;
+ s=default; t=1782979723;
+ bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FYVyQ8Epsvol8ivf/Zqttxm7ERimG8fRHHu+cs9R8vnaZorjawgqmFl8dlaQ37ml4
- xvvv+/yn3vNS8SRiiLGsBwzFyb5UjggJEd+ddJ9CKjfx7YkGIwQbdb3IAfVUHBDsJg
- gjp5/yIjewq0cf+HR0LqPTdL03k2gZr4fLm2HyBUgFvZPaVrxhfFVXGl2CK5PMQSHd
- R80/qQTGCgCtPb0erCAnDESjRpLKc9WSCwP8sHWTdlomgUrcQvFBtCQQUp3vjGJKYA
- hgTo7whpV5wIQ0rJQ2EapnHcR+lrH+B0UWmCmMhZbaF7WCiXdpJGtxWwUB1pFQM7lm
- 51GaLVL5xpaRg==
+ b=jRkhdNqt428OUt2VBrVpqYbRuG0Hu7R5b0/H0LzhPCYShbec7RAqTHrXCGwcapdx+
+ 6RqL7DYdv+4suUtX0hrm0v1tSQ1kIdI1FRZBuw+n8gA2Rb8KLCaO6O4Hgam7O1ONiP
+ vQJO9il8uVUz7eE8W/txDgroJ5nkbmbqU//epxMhmoyLcgxAvT+qmv7SutMtfdKHjX
+ POEhC7o9IB7Di5DPIkduoLQcNfnI5V2md/w20TSa9vgI9hQ3JA2VQgLwBv1jRAOTUi
+ nGSxKyEJ52+yZztMDiRSMXHqLPP6FfONkDGW75g+x9s+WFn9tZ3m7zgF118Kb3B8+D
+ Q8n3KAgDoP0ng==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 5/7] drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
-Date: Thu,  2 Jul 2026 10:09:11 +0200
-Message-ID: <20260702080913.434121-6-dev@lankhorst.se>
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH 7/7] drm/i915/gt: Add a spinlock to prevent starvation of
+ irq_work.
+Date: Thu,  2 Jul 2026 10:09:13 +0200
+Message-ID: <20260702080913.434121-8-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260702080913.434121-1-dev@lankhorst.se>
 References: <20260702080913.434121-1-dev@lankhorst.se>
@@ -52,27 +54,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Also check if RCU is disabled for PREEMPT-RT, which is the case when
-local_bh_disable() is called.
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
+and the interrupt will poll on signaler_active while the irq-work can't
+make progress.
+
+Solve this by adding a spinlock to prevent starvation and force
+completion.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/intel_engine_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_engine_cs.c b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-index c0fd349a4600c..9dd9665128caa 100644
---- a/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_engine_cs.c
-@@ -1607,7 +1607,7 @@ u64 intel_engine_get_last_batch_head(const struct intel_engine_cs *engine)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+index c10ac0ab3bfa8..c2b174bfa1418 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
+@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		intel_breadcrumbs_disarm_irq(b);
  
- static unsigned long stop_timeout(const struct intel_engine_cs *engine)
- {
--	if (in_atomic() || irqs_disabled()) /* inside atomic preempt-reset? */
-+	if (in_atomic() || irqs_disabled() || rcu_preempt_depth()) /* inside atomic preempt-reset? */
- 		return 0;
+ 	rcu_read_lock();
++	spin_lock(&b->signaler_active_sync);
+ 	atomic_inc(&b->signaler_active);
+ 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
+ 		struct i915_request *rq;
+@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
+ 		}
+ 	}
+ 	atomic_dec(&b->signaler_active);
++	spin_unlock(&b->signaler_active_sync);
+ 	rcu_read_unlock();
  
- 	/*
+ 	llist_for_each_safe(signal, sn, signal) {
+@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
+ 	init_llist_head(&b->signaled_requests);
+ 
+ 	spin_lock_init(&b->irq_lock);
++	spin_lock_init(&b->signaler_active_sync);
+ 	init_irq_work(&b->irq_work, signal_irq_work);
+ 
+ 	b->irq_engine = irq_engine;
+@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
+ 	if (release)
+ 		intel_context_put(ce);
+ 
+-	while (atomic_read(&b->signaler_active))
++	while (atomic_read(&b->signaler_active)) {
++		spin_lock(&b->signaler_active_sync);
++		spin_unlock(&b->signaler_active_sync);
+ 		cpu_relax();
++	}
+ }
+ 
+ static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
+diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+index bdf09fd67b6e7..28dae32628aab 100644
+--- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
++++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
+@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
+ 	struct list_head signalers;
+ 	struct llist_head signaled_requests;
+ 	atomic_t signaler_active;
++	spinlock_t signaler_active_sync;
+ 
+ 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
+ 	struct irq_work irq_work; /* for use from inside irq_lock */
 -- 
 2.53.0
 
