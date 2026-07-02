@@ -4,65 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57C0FC43327
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 09:31:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C5FEC43458
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 10:04:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3779E10F25A;
-	Thu,  2 Jul 2026 09:31:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="jwyULO8r";
-	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF4F10E48C;
- Thu,  2 Jul 2026 09:31:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1782984682; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PfKFG9RhyxZ/Be5OuN+QqF3/BpbnmA1csy44z/dMcd+YIjvJgwvmOHOiJ+2KRMKxIOoQur2T9f+dCn79aiGf3rgs9pzZr/ieS/mvwK9ldHDTosm8k6kLHgd9ZEmlWkBnbQVFNBuhOybf15R8spj3zeYcFN+FZfz3YHoCfLe2aJE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1782984682;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=; 
- b=HKOyBhxVPEBNIYCvY/Bipj1MqKUWcdyEq8GnntQKERrMfWcXg2ssZowkS2zK7JmVaooGdCka67TEXs9BjIuxT/LkSuJAjjeXngQEITJzTzXKcAjzUuN/eDLjjD0Tjl0E+AdBiRIVaC64WS6USM3mvCEZZS4VOBMUN5TEDnCSs/s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782984681; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=RDz1VrwgVY8/yTgdWqaKJKdhG6xDvuE7IeCeMPv1hQs=;
- b=jwyULO8rOuk48YoiNDxc+VCzbqUHPa1j1hZ0oj9GR9HkLwLwJf6lKsn7fiuFgCUg
- zCEtXPryDIhrGcXJOeO7hG/GTDwB2SYMuML5kDKujK2SPmgHJZGEdT0zzTmzsWX4yX1
- qzq44EBPrqgeGC1FAcPx4qxVjHnw72bHee+88p0s=
-Received: by mx.zohomail.com with SMTPS id 1782984679497750.7953951953009;
- Thu, 2 Jul 2026 02:31:19 -0700 (PDT)
-Message-ID: <0f495406-a3c9-4c72-8419-a647a864e0fb@collabora.com>
-Date: Thu, 2 Jul 2026 11:31:14 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id E408810E4B7;
+	Thu,  2 Jul 2026 10:04:24 +0000 (UTC)
+Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BAEB10E4A6;
+ Thu,  2 Jul 2026 10:04:23 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4015346051050958384=="
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>, Daniel Stone
- <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260702081641.22990-1-robert.mader@collabora.com>
- <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <83f324a2-abe1-4b32-8782-439569f651d2@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/intel/display=3A_Chan?=
+ =?utf-8?q?ges_required_to_make_vblank_evasion_PREEMPT=5FRT_safe=2E?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Maarten Lankhorst" <dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 02 Jul 2026 10:04:23 -0000
+Message-ID: <178298666362.142689.5677113822871623139@6beec6c84f66>
+X-Patchwork-Hint: ignore
+References: <20260702072154.171324-1-dev@lankhorst.se>
+In-Reply-To: <20260702072154.171324-1-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,58 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+--===============4015346051050958384==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On 02.07.26 10:34, Maarten Lankhorst wrote:
-> Hello,
-<snip>
-> On 7/2/26 10:16, Robert Mader wrote:
->> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
->> index e2df4becce62..b2c0234eaf14 100644
->> --- a/drivers/gpu/drm/drm_ioctl.c
->> +++ b/drivers/gpu/drm/drm_ioctl.c
->> @@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->>   			return -EINVAL;
->>   		file_priv->supports_virtualized_cursor_plane = req->value;
->>   		break;
->> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
->> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
->> +		struct drm_plane *plane;
->> +		bool has_plane_with_color_pipeline = false;
->> +
->> +		drm_for_each_plane(plane, dev) {
->> +			if (plane->color_pipeline_property) {
->> +				has_plane_with_color_pipeline = true;
->> +				break;
->> +			}
->> +		}
->> +		if (!has_plane_with_color_pipeline)
->> +			return -EOPNOTSUPP;
->> +
->>   		if (!file_priv->atomic)
->>   			return -EINVAL;
->>   		if (req->value > 1)
->>   			return -EINVAL;
->>   		file_priv->plane_color_pipeline = req->value;
->>   		break;
->> +	}
-> Perhaps put the most specific check (is there a plane with color pipeline?)
-> last, and return -EINVAL, as that is the default before
-> DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE was added.
->
-> Kind regards,
-> ~Maarten Lankhorst
-Thanks, will do so in v3. Will wait a bit more for further feedback and 
-send it out tomorrow.
+== Series Details ==
 
--- 
-Robert Mader
-Consultant Software Developer
+Series: drm/intel/display: Changes required to make vblank evasion PREEMPT_RT safe.
+URL   : https://patchwork.freedesktop.org/series/169663/
+State : success
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_18749 -> Patchwork_169663v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169663v1/index.html
+
+Participating hosts (42 -> 39)
+------------------------------
+
+  Missing    (3): bat-dg2-13 bat-arls-5 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18749 -> Patchwork_169663v1
+
+  CI-20190529: 20190529
+  CI_DRM_18749: 4a1a395fa156b92a83b501f8e331f21cd035c2e1 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_8989: a8e2cbd2854d7980a9eccecc6e0c801d0824b88f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_169663v1: 4a1a395fa156b92a83b501f8e331f21cd035c2e1 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169663v1/index.html
+
+--===============4015346051050958384==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/intel/display: Changes required to make vblank evasion PREEMPT_RT safe.</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169663/">https://patchwork.freedesktop.org/series/169663/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169663v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169663v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18749 -&gt; Patchwork_169663v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169663v1/index.html</p>
+<h2>Participating hosts (42 -&gt; 39)</h2>
+<p>Missing    (3): bat-dg2-13 bat-arls-5 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18749 -&gt; Patchwork_169663v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18749: 4a1a395fa156b92a83b501f8e331f21cd035c2e1 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_8989: a8e2cbd2854d7980a9eccecc6e0c801d0824b88f @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_169663v1: 4a1a395fa156b92a83b501f8e331f21cd035c2e1 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4015346051050958384==--
