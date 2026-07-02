@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EF17C43602
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 13:06:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D739C43458
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 13:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B7810F38E;
-	Thu,  2 Jul 2026 13:06:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B712110F365;
+	Thu,  2 Jul 2026 13:13:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="AkD1PO3E";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="jHDhEc6C";
 	dkim-atps=neutral
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
- [95.215.58.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE3D610F308
- for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 11:38:07 +0000 (UTC)
+Received: from out-170.mta0.migadu.com (out-170.mta0.migadu.com
+ [91.218.175.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DEA5610F365
+ for <intel-gfx@lists.freedesktop.org>; Thu,  2 Jul 2026 13:13:08 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1782992273;
+ t=1782997985;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=s4zTiOPxPEEvh+Z2LMv+6gqe9ZZvh+3yTK3Yc5UnT/U=;
- b=AkD1PO3EYh/hmuzqNyG5+F4iFU+xRbougp+bY+xotWctIjwUQvMKpAwXsjPb5kG+NxyY12
- mV0mEGNoe2Czu7JdCtguHySTk1KxuHzjRfZnXIBhIe71SSOqRiI6wOFZz62JhxqVX83KFA
- KhWu2A9hV9btjfbdFeq0dyXUttdl5PQ=
+ bh=3WkYIESER5H1pxokBfEp6m9xEZZ5ghGe4TjZZy4BO5I=;
+ b=jHDhEc6CTiPftGqyHzVdl3xS/wEnOHSN4PeeVFnRX9fUml//8WA53GAPbsxSbJvWuzc/sf
+ tH1rSEqcTxDFS7qyJ0iIaX/a6tA48FPP/mFE4c/byOkvPcPlvJwYSUFubJkz9Jxs6S5ya/
+ AItLuFoisprFM8kvEpkf04Kk84Cg/T0=
 From: Lance Yang <lance.yang@linux.dev>
 To: ljs@kernel.org
 Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
@@ -61,16 +61,16 @@ Cc: akpm@linux-foundation.org, tsbogend@alpha.franken.de, maddy@linux.ibm.com,
  linux-fbdev@vger.kernel.org, linux-aio@kvack.org,
  linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
  linux-sound@vger.kernel.org
-Subject: Re: [PATCH 03/13] mm: convert __get_unmapped_area() to use vma_flags_t
-Date: Thu,  2 Jul 2026 19:37:22 +0800
-Message-Id: <20260702113722.97837-1-lance.yang@linux.dev>
-In-Reply-To: <b1ad7c4443f5cba622e4c48c5a9ef15427001a93.1782760670.git.ljs@kernel.org>
-References: <b1ad7c4443f5cba622e4c48c5a9ef15427001a93.1782760670.git.ljs@kernel.org>
+Subject: Re: [PATCH 10/13] mm/vma: convert miscellaneous uses of VMA flags in
+ core mm
+Date: Thu,  2 Jul 2026 21:12:33 +0800
+Message-Id: <20260702131233.59026-1-lance.yang@linux.dev>
+In-Reply-To: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
+References: <1e7d834c887b6a65627d730addcff13d458c6268.1782760670.git.ljs@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
-X-Mailman-Approved-At: Thu, 02 Jul 2026 13:06:24 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,20 +87,48 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
-On Mon, Jun 29, 2026 at 08:25:26PM +0100, Lorenzo Stoakes wrote:
->Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
->vm_flags_t as part of the effort to move VMA flags from a system word to a
->bitmap.
+On Mon, Jun 29, 2026 at 08:25:33PM +0100, Lorenzo Stoakes wrote:
+>Update various uses of legacy flags in vma.c and mmap.c to the new
+>vma_flags_t type, updating comments alongside them to be consistent.
 >
->We cascade the changes up to arch_get_unmapped_area_topdown() and
->arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
->order to propagate the VMA flags.
->
->No functional change intended.
+>Also update __install_special_mapping() to rearrange things slightly to
+>accommodate the changes.
 >
 >Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 >---
+[...]
+>diff --git a/mm/vma.c b/mm/vma.c
+>index b81c05e67a61..ab2ef0f04420 100644
+>--- a/mm/vma.c
+>+++ b/mm/vma.c
+>@@ -3417,23 +3417,27 @@ struct vm_area_struct *__install_special_mapping(
+> 	vm_flags_t vm_flags, void *priv,
+> 	const struct vm_operations_struct *ops)
+> {
+>-	int ret;
+>+	vma_flags_t vma_flags = legacy_to_vma_flags(vm_flags);
+> 	struct vm_area_struct *vma;
+>+	int ret;
+> 
+> 	vma = vm_area_alloc(mm);
+>-	if (unlikely(vma == NULL))
+>+	if (unlikely(!vma))
+> 		return ERR_PTR(-ENOMEM);
+> 
+>-	vma_set_range(vma, addr, addr + len, 0);
+>-	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+>+	vma_flags_set_mask(&vma_flags, mm->def_vma_flags);
+>+	vma_flags_set(&vma_flags, VMA_DONTEXPAND_BIT);
+> 	if (pgtable_supports_soft_dirty())
+>-		vm_flags |= VM_SOFTDIRTY;
+>-	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
+>+		vma_flags_set(&vma_flags, VMA_SOFTDIRTY_BIT);
+>+	vma_flags_clear_mask(&vma_flags, VMA_LOCKED_MASK);
+>+	vma->flags = vma_flags;
 
-Nothing suspicious that I could spot :) Feel free to add:
+Maybe worth a vma_flags_init() helper here to mirror vm_flags_init()?
+With this open-coded, we lose the soft-dirty WARN_ON_ONCE sanity check.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Might be nicer to keep that check in one place ;)
+
+[...]
