@@ -4,39 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDE1C43602
-	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:08:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3154C43458
+	for <intel-gfx@archiver.kernel.org>; Thu,  2 Jul 2026 08:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3931110F21F;
-	Thu,  2 Jul 2026 08:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FCEC10F228;
+	Thu,  2 Jul 2026 08:17:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="jRkhdNqt";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Geisr4Ww";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB14B10F216;
- Thu,  2 Jul 2026 08:08:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1782979723;
- bh=Smwtu6CwhUCwK5agwnez+Jaqs++M2OVTTW4z7GIcls4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jRkhdNqt428OUt2VBrVpqYbRuG0Hu7R5b0/H0LzhPCYShbec7RAqTHrXCGwcapdx+
- 6RqL7DYdv+4suUtX0hrm0v1tSQ1kIdI1FRZBuw+n8gA2Rb8KLCaO6O4Hgam7O1ONiP
- vQJO9il8uVUz7eE8W/txDgroJ5nkbmbqU//epxMhmoyLcgxAvT+qmv7SutMtfdKHjX
- POEhC7o9IB7Di5DPIkduoLQcNfnI5V2md/w20TSa9vgI9hQ3JA2VQgLwBv1jRAOTUi
- nGSxKyEJ52+yZztMDiRSMXHqLPP6FfONkDGW75g+x9s+WFn9tZ3m7zgF118Kb3B8+D
- Q8n3KAgDoP0ng==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 7/7] drm/i915/gt: Add a spinlock to prevent starvation of
- irq_work.
-Date: Thu,  2 Jul 2026 10:09:13 +0200
-Message-ID: <20260702080913.434121-8-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260702080913.434121-1-dev@lankhorst.se>
-References: <20260702080913.434121-1-dev@lankhorst.se>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE20A10F220;
+ Thu,  2 Jul 2026 08:17:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1782980259; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UQ4N3uoTpLdHqGqeyN6bP31boYEYbJk7nNKzBUi5UAzHO64mnh7++NtNIct+RRm7qcF8xCT5MvlrEO1RCoyEFTS5GU0U/tMU/oU9fdUwZYLyCPDWkGbCs8tVlqHqao4O3u+Q5DQye2g0cM91EGHlayR20QkHYUF4Ajh+FPQmVNY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1782980259;
+ h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=wn/JhRLP/kw9OT3tYgqPgKSK7xYfFVe48gW5Umt2FKA=; 
+ b=F0k5PoQ6m7wK49IAyXZLL7cze/9rSRUfw3GXTqsIm2YYYE9C2AgacsXc+EEcxIGiw7pSCWz+L25ElUFWs3OWx2JZQpvUc8FpjYGP8cgjV6bUYbS52HiDSKvxbUToxXYS1BsPT90YUnEl7IzdNweJvBdUlSwYNjEI/QwiDTSdcP8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1782980259; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=wn/JhRLP/kw9OT3tYgqPgKSK7xYfFVe48gW5Umt2FKA=;
+ b=Geisr4Wwqy5yLjY/Puu8gfYpHnElb+k2YKKM+wJf8reqnJ+D3z/eqcKSGhQzx+e8
+ 2YCXEVcPVAVwmEX3nu4B9WEBuaT3MAFO/qYTd0i43APBucyK7JWSh83HmQF2PLSgDX6
+ fdMV+4rO75ihHE+ReAwif8x6Nxtt7Ou2d9CF9PCo=
+Received: by mx.zohomail.com with SMTPS id 1782980257337423.760676344912;
+ Thu, 2 Jul 2026 01:17:37 -0700 (PDT)
+From: Robert Mader <robert.mader@collabora.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+ Robert Mader <robert.mader@collabora.com>
+Subject: [PATCH v2] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+Date: Thu,  2 Jul 2026 10:16:41 +0200
+Message-ID: <20260702081641.22990-1-robert.mader@collabora.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -54,74 +74,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+The client cap is currently advertised unconditionally, even for drivers
+that do not support plane color pipelines. If clients supporting the later,
+like Wayland compositors or tools like drm_info, enable the client cap on
+such drivers they will be left without both color pipeline and the legacy
+properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
+conversion support.
 
-IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
-and the interrupt will poll on signaler_active while the irq-work can't
-make progress.
+Prevent that by only marking the cap supported if there are actually planes
+with color pipelines.
 
-Solve this by adding a spinlock to prevent starvation and force
-completion.
+Note: while the color pipeline replacement for the legacy properties is
+still under review (1), we can assume that it will work as a drop-in
+replacement. That means any plane on any hardware currently supporting
+the legacy properties will be able to offer a functionally equal color
+pipeline and there will be no technical reason keep using the legacy
+properties if both the driver and the client support the new API.
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
+
+Signed-off-by: Robert Mader <robert.mader@collabora.com>
+
 ---
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c       | 8 +++++++-
- drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h | 1 +
- 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa8..c2b174bfa1418 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -209,6 +209,7 @@ static void signal_irq_work(struct irq_work *work)
- 		intel_breadcrumbs_disarm_irq(b);
- 
- 	rcu_read_lock();
-+	spin_lock(&b->signaler_active_sync);
- 	atomic_inc(&b->signaler_active);
- 	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
- 		struct i915_request *rq;
-@@ -246,6 +247,7 @@ static void signal_irq_work(struct irq_work *work)
- 		}
- 	}
- 	atomic_dec(&b->signaler_active);
-+	spin_unlock(&b->signaler_active_sync);
- 	rcu_read_unlock();
- 
- 	llist_for_each_safe(signal, sn, signal) {
-@@ -290,6 +292,7 @@ intel_breadcrumbs_create(struct intel_engine_cs *irq_engine)
- 	init_llist_head(&b->signaled_requests);
- 
- 	spin_lock_init(&b->irq_lock);
-+	spin_lock_init(&b->signaler_active_sync);
- 	init_irq_work(&b->irq_work, signal_irq_work);
- 
- 	b->irq_engine = irq_engine;
-@@ -487,8 +490,11 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 	if (release)
- 		intel_context_put(ce);
- 
--	while (atomic_read(&b->signaler_active))
-+	while (atomic_read(&b->signaler_active)) {
-+		spin_lock(&b->signaler_active_sync);
-+		spin_unlock(&b->signaler_active_sync);
- 		cpu_relax();
+Changes in v2:
+ - Replace the driver feature with a simple check (suggested by Maarten
+   Lankhorst <maarten.lankhorst@linux.intel.com>)
+ - Expand the commit message slightly and change the title
+---
+ drivers/gpu/drm/drm_ioctl.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index e2df4becce62..b2c0234eaf14 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -373,13 +373,26 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ 			return -EINVAL;
+ 		file_priv->supports_virtualized_cursor_plane = req->value;
+ 		break;
+-	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
++	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
++		struct drm_plane *plane;
++		bool has_plane_with_color_pipeline = false;
++
++		drm_for_each_plane(plane, dev) {
++			if (plane->color_pipeline_property) {
++				has_plane_with_color_pipeline = true;
++				break;
++			}
++		}
++		if (!has_plane_with_color_pipeline)
++			return -EOPNOTSUPP;
++
+ 		if (!file_priv->atomic)
+ 			return -EINVAL;
+ 		if (req->value > 1)
+ 			return -EINVAL;
+ 		file_priv->plane_color_pipeline = req->value;
+ 		break;
 +	}
- }
- 
- static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index bdf09fd67b6e7..28dae32628aab 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -40,6 +40,7 @@ struct intel_breadcrumbs {
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
- 	atomic_t signaler_active;
-+	spinlock_t signaler_active_sync;
- 
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
+ 	default:
+ 		return -EINVAL;
+ 	}
 -- 
-2.53.0
+2.55.0
 
