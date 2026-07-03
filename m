@@ -4,41 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 017F8C44502
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 482C4C44503
 	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 17:24:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2539C10F890;
-	Fri,  3 Jul 2026 17:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDDC10F88F;
+	Fri,  3 Jul 2026 17:24:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="TTs4BOpX";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="QI4roP6d";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D18EA10F857;
- Fri,  3 Jul 2026 16:33:06 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 316D410E63D;
+ Fri,  3 Jul 2026 16:33:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1783096372; x=1783701172; i=natalie.vock@gmx.de;
- bh=Rm+VRdqIFplNcwupWSFVQ20wUcYY6y1Q1wNpZTO2Mbw=;
+ s=s31663417; t=1783096368; x=1783701168; i=natalie.vock@gmx.de;
+ bh=HN/FnQ/vj/OcmJhaobFfu5Y3aTfGbNdAMC0MyL5au8k=;
  h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
  cc:content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=TTs4BOpXo3ZnGzVGYlGMwyScuDa6GZLXG6wIg1tzixe8U19p+LOdSS8hEFiLWVxl
- 2qNC8/II3yBzq2+TMQ9YSYDqlDkPGf0BSGq+gVRvnqAVOSaWgbrvquHjC3cIjd4Im
- 0pTX85+NEVbK1nq1w1XF6tRRHFiWfpsRT653L9GRunSBqK5sRvLBiObrrk/2i9UEg
- socRR7dO4svJlq9ZID3/5eb+ACw30JwudpnBMJ7lqtE5U5PCUsaY2sB/4RUkZmuCP
- 8YYwGOw/x296qwVD1htRX5diqEXx7oNesGsUfoBK05b9gBBmsLKNnpGGw5zXkfoNq
- 8Pd2HeOMBiS11CHuRg==
+ b=QI4roP6dlPLuWHhczO11+VpNGbx5WYYcgqdM4JCgROOseOOTCbyOWN52eNYvWwD4
+ eIPfESbMk3wYFwi4mCwmKvtGlZinvWzp0LtjvsKMRxOvVRVeE45Qt2rsUhzdgyIqB
+ 1oKhjbFYHIDai4AA08joaHOOnKJdU5pkR2gtCTy7kAjMazz2XykYX6AX6clg9JyQR
+ EMT8MfpuehjTizTkKHkMp3IfIoWiHNpvfyuAk/oPpb3Egr9HS4K+ThpEp43JYcW6u
+ 6V0JkuhRx7m6Id/XbB+slwq1kdoeZET/+w3WO/fekIa1vf59CxGxPoff3IMZQh9iv
+ R3hJ0fZFIW7Awj8txw==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
 Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MgesG-1xKGtj3awO-00fKxO; Fri, 03
- Jul 2026 18:32:51 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MxUnp-1x3R051EF7-00w2Sl; Fri, 03
+ Jul 2026 18:32:48 +0200
 From: Natalie Vock <natalie.vock@gmx.de>
-Date: Fri, 03 Jul 2026 18:31:26 +0200
-Subject: [PATCH 06/10] drm/ttm: move zombie handling into ttm_bo_evict
+Date: Fri, 03 Jul 2026 18:31:22 +0200
+Subject: [PATCH 02/10] drm/ttm: replace TTMs refcount with the DRM refcount v4
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <20260703-ttm_2_drm_exec-v1-6-43685ac1286b@gmx.de>
+Message-Id: <20260703-ttm_2_drm_exec-v1-2-43685ac1286b@gmx.de>
 References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 In-Reply-To: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -57,89 +57,90 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-Provags-ID: V03:K1:srm/kuzYQ4VjFw563aMDUD/lTSVxS4VTYTlxdzxHf55AUusOIBi
- EukvUwg7NV3uL60mZQsubopTbKzQHTRwjHkLrRjT1Wa9qMYeIBNgQs5NnofmYfdJNLNfZNF
- MLwV9QH2Ho5zLPCISlS+vPXoXCMOG2lHEMQ+kKkJGKGaxIFxtfG3Yhx/AXfOsT0vzhAg9Xi
- 0OmL5dsi2t00x8eRPb70g==
-UI-OutboundReport: notjunk:1;M01:P0:yg2Xj8zjZH0=;ozpV9xt2PXs6MYW3RwrP+mIAfj4
- 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
+X-Provags-ID: V03:K1:PZBAGArRl+ReVBLJwpXZh/LNayq5gar7Iedq8FWAJf14kuzXLFi
+ LfZUVzBvTFYbgQJAr/BDfSs+P8SxMd33YIMG2zYCYmmH99eeAJCR9okWynhfxl3i4zohGyD
+ HPeVXG1fM7VI3Nq4ncOfR/8hRr+WvZJIlGWQ3mcUO0G9lfRKDNWiCcgdSQHbdqR5UyNPryq
+ I/WfRZAGIXy3y6LPJo21Q==
+UI-OutboundReport: notjunk:1;M01:P0:K85J7AT/wuo=;XsPcQfT51/iX9nw/Rbj4sKWUKOF
+ 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
+ osksynVPMWj0IcGSqM=
 X-Mailman-Approved-At: Fri, 03 Jul 2026 17:24:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -158,66 +159,495 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 From: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-Both callers do the same thing, so we can trivially unify that.
+Instead of keeping a separate reference count for the TTM object also use
+the reference count for DRM GEM objects inside TTM.
+
+Apart from avoiding two reference counts for one object this approach has
+the clear advantage of being able to use drm_exec inside TTM.
+
+v2: adjust XE assert as well and re-enable disabled test
+v3: handle another case in i915
+v4: set GEM driver funcs of transfer BOs to point to the TTM free
+callback (Natalie)
 
 Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 =2D--
- drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_ttm.c          |  35 +++---
+ drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c |   8 +-
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c    |   2 -
+ drivers/gpu/drm/ttm/ttm_bo.c                     | 135 +++++++++++-------=
+=2D----
+ drivers/gpu/drm/ttm/ttm_bo_internal.h            |  17 ++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c                |  15 ++-
+ drivers/gpu/drm/xe/xe_bo.c                       |   2 +-
+ include/drm/ttm/ttm_bo.h                         |   9 --
+ 8 files changed, 111 insertions(+), 112 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c b/drivers/gpu/drm/i91=
+5/gem/i915_gem_ttm.c
+index df3fcc2b1248e..642296602de69 100644
+=2D-- a/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm.c
+@@ -939,7 +939,7 @@ void i915_ttm_adjust_lru(struct drm_i915_gem_object *o=
+bj)
+ 	 * Don't manipulate the TTM LRUs while in TTM bo destruction.
+ 	 * We're called through i915_ttm_delete_mem_notify().
+ 	 */
+-	if (!kref_read(&bo->kref))
++	if (!kref_read(&bo->base.refcount))
+ 		return;
+=20
+ 	/*
+@@ -957,30 +957,21 @@ void i915_ttm_adjust_lru(struct drm_i915_gem_object =
+*obj)
+ 	 *
+ 	 * TODO: consider maybe also bumping the shrinker list here when we have
+ 	 * already unpinned it, which should give us something more like an LRU.
+-	 *
+-	 * TODO: There is a small window of opportunity for this function to
+-	 * get called from eviction after we've dropped the last GEM refcount,
+-	 * but before the TTM deleted flag is set on the object. Avoid
+-	 * adjusting the shrinker list in such cases, since the object is
+-	 * not available to the shrinker anyway due to its zero refcount.
+-	 * To fix this properly we should move to a TTM shrinker LRU list for
+-	 * these objects.
+ 	 */
+-	if (kref_get_unless_zero(&obj->base.refcount)) {
+-		if (shrinkable !=3D obj->mm.ttm_shrinkable) {
+-			if (shrinkable) {
+-				if (obj->mm.madv =3D=3D I915_MADV_WILLNEED)
+-					__i915_gem_object_make_shrinkable(obj);
+-				else
+-					__i915_gem_object_make_purgeable(obj);
+-			} else {
+-				i915_gem_object_make_unshrinkable(obj);
+-			}
+-
+-			obj->mm.ttm_shrinkable =3D shrinkable;
++	i915_gem_object_get(obj);
++	if (shrinkable !=3D obj->mm.ttm_shrinkable) {
++		if (shrinkable) {
++			if (obj->mm.madv =3D=3D I915_MADV_WILLNEED)
++				__i915_gem_object_make_shrinkable(obj);
++			else
++				__i915_gem_object_make_purgeable(obj);
++		} else {
++			i915_gem_object_make_unshrinkable(obj);
+ 		}
+-		i915_gem_object_put(obj);
++
++		obj->mm.ttm_shrinkable =3D shrinkable;
+ 	}
++	i915_gem_object_put(obj);
+=20
+ 	/*
+ 	 * Put on the correct LRU list depending on the MADV status
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gp=
+u/drm/ttm/tests/ttm_bo_validate_test.c
+index 56ad8ef325840..904cb4da6c9b3 100644
+=2D-- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -127,7 +127,7 @@ static void ttm_bo_init_reserved_sys_man(struct kunit =
+*test)
+ 	dma_resv_unlock(bo->base.resv);
+=20
+ 	KUNIT_EXPECT_EQ(test, err, 0);
+-	KUNIT_EXPECT_EQ(test, kref_read(&bo->kref), 1);
++	KUNIT_EXPECT_EQ(test, kref_read(&bo->base.refcount), 1);
+ 	KUNIT_EXPECT_PTR_EQ(test, bo->bdev, priv->ttm_dev);
+ 	KUNIT_EXPECT_EQ(test, bo->type, bo_type);
+ 	KUNIT_EXPECT_EQ(test, bo->page_alignment, PAGE_SIZE);
+@@ -176,7 +176,7 @@ static void ttm_bo_init_reserved_mock_man(struct kunit=
+ *test)
+ 	dma_resv_unlock(bo->base.resv);
+=20
+ 	KUNIT_EXPECT_EQ(test, err, 0);
+-	KUNIT_EXPECT_EQ(test, kref_read(&bo->kref), 1);
++	KUNIT_EXPECT_EQ(test, kref_read(&bo->base.refcount), 1);
+ 	KUNIT_EXPECT_PTR_EQ(test, bo->bdev, priv->ttm_dev);
+ 	KUNIT_EXPECT_EQ(test, bo->type, bo_type);
+ 	KUNIT_EXPECT_EQ(test, ctx.bytes_moved, size);
+@@ -969,6 +969,8 @@ static void ttm_bo_validate_allowed_only_evict(struct =
+kunit *test)
+ 	ttm_mock_manager_fini(priv->ttm_dev, mem_multihop);
+ }
+=20
++extern const struct drm_gem_object_funcs ttm_deleted_object_funcs;
++
+ static void ttm_bo_validate_deleted_evict(struct kunit *test)
+ {
+ 	struct ttm_operation_ctx ctx_init =3D { }, ctx_val  =3D { };
+@@ -999,7 +1001,7 @@ static void ttm_bo_validate_deleted_evict(struct kuni=
+t *test)
+ 	KUNIT_EXPECT_EQ(test, ttm_resource_manager_usage(man), big);
+=20
+ 	dma_resv_unlock(bo_big->base.resv);
+-	bo_big->deleted =3D true;
++	bo_big->base.funcs =3D &ttm_deleted_object_funcs;
+=20
+ 	bo_small =3D ttm_bo_kunit_init(test, test->priv, small, NULL);
+ 	bo_small->type =3D bo_type;
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c b/drivers/gpu/d=
+rm/ttm/tests/ttm_kunit_helpers.c
+index 5cfe8f3f80d75..b7ab19e0e4b2b 100644
+=2D-- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+@@ -189,8 +189,6 @@ struct ttm_buffer_object *ttm_bo_kunit_init(struct kun=
+it *test,
+ 	bo->bdev =3D devs->ttm_dev;
+ 	bo->destroy =3D dummy_ttm_bo_destroy;
+=20
+-	kref_init(&bo->kref);
+-
+ 	return bo;
+ }
+ EXPORT_SYMBOL_GPL(ttm_bo_kunit_init);
 diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 24c52df169ac8..54f01611ec823 100644
+index 3980f376e3ba4..2b470c1746f60 100644
 =2D-- a/drivers/gpu/drm/ttm/ttm_bo.c
 +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -359,6 +359,13 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
- 	struct ttm_place hop;
- 	int ret =3D 0;
+@@ -246,88 +246,84 @@ static void ttm_bo_delayed_delete(struct work_struct=
+ *work)
+ 	ttm_bo_put(bo);
+ }
 =20
-+	if (ttm_bo_is_zombie(bo)) {
-+		ret =3D ttm_bo_wait_ctx(bo, ctx);
-+		if (!ret)
-+			ttm_bo_cleanup_memtype_use(bo);
-+		return ret;
-+	}
+-static void ttm_bo_release(struct kref *kref)
++/*
++ * All other callbacks should never ever be called on a deleted TTM objec=
+t.
++ */
++const struct drm_gem_object_funcs ttm_deleted_object_funcs =3D {
++	.free =3D ttm_bo_free
++};
++EXPORT_SYMBOL_FOR_TESTS_ONLY(ttm_deleted_object_funcs);
 +
- 	memset(&hop, 0, sizeof(hop));
++/* Returns true if the BO is about to get deleted */
++static bool ttm_bo_is_zombie(struct ttm_buffer_object *bo)
++{
++	return bo->base.funcs =3D=3D &ttm_deleted_object_funcs;
++}
++
++void ttm_bo_fini(struct ttm_buffer_object *bo)
+ {
+-	struct ttm_buffer_object *bo =3D
+-	    container_of(kref, struct ttm_buffer_object, kref);
+ 	struct ttm_device *bdev =3D bo->bdev;
+ 	int ret;
 =20
- 	dma_resv_assert_held(bo->base.resv);
-@@ -466,13 +473,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struc=
-t ttm_resource_manager *man
+ 	WARN_ON_ONCE(bo->pin_count);
+ 	WARN_ON_ONCE(bo->bulk_move);
+=20
+-	if (!bo->deleted) {
+-		ret =3D ttm_bo_individualize_resv(bo);
+-		if (ret) {
+-			/* Last resort, if we fail to allocate memory for the
+-			 * fences block for the BO to become idle
+-			 */
+-			dma_resv_wait_timeout(bo->base.resv,
+-					      DMA_RESV_USAGE_BOOKKEEP, false,
+-					      30 * HZ);
+-		}
++	ret =3D ttm_bo_individualize_resv(bo);
++	if (ret) {
++		/* Last resort, if we fail to allocate memory for the
++		 * fences block for the BO to become idle
++		 */
++		dma_resv_wait_timeout(bo->base.resv, DMA_RESV_USAGE_BOOKKEEP,
++				      false, 30 * HZ);
++	}
+=20
+-		if (bdev->funcs->release_notify)
+-			bdev->funcs->release_notify(bo);
++	if (bo->bdev->funcs->release_notify)
++		bo->bdev->funcs->release_notify(bo);
+=20
+-		drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
+-		ttm_mem_io_free(bdev, bo->resource);
++	drm_vma_offset_remove(bdev->vma_manager, &bo->base.vma_node);
++	ttm_mem_io_free(bdev, bo->resource);
+=20
+-		if (!dma_resv_test_signaled(&bo->base._resv,
+-					    DMA_RESV_USAGE_BOOKKEEP) ||
+-		    (want_init_on_free() && (bo->ttm !=3D NULL)) ||
+-		    bo->type =3D=3D ttm_bo_type_sg ||
+-		    !dma_resv_trylock(bo->base.resv)) {
+-			/* The BO is not idle, resurrect it for delayed destroy */
+-			ttm_bo_flush_all_fences(bo);
+-			bo->deleted =3D true;
++	if (!dma_resv_test_signaled(&bo->base._resv, DMA_RESV_USAGE_BOOKKEEP) ||
++	    (want_init_on_free() && (bo->ttm !=3D NULL)) ||
++	    bo->type =3D=3D ttm_bo_type_sg ||
++	    !dma_resv_trylock(bo->base.resv)) {
++		/* The BO is not idle, resurrect it for delayed destroy */
++		ttm_bo_flush_all_fences(bo);
+=20
+-			spin_lock(&bdev->lru_lock);
+-
+-			/*
+-			 * Make pinned bos immediately available to
+-			 * shrinkers, now that they are queued for
+-			 * destruction.
+-			 *
+-			 * FIXME: QXL is triggering this. Can be removed when the
+-			 * driver is fixed.
+-			 */
+-			if (bo->pin_count) {
+-				bo->pin_count =3D 0;
+-				ttm_resource_move_to_lru_tail(bo->resource);
+-			}
++		spin_lock(&bo->bdev->lru_lock);
+=20
+-			kref_init(&bo->kref);
+-			spin_unlock(&bdev->lru_lock);
++		/*
++		 * Make pinned bos immediately available to
++		 * shrinkers, now that they are queued for
++		 * destruction.
++		 *
++		 * FIXME: QXL is triggering this. Can be removed when the
++		 * driver is fixed.
++		 */
++		if (bo->pin_count) {
++			bo->pin_count =3D 0;
++			ttm_resource_move_to_lru_tail(bo->resource);
++		}
+=20
+-			INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
++		kref_init(&bo->base.refcount);
++		bo->base.funcs =3D &ttm_deleted_object_funcs;
++		spin_unlock(&bo->bdev->lru_lock);
+=20
+-			/* Schedule the worker on the closest NUMA node. This
+-			 * improves performance since system memory might be
+-			 * cleared on free and that is best done on a CPU core
+-			 * close to it.
+-			 */
+-			queue_work_node(bdev->pool.nid, bdev->wq, &bo->delayed_delete);
+-			return;
+-		}
++		INIT_WORK(&bo->delayed_delete, ttm_bo_delayed_delete);
+=20
++		/* Schedule the worker on the closest NUMA node. This
++		 * improves performance since system memory might be
++		 * cleared on free and that is best done on a CPU core
++		 * close to it.
++		 */
++		queue_work_node(bdev->pool.nid, bdev->wq, &bo->delayed_delete);
++	} else {
+ 		ttm_bo_cleanup_memtype_use(bo);
+ 		dma_resv_unlock(bo->base.resv);
+-	}
+=20
+-	atomic_dec(&ttm_glob.bo_count);
+-	bo->destroy(bo);
+-}
+-
+-/* TODO: remove! */
+-void ttm_bo_put(struct ttm_buffer_object *bo)
+-{
+-	kref_put(&bo->kref, ttm_bo_release);
+-}
+-
+-void ttm_bo_fini(struct ttm_buffer_object *bo)
+-{
+-	ttm_bo_put(bo);
++		atomic_dec(&ttm_glob.bo_count);
++		bo->destroy(bo);
++	}
+ }
+ EXPORT_SYMBOL(ttm_bo_fini);
+=20
+@@ -470,7 +466,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struct=
+ ttm_resource_manager *man
  	if (!bo->resource || bo->resource->mem_type !=3D mem_type)
  		goto out_bo_moved;
 =20
--	if (ttm_bo_is_zombie(bo)) {
--		ret =3D ttm_bo_wait_ctx(bo, ctx);
--		if (!ret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		ret =3D ttm_bo_evict(bo, ctx);
--	}
-+	ret =3D ttm_bo_evict(bo, ctx);
- out_bo_moved:
- 	dma_resv_unlock(bo->base.resv);
- out_no_lock:
-@@ -520,14 +521,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk,=
- struct ttm_buffer_object *
+-	if (bo->deleted) {
++	if (ttm_bo_is_zombie(bo)) {
+ 		ret =3D ttm_bo_wait_ctx(bo, ctx);
+ 		if (!ret)
+ 			ttm_bo_cleanup_memtype_use(bo);
+@@ -524,7 +520,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, =
+struct ttm_buffer_object *
  	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk-=
 >place))
  		return 0;
 =20
--	if (ttm_bo_is_zombie(bo)) {
--		lret =3D ttm_bo_wait_ctx(bo, walk->arg.ctx);
--		if (!lret)
--			ttm_bo_cleanup_memtype_use(bo);
--	} else {
--		lret =3D ttm_bo_evict(bo, walk->arg.ctx);
--	}
--
-+	lret =3D ttm_bo_evict(bo, walk->arg.ctx);
- 	if (lret)
- 		goto out;
+-	if (bo->deleted) {
++	if (ttm_bo_is_zombie(bo)) {
+ 		lret =3D ttm_bo_wait_ctx(bo, walk->arg.ctx);
+ 		if (!lret)
+ 			ttm_bo_cleanup_memtype_use(bo);
+@@ -624,7 +620,6 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+ void ttm_bo_pin(struct ttm_buffer_object *bo)
+ {
+ 	dma_resv_assert_held(bo->base.resv);
+-	WARN_ON_ONCE(!kref_read(&bo->kref));
+ 	spin_lock(&bo->bdev->lru_lock);
+ 	if (bo->resource)
+ 		ttm_resource_del_bulk_move(bo->resource, bo);
+@@ -643,7 +638,6 @@ EXPORT_SYMBOL(ttm_bo_pin);
+ void ttm_bo_unpin(struct ttm_buffer_object *bo)
+ {
+ 	dma_resv_assert_held(bo->base.resv);
+-	WARN_ON_ONCE(!kref_read(&bo->kref));
+ 	if (WARN_ON_ONCE(!bo->pin_count))
+ 		return;
 =20
+@@ -934,7 +928,6 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, stru=
+ct ttm_buffer_object *bo,
+ {
+ 	int ret;
+=20
+-	kref_init(&bo->kref);
+ 	bo->bdev =3D bdev;
+ 	bo->type =3D type;
+ 	bo->page_alignment =3D alignment;
+@@ -1131,8 +1124,8 @@ ttm_bo_swapout_cb(struct ttm_lru_walk *walk, struct =
+ttm_buffer_object *bo)
+ 		goto out;
+ 	}
+=20
+-	if (bo->deleted) {
+-		pgoff_t num_pages =3D tt->num_pages;
++	if (ttm_bo_is_zombie(bo)) {
++		pgoff_t num_pages =3D bo->ttm->num_pages;
+=20
+ 		ret =3D ttm_bo_wait_ctx(bo, ctx);
+ 		if (ret)
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_internal.h b/drivers/gpu/drm/ttm/t=
+tm_bo_internal.h
+index e0d48eac74b03..ded2a47be0bcb 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_bo_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_bo_internal.h
+@@ -27,6 +27,14 @@
+=20
+ #include <drm/ttm/ttm_bo.h>
+=20
++static inline void ttm_bo_free(struct drm_gem_object *gobj)
++{
++	struct ttm_buffer_object *bo =3D container_of(gobj, typeof(*bo), base);
++
++	atomic_dec(&ttm_glob.bo_count);
++	bo->destroy(bo);
++}
++
+ /**
+  * ttm_bo_get - reference a struct ttm_buffer_object
+  *
+@@ -34,7 +42,7 @@
+  */
+ static inline void ttm_bo_get(struct ttm_buffer_object *bo)
+ {
+-	kref_get(&bo->kref);
++	drm_gem_object_get(&bo->base);
+ }
+=20
+ /**
+@@ -50,11 +58,14 @@ static inline void ttm_bo_get(struct ttm_buffer_object=
+ *bo)
+ static inline __must_check struct ttm_buffer_object *
+ ttm_bo_get_unless_zero(struct ttm_buffer_object *bo)
+ {
+-	if (!kref_get_unless_zero(&bo->kref))
++	if (!kref_get_unless_zero(&bo->base.refcount))
+ 		return NULL;
+ 	return bo;
+ }
+=20
+-void ttm_bo_put(struct ttm_buffer_object *bo);
++static inline void ttm_bo_put(struct ttm_buffer_object *bo)
++{
++	drm_gem_object_put(&bo->base);
++}
+=20
+ #endif
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_b=
+o_util.c
+index 3e3c201a02226..7ed085adf1c9b 100644
+=2D-- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -41,6 +41,18 @@
+=20
+ #include "ttm_bo_internal.h"
+=20
++static void ttm_transfer_object_free(struct drm_gem_object *obj)
++{
++	struct ttm_buffer_object *bo =3D
++		container_of(obj, struct ttm_buffer_object, base);
++
++	ttm_bo_fini(bo);
++}
++
++const struct drm_gem_object_funcs ttm_transfer_object_funcs =3D {
++	.free =3D ttm_transfer_object_free,
++};
++
+ struct ttm_transfer_obj {
+ 	struct ttm_buffer_object base;
+ 	struct ttm_buffer_object *bo;
+@@ -247,7 +259,8 @@ static int ttm_buffer_object_transfer(struct ttm_buffe=
+r_object *bo,
+ 	atomic_inc(&ttm_glob.bo_count);
+ 	drm_vma_node_reset(&fbo->base.base.vma_node);
+=20
+-	kref_init(&fbo->base.kref);
++	kref_init(&fbo->base.base.refcount);
++	fbo->base.base.funcs =3D &ttm_transfer_object_funcs;
+ 	fbo->base.destroy =3D &ttm_transfered_destroy;
+ 	fbo->base.pin_count =3D 0;
+ 	if (bo->type !=3D ttm_bo_type_sg)
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 85e6d9a0f575b..5843f850339c7 100644
+=2D-- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -1651,7 +1651,7 @@ static bool xe_ttm_bo_lock_in_destructor(struct ttm_=
+buffer_object *ttm_bo)
+ 	struct xe_device *xe =3D ttm_to_xe_device(ttm_bo->bdev);
+ 	bool locked;
+=20
+-	xe_assert(xe, !kref_read(&ttm_bo->kref));
++	xe_assert(xe, !kref_read(&ttm_bo->base.refcount));
+=20
+ 	/*
+ 	 * We can typically only race with TTM trylocking under the
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f90..1eae9eea5ff32 100644
+=2D-- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -78,11 +78,8 @@ enum ttm_bo_type {
+  * @type: The bo type.
+  * @page_alignment: Page alignment.
+  * @destroy: Destruction function. If NULL, kfree is used.
+- * @kref: Reference count of this buffer object. When this refcount reach=
+es
+- * zero, the object is destroyed or put on the delayed delete list.
+  * @resource: structure describing current placement.
+  * @ttm: TTM structure holding system pages.
+- * @deleted: True if the object is only a zombie and already deleted.
+  * @bulk_move: The bulk move object.
+  * @priority: Priority for LRU, BOs with lower priority are evicted first=
+.
+  * @pin_count: Pin count.
+@@ -109,17 +106,11 @@ struct ttm_buffer_object {
+ 	uint32_t page_alignment;
+ 	void (*destroy) (struct ttm_buffer_object *);
+=20
+-	/*
+-	* Members not needing protection.
+-	*/
+-	struct kref kref;
+-
+ 	/*
+ 	 * Members protected by the bo::resv::reserved lock.
+ 	 */
+ 	struct ttm_resource *resource;
+ 	struct ttm_tt *ttm;
+-	bool deleted;
+ 	struct ttm_lru_bulk_move *bulk_move;
+ 	unsigned priority;
+ 	unsigned pin_count;
 
 =2D-=20
 2.55.0
