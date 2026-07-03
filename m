@@ -4,79 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4008C44500
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 13:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70311C43458
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 15:12:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 385A410F81D;
-	Fri,  3 Jul 2026 13:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09CA810F83A;
+	Fri,  3 Jul 2026 15:12:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UZ2BQvgR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="De070to2";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C267410F81D
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 13:51:00 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-37cab825ec9so566186a91.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 03 Jul 2026 06:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783086660; x=1783691460; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=cMeriD0NIXbW4IniYY0pIyyS2Z94DkPNWh72wtAj2zI=;
- b=UZ2BQvgRAblj/U3DYvKzk1CdayuZu7BUR24Mf1Ms9CyM9iJjXTR0dv6dDG3/iK9Rvo
- IPwmiW/qGNKmFQj62A0pwfiZ3BscMB4G0a8usKxJZkZGYmxOXY89W8kDbZqbcT70DBmH
- gHWY5c6Ka3SdorGh+Jp3JxVddp7LQX9s8B6Rlzvwo7r1d5mkWLZ7TM6I+HOa+OCoB4vE
- io/UJnqjARnySjXE522HLMygkS25JTMDOqrl7kw1KyesG2QgGUThaoUg2Q/2xk9veyTZ
- i1EFRz2DpKehvOwk1L99rtywjwL7X7zj1EEfSzhyr07KdiP1BCJnR0xQwdsZ0/RlA1ap
- r+wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783086660; x=1783691460;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cMeriD0NIXbW4IniYY0pIyyS2Z94DkPNWh72wtAj2zI=;
- b=S7USTNnd6komkUrnfENlQB3W7RH78Ey0ucOuiedRIhI7/zTUA01isqiF5RRc0N3fRk
- 27SqUiHXwSVpGG5UiRHvQ8eboTosHlNvajhkf7Ig90uVF8l2AuJAjQWempshLcy1SvUc
- +k8U22kIb0x4qg9wHWfYkYJMdU0fVBjAlNHxeUp64+rt71c6Qke13nGLjjs2O5/TvRBp
- 9GSohfFldT8mdvO5JgkCWxh0eVlEUR1yN2VHE5rotTx/xDqYJAYhIfBX7nQ3+P3i1I/G
- 2iYKSzHwDsGJXkEoPgDRIL5YVYPIPddYuDyO4jnsd+kODKGNaSueIBsb5c0TxRqdUtOV
- TE9A==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp3xmUL1sIc30QdJV/yjPhtsT2rzKmF5Qi2XkN/0LuWtAu1rQWWFJ+WSsdlEb8S1lTfokEqslRk/rE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6APYijoh3PgczOLkg40BxJlznxfjIKlg14t3rtgYFGGAsliK/
- tLG58N//A0MRO0TgDsf3WzOXZtRiqZMgnXv77Exc5a8xOGxbcNttZoSaITFiyxnxQ9A=
-X-Gm-Gg: AfdE7ckqebn8hjRfJQWIwjstr1WZLjLBRhZqpMuU1Jr3ZgIF9zb4oSVvvvG/pqfTMBw
- MdPmOKLTJs6YZSL6JVrv87Ze6ivlb81mrLbqtFhhU0eT/YOhKCFCuImyUFKvSJ1gdDRQrPx2W4Z
- Dk3kzhMW5818A5rmRYj3KPB5JDmu4Yn8cdQDLd4CqTKsCt/69thY3xR5N4267+53Zp9BMY7aN2G
- JyB6zGD7CnXMr361NvxcqtOgqCJDfn6lZFZjfdpUfniKuVJh9TmBgTIiANcwH5Whs5Y9VzdaBGO
- IeGLFq1jZ1q9+zwK37ljTdT/iHKKL93bTEWyN1gJbtBt+MMVoOyb6zl85V1gXsLyKy1skwz3Uut
- iTmXq4ewl2x+IhYp6YTS0mh4WXEKnlS8HsxLGX95LmOPjxULSwvlpDKKbnU0HRF42EyN5COwVWJ
- dV6vxx7+H65M1f9ZNpUmqkeJzgZryJtlBum0q6rMld4NIrbGXGzekTZfs=
-X-Received: by 2002:a17:90b:2f0b:b0:37d:7bbb:afab with SMTP id
- 98e67ed59e1d1-380aa0bd384mr11654431a91.11.1783086660051; 
- Fri, 03 Jul 2026 06:51:00 -0700 (PDT)
-Received: from [192.55.54.43] ([192.55.54.43])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3812801eadasm1005452a91.10.2026.07.03.06.50.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 03 Jul 2026 06:50:59 -0700 (PDT)
-Message-ID: <26ed323d-c0f5-42d4-b736-de7efcf893d7@gmail.com>
-Date: Fri, 3 Jul 2026 16:50:55 +0300
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FD7810F83A
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 15:12:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 27EEC60051;
+ Fri,  3 Jul 2026 15:12:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAD041F000E9;
+ Fri,  3 Jul 2026 15:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783091548;
+ bh=jr5IVxRHAwxWCAC4MfReiKZ7aaVtoxwOCFZ2WmFMnhM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=De070to2yUXdHkgQz8/QU2nGuuc6UBP4WDj7ADvSTfWhq7yIkTsAB1Iab7zXli0X/
+ 7uKBi/tjsmKJ1ztAkW0pAeWujSF0cNeFEdq9bxCGNSZ41KHF/XWbWK1bMXh+BXR3A0
+ 9zWOi98rh82VD33Vk9lF5LGoHqRhV3XPLVw616Wb3LhsZN2kYC5cx4UfXDXzrS4JN8
+ 8n0cgw9gUE2O6urVM0Wf8sreJOFFpxXZK2ObhpWFsY1kkLwufyflMy2kjlvrTsuSCz
+ U1pu32u00QNSo9pE2d4izcv0kG2gMIdFNu5GnAG4GRI72Rrl5LAa7xl8dgJ8mfWGvd
+ r2qggHAm8LamA==
+Date: Fri, 3 Jul 2026 17:12:22 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, alex.zuo@intel.com, 
+ jani.nikula@linux.intel.com, andi.shyti@intel.com
+Subject: Re: [PATCH v3] drm/i915/gt: Use poll_timeout_us in place of sliding
+ sleep window
+Message-ID: <akfLRFswIyWZgcby@zenone.zhora.eu>
+References: <20260630152511.1401029-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] [RFC]: drm/i915/display: Fix NV12 ceiling division for
- bigjoiner case
-To: Vidya Srinivas <vidya.srinivas@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-References: <20260618181837.687302-1-vidya.srinivas@intel.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Juha-Pekka_Heikkil=C3=A4?= <juhapekka.heikkila@gmail.com>
-In-Reply-To: <20260618181837.687302-1-vidya.srinivas@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260630152511.1401029-1-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,115 +58,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Vidya,
+Hi Jonathan,
 
-apologies for the delayed reply. I tried to do the math and seems I got 
-correct numbers as expected what you say below. I can't test this 
-anywhere but it seems correct on code and idea level.
+...
 
-Reviewed-by: Juha-Pekka Heikkila <juhapekka.heikkila@gmail.com>
+> diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> index 1c455d84bf9d..dc4a5486b42c 100644
+> --- a/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> +++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_ct.c
+> @@ -716,7 +716,6 @@ static int ct_send(struct intel_guc_ct *ct,
+>  	struct intel_guc_ct_buffer *ctb = &ct->ctbs.send;
+>  	struct ct_request request;
+>  	unsigned long flags;
+> -	unsigned int sleep_period_ms = 1;
+>  	bool send_again;
+>  	u32 fence;
+>  	int err;
+> @@ -736,22 +735,18 @@ static int ct_send(struct intel_guc_ct *ct,
+>  	 * rare. Reserving the maximum size in the G2H credits as we don't know
+>  	 * how big the response is going to be.
+>  	 */
+> -retry:
+>  	spin_lock_irqsave(&ctb->lock, flags);
+> -	if (unlikely(!h2g_has_room(ct, len + GUC_CTB_HDR_LEN) ||
+> -		     !g2h_has_room(ct, GUC_CTB_HXG_MSG_MAX_LEN))) {
+> +	err = poll_timeout_us_atomic(err = 0,
+> +				     !h2g_has_room(ct, len + GUC_CTB_HDR_LEN) ||
+> +				     !g2h_has_room(ct, GUC_CTB_HXG_MSG_MAX_LEN),
+> +				     USEC_PER_MSEC, 600 * USEC_PER_SEC, false);
 
-On 18/06/2026 21.18, Vidya Srinivas wrote:
-> Commit 16df4cc63c58 ("drm/i915/display: Use ceiling division for NV12
-> UV surface offset calculation") computes the UV (chroma) surface
-> start/size as ceiling(half of Y plane start/size) directly from the
-> U16.16 fixed-point source rectangle:
-> 
->          x = fp_16_16_to_int_ceil(fp_16_16_div2(src.x1));
-> 
-> For a single pipe the source coordinates are integers, so this is
-> correct.
-> (UV start = ceiling(half of Y plane start)).
-> 
-> With bigjoiner + a plane scaler the picture changes. The pipe boundary
-> is a fixed integer destination pixel, but the plane's position and the
-> scaler ratio are arbitrary, so drm_rect_clip_scaled() maps the seam back
-> to a *fractional* per-pipe source. For a 1280->2407 upscaled NV12 plane
-> crossing the seam:
-> 
->          master src: width = 1204 * 1280/2407 = 640.265899, x1 = 0
->          joiner src: width = 1203 * 1280/2407 = 639.734115, x1 = 640.265884
-> 
-> The luma path floors this to an integer (src.x1 >> 16 = 640), but the
-> UV path takes ceiling(640.265884 / 2) = ceil(320.13) = 321. The Y plane
-> then starts at column 640 while the UV plane starts at 321*2 = 642,
-> pushing the chroma read one column past the 640-wide chroma surface on
-> the joiner secondary:
-> 
->          [CRTC:382:pipe C] PLANE ATS fault
->          [CRTC:382:pipe C][PLANE:267:plane 1C] fault (CTL=0x81009400, ...)
-> 
-> The spec "Y plane start" is the integer pixel the luma surface actually
-> programs (640), not the pre-floor fixed-point value (640.27). Convert
-> the Y plane start/size to integer first - matching skl_check_main_surface()
-> - and then apply the ceiling. This is a no-op for the integer (non-joiner)
-> case and yields the correct, in-bounds chroma offset for the fractional
-> joiner seam:
-> 
->                       before fix      after fix
->          master 1B:   x=0  w=321      x=0   w=320   -> [0, 320)
->          slave  1C:   x=321 w=320     x=320 w=320   -> [320, 640)
-> 
-> The two halves now tile the 640-wide chroma plane exactly and the ATS
-> fault is gone.
-> 
-> Assisted-by: GitHub-Copilot:Claude-Opus-4.8
-> Fixes: 16df4cc63c58 ("drm/i915/display: Use ceiling division for NV12 UV surface offset calculation")
-> Signed-off-by: Vidya Srinivas <vidya.srinivas@intel.com>
-> ---
->   .../drm/i915/display/skl_universal_plane.c    | 33 ++++++++-----------
->   1 file changed, 13 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> index ad4bfff6903d..164b7d61c9a3 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -2126,19 +2126,6 @@ static int skl_check_main_surface(struct intel_plane_state *plane_state)
->   	return 0;
->   }
->   
-> -
-> -/* Divide a U16.16 fixed-point value by 2, staying in fixed-point domain */
-> -static inline u32 fp_16_16_div2(u32 fp)
-> -{
-> -	return fp >> 1;
-> -}
-> -
-> -/* Convert a U16.16 fixed-point value to integer, rounding up */
-> -static inline int fp_16_16_to_int_ceil(u32 fp)
-> -{
-> -	return DIV_ROUND_UP(fp, 1 << 16);
-> -}
-> -
->   static int skl_check_nv12_aux_surface(struct intel_plane_state *plane_state)
->   {
->   	struct intel_display *display = to_intel_display(plane_state);
-> @@ -2154,14 +2141,20 @@ static int skl_check_nv12_aux_surface(struct intel_plane_state *plane_state)
->   	int max_height = intel_plane_max_height(plane, fb, uv_plane, rotation);
->   
->   	/*
-> -	 * LNL+ UV surface start/size =
-> -	 * ceiling(half of Y plane start/size). Use ceiling division
-> -	 * unconditionally; it is a no-op for even values.
-> +	 * UV (chroma) start/size = ceiling(half of the *integer* Y plane
-> +	 * start/size), i.e. the value the luma surface programs (src >> 16),
-> +	 * not the raw U16.16. A bigjoiner seam mapped through the scaler can
-> +	 * give a fractional luma src; ceiling that directly would round the
-> +	 * chroma one column too far and read past the chroma surface.
->   	 */
-> -	int x = fp_16_16_to_int_ceil(fp_16_16_div2(plane_state->uapi.src.x1));
-> -	int y = fp_16_16_to_int_ceil(fp_16_16_div2(plane_state->uapi.src.y1));
-> -	int w = fp_16_16_to_int_ceil(fp_16_16_div2(drm_rect_width(&plane_state->uapi.src)));
-> -	int h = fp_16_16_to_int_ceil(fp_16_16_div2(drm_rect_height(&plane_state->uapi.src)));
-> +	int luma_x = plane_state->uapi.src.x1 >> 16;
-> +	int luma_y = plane_state->uapi.src.y1 >> 16;
-> +	int luma_w = drm_rect_width(&plane_state->uapi.src) >> 16;
-> +	int luma_h = drm_rect_height(&plane_state->uapi.src) >> 16;
-> +	int x = DIV_ROUND_UP(luma_x, 2);
-> +	int y = DIV_ROUND_UP(luma_y, 2);
-> +	int w = DIV_ROUND_UP(luma_x + luma_w, 2) - x;
-> +	int h = DIV_ROUND_UP(luma_y + luma_h, 2) - y;
->   	u32 offset;
->   
->   	/* FIXME not quite sure how/if these apply to the chroma plane */
+This changes the original flow quite a bit.
 
+Before, the code checks whether there is room in the buffers. If
+there is not, it drops the lock, checks for deadlock, sleeps, and
+retries.
+
+With this change, we keep polling for room until timeout, and
+only then check for deadlock. On top of that, the polling is done
+while holding the spinlock and with interrupts disabled.
+
+I do not think this is a good tradeoff.
+
+If we want to use poll_timeout_us_atomic(), I think the better
+approach would be to move the current retry logic into a small
+helper or callback replacing the condition inside
+poll_timeout_use_atomic() that:
+
+- takes the lock
+- checks whether there is room
+- drops the lock
+- checks for deadlock
+- returns the condition to the poll_timeout_timeout_us_atomic()
+
+That would keep the old logic intact.
+
+Andi
