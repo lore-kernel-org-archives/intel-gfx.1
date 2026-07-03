@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69F12C44500
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 12:37:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07337C43458
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 12:40:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C170010F7DD;
-	Fri,  3 Jul 2026 12:37:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEF210E5DD;
+	Fri,  3 Jul 2026 12:40:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JbP85/pg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TQ33ArFe";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18E5010F7DB;
- Fri,  3 Jul 2026 12:37:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB7710E5D9;
+ Fri,  3 Jul 2026 12:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783082233; x=1814618233;
+ t=1783082432; x=1814618432;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version:content-transfer-encoding;
- bh=G89FnOPToZ0rZKdhhss6/AXvwPyYSeIBBi40p8MuUiM=;
- b=JbP85/pgTbKjKvq+63RiYfWF6f1d48o49tphj8p382hDU/FSXF6LTVYn
- XsdyVwdSA7M70EXWwGhU4HDX235ioYaDSV0yUmPELs32nAWE19xm+EoMN
- 3njNrLFKwYtmPkrE3yvaD5Z9h4aofMZQWOOZ6zqmExxG4dCrbXU68M7N9
- dd665JAWLk1UdnVSIsiDW4WKAXnQyo1iEAdyQ2rlBU+xypjEWlJLsCH5T
- o8c3ni5Sk0d3S3ml92u+Uc8qS+2g0O9vZaWu6VcvWtkO+3bJuivF/c9C3
- i4pgTqoum+80bM69tgdpSLOkIx42+z5k9YgHt8TGapFfxCF+WZvK8nt4h A==;
-X-CSE-ConnectionGUID: kYxGGZW4TtCShCE47TSumg==
-X-CSE-MsgGUID: DkbIORxyQauJ8/TZEfIlNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="71358196"
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="71358196"
+ bh=RqXUJkOyhp13Tul5eNzp6T7Q9dijUoEpw+x8tQewJBw=;
+ b=TQ33ArFewT84+pRt9xGtjGNkl2Gf/TRsmgkwUsXYAMKb4+0gGbSZmq93
+ lZbnhNicovc8lXgR6CrDaa/2w2qzpeRbkVlGZoUpl0jENzELTOgdgoQHX
+ Nu4l+qrsPO61BRwlnnmfZLwOBVXbEwGXUBw6M/XrEggKRxjXXVV1DVEHA
+ onrVz7+gcPR67vKkRJqdpRGrm7/TkRbDsKnknibukiEoPDSQrzTrhn0FE
+ kItbrxzKtg8cCpgxsyYFOpWDgRD5vtUILob0BDCU1EQFhGAzyRQFZ0zmZ
+ fvIG/sMDaM6PM+fJpGHNVIpShEXrM6Gd3RTavdXf7TY8WaktZ/kXAP3ZB w==;
+X-CSE-ConnectionGUID: pYKexqtbRfmk0bhOrlgYsw==
+X-CSE-MsgGUID: slgb/bIURUCP0I9/LliPjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="83700744"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="83700744"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 05:37:12 -0700
-X-CSE-ConnectionGUID: tUVPABoTRPK93i70lUhT1Q==
-X-CSE-MsgGUID: d4IW7LMmSsOfM2fk+EAx0w==
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 05:40:32 -0700
+X-CSE-ConnectionGUID: VFtAGfzOTwusE2z63MPhnw==
+X-CSE-MsgGUID: ysk8ldwxSoGXaAMWJ7Xg9w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="283194185"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="283194553"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.157])
  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2026 05:37:11 -0700
+ 03 Jul 2026 05:40:29 -0700
 From: Jani Nikula <jani.nikula@intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Subject: Re: [RESEND v2 0/8] drm/{i915,xe}: unify runtime pm calls
-In-Reply-To: <akeNb7UeeFXMvbU8@intel.com>
+To: imre.deak@intel.com
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, Martin
+ Hodo <martin.hodo@intel.com>, stable@vger.kernel.org, Ville
+ =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH] drm/i915/mst: limit DP MST ESI service loop
+In-Reply-To: <akU3qOVL4eh2E9ma@ideak-desk.lan>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1782913901.git.jani.nikula@intel.com>
- <akeNb7UeeFXMvbU8@intel.com>
-Date: Fri, 03 Jul 2026 15:36:47 +0300
-Message-ID: <aadf2fef6ec60c4eb935320cec96efb1921f679b@intel.com>
+References: <20260625142204.1078287-1-jani.nikula@intel.com>
+ <akU3qOVL4eh2E9ma@ideak-desk.lan>
+Date: Fri, 03 Jul 2026 15:40:26 +0300
+Message-ID: <bd3a4590aa21a61c433bb7d8506e91123231b9d2@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -72,53 +73,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 03 Jul 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Wed, Jul 01, 2026 at 04:52:58PM +0300, Jani Nikula wrote:
->> Resend of [1], which is v2 of [2].
+On Wed, 01 Jul 2026, Imre Deak <imre.deak@intel.com> wrote:
+> On Thu, Jun 25, 2026 at 05:22:04PM +0300, Jani Nikula wrote:
+>> The loop in intel_dp_check_mst_status() keeps servicing interrupts
+>> originating from the sink without bound. Add an upper bound to the new
+>> interrupts occurring during interrupt processing to not get stuck on
+>> potentially stuck sink devices. Use arbitrary 32 tries to clear incoming
+>> interrupts in one go.
 >>=20
->> [1] https://lore.kernel.org/r/cover.1782311749.git.jani.nikula@intel.com
->> [2] https://lore.kernel.org/r/cover.1781527161.git.jani.nikula@intel.com
+>> Discovered using AI-assisted static analysis confirmed by Intel Product
+>> Security.
 >>=20
->> Jani Nikula (8):
->>   drm/i915: call intel_uncore_runtime_resume() for each gt
->>   drm/i915: call intel_display_power_runtime_resume() on suspend error
->>     path
->>   drm/i915: move some display runtime suspend operations earlier
->>   drm/i915: add intel_display_driver_pm_runtime*() functions
->>   drm/{i915,xe}: add new
->>     intel_display_driver_runtime_pm_{enable,disable}()
->>   drm/xe/display: separate d3cold handling from
->>     xe_display_pm_runtime_suspend_late()
->>   drm/xe/display: add xe_display_pm_runtime_resume_early()
->>   drm/xe/display: unify runtime suspend/resume with i915 for non-d3cold
+>> Note: The condition likely pre-dates the commit in the Fixes: tag, but
+>> this is about as far back as a backport has any chance of
+>> succeeding. Before that, the retry had a goto.
+>>=20
+>> Reported-by: Martin Hodo <martin.hodo@intel.com>
+>> Fixes: 3c0ec2c2d594 ("drm/i915: Flatten intel_dp_check_mst_status() a bi=
+t")
+>> Cc: <stable@vger.kernel.org> # v5.8+
+>> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>> Cc: Imre Deak <imre.deak@intel.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
 >
-> I got a bit sidetracked into the system suspend code and the
-> somewhat tangled mess of gem/gt/uncore while looking at this,
-> but all of that looks mostly separate from this.
+> Reviewed-by: Imre Deak <imre.deak@intel.com>
 
-Yes, there are more dragons to tame.
-
-> For the series
-> Reviewed-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
-
-Thanks a lot, pushed to din.
+Thanks, pushed to din.
 
 BR,
 Jani.
 
 >
+>> ---
+>>  drivers/gpu/drm/i915/display/intel_dp.c | 8 +++++++-
+>>  1 file changed, 7 insertions(+), 1 deletion(-)
 >>=20
->>  .../drm/i915/display/intel_display_driver.c   | 71 +++++++++++++++++++
->>  .../drm/i915/display/intel_display_driver.h   |  8 +++
->>  drivers/gpu/drm/i915/i915_driver.c            | 58 ++++-----------
->>  drivers/gpu/drm/xe/display/xe_display.c       | 44 ++++++++----
->>  drivers/gpu/drm/xe/display/xe_display.h       |  1 +
->>  drivers/gpu/drm/xe/xe_pm.c                    |  2 +
->>  6 files changed, 125 insertions(+), 59 deletions(-)
->>=20
+>> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i=
+915/display/intel_dp.c
+>> index 6e3fa6662cbe..ade7e51e7590 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+>> @@ -5590,8 +5590,9 @@ intel_dp_check_mst_status(struct intel_dp *intel_d=
+p)
+>>  	struct intel_display *display =3D to_intel_display(intel_dp);
+>>  	bool force_retrain =3D intel_dp_link_training_get_force_retrain(intel_=
+dp->link.training);
+>>  	bool reprobe_needed =3D false;
+>> +	int tries =3D 33;
+>>=20=20
+>> -	for (;;) {
+>> +	while (--tries) {
+>>  		u8 esi[4] =3D {};
+>>  		u8 ack[4] =3D {};
+>>  		bool new_irqs;
+>> @@ -5634,6 +5635,11 @@ intel_dp_check_mst_status(struct intel_dp *intel_=
+dp)
+>>  			break;
+>>  	}
+>>=20=20
+>> +	if (!tries) {
+>> +		drm_dbg_kms(display->drm, "DPRX ESI not clearing, device may be stuck=
+\n");
+>> +		reprobe_needed =3D true;
+>> +	}
+>> +
+>>  	return !reprobe_needed;
+>>  }
+>>=20=20
 >> --=20
 >> 2.47.3
+>>=20
 
 --=20
 Jani Nikula, Intel
