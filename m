@@ -4,36 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FF13C44500
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4206C44501
 	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 11:32:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 643DC10F7D8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D335710F7DA;
 	Fri,  3 Jul 2026 11:32:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="YYGQbFtb";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="aurtBff2";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C28D910E5B8;
- Fri,  3 Jul 2026 11:32:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B152210F7C0;
+ Fri,  3 Jul 2026 11:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783078354;
- bh=aJ674jKfdfYzA1796ckniFKjkGKFKlysonuWe+TKQpQ=;
+ s=default; t=1783078356;
+ bh=0xLvIPUF7dUXs0cb7vXUK9dMYuEsI+fTHrltlGFTpL4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=YYGQbFtbdQ8y4MXJvcz429Op65t2CV283EmZjfkDHPkxev3vd2kld3C7ldty/3sgK
- miY2p1OG4eM8s8h3+H4+cybFlpPQzN3AfEcHLv4S1SF+F7qZMBSd5G3aqVuxIyU/zS
- JY0Rf3y+gelB471mRcHcPt+1FsXiqCLySFaIo8yDFR/iv3Rjmyumq3VYiqPh3x1u8o
- D22ddMftfTsDWPr3dXv80dn/PzqU3QL7dSvLlI0fXUckhiiBnrEWCqVL5D3odAgwRm
- f5bV/mjdiz1ekHJPEPRXnQH8vU0gFCKcGx4uXgvAnu6sAjwXMx4K05eZjUi6o2tNrc
- pwz3w3bNd2rQw==
+ b=aurtBff27jo4V0dRw+3iaOiVqweOLFl8efwKCZUEYMwJsQTJIObVsDBbcOhbBY8MR
+ BEb20aRwHENkTbvZzN/e3b8yEfI89GSR/XYqXCV+gj/qLjLWdejtDwU/rdBRMSz8kq
+ gFnxyPKsvFIRx/WdW0zTFOoji1oAqXdbXQ3c3DnlXGUfY7RUUjg/ijenM3bUtsNsaJ
+ +omKq9oQ1MVqeqJTCy++/wI7vERV8qivjF3tNiwvGbU2/C1zn805NHnUTx1wNrRzOD
+ 1WT1A90odal94EjS0wOt1mC/ps+QEE3/rRLR1zJGRKuL33cF4PhE+2vWuI4Msd4s0Q
+ rooXMgZeVz80w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- "John B. Wyatt IV" <jwyatt@redhat.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v2 3/7] drm/i915/guc: Consider also RCU depth in busy loop.
-Date: Fri,  3 Jul 2026 13:32:55 +0200
-Message-ID: <20260703113259.801374-4-dev@lankhorst.se>
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v2 6/7] drm/i915: Use sleeping selftests for igt_atomic on
+ PREEMPT_RT
+Date: Fri,  3 Jul 2026 13:32:58 +0200
+Message-ID: <20260703113259.801374-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260703113259.801374-1-dev@lankhorst.se>
 References: <20260703113259.801374-1-dev@lankhorst.se>
@@ -54,36 +53,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+This makes the i915 selftests slightly happier, especially
+related to GPU reset.
 
-intel_guc_send_busy_loop() looks at in_atomic() and irqs_disabled() to
-decide if it should busy-spin while waiting or if it may sleep.
-Both checks will report false on PREEMPT_RT if sleeping spinlocks are
-acquired leading to RCU splats while the function sleeps.
+I believe this may be a better approach than trying to convert
+uncore->lock to raw_spinlock
 
-Check also if RCU has been disabled.
-
-Reported-by: "John B. Wyatt IV" <jwyatt@redhat.com>
-Reviewed-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/selftests/igt_atomic.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-index 053780f562c1a..b25fa8f4dc4bd 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
-@@ -362,7 +362,7 @@ static inline int intel_guc_send_busy_loop(struct intel_guc *guc,
- {
- 	int err;
- 	unsigned int sleep_period_ms = 1;
--	bool not_atomic = !in_atomic() && !irqs_disabled();
-+	bool not_atomic = !in_atomic() && !irqs_disabled() && !rcu_preempt_depth();
+diff --git a/drivers/gpu/drm/i915/selftests/igt_atomic.c b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+index fb506b6990956..8ae39cf570b76 100644
+--- a/drivers/gpu/drm/i915/selftests/igt_atomic.c
++++ b/drivers/gpu/drm/i915/selftests/igt_atomic.c
+@@ -39,7 +39,14 @@ static void __hardirq_end(void)
+ 	local_irq_enable();
+ }
  
- 	/*
- 	 * FIXME: Have caller pass in if we are in an atomic context to avoid
++static void __maybe_unused __nop(void)
++{}
++
+ const struct igt_atomic_section igt_atomic_phases[] = {
++#if IS_ENABLED(CONFIG_PREEMPT_RT)
++	{ "sleeping", __nop, __nop },
++	{ },
++#endif
+ 	{ "preempt", __preempt_begin, __preempt_end },
+ 	{ "softirq", __softirq_begin, __softirq_end },
+ 	{ "hardirq", __hardirq_begin, __hardirq_end },
 -- 
 2.53.0
 
