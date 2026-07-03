@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5391C44500
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 11:11:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C20C43458
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 11:32:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03E7210F7AA;
-	Fri,  3 Jul 2026 11:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 646E410E5D8;
+	Fri,  3 Jul 2026 11:32:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CtOD0Ip6";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="MGcx3tBn";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C730310F7A9;
- Fri,  3 Jul 2026 11:11:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mWhG/3B5p+cytMrHUS2CX7qSff04CYcetqlRRCHBSkM=; b=CtOD0Ip6idv4wU06MB+2dM9hlw
- NbGjwIzxWDu38Tobx0NODliiarFl4/RPYplorwMzX2H/74cz/KjPLkmout/na1tN/MYu7705Gy15G
- VM9L6pQ5Ul1BP9T9QKgf3U44ZhAX2rPdJ20unt9qNX5RFepy6wnXvbHE5LgP/XWU7cM81DGSjvJR6
- OYhk3lOhpYYiSKEm6wDv6TPsxUs23F2kJZiYGc12Fr8nc6/3nEIUZbgkm+8vJq/UD6plAsRcYT4eK
- F+iykSo6oiJ2zSXhenUZcD9okNUebF10f0ALRBBBsLnbhPz04vVFhXnLh2XhED6PdpBxzWtw8vnGM
- VCLiXZRQ==;
-Received: from [178.139.163.86] (helo=[192.168.1.126])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wfbnx-008STX-6Y; Fri, 03 Jul 2026 13:11:33 +0200
-Message-ID: <a4d0034a-4aec-4880-86a7-699390e21a06@igalia.com>
-Date: Fri, 3 Jul 2026 13:11:30 +0200
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF2410E5D8;
+ Fri,  3 Jul 2026 11:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1783078353;
+ bh=Q8sFpW0LaWK/Smzuxt/7dTEculaPVCfQO31xaLLhI2w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=MGcx3tBnHZIQ4GvEUl9h4O5npwd6wOhU1P+wB5Um3EzL4d1Gv5qHU1xabEwtlufwI
+ kmo0D8evh6ofFyFtsNyY0qXbTGoo/PJYJO3tsvbtknnYjlVIKI0EBpKJas4OGSdG6o
+ 0C38CfmC/3uv0taKECohasJ7N3WaOdPLs03SPJuBku7zvK7895vuOtW42lpxZy+Izn
+ ifU6hlwDbqPvaCNyrbqHl0nK6M7xUE34ZmiY7RUEA54X/rJMUlVFoM4E9p+mQoqdYg
+ m13H3yZaYBerwCZx4xpdi3HiJwQxPpq/DXSDzeDAcvNx+YY5cPloYPTm/fLBnzMLKd
+ BEiLHwEaMNJPA==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Clark Williams <williams@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v2 1/7] drm/i915/gt: Use spin_lock_irq() instead of
+ local_irq_disable() + spin_lock()
+Date: Fri,  3 Jul 2026 13:32:53 +0200
+Message-ID: <20260703113259.801374-2-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260703113259.801374-1-dev@lankhorst.se>
+References: <20260703113259.801374-1-dev@lankhorst.se>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>, dri-devel@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260703073230.19982-1-robert.mader@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,83 +56,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
+execlists_dequeue() is invoked from a function which uses
+local_irq_disable() to disable interrupts so the spin_lock() behaves
+like spin_lock_irq().
+This breaks PREEMPT_RT because local_irq_disable() + spin_lock() is not
+the same as spin_lock_irq().
 
-On 03/07/2026 09:32, Robert Mader wrote:
-> The client cap is currently advertised unconditionally, even for drivers
-> that do not support plane color pipelines. If clients supporting the later,
-> like Wayland compositors or tools like drm_info, enable the client cap on
-> such drivers they will be left without both color pipeline and the legacy
-> properties COLOR_ENCODING and COLOR_RANGE, effectively breaking YUV->RGB
-> conversion support.
->
-> Prevent that by only marking the cap supported if there are actually planes
-> with color pipelines.
+execlists_dequeue_irq() and execlists_dequeue() has each one caller
+only. If intel_engine_cs::active::lock is acquired and released with the
+_irq suffix then it behaves almost as if execlists_dequeue() would be
+invoked with disabled interrupts. The difference is the last part of the
+function which is then invoked with enabled interrupts.
+I can't tell if this makes a difference. From looking at it, it might
+work to move the last unlock at the end of the function as I didn't find
+anything that would acquire the lock again.
 
-Hi Robert,
+Reported-by: Clark Williams <williams@redhat.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+---
+ .../drm/i915/gt/intel_execlists_submission.c    | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-I think Maarten probably wants to take one last look.
-
-But just to add that this approach looks good to me. Thanks for working 
-on it.
-
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-
->
-> Note: while the color pipeline replacement for the legacy properties is
-> still under review (1), we can assume that it will work as a drop-in
-> replacement. That means any plane on any hardware currently supporting
-> the legacy properties will be able to offer a functionally equal color
-> pipeline and there will be no technical reason keep using the legacy
-> properties if both the driver and the client support the new API.
->
-> 1: https://lore.kernel.org/dri-devel/20260623164812.81110-1-harry.wentland@amd.com/
->
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
->
-> ---
->
-> Changes in v3:
->   - Move the new check behind the existing EINVAL ones
->   - Rebase on latest drm-misc-next
->
-> Changes in v2:
->   - Replace the driver feature with a simple check (suggested by Maarten
->     Lankhorst <maarten.lankhorst@linux.intel.com>)
->   - Expand the commit message slightly and change the title
-> ---
->   drivers/gpu/drm/drm_ioctl.c | 14 +++++++++++++-
->   1 file changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index e2df4becce62..9039a39c4324 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -373,13 +373,25 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->   			return -EINVAL;
->   		file_priv->supports_virtualized_cursor_plane = req->value;
->   		break;
-> -	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE:
-> +	case DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE: {
-> +		struct drm_plane *plane;
-> +		bool has_plane_with_color_pipeline = false;
-> +
->   		if (!file_priv->atomic)
->   			return -EINVAL;
->   		if (req->value > 1)
->   			return -EINVAL;
-> +		drm_for_each_plane(plane, dev) {
-> +			if (plane->color_pipeline_property) {
-> +				has_plane_with_color_pipeline = true;
-> +				break;
-> +			}
-> +		}
-> +		if (!has_plane_with_color_pipeline)
-> +			return -EOPNOTSUPP;
->   		file_priv->plane_color_pipeline = req->value;
->   		break;
-> +	}
->   	default:
->   		return -EINVAL;
->   	}
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index 1359fc9cb88ef..e11db81dca9c5 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -1300,7 +1300,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 * and context switches) submission.
+ 	 */
+ 
+-	spin_lock(&sched_engine->lock);
++	spin_lock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * If the queue is higher priority than the last
+@@ -1400,7 +1400,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 				 * Even if ELSP[1] is occupied and not worthy
+ 				 * of timeslices, our queue might be.
+ 				 */
+-				spin_unlock(&sched_engine->lock);
++				spin_unlock_irq(&sched_engine->lock);
+ 				return;
+ 			}
+ 		}
+@@ -1426,7 +1426,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 
+ 		if (last && !can_merge_rq(last, rq)) {
+ 			spin_unlock(&ve->base.sched_engine->lock);
+-			spin_unlock(&engine->sched_engine->lock);
++			spin_unlock_irq(&engine->sched_engine->lock);
+ 			return; /* leave this for another sibling */
+ 		}
+ 
+@@ -1588,7 +1588,7 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	 */
+ 	sched_engine->queue_priority_hint = queue_prio(sched_engine);
+ 	i915_sched_engine_reset_on_empty(sched_engine);
+-	spin_unlock(&sched_engine->lock);
++	spin_unlock_irq(&sched_engine->lock);
+ 
+ 	/*
+ 	 * We can skip poking the HW if we ended up with exactly the same set
+@@ -1614,13 +1614,6 @@ static void execlists_dequeue(struct intel_engine_cs *engine)
+ 	}
+ }
+ 
+-static void execlists_dequeue_irq(struct intel_engine_cs *engine)
+-{
+-	local_irq_disable(); /* Suspend interrupts across request submission */
+-	execlists_dequeue(engine);
+-	local_irq_enable(); /* flush irq_work (e.g. breadcrumb enabling) */
+-}
+-
+ static void clear_ports(struct i915_request **ports, int count)
+ {
+ 	memset_p((void **)ports, NULL, count);
+@@ -2475,7 +2468,7 @@ static void execlists_submission_tasklet(struct tasklet_struct *t)
+ 	}
+ 
+ 	if (!engine->execlists.pending[0]) {
+-		execlists_dequeue_irq(engine);
++		execlists_dequeue(engine);
+ 		start_timeslice(engine);
+ 	}
+ 
+-- 
+2.53.0
 
