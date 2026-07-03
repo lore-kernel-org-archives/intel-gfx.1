@@ -4,85 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6106FC44502
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 17:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39720C43458
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 17:24:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6889510F881;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA33F10F887;
 	Fri,  3 Jul 2026 17:24:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nOtprTXW";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="VJY0Gb+5";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8911510F48B
- for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 00:35:36 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-92e6c4a867cso1326585a.0
- for <intel-gfx@lists.freedesktop.org>; Thu, 02 Jul 2026 17:35:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783038935; x=1783643735; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
- b=nOtprTXW4ewmf0vYJ6/cSZ9NoAr/FadyUwMmNvzf4pfshiM61P6ZCfl1lk8jeZXvnn
- 71Jl65vjgSVdND+TNQsJ4Ftnv9HXWgLffbK4IXykUuFn/2uzDrZWjgCQPcBdDRstNPNY
- 3IYVSRQltMp4/Kuyu5vFfMtLz2f7NUsveyS6sjB4PlVoFf9DgufKxR2UFRq0j6HjqO7i
- MeMlBfSg3Bi8AJR0TWXqyewuZSi3IEGJkUDeNt/sIpj2sZrKOs/jF95ib9PQCF29l4zD
- wQr1EcfAAkZU6EKOzGyeuSSTF1JdbBXCvZRVtEX+aTuA4ih8+zxo83eit62P9cn9lyvd
- tQsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783038935; x=1783643735;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IhuPZo9By9WeOKbnJZiXCMtpI4vqAR0qLJD+1E3bLpo=;
- b=OwjEjlLCzYPPvk4fTObzYOyWlH2gvWSLZibH6rBgP/AKyHwePzlKbeb8/4SI8hB3iz
- +fFkPisrsWTwwLCf8xyRPnuI3Cc4m9AiZJuTHisenlDM5uNEi7wXgB7lYoUQpRXGuDEc
- v8aZkFgjoLNKiyHxevXHvHJt5Rp5yBida4+jHtiEKyQlJHKHJ0B+D+OaMOcj+cEpq5pl
- 3GWeofQySC8D7G8ObRxHCagjfWTlhJ+dYvhhqay/0emTicsw2YpZ7U07rdUFa2CDVs0s
- q+8ye6zeyKRQgNL/1++LwCUs3qwMY9UeyZr1pk9Adn8+Zyf+alBL4Ee+9pABg1d/5CZa
- Eipw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9nZx5IQ5cclxAYNkuSJNSPMYY//577web96bP0g3w2AdiVjt4P+OX7iS3GSXQk1co4po9R5brZY30=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yze4dW8MpjpPRFj2tnfMCDlbogV5LBTq9kZDaTahIF3DkaQx6Bk
- 1vrlwOMHdMe98si9rAtwbuob3VJpvqi3tslvUt62qPprI/JCpmYAApcO
-X-Gm-Gg: AfdE7ck5VP6NfI8RuvPJKe+Iixxn8uEbbfkXBuflRtfP9bpHf97pjK55CKAk3vFUfLs
- Ylvh98UJ8S6l29jjSy8vu9Fx+EApjFAHykQlK4uCCjaxKV5oUWonRz47Apk7NKP1I+sYK+IDr4/
- Zflvodmbp1N/wTib2nUnavC1kL2bP6Qkx1oHPDw/ibqf8l/0tJoQSEa2o+IHEjiJZ5bYLwp//R4
- OxkhOgwVsuk+62eRc/HZgbMWu9qojs29403Sld1pCWCbdYtE2F49p26X63XsXueyWUm4gZATRu5
- o1AzLbQiLgq+/ViHsYy819IJOPATeenHRoWRmWAX1Bovp14ceoBNfWyMB5md2ZxfiBPuLOu/txp
- ftB+2ekxMaG2Wq8S2aXvndzsbokok6DartphCCSsVzBIWS3MnHIyNBGyRNZNu/PiKwQ7j/wh8Xr
- JOQ6OBzVzYgWLpg+RdcA==
-X-Received: by 2002:a05:620a:269b:b0:92e:675e:8ef0 with SMTP id
- af79cd13be357-92e7b473cfbmr986657085a.68.1783038935434; 
- Thu, 02 Jul 2026 17:35:35 -0700 (PDT)
-Received: from [192.168.1.100] ([32.220.73.95])
- by smtp.googlemail.com with ESMTPSA id
- af79cd13be357-92e9095e780sm23952485a.0.2026.07.02.17.35.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 02 Jul 2026 17:35:34 -0700 (PDT)
-Message-ID: <edcfd337-2cba-49da-a77e-3a2f8aa67e4c@gmail.com>
-Date: Thu, 2 Jul 2026 20:35:33 -0400
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 601B810F85C;
+ Fri,  3 Jul 2026 16:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1783096706; x=1783701506; i=natalie.vock@gmx.de;
+ bh=le/+4LC5/saAJAT2TchCTLPEnbQcchYmomXsBOcv4vE=;
+ h=X-UI-Sender-Class:From:Date:Subject:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=VJY0Gb+54KiZiafYigDOFgthsKYbC0iHyrhQEFXp3PbK+nrHXqCRMYihcv0pibkm
+ ukGgyWZz9grds3+0O9HabQbEA//WhavRdAR+xMqMpjtGiNuudbORK/tB/j63o4tLT
+ yc5W5SX/q/p01ix8s5mAcy43RvjI0qeK03PjLCfOAroxxPKpE4LRYmdzYtNG3BumY
+ NHlLXryA+6QxcTEZaxnCRg3jzeaAPKY5DqE3UN/1GXzU9qbqtLkSwItOz+jtlLEVX
+ 3PWgu8QfeqEuiJYJG8DAoq3k6/AyRWPJXgNmTkHwSeEfQ9VbwPsLaEq9JeViQqs2v
+ SZEtP/39nApuThU8Kg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MLiCu-1wO1Rf2K00-00KUis; Fri, 03
+ Jul 2026 18:32:55 +0200
+From: Natalie Vock <natalie.vock@gmx.de>
+Date: Fri, 03 Jul 2026 18:31:30 +0200
+Subject: [PATCH 10/10] drm/amdgpu: use drm_exec during BO validation
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] gpu/buddy: bail out of try_harder when alignment
- cannot be honoured
-To: Matthew Auld <matthew.auld@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <20260703-ttm_2_drm_exec-v1-10-43685ac1286b@gmx.de>
+References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+In-Reply-To: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, stable@vger.kernel.org
-References: <20260629074311.68836-1-Arunpravin.PaneerSelvam@amd.com>
- <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
-Content-Language: en-US
-From: John Olender <john.olender@gmail.com>
-In-Reply-To: <a4657daa-c58e-4441-ad81-c3e770bc5a94@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
+X-Provags-ID: V03:K1:nU9/uYCOrtgAtVdp4hFdQaqvYGdQXzNY1iKWoYGNYkWEXFKYeTp
+ gih/inofv97+WAYIWr8pX6T5f7gunoUgcQHg+9E8edQDhANGPDGj6RCc1ABfJkzew69/vs1
+ tpHmUTHJ85SZX3Vx+mul7c8gMaW4mCqmWLmoyE9/M3RVIyWNFkA5ejhtl4F5apJbBDYgfib
+ uiS3M8RqtqyGEfmKNgmxA==
+UI-OutboundReport: notjunk:1;M01:P0:IwhRkNGRGFk=;OZj0NYVXEzOymYlidPruwnpqMDj
+ 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
 X-Mailman-Approved-At: Fri, 03 Jul 2026 17:24:06 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,137 +156,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/2/26 6:48 AM, Matthew Auld wrote:
-> On 29/06/2026 08:43, Arunpravin Paneer Selvam wrote:
->> The try_harder contiguous fallback could return a range whose start
->> offset did not match the caller's min_block_size. When a candidate's
->> start is misaligned, realign it: free the misaligned run and reallocate
->> exactly @size at the next lower min_block_size boundary. This keeps the
->> returned size unchanged with no surplus to trim, and rejects the request
->> only when no aligned candidate fits.
->>
->> v2: align misaligned candidates down to min_block_size instead of
->>      bailing out, for both the RHS and LHS paths (Matthew).
->>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Fixes: 0a1844bf0b53 ("drm/buddy: Improve contiguous memory allocation")
->> Cc: Matthew Auld <matthew.auld@intel.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Timur Kristóf <timur.kristof@gmail.com>
->> Cc: John Olender <john.olender@gmail.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> 
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> 
+From: Christian K=C3=B6nig <christian.koenig@amd.com>
 
-I haven't hit any issues with this revision during testing.
+This allows to detect deadlocks happening because of resource
+constraints.
 
-Thanks,
-John
+Especially submissions which want to use all of GDS doesn't result in
+sporadic -ENOMEM any more.
 
->> ---
->>   drivers/gpu/buddy.c | 63 +++++++++++++++++++++++++++++++--------------
->>   1 file changed, 44 insertions(+), 19 deletions(-)
->>
->> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
->> index dc81fe0301ce..3c73ae87f3c5 100644
->> --- a/drivers/gpu/buddy.c
->> +++ b/drivers/gpu/buddy.c
->> @@ -1118,22 +1118,30 @@ static int __gpu_buddy_alloc_range(struct gpu_buddy *mm,
->>                    blocks, total_allocated_on_err);
->>   }
->>   +static int __alloc_contig_aligned_retry(struct gpu_buddy *mm,
->> +                    u64 unaligned_offset,
->> +                    u64 size,
->> +                    u64 min_block_size,
->> +                    struct list_head *blocks)
->> +{
->> +    u64 aligned_offset = round_down(unaligned_offset, min_block_size);
->> +
->> +    return __gpu_buddy_alloc_range(mm, aligned_offset, size, NULL, blocks);
->> +}
->> +
->>   static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>                        u64 size,
->>                        u64 min_block_size,
->>                        struct list_head *blocks)
->>   {
->> -    u64 rhs_offset, lhs_offset, lhs_size, filled;
->> +    u64 rhs_offset, lhs_offset, filled;
->>       struct gpu_buddy_block *block;
->>       unsigned int tree, order;
->> -    LIST_HEAD(blocks_lhs);
->> -    unsigned long pages;
->>       u64 modify_size;
->>       int err;
->>         modify_size = rounddown_pow_of_two(size);
->> -    pages = modify_size >> ilog2(mm->chunk_size);
->> -    order = fls(pages) - 1;
->> +    order = ilog2(modify_size) - ilog2(mm->chunk_size);
->>       if (order == 0)
->>           return -ENOSPC;
->>   @@ -1149,31 +1157,48 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
->>           while (iter) {
->>               block = rbtree_get_free_block(iter);
->>   -            /* Allocate blocks traversing RHS */
->>               rhs_offset = gpu_buddy_block_offset(block);
->> +
->> +            /* Allocate blocks traversing RHS */
->>               err =  __gpu_buddy_alloc_range(mm, rhs_offset, size,
->>                                  &filled, blocks);
->> -            if (!err || err != -ENOSPC)
->> +            if (err && err != -ENOSPC)
->>                   return err;
->> +            if (!err && IS_ALIGNED(rhs_offset, min_block_size))
->> +                return 0;
->> +            if (!err) {
->> +                /* Allocate the unaligned RHS offset using round_down */
->> +                gpu_buddy_free_list_internal(mm, blocks);
->> +                err = __alloc_contig_aligned_retry(mm, rhs_offset,
->> +                                   size,
->> +                                   min_block_size,
->> +                                   blocks);
->> +                if (!err)
->> +                    return 0;
->> +                if (err != -ENOSPC) {
->> +                    gpu_buddy_free_list_internal(mm, blocks);
->> +                    return err;
->> +                }
->> +                goto next;
->> +            }
->>   -            lhs_size = max((size - filled), min_block_size);
->> -            if (!IS_ALIGNED(lhs_size, min_block_size))
->> -                lhs_size = round_up(lhs_size, min_block_size);
->> +            if (size - filled > rhs_offset)
->> +                goto next;
->>   -            /* Allocate blocks traversing LHS */
->> -            lhs_offset = gpu_buddy_block_offset(block) - lhs_size;
->> -            err =  __gpu_buddy_alloc_range(mm, lhs_offset, lhs_size,
->> -                               NULL, &blocks_lhs);
->> -            if (!err) {
->> -                list_splice(&blocks_lhs, blocks);
->> +            lhs_offset = rhs_offset - (size - filled);
->> +
->> +            /* Allocate the unaligned LHS offset using round_down */
->> +            gpu_buddy_free_list_internal(mm, blocks);
->> +            err = __alloc_contig_aligned_retry(mm, lhs_offset, size,
->> +                               min_block_size, blocks);
->> +            if (!err)
->>                   return 0;
->> -            } else if (err != -ENOSPC) {
->> +            if (err != -ENOSPC) {
->>                   gpu_buddy_free_list_internal(mm, blocks);
->>                   return err;
->>               }
->> -            /* Free blocks for the next iteration */
->> +next:
->>               gpu_buddy_free_list_internal(mm, blocks);
->> -
->>               iter = rb_prev(iter);
->>           }
->>       }
->>
->> base-commit: 6648301c5bb2ef23f0fb15bcb01d21ff66f36799
-> 
+Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+=2D--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 80 ++++++++++++++++++-----------=
+=2D----
+ 1 file changed, 42 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_cs.c
+index c2e6495a28bc5..052d41013f7a0 100644
+=2D-- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -793,7 +793,7 @@ static int amdgpu_cs_bo_validate(void *param, struct a=
+mdgpu_bo *bo)
+ 	struct ttm_operation_ctx ctx =3D {
+ 		.interruptible =3D true,
+ 		.no_wait_gpu =3D false,
+-		.resv =3D bo->tbo.base.resv
++		.exec =3D &p->exec,
+ 	};
+ 	uint32_t domain;
+ 	int r;
+@@ -845,7 +845,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parse=
+r *p,
+ 				union drm_amdgpu_cs *cs)
+ {
+ 	struct amdgpu_fpriv *fpriv =3D p->filp->driver_priv;
+-	struct ttm_operation_ctx ctx =3D { true, false };
++	struct ttm_operation_ctx ctx =3D { .interruptible =3D true,
++					 .exec =3D &p->exec };
+ 	struct amdgpu_vm *vm =3D &fpriv->vm;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *obj;
+@@ -922,47 +923,53 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_par=
+ser *p,
+ 			if (unlikely(r))
+ 				goto out_free_user_pages;
+ 		}
+-	}
+-
+-	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+-		struct mm_struct *usermm;
+=20
+-		usermm =3D amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
+-		if (usermm && usermm !=3D current->mm) {
+-			r =3D -EPERM;
+-			goto out_free_user_pages;
+-		}
++		amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
++			struct mm_struct *usermm;
+=20
+-		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
+-		    e->user_invalidated) {
+-			amdgpu_bo_placement_from_domain(e->bo,
+-							AMDGPU_GEM_DOMAIN_CPU);
+-			r =3D ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
+-					    &ctx);
+-			if (r)
++			usermm =3D amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
++			if (usermm && usermm !=3D current->mm) {
++				r =3D -EPERM;
+ 				goto out_free_user_pages;
++			}
+=20
+-			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
+-						     e->range);
++			if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
++			    e->user_invalidated) {
++				amdgpu_bo_placement_from_domain(e->bo,
++								AMDGPU_GEM_DOMAIN_CPU);
++				r =3D ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
++						    &ctx);
++				drm_exec_retry_on_contention(&p->exec);
++				if (r)
++					goto out_free_user_pages;
++
++				amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
++							     e->range);
++			}
+ 		}
+-	}
+=20
+-	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+-					  &p->bytes_moved_vis_threshold);
+-	p->bytes_moved =3D 0;
+-	p->bytes_moved_vis =3D 0;
+-
+-	r =3D amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
+-			       amdgpu_cs_bo_validate, p);
+-	if (r) {
+-		drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+-		goto out_free_user_pages;
+-	}
++		amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
++						  &p->bytes_moved_vis_threshold);
++		p->bytes_moved =3D 0;
++		p->bytes_moved_vis =3D 0;
+=20
+-	drm_exec_for_each_locked_object(&p->exec, obj) {
+-		r =3D amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
+-		if (unlikely(r))
++		r =3D amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
++				       amdgpu_cs_bo_validate, p);
++		drm_exec_retry_on_contention(&p->exec);
++		if (r) {
++			drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+ 			goto out_free_user_pages;
++		}
++
++		drm_exec_for_each_locked_object(&p->exec, obj) {
++			r =3D amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
++			drm_exec_retry_on_contention(&p->exec);
++			if (unlikely(r))
++				goto out_free_user_pages;
++		}
++
++		amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
++					     p->bytes_moved_vis);
+ 	}
+=20
+ 	if (p->uf_bo) {
+@@ -973,9 +980,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parse=
+r *p,
+ 		p->gang_leader->uf_addr +=3D amdgpu_bo_gpu_offset(p->uf_bo);
+ 	}
+=20
+-	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
+-				     p->bytes_moved_vis);
+-
+ 	for (i =3D 0; i < p->gang_size; ++i)
+ 		amdgpu_job_set_resources(p->jobs[i], p->bo_list->gds_obj,
+ 					 p->bo_list->gws_obj,
+
+=2D-=20
+2.55.0
 
