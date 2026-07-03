@@ -4,27 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91652C43458
-	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 09:10:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98028C43458
+	for <intel-gfx@archiver.kernel.org>; Fri,  3 Jul 2026 10:11:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2999710E5A1;
-	Fri,  3 Jul 2026 09:10:23 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECA9210E5A1;
- Fri,  3 Jul 2026 09:10:21 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4415781011835787580=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A1BC10F74C;
+	Fri,  3 Jul 2026 10:11:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HF62Jyul";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D244310F74C
+ for <intel-gfx@lists.freedesktop.org>; Fri,  3 Jul 2026 10:11:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783073498; x=1814609498;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=V0cxP81y40kcFaoySbEbC5MJNTzvMlim7M1YZhvSvps=;
+ b=HF62Jyulcxuj+Mq3ehpgWEzx5mkvs8svVd7irhK2NaC5TWmmA3zFWsYQ
+ A//3mcUpHiJooHcmXxZXV5MxcARIADvZt88NYfwJSqc3D0GIXibHryKgS
+ LtQxOjekQqYO0N5ie2nBuZ/39Moj3m31uOG2HaxzKsZsMi910f8qXoIiK
+ MJUOc5GifZuc3yGEmMHZiZKOLuksHXHYeqhFJ29Zas+/FueLUMM6tkLMA
+ Vzg5cpCrr4zNxQ6qQ06LZ9ZTdkVy4mGtaHJqlESGo38ROhO0rW/W4I9+p
+ BlhRBfyjfoj9/5gQ9gnhDayWyqE3a8ohlfK4zbDrAvjKkRQIfSc/Gh8Iq g==;
+X-CSE-ConnectionGUID: Hp32jKmUTo6TW5wJP/l6Yg==
+X-CSE-MsgGUID: mfDfL0nURQq+MnoVcKiKTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11835"; a="109373430"
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="109373430"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 03:11:37 -0700
+X-CSE-ConnectionGUID: 5VaIdD6PRRuxn/iKwVijgw==
+X-CSE-MsgGUID: Dneq2nC4Q5uWUTXG9HVduA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,145,1779174000"; d="scan'208";a="246706383"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.162])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jul 2026 03:11:36 -0700
+Date: Fri, 3 Jul 2026 13:11:33 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Luca Coelho <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 0/2] drm/i915/display: reduce clock_gating interface
+ between core and display
+Message-ID: <akeK1a8ywbV5kZA3@intel.com>
+References: <20260630090829.2778879-1-luciano.coelho@intel.com>
+ <3867d5b88afe3eddf142480892344d2c24a12007@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gem=3A_Do_not_le?=
- =?utf-8?q?ak_siblings=5B=5D_on_proto_context_error_=28rev4=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 03 Jul 2026 09:10:21 -0000
-Message-ID: <178306982196.147660.17270667529158831699@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
-In-Reply-To: <20260701073030.44850-1-joonas.lahtinen@linux.intel.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3867d5b88afe3eddf142480892344d2c24a12007@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,128 +71,41 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4415781011835787580==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Jul 02, 2026 at 04:22:43PM +0300, Jani Nikula wrote:
+> On Tue, 30 Jun 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
+> > As a follow up to my previous clock-gating patches, this series
+> > reduces the interface between core and display by combining all the
+> > platform-specific exported functions and letting the display code
+> > decide what to do for each platform.
+> >
+> > To do that I created an _init_early(), to hold functions that are
+> > called at the beginning of the clock gating initialization and another
+> > one to call the later functions, namely _init_late().
+> 
+> As-is, this feels like forward progress, and I like the reduction of
+> interfaces.
+> 
+> But what I'm really interested in, can we take steps further, and stop
+> the back and forth calling of the functions between i915 and display?
+> 
+> For example, display hsw_disable_pc8() calls intel_clock_gating_init()
+> with the comment /* Many display registers don't survive PC8+ */ but
+> then it does so much more than just display. And it also calls back to
+> display.
+> 
+> Could i915 core call its own clock gating functions where needed, and
+> display call its own clock gating functions where needed, and not call
+> from one to the other at all? Separate the two completely, at a level or
+> two higher.
 
-== Series Details ==
+Just repeating what I've said several times before; the GT stuff
+should be moved out from init_clock_gating() into the
+gt/engine/etc. workaround framework. What's left should hopefully
+be pure display stuff...
 
-Series: drm/i915/gem: Do not leak siblings[] on proto context error (rev4)
-URL   : https://patchwork.freedesktop.org/series/169558/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_18755 -> Patchwork_169558v4
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/index.html
-
-Participating hosts (42 -> 39)
-------------------------------
-
-  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_169558v4 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-twl-1:          [DMESG-FAIL][1] ([i915#16528]) -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18755/bat-twl-1/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/bat-twl-1/igt@i915_selftest@live.html
-
-  
-  [i915#16528]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16528
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18755 -> Patchwork_169558v4
-
-  CI-20190529: 20190529
-  CI_DRM_18755: 2bdb7ee737dfd4d699e9994ef8aec5c92ec2d4e5 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_8990: 8990
-  Patchwork_169558v4: 2bdb7ee737dfd4d699e9994ef8aec5c92ec2d4e5 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/index.html
-
---===============4415781011835787580==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/gem: Do not leak siblings[] on proto context error (rev4)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/169558/">https://patchwork.freedesktop.org/series/169558/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18755 -&gt; Patchwork_169558v4</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/index.html</p>
-<h2>Participating hosts (42 -&gt; 39)</h2>
-<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_169558v4 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@i915_selftest@live:<ul>
-<li>bat-twl-1:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18755/bat-twl-1/igt@i915_selftest@live.html">DMESG-FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16528">i915#16528</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_169558v4/bat-twl-1/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18755 -&gt; Patchwork_169558v4</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18755: 2bdb7ee737dfd4d699e9994ef8aec5c92ec2d4e5 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_8990: 8990<br />
-  Patchwork_169558v4: 2bdb7ee737dfd4d699e9994ef8aec5c92ec2d4e5 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4415781011835787580==--
+-- 
+Ville Syrjälä
+Intel
