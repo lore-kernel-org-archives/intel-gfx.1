@@ -4,41 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 569A3C44503
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B8CEC43458
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:59:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A10610E90E;
-	Mon,  6 Jul 2026 11:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8FF010E37E;
+	Mon,  6 Jul 2026 11:59:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="eLM5HJkb";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O4WBZXeQ";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0661310E8FE;
- Mon,  6 Jul 2026 11:47:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783338468;
- bh=/38RI+xdMD7BEtzLgv34Ivu0GwxNt1tAkiIPng/xrxE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=eLM5HJkbgLt4BQd1MGXjria5VRHY33I6g3XXYHdm5GqeS0nnlyEzNrl047OPKf5Cd
- wN8mzmwNPsBRbytg3mkhVmZHYipN5Xd+SAke3ueoVo5hTiXw0z0Ta9ymMLbVObhLOo
- grlQ6dm81DcpQjMXvedwzUGNWC6PWahKx2Gzryfq5371qHgIi1dESbgVGUEujZIfEQ
- WNnz396lmhSjhgt24dZfFKzpNIhSuDyBCFi4IHXeBg30ub42mvG1vWcoTq9IOPzuQQ
- xdcEtMnMcEqt8LtsC5YtJ2y/F50QgMqzbzqTHlz3klyB8nzCW1DZpAF+9Kn5kyh1b9
- scC6vKo09OtzQ==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v4 7/7] drm/i915/gt: Use signalers_lock to prevent starvation
- of irq_work.
-Date: Mon,  6 Jul 2026 13:48:23 +0200
-Message-ID: <20260706114823.752313-8-dev@lankhorst.se>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706114823.752313-1-dev@lankhorst.se>
-References: <20260706114823.752313-1-dev@lankhorst.se>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58E2210E0A9;
+ Mon,  6 Jul 2026 11:59:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783339156; x=1814875156;
+ h=message-id:date:from:subject:to:cc:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=4q2pYTFwp+bgbE9vAWb3FsGoMvgIXQc2aT/4DGEBdlY=;
+ b=O4WBZXeQ/CyfoDXGNUaZUS2auSVk+Uud2tDtw1lg07PUXIdeiXzleIpE
+ 5LLhg7n0q6cjjwpEyMomeufX8g7rmgmR2rQNczeJ6tVvBaGab7qIS7h/l
+ o+Nd1FD4NO6f4cxfdTadtmjVIjrctMhNU2H5GXce1agm+VgRcoaDatyfI
+ UObmQb8YZPFWuEl0OUBECm1AMI5XVcJZO1JnWgmxh6lIvq3BG2f963eLE
+ JYz9hFJrq5aeEtUeQZCwTL3zWnOee2+tfgCB9cieUSmx7XM2R5ZtEwbTG
+ q5l2M4SjaDoeoL2l8/BkTy27u4zFOWXDOXsN1P38IkFj+vt4HKtSjEZMB g==;
+X-CSE-ConnectionGUID: rDGY0ggBRzuho5tK1jV1Nw==
+X-CSE-MsgGUID: jT39UYWPRNKZcwTW4NaXBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="87650789"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="87650789"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 04:59:15 -0700
+X-CSE-ConnectionGUID: aarB2sc8S4Cdye1DS9XhbQ==
+X-CSE-MsgGUID: gsuHx72GST2ZhZ7t4Yw8Nw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="257280330"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 04:59:15 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 6 Jul 2026 04:59:14 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Mon, 6 Jul 2026 04:59:14 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.45) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 6 Jul 2026 04:59:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=go/4QJvnSmF0x2/r+NINpN6/zNU88pSrjc8XS9lvuRqsFzuxz5toTPt0xpofbtvgY9gV5OzxFfY1UPulFBFUM+NlhMfMTuBL/O+MDRhzucLYihpruA/yoNVoEwuIovYKZ6/LqjKk48h/RzrfxDzapF7ZxOYdod1WmM1ZQlOjOJDhUtK+5vYp/LjHcCuhdJjVGqV1jxoP8j0CFsCx/hT/RgmUl2E7lADGYzlzIw105UKlFyapJ0KOT2rkAmeJI1OiSvYqQXJTJHePCb4TotnlTX5cf9MapdC3CCf8sbB6TzOJOR2akQOQShufUX6+9SoShxeJq2lvH4tQFKPZiBYexw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pZ21U8FHzLevRH51m+QNXoLrKz+nRLD2aQ1Ir1gvx1U=;
+ b=SmL1Ml11vl5i5gzA24c8m4aBziMSjgHU9L4IPEFKVT9jPful2+W3i3oM5WNYNxt6RLUfIcdsoQBpVU2dt7Aaf2ynqcDPdAj6K3sWZwL65bHoQURhCOzud5tI8N6yds90yTuc5+eRubEvLtQsAtyR/jHGc4PVI+/O3yaldUSF0ZRODDM5iJa/FzI0ed9QwOSUzzGWUgRaM9QwXbG374tKgAcqhMPcAmwjc5jDhf1RSqp+2Q0m9g6z1VWzUdNcwrYEKho76LHu93CLYB3l416EG8B26O9bjfhqYi+46ssMddgee+e7y43PiHgoONWIXBRBl5WGynVzw6xlGE8iQD7rgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
+ by IA1PR11MB6370.namprd11.prod.outlook.com (2603:10b6:208:3ae::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.8; Mon, 6 Jul 2026
+ 11:59:11 +0000
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
+ 11:59:11 +0000
+Message-ID: <1466c65a-a1e4-4a23-b8c8-0d1db262a6f8@intel.com>
+Date: Mon, 6 Jul 2026 17:29:04 +0530
+User-Agent: Mozilla Thunderbird
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Subject: Re: [PATCH v2 01/11] drm/i915/vrr: add per-CRTC vrr/cmrr debugfs
+ control
+To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, <ankit.k.nautiyal@intel.com>
+References: <20260616144233.832276-1-mitulkumar.ajitkumar.golani@intel.com>
+ <20260616144233.832276-2-mitulkumar.ajitkumar.golani@intel.com>
+Content-Language: en-GB
+In-Reply-To: <20260616144233.832276-2-mitulkumar.ajitkumar.golani@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0159.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1cf::9) To PH0PR11MB7636.namprd11.prod.outlook.com
+ (2603:10b6:510:26f::13)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|IA1PR11MB6370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 939d82e1-4300-4b9d-ee2e-08dedb55fdc3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|4143699003|11063799006|56012099006|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qS/QC55tDnlAvIYc7pGq9HJpRUnvLyhWZ+C5iBS5q3TUTwcoGJNNuWGK1GYly4VpSXqQlw+hn5v7IdcqfCsQju8ftHZUImujKpr57UZ9GV7zBipT5KPJz3obek/tagwwltleRJwZ5DK+wknoZJKUP/nSvSnDyGS+Au5dBsP7LN4qMD4Qgy6T3J9WZskm5fIwg/krKAEAKa2l4ZTo3mmmmu2Sbc09UmBQ9IiUxmx3LfBZzgxEjIDQzEt2/Aui9fqZWoWIT7bXV0lwwbs8c0SBOeZ6nxlO6P86ar2TtDaWc5ofybQtFtHfNtWIvTAeGaRaOxCLzMZRBaM6nT99yHTlWly4rVYJR61dae917tUEpGsbg/asL8Er3JjmGY/6/Eu3NBfXg9dmxPsum+osk2gzt4BbxP1bYEyM0IFWM+2iz4k9a115yY3h/qQ5mVSGEd5OkAdk/Q/iP8CygFHxEBipLVmrBJu8VzQrIK5Ok8/UNm0WhwKnkmGPPMYs7oEc5QKUn5XDb26xNdDx6EC1Tc8E28yZgweI1FKyhdv02+9m7mWvZQGw2ApycyGVf/T+BZjWs6CPJ+8dLHgugfH/2fNRevuacAskumtIJdM3VpgneC26jYV8wcRd1zqTwU1pJkI5CDZ/bS/MuQ2puE9e2QE7ICyU9xvxJopXT7Km+BQOuS0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(4143699003)(11063799006)(56012099006)(3023799007)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTNBbkxRUHNzU0RMWkFkcnlZRGp1MWtPT0ltZXdVbXV0TnRTZHA4L2Y1ays5?=
+ =?utf-8?B?MjdWcmpyMmw4RTM2N3F1aVBpZW4wNnM1U1ZBMlNlQ3lsbkdQQ3ZiNThqNnBo?=
+ =?utf-8?B?TzRjTTMvTWhpMFN5dzlaQ0k0RmhjOXVTQlJ5eS84WlhpbzhGQ1VOeGtRbU5X?=
+ =?utf-8?B?L2dlK0FMRFh6SUZsdzRlTmdpUGYvbWl1bE5xODJZUEFkb3dCRHRBdDRtOVNu?=
+ =?utf-8?B?SzAxRyszaHoxQVRTblJNZndYaUZpTUFvbG1oeHdFMk8xYXVDMTNnaXBQOERl?=
+ =?utf-8?B?UVQwMER1blQ3SEtCajN3VzcvOWYwVVpNSzh0enBGVGJ6dWxseVZ2WHpnOUQx?=
+ =?utf-8?B?YnJVckVrbHV3L3UyY3ppQyt1bW1ncUtsdDY5MzJzQnh5eTNmcldUTmlYWWFn?=
+ =?utf-8?B?T2t2ZEgzL0tsK0Nrb1ZwZHBmZjE5RWpVYUs5dkRGYUdFcGkvQXk1R1VSdk5F?=
+ =?utf-8?B?Z1RrNUVkWjVTUE1qWmxoWUo0bHZ4NVppTTdQOVE5ZzNjakw1ZmZoWmxQaGNr?=
+ =?utf-8?B?U0FmZURxS0RqSjJtbjdHWWEzM1VWMGtDUmY3QklBd2NjM2V2bFJISHlNVlB4?=
+ =?utf-8?B?L05tYSs3Z0R0cGZQSmJCNFBoSmZqNEpPL0pqeWdBbkF6aDQ3bUVQNG5rNmda?=
+ =?utf-8?B?RmZGd2ZSUE9IY2VNMVp4M09qbU9sblB3R0g4TVNkcWc3aHdLdWlRQlQyWEti?=
+ =?utf-8?B?YkpSSDNvU3JTOGRhUndyYkJPMmJsOGdBM1pEN0p3aDF6T0FYV1YvSU1Xb1FX?=
+ =?utf-8?B?NFkvb00yRkQzZWFYR1JoSG5hdnMxNnI1WjVZRUpYSlNyZGh2MHVBa0lQY09x?=
+ =?utf-8?B?NzJVRytDMGpPcjlQQmdReXRvaStkSWVIbDBwK0FLQXN0NWRLNy9uR3BxbmhR?=
+ =?utf-8?B?cCtpMG1QWVNTMkJBV2FYT0tRY1pTNWY1alRmQmNyYy8rZVBEVWdickVYUUxK?=
+ =?utf-8?B?Q3VSWXU1RklFaVFJSXEvaTdsWUlOZXZiQ3NOSTN1ZThlQkgzVnhYSTM5N0J6?=
+ =?utf-8?B?VU1RTS93OUdkN0RlSldnNVBUUGR5Y2pyUDIydWN2OTV2S3RjSUNlV1JubDhk?=
+ =?utf-8?B?bC9PRHFZYk1YSzdPNzczTTBvNjgyYlhmYXhzQW1TK01KKzNUaXVNYnZMN1pw?=
+ =?utf-8?B?YUI0cDNxcXZFVGtFdUJZZGhac3FLKzNUdTRqYnNFdnhSbmJYUGJVWjdEcFFx?=
+ =?utf-8?B?UVFheTRYMWE4cDFDR2wzRHAvWFdRRnR5bzBMalI4MzUrUlI4QVh5WE5tRFpW?=
+ =?utf-8?B?cVo3QUljMlV2cWxXa2ZyWEdSQy9HemExK2dSdGgvbWhObHlLQ05GVW5DT1lm?=
+ =?utf-8?B?QmRZeUw1QTBDalg1bHdqWGlHbmxRNkI0TnhZRzEycXVObTIwaGU1Mis1bWYw?=
+ =?utf-8?B?cE5pMGRZN2JybnNQdW1VVDBlWktJOHZnWmxLcmp6WURBWko5cU5Wd2NqQ28z?=
+ =?utf-8?B?VHp4dXh2LzA5Ymh3T3djYTY0MlRSSVNUS1Z0aDZ3RUR1MWNLZk1yVk1IWURv?=
+ =?utf-8?B?ZXZOVkdKbWtuSE5nckZOQXVZeUwxcjV4bUExTjRwYTZKSHFObG0wNEwwRzM1?=
+ =?utf-8?B?SEkycVB4RTh3WXUrdndkWkp1OERMMGp6MTRPdUpiNDdsbnFJeWs4MjFpdWhy?=
+ =?utf-8?B?cEVsKyt1Z3ZuOWZ3UWgwem12RWg4eGV1ZTZiaHhNS3NWYlFHa3VwOEpXOURv?=
+ =?utf-8?B?SS9UZ0QraVh5STJkckM2eEJMbWVPK2FKMk9kU0hhT3F0YTJQd2liWER6OGNk?=
+ =?utf-8?B?QkYyU2E1RDE0OGM3WmU4SkRLWm5OdVdyZC9uWjZZTDA3WHE5MmZrUEwvLzdU?=
+ =?utf-8?B?Q2U1NWpDeUxoNkJvcFJHd1ZxUHE3NGx6NkQzTlBsdjJJUUhSKzBrOC8wVFlH?=
+ =?utf-8?B?TGJqWXBxT0tuSk90Z09zOElrNmNHQXpnZ3hPdERXU2xNWGdZR3JtbmpXOVVU?=
+ =?utf-8?B?ZnFMSlN0bExJOEJ1a2JSTCt4ZkxqRXlQbDFVMnRqbEtQNHlGV0ZGSmUxajVS?=
+ =?utf-8?B?YXpuRTlyZWNlWm5ScE9wZER0UFpERnRGNnhNV0lZRnZrdWpJWmJJSWpzOFRH?=
+ =?utf-8?B?VUFpZFo0Tnp3dVVqS0ZSUnFBWXduQzRQNGI3S2V5b2Z2T251OTBhUVFqdncw?=
+ =?utf-8?B?RnM2Tk44RHp4eC9ITnNLQy9welBVY0RUUTRoYkZnNGVldi9MWENzNVdrRnRu?=
+ =?utf-8?B?K2M3VnlDL3JBZ0Z5RzB1VlJlNmkrYzJIZUNCeTRxbGdzdTdncXZKWU9WUXBC?=
+ =?utf-8?B?OE1NOWdrVk5WZFllMTNtdnJRZlR1ZWdZMmd1NTkxdFVQUk0zN1pLZHA0Mm00?=
+ =?utf-8?B?dG1mZjhlcHplNGozZTVjQTZzcE5mME5kZG5yQjU3Qk01L2lPK29xRVIyeHRW?=
+ =?utf-8?Q?HReJ3pCO0unPosCI=3D?=
+X-Exchange-RoutingPolicyChecked: LO98fo4Y4k4ma63Mka380i0PALTLISwH641CIcs5H467RyjYewBzNvV3Wt64p1M56P+oQJm9tCybfeJUUG8Lj/Xg+aMdFVh3wTS4i6FlTrlfRO5cwS15UmfvWo2m7LCg6ZDzIoYfyb8KGCX/r8e0wCHRsWB5Fw9FMR1xFaWSHmfVxk9gcAz0rhb7ZcUvk1ecwiRUrJ/13lSx6/adYGDcvHqwyywFPffM/hN5/9FzsUK+eIOcaoHujA67tWqhli95xc14wtAk5LoqdOhBwYV2z/f6exGKwJuaM3gAx7eVFFLnUtYxocC6j36mvaBJq1XFTuZz3a94Bd7UA+3LLZghQw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 939d82e1-4300-4b9d-ee2e-08dedb55fdc3
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:59:11.3162 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KNkSZOY200uSE7806rtGJWnEShZ5TgOglwMtihJV+hSBBT9uMQEpAq0Lbfb4h1fBYRdC4f6788WYIk+ucorLKdrZtO+c19me4iTjCA3ok0M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6370
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,372 +172,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-IRQ-Work (FIFO-1) will be preempted by the threaded-interrupt (FIFO-50)
-and the interrupt will poll on signaler_active while the irq-work can't
-make progress.
 
-Solve this by adding a global spinlock to prevent starvation and force
-completion.
+On 6/16/2026 8:12 PM, Mitul Golani wrote:
+> Add a per-CRTC debugfs entry 'vrr/cmrr' and a debugfs file
+> (numerator/denominator) that indicates user intended target
+> refresh rate and video mode requirement.
+> 
 
-The existing RCU handling gets in the way on PREEMPT_RT, and would likely
-require conversion to raw spinlock to take them inside a
-rcu_read_lock(), so remove RCU as well.
+Please add more details regarding the semantics of the debugfs entry.
 
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 172 +++++++++++-------
- .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 -
- drivers/gpu/drm/i915/gt/intel_context.c       |   1 +
- 3 files changed, 112 insertions(+), 62 deletions(-)
+> Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+> ---
+>   .../drm/i915/display/intel_display_debugfs.c  |   2 +
+>   .../drm/i915/display/intel_display_types.h    |   5 +
+>   drivers/gpu/drm/i915/display/intel_vrr.c      | 105 ++++++++++++++++++
+>   drivers/gpu/drm/i915/display/intel_vrr.h      |   2 +
+>   4 files changed, 114 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> index 08004c1ba03f..1ce6e73ec83c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+> @@ -48,6 +48,7 @@
+>   #include "intel_psr.h"
+>   #include "intel_psr_regs.h"
+>   #include "intel_vdsc.h"
+> +#include "intel_vrr.h"
+>   #include "intel_wm.h"
+>   #include "intel_tc.h"
+>   
+> @@ -1393,6 +1394,7 @@ void intel_crtc_debugfs_add(struct intel_crtc *crtc)
+>   	intel_drrs_crtc_debugfs_add(crtc);
+>   	intel_fbc_crtc_debugfs_add(crtc);
+>   	hsw_ips_crtc_debugfs_add(crtc);
+> +	intel_vrr_crtc_debugfs_add(crtc);
+>   
+>   	debugfs_create_file("i915_current_bpc", 0444, root, crtc,
+>   			    &i915_current_bpc_fops);
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+> index 6cd102a3b610..897a1ffd7b79 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+> @@ -1545,6 +1545,11 @@ struct intel_crtc {
+>   		u64 flip_count;
+>   	} dc_balance;
+>   
+> +	struct {
+> +		u32 numerator;
+> +		u32 denominator;
+> +	} cmrr;
+> +
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index c10ac0ab3bfa8..0ae7759dc74a3 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -88,24 +88,25 @@ static void add_signaling_context(struct intel_breadcrumbs *b,
- 				  struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	spin_lock(&b->signalers_lock);
--	list_add_rcu(&ce->signal_link, &b->signalers);
--	spin_unlock(&b->signalers_lock);
-+	if (list_empty(&ce->signals))
-+		return;
-+
-+	intel_context_get(ce);
-+	list_add(&ce->signal_link, &b->signalers);
- }
- 
- static bool remove_signaling_context(struct intel_breadcrumbs *b,
- 				     struct intel_context *ce)
- {
- 	lockdep_assert_held(&ce->signal_lock);
-+	lockdep_assert_held(&b->signalers_lock);
- 
--	if (!list_empty(&ce->signals))
-+	if (!list_empty(&ce->signals) || list_empty(&ce->signal_link))
- 		return false;
- 
--	spin_lock(&b->signalers_lock);
--	list_del_rcu(&ce->signal_link);
--	spin_unlock(&b->signalers_lock);
--
-+	list_del_init(&ce->signal_link);
- 	return true;
- }
- 
-@@ -174,7 +175,7 @@ static void signal_irq_work(struct irq_work *work)
- 	struct intel_breadcrumbs *b = container_of(work, typeof(*b), irq_work);
- 	const ktime_t timestamp = ktime_get();
- 	struct llist_node *signal, *sn;
--	struct intel_context *ce;
-+	struct intel_context *ce, *next;
- 
- 	signal = NULL;
- 	if (unlikely(!llist_empty(&b->signaled_requests)))
-@@ -208,13 +209,13 @@ static void signal_irq_work(struct irq_work *work)
- 	if (!signal && READ_ONCE(b->irq_armed) && list_empty(&b->signalers))
- 		intel_breadcrumbs_disarm_irq(b);
- 
--	rcu_read_lock();
--	atomic_inc(&b->signaler_active);
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
-+	spin_lock(&b->signalers_lock);
-+	list_for_each_entry_safe(ce, next, &b->signalers, signal_link) {
- 		struct i915_request *rq;
-+		bool release;
- 
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
--			bool release;
-+		spin_lock(&ce->signal_lock);
-+		while ((rq = list_first_entry_or_null(&ce->signals, typeof(*rq), signal_link))) {
- 
- 			if (!__i915_request_is_complete(rq))
- 				break;
-@@ -228,15 +229,9 @@ static void signal_irq_work(struct irq_work *work)
- 			 * spinlock as the callback chain may end up adding
- 			 * more signalers to the same context or engine.
- 			 */
--			spin_lock(&ce->signal_lock);
--			list_del_rcu(&rq->signal_link);
--			release = remove_signaling_context(b, ce);
--			spin_unlock(&ce->signal_lock);
--			if (release) {
--				if (intel_timeline_is_last(ce->timeline, rq))
--					add_retire(b, ce->timeline);
--				intel_context_put(ce);
--			}
-+			list_del(&rq->signal_link);
-+			if (list_empty(&ce->signals) && intel_timeline_is_last(ce->timeline, rq))
-+				add_retire(b, ce->timeline);
- 
- 			if (__dma_fence_signal(&rq->fence))
- 				/* We own signal_node now, xfer to local list */
-@@ -244,9 +239,13 @@ static void signal_irq_work(struct irq_work *work)
- 			else
- 				i915_request_put(rq);
- 		}
-+
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		if (release)
-+			intel_context_put(ce);
- 	}
--	atomic_dec(&b->signaler_active);
--	rcu_read_unlock();
-+	spin_unlock(&b->signalers_lock);
- 
- 	llist_for_each_safe(signal, sn, signal) {
- 		struct i915_request *rq =
-@@ -347,14 +346,15 @@ static void irq_signal_request(struct i915_request *rq,
- 		irq_work_queue(&b->irq_work);
- }
- 
--static void insert_breadcrumb(struct i915_request *rq)
-+static bool insert_breadcrumb(struct i915_request *rq,
-+			      struct intel_breadcrumbs *b)
- {
--	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
- 	struct list_head *pos;
-+	bool ret;
- 
- 	if (test_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags))
--		return;
-+		return false;
- 
- 	/*
- 	 * If the request is already completed, we can transfer it
-@@ -363,14 +363,15 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	 */
- 	if (__i915_request_is_complete(rq)) {
- 		irq_signal_request(rq, b);
--		return;
-+		return false;
- 	}
- 
- 	if (list_empty(&ce->signals)) {
--		intel_context_get(ce);
--		add_signaling_context(b, ce);
-+		ret = true;
- 		pos = &ce->signals;
- 	} else {
-+		ret = false;
-+
- 		/*
- 		 * We keep the seqno in retirement order, so we can break
- 		 * inside intel_engine_signal_breadcrumbs as soon as we've
-@@ -395,23 +396,19 @@ static void insert_breadcrumb(struct i915_request *rq)
- 	}
- 
- 	i915_request_get(rq);
--	list_add_rcu(&rq->signal_link, pos);
-+	list_add(&rq->signal_link, pos);
- 	GEM_BUG_ON(!check_signal_order(ce, rq));
- 	GEM_BUG_ON(test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags));
- 	set_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags);
- 
--	/*
--	 * Defer enabling the interrupt to after HW submission and recheck
--	 * the request as it may have completed and raised the interrupt as
--	 * we were attaching it into the lists.
--	 */
--	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
--		irq_work_queue(&b->irq_work);
-+	return ret;
- }
- 
- bool i915_request_enable_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_context *ce = rq->context;
-+	struct intel_breadcrumbs *b;
-+	bool add_context = false;
- 
- 	/* Serialises with i915_request_retire() using rq->lock */
- 	if (test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &rq->fence.flags))
-@@ -427,30 +424,87 @@ bool i915_request_enable_breadcrumb(struct i915_request *rq)
- 		return true;
- 
- 	spin_lock(&ce->signal_lock);
-+	b = READ_ONCE(rq->engine)->breadcrumbs;
-+
- 	if (test_bit(I915_FENCE_FLAG_ACTIVE, &rq->fence.flags))
--		insert_breadcrumb(rq);
-+		add_context = insert_breadcrumb(rq, b);
-+
-+	if (add_context && spin_trylock(&b->signalers_lock)) {
-+		add_signaling_context(b, ce);
-+		spin_unlock(&b->signalers_lock);
-+		add_context = false;
-+	}
- 	spin_unlock(&ce->signal_lock);
- 
-+	if (add_context) {
-+		/*
-+		 * Fast trylock didn't work, use slow locking.
-+		 *
-+		 * Dropping the lock to solve the inversion is safe, since
-+		 * no race is possible against remove_signaling_context()
-+		 * without being added as signaling context.
-+		 */
-+		spin_lock(&b->signalers_lock);
-+		spin_lock(&ce->signal_lock);
-+		add_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock(&b->signalers_lock);
-+	}
-+
-+	/*
-+	 * Defer enabling the interrupt to after HW submission and recheck
-+	 * the request as it may have completed and raised the interrupt as
-+	 * we were attaching it into the lists.
-+	 */
-+	if (!READ_ONCE(b->irq_armed) || __i915_request_is_complete(rq))
-+		irq_work_queue(&b->irq_work);
-+
- 	return true;
- }
- 
-+
-+static void unlock_context_remove_signaling(struct intel_context *ce,
-+					    struct intel_breadcrumbs *b,
-+					    unsigned long flags)
-+{
-+	bool release = false, retry = false;
-+
-+	if (list_empty(&ce->signals)) {
-+		if (spin_trylock(&b->signalers_lock)) {
-+			release = remove_signaling_context(b, ce);
-+			spin_unlock(&b->signalers_lock);
-+		} else {
-+			retry = true;
-+		}
-+	}
-+	spin_unlock_irqrestore(&ce->signal_lock, flags);
-+
-+	if (retry) {
-+		spin_lock_irqsave(&b->signalers_lock, flags);
-+		spin_lock(&ce->signal_lock);
-+		release = remove_signaling_context(b, ce);
-+		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&b->signalers_lock, flags);
-+	}
-+
-+	if (release)
-+		intel_context_put(ce);
-+}
-+
- void i915_request_cancel_breadcrumb(struct i915_request *rq)
- {
- 	struct intel_breadcrumbs *b = READ_ONCE(rq->engine)->breadcrumbs;
- 	struct intel_context *ce = rq->context;
--	bool release;
-+	unsigned long flags;
- 
--	spin_lock(&ce->signal_lock);
-+	spin_lock_irqsave(&ce->signal_lock, flags);
- 	if (!test_and_clear_bit(I915_FENCE_FLAG_SIGNAL, &rq->fence.flags)) {
--		spin_unlock(&ce->signal_lock);
-+		spin_unlock_irqrestore(&ce->signal_lock, flags);
- 		return;
- 	}
- 
--	list_del_rcu(&rq->signal_link);
--	release = remove_signaling_context(b, ce);
--	spin_unlock(&ce->signal_lock);
--	if (release)
--		intel_context_put(ce);
-+	list_del(&rq->signal_link);
-+	unlock_context_remove_signaling(ce, b, flags);
- 
- 	if (__i915_request_is_complete(rq))
- 		irq_signal_request(rq, b);
-@@ -462,7 +516,6 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 				      struct intel_breadcrumbs *b)
- {
- 	struct i915_request *rq, *rn;
--	bool release = false;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&ce->signal_lock, flags);
-@@ -476,39 +529,36 @@ void intel_context_remove_breadcrumbs(struct intel_context *ce,
- 					&rq->fence.flags))
- 			continue;
- 
--		list_del_rcu(&rq->signal_link);
-+		list_del(&rq->signal_link);
- 		irq_signal_request(rq, b);
- 		i915_request_put(rq);
- 	}
--	release = remove_signaling_context(b, ce);
- 
- unlock:
--	spin_unlock_irqrestore(&ce->signal_lock, flags);
--	if (release)
--		intel_context_put(ce);
--
--	while (atomic_read(&b->signaler_active))
--		cpu_relax();
-+	unlock_context_remove_signaling(ce, b, flags);
- }
- 
- static void print_signals(struct intel_breadcrumbs *b, struct drm_printer *p)
- {
- 	struct intel_context *ce;
- 	struct i915_request *rq;
-+	unsigned long flags;
- 
- 	drm_printf(p, "Signals:\n");
- 
--	rcu_read_lock();
--	list_for_each_entry_rcu(ce, &b->signalers, signal_link) {
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link)
-+	spin_lock_irqsave(&b->signalers_lock, flags);
-+	list_for_each_entry(ce, &b->signalers, signal_link) {
-+		spin_lock(&ce->signal_lock);
-+		list_for_each_entry(rq, &ce->signals, signal_link)
- 			drm_printf(p, "\t[%llx:%llx%s] @ %dms\n",
- 				   rq->fence.context, rq->fence.seqno,
- 				   __i915_request_is_complete(rq) ? "!" :
- 				   __i915_request_has_started(rq) ? "*" :
- 				   "",
- 				   jiffies_to_msecs(jiffies - rq->emitted_jiffies));
-+		spin_unlock(&ce->signal_lock);
- 	}
--	rcu_read_unlock();
-+	spin_unlock_irqrestore(&b->signalers_lock, flags);
- }
- 
- void intel_engine_print_breadcrumbs(struct intel_engine_cs *engine,
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-index bdf09fd67b6e7..648e5600587b4 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs_types.h
-@@ -39,7 +39,6 @@ struct intel_breadcrumbs {
- 	spinlock_t signalers_lock; /* protects the list of signalers */
- 	struct list_head signalers;
- 	struct llist_head signaled_requests;
--	atomic_t signaler_active;
- 
- 	spinlock_t irq_lock; /* protects the interrupt from hardirq context */
- 	struct irq_work irq_work; /* for use from inside irq_lock */
-diff --git a/drivers/gpu/drm/i915/gt/intel_context.c b/drivers/gpu/drm/i915/gt/intel_context.c
-index b1b8695ba7c97..b938ff5be7b80 100644
---- a/drivers/gpu/drm/i915/gt/intel_context.c
-+++ b/drivers/gpu/drm/i915/gt/intel_context.c
-@@ -409,6 +409,7 @@ intel_context_init(struct intel_context *ce, struct intel_engine_cs *engine)
- 	/* NB ce->signal_link/lock is used under RCU */
- 	spin_lock_init(&ce->signal_lock);
- 	INIT_LIST_HEAD(&ce->signals);
-+	INIT_LIST_HEAD(&ce->signal_link);
- 
- 	mutex_init(&ce->pin_mutex);
- 
--- 
-2.53.0
+Please make it explicity that these are use to force CMRR refresh rates.
+
+Something like *force_cmrr* would work better.
+
+>   	int scanline_offset;
+>   
+>   	struct {
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+> index cd380fe8fd01..41118883b845 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -4,6 +4,10 @@
+>    *
+>    */
+>   
+> +#include <linux/debugfs.h>
+> +#include <linux/seq_file.h>
+> +#include <linux/string.h>
+> +
+>   #include <drm/drm_print.h>
+>   
+>   #include "intel_alpm.h"
+> @@ -1231,3 +1235,104 @@ int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_st
+>   
+>   	return intel_vrr_vblank_start(crtc_state, VRR_DCB_VMAX(tmp) + 1);
+>   }
+> +
+> +static int cmrr_parse_ratio(char *str, u32 *numerator, u32 *denominator)
+> +{
+> +	char *sep;
+> +	int ret;
+> +
+> +	/*
+> +	 * Parse a "numerator/denominator" CMRR ratio string. The numerator
+> +	 * is the requested refresh rate in KHz
+
+incorrect it is milli-Hz
+
+For 60Hz, numerator will be 60000.
+
+(refresh rate in Hz * 1000)
+> +	 * and the denominator selects the timing: 1000 for a 1:1 ratio
+> +	 * (no video timing) or 1001 for the 1000/1001 video timing.
+> +	 */
+> +
+> +	sep = strchr(str, '/');
+> +	if (!sep)
+> +		return -EINVAL;
+> +
+> +	*sep = '\0';
+> +
+> +	ret = kstrtou32(strim(str), 10, numerator);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = kstrtou32(strim(sep + 1), 10, denominator);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (*numerator == 0)
+> +		return -EINVAL;
+> +
+> +	if (*denominator != 1000 && *denominator != 1001)
+> +		return -EINVAL;
+
+We could use some check for the numerator too. Perhaps some common 
+refresh rates or the ones that we expect IGTs to be written or valid 
+once from the edid. Check could be either here or in compute_config.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int intel_vrr_cmrr_show(struct seq_file *m, void *data)
+> +{
+> +	struct intel_crtc *crtc = m->private;
+> +
+> +	seq_printf(m, "%u/%u\n", crtc->cmrr.numerator, crtc->cmrr.denominator);
+> +
+> +	return 0;
+> +}
+> +
+> +static int intel_vrr_cmrr_open(struct inode *inode, struct file *file)
+> +{
+> +	return single_open(file, intel_vrr_cmrr_show, inode->i_private);
+> +}
+> +
+> +static ssize_t intel_vrr_cmrr_write(struct file *file, const char __user *ubuf,
+> +				    size_t len, loff_t *offp)
+> +{
+> +	struct seq_file *m = file->private_data;
+> +	struct intel_crtc *crtc = m->private;
+> +	u32 numerator, denominator;
+> +	char kbuf[32];
+> +	int ret;
+> +
+> +	if (len >= sizeof(kbuf))
+> +		return -EINVAL;
+> +
+> +	if (copy_from_user(kbuf, ubuf, len))
+> +		return -EFAULT;
+> +
+> +	kbuf[len] = '\0';
+> +
+> +	ret = cmrr_parse_ratio(kbuf, &numerator, &denominator);
+> +	if (ret)
+> +		return ret;
+> +
+> +	crtc->cmrr.numerator = numerator;
+> +	crtc->cmrr.denominator = denominator;
+> +
+> +	return len;
+> +}
+> +
+
+Please add *_debugfs_* to the function (that explicitly handles the 
+debugfs) that are missing it.
+
+> +static const struct file_operations intel_vrr_cmrr_fops = {
+> +	.owner = THIS_MODULE,
+> +	.open = intel_vrr_cmrr_open,
+> +	.read = seq_read,
+> +	.llseek = seq_lseek,
+> +	.release = single_release,
+> +	.write = intel_vrr_cmrr_write,
+> +};
+> +
+> +void intel_vrr_crtc_debugfs_add(struct intel_crtc *crtc)
+> +{
+> +	struct intel_display *display = to_intel_display(crtc);
+> +	struct dentry *vrr_dir;
+> +
+> +	if (!HAS_VRR(display))
+> +		return;
+> +
+> +	vrr_dir = debugfs_create_dir("vrr", crtc->base.debugfs_entry);
+> +
+> +	if (HAS_CMRR(display))
+> +		debugfs_create_file("cmrr", 0600, vrr_dir, crtc,
+> +				    &intel_vrr_cmrr_fops);
+> +}
+> +
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+> index 55e9c429f579..19c7990be1b2 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.h
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+> @@ -56,4 +56,6 @@ int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_sta
+>   int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state);
+>   int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state);
+>   
+> +void intel_vrr_crtc_debugfs_add(struct intel_crtc *crtc);
+> +
+>   #endif /* __INTEL_VRR_H__ */
 
