@@ -4,46 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 247F0C44500
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2938FC44500
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8344910E87C;
-	Mon,  6 Jul 2026 10:16:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D052710E884;
+	Mon,  6 Jul 2026 10:16:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="un6e2Xv4";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="eUJyg/Kh";
 	dkim-atps=neutral
-X-Greylist: delayed 470 seconds by postgrey-1.36 at gabe;
- Mon, 06 Jul 2026 10:16:38 UTC
-Received: from smtpout2.mo533.mail-out.ovh.net
- (smtpout2.mo533.mail-out.ovh.net [51.210.94.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8804910E33F
- for <intel-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:16:38 +0000 (UTC)
+Received: from 8.mo533.mail-out.ovh.net (8.mo533.mail-out.ovh.net
+ [54.36.140.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89A3210E878
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:16:40 +0000 (UTC)
 Received: from director5.derp.mail-out.ovh.net
  (director5.derp.mail-out.ovh.net [57.128.106.70])
- by mo533.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SJ5Ky8z64KM;
- Mon,  6 Jul 2026 10:08:48 +0000 (UTC)
+ by mo533.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SN34SFz64D7;
+ Mon,  6 Jul 2026 10:08:52 +0000 (UTC)
 Received: from director5.derp.mail-out.ovh.net
  (director5.derp.mail-out.ovh.net. [127.0.0.1])
  by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:48 +0000 (UTC)
-Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.96.8])
- by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SJ1x31z7tDj;
- Mon,  6 Jul 2026 10:08:48 +0000 (UTC)
+ for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:52 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.113.205])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4gv0SM6Kn7z7tDb; Mon,  6 Jul 2026 10:08:51 +0000 (UTC)
 Received: from pixelcluster.dev (unknown [10.1.6.11])
  (Authenticated sender: nat@pixelcluster.dev)
- by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 280418E1903; 
- Mon,  6 Jul 2026 10:08:46 +0000 (UTC)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id C3DC88E18F1; 
+ Mon,  6 Jul 2026 10:08:49 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-104R00570e4088a-46ed-48af-94f6-ec5b2f6013be,
+ (GARM-104R005a42a97b5-83e6-4135-bf5a-4167f33e25d6,
  F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
 X-OVh-ClientIp: 88.133.252.134
 From: Natalie Vock <nat@pixelcluster.dev>
-Date: Mon, 06 Jul 2026 12:07:46 +0200
-Subject: [PATCH v2 04/10] drm/ttm: grab BO reference before locking it
+Date: Mon, 06 Jul 2026 12:07:48 +0200
+Subject: [PATCH v2 06/10] drm/ttm: move zombie handling into ttm_bo_evict
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260706-ttm_2_drm_exec-v2-4-4bf6bfc0d320@pixelcluster.dev>
+Message-Id: <20260706-ttm_2_drm_exec-v2-6-4bf6bfc0d320@pixelcluster.dev>
 References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -62,18 +60,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-x-ovh-tracer-id: 9128796448561848636
+x-ovh-tracer-id: 9129922348778611004
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF2rMupFDtSz5VGJXaGrwYUaRUbsc9Nn7nc8ghpwc35VyZFauYARogcas+VOSD8wf0IhZl41F2o83TSTJEqn1M70AEfTiU3uOfrR34AN46Y0JjeW4xo6cV+rH2TUD4SE1NDtof+377HjW5jUw1vYYddQq9f46CIv1pXDMg+OvLcv0mAeBq8idZd3/oeDOqFYW+mp/D/hf65ucF8pcrq4BoeAZT2yueghykMKcN1pOaBvVNRQXaTXALuE+8w2Owws5LoK70lx9jAX+i5vFCotZFddZWqe5L2MI0ywEcZRGnxLB/PRWCfMsAV61ff3CxEAEQBj4aCGHb8mrffVRaINrHze7ZOeRvAY5Xkp0vrVNGkK8+RJnyzVoe/LOecOZELTwlB63OAA+WiB2M00rs3kyaG8GOESvA92OgSN0L8sVN6xZIPI0IQgVz6u4W1aaRbK/iyfkwJtG33fwLm0iFxYzJ0qaeQyQgTPJeTJtr3C6tDpPzEhzqZ9s9Jmil5DjGXu375kInZ+rL8OGHB2BpZHCcDHT11HW4E+h/XgbISwzi+8IJUPK3XdDQYvcj5CUHrMWxUnTlG/vSmCK61rnfbq9nqiCEZN+ZisO6TZ1NQXJRNkKmi4LazbfDhi2Gh8UkpGoc2JQhGzIdLNkF3pgk3zk6QCydoYfaV6JJ6vp25wL+Ncg
-DKIM-Signature: a=rsa-sha256; bh=Ust/Lq5DbKVlp/aaj05H8qrX9vfxF8zPwOwSKnBCPBU=; 
+X-VR-SPAMCAUSE: dmFkZTF2rMupFDtSz5VGJXaGrwYUaRUbsc9Nn7nc8ghpwc35VyZFauYARogcas+VOSD8wf0IhZl41F2o83TSTJEqn1M70AEfTiU3uOfrR34AN46Y0JjeW4xo6cV+rH2TUD4SE1NDtof+377HjW5jUw1vYYddQq9f46CIv1pXDMg+OvLcv0mAeBq8idZd3/oeDOqFYW+mp/D/hf65ucF8pcrq4BoeAZT2yueghykMKcN1pOaBvVNRQXaTXALuE+8w2Owws5LoK70lx9jAX+i5vFCotZFddZWqe5L2MI0ywEcZRGnxLB/PRWCfMsAV61ff3CxEAEQBj4aCGHb8mrffVRaINrHzSOGJlXIUmJVwzUoH3BiotNBdeFHV2G71DUEencJEovZdqlMYUuhIAKjA+DfgjS3epEpEQNrzwPCKX2QgC5ldjdmvqjhO6m/WaW7AUu/ZUELhH43surbBI3DIUpdGLhRX8JNLcXwghofbs+01qhIeZxb1zkmYRQBbWo2Y8ozysScI3nlhIZDDntC275P1NiineIUI2cuFBMTmng7YcvOds0YdN9LWNMpWToi3AmaiWuIpn2hvQ6l7CMyrbKhV1zhntLZPe8aW3YFAGk3mXEHHaKn2q35sh1wDwOoxfvgLRxWhNns49UdPIv7G3QOsm+QGLosyNGvX9QaQMuvduSQGLQ
+DKIM-Signature: a=rsa-sha256; bh=e8QHyuDL2skEkQjNtYLhoBSaqvz+SM6k98JVY9giwR0=; 
  c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1783332529; v=1;
- b=un6e2Xv4cTU7fmByjvHV6GE/6N/JiXRrk3IFarOyX8OjDj/6AgGBQLQyCI3a/hOKb1j0JHcN
- 1x3BhatK3UUjm54m1ueOs/BTHJVKAtwjjAkKCzDcYyod/N+gAed6Y7n3cvutD/xAX9g/GaiScZI
- PSd9WHtSP4rTOn0FCSvYmDhT7Lx6mcdQiZRP0pBfye2ckx3WvfY/0ll3kplNNkBAv0/LRebQsP4
- XJtm3FRrFfIkgTPoaANlCGNemOObhH8r0MDuGJTjCEXiEXQbI/dLjWGrEpAmnmzxNBsz07aivNi
- Qgk/zvwUvxnbyZsckwWDy3csWPSP7/hYmbyNm/zytOp/A==
+ s=ovhmo-selector-1; t=1783332532; v=1;
+ b=eUJyg/KhLJxqzbeR8X8fv308CF/T3a0hdfG/bBr+nFr+3YsuvxnMub7QzWMolJwsdEYmMj6n
+ 327Wv7hJcXwAMJdmbIRQTFF2jj/PcMin2O8QErzsN39K/kg/rfpoTsykFg7T8sIovxbHEIJjV0n
+ T+OrsnDJiOruY/AxvbhYplnG4EmY7ZcLgxfLJ1gWDytfi/qsJGqzf82QmxOUEr3hRU8vWvQqliR
+ 0xGisukUHwaIpYRgZhNMTlJqLQn+VSiA2glo7arWxyl/GSLCu2Rol/Kb7JX1B5ogMLTvwg6BKhP
+ 7iHCL8Od0xVKOb+1OS7Guc6CG/VjTtuYMCowegzj6+eQA==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,44 +87,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Previously we always grabbed the BO reference after taking the lock, but
-that isn't necessary any more.
-
-So avoid doing that and cleanup the handling here.
+Both callers do the same thing, so we can trivially unify that.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
 ---
- drivers/gpu/drm/ttm/ttm_bo_util.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 29f068944a972..a53b25e8c2967 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -1010,14 +1010,17 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
- 			break;
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 24c52df169ac8..54f01611ec823 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -359,6 +359,13 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
+ 	struct ttm_place hop;
+ 	int ret = 0;
  
- 		bo = res->bo;
--		if (ttm_lru_walk_trylock(curs, bo))
--			bo_locked = true;
--		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
-+		if (!ttm_bo_get_unless_zero(bo))
- 			continue;
- 
--		if (!ttm_bo_get_unless_zero(bo)) {
--			if (curs->needs_unlock)
--				dma_resv_unlock(bo->base.resv);
-+		if (ttm_lru_walk_trylock(curs, bo)) {
-+			bo_locked = true;
++	if (ttm_bo_is_zombie(bo)) {
++		ret = ttm_bo_wait_ctx(bo, ctx);
++		if (!ret)
++			ttm_bo_cleanup_memtype_use(bo);
++		return ret;
++	}
 +
-+		} else if (!arg->ticket || arg->ctx->no_wait_gpu ||
-+			   arg->trylock_only) {
-+			spin_unlock(lru_lock);
-+			ttm_bo_put(bo);
-+			spin_lock(lru_lock);
- 			continue;
- 		}
+ 	memset(&hop, 0, sizeof(hop));
+ 
+ 	dma_resv_assert_held(bo->base.resv);
+@@ -466,13 +473,7 @@ int ttm_bo_evict_first(struct ttm_device *bdev, struct ttm_resource_manager *man
+ 	if (!bo->resource || bo->resource->mem_type != mem_type)
+ 		goto out_bo_moved;
+ 
+-	if (ttm_bo_is_zombie(bo)) {
+-		ret = ttm_bo_wait_ctx(bo, ctx);
+-		if (!ret)
+-			ttm_bo_cleanup_memtype_use(bo);
+-	} else {
+-		ret = ttm_bo_evict(bo, ctx);
+-	}
++	ret = ttm_bo_evict(bo, ctx);
+ out_bo_moved:
+ 	dma_resv_unlock(bo->base.resv);
+ out_no_lock:
+@@ -520,14 +521,7 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+ 		return 0;
+ 
+-	if (ttm_bo_is_zombie(bo)) {
+-		lret = ttm_bo_wait_ctx(bo, walk->arg.ctx);
+-		if (!lret)
+-			ttm_bo_cleanup_memtype_use(bo);
+-	} else {
+-		lret = ttm_bo_evict(bo, walk->arg.ctx);
+-	}
+-
++	lret = ttm_bo_evict(bo, walk->arg.ctx);
+ 	if (lret)
+ 		goto out;
  
 
 -- 
