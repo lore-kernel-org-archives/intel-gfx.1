@@ -4,40 +4,36 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 905BBC43458
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B5ACC44500
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3489310E8A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38C0310E8A4;
 	Mon,  6 Jul 2026 10:40:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="We2+UAkF";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="QLWPp0Oq";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F53E10E8A2;
- Mon,  6 Jul 2026 10:40:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 074B510E8A0;
+ Mon,  6 Jul 2026 10:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783334406;
- bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=We2+UAkFAMMwKYjv4iqPXinTzHU+mylxMdTNu37VpDxRLcIdCRPMD51X9Kc5fUeHI
- fCDh64sIDiBYPgWtxoU/AL45QREsfyQeryhaWi5z5MlWSW3Sk4ndESY25G7qCcgV7q
- mYrKscCpZ5cK9b7bqVxhTTFo3TnMi39O1F1B972CJE++RNPvCJW3gSpbjqFGL9JBwH
- yegvJ57uqtJWZRLAl4WlOtOpMRl7SHrNBnln7xMd3KA8o1i6OVv8jpcYmEutRV7iu6
- hJKkx/qKPrn0nRfBSJj36HTiNLw6Scr8umPszyfLD4KLi5mOj3CxNnDDIW17sH/fIX
- GAkjV4mN7O4Lw==
+ s=default; t=1783334405;
+ bh=i/YyU9d0Ww8cBNKyIC3Xr7/m83lJ0xdL3Nlgzk28BBQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=QLWPp0Oq54Hztbuyb2SjnBXTE/yEVcZBKWsO5nZse9I50PP1U4Qv28wrJeOeQun4N
+ UMuJnFp/ED16Vb/JrBa9qTQVLnhrx2V3sIXMEmmIuEdKO7zy6dqWrnA/gtwqIYbeT3
+ 7wd4hoIiRESLYI3Obs9uGE/OOjVbevWl4O7h+EDjdXIImRYGfTHzC2gWLQjY4ZAqwn
+ 9V3h+zvvSTl+zybWat+UADVDlm85QXpnQ7EEMDDdysXIRUc8+DDNBc9ghGbI6Ot5+E
+ cMeIHRDy9MvPXiWnp5IldhX/0Vw3eRtU18Dbw5GJsRjebubOp8edlEFYQB7VUF68Ri
+ d7pI3hlS4fBHQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v3 2/7] drm/i915: Drop the irqs_disabled() check
-Date: Mon,  6 Jul 2026 12:40:37 +0200
-Message-ID: <20260706104043.726178-3-dev@lankhorst.se>
+Cc: dri-devel@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Subject: [PATCH v3 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+Date: Mon,  6 Jul 2026 12:40:35 +0200
+Message-ID: <20260706104043.726178-1-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260706104043.726178-1-dev@lankhorst.se>
-References: <20260706104043.726178-1-dev@lankhorst.se>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -55,46 +51,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+All fixes to make the core i915 module (without display) working correctly on
+PREEMPT_RT.
 
-The !irqs_disabled() check triggers on PREEMPT_RT even with
-i915_sched_engine::lock acquired. The reason is the lock is transformed
-into a sleeping lock on PREEMPT_RT and does not disable interrupts.
+Some fixes are still needed, as the selftests still fail. But otherwise the
+test results were looking good on PREEMPT_RT.
 
-There is no need to check for disabled interrupts. The lockdep
-annotation below already check if the lock has been acquired by the
-caller and will yell if the interrupts are not disabled.
+It looks like the patch that added a spinlock caused a regression on !PREEMPT_RT,
+and may even have caused similar test failures on PREEMPT_RT, so to fix it
+I removed RCU entirely, and converted to a locked implementation instead.
 
-Remove the !irqs_disabled() check.
+This time at least, i915 live selftests pass on !PREEMPRT_RT for at least 1 machine
+with same config as CI.
 
-Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/i915/i915_request.c | 2 --
- 1 file changed, 2 deletions(-)
+Changes since v2:
+- Remove the extra signaler_active lock, it broke because
+  it didn't protect anything, instead use signalers_lock.
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df08..f66f8efc70629 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
- 
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
-@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
- 	 */
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+
+Maarten Lankhorst (3):
+  drm/i915/gt: Fix selftests on PREEMPT_RT
+  drm/i915/gt: Set stop_timeout() correctly on PREEMPT-RT
+  drm/i915: Use sleeping selftests for igt_atomic on PREEMPT_RT
+
+Sebastian Andrzej Siewior (4):
+  drm/i915/gt: Use spin_lock_irq() instead of local_irq_disable() +
+    spin_lock()
+  drm/i915: Drop the irqs_disabled() check
+  drm/i915/guc: Consider also RCU depth in busy loop.
+  drm/i915/gt: Use signalers_lock to prevent starvation of irq_work.
+
+ drivers/gpu/drm/i915/gt/intel_breadcrumbs.c   | 169 +++++++++++-------
+ .../gpu/drm/i915/gt/intel_breadcrumbs_types.h |   1 -
+ drivers/gpu/drm/i915/gt/intel_engine_cs.c     |   2 +-
+ .../drm/i915/gt/intel_execlists_submission.c  |  17 +-
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c  |   8 +-
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |   2 +-
+ drivers/gpu/drm/i915/i915_request.c           |   2 -
+ drivers/gpu/drm/i915/selftests/igt_atomic.c   |   7 +
+ 8 files changed, 127 insertions(+), 81 deletions(-)
+
 -- 
 2.53.0
 
