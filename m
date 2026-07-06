@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86A35C44501
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:59:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97AC0C43458
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 170D810E90A;
-	Mon,  6 Jul 2026 11:59:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D55410E910;
+	Mon,  6 Jul 2026 11:59:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MVyRNGr4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G70A6QPw";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1A5A10E908;
- Mon,  6 Jul 2026 11:59:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F75F10E913;
+ Mon,  6 Jul 2026 11:59:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783339187; x=1814875187;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GDpVzpk6hFfVqOrzm0joknxX9s6hjeFAITWGLrS49WM=;
- b=MVyRNGr43KNpZtV+5dS/YpZ01aaIlKXJivpfOueabQO0ALkZGPuRnZbH
- 07f3E8H3/UVwHnDzvS1K/XoR9XhIvLNVAZWoYGRjDVv64Va6cMfB+bVDv
- RY6nWvWFcX5Q4vbklsMObWh3YgH6FSntgPvxRxF3SDvAHCEpmpAWiAGPc
- wdq48IVXpSIEICZpoppEP1oK6ceufHO+VGTv2DBH5owYLhVwuIzPtuAfw
- A/ZYuh/do1TOYNleiE3LdXM5v/ndD9i5mWv5wDKDkGpLkqPJN/e1KGS7T
- BcpMiQjkL8V0gz/uj11jbSD++p50U3ooDCiY3pT2o8GDeSRvUNYDoF1zT A==;
-X-CSE-ConnectionGUID: e1Z4puDHRSiercWowpU4FA==
-X-CSE-MsgGUID: lgWNfp7ARd6JlKto9ff6XQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="95481106"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="95481106"
+ t=1783339190; x=1814875190;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=nbWSAGWzaPhv/jwR387o4vwu8oMJwm8TEuyXpdVJyn4=;
+ b=G70A6QPwmiGZupbjumgSYsimeZT2Tihllww6uKGM5axOR1OTwOOagmq9
+ VwCnF8aqPH6CK5noezVoDjlRS6vOqK0sQykR+KoSlR/VcjgluVh5majTz
+ 5NGlQfydFErkcZuP7bozQ7wNqF7oMhOBhPcpfiqXPC5jJTarvFnfeKqH/
+ Ku7BwAv9VmcZSvhrIZFvLj5uiNpXfm/RrZCD6BhtoWWnCbVIAxECa12j/
+ f37/HCuNihSWljX/0FIgvQ2tZsKhw7rMy6EVCm7CsSSXRMXNmAp4eoJlX
+ VbqWsVTBCvhTvjErs8T6+JOfuyYKsSRBxFlJ+mApoHXt5IzCTKlTevHTn Q==;
+X-CSE-ConnectionGUID: fUOqVR0ITY2tvaBcbOFzfQ==
+X-CSE-MsgGUID: /7XZL3jBT3Gp69onMbucvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="95481116"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="95481116"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 04:59:47 -0700
-X-CSE-ConnectionGUID: jtuqYc+/RLewnot7WaTUSg==
-X-CSE-MsgGUID: ndFhQIWpQCejvcXOKMRwRQ==
+ 06 Jul 2026 04:59:50 -0700
+X-CSE-ConnectionGUID: Zuv3YMlSQ+6tbO7zrPMFlA==
+X-CSE-MsgGUID: eueT85BtQuq0UPOvpcPqSA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="253797488"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="253797515"
 Received: from nemesa.iind.intel.com ([10.190.239.22])
- by orviesa007.jf.intel.com with ESMTP; 06 Jul 2026 04:59:46 -0700
+ by orviesa007.jf.intel.com with ESMTP; 06 Jul 2026 04:59:48 -0700
 From: Nemesa Garg <nemesa.garg@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 0/6] Enable joiner cursor fast updates
-Date: Mon,  6 Jul 2026 17:26:23 +0530
-Message-Id: <20260706115629.2984258-1-nemesa.garg@intel.com>
+Subject: [PATCH 2/6] drm/i915/cursor: Add helper to update cursor plane
+Date: Mon,  6 Jul 2026 17:26:25 +0530
+Message-Id: <20260706115629.2984258-3-nemesa.garg@intel.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260706115629.2984258-1-nemesa.garg@intel.com>
+References: <20260706115629.2984258-1-nemesa.garg@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -65,21 +67,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-    This series enables the cursor fast path for joiner mode
-and adds the missing secondary-plane handling to keep updates
-correct and synchronized.
+Move cursor fast path plane state update into helper
+function. The target hw.crtc is passed as a parameter
+so a later patch can reuse the helper for joiner
+secondary pipes, where hw.crtc points at the secondary
+being programmed while uapi.crtc stays on the primary.
 
-Nemesa Garg (6):
-  drm/i915/cursor: Check joiner cursor commit status
-  drm/i915/cursor: Add helper to update cursor plane
-  drm/i915/cursor: Handle secondary cursor state
-  drm/i915/cursor: Program secondary cursor planes
-  drm/i915/cursor: Schedule cursor unpin per joined pipe
-  drm/i915/cursor: Allow joiner cursor fast path update
+v4: Drop uapi.crtc assignment from the helper. [Chaitanya]
 
- drivers/gpu/drm/i915/display/intel_cursor.c | 274 +++++++++++++++-----
- 1 file changed, 204 insertions(+), 70 deletions(-)
+Assisted-by: Claude:claude-sonnet-4.6
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cursor.c | 39 ++++++++++++++-------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index af7fc1f888c4..632f7a0a5a63 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -841,6 +841,29 @@ intel_cursor_joiner_commits_idle(struct intel_display *display,
+ 	return true;
+ }
+ 
++static void
++intel_cursor_fastpath_update_plane_state(struct intel_plane_state *plane_state,
++					 struct drm_framebuffer *fb,
++					 struct intel_crtc *hw_crtc,
++					 int crtc_x, int crtc_y,
++					 unsigned int crtc_w, unsigned int crtc_h,
++					 u32 src_x, u32 src_y,
++					 u32 src_w, u32 src_h)
++{
++	drm_atomic_set_fb_for_plane(&plane_state->uapi, fb);
++
++	plane_state->uapi.src_x = src_x;
++	plane_state->uapi.src_y = src_y;
++	plane_state->uapi.src_w = src_w;
++	plane_state->uapi.src_h = src_h;
++	plane_state->uapi.crtc_x = crtc_x;
++	plane_state->uapi.crtc_y = crtc_y;
++	plane_state->uapi.crtc_w = crtc_w;
++	plane_state->uapi.crtc_h = crtc_h;
++
++	intel_plane_copy_uapi_to_hw_state(NULL, plane_state, plane_state, hw_crtc);
++}
++
+ static int
+ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 			   struct drm_crtc *_crtc,
+@@ -916,18 +939,10 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
+ 		goto out_free;
+ 	}
+ 
+-	drm_atomic_set_fb_for_plane(&new_plane_state->uapi, fb);
+-
+-	new_plane_state->uapi.src_x = src_x;
+-	new_plane_state->uapi.src_y = src_y;
+-	new_plane_state->uapi.src_w = src_w;
+-	new_plane_state->uapi.src_h = src_h;
+-	new_plane_state->uapi.crtc_x = crtc_x;
+-	new_plane_state->uapi.crtc_y = crtc_y;
+-	new_plane_state->uapi.crtc_w = crtc_w;
+-	new_plane_state->uapi.crtc_h = crtc_h;
+-
+-	intel_plane_copy_uapi_to_hw_state(NULL, new_plane_state, new_plane_state, crtc);
++	intel_cursor_fastpath_update_plane_state(new_plane_state, fb,
++						 crtc,
++						 crtc_x, crtc_y, crtc_w, crtc_h,
++						 src_x, src_y, src_w, src_h);
+ 
+ 	ret = intel_plane_atomic_check_with_state(crtc_state, new_crtc_state,
+ 						  old_plane_state, new_plane_state);
 -- 
 2.25.1
 
