@@ -4,136 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF687C43458
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 08:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB41EC44500
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 10:16:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 976A510E830;
-	Mon,  6 Jul 2026 08:43:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 746E210E325;
+	Mon,  6 Jul 2026 10:16:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WZUZydKu";
+	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="kATjUqnK";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010044.outbound.protection.outlook.com [52.101.46.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B5A10E827;
- Mon,  6 Jul 2026 08:43:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IoxtQVu9EpOX2kkt0lYdHySa6lSKnoyf+zhtF9nWhMWN+fRAvoXRTgAE7MlpWzQYSoJIxVAkQpm2rIbWnFNBn9iBRlNG6h8RZbVhYFq/6gDd/rlfzd4Ev1cXD6MhM2TwglQ/lCi6SqrJqDn9p+hmL6f6NWpN6RVJfinShrge/lvFa5ceTwtf2BccWrwS1R5F8X6oheXUanKf8m9xV/OymVfJEJTFgF0mumrmGgdicLtEX3zLGDUlu/Us5y5iWKBvHd4Y4a2xWI83RU52UKZSYDAvvFcGPbM24PwJN/oHY1W9OPL3So/zEBB8KtB5ptAIb6UmblWt+AZT+halvaCgXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rduim58xNR9xaovaeUrX+Z3fnbrBJg8nBV11gj9AODQ=;
- b=sCZOFXCTrY1S3Ee5RYNsSPaKEBFMI75Sv/Squx3vgJnBLRPQ/Thf2xRHjOfxNdtEgxyacxIq/Oql3zTrEnCEpFTfoN8zUS/U9vIQMbBu40rnM2kaWAGBH916quD5LJ0L4GU30yutzInR2Iq38ix+4elw7FVHFpGdOl4QkGr8tmrimhMpOzZMkF5UojNoAs7hfuI1XK7TTDhYZ61Ooh++uIwYs9tZoUiII+ABu0e0vfwrSK9f7W6GweQGQI0XY4DNQ3axu/WiR/4TTx5xhgxT0fJNzUcpCVcFavNIFAdgxIykMgAdysDJ+XvHR2RIFFqPe47No9x8lY0UWUIrtz0AiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rduim58xNR9xaovaeUrX+Z3fnbrBJg8nBV11gj9AODQ=;
- b=WZUZydKuTQEAY9VQBo+SSiOQDgjaHWWfO5ygYvpWSxDu3ueyaaj9xrgugVaEy8JzvfRnmywtTXxciTdMwfNGd+JwMaXtnARTPwyEBoaeE2Svp9TcA+tAuA/TQvczC6QSE0Q3v1zef/Ol0sHPMAKt+RISvwOFjRNSTOVUavfRH6U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB8361.namprd12.prod.outlook.com (2603:10b6:930:7b::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.10; Mon, 6 Jul
- 2026 08:43:42 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 08:43:41 +0000
-Message-ID: <84fe315a-bbf2-4dc8-bc75-89e5743d0ea8@amd.com>
-Date: Mon, 6 Jul 2026 10:43:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/exec: Add helper to bypass IGNORE_DUPLICATES
- flag
-To: Natalie Vock <natalie.vock@gmx.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20260703-ttm_2_drm_exec-v1-0-43685ac1286b@gmx.de>
- <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260703-ttm_2_drm_exec-v1-1-43685ac1286b@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT4PR01CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:111::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-Greylist: delayed 469 seconds by postgrey-1.36 at gabe;
+ Mon, 06 Jul 2026 10:16:33 UTC
+Received: from 5.mo533.mail-out.ovh.net (5.mo533.mail-out.ovh.net
+ [54.36.140.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A13B10E325
+ for <intel-gfx@lists.freedesktop.org>; Mon,  6 Jul 2026 10:16:32 +0000 (UTC)
+Received: from director6.derp.mail-out.ovh.net
+ (director6.derp.mail-out.ovh.net [51.255.22.22])
+ by mo533.mail-out.ovh.net (Postfix) with ESMTPS id 4gv0SV4sZBz66ZF;
+ Mon,  6 Jul 2026 10:08:58 +0000 (UTC)
+Received: from director6.derp.mail-out.ovh.net
+ (director6.derp.mail-out.ovh.net. [127.0.0.1])
+ by director6.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <alexander.deucher@amd.com>; Mon,  6 Jul 2026 10:08:58 +0000 (UTC)
+Received: from mta6.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.118.90])
+ by director6.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4gv0SV3YcQz7tLG; Mon,  6 Jul 2026 10:08:58 +0000 (UTC)
+Received: from pixelcluster.dev (unknown [10.1.6.11])
+ (Authenticated sender: nat@pixelcluster.dev)
+ by mta6.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 750D78E1901; 
+ Mon,  6 Jul 2026 10:08:56 +0000 (UTC)
+Authentication-Results: garm.ovh; auth=pass
+ (GARM-104R0055796c633-823e-421a-8789-d7c0475bcf91,
+ F224CF1D020274B13B21E639C91833BCDAC0997A) smtp.auth=nat@pixelcluster.dev
+X-OVh-ClientIp: 88.133.252.134
+From: Natalie Vock <nat@pixelcluster.dev>
+Date: Mon, 06 Jul 2026 12:07:52 +0200
+Subject: [PATCH v2 10/10] drm/amdgpu: use drm_exec during BO validation
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8361:EE_
-X-MS-Office365-Filtering-Correlation-Id: 345c064d-6df2-447e-83fe-08dedb3aae74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|7416014|1800799024|366016|921020|22082099003|4143699003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: QqQ80lAojKsEAR0lnEl9DZDGXJoj5PThOLypXSDJkEtAY5XJyM6+x1dyjgfCHI+9tO1Ld2VvwIMmppBM7seucmSwbFXrRwX0CBV2nJ86+a8bHoOB0ZOSkweDRfEypRsPj9XoXafX80x45qOcK86e+EPWSYDKW1GdTzx7V5sj9mwy/d8DkDqdJw6QvJ1rZkmJEu193wHIs5D36e7oEFajT6nojdeNLR9p3CHDssCxHYLs9mIdHmVTArOvhmN7C/HGn6AgokVU6uJU99P3WLsQnaBJf3x8M+enyo15oLZ74GklXqE8oLN2xCKpZggnSFfL9UPkU2sDN5zeVwKoYC7cjLd6KljGEZq722zdqCd3Lwg4w+e8I3dcdZXONnV3HHX7bOimkKZsaSlN2RJYZAEoHRQwhFNUMKPbhbtuTr/OlQ+I9t0rl4MqpmB4FzB0ue8VZRplFe6D6DXncbMviHpsvQQnWLB8fM4JYKDFHwzGxGS0everNsbS/+6pA0i7t4ngZJ382tp11pWCotJQT+NzPmVqMl5zfcgQ0PXKjBDpIdESPa0VkUfX9ENUa2X0yoaaqpRqg6+nt43TtdzaeSVKf7y2+2JRNonbkF+e7Q1QuQlOAc4TXRDFpKDxV6l2rlF8R9Gkwvl/26p9GOTTxZ1P7CGEHzareH2akx5e3nXFAIc206lsVEPTaJd+ms4+9pjbxKEc3Llwtt9Q56LQy8XCEw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(7416014)(1800799024)(366016)(921020)(22082099003)(4143699003)(56012099006)(18002099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmxaUGR5aHhNZGhxNy9RZnNQUjZSTVNjbWZ0b2dFUzNGMGJHODM0L0kraHAv?=
- =?utf-8?B?Z0xkYXRmbHQ5QjRyV3dxWXlWZGRCblZzcjNoc1IzVWJZSzR0N2NsM21xWVdO?=
- =?utf-8?B?Y3ZXUlNPOGx4SmlNeWJVb0djYWdmSFBUeFJYUm9RbU1zWHJRS3JZTWhveVhj?=
- =?utf-8?B?bnVJMytiTjZRUnZmdHVlOTFyZlhXYy9sc1N3R0NkaVFNd1hTMWgxcDBQM2lm?=
- =?utf-8?B?bXgrVzlHK1NOVTVFVGZGYWJLTDZCOUFrcWw3NkRick1IQ3VheDNmUkNpZFo2?=
- =?utf-8?B?OGtPWTh2VXh0c0FtVzlQekt3cFhCcWkvYURoa29STVUrUjMwNGlPbXE0TEhZ?=
- =?utf-8?B?V2RqSGtQbGpFam5SQ1Q2bmx3ZWpDQi93cEFndWtRNVYveFk1MUZDdzBzaWJs?=
- =?utf-8?B?RmJOdjNXZi9oRDVaZ0p3N1lPU1Y4d01CRS9tWlUvT0xSNzA3Y1hHMExCdDNr?=
- =?utf-8?B?c1phNFU4a0xVaWdnU0NiRk5pR2pVY1dPZ1BpbkM0bCt4WkNVVGVkaXBpRVRB?=
- =?utf-8?B?Z0NEMm9LUzZaS2hUQlpqVjhKV1N1YmpSM1A5Y2hpaUoyMzM5UU94N1BBeE1r?=
- =?utf-8?B?dXFWYTAwcnZIT1NDc3N0OE5LRkJuTng2M3FUajN3T3pvL0J2NmgrTHh4RUZl?=
- =?utf-8?B?cDdTZzZjb2Y5SjJTUll6V3lFMFd4OTlWTVVyWFdqMlFTK0VtS2ExWEoxL0Vm?=
- =?utf-8?B?b1g2M0FhSkFoVlNtYXFHUFFudHd0MC9wTlp3Y2ZJdWVRanE4Y3VrWmwwWGJQ?=
- =?utf-8?B?dnRrY2k0dHVYZ3hhZkJzemd6THZrZnZTK1lQNC92dSthSDF1aXFPdzdaL2JY?=
- =?utf-8?B?dTgzeVJMUjdIMXpjZk5nWGZXWFp1MEhGM3VNNkNQRXB0K0hvSmlmZVp2WGlI?=
- =?utf-8?B?dlEwS0xkRHl2QkN2dWxubzBzS0t5RHVFRWZ2eE1Jb25aV1FyUTJKQ1ZJUzk2?=
- =?utf-8?B?cjNXUGZ5NWFzbTNOSVFqOGh3T0FkT1FoZ01TOTdmTzZDZGlHTGFiY0NMOHpF?=
- =?utf-8?B?dVRWc0p3RG5UdVd5eFhESUZBamlORXVQdGFGekhINU11cDRSTTJIYXhtRGdR?=
- =?utf-8?B?UXV2TGxndkV6TTBvLzZiVEJPNm5vbnN5M2FPd2s4SnJNaDVrTFpUZklONjY5?=
- =?utf-8?B?MFZnMXYxUUVBSU1LZnZOR3QzdC9VamR4K3ZSb244U2RQczlQY2FmR3BsNWlL?=
- =?utf-8?B?MmkwZjNNTDRJNVdpWVk0LzhUaUFJTkkrclM3Yy90SUJiRnoyQ0VETktjclJX?=
- =?utf-8?B?enYwR0JzbS9raGJ0S04vY3RhZ1pITFZUMTFJaGFDNmRIdTFoMU9mMjVyeCtR?=
- =?utf-8?B?dTFRN1BUWlE2a2ZLRGRTSXdKTFVScmJoNW5MSFRXcGNTK3V6ZEkvdkk3TkFG?=
- =?utf-8?B?NzJvbEp4UXdpbXJSUTVqazltZngwOStOL3pzWG8wSnlZZHo5bmtnd1dMbENL?=
- =?utf-8?B?SWlhUjlQTnJReHRTaVBhYm5oTFFCQkptZExqSklTVjRjMGFuZDh3QVBJTk9W?=
- =?utf-8?B?T0d5bjgweUtnaExuekdFSjByTVhpemgvZXpock1yZTlyNnd0TCtJbkpYRVdk?=
- =?utf-8?B?UHdHOHdDbnpzSDY5eTdlY21qVFc1cURvWWN5UVIzVDJncWpQLzlSWWtURVVI?=
- =?utf-8?B?OHRxaFFxYlhyUDgzUUR6ZjYxeG9lcDFkYkdzanFrZXlrZ3Z3VXlxWEpPMGlx?=
- =?utf-8?B?eE1VVmU3WElUT2dVWm4wWURXVmJZcjdlMlJ2cUlRaXREVnVXYnc2ZGdMbmxS?=
- =?utf-8?B?R0xuSHc2VXRvWG1CNFpFUDJmZUErdTZSQ2FHOGlpdFRIa1lTL1BScUtoZmpC?=
- =?utf-8?B?Ymx1UDNFbEsxMWpnME5OeWVIdVo3cXRrbUdhVHd6VXliSDNXaVlzamVyYWo4?=
- =?utf-8?B?eiswaERSa0ppWGNnSkllSm5SMzIrUmM0MjBIQkpyRUdtK25WWnduSjduRklS?=
- =?utf-8?B?bjNJRnprK25la1Q2alAzZ1RwR1hNV2RRaWhYUWhkUEEwTU9EZVQxQW15N2Nl?=
- =?utf-8?B?SlVYTVMwY1hQdUE4NTJMc1M5dk02aUtUWUdZM1ptUENicTFkbzZ1L2pQSStR?=
- =?utf-8?B?b2ZNWHByMU4rNWNIMFlNNE05Q24wT1N0Rk45dmJVaEpqRkUySXdIS0dBcm1r?=
- =?utf-8?B?cFdDQkhLRnFZVGpxNEtYZlM4MlV4enNJZXlTMExWcDdWdDlMcEdvd1k0VlZO?=
- =?utf-8?B?N1Irb2o0OG1JUGsyZnJNTExHM05kdkZYaE84d0lNU2ZlZldwWk9xT0dRczJq?=
- =?utf-8?B?Z1QzblFuSkhESmFTQUR3cE5aWHBVWDY1Y2J6ZGU3ODZWRElGK09HNkluNk9p?=
- =?utf-8?B?L2xBNVRtYjI3cFpCNUZwNk5pVmhYcjlNWjE3bHVUK1V2UFBMWTlFZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 345c064d-6df2-447e-83fe-08dedb3aae74
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 08:43:41.7024 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ox2Vx7TvMeXcltIBq2PpsLqag+PiGnhcL7+FiwM8t/OlinejHfzHTpo9ntNUJZTE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8361
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260706-ttm_2_drm_exec-v2-10-4bf6bfc0d320@pixelcluster.dev>
+References: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
+In-Reply-To: <20260706-ttm_2_drm_exec-v2-0-4bf6bfc0d320@pixelcluster.dev>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+X-Mailer: b4 0.15.2
+x-ovh-tracer-id: 9131611196327616828
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: dmFkZTGrlNJ8ShesFc0BsmoWFi51A7F15j2IaCkSK7BVZBg/BM8MBdGhyqLZmkbZMHw/TdptOPm8sgahQti1Nc9RjBh0KMZiGtpja+p6qhts3jrWUso58aRKRrx2DXtHoeXDd8faKpktnEASA9l57md6lmCqaecpmqLv9KOaMd5Cxk2fFcLRCf7Y1jiwLpKZwWHOg5MLCHSu/c85HhHBD+9tK6DpmR22NTjUbN0dGZJB9cmuuQPGLboQ0v7ZPGbXkip9C+NIKd694im0qBCyEcUf/DwxdiDWy9o5iBQA1zQlg0Y75Jpr3La1ocQctyDO3tKJ1UAaq83N/bdymi3oIi31d22YoBwaV6S4+7wx+MgMCAkshuFAYAtz/AfGr6I3hor+Y7lZW7dEb1uLDV2wbmKC3QD1fMvDma6KWvllxG6QQDWBlDqIVrDcFFPuio1GdZ3KW7GxpPlQt0Mq53xKhocm+4eKKPYWbi7eWEEkS1NeGn8v2GCU3Sg0RVcJQHWuksUNdHOIWBJA/QqtrZd5SxJRN2sf19r6oXE3YCMZSqbGT0e7oKdKXtGuXR8JCtQGwX+CZwliBAGiPLDqEQt69J0xNj8qwWaL3h+2nLwCsiBkQXYKUQzxwkmBqMuOkqhukP4mGtBliFdmjLt6B/H6xnmJ4kx51oPKJXcDigWABKY3Wn2Y6g
+DKIM-Signature: a=rsa-sha256; bh=pbTL1gLxQx0BxNCVq/hEgyFIwea3jgeRxwgqZhg0jzU=; 
+ c=relaxed/relaxed; d=pixelcluster.dev; h=From;
+ s=ovhmo-selector-1; t=1783332539; v=1;
+ b=kATjUqnK7pryV6J5UaqojO9SZ9jUV+uYS8x/i2SKKUiGU2y0OqN6au/5znYjEB+OJBHybkVU
+ 0BhghqWu17XmZAgQZoxFwmQbmHNfWnsa2GzBD5QVgGSRjayYYAnkA2yPszW9oT5aG4hvRG8mppF
+ pYz76DzGOOi0jecrRrmbSRO0+lzj1SnR1InHt1Wr2LcgePtB3qzL+B0sXKGOXyEQbf3JkLQr/Us
+ Oar30eGu23sFRJ6ABxQ9e/hXYqqXj0+xPG7Cu7A2Pbey56uvT6+d9UKQHB7CL1jFBa8lxsIV7Ae
+ vqyvsBgBBYDE2TQK8YNWIzRJOtG0yXcGkzFStIEE+6x8w==
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,126 +89,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/3/26 18:31, Natalie Vock wrote:
-> TTM is about to switch to drm_exec for locking objects
-> in the LRU list. When we're done processing the object, we want to
-> unlock it only if the caller doesn't already hold that lock. If
-> DRM_EXEC_IGNORE_DUPLICATES is set on the exec object (which callers may
-> require for unrelated reasons), we have no way of knowing whether the
-> lock is already held.
-> 
-> To remedy this, add a separate helper that forcefully bypasses the
-> IGNORE_DUPLICATES flag for only a single locking operation.
-> 
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-> ---
->  drivers/gpu/drm/drm_exec.c | 52 ++++++++++++++++++++++++++++++++++------------
->  include/drm/drm_exec.h     |  2 ++
->  2 files changed, 41 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_exec.c b/drivers/gpu/drm/drm_exec.c
-> index 7988f5e7d56a3..91de6b4d29df8 100644
-> --- a/drivers/gpu/drm/drm_exec.c
-> +++ b/drivers/gpu/drm/drm_exec.c
-> @@ -190,18 +190,9 @@ static int drm_exec_lock_contended(struct drm_exec *exec)
->  	return ret;
->  }
->  
-> -/**
-> - * drm_exec_lock_obj - lock a GEM object for use
-> - * @exec: the drm_exec object with the state
-> - * @obj: the GEM object to lock
-> - *
-> - * Lock a GEM object for use and grab a reference to it.
-> - *
-> - * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> - * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-> - * flag), -ENOMEM when memory allocation failed and zero for success.
-> - */
-> -int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-> +static int __drm_exec_lock_obj(struct drm_exec *exec,
-> +			       struct drm_gem_object *obj,
-> +			       bool always_report_duplicates)
+This allows to detect deadlocks happening because of resource
+constraints.
 
-Rename the new parameter to ignore_duplicates.
+Especially submissions which want to use all of GDS doesn't result in
+sporadic -ENOMEM any more.
 
->  {
->  	int ret;
->  
-> @@ -226,7 +217,7 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
->  		return -EDEADLK;
->  	}
->  
-> -	if (unlikely(ret == -EALREADY) &&
-> +	if (unlikely(ret == -EALREADY) && !always_report_duplicates &&
->  	    exec->flags & DRM_EXEC_IGNORE_DUPLICATES)
->  		return 0;
->  
-> @@ -243,8 +234,43 @@ int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
->  	dma_resv_unlock(obj->resv);
->  	return ret;
->  }
-> +
-> +/**
-> + * drm_exec_lock_obj - lock a GEM object for use
-> + * @exec: the drm_exec object with the state
-> + * @obj: the GEM object to lock
-> + *
-> + * Lock a GEM object for use and grab a reference to it.
-> + *
-> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> + * already locked (can be suppressed by setting the DRM_EXEC_IGNORE_DUPLICATES
-> + * flag), -ENOMEM when memory allocation failed and zero for success.
-> + */
-> +int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj)
-> +{
-> +	return __drm_exec_lock_obj(exec, obj, false);
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Natalie Vock <nat@pixelcluster.dev>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 80 ++++++++++++++++++----------------
+ 1 file changed, 42 insertions(+), 38 deletions(-)
 
-And then use "exec->flags & DRM_EXEC_IGNORE_DUPLICATES" here.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index c2e6495a28bc5..052d41013f7a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -793,7 +793,7 @@ static int amdgpu_cs_bo_validate(void *param, struct amdgpu_bo *bo)
+ 	struct ttm_operation_ctx ctx = {
+ 		.interruptible = true,
+ 		.no_wait_gpu = false,
+-		.resv = bo->tbo.base.resv
++		.exec = &p->exec,
+ 	};
+ 	uint32_t domain;
+ 	int r;
+@@ -845,7 +845,8 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 				union drm_amdgpu_cs *cs)
+ {
+ 	struct amdgpu_fpriv *fpriv = p->filp->driver_priv;
+-	struct ttm_operation_ctx ctx = { true, false };
++	struct ttm_operation_ctx ctx = { .interruptible = true,
++					 .exec = &p->exec };
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_list_entry *e;
+ 	struct drm_gem_object *obj;
+@@ -922,47 +923,53 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 			if (unlikely(r))
+ 				goto out_free_user_pages;
+ 		}
+-	}
+-
+-	amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
+-		struct mm_struct *usermm;
+ 
+-		usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
+-		if (usermm && usermm != current->mm) {
+-			r = -EPERM;
+-			goto out_free_user_pages;
+-		}
++		amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
++			struct mm_struct *usermm;
+ 
+-		if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
+-		    e->user_invalidated) {
+-			amdgpu_bo_placement_from_domain(e->bo,
+-							AMDGPU_GEM_DOMAIN_CPU);
+-			r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
+-					    &ctx);
+-			if (r)
++			usermm = amdgpu_ttm_tt_get_usermm(e->bo->tbo.ttm);
++			if (usermm && usermm != current->mm) {
++				r = -EPERM;
+ 				goto out_free_user_pages;
++			}
+ 
+-			amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
+-						     e->range);
++			if (amdgpu_ttm_tt_is_userptr(e->bo->tbo.ttm) &&
++			    e->user_invalidated) {
++				amdgpu_bo_placement_from_domain(e->bo,
++								AMDGPU_GEM_DOMAIN_CPU);
++				r = ttm_bo_validate(&e->bo->tbo, &e->bo->placement,
++						    &ctx);
++				drm_exec_retry_on_contention(&p->exec);
++				if (r)
++					goto out_free_user_pages;
++
++				amdgpu_ttm_tt_set_user_pages(e->bo->tbo.ttm,
++							     e->range);
++			}
+ 		}
+-	}
+ 
+-	amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
+-					  &p->bytes_moved_vis_threshold);
+-	p->bytes_moved = 0;
+-	p->bytes_moved_vis = 0;
+-
+-	r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
+-			       amdgpu_cs_bo_validate, p);
+-	if (r) {
+-		drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+-		goto out_free_user_pages;
+-	}
++		amdgpu_cs_get_threshold_for_moves(p->adev, &p->bytes_moved_threshold,
++						  &p->bytes_moved_vis_threshold);
++		p->bytes_moved = 0;
++		p->bytes_moved_vis = 0;
+ 
+-	drm_exec_for_each_locked_object(&p->exec, obj) {
+-		r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
+-		if (unlikely(r))
++		r = amdgpu_vm_validate(p->adev, &fpriv->vm, NULL,
++				       amdgpu_cs_bo_validate, p);
++		drm_exec_retry_on_contention(&p->exec);
++		if (r) {
++			drm_err(adev_to_drm(p->adev), "amdgpu_vm_validate() failed.\n");
+ 			goto out_free_user_pages;
++		}
++
++		drm_exec_for_each_locked_object(&p->exec, obj) {
++			r = amdgpu_cs_bo_validate(p, gem_to_amdgpu_bo(obj));
++			drm_exec_retry_on_contention(&p->exec);
++			if (unlikely(r))
++				goto out_free_user_pages;
++		}
++
++		amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
++					     p->bytes_moved_vis);
+ 	}
+ 
+ 	if (p->uf_bo) {
+@@ -973,9 +980,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
+ 		p->gang_leader->uf_addr += amdgpu_bo_gpu_offset(p->uf_bo);
+ 	}
+ 
+-	amdgpu_cs_report_moved_bytes(p->adev, p->bytes_moved,
+-				     p->bytes_moved_vis);
+-
+ 	for (i = 0; i < p->gang_size; ++i)
+ 		amdgpu_job_set_resources(p->jobs[i], p->bo_list->gds_obj,
+ 					 p->bo_list->gws_obj,
 
-> +}
->  EXPORT_SYMBOL(drm_exec_lock_obj);
->  
-> +/**
-> + * drm_exec_lock_obj_report_dup - lock a GEM object for use, but always report duplicates
-> + * @exec: the drm_exec object with the state
-> + * @obj: the GEM object to lock
-> + *
-> + * Like drm_exec_lock_obj, lock a GEM object for use and grab a reference to it.
-> + * Unlike drm_exec_lock_obj, DRM_EXEC_IGNORE_DUPLICATES is ignored and duplicates are
-> + * always reported.
-> + *
-> + * Returns: -EDEADLK if a contention is detected, -EALREADY when object is
-> + * already locked, -ENOMEM when memory allocation failed and zero for success.
-> + */
-> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-> +				 struct drm_gem_object *obj)
-> +{
-> +	return __drm_exec_lock_obj(exec, obj, false);
-
-BTW That here is buggy, it should have been true.
-
-Apart from that looks good to me,
-Christian.
-
-> +}
-> +EXPORT_SYMBOL(drm_exec_lock_obj_report_dup);
-> +
->  /**
->   * drm_exec_unlock_obj - unlock a GEM object in this exec context
->   * @exec: the drm_exec object with the state
-> diff --git a/include/drm/drm_exec.h b/include/drm/drm_exec.h
-> index 8725ba92ff916..ff80dd2b72240 100644
-> --- a/include/drm/drm_exec.h
-> +++ b/include/drm/drm_exec.h
-> @@ -176,6 +176,8 @@ void drm_exec_init(struct drm_exec *exec, u32 flags, unsigned nr);
->  void drm_exec_fini(struct drm_exec *exec);
->  bool drm_exec_cleanup(struct drm_exec *exec);
->  int drm_exec_lock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
-> +int drm_exec_lock_obj_report_dup(struct drm_exec *exec,
-> +				 struct drm_gem_object *obj);
->  void drm_exec_unlock_obj(struct drm_exec *exec, struct drm_gem_object *obj);
->  int drm_exec_prepare_obj(struct drm_exec *exec, struct drm_gem_object *obj,
->  			 unsigned int num_fences);
-> 
+-- 
+2.55.0
 
