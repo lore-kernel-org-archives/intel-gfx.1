@@ -4,51 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B99CAC44500
-	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 13:26:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1572EC43458
+	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 13:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53E8510E9B7;
-	Mon,  6 Jul 2026 13:26:04 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F9E310E1DE;
- Mon,  6 Jul 2026 07:14:44 +0000 (UTC)
-X-UUID: 581e7c0a790a11f1aa26b74ffac11d73-20260706
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12, REQID:fcceb73a-0380-47e4-b99a-abd1c5bc0ee4, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
- release,TS:0
-X-CID-META: VersionHash:e7bac3a, CLOUDID:6ef45dd5ca8d3ca7d3fa85272e6cc966,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
- DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
- :0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 581e7c0a790a11f1aa26b74ffac11d73-20260706
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <lilinmao@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 562531898; Mon, 06 Jul 2026 15:14:36 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andi Shyti <andi.shyti@linux.intel.com>,
- Konstantin Khorenko <khorenko@virtuozzo.com>
-Cc: Linmao Li <lilinmao@kylinos.cn>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/guc: Return NULL for missing multi-lrc parent
-Date: Mon,  6 Jul 2026 15:14:08 +0800
-Message-Id: <20260706071412.559909-1-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A0ED710E95E;
+	Mon,  6 Jul 2026 13:35:56 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fgKwO+NK";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B4E10E95E;
+ Mon,  6 Jul 2026 13:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783344955; x=1814880955;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=jvbNe5eKjdGvr6xWNgbqGR9X3Yh4/Z+nNShaVz5iPqQ=;
+ b=fgKwO+NKSdcQe7bYU1aLwUREwlNgXWEC2UVIIqM9OymbKVv5IqPZFrM0
+ RtykdTonrF4T6hwBrnk5nMja+iNOmJvRrrwC1hgRc+wVk1oHYUHVt8bHv
+ ytNcoVS/r8lgHomGB1Os3easHtMg3De9mzd2fsZdljvIpa4db00ltl/Sq
+ wEJ9OiwyOOaqCdUBa+MGH2WGl0qOMgH+EfX2NgxBE9OfXZqBltBzoDThY
+ vmRNQzvnl4MC4Vufhrzcj4NU5TRYpC5ao1nYCeWDlD9L29bHypyx++Fue
+ kKAuw2fk30h9ICryry6WX9Qc+4gm68E4sZgV86Rr0IGP4jY1rYCyclAo2 A==;
+X-CSE-ConnectionGUID: hvQaTBcCREGEQhBEh7IAoQ==
+X-CSE-MsgGUID: yIUHQFojStSuLJ/X+xs20g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="106776580"
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="106776580"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Jul 2026 06:35:55 -0700
+X-CSE-ConnectionGUID: c334WF7NTiOgG9qlog2fcw==
+X-CSE-MsgGUID: Bzy6ckGDSouuXPMbrlZRRQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="257588050"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa004.jf.intel.com with ESMTP; 06 Jul 2026 06:35:53 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
+ shawn.c.lee@intel.com, kai.vehmanen@intel.com, ankit.k.nautiyal@intel.com,
+ chaitanya.kumar.borah@intel.com
+Subject: [PATCH v1] drm/i915/audio: treat UHBR SST like MST for cpu_transcoder
+ signalling
+Date: Mon,  6 Jul 2026 18:55:27 +0530
+Message-ID: <20260706132527.1687075-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 06 Jul 2026 13:26:02 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +67,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-multi_lrc_create_parent() returns ERR_PTR(0) when there are not enough
-engines in the class to create a parallel context.  ERR_PTR(0) evaluates
-to NULL, and the only caller already treats NULL as the non-error
-"not enough engines" case.
+UHBR SST uses the same 128b/132b transport as DP MST, so its audio also
+lives on a meaningful cpu_transcoder (>= 0), not the -1 used for legacy
+SST. Treating it as Non-MST made pin_eld_notify() signal -1 and made
+find_audio_state() skip the per-transcoder entry, so after suspend/resume
+or replug the ELD lookup failed and audio went silent.
 
-Return NULL directly to make the non-error path explicit.
+Detect UHBR SST alongside DP MST when deciding how to address audio
+state, in both the pin_eld_notify() signalling and the find_audio_state()
+lookup paths.
 
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_audio.c | 67 ++++++++++++++++++----
+ 1 file changed, 55 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-index 28e8a092f4e7..18077801b2e6 100644
---- a/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-+++ b/drivers/gpu/drm/i915/gt/uc/selftest_guc_multi_lrc.c
-@@ -44,7 +44,7 @@ multi_lrc_create_parent(struct intel_gt *gt, u8 class,
+diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
+index 9729f1837d2c..4586bf981255 100644
+--- a/drivers/gpu/drm/i915/display/intel_audio.c
++++ b/drivers/gpu/drm/i915/display/intel_audio.c
+@@ -37,6 +37,7 @@
+ #include "intel_crtc.h"
+ #include "intel_de.h"
+ #include "intel_display_types.h"
++#include "intel_dp.h"
+ #include "intel_display_wa.h"
+ #include "intel_lpe_audio.h"
+ 
+@@ -696,6 +697,42 @@ static void ibx_audio_codec_enable(struct intel_encoder *encoder,
+ 	mutex_unlock(&display->audio.mutex);
+ }
+ 
++/*
++ * 128b/132b transport is used for both DP MST and UHBR SST. As far as audio
++ * is concerned the hardware behaves identically in both cases: the port can
++ * carry multiple streams and the cpu_transcoder is a meaningful (>= 0,
++ * possibly > 0) identifier of the audio stream on that port. Legacy 8b/10b
++ * SST instead carries a single stream per port, for which the audio drivers
++ * expect the cpu_transcoder to be signalled as -1.
++ */
++static bool intel_audio_has_mst_transcoder(const struct intel_crtc_state *crtc_state)
++{
++	return intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) ||
++	       intel_dp_is_uhbr(crtc_state);
++}
++
++/*
++ * Same as intel_audio_has_mst_transcoder(), but derived from a stored encoder
++ * for which only the (legacy) crtc pointer is available. DP MST is detected
++ * from the encoder type without dereferencing the crtc, so that the MST path
++ * keeps working exactly as before; UHBR SST is detected from the active crtc
++ * state of the port encoder.
++ */
++static bool intel_audio_encoder_has_mst_transcoder(struct intel_encoder *encoder)
++{
++	struct intel_crtc *crtc;
++
++	if (encoder->type == INTEL_OUTPUT_DP_MST)
++		return true;
++
++	if (!encoder->base.crtc)
++		return false;
++
++	crtc = to_intel_crtc(encoder->base.crtc);
++
++	return intel_dp_is_uhbr(crtc->config);
++}
++
+ bool intel_audio_compute_config(struct intel_encoder *encoder,
+ 				struct intel_crtc_state *crtc_state,
+ 				struct drm_connector_state *conn_state)
+@@ -769,8 +806,8 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
+ 
+ 	if (acomp && acomp->base.audio_ops &&
+ 	    acomp->base.audio_ops->pin_eld_notify) {
+-		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST cases */
+-		if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST))
++		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST/HBR cases */
++		if (!intel_audio_has_mst_transcoder(crtc_state))
+ 			cpu_transcoder = -1;
+ 		acomp->base.audio_ops->pin_eld_notify(acomp->base.audio_ops->audio_ptr,
+ 						      (int)port, (int)cpu_transcoder);
+@@ -825,8 +862,8 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
+ 
+ 	if (acomp && acomp->base.audio_ops &&
+ 	    acomp->base.audio_ops->pin_eld_notify) {
+-		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST cases */
+-		if (!intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_DP_MST))
++		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST/HBR cases */
++		if (!intel_audio_has_mst_transcoder(old_crtc_state))
+ 			cpu_transcoder = -1;
+ 		acomp->base.audio_ops->pin_eld_notify(acomp->base.audio_ops->audio_ptr,
+ 						      (int)port, (int)cpu_transcoder);
+@@ -1119,17 +1156,23 @@ static int intel_audio_component_get_cdclk_freq(struct device *kdev)
+ 
+ /*
+  * get the intel audio state according to the parameter port and cpu_transcoder
+- * MST & (cpu_transcoder >= 0): return the audio.state[cpu_transcoder].encoder],
++ *
++ * A "MST transcoder" below means 128b/132b transport, i.e. either DP MST or
++ * UHBR SST, both of which use a meaningful (>= 0) cpu_transcoder to identify
++ * the audio stream on a port (see intel_audio_has_mst_transcoder()):
++ *
++ * MST transcoder & (cpu_transcoder >= 0): return the audio.state[cpu_transcoder],
+  *   when port is matched
+- * MST & (cpu_transcoder < 0): this is invalid
+- * Non-MST & (cpu_transcoder >= 0): only cpu_transcoder = 0 (the first device entry)
+- *   will get the right intel_encoder with port matched
+- * Non-MST & (cpu_transcoder < 0): get the right intel_encoder with port matched
++ * MST transcoder & (cpu_transcoder < 0): this is invalid
++ * Non-MST transcoder & (cpu_transcoder >= 0): only cpu_transcoder = 0 (the first
++ *   device entry) will get the right intel_encoder with port matched
++ * Non-MST transcoder & (cpu_transcoder < 0): get the right intel_encoder with
++ *   port matched
+  */
+ static struct intel_audio_state *find_audio_state(struct intel_display *display,
+ 						  int port, int cpu_transcoder)
+ {
+-	/* MST */
++	/* MST or UHBR SST */
+ 	if (cpu_transcoder >= 0) {
+ 		struct intel_audio_state *audio_state;
+ 		struct intel_encoder *encoder;
+@@ -1142,7 +1185,7 @@ static struct intel_audio_state *find_audio_state(struct intel_display *display,
+ 		encoder = audio_state->encoder;
+ 
+ 		if (encoder && encoder->port == port &&
+-		    encoder->type == INTEL_OUTPUT_DP_MST)
++		    intel_audio_encoder_has_mst_transcoder(encoder))
+ 			return audio_state;
  	}
  
- 	if (i <= 1)
--		return ERR_PTR(0);
-+		return NULL;
+@@ -1158,7 +1201,7 @@ static struct intel_audio_state *find_audio_state(struct intel_display *display,
+ 		encoder = audio_state->encoder;
  
- 	logical_sort(siblings, i);
+ 		if (encoder && encoder->port == port &&
+-		    encoder->type != INTEL_OUTPUT_DP_MST)
++		    !intel_audio_encoder_has_mst_transcoder(encoder))
+ 			return audio_state;
+ 	}
  
 -- 
-2.25.1
+2.48.1
 
