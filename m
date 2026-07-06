@@ -4,37 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72A42C43602
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDC3CC44501
 	for <intel-gfx@archiver.kernel.org>; Mon,  6 Jul 2026 11:47:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E0FE10E8FA;
-	Mon,  6 Jul 2026 11:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04A2010E8F8;
+	Mon,  6 Jul 2026 11:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="M+4L+ymG";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="f7Z1+2px";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9EE310E336;
- Mon,  6 Jul 2026 11:47:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06EC710E8F8;
+ Mon,  6 Jul 2026 11:47:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1783338465;
- bh=Oh1os3TsHNdW2Pq4AI0gYhWG24uRvSoJ0dx3b6zoRio=;
+ s=default; t=1783338466;
+ bh=T/OQGU8prg+GP3iTibN/WUfOED1EMA169ETe4ayUGKY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=M+4L+ymGabR91aKo0056F7egC/KOI6Id8ZkxK4ETjHbXoJErJ0TDdAV+oJYmNL8WO
- lB6pCKdBasAs7QHQ9U42TSIz0fY1ZMZOQPB2bRXD/zqeVZlagCKjWL2eh1yvfTSaqf
- /YnzpSTsEUDwuOgFd69ETuqEpOwhFwNvCjoiEVRNaZafC7FXaLlx7+eDX2x7P/fKbD
- eazofMO1FlWXXYNR1nueZx/wHi5+55KOTfYJDB/WyqhBn8jqOSJ0/7jaT9jFUHvJgQ
- nV2/vEpd8kthftb2KOt+vkvq7tuFnxXjw7HC/2RxOegMQSKf+80seEbaPgZ6OQRxoP
- oWbNbtQmTKCkQ==
+ b=f7Z1+2pxItxDU78d8u9hpUE8xf/L39ztFNn3g0PqOiMaSAluItnzzvDvmymKP8UJ0
+ bYtCEAPSmnD/Bz8xJ9Q0KLLwgeTNSbD3kcvL3ZtbtMGXbXZrLaz1ZxvmLsC0keawFe
+ Dea+izg4Fe+TVi6TIu6nlD+C25sGymAC7vSvCmdLJJ+V8ut82LtaqgaqMJVn5iLlUD
+ H1IPj9ZCrTOrWkJeTTb3Dzl0UprwlMuUdSnM2vLDwlT9/Yml538jdUoiynEyTZSULD
+ wa7/bHPpHwYT+nOQIk2Ush9MrlwsgNFfafrhQ5neUFg2y4PIA5UtllMtBcUUy8Kw+G
+ LQnGXBuIIIAqg==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v4 2/7] drm/i915: Drop the irqs_disabled() check
-Date: Mon,  6 Jul 2026 13:48:18 +0200
-Message-ID: <20260706114823.752313-3-dev@lankhorst.se>
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v4 4/7] drm/i915/gt: Fix selftests on PREEMPT_RT
+Date: Mon,  6 Jul 2026 13:48:20 +0200
+Message-ID: <20260706114823.752313-5-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260706114823.752313-1-dev@lankhorst.se>
 References: <20260706114823.752313-1-dev@lankhorst.se>
@@ -55,46 +52,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-
-The !irqs_disabled() check triggers on PREEMPT_RT even with
-i915_sched_engine::lock acquired. The reason is the lock is transformed
-into a sleeping lock on PREEMPT_RT and does not disable interrupts.
-
-There is no need to check for disabled interrupts. The lockdep
-annotation below already check if the lock has been acquired by the
-caller and will yell if the interrupts are not disabled.
-
-Remove the !irqs_disabled() check.
-
-Reported-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Acked-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/i915/i915_request.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/i915/gt/selftest_engine_pm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df08..f66f8efc70629 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -610,7 +610,6 @@ bool __i915_request_submit(struct i915_request *request)
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+index 10e556a7eac45..c1eff9edd8a5e 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_pm.c
+@@ -277,11 +277,11 @@ static int live_engine_busy_stats(void *arg)
+ 		st_engine_heartbeat_disable(engine);
  
- 	RQ_TRACE(request, "\n");
+ 		ENGINE_TRACE(engine, "measuring idle time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		udelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (de < 0 || de > 10) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while sleeping [for %lldns]\n",
+@@ -316,11 +316,11 @@ static int live_engine_busy_stats(void *arg)
+ 		}
  
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
-@@ -719,7 +718,6 @@ void __i915_request_unsubmit(struct i915_request *request)
- 	 */
- 	RQ_TRACE(request, "\n");
- 
--	GEM_BUG_ON(!irqs_disabled());
- 	lockdep_assert_held(&engine->sched_engine->lock);
- 
- 	/*
+ 		ENGINE_TRACE(engine, "measuring busy time\n");
+-		preempt_disable();
++		migrate_disable();
+ 		de = intel_engine_get_busy_time(engine, &t[0]);
+ 		mdelay(100);
+ 		de = ktime_sub(intel_engine_get_busy_time(engine, &t[1]), de);
+-		preempt_enable();
++		migrate_enable();
+ 		dt = ktime_sub(t[1], t[0]);
+ 		if (100 * de < 95 * dt || 95 * de > 100 * dt) {
+ 			pr_err("%s: reported %lldns [%d%%] busyness while spinning [for %lldns]\n",
 -- 
 2.53.0
 
