@@ -4,54 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D6EAC43458
-	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 11:46:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A003C43458
+	for <intel-gfx@archiver.kernel.org>; Wed,  8 Jul 2026 13:49:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0238310F0F2;
-	Wed,  8 Jul 2026 11:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6B3D10E60C;
+	Wed,  8 Jul 2026 13:49:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lEzw0oXY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tFLRu6oM";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 544B610E59C;
- Wed,  8 Jul 2026 11:46:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783511186; x=1815047186;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=+AfyJMpRSzJKVcV7NrivS/0hwEej9AOOUJThNHfKDxM=;
- b=lEzw0oXYrzf5LV1MpjrL0VMHkm3F2SpHvtZst8QuPPLSyUnm6qvrn29t
- aV1NylNb9pJqdlV/+qE3k4x+YsFx608wxb/rt96FmJdwB6l/L2SIspwQc
- rNaxqFGg6KiP95iRniEKjNNPowbTTsR+/mncrwEYbceby+IY9K4Pcgdki
- KjO2qU0N39fdP2xH5U4HKl/Ytef5b2EDH7PtUVvgdHYaAewaFuQL5+H6H
- SKKVOS3waMW1W/j4pwasWX0AIH84CRTdT7jIyM7emLlagfK3Lic42MjES
- ZMTj9J4hIZukwoB3Yv8QE88/yvdimCe1yUS0if7kcN/PdS0Xft55alZ+o w==;
-X-CSE-ConnectionGUID: LPcN50dhTCatkwOplMx5bg==
-X-CSE-MsgGUID: WQ3vOFiyTiWJohs3Yz6NUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="87852911"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="87852911"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 04:46:25 -0700
-X-CSE-ConnectionGUID: pRoqb8cdQoCv+o4smWvung==
-X-CSE-MsgGUID: Hib+z2C6R/2LYxcd7UbJvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="247897208"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa009.fm.intel.com with ESMTP; 08 Jul 2026 04:46:22 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
- shawn.c.lee@intel.com, kai.vehmanen@intel.com, ankit.k.nautiyal@intel.com,
- chaitanya.kumar.borah@intel.com, suraj.kandpal@intel.com
-Subject: [PATCH v3] drm/i915/audio: treat UHBR SST like MST for cpu_transcoder
- signalling
-Date: Wed,  8 Jul 2026 17:05:58 +0530
-Message-ID: <20260708113558.1863316-1-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.48.1
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
+ [209.85.221.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 992D510E60A
+ for <intel-gfx@lists.freedesktop.org>; Wed,  8 Jul 2026 13:43:27 +0000 (UTC)
+Received: by mail-vk1-f170.google.com with SMTP id
+ 71dfb90a1353d-5bf5d4d5d67so412559e0c.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 08 Jul 2026 06:43:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1783518206; x=1784123006; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=BTjqa+8oynSoVj1P4JC5t/e1L3Jq0cVpGMAlSPn0/oc=;
+ b=tFLRu6oMRZVeGsW8VeP1a57m5TyezZzToNqsXsEr+fuj8f77vUeVEFxwwCiFA2QrUb
+ FLNoG1iPQs/ExNP6L6bdu0NKrLaWxGqUf/sjPwbmAh67uv8c1wyN6QxCM1Vbt6I+g1zw
+ FOv3C0RUsqF/q9Gr1DZhhCYyTV18o1ueB1cykofRoCSNZSeuQltraTf6E3QpD3VW7cdS
+ NTZ8EMTt21A1IrhFWNIAWOqHs5LK0em0CnzdaBXMyjFzmnKmXLQuV9gGeAXnTfLBzh7C
+ UeTwaTOGT1Nmr9chc90L35PVb9onJhgTU45u7+uU/uL9vQaPYSvs8VLKW0Kb2JBXj2XR
+ DT/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783518206; x=1784123006;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=BTjqa+8oynSoVj1P4JC5t/e1L3Jq0cVpGMAlSPn0/oc=;
+ b=qdrcSpKMAtXkyO7bziVWwGBqwupb58deO47BBl7CQmlpgo0HNNF7hs3JPkpcmu01dU
+ WyYOUu0RXG8uKBUtl4LOfUFf2pFt9ophY0W6wJFxKkSuKbAZlqgwRgtPSkQFKn1RthPg
+ ydQ1JjF1LUsEydFbELF2VUTAOMcz+BE0Gfjv2URYm3nJ17I+Z7qTZrM57LtQM48n+pyZ
+ WmCZAUDgj2OYJlz/aHTFw4n0N8Hr6QY2XIf9YUovc9E8W2BL2ZbSCYJ+qLhrYzOBl2Lv
+ rNR1Fdly1uqwnn1g1rejVGHqhwbYyIGI50GbNoyaCbjWxyL8c3/0UzOE6hDokf2xz6Pj
+ 72Ug==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpZEjFCPy2gaURwhbD41JWHBn4pZp83regh5AHYRSXsh/Z02C8HVXa7NQ0m08+ZPB6ZZGTXOUzp82s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwgPndXLxIqA21Dm0BZQ6jbV7B0gfbSYpgLWxZYDRXHEjSTLeBk
+ QENExKWfgEiag/J+eP6WEJJOlQT6jXmOZ2muqK/eeG8IYZDD2tJHwTyK
+X-Gm-Gg: AfdE7cm5kjkx6ik6bgyulQOLko7G0KxwozuIV6UZCC0b0KFmbbaCzNrAXVq5dIhk3Jk
+ g6OxhTBh0ILJ1oQu7qJzRWPQDLYNuXSXW3+VtNLq1gr1waXIGjbdvxUvkR5a6Jezef2zWK/VPYD
+ Z3FuBrKGPgX3aefps44Zdq52VhbkKX52LuoXt0Wjv9mmWMLj5e7ut7gULDZH4NaclI5XGU8GqZH
+ wnZj5ZGU7zMePyd2fa7XwAxR5RK72kziam1hJPc1ccxc5FXFYR71KbPYB+4Za6WOehkazmpCBwF
+ fon0GlYfeFNPh3uBmXIt+v6/gbg+nNMnGKrAAU463oobzVFJQ80Nw+XpIo46+sFnOqb6Ywd8/Nl
+ GTsPQbajAZHA/PcBrIWgsMgR5vn2i4ZI91/ezklw52MOSD1jIWwuXQtjNPxuALSElTOiBZjCYRI
+ RmC5+jgLLNDmSn9oh1bMhvHVIp6xRY
+X-Received: by 2002:a05:6123:102:b0:567:4e8a:fb13 with SMTP id
+ 71dfb90a1353d-5bf75dc3cf4mr1129732e0c.8.1783518206208; 
+ Wed, 08 Jul 2026 06:43:26 -0700 (PDT)
+Received: from fedora ([67.230.148.25]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5bf6f5e12a9sm1652971e0c.1.2026.07.08.06.43.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jul 2026 06:43:25 -0700 (PDT)
+From: Thierry Cantin-Demers <thierrycantindemers@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+ Mika Kahola <mika.kahola@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Thierry Cantin-Demers <thierrycantindemers@gmail.com>
+Subject: [PATCH] drm/i915/psr: Disable eDP Panel Replay on XPS 16 DA16260 (LG
+ 0x07C5)
+Date: Wed,  8 Jul 2026 09:42:52 -0400
+Message-ID: <20260708134252.11854-1-thierrycantindemers@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 08 Jul 2026 13:49:11 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,175 +91,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Both DP MST and UHBR SST require the audio component to use a real
-cpu_transcoder (>= 0) value to identify the audio stream on a port.
-For DP MST this was already handled; for UHBR SST it was not, causing
-pin_eld_notify() to signal cpu_transcoder = -1 (the legacy SST sentinel)
-and find_audio_state() to skip the per-transcoder entry for the UHBR
-stream.
+The Dell XPS 16 DA16260 ships in more than one panel variant. The existing
+quirk entry only matches the LG Display panel with DPCD sink OUI 00:22:b9.
+Another variant of the same laptop (subsystem 1028:0dba) uses an LG Display
+0x07C5 panel with sink OUI 00:aa:01, which is not matched, so eDP Panel
+Replay stays enabled and the panel hits a persistent PANEL-REPLAY Link CRC
+error, dropping the internal display to ~5 fps.
 
-After suspend/resume or replug, the ELD lookup fails and audio goes
-silent. Fix by detecting UHBR SST alongside DP MST when deciding
-whether a real cpu_transcoder value must be used for audio state
-addressing, in both the pin_eld_notify() signalling and the
-find_audio_state() lookup paths.
+Add a quirk entry for OUI 00:aa:01 so this variant also gets eDP Panel
+Replay disabled. Confirmed xe.enable_panel_replay=0 resolves the issue.
 
---v2:
-- Commit message and comment update. (Suraj)
-- Change function name has_mst_transcoder. (Suraj)
-- Avoid Live crtc access in find_audio_state. (Suraj)
-
---v3:
-- Minor comment changes to avoid MST over 128b/132b confusion. (Suraj)
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+Fixes: cb8d155b0806 ("drm/i915/psr: Disable Panel Replay on Dell XPS 16 DA16260 as a quirk")
+Signed-off-by: Thierry Cantin-Demers <thierrycantindemers@gmail.com>
+Tested-by: Thierry Cantin-Demers <thierrycantindemers@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_audio.c    | 55 ++++++++++++++-----
- .../gpu/drm/i915/display/intel_display_core.h |  1 +
- 2 files changed, 41 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm/i915/display/intel_audio.c
-index 9729f1837d2c..fb0d7ed6fbd6 100644
---- a/drivers/gpu/drm/i915/display/intel_audio.c
-+++ b/drivers/gpu/drm/i915/display/intel_audio.c
-@@ -38,6 +38,7 @@
- #include "intel_de.h"
- #include "intel_display_types.h"
- #include "intel_display_wa.h"
-+#include "intel_dp.h"
- #include "intel_lpe_audio.h"
- 
- /**
-@@ -696,6 +697,13 @@ static void ibx_audio_codec_enable(struct intel_encoder *encoder,
- 	mutex_unlock(&display->audio.mutex);
- }
- 
-+static
-+bool intel_audio_needs_cpu_transcoder_id(const struct intel_crtc_state *crtc_state)
-+{
-+	return intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST) ||
-+	       intel_dp_is_uhbr(crtc_state);
-+}
-+
- bool intel_audio_compute_config(struct intel_encoder *encoder,
- 				struct intel_crtc_state *crtc_state,
- 				struct drm_connector_state *conn_state)
-@@ -762,6 +770,8 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
- 	audio_state = &display->audio.state[cpu_transcoder];
- 
- 	audio_state->encoder = encoder;
-+	audio_state->needs_cpu_transcoder_id =
-+			intel_audio_needs_cpu_transcoder_id(crtc_state);
- 	BUILD_BUG_ON(sizeof(audio_state->eld) != sizeof(crtc_state->eld));
- 	memcpy(audio_state->eld, crtc_state->eld, sizeof(audio_state->eld));
- 
-@@ -769,8 +779,12 @@ void intel_audio_codec_enable(struct intel_encoder *encoder,
- 
- 	if (acomp && acomp->base.audio_ops &&
- 	    acomp->base.audio_ops->pin_eld_notify) {
--		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST cases */
--		if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST))
-+		/*
-+		 * Audio drivers expect cpu_transcoder = -1 to indicate
-+		 * Non-MST/HBR cases. MST and UHBR SST are addressed by
-+		 * a real cpu_transcoder.
-+		 */
-+		if (!intel_audio_needs_cpu_transcoder_id(crtc_state))
- 			cpu_transcoder = -1;
- 		acomp->base.audio_ops->pin_eld_notify(acomp->base.audio_ops->audio_ptr,
- 						      (int)port, (int)cpu_transcoder);
-@@ -819,14 +833,19 @@ void intel_audio_codec_disable(struct intel_encoder *encoder,
- 	audio_state = &display->audio.state[cpu_transcoder];
- 
- 	audio_state->encoder = NULL;
-+	audio_state->needs_cpu_transcoder_id = false;
- 	memset(audio_state->eld, 0, sizeof(audio_state->eld));
- 
- 	mutex_unlock(&display->audio.mutex);
- 
- 	if (acomp && acomp->base.audio_ops &&
- 	    acomp->base.audio_ops->pin_eld_notify) {
--		/* audio drivers expect cpu_transcoder = -1 to indicate Non-MST cases */
--		if (!intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_DP_MST))
-+		/*
-+		 * Audio drivers expect cpu_transcoder = -1 to indicate
-+		 * Non-MST/HBR cases. MST and UHBR SST are addressed by
-+		 * a real cpu_transcoder.
-+		 */
-+		if (!intel_audio_needs_cpu_transcoder_id(old_crtc_state))
- 			cpu_transcoder = -1;
- 		acomp->base.audio_ops->pin_eld_notify(acomp->base.audio_ops->audio_ptr,
- 						      (int)port, (int)cpu_transcoder);
-@@ -1118,18 +1137,24 @@ static int intel_audio_component_get_cdclk_freq(struct device *kdev)
- }
- 
- /*
-- * get the intel audio state according to the parameter port and cpu_transcoder
-- * MST & (cpu_transcoder >= 0): return the audio.state[cpu_transcoder].encoder],
-- *   when port is matched
-- * MST & (cpu_transcoder < 0): this is invalid
-- * Non-MST & (cpu_transcoder >= 0): only cpu_transcoder = 0 (the first device entry)
-- *   will get the right intel_encoder with port matched
-- * Non-MST & (cpu_transcoder < 0): get the right intel_encoder with port matched
-+ * Get the intel audio state for a given (port, cpu_transcoder).
-+ *
-+ * Streams are addressed either by a real cpu_transcoder (DP MST and UHBR SST,
-+ * i.e. entries whose stored needs_cpu_transcoder_id is true) or by port alone
-+ * (legacy SST). Both the signalling side (pin_eld_notify()) and the lookup
-+ * side use the same predicate, so the two are symmetric.
-+ *
-+ * cpu_transcoder >= 0 & needs_cpu_transcoder_id: return audio.state[cpu_transcoder]
-+ *   when the port matches.
-+ * cpu_transcoder <  0 & !needs_cpu_transcoder_id: return the first port-matching
-+ *   entry.
-+ * cpu_transcoder =  0 & !needs_cpu_transcoder_id: falls through to the port-only
-+ *   loop so the first device entry of a legacy SST port is still found.
-  */
- static struct intel_audio_state *find_audio_state(struct intel_display *display,
- 						  int port, int cpu_transcoder)
- {
--	/* MST */
-+	/* MST, or UHBR SST. */
- 	if (cpu_transcoder >= 0) {
- 		struct intel_audio_state *audio_state;
- 		struct intel_encoder *encoder;
-@@ -1142,11 +1167,11 @@ static struct intel_audio_state *find_audio_state(struct intel_display *display,
- 		encoder = audio_state->encoder;
- 
- 		if (encoder && encoder->port == port &&
--		    encoder->type == INTEL_OUTPUT_DP_MST)
-+		    audio_state->needs_cpu_transcoder_id)
- 			return audio_state;
- 	}
- 
--	/* Non-MST */
-+	/* Legacy SST. */
- 	if (cpu_transcoder > 0)
- 		return NULL;
- 
-@@ -1158,7 +1183,7 @@ static struct intel_audio_state *find_audio_state(struct intel_display *display,
- 		encoder = audio_state->encoder;
- 
- 		if (encoder && encoder->port == port &&
--		    encoder->type != INTEL_OUTPUT_DP_MST)
-+		    !audio_state->needs_cpu_transcoder_id)
- 			return audio_state;
- 	}
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_core.h b/drivers/gpu/drm/i915/display/intel_display_core.h
-index 17f7d3abdb9c..a6129d0b523f 100644
---- a/drivers/gpu/drm/i915/display/intel_display_core.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_core.h
-@@ -97,6 +97,7 @@ struct intel_wm_funcs {
- struct intel_audio_state {
- 	struct intel_encoder *encoder;
- 	u8 eld[MAX_ELD_BYTES];
-+	bool needs_cpu_transcoder_id;  /* MST, or SST on UHBR link */
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..e452235832fe 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -286,6 +286,14 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* Dell XPS 16 DA16260 (LG Display 0x07C5, OUI 00:aa:01) */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = 0x1028,
++		.subsystem_device = 0x0dba,
++		.sink_oui = SINK_OUI(0x00, 0xaa, 0x01),
++		.hook = quirk_disable_edp_panel_replay,
++	},
  };
  
- struct intel_audio {
+ void intel_init_quirks(struct intel_display *display)
 -- 
-2.48.1
+2.55.0
 
