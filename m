@@ -4,118 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCED4C44506
-	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:22:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF9F2C43458
+	for <intel-gfx@archiver.kernel.org>; Thu,  9 Jul 2026 09:53:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCE710F49F;
-	Thu,  9 Jul 2026 09:22:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B63E10F4A7;
+	Thu,  9 Jul 2026 09:53:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bt1nM3Vk";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Ru+n/XaS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FtcF++5l";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vyEO1pTz";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ZnR/aZ5i";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA6D610F499
- for <intel-gfx@lists.freedesktop.org>; Thu,  9 Jul 2026 09:22:48 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E55E675DDF;
- Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783588945; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
- b=bt1nM3VkmfDThiDAbaF4BJ6mO9hxtNq8gUobBwLZRD1OvV5yqwK7JPH/oVJ+Rrz9cyBes9
- 3qewIhNbeKN3Hr6wcydT9nNgrR6VFKivIYls3H8B2V8KZlvyGq8j1YUPtigGpZ8vo/Oc88
- S3Gtsxawobb00piq/epRxEZ5X4+PI+s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783588945;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
- b=Ru+n/XaSRnvME2VyrAxHuanA5vqeVXsr80d7F3thORp0G+zVqtJ17pvF1sZ16rTNSjBCNQ
- 08ZRJ1O3Up/0zZCA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FtcF++5l;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vyEO1pTz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1783588944; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
- b=FtcF++5lmc5X4hvZIQn1X0sy54vGMJ1Nd+7QsOlilsTBw42j4SFUS50NSxg0PImGk/g/oQ
- XkxV6ODdzZcThLN4Gs3ITdeByaklTdnzy9PNR77XOxbMFplYtmkh2Ld9Aj5SIMioSaaa0c
- 8jKpwejj9k7E74eOBjQ0/sUZzwpWRKg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1783588944;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=574v5c5jCuBngsqR6pYmAMULmmJYIoTEWZhr2k4Q7TQ=;
- b=vyEO1pTz2UFwzodW3Lvv89Nebi05DKbH326C6DtDpSQ4YSOhipdj7fNnHk5hyCwIZkZE6M
- ItiTVx8Q9QzdYaCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5D579779AA;
- Thu,  9 Jul 2026 09:22:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 0MdcFVBoT2q6OQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 09 Jul 2026 09:22:24 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
- dakr@kernel.org, deller@gmx.de
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 6/7] drm: Implement vga_switcheroo_client_ops.post_switch
-Date: Thu,  9 Jul 2026 11:16:02 +0200
-Message-ID: <20260709092215.168172-7-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
-References: <20260709092215.168172-1-tzimmermann@suse.de>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF9F10F4A7;
+ Thu,  9 Jul 2026 09:53:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1783590787;
+ bh=+/h3p/bzlPlYOc3yEyyvW+IkQ+A1ztref4CYgH1i6go=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ZnR/aZ5iIuBMkXDVchJcbuUrqgEtgTBgqctsav5jy1lRbjabDYBKiCHeKcZdxOw4O
+ FjhAOpC8PqhkZAs7t2XuPqK8/ofvtHfee/6jSjBEDsY9I+AZrzlPTtR7vmW8xMJvdt
+ xSDf8K8AKBZSAHnJPvq492kzaplEtG3ovvzYmMYwJR1dWZWZqa9HOer8lIFe+kRrys
+ OZCCOiTuqDsU+08O9vTzeNqiyz9dQb3nEDzgBX7msKwPA5Qp1p5ssSgAAhJeC8++3g
+ ug8uLvSk9qs/FJPAvIF7qML4u5U6E2SPBxiFy/lfTpccQ5DsRKNoEqG2z4sY9t4lB5
+ pwFt2mFlNZcMg==
+Message-ID: <c4222f81-72b2-4eea-a900-da327f0df928@lankhorst.se>
+Date: Thu, 9 Jul 2026 11:53:52 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- MIME_TRACE(0.00)[0:+];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- RCPT_COUNT_TWELVE(0.00)[22]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:email,suse.de:dkim,suse.de:mid];
- FROM_EQ_ENVFROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLgosu6qu4h11rje89ht7rjgg5)];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- TO_DN_SOME(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de]
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: E55E675DDF
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/7] drm/i915: All fixes to make i915 work well with
+ PREEMPT_RT.
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260706114823.752313-1-dev@lankhorst.se>
+ <20260706122026.IJAiyhhw@linutronix.de>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <20260706122026.IJAiyhhw@linutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,104 +55,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-An output's attached display might have changed while a DRM client's
-device did not have the output switched to it.
+Hello Sebastian,
 
-The nouveau_switcheroo_reprobe() callback sends a hotplug notice to
-DRM's internal clients, so that they can reconfigure their display
-output if necessary.
+The test results are available, mostly looks good except 1 spurious incomplete.
 
-As post_switch callback replaces reprobe in vga_switcheroo, update
-nouveau accordingly. In the other drivers, remove the NULL-assignment
-to reprobe. No functional changes.
+I tried reproducing it, but was unable to. It seems that pre-existing incompletes
+on the specific IGT testcase already happened before the changes.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Lyude Paul <lyude@redhat.com> # nouveau
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  1 -
- drivers/gpu/drm/i915/i915_switcheroo.c     |  1 -
- drivers/gpu/drm/nouveau/nouveau_vga.c      | 19 +++++++++----------
- drivers/gpu/drm/radeon/radeon_device.c     |  1 -
- 4 files changed, 9 insertions(+), 13 deletions(-)
+Do you want to review the patches you didn't author, so I can move forward?
+Even if you are uncomfortable to review the signalers_lock changes, it should
+be possible to have the rest reviewed and merged upstream.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 87a59a79a019..5bb1567d512d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1708,7 +1708,6 @@ static void amdgpu_switcheroo_pre_switch(struct pci_dev *pdev)
- 
- static const struct vga_switcheroo_client_ops amdgpu_switcheroo_ops = {
- 	.set_gpu_state = amdgpu_switcheroo_set_state,
--	.reprobe = NULL,
- 	.can_switch = amdgpu_switcheroo_can_switch,
- 	.pre_switch = amdgpu_switcheroo_pre_switch,
- };
-diff --git a/drivers/gpu/drm/i915/i915_switcheroo.c b/drivers/gpu/drm/i915/i915_switcheroo.c
-index 6b306ece0556..d97057722fde 100644
---- a/drivers/gpu/drm/i915/i915_switcheroo.c
-+++ b/drivers/gpu/drm/i915/i915_switcheroo.c
-@@ -69,7 +69,6 @@ static void i915_switcheroo_pre_switch(struct pci_dev *pdev)
- 
- static const struct vga_switcheroo_client_ops i915_switcheroo_ops = {
- 	.set_gpu_state = i915_switcheroo_set_state,
--	.reprobe = NULL,
- 	.can_switch = i915_switcheroo_can_switch,
- 	.pre_switch = i915_switcheroo_pre_switch,
- };
-diff --git a/drivers/gpu/drm/nouveau/nouveau_vga.c b/drivers/gpu/drm/nouveau/nouveau_vga.c
-index 2d2d08be8fbe..29a801124e56 100644
---- a/drivers/gpu/drm/nouveau/nouveau_vga.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_vga.c
-@@ -54,15 +54,6 @@ nouveau_switcheroo_set_state(struct pci_dev *pdev,
- 	}
- }
- 
--static void
--nouveau_switcheroo_reprobe(struct pci_dev *pdev)
--{
--	struct nouveau_drm *drm = pci_get_drvdata(pdev);
--	struct drm_device *dev = drm->dev;
--
--	drm_client_dev_hotplug(dev);
--}
--
- static bool
- nouveau_switcheroo_can_switch(struct pci_dev *pdev)
- {
-@@ -84,12 +75,20 @@ nouveau_switcheroo_pre_switch(struct pci_dev *pdev)
- 	drm_client_dev_acquire_outputs(drm->dev);
- }
- 
-+static void
-+nouveau_switcheroo_post_switch(struct pci_dev *pdev)
-+{
-+	struct nouveau_drm *drm = pci_get_drvdata(pdev);
-+
-+	drm_client_dev_hotplug(drm->dev);
-+}
-+
- static const struct vga_switcheroo_client_ops
- nouveau_switcheroo_ops = {
- 	.set_gpu_state = nouveau_switcheroo_set_state,
--	.reprobe = nouveau_switcheroo_reprobe,
- 	.can_switch = nouveau_switcheroo_can_switch,
- 	.pre_switch = nouveau_switcheroo_pre_switch,
-+	.post_switch = nouveau_switcheroo_post_switch,
- };
- 
- void
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 8697a9eb5d13..9523240110a6 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1267,7 +1267,6 @@ static void radeon_switcheroo_pre_switch(struct pci_dev *pdev)
- 
- static const struct vga_switcheroo_client_ops radeon_switcheroo_ops = {
- 	.set_gpu_state = radeon_switcheroo_set_state,
--	.reprobe = NULL,
- 	.can_switch = radeon_switcheroo_can_switch,
- 	.pre_switch = radeon_switcheroo_pre_switch,
- };
--- 
-2.54.0
+Kind regards,
+~Maarten Lankhorst
+
+On 7/6/26 14:20, Sebastian Andrzej Siewior wrote:
+> On 2026-07-06 13:48:16 [+0200], Maarten Lankhorst wrote:
+>> All fixes to make the core i915 module (without display) working correctly on
+>> PREEMPT_RT.
+>>
+>> Some fixes are still needed, as the selftests still fail. But otherwise the
+>> test results were looking good on PREEMPT_RT.
+>>
+>> It looks like the patch that added a spinlock caused a regression on !PREEMPT_RT,
+>> and may even have caused similar test failures on PREEMPT_RT, so to fix it
+>> I removed RCU entirely, and converted to a locked implementation instead.
+>>
+>> This time at least, i915 live selftests pass on !PREEMPRT_RT for at least 1 machine
+>> with same config as CI.
+> 
+> I saw the version counter overflowed and is at 4 here. I appreciate all
+> the work. May I ask how are things?
+>  
+> Sebastian
 
