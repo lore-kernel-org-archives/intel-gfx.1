@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6217CC4450D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17A8C4450E
 	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D59210E9ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E67710E9EE;
 	Mon, 13 Jul 2026 13:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kGl604zO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Oj2bbZq2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DB2410E2FF;
- Sat, 11 Jul 2026 18:50:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08F5210E08B;
+ Sat, 11 Jul 2026 18:47:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16B8760052;
- Sat, 11 Jul 2026 18:50:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2690E1F00A3A;
- Sat, 11 Jul 2026 18:49:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7F64D60052;
+ Sat, 11 Jul 2026 18:47:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E271F00A3A;
+ Sat, 11 Jul 2026 18:47:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795814;
- bh=VYkDI6h+waLNcPjkBya9DGnDggZvgWVLygEReXlfsZM=;
+ s=k20260515; t=1783795647;
+ bh=4YSWAKth/DAZEc/MzMRhpX5OSIdEQ/yxeUWHtpyMER8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=kGl604zOY5i/9BHc7cLc4ryqHD+01SAUicrFqMKwslfHQhi80jDyaMm2MyxhO5qOt
- 5Pq/TrS3o9h1Q+W/qwP8lSEVI5jCfMdWQHJGOSTzqQxcgi/ZcaaOXqvQkVb1FUVgE6
- 9YbVEPYs9ZC7WBFyRZhHqrj+/ntYKTZVK3XRtCayQvKHxiWeP6HYUE54e0sI1syKFA
- s2zK3U9ax8wTAugutxfyxWaRWS5LrbXoh4d2i5NgoY8R2qopkb5XoFfc+IxgcXnP6J
- LumgNfEnvhlL0OZHtdfacxoMtfjedGIBKxF4rKadinDpk8PtJvmtheBqh+pFiShHQX
- BbDB2Fj9clkaw==
+ b=Oj2bbZq2ueyXMY7p77+CFk7KQGuguV+50w4ZIUQ3vDaeafeKSyr0+ZYcJDubPtLNZ
+ sJRwgYlEz100fbFYljWUFkR/aPeb1rLheG84FTwtN8ZRUfctoXXsBHdSy8qI71UJOJ
+ dg/wbxCPU7ZbHdmLXYfyUofuSsmh6hs/WTMBZ7ZZw8n0FLFgvBmCyQthypfFVSbSNO
+ yHJjuwm/P2LYqsxijaLaLepajZ099PPnEwDe01Ij8FEmBIB/uvMIEuvsz6Cp7HYgSB
+ 88rYybISb+jVWxJ0M5ETwHbF/oOafId49qQKlqekjyCWQccGO/6+cbQyFvdid/L/wa
+ 7g5Vp/gB+SANw==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:10 +0100
-Subject: [PATCH v2 13/13] mm/mremap: convert mremap code to use vma_flags_t
+Date: Sat, 11 Jul 2026 19:45:02 +0100
+Subject: [PATCH v2 05/13] mm: prefer mm->def_vma_flags in mm logic
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-13-0fa2357d5431@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -108,15 +108,15 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6381; i=ljs@kernel.org;
- h=from:subject:message-id; bh=PIqQBUvFAhhZLltfbuAmGUSiDj9zb0uqnBAJox/uNeE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q2WCm/T1ymxZjMq/yxer2XvM7/x212H55Myy179n
- RqvN8Gno5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPpOszIsGhLcPGPAz1FjgKb
- Jc53v4/W6X/HznOmXdW58Edb+l2lCQz/DLaa7emYsZ9lb/CKY38l3gjvWSW8537dgQvfdvIpbK9
- 8xgIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4997; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=znvD/86roRelXlsxkkyvLX6yQAgqFWtP++AzhbmZe7g=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i31WndfM+frXN4sPvuH9w6+orV5IQ9e9ZyfL3g4f
+ rWG7aetHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiItyUjw6sjzxQ4DtU+eKxS
+ vvH1lgeXZAX7sk8X3267Whxu8rz8fB3D/8oZYmmbF/D99t5rvYvDWH/z7caXj3f8bt538lfH7D1
+ yenwA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
-X-Mailman-Approved-At: Mon, 13 Jul 2026 13:45:33 +0000
+X-Mailman-Approved-At: Mon, 13 Jul 2026 13:45:32 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,177 +132,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values
-throughout the mremap logic.
+Currently mm->def_flags (of type vm_flags_t) is union'd with
+mm->def_vma_flags (of type vma_flags_t).
 
-Note that, in replacing vm_flags_clear() (which takes the VMA write lock)
-with vma_clear_flags() and vma_clear_flags_mask() (which do not)
-respectively in unmap_source_vma() and dontunmap_complete(), we do not add
-a VMA write lock to account for htis.
+As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
+to no longer be arbitrarily limited to a system word size for VMA flags),
+prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
 
-This is because, in both cases, move_vma() is their calling function and
-this has already acquired the VMA write lock on vrm->vma whose VMA flags
-are being cleared.
-
-In the case of vma_set_flags() in unmap_source_vma() we do need to do this
-- as prev and next were not necessarily write locked at this point.
-
-Additionally update comments to reflect the changes to be consistent.
+We update dump_mm() to use the %*pb format which means we make no
+assumption about the number of VMA flag bits on output when outputting
+default VMA flags.
 
 No functional change intended.
 
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/mremap.c | 38 ++++++++++++++++++++------------------
- 1 file changed, 20 insertions(+), 18 deletions(-)
+ mm/debug.c |  5 +++--
+ mm/mlock.c | 13 +++++++------
+ mm/mmap.c  | 11 ++++++-----
+ mm/vma.c   |  2 +-
+ 4 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 384ef4cc2195..b64aa1f6e07e 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -68,7 +68,7 @@ struct vma_remap_struct {
- 	bool populate_expand;		/* mlock()'d expanded, must populate. */
- 	enum mremap_type remap_type;	/* expand, shrink, etc. */
- 	bool mmap_locked;		/* Is mm currently write-locked? */
--	unsigned long charged;		/* If VM_ACCOUNT, # pages to account. */
-+	unsigned long charged;		/* If VMA_ACCOUNT_BIT, # pgs to account */
- 	bool vmi_needs_invalidate;	/* Is the VMA iterator invalidated? */
- };
+diff --git a/mm/debug.c b/mm/debug.c
+index 497654b36f1a..9a0297b3988d 100644
+--- a/mm/debug.c
++++ b/mm/debug.c
+@@ -197,7 +197,7 @@ void dump_mm(const struct mm_struct *mm)
+ 		"numa_next_scan %lu numa_scan_offset %lu numa_scan_seq %d\n"
+ #endif
+ 		"tlb_flush_pending %d\n"
+-		"def_flags: %#lx(%pGv)\n",
++		"def_flags: %*pb(%pGv)\n",
  
-@@ -963,7 +963,7 @@ static unsigned long vrm_set_new_addr(struct vma_remap_struct *vrm)
+ 		mm, mm->task_size,
+ 		mm->mmap_base, mm->mmap_legacy_base,
+@@ -226,7 +226,8 @@ void dump_mm(const struct mm_struct *mm)
+ 		mm->numa_next_scan, mm->numa_scan_offset, mm->numa_scan_seq,
+ #endif
+ 		atomic_read(&mm->tlb_flush_pending),
+-		mm->def_flags, &mm->def_flags
++		NUM_VMA_FLAG_BITS, mm->def_vma_flags.__vma_flags,
++		&mm->def_vma_flags
+ 	);
+ }
+ EXPORT_SYMBOL(dump_mm);
+diff --git a/mm/mlock.c b/mm/mlock.c
+index 97e49038d8d3..34ffa954006f 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -699,26 +699,27 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
  
- 	if (vrm->flags & MREMAP_FIXED)
- 		map_flags |= MAP_FIXED;
--	if (vma->vm_flags & VM_MAYSHARE)
-+	if (vma_test(vma, VMA_MAYSHARE_BIT))
- 		map_flags |= MAP_SHARED;
- 
- 	res = get_unmapped_area(vma->vm_file, new_addr, vrm->new_len, pgoff,
-@@ -985,7 +985,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
- {
- 	unsigned long charged;
- 
--	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
-+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
- 		return true;
- 
- 	/*
-@@ -1012,7 +1012,7 @@ static bool vrm_calc_charge(struct vma_remap_struct *vrm)
+ /*
+  * Take the MCL_* flags passed into mlockall (or 0 if called from munlockall)
+- * and translate into the appropriate modifications to mm->def_flags and/or the
+- * flags for all current VMAs.
++ * and translate into the appropriate modifications to mm->def_vma_flags and/or
++ * the flags for all current VMAs.
+  *
+  * There are a couple of subtleties with this.  If mlockall() is called multiple
+  * times with different flags, the values do not necessarily stack.  If mlockall
+  * is called once including the MCL_FUTURE flag and then a second time without
+- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_flags.
++ * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
   */
- static void vrm_uncharge(struct vma_remap_struct *vrm)
+ static int apply_mlockall_flags(int flags)
  {
--	if (!(vrm->vma->vm_flags & VM_ACCOUNT))
-+	if (!vma_test(vrm->vma, VMA_ACCOUNT_BIT))
- 		return;
+ 	VMA_ITERATOR(vmi, current->mm, 0);
++	struct mm_struct *mm = current->mm;
+ 	struct vm_area_struct *vma, *prev = NULL;
+ 	vm_flags_t to_add = 0;
  
- 	vm_unacct_memory(vrm->charged);
-@@ -1032,7 +1032,7 @@ static void vrm_stat_account(struct vma_remap_struct *vrm,
- 	struct vm_area_struct *vma = vrm->vma;
+-	current->mm->def_flags &= ~VM_LOCKED_MASK;
++	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
+ 	if (flags & MCL_FUTURE) {
+-		current->mm->def_flags |= VM_LOCKED;
++		vma_flags_set(&mm->def_vma_flags, VMA_LOCKED_BIT);
  
- 	vm_stat_account(mm, vma->vm_flags, pages);
--	if (vma->vm_flags & VM_LOCKED)
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		mm->locked_vm += pages;
+ 		if (flags & MCL_ONFAULT)
+-			current->mm->def_flags |= VM_LOCKONFAULT;
++			vma_flags_set(&mm->def_vma_flags, VMA_LOCKONFAULT_BIT);
+ 
+ 		if (!(flags & MCL_CURRENT))
+ 			goto out;
+diff --git a/mm/mmap.c b/mm/mmap.c
+index 39d33f3a55c2..ae9a5018e20e 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -102,15 +102,16 @@ void vma_set_page_prot(struct vm_area_struct *vma)
+  */
+ static int check_brk_limits(unsigned long addr, unsigned long len)
+ {
++	const struct mm_struct *mm = current->mm;
++	const bool is_def_locked =
++		vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	unsigned long mapped_addr;
+ 
+ 	mapped_addr = get_unmapped_area(NULL, addr, len, 0, MAP_FIXED);
+ 	if (IS_ERR_VALUE(mapped_addr))
+ 		return mapped_addr;
+ 
+-	return mlock_future_ok(current->mm,
+-			      current->mm->def_flags & VM_LOCKED, len)
+-		? 0 : -EAGAIN;
++	return mlock_future_ok(mm, is_def_locked, len) ? 0 : -EAGAIN;
  }
  
-@@ -1176,7 +1176,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
- 	 * arose, in which case we _do_ wish to unmap the _new_ VMA, which means
- 	 * we actually _do_ want it be unaccounted.
- 	 */
--	bool accountable_move = (vma->vm_flags & VM_ACCOUNT) &&
-+	bool accountable_move = vma_test(vma, VMA_ACCOUNT_BIT) &&
- 		!(vrm->flags & MREMAP_DONTUNMAP);
+ SYSCALL_DEFINE1(brk, unsigned long, brk)
+@@ -197,7 +198,7 @@ SYSCALL_DEFINE1(brk, unsigned long, brk)
+ 		goto out;
  
- 	/*
-@@ -1195,7 +1195,7 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
- 	 * portions of the original VMA that remain.
- 	 */
- 	if (accountable_move) {
--		vm_flags_clear(vma, VM_ACCOUNT);
-+		vma_clear_flags(vma, VMA_ACCOUNT_BIT);
- 		/* We are about to split vma, so store the start/end. */
- 		vm_start = vma->vm_start;
- 		vm_end = vma->vm_end;
-@@ -1220,8 +1220,8 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
- 	 * |             |
- 	 * |-------------|
- 	 *
--	 * Having cleared VM_ACCOUNT from the whole VMA, after we unmap above
--	 * we'll end up with:
-+	 * Having cleared VMA_ACCOUNT_BIT from the whole VMA, after we unmap
-+	 * above we'll end up with:
- 	 *
- 	 *    addr  end
- 	 *     |     |
-@@ -1241,13 +1241,15 @@ static void unmap_source_vma(struct vma_remap_struct *vrm)
- 		if (vm_start < addr) {
- 			struct vm_area_struct *prev = vma_prev(&vmi);
+ 	mm->brk = brk;
+-	if (mm->def_flags & VM_LOCKED)
++	if (vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT))
+ 		populate = true;
  
--			vm_flags_set(prev, VM_ACCOUNT); /* Acquires VMA lock. */
-+			vma_start_write(prev);
-+			vma_set_flags(prev, VMA_ACCOUNT_BIT);
- 		}
+ success:
+@@ -1247,7 +1248,7 @@ int vm_brk_flags(unsigned long addr, unsigned long request, bool is_exec)
  
- 		if (vm_end > end) {
- 			struct vm_area_struct *next = vma_next(&vmi);
+ 	vma = vma_prev(&vmi);
+ 	ret = do_brk_flags(&vmi, vma, addr, len, vma_flags);
+-	populate = ((mm->def_flags & VM_LOCKED) != 0);
++	populate = vma_flags_test(&mm->def_vma_flags, VMA_LOCKED_BIT);
+ 	mmap_write_unlock(mm);
+ 	userfaultfd_unmap_complete(mm, &uf);
+ 	if (populate && !ret)
+diff --git a/mm/vma.c b/mm/vma.c
+index 70b08c76ea2f..1f443d979a7d 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -3426,7 +3426,7 @@ struct vm_area_struct *__install_special_mapping(
+ 	if (unlikely(vma == NULL))
+ 		return ERR_PTR(-ENOMEM);
  
--			vm_flags_set(next, VM_ACCOUNT); /* Acquires VMA lock. */
-+			vma_start_write(next);
-+			vma_set_flags(next, VMA_ACCOUNT_BIT);
- 		}
- 	}
- }
-@@ -1330,8 +1332,8 @@ static void dontunmap_complete(struct vma_remap_struct *vrm,
- 	unsigned long old_start = vrm->vma->vm_start;
- 	unsigned long old_end = vrm->vma->vm_end;
- 
--	/* We always clear VM_LOCKED[ONFAULT] on the old VMA. */
--	vm_flags_clear(vrm->vma, VM_LOCKED_MASK);
-+	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
-+	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
- 
- 	/*
- 	 * anon_vma links of the old vma is no longer needed after its page
-@@ -1767,14 +1769,14 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 	 * based on the original.  There are no known use cases for this
- 	 * behavior.  As a result, fail such attempts.
- 	 */
--	if (!old_len && !(vma->vm_flags & (VM_SHARED | VM_MAYSHARE))) {
-+	if (!old_len && !vma_test_any(vma, VMA_SHARED_BIT, VMA_MAYSHARE_BIT)) {
- 		pr_warn_once("%s (%d): attempted to duplicate a private mapping with mremap.  This is not supported.\n",
- 			     current->comm, current->pid);
- 		return -EINVAL;
- 	}
- 
- 	if ((vrm->flags & MREMAP_DONTUNMAP) &&
--			(vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP)))
-+	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
- 		return -EINVAL;
- 
- 	/*
-@@ -1804,7 +1806,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 		return 0;
- 
- 	/* We are expanding and the VMA is mlock()'d so we need to populate. */
--	if (vma->vm_flags & VM_LOCKED)
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		vrm->populate_expand = true;
- 
- 	/* Need to be careful about a growing mapping */
-@@ -1812,10 +1814,10 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
- 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
- 		return -EINVAL;
- 
--	if (vma->vm_flags & (VM_DONTEXPAND | VM_PFNMAP))
-+	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
- 		return -EFAULT;
- 
--	if (!mlock_future_ok(mm, vma->vm_flags & VM_LOCKED, vrm->delta))
-+	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
- 		return -EAGAIN;
- 
- 	if (!may_expand_vm(mm, &vma->flags, vrm->delta >> PAGE_SHIFT))
+-	vm_flags |= mm->def_flags | VM_DONTEXPAND;
++	vm_flags |= vma_flags_to_legacy(mm->def_vma_flags) | VM_DONTEXPAND;
+ 	if (pgtable_supports_soft_dirty())
+ 		vm_flags |= VM_SOFTDIRTY;
+ 	vm_flags_init(vma, vm_flags & ~VM_LOCKED_MASK);
 
 -- 
 2.55.0
