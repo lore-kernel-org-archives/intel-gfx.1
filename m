@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00CFDC4450B
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:45:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53EE4C44501
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:45:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4635F10E9E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 689DA10E9EA;
 	Mon, 13 Jul 2026 13:45:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YgX1w/cj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cml+CY1M";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01B0A10E181;
- Sat, 11 Jul 2026 18:49:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D62BE89A1F;
+ Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D85FE418D3;
- Sat, 11 Jul 2026 18:49:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABD01F00A3A;
- Sat, 11 Jul 2026 18:49:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 89392411CA;
+ Sat, 11 Jul 2026 18:46:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B0801F00A3A;
+ Sat, 11 Jul 2026 18:46:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795772;
- bh=F7JbYfoR0cBo3rK9+sjl2GjH5zAlrFeYJDLZN+6KwQc=;
+ s=k20260515; t=1783795605;
+ bh=+oyZ6VXOyf4ckjeNtdyGIBWr/UznafJo3nCv5RCwhdU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=YgX1w/cjR8WW7yAZK54+rQ0d90kWJBtvSsotwFoOsbT1jEjUv+GBeJk+emgMy+T1b
- 4NmtgJa3KAaWfNdlVas+DLRld0NYlKD608QgNo3ayghduF02ZaZspWu7cFAVIEwmQT
- i/QMae1t1yCToyOSygT8AGwDD8ih5WV9TxgWALUrWKoKSlJDM32b/4wZb56F/MNqwa
- ibM6KyzyLmz+I9eMGK75CzcO/6KXshFhD90r8Nyp0a3VNBMw8MLH6TTnhDIiICXDCE
- qX519KpT+qQjZgiMubdoDozDvMvaNHUGSTjH3oTfJO/3AqH3CmZEAioli+P7/Fd/Gr
- Zw3fCwHDxMEWQ==
+ b=Cml+CY1MKh9iVCaXSwyy6lG3+svNJMWg+WudrFkeSHkVlr1sQGGiZzdcqL8HJbI+A
+ rXuXtkh5gKQ1rSQYZPuWrdWlAUMPoPlZVEDx0atFOjr2KtSAJjf3rDgIu3xThiSiQM
+ HX1/tqt8hWTLPU/KAccJSQ5EH/bfLUB7EEfE0AKJp85chpipCgPl9xVnNZagJbwTfR
+ I/eUKWUU5C/SeilvNVERd66MVxAvV2vsfeTyz76Ualz74to9fWZfJVf52ooiF2vi+v
+ 7G6CnYstSi7Q/Nn0dfxn9rxYwzz4gdrTPUd0waE92egL1j6qcgR2A2M2kyUPm8UN72
+ XTgF2KlMJvQSA==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:45:08 +0100
-Subject: [PATCH v2 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Date: Sat, 11 Jul 2026 19:45:00 +0100
+Subject: [PATCH v2 03/13] mm: convert __get_unmapped_area() to use vma_flags_t
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-11-0fa2357d5431@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -108,12 +108,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10659; i=ljs@kernel.org;
- h=from:subject:message-id; bh=12NkDtkZsgv4tumIZ1Li1kdvxPQKo0e0f0d/e5C85HE=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q2U/t/Zc52rw7NtrciSmor9vhun7bDe9HnRAg7Ja
- cyqWbnrOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCRpRwM/52KL+dGd2U+vcZ6
- 5VvA0uleV8Mu5Ck9uXaQ8eBm7fZnmj2MDN2eM1TPyd28I+kbcNei+mhv94Tzv59s1gvJ8+BYoHC
- ZkR0A
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9398; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=P0Efpepv9aum3/hXSHnF6jwUomGPaWFDJdFnLdhoXJo=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1XfIv0CD/o0frojeduF9dp+Rfm/9jrr3ds68Nz3
+ 57n/OKU6yhlYRDjYpAVU2R5/kV8f5BI2LzOC/5uMHNYmUCGMHBxCsBEnDoZGd5HcnpZ869dcttu
+ 2bF2Swk/5rTaDe8c/3RGds0Md33/o5Dhf5b45Mv7GttXXJ6oxSr/d85Sl/UV2UdDRPJXMmd5+xk
+ 8YwAA
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 13:45:32 +0000
@@ -132,288 +132,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace use of the legacy vm_flags_t flags with vma_flags_t values
-throughout the mlock logic.
+Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
+vm_flags_t as part of the effort to move VMA flags from a system word to a
+bitmap.
 
-Additionally update comments to reflect the changes to be consistent.
+We cascade the changes up to arch_get_unmapped_area_topdown() and
+arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
+order to propagate the VMA flags.
 
 No functional change intended.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- mm/mlock.c | 88 +++++++++++++++++++++++++++++++++-----------------------------
- 1 file changed, 47 insertions(+), 41 deletions(-)
+ fs/hugetlbfs/inode.c     |  3 ++-
+ include/linux/huge_mm.h  | 10 +++++-----
+ include/linux/mm.h       |  6 ++++--
+ include/linux/sched/mm.h |  9 +++------
+ mm/huge_memory.c         | 21 ++++++++++++---------
+ mm/mmap.c                | 27 ++++++++++++++-------------
+ 6 files changed, 40 insertions(+), 36 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 34ffa954006f..efa6716e4dfb 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -329,7 +329,7 @@ static inline bool allow_mlock_munlock(struct folio *folio,
- 	 * be split. And the pages are not in VM_LOCKed VMA
- 	 * can be reclaimed.
- 	 */
--	if (!(vma->vm_flags & VM_LOCKED))
-+	if (!vma_test(vma, VMA_LOCKED_BIT))
- 		return true;
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 9fddd1e0b813..43066f9ddf52 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -184,7 +184,8 @@ hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
+ 	if (addr)
+ 		addr0 = ALIGN(addr, huge_page_size(h));
  
- 	/* folio_within_range() cannot take KSM, but any small folio is OK */
-@@ -368,7 +368,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		folio = pmd_folio(*pmd);
- 		if (folio_is_zone_device(folio))
- 			goto out;
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -393,7 +393,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		if (!allow_mlock_munlock(folio, vma, start, end, step))
- 			goto next_entry;
+-	return mm_get_unmapped_area_vmflags(file, addr0, len, pgoff, flags, 0);
++	return mm_get_unmapped_area_vmaflags(file, addr0, len, pgoff, flags,
++					     EMPTY_VMA_FLAGS);
+ }
  
--		if (vma->vm_flags & VM_LOCKED)
-+		if (vma_test(vma, VMA_LOCKED_BIT))
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -417,8 +417,8 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
-  * @end - end of range in @vma
-  * @new_vma_flags - the new set of flags for @vma.
-  *
-- * Called for mlock(), mlock2() and mlockall(), to set @vma VM_LOCKED;
-- * called for munlock() and munlockall(), to clear VM_LOCKED from @vma.
-+ * Called for mlock(), mlock2() and mlockall(), to set @vma VMA_LOCKED_BIT;
-+ * called for munlock() and munlockall(), to clear VMA_LOCKED_BIT from @vma.
-  */
- static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 	unsigned long start, unsigned long end,
-@@ -431,14 +431,14 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 
- 	/*
- 	 * There is a slight chance that concurrent page migration,
--	 * or page reclaim finding a page of this now-VM_LOCKED vma,
-+	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
- 	 * will call mlock_vma_folio() and raise page's mlock_count:
- 	 * double counting, leaving the page unevictable indefinitely.
--	 * Communicate this danger to mlock_vma_folio() with VM_IO,
--	 * which is a VM_SPECIAL flag not allowed on VM_LOCKED vmas.
-+	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
-+	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
- 	 * mmap_lock is held in write mode here, so this weird
- 	 * combination should not be visible to other mmap_lock users;
--	 * but WRITE_ONCE so rmap walkers must see VM_IO if VM_LOCKED.
-+	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
- 	 */
- 	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		vma_flags_set(new_vma_flags, VMA_IO_BIT);
-@@ -458,7 +458,7 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
  /*
-  * mlock_fixup  - handle mlock[all]/munlock[all] requests.
-  *
-- * Filters out "special" vmas -- VM_LOCKED never gets set for these, and
-+ * Filters out "special" vmas -- VMA_LOCKED_BIT never gets set for these, and
-  * munlock is a no-op.  However, for some special vmas, we go ahead and
-  * populate the ptes.
-  *
-@@ -466,24 +466,23 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
-  */
- static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	       struct vm_area_struct **prev, unsigned long start,
--	       unsigned long end, vm_flags_t newflags)
-+	       unsigned long end, vma_flags_t *new_vma_flags)
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index cae97c307280..9e43e138c0b7 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -391,9 +391,9 @@ static inline bool thp_disabled_by_hw(void)
+ 
+ unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+-unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
++unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags,
+-		vm_flags_t vm_flags);
++		vma_flags_t vma_flags);
+ 
+ enum split_type {
+ 	SPLIT_TYPE_UNIFORM,
+@@ -617,9 +617,9 @@ static inline unsigned long thp_vma_allowable_orders(struct vm_area_struct *vma,
+ #define thp_get_unmapped_area	NULL
+ 
+ static inline unsigned long
+-thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
+-			      unsigned long len, unsigned long pgoff,
+-			      unsigned long flags, vm_flags_t vm_flags)
++thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
++			       unsigned long len, unsigned long pgoff,
++			       unsigned long flags, vma_flags_t vma_flags)
  {
--	vma_flags_t new_vma_flags = legacy_to_vma_flags(newflags);
- 	const vma_flags_t old_vma_flags = vma->flags;
- 	struct mm_struct *mm = vma->vm_mm;
- 	int nr_pages;
- 	int ret = 0;
+ 	return 0;
+ }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index d20aa2f80472..5b3825fddf58 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4191,13 +4191,15 @@ unsigned long randomize_page(unsigned long start, unsigned long range);
  
--	if (vma_flags_same_pair(&old_vma_flags, &new_vma_flags) ||
-+	if (vma_flags_same_pair(&old_vma_flags, new_vma_flags) ||
- 	    vma_is_secretmem(vma) || !vma_supports_mlock(vma)) {
- 		/*
--		 * Don't set VM_LOCKED or VM_LOCKONFAULT and don't count.
--		 * For secretmem, don't allow the memory to be unlocked.
-+		 * Don't set VMA_LOCKED_BIT or VMA_LOCKONFAULT_BIT and don't
-+		 * count.  For secretmem, don't allow the memory to be unlocked.
- 		 */
- 		goto out;
- 	}
+ unsigned long
+ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+-		    unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags);
++		    unsigned long pgoff, unsigned long flags,
++		    vma_flags_t vma_flags);
  
--	vma = vma_modify_flags(vmi, *prev, vma, start, end, &new_vma_flags);
-+	vma = vma_modify_flags(vmi, *prev, vma, start, end, new_vma_flags);
- 	if (IS_ERR(vma)) {
- 		ret = PTR_ERR(vma);
- 		goto out;
-@@ -493,7 +492,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	 * Keep track of amount of locked VM.
- 	 */
- 	nr_pages = (end - start) >> PAGE_SHIFT;
--	if (!vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT))
-+	if (!vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = -nr_pages;
- 	else if (vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT))
- 		nr_pages = 0;
-@@ -502,15 +501,15 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ static inline unsigned long
+ get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		  unsigned long pgoff, unsigned long flags)
+ {
+-	return __get_unmapped_area(file, addr, len, pgoff, flags, 0);
++	return __get_unmapped_area(file, addr, len, pgoff, flags,
++				   EMPTY_VMA_FLAGS);
+ }
+ 
+ unsigned long do_mmap(struct file *file, unsigned long addr,
+diff --git a/include/linux/sched/mm.h b/include/linux/sched/mm.h
+index 95d0040df584..10d723bee95c 100644
+--- a/include/linux/sched/mm.h
++++ b/include/linux/sched/mm.h
+@@ -193,12 +193,9 @@ unsigned long mm_get_unmapped_area(struct file *filp, unsigned long addr,
+ 				   unsigned long len, unsigned long pgoff,
+ 				   unsigned long flags);
+ 
+-unsigned long mm_get_unmapped_area_vmflags(struct file *filp,
+-					   unsigned long addr,
+-					   unsigned long len,
+-					   unsigned long pgoff,
+-					   unsigned long flags,
+-					   vm_flags_t vm_flags);
++unsigned long mm_get_unmapped_area_vmaflags(struct file *filp,
++		unsigned long addr, unsigned long len, unsigned long pgoff,
++		unsigned long flags, vma_flags_t vma_flags);
+ 
+ unsigned long
+ generic_get_unmapped_area(struct file *filp, unsigned long addr,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 0dc6d630570f..40d6b4078e3d 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1196,7 +1196,7 @@ static inline bool is_transparent_hugepage(const struct folio *folio)
+ static unsigned long __thp_get_unmapped_area(struct file *filp,
+ 		unsigned long addr, unsigned long len,
+ 		loff_t off, unsigned long flags, unsigned long size,
+-		vm_flags_t vm_flags)
++		vma_flags_t vma_flags)
+ {
+ 	loff_t off_end = off + len;
+ 	loff_t off_align = round_up(off, size);
+@@ -1212,8 +1212,9 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
+ 	if (len_pad < len || (off + len_pad) < off)
+ 		return 0;
+ 
+-	ret = mm_get_unmapped_area_vmflags(filp, addr, len_pad,
+-					   off >> PAGE_SHIFT, flags, vm_flags);
++	ret = mm_get_unmapped_area_vmaflags(filp, addr, len_pad,
++					    off >> PAGE_SHIFT, flags,
++					    vma_flags);
+ 
  	/*
- 	 * vm_flags is protected by the mmap_lock held in write mode.
- 	 * It's okay if try_to_unmap_one unmaps a page just after we
--	 * set VM_LOCKED, populate_vma_page_range will bring it back.
-+	 * set VMA_LOCKED_BIT, populate_vma_page_range will bring it back.
- 	 */
--	if (vma_flags_test(&new_vma_flags, VMA_LOCKED_BIT) &&
-+	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT) &&
- 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT)) {
- 		/* No work to do, and mlocking twice would be wrong */
- 		vma_start_write(vma);
--		vma->flags = new_vma_flags;
-+		vma->flags = *new_vma_flags;
- 	} else {
--		mlock_vma_pages_range(vma, start, end, &new_vma_flags);
-+		mlock_vma_pages_range(vma, start, end, new_vma_flags);
- 	}
- out:
- 	*prev = vma;
-@@ -518,7 +517,7 @@ static int mlock_fixup(struct vma_iterator *vmi, struct vm_area_struct *vma,
- }
- 
- static int apply_vma_lock_flags(unsigned long start, size_t len,
--				vm_flags_t flags)
-+				const vma_flags_t *flags)
- {
- 	unsigned long nstart, end, tmp;
- 	struct vm_area_struct *vma, *prev;
-@@ -543,18 +542,20 @@ static int apply_vma_lock_flags(unsigned long start, size_t len,
- 	tmp = vma->vm_start;
- 	for_each_vma_range(vmi, vma, end) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags;
- 
- 		if (vma->vm_start != tmp)
- 			return -ENOMEM;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= flags;
-+		newflags = vma->flags;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, *flags);
-+
- 		/* Here we know that  vma->vm_start <= nstart < vma->vm_end. */
- 		tmp = vma->vm_end;
- 		if (tmp > end)
- 			tmp = end;
--		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, newflags);
-+		error = mlock_fixup(&vmi, vma, &prev, nstart, tmp, &newflags);
- 		if (error)
- 			return error;
- 		tmp = vma_iter_end(&vmi);
-@@ -589,7 +590,7 @@ static unsigned long count_mm_mlocked_page_nr(struct mm_struct *mm,
- 		end = start + len;
- 
- 	for_each_vma_range(vmi, vma, end) {
--		if (vma->vm_flags & VM_LOCKED) {
-+		if (vma_test(vma, VMA_LOCKED_BIT)) {
- 			if (start > vma->vm_start)
- 				count -= (start - vma->vm_start);
- 			if (end < vma->vm_end) {
-@@ -615,7 +616,8 @@ static int __mlock_posix_error_return(long retval)
- 	return retval;
- }
- 
--static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t flags)
-+static __must_check int do_mlock(unsigned long start, size_t len,
-+				 vma_flags_t *flags)
- {
- 	unsigned long locked;
- 	unsigned long lock_limit;
-@@ -664,24 +666,27 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
- 
- SYSCALL_DEFINE2(mlock, unsigned long, start, size_t, len)
- {
--	return do_mlock(start, len, VM_LOCKED);
-+	vma_flags_t flags = mk_vma_flags(VMA_LOCKED_BIT);
-+
-+	return do_mlock(start, len, &flags);
- }
- 
- SYSCALL_DEFINE3(mlock2, unsigned long, start, size_t, len, int, flags)
- {
--	vm_flags_t vm_flags = VM_LOCKED;
-+	vma_flags_t vma_flags = mk_vma_flags(VMA_LOCKED_BIT);
- 
- 	if (flags & ~MLOCK_ONFAULT)
- 		return -EINVAL;
- 
- 	if (flags & MLOCK_ONFAULT)
--		vm_flags |= VM_LOCKONFAULT;
-+		vma_flags_set(&vma_flags, VMA_LOCKONFAULT_BIT);
- 
--	return do_mlock(start, len, vm_flags);
-+	return do_mlock(start, len, &vma_flags);
- }
- 
- SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- {
-+	vma_flags_t flags = EMPTY_VMA_FLAGS;
- 	int ret;
- 
- 	start = untagged_addr(start);
-@@ -691,7 +696,7 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- 
- 	if (mmap_write_lock_killable(current->mm))
- 		return -EINTR;
--	ret = apply_vma_lock_flags(start, len, 0);
-+	ret = apply_vma_lock_flags(start, len, &flags);
- 	mmap_write_unlock(current->mm);
- 
+ 	 * The failure might be due to length padding. The caller will retry
+@@ -1238,25 +1239,27 @@ static unsigned long __thp_get_unmapped_area(struct file *filp,
  	return ret;
-@@ -705,14 +710,15 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
-  * There are a couple of subtleties with this.  If mlockall() is called multiple
-  * times with different flags, the values do not necessarily stack.  If mlockall
-  * is called once including the MCL_FUTURE flag and then a second time without
-- * it, VM_LOCKED and VM_LOCKONFAULT will be cleared from mm->def_vma_flags.
-+ * it, VMA_LOCKED_BIT and VMA_LOCKONFAULT_BIT will be cleared from
-+ * mm->def_vma_flags.
-  */
- static int apply_mlockall_flags(int flags)
+ }
+ 
+-unsigned long thp_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
++unsigned long thp_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags,
+-		vm_flags_t vm_flags)
++		vma_flags_t vma_flags)
  {
- 	VMA_ITERATOR(vmi, current->mm, 0);
- 	struct mm_struct *mm = current->mm;
- 	struct vm_area_struct *vma, *prev = NULL;
--	vm_flags_t to_add = 0;
-+	vma_flags_t to_add = EMPTY_VMA_FLAGS;
+ 	unsigned long ret;
+ 	loff_t off = (loff_t)pgoff << PAGE_SHIFT;
  
- 	vma_flags_clear_mask(&mm->def_vma_flags, VMA_LOCKED_MASK);
- 	if (flags & MCL_FUTURE) {
-@@ -726,20 +732,20 @@ static int apply_mlockall_flags(int flags)
+-	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE, vm_flags);
++	ret = __thp_get_unmapped_area(filp, addr, len, off, flags, PMD_SIZE,
++				      vma_flags);
+ 	if (ret)
+ 		return ret;
+ 
+-	return mm_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags,
+-					    vm_flags);
++	return mm_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
++					     vma_flags);
+ }
+ 
+ unsigned long thp_get_unmapped_area(struct file *filp, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags)
+ {
+-	return thp_get_unmapped_area_vmflags(filp, addr, len, pgoff, flags, 0);
++	return thp_get_unmapped_area_vmaflags(filp, addr, len, pgoff, flags,
++					      EMPTY_VMA_FLAGS);
+ }
+ EXPORT_SYMBOL_GPL(thp_get_unmapped_area);
+ 
+diff --git a/mm/mmap.c b/mm/mmap.c
+index bcc3793e532d..4a88b2a233f7 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -411,8 +411,7 @@ unsigned long do_mmap(struct file *file, unsigned long addr,
+ 	/* Obtain the address to map to. we verify (or select) it and ensure
+ 	 * that it represents a valid section of the address space.
+ 	 */
+-	addr = __get_unmapped_area(file, addr, len, pgoff, flags,
+-				   vma_flags_to_legacy(vma_flags));
++	addr = __get_unmapped_area(file, addr, len, pgoff, flags, vma_flags);
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+ 
+@@ -812,19 +811,20 @@ arch_get_unmapped_area_topdown(struct file *filp, unsigned long addr,
+ }
+ #endif
+ 
+-unsigned long mm_get_unmapped_area_vmflags(struct file *filp, unsigned long addr,
+-					   unsigned long len, unsigned long pgoff,
+-					   unsigned long flags, vm_flags_t vm_flags)
++unsigned long mm_get_unmapped_area_vmaflags(struct file *filp, unsigned long addr,
++		unsigned long len, unsigned long pgoff, unsigned long flags,
++		vma_flags_t vma_flags)
+ {
+ 	if (mm_flags_test(MMF_TOPDOWN, current->mm))
+ 		return arch_get_unmapped_area_topdown(filp, addr, len, pgoff,
+-						      flags, vm_flags);
+-	return arch_get_unmapped_area(filp, addr, len, pgoff, flags, vm_flags);
++				flags, vma_flags_to_legacy(vma_flags));
++	return arch_get_unmapped_area(filp, addr, len, pgoff, flags,
++			vma_flags_to_legacy(vma_flags));
+ }
+ 
+ unsigned long
+ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+-		unsigned long pgoff, unsigned long flags, vm_flags_t vm_flags)
++		unsigned long pgoff, unsigned long flags, vma_flags_t vma_flags)
+ {
+ 	unsigned long (*get_area)(struct file *, unsigned long,
+ 				  unsigned long, unsigned long, unsigned long)
+@@ -859,11 +859,11 @@ __get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		   && !addr /* no hint */
+ 		   && IS_ALIGNED(len, PMD_SIZE)) {
+ 		/* Ensures that larger anonymous mappings are THP aligned. */
+-		addr = thp_get_unmapped_area_vmflags(file, addr, len,
+-						     pgoff, flags, vm_flags);
++		addr = thp_get_unmapped_area_vmaflags(file, addr, len,
++						      pgoff, flags, vma_flags);
+ 	} else {
+-		addr = mm_get_unmapped_area_vmflags(file, addr, len,
+-						    pgoff, flags, vm_flags);
++		addr = mm_get_unmapped_area_vmaflags(file, addr, len,
++						     pgoff, flags, vma_flags);
  	}
+ 	if (IS_ERR_VALUE(addr))
+ 		return addr;
+@@ -881,7 +881,8 @@ unsigned long
+ mm_get_unmapped_area(struct file *file, unsigned long addr, unsigned long len,
+ 		     unsigned long pgoff, unsigned long flags)
+ {
+-	return mm_get_unmapped_area_vmflags(file, addr, len, pgoff, flags, 0);
++	return mm_get_unmapped_area_vmaflags(file, addr, len, pgoff, flags,
++					     EMPTY_VMA_FLAGS);
+ }
+ EXPORT_SYMBOL(mm_get_unmapped_area);
  
- 	if (flags & MCL_CURRENT) {
--		to_add |= VM_LOCKED;
-+		vma_flags_set(&to_add, VMA_LOCKED_BIT);
- 		if (flags & MCL_ONFAULT)
--			to_add |= VM_LOCKONFAULT;
-+			vma_flags_set(&to_add, VMA_LOCKONFAULT_BIT);
- 	}
- 
- 	for_each_vma(vmi, vma) {
- 		int error;
--		vm_flags_t newflags;
-+		vma_flags_t newflags = vma->flags;
- 
--		newflags = vma->vm_flags & ~VM_LOCKED_MASK;
--		newflags |= to_add;
-+		vma_flags_clear_mask(&newflags, VMA_LOCKED_MASK);
-+		vma_flags_set_mask(&newflags, to_add);
- 
- 		error = mlock_fixup(&vmi, vma, &prev, vma->vm_start, vma->vm_end,
--				    newflags);
-+				    &newflags);
- 		/* Ignore errors, but prev needs fixing up. */
- 		if (error)
- 			prev = vma;
 
 -- 
 2.55.0
