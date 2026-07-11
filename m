@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D24C43458
-	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:45:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C909C44501
+	for <intel-gfx@archiver.kernel.org>; Mon, 13 Jul 2026 13:45:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5779A10E5EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9171710E5F0;
 	Mon, 13 Jul 2026 13:45:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b3IJ5UKX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KCh2Wp49";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F4B89A1F;
- Sat, 11 Jul 2026 18:46:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 914BF10E1CB;
+ Sat, 11 Jul 2026 18:49:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EA6AD60052;
- Sat, 11 Jul 2026 18:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2428F1F00A3A;
- Sat, 11 Jul 2026 18:45:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EB32D60052;
+ Sat, 11 Jul 2026 18:49:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE8B1F000E9;
+ Sat, 11 Jul 2026 18:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783795563;
- bh=4X8Clz3fd1owNiO9Pv6vUhPn41dQXdJma9VDgzp5GpU=;
+ s=k20260515; t=1783795793;
+ bh=Fr9+W5ioGfovNH8dryM/kzP+up/ElY+Oy2uwfNl+UZQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=b3IJ5UKXJWHdstaNE7y5ot+/3k3QKa6AhRc7Wffa4hfZ305PVpEvaJKNGHLJ3wiys
- kqVIiX25qZVXJaTT+Qgjr5ODbLIA55N49hux0vbRs0et3au9LBQKwrVwghVFXrLl7E
- 817VHGE33QrB50d5C1LscqS/7pNneUD0nYGcnWDai8gQyjsw4TcvH+fgmF1OwsvnN9
- 2pvaWR1/mhz3yp4qVYs3qwET2uh7D30e/8XDBnKYPp1TnRGR39oxh4CFkY52uJlQ/8
- VseCL2NAhZF2r9D5qvydoKSBQPUnQ2/tkYhPSxvwJKQj0iFEdbJlYmSDUW8OLt0N5o
- c+59QXF0t/z1Q==
+ b=KCh2Wp49fergCiFPuJT2qu+NLRDa7tcNsKE68tr0X57/gxQeoxFEQALVKzPPGCBCs
+ 1S2aNlk++tT/2vIRKjYUsq8gWVO5hc3Pv8Wj7ehGz3ecvbnsQJtpGf+Z3pEmCQ5Zpb
+ 0G4kl6AsVgK7NukwvKxLJBKVBgW4cGFGkyDpvnIWMOL+cqs+XQ3maPfs9w3a7IE778
+ VHeldKO9fd0SwC8Wj8f7RSPZ4Jk+y+nxR+cKOZdHbk7BShTL6YF9RcqJ6dbx/Ra7Fm
+ TE7Z2bwnikCj/QtjUnOZ8uMRw3s/GTnG9x5fnIpGmsCUudhHKyJXYAWkomP4MG/RhR
+ DQejuUUlKg3zw==
 From: Lorenzo Stoakes <ljs@kernel.org>
-Date: Sat, 11 Jul 2026 19:44:58 +0100
-Subject: [PATCH v2 01/13] mm: introduce vma_flags_can_grow() and vma_can_grow()
+Date: Sat, 11 Jul 2026 19:45:09 +0100
+Subject: [PATCH v2 12/13] mm/mprotect: convert mprotect code to use vma_flags_t
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260711-b4-vma-flags-mm-v2-1-0fa2357d5431@kernel.org>
+Message-Id: <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 In-Reply-To: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -108,12 +108,12 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>, linux-mm@kvack.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2177; i=ljs@kernel.org;
- h=from:subject:message-id; bh=oSsuzEZdPIZ+otSvvS1qpHgk2++YqmMZy2jJkjlchbs=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+i1DpYuvr35hfGA9T/DrI/smfbvJXDzdl/eEd9+FF
- xnT800OdZSyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiZhoM/6xY7sV0KDJr3XKY
- uPtiX7X4ZaX5Xemv3hiY8c63tfCt1WL4xXQgV6XZa8a6lMQPuqVRFwM4zMVNbzY+TJao67/8NWA
- vKwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2996; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=srWqnQOI/gzNhpzulQ661PMe2/Xdt3Viy9gVjyuNxVs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKC+q08lh17/Pn9DO6GppTAjP7Fs7Y758nqdTXNm/9By
+ 2P20jvmHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIo6cM/6OUTKz3VR0/Kd/z
+ 9N+FX84lasa5MY7rRCqXPVqaO+Hv4qeMDLfOLP6RuO0wS2eR6YK62aGFcS/ctwjs0Qu2mW4r7s7
+ Dww8A
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-Mailman-Approved-At: Mon, 13 Jul 2026 13:45:32 +0000
@@ -132,71 +132,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-These test whether the VMA has stack semantics, i.e. is able to grow
-upwards or downwards depending on the architecture.
+Replace use of the legacy vm_flags_t flags with vma_flags_t values
+throughout the mprotect logic.
 
-In order to account for arches which do not support upward-growing stacks,
-introduce VMA_GROWSUP whose definition depends on the architecture
-supporting it, and use vma_flags_test_single_mask() in vma_flags_can_grow()
-to account for this.
+Note that we retain the legacy vm_flags_t bit shifting code in
+do_mprotect_pkey(), deferring a vma_flags_t approach to this for the time
+being.
+
+Additionally update comments to reflect the changes to be consistent.
 
 No functional change intended.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 ---
- include/linux/mm.h | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ mm/mprotect.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 32bb723ffbb9..7a7f559b3df0 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -474,6 +474,7 @@ enum {
- #define VM_SAO		INIT_VM_FLAG(SAO)
- #elif defined(CONFIG_PARISC)
- #define VM_GROWSUP	INIT_VM_FLAG(GROWSUP)
-+#define VMA_GROWSUP	mk_vma_flags(VMA_GROWSUP_BIT)
- #elif defined(CONFIG_SPARC64)
- #define VM_SPARC_ADI	INIT_VM_FLAG(SPARC_ADI)
- #define VM_ARCH_CLEAR	INIT_VM_FLAG(ARCH_CLEAR)
-@@ -485,6 +486,7 @@ enum {
- #endif
- #ifndef VM_GROWSUP
- #define VM_GROWSUP	VM_NONE
-+#define VMA_GROWSUP	EMPTY_VMA_FLAGS
- #endif
- #ifdef CONFIG_ARM64_MTE
- #define VM_MTE		INIT_VM_FLAG(MTE)
-@@ -1578,11 +1580,24 @@ static inline bool vma_is_initial_stack(const struct vm_area_struct *vma)
- 		vma->vm_end >= vma->vm_mm->start_stack;
- }
+diff --git a/mm/mprotect.c b/mm/mprotect.c
+index dc27bbc1712f..2888ee638d87 100644
+--- a/mm/mprotect.c
++++ b/mm/mprotect.c
+@@ -40,7 +40,7 @@
  
--static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
-+static inline bool vma_flags_can_grow(const vma_flags_t *flags)
+ static bool maybe_change_pte_writable(struct vm_area_struct *vma, pte_t pte)
  {
--	int maybe_stack = vma->vm_flags & (VM_GROWSDOWN | VM_GROWSUP);
-+	if (vma_flags_test_single_mask(flags, VMA_GROWSUP))
-+		return true;
-+	if (vma_flags_test(flags, VMA_GROWSDOWN_BIT))
-+		return true;
-+
-+	return false;
-+}
- 
--	if (!maybe_stack)
-+static inline bool vma_can_grow(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_can_grow(&vma->flags);
-+}
-+
-+static inline bool vma_is_temporary_stack(const struct vm_area_struct *vma)
-+{
-+	if (!vma_can_grow(vma))
+-	if (WARN_ON_ONCE(!(vma->vm_flags & VM_WRITE)))
++	if (WARN_ON_ONCE(!vma_test(vma, VMA_WRITE_BIT)))
  		return false;
  
- 	if ((vma->vm_flags & VM_STACK_INCOMPLETE_SETUP) ==
+ 	/* Don't touch entries that are not even readable. */
+@@ -97,7 +97,7 @@ static bool can_change_shared_pte_writable(struct vm_area_struct *vma,
+ bool can_change_pte_writable(struct vm_area_struct *vma, unsigned long addr,
+ 			     pte_t pte)
+ {
+-	if (!(vma->vm_flags & VM_SHARED))
++	if (!vma_test(vma, VMA_SHARED_BIT))
+ 		return can_change_private_pte_writable(vma, addr, pte);
+ 
+ 	return can_change_shared_pte_writable(vma, pte);
+@@ -194,7 +194,7 @@ static __always_inline void set_write_prot_commit_flush_ptes(struct vm_area_stru
+ {
+ 	bool set_write;
+ 
+-	if (vma->vm_flags & VM_SHARED) {
++	if (vma_test(vma, VMA_SHARED_BIT)) {
+ 		set_write = can_change_shared_pte_writable(vma, ptent);
+ 		prot_commit_flush_ptes(vma, addr, ptep, oldpte, ptent, nr_ptes,
+ 				       /* idx = */ 0, set_write, tlb);
+@@ -846,8 +846,8 @@ mprotect_fixup(struct vma_iterator *vmi, struct mmu_gather *tlb,
+ 		vm_unacct_memory(nrpages);
+ 
+ 	/*
+-	 * Private VM_LOCKED VMA becoming writable: trigger COW to avoid major
+-	 * fault on access.
++	 * Private VMA_LOCKED_BIT VMA becoming writable: trigger COW to avoid
++	 * major fault on access.
+ 	 */
+ 	if (vma_flags_test(&new_vma_flags, VMA_WRITE_BIT) &&
+ 	    vma_flags_test(&old_vma_flags, VMA_LOCKED_BIT) &&
+@@ -921,7 +921,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 			goto out;
+ 		start = vma->vm_start;
+ 		error = -EINVAL;
+-		if (!(vma->vm_flags & VM_GROWSDOWN))
++		if (!vma_test(vma, VMA_GROWSDOWN_BIT))
+ 			goto out;
+ 	} else {
+ 		if (vma->vm_start > start)
+@@ -929,7 +929,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		if (unlikely(grows & PROT_GROWSUP)) {
+ 			end = vma->vm_end;
+ 			error = -EINVAL;
+-			if (!(vma->vm_flags & VM_GROWSUP))
++			if (!vma_test_single_mask(vma, VMA_GROWSUP))
+ 				goto out;
+ 		}
+ 	}
+@@ -953,7 +953,7 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+ 		}
+ 
+ 		/* Does the application expect PROT_READ to imply PROT_EXEC */
+-		if (rier && (vma->vm_flags & VM_MAYEXEC))
++		if (rier && vma_test(vma, VMA_MAYEXEC_BIT))
+ 			prot |= PROT_EXEC;
+ 
+ 		/*
 
 -- 
 2.55.0
