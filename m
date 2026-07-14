@@ -4,49 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA0F1C43458
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 896E2C44508
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 10:50:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3634510ECF6;
-	Tue, 14 Jul 2026 10:50:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20EF910ED07;
+	Tue, 14 Jul 2026 10:50:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="askr1aU/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dcTW5hJm";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BAD710E060;
- Tue, 14 Jul 2026 10:50:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8B5410ECD7;
+ Tue, 14 Jul 2026 10:50:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784026214; x=1815562214;
+ t=1784026212; x=1815562212;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=uwffkij6CNpLnIGm9VgcDZKdtaAxVqVyYDQl6auC5vQ=;
- b=askr1aU/tW/lNdkyH1ZhxvHAkcMWPYT78BzucVdX/zrU/ruEPnSN644U
- 3MGgBy+VV7FkPxVbXBCIprb4rjEH5M9zRgO7jssE6sEMVIGM10FQd7mAQ
- ko+o89InMAARg2eWw0oQS/aHvN3yIFRHpGcm5NebEdAgw5Xc/hScS8TCw
- xzXSC5l3SMxxiznF542bLlpVMxtd4Wdulz0qEjT/mVg/RrMAzj2xlfsPH
- hvdz5EaN9W1wSMpyTXIRJndJdRMCjejIAIZzVK+A0K1zfqbgAJg8LmGQJ
- Cr2kfMbWTQh4eXOuQZNJWFcrTnpjh3qeWoFRjbFuXP5DeaHAmhG8fNYY4 w==;
-X-CSE-ConnectionGUID: LV7b9BBdS6OJYy7aftvExQ==
-X-CSE-MsgGUID: e+13u9wfTParRYGt+bI4WA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="88544456"
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="88544456"
+ bh=gq2/CKMS+xdFvuKZumJ9Kl+cbr8qnc0+OuCFmxv9iWM=;
+ b=dcTW5hJmwpJKcD4popy3qT53JCFDEPkHnrdYNEGk5EKoYwx1ZS2/ehCL
+ 9JLbMOox2fPjkHFnm3zfSnFgIST5kAOKCUEv/kG+1Vw6QtLPf1zG5Mxdb
+ KndgG5KJJH3lS8WXKLFOonE7up2JIey+HZDxiXY4a4OjKz69VDGmp6gRn
+ 912iR/qsfEGvj1BouGVh4CN+WdAj62Wi4YM4fMfzsKJ/XKk2jYVLylyZo
+ frF4nxzF3ZOcTaKdBK2qtZ0Aw9yI1k7utEmKn3dZQKGx+wG/dBwaVcpzl
+ WRNuiBcmGlIoVXFNast3BodYzdBh0aQqCclp1X+cig73hcQrhs1OAbyzq w==;
+X-CSE-ConnectionGUID: 6M+Y8PVrRMi6qbi4i7RJQA==
+X-CSE-MsgGUID: q9oRVH88SuKKRF+AjYf5ZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11846"; a="88544454"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="88544454"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Jul 2026 03:50:14 -0700
-X-CSE-ConnectionGUID: xe3keGWiTjSjbMLWvquw7w==
-X-CSE-MsgGUID: 7ZQrkQgcS3a+ogK9tTKl+w==
+ 14 Jul 2026 03:50:12 -0700
+X-CSE-ConnectionGUID: nxpkDo0oRt6b1uDFlTc90Q==
+X-CSE-MsgGUID: hFu21UNhRd+4BD67rna4Lw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="260134532"
+X-IronPort-AV: E=Sophos;i="6.25,163,1779174000"; d="scan'208";a="260134527"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa005.jf.intel.com with ESMTP; 14 Jul 2026 03:50:12 -0700
+ by orviesa005.jf.intel.com with ESMTP; 14 Jul 2026 03:50:11 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
  ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
-Subject: [PATCH v3 8/8] drm/i915/vrr: Enable cmrr
-Date: Tue, 14 Jul 2026 16:09:37 +0530
-Message-ID: <20260714103938.2371448-9-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v3 7/8] drm/i915/vrr: Return from CMRR compute config in case
+ of PSR2 enabled
+Date: Tue, 14 Jul 2026 16:09:36 +0530
+Message-ID: <20260714103938.2371448-8-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260714103938.2371448-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20260714103938.2371448-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -67,31 +68,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Enable CMRR during compute config and add related state
-checker for the same.
-
---v2:
-- Everything else except enable compute to handle before this patch
-(Chaitanya)
+CMRR is mutually exclusive to PSR2, hence return from CMRR if PSR2
+is already computed.
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index ca3cac5aa6ab..ce4148fa1687 100644
+index 52fe40fdbdb3..ca3cac5aa6ab 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -256,6 +256,8 @@ intel_vrr_cmrr_compute_config(struct intel_crtc_state *crtc_state)
- 						   crtc_state->vrr.cmrr.cmrr_n,
- 						   &crtc_state->vrr.cmrr.cmrr_m);
+@@ -202,6 +202,9 @@ intel_vrr_cmrr_compute_config(struct intel_crtc_state *crtc_state)
+ 	if (!HAS_CMRR(display))
+ 		return;
  
-+	crtc_state->vrr.cmrr.enable = true;
++	if (crtc_state->has_sel_update)
++		return;
 +
- 	return;
- }
- 
+ 	/* No CMRR ratio configured through debugfs */
+ 	if (!crtc->force_cmrr.numerator)
+ 		return;
 -- 
 2.48.1
 
