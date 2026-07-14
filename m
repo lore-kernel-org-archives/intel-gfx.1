@@ -4,38 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 496D5C4450A
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 16:27:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5D26C44508
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 16:27:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 510A810E1B8;
-	Tue, 14 Jul 2026 16:27:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A87B710E9DA;
+	Tue, 14 Jul 2026 16:27:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ftNXJzP6";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="UsL3X29G";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBBF810E080;
- Tue, 14 Jul 2026 16:27:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7218F10E9DA;
+ Tue, 14 Jul 2026 16:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784046457;
- bh=lglelC8ygoA2ns0XN3zxtkKnBdy5Zds4t9inyQ/PiyY=;
+ s=default; t=1784046460;
+ bh=8Yj+XzhBkj+3eDFn41zxHZ0OWUysDQ+VJqoDx4Rq6Fw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ftNXJzP6myCPG1ww4W/1rxIX5koJWuNlhUmbGCYZYyy1CKXMuu0Qp1RbuA5dzkBoj
- 7PCPCmFus70p0Hwx8vtoecs55eXW2Gi32fGEOtUwvYpslvjruUB+pEGRKP0phoBgPY
- ScQv8oR/tx1wy8vymcZDiuNDi+kFz3wMQjoxrci5caIzxsXPVA1jYLWLexdiOt81vY
- cRttgemGdznuseV9Kv0Vn9FquvUBd+djqTdVMxN2/H71OUb08goZXCbdJtrYZp/lEN
- hitO+GSuRbK0Kw8pZ28OOK42VnR887sSuGfF7ngvjJyxu4U1dj14vgSCeB7LRO4bJE
- 9N5U73PfDqG8w==
+ b=UsL3X29GkH4LIiIQKgtsan56ZvgJBW2MSkmlf1VYRkwzcOKJwBV64FLgXsAnc/lFf
+ oekTmzbtxnOE8h2cwQLZdQqiMfGa18W8aUE9VKq9Kiu54imrQVzvg6h80aDCNWjaAO
+ ozyRM6Srr6SVln71Rl2vGRV1zup+jWcid30mVP3/++fIP2IhgyW5s/aej8JmigNvrh
+ eWCqgRVHIGRxtGqPzq2V6ocCI+ESyEBo1pqW665yDAHUp4Qvno1q2AkUyXKuJlTUio
+ ovxAdI0Ro0i/Aqwxq+MO6ePNiWZQb/1aoZprxRwVvGF4BCPNjBdI9y+8I/gwHTEU2Q
+ ocVwL7lFFKD8w==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 1/7] drm/xe/ggtt: Allocate the area of GGTT above GUC_GGTT_TOP.
-Date: Tue, 14 Jul 2026 18:28:18 +0200
-Message-ID: <20260714162824.2063637-2-dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
+ =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Subject: [PATCH 5/7] drm/xe/display: Use the correct calculation for phys_base
+ on integrated
+Date: Tue, 14 Jul 2026 18:28:22 +0200
+Message-ID: <20260714162824.2063637-6-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714162824.2063637-1-dev@lankhorst.se>
 References: <20260714162824.2063637-1-dev@lankhorst.se>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -52,75 +54,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of truncating ggtt_size to be below GUC_GGTT_TOP,
-ensure that all allocations to GGTT are only ever below GUC_GGTT_TOP.
+The code originally assumed there was a 1:1 mapping between
+stolen and GGTT offset. This is no longer true as of MTL, so
+perform the correct calculations, similar to how they're
+performed for the DGFX case.
 
-This will allow the initial display GGTT to be reserved and cleared
-in the next patch, even if it is placed at the top of GGTT.
-
-By default this area will stay unused, but it will be cleared
-in xe_ggtt_init and reported in xe_ggtt_size() now.
-
+Reported-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/xe_ggtt.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/xe/display/xe_initial_plane.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 8ec23862477fc..e6a3c621c04b1 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -423,9 +423,6 @@ int xe_ggtt_init_early(struct xe_ggtt *ggtt)
- 	if (IS_DGFX(xe) && xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K)
- 		ggtt->flags |= XE_GGTT_FLAGS_64K;
+diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+index 8127384fa5bdf..275cfb13fbbd0 100644
+--- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
++++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+@@ -101,7 +101,7 @@ initial_plane_bo(struct xe_device *xe,
+ 			return NULL;
+ 		}
  
--	if (ggtt_size + ggtt_start > GUC_GGTT_TOP)
--		ggtt_size = GUC_GGTT_TOP - ggtt_start;
--
- 	if (GRAPHICS_VERx100(xe) >= 1270)
- 		ggtt->pt_ops =
- 			(ggtt->tile->media_gt && XE_GT_WA(ggtt->tile->media_gt, 22019338487)) ||
-@@ -615,11 +612,18 @@ void xe_ggtt_shift_nodes(struct xe_ggtt *ggtt, u64 new_start)
- 	WRITE_ONCE(ggtt->start, new_start);
- }
+-		phys_base = base;
++		phys_base = (pte & ~(page_size - 1)) - xe_ttm_stolen_gpu_offset(xe);
+ 		flags |= XE_BO_FLAG_STOLEN;
  
-+static int xe_ggtt_insert_node_in_range_locked(struct xe_ggtt_node *node, u32 size,
-+					       u32 align, u32 start, u64 end, u32 mm_flags)
-+{
-+	return drm_mm_insert_node_in_range(&node->ggtt->mm, &node->base, size, align,
-+						0, start, end, mm_flags);
-+}
-+
- static int xe_ggtt_insert_node_locked(struct xe_ggtt_node *node,
- 				      u32 size, u32 align, u32 mm_flags)
- {
--	return drm_mm_insert_node_generic(&node->ggtt->mm, &node->base, size, align, 0,
--					  mm_flags);
-+	return xe_ggtt_insert_node_in_range_locked(node, size, align, 0,
-+						   GUC_GGTT_TOP - node->ggtt->start, mm_flags);
- }
- 
- static struct xe_ggtt_node *ggtt_node_init(struct xe_ggtt *ggtt)
-@@ -834,8 +838,8 @@ static int __xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
- 
- 	xe_tile_assert(ggtt->tile, end >= start + xe_bo_size(bo));
- 
--	err = drm_mm_insert_node_in_range(&ggtt->mm, &bo->ggtt_node[tile_id]->base,
--					  xe_bo_size(bo), alignment, 0, start, end, 0);
-+	err = xe_ggtt_insert_node_in_range_locked(bo->ggtt_node[tile_id], xe_bo_size(bo), alignment,
-+						  start, end, 0);
- 	if (err) {
- 		ggtt_node_fini(bo->ggtt_node[tile_id]);
- 		bo->ggtt_node[tile_id] = NULL;
-@@ -884,7 +888,7 @@ int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
- int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo,
- 		      struct drm_exec *exec)
- {
--	return __xe_ggtt_insert_bo_at(ggtt, bo, 0, U64_MAX, exec);
-+	return __xe_ggtt_insert_bo_at(ggtt, bo, 0, GUC_GGTT_TOP, exec);
- }
- 
- /**
+ 		if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
 -- 
 2.53.0
 
