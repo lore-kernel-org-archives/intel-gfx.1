@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA032C4450F
-	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 16:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C7EDC4450C
+	for <intel-gfx@archiver.kernel.org>; Tue, 14 Jul 2026 16:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4467F10EDDE;
-	Tue, 14 Jul 2026 16:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D07B810EE05;
+	Tue, 14 Jul 2026 16:27:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="olIj+2LU";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="EhuwRmjY";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2195D10E080;
- Tue, 14 Jul 2026 16:27:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDE210E9DA;
+ Tue, 14 Jul 2026 16:27:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784046459;
- bh=3FnXyTXVW7taF4l6GNYMOVRy2/aD4QKp6r4SMdZQzWE=;
+ s=default; t=1784046461;
+ bh=xNTVkPI55g0D18TRiZeqaeqMVJYwm9uDyVl7zO7X1KI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=olIj+2LUSCHD3oyHUta7m5QXI2bhUH/BcjDbOxfw8oEgUVbPL1/81HZ2CiJFT/YkJ
- 5vwkRlK3Zi/LIGae2KxnAEYbdWSV5qzb2BjinfyZ9eZBNmgagoJ3gDFjhIYJWfT3mO
- 8zp6X1veqMy5qRzmtTkHoFz8TEWm9swh4qxbXUloIAIoEAi1znAxsKjyCyXLdvDNPf
- W8sAabmAJbV3QjdTFqg9/Ik4VwDy1pi+N5vYzyi+7Ap7pexuDPeV6FNjH7idP/3qRB
- qtEn33BK+IneGUdBIlPlBw4ytqJIUxT+5SnSAvcbMRyeECfCPkUcKuWHOjSn5fqRfj
- Ix1qNPlO5T9uA==
+ b=EhuwRmjYmDVWJQXgSROJ4RK/tS9qj66UKSa6J9zalx/q5aUbAcb26/XGfU21NxbSP
+ JH4oJqsDaEheOSeWaTSjM/H3kiPCim0VzgIXJ1/MOH8l/FUekNKZTAcR+uScyPlNhy
+ IJI7Ba02rSuo+8j8+he7PYrSWrdnpXOSE9iz7h8S3pXfa4d1AW/b48CXZ4bGRv3yEM
+ nW3O30rJb3LxuGcf+d2LWmofWHIgrvW/aRRCqxjmAUJNB8D4CUQ0mPn7LfGFYiTneD
+ Cb9d79L1neIlb06V9blCVvKqViDadbL0us45RUxNKkPKWDvWCkLkzssg7XGOkd3vAY
+ O8OnnCmcv9Mlw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 3/7] drm/xe/ggtt: Add xe_ggtt_node_remove_noclear
-Date: Tue, 14 Jul 2026 18:28:20 +0200
-Message-ID: <20260714162824.2063637-4-dev@lankhorst.se>
+Subject: [PATCH 6/7] drm/xe/display: Remove duplicated code
+Date: Tue, 14 Jul 2026 18:28:23 +0200
+Message-ID: <20260714162824.2063637-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260714162824.2063637-1-dev@lankhorst.se>
 References: <20260714162824.2063637-1-dev@lankhorst.se>
@@ -52,101 +52,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The last bit required for handling fb takeover is
-ensuring we can release the old live framebuffer
-without keeping track. The display code can then
-safely perform the flip.
-
-It's unfortunately a workaround for how display
-is structured through callbacks instead of being
-a midlayer.
+The order of pte vs checks isn't important, so read the pte
+outside the if block. This makes it slightly more readable.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/xe_ggtt.c | 30 +++++++++++++++++++++++-------
- drivers/gpu/drm/xe/xe_ggtt.h |  1 +
- 2 files changed, 24 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/xe/display/xe_initial_plane.c | 35 ++++++-------------
+ 1 file changed, 11 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 514dc9edd19e2..7aa075edf9d28 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -467,24 +467,40 @@ static void ggtt_node_fini(struct xe_ggtt_node *node)
- 	kfree(node);
- }
+diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+index 275cfb13fbbd0..13ac68a15ac36 100644
+--- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
++++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
+@@ -45,7 +45,7 @@ initial_plane_bo(struct xe_device *xe,
+ 	struct xe_bo *bo;
+ 	resource_size_t phys_base;
+ 	u32 base, size, flags;
+-	u64 page_size = xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K;
++	u64 page_size = xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K, pte;
+ 	struct xe_ggtt_node *original_ggtt_node;
  
--static void ggtt_node_remove(struct xe_ggtt_node *node)
-+static void ggtt_node_remove(struct xe_ggtt_node *node, bool clear)
- {
- 	struct xe_ggtt *ggtt = node->ggtt;
--	bool bound;
+ 	if (plane_config->size == 0)
+@@ -58,16 +58,14 @@ initial_plane_bo(struct xe_device *xe,
+ 			page_size);
+ 	size -= base;
  
- 	mutex_lock(&ggtt->lock);
--	bound = ggtt->flags & XE_GGTT_FLAGS_ONLINE;
--	if (bound)
-+	if (clear)
-+		clear = ggtt->flags & XE_GGTT_FLAGS_ONLINE;
-+	if (clear)
- 		xe_ggtt_clear(ggtt, xe_ggtt_node_addr(node), xe_ggtt_node_size(node));
- 	drm_mm_remove_node(&node->base);
- 	node->base.size = 0;
--	if (bound && node->invalidate_on_remove)
-+	if (clear && node->invalidate_on_remove)
- 		xe_ggtt_invalidate(ggtt);
- 	mutex_unlock(&ggtt->lock);
+-	if (IS_DGFX(xe)) {
+-		u64 pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
+-
+-		if (is_pte_local(pte) != need_pte_local(xe)) {
+-			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
+-			return NULL;
+-		}
+-
+-		phys_base = pte & ~(page_size - 1);
++	pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
++	phys_base = pte & ~(page_size - 1);
++	if (is_pte_local(pte) != need_pte_local(xe)) {
++		drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
++		return NULL;
++	}
  
- 	ggtt_node_fini(node);
- }
++	if (IS_DGFX(xe)) {
+ 		flags |= XE_BO_FLAG_VRAM0;
  
-+/**
-+ * xe_ggtt_node_remove_noclear - Remove a &xe_ggtt_node from the GGTT without clearing entries
-+ * @node: the &xe_ggtt_node to be removed
-+ *
-+ * This function is similar to xe_ggtt_node_remove(), but doesn't clear
-+ * the entries. It's used to release the live FB mapping without
-+ * clearing it.
-+ *
-+ * This function should only be called before xe_ggtt_init() in
-+ * the bios FB takeover code.
-+ */
-+void xe_ggtt_node_remove_noclear(struct xe_ggtt_node *node)
-+{
-+	ggtt_node_remove(node, false);
-+}
-+
- static void ggtt_node_remove_work_func(struct work_struct *work)
- {
- 	struct xe_ggtt_node *node = container_of(work, typeof(*node),
-@@ -492,7 +508,7 @@ static void ggtt_node_remove_work_func(struct work_struct *work)
- 	struct xe_device *xe = tile_to_xe(node->ggtt->tile);
- 
- 	guard(xe_pm_runtime)(xe);
--	ggtt_node_remove(node);
-+	ggtt_node_remove(node, true);
- }
- 
- /**
-@@ -514,7 +530,7 @@ void xe_ggtt_node_remove(struct xe_ggtt_node *node, bool invalidate)
- 	node->invalidate_on_remove = invalidate;
- 
- 	if (xe_pm_runtime_get_if_active(xe)) {
--		ggtt_node_remove(node);
-+		ggtt_node_remove(node, true);
- 		xe_pm_runtime_put(xe);
+ 		/*
+@@ -85,25 +83,14 @@ initial_plane_bo(struct xe_device *xe,
+ 			    "Using phys_base=%pa, based on initial plane programming\n",
+ 			    &phys_base);
  	} else {
- 		queue_work(ggtt->wq, &node->delayed_removal_work);
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
-index 69974da523f74..83654544feb6d 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.h
-+++ b/drivers/gpu/drm/xe/xe_ggtt.h
-@@ -32,6 +32,7 @@ xe_ggtt_insert_node_transform(struct xe_ggtt *ggtt,
- 			      u64 size, u32 align,
- 			      xe_ggtt_transform_cb transform, void *arg);
- void xe_ggtt_node_remove(struct xe_ggtt_node *node, bool invalidate);
-+void xe_ggtt_node_remove_noclear(struct xe_ggtt_node *node);
- size_t xe_ggtt_node_pt_size(const struct xe_ggtt_node *node);
- void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo);
- int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo, struct drm_exec *exec);
+-		struct ttm_resource_manager *stolen;
+-		u64 pte;
++		flags |= XE_BO_FLAG_STOLEN;
++		phys_base -= xe_ttm_stolen_gpu_offset(xe);
+ 
+-		stolen = ttm_manager_type(&xe->ttm, XE_PL_STOLEN);
+-		if (!stolen) {
++		if (!ttm_manager_type(&xe->ttm, XE_PL_STOLEN)) {
+ 			drm_dbg_kms(&xe->drm, "No stolen for initial FB\n");
+ 			return NULL;
+ 		}
+ 
+-		pte = xe_ggtt_read_pte(tile0->mem.ggtt, base);
+-
+-		if (is_pte_local(pte) != need_pte_local(xe)) {
+-			drm_err(&xe->drm, "Initial plane PTE has bad local memory bit\n");
+-			return NULL;
+-		}
+-
+-		phys_base = (pte & ~(page_size - 1)) - xe_ttm_stolen_gpu_offset(xe);
+-		flags |= XE_BO_FLAG_STOLEN;
+-
+ 		if (IS_ENABLED(CONFIG_FRAMEBUFFER_CONSOLE) &&
+ 		    IS_ENABLED(CONFIG_DRM_FBDEV_EMULATION) &&
+ 		    !xe_display_bo_fbdev_prefer_stolen(xe, plane_config->size)) {
 -- 
 2.53.0
 
