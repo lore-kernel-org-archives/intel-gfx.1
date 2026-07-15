@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADA0C44508
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3849DC44508
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 15:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409A110E1D6;
-	Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08EF310E7D8;
+	Wed, 15 Jul 2026 15:32:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HHLSeOKO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NEct2bTv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D20410E1A3;
- Wed, 15 Jul 2026 15:21:45 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FB3F10E3C9;
+ Wed, 15 Jul 2026 15:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784128905; x=1815664905;
+ t=1784129521; x=1815665521;
  h=message-id:subject:from:to:cc:date:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=ncXiZ3N9K4okkZV4BfOO7md4Q74b8pPvsDI3ButiQK4=;
- b=HHLSeOKOSiQIuI/H3l+xe0YNk6L8NiUYFZUyAeMBhI9z9uE+dkh48rnj
- +OqHBDE6NjEzUipA4R7YHPDyojQPR5XugngrU0rgWw3mwAFjkcc5tOmu4
- LCduZBomcSZf/vRo3s+cZcRoGqZoijexAbryN/SMsI2eYjRaHWJ7UPwaE
- vh52ZNRn5gNuT6Pr8ADZD6QkPpJtBvjKIL3ic5eb95e++3vpgqTmMeQj1
- S07E8Oa8GwaUdGWp6Ivpd3uYC05xmGd1OsK2UnMorxfQKyQxV1AiXi1xG
- XCM0IzHaOrYF5v9/9UwBiSPDPP02BeARFSdvpPyNS5aHJGzmjphrWOMC8 Q==;
-X-CSE-ConnectionGUID: rQvum0bAQwaVoq6J9wf9HQ==
-X-CSE-MsgGUID: U8ReVA4jT0K8Pu+H6f3Y/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95417316"
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="95417316"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 08:21:45 -0700
-X-CSE-ConnectionGUID: NQzVcubgSRSHdDd4Hvddvg==
-X-CSE-MsgGUID: IE/0a5nAQXSME1yrKfofWw==
+ bh=uxQEkKsEB6KSJIG6TBd6vt/3+84+YhOXzaye/UwOWro=;
+ b=NEct2bTvziXjcv1dwl/s65uMTCGjeArz1Yam+cGLsjxaZLsQrq0Y1ZVo
+ 5WJaZlwuR9p7HxnU5wgtZ75CMkRv9WUKo2w69uuW+zSVUeZOL7cW5D3Cq
+ Duxbgf3Y7ISU4SVziZwAhi3q+4CI4AKQYW+TFwoSOqHEKwkpSQXvSz86l
+ aJWdw8TbvcI7VTJSAPuUnbRGCjU/yDZr5JL6XvOv1zTCwq6D3Id4cgyyt
+ uvm6y1mbYlbc8ok8F1c9oWWlabEU3IfC8tAsCrVQPNctvWySKiL2+b7ca
+ H/TmYDJwkel7GPcFDD8Y75EQUzO5qZUj7gY1KcDRzsVgif3vo0sH+w+Zz w==;
+X-CSE-ConnectionGUID: LoY+IsZ4TJa3EHgVwr+jSA==
+X-CSE-MsgGUID: GkTdisb2QMy2zW2ehd19wA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="72302455"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="72302455"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:32:01 -0700
+X-CSE-ConnectionGUID: wsw9T3L/Tl+JD1YnkJxouw==
+X-CSE-MsgGUID: lGR3oExsSFK796u7rEBHJw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="294420716"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="252817349"
 Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.25])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2026 08:21:43 -0700
-Message-ID: <ceb6e88a73eb99700b0af3e19e3d5c4941341752.camel@linux.intel.com>
-Subject: Re: [PATCH v3 3/5] drm/i915/gem: Pull out size validation into a
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:31:58 -0700
+Message-ID: <8979872eac4f9eabb499f074b66583013f6f524c.camel@linux.intel.com>
+Subject: Re: [PATCH v3 4/5] drm/i915/gem: Read and shrink memory in a
  separate function
 From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
 To: Krzysztof Karas <krzysztof.karas@intel.com>, 
@@ -53,10 +53,10 @@ Cc: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
  =?UTF-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,  Sebastian
  Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
  <krzysztof.niemiec@intel.com>
-Date: Wed, 15 Jul 2026 17:21:39 +0200
-In-Reply-To: <20260713095812.1014365-4-krzysztof.karas@intel.com>
+Date: Wed, 15 Jul 2026 17:31:56 +0200
+In-Reply-To: <20260713095812.1014365-5-krzysztof.karas@intel.com>
 References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
- <20260713095812.1014365-4-krzysztof.karas@intel.com>
+ <20260713095812.1014365-5-krzysztof.karas@intel.com>
 Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
  80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Type: text/plain; charset="UTF-8"
@@ -78,84 +78,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
-
 On Mon, 2026-07-13 at 09:58 +0000, Krzysztof Karas wrote:
-> shmem_sg_alloc_table is a very large and hard to read function,
-> so reduce the number of operations it is responsible for by
-> placing "size" validation in a new helper.
+> Continue unloading shmem_sg_alloc_table by placing reading
+> folios and shrink call into a new helper.
+> Make the loop a bit more reader-friendly by removing iteration
+> over a structure and replacing it with a do-while loop.
 >=20
 > Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 > ---
 > v3:
 >  * Split refactoring and put it after the fix in shmem folio
 >   counting suggested by Andi.
+>  * Use do-while loop suggested by Robin.=20
 >=20
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 29 ++++++++++++++++-------
->  1 file changed, 20 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 102 ++++++++++++----------
+>  1 file changed, 55 insertions(+), 47 deletions(-)
 >=20
 > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
 i915/gem/i915_gem_shmem.c
-> index 0011d76f5b8c..4a61b012fb6f 100644
+> index 4a61b012fb6f..7c8de8fe0a22 100644
 > --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
 > +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -62,6 +62,22 @@ void shmem_sg_free_table(struct sg_table *st, struct a=
-ddress_space *mapping,
->  	sg_free_table(st);
+> @@ -78,6 +78,55 @@ static int validate_size(size_t size, unsigned int pag=
+e_count,
+>  	return 0;
 >  }
 > =20
-> +static int validate_size(size_t size, unsigned int page_count,
-> +			 struct intel_memory_region *mr)
+> +static struct folio *shmem_shrink_get_folio(struct address_space *mappin=
+g,
+> +					    unsigned long folio_index,
+> +					    gfp_t gfp, unsigned int page_count,
+> +					    struct drm_i915_private *i915)
 > +{
-> +	if (overflows_type(size / PAGE_SIZE, page_count))
-> +		return -E2BIG;
+> +	struct folio *folio =3D NULL;
+> +	unsigned int retries =3D 2;
 > +
-> +	/*
-> +	 * If there's no chance of allocating enough pages for the whole
-> +	 * object, bail early.
-> +	 */
-> +	if (size > resource_size(&mr->region))
-> +		return -ENOMEM;
+> +	do {
+> +		cond_resched();
+> +		folio =3D shmem_read_folio_gfp(mapping, folio_index, gfp);
+> +		if (IS_ERR(folio)) {
+
+Going again through then unused shrinking and modification of gfp doesn't=
+=C2=A0
+make sense, I believe.  Could be avoided based on retries value as an=C2=A0
+additional condition.
+
+Thanks,
+Janusz
+
+
+> +			i915_gem_shrink(NULL, i915, 2 * page_count, NULL,
+> +					I915_SHRINK_BOUND | I915_SHRINK_UNBOUND);
 > +
-> +	return 0;
+> +			/*
+> +			 * We've tried hard to allocate the memory by reaping
+> +			 * our own buffer, now let the real VM do its job and
+> +			 * go down in flames if truly OOM.
+> +			 *
+> +			 * However, since graphics tend to be disposable,
+> +			 * defer the oom here by reporting the ENOMEM back
+> +			 * to userspace.
+> +			 *
+> +			 * Reclaim and warn, but no oom.
+> +			 */
+> +			gfp =3D mapping_gfp_mask(mapping);
+> +
+> +			/*
+> +			 * Our bo are always dirty and so we require
+> +			 * kswapd to reclaim our pages (direct reclaim
+> +			 * does not effectively begin pageout of our
+> +			 * buffers on its own). However, direct reclaim
+> +			 * only waits for kswapd when under allocation
+> +			 * congestion. So as a result __GFP_RECLAIM is
+> +			 * unreliable and fails to actually reclaim our
+> +			 * dirty pages -- unless you try over and over
+> +			 * again with !__GFP_NORETRY. However, we still
+> +			 * want to fail this allocation rather than
+> +			 * trigger the out-of-memory killer and for
+> +			 * this we want __GFP_RETRY_MAYFAIL.
+> +			 */
+> +			gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+> +		}
+> +	} while (IS_ERR(folio) && --retries);
+> +
+> +	return folio;
 > +}
 > +
 >  int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table =
 *st,
 >  			 size_t size, struct intel_memory_region *mr,
 >  			 struct address_space *mapping,
-> @@ -77,16 +93,11 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	unsigned long i;
->  	int ret;
+> @@ -117,57 +166,16 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
+915, struct sg_table *st,
+>  	for (i =3D 0; i < page_count; i++) {
+>  		unsigned long folio_page_index =3D 0;
+>  		unsigned long nr_pages;
+> -		const unsigned int shrink[] =3D {
+> -			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
+> -			0,
+> -		}, *s =3D shrink;
+>  		gfp_t gfp =3D noreclaim;
 > =20
-> -	if (overflows_type(size / PAGE_SIZE, page_count))
-> -		return -E2BIG;
+>  		/* Grab the next folio if we exhausted the current one. */
+>  		if (!i || i > folio_end) {
+> -			do {
+> -				cond_resched();
+> -				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
+> -				if (!IS_ERR(folio))
+> -					break;
 > -
->  	page_count =3D size / PAGE_SIZE;
-
-Verifying if page_count can accommodate a result before assigning that
-result to=C2=A0it looked more correctly to me.  Since overflows_type() does=
-n't
-look at the variable's value, only its type, I think you could postpone=C2=
-=A0
-page_count=C2=A0initialization and pass its pointer to your helper to prese=
-rve=C2=A0
-that=C2=A0more=C2=A0reasonable order of operations.
-
-Thanks,
-Janusz
-
-> -	/*
-> -	 * If there's no chance of allocating enough pages for the whole
-> -	 * object, bail early.
-> -	 */
-> -	if (size > resource_size(&mr->region))
-> -		return -ENOMEM;
-> +
-> +	ret =3D validate_size(size, page_count, mr);
-> +	if (ret < 0)
-> +		return ret;
+> -				if (!*s) {
+> -					ret =3D PTR_ERR(folio);
+> -					goto err_sg;
+> -				}
+> -
+> -				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
+> -
+> -				/*
+> -				* We've tried hard to allocate the memory by reaping
+> -				* our own buffer, now let the real VM do its job and
+> -				* go down in flames if truly OOM.
+> -				*
+> -				* However, since graphics tend to be disposable,
+> -				* defer the oom here by reporting the ENOMEM back
+> -				* to userspace.
+> -				*/
+> -				if (!*s) {
+> -					/* reclaim and warn, but no oom */
+> -					gfp =3D mapping_gfp_mask(mapping);
+> -
+> -					/*
+> -					 * Our bo are always dirty and so we require
+> -					 * kswapd to reclaim our pages (direct reclaim
+> -					 * does not effectively begin pageout of our
+> -					 * buffers on its own). However, direct reclaim
+> -					 * only waits for kswapd when under allocation
+> -					 * congestion. So as a result __GFP_RECLAIM is
+> -					 * unreliable and fails to actually reclaim our
+> -					 * dirty pages -- unless you try over and over
+> -					 * again with !__GFP_NORETRY. However, we still
+> -					 * want to fail this allocation rather than
+> -					 * trigger the out-of-memory killer and for
+> -					 * this we want __GFP_RETRY_MAYFAIL.
+> -					 */
+> -					gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
+> -				}
+> -			} while (1);
+> +			folio =3D shmem_shrink_get_folio(mapping, i, gfp,
+> +						       page_count, i915);
+> +			if (IS_ERR(folio)) {
+> +				ret =3D PTR_ERR(folio);
+> +				goto err_sg;
+> +			}
 > =20
->  	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
->  		return -ENOMEM;
+>  			folio_start =3D folio_pgoff(folio);
+>  			folio_end =3D folio_start + folio_nr_pages(folio) - 1;
