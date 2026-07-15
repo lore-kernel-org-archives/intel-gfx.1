@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81871C44512
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 11:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD8DC44507
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 11:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE2C810EFCE;
-	Wed, 15 Jul 2026 11:05:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E55C910EFD6;
+	Wed, 15 Jul 2026 11:05:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="O0q2kEPI";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="TwShqh/8";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB34E10EFC3;
- Wed, 15 Jul 2026 11:05:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95CE810EFC9;
+ Wed, 15 Jul 2026 11:05:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784113509;
- bh=M4118sCtzF0TKAWBOI/0RGOW+RtUnQrhgULc6L1L9gk=;
+ s=default; t=1784113511;
+ bh=8gnsQ5zQV9Lot6RrcPgAap6D5kkprnOggCyt//y9IcE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=O0q2kEPI+TFsJOQiOtWEFi/iUzVeOkguPZ6WZcDT2ui4i6oPz4rpkRWdYvAfZ5ljr
- zfuqh8uSHYPt0i6X6NTKWznVH79eIBFWhKcH0kzxvn22moeGE0Lk63S0k7sGSNQnbT
- uE79y3adBTxtX1ujZEvcWQwJMuZAxPzO3pHVEB7pc4MK0xDDgnbimWkbZWpU5R017x
- cXq95ppkBRcUaYczz+rFmfXzMSDZbDfJnHTwH2thM8HjzzKcKSwlv37BMfhV/ZWG15
- z28jul9KVF9Ezu4V3C9NAptUmPCFw+pk33XaM4Hi3nGV5FBvoY9dec54kjmUfj+YmU
- qQG6aKX9KX+zA==
+ b=TwShqh/8LdDvrA/ktvHxy/s5FHKJewDcHGJ8ErCqTZGufZzkJe5XNxWEffk7NSBlM
+ x44jCW/g5rJuYtwrLuCOjvvd0DlonU9ProBFaaUO2RvsbGcJV19kLyn7s3kiZIZzVf
+ 5LtObpysHGOJDTtce/WglwQMrzxfkeCh9xvfCPftgslG0zkGbC4yQAe5h92LA2h3rU
+ q3Mvb1v88yUmSy1cSpS5RVIU3YwYZ/cz5FHiCVCNxdQUU6mpl5kAVzUqzwYwZuttsy
+ eVgYpS/dkq+gmD6oLJexffCuqRoh4jSW/GIude1oaM6Rmdhr3Y8YxFoFV8PyQ3bfyi
+ amGsF3U1c4pCw==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH v2 3/6] drm/xe/display: Reserve the original GGTT space before
- creating a bo
-Date: Wed, 15 Jul 2026 13:05:54 +0200
-Message-ID: <20260715110557.2172095-4-dev@lankhorst.se>
+Subject: [PATCH v2 6/6] drm/xe/ggtt: Remove xe_ggtt_insert_bo_at
+Date: Wed, 15 Jul 2026 13:05:57 +0200
+Message-ID: <20260715110557.2172095-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260715110557.2172095-1-dev@lankhorst.se>
 References: <20260715110557.2172095-1-dev@lankhorst.se>
@@ -53,69 +52,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Annotate the original area of the framebuffer as reserved in the GGTT
-before creating a new GGTT entry. This allows us to remove the
-range restrictions of GGTT in xe_bo_create_pin_map_at_novm().
+This code was created specifically for the display handover,
+and can be removed now that we temporarily reserve the area
+of GGTT that contains the original framebuffer contents.
 
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/display/xe_initial_plane.c | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/xe/xe_bo.c   |  8 +-------
+ drivers/gpu/drm/xe/xe_ggtt.c | 16 ----------------
+ drivers/gpu/drm/xe/xe_ggtt.h |  2 --
+ 3 files changed, 1 insertion(+), 25 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/display/xe_initial_plane.c b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-index 0f86b73036d03..f49dda8e28255 100644
---- a/drivers/gpu/drm/xe/display/xe_initial_plane.c
-+++ b/drivers/gpu/drm/xe/display/xe_initial_plane.c
-@@ -37,6 +37,25 @@ static bool need_pte_local(struct xe_device *xe)
- 	return IS_DGFX(xe) || has_lmembar(xe);
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index c266fa6bade1b..5d7d91444dce3 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -2560,13 +2560,7 @@ __xe_bo_create_locked(struct xe_device *xe,
+ 			if (t != tile && !(bo->flags & XE_BO_FLAG_GGTTx(t)))
+ 				continue;
+ 
+-			if (flags & XE_BO_FLAG_FIXED_PLACEMENT) {
+-				err = xe_ggtt_insert_bo_at(t->mem.ggtt, bo,
+-							   start + xe_bo_size(bo), U64_MAX,
+-							   exec);
+-			} else {
+-				err = xe_ggtt_insert_bo(t->mem.ggtt, bo, exec);
+-			}
++			err = xe_ggtt_insert_bo(t->mem.ggtt, bo, exec);
+ 			if (err)
+ 				goto err_unlock_put_bo;
+ 		}
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+index ff479e0a9f3b3..017e7eeeb2c50 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.c
++++ b/drivers/gpu/drm/xe/xe_ggtt.c
+@@ -900,22 +900,6 @@ static int __xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+ 	return err;
  }
  
-+static struct xe_ggtt_node *reserve_original_node(struct xe_ggtt *ggtt, u32 base, u32 size, u64 page_size)
-+{
-+	u64 ggtt_start = xe_ggtt_start(ggtt), ggtt_end = ggtt_start + xe_ggtt_size(ggtt);
-+
-+	/* Completely truncated? */
-+	if (base + size <= ggtt_start || base >= ggtt_end)
-+		return NULL;
-+
-+	/* Partially truncated? */
-+	if (base <= ggtt_start) {
-+		size -= ggtt_start - base;
-+		base = ggtt_start;
-+	} else if (base + size >= ggtt_end) {
-+		size = ggtt_end - base;
-+	}
-+
-+	return xe_ggtt_insert_node_at(ggtt, size, page_size, base, base + size);
-+}
-+
- static struct xe_bo *
- initial_plane_bo(struct xe_device *xe,
- 		 struct intel_initial_plane_config *plane_config)
-@@ -46,6 +65,7 @@ initial_plane_bo(struct xe_device *xe,
- 	resource_size_t phys_base;
- 	u32 base, size, flags;
- 	u64 page_size = xe->info.vram_flags & XE_VRAM_FLAGS_NEED64K ? SZ_64K : SZ_4K;
-+	struct xe_ggtt_node *original_ggtt_node;
+-/**
+- * xe_ggtt_insert_bo_at - Insert BO at a specific GGTT space
+- * @ggtt: the &xe_ggtt where bo will be inserted
+- * @bo: the &xe_bo to be inserted
+- * @start: address where it will be inserted
+- * @end: end of the range where it will be inserted
+- * @exec: The drm_exec transaction to use for exhaustive eviction.
+- *
+- * Return: 0 on success or a negative error code on failure.
+- */
+-int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+-			 u64 start, u64 end, struct drm_exec *exec)
+-{
+-	return __xe_ggtt_insert_bo_at(ggtt, bo, start, end, exec);
+-}
+-
+ /**
+  * xe_ggtt_insert_bo - Insert BO into GGTT
+  * @ggtt: the &xe_ggtt where bo will be inserted
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
+index 83654544feb6d..02e72dbae0e58 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.h
++++ b/drivers/gpu/drm/xe/xe_ggtt.h
+@@ -36,8 +36,6 @@ void xe_ggtt_node_remove_noclear(struct xe_ggtt_node *node);
+ size_t xe_ggtt_node_pt_size(const struct xe_ggtt_node *node);
+ void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo);
+ int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo, struct drm_exec *exec);
+-int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+-			 u64 start, u64 end, struct drm_exec *exec);
+ void xe_ggtt_remove_bo(struct xe_ggtt *ggtt, struct xe_bo *bo);
+ u64 xe_ggtt_largest_hole(struct xe_ggtt *ggtt, u64 alignment, u64 *spare);
  
- 	if (plane_config->size == 0)
- 		return NULL;
-@@ -111,8 +131,15 @@ initial_plane_bo(struct xe_device *xe,
- 		}
- 	}
- 
-+	original_ggtt_node = reserve_original_node(tile0->mem.ggtt, base, size, page_size);
-+	if (IS_ERR(original_ggtt_node))
-+		return NULL;
-+
- 	bo = xe_bo_create_pin_map_at_novm(xe, tile0, size, phys_base,
- 					  ttm_bo_type_kernel, flags, 0, false);
-+	if (original_ggtt_node)
-+		xe_ggtt_node_remove_noclear(original_ggtt_node);
-+
- 	if (IS_ERR(bo)) {
- 		drm_dbg_kms(&xe->drm,
- 			    "Failed to create bo phys_base=%pa size %u with flags %x: %li\n",
 -- 
 2.53.0
 
