@@ -4,27 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6642C4450E
-	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 14:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADA0C44508
+	for <intel-gfx@archiver.kernel.org>; Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C30410E107;
-	Wed, 15 Jul 2026 14:40:18 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CB0A10E07F;
- Wed, 15 Jul 2026 14:40:17 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3010659203807685559=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 409A110E1D6;
+	Wed, 15 Jul 2026 15:21:47 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HHLSeOKO";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D20410E1A3;
+ Wed, 15 Jul 2026 15:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784128905; x=1815664905;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=ncXiZ3N9K4okkZV4BfOO7md4Q74b8pPvsDI3ButiQK4=;
+ b=HHLSeOKOSiQIuI/H3l+xe0YNk6L8NiUYFZUyAeMBhI9z9uE+dkh48rnj
+ +OqHBDE6NjEzUipA4R7YHPDyojQPR5XugngrU0rgWw3mwAFjkcc5tOmu4
+ LCduZBomcSZf/vRo3s+cZcRoGqZoijexAbryN/SMsI2eYjRaHWJ7UPwaE
+ vh52ZNRn5gNuT6Pr8ADZD6QkPpJtBvjKIL3ic5eb95e++3vpgqTmMeQj1
+ S07E8Oa8GwaUdGWp6Ivpd3uYC05xmGd1OsK2UnMorxfQKyQxV1AiXi1xG
+ XCM0IzHaOrYF5v9/9UwBiSPDPP02BeARFSdvpPyNS5aHJGzmjphrWOMC8 Q==;
+X-CSE-ConnectionGUID: rQvum0bAQwaVoq6J9wf9HQ==
+X-CSE-MsgGUID: U8ReVA4jT0K8Pu+H6f3Y/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="95417316"
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="95417316"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:21:45 -0700
+X-CSE-ConnectionGUID: NQzVcubgSRSHdDd4Hvddvg==
+X-CSE-MsgGUID: IE/0a5nAQXSME1yrKfofWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,165,1779174000"; d="scan'208";a="294420716"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.25])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Jul 2026 08:21:43 -0700
+Message-ID: <ceb6e88a73eb99700b0af3e19e3d5c4941341752.camel@linux.intel.com>
+Subject: Re: [PATCH v3 3/5] drm/i915/gem: Pull out size validation into a
+ separate function
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
+ <robin.murphy@arm.com>,  Jason Gunthorpe	 <jgg@ziepe.ca>,
+ =?UTF-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,  Sebastian
+ Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>
+Date: Wed, 15 Jul 2026 17:21:39 +0200
+In-Reply-To: <20260713095812.1014365-4-krzysztof.karas@intel.com>
+References: <20260713095812.1014365-1-krzysztof.karas@intel.com>
+ <20260713095812.1014365-4-krzysztof.karas@intel.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/cdclk=3A_Workaro?=
- =?utf-8?q?und_some_kind_of_scaler_2PPC_issue?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Ville Syrjala" <ville.syrjala@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 15 Jul 2026 14:40:17 -0000
-Message-ID: <178412641717.193149.2535657201703390853@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260715120926.10786-1-ville.syrjala@linux.intel.com>
-In-Reply-To: <20260715120926.10786-1-ville.syrjala@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +75,87 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3010659203807685559==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Krzysztof,
 
-== Series Details ==
+On Mon, 2026-07-13 at 09:58 +0000, Krzysztof Karas wrote:
+> shmem_sg_alloc_table is a very large and hard to read function,
+> so reduce the number of operations it is responsible for by
+> placing "size" validation in a new helper.
+>=20
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> v3:
+>  * Split refactoring and put it after the fix in shmem folio
+>   counting suggested by Andi.
+>=20
+>  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 29 ++++++++++++++++-------
+>  1 file changed, 20 insertions(+), 9 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
+i915/gem/i915_gem_shmem.c
+> index 0011d76f5b8c..4a61b012fb6f 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> @@ -62,6 +62,22 @@ void shmem_sg_free_table(struct sg_table *st, struct a=
+ddress_space *mapping,
+>  	sg_free_table(st);
+>  }
+> =20
+> +static int validate_size(size_t size, unsigned int page_count,
+> +			 struct intel_memory_region *mr)
+> +{
+> +	if (overflows_type(size / PAGE_SIZE, page_count))
+> +		return -E2BIG;
+> +
+> +	/*
+> +	 * If there's no chance of allocating enough pages for the whole
+> +	 * object, bail early.
+> +	 */
+> +	if (size > resource_size(&mr->region))
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> +
+>  int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table =
+*st,
+>  			 size_t size, struct intel_memory_region *mr,
+>  			 struct address_space *mapping,
+> @@ -77,16 +93,11 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
+5, struct sg_table *st,
+>  	unsigned long i;
+>  	int ret;
+> =20
+> -	if (overflows_type(size / PAGE_SIZE, page_count))
+> -		return -E2BIG;
+> -
+>  	page_count =3D size / PAGE_SIZE;
 
-Series: drm/i915/cdclk: Workaround some kind of scaler 2PPC issue
-URL   : https://patchwork.freedesktop.org/series/170483/
-State : success
+Verifying if page_count can accommodate a result before assigning that
+result to=C2=A0it looked more correctly to me.  Since overflows_type() does=
+n't
+look at the variable's value, only its type, I think you could postpone=C2=
+=A0
+page_count=C2=A0initialization and pass its pointer to your helper to prese=
+rve=C2=A0
+that=C2=A0more=C2=A0reasonable order of operations.
 
-== Summary ==
+Thanks,
+Janusz
 
-CI Bug Log - changes from CI_DRM_18830 -> Patchwork_170483v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170483v1/index.html
-
-Participating hosts (41 -> 39)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18830 -> Patchwork_170483v1
-
-  CI-20190529: 20190529
-  CI_DRM_18830: 116ce94f4e028e50e3523c46a8ce1e665ce47cb9 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9006: 6380a8af26359dd222e22679442272ded836c463 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_170483v1: 116ce94f4e028e50e3523c46a8ce1e665ce47cb9 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170483v1/index.html
-
---===============3010659203807685559==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/cdclk: Workaround some kind of scaler 2PPC issue</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170483/">https://patchwork.freedesktop.org/series/170483/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170483v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170483v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18830 -&gt; Patchwork_170483v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170483v1/index.html</p>
-<h2>Participating hosts (41 -&gt; 39)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18830 -&gt; Patchwork_170483v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18830: 116ce94f4e028e50e3523c46a8ce1e665ce47cb9 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9006: 6380a8af26359dd222e22679442272ded836c463 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_170483v1: 116ce94f4e028e50e3523c46a8ce1e665ce47cb9 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3010659203807685559==--
+> -	/*
+> -	 * If there's no chance of allocating enough pages for the whole
+> -	 * object, bail early.
+> -	 */
+> -	if (size > resource_size(&mr->region))
+> -		return -ENOMEM;
+> +
+> +	ret =3D validate_size(size, page_count, mr);
+> +	if (ret < 0)
+> +		return ret;
+> =20
+>  	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
+>  		return -ENOMEM;
