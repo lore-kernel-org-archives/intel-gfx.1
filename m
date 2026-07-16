@@ -4,167 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ABC3C4450A
-	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:32:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64FE9C44501
+	for <intel-gfx@archiver.kernel.org>; Thu, 16 Jul 2026 13:41:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9783110F31C;
-	Thu, 16 Jul 2026 13:32:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E229710F321;
+	Thu, 16 Jul 2026 13:41:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QUC+5YhG";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="AfTrBNnb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB1F10F319;
- Thu, 16 Jul 2026 13:32:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784208759; x=1815744759;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=eY3pAxN4r8O446GhnJeauOCSg82Rzwj3sv9o97yMJkM=;
- b=QUC+5YhGfSKuXGkLzjfIq9WBqztJozQNuoyOYjYdjGteo5NxLrph3yX5
- l2rl7k96p1jAeINzWWFiwK3iQoeXJ2AdWmRfmLEXkkPT9DJR+rnUl45cs
- a5kXXn95735e7VPkcRevZgeyulQI8fkS1czzMghrEFwbw1mfMoGTtVDP6
- vE7e0RavVL9v7H1S1Jxa07ANIfNw7ls5pu+V71SF0Btzjkl7AvFiK7fOc
- BV+7vpQe8NIq/UFmVrtn1ImCW9AM2sNz/2UBNHnnj/o0fXIS5pPEY3NQC
- bTKTtWJWQ13bUQhXlsdEE9mPEy+88HnufbWev3zoX2IUHbJpLEtfPiTeR A==;
-X-CSE-ConnectionGUID: NiqOD31LT22qTaODlDsbNA==
-X-CSE-MsgGUID: Jbcfa/INSVa6HUUp7wbAJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11847"; a="96235684"
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="96235684"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 06:32:39 -0700
-X-CSE-ConnectionGUID: FxRk/BT2SlmNKBDTcau+GQ==
-X-CSE-MsgGUID: xCEPKZjQTCSQ70DCCL0BfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,167,1779174000"; d="scan'208";a="254759322"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 06:32:39 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 16 Jul 2026 06:32:38 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 06:32:38 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.40) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 16 Jul 2026 06:32:37 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KaY7XyG2UK5L7PGF+X9qxDa2CVZaOR67A3dp/RTr8cVmUeQ+Wl3JwQjryjEFX+Sp0Gv1Zuh2REfXjovrD8wuWgGo+PfIkiTbcVGIB8qZxp1pfY+/Tbpi4RI9jY6wc8cqNKSCxULCVlhAHjF3z59quVhuruitu8VhAwZOQvghKinnjPIwHHEK2G1hw2r7ho805BhD0v1mdZrpCc3RatY5BmeJhF1j5oax+1lN7S0Re4w36OreWS4C7wsWDUYSt+sAeXPCs/py3ykM8Jp2QyUsPFYgEv9iGEgIgv5ruUxni5tX64eEc7N/JudWu42LlYCOkkI730xqYbH+dP/yOaFpwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eY3pAxN4r8O446GhnJeauOCSg82Rzwj3sv9o97yMJkM=;
- b=xZAWs2X6Mpfpbo8jOhkV1Zrv0UhsZFFpWvdEM+q6UgKRwRufLjxEzxwFdkOd6BhjY0UQmvRFpvMGD0rj1z8NI/B8UdQ1I81HuZ/APYkZWCaz93S1xnezRB++v2fuEC3g8/EPbwK63t17BVQvhbwzJhAnrfOMHgitZFeXcmAh7kIGE0uUlhVqWJDJfk+PgD2g3FkbqQtOg1/Lfnng3A097locbfCljzZgtiZocP3OjEOo3gH9DxnMMEyUN0Vkoqp/8QGfOCqe2CX8s4P8SiKp0eLYnNTS0ukLFGu93gOGKj1NA0x+3wOYo2gupFnU96jfzyCupivgOgqgmSQjbZkWkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA1PR11MB6348.namprd11.prod.outlook.com (2603:10b6:208:3af::16)
- by DM4PR11MB6144.namprd11.prod.outlook.com (2603:10b6:8:af::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Thu, 16 Jul
- 2026 13:32:34 +0000
-Received: from IA1PR11MB6348.namprd11.prod.outlook.com
- ([fe80::5a70:4005:6905:8e31]) by IA1PR11MB6348.namprd11.prod.outlook.com
- ([fe80::5a70:4005:6905:8e31%7]) with mapi id 15.21.0223.011; Thu, 16 Jul 2026
- 13:32:33 +0000
-From: "Golani, Mitulkumar Ajitkumar" <mitulkumar.ajitkumar.golani@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "Shankar, Uma" <uma.shankar@intel.com>, "Nautiyal, Ankit K"
- <ankit.k.nautiyal@intel.com>
-Subject: RE: [PATCH v3 5/8] drm/i915/vrr: Move CMRR hw registers to fix
- refresh rate path
-Thread-Topic: [PATCH v3 5/8] drm/i915/vrr: Move CMRR hw registers to fix
- refresh rate path
-Thread-Index: AQHdE3/bUYYuHZw5cUCluBJij5i6E7ZukMqAgAF9woCAABg0AIAAALYg
-Date: Thu, 16 Jul 2026 13:32:33 +0000
-Message-ID: <IA1PR11MB6348FC9AC91C3A13B42376F5B2C72@IA1PR11MB6348.namprd11.prod.outlook.com>
-References: <20260714103938.2371448-1-mitulkumar.ajitkumar.golani@intel.com>
- <20260714103938.2371448-6-mitulkumar.ajitkumar.golani@intel.com>
- <4b475ef0-4572-4b6f-957a-0e5bbf256bd2@intel.com>
- <IA1PR11MB634858DAD04F80A44D36CB60B2C72@IA1PR11MB6348.namprd11.prod.outlook.com>
- <2621089a-298b-4714-92ea-aed376598883@intel.com>
-In-Reply-To: <2621089a-298b-4714-92ea-aed376598883@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR11MB6348:EE_|DM4PR11MB6144:EE_
-x-ms-office365-filtering-correlation-id: 01628213-46e4-4a08-bc1a-08dee33eb187
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|10070799003|23010399003|376014|1800799024|366016|22082099003|18002099003|56012099006|4143699003|11063799006|10067099003|38070700021;
-x-microsoft-antispam-message-info: P0ChZiLYmNoxzAaHb8/9xSKZgR+FLEDzp4inQjAxhSxor8KSSydLTOqlYvx+jKKwekR737GPwWJIB3gbgC4jb73OnzdxPjoAFXGOtcnQ4ko0LUKKLJRPyctgfYseg+Ls10l486qCOlUK64LoKzmtKmgu9HlzsBdxkPwT/YfEhVAWtXtcfjyRrRkLx5S8aDtuje8hQXzPuLAJmtADQzAtMInfxpbRpw9YAKtX43VTn9th4p8cWClx/SaE5pezIU4hXliUSiQVzQQ8gNKwIpCP5770EhhELp/6WbTjLO0tXPhXYeA9QccIcW4fxrSBBGCesR7lzNeLrM5CACVnAM9LRhai3pm0VeZFcTeneNbkaXuZO8b7DMqIEfKAPEz4mVQf1I90YqHviHLYbvL0zbnoADyDWt4mehn9+DJ3phcCK+MHQH+b5Nf9WEPScmpb6VMULIA4paR34lvSEb3Mlpgx47rsqHSt3LXY7523cGI8FVvU9q+Nugl0mNf9d5GjeVqhqZdfsTQ8HW6BroUH7m3lrt0t3SXX+IL30fDxkrZUIyoNwdIp2HdNYzfcgOHO2ihzo935P1uXXzTZQk+H0Bm3NRnrEAHgS15ay/Gz+m9TKJlPSUb9OkZ4FZeW/rlO9PU8sUlocbiU1KZtg9VdnvGJ+CbtVl8+2/wTCEWYE//Upq5oGzcBOTp/c2IRiWf/TjUVX3qIvRDQNhVynJs0yyK7MVsCOjZZNEFN+7j/HQbvHuA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA1PR11MB6348.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(10067099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dHI3eUx4MWk1VnEzVFM2dzNZOXFPZFZsWm9YelBBRldIYW1sN2h3U2RSRGpI?=
- =?utf-8?B?RUc4c3JlWWhyUGducGRIb2hGc24vZHJsMUdIWUdJck9GWFFPVCt4bWpKZm40?=
- =?utf-8?B?V1N5a0RiUXI0Y0ExaUVDRTNjd1JXZnhQdHNPWWlFcEpjeENxNFh1T3AveVQv?=
- =?utf-8?B?bXNwUWJMM0VSMlowMUFac0FVWXlja3JBMU1ITUpPa0R2MjZJQnRhVDhWQ3lP?=
- =?utf-8?B?Mys4OWdwakVJOTBsYnhwTkFLSVVQcENhSGJPMlZjOGN5UEwyRkRQY1d4NGtO?=
- =?utf-8?B?QTVtRVJMOWpWR3FUY2RZbnY0QTU2ZHZjZXEzajNBZTNqTUMrQk9TOWNKelln?=
- =?utf-8?B?cDFFaHNWZXJGRlRwTGMvUTlrUW5SckhDN1ZiTXpUemkxaHpkWnZtdzlMb3NU?=
- =?utf-8?B?Yk9NbktqQjJVamdNdisxN05xTXpPdExsTnlxZVpIdXlWTDFEd3Q3bmI1UTlz?=
- =?utf-8?B?UFRQblp0S1c3WWJ6QWRsYjJQYzF3a3dhakhlQjRqVlMxWW1PakFBWjY2S1Aw?=
- =?utf-8?B?Y0RadkI2QUUvOTZ2NkFMWHM4SWNRUFgvaXNhSlpScVVUQ1N6eVFHVVNsQ2hJ?=
- =?utf-8?B?cXVSL2NWUUNZTFNDbG9JL29EVmdyNy9mU0NxNDRsMlpZWm9aY1JzSngyNEVL?=
- =?utf-8?B?ak9EREVKd2JqN1hPSHNIR3doUnc3KytDS3FaYmNGZmZaZ2JOQ2JHWGdpQTRq?=
- =?utf-8?B?SE1Eb1ptQncxWlFvMjMzd25PNS92dmphYW1XT0NYQ0ljRUVxelJWK1ZMNFVE?=
- =?utf-8?B?THVNSmFlZU1aVTlTdzRaZWk1aUFMTndpUEdYOWErM1BIUWw3ZU4wVzhpcXpx?=
- =?utf-8?B?T1VueXZDL2QvTktmMFc0M3VnRmZta3Y1YXFvWFBPVGdyc0YzNkt4T3ZqcGZV?=
- =?utf-8?B?aHk4V1NNbTRNci9OY2toajR0Q2dMRkNlcEFvSU5PUldrSWJKTkRTR0NCNGpG?=
- =?utf-8?B?U050c0NtbWNPbnJTK0k5am5RY3I1VHZFaEY1UTJPWGR0WmtLUUExUC9jWDhp?=
- =?utf-8?B?eFJrd1RwTmVjR1JXL3pBeklWQ1V1aFFoZklab3VBTTNmbjJZT2svS0lqbkt1?=
- =?utf-8?B?aDRzdUQ5TFFXY25wVFF3aFo4SVdOWVFqTkROcDZXTjc1YXBBZHE5cVZZTWRh?=
- =?utf-8?B?a0lWaTNHa29DV1k0N0NmTTM0TWJYeFpUOGxIVkt4RSt1ODd4TXBDa2FpU0l0?=
- =?utf-8?B?TndnMzY2MmNhWnlxVmRsVXBRUjh5TTRDbk5XZEFVdDRjYXF3c1RIZCtUSTAy?=
- =?utf-8?B?M2xLaVk1RytFbTR2aE4xMWJtUVVnWXQzK2VqMjY2TVFJNXlsWHRmd1kzaWYz?=
- =?utf-8?B?TTNZNHVtckx5cHhUVDU5YStVZXVrVkUrdEduY2x4Skx0eGxUNXlXZUI1Mllo?=
- =?utf-8?B?K1JkZDdZeWZxMkhoUUo0UEJ5VVpzNmc5bXUwS0U1TkhKSTdlSWg1ZkV3NEdn?=
- =?utf-8?B?TTBqZGgvY25xRHRxNU1uSWQrNStKMC9kMVRvN3B3Tmt1U2hHbmZDRGxKYVpZ?=
- =?utf-8?B?Z3RlVmlEZ09pdVZLOFJYMWJxeGRlTkhyOElnc2cwTHpkS2ZWZkxMRjBnSWZS?=
- =?utf-8?B?YUh0U3ExNUJlSkZQRkhSQ1F6eU9aZ2hqUnBOOXdoZTMyVDlWeUdBdyt2U2Ft?=
- =?utf-8?B?RDRKMUdLZEw3NEJnVXE5ZUpSSGpVQ2ExYUs2NUw5VUdaZnZ4RnJzak1rN2dX?=
- =?utf-8?B?S3FES1pmYmNydHZ2aDI3QndwOHdldlQ0T0J3NkYyK3pESCswNS85U1N0UjNo?=
- =?utf-8?B?SkYzeTl3UlhHWHpQVWR0bGlNS20zTmU1aTdLdFArYmVocVZHMG9HTzR1OW1z?=
- =?utf-8?B?ZVoxUk5SNUhWeW9JdWxsRVlHSW1PYTZGT083THJnSjRkQ09rbyt1NENvVDRH?=
- =?utf-8?B?Z2ZLQy9vTm1NcU95Sk1HSFlXaytQWWJ3ZisxOGJ3M1duRllWNmZPSXVBMUJL?=
- =?utf-8?B?UjJpYUdZRmZES1A2N1d0aDVncjBWUWNaOUJLOEZTd0QyVm9BcWZidno1MS9B?=
- =?utf-8?B?QXVhM3JlK0xLSjd3czJyYUtFemUvSDAvd3Y3Q2JGVWhnakQxcWpGQ0JBRmV2?=
- =?utf-8?B?cWE2QkNWQnJpL0RqZjNaU1RJUlpGMmMxVUdHcm9jSEhvUVRkeU9qczdSRGU2?=
- =?utf-8?B?dXFJRXVhUWJBN1loenVmZEtkUzBSTjF2YWFyWHRIRllhQWpPdVFKM004OGM0?=
- =?utf-8?B?MUs1WmMyV2tHdmUzTTl6ZXpJcFBmSndnbVNUclA1bjIwYTQySWNaaEdkalM5?=
- =?utf-8?B?V1VtYUU4V3Q2M2hUTStqQ1plUnlibzdzKyttU0NGczl3VWpsSUI4eVRuNitx?=
- =?utf-8?B?M1hCeGdYTTE3VmxLd0NEUW8wZVNlSjJySS9RK2lCNWJxS0ZjTDBHeWhKRnl2?=
- =?utf-8?Q?bz7JW3ge6bTgMRMyG2x961Y13i607+xIecfOFzl0+bF9I?=
-x-ms-exchange-antispam-messagedata-1: 9DMjswfbKEf0H2sBc0+RAvLEzSEWjil+w1XHDbrmcdVKrrRjoU/cNf8S
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A9810F31F
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 13:41:23 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-ca97d139d8dso2146392a12.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 16 Jul 2026 06:41:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784209282; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ScjbQU3yUMwufn+1iajMngUNWgU9xP3S1Dt1a1yzRI/YyZ0QBLQc6Cz/x6D2mirARe
+ lNtEqGP+1DHZrOUXLsnPwlZHheZ+UDj7zQ9WN1YmUwuLFT3w/VJEcIXuabJ3sMbYLpGk
+ IdK7Rhs95Ra6rNlIa3i4hE6uiA5DIsBrA8AmZxZrN+/6+acYioHSghUqXb4oI/8Xr0Xf
+ Fn/PoZtqhYFPBQgADcT/DN+tcHXTaTfY7H9WhcfqjUT1Qdf6lzxWV9REqnR9q2yqF68y
+ ii9RP+GvygiIUV8Lti19bH1W+OdxxWCx0LT/sB9tFWOR3MWL5NVkzn2GoWsbF8lSYugs
+ q8hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UO+1Ub2gEDTvSkINUm04pmTYANpmfVUv5kODIL+G7n4=;
+ fh=s4ghyJ4QVEzVmkfojHgkG3RegL7DBRqj5ViPrKj4cl8=;
+ b=DwuQ9tArj3jxXXdDvL4paFYvXa/nYBQyIUmNd6KGGdVYomGBkRRySrE4b6yJFBzym9
+ wcgtp99bl/9pSQwC5UaJBW4DTD2UWY4NnQdV+bN0OVL0ahusUd55madV5G6RKE5QJl4v
+ vC13TWexLwAzEbRf1IwHIVHSTk/P2L+z0MU1idmK7EpWv1B99EB5Hy6iLm9/QvR99iQ0
+ DrzRU9yQ1TJQ96yJe9Gl/BFnhvT0mXBuvfY3zZs7fiGnwJdwrixzcPNB3QIwyzznbM1e
+ 9hAH+3G9v+q8JhoV0qOBnKNCYbIhF3xwuJ3b+Zedk0E34y6ImEO9WrwM53FeYHnHRHvf
+ 1Gog==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1784209282; x=1784814082;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UO+1Ub2gEDTvSkINUm04pmTYANpmfVUv5kODIL+G7n4=;
+ b=AfTrBNnbVA68/ar7e+4d6vcs1ODRRsjqVl6zGeHkd2Bubi+/Y3F02ShjHmyn/JWPLM
+ eus6kuns3MmHuWcIvOYA9lun8y5OZvURZ5vZAkyrQhhK3RxMwA80WpVGO/ejLPRTXsHC
+ GU2GWS301XbJ6rMjUKuK9t73vvvckGReKrbRw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784209282; x=1784814082;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UO+1Ub2gEDTvSkINUm04pmTYANpmfVUv5kODIL+G7n4=;
+ b=eYQKOjYm2hLlV1aW8ebr4C+/DktpI/q5afQjVq0eBqtHpA2frLXr18EbTJGf8qzfiQ
+ KdlLrn28wI8kQ060HmE/N2+t5LsxO5evc4Snk8/RJrYRgJx4YAGDFy0eC7whUsz8q6CP
+ 87P75hrEqQUZB4+vXgrIpVP2h5jT5kGLoSJ/T1Vw3YzTTBx0r/lkUw4MahJMKQ9zPF+F
+ LSFB5jmM0wBWT09vKGDOAOW3zU7jy3EkNBAWBr4JkmLKyywM1rcBKe74xc42VKYHrxMa
+ /OChON82IU9P8LL1B9HF+W3O/FWIHyUnTxQ/xo6b4AKUtI4xAHX8SlfQe2Y4g29SUpcb
+ ivqg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqFhyNCELIAV1L5Li2zeCV46jsUwImOBJC//cF3uHi2cpj7nLch+IZ3FlQIxzLvgbUmWYVatUQ+Sgo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxfFc3I7S/wASq7eNII7f8XZabuK+vZkP9B5qM+zsDA5UqTrXS
+ 4L4msA91jTfSMfEUtLlOnQfnZ2Oa2vNgx4kfPUECFsdXc4wau1sMZ7JAH+bTDYXRZYvdPSOe59S
+ pcksp7qPVK/4eLC68ZsaPbmkPwM320LbrK/639qoL
+X-Gm-Gg: AfdE7ckF2ItJcpWyMAEl20zMuw01WG+Il7C325L3ufeJI5gfNNtO/kqaD2YHY72ixuF
+ UhNQkvsOZ0vT/vwyARVCusHxt7iLR66F/MAndix+t1zDAm/sV3tn0JVjJHQoRQgk7go4U4iQCdO
+ Aczn28yec5pYm5WQEgxMwcYPD99R17y1PYMjrd+S63zylhYt9TEHI8HZ96Jm6i53pMLHCKxRFnG
+ zpQ58lXxyXgAkyyG26JcU6J06aHNOJwAuu5xm46WdVTTpcS/uZ56Nf3ITQ+3V2AH323wh6NiTtu
+ gQyJeo4iP1ej0fJeOfHH+6cWMu4=
+X-Received: by 2002:a05:6a00:2d9e:b0:848:2e53:3f63 with SMTP id
+ d2e1a72fcca58-84889711f4bmr19471625b3a.21.1784209282437; Thu, 16 Jul 2026
+ 06:41:22 -0700 (PDT)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: sfF8kxmKIC+f4kcYfyOD37tldwSGwp4hNYWktWGQ1454g7gAjxVKJ2qljzyCRrFScRX/Ctg9GCHhUue09v04sA2+352uHChbVtIOo8LDwgFgav+PzAqNZy4Ssi6MopXXnJNH+uGjckjhOI0+9NIGw/Bz+OVupQJDi1e9zT2hlymm0Oy9GX5h5D2m6OVHQB1X+7GCWfrKqAHZGNpCx9eNa9V8+4hgrM78GKT57tJ0/5bDrtwn3ItXJNxGOjA8l95BzJSkX5LvtcpW8tdVw5TRp9wrhU9T1LBqry5w0lSG+zyWOczu4+c88Nio/eG5s9vydg/TEtBq2NzE+8SjsxtryA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB6348.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01628213-46e4-4a08-bc1a-08dee33eb187
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2026 13:32:33.8705 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pBFMHpSqWwFW5NyCQ4IMzTLh+YJgG6UK7+8m18o4BOBxfIEORXAGDtbJTyi0I67q1Td5UDtwfeJOXln/USc/rvvg/Vv4lFN484i2ICuIopcEi5/mKHb2lGlPVWHb295i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB6144
-X-OriginatorOrg: intel.com
+References: <20260707141736.1635698-1-akuchynski@chromium.org>
+ <22064276-6c56-411a-9f20-6917ceeb865f@intel.com>
+ <CAMMMRMduSMniMrixGuq=m=00nUvzXQpySE86TpmvfNQtAChB=w@mail.gmail.com>
+ <868cab1f-f581-4a01-a9ea-b2fa1a7a2831@intel.com>
+In-Reply-To: <868cab1f-f581-4a01-a9ea-b2fa1a7a2831@intel.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Thu, 16 Jul 2026 15:41:11 +0200
+X-Gm-Features: AUfX_mz_IwM2nglp571SeZXVZm3Hv4_jxpWy24QKgJoVDr4KCF4EjNbeACVpK-U
+Message-ID: <CAMMMRMdZciCCmfOv0_PhX_VfPtXdMEwNe-CXOLWRSmFYBAEL7Q@mail.gmail.com>
+Subject: Re: REGRESSION: [PATCH] usb: typec: ucsi: Fix race condition and
+ ordering in port unregistration
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Jameson Thies <jthies@google.com>, 
+ Benson Leung <bleung@chromium.org>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+ Pooja Katiyar <pooja.katiyar@intel.com>, 
+ Johan Hovold <johan@kernel.org>, Hsin-Te Yuan <yuanhsinte@chromium.org>, 
+ Myrrh Periwinkle <myrrhperiwinkle@qtmlabs.xyz>,
+ Linyu Yuan <quic_linyyuan@quicinc.com>, 
+ Jack Pham <quic_jackp@quicinc.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,77 +119,314 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQm9yYWgsIENoYWl0YW55
-YSBLdW1hciA8Y2hhaXRhbnlhLmt1bWFyLmJvcmFoQGludGVsLmNvbT4NCj4gU2VudDogMTYgSnVs
-eSAyMDI2IDE4OjU4DQo+IFRvOiBHb2xhbmksIE1pdHVsa3VtYXIgQWppdGt1bWFyIDxtaXR1bGt1
-bWFyLmFqaXRrdW1hci5nb2xhbmlAaW50ZWwuY29tPjsNCj4gaW50ZWwtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPiBDYzogaW50ZWwteGVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBTaGFua2Fy
-LCBVbWEgPHVtYS5zaGFua2FyQGludGVsLmNvbT47DQo+IE5hdXRpeWFsLCBBbmtpdCBLIDxhbmtp
-dC5rLm5hdXRpeWFsQGludGVsLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2MyA1LzhdIGRy
-bS9pOTE1L3ZycjogTW92ZSBDTVJSIGh3IHJlZ2lzdGVycyB0byBmaXgNCj4gcmVmcmVzaCByYXRl
-IHBhdGgNCj4gDQo+IA0KPiANCj4gT24gNy8xNi8yMDI2IDU6MzIgUE0sIEdvbGFuaSwgTWl0dWxr
-dW1hciBBaml0a3VtYXIgd3JvdGU6DQo+ID4NCj4gPg0KPiA+PiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KPiA+PiBGcm9tOiBCb3JhaCwgQ2hhaXRhbnlhIEt1bWFyIDxjaGFpdGFueWEua3Vt
-YXIuYm9yYWhAaW50ZWwuY29tPg0KPiA+PiBTZW50OiAxNSBKdWx5IDIwMjYgMTg6NDUNCj4gPj4g
-VG86IEdvbGFuaSwgTWl0dWxrdW1hciBBaml0a3VtYXINCj4gPj4gPG1pdHVsa3VtYXIuYWppdGt1
-bWFyLmdvbGFuaUBpbnRlbC5jb20+Ow0KPiA+PiBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQo+ID4+IENjOiBpbnRlbC14ZUBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IFNoYW5rYXIsIFVt
-YQ0KPiA+PiA8dW1hLnNoYW5rYXJAaW50ZWwuY29tPjsgTmF1dGl5YWwsIEFua2l0IEsNCj4gPj4g
-PGFua2l0LmsubmF1dGl5YWxAaW50ZWwuY29tPg0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIHYz
-IDUvOF0gZHJtL2k5MTUvdnJyOiBNb3ZlIENNUlIgaHcgcmVnaXN0ZXJzIHRvDQo+ID4+IGZpeCBy
-ZWZyZXNoIHJhdGUgcGF0aA0KPiA+Pg0KPiA+Pg0KPiA+Pg0KPiA+PiBPbiA3LzE0LzIwMjYgNDow
-OSBQTSwgTWl0dWwgR29sYW5pIHdyb3RlOg0KPiA+Pj4gTW92ZSBDTVJSIHJlZ2lzdGVyIHdyaXRl
-cyB0byBmaXggcmVmcmVzaCByYXRlIHJlZ2lzdGVyIHdyaXRlIHBhdGggdG8NCj4gPj4+IGNvbnNv
-bGlkYXRlIHdpdGggZml4IHJlZnJlc2ggcmF0ZSBpbXBsZW1lbnRhdGlvbi4NCj4gPj4+DQo+ID4+
-PiBTaWduZWQtb2ZmLWJ5OiBNaXR1bCBHb2xhbmkgPG1pdHVsa3VtYXIuYWppdGt1bWFyLmdvbGFu
-aUBpbnRlbC5jb20+DQo+ID4+PiAtLS0NCj4gPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rp
-c3BsYXkvaW50ZWxfdnJyLmMgfCAyMiArKysrKysrKysrKy0tLS0tLS0tLS0tDQo+ID4+PiAgICAx
-IGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+ID4+Pg0K
-PiA+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfdnJy
-LmMNCj4gPj4+IGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF92cnIuYw0KPiA+
-Pj4gaW5kZXggMjVjZTU2ZDQ4YmIxLi45NWM3YjBjMDVlYzMgMTAwNjQ0DQo+ID4+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5jDQo+ID4+PiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Zyci5jDQo+ID4+PiBAQCAtMzM3LDYgKzMz
-NywxNyBAQCB2b2lkIGludGVsX3Zycl9zZXRfZml4ZWRfcnJfdGltaW5ncyhjb25zdA0KPiA+Pj4g
-c3RydWN0DQo+ID4+IGludGVsX2NydGNfc3RhdGUgKmNydGNfc3RhdGUsDQo+ID4+PiAgICAJaWYg
-KCFpbnRlbF92cnJfcG9zc2libGUoY3J0Y19zdGF0ZSkpDQo+ID4+PiAgICAJCXJldHVybjsNCj4g
-Pj4+DQo+ID4+PiArCWlmIChjcnRjX3N0YXRlLT52cnIuY21yci5lbmFibGUpIHsNCj4gPj4+ICsJ
-CWludGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5TX0NNUlJfTV9ISShkaXNwbGF5LA0KPiA+PiB0
-cmFuc2NvZGVyKSwNCj4gPj4+ICsJCQkgICAgICAgdXBwZXJfMzJfYml0cyhjcnRjX3N0YXRlLT52
-cnIuY21yci5jbXJyX20pKTsNCj4gPj4+ICsJCWludGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5T
-X0NNUlJfTV9MTyhkaXNwbGF5LA0KPiA+PiB0cmFuc2NvZGVyKSwNCj4gPj4+ICsJCQkgICAgICAg
-bG93ZXJfMzJfYml0cyhjcnRjX3N0YXRlLT52cnIuY21yci5jbXJyX20pKTsNCj4gPj4+ICsJCWlu
-dGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5TX0NNUlJfTl9ISShkaXNwbGF5LA0KPiA+PiB0cmFu
-c2NvZGVyKSwNCj4gPj4+ICsJCQkgICAgICAgdXBwZXJfMzJfYml0cyhjcnRjX3N0YXRlLT52cnIu
-Y21yci5jbXJyX24pKTsNCj4gPj4+ICsJCWludGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5TX0NN
-UlJfTl9MTyhkaXNwbGF5LA0KPiA+PiB0cmFuc2NvZGVyKSwNCj4gPj4+ICsJCQkgICAgICAgbG93
-ZXJfMzJfYml0cyhjcnRjX3N0YXRlLT52cnIuY21yci5jbXJyX24pKTsNCj4gPj4NCj4gPj4gU2hv
-dWxkbid0IFRSQU5TX0NNUlJfTl9ISSBiZSB0aGUgbGFzdCByZWdpc3RlciB0byBiZSB3cml0dGVu
-Lg0KPiA+DQo+ID4gTm8gZnVuY3Rpb25hbCBjaGFuZ2UgaGFzIGRvbmUsIGp1c3QgbW92ZWQgdG8g
-Zml4IHJlZnJlc2ggcmF0ZSBwYXRoLg0KPiA+DQo+ID4gSW4gbGF0ZXIgcGF0Y2hlcyB3aGVuIGFj
-dHVhbCBlbmFibGUvZGlzYWJsZSBzZXF1ZW5jZSBpcyBjb21wdXRlZCwgdGhlcmUNCj4gc3VnZ2Vz
-dGVkIGNoYW5nZXMgYXJlIGFwcGxpZWQuDQo+ID4NCj4gDQo+IFRoZSBmdW5jdGlvbiBpcyBuZXZl
-ciB0b3VjaGVkIGluIHRoZSBsYXRlciBwYXRjaGVzLg0KDQpZZWFoIEkgaGF2ZSBhbHJlYWR5IHNl
-ZW4gdGhhdCwgYXMgc2FpZCwgSSB3aWxsIGJlIGVsaW1pbmF0aW5nIGR1cGxpY2F0aW9uIGluIG5l
-eHQgcmV2aXNpb24uIEdvb2QgY2F0Y2guLg0KDQpUaGFua3MNCg0KPiANCj4gPiBUaGFua3MNCj4g
-Pg0KPiA+Pg0KPiA+Pj4gKwl9DQo+ID4+PiArDQo+ID4+PiAgICAJaW50ZWxfZGVfd3JpdGUoZGlz
-cGxheSwgVFJBTlNfVlJSX1ZNSU4oZGlzcGxheSwgdHJhbnNjb2RlciksDQo+ID4+PiAgICAJCSAg
-ICAgICBpbnRlbF92cnJfZml4ZWRfcnJfaHdfdm1pbihjcnRjX3N0YXRlKSAtIDEpOw0KPiA+Pj4g
-ICAgCWludGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5TX1ZSUl9WTUFYKGRpc3BsYXksIHRyYW5z
-Y29kZXIpLCBAQA0KPiA+Pj4gLTY0OCwxNyArNjU5LDYgQEAgdm9pZCBpbnRlbF92cnJfc2V0X3Ry
-YW5zY29kZXJfdGltaW5ncyhjb25zdCBzdHJ1Y3QNCj4gPj4gaW50ZWxfY3J0Y19zdGF0ZSAqY3J0
-Y19zdGF0ZSkNCj4gPj4+ICAgIAkJcmV0dXJuOw0KPiA+Pj4gICAgCX0NCj4gPj4+DQo+ID4+PiAt
-CWlmIChjcnRjX3N0YXRlLT52cnIuY21yci5lbmFibGUpIHsNCj4gPj4+IC0JCWludGVsX2RlX3dy
-aXRlKGRpc3BsYXksIFRSQU5TX0NNUlJfTV9ISShkaXNwbGF5LA0KPiA+PiBjcHVfdHJhbnNjb2Rl
-ciksDQo+ID4+PiAtCQkJICAgICAgIHVwcGVyXzMyX2JpdHMoY3J0Y19zdGF0ZS0+dnJyLmNtcnIu
-Y21ycl9tKSk7DQo+ID4+PiAtCQlpbnRlbF9kZV93cml0ZShkaXNwbGF5LCBUUkFOU19DTVJSX01f
-TE8oZGlzcGxheSwNCj4gPj4gY3B1X3RyYW5zY29kZXIpLA0KPiA+Pj4gLQkJCSAgICAgICBsb3dl
-cl8zMl9iaXRzKGNydGNfc3RhdGUtPnZyci5jbXJyLmNtcnJfbSkpOw0KPiA+Pj4gLQkJaW50ZWxf
-ZGVfd3JpdGUoZGlzcGxheSwgVFJBTlNfQ01SUl9OX0hJKGRpc3BsYXksDQo+ID4+IGNwdV90cmFu
-c2NvZGVyKSwNCj4gPj4+IC0JCQkgICAgICAgdXBwZXJfMzJfYml0cyhjcnRjX3N0YXRlLT52cnIu
-Y21yci5jbXJyX24pKTsNCj4gPj4+IC0JCWludGVsX2RlX3dyaXRlKGRpc3BsYXksIFRSQU5TX0NN
-UlJfTl9MTyhkaXNwbGF5LA0KPiA+PiBjcHVfdHJhbnNjb2RlciksDQo+ID4+PiAtCQkJICAgICAg
-IGxvd2VyXzMyX2JpdHMoY3J0Y19zdGF0ZS0+dnJyLmNtcnIuY21ycl9uKSk7DQo+ID4+PiAtCX0N
-Cj4gPj4+IC0NCj4gPj4+ICAgIAlpbnRlbF92cnJfc2V0X2ZpeGVkX3JyX3RpbWluZ3MoY3J0Y19z
-dGF0ZSwgY3B1X3RyYW5zY29kZXIpOw0KPiA+Pj4gICAgCWludGVsX2NtdGdfc2V0X3Zycl90aW1p
-bmdzKGNydGNfc3RhdGUpOw0KPiA+Pj4NCj4gPg0KDQo=
+On Thu, Jul 16, 2026 at 3:23=E2=80=AFPM Borah, Chaitanya Kumar
+<chaitanya.kumar.borah@intel.com> wrote:
+>
+>
+>
+> On 7/16/2026 2:45 PM, Andrei Kuchynski wrote:
+> > On Thu, Jul 16, 2026 at 10:28=E2=80=AFAM Borah, Chaitanya Kumar
+> > <chaitanya.kumar.borah@intel.com> wrote:
+> >>
+> >> Hello Andrei,
+> >>
+> >> On 7/7/2026 7:47 PM, Andrei Kuchynski wrote:
+> >>> A synchronization issue exists during port unregistration where pendi=
+ng
+> >>> partner work items can race against workqueue destruction, leading to
+> >>> use-after-free conditions:
+> >>>
+> >>>     cros_ec_ucsi cros_ec_ucsi.3.auto: error -ETIMEDOUT: PPM init fail=
+ed
+> >>>     BUG: kernel NULL pointer dereference, address: 0000000000000000
+> >>>     RIP: 0010:__queue_work+0x83/0x4a0
+> >>>     Call Trace:
+> >>>       <IRQ>
+> >>>       __cfi_delayed_work_timer_fn+0x10/0x10
+> >>>       run_timer_softirq+0x3b6/0xbd0
+> >>>       sched_clock_cpu+0xc/0x110
+> >>>       irq_exit_rcu+0x18d/0x330
+> >>>       fred_sysvec_apic_timer_interrupt+0x5e/0x80
+> >>>
+> >>> Fix this by ensuring strict ordering and proper serialization during
+> >>> teardown:
+> >>>
+> >>> 1. Move ucsi_unregister_partner() to the beginning of the teardown
+> >>> sequence and protect it under the connector mutex lock.
+> >>> 2. Ensure all pending partner tasks are explicitly flushed and finish=
+ed
+> >>> before the workqueue is destroyed.
+> >>> 3. Switch from mod_delayed_work() to a cancel_delayed_work() and
+> >>> queue_delayed_work() sequence. This guarantees that items currently m=
+arked
+> >>> as pending won't be scheduled an additional time, preventing a double
+> >>> release of resources which leads to the following crash:
+> >>>
+> >>>     Oops: general protection fault, probably for non-canonical addres=
+s
+> >>>       0xdead000000000122: 0000 [#1] SMP NOPTI
+> >>>     Workqueue: cros_ec_ucsi.3.auto-con2 ucsi_poll_worker
+> >>>     RIP: 0010:ucsi_poll_worker+0x65/0x1e0
+> >>>     Call Trace:
+> >>>     <TASK>
+> >>>       process_scheduled_works+0x218/0x6d0
+> >>>       worker_thread+0x188/0x3f0
+> >>>       __cfi_worker_thread+0x10/0x10
+> >>>       kthread+0x226/0x2a0
+> >>>
+> >>> To ensure these rules are applied identically across both the normal
+> >>> teardown and the ucsi_init() error paths, consolidate the cleanup log=
+ic
+> >>> into a new helper, ucsi_unregister_port().
+> >>
+> >>
+> >> This seems to be causing regression in our linux-next CI. [1]
+> >>
+> >> <6>[   18.008557] ------------[ cut here ]------------
+> >> <4>[   18.013166] DEBUG_LOCKS_WARN_ON(1)
+> >> <4>[   18.013167] WARNING: kernel/locking/lockdep.c:238 at
+> >> __lock_acquire+0xa59/0x2750, CPU#1: kworker/u89:1/172
+> >> ...
+> >> <4>[   18.159950] Hardware name: Intel Corporation Meteor Lake Client
+> >> Platform/MTL-P DDR5 SODIMM SBS RVP, BIOS
+> >> MTLPFWI1.R00.3471.D89.2401091901 01/09/2024
+> >> <4>[   18.173125] Workqueue: events_dfl_long ucsi_init_work [typec_ucs=
+i]
+> >> <4>[   18.179257] RIP: 0010:__lock_acquire+0xa60/0x2750
+> >> <4>[   18.183927] Code: 44 8b 5d a8 85 c0 0f 84 98 fd ff ff 44 8b 35 0=
+7
+> >> 0b 72 02 45 85 f6 0f 85 88 fd ff ff 48 8d 3d 27 25 73 02 48 c7 c6 1b 5=
+1
+> >> 27 83 <67> 48 0f b9 3a 31 c0 44 8b 5d a8 44 8b 4d b0 e9 c6 f7 ff ff 31=
+ d2
+> >> ...
+> >> <4>[   18.263886] PKRU: 55555554
+> >> <4>[   18.266583] Call Trace:
+> >> <4>[   18.269014]  <TASK>
+> >> <4>[   18.271110]  ? mark_held_locks+0x46/0x90
+> >> <4>[   18.275007]  lock_acquire+0xd9/0x2e0
+> >> <4>[   18.278562]  ? ucsi_unregister_port+0x36/0x140 [typec_ucsi]
+> >> <4>[   18.284096]  __mutex_lock+0xb2/0x1020
+> >> <4>[   18.287735]  ? ucsi_unregister_port+0x36/0x140 [typec_ucsi]
+> >> <4>[   18.293265]  ? ucsi_unregister_port+0x36/0x140 [typec_ucsi]
+> >> <4>[   18.298797]  ? synchronize_rcu_expedited+0x2b2/0x300
+> >> <4>[   18.303724]  ? __pfx_autoremove_wake_function+0x10/0x10
+> >> <4>[   18.308912]  mutex_lock_nested+0x1b/0x30
+> >> <4>[   18.312806]  ? mutex_lock_nested+0x1b/0x30
+> >> <4>[   18.316878]  ucsi_unregister_port+0x36/0x140 [typec_ucsi]
+> >> <4>[   18.322238]  ucsi_init_work+0x66d/0xc10 [typec_ucsi]
+> >> <4>[   18.327167]  process_one_work+0x2ad/0x8b0
+> >> <4>[   18.331158]  worker_thread+0x200/0x3f0
+> >> <4>[   18.334886]  ? __pfx_worker_thread+0x10/0x10
+> >> <4>[   18.339128]  kthread+0x10d/0x150
+> >> <4>[   18.342339]  ? __pfx_kthread+0x10/0x10
+> >> <4>[   18.346067]  ret_from_fork+0x3bd/0x470
+> >> <4>[   18.349795]  ? __pfx_kthread+0x10/0x10
+> >> <4>[   18.353522]  ret_from_fork_asm+0x1a/0x30
+> >> <4>[   18.357420]  </TASK>
+> >>
+> >> Detailed log can be seen found in [2]
+> >>
+> >> We confirmed that reverting the patch solves the issue.
+> >>
+> >> Could you please check why the patch causes this regression and provid=
+e
+> >> a fix if necessary?
+> >>
+> >> Regards
+> >> Chaitanya
+> >>
+> >> [1] https://intel-gfx-ci.01.org/tree/linux-next/combined-alt.html?
+> >> [2]
+> >> https://intel-gfx-ci.01.org/tree/linux-next/next-20260714/bat-mtlp-9/b=
+oot0.txt
+> >>
+> >> -- Bisect Logs --
+> >>
+> >> git bisect start
+> >> # status: waiting for both good and bad commits
+> >> # good: [5f1b513690edf51727e6928b97705b6437f9a98e] Merge remote-tracki=
+ng
+> >> branch 'spi/for-7.3' into spi-next
+> >> git bisect good 5f1b513690edf51727e6928b97705b6437f9a98e
+> >> # status: waiting for bad commit, 1 good commit known
+> >> # bad: [49362394dad7df66c274c867a271394c10ca2bb8] Add linux-next
+> >> specific files for 20260713
+> >> git bisect bad 49362394dad7df66c274c867a271394c10ca2bb8
+> >> # bad: [dffddeb046466ed57038295bde28b42b7506a12b] Merge branch
+> >> 'nand/next' of https://git.kernel.org/pub/scm/linux/kernel/git/mtd/lin=
+ux.git
+> >> git bisect bad dffddeb046466ed57038295bde28b42b7506a12b
+> >> # bad: [d154d0766bf3fe830e1bf98fb2d8648294a4a8da] Merge branch
+> >> 'for-next' of
+> >> https://git.kernel.org/pub/scm/linux/kernel/git/khilman/linux-omap.git
+> >> git bisect bad d154d0766bf3fe830e1bf98fb2d8648294a4a8da
+> >> # bad: [671b0fd929bec9ebf863cb376baf9b9d1226a510] Merge branch 'master=
+'
+> >> of https://git.kernel.org/pub/scm/linux/kernel/git/kvms390/linux.git
+> >> git bisect bad 671b0fd929bec9ebf863cb376baf9b9d1226a510
+> >> # good: [f4fb100039e96211609dfc44fb24b9e4a8a0f2f9] Merge tag
+> >> 's390-7.2-4' of git://git.kernel.org/pub/scm/linux/kernel/git/s390/lin=
+ux
+> >> git bisect good f4fb100039e96211609dfc44fb24b9e4a8a0f2f9
+> >> # good: [c296d513e034df93ddb230ad1c7a118d6b58750c] Merge branch
+> >> 'arm/fixes' of https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc=
+.git
+> >> git bisect good c296d513e034df93ddb230ad1c7a118d6b58750c
+> >> # good: [de53c0a584f08f31eb957f8c849a59fb33b27fa8] Merge branch 'for-r=
+c'
+> >> of https://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git
+> >> git bisect good de53c0a584f08f31eb957f8c849a59fb33b27fa8
+> >> # bad: [a6969de5a038bc08a948ada52bd7199a8dfa6cec] Merge branch
+> >> 'usb-linus' of
+> >> https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git
+> >> git bisect bad a6969de5a038bc08a948ada52bd7199a8dfa6cec
+> >> # good: [15eab2dd63a97587405ab6bfaad9728d5b35b5fe] Merge tag
+> >> 'asoc-fix-v7.2-rc2' of
+> >> https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound into for=
+-linus
+> >> git bisect good 15eab2dd63a97587405ab6bfaad9728d5b35b5fe
+> >> # bad: [c2e819be6a5c7f34344926b4bd7e3dfca58cf48a] usb: gadget: printer=
+:
+> >> fix infinite loop in printer_read()
+> >> git bisect bad c2e819be6a5c7f34344926b4bd7e3dfca58cf48a
+> >> # good: [29a142d3e8b35ebc9e0bcc78f4bc26c9b6a9ac0b] USB: gadget:
+> >> snps-udc: fix device name leak on probe failure
+> >> git bisect good 29a142d3e8b35ebc9e0bcc78f4bc26c9b6a9ac0b
+> >> # good: [1febec7e47cdcd01f43fb0211094e3010474666e] usb: gadget: f_ncm:
+> >> validate datagram bounds in ncm_unwrap_ntb()
+> >> git bisect good 1febec7e47cdcd01f43fb0211094e3010474666e
+> >> # bad: [0583f2fbf8f86ae3a0ce054f96783dd83e65d9bb] usb: gadget: udc: bd=
+c:
+> >> free IRQ and drain func_wake_notify before teardown
+> >> git bisect bad 0583f2fbf8f86ae3a0ce054f96783dd83e65d9bb
+> >> # bad: [7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261] usb: typec: ucsi: Fi=
+x
+> >> race condition and ordering in port unregistration
+> >> git bisect bad 7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261
+> >> # first bad commit: [7aa7d4bf9d3fa9a6a47b640ad103ab433b7ff261] usb:
+> >> typec: ucsi: Fix race condition and ordering in port unregistration
+> >>>
+> >>> Cc: stable@vger.kernel.org
+> >>> Fixes: b9aa02ca39a4 ("usb: typec: ucsi: Add polling mechanism for par=
+tner tasks like alt mode checking")
+> >>> Fixes: b13abcb7ddd8 ("usb: typec: ucsi: Fix NULL pointer access")
+> >>> Fixes: fac4b8633fd6 ("usb: ucsi: Ensure connector delayed work items =
+are flushed")
+> >>> Signed-off-by: Andrei Kuchynski <akuchynski@chromium.org>
+> >>> ---
+> >>>    drivers/usb/typec/ucsi/ucsi.c | 82 +++++++++++++++++--------------=
+----
+> >>>    1 file changed, 39 insertions(+), 43 deletions(-)
+> >>>
+> >>> diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/u=
+csi.c
+> >>> index 92166a3725b16..d9668ed7c80ea 100644
+> >>> --- a/drivers/usb/typec/ucsi/ucsi.c
+> >>> +++ b/drivers/usb/typec/ucsi/ucsi.c
+> >>> @@ -1845,6 +1845,42 @@ static int ucsi_register_port(struct ucsi *ucs=
+i, struct ucsi_connector *con)
+> >>>        return ret;
+> >>>    }
+> >>>
+> >>> +static void ucsi_unregister_port(struct ucsi_connector *con)
+> >>> +{
+> >>> +     struct ucsi_work *uwork;
+> >>> +
+> >>> +     if (con->wq) {
+> >>> +             mutex_lock(&con->lock);
+> >>> +             ucsi_unregister_partner(con);
+> >>> +             /*
+> >>> +              * queue delayed items immediately so they can execute
+> >>> +              * and free themselves before the wq is destroyed
+> >>> +              */
+> >>> +             list_for_each_entry(uwork, &con->partner_tasks, node) {
+> >>> +                     if (cancel_delayed_work(&uwork->work))
+> >>> +                             queue_delayed_work(con->wq, &uwork->wor=
+k, 0);
+> >>> +             }
+> >>> +             mutex_unlock(&con->lock);
+> >>> +
+> >>> +             destroy_workqueue(con->wq);
+> >>> +             con->wq =3D NULL;
+> >>> +     } else {
+> >>> +             ucsi_unregister_partner(con);
+> >>> +     }
+> >>> +
+> >>> +     ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+> >>> +     ucsi_unregister_port_psy(con);
+> >>> +
+> >>> +     usb_power_delivery_unregister_capabilities(con->port_sink_caps)=
+;
+> >>> +     con->port_sink_caps =3D NULL;
+> >>> +     usb_power_delivery_unregister_capabilities(con->port_source_cap=
+s);
+> >>> +     con->port_source_caps =3D NULL;
+> >>> +     usb_power_delivery_unregister(con->pd);
+> >>> +     con->pd =3D NULL;
+> >>> +     typec_unregister_port(con->port);
+> >>> +     con->port =3D NULL;
+> >>> +}
+> >>> +
+> >>>    static u64 ucsi_get_supported_notifications(struct ucsi *ucsi)
+> >>>    {
+> >>>        u16 features =3D ucsi->cap.features;
+> >>> @@ -1971,22 +2007,8 @@ static int ucsi_init(struct ucsi *ucsi)
+> >>>        for (i =3D 0; i < ucsi->cap.num_connectors; i++)
+> >>>                lockdep_unregister_key(&connector[i].lock_key);
+> >>>
+> >>> -     for (con =3D connector; con->port; con++) {
+> >>> -             if (con->wq)
+> >>> -                     destroy_workqueue(con->wq);
+> >>> -             ucsi_unregister_partner(con);
+> >>> -             ucsi_unregister_altmodes(con, UCSI_RECIPIENT_CON);
+> >>> -             ucsi_unregister_port_psy(con);
+> >>> -
+> >>> -             usb_power_delivery_unregister_capabilities(con->port_si=
+nk_caps);
+> >>> -             con->port_sink_caps =3D NULL;
+> >>> -             usb_power_delivery_unregister_capabilities(con->port_so=
+urce_caps);
+> >>> -             con->port_source_caps =3D NULL;
+> >>> -             usb_power_delivery_unregister(con->pd);
+> >>> -             con->pd =3D NULL;
+> >>> -             typec_unregister_port(con->port);
+> >>> -             con->port =3D NULL;
+> >>> -     }
+> >>> +     for (con =3D connector; con->port; con++)
+> >>> +             ucsi_unregister_port(con);
+> >
+> > Hi Chaitanya,
+> > Thank you for spotting this!
+> >
+> > Could you verify if calling lockdep_unregister_key(&connector[i].lock_k=
+ey)
+> > after ucsi_unregister_port(con) resolves the issue?
+> >
+> >       for (con =3D connector; con->port; con++)
+> >              ucsi_unregister_port(con);
+> >       for (i =3D 0; i < ucsi->cap.num_connectors; i++)
+> >                 lockdep_unregister_key(&connector[i].lock_key);
+> >
+> > I will also try testing this on my side.
+>
+> Thank you Andrei for the patch. It seems to work for us.
+>
+
+Hi Chaitanya,
+
+Thanks for the testing!
+I will prepare a fix or maybe V2 of this patch.
+
+Could you please share your configuration details? Specifically, do you
+have any of the following enabled?
+CONFIG_DEBUG_LOCKDEP
+CONFIG_LOCK_STAT
+CONFIG_LOCKDEP_SMALL
+CONFIG_DEBUG_LOCKDEP
+CONFIG_PROVE_LOCKING
+
+I am still  not able to reproduce it.
+
+Thanks,
+Andrei
