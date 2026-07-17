@@ -4,63 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CD38C44514
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 09:28:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 009C3C44516
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 13:12:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CD5410F4CB;
-	Fri, 17 Jul 2026 09:28:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D49410F558;
+	Fri, 17 Jul 2026 13:12:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MVfd0njG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gdzeYWFU";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B68110F4CB;
- Fri, 17 Jul 2026 09:28:34 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B377010F56F;
+ Fri, 17 Jul 2026 13:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784280514; x=1815816514;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=q6EPouJUVLKKGy2+4B89VL/ohh0IZnZ+7zZye80Lnj0=;
- b=MVfd0njGzZpyX1cKUROfkMvNvopJTeujXK51s/cqks8sJJvHhwz+k187
- BZdNy1t6eQAZUUa8fHoj1FGg4sIVNlH5/+h5u8OwXCgFEpXLyqOlaAlv/
- BqlmhKNjHSYLcNxZeeM+dK5MjnAQANNyN34sCZTVf7VTI6VKJutbEl2cc
- oQoy4yF/4ai+UKJ8MS6Df7+0/H4rzU/zNcsBrwMFjzrnALa1JL8IPpIAo
- XR0+ZzpIUQ0u21jCpZOYx/6Sh62O/cLQVc/1x51wWNbGSC1eW3j8a+oKe
- MgRTCWaW1L9eLJL/gcNkNybBsAxZGILT+o7ShJCmSJ8XIEF2eB+ZGtWMG Q==;
-X-CSE-ConnectionGUID: k+jaXEzSTfuoH4yuntqnCQ==
-X-CSE-MsgGUID: entAmu1cTdSG4vP6On1CQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="84827751"
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="84827751"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2026 02:28:33 -0700
-X-CSE-ConnectionGUID: /YM0gONUTMW7aHaBxwWLzg==
-X-CSE-MsgGUID: wX0Q3WwSRV2G/3MOP1l1rA==
+ t=1784293969; x=1815829969;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=gmWtFDPs5++vZ3pxXFWVFXem48+x7VAhL/j8BLSMJ8A=;
+ b=gdzeYWFUFqnpUYoMib0wPxEAmQFvD9f/nH8m7Dk0B9C5PQ4BYoF3Kgrc
+ p+de0awovmy2SO2jkzv/3swqiNm9W9TJGF3FJeXqhFwT9xiy9jW95JVvN
+ BI/cBRQVZK+5qu8Y1+At7nLOS9b+a8w4OI2dOOQT9L+B4IFObd8Smk71K
+ bJEfjI5ZJhe2yt8G3CSuUHMxDX8LsVh239z8i4AjkHcCLh7XdpTT3W47a
+ HMta+a1o3fgg7siKA51HFa3zI7Vpv9+kKg8cwFXbC426XcXPeyZlViQDF
+ 8hnubvuNGRaPYOhS9zxfx7B2GS7zDhdvJz+cnYDVh21rutjPgFiAsftc4 Q==;
+X-CSE-ConnectionGUID: vZP2VXFKSS+PbAducmdABA==
+X-CSE-MsgGUID: CrlOdnhxQNOhbNUcgbEQwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="96329194"
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="96329194"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 06:12:48 -0700
+X-CSE-ConnectionGUID: LENefwGlTh+CapaMQIRzDw==
+X-CSE-MsgGUID: s7usGhAoQs6HT2zArA3zUA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="254973572"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora)
- ([10.245.245.155])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2026 02:28:30 -0700
-Date: Fri, 17 Jul 2026 11:28:21 +0200
-From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-xe-fixes
-Message-ID: <aln1tRUXZJ_qzD65@fedora>
+X-IronPort-AV: E=Sophos;i="6.25,169,1779174000"; d="scan'208";a="252386459"
+Received: from dev-417.igk.intel.com ([10.91.214.181])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Jul 2026 06:12:47 -0700
+Date: Fri, 17 Jul 2026 15:12:45 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: Suraj Kandpal <suraj.kandpal@intel.com>
+cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ ankit.k.nautiyal@intel.com
+Subject: Re: drm/i915/backlight: Remove DP_EDP_BACKLIGHT_AUX_ENABLE_CAP check
+ for DPCD backlight
+In-Reply-To: <20260716030959.436430-1-suraj.kandpal@intel.com>
+Message-ID: <837ba34a-35ee-57b9-02fb-880b35c1c692@intel.com>
+References: <20260716030959.436430-1-suraj.kandpal@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: multipart/mixed; boundary="8323329-1734800611-1784293968=:605841"
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,94 +68,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-This week's drm-xe-fixes PR. Also slightly late.
+--8323329-1734800611-1784293968=:605841
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8BIT
 
-A set of driver-only fixes all over the place.
+On Thu, 16 Jul 2026, Suraj Kandpal wrote:
+> Turns out Some panels allow only backlight AUX based backlight
 
-Thanks,
-Thomas
+nits:
+s/Some/some/
+s/backlight AUX/AUX/
 
-drm-xe-fixes-2026-07-17:
-Driver Changes:
-- Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOCK (Himal)
-- Hold a dma-buf reference for imported BOs (Nitin)
-- Fix writable override for CRI (Alexander)
-- Fix VF CCS attach/detach race with in-flight BO moves (Matthew Brost)
-- Fix WOPCM size for LNL+ (Daniele)
-- Reset current_op in xe_pt_update_ops_init (Zongyao Bai)
-- Keep scheduler timeline name alive (Arvind)
-- Hold device ref until queue teardown completes (Arvind)
-- Disable display in admin only PF mode (Satyanarayana)
-The following changes since commit a13c140cc289c0b7b3770bce5b3ad42ab35074aa:
+> by just setting the DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP and
+> not setting the DP_EDP_BACKLIGHT_AUX_ENABLE_CAP.
+> If we make DP_EDP_BACKLIGHT_AUX_ENABLE_CAP a necessity for AUX
+> based DPCD backlight these panels loose the ability to manipulate
+> backlight via AUX, specially ones with no PWM controller.
 
-  Linux 7.2-rc3 (2026-07-12 14:16:39 -0700)
+maybe: s/specially/especially/
 
-are available in the Git repository at:
+> Remove this check from function so that panels who do not advertise
+> DP_EDP_BACKLIGHT_AUX_ENABLE_CAP but advertise
+> DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP are able to manipulate
+> backlight again.
+>
+> Fixes: ed8be780bdbc ("drm/i915/backlight: Fix VESA backlight possible check condition")
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16507
+> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-07-17
+> ---
+> drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c | 3 +--
+> 1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> index 7a6c07f6aaeb..83245cb738e5 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> @@ -619,8 +619,7 @@ check_if_vesa_backlight_possible(struct intel_dp *intel_dp)
+> 	 * Since we only support Fully AUX Based VESA Backlight interface make sure
+> 	 * backlight enable is possible via AUX along with backlight adjustment
+> 	 */
 
-for you to fetch changes up to 130910bac905a42225f93841e338bbea4a431b1a:
+Wondering if the comment above needs any adjustment?
 
-  drm/xe/pf: Disable display in admin only PF mode (2026-07-16 16:53:38 +0200)
+Either way:
+Reviewed-by: Michał Grzelak <michal.grzelak@intel.com>
 
-----------------------------------------------------------------
-Driver Changes:
-- Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOCK (Himal)
-- Hold a dma-buf reference for imported BOs (Nitin)
-- Fix writable override for CRI (Alexander)
-- Fix VF CCS attach/detach race with in-flight BO moves (Matthew Brost)
-- Fix WOPCM size for LNL+ (Daniele)
-- Reset current_op in xe_pt_update_ops_init (Zongyao Bai)
-- Keep scheduler timeline name alive (Arvind)
-- Hold device ref until queue teardown completes (Arvind)
-- Disable display in admin only PF mode (Satyanarayana)
+BR,
+Michał
 
-----------------------------------------------------------------
-Alexander Usyskin (1):
-      drm/xe/nvm: fix writable override for CRI
-
-Arvind Yadav (2):
-      drm/xe/guc: Keep scheduler timeline name alive
-      drm/xe/guc: Hold device ref until queue teardown completes
-
-Daniele Ceraolo Spurio (1):
-      drm/xe/wopcm: fix WOPCM size for LNL+
-
-Himal Prasad Ghimiray (1):
-      drm/xe/vm: Fix BO prefetch with CONSULT_MEM_ADVISE_PREF_LOC
-
-Matthew Brost (1):
-      drm/xe/vf: Fix VF CCS attach/detach race with in-flight BO moves
-
-Nitin Gote (1):
-      drm/xe: Hold a dma-buf reference for imported BOs
-
-Satyanarayana K V P (1):
-      drm/xe/pf: Disable display in admin only PF mode
-
-Zongyao Bai (1):
-      drm/xe/pt: Reset current_op in xe_pt_update_ops_init()
-
- drivers/gpu/drm/xe/xe_bo.c                   | 58 +++++++++++++++++------
- drivers/gpu/drm/xe/xe_bo.h                   |  3 +-
- drivers/gpu/drm/xe/xe_bo_types.h             |  2 +
- drivers/gpu/drm/xe/xe_device.c               |  4 +-
- drivers/gpu/drm/xe/xe_device_types.h         |  2 +-
- drivers/gpu/drm/xe/xe_dma_buf.c              |  2 +-
- drivers/gpu/drm/xe/xe_guc_exec_queue_types.h |  5 ++
- drivers/gpu/drm/xe/xe_guc_submit.c           | 70 ++++++++++++++++------------
- drivers/gpu/drm/xe/xe_guc_types.h            |  2 -
- drivers/gpu/drm/xe/xe_migrate.c              |  5 +-
- drivers/gpu/drm/xe/xe_migrate.h              |  1 +
- drivers/gpu/drm/xe/xe_module.c               | 49 +++++++++++++++++++
- drivers/gpu/drm/xe/xe_module.h               |  5 ++
- drivers/gpu/drm/xe/xe_nvm.c                  |  9 +++-
- drivers/gpu/drm/xe/xe_pci.c                  |  9 +++-
- drivers/gpu/drm/xe/xe_pt.c                   |  3 ++
- drivers/gpu/drm/xe/xe_sriov_vf_ccs.c         | 20 +++++++-
- drivers/gpu/drm/xe/xe_sriov_vf_ccs.h         |  3 +-
- drivers/gpu/drm/xe/xe_vm.c                   | 25 ++++++++--
- drivers/gpu/drm/xe/xe_wopcm.c                | 15 ++++--
- 20 files changed, 223 insertions(+), 69 deletions(-)
+> -	if (!(intel_dp->edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP &&
+> -	      intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
+> +	if (!(intel_dp->edp_dpcd[2] & DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
+> 		return false;
+>
+> 	ret = drm_dp_dpcd_read_byte(&intel_dp->aux, DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &bit_min);
+>
+--8323329-1734800611-1784293968=:605841--
