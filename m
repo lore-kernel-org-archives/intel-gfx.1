@@ -4,53 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24C08C4450F
-	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 03:47:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47710C4450F
+	for <intel-gfx@archiver.kernel.org>; Fri, 17 Jul 2026 04:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8C0810E704;
-	Fri, 17 Jul 2026 03:47:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9173210E350;
+	Fri, 17 Jul 2026 04:29:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QXKRct81";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iWJMoRFC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4498E10E3FB;
- Fri, 17 Jul 2026 03:47:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 567CB10E350;
+ Fri, 17 Jul 2026 04:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784260059; x=1815796059;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=3jR4z3ESC6MTQAACzKWY99jbmn52Qz6ICbcl8wVyYq4=;
- b=QXKRct81pzpP+KEJdQpIiD1UwEhNXduJnouds2x7Fjglov72iIE6QZOO
- O1Hif+3pCDAaMtEeYFvi5fjsSRj3whF52+yH/BsSUe1iLaiECpojU8e6d
- 46m7iJMFZflUYkgpHIviTiH+TeZ836lpZPQ+CBEfkplMaJICHDa9/K0ru
- D1xMxGhAsw/VkgxojX89jUQVtv3lqubSLP0gQwF3I3nPcElqfkOMG3gHR
- DHEIlPs451OG2Jnj7iPuFGndytoow1s3CjR3pinK2VN88SFcTeQ3JdvL0
- JEh7fThyrooWKC04TjCKUO29fN65nIEsIWMbTjLfoObdGZ4XnEdscy1OT w==;
-X-CSE-ConnectionGUID: 5vRs1SEpSUe4RJmJJIl0lQ==
-X-CSE-MsgGUID: 6JR27V8xSxO1QWIVf7gYDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="84808255"
-X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="84808255"
+ t=1784262540; x=1815798540;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=7ZqlJPlMp+1iUnS348tlm9whHk/uTq6Ru6K/o7cN24w=;
+ b=iWJMoRFCohIHIG0EN9JBjEdBrCmjbJ6jywRcbzIPYcyhahdvSTGY6I4L
+ Mja0TSCh5egtj2zKasYHzdcrnmEny14xyeqyli0Y6PVumfMHbvbzEn6dz
+ ARUNbUWCQfFGoyxzvyiGpxNhtGKOPDj03qqM8MjFQ0t6yaNr2YZBK9+AF
+ yqSrKBWQ95x9XkzK+PrYCw4imWsqtvb3+HeJbvXl8y/H3mWUlY5go3l68
+ LhICXcUnRdBzH4+lVVtjuoWZW3WZ3nMKelRozmJXKcjSbPbsy8wFSdHt4
+ XexDXDREg1meJJuadzFV0zDB8DX2Ygv+3eRgfaANXLzRujqyUv8eZME3W w==;
+X-CSE-ConnectionGUID: 0Ms8uaubSFG/QQuq4XieiA==
+X-CSE-MsgGUID: fWANCjmhSROVnj1in1Vj1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11848"; a="88608157"
+X-IronPort-AV: E=Sophos;i="6.25,168,1779174000"; d="scan'208";a="88608157"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Jul 2026 20:47:38 -0700
-X-CSE-ConnectionGUID: VwYGnnArTkGaVDaX4aI4BQ==
-X-CSE-MsgGUID: 8VpXe9axSDuFBDERx7nsmQ==
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 21:28:59 -0700
+X-CSE-ConnectionGUID: tB7RHWO1SV2LnFLTFckg0Q==
+X-CSE-MsgGUID: nSfls96lTaK1oABPfxVYDA==
 X-ExtLoop1: 1
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by fmviesa003.fm.intel.com with ESMTP; 16 Jul 2026 20:47:37 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH] drm/i915/hdcp: Make hdcp2_encrypted and hdcp_encrypted
- mutually exclusive
-Date: Fri, 17 Jul 2026 09:17:34 +0530
-Message-Id: <20260717034734.477591-1-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jul 2026 21:28:59 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 21:28:58 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 16 Jul 2026 21:28:58 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.25) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 16 Jul 2026 21:28:57 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JP9pzl97TGiW3yqzY/hsHl10kAL/eP4szayjzG4YZ635ZooMYkbGf3XF2a2iwmrJZrVcSj8bNGzEHaaPCbkgwXzhmNVs/yNkq3jXsfhnZSO3G81dtTAh3dQkhzrL+b+AebreAozcAlz83jyp2JK3lULdaG+lbrX+OQHlmERQta2MoOsIb+UpbGq1J1+yHw8GpjuE9zFk900Sbdb5gABeHWFhnijNgpTGxh85cCQt68r/sAb/XiPSZxH4cO2wlL92W+xhkJ3ZY+t3SXz6nV+DC0lkiEiO2SJIf2ynWqjyaSuRlb5U/IzoZpCnckqtkLxJgoyWt8/kxFgGRm1xcyI4xA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X95UB7BXewMtshgvRBXoeQ0CcZHGSfwzhNVJMZrV3U0=;
+ b=CSkIbPFI12nzw/ux0QhgvHAYyzyGoMuHjcG0agyISx8AtXGtqkIpzoEbnOZevMe89hxDNWo3+Y83fEYO6fhdurdjOGp8bMOJTHENs3EeUQt5I5zDGdU3wP/kgP27r5N7nporcXrUvDZMhAVjOx//WHy4mUf7Zp/9+ZMJihOu7T93eAmdNgjgj9HueQJm7RtQlwtTFEvzkg5iGbKoLLmbsXg/XkAS+F1eIbMnFk6Rbhz7JjmscBUJkklzVkYkBi24s6P0a+lxpVZdc0kCG+i0VgPvw6LhBZR4PymHJI9vlQN/leYxKJRpsdSNInyT+fh7aWX3ry+7A7V3uprgngXnFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6053.namprd11.prod.outlook.com (2603:10b6:510:1d1::8)
+ by CH3PR11MB8435.namprd11.prod.outlook.com (2603:10b6:610:169::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Fri, 17 Jul
+ 2026 04:28:50 +0000
+Received: from PH7PR11MB6053.namprd11.prod.outlook.com
+ ([fe80::3e15:8d62:5e58:a513]) by PH7PR11MB6053.namprd11.prod.outlook.com
+ ([fe80::3e15:8d62:5e58:a513%6]) with mapi id 15.21.0223.011; Fri, 17 Jul 2026
+ 04:28:49 +0000
+From: "Samala, Pranay" <pranay.samala@intel.com>
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+Subject: RE: [PATCH 2/2] drm/i915/dp: set VSC_SDP MSA delegation only for
+ capable sinks
+Thread-Topic: [PATCH 2/2] drm/i915/dp: set VSC_SDP MSA delegation only for
+ capable sinks
+Thread-Index: AQHdD5si5Z188ZJ7IEyYgy4zlg0QibZxKSAA
+Date: Fri, 17 Jul 2026 04:28:49 +0000
+Message-ID: <PH7PR11MB6053F45F0786D4A5261247C7E7C62@PH7PR11MB6053.namprd11.prod.outlook.com>
+References: <20260709113951.3557968-1-chaitanya.kumar.borah@intel.com>
+ <20260709113951.3557968-3-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260709113951.3557968-3-chaitanya.kumar.borah@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6053:EE_|CH3PR11MB8435:EE_
+x-ms-office365-filtering-correlation-id: 5fe71333-f3f9-4cbf-5301-08dee3bbe679
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|3023799007|4143699003|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: +xOMn0gMp+wZIXKibFiZbN8Ojp4QNPD3RgS99SmALQHuKzbczl17MdDGyvikr3HbVJu37scztngs23I5UnzEYHyqjo9D1apg/X8BxfGmi8LMYl0jPcZVn4wkB7vniGcIrCG5z+TW8lEVizbUZqVZl74VSJyL+3u/JlrSHj62T5WCtuF8niz49mIxx8eqFiroWbTmEOvc2FV+y6d6za/So0lShFU6/Gs/w7gFTiBLYl+P5TQ3OKwRaDHqXWeifoEd+6KSYDEClydDHLIbkxABfOcxhVeEkxaM3Y3ynWoR3+fqT6puzhwRI+9flxiI/oKaWtEfmvvvXk+Vy46oqWrrrTuKJQkcw11EhJDc8uwFCG6v6KDI5npAz4GqW09ANSh56GW0KWeMUcfUr7BcZ5T8RPn+x2pymrPHA8NqHUdaj0s7WrD6G3PSN2XWF7NRCmYpTqGpti5QbrONpjE84i89utmqPdNkAefGe4qGB2ihhu4LQTIMzu+3KYaEIRsr7+dOdakUggRw8AngObO5QURPjdxxGiU6zuIcoxo0Gi/upK0vVPTIwBY0AjBKkNjgG5zTSMIBQI5Obf4UVUhsm20exjjmqPWbJuP6Fn4I5cCYyWYSRNvcPb00AnlvokG+QncbmhwfV71FFEd9vzNkPMoeP5m9q3DekZp6n0UxAcRruULD6rwsUh11/RY3iG1KVzDB6OiiZkY2aljeeYbDhEV6tkgI/wL8DuoJE8rW8ibM4ro=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6053.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(3023799007)(4143699003)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2734fjvwRAHRjjGv9GivaQonFJtl3FO4ZDZim2Pi7l9JNHWPGix/WxhwPI3p?=
+ =?us-ascii?Q?0xxlUZaL+POBnq9STrMxWeRalTk/WN74Qo3EdppT7aOgcxXatWkWBjnhYPQ1?=
+ =?us-ascii?Q?ObTPnYHA8i5mbXD1hOhrJWEV+q1k3Clrjmk0244vHznFkmQl/wekH68IvFcG?=
+ =?us-ascii?Q?vNkkLAUrTTV0j/UAL5XyMZdJCpt2+BMKOeaM402Vwm9l69OjF7sleunQdoDi?=
+ =?us-ascii?Q?2xlgHYduE2DZKqsrSTwrE9cJYwSiv0LCMoC05TRE8GuY12MC90wb0D19UcU4?=
+ =?us-ascii?Q?2Ig3sNuwPOfCWmTflJO9nyCZYuHucVXF3AIuc1V4KOgukfMxuPRSNlpbMGnb?=
+ =?us-ascii?Q?IY05TeLLn5qDdF/4bi8HfKXxQd9y25fDs+kOzxjPwt0B+fOQhux3Jku1Ld5w?=
+ =?us-ascii?Q?Emjq0IsejWoxEWq6WD6hp7mP+v9S/SKchsQXcwpiPsxxHsqatPN2b6KEpt6x?=
+ =?us-ascii?Q?h0T+2uc2qY/T4WqR3QWLPJdhj0KlnKMAnODI1AsYRR9+2BfDEizviBd+3NQf?=
+ =?us-ascii?Q?oMPUP31LHnY3zzsDd8fMtLs+M9jx6eXHrvVjXw6LkS6JhLQtA+qXWWmhPLA9?=
+ =?us-ascii?Q?qID6jTB0sbHXVbADOvUiSDZUqJTcADcccArJjyTJu1GrsmkiNswQiu+ZroQg?=
+ =?us-ascii?Q?t8LJdcghu2TQgLIyZXuZNu6byY7GjSODtmeJxV90utlzmAlCPbBcQs/70qUX?=
+ =?us-ascii?Q?3ved81WmywcmA0PWa/cxFTZB+ioc8l126oUZ3BV4ur8ingE5o+WtH7I8H0NQ?=
+ =?us-ascii?Q?1dV/ZKUfOxQgasZ1wBgRyXEhvwKlndf08xbLxN0kbY2aUCfiz4VdEQ8Js/Kv?=
+ =?us-ascii?Q?JObdhA7NKHY41HrAtxpTYyN2lwj2G17EFi7RNhUX9XR4F8yOC3RT28FQq4+I?=
+ =?us-ascii?Q?xm82U1PNkMT+UDrBULHhFcC/8EPTtzlUAmcy2ul2yg6rxmkbjI30/paVaN/X?=
+ =?us-ascii?Q?9QN6Zt//LR9WYRkUjGFOrgnp1NhUj6GiZ/9tza+rdTg8XxemXvFra+VOeBlH?=
+ =?us-ascii?Q?QlpX5cTPt+bOAw4m1REN3jutCIOrKLrx7NsOgoSTX9Mex5JcoNsKXO3K9vxh?=
+ =?us-ascii?Q?2xbLaLftDhjdYp8DrhSx4LK8f0bs4H03rkbOu8xK3BBSBdaDeaf2E1Aw/G6y?=
+ =?us-ascii?Q?C1hz3rMl0o4IQaqHMJyDMGG9alYAjzqAqvnIDnjJPYo8iJ82CzaSeFtaQ3xB?=
+ =?us-ascii?Q?lv5XOUblOg04ZFIxmZob0KALnb12QJCq8kuJM1Iocj8UwRgxbq/yGJE9bzlW?=
+ =?us-ascii?Q?fwyuuIJwAiAItoyjzb2vHI3935vfoLf7OhhR9FubW5MzEdVz7gdJXF/m02+9?=
+ =?us-ascii?Q?O6XcjZTtYNp4P4hHKl8bwymdHWj+ZF0JSyGq5crcERMgaA/4JLdNT0cx80oZ?=
+ =?us-ascii?Q?bxxgj9rRE+EH/QHE2UYAeXiw8FKSskkjNdmtm6yObyYJ0YLoxKRUJ1BCopVD?=
+ =?us-ascii?Q?pVCMyYBVahtr9auIbH1Z51MNVxvsq84vKzNT7rc7KFaWCiR+kWO/g8frtCaW?=
+ =?us-ascii?Q?71JpLWoOGMA2WRMx7ZTMgOMmHhAmw7FSVshaCaqU15zi/LXEop4FKHOSN8jI?=
+ =?us-ascii?Q?PKlB7pFG/KZBldzhT25EuxVuIlZcv7UQWSqJHnu55z0fUD55maixnsPZycVq?=
+ =?us-ascii?Q?uzKWguuLaecnB7rtReFlX6c/5qD0GdviMbJqWw17XR5Fpq9vPxnVSSI5F3lB?=
+ =?us-ascii?Q?Kxpa1BLIHFCTRF6RiWyt/k7+e7D/yJo4U3Gx8qGgnM9WbGTl4luFfj4fXylZ?=
+ =?us-ascii?Q?8zaSLOD+zw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: O5wcaF66VI9mWfrs+/cE8b1wNWL+qF+COO70JE5KkTEF0V2uxrgIgevBCpgUQTMCSxtgXBsOUqIY5T9+H9InrxlJ7/XbrAlAFv1oIQi/BkqNVS1LtFe08TbtBWT4uaeg0y99mevERPVBvctZV83SJGnBei3yFC+Z4OrbP8bxMjcf5DXxPFQiunXskP6iIKWpRsawWkCe0NiaZBJwoyjQxPSkb+NHQXFnfS21y4s2aLCpQbZZbswCHawGDLuxDemX3D/uG8V/WxL2Qys/WzePh1oG3GE73bCxNLBpCnynEyA4k4joO64QrkNJtL+tcqHw/j6SG0L5wOGgRkfy8qgl6g==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6053.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fe71333-f3f9-4cbf-5301-08dee3bbe679
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2026 04:28:49.7981 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JCaNA+3ve+eNGeejGnBcnvDF5HqOUPeNmnTITYg6iloXbWIGxW6MlgtBuHpLxhVLK5u3yxK+zkBQKAap7NlSZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8435
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,154 +164,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-With introduction of force_hdcp14 we can now for HDCP 1.4 by passing
-HDCP 2.2 authentication but In MST, _intel_hdcp_disable() and
-_intel_hdcp2_disable() can return early
-when there are still other streams active on the port (num_streams > 0),
-leaving the per-connector hdcp_encrypted / hdcp2_encrypted flag stale.
-If the same connector is later re-enabled with the other HDCP version
-(e.g. HDCP 1.4 via force_hdcp14 after a prior HDCP 2.2 session on that
-connector) the stale flag from the previous protocol survives.
-intel_hdcp_disable() then picks the wrong branch on the next disable
-causing the following splat.
+Hi Chaitanya,
 
-xe 0000:00:02.0: [drm]
-drm_WARN_ON(!(intel_de_read(display,
-((((&(display)->info.__runtime_info)->ip.ver) >= 12) ? ((const
-i915_reg_t){ .reg = (((0x664B4) + (cpu_transcoder) * ((0x665B4) -
-(0x664B4)))) }) : ((const i915_reg_t){ .reg = ((((const u32 []){
-0x66800, 0x66500, 0x66600, 0x66700, 0x66A00, 0x66900 })[(port)]) +
-(0xB4)) }))) & ((u32)(((int)sizeof(struct
-{_Static_assert(!(__builtin_choose_expr((sizeof(int) == sizeof(*(8 ?
-((void *)((long)((20) >= (sizeof(u32) * 8)) * 0l)) : (int *)8))), (20)
->= (sizeof(u32) * 8), false)), "const_true((20) >= BITS_PER_TYPE(u32))"
-" is true");})) + ((((1ULL))) << (20))))))
-WARNING:
-drivers/gpu/drm/i915/display/intel_hdcp.c:1969 at
-_intel_hdcp2_disable+0x4bf/0x520 [xe], CPU#2: kms_content_pro/101318
-Modules linked in: xe vfio_pci_core vfio_iommu_type1
-vfio iommufd xt_multiport snd_hda_codec_intelhdmi snd_hda_codec_hdmi
-drm_gpuvm drm_gpusvm_helper drm_buddy gpu_sched drm_ttm_helper ttm
-drm_suballoc_helper drm_exec drm_display_helper cec rc_core
-drm_kunit_helpers kunit i2c_algo_bit xt_conntrack xt_MASQUERADE bridge
-stp llc nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
-xt_addrtype nft_compat x_tables nf_tables xfrm_user xfrm_algo overlay
-cpuid cmdlinepart spi_nor mei_gsc_proxy mtd intel_rapl_msr wmi_bmof
-intel_uncore_frequency intel_uncore_frequency_common
-x86_pkg_temp_thermal intel_powerclamp coretemp snd_intel_dspcfg
-aesni_intel snd_hda_codec gf128mul snd_hda_core snd_hwdep r8169 snd_pcm
-intel_cstate snd_timer i2c_i801 i2c_mux snd spi_intel_pci
-processor_thermal_device_pci realtek video e1000e spi_intel i2c_smbus
-soundcore phy_package processor_thermal_device processor_thermal_wt_hint
-mei_me platform_temperature_control processor_thermal_soc_slider idma64
-mei processor_thermal_rfim
-processor_thermal_rapl intel_ish_ipc
-intel_rapl_common intel_ishtp thunderbolt processor_thermal_wt_req
-processor_thermal_power_floor intel_vpu processor_thermal_mbox
-igen6_edac wmi sunrpc kvm_intel binfmt_misc kvm irqbypass
-int3403_thermal int340x_thermal_zone intel_skl_int3472_tps68470
-tps68470_regulator intel_pmc_core clk_tps68470 acpi_tad int3400_thermal
-intel_hid pmt_telemetry acpi_thermal_rel sparse_keymap pmt_discovery
-pinctrl_intel_platform pmt_class intel_pmc_ssram_telemetry
-intel_pmc_pwrm_telemetry intel_skl_int3472_discrete
-intel_skl_int3472_common acpi_pad intel_vsec nls_iso8859_1 dm_multipath
-msr fuse efi_pstore autofs4 [last unloaded: xe_live_test]
-CPU: 2 UID: 0 PID: 101318 Comm: kms_content_pro Kdump:
-loaded Tainted: G     U       L   N
-7.2.0-rc2-lgci-xe-xe-5389-67aa8ad5c4c59cd1a-debug+ #1 PREEMPT(lazy)
-Tainted: [U]=USER, [L]=SOFTLOCKUP, [N]=TEST
-Hardware name: Intel Corporation Panther Lake Client
-Platform/PTL-UH LP5 T3 RVP1, BIOS PTLPFWI1.R00.3514.D01.2512291130
-12/29/2025
-RIP: 0010:_intel_hdcp2_disable+0x4c9/0x520 [xe]
-Code: 85 ff 74 04 48 8b 7f 08 4c 8b 7f 50 4d 85 ff 74
-23 e8 5b 80 df e0 48 89 c6 48 8d 3d b1 f7 ba ff 48 c7 c1 a0 27 6a a1 4c
-   89 fa <67> 48 0f b9 3a e9 c9 fc ff ff 4c 8b 3f eb d8 e8 33 45 4e e1
-      4c 89
-RSP: 0018:ffffc900027bf738 EFLAGS: 00010246
-RAX: ffffffffa16bd4f1 RBX: ffff8881a1e69000 RCX:
-ffffffffa16a27a0
-RDX: ffff8881c7b1b190 RSI: ffffffffa16bd4f1 RDI:
-ffffffffa100de30
-RBP: ffffc900027bf7b0 R08: 0000000000000000 R09:
-0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12:
-ffff88844397a000
-R13: ffff88844397a000 R14: ffff88817f7d2000 R15:
-ffff8881c7b1b190
-FS:  0000774e9299dbc0(0000) GS:ffff8884eb36c000(0000)
-knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000774e94bc7220 CR3: 00000002166c1002 CR4:
-0000000108f72ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- ? intel_hdcp_update_value+0x7d/0x260 [xe]
- intel_hdcp_disable+0x118/0x130 [xe]
- intel_hdcp_update_pipe+0x175/0x1b0 [xe]
- ? intel_initial_watermarks+0x20/0x60 [xe]
- intel_ddi_update_pipe+0x44/0xb0 [xe]
- intel_pre_update_crtc+0x3bc/0x410 [xe]
- skl_commit_modeset_enables+0x1a7/0x890 [xe]
- ? icl_sagv_pre_plane_update+0x6c/0xf0 [xe]
- intel_atomic_commit_tail+0x114b/0x20a0 [xe]
- ? lock_release+0xd0/0x2a0
- intel_atomic_commit+0x2ff/0x350 [xe]
- ? intel_atomic_commit+0x2ff/0x350 [xe]
- drm_atomic_commit+0xaf/0xf0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_mode_atomic_ioctl+0xcb5/0xf60
- ? drm_mode_atomic_ioctl+0x8a8/0xf60
- ? drm_mode_atomic_ioctl+0x604/0xf60
- ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
- drm_ioctl_kernel+0xb3/0x120
- drm_ioctl+0x2db/0x5a0
- ? __pfx_drm_mode_atomic_ioctl+0x10/0x10
- ? _raw_spin_unlock_irqrestore+0x51/0x80
- ? __pm_runtime_resume+0x5b/0x90
- ? xe_pm_runtime_get_ioctl+0x61/0x150 [xe]
- xe_drm_ioctl+0x64/0xb0 [xe]
- __x64_sys_ioctl+0xa5/0x100
- x64_sys_call+0x1250/0x26e0
- do_syscall_64+0x103/0x6d0
- ? __task_pid_nr_ns+0xc0/0x290
- ? trace_hardirqs_on_prepare+0xcb/0xf0
- ? do_syscall_64+0x34/0x6d0
- ? fred_entry_from_user+0x92/0x140
- ? trace_hardirqs_on+0x22/0xe0
- ? do_syscall_64+0xb8/0x6d0
- fred_entry_from_user+0x92/0x140
- asm_fred_entrypoint_user+0x41/
+> -----Original Message-----
+> From: Intel-xe <intel-xe-bounces@lists.freedesktop.org> On Behalf Of
+> Chaitanya Kumar Borah
+> Sent: Thursday, July 9, 2026 5:10 PM
+> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+> Cc: Borah, Chaitanya Kumar <chaitanya.kumar.borah@intel.com>
+> Subject: [PATCH 2/2] drm/i915/dp: set VSC_SDP MSA delegation only for
+> capable sinks
+>=20
+> Per DP 1.4a section 2.2.4.3, the MSA MISC1 VSC_SDP bit signals that the s=
+ink
+> should defer colorimetry to the VSC SDP. It should only be set when the s=
+ink
+> advertises DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED and a VSC SDP
+> with pixel encoding/colorimetry payload will actually be sent.
+>=20
+> Fold the colorimetry_support check into intel_dp_needs_vsc_colorimetry()
+> so both intel_ddi_set_dp_msa() and intel_dp_compute_vsc_sdp() share a
+> single consistent gate.
+>=20
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-Ensure the two flags are mutually exclusive at every successful enable:
-after intel_hdcp_auth() succeeds.
+Changes LGTM,
+Reviewed-by: Pranay Samala <pranay.samala@intel.com>
 
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_hdcp.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_hdcp.c b/drivers/gpu/drm/i915/display/intel_hdcp.c
-index 0a076d2ed70a..e56df337dc6d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdcp.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdcp.c
-@@ -1075,6 +1075,7 @@ static int intel_hdcp1_enable(struct intel_connector *connector)
- 		ret = intel_hdcp_auth(connector);
- 		if (!ret) {
- 			hdcp->hdcp_encrypted = true;
-+			hdcp->hdcp2_encrypted = false;
- 			return 0;
- 		}
- 
-@@ -2109,6 +2110,7 @@ static int _intel_hdcp2_enable(struct intel_atomic_state *state,
- 		    hdcp->content_type);
- 
- 	hdcp->hdcp2_encrypted = true;
-+	hdcp->hdcp_encrypted = false;
- 	return 0;
- }
- 
--- 
-2.34.1
+> ---
+>  drivers/gpu/drm/i915/display/intel_ddi.c |  2 ++
+> drivers/gpu/drm/i915/display/intel_dp.c  | 14 ++++++++++----
+>  2 files changed, 12 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
+> b/drivers/gpu/drm/i915/display/intel_ddi.c
+> index c764472bd69a..13010375e21b 100644
+> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> @@ -469,6 +469,8 @@ void intel_ddi_set_dp_msa(const struct
+> intel_crtc_state *crtc_state,
+>  	 * of Color Encoding Format and Content Color Gamut] while sending
+>  	 * YCBCR 420, HDR BT.2020 signals we should program MSA MISC1
+> fields
+>  	 * which indicate VSC SDP for the Pixel Encoding/Colorimetry Format.
+> +	 * Only set the delegation bit when the content needs it and
+> +	 * the sink advertises support.
+>  	 */
+>  	if (intel_dp_needs_vsc_colorimetry(crtc_state, conn_state))
+>  		temp |=3D DP_MSA_MISC_COLOR_VSC_SDP;
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 93282694c29b..53688c5bef74 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -3163,8 +3163,7 @@ static void intel_dp_compute_vsc_sdp(struct
+> intel_dp *intel_dp,  {
+>  	struct drm_dp_vsc_sdp *vsc;
+>=20
+> -	if ((!intel_dp->colorimetry_support ||
+> -	     !intel_dp_needs_vsc_colorimetry(crtc_state, conn_state)) &&
+> +	if (!intel_dp_needs_vsc_colorimetry(crtc_state, conn_state) &&
+>  	    !crtc_state->has_psr)
+>  		return;
+>=20
+> @@ -3173,7 +3172,6 @@ static void intel_dp_compute_vsc_sdp(struct
+> intel_dp *intel_dp,
+>  	crtc_state->infoframes.enable |=3D
+> intel_hdmi_infoframe_enable(DP_SDP_VSC);
+>  	vsc->sdp_type =3D DP_SDP_VSC;
+>=20
+> -	/* Needs colorimetry */
+>  	if (intel_dp_needs_vsc_colorimetry(crtc_state, conn_state)) {
+>  		intel_dp_compute_vsc_colorimetry(crtc_state, conn_state,
+>  						 vsc);
+> @@ -5103,11 +5101,19 @@ bool
+>  intel_dp_needs_vsc_colorimetry(const struct intel_crtc_state *crtc_state=
+,
+>  			       const struct drm_connector_state *conn_state)  {
+> +	struct intel_dp *intel_dp =3D
+> +		enc_to_intel_dp(to_intel_encoder(conn_state-
+> >best_encoder));
+> +
+>  	/*
+>  	 * As per DP 1.4a spec section 2.2.4.3 [MSA Field for Indication
+>  	 * of Color Encoding Format and Content Color Gamut], in order to
+> -	 * sending YCBCR 420 or HDR BT.2020 signals we should use DP VSC
+> SDP.
+> +	 * send YCBCR 420 or HDR BT.2020 signals we should use DP VSC SDP.
+> +	 * Only signal this when the sink advertises VSC SDP colorimetry
+> +	 * support.
+>  	 */
+> +	if (!intel_dp->colorimetry_support)
+> +		return false;
+> +
+>  	if (crtc_state->output_format =3D=3D
+> INTEL_OUTPUT_FORMAT_YCBCR420)
+>  		return true;
+>=20
+> --
+> 2.25.1
 
