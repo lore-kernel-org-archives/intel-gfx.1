@@ -4,64 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3900CC44515
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 08:32:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758C7C44515
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 08:35:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E7310E7F4;
-	Mon, 20 Jul 2026 08:32:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0936510E7FD;
+	Mon, 20 Jul 2026 08:35:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HLWA8uot";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bHwXWLp5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032A410E7F4;
- Mon, 20 Jul 2026 08:32:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5FB10E7F7;
+ Mon, 20 Jul 2026 08:35:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784536340; x=1816072340;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=+o1LEvlJY6jqbVOpzS9Z2ABKGcmsoVTFKAniaxd88TE=;
- b=HLWA8uot5nQh0Ib1obcBnrploamVkpP4ETjQiKfjU1GJDxwaLe6Jgp7V
- QgxPuRGF1DUTNvsofYEyj9WRtENtWefiF0+mCRJyHWqhhbed98YodXGH/
- 9sWAZxrQEN2dR8dmnXf0mVaZK4PW+DFdMoCixiT4f0Z7tdzyc7Q8+ydg/
- rZSRA/Hohy9vSotp6ig51yJTz5YJh7boHbulXkjS07ClD5qRs0CsIR3XR
- BaNPsAb7Iofwgf5uZmmDRJNWJGq4rEuBp65w18cFvtGV4Q2WtFTwEPlM5
- EGc2ydUcKwEG0ksFTX6qYAtwv+r6HGyV60CMsVe3A7IpHDKGTJ/WTrAae g==;
-X-CSE-ConnectionGUID: vQEWuQLyRmOCzkLBJhRn8g==
-X-CSE-MsgGUID: i29szQCpS5mhj9nYO4GSLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="85207352"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="85207352"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:32:19 -0700
-X-CSE-ConnectionGUID: 7/AwIgQSRZ+54UTg6Wv0hg==
-X-CSE-MsgGUID: o2uauJy0S1qrW/umHDiAAw==
+ t=1784536514; x=1816072514;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fAWGP0EaxyVCXTUTPP0w/Jl6a29Dqywd96CdnlFKDww=;
+ b=bHwXWLp5anC+jfthdh4stVaYFqE7I27mZQmMXsD//bf9+dJhBTr4UQI4
+ ZidhkVKW8JAEkGrYDPsTPvSWeEyymWrhAc55NVRtPPX2wN/yk9IcY/AVZ
+ tj8ylHT+rrxRBE1ItQNVmVMAZv3eDomZYeQO3W/+XCWJvvy0R472NtVfi
+ 0UQ4c4nQTiY5NtVxpBVSMAw0RPMuw8fsaUympFVuqsR+kyagIpDyayXwV
+ h7tgoSDu0PteIYEAKkh6/YBf+Vk/uyQ8+1dRoHRy1QiNFdEUS6kHBRRNu
+ KXzubaMxeLq4WdeX/XLU9BOExZXRJdqZNXJs7m6fc4iMHNxlneEAp1MkT w==;
+X-CSE-ConnectionGUID: VdBBk3HNTXqv6Ab2ET6uPQ==
+X-CSE-MsgGUID: uwmZtq5KSHWHqwHj131mjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="110658302"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
+ d="scan'208,223";a="110658302"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2026 01:35:13 -0700
+X-CSE-ConnectionGUID: qgOCpcc1TlCWP/VdjhpzpQ==
+X-CSE-MsgGUID: boBWXO3FSsqgSwxwgoftYg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="281863070"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.150])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:32:17 -0700
-Date: Mon, 20 Jul 2026 10:32:15 +0200
-From: Zbigniew =?utf-8?Q?Kempczy=C5=84ski?= <zbigniew.kempczynski@intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-Cc: igt-dev@lists.freedesktop.org, 
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Chris Wilson <chris.p.wilson@linux.intel.com>, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>, 
- intel-gfx@lists.freedesktop.org
-Subject: Re: [PATCH i-g-t] lib/igt_store: Fix unexpected reuse of allocated
- offset
-Message-ID: <orpa2nqhn6p4typgk2yctwcm3t4pakuv4wdtxsbqvwibr7uyvk@nz5sj27qf3dx>
-References: <20260720055919.1945692-2-janusz.krzysztofik@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
+ d="scan'208,223";a="257462180"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2026 01:35:11 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, chaitanya.kumar.borah@intel.com,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Subject: [PATCH] drm/i915/display: Ensure a non-zero safe window from PTL
+ onwards
+Date: Mon, 20 Jul 2026 13:48:03 +0530
+Message-ID: <20260720081803.1123264-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720055919.1945692-2-janusz.krzysztofik@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,75 +71,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 07:59:10AM +0200, Janusz Krzysztofik wrote:
-> CI was extremely sporadically (once a month or two) reporting an issue
-> with unexpected premature completion of a spin supposed to be still
-> running.  It occurred possible to reproduce the issue in a few hours by
-> running the test in a loop on one of affected platforms.
-> 
-> Having a closer look at the logs, it became clear that the test was
-> blocking somewhere before the check for the spin still busy, and the spin
-> was meanwhile aborted by a request watchdog timer after a default period
-> of 20s of its activity.
-> 
-> Deeper debugging revealed that one of the test subprocesses was trying to
-> evict a VMA and was waiting infinitely for its idleness.  Since the scope
-> of affected platforms was limited to Gen12, where no kernel side
-> relocations are used, Chris suggested that must have been a userspace bug,
-> i.e., the test was apparently providing conflicting object offsets.
-> Further analysis also shown that the main process of the test was looping
-> infinitely around a page fault that occurred by reading another, mmapped
-> GEM object shared with subprocesses, apparently locked by the subprocess
-> waiting on eviction.
-> 
-> Based on all those observations, Zbigniew noticed incorrect use of
-> intel_allocator library, leading to unexpected reuse of a just closed
-> object handle, and its already allocated offset, by another child process
-> before the allocator drops a link of the offset to the handle.  That
-> theory was then confirmed by:
-> a) forcing a single fixed offset to be used by each child process, which
->    resulted in immediate reproduction of the issue on first attempt, and
-> b) extending a potential race window by introducing a short delay between
->    GEM closing the object of the VMA and the allocator forgetting the link
->    between its handle and offset, which also resulted in prompt
->    reproduction of the issue.
-> 
-> Close the race window by reordering those two cleanup operations inside an
-> IGT store function: call put_offset() first, then gem_close(), so other
-> test processes have no chance to pick up the same offset when reusing the
-> just closed GEM object handle.
-> 
-> Correctness of the proposed solution was confirmed by running the fixed
-> test in a loop for 12 hours with no issues.
+From PTL onwards the DSB waits on the VRR safe window instead of vblank
+(chicken bit 14 selects the safe window signal from the DPT unit to
+start the DMA engine). The safe window starts at (undelayed vblank
+start - set context latency) and ends at the delayed vblank start.
 
-LGTM.
+With modes that have a smaller vblank region, the computed guardband is
+clamped to the vblank length, which makes the undelayed and delayed
+vblank coincide. If the set context latency (SCL) is also 0, the safe
+window collapses to 0. The DSB, configured to wait for the safe window,
+then stalls forever since the hardware never signals it, leading to:
 
-Reviewed-by: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
+  *ERROR* [CRTC:159:pipe A] flip_done timed out
+  *ERROR* [CRTC:159:pipe A] DSB 0 timed out waiting for idle
 
---
-Zbigniew
+Clamp the set context latency to a minimum of 1 from PTL onwards so the
+safe window always keeps a non-zero width.
 
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15263
-> Suggested-by: Chris Wilson <chris.p.wilson@linux.intel.com>
-> Suggested-by: Zbigniew Kempczyński <zbigniew.kempczynski@intel.com>
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
->  lib/igt_store.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/lib/igt_store.c b/lib/igt_store.c
-> index 42ffdc5cdb..ce29355c3d 100644
-> --- a/lib/igt_store.c
-> +++ b/lib/igt_store.c
-> @@ -95,6 +95,6 @@ void igt_store_word(int fd, uint64_t ahnd, const intel_ctx_t *ctx,
->  	batch[++i] = MI_BATCH_BUFFER_END;
->  	gem_write(fd, obj[BATCH].handle, 0, batch, sizeof(batch));
->  	gem_execbuf(fd, &execbuf);
-> -	gem_close(fd, obj[BATCH].handle);
->  	put_offset(ahnd, obj[BATCH].handle);
-> +	gem_close(fd, obj[BATCH].handle);
->  }
-> -- 
-> 2.54.0
-> 
+Fixes: 4a68c7516c57 ("drm/i915/dsb: Use safe window path when VRR TG is used")
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Assisted-by: GitHub-Copilot:Claude-Opus-4.8
+---
+ drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 38763a6802c5..0822a2194c7f 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -2459,6 +2459,19 @@ static int intel_crtc_set_context_latency(struct intel_crtc_state *crtc_state)
+ 	set_context_latency = max(set_context_latency,
+ 				  intel_psr_min_set_context_latency(crtc_state));
+ 
++	/*
++	 * From PTL onwards, the set context latency can be in the vactive
++	 * region, letting the safe window start some lines before the vblank
++	 * start. With modes that have a smaller vblank region, the computed
++	 * guardband is clamped to the vblank length, making the undelayed and
++	 * delayed vblank coincide. If the SCL is also 0, the 'safe window'
++	 * becomes effectively 0, and the DSB configured to wait for it gets
++	 * stalled, since the hardware never signals the safe window. Keep the
++	 * set context latency at a minimum of 1 to avoid this.
++	 */
++	if (DISPLAY_VER(display) >= 30)
++		set_context_latency = max(1, set_context_latency);
++
+ 	return set_context_latency;
+ }
+ 
+-- 
+2.50.1
+
