@@ -4,64 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDFF0C4452C
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 11:41:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F559C4452F
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 12:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C93810E8D6;
-	Mon, 20 Jul 2026 11:41:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBFE910E8DE;
+	Mon, 20 Jul 2026 12:11:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="le2Q1rpx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aVyiPOE0";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F6B10E8CF;
- Mon, 20 Jul 2026 11:41:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=rn3Y3zgMY2rgzd2WztSEgoxVCDU9RsYZyCv6ebpmYOk=; b=le2Q1rpxZBcZKpFurI3wIWYtnV
- rzLhcbDoQb6n8NQA1Au03VyOPFUYOGXb7eAAh2vPssyH+oo7AeF2iekKhDXQ9NG67yfWfxotclZd7
- R0G0PEw4vFW+Wnt362E5FxNE2qSh83KPCvjyEAN3blt+3OrJSpQXhZgV2bQoy4FzBfgECJGM/01rF
- YDfbK4x5hvptpZQyfmjcm9i1E5y9c9ad7THGSTwRnZ9C/K2dMido8RKJG0NGhEwAmQPSZCucPB4t4
- 2fZMjoRpR6UsSG7LeCkwVF0KEZPe3VhAzEmRmsqjDlHUGFWR9vXwLD4bvHfVyf+FFPHGuO8x/xAKG
- lcTAevTw==;
-Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
- helo=[192.168.1.202]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wlmMb-00137N-7n; Mon, 20 Jul 2026 13:40:49 +0200
-Message-ID: <1a4b98e8-18d5-4a53-bbe6-01a7d888b14f@igalia.com>
-Date: Mon, 20 Jul 2026 13:40:47 +0200
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013067.outbound.protection.outlook.com
+ [40.93.201.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B271710E8D7;
+ Mon, 20 Jul 2026 12:11:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cOiByzNk7T5x0bOM8MmpX7zaUr+J/CVY97T55mNjItShmHuOinLHxpmlnhj9+dudZZjUjhdV4/yRuoDneCJwxH+qCJUU6axWQ5Tn7pU8B5DEQRCnbCx2reN/ZfKCjAgGRwsT5B8pOY462pHIbQY4ZxL/wFpFoyeVLAfMqQA3cVbGYUZDMyMeUv878fZELMqhWt2aQM5j2hE4U5CwJVWA8kIA6Jh5cpetT3ASRJIv43IN4C4FoM7QVB6aFwZKvX2z5vIVnlbJBeFWDUVaX79b3rlNzh4vUJztjHM/pX63FoPf0WlW0tzEwSc9JPXr80bMpcVQcuFK5Dd3Lk0l1lKnEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CCIuF0qWtdfamikIWmX8ezxK62GTh9ctdBuW9d2/mRc=;
+ b=UePMrHHKdUR2MF8uGOAOl4Sxs0vq6isKX+H1yN16O7yG4SEI/IPueWC6LjcUAQyA3d5Ovj5avCD6dTMchmawmJ4xkddtH8CYfDe0h+pDQN+zk9JCZefzHPldJD9dFal4phzihSpLfj50Y4WTNpxvZdfN2SUV/0RDE3nvM4WdV1PwV10fhUxletX8KVeRS2xCvfWJtD55G3xWYfi3YK+oRQ1WqAyWDsh7a/GRF5sV6mS/ScN/2WDgD3lEhU5rO+qjUOtOLmo3c0Ptpdb45+/IXvkSQkVQ2x0JR1WbMrZnStrc0HYUawdqXImGdzc8hU6/5fb8/uUZBgDlVEuTASakRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CCIuF0qWtdfamikIWmX8ezxK62GTh9ctdBuW9d2/mRc=;
+ b=aVyiPOE0Gwd6zcTrZVSeaLhdd75/xUOSIefoK8HCqsXhitPWEYbeb/HiSpxzVx+7bnph3osSBx3yaSmYvjjZkMeijUPM+puXN1AxW9bollr2tVZm1eHZbWXzHTJe2gPLv2x/qjUpSJHWYpwfZwMZBqKiVZjCGLbmC2DsP+K6mrI=
+Received: from PH7P220CA0073.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32c::20)
+ by SJ1PR12MB6049.namprd12.prod.outlook.com (2603:10b6:a03:48c::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
+ 2026 12:11:07 +0000
+Received: from CY4PEPF0000E9D4.namprd03.prod.outlook.com
+ (2603:10b6:510:32c:cafe::1) by PH7P220CA0073.outlook.office365.com
+ (2603:10b6:510:32c::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.18 via Frontend Transport; Mon,
+ 20 Jul 2026 12:11:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D4.mail.protection.outlook.com (10.167.241.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 12:11:06 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 07:11:01 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v6 2/2] gpu/tests/buddy: add dirty tracker performance KUnit
+ test
+Date: Mon, 20 Jul 2026 17:40:41 +0530
+Message-ID: <20260720121041.339981-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260720121041.339981-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260720121041.339981-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/7] drm/atomic: reject colorop update from inactive
- color pipeline
-To: John Harrison <John.Harrison@Igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
- christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260609121230.1358786-1-mwen@igalia.com>
- <20260609121230.1358786-3-mwen@igalia.com>
- <2a1ea63b-646e-4064-bb60-982b6b027c75@Igalia.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <2a1ea63b-646e-4064-bb60-982b6b027c75@Igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D4:EE_|SJ1PR12MB6049:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35300f92-9057-45cc-e8a8-08dee657fa1f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|6133799003|18002099003|22082099003|56012099006|5023799004|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: JpQ1fuVO7DhFNa8PmQhszULRLTZsm7iE8JbKduY9AbaDv464u9YzsHPZphOok4OSM0LbszecUhZO3Qm2rHIStzkphsZ9Q8ni9ytM9PJg1V+990eDTI93tDc1/iEXkhDYtTT0byEpA1P5y61cFLTEWrNTVwETW75wNJFnQrO1e6YYfopYA2yr2J/F4hvQ/pHFbewZnhXWNE8ytwyAdrs9nkKSUMQbvQUuoxa8GbPaFqIAwKonNcGhxs6WpKd2Jjo2+8G6gDDAJCG8yQM1hN7BKCrVvcXvoaGPxFjZ/QVkV0j18Nq+dr7pxx+rnJMzrXVWYsc1KqTT4jhz1O5HYIPeGgKUIznf4MShOOi3u/7bsk/fO6BpGuTgMiBbQtok8aXmiuSRq/ubibkABXbdbLZ0HCnhdMjFaMz1JyjD8fqT5hPuXZmEv6tiW53GYwrfafO+qQhcXheiW/6Bo3/AE4T9WwTTv25bN0ycXhN34ck7B25YxcpNhY+5aL97HfHqSuO+RwBS3qkmGNiypxPDLN3NIG3Et47EJbta01GqcZPdjPMw9YQ6MJpBCRXqHYHy2mJAJpV1EVJzYvJQNvmToaEKUyk1Wme9yhcySdaZRdB6I8Ibeb53kCd8wGJvLJ1CseinlGRZcK5odUJGEmxOHW4zvmmwN5w0Jo1pIvCkNRJfq8XWwUcsNBQClpK0jX6jdDoEfwVYnbHs2sPQaXQS0iWt/A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(6133799003)(18002099003)(22082099003)(56012099006)(5023799004)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 24hvDSpngNf/sC9Q6aqCcOltvVnyD5/VOMd4K6GRugBnJWHgMaEelXsMUDqxAu+J0rOmd1RYF2Fh5wU21eWkpR0GRVJdRcb+esFFz8Ob8mHhmujlUSSvf8gzEWHAPU2si3M/FJj+C4gI6HUbRrthk/bzzU2ssX9Mrpd0ibXC7vTM05pP6sUNbLVBcmrSq6e99ybJn/Vnw77Yne7D8C9J3OQACsOfjfyAHoVslJHGiBmQ5yhA3HuGuRBbMCs61XH0PDzUBI32XGYWDQTb4u3pRbhGkvFZ8vxeGw2cZ3SyHY1IQ7OG4urbEOhbDxKOS9n8LX1fPYHv50dgSDCd7NCOc6auxZ4kbSBHfieEwFzw44VlyB/H9VlqXazAUCQsgn+AxnMes8Eg6zAHahE+PbtrJDkS7+FH7el2vn4vGmiI11IewMVTNxYGumSG6NZC43Y5
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 12:11:06.5498 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35300f92-9057-45cc-e8a8-08dee657fa1f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6049
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,166 +115,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Add gpu_test_buddy_dirty_tracker_performance to demonstrate the key
+advantage of the decoupled dirty-tracker design over the old dual-tree
+/ force_merge approach.
 
+The test runs two scenarios on a 4 GiB pool after alternating
+clear/dirty fragmentation at 4 KiB granularity:
 
-On 26/06/2026 00:38, John Harrison wrote:
-> On 6/9/26 13:51, Melissa Wen wrote:
->> Only allow updates on colorops that are part of an active pipeline, i.e.
->> check if a colorop belongs to the color pipeline of a plane in its
->> current, new or old state. If not, reject the state change of this
->> inactive colorop. Performing this check later in drm_atomic_check_only()
->> to remove the ordering dependency that would exist if done at the time
->> of colorop property setting. Userspace is allowed to change colorops of
->> an active color pipeline, or when activating or deactivating its
->> pipeline in the same commit. However, changes in inactive color pipeline
->> is not allowed.
-> The last two sentences here seem to be a duplicate of the first two 
-> sentences. Maybe drop them as redundant?
+  1. Contiguous 4 GiB alloc: the old design requires __force_merge()
+     to rebuild max_order from scratch; the new design coalesces during
+     free() so the alloc is O(log N).
 
-Sure, I think I can explain it better.
-I was trying to say that we are changing this behavior on the kernel 
-side to align with userspace expectations.
+       old (force_merge) - 71 ms
+       dirty tracker design - 17 ms
 
->
->>
->> Suggested-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Melissa Wen <mwen@igalia.com>
->> ---
->>   drivers/gpu/drm/drm_atomic.c | 60 ++++++++++++++++++++++++++++++++++++
->>   1 file changed, 60 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
->> index 464562861408..960b52624deb 100644
->> --- a/drivers/gpu/drm/drm_atomic.c
->> +++ b/drivers/gpu/drm/drm_atomic.c
->> @@ -943,6 +943,55 @@ drm_atomic_add_pipeline_colorops(struct 
->> drm_atomic_commit *state,
->>       return 0;
->>   }
->>   +/**
->> + * drm_atomic_colorop_check - check new colorop state
->> + * @new_colorop_state: new colorop state to check
->> + *
->> + * Ensure that the colorop in @new_colorop_state belongs to an 
->> active color
->> + * pipeline, i.e. it's in the chain of colorops set to the 
->> color_pipeline
->> + * property of current, old or new plane state.
->> + *
->> + * Returns: 0 on success, -EINVAL otherwise.
->> + */
->> +static int drm_atomic_colorop_check(const struct drm_colorop_state 
->> *new_colorop_state)
->> +{
->> +    struct drm_atomic_commit *state = new_colorop_state->state;
->> +    struct drm_plane *plane = new_colorop_state->colorop->plane;
->> +    struct drm_plane_state *new_plane_state, *old_plane_state;
->> +    struct drm_colorop *colorop;
->> +
->> +    new_plane_state = drm_atomic_get_new_plane_state(state, plane);
->> +    old_plane_state = drm_atomic_get_old_plane_state(state, plane);
->> +
->> +    /* No changes in the plane state. Check current-committed plane 
->> state */
->> +    if (!new_plane_state) {
->> +        for (colorop = plane->state->color_pipeline; colorop; 
->> colorop = colorop->next)
-> Doesn't the first patch add a macro for wrapping this for loop?
+  2. Repeated 256 KiB alloc throughput: the old design pays
+     __force_merge() on every alloc; the new design does not.
 
-Yes, thanks for pointing out. I'll replace all occurrences.
+       old (force_merge) - 95 ms
+       dirty tracker design - 24 ms
 
->
->> +            if (colorop == new_colorop_state->colorop)
->> +                return 0;
->> +        return -EINVAL;
->> +    }
->> +
->> +    if (WARN_ON(!old_plane_state))
->> +        return -EINVAL;
->> +
->> +    /* Check if the colorop is active in the new plane state */
->> +    for (colorop = new_plane_state->color_pipeline; colorop; colorop 
->> = colorop->next)
->> +        if (colorop == new_colorop_state->colorop)
->> +            return 0;
->> +
->> +    /* Same color pipeline as new; no point walking old. Colorop 
->> isn't active */
->> +    if (new_plane_state->color_pipeline == 
->> old_plane_state->color_pipeline)
->> +        return -EINVAL;
->> +
->> +    /* Check if the colorop was active in the old plane state */
->> +    for (colorop = old_plane_state->color_pipeline; colorop; colorop 
->> = colorop->next)
->> +        if (colorop == new_colorop_state->colorop)
->> +            return 0;
-> Doesn't this situation count as changing the properties of an inactive 
-> colorop? And should therefore be rejected? The colorop was previously 
-> in use but once the commit goes through, it will not be. So any 
-> changes to its state will not actually affect the new post-commit 
-> universe. Or am I missing something?
+Assisted-by: Claude:claude-opus-4-8
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+---
+ drivers/gpu/tests/gpu_buddy_test.c | 110 +++++++++++++++++++++++++++++
+ 1 file changed, 110 insertions(+)
 
-We still need it because the userspace is still allowed to change 
-colorops of a pipeline A that will be disable in the same commit. I 
-mean, they can change colorop settings of an active pipeline A and set 
-COLOR_PIPELINE to Bypass in the same commit, and this change have to 
-persist for the time this pipeline A will be reactivated, even if in 
-practice those colorop changes will not be programmed in the hw because 
-of deactivation. I'll add this comment to explain this contract better:
-
-+ * Userspace is allowed to finalize colorop's settings in the same 
-commit that
-+ * deactivates its pipeline, and the changes should persist for when that
-+ * pipeline is reactivated later. So that, changes to colorop in the 
-old plane
-+ * state's pipeline is accepted even though it won't drive hardware 
-updates.
-
-WDYT?
-
-Melissa
-
->
-> John.
->
->> +
->> +    /* Colorop is not part of an active color pipeline. */
->> +    return -EINVAL;
->> +}
->> +
->>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
->>                          const struct drm_colorop_state *state)
->>   {
->> @@ -1792,6 +1841,8 @@ int drm_atomic_check_only(struct 
->> drm_atomic_commit *state)
->>       struct drm_plane *plane;
->>       struct drm_plane_state *old_plane_state;
->>       struct drm_plane_state *new_plane_state;
->> +    struct drm_colorop *colorop;
->> +    struct drm_colorop_state *new_colorop_state;
->>       struct drm_crtc *crtc;
->>       struct drm_crtc_state *old_crtc_state;
->>       struct drm_crtc_state *new_crtc_state;
->> @@ -1808,6 +1859,15 @@ int drm_atomic_check_only(struct 
->> drm_atomic_commit *state)
->>               requested_crtc |= drm_crtc_mask(crtc);
->>       }
->>   +    for_each_new_colorop_in_state(state, colorop, 
->> new_colorop_state, i) {
->> +        ret = drm_atomic_colorop_check(new_colorop_state);
->> +        if (ret) {
->> +            drm_dbg_atomic(dev, "[COLOROP:%d:%d] isn't in an active 
->> color pipeline.\n",
->> +                       colorop->base.id, colorop->type);
->> +            return ret;
->> +        }
->> +    }
->> +
->>       for_each_oldnew_plane_in_state(state, plane, old_plane_state, 
->> new_plane_state, i) {
->>           ret = drm_atomic_plane_check(old_plane_state, 
->> new_plane_state);
->>           if (ret) {
->
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index e31f368ada95..e37505849ecc 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -283,6 +283,115 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
+ }
+ 
++static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
++{
++	struct gpu_buddy_block *block, *tmp;
++	unsigned long elapsed_ms;
++	LIST_HEAD(clear_blocks);
++	LIST_HEAD(dirty_blocks);
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	LIST_HEAD(results);
++	ktime_t start, end;
++	int i, count;
++
++	/*
++	 * Contiguous alloc latency after alternating clear/dirty fragmentation
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, partition them into
++	 * alternating cleared and dirty sets, then free both.  In the old
++	 * dual-tree design every adjacent buddy pair has one cleared half and
++	 * one dirty half, so the pair sits on opposite sides of the clear/dirty
++	 * merge barrier and cannot be coalesced at free() time.  The pool
++	 * stays fully fragmented and the subsequent contiguous 4 GiB allocation
++	 * has to invoke __force_merge() to climb back up to max_order before
++	 * it can succeed.  With the dirty-tracker design buddy pairs coalesce
++	 * unconditionally during free(), so the pool is already at max_order
++	 * before the timed alloc begins and __force_merge() is not needed.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
++						      &results,
++						      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
++			       "contiguous alloc failed\n");
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Contiguous alloc after fragmentation: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++
++	/*
++	 * Repeated alloc throughput from a maximally fragmented pool
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
++	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
++	 * ensures every adjacent buddy pair has one cleared half and one dirty
++	 * half, so each pair lands on opposite sides of the old merge barrier.
++	 * Each of the 16 384 x 256 KiB allocations in the timed loop has to
++	 * pay the __force_merge() cost on the alloc path under the old design.
++	 * With the dirty-tracker design the pool collapses to one max_order
++	 * block during free(), so each alloc is a simple O(log N) split.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	for (i = 0; i < SZ_4G / SZ_256K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_4K,
++							      &results, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_256K);
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static void gpu_test_buddy_alloc_range_bias(struct kunit *test)
+ {
+ 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
+@@ -1396,6 +1505,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+-- 
+2.34.1
 
