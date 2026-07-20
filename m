@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C082C44530
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:14:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19D58C44532
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:14:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2801E10E9EC;
-	Mon, 20 Jul 2026 16:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82B4310E9F1;
+	Mon, 20 Jul 2026 16:14:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="i83Idzz9";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="gxogujK/";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60BC210E9DD;
- Mon, 20 Jul 2026 16:14:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15EE610E9E5;
+ Mon, 20 Jul 2026 16:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784564043;
- bh=SkTNDGVHEwC2lBIdr/rH5TIayqag1W4N488Ms7oFsPg=;
+ s=default; t=1784564046;
+ bh=ZTyLbVEEnaqjwXrGfTztWzKjLkw8D8mPZxbsn3nK1yQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i83Idzz9RYUwsmvuu+Vmo4MzV3NKkmwyAYG4HBGQTCuV8f5nDmOMyxrykO0enAZPw
- NTD3KPECteXv5i+Tfupobc5aZSqrRJljSqAbUqti8cQz2UiiYhu9wKDMcsu39yljn8
- lsuzAIHYbKQZlm7HiuGQBFDgpOdq+pM/MVMC4BsOrHWfduon1CI6Rrya+7Z4u4UVHN
- 7V5UtuOv0i4/FYJyO0+akcfXeLe+F+8rV7iKul6JPalJfhKKEZMumcwJsec9sb3W/v
- XGPQ7jSTgJC4IB9EgN02P+EzpjvAeUOj9nAnribX2QfS5P5o9CYhRkT2K4uH5Kd7iK
- paJzycha6KUOQ==
+ b=gxogujK/mtwXYaE9h7xNngtC5Be2YAeUiIp1QcaxoX30WpeCxLJSxcPO/uMUI0Txq
+ 6GEwV3hKb0GFMC2e510R/6GK5SZXSedshuY8LKSH0k+l6/1yrw7Jp64Jdvtbu223Lu
+ 4Zy4qZAVOZjbjKpa206ymKt8894sulGz4jpeZZloBk/bzCDk0ImX8Yw+0gaMObQ6c7
+ IkhS5hgTjZshINCIBAfe5OGGENccht8rz4ql993TD9pGVuTeLS3kZMQRnNvEluUY75
+ Ngl3Ugp5ITMD74CgLhPjG5bLfNJ1VSyuUEGlc4a/Duz+ecONp9srEwLvCwRq3Hd92o
+ sjIx/Hbq0lmmQ==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org,
 	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [DO NOT REVIEW 06/11] drm/xe/ggtt: Remove xe_ggtt_insert_bo_at
-Date: Mon, 20 Jul 2026 18:14:58 +0200
-Message-ID: <20260720161451.384968-19-dev@lankhorst.se>
+Subject: [PATCH 10/11] HACK: Always fallback
+Date: Mon, 20 Jul 2026 18:15:02 +0200
+Message-ID: <20260720161451.384968-23-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260720161451.384968-13-dev@lankhorst.se>
 References: <20260720161451.384968-13-dev@lankhorst.se>
@@ -52,76 +52,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-This code was created specifically for the display handover,
-and can be removed now that we temporarily reserve the area
-of GGTT that contains the original framebuffer contents.
-
 Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
 ---
- drivers/gpu/drm/xe/xe_bo.c   |  8 +-------
- drivers/gpu/drm/xe/xe_ggtt.c | 16 ----------------
- drivers/gpu/drm/xe/xe_ggtt.h |  2 --
- 3 files changed, 1 insertion(+), 25 deletions(-)
+ drivers/gpu/drm/xe/display/xe_display_bo.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index c266fa6bade1b..5d7d91444dce3 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -2560,13 +2560,7 @@ __xe_bo_create_locked(struct xe_device *xe,
- 			if (t != tile && !(bo->flags & XE_BO_FLAG_GGTTx(t)))
- 				continue;
+diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
+index 9385026a80b97..d78d893210c4f 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_bo.c
++++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
+@@ -142,6 +142,8 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
+ 	if (XE_DEVICE_WA(xe, 22019338487_display))
+ 		return false;
  
--			if (flags & XE_BO_FLAG_FIXED_PLACEMENT) {
--				err = xe_ggtt_insert_bo_at(t->mem.ggtt, bo,
--							   start + xe_bo_size(bo), U64_MAX,
--							   exec);
--			} else {
--				err = xe_ggtt_insert_bo(t->mem.ggtt, bo, exec);
--			}
-+			err = xe_ggtt_insert_bo(t->mem.ggtt, bo, exec);
- 			if (err)
- 				goto err_unlock_put_bo;
- 		}
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
-index 225e6378b2bfc..ccf5154761989 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.c
-+++ b/drivers/gpu/drm/xe/xe_ggtt.c
-@@ -934,22 +934,6 @@ static int __xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
- 	return err;
- }
- 
--/**
-- * xe_ggtt_insert_bo_at - Insert BO at a specific GGTT space
-- * @ggtt: the &xe_ggtt where bo will be inserted
-- * @bo: the &xe_bo to be inserted
-- * @start: address where it will be inserted
-- * @end: end of the range where it will be inserted
-- * @exec: The drm_exec transaction to use for exhaustive eviction.
-- *
-- * Return: 0 on success or a negative error code on failure.
-- */
--int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
--			 u64 start, u64 end, struct drm_exec *exec)
--{
--	return __xe_ggtt_insert_bo_at(ggtt, bo, start, end, exec);
--}
--
- /**
-  * xe_ggtt_insert_bo - Insert BO into GGTT
-  * @ggtt: the &xe_ggtt where bo will be inserted
-diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
-index 7cd8b45ed5cd8..ac2bc7f7b9a66 100644
---- a/drivers/gpu/drm/xe/xe_ggtt.h
-+++ b/drivers/gpu/drm/xe/xe_ggtt.h
-@@ -36,8 +36,6 @@ void xe_ggtt_node_remove_noclear(struct xe_ggtt_node *node);
- size_t xe_ggtt_node_pt_size(const struct xe_ggtt_node *node);
- void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo);
- int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo, struct drm_exec *exec);
--int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
--			 u64 start, u64 end, struct drm_exec *exec);
- void xe_ggtt_remove_bo(struct xe_ggtt *ggtt, struct xe_bo *bo);
- u64 xe_ggtt_largest_hole(struct xe_ggtt *ggtt, u64 alignment, u64 *spare);
- 
++	return false;
++
+ 	/*
+ 	 * If the FB is too big, just don't use it since fbdev is not very
+ 	 * important and we should probably use that space with FBC or other
 -- 
 2.53.0
 
