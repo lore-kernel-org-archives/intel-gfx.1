@@ -4,39 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DBBC44515
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E56C44524
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95EDA10E9F4;
-	Mon, 20 Jul 2026 16:14:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1E2110E9F8;
+	Mon, 20 Jul 2026 16:18:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="gyuX92b9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A7b+ylua";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B621710E9E4;
- Mon, 20 Jul 2026 16:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784564044;
- bh=mzi6cWVLEBT43NyHEtv0X8besFmDHztVCcBjVO5rpYg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gyuX92b9i8jCxJw2LejGA803IPmP5Pi/SK0BXuPy/hZqkg9EeVAPfmy2g8VSf1aEV
- eDUbs9X4k5zsR4QMww+2s5Job+UU+Fc/sEGLlzh//D/6qxRUULhMdV981TEtjNBKLr
- 3T++kwr+RSZxaBACrfpPJwwgGPGMkPwqpG00gYH+8B7L0qxVnLZa5umWKeDt05o9ya
- 0xsnzmtZzAHNGP/jGKKjGJ35Tr5+aY3t6HNfpSVy+MhAIKsEXS9/T7HvnGyjVuGVif
- rfo0oTXUodx5p14kCY3ft/yzueOcNCF+g6seRkh0bsAXDZw+dVFpMOi2rUf3iXozom
- gSZI/GbFSvuBg==
-From: Maarten Lankhorst <dev@lankhorst.se>
-To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org,
-	Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 08/11] drm/xe/migrate: Support copying between sysmem and
- stolen
-Date: Mon, 20 Jul 2026 18:15:00 +0200
-Message-ID: <20260720161451.384968-21-dev@lankhorst.se>
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA95F10E9F7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 16:18:19 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4955adb04e8so10707775e9.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 09:18:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784564298; x=1785169098; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=qGVMU58DedF0lFl2nbNJfL9G9Ib4nLG39lz05m1JVHI=;
+ b=A7b+ylua+zugp1LZA9jkjzK1ZpEYqSLxZDbGvGPCkq4ghoWZAEuwpAzZ4k4+kAleri
+ QzhBEi4y65adQrtOpxKyuOZIQH32awIo0rlR4aICPfdslZOjLV6z4FwOB16XSwK0bmDI
+ puEMZtFDvVI+rbSpy1W0KC18v5XcB9rSrmpQDiVH5sZssJyLrVlP4ZsuX9ncb/hd1szY
+ P8F8BpXHJyInboA+oZqFVP+9nPMfCCD5zURvUphQKK4B/tkIuEmCB54qXHxsY/PQnKqV
+ UPfgEYowK0WvEzOrpyBh+DsvqCCuRNEz/iOmqoSTMOBJSsg+g1RBWklhkwG3XI3G57iA
+ lGfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784564298; x=1785169098;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=qGVMU58DedF0lFl2nbNJfL9G9Ib4nLG39lz05m1JVHI=;
+ b=lh/JDSYBeQ4ip9ke6dlGJO50LxFzTjHC446auTq+pvVDxEVSKq7K14cxeFAbfiGBoN
+ 8kJIw5fHKMUOMIL1bO+cdNkJiTXxj4Gb4nUXszY1S/PHYMtvJid3hRUeIKKMrbXjlLSI
+ LOYfpJfwiJegCyQilv/xRbINBViJ8h6FGUdDjKi/lJtb/+0GuwWon5lfB3wwPLVvIVww
+ SkbbVUx8wDkRCN1+BpVLIEejHbz6GST4w4wKqgk/9dpwG0vFBIzGY6YrtudqVTua4dMW
+ nec5w2F5pIFlf6+jggH00T0mA4i7N5blFbyoqt1UACrxrN4jMfV/jVt67Se0ytnPSapp
+ L9TQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RosL/+DaBLZZzPgdLXaD5nFP5jPPn3MRjFqZgpZEz4S9pR2j/U4B7hw4MKdwYt5jfP61H+XMofV3B4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBVDJGAMes6jz1GPtaAG96OveyFUyrGfc/7o2J1ZAFEiZMw0xx
+ 8tLVDVrBRyc2suv3HIAnt5RHn2wzj8Nf6Cfmg2SHBlQ1S0bArbD1BlXi
+X-Gm-Gg: AfdE7cmugCU2Bcl42+cJ0Z0Olff5CDnilfeBthDUoNhSihf3aQqe72CAu9A+nnHhw2m
+ 2sM/gw7T8NL5X53XfRWOHk7y35vfOSdskEZ8P3+YUNi/5dvMtPaIn/XRqhL3ewzPea1S2qHIp/B
+ GT9FCXk+Y1uyV/Sv1rZQxlWEdPUEvOW6gLdithVGTaMLKDq4XYcM9Vt2mLGBLhtEtsp7S5MzGJI
+ goDkYa69MrNAqBRsEKoed+dU0iq5rvdfNtn+f2sHKUwiW/aQgEGbOEQyFkQOAE9iXAWeLxFD0lu
+ usDB5fwAahW8zZjfnuH1zB22C5AljdaV3ezOaHXkvaB0yuy6gh669mQV2y/w3MRIvZ3wQ2HDNwY
+ k19OzBTpAKWuI4WoDQlQWSu+TkwRZEeE+ra2CNNIUY7++gw4zhRSPr158LfvMLTgvpkIin4/Qn7
+ Yz
+X-Received: by 2002:a05:600c:4fc2:b0:495:5b02:23b0 with SMTP id
+ 5b1f17b1804b1-4955b0224c7mr82155365e9.26.1784564298066; 
+ Mon, 20 Jul 2026 09:18:18 -0700 (PDT)
+Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47f63ed2313sm30862995f8f.23.2026.07.20.09.18.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 20 Jul 2026 09:18:17 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next] drm/i915/bw: Fix spelling mistake "threshod" ->
+ "threshold"
+Date: Mon, 20 Jul 2026 17:16:30 +0100
+Message-ID: <20260720161630.326016-1-colin.i.king@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260720161451.384968-13-dev@lankhorst.se>
-References: <20260720161451.384968-13-dev@lankhorst.se>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,132 +92,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In order to copy out the stolen BO, we have to add some support to
-xe_migrate_copy, since otherwise it tries to use the VRAM identity
-mapping on integrated, which obviously doesn't do the right thing.
+There is a spelling mistake in a drm_dbg_kms message. Fix it.
 
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 ---
- drivers/gpu/drm/xe/xe_migrate.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_bw.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_migrate.c b/drivers/gpu/drm/xe/xe_migrate.c
-index c84e14e86a823..b346e743025b7 100644
---- a/drivers/gpu/drm/xe/xe_migrate.c
-+++ b/drivers/gpu/drm/xe/xe_migrate.c
-@@ -559,6 +559,7 @@ static bool xe_migrate_allow_identity(u64 size, const struct xe_res_cursor *cur)
+diff --git a/drivers/gpu/drm/i915/display/intel_bw.c b/drivers/gpu/drm/i915/display/intel_bw.c
+index 546d5ccbe052..c71082852cfa 100644
+--- a/drivers/gpu/drm/i915/display/intel_bw.c
++++ b/drivers/gpu/drm/i915/display/intel_bw.c
+@@ -625,7 +625,7 @@ static void xe3_add_peakbw_threshold(struct intel_display *display)
+ 	for (int i = 0; i < ARRAY_SIZE(display->bw.max); i++)
+ 		display->bw.max[i].deratedbw[qgv_points] = PEAK_BW_THRESHOLD;
  
- #define PTE_UPDATE_FLAG_IS_VRAM		BIT(0)
- #define PTE_UPDATE_FLAG_IS_COMP_PTE	BIT(1)
-+#define PTE_UPDATE_FLAG_ALLOW_IDENTITY	BIT(2)
- 
- static u32 pte_update_size(struct xe_migrate *m,
- 			   u32 flags,
-@@ -570,9 +571,10 @@ static u32 pte_update_size(struct xe_migrate *m,
- 	u32 cmds = 0;
- 	bool is_vram = PTE_UPDATE_FLAG_IS_VRAM & flags;
- 	bool is_comp_pte = PTE_UPDATE_FLAG_IS_COMP_PTE & flags;
-+	bool allow_identity = PTE_UPDATE_FLAG_ALLOW_IDENTITY & flags;
- 
- 	*L0_pt = pt_ofs;
--	if (is_vram && xe_migrate_allow_identity(*L0, cur)) {
-+	if (is_vram && allow_identity && xe_migrate_allow_identity(*L0, cur)) {
- 		/* Offset into identity map. */
- 		*L0_ofs = xe_migrate_vram_ofs(tile_to_xe(m->tile),
- 					      cur->start + vram_region_gpu_offset(res),
-@@ -858,6 +860,14 @@ static u32 xe_migrate_ccs_copy(struct xe_migrate *m,
- 	return flush_flags;
+-	drm_dbg_kms(display->drm, "An extra QGV point %d added for Peak bw threshod of %d\n",
++	drm_dbg_kms(display->drm, "An extra QGV point %d added for Peak bw threshold of %d\n",
+ 		    qgv_points, PEAK_BW_THRESHOLD);
  }
  
-+static bool is_devmem(struct xe_bo *bo, struct ttm_resource *res)
-+{
-+	if (mem_type_is_vram(res->mem_type) || res->mem_type == XE_PL_STOLEN)
-+		return true;
-+
-+	return false;
-+}
-+
- static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 					   struct xe_bo *src_bo,
- 					   struct xe_bo *dst_bo,
-@@ -878,8 +888,8 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 	int err;
- 	bool src_is_pltt = src->mem_type == XE_PL_TT;
- 	bool dst_is_pltt = dst->mem_type == XE_PL_TT;
--	bool src_is_vram = mem_type_is_vram(src->mem_type);
--	bool dst_is_vram = mem_type_is_vram(dst->mem_type);
-+	bool src_is_vram = is_devmem(src_bo, src);
-+	bool dst_is_vram = is_devmem(dst_bo, dst);
- 	bool type_device = src_bo->ttm.type == ttm_bo_type_device;
- 	bool needs_ccs_emit = type_device && xe_migrate_needs_ccs_emit(xe);
- 	bool copy_ccs = xe_device_has_flat_ccs(xe) &&
-@@ -939,6 +949,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 
- 		pte_flags = src_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
- 		pte_flags |= use_comp_pat ? PTE_UPDATE_FLAG_IS_COMP_PTE : 0;
-+		pte_flags |= IS_DGFX(xe) ? PTE_UPDATE_FLAG_ALLOW_IDENTITY : 0;
- 		batch_size += pte_update_size(m, pte_flags, src, &src_it, &src_L0,
- 					      &src_L0_ofs, &src_L0_pt, 0, 0,
- 					      avail_pts);
-@@ -946,6 +957,7 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 			dst_L0_ofs = src_L0_ofs;
- 		} else {
- 			pte_flags = dst_is_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
-+			pte_flags |= IS_DGFX(xe) ? PTE_UPDATE_FLAG_ALLOW_IDENTITY : 0;
- 			batch_size += pte_update_size(m, pte_flags, dst,
- 						      &dst_it, &src_L0,
- 						      &dst_L0_ofs, &dst_L0_pt,
-@@ -972,13 +984,13 @@ static struct dma_fence *__xe_migrate_copy(struct xe_migrate *m,
- 			goto err_sync;
- 		}
- 
--		if (src_is_vram && xe_migrate_allow_identity(src_L0, &src_it))
-+		if (src_is_vram && IS_DGFX(xe) && xe_migrate_allow_identity(src_L0, &src_it))
- 			xe_res_next(&src_it, src_L0);
- 		else
- 			emit_pte(m, bb, src_L0_pt, src_is_vram, copy_system_ccs || use_comp_pat,
- 				 &src_it, src_L0, src);
- 
--		if (dst_is_vram && xe_migrate_allow_identity(src_L0, &dst_it))
-+		if (dst_is_vram && IS_DGFX(xe) && xe_migrate_allow_identity(src_L0, &dst_it))
- 			xe_res_next(&dst_it, src_L0);
- 		else if (!copy_only_ccs)
- 			emit_pte(m, bb, dst_L0_pt, dst_is_vram, copy_system_ccs,
-@@ -1386,7 +1398,7 @@ struct dma_fence *xe_migrate_vram_copy_chunk(struct xe_bo *vram_bo, u64 vram_off
- 	xe_res_first_sg(xe_bo_sg(sysmem_bo), sysmem_offset, size, &sysmem_it);
- 
- 	while (size) {
--		u32 pte_flags = PTE_UPDATE_FLAG_IS_VRAM;
-+		u32 pte_flags = PTE_UPDATE_FLAG_IS_VRAM | PTE_UPDATE_FLAG_ALLOW_IDENTITY;
- 		u32 batch_size = 2; /* arb_clear() + MI_BATCH_BUFFER_END */
- 		struct xe_sched_job *job;
- 		struct xe_bb *bb;
-@@ -1576,7 +1588,7 @@ struct dma_fence *xe_migrate_clear(struct xe_migrate *m,
- 				   struct ttm_resource *dst,
- 				   u32 clear_flags)
- {
--	bool clear_vram = mem_type_is_vram(dst->mem_type);
-+	bool clear_vram = is_devmem(bo, dst);
- 	bool clear_bo_data = XE_MIGRATE_CLEAR_FLAG_BO_DATA & clear_flags;
- 	bool clear_ccs = XE_MIGRATE_CLEAR_FLAG_CCS_DATA & clear_flags;
- 	struct xe_gt *gt = m->tile->primary_gt;
-@@ -1616,6 +1628,7 @@ struct dma_fence *xe_migrate_clear(struct xe_migrate *m,
- 
- 		/* Calculate final sizes and batch size.. */
- 		pte_flags = clear_vram ? PTE_UPDATE_FLAG_IS_VRAM : 0;
-+		pte_flags |= IS_DGFX(xe) ? PTE_UPDATE_FLAG_ALLOW_IDENTITY : 0;
- 		batch_size = 1 +
- 			pte_update_size(m, pte_flags, src, &src_it,
- 					&clear_L0, &clear_L0_ofs, &clear_L0_pt,
-@@ -1638,7 +1651,7 @@ struct dma_fence *xe_migrate_clear(struct xe_migrate *m,
- 
- 		size -= clear_L0;
- 		/* Preemption is enabled again by the ring ops. */
--		if (clear_vram && xe_migrate_allow_identity(clear_L0, &src_it)) {
-+		if (clear_vram && IS_DGFX(xe) && xe_migrate_allow_identity(clear_L0, &src_it)) {
- 			xe_res_next(&src_it, clear_L0);
- 		} else {
- 			emit_pte(m, bb, clear_L0_pt, clear_vram,
 -- 
 2.53.0
 
