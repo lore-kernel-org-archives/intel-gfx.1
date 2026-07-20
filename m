@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B11E5C44520
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 19:33:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D55DC44529
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 20:05:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B0F810E159;
-	Mon, 20 Jul 2026 19:33:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C212910E168;
+	Mon, 20 Jul 2026 20:05:49 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5125C10E14E;
- Mon, 20 Jul 2026 19:33:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D959C10E16E;
+ Mon, 20 Jul 2026 20:05:48 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============1706683565227269753=="
+ boundary="===============4895490166010264052=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/fb-helper=3A_guard_ag?=
- =?utf-8?q?ainst_NULL_fb=5Fhelper-=3Efuncs_in_restore_path_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe=3A_More_BIOS_FB_ta?=
+ =?utf-8?q?keover_fixes_=28rev3=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
+To: "Maarten Lankhorst" <dev@lankhorst.se>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 20 Jul 2026 19:33:24 -0000
-Message-ID: <178457600432.208871.4356366537238633217@6beec6c84f66>
+Date: Mon, 20 Jul 2026 20:05:48 -0000
+Message-ID: <178457794888.208871.13088315885415792566@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <e1957da52fcdd1d88a285553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com>
-In-Reply-To: <e1957da52fcdd1d88a285553d36e12a0362a8258.1784196681.git.sebastian.brzezinka@intel.com>
+References: <20260720160805.380356-8-dev@lankhorst.se>
+In-Reply-To: <20260720160805.380356-8-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,20 +41,20 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1706683565227269753==
+--===============4895490166010264052==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/fb-helper: guard against NULL fb_helper->funcs in restore path (rev2)
-URL   : https://patchwork.freedesktop.org/series/170558/
+Series: drm/xe: More BIOS FB takeover fixes (rev3)
+URL   : https://patchwork.freedesktop.org/series/170431/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_18860 -> Patchwork_170558v2
+CI Bug Log - changes from CI_DRM_18860 -> Patchwork_170431v3
 ====================================================
 
 Summary
@@ -64,7 +64,7 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170558v2/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170431v3/index.html
 
 Participating hosts (42 -> 40)
 ------------------------------
@@ -81,18 +81,18 @@ Changes
 Build changes
 -------------
 
-  * Linux: CI_DRM_18860 -> Patchwork_170558v2
+  * Linux: CI_DRM_18860 -> Patchwork_170431v3
 
   CI-20190529: 20190529
   CI_DRM_18860: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_170558v2: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_170431v3: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170558v2/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170431v3/index.html
 
---===============1706683565227269753==
+--===============4895490166010264052==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -112,34 +112,34 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/fb-helper: guard against NULL fb_helper-&gt;funcs in restore path (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170558/">https://patchwork.freedesktop.org/series/170558/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/xe: More BIOS FB takeover fixes (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170431/">https://patchwork.freedesktop.org/series/170431/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170558v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170558v2/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170431v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170431v3/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_18860 -&gt; Patchwork_170558v2</h1>
+    <h1>CI Bug Log - changes from CI_DRM_18860 -&gt; Patchwork_170431v3</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170558v2/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170431v3/index.html</p>
 <h2>Participating hosts (42 -&gt; 40)</h2>
 <p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
 <h2>Changes</h2>
 <p>No changes found</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_18860 -&gt; Patchwork_170558v2</li>
+<li>Linux: CI_DRM_18860 -&gt; Patchwork_170431v3</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_18860: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_170558v2: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_170431v3: 3df5500bae7f8b1be2877ab60b924be7cb88d722 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============1706683565227269753==--
+--===============4895490166010264052==--
