@@ -4,27 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D291C44520
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:07:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FA71C44520
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:07:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C213110E9B7;
-	Mon, 20 Jul 2026 16:07:05 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86E1710E9B7;
- Mon, 20 Jul 2026 16:07:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3785879543615128013=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4F1A10E9BC;
+	Mon, 20 Jul 2026 16:07:17 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="KLUMOev/";
+	dkim-atps=neutral
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C5C610E9BC;
+ Mon, 20 Jul 2026 16:07:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1784563634;
+ bh=EnBO18kzaCnutcHWtRGOZFJndvKkrHWG0xK4tQ/v+XY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=KLUMOev/r2oEXiCEYpGlMyfnQNBqxmr5QgyzPm19ln+20wOvggGaKH800/X+ynHij
+ 3L6Kt7JVDTU3+/t2M1kUNZZkai85pIfpjSDFn7RMFBnihC+xIN7lWVTrptDPblbs95
+ SCQssm3OB4T3aNgKvCjxsWpzmm+ms0gTDm1DIcbsJLGaW2rmTVJf8mdz2ZKAFkeCwr
+ XygPAK6dVqn526YfIeKID8n1KWxSgj90YAKYOwbTpEN6gFHC6kSSIOMxdGwdjLXg3f
+ k4sxHVpEh/Zcz3FoEs2otig8k7BYYvyx9ZDwzjXiuPptAU8PkRmuxbi521MjA9SFou
+ vuKu3+/kn/POA==
+From: Maarten Lankhorst <dev@lankhorst.se>
+To: intel-xe@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v3 0/6] drm/xe: More BIOS FB takeover fixes
+Date: Mon, 20 Jul 2026 18:08:06 +0200
+Message-ID: <20260720160805.380356-8-dev@lankhorst.se>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/color=3A_Enable_?=
- =?utf-8?q?SDR_plane_color_pipeline_=28rev6=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 20 Jul 2026 16:07:04 -0000
-Message-ID: <178456362454.207232.8589187133328380694@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260720045131.971650-1-chaitanya.kumar.borah@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +48,31 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3785879543615128013==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Compared to previous version, fix the stolen oops and create
+and use xe_ggtt_reserve_area instead of xe_ggtt_insert_node_at.
 
-== Series Details ==
+Reserve the original GGTT area of the original mapping, and remove
+the code that was required to deal with the fact that previously
+this was not done.
 
-Series: drm/i915/color: Enable SDR plane color pipeline (rev6)
-URL   : https://patchwork.freedesktop.org/series/162788/
-State : success
+Maarten Lankhorst (6):
+  drm/xe/ggtt: Add xe_ggtt_reserve_area
+  drm/xe/ggtt: Add xe_ggtt_node_remove_noclear
+  drm/xe/display: Reserve the original GGTT space before creating a bo
+  drm/xe/display: Use the correct calculation for phys_base on
+    integrated
+  drm/xe/display: Remove duplicated code
+  drm/xe/ggtt: Remove xe_ggtt_insert_bo_at
 
-== Summary ==
+ drivers/gpu/drm/xe/display/xe_initial_plane.c |  41 +++----
+ drivers/gpu/drm/xe/xe_bo.c                    |   8 +-
+ drivers/gpu/drm/xe/xe_ggtt.c                  | 115 ++++++++++++++----
+ drivers/gpu/drm/xe/xe_ggtt.h                  |   5 +-
+ 4 files changed, 110 insertions(+), 59 deletions(-)
 
-CI Bug Log - changes from CI_DRM_18858 -> Patchwork_162788v6
-====================================================
+-- 
+2.53.0
 
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162788v6/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18858 -> Patchwork_162788v6
-
-  CI-20190529: 20190529
-  CI_DRM_18858: a51267f4154e42c8bb10b2c6503eed320cfa861e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_162788v6: a51267f4154e42c8bb10b2c6503eed320cfa861e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162788v6/index.html
-
---===============3785879543615128013==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/color: Enable SDR plane color pipeline (rev6)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/162788/">https://patchwork.freedesktop.org/series/162788/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162788v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162788v6/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18858 -&gt; Patchwork_162788v6</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_162788v6/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18858 -&gt; Patchwork_162788v6</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18858: a51267f4154e42c8bb10b2c6503eed320cfa861e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_162788v6: a51267f4154e42c8bb10b2c6503eed320cfa861e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3785879543615128013==--
