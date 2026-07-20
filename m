@@ -4,167 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AECABC44515
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 10:31:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8813BC44515
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 11:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3999410E865;
-	Mon, 20 Jul 2026 10:31:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9616910E189;
+	Mon, 20 Jul 2026 11:07:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SeSPw6vm";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hupOaAJf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B36A10E865;
- Mon, 20 Jul 2026 10:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784543511; x=1816079511;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=XUVyt2KTy07F268QY8sS3AEM8c2kZRKCts1lBCCDMQQ=;
- b=SeSPw6vmf3O5kp4Nyi04A9meqRUBwuaho15fS9LqmNw0XJQQ/o+JStga
- OEhcDQNjf+364hb+coY0ba94AqB60HBxZwByYCipEod+jcNUDrJMZbdZb
- IQ9Tu5NRB2TlDYngNkXoMgEw9l5Wu0rNozQyIbYsPLAyP7RYfctGaP2x7
- Wh0iknZLcTDG4ruNrtb+TlpRDUzjkP8UFsNuvwM+pllJLzpeUxsXR10hl
- 2GUha+IPnZJ+ZpY+R3w73tWl7zUI4ZpQOurZ7G94XecwuAt41EuonoPyc
- VxbNAjYLUtOm/+wKQlMeZJSDbFleLU2BW+e2cU2OHdZyBEWb7dKxIYL9n g==;
-X-CSE-ConnectionGUID: 5GKdd1lHQ8KNhNdWNGihCw==
-X-CSE-MsgGUID: Of7wrqDhQ+qeXl1z9/GxaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="87659991"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="87659991"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 03:31:51 -0700
-X-CSE-ConnectionGUID: xpjupZgTTuqfouzEvomIIg==
-X-CSE-MsgGUID: lLx5jcwSTc+ubdUA9Kzq0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="253475069"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 03:31:51 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 03:31:50 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 20 Jul 2026 03:31:50 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.25) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 20 Jul 2026 03:31:49 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IejWOzdVpRbqQOLVgMzv2IUU5bvT2DrOGq6Wa6QjfnUv3XifwwLIA99A1+cmWyiEP1qE9i9i+NjAqnhL60du2vttRDfek8aYVcnYMZ58hHRI8uBFH/zjTfcZKSij0N6nyzkrIGsTyifkdZF6yHeFfMBtjF10rEwI2wbhqScmAeJl/UIWdM7Qd5gxPJ2sDlXCmmfKXDlhcUziWh3HuiLGHddhN0E0xRbLFbauBEDKUfeY0+20pj8hGjVhpa9mXo2eOIcr6vC3TazC49r2z4Qvpa7aP7ke5U7oKR6JsoVvFAq3JEVpKtgu5wIActi/SAO6rtceLE4TWwZ8EP5Spe63Sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XUVyt2KTy07F268QY8sS3AEM8c2kZRKCts1lBCCDMQQ=;
- b=tENCkGTfvrAC04v5RY8J2sG8qen4Sj29YaxrS1K0tO+/jt56xt3VvQ+rr60Vro7nVJ1ISJcIWmnuX1U1JNs0eQyOuDzO5gBZS3d0yYASNp2u9/hDMftpt8oS1LqlD//hoB/fJs1o8jNpiAEWA7DGEPVKD/e9srC/KyhP3r5qxUyCCG1+k4urQ20e2UlvotvXUxNuTCutztJj1eiNhlMsCgZGQOqLaQ3+0/cct2Z8gY4kTnZ+ROzcVI/FXTPTUL7jxcCvab41YmkH47nv67mFiuYqzr+ocQQBgupKPrbn8pVG9WQlc4SWrOJLd6y1cz0TVpSc/z81erRJoHg34zDZ+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
- SA3PR11MB7977.namprd11.prod.outlook.com (2603:10b6:806:2f3::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.16; Mon, 20 Jul
- 2026 10:31:46 +0000
-Received: from DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
- ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
- 10:31:46 +0000
-From: "Hogander, Jouni" <jouni.hogander@intel.com>
-To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "jani.nikula@linux.intel.com"
- <jani.nikula@linux.intel.com>, "thierrycantindemers@gmail.com"
- <thierrycantindemers@gmail.com>
-CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Kahola, 
- Mika" <mika.kahola@intel.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/psr: Disable eDP Panel Replay on XPS 16 DA16260
- (LG 0x07C5)
-Thread-Topic: [PATCH] drm/i915/psr: Disable eDP Panel Replay on XPS 16 DA16260
- (LG 0x07C5)
-Thread-Index: AQHdDt/U0C2mDiSXf0mS5Ha11LnNbbZ2SCyA
-Date: Mon, 20 Jul 2026 10:31:46 +0000
-Message-ID: <a036e63561333e3f36896ac0919feab509553bdc.camel@intel.com>
-References: <20260708134252.11854-1-thierrycantindemers@gmail.com>
-In-Reply-To: <20260708134252.11854-1-thierrycantindemers@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|SA3PR11MB7977:EE_
-x-ms-office365-filtering-correlation-id: ee1d177f-4c4f-4368-e6ee-08dee64a1988
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|10070799003|23010399003|376014|38070700021|22082099003|18002099003|11063799006|56012099006|10067099003;
-x-microsoft-antispam-message-info: R9FqAJR0b5YFA/Aj1UQsb2Zrz7CWBg3vILx0QJ4MjEBb0Kfb6SrN9Wy3+Hz72Lq0C5SHbwBQ6wlRZIeN5c9HKpydnrecbc4hL/MDby1gm/OGJ5zglPOFgUt8VRhHHawPTBQv1JJldUtbUoGP4GyYQd5EypqIFWCAsRLR3DQ3em2eNUNlRuZDYIzr9+nKDsyI85ZgBOb0yitXPnp2XcUT0QydlTEITbafBnN8fUh2a5ORF5NK3OyvwJFMWBd0Oktfc6LlxqdhUoAUSbmRZG2OrT5KFwIax/JjnwvCXygV8OCLpb9mmt5uirtIG5P6nUUHbTLBw+oCZXLkI1nZ8dkUMmmoiSzN0V69mWc//Re9vc2Ja7rc0Gzk9tyMNcsquuonKb7zuot7O8err7pVFUtgEAYmRyQyW4xQE8nT0xjvcMBvRwNWKg7+myd4gih64/D4rPpMQDq06Rerkz8/ciEL2nMD0Qpx5ICSeOEe45FXDkgLI+5ZRfQgD+sKSJ9BbYC7qmpd2pX7JHryyTOJ/KhhjoV8nu8JTHINJmKrrLV+tyRSxQL/v7IISShSrs+5lDXgv47JX4tav7MyXs++343+mJRi4YN4euL78pgKt0QEY8P5ywzpaIyEDaO1v4fvNPMPEddzDy4O3K58S1RVU2Cz0vHQnhwil7Voy6Q5QoDnTM8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR11MB6019.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(10070799003)(23010399003)(376014)(38070700021)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NkJBZ0xBRlZ6T0E0clk1ZUk0Mk9jUjhTL2U1Rm01SllUajFSTVB1RmJLRHVN?=
- =?utf-8?B?Q1ZjRVU5VUtaZEhJaHJuaVk4R0QwLyswUnluSTFldDRESVE4eGREcjBhUlFh?=
- =?utf-8?B?cGgwdWJKcFZsTTB1TVArckxsTE5MWXl1UXZ5TWtML0krSUNNUHRzd0lEWUR2?=
- =?utf-8?B?alk5cHhwekI0eEJPNlMyajlVQ3FWdGNyUkp2dTZsOVdVSFp6UFdlVnRTNmQ2?=
- =?utf-8?B?cW04UTFRbDdSdTM1U09aNFhnMDlQTldsY2doejM4Vi9BTGNEZm9vS1B5MUpp?=
- =?utf-8?B?djIvbEV3MlBLVjE0b081Z3FQNjM4ckxrK0tSSTJ4MlZDZllWWHlTS1k1Tmt1?=
- =?utf-8?B?dlZEb01JOXA5OTFSWHI5TVFIY0g0Rk1pVG1GdkpiaGV2RTN1TGhtMXd2N1E5?=
- =?utf-8?B?a1E1ZlNnY2NRZlNPNGtaR01vWUVOdU5Vc20vc2dPelV2NGFTSFVQcFVGUXZu?=
- =?utf-8?B?bkRKK2xObnQrcFdzYTVKOWFwYk5TZVBEc0ZsVURMa2ZpbzQ0a2gwaUdUZlNG?=
- =?utf-8?B?NVdMU0VVN3l4RTRucThHeW1BS0IzekNTZjg0TlJDcmlPSG9ZSHZtdm1SMWRs?=
- =?utf-8?B?Y3RWa1JqRko1cnNOVWdjOVpXR1ByRk1SUy9Gbzh5UmJaNjc3U0R1NHNkSGtX?=
- =?utf-8?B?QWdKallIem1iUWhuTDlvcFRUY0Y5RVEwSjFGc1hJd2NMckg0RG5ScitlbFVU?=
- =?utf-8?B?UlR4UEQxRTRhcFNEMXNQODZFU01TVjhEbU5wNkZ0Ni9YK3B5WnNmYTZsL3pS?=
- =?utf-8?B?dkhWMUlIYVB4ajJyaVNSZ090enZxTjRiUFpFTkdvemlzeFArVm1DOTNLRXJI?=
- =?utf-8?B?UGZQQ0wweEhrd09YVTdERTRrUWNjeHFtVXlVZk5GQXkrOFNCenErek50bEJi?=
- =?utf-8?B?U3NZSnUralc3NmVoREZ4RXExOGsrZVYwTDNFdXA3N2hkUHVNR2VHalVMbnlX?=
- =?utf-8?B?NHhjdS9XY1I4QnM4c1l4VkFJcXFtajcxS3IwK2hza3Q1MGFzcXduWEhMUEpF?=
- =?utf-8?B?N3UxcUJZa3FmVk00WTVpOGwyVmp6ZzZHWW9OS3kxSjZlbDBtREEwRTI0MkYx?=
- =?utf-8?B?S3BuQWxrVzdIaGlkN3ZDYWtkSmVmZzR1L3FIQzJwSFJncFpUQUNIdDFPcDg0?=
- =?utf-8?B?ZEo1NFZDN1M1UDgrQ0drUEF2ME90YWdoRXVtZFFOT25rSVJJTXJoZ3hud2Zr?=
- =?utf-8?B?TisvRWpNdXNhWHk2NGsvWWRtTWxJWHk1cERQWGxMd0xDOG5iSkJPWWlQTEtF?=
- =?utf-8?B?YUJ5MWYvT0tZNjEvcVptSXZmRzF3ZkM0MGJjd1U2Si9CbFUrK3V6TDBqanFM?=
- =?utf-8?B?UlhWVGZSZ2tTdi92QlBMemFVQmN5blJnL0t0QmlCU3UyYW9VN2F5eGlrclA0?=
- =?utf-8?B?b1lZbnlBOEVNK3VqajBsZUxuaWFnTGJlNDduS1Jya1FwNjIzbmJCVGxabVE4?=
- =?utf-8?B?SnpIWWQrOGdGdkQ4STl1STdBYU54THM3YUpBZ2NDOGE4dVN3VG04WU5DclVB?=
- =?utf-8?B?OEczMVlZVUJwd3ByQjAwZTByODBianJqZ3VXZWxNQmlQYkYybDV4SVRMR3A3?=
- =?utf-8?B?Vk1NYXd3Umt2L1BSQ09FcTZPKzQyWXVJbWZzbHFqamlxY3hLNGZsSTdwN29t?=
- =?utf-8?B?RGhJU203d3ZpSVpDUGlNcS9vRzhwNXhUZnhiRjlmRElOYzFOejZMczN6cC9Q?=
- =?utf-8?B?eXVNTi9BNWZOY2ZUQWE5NWdpVzIyUCs2YnUyU1RNS2RScThiZkFrZC85Umdv?=
- =?utf-8?B?TVp1dG9kbEhqeGIxbEluQmU4eUhPTUtNajl4b1JXMVRodUpLT1YycGNIMytW?=
- =?utf-8?B?a0FxWk1zelJzbEQ1SlpyejV3OEtsVWZJWE5xTFFSYm1kL3dDL3lLbmt1eTh2?=
- =?utf-8?B?MEFMa1FMNE8ydlRJL3cxYXFUZ0tBd1g5L2JoaENEM1hwZTRhV3diSjk1ZVpT?=
- =?utf-8?B?RXJrWHNOWStOS2pqb3RQRytKREVGelFZemRIbWxILyt4YTdiMHpLR3I0VE96?=
- =?utf-8?B?QkRYUFlCcnFnTmtoRGhuZEMrM3FMT3ZaakorVmdUVytsbzlPbHI0UjcwcXQ4?=
- =?utf-8?B?SDIzbUlhMEpnNVdLektzRkV3ZytSRmxxOUxOUER0cHdqUlJFRGNuUXE1ZHhU?=
- =?utf-8?B?Y0R2dENaQ0dXQ25Za3NrNFp0MThPcDg1QzRPNEpsY2k5bndoMWQ0WUIyY3Vk?=
- =?utf-8?B?ZnFxc2lGaE9jeUt0TEZHV3M0ZlR3Q0JCUGxrSDRnZXkzWm12aXlZMkZGRGsy?=
- =?utf-8?B?a09waTlFV2h6RzZFbDhpaFRsZHpqd1g5RHhMZ0E0VXBWRjBiaWR0WGJ5aUEr?=
- =?utf-8?B?dzJNWUkvMFhBMDlsMS9PdlJTY1o5Z2EzczlDYlVxVmF2WSs2USs3OGEzODRR?=
- =?utf-8?Q?1KWzXhSCHvbHM8CiKbTjqz7bCei+0v/yK9opxLrUYNHQO?=
-x-ms-exchange-antispam-messagedata-1: 5OJ6WAtD90JZe79rDTu+aBfVxI7q1wcPyaE=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <6D2CDFFDF4F6864EA1F282A7C9BADFE2@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B09310E011;
+ Mon, 20 Jul 2026 11:07:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=PFCasSuYxbCXxNW4R2qDSv4y87b/n7FEf0mE/tFwOts=; b=hupOaAJfUeUPmZkhCclN1SlFZJ
+ 1iCLB1BroXjLOjbWkO7N6YyqjyRmDTfrBT6CjGe9Sfktq1oj5J1SIc6P6COZt6QI01pbAtFqwvzGs
+ KUsyP8q9H10lyl6xClrZ3oQW/9OgSIZlyZSew5vDtunueJ0XJvAxANDzGHI8qhoN/vCiVe3bgGD/w
+ BULHiVwbc7EFeZ2NyUXqMXuSM89sZlwHCfjWI6XIGv4tarGKs4RmYapwgQOHdsOT39t8D5gL1fNY3
+ yE9NQy5IldpaSVqtVR2BMhyD0ApD0FcSZI23k1QHORO/8A36ujzxrVItyy1LsTDbYiWoTypYjJM3X
+ Ygdj66pQ==;
+Received: from 100.red-79-144-92.dynamicip.rima-tde.net ([79.144.92.100]
+ helo=[192.168.1.202]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wllpd-000zqw-DT; Mon, 20 Jul 2026 13:06:45 +0200
+Message-ID: <bf2cbc67-8f3a-43d1-8cf2-eba28d0e8069@igalia.com>
+Date: Mon, 20 Jul 2026 13:06:42 +0200
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: Pb4y4XwOBSWMdobwv4eWMQuoEpK1zIRkXno5tLKQjHNJc0rdy7DGWrwNz1DCIG3LF4Me8cwdPTtLxUzQpwjUpNwHM8GfQWWtxkPLtkRLtK50qxA3KfoSU3WHhTFVK/AvV8IGDGOCgO92N8VcvLe6SoktPZdu8x4L2qaCh64QaD8BMMLBmJ4cRzyzyolQkGX2j1mViDj30bMfJPPKr1SrTzE593F/zEJmqEZCjHPWy3roW0QBh4Vd9Lbfb5ouiZJO7nFeWCg/tGnqUoy0zQFrsmQ6hn+6Ho0BoE2cdGZ5vjnwGc2lwNG7WemNrO0GxItjkPu65jw5fC6O2N6Kd4dtvw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee1d177f-4c4f-4368-e6ee-08dee64a1988
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2026 10:31:46.3198 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: USHpe/2MkVy3kyNilrYoBShF5nLMZt+Q/zk+yqa93fdfU25hFye68ucwyVqArJaq2bBxrmbtIoG/JRHrfMf9IQmencvNpwPfUz2kRu8kDQQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7977
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] drm/atomic: only add states of active or transient
+ active colorops
+To: John Harrison <John.Harrison@Igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, alex.hung@amd.com, aurabindo.pillai@amd.com,
+ christian.koenig@amd.com, contact@emersion.fr, daniels@collabora.com,
+ harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260609121230.1358786-1-mwen@igalia.com>
+ <20260609121230.1358786-2-mwen@igalia.com>
+ <140cad50-d1fc-416e-ba84-453e1a2000c4@Igalia.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <140cad50-d1fc-416e-ba84-453e1a2000c4@Igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,40 +77,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCAyMDI2LTA3LTA4IGF0IDA5OjQyIC0wNDAwLCBUaGllcnJ5IENhbnRpbi1EZW1lcnMg
-d3JvdGU6DQo+IFRoZSBEZWxsIFhQUyAxNiBEQTE2MjYwIHNoaXBzIGluIG1vcmUgdGhhbiBvbmUg
-cGFuZWwgdmFyaWFudC4gVGhlDQo+IGV4aXN0aW5nDQo+IHF1aXJrIGVudHJ5IG9ubHkgbWF0Y2hl
-cyB0aGUgTEcgRGlzcGxheSBwYW5lbCB3aXRoIERQQ0Qgc2luayBPVUkNCj4gMDA6MjI6YjkuDQo+
-IEFub3RoZXIgdmFyaWFudCBvZiB0aGUgc2FtZSBsYXB0b3AgKHN1YnN5c3RlbSAxMDI4OjBkYmEp
-IHVzZXMgYW4gTEcNCj4gRGlzcGxheQ0KPiAweDA3QzUgcGFuZWwgd2l0aCBzaW5rIE9VSSAwMDph
-YTowMSwgd2hpY2ggaXMgbm90IG1hdGNoZWQsIHNvIGVEUA0KPiBQYW5lbA0KPiBSZXBsYXkgc3Rh
-eXMgZW5hYmxlZCBhbmQgdGhlIHBhbmVsIGhpdHMgYSBwZXJzaXN0ZW50IFBBTkVMLVJFUExBWQ0K
-PiBMaW5rIENSQw0KPiBlcnJvciwgZHJvcHBpbmcgdGhlIGludGVybmFsIGRpc3BsYXkgdG8gfjUg
-ZnBzLg0KDQpUaGFuayB5b3UgZm9yIHBvaW50aW5nIHRoaXMgb3V0Lg0KDQpUaGVzZSBzeW1wdG9t
-cyBsb29rIGRpZmZlcmVudCBjb21wYXJlZCB0byB3aGF0IHdlIHNhdyBvcmlnaW5hbGx5Lg0KUGxl
-YXNlIGZpbGUgZ2l0bGFiIHRpY2tldDoNCg0KaHR0cHM6Ly9kcm0ucGFnZXMuZnJlZWRlc2t0b3Au
-b3JnL2ludGVsLWRvY3MvaG93LXRvLWZpbGUtaTkxNS1idWdzLmh0bWwNCg0KQlIsDQpKb3VuaSBI
-w7ZnYW5kZXINCg0KDQo+IA0KPiBBZGQgYSBxdWlyayBlbnRyeSBmb3IgT1VJIDAwOmFhOjAxIHNv
-IHRoaXMgdmFyaWFudCBhbHNvIGdldHMgZURQDQo+IFBhbmVsDQo+IFJlcGxheSBkaXNhYmxlZC4g
-Q29uZmlybWVkIHhlLmVuYWJsZV9wYW5lbF9yZXBsYXk9MCByZXNvbHZlcyB0aGUNCj4gaXNzdWUu
-DQo+IA0KPiBGaXhlczogY2I4ZDE1NWIwODA2ICgiZHJtL2k5MTUvcHNyOiBEaXNhYmxlIFBhbmVs
-IFJlcGxheSBvbiBEZWxsIFhQUw0KPiAxNiBEQTE2MjYwIGFzIGEgcXVpcmsiKQ0KPiBTaWduZWQt
-b2ZmLWJ5OiBUaGllcnJ5IENhbnRpbi1EZW1lcnMgPHRoaWVycnljYW50aW5kZW1lcnNAZ21haWwu
-Y29tPg0KPiBUZXN0ZWQtYnk6IFRoaWVycnkgQ2FudGluLURlbWVycyA8dGhpZXJyeWNhbnRpbmRl
-bWVyc0BnbWFpbC5jb20+DQo+IC0tLQ0KPiDCoGRyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfcXVpcmtzLmMgfCA4ICsrKysrKysrDQo+IMKgMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0
-aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkv
-aW50ZWxfcXVpcmtzLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3F1
-aXJrcy5jDQo+IGluZGV4IDMzMjQ1ZjQ0YzBkNS4uZTQ1MjIzNTgzMmZlIDEwMDY0NA0KPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3F1aXJrcy5jDQo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcXVpcmtzLmMNCj4gQEAgLTI4Niw2ICsy
-ODYsMTQgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpbnRlbF9kcGNkX3F1aXJrDQo+IGludGVsX2Rw
-Y2RfcXVpcmtzW10gPSB7DQo+IMKgCQkuc2lua19vdWkgPSBTSU5LX09VSSgweDAwLCAweDIyLCAw
-eGI5KSwNCj4gwqAJCS5ob29rID0gcXVpcmtfZGlzYWJsZV9lZHBfcGFuZWxfcmVwbGF5LA0KPiDC
-oAl9LA0KPiArCS8qIERlbGwgWFBTIDE2IERBMTYyNjAgKExHIERpc3BsYXkgMHgwN0M1LCBPVUkg
-MDA6YWE6MDEpICovDQo+ICsJew0KPiArCQkuZGV2aWNlID0gREVWSUNFX0lEX0FOWSwNCj4gKwkJ
-LnN1YnN5c3RlbV92ZW5kb3IgPSAweDEwMjgsDQo+ICsJCS5zdWJzeXN0ZW1fZGV2aWNlID0gMHgw
-ZGJhLA0KPiArCQkuc2lua19vdWkgPSBTSU5LX09VSSgweDAwLCAweGFhLCAweDAxKSwNCj4gKwkJ
-Lmhvb2sgPSBxdWlya19kaXNhYmxlX2VkcF9wYW5lbF9yZXBsYXksDQo+ICsJfSwNCj4gwqB9Ow0K
-PiDCoA0KPiDCoHZvaWQgaW50ZWxfaW5pdF9xdWlya3Moc3RydWN0IGludGVsX2Rpc3BsYXkgKmRp
-c3BsYXkpDQoNCg==
+
+
+On 26/06/2026 00:28, John Harrison wrote:
+> On 6/9/26 13:51, Melissa Wen wrote:
+>> Only consider affected colorop states those that are part of an active
+>> color pipeline or a pipeline that is about to be activated or
+>> deactivated in the same atomic commit, i.e., colorop is in the chain of
+>> old/new plane color pipeline property. To cover color_pipeline
+>> deactivation, remove the condition for plane_state->color_pipeline.
+>>
+>> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>> ---
+>>
+>> v2: define a macro to walk in the color pipeline (Alex H.)
+>> ---
+>>   drivers/gpu/drm/drm_atomic.c | 65 +++++++++++++++++++++++++++++++-----
+>>   include/drm/drm_colorop.h    |  3 ++
+>>   2 files changed, 59 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+>> index 3af1b9cc9a06..464562861408 100644
+>> --- a/drivers/gpu/drm/drm_atomic.c
+>> +++ b/drivers/gpu/drm/drm_atomic.c
+>> @@ -892,6 +892,57 @@ static int drm_atomic_plane_check(const struct 
+>> drm_plane_state *old_plane_state,
+>>       return 0;
+>>   }
+>>   +/*
+>> + * This function walks old and new plane state color pipelines and 
+>> adds all
+>> + * colorops in use by @plane to the atomic configuration @state. 
+>> This is useful
+>> + * when an atomic commit needs to check all currently enabled or 
+>> about to be
+>> + * enabled colorop on @plane, e.g. when changing the mode. This also 
+>> avoids
+>> + * including colorop states that are not part of the atomic state.
+>> + *
+>> + * Returns:
+>> + * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error 
+>> is EDEADLK
+>> + * then the w/w mutex code has detected a deadlock and the entire 
+>> atomic
+>> + * sequence must be restarted. All other errors are fatal.
+>> + */
+>> +static int
+>> +drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+>> +                 struct drm_plane *plane)
+>> +{
+>> +    struct drm_colorop *colorop;
+>> +    struct drm_colorop_state *colorop_state;
+>> +    struct drm_plane_state *new_plane_state, *old_plane_state;
+>> +
+>> +    new_plane_state = drm_atomic_get_new_plane_state(state, plane);
+>> +    old_plane_state = drm_atomic_get_old_plane_state(state, plane);
+>> +
+>> +    if (WARN_ON(!new_plane_state || !old_plane_state))
+>> +        return -EINVAL;
+>> +
+>> +    drm_dbg_atomic(plane->dev,
+>> +               "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
+>> +               plane->base.id, plane->name);
+>> +
+>> +    drm_for_each_colorop_in_pipeline(colorop,
+>> +                     new_plane_state->color_pipeline) {
+>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>> +        if (IS_ERR(colorop_state))
+>> +            return PTR_ERR(colorop_state);
+>> +    }
+>> +
+>> +    /* Same color pipeline as new; no point walking old. */
+>> +    if (new_plane_state->color_pipeline == 
+>> old_plane_state->color_pipeline)
+>> +        return 0;
+>> +
+>> +    drm_for_each_colorop_in_pipeline(colorop,
+>> +                     old_plane_state->color_pipeline) {
+>> +        colorop_state = drm_atomic_get_colorop_state(state, colorop);
+>> +        if (IS_ERR(colorop_state))
+>> +            return PTR_ERR(colorop_state);
+>> +    }
+>> +
+>> +    return 0;
+>> +}
+>> +
+>>   static void drm_atomic_colorop_print_state(struct drm_printer *p,
+>>                          const struct drm_colorop_state *state)
+>>   {
+>> @@ -1671,11 +1722,9 @@ drm_atomic_add_affected_planes(struct 
+>> drm_atomic_commit *state,
+>>           if (IS_ERR(plane_state))
+>>               return PTR_ERR(plane_state);
+>>   -        if (plane_state->color_pipeline) {
+>> -            ret = drm_atomic_add_affected_colorops(state, plane);
+>> -            if (ret)
+>> -                return ret;
+>> -        }
+>> +        ret = drm_atomic_add_pipeline_colorops(state, plane);
+>> +        if (ret)
+>> +            return ret;
+>>       }
+>>       return 0;
+>>   }
+>> @@ -1687,10 +1736,8 @@ EXPORT_SYMBOL(drm_atomic_add_affected_planes);
+>>    * @plane: DRM plane
+>>    *
+>>    * This function walks the current configuration and adds all colorops
+>> - * currently used by @plane to the atomic configuration @state. This 
+>> is useful
+>> - * when an atomic commit also needs to check all currently enabled 
+>> colorop on
+>> - * @plane, e.g. when changing the mode. It's also useful when 
+>> re-enabling a plane
+>> - * to avoid special code to force-enable all colorops.
+>> + * currently used by @plane to the atomic configuration @state. It's 
+>> useful
+>> + * when re-enabling a plane to avoid special code to force-enable 
+>> all colorops.
+>>    *
+>>    * Since acquiring a colorop state will always also acquire the w/w 
+>> mutex of the
+>>    * current plane for that colorop (if there is any) adding all the 
+>> colorop states for
+> Unfortunately, it is not clear from the context diff but this update 
+> is for drm_atomic_add_affected_colorops(). That function is now only 
+> used by drm_atomic_helper_duplicate_state(). So, potentially it could 
+> be move to
+> drm_atomic_helper.c and made a static local helper. Alternatively, 
+> should the _duplicate_state() function also be updated to only copy 
+> the states of colorops in active pipelines as well? It already only 
+> does the state add call if there is a pipeline, it just doesn't filter 
+> according to the pipeline. Seems like it should? In which case, this 
+> blanket add code can be removed entirely.
+
+Hi John,
+
+Regarding making drm_atomic_add_affected_colorops() static, I will do it 
+in the next version, thanks for pointing out.
+About the _duplicate_state(), we actually need to duplicate all colorop 
+states so that they persist in a suspend/resume cycle. I have actually 
+worked on duplicating all states in the v2[1], but then I dropped the 
+patch because it was colliding with _atomic_check() and for some reason 
+I thought it wasn't a thing. Now that you mention it, I think the right 
+thing to do is reintroduce this patch (duplicating all colorop states) 
+and make duplicate_state() skip the active-colorop check().
+
+[1] 
+https://lore.kernel.org/dri-devel/20260604180457.1110110-3-mwen@igalia.com/
+
+Melissa
+
+>
+> John.
+>
+>> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+>> index b4b9e4f558ab..006278e21d49 100644
+>> --- a/include/drm/drm_colorop.h
+>> +++ b/include/drm/drm_colorop.h
+>> @@ -459,6 +459,9 @@ static inline unsigned int 
+>> drm_colorop_index(const struct drm_colorop *colorop)
+>>   #define drm_for_each_colorop(colorop, dev) \
+>>       list_for_each_entry(colorop, &(dev)->mode_config.colorop_list, 
+>> head)
+>>   +#define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
+>> +    for ((colorop) = (pipeline); (colorop); (colorop) = 
+>> (colorop)->next)
+>> +
+>>   /**
+>>    * drm_get_colorop_type_name - return a string for colorop type
+>>    * @type: colorop type to compute name of
+>
+
