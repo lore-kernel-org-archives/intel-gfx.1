@@ -4,57 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 758C7C44515
-	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 08:35:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67ED8C4451B
+	for <intel-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 09:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0936510E7FD;
-	Mon, 20 Jul 2026 08:35:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F26CC10E15D;
+	Mon, 20 Jul 2026 09:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bHwXWLp5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gEDChaI8";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A5FB10E7F7;
- Mon, 20 Jul 2026 08:35:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 541F010E15D;
+ Mon, 20 Jul 2026 09:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784536514; x=1816072514;
+ t=1784538721; x=1816074721;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=fAWGP0EaxyVCXTUTPP0w/Jl6a29Dqywd96CdnlFKDww=;
- b=bHwXWLp5anC+jfthdh4stVaYFqE7I27mZQmMXsD//bf9+dJhBTr4UQI4
- ZidhkVKW8JAEkGrYDPsTPvSWeEyymWrhAc55NVRtPPX2wN/yk9IcY/AVZ
- tj8ylHT+rrxRBE1ItQNVmVMAZv3eDomZYeQO3W/+XCWJvvy0R472NtVfi
- 0UQ4c4nQTiY5NtVxpBVSMAw0RPMuw8fsaUympFVuqsR+kyagIpDyayXwV
- h7tgoSDu0PteIYEAKkh6/YBf+Vk/uyQ8+1dRoHRy1QiNFdEUS6kHBRRNu
- KXzubaMxeLq4WdeX/XLU9BOExZXRJdqZNXJs7m6fc4iMHNxlneEAp1MkT w==;
-X-CSE-ConnectionGUID: VdBBk3HNTXqv6Ab2ET6uPQ==
-X-CSE-MsgGUID: uwmZtq5KSHWHqwHj131mjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="110658302"
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
- d="scan'208,223";a="110658302"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:35:13 -0700
-X-CSE-ConnectionGUID: qgOCpcc1TlCWP/VdjhpzpQ==
-X-CSE-MsgGUID: boBWXO3FSsqgSwxwgoftYg==
+ bh=yHveYdiKZtukxFvtDhNIAQQ/tZQY75rWJShbUvo78KY=;
+ b=gEDChaI8Ssig2IdGlrzpZX2aRF3JfyqhesS1kd5M1FJ+lm6XCn4XdcTa
+ youvJGc/eyBkNmUktQDzARNMptJDVXczxmOb/Xi2XIViDll+ku/2ekmtC
+ wPrgf3NszLs6fR3WgkkWxLdIjEOtPFwaCzO1L48AUqj7u/Q/WuusttVUR
+ m++nXcORmhBvVcNVGxO/ZeMLqwqkhoKzjCOiYhYJ+BpFOcJMM7uCoRQ2/
+ m6XLXoI4l95HjIlcUD9NFZ4ciqTxaO/AuMtHwlGLvCf8eDF5KPXhLeVeZ
+ VhHJSPr0wNhw1geuOlu0//D2pG094gGRITPDMUI1PhI2+9vmvf09RuLpr g==;
+X-CSE-ConnectionGUID: AGwWXqpIR6uzEAkDCZLKAg==
+X-CSE-MsgGUID: n5NtT8vCR8epl4yNd9IctA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11851"; a="102664759"
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="102664759"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2026 02:12:00 -0700
+X-CSE-ConnectionGUID: KoP6XpX+SMiEAF6C2TDBDg==
+X-CSE-MsgGUID: nb8fyg/LTzK64DlDCpKh3w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; 
- d="scan'208,223";a="257462180"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2026 01:35:11 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, chaitanya.kumar.borah@intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH] drm/i915/display: Ensure a non-zero safe window from PTL
- onwards
-Date: Mon, 20 Jul 2026 13:48:03 +0530
-Message-ID: <20260720081803.1123264-1-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
+X-IronPort-AV: E=Sophos;i="6.25,174,1779174000"; d="scan'208";a="260963344"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa003.jf.intel.com with ESMTP; 20 Jul 2026 02:11:59 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
+ ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
+Subject: [PATCH v4 0/9] Enable CMRR in fixed-RR VRR path
+Date: Mon, 20 Jul 2026 14:31:32 +0530
+Message-ID: <20260720090142.2864289-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,55 +65,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From PTL onwards the DSB waits on the VRR safe window instead of vblank
-(chicken bit 14 selects the safe window signal from the DPT unit to
-start the DMA engine). The safe window starts at (undelayed vblank
-start - set context latency) and ends at the delayed vblank start.
+The existing CMRR fractional-timing code was permanently
+disabled (if (!HAS_CMRR || true)), eDP-only, and relied
+on a heuristic to guess when the fractional path was needed.
+This series reworks it into a generic, debugfs-driven feature,
+which later will be controlled via userspace when respective
+uapi will be in-palce.
 
-With modes that have a smaller vblank region, the computed guardband is
-clamped to the vblank length, which makes the undelayed and delayed
-vblank coincide. If the set context latency (SCL) is also 0, the safe
-window collapses to 0. The DSB, configured to wait for the safe window,
-then stalls forever since the hardware never signals it, leading to:
+Mitul Golani (9):
+  drm/i915/vrr: Return from CMRR compute config in case of PSR2 enabled
+  drm/i915/vrr: Restrict CMRR enable condition to VRR-TG-default
+    platforms
+  drm/i915/vrr: Add per-CRTC vrr/cmrr debugfs control
+  drm/i915/vrr: Update AS_SDP target_rr_divider based on CMRR config
+    request
+  drm/i915/display: Move CMRR crtc_state members under VRR
+  drm/i915/vrr: Compute CMRR fractional timings generically
+  drm/i915/vrr: Dump CMRR state in the crtc state dump
+  drm/i915/vrr: Program CMRR enable/disable from transcoder timings
+  drm/i915/vrr: Enable cmrr
 
-  *ERROR* [CRTC:159:pipe A] flip_done timed out
-  *ERROR* [CRTC:159:pipe A] DSB 0 timed out waiting for idle
+ drivers/gpu/drm/i915/display/intel_cmtg.c     |   2 +-
+ .../drm/i915/display/intel_crtc_state_dump.c  |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  10 +-
+ .../drm/i915/display/intel_display_debugfs.c  |   2 +
+ .../drm/i915/display/intel_display_types.h    |  17 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |   9 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |   6 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 304 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_vrr.h      |   2 +
+ 9 files changed, 257 insertions(+), 98 deletions(-)
 
-Clamp the set context latency to a minimum of 1 from PTL onwards so the
-safe window always keeps a non-zero width.
-
-Fixes: 4a68c7516c57 ("drm/i915/dsb: Use safe window path when VRR TG is used")
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Assisted-by: GitHub-Copilot:Claude-Opus-4.8
----
- drivers/gpu/drm/i915/display/intel_display.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 38763a6802c5..0822a2194c7f 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -2459,6 +2459,19 @@ static int intel_crtc_set_context_latency(struct intel_crtc_state *crtc_state)
- 	set_context_latency = max(set_context_latency,
- 				  intel_psr_min_set_context_latency(crtc_state));
- 
-+	/*
-+	 * From PTL onwards, the set context latency can be in the vactive
-+	 * region, letting the safe window start some lines before the vblank
-+	 * start. With modes that have a smaller vblank region, the computed
-+	 * guardband is clamped to the vblank length, making the undelayed and
-+	 * delayed vblank coincide. If the SCL is also 0, the 'safe window'
-+	 * becomes effectively 0, and the DSB configured to wait for it gets
-+	 * stalled, since the hardware never signals the safe window. Keep the
-+	 * set context latency at a minimum of 1 to avoid this.
-+	 */
-+	if (DISPLAY_VER(display) >= 30)
-+		set_context_latency = max(1, set_context_latency);
-+
- 	return set_context_latency;
- }
- 
 -- 
-2.50.1
+2.48.1
 
