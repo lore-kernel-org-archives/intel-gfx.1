@@ -4,27 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF9D1C44533
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 15:27:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2215EC4451C
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 16:16:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39A8110EAAB;
-	Tue, 21 Jul 2026 15:27:36 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F82410EAAC;
- Tue, 21 Jul 2026 15:27:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2671013216211664259=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7454910E3A1;
+	Tue, 21 Jul 2026 16:16:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CwzaaAjb";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3A510E273;
+ Tue, 21 Jul 2026 16:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784650574; x=1816186574;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=F+T2PAsd6qq5yCHoUk8piO8rIPfBi9sWwOQJM6QrBiY=;
+ b=CwzaaAjbcXzr44npsUDJRzxr/3PlTCdHKCidXJSTZGVDvMkNvIhtGXCY
+ xZFzaLKzGxpX4qFCeJfkZvCSdYtTimTmUwud+YjKesVCWyDPzLf1Q6i5X
+ ygHWARbbCka2AS3dQM2pmlTu59ezMP3g2Jck+10mGUv4q7xN4GWVBinrT
+ xnkW0B3BWcgUsfXh7qWdUMEbObbDdeaKP9tFXAHYSC5G2MRKRSxg+46sD
+ 0o8ylpm254TWYgwpMaRjGxk8MocLjlvH/QKpspOfLR208tHSJmFMOWDMZ
+ PE4tEReMGEEVEkXX1JCgxrWCVhY53JOaEqFb0lCdWPbkjkqMK1958ujfp g==;
+X-CSE-ConnectionGUID: WzEJPA8cQLaMqLgZy9Uqyw==
+X-CSE-MsgGUID: gBVz8RamR9Sq5yprrWkF4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="95853535"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="95853535"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 09:16:13 -0700
+X-CSE-ConnectionGUID: WVuJCJq2QlKm84phO6k5ZQ==
+X-CSE-MsgGUID: UjWBTxvYRaW6vW6BAOoIRw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="253904802"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by fmviesa010.fm.intel.com with ESMTP; 21 Jul 2026 09:16:12 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
+ ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
+Subject: [PATCH v5 0/9] Enable CMRR in fixed-RR VRR path
+Date: Tue, 21 Jul 2026 21:35:46 +0530
+Message-ID: <20260721160556.3144646-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/xe/display=3A_Transpa?=
- =?utf-8?q?rant_fallback_from_stolen_to_sysmem=2E_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Maarten Lankhorst" <dev@lankhorst.se>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Jul 2026 15:27:35 -0000
-Message-ID: <178464765505.211381.3786717052898234992@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260721142610.93804-7-dev@lankhorst.se>
-In-Reply-To: <20260721142610.93804-7-dev@lankhorst.se>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,127 +62,40 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2671013216211664259==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+The existing CMRR fractional-timing code was permanently
+disabled (if (!HAS_CMRR || true)), eDP-only, and relied
+on a heuristic to guess when the fractional path was needed.
+This series reworks it into a generic, debugfs-driven feature,
+which later will be controlled via userspace when respective
+uapi will be in-palce.
 
-== Series Details ==
+Mitul Golani (9):
+  drm/i915/vrr: Return from PSR2 compute config in case of CMRR enabled
+  drm/i915/vrr: Restrict CMRR enable condition to VRR-TG-default
+    platforms
+  drm/i915/vrr: Add per-CRTC vrr/cmrr debugfs control
+  drm/i915/vrr: Update AS_SDP target_rr_divider based on CMRR config
+    request
+  drm/i915/display: Move CMRR crtc_state members under VRR
+  drm/i915/vrr: Compute CMRR fractional timings generically
+  drm/i915/vrr: Dump CMRR state in the crtc state dump
+  drm/i915/vrr: Program CMRR enable/disable from transcoder timings
+  drm/i915/vrr: Enable cmrr
 
-Series: drm/xe/display: Transparant fallback from stolen to sysmem. (rev2)
-URL   : https://patchwork.freedesktop.org/series/170760/
-State : success
+ drivers/gpu/drm/i915/display/intel_cmtg.c     |   2 +-
+ .../drm/i915/display/intel_crtc_state_dump.c  |   3 +
+ drivers/gpu/drm/i915/display/intel_display.c  |  10 +-
+ .../drm/i915/display/intel_display_debugfs.c  |   2 +
+ .../drm/i915/display/intel_display_types.h    |  17 +-
+ drivers/gpu/drm/i915/display/intel_dp.c       |   9 +-
+ drivers/gpu/drm/i915/display/intel_psr.c      |   6 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 306 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_vrr.h      |   2 +
+ 9 files changed, 259 insertions(+), 98 deletions(-)
 
-== Summary ==
+-- 
+2.48.1
 
-CI Bug Log - changes from CI_DRM_18866 -> Patchwork_170760v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/index.html
-
-Participating hosts (42 -> 40)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_170760v2 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [FAIL][1] -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18866/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-
-  
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18866 -> Patchwork_170760v2
-
-  CI-20190529: 20190529
-  CI_DRM_18866: 15b41fd8ef085dbf5b64fe5819415f20bd61983e @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9015: c656c9ccd7e45834f4ca191dbf729e7ba4676f6b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_170760v2: 15b41fd8ef085dbf5b64fe5819415f20bd61983e @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/index.html
-
---===============2671013216211664259==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/xe/display: Transparant fallback from stolen to sysmem. (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170760/">https://patchwork.freedesktop.org/series/170760/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18866 -&gt; Patchwork_170760v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/index.html</p>
-<h2>Participating hosts (42 -&gt; 40)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_170760v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18866/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170760v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18866 -&gt; Patchwork_170760v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18866: 15b41fd8ef085dbf5b64fe5819415f20bd61983e @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9015: c656c9ccd7e45834f4ca191dbf729e7ba4676f6b @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_170760v2: 15b41fd8ef085dbf5b64fe5819415f20bd61983e @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2671013216211664259==--
