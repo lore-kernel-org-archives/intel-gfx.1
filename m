@@ -4,28 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F46EC4451C
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:56:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DF84C44529
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 08:21:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FA3210E2F0;
-	Tue, 21 Jul 2026 07:56:43 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A38E10E03D;
- Tue, 21 Jul 2026 07:56:42 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1828325937374469377=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE42010E713;
+	Tue, 21 Jul 2026 08:21:17 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="JgjW7153";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9bXfJdrM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JgjW7153";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9bXfJdrM";
+	dkim-atps=neutral
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B994110E706
+ for <intel-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 08:21:15 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0ECFC3E61;
+ Tue, 21 Jul 2026 08:21:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784622074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
+ b=JgjW7153saTJtKK0v9/X5Ih0gQBSCZDq5VMgMP4CUIxV2aB///vDk9GIfRzTKS6otlemS2
+ sK7elkMD5dom+BFg6cKYRTw7dLg/YLSa1qW5Nn3ybVZhY87vk/RDcm2kP/br8BNEixtZV3
+ 0Yz54CV3ADbw5vLhZAsKs4QOr9AVHkU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784622074;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
+ b=9bXfJdrMuCU+22XSWeOCZhmUryhnx8jYNRox7lGv5W4Eki0QyKMDLNb6oij52rro6iS+uE
+ ONHQYOo/oR13YmDg==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JgjW7153;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9bXfJdrM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784622074; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
+ b=JgjW7153saTJtKK0v9/X5Ih0gQBSCZDq5VMgMP4CUIxV2aB///vDk9GIfRzTKS6otlemS2
+ sK7elkMD5dom+BFg6cKYRTw7dLg/YLSa1qW5Nn3ybVZhY87vk/RDcm2kP/br8BNEixtZV3
+ 0Yz54CV3ADbw5vLhZAsKs4QOr9AVHkU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784622074;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version: content-transfer-encoding:content-transfer-encoding;
+ bh=g3p7NhHkrrkmq6Eg4P3XqhgRlLkuDdR28KUihZ1Gu3Y=;
+ b=9bXfJdrMuCU+22XSWeOCZhmUryhnx8jYNRox7lGv5W4Eki0QyKMDLNb6oij52rro6iS+uE
+ ONHQYOo/oR13YmDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC63A779AA;
+ Tue, 21 Jul 2026 08:21:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id NfqsKPkrX2r2UgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 21 Jul 2026 08:21:13 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>
+Subject: [PATCH v2] drm/i915/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+Date: Tue, 21 Jul 2026 10:20:27 +0200
+Message-ID: <20260721082108.225599-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Fix_FRL_ra?=
- =?utf-8?q?te_selection_and_deep_color_for_HDMI_sinks_behind_FRL_PCONs_=28re?=
- =?utf-8?q?v2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Alexander Kaplan" <alexander.kaplan@sms-medipool.de>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 21 Jul 2026 07:56:42 -0000
-Message-ID: <178462060242.210189.15921739330742717741@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260718105207.5565-1-alexander.kaplan@sms-medipool.de>
-In-Reply-To: <20260718105207.5565-1-alexander.kaplan@sms-medipool.de>
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 0ECFC3E61
+X-Spamd-Result: default: False [-4.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ DWL_DNSWL_LOW(-1.00)[suse.de:dkim]; MID_CONTAINS_FROM(1.00)[];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; R_MISSING_CHARSET(0.50)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCPT_COUNT_TWELVE(0.00)[13];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; RCVD_COUNT_TWO(0.00)[2];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:email,suse.de:mid];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,166 +115,63 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1828325937374469377==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Calling drm_atomic_helper_check_plane_damage() in plane_atomic_check()
+before copying the damage information guarantees that ignore_damage_clips
+from struct drm_plane_state has the correct value. Although i915 does not
+directly modify or use the flag, DRM's damage iterator will soon rely on
+it.
 
-== Series Details ==
+Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
+helpers to ignore damage clips") introduced ignore_damage_clips to
+selectively ignore damage clipping for certain framebuffer changes. The
+mode-setting pipeline can disabled damage clippings for an atomic commit
+by setting ignore_damage_clips in struct drm_plane_state. The atomic
+commit will then do a full display update.
 
-Series: drm/i915/dp: Fix FRL rate selection and deep color for HDMI sinks behind FRL PCONs (rev2)
-URL   : https://patchwork.freedesktop.org/series/170673/
-State : success
+Future directions: there's currently a multitude of options that affect
+damage clipping; with different places seeing different state. In order
+to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
+all options in a single place and set ignore_damage_clips accordingly. All
+later stages of the mode-setting pipeline will only look at this field.
 
-== Summary ==
+v2:
+- move _check_plane_damage() before reading damage first time (Sashiko)
+- expand commit description
 
-CI Bug Log - changes from CI_DRM_18861 -> Patchwork_170673v2
-====================================================
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+---
+Taken with updates from the series at
 
-Summary
--------
+  https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
+---
+ drivers/gpu/drm/i915/display/intel_plane.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-  **SUCCESS**
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index a440f92ff00c..7d312c88a1db 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -873,6 +873,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
+ 		old_primary_crtc_plane_state = old_plane_state;
+ 	}
+ 
++	/*
++	 * Prepare plane-damage state before using it; do this on all
++	 * display versions to keep the underlying DRM plane state in
++	 * good shape.
++	 */
++	drm_atomic_helper_check_plane_damage(&new_plane_state->base,
++					     &new_uapi_plane_state->uapi);
++
+ 	intel_plane_copy_uapi_plane_damage(new_plane_state,
+ 					   old_primary_crtc_plane_state,
+ 					   new_primary_crtc_plane_state);
 
-  No regressions found.
+base-commit: fcaba3bc017906059b910ece3f83185e93010581
+-- 
+2.54.0
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/index.html
-
-Participating hosts (42 -> 38)
-------------------------------
-
-  Missing    (4): bat-dg2-13 bat-apl-1 fi-glk-j4005 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_170673v2 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@sanitycheck:
-    - fi-kbl-7567u:       [DMESG-WARN][1] ([i915#13735]) -> [PASS][2] +79 other tests pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-
-  * igt@kms_busy@basic@flip:
-    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735] / [i915#180]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [DMESG-WARN][5] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][6] +52 other tests pass
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [DMESG-WARN][7] ([i915#13400]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18861 -> Patchwork_170673v2
-
-  CI-20190529: 20190529
-  CI_DRM_18861: b521b0cb70bcb6e524b6c2ee6f86f5c6f0803405 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_170673v2: b521b0cb70bcb6e524b6c2ee6f86f5c6f0803405 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/index.html
-
---===============1828325937374469377==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp: Fix FRL rate selection and deep color for HDMI sinks behind FRL PCONs (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170673/">https://patchwork.freedesktop.org/series/170673/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18861 -&gt; Patchwork_170673v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/index.html</p>
-<h2>Participating hosts (42 -&gt; 38)</h2>
-<p>Missing    (4): bat-dg2-13 bat-apl-1 fi-glk-j4005 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_170673v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@sanitycheck:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> +79 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_busy@basic@flip:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +52 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-rte:</p>
-<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18861/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170673v2/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18861 -&gt; Patchwork_170673v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18861: b521b0cb70bcb6e524b6c2ee6f86f5c6f0803405 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9014: 6d3784ab505ea6a7917b191c0e060d5b4b0c2be7 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_170673v2: b521b0cb70bcb6e524b6c2ee6f86f5c6f0803405 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1828325937374469377==--
