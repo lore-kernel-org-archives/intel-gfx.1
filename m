@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31ED3C44532
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 16:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DD30C4453A
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 16:16:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADD5810EAA1;
-	Tue, 21 Jul 2026 16:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE6D710EAA9;
+	Tue, 21 Jul 2026 16:16:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ioLWTTs9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W1+ZKaLo";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8BBA10E71D;
- Tue, 21 Jul 2026 16:16:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D2C0510EAB3;
+ Tue, 21 Jul 2026 16:16:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784650581; x=1816186581;
+ t=1784650587; x=1816186587;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KEXAu3WsVW4/BiuyOmrw7B/P8HAGk4nV9/EBz6iVIjA=;
- b=ioLWTTs997VlnGFE6rT9P2yCFBEDLCW7HX7IE5MrjI9WavpHHwJ+29Sx
- uFaCS8y2C4SiU++d0lKutabxr3caHt1p0y66gNH8J+cuMtKS4Htrln+4S
- 6t8P4d3CRUgQDWuYxvAQHY9BiS/TbZ/7s5tG4zLiLnXULBIAmDPiFLvLN
- K7On88eqGw6PXE7E8YVXv4OhPxt/SDC0IgK2vn+bKOaEz2GQ+xuMitaGn
- HO8g9U8jjHFqWrM+enBjyrNfuHLjtM7HxF2QQcuvRgnd+u/YdT5HFoT4P
- xR3ReCpxbYoPjZhnLVQrnZl/9K8HK339k6FZslqAbncVf4FkJXc5UXlu5 Q==;
-X-CSE-ConnectionGUID: ryImEDjmQda6md4+FOv1ig==
-X-CSE-MsgGUID: U1/x87WDR2KnaocrEnnBFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="95853554"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="95853554"
+ bh=jocBpuu5C9lxFuWpslqlji9u7JXotQQuaG9BuuWzKPo=;
+ b=W1+ZKaLonOrz9UQtlRQF+K5QOJb+gP5AZt7bX000aQg6+QG6vinJ6YwX
+ NBzTDvPQuCE32mMAQR/F3zPDg8W6WB0SdUbOcVpROssj8Xe09OmeYba5R
+ VLAKlT4TF1vylrcipW4WC3p7Ye7NTIDhLUs12JT2hliCCbDss1ZlBCWND
+ D+f+QT4mG6mPdCATYs0k3OtAHlGOIB8HYY/qxZr0bMQT3AKi79N9PyejW
+ w3AVEmtEwovMuKKIlyrCaNmDpraxFmhS7zuHUpDcc9YQMGpjRl+vWkZC6
+ ousZPrlyEO0F4e2ndtRc0R1xAdmK55kEQPZu2+vgNwSX5W7Yhro7ZOPAD w==;
+X-CSE-ConnectionGUID: 5b1IjkAjRxGCuibxcw1O3g==
+X-CSE-MsgGUID: PrGx8XjtR8CwB1SirGVlsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="95853565"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="95853565"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 09:16:20 -0700
-X-CSE-ConnectionGUID: wwFlziPbSYq+tmyatAqrpQ==
-X-CSE-MsgGUID: KzcnYNL/SuSyNHRbRSEY/A==
+ 21 Jul 2026 09:16:26 -0700
+X-CSE-ConnectionGUID: e0f2umrmSV+TP0dND3CwXw==
+X-CSE-MsgGUID: WngU+c0FQkizGmGvtbyLHQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="253904849"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="253904867"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa010.fm.intel.com with ESMTP; 21 Jul 2026 09:16:19 -0700
+ by fmviesa010.fm.intel.com with ESMTP; 21 Jul 2026 09:16:25 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
  ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
-Subject: [PATCH v5 4/9] drm/i915/vrr: Update AS_SDP target_rr_divider based on
- CMRR config request
-Date: Tue, 21 Jul 2026 21:35:50 +0530
-Message-ID: <20260721160556.3144646-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v5 7/9] drm/i915/vrr: Dump CMRR state in the crtc state dump
+Date: Tue, 21 Jul 2026 21:35:53 +0530
+Message-ID: <20260721160556.3144646-8-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260721160556.3144646-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20260721160556.3144646-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,39 +67,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute AS_SDP target_rr_divider based on actual CMRR request
-requirement.
+Add crtc state dump for CMRR.
+
+--v2:
+- Remove video mode state checker.
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_crtc_state_dump.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1915d376b943..23e169d8db7b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3111,6 +3111,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+index 4493483f10a9..ad4f362e0c09 100644
+--- a/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
++++ b/drivers/gpu/drm/i915/display/intel_crtc_state_dump.c
+@@ -311,6 +311,9 @@ void intel_crtc_state_dump(const struct intel_crtc_state *pipe_config,
+ 		   pipe_config->vrr.dc_balance.max_increase,
+ 		   pipe_config->vrr.dc_balance.max_decrease,
+ 		   pipe_config->vrr.dc_balance.vblank_target);
++	drm_printf(&p, "cmrr: %s, cmrr_m: %llu, cmrr_n: %llu\n",
++		   str_yes_no(pipe_config->vrr.cmrr.enable),
++		   pipe_config->vrr.cmrr.cmrr_m, pipe_config->vrr.cmrr.cmrr_n);
  
- 	/*
- 	 * #FIXME: SDP/infoframe updates aren’t truly atomic, and with the new
-@@ -3131,7 +3132,11 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	if (crtc_state->cmrr.enable) {
- 		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
- 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
--		as_sdp->target_rr_divider = true;
-+
-+		if (crtc->force_cmrr.denominator == 1001)
-+			as_sdp->target_rr_divider = true;
-+		else
-+			as_sdp->target_rr_divider = false;
- 	} else if (crtc_state->vrr.enable) {
- 		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
- 	} else {
+ 	drm_printf(&p, "requested mode: " DRM_MODE_FMT "\n",
+ 		   DRM_MODE_ARG(&pipe_config->hw.mode));
 -- 
 2.48.1
 
