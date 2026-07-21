@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0C37C44532
-	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:25:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2573FC44533
+	for <intel-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:25:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B99E10E377;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A8B10EA34;
 	Tue, 21 Jul 2026 14:25:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="ny8CrWgc";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="O4PY9zYj";
 	dkim-atps=neutral
 Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A62310EA2E;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D47610EA2E;
  Tue, 21 Jul 2026 14:25:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1784643917;
- bh=W12gryfcOowjVkSWMj764Er4vunTyhHO+B8fbOPxjLc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ny8CrWgcbMijB52aYI0575k2sxOp4GPz5CKA3zSa0WkHATRZ4QakcXEhKxSAwxf0K
- i9ygj5FUp2dyQFSGcTpRWM+jfvvn7W6TGUt55+qKYaymAc5nqQRJ+o13p0eMcs0Zn5
- cApYqcPj9hYSIav9wo/lzHnozAET01Jr3JbP9VwYOSwmFoEB0m71tTkOsGEeU0BkcE
- hSGd9XsSEWwBFwJrqf7XEhWZkHNwaRn19Y3LlRnDn8LnVAwOQ0zm2ir0uaG5nHtobz
- 2nRnIqW2FL5Jbna+nu/45qwgLGIkj+KDYPnMfEy/NB16VYiP8Oyomyjd+oVxbbiesS
- jOu7Soq149x3g==
+ s=default; t=1784643916;
+ bh=MmaWzT+4FKZKngmyrrx8vgymN6f+HlVCN+qIc9Vq1g0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=O4PY9zYjzChDg27dglDmzWNi9c3CKQ2L8Napg11XZvlBNswH0qfg8E8fNdQjrl+sc
+ BbRl6FlLY2yA67oM+GBClrk8AfjoqYZRw6YQ8VLGCNkuVMxsaMOi3XNCZ6AOJOP3zu
+ gcvNKNTulHl0vQa+a4Hm8KrfFfM6vnTMO548sxaOxMW/uEa/MHVAj2p0n10FOx+HHf
+ sPcRag9BvWZAacBBgTuYhmJw2xFE/vse7DN9Hq8hEpEnbfdvjTjI4UyFVnFHuVex05
+ /UwPxcSXey1ejdnm2AF7/v0yYXsIFgJyTNHQ+cXm5/WXZZoazs84X28nKAeWM3MRfD
+ b9f+3kKcfuUrA==
 From: Maarten Lankhorst <dev@lankhorst.se>
 To: intel-xe@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, Maarten Lankhorst <dev@lankhorst.se>,
- Matthew Auld <matthew.auld@intel.com>
-Subject: [PATCH v2 1/5] drm/xe/display: Avoid using stolen memory for
- framebuffer when media gt exists.
-Date: Tue, 21 Jul 2026 16:26:12 +0200
-Message-ID: <20260721142610.93804-8-dev@lankhorst.se>
+Cc: intel-gfx@lists.freedesktop.org,
+	Maarten Lankhorst <dev@lankhorst.se>
+Subject: [PATCH v2 0/5] drm/xe/display: Transparant fallback from stolen to
+ sysmem.
+Date: Tue, 21 Jul 2026 16:26:11 +0200
+Message-ID: <20260721142610.93804-7-dev@lankhorst.se>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260721142610.93804-7-dev@lankhorst.se>
-References: <20260721142610.93804-7-dev@lankhorst.se>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -53,42 +52,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On systems with media GT, extra latency is added when accessing stolen
-memory when the GT is in MC6.
+Changes since previous version:
+- Simplify the patch for copying between sysmem and stolen.
+- Take ownership of intel_bo_fbdev_bios_fb_takeover()
+- Keep series standalone.
 
-Simply disable allocating stolen memory for framebuffers when media gt
-is found.
+Copy the initial framebuffer from the stolen region to system memory
+when deciding to keep the device's framebuffer, instead of re-using the
+stolen memory.
 
-Thanks to the previous patch, it will be possible to preserve the
-contents.
+This allows for completely flicker-free boot even on platforms where
+we wouldn't allow use of stolen memory for the system framebuffer.
 
-Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/7513
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260630135523.1775379-3-dev@lankhorst.se
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
----
- drivers/gpu/drm/xe/display/xe_display_bo.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Works best with https://patchwork.freedesktop.org/series/170430/	
 
-diff --git a/drivers/gpu/drm/xe/display/xe_display_bo.c b/drivers/gpu/drm/xe/display/xe_display_bo.c
-index f5102cd0e95d6..9385026a80b97 100644
---- a/drivers/gpu/drm/xe/display/xe_display_bo.c
-+++ b/drivers/gpu/drm/xe/display/xe_display_bo.c
-@@ -131,6 +131,14 @@ bool xe_display_bo_fbdev_prefer_stolen(struct xe_device *xe, unsigned int size)
- 	if (IS_DGFX(xe))
- 		return false;
- 
-+	/*
-+	 * Avoid stolen memory when the media_gt exists,
-+	 * because a lot of latency is added when media gt is in MC6
-+	 */
-+	if (xe_device_get_root_tile(xe)->media_gt)
-+		return false;
-+
-+	/* machine hang when doing lots of LMEMBAR accesses */
- 	if (XE_DEVICE_WA(xe, 22019338487_display))
- 		return false;
- 
+Maarten Lankhorst (5):
+  drm/xe/display: Avoid using stolen memory for framebuffer when media
+    gt exists.
+  drm/xe/migrate: Support copying between sysmem and stolen
+  drm/xe: Raise gt frequency slightly earlier.
+  HACK: Always fallback
+  drm/i915: Introduce intel_bo_fbdev_bios_fb_takeover()
+
+ drivers/gpu/drm/i915/display/intel_bo.c       |  7 ++
+ drivers/gpu/drm/i915/display/intel_bo.h       |  1 +
+ drivers/gpu/drm/i915/display/intel_fbdev.c    | 68 ++++++++++++++++---
+ drivers/gpu/drm/i915/i915_bo.c                | 14 +++-
+ drivers/gpu/drm/i915/i915_bo.h                |  6 --
+ drivers/gpu/drm/i915/i915_initial_plane.c     | 14 ----
+ drivers/gpu/drm/xe/display/xe_display_bo.c    | 66 +++++++++++++++++-
+ drivers/gpu/drm/xe/display/xe_display_bo.h    |  6 --
+ drivers/gpu/drm/xe/display/xe_initial_plane.c |  8 ---
+ drivers/gpu/drm/xe/xe_device.c                |  6 +-
+ drivers/gpu/drm/xe/xe_migrate.c               | 25 +++++--
+ include/drm/intel/display_parent_interface.h  |  1 +
+ 12 files changed, 165 insertions(+), 57 deletions(-)
+
 -- 
 2.53.0
 
