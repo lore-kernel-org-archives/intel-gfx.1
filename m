@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C59DC44539
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 15:27:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4304BC4453E
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 15:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 347A810E2BA;
-	Wed, 22 Jul 2026 15:27:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C10C110E47A;
+	Wed, 22 Jul 2026 15:31:13 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3612310E2BA;
- Wed, 22 Jul 2026 15:27:12 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D2810EE44;
+ Wed, 22 Jul 2026 15:31:13 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============0423441585948084694=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/psr=3A?=
- =?utf-8?q?_Disable_eDP_Panel_Replay_on_XPS_16_DA16260_=28LG_0x07C5=29_=28re?=
- =?utf-8?q?v2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5Bv?=
+ =?utf-8?q?2=2C1/3=5D_drm/xe/display=3A_Expose_plane_max_width/height_helper?=
+ =?utf-8?q?s_to_global_scope?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thierry Cantin-Demers" <thierrycantindemers@gmail.com>
+To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Jul 2026 15:27:12 -0000
-Message-ID: <178473403221.216320.7986636380160613370@6beec6c84f66>
+Date: Wed, 22 Jul 2026 15:31:13 -0000
+Message-ID: <178473427307.216320.2350974744520293937@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <20260708134252.11854-1-thierrycantindemers@gmail.com>
-In-Reply-To: <20260708134252.11854-1-thierrycantindemers@gmail.com>
+References: <20260722132448.318112-1-vinod.govindapillai@intel.com>
+In-Reply-To: <20260722132448.318112-1-vinod.govindapillai@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,17 +42,138 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============0423441585948084694==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915/psr: Disable eDP Panel Replay on XPS 16 DA16260 (LG 0x07C5) (rev2)
-URL   : https://patchwork.freedesktop.org/series/170009/
-State : failure
+Series: series starting with [v2,1/3] drm/xe/display: Expose plane max width/height helpers to global scope
+URL   : https://patchwork.freedesktop.org/series/170914/
+State : success
 
 == Summary ==
 
-Series author address 'thierrycantindemers@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/181896/ (on built-in)
+CI Bug Log - changes from CI_DRM_18877 -> Patchwork_170914v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_170914v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@core_hotunplug@unbind-rebind:
+    - fi-bsw-n3050:       [DMESG-WARN][1] ([i915#16057]) -> [PASS][2]
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18877/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html
+
+  * igt@i915_module_load@reload:
+    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#15673]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18877/fi-kbl-7567u/igt@i915_module_load@reload.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/fi-kbl-7567u/igt@i915_module_load@reload.html
+
+  
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#16057]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16057
 
 
+Build changes
+-------------
+
+  * Linux: CI_DRM_18877 -> Patchwork_170914v1
+
+  CI-20190529: 20190529
+  CI_DRM_18877: 766692482abf46aeeca6881abdf0d4dfb32466a7 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9018: f4345861cbd5d97fd50b73bf7af5fe3286fca056 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_170914v1: 766692482abf46aeeca6881abdf0d4dfb32466a7 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/index.html
+
+--===============0423441585948084694==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v2,1/3] drm/xe/display: Expose plane max width/height helpers to global scope</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170914/">https://patchwork.freedesktop.org/series/170914/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18877 -&gt; Patchwork_170914v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170914v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@core_hotunplug@unbind-rebind:</p>
+<ul>
+<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18877/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16057">i915#16057</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/fi-bsw-n3050/igt@core_hotunplug@unbind-rebind.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@i915_module_load@reload:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18877/fi-kbl-7567u/igt@i915_module_load@reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170914v1/fi-kbl-7567u/igt@i915_module_load@reload.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18877 -&gt; Patchwork_170914v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18877: 766692482abf46aeeca6881abdf0d4dfb32466a7 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9018: f4345861cbd5d97fd50b73bf7af5fe3286fca056 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_170914v1: 766692482abf46aeeca6881abdf0d4dfb32466a7 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============0423441585948084694==--
