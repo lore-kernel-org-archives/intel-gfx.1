@@ -4,27 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 257D1C44536
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 11:59:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8170C4453C
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 13:25:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92163891AA;
-	Wed, 22 Jul 2026 11:59:48 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F877890EB;
- Wed, 22 Jul 2026 11:59:47 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8649307794505995128=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47C9210E452;
+	Wed, 22 Jul 2026 13:25:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HMDL490M";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A34FD10E2C9;
+ Wed, 22 Jul 2026 13:25:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784726703; x=1816262703;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=6+SPJDQ23mfrQUOkxvdMZnB1pvsuvK21pJlf+NE2sp0=;
+ b=HMDL490MbZQwdYvxhgFANpobwIGBbrQgbmoDeZ3liONlLl5a6b3AfBva
+ w+RxHUy+CPoHxDWrH6YBoZL1Qpp+FtjFycSJaEvhW8HmqoyVuJotkifkT
+ aZ9qkp3sbbHllA3ul061ioc3+QpfxyW81uk0ULHkq89nwFXqUdMjsP/R/
+ en41SjCz/JeKnwJHZFg0N/peK0EUCHO3AkKzxEQgsSLzeFSQqT8eEgOiP
+ YTAUHSB4noIXXAvTQFJ4JPmpqSdZrBb2caXB60ydboUkMoKpS28pOldNO
+ tF9IJUF4UQ4UG0dZZEn7NeIMPTevcmN1pkyLJGuS9y0XLLTLVrQVWSFdQ Q==;
+X-CSE-ConnectionGUID: KcXz4uIZSMasU8Brq8movw==
+X-CSE-MsgGUID: 0IBg4aiVSqWwrCHntngM0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96016986"
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="96016986"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 06:25:03 -0700
+X-CSE-ConnectionGUID: EHzJ5JFLSKWwAuF07N7Ejg==
+X-CSE-MsgGUID: UuMf6haJQ32oxAvkZ1vofQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="254687762"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO
+ vgovind2-mobl4.intel.com) ([10.245.245.191])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 06:25:01 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, ville.syrjala@linux.intel.com,
+ jouni.hogander@intel.com
+Subject: [PATCH v2 1/3] drm/xe/display: Expose plane max width/height helpers
+ to global scope
+Date: Wed, 22 Jul 2026 16:24:46 +0300
+Message-ID: <20260722132448.318112-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Convert_core_?=
- =?utf-8?q?license_headers_to_SPDX?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 22 Jul 2026 11:59:47 -0000
-Message-ID: <178472158718.216113.8404730033265804863@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <cover.1784713895.git.sebastian.brzezinka@intel.com>
-In-Reply-To: <cover.1784713895.git.sebastian.brzezinka@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,157 +68,84 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8649307794505995128==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Enabling features like FBC on platforms may depend on a plane's
+maximum supported resolutions or some other arbitrary constant
+values because of hw restrictions. Currently the helpers that
+report a plane's max width and height are private to skl_plane
+/ skl_universal_plane. Change the scope to golbal so that
+this can be queried from other areas as well.
 
-== Series Details ==
+v2: function parameter alignment fixes
 
-Series: drm/i915: Convert core license headers to SPDX
-URL   : https://patchwork.freedesktop.org/series/170905/
-State : success
+Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+---
+ .../gpu/drm/i915/display/skl_universal_plane.c   | 16 ++++++++--------
+ .../gpu/drm/i915/display/skl_universal_plane.h   |  9 +++++++++
+ 2 files changed, 17 insertions(+), 8 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 164b7d61c9a3..77d33012bdde 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -1932,10 +1932,10 @@ static int intel_plane_min_height(struct intel_plane *plane,
+ 	return 1;
+ }
+ 
+-static int intel_plane_max_width(struct intel_plane *plane,
+-				 const struct drm_framebuffer *fb,
+-				 int color_plane,
+-				 unsigned int rotation)
++int intel_plane_max_width(struct intel_plane *plane,
++			  const struct drm_framebuffer *fb,
++			  int color_plane,
++			  unsigned int rotation)
+ {
+ 	if (plane->max_width)
+ 		return plane->max_width(fb, color_plane, rotation);
+@@ -1943,10 +1943,10 @@ static int intel_plane_max_width(struct intel_plane *plane,
+ 		return INT_MAX;
+ }
+ 
+-static int intel_plane_max_height(struct intel_plane *plane,
+-				  const struct drm_framebuffer *fb,
+-				  int color_plane,
+-				  unsigned int rotation)
++int intel_plane_max_height(struct intel_plane *plane,
++			   const struct drm_framebuffer *fb,
++			   int color_plane,
++			   unsigned int rotation)
+ {
+ 	if (plane->max_height)
+ 		return plane->max_height(fb, color_plane, rotation);
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.h b/drivers/gpu/drm/i915/display/skl_universal_plane.h
+index 5e2451c21eeb..ad71105cc55a 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.h
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.h
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/types.h>
+ 
++struct drm_framebuffer;
+ struct intel_crtc;
+ struct intel_display;
+ struct intel_initial_plane_config;
+@@ -42,5 +43,13 @@ bool icl_is_hdr_plane(struct intel_display *display, enum plane_id plane_id);
+ 
+ u32 skl_plane_aux_dist(const struct intel_plane_state *plane_state,
+ 		       int color_plane);
++int intel_plane_max_width(struct intel_plane *plane,
++			  const struct drm_framebuffer *fb,
++			  int color_plane,
++			  unsigned int rotation);
++int intel_plane_max_height(struct intel_plane *plane,
++			   const struct drm_framebuffer *fb,
++			   int color_plane,
++			   unsigned int rotation);
+ 
+ #endif
+-- 
+2.43.0
 
-CI Bug Log - changes from CI_DRM_18874 -> Patchwork_170905v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_170905v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_pm:
-    - fi-skl-6600u:       [PASS][1] -> [INCOMPLETE][2] ([i915#16550]) +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - bat-arlh-2:         [INCOMPLETE][3] ([i915#16547]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/bat-arlh-2/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/bat-arlh-2/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@dmabuf:
-    - bat-arlh-2:         [INCOMPLETE][5] -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/bat-arlh-2/igt@i915_selftest@live@dmabuf.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/bat-arlh-2/igt@i915_selftest@live@dmabuf.html
-
-  
-  [i915#16547]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547
-  [i915#16550]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16550
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18874 -> Patchwork_170905v1
-
-  CI-20190529: 20190529
-  CI_DRM_18874: a2dbc8135f5db01ae8e10adbd7e47566806c5b15 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9018: f4345861cbd5d97fd50b73bf7af5fe3286fca056 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_170905v1: a2dbc8135f5db01ae8e10adbd7e47566806c5b15 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/index.html
-
---===============8649307794505995128==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Convert core license headers to SPDX</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170905/">https://patchwork.freedesktop.org/series/170905/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18874 -&gt; Patchwork_170905v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_170905v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_pm:<ul>
-<li>fi-skl-6600u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/fi-skl-6600u/igt@i915_selftest@live@gt_pm.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16550">i915#16550</a>) +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/bat-arlh-2/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16547">i915#16547</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/bat-arlh-2/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@dmabuf:</p>
-<ul>
-<li>bat-arlh-2:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18874/bat-arlh-2/igt@i915_selftest@live@dmabuf.html">INCOMPLETE</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170905v1/bat-arlh-2/igt@i915_selftest@live@dmabuf.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18874 -&gt; Patchwork_170905v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18874: a2dbc8135f5db01ae8e10adbd7e47566806c5b15 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9018: f4345861cbd5d97fd50b73bf7af5fe3286fca056 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_170905v1: a2dbc8135f5db01ae8e10adbd7e47566806c5b15 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8649307794505995128==--
