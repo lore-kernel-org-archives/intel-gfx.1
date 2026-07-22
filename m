@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60E1CC4453E
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 10:28:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28220C4453A
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 10:28:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E00BF10ED43;
-	Wed, 22 Jul 2026 10:28:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8ABC10ED4D;
+	Wed, 22 Jul 2026 10:28:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="LuX4Vp3v";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IKdk+uUC";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B99410ED4C
- for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 10:28:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9713C10ED4B
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 10:28:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784716122; x=1816252122;
+ t=1784716124; x=1816252124;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:content-transfer-encoding:mime-version;
- bh=qyVEHGujhEXWUMLbb9VLzzWibD84T7WBi9+qBE2MJgQ=;
- b=LuX4Vp3v76qkIPTbO1MwW4rXE/rrAzrO6mQLv/XuGUIQn3hXlvkC7A/g
- /5u/GyZOWmGoAc5iDGQ0/4Jxn9zVkWc/P2xhFESVUUtBJlozgZhHmfhWT
- 7QCLvjIg45YzuqvrJDVBAV6PFK4riIfGx+yuWWtapie3/Q0GTniKjUpmF
- weSSKJdMxrPGlyLWn0bS+6LfBrPTAK//KLT+Lj8RIIAsW5KTEwdSOfNix
- oJlx6fWHLIlvRddZg+jGmWEdzZF1xq11+dO1lk90gsKM5zsblEHev3vtH
- G2CIYB2qIMLX3EBaTNIGDRzaYSkhcCtOijFeW2PBS0BhGyxOGZEijUS13 A==;
-X-CSE-ConnectionGUID: uV04w99JTTKx+SnC/BYMVg==
-X-CSE-MsgGUID: 5pghw2EBTaaSWO6vscPhow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85110224"
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="85110224"
+ bh=F4RbyWdjkpUERW0iT8svzCycvbL9EYjTmkySNshWd6Q=;
+ b=IKdk+uUCLal8qVBsKQtsPvqHsv4yXgjlNlALyFLG9XxcRBmJtb2dZOAe
+ 2XfhgovkeN+WP4zAXEck4bjBDFVxRW8MG5cqQ/UzYXSWoceJzAdECZYQc
+ kVlCtoRXA7TLU20AX1G43C5Xia+KpxHq6/mCPatZBOck5WtnIp+i/ZG9L
+ RrsvglJTKqgVGEftdwBnSV+nfnd3JHVEnvGkGnWTSFJZJRkla1cpuVG2s
+ adOIUSzNV3c0W61vp22n6RIfyGZlutnu7ppeNi+RdczpmiLGnoyNmZmen
+ 1sQwtk7HI67KtXgjQhZIBWIxrQCsQzV5jOGh0T50lYT5oL6sz0HP5YT81 w==;
+X-CSE-ConnectionGUID: nRG0bg+8TIyGwfvEoSDBlw==
+X-CSE-MsgGUID: ONPSSe9bQhCM4UW9ogQFBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="85110227"
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="85110227"
 Received: from fmviesa010.fm.intel.com ([10.60.135.150])
  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 03:28:42 -0700
-X-CSE-ConnectionGUID: H0N8nGyBQ/KqbpGUk6Wgtg==
-X-CSE-MsgGUID: Fryww1+yQF6HnbFvjgTQ4Q==
+ 22 Jul 2026 03:28:43 -0700
+X-CSE-ConnectionGUID: jrZXHVEPRAKeuWW1c3zpBg==
+X-CSE-MsgGUID: x1p63RHRTu+mzymC1EYtww==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="254143385"
+X-IronPort-AV: E=Sophos;i="6.25,178,1779174000"; d="scan'208";a="254143386"
 Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 03:28:42 -0700
+ 22 Jul 2026 03:28:43 -0700
 Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
  ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 22 Jul 2026 03:28:41 -0700
+ 15.2.2562.43; Wed, 22 Jul 2026 03:28:37 -0700
 Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
  ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Wed, 22 Jul 2026 03:28:41 -0700
+ 15.2.2562.43 via Frontend Transport; Wed, 22 Jul 2026 03:28:37 -0700
 Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.23) by
  edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 22 Jul 2026 03:28:41 -0700
+ 15.2.2562.43; Wed, 22 Jul 2026 03:28:37 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JqM7JaEo40PgqEsgK7e0YBS5aHkzjK9gM3glSSm1BcnldVuAkE8KYoRswXmT2zdD7MZ8DkDYRY3+6zjU6fxUtEVzBUtEqQnlH9WwKbQjtuIfALLabDamppy4ga7XCBUDUa3gL0FM597ijfF+ScEKHUh0rNa1B6BaNHUkrFo9wwh+rlMTKkYaJPjtmAkh1NyFJPK4dqJ4p4cFBp8HKwu1mQRf5H+AbR5P7zaLR51p6lTk/N4YwU/i4L+iqYjA38l8wUlc7vrh4VWTeFvVn3JJOuFS10yqtC9KUQbb7D+Z0/1fVj9pEAwWUUppVZ2Qe2L1/Ic8GdVrYibyPsLiYNdt8A==
+ b=AW95NQrvjx0V3d/rG30JOdFWnuK5df7Dnss36hYE99undugs7ydh5DaPX3370uXaHvZsvQpFKbsdJTk4ssFKz3E9eGFCIcl2RE1whb6tZgPenprIciyx5R74JrBvNdBUpI3LAflX6O8cMubQ8b7KnB6DFEeIX3fDRWVKZ7WTEpzmm/YvuHHYWZS5/KDICfyySSJB8rZ+wNM/AikFGVx1f7fHTiFI5+ArhoOR3eQ0nyMTDV61iTGLS24gs+/VoEkvYKqdJR/AZjbLU/XHafWh3NrhYMqKRYoqjyBGXRWKEL/Tsxmh8LrptRTzxMMSerIgrQc3jS/FkYFJcXSCGCKjUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EQHD8VWE7xTv8Makl71+3qasBDsXRpDfJG8E/OW8ID8=;
- b=CIKvop1Qkgj1Uh0RX9RrgYn4oIBXgzOG8ZTl+iZBTrPHYG+PfVUCM5AmDsZrtK0cbL3BoAdgzvoPGcT7y18Z/o93mxoz4hUIyt+0YuJzesGgYZ5wziuLL6MffS0uGkZT/+iUYpck36a1Te6EMzLqlsWUGpN1OFnsFvi/rbXAVLTrQkUMTtvdJ4q4ZbRqEExaOKJph4Z3LGsyoWrWRfnxa3/EqnrTFA9n7jdgYvCfqmzeQv3VPmYTEwdYdW+s26QgWKSkXR7mubfYLh5jX6vPTauAQPgCAvdyryqYV12Woti/vKvGcdUXCRdeE5pDKqxrIKSv+ZbWI7cuz4KZYd5i1g==
+ bh=dMTUBA4YNMv+jpSznxIEIGdB/zq7L4bmc+p/4UQB2Yc=;
+ b=v4yDZXVeZLyNlPCyMHaiT6G1GVirnz9Lid1lvdgbH6YsCQs4GWnKLqJEKXmnGHWetNi3SXB+i/Zg5Sx/+6yr5IbLZBjKhbp99hFXkIhor5PqQEZ6iar3Bi57uK+ZYJctAbEI9pnqUMwQ9HQi9aO4Qr8MzVZavpTaMZY8E8BrwzAeW7As2GWHT2BE/L7giQzJWKOPmkqq/TARBYBc4LCzEN4NZc2KnJ7MaLNJnJhJY7JwiU3w64m64zYMcNfunLWzSrTQWpJ11R8wTLIkfE2sFvphZPRSDqrcQxoUGCxgU0Dycxy+SYF+cSPn3jF/5+d+4pkrb1GPhZm/onULamjhBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -69,19 +69,18 @@ Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
  by MW6PR11MB8338.namprd11.prod.outlook.com (2603:10b6:303:247::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Wed, 22 Jul
- 2026 10:28:39 +0000
+ 2026 10:28:31 +0000
 Received: from MW4PR11MB6909.namprd11.prod.outlook.com
  ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
  ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
- 10:28:39 +0000
+ 10:28:31 +0000
 From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 To: <intel-gfx@lists.freedesktop.org>
 CC: Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
  <andi.shyti@linux.intel.com>, <krzysztof.karas@intel.com>
-Subject: [PATCH 6/6] drm/i915: Convert GVT/vgpu/perf/device-info license
- headers to SPDX
-Date: Wed, 22 Jul 2026 12:29:23 +0200
-Message-ID: <d43701857e271b0381a105a872908eab59bcc3b3.1784713895.git.sebastian.brzezinka@intel.com>
+Subject: [PATCH 2/6] drm/i915: Convert GEM/VMA core license headers to SPDX
+Date: Wed, 22 Jul 2026 12:29:19 +0200
+Message-ID: <833dd9c98f5858dc9315a24f61374be92af5a73d.1784713895.git.sebastian.brzezinka@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1784713895.git.sebastian.brzezinka@intel.com>
 References: <cover.1784713895.git.sebastian.brzezinka@intel.com>
@@ -93,66 +92,66 @@ X-ClientProxiedBy: DB9PR06CA0016.eurprd06.prod.outlook.com
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|MW6PR11MB8338:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92f3e82c-0204-4a71-a35d-08dee7dbfe7b
+X-MS-Office365-Filtering-Correlation-Id: 9f1161eb-2890-45c9-2d26-08dee7dbfa24
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|3023799007|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: nkafSU5HRWAb8DZdJRrhlK6fC7gN6lQ0uIJQ7TDJMaBRVZ5tClvL9cX2C8U6Kmas/RyuIVmVx1u7qi599L/tMMVexfjVtOLAdC0LiflRx0vDMphxfH0DKRG7TuIOmn8wiJF4vvDFxSCb1ngP/A5hOh9zDJ+Glc7bdNhX6oa/1lnrSO+DVsc5LzQ2YWbOhxrCba5x4Thr6ArD9TM6mWNEtxNj1foP3jqSQUFf87iRihNiT8wb0oL1X1LwCKh85nyHy7Ld7rYz04I1tMl01TVRQmxUITc1/aE4qNooqhjKEZHHONrhRb297f17fW/jjqK9PNWAE69/+PFzfYuuchFJ2Z4BZwGWLhf8J614t0w0Kd5Py0QnGtB/TR+3plIeIp/zyT05E4ouveR9B160gNk3rbqrho1gGJU4SPEv8gQMz8rTR/z0lg7lU19SCFAZgbjtReXWCGdYTD2lIcZC7TEXmIr0V0n2JTl+6zZJPF2RRibMVQkHbM0Ko26ybo3quFvW1+QJHWCXd7J9MouXht2Mfcej1Ih2rCyO6kYIyn6nC9v2sA28BdZTHa98AziVE4RWZ6oBgLnOADx19XB664iKg52vcoZrMAwXUeo+po7brrTcHDK9orIasoPDQvVnbEwIzXrxOhT78SBZeB5RqAGtQccis+FXvqdEtlN3euVIi6Q=
+X-Microsoft-Antispam-Message-Info: vwYOOzcLSnPDSBx7XRjKbFC4DMFV8q6mFFJA2rKuQVOotfsGOFGEmJd43Nk9zYfDQPvqOB6lZn8/NsOnI0SSgv/k4DqHeimyKtsZVYWmd3wQJWERurGunZMHJ2XTtRzUtYp0SyRzBvQQ+hUBPGQmO8flUaufyOM3e69G7Olyaujy0tcsR8AUCJ0Bha83yVnmgsI8OYIYrFlRWtgXo7UhOtJTjY+LcFOWb/lM+8JPyUf0rH7LAR7WmZ5XcmSY+6E6she27TELbv83rpDc3H9NrX3F1KBwnuM1Kz5sRhQLsWZGfeZoBtI3vsdlkEhj4qsdK3Xahz/+lt2AaTa0wC5NuU4i6mfeobi60W0tvEn8NR/9tFOq6YIZM9/g0jtNFz5JCvp0n4oPO9EsHOmvqusYbWtnozQ8tan/bUFNdfpa4D8a1Z7UNa/Ep7H2NkWUpYQW54TDP8fAo4vhrVHUl7ev+OWZLW9ojkTED42i8xevFJwBRMwHrdQVLvbp29pVVGLSQrzNLa4qT9x9jeZtExnN0T00paAcbCpy/bxujLoYo5mmX112/XsCYef2+sGZZHL+pcSapqQvf/0foCAKVg7L4lilJIMrTzuHjuPSumMl3KBuX7kXQz3UlPIZ0cl5eim+YzLDOTbHRWO7GwwAY/sqDKjidtrGcPc4HcFzoK5Gcnc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ejVJOS9XVXFTMTIvQm45UVZwQnBkeWVnemlPWHpxQk1SaDZBNmdRRDdDcWdG?=
- =?utf-8?B?T2F5MkJsM0Riem56dzZjOEw0U1dsQjZ6MHcwb3ArTHErek1aM3pORklEQ1FG?=
- =?utf-8?B?MXZrUE9jbzYzMkJlRis1bXdpUnkyM0UrLzlsd1dPRktsZEVEZnBpN3RubGEy?=
- =?utf-8?B?dkdYL2h0Qk80S3U3YjVCem5scGgrdjEzaW8rMkV6WmNYYnpoSjFTak1ucFBw?=
- =?utf-8?B?bnNqZmxxMHNzZUZhcFdUckdyK0NTWFAzN0dLNEZpdzBuTitsM2FrNWh4ZWt4?=
- =?utf-8?B?NkxmaDFOcFVZK2lzRVhYck0relgvRklURFFaV2tCYTVkWFNGK0NRcVRrZG8w?=
- =?utf-8?B?SWpuVXB6Z2FJQ1ZKZkpvaWFvNDFVOS9BcjFRVmdGNG12OUN2SFVpUHlXNWEv?=
- =?utf-8?B?aGI4M2laV0Y3TzAyUWZSTWFXNUpIbTVTbDFNUzNKSk9NeVFQbmgyZW1ZS3NV?=
- =?utf-8?B?VGlYRnpQQWc1aGVzZS9LQnVtK2UxTFdlL0Q4eTdZdU05bGZET3pUVHVpclJH?=
- =?utf-8?B?MmJoUE9pcVhFZzdTcnRBbFI3UzZjMVFXZFcyOEhiQit6aDR2UExQdFlORjJI?=
- =?utf-8?B?MzJFazVRTEN5dHZZcHlZcTJEV2xWM2lzeHpETnZSQjYrZ29zQm9GbTN5ZmUy?=
- =?utf-8?B?TGlxcmN0eWx4amphNU9XQ2w0ZnloTkhvSmJQRkw1ZDc5a1ZZUlNyZlV0dDhC?=
- =?utf-8?B?TDVvR0prNkp6MnpGaExhd2FHNGRYcUp4VjF6Unc1L2JhT1ljM2RYdFk4S3V6?=
- =?utf-8?B?SXZ5dHdnY2pRNi9kdE8xUUxpU3JWMVhvZHAyajZxUGYvclZNWWVLNHZLbitJ?=
- =?utf-8?B?ZjZOUjZyUXV1RFVqZUEyYWZmRzRXOTJNSkFyazhabzBEa09Tc0c1ZUhBRXgy?=
- =?utf-8?B?dXdtWkM2MGV2ZTQwMTJlSDUxeHp4SGFmSmx2U0ZGMG1GSHlreUdRUi9ETlk4?=
- =?utf-8?B?K1ZhQUhLK2RHTTE5WTNkOSt5MnI3MzFVcTNEaVQ2ZlovT2lCTDZXcnpFbXZo?=
- =?utf-8?B?YnIwMVl5MFFXakt3djJVQlRQcHB5YUNlRFh6ZExzUjMrVmdPeFZTS3J0M0py?=
- =?utf-8?B?Y2FyMWI2dU90RVRMbE11SDE5SWNSYTl2Z2U5WkhNMVpNT2I0bzJETVhObU9D?=
- =?utf-8?B?cFF5L3lwbFh3Mjk4V09CMC9HVzNGVE50akdFeUxxcnNGUFpQd0hVdmhnWlda?=
- =?utf-8?B?QjA1bkpiS1p5aDZ3UktzZDljdE1GVWV4S2hTWUJiclFrazEyanVhblVDMitR?=
- =?utf-8?B?RU8zS1FpVnhUOUZXNDBGcDlIblNhS3EySTFQZmlXa0ErRXY3c2JxUjR0NS9N?=
- =?utf-8?B?d20wZVExdCtZeFJabzFjREEyb0ZzTGtvcTZvbnQrRWdwM0N4VWsyUnJYcmE1?=
- =?utf-8?B?dTE3TWc2dE5zbEc0cmlaY0NwVnBVVUc4YjlycS81SHp5SGpoVmlmU2JVL2FN?=
- =?utf-8?B?S2NZZ3lkeEdQSjZHNEpDaVN4RFhpQm1kQUZwK1ZVRDlLNDBRMHVSQlZTWitj?=
- =?utf-8?B?U1V5RFNxN0V1ZVNnMWxhTUJGU2Q4QkRXTmpLVnRMcmliNEtkbkZwd1RTLzV1?=
- =?utf-8?B?OGFwUVhiVjBKT0ZDZ29tSWowNnU5cmM0VFQ5cWxDb3poMWpodExLNjVLZ3pL?=
- =?utf-8?B?RjlVVWQwdGJFRWdSWENUNVEvbG1hRjUwZ2dXZjBaY0ZUamxuNjJRTjNzY1l1?=
- =?utf-8?B?VlhnZ3RMUkNtdHptbS9EUzU2Nm1UOGdmdkd4T3RQL0E0VHVjU3VSUlJuMENs?=
- =?utf-8?B?SWdRa3Zkb0lvL3p5WWdndFh5M0ZjRDNRTEhmM3lrQkYrckcyTkV2WG81SmFm?=
- =?utf-8?B?WmJ4YXNnQTdVNnlYV0pWQlNudEkzZGZYUUxuNGhtaUt0bm45REZmc3NmNXkx?=
- =?utf-8?B?bDlJcXFHQzVZVHIwTUdEY1dweWo0THUwS3ZtSXErTDNTN2FEN2pzQzBLRjMx?=
- =?utf-8?B?eExUZUdXNThmejlGcmxkQWNydGhUQ0ljbEhWQ3YxeDBsTTdNMHQwMXJKQUkz?=
- =?utf-8?B?cE9FdWE2NTk5TjB3ZGlaVU0xMkNSUTFxbjlLQ3RzbDcvcjR3bmhWZXo4bEJK?=
- =?utf-8?B?am9mVWRwMXdselBFTjk2c0NqSlAyMTh5OTRrenBzU0dXY2ZyMXVFSFVYMEdP?=
- =?utf-8?B?V3ZIM0RhWHBablVKS2FHc0dtenVyNGVteG5CMUM4TzRZVGRHbnB0aUJwc1l6?=
- =?utf-8?B?b2NMdWhXd01QbFd5V01PTXBxeFVvVHpFUmlhME5nQms4SUFLT3JjOCsrWHFM?=
- =?utf-8?B?eWU5clhiQ09STDVLM0ZjTGUvVTFVbjVHbFZRdUxhbGlrOEhzQ3VXZGI0NjNN?=
- =?utf-8?B?R2EyZjJDTzQxcWRwUCt5VmlaV1FUMlU1ZjZBcWxTbmhKeWZ5OVJqZ2dmNFgv?=
- =?utf-8?Q?ITIDy/xkJmxPa2dw=3D?=
-X-Exchange-RoutingPolicyChecked: NFWcsWle+q4yep4P4x9OODDBb1gaycVJ2FxFu8w1XE7xeHBQrNajqKQY+YxQJGreWp3Oq2diaR9j0WbWM0t32HbFBWXBK2MnCnUCGWCF6Mlts8sYD9TtGgmd2zRjDb6CwYPfSNfPJK4aFXu/idpH+JvYMj8ZTrZUs+0g/aMge/mJmIQQo/dLfvCDErTmX1lh2X06N2b04r27QpoOi4GDaBOMe5xokuow/Wtsf7HASZ8SGXDJt6Cs18zgsJh1Gcru2RGZryqHSGgqmnmUI8zaGhvVVlfVQbEJvLCxxGRYKS+E10scpIUDIGRi8T4uHytYdSiU6k9c2NjIjq1u8Cagsw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92f3e82c-0204-4a71-a35d-08dee7dbfe7b
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dDhVQ1NKaTBaMWFONUQxWEM2b2hqWjV1SDJ5cVBXald0WVB3NVZqa1pVU0dX?=
+ =?utf-8?B?aHhqbnpMMXMwRFV4enVaejFDai9oTUZ6a2tVeTVEd3V6aXI0MzkyKzYwZm1R?=
+ =?utf-8?B?K1V6ckpTVjVHQ2hvRUc1bkFtSllsYU5Lem1RUWFOemlpREUzR3Y2cE0wa3pH?=
+ =?utf-8?B?WGxTL1ZGOEdhNnhldmpkZFBxb2xza1Uxa0hwa1lBQmNtTUtSUitBRE1BOHBq?=
+ =?utf-8?B?WkhsdkF2TTZHcFIvYmZLV08waDJWZjc3NUNoemtKa0FOREpCQ3FuWTA2QTJt?=
+ =?utf-8?B?bVY0MDlkOERwdW9VMGg0c1g2M2pSNVhKK1Y1ZENsaGNFRmZiRnNsSGkwdHU5?=
+ =?utf-8?B?eDhWczJyb2xVaFk3TzQ5TGI3WlBzOWhnKzVIZnBTRUZQblhjeUM1U2hMNWtY?=
+ =?utf-8?B?cVNsRUZjUzRWWm8rUDRqR1ZnVitlVVpid2E3VHZLUWRBdTBjSFFpWE4wQXNa?=
+ =?utf-8?B?Z1dnRU14UmxFUXQ3Y09VdzUyYlRnV2hza3lhbHZmQW5YOGdBQVFtVENwcjMy?=
+ =?utf-8?B?cGxuYVdiQ1FJcVNMMkJYNlRIT050L0lHcE1nZkV1RkxiTmVJcEZaejg4UHds?=
+ =?utf-8?B?ZTlJWjZXeTh0NzFkTnZzSFRGNkFBSkN6eDhkYWMzcVpsaWdZWTZJa3psK3pW?=
+ =?utf-8?B?ZlhVSWMrSXVTNnlIcUx2enpzZ3ZKTk1lWS9ranhKR3dPRDBBR002VTljYkxW?=
+ =?utf-8?B?UmxMeUZBVHltdGlBTmhhaTdhZmIwUnhOTmd1MUVWZEl5TXFYNGJPZzdQcWV3?=
+ =?utf-8?B?aExpdGduTThuN3RCVHRqZ3cxQTB2eXJiY3BlUFNkOVZ6MTNFdlR4Yk9YNmxJ?=
+ =?utf-8?B?ejRoTEkyd0RidnNlMXBtdUJHQ3Vab1pqM3NGekJ1WFk5eWFtVHVpejlOUGtm?=
+ =?utf-8?B?aFhHMTFPaFFja2Ntb3hNU3YwVmFLbVppRW0vSjJMU3Rzc0JqdEYxaWJSQ1Rl?=
+ =?utf-8?B?bTJYVExxN1Y3alR5SjkwNDFWQ3BDbEptemRQOHRscEN6TTIzSnB3M1BYNEZ2?=
+ =?utf-8?B?dUt2V21ZSC9kZVdQdTRRR3d5ZEJydE92M0x1UjFDWm1uYm1mZENwNjNETUFY?=
+ =?utf-8?B?NlVBREx3NStBaXh6MlFYVGI2R2d4UzlNN0pxcGx4dmNiWTNDQmVyZENMcW9x?=
+ =?utf-8?B?cUNxWjFJRGVMK0ExUHVBOEhXQy90TjZrUTBkY2lDRWdTUTJuYUx6ZEUvczJX?=
+ =?utf-8?B?YzF1cUlQbXhZZXRJUjI0cUw0ZWowMnQzbnpYcFZQbFdBVjQ0MWtsd0QwV1VK?=
+ =?utf-8?B?Tms4V3lGWjY1OVk5UjVJUWRwa0hRWHZ4eENMcXRQK2tqR3F5QzRFWEhIaXU2?=
+ =?utf-8?B?eDl2MDVRblVOb2ZMbnQ3VGluaTFpeDkxb2RvNzU0VTdNWXd4bW5mb0tyOCto?=
+ =?utf-8?B?ZGhxS2RXWUNmOHlIdTdwOUN0ZDRySmVQZlIwSFkzRllXZUtQZDlPYmIrellr?=
+ =?utf-8?B?WXI4WjcybGQ2R1ZDUjhDWjBBSjlaVkdDTkFwak5RQjIyTzVpY091TnE0dUdN?=
+ =?utf-8?B?M2ZCRGZDQk1oY3ZrUGVRMWFHVHVrVjcwK3lxN0hKYVFPL25qNXgxNmU4Tkpz?=
+ =?utf-8?B?U1lTUzRBcXZyTDdwYmlWL3cyelRyaklkL3B1OUhVOWxlMk0vclcvTnkzU1dw?=
+ =?utf-8?B?UU1ITzJzaFZacjNoak5RUmlTQ0I5KzFudmxCTmxCb0RHS0VKRHl6dWJYNnNr?=
+ =?utf-8?B?RmlLaUR3VnpCaEx3aTlhUWNGNUJLSTR0QjNiOE1HWWZOR2sxdStETGd6UEpC?=
+ =?utf-8?B?MXZ0STQrWEVnaW5ZbzVxdGxiWHo0L2lnZ1I2aDMxblhZYVdUdy9CVGNGczQv?=
+ =?utf-8?B?cXBwYkQ3c0xsdGd6TTZCcHlJNXhqTE1ENUJmY28yRXhBZnlPOW1yYytFYUZz?=
+ =?utf-8?B?Z25FYkpoSjVPaUI0TUNOVk5OUlZ4TTE4N3AzQlR3R3JDQWh4S1lhVzgySm5Z?=
+ =?utf-8?B?eGc1ckp2bSsxVitQWnoyd0cveDg5YnFjVEwwbDZudWVUVHRSVUZzQTloZnB5?=
+ =?utf-8?B?NEtrTzVPNTNHa3cvMEhhNlZnd2pWNExMN3pWOW1mZGVzUjNQOVpsekZRemJ5?=
+ =?utf-8?B?K1V4bld3MVU2SkovdEs4ZTB6a2VrREJtZ0QyUjcxbTRlQ0w2QS9aamp1WC9D?=
+ =?utf-8?B?Q0RUZ2tneXFCcCtuT29ndmFBSzlQSmMvMVQ0c3kwRmMwNmViWUlDdTlZVEpP?=
+ =?utf-8?B?UnlUeW9BaThZczdobFdQZlBaU29mZVpGcStZY1cwZDRwSnZzakNZMGthQlpS?=
+ =?utf-8?B?OHoveW0vRUJpZnVaWU9vZ2Zma0xQSlBOZURMS2dGNUw1akptNHl0OEs5TDBx?=
+ =?utf-8?B?Q3pZdWZHZFlYM3NYOCtlM2hGb2ZpQlFhd0FjMnMvR0E2a1VQUjlTWWsxeldH?=
+ =?utf-8?Q?6tPwS4B46dreMy74=3D?=
+X-Exchange-RoutingPolicyChecked: FpL197czHdONxteInYKl0nGXb9K1/Ico6o4m1UHl9qonTRSqoMD8VJQ2BbbVR1ZHKK5Ub3qDRMae0lIP9oRtzPRjQj8U7gep8zM6pJaYDwgVmy8p38sMQyK1ccgv4EDdRMTRrSj7QOTpMIZXS2+OL1tk6pySktSNdLqOhI1l88HMY9eRO465qIDeFnopOkqCZp/uWKjvH783iWRIszgj/ZzqtaK4Fur+NXnbfn9CUG6Mpf3R3zYImjpxW/4abp8IeXsGsLCSyHXDoS3IM4CvLvzPwzTpzacSkRjBvcC6AEOkYS1L00sV3mjl1TbhZOmPOYsSfXskUbB6fdGWmHlIhQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1161eb-2890-45c9-2d26-08dee7dbfa24
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 10:28:38.9692 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 10:28:31.6889 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tdIyGQN+zhDDRiOqjpeFesMIE2MqRTh0E2z9RvhEhxAXXOnnjVp6wfkUbfSltipI3Ca2YTQDKJIvcNMjgEcTBOFWP71cavbZqWrGOuuKrkg=
+X-MS-Exchange-CrossTenant-UserPrincipalName: xAbDYcmuo+ptLMyJ67EEuTXNMMtXbIHCAFs9IKcjBT3a3CvqQHXQw2m51BWNKG7wWHkfnNEafgSd+IF3vvW9xT5ogSxCmvcOIRCAwFfqHaU=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR11MB8338
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -170,34 +169,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the verbose MIT license boilerplate in the GVT-g host/guest
-support, i915 perf, device info and register definition files with the
-corresponding SPDX-License-Identifier tag, preserving existing copyright
-and authorship notices.
+Replace the verbose MIT license boilerplate in the core GEM object
+management and VMA files with the corresponding SPDX-License-Identifier
+tag, preserving existing copyright and authorship notices.
 
 No functional changes.
 
 Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
 ---
- drivers/gpu/drm/i915/i915_perf.c         | 21 +--------------------
- drivers/gpu/drm/i915/i915_pvinfo.h       | 20 +-------------------
- drivers/gpu/drm/i915/i915_reg.h          | 24 +++---------------------
- drivers/gpu/drm/i915/i915_vgpu.c         | 20 +-------------------
- drivers/gpu/drm/i915/i915_vgpu.h         | 20 +-------------------
- drivers/gpu/drm/i915/intel_device_info.c | 21 +--------------------
- drivers/gpu/drm/i915/intel_device_info.h | 21 +--------------------
- drivers/gpu/drm/i915/intel_gvt.c         | 20 +-------------------
- drivers/gpu/drm/i915/intel_gvt.h         | 20 +-------------------
- 9 files changed, 11 insertions(+), 176 deletions(-)
+ drivers/gpu/drm/i915/i915_gem.c       | 21 +--------------------
+ drivers/gpu/drm/i915/i915_gem.h       | 21 +--------------------
+ drivers/gpu/drm/i915/i915_gem_evict.c | 21 +--------------------
+ drivers/gpu/drm/i915/i915_vma.c       | 21 +--------------------
+ drivers/gpu/drm/i915/i915_vma.h       | 21 +--------------------
+ 5 files changed, 5 insertions(+), 100 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_perf.c b/drivers/gpu/drm/i915/i915_perf.c
-index 19b82427aa41..327194f1407c 100644
---- a/drivers/gpu/drm/i915/i915_perf.c
-+++ b/drivers/gpu/drm/i915/i915_perf.c
-@@ -1,30 +1,11 @@
+diff --git a/drivers/gpu/drm/i915/i915_gem.c b/drivers/gpu/drm/i915/i915_gem.c
+index a432daf8038a..db380a83eb58 100644
+--- a/drivers/gpu/drm/i915/i915_gem.c
++++ b/drivers/gpu/drm/i915/i915_gem.c
+@@ -1,28 +1,9 @@
 +// SPDX-License-Identifier: MIT
  /*
-  * Copyright © 2015-2016 Intel Corporation
+  * Copyright © 2008-2015 Intel Corporation
   *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
@@ -219,21 +213,19 @@ index 19b82427aa41..327194f1407c 100644
 - * IN THE SOFTWARE.
 - *
   * Authors:
-  *   Robert Bragg <robert@sixbynine.org>
+  *    Eric Anholt <eric@anholt.net>
+- *
   */
  
--
- /**
-  * DOC: i915 Perf Overview
-  *
-diff --git a/drivers/gpu/drm/i915/i915_pvinfo.h b/drivers/gpu/drm/i915/i915_pvinfo.h
-index 683e97ac2430..2fce7303534b 100644
---- a/drivers/gpu/drm/i915/i915_pvinfo.h
-+++ b/drivers/gpu/drm/i915/i915_pvinfo.h
-@@ -1,24 +1,6 @@
+ #include <linux/dma-fence-array.h>
+diff --git a/drivers/gpu/drm/i915/i915_gem.h b/drivers/gpu/drm/i915/i915_gem.h
+index 20b3cb29cfff..e62fd23a2b4e 100644
+--- a/drivers/gpu/drm/i915/i915_gem.h
++++ b/drivers/gpu/drm/i915/i915_gem.h
+@@ -1,25 +1,6 @@
 +/* SPDX-License-Identifier: MIT */
  /*
-  * Copyright(c) 2011-2016 Intel Corporation. All rights reserved.
+  * Copyright © 2016 Intel Corporation
 - *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
@@ -250,54 +242,22 @@ index 683e97ac2430..2fce7303534b 100644
 - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
 - * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-- * SOFTWARE.
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+- * IN THE SOFTWARE.
+- *
   */
  
- #ifndef _I915_PVINFO_H_
-diff --git a/drivers/gpu/drm/i915/i915_reg.h b/drivers/gpu/drm/i915/i915_reg.h
-index 64e906380131..304b32d2d0ef 100644
---- a/drivers/gpu/drm/i915/i915_reg.h
-+++ b/drivers/gpu/drm/i915/i915_reg.h
-@@ -1,25 +1,7 @@
--/* Copyright 2003 Tungsten Graphics, Inc., Cedar Park, Texas.
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright 2003 Tungsten Graphics, Inc., Cedar Park, Texas.
-  * All Rights Reserved.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the
-- * "Software"), to deal in the Software without restriction, including
-- * without limitation the rights to use, copy, modify, merge, publish,
-- * distribute, sub license, and/or sell copies of the Software, and to
-- * permit persons to whom the Software is furnished to do so, subject to
-- * the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the
-- * next paragraph) shall be included in all copies or substantial portions
-- * of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-- * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
-- * IN NO EVENT SHALL TUNGSTEN GRAPHICS AND/OR ITS SUPPLIERS BE LIABLE FOR
-- * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-- * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
- #ifndef _I915_REG_H_
-diff --git a/drivers/gpu/drm/i915/i915_vgpu.c b/drivers/gpu/drm/i915/i915_vgpu.c
-index d29a06ea51a5..617c34510f36 100644
---- a/drivers/gpu/drm/i915/i915_vgpu.c
-+++ b/drivers/gpu/drm/i915/i915_vgpu.c
-@@ -1,24 +1,6 @@
+ #ifndef __I915_GEM_H__
+diff --git a/drivers/gpu/drm/i915/i915_gem_evict.c b/drivers/gpu/drm/i915/i915_gem_evict.c
+index c02ebd6900ae..f1a041cdc861 100644
+--- a/drivers/gpu/drm/i915/i915_gem_evict.c
++++ b/drivers/gpu/drm/i915/i915_gem_evict.c
+@@ -1,29 +1,10 @@
 +// SPDX-License-Identifier: MIT
  /*
-  * Copyright(c) 2011-2015 Intel Corporation. All rights reserved.
-- *
+  * Copyright © 2008-2010 Intel Corporation
+  *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
 - * to deal in the Software without restriction, including without limitation
@@ -313,46 +273,21 @@ index d29a06ea51a5..617c34510f36 100644
 - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
 - * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-- * SOFTWARE.
+- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+- * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+- * IN THE SOFTWARE.
+- *
+  * Authors:
+  *    Eric Anholt <eric@anholt.net>
+  *    Chris Wilson <chris@chris-wilson.co.uuk>
+- *
   */
  
- #include <drm/drm_print.h>
-diff --git a/drivers/gpu/drm/i915/i915_vgpu.h b/drivers/gpu/drm/i915/i915_vgpu.h
-index ffbb77d08048..3c5c3a12d0b0 100644
---- a/drivers/gpu/drm/i915/i915_vgpu.h
-+++ b/drivers/gpu/drm/i915/i915_vgpu.h
-@@ -1,24 +1,6 @@
-+/* SPDX-License-Identifier: MIT */
- /*
-  * Copyright(c) 2011-2015 Intel Corporation. All rights reserved.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the next
-- * paragraph) shall be included in all copies or substantial portions of the
-- * Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-- * SOFTWARE.
-  */
- 
- #ifndef _I915_VGPU_H_
-diff --git a/drivers/gpu/drm/i915/intel_device_info.c b/drivers/gpu/drm/i915/intel_device_info.c
-index bbe3a24fe3d9..708dcf8741d7 100644
---- a/drivers/gpu/drm/i915/intel_device_info.c
-+++ b/drivers/gpu/drm/i915/intel_device_info.c
+ #include "gem/i915_gem_context.h"
+diff --git a/drivers/gpu/drm/i915/i915_vma.c b/drivers/gpu/drm/i915/i915_vma.c
+index afc192d9931b..767a4952c331 100644
+--- a/drivers/gpu/drm/i915/i915_vma.c
++++ b/drivers/gpu/drm/i915/i915_vma.c
 @@ -1,25 +1,6 @@
 +// SPDX-License-Identifier: MIT
  /*
@@ -379,15 +314,15 @@ index bbe3a24fe3d9..708dcf8741d7 100644
 - *
   */
  
- #include <linux/string_helpers.h>
-diff --git a/drivers/gpu/drm/i915/intel_device_info.h b/drivers/gpu/drm/i915/intel_device_info.h
-index 9387385cb418..35344064d40c 100644
---- a/drivers/gpu/drm/i915/intel_device_info.h
-+++ b/drivers/gpu/drm/i915/intel_device_info.h
+ #include <linux/sched/mm.h>
+diff --git a/drivers/gpu/drm/i915/i915_vma.h b/drivers/gpu/drm/i915/i915_vma.h
+index 892306ab935d..7acebe32fbda 100644
+--- a/drivers/gpu/drm/i915/i915_vma.h
++++ b/drivers/gpu/drm/i915/i915_vma.h
 @@ -1,25 +1,6 @@
 +/* SPDX-License-Identifier: MIT */
  /*
-  * Copyright © 2014-2017 Intel Corporation
+  * Copyright © 2016 Intel Corporation
 - *
 - * Permission is hereby granted, free of charge, to any person obtaining a
 - * copy of this software and associated documentation files (the "Software"),
@@ -410,67 +345,7 @@ index 9387385cb418..35344064d40c 100644
 - *
   */
  
- #ifndef _INTEL_DEVICE_INFO_H_
-diff --git a/drivers/gpu/drm/i915/intel_gvt.c b/drivers/gpu/drm/i915/intel_gvt.c
-index 6b43713899b8..95b73d3206b2 100644
---- a/drivers/gpu/drm/i915/intel_gvt.c
-+++ b/drivers/gpu/drm/i915/intel_gvt.c
-@@ -1,24 +1,6 @@
-+// SPDX-License-Identifier: MIT
- /*
-  * Copyright(c) 2011-2016 Intel Corporation. All rights reserved.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the next
-- * paragraph) shall be included in all copies or substantial portions of the
-- * Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-- * SOFTWARE.
-  */
- 
- #include <linux/vmalloc.h>
-diff --git a/drivers/gpu/drm/i915/intel_gvt.h b/drivers/gpu/drm/i915/intel_gvt.h
-index eb2a2be252ca..7cc88fc6f2ef 100644
---- a/drivers/gpu/drm/i915/intel_gvt.h
-+++ b/drivers/gpu/drm/i915/intel_gvt.h
-@@ -1,24 +1,6 @@
-+/* SPDX-License-Identifier: MIT */
- /*
-  * Copyright(c) 2011-2016 Intel Corporation. All rights reserved.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice (including the next
-- * paragraph) shall be included in all copies or substantial portions of the
-- * Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-- * SOFTWARE.
-  */
- 
- #ifndef _INTEL_GVT_H_
+ #ifndef __I915_VMA_H__
 -- 
 2.53.0
 
