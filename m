@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA535C531F8
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74B01C531F5
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8D0C10F134;
-	Thu, 23 Jul 2026 14:08:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2EC710F12A;
+	Thu, 23 Jul 2026 14:08:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lnL+GDOW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CLM0aR9e";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0AA10E485;
- Wed, 22 Jul 2026 16:08:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFBD310E48C;
+ Wed, 22 Jul 2026 15:43:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D58B4071F;
- Wed, 22 Jul 2026 16:08:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482441F00A3F;
- Wed, 22 Jul 2026 16:08:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EA1E540977;
+ Wed, 22 Jul 2026 15:43:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604121F000E9;
+ Wed, 22 Jul 2026 15:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784736499;
- bh=70Ep7Q7Q+hOHdHGDd1WlBsRT3Q12DveziwsIcTZZXqU=;
+ s=k20260515; t=1784734992;
+ bh=z8WqCRRmqZNU6m++x/hJd+wI7SHuI+FdIhlbamrdG1A=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=lnL+GDOW1RNyK8faVj+xog2qSVNXd5RW5OZ1TweaueH4vffC3geYYJCYWnNruwaiS
- SQlqDRNKNPkeFV8pd50akmXs+sysIAJx0dl4qQI1kgjZ6kfYnGNgnNyvZO2RHeen8x
- X1qP6AX16FvbgJG94v217TFQnJ+LPOkihf1JEqv8cWcYINv3KHgBTg196eAiyyVzED
- ODqqwmPRIhhkkPjChZPamQYcsNbf0LXo6MAgOs9eBCf+KjRIMLkkN7puHDnEuCp48e
- gcPqy9EHh5p23lLq8nqHqbWffgpAuBPw/rHyQ4KXf/Fx6ZkfX9yv/WIyidH3EEOx9c
- uKXxeAZUsAjDg==
-Message-ID: <c363ab95-8d8d-46e0-b9ec-d827664b21a8@kernel.org>
-Date: Wed, 22 Jul 2026 18:07:58 +0200
+ b=CLM0aR9eFhPZ9spOJaHdGqkYPBvjwdadVJYlKZTl2YKiFfjcVhRSxPh1PIcdSZLqF
+ 2uDQVrjKOL7KmFktl7pClbl7cKII+MRZc9/6UaOyQfALqfqRWzhAtz2P2hISt6DjII
+ CWqB/cDSvIql3IGoYwtilPu5JaZMRbvxlUgx/GqldGAVbyRwWh0ci6cxI6Nrz0fqLU
+ /E1KAynocQ7mEgmRpP4IShX5p2k0UIxlo2mteluahBk9DcIHRIpb9ZDQ/ba/6DRjn5
+ oYakHop6ZZ+DFl5M5Rcin/qKgqClJMkqtRONWZt8Qxm6ThTbv5R0wMwmL93ssw6GKd
+ eiwmeo4mk1lEw==
+Message-ID: <2eb7b45e-0bf6-4b09-9b8a-ecc0f57f2c39@kernel.org>
+Date: Wed, 22 Jul 2026 17:42:49 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/13] mm/mlock: convert mlock code to use vma_flags_t
+Subject: Re: [PATCH v2 08/13] mm: introduce vma_get_page_prot() and use it
 Content-Language: en-US
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -100,9 +100,9 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
  virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
  xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
- linux-sound@vger.kernel.org
+ linux-sound@vger.kernel.org, Jani Nikula <jani.nikula@intel.com>
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-11-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-8-0fa2357d5431@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Autocrypt: addr=vbabka@kernel.org; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -143,7 +143,7 @@ Autocrypt: addr=vbabka@kernel.org; keydata=
  NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
  OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
  jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-11-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-8-0fa2357d5431@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 23 Jul 2026 14:08:34 +0000
@@ -163,15 +163,18 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the mlock logic.
+> There's a large number of vm_get_page_prot(vma->vm_flags) invocations. Make
+> life easier by introducing vma_get_page_prot() parameterised by the VMA.
 > 
-> Additionally update comments to reflect the changes to be consistent.
+> This also makes converting vm_get_page_prot() to vma_flags_t easier.
+> 
+> Also update the userland VMA tests to reflect the change.
 > 
 > No functional change intended.
 > 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Acked-by: Zi Yan <ziy@nvidia.com>
+> Acked-by: Jani Nikula <jani.nikula@intel.com> # for i915
+> Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de> # for DRM
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
