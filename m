@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58AB9C531D4
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68EF9C531D2
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADE5010E09F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D361910E5B0;
 	Thu, 23 Jul 2026 14:08:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z312ICh0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a4vdnNdZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77CC510E477;
- Wed, 22 Jul 2026 14:31:43 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11C4410E44C;
+ Wed, 22 Jul 2026 14:18:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 664DE600AF;
- Wed, 22 Jul 2026 14:31:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735B01F00A3A;
- Wed, 22 Jul 2026 14:31:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BC1C4432E9;
+ Wed, 22 Jul 2026 14:18:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998571F000E9;
+ Wed, 22 Jul 2026 14:17:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784730702;
- bh=OvPrDFwM1EEVYtQ4pZxzQ4Crg7V635gU058Fwjy4pjg=;
+ s=k20260515; t=1784729883;
+ bh=nr20QdluTC6Xb2QJCx/L2OqHD3wYjRZzxUHD+ltN0io=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Z312ICh01hwf5PNipjdUbCmTEpxOFlzpFrFpEbvVg2M62vqBeTEwf2myPaFZw7tPE
- VB8S2/xH3Cb64UA1VtTgUUNTgWkDHNnMSRIScWWwylFYdqQUJf29ZSBT+8tvuVKFT+
- qpgOuQvv4nbvr4jbtsA43T6qNk4ivRr13hGczyw/g2FSRI/UCbh4ijU+6nZylJLPk5
- +vUMLKp/zTcjlaGh9h6kCxmkwMXMYDyA4hWh4uxOZC5o0Hhq3C4INZyEa9oR4qk8id
- AL8BavBz/vrgJflUQPB3q0Ym1iVOZACXNzbgj3bOumnwJsWuqmyNhwK6KU112+LaeT
- oiB3ruF4FVC7g==
-Message-ID: <0c9b4dbb-95c2-4d19-935e-18a45d8aefd2@kernel.org>
-Date: Wed, 22 Jul 2026 16:31:22 +0200
+ b=a4vdnNdZSy07RDuS+C9gat8xlWANgEMGre2Gt8w50+S/RARkD/NxqriSXn9wrozPj
+ E5W9CBr1d7eepeguATkGjOrPXaqKaMp0+xcdJH6JVLGWRdkxSRqsBQirTItAu9VNRf
+ xKAJOUg/URAYNGPYd8y4vGKj+ONw/nWOpgBtlfPsR8ltFxfx8IoinmWT2jtQMA7WpP
+ nozoGRCEMkB8851Fg9u/prJ/JOJKbaLEpz8L+8Zr68k62Ilb0p88pE+y3ZC8cSKbhK
+ kBpgQZfX/d3Rxy5rU6yBQqCx1AN3uW+o51yyGmm2In6YviRmTxHVmf6qDl7Zlbt9Ib
+ DwnPnhWrhgAMw==
+Message-ID: <ac18f5bc-62a9-41b0-8980-a4c465a4229a@kernel.org>
+Date: Wed, 22 Jul 2026 16:17:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/13] mm: prefer mm->def_vma_flags in mm logic
+Subject: Re: [PATCH v2 03/13] mm: convert __get_unmapped_area() to use
+ vma_flags_t
 Content-Language: en-US
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -102,7 +103,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
  linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Autocrypt: addr=vbabka@kernel.org; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -143,7 +144,7 @@ Autocrypt: addr=vbabka@kernel.org; keydata=
  NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
  OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
  jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-5-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-3-0fa2357d5431@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 23 Jul 2026 14:08:34 +0000
@@ -163,28 +164,19 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Currently mm->def_flags (of type vm_flags_t) is union'd with
-> mm->def_vma_flags (of type vma_flags_t).
+> Update __get_unmapped_area() to be parameterised by vma_flags_t rather than
+> vm_flags_t as part of the effort to move VMA flags from a system word to a
+> bitmap.
 > 
-> As part of the effort to convert vm_flags_t usage to vma_flags_t (in order
-> to no longer be arbitrarily limited to a system word size for VMA flags),
-> prefer mm->def_vma_flags to mm->def_flags throughout the mm logic.
-> 
-> We update dump_mm() to use the %*pb format which means we make no
-> assumption about the number of VMA flag bits on output when outputting
-> default VMA flags.
+> We cascade the changes up to arch_get_unmapped_area_topdown() and
+> arch_get_unmapped_area(), where, for now, we use vma_flags_to_legacy() in
+> order to propagate the VMA flags.
 > 
 > No functional change intended.
 > 
 > Reviewed-by: Lance Yang <lance.yang@linux.dev>
 > Reviewed-by: Zi Yan <ziy@nvidia.com>
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
-> ---
->  mm/debug.c |  5 +++--
->  mm/mlock.c | 13 +++++++------
->  mm/mmap.c  | 11 ++++++-----
->  mm/vma.c   |  2 +-
->  4 files changed, 17 insertions(+), 14 deletions(-)
 
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
