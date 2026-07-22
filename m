@@ -4,149 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC76C531D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E17EC531F7
 	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E41D210E5A3;
-	Thu, 23 Jul 2026 14:08:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EE6510F131;
+	Thu, 23 Jul 2026 14:08:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ust3bdj7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nu2dRBj5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1356A10E485;
- Wed, 22 Jul 2026 16:09:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 04F24600AB;
- Wed, 22 Jul 2026 16:09:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B26D1F000E9;
- Wed, 22 Jul 2026 16:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784736575;
- bh=hm/5iL9EveGYA3vJkgF8R7lbasRuEO1iSSKVyzrOX0w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Ust3bdj7ZEAIy4n4wtOYmRrwIQMPYailb9NKjIw+PKcSHQ8vdpkni8H9CvqYAd7ol
- sYRVz/kVItg+dwjuYK2krwBem8+veFMitxTLh/YTkHWhVNjP51455v1a9nrqh6Ik0y
- viIYvdj57qXS44HtDjKV8s67omerf7XX+Dc7blWdQgjVJBj1PsD9HIXLgWzqmt11EB
- SfbWgbCZAj446RLfe1lnmBgaAIG3mecQ4G6Pux5a/pXFPkXy2VrYG9pruPTPvsgQc4
- DKAHr6nz3y5prdMIJ1evrpm4+rGT63RjYoIMfAKzeOw1IfR0c0eJfd7IjnNEuR5DmG
- V8ez2dOJEIeUw==
-Message-ID: <1bab7f72-9de0-4237-971e-6b8e1aff1d6d@kernel.org>
-Date: Wed, 22 Jul 2026 18:09:16 +0200
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
+ [74.125.224.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED8B210E486
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 16:44:29 +0000 (UTC)
+Received: by mail-yx1-f52.google.com with SMTP id
+ 956f58d0204a3-667f1390f58so9743170d50.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 09:44:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784738669; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D+DiGBGLbRTywRFhbygRV+xyBErMJwlXBjYTvwBYIR+WikbHvq7+iNU8iCCA8AWMWd
+ v5mODTYSstIBX4bbM8OQpbZ6oeWanwiDmuIoqzb5EP/cqG9OhClGCN/BbciLe3NkbpK7
+ nnFjVE9VO5BASNPzKKBRCkkh0T2liZziuEXiKqupBWpvaifnGDLISgV9Eow1yGzZKxm6
+ 2sT+6WNBXny3JWHiGuwTS68K1hKiQW7CzaR5ofeiGOTYMCVNLF3AGJ/Rnx64DodHn6K3
+ LOrPYSKkH3RKhPN5cinfnsDukYmYAwc1Mqr+hiXg/5mg2SSYnLwl5nHbaMGLFrRaChHF
+ npQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
+ fh=bVj4xFcb6aTir7w5epYtdeRyaYfA2qmtAfDxVhi1/bk=;
+ b=J3ogHBlvHtPP3x3aGIGYh5nAzWwNr/lLHx0jE5DA3vM/r+6GfmV9mqA5VDcieJOge9
+ Fpe/X5tbUPQaNTaJ0lN1ktEfRlD7ItOezZ12xhg9e8cUR2ck7CxbViDaehI7XvzBBDzg
+ nIRrA4Xrpttdr9kJgr6hBxUjzUrFrLCqEhHs7ILuhm3FHy/idG+Jsje/KRSxFZjLSGBS
+ 8ZElUNUlIvxXHHQZafIovLsiedwDadY+/q/+la4SxSYpx4VSOWq0sqXUpmSKlulUdrkm
+ i+7oRSmzFGHd6nX4APRuqE0uL/1VNthIMYQeona8yRjSLTf7jEbf3uC16fXJzAHeqAYF
+ A1uQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784738669; x=1785343469; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
+ b=Nu2dRBj546yt7EYskjRYjLJXSglLr1Tk4Upm+bGqJ1zLDPMax9IfT5JaRhLVxbRhhB
+ O92emjePqIAdilw/2pitl8xXg3YNuMYFVXwIrFcTEw8rZQc8q/hx0dDBFG90ivOY4ab5
+ 6rsQgsSqozVzQp2WteYAinkDvLVMwRVgnZ78+zTBgoWNoeDd9H2ZOSK0UKpSxWT0FR82
+ 6iAWzNgp6lXEh7247BaQomiTJCt+xFpG4akqNSv2r4uaTormlczmfqcha5hDTzU4MTjE
+ F3p3rvKPEQQ5OJq5Dd8ILC7XPYBig4Vhd110ytjad04JC1pAxNfwDtoIAFwLtq25IEl0
+ 1T3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784738669; x=1785343469;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6vCGv/RyeVFnoEW9tIkNt/ZBPJkW6RlvdlpEDoVrknM=;
+ b=TMY+i9WOX5uER4iICGTJsjeoHg6keSeY2MDzPbNOgBAA9h4DLwDyEkB3OXb7+AcOby
+ UbG+IxMfV90h1OdkFg/HWijNQ9sKwMBwf0VHv6r6F8d3idBZFwrcR5ExzdfWFa6bTCbq
+ 5GF/JRRG08GwUBUBhm630FyZjUGny+S+YqsZtutLjiL01Azh9lKb/Q3Oyr7axZCOE9UT
+ 1E1aDyjZKmdLOk9tU1TeEhltW//o0aAM/A9xEcGZ+1VYHgm8apx+88kms7Rogkhloxct
+ t2Qe8mnU7Zo+mrcNeoPrkgK6jPjNzmJnY2GnqHgFUNkxNV0f9WdzVHC5Ruqf+vrS7CZM
+ wgqQ==
+X-Gm-Message-State: AOJu0YycmVjocKYmrt5i29+daCs/LPg0Wn2YmfiMpFez3PJW32G3874k
+ Dl0vUrG+BPgcdWiReqJmjmDjh8ZzF8Fp4OtqAHLE0irmsxVy29gXFsyUNIMmxLhJqkmRBewstIh
+ cQrv6L6AW8QyZAQm4q6w+GPac2Nw5m/Y=
+X-Gm-Gg: AR+sD11kyZAqq1HTJET3oeUwdGctyFMfQWzmTBGI2xYX6K4vRP5jB15KSOQsYoUnA68
+ 0O/mxiYIkaqsdqIaxWDkO4D2SYBMvVOYqyPB2KoyWl5xvS8Pvyzu2jjKOOsXkoq1TLwCTSOYxwu
+ mGxpmvIEUr+sTXh6Ju8DceEAEQUY36NgOsd7guEISukWgvheG7Ux5NQPHXsJw7NTfuxbD/IvtU4
+ opA40zP8DSEqKdRH12ylB5/Ce9QcRjOafFfiRJCpVD+GrbNlgZx5Os64GSz4LYzb7ZkbpcSCJWF
+ ixnJctqF5y7WioflBK4/JSBo59g=
+X-Received: by 2002:a53:a6d0:0:b0:667:e2e1:4c with SMTP id
+ 956f58d0204a3-6683bb03e7bmr4142068d50.2.1784738668720; 
+ Wed, 22 Jul 2026 09:44:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/13] mm/mprotect: convert mprotect code to use
- vma_flags_t
-Content-Language: en-US
-To: Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Benjamin LaHaise <bcrl@kvack.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Zi Yan <ziy@nvidia.com>,
- Nico Pache <npache@redhat.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Helge Deller <deller@gmx.de>, Kees Cook <kees@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-aio@kvack.org,
- linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
- linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
- linux-sound@vger.kernel.org
-References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
- KxRWDHX0R2tgpFDXHnzZcQywawu8eSq0LxzxFNYMvtB7sV1pxYwej2qx9B75qW2plBs+7+YB
- 87tMFA+u+L4Z5xAzIimfLD5EKC56kJ1CsXlM8S/LHcmdD9Ctkn3trYDNnat0eoAcfPIP2OZ+
- 9oe9IF/R28zmh0ifLXyJQQz5ofdj4bPf8ecEW0rhcqHfTD8k4yK0xxt3xW+6Exqp9n9bydiy
- tcSAw/TahjW6yrA+6JhSBv1v2tIm+itQc073zjSX8OFL51qQVzRFr7H2UQG33lw2QrvHRXqD
- Ot7ViKam7v0Ho9wEWiQOOZlHItOOXFphWb2yq3nzrKe45oWoSgkxKb97MVsQ+q2SYjJRBBH4
- 8qKhphADYxkIP6yut/eaj9ImvRUZZRi0DTc8xfnvHGTjKbJzC2xpFcY0DQbZzuwsIZ8OPJCc
- LM4S7mT25NE5kUTG/TKQCk922vRdGVMoLA7dIQrgXnRXtyT61sg8PG4wcfOnuWf8577aXP1x
- 6mzw3/jh3F+oSBHb/GcLC7mvWreJifUL2gEdssGfXhGWBo6zLS3qhgtwjay0Jl+kza1lo+Cv
- BB2T79D4WGdDuVa4eOrQ02TxqGN7G0Biz5ZLRSFzQSQwLn8fbwARAQABzSNWbGFzdGltaWwg
- QmFia2EgPHZiYWJrYUBrZXJuZWwub3JnPsLBsAQTAQoAWhYhBKlA1DSZLC6OmRA9UCJPp+fM
- gqZkBQJqFFy6GxSAAAAAAAQADm1hbnUyLDIuNSsxLjEyLDIsMgIbAwUJGtCBUAULCQgHAwUV
- CgkICwUWAgMBAAIeBQIXgAAKCRAiT6fnzIKmZJIUEADFx/tREzUImHrEwVHeSvDFmA7tJysI
- UVrlvrM09E7GIuzphzv7jYmo8n3ANpCczLEVr4G0syYQdTigaZgv3+FQDIIzhKih1IHhu1Ei
- XHlywNWKnQxxQEUNi5Mwx43wQz5XVw9F1A7gtKBKNtfogO511hAbrzagrYajyQacEJ/+sfhZ
- 9Da8ltHIXD8pcYaHUfQgEusCgmEd9+KrUwrTbckFKmYq5chuE6yJ4J0EmWknL096jIE6CnzF
- FRslQ3B1UKDjxVsm1ZHfir5NeWszLkTvGFsddFaWTgh8UycESG6VQzKXjjewXu2pG7YQYRpj
- QKm1W5X2TkwWkXRBZTmfmbhxIUMh3+zf5wQ463rSmDN/8v81tdqBtAW6rH/kzg1GvkaTHXn0
- 507yEHFzBksk2viAuIxxr7km8+/KARYLIdGtx30EG8cKzAUZOK6WqxtNCsXUJNrVE8CWrCaD
- icoNu7Fs1c5hmPHdSTnU48ce67449DdnO4neLSNhRiGlMHJgfJUmgrxu/hcYeOZ3haWmEQ2w
- uW1Mh01OHi8QZHCEyAbABrPs9GUgccc/4eYXX9hIgxfSkYzn8f+8NuIFPWl/0uTvjgqU29FQ
- SbzOLxHq9439Ox40G5mS5eZXRGxITYR+6TXvRGI6P/264jvflnr/pDGUttaikU+0W+1uxgKH
- cmYbEc7ATQRbGTU1AQgAn0H6UrFiWcovkh6EXVcl+SeqyO6JHOPm+e9Wu0Vw+VIUvXZVUVVQ
- La1PQDUi6j00ChlcR66g9/V0sPIcSutacPKfdKYOBvzd4rlhL8rfrdEsQw5ApZxrA8kYZVMh
- FmBRKAa6wos25moTlMKpCWzTH84+WO5+ziCTsTUZASAToz3RdunTD+vQcHj0GqNTPAHK63sf
- bAB2I0BslZkXkY1RLb/YhuA6E7JyEd2pilZOrIuBGl/5q2qSakgnAVFWFBR/DO27JuAksYnq
- +aH8vI0xGvwn75KqSk4UzAkDzWSmO4ZHuahKtQgZNsMYV+PGayRBX9b9zbldzopoLBdqHc4n
- jQARAQABwsF8BBgBCgAmAhsMFiEEqUDUNJksLo6ZED1QIk+n58yCpmQFAmfIHFQFCRYU6J8A
- CgkQIk+n58yCpmS2PA//bqN1LfcotmArgElsa+0EGZSQlYgK48pm8WAeTXTngudP9IJ4SuKY
- HR5RNjHcBeqN+Me0zxRqYzRb8nGanHEkDyf4Im8DQM8d6vbyU+FcPmG4skud4kgS1zMHnlVd
- SXfSIwKC/hKgdHG8aBV7545Lz9X6Iohea+94wneD0aw/hqF+QWewGZhWJriWAZtvEkzNjQOi
- 4U9F/trLten/x7bpphDSnDMKJtITbtzATT1Dq7o7VpIUK1nCTQALMuMjKCdi8OdU/+V+R3O4
- 0PXWvX8qrvqYapVbZ+9KqT74FsuB0Ya9uXwgBF2Q6cRuETZk5vqaqKxzqoQZCO8AOz/58j6O
- 2RHNy/mZEN+7tJ5Tsq42zVJ4jxsT8b9YplavCMsnBgDeRWhcbYhCyttoL7nYISyWg4kQYZ/P
- wIV3OuNv2f8iKYsxNsRuClOAF82+gvqOy1/1pprFjy8uo2pkoOrb63aOP3vO5VHnRKgra6dq
- NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
- OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
- jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-12-0fa2357d5431@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260722154802.3760046-1-johnfoushee@gmail.com>
+ <DS4PPFE901A304F30C76A6DDF48BDAAE920E3C12@DS4PPFE901A304F.namprd11.prod.outlook.com>
+In-Reply-To: <DS4PPFE901A304F30C76A6DDF48BDAAE920E3C12@DS4PPFE901A304F.namprd11.prod.outlook.com>
+From: John Foushee <johnfoushee@gmail.com>
+Date: Wed, 22 Jul 2026 09:44:16 -0700
+X-Gm-Features: AUfX_mwNuDWTzYcYl8OndK4uZQVeNS7dreLBBMCpSlV4-VUHUR7Lah18YjNHuuI
+Message-ID: <CAGsDCxQ30bUzMbzSigA-o55zX=vzyeP91g38ZDvzJftppp17uA@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/backlight: allow hybrid pin-enable + AUX
+ brightness panels
+To: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+Cc: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 23 Jul 2026 14:08:34 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -163,19 +111,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Replace use of the legacy vm_flags_t flags with vma_flags_t values
-> throughout the mprotect logic.
-> 
-> Note that we retain the legacy vm_flags_t bit shifting code in
-> do_mprotect_pkey(), deferring a vma_flags_t approach to this for the time
-> being.
-> 
-> Additionally update comments to reflect the changes to be consistent.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
+> Hi John this fix has been already floated, reviewed and merged some days
+> ago to drm-intel-next.
+>
+> https://patchwork.freedesktop.org/series/170522/
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Thanks, glad it's fixed, and happy to see the same conclusion; please
+disregard my patch.
 
+For the record: independently root-caused and tested the same change on a
+Google Pixel Slate (nocturne, Tianma Y156ZAN02.0: advertises
+BRIGHTNESS_AUX_SET_CAP without AUX_ENABLE_CAP, ignores PWM for brightness,
+and resets the AUX brightness register on every panel power cycle, so it
+resumes from suspend to a permanently black screen without this fix). With
+the equivalent change on 7.1.4 the panel's AUX brightness register is
+restored across suspend/resume and full-range brightness control works,
+so feel free to count that as a
+
+Tested-by: John Foushee <johnfoushee@gmail.com>
+
+for commit 7d594b24 on real affected hardware.
+
+One question: the regression (ed8be780bdbc upstream / 102d44b3a8fa in
+mainline) is present in the shipping 7.1.x stable series, but 7d594b24
+doesn't carry Cc: stable. Will the Fixes: tag be enough for it to be picked
+up for 7.1.x/7.2.x, or should it be nominated to stable explicitly?
+Affected devices are unusable after any suspend without it, so a backport
+would matter to users on current stable kernels.
+
+Diagnosis details, DPCD dumps and EDID, if useful:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16679
+
+Thanks,
+John
+
+
+On Wed, Jul 22, 2026 at 9:22=E2=80=AFAM Kandpal, Suraj <suraj.kandpal@intel=
+.com> wrote:
+>
+>
+> > Subject: [PATCH] drm/i915/backlight: allow hybrid pin-enable + AUX brig=
+htness
+> > panels
+> >
+> > Commit 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible c=
+heck
+> > condition") restricted the VESA backlight path to fully AUX-based panel=
+s
+> > (enable and adjustment both via AUX), on the grounds that the hybrid
+> > configurations are not currently supported.
+> >
+> > The hybrid pin-enable + AUX-adjustment configuration is however already
+> > handled: intel_dp_aux_vesa_enable_backlight() falls back to the PWM fun=
+cs
+> > for enable when info.aux_enable is unset, and
+> > drm_edp_backlight_init() supports aux_set without aux_enable.
+> >
+> > At least one panel requires this configuration to work at all: the Tian=
+ma
+> > Y156ZAN02.0 in the Google Pixel Slate (nocturne) advertises
+> > DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP but not
+> > DP_EDP_BACKLIGHT_AUX_ENABLE_CAP (DP_EDP_GENERAL_CAP_1 =3D 0xfb,
+> > DP_EDP_BACKLIGHT_ADJUSTMENT_CAP =3D 0xff). The panel ignores the PWM
+> > pin for brightness adjustment, and resets its AUX brightness register
+> > (DP_EDP_BACKLIGHT_BRIGHTNESS_MSB/LSB) to 0 whenever panel power is
+> > cycled. With the PWM backlight funcs selected, the panel comes back bla=
+ck
+> > after every suspend/resume or DPMS off/on cycle while all driver-visibl=
+e state
+> > (link training, PPS, PWM duty) looks healthy.
+> > Firmware rewrites the register at boot, which masks the problem until t=
+he first
+> > runtime panel power cycle.
+> >
+> > Allow the hybrid configuration by requiring only AUX brightness adjustm=
+ent
+> > capability; backlight enable keeps using the pin/PWM path via the exist=
+ing
+> > fallback.
+> >
+> > Tested on the Google Pixel Slate (KBL-Y) on 7.1.4: i915 now selects the=
+ VESA
+> > AUX backlight interface, the panel's AUX brightness register is restore=
+d across
+> > suspend/resume, and brightness control works over the full range where =
+it
+> > previously had no effect.
+> >
+> > Fixes: 102d44b3a8fa ("drm/i915/backlight: Fix VESA backlight possible c=
+heck
+> > condition")
+> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16679
+> > Cc: stable@vger.kernel.org
+> > Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+> > Signed-off-by: John Foushee <johnfoushee@gmail.com>
+>
+> Hi John this fix has been already floated, reviewed and merged some days =
+ago to drm-intel-next.
+>
+> https://patchwork.freedesktop.org/series/170522/
+>
+> Regards,
+> Suraj Kandpal
+>
+> > ---
+> >  .../gpu/drm/i915/display/intel_dp_aux_backlight.c    | 12 ++++++++----
+> >  1 file changed, 8 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> > b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> > index 7a6c07f..a5c03c3 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+> > @@ -616,11 +616,15 @@ check_if_vesa_backlight_possible(struct intel_dp
+> > *intel_dp)
+> >       u8 bit_min, bit_max;
+> >
+> >       /*
+> > -      * Since we only support Fully AUX Based VESA Backlight interface=
+ make
+> > sure
+> > -      * backlight enable is possible via AUX along with backlight adju=
+stment
+> > +      * Brightness adjustment must be possible via AUX. Backlight *ena=
+ble*
+> > +      * may come either via AUX (DP_EDP_BACKLIGHT_AUX_ENABLE_CAP)
+> > or via the
+> > +      * BL_ENABLE pin, which the VESA backlight code already supports =
+by
+> > +      * falling back to the PWM funcs for enable when aux_enable is no=
+t set.
+> > +      * Some panels (e.g. Tianma Y156ZAN02.0 in the Google Pixel Slate=
+)
+> > +      * support only that hybrid configuration and ignore the PWM pin =
+for
+> > +      * brightness adjustment.
+> >        */
+> > -     if (!(intel_dp->edp_dpcd[1] & DP_EDP_BACKLIGHT_AUX_ENABLE_CAP
+> > &&
+> > -           intel_dp->edp_dpcd[2] &
+> > DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
+> > +     if (!(intel_dp->edp_dpcd[2] &
+> > +DP_EDP_BACKLIGHT_BRIGHTNESS_AUX_SET_CAP))
+> >               return false;
+> >
+> >       ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux,
+> > DP_EDP_PWMGEN_BIT_COUNT_CAP_MIN, &bit_min);
+> > --
+> > 2.47.3
+>
+
+
+--=20
+
+@foush
