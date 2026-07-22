@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BB16C4452D
-	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 04:49:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6678AC44512
+	for <intel-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 04:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF96710EC3A;
-	Wed, 22 Jul 2026 04:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAC0610EC36;
+	Wed, 22 Jul 2026 04:49:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Fh1uNlwo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lmWYBLi6";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F28A10EC39;
- Wed, 22 Jul 2026 04:49:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F59210EC33;
+ Wed, 22 Jul 2026 04:49:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784695788; x=1816231788;
+ t=1784695786; x=1816231786;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KEXAu3WsVW4/BiuyOmrw7B/P8HAGk4nV9/EBz6iVIjA=;
- b=Fh1uNlwoOsqGe8bODnz5IqyZ7yXorevEAS76Je4W/Uqxrj+LVOdMV8f0
- CW6B8TSPuPmtiiBR+D6rzOx8w2uqCdq0aJPUdboyE7jGdIwvQeSiyyfwM
- mUySgTLnkq6QHj7GOHvXgO8/nhnAPE2LIO6FoNrQzaoEF8TuCmEGZYpcv
- tzlylmihxrIUWQ1fTZZ0CDKlu4J67c71UlGpUgXVMe2UqXXjKHLg6r4ZK
- xFA9ZaOGoBFiAJvuL01HFcciVhLbnP2tZhzpBnaQhAO/pgKh4yamHIrax
- bEAnHSULdhBWtt3ndzCLOjwmRcOozVGPpX7lT7uZt4+FyVFsrILwbAtlF Q==;
-X-CSE-ConnectionGUID: FMRiLsOATq+QvIqDdRTLNg==
-X-CSE-MsgGUID: 9RiGNMdORAaUGDiGqzJC1g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="84298486"
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="84298486"
+ bh=lLJi6cIdMFOwN1Fz8xbIATaOO7QaWE3zjC0COfdt4k8=;
+ b=lmWYBLi6Zp32w4E4jPXxyOeziul8Oh+nFfizIafhBmmAgj5Wga1lDNR8
+ oZi7xHuNc/2EmAOh2WSDTlDrrdmUGCxS6ZKXdCHmHjimWIgLgITOEBJgA
+ +GRzNpKvOqIOaskT4wFHrC5T76Y+ofeEYY+1RUxlpvNtK1U2LyjhIygZ5
+ gpgyuUmSy6a5pXcYLC44ZKzSNOpwRcDfVNxqQCmHZGH5ktDerj6hc8+bR
+ ceobP09NsXR+oa5b2iV3OLuyDZA/t3qpoZ+h+02acpM0XnZ51HKyTzpLk
+ O1N9wGT4VdVj7sjMxMx9JZYkzcF2GGEky8HQch3DSgcEGVM38FH+w23s6 Q==;
+X-CSE-ConnectionGUID: /4eJ+8iuQwqS6Dvwku1BEg==
+X-CSE-MsgGUID: QshffJ1XRSKddVfhHRVH2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11853"; a="84298485"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="84298485"
 Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 21:49:48 -0700
-X-CSE-ConnectionGUID: VwBgT/CaQEet9EKFI9IUCg==
-X-CSE-MsgGUID: X6tsAj+2SqCv4Yu2gVplZQ==
+ 21 Jul 2026 21:49:46 -0700
+X-CSE-ConnectionGUID: JGc5QZhASAKlCOTP1LRFzA==
+X-CSE-MsgGUID: GjQ1QQx2RQO+5Bsc/4bYIA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="253603229"
+X-IronPort-AV: E=Sophos;i="6.25,177,1779174000"; d="scan'208";a="253603225"
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa006.fm.intel.com with ESMTP; 21 Jul 2026 21:49:47 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 21 Jul 2026 21:49:45 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
  ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
-Subject: [PATCH v6 4/9] drm/i915/vrr: Update AS_SDP target_rr_divider based on
- CMRR config request
-Date: Wed, 22 Jul 2026 10:09:16 +0530
-Message-ID: <20260722043923.3241977-5-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v6 3/9] drm/i915/vrr: Add per-CRTC vrr/cmrr debugfs control
+Date: Wed, 22 Jul 2026 10:09:15 +0530
+Message-ID: <20260722043923.3241977-4-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260722043923.3241977-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20260722043923.3241977-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,39 +67,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Compute AS_SDP target_rr_divider based on actual CMRR request
-requirement.
+Add a per-CRTC debugfs file 'intel_vrr_cmrr' that lets the user force a
+CMRR target refresh rate and video-mode requirement.
+
+The file uses a "numerator/denominator" format:
+  - numerator:   requested refresh rate in milli-Hz
+                 (refresh rate in Hz * 1000, e.g. 60000 for 60 Hz)
+  - denominator: 1000 for a 1:1 ratio (no video timing) or
+                 1001 for the 1000/1001 video timing
+
+Reading the file reports the currently stored values; writing updates
+them. The file is created only on platforms with VRR and CMRR support.
+
+--v2:
+- Drop the "vrr" debugfs subdirectory and expose a single flat,
+  intel_-prefixed "intel_vrr_cmrr" file (Jani, Nikula)
+- Rename struct intel_crtc.cmrr to force_cmrr to make its purpose
+  explicit (Chaitanya)
+- Fix parse comment: numerator unit is milli-Hz, not KHz (Chaitanya)
+- Add debugfs/intel_ prefixes to the debugfs handler functions (Chaitanya)
+- Expand commit message with debugfs entry semantics (Chaitanya)
+
+--v3:
+- Rename debugfs function and file name (Chaitanya)
+- Remove railing new line at EOF (Chaitanya)
+- Update CMRR guard conditions (Chaitanya)
+- Add 0/0 default case. (Ramanaidu)
+
+--v4:
+- Correct CMRR guard check while creating debugfs
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../drm/i915/display/intel_display_debugfs.c  |   2 +
+ .../drm/i915/display/intel_display_types.h    |   5 +
+ drivers/gpu/drm/i915/display/intel_vrr.c      | 108 ++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_vrr.h      |   2 +
+ 4 files changed, 117 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 1915d376b943..23e169d8db7b 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -3111,6 +3111,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
- 	const struct drm_display_mode *adjusted_mode =
- 		&crtc_state->hw.adjusted_mode;
-+	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_debugfs.c b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+index 3f02868ef105..2bbf4760dc30 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_debugfs.c
++++ b/drivers/gpu/drm/i915/display/intel_display_debugfs.c
+@@ -49,6 +49,7 @@
+ #include "intel_psr.h"
+ #include "intel_psr_regs.h"
+ #include "intel_vdsc.h"
++#include "intel_vrr.h"
+ #include "intel_wm.h"
+ #include "intel_tc.h"
  
- 	/*
- 	 * #FIXME: SDP/infoframe updates aren’t truly atomic, and with the new
-@@ -3131,7 +3132,11 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
- 	if (crtc_state->cmrr.enable) {
- 		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
- 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
--		as_sdp->target_rr_divider = true;
+@@ -1395,6 +1396,7 @@ void intel_crtc_debugfs_add(struct intel_crtc *crtc)
+ 	intel_drrs_crtc_debugfs_add(crtc);
+ 	intel_fbc_crtc_debugfs_add(crtc);
+ 	hsw_ips_crtc_debugfs_add(crtc);
++	intel_vrr_crtc_debugfs_add(crtc);
+ 
+ 	debugfs_create_file("i915_current_bpc", 0444, root, crtc,
+ 			    &i915_current_bpc_fops);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index b7cc361fd955..46dd980b315a 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -1553,6 +1553,11 @@ struct intel_crtc {
+ 		u64 flip_count;
+ 	} dc_balance;
+ 
++	struct {
++		u32 numerator;
++		u32 denominator;
++	} force_cmrr;
 +
-+		if (crtc->force_cmrr.denominator == 1001)
-+			as_sdp->target_rr_divider = true;
-+		else
-+			as_sdp->target_rr_divider = false;
- 	} else if (crtc_state->vrr.enable) {
- 		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
- 	} else {
+ 	int scanline_offset;
+ 
+ 	struct {
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index 14f8ac07c911..267c65d9245f 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -4,6 +4,10 @@
+  *
+  */
+ 
++#include <linux/debugfs.h>
++#include <linux/seq_file.h>
++#include <linux/string.h>
++
+ #include <drm/drm_print.h>
+ #include <drm/intel/step.h>
+ 
+@@ -1237,3 +1241,107 @@ int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_st
+ 
+ 	return intel_vrr_vblank_start(crtc_state, VRR_DCB_VMAX(tmp) + 1);
+ }
++
++static
++int intel_vrr_cmrr_parse_ratio(char *str, u32 *numerator, u32 *denominator)
++{
++	char *sep;
++	int ret;
++
++	/*
++	 * Parse a "numerator/denominator" CMRR ratio string. The numerator
++	 * is the requested refresh rate in milli-Hz (refresh rate in Hz * 1000)
++	 * and the denominator selects the timing: 1000 for a 1:1 ratio
++	 * (no video timing) or 1001 for the 1000/1001 video timing.
++	 */
++
++	sep = strchr(str, '/');
++	if (!sep)
++		return -EINVAL;
++
++	*sep = '\0';
++
++	ret = kstrtou32(strim(str), 10, numerator);
++	if (ret)
++		return ret;
++
++	ret = kstrtou32(strim(sep + 1), 10, denominator);
++	if (ret)
++		return ret;
++	/*
++	 * "0/0" clears any previously configured CMRR override.
++	 * A zero numerator already means "CMRR not requested" in
++	 * intel_vrr_cmrr_compute_config(), so just let it through.
++	 */
++	if (*numerator == 0 && *denominator == 0)
++		return 0;
++
++	if (*numerator == 0)
++		return -EINVAL;
++
++	if (*denominator != 1000 && *denominator != 1001)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int intel_vrr_debugfs_target_rr_show(struct seq_file *m, void *data)
++{
++	struct intel_crtc *crtc = m->private;
++
++	seq_printf(m, "%u/%u\n", crtc->force_cmrr.numerator, crtc->force_cmrr.denominator);
++
++	return 0;
++}
++
++static int intel_vrr_debugfs_target_rr_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, intel_vrr_debugfs_target_rr_show, inode->i_private);
++}
++
++static ssize_t intel_vrr_debugfs_target_rr_write(struct file *file, const char __user *ubuf,
++						 size_t len, loff_t *offp)
++{
++	struct seq_file *m = file->private_data;
++	struct intel_crtc *crtc = m->private;
++	u32 numerator, denominator;
++	char kbuf[32];
++	int ret;
++
++	if (len >= sizeof(kbuf))
++		return -EINVAL;
++
++	if (copy_from_user(kbuf, ubuf, len))
++		return -EFAULT;
++
++	kbuf[len] = '\0';
++
++	ret = intel_vrr_cmrr_parse_ratio(kbuf, &numerator, &denominator);
++	if (ret)
++		return ret;
++
++	crtc->force_cmrr.numerator = numerator;
++	crtc->force_cmrr.denominator = denominator;
++
++	return len;
++}
++
++static const struct file_operations intel_vrr_debugfs_target_rr_fops = {
++	.owner = THIS_MODULE,
++	.open = intel_vrr_debugfs_target_rr_open,
++	.read = seq_read,
++	.llseek = seq_lseek,
++	.release = single_release,
++	.write = intel_vrr_debugfs_target_rr_write,
++};
++
++void intel_vrr_crtc_debugfs_add(struct intel_crtc *crtc)
++{
++	struct intel_crtc_state *crtc_state = to_intel_crtc_state(crtc->base.state);
++
++	if (!intel_vrr_cmrr_possible(crtc_state))
++		return;
++
++	debugfs_create_file("intel_vrr_target_refresh_rate", 0600, crtc->base.debugfs_entry,
++			    crtc, &intel_vrr_debugfs_target_rr_fops);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.h b/drivers/gpu/drm/i915/display/intel_vrr.h
+index 55e9c429f579..19c7990be1b2 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.h
++++ b/drivers/gpu/drm/i915/display/intel_vrr.h
+@@ -56,4 +56,6 @@ int intel_vrr_dcb_vmax_vblank_start_next(const struct intel_crtc_state *crtc_sta
+ int intel_vrr_dcb_vmin_vblank_start_final(const struct intel_crtc_state *crtc_state);
+ int intel_vrr_dcb_vmax_vblank_start_final(const struct intel_crtc_state *crtc_state);
+ 
++void intel_vrr_crtc_debugfs_add(struct intel_crtc *crtc);
++
+ #endif /* __INTEL_VRR_H__ */
 -- 
 2.48.1
 
