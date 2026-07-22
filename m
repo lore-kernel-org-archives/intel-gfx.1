@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE73C531F9
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 276A3C531F7
 	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 14:08:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7A8B10F11C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B47D610E259;
 	Thu, 23 Jul 2026 14:08:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ms6o+w4c";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lzeLJ+Mk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 818C110E491;
- Wed, 22 Jul 2026 16:04:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5594910E20B;
+ Wed, 22 Jul 2026 15:52:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B8E7A40DA9;
- Wed, 22 Jul 2026 16:04:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3754D1F000E9;
- Wed, 22 Jul 2026 16:04:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8E5D8600AF;
+ Wed, 22 Jul 2026 15:52:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D900D1F000E9;
+ Wed, 22 Jul 2026 15:52:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784736278;
- bh=JGI6yPwNeBlQcmkYkwZnOGVunqjOzUuog/BHm26YT2g=;
+ s=k20260515; t=1784735575;
+ bh=ufiVbs4gFZoTgyjZH/ZnFnJ99kcRuL/B6RsmsdF3mq8=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Ms6o+w4c+2Xirt4wfC02ta/k/1aAw+NVhQXCtWhHHBgGhc26HNZ6GokEaoDd/oT1n
- 1Z4WoxFTQnFlX/5jbkXGg4b0auOB24CqXpo7xPvVMgmywlqaGJXPKO5XCs7UAhrhN+
- frCMgd+z7SKYWLV0DCRn1hYlKmvxDbGPdz0M0t48FHDVBH/q8dru6Wzl7Ix7/AqcT8
- gehnFY5/MRkKV7Y45Sqdjv3T9DFlx9vLAMdBkUxFFwrOIoku3EDIgyOwrPaaU0OHkc
- D0ulgeLOR5tFCS7ytlEEnUrMeRFCrrgUo6xWzkFU+g1g5scLc4rvdvMNmuUo3BJ5sX
- Vk/ngokFr4u7Q==
-Message-ID: <aca6e793-c2dc-40cd-b489-80fb638dced4@kernel.org>
-Date: Wed, 22 Jul 2026 18:04:19 +0200
+ b=lzeLJ+MkKsdPmOuFrEroytGywJNyjc5go9z+BRGANnrrerkTLT/cUGS0MryhpCrCz
+ JdnKkJXBXQDM1y9cnTXkAr+L8PkN74T9bfVYvVLVxwI2l26MDbErHm0dHSRnCdonnL
+ RS8BbhjVo2GZtG/uKLPlYNjbwXf0EqigSTo9sTrTgwAXfegti5hbCb82Ksax3+7W+n
+ QT+A4kOxO47PX305QOEXl/P2XsuHb7+PKLUJ9j688+bgVNRQrqfPt/YGk7hqqkhk7v
+ RW33FQF/uI3VdGs/EfFg+aU8yARX/BME5FRohcAXZwHejlJ9HpNhFnfFCSrg51Y2pZ
+ 5PZGfjggIWn2Q==
+Message-ID: <f241a140-cb65-4a77-8dc9-dfa450b2e0fa@kernel.org>
+Date: Wed, 22 Jul 2026 17:52:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/13] mm/vma: convert miscellaneous uses of VMA flags
- in core mm
+Subject: Re: [PATCH v2 09/13] mm/vma: update create_init_stack_vma() to use
+ vma_flags_t
 Content-Language: en-US
 To: Lorenzo Stoakes <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
@@ -103,7 +103,7 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  xen-devel@lists.xenproject.org, linux-fbdev@vger.kernel.org,
  linux-sound@vger.kernel.org
 References: <20260711-b4-vma-flags-mm-v2-0-0fa2357d5431@kernel.org>
- <20260711-b4-vma-flags-mm-v2-10-0fa2357d5431@kernel.org>
+ <20260711-b4-vma-flags-mm-v2-9-0fa2357d5431@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 Autocrypt: addr=vbabka@kernel.org; keydata=
  xsFNBFZdmxYBEADsw/SiUSjB0dM+vSh95UkgcHjzEVBlby/Fg+g42O7LAEkCYXi/vvq31JTB
@@ -144,7 +144,7 @@ Autocrypt: addr=vbabka@kernel.org; keydata=
  NcaZ+c6J4H+nEJGi2SkHAUJz5oBzuThvPudLvPA/SK8sKoM01IRxSihev/S/5WLazXB1PGem
  OCbvzC1IjWJJraxiDJ5IygokapUa2RP7+WBR22skQ3SSl6G107QgWKSyTOGWEaRmV53vxQLV
  jXuCmzSSasTL60zq5yGrT4/DYQVSNEUiUbG4pYekxJujNeEDkUlky0Y=
-In-Reply-To: <20260711-b4-vma-flags-mm-v2-10-0fa2357d5431@kernel.org>
+In-Reply-To: <20260711-b4-vma-flags-mm-v2-9-0fa2357d5431@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 23 Jul 2026 14:08:34 +0000
@@ -164,12 +164,17 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 7/11/26 20:45, Lorenzo Stoakes wrote:
-> Update various uses of legacy flags in vma.c and mmap.c to the new
-> vma_flags_t type, updating comments alongside them to be consistent.
+> Replace use of the legacy vm_flags_t flags with vma_flags_t values in
+> create_init_stack_vma().
+> 
+> As part of this change we add VMA_STACK_EARLY and VMA_STACK_INCOMPLETE
+> vma_flags_t defines, and slightly rework create_init_stack_vma() for
+> clarity.
 > 
 > No functional change intended.
 > 
 > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
 > Signed-off-by: Lorenzo Stoakes <ljs@kernel.org>
 
 Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
