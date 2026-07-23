@@ -4,152 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7726DC531D0
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 10:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F92DC531CB
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 10:44:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBDF010F08A;
-	Thu, 23 Jul 2026 10:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6AF10E57B;
+	Thu, 23 Jul 2026 10:44:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="a751lsj8";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GWKniaEc";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76B1F10F078;
- Thu, 23 Jul 2026 10:27:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9130410E57B
+ for <intel-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 10:44:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784802451; x=1816338451;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=ZsM8dLzIFx7S0bA9KmnUrxKCiJ9/sGr2t4l1o8PQfDo=;
- b=a751lsj8I9v3tpOgCjyxl6ybO5oO/Ji0ZFLSodR+b4g3q3BxHQtsAIpm
- QY/pL5v3rl0UetO5DDsMRmD01CL+KC33ut+jJPVsqJLKZ6++9BU3onWaJ
- uBn7/kMtsafl1J7VY+L0qmuEv0nSAIBsG9xsLj+v1GZrOrlynThp23FhM
- m0gJbRmXjjzbSKK3x4BV++zr2CGVhw0rmLHRRq+CI+Vb4JtsvWEzXAeU7
- MRk7gCYK9o3YjEOQmQkNBm5LDyb0HwNT5/+jwSzDNxOmFat51LDJNlGet
- M9djIfrRiVYYMtvCD50aO/Z3Z2bUXI6aF3TvjxnUXHr3+L+KvmoxXT8MF g==;
-X-CSE-ConnectionGUID: 9IOP821BQnmzk0jcAY5oxA==
-X-CSE-MsgGUID: FUxGKGg0RayHHcmwJDxJYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87995345"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87995345"
+ t=1784803474; x=1816339474;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=28Gtg6JTnH2b0T1tdwgQaH8gIFmBqWIUJhMCOFexAFk=;
+ b=GWKniaEcys7HrOfHeqqVTGJjig+aDG5Yty577nb8dZud7U6nOExu/NmH
+ skg7+UINnZg/+0EZ9zMuQCUxhStOvQZ8fPPDbAZOKjyWaFZlyproCPWn4
+ E5lguCt2pK9DoC26SUssz9oe3JvrQugQ/CXt6q6/lGwgqmjhaKeuSbVZ2
+ RL9xUsoWqO/bTLa+U8+qs9LC72j3z4JtOKJdU/o1bihw510g2UbHSDRTv
+ EZNp3I5LrICrQ7uRPJVhxIoRM84NTYkGhxDWJtONywa2H8xC87P6fForZ
+ vLx33cKsNr4C9koXkHhHv0R2VqyNxgVl98ivUuPXfikUyZGKcbey1R20o Q==;
+X-CSE-ConnectionGUID: poCKvWqxR1q9KIePk0+uwA==
+X-CSE-MsgGUID: QbgLA6yJSkivSeFeU7Hd5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87996885"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87996885"
 Received: from orviesa001.jf.intel.com ([10.64.159.141])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:26:12 -0700
-X-CSE-ConnectionGUID: 9nEGGXdLQ6mRQrILH1dmhg==
-X-CSE-MsgGUID: prhPuoIFQn63+c/A80I55A==
+ 23 Jul 2026 03:44:33 -0700
+X-CSE-ConnectionGUID: IxWAgUmzTimXIL6GvG8zEA==
+X-CSE-MsgGUID: +gFBPlTVQgiSIPKV+iK7ig==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="296588888"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:26:13 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 03:26:12 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 03:26:12 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.62) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 03:26:11 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fxp2pH3ICQGH4h4sRTi04AFjJVKC5iqJNK3Dw5MPXxbQEqR8kxBYBjUX2IVd6eOVKv9EQ/L/C/b3lOT8m6f4eNvYhi8QiCKDHNr7+yb/KGCpS0+DoocsrNvL60rIJcoj7tGIvzW7Hwlf24BexTuL2qRsYK8DwdrqyKhKFOoUutud41DGw5uzB49/4/Bt2o6rNbW1DcYBJf4Mye8G2+wO/KQcEhHkx2nQVQun3tusfASD5FTFcofciqiEu8BLpcCIhpbM+rG+8Z5pKY0qFNNIdeqmUi5EIL7mjtC+B9HqlbF03SNBifFxkSIP9YYpWeKLTafz+a1C8fclPeJNR0pxGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZnG7tAqUP8e94hs/+nL9nbat0w004XZngvFtDkPtpnc=;
- b=JjlngvtBiEK1Z2XfIcFkRZ1P7/B2buRqs+jROyG47rcazeFZnNokKP4MQmNqWmKJy7C2X2l4I4wMteZyfweQoJZ7H91SSFWqx/iw3s4dOXsZ9aeN0y+jm7yA38/pA/EYJKFIyAgDaKHUYXHY25Qu/AvHDkTjdIxepb0DfUkFMdz6K0Mywdxwyusstvg7+Iv3B8nNNwPZkA5Cwq+wFR19O/+Cu/QQ8fJpxJI2t89MvsmK9EccU5PW2DY08pLxV+43imkrOVnvkHPW80lm6TvghooXr+nI2VYQzLuPE4ONiMAGw00iLE0mM2Ioh2/6v5boSrhBuz8lt1nF4pgasXFH1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by EAYPR11MB9969.namprd11.prod.outlook.com (2603:10b6:303:2d7::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 10:26:10 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 10:26:09 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <iommu@lists.linux.dev>
-CC: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
- <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>, "Janusz
- Krzysztofik" <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: [PATCH v4 4/5] drm/i915/gem: Read and shrink memory in a separate
- function
-Date: Thu, 23 Jul 2026 10:25:41 +0000
-Message-ID: <20260723102542.3245495-5-krzysztof.karas@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260723102542.3245495-1-krzysztof.karas@intel.com>
-References: <20260723102542.3245495-1-krzysztof.karas@intel.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TLZP290CA0004.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::15) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="296592790"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.244.89])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:44:30 -0700
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [RFC] drm/i915: Scope-based resource management test run
+Date: Thu, 23 Jul 2026 12:36:17 +0200
+Message-ID: <20260723103616.52732-2-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|EAYPR11MB9969:EE_
-X-MS-Office365-Filtering-Correlation-Id: b401769e-6241-4106-8664-08dee8a4d016
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: yQNNMpEvHs8woZIJLEHObGFD96Wu5+5my3/8gWbZsnCTvDiEHNkoWEmbSewF7jIiCrylvJQEhklZRw5RbnshWxJKyxv7T50WPRyU2sy9PYNPZ7mVF2ik7lAR6+g8Q3HHHklKApN/5jQ0Is+Y2Ml9Tdm87Y1Fn20dLN1ije6DEhSlzDamD322t2OodxVTFXtjNac+5s3+3QSmLSfQ6E5zkfO8PqYMR4zk/8/OZ71Gxv3mFdkrvjn0VykQFuSuj8v2oCEt3of8QnV/jkQ1CtTnLeKMFYTEfdH3Hm0+6Kx6g2cRCWhNJQd1xfxaFAWjANGV+OPe/J6zVPg2ggHrhQ6iVKHFFYHSzk1xxSxWIRR3qm2yvV1CBCyH/96bi1NhAX7UoeDWSh+//Dsd9PEalQHF/wmyoq9GToETVT6cSRkn5gysN83HZlSEpOIqQRfigw+t8mrdVw5Cey3c38mIggoSPlIVau4B1osjzYsyb6j4H/DYOEGWkG6YKqglK2qbSdU0V5gfQwJTCPTm6uT3iMSCWcpuJ8kF8shTM3HS98n+XV7dZAx+592Qh6bbG4QPcwxFUs4ixk4rXOnYZA6u40UcjP55PklGmCpCVV7i8Dhw2f2hCgE1DIkthLHqgBAgtRuvcpjJhY+o1SjRM3a1e1+d0JRYWa/wSE0KPNGu+qQmHDk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vh83CSMKGNJXKBMYorskZHeogwjFw6nK0Q7TbuX488mMpIHPOenPVE8nOah9?=
- =?us-ascii?Q?cHRJ9Dh3n6oDXxD5jLr3WzBOC0g2jKJnt85wz9/Z6XxGZktaLFzntB/VXl0T?=
- =?us-ascii?Q?dZ+wA2Jt4wp36Rc9iFfE5rFW3B88yRKxaSbsCtPPQJ7143i7P5ZoxpwkQm8G?=
- =?us-ascii?Q?st3qGOl1ppNClGEuAjXzpKRBrUcVI2jJgvS4PfpdGknWXMTfW5r+MSGSq7nj?=
- =?us-ascii?Q?/GRYxyylDfjMehNUgZk+qCWwDHtI4Yeoa8F2UCTpOsXSme68q0Cxcl1PkKhF?=
- =?us-ascii?Q?/k9RfVshtktArcwplKqiTcraKm7h01jyXbZ00T86JcZzcE3yP56ijywvWrGy?=
- =?us-ascii?Q?L2ZV/lmVc08Xu31qu0yro28DmyyMKlr7OQ/b//GA04oxogfewX7qgnvsPcRA?=
- =?us-ascii?Q?67A5b5jtDTRVN3xTbR5Qf02aHt+G7R8ooU6tKQrvcJ4HvjRTeO+Oe1LhSnu0?=
- =?us-ascii?Q?6Pl7F0yKFiF/pyF67rmvfw4XPFZc6JycdIh9W23d/bmCDz/1UdVOpn1NKyBm?=
- =?us-ascii?Q?NH8Jc6VGf/kalVRVwuHF13k8dybFPmpgGTEhK/fu8w+xY2cd1LMAUqpKblx+?=
- =?us-ascii?Q?8YL3JGaFCrqHOHkH0PLrePDItrV7uLEKvnQIMaq0yrd9F0a1E6r20jV27pb1?=
- =?us-ascii?Q?EihgXUPNVoJXhQ5WjFoIUru7H3+MYKUqVpVC1YzLAlTU1CsfQPT2jBJRneXD?=
- =?us-ascii?Q?THd19bW4t501TFEmMi8mKlAG4Dl1B+izW9T+GXgqRfaj4CumDMCWAQ0Lv0v5?=
- =?us-ascii?Q?fIIQZ2kwT1n4NuPgl9R96dhunQqlojQvXCn55/H8EzRQkDwRg34c79LfFY6Z?=
- =?us-ascii?Q?Pljx4Oa682+2nVi6OHkyfqtBv777v4J7sXS+uPf2A2+J3mvoNDO+q7Krd3fw?=
- =?us-ascii?Q?sXBHQIawQDHAmRQcJ2IfpFYnVWukHCk8zxRgSgATxwv7wspTeQg/EAcOlFNB?=
- =?us-ascii?Q?366zIlb3NmBrDVuy19BG3Zq6OLmHxczPUyIMssHzKfTgYqFot3LNOGPHyTBf?=
- =?us-ascii?Q?1oP004RpDmEvh7GkmkxmOMw6zcfvstOdHxGFcp5KeBJysbHv+okGd62tn0wG?=
- =?us-ascii?Q?RxtbWga/oHPXLHOZAHt4wrHdGrJbMLReLm9iVraE+iQku7CyRjSnZDzUyrne?=
- =?us-ascii?Q?nCzl6Qu6fAVhP2tHe5pnvJbKJP+vzyr2AucIHS4F/o+ZEinFQTZaL7ZORg1z?=
- =?us-ascii?Q?kpIjkgVA7vAnM/SCsoO9yaOLJViN/Z1xonXefH+km0v+ZLIa0iPrXZ1bxRQv?=
- =?us-ascii?Q?0T00+tk+ciH5euB2+JcNqMBM9HyKfFL8LFS412xU1uVjcdDGekWf1kqV0q5z?=
- =?us-ascii?Q?T4fYWkeMtpT65fwDux+jZYr08UkxRcTkoO2ciwytGNZdZeZExQS56H4zcnoB?=
- =?us-ascii?Q?2Nyz2pd0ONdOuvp9bTpgINxfPnD7XQv7F1A8lEf7zVwtlU+FRGRy2YhVHfkY?=
- =?us-ascii?Q?8+V34ZleEBoDrc5zJslPxVR9KuStSSCSoorD4IpacKppi+wK6pC6DP62vymx?=
- =?us-ascii?Q?F2MIhyO0A4u4aqZWAaXWUb81AwQZeKU6T3abZgBz8ezadK/1cy8+O0ctcBHN?=
- =?us-ascii?Q?KES+n/9hPgSUUrwFpRBGdunkieoalnFEl+JORZqN3hJdXXgjtpwC4fRQTvQZ?=
- =?us-ascii?Q?d5AW/yF2DZSAdA7mNb3M9AGfxNYoZvo1KVffEJCJ66YoWt7yUeYX9Gek4vla?=
- =?us-ascii?Q?4KrNTOD+T/tc7HDf/08NLRUkOBJu+oZ+0BMK4gTxp3WFRIgTTgcYIId+Av+5?=
- =?us-ascii?Q?vpSyAVsT91YPBa6c2ztFHm16N9qkw80=3D?=
-X-Exchange-RoutingPolicyChecked: hw14WBKJQjcSMDSJNqILSaNrN9+57uj8bLE74kM5pRJvNtQUZKB8z1dbIclMgeVHsikqGF0/6XxaRZOxJatzjNZGHA19H6J8TxnPXHRqQc+qXlCAAy17azh0LBjAzblzN01H2u2lj3WFbQysYO6goetYovmfIjeYahI2EUInMT8Pm0cFpaDntWjWbU6C60Tq+Uo58h3lbRuTbSuFPLnFAZLlf6q/FakZuHpCCQvMNCHhaq0a5sjwq5Hf4qZiJ6+pq4ASAAjKS1vJijAKsawjvXWcrAuS1OEBJvxDfogJTKdg5898hUUl4bMU0wLAf9ZoJI0Gld1MX52Ak4S9z0aMdA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b401769e-6241-4106-8664-08dee8a4d016
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 10:26:09.8913 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JtF7K4QRzVxvDKI2ZE8X7Oeqsl28d1Zha3no6yTbhdlSeZEPCT25hFYjXpRzFsG3b3fA618eVlNkUfLFUKT67SkbGqWuh8NwGhjGAoOQ0e4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR11MB9969
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -165,144 +70,404 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Continue unloading shmem_sg_alloc_table by placing reading
-folios and shrink call into a new helper.
-Remove the loop, since calling shrink multiple times does not
-bring any benefits.
+[1] introduced a set of interesting macros abusing the __cleanup__
+compiler attribute, effectively serving as mini-RAII in the kernel.
+[2] is a good introduction to the features, the TLDR is that by using
+the __cleanup__ attribute (which calls a function when a variable goes
+out of scope) Peter Zijlstra made a bunch of macros for declaring what
+are basically destructors for automatic variables (and the series
+extends the concept even further to include constructors, see the CLASS
+macros).
 
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+The main advantage of these are robustness against bugs and making the
+code more concise. The "init me with X now and clean me up with Y when I
+go out of scope" pattern is very common in general, but can be tricky
+without RAII mechanisms because the "when I go out of scope" part can be
+complex if there's a lot of error handling, or a function can return early,
+things like that. I don't think there's much doubt at this point that RAII
+is generally a good idea in programming, and these new macros allow it to
+happen in kernel C. The goal of this RFC is introduce (or rather,
+consider introducing) the new macros for i915.
+
+In some cases using the new macros completely eliminates the use of goto
+to implement early exits (see patches in [1] and
+set_proto_ctx_engines_parallel_submit() in this patch). In other cases
+it might simplify locking a bit - there are specific macros to handle
+locking-type scenarios; the lock is automatically released by end of
+scope so in complex error paths you don't have to think about missing
+the unlock. There's no complex cases in this patch but [3], [4], [5]
+might be interesting examples.
+
+However, there are legitimate reasons for not embracing this for i915:
+
+1) C is by nature a very transparent language. Things *generally*
+   happen whenever theyre explicitly told to happen (well, up to
+   compiler optimization, out of order execution, branch prediction,
+   etc etc) The new mechanism is opaque, the deferred calls are implicit.
+   This might not sit well with some people.
+2) i915 is definitely a mature driver. There are a lot of benefits of
+   using the new mechanism for new code, which is very "living"; using
+   scope-based management reduces the mental overhead of keeping up
+   with refactoring gotos (or writing them correctly in the first
+   place). However, our code has been running for a long time on a lot
+   of hardware. I suspect, most bugs that would have been prevented by
+   using the new macros are not there anymore anyway. Adding them would
+   be a purely refactoring change.
+3) The new macros are also a bit limited, for example DEFINE_FREE() only
+   allows to define single-argument destructors. I already bumped into
+   a situation where I could have used it, but the releasing function
+   took two arguments: the object to release and a pointer to
+   drm_i915_private. I think this is a very common pattern in our
+   driver as these pointers are passed around to most functions
+   everywhere. So, destructors for these are incompatible with the
+   macros. This means that unless the macros get extended, introducing
+   them will lead to a lot of mixed-style code, which might not sit well
+   with some people.
+
+On the other hand, introducing this might come in handy later if we do
+end up writing larger chunks of new code. Also, I think it'd be an
+interesting case study of how to use the new macros in a big driver,
+their limitations, and possible improvements.
+
+This pseudo-patch (which shouldn't go in, it's really not tested)
+changes only one file as a "demo" of what the new mechanism would look
+like in practice. We have like 400k lines of code in our driver, so I'd
+much prefer to hear the others' opinion before sinking any more
+time into this.
+
+Thanks
+Krzysztof
+
+[1] https://lore.kernel.org/lkml/20230612090713.652690195@infradead.org/
+[2] https://lwn.net/Articles/934679/
+[3] https://lore.kernel.org/lkml/20230612093538.307089780@infradead.org/
+[4] https://lore.kernel.org/lkml/20230612093539.895253662@infradead.org/
+[5] https://lore.kernel.org/lkml/20230612093541.524967360@infradead.org/
+
+Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 ---
-v4:
- * Removed do-while loop;
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 129 +++++++-------------
+ 1 file changed, 47 insertions(+), 82 deletions(-)
 
- drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 103 ++++++++++++----------
- 1 file changed, 56 insertions(+), 47 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-index f35b7efa1fc2..ac8022997553 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-@@ -79,6 +79,56 @@ static int set_page_count_from_size(size_t size, unsigned int *page_count,
- 	return 0;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..5fc823dbf45a 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -66,6 +66,7 @@
+ #include <linux/highmem.h>
+ #include <linux/log2.h>
+ #include <linux/nospec.h>
++#include <linux/cleanup.h>
+ 
+ #include <drm/drm_cache.h>
+ #include <drm/drm_print.h>
+@@ -106,7 +107,7 @@ static void lut_close(struct i915_gem_context *ctx)
+ 	struct radix_tree_iter iter;
+ 	void __rcu **slot;
+ 
+-	mutex_lock(&ctx->lut_mutex);
++	guard(mutex)(&ctx->lut_mutex);
+ 	rcu_read_lock();
+ 	radix_tree_for_each_slot(slot, &ctx->handles_vma, &iter, 0) {
+ 		struct i915_vma *vma = rcu_dereference_raw(*slot);
+@@ -139,7 +140,6 @@ static void lut_close(struct i915_gem_context *ctx)
+ 		i915_gem_object_put(obj);
+ 	}
+ 	rcu_read_unlock();
+-	mutex_unlock(&ctx->lut_mutex);
  }
  
-+static struct folio *shmem_shrink_get_folio(struct address_space *mapping,
-+					    unsigned long folio_index,
-+					    gfp_t gfp, unsigned int page_count,
-+					    struct drm_i915_private *i915)
-+{
-+	struct folio *folio = NULL;
+ static struct intel_context *
+@@ -340,13 +340,8 @@ static int proto_context_register(struct drm_i915_file_private *fpriv,
+ 				  struct i915_gem_proto_context *pc,
+ 				  u32 *id)
+ {
+-	int ret;
+-
+-	mutex_lock(&fpriv->proto_context_lock);
+-	ret = proto_context_register_locked(fpriv, pc, id);
+-	mutex_unlock(&fpriv->proto_context_lock);
+-
+-	return ret;
++	guard(mutex)(&fpriv->proto_context_lock);
++	return proto_context_register_locked(fpriv, pc, id);
+ }
+ 
+ static struct i915_address_space *
+@@ -404,7 +399,6 @@ set_proto_ctx_engines_balance(struct i915_user_extension __user *base,
+ 		container_of_user(base, typeof(*ext), base);
+ 	const struct set_proto_ctx_engines *set = data;
+ 	struct drm_i915_private *i915 = set->i915;
+-	struct intel_engine_cs **siblings;
+ 	u16 num_siblings, idx;
+ 	unsigned int n;
+ 	int err;
+@@ -442,17 +436,17 @@ set_proto_ctx_engines_balance(struct i915_user_extension __user *base,
+ 	if (num_siblings == 0)
+ 		return 0;
+ 
+-	siblings = kmalloc_objs(*siblings, num_siblings);
++	struct intel_engine_cs **siblings __free(kfree) =
++		kmalloc_objs(*siblings, num_siblings);
 +
-+	cond_resched();
-+	folio = shmem_read_folio_gfp(mapping, folio_index, gfp);
-+	if (IS_ERR(folio)) {
-+		i915_gem_shrink(NULL, i915, 2 * page_count, NULL,
-+				I915_SHRINK_BOUND | I915_SHRINK_UNBOUND);
-+
-+		/*
-+		 * We've tried hard to allocate the memory by reaping
-+		 * our own buffer, now let the real VM do its job and
-+		 * go down in flames if truly OOM.
-+		 *
-+		 * However, since graphics tend to be disposable,
-+		 * defer the oom here by reporting the ENOMEM back
-+		 * to userspace.
-+		 *
-+		 * Reclaim and warn, but no oom.
-+		 */
-+		gfp = mapping_gfp_mask(mapping);
-+
-+		/*
-+		 * Our bo are always dirty and so we require
-+		 * kswapd to reclaim our pages (direct reclaim
-+		 * does not effectively begin pageout of our
-+		 * buffers on its own). However, direct reclaim
-+		 * only waits for kswapd when under allocation
-+		 * congestion. So as a result __GFP_RECLAIM is
-+		 * unreliable and fails to actually reclaim our
-+		 * dirty pages -- unless you try over and over
-+		 * again with !__GFP_NORETRY. However, we still
-+		 * want to fail this allocation rather than
-+		 * trigger the out-of-memory killer and for
-+		 * this we want __GFP_RETRY_MAYFAIL.
-+		 */
-+		gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-+
-+		/* Retry once after shrinking and gfp modification. */
-+		cond_resched();
-+		folio = shmem_read_folio_gfp(mapping, folio_index, gfp);
+ 	if (!siblings)
+ 		return -ENOMEM;
+ 
+ 	for (n = 0; n < num_siblings; n++) {
+ 		struct i915_engine_class_instance ci;
+ 
+-		if (copy_from_user(&ci, &ext->engines[n], sizeof(ci))) {
+-			err = -EFAULT;
+-			goto err_siblings;
+-		}
++		if (copy_from_user(&ci, &ext->engines[n], sizeof(ci)))
++			return -EFAULT;
+ 
+ 		siblings[n] = intel_engine_lookup_user(i915,
+ 						       ci.engine_class,
+@@ -461,27 +455,20 @@ set_proto_ctx_engines_balance(struct i915_user_extension __user *base,
+ 			drm_dbg(&i915->drm,
+ 				"Invalid sibling[%d]: { class:%d, inst:%d }\n",
+ 				n, ci.engine_class, ci.engine_instance);
+-			err = -EINVAL;
+-			goto err_siblings;
++			return -EINVAL;
+ 		}
+ 	}
+ 
+ 	if (num_siblings == 1) {
+ 		set->engines[idx].type = I915_GEM_ENGINE_TYPE_PHYSICAL;
+ 		set->engines[idx].engine = siblings[0];
+-		kfree(siblings);
+ 	} else {
+ 		set->engines[idx].type = I915_GEM_ENGINE_TYPE_BALANCED;
+ 		set->engines[idx].num_siblings = num_siblings;
+-		set->engines[idx].siblings = siblings;
++		set->engines[idx].siblings = no_free_ptr(siblings);
+ 	}
+ 
+ 	return 0;
+-
+-err_siblings:
+-	kfree(siblings);
+-
+-	return err;
+ }
+ 
+ static int
+@@ -588,7 +575,6 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 	u64 flags;
+ 	int err = 0, n, i, j;
+ 	u16 slot, width, num_siblings;
+-	struct intel_engine_cs **siblings = NULL;
+ 	intel_engine_mask_t prev_mask;
+ 
+ 	if (get_user(slot, &ext->engine_index))
+@@ -645,7 +631,8 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 		return -EINVAL;
+ 	}
+ 
+-	siblings = kmalloc_objs(*siblings, num_siblings * width);
++	struct intel_engine_cs **siblings __free(kfree) =
++		kmalloc_objs(*siblings, num_siblings * width);
+ 	if (!siblings)
+ 		return -ENOMEM;
+ 
+@@ -657,10 +644,8 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 			struct i915_engine_class_instance ci;
+ 
+ 			n = i * num_siblings + j;
+-			if (copy_from_user(&ci, &ext->engines[n], sizeof(ci))) {
+-				err = -EFAULT;
+-				goto out_err;
+-			}
++			if (copy_from_user(&ci, &ext->engines[n], sizeof(ci)))
++				return -EINVAL;
+ 
+ 			siblings[n] =
+ 				intel_engine_lookup_user(i915, ci.engine_class,
+@@ -669,8 +654,7 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 				drm_dbg(&i915->drm,
+ 					"Invalid sibling[%d]: { class:%d, inst:%d }\n",
+ 					n, ci.engine_class, ci.engine_instance);
+-				err = -EINVAL;
+-				goto out_err;
++				return -EINVAL;
+ 			}
+ 
+ 			/*
+@@ -678,10 +662,8 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 			 * classes
+ 			 */
+ 			if (siblings[n]->class == RENDER_CLASS ||
+-			    siblings[n]->class == COMPUTE_CLASS) {
+-				err = -EINVAL;
+-				goto out_err;
+-			}
++			    siblings[n]->class == COMPUTE_CLASS)
++				return -EINVAL;
+ 
+ 			if (n) {
+ 				if (prev_engine.engine_class !=
+@@ -690,8 +672,7 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 						"Mismatched class %d, %d\n",
+ 						prev_engine.engine_class,
+ 						ci.engine_class);
+-					err = -EINVAL;
+-					goto out_err;
++					return -EINVAL;
+ 				}
+ 			}
+ 
+@@ -704,8 +685,7 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 				drm_dbg(&i915->drm,
+ 					"Non contiguous logical mask 0x%x, 0x%x\n",
+ 					prev_mask, current_mask);
+-				err = -EINVAL;
+-				goto out_err;
++				return -EINVAL;
+ 			}
+ 		}
+ 		prev_mask = current_mask;
+@@ -714,14 +694,9 @@ set_proto_ctx_engines_parallel_submit(struct i915_user_extension __user *base,
+ 	set->engines[slot].type = I915_GEM_ENGINE_TYPE_PARALLEL;
+ 	set->engines[slot].num_siblings = num_siblings;
+ 	set->engines[slot].width = width;
+-	set->engines[slot].siblings = siblings;
++	set->engines[slot].siblings = no_free_ptr(siblings);
+ 
+ 	return 0;
+-
+-out_err:
+-	kfree(siblings);
+-
+-	return err;
+ }
+ 
+ static const i915_user_extension_fn set_proto_ctx_engines_extensions[] = {
+@@ -1047,6 +1022,7 @@ static void free_engines(struct i915_gem_engines *e)
+ {
+ 	__free_engines(e, e->num_engines);
+ }
++DEFINE_FREE(free_engines, struct i915_gem_engines *, if (_T) free_engines(_T))
+ 
+ static void free_engines_rcu(struct rcu_head *rcu)
+ {
+@@ -1123,9 +1099,8 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
+ {
+ 	const unsigned int max = I915_NUM_ENGINES;
+ 	struct intel_engine_cs *engine;
+-	struct i915_gem_engines *e, *err;
+ 
+-	e = alloc_engines(max);
++	struct i915_gem_engines *e __free(free_engines) = alloc_engines(max);
+ 	if (!e)
+ 		return ERR_PTR(-ENOMEM);
+ 
+@@ -1141,10 +1116,8 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
+ 		GEM_BUG_ON(e->engines[engine->legacy_idx]);
+ 
+ 		ce = intel_context_create(engine);
+-		if (IS_ERR(ce)) {
+-			err = ERR_CAST(ce);
+-			goto free_engines;
+-		}
++		if (IS_ERR(ce))
++			return ERR_CAST(ce);
+ 
+ 		e->engines[engine->legacy_idx] = ce;
+ 		e->num_engines = max(e->num_engines, engine->legacy_idx + 1);
+@@ -1153,18 +1126,11 @@ static struct i915_gem_engines *default_engines(struct i915_gem_context *ctx,
+ 			sseu = rcs_sseu;
+ 
+ 		ret = intel_context_set_gem(ce, ctx, sseu);
+-		if (ret) {
+-			err = ERR_PTR(ret);
+-			goto free_engines;
+-		}
+-
++		if (ret)
++			return ERR_PTR(ret);
+ 	}
+ 
+-	return e;
+-
+-free_engines:
+-	free_engines(e);
+-	return err;
++	return_ptr(e);
+ }
+ 
+ static int perma_pin_contexts(struct intel_context *ce)
+@@ -2353,7 +2319,7 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ 	if (ctx)
+ 		return ctx;
+ 
+-	mutex_lock(&file_priv->proto_context_lock);
++	guard(mutex)(&file_priv->proto_context_lock);
+ 	/* Try one more time under the lock */
+ 	ctx = __context_lookup(file_priv, id);
+ 	if (!ctx) {
+@@ -2363,7 +2329,6 @@ i915_gem_context_lookup(struct drm_i915_file_private *file_priv, u32 id)
+ 		else
+ 			ctx = finalize_create_context_locked(file_priv, pc, id);
+ 	}
+-	mutex_unlock(&file_priv->proto_context_lock);
+ 
+ 	return ctx;
+ }
+@@ -2458,10 +2423,10 @@ int i915_gem_context_destroy_ioctl(struct drm_device *dev, void *data,
+ 	/* We need to hold the proto-context lock here to prevent races
+ 	 * with finalize_create_context_locked().
+ 	 */
+-	mutex_lock(&file_priv->proto_context_lock);
+-	ctx = xa_erase(&file_priv->context_xa, args->ctx_id);
+-	pc = xa_erase(&file_priv->proto_context_xa, args->ctx_id);
+-	mutex_unlock(&file_priv->proto_context_lock);
++	scoped_guard (mutex, &file_priv->proto_context_lock) {
++		ctx = xa_erase(&file_priv->context_xa, args->ctx_id);
++		pc = xa_erase(&file_priv->proto_context_xa, args->ctx_id);
 +	}
-+
-+	return folio;
-+}
-+
- int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 			 size_t size, struct intel_memory_region *mr,
- 			 struct address_space *mapping,
-@@ -119,57 +169,16 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
- 	for (i = 0; i < page_count; i++) {
- 		unsigned long folio_page_index = 0;
- 		unsigned long nr_pages;
--		const unsigned int shrink[] = {
--			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
--			0,
--		}, *s = shrink;
- 		gfp_t gfp = noreclaim;
  
- 		/* Grab the next folio if we exhausted the current one. */
- 		if (!i || i > folio_end) {
--			do {
--				cond_resched();
--				folio = shmem_read_folio_gfp(mapping, i, gfp);
--				if (!IS_ERR(folio))
--					break;
--
--				if (!*s) {
--					ret = PTR_ERR(folio);
--					goto err_sg;
--				}
--
--				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
--
--				/*
--				* We've tried hard to allocate the memory by reaping
--				* our own buffer, now let the real VM do its job and
--				* go down in flames if truly OOM.
--				*
--				* However, since graphics tend to be disposable,
--				* defer the oom here by reporting the ENOMEM back
--				* to userspace.
--				*/
--				if (!*s) {
--					/* reclaim and warn, but no oom */
--					gfp = mapping_gfp_mask(mapping);
--
--					/*
--					 * Our bo are always dirty and so we require
--					 * kswapd to reclaim our pages (direct reclaim
--					 * does not effectively begin pageout of our
--					 * buffers on its own). However, direct reclaim
--					 * only waits for kswapd when under allocation
--					 * congestion. So as a result __GFP_RECLAIM is
--					 * unreliable and fails to actually reclaim our
--					 * dirty pages -- unless you try over and over
--					 * again with !__GFP_NORETRY. However, we still
--					 * want to fail this allocation rather than
--					 * trigger the out-of-memory killer and for
--					 * this we want __GFP_RETRY_MAYFAIL.
--					 */
--					gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
--				}
--			} while (1);
-+			folio = shmem_shrink_get_folio(mapping, i, gfp,
-+						       page_count, i915);
-+			if (IS_ERR(folio)) {
-+				ret = PTR_ERR(folio);
-+				goto err_sg;
+ 	if (!ctx && !pc)
+ 		return -ENOENT;
+@@ -2613,22 +2578,22 @@ int i915_gem_context_setparam_ioctl(struct drm_device *dev, void *data,
+ 	struct i915_gem_context *ctx;
+ 	int ret = 0;
+ 
+-	mutex_lock(&file_priv->proto_context_lock);
+-	ctx = __context_lookup(file_priv, args->ctx_id);
+-	if (!ctx) {
+-		pc = xa_load(&file_priv->proto_context_xa, args->ctx_id);
+-		if (pc) {
+-			/* Contexts should be finalized inside
+-			 * GEM_CONTEXT_CREATE starting with graphics
+-			 * version 13.
+-			 */
+-			WARN_ON(GRAPHICS_VER(file_priv->i915) > 12);
+-			ret = set_proto_ctx_param(file_priv, pc, args);
+-		} else {
+-			ret = -ENOENT;
++	scoped_guard (mutex, &file_priv->proto_context_lock) {
++		ctx = __context_lookup(file_priv, args->ctx_id);
++		if (!ctx) {
++			pc = xa_load(&file_priv->proto_context_xa, args->ctx_id);
++			if (pc) {
++				/* Contexts should be finalized inside
++				 * GEM_CONTEXT_CREATE starting with graphics
++				 * version 13.
++				 */
++				WARN_ON(GRAPHICS_VER(file_priv->i915) > 12);
++				ret = set_proto_ctx_param(file_priv, pc, args);
++			} else {
++				ret = -ENOENT;
 +			}
+ 		}
+ 	}
+-	mutex_unlock(&file_priv->proto_context_lock);
  
- 			folio_start = folio_pgoff(folio);
- 			folio_end = folio_start + folio_nr_pages(folio) - 1;
+ 	if (ctx) {
+ 		ret = ctx_setparam(file_priv, ctx, args);
 -- 
-2.34.1
+2.55.0
 
