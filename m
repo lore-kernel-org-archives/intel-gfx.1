@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D6D5C531F7
-	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 16:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C3AC531F9
+	for <intel-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 16:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8A7410E5E1;
-	Thu, 23 Jul 2026 16:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C2EF10F15E;
+	Thu, 23 Jul 2026 16:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cUp7fJmD";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ELYk7Iby";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A00410E5E1;
- Thu, 23 Jul 2026 16:18:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6637E10E5C6;
+ Thu, 23 Jul 2026 16:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784823523; x=1816359523;
+ t=1784823563; x=1816359563;
  h=message-id:date:subject:to:cc:references:from:
  in-reply-to:content-transfer-encoding:mime-version;
- bh=eV8Ggs21wtqfGcgtRqECVQu+MTPNRss1jeqVHf8+vpU=;
- b=cUp7fJmDFExhW/Hw9/6nZEo4dIgdKUQp0ymeR5ks49odmNZrf8Xdo0Zq
- K4VsEURogoT5f6gHp3n11MKXmSL0l5eexCnfaK6gWZ4Gs0ntUeVTd6SMc
- 7Iv4KGqzmEMw4bPqLrEH+4lw9cV+6tbGuVRdAK5tH79moWydsCk6nyJpg
- FwcX6oo70jsMoMTDkmAOWxP2WvPzdxl1jDCv57ujEa9H1eQnP1f04O07R
- 2QsbDNPruF+Q27BRIA+PkkWb/NDTqUjoSTiJddXXjCpUpGohGcdo3buDb
- k2is6GIgbJ3zHGKs12RXb/TXcgerj/kNZ2tOozMgNWRzEAihdYoWIjKv+ g==;
-X-CSE-ConnectionGUID: etTVpMUHRcavJ1M8JDT/Eg==
-X-CSE-MsgGUID: EE7PzhnsRPy9WuNZ6Cmk8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96144343"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="96144343"
+ bh=sGYsZp2vgIkEmnf4Vx0MpxZd5ASMp7aPOCAlEutpq14=;
+ b=ELYk7IbysK7rd+NDv+xjY9UJXMx69CVMkzLY1zsyLS/csFc5vwP9K4hr
+ L0B9oZkJEmEYb8LPUU+o6snkekKlyq3NZChojEdENKn2OReO2Qlvv/6WW
+ RS0m+i2P/nzA4zSqwsBvuHyaRgz49H3Ej5D9ZBkHxhO2RgwM6G1C7B+in
+ cht29e1oTP5BMGdyubAPsLreTSNzrkeYuyYQtX4APnjHNwPeyhK6MYcIt
+ 8vofLgv3LGCVqS6lcP9IlLxo7G73XpQpBuYzsG50r7wAKl/sB4Zp6xJYr
+ WV63rt6xAteQyqcqQ4wjKzc2ePFRvU1Zh7cKTfoZJKvYlxIwv8PZb0rqB g==;
+X-CSE-ConnectionGUID: bs5QyGe/RviYPpgBppUXKw==
+X-CSE-MsgGUID: GyYhzDPTS8iw5Z7ojmigEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96144505"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="96144505"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 09:18:34 -0700
-X-CSE-ConnectionGUID: v8cBe9YORyGRFJoY4tA4bA==
-X-CSE-MsgGUID: ercj1WwYSm6GObjGz0/FDw==
+ 23 Jul 2026 09:19:23 -0700
+X-CSE-ConnectionGUID: fTSZlHktTx+T2k39oA4SsQ==
+X-CSE-MsgGUID: cVt6nbjXQWOEEVbzYgLVLg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="263425682"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="263425897"
 Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 09:18:31 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ 23 Jul 2026 09:19:23 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
  ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 09:18:30 -0700
+ 15.2.2562.43; Thu, 23 Jul 2026 09:19:22 -0700
 Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 09:18:30 -0700
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.46)
+ 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 09:19:22 -0700
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (40.93.195.49)
  by edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 09:18:28 -0700
+ 15.2.2562.43; Thu, 23 Jul 2026 09:19:22 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jqrZey1+TCre5VyITd12xZyHSAQo28Q04KBqKwKExDUrg5e3MAkzyI1NVXuxUT+oevy2mnOaJk5adD6AjgUdpQ7MesmJIJCwANYAHBwdgDC75iofkHczgr/34YFWnj0rwfvEplDp/uGOFIaEmM0qgl96t2Lp2/9xy/5jl8UZdIXFERZIFd852ZfCrPwX6nSm4MnsKhZYtAEDUJEJYZ5CoVjVLqHnOySq/ijqRi6J3Lqt/hKc6gR37/zy2RBF5PzgDwm3wAbuuoJCjB6B1PCHR/Z14yaRwKaaX3Q2g5e6Nk+Fxkpx6guP9QmB0AxxijeLRjesPQMEsA1e06fnAZi26g==
+ b=U+TzjcT8CzgcTNq1M6FCcYT2T36Nkg71PZfokrEAQBRIowe8U4nL1uQ9oBkkOf2KkHnogboshUPzg7oPugr2z5kLY6ycu8DwjFTP40RB3X1OT9jljGTXXC5KJJOatURo7mcO9qEsC17FcNVMhUFBa04iNXTE7RBeckvgR3elnZC11QgHl33dLyNE/Inn+jI7OEgrZ6rGEWh7BdySkJW5X0xuqbF0NlmC2Vp2N2rZNl4iLFHRzlWA8VEwPCjGIAnZ/2fd9RMtxYN8ZXLk3Y8PP6ip7shs4iUS5sXG6Nab5Mo1wT1IGnyor2BmwruMTCIAq3HYjpz3lt48r/BIIiXjFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tTk16/vfEimNyjYSUq0Y+mJ1GEzO3fdf2SwH5HnYAuM=;
- b=Jj6HO1iXLsPqc9z2CoKugGrPtAdU8DvAVhHLF3zNaiLQparvA9jAg2eWdN5poNVLNoZglgYuaS21NFM4nuw/cau+mS3SLyzhETtKBXBWz+CL+57NONL+XsSn9zXa9+m+7li/S1li36OCGx+sdSwxNhdokt9iy+A5cCbBvfmLvy9eJ+l84srXniYvCHV0wXQ2D4itMCieYbV3gpNn+Qy1dklnJKgZj+cL1N7QOnvaCUMupNyRZmmgabbJDG1cquY8jC+Mn8HJgXVjoPm0JkiijzwYjc3gmJ67/jSDMsG5z/Cpy5/MJwVeHLfTqFxjWKkccUBOxLOq3j86OkUxuqUFeg==
+ bh=NRgR8g7eAciFUI8jxptH2AfaRR8m9fo06YrB9eVLMl8=;
+ b=KHc+dT4okcEF8J56Lm+U2rjYrLKPgN/qcSbUNZ5qGE6QhNy86K6atuE5kDUTnGRNFC6CRSmG642SwXi7bR93Ao1sOgLeR2YjkjgJZAr1yvVSmUAA0ULWNXdLg193qTqJDQ+7bklArRFXGY/iLB22VHH4mImFkUq5A4KtqAVGyM7sVzEAl1UgAlEdrhHgU8KRQDZ9R0lXlb3Y0+2eiGwycioUz/anG/SO6uz/p3Br7tDdbFaAq33js/CyNWsKxIWAlA4zJWm7QdmMdBIvcU0pAuKR3Kl86iR1YV4oaOnul9zn2ZQkCppNBOi02FMH+Y8zkxTaQHmw98IUz5fxtaUZLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
@@ -69,93 +69,93 @@ Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
  by PH7PR11MB7642.namprd11.prod.outlook.com (2603:10b6:510:27d::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 16:18:26 +0000
+ 2026 16:19:19 +0000
 Received: from PH0PR11MB7636.namprd11.prod.outlook.com
  ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
  ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 16:18:26 +0000
-Message-ID: <7b54f757-68da-4c48-bfb5-aa2448a85e48@intel.com>
-Date: Thu, 23 Jul 2026 21:48:19 +0530
+ 16:19:19 +0000
+Message-ID: <1dfc5773-4a13-4f59-b89b-0e1667a1171c@intel.com>
+Date: Thu, 23 Jul 2026 21:49:09 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 5/9] drm/i915/display: Move CMRR crtc_state members
- under VRR
+Subject: Re: [PATCH v6 6/9] drm/i915/vrr: Compute CMRR fractional timings
+ generically
 To: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>,
  <intel-gfx@lists.freedesktop.org>
 CC: <intel-xe@lists.freedesktop.org>, <uma.shankar@intel.com>,
  <ankit.k.nautiyal@intel.com>
 References: <20260722043923.3241977-1-mitulkumar.ajitkumar.golani@intel.com>
- <20260722043923.3241977-6-mitulkumar.ajitkumar.golani@intel.com>
+ <20260722043923.3241977-7-mitulkumar.ajitkumar.golani@intel.com>
 Content-Language: en-GB
 From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260722043923.3241977-6-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20260722043923.3241977-7-mitulkumar.ajitkumar.golani@intel.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0154.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1ac::15) To PH0PR11MB7636.namprd11.prod.outlook.com
+X-ClientProxiedBy: MA5PR01CA0011.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:174::17) To PH0PR11MB7636.namprd11.prod.outlook.com
  (2603:10b6:510:26f::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|PH7PR11MB7642:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b1ed0c3-064b-474f-1e5b-08dee8d60663
+X-MS-Office365-Filtering-Correlation-Id: b21d9d61-463d-4780-2c66-08dee8d62603
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: /ncEDjuewhtguzqvRiO0StNB08p/vztYO/PKVWnAhvFCND+JCQZo0ajBD2Y5oj9wQyWJhxzHBvwuSELURPglFwFChy2X4mTei/K2XgX/ARndu57J8hsbG+zVOqdzDdyyR3jNxnCphaqHcBM4kpPC6WW2MwUb+YBeSfM8/gAREhp85riU+qT0fFWaLXRzWysHHSC/W9zqoaKloZdBIe3rXZlTEuUot+CBvii3cpQImeAhQ+c9LJyUadAPIelcpmozju+K0shT86licRi6SLZxQ3IrGM7gdb9g8JPO5UHAYD7QSqJddO7HEpKpLFdr0dWyNkAg3IFsnfVdJgNvEagp6omGgXEYcjnLvw9fHsNfSSzOf/9sl8EFs2YDFZiN+cwyvUtdcLQ6B963jC3GxqojPEJnIqmsWfhNcHamL5kqfSJr4MGD9mKUlPkC/1UdwMJxSmYAk1HAn5piuT6LAm3kn/NH2LpZZPPbNx9nYt3OPD4hGNOX6PRTQtTA9XNoqNn73kCun9T1TRPyLAO4j3mcHbhHZIOIcZ2Er8YwQeFxNPwE1hR02EzF+837uU4iAFbXaHAevj9B3FWur0EIPlcSipR8Q/LGLpmWsE3Emm3MdB29DEeKpvvha/l+l/9FOzt/f/k3WkquQhKxihakmzyDhHHJdl8gcsq9bfm2589mOCw=
+ ARA:13230040|23010399003|376014|1800799024|366016|10067099003|4143699003|3023799007|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: X03adZVmg5iZMYzdZxqmNXFDJFHGbEe4HMlVY94uaSTjUBPjKQF9GuxdW5BpXYsSKvrULeRV6dkifXu7sXmZlVpVrTDJkLp31GW822lKswiuU0dIXdNVGJKaK8jihHs5TLx+mpEAT9KXj9jwMOPw2w0nKqozypCo34Lri0mu5OnagJ9cUdHzBkYG6yP3fmuKavFbX2PprSmGf7fgf7vDRtryFWHu2H7g/axExeA32oGMkuiG7fM0Kpn9BriNB9LF9SVn4sWKxKbH1B0ms5IxCbp7aZnsZFBeFXsoV+CzoRKoh1aR35uhgWN+oQpGg/rtnB1kjqVh0OBitil4/8v7sqjgzdnC+W2B5DFs3Ws9vFL289BLB1IREGmqLmWs9NvOttUuml2rR5ocD+RP0tgL6P1KHwS7a8g7B0ySII0E7u8syg7sBzPBJRMy8N5mpojQXm1hudPUKHibIt93UhyIvo6TT4riSf6RIU1YYXmX7DU2Jdkmha+th8aDrx+ijTX0rYr8cXin7hQM4BNElFKFQRL9ptm4sz8sUZo5q/bBZeezhrEbsgdh7T/USRUXYrH2Bo7vB0poTP4xPq02NAquPQp0fntPdt2ekIOXkP2XbAE+OF2Nx2uRNJmDFqIkn26Vl7j0DAq3eMRpcz4C3yDBaIdpIvOXnKtMtm+QdxksucU=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(4143699003)(3023799007)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K1RDY29SSExnSmZ6UFVGUktUR1orYjFqVlcrY2VIbVVEb0p2WGIzWEFoaUxZ?=
- =?utf-8?B?WG84SllnWHNJQTk1UWRFOWxyVXJYL0NsSzRUYjVVUWk2NXdJazRWV2t2QUdI?=
- =?utf-8?B?Vys2Z2k0RHdnNXFFODVKUDgwYlM4djF4emdBWDhHMFhtWUE3MGdaM2p2UGF2?=
- =?utf-8?B?ME10eXJIN09Ea0xsZGlRVk56eXlvOTE1WkprN3ZlZjRBS2lBcHp1SllYblls?=
- =?utf-8?B?SC9vbW1jWjV0bG9CM2ZWN0J2OHFYY0loWWNKWVlOUE9obmFYUlM4Skx2V3dm?=
- =?utf-8?B?WDFaQk9vbWdWUkRIdHZ0aEVPMHRtM1dSZld6MjRnMDQ1N1M1ZVM5T0lvSVNH?=
- =?utf-8?B?S3UvcFhhYWYweTlmMHVObGdIRWhIVy9zRmFvaWxVdW43ZmxKZzErMFVGdGtw?=
- =?utf-8?B?NnZlOVdFTG9ZUjlmZS9wVFRZcHhuZVl1M1NnNmtBdE1vZGlLcGRJWDlkYlRI?=
- =?utf-8?B?Z3ZoY3JRU1JqaUdpcFJWdDcyUGRMQlViTm53ZjRpSHA4VEJwaEhYWUd5UnBx?=
- =?utf-8?B?ZTdnYi9RT2d1RVo4QW5pQytzeGptQnpXdUxTMnRWNHBNTFE0ZjBVbFdGZkhD?=
- =?utf-8?B?ZU9iTWd1YjVCeGZMSllGV0J5UXFOcFpPdUpqWmNZOFdEK0VIVk1YVlVueTJw?=
- =?utf-8?B?SE9LbE10UG1VTXN4OTBhWS9wN0U5TzlORFBWbXhmWmxKYitrdENxMlV0OVRm?=
- =?utf-8?B?am1CUzlmaU4xTTFEQ1p6TGdSWnNqTm83NmUrZDdMZHBobmdHVXhJcXhHRE5h?=
- =?utf-8?B?YUcyY24rai80Qkg1dnBUb3B6Y0tiTm9IV3o5K1JRZ1UxL0dEdEJvR2hBTG1z?=
- =?utf-8?B?TElIWFNRcmpQRG8wM0VUU0liOVo2MmFWeHo5NndMUVVveDNqUEIveG1oV1FJ?=
- =?utf-8?B?MVl3OUZmN1l6RjFkWUxFNUxQbWFWY0d5bys0UldVOHRmeVp2RVgvVFVobU05?=
- =?utf-8?B?QVA0ZC91dWNjVUpxVmtOVzJmdldPNWNXUGhVVU1uc0hMZ241WEpKeFUrRHIw?=
- =?utf-8?B?SnI2QnYyNEl1U2xEQ3IvbXBlekM1a0tjN2hYK0lFZUg3YUhqTWdvYjlLL1N5?=
- =?utf-8?B?TTRWakZiSjNGTzBEcE9YZEZ1b3FnWHdGYk84NjlnSjRrUmxtc0Q1VGlKVWhU?=
- =?utf-8?B?K25lU3ZSeVRlbVlHMGloMTNTUVZGYmgxZzdPcU5VbDVQZkJVWFdSL01ZWFAv?=
- =?utf-8?B?bFpoUUZzbkJORW50a1dOOVpZY2JTK05TbVMvWG0xbXgrM2crUjB1bHJFVndJ?=
- =?utf-8?B?NXVHN1R5aG9lcW80V1ExbUNHVTJ3bGNTVDBHUmxRcnZtTzhDb0J6MjNRT3Nh?=
- =?utf-8?B?cTJodncvZ0grVXdLSTkyUHVxcms1NGZka3Q3Rk5DYXlsY2cyajM0RS9ObExt?=
- =?utf-8?B?blorWjIyRFF0UmJrRTRiSCtuUWQxb0wzdzE4Z3ZzL1IvUjl2RXFMTWNGTFMw?=
- =?utf-8?B?NVlpVnpPSEFZZy9VaVo1VTRiVzdyeUNCSUllaHFHd0hWKzYwNkljR01NR1Zk?=
- =?utf-8?B?SFMyeVRHKzM1U2NiQ3BFY1JlTWJaV0JOZC9tSjNzNEM4Sm1XMGhuNjYrZEhs?=
- =?utf-8?B?UUdFaDN3YlNOWWdERGpLN2NCS2daRElzYmpKMk1LSHlUUVk2QkNzV2dBd0tv?=
- =?utf-8?B?OXpXbFlKSE0zamJKYU1LWWJKeUhhWWkrWEVLSjV5K0pBN3JZTHV5SjRoRUZv?=
- =?utf-8?B?dm5pN0ovT0t3YWlhdHJqSlRSNHh6VE16T3F0ajkrYTZMQVQySHY1MC9QNjR0?=
- =?utf-8?B?ODZjV3NPeW1WRVM2RmJnc1NGZG9hcDN3Q29QejNpR2ZLbVNGblM4YW9uem5L?=
- =?utf-8?B?ajBWOEcwYUtoeXg2MGhlMnA3MGlmZlN1WEcxWm9ud29VNVZTb1JjUEpGbmVY?=
- =?utf-8?B?cHJwTjhBeVI1aFFEdDVYaWNuakFWVEVneEV1RnVDaEpyMm9sV2p2VlRTTzN2?=
- =?utf-8?B?ekd1dnJJS2s1dFFmTWZWRzdEZ2xkSkJRZHdpRitHQ3M3SkdvSWJPT3o5b1hl?=
- =?utf-8?B?bUZ4R3RSSDNkT2ZOS1R1N0tPU2s2cUV5WEpuNmZ6ZWZJR01rOEFvVk5vQlFj?=
- =?utf-8?B?Z0pEMnpOd0grM1M1dzVzWFNJNnAyekJqVUdaZlpqRHVVZ3BpdENZVk5ML3FN?=
- =?utf-8?B?aGo1dFlYdHYwOXE3aVJhZUl1OHFpZ3lGRnVIa080TGNuMW5PWjVZaVJaK0Zy?=
- =?utf-8?B?Q096ZjNDUUVYeERWem93YlZtQmM3SEpFQlVJNG15RDVQN1ZRZTF1NFJkVmYw?=
- =?utf-8?B?NFV6VUt5SnVaZ2JiVjdTa1pEaHZaV3N2aXZzNE5kcTE0TVl5YnVCdGZFbTlj?=
- =?utf-8?B?bWRCRHoxT0w3SDNkcmMwMzVTUUo4MFh6NG00MVdDU1lFNkpDZi9NeG4vSEdC?=
- =?utf-8?Q?S05ArM63XyY7c4Bc=3D?=
-X-Exchange-RoutingPolicyChecked: c9xlDEA7yI7jOrwdj5Iydq1nrk9u0c5tu3I/p6+BArOM5AwGWUmgIP8j5D5qDjLn/rBPrmpz5Dc8/llqQHtEbGm6GeK9IsLnna0R1UStcXC+yRq0B9lWgYhzudgYxB0bQiZQqMgT2OIIJ4PgxLAPRkOa5dxJ+dJQwen2wvb0HSYosRp1fAF571InDh6JSUl6nEbrAPPEQt4oKDR1mhkjPCow+lj6D89SJxPMubHSJKOIjMxq1G+S7w2/G7ONr6HEnPzR7UPx8HrgQ0mFMplE/46owAlESAr2o82JNFF8H+rdz/tE46f/BMR1onVMU/BShV5yeFdieM0LZiz2oZOTyA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b1ed0c3-064b-474f-1e5b-08dee8d60663
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1N4UDV5SUNOUXFRNUl4dU9EVXlTR3h0NXdxZTZjSDZkUFd1dkhjN1Q3VG1E?=
+ =?utf-8?B?ZmFMQkY3V1pXc1QwMUJ5Vkt3RTM2NWYwVVZQV2YzYXBtWnZ6QW9tcXNVNFJ6?=
+ =?utf-8?B?blBKeEFmakVzVEpJdXpRc2QyYVdnSjNaN0Z6OG81L0g2ZTJBL0VETSswZGlr?=
+ =?utf-8?B?WlJBRXB3aWU4S2dLRnhrNnRJQTFuVzBWTXljN2hrbnQyWFQvNE9KTHZrQWFj?=
+ =?utf-8?B?Z0E2MGVPRzBxU1ZRVDBLL3NydjhGOTgzN3JtSUFKbUl0UTVNU0VldTY5d2Rq?=
+ =?utf-8?B?QzVIY0xMQ0g4dllPaGh0MHF3SjNJMTZqNlI1b0NMdHMvdW1lQnlhbm1JSDVG?=
+ =?utf-8?B?UEkyVS9LMmZFSGhVbERRYzlaZk14KzNmanFOdGhXcHMrbUtDQkxabDg1b01E?=
+ =?utf-8?B?UjdjNFozOXRzT0JDOXFPanJmZFZCY3VhbzFOa2thZ3R2cnRZYnZPNVZxeE9F?=
+ =?utf-8?B?U0dYU1lNcTdGSWozTmlJUHVZRGVnQ1JLUXE1M0Vxc01WenpIUS90UW9hTzd5?=
+ =?utf-8?B?bjBSVmpQTnR0UzBLcU9UOWtCS0ttaHBYOEFFSnJYaFl6WTJ5M211MS9ONzkv?=
+ =?utf-8?B?M0ZaWmVCUFd1Qk1lUDVkeE5PTnY5dmhSRC9GWW1LVCtyZ0tKSklnNEVCZjlq?=
+ =?utf-8?B?WnpSNjY5VTUzTmY5MVQ5VFhzVGdReFpnQlZDNDFwd0NwQ3pjQ1h0TnlaNmNP?=
+ =?utf-8?B?NkUzbGNQWU9SNVA0UmluRDF4ZFluanNTZEVmYVVKemFTVC9DQzB2bFlkbFcr?=
+ =?utf-8?B?OEM3MEhQTWVEOGhtYVhacFl4OG5ueVNKSWVUbXQ2THVOTU9DQzlGNENacy9N?=
+ =?utf-8?B?c05wcHQrS0oybWJjajZjYW1Zd24vbjVJS3JMRkd3UHBGZjZ3WG1xVFRaeUxH?=
+ =?utf-8?B?WmVrd05JMlMybnl3YmJJbHEzRDQxd0RRY2dWWVowNlVPaUlIS09ta0gvUytO?=
+ =?utf-8?B?V1d4ZzEyZkZlQVlha1BhWnI5cTFQZERBbGFQVElZdTZvZ1pYM09XdTlBTDUx?=
+ =?utf-8?B?WGxXa2VCOE9YUXBYU0NNQXZFblA1RS9zUk13K2VkV0wyMkFhQ0lyVGM4dUhq?=
+ =?utf-8?B?cXY3d3VLTDErb25oZVhJd2hRSWlwYzNuZkJTWmVVR3d4bzJTMS9TdG80eW51?=
+ =?utf-8?B?K1cyL3lKakc4dWI3bm04WjBmWUVsWnE4bW9VM2FMdzdqMEVzTFd2eHIraldz?=
+ =?utf-8?B?ckNwWE52V3R4MWU4T0s4MnBYYm1CZXo1dU5leFBQZkhsVGV0eEFrTkxBOW9y?=
+ =?utf-8?B?VUNFTnZ1LzB6aTVtMC94MldmbDlPQ0JsREJEclpFVnZnREtYT1loZ2RMNWhp?=
+ =?utf-8?B?dThwcnJoVGswaG4wM3Q1WXJyb3lESHFEaVNJMDNCRHA4TXFSZGdFc3RVM01j?=
+ =?utf-8?B?L005OU1FSHFxcDlQSWhNU05YeUxDc1NLODBqNFROOGRFeTMxSzVoR1d5dGZD?=
+ =?utf-8?B?eGZDTVN6czlPNHBiMm8yaWxjTG81N244S0o1RUlNQnJOcEdTekJSNElodUE0?=
+ =?utf-8?B?TXdBOUhPckxqK1Z1NW9KUDJORmR5NlhxZHRmSzdWNUhwdE5MN001M0NkM3Iv?=
+ =?utf-8?B?amprRmhVTVBBcEp3SVRpNkJscFRDemdxQnN3dUk2Z2ZsLzFrbnlHUktEMStF?=
+ =?utf-8?B?YmxOOWNyM0Y5aUxDWHVIUkhpVjUvNlVGbDZRQXdiSnhwaFAxNkpnZHozeGl4?=
+ =?utf-8?B?OXlHbFNwSkc3VFdJbERHdjduc3h0TnViRE9DMFM4MU9ROW9lcUhkcGFEZDJH?=
+ =?utf-8?B?SitnTXhyVjVROWJHWFpGWnl3OUNyU2NFdDc2bmwra2ZQdkJQWkdIZUkzL1Bk?=
+ =?utf-8?B?d1FtbTlybk1rN25oTy9sWnJ1djJldjM4dXZnQ0RiYm1zMkpXTXNIeEs4K2l4?=
+ =?utf-8?B?TnhmaG5ZbGVjUVhMdTI2WkZwUnRrNy9lR0pLV2VhNTMyMTg5RURBRVdqZDU4?=
+ =?utf-8?B?Nk5jaHhlMFhaQlJrSTdPRWxxdUw4QklOa0ZaWWJseDMzcnJUOGdwdU9jc0JE?=
+ =?utf-8?B?ZFM4NUlzajdPQzc0S0hBeTIrUThNeGhiYWozdGxaaXRXclBwYnBKZ0ZXcllM?=
+ =?utf-8?B?L0VTeVI3MW9adE56cGk5V1NvQVc3cm9BNUVIdC81T3E0VXBvZkFZZ1p3V0JH?=
+ =?utf-8?B?UHk1WXpwZlJ6dmJORjhxTjZpRGxTbDlsOVNzbjVUWFNaek5KajloZVBtYjc3?=
+ =?utf-8?B?ZHlJNkRwaHAzek83cW1LYWlSTkc4cnlQNklUU1I4ZnJ5MnA1cTRXVHdRWWRn?=
+ =?utf-8?B?VkRoZUZXNzU2Ri84TDVFU1VjOTdvSzZKRWJzYURWT1psTGFLVTkyUFBObDc1?=
+ =?utf-8?B?aW1tTzFveWl2QjZrNFJhMm0vMTVlMUtOdC84cUxBdko4aStaVEhkM3lNa0s0?=
+ =?utf-8?Q?mjtpl33I6bqaSjII=3D?=
+X-Exchange-RoutingPolicyChecked: Qf53/1NzMUbFs/u0b6QdxZvNbGv5QlTZlXupELj1u+l7rlJuqjZDyGwQwWQZi+X19AejgDbzr5StxX5urBfACEKf1fH8r/pq1txBnreAKjvXIwp/5qPAAladnbT4R9KEvYwO5DoWZwbWTScw7IepPDp1x2W3xozkgyJhVycFQ8aV486qnW2LwQzrKF07n5KB8qd5Y+A+KcZeTH1kXCrZjxuq2YfedzLO/qytCPvTTjauV9orPuM7m9cSjWCw/aG9AOZx2/JpHcgluxISfW9utoVxDtKLxt931i2PL7+FLBnuWUVbbymrJNmD/xm/+wbSluOUK43JKLJLm7B82qmvjw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b21d9d61-463d-4780-2c66-08dee8d62603
 X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 16:18:26.2065 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 16:19:19.2845 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aHlamGUIEUG1vKFV8aI4SLJcVPoAhoTUGEftnkkhTx/Bm1wVjado5Sp93JXQqbLZXQV9UgwBiFa5lr93huhvRj+BkpciT5dPZEk8lyLVQMc=
+X-MS-Exchange-CrossTenant-UserPrincipalName: QvvKN/a2sndSNzYUm6DxdbiBxPKkZ+DR5HB0ZL/GVYxUhOf8Apwzo3xfLpMWcneGDPKrQo7dSEm2Yr6HN3pPll2yDqYvbv97+zJEBKshKmY=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7642
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -176,199 +176,259 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 
 On 7/22/2026 10:09 AM, Mitul Golani wrote:
-> Move CMRR crtc state members under VRR infrastructure as
-> it is enabled during fix refresh rate  VRR timing generator
-> is enabled.
+> Rework the fractional-CMRR computation into a generic,
+> transcoder-agnostic helper driven by an explicit per-CRTC debugfs
+> target, replacing the previous disabled, eDP-only code path. Compute
+> CMRR_M and CMRR_N timings based on the video mode requirement. Note the
+> CMRR enable path is wired up separately; this patch only lays down the
+> generic computation. Remove computing mode_flags, I915_MODE_FLAG_VRR
+> as we are moving CMRR to fixed refresh rate path. Also return early
+> from CMRR computation if existing computation is well sufficient.
 > 
-
-The RB was contintgent on changing the commit message.
-
-"it is enabled when the fixed-refresh-rate VRR timing generator is enabled
-"
-
-Please don't ignore the *conditions* in a *conditional* RB.
-
 > --v2:
-> - Move cmrr structure under vrr umbrella.
-> - Remove dups. (Jani)
+> - Derive video_mode locally instead of caching it in persistent
+>    struct intel_crtc state (Jani, Chaitanya)
+> - Fix numerator unit in comment: milli-Hz, not kHz (Chaitanya)
+> - Fix "reqirement" typo and clarify CMRR is not yet enabled in the
+>    commit message (Chaitanya)
+> - Fix precision issue while computing M/N ration (Chaitanya)
+
+typo: ratio
+
+> - Multiplier_m and n naming update to increase readability. (Chaitanya)
+> - Compute vtotal as it is required to deither as per algo
+
+typo: dither
+
+> implementation. (Chaitanya)
+> - Replace misleading adjusted_pixel_rate to dividend which is somewhat
+> relatable.
+> 
+> --v3:
+> - Mention rationale for not to compute I915_MODE_FLAG_VRR. (Chaitanya)
+> - Remove redundant return statement from last line of cmrr compute.
+> (Chaitanya)
+> - Correct cmrr_n calculation. (Chaitanya)
+> - Add early return condition is current computaion is well sufficient
+
+typo: computation
+
+
+> to drive without CMRR. (Chaitanya)
+> - Take round up for requested_refresh_rate. (Validation)
+> - Correct integer overflow
+> 
+> --v4:
+> - Update cmrr_n calculation to aviod aggressive dithering
+
+typo: avoid
+
+> - Use div64_u64 to truncate value to floor value, as DIV_ROUND_UP_ULL
+> rounding to ceil value.
+> - Add TODO comment at cmrr_n calculation
+> - Add condition for custom refresh rate request
+> - Update CMRR computational comment block in copute config
+
+typo: compute
+
 > 
 > Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 > ---
->   drivers/gpu/drm/i915/display/intel_cmtg.c     |  2 +-
->   drivers/gpu/drm/i915/display/intel_display.c  | 10 +++----
->   .../drm/i915/display/intel_display_types.h    | 12 ++++----
->   drivers/gpu/drm/i915/display/intel_dp.c       |  2 +-
->   drivers/gpu/drm/i915/display/intel_psr.c      |  2 +-
->   drivers/gpu/drm/i915/display/intel_vrr.c      | 30 +++++++++----------
->   6 files changed, 29 insertions(+), 29 deletions(-)
+>   drivers/gpu/drm/i915/display/intel_vrr.c | 138 ++++++++++++-----------
+>   1 file changed, 72 insertions(+), 66 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/i915/display/intel_cmtg.c b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> index c8e0f90af910..3c0f5b2fb2e7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cmtg.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cmtg.c
-> @@ -326,7 +326,7 @@ void intel_cmtg_set_vrr_ctl(const struct intel_crtc_state *crtc_state)
->   		  XELPD_VRR_CTL_VRR_GUARDBAND(crtc_state->vrr.guardband);
->   
->   	/* TODO: The code below may need to be revisited once CMRR is enabled */
-> -	if (crtc_state->cmrr.enable)
-> +	if (crtc_state->vrr.cmrr.enable)
->   		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
->   
->   	intel_de_write(display, TRANS_VRR_CTL(display, cmtg_transcoder), vrr_ctl);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index 2c55a4818ad7..5baa9602b86e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -950,8 +950,8 @@ static bool vrr_params_changed(const struct intel_crtc_state *old_crtc_state,
->   static bool cmrr_params_changed(const struct intel_crtc_state *old_crtc_state,
->   				const struct intel_crtc_state *new_crtc_state)
->   {
-> -	return old_crtc_state->cmrr.cmrr_m != new_crtc_state->cmrr.cmrr_m ||
-> -		old_crtc_state->cmrr.cmrr_n != new_crtc_state->cmrr.cmrr_n;
-> +	return old_crtc_state->vrr.cmrr.cmrr_m != new_crtc_state->vrr.cmrr.cmrr_m ||
-> +		old_crtc_state->vrr.cmrr.cmrr_n != new_crtc_state->vrr.cmrr.cmrr_n;
->   }
->   
->   static bool intel_crtc_vrr_enabling(struct intel_atomic_state *state,
-> @@ -5523,9 +5523,9 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
->   		PIPE_CONF_CHECK_I(vrr.flipline);
->   		PIPE_CONF_CHECK_I(vrr.vsync_start);
->   		PIPE_CONF_CHECK_I(vrr.vsync_end);
-> -		PIPE_CONF_CHECK_LLI(cmrr.cmrr_m);
-> -		PIPE_CONF_CHECK_LLI(cmrr.cmrr_n);
-> -		PIPE_CONF_CHECK_BOOL(cmrr.enable);
-> +		PIPE_CONF_CHECK_LLI(vrr.cmrr.cmrr_m);
-> +		PIPE_CONF_CHECK_LLI(vrr.cmrr.cmrr_n);
-> +		PIPE_CONF_CHECK_BOOL(vrr.cmrr.enable);
->   		PIPE_CONF_CHECK_I(vrr.dc_balance.vmin);
->   		PIPE_CONF_CHECK_I(vrr.dc_balance.vmax);
->   		PIPE_CONF_CHECK_I(vrr.dc_balance.guardband);
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-> index 46dd980b315a..20a07ea06b5e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_types.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-> @@ -1408,13 +1408,13 @@ struct intel_crtc_state {
->   			u16 max_increase, max_decrease;
->   			u16 vblank_target;
->   		} dc_balance;
-> -	} vrr;
->   
-> -	/* Content Match Refresh Rate state */
-> -	struct {
-> -		bool enable;
-> -		u64 cmrr_n, cmrr_m;
-> -	} cmrr;
-> +		/* Content Match Refresh Rate state */
-> +		struct {
-> +			bool enable;
-> +			u64 cmrr_n, cmrr_m;
-> +		} cmrr;
-> +	} vrr;
->   
->   	/* Stream Splitter for eDP MSO */
->   	struct {
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 23e169d8db7b..51afe519073f 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -3129,7 +3129,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
->   	as_sdp->revision = 0x2;
->   	as_sdp->vtotal = intel_vrr_vmin_vtotal(crtc_state);
->   
-> -	if (crtc_state->cmrr.enable) {
-> +	if (crtc_state->vrr.cmrr.enable) {
->   		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
->   		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
->   
-> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-> index 6a90ded5d1fa..e9e47522495d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_psr.c
-> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
-> @@ -1587,7 +1587,7 @@ static bool intel_sel_update_config_valid(struct intel_crtc_state *crtc_state,
->   	struct intel_dp *intel_dp = intel_attached_dp(connector);
->   	struct intel_display *display = to_intel_display(intel_dp);
->   
-> -	if (crtc_state->cmrr.enable) {
-> +	if (crtc_state->vrr.cmrr.enable) {
->   		drm_dbg_kms(display->drm,
->   			    "Selective update cannot be enabled when CMRR is enabled\n");
->   		goto unsupported;
 > diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-> index 267c65d9245f..84b1ec7f1616 100644
+> index 84b1ec7f1616..e8c6516fd36a 100644
 > --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 > +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-> @@ -235,12 +235,12 @@ cmrr_get_vtotal(struct intel_crtc_state *crtc_state, bool video_mode_required)
->   		multiplier_n = 1000;
->   	}
+> @@ -27,9 +27,6 @@
+>   #include "skl_prefill.h"
+>   #include "skl_watermark.h"
 >   
-> -	crtc_state->cmrr.cmrr_n = mul_u32_u32(desired_refresh_rate * adjusted_mode->crtc_htotal,
-> -					      multiplier_n);
-> +	crtc_state->vrr.cmrr.cmrr_n = mul_u32_u32(desired_refresh_rate * adjusted_mode->crtc_htotal,
-> +						  multiplier_n);
->   	vtotal = DIV_ROUND_UP_ULL(mul_u32_u32(adjusted_mode->crtc_clock * 1000, multiplier_n),
-> -				  crtc_state->cmrr.cmrr_n);
-> +				  crtc_state->vrr.cmrr.cmrr_n);
->   	adjusted_pixel_rate = mul_u32_u32(adjusted_mode->crtc_clock * 1000, multiplier_m);
-> -	crtc_state->cmrr.cmrr_m = do_div(adjusted_pixel_rate, crtc_state->cmrr.cmrr_n);
-> +	crtc_state->vrr.cmrr.cmrr_m = do_div(adjusted_pixel_rate, crtc_state->vrr.cmrr.cmrr_n);
->   
->   	return vtotal;
->   }
-> @@ -258,7 +258,7 @@ void intel_vrr_compute_cmrr_timings(struct intel_crtc_state *crtc_state)
->   	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
->   	crtc_state->vrr.flipline = crtc_state->vrr.vmin;
->   
-> -	crtc_state->cmrr.enable = true;
-> +	crtc_state->vrr.cmrr.enable = true;
->   	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+> -#define FIXED_POINT_PRECISION		100
+> -#define CMRR_PRECISION_TOLERANCE	10
+> -
+>   /*
+>    * Tunable parameters for DC Balance correction.
+>    * These are captured based on experimentations.
+> @@ -198,68 +195,79 @@ static bool intel_vrr_cmrr_possible(const struct intel_crtc_state *crtc_state)
+>   	return (HAS_CMRR(display) && intel_vrr_always_use_vrr_tg(display));
 >   }
 >   
-> @@ -651,15 +651,15 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
->   		return;
+> -static bool
+> -is_cmrr_frac_required(struct intel_crtc_state *crtc_state)
+> +static void
+> +intel_vrr_cmrr_compute_config(struct intel_crtc_state *crtc_state)
+>   {
+> -	int calculated_refresh_k, actual_refresh_k, pixel_clock_per_line;
+> +	struct intel_display *display = to_intel_display(crtc_state);
+> +	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
+>   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+> +	u64 dividend;
+> +	int requested_refresh_rate, current_refresh_rate;
+> +	int rr_multiplier = 1, rr_divider = 1;
+> +	bool video_mode;
+>   
+> -	/* Avoid CMRR for now till we have VRR with fixed timings working */
+> -	if (!intel_vrr_cmrr_possible(crtc_state) || true)
+> -		return false;
+> -
+> -	actual_refresh_k =
+> -		drm_mode_vrefresh(adjusted_mode) * FIXED_POINT_PRECISION;
+> -	pixel_clock_per_line =
+> -		adjusted_mode->crtc_clock * 1000 / adjusted_mode->crtc_htotal;
+> -	calculated_refresh_k =
+> -		pixel_clock_per_line * FIXED_POINT_PRECISION / adjusted_mode->crtc_vtotal;
+> -
+> -	if ((actual_refresh_k - calculated_refresh_k) < CMRR_PRECISION_TOLERANCE)
+> -		return false;
+> -
+> -	return true;
+> -}
+> -
+> -static unsigned int
+> -cmrr_get_vtotal(struct intel_crtc_state *crtc_state, bool video_mode_required)
+> -{
+> -	int multiplier_m = 1, multiplier_n = 1, vtotal, desired_refresh_rate;
+> -	u64 adjusted_pixel_rate;
+> -	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+> +	if (!intel_vrr_cmrr_possible(crtc_state))
+> +		return;
+>   
+> -	desired_refresh_rate = drm_mode_vrefresh(adjusted_mode);
+> +	/* No CMRR ratio configured through debugfs */
+> +	if (!crtc->force_cmrr.numerator)
+> +		return;
+>   
+> -	if (video_mode_required) {
+> -		multiplier_m = 1001;
+> -		multiplier_n = 1000;
+> +	/*
+> +	 * The numerator encodes the requested refresh rate in milli-Hz, so the
+> +	 * requested refresh rate in Hz is numerator / 1000. It must match the
+> +	 * refresh rate of the current mode.
+> +	 */
+> +	requested_refresh_rate = DIV_ROUND_UP_ULL(crtc->force_cmrr.numerator, 1000);
+> +	current_refresh_rate = drm_mode_vrefresh(adjusted_mode);
+> +
+> +	if (requested_refresh_rate != current_refresh_rate) {
+> +		drm_dbg_kms(display->drm,
+> +			    "[CRTC:%d:%s] CMRR requested refresh rate %d Hz does not match current mode refresh rate %d Hz\n",
+> +				crtc->base.base.id, crtc->base.name,
+> +				requested_refresh_rate, current_refresh_rate);
+> +		return;
 >   	}
 >   
-> -	if (crtc_state->cmrr.enable) {
-> +	if (crtc_state->vrr.cmrr.enable) {
->   		intel_de_write(display, TRANS_CMRR_M_HI(display, cpu_transcoder),
-> -			       upper_32_bits(crtc_state->cmrr.cmrr_m));
-> +			       upper_32_bits(crtc_state->vrr.cmrr.cmrr_m));
->   		intel_de_write(display, TRANS_CMRR_M_LO(display, cpu_transcoder),
-> -			       lower_32_bits(crtc_state->cmrr.cmrr_m));
-> +			       lower_32_bits(crtc_state->vrr.cmrr.cmrr_m));
->   		intel_de_write(display, TRANS_CMRR_N_HI(display, cpu_transcoder),
-> -			       upper_32_bits(crtc_state->cmrr.cmrr_n));
-> +			       upper_32_bits(crtc_state->vrr.cmrr.cmrr_n));
->   		intel_de_write(display, TRANS_CMRR_N_LO(display, cpu_transcoder),
-> -			       lower_32_bits(crtc_state->cmrr.cmrr_n));
-> +			       lower_32_bits(crtc_state->vrr.cmrr.cmrr_n));
->   	}
+> -	crtc_state->vrr.cmrr.cmrr_n = mul_u32_u32(desired_refresh_rate * adjusted_mode->crtc_htotal,
+> -						  multiplier_n);
+> -	vtotal = DIV_ROUND_UP_ULL(mul_u32_u32(adjusted_mode->crtc_clock * 1000, multiplier_n),
+> -				  crtc_state->vrr.cmrr.cmrr_n);
+> -	adjusted_pixel_rate = mul_u32_u32(adjusted_mode->crtc_clock * 1000, multiplier_m);
+> -	crtc_state->vrr.cmrr.cmrr_m = do_div(adjusted_pixel_rate, crtc_state->vrr.cmrr.cmrr_n);
+> -
+> -	return vtotal;
+> -}
+> -
+> -static
+> -void intel_vrr_compute_cmrr_timings(struct intel_crtc_state *crtc_state)
+> -{
+>   	/*
+> -	 * TODO: Compute precise target refresh rate to determine
+> -	 * if video_mode_required should be true. Currently set to
+> -	 * false due to uncertainty about the precise target
+> -	 * refresh Rate.
+> +	 * A 1:1 ratio (denominator == 1000) means no video timing is required
+> +	 * Any other ratio (e.g. 1000/1001) requires the video timing.
+>   	 */
+> -	crtc_state->vrr.vmax = cmrr_get_vtotal(crtc_state, false);
+> -	crtc_state->vrr.vmin = crtc_state->vrr.vmax;
+> -	crtc_state->vrr.flipline = crtc_state->vrr.vmin;
+> +	video_mode = crtc->force_cmrr.denominator != 1000;
+> +	if (video_mode) {
+> +		rr_multiplier = 1000;
+> +		rr_divider = 1001;
+> +	} else if (crtc->force_cmrr.numerator == current_refresh_rate * 1000) {
+
+As discussed this should be a comparision between num/den and actual 
+refresh rate derived from the mode line. Moreover, this check should be 
+done for both video and non video mode branches.
+
+> +		drm_dbg_kms(display->drm,
+> +			    "[CRTC:%d:%s] Requested mode refresh rate %d Hz can be driven without CMRR\n",
+> +				crtc->base.base.id, crtc->base.name,
+> +				requested_refresh_rate);
+> +		return;
+> +	}
 >   
->   	intel_vrr_set_fixed_rr_timings(crtc_state, cpu_transcoder);
-> @@ -980,7 +980,7 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
->   	intel_vrr_enable_dc_balancing(crtc_state);
->   
->   	if (!intel_vrr_always_use_vrr_tg(display))
-> -		intel_vrr_tg_enable(crtc_state, crtc_state->cmrr.enable);
-> +		intel_vrr_tg_enable(crtc_state, crtc_state->vrr.cmrr.enable);
+> -	crtc_state->vrr.cmrr.enable = true;
+> -	crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
+> +	/*
+> +	 * Let pixel_clock_hz = adjusted_mode->crtc_clock * 1000.
+> +	 *
+> +	 * cmrr_n = (numerator_mHz x htotal x rr_multiplier) / 1000
+> +	 * cmrr_m = (pixel_clock_hz x rr_divider) % cmrr_n
+> +	 *
+> +	 * where numerator_mHz is the requested refresh rate in milli-Hz
+> +	 * and rr_multiplier/rr_divider = 1000/1001 when the video timing
+> +	 * is required, else 1/1. The integer vtotal term is tracked in SW
+> +	 * (it is the programmed mode vtotal) while the fractional part
+> +	 * represented by cmrr_m/cmrr_n is tracked in HW.
+> +	 *
+> +	 * TODO: Using the actual desired rate for cmrr_n in video
+> +	 * mode produces more aggressive vtotal dithering than
+> +	 * expected; revisit once the Bspec algorithm is clarified.
+> +	 */
+> +	crtc_state->vrr.cmrr.cmrr_n =
+> +		div64_u64((u64)crtc->force_cmrr.numerator *
+> +			   adjusted_mode->crtc_htotal * rr_multiplier, 1000);
+> +	dividend = (u64)adjusted_mode->crtc_clock * rr_divider * 1000;
+> +	adjusted_mode->crtc_vtotal = div64_u64_rem(dividend,
+> +						   crtc_state->vrr.cmrr.cmrr_n,
+> +						   &crtc_state->vrr.cmrr.cmrr_m);
 >   }
 >   
->   void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
-> @@ -1077,12 +1077,12 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
->   				      TRANS_VRR_CTL(display, cpu_transcoder));
+>   static
+> @@ -435,8 +443,6 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+>   	struct intel_display *display = to_intel_display(crtc_state);
+>   	struct intel_connector *connector =
+>   		to_intel_connector(conn_state->connector);
+> -	struct intel_dp *intel_dp = intel_attached_dp(connector);
+> -	bool is_edp = intel_dp_is_edp(intel_dp);
+>   	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+>   	int vmin, vmax;
 >   
->   	if (intel_vrr_cmrr_possible(crtc_state))
-> -		crtc_state->cmrr.enable = (trans_vrr_ctl & VRR_CTL_CMRR_ENABLE);
-> +		crtc_state->vrr.cmrr.enable = (trans_vrr_ctl & VRR_CTL_CMRR_ENABLE);
->   
-> -	if (crtc_state->cmrr.enable) {
-> -		crtc_state->cmrr.cmrr_n =
-> +	if (crtc_state->vrr.cmrr.enable) {
-> +		crtc_state->vrr.cmrr.cmrr_n =
->   			intel_de_read64_2x32(display, TRANS_CMRR_N_LO(display, cpu_transcoder));
-> -		crtc_state->cmrr.cmrr_m =
-> +		crtc_state->vrr.cmrr.cmrr_m =
->   			intel_de_read64_2x32(display, TRANS_CMRR_M_LO(display, cpu_transcoder));
+> @@ -470,12 +476,17 @@ intel_vrr_compute_config(struct intel_crtc_state *crtc_state,
+>   		vmax = vmin;
 >   	}
+>   
+> -	if (crtc_state->uapi.vrr_enabled && vmin < vmax)
+> +	if (crtc_state->uapi.vrr_enabled && vmin < vmax) {
+>   		intel_vrr_compute_vrr_timings(crtc_state, vmin, vmax);
+> -	else if (is_cmrr_frac_required(crtc_state) && is_edp)
+> -		intel_vrr_compute_cmrr_timings(crtc_state);
+> -	else
+> +	} else {
+> +		/*
+> +		 * CMRR is a fixed average Vtotal mode and is only computed on
+> +		 * the fixed refresh rate path. It is generic across transcoders
+> +		 * and gated on platform support and a valid debugfs ratio.
+> +		 */
+> +		intel_vrr_cmrr_compute_config(crtc_state);
+>   		intel_vrr_compute_fixed_rr_timings(crtc_state);
+> +	}
+>   
+>   	if (HAS_AS_SDP(display)) {
+>   		crtc_state->vrr.vsync_start =
+> @@ -1142,11 +1153,6 @@ void intel_vrr_get_config(struct intel_crtc_state *crtc_state)
+>   
+>   	intel_vrr_get_dc_balance_config(crtc_state);
+>   
+> -	/*
+> -	 * #TODO: For Both VRR and CMRR the flag I915_MODE_FLAG_VRR is set for mode_flags.
+> -	 * Since CMRR is currently disabled, set this flag for VRR for now.
+> -	 * Need to keep this in mind while re-enabling CMRR.
+> -	 */
+>   	if (crtc_state->vrr.enable)
+>   		crtc_state->mode_flags |= I915_MODE_FLAG_VRR;
 >   
 
