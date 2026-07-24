@@ -4,161 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9635C531F9
-	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 05:58:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDDBFC531FA
+	for <intel-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:03:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C56310E239;
-	Fri, 24 Jul 2026 05:58:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A53D910F2DE;
+	Fri, 24 Jul 2026 07:03:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CnQNPg/k";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PfmJGy/R";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABD810E197;
- Fri, 24 Jul 2026 05:58:27 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C33A10F2D8;
+ Fri, 24 Jul 2026 07:03:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784872708; x=1816408708;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=w9xPKZWmMoOMAhU11r1/tFMS6UhUiLcrtILi61N0Gtc=;
- b=CnQNPg/kbVZ5/9YU6gDVQ4sO7WdGVyX/FBrLjy3fiMQEBuYAfQH7eVro
- f/kuAAQSZ01xdy61zUnn6ftjDeKRHUcTwsnMKu/EvETzpD4ApWqWR6JkC
- zWtK+d0aWbyGKCpTrdp4rp+ReoM71P+FsG6x/mOPoZh6BxNi+EoRj8mdN
- HFVxV0JzpjcrrlUPnPMVIkIHfvvFHdck0rQpJIxkjz/nFzPxjU5x4UFYd
- 1TDjZC7nO+wGKiqxmyFgfwZMKIe282OShBE7npLGmC7ghZ+FoWXcYx2ew
- h0KUMS3j36Q0ZZrrMec9ZLTYraxC10299qTmRnoUdgn5KvNPlFAFWbsae g==;
-X-CSE-ConnectionGUID: 1dXYZlbGRKSiKzePbFecQg==
-X-CSE-MsgGUID: ktIy1kaORGKuNZk8poWbbA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96683479"
-X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; d="scan'208";a="96683479"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 22:58:27 -0700
-X-CSE-ConnectionGUID: VThTSCNBSoeQtLGhgx46+w==
-X-CSE-MsgGUID: fBBke6a3RxSimC3x+SED3g==
+ t=1784876629; x=1816412629;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=m2M8cu2pJ21Uvg2STbZRPd6qnnGftsn2h56ng7Eja0g=;
+ b=PfmJGy/Rp43mBbGLe6uVWuW/Q+6UAlvzGnVWJo+Ytjt1G/kI10Y7CVQd
+ xSl2CRhrvnrGiGFegnYmlVxAYL+X1BI8GjwRnGhnReWtBGqNFMoUaKU+4
+ syqt9vCv8WF9BrlRm4B8NwQe8TW2DgKuvpNOHSvLJfE7tyDJ/JiF8XrxO
+ eBwsU+R7TICFH3Koh1z1O9uT4VTcM0Czc3iQdIsngt3kk3mHOFhxVSB/D
+ Zj4/mHdF9G3bEzlQsqXIiNgKWfZmJLNHKi9Uq166+/OkqTa67PlOWvpq7
+ Xki2imjyiEzsqwqVqFBiEEPGZpb7igendCFcmj23VaXF0//UFWaB/NbOG Q==;
+X-CSE-ConnectionGUID: JQOoFHdaQyWx9evo2BPlQQ==
+X-CSE-MsgGUID: F65LNtL1QSiBK0hh4b8lBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85587219"
+X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; d="scan'208";a="85587219"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2026 00:03:48 -0700
+X-CSE-ConnectionGUID: B+W7kY7xTWajgD7vIGSsVg==
+X-CSE-MsgGUID: bRuXLHuhT9yeJxVhf6UsWw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,181,1779174000"; d="scan'208";a="255245892"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 22:58:26 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 22:58:26 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 22:58:26 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.38) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Thu, 23 Jul 2026 22:58:26 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UvHnoC6aORpgQ3NwC/y/2b/X25hsgH5XclLMlaEIYjNt+7ActCJtaqAhIMe9VbqEsphDC+K+OYU/dG3kRkDn3ngxIoJzL1rrCKIEWRdTW7r1J4gk7Ac1jgKb5gX7lQ2zZP/wQT0K+P5tEl2/VMRSmQym2cI9ZUdJ7Z/dZ9vsZzKEleicWxYz/cAvGPDXDTUOjrav8321edQOI4ZxvTEPSjjZaRWwGEsHGSo5dTPPvIQg/M858eucr0iCQ4IMn24boAzLNv1gwnRmznDrXAEqNZ/4vX9KbywljxUQid/XnHlj2oVVKXPtuUjRDsXPGrNaUirGAvS4KVbHVRgH5RnceQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ey3wSjjJs93Api1xkDDtQ2PjI/86KWju4BT7pC965w4=;
- b=DBgdvBLCvbVK7eSncsWcxN0M4p5LxzkkJqrinFyQZJzXu0g3tKWSXmUsKhsNTjQ9kU2EYQO1sF7bA3bfyOTQioiE3M1BkSo26FMGLsyS1PDz+Fp4YfnLQ0iT1hcbqnYSLoDgYUVb9vYEYvBQtSC8oIoOQ5dfy+ZY4o8OgHQQ6vAYJqf0CcGGqxeQehwKegTSjsi2vxoYPVXwwthIdrmRoKiS3W5XNc9F4zNDMfI54iX3PC8tDdOVk/8aA5pUIpjruoQKtaLoQodQBKDLSJwGf8q+9relbP/kJYOFlcWBF+zqdjlO31h3qfeEj5D3n+XhNW0tZp+ZMKpqi0P4kfuGJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
- by PH7PR11MB6835.namprd11.prod.outlook.com (2603:10b6:510:1ee::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 05:58:23 +0000
-Received: from PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
- ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 05:58:23 +0000
-Message-ID: <a95a2720-4092-4b49-bd9d-b700f1c2680d@intel.com>
-Date: Fri, 24 Jul 2026 11:28:14 +0530
-User-Agent: Mozilla Thunderbird
-Subject: [REGRESSION]: [PATCH 1/2] power: supply: leds: create triggers based
- on properties, not type
-To: Steffen Dirkwinkel <lists@steffen.cc>, Sebastian Reichel <sre@kernel.org>
-CC: <linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Steffen
- Dirkwinkel" <s.dirkwinkel@beckhoff.com>, "intel-gfx@lists.freedesktop.org"
- <intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, <ravitejax.veesam@intel.com>
-References: <20260625-std-power-supply-triggers-v1-0-d80db570d329@beckhoff.com>
- <20260625-std-power-supply-triggers-v1-1-d80db570d329@beckhoff.com>
-Content-Language: en-GB
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260625-std-power-supply-triggers-v1-1-d80db570d329@beckhoff.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0PR01CA0067.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ad::13) To PH0PR11MB7636.namprd11.prod.outlook.com
- (2603:10b6:510:26f::13)
+X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; d="scan'208";a="263605670"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO [10.245.244.238])
+ ([10.245.244.238])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Jul 2026 00:03:44 -0700
+Message-ID: <07284633-6b9b-40f9-8949-b1516a42a34c@linux.intel.com>
+Date: Fri, 24 Jul 2026 09:04:44 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|PH7PR11MB6835:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1f93740-44d1-453b-c5c2-08dee94891f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|6133799003|12006099003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: lhto4Nqu5ZpuQ4yW3Es9GdAuPOh7T13YhQ3CtKPGrfFGsWji7y1gfkpBu/q9xN4lBZvD1/vVmJ0wZ3CGbKOlx8T2Q2Li0cm9+O1oA2r1oRx13h8LQgqugazZTCIpiLMtrnbjOQgrLve9Bt18AxQyDai2blU1fkrtlZAJ1mq7t8OQWIzhXpa/dkMGwvyL9CXtB/z6Jm3tReM/4X4bWDUBsYFHOmbEHH16c3AmBGb4fuP6LgDGezr93UrDyyMmjNp+YX6rp3s/pXcg2DzEV2cX9mYiV9+KD2a1kTKKjJtWpk3A54pbeum+OM3kKYntOv7vRLtrMtQWC1cFlGpt8mhwmbe704sZB8lEFQFg31HRUnd+t02yexS64aTqU6GDKMxW1kRr9npmQldanrAxEBNeqHHX6xGKXPWJuL2EyLmisgeZWWTBx8M6wKjxq1OiDiOS0SEhDZ0V9capfFym+dRpjI6EXQyfeJFFTj/KcutoC/+9mjHMEpcT7qbE0TrOvUNwNguXNMtZ4ZdElEtKpjt8qb8CD+BVTA6aizlkCAnqW3GyYJIonzD6zmv49tvyG/AYTziFIlxVRW4uL5OODJ2Dcl6WkV0X9IYI4Nlqt12xIL+G2nbhrjXTwGHoy3y9v/1Y
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(6133799003)(12006099003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vnk3YW5HeHh6eXRXanpPNEdyeUw5MmJWMDlkREE2bWgwWk9COUc5OCtudG54?=
- =?utf-8?B?ZnVHT0lURy9ZNHJ4SFV1VjRXcVg3OTR0OGhqTDVFOVdqZm92WFZBTStSQ2h1?=
- =?utf-8?B?NXhUbi9rdnZGaEVpVFZDYjdUbDhVeWhmWURSamlxQmVaaUVRZXlncFd5NWx4?=
- =?utf-8?B?S0g4UEM3TWIzQ2p3YXJQNkpvZnV4VlVCNFV1UHBkNVpKMm1hZHZrUjJ0RlVF?=
- =?utf-8?B?bWdHWGlYc3JDZlFBZHlQQW1hZDBmelFkWUR3NEhPc2dyMVRTVFl0N1dHZWkv?=
- =?utf-8?B?Zkt0cVN0V2NRbEVVNC85c3N4TlpnaElFWFo3SW5FTTJ5NkNjaDAxMWZ4TmNZ?=
- =?utf-8?B?ZHJFVGFCM1lEemFKRUFRV2w5cUg3c3NHSmFtVENzdjl0a2hmY3IzKzc3S1NI?=
- =?utf-8?B?blRvaTFqbnRDTUtmd2xYUmpCWjVucS9MM1c3TE9scGtWTWY4elpwZVJYM2pD?=
- =?utf-8?B?dC80ODdVMHpFajUwM2Fza0hkQk5VbWt0V0ZJdUdYMnY0aXdib1dsSGg3ZDBu?=
- =?utf-8?B?SVRUS3VyeDJha2hxMDE1TFc2M2F1NVgrV3hVVE5QcFMydlRtVHNFOVI5Z1V3?=
- =?utf-8?B?S25wRjhMOXh1Y2lpN2ozemc4WVB0cUZnM2hOc2pxMkNLaGplNzU2K1J2Z01i?=
- =?utf-8?B?Szk1cmdhbUk0RXg2dEhVdHVtN1lUbXRwcFV2SDg1blhpMkpmSy84TjRLM2xE?=
- =?utf-8?B?elZacWdubHJhU05ScFBsWThHNDd1a1ovbWtUd0t3Vmh0WHFzQWFWbWQwUHpU?=
- =?utf-8?B?QW8xZjZlaERib29JOEpEc2dvZmtyZGFUMXdEclJVdG5PM1FTTmlqRDd0SVkr?=
- =?utf-8?B?NXFvRDFWRGo2cmZGckhSZ3N1OTNWTmtxaHJ6SXFORXprd1hnMUE1K3J3NzFp?=
- =?utf-8?B?RkN6TFhYdmVXS1AxWkYzNUI2cnNSWjRMUFNtV1RXR3hmQUJnNkdCc2wyNzU3?=
- =?utf-8?B?c2NtK09MaGVFL0pNV1F0UTFVbklST0xmN2ZBN1hoRHI5MHl6RFdnd2lwdmRS?=
- =?utf-8?B?SCtXRHBuUTdrdEdFN25LM3BTOTZYWG01bHlXeGJjZWdHUEZGS2tUdkVFeTc1?=
- =?utf-8?B?WXNPeFNnUXFvYmdLUHBIbmhXVXY0NzE1aEpheHZBM3hoa3lsRnhrUVZvMHV0?=
- =?utf-8?B?dFh2NDNzOFloajNyYWRTclpPUkdlcVAyQXZYbnE4ZWlqSVFINkFtRmJaNVc4?=
- =?utf-8?B?ZmlROTh4ZjNKY2NkRXU1Z2VqZy8vVXh0TGJmQjZGNERIbzQvTXJDd0ppN0ti?=
- =?utf-8?B?OTgzSGFWK2JYbU5Rc1ZHaFU1VXozeGxITnVDeXVEM2FzcVg5dHYvQTFRSmsx?=
- =?utf-8?B?ODJFNWhNNHRrMDhKNzFsUkZZelhzL2VGZEZCK1JGUWFrd05BNVcvK2FNWUZN?=
- =?utf-8?B?QmFPSmlWUExEK2U2a29sN3BOTGVjOUFOa2owOFcrSkVFTkNNNkVLaXhmNktJ?=
- =?utf-8?B?djRjK2FkMVV2Q3htY0x0ZWljOG9SZWZhY0J0ZGFBeTlpaGFieGp6RFExeEYx?=
- =?utf-8?B?TGJOaFBtcno5THdLYkkrZytpMVByR0JlMkQ5eW9kZ1hQdjlQOVhNUVhIa2ll?=
- =?utf-8?B?Q0doV0dpOTlyaVBBOUIwT1c4aEJkSUtwdGZObjM2MWtjbEp5T0luRWF0aE9B?=
- =?utf-8?B?Z0hPNWQ5VDNZa2VHOEJXaXVGN0p1MTFyWUhkQnFQajJnSnppTkFjR1M5SCtL?=
- =?utf-8?B?L1BpbU9NOUlPZlY4S3lBemdKM0pFdFozTkJDNEhRbHNlUVpBYVg0a3o5dU9R?=
- =?utf-8?B?RkpNSU5NQ245Y25oUTNDNExNbUQ4WlpDU3RtbDV0dnB1d1VqSE9Bd0lRcUk2?=
- =?utf-8?B?WWNjNERsYlpYVlZVcFlNTmNpcnlYd3pTQjVYZmwveG9ZKzg2Vm1ETWtZK0dX?=
- =?utf-8?B?RU9aZ3dSZk4wblMwU0tGZm9WSCtVK1BQSVlKN2hBc2grZGN5dm0weU9EcVN0?=
- =?utf-8?B?aWhybTZ3TFkyVVBIZ3NPemZXWVFIWFErQ0JlTUV0S0Q3ZzJzcWQzenJ6dG1t?=
- =?utf-8?B?M0l5ekV5cDdibmY2MnMxSTg2QWVWdmhKYldXcCtlUi9NVVBLRTJaUTdEcjFx?=
- =?utf-8?B?Y25kWXp5cEMvZ3hiRzBOb21IbGo5YVZGeGdRSEg0L1dYdm5zc0lhRGpFTDRt?=
- =?utf-8?B?bG5yLzFFeVpGV3lDWEl2RTZndHpOaWY2OE50STBlOUJSM3NyM3BjQWpFSWNl?=
- =?utf-8?B?N3dvRVVRTXB6OHk4YVRLcmNkVkpPRHlFN04vbUZMOVhpOHBxeGZiMzJrMkho?=
- =?utf-8?B?Mnp0UXU1WlU4UnV4SDJ3UThXYTBOZHZHdS9WamVHc24wT01qckp3VG1vYnB1?=
- =?utf-8?B?S21kSUhKWjA1ZzRsTlZMclhaazh0TFU2WFI5M210NGQ5ZXBEbENFMnYxRG1Q?=
- =?utf-8?Q?+2GmXW2P+gSe3n0Q=3D?=
-X-Exchange-RoutingPolicyChecked: IZy+VtC9+eC5VBlpYAjG8mhyer5bZT24O1XSdVP5wdciZEeLq00mlEkvz09IPPBjbnYUmd7vRGXlPo3z6R58DMqOCmHQ03/18Zfav7lXVkJi9B2JIwalsuv4y+XX2xe+BAPfUdr94oQ5hT222Sw2Puu5wJX4O9pvOMrDYuy8Pxzp4YBa+gnhVQE/C466ci/i4ZyfFREUS4lSMBlyXSkz1dJhDV8N3Qy9J4HCpgO4NLo8iKmgu1Jr2XO5fl0CYeCuTDILwfYxUNQVOMruYaPU6klTdKiU3Z+EK6zval3155ZC1Y4/3/NwECy6N8XChdQFTTMjy2lud7HjW/RuKTpPZg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1f93740-44d1-453b-c5c2-08dee94891f0
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 05:58:23.3043 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kgJEN1JL/hnUCsW99yNW87prKHYuB7AYxKx4mhwuNi7ysUs46cXQ5EyrR/egnuvJQNsWqNLIaurQ0STRNxo0hYDxzLGkNB3/i+ZVYhWD1Ko=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB6835
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-fixes
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,306 +77,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi Dave, Sima,
 
-Hello Steffen,
-On 6/25/2026 10:37 PM, Steffen Dirkwinkel wrote:
-> From: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
-> 
-> Currently only battery power supplies get triggers for other properties
-> and other supplies only get the online trigger.
-> 
-> This changes it to provide the triggers for any power supply depending
-> on what properties are available. Batteries will still get the same
-> triggers if the properties are there, but now other power supplies can
-> get the triggers too.
-> 
+drm-misc-fixes for next rc!
 
-This seems to be causing regression in our linux-next CI [1] since 
-next-20260722.
+Kind regards,
+~Maarten Lankhorst
 
-<6>[   11.206334] ------------[ cut here ]------------
-<4>[   11.206341] WARNING: drivers/power/supply/power_supply_core.c:1384 
-at power_supply_has_property+0xed/0x100, CPU#2: (udev-worker)/324
-...
-<4>[   11.206524] Call Trace:
-<4>[   11.206526]  <TASK>
-<4>[   11.206532]  power_supply_create_triggers+0x4b/0x150
-<4>[   11.206541]  __power_supply_register.part.0+0x3b0/0x510
-<4>[   11.206547]  ? __pfx_devm_power_supply_release+0x10/0x10
-<4>[   11.206560]  devm_power_supply_register+0x75/0x100
-<4>[   11.206569]  tps6598x_probe+0x34c/0x6c0 [tps6598x]
-<4>[   11.206592]  i2c_device_probe+0x19c/0x3b0
-<4>[   11.206604]  really_probe+0xf1/0x420
-<4>[   11.206612]  __driver_probe_device+0xa2/0x1e0
-<4>[   11.206620]  driver_probe_device+0x24/0xb0
-<4>[   11.206627]  __driver_attach+0x110/0x240
-<4>[   11.206632]  ? __pfx___driver_attach+0x10/0x10
-<4>[   11.206638]  bus_for_each_dev+0x7f/0xe0
-...
+drm-misc-fixes-2026-07-24:
+drm-misc-fixes for v7.2-rc5:
+- Improve damage handling in appletbdrm.
+- Fix harmful fragmenting of MM by backing up TTM pages at native
+  page order.
+- Fix timeout handling in amdxdna.
+- Fix imagination locking for map/unmap operations.
+- Fix mm leak in gpusvm eviction.
+- Properly zero page array in gpusvm mm scanning.
+- Prevent trusted shader bo's from being mapped again in vc4.
+- Validate shader array size in vmwgfx.
+- Fix length calculation bugs in ethosu.
+- Better error handling during pagemap migration.
+- Improve v3d suspend.
+- Kconfig updates for some panels.
+- Handle missing iovcc in ili9881c panel.
+- Fix vc4 unbind.
+- Add i2c error handling in gma500.
+- Fix kunit tests on pp64le and s390x.
+- Prevent rearming vc4 timer on shutdown.
+The following changes since commit faebb7ba1ac65fa5810b640df02ce04e509fdc11:
 
-Detailed log can be seen found in [2].
+  accel/amdxdna: Fix use-after-free of mm_struct in job scheduler (2026-07-16 20:05:28 -0700)
 
-We confirmed that reverting the patch solves the issue.
+are available in the Git repository at:
 
-Could you please check why the patch causes this regression and provide
-a fix if necessary?
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-07-24
 
-Regards
-Chaitanya
+for you to fetch changes up to 1ff399c4cd132a24c73e5e237a11cb9d6b68dff1:
 
-[1] https://intel-gfx-ci.01.org/tree/linux-next/combined-alt.html?
-[2] 
-https://intel-gfx-ci.01.org/tree/linux-next/next-20260722/fi-kbl-8809g/boot0.txt
+  Revert "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION" (2026-07-24 08:02:14 +0200)
 
---Bisect Logs--
+----------------------------------------------------------------
+drm-misc-fixes for v7.2-rc5:
+- Improve damage handling in appletbdrm.
+- Fix harmful fragmenting of MM by backing up TTM pages at native
+  page order.
+- Fix timeout handling in amdxdna.
+- Fix imagination locking for map/unmap operations.
+- Fix mm leak in gpusvm eviction.
+- Properly zero page array in gpusvm mm scanning.
+- Prevent trusted shader bo's from being mapped again in vc4.
+- Validate shader array size in vmwgfx.
+- Fix length calculation bugs in ethosu.
+- Better error handling during pagemap migration.
+- Improve v3d suspend.
+- Kconfig updates for some panels.
+- Handle missing iovcc in ili9881c panel.
+- Fix vc4 unbind.
+- Add i2c error handling in gma500.
+- Fix kunit tests on pp64le and s390x.
+- Prevent rearming vc4 timer on shutdown.
 
-git bisect start
-# status: waiting for both good and bad commits
-# good: [842870cdfa33b9191b46484a3264bd5126a90570] net: Enable BIG TCP 
-with partial GSO
-git bisect good 842870cdfa33b9191b46484a3264bd5126a90570
-# status: waiting for bad commit, 1 good commit known
-# bad: [b4515cf4156356e8f4fe6e0fdc17f59adab9772f] Add linux-next 
-specific files for 20260722
-git bisect bad b4515cf4156356e8f4fe6e0fdc17f59adab9772f
-# good: [ce3befa9786f3e9eb3990cb6f6b497710bd10ec5] Merge branch 'master' 
-of 
-https://git.kernel.org/pub/scm/linux/kernel/git/bluetooth/bluetooth-next.git
-git bisect good ce3befa9786f3e9eb3990cb6f6b497710bd10ec5
-# good: [efac7c4cbbafdd21f9866476e3f4e5e5bfae8912] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
-git bisect good efac7c4cbbafdd21f9866476e3f4e5e5bfae8912
-# bad: [a91e6d5412453d44dc4d59d62d3ce50b53122ad8] Merge branch 
-'usb-next' of https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git
-git bisect bad a91e6d5412453d44dc4d59d62d3ce50b53122ad8
-# bad: [b828bb5abe65b8b73fcd49d3c92cdd3af45bfe6f] Merge branch 
-'kexec-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/liveupdate/linux.git
-git bisect bad b828bb5abe65b8b73fcd49d3c92cdd3af45bfe6f
-# bad: [8a3f0f5b2aadc94d6300cfdd8daf3971decc1961] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git
-git bisect bad 8a3f0f5b2aadc94d6300cfdd8daf3971decc1961
-# bad: [5e64a0d36112c45c8ae0c6903ce2b1b49bea04dd] Merge branch 
-'for-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply.git
-git bisect bad 5e64a0d36112c45c8ae0c6903ce2b1b49bea04dd
-# good: [db30c3e3e3c247b0b1e73449b7ead5dd19044c26] Merge branch 
-'for-mfd-next' of 
-https://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd.git
-git bisect good db30c3e3e3c247b0b1e73449b7ead5dd19044c26
-# good: [406b652bf9c47d6e784fd2ab723e6798d322ef47] power: supply: 
-rt9455_charger: Remove redundant dev_err()/dev_err_probe()
-git bisect good 406b652bf9c47d6e784fd2ab723e6798d322ef47
-# good: [5ec27fa6b9d937188a81724f09df82707cca944e] selftests: helpers: 
-handle multi line in test_sysfs_prop_optional_list
-git bisect good 5ec27fa6b9d937188a81724f09df82707cca944e
-# bad: [353438b3107d56e36a642f117c2b4accc963abbd] dt-bindings: power: 
-supply: maxim,max8903: add DC and USB input current-limit controls
-git bisect bad 353438b3107d56e36a642f117c2b4accc963abbd
-# bad: [741a9b09775517c76a5029c58a03725b414d7e20] dt-bindings: power: 
-reset: qcom,pon: Narrow allowed reboot modes
-git bisect bad 741a9b09775517c76a5029c58a03725b414d7e20
-# good: [f97d9166048ddea147b5673330f9900bf08c725d] power: supply: 
-sbs-battery: Add PbAc, NiZn, RAM, and ZnAr support
-git bisect good f97d9166048ddea147b5673330f9900bf08c725d
-# bad: [b04510c3af6dd34b2e8dcf303114d77d5e443cac] power: supply: leds: 
-create triggers based on properties, not type
-git bisect bad b04510c3af6dd34b2e8dcf303114d77d5e443cac
-# first bad commit: [b04510c3af6dd34b2e8dcf303114d77d5e443cac] power: 
-supply: leds: create triggers based on properties, not type
+----------------------------------------------------------------
+David Oberhollenzer (1):
+      drm/panel: ilitek-ili9881c: do not fail probe if iovcc is absent
 
+Gregor Herburger (1):
+      drm/vc4: hvs/v3d: Fix null dereference in unbind
 
-> Signed-off-by: Steffen Dirkwinkel <s.dirkwinkel@beckhoff.com>
-> ---
->   drivers/power/supply/power_supply_leds.c | 88 ++++++++++++++++----------------
->   include/linux/power_supply.h             |  3 +-
->   2 files changed, 45 insertions(+), 46 deletions(-)
-> 
-> diff --git a/drivers/power/supply/power_supply_leds.c b/drivers/power/supply/power_supply_leds.c
-> index 1548aaba3362..538cc0440e53 100644
-> --- a/drivers/power/supply/power_supply_leds.c
-> +++ b/drivers/power/supply/power_supply_leds.c
-> @@ -17,8 +17,6 @@
->   
->   #include "power_supply.h"
->   
-> -/* Battery specific LEDs triggers. */
-> -
->   struct power_supply_led_trigger {
->   	struct led_trigger trig;
->   	struct power_supply *psy;
-> @@ -89,7 +87,7 @@ static void power_supply_unregister_led_trigger(struct led_trigger *trig)
->   	kfree(psy_trig);
->   }
->   
-> -static void power_supply_update_bat_leds(struct power_supply *psy)
-> +static void power_supply_update_status_leds(struct power_supply *psy)
->   {
->   	union power_supply_propval status;
->   	unsigned int intensity_green[3] = { 0, 255, 0 };
-> @@ -102,7 +100,7 @@ static void power_supply_update_bat_leds(struct power_supply *psy)
->   
->   	switch (status.intval) {
->   	case POWER_SUPPLY_STATUS_FULL:
-> -		led_trigger_event(psy->trig, LED_FULL);
-> +		led_trigger_event(psy->charging_or_full_trig, LED_FULL);
->   		led_trigger_event(psy->charging_trig, LED_OFF);
->   		led_trigger_event(psy->full_trig, LED_FULL);
->   		/* Going from blink to LED on requires a LED_OFF event to stop blink */
-> @@ -114,7 +112,7 @@ static void power_supply_update_bat_leds(struct power_supply *psy)
->   				     LED_FULL);
->   		break;
->   	case POWER_SUPPLY_STATUS_CHARGING:
-> -		led_trigger_event(psy->trig, LED_FULL);
-> +		led_trigger_event(psy->charging_or_full_trig, LED_FULL);
->   		led_trigger_event(psy->charging_trig, LED_FULL);
->   		led_trigger_event(psy->full_trig, LED_OFF);
->   		led_trigger_blink(psy->charging_blink_full_solid_trig, 0, 0);
-> @@ -124,7 +122,7 @@ static void power_supply_update_bat_leds(struct power_supply *psy)
->   				     LED_FULL);
->   		break;
->   	default:
-> -		led_trigger_event(psy->trig, LED_OFF);
-> +		led_trigger_event(psy->charging_or_full_trig, LED_OFF);
->   		led_trigger_event(psy->charging_trig, LED_OFF);
->   		led_trigger_event(psy->full_trig, LED_OFF);
->   		led_trigger_event(psy->charging_blink_full_solid_trig,
-> @@ -135,21 +133,15 @@ static void power_supply_update_bat_leds(struct power_supply *psy)
->   	}
->   }
->   
-> -static void power_supply_remove_bat_triggers(struct power_supply *psy)
-> -{
-> -	power_supply_unregister_led_trigger(psy->trig);
-> -	power_supply_unregister_led_trigger(psy->charging_trig);
-> -	power_supply_unregister_led_trigger(psy->full_trig);
-> -	power_supply_unregister_led_trigger(psy->charging_blink_full_solid_trig);
-> -	power_supply_unregister_led_trigger(psy->charging_orange_full_green_trig);
-> -}
-> -
-> -static int power_supply_create_bat_triggers(struct power_supply *psy)
-> +static int power_supply_create_status_triggers(struct power_supply *psy)
->   {
->   	int err = 0;
->   
-> +	if (!power_supply_has_property(psy, POWER_SUPPLY_PROP_STATUS))
-> +		return 0;
-> +
->   	power_supply_register_led_trigger(psy, "%s-charging-or-full",
-> -					  &psy->trig, &err);
-> +					  &psy->charging_or_full_trig, &err);
->   	power_supply_register_led_trigger(psy, "%s-charging",
->   					  &psy->charging_trig, &err);
->   	power_supply_register_led_trigger(psy, "%s-full",
-> @@ -158,15 +150,11 @@ static int power_supply_create_bat_triggers(struct power_supply *psy)
->   					  &psy->charging_blink_full_solid_trig, &err);
->   	power_supply_register_led_trigger(psy, "%s-charging-orange-full-green",
->   					  &psy->charging_orange_full_green_trig, &err);
-> -	if (err)
-> -		power_supply_remove_bat_triggers(psy);
->   
->   	return err;
->   }
->   
-> -/* Generated power specific LEDs triggers. */
-> -
-> -static void power_supply_update_gen_leds(struct power_supply *psy)
-> +static void power_supply_update_online_leds(struct power_supply *psy)
->   {
->   	union power_supply_propval online;
->   
-> @@ -175,43 +163,53 @@ static void power_supply_update_gen_leds(struct power_supply *psy)
->   
->   	dev_dbg(&psy->dev, "%s %d\n", __func__, online.intval);
->   
-> -	if (online.intval)
-> -		led_trigger_event(psy->trig, LED_FULL);
-> -	else
-> -		led_trigger_event(psy->trig, LED_OFF);
-> +	led_trigger_event(psy->online_trig, online.intval ? LED_FULL : LED_OFF);
->   }
->   
-> -static int power_supply_create_gen_triggers(struct power_supply *psy)
-> +static int power_supply_create_online_trigger(struct power_supply *psy)
->   {
-> -	return power_supply_register_led_trigger(psy, "%s-online", &psy->trig, NULL);
-> -}
-> +	int err = 0;
->   
-> -static void power_supply_remove_gen_triggers(struct power_supply *psy)
-> -{
-> -	power_supply_unregister_led_trigger(psy->trig);
-> -}
-> +	if (!power_supply_has_property(psy, POWER_SUPPLY_PROP_ONLINE))
-> +		return 0;
->   
-> -/* Choice what triggers to create&update. */
-> +	power_supply_register_led_trigger(psy, "%s-online", &psy->online_trig,
-> +					  &err);
-> +
-> +	return err;
-> +}
->   
->   void power_supply_update_leds(struct power_supply *psy)
->   {
-> -	if (psy->desc->type == POWER_SUPPLY_TYPE_BATTERY)
-> -		power_supply_update_bat_leds(psy);
-> -	else
-> -		power_supply_update_gen_leds(psy);
-> +	power_supply_update_online_leds(psy);
-> +	power_supply_update_status_leds(psy);
->   }
->   
->   int power_supply_create_triggers(struct power_supply *psy)
->   {
-> -	if (psy->desc->type == POWER_SUPPLY_TYPE_BATTERY)
-> -		return power_supply_create_bat_triggers(psy);
-> -	return power_supply_create_gen_triggers(psy);
-> +	int err;
-> +
-> +	err = power_supply_create_online_trigger(psy);
-> +	if (err)
-> +		goto err_remove;
-> +
-> +	err = power_supply_create_status_triggers(psy);
-> +	if (err)
-> +		goto err_remove;
-> +
-> +	return 0;
-> +
-> +err_remove:
-> +	power_supply_remove_triggers(psy);
-> +	return err;
->   }
->   
->   void power_supply_remove_triggers(struct power_supply *psy)
->   {
-> -	if (psy->desc->type == POWER_SUPPLY_TYPE_BATTERY)
-> -		power_supply_remove_bat_triggers(psy);
-> -	else
-> -		power_supply_remove_gen_triggers(psy);
-> +	power_supply_unregister_led_trigger(psy->online_trig);
-> +	power_supply_unregister_led_trigger(psy->charging_or_full_trig);
-> +	power_supply_unregister_led_trigger(psy->charging_trig);
-> +	power_supply_unregister_led_trigger(psy->full_trig);
-> +	power_supply_unregister_led_trigger(psy->charging_blink_full_solid_trig);
-> +	power_supply_unregister_led_trigger(psy->charging_orange_full_green_trig);
->   }
-> diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
-> index 7a5e4c3242a0..68b65682b14d 100644
-> --- a/include/linux/power_supply.h
-> +++ b/include/linux/power_supply.h
-> @@ -346,7 +346,8 @@ struct power_supply {
->   #endif
->   
->   #ifdef CONFIG_LEDS_TRIGGERS
-> -	struct led_trigger *trig;
-> +	struct led_trigger *charging_or_full_trig;
-> +	struct led_trigger *online_trig;
->   	struct led_trigger *charging_trig;
->   	struct led_trigger *full_trig;
->   	struct led_trigger *charging_blink_full_solid_trig;
-> 
+Ian Forbes (1):
+      drm/vmwgfx: Validate vmw_surface_metadata::array_size
 
+Icenowy Zheng (1):
+      drm/imagination: acquire vm_ctx->lock before mapping memory to GPU VM
+
+José Expósito (1):
+      drm/tests: shmem: Set DMA mask to 64-bit in drm_gem_shmem
+
+Julian Braha (3):
+      drm/panel: ilitek-ili9882t: fix unmet dependency for DRM_PANEL_ILITEK_ILI9882T
+      drm/panel: s6e3ha8: fix unmet dependency on DRM_DISPLAY_HELPER
+      drm/panel: fix unmet dependency bug for DRM_PANEL_HIMAX_HX83121A
+
+Linmao Li (2):
+      drm/vc4: Prevent shader BO mappings from becoming writable
+      drm/vc4: Shut down BO cache timer before teardown
+
+Maarten Lankhorst (1):
+      Revert "drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION"
+
+Matthew Brost (4):
+      drm/ttm/pool: back up at native page order
+      drm/gpusvm: Fix MM reference leak in drm_gpusvm_range_evict
+      drm/pagemap: Clear driver-provided PFNs from migration PFN array
+      drm/pagemap: Guard HPAGE_PMD_ORDER use with CONFIG_ARCH_ENABLE_THP_MIGRATION
+
+Maíra Canal (3):
+      mailmap: Update Maíra Canal's email address
+      drm/v3d: Reach the GMP through the hub registers on V3D 7.x
+      drm/v3d: Idle AXI transactions before disabling the clock on suspend
+
+Pengpeng Hou (1):
+      drm/gma500: return errors from Oaktrail HDMI I2C reads
+
+Rob Herring (Arm) (2):
+      accel: ethosu: Fix element size accounting for cmd stream validation
+      accel: ethosu: Handle U85 internal chaining buffer
+
+Stanislav Kinsburskii (1):
+      drm/gpusvm: Zero HMM PFNs before scanning ranges
+
+Thomas Zimmermann (1):
+      drm/appletbdrm: Allocate request/response buffers in begin_fb_access
+
+Wendy Liang (1):
+      accel/amdxdna: Fix command timeout race
+
+ .mailmap                                      |   1 +
+ drivers/accel/amdxdna/aie2_ctx.c              |  26 ++++--
+ drivers/accel/amdxdna/aie2_pci.c              |   1 +
+ drivers/accel/amdxdna/aie2_pci.h              |   7 +-
+ drivers/accel/ethosu/ethosu_gem.c             |  54 +++++++----
+ drivers/gpu/drm/drm_gpusvm.c                  |   6 +-
+ drivers/gpu/drm/drm_pagemap.c                 |  11 ++-
+ drivers/gpu/drm/gma500/oaktrail_hdmi_i2c.c    |  21 +++--
+ drivers/gpu/drm/imagination/pvr_vm.c          |   2 +
+ drivers/gpu/drm/panel/Kconfig                 |   3 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c |   7 +-
+ drivers/gpu/drm/tests/drm_gem_shmem_test.c    |  16 ++--
+ drivers/gpu/drm/tiny/appletbdrm.c             |  53 ++++++-----
+ drivers/gpu/drm/ttm/ttm_backup.c              | 123 +++++++++++++++++---------
+ drivers/gpu/drm/ttm/ttm_pool.c                |  89 +++++++++++++++----
+ drivers/gpu/drm/ttm/ttm_pool_internal.h       |   8 ++
+ drivers/gpu/drm/v3d/v3d_drv.h                 |   2 +
+ drivers/gpu/drm/v3d/v3d_gem.c                 |  16 +++-
+ drivers/gpu/drm/v3d/v3d_power.c               |   7 ++
+ drivers/gpu/drm/vc4/vc4_bo.c                  |  12 ++-
+ drivers/gpu/drm/vc4/vc4_hvs.c                 |   2 +-
+ drivers/gpu/drm/vc4/vc4_v3d.c                 |   2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c       |  22 +++--
+ include/drm/ttm/ttm_backup.h                  |  12 +--
+ 24 files changed, 355 insertions(+), 148 deletions(-)
