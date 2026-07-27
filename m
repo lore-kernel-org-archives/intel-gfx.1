@@ -4,59 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A2FAC531D0
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 22:22:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D215C531D0
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 22:56:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89BD610E4F1;
-	Mon, 27 Jul 2026 22:22:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6421510E09A;
+	Mon, 27 Jul 2026 22:56:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XqBb1aki";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iwaG5uRX";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15BAF10E4E2;
- Mon, 27 Jul 2026 22:22:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785190931; x=1816726931;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LxMY7LFUnMVQ/nr+gTLq8Pwmd9tIFEapGda9MYP1U1k=;
- b=XqBb1aki2Sdm/uPGa2Al/e/+ZC5Kg512ttW+c8nM1UobpAqJWO3+OrNm
- ZMWapx5I8T+axxkTRI3woyJdvApwkd65w1Zv+QG6ukLR3f38uI5vcCie4
- pOOegyOLnJ2KWhoPusU3KVOFZGrAxwaCw7ykjadMJJHnip7BAXN32Pg+l
- 7kfS7XvgmNJm6C2vdSocD6VQfDzLSS/y1OzPrwDHMBHwSqMnBFy2AUqHg
- TINevoCUPUsnFFcoWC0sqx/GSuZbo3Qahby2Q2GYJ1moYuPwmsaMn2Ayg
- oidq/kFFzRDxM78PfpHFsVl0CgoGhSSJHyKP0xE5mFj52W1MGdL5CbBLM A==;
-X-CSE-ConnectionGUID: E+QrbpHyRmGtZ1h/4Oiv8w==
-X-CSE-MsgGUID: yyScWATmQFigMY1pBbO6Og==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85781810"
-X-IronPort-AV: E=Sophos;i="6.25,189,1779174000"; d="scan'208";a="85781810"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Jul 2026 15:22:11 -0700
-X-CSE-ConnectionGUID: B7KTGTF2RxiZIREVfLTs9Q==
-X-CSE-MsgGUID: WUvBjukkSKKh0JPbprQmFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,189,1779174000"; d="scan'208";a="256167321"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by fmviesa007.fm.intel.com with ESMTP; 27 Jul 2026 15:22:09 -0700
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- Chaitanya Borah Kumar <chaitanya.borah.kumar@intel.com>
-Subject: [PATCH v1 2/2] drm/i915/xe2lpd+: disable 3D LUT if unsupported
-Date: Tue, 28 Jul 2026 00:21:25 +0200
-Message-ID: <20260727222125.2459634-3-michal.grzelak@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260727222125.2459634-1-michal.grzelak@intel.com>
-References: <20260727222125.2459634-1-michal.grzelak@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD81010E09A;
+ Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3854F40426;
+ Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CDB1F000E9;
+ Mon, 27 Jul 2026 22:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785192964;
+ bh=QggSvxtNQ67iS+XUwqrDlrH2xraHrxGb+vgcG7y0WsY=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=iwaG5uRX32rTgcSQn1oI8cDhvVdBgF7xNVMcmwA5nB2roQEpjWkBM9/elDUKMWR+e
+ A0p9zb+3tSs36tELwjTyibEs5znVgnOoeBgaUwvlk+h9jnbCN1e+v9elShDExZRawl
+ S9FIBGMRZSowIq2RtsqIUQJ/GKy2epEJEkS13zWkXc/uH+dFvxm4jWJtqykilYp8FZ
+ n/dZuVVGnI4Oh8Jv/TOV8zbNHWDjAXhVQbUPhHErbAZOrGNAAwjAULYVaj3h2kBbW9
+ ED2feS2pNPbAGb5xCgo1ctL4J3aD2Ir+AJmF+Wa3lGIyvJ/mNC9waIoSbc3rE33Rm4
+ vgzkKLQuteGUQ==
+From: Mark Brown <broonie@kernel.org>
+To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>, 
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
+ Borislav Petkov <bp@alien8.de>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Matthew Sakai <msakai@redhat.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Mike Rapoport <rppt@kernel.org>, 
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+ Nicolas Palix <nicolas.palix@imag.fr>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
+ Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, 
+ Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>, 
+ Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>, 
+ Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
+ linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
+ netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns
+ with no effect
+Message-Id: <178515520105.50339.6347304746485042237.b4-ty@b4>
+Date: Mon, 27 Jul 2026 13:26:41 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=oEgoEtojyQ9PC8g7uhG7viM9B7fGAJubrsCe9lk5/YY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+HxlIWhtS7M/+/D/kSsIotZNE7ycdvTNKMa6
+ lyMcsUy1YGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfh8QAKCRAk1otyXVSH
+ 0NGoB/9aZSWKSSxB+DoiO9o+r0R7LvQ0b9P0b+u/ow+7Ti4Va043c7UzGI2RzCGdUpf18XgLn6f
+ SgEv95GzlB+upqVsxmPG9VHhXWw4Ho9J4p/hSGXTDgAS8ErF8GjIkiAzWtWwlF1NwqBzKdr1HBU
+ 4bzLooMHmkm+sRhw0K+K8vYxKzoIVIF4rw3OtvuVpbcnMjoni4zgFcLTc5cd+g7gZ+ms/PpNPge
+ 1bCGwvXOdpSE1Sx0RqUVVFnzDZUByQ/Qgq4t95aAwkznICTyGzRGtCagn7hNdby/Adb/VqLQiGG
+ EXfGwi5kgCay4GMGfP+CcNTcNXARRSisUOfJQUCdGh8to0xz
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,123 +127,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE2LPD_DE_CAP_3DLUT_MASK is defined but never used. Check with it if
-3DLUT is enabled.
+On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
+> treewide: remove conditional returns with no effect
+> 
+> Hello,
+> 
+> While reading mm/memblock, I found a conditional return where both
+> branches return the same value:
+> 
+> [...]
 
-Check DE_CAP register if 3D LUT is disabled. Store the info in a new
-field of struct intel_display_runtime_info.
+Applied to
 
-Add macros for checking both 3D LUT hardware and 3D LUT capability.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-Initialize has_3dlut to 1 on each platform since LNL.
+Thanks!
 
-Log value of has_3dlut in intel_display_device_info_print().
+[14/36] ASoC: remove conditional return with no effect
+        https://git.kernel.org/broonie/misc/c/ca9b51f41c9d
+[28/36] regulator: wm831x-isink: remove conditional return with no effect
+        https://git.kernel.org/broonie/misc/c/9396a1d9e142
 
-Bspec: 71161
-Cc: Chaitanya Borah Kumar <chaitanya.borah.kumar@intel.com>
-Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color.c          | 3 +++
- drivers/gpu/drm/i915/display/intel_display_device.c | 8 ++++++++
- drivers/gpu/drm/i915/display/intel_display_device.h | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_regs.h   | 1 +
- 4 files changed, 16 insertions(+)
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm/i915/display/intel_color.c
-index 87ced9f6ff40..ffdefb51a264 100644
---- a/drivers/gpu/drm/i915/display/intel_color.c
-+++ b/drivers/gpu/drm/i915/display/intel_color.c
-@@ -4258,6 +4258,9 @@ intel_color_load_plane_luts(struct intel_dsb *dsb,
- bool
- intel_color_crtc_has_3dlut(struct intel_display *display, enum pipe pipe)
- {
-+	if (!HAS_3DLUT(display))
-+		return false;
-+
- 	if (DISPLAY_VER(display) >= 12)
- 		return pipe == PIPE_A || pipe == PIPE_B;
- 	else
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index f17fc2c68472..45c791531f85 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1335,6 +1335,7 @@ static const struct platform_desc dg2_desc = {
- 		BIT(TRANSCODER_A) | BIT(TRANSCODER_B) |				\
- 		BIT(TRANSCODER_C) | BIT(TRANSCODER_D),				\
- 	.__runtime_defaults.fbc_mask = BIT(INTEL_FBC_A) | BIT(INTEL_FBC_B),	\
-+	.__runtime_defaults.has_3dlut = 1,					\
- 	.__runtime_defaults.has_dmc = 1,					\
- 	.__runtime_defaults.has_dsc = 1,					\
- 	.__runtime_defaults.has_hdcp = 1,					\
-@@ -1345,6 +1346,7 @@ static const struct platform_desc dg2_desc = {
- 
- static const struct intel_display_device_info xe_lpdp_display = {
- 	XE_LPDP_FEATURES,
-+	.__runtime_defaults.has_3dlut = 0,
- };
- 
- static const struct intel_display_device_info xe2_lpd_display = {
-@@ -1385,6 +1387,7 @@ static const struct intel_display_device_info xe2_hpd_display = {
- 	XE_LPDP_FEATURES,
- 	.__runtime_defaults.port_mask = BIT(PORT_A) |
- 		BIT(PORT_TC1) | BIT(PORT_TC2) | BIT(PORT_TC3) | BIT(PORT_TC4),
-+	.__runtime_defaults.has_3dlut = 0,
- };
- 
- static const u16 mtl_u_ids[] = {
-@@ -1935,6 +1938,10 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
- 	if (DISPLAY_VER(display) >= 20) {
- 		u32 cap = intel_de_read(display, XE2LPD_DE_CAP);
- 
-+		if (REG_FIELD_GET(XE2LPD_DE_CAP_3DLUT_MASK, cap) ==
-+		    XE2LPD_DE_CAP_3DLUT_REMOVED)
-+			display_runtime->has_3dlut = 0;
-+
- 		if (REG_FIELD_GET(XE2LPD_DE_CAP_DSC_MASK, cap) ==
- 		    XE2LPD_DE_CAP_DSC_REMOVED)
- 			display_runtime->has_dsc = 0;
-@@ -1996,6 +2003,7 @@ void intel_display_device_info_print(const struct intel_display_device_info *inf
- 	DEV_INFO_DISPLAY_FOR_EACH_FLAG(PRINT_FLAG);
- #undef PRINT_FLAG
- 
-+	drm_printf(p, "has_3dlut: %s\n", str_yes_no(runtime->has_3dlut));
- 	drm_printf(p, "has_hdcp: %s\n", str_yes_no(runtime->has_hdcp));
- 	drm_printf(p, "has_dmc: %s\n", str_yes_no(runtime->has_dmc));
- 	drm_printf(p, "has_dsc: %s\n", str_yes_no(runtime->has_dsc));
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.h b/drivers/gpu/drm/i915/display/intel_display_device.h
-index 7121e7cd9512..34ee7993be33 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.h
-@@ -147,6 +147,9 @@ struct intel_display_platforms {
- 
- #define HAS_128B_Y_TILING(__display)	(!(__display)->platform.i915g && !(__display)->platform.i915gm)
- #define HAS_2PPC(__display)		(DISPLAY_VER(__display) >= 10)
-+#define HAS_3DLUT_HW(__display)		(DISPLAY_VER(__display) >= 10)
-+#define HAS_3DLUT_CAP(__display)	(IS_DISPLAY_VER(__display, 10, 20) || DISPLAY_RUNTIME_INFO(__display)->has_3dlut)
-+#define HAS_3DLUT(__display)		(HAS_3DLUT_HW(__display) && HAS_3DLUT_CAP(__display))
- #define HAS_4TILE(__display)		((__display)->platform.dg2 || DISPLAY_VER(__display) >= 14)
- #define HAS_ASYNC_FLIPS(__display)	(DISPLAY_VER(__display) >= 5)
- #define HAS_AS_SDP(__display)		(DISPLAY_VER(__display) >= 13)
-@@ -304,6 +307,7 @@ struct intel_display_runtime_info {
- 
- 	u8 fbc_mask;
- 
-+	bool has_3dlut;
- 	bool has_hdcp;
- 	bool has_dmc;
- 	bool has_dsc;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 0677ca2dde00..7b2332e2fae2 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -1773,6 +1773,7 @@
- 
- #define XE2LPD_DE_CAP			_MMIO(0x41100)
- #define   XE2LPD_DE_CAP_3DLUT_MASK	REG_GENMASK(31, 30)
-+#define   XE2LPD_DE_CAP_3DLUT_REMOVED	1
- #define   XE2LPD_DE_CAP_DSC_MASK	REG_GENMASK(29, 28)
- #define   XE2LPD_DE_CAP_DSC_REMOVED	1
- #define   XE2LPD_DE_CAP_SCALER_MASK	REG_GENMASK(27, 26)
--- 
-2.45.2
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
