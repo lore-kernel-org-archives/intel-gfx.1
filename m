@@ -4,14 +4,14 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBF9DC531D0
-	for <intel-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 17:46:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9175EC53209
+	for <intel-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 18:18:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4152310E4C3;
-	Mon, 27 Jul 2026 17:46:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C2EA10E6A4;
+	Mon, 27 Jul 2026 18:18:12 +0000 (UTC)
 Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0AA110E6A0;
- Mon, 27 Jul 2026 17:46:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F025410E4E1;
+ Mon, 27 Jul 2026 18:18:10 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -20,11 +20,11 @@ Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_platform/w
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Armin Wolf" <w_armin@gmx.de>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 27 Jul 2026 17:46:06 -0000
-Message-ID: <178517436697.228260.14908496488774265460@6beec6c84f66>
+Date: Mon, 27 Jul 2026 18:18:10 -0000
+Message-ID: <178517629097.228721.75149392307738972@6beec6c84f66>
 X-Patchwork-Hint: ignore
-References: <20260724025959.142826-1-W_Armin@gmx.de>
-In-Reply-To: <20260724025959.142826-1-W_Armin@gmx.de>
+References: <20260724022526.139370-1-W_Armin@gmx.de>
+In-Reply-To: <20260724022526.139370-1-W_Armin@gmx.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,7 +44,7 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 == Series Details ==
 
 Series: platform/wmi: Add aarch64 support
-URL   : https://patchwork.freedesktop.org/series/171113/
+URL   : https://patchwork.freedesktop.org/series/171111/
 State : failure
 
 == Summary ==
@@ -52,6 +52,6 @@ State : failure
 Series author address 'w_armin@gmx.de' is not on the allowlist, which prevents CI from being automatically triggered.
 If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
 Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/182586/ (on built-in)
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/182588/ (on built-in)
 
 
