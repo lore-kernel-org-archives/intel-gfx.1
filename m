@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00116C55175
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C812C55173
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 823AD10F0D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98E5610F0D5;
 	Thu, 30 Jul 2026 22:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ecDWkEbb";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cGls7zQn";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 516B110E48C;
- Mon, 27 Jul 2026 16:49:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 44CBE10E48C;
+ Mon, 27 Jul 2026 16:48:30 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AF6CA175A;
- Mon, 27 Jul 2026 09:49:01 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAB971762;
+ Mon, 27 Jul 2026 09:48:25 -0700 (PDT)
 Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
  [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1B7693F86F;
- Mon, 27 Jul 2026 09:48:56 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D0C13F86F;
+ Mon, 27 Jul 2026 09:48:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785170945; bh=0q+7yLXlDlEamYyqT8+gJuMmLMdePag4Q+fMTD4K878=;
+ t=1785170909; bh=qlMBEgSYanOpxaG5+GObNIcpflrmglgvjw2BYgGRiAs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ecDWkEbb2qtk+8ohd6Kewpw4n8VlI4E4Zyq+L1811WJFybbUDBiT4Z8cWhNiPrkBi
- yWBZRoq7dWSZtF4v40NFDEpiduacWSK35tbmzo9qGFoi4xbTCiexyO5JyvZMXpFccf
- raReWNwEs40DmEFZyWJK+vCB10Q+0nVfqhCKOuXI=
+ b=cGls7zQnlsACMOdTrPwDBJKOvhD8kH8mv7YPFdOjvjhXwbN8u4sgWSL3YZNOD0Pml
+ XyFgMqudxOPDpAUOdEAXMsBPUM1LKrruj30a0mmvs9giDguNXB6O7JxdB2zaKUWPNm
+ 8j3C5nbVhGELOQy1dslFMHRX+rphcvgUZy5T3uvw=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -71,9 +71,10 @@ Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH RFC 10/11] parisc: use hw_pte_t for the data-break callback
-Date: Mon, 27 Jul 2026 17:47:01 +0100
-Message-ID: <20260727164715.2866609-11-usama.anjum@arm.com>
+Subject: [PATCH RFC 06/11] mm/kasan: use hw_pte_t for the early shadow PTE
+ table
+Date: Mon, 27 Jul 2026 17:46:57 +0100
+Message-ID: <20260727164715.2866609-7-usama.anjum@arm.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
 References: <20260727164715.2866609-1-usama.anjum@arm.com>
@@ -95,33 +96,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The DEBUG_DMB_TRAP path passes set_data_memory_break() to iterate_pages()
-for PTE table storage. Update the local set_data_memory_break() declaration
-to take hw_pte_t * so its argument is identified as table storage.
+kasan_early_shadow_pte is a complete PTE table rather than a
+standalone PTE value. Declare and define its elements as hw_pte_t so
+the object uses the PTE table storage type.
 
-The generic hw_pte_t alias makes this a type-only change.
+Read the first element through ptep_get(), which returns the logical
+pte_t value expected by note_page_pte(), instead of accessing hw_pte_t
+storage directly. This also uses the accessor selected by the
+architecture.
+
+The generic hw_pte_t remains an alias of pte_t, so the storage
+representation is unchanged.
 
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
- drivers/parisc/sba_iommu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/kasan.h | 2 +-
+ mm/kasan/init.c       | 2 +-
+ mm/ptdump.c           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/parisc/sba_iommu.c b/drivers/parisc/sba_iommu.c
-index d9339dd508262..27a7efe3e0a70 100644
---- a/drivers/parisc/sba_iommu.c
-+++ b/drivers/parisc/sba_iommu.c
-@@ -1697,9 +1697,9 @@ sba_common_init(struct sba_device *sba_dev)
- 		int res_size;
- #ifdef DEBUG_DMB_TRAP
- 		extern void iterate_pages(unsigned long , unsigned long ,
--					  void (*)(pte_t * , unsigned long),
-+					  void (*)(hw_pte_t *, unsigned long),
- 					  unsigned long );
--		void set_data_memory_break(pte_t * , unsigned long);
-+		void set_data_memory_break(hw_pte_t *, unsigned long);
+diff --git a/include/linux/kasan.h b/include/linux/kasan.h
+index bf233bde68c7e..ff41949c0ac08 100644
+--- a/include/linux/kasan.h
++++ b/include/linux/kasan.h
+@@ -51,7 +51,7 @@ typedef unsigned int __bitwise kasan_vmalloc_flags_t;
  #endif
- 		/* resource map size dictated by pdir_size */
- 		res_size = sba_dev->ioc[i].pdir_size/sizeof(u64); /* entries */
+ 
+ extern unsigned char kasan_early_shadow_page[PAGE_SIZE];
+-extern pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
++extern hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
+ extern pmd_t kasan_early_shadow_pmd[MAX_PTRS_PER_PMD];
+ extern pud_t kasan_early_shadow_pud[MAX_PTRS_PER_PUD];
+ extern p4d_t kasan_early_shadow_p4d[MAX_PTRS_PER_P4D];
+diff --git a/mm/kasan/init.c b/mm/kasan/init.c
+index 30c5266eaf37e..9bbc2a41d23f0 100644
+--- a/mm/kasan/init.c
++++ b/mm/kasan/init.c
+@@ -64,7 +64,7 @@ static inline bool kasan_pmd_table(pud_t pud)
+ 	return false;
+ }
+ #endif
+-pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
++hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
+ 	__bss_pgtbl;
+ 
+ static inline bool kasan_pte_table(pmd_t pmd)
+diff --git a/mm/ptdump.c b/mm/ptdump.c
+index 376880071ca2a..8f19f20be3c44 100644
+--- a/mm/ptdump.c
++++ b/mm/ptdump.c
+@@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk *walk,
+ {
+ 	struct ptdump_state *st = walk->private;
+ 
+-	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
++	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
+ 
+ 	walk->action = ACTION_CONTINUE;
+ 
 -- 
 2.47.3
 
