@@ -4,178 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834EDC55172
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8603FC55174
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1B8510F0D8;
-	Thu, 30 Jul 2026 22:08:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13A3810F0DB;
+	Thu, 30 Jul 2026 22:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ehFlbI73";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ehFlbI73";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="Yb8QQHZ+";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013069.outbound.protection.outlook.com [52.101.72.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF8E810E15E;
- Thu, 30 Jul 2026 13:00:37 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=brhowPZaixhmItoK63D6dRP2HdCj5SxXd89zLkHVw7pOcFVeXeRa6dsm8MDQH2QdjHHroEFd6Vy44UqOzVenBzRaPsvq2w0EKl4/IUBXwYzmU5FD5qK98zkuVHmMIddytylp7fEVQEld1svrp9/gpgB0caXUxONBqz1/LErICzn4gwYGnJsc2+Ui0OSVwjry+j4F6v4JP23HSx/RTzA3YyUr19kWue54mZA4bYjLI4JtNd6PCkBYE8kJv5fNgQkVHSUF7DU8DJg2hcoyi/4JyMN/cq8S6/kq5jWAIfuLSDbG0lV2pE89qdy98lEN93IhPQHsGpZjPMIkgE+4LHtuHQ==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
- b=ld77FhXLKU8yRLcwuOJoBUXZowlHzw/KREmKaaKSNP4IboVn1/jT58no8kAbEK6CO7RiQ3p4rix/RkSc9V/9IDg45FUXT8q/DlphJbEYrV4PfD8jZXRgsWDWJMygGRuNeMbioQzSFFGYKFVVCl68TCsTTNZvnv2YGt/BxhdGB3WppribI5+hiH7pCMPEnErfjlebi7ZNwbSJ0KaFmFQ1Fgu0OiackJx4pHAYbXNXv22/TQ/kaXfhMZi/2H7eRZacVj8ZTjeEEZYZGVHsgt6HSgxqEJ5CwmKUZpLR4FO4z6UIGzXJ1PXVATOciDArVN7cGHl4zvT358xsO5m2ssZlpw==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
- b=ehFlbI73LoxtbByzSNijQF7loKC3ZeZkxXqfibb33CjVmDNBoYQoepnyr1q1+I1wvvtby/Q9VRDpUKgcH09WljEJj8R5a76S1CKxrdWBk6bf1e/WMFtGccv8XgrF/uT+BZ9ZnJ9h1+A9xjW4ASKIJeakwn8760yq3o5hOm8kHDw=
-Received: from AM8P190CA0002.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::7)
- by PR3PR08MB5609.eurprd08.prod.outlook.com (2603:10a6:102:81::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
- 2026 13:00:32 +0000
-Received: from AMS1EPF00000049.eurprd04.prod.outlook.com
- (2603:10a6:20b:219:cafe::9d) by AM8P190CA0002.outlook.office365.com
- (2603:10a6:20b:219::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
- 30 Jul 2026 13:00:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AMS1EPF00000049.mail.protection.outlook.com (10.167.16.133) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8
- via Frontend Transport; Thu, 30 Jul 2026 13:00:31 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yyx+ToOaEnOvliHo5S5zNq7kYBNmgVSRSL0orMykREc9hqSqjsYxQs6C+lu7IYnDXiqlAhPCkdvWBpA4SH3qEK3mFGCnmqynn1L1wHgf/2D1/REgmU4jA1bZUfu4FJEoB4cUaInXCuzbVMHLc0/hyx9184MDrGAS4+YSQsaH2F8L4/e0zrFC6u2XZRkGkB+IRw+ipGNzOdlsNWrP94fZj8M5j1frcD0vHU01l0imGM/TFij8bUMMESJ4CqovmhZr4gEwzrh75Y7b9jhjgHkFozLm3Ik0uwrs9XixxlPemeJLSTjwELPeh+384IKVCn7ncub1OMEh+EfEplfh0oYX4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
- b=OPOKjo3Rvy1I4POMIdhajtkJh+RtxKtxGV3xKvUK1yETsg6IzZIMYDDo2cAhLp1PGVZjKFQ6h+aM6JDuMdFWgOTq5x44s+3uUK1oEUbjJLJnVvcq8Ey7XHaO5Lp90rsOH65dFFx0AEyuzASd8q1VpHZVGCp1IHM+Njtzh7zFI5BkKadZCXEjFo2WWCmTIzp3QTVC7Wvb0frWM/amTwik2w880RYlT68zBtZ0gsz6n0kvCxcgn6eF0mUG3KquYfe6ExEhGkpWanzhMxR/C3/ueWLSOH7blAEAxexih86vrVpfwxsrr+Zx77zveIZpbP7Ato2fWzoLhPG2gG6HjGGhVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
- b=ehFlbI73LoxtbByzSNijQF7loKC3ZeZkxXqfibb33CjVmDNBoYQoepnyr1q1+I1wvvtby/Q9VRDpUKgcH09WljEJj8R5a76S1CKxrdWBk6bf1e/WMFtGccv8XgrF/uT+BZ9ZnJ9h1+A9xjW4ASKIJeakwn8760yq3o5hOm8kHDw=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by AM8PR08MB6499.eurprd08.prod.outlook.com (2603:10a6:20b:317::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 12:59:27 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0270.009; Thu, 30 Jul 2026
- 12:59:27 +0000
-Message-ID: <fe1b4098-6ab7-4cf1-ad6b-ffadabbd587a@arm.com>
-Date: Thu, 30 Jul 2026 13:59:24 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 07/11] mm/mremap: use ptep_get() for the destination
- PTE
-To: Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-8-usama.anjum@arm.com>
- <50dd77c0-b6cc-43e2-abd5-6d44a29b5597-agordeev@linux.ibm.com>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <50dd77c0-b6cc-43e2-abd5-6d44a29b5597-agordeev@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P265CA0022.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ae::14) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+X-Greylist: delayed 319 seconds by postgrey-1.36 at gabe;
+ Tue, 28 Jul 2026 12:20:47 UTC
+Received: from mout.web.de (mout.web.de [212.227.15.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B22D610E450;
+ Tue, 28 Jul 2026 12:20:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1785241246; x=1785846046; i=markus.elfring@web.de;
+ bh=Qhwh8pFsGLuqpZfSM4dAu0UCLRZAEUW3H/Ogkx+1KL4=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+ References:From:In-Reply-To:Content-Type:
+ Content-Transfer-Encoding:cc:content-transfer-encoding:
+ content-type:date:from:message-id:mime-version:reply-to:subject:
+ to;
+ b=Yb8QQHZ+dIKXNg/wqQSUO7JFvPHJJYL8b/8rFsyDHH+6j169JXkiRPHEbsjb2G+3
+ Pg524VA7YMKo2wOiUG24mFYzYi7Rov6xp3qi2Hs0qhgxBFxLcwgC52lmXy7I3rPia
+ hLSEOLPMyhG1PCM2pBSJRZgh7wBYfpB3i9v3KAfkEahsNfKgBfHEETapE2JF0SV4c
+ KEUmKhJt1u7pwkl+u6UKX7b1g8t9/1ZZnG3teKurtB1+Spt+K+7ej9VHyVM/RHQ84
+ HFmSaxNmz3TWxM8zZhHadsDrfSvKHznDQSowQ+LGHuVCkk9GtbMqTXzzaQkkwwVml
+ Q+agMO8leqWdQ8cFPw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MqZMK-1xJMlo1Clc-00iU8L; Tue, 28
+ Jul 2026 14:15:16 +0200
+Message-ID: <4fad393f-ab3f-4f29-b0a3-8ef440b0e82e@web.de>
+Date: Tue, 28 Jul 2026 14:15:12 +0200
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|AM8PR08MB6499:EE_|AMS1EPF00000049:EE_|PR3PR08MB5609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2422e5ee-63ab-47d4-de99-08deee3a8993
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: FC2/f3uqOPNNy96aL5tW8wkHImrCfVxh6gQab1ZKH0Q8V9H1vUmueEs6OtDiI8UtXir4rhhqasBx4ap8cYLSYxigO/kvUNlrkbD2UFdd/IpSC7NMQ5r2AdxEt7Dil8zElmXunvRoE5Tlg5sGnVdcymp/0GRd7uQDnxPOWfgMmzW1CCGhDM3v+DfMPVFosD2QLovucjpI0mdWXiiv3LhVLTTiqh85ygjUz5tiRxrntpo8otSPv4PIgvvvuRnm2hI0to5Mdar/A16FWVJK++gzpBzWDlclVVy9ObW6E9YNTB5AcXTLB2BRmht6C+LJ73SIGkvhND+munjpvjnCNX4GM+dv+iNc2yrnOKf3hduUdhhmqBZMJfBiFIXH6AC6j8q89bevK/2qXILNDQRfolUrwjbzI9gX0tiwMteCnIQTjkYrfh1NWlAMJBqRmVgkez0L1229MzW0FFHciClGqnCrHNlhG9+3JkyI/D1HQnoUBzVW2hMioefk3Nl3IAFu1t0UCQ9ab0zh4eIjPXw+czTd5wh5/3SUeVS2L3txx6cDHO6mWTMfg1iPlJNryIjRZOG4tQgZcfzHN0355IoQ1BJo9CIYMiBMGUUM/pO+t0/1P/UVaidrsdU8W1nwX5nKncAJfTqvDhCcwLQvvX6sZpr1j3KIOss8CU0HxU3z0QangmQ=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: PJVqIA2lDgDWhewu7hYynL9BtEIPBvddMwyA6Osilo+gjydcsIvk19XXBZt97+CSHOBCcSG1lF5ESd//62FEcnuW0Op041L9mUSopM9qIiRcFzs6jxJ5UjR3ygaJFlN1jkDri8tj2JilMkEJV/f+jXbciV8JLgAAjrVUK1FCu8cKe10e2R3XzHtcJB0d0wf+6uvadBsnplj1Vi9ZrgFvKbcSQ3nWsFAKAwekW3nE4LknTIXxlkyGUKh4agwsjc5N6hK6U9AG4+8fxKtOCwiJW0F14FybdRB0nEtZgFHfgnVXGE59pb5a47YhLFojq6ZdSXR/ked5yu0EJrH2ID3F1g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6499
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS1EPF00000049.eurprd04.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 4668f8d0-8f81-4de8-943a-08deee3a6347
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|14060799003|7416014|376014|36860700016|35042699022|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: O10KOqaXNNUMGR3ls13Np733WLe/+mOUvsHHZK/1xvrOwAaQ3gFyBxD+l4l/yBYETpIfea/UPYyKQXoQWiI0DSf1odiOCn6popV8LeIpeABO8yxkDTap5/ruOMVRfjZLI+0dyHD2AhwqvqDKwora12Uzpxg5urIAPa4gB4EupFRX2Hn9n44kVOaLGJvtbo8AwcybPdx/0cJa2AJXutypzyXOBgYu01V+1NdEtnTlnYyeIniUXiAnZO49zzm2SNvplb2ENgqH6kDZY6eds91aQiTx482FiXo7rQjGer9COEf14KfzsCpgPlo1fLcsJHpS0AhX+6OMTsFA8hsTeu15rGfNPkZrHHJ26Ckw3dA+BOJgVzXOj23My+cRSUZNShklge4arjFOhFMdufo1oPFS8qTpz2tmePAKyDSH7nPAGbR9xQbXnhP39MsUvAYKW9rqMxOtkcT0WsbMA10oUDQ75qNh/i9wl7+THUtbY6fK2MtIFC1s36xsX/Ic+6MccQazOuyXmxWpeY2nLID1Otx4XZpVckuFKv3PMeX4Jz/TThbno8qKIDdQQ82uFvW1ZyzaBwGQdGB3vQ/wX3zoRXr+FkEefBgM9O9xHiFWaZuexJKpGcJY0/ICp7lY2aJEmvGBR/wlK5Irpmo3gcy4rrPqBVgZzL8WivKrJwxuvXgYKM6AzbyC5XB5RWoaraT+RnB+bvHE26VpYqRqh7ejd3XkzA==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(14060799003)(7416014)(376014)(36860700016)(35042699022)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: O0tk75Jwa84mlQCh/jghGzah7Zx4wyBrsFKWBapww83B2Rc5zJP6DKPrz2Uug6JPaPNE+9z2QJlnOBHI5eVJvoivlaP5RB0CDEgLDuDWcRD+uFLUl7J24b6Fh42l/El51riqiL/qx8KLaCiZ3QEA+zMCBEPyTCyleaxfiFROcNsSg7Y0+OwvImkIDS3t6ybum1bYLPDeEvQ/niHon1ljqZi8pGpTndyPvy9tSEgttv7Cwu5YZ0FINdmLMPGMOdm4dq6a5pPvgR0KIEK4XtfwADa29iGw+N9A5AaE3kjZpOuY2T60KxAgD44ofaWhiDmg/gIpQeLlQgG0eGkeGaAhv8dZj8ZlgZmaMiccf1N7/RZyq3/dv3uUyldCsqo3IFF21Ksrf85EBWTicCY/fo8/58SOakbPyIkgIp44+9WMgCZzxrQeA0gufUQ9J4l3XfkD
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 13:00:31.6304 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2422e5ee-63ab-47d4-de99-08deee3a8993
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000049.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5609
-X-Mailman-Approved-At: Thu, 30 Jul 2026 22:08:09 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/i915/bios: Move a variable assignment behind a null
+ pointer check in intel_bios_encoder_supports_dp_dual_mode()
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: LKML <linux-kernel@vger.kernel.org>, kernel-janitors@vger.kernel.org,
+ Dan Carpenter <error27@gmail.com>, David Airlie <airlied@gmail.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <e81277a0-93f8-45e9-9fa4-7c2c2df9c311@web.de>
+ <alZVl0o7uBoncUos@intel.com>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <alZVl0o7uBoncUos@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ZI0JXO1j1sBBqysCYGJomPon/Mmco38eWvA7iHsLWvWptUQ7QH6
+ Wvo8UgOOjVUtCCqAQzst/8R56iCxjIaHO+bkKG+52904f3kTiyN6J6Qy4H5n1bsJ2xxSSZQ
+ yWpY/Gj46M4mo3jtctmQ4nsGYAg+sGR2W+NupMIYGipshFsi8Nj8Ul+YJMKtaz+JWNxduo6
+ ZsNOThSujXI7V5s6mkDmw==
+UI-OutboundReport: notjunk:1;M01:P0:q95hRdoUD0c=;XNWim0JlhYxg9PWLqci/rzvU6dG
+ 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
+ 3EN4mtno3ArCydXob1f3D1Aoa/6SHlWlUg==
+X-Mailman-Approved-At: Thu, 30 Jul 2026 22:08:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,44 +159,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 30/07/2026 12:29 pm, Alexander Gordeev wrote:
-> On Mon, Jul 27, 2026 at 05:46:58PM +0100, Muhammad Usama Anjum wrote:
->> move_ptes() directly dereferences new_ptep when checking that the
->> destination slot is empty. new_ptep now points to hw_pte_t table storage,
->> while pte_none() consumes a logical pte_t value.
+>> The address of a data structure member was determined before
+>> a corresponding null pointer check in the implementation of
+>> the function =E2=80=9Cintel_bios_encoder_supports_dp_dual_mode=E2=80=9D=
+.
 >>
->> Read the destination entry through the standard ptep_get() accessor before
->> passing the logical value to pte_none().
->>
->> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
->> ---
->>  mm/mremap.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/mm/mremap.c b/mm/mremap.c
->> index d966ee8248b6b..ecb90ccee6fdd 100644
->> --- a/mm/mremap.c
->> +++ b/mm/mremap.c
->> @@ -264,7 +264,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
->>  
->>  	for (; old_addr < old_end; old_ptep += nr_ptes, old_addr += nr_ptes * PAGE_SIZE,
->>  		new_ptep += nr_ptes, new_addr += nr_ptes * PAGE_SIZE) {
->> -		VM_WARN_ON_ONCE(!pte_none(*new_ptep));
->> +		VM_WARN_ON_ONCE(!pte_none(ptep_get(new_ptep)));
-> 
-> Same as the previous patch, except that I did it already:
-> https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
-I'll drop this patch.
+>> Thus avoid the risk for undefined behaviour by reducing the scope for
+>> the variable =E2=80=9Cchild=E2=80=9D behind condition checks.
+=E2=80=A6
+>> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+>> @@ -3514,8 +3514,6 @@ bool intel_bios_is_port_present(struct intel_disp=
+lay *display, enum port port)
+>> =20
+>>  bool intel_bios_encoder_supports_dp_dual_mode(const struct intel_bios_=
+encoder_data *devdata)
+>>  {
+>> -	const struct child_device_config *child =3D &devdata->child;
+>> -
+>>  	if (!devdata)
+>>  		return false;
+>> =20
+>> @@ -3523,6 +3521,8 @@ bool intel_bios_encoder_supports_dp_dual_mode(con=
+st struct intel_bios_encoder_da
+>>  	    !intel_bios_encoder_supports_hdmi(devdata))
+>>  		return false;
+>> =20
+>> +	const struct child_device_config *child =3D &devdata->child;
+>> +
+>=20
+> does it compile?
+>=20
+> please keep the variable definition where it is and move only its
+> assignment after the null check.
+Would you find the proposed adjustment more acceptable if a bit of source =
+code
+would be moved into another function?
+https://refactoring.com/catalog/extractFunction.html
 
-> 
->>  
->>  		nr_ptes = 1;
->>  		max_nr_ptes = (old_end - old_addr) >> PAGE_SHIFT;
->> -- 
->> 2.47.3
->>
-
--- 
-Thanks,
-Usama
-
+Regards,
+Markus
