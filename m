@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DA18C54F54
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4787BC54F56
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D5E10E949;
-	Tue, 28 Jul 2026 15:11:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B6B010E94F;
+	Tue, 28 Jul 2026 15:11:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VmmCmuiX";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ILcLaCkj";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 999D210E6BC;
- Tue, 28 Jul 2026 15:11:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9738A10E926;
+ Tue, 28 Jul 2026 15:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785251483; x=1816787483;
+ t=1785251485; x=1816787485;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=lLrMSYCxeCJGriTtQanpU4bYcB/OT0GhKF60+Va8Msw=;
- b=VmmCmuiXc+eiGwPStXKa95FJUaSx6VcXXsDD9e2+QG1GyGsfTlwSQ05C
- Fi7JL0IkyzRA7U0ByN+WcVWaE2zGPLqW6LiiaWMKBdY0rcX/pk8Go6/iB
- laTMVrIF9zZxSwALxAZ3W6FzLFiHti5SwFqDawm3O92uK3iS5BrAMOAIP
- gVsFgUA/qp/25hQXNOV/IxF0pVQ7X0g9QZnSzmixbvU8uICqSYGvaj+cC
- 8C9TnLW/tEkT6zLfx7FwBL8eR7DcEU2JCGzVV0kBjDuJPXR8Yyi261/Ct
- c4AyfCGOMUCReJpuQgBE+tM/K1CYp9ftFQhe6mTI+SmsyxTEYIwXmDjPk g==;
-X-CSE-ConnectionGUID: BZsC0TMwSjKXhaok1+Zkjw==
-X-CSE-MsgGUID: q72rpC3GSwS8QbP54Wjj/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="88376946"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="88376946"
+ bh=80YikCK21YQb+r524cZ8QZTBBCJJFNf7699Nt5zuCKs=;
+ b=ILcLaCkjn73FclemIPf9QLU7DP/JInpjCuDzvilqITHLpWL70UzGcBLu
+ P6W7toCwq+yrz8gPpUqapJrO0J6Y4TABCRqYlayHyvFwkKAcgBD4b9LKO
+ CspPM9Xt+a3QA6WGZHV73RYSrkT9ajgQXWaUyKZUyIAOqbS8vrA4OWhI2
+ Oc5RKwkuId0B2bTIfCNHI4pADMLKETBd00dexc41AUg4U0wn7gy+47tjh
+ 1OKLEiBzOezQ0R78LVm+eYlILSGASnyW+hwJZsD8pNKIPz2PIukrO7bw5
+ LWTwxa6lrZFNm+0odPm90O1RKnGxOBNZJJE/HS5SxqvR+DPNj6He88zv4 g==;
+X-CSE-ConnectionGUID: FcItPFZoRoKH2xDQ6rrivQ==
+X-CSE-MsgGUID: BBF5XAhDSdaQNo57uirKqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="88376958"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="88376958"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 08:10:10 -0700
-X-CSE-ConnectionGUID: IybFtWoATIGHJLhKZyscrA==
-X-CSE-MsgGUID: 8V1N3zktSaCJddpnxPukqQ==
+ 28 Jul 2026 08:10:12 -0700
+X-CSE-ConnectionGUID: c/sxYMJbToOYH8Eq/vgO/A==
+X-CSE-MsgGUID: JsnloefpTLaYL2zDvQHbZg==
 X-ExtLoop1: 1
 Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by fmviesa003.fm.intel.com with ESMTP; 28 Jul 2026 08:10:08 -0700
+ by fmviesa003.fm.intel.com with ESMTP; 28 Jul 2026 08:10:10 -0700
 From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
  ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
-Subject: [PATCH v7 07/10] drm/i915/vrr: Latch CMRR ratio via fastset on
- debugfs write
-Date: Tue, 28 Jul 2026 20:29:39 +0530
-Message-ID: <20260728145943.3848704-8-mitulkumar.ajitkumar.golani@intel.com>
+Subject: [PATCH v7 08/10] drm/i915/vrr: Program CMRR enable/disable from
+ transcoder timings
+Date: Tue, 28 Jul 2026 20:29:40 +0530
+Message-ID: <20260728145943.3848704-9-mitulkumar.ajitkumar.golani@intel.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260728145943.3848704-1-mitulkumar.ajitkumar.golani@intel.com>
 References: <20260728145943.3848704-1-mitulkumar.ajitkumar.golani@intel.com>
@@ -67,111 +67,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Writing the per-CRTC "intel_vrr_target_refresh_rate" debugfs file only
-updates crtc->force_cmrr, a side channel that is not tracked by the
-atomic state. The requested ratio therefore does not reach the hardware
-until some unrelated commit recomputes the pipe config.
+Split the CMRR M/N register programming into intel_vrr_enable_cmrr()
+and intel_vrr_disable_cmrr(), and drive them from
+intel_vrr_set_fixed_rr_timings() based on crtc_state->vrr.cmrr.enable.
 
-Kick an internal atomic commit for the CRTC from the debugfs write and
-mark the CRTC mode as changed so the pipe config is recomputed.
+VRR_CTL_CMRR_ENABLE is not set explicitly, writing TRANS_CMRR_N_HI
+arms CMRR in hardware. Drop the now-unused cmrr_enable
+argument to intel_vrr_tg_enable().
+
+No functional change intended for non-CMRR configurations.
+
+--v2:
+- Commit message changes.
+- Added Simplified enable/disable sequence. (Chaitanya)
+
+--v3:
+- Guard CMRR enable condition (Chaitanya)
+- Comment changes updated (Chaitanya)
+- Squash register write commits together and
+avoid double writing issue. (Chaitanya)
+
+--v4:
+- Guard CMRR enable/disable with platform check
+
+--v5:
+- Update CMRR in enable/disable path
+
+--v6:
+- Simplify enable/disable calls (Chaitanya)
+- Make function usable for common cmtg and cpu transcoder
+(Chaitanya)
 
 Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Assisted-by: Claude:claude-opus-4-8
 ---
- drivers/gpu/drm/i915/display/intel_vrr.c | 63 ++++++++++++++++++++++++
- 1 file changed, 63 insertions(+)
+ drivers/gpu/drm/i915/display/intel_vrr.c | 59 ++++++++++++++++--------
+ 1 file changed, 40 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index 7746b2ead7d1..056d513ab637 100644
+index 056d513ab637..8d871aa58cab 100644
 --- a/drivers/gpu/drm/i915/display/intel_vrr.c
 +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -8,10 +8,12 @@
- #include <linux/seq_file.h>
- #include <linux/string.h>
- 
-+#include <drm/drm_atomic.h>
- #include <drm/drm_print.h>
- #include <drm/intel/step.h>
- 
- #include "intel_alpm.h"
-+#include "intel_atomic.h"
- #include "intel_cmtg.h"
- #include "intel_crtc.h"
- #include "intel_de.h"
-@@ -1312,6 +1314,58 @@ static int intel_vrr_debugfs_target_rr_open(struct inode *inode, struct file *fi
- 	return single_open(file, intel_vrr_debugfs_target_rr_show, inode->i_private);
+@@ -352,6 +352,36 @@ int intel_vrr_fixed_rr_hw_flipline(const struct intel_crtc_state *crtc_state)
+ 	return intel_vrr_fixed_rr_hw_vtotal(crtc_state);
  }
  
-+/*
-+ * Force an internal fastset commit on @crtc so that a CMRR ratio programmed
-+ * via debugfs gets recomputed and latched into hardware. CMRR only alters the
-+ * (average) vtotal, which is handled by the LRR fastset path, so this does not
-+ * trigger a full modeset (no blank out).
-+ */
-+static int intel_vrr_cmrr_fastset_force(struct intel_crtc *crtc)
++static void
++intel_vrr_set_cmrr_timings(const struct intel_crtc_state *crtc_state,
++			   enum transcoder transcoder)
 +{
-+	struct intel_display *display = to_intel_display(crtc);
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct intel_crtc_state *crtc_state;
-+	int ret = 0;
++	struct intel_display *display = to_intel_display(crtc_state);
 +
-+	state = drm_atomic_commit_alloc(display->drm);
-+	if (!state)
-+		return -ENOMEM;
++	if (!intel_vrr_cmrr_possible(crtc_state))
++		return;
 +
-+	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
++	intel_de_write(display, TRANS_CMRR_M_HI(display, transcoder),
++		       upper_32_bits(crtc_state->vrr.cmrr.cmrr_m));
++	intel_de_write(display, TRANS_CMRR_M_LO(display, transcoder),
++		       lower_32_bits(crtc_state->vrr.cmrr.cmrr_m));
++	intel_de_write(display, TRANS_CMRR_N_LO(display, transcoder),
++		       lower_32_bits(crtc_state->vrr.cmrr.cmrr_n));
++	intel_de_write(display, TRANS_CMRR_N_HI(display, transcoder),
++		       upper_32_bits(crtc_state->vrr.cmrr.cmrr_n));
 +
-+	state->acquire_ctx = &ctx;
-+	to_intel_atomic_state(state)->internal = true;
-+
-+retry:
-+	crtc_state = intel_atomic_get_crtc_state(state, crtc);
-+	if (IS_ERR(crtc_state)) {
-+		ret = PTR_ERR(crtc_state);
-+		goto out;
-+	}
-+
-+	if (!crtc_state->hw.active)
-+		goto out;
-+
-+	/* Mark mode as changed to trigger a pipe recompute + update() */
-+	crtc_state->uapi.mode_changed = true;
-+
-+	ret = drm_atomic_commit(state);
-+out:
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry;
-+	}
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+	drm_atomic_commit_put(state);
-+
-+	return ret;
++	/*
++	 * On always-VRR-TG platforms the fastset path does not rewrite the
++	 * whole TRANS_VRR_CTL, so RMW only the CMRR enable bit here. On a
++	 * modeset the authoritative writes (intel_vrr_tg_enable(),
++	 * intel_cmtg_set_vrr_ctl()) carry the same bit, so this stays
++	 * consistent.
++	 */
++	intel_de_rmw(display, TRANS_VRR_CTL(display, transcoder),
++		     VRR_CTL_CMRR_ENABLE,
++		     crtc_state->vrr.cmrr.enable ? VRR_CTL_CMRR_ENABLE : 0);
 +}
 +
- static ssize_t intel_vrr_debugfs_target_rr_write(struct file *file, const char __user *ubuf,
- 						 size_t len, loff_t *offp)
+ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state,
+ 				    enum transcoder transcoder)
  {
-@@ -1340,6 +1394,15 @@ static ssize_t intel_vrr_debugfs_target_rr_write(struct file *file, const char _
- 	crtc->force_cmrr.numerator = numerator;
- 	crtc->force_cmrr.denominator = denominator;
+@@ -360,6 +390,8 @@ void intel_vrr_set_fixed_rr_timings(const struct intel_crtc_state *crtc_state,
+ 	if (!intel_vrr_possible(crtc_state))
+ 		return;
  
-+	/*
-+	 * The debugfs value is a side channel that is not tracked by the atomic
-+	 * state, so kick an internal fastset commit to recompute and latch the
-+	 * new CMRR parameters without a full modeset.
-+	 */
-+	ret = intel_vrr_cmrr_fastset_force(crtc);
-+	if (ret)
-+		return ret;
++	intel_vrr_set_cmrr_timings(crtc_state, transcoder);
 +
- 	return len;
+ 	intel_de_write(display, TRANS_VRR_VMIN(display, transcoder),
+ 		       intel_vrr_fixed_rr_hw_vmin(crtc_state) - 1);
+ 	intel_de_write(display, TRANS_VRR_VMAX(display, transcoder),
+@@ -671,17 +703,6 @@ void intel_vrr_set_transcoder_timings(const struct intel_crtc_state *crtc_state)
+ 		return;
+ 	}
+ 
+-	if (crtc_state->vrr.cmrr.enable) {
+-		intel_de_write(display, TRANS_CMRR_M_HI(display, cpu_transcoder),
+-			       upper_32_bits(crtc_state->vrr.cmrr.cmrr_m));
+-		intel_de_write(display, TRANS_CMRR_M_LO(display, cpu_transcoder),
+-			       lower_32_bits(crtc_state->vrr.cmrr.cmrr_m));
+-		intel_de_write(display, TRANS_CMRR_N_HI(display, cpu_transcoder),
+-			       upper_32_bits(crtc_state->vrr.cmrr.cmrr_n));
+-		intel_de_write(display, TRANS_CMRR_N_LO(display, cpu_transcoder),
+-			       lower_32_bits(crtc_state->vrr.cmrr.cmrr_n));
+-	}
+-
+ 	intel_vrr_set_fixed_rr_timings(crtc_state, cpu_transcoder);
+ 	intel_cmtg_set_vrr_timings(crtc_state);
+ 
+@@ -947,8 +968,7 @@ intel_vrr_disable_dc_balancing(const struct intel_crtc_state *old_crtc_state)
+ 	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
  }
  
+-static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
+-				bool cmrr_enable)
++static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state)
+ {
+ 	struct intel_display *display = to_intel_display(crtc_state);
+ 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
+@@ -960,11 +980,12 @@ static void intel_vrr_tg_enable(const struct intel_crtc_state *crtc_state,
+ 	vrr_ctl = VRR_CTL_VRR_ENABLE | trans_vrr_ctl(crtc_state);
+ 
+ 	/*
+-	 * FIXME this might be broken as bspec seems to imply that
+-	 * even VRR_CTL_CMRR_ENABLE is armed by TRANS_CMRR_N_HI
+-	 * when enabling CMRR (but not when disabling CMRR?).
++	 * This full TRANS_VRR_CTL write is the authoritative one, so it must
++	 * carry VRR_CTL_CMRR_ENABLE when CMRR is in use. Writing TRANS_CMRR_N_HI
++	 * arms the bit in hardware, but this later write would otherwise clear
++	 * it again.
+ 	 */
+-	if (cmrr_enable)
++	if (crtc_state->vrr.cmrr.enable)
+ 		vrr_ctl |= VRR_CTL_CMRR_ENABLE;
+ 
+ 	intel_de_write(display, TRANS_VRR_CTL(display, cpu_transcoder), vrr_ctl);
+@@ -1000,7 +1021,7 @@ void intel_vrr_enable(const struct intel_crtc_state *crtc_state)
+ 	intel_vrr_enable_dc_balancing(crtc_state);
+ 
+ 	if (!intel_vrr_always_use_vrr_tg(display))
+-		intel_vrr_tg_enable(crtc_state, crtc_state->vrr.cmrr.enable);
++		intel_vrr_tg_enable(crtc_state);
+ }
+ 
+ void intel_vrr_disable(const struct intel_crtc_state *old_crtc_state)
+@@ -1027,7 +1048,7 @@ void intel_vrr_transcoder_enable(const struct intel_crtc_state *crtc_state)
+ 		return;
+ 
+ 	if (intel_vrr_always_use_vrr_tg(display))
+-		intel_vrr_tg_enable(crtc_state, false);
++		intel_vrr_tg_enable(crtc_state);
+ }
+ 
+ void intel_vrr_transcoder_disable(const struct intel_crtc_state *old_crtc_state)
 -- 
 2.48.1
 
