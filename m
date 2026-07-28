@@ -4,27 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59199C54F4D
-	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 16:23:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71BD3C531F9
+	for <intel-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 16:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E350310E5BA;
-	Tue, 28 Jul 2026 16:23:29 +0000 (UTC)
-Received: from 6beec6c84f66 (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66D7610E1E5;
- Tue, 28 Jul 2026 16:23:28 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5825252000887799657=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B55810E97E;
+	Tue, 28 Jul 2026 16:25:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JjpAAwkg";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 796F410E974;
+ Tue, 28 Jul 2026 16:25:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785255919; x=1816791919;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=gt6B+yLts86MZ4MFxqPZl3jC2bkkI67GJTY6onKeoNg=;
+ b=JjpAAwkgOCho0ehs3NpTVQzHp+bo6i0kZqj4q0zlH9M5vhhVE6v9wVDy
+ 5k21iSV62ZGA3XfUWJZRpDDYq+jiahUsuBM+A5i8PuCYsc4zzOrAn7yGF
+ jZmf3BV2tTQevlqjvJk+ZRYXreyvhQ9Yw0qgpPt0Wb7Uam7TwogZugod9
+ Oq68LoP8V3El6gTJdw8RLUfbvWWWg0Teb459LN9F1yZpDDoTI9EiIf39u
+ p7+7AYhB/CMCcDDVlmXy2fy/yGIKGAaqkE0kbVjqQJgCBjGg6tdxlzYu5
+ rB8+r+jeNID6BXRRsgTDfJa65K/eUMnGq2A7ICTW7Ofm0oMyrBHu5OeTi Q==;
+X-CSE-ConnectionGUID: voMJBvfCTHaSyJ3IYTREwg==
+X-CSE-MsgGUID: fxUA0FLCSiuhovx+bLGVVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96202040"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="96202040"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 09:25:19 -0700
+X-CSE-ConnectionGUID: UPvQ+GzIT1+pdYDBB3WZLQ==
+X-CSE-MsgGUID: myPFoh78Riadle5/vpqCEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="255830676"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.76])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 09:25:17 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com
+Subject: [PATCH] drm/{i915,
+ xe}/display: add core workaround query to display parent interface
+Date: Tue, 28 Jul 2026 19:25:14 +0300
+Message-ID: <20260728162514.594285-1-jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Enable_CMRR_in_fixed-RR_V?=
- =?utf-8?q?RR_path_=28rev8=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 28 Jul 2026 16:23:28 -0000
-Message-ID: <178525580841.231569.18130936800515922326@6beec6c84f66>
-X-Patchwork-Hint: ignore
-References: <20260728145943.3848704-1-mitulkumar.ajitkumar.golani@intel.com>
-In-Reply-To: <20260728145943.3848704-1-mitulkumar.ajitkumar.golani@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,230 +68,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5825252000887799657==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+There are workarounds display needs to apply depending on information
+only available to the core driver. Add a display parent interface for
+the query. For starters, there's only one workaround like this, so keep
+it simple instead of over-engineering.
 
-== Series Details ==
+This lets us drop an #ifdef I915 as well as xe dependency on some
+display headers.
 
-Series: Enable CMRR in fixed-RR VRR path (rev8)
-URL   : https://patchwork.freedesktop.org/series/166819/
-State : success
+Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_wa.c |  3 ++-
+ drivers/gpu/drm/i915/display/intel_display_wa.h |  9 ---------
+ drivers/gpu/drm/xe/display/xe_display.c         |  2 ++
+ drivers/gpu/drm/xe/display/xe_display_wa.c      | 13 +++++++++----
+ include/drm/intel/display_parent_interface.h    |  7 +++++++
+ 5 files changed, 20 insertions(+), 14 deletions(-)
 
-== Summary ==
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.c b/drivers/gpu/drm/i915/display/intel_display_wa.c
+index 3662e0f17c69..10dc2930468d 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.c
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <drm/drm_print.h>
++#include <drm/intel/display_parent_interface.h>
+ #include <drm/intel/step.h>
+ 
+ #include "intel_de.h"
+@@ -131,7 +132,7 @@ bool __intel_display_wa(struct intel_display *display, enum intel_display_wa wa,
+ 	case INTEL_DISPLAY_WA_16011863758:
+ 		return DISPLAY_VER(display) >= 11;
+ 	case INTEL_DISPLAY_WA_16023588340:
+-		return intel_display_needs_wa_16023588340(display);
++		return display->parent->wa && display->parent->wa->wa_16023588340(display->drm);
+ 	case INTEL_DISPLAY_WA_16025573575:
+ 		return intel_display_needs_wa_16025573575(display);
+ 	case INTEL_DISPLAY_WA_16025596647:
+diff --git a/drivers/gpu/drm/i915/display/intel_display_wa.h b/drivers/gpu/drm/i915/display/intel_display_wa.h
+index 338b32e4162d..425a300840aa 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_wa.h
++++ b/drivers/gpu/drm/i915/display/intel_display_wa.h
+@@ -12,15 +12,6 @@ struct intel_display;
+ 
+ void intel_display_wa_apply(struct intel_display *display);
+ 
+-#ifdef I915
+-static inline bool intel_display_needs_wa_16023588340(struct intel_display *display)
+-{
+-	return false;
+-}
+-#else
+-bool intel_display_needs_wa_16023588340(struct intel_display *display);
+-#endif
+-
+ /*
+  * This enum lists display workarounds; each entry here must have a
+  * corresponding case in __intel_display_wa().  Keep both sorted by lineage
+diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+index 8da4c457a4a0..10d80dc812bc 100644
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -37,6 +37,7 @@
+ #include "xe_display_bo.h"
+ #include "xe_display_pcode.h"
+ #include "xe_display_rpm.h"
++#include "xe_display_wa.h"
+ #include "xe_dsb_buffer.h"
+ #include "xe_fb_pin.h"
+ #include "xe_frontbuffer.h"
+@@ -458,6 +459,7 @@ static const struct intel_display_parent_interface parent = {
+ 	.pcode = &xe_display_pcode_interface,
+ 	.rpm = &xe_display_rpm_interface,
+ 	.stolen = &xe_display_stolen_interface,
++	.wa = &xe_display_wa_interface,
+ 	.has_auxccs = has_auxccs,
+ };
+ 
+diff --git a/drivers/gpu/drm/xe/display/xe_display_wa.c b/drivers/gpu/drm/xe/display/xe_display_wa.c
+index 2aa1b8c03411..46e41e8a3304 100644
+--- a/drivers/gpu/drm/xe/display/xe_display_wa.c
++++ b/drivers/gpu/drm/xe/display/xe_display_wa.c
+@@ -3,17 +3,22 @@
+  * Copyright © 2024 Intel Corporation
+  */
+ 
+-#include "intel_display_core.h"
+-#include "intel_display_wa.h"
++#include <drm/intel/display_parent_interface.h>
++
+ #include "xe_device.h"
++#include "xe_display_wa.h"
+ #include "xe_wa.h"
+ 
+ #include <generated/xe_wa_oob.h>
+ 
+-bool intel_display_needs_wa_16023588340(struct intel_display *display)
++static bool intel_display_needs_wa_16023588340(struct drm_device *drm)
+ {
+-	struct xe_device *xe = to_xe_device(display->drm);
++	struct xe_device *xe = to_xe_device(drm);
+ 	struct xe_gt *wa_gt = xe_root_mmio_gt(xe);
+ 
+ 	return wa_gt && XE_GT_WA(wa_gt, 16023588340);
+ }
++
++const struct intel_display_wa_interface xe_display_wa_interface = {
++	.wa_16023588340 = intel_display_needs_wa_16023588340,
++};
+diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
+index de395df9ca30..bdc9f9ad4fcb 100644
+--- a/include/drm/intel/display_parent_interface.h
++++ b/include/drm/intel/display_parent_interface.h
+@@ -230,6 +230,10 @@ struct intel_display_vlv_iosf_interface {
+ 	int (*write)(struct drm_device *drm, enum vlv_iosf_sb_unit unit, u32 addr, u32 val);
+ };
+ 
++struct intel_display_wa_interface {
++	bool (*wa_16023588340)(struct drm_device *drm);
++};
++
+ /**
+  * struct intel_display_parent_interface - services parent driver provides to display
+  *
+@@ -291,6 +295,9 @@ struct intel_display_parent_interface {
+ 	/** @vlv_iosf: VLV IOSF sideband. Optional. */
+ 	const struct intel_display_vlv_iosf_interface *vlv_iosf;
+ 
++	/** @wa: Display workarounds query. Optional. */
++	const struct intel_display_wa_interface *wa;
++
+ 	/* Generic independent functions */
+ 	struct {
+ 		/** @fence_priority_display: Set display priority. Optional. */
+-- 
+2.47.3
 
-CI Bug Log - changes from CI_DRM_18911 -> Patchwork_166819v8
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/index.html
-
-Participating hosts (40 -> 39)
-------------------------------
-
-  Additional (1): bat-adls-6 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_166819v8 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][1] ([i915#4613]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][3] ([i915#7707]) +1 other test skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#4103]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#16361])
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][6]
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#5354])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][8] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#3555])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#3291]) +2 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18911 -> Patchwork_166819v8
-
-  CI-20190529: 20190529
-  CI_DRM_18911: 231ba00442a06ee877bfed4765c0b1b48bebbf78 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9027: 9027
-  Patchwork_166819v8: 231ba00442a06ee877bfed4765c0b1b48bebbf78 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/index.html
-
---===============5825252000887799657==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable CMRR in fixed-RR VRR path (rev8)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/166819/">https://patchwork.freedesktop.org/series/166819/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18911 -&gt; Patchwork_166819v8</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/index.html</p>
-<h2>Participating hosts (40 -&gt; 39)</h2>
-<p>Additional (1): bat-adls-6 <br />
-  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_166819v8 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_166819v8/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18911 -&gt; Patchwork_166819v8</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18911: 231ba00442a06ee877bfed4765c0b1b48bebbf78 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9027: 9027<br />
-  Patchwork_166819v8: 231ba00442a06ee877bfed4765c0b1b48bebbf78 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5825252000887799657==--
