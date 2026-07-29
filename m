@@ -4,161 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4F21C53200
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 11:38:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC94C53200
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 11:45:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E1A510EBA7;
-	Wed, 29 Jul 2026 11:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B5110E622;
+	Wed, 29 Jul 2026 11:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VDlmVVQi";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="szQcOSDi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D6A10EBA5;
- Wed, 29 Jul 2026 11:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785325113; x=1816861113;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=TtVwULc30+uMj1oZOISEVqUP6QGTE4kH2whBlUbU5A4=;
- b=VDlmVVQizxb6SuxrCVWaTs9J4NHoZqcgGNX2pgsYDK4KkpLGsoBSbqtM
- o/JcKus4QkevqWkcNesJ40k7LkRZ/RrJf0Od03cSMp1SCmh7lEYLOESyl
- UxOFOED2KdLTnbeYHWM+1uup7rvGdmlB8ffiwxtIcNgve9qFzf03V4oi7
- JvgoCiU1KjVGYnFf7U4mwram7O3HC5o/G4TnV+mJYFA9wwohwZCWEQUeV
- Roe18uDelSCSrw+1S3wZKBsJwX8sgWlZRZDJFO8ocaZQ7L+Gj33RRYjVu
- mv+mZ33zI/XFqwKu+9tMAXeMW5bAOwyzM6ON4ABYngaJCEdRLSkC//mkr Q==;
-X-CSE-ConnectionGUID: NUg2RizaQ+azYzPxp44Xyg==
-X-CSE-MsgGUID: /51ntFjbT/C+VzU4J5ZIUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85871049"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="85871049"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 04:38:33 -0700
-X-CSE-ConnectionGUID: MXvY/FHJQpKAwD+KYRO7VQ==
-X-CSE-MsgGUID: JgiugaZoSoygpztuRCNLJQ==
-X-ExtLoop1: 1
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 04:38:32 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 04:38:31 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Wed, 29 Jul 2026 04:38:31 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.18) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 04:38:30 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JodjV/lDkKw9Z2IC9Mi7dVctTpqrxlYHiDZvQWy5Mq/Uo8C6HvWMi6AGkAfB6/ULnKf+Y1SKjT4mDHhVGTU58DLh6CqZh514Budp6+Bwc8oL/0CSFf2ejRi0lwwVTv9vPtFfDywfTA5VFsCUquK1hm6LTcsATvGqmniBVJH2QF4n30K+wi43PsXXTPPaauecdaM9KEkWZ1CqYrIV8vFANYqw/g2x9LwaeZpyaws++TzmBSO/eC0XjVTkDBvwfd9oqydcE30sOex4rw8XQ/4ePWCSIZj6mHEUoxwa3SuoBH9JjP1u1diVMgTBZ6cZpA6cUAZWnmnK0XmEzQps3/O9HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=75xp7qk4CaT9lPtr69BoEgd7FWBhmFs/n/L8ZBmpcaU=;
- b=Bfp2nHkumxH42iemWChYHFmQcw501NY0SXAl9SASwvYdS/6Fs+jaYX2AjPSVBTbTvReoZIv88hZYd0vg2OqG8VMw0nHXf7cXZtyTmBw4PEM3xiPnHwdSjYq4882x+kwKXxuGnogVeG56FUB2e7ETtSinfva8Kx6RjoaSvJW5/Kp4iR5MH581/bxiSVpQjuSXleQXpr/Saya/tiOBeFQZwzvfvat2f6OWpJ/iAncCAKs3q6j6SDYojkKjADdOqCjAizwwGmiO6F9EmmQPNa+6oECMowc9Uk8JOpMz90uAJ70vGUM4n6VEWdUG4TQI2ypOmi/35u9GpUCx38kRqP86Cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by CY8PR11MB7799.namprd11.prod.outlook.com (2603:10b6:930:78::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Wed, 29 Jul
- 2026 11:38:22 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0270.012; Wed, 29 Jul 2026
- 11:38:22 +0000
-Date: Wed, 29 Jul 2026 11:38:12 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Andi Shyti <andi.shyti@kernel.org>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- "Andi Shyti" <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH] drm/i915/selftests: Disable live_pphwsp_runtime on
- graphics version 12
-Message-ID: <6pv4katagxbfjq5osuskhmmtafybbfke5kj5e5kmgadz6f7mn4@52nhccdgryt2>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260721091615.2680038-1-krzysztof.karas@intel.com>
- <amIJMJ_CqJlTIdhL@zenone.zhora.eu>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <amIJMJ_CqJlTIdhL@zenone.zhora.eu>
-X-ClientProxiedBy: DB9PR05CA0008.eurprd05.prod.outlook.com
- (2603:10a6:10:1da::13) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FAA410E622;
+ Wed, 29 Jul 2026 11:44:58 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66TBI9Rp4077212; Wed, 29 Jul 2026 11:44:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=V/Gc5b6Kanb7gJZ6LuCqbHgIfbcHiL
+ UID8lNDkmdkBk=; b=szQcOSDicNI1Fn0H7xW/dMFikndq57iS0AEADbTHurKpEJ
+ rd11kf+v/K4k3OaPX2DwPIScg0o+GL2hoyX8zqoHbYXdT0lSMDdG2vUgrwbDAvmS
+ GAkXnnb9JBVhPcfVoGJY1DSA/6xfq5K9WNKizak7KaKjt/Dc2/+JfX8nFAp5plmo
+ u0a4AxRt+xdBtl/2NsNsMcf1ZDG6Qjqw5xDVM5TyjGqcQsLSIksGXsQcQlaj/plp
+ JuFSfwIB5TVS6mlK0Oz0clytfcFfXgk9OoMJ2+E1DEvmvdCalj6j+Xxe5b2oQCY7
+ x4RvKe8ts/TDSPuLOoLmIyWAmZfVZWIqbDTv23XQ==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwd1p2u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2026 11:44:23 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66TBfHNq029357;
+ Wed, 29 Jul 2026 11:44:22 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fn9pgeadd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2026 11:44:22 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66TBiKQM31916432
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 29 Jul 2026 11:44:20 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 992952004B;
+ Wed, 29 Jul 2026 11:44:20 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 288E620043;
+ Wed, 29 Jul 2026 11:44:19 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Wed, 29 Jul 2026 11:44:19 +0000 (GMT)
+Date: Wed, 29 Jul 2026 13:44:17 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
+ values
+Message-ID: <e3b6dd13-2cea-4dc5-9038-a3abde71ec10-agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
+ <7813b5fe-e767-442c-a356-afc1a5c567ad-agordeev@linux.ibm.com>
+ <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|CY8PR11MB7799:EE_
-X-MS-Office365-Filtering-Correlation-Id: 577a8c71-220a-403a-c0c8-08deed65e502
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|22082099003|18002099003|56012099006|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: HJx+7o4ziphpN107ASmqm2yFdcJVYyESz5WGNVPShCuo8fRXL1KaQKYptTsb8bOGe6V00ZJKxH8fHTfxhZeL8X759AkgSdwU9WPN9qjDf8/RZ6LaimtwIL8XYZf9dyKJFuJWUoLsGq9sekgA13Uaej81mh1xS9T+3lYzsc/wJ2uTArNFVhwsZ2GU+l16Ya2uBRqaCF60TUH6wqFTG8ndJRWqRrwr7uVw/MUZopvJLu/m42XodLofzBZ3JrbrNmJ2RQTQZre1km/p672nToJ6QNb96DNWonqWJVw7ibSqA+1sTwicBBYlwx0NVPrfAg22Nniuw066uq5eWmuu15x1PmVt2f1jxrUvJOVdS1ri5hcMnHHOKa5l+EPGp8VB2/kVgoLWfR3OBbXQwNccuU781vvaJh5wtLG6pja94ehf/xnjsOp/GfSvxF9gmtw6J/+4R0lXxuqt8BpC9xggnwpjol+Ba9eyVbwm+lYsbPEBmJo0WEGSeetLkhBUdCKmMWDZ1IFT6/vxtUaeBdljbzADj2wv2PZZ0z9Y91O6h1uFt10CLAbnONVRWlKv43ozFrQRO6tMcmR71uZIaPhCWtcIdLA19smuwzHAVwTL/PUrD8x8MFT7qBlsMHQ827CTEEXW89w5ahTaTxbfEdCDmhb/A2DKKMH7oZjb8kuH8PEbe/c=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2doZS9qZldPQWdKYWVyVE0wRjNLbzM1Y2oxdFNLTHRZaGFlbERqY2Zra1JZ?=
- =?utf-8?B?ODNINk96b1NuVGtWd3lWc0tubnNlQ0JKalllQjhTbGhqQnF6UzF0dDNCbGZk?=
- =?utf-8?B?VnY2bU5HbGIwbGpWdkxDUU56ZXpxb3NuVlpPMFJjaEtzRjVaZ3E2ZnRNM25q?=
- =?utf-8?B?UC9QK3ViRUpGTTRJNkh2L1ZaT0ZuQVczeTFSTFhaQTJzNDRac0dOUHAyRUhk?=
- =?utf-8?B?Q3VFRXhLUHdtSFkrMEhGbndYQTREMjJmZ2hUUjJmUE9GaHdTYmwzSmQyL3FL?=
- =?utf-8?B?dVBiVFZNbmsrRFZzeklSUm43NHRxSlZjbWFDVFE0TC94S1ZoSUhBeVUxWkht?=
- =?utf-8?B?REpaRmpIVjVnNEdEd0tDckJEbWpVaG1kQmFrZW9lTkQwNFhtRGhSbTIyTmtY?=
- =?utf-8?B?ZUpIVzFXS0FyY0VneEdIVjRMTzNuUkgxc0Y5YytiZ1VKUmpKbmlzK3dEd0xM?=
- =?utf-8?B?NGRRWFhYQU1xSHl3a1M3eHVRRGUvNEZqYlgyMzJjWkJJZ0FTaThCblB1bDZq?=
- =?utf-8?B?KzZ6YURaTGgyOFllVWtIVzRmZ1NpaWR4NXBLV0tNSFNObkpFZFFwVTBOOUUy?=
- =?utf-8?B?NnUzKytoRnF0ZzJUS05sMGJLMDgyUGd6NnJ3Z3U3blg0YVJkKzVoMXFzME1n?=
- =?utf-8?B?RCs3NklDN2xVVjZQbW1rR2l6VGlhSnJra2hxbkEwODRieHUrS2piaFZZbmRL?=
- =?utf-8?B?bFRUMWU3YVU3UVl2dnU3QXh5WnlyME9mNjBib0hWei9mV3Y3VHBCQUduemxY?=
- =?utf-8?B?b01qZE4yYlFjR0ZwbW45SDRPSXhlMEYwWFlPUndRM3dHSWRIQk96L1dkekl2?=
- =?utf-8?B?ZTBDd2ZvR0hVSGNWNGdOeHNIREVjZjFnUU81UUNJSkhNWGtUeDczdm5naEdH?=
- =?utf-8?B?NVczYlN1UWNRbXlmZ1lnVGVGRTgrV083N3o4MkUvN2dhUDdFUS9ZYnRvVk9M?=
- =?utf-8?B?aWxBQkhaVTMvYjZxeDJSbFRweU4zMWE5QWtXWlg4c3pvelNiWk5vSmNELzk5?=
- =?utf-8?B?T3U0RFBNZldqZnAyODhJV0NQWnlnREF1NFJyekZwODVRdTUzNEVUN2ZXSC8x?=
- =?utf-8?B?a1YyV1BJVmVUNWRoNndBLzI3SitVV09rYXRZNWwzbTYrOUdwdmMyUFBhYzVU?=
- =?utf-8?B?RE1GaXVhZEVSV0JKZU5kVndwMDlncGRJNnVHeGhYYkErU2V6SWRtTTl1OS8z?=
- =?utf-8?B?azdBUlN4dGxVNHhUUFE2YVpxbC9TV2MwUFk5WGRTcmFUNTVCaHQwTnVyeXlp?=
- =?utf-8?B?OFhHVWFqZGNxMnVNVGUyM0JoeE9kTTlKYzNpazlWUWhQbDdxSUJ6Y0QyZXhn?=
- =?utf-8?B?dXpWV0E3VnVPbkprY3pSSlI0KzJ3R1R5SlNjQVNmbGlTamJJQkdYMXpMV2FG?=
- =?utf-8?B?UVBQZUhJMFAvT2dqczZpNHV2Z1cvckN2VkloNGtNRTdId2luL2xRQXNXMzls?=
- =?utf-8?B?K292d3Y1b1RwSndVMEdrRWIyRVRVUzZtRDIyU0tPVnVCMWFxT0lzdWpnWWVa?=
- =?utf-8?B?bWdvV0VrV2piUHRPVzVlSWpzQVN4N0ZPZnZxSFkvOWswZ0pDMGVPcFVhcUFN?=
- =?utf-8?B?b2NQekJmaC8raGFxSjRjZFRSUExES1dqaElqRm9vRENJVitLVUNlMjVzMk1n?=
- =?utf-8?B?TDVrODJMWCtwS2s4VjhoeGwwdTBTKzFYMGVhZG5pSEZ6RnBnanRFTTVESmwr?=
- =?utf-8?B?RUdLbERUWnpFenA4Q094My9WRTZVVFF3QTNFczg2ZWhMQnVtZU9RSmpmekl4?=
- =?utf-8?B?Qy83MWduV2pEK01pSHRtblZLSHZwcmI4Nll4MGlDNXVGR2FicWZXY2NpVEFT?=
- =?utf-8?B?TG1YMjFDU3BBUUJtR3VCbHc5MmFuVUJNUzVEV2FLelpha1N3NGw1dXFXZ2dL?=
- =?utf-8?B?WHlZMDdxZDJRb1FIUDlRRVVKRWZXTTlwUWZjUzNiYWt3SCs0eHFlRGlBUW5O?=
- =?utf-8?B?UDlGdWVyWWNvV25hcHZDWkF3anBKaHVqUXppTjhJc09oOGQ1U0F0Yk44ejZ6?=
- =?utf-8?B?Wk5kemhhU1RHSHN0WW9BZ2d5M2tZSXRMZEcrd1BQeUJ6UkdPdzZzdHBIbUp1?=
- =?utf-8?B?dVRXdXF4SUZDMEwraExlMENIcmFlNS9iRC84UlpPUkp0VG8zTVdra0MrdFVl?=
- =?utf-8?B?dnQ5dCtDRWRWdlkxdTJOZDB6bHR3Um1ZTHRRUEFJbFVRS3Nkc0lEZUlKKzVx?=
- =?utf-8?B?aGNrOUlBekM2b2xKaERJWWRuMVVwSUNmNUtmeFpYRVhTZG1ETW1HRFVkbVJa?=
- =?utf-8?B?aTNmais1c0Z1Z1A4ejllRGlPdjV5bmZGN1ZJU25vazJ0OTREQVpFbkFvUms1?=
- =?utf-8?B?QWFBVld2ZDd1aXVnL2gxcEY0bHFmN0F6LzBsZVBkS0p4Wm43cUt2ZE50ODQ0?=
- =?utf-8?Q?k4dY4gLiw7kpdrfo=3D?=
-X-Exchange-RoutingPolicyChecked: oVn0QPAWujWMZwUAbZ6dIleezWfD4+GgeOB+ZJ3Z3QdQmtiIi6/LTx5Ly2RglBI4xzvkEgKZm184a4gf2/PSh8aeY1Kt8Gat7pH55MhI5HekHUZWtwv9q1j90K45Olxn8fCFQNg68lCbr5VtBquaBOKvfNz+OTPwKcMnsuHtJDxGAVa2ovCvQvIslcEQdv4Nsf0DibwttTO8hvszvKfAZlCEntwjFKtPv3FOVOuJbswMCLj0LWZc5rs/GgVPKSYaq+Wa+qVOzuAz5qDm4KJQIbEbjhj+n4fjD8hu6TzW5bK6iYg27WX2/hdzcNhB3ysnxjggKdO+ZrwhrxzGgkoZ7A==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 577a8c71-220a-403a-c0c8-08deed65e502
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 11:38:22.6765 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Qf4l/p5kczvN4NaFCbVeTXsGwL7PF+2dP5tK0/KidaIthCIEODKFndgwZ5mq5XOyB5Fakl3va7F1FRdLlnMBzH7wSWfzAPTVS1JviFW7CU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7799
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: Dax4K8SnTqgr3j-xLBjPIG8yJ9gcxvKF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MyBTYWx0ZWRfX/ftZ3NJRCmkt
+ ZT14DTCChPW4KALpaDbSLe6kNr0LuWq5PiRiSqf5YTIEutfQ2Tac4sdllF74vXnFZSICYrQE0fL
+ ZL/O65SEZjU3i6ZYCyIL5FE+JISdSFU=
+X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a69e797 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=yGtF1kJb5LocEaEl6I8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MyBTYWx0ZWRfX/jm6YIwwiR1F
+ lZXlePH3tA598H7Fb31vSIvPJoutJ+iSssAlIclxpQnCFqgsl/QXciOAhzwZ7FFazWWtvRVdlZ9
+ TvRnRR/LIbBRyOBs37OfIHHcuSChvKVhl07RqZv9bpaqy+fPsLibBtb0+CX8Q1amoqeREdzT7LS
+ 45c/SPprx12OPqL4uwkj2S+LtICeW20WUFSc3OlbdqoEpxGRA12dmOFjaryENCnKW/xK1Jay/U1
+ kC8ReZf28BJ12s4AmwDEQcWLd+44QFBJkS+P1wHLIwJa5nPrgSvB7j/BZoiN3neZKSKOtDNSj09
+ Q6tFnfgRJpTk6CRkd5peVrkT93tDejNz3zvCXWL/dWWwVW8rI18kBZ3iQaIoQ6o8M4YCglsfenJ
+ wdrKMTl/qwP8vRTkJCoONCRiVYcB8Qwu+P574F7wJpa5ktjFD5+6hw8BDY0mBPrkdR2pGPZzU/d
+ eAJCrvqHF5YRoCZPBfw==
+X-Proofpoint-GUID: Dax4K8SnTqgr3j-xLBjPIG8yJ9gcxvKF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290093
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,25 +153,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andi,
-
-On 2026-07-23 at 14:31:19 +0200, Andi Shyti wrote:
-> Hi Krzysztof,
+On Wed, Jul 29, 2026 at 01:05:35PM +0200, David Hildenbrand (Arm) wrote:
+> On 7/29/26 12:13, Alexander Gordeev wrote:
+> > On Tue, Jul 28, 2026 at 09:26:06PM +0200, David Hildenbrand (Arm) wrote:
+> >>> The generic definition aliases hw_pte_t to pte_t, so this series preserves
+> >>> the representation and behaviour of every architecture. ptep_get() keeps
+> >>> its existing READ_ONCE() semantics and converts the stored element through
+> >>> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
+> >>> convert its PTE interfaces to make the distinction compiler-enforced.
+> >>> Architecture PTE implementations and most architecture code are
+> >>> deliberately left for those later opt-in conversions.
+> > ...
+> >> Do you have a pointer at the arm64 part, so people can get a feeling for how an
+> >> actual hw_pte_t implementation can look like.
+> > 
+> > May be we need the generic hw_pte_t implementation as { pte_t pte; }
+> > right away?
 > 
-> On Tue, Jul 21, 2026 at 09:16:15AM +0000, Krzysztof Karas wrote:
-> > When a context is saved and then restored, the timer delta is
-> > calculated using signed 32 bit arithmetic on hardware written
-> > value to PPHWSP/LRC image and previously stored value, which use
-> > unsigned types. This difference may become negative for version
-> > 12, due to hardware quirk on these platforms. This in turn,
-> > would cause -EOVERFLOW to be thrown inside live_pphwsp_runtime
-> > test.
+> Indeed, that makes sense. We just need a way for the architecture to opt-in that
+> it did the conversion.
 > 
-> do we have any details on this hardware quirk?
-Yeah, there was HSD #16010904313 written for Gen 12. Since you
-already mentioned this off-list, we could add this annotation to
-the commit message and skip re-sending another patch version.
+> > 
+> > Also, can you envision a case when sizeof(pte_t) != sizeof(hw_pte_t)?
+> > If not, the compile-time check is worth adding.
+> 
+> That wouldn't work as is. We'd have to intercept ptep++ and instead have a
+> helper to advance the ptep pointer.
 
--- 
-Best Regards,
-Krzysztof
+I think I am missing the point. That is my takeaway from your previous mail:
+https://lore.kernel.org/lkml/31d36023-d728-4eee-90f8-158c7066f565@kernel.org/
+
+<quote>
+>    {
+>       page_table_check_ptes_set(mm, addr, ptep, pte, nr);
+>       for (;;) {
+>               set_pte(ptep, pte);
+>               if (--nr == 0)
+>                       break;
+>   -           ptep++;
+>   +           ptep = hw_pte_next(ptep);
+
+We should really just let ptep++ work as before.
+
+>               pte = pte_next_pfn(pte);
+>       }
+>    }
+</quote>
+
+So are we going after hw_pte_next(ptep) or ptep++?
+
+> One idea for that would be to let the compiler catch that by marking hw_pte_t an
+> undefined struct (unknown size), such that the compiler would indicate any usage
+> of ptep++ properly.
+
+What is the purpose of that? I mean when pte_t vs hw_pte_t uses are sorted
+out what is the benefit of preventing hw_ptep++?
+
+> That can be done when it would actually required, so as a first step having a
+> generic hw_pte_t would just work.
+> 
+> -- 
+> Cheers,
+> 
+> David
+
+Thanks!
