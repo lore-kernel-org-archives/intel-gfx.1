@@ -4,28 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CC85C53200
-	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 17:01:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C26C53200
+	for <intel-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 17:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9902210E365;
-	Wed, 29 Jul 2026 17:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9475010E07E;
+	Wed, 29 Jul 2026 17:02:22 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24C4310E07E;
- Wed, 29 Jul 2026 17:01:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F24FA10E07E;
+ Wed, 29 Jul 2026 17:02:20 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_Patch_=22drm/dp=5Fmst=3A_?=
  =?utf-8?q?Handle_torn-down_topology_gracefully_in_drm=5Fdp=5Fmst=5Ftopology?=
- =?utf-8?q?=5Fqueue=5Fprobe=28=29=22_has_been_added_to_the_6=2E6-stable_tree?=
+ =?utf-8?q?=5Fqueue=5Fprobe=28=29=22_has_been_added_to_the_6=2E12-stable_tre?=
+ =?utf-8?q?e?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
 To: gregkh@linuxfoundation.org
 Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 29 Jul 2026 17:01:42 -0000
-Message-ID: <178534450214.2666.5227938147144381879@61270ab9df2a>
+Date: Wed, 29 Jul 2026 17:02:20 -0000
+Message-ID: <178534454098.2665.10779248617531937927@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <2026072953-schedule-prevent-cc5f@gregkh>
-In-Reply-To: <2026072953-schedule-prevent-cc5f@gregkh>
+References: <2026072907-framing-morphine-00a8@gregkh>
+In-Reply-To: <2026072907-framing-morphine-00a8@gregkh>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,13 +45,13 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: Patch "drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()" has been added to the 6.6-stable tree
-URL   : https://patchwork.freedesktop.org/series/171294/
+Series: Patch "drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()" has been added to the 6.12-stable tree
+URL   : https://patchwork.freedesktop.org/series/171296/
 State : failure
 
 == Summary ==
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/171294/revisions/1/mbox/ not applied
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/171296/revisions/1/mbox/ not applied
 Patch is empty.
 When you have resolved this problem, run "git am --continue".
 If you prefer to skip this patch, run "git am --skip" instead.
