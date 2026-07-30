@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8104CC55165
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A85AC55165
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 23:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C650810F0E1;
-	Thu, 30 Jul 2026 22:37:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92C6910E11D;
+	Thu, 30 Jul 2026 23:06:47 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE96110F0D7;
- Thu, 30 Jul 2026 22:37:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A213910E0FE;
+ Thu, 30 Jul 2026 23:06:46 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/userpt?=
- =?utf-8?q?r=3A_Fix_user_pages_leak_on_get=5Fpages_failure?=
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_mm=3A_distinguish_PTE_tab?=
+ =?utf-8?q?le_storage_from_PTE_values?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "ZhaoJinming" <zhaojinming@uniontech.com>
+To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 30 Jul 2026 22:37:29 -0000
-Message-ID: <178545104977.6473.6369848346854019533@61270ab9df2a>
+Date: Thu, 30 Jul 2026 23:06:46 -0000
+Message-ID: <178545280665.7464.16454825393194985206@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260728054152.140524-1-zhaojinming@uniontech.com>
-In-Reply-To: <20260728054152.140524-1-zhaojinming@uniontech.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,15 +43,24 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 == Series Details ==
 
-Series: drm/i915/userptr: Fix user pages leak on get_pages failure
-URL   : https://patchwork.freedesktop.org/series/171391/
+Series: mm: distinguish PTE table storage from PTE values
+URL   : https://patchwork.freedesktop.org/series/171389/
 State : failure
 
 == Summary ==
 
-Series author address 'zhaojinming@uniontech.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/182831/ (on built-in)
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/171389/revisions/1/mbox/ not applied
+Applying: mm: introduce hw_pte_t for PTE table storage
+Applying: mm: make hw_pte_t visible to generic PTE interfaces
+Applying: mm: name pointers to copied PTE values ptentp
+Applying: mm: use hw_pte_t for generic PTE table storage
+error: sha1 information is lacking or useless (include/linux/pgtable.h).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0004 mm: use hw_pte_t for generic PTE table storage
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
