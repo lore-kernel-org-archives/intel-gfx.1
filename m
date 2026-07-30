@@ -4,179 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CCAC5516D
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC5D0C55171
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 22:08:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8816F10F0D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C75210F0CC;
 	Thu, 30 Jul 2026 22:08:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NpncSg6H";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013021.outbound.protection.outlook.com [40.107.159.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5001010EB9E;
- Wed, 29 Jul 2026 11:35:15 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=A0HR24kZDbdXI4a/j+W5uOS1BNTVcKv7x8tvSi2YHu8yMad/MsqwZGb/NJi8uFOBMrlNYmmWl2Rm1nKxAwKIJrtqlG0aWLHOo6JrHn9bcf4K3utuO71Nl9+1W+ekFP5rGPxQBBpx5HrbmNFZadcP0x9jySqIOAyqj6LdmM9kUkWd0qyyU802LfbuUMQ4tnfybtQMdwsuh8O9YkkFd6612CLEKxnn/+AQ7d99YwOO2BRdond9yAORF2pEENKAgd+jbsLLdNHoWuxoV0zj5fiWlhUQr3pJZp770MynLqO6+nBdD4UKAAaxLJwrii+NKwtA12sJdOVFPbmZZHECix5GRg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=BFsgFfOFx+g1LqdbnsNcP9Mta+fH8KgKvQh9mG1wSSCsa4lSKu3Z0Po77OiEWXhXoJqeQ/W1T5x3erVAQMx1V9WFI48OgQZXz5DMx4DGUMPApsVUL7kc0HvyOQA2v1p//bKfPQ7isPHd8RP6mAVuXj5oLZvT2Q9WK0BF9UsDzEZv6VnIz69O2P2kc1OclYyN8aptYjCkwC7OVa05NdXu4XLXTmaYOL/n02y/oOAPD2l3e9mXOd8SJ6cT700tlmK+0W3akPngcdld/vEBMETeGU3TnG46jgeOWauj8uIj1qEt8THqHPb66Hirtn5aL02L5PKtjRz/z2UnF6YZmzGjww==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
-Received: from AS9PR06CA0536.eurprd06.prod.outlook.com (2603:10a6:20b:49d::35)
- by AMBPR08MB11653.eurprd08.prod.outlook.com (2603:10a6:20b:737::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 11:35:07 +0000
-Received: from AM1PEPF000252DB.eurprd07.prod.outlook.com
- (2603:10a6:20b:49d:cafe::1a) by AS9PR06CA0536.outlook.office365.com
- (2603:10a6:20b:49d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Wed,
- 29 Jul 2026 11:35:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM1PEPF000252DB.mail.protection.outlook.com (10.167.16.53) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
- via Frontend Transport; Wed, 29 Jul 2026 11:35:07 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LSnYCeslggQxQSwqDV21tCiTCB6yv8A+BS3ksQcSqchYF8y/ZNsAtgL0N35LiyfAZzzgu6CFfPr+4Z/jtZITRHUsUumNcy5zzVQAnPqM3VRufn9reQPjHWPaK8Pj7EDfD37hxf743LYKws4P1U7yZLiZhTQTebxZdAfvX0pxn8qBK/O59CWXr/vIup/HsaO52swjgJ3vZIVe6gEa8AZJVLfmK3gMj3QRTDNYKxJdKZkQvGnCTqjLIUS7CMlceliqGPUFH8bRlOqeuLnsULe/0Tj0P/2E4g0W9AMwkNBpIFShHrEEk41mfUoVPibG4ot/fWkN1/fW69dPWS3InikcOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=t0rDZriZ6OpjaJ3T+spCrkqxr0d5LZEkUqpA31+K0IeeP51GOkFxCAm2lAS5Q8F4u+dt4CDGHN+ySvjZ4FoheyMLxqAS+fzUEP5vxGEUC60TZkjJkpGBrEpiRHexoSmk49tdqfDRLFPFbhEaUy7T533Xf7eXs+VOcyrb3fPt/B9ApU1SwduBz3HHS2tK887X0YwWfuYfMY+/QuzU4kLdOyosqkubs/H7/w7YG+0PvbVto5HiaqcGCYxIHmgnJKvJwFzs/yQdDJzfyfMvIBGONVO9ZuXztwHAERguCkH3mp7H0xn/Vn9Usf3vRW8AcTTCAVVTyezLQTu4dQxTarwKcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by GV2PR08MB7955.eurprd08.prod.outlook.com (2603:10a6:150:7f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 11:34:00 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
- 11:34:00 +0000
-Message-ID: <46319967-0338-4532-b953-dbea77084fe3@arm.com>
-Date: Wed, 29 Jul 2026 12:33:57 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
- values
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
- <7813b5fe-e767-442c-a356-afc1a5c567ad-agordeev@linux.ibm.com>
- <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0161.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:188::22) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4E3A10EFE4
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 16:44:00 +0000 (UTC)
+Received: by mail-lf1-f52.google.com with SMTP id
+ 2adb3069b0e04-5b01910b499so946385e87.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 09:44:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785429839; x=1786034639; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vmnba+RRh6O+eZdkOkyG5EW05EpCAmV2TUdegObEK3s=;
+ b=NpncSg6HLhPhPudMZ+XMxe4SsoyBZTGESroVwTVEKMt6c1RU8XH9G/qfR5+QbHPJiR
+ qAVLEBwv+XRGBy3MVYy5qya0PhlYq5hYRh0AD3Qd3ThVh9O2+e7DWtpRDpn6KUKz+Z05
+ lanXOfaBKAg9hekRCx4ptEfsPDpC6a3arcBPWRr1hY/0xio++IrEY81XfRl083wJHKdF
+ SUQUHtbNCJr3FvI491KAqzCKM/Ro9e0BVQr5oF94C0Ea4kYDrFrrRR4UfHSZGgrXzdXS
+ hHj/j6oecyXgFlacshQrbnrCEcWH3LlJs1EzGCjPCKcT8+RQ9K69zsrf8JA1y21t4tQM
+ P4ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785429839; x=1786034639;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vmnba+RRh6O+eZdkOkyG5EW05EpCAmV2TUdegObEK3s=;
+ b=nfQDFQ/RwA5r0IH/dQT/hTsoJyOtw3Y4ek3DbzqgGSwGv/7YdP15BG8hPOyVBdWh+a
+ 3lE8CPaYptZV9UYVGa0gFjGLg0r4WVdvmIgGxqKDwelYpnVUhYaGRKMbf2bH5NZQToM+
+ shD9F+xtKvtAOiT8rSCUKgPNzhaDVBeRZtCU8ceB35EUpGGpI9o9OebTomA8WgX21uN/
+ SHjHyr854wNOfCODD/ko8FGsbSKxh1iX14dXy1wEDNp30UcmbG550RTP+7uIGIbP6SMu
+ Byw+iaE88Ht/7/rzUbrSlJ6qcAM0F4mi2k005U8qyCsWyr0VdNjSffglGZLF/GK4ycnR
+ zYRQ==
+X-Gm-Message-State: AOJu0YwmYsnFobPk0DixHArFBXGBPDh2FQqs+2pG0XtvX6kq1/vyw974
+ W1V05HpZSWWfk8N7YO6gOQEP7A3b90eeiNYDjC8Qy9Y7cMoEB69yOxg+K5S8IarjNhw=
+X-Gm-Gg: AR+sD11opTk1KZGFLrjJNm8CrVpJ13yrSwuDdY6eds10yyzRneBe/VxykA5blP9PyZF
+ bCc1LH+QuzzxwtERtXRAlOhqkKlmPQ1LJNqCt7JRX62oKyMlg3MZ6FJQ6QbtXdUlSXjH9y/IU46
+ PzhdPR5imZNkm6vmZCKHCfPofvxlviEecNgpXWCfvw2xUwVPkTBKuETPhV61AWNipuQND4u5F4d
+ IelL/vGLHLpzwzbmRNJbdHBS0MBC9NgzCeaTBEfmBc2U/bGWAkmr55U8zv+30T7q2eGTLyfVgKd
+ +aHAfOf6zgjN6VbGG4W5BieUZACOCSCDQQeJcfY69ibhfPdoakUZp0RfJucyUyfcS0VpAZuC3Rs
+ S6HaoHPGN8xo/5xD5A6YPhJDUJKem6nGbubm7DfpBkWiu8MtKNQjjLj59Vd+k6Vy7y2FGqnkddC
+ EDak2z8pEJpEqe7O6H09xZA22REqqBJeZQYZ/72pdOSRn9rEupQ7qN1UQ4LQ1COsKymKWpZnBr5
+ JPbyTwOIgSog2fF1a39TuDtY9hhDRdam5HFeuX5TyyzGio0pjbIP6BQ5A==
+X-Received: by 2002:a05:6512:acd:b0:5b2:a3a2:1395 with SMTP id
+ 2adb3069b0e04-5b2df6bace5mr320884e87.3.1785429838557; 
+ Thu, 30 Jul 2026 09:43:58 -0700 (PDT)
+Received: from NUC.lan (danayer.ru. [78.109.43.71])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-39f6a598a75sm4026421fa.2.2026.07.30.09.43.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 09:43:56 -0700 (PDT)
+From: Seliverstov Daniil Denisovich <daniil.seliverstov2003@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Seliverstov Daniil Denisovich <daniil.seliverstov2003@gmail.com>
+Subject: [PATCH] This enables HuC firmware initialization and authentication
+ on DG2 hardware when using the Xe DRM driver.
+Date: Fri, 31 Jul 2026 00:43:34 +0800
+Message-ID: <20260730164334.8424-1-daniil.seliverstov2003@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GV2PR08MB7955:EE_|AM1PEPF000252DB:EE_|AMBPR08MB11653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|7416014|366016|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: xfbEy9xFy2KjtgbtZQwVRo/4rDSmq7tan+BAO+pWdsGQt606AZahYR8QjfxNwepbtpCMtOOt+8wN6/aZUrVxGXdve9SNgmI8m3i49FVH1QvKzgN5iWDAyc/qG37Ap0G5Y97odKPEnoyFqd5WWCZrVDk5WcqlYn1UwCiLpvduHOQ4yKJHDxymZa3ezH7yIgpM65fy1J5UWO78alRqVRYlrkDOFWL2EaCUXoJxhmlAjJf/9UOgfdXHsNXdCO/znX3umbrqmhM0sQPcJ5r2VzRsoQeAv+i6QegXoExunECasQNkLXlSXuF1rfAjl27hyVJfWLP1kh6Wm1wg//SMzutnVr0XBV1zVP+5KkRjixIEliIfiHgPajlHGFEg0DSfY+ITRVfPTuzgauKHtZXF4IJPVHsDbIGz7qKh3qavST24XYL4oY8gg7unjuuFv0XeSHMU+/FxCkxzesBUNQBZN/20qiLgprM6KvcPUSbXs7HPQiJI0p45cXsivdzB+efiv0xLdN4ZMqtdCHKXfaRp/J6a1owLvwowpLkBOkJkar4nFaDFO7GgG4qvbOjtHKBP5iQNtpNOHdII6lgDMrPlunWF1g3wYJI2ezCDEC9O7KZd6Sf89Vm+sXMSJ5YifvkjccdnRSEDGI26zF05DhcTtdnoNfWBagvIF7AW8rx0Rv6l+2k=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: bfpSLQDM89AGYUqYoFAxdTSUxQeWzvqrXWN01Q8nSdOHv09YbMqZwEkh4De+S90bWZhKDnix564/0iluBMAaDBLsP/eTzmgwj8zSC8MqbERlfS0mpGodCyOiNyPtSf7Pe+nzMgJoUgaYugPoxE6pM543p0DW/yTGW6oZ7bODJ5DM1V+j55iRlovzyeqTGf9Sb2QjeloUSNBQhR4N/qRtUg106VYsNxb8LiTmvTM4/T7wuyg3rWvD8R0cLWaftev4/sKlE31/5RJ3yOUwg/+bPmqGyASd1WLyfVazwE4VmC1+AShpm0prYuFDu0FzTmqdeirtBDGb4Y/uPepsm/ldrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB7955
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM1PEPF000252DB.eurprd07.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 191f0cd4-83b2-41b7-9c2f-08deed6548c6
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|14060799003|1800799024|82310400026|35042699022|36860700016|376014|7416014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: z16m1iP5gJN11a0jHm2h5qPOvpYoNr0dsqnEGISR6jYEFwxRynbmbpuiqBvgMacxSIEx5YgZ1PwjI/B9Sb9qPESFT+ZKOzcpvp5wGg5c8wFb5VifVw9YxWu3jtI1X8Y0UKz7eDfqmnn4zZCjk9sUGyf8kW5nyjz3XUG3wcikRyU77msznLp6gKihMrp7u+N5DfYb/ZDcfjTyI7Rlr79hpWV2IcgXmQNbclHFb6Rq6JKpIdfruwnLVHkKlTWBUzeNugtyI3rXG4GiTCpREqnQ1bwnzXH3ZnCHuRsWA1Olns91kFs21geX+8loQjA3qKxaOU5s+fbSJhCwxoUhOT8ccWvQ69YVooyCBgyvKfCZHpy31IRO4xc33DWQzHXuNhS8Fl3qzZSyIjpOgukT90izO06tZEBoOeC2N2dPYJapJN+F+L4pTMNfznbH2+UtMKogru9eNptrEb+M8/uJKDP0mf7A03ZcH7pWmbm/a2H5kgRcDgkK8hcF5kjrjKAbvKNxkvHQqA0GpT1YZ0rl651rwF1U/tgwvIkXpDYm1PKALpA+velo2OYakXWZdXf9KYpJITaddu7xFyAb8yeSZB7/l5loYr/hKxTr/1/ItLgUkYm2YR/d4z5RRKPprkSOic3eWuDYHegrbt3MuncmtPR/bd5+17L8W730bwCGNTOzAyDzLqbC1ZA4nkYvfNni0/DwtNnIs7/ljjvCCXn5zPInpQ==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(14060799003)(1800799024)(82310400026)(35042699022)(36860700016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ENzrXljKBm6j88ocfFU+EglvTRz9gwEO2XclvPfJlM0SMYPml8qBN7VBr1UkWY8PlHkL84VSx17YuFpoNXHSN9TAEg+fpXudNoKAQuufrKipXBvCdefFXy/otThCc4mhQCcQIzvdSgFZ2/NXWMDasEHm6joFxEaxOzo0pcNvuM/aKekIYFDqxzwKJpVTyGnsVF72jogbVQ1JvzKGEjGbLVgAnhQkZkVN0pNBp+RVkEGrGe8Mf4yb60Ze8uXoz2VgXcZr3jpOAKd3Hk5uwBWM0yd1FD0l4DqE6NotxNQLr8TTkmipYeqe+WEdDNGs9SBaDTvggiqSszP5Ujwp8VFA7i5mZo1Dt63ktCIBR3GP7Di9PrmjkWf1b5iHgiGDuvKuGlAVCe9fHk8Kj9WPYVctHjkR3F3VoAIqJE/PdzZeunCxtniBF9CW0J/7gL7gFZC0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 11:35:07.3851 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DB.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR08MB11653
-X-Mailman-Approved-At: Thu, 30 Jul 2026 22:08:09 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 30 Jul 2026 22:08:08 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,45 +86,819 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 29/07/2026 12:05 pm, David Hildenbrand (Arm) wrote:
-> On 7/29/26 12:13, Alexander Gordeev wrote:
->> On Tue, Jul 28, 2026 at 09:26:06PM +0200, David Hildenbrand (Arm) wrote:
->>>> The generic definition aliases hw_pte_t to pte_t, so this series preserves
->>>> the representation and behaviour of every architecture. ptep_get() keeps
->>>> its existing READ_ONCE() semantics and converts the stored element through
->>>> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
->>>> convert its PTE interfaces to make the distinction compiler-enforced.
->>>> Architecture PTE implementations and most architecture code are
->>>> deliberately left for those later opt-in conversions.
->> ...
->>> Do you have a pointer at the arm64 part, so people can get a feeling for how an
->>> actual hw_pte_t implementation can look like.
->>
->> May be we need the generic hw_pte_t implementation as { pte_t pte; }
->> right away?
-> 
-> Indeed, that makes sense. We just need a way for the architecture to opt-in that
-> it did the conversion.
-Yeah and architecture cannot opt-in until its converted. So we should leave
-it to architecture to define hw_pte_t.
+* drm/xe: add DG2 HuC GSC support and MEI integration
 
-> 
->>
->> Also, can you envision a case when sizeof(pte_t) != sizeof(hw_pte_t)?
->> If not, the compile-time check is worth adding.
-> 
-> That wouldn't work as is. We'd have to intercept ptep++ and instead have a
-> helper to advance the ptep pointer.
-> 
-> One idea for that would be to let the compiler catch that by marking hw_pte_t an
-> undefined struct (unknown size), such that the compiler would indicate any usage
-> of ptep++ properly.
-> 
-> That can be done when it would actually required, so as a first step having a
-> generic hw_pte_t would just work.
-> 
+Add DG2-specific GSC/MEI handling for Xe driver.
 
--- 
-Thanks,
-Usama
+Changes include:
+- add DG2 MEI GSC interface support
+- add HuC firmware parsing for GSC BPDT/CPD layout
+- improve HuC loading and authentication handling
+- add GSC register definitions and firmware ABI updates
+- add Xe MEI DG2 module support
+- update Xe workarounds and engine handling for HuC/GSC
+- update MEI GSC support for DG2
 
+Signed-off-by: Seliverstov Daniil Denisovich <daniil.seliverstov2003@gmail.com>
+---
+ drivers/gpu/drm/xe/Makefile           |   1 +
+ drivers/gpu/drm/xe/regs/xe_gsc_regs.h |   1 +
+ drivers/gpu/drm/xe/xe_gsc.c           |   5 +-
+ drivers/gpu/drm/xe/xe_heci_gsc.c      | 213 ++++++++++++++++----------
+ drivers/gpu/drm/xe/xe_heci_gsc.h      |  12 +-
+ drivers/gpu/drm/xe/xe_huc.c           |  65 ++++++++
+ drivers/gpu/drm/xe/xe_huc_types.h     |   3 +
+ drivers/gpu/drm/xe/xe_mei_dg2.c       | 121 +++++++++++++++
+ drivers/gpu/drm/xe/xe_mei_dg2.h       |  14 ++
+ drivers/gpu/drm/xe/xe_uc_fw.c         |  44 +++++-
+ drivers/gpu/drm/xe/xe_wa.c            |   3 +-
+ drivers/misc/mei/gsc-me.c             |   5 +
+ 12 files changed, 391 insertions(+), 96 deletions(-)
+ create mode 100644 drivers/gpu/drm/xe/xe_mei_dg2.c
+ create mode 100644 drivers/gpu/drm/xe/xe_mei_dg2.h
+
+diff --git a/drivers/gpu/drm/xe/Makefile b/drivers/gpu/drm/xe/Makefile
+index 6d728f8c4c392b..596669e2b55364 100644
+--- a/drivers/gpu/drm/xe/Makefile
++++ b/drivers/gpu/drm/xe/Makefile
+@@ -53,6 +53,7 @@ xe-y += xe_bb.o \
+ 	xe_gsc_debugfs.o \
+ 	xe_gsc_proxy.o \
+ 	xe_gsc_submit.o \
++	xe_mei_dg2.o \
+ 	xe_gt.o \
+ 	xe_gt_ccs_mode.o \
+ 	xe_gt_clock.o \
+diff --git a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
+index 180be82672ab59..6b7551bcfb7abc 100644
+--- a/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
++++ b/drivers/gpu/drm/xe/regs/xe_gsc_regs.h
+@@ -20,6 +20,7 @@
+ 
+ #define DG1_GSC_HECI2_BASE	0x00259000
+ #define PVC_GSC_HECI2_BASE	0x00285000
++#define DG2_GSC_HECI1_BASE	0x00373000
+ #define DG2_GSC_HECI2_BASE	0x00374000
+ 
+ #define HECI_H_CSR(base)	XE_REG((base) + 0x4)
+diff --git a/drivers/gpu/drm/xe/xe_gsc.c b/drivers/gpu/drm/xe/xe_gsc.c
+index aab59dc647fbd1..ef3647a57d4432 100644
+--- a/drivers/gpu/drm/xe/xe_gsc.c
++++ b/drivers/gpu/drm/xe/xe_gsc.c
+@@ -467,8 +467,11 @@ int xe_gsc_init_post_hwconfig(struct xe_gsc *gsc)
+ 	if (!xe_uc_fw_is_available(&gsc->fw))
+ 		return 0;
+ 
+-	if (!hwe)
++	if (!hwe) {
++		if (xe->info.platform == XE_DG2)
++			return 0;
+ 		return -ENODEV;
++	}
+ 
+ 	bo = xe_managed_bo_create_pin_map(xe, tile, SZ_4M,
+ 					  XE_BO_FLAG_STOLEN |
+diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.c b/drivers/gpu/drm/xe/xe_heci_gsc.c
+index 5af8903e10af2e..69414e9510f2e0 100644
+--- a/drivers/gpu/drm/xe/xe_heci_gsc.c
++++ b/drivers/gpu/drm/xe/xe_heci_gsc.c
+@@ -15,8 +15,14 @@
+ #include "regs/xe_gsc_regs.h"
+ #include "xe_platform_types.h"
+ #include "xe_survivability_mode.h"
++#include "xe_gt.h"
++#include "xe_gt_printk.h"
++#include "xe_mmio.h"
++#include "xe_bo.h"
++#include "xe_map.h"
++#include "xe_force_wake.h"
+ 
+-#define GSC_BAR_LENGTH  0x00000FFC
++#define GSC_BAR_LENGTH 0x00000FFC
+ 
+ static void heci_gsc_irq_mask(struct irq_data *d)
+ {
+@@ -37,7 +43,8 @@ static const struct irq_chip heci_gsc_irq_chip = {
+ static int heci_gsc_irq_init(int irq)
+ {
+ 	irq_set_chip_and_handler_name(irq, &heci_gsc_irq_chip,
+-				      handle_simple_irq, "heci_gsc_irq_handler");
++				      handle_simple_irq,
++				      "heci_gsc_irq_handler");
+ 
+ 	return irq_set_chip_data(irq, NULL);
+ }
+@@ -57,6 +64,7 @@ struct heci_gsc_def {
+ 	size_t bar_size;
+ 	bool use_polling;
+ 	bool slow_firmware;
++	size_t lmem_size;
+ };
+ 
+ /* gsc resources and definitions */
+@@ -66,10 +74,19 @@ static const struct heci_gsc_def heci_gsc_def_dg1 = {
+ 	.bar_size = GSC_BAR_LENGTH,
+ };
+ 
+-static const struct heci_gsc_def heci_gsc_def_dg2 = {
+-	.name = "mei-gscfi",
+-	.bar = DG2_GSC_HECI2_BASE,
+-	.bar_size = GSC_BAR_LENGTH,
++static const struct heci_gsc_def heci_gsc_def_dg2[] = {
++	{
++		.name = "mei-gsc",
++		.bar = DG2_GSC_HECI1_BASE,
++		.bar_size = GSC_BAR_LENGTH,
++		.use_polling = true, /* Bypass broken HECI1 interrupts on DG2 */
++		.lmem_size = SZ_4M,
++	},
++	{
++		.name = "mei-gscfi",
++		.bar = DG2_GSC_HECI2_BASE,
++		.bar_size = GSC_BAR_LENGTH,
++	}
+ };
+ 
+ static const struct heci_gsc_def heci_gsc_def_pvc = {
+@@ -82,6 +99,7 @@ static const struct heci_gsc_def heci_gsc_def_pvc = {
+ static void heci_gsc_release_dev(struct device *dev)
+ {
+ 	struct auxiliary_device *aux_dev = to_auxiliary_dev(dev);
++
+ 	struct mei_aux_device *adev = auxiliary_dev_to_mei_aux_dev(aux_dev);
+ 
+ 	kfree(adev);
+@@ -90,51 +108,59 @@ static void heci_gsc_release_dev(struct device *dev)
+ static void xe_heci_gsc_fini(void *arg)
+ {
+ 	struct xe_heci_gsc *heci_gsc = arg;
+-
+-	if (heci_gsc->adev) {
+-		struct auxiliary_device *aux_dev = &heci_gsc->adev->aux_dev;
+-
+-		auxiliary_device_delete(aux_dev);
+-		auxiliary_device_uninit(aux_dev);
+-		heci_gsc->adev = NULL;
++	int i;
++
++	for (i = 0; i < 2; i++) {
++		if (heci_gsc->adev[i]) {
++			struct auxiliary_device *aux_dev =
++				&heci_gsc->adev[i]->aux_dev;
++			auxiliary_device_delete(aux_dev);
++			auxiliary_device_uninit(aux_dev);
++			heci_gsc->adev[i] = NULL;
++		}
++		if (heci_gsc->irq[i] >= 0)
++			irq_free_desc(heci_gsc->irq[i]);
++		heci_gsc->irq[i] = -1;
++
++		if (heci_gsc->gem_obj[i]) {
++			xe_bo_unpin_map_no_vm(heci_gsc->gem_obj[i]);
++			heci_gsc->gem_obj[i] = NULL;
++		}
+ 	}
+-
+-	if (heci_gsc->irq >= 0)
+-		irq_free_desc(heci_gsc->irq);
+-
+-	heci_gsc->irq = -1;
+ }
+ 
+ static int heci_gsc_irq_setup(struct xe_device *xe)
+ {
+ 	struct xe_heci_gsc *heci_gsc = &xe->heci_gsc;
+-	int ret;
+-
+-	heci_gsc->irq = irq_alloc_desc(0);
+-	if (heci_gsc->irq < 0) {
+-		drm_err(&xe->drm, "gsc irq error %d\n", heci_gsc->irq);
+-		return heci_gsc->irq;
++	int i, ret;
++
++	for (i = 0; i < 2; i++) {
++		heci_gsc->irq[i] = irq_alloc_desc(0);
++		if (heci_gsc->irq[i] < 0) {
++			drm_err(&xe->drm, "gsc irq error %d\n",
++				heci_gsc->irq[i]);
++			return heci_gsc->irq[i];
++		}
++		ret = heci_gsc_irq_init(heci_gsc->irq[i]);
++		if (ret < 0)
++			drm_err(&xe->drm, "gsc irq init failed %d\n", ret);
+ 	}
+-
+-	ret = heci_gsc_irq_init(heci_gsc->irq);
+-	if (ret < 0)
+-		drm_err(&xe->drm, "gsc irq init failed %d\n", ret);
+-
+-	return ret;
++	return 0;
+ }
+ 
+-static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *def)
++static int heci_gsc_add_device(struct xe_device *xe,
++			       const struct heci_gsc_def *def, int intf_id)
+ {
+ 	struct xe_heci_gsc *heci_gsc = &xe->heci_gsc;
+ 	struct pci_dev *pdev = to_pci_dev(xe->drm.dev);
+ 	struct auxiliary_device *aux_dev;
+ 	struct mei_aux_device *adev;
+ 	int ret;
+-
+ 	adev = kzalloc_obj(*adev);
+ 	if (!adev)
+ 		return -ENOMEM;
+-	adev->irq = heci_gsc->irq;
++
++	adev->irq = def->use_polling ? -1 : heci_gsc->irq[intf_id];
+ 	adev->bar.parent = &pdev->resource[0];
+ 	adev->bar.start = def->bar + pdev->resource[0].start;
+ 	adev->bar.end = adev->bar.start + def->bar_size - 1;
+@@ -142,10 +168,35 @@ static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *
+ 	adev->bar.desc = IORES_DESC_NONE;
+ 	adev->slow_firmware = def->slow_firmware;
+ 
++	if (def->lmem_size) {
++		struct xe_tile *tile = xe_device_get_root_tile(xe);
++		struct xe_bo *bo;
++
++		bo = xe_bo_create_pin_map_novm(xe, tile, def->lmem_size,
++					       ttm_bo_type_kernel,
++					       XE_BO_FLAG_VRAM0, false);
++		if (!IS_ERR(bo)) {
++			xe_map_memset(xe, &bo->vmap, 0, 0, def->lmem_size);
++			heci_gsc->gem_obj[intf_id] = bo;
++			adev->ext_op_mem.start = xe_bo_main_addr(bo, PAGE_SIZE);
++			adev->ext_op_mem.end =
++				adev->ext_op_mem.start + def->lmem_size;
++			xe_gt_dbg(tile->primary_gt,
++				  "GSC HECI%d: VRAM at DPA 0x%llx\n",
++				  intf_id + 1,
++				  (unsigned long long)adev->ext_op_mem.start);
++		} else {
++			drm_warn(&xe->drm, "GSC HECI%d: Failed to alloc LMEM\n",
++				 intf_id + 1);
++		}
++	}
++
+ 	aux_dev = &adev->aux_dev;
+ 	aux_dev->name = def->name;
++	/* Add intf_id to ensure unique device IDs */
+ 	aux_dev->id = (pci_domain_nr(pdev->bus) << 16) |
+-		      PCI_DEVID(pdev->bus->number, pdev->devfn);
++		      PCI_DEVID(pdev->bus->number, pdev->devfn) |
++		      (intf_id << 8);
+ 	aux_dev->dev.parent = &pdev->dev;
+ 	aux_dev->dev.release = heci_gsc_release_dev;
+ 
+@@ -156,13 +207,11 @@ static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *
+ 		return ret;
+ 	}
+ 
+-	heci_gsc->adev = adev; /* needed by the notifier */
++	heci_gsc->adev[intf_id] = adev;
+ 	ret = auxiliary_device_add(aux_dev);
+ 	if (ret < 0) {
+ 		drm_err(&xe->drm, "gsc aux add failed %d\n", ret);
+-		heci_gsc->adev = NULL;
+-
+-		/* adev will be freed with the put_device() and .release sequence */
++		heci_gsc->adev[intf_id] = NULL;
+ 		auxiliary_device_uninit(aux_dev);
+ 	}
+ 	return ret;
+@@ -171,78 +220,74 @@ static int heci_gsc_add_device(struct xe_device *xe, const struct heci_gsc_def *
+ int xe_heci_gsc_init(struct xe_device *xe)
+ {
+ 	struct xe_heci_gsc *heci_gsc = &xe->heci_gsc;
+-	const struct heci_gsc_def *def = NULL;
+ 	int ret;
+ 
+ 	if (!xe->info.has_heci_gscfi && !xe->info.has_heci_cscfi)
+ 		return 0;
+ 
+-	heci_gsc->irq = -1;
+-
+-	if (xe->info.platform == XE_BATTLEMAGE) {
+-		def = &heci_gsc_def_dg2;
+-	} else if (xe->info.platform == XE_PVC) {
+-		def = &heci_gsc_def_pvc;
+-	} else if (xe->info.platform == XE_DG2) {
+-		def = &heci_gsc_def_dg2;
+-	} else if (xe->info.platform == XE_DG1) {
+-		def = &heci_gsc_def_dg1;
+-	}
+-
+-	if (!def || !def->name) {
+-		drm_warn(&xe->drm, "HECI is not implemented!\n");
+-		return 0;
+-	}
++	heci_gsc->irq[0] = -1;
++	heci_gsc->irq[1] = -1;
++	heci_gsc->gem_obj[0] = NULL;
++	heci_gsc->gem_obj[1] = NULL;
+ 
+ 	ret = devm_add_action_or_reset(xe->drm.dev, xe_heci_gsc_fini, heci_gsc);
+ 	if (ret)
+ 		return ret;
+ 
+-	if (!def->use_polling && !xe_survivability_mode_is_boot_enabled(xe)) {
++	if (!xe_survivability_mode_is_boot_enabled(xe)) {
+ 		ret = heci_gsc_irq_setup(xe);
+ 		if (ret)
+ 			return ret;
+ 	}
+ 
+-	return heci_gsc_add_device(xe, def);
+-}
++	if (xe->info.platform == XE_DG2) {
++		struct xe_gt *gt = xe->tiles[0].primary_gt;
++		u32 val;
+ 
+-void xe_heci_gsc_irq_handler(struct xe_device *xe, u32 iir)
+-{
+-	int ret;
++		/* Wake up GSC to unmask HECI1 interrupts and clock gating */
++		if (xe_force_wake_get(gt_to_fw(gt), XE_FW_GSC) == 0) {
++			val = xe_mmio_read32(&gt->mmio, XE_REG(0x1900f4));
++			val &= ~(BIT(15) | BIT(14));
++			xe_mmio_write32(&gt->mmio, XE_REG(0x1900f4), val);
+ 
+-	if ((iir & GSC_IRQ_INTF(1)) == 0)
+-		return;
++			val = xe_mmio_read32(&gt->mmio, XE_REG(0x190044));
++			val |= BIT(15) | BIT(14);
++			xe_mmio_write32(&gt->mmio, XE_REG(0x190044), val);
+ 
+-	if (!xe->info.has_heci_gscfi) {
+-		drm_warn_once(&xe->drm, "GSC irq: not supported");
+-		return;
+-	}
++			xe_force_wake_put(gt_to_fw(gt), XE_FW_GSC);
++		}
+ 
+-	if (xe->heci_gsc.irq < 0)
+-		return;
++		heci_gsc_add_device(xe, &heci_gsc_def_dg2[0], 0);
++		heci_gsc_add_device(xe, &heci_gsc_def_dg2[1], 1);
++		return 0;
++	} else if (xe->info.platform == XE_BATTLEMAGE) {
++		return heci_gsc_add_device(xe, &heci_gsc_def_dg2[1], 1);
++	} else if (xe->info.platform == XE_PVC) {
++		return heci_gsc_add_device(xe, &heci_gsc_def_pvc, 1);
++	} else if (xe->info.platform == XE_DG1) {
++		return heci_gsc_add_device(xe, &heci_gsc_def_dg1, 1);
++	}
+ 
+-	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
+-	if (ret)
+-		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
++	return 0;
+ }
+ 
+-void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
++void xe_heci_gsc_irq_handler(struct xe_device *xe, u32 iir)
+ {
+-	int ret;
+-
+-	if ((iir & CSC_IRQ_INTF(1)) == 0)
++	if (!xe->info.has_heci_gscfi)
+ 		return;
+ 
+-	if (!xe->info.has_heci_cscfi) {
+-		drm_warn_once(&xe->drm, "CSC irq: not supported");
+-		return;
+-	}
++	if ((iir & GSC_IRQ_INTF(0)) && xe->heci_gsc.irq[0] >= 0)
++		generic_handle_irq_safe(xe->heci_gsc.irq[0]);
++
++	if ((iir & GSC_IRQ_INTF(1)) && xe->heci_gsc.irq[1] >= 0)
++		generic_handle_irq_safe(xe->heci_gsc.irq[1]);
++}
+ 
+-	if (xe->heci_gsc.irq < 0)
++void xe_heci_csc_irq_handler(struct xe_device *xe, u32 iir)
++{
++	if ((iir & CSC_IRQ_INTF(1)) == 0 || !xe->info.has_heci_cscfi ||
++	    xe->heci_gsc.irq[1] < 0)
+ 		return;
+ 
+-	ret = generic_handle_irq_safe(xe->heci_gsc.irq);
+-	if (ret)
+-		drm_err_ratelimited(&xe->drm, "error handling GSC irq: %d\n", ret);
++	generic_handle_irq_safe(xe->heci_gsc.irq[1]);
+ }
+diff --git a/drivers/gpu/drm/xe/xe_heci_gsc.h b/drivers/gpu/drm/xe/xe_heci_gsc.h
+index a76f4122b7788a..80efc20922032b 100644
+--- a/drivers/gpu/drm/xe/xe_heci_gsc.h
++++ b/drivers/gpu/drm/xe/xe_heci_gsc.h
+@@ -9,6 +9,7 @@
+ 
+ struct xe_device;
+ struct mei_aux_device;
++struct xe_bo;
+ 
+ /*
+  * GSC HECI1 bit corresponds to bit15 and HECI2 to bit14.
+@@ -24,13 +25,14 @@ struct mei_aux_device;
+ /**
+  * struct xe_heci_gsc - graphics security controller for xe, HECI interface
+  *
+- * @adev : pointer to mei auxiliary device structure
+- * @irq : irq number
+- *
++ * @adev: array of pointers to mei auxiliary device structures
++ * @irq: array of irq numbers
++ * @gem_obj: array of pointers to allocated VRAM memory objects
+  */
+ struct xe_heci_gsc {
+-	struct mei_aux_device *adev;
+-	int irq;
++	struct mei_aux_device *adev[2];
++	int irq[2];
++	struct xe_bo *gem_obj[2];
+ };
+ 
+ int xe_heci_gsc_init(struct xe_device *xe);
+diff --git a/drivers/gpu/drm/xe/xe_huc.c b/drivers/gpu/drm/xe/xe_huc.c
+index 57afe21444b183..fde982431ccaa2 100644
+--- a/drivers/gpu/drm/xe/xe_huc.c
++++ b/drivers/gpu/drm/xe/xe_huc.c
+@@ -12,6 +12,8 @@
+ #include "abi/gsc_pxp_commands_abi.h"
+ #include "regs/xe_gsc_regs.h"
+ #include "regs/xe_guc_regs.h"
++#include "xe_pm.h"
++#include "xe_mei_dg2.h"
+ #include "xe_bo.h"
+ #include "xe_device.h"
+ #include "xe_force_wake.h"
+@@ -42,6 +44,8 @@ huc_to_guc(struct xe_huc *huc)
+ 	return &container_of(huc, struct xe_uc, huc)->guc;
+ }
+ 
++static void xe_huc_auth_work(struct work_struct *work);
++
+ #define PXP43_HUC_AUTH_INOUT_SIZE SZ_4K
+ static int huc_alloc_gsc_pkt(struct xe_huc *huc)
+ {
+@@ -67,6 +71,7 @@ int xe_huc_init(struct xe_huc *huc)
+ 	struct xe_gt *gt = huc_to_gt(huc);
+ 	struct xe_device *xe = gt_to_xe(gt);
+ 	int ret;
++	INIT_DELAYED_WORK(&huc->auth_work, xe_huc_auth_work);
+ 
+ 	huc->fw.type = XE_UC_FW_TYPE_HUC;
+ 
+@@ -228,6 +233,39 @@ static const struct {
+ 				  HECI1_FWSTS5_HUC_AUTH_DONE },
+ };
+ 
++static void xe_huc_auth_work(struct work_struct *work)
++{
++	struct xe_huc *huc = container_of(work, struct xe_huc, auth_work.work);
++	struct xe_gt *gt = huc_to_gt(huc);
++	struct xe_device *xe = gt_to_xe(gt);
++	int ret;
++
++	xe_pm_runtime_get(xe);
++
++	ret = xe_mei_dg2_auth_huc(xe, huc);
++	if (ret == -EAGAIN || ret == -ENODEV) {
++		schedule_delayed_work(&huc->auth_work, msecs_to_jiffies(1000));
++		goto out;
++	}
++
++	if (ret)
++		goto fail;
++
++	ret = xe_mmio_wait32(&gt->mmio, huc_auth_modes[XE_HUC_AUTH_VIA_GUC].reg,
++			     huc_auth_modes[XE_HUC_AUTH_VIA_GUC].val,
++		      huc_auth_modes[XE_HUC_AUTH_VIA_GUC].val,
++		      100000, NULL, false);
++	if (ret)
++		goto fail;
++
++	xe_uc_fw_change_status(&huc->fw, XE_UC_FIRMWARE_RUNNING);
++	goto out;
++fail:
++	xe_uc_fw_change_status(&huc->fw, XE_UC_FIRMWARE_LOAD_FAIL);
++out:
++	xe_pm_runtime_put(xe);
++}
++
+ bool xe_huc_is_authenticated(struct xe_huc *huc, enum xe_huc_auth_types type)
+ {
+ 	struct xe_gt *gt = huc_to_gt(huc);
+@@ -253,6 +291,33 @@ int xe_huc_auth(struct xe_huc *huc, enum xe_huc_auth_types type)
+ 	if (!xe_uc_fw_is_loaded(&huc->fw))
+ 		return -ENOEXEC;
+ 
++	if (huc_to_xe(huc)->info.platform == XE_DG2) {
++		ret = xe_mei_dg2_auth_huc(huc_to_xe(huc), huc);
++		if (ret == -EAGAIN || ret == -ENODEV) {
++			xe_gt_dbg(gt, "HuC: MEI not ready, deferring authentication\n");
++			schedule_delayed_work(&huc->auth_work, msecs_to_jiffies(1000));
++			return 0;
++		}
++
++		if (ret) {
++			xe_gt_err(gt, "HuC: failed to trigger auth via MEI: %pe\n", ERR_PTR(ret));
++			goto fail;
++		}
++
++		ret = xe_mmio_wait32(&gt->mmio, huc_auth_modes[XE_HUC_AUTH_VIA_GUC].reg,
++				     huc_auth_modes[XE_HUC_AUTH_VIA_GUC].val,
++		       huc_auth_modes[XE_HUC_AUTH_VIA_GUC].val,
++		       100000, NULL, false);
++		if (ret) {
++			xe_gt_err(gt, "HuC: firmware not verified by MEI: %pe\n", ERR_PTR(ret));
++			goto fail;
++		}
++
++		xe_uc_fw_change_status(&huc->fw, XE_UC_FIRMWARE_RUNNING);
++		xe_gt_dbg(gt, "HuC: authenticated via MEI\n");
++		return 0;
++	}
++
+ 	switch (type) {
+ 	case XE_HUC_AUTH_VIA_GUC:
+ 		ret = xe_guc_auth_huc(guc, xe_bo_ggtt_addr(huc->fw.bo) +
+diff --git a/drivers/gpu/drm/xe/xe_huc_types.h b/drivers/gpu/drm/xe/xe_huc_types.h
+index cfbaa5e0dfcac6..0e97a4d087b578 100644
+--- a/drivers/gpu/drm/xe/xe_huc_types.h
++++ b/drivers/gpu/drm/xe/xe_huc_types.h
+@@ -19,6 +19,9 @@ struct xe_huc {
+ 
+ 	/** @gsc_pkt: bo to store the packet for auth via GSC */
+ 	struct xe_bo *gsc_pkt;
++
++	/** @auth_work: deferred authentication deferred work */
++	struct delayed_work auth_work;
+ };
+ 
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_mei_dg2.c b/drivers/gpu/drm/xe/xe_mei_dg2.c
+new file mode 100644
+index 00000000000000..dee1646de83dfd
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_mei_dg2.c
+@@ -0,0 +1,121 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright (c) 2026 Intel Corporation. All rights reserved.
++ */
++
++#include <linux/device.h>
++#include <linux/mei_cl_bus.h>
++#include <drm/drm_managed.h>
++#include <uapi/drm/xe_drm.h>
++
++#include "xe_mei_dg2.h"
++#include "xe_bo.h"
++#include "xe_device.h"
++#include "xe_gt.h"
++#include "xe_huc.h"
++
++#define PXP_APIVER(x, y) (((x) & 0xFFFF) << 16 | ((y) & 0xFFFF))
++#define PXP_STATUS_SUCCESS 0x0
++#define PXP_STATUS_OP_NOT_PERMITTED 0x1003
++
++struct pxp_cmd_header {
++	u32 api_version;
++	u32 command_id;
++	u32 status;
++	u32 buffer_len;
++} __packed;
++
++#define PXP43_CMDID_START_HUC_AUTH 0x0000003A
++
++struct pxp43_start_huc_auth_in {
++	struct pxp_cmd_header header;
++	__le64 huc_base_address;
++} __packed;
++
++struct pxp43_huc_auth_out {
++	struct pxp_cmd_header header;
++} __packed;
++
++static int match_pxp_client(struct device *dev, void *data)
++{
++	if (!dev->bus || !dev->bus->name || strcmp(dev->bus->name, "mei") != 0)
++		return 0;
++
++	if (strstr(dev_name(dev), "fbf6fcf1")) {
++		struct device **result = data;
++		*result = dev;
++		return 1;
++	}
++	return 0;
++}
++
++static int find_pxp_client_deep(struct device *dev, void *data)
++{
++	if (match_pxp_client(dev, data))
++		return 1;
++	return device_for_each_child(dev, data, find_pxp_client_deep);
++}
++
++int xe_mei_dg2_auth_huc(struct xe_device *xe, struct xe_huc *huc)
++{
++	struct device *cl_dev = NULL;
++	struct mei_cl_device *cldev;
++	struct pxp43_start_huc_auth_in in = { 0 };
++	struct pxp43_huc_auth_out out = { 0 };
++	ssize_t byte;
++	int ret;
++	static int retry_count;
++
++	device_for_each_child(xe->drm.dev, &cl_dev, find_pxp_client_deep);
++
++	if (!cl_dev) {
++		if (retry_count++ % 5 == 0)
++			drm_info(
++				&xe->drm,
++				"HuC auth: waiting for MEI PXP client (HECI1) to initialize...\n");
++		return -EAGAIN;
++	}
++
++	get_device(cl_dev);
++	cldev = to_mei_cl_device(cl_dev);
++
++	if (!mei_cldev_enabled(cldev)) {
++		ret = mei_cldev_enable(cldev);
++		if (ret) {
++			put_device(cl_dev);
++			return -EAGAIN;
++		}
++	}
++
++	in.header.api_version = PXP_APIVER(4, 3);
++	in.header.command_id = PXP43_CMDID_START_HUC_AUTH;
++	in.header.buffer_len = sizeof(in.huc_base_address);
++	in.huc_base_address =
++		cpu_to_le64(xe_bo_main_addr(huc->fw.bo, PAGE_SIZE));
++
++	byte = mei_cldev_send(cldev, (u8 *)&in, sizeof(in));
++	if (byte < 0) {
++		put_device(cl_dev);
++		return byte;
++	}
++
++	byte = mei_cldev_recv(cldev, (u8 *)&out, sizeof(out));
++	if (byte < 0) {
++		put_device(cl_dev);
++		return byte;
++	}
++
++	put_device(cl_dev);
++	if (out.header.status == PXP_STATUS_OP_NOT_PERMITTED) {
++		drm_info(
++			&xe->drm,
++			"HuC auth: GSC reports already authenticated (0x1003).\n");
++		return 0;
++	} else if (out.header.status != PXP_STATUS_SUCCESS) {
++		drm_err(&xe->drm, "HuC auth MEI rejected: status 0x%x\n",
++			out.header.status);
++		return -EIO;
++	}
++
++	return 0;
++}
+diff --git a/drivers/gpu/drm/xe/xe_mei_dg2.h b/drivers/gpu/drm/xe/xe_mei_dg2.h
+new file mode 100644
+index 00000000000000..4a469fc7d8185c
+--- /dev/null
++++ b/drivers/gpu/drm/xe/xe_mei_dg2.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright (c) 2026 Intel Corporation. All rights reserved.
++ */
++
++#ifndef __XE_MEI_DG2_H__
++#define __XE_MEI_DG2_H__
++
++#include "xe_device.h"
++#include "xe_huc.h"
++
++int xe_mei_dg2_auth_huc(struct xe_device *xe, struct xe_huc *huc);
++
++#endif /* __XE_MEI_DG2_H__ */
+diff --git a/drivers/gpu/drm/xe/xe_uc_fw.c b/drivers/gpu/drm/xe/xe_uc_fw.c
+index a8e6f18cc9b4aa..edc8019bea9598 100644
+--- a/drivers/gpu/drm/xe/xe_uc_fw.c
++++ b/drivers/gpu/drm/xe/xe_uc_fw.c
+@@ -133,6 +133,7 @@ struct fw_blobs_by_type {
+ 	fw_def(BATTLEMAGE,	GT_TYPE_ANY,	no_ver(xe,	huc,		bmg))		\
+ 	fw_def(LUNARLAKE,	GT_TYPE_ANY,	no_ver(xe,	huc,		lnl))		\
+ 	fw_def(METEORLAKE,	GT_TYPE_ANY,	no_ver(i915,	huc_gsc,	mtl))		\
++	fw_def(DG2,		GT_TYPE_ANY,	no_ver(i915,	huc_gsc,	dg2))		\
+ 	fw_def(DG1,		GT_TYPE_ANY,	no_ver(i915,	huc,		dg1))		\
+ 	fw_def(ALDERLAKE_P,	GT_TYPE_ANY,	no_ver(i915,	huc,		tgl))		\
+ 	fw_def(ALDERLAKE_S,	GT_TYPE_ANY,	no_ver(i915,	huc,		tgl))		\
+@@ -488,6 +489,26 @@ static u32 entry_offset(const struct gsc_cpd_header_v2 *header, const char *name
+ 	return 0;
+ }
+ 
++static int parse_manifest_direct(struct xe_uc_fw *uc_fw, const void *data, size_t size)
++{
++	struct xe_gt *gt = uc_fw_to_gt(uc_fw);
++	const struct gsc_manifest_header *manifest = data;
++	struct xe_uc_fw_version *release = &uc_fw->versions.found[XE_UC_FW_VER_RELEASE];
++
++	/* 0x4 is the expected header_type for a manifest */
++	if (size < sizeof(*manifest) || manifest->header_type != 0x4) {
++		xe_gt_err(gt, "Direct manifest too small or invalid!\n");
++		return -ENODATA;
++	}
++
++	release->major = manifest->fw_version.major;
++	release->minor = manifest->fw_version.minor;
++	release->patch = manifest->fw_version.hotfix;
++
++	uc_fw->has_gsc_headers = true;
++	return 0;
++}
++
+ /* Refer to the "GSC-based Firmware Layout" documentation entry for details */
+ static int parse_cpd_header(struct xe_uc_fw *uc_fw, const void *data, size_t size,
+ 			    const char *manifest_entry, const char *css_entry)
+@@ -654,9 +675,20 @@ static int parse_headers(struct xe_uc_fw *uc_fw, const struct firmware *fw)
+ 	case XE_UC_FW_TYPE_GSC:
+ 		return parse_gsc_layout(uc_fw, fw->data, fw->size);
+ 	case XE_UC_FW_TYPE_HUC:
+-		ret = parse_cpd_header(uc_fw, fw->data, fw->size, "HUCP.man", "huc_fw");
+-		if (!ret || ret != -ENOENT)
+-			return ret;
++		if (uc_fw_to_xe(uc_fw)->info.platform == XE_DG2) {
++			/* Check if binary starts directly with manifest */
++			if (fw->size >= sizeof(u32) && *(const u32 *)fw->data == 0x4)
++				return parse_manifest_direct(uc_fw, fw->data, fw->size);
++
++			/* DG2 HuC is loaded via MEI, so we don't need a CSS header (pass NULL) */
++			ret = parse_cpd_header(uc_fw, fw->data, fw->size, "HUCP.man", NULL);
++			if (!ret || ret != -ENOENT)
++				return ret;
++		} else {
++			ret = parse_cpd_header(uc_fw, fw->data, fw->size, "HUCP.man", "huc_fw");
++			if (!ret || ret != -ENOENT)
++				return ret;
++		}
+ 		fallthrough;
+ 	case XE_UC_FW_TYPE_GUC:
+ 		return parse_css_header(uc_fw, fw->data, fw->size);
+@@ -780,12 +812,14 @@ static int uc_fw_request(struct xe_uc_fw *uc_fw, const struct firmware **firmwar
+ 			       XE_UC_FIRMWARE_MISSING :
+ 			       XE_UC_FIRMWARE_ERROR);
+ 
+-	if (err == -ENOENT)
++	if (err == -ENOENT) {
+ 		xe_gt_info(gt, "%s firmware %s not found\n",
+ 			   xe_uc_fw_type_repr(uc_fw->type), uc_fw->path);
+-	else
++	} else {
+ 		xe_gt_notice(gt, "%s firmware %s: fetch failed with error %pe\n",
+ 			     xe_uc_fw_type_repr(uc_fw->type), uc_fw->path, ERR_PTR(err));
++	}
++
+ 	xe_gt_info(gt, "%s firmware(s) can be downloaded from %s\n",
+ 		   xe_uc_fw_type_repr(uc_fw->type), XE_UC_FIRMWARE_URL);
+ 
+diff --git a/drivers/gpu/drm/xe/xe_wa.c b/drivers/gpu/drm/xe/xe_wa.c
+index 139434946f8f82..6ac486877e8d27 100644
+--- a/drivers/gpu/drm/xe/xe_wa.c
++++ b/drivers/gpu/drm/xe/xe_wa.c
+@@ -137,7 +137,8 @@ VISIBLE_IF_KUNIT const struct xe_rtp_table_sr gt_was = XE_RTP_TABLE_SR(
+ 	  XE_RTP_RULES(MEDIA_VERSION_RANGE(1200, 1255),
+ 		       ENGINE_CLASS(VIDEO_DECODE),
+ 		       FUNC(xe_rtp_match_even_instance)),
+-	  XE_RTP_ACTIONS(SET(VDBOX_CGCTL3F10(0), IECPUNIT_CLKGATE_DIS)),
++	  XE_RTP_ACTIONS(SET(VDBOX_CGCTL3F10(0), IECPUNIT_CLKGATE_DIS,
++		       XE_RTP_ACTION_FLAG(ENGINE_BASE))),
+ 	  XE_RTP_ENTRY_FLAG(FOREACH_ENGINE),
+ 	},
+ 	{ XE_RTP_NAME("14011059788"),
+diff --git a/drivers/misc/mei/gsc-me.c b/drivers/misc/mei/gsc-me.c
+index 73d5beeb9c3454..0741962a2e7934 100644
+--- a/drivers/misc/mei/gsc-me.c
++++ b/drivers/misc/mei/gsc-me.c
+@@ -278,6 +278,10 @@ static const struct auxiliary_device_id mei_gsc_id_table[] = {
+ 		.name = "xe.mei-gscfi",
+ 		.driver_data = MEI_ME_GSCFI_CFG,
+ 	},
++	{
++		.name = "xe.mei-gsc",
++		.driver_data = MEI_ME_GSC_CFG,
++	},
+ 	{
+ 		/* sentinel */
+ 	}
+@@ -299,5 +303,6 @@ MODULE_AUTHOR("Intel Corporation");
+ MODULE_ALIAS("auxiliary:i915.mei-gsc");
+ MODULE_ALIAS("auxiliary:i915.mei-gscfi");
+ MODULE_ALIAS("auxiliary:xe.mei-gscfi");
++MODULE_ALIAS("auxiliary:xe.mei-gsc");
+ MODULE_DESCRIPTION("Intel(R) Graphics System Controller");
+ MODULE_LICENSE("GPL");
