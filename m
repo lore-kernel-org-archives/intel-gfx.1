@@ -4,140 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14AC8C55160
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 10:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BAA6C55160
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 10:49:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89F4610E15D;
-	Thu, 30 Jul 2026 10:25:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9F310E68D;
+	Thu, 30 Jul 2026 10:49:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="cbuZuTGv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Xox6P0b1";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0BD10E15D;
- Thu, 30 Jul 2026 10:25:00 +0000 (UTC)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66UAHfTr2636729; Thu, 30 Jul 2026 10:24:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=xw9bl0UjL8IGxj4aZhOi4y5k8I/VjG
- wH4N8Nftf3ETs=; b=cbuZuTGvqINoexIK4WJN7w/SOfmPaw53VjLgWWtS0g1TV6
- AApSlNPtfukyEGV6EI1+baii13lUpd2RVrnTO88JAS1uB01nwD67S3BhwpoT2ftm
- pF1aM1FG6wpbsP/2T2h/31TWb6MAMdVqk0Y0U7xObox64yGys3hlQjDIfr8/OyTT
- ZLk2ISyswnawz/KZ/3QxEn7Cz3+cgM9B0jXe3LlYa7dkclFQ8s+v8pXMLDuK64eU
- xSEo265wzDTK23P4NZS7d3IgP6C+Az950pfBRGVg8zEGHpSLAluj7s56G0jmRmD0
- INGHxNZjyqwgHLW/B1Qyfn+8b6UhtSsWVxw1bs8A==
-Received: from ppma23.wdc07v.mail.ibm.com
- (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuyjeb2g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2026 10:24:22 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66UACIwl016888;
- Thu, 30 Jul 2026 10:24:21 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn8yhjrst-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2026 10:24:21 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
- [10.20.54.100])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 66UAOJda30736806
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 30 Jul 2026 10:24:19 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4770120040;
- Thu, 30 Jul 2026 10:24:19 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 832C320043;
- Thu, 30 Jul 2026 10:24:18 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.224.92.206])
- by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Thu, 30 Jul 2026 10:24:18 +0000 (GMT)
-Date: Thu, 30 Jul 2026 12:24:17 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get()
-Message-ID: <9ac3f058-2a22-4801-8633-65635053c8ea-agordeev@linux.ibm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-6-usama.anjum@arm.com>
- <34eed5fd-c569-49d8-bc4d-a3d4b1207fbd-agordeev@linux.ibm.com>
- <fec9e0c7-07c3-442c-819b-f9f5316cb6a2@arm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D02F10E67C;
+ Thu, 30 Jul 2026 10:49:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785408545; x=1816944545;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=z5/81VdES55/zS6M29WYG6w4eX+A9xaisxalBnxTEYU=;
+ b=Xox6P0b1YZ6D3A97asnzUHVjcRz1lAUGMCf4BP248pSHvO5pj828sVxN
+ jYZKW9SXuQueRHHEOoSxnvGdDNU7RNZk8t4cfZagQ6Zoj7fLYLraxu9wL
+ 76L2wlfN6tHRLDun/QWQOTlrKMhuN7PWffTLT6Bd8xuYKHtn+hAxq1K/9
+ ntSRsyR2PUdf6dK+Jw7wQVze4LABC//Z9J9KlHFuVsCWrt/yZUvzbnCAk
+ Z4pRCu2xYsEvxk+4tkZ5tN0D3j6yleUIFI64nOuNOPc4K4O/KmpxSgEKK
+ FkWmlXzjrRhxfxN+CFj5ATIWCLs0xn85PpgdlUBbNldBmDVDR9ttVMa4E w==;
+X-CSE-ConnectionGUID: o5VqWMAbT3mIzT0jDCgoMQ==
+X-CSE-MsgGUID: 5kwgaGTZQ1a914XO7Wn7tA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="103429681"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="103429681"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 03:49:05 -0700
+X-CSE-ConnectionGUID: hIJL7LaNTAacw/P1SmEDaQ==
+X-CSE-MsgGUID: aOtvmSyiRYqwb2/DTIjPgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="264539710"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
+ ([10.245.245.93])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 03:49:01 -0700
+Message-ID: <a734faaf-4f77-48ce-a354-a1011524c949@linux.intel.com>
+Date: Thu, 30 Jul 2026 12:50:10 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <fec9e0c7-07c3-442c-819b-f9f5316cb6a2@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA3NyBTYWx0ZWRfX4Ckb6VFvsR9K
- iulXf5F6J1kbO3S70H2cESI4ld0w043xIGqpEZSAio/jR2ldVb59L2x/b1Cpx4Kz3J+55BAkaM9
- AupsGP2HnWvt72AfxwuZCRHnnZzHlFA=
-X-Proofpoint-GUID: lqUngdZpiUvWS2H94qSv0rrypUIzUueB
-X-Proofpoint-ORIG-GUID: lqUngdZpiUvWS2H94qSv0rrypUIzUueB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA3NyBTYWx0ZWRfX06YvqUElSumU
- CX2i3BnWz3n82hQOJuDP+Eanqg4avWjidLhYvcVNnamNO07ZloFlgeCgnjzpU+K/axVetiCls6t
- fKTSRdUkAcS0rVX5DnmB5M3W+uSpPU1IR/K4E27Sif4nh0pOXRleMzORssdR6V6MA7b5OjvGCGl
- tmvL0lRGkg/9y7/aNGQHm7zP9EpllmztMk0bjuCc6uOo5iaioj63uiUyglAwfqaYT/no/5x3iQn
- vH4Y1m9mc+79iOqDEv4VRNaHyLb/P8hiMxjG+nu/SRMxZsyV5wIoBoehG5Qe599Oqn8bsFRSCM3
- nyuj5Wj5auh3/+ccZhKHFFSfFIyH9mArzZF7DQ5gDzyTNL3gEudzEqBeGvpOI/h3/KDV8L04T7O
- OCFoQvBOxFLH/rPHH9zdO6BPTMqXuYhm4NtAFZGuJ1Oen3ihETQeEK2CjltziDECdSbdSoTjDB5
- 7szof3AH3iJlA7l4pXg==
-X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a6b2656 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=7CQSdrXTAAAA:8
- a=7fzHlb7OYtr7bZKlnRAA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607300077
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-next
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,61 +77,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 11:11:35AM +0100, Muhammad Usama Anjum wrote:
-> On 30/07/2026 11:08 am, Alexander Gordeev wrote:
-> > On Mon, Jul 27, 2026 at 05:46:56PM +0100, Muhammad Usama Anjum wrote:
-> >> ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
-> >> return a logical pte_t value. Add __pte_from_hw() as the conversion hook
-> >> and apply it in the generic ptep_get() implementation.
-> >>
-> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> >> ---
-> >>  include/linux/pgtable.h       | 2 +-
-> >>  include/linux/pgtable_types.h | 1 +
-> >>  2 files changed, 2 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> >> index dad80d264aac2..3003ac9cd81fe 100644
-> >> --- a/include/linux/pgtable.h
-> >> +++ b/include/linux/pgtable.h
-> >> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
-> >>  #ifndef ptep_get
-> >>  static inline pte_t ptep_get(hw_pte_t *ptep)
-> >>  {
-> >> -	return READ_ONCE(*ptep);
-> >> +	return READ_ONCE(__pte_from_hw(*ptep));
-> > 
-> > Should it be something like?
-> > 
-> > 	return __pte_from_hw(READ_ONCE(*ptep));
-> I'd thought about it. My thinking is that we should get the pte_t first before
-> before calling READ_ONCE(). Please correct me what makes more sense?
+Hi Dave, Sima,
 
-I have a problem with "get the pte_t first" part ;) I think what we want
-is atomically read the hw_pte_t from the HW table and then convert the
-result to pte_t.
+drm-misc-next for v7.3!
 
-> > 
-> >>  }
-> >>  #endif
-> >>  
-> >> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> >> index ed5dba42a4f8c..61afe27307ec2 100644
-> >> --- a/include/linux/pgtable_types.h
-> >> +++ b/include/linux/pgtable_types.h
-> >> @@ -6,6 +6,7 @@
-> >>  
-> >>  #ifndef __HAVE_ARCH_HW_PTE_T
-> >>  #define hw_pte_t pte_t
-> >> +#define __pte_from_hw(pte)	(pte)
-> >>  #endif
-> >>  
-> >>  #endif /* _LINUX_PGTABLE_TYPES_H */
-> >> -- 
-> >> 2.47.3
-> >>
-> 
-> -- 
-> Thanks,
-> Usama
-> 
+As mentioned in the -fixes pull, Maxime and Thomas are out.
+
+Kind regards,
+~Maarten Lankhorst
+
+drm-misc-next-2026-07-30:
+drm-misc-next for v7.3:
+
+UAPI Changes:
+- Allow allocating NVDEC channels via abi16 for H.264 decode.
+
+Cross-subsystem Changes:
+- Add Opto Logic S.A., DCL Technologies Inc. to dt vendor prefixes.
+
+Core Changes:
+- Fix kunit tests for the gpu buddy allocator.
+
+Driver Changes:
+- Improve i2c handling for panel-edp.
+- Assorted bugfixes and improvements in panthor, panel/jd93656da, panel/nt36536,
+  bridge/tc358762 bridge/lt8912b, bridge/hw-dmi, panthor, panel/ili9805.
+- Use named initialized for bridge's users of i2c_device_data.
+- Add DCLTek 300250 9.35", AYANEO Pocket DS Lower, Ampire
+  AM-800480N3TZQW-00H, BOE NE140QDM-NX2, CMN N116BCP-EA2 panels.
+- Unconditionally create blend_mode property for nv50+ planes.
+- Add i.MX93 parallel display format configuration support.
+The following changes since commit e55fead22ff9ee047ab9f1903860c4b43043514e:
+
+  drm/imagination: promote BXM-4-64 MC1 (36.52.104.182) to supported status (2026-07-24 08:37:01 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-07-30
+
+for you to fetch changes up to 35b6cf07851a2b430b0eefbcb7b5a856f9030264:
+
+  drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3) (2026-07-29 18:28:19 -0700)
+
+----------------------------------------------------------------
+drm-misc-next for v7.3:
+
+UAPI Changes:
+- Allow allocating NVDEC channels via abi16 for H.264 decode.
+
+Cross-subsystem Changes:
+- Add Opto Logic S.A., DCL Technologies Inc. to dt vendor prefixes.
+
+Core Changes:
+- Fix kunit tests for the gpu buddy allocator.
+
+Driver Changes:
+- Improve i2c handling for panel-edp.
+- Assorted bugfixes and improvements in panthor, panel/jd93656da, panel/nt36536,
+  bridge/tc358762 bridge/lt8912b, bridge/hw-dmi, panthor, panel/ili9805.
+- Use named initialized for bridge's users of i2c_device_data.
+- Add DCLTek 300250 9.35", AYANEO Pocket DS Lower, Ampire
+  AM-800480N3TZQW-00H, BOE NE140QDM-NX2, CMN N116BCP-EA2 panels.
+- Unconditionally create blend_mode property for nv50+ planes.
+- Add i.MX93 parallel display format configuration support.
+
+----------------------------------------------------------------
+Adrián Larumbe (2):
+      drm/panthor: Add vm_bind region with kbo range overlap check
+      drm/panthor: Fix comment to reflect actual struct field name
+
+Alexandre Hamamdjian (2):
+      dt-bindings: display: Add AYANEO Pocket DS lower panel
+      drm/panel: st7703: Add AYANEO Pocket DS Lower Panel Support
+
+Colin Ian King (1):
+      drm/bridge: lontium-lt8912b: make read-only const array supply_names static
+
+Dave Airlie (1):
+      drm/nouveau: allow allocating NVDEC channels via abi16
+
+David Carlier (1):
+      drm/panel: novatek-nt36536: Fix panel double-remove on attach failure
+
+Johan Hovold (3):
+      drm/panel-edp: fix i2c adapter leak on probe failure
+      drm/panel-edp: take i2c adapter module reference
+      drm/bridge: dw-hdmi: fix i2c adapter leak on probe failure
+
+Krzysztof Niemiec (2):
+      gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST
+      gpu/tests: Add a dedicated .kunitconfig
+
+Laurent Pinchart (1):
+      drm/bridge: Replace outdated forward declaration
+
+Leonardo Costa (1):
+      dt-bindings: vendor-prefixes: Add Opto Logic
+
+Liu Ying (1):
+      drm/bridge: imx: Add i.MX93 parallel display format configuration support
+
+Lyude Paul (3):
+      drm/nouveau/kms/nv50-: Add .blend_modes to nv50_wndw_func
+      drm/nouveau/kms/nv50-: Introduce nv50_wndw_default_state()
+      drm/nouveau/kms/nv50-: Unconditionally create blend_mode prop for wndws
+
+Marc-Olivier Champagne (4):
+      drm: panel: jd9365da: Enable LPM mode
+      dt-bindings: vendor-prefixes: Add DCLTEK
+      dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in panel
+      drm: panel: jd9365da: Add DCLTek 300250 9.35in display
+
+Michail Tatas (3):
+      drm/panel: ilitek-ili9805: Use _multi variants
+      drm/panel: ilitek-ili9805: Use dsi_multi in init
+      drm/panel: ilitek-ili9805: make cleanup funcs void
+
+Osama Abdelkader (4):
+      drm/panthor: return PTR_ERR() from devm_drm_dev_alloc()
+      drm/bridge: tc358762: use devm for bridge registration and DSI attach
+      drm/bridge: tc358764: use devm for bridge registration and DSI attach
+      drm/panthor: harden firmware build-info bounds checks
+
+Paul Louvel (2):
+      dt-bindings: display: simple: Add Ampire AM-800480N3TZQW-00H
+      drm/panel: simple: Add Ampire AM-800480N3TZQW-00H
+
+Terry Hsiao (1):
+      drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3)
+
+Uwe Kleine-König (The Capable Hub) (1):
+      drm/bridge: Use named initializers for arrays of i2c_device_data
+
+Weiji Wang (1):
+      drm/panel-edp: Add BOE NE140QDM-NX2
+
+ .../bindings/display/panel/jadard,jd9365da-h3.yaml |   1 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../display/panel/rocktech,jh057n00900.yaml        |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   4 +
+ drivers/gpu/Kconfig                                |   3 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |  10 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |   2 +-
+ drivers/gpu/drm/bridge/analogix/anx7625.c          |   4 +-
+ drivers/gpu/drm/bridge/chipone-icn6211.c           |   4 +-
+ drivers/gpu/drm/bridge/chrontel-ch7033.c           |   2 +-
+ drivers/gpu/drm/bridge/imx/Kconfig                 |  11 +
+ drivers/gpu/drm/bridge/imx/Makefile                |   1 +
+ drivers/gpu/drm/bridge/imx/imx93-pdfc.c            | 222 ++++++++++++++++++
+ drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
+ drivers/gpu/drm/bridge/ite-it6505.c                |   2 +-
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c          |   2 +-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c           |   6 +-
+ drivers/gpu/drm/bridge/lontium-lt9211.c            |   4 +-
+ drivers/gpu/drm/bridge/lontium-lt9611.c            |   4 +-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c         |   2 +-
+ .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   |   8 +-
+ drivers/gpu/drm/bridge/nxp-ptn3460.c               |   4 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c             |   8 +-
+ drivers/gpu/drm/bridge/sii902x.c                   |   2 +-
+ drivers/gpu/drm/bridge/sii9234.c                   |   2 +-
+ drivers/gpu/drm/bridge/sil-sii8620.c               |   2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |   3 +-
+ drivers/gpu/drm/bridge/tc358762.c                  |  19 +-
+ drivers/gpu/drm/bridge/tc358764.c                  |  19 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |   2 +-
+ drivers/gpu/drm/bridge/tc358768.c                  |   4 +-
+ drivers/gpu/drm/bridge/tc358775.c                  |   4 +-
+ drivers/gpu/drm/bridge/tda998x_drv.c               |   2 +-
+ drivers/gpu/drm/bridge/ti-dlpc3433.c               |   2 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c              |   6 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c              |   4 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |   2 +-
+ drivers/gpu/drm/nouveau/dispnv50/base.h            |   6 +
+ drivers/gpu/drm/nouveau/dispnv50/base507c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/base827c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/base907c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/curs507a.c        |   3 +
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |   4 +
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c            |  40 +++-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.h            |  11 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c        |   1 +
+ drivers/gpu/drm/nouveau/nouveau_abi16.c            |  14 +-
+ drivers/gpu/drm/nouveau/nouveau_drv.h              |   4 +-
+ drivers/gpu/drm/panel/panel-edp.c                  |  23 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c       | 212 +++++++-----------
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 249 ++++++++++++++++++++-
+ drivers/gpu/drm/panel/panel-novatek-nt36536.c      |   4 +-
+ drivers/gpu/drm/panel/panel-simple.c               |  33 +++
+ drivers/gpu/drm/panel/panel-sitronix-st7703.c      |  96 ++++++++
+ drivers/gpu/drm/panthor/panthor_drv.c              |   2 +-
+ drivers/gpu/drm/panthor/panthor_fw.c               |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c              |  11 +-
+ drivers/gpu/tests/.kunitconfig                     |   2 +
+ include/drm/drm_bridge.h                           |   2 +-
+ include/uapi/drm/nouveau_drm.h                     |   1 +
+ 63 files changed, 880 insertions(+), 230 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/imx/imx93-pdfc.c
+ create mode 100644 drivers/gpu/tests/.kunitconfig
