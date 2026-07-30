@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6384C55167
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D30ECC55160
 	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 11:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3216410EED8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 320D210EED6;
 	Thu, 30 Jul 2026 11:09:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VgVHcU2A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iJmd/1be";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B10D710EED6;
- Thu, 30 Jul 2026 11:09:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2449710EECA;
+ Thu, 30 Jul 2026 11:09:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785409782; x=1816945782;
+ t=1785409778; x=1816945778;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=dXQsOUxk2ch87fA8qRh1GOKVGpVsax1E7lYommY3zd8=;
- b=VgVHcU2AxEUBSnaigrcppB49lmG11J9iBoEm6UTYESXFXx4QrIa6XWpN
- cIsFEHbiCgirlqlbRt/QwgooLpYzfjxYakoDRqSKNOMLMb7C44lC8tdBP
- UNao3aCxxdZ4gQSFWOQVcpHpZGDS5kwhudgJNnHPzf0IkwH105+++jS1v
- 3g53olDSbK3IcKMNSlMyGkqYfEjFftL2J1S8CvL483E6zOYyFvB0kK3N+
- wEZruxfY0Pzoh5Daqrzd0J4YIIhsIiksEIPoT0nrtwE3pAYIRhxeTvPsw
- 5Y2ppyZd7rxEInxjHt6+O6ph+Hvda9UzYdTKuhk8xCqGfLZq2OKZtcS2l Q==;
-X-CSE-ConnectionGUID: 8/LBcpvIRRSIMiECnInLiA==
-X-CSE-MsgGUID: KlNqx4KWQGG0h5aLItnVTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97182416"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="97182416"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 04:09:42 -0700
-X-CSE-ConnectionGUID: cFjVogEMTUSbjDTW5dooAA==
-X-CSE-MsgGUID: UjLinZvKRmWcJT7P7PcJ5g==
+ bh=AVrr404QUAI2/fEETfiidb12sV5aiEvmQQ7ldYLFZNI=;
+ b=iJmd/1bewguCabut8R5o4UZbI1Yk9FD8Pn9fMzcZSuiil4Hw4RtZVWPB
+ t0gTypwhMWQMBr1cCcFT2btnxa4PNLEa+Jh+gF8g7B31V0vDiHKFTe46g
+ SGnhMaWM5WC+MTZgn0yl4EPKgPHCz/f+rl9PdtKmZvU9WRBQOyikWuqfZ
+ IqsOUdCAl1toayZhtgw7xu5GDC4P3xr23Vm44PMaws36JCamLxuU/kkVU
+ BFC/s1bKIwY5yq9OuCKWdHDTDZesoxTgSsRg6fHLfHFvrLkgfQk3lJ0nk
+ EUio+MGsGASBufGNidQ8QwHkuHOKKNFYRNyMikPOVh4CvFyuhmpAnhWHH g==;
+X-CSE-ConnectionGUID: MP9ZrjQITMWWDgSqEb4gyQ==
+X-CSE-MsgGUID: vft4pipZTz+Q7nkJ/F17VA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="86217232"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="86217232"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 04:09:38 -0700
+X-CSE-ConnectionGUID: 4QxNGqXITj6pvcIVYl3xdw==
+X-CSE-MsgGUID: ZyTtpFMXTBiSPlLUTowsnA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="265327119"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 04:09:39 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: alexander.kaplan@sms-medipool.de,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 07/14] drm/i915/dp: Use FRL pair check for the DFP dotclock
- limit
-Date: Thu, 30 Jul 2026 16:22:19 +0530
-Message-ID: <20260730105226.2731341-8-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260730105226.2731341-1-ankit.k.nautiyal@intel.com>
-References: <20260730105226.2731341-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="298482270"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa001.jf.intel.com with ESMTP; 30 Jul 2026 04:09:37 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, uma.shankar@intel.com,
+ ankit.k.nautiyal@intel.com, chaitanya.kumar.borah@intel.com
+Subject: [PATCH v8 04/10] drm/i915/vrr: Update AS_SDP target_rr_divider based
+ on CMRR config request
+Date: Thu, 30 Jul 2026 16:29:11 +0530
+Message-ID: <20260730105919.3913412-5-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260730105919.3913412-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20260730105919.3913412-1-mitulkumar.ajitkumar.golani@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,31 +69,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_dp_mode_valid_downstream() uses the intel_dp_hdmi_sink_max_frl()
-to check if FRL is to be used, in order to skip the max dotclock limit
-for the FRL cases.
+Compute AS_SDP target_rr_divider based on actual CMRR request
+requirement.
 
-Instead, use the intel_dp_pcon_sink_support_frl() that check both sink and
-the pcon's FRL capabilities.
-
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 6bf42128a81d..d2d330b6c39a 100644
+index 113d767e62e9..9e2db310b7d8 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -1237,7 +1237,7 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 	struct intel_dp *intel_dp = intel_attached_dp(connector);
- 	int bpc = 8; /* Assume 8bpc for the DP++/HDMI/DVI TMDS/FRL bw check */
+@@ -3125,6 +3125,7 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 	struct drm_dp_as_sdp *as_sdp = &crtc_state->infoframes.as_sdp;
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&crtc_state->hw.adjusted_mode;
++	struct intel_crtc *crtc = to_intel_crtc(crtc_state->uapi.crtc);
  
--	if (!intel_dp_hdmi_sink_max_frl(intel_dp) &&
-+	if (!intel_dp_pcon_sink_support_frl(intel_dp) &&
- 	    intel_dp->dfp.max_dotclock &&
- 	    target_clock > intel_dp->dfp.max_dotclock)
- 		return MODE_CLOCK_HIGH;
+ 	/*
+ 	 * #FIXME: SDP/infoframe updates aren’t truly atomic, and with the new
+@@ -3145,7 +3146,11 @@ static void intel_dp_compute_as_sdp(struct intel_dp *intel_dp,
+ 	if (crtc_state->cmrr.enable) {
+ 		as_sdp->mode = DP_AS_SDP_FAVT_TRR_REACHED;
+ 		as_sdp->target_rr = drm_mode_vrefresh(adjusted_mode);
+-		as_sdp->target_rr_divider = true;
++
++		if (crtc->force_cmrr.denominator == 1001)
++			as_sdp->target_rr_divider = true;
++		else
++			as_sdp->target_rr_divider = false;
+ 	} else if (crtc_state->vrr.enable) {
+ 		as_sdp->mode = DP_AS_SDP_AVT_DYNAMIC_VTOTAL;
+ 	} else {
 -- 
-2.50.1
+2.48.1
 
