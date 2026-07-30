@@ -4,29 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3156FC55164
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 15:23:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A6C3C55162
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 15:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB85F10EF9F;
-	Thu, 30 Jul 2026 15:23:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D879910EFC2;
+	Thu, 30 Jul 2026 15:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jRk/7pcb";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hY0OPMP7";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B9E10EF9F;
- Thu, 30 Jul 2026 15:23:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 051A410EFC2;
+ Thu, 30 Jul 2026 15:48:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E37DF60A71;
- Thu, 30 Jul 2026 15:23:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2012F1F000E9;
- Thu, 30 Jul 2026 15:23:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8212B4010B;
+ Thu, 30 Jul 2026 15:48:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F2C1F000E9;
+ Thu, 30 Jul 2026 15:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785424982;
- bh=pah5NjNoLXfTelcNYb9D1MQKbnd7aIoBIPkHYg6Zk40=;
+ s=korg; t=1785426513;
+ bh=NStuLYkYGbAIIAP7UgU64tCywn7p/aZV8E3+rJsLTmU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jRk/7pcbQc0ws52riVf0zrLkggbDlgIhNy6rDW/7fBlzxdBvl4O3ZeYZ6mLApGuJG
- 01QwW2q6VA/Iv5zssgagEnnq0fmBisyFXpGhXr7/+lT1Ff1xmK/N/uWZ5NgmHvTImU
- 4jtlcQscT/cmvnnzC7+j/4qPGAouR+fB7X7+ms9k=
+ b=hY0OPMP7KNsiR4C6NaxQ45UNnnRt2IytpEf8B7JLlXNSxykJpaju9bax64BoE+NTy
+ pFMgL2aR+j3DBhZP+isHhhhWIja44zhxOwPyzuCD+my0OH0tME3uMmcdPxvU1CG/wp
+ vvzRY/Kvh/ox3YpOv3fkh27x0nnB4lLOixV73pUU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
@@ -35,13 +35,13 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Jonas Emilsson <jonas.emilsson@gmail.com>,
  Luca Coelho <luciano.coelho@intel.com>,
  Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 6.18 584/675] drm/dp_mst: Handle torn-down topology gracefully
+Subject: [PATCH 6.12 446/602] drm/dp_mst: Handle torn-down topology gracefully
  in drm_dp_mst_topology_queue_probe()
-Date: Thu, 30 Jul 2026 16:15:14 +0200
-Message-ID: <20260730141457.535177016@linuxfoundation.org>
+Date: Thu, 30 Jul 2026 16:13:58 +0200
+Message-ID: <20260730141445.334798009@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
-References: <20260730141445.110192266@linuxfoundation.org>
+In-Reply-To: <20260730141435.976815864@linuxfoundation.org>
+References: <20260730141435.976815864@linuxfoundation.org>
 User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
@@ -62,7 +62,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
@@ -106,7 +106,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
 +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3740,8 +3740,10 @@ void drm_dp_mst_topology_queue_probe(str
+@@ -3743,8 +3743,10 @@ void drm_dp_mst_topology_queue_probe(str
  {
  	mutex_lock(&mgr->lock);
  
