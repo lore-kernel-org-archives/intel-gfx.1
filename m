@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC7E8C5516D
-	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 11:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6384C55167
+	for <intel-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 11:09:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58E7010EEC7;
-	Thu, 30 Jul 2026 11:09:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3216410EED8;
+	Thu, 30 Jul 2026 11:09:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ADK89Ez4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VgVHcU2A";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C492D10EECE;
- Thu, 30 Jul 2026 11:09:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B10D710EED6;
+ Thu, 30 Jul 2026 11:09:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785409778; x=1816945778;
+ t=1785409782; x=1816945782;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=2Vabscv2NJIzwy0z1ar8Jbf80uWIJWeG8z7mhaidJv0=;
- b=ADK89Ez44lcxqEg4E0vXZTQk/j0QbLAhQnYvJTKfDjIq5cTIFqkzCq4I
- 0jHIChZb9NjRWAD7T7KCLlbuhJHS3XJThDpQDCtK9l31BY5xjBlbHJi4q
- pg0ft5RR/eTRwVuASw9k56oT6L0WquQbSu1N8nPYRxqth+1d069LB985v
- 17dHBy0AQY/5OKC2lKqrfxeFEkIiVzsr7qU5ho+CUtzM+vJ+iECQSn2Xf
- aoep8mxG+NMqUGTPOJjLP3awgdelk8ifEopatCx2Wsj1OVYZvIYAW74Fg
- I/lWjZteyHMiDpqtgE+vqlfIrMCcVFG1c929MLjJoSufXu+rbY+lPKcAh Q==;
-X-CSE-ConnectionGUID: oj9KVi4DR+CRII/zbM3P3g==
-X-CSE-MsgGUID: STfLrZEEQ6SM7PRif2jHDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97182411"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="97182411"
+ bh=dXQsOUxk2ch87fA8qRh1GOKVGpVsax1E7lYommY3zd8=;
+ b=VgVHcU2AxEUBSnaigrcppB49lmG11J9iBoEm6UTYESXFXx4QrIa6XWpN
+ cIsFEHbiCgirlqlbRt/QwgooLpYzfjxYakoDRqSKNOMLMb7C44lC8tdBP
+ UNao3aCxxdZ4gQSFWOQVcpHpZGDS5kwhudgJNnHPzf0IkwH105+++jS1v
+ 3g53olDSbK3IcKMNSlMyGkqYfEjFftL2J1S8CvL483E6zOYyFvB0kK3N+
+ wEZruxfY0Pzoh5Daqrzd0J4YIIhsIiksEIPoT0nrtwE3pAYIRhxeTvPsw
+ 5Y2ppyZd7rxEInxjHt6+O6ph+Hvda9UzYdTKuhk8xCqGfLZq2OKZtcS2l Q==;
+X-CSE-ConnectionGUID: 8/LBcpvIRRSIMiECnInLiA==
+X-CSE-MsgGUID: KlNqx4KWQGG0h5aLItnVTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97182416"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="97182416"
 Received: from fmviesa005.fm.intel.com ([10.60.135.145])
  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 04:09:38 -0700
-X-CSE-ConnectionGUID: Gmw6g5lSSZynva4aH2hzZQ==
-X-CSE-MsgGUID: uASTSTwXTX6E8tCpmeDB5w==
+ 30 Jul 2026 04:09:42 -0700
+X-CSE-ConnectionGUID: cFjVogEMTUSbjDTW5dooAA==
+X-CSE-MsgGUID: UjLinZvKRmWcJT7P7PcJ5g==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="265327106"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="265327119"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 04:09:36 -0700
+ 30 Jul 2026 04:09:39 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: alexander.kaplan@sms-medipool.de,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH 05/14] drm/i915/dp: Fix FRL BW check for HDMI2.1 DFP
-Date: Thu, 30 Jul 2026 16:22:17 +0530
-Message-ID: <20260730105226.2731341-6-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 07/14] drm/i915/dp: Use FRL pair check for the DFP dotclock
+ limit
+Date: Thu, 30 Jul 2026 16:22:19 +0530
+Message-ID: <20260730105226.2731341-8-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260730105226.2731341-1-ankit.k.nautiyal@intel.com>
 References: <20260730105226.2731341-1-ankit.k.nautiyal@intel.com>
@@ -69,92 +70,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The FRL bandwidth check considers only the PCON's max FRL rate, ignoring
-the HDMI2.1 sink's own max FRL rate. Cap the available bandwidth by the
-minimum of the two, similar to the TMDS case.
+intel_dp_mode_valid_downstream() uses the intel_dp_hdmi_sink_max_frl()
+to check if FRL is to be used, in order to skip the max dotclock limit
+for the FRL cases.
 
-Move the check into a helper intel_dp_frl_bw_valid() so it can also be
-used in the compute_config phase in a subsequent change.
-
-The DSC case, where both the PCON and HDMI sink support DSC, is left
-as a FIXME and handled later.
+Instead, use the intel_dp_pcon_sink_support_frl() that check both sink and
+the pcon's FRL capabilities.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_dp.c | 46 +++++++++++++++++--------
- 1 file changed, 31 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_dp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 9d6f144d935f..eb76e6b6d616 100644
+index 6bf42128a81d..d2d330b6c39a 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -124,6 +124,7 @@ bool intel_dp_is_edp(struct intel_dp *intel_dp)
- }
- 
- static void intel_dp_unset_edid(struct intel_dp *intel_dp);
-+static int intel_dp_hdmi_sink_max_frl(struct intel_dp *intel_dp);
- 
- /* Is link rate UHBR and thus 128b/132b? */
- bool intel_dp_is_uhbr(const struct intel_crtc_state *crtc_state)
-@@ -1178,6 +1179,33 @@ static int frl_required_bw(int clock, int bpc,
- 	return clock * bpc * 3;
- }
- 
-+static enum drm_mode_status
-+intel_dp_frl_bw_valid(struct intel_dp *intel_dp, int target_clock,
-+		      int bpc, enum intel_output_format sink_format,
-+		      bool respect_downstream_limits)
-+{
-+	int target_bw;
-+	int max_frl_bw;
-+
-+	if (!respect_downstream_limits)
-+		return MODE_OK;
-+
-+	target_bw = frl_required_bw(target_clock, bpc, sink_format);
-+
-+	/* check for MAX FRL BW for both PCON and HDMI2.1 sink */
-+	max_frl_bw = min(intel_dp->dfp.pcon_max_frl_bw,
-+			 intel_dp_hdmi_sink_max_frl(intel_dp));
-+
-+	/* converting bw from Gbps to Kbps*/
-+	max_frl_bw = max_frl_bw * 1000000;
-+
-+	/* #FIXME check bandwidth with DSC if both PCON and HDMI sink support DSC */
-+	if (target_bw > max_frl_bw)
-+		return MODE_CLOCK_HIGH;
-+
-+	return MODE_OK;
-+}
-+
- static enum drm_mode_status
- intel_dp_mode_valid_downstream(struct intel_connector *connector,
- 			       const struct drm_display_mode *mode,
-@@ -1187,21 +1215,9 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
+@@ -1237,7 +1237,7 @@ intel_dp_mode_valid_downstream(struct intel_connector *connector,
  	struct intel_dp *intel_dp = intel_attached_dp(connector);
+ 	int bpc = 8; /* Assume 8bpc for the DP++/HDMI/DVI TMDS/FRL bw check */
  
- 	/* If PCON supports FRL MODE, check FRL bandwidth constraints */
--	if (intel_dp->dfp.pcon_max_frl_bw) {
--		int target_bw, max_frl_bw;
--
--		/* Assume 8bpc for the FRL bandwidth check */
--		target_bw = frl_required_bw(target_clock, 8, sink_format);
--
--		max_frl_bw = intel_dp->dfp.pcon_max_frl_bw;
--
--		/* converting bw from Gbps to Kbps*/
--		max_frl_bw = max_frl_bw * 1000000;
--
--		if (target_bw > max_frl_bw)
--			return MODE_CLOCK_HIGH;
--
--		return MODE_OK;
-+	if (intel_dp->dfp.pcon_max_frl_bw && intel_dp_hdmi_sink_max_frl(intel_dp)) {
-+		/* Assume 8bpc for the HDMI2.1 FRL BW check */
-+		return intel_dp_frl_bw_valid(intel_dp, target_clock, 8, sink_format, true);
- 	}
- 
- 	if (intel_dp->dfp.max_dotclock &&
+-	if (!intel_dp_hdmi_sink_max_frl(intel_dp) &&
++	if (!intel_dp_pcon_sink_support_frl(intel_dp) &&
+ 	    intel_dp->dfp.max_dotclock &&
+ 	    target_clock > intel_dp->dfp.max_dotclock)
+ 		return MODE_CLOCK_HIGH;
 -- 
 2.50.1
 
