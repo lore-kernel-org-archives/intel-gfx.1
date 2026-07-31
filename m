@@ -4,80 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33913C5516D
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 13:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE9CC54F54
+	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 15:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB7E810F269;
-	Fri, 31 Jul 2026 13:37:58 +0000 (UTC)
-X-Greylist: delayed 581 seconds by postgrey-1.36 at gabe;
- Fri, 31 Jul 2026 13:37:57 UTC
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com
- [216.40.44.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4621D10F269
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 13:37:57 +0000 (UTC)
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
- by unirelay05.hostedemail.com (Postfix) with ESMTP id EF5564042A;
- Fri, 31 Jul 2026 13:28:09 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf12.hostedemail.com (Postfix) with ESMTPA id E384117; 
- Fri, 31 Jul 2026 13:27:45 +0000 (UTC)
-Date: Fri, 31 Jul 2026 09:28:25 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>, =?UTF-8?B?SsO8cmdlbiBH?=
- =?UTF-8?B?cm/Dnw==?= <jgross@suse.com>, Jani Nikula
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "James E.J. Bottomley"
- <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>,
- Stefano Stabellini <sstabellini@kernel.org>, Muchun Song
- <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, Andrew Morton
- <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>, "Aneesh
- Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin
- <ryabinin.a.a@gmail.com>, David Hildenbrand <david@kernel.org>, Pasha
- Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>, Kairui
- Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>, Masami
- Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
- <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
- Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>, Arnaldo
- Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, SJ
- Park <sj@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky
- <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou
- <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter
- <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>, Johannes Weiner
- <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- agordeev@linux.ibm.com, ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <20260731092825.36992dc9@gandalf.local.home>
-In-Reply-To: <9ac33752-b587-4901-b5f2-473e573d7ede@arm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-2-usama.anjum@arm.com>
- <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
- <9ac33752-b587-4901-b5f2-473e573d7ede@arm.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C290610F2DA;
+	Fri, 31 Jul 2026 15:32:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ECIyP3Wg";
+	dkim-atps=neutral
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7410F2DE
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 15:32:20 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-9083f928b60so6006496d6.1
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 08:32:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785511939; cv=none;
+ d=google.com; s=arc-20260327;
+ b=s/uZh+LRiEiJ3FZbv75VThmMlHJsrAqOLyJy7yGzNJ2uUzI6ffsL4jmKBHsDXBuBDa
+ jIct+9DZ2D1NBs6xL8WXRtX3j2WJyN8P+mDnszVZsq+6zPBvL7B/Ao8yIi5A1WqUCf/Q
+ a/aD47jmU4g6D9YYcAVqm4lyqg2zzP25H+gDYDc9Dr8yg1K62+s83O6WefLjoBbmcIkQ
+ JGcWFE+DonBkQzjc0NLiwwThC946LAT7IGgmCKc35JQnXxxVuqM9Gll+B2DjZedmrtH8
+ Sil/bGN8vGfQzrCl0pg8r1hRNXheU5M5GB3R+Jb99tdn23NuxGxq9YIbX2lnXcMXWlF7
+ g4qA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
+ fh=qTJ4q8Wkcf7q7drN06b5lPGe1FZ4mOUSun5n7X6w/DM=;
+ b=KhTcAjcwkSJrZiJ3fo6VdoDfGuH5n9/JHwWRi9cIdCOzxmWLrKoLHWO2P4+Bf2kl9/
+ n3bLm7vx70MaBMhLRSJuUnZDW77n71/cp0ynYQFhqOYMzriSwx9brC2OiTY1UzW6qNbD
+ 1J0GvRqmLZ1o9wV0DyXjqCkSRGJIDkFsYb3ExSd98p7/xTZlPfMMDkIaFhcmrPUtRAOt
+ gf9QrhD1PlXe8yqRqwqlze677T62N0Ipgn+PelBMNI+k6yumF3gCdX490UXDsx+NIIfg
+ qgyls3yJU1TpIUctsrI1XqHhKxd5S6w3mVC4olA8kCfqSIezTkTtlVeO40FfLcb4URTT
+ 3mlQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785511939; x=1786116739; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
+ b=ECIyP3WgZtz+/Spnvwn/AZaLeNX3JAvp+CZA467QeiZRxyHPnsBx/sAbnLN4APY6KG
+ IgdT1yyXtEzK/z9DpCyWF6j+7sm9+uoug/BmXcQXfuuh0fVdKsk6Vvqqk3XVWmJQn/Fk
+ zolLLHllAMu7JxJXMxoFD8d8jOfXmWCH5Y66JrHgugRTjVagTK4Md+0i7bvdwpsnzPxY
+ uXZQwaV6HbJUmX7D56TKD7DgOi+ysRxpI/gJNsw7ykiahVICy9GsJiNmewKiQvyKdzCA
+ Qod+2lZKO88r67LnRv2BM5uC3LCFGuIttzFKMVpnbAR0aB0GZmtfs19iyjGOJEyPu2bI
+ 5wuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785511939; x=1786116739;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
+ b=DwubEXgZl5q3R6txImj+JSap/iTxbyjUjAtMyMNVMhFV9L3mEpSXy4ODBIGH6bM7Sq
+ pHTgJZsDecJsSffqTqlJpJJdmPG3hiuPqSwgUQqVEvB+r7lzFHf3V1jG992XvsBP83/Q
+ Pqc6bnuu0Stc5JZEgEWfRZOhnliBMSYqK3H68IzsrMN4JSvP6o2OG8ecUbD55By48Lbi
+ dnmLdYg3QpDgJiSEMd0ob/50rVYjgVEdtOv1veVrOJMq6OQjX+hMXnwGWeyGfsywXLnk
+ pgynrdT9IJw97blFUWnMn/3q/jxozupy5ZpCCJZDfk3VCx8YoRdvVLI4K+2V8uWHnwye
+ b+xw==
+X-Gm-Message-State: AOJu0YwJRX7EG+B35hZg5fwKtVaDJnVscJysXDkCcOUkR0ovyAckA5cp
+ 1vE5swA0RSaZjnh1nYl3QdGRS0+eNT5Sdslqms68v4uJGEb16R1wxkft3ko/pErQp2cmKmdZVMk
+ PvhEztu49bTM8wIk8XEVKlR+3DoE3Xw==
+X-Gm-Gg: AR+sD11JzfWDgWwOr7tGA+QlXD//oOmnk7xBITgfCh4aSoW9vMn/oT4mkVANJKjBZXC
+ Sy7VAfoJDhQJ1K/l61F6aK60dPzwTzPqyWXTHtaMyzhe8YgxGe2NUBF7Xk6tr8jdHpC+xFAJaB6
+ h/8aXrwTDohrkG0vX9uhhEVe8iEClJZ3PzWcw5GHY2jHx7LyzAmczdZkUIsHCH3/Hl6yhJgOJHR
+ hMOul0mZF78saa3nSDb5/LuAhMrshoJpawusHEa9Dpqg9prLZ9LT3Ovnv4T796nziWDRdI5OLHt
+ k6gK2Umuo4yPRFqk5+HHrkjAyi6byobatGoUcnQbO8GXkZdE/jbrd1Q=
+X-Received: by 2002:a05:6214:449c:b0:8f0:47b2:5734 with SMTP id
+ 6a1803df08f44-9084959c965mr7638366d6.7.1785511939059; Fri, 31 Jul 2026
+ 08:32:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: bk4wphtnyr8oskxq6ok6poi7ogrp6zg4
-X-Rspamd-Server: rspamout04
-X-Rspamd-Queue-Id: E384117
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX188VTzKisaRifdK5JzAhtUj+tNTYkibFXo=
-X-HE-Tag: 1785504465-704596
-X-HE-Meta: U2FsdGVkX1+okbaURBZ2Qkn+l9IgiK40Gqe8ZThpseNdxUoxO6+yJtshZ3puroffdGsnNQX9lyVqqMfMDNqtsaiMVrZRSqd7CxcOf+tlTFcxBWBx10qhJ57MkLj8ndzBOYoA/OODEfAwWEkK0Ynym/vN8RHly0+jRGqqJSDy6cHg7VOGub/UmsJX6TfoBSOwr0+39CvO+c3eZRPTPuO9wuZjY0AitKZFKa26poYwhlLhVPb0FYC1FMbtcEIPwcv0BUAY4FqESIdzLvKNozpw1fVotcfhrX1NJojLWeahTii05xgjJv7utljWLfUJzJrqYVN7s4pCcDgRjK7TriyixEP+/JmhkJIq3qIe3n8mNyiV8HHld6EP1z7IlvkGJKR3
+References: <CAA1YtmtZu4xH0dFXUUp97Apz4wNAvtpY2=QfhKgpt1scMFpYqQ@mail.gmail.com>
+ <CAA1YtmsiNJH2NyO3EFnLW6bfDs79xMHj5vRX6keXBd-5LemCxw@mail.gmail.com>
+ <578a5bc236dd8af73693db217797623ce77aa868@intel.com>
+In-Reply-To: <578a5bc236dd8af73693db217797623ce77aa868@intel.com>
+From: Tadeus Prastowo <0x66726565@gmail.com>
+Date: Fri, 31 Jul 2026 17:32:07 +0200
+X-Gm-Features: AUfX_mzVqxtEWTzkWgqKrzIDznBimnMf10JqBSh3zD3VVWmmrySgBwBVuqHU9zk
+Message-ID: <CAA1YtmuV3BwLyr-RZzpUADoJjpe9EER9i4s2M0DHPJpok2zh3A@mail.gmail.com>
+Subject: Re: Commit 99cfbed19d06 at Linux kernel breaks AOC monitor 24P2Q
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ ville.syrjala@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,34 +106,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 11:19:32 +0100
-Muhammad Usama Anjum <usama.anjum@arm.com> wrote:
+On Mon, Jul 27, 2026 at 12:09=E2=80=AFPM Jani Nikula
+<jani.nikula@linux.intel.com> wrote:
+>
+> On Mon, 13 Jul 2026, Tadeus Prastowo <0x66726565@gmail.com> wrote:
+> > Sorry that I forgot to CC the maintainers in the initial e-mail I sent
+> > yesterday, which can be found at the end of this e-mail.
+>
+> Please file bugs as described at [1].
 
-> On 31/07/2026 6:49 am, Anshuman Khandual wrote:
-> > On Mon, Jul 27, 2026 at 05:46:52PM +0100, Muhammad Usama Anjum wrote:  
-> >> pte_t is used both for logical PTE values and for entries stored in a PTE
-> >> table, so pte_t * does not distinguish a pointer to a copied value from a
-> >> pointer to table storage.  
-> > 
-> > Should we rather call them as "Linux PTE" and "HW PTE" instead ?
-> > 
-> > Some like "Logical PTE" does not really sound very clear on what it represents.  
-> Yeah, I should make distinction more visible in the cover letter.
+Okay, I have added additional information on
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16735.
 
-Just as an outside observer, so take this with a grain of salt and feel
-free to totally ignore it, the term "Logical" and "Physical" to me would be
-that the Logical one is created by software and is not mapped to hardware,
-whereas the "Physical" one would be backed by hardware.
+> Thanks,
+> Jani.
+>
+> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.ht=
+ml
+>
+>
+> --
+> Jani Nikula, Intel
 
-Just using the terminology from LVM where there are Logical volumes and
-Physical volumes.
+Thank you.
 
-But if that doesn't represent what you are trying to accomplish here, then
-it is indeed not the appropriate terminology.
-
-Again, feel free to ignore this comment, but I just wanted to give an
-outside perspective of the terminology that I see.
-
-Cheers,
-
--- Steve
+--=20
+Best regards,
+Tadeus
