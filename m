@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86B51C55162
-	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2026 16:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FA74C55177
+	for <intel-gfx@archiver.kernel.org>; Sun,  2 Aug 2026 16:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C7110E409;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66C0F10E3FB;
 	Sun,  2 Aug 2026 16:38:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GrgzXzdy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b4wkuzOU";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 084E210F23B
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 12:05:05 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-47f752b3423so792124f8f.3
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 05:05:04 -0700 (PDT)
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
+ [209.85.167.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6664210E1ED
+ for <intel-gfx@lists.freedesktop.org>; Sat,  1 Aug 2026 00:37:53 +0000 (UTC)
+Received: by mail-lf1-f53.google.com with SMTP id
+ 2adb3069b0e04-5aeb98460c6so1635506e87.2
+ for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 17:37:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785499503; x=1786104303; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785544671; x=1786149471; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
  bh=28162SoyPjaQao/mAfBhOHgErYpZyd1E/G6dN6Teids=;
- b=GrgzXzdys1m5jvxqucDiZMY9yz2irV94lk/CSWRbDHUkFBfv1CXlHFR96wgXNZKNZR
- korAQmRglsR+RuNoeK9+LykPLYiJfdI++Vv9ANyd1yLopo6v7xo6rIyiJJZ06CMH8NtP
- CK9aCbvltBwnEyuMaYQAAeS5jDic0D0HqdzpaVizhKWB335WK80OzS+kcqmBHP3/X1D0
- h5aU+YvuERKR8U4CSGvnDZy62sEXkWjPfdlYVCR1y4PiO3Wm7tbsr83ufnxIC5CIH3Jw
- YYRiiHd8erVsVD+1mXk4ykU+Sxhj4p32/Sii5YCXIiraxFK+pAI1ZhumVQ09OSZmi06m
- vpjg==
+ b=b4wkuzOUehhEYo6yS9QlSk8xmrmiONfbVnOLS7MBiTReVd5kMzbbO4zF/2ntFSyld6
+ RFNKGGHAyf9iVfidDR9tIpyiID29aFrpuIwWbQKSYRY1OF9KS/5Qdg4Z3yRiGFbRUj4q
+ CobnygXObcLFPAMqMVHZQNI3WJfaAbBjdXIYn/sj02DB3ZG2xvgyp328+U9i57itTlKJ
+ /DeFuB3wowHFkTxwMpMgzjAkE5PPLaG6NLUc0nSOIvAPsgcSP5d7Yq/ed7Ns/QDSW+0a
+ 4rNb5Nu95a8Ews8zHZJHtAOTU2h1fuD8SBprIUF/VC68IdOc5wUDsp8O4FZL7Mr/W/Ic
+ w6eA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785499503; x=1786104303;
+ d=1e100.net; s=20251104; t=1785544671; x=1786149471;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
  bh=28162SoyPjaQao/mAfBhOHgErYpZyd1E/G6dN6Teids=;
- b=l47BQvwPOiY/zk2eNA6BBb6QbCG4VUiNmfEm1UiAe2JHVhERdGJfhH7TJr+YnCXO3G
- 0CttNf2lM8MK9AsDUcwH0Z7mYJJX4/eSwm0YGZf3n1aEjZp4KLBuyWeebqAjMl81be8Y
- SE1+HgiYD39gJqN/EDUiOh5/nWnz8X3QpirYmBYTFo7qBICeIwCSzI6MOgVE1JEZdNS2
- 6hVudFV/xXuf9OQY7QJmPP4dUqSM6dMozlVlx4bYMa4pypv6DSrqP+kULlRebfa+3kq7
- rgkktxRDHzWuXjSnqj1fcttPM2vWpSfuOpGMOtttqEV+d/DXCdHCpvKI4xsaafRUyS3d
- OaMw==
-X-Gm-Message-State: AOJu0YynZRrKTW9YoRB70GbGVsFVxbluP2S+f/H+mnQ12drnOOpnkCAT
- 0kUovbKKql0tE3CAME1CpvNa/dTsXtuh2aUxk5/4nTakMJY7Bu3/7ivlGXABZ+9jcpU=
-X-Gm-Gg: AR+sD10HCA/iMExWPuWfwJB8AvBTB2f/xqAT9j8t2Yr+CC8efsjEuMn1dH5j88no0U1
- mshFG4Kn3k2bqJ9RKXa5QpuVyQCHbaBeyJ197j4wQSKG3AL8WU5bkd0um7ixUKGwF2HIxUA7dXs
- NDhkJQ4NNNCq/jgoIreBpKCCCok+SXqRvfSmYVCCR3n1tNMqwvFVzxn3hEKIoRpItgIFE9dKKgp
- YlUNyhgW18eut25j02OcyE1aTRxepfPwZtbX44fGd+yKRFps3LQFXBwb2PBqjcOJyiHeIQNjoRA
- fzOJutihn/wFoxMoNQYQFfrzqh1N0fnSmfXnlrvox8DoHo9jYk+7NuR2VclTTBidJDaQLhu77aE
- en4nQKOxaZ+kPB1zBwm87qnSF4Q+tVcH0k9akZclB0lMdIAef0XiyBBmoChrnlcJlJWSHzBmNlq
- ZlZdQzmGMO2fU32vIo38gzT5v2JQHs5cJJKmVhUt3uGhG+xvl0CfQ/2vd+7h5JGByfwUUHESVQh
- FutLz47mUoTPwveGKpA5epFkVzbQYdaAMI=
-X-Received: by 2002:a05:6000:2991:20b0:47e:f3d:2b3 with SMTP id
- ffacd0b85a97d-47fd2b45eeemr3428604f8f.39.1785499502903; 
- Fri, 31 Jul 2026 05:05:02 -0700 (PDT)
+ b=Pb1sab25/mdWv6+h4dXNbrkZV+Ua9KkYnNWHiwkGLoaxoCWUz92AN2LBhExSqXs4BL
+ FfVkxVwYxc5zv8fVBg5hDahWiw84uBAf50Ye966W757AqhuGxSZXf6Y5JWVZpE6xDtsU
+ 7JQvDqLs9w36j3XGw5Tuc5o0+Q9jWG46K8c1ttyXvsdiC1IU16x7AmqJj/93oJ1+V/FS
+ /SB3THUrvTa91tF9Cupn2bzNVX2kjltKzbNYhxIqC69hd3Gv8Mlp9/Slof51OEFMBz+9
+ 7fq5hh5lPvEiMo/mWEkho7ZPuQQxJirg6w8J4u5lz102GmhawiAZV3lZ8i2VZ9xmrOYa
+ q/Fw==
+X-Gm-Message-State: AOJu0YydZ7GThGs4gJOOQT0qowkT8h3XWJ+86U4vLhE4EHLv/GeYoaIj
+ 2BTxWGa8gtFF9/HWXzbQykJW7tcdbKFJ6kSGWZM0Q9tL1eA4i73DZb5IaOggOeHw2EA=
+X-Gm-Gg: AR+sD12Equ+ry7NH8F8JUuzwhvbkdM2FO0gvhPh1giMHD5Lk7a16SW4fpoSoY5C7qZX
+ waDD28pDxKMlUFo8A48JYQv4hfNzzsjNe8C5PM1kMD66xLdY6nO/jtxzvGCENtbPx2koo889Mfv
+ pXb63vEUOJGtqgTW2Swqm9ZwkjYrKC9QZ41NBz4W/4Kqmvu2UajSuGiBbGZi/nXpkqa0UNXihQu
+ Tycnj50PlJmJBc/rj5vw0X11qG57hbb7pFAACIqCpG3423zj0Zq+YKO/5Yl6vS/bJ4T1JbvqvvE
+ JXWRFj6x52s679SVJCRyrw32uS0s3WaP+THqWl307t6mgIaykjmS3jtuFPZJuYUroP+hdhQqSeA
+ fS5ooNkt+CyUO6X/MiSG7PrL6a52jKlyTyRKTCmWJ838d5LlGObU6QAJu04rwnGkTpqShr6D1Ye
+ KWIv/ojt6xJ4TqcMVdLyJu1R+UDqPA9VRBsA+PFOb0NQIN6E6FtzH8FeEx1bGRcng0E7SAp0gwp
+ NdwKFQUQ/XmSvvrmGu7MRf1mZi6rbcVvbA=
+X-Received: by 2002:a05:6512:2c94:b0:5b0:1108:c57d with SMTP id
+ 2adb3069b0e04-5b2e4f7e4b7mr302755e87.46.1785544670856; 
+ Fri, 31 Jul 2026 17:37:50 -0700 (PDT)
 Received: from NUC.lan (danayer.ru. [78.109.43.71])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd458b05fsm4174483f8f.28.2026.07.31.05.05.01
+ 2adb3069b0e04-5b2e2441e7dsm604215e87.50.2026.07.31.17.37.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 05:05:02 -0700 (PDT)
+ Fri, 31 Jul 2026 17:37:48 -0700 (PDT)
 From: Seliverstov Daniil Denisovich <daniil.seliverstov2003@gmail.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: Seliverstov Daniil Denisovich <Danayerofficial@yandex.ru>
 Subject: [PATCH] drm/xe: add DG2 HuC GSC support and MEI integration
-Date: Fri, 31 Jul 2026 20:04:27 +0800
-Message-ID: <20260731120427.864560-1-daniil.seliverstov2003@gmail.com>
+Date: Sat,  1 Aug 2026 08:37:25 +0800
+Message-ID: <20260801003725.10792-1-daniil.seliverstov2003@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
