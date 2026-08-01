@@ -4,93 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE9CC54F54
-	for <intel-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 15:32:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B0B3C55171
+	for <intel-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 01:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C290610F2DA;
-	Fri, 31 Jul 2026 15:32:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52FC010E253;
+	Sat,  1 Aug 2026 01:02:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ECIyP3Wg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g48YrFK7";
 	dkim-atps=neutral
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
- [209.85.219.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7410F2DE
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 15:32:20 +0000 (UTC)
-Received: by mail-qv1-f45.google.com with SMTP id
- 6a1803df08f44-9083f928b60so6006496d6.1
- for <intel-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 08:32:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785511939; cv=none;
- d=google.com; s=arc-20260327;
- b=s/uZh+LRiEiJ3FZbv75VThmMlHJsrAqOLyJy7yGzNJ2uUzI6ffsL4jmKBHsDXBuBDa
- jIct+9DZ2D1NBs6xL8WXRtX3j2WJyN8P+mDnszVZsq+6zPBvL7B/Ao8yIi5A1WqUCf/Q
- a/aD47jmU4g6D9YYcAVqm4lyqg2zzP25H+gDYDc9Dr8yg1K62+s83O6WefLjoBbmcIkQ
- JGcWFE+DonBkQzjc0NLiwwThC946LAT7IGgmCKc35JQnXxxVuqM9Gll+B2DjZedmrtH8
- Sil/bGN8vGfQzrCl0pg8r1hRNXheU5M5GB3R+Jb99tdn23NuxGxq9YIbX2lnXcMXWlF7
- g4qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
- fh=qTJ4q8Wkcf7q7drN06b5lPGe1FZ4mOUSun5n7X6w/DM=;
- b=KhTcAjcwkSJrZiJ3fo6VdoDfGuH5n9/JHwWRi9cIdCOzxmWLrKoLHWO2P4+Bf2kl9/
- n3bLm7vx70MaBMhLRSJuUnZDW77n71/cp0ynYQFhqOYMzriSwx9brC2OiTY1UzW6qNbD
- 1J0GvRqmLZ1o9wV0DyXjqCkSRGJIDkFsYb3ExSd98p7/xTZlPfMMDkIaFhcmrPUtRAOt
- gf9QrhD1PlXe8yqRqwqlze677T62N0Ipgn+PelBMNI+k6yumF3gCdX490UXDsx+NIIfg
- qgyls3yJU1TpIUctsrI1XqHhKxd5S6w3mVC4olA8kCfqSIezTkTtlVeO40FfLcb4URTT
- 3mlQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785511939; x=1786116739; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
- b=ECIyP3WgZtz+/Spnvwn/AZaLeNX3JAvp+CZA467QeiZRxyHPnsBx/sAbnLN4APY6KG
- IgdT1yyXtEzK/z9DpCyWF6j+7sm9+uoug/BmXcQXfuuh0fVdKsk6Vvqqk3XVWmJQn/Fk
- zolLLHllAMu7JxJXMxoFD8d8jOfXmWCH5Y66JrHgugRTjVagTK4Md+0i7bvdwpsnzPxY
- uXZQwaV6HbJUmX7D56TKD7DgOi+ysRxpI/gJNsw7ykiahVICy9GsJiNmewKiQvyKdzCA
- Qod+2lZKO88r67LnRv2BM5uC3LCFGuIttzFKMVpnbAR0aB0GZmtfs19iyjGOJEyPu2bI
- 5wuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785511939; x=1786116739;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=LaXKHBEWUqsx51ozSN4bDVQrb+Dc5m2QMMhc6D+dABo=;
- b=DwubEXgZl5q3R6txImj+JSap/iTxbyjUjAtMyMNVMhFV9L3mEpSXy4ODBIGH6bM7Sq
- pHTgJZsDecJsSffqTqlJpJJdmPG3hiuPqSwgUQqVEvB+r7lzFHf3V1jG992XvsBP83/Q
- Pqc6bnuu0Stc5JZEgEWfRZOhnliBMSYqK3H68IzsrMN4JSvP6o2OG8ecUbD55By48Lbi
- dnmLdYg3QpDgJiSEMd0ob/50rVYjgVEdtOv1veVrOJMq6OQjX+hMXnwGWeyGfsywXLnk
- pgynrdT9IJw97blFUWnMn/3q/jxozupy5ZpCCJZDfk3VCx8YoRdvVLI4K+2V8uWHnwye
- b+xw==
-X-Gm-Message-State: AOJu0YwJRX7EG+B35hZg5fwKtVaDJnVscJysXDkCcOUkR0ovyAckA5cp
- 1vE5swA0RSaZjnh1nYl3QdGRS0+eNT5Sdslqms68v4uJGEb16R1wxkft3ko/pErQp2cmKmdZVMk
- PvhEztu49bTM8wIk8XEVKlR+3DoE3Xw==
-X-Gm-Gg: AR+sD11JzfWDgWwOr7tGA+QlXD//oOmnk7xBITgfCh4aSoW9vMn/oT4mkVANJKjBZXC
- Sy7VAfoJDhQJ1K/l61F6aK60dPzwTzPqyWXTHtaMyzhe8YgxGe2NUBF7Xk6tr8jdHpC+xFAJaB6
- h/8aXrwTDohrkG0vX9uhhEVe8iEClJZ3PzWcw5GHY2jHx7LyzAmczdZkUIsHCH3/Hl6yhJgOJHR
- hMOul0mZF78saa3nSDb5/LuAhMrshoJpawusHEa9Dpqg9prLZ9LT3Ovnv4T796nziWDRdI5OLHt
- k6gK2Umuo4yPRFqk5+HHrkjAyi6byobatGoUcnQbO8GXkZdE/jbrd1Q=
-X-Received: by 2002:a05:6214:449c:b0:8f0:47b2:5734 with SMTP id
- 6a1803df08f44-9084959c965mr7638366d6.7.1785511939059; Fri, 31 Jul 2026
- 08:32:19 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E486110E1ED;
+ Sat,  1 Aug 2026 01:02:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785546125; x=1817082125;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=8uami1JZ98jEEVX2RifxoHz17GVE7lLrJMHHTlwMkQc=;
+ b=g48YrFK7Ahso3SgM6yzxtayQ5zn4yp2wE9Skkw+bL2TyLn13rfSl35SN
+ XNtoCf/t3Px/LgJ06eW32zI7QiSHW4AObeWLNXEQ/69nPtwaw9OkEA34E
+ knrdrVb8EpJ3eeWXwL3/ih5/PMpYLW09rHopB+4JyFEh+T/B4kGrhqt8v
+ RjJzcyZfa/9vNZAk9nKBLFmpoyU4vyHT12F1cd3xGemGh4e8DkLeWi0h+
+ bKAkgNCku5I5kGf2ofIKdivV70pKHF52KVA9unVZ8zwqNsfobeEEEpm6W
+ tRnfKmvcWmASfqEY5By1NPTZ6SyACmbOnNR8NtVP4Ihgy+sYJ1R3MhUDz w==;
+X-CSE-ConnectionGUID: trsDcGoXTyG1wConyGljXw==
+X-CSE-MsgGUID: tzHNXYHJSJyiiR079J2miA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11861"; a="96760891"
+X-IronPort-AV: E=Sophos;i="6.25,197,1779174000"; d="scan'208";a="96760891"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2026 18:02:04 -0700
+X-CSE-ConnectionGUID: vNZVlXgzQ560r01QjC7xRw==
+X-CSE-MsgGUID: 0BaM+TEsR2eQEwjWxo4+XQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,197,1779174000"; d="scan'208";a="258915099"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by orviesa006.jf.intel.com with ESMTP; 31 Jul 2026 18:02:03 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wpy6y-000000002Vp-2Ywo;
+ Sat, 01 Aug 2026 01:02:00 +0000
+Date: Sat, 1 Aug 2026 09:01:42 +0800
+From: kernel test robot <lkp@intel.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <dev@lankhorst.se>
+Subject: Re: [PATCH v9.6] drm/i915: Disable "busy" pmu event on
+ CONFIG_PREEMPT_RT
+Message-ID: <202608010845.CPpXaIeD-lkp@intel.com>
+References: <20260623132734.227322-1-dev@lankhorst.se>
 MIME-Version: 1.0
-References: <CAA1YtmtZu4xH0dFXUUp97Apz4wNAvtpY2=QfhKgpt1scMFpYqQ@mail.gmail.com>
- <CAA1YtmsiNJH2NyO3EFnLW6bfDs79xMHj5vRX6keXBd-5LemCxw@mail.gmail.com>
- <578a5bc236dd8af73693db217797623ce77aa868@intel.com>
-In-Reply-To: <578a5bc236dd8af73693db217797623ce77aa868@intel.com>
-From: Tadeus Prastowo <0x66726565@gmail.com>
-Date: Fri, 31 Jul 2026 17:32:07 +0200
-X-Gm-Features: AUfX_mzVqxtEWTzkWgqKrzIDznBimnMf10JqBSh3zD3VVWmmrySgBwBVuqHU9zk
-Message-ID: <CAA1YtmuV3BwLyr-RZzpUADoJjpe9EER9i4s2M0DHPJpok2zh3A@mail.gmail.com>
-Subject: Re: Commit 99cfbed19d06 at Linux kernel breaks AOC monitor 24P2Q
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- ville.syrjala@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260623132734.227322-1-dev@lankhorst.se>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,30 +72,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2026 at 12:09=E2=80=AFPM Jani Nikula
-<jani.nikula@linux.intel.com> wrote:
->
-> On Mon, 13 Jul 2026, Tadeus Prastowo <0x66726565@gmail.com> wrote:
-> > Sorry that I forgot to CC the maintainers in the initial e-mail I sent
-> > yesterday, which can be found at the end of this e-mail.
->
-> Please file bugs as described at [1].
+Hi Maarten,
 
-Okay, I have added additional information on
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16735.
+kernel test robot noticed the following build warnings:
 
-> Thanks,
-> Jani.
->
-> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.ht=
-ml
->
->
-> --
-> Jani Nikula, Intel
+[auto build test WARNING on drm-i915/for-linux-next]
+[also build test WARNING on drm-i915/for-linux-next-fixes drm-tip/drm-tip drm/drm-next drm-misc/drm-misc-next daeinki-drm-exynos/exynos-drm-next linus/master v7.2-rc5 next-20260731]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Thank you.
+url:    https://github.com/intel-lab-lkp/linux/commits/Maarten-Lankhorst/drm-i915-Disable-busy-pmu-event-on-CONFIG_PREEMPT_RT/20260731-223850
+base:   https://gitlab.freedesktop.org/drm/i915/kernel.git for-linux-next
+patch link:    https://lore.kernel.org/r/20260623132734.227322-1-dev%40lankhorst.se
+patch subject: [PATCH v9.6] drm/i915: Disable "busy" pmu event on CONFIG_PREEMPT_RT
+config: i386-randconfig-141-20260801 (https://download.01.org/0day-ci/archive/20260801/202608010845.CPpXaIeD-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+smatch: v0.5.0-9187-g5189e3fb
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260801/202608010845.CPpXaIeD-lkp@intel.com/reproduce)
 
---=20
-Best regards,
-Tadeus
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608010845.CPpXaIeD-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/i915/i915_pmu.c:560:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+     560 |         case I915_SAMPLE_WAIT:
+         |         ^
+   drivers/gpu/drm/i915/i915_pmu.c:560:2: note: insert 'break;' to avoid fall-through
+     560 |         case I915_SAMPLE_WAIT:
+         |         ^
+         |         break; 
+   1 warning generated.
+
+
+vim +560 drivers/gpu/drm/i915/i915_pmu.c
+
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21  550  
+109ec558370f781 Tvrtko Ursulin    2018-01-11  551  static int
+109ec558370f781 Tvrtko Ursulin    2018-01-11  552  engine_event_status(struct intel_engine_cs *engine,
+109ec558370f781 Tvrtko Ursulin    2018-01-11  553  		    enum drm_i915_pmu_engine_sample sample)
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21  554  {
+109ec558370f781 Tvrtko Ursulin    2018-01-11  555  	switch (sample) {
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21  556  	case I915_SAMPLE_BUSY:
+ae7243df39c4099 Maarten Lankhorst 2026-06-23  557  		/* The guc submission engine->busyness() callback has issues with CONFIG_PREEMPT_RT */
+ae7243df39c4099 Maarten Lankhorst 2026-06-23  558  		if (IS_ENABLED(CONFIG_PREEMPT_RT) && intel_uc_uses_guc_submission(&engine->gt->uc))
+ae7243df39c4099 Maarten Lankhorst 2026-06-23  559  			return -ENODEV;
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21 @560  	case I915_SAMPLE_WAIT:
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21  561  		break;
+b46a33e271ed81b Tvrtko Ursulin    2017-11-21  562  	case I915_SAMPLE_SEMA:
+651e7d48577ae28 Lucas De Marchi   2021-06-05  563  		if (GRAPHICS_VER(engine->i915) < 6)
+109ec558370f781 Tvrtko Ursulin    2018-01-11  564  			return -ENODEV;
+109ec558370f781 Tvrtko Ursulin    2018-01-11  565  		break;
+109ec558370f781 Tvrtko Ursulin    2018-01-11  566  	default:
+109ec558370f781 Tvrtko Ursulin    2018-01-11  567  		return -ENOENT;
+109ec558370f781 Tvrtko Ursulin    2018-01-11  568  	}
+109ec558370f781 Tvrtko Ursulin    2018-01-11  569  
+109ec558370f781 Tvrtko Ursulin    2018-01-11  570  	return 0;
+109ec558370f781 Tvrtko Ursulin    2018-01-11  571  }
+109ec558370f781 Tvrtko Ursulin    2018-01-11  572  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
