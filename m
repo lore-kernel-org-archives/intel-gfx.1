@@ -4,84 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DAF8C55184
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A04C55182
+	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 14:01:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69BB10E6B9;
-	Mon,  3 Aug 2026 13:11:49 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.srl header.i=@kernel.srl header.b="MZDZr3iP";
-	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DA7210E435
- for <intel-gfx@lists.freedesktop.org>; Sun,  2 Aug 2026 17:07:02 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-496b7622a83so8052365e9.2
- for <intel-gfx@lists.freedesktop.org>; Sun, 02 Aug 2026 10:07:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernel.srl; s=google; t=1785690421; x=1786295221; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BRAy2nVyQPy4R9FHWUMzTGUQy8Oyu41Og5cXR0XYVss=;
- b=MZDZr3iPGjvriRzFaq1J42OFHTpqPDE699owHosylqzoEEfExish/+umtooucTo0hm
- neuvVZM/cwNeqJ/MkBynNEK/460ylRUN4jvENrVNj0b9hmtJmgDDjdx3QYCnrqg/5xzM
- HDZZVyffG3y4bKdl47Lvbgv4s3reLFwEJelWDJui2N+SvlJnLV121/gAWiI/6YHun4HA
- qMs2WnVkpTfu9XtkKPyMMLuNrT7LGXixhSrTdOt0qGQt66Ng+56pI5EfBu5TQMpJCD1q
- uiAXEETTFKHm2rMszUXZR+ETaGhwFl5b41oXD4xcz/7JcdpDZ+VjtRn5dL5f+RbkhSNj
- huHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785690421; x=1786295221;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=BRAy2nVyQPy4R9FHWUMzTGUQy8Oyu41Og5cXR0XYVss=;
- b=gKgeA3IpBNMgdXnVy9Fm+5o7jNXzNigGLdJMzVrO8/yJJbwGEu9q49agReww9y5DhC
- TuEr7UDrp2hCsCSlbzG9tnV6zHfwHjp5PFS+iAYn8La+ZzvMUcqaTyYgw/nvtuwoVBaj
- K+NT8CIHNeZjaUVmjSY8bV4Ciu/jTAIpIiB8sGDh47kED6vA+QL7V9NvGJH6WlgaRcMR
- J1vjXJn8bhIm5Fa9DGPsYwUo44vZuyUDK6EoqEw4gySXtN+lsSd38OSjT2BY0A8nPCaA
- AAXQb7mxxOwD0bsOYcf8LeDLbZN8kOHubQvPKQjnC1ZLQDvwIj4ng/89Tvnq3Tm4RVHw
- nj+g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpxcFGKUZJEYsW7QtTyo9bnwlY0jr1j0gk6k3pXK63IVeiE7Vl37HbZ8KzVQIubIUB/+Cg0RRTKDCg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyZsNw4rwTz76NvFwBKvkzIrNvXSfpuU87AyAz9ANBeTm63E4yA
- 3T7YaR6+e6F/nDe3Qif7sQO0C55+/Ynxc+zZp/4Cqo9GcwGx7RNbNnlW7tf6hSZp9E4=
-X-Gm-Gg: AR+sD134AmmTU53IfTZvPPk1bK+MIEqMfUixsVvkgMc55HW/Y+GFMMSRXvR6GT8tZsW
- APDVNRrFAnyEY2WXI9Y350CFPrJzC1nYzpAjSGAlq7gRwWCiixB5CW0Rpk+boW87gMdeg16+Lkl
- VHe5LNuNpI7FhxdGmRSis8i3Qa7BwmudPZh/9qWjrHz53yCQ0BjwLN9dSiSoYSIPzh8yq82ku0m
- +BWKzLODMM0sTv5YI3yQIhIgLfc2tIQe3gPGollE9Yv2FUHFZ9784AzyqduDCcrHWkO9fGCNATA
- mxVWx0baUMAeAHDVpCtcYYD4uAVXKGLWVlauYg37NkuOXK8ecNu6pVA3t4tGIUHtT3IEPSUFR/y
- uNQK49NNAVhBdMbVT8EK+bQ/gKf1fw9pDtVcnKyNqdSXHhKBbxfS8jZ/oGEyKbLlRZk/1iyU3Yk
- f8KuwqB8M0hb3Wcf2SosZqptG48Qu/Q2dDIKnp21Vt7MHq2Jmd8qCGmqTnZGPFIRvMNSGXsaAbV
- NSkBPmgDSuUPeS1v8vliVVH+rYC0OoC+nwFJWu0ui/Bmb0S0lXEtBpEXT2Bng60Vtzvk+9RSs+r
- iQnsSp8CyFFSeN4+hbdYCUibRaSgNn3pWGoM2XUBfl2zvM39vkHAbo2xr6FSwnmd9rjPkq68nDW
- PItbWdQawAvGAZImhVeIhBmhEBHgHvDwRWt1c+yZRHdtUwuYafQ==
-X-Received: by 2002:a05:600c:8715:b0:498:273:327a with SMTP id
- 5b1f17b1804b1-4980c66b5d5mr160221615e9.7.1785690421108; 
- Sun, 02 Aug 2026 10:07:01 -0700 (PDT)
-Received: from KITT.minareto (host-95-230-187-130.business.telecomitalia.it.
- [95.230.187.130]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49807b6745csm161687225e9.7.2026.08.02.10.06.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Aug 2026 10:07:00 -0700 (PDT)
-From: Cristian La Spina <cristian.laspina@kernel.srl>
-To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, jani.nikula@linux.intel.com,
- rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
- tursulin@ursulin.net
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Cristian La Spina <cristian.laspina@kernel.srl>
-Subject: [PATCH 2/2] drm/i915/display: accept a luminance range from any source
-Date: Sun,  2 Aug 2026 19:06:47 +0200
-Message-ID: <20260802170647.206880-3-cristian.laspina@kernel.srl>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260802170647.206880-1-cristian.laspina@kernel.srl>
-References: <20260802170647.206880-1-cristian.laspina@kernel.srl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D060510E67F;
+	Mon,  3 Aug 2026 14:01:40 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5194510E679;
+ Mon,  3 Aug 2026 14:01:40 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 03 Aug 2026 13:11:48 +0000
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm=3A_luminanc?=
+ =?utf-8?q?e_range_from_DisplayID_2=2E0?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Cristian La Spina" <cristian.laspina@kernel.srl>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 03 Aug 2026 14:01:40 -0000
+Message-ID: <178576570032.13963.7475923786454080241@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260802170647.206880-1-cristian.laspina@kernel.srl>
+In-Reply-To: <20260802170647.206880-1-cristian.laspina@kernel.srl>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,64 +37,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-intel_dp_aux_supports_hdr_backlight() refuses the Intel proprietary eDP
-backlight interface unless the panel carries CTA HDR static metadata.
-What the interface actually needs is the luminance range, and
-intel_dp_aux_hdr_setup_backlight() already reads that from
-display_info.luminance_range, which the DRM core now also fills in from
-the DisplayID 2.0 Display Parameters block.
+== Series Details ==
 
-Accept a panel whose range came from there too. Panels carrying the CTA
-metadata are unaffected, including those that provide the metadata block
-without the optional luminance bytes and so still land on the hardcoded
-512 nits fallback.
+Series: drm: luminance range from DisplayID 2.0
+URL   : https://patchwork.freedesktop.org/series/171513/
+State : failure
 
-On the Lenovo Yoga 9 2-in-1 14IPH11 this replaces a backlight that does
-not respond at all, because the PWM fallback drives nothing on an OLED
-panel, with working brightness over the 4-500 nits range the panel
-declares.
+== Summary ==
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Cristian La Spina <cristian.laspina@kernel.srl>
----
- .../drm/i915/display/intel_dp_aux_backlight.c   | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+Series author address 'cristian.laspina@kernel.srl' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/183317/ (on built-in)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 7a6c07f6a..8ac47ed18 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -136,19 +136,18 @@ intel_dp_aux_supports_hdr_backlight(struct intel_connector *connector)
- 		return false;
- 
- 	/*
--	 * If we don't have HDR static metadata there is no way to
--	 * runtime detect used range for nits based control. For now
--	 * do not use Intel proprietary eDP backlight control if we
--	 * don't have this data in panel EDID. In case we find panel
--	 * which supports only nits based control, but doesn't provide
--	 * HDR static metadata we need to start maintaining table of
--	 * ranges for such panels.
-+	 * Nits based control needs to know the panel's luminance range. The
-+	 * DRM core fills it in from CTA HDR static metadata, or from the
-+	 * DisplayID 2.0 Display Parameters block for the panels that publish
-+	 * it only there. With neither there is no way to detect the range at
-+	 * runtime, so do not use the Intel proprietary eDP backlight control.
- 	 */
- 	if (display->params.enable_dpcd_backlight != INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL &&
- 	    !(connector->base.display_info.hdr_sink_metadata.hdmi_type1.metadata_type &
--	      BIT(HDMI_STATIC_METADATA_TYPE1))) {
-+	      BIT(HDMI_STATIC_METADATA_TYPE1)) &&
-+	    !connector->base.display_info.luminance_range.max_luminance) {
- 		drm_info(display->drm,
--			 "[CONNECTOR:%d:%s] Panel is missing HDR static metadata. Possible support for Intel HDR backlight interface is not used. If your backlight controls don't work try booting with i915.enable_dpcd_backlight=%d.\n",
-+			 "[CONNECTOR:%d:%s] Panel is missing its luminance range. Possible support for Intel HDR backlight interface is not used. If your backlight controls don't work try booting with i915.enable_dpcd_backlight=%d.\n",
- 			 connector->base.base.id, connector->base.name,
- 			 INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL);
- 		return false;
--- 
-2.52.0
 
