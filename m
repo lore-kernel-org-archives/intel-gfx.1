@@ -4,59 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C70DC55822
-	for <intel-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 21:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17E6C55172
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 05:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B307010E120;
-	Mon,  3 Aug 2026 21:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38CBE10E646;
+	Tue,  4 Aug 2026 05:48:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l6htguUU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="n95Le/gA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82C9810E0A6;
- Mon,  3 Aug 2026 21:50:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31DDB10E646;
+ Tue,  4 Aug 2026 05:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785793835; x=1817329835;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=BvIsLVTjnGJia0JRVDwn/6xLfIgXvHaA7kvj6aaYSEA=;
- b=l6htguUU+up0cPCZvzVHGBZCfLMySqJE9wApcmOyR6Lztig3NFxOCgMW
- kLCn3S6NYbRicUseUcoqxAMob6USCC30Gf1aNqOKX6eXdO7jeQYbdBeJo
- VLspSYnR65w204hTX44KnYCPfpkWok1CHLIctQGlWTJjXYcny+u6eGttL
- wnBJOb2fuau6S8AXacYFMmTwDCIh+tIIwL16m4uFPdmR9Me1dg7XjBNYg
- L/0L9Yx/dWM9oGnhgk+E3rHPsG2jk/OrERIrcOljoIM2dO1JHh2mRLRtP
- FG7B0wS7znujus3i2bSN7Axekpth+/19x7AfPUKfP2p79FiDwoNeWO5SM Q==;
-X-CSE-ConnectionGUID: X0tFVYmAQMiDeRpFtrb09w==
-X-CSE-MsgGUID: AkEi1iN6QDmu8nbMmlT0lQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="97849154"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="97849154"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2026 14:50:35 -0700
-X-CSE-ConnectionGUID: C/xYupQlQf2mS2V5kQS7lg==
-X-CSE-MsgGUID: D+RSJNrCTiCmOLQCcr7x6A==
+ t=1785822497; x=1817358497;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=HknZWx6FOZ/U38YVg0Q5Ggwg1PFNlmWpXzdr96jpyys=;
+ b=n95Le/gAWtqHDtUwYiqG8njvCqt4MjVkuzGvVxs9hsl40sExjS5jeaDB
+ LTe5KW3drD5tI8hEOFGLzFR8CfEPxc9EpjgCX/DXUQiyeSlzrfJPLgwUl
+ CzG7hPepzK5VaJvlB+WC5OgfkkHB7dqApz9P1TaRUag9oc+mRIRv93vhi
+ 1H2lBg3XsIJO9tiQFyf7Dcp5R/BzFU5x7E4zMIOJGvbcesBe+ChvDlnKK
+ LwI849tGrX7/cNsy2VvtPzhk9/r2uhY/lCMYBEruIQMzZW5Lg1//U0REG
+ KDYkCPE2bs/K70HPLK1ydLH2dMdLzinYKF0v6J9D8AmBfWSBFydmPJtw0 w==;
+X-CSE-ConnectionGUID: pjnNC9sUQ/O87RsF2QXKHQ==
+X-CSE-MsgGUID: JQb8Xt2OTEuyAkqr9dZCBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86399060"
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="86399060"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2026 22:48:15 -0700
+X-CSE-ConnectionGUID: NjsAq4usSDCbujpJO3xr3Q==
+X-CSE-MsgGUID: F1SEpU1tQumqQdQ6xIKgBQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="291272107"
-Received: from dev-417.igk.intel.com ([10.91.214.181])
- by orviesa002.jf.intel.com with ESMTP; 03 Aug 2026 14:50:34 -0700
-From: =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@intel.com>,
- =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- stable@vger.kernel.org
-Subject: [PATCH v2 4/4] drm/i915/3dlut: disable 3D LUT if unsupported
-Date: Mon,  3 Aug 2026 23:49:09 +0200
-Message-ID: <20260803214909.3076716-5-michal.grzelak@intel.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20260803214909.3076716-1-michal.grzelak@intel.com>
-References: <20260803214909.3076716-1-michal.grzelak@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="261479075"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa007.jf.intel.com with ESMTP; 03 Aug 2026 22:48:13 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, jani.nikula@intel.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH] drm/dp: Add EDP_20 rev definition
+Date: Tue,  4 Aug 2026 11:18:06 +0530
+Message-Id: <20260804054806.1110078-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,48 +66,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-XE2LPD_DE_CAP_3DLUT_MASK is defined but never used.
+Add EDP_20 DPCD revision definition.
 
-Check DE_CAP with the mask whether 3D LUT is disabled for LNL+. Reset
-has_3dlut if that is the case.
-
-Bspec: 71161
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: <stable@vger.kernel.org>
-Fixes: 6d181a288e64 ("drm/i915/xe2lpd: update the dsc feature capability")
-Signed-off-by: Michał Grzelak <michal.grzelak@intel.com>
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_device.c | 4 ++++
- drivers/gpu/drm/i915/display/intel_display_regs.h   | 1 +
- 2 files changed, 5 insertions(+)
+ include/drm/display/drm_dp.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_device.c b/drivers/gpu/drm/i915/display/intel_display_device.c
-index a2bea5ac59cf..d4e52e627b34 100644
---- a/drivers/gpu/drm/i915/display/intel_display_device.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_device.c
-@@ -1940,6 +1940,10 @@ static void __intel_display_device_info_runtime_init(struct intel_display *displ
- 	if (DISPLAY_VER(display) >= 20) {
- 		u32 cap = intel_de_read(display, XE2LPD_DE_CAP);
+diff --git a/include/drm/display/drm_dp.h b/include/drm/display/drm_dp.h
+index 8b0ca36083dd..e63c7f075f54 100644
+--- a/include/drm/display/drm_dp.h
++++ b/include/drm/display/drm_dp.h
+@@ -1035,6 +1035,7 @@
+ # define DP_EDP_14a                         0x04    /* eDP 1.4a */
+ # define DP_EDP_14b                         0x05    /* eDP 1.4b */
+ # define DP_EDP_15			    0x06    /* eDP 1.5 */
++# define DP_EDP_20			    0x07    /* eDP 2.0 */
  
-+		if (REG_FIELD_GET(XE2LPD_DE_CAP_3DLUT_MASK, cap) ==
-+		    XE2LPD_DE_CAP_3DLUT_REMOVED)
-+			display_runtime->has_3dlut = 0;
-+
- 		if (REG_FIELD_GET(XE2LPD_DE_CAP_DSC_MASK, cap) ==
- 		    XE2LPD_DE_CAP_DSC_REMOVED)
- 			display_runtime->has_dsc = 0;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_regs.h b/drivers/gpu/drm/i915/display/intel_display_regs.h
-index 740331ead20a..78b9e6008828 100644
---- a/drivers/gpu/drm/i915/display/intel_display_regs.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_regs.h
-@@ -1773,6 +1773,7 @@
- 
- #define XE2LPD_DE_CAP			_MMIO(0x41100)
- #define   XE2LPD_DE_CAP_3DLUT_MASK	REG_GENMASK(31, 30)
-+#define   XE2LPD_DE_CAP_3DLUT_REMOVED	1
- #define   XE2LPD_DE_CAP_DSC_MASK	REG_GENMASK(29, 28)
- #define   XE2LPD_DE_CAP_DSC_REMOVED	1
- #define   XE2LPD_DE_CAP_SCALER_MASK	REG_GENMASK(27, 26)
+ #define DP_EDP_GENERAL_CAP_1		    0x701
+ # define DP_EDP_TCON_BACKLIGHT_ADJUSTMENT_CAP		(1 << 0)
 -- 
-2.45.2
+2.34.1
 
