@@ -4,54 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4585DC5518F
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:56:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D475C55172
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 10:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B51E610E98B;
-	Tue,  4 Aug 2026 09:56:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dXcWfwtp";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D54410E98A;
- Tue,  4 Aug 2026 09:56:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785837414; x=1817373414;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=ledaO8Y0jGfNtMtakRCsrV7FSdLTzO487eh9dfx+isE=;
- b=dXcWfwtp4WR3trv7aTqv2NoYnGhjlTqrxLE693fyZzAxV5oKUIrvL8Vu
- VhgicLIDXFZX08U8j0TvXuu6eNuFa/PkcsZzCUT+H9o1R92VowhTMaeeW
- piP9rgPohc722yID+nAMEJxq5eC5yapWCv6uoZmaotj53DxiH7iVzgumC
- ATlny4ppNvr/Pj07leIZQwE9T0rCTYrgLg50rh9jRLaP+pn6hh7M724Gt
- PtgQMOEvsTXopS5OCfmXd4XGtRgWZ5xdmKBPoChPAJ1itZynQLL/EQVCj
- 98pmPWDC+i19vT11ZMaJkO/+DbG5EM6orYM9gYSl6WM8ZLm44rMumW686 g==;
-X-CSE-ConnectionGUID: 0l5GT06MTPqaaiDBR7FY7A==
-X-CSE-MsgGUID: Kro/tATbQha0gfb4b0HJzg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="73922214"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="73922214"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 02:56:52 -0700
-X-CSE-ConnectionGUID: TsN3i6KQRBOrEDyD7gKfmg==
-X-CSE-MsgGUID: 3izzq0G+RgCW9Wg3H2QFVA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="284846153"
-Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by fmviesa002.fm.intel.com with ESMTP; 04 Aug 2026 02:45:58 -0700
-From: Arun R Murthy <arun.r.murthy@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Arun R Murthy <arun.r.murthy@intel.com>
-Subject: [PATCH] drm/i915/mst: let the branch-sink check uncompressed with
- 18bpp
-Date: Tue,  4 Aug 2026 15:14:50 +0530
-Message-Id: <20260804094450.125307-1-arun.r.murthy@intel.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 341308913D;
+	Tue,  4 Aug 2026 10:53:12 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3365E10E15D;
+ Tue,  4 Aug 2026 10:53:11 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1072184264586702143=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/tests/gpu=5Fbuddy=3A_?=
+ =?utf-8?q?fix_interleaving_in_buffer_clearance_test_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Arunpravin Paneer Selvam" <arunpravin.paneerselvam@amd.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 04 Aug 2026 10:53:11 -0000
+Message-ID: <178584079120.17168.12164148347613798975@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260803065656.2960810-1-Arunpravin.PaneerSelvam@amd.com>
+In-Reply-To: <20260803065656.2960810-1-Arunpravin.PaneerSelvam@amd.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,96 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-mst_connector_mode_valid_ctx() uses a single 18bpp floor for both
-the source-link BW check and the last-branch→sink PBN check, and
-only drops it to the DSC-compressed minimum when the branch is in
-DSC pass-through mode. This rejects modes on topologies where the
-branch decodes DSC locally — the source→branch segment is actually
-compressed and should not be gated by the 18bpp floor, while only
-the last-branch→sink segment needs to remain at 18bpp.
+--===============1072184264586702143==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-The source-to-first-branch MST link carries DSC-compressed data
-whenever any device along the path (a DSC pass-through branch, an
-intermediate decoder-in-branch, or the endpoint sink) is able to
-decode DSC. In all those cases the source can emit the stream
-compressed and the check against the source link BW should use the
-minimum compressed bpp, not the uncompressed 18bpp floor.
+== Series Details ==
 
-The last-branch-to-sink segment however is only compressed when the
-path is true DSC pass-through; if the branch decodes locally and
-re-transmits uncompressed, that segment must still fit at the
-uncompressed 18bpp floor. That case is handled via port->full_pbn
-below.
+Series: drm/tests/gpu_buddy: fix interleaving in buffer clearance test (rev2)
+URL   : https://patchwork.freedesktop.org/series/170883/
+State : success
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16640
-Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp_mst.c | 23 +++++++++------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 3be1643f8d03..2e8f4c31e07f 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -1519,7 +1519,8 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 	int max_rate, mode_rate, max_lanes, max_link_clock;
- 	unsigned long bw_overhead_flags =
- 		DRM_DP_BW_OVERHEAD_MST | DRM_DP_BW_OVERHEAD_SSC_REF_CLK;
--	int min_link_bpp_x16 = fxp_q4_from_int(18);
-+	int src_min_link_bpp_x16 = fxp_q4_from_int(18);
-+	int sink_min_link_bpp_x16 = fxp_q4_from_int(18);
- 	struct intel_dp_link_config max_bw_config;
- 	static bool supports_dsc;
- 	int ret;
-@@ -1549,9 +1550,13 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 	supports_dsc = intel_dp_has_dsc(connector) &&
- 		       drm_dp_sink_supports_fec(connector->dp.fec_capability);
- 
-+	if (supports_dsc && connector->dp.dsc_decompression_aux)
-+		src_min_link_bpp_x16 =
-+			intel_dp_compute_min_compressed_bpp_x16(connector,
-+								INTEL_OUTPUT_FORMAT_RGB);
-+
- 	if (supports_dsc && connector->mst.port->passthrough_aux)
--		min_link_bpp_x16 = intel_dp_compute_min_compressed_bpp_x16(connector,
--									   INTEL_OUTPUT_FORMAT_RGB);
-+		sink_min_link_bpp_x16 = src_min_link_bpp_x16;
- 
- 	intel_dp_link_caps_get_max_bw_config(intel_dp->link.caps, &max_bw_config);
- 	max_link_clock = max_bw_config.rate;
-@@ -1561,19 +1566,11 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 					       max_link_clock, max_lanes);
- 	mode_rate = intel_dp_link_required(max_link_clock, max_lanes,
- 					   mode->clock, mode->hdisplay,
--					   min_link_bpp_x16,
-+					   src_min_link_bpp_x16,
- 					   bw_overhead_flags);
- 
- 	/*
- 	 * TODO:
--	 * - Also check if compression would allow for the mode
--	 *   in non-passthrough mode, i.e. the last branch device
--	 *   decompressing the stream. This makes a difference only if
--	 *   the BW on the link between the last branch device and the
--	 *   sink is higher than the BW on the whole MST path from the
--	 *   source to the last branch device. Relying on the extra BW
--	 *   this provides also requires the
--	 *   DFP_Link_Available_Payload_Bandwidth_Number described below.
- 	 * - Calculate the overhead using drm_dp_bw_overhead() /
- 	 *   drm_dp_bw_channel_coding_efficiency(), similarly to the
- 	 *   compute config code, as drm_dp_calc_pbn_mode() doesn't
-@@ -1588,7 +1585,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
- 		return ret;
- 
- 	if (mode_rate > max_rate ||
--	    drm_dp_calc_pbn_mode(mode->clock, min_link_bpp_x16) > port->full_pbn) {
-+	    drm_dp_calc_pbn_mode(mode->clock, sink_min_link_bpp_x16) > port->full_pbn) {
- 		*status = MODE_CLOCK_HIGH;
- 		return 0;
- 	}
--- 
-2.25.1
+CI Bug Log - changes from CI_DRM_18938 -> Patchwork_170883v2
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/index.html
+
+Participating hosts (39 -> 37)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_170883v2 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live:
+    - bat-mtlp-8:         [INCOMPLETE][1] ([i915#16229]) -> [PASS][2] +1 other test pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18938/bat-mtlp-8/igt@i915_selftest@live.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/bat-mtlp-8/igt@i915_selftest@live.html
+
+  
+  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18938 -> Patchwork_170883v2
+
+  CI-20190529: 20190529
+  CI_DRM_18938: f8d080b47819f01011c1b9c3c875badbb67ec955 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9036: 9036
+  Patchwork_170883v2: f8d080b47819f01011c1b9c3c875badbb67ec955 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/index.html
+
+--===============1072184264586702143==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/tests/gpu_buddy: fix interleaving in buffer clearance test (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170883/">https://patchwork.freedesktop.org/series/170883/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18938 -&gt; Patchwork_170883v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/index.html</p>
+<h2>Participating hosts (39 -&gt; 37)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170883v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@i915_selftest@live:<ul>
+<li>bat-mtlp-8:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18938/bat-mtlp-8/igt@i915_selftest@live.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170883v2/bat-mtlp-8/igt@i915_selftest@live.html">PASS</a> +1 other test pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18938 -&gt; Patchwork_170883v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18938: f8d080b47819f01011c1b9c3c875badbb67ec955 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9036: 9036<br />
+  Patchwork_170883v2: f8d080b47819f01011c1b9c3c875badbb67ec955 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1072184264586702143==--
