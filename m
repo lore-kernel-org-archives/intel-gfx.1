@@ -4,57 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F396C55ABA
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:29:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4585DC5518F
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 125BF10E941;
-	Tue,  4 Aug 2026 09:29:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B51E610E98B;
+	Tue,  4 Aug 2026 09:56:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bP5W+i+o";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dXcWfwtp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CC4910E94F;
- Tue,  4 Aug 2026 09:29:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D54410E98A;
+ Tue,  4 Aug 2026 09:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785835786; x=1817371786;
- h=from:date:subject:mime-version:content-transfer-encoding:
- message-id:references:in-reply-to:to:cc;
- bh=bb2/7QDp0Q3hqTXE9zXEOpYNFCRv+Yj0c+HKl1iXmYo=;
- b=bP5W+i+o2BnVmEMmp/2kYpfow9guF6WnCwBIYg6DGraQ/sDKvcBAdN7r
- msYfhxNEUksTKeDkR+hJpwLhWFOr7nj1CgH/pF3UC98aopHDwsg4B1pJN
- pkW3tfuoQ2y8UZOr1E0qsgOnXOsh8HS35xZMcNxailm9tjBkoHiRWhPzp
- 35j2cLIxHi++7oTZ5nQnCBKZqonvzGQ6RWBH2MEthzvuz4lIlpE0IjEFT
- QuDn7QBqWpzyxorD1Tvxyns/Sm51TZPDpjNjNYnAjCLBIkCC5feQJfY5E
- prtcTX+nQ1Ws7+347wc/U/MxDKM1mdWm/NfOfWcMgm5PNr+U/w78nwAoA Q==;
-X-CSE-ConnectionGUID: +Vz32sQBRqmJCuoe5v5O+w==
-X-CSE-MsgGUID: ukSki85bQxSZpCAvCT4p0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="97034049"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="97034049"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 02:29:45 -0700
-X-CSE-ConnectionGUID: mGbgW/7NSKa+KdsDsp5QfA==
-X-CSE-MsgGUID: lAOiSggbQsSfpqJDbEL31A==
+ t=1785837414; x=1817373414;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ledaO8Y0jGfNtMtakRCsrV7FSdLTzO487eh9dfx+isE=;
+ b=dXcWfwtp4WR3trv7aTqv2NoYnGhjlTqrxLE693fyZzAxV5oKUIrvL8Vu
+ VhgicLIDXFZX08U8j0TvXuu6eNuFa/PkcsZzCUT+H9o1R92VowhTMaeeW
+ piP9rgPohc722yID+nAMEJxq5eC5yapWCv6uoZmaotj53DxiH7iVzgumC
+ ATlny4ppNvr/Pj07leIZQwE9T0rCTYrgLg50rh9jRLaP+pn6hh7M724Gt
+ PtgQMOEvsTXopS5OCfmXd4XGtRgWZ5xdmKBPoChPAJ1itZynQLL/EQVCj
+ 98pmPWDC+i19vT11ZMaJkO/+DbG5EM6orYM9gYSl6WM8ZLm44rMumW686 g==;
+X-CSE-ConnectionGUID: 0l5GT06MTPqaaiDBR7FY7A==
+X-CSE-MsgGUID: Kro/tATbQha0gfb4b0HJzg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="73922214"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="73922214"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 02:56:52 -0700
+X-CSE-ConnectionGUID: TsN3i6KQRBOrEDyD7gKfmg==
+X-CSE-MsgGUID: 3izzq0G+RgCW9Wg3H2QFVA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="259669123"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="284846153"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa006.jf.intel.com with ESMTP; 04 Aug 2026 02:29:44 -0700
+ by fmviesa002.fm.intel.com with ESMTP; 04 Aug 2026 02:45:58 -0700
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Tue, 04 Aug 2026 14:58:30 +0530
-Subject: [PATCH 1/2] drm/i915/display: Seed skl_cdclk_init_hw() with
- SKU-max, not zero
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH] drm/i915/mst: let the branch-sink check uncompressed with
+ 18bpp
+Date: Tue,  4 Aug 2026 15:14:50 +0530
+Message-Id: <20260804094450.125307-1-arun.r.murthy@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260804-cdclk-v1-1-484864b1aafd@intel.com>
-References: <20260804-cdclk-v1-0-484864b1aafd@intel.com>
-In-Reply-To: <20260804-cdclk-v1-0-484864b1aafd@intel.com>
-To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Arun R Murthy <arun.r.murthy@intel.com>, 
- =?utf-8?q?Polo-Fran=C3=A7ois_Poli?= <polo.code.dev@gmail.com>
-X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,115 +67,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-skl_cdclk_init_hw() has a recovery path that runs when skl_sanitize_cdclk()
-has decided the pre-OS CDCLK state is not usable and zeroes
-display->cdclk.hw.
+mst_connector_mode_valid_ctx() uses a single 18bpp floor for both
+the source-link BW check and the last-branch→sink PBN check, and
+only drops it to the DSC-compressed minimum when the branch is in
+DSC pass-through mode. This rejects modes on topologies where the
+branch decodes DSC locally — the source→branch segment is actually
+compressed and should not be gated by the 18bpp floor, while only
+the last-branch→sink segment needs to remain at 18bpp.
 
-Seed with the SKU-permitted maximum instead (as read from SKL_DFSM), so
-the recovery path lands on a cdclk that satisfies every pipe on the SKU.
-The very first atomic commit that follows will dial cdclk down to what
-active pipes actually need via the normal skl_modeset_calc_cdclk() path.
+The source-to-first-branch MST link carries DSC-compressed data
+whenever any device along the path (a DSC pass-through branch, an
+intermediate decoder-in-branch, or the endpoint sink) is able to
+decode DSC. In all those cases the source can emit the stream
+compressed and the check against the source link BW should use the
+minimum compressed bpp, not the uncompressed 18bpp floor.
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16595
+The last-branch-to-sink segment however is only compressed when the
+path is true DSC pass-through; if the branch decodes locally and
+re-transmits uncompressed, that segment must still fit at the
+uncompressed 18bpp floor. That case is handled via port->full_pbn
+below.
+
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16640
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
-Tested-by: Polo-François Poli <polo.code.dev@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_cdclk.c | 65 +++++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_dp_mst.c | 23 +++++++++------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index a53d887271778193fd400b9199ad841d5d9730fe..19f3ef8adfcded378428924539db9336834278ea 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -1288,6 +1288,31 @@ static void skl_sanitize_cdclk(struct intel_display *display)
- 	display->cdclk.hw.vco = ~0;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 3be1643f8d03..2e8f4c31e07f 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -1519,7 +1519,8 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 	int max_rate, mode_rate, max_lanes, max_link_clock;
+ 	unsigned long bw_overhead_flags =
+ 		DRM_DP_BW_OVERHEAD_MST | DRM_DP_BW_OVERHEAD_SSC_REF_CLK;
+-	int min_link_bpp_x16 = fxp_q4_from_int(18);
++	int src_min_link_bpp_x16 = fxp_q4_from_int(18);
++	int sink_min_link_bpp_x16 = fxp_q4_from_int(18);
+ 	struct intel_dp_link_config max_bw_config;
+ 	static bool supports_dsc;
+ 	int ret;
+@@ -1549,9 +1550,13 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 	supports_dsc = intel_dp_has_dsc(connector) &&
+ 		       drm_dp_sink_supports_fec(connector->dp.fec_capability);
  
-+/*
-+ * Seed cdclk from the SKU-permitted maximum. Used by skl_cdclk_init_hw()'s
-+ * recovery path when skl_sanitize_cdclk() has decided the pre-OS CDCLK state
-+ * is not usable and has zeroed display->cdclk.hw.
-+ * Seed with the SKU top instead: it is guaranteed to satisfy every pipe on
-+ * the platform, and the very first atomic commit will dial cdclk down via
-+ * skl_modeset_calc_cdclk() once per-pipe min_cdclk is known.
-+ */
-+static int skl_cdclk_init_hw_seed(struct intel_display *display, int vco)
-+{
-+	u32 limit = intel_de_read(display, SKL_DFSM) & SKL_DFSM_CDCLK_LIMIT_MASK;
-+	int max_cdclk;
++	if (supports_dsc && connector->dp.dsc_decompression_aux)
++		src_min_link_bpp_x16 =
++			intel_dp_compute_min_compressed_bpp_x16(connector,
++								INTEL_OUTPUT_FORMAT_RGB);
 +
-+	if (limit == SKL_DFSM_CDCLK_LIMIT_675)
-+		max_cdclk = 617143;
-+	else if (limit == SKL_DFSM_CDCLK_LIMIT_540)
-+		max_cdclk = 540000;
-+	else if (limit == SKL_DFSM_CDCLK_LIMIT_450)
-+		max_cdclk = 432000;
-+	else
-+		max_cdclk = 308571;
-+
-+	return skl_calc_cdclk(max_cdclk, vco);
-+}
-+
- static void skl_cdclk_init_hw(struct intel_display *display)
- {
- 	struct intel_cdclk_config cdclk_config;
-@@ -1311,9 +1336,14 @@ static void skl_cdclk_init_hw(struct intel_display *display)
- 	cdclk_config.vco = display->cdclk.skl_preferred_vco_freq;
- 	if (cdclk_config.vco == 0)
- 		cdclk_config.vco = 8100000;
--	cdclk_config.cdclk = skl_calc_cdclk(0, cdclk_config.vco);
-+
-+	cdclk_config.cdclk = skl_cdclk_init_hw_seed(display, cdclk_config.vco);
- 	cdclk_config.voltage_level = skl_calc_voltage_level(cdclk_config.cdclk);
+ 	if (supports_dsc && connector->mst.port->passthrough_aux)
+-		min_link_bpp_x16 = intel_dp_compute_min_compressed_bpp_x16(connector,
+-									   INTEL_OUTPUT_FORMAT_RGB);
++		sink_min_link_bpp_x16 = src_min_link_bpp_x16;
  
-+	drm_dbg_kms(display->drm,
-+		    "cdclk: init seed cdclk=%d vco=%d volt=%d (SKU-max, no per-pipe min_cdclk yet)\n",
-+		    cdclk_config.cdclk, cdclk_config.vco, cdclk_config.voltage_level);
-+
- 	skl_set_cdclk(display, &cdclk_config, INVALID_PIPE);
- }
+ 	intel_dp_link_caps_get_max_bw_config(intel_dp->link.caps, &max_bw_config);
+ 	max_link_clock = max_bw_config.rate;
+@@ -1561,19 +1566,11 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 					       max_link_clock, max_lanes);
+ 	mode_rate = intel_dp_link_required(max_link_clock, max_lanes,
+ 					   mode->clock, mode->hdisplay,
+-					   min_link_bpp_x16,
++					   src_min_link_bpp_x16,
+ 					   bw_overhead_flags);
  
-@@ -4231,6 +4261,39 @@ void intel_cdclk_read_hw(struct intel_display *display)
- 	cdclk_state->logical = display->cdclk.hw;
- }
+ 	/*
+ 	 * TODO:
+-	 * - Also check if compression would allow for the mode
+-	 *   in non-passthrough mode, i.e. the last branch device
+-	 *   decompressing the stream. This makes a difference only if
+-	 *   the BW on the link between the last branch device and the
+-	 *   sink is higher than the BW on the whole MST path from the
+-	 *   source to the last branch device. Relying on the extra BW
+-	 *   this provides also requires the
+-	 *   DFP_Link_Available_Payload_Bandwidth_Number described below.
+ 	 * - Calculate the overhead using drm_dp_bw_overhead() /
+ 	 *   drm_dp_bw_channel_coding_efficiency(), similarly to the
+ 	 *   compute config code, as drm_dp_calc_pbn_mode() doesn't
+@@ -1588,7 +1585,7 @@ mst_connector_mode_valid_ctx(struct drm_connector *_connector,
+ 		return ret;
  
-+/**
-+ * intel_cdclk_sync_hw_state - Adopt the HW-asserted cdclk into SW state.
-+ * @display: display instance
-+ * @hw_config: the cdclk configuration as currently read back from HW
-+ *
-+ * This helper reconciles the SW state to match what HW is currently asserting.
-+ * It updates display->cdclk.hw and the committed cdclk_state's actual/logical
-+ * so that any following atomic commit sees a truthful baseline and will
-+ * naturally attach a cdclk_state (via intel_cdclk_atomic_check()) to raise
-+ * cdclk when the workload demands it.
-+ */
-+void intel_cdclk_sync_hw_state(struct intel_display *display,
-+			       const struct intel_cdclk_config *hw_config)
-+{
-+	struct intel_cdclk_state *cdclk_state =
-+		to_intel_cdclk_state(display->cdclk.obj.state);
-+
-+	if (!intel_cdclk_clock_changed(&display->cdclk.hw, hw_config))
-+		return;
-+
-+	drm_dbg_kms(display->drm,
-+		    "cdclk: syncing SW state to HW after drift (sw %d/vco %d/ref %d -> hw %d/vco %d/ref %d)\n",
-+		    display->cdclk.hw.cdclk, display->cdclk.hw.vco, display->cdclk.hw.ref,
-+		    hw_config->cdclk, hw_config->vco, hw_config->ref);
-+
-+	display->cdclk.hw.cdclk = hw_config->cdclk;
-+	display->cdclk.hw.vco = hw_config->vco;
-+	display->cdclk.hw.ref = hw_config->ref;
-+
-+	cdclk_state->actual = display->cdclk.hw;
-+	cdclk_state->logical = display->cdclk.hw;
-+}
-+
- static int calc_cdclk(const struct intel_crtc_state *crtc_state, int min_cdclk)
- {
- 	struct intel_display *display = to_intel_display(crtc_state);
-
+ 	if (mode_rate > max_rate ||
+-	    drm_dp_calc_pbn_mode(mode->clock, min_link_bpp_x16) > port->full_pbn) {
++	    drm_dp_calc_pbn_mode(mode->clock, sink_min_link_bpp_x16) > port->full_pbn) {
+ 		*status = MODE_CLOCK_HIGH;
+ 		return 0;
+ 	}
 -- 
 2.25.1
 
