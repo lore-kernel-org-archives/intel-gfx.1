@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E94BC55184
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 13:51:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57046C5518F
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4F7110EA59;
-	Tue,  4 Aug 2026 13:51:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E530710E165;
+	Tue,  4 Aug 2026 14:22:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iG/dtdeh";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Se0z9LkI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0C0D10EA47;
- Tue,  4 Aug 2026 13:51:23 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D156510E165;
+ Tue,  4 Aug 2026 14:22:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785851483; x=1817387483;
+ t=1785853335; x=1817389335;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:content-transfer-encoding:in-reply-to;
- bh=7bIG1HRzvtOfObjOdqK6+arct743T/lTsJzgChsHWhw=;
- b=iG/dtdehjMGFMIZGEZnPuWyugRemFU42RIlYCchgRbJp58NJClJ0gU2r
- hPjZY6ZgdBWQyA89QBt7UmnUxI4lfxOPg+2prMG/GreSOS1A1J8wlcltY
- sgybcGKy0gGGm//EbGJCscI+WBGed9lXysNgvVMckvqy9ZmGkNT2p10Kd
- 4y2kCzehEM6vnvjmYWT12eRjke5XMAqp1fBn0lbrcCZAUZ8jyUR7PSh+f
- 2T2/ixhHhp2Z6TfyAWL49ywLACWtoWtPK3bkWC6kwjEZ9K2n6kNeLuezb
- umOZKsT2AvPEb1wGlIHTztiQT431TAxj8IK9nywMRnfH/dWNvifySdDz8 Q==;
-X-CSE-ConnectionGUID: qJrWzddTSVejyiuiv8CZ2w==
-X-CSE-MsgGUID: bLnaMMlcQdGNNcUfX/H1Ow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="97908589"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="97908589"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 06:51:23 -0700
-X-CSE-ConnectionGUID: 4ayE50L8Q467R/GCSfrsow==
-X-CSE-MsgGUID: JWwjPt+6QwaOi0m5bfeSEg==
+ bh=7hQdiRDNFKy/FYkb0/7YHXHbCDumIzmCOH11rZDRElo=;
+ b=Se0z9LkIbShcsDYeaCH04rzix0Qt978hIHezTwpo2lZpywCkalcATL34
+ cnp36LVqtPC8uVmtShHi43QWgVnL6Vdrn95+gTOA4QWjyZJXdZruhR4zM
+ kg9Q52kFbZqBpHK41Ock9aVzFA2WIkoyj6tnQ/Z4AAXDzxyMiiCCx+YOk
+ q7jXjaU5SzFUtiqqqpgiEzO6DP7HxoS0SkEl6Y/yALL5twS3qzraHN1lr
+ rqFzRAhOwPCTK+NO0p8n3+uygKthlCIdXsU0pxbfERxEGsVj6NLiStMrE
+ G62t4jRplJhOFNsucjJobDUD2k3GJgc08PSieJy7KvvyuSHDMGzoZkFi/ A==;
+X-CSE-ConnectionGUID: jr1C9kdwSCaxJmZhd6ob1g==
+X-CSE-MsgGUID: LiXdDq6uQPutjc/YefRvZQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86413882"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="86413882"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 07:22:14 -0700
+X-CSE-ConnectionGUID: f3t9+mbdRDm+EWxchFpbsQ==
+X-CSE-MsgGUID: RR+J5TANQBm5AeFhrB0LAQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="257185788"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa006.fm.intel.com with ESMTP; 04 Aug 2026 06:51:06 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wrFXr-000000009zx-3ZFX;
- Tue, 04 Aug 2026 13:51:03 +0000
-Date: Tue, 4 Aug 2026 21:50:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: yaolu@kylinos.cn, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
-Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Lu Yao <yaolu@kylinos.cn>
-Subject: Re: [PATCH] drm/i915/display: fix error handling in
- intel_display_driver_probe_noirq
-Message-ID: <202608042133.a0zParAB-lkp@intel.com>
-References: <20260630031652.67747-1-yaolu@kylinos.cn>
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="286167013"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa001.fm.intel.com with ESMTP; 04 Aug 2026 07:04:50 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+ id 7F7719B; Tue, 04 Aug 2026 16:04:49 +0200 (CEST)
+Date: Tue, 4 Aug 2026 16:04:49 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Bernd Behler <bernd@behler.me>
+Cc: linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Imre Deak <imre.deak@intel.com>
+Subject: Re: Apple Studio Display =?utf-8?Q?=282026?=
+ =?utf-8?Q?=2C_Thunderbolt_5=29_?= =?utf-8?B?4oCU?= DP tunnel torn down every
+ few minutes on Intel TB4 host
+Message-ID: <20260804140449.GA235112@black.igk.intel.com>
+References: <CAM=hwCxiJwODObeut=JcCA8jbu4C-XVEKJpR-y2MnDJibBQyOw@mail.gmail.com>
+ <20260802064729.GL20844@black.igk.intel.com>
+ <CAM=hwCytVxuqfT2d4UNaf2x5FCOpMXaaGyuQ6xEoh_+w8NVJtw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260630031652.67747-1-yaolu@kylinos.cn>
+In-Reply-To: <CAM=hwCytVxuqfT2d4UNaf2x5FCOpMXaaGyuQ6xEoh_+w8NVJtw@mail.gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,168 +76,138 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Hi,
 
-kernel test robot noticed the following build warnings:
+On Tue, Aug 04, 2026 at 10:01:32AM +0200, Bernd Behler wrote:
+> Hi Mika,
+> 
+> Traces attached, two matched trace/dmesg pairs, each captured with
+> drm.debug=0x104 plus "module thunderbolt +p", tbtrace enabled before and
+> dumped after the event:
+> 
+>   trace-tc3-domain1.out.xz / dmesg-tc3-domain1.txt.xz   controller 00:0d.3
+>   trace-tc1-domain0.out.xz / dmesg-tc1-domain0.txt.xz   controller 00:0d.2
+> 
+> Larger captures exist (up to 19M, several events each); say the word and I
+> will put them somewhere downloadable.
 
-[auto build test WARNING on drm-i915/for-linux-next]
-[also build test WARNING on drm-i915/for-linux-next-fixes linus/master v7.2-rc6 next-20260803]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Thanks! I think I need the full ones because these are just missing what
+happened right before the DP OUT unplug packet arrived. If this is the MST
+issue then the graphics driver did AUX read to certain MST range registers
+that immediately triggered the DP OUT unplug.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/yaolu-kylinos-cn/drm-i915-display-fix-error-handling-in-intel_display_driver_probe_noirq/20260804-144429
-base:   https://gitlab.freedesktop.org/drm/i915/kernel.git for-linux-next
-patch link:    https://lore.kernel.org/r/20260630031652.67747-1-yaolu%40kylinos.cn
-patch subject: [PATCH] drm/i915/display: fix error handling in intel_display_driver_probe_noirq
-config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20260804/202608042133.a0zParAB-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260804/202608042133.a0zParAB-lkp@intel.com/reproduce)
+I only need for one controller, no need for both.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608042133.a0zParAB-lkp@intel.com/
+> > Do you have full dmesg with the debugging enabled available somewhere?
+> > Can you also repro this so that you enable tracing of the TB driver and
+> > provide the output (alongside with the full dmesg so we can compare)
+> 
+> Attached, as above. Both pairs are from the same display on the two
+> different Thunderbolt controllers, and the signature is identical apart
+> from the PHY:
+> 
+>   00:0d.3, domain 1:  [ENCODER:521:DDI TC3/PHY TC3] - long
+>   00:0d.2, domain 0:  [ENCODER:540:DDI TC1/PHY TC1] - long
+> 
+> > It should tear down the tunnel at that point.
+> 
+> Understood, thanks.
+> 
+> > Those happen until GFX reads the capabilites through the DP tunnel - its
+> > normal
+> 
+> Good, I will stop treating DPRX read timeout as a symptom.
+> 
+> 
+> Both displays attached at once
+> ------------------------------
+> 
+> Since my report I ran the two models simultaneously, one on each
+> controller, in the same compositor session:
+> 
+>   DP-3  Studio Display 2026 (NVM 64.81)   domain 0
+>   DP-1  Studio Display 2022 (NVM 67.0)    domain 1
+> 
+>   Connector DP-3 disconnected    8
+>   Connector DP-3 connected       8
+>   Connector DP-1 disconnected    1
+>   Connector DP-1 connected       2
+> 
+> The 2022 unit has never blanked in use, here or at any other time. Its
+> single connector event in the log above is from cable handling, not a
+> fault.
+> 
+> This is the same-host, same-kernel, same-moment version of the comparison
+> in my original report.
+> 
+> 
+> Newly ruled out since 2026-08-01
+> --------------------------------
+> 
+> - Host firmware, completely. BIOS CRARL579.0023 (2025-03) ->
+>   CRARL579.0032 (2026-07-28). The flash displays "Updating Intel
+>   Thunderbolt Retimer FW"; retimer NVM goes 24.82 -> 26.85. That capsule
+>   also carries iTBT 16.2, IOM 30.001e.0.0, SPHY 18.1.1.7053,
+>   NPHY 18.1.0.7015, new PMC and EC. First failure 2.5 minutes after the
+>   reboot, signature unchanged.
+> 
+> - Kernel version. Identical failure on 6.18.39 LTS and on 7.1.4. Two
+>   branches roughly a year apart, so not a recent regression.
+> 
+> - Disabling Thunderbolt in the BIOS does not give a DP alt mode fallback
+>   to compare against: the Type-C port disappears entirely, no video and no
+>   USB, for either display. So I could not test this display without
+>   tunneling.
+> 
+> 
+> A TB5 sink on a TB4 host is not the issue as such
+> -------------------------------------------------
+> 
+> The 2026 display runs without fault on a Mac mini M2 Pro, which is
+> Thunderbolt 4, not 5. Combined with the 2022 unit tunneling fine on this
+> Intel host, the failure needs both this sink and this host stack.
+> 
+> 
+> > We also used to have similar issue, related to MST register access that
+> > triggered DP OUT unplug but I think that's already worked around in the
+> > graphics side for Meteor Lake.
+> 
+> This is the lead I would most like to follow. This host is Arrow Lake-H
+> (Core Ultra 5 225H, 8086:7d51). Is that workaround gated on Meteor Lake?
+> If it is, everything above fits: a host-side access pattern this sink does
+> not tolerate, absent on macOS, handled on MTL but not on ARL.
 
-All warnings (new ones prefixed by >>):
+I don't remember but Imre who is CC'd (but may be on vacation, I'll ping
+him internally just in case) should be able to tell. I think it was applied
+up to Panther Lake or so. That can be confirmed if you disable MST from
+i915 (there is a module parameter that can be used to disable it. Let me
+know if you don't find it and I will look it up).
 
-   drivers/gpu/drm/i915/display/intel_display_driver.c: In function 'intel_display_driver_probe_noirq':
->> drivers/gpu/drm/i915/display/intel_display_driver.c:309:1: warning: label 'cleanup_wq_unordered' defined but not used [-Wunused-label]
-     309 | cleanup_wq_unordered:
-         | ^~~~~~~~~~~~~~~~~~~~
+> If it is a different mechanism, what would you need from me to decide
+> whether a per-device quirk is justified?
+> 
+> 
+> I may only have this display on hand for a few more days. If you or Imre
+> want anything run on it â€” different tbtrace options, more debugging, a
+> patch â€” please say so soon and I will do it while I still can.
 
+OK.
 
-vim +/cleanup_wq_unordered +309 drivers/gpu/drm/i915/display/intel_display_driver.c
+> Unrelated oops in the same setup
+> --------------------------------
+> 
+> Separate issue, flagging it here rather than opening a thread unless you
+> prefer that. Pulling the display's mains lead while the Thunderbolt cable
+> was still attached killed the machine on the first attempt, kernel 7.1.4:
+> 
+>   Oops: general protection fault, kernel NULL pointer dereference 0x0
+>   RIP: 0010:strlen+0x4/0x30            (RDI = 0)
+>   Workqueue: events ucsi_handle_connector_change [typec_ucsi]
+>     kernfs_remove_by_name_ns
+>     typec_unregister_partner     [typec]
+>     ucsi_unregister_partner      [typec_ucsi]
+>     ucsi_handle_connector_change [typec_ucsi]
+> 
+> Looks like a partner being unregistered with a NULL name during a
+> connector-change storm. The worker dies in the global events queue and
+> userspace hangs behind it. Full dmesg available on request.
 
-62bb6b4920ce9d Jani Nikula         2023-04-14  201  
-40053823baadce Jani Nikula         2023-04-14  202  /* part #1: call before irq install */
-f5d38d4fa88441 Jani Nikula         2024-12-04  203  int intel_display_driver_probe_noirq(struct intel_display *display)
-40053823baadce Jani Nikula         2023-04-14  204  {
-40053823baadce Jani Nikula         2023-04-14  205  	int ret;
-40053823baadce Jani Nikula         2023-04-14  206  
-ff8c73b7bfb547 Jani Nikula         2026-06-15  207  	intel_opregion_setup(display);
-ff8c73b7bfb547 Jani Nikula         2026-06-15  208  
-ff8c73b7bfb547 Jani Nikula         2026-06-15  209  	/*
-ff8c73b7bfb547 Jani Nikula         2026-06-15  210  	 * Fill the dram structure to get the system dram info. This will be
-ff8c73b7bfb547 Jani Nikula         2026-06-15  211  	 * used for memory latency calculation.
-ff8c73b7bfb547 Jani Nikula         2026-06-15  212  	 */
-ff8c73b7bfb547 Jani Nikula         2026-06-15  213  	ret = intel_dram_detect(display);
-ff8c73b7bfb547 Jani Nikula         2026-06-15  214  	if (ret)
-ff8c73b7bfb547 Jani Nikula         2026-06-15  215  		goto cleanup_opregion;
-ff8c73b7bfb547 Jani Nikula         2026-06-15  216  
-ff8c73b7bfb547 Jani Nikula         2026-06-15  217  	intel_bw_init_hw(display);
-ff8c73b7bfb547 Jani Nikula         2026-06-15  218  
-f5d38d4fa88441 Jani Nikula         2024-12-04  219  	if (HAS_DISPLAY(display)) {
-f5d38d4fa88441 Jani Nikula         2024-12-04  220  		ret = drm_vblank_init(display->drm,
-f5d38d4fa88441 Jani Nikula         2024-12-04  221  				      INTEL_NUM_PIPES(display));
-40053823baadce Jani Nikula         2023-04-14  222  		if (ret)
-ff8c73b7bfb547 Jani Nikula         2026-06-15  223  			goto cleanup_opregion;
-40053823baadce Jani Nikula         2023-04-14  224  	}
-40053823baadce Jani Nikula         2023-04-14  225  
-9aec6f76a28cd6 Jani Nikula         2024-08-09  226  	intel_bios_init(display);
-40053823baadce Jani Nikula         2023-04-14  227  
-39e4d3c2f89ab8 Jouni Högander      2025-04-14  228  	intel_psr_dc5_dc6_wa_init(display);
-39e4d3c2f89ab8 Jouni Högander      2025-04-14  229  
-40053823baadce Jani Nikula         2023-04-14  230  	/* FIXME: completely on the wrong abstraction layer */
-ad5190d6f35db6 Jani Nikula         2026-05-26  231  	ret = intel_display_power_init(display);
-40053823baadce Jani Nikula         2023-04-14  232  	if (ret < 0)
-70ea362b84449b Ville Syrjälä       2025-12-08  233  		goto cleanup_bios;
-40053823baadce Jani Nikula         2023-04-14  234  
-445fc685498bbb Jani Nikula         2024-12-31  235  	intel_pmdemand_init_early(display);
-4c4cc7ac207f56 Mika Kahola         2023-06-06  236  
-771394b4fb6d7d Jani Nikula         2026-05-26  237  	intel_display_power_init_hw(display);
-40053823baadce Jani Nikula         2023-04-14  238  
-f5d38d4fa88441 Jani Nikula         2024-12-04  239  	if (!HAS_DISPLAY(display))
-40053823baadce Jani Nikula         2023-04-14  240  		return 0;
-40053823baadce Jani Nikula         2023-04-14  241  
-41837232b83874 Lu Yao              2026-06-30  242  	intel_dmc_init(display);
-41837232b83874 Lu Yao              2026-06-30  243  
-ed23224b3f5e5e Jani Nikula         2025-05-16  244  	display->hotplug.dp_wq = alloc_ordered_workqueue("intel-dp", 0);
-ed23224b3f5e5e Jani Nikula         2025-05-16  245  	if (!display->hotplug.dp_wq) {
-ed23224b3f5e5e Jani Nikula         2025-05-16  246  		ret = -ENOMEM;
-70ea362b84449b Ville Syrjälä       2025-12-08  247  		goto cleanup_pw_domain_dmc;
-ed23224b3f5e5e Jani Nikula         2025-05-16  248  	}
-ed23224b3f5e5e Jani Nikula         2025-05-16  249  
-f5d38d4fa88441 Jani Nikula         2024-12-04  250  	display->wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  251  	if (!display->wq.modeset) {
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  252  		ret = -ENOMEM;
-ed23224b3f5e5e Jani Nikula         2025-05-16  253  		goto cleanup_wq_dp;
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  254  	}
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  255  
-f5d38d4fa88441 Jani Nikula         2024-12-04  256  	display->wq.flip = alloc_workqueue("i915_flip", WQ_HIGHPRI |
-40053823baadce Jani Nikula         2023-04-14  257  						WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  258  	if (!display->wq.flip) {
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  259  		ret = -ENOMEM;
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  260  		goto cleanup_wq_modeset;
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  261  	}
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  262  
-c15d0056fb74d6 Marco Crivellari    2025-11-04  263  	display->wq.cleanup = alloc_workqueue("i915_cleanup", WQ_HIGHPRI | WQ_PERCPU, 0);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  264  	if (!display->wq.cleanup) {
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  265  		ret = -ENOMEM;
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  266  		goto cleanup_wq_flip;
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  267  	}
-40053823baadce Jani Nikula         2023-04-14  268  
-c15d0056fb74d6 Marco Crivellari    2025-11-04  269  	display->wq.unordered = alloc_workqueue("display_unordered", WQ_PERCPU, 0);
-7c377900772d8f Luca Coelho         2025-06-20  270  	if (!display->wq.unordered) {
-7c377900772d8f Luca Coelho         2025-06-20  271  		ret = -ENOMEM;
-7c377900772d8f Luca Coelho         2025-06-20  272  		goto cleanup_wq_cleanup;
-7c377900772d8f Luca Coelho         2025-06-20  273  	}
-7c377900772d8f Luca Coelho         2025-06-20  274  
-f5d38d4fa88441 Jani Nikula         2024-12-04  275  	intel_mode_config_init(display);
-40053823baadce Jani Nikula         2023-04-14  276  
-d34927acff9150 Ville Syrjälä       2024-09-06  277  	ret = intel_cdclk_init(display);
-40053823baadce Jani Nikula         2023-04-14  278  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  279  		goto cleanup_mode_config;
-40053823baadce Jani Nikula         2023-04-14  280  
-9d476ce24f72fc Ville Syrjälä       2024-10-24  281  	ret = intel_color_init(display);
-40053823baadce Jani Nikula         2023-04-14  282  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  283  		goto cleanup_mode_config;
-40053823baadce Jani Nikula         2023-04-14  284  
-6fe8f9c1388b53 Jani Nikula         2025-04-08  285  	ret = intel_dbuf_init(display);
-40053823baadce Jani Nikula         2023-04-14  286  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  287  		goto cleanup_mode_config;
-40053823baadce Jani Nikula         2023-04-14  288  
-ac930bab1c8985 Ville Syrjälä       2025-10-13  289  	ret = intel_dbuf_bw_init(display);
-ac930bab1c8985 Ville Syrjälä       2025-10-13  290  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  291  		goto cleanup_mode_config;
-ac930bab1c8985 Ville Syrjälä       2025-10-13  292  
-d706998b6da687 Gustavo Sousa       2025-03-11  293  	ret = intel_bw_init(display);
-40053823baadce Jani Nikula         2023-04-14  294  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  295  		goto cleanup_mode_config;
-40053823baadce Jani Nikula         2023-04-14  296  
-445fc685498bbb Jani Nikula         2024-12-31  297  	ret = intel_pmdemand_init(display);
-4c4cc7ac207f56 Mika Kahola         2023-06-06  298  	if (ret)
-41837232b83874 Lu Yao              2026-06-30  299  		goto cleanup_mode_config;
-4c4cc7ac207f56 Mika Kahola         2023-06-06  300  
-409c23ae6735cf Jani Nikula         2024-04-17  301  	intel_init_quirks(display);
-40053823baadce Jani Nikula         2023-04-14  302  
-fd5a9b950ea8ba Ville Syrjälä       2024-07-05  303  	intel_fbc_init(display);
-40053823baadce Jani Nikula         2023-04-14  304  
-40053823baadce Jani Nikula         2023-04-14  305  	return 0;
-40053823baadce Jani Nikula         2023-04-14  306  
-41837232b83874 Lu Yao              2026-06-30  307  cleanup_mode_config:
-41837232b83874 Lu Yao              2026-06-30  308  	intel_mode_config_cleanup(display);
-7c377900772d8f Luca Coelho         2025-06-20 @309  cleanup_wq_unordered:
-7c377900772d8f Luca Coelho         2025-06-20  310  	destroy_workqueue(display->wq.unordered);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  311  cleanup_wq_cleanup:
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  312  	destroy_workqueue(display->wq.cleanup);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  313  cleanup_wq_flip:
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  314  	destroy_workqueue(display->wq.flip);
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  315  cleanup_wq_modeset:
-dcab7a228f4ea9 Haoxiang Li         2025-05-16  316  	destroy_workqueue(display->wq.modeset);
-ed23224b3f5e5e Jani Nikula         2025-05-16  317  cleanup_wq_dp:
-ed23224b3f5e5e Jani Nikula         2025-05-16  318  	destroy_workqueue(display->hotplug.dp_wq);
-70ea362b84449b Ville Syrjälä       2025-12-08  319  cleanup_pw_domain_dmc:
-5c30cfa295ccbf Ville Syrjälä       2024-09-06  320  	intel_dmc_fini(display);
-ad5190d6f35db6 Jani Nikula         2026-05-26  321  	intel_display_power_driver_remove(display);
-40053823baadce Jani Nikula         2023-04-14  322  cleanup_bios:
-9aec6f76a28cd6 Jani Nikula         2024-08-09  323  	intel_bios_driver_remove(display);
-ff8c73b7bfb547 Jani Nikula         2026-06-15  324  cleanup_opregion:
-ff8c73b7bfb547 Jani Nikula         2026-06-15  325  	intel_opregion_cleanup(display);
-40053823baadce Jani Nikula         2023-04-14  326  
-40053823baadce Jani Nikula         2023-04-14  327  	return ret;
-40053823baadce Jani Nikula         2023-04-14  328  }
-5e2e6b595d9d4c Juha-Pekka Heikkila 2025-12-16  329  ALLOW_ERROR_INJECTION(intel_display_driver_probe_noirq, ERRNO);
-40053823baadce Jani Nikula         2023-04-14  330  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Okay I suggest to report that separately.
