@@ -4,27 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 870CFC55822
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 19:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E152FC561E6
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 20:07:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD13F10EB76;
-	Tue,  4 Aug 2026 19:00:47 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60CB010EB56;
- Tue,  4 Aug 2026 19:00:47 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5453775509098898761=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D26010EB9A;
+	Tue,  4 Aug 2026 20:07:12 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="qVvCF+Xg";
+	dkim-atps=neutral
+X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
+ Tue, 04 Aug 2026 20:07:10 UTC
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61FAB10E881;
+ Tue,  4 Aug 2026 20:07:10 +0000 (UTC)
+Received: from wsembach-tuxedo.fritz.box (i5C75F579.versanet.de
+ [92.117.245.121]) (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPA id 5C3E82FC0077;
+ Tue,  4 Aug 2026 22:00:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1785873625;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=6LGJOIOEyjxvEXrEkaD3r+D7BiPhA55b01fl4ZX667g=;
+ b=qVvCF+XgS5aX4oEjMF44Hflr86Zpv9xV3YMpZNxCJn6mFV10tRq6IucMWnIO24M/BW8h97
+ J4IGfLss6CIEI+QH3bi4ZUXxEW5azRoA1vskyvjZBa56dNoD4/EyKMBklkwfgroI2E4Ghg
+ 6A4MTDIe5u/LGk1WqrPN7KhJNq3bhCE=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/1] drm/i915/display: Add quirk to force backlight type on
+ some TUXEDO devices
+Date: Tue,  4 Aug 2026 21:52:46 +0200
+Message-ID: <20260804200021.171947-1-wse@tuxedocomputers.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_SKL=5FDSSM_/_DE=5FCAP_fix?=
- =?utf-8?q?es?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 04 Aug 2026 19:00:47 -0000
-Message-ID: <178587004738.19127.16816388783488641241@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260803214909.3076716-1-michal.grzelak@intel.com>
-In-Reply-To: <20260803214909.3076716-1-michal.grzelak@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,142 +60,33 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5453775509098898761==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Since the proposed general fix, fixed the backlight on TUXEDO devices but
+broke it on toher ones:
+- https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679#note_3581777
+- https://lore.kernel.org/all/20260515155340.1000997-1-suraj.kandpal@intel.com/
+I'm back here again proposing the fix via quirk.
 
-== Series Details ==
+I therefore rebased
+https://lore.kernel.org/all/20260121223944.1104951-1-wse@tuxedocomputers.com/
+to cleanly apply on current drm-tip.
 
-Series: SKL_DSSM / DE_CAP fixes
-URL   : https://patchwork.freedesktop.org/series/171534/
-State : success
+V1-V2: Switch from dmis trings to PCI-IDs
+V2-V3: Rebase onto current drm-tip
 
-== Summary ==
+Werner Sembach (1):
+  drm/i915/display: Add quirk to force backlight type on some TUXEDO
+    devices
 
-CI Bug Log - changes from CI_DRM_18941 -> Patchwork_171534v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_171534v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-bsw-n3050:       [ABORT][1] ([i915#16562]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18941/fi-bsw-n3050/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/fi-bsw-n3050/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-bsw-n3050:       [ABORT][3] ([i915#16633]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18941/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-
-  
-  [i915#16562]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562
-  [i915#16633]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633
+ .../drm/i915/display/intel_dp_aux_backlight.c |  9 ++++++-
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+ 3 files changed, 33 insertions(+), 1 deletion(-)
 
 
-Build changes
--------------
+base-commit: 814bd7de7f09446c4b9401eecb8b30c3285af78b
+-- 
+2.43.0
 
-  * Linux: CI_DRM_18941 -> Patchwork_171534v1
-
-  CI-20190529: 20190529
-  CI_DRM_18941: 8c5c3b3e801512eca826589c6bcded8421486490 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9036: 9036
-  Patchwork_171534v1: 8c5c3b3e801512eca826589c6bcded8421486490 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/index.html
-
---===============5453775509098898761==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>SKL_DSSM / DE_CAP fixes</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171534/">https://patchwork.freedesktop.org/series/171534/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18941 -&gt; Patchwork_171534v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_171534v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18941/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562">i915#16562</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18941/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633">i915#16633</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171534v1/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18941 -&gt; Patchwork_171534v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18941: 8c5c3b3e801512eca826589c6bcded8421486490 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9036: 9036<br />
-  Patchwork_171534v1: 8c5c3b3e801512eca826589c6bcded8421486490 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============5453775509098898761==--
