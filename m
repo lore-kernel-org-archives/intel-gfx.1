@@ -4,57 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90FAEC55184
-	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:17:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4350BC55172
+	for <intel-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C5AB10E936;
-	Tue,  4 Aug 2026 09:17:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B27C210E65A;
+	Tue,  4 Aug 2026 09:29:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DupmHSwO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Aa6YWRP+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDCA310E92F;
- Tue,  4 Aug 2026 09:17:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13B3310E65A;
+ Tue,  4 Aug 2026 09:29:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785835059; x=1817371059;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=F4x+YkhuCAcgmxxm4Wp7gFMo6k6+e0OhVQf+RqWa3VY=;
- b=DupmHSwOoO4GZaI+lMa6Xq2762WqNPNP9yZKpywaGZwgnNUIEIyOYMFC
- qsElOPc9G5puMqIMOCdft59nn8Wnkk0nCWbDJd1KV4vnmENz/06BsLz3C
- J6RVNArGi9qOWnU3kaop9jLlTxS7bobhfnyVTdXJZMVuOKMAsL0OHN4+7
- uNqoSHW66VUeCSf2qpyAx6wosH+9LztwP6Ayk32Rw230PS70jmSm64ogf
- vtzHxUVD+c7X1FcC9UkoK4mEYPVs/piODvVdD9hjv3pzLlELOwPHloiv7
- 3qdtF+XwNb/aFIk4w5GIfXlYJr5d9dpbp0WwJQtICYfSrbZXybwaLn91d w==;
-X-CSE-ConnectionGUID: LtrhzQ59QjSZX6j5GVXR5Q==
-X-CSE-MsgGUID: bSuBZzBCTf2W1DO/QANrmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86256580"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="86256580"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 02:17:37 -0700
-X-CSE-ConnectionGUID: nOB/ygX6SUycVYmJf6+xgA==
-X-CSE-MsgGUID: mmXIaIgGQ0GsdxnEvW/d7w==
+ t=1785835785; x=1817371785;
+ h=from:subject:date:message-id:mime-version:
+ content-transfer-encoding:to:cc;
+ bh=3GlscK3lNx02BFsP++ibM8j6ZFvRGqpKlr5CF1uQT0w=;
+ b=Aa6YWRP+5wCqyye1WNL1foVDMj+AA/5HxtQ3ft+9tcCf1dUgQ/K6Vja6
+ u9keornY1BHXVwOEvovajDiHtkC6jHTjGSBE2o7xC5OBt9AQER9t679RS
+ lYxH9em2syorMLnPlu8OQG/s0Nl3a0DkKMEuMi8TzqA/yfiueZh2TE7fb
+ p/EF2oOiG6tdz5GMqj69GkFSfTVFVZ8zMHy9/Z3egGul8XEv4cMmFZYhv
+ dvDTuhUeIKCL7HE9xpYcBLJE1SoujV4joYFahYtu09oqsFREp2tx3Et3M
+ v6rTrkam+GfjoN9hQuBjXmpwCi33VFukVZqiGZSQpCly/q5eVVo3S2pck A==;
+X-CSE-ConnectionGUID: 0BdnBZD9SPuVx9bA5gOO/Q==
+X-CSE-MsgGUID: oLu77guURTatlIuTbS2NOA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="97034039"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="97034039"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 02:29:44 -0700
+X-CSE-ConnectionGUID: 0zzZfYfgQUiuutbyCUUNIQ==
+X-CSE-MsgGUID: q+7kfPdfTquUcTxBrpVEgg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="291385660"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.151])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 02:17:36 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH] drm/i915/dp: Use array size for intersect_rates() bound
-In-Reply-To: <20260804085658.1306761-1-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260804085658.1306761-1-suraj.kandpal@intel.com>
-Date: Tue, 04 Aug 2026 12:17:33 +0300
-Message-ID: <fc063639e68f981c433e8610110382d742eee76f@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="259669116"
+Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
+ by orviesa006.jf.intel.com with ESMTP; 04 Aug 2026 02:29:42 -0700
+From: Arun R Murthy <arun.r.murthy@intel.com>
+Subject: [PATCH 0/2] cdclk mismatch with sw/hw
+Date: Tue, 04 Aug 2026 14:58:29 +0530
+Message-Id: <20260804-cdclk-v1-0-484864b1aafd@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAL2wcWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCwMT3eSU5JxsXctU87S0ZHPDNAujRCWg2oKi1LTMCrA50bG1tQBBedh
+ xVwAAAA==
+X-Change-ID: 20260804-cdclk-9e7ffc71f82a
+To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Arun R Murthy <arun.r.murthy@intel.com>, 
+ =?utf-8?q?Polo-Fran=C3=A7ois_Poli?= <polo.code.dev@gmail.com>
+X-Mailer: b4 0.15-dev
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,53 +71,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 04 Aug 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> Take an explicit common_len parameter and pass
-> ARRAY_SIZE(intel_dp->common_rates) at the call site, so the bound is
-> tied to the destination array.
->
-> Fixes: e6bda3e4cb43 ("drm/i915: Avoid overflowing the DP link rate arrays")
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 7f13595f40c1..dd0fbb0ba20d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -625,13 +625,13 @@ intel_dp_set_source_rates(struct intel_dp *intel_dp)
->  
->  static int intersect_rates(const int *source_rates, int source_len,
->  			   const int *sink_rates, int sink_len,
-> -			   int *common_rates)
-> +			   int *common_rates, int common_len)
->  {
->  	int i = 0, j = 0, k = 0;
->  
->  	while (i < source_len && j < sink_len) {
->  		if (source_rates[i] == sink_rates[j]) {
-> -			if (WARN_ON(k >= DP_MAX_SUPPORTED_RATES))
-> +			if (WARN_ON(k >= common_len))
->  				return k;
->  			common_rates[k] = source_rates[i];
->  			++k;
-> @@ -671,7 +671,8 @@ static void intel_dp_get_common_rates(struct intel_dp *intel_dp,
->  					    intel_dp->num_source_rates,
->  					    intel_dp->sink_rates,
->  					    intel_dp->num_sink_rates,
-> -					    common_rates);
-> +					    intel_dp->common_rates,
-> +					    ARRAY_SIZE(intel_dp->common_rates));
+With 4k eDP panel and an external DP, cdclk sw/hw state mismatch
+warnings are observed along with cdclk mismatch on DC6 exit is also
+observed and eventually FIFO underrun.
 
-This is using some old baseline.
+On boot, skl_cdclk_init_hw()->skl_sanitize_cdclk() decides to use the
+pre-OS cdclk leading to programming a very low cdclk that doesnt satisfy
+the pipes requirement. This leads to FIFO underrun.
+Also this programmed and the sw calculated cdclk mismatches and on every
+dc state exit warnings are thrown.
 
-BR,
-Jani.
+In this series the cdclk is programmed to max instead of 0, and then the
+first modeset will bring it back to the required/calculated.
 
->  
->  	/* Paranoia, there should always be something in common. */
->  	if (drm_WARN_ON(display->drm, *num_common_rates == 0)) {
+Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+---
+Arun R Murthy (2):
+      drm/i915/display: Seed skl_cdclk_init_hw() with SKU-max, not zero
+      drm/i915/display: Reconcile cdclk SW state with HW on DC-off exit
 
+ drivers/gpu/drm/i915/display/intel_cdclk.c         | 65 +++++++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_cdclk.h         |  2 +
+ .../drm/i915/display/intel_display_power_well.c    |  1 +
+ 3 files changed, 67 insertions(+), 1 deletion(-)
+---
+base-commit: 0377b35cbeef071dfeed06ccadc0d7607eccaa64
+change-id: 20260804-cdclk-9e7ffc71f82a
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Arun R Murthy <arun.r.murthy@intel.com>
+
