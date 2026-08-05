@@ -4,51 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A3C8C56207
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 14:57:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2058FC56205
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 14:57:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 944B810E333;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A8010F1FA;
 	Thu,  6 Aug 2026 14:57:32 +0000 (UTC)
-Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com
- [209.85.167.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 135E910E08B
- for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 22:44:38 +0000 (UTC)
-Received: by mail-oi1-f205.google.com with SMTP id
- 5614622812f47-4ab4f78b9f4so1993129b6e.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 15:44:38 -0700 (PDT)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KNvoZ6ak";
+	dkim-atps=neutral
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D16910EE29
+ for <intel-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 12:11:31 +0000 (UTC)
+Received: by mail-qt1-f182.google.com with SMTP id
+ d75a77b69052e-51c0cea8883so7603521cf.1
+ for <intel-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 05:11:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785931890; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dDPH/CVBebLqQpJHHTYYxdKaWLa2bKeUQsIwkEV36XlopSzToDLFZbsHlWzi4ENmkf
+ OyrdRRiVmyiB8rbOQxaapiqc0vAvI6i6YsGal7zx7kwbH8Gc44tcYv0FvDye7zgyKaJd
+ I5dZxHaJedVw6E/yn50i/14OsFGcKzrOpa5BsIOljM5QOyC8O3c/2/kvdvCdCLUdlrX3
+ fkWpwqLmflF7kK4F7dSwmXzq68/MET6t4nwNo8/n1T1mdD1RJ02uPqlzqCXgw7He4uDS
+ Sp4Nu4FWmzZfpaJC+bFaotm0qpLVS84rTTopliZfhErk0iMIQ7cN0k/7VQQt6gpepHEJ
+ J5Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=Yh8Y1BiTgmyGQ7eJlQNoWIHTHPxj/tNmLoeAhpI9wOw=;
+ fh=avOwZXF5YIh4j8lZcRZwLE6lrkzQTR2TjG5aqdnn2SY=;
+ b=eMq0Z+9hHGAPzMfxdzhfkfIiJMDvbdFc8szbc9D7g9WRQFodEA+ELW6y8wR8HMIHZM
+ uwdYqBOyeE+VAlv60ZW2YTc8XbCuLVA+QXX+zBWslJ9DniUGWCRpJjvltv7D5IJp9Edh
+ DgOaxOF2J4A7tOZn2p19PNPtqqXijjnhyYkqN2ysihRcBfn2AxDd55wCCCJb0mo9dvYb
+ 3FpLXG2t1+WEcXv53IbYt9g/vWc5roVMlGXu3MX4HoddckwJKRscZq61M2VL7DkLYmyM
+ 30CfJ9V83hhzF1FPgsdIps/PEODWquHo29+3iJ8laWHuTXbEUzt7pZthL3M4SDhAqPPx
+ 0Dtg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785931890; x=1786536690; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Yh8Y1BiTgmyGQ7eJlQNoWIHTHPxj/tNmLoeAhpI9wOw=;
+ b=KNvoZ6akR7XNWW50AH28GPdbqi88kPB0xDP2lOkr0/zqmZsfEqxqasyF3+JMxLro2n
+ Qjufgax6qmkfaoDwVTtInfbqQx/bL92RMoZQUOx+dQuEGgp7KmMFLMWMo/XE0Gzr8qFT
+ ojxiUVz4hzjiUl0YZJ1kCOmJ5m+D9xye/NFw0KMAdG/H68ZNl/d0dJxKvcwjWGcVhR7d
+ z8x8HNfRxkf8l7wYNr4/7YeUi86EdivYVmoOETluI6Mkeh4uYXUCyZgDGfxQzHlYiW+x
+ RwX8IMrhW/2VnC1c0CKMjXSWAOZxltweYI2NGQgmIDEb2RAy6jVeKNRVckerjsZcyRDh
+ N3yA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785969877; x=1786574677;
- h=content-type:to:from:subject:message-id:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=B/VG1ElgdBBDmS7WpjZAJKdiGrWimuTWHY0fHxv6+xo=;
- b=YptoFiPBe/8bdMO/0G8YGRoMSyumJrK+yx5Otg5gvHz3r96bagkHwg2y8e39oo7xSB
- vnC9BPzouWKrjHoGw1BjUiubqpW7wfuVPnOvMffp/lnCs3J9u7Z+46/9If7pxK0izdkj
- kw83a71qcBiGhTLcqfhxJhuAB8F1jPcuyL+f9CpuyFSIBoeqGg0+s3s0kkIXXbURj8xl
- Moke2eoZCE5kkmHiKWXPM3DA/Jusk9i4KXYn3/b3F1Nm4SxJPaB7U0rskIGhcnoVg3Uz
- jZe8MmOmwBYNWFGdopjNEog4bGPza1mBo2Xr4Nl9LlOFmd0kuuFNno00/9q52/Gqgg0i
- kSkg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpMbhOhkfB3geWR1TCRFXNL/CNBPdwKK0ARyNn/sccU0WzyrCj8ABLSNNWrqsorjkMkUPeoD+9ldi0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzgI6rxotdI+rnFALDcfFaHeNKKv0ALBrv9JEAmOmRzA0zVHlrn
- WY36lK+DU5SwGVcd+KPnxxZhP3m2fg/2QeZ1F6NyX/SAkSOQFnWAipv7Po44AYBSwI+noRV2t3m
- UecSQzNVFsYpg9dHaMmuoFMAYOLcxjhjecgIMiMLkhfwkMk/aNZKdb9MP3Ys=
+ d=1e100.net; s=20251104; t=1785931890; x=1786536690;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Yh8Y1BiTgmyGQ7eJlQNoWIHTHPxj/tNmLoeAhpI9wOw=;
+ b=tQBA7u+2tkvIkUAg3uPdRKesbOz0X1W9ognVHRCWn14INOG9hDy3TUGT7IIkDmrYMb
+ XV/DTyayJDIA2gBJVuOpAodfA1oggAZGw7FrHc1GcCNrN8GcrEgPNNW3hOpMZpkI1KZm
+ Glddt6WDkNIeCDGIkIQMwevuAWVHYMGn048lf23kayvAKhJUxeLK2PTvqkHsehhqTx2U
+ g9NtvE/pDxLv1ct7q4Kx4eUhBQ+EuezA9kE02doKxZ2SX/2ma8FVbz/ZajoxjFUU2Gih
+ 1OeBTvq9Wf2hwhx/ZWOdDvfHBfRPtdaqpnJJ7XObh/ZcTadpBsYx7qnEV6ySOeiYAcn8
+ Rp8g==
+X-Gm-Message-State: AOJu0Ywx02YzIqe+L39BHQrfcrZtoudut8n4QnjDm4/pwfVHROxsCuAN
+ YBG8dGOUCzZgu8Q0naxZOwC+oBXno2yAguu26FL+PnnwDSkbOx3KD5rEymSPiX+G37/mfnObECH
+ 9ImbG8z/eovuN9pwTpqklMd1WxKCywm26zMJI
+X-Gm-Gg: AR+sD13OjyXcUzaTobiXAexZ+u8qIywOpMH/zt0s7ljPKm9vQEmxD6OUYNbSuqTB/32
+ oxeu/NrHpSCWWGUigBnsTOTMKSqKV5odifOcPHHLPFMxN4FDZJ3A/yWrt9KJhHDwSrWEKOBbOpJ
+ F920z1nkoqFOkhRoT10OJwwwMhlgcNeleYlkx+sAt4NEedfkR0aJg0QNnfyAntdfH4rIMPd4a5V
+ hDiDpswyeSysB1y7fVm8ys+SFGyxdlS7efwkYGeZoeATEtGZb3XiEF25NVDI2C8yjGqXDsfcgOH
+ QdYTUluB46Q5I2JlTJPNppaU7PM+Xr4bZ8yM8YpEcsKpF/r/teaNbjMynu/QiDy7TZA2eklGG3Z
+ 5ahFsWtU=
+X-Received: by 2002:a05:622a:1794:b0:527:7756:3ee9 with SMTP id
+ d75a77b69052e-52cd31858fbmr134305051cf.0.1785931890551; Wed, 05 Aug 2026
+ 05:11:30 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4d07:b0:6ae:4959:e1c4 with SMTP id
- 006d021491bc7-6ae96ed3e38mr5421908eaf.23.1785969877263; Wed, 05 Aug 2026
- 15:44:37 -0700 (PDT)
-Date: Wed, 05 Aug 2026 15:44:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a73bcd5.01d0871a.3a0d52.0003.GAE@google.com>
-Subject: [syzbot] [intel-gfx?] general protection fault in i915_pci_probe
-From: syzbot <syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com>
-To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
- joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org, 
- rodrigo.vivi@intel.com, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
- tursulin@ursulin.net
+From: Kareem Nedzmee-Seid <kareemnedzmeeseid2011@gmail.com>
+Date: Wed, 5 Aug 2026 15:11:17 +0300
+X-Gm-Features: AUfX_mxqvpaMZ6ykCE7jScFBgGGcwu8ZP52lOrKv0eopPPGutUfCiVgZxwcsTOQ
+Message-ID: <CALQngLNwDOaWDdH+ahGZ92-ydOOwq_FgzVFtbuSvRC0U5WmYEg@mail.gmail.com>
+Subject: REGRESSION: i915 Haswell 6 bpc dithering broken (watercolor color
+ banding)
+To: intel-gfx@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org, vsyrjala@linux.intel.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 06 Aug 2026 14:57:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,128 +102,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+i have a severe issue where haswell era graphics render colors
+terribly on linux. the i915 driver seems to fail dithering on 6 bit
+laptop displays, and colors get super washed out/banded because the
+system treats it like an 8 bit panel when it's actually 6 bit. when
+watching movies or videos, these jagged lines come out of nowhere and
+ruin the image ;-;
 
-syzbot found the following issue on:
+i already have the patch file written by ville, but i don't know how
+to safely compile a driver myself and i can't risk breaking anything
+on this machine since i rely on it daily for schoolwork.
 
-HEAD commit:    848acc8ffe1b Merge tag 'fsverity-for-linus' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13245bb9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
-dashboard link: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=101513b9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17245bb9580000
+could the dev team please review and merge this patch into mainline
+kernel / stable releases so it gets pushed out through official distro
+updates? thank you! :)
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-848acc8f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6fb497cc0c8d/vmlinux-848acc8f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/663ccee34982/bzImage-848acc8f.xz
+original issue:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16045
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+here is original patch code as it is:
 
-e1000e 0000:00:02.0 eth1: removed PHC
-e1000e 0000:00:02.0 eth1: NIC Link is Down
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000003: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
-CPU: 2 UID: 0 PID: 5932 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:i915_pci_probe+0x57/0x480 drivers/gpu/drm/i915/i915_pci.c:961
-Code: 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 03 00 00 48 b8 00 00 00 00 00 fc ff df 49 8b 6c 24 18 4c 8d 6d 1c 4c 89 ea 48 c1 ea 03 <0f> b6 04 02 4c 89 ea 83 e2 07 38 d0 7f 08 84 c0 0f 85 86 03 00 00
-RSP: 0018:ffffc900016bf9a0 EFLAGS: 00010207
-RAX: dffffc0000000000 RBX: ffff888023150000 RCX: 0000000000000000
-RDX: 0000000000000003 RSI: ffffffff85d8d20d RDI: ffffffff8c43a498
-RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c43a480
-R13: 000000000000001c R14: ffffffff85d8d1f0 R15: ffff888023150130
-FS:  0000555583377500(0000) GS:ffff8880d5fd8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff49e597e9c CR3: 0000000023b2c000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:332
- pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:394
- __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
- pci_device_probe+0x1cd/0x370 drivers/pci/pci-driver.c:489
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
- device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
- bind_store+0xf4/0x190 drivers/base/bus.c:267
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6ac/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f246059e019
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffe32b38f68 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f2460825fa0 RCX: 00007f246059e019
-RDX: 000000000000000d RSI: 0000200000000180 RDI: 0000000000000005
-RBP: 00007f246063500c R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2460825fac R14: 00007f2460825fa0 R15: 00007f2460825fa0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:i915_pci_probe+0x57/0x480 drivers/gpu/drm/i915/i915_pci.c:961
-Code: 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 03 00 00 48 b8 00 00 00 00 00 fc ff df 49 8b 6c 24 18 4c 8d 6d 1c 4c 89 ea 48 c1 ea 03 <0f> b6 04 02 4c 89 ea 83 e2 07 38 d0 7f 08 84 c0 0f 85 86 03 00 00
-RSP: 0018:ffffc900016bf9a0 EFLAGS: 00010207
-RAX: dffffc0000000000 RBX: ffff888023150000 RCX: 0000000000000000
-RDX: 0000000000000003 RSI: ffffffff85d8d20d RDI: ffffffff8c43a498
-RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c43a480
-R13: 000000000000001c R14: ffffffff85d8d1f0 R15: ffff888023150130
-FS:  0000555583377500(0000) GS:ffff8880d5fd8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ff49e597e9c CR3: 0000000023b2c000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	89 fa                	mov    %edi,%edx
-   2:	48 c1 ea 03          	shr    $0x3,%rdx
-   6:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-   a:	0f 85 f6 03 00 00    	jne    0x406
-  10:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  17:	fc ff df
-  1a:	49 8b 6c 24 18       	mov    0x18(%r12),%rbp
-  1f:	4c 8d 6d 1c          	lea    0x1c(%rbp),%r13
-  23:	4c 89 ea             	mov    %r13,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
-  2e:	4c 89 ea             	mov    %r13,%rdx
-  31:	83 e2 07             	and    $0x7,%edx
-  34:	38 d0                	cmp    %dl,%al
-  36:	7f 08                	jg     0x40
-  38:	84 c0                	test   %al,%al
-  3a:	0f 85 86 03 00 00    	jne    0x3c6
+From f94b29912b124d729caed9e4c6474c480a5f9cc1 Mon Sep 17 00:00:00 2001
+From: =3D?UTF-8?q?Ville=3D20Syrj=3DC3=3DA4l=3DC3=3DA4?=3D <ville.syrjala@li=
+nux.intel.com>
+Date: Thu, 14 May 2026 18:46:54 +0300
+Subject: [PATCH] drm/edid: Ignore the "DFP 1.x" bit for non-TMDS outputs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=3DUTF-8
+Content-Transfer-Encoding: 8bit
 
+Limit the "DFP 1.x" EDID bit parsing to connector types
+that use a DFP compatible interface, namely DVI and HDMI.
 
+This avoid populating info->bpc for other output types,
+allowing for driver specific fallbacks to kick in. In this
+particular case we have a 6bpc eDP panel where we need to
+rely on the bpc override from the Intel Video BIOS Table (VBT)
+to determine the proper color depth. Unfortunately the VBT
+override can't be generally trusted because it tends to be
+left at the default 6bpc value regardless of the color depth
+of the panel. So we only trust it if the EDID doesn't specify
+a color depth explicitly.
+
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16045
+Fixes: 210a021dab63 ("drm/edid: Set 8 bpc color depth for displays
+with "DFP 1.x compliant TMDS".")
+Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/gpu/drm/drm_edid.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 404208bf23a6..ee99f680e8f5 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -5693,6 +5693,19 @@ void drm_edid_cta_sad_set(struct cea_sad
+*cta_sad, const u8 *sad)
+  cta_sad->byte2 =3D sad[2];
+ }
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
++static bool connector_is_dfp_compatible(struct drm_connector *connector)
++{
++ switch (connector->connector_type) {
++ case DRM_MODE_CONNECTOR_DVII:
++ case DRM_MODE_CONNECTOR_DVID:
++ case DRM_MODE_CONNECTOR_HDMIA:
++ case DRM_MODE_CONNECTOR_HDMIB:
++ return true;
++ default:
++ return false;
++ }
++}
++
+ /*
+  * drm_edid_to_eld - build ELD from EDID
+  * @connector: connector corresponding to the HDMI/DP sink
+@@ -6783,6 +6796,7 @@ static void update_display_info(struct
+drm_connector *connector,
+  * extensions which tell otherwise.
+  */
+  if (info->bpc =3D=3D 0 && edid->revision =3D=3D 3 &&
++     connector_is_dfp_compatible(connector) &&
+      edid->input & DRM_EDID_DIGITAL_DFP_1_X) {
+  info->bpc =3D 8;
+  drm_dbg_kms(connector->dev,
+--=20
+2.52.0
