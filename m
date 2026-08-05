@@ -4,27 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5469AC55174
-	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 09:35:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A641BC55174
+	for <intel-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 09:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEF9E10EDB0;
-	Wed,  5 Aug 2026 09:35:42 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3825610E1FA;
- Wed,  5 Aug 2026 09:35:42 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7609374981222200334=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34C2F10EDB8;
+	Wed,  5 Aug 2026 09:45:42 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D/RhqBgh";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD2210EDB5;
+ Wed,  5 Aug 2026 09:45:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785923139; x=1817459139;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=VbXQHh8evBzgMPcOjnNk5oHCvpn+mjwupKHiUdef7CY=;
+ b=D/RhqBghYlYisYUPKn1wINC0pssQjYu0aLgkF4axnfnQTVsb4Skaan/j
+ ONP9IapzCht+zPNsDoBg+ezUOkBvqAttWAyi7BcX0HslPHSo48Iziynoh
+ F2Vd8Jmz+kTETQPW7sHqB60mQvyGUfeG1eZzhAL74ugtpAl1enBOQUczD
+ CR8QKnhFJJtgjqOZDL1an7VHyMcsIwHD3aPIx3z4icm+yuLxvW0OuI/K9
+ nk0vu4gGTEbGa5Lw7Jso523JSw1dD3H6ZADPUkYG2reHD2TrTjQn5BYje
+ SlHt4TbMAIfu4OMm7eQG6j8uilJRjXov3nLGEtn5sFo/igOTXQhEIYfuj g==;
+X-CSE-ConnectionGUID: /+FRkK81SZ2JoGL6W9bJEw==
+X-CSE-MsgGUID: eS4VYdrySmyQxVfpyIhQBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="89015021"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="89015021"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2026 02:45:37 -0700
+X-CSE-ConnectionGUID: zw19Zo1eR1KWkXZ1vP8qNg==
+X-CSE-MsgGUID: +m8ykC3QREiergrF+UVGGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="263750057"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.244.54])
+ ([10.245.244.54])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2026 02:27:11 -0700
+Message-ID: <7cc285c5-ecd2-4f65-8d2c-4c597b060841@linux.intel.com>
+Date: Wed, 5 Aug 2026 11:28:24 +0200
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Add_q?=
- =?utf-8?q?uirk_to_force_backlight_type_on_some_TUXEDO_devices_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Werner Sembach" <wse@tuxedocomputers.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 05 Aug 2026 09:35:42 -0000
-Message-ID: <178592254222.21381.2377741442891279655@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260804200021.171947-1-wse@tuxedocomputers.com>
-In-Reply-To: <20260804200021.171947-1-wse@tuxedocomputers.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/i915/userptr: Fix user pages leak on get_pages
+ failure
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, ZhaoJinming <zhaojinming@uniontech.com>,
+ dri-devel@lists.freedesktop.org
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Kees Cook <kees@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Matthew Auld <matthew.auld@intel.com>
+References: <20260728054152.140524-1-zhaojinming@uniontech.com>
+ <178591982239.30698.15708833006428973734@jlahtine-mobl>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <178591982239.30698.15708833006428973734@jlahtine-mobl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,254 +76,127 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7609374981222200334==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hey,
 
-== Series Details ==
+On 8/5/26 10:50, Joonas Lahtinen wrote:
+> Adding Maarten and Matt for below discussion points.
+> 
+> Quoting ZhaoJinming (2026-07-28 08:41:52)
+>> When ____i915_gem_object_get_pages() fails inside
+>> i915_gem_object_userptr_submit_init(), the pvec containing pages
+>> pinned by pin_user_pages_fast() was never freed:
+>>
+>> 1. obj->userptr.pvec was set to the pinned pages
+>> 2. The local pvec variable was NULLed
+>> 3. ____i915_gem_object_get_pages() failed, but its internal
+>>    i915_gem_object_userptr_drop_ref() only decremented page_ref
+>>    from 2 to 1, not triggering the pvec cleanup
+>> 4. The unconditional obj->userptr.page_ref-- brought page_ref
+>>    to 0, but the pinned pages remained referenced only by
+>>    obj->userptr.pvec with no path to reclaim them
+>>
+>> Additionally, the cache hit path could return success on a
+>> subsequent call despite page_ref being 0, leading to a
+>> GEM_BUG_ON(obj->userptr.page_ref < 0) crash in drop_ref when
+>> the pages were eventually invalidated.
+> 
+> That's a very verbose way of saying that error handling is missing
+> for ____i915_gem_object_get_pages failures here.
+> 
+>> Fix by calling i915_gem_object_userptr_drop_ref() on the
+>> get_pages failure path, which properly decrements page_ref
+>> from 1 to 0, triggering the pvec cleanup. Make the page_ref--
+>> after the if block conditional on success, since drop_ref
+>> already handles the refcount on failure.
+> 
+> Not sure that is the right fix, seems that i915_gem_userptr_get_pages
+> is rigged in a way that in the intro page_ref >= 1 is required, and is
+> unconditionally increased (becomes >= 2), then on error path drop_ref is
+> called which will unconditionally decrease but never free because page_ref
+> always remains at least 1. I think that is the real bug which is being papered
+> over here. Maarten, am I missing something?
+> 
+> This seems to be introduced by commit:
+> 
+> 	ed29c2691188 ("drm/i915: Fix userptr so we do not have to worry about obj->mm.lock, v7.")
+> 
+> As for the original report, lack of error handling seems to be introduced
+> by commit:
+> 
+> 	b4b9731b02c3 ("drm/i915: Simplify userptr locking")
+> 
+> The commit message goes on to explain it a little bit, but this chunk from
+> original patch still seems quite odd?
+> 
+> -------------------------- 8< --------------------------  
+> @@ -341,12 +317,14 @@ int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
+>         if (!obj->userptr.page_ref++) {
+>                 obj->userptr.pvec = pvec;
+>                 obj->userptr.notifier_seq = notifier_seq;
+> -
+>                 pvec = NULL;
+> +               ret = ____i915_gem_object_get_pages(obj);
+>         }
+>  
+> +       obj->userptr.page_ref--;
+> +
+>  out_unlock:
+> -       spin_unlock(&i915->mm.notifier_lock);
+> +       i915_gem_object_unlock(obj);
+>  
+>  out:
+>         if (pvec) {
+> -------------------------- 8< --------------------------  
+> 
+> Regards, Joonas
+> 
+>>
+>> Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+>> ---
+>>  drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 5 ++++-
+>>  1 file changed, 4 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+>> index 043095f93ac6..7d2750528485 100644
+>> --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+>> +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+>> @@ -292,9 +292,12 @@ int i915_gem_object_userptr_submit_init(struct drm_i915_gem_object *obj)
+>>                 obj->userptr.notifier_seq = notifier_seq;
+>>                 pvec = NULL;
+>>                 ret = ____i915_gem_object_get_pages(obj);
+>> +               if (ret)
+>> +                       i915_gem_object_userptr_drop_ref(obj);
+>>         }
+>>  
+>> -       obj->userptr.page_ref--;
+>> +       if (!ret)
+>> +               obj->userptr.page_ref--;
+>>  
+>>  out_unlock:
+>>         i915_gem_object_unlock(obj);
+>> -- 
+>> 2.20.1
+>>
 
-Series: drm/i915/display: Add quirk to force backlight type on some TUXEDO devices (rev3)
-URL   : https://patchwork.freedesktop.org/series/147704/
-State : success
+I completely and entirely forgot everything related to i915 userpointer code, so I'm not much of help here.
 
-== Summary ==
+It seems that i915_gem_userptr_get_pages() checks if page-ref is 0, then increases the page ref on success, which we then use to decrease our original page ref.
 
-CI Bug Log - changes from CI_DRM_18945 -> Patchwork_147704v3
-====================================================
+The patch by ZhaoJinming removes correct handling of the case where page_ref is already >= 0
 
-Summary
--------
+Might be better to do change it to
 
-  **SUCCESS**
+	if (!obj->userptr.page_ref) {
+		obj->userptr.pvec = pvec;
+		obj->userptr.notifier_seq = notifier_seq;
+		pvec = NULL;
+		ret = ____i915_gem_object_get_pages(obj);
+	}
 
-  No regressions found.
+and in i915_gem_userptr_get_pages, look for !userptr.pvec instead of !obj->userptr.page_ref
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/index.html
-
-Participating hosts (39 -> 39)
-------------------------------
-
-  Additional (2): fi-glk-j4005 bat-adls-6 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_147704v3 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_huc_copy@huc-copy:
-    - fi-glk-j4005:       NOTRUN -> [SKIP][1] ([i915#2190])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html
-
-  * igt@gem_lmem_swapping@parallel-random-engines:
-    - bat-adls-6:         NOTRUN -> [SKIP][2] ([i915#4613]) +3 other tests skip
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html
-    - fi-glk-j4005:       NOTRUN -> [SKIP][3] ([i915#4613]) +3 other tests skip
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@gem_lmem_swapping@parallel-random-engines.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][4] ([i915#15656])
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@intel_hwmon@hwmon-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][5] ([i915#7707]) +1 other test skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@intel_hwmon@hwmon-read.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
-    - bat-adls-6:         NOTRUN -> [SKIP][6] ([i915#4103]) +1 other test skip
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-adls-6:         NOTRUN -> [SKIP][7] ([i915#16361])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-adls-6:         NOTRUN -> [SKIP][8]
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_pm_backlight@basic-brightness:
-    - bat-adls-6:         NOTRUN -> [SKIP][9] ([i915#5354])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html
-
-  * igt@kms_psr@psr-primary-mmap-gtt:
-    - bat-adls-6:         NOTRUN -> [SKIP][10] ([i915#1072] / [i915#9732]) +3 other tests skip
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html
-
-  * igt@kms_psr@psr-primary-page-flip:
-    - fi-glk-j4005:       NOTRUN -> [SKIP][11] +11 other tests skip
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@kms_psr@psr-primary-page-flip.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-adls-6:         NOTRUN -> [SKIP][12] ([i915#3555])
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-adls-6:         NOTRUN -> [SKIP][13] ([i915#3291]) +2 other tests skip
-   [13]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@prime_vgem@basic-fence-read.html
-
-  
-  [i915#1072]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#2190]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190
-  [i915#3291]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291
-  [i915#3555]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555
-  [i915#4103]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103
-  [i915#4613]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613
-  [i915#5354]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#9732]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18945 -> Patchwork_147704v3
-
-  CI-20190529: 20190529
-  CI_DRM_18945: 814bd7de7f09446c4b9401eecb8b30c3285af78b @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9037: 9037
-  Patchwork_147704v3: 814bd7de7f09446c4b9401eecb8b30c3285af78b @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/index.html
-
---===============7609374981222200334==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: Add quirk to force backlight type on some TUXEDO devices (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/147704/">https://patchwork.freedesktop.org/series/147704/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18945 -&gt; Patchwork_147704v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/index.html</p>
-<h2>Participating hosts (39 -&gt; 39)</h2>
-<p>Additional (2): fi-glk-j4005 bat-adls-6 <br />
-  Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_147704v3 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_huc_copy@huc-copy:</p>
-<ul>
-<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@gem_huc_copy@huc-copy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/2190">i915#2190</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_lmem_swapping@parallel-random-engines:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@gem_lmem_swapping@parallel-random-engines.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4613">i915#4613</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@intel_hwmon@hwmon-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4103">i915#4103</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_backlight@basic-brightness:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_pm_backlight@basic-brightness.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/5354">i915#5354</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-mmap-gtt:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_psr@psr-primary-mmap-gtt.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/1072">i915#1072</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/9732">i915#9732</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_psr@psr-primary-page-flip:</p>
-<ul>
-<li>fi-glk-j4005:       NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/fi-glk-j4005/igt@kms_psr@psr-primary-page-flip.html">SKIP</a> +11 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3555">i915#3555</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-adls-6:         NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_147704v3/bat-adls-6/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3291">i915#3291</a>) +2 other tests skip</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18945 -&gt; Patchwork_147704v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18945: 814bd7de7f09446c4b9401eecb8b30c3285af78b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9037: 9037<br />
-  Patchwork_147704v3: 814bd7de7f09446c4b9401eecb8b30c3285af78b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7609374981222200334==--
+Kind regards,
+~Maarten Lankhorst
