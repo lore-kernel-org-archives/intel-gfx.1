@@ -4,161 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09A0AC561E6
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 08:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B508C55ABF
+	for <intel-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 08:39:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7074C10E2C2;
-	Thu,  6 Aug 2026 08:28:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73E8610E2AC;
+	Thu,  6 Aug 2026 08:39:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="c1nnBX0e";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="XAD0GC3B";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6FB10E2C2;
- Thu,  6 Aug 2026 08:28:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786004906; x=1817540906;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=hrHz3HdgTHdqOQWTn/m4aTsuVCi3EgPO2pi3v4kQKao=;
- b=c1nnBX0eXYthenKjEqt0w5PytYXyeidnvuXm3AxCeSkU6NN+N/TgjRBP
- 3a8cQT6LS3YwTN1N3xd80b6nWJ5LsWtIUPQsGXPD4GXBR0a7mbf7WUv/O
- /Q0HPdr4NI82zFeaPP90dH7L4Tr1h/2rv5CUmcWdB8640FUo7kh/7iHhg
- c04POJ5e5OlvR7cqOG1OtV+m/4/Nrt3Rk3fTM547VBqYcNNAtelz8Bl50
- PPseSiaAoSAsB4N1MuKfB1W2eSLRoJ9RvozcVBPWfnrlQQbWF6v+El3db
- F59e3wEWv8tBw8nCEbL4Dv2MKnSwHDMqPzkwvzJfS8aSuD8WyYCdc91DB w==;
-X-CSE-ConnectionGUID: Yj8qBoipRZG4zZVq32gjSg==
-X-CSE-MsgGUID: tH5y4ExmQRGzGu3qirzsHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="97237969"
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="97237969"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 01:28:26 -0700
-X-CSE-ConnectionGUID: uaggd7sRTIG5heTXFd/jSQ==
-X-CSE-MsgGUID: /IbqrzQ3Q8mHljLGtRRnWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="291954522"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 01:28:26 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 01:28:25 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Thu, 6 Aug 2026 01:28:25 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.61) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 01:28:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L16vkgA/rmbMqh4npVLWxFsMyIB6bH+UkI/wlKrixrqrKq0AIzZ7N3ZxaiOju1HnZnI2Wp0j1eJ4Zm/0PCgu3BoDYPjx2M/MtF5qHH4NA/OeLiazvjyZzAFIR0h/6P+ALNlJvsmUwOcZi6Jjj9FLu29q7fM0QmFa03nGUmfGCFEK0LuyfmWx0HCYxizjcTmI3QFRP+Q2dzZRpZ/GZAxd8c7fVdyF/pc6/VLSVdE8abMiM9v82yGMVnZ3vggl5eZT8pTK7x8O9lEVhHaccWw2QW9Yuj6DiTafGuICbGN2DmfmDu667VrQErC7VMtktzzp0wubbzGlSVdKgTPfPOytIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hrHz3HdgTHdqOQWTn/m4aTsuVCi3EgPO2pi3v4kQKao=;
- b=OKqXSt9Y3lowkDVI2D5SL3qIjJHSGl4V5nzV8vE3CBE707X3mBVLFzXQcSdU2HQLXOcgHyFv4yk/RO4WkA1cxOQZuZDXh34gYZpZz3K2xFXmFhZrvmg+8kxho+PQzKQ1hAl6nKb6iL1BuZC8zCOZSqUmIFoGbtd84oINXl8t3D06DWIESorLaAq7TbIwMk8v+VhGPBzQUgynGtFAtCmVtDADzvd/S26w4V0m9axSpRj+H2wG/U8cWMEI0W8NpLmgQ/08YW7Bo8PK1qHh0MIMIYEJZtEROKCO0zKAkCvPGcXzud7drxXbN1AYNRY/7iEhmTNZu0WFOmurfADM2FvHhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CY5PR11MB6464.namprd11.prod.outlook.com (2603:10b6:930:30::20)
- by MN6PR11MB8241.namprd11.prod.outlook.com (2603:10b6:208:473::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 08:28:17 +0000
-Received: from CY5PR11MB6464.namprd11.prod.outlook.com
- ([fe80::90f:a5c0:ea24:d5e1]) by CY5PR11MB6464.namprd11.prod.outlook.com
- ([fe80::90f:a5c0:ea24:d5e1%5]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 08:28:17 +0000
-From: "Garg, Nemesa" <nemesa.garg@intel.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-CC: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, =?utf-8?B?VmlsbGUgU3lyasOkbMOk?=
- <ville.syrjala@linux.intel.com>, Jani Nikula <jani.nikula@linux.intel.com>
-Subject: RE: [PATCH] drm/i915/dp_mst: Remove duplicate
- intel_pfit_compute_config() call
-Thread-Topic: [PATCH] drm/i915/dp_mst: Remove duplicate
- intel_pfit_compute_config() call
-Thread-Index: AQHdJXtQAVrwUJdRNkyCBozE/CwjybaQr/1w
-Date: Thu, 6 Aug 2026 08:28:16 +0000
-Message-ID: <CY5PR11MB64643C4FCD2ECC5AFA80BFADE3D22@CY5PR11MB6464.namprd11.prod.outlook.com>
-References: <20260806074819.2631970-1-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260806074819.2631970-1-chaitanya.kumar.borah@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR11MB6464:EE_|MN6PR11MB8241:EE_
-x-ms-office365-filtering-correlation-id: 5391fe86-2010-4f2f-9817-08def394aa40
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|38070700021|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
-x-microsoft-antispam-message-info: s/g/7BP3TV+ovi1ZkbOxCdKXZ+E5Gato5K4Tw1RlgM6BzrFMH7bGNBZ7BjJ/I56+eWzfjgAkaHzuQpnsPbGdyK1w+LzNxEnp1BcNgHWwt3lFTRdfeXjFShlvr5tIAWMEoePjhJIhqCLUN1VCzrsuNgJerxAi6xaJODk+pOwf/QEg5j41/GkwctaOnl2e9D6RKY9Th6gniU3MqGvnLJNXc8CLABh3uqEtt9gaHSkELi+UM/N1nPMUz2NUAvXUfupZuxj4BxiAg7YUx3GyoVJK1kLZ/b7xdS8iVfkrNVQRP0E/hteivo5+ql8UuWCOFO7vE002ThQSSAOIx2jSDNZjFD4kogAwJKzqDnkUWVzcm4ajzX1OI6UawL7vnH8ZC8un0tFbvhuYFPIpstcD345hS/9JwMoTEmtUY1eL3dbxvsEcatJAg28XtyJF0OYq+3xxxcwnxP4FXfI5Tw5Sm/acF3D12qv+JrpjRdHfcd0Zb06kPibhXDPOs1Cj2Dhjo1PQpFEsyFCD1MQi7TgJwqW1Btnwxqyd5WXUabNiLM4sbyKfMmzUTjeJSo9VHK9ZvpfrWDLtPPtyVeLuboYvYEbVxla51LWdoHMSwVbMXy9Y4oKqwl1BIWvSns9WtJ5EcLEwZykI86pVVu1e/KWvD54PyyHM/rZ/w0TAMvaxHyKsgekLhQHe8payo7pjxrBekRBKeG+xYCPh6J6LG9Ix2xTERyZ5cSUwSDRqF9sVDKymt3E=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR11MB6464.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(38070700021)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?T0Z5OTZ4ME0zQ1B5WkxYSnNOdzZ6YlNNeEZpajBHYlBKV0o4cG5aYVNOUXN3?=
- =?utf-8?B?U2lUMFMvazVDTlh4MmxKdFRUSlp1ZGZjUXVkaVp6cERRVlFGZzdCSjVaOEdT?=
- =?utf-8?B?UkdpbHFuajdsU1ZyMml6T0IxU09USlZJVkNvSnRZT0Uyd3BDT2hkVnM0Q1Q4?=
- =?utf-8?B?dS9kb1ZFc2Y3cW84M0VTdVJSQ0dNV1BTc0Q5OE9Cb3RaQ0VxbWRJT0hhOFpl?=
- =?utf-8?B?akd3YVZCanlxejQ2eFhSYkdkUmxDMU5sZnlZTVcva1BsYlhsQ3YzNjg3aGE0?=
- =?utf-8?B?N08wdnlGK0JSOHdWYThDVjNYblZUM3JiaFExSnBqc1VJUENrd0V6WU9qTTRU?=
- =?utf-8?B?c0x6aGFtdUtLeityb01GdWFFU1o0b081T01OUktWS05Na0ZFUkNNeVVOaDdJ?=
- =?utf-8?B?ZkxEaGFoaG1wUVpKVFBiTFd4OHJWQVZOUDFqeGszQ3UvYkFrcnNVRU40NEJs?=
- =?utf-8?B?RzJFQ2FsWStRUDZ5ZlU5SS9DR1lUWVdTdmc2UkhCL09rY1ZHUDh6MFcwaFFS?=
- =?utf-8?B?TjRIUlhpekxWczl5QU1MV2wvcE1rMmthRjNTQXRsa3YwTVZFK3dXTlhxNmIr?=
- =?utf-8?B?VDErRXV2RElYVnc2UHVLZTY2NVNBNWJGL25FQzhGRGFOcmVDN1RweWFwdFND?=
- =?utf-8?B?TXNFTXBEVGlBcFRFNTVMcFliYmZjMHlIVUJ3OWJPYkhWOFR1K3puZmptbEFq?=
- =?utf-8?B?TnRpRDdqSUVUU2ptT2ZGTVNaRitZOGJPcGJVbG9IUUhnenlIUWoyVGNrTFpi?=
- =?utf-8?B?MmFUQllFSUZhdVBYM0lTL2hFQ2VpZW5NV09jR0tXbVkxRk50QW9aclBMd0N4?=
- =?utf-8?B?Vit3M000TGFPbUIra2F1NjhWUk1tcE1YTFdBK2pvekpUTnpka3o5dGI5dUhC?=
- =?utf-8?B?WXVYZEdtbnNiV1JQTkFIMUlzRlBNVWxIQ2swRzNRS0pURFFMaUw4SHdOdnM2?=
- =?utf-8?B?TlQ0MHpTNXQ1cit2ek9sbEk4MFFtQkp5ZzhhNDZNbFEwU2srRk5VeHhTZm04?=
- =?utf-8?B?OHU5L2ZXRXpkU2NwYmVJWXZnM2FBeWpVWTh0ZTA4Q1JGbkRENkhRekNLcGY5?=
- =?utf-8?B?RnRiZ1FBbmFFQndaSkhOTDVVVUhnakpPQ3BHeTVKdDJBdW5ya09kcWlhdVZW?=
- =?utf-8?B?SUtiTHVJZ01ZRDhneXhQdWNzNlkwaWJkdmt1eERwbDRETUJ1M0JkT2tCY0xw?=
- =?utf-8?B?dWRMZE1jdXBuUllmTlN5V21UenJ2TXJLa1NnVGVTRXFrUGpkOFZoTkRqeEpO?=
- =?utf-8?B?VHYwaE1rZDhoY1lPU2l1bW1UNUdLUlQ0NjVBSTBTOEVvVGt4SDBORGlvOEQ3?=
- =?utf-8?B?VHNNT0VFb3o1R3l0Ry94REcyaG9SK3haNEQxZ0dtUTBxYlV6TXUxSWFkT2xB?=
- =?utf-8?B?Wk5Ja0luRjBSdWdPWDhqRlhHV0s3VGZrdUY4NDZSTTlxaHQxKyt0RDZMZyt0?=
- =?utf-8?B?MFNzTVhKVVFPZWN0UWpsR3FOUFI3cnhkTjd5MUJOMlJ0OG5UU3QyMFp3aHIy?=
- =?utf-8?B?eTVPYzNvZk53SmFDa1JCKytLRFI3ZFdUYjFWTDdyV2wwMkQ3emd3aHIzOWll?=
- =?utf-8?B?bDdPNkJuSEltLzZLWXQ2RE9KeHRRd1BpZXdRWmRydUc4ek9kb3J4alhXMDJl?=
- =?utf-8?B?UnNZVkY1ZDUrWmFSUWR2YlhEa0JzN3lyYjFlVVpKQzl5R1A4a0N6c0NBZHZa?=
- =?utf-8?B?OE8yck9rRVJQL25WUlhndkM2TGxQRExYcUlPRzF4WC9yaUdkUDI5SVRpSXJj?=
- =?utf-8?B?dTFKT3dwUzdBRWUveEhpOWUwWUZTTDlBdUF0TEZwMXRvTDdoMXg5M0c3eEZJ?=
- =?utf-8?B?Qll5ZWFUYlF1SXdVSTQzcFNXcHpYcC9Da2FuL09Vd3dERHNmZ3ZTbXNnRXFj?=
- =?utf-8?B?dUllcjlCZmN6MVBONGRueTROeVl5bXZkb1R2YURuSFlPU1JNOUU1Q21WU3Z4?=
- =?utf-8?B?RGEwMGVBdnRPcys0a0tZZVRXVWtMWnhtK3BQamk5Z1d6QTJsRUV6aDFFNXhB?=
- =?utf-8?B?bU9WeWFzQklGWTh3WEk5aFQyMDNqV2NaSXNwS2V0c0M4NWV6a2ZUM3NVT0Nk?=
- =?utf-8?B?a2tSM01pUEhHMDlLK0dJTWZQWjV1UWQ4bHdLN21NUjhHR1o3bi90K2k4MUlX?=
- =?utf-8?B?TVduV0JIQU9NbnJxcUpCbjJDSVo3RFpjcUNjY3RKeFRLZWk3UTk3TmNtMFBw?=
- =?utf-8?B?WkJ2bmp4aFVOWjZ4aGhPZ3krazZqTXRDYVNSRzlOQ0gvbU9iaWNKY3U0TEhj?=
- =?utf-8?B?aG5jRnZKZkpRcXg0bjE3NFBXRkJFKzg4TFdVY2hFZm1MTXF4b3JkMk5NTDEw?=
- =?utf-8?B?TVpPWnhVUjh3WVdWSGJaV2pzeVN1MTNrVkJacjl0WFlBOGRPbXZXdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 9590110E2AC;
+ Thu,  6 Aug 2026 08:39:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 836C4153B;
+ Thu,  6 Aug 2026 01:39:49 -0700 (PDT)
+Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
+ [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C4F063F632;
+ Thu,  6 Aug 2026 01:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786005593; bh=1/GXhzlocZP3RO99ssHRo2N31fXX+evtIf1AglwmeYk=;
+ h=From:To:Cc:Subject:Date:From;
+ b=XAD0GC3BFV+aOtURbErU8rEzfMbSmdJMzfNwzK/FHv0gx1gos8TDz/dRjKI0JzDR0
+ AQ4BuCvKLoJi+XVzKw+vUT1ULkUCtkTdaFTQUlv601HAIs75njL9FmO8WmoPB+Psrr
+ TDc5b83VZ6vnRuzuzlPGu/pmjS3BAMBtce5CKFQo=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: [PATCH 0/9] mm: distinguish PTE table storage from PTE values
+Date: Thu,  6 Aug 2026 09:38:38 +0100
+Message-ID: <20260806083926.1807279-1-usama.anjum@arm.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: jnEcDXAAciorMSt1xSRIKidqWWEMmuVK/6VKPm2f4vf3PZwikegcPZ18YwiGScUZuaBypvo5kM79yCRQRaBRMn8V+N66y6mlt7H1Lh9JUOMCHVYtoAL9Su0dOgkFOPWg9cGAEu8D/4IQN2wBTqVWCEdB/7ayERZMH/hAox5ix94TXk+Zo54pqbyt02eSBR/obEtZ5r4Rz4G3BfRNa8rEVVotdt4s/GvAWhTEVDqHYcybQ2YMJsOONJu/0jJdC4bj2EymsKpIzIyKr3phvPIO0F6x68kab69VeuZQO+P/ZK2D9VhcLvDuPLcN8DKNeAyFB5WhjBlHBvlO/BsIcG+DhA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6464.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5391fe86-2010-4f2f-9817-08def394aa40
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 08:28:16.9891 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0qI/NritpIeIavEaj6Jndvbsv8i1M3UW9SAbstIvgTx36esgxRqYjYXAZvKv5IAUG49v7Q6S0YGapPSOFaoc9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR11MB8241
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,37 +92,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQm9yYWgsIENoYWl0YW55
-YSBLdW1hciA8Y2hhaXRhbnlhLmt1bWFyLmJvcmFoQGludGVsLmNvbT4NCj4gU2VudDogVGh1cnNk
-YXksIEF1Z3VzdCA2LCAyMDI2IDE6MTggUE0NCj4gVG86IGludGVsLXhlQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZzsgaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogQm9yYWgsIENo
-YWl0YW55YSBLdW1hciA8Y2hhaXRhbnlhLmt1bWFyLmJvcmFoQGludGVsLmNvbT47IFZpdmksDQo+
-IFJvZHJpZ28gPHJvZHJpZ28udml2aUBpbnRlbC5jb20+OyBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxl
-LnN5cmphbGFAbGludXguaW50ZWwuY29tPjsNCj4gR2FyZywgTmVtZXNhIDxuZW1lc2EuZ2FyZ0Bp
-bnRlbC5jb20+OyBKYW5pIE5pa3VsYQ0KPiA8amFuaS5uaWt1bGFAbGludXguaW50ZWwuY29tPg0K
-PiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9pOTE1L2RwX21zdDogUmVtb3ZlIGR1cGxpY2F0ZQ0KPiBp
-bnRlbF9wZml0X2NvbXB1dGVfY29uZmlnKCkgY2FsbA0KPiANCj4gbXN0X3N0cmVhbV9jb21wdXRl
-X2NvbmZpZygpIGNhbGxlZCBpbnRlbF9wZml0X2NvbXB1dGVfY29uZmlnKCkgdHdpY2UgaW4gYQ0K
-PiByb3cuIFByb2JhYmx5IGJlY2F1c2Ugb2YgYSBiYWQgbWVyZ2UuIERyb3AgdGhlIHJlZHVuZGFu
-dCBkdXBsaWNhdGUgY2FsbC4NCj4gDQo+IENjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBp
-bnRlbC5jb20+DQo+IENjOiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXguaW50
-ZWwuY29tPg0KPiBDYzogTmVtZXNhIEdhcmcgPG5lbWVzYS5nYXJnQGludGVsLmNvbT4NCj4gQ2M6
-IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBsaW51eC5pbnRlbC5jb20+DQo+IEZpeGVzOiA1Y2U5
-YWMxNTMxYjggKCJkcm0vaTkxNS9tc3Q6IENhbGwgaW50ZWxfcGZpdF9jb21wdXRlX2NvbmZpZygp
-IGZvcg0KPiBzaGFycG5lc3MgZmlsdGVyIikNCj4gU2lnbmVkLW9mZi1ieTogQ2hhaXRhbnlhIEt1
-bWFyIEJvcmFoIDxjaGFpdGFueWEua3VtYXIuYm9yYWhAaW50ZWwuY29tPg0KPiAtLS0NCj4gIGRy
-aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbXN0LmMgfCA0IC0tLS0NCj4gIDEg
-ZmlsZSBjaGFuZ2VkLCA0IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBfbXN0LmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0v
-aTkxNS9kaXNwbGF5L2ludGVsX2RwX21zdC5jDQo+IGluZGV4IDNiZTE2NDNmOGQwMy4uNTdkYWVk
-MGIwYjM2IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVs
-X2RwX21zdC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfZHBf
-bXN0LmMNCj4gQEAgLTc2MSwxMCArNzYxLDYgQEAgc3RhdGljIGludCBtc3Rfc3RyZWFtX2NvbXB1
-dGVfY29uZmlnKHN0cnVjdA0KPiBpbnRlbF9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPiAgCXBpcGVf
-Y29uZmlnLT5zaW5rX2Zvcm1hdCA9IElOVEVMX09VVFBVVF9GT1JNQVRfUkdCOw0KPiAgCXBpcGVf
-Y29uZmlnLT5vdXRwdXRfZm9ybWF0ID0gSU5URUxfT1VUUFVUX0ZPUk1BVF9SR0I7DQo+IA0KPiAt
-CXJldCA9IGludGVsX3BmaXRfY29tcHV0ZV9jb25maWcocGlwZV9jb25maWcsIGNvbm5fc3RhdGUp
-Ow0KPiAtCWlmIChyZXQpDQo+IC0JCXJldHVybiByZXQ7DQo+IC0NCj4gIAlyZXQgPSBpbnRlbF9w
-Zml0X2NvbXB1dGVfY29uZmlnKHBpcGVfY29uZmlnLCBjb25uX3N0YXRlKTsNCj4gIAlpZiAocmV0
-KQ0KPiAgCQlyZXR1cm4gcmV0Ow0KPiAtLQ0KTEdUTSwNClJldmlld2VkLWJ5OiBOZW1lc2EgR2Fy
-ZyA8bmVtZXNhLmdhcmdAaW50ZWwuY29tPg0KDQo+IDIuNTAuMQ0KDQo=
+Hi,
+
+pte_t currently describes both a logical PTE value and an element stored
+in a PTE table. Consequently, pte_t * can point either to a standalone
+value, often a stack copy, or to a PTE-table slot. The compiler cannot
+distinguish these cases. A value pointer can therefore be passed to an
+interface that expects table storage, while table storage can be read by
+direct dereference instead of the architecture accessor.
+
+This series begins a staged conversion at the PTE level. It introduces
+hw_pte_t as the element type for PTE-table storage and converts generic
+MM to use hw_pte_t *. Logical PTE values remain pte_t. Interfaces that
+intentionally return a value through pte_t *, such as install_pte,
+remain value interfaces; the relevant parameters are named ptentp to
+make that distinction explicit.
+
+The generic definition aliases hw_pte_t to pte_t unless an architecture
+selects ARCH_HAS_HW_PTE_T, which enables a distinct generic wrapper. No
+architecture selects it in this series, so the representation and
+behaviour of every architecture are preserved. ptep_get() keeps its
+existing READ_ONCE() semantics and converts the stored element through
+__pte_from_hw(). An architecture can later select the option and convert
+its PTE interfaces to make the distinction compiler-enforced.
+Architecture PTE implementations and most architecture code are
+deliberately left for those later opt-in conversions.
+
+Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
+complete PTE tables use hw_pte_t whether or not they are currently
+linked into a page-table hierarchy, while standalone copied values use
+pte_t. The distinction between complete but unlinked tables and
+hardware-reachable tables was raised during discussion and remains an
+important point for review.
+
+PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
+converted in later series after the PTE boundary is agreed, avoiding the
+PMD-specific cases that made an all-level conversion difficult to
+review.
+
+Most mechanical pointer conversions were generated with the Coccinelle
+script included below, then audited and fixed by hand.
+
+This series does not add a second ptep_get_once() accessor and does not
+remove or replace STRICT_MM_TYPECHECKS.
+
+The design discussion is available at [1]; while the original idea came
+from [2].
+
+I've the patches here [3] for arm64 conversion which I used to find
+usages in generic code which I missed during development. These would be
+sent separately.
+
+[1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
+[2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
+[3] https://github.com/musamaanjum/linux/commits/pte0_arm/
+
+Thanks,
+Usama
+---
+Changes since RFC v1:
+- Add ARCH_HAS_HW_PTE_T so architectures can opt in to a distinct
+  PTE-table storage type.
+- Define the distinct hw_pte_t wrapper and its conversion helpers in
+  generic code instead of requiring each architecture to define them.
+- Read hw_pte_t through READ_ONCE() before converting it to pte_t.
+- Drop the previous mremap patch in favour of [a]. Apply [a] first if
+  it is not already present.
+- Drop the previous two dead-code conversion patches; the affected
+  code was cleaned up separately in [b] and [c].
+
+[a] https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
+[b] https://lore.kernel.org/all/20260730111316.3672672-1-usama.anjum@arm.com
+[c] https://lore.kernel.org/all/20260730094501.3002718-1-usama.anjum@arm.com
+
+---
+// SPDX-License-Identifier: GPL-2.0-only
+///
+/// Rename raw PTE pointer types to hardware PTE pointer types.
+///
+/// This is a mechanical type rename. It converts common declarations,
+/// function parameters, prototypes, return types and casts from "pte_t *"
+/// to "hw_pte_t *". Plain "pte_t" objects are intentionally left unchanged.
+/// Pointers named "ptentp" refer to temporary logical PTE values and are
+/// intentionally ignored in all modes.
+/// Re-run in context mode afterwards to audit remaining raw pte_t pointers
+/// and cases that need hand conversion, such as trace macros and mixed
+/// declarations.
+///
+/// Confidence: Moderate
+// Options: --no-includes --include-headers
+
+virtual patch
+virtual report
+virtual context
+
+@local_decl depends on patch@
+identifier x != ptentp;
+@@
+- pte_t *x;
++ hw_pte_t *x;
+
+@local_decl_init depends on patch@
+identifier x != ptentp;
+expression e;
+@@
+- pte_t *x = e;
++ hw_pte_t *x = e;
+
+@param_proto depends on patch@
+identifier f;
+identifier x != ptentp;
+type R;
+@@
+R f(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+
+@param_proto_unnamed depends on patch@
+identifier f;
+type R;
+@@
+R f(...,
+- pte_t *
++ hw_pte_t *
+,...);
+
+@param_def depends on patch@
+identifier f;
+identifier x != ptentp;
+type R;
+@@
+R f(...,
+- pte_t *x
++ hw_pte_t *x
+,...)
+{ ... }
+
+@ret_proto depends on patch@
+identifier f;
+parameter list ps;
+@@
+- pte_t *
++ hw_pte_t *
+  f(ps);
+
+@ret_def depends on patch@
+identifier f;
+parameter list ps;
+@@
+- pte_t *
++ hw_pte_t *
+  f(ps)
+{ ... }
+
+@struct_member depends on patch@
+identifier S;
+identifier x != ptentp;
+@@
+struct S {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+
+@union_member depends on patch@
+identifier x != ptentp;
+@@
+union {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+
+@union_member_in_struct depends on patch@
+identifier S;
+identifier x != ptentp;
+@@
+struct S {
+...
+union {
+...
+- pte_t *x;
++ hw_pte_t *x;
+...
+};
+...
+};
+
+@fnptr_struct_member depends on patch@
+identifier S,f;
+identifier x != ptentp;
+type R;
+@@
+struct S {
+...
+R (*f)(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+...
+};
+
+@fnptr_typedef_pte_fn_t depends on patch@
+identifier x != ptentp;
+@@
+typedef int (*pte_fn_t)(...,
+- pte_t *x
++ hw_pte_t *x
+,...);
+
+@cast depends on patch@
+expression e;
+@@
+- (pte_t *)e
++ (hw_pte_t *)e
+
+@remaining_decl depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+* pte_t *x@p;
+
+@remaining_decl_init depends on context || report@
+identifier x != ptentp;
+expression e;
+position p;
+@@
+* pte_t *x@p = e;
+
+@remaining_param_proto depends on context || report@
+identifier f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *x@p
+,...);
+
+@remaining_param_proto_unnamed depends on context || report@
+identifier f;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *@p
+,...);
+
+@remaining_param_def depends on context || report@
+identifier f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+R f(...,
+* pte_t *x@p
+,...)
+{ ... }
+
+@remaining_ret_proto depends on context || report@
+identifier f;
+parameter list ps;
+position p;
+@@
+* pte_t *f@p(ps);
+
+@remaining_ret_def depends on context || report@
+identifier f;
+parameter list ps;
+position p;
+@@
+* pte_t *f@p(ps)
+{ ... }
+
+@remaining_struct_member depends on context || report@
+identifier S;
+identifier x != ptentp;
+position p;
+@@
+struct S {
+...
+* pte_t *x@p;
+...
+};
+
+@remaining_union_member depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+union {
+...
+* pte_t *x@p;
+...
+};
+
+@remaining_union_member_in_struct depends on context || report@
+identifier S;
+identifier x != ptentp;
+position p;
+@@
+struct S {
+...
+union {
+...
+* pte_t *x@p;
+...
+};
+...
+};
+
+@remaining_fnptr_struct_member depends on context || report@
+identifier S,f;
+identifier x != ptentp;
+type R;
+position p;
+@@
+struct S {
+...
+R (*f)(...,
+* pte_t *x@p
+,...);
+...
+};
+
+@remaining_fnptr_typedef_pte_fn_t depends on context || report@
+identifier x != ptentp;
+position p;
+@@
+typedef int (*pte_fn_t)(...,
+* pte_t *x@p
+,...);
+
+Muhammad Usama Anjum (9):
+  mm: introduce hw_pte_t for PTE table storage
+  mm: make hw_pte_t visible to generic PTE interfaces
+  mm: name pointers to copied PTE values ptentp
+  mm: use hw_pte_t for generic PTE table storage
+  mm: convert PTE table entries in ptep_get()
+  mm: convert PTE table entry to pte
+  mm/kasan: use hw_pte_t for the early shadow PTE table
+  drm/i915: use hw_pte_t for PTE range callbacks
+  xen: use hw_pte_t for PTE range callbacks
+
+ MAINTAINERS                                   |  1 +
+ .../drm/i915/gem/selftests/i915_gem_mman.c    |  4 +-
+ drivers/gpu/drm/i915/i915_mm.c                |  4 +-
+ drivers/xen/gntdev.c                          |  2 +-
+ drivers/xen/privcmd.c                         |  2 +-
+ drivers/xen/xenbus/xenbus_client.c            |  2 +-
+ drivers/xen/xlate_mmu.c                       |  4 +-
+ fs/hugetlbfs/inode.c                          |  3 +-
+ fs/proc/task_mmu.c                            | 33 ++++----
+ include/asm-generic/hugetlb.h                 | 15 ++--
+ include/asm-generic/pgalloc.h                 |  6 +-
+ include/asm-generic/tlb.h                     |  5 +-
+ include/linux/hugetlb.h                       | 52 ++++++------
+ include/linux/kasan.h                         |  2 +-
+ include/linux/mm.h                            | 26 +++---
+ include/linux/page_table_check.h              | 10 ++-
+ include/linux/pagewalk.h                      | 10 +--
+ include/linux/pgtable.h                       | 81 ++++++++++---------
+ include/linux/pgtable_types.h                 | 19 +++++
+ include/linux/rmap.h                          |  2 +-
+ include/linux/swapops.h                       |  6 +-
+ include/linux/vmalloc.h                       |  4 +-
+ include/trace/events/xen.h                    | 10 +--
+ kernel/bpf/arena.c                            |  9 ++-
+ kernel/events/core.c                          |  3 +-
+ mm/Kconfig                                    |  3 +
+ mm/damon/ops-common.c                         |  2 +-
+ mm/damon/ops-common.h                         |  2 +-
+ mm/damon/vaddr.c                              | 20 ++---
+ mm/debug_vm_pgtable.c                         |  2 +-
+ mm/filemap.c                                  |  4 +-
+ mm/gup.c                                      |  9 ++-
+ mm/highmem.c                                  | 15 ++--
+ mm/hmm.c                                      |  6 +-
+ mm/huge_memory.c                              |  4 +-
+ mm/hugetlb.c                                  | 60 +++++++-------
+ mm/hugetlb_vmemmap.c                          | 13 +--
+ mm/internal.h                                 | 16 ++--
+ mm/kasan/init.c                               | 14 ++--
+ mm/kasan/shadow.c                             |  6 +-
+ mm/khugepaged.c                               | 24 +++---
+ mm/ksm.c                                      | 11 +--
+ mm/madvise.c                                  | 18 +++--
+ mm/mapping_dirty_helpers.c                    |  4 +-
+ mm/memory-failure.c                           |  6 +-
+ mm/memory.c                                   | 78 +++++++++---------
+ mm/mempolicy.c                                |  4 +-
+ mm/migrate.c                                  |  4 +-
+ mm/migrate_device.c                           |  4 +-
+ mm/mincore.c                                  |  4 +-
+ mm/mlock.c                                    |  4 +-
+ mm/mprotect.c                                 | 19 ++---
+ mm/mremap.c                                   |  4 +-
+ mm/page_table_check.c                         |  4 +-
+ mm/pagewalk.c                                 |  9 ++-
+ mm/percpu.c                                   |  2 +-
+ mm/pgtable-generic.c                          | 20 ++---
+ mm/ptdump.c                                   |  4 +-
+ mm/rmap.c                                     |  6 +-
+ mm/sparse-vmemmap.c                           | 24 +++---
+ mm/swap_state.c                               |  3 +-
+ mm/swapfile.c                                 |  5 +-
+ mm/userfaultfd.c                              | 32 ++++----
+ mm/util.c                                     |  2 +-
+ mm/vmalloc.c                                  | 13 +--
+ mm/vmscan.c                                   |  6 +-
+ 66 files changed, 437 insertions(+), 368 deletions(-)
+ create mode 100644 include/linux/pgtable_types.h
+
+-- 
+2.47.3
+
