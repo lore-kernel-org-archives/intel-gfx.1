@@ -4,49 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F721C5AC7A
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 20:07:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E291C5AD05
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 22:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86CFA10E24A;
-	Fri,  7 Aug 2026 20:07:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="Zney+X1+";
-	dkim-atps=neutral
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36AB488C4C;
- Fri,  7 Aug 2026 20:07:21 +0000 (UTC)
-Received: from wsembach-tuxedo.buero.augsburg.tuxedo.de
- (host-212-18-30-247.customer.m-online.net [212.18.30.247])
- (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id 31CDF2FC0049;
- Fri,  7 Aug 2026 22:07:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1786133239;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=92z7e6+vfZcMyJwAWZmIBOL5/EXTZgvHjPTNDym0thU=;
- b=Zney+X1+wxXYHv1GRhSBleITJyRuXtpYSkqNo7osqNe0LVsyP4fGBgaGqAVxiSWQYAPd/Y
- iWsevXszrCvb0XjuRuMDatLE83twB8cyo+Ma4q109OejMg1mhNNpARSbDDsULK9XfjI2Oj
- fNXFHWjaQzHCX42Dc9HNqTsG6RCbrZU=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/1] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-Date: Fri,  7 Aug 2026 22:04:29 +0200
-Message-ID: <20260807200709.464343-1-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E69510F5DD;
+	Fri,  7 Aug 2026 22:22:34 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A71A10F5DD;
+ Fri,  7 Aug 2026 22:22:33 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4133988071357275846=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_fix_f?=
+ =?utf-8?q?lipq_pipe_CRC_mismatch_in_kms=5Fcursor=5Fcrc?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mika Kahola" <mika.kahola@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 07 Aug 2026 22:22:33 -0000
+Message-ID: <178614135359.30363.13790397291476394736@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260807121540.2032283-1-mika.kahola@intel.com>
+In-Reply-To: <20260807121540.2032283-1-mika.kahola@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,34 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Since the proposed general fix, fixed the backlight on TUXEDO devices, but
-broke it on other ones:
-- https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679#note_3581777
-- https://lore.kernel.org/all/20260515155340.1000997-1-suraj.kandpal@intel.com/
-I'm back here again proposing the fix via a quirk.
+--===============4133988071357275846==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-I therefore rebased
-https://lore.kernel.org/all/20260121223944.1104951-1-wse@tuxedocomputers.com/
-to cleanly apply on current drm-tip.
+== Series Details ==
 
-V1->V2: Switch from dmis trings to PCI-IDs
-V2->V3: Rebase onto current drm-tip
-V3->V4: Better commit message and added comment in code
+Series: drm/i915/display: fix flipq pipe CRC mismatch in kms_cursor_crc
+URL   : https://patchwork.freedesktop.org/series/171793/
+State : success
 
-Werner Sembach (1):
-  drm/i915/display: Add quirk to force backlight type on some TUXEDO
-    devices
+== Summary ==
 
- .../drm/i915/display/intel_dp_aux_backlight.c | 22 ++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 46 insertions(+), 1 deletion(-)
+CI Bug Log - changes from CI_DRM_18962 -> Patchwork_171793v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171793v1/index.html
+
+Participating hosts (40 -> 36)
+------------------------------
+
+  Missing    (4): bat-dg2-13 bat-dg2-9 fi-snb-2520m bat-adls-6 
 
 
-base-commit: 665722ddd6884c57624bd82d7ab886cf11a7b6f8
--- 
-2.43.0
+Changes
+-------
 
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18962 -> Patchwork_171793v1
+
+  CI-20190529: 20190529
+  CI_DRM_18962: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9043: 9043
+  Patchwork_171793v1: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171793v1/index.html
+
+--===============4133988071357275846==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: fix flipq pipe CRC mismatch in kms_cursor_crc</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171793/">https://patchwork.freedesktop.org/series/171793/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171793v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171793v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18962 -&gt; Patchwork_171793v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171793v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 36)</h2>
+<p>Missing    (4): bat-dg2-13 bat-dg2-9 fi-snb-2520m bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18962 -&gt; Patchwork_171793v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18962: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9043: 9043<br />
+  Patchwork_171793v1: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4133988071357275846==--
