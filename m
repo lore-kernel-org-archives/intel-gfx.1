@@ -4,62 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C473C5AC81
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 12:45:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD781C5AC7C
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 12:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C4D7210F4A1;
-	Fri,  7 Aug 2026 12:45:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dLV/xDQ5";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98F5210E412;
- Fri,  7 Aug 2026 12:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786106752; x=1817642752;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=lJBJIWfnlJuBrmy0UBwJ59rfYvxzSekY2abk4IjTU/4=;
- b=dLV/xDQ5yDb6D/dHDbLXydSQ2SW04lGuGTtvRdY+HSmyBhDg9yV9q5Dm
- hcgfpq59ZXTEEcSLVT+C8iG0uiSt5XAxfOFWBJY1zHgdcd1emiw5qlmVG
- 1nb0t6bUHj5yqD0C4fZKY3jJOZiP5oN47mktu8W8REH7Uj/KJ9LmM/xmu
- JkJGbSIyVPyFFYIpTBb5/VY0v9L/bUQEiUE7bZzkpLynNIAdkya14q+JG
- irjy6+P71mKx84RFiHetBN6aNFqxb0wMvNShzkhOB5fjBFboidZ0b3MLX
- mFbB8jdCNF9Yt8Ktauh57SfA1FUT3N4coo3ve7Zwq82OMZUvnOwOtwOVB A==;
-X-CSE-ConnectionGUID: UvXjNdbsScyww/1+stHPFA==
-X-CSE-MsgGUID: FiGi4O45S/ScP4bXBkrPVw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85683578"
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="85683578"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 05:45:52 -0700
-X-CSE-ConnectionGUID: eZDgOUZgSIOAEME3x7UdNA==
-X-CSE-MsgGUID: JtUTtpvMRH6WFFyuV9CSiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="263019122"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.152])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 05:45:50 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/display: Limit max joined dotclock on pipes
- available
-In-Reply-To: <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260806143738.2710312-1-jani.nikula@intel.com>
- <ca6f4f3b-9c94-4b24-a8e4-7c351e730429@intel.com>
- <788a51d6-4eca-4365-bad1-037d25f388d0@intel.com>
- <95cc059b-056e-4aa3-8431-1e497002f58d@intel.com>
-Date: Fri, 07 Aug 2026 15:45:46 +0300
-Message-ID: <65d9cdfb093f5e1e048738aaf1b20131f18ed16b@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DF2910E412;
+	Fri,  7 Aug 2026 12:59:42 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B57F110E412;
+ Fri,  7 Aug 2026 12:59:40 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1221337805415820350=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Use_array_?=
+ =?utf-8?q?size_for_intersect=5Frates=28=29_bound_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Fri, 07 Aug 2026 12:59:40 -0000
+Message-ID: <178610758070.29246.9707136794668465585@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260804085658.1306761-1-suraj.kandpal@intel.com>
+In-Reply-To: <20260804085658.1306761-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,35 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 06 Aug 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
-> On 8/6/2026 9:19 PM, Nautiyal, Ankit K wrote:
->> On 8/6/2026 9:15 PM, Nautiyal, Ankit K wrote:
->>> If fused pipes are AC or BD this will still give us 2. Perhaps should=20
->>> have a check for atleast 2 consecutive pipes from=20
->>> DISPLAY_RUNTIME_INFO(display)->pipe_mask
->>
->>
->> ^I meant :=C2=A0 if fused pipes are B or D, resulting in A,C and B,D=20
->> respectively, as available pipes...
->
->
-> Correction (typo'd twice (facepalm)): I meant if the available pipes are=
-=20
-> non-consecutive, like {A,C} or {B,D}=C2=A0 the count is still 2, but=20
-> bigjoiner needs 2 consecutive pipes.
->
-> So we should check pipe_mask for a consecutive pair.
+--===============1221337805415820350==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Agreed. The more complete approach at [1].
+== Series Details ==
 
-Thanks,
-Jani.
+Series: drm/i915/dp: Use array size for intersect_rates() bound (rev3)
+URL   : https://patchwork.freedesktop.org/series/171567/
+State : success
 
-[1] https://lore.kernel.org/r/20260806143738.2710312-1-jani.nikula@intel.com
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18962 -> Patchwork_171567v3
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171567v3/index.html
+
+Participating hosts (40 -> 37)
+------------------------------
+
+  Missing    (3): bat-dg2-13 bat-dg2-9 fi-snb-2520m 
 
 
---=20
-Jani Nikula, Intel
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18962 -> Patchwork_171567v3
+
+  CI-20190529: 20190529
+  CI_DRM_18962: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9043: 9043
+  Patchwork_171567v3: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171567v3/index.html
+
+--===============1221337805415820350==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Use array size for intersect_rates() bound (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171567/">https://patchwork.freedesktop.org/series/171567/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171567v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171567v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18962 -&gt; Patchwork_171567v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171567v3/index.html</p>
+<h2>Participating hosts (40 -&gt; 37)</h2>
+<p>Missing    (3): bat-dg2-13 bat-dg2-9 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18962 -&gt; Patchwork_171567v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18962: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9043: 9043<br />
+  Patchwork_171567v3: 01d30c194951b8794c33f0d7f559bc4a1c9b7630 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1221337805415820350==--
