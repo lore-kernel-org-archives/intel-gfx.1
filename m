@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667E1C2A09B
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 19:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37AA5C2A09B
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 20:07:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8F9310E468;
-	Fri,  7 Aug 2026 19:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75E4010E470;
+	Fri,  7 Aug 2026 20:07:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g0gDZ+GP";
+	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="hdRMQcG1";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3CC210E468
- for <intel-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 19:24:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786130673; x=1817666673;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=tQ+KUK9ZjbbC8KOryhgwFl9GtJBchKo2VZQpp1u4PVk=;
- b=g0gDZ+GPQbmlfF3F+TrQDs4I30889Yz9TxEq/Dw9ZKVNw9bHJAZl7dNX
- 0Z4v2j9Z523wf5YmrJr/t0AhHUcEZIDE2Qum2yqcK0ATwEyeYqWXdhGRd
- iAzsLPNFW5AiYNq8FhK/veKxdnvUw/nYxQBLFJfh/nZajv8YR14hCK8r4
- FpaigTaB/YdT/61evSx4TB4cqMHBL+w4tVPVjQDM7A9GZ2hRAZazSmo6m
- jH4hFYMCvEcPcvgO5Dzx04dbWJg1VnEoKCw5yVdDh5NwfPiPhVQvZoHt+
- ARp0Nnasp2A0zWz0dWHNxw/tgh2uLAeyPDLLC2r9M+qhF67KYtg1wug0U w==;
-X-CSE-ConnectionGUID: kX+QvMjLR6ObTVFI7lhr9g==
-X-CSE-MsgGUID: ZMnCeXpjQ2aEhvisNn4L3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="112293857"
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="112293857"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 12:24:26 -0700
-X-CSE-ConnectionGUID: YWPJXenoRdWLP+JD+1Qs7g==
-X-CSE-MsgGUID: u0f7hLsRSki7xdJEt6dAvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="258170172"
-Received: from jesusnar-desk.jf.intel.com ([10.88.27.172])
- by fmviesa006.fm.intel.com with ESMTP; 07 Aug 2026 12:24:25 -0700
-From: Jesus Narvaez <jesus.narvaez@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Jesus Narvaez <jesus.narvaez@intel.com>,
- Martin Hodo <martin.hodo@intel.com>,
- Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
- Alan Previn <alan.previn.teres.alexis@intel.com>, stable@vger.kernel.org
-Subject: [PATCH 2/2] drm/i915/gsc: Validate the CPD entry offset before
- manifest read
-Date: Fri,  7 Aug 2026 12:23:03 -0700
-Message-ID: <20260807192301.3009387-4-jesus.narvaez@intel.com>
+Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
+ [157.90.84.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4989A10E24A;
+ Fri,  7 Aug 2026 20:07:22 +0000 (UTC)
+Received: from wsembach-tuxedo.buero.augsburg.tuxedo.de
+ (host-212-18-30-247.customer.m-online.net [212.18.30.247])
+ (Authenticated sender: wse@tuxedocomputers.com)
+ by mail.tuxedocomputers.com (Postfix) with ESMTPA id 4C42E2FC004D;
+ Fri,  7 Aug 2026 22:07:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
+ s=default; t=1786133241;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zcqw3phGqPumtEwKCvYGijd5ryFAPbT280s+LSCI/8c=;
+ b=hdRMQcG1JSMcvMN0AD/lPeaLbjwOhOgCDiK2X/lxC3xbHrFsdeYv6PAAKbdGqHC1ouRHxe
+ FsMDzl+9KPWqQTCRBBWySFrEQV40/cnWvD/6mGTMwvn/AVUH3PcFnD+P1yzxWO6k8vQt9A
+ e2o+JRmZ+G/MRQsEtXGKe+MnGHn30Mk=
+Authentication-Results: mail.tuxedocomputers.com;
+ auth=pass smtp.auth=wse@tuxedocomputers.com
+ smtp.mailfrom=wse@tuxedocomputers.com
+From: Werner Sembach <wse@tuxedocomputers.com>
+To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, Suraj Kandpal <suraj.kandpal@intel.com>,
+ Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Cc: wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight type on
+ some TUXEDO devices
+Date: Fri,  7 Aug 2026 22:04:30 +0200
+Message-ID: <20260807200709.464343-2-wse@tuxedocomputers.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260807192301.3009387-3-jesus.narvaez@intel.com>
-References: <20260807192301.3009387-3-jesus.narvaez@intel.com>
+In-Reply-To: <20260807200709.464343-1-wse@tuxedocomputers.com>
+References: <20260807200709.464343-1-wse@tuxedocomputers.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -70,79 +66,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The CPD manifest offset was dereferenced without checking the bounds
-first. Therefore, ensure the offset doesn't point into the CPD header
-or past the bounds of the FW blob before reading the GSC manifest.
+The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 have a broken
+VBT in the AUO 12701 and AUO 12701 panels, but not others. They are
+advertising INTEL_BACKLIGHT_DISPLAY_DDI, but are actually failing to use
+the Intel interface. Adding a fallback to the VESA interface gives
+these devices a working backlight for both the broken and non broken
+panel VBTs.
 
-Also, validate CPD header length before using it to size the CPD
-entry table, and cast the boot1 partition's offset and size to size_t
-to avoid an integer overflow.
+Forcing the fallback can already be achieved via a module parameter,
+but this patch adds a quirk to apply this by default on the mentioned
+devices.
 
-Discovered using AI-assisted static analysis confirmed by Intel Product
-Security.
+This patch does not actually test for the exact panels as the ID that is
+used in the intel_dpcd_quirks list is sadly zeroed on the devices, but
+afaik all these devices use try_intel_interface first anyway so all the
+quirk does is to add the fallback to try_vesa_interface, so the behaviour
+on the devices not needing the quirk and fallback should functionally stay
+the same.
 
-Reported-by: Martin Hodo <martin.hodo@intel.com>
-Fixes: 56fafa569764 ("drm/i915/mtl/gsc: extract release and security versions from the gsc binary")
-Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
-Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
-Cc: <stable@vger.kernel.org> # v6.6+
-Signed-off-by: Jesus Narvaez <jesus.narvaez@intel.com>
+Fixes: f30fddb44023 ("Revert "drm/i915/backlight: Remove try_vesa_interface"")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679
+Cc: stable@vger.kernel.org
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c | 27 ++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+ .../drm/i915/display/intel_dp_aux_backlight.c | 22 ++++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
+ 3 files changed, 46 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-index d550eb6edfb8..1b9976869c46 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_gsc_fw.c
-@@ -139,7 +139,7 @@ int intel_gsc_fw_get_binary_info(struct intel_uc_fw *gsc_fw, const void *data, s
- 	 * --------------------------------------------------
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+index 266e042e00237..d84def79c4bfb 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+@@ -41,6 +41,7 @@
+ #include "intel_display_types.h"
+ #include "intel_dp.h"
+ #include "intel_dp_aux_backlight.h"
++#include "intel_quirks.h"
+ 
+ /*
+  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
+@@ -687,11 +688,30 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
+ 	struct drm_device *dev = connector->base.dev;
+ 	struct intel_panel *panel = &connector->panel;
+ 	bool try_intel_interface = false, try_vesa_interface = false;
++	int enable_dpcd_backlight;
++
++	/*
++	 * Some devices have a broken VBT in some Panels, but not others,
++	 * advertising INTEL_BACKLIGHT_DISPLAY_DDI, but actually failing to use
++	 * the Intel interface. Adding a fallback to the Vesa interface gives
++	 * these devices a working backlight for both the broken and non broken
++	 * panel VBTs.
++	 *
++	 * This fallback can not be made the general default as this has broken
++	 * other devices in the past whose VBT correctly reports
++	 * INTEL_BACKLIGHT_DISPLAY_DDI and whose PWM path is the actual
++	 * backlight control, but whose DPCD optimistically advertises
++	 * DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
++	 */
++	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
++	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
++	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
++		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
+ 
+ 	/* Check the VBT and user's module parameters to figure out which
+ 	 * interfaces to probe
  	 */
+-	switch (display->params.enable_dpcd_backlight) {
++	switch (enable_dpcd_backlight) {
+ 	case INTEL_DP_AUX_BACKLIGHT_OFF:
+ 		return -ENODEV;
+ 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d50..89d82364ae45d 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
+ 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
+ }
  
--	min_size = layout->boot1.offset + layout->boot1.size;
-+	min_size = (size_t)layout->boot1.offset + layout->boot1.size;
- 	if (size < min_size) {
- 		gt_err(gt, "GSC FW too small for boot section! %zu < %zu\n",
- 		       size, min_size);
-@@ -195,7 +195,14 @@ int intel_gsc_fw_get_binary_info(struct intel_uc_fw *gsc_fw, const void *data, s
- 		return -EINVAL;
- 	}
++static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
++	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
++}
++
+ struct intel_quirk {
+ 	int device;
+ 	int subsystem_vendor;
+@@ -286,6 +294,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* TUXEDO InsanityBook 15 v1 */
++	{
++		.device = 0x591b,
++		.subsystem_vendor = 0x1558,
++		.subsystem_device = 0x9501,
++		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
++		.hook = quirk_enable_dpcd_backlight,
++	},
++	/* TUXEDO DX1708 */
++	{
++		.device = 0x3e9b,
++		.subsystem_vendor = 0x1558,
++		.subsystem_device = 0x8500,
++		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
++		.hook = quirk_enable_dpcd_backlight,
++	},
+ };
  
--	min_size += sizeof(*cpd_entry) * cpd_header->num_of_entries;
-+	if (cpd_header->header_length < sizeof(struct intel_gsc_cpd_header_v2)) {
-+		gt_err(gt, "invalid CPD header length in GSC bin: %u < %zu!\n",
-+		       cpd_header->header_length, sizeof(*cpd_header));
-+		return -EINVAL;
-+	}
-+
-+	min_size = bpdt_entry->sub_partition_offset + cpd_header->header_length +
-+		   sizeof(*cpd_entry) * cpd_header->num_of_entries;
- 	if (layout->boot1.size < min_size) {
- 		gt_err(gt, "GSC FW boot section too small for CPD entries: %u < %zu\n",
- 		       layout->boot1.size, min_size);
-@@ -205,7 +212,21 @@ int intel_gsc_fw_get_binary_info(struct intel_uc_fw *gsc_fw, const void *data, s
- 	cpd_entry = (void *)cpd_header + cpd_header->header_length;
- 	for (i = 0; i < cpd_header->num_of_entries; i++, cpd_entry++) {
- 		if (strcmp(cpd_entry->name, "RBEP.man") == 0) {
--			manifest = (void *)cpd_header + cpd_entry_offset(cpd_entry);
-+			u32 man_off = cpd_entry_offset(cpd_entry);
-+
-+			if (man_off < cpd_header->header_length) {
-+				gt_err(gt, "GSC FW manifest offset points into CPD header: %u < %u\n",
-+				       man_off, cpd_header->header_length);
-+				return -EINVAL;
-+			}
-+
-+			if (man_off + sizeof(struct intel_gsc_manifest_header) >
-+			    layout->boot1.size - bpdt_entry->sub_partition_offset) {
-+				gt_err(gt, "GSC FW boot section too small for manifest: %u < %zu\n",
-+				       layout->boot1.size, man_off + sizeof(*manifest));
-+				return -ENODATA;
-+			}
-+			manifest = (void *)cpd_header + man_off;
- 			intel_uc_fw_version_from_gsc_manifest(&gsc->release,
- 							      manifest);
- 			gsc->security_version = manifest->security_version;
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe52fafc..4996419ae76bd 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_ENABLE_DPCD_BACKLIGHT,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
 -- 
 2.43.0
 
