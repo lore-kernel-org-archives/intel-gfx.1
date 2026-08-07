@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56904C5AC67
-	for <intel-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 21:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA851C5AC7A
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 02:29:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A50DF10E023;
-	Thu,  6 Aug 2026 21:49:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3438E10E3D7;
+	Fri,  7 Aug 2026 02:29:52 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E15A10E023;
- Thu,  6 Aug 2026 21:49:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11AB210E3D7;
+ Fri,  7 Aug 2026 02:29:51 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============5780419014679298207=="
+ boundary="===============2825741555977456736=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=5Fmst=3A_Remo?=
- =?utf-8?q?ve_duplicate_intel=5Fpfit=5Fcompute=5Fconfig=28=29_call?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Limit?=
+ =?utf-8?q?_max_joined_dotclock_on_pipes_available?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+To: "Jani Nikula" <jani.nikula@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 06 Aug 2026 21:49:35 -0000
-Message-ID: <178605297524.26709.1135764121765786642@61270ab9df2a>
+Date: Fri, 07 Aug 2026 02:29:50 -0000
+Message-ID: <178606979092.26709.4161452252563714227@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260806074819.2631970-1-chaitanya.kumar.borah@intel.com>
-In-Reply-To: <20260806074819.2631970-1-chaitanya.kumar.borah@intel.com>
+References: <20260806143738.2710312-1-jani.nikula@intel.com>
+In-Reply-To: <20260806143738.2710312-1-jani.nikula@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,20 +41,20 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5780419014679298207==
+--===============2825741555977456736==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/dp_mst: Remove duplicate intel_pfit_compute_config() call
-URL   : https://patchwork.freedesktop.org/series/171712/
+Series: drm/i915/display: Limit max joined dotclock on pipes available
+URL   : https://patchwork.freedesktop.org/series/171738/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_18955 -> Patchwork_171712v1
+CI Bug Log - changes from CI_DRM_18957 -> Patchwork_171738v1
 ====================================================
 
 Summary
@@ -64,7 +64,7 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/index.html
 
 Participating hosts (39 -> 37)
 ------------------------------
@@ -74,36 +74,42 @@ Participating hosts (39 -> 37)
 Known issues
 ------------
 
-  Here are the changes found in Patchwork_171712v1 that come from known issues:
+  Here are the changes found in Patchwork_171738v1 that come from known issues:
 
 ### IGT changes ###
 
 #### Possible fixes ####
 
-  * igt@kms_hdmi_inject@inject-audio:
-    - fi-tgl-1115g4:      [FAIL][1] ([i915#16664]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18955/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+  * igt@i915_selftest@live@late_gt_pm:
+    - fi-cfl-8109u:       [DMESG-WARN][1] ([i915#13735]) -> [PASS][2] +34 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18957/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html
+
+  * igt@kms_pm_rpm@basic-rte:
+    - bat-rpls-4:         [DMESG-WARN][3] ([i915#13400]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18957/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
 
   
-  [i915#16664]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
 
 
 Build changes
 -------------
 
-  * Linux: CI_DRM_18955 -> Patchwork_171712v1
+  * Linux: CI_DRM_18957 -> Patchwork_171738v1
 
   CI-20190529: 20190529
-  CI_DRM_18955: 8d11ccdc98daac5e969243b42907fd060a650091 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9041: 9041
-  Patchwork_171712v1: 8d11ccdc98daac5e969243b42907fd060a650091 @ git://anongit.freedesktop.org/gfx-ci/linux
+  CI_DRM_18957: 25ed4a41b6058c0622ccadb523aa009c55d1f343 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9043: 9043
+  Patchwork_171738v1: 25ed4a41b6058c0622ccadb523aa009c55d1f343 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/index.html
 
---===============5780419014679298207==
+--===============2825741555977456736==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -123,42 +129,50 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/dp_mst: Remove duplicate intel_pfit_compute_config() call</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171712/">https://patchwork.freedesktop.org/series/171712/</a></td></tr>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Limit max joined dotclock on pipes available</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171738/">https://patchwork.freedesktop.org/series/171738/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_18955 -&gt; Patchwork_171712v1</h1>
+    <h1>CI Bug Log - changes from CI_DRM_18957 -&gt; Patchwork_171738v1</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/index.html</p>
 <h2>Participating hosts (39 -&gt; 37)</h2>
 <p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
 <h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_171712v1 that come from known issues:</p>
+<p>Here are the changes found in Patchwork_171738v1 that come from known issues:</p>
 <h3>IGT changes</h3>
 <h4>Possible fixes</h4>
 <ul>
-<li>igt@kms_hdmi_inject@inject-audio:<ul>
-<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18955/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664">i915#16664</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171712v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+<li>
+<p>igt@i915_selftest@live@late_gt_pm:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18957/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/fi-cfl-8109u/igt@i915_selftest@live@late_gt_pm.html">PASS</a> +34 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-rte:</p>
+<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18957/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171738v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a></li>
 </ul>
 </li>
 </ul>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_18955 -&gt; Patchwork_171712v1</li>
+<li>Linux: CI_DRM_18957 -&gt; Patchwork_171738v1</li>
 </ul>
 <p>CI-20190529: 20190529<br />
-  CI_DRM_18955: 8d11ccdc98daac5e969243b42907fd060a650091 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9041: 9041<br />
-  Patchwork_171712v1: 8d11ccdc98daac5e969243b42907fd060a650091 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  CI_DRM_18957: 25ed4a41b6058c0622ccadb523aa009c55d1f343 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9043: 9043<br />
+  Patchwork_171738v1: 25ed4a41b6058c0622ccadb523aa009c55d1f343 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============5780419014679298207==--
+--===============2825741555977456736==--
