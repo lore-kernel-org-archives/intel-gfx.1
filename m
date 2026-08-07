@@ -4,55 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87199C2A09B
-	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 04:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25D57C5AC7C
+	for <intel-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:30:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F4810F3F8;
-	Fri,  7 Aug 2026 04:34:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97F9F10F36F;
+	Fri,  7 Aug 2026 06:30:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bI+kdRRs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="K+VFsT4M";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDD7210F3F8;
- Fri,  7 Aug 2026 04:34:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE41A10F36F;
+ Fri,  7 Aug 2026 06:30:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077274; x=1817613274;
+ t=1786084212; x=1817620212;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=AUi+gCo4kulH2npNlvS/HOJU4ckriZuI9b2wAGE7mVA=;
- b=bI+kdRRsyimRTDS695ZOaIdm+xJoKT0NcPfCu94+Y+CLYd4jTBMCrtZR
- GlecDgExViq7a/XBX18RuJvo2KaOGCph5hrljmxkuN+xvwslA+l5+tuJ9
- b0DuteseuS4zYRKWVEGq6q2yXN6lS4uUisq7OIUXUHytHqBYW3A3AgrLr
- 9XZJtZhESRlULMSB1lmzUJluKE0TnC9i0C+MSXyDQsLVyrcRw73Gu1WVx
- ONg7kwrNtFHO5SPK9YD+w7rCrWi4OQ5da0/XQQJWx5mXBYrloSdFTgbne
- qo0CwFO0utefhLK5e4aAypfyuE4SZ7da3DbI4N1jW1izfdMXhS3nUYTko g==;
-X-CSE-ConnectionGUID: +JFNlBUVTL+fZ3Uee3M13w==
-X-CSE-MsgGUID: HMtev+v/TrGuILCfXJsttw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85653383"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="85653383"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ bh=9V98LT85ZWjLfO6if3pOvZmmMqC2Rq0EfleRkt2WRhg=;
+ b=K+VFsT4MIXBW3UJXaQN205eAUKipQjoZYcRpMLR4vrtu3SfA6RoKvP9F
+ 7h6Fx6LVrAytzOMiTBqkiZo/1D6H3qHN5IWT4eJ4BC5D1zUb6FJWSfFxI
+ pqEhglLkEl6GMsK/wnDXbGnRYQFWi8EIz5R8jggVlLPNLUfI8nWsNu3Mz
+ TexG25LGL6nNlCVc6jGdD/4kKfGY5ew6597rMfwOEnnKijNuSUi+mF20d
+ gKsbXtUBojXUzNw9gaehx9r/z4fi2KrbWo24XP2YkhDJIi0yqQaaMUR6R
+ FPGac/duGXOM0Vj8r3chPyaL6YsfWgnob8JSKCgD1wpk5HqhtqcxSKuoZ Q==;
+X-CSE-ConnectionGUID: SoCYGV58T6CjgIPctW2ZkQ==
+X-CSE-MsgGUID: sJyQFQ+bQCWFvz5eATEO4w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85658658"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="85658658"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:34:34 -0700
-X-CSE-ConnectionGUID: bDxFfp/sTOuFx1O/+pfPaQ==
-X-CSE-MsgGUID: OWYw+UjRQH22nuF15Ygnsw==
+ 06 Aug 2026 23:30:11 -0700
+X-CSE-ConnectionGUID: 4JL1eLPgSR+P5Edinmc7LQ==
+X-CSE-MsgGUID: 28ZGtEmERr+dJPcjWSZtaQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="265773919"
-Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
- ([10.80.128.218])
- by orviesa003.jf.intel.com with ESMTP; 06 Aug 2026 21:34:34 -0700
-From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com,
- Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-Subject: [PATCH 1/1] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-Date: Thu,  6 Aug 2026 21:33:26 -0700
-Message-ID: <20260807043326.556767-1-krishna.prabhakaran@intel.com>
-X-Mailer: git-send-email 2.43.0
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="286987308"
+Received: from srr4-3-linux-101-amanna.iind.intel.com ([10.190.238.88])
+ by fmviesa001.fm.intel.com with ESMTP; 06 Aug 2026 23:27:55 -0700
+From: Animesh Manna <animesh.manna@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Animesh Manna <animesh.manna@intel.com>,
+ Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>
+Subject: [PATCH] drm/i915/cmtg: Disable CMTG after PSR exit to avoid disable
+ timeout
+Date: Fri,  7 Aug 2026 11:24:52 +0530
+Message-Id: <20260807055452.2997983-1-animesh.manna@intel.com>
+X-Mailer: git-send-email 2.29.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -70,81 +68,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+CMTG is enabled in sync-to-port mode, so its running state (CMTG_STATE)
+can only clear while the port is actively timing. In hsw_crtc_disable()
+the CMTG was torn down at the very beginning of the sequence, before the
+encoders were disabled. At that point PSR may still be active on the eDP,
+leaving the port timing generator idle. As a result, after clearing
+CMTG_ENABLE the wait for CMTG_STATE to clear never completes and triggers:
 
-When i915 needs to make an imported dma-buf coherent for GPU access on
-non-LLC platforms, or for objects that bypass LLC, it currently calls
-wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-pinned, so this triggers a whole-cache write-back and invalidate,
-broadcast by IPI to every CPU, on every execbuf submission involving an
-imported dma-buf. That stalls the entire machine for milliseconds and
-starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-audio serviced on the VMM's main thread).
+  xe 0000:00:02.0: [drm] CMTG: A disable timeout
+  WARNING: drivers/gpu/drm/i915/display/intel_cmtg.c:205 intel_cmtg_disable+0x331/0x3d0 [xe]
 
-A dma-buf sg_table is not guaranteed to be backed by struct pages, and
-the importer has no way to tell, so drm_clflush_sg() cannot be used
-here. Instead vmap the buffer and flush that virtual range with
-drm_clflush_virt_range(): x86 uses PIPT caches, so flushing one virtual
-alias evicts the cache lines for every alias of the same physical
-pages. This provides the required coherency, locally and without an IPI.
+This is intermittently seen with igt@kms_hdr@bpc-switch-suspend, which
+repeatedly cycles the eDP in and out of PSR across suspend/resume.
 
-Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-by I/O memory, where there is no CPU-side range to clflush. The
-dma_resv lock required by dma_buf_vmap() is already held here via the
-imported object.
+Move the CMTG disable to after intel_encoders_disable() (so PSR is
+exited) but before intel_encoders_post_disable()/intel_dpll_disable(),
+so the transcoder timing generator and port PLL are still active while
+CMTG_STATE is polled. The ordering requirement of disabling CMTG before
+the transcoder and port PLL are brought down is preserved.
 
-Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+Cc: Dibin Moolakadan Subrahmanian <dibin.moolakadan.subrahmanian@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 26 +++++++++++++++-------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index b43d34c7d641..1c1f3dc9c212 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -10,6 +10,8 @@
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 829d7a411dcc..cc4d20fdda44 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -1791,15 +1791,25 @@ static void hsw_crtc_disable(struct intel_atomic_state *state,
+ 		intel_atomic_get_old_crtc_state(state, crtc);
+ 	struct intel_crtc *pipe_crtc;
  
- #include <asm/smp.h>
- 
-+#include <drm/drm_cache.h>
-+
- #include "gem/i915_gem_dmabuf.h"
- #include "i915_drv.h"
- #include "i915_gem_object.h"
-@@ -249,16 +251,24 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
+-	if (crtc->cmtg.enabled && intel_cmtg_is_allowed(old_crtc_state)) {
+-		intel_cmtg_set_clk_select(old_crtc_state);
+-		intel_cmtg_disable(old_crtc_state);
+-	}
+ 	/*
+ 	 * FIXME collapse everything to one hook.
+ 	 * Need care with mst->ddi interactions.
  	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
--	    (!HAS_LLC(i915) && !IS_DG1(i915)))
--		wbinvd_on_all_cpus();
-+	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-+		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-+		struct iosys_map map;
-+		int vmap_ret;
+ 	intel_encoders_disable(state, crtc);
 +
-+		/* We already hold the dma_resv lock via the imported obj. */
-+		vmap_ret = dma_buf_vmap(dma_buf, &map);
-+		if (!vmap_ret && !map.is_iomem) {
-+			drm_clflush_virt_range(map.vaddr, obj->base.size);
-+			dma_buf_vunmap(dma_buf, &map);
-+		} else {
-+			if (!vmap_ret)
-+				dma_buf_vunmap(dma_buf, &map);
-+			wbinvd_on_all_cpus();
-+		}
++	/*
++	 * Disable CMTG after the encoders are disabled (so PSR is exited) but
++	 * before the transcoder timing generator and port PLL are torn down in
++	 * intel_encoders_post_disable()/intel_dpll_disable(). CMTG is synced to
++	 * the port, so its running state (CMTG_STATE) can only clear while the
++	 * port is actively timing. Doing this while PSR is still active leaves
++	 * the port idle and makes the CMTG_STATE clear wait time out.
++	 */
++	if (crtc->cmtg.enabled && intel_cmtg_is_allowed(old_crtc_state)) {
++		intel_cmtg_set_clk_select(old_crtc_state);
++		intel_cmtg_disable(old_crtc_state);
 +	}
++
+ 	intel_encoders_post_disable(state, crtc);
  
- 	__i915_gem_object_set_pages(obj, sgt);
- 
+ 	intel_dpll_disable(old_crtc_state);
 -- 
-2.43.0
+2.29.0
 
