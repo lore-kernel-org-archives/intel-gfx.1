@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2726AC5AC67
-	for <intel-gfx@archiver.kernel.org>; Sat,  8 Aug 2026 16:23:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04EC7C5AD44
+	for <intel-gfx@archiver.kernel.org>; Sat,  8 Aug 2026 16:23:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2301010E4E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 332B910E4E9;
 	Sat,  8 Aug 2026 16:23:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WqCsnuOU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LMzi6hmK";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1D710E4AE
- for <intel-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 09:58:28 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47f502ff678so35404f8f.0
- for <intel-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 02:58:28 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B18A610E4A5
+ for <intel-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 09:58:20 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-47f611b3af9so39202f8f.3
+ for <intel-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 02:58:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786183107; x=1786787907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eukZ4Yw0lPupGVKUZsE6QR5EVi6K7EEsCGMJTKxA3Qg=;
- b=WqCsnuOU4cErmObY4cputhhf0tPZjewneS7e6xouL4Xj4uRV+0PFrCfo/ZLnl3VmBj
- 5LIqs7mH64anylpng6kUdsB5pxesbRm4uVQYbRbApCuDleKfZz+my5IBoAo8RwiBSP8b
- kUx/qBjqIeM0IfML0CTZEf9dKzJRWrBusur9fRq7x1+eGmCj1Ez284GLKlbDAi4Qw4K3
- sLaUjdZNftuxUP6sq/Yzot1nTAUmWuC2HW1Uw5MZIQqS60NFHR2k+zebuhuHi7XCjID+
- I7sV7kSYJLAELImbQ3mYPM0N3VmzRyBDFYYi5Kdos2P3lJZXKItXBOSYRVRsNrVdts8G
- 6/Wg==
+ d=gmail.com; s=20251104; t=1786183099; x=1786787899; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LUzFgsK+uW+0joiMTH75XmXXqtMHA5YYrGPdzifhZ7c=;
+ b=LMzi6hmKkjY30H/HAiya9mjZtxSw1K/PSze3hZHfE9vDCp1WvDwsuVoHadGRNH5Ue5
+ U9CQ1pLZoA5/igVTGbaH4C3oSgrK9AR2y/6XP3f929PXDjHjQDwz7VF9sQBdjGqGBDDP
+ 5KVyx0zmRvL0PbFszj/e8YtYf2A5dfFPmq2soyjD3+NCQ852EGks6MyRbs4llois9AaF
+ wvQtEkGLLgEPxLVd1U/tEAHEAXGLkB7atLhls5mzWxwVuylk9FKzPRX9oDF6sARcuMKf
+ L+GFtU3xtT4t7ogb5KJf9eWVFwSKYsVPGoz/p7v65Y3MlgzCMt2uE7VOBjGcFRvkAaLo
+ pPeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786183107; x=1786787907;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eukZ4Yw0lPupGVKUZsE6QR5EVi6K7EEsCGMJTKxA3Qg=;
- b=ApY0wqUBqCndROroXCt6S13zzkDv/xvtTcMPdDnsxNQvTQbc0t1hy6CW9pAM4fG/dD
- QJHr2Du99Ml1vb8Y+/vkqXuJ2QCtDd+wFkTObuvpLoDMyPTNmRK9h9wMKOlNIltHrXPJ
- 10viSxw8fOI5WNCG0pOCJP6RY42QBaEJlUCiw+p5XJ0592poyVQUBd97iNm0bS5v69ji
- 6BjZG4DSr9Q5cZrvgoW4dXFj17jLybelIcO2TpcDiz6PDaiAkwTvzq3OXFOJ7RzaUL/h
- Ug+ZaS5n7z9BPzyWx+HINa7kZlg5m9P1DxzGls5a+ZvVfPtw1Haq0mMbOyMZAxZ1TX1X
- YSKQ==
-X-Gm-Message-State: AOJu0Yy5Wlr0nACQIx5du4epArwLEpjYpn+9meM6ApxN1flxSTrYb+gL
- gpchDMMWLPNbatitZOeVzy7UY3ePANtvsLcPmNZub9nREpMa2waGldI+
-X-Gm-Gg: AR+sD121i1Zs1PoqHz5tKh8N0wWwJlhhhkP6zoPq8hW9iJMfzAggoVIIEBtki7qY1Gh
- iGGnHGRRc/ysKAFveBHj903fkU6VZ7mgSecFrTIh9od+z6h4Ny+Ipv2OZowihh+KFCP0IQxCMhc
- yGfdwaRbbaYhclpY/mdYKqCiiN1ebyQVtbmTDeo3KXCbjS2L6MXAhAIeAeM5uLar9MIgy/2i6Mu
- wzl0hBVdPJ1pFsbXa+bESdqM3uHcb8VS8qhpHYbwdnPxkR1aZ4GNjP7Sh3u9y32bYvzqnkhGbkb
- vlA0Kqcqoo8YhPXmmZgTPf7i+WaRhy4Y+XlHWAMoZBL3mtPchqWW6HnRXPBlUYS31PJCs5y/gHT
- OkipQKewUVENgG4Khskc2acdWNEjlg0qawkspE7TFDdqE11pqmHOpCTslEYVHXBJqVY4D7bdhmP
- IN3jPDCe63juSxNAREz4v+LguYQdNBttJGVD4ZY+dR+EdF5TYseteIHutYq2qrfO8LpCvbgpjfs
- fTtTUwn2DAn0r07J62tLjGCt7+9IDOsS/uMfiqKnirYlr6wTACOv6p1P8szqnxqoi741QKhp8CI
- MPI44Q==
-X-Received: by 2002:a5d:584c:0:b0:47f:959f:d5e with SMTP id
- ffacd0b85a97d-47fec487b60mr22022705f8f.0.1786183107204; 
- Sat, 08 Aug 2026 02:58:27 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786183099; x=1786787899;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LUzFgsK+uW+0joiMTH75XmXXqtMHA5YYrGPdzifhZ7c=;
+ b=Hgs5W8OOYafCGmXU2U0bHlayPqKKqvTUYzwpThy25dQKtzVvVhO6p0h7mvyBfos9F5
+ RBVqfGNcSsTDX+d4X9YGQXn+3bGtMaY9LEs5U8HfEBHRT5F8HdwCbkgCtVv+YhFb1fAh
+ le2JLuuG84d84B7PjeFl+H8RfM0SRSA8LVy6WaQBdztaSnVaAKrtptP7ND4SKFBC7NNE
+ VwKKfvLxt5z4gOS6UsqBP26Ntl8G+QpbNcGLQBeIOXTQxqmIOgyZO/aeXUyRKbO6XJWP
+ G17SX2uSmY7KRVnqgE2MgS5cPG7dDqOsJc16n76oTfmzHL8Mji65Ie9uj+UtwPP5iatp
+ RYUQ==
+X-Gm-Message-State: AOJu0YylRn5ac7HUZZkhK12sZ1lWzwQI0XwEnpIcGUOjLTjvtJf1lhwI
+ 73XCTVEkOiI05j6y0jDG4cNq4kQ5pa6pxxO1oeLS4TPxZjjTO9HL/MzB
+X-Gm-Gg: AR+sD12UpSD/kLlIRJKtaXiJDDeGGoN5mybocyYD5vHWHuKYDjn68QPHnhGyYTQc7c3
+ PdlkzwI3tFMHRbiam99V4q6zZ5h3ab1Z46PewPNSPwrAykCEukLb47CRPIrroFyk1MtcRsD0G0q
+ 3hhsErDC/RKg1Hh21kqmCj/2il5mY7q2oOYn0jHrH/PBAMDPCreP8oUFs5rh04/wYA5fm36lKKa
+ FMZRP/0OwtEGotpMG4nxSL4eV65oQuDau+vIIu9sD1IaKPhYhQmUICBiNB8YG/lcwR1EJRqmn1N
+ dJiKB87GkwuQC9KllFSO9QZAXBspyvRVQDvbgWpZjKwUq2pF3/f2sJkZleb2KT3cySwbJFzuGm6
+ zX8h+cfhAn2M/NQuKWBmh8e2X2dsVES23b7ydO/0RH2IgUxTRG5Soz6/hFIZQG/tH4RQIczECDM
+ sHqxrD6xYjChm0xOT4FGGYOyi7ZJGMMgxJt3vgLX+vF1s3NwZC8sU/L4Qpb5jc7BlJTUy6e/heC
+ QpO0IDwpP8hcc6nu36XswnSLQyrJmrUWl2M7d9pS800L6M4uvPjrYMEF6PEVa5JWyJimQ==
+X-Received: by 2002:a05:6000:410e:b0:47f:e8af:7687 with SMTP id
+ ffacd0b85a97d-47fec4ea9f6mr15258182f8f.1.1786183098980; 
+ Sat, 08 Aug 2026 02:58:18 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B8E20009911270F4BEC2300.dsl.pool.telekom.hu.
  [2001:4c4e:1b8e:2000:9911:270f:4bec:2300])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-480020be8f3sm13255725f8f.0.2026.08.08.02.58.25
+ ffacd0b85a97d-480020be8f3sm13255725f8f.0.2026.08.08.02.58.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 02:58:26 -0700 (PDT)
+ Sat, 08 Aug 2026 02:58:18 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
@@ -90,14 +90,14 @@ Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  Imre Deak <imre.deak@intel.com>,
  Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
  Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 5/5] drm/bridge: synopsys: dw-dp: Add BT.2020 colorimetry
- support
-Date: Sat,  8 Aug 2026 11:57:24 +0200
-Message-ID: <20260808095749.9428-6-royalnet026@gmail.com>
+Subject: [PATCH 1/5] drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
+Date: Sat,  8 Aug 2026 11:57:20 +0200
+Message-ID: <20260808095749.9428-2-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260808095749.9428-1-royalnet026@gmail.com>
 References: <20260808095749.9428-1-royalnet026@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 08 Aug 2026 16:23:40 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -115,203 +115,259 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The VSC SDP colorimetry is hardcoded: DEFAULT for RGB output and
-BT709_YCC for YCbCr. HDR compositors render into a BT.2020 container
-and need a way to tell the sink.
+i915 packs HDR static metadata into an HDR Metadata InfoFrame SDP
+(DP 1.4a spec, Table 2-100 and Table 2-101) with a driver-private
+helper, intel_dp_hdr_metadata_infoframe_sdp_pack(). Nothing in it is
+i915 specific: it converts a generic struct hdmi_drm_infoframe into a
+generic struct dp_sdp.
 
-The legacy MSA MISC0 colorimetry bits cannot express BT.2020; DP 1.4a
-requires the VSC SDP revision 5 pixel encoding/colorimetry format
-indication, with MISC1 bit 6 set so the sink takes the format from the
-VSC SDP instead of MISC0. The driver already sets MISC1 bit 6 whenever
-it sends the VSC SDP, so only the trigger and the colorimetry values
-need extending:
+Move it to drm_dp_helper.c as drm_dp_hdr_metadata_infoframe_sdp_pack(),
+next to drm_dp_vsc_sdp_pack(), and convert i915 to the new helper. The
+Synopsys DesignWare DisplayPort bridge driver (dw-dp) needs to send the
+same SDP to support HDR and should not have to duplicate the packing
+code.
 
-- store conn_state->colorspace in the bridge state during
-  atomic_check(), next to the negotiated format;
-- send the VSC SDP also when the colorspace is BT2020_RGB or
-  BT2020_YCC, not only for YCbCr 4:2:0 output;
-- map BT2020_RGB/BT2020_YCC to DP_COLORIMETRY_BT2020_RGB/
-  DP_COLORIMETRY_BT2020_YCC in the VSC SDP; every other colorspace
-  value keeps today's values. The dynamic range stays VESA for RGB and
-  CTA for YCbCr output.
-
-Sinks advertise VSC SDP colorimetry support in the DPCD
-(DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED). Without it BT.2020 cannot
-be signaled at all, so atomic_check() rejects such a request with
--EINVAL and userspace's TEST_ONLY probe learns the configuration is
-impossible; i915 instead silently omits the VSC SDP and scans out
-BT.2020 pixels without signaling them. A colorspace change on a live
-stream forces a modeset, so the VSC SDP is regenerated with the new
-colorimetry.
-
-On the Rockchip side, create the DP Colorspace property with exactly
-the enum values the driver implements (Default, BT2020_RGB,
-BT2020_YCC). When the colorspace is BT.2020 and the negotiated bus
-format is YCbCr, program s->color_space = V4L2_COLORSPACE_BT2020 so
-the VOP2 uses its BT.2020 R'G'B' to Y'C'bC'r matrix for the CSC. For
-RGB output the pixels leave the VOP2 unconverted and the color space
-stays DEFAULT.
-
-Userspace that leaves the property at "Default" sees no change in
-behavior: the colorimetry mapping, the VSC SDP trigger and the VOP2
-CSC selection all take the previous paths.
+The helper takes a struct drm_device pointer in place of the i915
+display pointer for its two debug messages, and an i915-specific
+comment about GEN11+ GMP register sizes is dropped. No functional
+change.
 
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c   | 44 +++++++++++++++++++----
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 38 +++++++++++++++++++-
- 2 files changed, 74 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/display/drm_dp_helper.c | 88 +++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.c | 84 +----------------------
+ include/drm/display/drm_dp_helper.h     |  4 ++
+ 3 files changed, 95 insertions(+), 81 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index ca997ea53e66..8f0ee9628dcc 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -306,6 +306,7 @@ struct dw_dp_bridge_state {
- 	u8 color_format;
- 	u8 bpc;
- 	u8 bpp;
-+	enum drm_colorspace colorspace;
- };
- 
- struct dw_dp_sdp {
-@@ -1125,6 +1126,12 @@ static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
- 		clear_bit(nr, dp->sdp_reg_bank);
+diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/display/drm_dp_helper.c
+index 9c31e14cc413..7b3b079403c4 100644
+--- a/drivers/gpu/drm/display/drm_dp_helper.c
++++ b/drivers/gpu/drm/display/drm_dp_helper.c
+@@ -25,6 +25,7 @@
+ #include <linux/dynamic_debug.h>
+ #include <linux/errno.h>
+ #include <linux/export.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/init.h>
+ #include <linux/iopoll.h>
+@@ -3672,6 +3673,93 @@ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc,
  }
+ EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
  
-+static bool dw_dp_colorspace_is_bt2020(enum drm_colorspace colorspace)
++/**
++ * drm_dp_hdr_metadata_infoframe_sdp_pack() - pack HDR Metadata InfoFrame SDP
++ * @dev: DRM device
++ * @drm_infoframe: HDMI DRM infoframe carrying the HDR static metadata
++ * @sdp: valid handle to the generic dp_sdp which will be packed
++ * @size: valid size of the passed sdp handle
++ *
++ * Pack a CTA-861 Dynamic Range and Mastering infoframe into an HDR
++ * Metadata InfoFrame SDP, as defined in DP 1.4a spec, Table 2-100 and
++ * Table 2-101.
++ *
++ * Returns: length of sdp on success and error code on failure
++ */
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp,
++					       size_t size)
 +{
-+	return colorspace == DRM_MODE_COLORIMETRY_BT2020_RGB ||
-+	       colorspace == DRM_MODE_COLORIMETRY_BT2020_YCC;
-+}
++	size_t length = sizeof(struct dp_sdp);
++	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
++	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
++	ssize_t len;
 +
- static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1160,13 +1167,25 @@ static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
- 		break;
- 	}
- 
--	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444) {
--		vsc.colorimetry = DP_COLORIMETRY_DEFAULT;
-+	switch (state->colorspace) {
-+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-+		vsc.colorimetry = DP_COLORIMETRY_BT2020_RGB;
-+		break;
-+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-+		vsc.colorimetry = DP_COLORIMETRY_BT2020_YCC;
-+		break;
-+	default:
-+		if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444)
-+			vsc.colorimetry = DP_COLORIMETRY_DEFAULT;
-+		else
-+			vsc.colorimetry = DP_COLORIMETRY_BT709_YCC;
-+		break;
++	if (size < length)
++		return -ENOSPC;
++
++	memset(sdp, 0, size);
++
++	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
++	if (len < 0) {
++		drm_dbg_kms(dev,
++			    "buffer size is smaller than hdr metadata infoframe\n");
++		return -ENOSPC;
 +	}
 +
-+	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444)
- 		vsc.dynamic_range = DP_DYNAMIC_RANGE_VESA;
--	} else {
--		vsc.colorimetry = DP_COLORIMETRY_BT709_YCC;
-+	else
- 		vsc.dynamic_range = DP_DYNAMIC_RANGE_CTA;
++	if (len != infoframe_size) {
++		drm_dbg_kms(dev, "wrong static hdr metadata size\n");
++		return -ENOSPC;
++	}
++
++	/*
++	 * Set up the infoframe sdp packet for HDR static metadata.
++	 * Prepare VSC Header for SU as per DP 1.4a spec,
++	 * Table 2-100 and Table 2-101
++	 */
++
++	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
++	sdp->sdp_header.HB0 = 0;
++	/*
++	 * Packet Type 80h + Non-audio INFOFRAME Type value
++	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
++	 * - 80h + Non-audio INFOFRAME Type value
++	 * - InfoFrame Type: 0x07
++	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
++	 */
++	sdp->sdp_header.HB1 = drm_infoframe->type;
++	/*
++	 * Least Significant Eight Bits of (Data Byte Count – 1)
++	 * infoframe_size - 1
++	 */
++	sdp->sdp_header.HB2 = 0x1D;
++	/* INFOFRAME SDP Version Number */
++	sdp->sdp_header.HB3 = (0x13 << 2);
++	/* CTA Header Byte 2 (INFOFRAME Version Number) */
++	sdp->db[0] = drm_infoframe->version;
++	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
++	sdp->db[1] = drm_infoframe->length;
++	/*
++	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
++	 * HDMI_INFOFRAME_HEADER_SIZE
++	 */
++	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
++	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
++	       HDMI_DRM_INFOFRAME_SIZE);
++
++	/*
++	 * Size of DP infoframe sdp packet for HDR static metadata consists of
++	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
++	 * - Two Data Blocks: 2 bytes
++	 *    CTA Header Byte2 (INFOFRAME Version Number)
++	 *    CTA Header Byte3 (Length of INFOFRAME)
++	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
++	 */
++	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
++}
++EXPORT_SYMBOL(drm_dp_hdr_metadata_infoframe_sdp_pack);
++
+ /**
+  * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+  * @dpcd: DisplayPort configuration data
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 6e3fa6662cbe..093a3b7961f7 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -5157,84 +5157,6 @@ static ssize_t intel_dp_as_sdp_pack(const struct drm_dp_as_sdp *as_sdp,
+ 	return length;
+ }
+ 
+-static ssize_t
+-intel_dp_hdr_metadata_infoframe_sdp_pack(struct intel_display *display,
+-					 const struct hdmi_drm_infoframe *drm_infoframe,
+-					 struct dp_sdp *sdp,
+-					 size_t size)
+-{
+-	size_t length = sizeof(struct dp_sdp);
+-	const int infoframe_size = HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE;
+-	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
+-	ssize_t len;
+-
+-	if (size < length)
+-		return -ENOSPC;
+-
+-	memset(sdp, 0, size);
+-
+-	len = hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
+-	if (len < 0) {
+-		drm_dbg_kms(display->drm,
+-			    "buffer size is smaller than hdr metadata infoframe\n");
+-		return -ENOSPC;
 -	}
+-
+-	if (len != infoframe_size) {
+-		drm_dbg_kms(display->drm, "wrong static hdr metadata size\n");
+-		return -ENOSPC;
+-	}
+-
+-	/*
+-	 * Set up the infoframe sdp packet for HDR static metadata.
+-	 * Prepare VSC Header for SU as per DP 1.4a spec,
+-	 * Table 2-100 and Table 2-101
+-	 */
+-
+-	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
+-	sdp->sdp_header.HB0 = 0;
+-	/*
+-	 * Packet Type 80h + Non-audio INFOFRAME Type value
+-	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
+-	 * - 80h + Non-audio INFOFRAME Type value
+-	 * - InfoFrame Type: 0x07
+-	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
+-	 */
+-	sdp->sdp_header.HB1 = drm_infoframe->type;
+-	/*
+-	 * Least Significant Eight Bits of (Data Byte Count – 1)
+-	 * infoframe_size - 1
+-	 */
+-	sdp->sdp_header.HB2 = 0x1D;
+-	/* INFOFRAME SDP Version Number */
+-	sdp->sdp_header.HB3 = (0x13 << 2);
+-	/* CTA Header Byte 2 (INFOFRAME Version Number) */
+-	sdp->db[0] = drm_infoframe->version;
+-	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
+-	sdp->db[1] = drm_infoframe->length;
+-	/*
+-	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
+-	 * HDMI_INFOFRAME_HEADER_SIZE
+-	 */
+-	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
+-	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
+-	       HDMI_DRM_INFOFRAME_SIZE);
+-
+-	/*
+-	 * Size of DP infoframe sdp packet for HDR static metadata consists of
+-	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
+-	 * - Two Data Blocks: 2 bytes
+-	 *    CTA Header Byte2 (INFOFRAME Version Number)
+-	 *    CTA Header Byte3 (Length of INFOFRAME)
+-	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
+-	 *
+-	 * Prior to GEN11's GMP register size is identical to DP HDR static metadata
+-	 * infoframe size. But GEN11+ has larger than that size, write_infoframe
+-	 * will pad rest of the size.
+-	 */
+-	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
+-}
+-
+ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 			       const struct intel_crtc_state *crtc_state,
+ 			       unsigned int type)
+@@ -5253,9 +5175,9 @@ static void intel_write_dp_sdp(struct intel_encoder *encoder,
+ 		len = drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
+ 		break;
+ 	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+-		len = intel_dp_hdr_metadata_infoframe_sdp_pack(display,
+-							       &crtc_state->infoframes.drm.drm,
+-							       &sdp, sizeof(sdp));
++		len = drm_dp_hdr_metadata_infoframe_sdp_pack(display->drm,
++							     &crtc_state->infoframes.drm.drm,
++							     &sdp, sizeof(sdp));
+ 		break;
+ 	case DP_SDP_ADAPTIVE_SYNC:
+ 		len = intel_dp_as_sdp_pack(&crtc_state->infoframes.as_sdp, &sdp,
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index ab16c1be3900..c158628f0d38 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -32,6 +32,7 @@
+ struct drm_device;
+ struct drm_dp_aux;
+ struct drm_panel;
++struct hdmi_drm_infoframe;
  
- 	drm_dp_vsc_sdp_pack(&vsc, &sdp.base);
+ bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+ 			  int lane_count);
+@@ -1029,6 +1030,9 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhbr);
+ int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
  
-@@ -1227,7 +1246,7 @@ static bool dw_dp_video_need_vsc_sdp(struct dw_dp *dp)
- 	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
- 		return true;
- 
--	return false;
-+	return dw_dp_colorspace_is_bt2020(state->colorspace);
- }
- 
- static int dw_dp_video_set_msa(struct dw_dp *dp,
-@@ -1644,10 +1663,21 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state->color_format = fmt->color_format;
- 	state->bpc = fmt->bpc;
- 	state->bpp = fmt->bpp;
-+	state->colorspace = conn_state->colorspace;
-+
-+	/*
-+	 * BT.2020 cannot be signaled through the legacy MSA MISC0
-+	 * colorimetry bits; it requires the VSC SDP colorimetry format
-+	 * indication, which the sink must support.
-+	 */
-+	if (dw_dp_colorspace_is_bt2020(conn_state->colorspace) &&
-+	    !dp->link.vsc_sdp_supported)
-+		return -EINVAL;
- 
- 	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
- 							    conn_state->connector);
--	if (!drm_connector_atomic_hdr_metadata_equal(old_conn_state, conn_state))
-+	if (!drm_connector_atomic_hdr_metadata_equal(old_conn_state, conn_state) ||
-+	    old_conn_state->colorspace != conn_state->colorspace)
- 		crtc_state->mode_changed = true;
- 
- 	if ((adjusted_mode->hsync_start - adjusted_mode->hdisplay) & 0x1) {
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index c5bc178c0a50..798d82893f98 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -69,6 +69,21 @@ static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
- 		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
- }
- 
-+static bool dw_dp_yuv_bus_format(u32 bus_format)
-+{
-+	switch (bus_format) {
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -102,7 +117,17 @@ static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 	s->output_type = DRM_MODE_CONNECTOR_DisplayPort;
- 	s->bus_format = bus_format;
- 	s->bus_flags = di->bus_flags;
--	s->color_space = V4L2_COLORSPACE_DEFAULT;
-+
-+	/*
-+	 * For BT.2020 YCbCr output the VOP2 must use its BT.2020 R'G'B' to
-+	 * Y'C'bC'r matrix; BT.2020 RGB is passed through unconverted.
-+	 */
-+	if ((conn_state->colorspace == DRM_MODE_COLORIMETRY_BT2020_RGB ||
-+	     conn_state->colorspace == DRM_MODE_COLORIMETRY_BT2020_YCC) &&
-+	    dw_dp_yuv_bus_format(bus_format))
-+		s->color_space = V4L2_COLORSPACE_BT2020;
-+	else
-+		s->color_space = V4L2_COLORSPACE_DEFAULT;
- 
- 	return 0;
- }
-@@ -200,6 +225,17 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
- 
- 	drm_connector_attach_hdr_output_metadata_property(connector);
- 
-+	ret = drm_mode_create_dp_colorspace_property(connector,
-+						     BIT(DRM_MODE_COLORIMETRY_DEFAULT) |
-+						     BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
-+						     BIT(DRM_MODE_COLORIMETRY_BT2020_YCC));
-+	if (ret) {
-+		dw_dp_unbind(dp->base);
-+		return ret;
-+	}
-+
-+	drm_connector_attach_colorspace_property(connector);
-+
- 	return 0;
- }
+ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_sdp *sdp);
++ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
++					       const struct hdmi_drm_infoframe *drm_infoframe,
++					       struct dp_sdp *sdp, size_t size);
+ int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_count,
+ 			      int bpp_x16, int symbol_size, bool is_mst);
  
 -- 
 2.43.0
