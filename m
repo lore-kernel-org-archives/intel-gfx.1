@@ -4,140 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 885E9C5AD7B
-	for <intel-gfx@archiver.kernel.org>; Sun,  9 Aug 2026 17:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B6D7C5AD5A
+	for <intel-gfx@archiver.kernel.org>; Sun,  9 Aug 2026 19:24:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC05410E17A;
-	Sun,  9 Aug 2026 17:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCE1710E1B5;
+	Sun,  9 Aug 2026 19:24:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="UabY2i2O";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g1xTUeSg";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B419110E17A;
- Sun,  9 Aug 2026 17:46:27 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 679FW1sE3277678; Sun, 9 Aug 2026 17:45:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=1V46XsJ2ASYOMqPQa9NRG149ty7O7K
- B1wPG7dfwq0b8=; b=UabY2i2O0DFebgnB5Itk1pRi3/Htbxgsnj9zfMhYyXAq+k
- yF4QkmQIRPAjVGN5n1TRYRA93L73U7SajNdDfI3dDHHhuVPIhOocLrBCQRPGo6fO
- zRUesLej41tQv0v/OKC288JhXJxpOKbIav1Tz2cpvXyghY1uWfY3xJlpLdnQWSkO
- g9By3jcVfZdNthUqy8R7s35WFAUQpmZ+ICuM5XKofi9TBR9lWHWDncMDr7e2p4Pd
- ahAwkkpqBsFsqnU9UxNpc/YeN9/xorzOtztL+lqAorMkbJvqxaDn+ti/Ykb1NS4P
- GkIfLBl2FlcgU/0FYB7OxhPqwp9WpNOjoazF1Vnw==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvq94twx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 09 Aug 2026 17:45:48 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 679HfJG7012053;
- Sun, 9 Aug 2026 17:45:47 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5vt2bb-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sun, 09 Aug 2026 17:45:47 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 679HjjQR34275656
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sun, 9 Aug 2026 17:45:45 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0842520040;
- Sun,  9 Aug 2026 17:45:45 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7C40720043;
- Sun,  9 Aug 2026 17:45:42 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.87.135.220])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Sun,  9 Aug 2026 17:45:42 +0000 (GMT)
-Date: Sun, 9 Aug 2026 19:45:41 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-2-usama.anjum@arm.com>
- <3db8233c-3785-444e-b2eb-3e5fc5cb2f17-agordeev@linux.ibm.com>
- <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16AFC10E19D;
+ Sun,  9 Aug 2026 19:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=yHtI0GTJKZWQQM48YiGVBosfJ5t3iFf0mkcvrRXiOn8=; b=g1xTUeSg51O4bUdhefKhXMn48m
+ eZ18qa9+xVNwavh1O83za4RYsnBbTQIOASFqd6Tt6pqUoXEfNsPpzHGC9dNroJIofjDNB7+zx4MSr
+ DNIyTmV22h3Z6qqKOLg3Z1DsSmTDqVNJGl31TQivtH/2BUnX/c71WCfXfxin/RBnwKrFvxUq65W4o
+ TS2gLQkwty41kO2rmEKrNKjapY9RI4aQOTv1R2zp1tkw0rzGo2vutoqtti6OhtGP9Au3rwtczllXv
+ N9pmNFkyNtOH51zQPjMaojhuSjN/mIrTKqEUZwlwliQdgcwne/KtNxmlcO1GvqlwJ5wcNuA339yGg
+ GKBtPP6Q==;
+Received: from [187.36.208.132] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wt982-00GH3T-VN; Sun, 09 Aug 2026 21:24:15 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/6] drm: Consolidate the wait timeout conversion helpers
+Date: Sun, 09 Aug 2026 16:23:56 -0300
+Message-Id: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: ehRYw8QMBCJQ6XIfQUmc1xOZ8VBocr8y
-X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a78bccc cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=7CQSdrXTAAAA:8
- a=7ZejAh3qsUrew3BXsuMA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDE1OCBTYWx0ZWRfX8PAJydAF9Sdz
- 7Q3LQNawdCCW5p3S9Cbrhno/+8i0akWT9oxXen6S0nUhBQsH880/7RsGl95VX21rT54x9YhFqi1
- 20KERD3HCbwvoqxx4T70j96cVKwA2YxlZ6l2xOFcmMWRehBEI40oNe5oKbokVHGzUV8t5ZkpMSK
- ns0C/90GTY6G7Afmg3i4iWKGKI/x2MSzhpkhUmia4LUS0tqD/uSG8uJudCOs75ncoAMtIyBtPts
- SBc2vAEfXkhI2UuaiCwcdAwFVnvK8EgubcrGc/SgeNggiVPjDgs5qWQ8+vOIPtcC9cEpr02poOB
- Lg7APmO3Rx8vA6tguusRIZ4Fs8vWJdm8vnK+m2H0UOB6WahoA26KXbJqrB0927hzkoKT62s0AOf
- RGde2c8tcj7xMXKNQULCZu1ZlHt1NIVwRcJ45XzbncbVNxXZWhcoK8gsn97hT6hSSx+Fo3N5VVF
- ELeKceQfHYIaUoeswKw==
-X-Proofpoint-ORIG-GUID: ehRYw8QMBCJQ6XIfQUmc1xOZ8VBocr8y
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDE1OCBTYWx0ZWRfX40Jd01nPAYq/
- 0UVJDKsUAxNz/IYIJFjnAhSgQRETCQqeUcuCeVy3WJaqKm5o/wyOjpQIKh0TKZ3HawAxontKM5X
- Anm2JSFRi6CK3bLpHrJPHohn6MgFj5w=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-09_05,2026-08-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608090158
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAQAwF0atI1gbaebiKuBD7qwEn0iqCeHcbl
+ 29R9ZCDChzVwUOKS5xsq0cUBtRP3TqCxXpTbOLclKZiqwsfsmA7D54w71DHWZYWCdKyqGxEvtw
+ Vg9z/tWnf9wOy1b7vZQAAAA==
+X-Change-ID: 20260809-drm-timeout-helpers-55473e4879d1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2350; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=MRMSakOMqZA3Q6YErOvuIuxgMa52nLU22dBKpEwYEAI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqeNPYgZ913Y8c2sxGuDwnLGJ4MCKfBIKu5r1/0
+ U3y0n1qt2iJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCanjT2AAKCRA/8w6Kdoj6
+ qiKQCACNdTNhaEDzYocVFmwr90TRWOA6EWci83pGWlvszT4OpAlfoJs4nqDlHePAwbIrU5GVbWT
+ frAbM3RODGBkfLM0+LVw0ImoiVuiEbczSth3GN8WZCMB2+7dzGHT/fz0LAxzoFWtHzJ91FKmkG5
+ zoF1wK2FnP+1Kx5DhaOlvii1/Q0WxsJVeUFMuhxNFYIuXKxjDG6qRc0/pnQuFArMjb5CK7p3ZVI
+ 9N2K/dEHGzLBO3vQKyo4FRK0gQ64Pxt3ZvB2+14rQzAeguv+ydx7xggV/2QZR1pysCpjZRET6NE
+ 2uue9zvwDlEQumeFg6niMM01QH7ru7UBZt1RdVK/IQVQBc3g
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,113 +82,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 07, 2026 at 04:24:00PM +0100, Muhammad Usama Anjum wrote:
-> On 07/08/2026 8:09 am, Alexander Gordeev wrote:
-> > On Thu, Aug 06, 2026 at 09:38:39AM +0100, Muhammad Usama Anjum wrote:
-> >> pte_t is used both for logical PTE values and for entries stored in a PTE
-> >> table, so pte_t * does not distinguish a pointer to a copied value from a
-> >> pointer to table storage.
-> >>
-> >> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> >> as a macro alias of pte_t by default. When an architecture selects
-> >> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> >> This preserves the representation while allowing converted architectures
-> >> to enforce the distinction at compile time.
-> >>
-> >> Keep the C type definitions behind an __ASSEMBLY__ check because
-> >> architecture assembly sources can include this header indirectly. Include
-> >> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-> >> they previously obtained from that header.
-> >>
-> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> >> ---
-> >> Changes since RFC v1:
-> >> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-> >> - Exclude the C type definitions from assembly sources.
-> >> - Update the description for the new opt-in model.
-> >> ---
-> >>  MAINTAINERS                   |  1 +
-> >>  include/linux/pgtable_types.h | 17 +++++++++++++++++
-> >>  mm/Kconfig                    |  3 +++
-> >>  3 files changed, 21 insertions(+)
-> >>  create mode 100644 include/linux/pgtable_types.h
-> >>
-> >> diff --git a/MAINTAINERS b/MAINTAINERS
-> >> index e9c8567308a75..7169bea968cf5 100644
-> >> --- a/MAINTAINERS
-> >> +++ b/MAINTAINERS
-> >> @@ -16982,6 +16982,7 @@ F:	include/linux/mmu_notifier.h
-> >>  F:	include/linux/pagewalk.h
-> >>  F:	include/linux/pgalloc.h
-> >>  F:	include/linux/pgtable.h
-> >> +F:	include/linux/pgtable_types.h
-> >>  F:	include/linux/ptdump.h
-> >>  F:	include/linux/vmpressure.h
-> >>  F:	include/linux/vmstat.h
-> >> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> >> new file mode 100644
-> >> index 0000000000000..70c3edd00a01b
-> >> --- /dev/null
-> >> +++ b/include/linux/pgtable_types.h
-> >> @@ -0,0 +1,17 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0 */
-> >> +#ifndef _LINUX_PGTABLE_TYPES_H
-> >> +#define _LINUX_PGTABLE_TYPES_H
-> >> +
-> >> +#include <asm/page.h>
-> >> +
-> >> +#ifndef __ASSEMBLY__
-> >> +
-> >> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-> >> +typedef struct { pte_t __pte; } hw_pte_t;
-> > 
-> > On s390 it fails to compile once we do typedef hw_pte_t *pgtable_t
-> > in asm/page.h. m68k, powerpc and sparc may also have such problem.
-> > 
-> > The below declaration helps to resolve it using forward declaration
-> > and without meddling with headers, though I do not like it much:
-> > 
-> > typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> Thank you for testing it out on s390.
-> 
-> As __hw_pte_t isn't being used yet in this series, would s390 enablement
-> patches add __hw_pte_t to this definition?
+DRM wait ioctls express their timeout in one of two ways: as an absolute
+deadline in ns, or as a duration in ns. The core has a helper for the first
+form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+some accel drivers use. However, there is no equivalent for the second
+form, so the drivers that take a duration convert it themselves.
 
-I hope there is a better solution. As I noted m68k, powerpc and sparc
-may also be affected, so I would suggest to look into those as well.
-I would prefer s390 to use the generic one rather than circumvent a
-compile error in a custom way.
+For example, i915 has a local helper to handle the relative timeout case,
+and v3d carries a copy of it. This series moves that conversion into a DRM
+helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+and converts the drivers that were open-coding either form.
 
-> This could have been avoided if each architecture defined its own hw_pte_t.
-> But for now we are keeping the generic definition of hw_pte_t.
-> 
-> > 
-> >> +#else
-> >> +#define hw_pte_t pte_t
-> >> +#endif
-> >> +
-> >> +#endif /* !__ASSEMBLY__ */
-> >> +
-> >> +#endif /* _LINUX_PGTABLE_TYPES_H */
-> >> diff --git a/mm/Kconfig b/mm/Kconfig
-> >> index 331daf7fcfab5..31ba9ebf4aafd 100644
-> >> --- a/mm/Kconfig
-> >> +++ b/mm/Kconfig
-> >> @@ -1316,6 +1316,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
-> >>  config GUP_GET_PXX_LOW_HIGH
-> >>  	bool
-> >>  
-> >> +config ARCH_HAS_HW_PTE_T
-> >> +	bool
-> >> +
-> >>  config DMAPOOL_TEST
-> >>  	tristate "Enable a module to run time tests on dma_pool"
-> >>  	depends on HAS_DMA
-> >> -- 
-> >> 2.47.3
-> >>
-> 
-> -- 
-> Thanks,
-> Usama
-> 
+This series becomes particularly relevant as the new helper will be used
+in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
+[1]. With this series, we avoid another duplication of the
+nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
+
+PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
+file of its own, so that both helpers live together. PATCH 2 adds a helper
+for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
+
+Let me know your thoughts about it.
+
+[1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
+
+Best regards,
+- Maíra
+
+---
+Maíra Canal (6):
+      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      drm: Add drm_timeout_rel_to_jiffies()
+      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      drm/v3d: Use drm_timeout_rel_to_jiffies()
+      drm/i915: Use drm_timeout_rel_to_jiffies()
+      drm/vc4: Use drm_timeout_rel_to_jiffies()
+
+ drivers/gpu/drm/Makefile                 |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  | 16 +------
+ drivers/gpu/drm/drm_syncobj.c            | 33 --------------
+ drivers/gpu/drm/drm_timeout.c            | 76 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 ++-----
+ drivers/gpu/drm/v3d/v3d_bo.c             |  3 +-
+ drivers/gpu/drm/v3d/v3d_drv.h            | 10 -----
+ drivers/gpu/drm/vc4/vc4_gem.c            |  3 +-
+ include/drm/drm_utils.h                  |  1 +
+ 9 files changed, 87 insertions(+), 73 deletions(-)
+---
+base-commit: dc2f9f7fed1a8ea5290f9f60c6310d497e85e666
+change-id: 20260809-drm-timeout-helpers-55473e4879d1
+
