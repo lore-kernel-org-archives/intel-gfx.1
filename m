@@ -4,158 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A350C5AC82
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 05:15:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E163C5AD7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:45:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D8610E038;
-	Mon, 10 Aug 2026 05:15:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED0FB10E6DB;
+	Mon, 10 Aug 2026 06:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AoHFh8hD";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="cP2dX1rq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AD010E038;
- Mon, 10 Aug 2026 05:15:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786338947; x=1817874947;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=FN0eLzFd7yB9YmauuSXINfHMj/Y4AdBZ6hJ4J50iHFk=;
- b=AoHFh8hDzN8hxqB3sWXcHWZfu/S670YKJDD3u/6FzM17UvMByxMF8Hqa
- ZfL+umtiwVLbdjIyW9N/mVJEkpTTZtlUXtzhnzsRAtlev77CVWJiNkyY4
- OGk15L0+C5CAp14hDyga7cLrjamwbnvvQfMn/2QiNCFEEMiE98934qCat
- yImQf96TAM7EinFn+V5NqHb4yNMOwxLTfOXKeoJlRoNZKY1FvxDfsIAkC
- 4i18IqbrXNQnjurmlbz28zhK1g0ypbxa1PD8MLFUPvmkBxXjeiIm1El87
- G0CxOHVbJETU0V5KapTJtnGyPPF/MJkGdULrJwQl2350k6eKnaMbS67Re Q==;
-X-CSE-ConnectionGUID: fIhbL3Q7TxOjNwKqz3SYjw==
-X-CSE-MsgGUID: VIUpegHmR3CfRsF8beTzVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="104236885"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="104236885"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2026 22:15:41 -0700
-X-CSE-ConnectionGUID: GCx68pmjRU6ndP27sz9Yng==
-X-CSE-MsgGUID: Vt+1TYsFQWG3C8To2/pt6g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="266789465"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2026 22:15:41 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sun, 9 Aug 2026 22:15:40 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Sun, 9 Aug 2026 22:15:40 -0700
-Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.43) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Sun, 9 Aug 2026 22:15:40 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HX14Jl2gJtLxFnhGRw/wEj2TdFkic3hkVsrSFtGm8rQduhBaMY8oijd31MIGk+/FpF/Hl4uqxI9rUbEj4TqSH9NVF7BnUQdUWUfKEETyf39UjDw9eRbLffQ0fUTkNkgLymbF5mo8C8x5sXyK4v+bE0BwY6JO1jcCRer7d2iM3s2xXEEijp21QAE4M/diBTr4xBCA4/voZfHI28I1N6Gh0bMKXnOFzCmzxo69zfZ1wZycoT/h7/1MWDphSER/WFRvGNt/66wsVhan418Qfx61Gv9rkyGgxqqJvoJ+Q3oj/EpKCVR7gqyAcdqBQvDXWW0KSpLQanCS1kKb2sYVWwJKaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ee6O5Wp6A9WQTW7eJ93ZeAN0DSx4UseNvg+eguPkr+w=;
- b=SD4hsQEaLNWrHBr1/Cnfqxq58C3hgLCIdiaMuZDSilSIphoOBAt2BWQaHJE5D0In0XtQUmc/jxvg5Z/dqFR7jtnIFViqKdTDl/NoP4a0z37Cgo8XhEBYGh4+YnDwPdPTOV2v0EOtXyzXWeKTH4ZaqcRnYeRaopJcs7fQl5dr9vUilDWZunwXHa9c9AxPC23Ao9z+uej24r2dwvfK+J5Z1nXg9s5pZF5GkiMuBQc6hjAQqZBScrJ9PaAeg522EU8v4RcIMDzY9VacLoPMZm0aaJQka5qYjJNwr4h7CXQG9qyfsTPXkojCIIF2i/i4Bc2tSh2FeuIJVor5i6p+8nZ1eA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by PH7PR11MB7146.namprd11.prod.outlook.com
- (2603:10b6:510:1ed::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 05:15:37 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 05:15:36 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: Werner Sembach <wse@tuxedocomputers.com>, "jani.nikula@linux.intel.com"
- <jani.nikula@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>,
- "joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>,
- "tursulin@ursulin.net" <tursulin@ursulin.net>, "airlied@gmail.com"
- <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, "Nautiyal, Ankit K"
- <ankit.k.nautiyal@intel.com>
-CC: "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight
- type on some TUXEDO devices
-Thread-Topic: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight
- type on some TUXEDO devices
-Thread-Index: AQHdJqhlIZhAapHlg0OOGBbOOXMHEbaWwMYQ
-Date: Mon, 10 Aug 2026 05:15:36 +0000
-Message-ID: <DS4PPFE901A304F2015FECB30801D611C79E3DE2@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20260807200709.464343-1-wse@tuxedocomputers.com>
- <20260807200709.464343-2-wse@tuxedocomputers.com>
-In-Reply-To: <20260807200709.464343-2-wse@tuxedocomputers.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|PH7PR11MB7146:EE_
-x-ms-office365-filtering-correlation-id: 84bc67aa-1278-4448-1840-08def69e6965
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|23010399003|22082099003|18002099003|11063799006|56012099006|3023799007|38070700021|4143699003|10067099003|921020;
-x-microsoft-antispam-message-info: qhBGCwC/k3DjQmlTaJdEpXSGuB8HQovfVMTYrgEkvCNt95j5Xa9KFHViVtuM+RTOJvomDzyzpJiTfg4tf63DZusVqyqwOt5Fsz5iDAcTn/INVnnUv10LBecBCrhXtHtapen1xc4DFw1zj7K+H7wokxyOBQXNUgCpSLzmYPF7hKEzBoMMtJJ2LehkawWWVda1AUjLKozxSAnQ/+WqPIERl3ltXJ4LU8BwEuOQ/4tez2HRk3jZpHj94TOf+wYWs4ZgZ6s8dY7LK3DH+JyoFo/5SqDcf8yKCu8zSCVNjBB2rV9eucrCOqrpAxtAGYtBQzJD7W+sojZNVXRev4CRmN0QDJoy5mqU5r1jOvw1JlE6ixWBOBFKNyGLRsjxsc48sYpmNwJMmd/1PefmcKQj1iMm00PdVFMZ4ddxJjdM+FFekLZBXfwXDB+5s4V0G1nk3+PnMakCKrz1bR+9EYHL8idKZn+MFqm9gq2zoBfHNEt05IaayAMhi+TIxJ7txLsOwNpTbFr+9wexdvbHey9Mx1uIGPxZRh41wpxuPfPzJLW3DEKueyBYdebcOiyCoDXG6iHxSWW4ubxz8c6z9FlbRh2wuBkRwRNj6eOxzd8ZsjeVYcZmZj6XySTF9JIPyzZWHe3TjWuIyWcoBYxF4MiIZfWlpfiPhaRrBXPVjXQNJKvho4Uak+YXPadk94IzU7i4rPJmaJuS6Ip7QGYYT2Xas3X9JU+XrsXN4wR0Fjq/d0f7M0aRGp6yWU/wMQgSsnTgFV60
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(3023799007)(38070700021)(4143699003)(10067099003)(921020);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uwaBnRxvJGdrcyU0SFWxTAWGLf2le1rQzvhkJDvyBSZLmglrJgKXwmRAodfB?=
- =?us-ascii?Q?PZ6fbKz6EUcMNb3IkjrZc2Dr6phOHXdcHTbnbuWJI3gZAW7WKmSM8yFXdOfv?=
- =?us-ascii?Q?oCPKoKOPkFow4idwITrAeDvkUbBHKfJxCG2QJVdquz+dSXWc8iWh2l0Agop4?=
- =?us-ascii?Q?QExVDngMNIF4JiNqXBlHKRTcnCOhUODMJAoKzzByG45Xaiu/HAS9dY/X2mhw?=
- =?us-ascii?Q?dtCl5ekbAS2FCkg7JOukozxyvhyh4hrqskN/KlSk45pcqwAkXB3LVTTh9TAd?=
- =?us-ascii?Q?BmBDpfrl10Kw7EKXo65VQXq0WsCCwsLsyE68Hus0+klzkprSQQ8sZiyf4tz+?=
- =?us-ascii?Q?/gaaW+ZMR848VFoDPm1MH3jiPU91zw5KYSuHLNaNjGkpaYKBD+Iea39i3EL1?=
- =?us-ascii?Q?B4bDNpJr7eUGA99RbPiJ4AAa9TUhf2nbQJdsdrEA0ft2FzeYIVzExc60hCiB?=
- =?us-ascii?Q?IIFHbKAPp5MNP3m3szI5rtxufkwHq7sdWgKhLDKQ+JHy3aPLl6s59zLxZMGD?=
- =?us-ascii?Q?ZSZJk8pyu4Z8VU94sZV2dbBux9l1hjikZ56c8emPPLIOC1zvdwzikIgh2zUK?=
- =?us-ascii?Q?VQMYwd4j0eVZHXBYjJ58VdvvVGWIFNoOsna/fL8J3ISFMjvY/U3qCFRswQ/H?=
- =?us-ascii?Q?7oYzgNbyw+tnL0t9N845XRmvH28Qc9i/AQf60r+igzS05G4Ne4K1aPEIUQPx?=
- =?us-ascii?Q?pT2cfZT04p3Gzrwzt6vWpjlkQtqI+T9GjdYwSIgOcjNGqgVx1XSABZurSkq1?=
- =?us-ascii?Q?+GZnwpxCkewPt63yNfpZoSYao5nIjBksBVNj7KVJ+4MGxhon4O2ffdsFJnuV?=
- =?us-ascii?Q?zqNGQkGV4MEr16KVE6XNwBmyhS/nqcMz3dv4zcQlH0Puwq65+eY4I/LzZUIA?=
- =?us-ascii?Q?37TdTtiCMcXLrEEpuK6JSxerukkf7bvxQZG9gY3aAkCYiGPpCXO6da2gH29/?=
- =?us-ascii?Q?HPJ746GvCCyncrMCcuyj0JI3ccs9GMeywAcaMY5Jk+BOeiC2Akq+GxEukmjg?=
- =?us-ascii?Q?2iwVDULwjTj6reS3TPPEompJl48361uBiiGutJ7Bxsrdd/dRILv1Jp/6NykQ?=
- =?us-ascii?Q?vV6NIr00M4OlH90F1QUPjxMaNlaYlprgQgaPxmXNJZxpx13/9nB76nX75NDB?=
- =?us-ascii?Q?LtA7zv+aGSpuhcikWo7YKV55rNENkqgsIBoDR7Y31ulf6+53WJOpnMTwhzHU?=
- =?us-ascii?Q?sBWkB4SO64CEMK9Nn+3JojCV/xFKS6hApkmHHh3DLamNCeGlCbuFD8MEM5h0?=
- =?us-ascii?Q?aTZ9UpADHtM6vsNYJOlC288nrmjqBBlcCRt9WHoVX/Fk1DpDScReWrf47uak?=
- =?us-ascii?Q?dOLpbLUXD8kpzK7fu1TZ03f5h4LUIQpbJJkJfgM+8l0efQDA3IUhRvXiBgVU?=
- =?us-ascii?Q?2F/phs1BgKZgOsWXxMwBhYTuImK3LHe9upM+j+it7VrqqtaZ6MfqjWFU1GOG?=
- =?us-ascii?Q?ntFSUyZ+3A7OBmhgzcEW1KuFEquS9bgl9XQqwgkO+8I2qurH+47CrheFOVO0?=
- =?us-ascii?Q?ERexhdnZ5rg5Hvy7FMS4pj+1BNWDiN5Es8ekjK94bXmfQIVAl6Retx/o/la5?=
- =?us-ascii?Q?val1G0q+sOmqDZZ/hMA8zlfEJ2E9kLqycSTdNfbVW/5+zeMoPV98dIHvsMz7?=
- =?us-ascii?Q?RoNVsEwXiOLpOPV/m8V1NlYFKNGEL/7R/McNbiEAW02PneQ5Nz43RZgHswqF?=
- =?us-ascii?Q?HXVdWxsxGWa0YEocdCOjk8wZEx28QesTxa5COe1KPRgJccCGifCn8GmfD7mx?=
- =?us-ascii?Q?65AsyEn7cw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68F7510E6CC;
+ Mon, 10 Aug 2026 06:45:12 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67A5VYZX3085069; Mon, 10 Aug 2026 06:44:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=vVPGPVZ23NsreeExE7+jGCM0ud2bcA
+ JA4ypv1DILR34=; b=cP2dX1rqRgJGyJQPsc4KFbE1PC99K1ErC8LoPBcJX/kDVk
+ D9Jo4Iz1SXdFchU8Ko5W4WB9COXrRcti5DpxhwdI5dfEePzz5UmgRzT8EYYyBi07
+ KU36zRJaFsP0Akw7apyJ4SCl4IAb1VRGvP8L0mKhwBZnn0XUkDZ2PW7t9oviZUQq
+ bN2tmVBhSWNgiSiSi7ymdtf6iKh4gNTCCXIweHK0Tg6HF6KYslOZj/J1AEcJVHnf
+ kWNlsq5fwLgQr2DlUZF0whZYM5XqlyiEV4xJgAR6wPkWOH+OEMcVL/bVHH8IYS6D
+ MxDe73qz6EXJrcPmB5P+oxGbZoA1keo68zERDcAg==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvjypkqg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Aug 2026 06:44:37 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 67A6ffw0026503;
+ Mon, 10 Aug 2026 06:44:36 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fxhfxueyp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 10 Aug 2026 06:44:36 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 67A6iYQG34930976
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 10 Aug 2026 06:44:34 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 17B532004B;
+ Mon, 10 Aug 2026 06:44:34 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2335D20043;
+ Mon, 10 Aug 2026 06:44:31 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.87.135.220])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Mon, 10 Aug 2026 06:44:31 +0000 (GMT)
+Date: Mon, 10 Aug 2026 08:44:29 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 6/9] mm: convert PTE table entry to pte
+Message-ID: <2599c5b3-e8ac-4865-993b-d41e6f060d52-agordeev@linux.ibm.com>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-7-usama.anjum@arm.com>
+ <fab9fc78-1e1d-4d5b-a9ca-92f3ebd04108-agordeev@linux.ibm.com>
+ <5c329236-7761-4e42-a549-b822e43b4358@arm.com>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: RDC3HjwSuF0LSs8fq7jymuS/uZMMcqc3qH8hKSmw50siqA9B/Vw4uzCjQByUprAJ2izFo+JL2kZrR88XCXOFYWXn0m0t+07CJ55xQpmSMaWs/BOG/FygdGp4PK36OpdQQ0/5UTTQW+Z9If/biZvME6tn4ujT51b9xcDkbzChZ+58UbBs8OjEXKhm/atI8Dsc5IyDZwQg6muRgEBqE0NClPi5lZo529vbC2Tq6ez4FMUoQXgtyaZku2zU2ITItntrctZyKkGEv3mBgeMnz+mpuPrL86A2zJJFo+n77od0Qeqp/iWE+SzbJszM81AqSwOePxw+ckFx4Y1h+QIioR8LZg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84bc67aa-1278-4448-1840-08def69e6965
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 05:15:36.6206 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MhsnCDyTanTl2bhscJOG9CVGszw770iQOE8jjrh0GXz2cAh0aSxaWyjGdMkynlEOAv2qgqrRBLuvjQSnE0E//w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB7146
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5c329236-7761-4e42-a549-b822e43b4358@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDA1NCBTYWx0ZWRfXxI/cthX2D0Wc
+ iHPLS8hc2Kj/zk+XaKiAAFgipdFaX6yt5ULiZYFw9cMykKZhsGzYdz8Ozez/WjJFTxNxMxdlY+Z
+ xRKD8hb46fc3eq4T3zk/Ay2gFewaqBQyLERBaqjOrmguPqyfrY4V/sj3PMJQSwHxbC9gQ3JPdGp
+ nwoFQng/LWfi/b2CNXX0ejbyTRbXCpU6ISkPy5ReFIqwletsdYxZQh3JZdOlQrUjBCsND1GblNt
+ G/4DaSrhSqHIA4lB3PliH1JLOCq/gqtakESjF4VI9bapYhuQXt1SuBKOBQMvOtnuq4THGnpYdaA
+ 9DlU8ZKdg0fttjy6cWWMXxwJNMzsJQnfWACC9mQPG3O4x/cS3d0NgAmCjmdVYfXi8XGUV9/5PxJ
+ HdlkuRfRyvN/kE+SQ4EeTy+wa+g6t6URPTCSrkC11WsiBzyO9FuJFEs1QK/7K/rvQyfHrqCYbs4
+ iMEVrVdUzEx5zR0r21A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDA1NCBTYWx0ZWRfX9Ko1NY31ilHb
+ y/krrlO5A2ANnAiXusNks5NMrWI4UvS7c1Y7yzgoGS6CxTGjDGRyAu8EHxJ1ITitPdxPjbMc8pe
+ lyb7xPyJDB1SIBriSbnTKYVPxMcf33w=
+X-Authority-Analysis: v=2.4 cv=RqD16imK c=1 sm=1 tr=0 ts=6a797355 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8 a=2hzp2EkNZNX3k9pX5ccA:9 a=CjuIK1q_8ugA:10
+ a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: YbHEwP5JTLZr3QYF8zr2RkJeozrhuIz7
+X-Proofpoint-ORIG-GUID: YbHEwP5JTLZr3QYF8zr2RkJeozrhuIz7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_01,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608100054
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,160 +154,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> Subject: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight ty=
-pe on
-> some TUXEDO devices
->=20
-> The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 have a brok=
-en
-> VBT in the AUO 12701 and AUO 12701 panels, but not others. They are
-> advertising INTEL_BACKLIGHT_DISPLAY_DDI, but are actually failing to use =
-the
-> Intel interface. Adding a fallback to the VESA interface gives these devi=
-ces a
-> working backlight for both the broken and non broken panel VBTs.
->=20
-> Forcing the fallback can already be achieved via a module parameter, but =
-this
-> patch adds a quirk to apply this by default on the mentioned devices.
->=20
-> This patch does not actually test for the exact panels as the ID that is =
-used in
+On Fri, Aug 07, 2026 at 05:26:04PM +0100, Muhammad Usama Anjum wrote:
+> On 07/08/2026 7:58 am, Alexander Gordeev wrote:
+> > On Thu, Aug 06, 2026 at 09:38:44AM +0100, Muhammad Usama Anjum wrote:
+> >> The non-MMU stub receives hw_pte_t but returns a logical pte_t
+> >> value. Convert the stored entry through __pte_from_hw() before
+> >> returning.
+> >>
+> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> >> ---
+> >>  include/linux/hugetlb.h | 2 +-
+> >>  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>
+> >> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> >> index bc0b9c65aa1d0..9e8b391aa4bc9 100644
+> >> --- a/include/linux/hugetlb.h
+> >> +++ b/include/linux/hugetlb.h
+> >> @@ -1283,7 +1283,7 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+> >>  #ifdef CONFIG_MMU
+> >>  	return ptep_get(ptep);
+> >>  #else
+> >> -	return *ptep;
+> >> +	return __pte_from_hw(*ptep);
+> > 
+> > But this is a direct dereferencing, which breaks the whole point, isn't it?
+> Yes, this is particular line is for non MMU. In this case, CONIFG_ARCH_HAS_HW_PTE
+> would never be defined. Hence hw_pte_t is just pte_t and direct dereference is
+> allowed. I'd thought a lot about it; is better to leave direct dereference here
+> or use some helper. Then used __pte_from_hw() was already being used in generic
+> ptep_get().
 
-We don't refer to the current code as patch but as a commit because as soon=
- as it gets merged
-It's a commit. No need to send the patch again this can be fixed while merg=
-ing.
+But in case CONIFG_ARCH_HAS_HW_PTE=n __pte_from_hw() is still gets called.
+That looks inconsistent to me. Why not just call ptep_deref() (see below)?
 
-Other than that
-LGTM,
-Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> There are only two users of __pte_from_hw() at this time. 
+> 
+> > 
+> > What about introducing something like pte_t ptep_get_sw(hw_pte_t *ptep)
+> > to be used in exactly situations like this? With that the semantics of
+> > hw_pte_t pointers becomes straightforward and closes the still ongoing
+> > "storage vs lifetime" discussion:
+> > 
+> > hw_pte_t*     points to HW-formatted page table entries
+> > 
+> > ptep_get()    is used to obtain HW-linked/attached entries, and may wire
+> >               extra code like [1] or [2]
+> > 
+> > ptep_get_sw() is used to obtain HW-unlinked/unattached entries and in
+> >               most cases is just a direct dereference
+> ptep_get_sw() or ptep_get_deref() is better name here?
 
-> the intel_dpcd_quirks list is sadly zeroed on the devices, but afaik all =
-these
-> devices use try_intel_interface first anyway so all the quirk does is to =
-add the
-> fallback to try_vesa_interface, so the behaviour on the devices not needi=
-ng the
-> quirk and fallback should functionally stay the same.
->=20
-> Fixes: f30fddb44023 ("Revert "drm/i915/backlight: Remove
-> try_vesa_interface"")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
-> ---
->  .../drm/i915/display/intel_dp_aux_backlight.c | 22 ++++++++++++++++-
->  drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
->  drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
->  3 files changed, 46 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> index 266e042e00237..d84def79c4bfb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-> @@ -41,6 +41,7 @@
->  #include "intel_display_types.h"
->  #include "intel_dp.h"
->  #include "intel_dp_aux_backlight.h"
-> +#include "intel_quirks.h"
->=20
->  /*
->   * DP AUX registers for Intel's proprietary HDR backlight interface. We =
-define
-> @@ -687,11 +688,30 @@ int intel_dp_aux_init_backlight_funcs(struct
-> intel_connector *connector)
->  	struct drm_device *dev =3D connector->base.dev;
->  	struct intel_panel *panel =3D &connector->panel;
->  	bool try_intel_interface =3D false, try_vesa_interface =3D false;
-> +	int enable_dpcd_backlight;
-> +
-> +	/*
-> +	 * Some devices have a broken VBT in some Panels, but not others,
-> +	 * advertising INTEL_BACKLIGHT_DISPLAY_DDI, but actually failing to
-> use
-> +	 * the Intel interface. Adding a fallback to the Vesa interface gives
-> +	 * these devices a working backlight for both the broken and non
-> broken
-> +	 * panel VBTs.
-> +	 *
-> +	 * This fallback can not be made the general default as this has broken
-> +	 * other devices in the past whose VBT correctly reports
-> +	 * INTEL_BACKLIGHT_DISPLAY_DDI and whose PWM path is the actual
-> +	 * backlight control, but whose DPCD optimistically advertises
-> +	 * DP_EDP_BACKLIGHT_AUX_ENABLE_CAP /
-> _BRIGHTNESS_AUX_SET_CAP.
-> +	 */
-> +	enable_dpcd_backlight =3D display->params.enable_dpcd_backlight;
-> +	if (enable_dpcd_backlight =3D=3D INTEL_DP_AUX_BACKLIGHT_AUTO &&
-> +	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
-> +		enable_dpcd_backlight =3D INTEL_DP_AUX_BACKLIGHT_ON;
->=20
->  	/* Check the VBT and user's module parameters to figure out which
->  	 * interfaces to probe
->  	 */
-> -	switch (display->params.enable_dpcd_backlight) {
-> +	switch (enable_dpcd_backlight) {
->  	case INTEL_DP_AUX_BACKLIGHT_OFF:
->  		return -ENODEV;
->  	case INTEL_DP_AUX_BACKLIGHT_AUTO:
-> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
-> b/drivers/gpu/drm/i915/display/intel_quirks.c
-> index 33245f44c0d50..89d82364ae45d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-> @@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display
-> *display)
->  	drm_info(display->drm, "PSR2 support not currently available for this
-> setup, applying disable PSR2 quirk\n");  }
->=20
-> +static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp) {
-> +	struct intel_display *display =3D to_intel_display(intel_dp);
-> +
-> +	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
-> +	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n"); }
-> +
->  struct intel_quirk {
->  	int device;
->  	int subsystem_vendor;
-> @@ -286,6 +294,22 @@ static const struct intel_dpcd_quirk
-> intel_dpcd_quirks[] =3D {
->  		.sink_oui =3D SINK_OUI(0x00, 0x22, 0xb9),
->  		.hook =3D quirk_disable_edp_panel_replay,
->  	},
-> +	/* TUXEDO InsanityBook 15 v1 */
-> +	{
-> +		.device =3D 0x591b,
-> +		.subsystem_vendor =3D 0x1558,
-> +		.subsystem_device =3D 0x9501,
-> +		.sink_oui =3D SINK_OUI(0x38, 0xec, 0x11),
-> +		.hook =3D quirk_enable_dpcd_backlight,
-> +	},
-> +	/* TUXEDO DX1708 */
-> +	{
-> +		.device =3D 0x3e9b,
-> +		.subsystem_vendor =3D 0x1558,
-> +		.subsystem_device =3D 0x8500,
-> +		.sink_oui =3D SINK_OUI(0x38, 0xec, 0x11),
-> +		.hook =3D quirk_enable_dpcd_backlight,
-> +	},
->  };
->=20
->  void intel_init_quirks(struct intel_display *display) diff --git
-> a/drivers/gpu/drm/i915/display/intel_quirks.h
-> b/drivers/gpu/drm/i915/display/intel_quirks.h
-> index 970a4fe52fafc..4996419ae76bd 100644
-> --- a/drivers/gpu/drm/i915/display/intel_quirks.h
-> +++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-> @@ -23,6 +23,7 @@ enum intel_quirk_id {
->  	QUIRK_EDP_LIMIT_RATE_HBR2,
->  	QUIRK_DISABLE_EDP_PANEL_REPLAY,
->  	QUIRK_DISABLE_PSR2,
-> +	QUIRK_ENABLE_DPCD_BACKLIGHT,
->  };
->=20
->  void intel_init_quirks(struct intel_display *display);
-> --
-> 2.43.0
+ptep_deref() would be it.
 
+Do you agree to the suggested API requirements?
+
+> I thought __pte_from_hw() is ugly enough that if someone tries to use it
+> wrongly, it'll be noticed pretty easily. I'm fine with any other name.
+
+The name may be not perfect, but it is the way it is used above looks
+wrong to me.
+
+> > The caller should always know whether the entry is attached or not, so
+> > confusions like [3] are avoided.
+> > 
+> > 1. https://lore.kernel.org/linux-mm/20260526-kpkeys-v8-21-eaaacdacc67c@arm.com/
+> > 2. https://lore.kernel.org/linux-s390/650903a4-0dd9-4e6b-9d4b-3c32c5657236-agordeev@linux.ibm.com/
+> > 3. https://lore.kernel.org/linux-s390/b44e071d-7c9d-4e7e-a84d-4af3499a5a05@arm.com/
+> > 
+> >>  #endif
+> >>  }
+
+Thanks!
+
+> -- 
+> Thanks,
+> Usama
+> 
