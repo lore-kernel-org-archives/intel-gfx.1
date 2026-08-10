@@ -4,161 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 372DEC5AD4E
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 07:52:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 807F6C5AD7B
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 09:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1E2B10E132;
-	Mon, 10 Aug 2026 07:52:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0874E10E72F;
+	Mon, 10 Aug 2026 09:00:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RUG0MZPP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aNteT2hs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530FB10E485;
- Mon, 10 Aug 2026 07:52:30 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E6E10E1E9;
+ Mon, 10 Aug 2026 09:00:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786348351; x=1817884351;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=xLYguQgJTiyTQbjopSwRGnJTgnsnz5yP9YVQZxy1/KM=;
- b=RUG0MZPPQV8kckE51t4jDBUL+lsdxQ8KacTTJsAOskWdhEjqxTkmlvst
- ddkU8zCfB+bDXvPkePcDD7bnJb8hwwsxXKBevs2rKiWGacjuYSC5G5KHg
- n8MOl4jYTGOKFvf6FNweLQXGWtvVYYThNuU1Gtsd8ImEojm9lq3Q2eqwQ
- L9kKI3pDFQZ6g7WKGnKcuhfDybuyJ9VD4ZXFrIQtuJR7P+wt1cKhreU0N
- QhQgTNG8sg/QrVkws+Vw5kT5QCNpUkwLcpkageUeexGU6hDMorYgcKYDt
- MFn1h6RNHrq2KqyFWpn7d5VQvcgdHHypLDeMMv7O21CaSR4G8YgEvtibr g==;
-X-CSE-ConnectionGUID: Ah2CqtQTSdqSrUWbtrmU6Q==
-X-CSE-MsgGUID: jDfree4QQ4u2Csax4/tCOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="97452651"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="97452651"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 00:52:29 -0700
-X-CSE-ConnectionGUID: qZxhE62DQwab1+k0by9low==
-X-CSE-MsgGUID: PeTADqRISwqPR0rysRQDXg==
+ t=1786352434; x=1817888434;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=aBla1GdjrZzE2U81Np1weJRn78Yirl09PISBrS8Wfjk=;
+ b=aNteT2hsvE7GmjyQO+oQqtnnSQs93vAIJEAgIRq+Qd0JYo3jAxWn7S4U
+ +7qEWhMkS21OD3pAI4TfXtydk5WGySOIQ55MgW5WaNn8AaKxJoPoqbVm2
+ pt37Maxzrq0IT2xqk3kSj4U3lyoGCyqrnVewSTVlt+d9Fl9DnWRR6qfX6
+ rjH5HqbjZL5r1VcQAbkls/+HD+HgG65UwrlNf6zUKLiotaN2PfObUnosE
+ hpmLt65jfpXAo2vB1LRfrV4F6V6nFTnNwWd/lGrZdfBUPfIyqtDHzX6N8
+ GcK8lzreH5c82q5P7jvh3VgErpMKR/V/qtUtp0lm69hpAXX/vTlCP/6s4 g==;
+X-CSE-ConnectionGUID: 94885zmtQ9OeFcwZ8JmzFQ==
+X-CSE-MsgGUID: Vm3ZpJ3IShKa13wh0gr6vQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="98011378"
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="98011378"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 02:00:33 -0700
+X-CSE-ConnectionGUID: 1eooUKPrQXSqNF6iyA5v6Q==
+X-CSE-MsgGUID: Ot0FgtJ9SUanv3Sz08oEaw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="292890234"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 00:52:23 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 00:52:20 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Mon, 10 Aug 2026 00:52:20 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.47) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 00:52:20 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OFlBR7rQNxAZrwBo/GKSC1nglfXCXi/qR4VcEUp+cbNOIyhRi9LUo/MdIi9qGHRGCyG6r9IfSRBOcMNyY26ofrSHY+9Q+GmHbB0KT4QOkq4ELL1Kyy97yYpo/X+c3Ypvc97MqMzPUjORNz2mLZESY3MFD7gk6zfrxQDtIVmhwrTqyg9NyGp5kULLw/nwllTmT35K5W20sC1MxhP4yuJB5pXsOW43JVKfrgodV4w9aU9uiw8wvtmGsMi4qRheTCmtz0PF4lSVwVzlLYAFA1H4a0fjSFZe9E/dWDvci9ZZEoORGE0J6n1g/t6aks+rTO6Zz/2uLqghXgRMky07shYTFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U/U3dQNgZFjLQ78VQs+nnPw1bIM9NdtnHIVMMCEa+1Y=;
- b=rM912B4ZRddKkzZITHwtemP6RNhC6rTXHomML5/0JFrRpd+prBWV8J3mHA+DgQqOHhTRHhY79ExWz5bEri8D3Nxs2thAKXOVi1VA25F0gBYjJXZivBUG1JvFzkPorLfCqhi3e7LVZyb+E/CVe/m/Q3V10LktWrJLGqtooyPAE/Lm/jDe1bTeyRTQWiHv2R+SmT997MScgJfNb5yKPinhX1ZyTQhQ1QoHE5TWn8ME69mrwunUiJzcoW5JAa9Gvj8a7yBfuQ6J76laHnns1EttVqPP6FjqLm46qgIZd/NYeHhhNAqatljZseZQfFW8qXcND5RJyHLybPCSjTHVc49H1Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
- by DS7PR11MB8828.namprd11.prod.outlook.com (2603:10b6:8:257::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 07:52:10 +0000
-Received: from SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
- ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 07:52:10 +0000
-Message-ID: <9d6931a5-5917-409d-891f-b85137f42933@intel.com>
-Date: Mon, 10 Aug 2026 13:22:03 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 06/14] drm/i915/dp: Add a wrapper to check frl/tmds
- downstream constraints
-To: "Kandpal, Suraj" <suraj.kandpal@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "alexander.kaplan@sms-medipool.de" <alexander.kaplan@sms-medipool.de>
-References: <20260730105226.2731341-1-ankit.k.nautiyal@intel.com>
- <20260730105226.2731341-7-ankit.k.nautiyal@intel.com>
- <DS4PPFE901A304F27F70C793A494504597FE3D52@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <DS4PPFE901A304F27F70C793A494504597FE3D52@DS4PPFE901A304F.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5PR01CA0236.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f4::10) To SA3PR11MB7554.namprd11.prod.outlook.com
- (2603:10b6:806:315::9)
+X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; d="scan'208";a="259125323"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.103])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Aug 2026 02:00:22 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Igor Paunovic <royalnet026@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan
+ <andy.yan@rock-chips.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ville =?utf-8?B?U3lyasOkbMOk?=
+ <ville.syrjala@linux.intel.com>, Imre Deak <imre.deak@intel.com>, Ankit
+ Nautiyal <ankit.k.nautiyal@intel.com>, Igor Paunovic
+ <royalnet026@gmail.com>
+Subject: Re: [PATCH 1/5] drm/dp: Add drm_dp_hdr_metadata_infoframe_sdp_pack()
+In-Reply-To: <20260808095749.9428-2-royalnet026@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260808095749.9428-1-royalnet026@gmail.com>
+ <20260808095749.9428-2-royalnet026@gmail.com>
+Date: Mon, 10 Aug 2026 12:00:20 +0300
+Message-ID: <d128b937ee3ca1987d2bd543f92cbabab84ea440@intel.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|DS7PR11MB8828:EE_
-X-MS-Office365-Filtering-Correlation-Id: 42692144-828b-482d-2cf0-08def6b44846
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|22082099003|18002099003|11063799006|5023799004|56012099006|3023799007|6133799003|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: Bph5cO8n0lbT2bYipTznmAWuOixLNKKcrjp+1/qG38K1oar7VFpLr4xuv9fIU8dRZOqDTb8iTtT+xWh/gCkSf4KeYwX6wfwgN1gxovas9HiHYylXu5F6Xp7xCStDnbMHLF6Hbwg3RZA2OTFXyaeQ18gCsLesgyO0FPVK3kGDG9Wb9VCqjnDSlCOwLnxC8STRuTtCOj4fl1SjKPJz8o9jk38cL/zfE1bz36/nMCwIlJbcNgWdu3vztk9YjdjPRG6Qy1IHEHDDR3uS5nI+Jo16UVdGdw3LOB6voCWb9HQ+mwdHH1199y3TfP6fclIGrtdFho4q9TsMuKAI7mxVilNkMzHVtrqsW76RPy8pFoUSzt5ODcOAaNNhbZXltZb8bvH6fMgc7WHmn6/wAjv5/uV06N9qkVV4IH4++y2p2C/XltWBq6REvSmkfqfJNTlh4ZS0KC7ZtwocDWXaZtILbw2NK3YtJGWkOglHkRMCIHgvdehN8Db6QGkPCatVHQvzBrt75qWNFpPTabmBBvUpV1cPFXJ+mp1LXRw+/25Gy9SSdKtdqUpLXBzh0vWAAM++4pdiVCaOTfTBkkUkouU9ByBU7Ff7n2L0pGIzIyUlAHu/ERY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA3PR11MB7554.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(5023799004)(56012099006)(3023799007)(6133799003)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmtiMUdpVDlaVjVPajVqUW5Ca0ZrcDhmS05MdWZqRlBGN0V3WnRIaHBiREkw?=
- =?utf-8?B?ZEFQa3E4eU5QT1JvWWxESEFvZ2VlbnNmYndMQk1pTzNXdUFraHl0ZjN1YmU3?=
- =?utf-8?B?VGpENnZWNkJkVS9mV3d4SEJHTzNTQVVCcGx1YkxQWHgyOWlvQi9TVW16c0d6?=
- =?utf-8?B?M3F0bG9aRHBQK2l0bStxY3BNS1hYci9zY21EYkhPdUhTc2FJTjJXWnFRTEFP?=
- =?utf-8?B?SVZTaWFIM2gvT0VjOHhyQXdUTkhxSlMyTWpqTmFRbWZINWR2MVRYZTFoSjBx?=
- =?utf-8?B?a00vOFNuQVZDazBwVCt0SFQyZmpxZUl4QzJFdFhVOVV4Y3VOakw5MWNFbmlC?=
- =?utf-8?B?TTdQL3VzTmZVSHlvQTV4VU5NTW85a1Q2a3hsaGJWSmxGYmUyVldlTUxXR1dp?=
- =?utf-8?B?V2dIMXFjaGZ6ZDhML1hKUURFZkgrTTMxU3FPU3hCTVpaamNxZVNmOWJzYWpm?=
- =?utf-8?B?OS9lVE1aTFBRZ0NhellTYWkwaDVVUXJxTmRiVll6a254MS9rMUpsdnlNWXpr?=
- =?utf-8?B?dmYzV3Q1cEpyQVlWVUJueFBhbDdFN21ERVN4aU5FbTF2NFE2dVVJMEpQaWFn?=
- =?utf-8?B?SWQ3UzdBS1FDcFVxYkdsSWhPNmdnblduR0JXK0JEUkkrWDUwR3pza3V0RHp2?=
- =?utf-8?B?dVA2MStRZFRXc3FKem84ejUrNUFaZlBDWFd2UUdCZnljSUxMWXJkSSttRElz?=
- =?utf-8?B?STF6MzhkRlJtQUU1Smpxb3hETHBmK3RWQ0Y2b3E4MklPbldTQkNyK1BYWFBN?=
- =?utf-8?B?MjVUUjdGK2l4ZElyWnI5dklvNlZoTWhSYjhRRVAxMlNzYzU4NmFtMkpkY2lK?=
- =?utf-8?B?QXNTWVZMeDVldGhBVUxtZVh4d2dNenljbkhOYjlsRzlOTklMMThEdUZINTlX?=
- =?utf-8?B?MDlhQ1lLY3lMV3FsTEhPOUpSTU8zRWN4TGVyZ2ZwSmJqaU4vU3VoSWVraEVX?=
- =?utf-8?B?SXRXeGIzN3lLQi8zNEYrN21KZ0pqMGRCR0JlMlFyWXR1NUY0MTA5em13dGdp?=
- =?utf-8?B?SlVlQnJlTFZ3R1RuQStER2gwLzFBMm44YjUraHdWL1NvNHltbjR0Y3FXUlVP?=
- =?utf-8?B?ZmprMnRBaWt3djFIY3UvU3JLUDhKYXNCODNaRUpEODNWelM4UDhZUWpQOFJC?=
- =?utf-8?B?Zm5ZWVhYQjVqYVdpMzNZd2xaYW8vU0lTd0h0SG5PL28zWTdqY3hSVStDQlZk?=
- =?utf-8?B?RVpTaTh2UlovQW5yQjF4OEwxaXpKUTRvbEdTSkFuTjVqaThIOVR1UHBoZnIx?=
- =?utf-8?B?eTRCM2JTVE4wc0JzZXZuZWxkdnU1bFRXanVNclpaLzhVeXEzMVdVLysrb0dv?=
- =?utf-8?B?a3lIRFBzOEdSMElpeVhRWjF2WDBac3RYNW50aVFlM3graW9SK0ZtVldrcG94?=
- =?utf-8?B?NkNoNHdoT1NpcWREUjlTRzc4WGlEL3BqTmVDS1o4NVFBOEFDbkFKRnhHUnJn?=
- =?utf-8?B?YzkrekRXSHdXNjVLaGE2Y045alptUktKSUViNHJneExwQjZvbm9COUN4QlVm?=
- =?utf-8?B?WGVScTcyM2NadDVLR1poUnRHWURSNXBTT2pmekZsMGw1aWRLMytlV1gyeGFL?=
- =?utf-8?B?UlYrcnZjMTlFSEJZaDJXckpITTFDWTJtL1lPQTNNMzZ3Q0V2cHNzdEUzaTJQ?=
- =?utf-8?B?ekgxcmdyRFRpY0tlT0dkZHUzekdrSHoveWhSTjl1QjRGK0ZlNjRuaXFDMUxQ?=
- =?utf-8?B?MDc3Ym9GQ0RVWXFDSk9kTkp0bU9peXlPazNDUnFhTWY3QmpydG84b2F1eEV6?=
- =?utf-8?B?QW5qYWIrWmp3Ti8reGhBeGVidUF6cE9zMDFiY2NtTlBhL09VKzVHem44MUUx?=
- =?utf-8?B?ZGFpK21GMGdxQXpOYUh5MWkra21ic3VORitvdUJucUs3VEtFL1R2aFhETkQ0?=
- =?utf-8?B?SGVVOTNkbEdOODdXbHI1SE90TlQzYWh3K2REZmZxOTlVb2d5c2NZczgrdFla?=
- =?utf-8?B?cWJRazYzLzR0YkZTTGczSVB1VjEyZmtKTTNxSXpKSkIwNnhTK2pjRE5SUWhV?=
- =?utf-8?B?NkdCc2srYk1RL2NNYmp3WDRlQTJjRWVZUFNpZmhGbGFQeTJySVI3cXdLcEF6?=
- =?utf-8?B?aVhoVWxFWXRTMnNxazROV1U0SVZWSWIzNmR4dWh5bDRuemx6V3NyMUNGRjYw?=
- =?utf-8?B?V1NrTmwwVVd2N3laSHcyVlIydzVOWnNJUVJXOGloZm9tVlBqTU9OTDlXQTNx?=
- =?utf-8?B?aDBoZzdRc1BWNUJpUS80SGZQYndDT1kxR1cyczlld2poVUhVZDNYRWpsYy9C?=
- =?utf-8?B?NEJZNnVCWTN1TXFuQUp0REphWWF1YU1PSzA3bmNqZE92RVhuNnNiQzRkRnRM?=
- =?utf-8?B?YzQzcEdudjNPSGhjUW1KMTFlN1d4ZHllcm5uMVBuU3Q3NVRxNjZYaVBOOWpy?=
- =?utf-8?Q?m3wecq6qBsoCeZEs=3D?=
-X-Exchange-RoutingPolicyChecked: dVFMQJU37rhoILBjgZwI7Ex7JXitALnT3D0whSyx/+k/xRKq7iK59LyQ3N1B6sCj5j0tmmKpfwpDtpADnrgdyS7beS272FnZSV8omg9y8yzSiRE8zxHFWQjlSuDIWe5pL1ZhEYN66GOPc6nKgx/p6uUbg/KQOajj1GlJ2WNRqUNT6tfVzMBeHSN0oa4mSa8XDX1Mnpu877hu2IBNzqwh9ZlZQTdODUN7uB6szKm6WOC5G99ZOOKNznhY0SUELDVd+TK2r2AUWS2Nkf86JED4dYaJbXO0qPalKTDLqedwfP2n7mpDw/PlC7JFQLZSbAX7vBXRXHcKKg9a+MwFAmgRMA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42692144-828b-482d-2cf0-08def6b44846
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 07:52:10.3940 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TRSpcRGVeIb6TgLlxOfCeb9p8MVYNWAcgP/h3PQdUGnp0IeS7ONLjH6oaYJj8GBC2OV2Wam1yBgkuSxbeBNwsj2uPh1YO2oqxemXVWPo8N8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB8828
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -174,119 +90,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-
-On 8/3/2026 10:50 AM, Kandpal, Suraj wrote:
->> Subject: [PATCH 06/14] drm/i915/dp: Add a wrapper to check frl/tmds
->> downstream constraints
->>
->> Add a wrapper function to check dp_downstream clock/bandwidth constraints.
->> Based on whether the sink supports FRL/TMDS the wrapper calls the
->> appropriate FRL/TMDS functions.
->>
->> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_dp.c | 36 ++++++++++++++++++-------
->>   1 file changed, 26 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
->> b/drivers/gpu/drm/i915/display/intel_dp.c
->> index eb76e6b6d616..6bf42128a81d 100644
->> --- a/drivers/gpu/drm/i915/display/intel_dp.c
->> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
->> @@ -1206,6 +1206,28 @@ intel_dp_frl_bw_valid(struct intel_dp *intel_dp, int
->> target_clock,
->>   	return MODE_OK;
->>   }
->>
->> +static bool
->> +intel_dp_pcon_sink_support_frl(struct intel_dp *intel_dp) {
->> +	return intel_dp->dfp.pcon_max_frl_bw &&
->> +		intel_dp_hdmi_sink_max_frl(intel_dp);
->> +}
->> +
->> +static enum drm_mode_status
->> +intel_dp_hdmi_bw_valid(struct intel_dp *intel_dp,
->> +		       int target_clock, int bpc,
->> +		       enum intel_output_format sink_format,
->> +		       bool respect_downstream_limits) {
->> +	if (intel_dp_pcon_sink_support_frl(intel_dp))
->> +		return intel_dp_frl_bw_valid(intel_dp, target_clock, bpc,
->> +					     sink_format,
->> +					     respect_downstream_limits);
->> +
->> +	return intel_dp_tmds_clock_valid(intel_dp, target_clock, bpc,
->> sink_format,
->> +					 respect_downstream_limits);
->> +}
->> +
->>   static enum drm_mode_status
->>   intel_dp_mode_valid_downstream(struct intel_connector *connector,
->>   			       const struct drm_display_mode *mode, @@ -
->> 1213,20 +1235,14 @@ intel_dp_mode_valid_downstream(struct
->> intel_connector *connector,
->>   			       enum intel_output_format sink_format)  {
->>   	struct intel_dp *intel_dp = intel_attached_dp(connector);
->> +	int bpc = 8; /* Assume 8bpc for the DP++/HDMI/DVI TMDS/FRL bw
->> check */
->>
->> -	/* If PCON supports FRL MODE, check FRL bandwidth constraints */
->> -	if (intel_dp->dfp.pcon_max_frl_bw &&
->> intel_dp_hdmi_sink_max_frl(intel_dp)) {
->> -		/* Assume 8bpc for the HDMI2.1 FRL BW check */
->> -		return intel_dp_frl_bw_valid(intel_dp, target_clock, 8,
->> sink_format, true);
->> -	}
->> -
->> -	if (intel_dp->dfp.max_dotclock &&
->> +	if (!intel_dp_hdmi_sink_max_frl(intel_dp) &&
->> +	    intel_dp->dfp.max_dotclock &&
->>   	    target_clock > intel_dp->dfp.max_dotclock)
->>   		return MODE_CLOCK_HIGH;
-> Does this change maybe belong inside dp_tmds_clock_valid ?
-
-This change indeed incorrect.
-
-The 'dfp.maxdotclock' tracks the 'maximum pixel rate for analog VGA 
-DFP'. So we should not have this check at all.
-
-Basically we are checking:
-
-VGA : dfp.max_dotclock
-
-HDMI:
-
-  - TMDS : dfp.min/max tmds clock and related stuff
-
-  - FRL: dfp.pcon_max_frl_bw and related stuff.
-
-So I will remove the FRL related checks from here.
-
-
-In some specific case, if there is a hardware where the dfp.maxdotclock 
-is set even for FRL capable sinks, then perhaps we might need some more 
-check.
-
-However, such specific case need to be handled separately.
-
-
-Thanks for pointing this out!
-
-Regards,
-
-Ankit
-
-
+On Sat, 08 Aug 2026, Igor Paunovic <royalnet026@gmail.com> wrote:
+> i915 packs HDR static metadata into an HDR Metadata InfoFrame SDP
+> (DP 1.4a spec, Table 2-100 and Table 2-101) with a driver-private
+> helper, intel_dp_hdr_metadata_infoframe_sdp_pack(). Nothing in it is
+> i915 specific: it converts a generic struct hdmi_drm_infoframe into a
+> generic struct dp_sdp.
 >
-> Regards,
-> Suraj Kandpal
+> Move it to drm_dp_helper.c as drm_dp_hdr_metadata_infoframe_sdp_pack(),
+> next to drm_dp_vsc_sdp_pack(), and convert i915 to the new helper. The
+> Synopsys DesignWare DisplayPort bridge driver (dw-dp) needs to send the
+> same SDP to support HDR and should not have to duplicate the packing
+> code.
 >
->> -	/* Assume 8bpc for the DP++/HDMI/DVI TMDS clock check */
->> -	return intel_dp_tmds_clock_valid(intel_dp, target_clock,
->> -					 8, sink_format, true);
->> +	return intel_dp_hdmi_bw_valid(intel_dp, target_clock, bpc,
->> +sink_format, true);
->>   }
->>
->>   static enum drm_mode_status
->> --
->> 2.50.1
+> The helper takes a struct drm_device pointer in place of the i915
+> display pointer for its two debug messages, and an i915-specific
+> comment about GEN11+ GMP register sizes is dropped. No functional
+> change.
+>
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+
+'git show --color-moved' says it's fine. ;)
+
+Acked-by: Jani Nikula <jani.nikula@intel.com>
+
+for merging via drm-misc.
+
+> ---
+>  drivers/gpu/drm/display/drm_dp_helper.c | 88 +++++++++++++++++++++++++
+>  drivers/gpu/drm/i915/display/intel_dp.c | 84 +----------------------
+>  include/drm/display/drm_dp_helper.h     |  4 ++
+>  3 files changed, 95 insertions(+), 81 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
+splay/drm_dp_helper.c
+> index 9c31e14cc413..7b3b079403c4 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -25,6 +25,7 @@
+>  #include <linux/dynamic_debug.h>
+>  #include <linux/errno.h>
+>  #include <linux/export.h>
+> +#include <linux/hdmi.h>
+>  #include <linux/i2c.h>
+>  #include <linux/init.h>
+>  #include <linux/iopoll.h>
+> @@ -3672,6 +3673,93 @@ ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vs=
+c_sdp *vsc,
+>  }
+>  EXPORT_SYMBOL(drm_dp_vsc_sdp_pack);
+>=20=20
+> +/**
+> + * drm_dp_hdr_metadata_infoframe_sdp_pack() - pack HDR Metadata InfoFram=
+e SDP
+> + * @dev: DRM device
+> + * @drm_infoframe: HDMI DRM infoframe carrying the HDR static metadata
+> + * @sdp: valid handle to the generic dp_sdp which will be packed
+> + * @size: valid size of the passed sdp handle
+> + *
+> + * Pack a CTA-861 Dynamic Range and Mastering infoframe into an HDR
+> + * Metadata InfoFrame SDP, as defined in DP 1.4a spec, Table 2-100 and
+> + * Table 2-101.
+> + *
+> + * Returns: length of sdp on success and error code on failure
+> + */
+> +ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
+> +					       const struct hdmi_drm_infoframe *drm_infoframe,
+> +					       struct dp_sdp *sdp,
+> +					       size_t size)
+> +{
+> +	size_t length =3D sizeof(struct dp_sdp);
+> +	const int infoframe_size =3D HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFO=
+FRAME_SIZE;
+> +	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
+> +	ssize_t len;
+> +
+> +	if (size < length)
+> +		return -ENOSPC;
+> +
+> +	memset(sdp, 0, size);
+> +
+> +	len =3D hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
+> +	if (len < 0) {
+> +		drm_dbg_kms(dev,
+> +			    "buffer size is smaller than hdr metadata infoframe\n");
+> +		return -ENOSPC;
+> +	}
+> +
+> +	if (len !=3D infoframe_size) {
+> +		drm_dbg_kms(dev, "wrong static hdr metadata size\n");
+> +		return -ENOSPC;
+> +	}
+> +
+> +	/*
+> +	 * Set up the infoframe sdp packet for HDR static metadata.
+> +	 * Prepare VSC Header for SU as per DP 1.4a spec,
+> +	 * Table 2-100 and Table 2-101
+> +	 */
+> +
+> +	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
+> +	sdp->sdp_header.HB0 =3D 0;
+> +	/*
+> +	 * Packet Type 80h + Non-audio INFOFRAME Type value
+> +	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
+> +	 * - 80h + Non-audio INFOFRAME Type value
+> +	 * - InfoFrame Type: 0x07
+> +	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
+> +	 */
+> +	sdp->sdp_header.HB1 =3D drm_infoframe->type;
+> +	/*
+> +	 * Least Significant Eight Bits of (Data Byte Count =E2=80=93 1)
+> +	 * infoframe_size - 1
+> +	 */
+> +	sdp->sdp_header.HB2 =3D 0x1D;
+> +	/* INFOFRAME SDP Version Number */
+> +	sdp->sdp_header.HB3 =3D (0x13 << 2);
+> +	/* CTA Header Byte 2 (INFOFRAME Version Number) */
+> +	sdp->db[0] =3D drm_infoframe->version;
+> +	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
+> +	sdp->db[1] =3D drm_infoframe->length;
+> +	/*
+> +	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
+> +	 * HDMI_INFOFRAME_HEADER_SIZE
+> +	 */
+> +	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
+> +	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
+> +	       HDMI_DRM_INFOFRAME_SIZE);
+> +
+> +	/*
+> +	 * Size of DP infoframe sdp packet for HDR static metadata consists of
+> +	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
+> +	 * - Two Data Blocks: 2 bytes
+> +	 *    CTA Header Byte2 (INFOFRAME Version Number)
+> +	 *    CTA Header Byte3 (Length of INFOFRAME)
+> +	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
+> +	 */
+> +	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
+> +}
+> +EXPORT_SYMBOL(drm_dp_hdr_metadata_infoframe_sdp_pack);
+> +
+>  /**
+>   * drm_dp_get_pcon_max_frl_bw() - maximum frl supported by PCON
+>   * @dpcd: DisplayPort configuration data
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
+15/display/intel_dp.c
+> index 6e3fa6662cbe..093a3b7961f7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -5157,84 +5157,6 @@ static ssize_t intel_dp_as_sdp_pack(const struct d=
+rm_dp_as_sdp *as_sdp,
+>  	return length;
+>  }
+>=20=20
+> -static ssize_t
+> -intel_dp_hdr_metadata_infoframe_sdp_pack(struct intel_display *display,
+> -					 const struct hdmi_drm_infoframe *drm_infoframe,
+> -					 struct dp_sdp *sdp,
+> -					 size_t size)
+> -{
+> -	size_t length =3D sizeof(struct dp_sdp);
+> -	const int infoframe_size =3D HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFO=
+FRAME_SIZE;
+> -	unsigned char buf[HDMI_INFOFRAME_HEADER_SIZE + HDMI_DRM_INFOFRAME_SIZE];
+> -	ssize_t len;
+> -
+> -	if (size < length)
+> -		return -ENOSPC;
+> -
+> -	memset(sdp, 0, size);
+> -
+> -	len =3D hdmi_drm_infoframe_pack_only(drm_infoframe, buf, sizeof(buf));
+> -	if (len < 0) {
+> -		drm_dbg_kms(display->drm,
+> -			    "buffer size is smaller than hdr metadata infoframe\n");
+> -		return -ENOSPC;
+> -	}
+> -
+> -	if (len !=3D infoframe_size) {
+> -		drm_dbg_kms(display->drm, "wrong static hdr metadata size\n");
+> -		return -ENOSPC;
+> -	}
+> -
+> -	/*
+> -	 * Set up the infoframe sdp packet for HDR static metadata.
+> -	 * Prepare VSC Header for SU as per DP 1.4a spec,
+> -	 * Table 2-100 and Table 2-101
+> -	 */
+> -
+> -	/* Secondary-Data Packet ID, 00h for non-Audio INFOFRAME */
+> -	sdp->sdp_header.HB0 =3D 0;
+> -	/*
+> -	 * Packet Type 80h + Non-audio INFOFRAME Type value
+> -	 * HDMI_INFOFRAME_TYPE_DRM: 0x87
+> -	 * - 80h + Non-audio INFOFRAME Type value
+> -	 * - InfoFrame Type: 0x07
+> -	 *    [CTA-861-G Table-42 Dynamic Range and Mastering InfoFrame]
+> -	 */
+> -	sdp->sdp_header.HB1 =3D drm_infoframe->type;
+> -	/*
+> -	 * Least Significant Eight Bits of (Data Byte Count =E2=80=93 1)
+> -	 * infoframe_size - 1
+> -	 */
+> -	sdp->sdp_header.HB2 =3D 0x1D;
+> -	/* INFOFRAME SDP Version Number */
+> -	sdp->sdp_header.HB3 =3D (0x13 << 2);
+> -	/* CTA Header Byte 2 (INFOFRAME Version Number) */
+> -	sdp->db[0] =3D drm_infoframe->version;
+> -	/* CTA Header Byte 3 (Length of INFOFRAME): HDMI_DRM_INFOFRAME_SIZE */
+> -	sdp->db[1] =3D drm_infoframe->length;
+> -	/*
+> -	 * Copy HDMI_DRM_INFOFRAME_SIZE size from a buffer after
+> -	 * HDMI_INFOFRAME_HEADER_SIZE
+> -	 */
+> -	BUILD_BUG_ON(sizeof(sdp->db) < HDMI_DRM_INFOFRAME_SIZE + 2);
+> -	memcpy(&sdp->db[2], &buf[HDMI_INFOFRAME_HEADER_SIZE],
+> -	       HDMI_DRM_INFOFRAME_SIZE);
+> -
+> -	/*
+> -	 * Size of DP infoframe sdp packet for HDR static metadata consists of
+> -	 * - DP SDP Header(struct dp_sdp_header): 4 bytes
+> -	 * - Two Data Blocks: 2 bytes
+> -	 *    CTA Header Byte2 (INFOFRAME Version Number)
+> -	 *    CTA Header Byte3 (Length of INFOFRAME)
+> -	 * - HDMI_DRM_INFOFRAME_SIZE: 26 bytes
+> -	 *
+> -	 * Prior to GEN11's GMP register size is identical to DP HDR static met=
+adata
+> -	 * infoframe size. But GEN11+ has larger than that size, write_infoframe
+> -	 * will pad rest of the size.
+> -	 */
+> -	return sizeof(struct dp_sdp_header) + 2 + HDMI_DRM_INFOFRAME_SIZE;
+> -}
+> -
+>  static void intel_write_dp_sdp(struct intel_encoder *encoder,
+>  			       const struct intel_crtc_state *crtc_state,
+>  			       unsigned int type)
+> @@ -5253,9 +5175,9 @@ static void intel_write_dp_sdp(struct intel_encoder=
+ *encoder,
+>  		len =3D drm_dp_vsc_sdp_pack(&crtc_state->infoframes.vsc, &sdp);
+>  		break;
+>  	case HDMI_PACKET_TYPE_GAMUT_METADATA:
+> -		len =3D intel_dp_hdr_metadata_infoframe_sdp_pack(display,
+> -							       &crtc_state->infoframes.drm.drm,
+> -							       &sdp, sizeof(sdp));
+> +		len =3D drm_dp_hdr_metadata_infoframe_sdp_pack(display->drm,
+> +							     &crtc_state->infoframes.drm.drm,
+> +							     &sdp, sizeof(sdp));
+>  		break;
+>  	case DP_SDP_ADAPTIVE_SYNC:
+>  		len =3D intel_dp_as_sdp_pack(&crtc_state->infoframes.as_sdp, &sdp,
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/dr=
+m_dp_helper.h
+> index ab16c1be3900..c158628f0d38 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -32,6 +32,7 @@
+>  struct drm_device;
+>  struct drm_dp_aux;
+>  struct drm_panel;
+> +struct hdmi_drm_infoframe;
+>=20=20
+>  bool drm_dp_channel_eq_ok(const u8 link_status[DP_LINK_STATUS_SIZE],
+>  			  int lane_count);
+> @@ -1029,6 +1030,9 @@ int drm_dp_bw_channel_coding_efficiency(bool is_uhb=
+r);
+>  int drm_dp_max_dprx_data_rate(int max_link_rate, int max_lanes);
+>=20=20
+>  ssize_t drm_dp_vsc_sdp_pack(const struct drm_dp_vsc_sdp *vsc, struct dp_=
+sdp *sdp);
+> +ssize_t drm_dp_hdr_metadata_infoframe_sdp_pack(struct drm_device *dev,
+> +					       const struct hdmi_drm_infoframe *drm_infoframe,
+> +					       struct dp_sdp *sdp, size_t size);
+>  int drm_dp_link_symbol_cycles(int lane_count, int pixels, int dsc_slice_=
+count,
+>  			      int bpp_x16, int symbol_size, bool is_mst);
+
+--=20
+Jani Nikula, Intel
