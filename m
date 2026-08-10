@@ -4,102 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 065D0C5B568
-	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 09:13:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F9F3C5AD4E
+	for <intel-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 10:10:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E5B810E759;
-	Mon, 10 Aug 2026 09:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FA0210E796;
+	Mon, 10 Aug 2026 10:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RTAXF7xo";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="X/TDbJ7e";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="X/TDbJ7e";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013000.outbound.protection.outlook.com
- [40.93.196.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A69F10E756;
- Mon, 10 Aug 2026 09:12:56 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013040.outbound.protection.outlook.com [52.101.72.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1306910E212;
+ Mon, 10 Aug 2026 10:10:11 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=S2VIJpv8VwAb5nGpLGZco2CwJBxJrdyYG0R62U+CUHku9g3BmuTtMlMlIalp3nI4J7nE7zlNG9ZnMtfOtlZTFLneApMOEKjlMD7Ql6qnWhXJ5IFseiPtR3Th4DDKJaIdYvVWj+X5pw9qFiTe80e8kNtxtL1olXtIBI3mcZ2ZElrHCmVnqKWUHhryztxnYN0XtDj5KDUStZ/CpJ6yD0+vXzgXcAwh1p1jNY18syNeP+u+6Rf/JgIh83qOelSMLB2jjsipz2iZkbwTgJWDRyaE6sg6dhDLCsQdETz/8GqmSbYDfiWc4ukfs2V7R+KGM1DLVLPyWp1yBhymet1S8Hy/JQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sGHMm995GRpz8U1PURPcj9ORNaGW0JAp4jH7dTCsP5Q=;
+ b=v1zz21/zgnctBGF04WoXuyaVM+n5aAJ7fY9Xa8kNx9OlnPNxnTdtI9JDT7zRBWR/jESJ5pyShmr0RkuG8+nyLXgWakdbtpE2OZVWzZ+eUDTQyRgEFqA3aCf6liib8Hhtfj3vm2AaqDgdCwqXGXm6YlZZ4tAndD3O+JqoGjcLEYi6cXk3oeCc+meBuwwtRzHf6MriVf+TGaj+b1lUnvcmgr69NfqY2+Aar+yk2YHMoJzcW8QcAQnz9B6smEzBJWx9MuUyohXKTF3uwtUk9MHvCgWX99gHiROvfAMFeXf6r9ur7ozd0DQq4BAbt/wBySamT6N9dGd2+/2GoSoA3Hewxg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sGHMm995GRpz8U1PURPcj9ORNaGW0JAp4jH7dTCsP5Q=;
+ b=X/TDbJ7ebcrgT+EhFqFMXkZrLW/4YZDc8WqKTw7e75/PXAK8hVBv6C+G4sRbqAlFtYUqJEtd2tPQmUS9T18h/wXtC2aoCPud+bRck2pQq9CYkNqoCovk3ytIAzcRbI1Snb/v7MuNLuEi4ToSBvjeB4IQeWdFklu/yB6MC0uCDmQ=
+Received: from AS4P191CA0001.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::14)
+ by AS4PR08MB7831.eurprd08.prod.outlook.com (2603:10a6:20b:51b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 10:10:02 +0000
+Received: from DB5PEPF00014B90.eurprd02.prod.outlook.com
+ (2603:10a6:20b:5d5:cafe::71) by AS4P191CA0001.outlook.office365.com
+ (2603:10a6:20b:5d5::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
+ 10 Aug 2026 10:10:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DB5PEPF00014B90.mail.protection.outlook.com (10.167.8.228) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.6
+ via Frontend Transport; Mon, 10 Aug 2026 10:10:02 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wc/KhzSzY7x9iCWEmT8ruXsp+k6nXoOcEal/VOfpz4VQzHV/PgWEcFKmkNiigXTG3UILacOy+qsDffkvzKUokkiq9DdW+cbwh3Bg08AfjB82eYkT2Ul/ANaPy+EbyqaLcWQ2NWAoQHT/0N8NhNQLS6aHRhzroh0WrHaLZgm0m6DvZKGX0PaFta6Paq7ovMa8iapHoT0KUacCOqIt0ebEahqTsS6OTVuYtCDkTGoPPO2ReqC4c0aRwAtE/8Dm5NISddM9SGbjawI40HwsvbCI5ISGIy1bPQB+XLhREMJNlETDzhlANN3hZ0oCc9sPBPJj9hqHt3Rcn2vdvf29JabHnQ==
+ b=lu7ea3NWDFQpIQidj/jgqt5/KcmZz0+/1a76oNtofgRKQtEybTY1fyBCnkJjwDsyW7/qX3L6SuD9Uh5OOHCJZv4AsAKYRa7pqgYV5bpV89zK0ET5xvFNA69JUYBVaBtP0v7tg2VZAyWAiuyhnRXyRJmyI6iJTXkdrK8qzmLAX72W8xQB1C86P44R4flTtnd2wfkhUaNejYRyNyzz7kDmWdH4jUVPDlAovM32wCDcB9FIoKAtzVEOFXG21H0s8vbW8kpr9DkQcw+l1uc4z2ouPB+PKPpQgUkqAgSo7BymZKjTQDr1YQgtlWllUFntTrZaE/f0vUEuw7WNLHE7NfbLKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RxaveEQGp+h/rJHZ2P+sFo0B/bBq0GhEtQPmS/OlokQ=;
- b=AsaPjperwP9Kr0TDQ8MIESNOGT/kggE6pqHsaRnHmCIlcKdKzFkupCgdnTnYZlg915s4QqQBSaCa6eQwA64at/A2PryshUV29Hwc2n6e8ygYItdORNoFuD4lQYkSqaK6UKrEgZ9hJqD8/1HIjiJBEESoJr4vy9Kcd63s8vWbnMjxbuC6zzvhNmNFKHY3zXfE2hICzJJsT27OoF6HqLPm0xvNQkdn95Hv26RHJbOyj+FgCC8nridiZb/2IumNdUN7TpkyO3NJ8xJS33k8rpara819L4UOZCOSWyg33iBiI6ZkHFcWe9nDvlCt8JQGl8pkkVxBAES/u4x4STgHq2GxoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ bh=sGHMm995GRpz8U1PURPcj9ORNaGW0JAp4jH7dTCsP5Q=;
+ b=INpxTaXgNxtQiT573C05qSNgM1vbGnG8XOl2r9kZCWWdSH5g6G1tsg4YtDB2RnlUfjNClceUU3wo9Klb9vEyafV39ILI5xqT1mB40WqPtm3NOuPUzwS5rBds59divY4qpTl7kf1EzwOf8HLDVNq5OTM7M6etkjs2xop/w+dMmKowx8ZP6A7DWAFSqY0QuOdrj5QS8eOgAYJv13UTwNieAv7yjfEIN10iM0PeUyIVFvRpY3+skcHmBU15LSyj0evBb/FYsMgrn8p9G/rw5d2z6CVDr0Xv7YlNJpp1GNZQl4fgnkZvyFgrCH78oR/UhFhwGdFC2APICbt2IEP03StPWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RxaveEQGp+h/rJHZ2P+sFo0B/bBq0GhEtQPmS/OlokQ=;
- b=RTAXF7xor26xxYVnOzvXmovmj5OJa+ZQPTgJa5io9ymxJLdnP24FULD4swcFhXd+GxnQE2/+bDGaaYGHSAZuvabalem8Riw5v7sss8G2Dn6yGWzFX8PhYBVKhK00JHvSD3C/n82TFEPaKL6Mvv9Mu8jR/B/OJ8M3sdnBMFLeXE8=
-Received: from BL1PR13CA0194.namprd13.prod.outlook.com (2603:10b6:208:2be::19)
- by CH3PR12MB8851.namprd12.prod.outlook.com (2603:10b6:610:180::11)
+ bh=sGHMm995GRpz8U1PURPcj9ORNaGW0JAp4jH7dTCsP5Q=;
+ b=X/TDbJ7ebcrgT+EhFqFMXkZrLW/4YZDc8WqKTw7e75/PXAK8hVBv6C+G4sRbqAlFtYUqJEtd2tPQmUS9T18h/wXtC2aoCPud+bRck2pQq9CYkNqoCovk3ytIAzcRbI1Snb/v7MuNLuEi4ToSBvjeB4IQeWdFklu/yB6MC0uCDmQ=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AM6PR08MB3414.eurprd08.prod.outlook.com (2603:10a6:20b:49::10)
+ by GV2PR08MB11418.eurprd08.prod.outlook.com (2603:10a6:150:2c9::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 09:12:50 +0000
-Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:208:2be:cafe::68) by BL1PR13CA0194.outlook.office365.com
- (2603:10b6:208:2be::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Mon,
- 10 Aug 2026 09:12:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 09:12:50 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
- 2026 04:12:47 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v8 2/2] gpu/tests/buddy: add dirty tracker performance KUnit
- test
-Date: Mon, 10 Aug 2026 14:42:31 +0530
-Message-ID: <20260810091231.11936-2-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260810091231.11936-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20260810091231.11936-1-Arunpravin.PaneerSelvam@amd.com>
+ 2026 10:09:26 +0000
+Received: from AM6PR08MB3414.eurprd08.prod.outlook.com
+ ([fe80::dde8:bf0b:1dc:2a2]) by AM6PR08MB3414.eurprd08.prod.outlook.com
+ ([fe80::dde8:bf0b:1dc:2a2%2]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
+ 10:09:25 +0000
+Message-ID: <52b5066c-64f6-40bb-9bce-365a18f24265@arm.com>
+Date: Mon, 10 Aug 2026 11:09:24 +0100
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-2-usama.anjum@arm.com>
+ <3db8233c-3785-444e-b2eb-3e5fc5cb2f17-agordeev@linux.ibm.com>
+ <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
+ <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0541.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::12) To AM6PR08MB3414.eurprd08.prod.outlook.com
+ (2603:10a6:20b:49::10)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|CH3PR12MB8851:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed56c984-92cd-490d-90eb-08def6bf8d2e
+X-MS-TrafficTypeDiagnostic: AM6PR08MB3414:EE_|GV2PR08MB11418:EE_|DB5PEPF00014B90:EE_|AS4PR08MB7831:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96d6ff17-0376-40a1-bf75-08def6c78b22
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|376014|366016|7416014|1800799024|23010399003|6133799003|4143699003|11063799006|56012099006|10067099003|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info-Original: mSQv7AaybVdP8lh1lVFlcXP3kGG1cksbK7NhWTSFCBI3T0vZN0VuY2xwLDoDTGWs3W5PpK1u3qICDytNzKUqK9SDvSv7mOhBGz8mCm/T4p9TZ37PTi68WrHC7SBnCBiKxzCJ1ggOVHo04CZfBzLVji6+kBvSiujrzeh5gmb35+T9IoDVoY8YoaoS6y3IVsR/GNlvmGtl5h83qJwaCQGveRteXDi/EkCuqvbd5zatwi9ASQA/qgf3VrS4W7mHxiqhY/nlY5S2wjkycoMVtJy07vAqhKdVMsdnlL25x/Iwz4DXtgLyS6aJ6fYrNzxhQ3+eeZbR9SXZ64cp+5Kn89v3W3otEbkLRadT3SUQngLaRqNN8wIsqyOU8D4Yz99lvY6ZDxbtPq7pRcf3CTk8/Al5XLIF1V5sHok4sc9I5uDs30xNOq+ymqN4IBv9JdPHOaSs/1do4M34tKTFM41rHL/hmWIhHTdx8kq07vwMPgvnN5p7o+qmmoZSROUn3GPPhVdKXZ/LpJhu+sxmyl/Sx++vGNwaHa6REVMYmcFmZNeFvyZ/Y3jMrZuslEQMs0LbQZ2M5AtlfuTDIL4Je4PJTXc6RkGhF6yffaGrIBjR+RmxDHg5eXT2WqHRIQ6DcoTZIfTUIKxMWJPNuZkweSPQ7vN4An9Dr/hNzavgZ0covaVZmjI=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM6PR08MB3414.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(1800799024)(23010399003)(6133799003)(4143699003)(11063799006)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: opP+uzSVHSCRZK1SnjoVnNSw+fDPOATCeo/EkQ/9TKyIWl0BioAAzSjZhW8oRWRhh0VP/Q1IhuRQUxZSxCsMBYVxG/vcaCq1wzUNu0nQPwwWo+QE2KhmS9+j4egy16LiRS4nTmRLKN+XuBdurSLoP+kaCOoDnMKd3pxwSOThge4lF9ONak39/a4lKk8vojL/Ah1HFZ0d8Go5NuqSGNowzXBjnKGdIXTD/jk32PsEmyqcNbc2TwzdKXhRdNZujBGi+KEGdynA/VP0mrbFbmrciAva+eyNqKFeXEVWYbI8GKT7kDRSysVn0Mgym+JU9ctCXZkrSk7GbR3mC+NkBpOOug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB11418
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DB5PEPF00014B90.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: b22ca400-de72-440a-7983-08def6c77506
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|11063799006|56012099006|5023799004|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: oZfxxG+U2j+9r2bv7KehGDSH+6WD8yA8HRxJwgCZxJAX6sr7LNb4WRJn/eV5F4TfYajiwNfDUQb6vDtHq9jiUkoOFwVsCepM5EQBhQjYkJrdkraKMulDU6w2Wztx/fB+kU/G7Nd9IS5Y7R9xjsa8G6qHZu6pM1hubC8I68eUp1wmygJmF3KYO6BAZqIq0JstUhUYt0jn7m66vzpYpfu3m3r6isr4rcJHMxavy3VODDecr04CAPu2qAYcVEvllkiP8jUJM0a4BhvdzOcKxqIv+IcXv0OgJHOz9cV4kYLlGQFLqAviGm//ywSZAlJk4/PTTPBp6LdajX6ipm3Gt1GMFTGbPuqK08XpcGtpZfENjK7V3a931+nmM9ZR+aUgu8kYP7IsK+TZTUe1u3E2KZEOYXzvpjpKyfJKF5i+P2OLkgouBHfGMN+9k3HkeJAex/8mqECihlsPF3qkQcUGnZjDwOpXvtX7/H9U8YoyzhIE4jivRh/DGim+RIUshXZWddqbwnq4dBI5enPnVujpHrJFOd5YopN346vdpHHZLJ6Vu8WhBGAvCIKuLkNNwhUx03Vp33HbBkuu0y6T4XzvGJXa/H4I1Lx/sC0SlIlReIs0mvctu96ZNPzPFLtqlsefckvZi08snHqy3hF8/EAz8Hc6SQi4KCq0gpKtfuvWeeQYL9rnigb+QhYuWEjs4zM/dI7DL4WVrYA1bU0CjOCVIYdziQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(5023799004)(6133799003)(22082099003)(18002099003);
+ ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|14060799003|36860700016|35042699022|22082099003|18002099003|56012099006|10067099003|3023799007|11063799006|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info: cRrjktM/0DgtNP+E1PYP/0TkmX3sW8qhpY9DcxvRfNeCDy8AXNMKLuDb4jtrpgipjzOzFQliODcOOY4RT92OTAXEaRCQ7E8drxYE9301ePLgTjvbj5KSRwz5uxaT8ET0eGm6NCQdUL4MwmspJAR/K/koXYxEQR8PpkShv+2mLpdO/hvV2vVx5phfc7TjVBx1COc/IpRWuf2G9XfZZks0y1EN2Q34OgU0Am9DiPRHRbT6k1rn9/q6qNa5cEuxA1CBtpe3HM/na9j3mE3HhYOgZLW96Ez7DsV+rlaQV0o5bVbUzSqItNRYQhG7ggz04xHaeOzU7WiE1ZHXzQDL9LHzaOccmv9e29M6u4Lu404ORpzuva9lnkueRswUV+7NHztVd2TdweKlYHqyHaQV32baOQHtWWgOCzxPP/i8y2k1EdqfeVivtE+SUotRzWqX4b+wFKf8TE1x6gs3kJEt1vD0O6iQaetLgtFPOD9lcztBFADSza/1D1T64EPGO/iULK9iV+gQ+WcfsG9Xet7UAWNF4verB7aZ71XjTFFAH10J705ZwKAORUbP9qntrVwLy7R5q2qJXHXiMYH28W9O8rJf8X981Y/FdjlFG7a8rlCqezM9+Vx8/f1ahn1fMI1qpujZx87DZcCRqB+fAUZ9biioHBrXp6PqYCzMzAlkIXMokzwZFfsfSA0aonNvmQ21odrDzgb8d/ug7NM2gwuGhDfScw==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(14060799003)(36860700016)(35042699022)(22082099003)(18002099003)(56012099006)(10067099003)(3023799007)(11063799006)(4143699003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LKt+YGkoN5HidR1BV4bAt47WeKDRA3Pq0VKHhW+O2UZ87Dca5eQBvFl0ubx1pGzM+V/v8zxA+w9PsejaCTxFkdzOtiDW/CI/dXFJwD3qphJSKOxreBaiwnoxLtiq8pmWfpPcrxureDmy0M8RQYT/mVP9nnP0A1vkTjiHi37WOWlrgHVqq92DGq4Ktzc/dpT0ssJuyt9e5pfAqaBI57g437U/L6JPVcaISZCZKvFh5+956PiwpFgEekrAaZlzwVBQiBMSS0M+gURPwzcZnZ4ljrsP3x6vtbBzH1qcrt1PronwdgOAc4Znl6ZJ2lIexbejI4zRa3rW0BKSU8xyNmTtoIGWS20h4QyBYaFHatIfbuJyvp9dQUW8J1AI9+mvnok4Dn9yyGx/sDmIl+k6knjeXtc6f4higD2oF0IPGntboo6hOWIl+UJ7f8LDY7B19jKX
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 09:12:50.0573 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed56c984-92cd-490d-90eb-08def6bf8d2e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD4.namprd02.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: RZu5a05QZ2FkwUV+f3u/xNJ5M977oWBQ8C7GFk7ktc47z+21uudAEAHRHlGSo5AXhoiep89PdJZItSNMVMKzhUWkAzOcbK1aDFW/Mi7N4e8tpvPJlry/aLrtdxgCK6kaQFJRAsOgE/+7N3cXDyiQfUZw+1Gee/0CnYC2dvf05U3qAEsjAQfdrCTHKQKH5tBZy+2KPL7OM2eCxrNi9Gz0AbGh/+NomfeCMStvdy//InA+bHcfFAOJZTvNIE6SEqd15SnoxmQPwOC0MKvmF+jgtvEYJ1/QNCoj4vbau8Q6BterG7888HbRyE6pSP2pgILQsPNbTd+Am8BVwld3VFN6zngsr09c3yxKP3xFmqxE/jdbWplTagyu0d+50/ntJpmFUgC5AEPtB0UZ7gK6HWiys18iUs6JwL3+Gige/sROB32Eq1eo0jD5flZ0SUXOiW8/
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 10:10:02.5666 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96d6ff17-0376-40a1-bf75-08def6c78b22
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B90.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8851
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7831
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,171 +191,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add gpu_test_buddy_dirty_tracker_performance to demonstrate the key
-advantage of the decoupled dirty-tracker design over the old dual-tree
-/ force_merge approach.
-
-The test runs two scenarios on a 4 GiB pool after alternating
-clear/dirty fragmentation at 4 KiB granularity:
-
-  1. Contiguous 4 GiB alloc: the old design requires __force_merge()
-     to rebuild max_order from scratch; the new design coalesces during
-     free() so the alloc is O(log N).
-
-       old (force_merge) - 71 ms
-       dirty tracker design - 17 ms
-
-  2. Repeated 256 KiB alloc throughput: the old design pays
-     __force_merge() on every alloc; the new design does not.
-
-       old (force_merge) - 95 ms
-       dirty tracker design - 24 ms
-
-v2:
- - Force a contiguous 256 KiB allocation in the repeated-alloc loop so
-   the baseline actually exercises __force_merge(). (sashiko)
-
-Assisted-by: Claude:claude-opus-4-8
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Christian König <christian.koenig@amd.com>
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
- drivers/gpu/tests/gpu_buddy_test.c | 114 +++++++++++++++++++++++++++++
- 1 file changed, 114 insertions(+)
-
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 198d8dc4e3f0..4dc54ed33269 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -283,6 +283,119 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
- 	gpu_buddy_fini(&mm);
- }
+On 09/08/2026 6:45 pm, Alexander Gordeev wrote:
+> On Fri, Aug 07, 2026 at 04:24:00PM +0100, Muhammad Usama Anjum wrote:
+>> On 07/08/2026 8:09 am, Alexander Gordeev wrote:
+>>> On Thu, Aug 06, 2026 at 09:38:39AM +0100, Muhammad Usama Anjum wrote:
+>>>> pte_t is used both for logical PTE values and for entries stored in a PTE
+>>>> table, so pte_t * does not distinguish a pointer to a copied value from a
+>>>> pointer to table storage.
+>>>>
+>>>> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+>>>> as a macro alias of pte_t by default. When an architecture selects
+>>>> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
+>>>> This preserves the representation while allowing converted architectures
+>>>> to enforce the distinction at compile time.
+>>>>
+>>>> Keep the C type definitions behind an __ASSEMBLY__ check because
+>>>> architecture assembly sources can include this header indirectly. Include
+>>>> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
+>>>> they previously obtained from that header.
+>>>>
+>>>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>>>> ---
+>>>> Changes since RFC v1:
+>>>> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
+>>>> - Exclude the C type definitions from assembly sources.
+>>>> - Update the description for the new opt-in model.
+>>>> ---
+>>>>  MAINTAINERS                   |  1 +
+>>>>  include/linux/pgtable_types.h | 17 +++++++++++++++++
+>>>>  mm/Kconfig                    |  3 +++
+>>>>  3 files changed, 21 insertions(+)
+>>>>  create mode 100644 include/linux/pgtable_types.h
+>>>>
+>>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>>> index e9c8567308a75..7169bea968cf5 100644
+>>>> --- a/MAINTAINERS
+>>>> +++ b/MAINTAINERS
+>>>> @@ -16982,6 +16982,7 @@ F:	include/linux/mmu_notifier.h
+>>>>  F:	include/linux/pagewalk.h
+>>>>  F:	include/linux/pgalloc.h
+>>>>  F:	include/linux/pgtable.h
+>>>> +F:	include/linux/pgtable_types.h
+>>>>  F:	include/linux/ptdump.h
+>>>>  F:	include/linux/vmpressure.h
+>>>>  F:	include/linux/vmstat.h
+>>>> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+>>>> new file mode 100644
+>>>> index 0000000000000..70c3edd00a01b
+>>>> --- /dev/null
+>>>> +++ b/include/linux/pgtable_types.h
+>>>> @@ -0,0 +1,17 @@
+>>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>>> +#ifndef _LINUX_PGTABLE_TYPES_H
+>>>> +#define _LINUX_PGTABLE_TYPES_H
+>>>> +
+>>>> +#include <asm/page.h>
+>>>> +
+>>>> +#ifndef __ASSEMBLY__
+>>>> +
+>>>> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
+>>>> +typedef struct { pte_t __pte; } hw_pte_t;
+>>>
+>>> On s390 it fails to compile once we do typedef hw_pte_t *pgtable_t
+>>> in asm/page.h. m68k, powerpc and sparc may also have such problem.
+>>>
+>>> The below declaration helps to resolve it using forward declaration
+>>> and without meddling with headers, though I do not like it much:
+>>>
+>>> typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+>> Thank you for testing it out on s390.
+>>
+>> As __hw_pte_t isn't being used yet in this series, would s390 enablement
+>> patches add __hw_pte_t to this definition?
+> 
+> I hope there is a better solution. As I noted m68k, powerpc and sparc
+> may also be affected, so I would suggest to look into those as well.
+> I would prefer s390 to use the generic one rather than circumvent a
+> compile error in a custom way.
+I've just checked all of these architectures by doing dirty conversion and
+reached to same conclusion that __hw_pte_t must be defined like:
  
-+static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
-+{
-+	struct gpu_buddy_block *block, *tmp;
-+	unsigned long elapsed_ms;
-+	LIST_HEAD(clear_blocks);
-+	LIST_HEAD(dirty_blocks);
-+	LIST_HEAD(allocated);
-+	struct gpu_buddy mm;
-+	LIST_HEAD(results);
-+	ktime_t start, end;
-+	int i, count;
-+
-+	/*
-+	 * Contiguous alloc latency after alternating clear/dirty fragmentation
-+	 *
-+	 * Fill a 4 GiB pool with 4 KiB allocations, partition them into
-+	 * alternating cleared and dirty sets, then free both.  In the old
-+	 * dual-tree design every adjacent buddy pair has one cleared half and
-+	 * one dirty half, so the pair sits on opposite sides of the clear/dirty
-+	 * merge barrier and cannot be coalesced at free() time.  The pool
-+	 * stays fully fragmented and the subsequent contiguous 4 GiB allocation
-+	 * has to invoke __force_merge() to climb back up to max_order before
-+	 * it can succeed.  With the dirty-tracker design buddy pairs coalesce
-+	 * unconditionally during free(), so the pool is already at max_order
-+	 * before the timed alloc begins and __force_merge() is not needed.
-+	 */
-+	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
-+			       "buddy_init failed\n");
-+
-+	for (i = 0; i < SZ_4G / SZ_4K; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test,
-+				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
-+							      &allocated, 0),
-+				       "buddy_alloc hit an error size=%u\n", SZ_4K);
-+
-+	count = 0;
-+	list_for_each_entry_safe(block, tmp, &allocated, link) {
-+		if (count++ % 2 == 0)
-+			list_move_tail(&block->link, &clear_blocks);
-+		else
-+			list_move_tail(&block->link, &dirty_blocks);
-+	}
-+
-+	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
-+	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
-+
-+	start = ktime_get();
-+	KUNIT_ASSERT_FALSE_MSG(test,
-+			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
-+						      &results,
-+						      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
-+			       "contiguous alloc failed\n");
-+	end = ktime_get();
-+	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
-+
-+	kunit_info(test, "Contiguous alloc after fragmentation: %lu ms\n",
-+		   elapsed_ms);
-+
-+	gpu_buddy_free_list(&mm, &results, 0);
-+	gpu_buddy_fini(&mm);
-+
-+	/*
-+	 * Repeated alloc throughput from a maximally fragmented pool
-+	 *
-+	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
-+	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
-+	 * ensures every adjacent buddy pair has one cleared half and one dirty
-+	 * half, so each pair lands on opposite sides of the old merge barrier.
-+	 * Each of the 16 384 x 256 KiB allocations in the timed loop asks for a
-+	 * single contiguous block (size == min_block_size, CONTIGUOUS flag), so
-+	 * it cannot be satisfied by 64 stray 4 KiB blocks: under the old design
-+	 * every alloc has to pay the __force_merge() cost to rebuild a 256 KiB
-+	 * block.  With the dirty-tracker design the pool collapses to one
-+	 * max_order block during free(), so each alloc is a simple O(log N)
-+	 * split.
-+	 */
-+	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
-+			       "buddy_init failed\n");
-+
-+	for (i = 0; i < SZ_4G / SZ_4K; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test,
-+				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
-+							      &allocated, 0),
-+				       "buddy_alloc hit an error size=%u\n", SZ_4K);
-+
-+	count = 0;
-+	list_for_each_entry_safe(block, tmp, &allocated, link) {
-+		if (count++ % 2 == 0)
-+			list_move_tail(&block->link, &clear_blocks);
-+		else
-+			list_move_tail(&block->link, &dirty_blocks);
-+	}
-+
-+	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
-+	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
-+
-+	start = ktime_get();
-+	for (i = 0; i < SZ_4G / SZ_256K; i++)
-+		KUNIT_ASSERT_FALSE_MSG(test,
-+				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_256K,
-+							      &results,
-+							      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
-+				       "buddy_alloc hit an error size=%u\n", SZ_256K);
-+	end = ktime_get();
-+	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
-+
-+	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\n",
-+		   elapsed_ms);
-+
-+	gpu_buddy_free_list(&mm, &results, 0);
-+	gpu_buddy_fini(&mm);
-+}
-+
- static void gpu_test_buddy_alloc_range_bias(struct kunit *test)
- {
- 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
-@@ -1490,6 +1603,7 @@ static struct kunit_case gpu_buddy_tests[] = {
- 	KUNIT_CASE(gpu_test_buddy_alloc_range),
- 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
- 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
-+	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
- 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
- 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
- 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+
+I'lll add __hw_pte_t to this series. (Initially on last email I'd thought
+that the first user would add __hw_pte_t. But it seems sensible to add it
+now)
+
 -- 
-2.34.1
+Thanks,
+Usama
 
