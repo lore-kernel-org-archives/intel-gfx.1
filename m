@@ -4,160 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4480C5AC67
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 09:37:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8755AC5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 09:48:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BA3A10E2AB;
-	Tue, 11 Aug 2026 09:37:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0035910E2C3;
+	Tue, 11 Aug 2026 09:48:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AMzsrHW2";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="d6ccwcWa";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBA510E2AB;
- Tue, 11 Aug 2026 09:37:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786441044; x=1817977044;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=/JHob7mTj8P5AQEEsyhZqmnaLO0ZkgO1Aezl7IMujrU=;
- b=AMzsrHW2eTVKvee7JBmiZ6XABp+W9xZgNTpSue1mAp75LrqpwHHmiKCJ
- EaVHK47bBj9wOohtk/ryHkly8NlSS6W2lJggnzSiks7wy7ETnixnhW2hA
- TR69r2tTwY9PGAW3OoU02hUSna7rvfk926rhfXxKp/TL7qqWoMX8FBZis
- YDGTXRM3pR8ujhUTQrYmyNCDUYHQMNzGntl4lqpgeDN9BnEAqlWuOPqJI
- xcgbuxSpCdxzvH6acC2WZrKiQWCoLK0A0FdBSBJszqPB8a1G6x1BZSlxY
- JiGBP+mskml1v/RQMWwMERg+S99O70n9GohXVeatx4O0zW4rZ8UdJcXPv A==;
-X-CSE-ConnectionGUID: JokHMxOnTcOkyN6OB2EXmg==
-X-CSE-MsgGUID: 9zI3vDQ2Qbq96gG4KTBMXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86993076"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86993076"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:37:24 -0700
-X-CSE-ConnectionGUID: Q4buEpHrRBaq4oN1eHITew==
-X-CSE-MsgGUID: X/CtitlRT2K05ysxcUJoWQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="263338973"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa007.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:37:23 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 02:37:23 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 02:37:23 -0700
-Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.10) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 02:37:19 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aTqWTU3JPqKUACjU4ku6/OTosgWOwmn18nTTR0zUSXCQ7G4SSLuRXCeJ3afkchiNWgZ322Jfktiu+I6odSyPFVdnNOW6eTjO8muLbcsx9tGOaunqycM+kmQHlNAfqcN2r26vyoOhITEitpTRY53ja45/0wlnov4oz5Nqw7/lUOMUNfp8M020VMv5SAk8/JzneHL6jmLglFFAzvN8ZbMQeD/iL5Qv7pVviS2+zoAfjtIXkbbI5fEPdX713vCMxVpOrL4o3LxIApYwPAcd0lLb1H1JgW6ied50BGlyZoGX0BNpaxdpI8AQqm3CPh5YH1vZxAhqTNH5tJhW8p9xAw//+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cK4FT2Th+zQ7RmK4WKk2wQl1eggXehClzx4S1hfCOqI=;
- b=vQJUa9AhxQtBMR/4fvE3dDrZ+mhdqTwofRzYNH8fIPoQGEwoKf9HAKbAFc0QIpoFBZaENTRO32qR6TGJretrcCDDKIPIFNVajXxbfiS3xmC/Es8adPCFH08ZPJitaAcBGmX1+rAGFkj64sBtOhiHLEIBz1uBBXNozo6zKyynzEGSCAMGd6x/+ZjHhaJK4w202x4Qb2X5hoBqVkdnay4+BlBVEMBgfoqPcV6/RsDavQwbafmiBfeENNMed+akpKinhyJ2/MLgLnJ0x+99S6yRqqqsNK/C8Z+qC+Tf7LtMlpZobt69Jo/n3vmyDZiSIsES4a/5rBGEY00DVDvCck4Qgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by IA3PR11MB155912.namprd11.prod.outlook.com (2603:10b6:208:549::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
- 2026 09:37:17 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
- 09:37:17 +0000
-Date: Tue, 11 Aug 2026 09:37:06 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <jani.nikula@linux.intel.com>,
- <joonas.lahtinen@linux.intel.com>, <rodrigo.vivi@intel.com>,
- <tursulin@ursulin.net>, <chris@chris-wilson.co.uk>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] drm/i915/gem: Fix request use-after-free in
- active_engine()
-Message-ID: <zmincd7ubpkwasily6fegvx7mz6zkdw5oglbj3ynpgqovpkszh@un7lyxy6dgly>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0079.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:46a::16) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E5E4F10E2E6;
+ Tue, 11 Aug 2026 09:48:00 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53CA01682;
+ Tue, 11 Aug 2026 02:47:56 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FC363F632;
+ Tue, 11 Aug 2026 02:47:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786441680; bh=9BoMtxA4Y0P7/HlT09wIdHqLAsjiBcPF0bOK0SA6y88=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d6ccwcWanhV2NaMQGyN2LuxorwwpnGJX87UVp3OA/ioC8kalbAN29GEdYDjGMly4L
+ +yi+Q/zEcN/N5K6/AZJJ9VjzIZc7OuAomjl/vPpcEdxNEFoRGn9LR525fZF+bpEreD
+ Ak2C6/i9Np4uONZAT7JjQS//RpxwX0LWi0gAmmt8=
+Date: Tue, 11 Aug 2026 15:17:57 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, ryan.roberts@arm.com, linux-kernel@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, 
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
+Message-ID: <u457qwrnkaquvqfn4op2a4wcdflm6d4gzut5ii4ialbeqjiyfj@qpn5fu5kwn4z>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-2-usama.anjum@arm.com>
+ <3db8233c-3785-444e-b2eb-3e5fc5cb2f17-agordeev@linux.ibm.com>
+ <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
+ <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
+ <52b5066c-64f6-40bb-9bce-365a18f24265@arm.com>
+ <b40d4359-3156-4d02-9662-73bfeace607c@kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|IA3PR11MB155912:EE_
-X-MS-Office365-Filtering-Correlation-Id: f877f1e6-2f4c-44d8-63c0-08def78c21d4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|18002099003|22082099003|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: Sud7CNOM+Z2Cxs677dc1GvizBVhc2C4GMJ33Pw3jQeI+kYwBpXWg7YmelrFbDs9x1If6OSugqyXdtG6ukwaUqDg+s8jwNuzsY7N6wixaJDQGEXgU3GOTKzNCo+n7fomnhDatc+DJY24VvPOHjB6NDqqe5wZOhmz+iQP06VKv13mGFXWA738J/CHJ/hcLMpvlVbYjQ0/NFrB2dhOimcuslaTR6td3Iz7l+W+9IX+akRqpydYOdUBV1Ra6wD3R/BcOtWwQyW86xfPwNtPLGfx/rsNRkiJki95RsjDH659dYDy4re639e0aWay4SqmQDkoQRPbDY5tttX0atgYQ5+WJaHDMCevJGvwMcgLN+x48U4x1+9fAl2Z8f+wV2F191pK3jBy4d/72TmYdmqMlvIM9P83NJZJTsvckvVvU706OJmPvT+YCbyIM/2QT5GZ04CHAXPqqT78tnli0S4hV7ieteOXMvBD2El5Kd/j+uSHF2m5Pcsa8NYrVzDHI02FTfJM6SpBnxnzc8GGr+EJOXVsC6kmKsswSf6Z44UdLZUYWqU4g0uGDoPqjt1j70GPaZB2ooTqpXmCqrs5n955ghjEMAUtCckymPDTQD7Ndv+UOKBycJQ3Vys9Bv+0XkskPUnwHnm7aQoTu78zRuuvtmh9MKbbrxlQ0Z1c1bDrZwX/Ssq0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(18002099003)(22082099003)(11063799006)(5023799004);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aERZZGxmYkphaFVzaTdVL29ocXZaMVJCRjB4enlLSWkwN25wTjhpM0J1NVBU?=
- =?utf-8?B?L2dKWkJvNzh4MTBxRmVXbkZJQzlIRmNmUW5yLzQrdFJFSnZXUGF6VEQxblNJ?=
- =?utf-8?B?VmpSVE5BUmpnNmloR21kV1hTWVdlaVMxeHN0Y1hBWVVldkx5R2V0TFlkZXh2?=
- =?utf-8?B?T0dtYmFiL0lWeEpuTUpnUUQ5RmsvelZkNlllVjlIbEQwd2thd1VxcWUwT05s?=
- =?utf-8?B?YTBvS3h4dVU5S3d0WEhHK1R1eU1HM1FQdHcrZHNXYkIxVHY1SkR1L21nTytO?=
- =?utf-8?B?WnZ3TzRFeHBhaUFnWFNic09CSFloK2FuZGpKaDZyb3V4a0Jjc3QxNkI0RXpZ?=
- =?utf-8?B?OVpiOCtpSXA0SjNzaG1MaEpBQ3N3WTJMSVd0SW13NXBrVEhLdWE2dCt3cHRP?=
- =?utf-8?B?am1HdTMvUkc0U2lBVlQvS0xHZyt5dURjNnE2eVAxZnFWRHlXb2REVnFlOWRG?=
- =?utf-8?B?SmQ1K3dyWkRzMCtRdjFSUjVxZ21aeDYwZk9MaUpRRTJ6M1E4UWRmQzNlQ1g4?=
- =?utf-8?B?OVFiRTNtK2syNzR5aWt1eDVVZ2NTRzk5OFVxRkxLNExpU1IxZzdsY3BVRHRh?=
- =?utf-8?B?SnYvTnF4Q2FsQnBHelYrckhrT1EzQzRHOCt3cmkyT3htV3p4VjYyTzRsZTF5?=
- =?utf-8?B?OWhNMzZQaEhKd1FxdkljU2xibThQdzlqMXlBZURLQVU0NExqZ0Y1M08wcXJL?=
- =?utf-8?B?L3dRRkY1Uzd2SkJzemYvTzFPNTd3eFNlMHd6TnhKS291b2lBRVNJMlF2cEk0?=
- =?utf-8?B?TUR4UjlLSFJPQUNUS3NoQ1FPNkJPbUhRaURPR1I4VytiSVJyK0NGSzN3Smkx?=
- =?utf-8?B?NXlvWFZHWm56a0o0OG85Mms4cDFmMURWcFdCcFNJYW1mdWNBdE5rWFVuSTJR?=
- =?utf-8?B?RlNQekhFSHoreUw5YU42N1MxbVNqWGxrNmtCNUZtUVVQekJiZlJhYzdEMjIv?=
- =?utf-8?B?aG1BeFFIczVZVU16eHBEeDl6SUd3eEd6MDZlVjNBbXd4b0FPN2dFMHBzOUk0?=
- =?utf-8?B?MEtsL2F4cjEyZDVwMXNsMWlaL3RCb05oRGxLa0ZyYW5oa1NlcHNnZEIybURj?=
- =?utf-8?B?ZEU1c0NEaVl0c1piSVZXM2VxWlp0N1I2MGhraGJ0eDFua1lwenN3SFJ5VHBC?=
- =?utf-8?B?NFluZysveEx4dzhRQzA3SHk1NlpMSVZMWGsySFhCYUtZajdYSTh3QnBKeXRI?=
- =?utf-8?B?VXlHTXZIU0VBRTExaUhidnhJS1kzRjBKTi9zei9QOHBNQk5qK1BEQTdBUWsx?=
- =?utf-8?B?bmwxWnJKZDZheUFwZEc0Y3pOczl1US96c0JKSjc1QTRHSG95dEFudGVTT2xx?=
- =?utf-8?B?dGNwOUtHdzNFVzNDTjdxalhBRGJxaHk3ZDBDS3NwNGtKbzJvTStoTXM4Nk1q?=
- =?utf-8?B?V0xyYmZiVExYcG9uNXNrMXZrUlNBMVJhREVHRnQvT2gyOVc4eEJvd2NPRjJp?=
- =?utf-8?B?WExmbXdxclpybmhsWnFSZ1RiRkZnOHVmKzAyMCtteDRhWHlwakdyV1BiMmV1?=
- =?utf-8?B?bWtFNm1lV0VhRzlMTmVQdG9EVU9RMkxQZkVrN1pROXRsVlNqOS9PanZzeWx4?=
- =?utf-8?B?NEVpZk9SRk9MVWpSMnZVYm9sb2NxUm9jeExuVjVyazNxRGRSME91MUFIQ3Na?=
- =?utf-8?B?bWsrQWJpY04wNjF4cXhpVnJEWjk0RUZQSE10SVZGTHBvdWpOR0dqM0J5cFRH?=
- =?utf-8?B?Q1hHZ3BTc2ZqVnQ2L3lBcUFPSWdEWkt2SU1LT1h5VS8yYXpLVFZRSTBsVWxJ?=
- =?utf-8?B?eGVwWmhxVXFXOE8vKzJwdHNIVGFjK0YrWmpLbTJTdHNQUVVnQ0tBOHRuUDZV?=
- =?utf-8?B?b1huVnRXTkt5MHFBS3U2WlNZWExkVlFOYjBjcjEyblIxNkY2U284YnAraWNq?=
- =?utf-8?B?WjkwWGt5cjBwZU9YQ2t4TVc4eVYxRzN2VGMvMnkzZG5ZNmFXUjNhcXd6d0JW?=
- =?utf-8?B?N1JJUkVnM2hVZWE5RlcxNHk5NUlhZ3ZCMjdMWDFDeTJkdFBxVmg4NGgvZXdy?=
- =?utf-8?B?THd5OS9PNDYvR0dpU3JzRWhySjAyZmMvcjA4T2JyVEU1dzRlSDBVVlJhU01z?=
- =?utf-8?B?OFZoTnpLWDhpS0RjRFZqN2NUWlZqWmMwVjUzc082TVlRcG9Qb0pFVGhiaWhj?=
- =?utf-8?B?Vko1elYyZzN2UVRuS1pYQkxHcnBpOVpOZExqTmI5ejlJYjRpZ09Vb0gwbE9n?=
- =?utf-8?B?TUtETGw3cDlIcnkrdEUxRC9yYmJpRjZQTFpCcWUwaEsvS2J5RTRuM1F3Y0ho?=
- =?utf-8?B?NFRrSW5jcFFtQWpkQ2I3T1QrTG5nRlpDNjMyZUhHQ1dpOEJoQ29Bek93V0li?=
- =?utf-8?B?ME1NRUw5aUZ4TGptUzlycUR1Y1lPR0F3Nk0zdDRBM2JOcndncDc4TEtaL2I4?=
- =?utf-8?Q?BKcGWsEotXEAzbp0=3D?=
-X-Exchange-RoutingPolicyChecked: lkUTtKO8W3lnvtFCKqNiajJoXvnONXeoziRrG4slrMxuHcPJhTG72AzhI/vF/b1XALK8dkC8TQzy7HQO4aro0LMCZrUdCWeyAlJfklL9jDmfCxS8ITjzIHR3KAXfcvScH36ap1c49nF8+ETm44V6Sww9OLt7M01FoyCmI5HiM4hKdlFIG9Et4Vumdh2xtaknpWYVUDdjUpywcdi5mNy/avaY1TqFHcnVg/tVJExgmZRlBH8XcWV7F7EJPrxdm/YotugJd2emy18cegwKINdpUkyYPMubvRKByvzoPUPJVRoj/DQHz9t0pINjU2jyZKjMB6u5jVpPczmiSu2WhrPtXw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f877f1e6-2f4c-44d8-63c0-08def78c21d4
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 09:37:16.9481 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZxaWBLnFdzDWgYl9dYx/U2R9ekBNDQ6izmsF4JCQhGPsmzMyP4YJWheAET8UZR/QsQZufJQidN5nuxiWs7ldCHDghG3rdGPzmXiXUHnXGxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB155912
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b40d4359-3156-4d02-9662-73bfeace607c@kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,85 +99,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Shuangpeng,
+On Mon, Aug 10, 2026 at 01:20:00PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/10/26 12:09, Muhammad Usama Anjum wrote:
+> > On 09/08/2026 6:45 pm, Alexander Gordeev wrote:
+> >> On Fri, Aug 07, 2026 at 04:24:00PM +0100, Muhammad Usama Anjum wrote:
+> >>> Thank you for testing it out on s390.
+> >>>
+> >>> As __hw_pte_t isn't being used yet in this series, would s390 enablement
+> >>> patches add __hw_pte_t to this definition?
+> >>
+> >> I hope there is a better solution. As I noted m68k, powerpc and sparc
+> >> may also be affected, so I would suggest to look into those as well.
+> >> I would prefer s390 to use the generic one rather than circumvent a
+> >> compile error in a custom way.
+> > I've just checked all of these architectures by doing dirty conversion and
+> > reached to same conclusion that __hw_pte_t must be defined like:
+> >  
+> > typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+> > 
+> > I'lll add __hw_pte_t to this series. (Initially on last email I'd thought
+> > that the first user would add __hw_pte_t. But it seems sensible to add it
+> > now)
+> 
+> Yes, do it as part of the introduction. Also a good idea to mention in the patch
+> description *why* that is required.
 
-On 2026-08-09 at 13:36:46 -0400, Shuangpeng Bai wrote:
-> active_engine() walks timeline->requests in reverse under RCU and takes a
-> temporary reference before inspecting each request. However, it drops that
-> reference in the loop body before list_for_each_entry_reverse() advances
-> the cursor.
-> 
-> Concurrent retirement can unlink the same request and drop its base
-> reference while active_engine() holds the temporary reference. The put in
-> active_engine() may then be final, freeing or recycling the request before
-> the loop step reads rq->link.prev. SLAB_TYPESAFE_BY_RCU does not defer that
-> reuse.
-> 
-> Open-code the reverse walk and cache the previous request while the current
-> request is still referenced. The next request remains protected by
-> i915_request_get_rcu() and validated against the timeline before use.
-> 
-> An i915 mock selftest forced retirement between the active check and cursor
-> advance. The vulnerable tree reached the final request release and
-> kmem_cache_free(), while the fixed tree completed the same ordering without
-> accessing rq after the put.
-What mock selftest are you referring to?
+Agreed.
 
 > 
-> Fixes: 3cfea8c97c93 ("drm/i915/gem: Hold request reference for canceling an active context")
-> Cc: stable@vger.kernel.org # v5.10+
-> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_context.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> index c58ffa5a8fa6..ff5c892a0176 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
-> @@ -1361,7 +1361,7 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
->  static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  {
->  	struct intel_engine_cs *engine = NULL;
-> -	struct i915_request *rq;
-> +	struct i915_request *rq, *prev;
->  
->  	if (intel_context_has_inflight(ce))
->  		return intel_context_inflight(ce);
-> @@ -1375,7 +1375,8 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  	 * (and onto a new timeline->requests list).
->  	 */
->  	rcu_read_lock();
-> -	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
-> +	rq = list_last_entry(&ce->timeline->requests, typeof(*rq), link);
-> +	while (!list_entry_is_head(rq, &ce->timeline->requests, link)) {
->  		bool found;
->  
->  		/* timeline is already completed upto this point? */
-> @@ -1387,9 +1388,14 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
->  		if (likely(rcu_access_pointer(rq->timeline) == ce->timeline))
->  			found = i915_request_active_engine(rq, &engine);
->  
-> +		/* Cache the cursor before the put, which may release rq. */
-> +		if (!found)
-You could skip this check here and unconditionally set "prev".
-Its value is going to be used only once if found == false anyway.
-
-> +			prev = list_prev_entry(rq, link);
->  		i915_request_put(rq);
->  		if (found)
->  			break;
-> +
-> +		rq = prev;
->  	}
->  	rcu_read_unlock();
->  
-> 
-> base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
 > -- 
-> 2.43.0
+> Cheers,
 > 
-
--- 
-Best Regards,
-Krzysztof
+> David
