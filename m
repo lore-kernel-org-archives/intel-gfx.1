@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F3D5C5CFCF
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 09:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0087C5CFD9
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 09:54:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE9310E2E0;
-	Tue, 11 Aug 2026 09:54:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7424C10E2E8;
+	Tue, 11 Aug 2026 09:54:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mcHXQrLv";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hNKt4cMl";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B101710E2D5
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 09:54:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9FB810E2E1
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 09:54:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786442083; x=1817978083;
+ t=1786442086; x=1817978086;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=Z0lVpRn3TaEAdkk0+/kb7pPQAHxa0/TjP/bIdPzvtEo=;
- b=mcHXQrLv6btNkZlvyEvhmzTt0YKpeSEDPKoO+GRjvfvDkbH2MhFT3p4K
- yde8vCAeqbJRUkvaDsCWiRG6jO84u3g+Bymjl1luYhoXLodA91IaMFgF1
- J5YQuN4b/2x5pxYAfj5OXGJfMrT+ViJUAoAl5v1MX3vokc8UJR1TAobT8
- qYr9bFLV+Vt7Q3Dzy7Fzs0Ra4TzLcB2zJmPDIXcLIli0jwlCS3bFHnuOE
- fP8uQhwprg9s3mIri+/HmDp0lU6RpwnzWU0R7D4Yn+yxy6UrbuwyVlf3X
- RqhSQ2rkw+RDfG1uxkT8ln5PW1q9ayhCkgffGbe3IVZp4PCk/RAtPAzcc A==;
-X-CSE-ConnectionGUID: ABO75e6tSoSgfORYphmyuA==
-X-CSE-MsgGUID: d1xB1dJ+T86gBz2Rg6b34w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104359912"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104359912"
+ bh=Y+IL3uiEvUpzitXuLyadAAcUUnIktWyF3Ak6JVDlN/4=;
+ b=hNKt4cMl0ZJX9IOf+ck41Skr3GSrJRzOf0YtRoy0VB5VLHTsyK/ZkmWD
+ BUAgElXVCsrZW/itpuBH/fp6ngl6I+AdlYXHgXVZP/7t59lGgGRlC9unq
+ 7ruEMYarjykP+GBpnzTizltiK+QqUhCiI2cmtGVboayTLDeWsXqvz84Fc
+ ZXxgYUqkaMfdRXrR6kTZ7eu70lIURz+gcYpAvycfmMOfl77UDx8xjers8
+ /igffNBOnQ/Prkkv29mVwy/ce1AOk2FcPLntO44V941XfwpuTd1EXEojM
+ 8b84EXzg0NdKVmagF+LxW6RPcwWMgZepE2Mu1c1OevWtEV9E84J4lXAay w==;
+X-CSE-ConnectionGUID: 7TAAiqCUT3+BplZW/7bXVA==
+X-CSE-MsgGUID: REoePFdeQmKfeUkHTZ87Lw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104359914"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104359914"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:54:43 -0700
-X-CSE-ConnectionGUID: 4dpNC84aRJ2alobR5Dr23A==
-X-CSE-MsgGUID: Amr1wnZ6TgO7OZGMDAH28w==
+ 11 Aug 2026 02:54:46 -0700
+X-CSE-ConnectionGUID: TMc3MdnxRBu4V4gnj5izNA==
+X-CSE-MsgGUID: msMARMGwTKqwMCza2ZCIuw==
 X-ExtLoop1: 1
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO hazy.intel.com)
  ([10.245.245.2])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:54:41 -0700
+ 11 Aug 2026 02:54:44 -0700
 From: Luca Coelho <luciano.coelho@intel.com>
 To: intel-gfx@lists.freedesktop.org
 Cc: jani.nikula@intel.com
-Subject: [PATCH v2 1/5] drm/i915/display: consolidate Gen9 clock gating
- initialization
-Date: Tue, 11 Aug 2026 12:49:09 +0300
-Message-ID: <20260811095427.1147852-2-luciano.coelho@intel.com>
+Subject: [PATCH v2 3/5] drm/i915/display: remove unnecessary clock_gating
+ include from intel_display.c
+Date: Tue, 11 Aug 2026 12:49:11 +0300
+Message-ID: <20260811095427.1147852-4-luciano.coelho@intel.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811095427.1147852-1-luciano.coelho@intel.com>
 References: <20260811095427.1147852-1-luciano.coelho@intel.com>
@@ -68,150 +68,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Instead of exporting many of the display clock gating functions,
-consolidate them into a single function that checks the platform and
-calls the appropriate platform-specific function.
-
-Start consolidating the Gen 9 functions first into a new
-intel_display_init_clock_gating() function.
+We don't use any of the functions inclued in intel_clock_gating.h in
+the intel_display.c code anymore.  Remove the respective include.
 
 Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
 ---
- .../i915/display/intel_display_clock_gating.c | 24 +++++++++++++++----
- .../i915/display/intel_display_clock_gating.h |  6 +----
- drivers/gpu/drm/i915/intel_clock_gating.c     | 10 ++++----
- 3 files changed, 25 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-index d036c7e5863d..d5ecdaeab421 100644
---- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-@@ -27,7 +27,7 @@ static void intel_display_gen9_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, DISP_ARB_CTL, 0, DISP_FBC_MEMORY_WAKE);
- }
- 
--void intel_display_skl_init_clock_gating(struct intel_display *display)
-+static void intel_display_skl_init_clock_gating(struct intel_display *display)
- {
- 	/*
- 	 * WaCompressedResourceDisplayNewHashMode:skl,kbl
-@@ -47,7 +47,7 @@ void intel_display_skl_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, DISP_ARB_CTL, 0, DISP_FBC_WM_DIS);
- }
- 
--void intel_display_kbl_init_clock_gating(struct intel_display *display)
-+static void intel_display_kbl_init_clock_gating(struct intel_display *display)
- {
- 	/*
- 	 * WaCompressedResourceDisplayNewHashMode:skl,kbl
-@@ -67,7 +67,7 @@ void intel_display_kbl_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, DISP_ARB_CTL, 0, DISP_FBC_WM_DIS);
- }
- 
--void intel_display_cfl_init_clock_gating(struct intel_display *display)
-+static void intel_display_cfl_init_clock_gating(struct intel_display *display)
- {
- 	/*
- 	 * WaCompressedResourceDisplayNewHashMode:skl,kbl (and cfl, cml)
-@@ -93,7 +93,7 @@ void intel_display_cfl_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, DISP_ARB_CTL, 0, DISP_FBC_WM_DIS);
- }
- 
--void intel_display_bxt_init_clock_gating(struct intel_display *display)
-+static void intel_display_bxt_init_clock_gating(struct intel_display *display)
- {
- 	intel_display_gen9_init_clock_gating(display);
- 
-@@ -120,7 +120,7 @@ void intel_display_bxt_init_clock_gating(struct intel_display *display)
- 	intel_de_rmw(display, DISP_ARB_CTL, 0, DISP_FBC_WM_DIS);
- }
- 
--void intel_display_glk_init_clock_gating(struct intel_display *display)
-+static void intel_display_glk_init_clock_gating(struct intel_display *display)
- {
- 	intel_display_gen9_init_clock_gating(display);
- 
-@@ -268,3 +268,17 @@ void intel_display_i965gm_init_clock_gating(struct intel_display *display)
- {
- 	intel_de_write(display, DSPCLK_GATE_D, 0);
- }
-+
-+void intel_display_init_clock_gating(struct intel_display *display)
-+{
-+	if (display->platform.skylake)
-+		intel_display_skl_init_clock_gating(display);
-+	else if (display->platform.kabylake)
-+		intel_display_kbl_init_clock_gating(display);
-+	else if (display->platform.coffeelake || display->platform.cometlake)
-+		intel_display_cfl_init_clock_gating(display);
-+	else if (display->platform.broxton)
-+		intel_display_bxt_init_clock_gating(display);
-+	else if (display->platform.geminilake)
-+		intel_display_glk_init_clock_gating(display);
-+}
-diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-index b6dd34ca92dd..4e50e388656a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-@@ -8,11 +8,7 @@
- 
- struct intel_display;
- 
--void intel_display_skl_init_clock_gating(struct intel_display *display);
--void intel_display_kbl_init_clock_gating(struct intel_display *display);
--void intel_display_cfl_init_clock_gating(struct intel_display *display);
--void intel_display_bxt_init_clock_gating(struct intel_display *display);
--void intel_display_glk_init_clock_gating(struct intel_display *display);
-+void intel_display_init_clock_gating(struct intel_display *display);
- void intel_display_bdw_clock_gating_disable_fbcq(struct intel_display *display);
- void intel_display_bdw_clock_gating_vblank_in_srd(struct intel_display *display);
- void intel_display_bdw_clock_gating_kvm_notif(struct intel_display *display);
-diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-index 86bdeb20f427..84f838c660fd 100644
---- a/drivers/gpu/drm/i915/intel_clock_gating.c
-+++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-@@ -57,12 +57,12 @@ static void bxt_init_clock_gating(struct drm_i915_private *i915)
- 	 */
- 	intel_uncore_rmw(&i915->uncore, GEN8_UCGCTL6, 0, GEN8_HDCUNIT_CLOCK_GATE_DISABLE_HDCREQ);
- 
--	intel_display_bxt_init_clock_gating(i915->display);
-+	intel_display_init_clock_gating(i915->display);
- }
- 
- static void glk_init_clock_gating(struct drm_i915_private *i915)
- {
--	intel_display_glk_init_clock_gating(i915->display);
-+	intel_display_init_clock_gating(i915->display);
- }
- 
- static void ilk_init_clock_gating(struct drm_i915_private *i915)
-@@ -170,7 +170,7 @@ static void cfl_init_clock_gating(struct drm_i915_private *i915)
- 	/* WAC6entrylatency:cfl */
- 	intel_uncore_rmw(&i915->uncore, FBC_LLC_READ_CTRL, 0, FBC_LLC_FULLY_OPEN);
- 
--	intel_display_cfl_init_clock_gating(i915->display);
-+	intel_display_init_clock_gating(i915->display);
- }
- 
- static void kbl_init_clock_gating(struct drm_i915_private *i915)
-@@ -188,7 +188,7 @@ static void kbl_init_clock_gating(struct drm_i915_private *i915)
- 		intel_uncore_rmw(&i915->uncore, GEN6_UCGCTL1,
- 				 0, GEN6_GAMUNIT_CLOCK_GATE_DISABLE);
- 
--	intel_display_kbl_init_clock_gating(i915->display);
-+	intel_display_init_clock_gating(i915->display);
- }
- 
- static void skl_init_clock_gating(struct drm_i915_private *i915)
-@@ -200,7 +200,7 @@ static void skl_init_clock_gating(struct drm_i915_private *i915)
- 	/* WAC6entrylatency:skl */
- 	intel_uncore_rmw(&i915->uncore, FBC_LLC_READ_CTRL, 0, FBC_LLC_FULLY_OPEN);
- 
--	intel_display_skl_init_clock_gating(i915->display);
-+	intel_display_init_clock_gating(i915->display);
- }
- 
- static void bdw_init_clock_gating(struct drm_i915_private *i915)
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 829d7a411dcc..8a19a2f5d222 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -60,7 +60,6 @@
+ #include "intel_bo.h"
+ #include "intel_bw.h"
+ #include "intel_cdclk.h"
+-#include "intel_clock_gating.h"
+ #include "intel_cmtg.h"
+ #include "intel_color.h"
+ #include "intel_crt.h"
 -- 
 2.53.0
 
