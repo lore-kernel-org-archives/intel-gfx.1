@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D386FC5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 04:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B808FC5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 04:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D4D310EA6D;
-	Tue, 11 Aug 2026 04:59:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="koG5r8Id";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 084E510EA6C;
- Tue, 11 Aug 2026 04:59:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786424381; x=1817960381;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=L0X78rYG6iJaWhfRwBcXLwhNVMe1KGKsoUzda1HOWbE=;
- b=koG5r8Id5GJ4Ma7A+69Gf2JTYJ1r7e+FVvQDwL/rGLOe7PEsCVPWHsmY
- 6KLzM6dvI4hB80Ass/S6fo5lMZgjZ92OOOrj/syyyNtt7J0GN7PPtGHqP
- h/B5w3fv9lEJAvGxSWh8TMkchtu/5WrPIXGI6MX+xVKcRBMzkFEWt6lTx
- 8bMIPFC7PpGXB9Jton3vCK7+wSo/A7qHmPu33xK1+RzeYX87Zd4XYKZ/m
- /SBWPauSmdiu5dy2N9cOQahtrcr2AlpzYEo4Sf6/55+9FLKKhlCXS0nPv
- gU8NmFSZDUsUkeNCsWXYLF5wgEFWeE/dKhzt0HXNYoP2o6vERYRVxsExI w==;
-X-CSE-ConnectionGUID: iiHuGcMpSx61AUC07JqmrA==
-X-CSE-MsgGUID: Cor4qBw+SGqiMSNd3tHTcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86708337"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86708337"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 21:59:41 -0700
-X-CSE-ConnectionGUID: tClihTcESwW4B5GMD8htbg==
-X-CSE-MsgGUID: CuT4qACPQJeIPqLLQ8c45A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="267082765"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 21:59:39 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: alexander.kaplan@sms-medipool.de, suraj.kandpal@intel.com,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Subject: [PATCH v2 8/8] drm/i915/dp: Clamp PCON DSC bpp to the FRL link
- bandwidth
-Date: Tue, 11 Aug 2026 10:12:34 +0530
-Message-ID: <20260811044234.593986-9-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260811044234.593986-1-ankit.k.nautiyal@intel.com>
-References: <20260811044234.593986-1-ankit.k.nautiyal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1B410E27D;
+	Tue, 11 Aug 2026 04:59:51 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3A2910E270;
+ Tue, 11 Aug 2026 04:59:49 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7926341505956196006=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dp=3A_Gate_UHBR_?=
+ =?utf-8?q?SST_SDP_splitting_on_sink_capability_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 11 Aug 2026 04:59:49 -0000
+Message-ID: <178642438965.36641.17708649333932725269@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260811034928.556990-1-mitulkumar.ajitkumar.golani@intel.com>
+In-Reply-To: <20260811034928.556990-1-mitulkumar.ajitkumar.golani@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,98 +37,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-While configuring the PCON DSC encoder, intel_hdmi_dsc_get_bpp() picks
-the highest compressed bpp that fits the sink's per-scanline chunk-bytes
-limit. However it does not account for the FRL link bandwidth, so the
-selected bpp can end up exceeding what the trained PCON/sink FRL link can
-actually carry.
+--===============7926341505956196006==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Compute the maximum compressed bpp that the FRL bandwidth can carry and
-pass it down to intel_hdmi_dsc_get_bpp() as an upper bound, so the chosen
-DSC bpp stays within both the sink's chunk-bytes limit and the FRL link
-budget. The mode_valid/compute phase already guarantees the lowest
-compressed bpp fits the FRL bandwidth, so this cap never falls below the
-minimum allowed bpp.
+== Series Details ==
 
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_dp.c   | 9 ++++++++-
- drivers/gpu/drm/i915/display/intel_hdmi.c | 8 +++++++-
- drivers/gpu/drm/i915/display/intel_hdmi.h | 3 ++-
- 3 files changed, 17 insertions(+), 3 deletions(-)
+Series: drm/i915/dp: Gate UHBR SST SDP splitting on sink capability (rev2)
+URL   : https://patchwork.freedesktop.org/series/170144/
+State : success
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index 938e11bc6a46..98c3ef1d39fa 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -4425,10 +4425,17 @@ intel_dp_pcon_dsc_enc_bpp(struct intel_dp *intel_dp,
- 	int hdmi_max_chunk_bytes =
- 		info->hdmi.dsc_cap.total_chunk_kbytes * 1024;
- 	int bpc = crtc_state->pipe_bpp / 3;
-+	int clock = crtc_state->hw.adjusted_mode.clock;
-+	int max_frl_bw, max_frl_bpp;
-+
-+	max_frl_bw = min(intel_dp->dfp.pcon_max_frl_bw,
-+			 intel_dp_hdmi_sink_max_frl(intel_dp)) * 1000000;
-+
-+	max_frl_bpp = clock ? max_frl_bw / clock : 0;
- 
- 	return intel_hdmi_dsc_get_bpp(pcon_fractional_bpp, slice_width,
- 				      num_slices, output_format, bpc, hdmi_all_bpp,
--				      hdmi_max_chunk_bytes);
-+				      hdmi_max_chunk_bytes, max_frl_bpp);
- }
- 
- void
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 6ab62a9e941c..7fcba556bdb1 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3451,13 +3451,15 @@ get_dsc_compressed_bpp(int num_slices, int slice_width, int hdmi_max_chunk_bytes
-  * @bpc: bits per color
-  * @hdmi_all_bpp: sink supports decoding of 1/16th bpp setting
-  * @hdmi_max_chunk_bytes: max bytes in a line of chunks supported by sink
-+ * @max_link_dsc_bpp: max compressed bpp the link bandwidth can carry, or 0 if not limited
-  *
-  * @return: compressed bits_per_pixel in step of 1/16 of bits_per_pixel
-  */
- int
- intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
- 		       enum intel_output_format output_format, int bpc,
--		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes)
-+		       bool hdmi_all_bpp, int hdmi_max_chunk_bytes,
-+		       int max_link_dsc_bpp)
- {
- 	int max_dsc_bpp, min_dsc_bpp;
- 	int dsc_bpp_x16;
-@@ -3465,6 +3467,10 @@ intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width, int num_slices,
- 	intel_hdmi_dsc_get_min_max_bpp(output_format, bpc, hdmi_all_bpp,
- 				       &min_dsc_bpp, &max_dsc_bpp);
- 
-+	/* Limit the bpp to what the link bandwidth can carry */
-+	if (max_link_dsc_bpp)
-+		max_dsc_bpp = min(max_dsc_bpp, max_link_dsc_bpp);
-+
- 	dsc_bpp_x16 = get_dsc_compressed_bpp(num_slices, slice_width,
- 					     hdmi_max_chunk_bytes,
- 					     src_fractional_bpp,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index db87656eb27f..f7a494df19e6 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -56,7 +56,8 @@ bool intel_hdmi_bpc_possible(const struct intel_crtc_state *crtc_state,
- int intel_hdmi_tmds_clock(int clock, int bpc, enum intel_output_format sink_format);
- int intel_hdmi_dsc_get_bpp(int src_fractional_bpp, int slice_width,
- 			   int num_slices, enum intel_output_format output_format,
--			   int bpc, bool hdmi_all_bpp, int hdmi_max_chunk_bytes);
-+			   int bpc, bool hdmi_all_bpp, int hdmi_max_chunk_bytes,
-+			   int max_link_dsc_bpp);
- void intel_hdmi_dsc_get_min_max_bpp(enum intel_output_format output_format, u8 bpc,
- 				    bool hdmi_all_bpp, int *min_dsc_bpp, int *max_dsc_bpp);
- bool intel_hdmi_dsc_bpp_fits_chunk_bytes(int bpp, int num_slices, int slice_width,
--- 
-2.50.1
+== Summary ==
 
+CI Bug Log - changes from CI_DRM_18977 -> Patchwork_170144v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/index.html
+
+Participating hosts (37 -> 35)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_170144v2 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3:
+    - bat-adlp-6:         [DMESG-WARN][1] ([i915#15673]) -> [PASS][2] +78 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [FAIL][3] ([i915#16664]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#16664]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18977 -> Patchwork_170144v2
+
+  CI-20190529: 20190529
+  CI_DRM_18977: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9049: 9049
+  Patchwork_170144v2: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/index.html
+
+--===============7926341505956196006==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dp: Gate UHBR SST SDP splitting on sink capability (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170144/">https://patchwork.freedesktop.org/series/170144/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18977 -&gt; Patchwork_170144v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/index.html</p>
+<h2>Participating hosts (37 -&gt; 35)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170144v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html">PASS</a> +78 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664">i915#16664</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170144v2/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18977 -&gt; Patchwork_170144v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18977: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9049: 9049<br />
+  Patchwork_170144v2: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7926341505956196006==--
