@@ -4,162 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC5ABC5AD7B
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 06:28:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEDB3C5B574
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 07:59:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB0110E28B;
-	Tue, 11 Aug 2026 06:28:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91C3B10EABD;
+	Tue, 11 Aug 2026 07:59:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VLgIxQe9";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="F7pj/nhg";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Q1MYPfiA";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ChZFwsCs";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vnBQfVUf";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69A5C10E28B;
- Tue, 11 Aug 2026 06:28:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786429704; x=1817965704;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=4lbCg0us4EX0JBSSeMKIbhgEpsNdeST2vWNN6V5X/rc=;
- b=VLgIxQe93nmtJaF7cpl8a+hsRvYuhPz5ii2oTS/tVxIOD7UO5ey0mFEw
- nO4oyftTgNJuSbeBNX6fovXhjUWexJ0oYaMiIiCeEk85atBRxNXfBiIq3
- nINwG65qAaMFpjgrHwyjrTbqJoIUsBflWAPvDOHM2x1vcsLTAm+1MxUjF
- OskeEAie0gRs7Qfqsbo99hjCwaFUDk/AxRWciF/oEiN99fuyZgrLU5V8f
- 9Bk40On/TDnDA3H6TNp8b6/7n2urhCGEpnrellYG3JipFw3BsJZXW11/g
- LUs6ePFanA4ZsAywgV3xWAFQ9N5+qTo8SmuI/ZcG/xYvqwSwD7jcuCf1W Q==;
-X-CSE-ConnectionGUID: 4gKv+2FVQqKJ0sSQ3oijJg==
-X-CSE-MsgGUID: ArYQp1+pSKyEsouD174QKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86888123"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="86888123"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 23:28:24 -0700
-X-CSE-ConnectionGUID: MnLXmQ/ZQAuuaeO9z0A9PA==
-X-CSE-MsgGUID: JuryXTqdQaSWin972YSzCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="259936112"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 23:28:23 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Mon, 10 Aug 2026 23:28:23 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.44) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 23:28:23 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r5Fxl2l3x8XhtnCa/nYr+wyjCXdQhaI3GB1BBjTtGao4IAEyVouvdj59mSd/Xrw9EepkSacHcH9Mzf8J+OuubLHSoSSF50rlVH9FS2KE/18gjUnsRKMf2EPJyCus5by+4FyUrPpxfL1iP9yGktURrp1x0iQp4FOmGu5tvRfehaSPXDgRm2il87OAFDGvOZhqP+Pr3CflNcOiNIIE8tjYb8BQpxTEbgQ/dbswYFoKcVcc9exQTBhR9JQFiEePT1bef4c1PifuCJWGuA0UY+ZaIygwJzaVxx7b+BXEN+Q3Dunf0BGC1pZ3/iKaK6BnEWniZeoOXMjywCPA3wLtGWZdXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KO7u3C7uDHzmE/v1Wo+7JEfeD5/B41JMlhP5zjzSP1E=;
- b=FSZjDWYdfq5B8BrqxpR2+WHDygiFDl8wsdk14AspKASDjp5IL4KN22vFTZ/8731aZhplBrC8iHydbxAPAvM34E5Di6/v5sOkEfcAWdptQirvj6cJXoL+r6EZQCZW8WGIu5vqDOFCTRPn+qaF+z2ZErYTaWyOcwhOhkRH07slxKKqMFD3KlMUxtxYbE3eyN72WCWwT34WLCmJ6Ca9hDInyvMj4SUFyLz7uq7PYSH+otiBayAcRvRby4mOzStMF0v8441tXgt1Xv5nArFaapofSuu0h9v+ACd0vSft9393y1c79IUqRVRUqXTgaEUP7zNCpBpKvctkSiw6N4xlW7vu1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by DM6PR11MB4516.namprd11.prod.outlook.com (2603:10b6:5:2a5::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Tue, 11 Aug
- 2026 06:28:20 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0315.011; Tue, 11 Aug 2026
- 06:28:20 +0000
-Date: Tue, 11 Aug 2026 06:28:10 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Deepanshu Kartikey <kartikey406@gmail.com>
-CC: <jani.nikula@linux.intel.com>, <joonas.lahtinen@linux.intel.com>,
- <rodrigo.vivi@intel.com>, <tursulin@ursulin.net>, <airlied@gmail.com>,
- <simona@ffwll.ch>, <chris@chris-wilson.co.uk>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>,
- <syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com>
-Subject: Re: [PATCH] drm/i915: Guard against NULL driver_data in
- i915_pci_probe()
-Message-ID: <w3p7i7btvl6b7o5puofyxcjm362ni3mtcfmog2plm6h5wxk3an@dflvwud5t6zf>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260809090430.20577-1-kartikey406@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260809090430.20577-1-kartikey406@gmail.com>
-X-ClientProxiedBy: DUZPR01CA0073.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c2::11) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D49C510E2BF;
+ Tue, 11 Aug 2026 07:59:20 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 19DE03DF6;
+ Tue, 11 Aug 2026 07:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786435147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
+ b=F7pj/nhg4OrBsuuN3sF6gkB5SOa+ub4F5TMRS00XFyGqkjLRfYepSQ2zyLT5RzJ3ycw4Wa
+ u6cCNLABe37M3Y5NIUm9Vv9+OMda3ylInNkSxajXk7wEKgNQP5kugPA4upISBQXMIiww9f
+ XB++b1znrIfVv0CJQd8OBT9Y01h2EHs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786435147;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
+ b=Q1MYPfiAO/sJkiTgetv99j6Gqm6jse/osv//p/dHm4pk+6GQ2Ur5sWJEYAVtWShtpm+y80
+ LN3mL9ZQFm+ZAYDQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1786435143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
+ b=ChZFwsCskUHR6N5QkSEA11Cvvv0XhdRKd0Vltx+tMzZL00SkD1UJZoFoDQBmb91IT0OOd1
+ vu9tncT7ffPsmeI3I82yTE62UdOTq/nibhhFEm91HQ+nGla9vahJHjGEvYXIPGB5VorM3H
+ p6nzQkPh0R063oFY47lasweIjkP/ykU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1786435143;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=mEb+iFVnsjF8sWnvUeIiIZLGSrKk7a/zXl6CXhr7ddA=;
+ b=vnBQfVUf+vBm9sJMsNomwC+My0J1s6WKSuW7gyYmSV9wvUSfBoYMzj3zhtmAs9LSkOSYJF
+ 9pePizGkRX9IVrDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BEB14779B2;
+ Tue, 11 Aug 2026 07:59:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id tkI3LUbWemrGJAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 11 Aug 2026 07:59:02 +0000
+Message-ID: <df01989a-04fc-4f1d-8942-51f937fc8d97@suse.de>
+Date: Tue, 11 Aug 2026 09:58:21 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|DM6PR11MB4516:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|7416014|23010399003|18002099003|22082099003|11063799006|3023799007|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: w3CoNzQ/16o4T4ypbjGMgXJzrGmAFGSbmXqEMAcGqGOsT9PxxdS7JUjOZAbzIn0ktfxj2jNFPl7FEK7ZeXIkyF/U8Sjs7Bq/bqjW8Mu5xUgm7l0lzQIRZksl2YDJgi80FMzwkoHTJU8Zz9KYSdPjxyWuT1q1jkgF0DTRSAuw9ph8aU5BTAgOnuAx4hj8z3bi1hd2WFnRBI0DEq0slVFYRYn7B4KXqjOpGM5u2Zlm+E+aTlLSl+isajQC7esliFRurqbiMTeXRNQVPhj796IfMEHSwYQc8AiZRxKrQZi0OWQPCsHVTgpp3ZvEwUZ/+bCUIkAAQovyjGgDd/rkpkWXbFzzzdwAmLC8lFErctA/LwzFGaobjGgMPNz7P46eeQHAHaWgoEQBky9BGjwuHby66ksGiFfkyGLYD+3gNRvSMtzUoHQt9gW+zcavGkLqnzkzZ5F9hlI9N4OosUwhKEmTo7/6KjPvlwuEfOieUFOIVpbgjVBADWACSe5YT8RDY5EBNeZzlALl97CaMGySSV9A4ajppKzjI0eBfRyry5ULGMyy0RKBRrQ0g3FOvlQHx69dpgfT/GKHkAmd1DT58RDAa1hTb+S8LSgoJNgG7j8L6I0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(18002099003)(22082099003)(11063799006)(3023799007)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VnNDYWpRL29TWlZPUW0wdnBPaDRsckRvd2NuaWdjeTc3LzI1VHpmUXpxNm5v?=
- =?utf-8?B?eGFlNFhVbGNra2t6ZkNZRFNONzZYbGo4MG5sQ0gwbXBId05GT0RnMVE2SGhL?=
- =?utf-8?B?OWFyZ0Y1RlhacTJWMWQvRkJnL0RKbWpqaDVaazNuWVFXMWJ5anl0R0lrbjA5?=
- =?utf-8?B?dDVOL0NGZHFmeElWRjNOOGdLUm84WldCV0gyQ0VrZjFNUGpaRVRacjZwR1Ft?=
- =?utf-8?B?R3VxQ3pHN01nMFZSbzNCaVpiNlk1bTZLN2ViNDB4a2FjTjhEZzRQcVR6UTcx?=
- =?utf-8?B?NGRmdnZMaXNONUNjdmdMb2RvRGFJOFU1NDlUdnF0c2phWWRPdzVuZG5LRGpE?=
- =?utf-8?B?Y2tMNXpzTTZzdmFMcFNyUkRFQnBBVEJwTCtjUEZJR1pHejREV09yaHFtbmg0?=
- =?utf-8?B?dDdEeUFwTFdnd0N6SHZNWGQ5SndLWlUrWnN2aklSY2oxTjBvYlpVT0h6dWdE?=
- =?utf-8?B?L09EVU1wTlE0SFg2VU5sZ0hQVkdQRmFOOHQrUzVjT2Zsb0hodGxQM25Jc2N5?=
- =?utf-8?B?UVRSdkNoMG10dHQxVmFGRCtSRWFVK2o1ZXlQZVF2cmRodFovdnR1QU1CdGJ3?=
- =?utf-8?B?dWpZWWtPeG1xM1YvNWJIbzJxc0VkUjdla0o1MU1XZzVSSzliZFRmTzJSUFFk?=
- =?utf-8?B?aUYzalFwSzEvdWtXeSsrK3BIYjFyc3oydjBqZ0RwRG1hKzdIM2dNaXNhL0dl?=
- =?utf-8?B?Und3cmdETTl0bEJ2Ui93OHpFQjhzQW8vQ2hrUmF4YzRUWHQ3YnlMR1V1LzRW?=
- =?utf-8?B?MityanBEWllpNDlRYmd3RGJnWEMvQ2Rvbm9jN0liYzdGbnZ1T3dySGkzcmMv?=
- =?utf-8?B?R0FUT0d6TkNZTCtpNzM0VG5TckJnSWQwWEVPL1JiZlNVM0VXNEdQNjRTYmpK?=
- =?utf-8?B?MHFPMUtlTUZHSVJUcHBheFFPSkFwcHA5K2ZDNzZPQjRESG5LaDd6SGJKdUsx?=
- =?utf-8?B?b2N6cFNjSkV3bEdWYTdDWE5DbnlLRkVlK0IySHU5dVlxVlI4U2NtMDNtNjMr?=
- =?utf-8?B?dGo1dEU4aE84dWdRMWk1S3FralY3cFhQME0zZVRvMEwzQ0FLVFJoY1hZNDdD?=
- =?utf-8?B?SjR2dVc4YytPeWFqQjNVb2hJcDRJRlhxalFPbjZYRnRGY0U4VC8reWozYkNu?=
- =?utf-8?B?cFZyTFVJVGtPWFBHNWIvMnFQZGtmRG0zREo0ZDQxRHFCN3RzNjZwWTVzTkwr?=
- =?utf-8?B?NXNIZXYwaHgzUEdPZDJzN09RQVdGS0UwUHB4RUpCUmZ0U0FNM1NKZWdDSjNn?=
- =?utf-8?B?aU1CZktpRnRtcGhxYjE5YnBVemRadFN1Yk5wLzlYcVJaNjFFQlhpcC9LL29Z?=
- =?utf-8?B?enFpejVVOXRYd1AyUXBQd2dNa05KZnZacEtZbm9OMHBGWXlHTWlpU20va244?=
- =?utf-8?B?eVRUWklVanM0QUNueE9lNmJQUzBJaStlZDZvQkllYWkwVzFIZ0YvbEpFTXJl?=
- =?utf-8?B?WVkwbC85V1lHLzZWQ1JXSkJ6TGN0UEo3RnYxZDNkNDJsNWdRSTliK3k5T245?=
- =?utf-8?B?WklUK3hSeVJaU0Z3QytkRFhOYS84UjJhc3I4QXBKLzFuWVllT1BCdW5PQ1JQ?=
- =?utf-8?B?WThMWTBtdTNhNXlpdUlrc0w0amlZT0RKSnVqVGVZRllGcFNRaVhKc01OajBK?=
- =?utf-8?B?dHE0MUFRRmdyU1VIU2Y3Z0NybHdyUjlaNCs3a0JBdHY5ZXNwZ2xTREtWcm1u?=
- =?utf-8?B?YzdJYWcxSkptbVZJOEQ1NHlIVmkrc2VNbnZMWXRYd0N6Q2E0a3FvM3M2UktG?=
- =?utf-8?B?N3BwSzVrOHV2YWxtNmp6aTZ2blROODk5T2dyQTJxZ09jd0ZCNnV0OGI3MXhz?=
- =?utf-8?B?RFlFaDRmS3ZDZmxKUWREV1hXcjgxL1hYUmtTRk9zVFpMS3dKYTRpcEZnS1ZU?=
- =?utf-8?B?MExWcStqM243dlhveGx0c012TVg5U3dRajNlTGNPdC9LdDV3U0MyTXRmL1hv?=
- =?utf-8?B?eFcyV0c0UGU0cUtpSjRUbTdIL3RlYndEbjRmWnJiLy9Zc21EMzEvaEtOWWwr?=
- =?utf-8?B?am5tc1pTajdOMFlMb0Fvb0N5Nk94MVFLeXh3UWJ4WXRrZHAyQWh5YjJoZEhM?=
- =?utf-8?B?U2dldndqWmpIaFNvcW16OXJmMXUrL0ZPUmhWS0J1N1JnSHhINnZISERKbXhM?=
- =?utf-8?B?YnV1dGgxMEIrREpMbkJUelJ2dXlQalR1ZFRLVjU0U3E0OURSWkxDUXRqR1J6?=
- =?utf-8?B?eVVkUGd4SjRVbk9xRG9YNXg4THlzank0MVFyYVBFTXJzdVFOQXNQazdLdkJE?=
- =?utf-8?B?dGI4cHZnSS9yM1Y5Ymp4eXEvd0JnblBBeG1wRnE0dCttSko2bnpuTVdPSXRz?=
- =?utf-8?B?aVlsZzRwbmNpK29IK0p3elM0VlZXeGdPR2FKRTNRZk1tRXpmYjZHTFNuYkNx?=
- =?utf-8?Q?N9pVXKgvSbUWn2/A=3D?=
-X-Exchange-RoutingPolicyChecked: eF12G/hYhAQciFnVsWQ5ck3c3VcfE0lr//vDN0SWXAfASY+Un3LSp9jr/4CvigTD8aGtfaUjyFrcrqGtRsDylEAbs4b1QW1hcA0MqQLbNZu7Sk3W+4kYEPN6j/890J4cqmzolqi1zJaR4EOh/XDgq15JuVnPjWy9TI2XzwSyAPpsZUHtQYcoGDTaqVqcr1domXP4SkFwR58IqjAWFmDPtt0e+GM4EwPC8jzs6OXy7tqCAymB8Jgm4lMKIf2ubMUJg9n3KWtJ9L/E3rTwAj3fTN7dweHymm+DfkXJzbf7DwJYgFE//g5NTQvzZKq2uWgRKo7Od3qd9eLVmZrD8lEPNw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f26f901-41c0-40bf-9b17-08def771bca6
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 06:28:20.2643 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6tE83/88n3P9XXEMuUp7fNz361VT4ZU7rncSQMx8lfIsC03OZJRx4cVoOZVIgZuUlg3eYfdZYWPMv4vfPA5NW3yj+Z/0pMsq2gt1opMDUjM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB4516
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/i915/display: Handle struct
+ drm_plane_state.ignore_damage_clips
+To: ville.syrjala@intel.com, rodrigo.vivi@intel.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, sashiko-reviews@lists.linux.dev,
+ Javier Martinez Canillas <javierm@redhat.com>
+References: <20260721095454.404298-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260721095454.404298-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.997]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[intel.com,linux.intel.com,ursulin.net,gmail.com,ffwll.ch];
+ RCPT_COUNT_TWELVE(0.00)[12]; MID_RHS_MATCH_FROM(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid, suse.de:email, suse.com:url,
+ imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -175,47 +142,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Deepanshu,
+gentle ping to review this change
 
-On 2026-08-09 at 14:34:30 +0530, Deepanshu Kartikey wrote:
-> pci_match_device() can return the dummy pci_device_id_any entry
-> when a device is force-bound via sysfs driver_override, in which
-> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
-> struct intel_device_info * unconditionally and dereferences
-> intel_info->require_force_probe, causing a NULL-ptr-deref.
-> 
-> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
-> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> Fixes: 42f5551d2769 ("drm/i915: Split out the PCI driver interface to i915_pci.c")
-This "Fixes" tag should point to the commit that breaks stuff,
-I believe, so what you are looking for is
-7ef5ef5cdead ("drm/i915: add force_probe module parameter to replace alpha_support")
-since this patch introduced that unconditional dereference.
-
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+Am 21.07.26 um 11:54 schrieb Thomas Zimmermann:
+> Call drm_atomic_helper_check_plane_damage() in plane_atomic_check()
+> before copying the damage information to guarantees that ignore_damage_clips
+> from struct drm_plane_state has the correct value. Although i915 does not
+> directly modify or use the flag, DRM's damage iterator will soon rely on
+> it.
+>
+> As a side effect, if the CRTC has been marked for a full modeset before
+> the call to drm_atomic_helper_check_plane_damage() happens, the plane now
+> ignores all damage clips and does a full update.
+>
+> Git commit 35ed38d58257 ("drm: Allow drivers to indicate the damage
+> helpers to ignore damage clips") introduced ignore_damage_clips to
+> selectively ignore damage clipping for certain framebuffer changes. The
+> mode-setting pipeline can disabled damage clippings for an atomic commit
+> by setting ignore_damage_clips in struct drm_plane_state. The atomic
+> commit will then do a full display update.
+>
+> Future directions: there's currently a multitude of options that affect
+> damage clipping; with different places seeing different state. In order
+> to unify this, drm_atomic_helper_check_plane_state() will soon evaluate
+> all options in a single place and set ignore_damage_clips accordingly. All
+> later stages of the mode-setting pipeline will only look at this field.
+>
+> v3:
+> - fix the call to drm_atomic_helper_check_plane_state()
+> - use primary-CRTC's plane state (Sashiko)
+> - note full-plane updates in commit description
+> v2:
+> - move _check_plane_damage() before reading damage first time (Sashiko)
+> - expand commit description
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 > ---
->  drivers/gpu/drm/i915/i915_pci.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
-> index 82415af47d54..2f03f95945f1 100644
-> --- a/drivers/gpu/drm/i915/i915_pci.c
-> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
->  		(struct intel_device_info *) ent->driver_data;
->  	int err;
->  
-> +	if (!intel_info)
-> +		return -ENODEV;
+> Taken with updates from the series at
+>
+>    https://lore.kernel.org/dri-devel/20260610152505.260172-1-tzimmermann@suse.de/
+> ---
+>   drivers/gpu/drm/i915/display/intel_plane.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+> index a440f92ff00c..d64f151ce410 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
+> @@ -850,7 +850,7 @@ static int plane_atomic_check(struct intel_atomic_state *state,
+>   		intel_atomic_get_new_plane_state(state, plane);
+>   	const struct intel_plane_state *old_plane_state =
+>   		intel_atomic_get_old_plane_state(state, plane);
+> -	const struct intel_plane_state *new_primary_crtc_plane_state;
+> +	struct intel_plane_state *new_primary_crtc_plane_state;
+>   	const struct intel_plane_state *old_primary_crtc_plane_state;
+>   	struct intel_crtc *crtc = intel_crtc_for_pipe(display, plane->pipe);
+>   	const struct intel_crtc_state *old_crtc_state =
+> @@ -873,6 +873,14 @@ static int plane_atomic_check(struct intel_atomic_state *state,
+>   		old_primary_crtc_plane_state = old_plane_state;
+>   	}
+>   
+> +	/*
+> +	 * Prepare plane-damage state before using it; do this on all
+> +	 * display versions to keep the underlying DRM plane state in
+> +	 * good shape.
+> +	 */
+> +	drm_atomic_helper_check_plane_damage(&state->base,
+> +					     &new_primary_crtc_plane_state->uapi);
 > +
->  	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
->  		dev_info(&pdev->dev,
->  			 "Your graphics device %04x is not properly supported by i915 in this\n"
-> -- 
-> 2.43.0
-> 
+>   	intel_plane_copy_uapi_plane_damage(new_plane_state,
+>   					   old_primary_crtc_plane_state,
+>   					   new_primary_crtc_plane_state);
+>
+> base-commit: fcaba3bc017906059b910ece3f83185e93010581
+> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
+> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
+> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
 
 -- 
-Best Regards,
-Krzysztof
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
+
