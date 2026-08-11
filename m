@@ -4,56 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EB2C5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 02:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0006FC5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 03:59:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 456B310EA45;
-	Tue, 11 Aug 2026 02:57:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JM8R+uM5";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE72110EA3F;
- Tue, 11 Aug 2026 02:57:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786417031; x=1817953031;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=CW8EtTjjKdBAh255LYrcmAl35V8dRQkUFK3Dm+XSiBk=;
- b=JM8R+uM5bUwdfn8qjug30Jgy9r4z6hJ6eHR1WEdSUKwETXUgNeJ8GhE+
- H2UhQ+o1a/7mfHUC0jDbgH5nCv1bRdv306LDzrcODESx3ZgyEXzIGJY4C
- DMauVT3vvq7rqRQO9R3FY0jbrAsyXH8yYrQPoZygi57TGC8vfIAC48B7I
- Ho81VMUnMdxcxzq6JR9buOnjlzx9eBp/LUBbIu/cJESiobkomQayeyI8t
- 6xxV1brVI4MjzcaBJ9i3ucPXkhKC6Ln7swlLX2U5oJJNftgw9i/co2Emx
- t4P98Eom+3wXDWtTRqMfk/nPx+SBpOULjn75jWNLKRceK/cPgAsIa14Dm w==;
-X-CSE-ConnectionGUID: Pt0rr0LSSieYMAK//et+xw==
-X-CSE-MsgGUID: ZjlCPGlIQbWyPBdr0VDolQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="87061779"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="87061779"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Aug 2026 19:57:11 -0700
-X-CSE-ConnectionGUID: KmOdMK6bTsaeuLn5I3OXRQ==
-X-CSE-MsgGUID: v12tVFsjTQaoCIRevpSnXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="266696800"
-Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
- by orviesa003.jf.intel.com with ESMTP; 10 Aug 2026 19:57:09 -0700
-From: Suraj Kandpal <suraj.kandpal@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com,
-	Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: [PATCH 3/3] drm/i915/lt_phy: program DDI_CLK_VALFREQ with DDI clock
- frequency
-Date: Tue, 11 Aug 2026 08:26:58 +0530
-Message-Id: <20260811025658.2376173-4-suraj.kandpal@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260811025658.2376173-1-suraj.kandpal@intel.com>
-References: <20260811025658.2376173-1-suraj.kandpal@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0595B10E269;
+	Tue, 11 Aug 2026 03:59:22 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC53210E269;
+ Tue, 11 Aug 2026 03:59:20 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============8814772872141676236=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_value_being_written_t?=
+ =?utf-8?q?o_DDI=5FCLK=5FVALFREQ?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 11 Aug 2026 03:59:20 -0000
+Message-ID: <178642076076.36393.13902033113408924713@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260811025658.2376173-1-suraj.kandpal@intel.com>
+In-Reply-To: <20260811025658.2376173-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,48 +37,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-DDI_CLK_VALFREQ is programmed with the port clock, which for DP is the
-symbol clock computed assuming 8b/10b encoding (link_rate / 10). For
-DP 128b/132b (UHBR) rates and for HDMI FRL the port clock needs to
-be modified.
-On silicon DDI_CLK_VALFREQ is a scratch register with no
-functional impact, so the bug is not observed.
-Use intel_ddi_link_symbol_clock() to write the correct DDI clock in
-kHz
+--===============8814772872141676236==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Fixes: 5ec58d714935 ("drm/i915/lt_phy: Add .enable_clock hook on DDI")
-Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
----
- drivers/gpu/drm/i915/display/intel_lt_phy.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+== Series Details ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-index 8fc6d230493f..86492651b01d 100644
---- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
-@@ -1976,7 +1976,8 @@ void intel_lt_phy_pll_enable(struct intel_encoder *encoder,
- 		 * Change. We handle this step in bxt_set_cdclk().
- 		 */
- 		/* 10. Program DDI_CLK_VALFREQ to match intended DDI clock frequency. */
--		intel_de_write(display, DDI_CLK_VALFREQ(encoder->port), port_clock);
-+		intel_de_write(display, DDI_CLK_VALFREQ(encoder->port),
-+			       intel_ddi_link_symbol_clock(encoder, port_clock));
- 
- 		/* 11. Program PORT_CLOCK_CTL[PCLK PLL Request LN0] = 1. */
- 		intel_de_rmw(display, XELPDP_PORT_CLOCK_CTL(display, port),
-@@ -2023,7 +2024,8 @@ void intel_lt_phy_pll_enable(struct intel_encoder *encoder,
- 			     lane_phy_pulse_status,
- 			     lane_phy_pulse_status);
- 	} else {
--		intel_de_write(display, DDI_CLK_VALFREQ(encoder->port), port_clock);
-+		intel_de_write(display, DDI_CLK_VALFREQ(encoder->port),
-+			       intel_ddi_link_symbol_clock(encoder, port_clock));
- 	}
- 
- 	/*
--- 
-2.34.1
+Series: Fix value being written to DDI_CLK_VALFREQ
+URL   : https://patchwork.freedesktop.org/series/171962/
+State : success
 
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18977 -> Patchwork_171962v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/index.html
+
+Participating hosts (37 -> 35)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_171962v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3:
+    - bat-adlp-6:         [DMESG-WARN][1] ([i915#15673]) -> [PASS][2] +78 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html
+
+  * igt@kms_hdmi_inject@inject-audio:
+    - fi-tgl-1115g4:      [FAIL][3] ([i915#16664]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html
+
+  
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#16664]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18977 -> Patchwork_171962v1
+
+  CI-20190529: 20190529
+  CI_DRM_18977: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9049: 9049
+  Patchwork_171962v1: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/index.html
+
+--===============8814772872141676236==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Fix value being written to DDI_CLK_VALFREQ</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171962/">https://patchwork.freedesktop.org/series/171962/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18977 -&gt; Patchwork_171962v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/index.html</p>
+<h2>Participating hosts (37 -&gt; 35)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_171962v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/bat-adlp-6/igt@kms_flip@basic-flip-vs-wf_vblank@c-dp3.html">PASS</a> +78 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_hdmi_inject@inject-audio:</p>
+<ul>
+<li>fi-tgl-1115g4:      <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18977/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">FAIL</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16664">i915#16664</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v1/fi-tgl-1115g4/igt@kms_hdmi_inject@inject-audio.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18977 -&gt; Patchwork_171962v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18977: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9049: 9049<br />
+  Patchwork_171962v1: dc462ab791b686c48545c160ecc81be64f77a846 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============8814772872141676236==--
