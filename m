@@ -4,58 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5906DC5CFE7
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED16FC5B572
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BA510ED5F;
-	Tue, 11 Aug 2026 17:11:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFEC10E352;
+	Tue, 11 Aug 2026 17:19:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UZIIEGTg";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wwk062pC";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4A6E10ED0E;
- Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=bda0Lh4v9eJfQJw99E+VaUr/c6HRbFqZS/qIDffVjYU=; b=
- UZIIEGTgFyj8hOPYWSf7VFsUSKOZDCdhSUwIr/jXmCy8sb5kQI4ujvvKlkom/NVUa28p1GR7dccWG
- k0B8StYDKBfV4HpY1qQlXbvIzU8qc0SGTAzmGmljpzJsmO3p05lX/TwFOUgUOCTHjipBpduy26I18
- IBuDDBRcDXkyRqGwzR9AT6xDlScZcW694MaC6X8P9IfteU4cwqBSS0Cj2/LawQlWpc45w4B7aEJES
- 1ZFd11+By9fIgmvscbMWxCXlEi5A8traIcuWUD5/0jpXgm/5vXzOaSK5cSbrGJcOMJLFCKkDK79fM
- 47xnfGNEf/alnpblnlLnz0323t6zGvWFWg==;
-Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
- helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzX-00HH9d-V5; Tue, 11 Aug 2026 19:10:20 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
- aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
- daniels@collabora.com, harry.wentland@amd.com, louis.chauvet@bootlin.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
- sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Uma Shankar <uma.shankar@intel.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 01/11] drm/atomic: only add states of active or transient
- active colorops
-Date: Tue, 11 Aug 2026 18:45:50 +0200
-Message-ID: <20260811171011.184964-2-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
-References: <20260811171011.184964-1-mwen@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C135210E352
+ for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 17:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786468741; x=1818004741;
+ h=date:from:to:cc:subject:in-reply-to:message-id:
+ references:mime-version:content-id;
+ bh=wvRcb7gRDsqeTLL13PcsGS0QjzscAoXHdAT4jc3r/qY=;
+ b=Wwk062pCBbwSfG6Z4ZrLdasEsVS18M3az9zbpMJGIepCTj7haiw2BumN
+ pJzgwEM5zbtyPfR3eydcLY5AA0THnrdD6asQq6FViVXZ1rwaWXkEtZhRu
+ jAbBEXigT5WeegLO5ObARrONvDPtNzUGJYn6Zet1o6emlthWfEj695J/y
+ 1PwAw1jTGczBsxM4QRs+PbeUZj7XdE4TdR6LzbLlSZ7L6EZ3/xHkEc98k
+ 368tdlCiciHuqLCPL1eycq/UWFNXzMLom8nW4aO3Kq61jvG3qXjWrczOc
+ K3zLOQsdVB9J+4xocWRxP5izqklo8PBzA9Aca6AyYso3wagGoOyigMpwV A==;
+X-CSE-ConnectionGUID: e3Gzh4tOQsq7UbUp3uH9LA==
+X-CSE-MsgGUID: BpLBeQD4Q9KL1FFhyyV9bg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="74546075"
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="74546075"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 10:19:01 -0700
+X-CSE-ConnectionGUID: kz9vnh/nQ4aDT45ruJu6rg==
+X-CSE-MsgGUID: MwSKoNpVRFGb0QNI1A7G9w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="259546054"
+Received: from dev-417.igk.intel.com (HELO devbox) ([10.91.214.181])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 10:19:00 -0700
+Date: Tue, 11 Aug 2026 19:18:58 +0200 (CEST)
+From: =?ISO-8859-2?Q?Micha=B3_Grzelak?= <michal.grzelak@intel.com>
+To: Jonathan Cavitt <jonathan.cavitt@intel.com>
+cc: alex.zuo@intel.com, imre.deak@intel.com, intel-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/i915/kunit: DP Link: Use if statements instead of
+ for loops
+In-Reply-To: <20260727190223.2080436-1-jonathan.cavitt@intel.com>
+Message-ID: <3853dd80-ea8b-5789-bca9-cc3730fc0a70@intel.com>
+References: <20260727190223.2080436-1-jonathan.cavitt@intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; BOUNDARY="8323329-2128134200-1786468626=:605841"
+Content-ID: <53e8e978-dfec-b033-ca30-1d5587a71230@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,239 +68,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Only consider affected colorop states those that are part of an active
-color pipeline or a pipeline that is about to be activated or
-deactivated in the same atomic commit, i.e., colorop is in the chain of
-old/new plane color pipeline property. To cover color_pipeline
-deactivation, remove the condition for plane_state->color_pipeline.
-Make drm_atomic_add_affected_colorops() static and move to
-drm_atomic_helper.c since it's only used by
-drm_atomic_helper_duplicate_state() now.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Acked-by: Harry Wentland <harry.wentland@amd.com> #v3
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+--8323329-2128134200-1786468626=:605841
+Content-Type: text/plain; CHARSET=ISO-8859-2; format=flowed
+Content-Transfer-Encoding: 8BIT
+Content-ID: <7349606f-53d0-9e2b-080b-06ca7c76bacf@intel.com>
 
----
+On Tue, 28 Jul 2026, Jonathan Cavitt wrote:
+> The static functions get_target_config and get_fallback_config in
+> intel_dp_link_test.c use for loops to determine if the requested index of
+> the config set is in the bounds of the config set entry list.
+>
+> Reconfigure these functions to use if statements instead, as these for
+> loops are only run for a single iteration.
+>
+> Issue caught by static analysis.
+>
+> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+> Cc: Imre Deak <imre.deak@intel.com>
+> ---
+> .../i915/display/tests/intel_dp_link_test.c   | 32 +++++++++----------
+> 1 file changed, 15 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
+> index 67c6fe9f1812..89966d6a7e0e 100644
+> --- a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
+> +++ b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
+> @@ -1215,22 +1215,21 @@ static bool get_fallback_config(const struct test_config_table *expected_table,
+> 	struct kunit *test = expected_table->test;
+> 	const struct link_config_set *config_set =
+> 		get_fallback_configs_for_output_type(test, output_type);
+> +	const struct intel_dp_link_config *config;
+> 	int i;
+>
+> 	i = lookup_config(config_set, target_config);
+> 	KUNIT_ASSERT_GE(test, i, 0);
+>
+> -	for (i--; i >= 0; i--) {
+> -		const struct intel_dp_link_config *config =
+> -			&config_set->entries[i];
+> +	if (i <= 0)
 
-v2: define a macro to walk in the color pipeline (Alex H.)
-v4: make drm_atomic_add_affected_colorops static and move to drm_atomic_helper.c (John H.)
----
- drivers/gpu/drm/drm_atomic.c        | 105 ++++++++++++++--------------
- drivers/gpu/drm/drm_atomic_helper.c |  43 ++++++++++++
- include/drm/drm_atomic.h            |   3 -
- include/drm/drm_colorop.h           |   3 +
- 4 files changed, 100 insertions(+), 54 deletions(-)
+Since i is asserted to be >=0 I think this could be restricted to only i
+== 0 case.
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index e5c8ef06caed..f00df28e2051 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -892,6 +892,57 @@ static int drm_atomic_plane_check(const struct drm_plane_state *old_plane_state,
- 	return 0;
- }
- 
-+/*
-+ * This function walks old and new plane state color pipelines and adds all
-+ * colorops in use by @plane to the atomic configuration @state. This is useful
-+ * when an atomic commit needs to check all currently enabled or about to be
-+ * enabled colorop on @plane, e.g. when changing the mode. This also avoids
-+ * including colorop states that are not part of the atomic state.
-+ *
-+ * Returns:
-+ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-+ * then the w/w mutex code has detected a deadlock and the entire atomic
-+ * sequence must be restarted. All other errors are fatal.
-+ */
-+static int
-+drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
-+				 struct drm_plane *plane)
-+{
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *colorop_state;
-+	struct drm_plane_state *new_plane_state, *old_plane_state;
-+
-+	new_plane_state = drm_atomic_get_new_plane_state(state, plane);
-+	old_plane_state = drm_atomic_get_old_plane_state(state, plane);
-+
-+	if (WARN_ON(!new_plane_state || !old_plane_state))
-+		return -EINVAL;
-+
-+	drm_dbg_atomic(plane->dev,
-+		       "Adding old+new pipeline colorops for [PLANE:%d:%s]\n",
-+		       plane->base.id, plane->name);
-+
-+	drm_for_each_colorop_in_pipeline(colorop,
-+					 new_plane_state->color_pipeline) {
-+		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+	}
-+
-+	/* Same color pipeline as new; no point walking old. */
-+	if (new_plane_state->color_pipeline == old_plane_state->color_pipeline)
-+		return 0;
-+
-+	drm_for_each_colorop_in_pipeline(colorop,
-+					 old_plane_state->color_pipeline) {
-+		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+	}
-+
-+	return 0;
-+}
-+
- static void drm_atomic_colorop_print_state(struct drm_printer *p,
- 					   const struct drm_colorop_state *state)
- {
-@@ -1671,62 +1722,14 @@ drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
- 		if (IS_ERR(plane_state))
- 			return PTR_ERR(plane_state);
- 
--		if (plane_state->color_pipeline) {
--			ret = drm_atomic_add_affected_colorops(state, plane);
--			if (ret)
--				return ret;
--		}
-+		ret = drm_atomic_add_pipeline_colorops(state, plane);
-+		if (ret)
-+			return ret;
- 	}
- 	return 0;
- }
- EXPORT_SYMBOL(drm_atomic_add_affected_planes);
- 
--/**
-- * drm_atomic_add_affected_colorops - add colorops for plane
-- * @state: atomic state
-- * @plane: DRM plane
-- *
-- * This function walks the current configuration and adds all colorops
-- * currently used by @plane to the atomic configuration @state. This is useful
-- * when an atomic commit also needs to check all currently enabled colorop on
-- * @plane, e.g. when changing the mode. It's also useful when re-enabling a plane
-- * to avoid special code to force-enable all colorops.
-- *
-- * Since acquiring a colorop state will always also acquire the w/w mutex of the
-- * current plane for that colorop (if there is any) adding all the colorop states for
-- * a plane will not reduce parallelism of atomic updates.
-- *
-- * Returns:
-- * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-- * then the w/w mutex code has detected a deadlock and the entire atomic
-- * sequence must be restarted. All other errors are fatal.
-- */
--int
--drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
--				 struct drm_plane *plane)
--{
--	struct drm_colorop *colorop;
--	struct drm_colorop_state *colorop_state;
--
--	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
--
--	drm_dbg_atomic(plane->dev,
--		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
--		       plane->base.id, plane->name, state);
--
--	drm_for_each_colorop(colorop, plane->dev) {
--		if (colorop->plane != plane)
--			continue;
--
--		colorop_state = drm_atomic_get_colorop_state(state, colorop);
--		if (IS_ERR(colorop_state))
--			return PTR_ERR(colorop_state);
--	}
--
--	return 0;
--}
--EXPORT_SYMBOL(drm_atomic_add_affected_colorops);
--
- /**
-  * drm_atomic_check_only - check whether a given config would work
-  * @state: atomic configuration to check
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 285aac3554df..917fd0594259 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -3697,6 +3697,49 @@ void drm_atomic_helper_shutdown(struct drm_device *dev)
- }
- EXPORT_SYMBOL(drm_atomic_helper_shutdown);
- 
-+/*
-+ * drm_atomic_add_affected_colorops - add colorops for plane
-+ * @state: atomic state
-+ * @plane: DRM plane
-+ *
-+ * This function walks the current configuration and adds all colorops
-+ * currently used by @plane to the atomic configuration @state. It's useful
-+ * when re-enabling a plane to avoid special code to force-enable all colorops.
-+ *
-+ * Since acquiring a colorop state will always also acquire the w/w mutex of the
-+ * current plane for that colorop (if there is any) adding all the colorop states for
-+ * a plane will not reduce parallelism of atomic updates.
-+ *
-+ * Returns:
-+ * 0 on success or can fail with -EDEADLK or -ENOMEM. When the error is EDEADLK
-+ * then the w/w mutex code has detected a deadlock and the entire atomic
-+ * sequence must be restarted. All other errors are fatal.
-+ */
-+static int
-+drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
-+				 struct drm_plane *plane)
-+{
-+	struct drm_colorop *colorop;
-+	struct drm_colorop_state *colorop_state;
-+
-+	WARN_ON(!drm_atomic_get_new_plane_state(state, plane));
-+
-+	drm_dbg_atomic(plane->dev,
-+		       "Adding all current colorops for [PLANE:%d:%s] to %p\n",
-+		       plane->base.id, plane->name, state);
-+
-+	drm_for_each_colorop(colorop, plane->dev) {
-+		if (colorop->plane != plane)
-+			continue;
-+
-+		colorop_state = drm_atomic_get_colorop_state(state, colorop);
-+		if (IS_ERR(colorop_state))
-+			return PTR_ERR(colorop_state);
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_helper_duplicate_state - duplicate an atomic state object
-  * @dev: DRM device
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 88087910ab1a..0597041bde04 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -921,9 +921,6 @@ drm_atomic_add_affected_connectors(struct drm_atomic_commit *state,
- int __must_check
- drm_atomic_add_affected_planes(struct drm_atomic_commit *state,
- 			       struct drm_crtc *crtc);
--int __must_check
--drm_atomic_add_affected_colorops(struct drm_atomic_commit *state,
--				 struct drm_plane *plane);
- 
- int __must_check drm_atomic_check_only(struct drm_atomic_commit *state);
- int __must_check drm_atomic_commit(struct drm_atomic_commit *state);
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 224fae40ed2b..568dfcc4dd63 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -457,6 +457,9 @@ static inline unsigned int drm_colorop_index(const struct drm_colorop *colorop)
- #define drm_for_each_colorop(colorop, dev) \
- 	list_for_each_entry(colorop, &(dev)->mode_config.colorop_list, head)
- 
-+#define drm_for_each_colorop_in_pipeline(colorop, pipeline) \
-+	for ((colorop) = (pipeline); (colorop); (colorop) = (colorop)->next)
-+
- /**
-  * drm_get_colorop_type_name - return a string for colorop type
-  * @type: colorop type to compute name of
--- 
-2.53.0
+> +		return false;
+>
+> -		assert_config_is_supported(expected_table, config);
+> -		*fallback_config = *config;
+> +	config = &config_set->entries[i-1];
+>
 
+I'm wondering also if the blank line here is superfluous since it no
+longer belongs to the declaration block.
+
+> -		return true;
+> -	}
+> +	assert_config_is_supported(expected_table, config);
+> +	*fallback_config = *config;
+>
+> -	return false;
+> +	return true;
+> }
+>
+> static bool get_target_config(const struct test_config_table *expected_table,
+> @@ -1240,19 +1239,18 @@ static bool get_target_config(const struct test_config_table *expected_table,
+> 	struct kunit *test = expected_table->test;
+> 	const struct link_config_set *config_set =
+> 		get_target_configs_for_output_type(test, output_type);
+> -	int i;
+> +	const struct intel_dp_link_config *config;
+> +	int i = config_set->size - 1;
+>
+> -	for (i = config_set->size - 1; i >= 0; i--) {
+> -		const struct intel_dp_link_config *config =
+> -			&config_set->entries[i];
+> +	if (i < 0)
+> +		return false;
+>
+> -		assert_config_is_supported(expected_table, config);
+> -		*target = *config;
+> +	config = &config_set->entries[i];
+>
+
+same for blank line here.
+
+BR,
+Micha³
+
+> -		return true;
+> -	}
+> +	assert_config_is_supported(expected_table, config);
+> +	*target = *config;
+>
+> -	return false;
+> +	return true;
+> }
+>
+> static void test_fallback_seq(struct kunit *test,
+> -- 
+> 2.53.0
+>
+--8323329-2128134200-1786468626=:605841--
