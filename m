@@ -4,104 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83D0EC5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 18:52:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76402C5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 19:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5BF10E376;
-	Tue, 11 Aug 2026 18:52:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f9fcK+NV";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8B4910E376;
- Tue, 11 Aug 2026 18:52:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B1915600AE;
- Tue, 11 Aug 2026 18:52:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64C9D1F00A3A;
- Tue, 11 Aug 2026 18:51:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786474329;
- bh=L0HTQS1LYVWSdc3RimfvMueRkxBKnov+tJfBP1Nzenc=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=f9fcK+NVNWrvcSOcKHy6zfAbJxAzV4H4fy8MVkzolSHyhTXevNA14uYiezSHzn6pQ
- ycpaMxR2NK5BhnYOlevG/IFGX9tQA5Zq59bExZRq8ebTHdeuBPIJKdmorpcmlYiJYN
- enPNXmLxCznd3cawK4k1uWZ7ls5UQ+kBsVAJbZyI9ASkk1wotZU4MuXOcOSURRiwqg
- sT65TPpe9rPAxYbWb9c4r08z7q71qyz1ECpgE74A6BnSnCI7mMzF6uQjafv+S2Jyy3
- tECe4u8tzT2Nvo9T8WlyH+ZxIb0wNqskL4SGoz+McXb9NEhgBdQAaCdq0Vli+in/qH
- jqXBcNxLA7xiA==
-From: Vinod Koul <vkoul@kernel.org>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>, 
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Borislav Petkov <bp@alien8.de>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Mark Brown <broonie@kernel.org>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Matthew Sakai <msakai@redhat.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Mike Rapoport <rppt@kernel.org>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Nicolas Palix <nicolas.palix@imag.fr>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
- Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
- Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, 
- Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Will Deacon <will@kernel.org>, 
- Yazen Ghannam <Yazen.Ghannam@amd.com>, 
- Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
- dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
- netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
-Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns
- with no effect
-Message-Id: <178647430099.1113716.2263974283705757692.b4-ty@kernel.org>
-Date: Wed, 12 Aug 2026 00:21:40 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D9610E363;
+	Tue, 11 Aug 2026 19:01:21 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6801310E0EA;
+ Tue, 11 Aug 2026 19:01:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2832197014946285236=="
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/kunit=3A_DP_Link?=
+ =?utf-8?q?=3A_Use_if_statements_instead_of_for_loops_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 11 Aug 2026 19:01:21 -0000
+Message-ID: <178647488141.41193.18262635138899061872@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260811175719.139464-1-jonathan.cavitt@intel.com>
+In-Reply-To: <20260811175719.139464-1-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,28 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============2832197014946285236==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
-> While reading mm/memblock, I found a conditional return where both
-> branches return the same value:
-> 
-> 	err = do_something();
-> 	if (err)
-> 		return err;
-> 	return err;
-> 
-> [...]
+== Series Details ==
 
-Applied, thanks!
+Series: drm/i915/kunit: DP Link: Use if statements instead of for loops (rev2)
+URL   : https://patchwork.freedesktop.org/series/171131/
+State : success
 
-[19/36] dmaengine: qcom_hidma: remove conditional return with no effect
-        commit: 04b8c3de13871653a8ecbd9f1adfea4d0694ecfe
+== Summary ==
 
-Best regards,
--- 
-~Vinod
+CI Bug Log - changes from CI_DRM_18980 -> Patchwork_171131v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html
+
+Participating hosts (38 -> 36)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18980 -> Patchwork_171131v2
+
+  CI-20190529: 20190529
+  CI_DRM_18980: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9051: 9051
+  Patchwork_171131v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html
+
+--===============2832197014946285236==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/kunit: DP Link: Use if statements instead of for loops (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171131/">https://patchwork.freedesktop.org/series/171131/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18980 -&gt; Patchwork_171131v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html</p>
+<h2>Participating hosts (38 -&gt; 36)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18980 -&gt; Patchwork_171131v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18980: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9051: 9051<br />
+  Patchwork_171131v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2832197014946285236==--
