@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B682C5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 443E9C5CFEB
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ADDD10ED45;
-	Tue, 11 Aug 2026 17:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B810D10ED3E;
+	Tue, 11 Aug 2026 17:11:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pJJOfwUu";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="lSRxJv2a";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91E2710ED0A;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CA3A10ED09;
  Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=6wxTK7P3jCamLVB45nsIDvg8qPYN9Nhe8EEXCEZBTOE=; b=
- pJJOfwUuAGtJGShl0Zl/0pSmWoMIdAzezJ2HbK1PG2Zxwj0mJQ3TGuts96EBPGqs10VL0/Oxz9LJO
- x/CTwBCtVpYwXjVdv0Mg7cHdRVPiRQdp1Xhc8X5ZBVdnJ+Vwv0C1LGFZvf4XnAWlCSgWWMLytB8C/
- Cs5IQiUZBACjNObKFJNc8GO/huIo3dhJfvLQNZxCR0khxaZg/QYOtM3zLRQ3rDRgP+gkgbn65yIn0
- voF+lYvNzCW/jj/YUJJDzss3t24k5Icm3zMhnOQXkHu+6lx/47k1cokyDtzIqK8KZWjqvL4+w3D2p
- Hy1Q7H96aHzjtvCMlRMiHb7cZyKKxBGHog==;
+ Cc:To:From:From:Reply-To; bh=j+nmPh8F0cdvE2cCJjOLedVMO14AmwK+Bi/Xq5bnlbw=; b=
+ lSRxJv2aQaihQ++qZDfeWiXq01d3LUKxpS8tw+lhab+nL4s9WbwrlsYxYoVh+DaVXrp00QIoLogob
+ 2fah4hxKX/Hp7qTSVCMHQpD0tRftJbjW1KYzQn+b/Fp4bKrhX/rOzfnxb62zU5y6eDJ8+kiqwvnyv
+ UytDXjBuUwtum9XFxhdPwzz68MkAPhTwTrS4AtoPnBsFCOH54ov9LBh0JaGcxuyTaPyFzj/8NXN9v
+ FX4WY9vlpbFrP52gp38B2YlHjHZV6WQL7tv0IxfNMeOqBtEWkiry/KtrtEs7n+wFoqIsbgoUPk8GX
+ usoxlBjiCHIknuYm0AN7hliPmPn8146vnw==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzh-00HH9d-A0; Tue, 11 Aug 2026 19:10:29 +0200
+ id 1wtpzf-00HH9d-V0; Tue, 11 Aug 2026 19:10:28 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -47,9 +47,9 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 08/11] drm/amd/display: make blnd bypass mode clearer
-Date: Tue, 11 Aug 2026 18:45:57 +0200
-Message-ID: <20260811171011.184964-9-mwen@igalia.com>
+Subject: [PATCH v4 07/11] drm/amd/display: make shaper bypass mode cleaner
+Date: Tue, 11 Aug 2026 18:45:56 +0200
+Message-ID: <20260811171011.184964-8-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -70,31 +70,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-If userspace set blnd colorop to bypass, AMD driver just skips blnd
-transfer function configuration. Currently, this is not an issue since
-dc plane state is a reset/default state, but it's not fully correct and
-doesn't mirror shaper tf helper. Make bypass mode setup clear by
-initially set tf->type as BYPASS and let the helper change its type
-according to userspace requests.
+Start shaper transfer function setup in bypass mode, i.e. tf->type ==
+TF_TYPE_BYPASS and let the helper checks set it to a different mode
+according to userspace request. It's aligned with current blend setup.
 
-Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 +++++----------
+ 1 file changed, 5 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ca9e43e81edf..ad67106c6435 100644
+index 450a1469d0fd..ca9e43e81edf 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1837,6 +1837,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	uint32_t blend_size = 0;
- 	int i = 0;
+@@ -1666,10 +1666,12 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ 	struct dc_transfer_func *tf = &dc_plane_state->cm.shaper_func;
+ 	const struct drm_color_lut32 *shaper_lut;
+ 	struct drm_device *dev = colorop->dev;
+-	bool enabled = false;
+ 	u32 shaper_size;
+ 	int i = 0, ret = 0;
  
 +	tf->type = TF_TYPE_BYPASS;
- 	dc_plane_state->cm.flags.bits.blend_enable = 0;
++	dc_plane_state->cm.flags.bits.shaper_enable = 0;
++
+ 	/* 1D Curve - SHAPER TF: find state */
+ 	old_colorop = colorop;
+ 	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
+@@ -1703,7 +1705,7 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ 		ret = __set_output_tf(tf, 0, 0, false);
+ 		if (ret)
+ 			return ret;
+-		enabled = true;
++		dc_plane_state->cm.flags.bits.shaper_enable = 1;
+ 	}
  
- 	/* 1D Curve - BLND TF: find state */
+ 	if (lut_state && !lut_state->bypass) {
+@@ -1719,17 +1721,10 @@ __set_dm_plane_colorop_shaper(struct drm_plane_state *plane_state,
+ 			ret = __set_output_tf_32(tf, shaper_lut, shaper_size, false);
+ 			if (ret)
+ 				return ret;
+-			enabled = true;
++			dc_plane_state->cm.flags.bits.shaper_enable = 1;
+ 		}
+ 	}
+ 
+-	if (!enabled) {
+-		tf->type = TF_TYPE_BYPASS;
+-		dc_plane_state->cm.flags.bits.shaper_enable = 0;
+-	} else {
+-		dc_plane_state->cm.flags.bits.shaper_enable = 1;
+-	}
+-
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
