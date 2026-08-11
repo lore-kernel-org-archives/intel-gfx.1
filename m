@@ -4,153 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F2DC5AC67
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:17:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D874AC5B56A
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:47:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1B610EA23;
-	Tue, 11 Aug 2026 12:17:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED2E10E310;
+	Tue, 11 Aug 2026 12:47:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRL8tFeo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CB2qib/l";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37FBF10E30E;
- Tue, 11 Aug 2026 12:17:16 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 096C210E310;
+ Tue, 11 Aug 2026 12:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786450636; x=1817986636;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=tt+QznjgP9n5y0mJ4sE5lyhKLlXmBsBJcYWgXT1JnsU=;
- b=YRL8tFeoYS167VZxfGDPA8a7ptKsE7wbtsXaDVIkR4LVEg4gNdEpB93E
- CAgCu+XTMhz8uQxt08b/QlaWExKdHekcHNfT/71/3tKxe9YQo5CPQNpMc
- 9S3DEIMg1u1dp4CrCRw3uFloMFI5MjvqFxNYDFdem25z1lpJn7JXSDtc/
- PPdymGFKlB+xyRzIlcUFQYe5QVwMS9FVtai9J/UGO12kqrmiGLdBVB+6o
- d5Nw/dAUqTMxLJZIicm4T6B3p9pgqXtz9yT+uNvG8JMV5mgaYJH5+FSc5
- ZLyvQ05Ao/knmMtQAT+dsx+xF8chBDYuYrknDdOrNH0f5sMnGVKkNfgjy Q==;
-X-CSE-ConnectionGUID: bEHwOiiDSA6eErSRHV6tew==
-X-CSE-MsgGUID: pyZIUX/sQ0a1MrUZ+KsDGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104369113"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104369113"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 05:17:15 -0700
-X-CSE-ConnectionGUID: DqsrEdQrTzSNj5N1TGJczQ==
-X-CSE-MsgGUID: DACnUITbR5KF3uicQW731A==
+ t=1786452438; x=1817988438;
+ h=from:to:subject:in-reply-to:references:date:message-id:
+ mime-version; bh=At6ZvWakObPfztgs6wy9qm0SPB07gBrF5J8Vz6wmO5A=;
+ b=CB2qib/lCgX3F7jpxMz2H00pYlMMhDj3N4x9FxTYMBHcElnJ8REhmcdZ
+ YtqF0R5KTW92iXSLhqoXgaBhvArES8rdck2P2elknNAg6OK0oTAOsdeHL
+ NQOQzlCFBt+tx1xphomHgt7Q4RYYcM7Y2FGSiJg7qQD4SJ1greRyrXzll
+ 7huEAx5EQ6Y0UeZ7xiVM23BzQDRyg6lid/WMQezr3C7xxzP+O9lODk35a
+ 4vPEUlihw65jDQNbNsDC9KsV+nO70ffjVN5mIcc2ZVDGRUn6/qdBM+MnS
+ 6XPRv6a72InXH3jNW3U8UJGTE6oXLVooPlp34oOTcjnLI9FnZ5p/MWC08 w==;
+X-CSE-ConnectionGUID: 3VO6Dm9PT8yeA7IvixO5ew==
+X-CSE-MsgGUID: 7vIiZVppRMGgBaS5u3ecWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="98340797"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="98340797"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 05:47:17 -0700
+X-CSE-ConnectionGUID: CFLh46aXSu2xyJH8IxEl4Q==
+X-CSE-MsgGUID: A6+qgFfeQcC2MVu33Ar0VQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="259058653"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 05:17:15 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 05:17:15 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 05:17:15 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.34) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 05:17:14 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ovPyxtwFObOKfsQ2cpPmpVIC0LxXmHRgJtAPs72RiavIagPlHmGZ0Ld3598U/hsQVQdBir9StC0MCS8DokXI3bdw8RXbySCjFDuq0C8jqHi85Vle1IiaGpbyvPy2QLDPbis9KNHPTtJ4/R3oNksvNuPlkNMyzv+jAJq6lHPdnUh400TCmqo5SqP3qyo6mGVt5faPsqdDP2V/c1J2OjAc0d8CB8pI4Fv4VXY0NMLBIvJL6O10YEKCk67ZXXSqm7npEw2l5HOgV9bgx31FlKEqCJFFZacTTMyAnjoHU14tQGzHBQHXThHlVLLjPeMHkAvbIhqTVABHx2Ofv7htxqkJ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ocE+Zxel3DnbQiEsNL0sQgQqUM73VeqUWImML8XfhHQ=;
- b=N/84XTgNodCOBcrcjHtJKGwS96NwvlXaoxENFJZ6ezDfazV9GupBszJ5dbBrJsYx+hS/ei5b4+1HPIXOPbwWdWaoQUPuX17hQj8YF56irtFdAuVYD5QWeuouFXsx0GAX8eUxpyHM+eLlCVclNJ1qwFo1Lf4KGxbMQdo04ZEhih43su+oEogwLocJ/E8EmrHep/l723QQHlUApVdBMbBIBMGtjVrI5Rdmu9JfFTeI+EBGEb/PhcbzHOrJyMFkaJO5ChbG4FSh/JVedumqQDXdTv8hD02CDUkM8PFpZpJYNwQkHTBY2heAyoUT90v03xIYIS67TdJhyl8g4HdsDdpXUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by IA3PR11MB633499.namprd11.prod.outlook.com
- (2603:10b6:208:54a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
- 2026 12:17:13 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
- 12:17:12 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Deak, Imre" <imre.deak@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>, "ville.syrjala@linux.intel.com"
- <ville.syrjala@linux.intel.com>
-Subject: RE: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
-Thread-Topic: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
-Thread-Index: AQHcph3FXUtOQAt/DEKboKxA7pyVubaQNaoAgAmTgNA=
-Date: Tue, 11 Aug 2026 12:17:12 +0000
-Message-ID: <DS4PPFE901A304FB98A4EA3E8BBA006864EE3DD2@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20260219094326.34922-1-arun.r.murthy@intel.com>
- <20260225061110.385441-1-arun.r.murthy@intel.com>
- <IA0PR11MB7307A07B980ED412AAFDBCE2BAD32@IA0PR11MB7307.namprd11.prod.outlook.com>
-In-Reply-To: <IA0PR11MB7307A07B980ED412AAFDBCE2BAD32@IA0PR11MB7307.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|IA3PR11MB633499:EE_
-x-ms-office365-filtering-correlation-id: c88d1eff-0942-49cb-2cf1-08def7a27979
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|3023799007|18002099003|22082099003|11063799006|4143699003|38070700021;
-x-microsoft-antispam-message-info: M5dz3wYJa8LHpPhupds3amrN02KGIDI4QLYDMw2uotnMHsvQRipLVH91bw/CQ+pRadmQFP1emz19qMkj7dGTmD0huhDcSODTPnb2Vi2JtK10DgZmedsyz+hs1SM33OkHzH3ZMd7lLI8a9XUSBv1+CU76DqwkTLSs/1JfUputFOMLX769xeD0cw4VyvIs/PM18U8FV72tm7Ccu7/bv54ER6hrwEbcBflsFETt2NPq9Q38ISUuajIRIGHogyVs0RN/Dhg3FBMWFXDQJ1HT4EQjDak8LvyPV/acuE7wXjXbMDBL6SajQ6YMfb9UT2gNFFM8U3StcTQPSTTXpihEf+4CoEojoUts3rbnDVJGlbU/u+X/K2VSQPhd3S62y5hWHWTZKjIHE6XVKizaWzo5rO6say6duISlly3yPuWr2W97KQpMXCIzOo5iII64ffO6aVnO15aMytbQ7YOXJNXV9QLJggrQtTsLkls7AooNU1Vwj2R/d8/cCzhGFiN/kxar52BbHJj8ynxBMVz0yVEMppI///DesgtXY5FFXpzuhWHzAS0OrR1ljFSj82ZjtGH2jRGB571LtALjpny/mgUTqMM+JjLbT/yuCyi8Pd3k5V29jPYRGl+yl4ZIy2lG97MR8K2PPGBJpZVvjIDYmgLanX1VQbtWUkJdkIZEWqUWgBoIvnU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FwQOREe7/Qn1F12zDC1ltC2kMggY9W8N0QriuVQgFNFYYKmhm1e8KJrO8+4o?=
- =?us-ascii?Q?EnqVdO7V4DU2fTuM5pmGq4iSTBnO3kYZree0qodoUsJ6QJNZJCNsRVLzkaWQ?=
- =?us-ascii?Q?Ta3jNZnLo4THbQLuvzBgcIQpfh7gmnbSRKBiypHCGwiST8aVDiEvg5+jMt1W?=
- =?us-ascii?Q?Yj9vewBVKNIyUfSFq3u2Jo1v0c+s/8JuFx47iOFbC4VLK3+3KKL/uvakBp/O?=
- =?us-ascii?Q?t6wkEg/JDDQK2ZVWTRBVxawPEYFVPFdb6LY9HuyNDd0urjDoqUnXdAERw0fU?=
- =?us-ascii?Q?yn92LK0G30wKc5pmpurc2EV4wLzhTp4RDt7LIrMJ8e9tcuYalPQfikVb0GJu?=
- =?us-ascii?Q?pdSFJd3peq4VkXR2IwuFkF+zcAN0Kay4dxV+Nx/zSIem3ElztJX9xNEVYA1h?=
- =?us-ascii?Q?Z+rxFtEdzThmfUlUu0p2mZc/DtfDgXak4nxSXeIEHeIeyAuks/rrbOQZi/By?=
- =?us-ascii?Q?gH8hPnEFB3jXoR3LoLN/+KonU8fG+CFw3tYMynuEpHlokFBrPibpm3ppA3Zl?=
- =?us-ascii?Q?0UB088akuZhlUAVC8So7/qc0d3rfw5ywbRTgOl34R/1SViadRWR4oeVCyaKZ?=
- =?us-ascii?Q?KW/iE64lk1u03WYPHsX+nIudwCCVyrzi/3HtRIALmoz1HMyEFV7bK716HtuV?=
- =?us-ascii?Q?8ZMcsw0K/qoQtJH6akdsuUf5jDw1HvyzJYcChGbafNErlPbe4B8y928KNNLJ?=
- =?us-ascii?Q?pb7bS+vU7HXJtfAkdWVdSAaKWlcpcMXfhLIDofcN42s9ewPzOG2GXsKe0mUP?=
- =?us-ascii?Q?PHKAfey/B9+FiwxHH5VKLv1MhryHMRcoT+GKfKYYQQl0iKlhBBlD8NvoXcyj?=
- =?us-ascii?Q?Zo+6sKMZVKagCMSMTKt4lNHHd2VIHiyPNxIhLjEBMyWwbES/MTxfzb8RjKk+?=
- =?us-ascii?Q?MNLeyc6R4DDpPMKsFjO6iw8fkfW6+pUUAouCRGsou3W7i0Zus3tjhLGHjrE2?=
- =?us-ascii?Q?fZ2XERjSZaOPYcTP3l9RabGbJgGgGrG2KQA4C2RZt4eQKVQ6iyBewyDXGJx3?=
- =?us-ascii?Q?HNK/Q3BiFGy966FmMblon7iy1vK3Dr+xW7mFpX6SsIen3mU1gbNEnolgeRDR?=
- =?us-ascii?Q?S5MeJFvGgYG35hyD5xJ9IEWVastRIan513dBjHE2LcMh2uVwy3zSkbAaeyTH?=
- =?us-ascii?Q?9yqhtr6Kscxbg4hGHrlVJD9LvA0b7PQKWjpP8uPXHoBSbfXACp/RMw9RDiO6?=
- =?us-ascii?Q?yz5D61WC6A/ME/a9xEy9IHm31yEPpXSVJimqTNnGvZKob9iTvPSYKbMfkPL1?=
- =?us-ascii?Q?GWaYQAR8NoapvU7vinR0+2vaBXaG+uF1+Tbwq92aL/hbO3GrQmH1woxbz7TS?=
- =?us-ascii?Q?e+TMXf5lio0c/yPObZ6S8CVzlf4eyowyw1vg3HijX+71uHjPp6kVXOJmWrTv?=
- =?us-ascii?Q?5b4DEih8j3mfveMLFcaBlwHIZS1cwSzxJgu318WL/5dEltsM/A6D+uMfUTZk?=
- =?us-ascii?Q?w02JJMXbULRwVi0v/iiyin3snaF9ltGJxNT1pIVvwW/ZcPXn/mBhjUDAxUCF?=
- =?us-ascii?Q?4A/gowRKnmo14h3sZelw/A1AjjXQn6SqId09h4uRUmSKEobODvud2uoEEt5T?=
- =?us-ascii?Q?jx/2/4Hd23gYQT9SyuYK2LVgS2vHRe72rg7zBjnpWdvd0PH1ENQ/hzU4EmGX?=
- =?us-ascii?Q?lkaSddXDi2A9wLY988yFxDOkByna+hNO9C5Gp9aeaEWAMW8s4ZSYanB7DCAh?=
- =?us-ascii?Q?K4ehPtlAH/TvOzxaWi42BTVFBJ7HwPGcSrcFk9dRJlHXKZBnhcUZ3BH0IL2B?=
- =?us-ascii?Q?+iUbK2RGug=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="260723226"
+Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.254])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 05:47:16 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 1/4] drm/i915/display: Limit max joined dotclock on
+ joiner pipes available
+In-Reply-To: <98b730a6-d459-4ee5-a38c-81ad1c830b6c@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1786105831.git.jani.nikula@intel.com>
+ <3c615440f018af779a3a522f14637d2993f7af03.1786105831.git.jani.nikula@intel.com>
+ <98b730a6-d459-4ee5-a38c-81ad1c830b6c@intel.com>
+Date: Tue, 11 Aug 2026 15:47:14 +0300
+Message-ID: <3f42097b08dd26e10108c3a1f549dd615514cab6@intel.com>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: jyNRCY8unGVJ/K+dXd/BagGknShx6yGAD8AHyK8W9H2xN9i7DoW7KEI6izhzWDG0FOjjlU9znHaK7wV+p7ipE6F6akoyon3T0nN3JuS9P8GvvyChS5Xye4msAVMbdVxPmJDTp2f4WNpIRTmihFL6IGBig2cEpxPYpqWHTiRH0mjmvyKficlFX9wFv/CAUHxN/dfCSdkTyWyrIr6Zatw4HvZc3fUmaeXlcKKd2d7lw+3cjamQYXwbDJULWjtENVIAxPzHjcMlY15VVlevTFFOZua38QF9OTDoiZHmdBLxfsbqLuTiE19ndqeVn9jpWckhWo8/nH00PZETZtYElL5AQA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c88d1eff-0942-49cb-2cf1-08def7a27979
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 12:17:12.7317 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: knGqmTYeDQkJl/5gafnHaSA1skXFkxu7X/tYBYg9Vj9lF54BQhKgX4colUr9jTrFjsa0y0sXFoXETZH+M7gFgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB633499
-X-OriginatorOrg: intel.com
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,130 +71,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> Subject: RE: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
->=20
->=20
-> -----Original Message-----
-> From: Murthy, Arun R <arun.r.murthy@intel.com>
-> Sent: 25 February 2026 11:41
-> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
-> Cc: Deak, Imre <imre.deak@intel.com>; Kandpal, Suraj
-> <suraj.kandpal@intel.com>; Nikula, Jani <jani.nikula@intel.com>;
-> ville.syrjala@linux.intel.com; Murthy, Arun R <arun.r.murthy@intel.com>
-> Subject: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
->=20
-> Its observed that on AUX_CH failure, even if the retry is increased to 10=
-00, it
-> does not succeed. Either the command might be wrong or sink in an
-> unknown/sleep state can cause this. So try waking the sink device.
-> Before reading the DPCD caps wake the sink for eDP.
->=20
-> v2: Use poll_timeout_us (Jani N)
->     Add the reason, why this change is required (Ville)
-> v3: Wake sink only for eDP
->     Remove the dpcd probe set to true/false in wake_sink (Imre)
->=20
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4391
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16654
-> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+On Mon, 10 Aug 2026, "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com> wrote:
+> On 8/7/2026 6:04 PM, Jani Nikula wrote:
+>> Multiplying the max dotclock based on joiner availability on the
+>> platform alone does not take into account the actual pipes (possibly
+>> with some fused) available for joining.
+>>
+>> Limit the max joined dotclock based on the actual pipes available for
+>> joining. Add helpers for figuring out the valid primary pipes, based on
+>> having the required joiners and amount of consecutive pipes available.
+>>
+>> v2: Check for consecutive pipes available (Ankit)
+>>
+>> Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+>> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+>> ---
+>>   drivers/gpu/drm/i915/display/intel_display.c | 51 +++++++++++++++++++-
+>>   drivers/gpu/drm/i915/display/intel_display.h |  1 +
+>>   2 files changed, 50 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+>> index 829d7a411dcc..c958b2a92cc7 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display.c
+>> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+>> @@ -193,6 +193,53 @@ is_trans_port_sync_mode(const struct intel_crtc_state *crtc_state)
+>>   		is_trans_port_sync_slave(crtc_state);
+>>   }
+>>   
+>> +/*
+>> + * Return a bitmask of all the start indices of consecutive bitfields of size
+>> + * width in mask.
+>> + */
+>> +static unsigned long find_consecutive_bits(unsigned long mask, int width)
+>> +{
+>> +	unsigned long bit, out_mask = 0;
+>> +
+>> +	if (!width)
+>> +		return 0;
+>> +
+>> +	for_each_set_bit(bit, &mask, BITS_PER_TYPE(mask)) {
+>> +		/* For each set bit, see if the following bits are set also */
+>> +		unsigned long bitfield = GENMASK(bit + width - 1, bit);
+>> +
+>> +		if ((mask & bitfield) == bitfield)
+>> +			out_mask |= BIT(bit);
+>> +	}
+>> +
+>> +	return out_mask;
+>
+> This is very clever!
+>
+> This fits very nicely with the part where we want to check if joiner is 
+> supported "for a specific crtc" during compute_config phase.
 
-I think this reply messed up something in patchwork have a look. Moreover i=
-ts not building anymore.
+Yay, thanks!
 
-> ---
->  drivers/gpu/drm/i915/display/intel_dp.c | 34 +++++++++++++++++++++++++
-> drivers/gpu/drm/i915/display/intel_dp.h |  1 +
->  2 files changed, 35 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
-> b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 025e906b63a9..38ea4aad74de 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4705,6 +4705,38 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp=
-)
->  	intel_edp_set_data_override_rates(intel_dp);
->  }
->=20
-> +/* Spec says to try for 3 times, its doubled to add the software overhea=
-d */
-> +#define AUX_CH_WAKE_RETRY	6
-> +
-> +void intel_dp_wake_sink(struct intel_dp *intel_dp) {
+> This works even for width = 1 as well, but it's better to handle the 
+> case separately as you have already done, it's intuitive and avoids 
+> iterating through the bits.
+>
+> Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 
-Should this be renamed to intel_edp_wake_sink now that its used only for eD=
-P
-Also I think this function can be made static now.
+Thanks for the review, pushed the lot to din.
 
-> +	u8 value =3D 0;
-> +	int ret =3D 0;
-> +
-> +	/*
-> +	 * Wake the sink device
-> +	 * Spec DP2.1 section 2.3.1.2 if AUX CH is powered down by writing
-> 0x02
-> +	 * to DP_SET_POWER dpcd reg, 1ms time would be required to wake it
-> up
-> +	 */
-> +	ret =3D poll_timeout_us(ret =3D drm_dp_dpcd_readb(&intel_dp->aux,
-> DP_SET_POWER, &value),
+BR,
+Jani.
 
-So we have recently switched from using drm_dp_dpcd_read/writeb to drm_dp_d=
-pcd_read/write_byte I think you can have a look at usage and
-Replace it with that function here.
-Check https://lore.kernel.org/r/20250324-drm-rework-dpcd-access-v4-1-e80ff8=
-9593df@oss.qualcomm.com to see what that was required.
+>
+>
+>> +}
+>> +
+>> +/*
+>> + * Return a bitmask of all valid joiner primary pipes for joining
+>> + * num_joined_pipes pipes. For completeness, return all valid pipes for
+>> + * num_joined_pipes == 1.
+>> + *
+>> + * Return 0 if the platform doesn't support joining for the requested number of
+>> + * pipes, or there are not enough consecutive pipes available.
+>> + */
+>> +u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes)
+>> +{
+>> +	if (num_joined_pipes == 1) {
+>> +		return DISPLAY_RUNTIME_INFO(display)->pipe_mask;
+>> +	} else if (num_joined_pipes == 2) {
+>> +		if (!HAS_UNCOMPRESSED_JOINER(display) && !HAS_BIGJOINER(display))
+>> +			return 0;
+>> +	} else if (num_joined_pipes == 4) {
+>> +		if (!HAS_ULTRAJOINER(display))
+>> +			return 0;
+>> +	} else {
+>> +		return 0;
+>> +	}
+>> +
+>> +	return find_consecutive_bits(DISPLAY_RUNTIME_INFO(display)->pipe_mask, num_joined_pipes);
+>> +}
+>> +
+>>   static enum pipe joiner_primary_pipe(const struct intel_crtc_state *crtc_state)
+>>   {
+>>   	return ffs(crtc_state->joiner_pipes) - 1;
+>> @@ -8113,9 +8160,9 @@ static int max_dotclock(struct intel_display *display)
+>>   {
+>>   	int max_dotclock = display->cdclk.max_dotclk_freq;
+>>   
+>> -	if (HAS_ULTRAJOINER(display))
+>> +	if (intel_joiner_valid_primary_pipe_mask(display, 4))
+>>   		max_dotclock *= 4;
+>> -	else if (HAS_UNCOMPRESSED_JOINER(display) || HAS_BIGJOINER(display))
+>> +	else if (intel_joiner_valid_primary_pipe_mask(display, 2))
+>>   		max_dotclock *= 2;
+>>   
+>>   	return max_dotclock;
+>> diff --git a/drivers/gpu/drm/i915/display/intel_display.h b/drivers/gpu/drm/i915/display/intel_display.h
+>> index 57ea4f2edf2a..e7ecae9d2d21 100644
+>> --- a/drivers/gpu/drm/i915/display/intel_display.h
+>> +++ b/drivers/gpu/drm/i915/display/intel_display.h
+>> @@ -373,6 +373,7 @@ intel_cpu_transcoder_mode_valid(struct intel_display *display,
+>>   enum phy intel_port_to_phy(struct intel_display *display, enum port port);
+>>   bool is_trans_port_sync_mode(const struct intel_crtc_state *state);
+>>   bool is_trans_port_sync_master(const struct intel_crtc_state *state);
+>> +u8 intel_joiner_valid_primary_pipe_mask(struct intel_display *display, int num_joined_pipes);
+>>   u8 intel_crtc_joined_pipe_mask(const struct intel_crtc_state *crtc_state);
+>>   bool intel_crtc_is_joiner_secondary(const struct intel_crtc_state *crtc_state);
+>>   bool intel_crtc_is_joiner_primary(const struct intel_crtc_state *crtc_state);
 
-Regards,
-Suraj Kandpal
-
-> +			      ret > 0,
-> +			      1000, AUX_CH_WAKE_RETRY * 1000, true);
-> +
-> +	/*
-> +	 * If sink is in D3 then it may not respond to the AUX tx so
-> +	 * wake it up to D3_AUX_ON state
-> +	 * If the above poll_timeout_us fails, try waking the sink.
-> +	 */
-> +	if (value =3D=3D DP_SET_POWER_D3 || ret < 0) {
-> +		/* After setting to D0 need a min of 1ms to wake(Spec DP2.1
-> sec 2.3.1.2) */
-> +		drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER,
-> +				   DP_SET_POWER_D0);
-> +		fsleep(1000);
-> +		drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER,
-> +				   DP_SET_POWER_D3_AUX_ON);
-> +	}
-> +}
-> +
->  static bool
->  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector
-> *connector)  { @@ -4713,6 +4745,8 @@ intel_edp_init_dpcd(struct intel_dp
-> *intel_dp, struct intel_connector *connector
->  	/* this function is meant to be called only once */
->  	drm_WARN_ON(display->drm, intel_dp->dpcd[DP_DPCD_REV] !=3D 0);
->=20
-> +	intel_dp_wake_sink(intel_dp);
-> +
->  	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd) !=3D 0)
->  		return false;
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h
-> b/drivers/gpu/drm/i915/display/intel_dp.h
-> index b0bbd5981f57..3f16077c0cc7 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.h
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-> @@ -232,6 +232,7 @@ bool intel_dp_dotclk_valid(struct intel_display
-> *display,  bool intel_dp_joiner_candidate_valid(struct intel_connector
-> *connector,
->  				     int hdisplay,
->  				     int num_joined_pipes);
-> +void intel_dp_wake_sink(struct intel_dp *intel_dp);
->=20
->  #define for_each_joiner_candidate(__connector, __mode,
-> __num_joined_pipes) \
->  	for ((__num_joined_pipes) =3D 1; (__num_joined_pipes) <=3D
-> (I915_MAX_PIPES); (__num_joined_pipes)++) \
-> --
-> 2.25.1
-
+-- 
+Jani Nikula, Intel
