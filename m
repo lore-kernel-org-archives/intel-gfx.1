@@ -4,59 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F39AC5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 186C0C5B572
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEAD10ED04;
-	Tue, 11 Aug 2026 17:07:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB2310ED0A;
+	Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QzNZdK8q";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hDJYm9RZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4225710ECF8;
- Tue, 11 Aug 2026 17:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786468040; x=1818004040;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=MNPBqq8TR5qXntDbMQQmo2Qa3aoRFsNPEV1Xpl8FTws=;
- b=QzNZdK8qZad8vOMPU6LjHsRVNpm66qaWL17XIzWa1aBXKx/YDEiRHfdO
- ySL/KKPbAEHzpo8MOD6vf3eFJQ/HHDePNn1dN9dyuAwq2/gllcYRdnvAC
- JTSwVXXlslUwCRAQRLbRXy8cUtv/Oj/qgVGVhGNkPyviPeNxurM8yUjb7
- Pi5a0LwLrL9hOVH4IVoJsHvVPztunXjLEF0YJM4hI579q/NDcZGeJKwF9
- BnlYgCKbICZffSzwICkMUsdDGnQcCjorsqPcl20nIxNPis6WOrQXLZDSq
- Sg3ZIFxOLiGm9GzlrwxDOGt3nQMzJx8YNBz/IjASuMgZAaLYob14byz/7 Q==;
-X-CSE-ConnectionGUID: wnPCjOGGRsGqkbfQYteCDw==
-X-CSE-MsgGUID: nlBiSoUwQ9WibqQ9qDURlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="109799858"
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="109799858"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 10:07:19 -0700
-X-CSE-ConnectionGUID: mqreKRaWQXiGvx0gdJ+0rA==
-X-CSE-MsgGUID: Cu7pIthQT2ePzx1uuXKwwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="262891365"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.254])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 10:07:17 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Suraj Kandpal <suraj.kandpal@intel.com>, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: ankit.k.nautiyal@intel.com, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [PATCH 1/3] drm/i915/ddi: add helper to compute DDI clock
- frequency
-In-Reply-To: <20260811025658.2376173-2-suraj.kandpal@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260811025658.2376173-1-suraj.kandpal@intel.com>
- <20260811025658.2376173-2-suraj.kandpal@intel.com>
-Date: Tue, 11 Aug 2026 20:07:14 +0300
-Message-ID: <d76160985b70527e3ba2f2fb7cb772b83c5d26e3@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9739410ED0C;
+ Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=mJCoRC5psha18dGd3NKJz4LTeLbCvuqhkA2jfFjGv4A=; b=
+ hDJYm9RZiBdeZtQz7XnKpLjOLBfTr7WFdXWvYK0Jt0jHJhGgh/JSOUo3b1vkD0/uwSWDUPb5fP0Wh
+ AozwNpE2ZwZFnMOfAM47DlCg690ha/oD57jJ5EBBiJJMRJ/7z1vH8ucZRWgRCguOlOP+H6+tTZTX0
+ 5VRwHCzIfXhdWhz50+PKMzPotjp2C2bSUP4dYQ4oFNtx3tIcWHGYVzowtVGdFo2JaeiSgQ5GVDdDJ
+ rDhwuQMNQXlNBUhtIRDhCskybcAUX2vO9DGR4SkynXWHfx0VNMaDcOfnIflvH/dUnabxtLium1IZi
+ 2NO8AlfCTPZe9b28lHKCNS4PCn7trhiiJg==;
+Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
+ helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wtpzc-00HH9d-2W; Tue, 11 Aug 2026 19:10:24 +0200
+From: Melissa Wen <mwen@igalia.com>
+To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
+ daniels@collabora.com, harry.wentland@amd.com, louis.chauvet@bootlin.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, mwen@igalia.com,
+ sebastian.wick@redhat.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>,
+ amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 04/11] drm/atomic: check if an active colorop has a blob if
+ its type requires one
+Date: Tue, 11 Aug 2026 18:45:53 +0200
+Message-ID: <20260811171011.184964-5-mwen@igalia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
+References: <20260811171011.184964-1-mwen@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +71,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
-> Add intel_ddi_link_symbol_clock() to return the DDI clock frequency for
-> a given port clock:
->   DP 8b/10b : rate / 10
+If colorop TYPE requires a data blob, userspace have to set a blob
+whenever enables this colorop, i.e. when setting this colorop bypass
+property to false.
 
-rate
+Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
->   DP 128b/132b (UHBR) : rate / 32
-
-(10/32) * rate
-
->   HDMI FRL  : rate / 18
-
-(10/18) * rate
-
->   HDMI TMDS : rate
-
->
-> The DP case reuses intel_dp_link_symbol_clock().
-> This will help in upcoming commits to decide value to be written
-> in DDI_CLK_VALFREQ.
->
-> Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_ddi.c | 11 +++++++++++
->  drivers/gpu/drm/i915/display/intel_ddi.h |  1 +
->  2 files changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-> index bf5788c5bbd3..dd9064592ec9 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.c
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-> @@ -1529,6 +1529,17 @@ int intel_ddi_level(struct intel_encoder *encoder,
->  	return level;
->  }
->  
-> +int intel_ddi_link_symbol_clock(struct intel_encoder *encoder, int clock)
-> +{
-> +	if (intel_encoder_is_dp(encoder))
-> +		return intel_dp_link_symbol_clock(clock);
-> +
-> +	if (intel_hdmi_is_frl(clock))
-> +		return DIV_ROUND_CLOSEST(clock * 10, 18);
-> +
-> +	return clock;
-> +}
-> +
->  static void
->  hsw_set_signal_levels(struct intel_encoder *encoder,
->  		      const struct intel_crtc_state *crtc_state)
-> diff --git a/drivers/gpu/drm/i915/display/intel_ddi.h b/drivers/gpu/drm/i915/display/intel_ddi.h
-> index 580ecb09b8b6..239d5a403f91 100644
-> --- a/drivers/gpu/drm/i915/display/intel_ddi.h
-> +++ b/drivers/gpu/drm/i915/display/intel_ddi.h
-> @@ -81,6 +81,7 @@ void intel_ddi_sanitize_encoder_pll_mapping(struct intel_encoder *encoder);
->  int intel_ddi_level(struct intel_encoder *encoder,
->  		    const struct intel_crtc_state *crtc_state,
->  		    int lane);
-> +int intel_ddi_link_symbol_clock(struct intel_encoder *encoder, int clock);
->  void intel_ddi_update_active_dpll(struct intel_atomic_state *state,
->  				  struct intel_encoder *encoder,
->  				  struct intel_crtc *crtc);
-
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 86e4348cad58..7b9d52cf87d0 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -947,8 +947,13 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
+  * drm_atomic_colorop_check - check new colorop state
+  * @new_colorop_state: new colorop state to check
+  *
+- * Ensure that the colorop in @new_colorop_state belongs to an active color
+- * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
++ * Check that a colorop whose TYPE requires a data blob has one when it's
++ * enabled, i.e. userspace can't clear (or never set) the DATA property while
++ * taking the colorop out of bypass, since drivers would have nothing to
++ * program.
++ *
++ * Also ensure that the colorop in @new_colorop_state belongs to an active
++ * color pipeline, i.e. it's in the chain of colorops set to the color_pipeline
+  * property of current, old or new plane state.
+  *
+  * Userspace is allowed to finalize colorop's settings in the same commit that
+@@ -972,6 +977,19 @@ static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_
+ 	if (state->duplicated)
+ 		return 0;
+ 
++	/*
++	 * Reject if colorop TYPE requires a DATA but set bypass to false and
++	 * no blob submitted
++	 */
++	if (new_colorop_state->colorop->data_property &&
++	    !new_colorop_state->bypass && !new_colorop_state->data) {
++		drm_dbg_atomic(new_colorop_state->colorop->dev,
++			       "[COLOROP:%d:%d] enabled without a DATA blob\n",
++			       new_colorop_state->colorop->base.id,
++			       new_colorop_state->colorop->type);
++		return -EINVAL;
++	}
++
+ 	/* Not a plane colorop */
+ 	if (!plane)
+ 		return 0;
 -- 
-Jani Nikula, Intel
+2.53.0
+
