@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76402C5AC67
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 19:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C99DC5CFC1
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 19:39:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D9610E363;
-	Tue, 11 Aug 2026 19:01:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C732110E371;
+	Tue, 11 Aug 2026 19:39:45 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6801310E0EA;
- Tue, 11 Aug 2026 19:01:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E80E510E371;
+ Tue, 11 Aug 2026 19:39:44 +0000 (UTC)
 Content-Type: multipart/alternative;
- boundary="===============2832197014946285236=="
+ boundary="===============8137573095464993614=="
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/kunit=3A_DP_Link?=
- =?utf-8?q?=3A_Use_if_statements_instead_of_for_loops_=28rev2=29?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Fix_value_being_written_t?=
+ =?utf-8?q?o_DDI=5FCLK=5FVALFREQ_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+To: "Suraj Kandpal" <suraj.kandpal@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 11 Aug 2026 19:01:21 -0000
-Message-ID: <178647488141.41193.18262635138899061872@61270ab9df2a>
+Date: Tue, 11 Aug 2026 19:39:44 -0000
+Message-ID: <178647718494.41268.6537512567590177354@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260811175719.139464-1-jonathan.cavitt@intel.com>
-In-Reply-To: <20260811175719.139464-1-jonathan.cavitt@intel.com>
+References: <20260811175844.2613721-1-suraj.kandpal@intel.com>
+In-Reply-To: <20260811175844.2613721-1-suraj.kandpal@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,20 +41,20 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2832197014946285236==
+--===============8137573095464993614==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
 == Series Details ==
 
-Series: drm/i915/kunit: DP Link: Use if statements instead of for loops (rev2)
-URL   : https://patchwork.freedesktop.org/series/171131/
+Series: Fix value being written to DDI_CLK_VALFREQ (rev2)
+URL   : https://patchwork.freedesktop.org/series/171962/
 State : success
 
 == Summary ==
 
-CI Bug Log - changes from CI_DRM_18980 -> Patchwork_171131v2
+CI Bug Log - changes from CI_DRM_18980 -> Patchwork_171962v2
 ====================================================
 
 Summary
@@ -64,7 +64,7 @@ Summary
 
   No regressions found.
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v2/index.html
 
 Participating hosts (38 -> 36)
 ------------------------------
@@ -81,18 +81,18 @@ Changes
 Build changes
 -------------
 
-  * Linux: CI_DRM_18980 -> Patchwork_171131v2
+  * Linux: CI_DRM_18980 -> Patchwork_171962v2
 
   CI-20190529: 20190529
   CI_DRM_18980: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux
   IGT_9051: 9051
-  Patchwork_171131v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux
+  Patchwork_171962v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux
 
 == Logs ==
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v2/index.html
 
---===============2832197014946285236==
+--===============8137573095464993614==
 Content-Type: text/html; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -112,34 +112,34 @@ Content-Transfer-Encoding: 7bit
 
 <b>Patch Details</b>
 <table>
-<tr><td><b>Series:</b></td><td>drm/i915/kunit: DP Link: Use if statements instead of for loops (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171131/">https://patchwork.freedesktop.org/series/171131/</a></td></tr>
+<tr><td><b>Series:</b></td><td>Fix value being written to DDI_CLK_VALFREQ (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171962/">https://patchwork.freedesktop.org/series/171962/</a></td></tr>
 <tr><td><b>State:</b></td><td>success</td></tr>
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html</a></td></tr>
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v2/index.html</a></td></tr>
 
 </table>
 
 
-    <h1>CI Bug Log - changes from CI_DRM_18980 -&gt; Patchwork_171131v2</h1>
+    <h1>CI Bug Log - changes from CI_DRM_18980 -&gt; Patchwork_171962v2</h1>
 <h2>Summary</h2>
 <p><strong>SUCCESS</strong></p>
 <p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v2/index.html</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171962v2/index.html</p>
 <h2>Participating hosts (38 -&gt; 36)</h2>
 <p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
 <h2>Changes</h2>
 <p>No changes found</p>
 <h2>Build changes</h2>
 <ul>
-<li>Linux: CI_DRM_18980 -&gt; Patchwork_171131v2</li>
+<li>Linux: CI_DRM_18980 -&gt; Patchwork_171962v2</li>
 </ul>
 <p>CI-20190529: 20190529<br />
   CI_DRM_18980: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
   IGT_9051: 9051<br />
-  Patchwork_171131v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+  Patchwork_171962v2: aabf41c0ea0ad661a2e384e51955b24343f6ca25 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
 
 </body>
 </html>
 
---===============2832197014946285236==--
+--===============8137573095464993614==--
