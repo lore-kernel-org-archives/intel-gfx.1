@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D29C5CFEB
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5ACE5C5B56A
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B23110ED23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E44A10ED28;
 	Tue, 11 Aug 2026 17:11:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CGPi7H1R";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SSQd8Cd3";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F08310ECF8;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8373A10ED06;
  Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=LjXymtRRb6BWMpk7UcD7TFtGhe5or8FsGDX+VeAa6Fg=; b=
- CGPi7H1R+X9gH+PRBfOnnsWzZPTJrzHhkpSNF2rwDrb71Qx9IcOPdVmNCuB5dlowUDzoTWmveKCtr
- pTO/coDi/7Z6NvYvTRFqEf2KRZ0OHc4bz+0tvMGROXGIlmz72TbpL79ethO8jXu1xtIoeaekWTlMG
- IXhVRBvHr+ka3EN2Ne4r2kdfal7J6YeKCgK8ujjvMAtbgVPv+9BHSIneEdxJow6VzIxe2SWwD8i3G
- IWFZxCfwTa13UE1cHnVJgZGR3d1cGjZFriUXicjY/eSpHqmB2J7mkno8oYf2GTTZRHKiZCnnZHzMo
- tJ1P6v5Oe63rgIzxHmum1vIzEwTf4YrcNA==;
+ Cc:To:From:From:Reply-To; bh=TKOOjCLLZWBgmHVgLpQgEUNXD3dMcbd5GmU0BxUALeo=; b=
+ SSQd8Cd3EA//Ea9yfyu4mzraFFzSkeKlJk90b11Jm79ajUSxtDLx1fnFtKyNcS+dKZsE9X5WVSIeR
+ HHAyxIL0P8fWMaW7NOqIGlGHveE2+MABw1fym6sHpfENsc7Dp2hsX8B1zG6HHvfGvpFWUGh0+knMM
+ 5iasnHlWAZlr1x/QAPlJHB/ao5QpYIjJelbqgb8EWWMv4gQoB4nm4RD+y0KzFjApoqYtpJl28TpzS
+ XwWggH1Ahy05hKDQPC7Lw0Bpawm8e/HHFZGx4RJvHVh8QDfdchX8fjnBm5kUfLELIrf5/ekf4uFVz
+ KKjbzLiLD1urXZWAIZrWjye9ca0AReLtlA==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzi-00HH9d-Me; Tue, 11 Aug 2026 19:10:30 +0200
+ id 1wtpzl-00HH9d-Am; Tue, 11 Aug 2026 19:10:33 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -46,11 +46,11 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 09/11] drm/amd/display: don't ignore failure on blend
- colorop setup
-Date: Tue, 11 Aug 2026 18:45:58 +0200
-Message-ID: <20260811171011.184964-10-mwen@igalia.com>
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 11/11] drm/amd/display: distinguish colorop setup error
+ from no colorop support
+Date: Tue, 11 Aug 2026 18:46:00 +0200
+Message-ID: <20260811171011.184964-12-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -71,62 +71,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-__set_input_tf_32() can fail on ENOMEM and let the blend transfer
-function setup in an unstable state. Check its return value and only
-enable blend if transfer function was successfully configured.
+amdgpu_dm_plane_set_colorop_properties() returns -EINVAL both when the
+plane has no color pipeline selected, where falling back to the legacy
+color properties is correct, and when programming an active pipeline
+fails, so the caller treats every failure as the former and silently
+programs the plane from the legacy properties, leaving it in a mixed
+state and userspace with no error. Check if plane_state->color_pipeline
+is set instead, so the legacy path is only taken when no pipeline is set
+and any other failure is propagated out of the atomic check.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 5ed78b44e4e6 ("drm/amd/display: add shaper and blend colorops for 1D Curve Custom LUT")
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c   | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index ad67106c6435..c528daefac5e 100644
+index f6a2af5d2e96..f2731989499c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1835,7 +1835,7 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 	const struct drm_color_lut32 *blend_lut = NULL;
- 	struct drm_device *dev = colorop->dev;
- 	uint32_t blend_size = 0;
--	int i = 0;
-+	int i = 0, ret;
+@@ -1906,10 +1906,10 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+ 	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
+ 	int ret;
  
- 	tf->type = TF_TYPE_BYPASS;
- 	dc_plane_state->cm.flags.bits.blend_enable = 0;
-@@ -1870,8 +1870,10 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf = amdgpu_colorop_tf_to_dc_tf(tf_state->curve_1d_type);
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
-+		ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+		if (ret)
-+			return ret;
- 		dc_plane_state->cm.flags.bits.blend_enable = 1;
--		__set_input_tf_32(NULL, tf, blend_lut, blend_size);
+-	/* 1D Curve - DEGAM TF */
+-	if (!colorop)
++	if (drm_WARN_ON(dev, !colorop))
+ 		return -EINVAL;
+ 
++	/* 1D Curve - DEGAM TF */
+ 	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
+ 	if (ret)
+ 		return ret;
+@@ -2080,8 +2080,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
  	}
  
- 	if (lut_state && !lut_state->bypass) {
-@@ -1879,13 +1881,16 @@ __set_dm_plane_colorop_blend(struct drm_plane_state *plane_state,
- 		tf->type = TF_TYPE_DISTRIBUTED_POINTS;
- 		tf->tf = default_tf;
- 		tf->sdr_ref_white_level = SDR_WHITE_LEVEL_INIT_VALUE;
--		dc_plane_state->cm.flags.bits.blend_enable = 1;
- 		blend_lut = __extract_blob_lut32(lut_state->data, &blend_size);
- 		blend_size = blend_lut != NULL ? blend_size : 0;
+-	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
+-		return 0;
++	if (plane_state->color_pipeline)
++		return amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state);
  
- 		/* Custom LUT size must be the same as supported size */
--		if (blend_size == lut_colorop->size)
--			__set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+		if (blend_size == lut_colorop->size) {
-+			ret = __set_input_tf_32(NULL, tf, blend_lut, blend_size);
-+			if (ret)
-+				return ret;
-+			dc_plane_state->cm.flags.bits.blend_enable = 1;
-+		}
- 	}
- 
- 	return 0;
+ 	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+ }
 -- 
 2.53.0
 
