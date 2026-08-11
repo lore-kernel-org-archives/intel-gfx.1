@@ -4,55 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A23EAC5AC67
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 09:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DFB4C5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 10:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC0B10E2ED;
-	Tue, 11 Aug 2026 09:54:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B731510E2EE;
+	Tue, 11 Aug 2026 10:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XVxJkqKx";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="V+Vm46x3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDF110E2EE
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 09:54:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786442089; x=1817978089;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=IsDZA3ehFShCGEDVvLajl/0MsTXNdnPWU3St2aOplj4=;
- b=XVxJkqKxxfJDTpH1asHKwBIKqiAc0L9Xci3p/E7lKRCeLKvx2uGPVgmW
- Z/APk2DVKRbeynmrXGT9y5UPqoAVz05+Z1dvKjRONGlc2TwNOSBbLSC+u
- AIxp9n82wSFcPqbDN3ELXDSqZJA5razb4xgrPMdV1xxNronk9Bp/I/1xk
- 3y4PIs1HLWl5rXYSW7h0ZbEQMku0xmc8OVOuxWlyudqN/Lx1n4BlbSpb9
- uhWNV9DSkc9yEyb41vzhu+E3xPnWQbuE/oyU91Cs5ObQtyBjPKw4HPpdR
- 5626YLplWBbzNQU2ZrKyiBycCJA0RE+bMVnoeOKR/yvq12FA5OM1J3Hg9 w==;
-X-CSE-ConnectionGUID: sStInFZDS8qf9T5Qs2Xetw==
-X-CSE-MsgGUID: ESkiG8aUTHSe6t3wK5nKGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104359916"
-X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104359916"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:54:49 -0700
-X-CSE-ConnectionGUID: osO65Yg9RXq2VpKciQENHA==
-X-CSE-MsgGUID: 0C50W40qQyenXSAn0jvv1A==
-X-ExtLoop1: 1
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO hazy.intel.com)
- ([10.245.245.2])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 02:54:47 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@intel.com
-Subject: [PATCH v2 5/5] drm/i915/display: split part of
- intel_display_reset_finish() to a new function
-Date: Tue, 11 Aug 2026 12:49:13 +0300
-Message-ID: <20260811095427.1147852-6-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260811095427.1147852-1-luciano.coelho@intel.com>
-References: <20260811095427.1147852-1-luciano.coelho@intel.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 5695210E2EE;
+ Tue, 11 Aug 2026 10:15:10 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BBBEA1682;
+ Tue, 11 Aug 2026 03:15:05 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0350C3F86F;
+ Tue, 11 Aug 2026 03:15:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786443309; bh=+szcqBCq9eZ2ua7vWX4x/+s1q8ODJlqcpxLyiJuSiwc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=V+Vm46x3ghCefqeO2I1n6DA88n8dnPA9fKF0KOYZamwYwLaVm1b44z72dYIEIsYC0
+ p/UxibT9bkIS6vm2g/03/53REk/x6Bjd7ZTy6XlUazb0cSaz7+p0GyYbiNAyjJgZGx
+ FyXK8Yk5Rfauuo195Y0NDG5YghHuk7t+gElvU4PU=
+Date: Tue, 11 Aug 2026 15:45:06 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich <dimitri.sivanich@hpe.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>, 
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, agordeev@linux.ibm.com, ryan.roberts@arm.com, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 2/9] mm: make hw_pte_t visible to generic PTE interfaces
+Message-ID: <7xbai2nyu6nuyr6otqv556dnphpgwaqsmvwkqwoqwbh5nvj3ns@ddy5ezgvb7w3>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-3-usama.anjum@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806083926.1807279-3-usama.anjum@arm.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,102 +94,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the intel_display_reset_finish() function, we are currently calling
-the non-display function intel_clock_gating_init(), creating an
-unnecessary dependency.
+On Thu, Aug 06, 2026 at 09:38:40AM +0100, Muhammad Usama Anjum wrote:
+> Later conversions use hw_pte_t in page-table checking, generic page-table
+> helpers, and vmalloc interfaces. Include linux/pgtable_types.h from the
+> headers that declare those interfaces before changing their types.
+> 
+> For vmalloc.h, replace the direct asm/page.h include with
+> linux/pgtable_types.h. The latter includes asm/page.h, so pgprot_t remains
+> available. It also provides either the default alias or the opted-in
+> hw_pte_t wrapper.
 
-In order to avoid this, split out the function calls that happen
-before the call to intel_clock_gating_init() to a new function that
-can be directly called by intel_gt_reset_global(), which then calls
-intel_clock_gating_init() itself, if needed.
+Stand-alone header file updates are not ideal. Why cannot these changes be
+folded in, where hw_pte_t gets used first time ever in the above mentioned
+places.
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- .../drm/i915/display/intel_display_reset.c    | 19 +++++++++++++------
- .../drm/i915/display/intel_display_reset.h    |  1 +
- drivers/gpu/drm/i915/gt/intel_reset.c         |  5 +++++
- 3 files changed, 19 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
-index 504ec7043cd9..529dd1c1fa5d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reset.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
-@@ -8,7 +8,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_print.h>
- 
--#include "intel_clock_gating.h"
- #include "intel_cx0_phy.h"
- #include "intel_display_core.h"
- #include "intel_display_driver.h"
-@@ -73,6 +72,17 @@ void intel_display_reset_prepare(struct intel_display *display)
- 	state->acquire_ctx = ctx;
- }
- 
-+bool intel_display_reset_reinit(struct intel_display *display)
-+{
-+	if (!display->restore.modeset_state)
-+		return false;
-+
-+	intel_pps_unlock_regs_wa(display);
-+	intel_display_driver_init_hw(display);
-+
-+	return true;
-+}
-+
- void intel_display_reset_finish(struct intel_display *display, bool test_only)
- {
- 	struct drm_modeset_acquire_ctx *ctx = &display->restore.reset_ctx;
-@@ -94,12 +104,9 @@ void intel_display_reset_finish(struct intel_display *display, bool test_only)
- 		}
- 	} else {
- 		/*
--		 * The display has been reset as well,
--		 * so need a full re-initialization.
-+		 * The display has been reset as well, so complete the
-+		 * re-initialization started by intel_display_reset_reinit().
- 		 */
--		intel_pps_unlock_regs_wa(display);
--		intel_display_driver_init_hw(display);
--		intel_clock_gating_init(display->drm);
- 		intel_cx0_pll_power_save_wa(display);
- 		intel_hpd_init(display);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers/gpu/drm/i915/display/intel_display_reset.h
-index b88c330a3441..e741e969d877 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reset.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
-@@ -13,6 +13,7 @@ struct intel_display;
- bool intel_display_reset_supported(struct intel_display *display);
- bool intel_display_reset_test(struct intel_display *display);
- void intel_display_reset_prepare(struct intel_display *display);
-+bool intel_display_reset_reinit(struct intel_display *display);
- void intel_display_reset_finish(struct intel_display *display, bool test_only);
- 
- void intel_display_reset_debugfs_register(struct intel_display *display);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 6053f3e8aa27..be282cfbe615 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -24,6 +24,7 @@
- #include "i915_reg.h"
- #include "i915_wait_util.h"
- #include "intel_breadcrumbs.h"
-+#include "intel_clock_gating.h"
- #include "intel_engine_pm.h"
- #include "intel_engine_regs.h"
- #include "intel_gt.h"
-@@ -1445,6 +1446,10 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 
- 		intel_gt_reset(gt, engine_mask, reason);
- 
-+		if (need_display_reset &&
-+		    intel_display_reset_reinit(display))
-+			intel_clock_gating_init(&i915->drm);
-+
- 		if (reset_display)
- 			intel_display_reset_finish(display, !need_display_reset);
- 	}
--- 
-2.53.0
-
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+> Changes since RFC v1:
+> - Clarify that the header provides both generic hw_pte_t definitions.
+> ---
+>  include/linux/page_table_check.h | 2 ++
+>  include/linux/pgtable.h          | 1 +
+>  include/linux/vmalloc.h          | 2 +-
+>  3 files changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/page_table_check.h b/include/linux/page_table_check.h
+> index 12268a32e8be1..12ee6d16ad339 100644
+> --- a/include/linux/page_table_check.h
+> +++ b/include/linux/page_table_check.h
+> @@ -7,6 +7,8 @@
+>  #ifndef __LINUX_PAGE_TABLE_CHECK_H
+>  #define __LINUX_PAGE_TABLE_CHECK_H
+>  
+> +#include <linux/pgtable_types.h>
+> +
+>  #ifdef CONFIG_PAGE_TABLE_CHECK
+>  #include <linux/jump_label.h>
+>  
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index 8c093c119e5a8..cf595608cc4c4 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -4,6 +4,7 @@
+>  
+>  #include <linux/pfn.h>
+>  #include <asm/pgtable.h>
+> +#include <linux/pgtable_types.h>
+>  
+>  #define PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
+>  #define PUD_ORDER	(PUD_SHIFT - PAGE_SHIFT)
+> diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+> index aed121d729b01..b068e6ade4207 100644
+> --- a/include/linux/vmalloc.h
+> +++ b/include/linux/vmalloc.h
+> @@ -8,7 +8,7 @@
+>  #include <linux/init.h>
+>  #include <linux/list.h>
+>  #include <linux/llist.h>
+> -#include <asm/page.h>		/* pgprot_t */
+> +#include <linux/pgtable_types.h>	/* pgprot_t, hw_pte_t */
+>  #include <linux/rbtree.h>
+>  #include <linux/overflow.h>
+>  
+> -- 
+> 2.47.3
+> 
