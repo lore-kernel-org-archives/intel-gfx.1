@@ -4,131 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48040C5B56A
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:11:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25F2DC5AC67
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B78010E6DE;
-	Tue, 11 Aug 2026 12:11:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D1B610EA23;
+	Tue, 11 Aug 2026 12:17:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oMzFJcn9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRL8tFeo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A17E10E6DE;
- Tue, 11 Aug 2026 12:11:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AD2A843649;
- Tue, 11 Aug 2026 12:11:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88261F000E9;
- Tue, 11 Aug 2026 12:11:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786450309;
- bh=/fTG1Cghw/RG7+KE3x88oxH8TI74VawrjBf3qjRRniY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=oMzFJcn9VOzkFaKMEx9vCYCdx1Pq7igNm3SDyOEjzrOpDudIApIUK8tbQWGyhMTA2
- t05Mkqhok9RLYIMUol0cpCiu3QthaSWyzaAoYQ2iTd1AckujJZDZf2+JmOHRJ0KvP7
- mcsYLS8a7sO8YaLXbyWEeOK99DFlaVD5L55J3MTekojG6h3FMWYgpjeoMH//X24lZs
- 5lfWAxjxOdrK+/s8jDuKs0rLQeM8RFflAxNY1JPwZF3i/yhkf94kLkVqbTR4mmJWjo
- hK2SQwlx7kI/9C/spjKPKM5IkvDG9SLQ6RAQ5o7kkbgcPTchuBQb5gh+4ZPvUgW8mp
- IkyibBYe3lp/w==
-Message-ID: <e9de4158-b829-471b-980c-1999959bbc48@kernel.org>
-Date: Tue, 11 Aug 2026 14:11:31 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6/9] mm: convert PTE table entry to pte
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-7-usama.anjum@arm.com>
- <fab9fc78-1e1d-4d5b-a9ca-92f3ebd04108-agordeev@linux.ibm.com>
- <5c329236-7761-4e42-a549-b822e43b4358@arm.com>
- <2599c5b3-e8ac-4865-993b-d41e6f060d52-agordeev@linux.ibm.com>
- <f0b0dacb-fb83-4402-b0ea-30072727dfd7@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37FBF10E30E;
+ Tue, 11 Aug 2026 12:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786450636; x=1817986636;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=tt+QznjgP9n5y0mJ4sE5lyhKLlXmBsBJcYWgXT1JnsU=;
+ b=YRL8tFeoYS167VZxfGDPA8a7ptKsE7wbtsXaDVIkR4LVEg4gNdEpB93E
+ CAgCu+XTMhz8uQxt08b/QlaWExKdHekcHNfT/71/3tKxe9YQo5CPQNpMc
+ 9S3DEIMg1u1dp4CrCRw3uFloMFI5MjvqFxNYDFdem25z1lpJn7JXSDtc/
+ PPdymGFKlB+xyRzIlcUFQYe5QVwMS9FVtai9J/UGO12kqrmiGLdBVB+6o
+ d5Nw/dAUqTMxLJZIicm4T6B3p9pgqXtz9yT+uNvG8JMV5mgaYJH5+FSc5
+ ZLyvQ05Ao/knmMtQAT+dsx+xF8chBDYuYrknDdOrNH0f5sMnGVKkNfgjy Q==;
+X-CSE-ConnectionGUID: bEHwOiiDSA6eErSRHV6tew==
+X-CSE-MsgGUID: pyZIUX/sQ0a1MrUZ+KsDGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="104369113"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="104369113"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 05:17:15 -0700
+X-CSE-ConnectionGUID: DqsrEdQrTzSNj5N1TGJczQ==
+X-CSE-MsgGUID: DACnUITbR5KF3uicQW731A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; d="scan'208";a="259058653"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 05:17:15 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 11 Aug 2026 05:17:15 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 05:17:15 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.34) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 11 Aug 2026 05:17:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ovPyxtwFObOKfsQ2cpPmpVIC0LxXmHRgJtAPs72RiavIagPlHmGZ0Ld3598U/hsQVQdBir9StC0MCS8DokXI3bdw8RXbySCjFDuq0C8jqHi85Vle1IiaGpbyvPy2QLDPbis9KNHPTtJ4/R3oNksvNuPlkNMyzv+jAJq6lHPdnUh400TCmqo5SqP3qyo6mGVt5faPsqdDP2V/c1J2OjAc0d8CB8pI4Fv4VXY0NMLBIvJL6O10YEKCk67ZXXSqm7npEw2l5HOgV9bgx31FlKEqCJFFZacTTMyAnjoHU14tQGzHBQHXThHlVLLjPeMHkAvbIhqTVABHx2Ofv7htxqkJ2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ocE+Zxel3DnbQiEsNL0sQgQqUM73VeqUWImML8XfhHQ=;
+ b=N/84XTgNodCOBcrcjHtJKGwS96NwvlXaoxENFJZ6ezDfazV9GupBszJ5dbBrJsYx+hS/ei5b4+1HPIXOPbwWdWaoQUPuX17hQj8YF56irtFdAuVYD5QWeuouFXsx0GAX8eUxpyHM+eLlCVclNJ1qwFo1Lf4KGxbMQdo04ZEhih43su+oEogwLocJ/E8EmrHep/l723QQHlUApVdBMbBIBMGtjVrI5Rdmu9JfFTeI+EBGEb/PhcbzHOrJyMFkaJO5ChbG4FSh/JVedumqQDXdTv8hD02CDUkM8PFpZpJYNwQkHTBY2heAyoUT90v03xIYIS67TdJhyl8g4HdsDdpXUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by IA3PR11MB633499.namprd11.prod.outlook.com
+ (2603:10b6:208:54a::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
+ 2026 12:17:13 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
+ 12:17:12 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: "Murthy, Arun R" <arun.r.murthy@intel.com>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+CC: "Deak, Imre" <imre.deak@intel.com>, "Nikula, Jani"
+ <jani.nikula@intel.com>, "ville.syrjala@linux.intel.com"
+ <ville.syrjala@linux.intel.com>
+Subject: RE: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
+Thread-Topic: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
+Thread-Index: AQHcph3FXUtOQAt/DEKboKxA7pyVubaQNaoAgAmTgNA=
+Date: Tue, 11 Aug 2026 12:17:12 +0000
+Message-ID: <DS4PPFE901A304FB98A4EA3E8BBA006864EE3DD2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20260219094326.34922-1-arun.r.murthy@intel.com>
+ <20260225061110.385441-1-arun.r.murthy@intel.com>
+ <IA0PR11MB7307A07B980ED412AAFDBCE2BAD32@IA0PR11MB7307.namprd11.prod.outlook.com>
+In-Reply-To: <IA0PR11MB7307A07B980ED412AAFDBCE2BAD32@IA0PR11MB7307.namprd11.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <f0b0dacb-fb83-4402-b0ea-30072727dfd7@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|IA3PR11MB633499:EE_
+x-ms-office365-filtering-correlation-id: c88d1eff-0942-49cb-2cf1-08def7a27979
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|3023799007|18002099003|22082099003|11063799006|4143699003|38070700021;
+x-microsoft-antispam-message-info: M5dz3wYJa8LHpPhupds3amrN02KGIDI4QLYDMw2uotnMHsvQRipLVH91bw/CQ+pRadmQFP1emz19qMkj7dGTmD0huhDcSODTPnb2Vi2JtK10DgZmedsyz+hs1SM33OkHzH3ZMd7lLI8a9XUSBv1+CU76DqwkTLSs/1JfUputFOMLX769xeD0cw4VyvIs/PM18U8FV72tm7Ccu7/bv54ER6hrwEbcBflsFETt2NPq9Q38ISUuajIRIGHogyVs0RN/Dhg3FBMWFXDQJ1HT4EQjDak8LvyPV/acuE7wXjXbMDBL6SajQ6YMfb9UT2gNFFM8U3StcTQPSTTXpihEf+4CoEojoUts3rbnDVJGlbU/u+X/K2VSQPhd3S62y5hWHWTZKjIHE6XVKizaWzo5rO6say6duISlly3yPuWr2W97KQpMXCIzOo5iII64ffO6aVnO15aMytbQ7YOXJNXV9QLJggrQtTsLkls7AooNU1Vwj2R/d8/cCzhGFiN/kxar52BbHJj8ynxBMVz0yVEMppI///DesgtXY5FFXpzuhWHzAS0OrR1ljFSj82ZjtGH2jRGB571LtALjpny/mgUTqMM+JjLbT/yuCyi8Pd3k5V29jPYRGl+yl4ZIy2lG97MR8K2PPGBJpZVvjIDYmgLanX1VQbtWUkJdkIZEWqUWgBoIvnU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006)(4143699003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FwQOREe7/Qn1F12zDC1ltC2kMggY9W8N0QriuVQgFNFYYKmhm1e8KJrO8+4o?=
+ =?us-ascii?Q?EnqVdO7V4DU2fTuM5pmGq4iSTBnO3kYZree0qodoUsJ6QJNZJCNsRVLzkaWQ?=
+ =?us-ascii?Q?Ta3jNZnLo4THbQLuvzBgcIQpfh7gmnbSRKBiypHCGwiST8aVDiEvg5+jMt1W?=
+ =?us-ascii?Q?Yj9vewBVKNIyUfSFq3u2Jo1v0c+s/8JuFx47iOFbC4VLK3+3KKL/uvakBp/O?=
+ =?us-ascii?Q?t6wkEg/JDDQK2ZVWTRBVxawPEYFVPFdb6LY9HuyNDd0urjDoqUnXdAERw0fU?=
+ =?us-ascii?Q?yn92LK0G30wKc5pmpurc2EV4wLzhTp4RDt7LIrMJ8e9tcuYalPQfikVb0GJu?=
+ =?us-ascii?Q?pdSFJd3peq4VkXR2IwuFkF+zcAN0Kay4dxV+Nx/zSIem3ElztJX9xNEVYA1h?=
+ =?us-ascii?Q?Z+rxFtEdzThmfUlUu0p2mZc/DtfDgXak4nxSXeIEHeIeyAuks/rrbOQZi/By?=
+ =?us-ascii?Q?gH8hPnEFB3jXoR3LoLN/+KonU8fG+CFw3tYMynuEpHlokFBrPibpm3ppA3Zl?=
+ =?us-ascii?Q?0UB088akuZhlUAVC8So7/qc0d3rfw5ywbRTgOl34R/1SViadRWR4oeVCyaKZ?=
+ =?us-ascii?Q?KW/iE64lk1u03WYPHsX+nIudwCCVyrzi/3HtRIALmoz1HMyEFV7bK716HtuV?=
+ =?us-ascii?Q?8ZMcsw0K/qoQtJH6akdsuUf5jDw1HvyzJYcChGbafNErlPbe4B8y928KNNLJ?=
+ =?us-ascii?Q?pb7bS+vU7HXJtfAkdWVdSAaKWlcpcMXfhLIDofcN42s9ewPzOG2GXsKe0mUP?=
+ =?us-ascii?Q?PHKAfey/B9+FiwxHH5VKLv1MhryHMRcoT+GKfKYYQQl0iKlhBBlD8NvoXcyj?=
+ =?us-ascii?Q?Zo+6sKMZVKagCMSMTKt4lNHHd2VIHiyPNxIhLjEBMyWwbES/MTxfzb8RjKk+?=
+ =?us-ascii?Q?MNLeyc6R4DDpPMKsFjO6iw8fkfW6+pUUAouCRGsou3W7i0Zus3tjhLGHjrE2?=
+ =?us-ascii?Q?fZ2XERjSZaOPYcTP3l9RabGbJgGgGrG2KQA4C2RZt4eQKVQ6iyBewyDXGJx3?=
+ =?us-ascii?Q?HNK/Q3BiFGy966FmMblon7iy1vK3Dr+xW7mFpX6SsIen3mU1gbNEnolgeRDR?=
+ =?us-ascii?Q?S5MeJFvGgYG35hyD5xJ9IEWVastRIan513dBjHE2LcMh2uVwy3zSkbAaeyTH?=
+ =?us-ascii?Q?9yqhtr6Kscxbg4hGHrlVJD9LvA0b7PQKWjpP8uPXHoBSbfXACp/RMw9RDiO6?=
+ =?us-ascii?Q?yz5D61WC6A/ME/a9xEy9IHm31yEPpXSVJimqTNnGvZKob9iTvPSYKbMfkPL1?=
+ =?us-ascii?Q?GWaYQAR8NoapvU7vinR0+2vaBXaG+uF1+Tbwq92aL/hbO3GrQmH1woxbz7TS?=
+ =?us-ascii?Q?e+TMXf5lio0c/yPObZ6S8CVzlf4eyowyw1vg3HijX+71uHjPp6kVXOJmWrTv?=
+ =?us-ascii?Q?5b4DEih8j3mfveMLFcaBlwHIZS1cwSzxJgu318WL/5dEltsM/A6D+uMfUTZk?=
+ =?us-ascii?Q?w02JJMXbULRwVi0v/iiyin3snaF9ltGJxNT1pIVvwW/ZcPXn/mBhjUDAxUCF?=
+ =?us-ascii?Q?4A/gowRKnmo14h3sZelw/A1AjjXQn6SqId09h4uRUmSKEobODvud2uoEEt5T?=
+ =?us-ascii?Q?jx/2/4Hd23gYQT9SyuYK2LVgS2vHRe72rg7zBjnpWdvd0PH1ENQ/hzU4EmGX?=
+ =?us-ascii?Q?lkaSddXDi2A9wLY988yFxDOkByna+hNO9C5Gp9aeaEWAMW8s4ZSYanB7DCAh?=
+ =?us-ascii?Q?K4ehPtlAH/TvOzxaWi42BTVFBJ7HwPGcSrcFk9dRJlHXKZBnhcUZ3BH0IL2B?=
+ =?us-ascii?Q?+iUbK2RGug=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: jyNRCY8unGVJ/K+dXd/BagGknShx6yGAD8AHyK8W9H2xN9i7DoW7KEI6izhzWDG0FOjjlU9znHaK7wV+p7ipE6F6akoyon3T0nN3JuS9P8GvvyChS5Xye4msAVMbdVxPmJDTp2f4WNpIRTmihFL6IGBig2cEpxPYpqWHTiRH0mjmvyKficlFX9wFv/CAUHxN/dfCSdkTyWyrIr6Zatw4HvZc3fUmaeXlcKKd2d7lw+3cjamQYXwbDJULWjtENVIAxPzHjcMlY15VVlevTFFOZua38QF9OTDoiZHmdBLxfsbqLuTiE19ndqeVn9jpWckhWo8/nH00PZETZtYElL5AQA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c88d1eff-0942-49cb-2cf1-08def7a27979
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 12:17:12.7317 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: knGqmTYeDQkJl/5gafnHaSA1skXFkxu7X/tYBYg9Vj9lF54BQhKgX4colUr9jTrFjsa0y0sXFoXETZH+M7gFgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB633499
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,78 +166,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8/10/26 13:06, Muhammad Usama Anjum wrote:
-> On 10/08/2026 7:44 am, Alexander Gordeev wrote:
->> On Fri, Aug 07, 2026 at 05:26:04PM +0100, Muhammad Usama Anjum wrote:
->>> Yes, this is particular line is for non MMU. In this case, CONIFG_ARCH_HAS_HW_PTE
->>> would never be defined. Hence hw_pte_t is just pte_t and direct dereference is
->>> allowed. I'd thought a lot about it; is better to leave direct dereference here
->>> or use some helper. Then used __pte_from_hw() was already being used in generic
->>> ptep_get().
->>
->> But in case CONIFG_ARCH_HAS_HW_PTE=n __pte_from_hw() is still gets called.
->> That looks inconsistent to me. Why not just call ptep_deref() (see below)?
-> 
-> Agreed. Calling __pte_from_hw() directly exposes the representation
-> conversion at the call site. I will introduce ptep_deref() and use it
-> here.
-> 
->>
->>> There are only two users of __pte_from_hw() at this time. 
->>>
->>> ptep_get_sw() or ptep_get_deref() is better name here?
->>
->> ptep_deref() would be it.
->>
->> Do you agree to the suggested API requirements?
-> 
-> Yes. hw_pte_t * identifies storage containing hardware-formatted PTEs,
-> regardless of whether it is attached. ptep_get() is used for attached
-> entries and may provide additional architecture-specific handling.
-> ptep_deref() is used for unattached entries and performs only the raw
-> storage-to-value conversion.
-> 
-> For review, this patch would become:
-> 
-> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-> index bc0b9c65aa1d0..ce900d2652d91 100644
-> --- a/include/linux/hugetlb.h
-> +++ b/include/linux/hugetlb.h
-> @@ -1283,7 +1283,7 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
->  #ifdef CONFIG_MMU
->  	return ptep_get(ptep);
->  #else
-> -	return *ptep;
-> +	return ptep_deref(ptep);
->  #endif
+> Subject: RE: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
+>=20
+>=20
+> -----Original Message-----
+> From: Murthy, Arun R <arun.r.murthy@intel.com>
+> Sent: 25 February 2026 11:41
+> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
+> Cc: Deak, Imre <imre.deak@intel.com>; Kandpal, Suraj
+> <suraj.kandpal@intel.com>; Nikula, Jani <jani.nikula@intel.com>;
+> ville.syrjala@linux.intel.com; Murthy, Arun R <arun.r.murthy@intel.com>
+> Subject: [PATCHv3] drm/i915/dp: On DPCD init wake the DPRx for eDP
+>=20
+> Its observed that on AUX_CH failure, even if the retry is increased to 10=
+00, it
+> does not succeed. Either the command might be wrong or sink in an
+> unknown/sleep state can cause this. So try waking the sink device.
+> Before reading the DPCD caps wake the sink for eDP.
+>=20
+> v2: Use poll_timeout_us (Jani N)
+>     Add the reason, why this change is required (Ville)
+> v3: Wake sink only for eDP
+>     Remove the dpcd probe set to true/false in wake_sink (Imre)
+>=20
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4391
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16654
+> Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
+
+I think this reply messed up something in patchwork have a look. Moreover i=
+ts not building anymore.
+
+> ---
+>  drivers/gpu/drm/i915/display/intel_dp.c | 34 +++++++++++++++++++++++++
+> drivers/gpu/drm/i915/display/intel_dp.h |  1 +
+>  2 files changed, 35 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c
+> b/drivers/gpu/drm/i915/display/intel_dp.c
+> index 025e906b63a9..38ea4aad74de 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
+> @@ -4705,6 +4705,38 @@ intel_edp_set_sink_rates(struct intel_dp *intel_dp=
+)
+>  	intel_edp_set_data_override_rates(intel_dp);
 >  }
->  
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index 1768421755a9c..08613593f3320 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -490,6 +490,13 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
->  #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
->  #endif
->  
-> +#ifndef ptep_deref
-> +static inline pte_t ptep_deref(hw_pte_t *ptep)
-> +{
-> +	return __pte_from_hw(*ptep);
-> +}
-> +#endif
+>=20
+> +/* Spec says to try for 3 times, its doubled to add the software overhea=
+d */
+> +#define AUX_CH_WAKE_RETRY	6
 > +
->  #ifndef ptep_get
->  static inline pte_t ptep_get(hw_pte_t *ptep)
->  {
-> 
+> +void intel_dp_wake_sink(struct intel_dp *intel_dp) {
 
-I mean, how many such users do we expect? 1? :)
+Should this be renamed to intel_edp_wake_sink now that its used only for eD=
+P
+Also I think this function can be made static now.
 
-Why have a helper for that then, that seems to encourage it's use, when really
-people should be using ptep_get() ?
+> +	u8 value =3D 0;
+> +	int ret =3D 0;
+> +
+> +	/*
+> +	 * Wake the sink device
+> +	 * Spec DP2.1 section 2.3.1.2 if AUX CH is powered down by writing
+> 0x02
+> +	 * to DP_SET_POWER dpcd reg, 1ms time would be required to wake it
+> up
+> +	 */
+> +	ret =3D poll_timeout_us(ret =3D drm_dp_dpcd_readb(&intel_dp->aux,
+> DP_SET_POWER, &value),
 
--- 
-Cheers,
+So we have recently switched from using drm_dp_dpcd_read/writeb to drm_dp_d=
+pcd_read/write_byte I think you can have a look at usage and
+Replace it with that function here.
+Check https://lore.kernel.org/r/20250324-drm-rework-dpcd-access-v4-1-e80ff8=
+9593df@oss.qualcomm.com to see what that was required.
 
-David
+Regards,
+Suraj Kandpal
+
+> +			      ret > 0,
+> +			      1000, AUX_CH_WAKE_RETRY * 1000, true);
+> +
+> +	/*
+> +	 * If sink is in D3 then it may not respond to the AUX tx so
+> +	 * wake it up to D3_AUX_ON state
+> +	 * If the above poll_timeout_us fails, try waking the sink.
+> +	 */
+> +	if (value =3D=3D DP_SET_POWER_D3 || ret < 0) {
+> +		/* After setting to D0 need a min of 1ms to wake(Spec DP2.1
+> sec 2.3.1.2) */
+> +		drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER,
+> +				   DP_SET_POWER_D0);
+> +		fsleep(1000);
+> +		drm_dp_dpcd_writeb(&intel_dp->aux, DP_SET_POWER,
+> +				   DP_SET_POWER_D3_AUX_ON);
+> +	}
+> +}
+> +
+>  static bool
+>  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector
+> *connector)  { @@ -4713,6 +4745,8 @@ intel_edp_init_dpcd(struct intel_dp
+> *intel_dp, struct intel_connector *connector
+>  	/* this function is meant to be called only once */
+>  	drm_WARN_ON(display->drm, intel_dp->dpcd[DP_DPCD_REV] !=3D 0);
+>=20
+> +	intel_dp_wake_sink(intel_dp);
+> +
+>  	if (drm_dp_read_dpcd_caps(&intel_dp->aux, intel_dp->dpcd) !=3D 0)
+>  		return false;
+>=20
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp.h
+> b/drivers/gpu/drm/i915/display/intel_dp.h
+> index b0bbd5981f57..3f16077c0cc7 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp.h
+> +++ b/drivers/gpu/drm/i915/display/intel_dp.h
+> @@ -232,6 +232,7 @@ bool intel_dp_dotclk_valid(struct intel_display
+> *display,  bool intel_dp_joiner_candidate_valid(struct intel_connector
+> *connector,
+>  				     int hdisplay,
+>  				     int num_joined_pipes);
+> +void intel_dp_wake_sink(struct intel_dp *intel_dp);
+>=20
+>  #define for_each_joiner_candidate(__connector, __mode,
+> __num_joined_pipes) \
+>  	for ((__num_joined_pipes) =3D 1; (__num_joined_pipes) <=3D
+> (I915_MAX_PIPES); (__num_joined_pipes)++) \
+> --
+> 2.25.1
+
