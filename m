@@ -4,63 +4,153 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B5E0C5CFCF
-	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C414C5B56A
+	for <intel-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6FB510ED11;
-	Tue, 11 Aug 2026 17:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB6FF10ECF8;
+	Tue, 11 Aug 2026 17:24:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RwtTsqxY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="P7ck3EdC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27FB710E354;
- Tue, 11 Aug 2026 17:19:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24DC310ECF8;
+ Tue, 11 Aug 2026 17:24:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786468772; x=1818004772;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=dB4J/Nv3WuGmmfBNd66bKMTNfp9XIzBNbeiqYgA16WY=;
- b=RwtTsqxYTwXuaLtLN8Ll3FkFec82YWpypG71jWSpysodo7j7ZxTsv274
- jlcm5anYgg9X4xasMc+TNMYUzICzbFYhJGo94z63T6XYSoSbmn2szwMp0
- 2jzXPMDZbjkpwRni2gO45wYgZUPY1bfZlP1vJNe1vJgX5ZVc/kWyx0UP6
- wpfP4vavED1umKZtf9h5vlWnkm0z17HTYulCQr9fHED2ew1IHq75nCgrN
- y+uUZdSI27FFmIafm42h0bMUXpCBABNjuMWE5EZxJyAN6u+tqdvBe5ByJ
- 6CFOFsxUCmtV+mFX7cmnCU+0N0rcMlhCmH+YEMVav1cwlJZ85cMejoc2s A==;
-X-CSE-ConnectionGUID: 8r891Gf3SieCLxtAVdQVxQ==
-X-CSE-MsgGUID: DNne4IUIRPWsK2hhnO6yFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="98154207"
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="98154207"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 10:19:31 -0700
-X-CSE-ConnectionGUID: PR5REXJVTPS8rgy6i+hIlQ==
-X-CSE-MsgGUID: GksqVeWzQ+Oxt/wdXkcmOQ==
+ t=1786469072; x=1818005072;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=/OjXJtZ78pQTiA32g3jy71Z61Te+1CB3cRiWrAGLLfg=;
+ b=P7ck3EdC7CIc+WiO1TbhyFsYdq6aF+WsGk/t1+t/SKkt5AjbMxAzfnzy
+ Sztian3TZEcyCbcvLW9BWdI/Lk8yr9AiYOO60szlzD+W5lyj5MwL+0oPv
+ 3posif7JRvh5EAqmReMmMKSAZnxaJPFLWIL63Krvt7dA7/pXZa0K2870o
+ 77ztKVX/krKQvgdADa5lG9iEaC5TlCmDpvHEdJTl3e1cuxFp5EYcAyK75
+ Zvx3IIcsZ0s7n1ueisPfvU8QFTwfd0VBAS6ugCXv7S2hRr4nzZj+bKXkk
+ JQcHydEtshU5taEv8c5P8ELdd0GtPsjPQcEJQ+Thy7f4OdTHfzsK9GygM A==;
+X-CSE-ConnectionGUID: M3NfD5K8TvCJTJ/MXl5xgA==
+X-CSE-MsgGUID: Ms4QuVLxQseFOmy2ffCU5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86130982"
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="86130982"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 10:24:31 -0700
+X-CSE-ConnectionGUID: 9il815rOToyV3S4VxZbKrg==
+X-CSE-MsgGUID: mxHA6bN+Tw6LSmndAVkkEw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="267251230"
-Received: from abityuts-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.254])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Aug 2026 10:19:29 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Andi Shyti
- <andi.shyti@linux.intel.com>, Janusz Krzysztofik
- <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: Re: [RFC PATCH 1/7] drm/i915/selftests: Use drm_* prints in mock
- selftests
-In-Reply-To: <20260811133257.1133097-2-krzysztof.karas@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260811133257.1133097-1-krzysztof.karas@intel.com>
- <20260811133257.1133097-2-krzysztof.karas@intel.com>
-Date: Tue, 11 Aug 2026 20:19:25 +0300
-Message-ID: <695f6840ccb16f40d89829f88fe43ebfaf9d85a9@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; d="scan'208";a="267662709"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 11 Aug 2026 10:24:31 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 11 Aug 2026 10:24:31 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Tue, 11 Aug 2026 10:24:31 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.70) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 11 Aug 2026 10:24:30 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rhsPlkNFvt8Lrkh8I4h2omBTCX5Y9YgtqhdPBGKxAS2C7UsNVmekdjBEZxERzVmtO1ZsXTI24BJZtPC16qLeWu9TDhIvR8FX0HbZuEQItawNQ1W25lURsG05dVHGz/saaBOt/yLHckAT6jLMP5SzzaRN1SFuuWxUtmeeQB/JErIYyCh+2CkxJWpS0JMLsx1ULKMauxDooaVQKyVhGzeJaqAREHlXeIe8zeN0J1Ro5ywVu9h9TZ0ZPLxEwbcf3/IZCtcm/OJX5/gNuy04hqtYwEmi71S0YhxIAzFRAPns3RoEFgavFNhZf5fIgSNqnVYYnyCFYGjraHRvMXkluJ7QKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GmOkTSKzUpQR+dc8CPEmZReuzDvvv6Gas6Nrn67elQM=;
+ b=uScac6y7MVzRoaOD9dTQTaGajHtZOToL7606PySDmg1F8CjLZ6H49kSJUd7ColEoaItTLpj/Uyd/uADyKB0lfA/ynM35tMoXHUNxZkp7fGCMapuY+jtrFpr9LHYp1Z71hiY6tEIxZk+vrOyQ6K3qhKyhjFCUIbJONXue4rNu57h7HgGcaFikAXkkxXhAy7yebTs45dGlEM6ARInPWE6vIQ0LafJ2k7O7ltMrSKua6+X2RNmBPqN852NVV1dcV/HCn26maruIkeOjwncgCLMN/oLjWXoMadEd1HVHQJiuR/wWQjIcylvjSYt4vXBayQpICQCJcdA0MmfinVjw0sZMUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::5b) by LV3PR11MB8484.namprd11.prod.outlook.com
+ (2603:10b6:408:1b4::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 17:24:19 +0000
+Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
+ ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0292.024; Tue, 11 Aug 2026
+ 17:24:19 +0000
+From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+CC: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+Subject: RE: [PATCH 1/3] drm/i915/ddi: add helper to compute DDI clock
+ frequency
+Thread-Topic: [PATCH 1/3] drm/i915/ddi: add helper to compute DDI clock
+ frequency
+Thread-Index: AQHdKT0e4ew+bvlcj0Gkw8D0JLmR07aZFTsAgAAEnsA=
+Date: Tue, 11 Aug 2026 17:24:19 +0000
+Message-ID: <DS4PPFE901A304FCCE9D34427617C13435EE3DD2@DS4PPFE901A304F.namprd11.prod.outlook.com>
+References: <20260811025658.2376173-1-suraj.kandpal@intel.com>
+ <20260811025658.2376173-2-suraj.kandpal@intel.com>
+ <d76160985b70527e3ba2f2fb7cb772b83c5d26e3@intel.com>
+In-Reply-To: <d76160985b70527e3ba2f2fb7cb772b83c5d26e3@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|LV3PR11MB8484:EE_
+x-ms-office365-filtering-correlation-id: 963572bb-a677-40ef-6ad0-08def7cd609e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|4143699003|11063799006|10067099003|56012099006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: +Tj0VKDmus5WrD8OZytqT7s19qjRS2JWdGS8uHM/uEDeuiI6zOFzh6BKfPDodDSGW9IqQhwk/e3IElrGcXcJRhyG7T2IWMFIpf5xNoA4p7JF3o/pYGHHpxqPIoCncFqul3Duuq2CWDzt5U29U2XPP1cNUvT8sdWbAVqSzIY8dZgkT6Sea2erFpNEMehjm1cG8q9dOBA7wFUUQSitwvBLd4sdPrR1AsHAyp6PsPciUP0UakJJgN5A6Ru7E5EbSKXZpArAuOdywXj3z7kodHaaXGdFxXxs0v1L0YzLfR96BsFUWcoYcZG0a0PKbD4xEBPFkNYYHj8isfMqZEgkkx1gkBlnmrnbYl6S7kveOkcadQHSEqUqczxEtiN5xHuqiKUa+2gzqNxrWQrmu1FBszTsdeYHvRFIUqy/98WfW3Ba+LVAGYYo0ANjisoqktZCT6nCSw8aXUbc1qk6saftBDb6rv++NB6bDCXoz/ZjpKUkv6xCwxXpmxTlPaaUTWysBxL6Ld/SKLVMA2aMhDZ2+Od5Ae+rLU778tFz7nvOdbx35j5OwLsGdB1SwHjLhhqU0mhmmiBaZqH99m8Nytw6g9SnbrU4LPyHdQTiN4VZtTc6MuVHT/X5lAWPMmtUrF4ukMmDhRlqh37uhaFnq8FisWEtuIriDSHP3nuSPOw2Sr4I6+2RsBKeYi8yEFoUtG7ZzZD7FH2uAhaM2Hh2Lxd/6y2esJ2ducm5kanOx6G/v8fNZqs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(4143699003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?UXoPnxM3FPUXsOIxHbBtBxfjW16EeqU8F6IS79TDFcgQnwxQs+HSQaM6YLnm?=
+ =?us-ascii?Q?/rgMlJTwLFvOvJqbE3zsfsJP0jw0OpBFYZ/ULq4QD9TrYk9we5DbcJ8fQOS8?=
+ =?us-ascii?Q?QQn7/KEQTVOU7ipUfu5BTPBQ7rOTxzMB5brPtqWwDYap32tKmZR1Ql2+DNH7?=
+ =?us-ascii?Q?M3Etc360xBaZz71NVxacsRYy36xwgwBkNy6+LR//a1+AqZUPdlWLgrv4lNg3?=
+ =?us-ascii?Q?0wPnXRXVY8v3JifnqQnw2EIS6Iq+nyymDaDDKhNSI4i/yQcwR2Wqx2qKiIqU?=
+ =?us-ascii?Q?5xjJTZj7ZKzBgNIV6oAXqRZKoZ07KmYnUR6T3ZugutysIhgsIfyDEY8XJXm0?=
+ =?us-ascii?Q?37/P2uhMeJPheNWYMnV+S42aRkQLxdXtU1F4rh6UmzGI0HYitb9esI5k6ZNZ?=
+ =?us-ascii?Q?/P30WwXhq1ALyVK1ZU6zcnQx6xQTdX21Rm4eA1phvZc+qMFCML15xcL3m/MO?=
+ =?us-ascii?Q?Np5AhZqLpy4mIA5So7PDwTG8+g4ugVdiFAdWNXjTL3FIRuoeOT4kXVgOuMua?=
+ =?us-ascii?Q?VIblZIr/Jvel4cQbLLMB99EQ2kpqN8RGcLfl60aMkvr3xiwrOLCQdzrYuT7N?=
+ =?us-ascii?Q?pGu7UghaxbUxtxA2T5ExLS4QZPeKEPFkttgthp9hB5Pm8ie9zk07/q3O/4jA?=
+ =?us-ascii?Q?YmHZkTE7k2W6ikD8cKzmxu17dGkD0eTBR/DY2LlTzRq6F663qrV773F3dg7z?=
+ =?us-ascii?Q?Fh1FdIMqzGVM6eXuzDKRyD71hHgNrzOJ0YhRumFLd4hqaXJ13CKxJLNPRyNm?=
+ =?us-ascii?Q?bNiidbXwNYosqdr7YSiHoZNz5Vv3KSsJY5hcnBjpEF8xgXXMGo+6uEmZWyRo?=
+ =?us-ascii?Q?lfdueDlRCRptumALwYhThbZp/+RAAZ5Noo22CQs/jxaETVbgTgpSELptrFYs?=
+ =?us-ascii?Q?eMWdX35rqYFe9G9QcSJrPwaLxHphiOnsMX4d7v040tmERGyHVGUrtkTRLoqs?=
+ =?us-ascii?Q?UsRPQnq2AWs0LK4bCGBRzNTUWYmz7pUuCKM8KQWAHU6qsaxyQkbFp/f7KzlA?=
+ =?us-ascii?Q?oGDB9a5zusNxOQ/U90QwA7VSWn+C5BaZHv/nJk8Xl6sE/W3+WV8E2AVsTKGE?=
+ =?us-ascii?Q?GRITSthpV6PQJyqP5TJKO2E090upErLupvHADeBdke15Qo0ay2ejDcYxlAgD?=
+ =?us-ascii?Q?y7Imaawi9e7moKy8vnsv+hFLnrdvzAN+cJk7uN924DHpGa2f1JEIz7BOvGWo?=
+ =?us-ascii?Q?WpnP6tef4KNkCZsIx8Js8LYygyOMQvurueyPGqY4wF17TttX5p/7mgPTDqyb?=
+ =?us-ascii?Q?vs5lxO4AuSra1CXmeVKnJFgvJ5xW6DbRgZJOF+GLUapQEcdFBTZC+H8lhbJ1?=
+ =?us-ascii?Q?N04SwOjZIaLAYzEUk05cJPvP0D1jtJevTioN0EZqA8LTxTLyXH29GaXSNcY3?=
+ =?us-ascii?Q?Z9EfW5/RjjeW06Ckxzy3alKVmocDxaAO3/RlpI4j4aQFAeC23wMVqEr+QP0x?=
+ =?us-ascii?Q?Q4Hfv8CrbVVN1HbMGA9g91VXrgdPHpM2AommW+753o06wezcYdFXzA/28Gp/?=
+ =?us-ascii?Q?LDFHU41ZgdDyavQb7SjSmvqFATnRrTTZxkzOJO7GJMwVEm+BRVScVW58noLD?=
+ =?us-ascii?Q?4ONOPdB0YdY8EfUPOqhruHE/yXHOLfrZVOsnTqBhO1lfiXHgV/E8r7EFvZ3K?=
+ =?us-ascii?Q?ol6+gtLhYfayduwCfFmBnZM3+BOaAWJRFlolRhcEysKycWRgZ9DE4DPcdlNF?=
+ =?us-ascii?Q?20KxVKpnu7Y6i9g68OA/76IVKk2aJyhK2jUUFlF4BpKSq/GkB/iYsGA47e2I?=
+ =?us-ascii?Q?3A8CIPoOPA=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Exchange-RoutingPolicyChecked: pS4+8u4pT23K2JjVfdJ5if9h7lF4oiDGArGXY1NA43RVxtVMAH5rcttflo82Dc9MDvFhQneblYUecqRILY1E0t4kVoGrrZ1kVnjIkzK/vYr8L8DMgMXiVXLYQadYZp7s8aMuv2ueXGcLUm78YFYkWUNAQ+fU8337R857JCCtz/ab1dKOG3ZJBXvQBLn6wM+H3VEsBe/jnvyCQ3p0UyhqDBnDVE/JM7kYesrDRSzhbNgzWv2qM9Z73t25oPVFnuoG7KhkOx6us4fcUPsuz2LRKISuck/PlLpueZxoUz8tyFifTAtwtnYkvcq30Rz3VLDWSNuxC+rwvU7yho9yi8GF9A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 963572bb-a677-40ef-6ad0-08def7cd609e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 17:24:19.4195 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2UYc0OyfRNrY+bOpoYdaGZRcidFbF0cNiwSKcKuofivdUOqfKOI4N7Wjvr3hbih3D+/1jAyL3/MmyLL4BKm/rw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8484
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,1211 +166,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 11 Aug 2026, Krzysztof Karas <krzysztof.karas@intel.com> wrote:
-> Move away from generic pr prints to device context aware drm
-> versions.
+> Subject: Re: [PATCH 1/3] drm/i915/ddi: add helper to compute DDI clock
+> frequency
+>=20
+> On Tue, 11 Aug 2026, Suraj Kandpal <suraj.kandpal@intel.com> wrote:
+> > Add intel_ddi_link_symbol_clock() to return the DDI clock frequency
+> > for a given port clock:
+> >   DP 8b/10b : rate / 10
+>=20
+> rate
+>=20
+> >   DP 128b/132b (UHBR) : rate / 32
+>=20
+> (10/32) * rate
+>=20
+> >   HDMI FRL  : rate / 18
+>=20
+> (10/18) * rate
+>=20
+> >   HDMI TMDS : rate
+>=20
 
-Hmm, aren't these selftests independent of i915 (mock or real) and the
-hardware, and could, in theory, be converted to kunit?
+Sure will update these
 
-Does it make sense to introduce a dependency on mock i915 here? There's
-no device context to begin with, why introduce one?
+Regards,
+Suraj Kandpal
 
-(For the tests that do have a device context, the case is completely
-different, of course.)
-
-
-BR,
-Jani.
-
-
->
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
->  .../gpu/drm/i915/selftests/i915_sw_fence.c    | 124 +++++++----
->  drivers/gpu/drm/i915/selftests/i915_syncmap.c | 205 +++++++++++-------
->  drivers/gpu/drm/i915/selftests/scatterlist.c  |  75 +++++--
->  3 files changed, 256 insertions(+), 148 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-> index 6a305322e30d..ab753d4d3fd8 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
-> @@ -26,7 +26,11 @@
->  #include <linux/delay.h>
->  #include <linux/prime_numbers.h>
->  
-> +#include <drm/drm_print.h>
-> +
-> +#include "../i915_drv.h"
->  #include "../i915_selftest.h"
-> +#include "mock_gem_device.h"
->  
->  static int
->  fence_notify(struct i915_sw_fence *fence, enum i915_sw_fence_notify state)
-> @@ -95,6 +99,7 @@ static int test_self(void *arg)
->  
->  static int test_dag(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *A, *B, *C;
->  	int ret = -EINVAL;
->  
-> @@ -107,7 +112,7 @@ static int test_dag(void *arg)
->  		return -ENOMEM;
->  
->  	if (i915_sw_fence_await_sw_fence_gfp(A, A, GFP_KERNEL) != -EINVAL) {
-> -		pr_err("recursive cycle not detected (AA)\n");
-> +		drm_err(&i915->drm, "recursive cycle not detected (AA)\n");
->  		goto err_A;
->  	}
->  
-> @@ -119,7 +124,7 @@ static int test_dag(void *arg)
->  
->  	i915_sw_fence_await_sw_fence_gfp(A, B, GFP_KERNEL);
->  	if (i915_sw_fence_await_sw_fence_gfp(B, A, GFP_KERNEL) != -EINVAL) {
-> -		pr_err("single depth cycle not detected (BAB)\n");
-> +		drm_err(&i915->drm, "single depth cycle not detected (BAB)\n");
->  		goto err_B;
->  	}
->  
-> @@ -130,19 +135,19 @@ static int test_dag(void *arg)
->  	}
->  
->  	if (i915_sw_fence_await_sw_fence_gfp(B, C, GFP_KERNEL) == -EINVAL) {
-> -		pr_err("invalid cycle detected\n");
-> +		drm_err(&i915->drm, "invalid cycle detected\n");
->  		goto err_C;
->  	}
->  	if (i915_sw_fence_await_sw_fence_gfp(C, B, GFP_KERNEL) != -EINVAL) {
-> -		pr_err("single depth cycle not detected (CBC)\n");
-> +		drm_err(&i915->drm, "single depth cycle not detected (CBC)\n");
->  		goto err_C;
->  	}
->  	if (i915_sw_fence_await_sw_fence_gfp(C, A, GFP_KERNEL) != -EINVAL) {
-> -		pr_err("cycle not detected (BA, CB, AC)\n");
-> +		drm_err(&i915->drm, "cycle not detected (BA, CB, AC)\n");
->  		goto err_C;
->  	}
->  	if (i915_sw_fence_await_sw_fence_gfp(A, C, GFP_KERNEL) == -EINVAL) {
-> -		pr_err("invalid cycle detected\n");
-> +		drm_err(&i915->drm, "invalid cycle detected\n");
->  		goto err_C;
->  	}
->  
-> @@ -152,15 +157,15 @@ static int test_dag(void *arg)
->  
->  	ret = 0;
->  	if (!i915_sw_fence_done(C)) {
-> -		pr_err("fence C not done\n");
-> +		drm_err(&i915->drm, "fence C not done\n");
->  		ret = -EINVAL;
->  	}
->  	if (!i915_sw_fence_done(B)) {
-> -		pr_err("fence B not done\n");
-> +		drm_err(&i915->drm, "fence B not done\n");
->  		ret = -EINVAL;
->  	}
->  	if (!i915_sw_fence_done(A)) {
-> -		pr_err("fence A not done\n");
-> +		drm_err(&i915->drm, "fence A not done\n");
->  		ret = -EINVAL;
->  	}
->  err_C:
-> @@ -174,6 +179,7 @@ static int test_dag(void *arg)
->  
->  static int test_AB(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *A, *B;
->  	int ret;
->  
-> @@ -191,7 +197,8 @@ static int test_AB(void *arg)
->  	if (ret < 0)
->  		goto err_B;
->  	if (ret == 0) {
-> -		pr_err("Incorrectly reported fence A was complete before await\n");
-> +		drm_err(&i915->drm,
-> +			"Incorrectly reported fence A was complete before await\n");
->  		ret = -EINVAL;
->  		goto err_B;
->  	}
-> @@ -203,12 +210,12 @@ static int test_AB(void *arg)
->  
->  	i915_sw_fence_commit(B);
->  	if (!i915_sw_fence_done(B)) {
-> -		pr_err("Fence B is not done\n");
-> +		drm_err(&i915->drm, "Fence B is not done\n");
->  		goto err_B;
->  	}
->  
->  	if (!i915_sw_fence_done(A)) {
-> -		pr_err("Fence A is not done\n");
-> +		drm_err(&i915->drm, "Fence A is not done\n");
->  		goto err_B;
->  	}
->  
-> @@ -222,6 +229,7 @@ static int test_AB(void *arg)
->  
->  static int test_ABC(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *A, *B, *C;
->  	int ret;
->  
-> @@ -246,7 +254,8 @@ static int test_ABC(void *arg)
->  	if (ret < 0)
->  		goto err_C;
->  	if (ret == 0) {
-> -		pr_err("Incorrectly reported fence B was complete before await\n");
-> +		drm_err(&i915->drm,
-> +			"Incorrectly reported fence B was complete before await\n");
->  		goto err_C;
->  	}
->  
-> @@ -254,25 +263,27 @@ static int test_ABC(void *arg)
->  	if (ret < 0)
->  		goto err_C;
->  	if (ret == 0) {
-> -		pr_err("Incorrectly reported fence C was complete before await\n");
-> +		drm_err(&i915->drm,
-> +			"Incorrectly reported fence C was complete before await\n");
->  		goto err_C;
->  	}
->  
->  	ret = -EINVAL;
->  	i915_sw_fence_commit(A);
->  	if (i915_sw_fence_done(A)) {
-> -		pr_err("Fence A completed early\n");
-> +		drm_err(&i915->drm, "Fence A completed early\n");
->  		goto err_C;
->  	}
->  
->  	i915_sw_fence_commit(B);
->  	if (i915_sw_fence_done(B)) {
-> -		pr_err("Fence B completed early\n");
-> +		drm_err(&i915->drm, "Fence B completed early\n");
->  		goto err_C;
->  	}
->  
->  	if (i915_sw_fence_done(A)) {
-> -		pr_err("Fence A completed early (after signaling B)\n");
-> +		drm_err(&i915->drm,
-> +			"Fence A completed early (after signaling B)\n");
->  		goto err_C;
->  	}
->  
-> @@ -280,15 +291,15 @@ static int test_ABC(void *arg)
->  
->  	ret = 0;
->  	if (!i915_sw_fence_done(C)) {
-> -		pr_err("Fence C not done\n");
-> +		drm_err(&i915->drm, "Fence C not done\n");
->  		ret = -EINVAL;
->  	}
->  	if (!i915_sw_fence_done(B)) {
-> -		pr_err("Fence B not done\n");
-> +		drm_err(&i915->drm, "Fence B not done\n");
->  		ret = -EINVAL;
->  	}
->  	if (!i915_sw_fence_done(A)) {
-> -		pr_err("Fence A not done\n");
-> +		drm_err(&i915->drm, "Fence A not done\n");
->  		ret = -EINVAL;
->  	}
->  err_C:
-> @@ -302,6 +313,7 @@ static int test_ABC(void *arg)
->  
->  static int test_AB_C(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *A, *B, *C;
->  	int ret = -EINVAL;
->  
-> @@ -343,28 +355,28 @@ static int test_AB_C(void *arg)
->  
->  	ret = 0;
->  	if (i915_sw_fence_done(A)) {
-> -		pr_err("Fence A completed early\n");
-> +		drm_err(&i915->drm, "Fence A completed early\n");
->  		ret = -EINVAL;
->  	}
->  
->  	if (i915_sw_fence_done(B)) {
-> -		pr_err("Fence B completed early\n");
-> +		drm_err(&i915->drm, "Fence B completed early\n");
->  		ret = -EINVAL;
->  	}
->  
->  	i915_sw_fence_commit(C);
->  	if (!i915_sw_fence_done(C)) {
-> -		pr_err("Fence C not done\n");
-> +		drm_err(&i915->drm, "Fence C not done\n");
->  		ret = -EINVAL;
->  	}
->  
->  	if (!i915_sw_fence_done(B)) {
-> -		pr_err("Fence B not done\n");
-> +		drm_err(&i915->drm, "Fence B not done\n");
->  		ret = -EINVAL;
->  	}
->  
->  	if (!i915_sw_fence_done(A)) {
-> -		pr_err("Fence A not done\n");
-> +		drm_err(&i915->drm, "Fence A not done\n");
->  		ret = -EINVAL;
->  	}
->  
-> @@ -379,6 +391,7 @@ static int test_AB_C(void *arg)
->  
->  static int test_C_AB(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *A, *B, *C;
->  	int ret;
->  
-> @@ -424,17 +437,17 @@ static int test_C_AB(void *arg)
->  	i915_sw_fence_commit(B);
->  
->  	if (!i915_sw_fence_done(A)) {
-> -		pr_err("Fence A not done\n");
-> +		drm_err(&i915->drm, "Fence A not done\n");
->  		ret = -EINVAL;
->  	}
->  
->  	if (!i915_sw_fence_done(B)) {
-> -		pr_err("Fence B not done\n");
-> +		drm_err(&i915->drm, "Fence B not done\n");
->  		ret = -EINVAL;
->  	}
->  
->  	if (!i915_sw_fence_done(C)) {
-> -		pr_err("Fence C not done\n");
-> +		drm_err(&i915->drm, "Fence C not done\n");
->  		ret = -EINVAL;
->  	}
->  
-> @@ -449,6 +462,7 @@ static int test_C_AB(void *arg)
->  
->  static int test_chain(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	int nfences = 4096;
->  	struct i915_sw_fence **fences;
->  	int ret, i;
-> @@ -483,14 +497,14 @@ static int test_chain(void *arg)
->  	for (i = nfences; --i; ) {
->  		if (i915_sw_fence_done(fences[i])) {
->  			if (ret == 0)
-> -				pr_err("Fence[%d] completed early\n", i);
-> +				drm_err(&i915->drm, "Fence[%d] completed early\n", i);
->  			ret = -EINVAL;
->  		}
->  	}
->  	i915_sw_fence_commit(fences[0]);
->  	for (i = 0; ret == 0 && i < nfences; i++) {
->  		if (!i915_sw_fence_done(fences[i])) {
-> -			pr_err("Fence[%d] is not done\n", i);
-> +			drm_err(&i915->drm, "Fence[%d] is not done\n", i);
->  			ret = -EINVAL;
->  		}
->  	}
-> @@ -522,6 +536,7 @@ static void task_ipc(struct work_struct *work)
->  
->  static int test_ipc(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct task_ipc ipc;
->  	struct workqueue_struct *wq;
->  	int ret = 0;
-> @@ -553,7 +568,8 @@ static int test_ipc(void *arg)
->  
->  	usleep_range(1000, 2000);
->  	if (READ_ONCE(ipc.value)) {
-> -		pr_err("worker updated value before i915_sw_fence was signaled\n");
-> +		drm_err(&i915->drm,
-> +			"worker updated value before i915_sw_fence was signaled\n");
->  		ret = -EINVAL;
->  	}
->  
-> @@ -561,7 +577,8 @@ static int test_ipc(void *arg)
->  	i915_sw_fence_wait(ipc.out);
->  
->  	if (!READ_ONCE(ipc.value)) {
-> -		pr_err("worker signaled i915_sw_fence before value was posted\n");
-> +		drm_err(&i915->drm,
-> +			"worker signaled i915_sw_fence before value was posted\n");
->  		ret = -EINVAL;
->  	}
->  
-> @@ -578,13 +595,15 @@ static int test_ipc(void *arg)
->  
->  static int test_timer(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	unsigned long target, delay;
->  	struct timed_fence tf;
->  
->  	preempt_disable();
->  	timed_fence_init(&tf, target = jiffies);
->  	if (!i915_sw_fence_done(&tf.fence)) {
-> -		pr_err("Fence with immediate expiration not signaled\n");
-> +		drm_err(&i915->drm,
-> +			"Fence with immediate expiration not signaled\n");
->  		goto err;
->  	}
->  	preempt_enable();
-> @@ -594,7 +613,9 @@ static int test_timer(void *arg)
->  		preempt_disable();
->  		timed_fence_init(&tf, target = jiffies + delay);
->  		if (i915_sw_fence_done(&tf.fence)) {
-> -			pr_err("Fence with future expiration (%lu jiffies) already signaled\n", delay);
-> +			drm_err(&i915->drm,
-> +				"Fence with future expiration (%lu jiffies) already signaled\n",
-> +				delay);
->  			goto err;
->  		}
->  		preempt_enable();
-> @@ -603,12 +624,13 @@ static int test_timer(void *arg)
->  
->  		preempt_disable();
->  		if (!i915_sw_fence_done(&tf.fence)) {
-> -			pr_err("Fence not signaled after wait\n");
-> +			drm_err(&i915->drm, "Fence not signaled after wait\n");
->  			goto err;
->  		}
->  		if (time_before(jiffies, target)) {
-> -			pr_err("Fence signaled too early, target=%lu, now=%lu\n",
-> -			       target, jiffies);
-> +			drm_err(&i915->drm,
-> +				"Fence signaled too early, target=%lu, now=%lu\n",
-> +				target, jiffies);
->  			goto err;
->  		}
->  		preempt_enable();
-> @@ -668,6 +690,7 @@ wrap_dma_fence(struct dma_fence *dma, unsigned long delay)
->  
->  static int test_dma_fence(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_sw_fence *timeout = NULL, *not = NULL;
->  	unsigned long delay = i915_selftest.timeout_jiffies;
->  	unsigned long end, sleep;
-> @@ -692,7 +715,7 @@ static int test_dma_fence(void *arg)
->  
->  	err = -EINVAL;
->  	if (i915_sw_fence_done(timeout) || i915_sw_fence_done(not)) {
-> -		pr_err("Fences immediately signaled\n");
-> +		drm_err(&i915->drm, "Fences immediately signaled\n");
->  		goto err;
->  	}
->  
-> @@ -702,25 +725,26 @@ static int test_dma_fence(void *arg)
->  	sleep = jiffies_to_usecs(delay) / 3;
->  	usleep_range(sleep, 2 * sleep);
->  	if (time_after(jiffies, end)) {
-> -		pr_debug("Slept too long, delay=%lu, (target=%lu, now=%lu) skipping\n",
-> -			 delay, end, jiffies);
-> +		drm_dbg(&i915->drm,
-> +			"Slept too long, delay=%lu, (target=%lu, now=%lu) skipping\n",
-> +			delay, end, jiffies);
->  		goto skip;
->  	}
->  
->  	if (i915_sw_fence_done(timeout) || i915_sw_fence_done(not)) {
-> -		pr_err("Fences signaled too early\n");
-> +		drm_err(&i915->drm, "Fences signaled too early\n");
->  		goto err;
->  	}
->  
->  	if (!wait_event_timeout(timeout->wait,
->  				i915_sw_fence_done(timeout),
->  				2 * (end - jiffies) + 1)) {
-> -		pr_err("Timeout fence unsignaled!\n");
-> +		drm_err(&i915->drm, "Timeout fence unsignaled!\n");
->  		goto err;
->  	}
->  
->  	if (i915_sw_fence_done(not)) {
-> -		pr_err("No timeout fence signaled!\n");
-> +		drm_err(&i915->drm, "No timeout fence signaled!\n");
->  		goto err;
->  	}
->  
-> @@ -728,7 +752,7 @@ static int test_dma_fence(void *arg)
->  	dma_fence_signal(dma);
->  
->  	if (!i915_sw_fence_done(timeout) || !i915_sw_fence_done(not)) {
-> -		pr_err("Fences unsignaled\n");
-> +		drm_err(&i915->drm, "Fences unsignaled\n");
->  		goto err;
->  	}
->  
-> @@ -750,6 +774,9 @@ static int test_dma_fence(void *arg)
->  
->  int i915_sw_fence_mock_selftests(void)
->  {
-> +	struct drm_i915_private *i915;
-> +	int err;
-> +
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(test_self),
->  		SUBTEST(test_dag),
-> @@ -763,5 +790,12 @@ int i915_sw_fence_mock_selftests(void)
->  		SUBTEST(test_dma_fence),
->  	};
->  
-> -	return i915_subtests(tests, NULL);
-> +	i915 = mock_gem_device();
-> +	if (IS_ERR(i915))
-> +		return PTR_ERR(i915);
-> +
-> +	err = i915_subtests(tests, i915);
-> +	mock_destroy_device(i915);
-> +
-> +	return err;
->  }
-> diff --git a/drivers/gpu/drm/i915/selftests/i915_syncmap.c b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-> index 88fa845e9f4a..30637c32c319 100644
-> --- a/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-> +++ b/drivers/gpu/drm/i915/selftests/i915_syncmap.c
-> @@ -23,7 +23,11 @@
->   */
->  
->  #include "../i915_selftest.h"
-> +#include "../i915_drv.h"
->  #include "i915_random.h"
-> +#include "mock_gem_device.h"
-> +
-> +#include <drm/drm_print.h>
->  
->  static char *
->  __sync_print(struct i915_syncmap *p,
-> @@ -98,30 +102,32 @@ i915_syncmap_print_to_buf(struct i915_syncmap *p, char *buf, unsigned long sz)
->  	return true;
->  }
->  
-> -static int check_syncmap_free(struct i915_syncmap **sync)
-> +static int check_syncmap_free(struct i915_syncmap **sync,
-> +			      struct drm_i915_private *i915)
->  {
->  	i915_syncmap_free(sync);
->  	if (*sync) {
-> -		pr_err("sync not cleared after free\n");
-> +		drm_err(&i915->drm, "sync not cleared after free\n");
->  		return -EINVAL;
->  	}
->  
->  	return 0;
->  }
->  
-> -static int dump_syncmap(struct i915_syncmap *sync, int err)
-> +static int dump_syncmap(struct i915_syncmap *sync, int err,
-> +			struct drm_i915_private *i915)
->  {
->  	char *buf;
->  
->  	if (!err)
-> -		return check_syncmap_free(&sync);
-> +		return check_syncmap_free(&sync, i915);
->  
->  	buf = kmalloc(PAGE_SIZE, GFP_KERNEL);
->  	if (!buf)
->  		goto skip;
->  
->  	if (i915_syncmap_print_to_buf(sync, buf, PAGE_SIZE))
-> -		pr_err("%s", buf);
-> +		drm_err(&i915->drm, "%s", buf);
->  
->  	kfree(buf);
->  
-> @@ -132,6 +138,7 @@ static int dump_syncmap(struct i915_syncmap *sync, int err)
->  
->  static int igt_syncmap_init(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_syncmap *sync = (void *)~0ul;
->  
->  	/*
-> @@ -140,27 +147,29 @@ static int igt_syncmap_init(void *arg)
->  	 */
->  
->  	i915_syncmap_init(&sync);
-> -	return check_syncmap_free(&sync);
-> +	return check_syncmap_free(&sync, i915);
->  }
->  
-> -static int check_seqno(struct i915_syncmap *leaf, unsigned int idx, u32 seqno)
-> +static int check_seqno(struct i915_syncmap *leaf, unsigned int idx, u32 seqno,
-> +		       struct drm_i915_private *i915)
->  {
->  	if (leaf->height) {
-> -		pr_err("%s: not a leaf, height is %d\n",
-> -		       __func__, leaf->height);
-> +		drm_err(&i915->drm, "%s: not a leaf, height is %d\n",
-> +			__func__, leaf->height);
->  		return -EINVAL;
->  	}
->  
->  	if (__sync_seqno(leaf)[idx] != seqno) {
-> -		pr_err("%s: seqno[%d], found %x, expected %x\n",
-> -		       __func__, idx, __sync_seqno(leaf)[idx], seqno);
-> +		drm_err(&i915->drm, "%s: seqno[%d], found %x, expected %x\n",
-> +			__func__, idx, __sync_seqno(leaf)[idx], seqno);
->  		return -EINVAL;
->  	}
->  
->  	return 0;
->  }
->  
-> -static int check_one(struct i915_syncmap **sync, u64 context, u32 seqno)
-> +static int check_one(struct i915_syncmap **sync, u64 context, u32 seqno,
-> +		     struct drm_i915_private *i915)
->  {
->  	int err;
->  
-> @@ -169,30 +178,33 @@ static int check_one(struct i915_syncmap **sync, u64 context, u32 seqno)
->  		return err;
->  
->  	if ((*sync)->height) {
-> -		pr_err("Inserting first context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> -		       context, (*sync)->height, (*sync)->prefix);
-> +		drm_err(&i915->drm,
-> +			"Inserting first context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> +			context, (*sync)->height, (*sync)->prefix);
->  		return -EINVAL;
->  	}
->  
->  	if ((*sync)->parent) {
-> -		pr_err("Inserting first context=%llx created branches!\n",
-> -		       context);
-> +		drm_err(&i915->drm,
-> +			"Inserting first context=%llx created branches!\n", context);
->  		return -EINVAL;
->  	}
->  
->  	if (hweight32((*sync)->bitmap) != 1) {
-> -		pr_err("First bitmap does not contain a single entry, found %x (count=%d)!\n",
-> -		       (*sync)->bitmap, hweight32((*sync)->bitmap));
-> +		drm_err(&i915->drm,
-> +			"First bitmap does not contain a single entry, found %x (count=%d)!\n",
-> +			(*sync)->bitmap, hweight32((*sync)->bitmap));
->  		return -EINVAL;
->  	}
->  
-> -	err = check_seqno((*sync), ilog2((*sync)->bitmap), seqno);
-> +	err = check_seqno((*sync), ilog2((*sync)->bitmap), seqno, i915);
->  	if (err)
->  		return err;
->  
->  	if (!i915_syncmap_is_later(sync, context, seqno)) {
-> -		pr_err("Lookup of first context=%llx/seqno=%x failed!\n",
-> -		       context, seqno);
-> +		drm_err(&i915->drm,
-> +			"Lookup of first context=%llx/seqno=%x failed!\n",
-> +			context, seqno);
->  		return -EINVAL;
->  	}
->  
-> @@ -201,6 +213,7 @@ static int check_one(struct i915_syncmap **sync, u64 context, u32 seqno)
->  
->  static int igt_syncmap_one(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	I915_RND_STATE(prng);
->  	IGT_TIMEOUT(end_time);
->  	struct i915_syncmap *sync;
-> @@ -217,25 +230,26 @@ static int igt_syncmap_one(void *arg)
->  		u64 context = i915_prandom_u64_state(&prng);
->  		unsigned long loop;
->  
-> -		err = check_syncmap_free(&sync);
-> +		err = check_syncmap_free(&sync, i915);
->  		if (err)
->  			goto out;
->  
->  		for (loop = 0; loop <= max; loop++) {
->  			err = check_one(&sync, context,
-> -					prandom_u32_state(&prng));
-> +					prandom_u32_state(&prng), i915);
->  			if (err)
->  				goto out;
->  		}
->  		max++;
->  	} while (!__igt_timeout(end_time, NULL));
-> -	pr_debug("%s: Completed %lu single insertions\n",
-> -		 __func__, max * (max - 1) / 2);
-> +	drm_dbg(&i915->drm, "%s: Completed %lu single insertions\n",
-> +		__func__, max * (max - 1) / 2);
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
-> -static int check_leaf(struct i915_syncmap **sync, u64 context, u32 seqno)
-> +static int check_leaf(struct i915_syncmap **sync, u64 context, u32 seqno,
-> +		      struct drm_i915_private *i915)
->  {
->  	int err;
->  
-> @@ -244,24 +258,27 @@ static int check_leaf(struct i915_syncmap **sync, u64 context, u32 seqno)
->  		return err;
->  
->  	if ((*sync)->height) {
-> -		pr_err("Inserting context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> -		       context, (*sync)->height, (*sync)->prefix);
-> +		drm_err(&i915->drm,
-> +			"Inserting context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> +			context, (*sync)->height, (*sync)->prefix);
->  		return -EINVAL;
->  	}
->  
->  	if (hweight32((*sync)->bitmap) != 1) {
-> -		pr_err("First entry into leaf (context=%llx) does not contain a single entry, found %x (count=%d)!\n",
-> -		       context, (*sync)->bitmap, hweight32((*sync)->bitmap));
-> +		drm_err(&i915->drm,
-> +			"First entry into leaf (context=%llx) does not contain a single entry, found %x (count=%d)!\n",
-> +			context, (*sync)->bitmap, hweight32((*sync)->bitmap));
->  		return -EINVAL;
->  	}
->  
-> -	err = check_seqno((*sync), ilog2((*sync)->bitmap), seqno);
-> +	err = check_seqno((*sync), ilog2((*sync)->bitmap), seqno, i915);
->  	if (err)
->  		return err;
->  
->  	if (!i915_syncmap_is_later(sync, context, seqno)) {
-> -		pr_err("Lookup of first entry context=%llx/seqno=%x failed!\n",
-> -		       context, seqno);
-> +		drm_err(&i915->drm,
-> +			"Lookup of first entry context=%llx/seqno=%x failed!\n",
-> +			context, seqno);
->  		return -EINVAL;
->  	}
->  
-> @@ -270,6 +287,7 @@ static int check_leaf(struct i915_syncmap **sync, u64 context, u32 seqno)
->  
->  static int igt_syncmap_join_above(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_syncmap *sync;
->  	unsigned int pass, order;
->  	int err;
-> @@ -297,7 +315,7 @@ static int igt_syncmap_join_above(void *arg)
->  			u64 context = BIT_ULL(order);
->  			struct i915_syncmap *join;
->  
-> -			err = check_leaf(&sync, context, 0);
-> +			err = check_leaf(&sync, context, 0, i915);
->  			if (err)
->  				goto out;
->  
-> @@ -306,31 +324,33 @@ static int igt_syncmap_join_above(void *arg)
->  				continue;
->  
->  			if (!join->height) {
-> -				pr_err("Parent with no height!\n");
-> +				drm_err(&i915->drm, "Parent with no height!\n");
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (hweight32(join->bitmap) != 2) {
-> -				pr_err("Join does not have 2 children: %x (%d)\n",
-> -				       join->bitmap, hweight32(join->bitmap));
-> +				drm_err(&i915->drm,
-> +					"Join does not have 2 children: %x (%d)\n",
-> +					join->bitmap, hweight32(join->bitmap));
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (__sync_child(join)[__sync_branch_idx(join, context)] != sync) {
-> -				pr_err("Leaf misplaced in parent!\n");
-> +				drm_err(&i915->drm, "Leaf misplaced in parent!\n");
->  				err = -EINVAL;
->  				goto out;
->  			}
->  		}
->  	}
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
->  static int igt_syncmap_join_below(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_syncmap *sync;
->  	unsigned int step, order, idx;
->  	int err = -ENODEV;
-> @@ -350,8 +370,9 @@ static int igt_syncmap_join_below(void *arg)
->  				goto out;
->  
->  			if (sync->height) {
-> -				pr_err("Inserting context=%llx (order=%d, step=%d) did not return leaf (height=%d, prefix=%llx\n",
-> -				       context, order, step, sync->height, sync->prefix);
-> +				drm_err(&i915->drm,
-> +					"Inserting context=%llx (order=%d, step=%d) did not return leaf (height=%d, prefix=%llx\n",
-> +					context, order, step, sync->height, sync->prefix);
->  				err = -EINVAL;
->  				goto out;
->  			}
-> @@ -363,16 +384,18 @@ static int igt_syncmap_join_below(void *arg)
->  			u64 context = step * BIT_ULL(order);
->  
->  			if (!i915_syncmap_is_later(&sync, context, 0)) {
-> -				pr_err("1: context %llx (order=%d, step=%d) not found\n",
-> -				       context, order, step);
-> +				drm_err(&i915->drm,
-> +					"1: context %llx (order=%d, step=%d) not found\n",
-> +					context, order, step);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			for (idx = 1; idx < KSYNCMAP; idx++) {
->  				if (i915_syncmap_is_later(&sync, context + idx, 0)) {
-> -					pr_err("1: context %llx (order=%d, step=%d) should not exist\n",
-> -					       context + idx, order, step);
-> +					drm_err(&i915->drm,
-> +						"1: context %llx (order=%d, step=%d) should not exist\n",
-> +						context + idx, order, step);
->  					err = -EINVAL;
->  					goto out;
->  				}
-> @@ -385,8 +408,9 @@ static int igt_syncmap_join_below(void *arg)
->  			u64 context = step * BIT_ULL(order);
->  
->  			if (!i915_syncmap_is_later(&sync, context, 0)) {
-> -				pr_err("2: context %llx (order=%d, step=%d) not found\n",
-> -				       context, order, step);
-> +				drm_err(&i915->drm,
-> +					"2: context %llx (order=%d, step=%d) not found\n",
-> +					context, order, step);
->  				err = -EINVAL;
->  				goto out;
->  			}
-> @@ -394,11 +418,12 @@ static int igt_syncmap_join_below(void *arg)
->  	}
->  
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
->  static int igt_syncmap_neighbours(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	I915_RND_STATE(prng);
->  	IGT_TIMEOUT(end_time);
->  	struct i915_syncmap *sync;
-> @@ -423,28 +448,31 @@ static int igt_syncmap_neighbours(void *arg)
->  				goto out;
->  
->  			if (sync->height) {
-> -				pr_err("Inserting context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> -				       context, sync->height, sync->prefix);
-> +				drm_err(&i915->drm,
-> +					"Inserting context=%llx did not return leaf (height=%d, prefix=%llx\n",
-> +					context, sync->height, sync->prefix);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (sync->bitmap != BIT(idx + 1) - 1) {
-> -				pr_err("Inserting neighbouring context=0x%llx+%d, did not fit into the same leaf bitmap=%x (%d), expected %lx (%d)\n",
-> -				       context, idx,
-> -				       sync->bitmap, hweight32(sync->bitmap),
-> -				       BIT(idx + 1) - 1, idx + 1);
-> +				drm_err(&i915->drm,
-> +					"Inserting neighbouring context=0x%llx+%d, did not fit into the same leaf bitmap=%x (%d), expected %lx (%d)\n",
-> +					context, idx,
-> +					sync->bitmap, hweight32(sync->bitmap),
-> +					BIT(idx + 1) - 1, idx + 1);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  		}
->  	} while (!__igt_timeout(end_time, NULL));
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
->  static int igt_syncmap_compact(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	struct i915_syncmap *sync;
->  	unsigned int idx, order;
->  	int err = -ENODEV;
-> @@ -460,7 +488,7 @@ static int igt_syncmap_compact(void *arg)
->  	 * leaf holding the single id.
->  	 */
->  	for (order = SHIFT; order < 64; order += SHIFT) {
-> -		err = check_syncmap_free(&sync);
-> +		err = check_syncmap_free(&sync, i915);
->  		if (err)
->  			goto out;
->  
-> @@ -473,9 +501,10 @@ static int igt_syncmap_compact(void *arg)
->  				goto out;
->  
->  			if (sync->height) {
-> -				pr_err("Inserting context=%llx (order=%d, idx=%d) did not return leaf (height=%d, prefix=%llx\n",
-> -				       context, order, idx,
-> -				       sync->height, sync->prefix);
-> +				drm_err(&i915->drm,
-> +					"Inserting context=%llx (order=%d, idx=%d) did not return leaf (height=%d, prefix=%llx\n",
-> +					context, order, idx,
-> +					sync->height, sync->prefix);
->  				err = -EINVAL;
->  				goto out;
->  			}
-> @@ -483,22 +512,25 @@ static int igt_syncmap_compact(void *arg)
->  
->  		sync = sync->parent;
->  		if (sync->parent) {
-> -			pr_err("Parent (join) of last leaf was not the sync!\n");
-> +			drm_err(&i915->drm,
-> +				"Parent (join) of last leaf was not the sync!\n");
->  			err = -EINVAL;
->  			goto out;
->  		}
->  
->  		if (sync->height != order) {
-> -			pr_err("Join does not have the expected height, found %d, expected %d\n",
-> -			       sync->height, order);
-> +			drm_err(&i915->drm,
-> +				"Join does not have the expected height, found %d, expected %d\n",
-> +				sync->height, order);
->  			err = -EINVAL;
->  			goto out;
->  		}
->  
->  		if (sync->bitmap != BIT(KSYNCMAP) - 1) {
-> -			pr_err("Join is not full!, found %x (%d) expected %lx (%d)\n",
-> -			       sync->bitmap, hweight32(sync->bitmap),
-> -			       BIT(KSYNCMAP) - 1, KSYNCMAP);
-> +			drm_err(&i915->drm,
-> +				"Join is not full!, found %x (%d) expected %lx (%d)\n",
-> +				sync->bitmap, hweight32(sync->bitmap),
-> +				BIT(KSYNCMAP) - 1, KSYNCMAP);
->  			err = -EINVAL;
->  			goto out;
->  		}
-> @@ -508,39 +540,42 @@ static int igt_syncmap_compact(void *arg)
->  			struct i915_syncmap *leaf = __sync_child(sync)[idx];
->  
->  			if (leaf->height) {
-> -				pr_err("Child %d is a not leaf!\n", idx);
-> +				drm_err(&i915->drm, "Child %d is a not leaf!\n", idx);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (leaf->parent != sync) {
-> -				pr_err("Child %d is not attached to us!\n",
-> -				       idx);
-> +				drm_err(&i915->drm,
-> +					"Child %d is not attached to us!\n", idx);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (!is_power_of_2(leaf->bitmap)) {
-> -				pr_err("Child %d holds more than one id, found %x (%d)\n",
-> -				       idx, leaf->bitmap, hweight32(leaf->bitmap));
-> +				drm_err(&i915->drm,
-> +					"Child %d holds more than one id, found %x (%d)\n",
-> +					idx, leaf->bitmap, hweight32(leaf->bitmap));
->  				err = -EINVAL;
->  				goto out;
->  			}
->  
->  			if (leaf->bitmap != BIT(idx)) {
-> -				pr_err("Child %d has wrong seqno idx, found %d, expected %d\n",
-> -				       idx, ilog2(leaf->bitmap), idx);
-> +				drm_err(&i915->drm,
-> +					"Child %d has wrong seqno idx, found %d, expected %d\n",
-> +					idx, ilog2(leaf->bitmap), idx);
->  				err = -EINVAL;
->  				goto out;
->  			}
->  		}
->  	}
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
->  static int igt_syncmap_random(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	I915_RND_STATE(prng);
->  	IGT_TIMEOUT(end_time);
->  	struct i915_syncmap *sync;
-> @@ -582,8 +617,9 @@ static int igt_syncmap_random(void *arg)
->  			u64 context = i915_prandom_u64_state(&ctx);
->  
->  			if (i915_syncmap_is_later(&sync, context, seqno) != expect) {
-> -				pr_err("context=%llu, last=%u this=%u did not match expectation (%d)\n",
-> -				       context, last_seqno, seqno, expect);
-> +				drm_err(&i915->drm,
-> +					"context=%llu, last=%u this=%u did not match expectation (%d)\n",
-> +					context, last_seqno, seqno, expect);
->  				err = -EINVAL;
->  				goto out;
->  			}
-> @@ -595,13 +631,17 @@ static int igt_syncmap_random(void *arg)
->  
->  		phase++;
->  	} while (!__igt_timeout(end_time, NULL));
-> -	pr_debug("Completed %lu passes, each of %lu contexts\n", phase, count);
-> +	drm_dbg(&i915->drm, "Completed %lu passes, each of %lu contexts\n",
-> +		phase, count);
->  out:
-> -	return dump_syncmap(sync, err);
-> +	return dump_syncmap(sync, err, i915);
->  }
->  
->  int i915_syncmap_mock_selftests(void)
->  {
-> +	struct drm_i915_private *i915;
-> +	int err;
-> +
->  	static const struct i915_subtest tests[] = {
->  		SUBTEST(igt_syncmap_init),
->  		SUBTEST(igt_syncmap_one),
-> @@ -612,5 +652,12 @@ int i915_syncmap_mock_selftests(void)
->  		SUBTEST(igt_syncmap_random),
->  	};
->  
-> -	return i915_subtests(tests, NULL);
-> +	i915 = mock_gem_device();
-> +	if (IS_ERR(i915))
-> +		return PTR_ERR(i915);
-> +
-> +	err = i915_subtests(tests, i915);
-> +	mock_destroy_device(i915);
-> +
-> +	return err;
->  }
-> diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
-> index 7e59591bbed6..3228bdcea1f2 100644
-> --- a/drivers/gpu/drm/i915/selftests/scatterlist.c
-> +++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
-> @@ -24,8 +24,12 @@
->  #include <linux/prime_numbers.h>
->  #include <linux/prandom.h>
->  
-> +#include <drm/drm_print.h>
-> +
-> +#include "i915_drv.h"
->  #include "i915_selftest.h"
->  #include "i915_utils.h"
-> +#include "mock_gem_device.h"
->  
->  #define PFN_BIAS (1 << 10)
->  
-> @@ -39,6 +43,7 @@ typedef unsigned int (*npages_fn_t)(unsigned long n,
->  				    struct rnd_state *rnd);
->  
->  static noinline int expect_pfn_sg(struct pfn_table *pt,
-> +				  struct drm_i915_private *i915,
->  				  npages_fn_t npages_fn,
->  				  struct rnd_state *rnd,
->  				  const char *who,
-> @@ -53,14 +58,16 @@ static noinline int expect_pfn_sg(struct pfn_table *pt,
->  		unsigned int npages = npages_fn(n, pt->st.nents, rnd);
->  
->  		if (page_to_pfn(page) != pfn) {
-> -			pr_err("%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sg)\n",
-> -			       __func__, who, pfn, page_to_pfn(page));
-> +			drm_err(&i915->drm,
-> +				"%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sg)\n",
-> +				__func__, who, pfn, page_to_pfn(page));
->  			return -EINVAL;
->  		}
->  
->  		if (sg->length != npages * PAGE_SIZE) {
-> -			pr_err("%s: %s copied wrong sg length, expected size %lu, found %u (using for_each_sg)\n",
-> -			       __func__, who, npages * PAGE_SIZE, sg->length);
-> +			drm_err(&i915->drm,
-> +				"%s: %s copied wrong sg length, expected size %lu, found %u (using for_each_sg)\n",
-> +				__func__, who, npages * PAGE_SIZE, sg->length);
->  			return -EINVAL;
->  		}
->  
-> @@ -70,8 +77,9 @@ static noinline int expect_pfn_sg(struct pfn_table *pt,
->  		pfn += npages;
->  	}
->  	if (pfn != pt->end) {
-> -		pr_err("%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> -		       __func__, who, pt->end, pfn);
-> +		drm_err(&i915->drm,
-> +			"%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> +			__func__, who, pt->end, pfn);
->  		return -EINVAL;
->  	}
->  
-> @@ -79,6 +87,7 @@ static noinline int expect_pfn_sg(struct pfn_table *pt,
->  }
->  
->  static noinline int expect_pfn_sg_page_iter(struct pfn_table *pt,
-> +					    struct drm_i915_private *i915,
->  					    const char *who,
->  					    unsigned long timeout)
->  {
-> @@ -90,8 +99,9 @@ static noinline int expect_pfn_sg_page_iter(struct pfn_table *pt,
->  		struct page *page = sg_page_iter_page(&sgiter);
->  
->  		if (page != pfn_to_page(pfn)) {
-> -			pr_err("%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sg_page)\n",
-> -			       __func__, who, pfn, page_to_pfn(page));
-> +			drm_err(&i915->drm,
-> +				"%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sg_page)\n",
-> +				__func__, who, pfn, page_to_pfn(page));
->  			return -EINVAL;
->  		}
->  
-> @@ -101,8 +111,9 @@ static noinline int expect_pfn_sg_page_iter(struct pfn_table *pt,
->  		pfn++;
->  	}
->  	if (pfn != pt->end) {
-> -		pr_err("%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> -		       __func__, who, pt->end, pfn);
-> +		drm_err(&i915->drm,
-> +			"%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> +			__func__, who, pt->end, pfn);
->  		return -EINVAL;
->  	}
->  
-> @@ -110,6 +121,7 @@ static noinline int expect_pfn_sg_page_iter(struct pfn_table *pt,
->  }
->  
->  static noinline int expect_pfn_sgtiter(struct pfn_table *pt,
-> +				       struct drm_i915_private *i915,
->  				       const char *who,
->  				       unsigned long timeout)
->  {
-> @@ -120,8 +132,9 @@ static noinline int expect_pfn_sgtiter(struct pfn_table *pt,
->  	pfn = pt->start;
->  	for_each_sgt_page(page, sgt, &pt->st) {
->  		if (page != pfn_to_page(pfn)) {
-> -			pr_err("%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sgt_page)\n",
-> -			       __func__, who, pfn, page_to_pfn(page));
-> +			drm_err(&i915->drm,
-> +				"%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sgt_page)\n",
-> +				__func__, who, pfn, page_to_pfn(page));
->  			return -EINVAL;
->  		}
->  
-> @@ -131,8 +144,9 @@ static noinline int expect_pfn_sgtiter(struct pfn_table *pt,
->  		pfn++;
->  	}
->  	if (pfn != pt->end) {
-> -		pr_err("%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> -		       __func__, who, pt->end, pfn);
-> +		drm_err(&i915->drm,
-> +			"%s: %s finished on wrong pfn, expected %lu, found %lu\n",
-> +			__func__, who, pt->end, pfn);
->  		return -EINVAL;
->  	}
->  
-> @@ -140,6 +154,7 @@ static noinline int expect_pfn_sgtiter(struct pfn_table *pt,
->  }
->  
->  static int expect_pfn_sgtable(struct pfn_table *pt,
-> +			      struct drm_i915_private *i915,
->  			      npages_fn_t npages_fn,
->  			      struct rnd_state *rnd,
->  			      const char *who,
-> @@ -147,15 +162,15 @@ static int expect_pfn_sgtable(struct pfn_table *pt,
->  {
->  	int err;
->  
-> -	err = expect_pfn_sg(pt, npages_fn, rnd, who, timeout);
-> +	err = expect_pfn_sg(pt, i915, npages_fn, rnd, who, timeout);
->  	if (err)
->  		return err;
->  
-> -	err = expect_pfn_sg_page_iter(pt, who, timeout);
-> +	err = expect_pfn_sg_page_iter(pt, i915, who, timeout);
->  	if (err)
->  		return err;
->  
-> -	err = expect_pfn_sgtiter(pt, who, timeout);
-> +	err = expect_pfn_sgtiter(pt, i915, who, timeout);
->  	if (err)
->  		return err;
->  
-> @@ -275,8 +290,9 @@ static const npages_fn_t npages_funcs[] = {
->  	NULL,
->  };
->  
-> -static int igt_sg_alloc(void *ignored)
-> +static int igt_sg_alloc(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	IGT_TIMEOUT(end_time);
->  	const unsigned long max_order = 20; /* approximating a 4GiB object */
->  	struct rnd_state prng;
-> @@ -305,7 +321,7 @@ static int igt_sg_alloc(void *ignored)
->  
->  				prandom_seed_state(&prng,
->  						   i915_selftest.random_seed);
-> -				err = expect_pfn_sgtable(&pt, *npages, &prng,
-> +				err = expect_pfn_sgtable(&pt, i915, *npages, &prng,
->  							 "sg_alloc_table",
->  							 end_time);
->  				sg_free_table(&pt.st);
-> @@ -322,8 +338,9 @@ static int igt_sg_alloc(void *ignored)
->  	return 0;
->  }
->  
-> -static int igt_sg_trim(void *ignored)
-> +static int igt_sg_trim(void *arg)
->  {
-> +	struct drm_i915_private *i915 = arg;
->  	IGT_TIMEOUT(end_time);
->  	const unsigned long max = PAGE_SIZE; /* not prime! */
->  	struct pfn_table pt;
-> @@ -348,13 +365,14 @@ static int igt_sg_trim(void *ignored)
->  			if (i915_sg_trim(&pt.st)) {
->  				if (pt.st.orig_nents != prime ||
->  				    pt.st.nents != prime) {
-> -					pr_err("i915_sg_trim failed (nents %u, orig_nents %u), expected %lu\n",
-> -					       pt.st.nents, pt.st.orig_nents, prime);
-> +					drm_err(&i915->drm,
-> +						"i915_sg_trim failed (nents %u, orig_nents %u), expected %lu\n",
-> +						pt.st.nents, pt.st.orig_nents, prime);
->  					err = -EINVAL;
->  				} else {
->  					prandom_seed_state(&prng,
->  							   i915_selftest.random_seed);
-> -					err = expect_pfn_sgtable(&pt,
-> +					err = expect_pfn_sgtable(&pt, i915,
->  								 *npages, &prng,
->  								 "i915_sg_trim",
->  								 end_time);
-> @@ -379,6 +397,15 @@ int scatterlist_mock_selftests(void)
->  		SUBTEST(igt_sg_alloc),
->  		SUBTEST(igt_sg_trim),
->  	};
-> +	struct drm_i915_private *i915;
-> +	int err;
-> +
-> +	i915 = mock_gem_device();
-> +	if (!i915)
-> +		return -ENOMEM;
-> +
-> +	err = i915_subtests(tests, i915);
-> +	mock_destroy_device(i915);
->  
-> -	return i915_subtests(tests, NULL);
-> +	return err;
->  }
-
--- 
-Jani Nikula, Intel
+> >
+> > The DP case reuses intel_dp_link_symbol_clock().
+> > This will help in upcoming commits to decide value to be written in
+> > DDI_CLK_VALFREQ.
+> >
+> > Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_ddi.c | 11 +++++++++++
+> > drivers/gpu/drm/i915/display/intel_ddi.h |  1 +
+> >  2 files changed, 12 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c
+> > b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > index bf5788c5bbd3..dd9064592ec9 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_ddi.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+> > @@ -1529,6 +1529,17 @@ int intel_ddi_level(struct intel_encoder *encode=
+r,
+> >  	return level;
+> >  }
+> >
+> > +int intel_ddi_link_symbol_clock(struct intel_encoder *encoder, int
+> > +clock) {
+> > +	if (intel_encoder_is_dp(encoder))
+> > +		return intel_dp_link_symbol_clock(clock);
+> > +
+> > +	if (intel_hdmi_is_frl(clock))
+> > +		return DIV_ROUND_CLOSEST(clock * 10, 18);
+> > +
+> > +	return clock;
+> > +}
+> > +
+> >  static void
+> >  hsw_set_signal_levels(struct intel_encoder *encoder,
+> >  		      const struct intel_crtc_state *crtc_state) diff --git
+> > a/drivers/gpu/drm/i915/display/intel_ddi.h
+> > b/drivers/gpu/drm/i915/display/intel_ddi.h
+> > index 580ecb09b8b6..239d5a403f91 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_ddi.h
+> > +++ b/drivers/gpu/drm/i915/display/intel_ddi.h
+> > @@ -81,6 +81,7 @@ void intel_ddi_sanitize_encoder_pll_mapping(struct
+> > intel_encoder *encoder);  int intel_ddi_level(struct intel_encoder *enc=
+oder,
+> >  		    const struct intel_crtc_state *crtc_state,
+> >  		    int lane);
+> > +int intel_ddi_link_symbol_clock(struct intel_encoder *encoder, int
+> > +clock);
+> >  void intel_ddi_update_active_dpll(struct intel_atomic_state *state,
+> >  				  struct intel_encoder *encoder,
+> >  				  struct intel_crtc *crtc);
+>=20
+> --
+> Jani Nikula, Intel
