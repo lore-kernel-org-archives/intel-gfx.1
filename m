@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB91C5DF60
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 17:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C6DC5DF61
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 17:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BDF710F0CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0F0010F0D0;
 	Wed, 12 Aug 2026 17:41:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="soG7B3ud";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lIB27nUK";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B449110EE1C
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 03:58:42 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-92e7c6ec9dbso15008985a.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 20:58:42 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8339110F007
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 13:56:43 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-46f88060e8dso109267f8f.2
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 06:56:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786507121; x=1787111921; darn=lists.freedesktop.org;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=p1ustWcvblwbfs6YObNVhPj8bLhBv9z4SEr4Hg478cA=;
- b=soG7B3udEJuKgi3fgtyJcUU7J2Z1k3sS+UkUCsOp4zSqCWem7ml9qt+40aJsjjBnd2
- EbM6dV2SJEKrZcwn83Lh/XD2z7UIwjSTX1ped9OABprRjcocJnVXEXlDgjROMsRjJkGa
- FcbbnjebjUgxZ7fARin6DnnPB5MT87oa3wA2j0gX0xH2NhZbECK8KVzFQSdGSRY3Hcuh
- m/u+RV5CkwrsibsMGc5y3WzRYB3g4rjj/NwnY1hS6+wv4glE2QmI9NjDy1DS0BYKVGYM
- CyAAMpqbtoQ6hlJFZyEv1D1a0BPVLZqBt4krvKwW/e6tYN6ZHrlxcOJQZHFpAj3wPltB
- j/iA==
+ d=gmail.com; s=20251104; t=1786543002; x=1787147802; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cjqqYdlJxczb+huWu8sxbAJ3m1jklduZMwUdXKo3Ujw=;
+ b=lIB27nUKqnwRv9StQQX2ra9M5Lb6klstSyBZjEH1NtCECxiz4BS1VpzJPhAQmNndhb
+ vnm4vFPfgKKycsg9w49VbKPwbvzWh4cTNUwsUzNVgLaaMqpnJSFIhAqcUDx/mQcwtq7L
+ fPM0BOKKBg/StZM8ObxI1BLRtvPhIv78Lj8jAAZ4daIaEqzd4yzAbZHFdHEn4I3lNgFA
+ 1cpxomHm50k/xKJzx6x/PPpImUEl2n1anhLun+LOUnZCt0B/TMdvKRHcMtaW7Yd5er99
+ YYtqbtTql69xauYQC25MBPsJEqA8vfixEJ7h7k3w7quq/sSyBMjdU/sUnFHtx3iZZMfV
+ /F3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786507121; x=1787111921;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=p1ustWcvblwbfs6YObNVhPj8bLhBv9z4SEr4Hg478cA=;
- b=TRQsPt5cV5XeOnPvM3O6we4VakyLLXaXtwEnZ1yo7fgRlwtE2ZHMEJ7rzs2Ol+3kXH
- ehlM/RBIrBh1nEM+xbnwmZ45rrpReSv4CcKEUayt5PTlZun6RYk4RJq/alGBttnAKINM
- GNzXynS412SHWZQlXnjJ8o/qzrHm9IlQJQnIRi3+OqXeU0uwOtzgGl/9YQqhBreGtyaa
- CfSG9SzESBGMBAl5kmkYI7VNdQqEy9CHZO6gEH1GSfh9aOG5Wv+uGtAJDkhNPCHI5TJy
- qqbC/hG2C9OYLCz8rnN7HinS/jZRAWmzrLRMLok/NdM10gII94DPOpLtrSBfhcn+xgaj
- /faQ==
-X-Gm-Message-State: AOJu0Ywjw12PinrmrsFoZvXzR3N6b+RaD6TpaYuUxZdetGv7Q8IqSXvU
- GHWiD7eMkTrss6bW1ylVKMvuxMO195/zlEF+S0D7bKeq9eu+0lIsn9mr
-X-Gm-Gg: AR+sD13J45cYJJSZC9ams5AnoIdewO7q3DAQL7WmMgX2p2m+6Kwe7sj8QynWJfCZ94J
- z/I9N5TJAFypLd1S8MWnoza+elSk8g9oGNpBcntpTPaVyL6iwF7LkTUbMYcDRyDIsU0oYyMFqt0
- 6ko068Ry09CgsMi25ILMnzAFBIZqkM63pWSFH9w9+UqTnFMG25kMqGVsY4bZQreR8uO+U73sb/M
- rvJphkd0/SMVeqqoBfuEpGVrc9TvBXsbMB57TQipfQj5CKv26lUBbKHj7tNw4XsNiAB9q4/CwhB
- vw+8fsGd4RclVFDUHw5dLxxPyCxn02FDcGYI4gEY7ZhhEnqwZ9s6XXzrz6mmurmP3uGFx8FoNi1
- InxL6x//7as9iHWGRADKCnW0BadmQ+ufQ6jAiSqXATprFXRjGa+EVUd0VHtOxPfQUhMyM9bb+Eg
- Im70SG1OYrjUEFFqpuqwbE9F4fPqpsjcocu5WgN2kXWwom2Lz7mkxBN4WP9P4bCbLjv7enmLRd4
- KQHxus4hrTO88o6/p6nejc9fVNy5VJG
-X-Received: by 2002:a05:620a:6912:b0:92e:e2f4:e652 with SMTP id
- af79cd13be357-936b3a44f20mr220782485a.16.1786507121508; 
- Tue, 11 Aug 2026 20:58:41 -0700 (PDT)
-Received: from smtpclient.apple ([2600:1016:b10f:b114:6c29:917c:9735:8846])
+ d=1e100.net; s=20251104; t=1786543002; x=1787147802;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=cjqqYdlJxczb+huWu8sxbAJ3m1jklduZMwUdXKo3Ujw=;
+ b=Wn9NhvgSSMy6GCT/ZgDAaXOeD1fVQY4NL3qKQ9URME0/rhPlUnRoqUo5M7QwcYm99Y
+ IlbtktmPsOtmyR6B/azM5yDYKnqko6u1Noraz6VU5+Rq1jHVUwqfzn+qAPXqnN5t3FU5
+ Y8f2FCnLXXlzev0cL9F8zJXH10UV7q3ouO3nwVJLekA0ijwoSLOx232iuV0d7nUinXUY
+ mJ/FWAb1n3A3JEjyuCGCBC+m1osGn/py66zTbpnAD7aWSOWlKxBQ7xBhm5qCiRZGf/g7
+ f/21C3BDbuzBdSSfz7k7GuOyr2kPxDOQrP9I/7dChjxHmDwKs5Vk61kZA7a7NDyX1Kip
+ UwSg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RojYV0Ow9f1L6P0ar2JUopkknjuidB9JvT27kio8ZyMUcn29odJfl4UozdU62zfkaEwsd1lPcD8Pto=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxnY+at1QRtpZ6q5USHWEPntzKhiUI0S2zBThJ2aUI8t7XmL2EO
+ js7XkgHgQJWY7ixY/a+f48sFQ+Y6sXZft9tQnFtje+qKDpKOagZn04ED
+X-Gm-Gg: AR+sD12XFIJfz2LE9MPIF79G3guhDvt7+JkNZuQc4KwX+S6pT6PDlHMJ88P0IzcLzd3
+ oj2HXH5Av1CJSY3Vq7pHs/Ml0mHOgkqxRtMG08JTw/QFGMEPhcuTLqEA06T5i2R33ge2hk7fhqn
+ tpyq/HdjnJF9D2fsOhh7r5NU8VjOnkYwq5M0UF9iP+oXIZaHNSXUoVhHDznbRthS2ZBD+kp9xow
+ 1TNb69hErQb/I9qPtv9piIKvtXWyECqDhIg9DnMMwzrJLqi9tn0IWeM4wkqOnWC0MLYcDuyjdA1
+ ALmKrgSJBvAHhr7XhIE0Z4NaUbI671uQjhymab9lC86ixegjkmHXctuOmMZegV9Ftll3DtzfYZd
+ 7o/SqdwQ9OQpVMceSBDI+Va/fOlEWQ6lADmg2RSa8jaVbXmqXoC5dZ8uQsz/XxYsjbJsWKH36S+
+ BM++mAkM5p028HGX03WSIYgC21B3iPphZwP6hHdf1XDuqC2NIjktRJV1og0YOjcyLrTHg=
+X-Received: by 2002:a5d:5f41:0:b0:47f:6fbd:f23e with SMTP id
+ ffacd0b85a97d-48152cba2aamr4137759f8f.4.1786543001607; 
+ Wed, 12 Aug 2026 06:56:41 -0700 (PDT)
+Received: from localhost.biz ([185.61.25.133])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-936b5f64f8esm35682885a.46.2026.08.11.20.58.40
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 11 Aug 2026 20:58:41 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] drm/i915/gt: Fix request use-after-free in heartbeat()
-From: Shuangpeng <shuangpeng.kernel@gmail.com>
-In-Reply-To: <yzfnzbtsqjvk4y6vhn7uvdrzew5hqzfo4khdsx226ppqdjgm4q@xzysjj4fwcwz>
-Date: Tue, 11 Aug 2026 23:58:09 -0400
-Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <1734D14C-BCE0-4B86-8FD4-C1A989AC629B@gmail.com>
-References: <20260808184302.1509585-1-shuangpeng.kernel@gmail.com>
- <yzfnzbtsqjvk4y6vhn7uvdrzew5hqzfo4khdsx226ppqdjgm4q@xzysjj4fwcwz>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+ ffacd0b85a97d-48150bf5f27sm7351303f8f.1.2026.08.12.06.56.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Aug 2026 06:56:41 -0700 (PDT)
+From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Micha=C5=82=20Grzelak?= <michal.grzelak@intel.com>,
+ Matt Roper <matthew.d.roper@intel.com>,
+ Michael Cheng <michael.cheng@intel.com>, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ lvc-project@linuxtesting.org, stable@vger.kernel.org
+Subject: [PATCH] drm: i915: fix sizeof argument in reset_csb_pointers
+Date: Wed, 12 Aug 2026 16:56:26 +0300
+Message-ID: <20260812135626.16959-1-dokunevdmitriy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 12 Aug 2026 17:41:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,144 +94,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> On Aug 11, 2026, at 06:50, Krzysztof Karas <krzysztof.karas@intel.com> =
-wrote:
->=20
-> Hi Shuangpeng,
->=20
-> On 2026-08-08 at 14:43:02 -0400, Shuangpeng Bai wrote:
->> heartbeat() detaches engine->heartbeat.systole with xchg() before
->> checking whether the request has completed. If the request is =
-complete,
->> dropping the detached systole reference may free it. Concurrently,
->> idle_pulse() can observe the empty slot and publish a newer request.
->>=20
->> The worker then sees a non-NULL engine->heartbeat.systole, but =
-continues
->> to dereference its stale local rq. The newer request can therefore =
-make
->> the shared-slot check succeed after the old request has been freed,
->> causing use-after-free accesses to emitted_jiffies, submit, and =
-sched.
->>=20
->> If the detached request is incomplete, heartbeat() can also overwrite =
-a
->> newer request published by idle_pulse() when it unconditionally =
-restores
->> the old pointer.
->>=20
->> Use cmpxchg() both when idle_pulse() publishes a request and when
->> heartbeat() restores the detached request. Drop the detached =
-reference
->> when restoration loses the race, and reload rq from the shared slot
->> before dereferencing it.
->>=20
->> A KASAN-enabled i915 mock selftest reproduces the use-after-free =
-before
->> this change and completes without a report after the fix.
-> What is this mock selftest? Can I see it somewhere and confirm
-> if it works myself? A link to a public issue would be cool too,
-> something that gives more context as to how this was discovered.
->=20
+In reset_csb_pointers(), drm_clflush_virt_range() is called with a size
+calculated using sizeof(execlists->csb_status), which returns the size
+of the pointer rather than the size of the object it points to. This
+could lead to incomplete cache flushing on 32-bit systems where pointer
+size differs from u64.
 
-Hi Krzysztof,
+Replace sizeof(execlists->csb_status) with
+sizeof(*execlists->csb_status).
 
-I've put the reproducer here:
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-https://gist.github.com/shuangpengbai/1410664bc909e8c834311576d6242103
+Fixes: dc0406820ee7 ("drm/i915/gt: Drop invalidate_csb_entries")
+Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+---
+ drivers/gpu/drm/i915/gt/intel_execlists_submission.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on commit a59f57e2aa127c5354168d2ec4bac920df1be4f4 (2026-08-07).
-
-It uses i915's mock selftest path, so no Intel GPU hardware is required.=20=
-
-Please apply 1_repro.patch, build with 2_config, and boot with:
-i915.mock_selftests=3D1 i915.igt__36__mock_heartbeat_uaf=3D1
-
-Expected result:
-BUG: KASAN: slab-use-after-free in heartbeat
-
-Best,
-Shuangpeng
-
->>=20
->> Fixes: bf9bd6a5128a ("drm/i915/gt: Track the most recent pulse for =
-the heartbeat")
->> Cc: stable@vger.kernel.org # v5.11+
->> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
->> ---
->> .../gpu/drm/i915/gt/intel_engine_heartbeat.c  | 22 =
-++++++++++++++-----
->> 1 file changed, 16 insertions(+), 6 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c =
-b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> index 6424ecce8bcb..fc6c53c93cf5 100644
->> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
->> @@ -81,10 +81,18 @@ heartbeat_create(struct intel_context *ce, gfp_t =
-gfp)
->>=20
->> static void idle_pulse(struct intel_engine_cs *engine, struct =
-i915_request *rq)
->> {
->> + struct i915_request *systole;
->> +
->> engine->wakeref_serial =3D READ_ONCE(engine->serial) + 1;
->> i915_request_add_active_barriers(rq);
->> - if (!engine->heartbeat.systole && =
-intel_engine_has_heartbeat(engine))
->> - engine->heartbeat.systole =3D i915_request_get(rq);
->> + if (READ_ONCE(engine->heartbeat.systole) ||
->> +     !intel_engine_has_heartbeat(engine))
->> + return;
->> +
->> + systole =3D i915_request_get(rq);
->> + /* The worker may have restored its detached systole in the =
-meantime. */
->> + if (cmpxchg(&engine->heartbeat.systole, NULL, systole))
->> + i915_request_put(systole);
->> }
->>=20
->> static void heartbeat_commit(struct i915_request *rq,
->> @@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
->> if (rq) {
->> if (i915_request_completed(rq))
->> i915_request_put(rq);
->> - else
->> - engine->heartbeat.systole =3D rq;
->> + /* Keep a newer pulse that raced with the detached systole. */
->> + else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
->> + i915_request_put(rq);
->> }
->> + rq =3D READ_ONCE(engine->heartbeat.systole);
->>=20
->> if (!intel_engine_pm_get_if_awake(engine))
->> return;
->> @@ -163,11 +173,11 @@ static void heartbeat(struct work_struct *wrk)
->> goto out;
->>=20
->> if (i915_sched_engine_disabled(engine->sched_engine)) {
->> - reset_engine(engine, engine->heartbeat.systole);
->> + reset_engine(engine, rq);
->> goto out;
->> }
->>=20
->> - if (engine->heartbeat.systole) {
->> + if (rq) {
->> long delay =3D READ_ONCE(engine->props.heartbeat_interval_ms);
->>=20
->> /* Safeguard against too-fast worker invocations */
->>=20
->> base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
->> --=20
->> 2.43.0
->>=20
->=20
-> The fix looks sane at first glance to me, but I'd like to see
-> how it was spotted before diving in further.
->=20
-> --=20
-> Best Regards,
-> Krzysztof
-
+diff --git a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+index e693b0c9d2a3..9ac67a0cbb1f 100644
+--- a/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
++++ b/drivers/gpu/drm/i915/gt/intel_execlists_submission.c
+@@ -2833,7 +2833,7 @@ static void reset_csb_pointers(struct intel_engine_cs *engine)
+ 	memset(execlists->csb_status, -1, (reset_value + 1) * sizeof(u64));
+ 	drm_clflush_virt_range(execlists->csb_status,
+ 			       execlists->csb_size *
+-			       sizeof(execlists->csb_status));
++			       sizeof(*execlists->csb_status));
+ 
+ 	/* Once more for luck and our trusty paranoia */
+ 	ENGINE_WRITE(engine, RING_CONTEXT_STATUS_PTR,
+-- 
+2.53.0
 
