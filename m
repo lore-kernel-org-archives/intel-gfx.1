@@ -4,57 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7965DC5CFDB
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 21:55:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3413FC5CFDB
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 22:08:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE53A10F12F;
-	Wed, 12 Aug 2026 21:55:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9922B10F127;
+	Wed, 12 Aug 2026 22:08:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="T/tz9GAW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eufxawFp";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D926210F13D;
- Wed, 12 Aug 2026 21:55:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786571738; x=1818107738;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=vaNAN8OzUO4eNltZSZ7ZHdf0CI4gZtmYYe6ytCHNIhQ=;
- b=T/tz9GAWsrrzf8+zbOoipFCMD7uAKS6gVQ54uGHynQLSbwZV2CdDFWY+
- M9qO/azJrlEDD9bFASo7r/mevl7gH8a9VwMANCFI2dzLjdi0hXM+9a9gf
- 04BTbXGUUXjFgTwl8hFK9zZ2wWxaNmZNZUS1aZhmVYhZ185CJXuXg0miT
- WiR6QlUq+ILqZ4tzQnN4v1PAsqoOoM4G44HtNURfB/GpT0YwSRrSNxVdD
- zf+fuSeH6OykM5As/k/TVtWDE6akrC3oYgwS2cRNg83jdU5JB9xsoT+OO
- 41jGpm9WAENVsNhsFaG1L99a+SBDpQiJMhrdPAn36WeAeLzMFjaLRsO5m Q==;
-X-CSE-ConnectionGUID: SekVh1sCQl6lLmEBUDrjrg==
-X-CSE-MsgGUID: Af1oqLDiSzG4dFKPSE/uFg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="97803709"
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; d="scan'208";a="97803709"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 14:55:37 -0700
-X-CSE-ConnectionGUID: SSctC0EJSw2m332ICUItYA==
-X-CSE-MsgGUID: FaimI7XWT9SdLCDO686PXQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,220,1779174000"; d="scan'208";a="260456814"
-Received: from chu13-desk.fm.intel.com ([10.80.209.189])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 14:55:38 -0700
-From: Austin Hu <austin.hu@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com,
- vinod.govindapillai@intel.com
-Subject: [PATCH 2/2] drm/i915/fbc: nuke CFB if Plane setting (except for surf
- addr) changes
-Date: Wed, 12 Aug 2026 14:53:50 -0700
-Message-Id: <20260812215350.3753102-3-austin.hu@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260812215350.3753102-1-austin.hu@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDCC10F127;
+ Wed, 12 Aug 2026 22:08:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C618D41901;
+ Wed, 12 Aug 2026 22:08:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EEF1F000E9;
+ Wed, 12 Aug 2026 22:08:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786572533;
+ bh=a3qGFz47d9tRqfTr/CL2zuwTvComG4Do3HqW+E3BCi4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eufxawFpsmEiiUaXsCALx7Ki8kf3H7IUYSuZsMRbzmwGRNgPndJrhc6KKHOKhq+T4
+ cfkgakzPGwD8kcYnKcXLFWi0Qea1C9KKGlNWhKfh++8VYBfVEMRDsYrqJMWNKTHO5A
+ Gvu8fyWvBg/JNQhSK/GRoNW28UsTz19GmHOBaPjMThmFjU6+YnKelY1A0irRIGVso1
+ j/KS/0N8EqOSB751AtfOkTdclSJYaKcYRlm3PisxlcQuxJgvIUvzpcTqwqFG1hfD1R
+ fp1BSViwj9bQAxfJqVJj7/9xmNRu0V6TScBG6UX+S8kTUkwXTpDDyHdohjkG6OKt5V
+ ABjnQiR8kCYbQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/i915/fbc: fbc_dirty_rect restrictions and logging
+To: "Austin Hu" <austin.hu@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260812215350.3753102-2-austin.hu@intel.com>
 References: <20260812215350.3753102-1-austin.hu@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260812215350.3753102-2-austin.hu@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 12 Aug 2026 22:08:52 +0000
+Message-Id: <20260812220853.73EEF1F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,173 +53,100 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When FBC Dirty Rectangle mode is enabled, any non-PLANE_SURF register
-update requires fetching the full plane frame buffer from memory to
-re-compress and update the CFB in stolen memory.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect coordinate space math in the 180-degree rotation branch =
+causes the FBC dirty rectangle to collapse, breaking FBC tracking.
+- [Medium] The 'FBC dirty rect out of range' debug warning will trigger spu=
+riously on almost every frame when the plane is rotated 180 degrees.
+--
 
-Check plane state attributes during atomic commits and force a full
-CFB nuke if any setting other than the surface address changes.
+--- Patch [1]: [PATCH 1/2] drm/i915/fbc: fbc_dirty_rect restrictions and lo=
+gging ---
+commit 234fb7237db4bb8e467458e88cc6ed3f6e850511
+Author: Charlton Lin <charlton.lin@intel.com>
 
-Signed-off-by: Austin Hu <austin.hu@intel.com>
----
- drivers/gpu/drm/i915/display/intel_fbc.c | 126 ++++++++++++++++++++++-
- 1 file changed, 122 insertions(+), 4 deletions(-)
+drm/i915/fbc: fbc_dirty_rect restrictions and logging
 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i915/display/intel_fbc.c
-index c0fed695af0d..6bf5c0947671 100644
---- a/drivers/gpu/drm/i915/display/intel_fbc.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbc.c
-@@ -1516,8 +1516,124 @@ static bool intel_fbc_is_ok(const struct intel_plane_state *plane_state)
- 		intel_fbc_is_cfb_ok(plane_state);
- }
- 
-+/*
-+ * From BSpec about "FBC Dirty Rectangle", when Dirty Rectangle mode is active,
-+ * partial updates only apply to surface address changes. Any other plane state
-+ * modification requires Plane to fetch full-plane pixel data from memory to
-+ * re-compress and update the entire CFB in stolen memory. Once fully
-+ * re-compressed, subsequent atomic commits go ahead with FBC dirty rectangle
-+ * updates for smooth visual updates.
-+ *
-+ * So check any Plane attribute changed except for its surface address by
-+ * referring to intel_async_flip_check_hw() which also checks async flip.
-+ */
-+static bool intel_fbc_dirty_rect_needs_nuke(struct intel_atomic_state *state,
-+					    struct intel_plane *plane)
-+{
-+	struct intel_display *display = to_intel_display(state);
-+	const struct intel_plane_state *old_plane_state =
-+		intel_atomic_get_old_plane_state(state, plane);
-+	const struct intel_plane_state *new_plane_state =
-+		intel_atomic_get_new_plane_state(state, plane);
-+
-+	/*
-+	 * If the plane state isn't part of this atomic transaction or during
-+	 * initial plane setup, conservatively force a full CFB nuke.
-+	 */
-+	if (!old_plane_state || !new_plane_state)
-+		return true;
-+
-+	if (old_plane_state->view.color_plane[0].mapping_stride !=
-+	    new_plane_state->view.color_plane[0].mapping_stride) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Stride changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->hw.fb->modifier !=
-+	    new_plane_state->hw.fb->modifier) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Modifier changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->hw.fb->format != new_plane_state->hw.fb->format) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Pixel format changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->hw.rotation != new_plane_state->hw.rotation) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Rotation changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (skl_plane_aux_dist(old_plane_state, 0) !=
-+	    skl_plane_aux_dist(new_plane_state, 0)) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] AUX_DIST changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (!drm_rect_equals(&old_plane_state->uapi.src,
-+			     &new_plane_state->uapi.src) ||
-+	    !drm_rect_equals(&old_plane_state->uapi.dst,
-+			     &new_plane_state->uapi.dst)) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Size/coords changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->hw.alpha != new_plane_state->hw.alpha) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Alpha changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->decrypt != new_plane_state->decrypt) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Decryption changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	/* Includes pixel_blend_mode, color_encoding & color_range checking. */
-+	if (old_plane_state->color_ctl != new_plane_state->color_ctl) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Color ctl changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->cus_ctl != new_plane_state->cus_ctl) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] CUS ctl changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	if (old_plane_state->view.color_plane[0].x !=
-+	    new_plane_state->view.color_plane[0].x) {
-+		drm_dbg_kms(display->drm,
-+			    "[PLANE:%d:%s] Color plane 0 x changed in FBC DIRTY RECT\n",
-+			    plane->base.base.id, plane->base.name);
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- static void
--__intel_fbc_prepare_dirty_rect(const struct intel_plane_state *plane_state,
-+__intel_fbc_prepare_dirty_rect(struct intel_atomic_state *state,
-+			       const struct intel_plane_state *plane_state,
- 			       const struct intel_crtc_state *crtc_state)
- {
- 	struct intel_plane *plane = to_intel_plane(plane_state->uapi.plane);
-@@ -1538,7 +1654,10 @@ __intel_fbc_prepare_dirty_rect(const struct intel_plane_state *plane_state,
- 		return;
- 	}
- 
--	if (drm_rect_visible(damage)) {
-+	if (intel_fbc_dirty_rect_needs_nuke(state, plane)) {
-+		/* compress the entire region due to non PLANE_SURF updating. */
-+		*fbc_dirty_rect = DRM_RECT_INIT(0, y_offset, width, height);
-+	} else if (drm_rect_visible(damage)) {
- 		int y1, y2;
- 
- 		if (plane_state->hw.rotation & DRM_MODE_ROTATE_180) {
-@@ -1598,8 +1717,7 @@ intel_fbc_prepare_dirty_rect(struct intel_atomic_state *state,
- 		mutex_lock(&fbc->lock);
- 
- 		if (fbc->state.plane == plane)
--			__intel_fbc_prepare_dirty_rect(plane_state,
--						       crtc_state);
-+			__intel_fbc_prepare_dirty_rect(state, plane_state, crtc_state);
- 
- 		mutex_unlock(&fbc->lock);
- 	}
--- 
-2.34.1
+Clamp the FBC dirty rectangle coordinates to the valid frame buffer
+range [y_offset, y_end] to prevent out-of-bounds coordinates, and
+log a debug message when clamping occurs.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i=
+915/display/intel_fbc.c
+> index f61b4a218d6ef..c0fed695af0da 100644
+> --- a/drivers/gpu/drm/i915/display/intel_fbc.c
+> +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+
+[ ... ]
+
+> @@ -1535,11 +1538,41 @@ __intel_fbc_prepare_dirty_rect(const struct intel=
+_plane_state *plane_state,
+>  		return;
+>  	}
+> =20
+> -	if (drm_rect_visible(damage))
+> -		*fbc_dirty_rect =3D *damage;
+> -	else
+> +	if (drm_rect_visible(damage)) {
+> +		int y1, y2;
+> +
+> +		if (plane_state->hw.rotation & DRM_MODE_ROTATE_180) {
+> +			/* Under 180 degree rotation, coordinate system is inverted */
+> +			int inv_y1 =3D height - damage->y2;
+> +			int inv_y2 =3D height - damage->y1;
+> +
+> +			y1 =3D clamp(y_offset + inv_y1, y_offset, y_end);
+> +			y2 =3D clamp(y_offset + inv_y2, y_offset, y_end);
+
+[Severity: High]
+Can this math result in collapsed dirty rectangles?
+
+Because damage->y2 already includes the absolute y_offset, height - damage-=
+>y2
+yields a large negative number. When y_offset is added back, the result fal=
+ls
+well below y_offset, causing both y1 and y2 to unconditionally clamp to
+y_offset.
+
+This collapses the FBC dirty rectangle to a 0-height region starting at
+y_offset, entirely missing the actual damaged pixels.
+
+> +		} else {
+> +			y1 =3D clamp(damage->y1, y_offset, y_end);
+> +			y2 =3D clamp(damage->y2, y_offset, y_end);
+> +		}
+> +
+> +		/*
+> +		 * Clamp dirty rect to the valid FB range [y_offset, y_end].
+> +		 * Per Bspec:
+> +		 *   start_line >=3D y_offset
+> +		 *   end_line <=3D y_offset + plane_height
+> +		 */
+> +		if (y1 !=3D damage->y1 || y2 !=3D damage->y2)
+> +			drm_dbg_kms(display->drm,
+> +				    "[PLANE:%d:%s] FBC dirty rect out of range: y1=3D%d y2=3D%d clam=
+ped to y1=3D%d y2=3D%d (y_offset=3D%d y_end=3D%d)\n",
+> +				    plane->base.base.id, plane->base.name,
+> +				    damage->y1, damage->y2, y1, y2, y_offset, y_end);
+
+[Severity: Medium]
+Will this warning trigger spuriously on almost every frame when the plane is
+rotated 180 degrees?
+
+For 180-degree planes, the code intentionally alters y1 and y2 to represent
+inverted coordinates. The warning condition compares these new inverted
+coordinates directly against the original, non-inverted coordinates.
+
+Because an inverted coordinate will inherently mismatch a non-inverted one,
+this condition evaluates to true on nearly every atomic update involving da=
+mage
+for rotated planes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812215350.3753=
+102-1-austin.hu@intel.com?part=3D1
