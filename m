@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E90B5C5B56A
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 14:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A73CC5B56A
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 15:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D67410F022;
-	Wed, 12 Aug 2026 14:13:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WHXSiAvQ";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A94810F022;
- Wed, 12 Aug 2026 14:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786543987; x=1818079987;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=N4yfRAAJ1Wd10N0p2ZgCQfOyRP+o6s8sNm9hVJ7C03I=;
- b=WHXSiAvQCE2t5GQpB3Nc31wDWykghn+5jmVHnr4pitu2lzFlydzzdfiF
- Kupg+Jgvm1KFX0hCbIxLZcGqSSz1mDBX5JG7VfTXNiIYEsbhzK0inV9eF
- iCAuNPACi/dsnmxEphVzbK9NCm+4z0dap4mPWoz1wor0K0gw7LpAW3rs3
- OP90cxuW1UTt7LLK4unnfyqjjPXF+bnPnEc7BPfZkqfns+J0jO9wEEr3P
- gsY1J0SzsEzfRLa+x1sZ1YMzaUpS7iRiBAFfZdHTB1WmjvjI4b/lGNbMt
- PT+u8bLN7XbzZ394EOaLdK6CyoUA/Rq2nUmIHlny8XQYfv8kysShYoMzp w==;
-X-CSE-ConnectionGUID: gdAqD16GS2y0XD6h+kNGuw==
-X-CSE-MsgGUID: Pbg0YDJPQNqZSnIt4DZCaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="104632750"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="104632750"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 07:13:05 -0700
-X-CSE-ConnectionGUID: 32aZpx49S0y7s5cl0d5xjw==
-X-CSE-MsgGUID: XjTFOVAWSp24iUkC1gfXyw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="287096136"
-Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 07:13:03 -0700
-From: Jonathan Cavitt <jonathan.cavitt@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, imre.deak@intel.com,
- michal.grzelak@intel.com, jani.nikula@linux.intel.com,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH v3] drm/i915/kunit: DP Link: Use if statements instead of for
- loops
-Date: Wed, 12 Aug 2026 22:13:00 +0800
-Message-ID: <20260812141300.184053-1-jonathan.cavitt@intel.com>
-X-Mailer: git-send-email 2.53.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C697610F055;
+	Wed, 12 Aug 2026 15:10:26 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53ABA10F055;
+ Wed, 12 Aug 2026 15:10:25 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2437674090002822103=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/kunit=3A_DP_Link?=
+ =?utf-8?q?=3A_Use_if_statements_instead_of_for_loops_=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Jonathan Cavitt" <jonathan.cavitt@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Wed, 12 Aug 2026 15:10:25 -0000
+Message-ID: <178654742533.44342.12864000458651692578@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260812141300.184053-1-jonathan.cavitt@intel.com>
+In-Reply-To: <20260812141300.184053-1-jonathan.cavitt@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,96 +37,154 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The static functions get_target_config and get_fallback_config in
-intel_dp_link_test.c use for loops to determine if the requested index of
-the config set is in the bounds of the config set entry list.
+--===============2437674090002822103==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reconfigure these functions to use if statements instead, as these for
-loops are only run for a single iteration.
+== Series Details ==
 
-Issue caught by static analysis.
+Series: drm/i915/kunit: DP Link: Use if statements instead of for loops (rev3)
+URL   : https://patchwork.freedesktop.org/series/171131/
+State : success
 
-v2: (Michal)
-- Change i <= 0 check to i == 0, as i cannot be negative by assertion
-- Remove unnecessary newlines
+== Summary ==
 
-v3:
-- Misc. checkpatch fixes
-- Resubmit to exercise target kunit test
+CI Bug Log - changes from CI_DRM_18982 -> Patchwork_171131v3
+====================================================
 
-Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Michal Grzelak <michal.grzelak@intel.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>
----
- .../i915/display/tests/intel_dp_link_test.c   | 34 ++++++++-----------
- 1 file changed, 15 insertions(+), 19 deletions(-)
+Summary
+-------
 
-diff --git a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-index 67c6fe9f1812..608b7a9d60bf 100644
---- a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-+++ b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-@@ -1215,22 +1215,20 @@ static bool get_fallback_config(const struct test_config_table *expected_table,
- 	struct kunit *test = expected_table->test;
- 	const struct link_config_set *config_set =
- 		get_fallback_configs_for_output_type(test, output_type);
-+	const struct intel_dp_link_config *config;
- 	int i;
- 
- 	i = lookup_config(config_set, target_config);
- 	KUNIT_ASSERT_GE(test, i, 0);
- 
--	for (i--; i >= 0; i--) {
--		const struct intel_dp_link_config *config =
--			&config_set->entries[i];
-+	if (!i)
-+		return false;
- 
--		assert_config_is_supported(expected_table, config);
--		*fallback_config = *config;
-+	config = &config_set->entries[i - 1];
-+	assert_config_is_supported(expected_table, config);
-+	*fallback_config = *config;
- 
--		return true;
--	}
--
--	return false;
-+	return true;
- }
- 
- static bool get_target_config(const struct test_config_table *expected_table,
-@@ -1240,19 +1238,17 @@ static bool get_target_config(const struct test_config_table *expected_table,
- 	struct kunit *test = expected_table->test;
- 	const struct link_config_set *config_set =
- 		get_target_configs_for_output_type(test, output_type);
--	int i;
-+	const struct intel_dp_link_config *config;
-+	int i = config_set->size - 1;
- 
--	for (i = config_set->size - 1; i >= 0; i--) {
--		const struct intel_dp_link_config *config =
--			&config_set->entries[i];
-+	if (i < 0)
-+		return false;
- 
--		assert_config_is_supported(expected_table, config);
--		*target = *config;
-+	config = &config_set->entries[i];
-+	assert_config_is_supported(expected_table, config);
-+	*target = *config;
- 
--		return true;
--	}
--
--	return false;
-+	return true;
- }
- 
- static void test_fallback_seq(struct kunit *test,
--- 
-2.53.0
+  **SUCCESS**
 
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/index.html
+
+Participating hosts (37 -> 35)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_171131v3 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@sanitycheck:
+    - fi-kbl-7567u:       [PASS][1] -> [DMESG-WARN][2] ([i915#13735]) +79 other tests dmesg-warn
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-kbl-7567u:       [PASS][3] -> [DMESG-WARN][4] ([i915#13735] / [i915#180])
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - fi-kbl-7567u:       [PASS][5] -> [DMESG-WARN][6] ([i915#13735] / [i915#15673] / [i915#180]) +52 other tests dmesg-warn
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18982 -> Patchwork_171131v3
+
+  CI-20190529: 20190529
+  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9052: 9052
+  Patchwork_171131v3: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/index.html
+
+--===============2437674090002822103==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/kunit: DP Link: Use if statements instead of for loops (rev3)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171131/">https://patchwork.freedesktop.org/series/171131/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18982 -&gt; Patchwork_171131v3</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/index.html</p>
+<h2>Participating hosts (37 -&gt; 35)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_171131v3 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) +79 other tests dmesg-warn</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>)</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171131v3/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) +52 other tests dmesg-warn</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18982 -&gt; Patchwork_171131v3</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9052: 9052<br />
+  Patchwork_171131v3: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2437674090002822103==--
