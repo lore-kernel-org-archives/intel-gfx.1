@@ -4,59 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E445EC5B56A
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 09:15:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32416C5AD5A
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 09:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F17B10E3ED;
-	Wed, 12 Aug 2026 09:15:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8DC110EEE1;
+	Wed, 12 Aug 2026 09:22:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UXDjbdQq";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="VVWb26Ra";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC5EF10E3ED
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 09:15:41 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1DE10EEE1;
+ Wed, 12 Aug 2026 09:22:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786526141; x=1818062141;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=WDlRcDNGVXyonUpKujW15h+tVoF15dUEWCybDD7oaps=;
- b=UXDjbdQqcuMx/KDkdjn/LDSn2dTUAzqr2U+cHptLnsfa0sdYC2NJ55UT
- /El4+XKq+8fCOBLfoKnXeS5t6Q3yQ7gMMVniENMRjK2SPdXs3GY0sVOpV
- MtSEfod+pc0sOe6G5JV3KlfyX77U4DpGTgNjIgkxInuNmKy3UHJ2pVQw7
- 4Lw0YHY4EGwtgHyynFDr+Lo+xWcxYlS6b6jgDztpq5nXSvkV/UXXCaA/v
- ZMOE7kSptSLgdOcRSrdXrl5/7pxtfqFOXqgwm7c4unztew3zOHot9M1Lq
- +8V2iKG8iiQ7H8Qs1FPNqIBY2btuiyEjWryy/S1mcsKstcFafLUMLKnNR w==;
-X-CSE-ConnectionGUID: mqKlCY6CRcmfiuoX5T4hhQ==
-X-CSE-MsgGUID: Z2vUmHrnQ4yMTU4eQh+CTA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="87094966"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="87094966"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 02:15:41 -0700
-X-CSE-ConnectionGUID: QZ/6Hp8TS7ur7Dhuv+/SAw==
-X-CSE-MsgGUID: VEVhHGC3R6mhF4DE6Awy1A==
+ t=1786526576; x=1818062576;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=hp6+7VNBYYTRgc/CQegp3+b+6XBQlV1pa2nUZEuz7bc=;
+ b=VVWb26Ra/PZ2+hGqBAmo+GsqxeA8BGZJfwswlfej/yCUsZOvcA5zh9gP
+ L0qLAnDo1c4WDn/giLcxVCUSS415WX3EzWGgNfWXM8saf7hN/VoBjrbCA
+ 0fdeeSqE9ij5vQ0RUsmGN/q6L3kPOILDsxQXUf6y0wMyyLO1J3ydh5Fyu
+ GFe2JKHqAIdAYG+LwWrrkbthsmvI6v5kiZcL03wwK+6kJmBk37cQ6hnln
+ Spp/WzKpHrBTX4wNCd68Goz+gAcInbZJ0ePTZeG3Xkmc0TYXqR6IvttvS
+ 8331ASvyIr6LXJWbN3Zh3m+ff/j5P8HB9EoB7yzldyfGW5h4S5V1QNZgh w==;
+X-CSE-ConnectionGUID: jPKK0W2oQPeGkoCftaF96w==
+X-CSE-MsgGUID: 3VHut+mXSjWTGV/BgzofdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86928539"
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="86928539"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2026 02:22:56 -0700
+X-CSE-ConnectionGUID: 4mI19DsdTwKdOHawg81Tpw==
+X-CSE-MsgGUID: NUq/VtnqRqWdZBUoqfnjPQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="259751698"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.245.141])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 02:15:39 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jonathan Cavitt <jonathan.cavitt@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: alex.zuo@intel.com, jonathan.cavitt@intel.com, imre.deak@intel.com,
- michal.grzelak@intel.com
-Subject: Re: [PATCH v2] drm/i915/kunit: DP Link: Use if statements instead
- of for loops
-In-Reply-To: <20260811175719.139464-1-jonathan.cavitt@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260811175719.139464-1-jonathan.cavitt@intel.com>
-Date: Wed, 12 Aug 2026 12:15:37 +0300
-Message-ID: <afaa8f5d600415eed8b2ea39cefe2709818e3877@intel.com>
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by fmviesa003.fm.intel.com with ESMTP; 12 Aug 2026 02:22:54 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Subject: [PATCH 0/2] Support YUV buffers in HDR planes
+Date: Wed, 12 Aug 2026 14:29:06 +0530
+Message-ID: <20260812085908.3159828-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,98 +64,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 12 Aug 2026, Jonathan Cavitt <jonathan.cavitt@intel.com> wrote:
-> The static functions get_target_config and get_fallback_config in
-> intel_dp_link_test.c use for loops to determine if the requested index of
-> the config set is in the bounds of the config set entry list.
->
-> Reconfigure these functions to use if statements instead, as these for
-> loops are only run for a single iteration.
+The legacy COLOR ENCODING and COLOR RANGE properties are mutually exclusive
+for HDR planes. Add support for FIXED MATRIX colorops in HDR plane color
+pipeline that can be used for YCbCr to RGB conversion.
 
-The CI on intel-gfx doesn't run kunit tests, while intel-xe does.
+The first patch contains the base work done for SDR planes and is being
+reviewed separately.
 
-Please send the changes to intel-xe, and double check that the link
-tests get run, before merging.
+Chaitanya Kumar Borah (2):
+  [DO_NOT_REVIEW] drm/i915/color: Add color pipeline support for SDR
+    planes
+  drm/i915/color: Add YUV buffer support on HDR planes
 
-> Issue caught by static analysis.
->
-> v2: (Michal)
-> - Change i <= 0 check to i == 0, as i cannot be negative by assertion
-> - Remove unnecessary newlines
->
-> Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
-> Cc: Imre Deak <imre.deak@intel.com>
-> Cc: Michal Grzelak <michal.grzelak@intel.com>
-> ---
->  .../i915/display/tests/intel_dp_link_test.c   | 34 ++++++++-----------
->  1 file changed, 15 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-> index 67c6fe9f1812..6dfd8903a8ec 100644
-> --- a/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-> +++ b/drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
-> @@ -1215,22 +1215,20 @@ static bool get_fallback_config(const struct test_config_table *expected_table,
->  	struct kunit *test = expected_table->test;
->  	const struct link_config_set *config_set =
->  		get_fallback_configs_for_output_type(test, output_type);
-> +	const struct intel_dp_link_config *config;
->  	int i;
->  
->  	i = lookup_config(config_set, target_config);
->  	KUNIT_ASSERT_GE(test, i, 0);
->  
-> -	for (i--; i >= 0; i--) {
-> -		const struct intel_dp_link_config *config =
-> -			&config_set->entries[i];
-> +	if (!i)
-> +		return false;
->  
-> -		assert_config_is_supported(expected_table, config);
-> -		*fallback_config = *config;
-> +	config = &config_set->entries[i-1];
-
-Nitpick, checkpatch should complain about missing spaces around the
-operand in "i-1".
-
-> +	assert_config_is_supported(expected_table, config);
-> +	*fallback_config = *config;
->  
-> -		return true;
-> -	}
-> -
-> -	return false;
-> +	return true;
->  }
->  
->  static bool get_target_config(const struct test_config_table *expected_table,
-> @@ -1240,19 +1238,17 @@ static bool get_target_config(const struct test_config_table *expected_table,
->  	struct kunit *test = expected_table->test;
->  	const struct link_config_set *config_set =
->  		get_target_configs_for_output_type(test, output_type);
-> -	int i;
-> +	const struct intel_dp_link_config *config;
-> +	int i = config_set->size - 1;
->  
-> -	for (i = config_set->size - 1; i >= 0; i--) {
-> -		const struct intel_dp_link_config *config =
-> -			&config_set->entries[i];
-> +	if (i < 0)
-> +		return false;
->  
-> -		assert_config_is_supported(expected_table, config);
-> -		*target = *config;
-> +	config = &config_set->entries[i];
-> +	assert_config_is_supported(expected_table, config);
-> +	*target = *config;
->  
-> -		return true;
-> -	}
-> -
-> -	return false;
-> +	return true;
->  }
->  
->  static void test_fallback_seq(struct kunit *test,
+ drivers/gpu/drm/drm_atomic.c                  |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+ drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_color.c    |  76 ++++++++---
+ .../drm/i915/display/intel_color_pipeline.c   |  32 ++++-
+ .../drm/i915/display/intel_display_limits.h   |   1 +
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_plane.c    |  53 +++++++-
+ .../drm/i915/display/skl_universal_plane.c    |  45 ++++---
+ include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
+ include/uapi/drm/drm_mode.h                   |  12 ++
+ 11 files changed, 424 insertions(+), 41 deletions(-)
 
 -- 
-Jani Nikula, Intel
+2.50.1
+
