@@ -4,44 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20533C5CFCF
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 17:41:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39CCBC5B572
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 17:41:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 308AB10F0BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EB6210F0CF;
 	Wed, 12 Aug 2026 17:41:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SQehkbWL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fokx7XBH";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C17A510E40E;
- Wed, 12 Aug 2026 09:56:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AF907600E2;
- Wed, 12 Aug 2026 09:56:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF811F00A3A;
- Wed, 12 Aug 2026 09:56:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786528561;
- bh=FTU4Bin/eEQuRB8kRdtrGGCOV8y84sXhHFUmMhev5pM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SQehkbWL07NOsDkrgEP5b1WJ3caLbzwBsLVTp0WBBKb95bP2zDnMxvPyPzEtYz2D6
- IFsIRzCk2QP8serd8BpInWDvFIcUOXoCXjPigVT6pDkRf+Rrk2Ux5jyUCvsYfWEn+4
- M84dmGldFkFyAYQgJ9EanbpnQR9JNoFyPoN7aWA5mWDWdSoqJE49jx32Kcb3GjFIhK
- vh+81Qf3/omJc8CaaFo6m3XHWpAt4jKc1/4jLaQ0Wwio/itnWha8m65EfFSBxecqpk
- jmUJj0YihT6JQk3wyyJ2Q8p/hUJZlPU7Z7D1x5MXkdNqrnVmEg+oK0U7qjnVphso43
- UP5/MVZpeALZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] [DO_NOT_REVIEW] drm/i915/color: Add color pipeline
- support for SDR planes
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260812085908.3159828-2-chaitanya.kumar.borah@intel.com>
-References: <20260812085908.3159828-1-chaitanya.kumar.borah@intel.com>
- <20260812085908.3159828-2-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 09:56:00 +0000
-Message-Id: <20260812095601.3AF811F00A3A@smtp.kernel.org>
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E534210F030
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 14:35:41 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-47f703a9e5dso499737f8f.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 07:35:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786545340; cv=none;
+ d=google.com; s=arc-20260327;
+ b=gTdWrzTBL2Dboer9GifFbQ0GgZLTEOjEsdRQCGnoeygzJyYfZwPPbu+xnMzLI0x0tF
+ o/dOyVdkgd6BoIw4RAyTrqqeV9SHOAO0k8LHdS6Eg/wJzdOT5fQAtUDyM/hszV6TL0vO
+ HN11brenRoMVS56IA2fT477UzxJJNO1XRMfo2j6I/bVLxUKndK1QNuGGaXDGcB5Fb3du
+ h1/pnt7aiSyx0wsfjfSPhQASxStSAEPFhh53F6oB4O8nuNTIdrMI5iwRZXlicS+cZ2h+
+ ijRcEKY2eBrzCBEaAarSUzxzBXw/RhCrDvwWQpju50sHJgN1Wrt0o2HGptOwYHCd8oik
+ 64ZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=4Cgpz0cWApImlFACTHN8IU5QRwWcDMSez31Kh68z/1U=;
+ fh=pYxTZ8j8nXt7nnB8V1gKg87Px6+aFfC4WaZWLQsHSzI=;
+ b=fWnPWNQKUzEacfYKEESnvMV2Er6f+u2SOePRpOk4wnVOlIOu5XPDUKTIbC+lctmLNV
+ Q0jxZEC8lwOlpOOxKKmiTPuRM+JgxGoANshXCma5nN4gT8Joh81Zvsm8I4wrgHa72XB0
+ kn4Q58LN+xJEtV5SbpsscfwQUqv5Z7VZMNDL+A3ew4VrSLd8XYNcgkGI3w1H1ZOcG5aN
+ jbLR7jytANRIXc64kbG+8XCx2WCRzUWRo3SbvoIqJnV9VMf8dGNTGZ11w0zp0QykrGgm
+ RsAVBJFawBvtg85M/MgvVN9SlffnHhybyAMy1D1HlpCQtqAL9EM6I1C4uxFehtuuFcuh
+ Z2JA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786545340; x=1787150140; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=4Cgpz0cWApImlFACTHN8IU5QRwWcDMSez31Kh68z/1U=;
+ b=Fokx7XBH6sHhAkHCU3RNVgQMuhWv2fw2HVF+UDumfi8ZdOCMC0EYiRkKfTWihiTXSD
+ yI/04u1hqk//w1gXYQPbOxSKY6pgLlduEznWPu/xRAVTHH+kkx/C+uarQHQyZeGyFv7R
+ I9H1K0S1DVZWYnHGSvBzn5fkPfHJXN/uGSXHrj8ybz3SCdWbiz5Ur2cCL+i94a0i2BZE
+ 7zC62ZETBh4EUsQEbxWVyZBZ/oJvZihF5eyLt03ONJuahjembxcqUPpVTVeTjQWJtSMy
+ tDwxL6VOOUgvxKNqXzNozqlkQ7LdT8ecZExiVwyKuyhrxOFywHp/jAPPOsLQsq7aWaJb
+ ZprQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786545340; x=1787150140;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=4Cgpz0cWApImlFACTHN8IU5QRwWcDMSez31Kh68z/1U=;
+ b=GHMDU+1uAj2WnEbY+fbZEiAy5LQgxhi1MnEGkTD2l8FdnF0mgpbe14+ia3d4BX/zel
+ XoG+prEzRPobLSKTgmWmhyclpCvQ2gMJUPQhR18qmwTjhMAeDfMQtuZIge+T43gJFl2u
+ Y5z//ae5IhImXepNp80EQKLJAZJ5j2/gZJjL5dEUU47ENlqYoqmtIo+QSkidlEMw999u
+ hf1XRdvK+uBgPx1yAJc9JeF37nI7DXgREO95byg6xJkhvPcakTrR0ffnk9P8R3zOoG89
+ AF/qZu9X76D2/kooCAIiKXso8O0q7g/JDImljda6BE2GrfrmyDpCPcv9noquBIvBUlJx
+ Oawg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RocPeoJ3KEeKo4xLZ94vQOLoJBqFwWx4xzYwdRrGu/SkH3OVoHJXFO1nyWfGcmByZFo+T3Q+UacPco=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yybpp+7tV8Lon5w5AtAA5o2bMu+Eq0uF0vQJpsi87ORwQWcJxar
+ hDQwAPOrItbs9bdHVT4oSzuUXAiPPAmOrv+I7m+3XRxf8C+z3Cr/DFLPmH/f/7MkmulE7P3DxAW
+ qFS4gCWKZ5lb2ph/d7g/SzcJ9uIDSEk3h8e60CEZ7Hw==
+X-Gm-Gg: AR+sD12ICwH166DK3Tp9L+hjVR674sqJcFJgsOvCpyNPIXjWkWmz3hEyVbn2kLC8Vvf
+ hyqMRu+CjklnsP8458dGQRf1ajE8NmGOXtpTNb7levpG3cwdaYgESuBnd9X2FSM2+yXCZ0SAIyN
+ 3M8kC12YPkGYd1FY1hZqA3yCw1Lv6NVwGnhorD4q1do9L0pIt6xiE1KVR0mCf96dS3pQPFSHPWK
+ 7dXKp+fCdJstGPXXJKUulUgb+G4U8De9LwfbJLL6WfAzc/RR61R2xovX3+E11J06r4jVRe1S5F3
+ ZevxLntRnZiGu7BsCgE/NE7ULKZyO55vseq8nFq/T1eW
+X-Received: by 2002:a05:6000:4281:b0:47f:96e6:70a with SMTP id
+ ffacd0b85a97d-481528bf608mr7525297f8f.0.1786545340144; Wed, 12 Aug 2026
+ 07:35:40 -0700 (PDT)
+MIME-Version: 1.0
+From: =?UTF-8?B?5ZC05rab?= <rpwtsama@gmail.com>
+Date: Wed, 12 Aug 2026 22:35:26 +0800
+X-Gm-Features: AUfX_mxbmGloEkTFNTD0VElyswP7v1uUnHrZug9G_iEZ1UTNZ_MSc8ZGrW36qSM
+Message-ID: <CAF38RzLJihCvga6UgkPPR+A1jY33bf1T083CfDy+pfBuzYcdjg@mail.gmail.com>
+Subject: [REGRESSION] Panther Lake 8086:b082 internal eDP black after xe
+ takeover since 7.1.6, still present in 7.1.8
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, intel-xe@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
+Content-Type: multipart/alternative; boundary="0000000000005fe1230658da807b"
 X-Mailman-Approved-At: Wed, 12 Aug 2026 17:41:47 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,306 +99,119 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+--0000000000005fe1230658da807b
+Content-Type: text/plain; charset="UTF-8"
 
-New issues:
-- [High] Silent removal of `PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH` programming=
- breaks HDR plane post-CSC LUT configuration.
-- [High] Missing call to `icl_program_input_csc` for HDR planes leaves hard=
-ware coefficients uninitialized when CSC is enabled via the color pipeline =
-on non-YUV framebuffers.
-- [Medium] Bitwise truncation of `supported_fm` on 32-bit platforms bypasse=
-s API validation.
+Hello,
 
-Pre-existing issues:
-- [High] Dangling pointer in DRM object IDR due to missing `drm_mode_object=
-_unregister()` in `drm_colorop_cleanup()`.
-- [High] Unchecked `kasprintf()` failure leads to a NULL pointer dereferenc=
-e during color pipeline property creation.
---
+I am reporting an Intel xe display regression on a Panther Lake laptop. The
+problem started with Linux 7.1.6 and is still reproducible with Linux 7.1.8.
 
---- Patch [1]: [PATCH 1/2] [DO_NOT_REVIEW] drm/i915/color: Add color pipeli=
-ne support for SDR planes ---
-commit 4109ddb0966a40508785d60da4c2c5b6e3b098a0
-Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: drm/i915/color: Add color pipeline support for SDR planes
+System:
 
-This patch adds color pipeline support for SDR planes and introduces
-fixed matrix color operations. It introduces new capabilities to program
-pre-CSC and post-CSC LUTs conditionally based on whether a plane is HDR
-or SDR.
+   - Laptop: Lenovo ThinkPad T14p Gen 4 (2026)
+   - CPU: Intel Core Ultra 9 388H, Panther Lake
+   - GPU: Intel integrated graphics, PCI ID 8086
+   - Driver: xe
+   - Display: internal eDP panel
+   - Distribution: Arch Linux x86_64
+   - Desktop: KDE Plasma on Wayland
 
-Link: https://lore.kernel.org/intel-gfx/20260804123107.2256124-1-chaitanya.=
-kumar.borah@intel.com/
+Regression status:
 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 682fcc6515259..95da03d6c65c8 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -453,6 +463,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *=
-dev, struct drm_colorop *col
->  }
->  EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
-> =20
-> +/**
-> + * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_=
-MATRIX
-> + *
-> + * @dev: DRM device
-> + * @colorop: The drm_colorop object to initialize
-> + * @plane: The associated drm_plane
-> + * @funcs: control functions for the new colorop
-> + * @supported_fm: A bitfield of supported drm_colorop_fixed_matrix_type =
-enum values,
-> + *               created using BIT(fixed_matrix_type) and combined with =
-the OR '|'
-> + *               operator.
-> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-> + * @return zero on success, -E value on failure
-> + */
-> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct d=
-rm_colorop *colorop,
-> +					struct drm_plane *plane,
-> +					const struct drm_colorop_funcs *funcs,
-> +					u64 supported_fm, uint32_t flags)
-> +{
-> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
-> +	int i, len;
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	if (!supported_fm) {
-> +		drm_err(dev,
-> +			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s=
-]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) !=3D 0) {
+   - Known good: 7.1.5-arch1-2
+   - First known bad: 7.1.6-arch1-1
+   - Latest tested bad: 7.1.8
 
-[Severity: Medium]
-Does this bitwise truncation bypass API validation on 32-bit platforms?
+The issue is fully reproducible with both 7.1.6 and 7.1.8. Downgrading only
+the kernel to 7.1.5-arch1-2 makes the problem disappear.
 
-Since the BIT() macro evaluates to an unsigned long,=20
--BIT(DRM_COLOROP_FM_COUNT) will be a 32-bit value on 32-bit architectures.
+Steps to reproduce:
 
-When bitwise-ANDed with the u64 supported_fm parameter, it will be
-zero-extended rather than sign-extended.=20
+   1. Disconnect all external displays.
+   2. Cold boot the laptop.
+   3. The Lenovo firmware logo and systemd-boot menu are displayed normally.
+   4. Select the Arch Linux boot entry.
+   5. When the xe driver takes over from the firmware framebuffer, the
+   internal panel becomes completely black.
+   6. Close and reopen the laptop lid.
+   7. The internal panel starts working normally.
 
-Can this cause any unsupported bits in the upper 32 bits to evaluate to 0=20
-and silently bypass the error check during driver initialization?
+The issue occurs on every boot. Connecting an external display changes the
+behavior and may allow the internal panel to initialize.
 
-> +		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
+The failure coincides with the following kernel messages:
 
-[ ... ]
+fbcon: xedrmfb (fb0) is primary device
+xe 0000:00:02.0: [drm] *ERROR* CPU pipe A FIFO underrun
+xe 0000:00:02.0: [drm] fb0: xedrmfb frame buffer device
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color.c b/drivers/gpu/drm=
-/i915/display/intel_color.c
-> index 87ced9f6ff408..f1df0f9ba7624 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color.c
-> @@ -3998,25 +3998,17 @@ xelpd_program_plane_pre_csc_lut(struct intel_dsb =
-*dsb,
->  }
-> =20
->  static void
-> -xelpd_program_plane_post_csc_lut(struct intel_dsb *dsb,
-> -				 const struct intel_plane_state *plane_state)
-> +xelpd_load_hdr_post_csc_lut(struct intel_display *display,
-> +			    struct intel_dsb *dsb,
-> +			    enum pipe pipe,
-> +			    enum plane_id plane,
-> +			    const struct drm_color_lut32 *post_csc_lut)
->  {
-> -	struct intel_display *display =3D to_intel_display(plane_state);
-> -	const struct drm_plane_state *state =3D &plane_state->uapi;
-> -	enum pipe pipe =3D to_intel_plane(state->plane)->pipe;
-> -	enum plane_id plane =3D to_intel_plane(state->plane)->id;
-> -	const struct drm_color_lut32 *post_csc_lut =3D plane_state->hw.gamma_lu=
-t->data;
->  	int i, lut_size =3D 32;
->  	u32 lut_val;
-> =20
-> -	if (!icl_is_hdr_plane(display, plane))
-> -		return;
-> -
->  	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_INDEX_ENH(pipe, pl=
-ane, 0),
->  			   PLANE_PAL_PREC_AUTO_INCREMENT);
-> -	/* TODO: Add macro */
-> -	intel_de_write_dsb(display, dsb, PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH(pip=
-e, plane, 0),
-> -			   PLANE_PAL_PREC_AUTO_INCREMENT);
+Tests performed:
 
-[Severity: High]
-Does the removal of PLANE_POST_CSC_GAMC_SEG0_INDEX_ENH programming here
-break HDR plane post-CSC LUT configuration?
+   - Adding xe.enable_psr=0 does not help.
+   - Disabling my custom xe SR-IOV service and booting without creating any
+   VF does not help.
+   - Linux 7.1.5-arch1-2 works with the same firmware and userspace.
+   - Linux 7.1.6 and Linux 7.1.8 consistently reproduce the problem.
+   - I have not bisected the exact offending commit.
 
-When programming post-CSC LUTs on HDR planes, the hardware requires the
-SEG0_INDEX_ENH register to be configured to auto-increment before writing
-the LUT data. With the refactoring of xelpd_program_plane_post_csc_lut()
-into xelpd_load_hdr_post_csc_lut(), it looks like these register writes
-were completely removed.
+Full debug dmesg and system information are available in the linked drm/xe
+issue:
 
-Could this lead to hardware state machine misconfigurations and display
-corruption on HDR planes during atomic modesets?
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8902
 
-> =20
->  	for (i =3D 0; i < lut_size + 3; i++) {
->  		if (post_csc_lut) {
+#regzbot introduced: v7.1.5..v7.1.6
 
-[ ... ]
+Regards,
+rpwtsama
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
-s/gpu/drm/i915/display/intel_color_pipeline.c
-> index 6cf8080ee8000..38cfd6ed585d0 100644
-> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-> @@ -126,9 +145,12 @@ int _intel_color_pipeline_plane_init(struct drm_plan=
-e *plane, struct drm_prop_en
->  	if (plane_has_3dlut(display, pipe, plane)) {
->  		pipeline =3D xe3plpd_primary_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(xe3plpd_primary_plane_pipeline);
-> -	} else {
-> +	} else if (icl_is_hdr_plane(display, to_intel_plane(plane)->id)) {
->  		pipeline =3D hdr_plane_pipeline;
->  		pipeline_len =3D ARRAY_SIZE(hdr_plane_pipeline);
-> +	} else {
-> +		pipeline =3D sdr_plane_yuv_pipeline;
-> +		pipeline_len =3D ARRAY_SIZE(sdr_plane_yuv_pipeline);
->  	}
-> =20
->  	for (i =3D 0; i < pipeline_len; i++) {
+--0000000000005fe1230658da807b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-[Severity: High]
-This is a pre-existing issue, but can an unchecked kasprintf() failure
-lead to a NULL pointer dereference during color pipeline property creation?
+<div dir=3D"ltr"><p class=3D"gmail-isSelectedEnd">Hello,</p><p class=3D"gma=
+il-isSelectedEnd">I am reporting an Intel xe display regression on a Panthe=
+r Lake laptop. The problem started with Linux 7.1.6 and is still reproducib=
+le with Linux 7.1.8.</p><p class=3D"gmail-isSelectedEnd">System:</p><ul><li=
+>Laptop: Lenovo ThinkPad T14p Gen 4 (2026)</li><li>CPU: Intel Core Ultra 9 =
+388H, Panther Lake</li><li>GPU: Intel integrated graphics, PCI ID 8086</li>=
+<li>Driver: xe</li><li>Display: internal eDP panel</li><li>Distribution: Ar=
+ch Linux x86_64</li><li>Desktop: KDE Plasma on Wayland</li></ul><p class=3D=
+"gmail-isSelectedEnd">Regression status:</p><ul><li>Known good: 7.1.5-arch1=
+-2</li><li>First known bad: 7.1.6-arch1-1</li><li>Latest tested bad: 7.1.8<=
+/li></ul><p class=3D"gmail-isSelectedEnd">The issue is fully reproducible w=
+ith both 7.1.6 and 7.1.8. Downgrading only the kernel to 7.1.5-arch1-2 make=
+s the problem disappear.</p><p class=3D"gmail-isSelectedEnd">Steps to repro=
+duce:</p><ol start=3D"1"><li>Disconnect all external displays.</li><li>Cold=
+ boot the laptop.</li><li>The Lenovo firmware logo and systemd-boot menu ar=
+e displayed normally.</li><li>Select the Arch Linux boot entry.</li><li>Whe=
+n the xe driver takes over from the firmware framebuffer, the internal pane=
+l becomes completely black.</li><li>Close and reopen the laptop lid.</li><l=
+i>The internal panel starts working normally.</li></ol><p class=3D"gmail-is=
+SelectedEnd">The issue occurs on every boot. Connecting an external display=
+ changes the behavior and may allow the internal panel to initialize.</p><p=
+ class=3D"gmail-isSelectedEnd">The failure coincides with the following ker=
+nel messages:</p><pre dir=3D"ltr"><code dir=3D"ltr">fbcon: xedrmfb (fb0) is=
+ primary device
+xe 0000:00:02.0: <span class=3D"gmail-text-token-text-primary gmail-cursor-=
+text gmail-rounded-sm">[drm]</span> *ERROR* CPU pipe A FIFO underrun
+xe 0000:00:02.0: <span class=3D"gmail-text-token-text-primary gmail-cursor-=
+text gmail-rounded-sm">[drm]</span> fb0: xedrmfb frame buffer device</code>=
+</pre><p class=3D"gmail-isSelectedEnd">Tests performed:</p><ul><li>Adding <=
+code dir=3D"ltr">xe.enable_psr=3D0</code> does not help.</li><li>Disabling =
+my custom xe SR-IOV service and booting without creating any VF does not he=
+lp.</li><li>Linux 7.1.5-arch1-2 works with the same firmware and userspace.=
+</li><li>Linux 7.1.6 and Linux 7.1.8 consistently reproduce the problem.</l=
+i><li>I have not bisected the exact offending commit.</li></ul><p class=3D"=
+gmail-isSelectedEnd">Full debug dmesg and system information are available =
+in the linked drm/xe issue:</p><p class=3D"gmail-isSelectedEnd"><a href=3D"=
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8902">https://git=
+lab.freedesktop.org/drm/xe/kernel/-/work_items/8902</a></p><p class=3D"gmai=
+l-isSelectedEnd">#regzbot introduced: v7.1.5..v7.1.6</p><p>Regards,<br><spa=
+n class=3D"gmail-text-token-text-primary gmail-cursor-text gmail-rounded-sm=
+">rpwtsama</span></p></div>
 
-Looking further down in _intel_color_pipeline_plane_init() in
-drivers/gpu/drm/i915/display/intel_color_pipeline.c:
-
-_intel_color_pipeline_plane_init()
-    list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", ...);
-    return 0;
-
-If memory allocation fails, kasprintf() returns NULL. This is blindly
-assigned to list->name, which is then passed into
-drm_plane_create_color_pipeline_property() and subsequently to
-drm_property_add_enum() which calls strlen(name).
-
-Could this structural guarantee of a kernel panic be prevented with a
-NULL check?
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers=
-/gpu/drm/i915/display/skl_universal_plane.c
-> index 07a6832933521..222c3b6bbe467 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> @@ -1240,37 +1240,47 @@ static u32 glk_plane_color_ctl_crtc(const struct =
-intel_crtc_state *crtc_state)
->  	return plane_color_ctl;
->  }
-> =20
-> -static u32 glk_plane_color_ctl(const struct intel_plane_state *plane_sta=
-te)
-> +static u32 glk_plane_color_ctl_input_csc(const struct intel_plane_state =
-*plane_state)
->  {
->  	struct intel_display *display =3D to_intel_display(plane_state);
->  	const struct drm_framebuffer *fb =3D plane_state->hw.fb;
->  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
-> -	u32 plane_color_ctl =3D 0;
-> +	bool color_pipeline =3D !!plane_state->uapi.color_pipeline;
-> +	bool needs_csc =3D color_pipeline ? plane_state->hw.csc_ff_enable : fb-=
->format->is_yuv;
-> +	u32 ctl =3D 0;
-> =20
-> -	plane_color_ctl |=3D PLANE_COLOR_PLANE_GAMMA_DISABLE;
-> -	plane_color_ctl |=3D glk_plane_color_ctl_alpha(plane_state);
-> +	if (!needs_csc)
-> +		return 0;
-> =20
-> -	if (fb->format->is_yuv && !icl_is_hdr_plane(display, plane->id)) {
-> +	if (!icl_is_hdr_plane(display, plane->id)) {
->  		switch (plane_state->hw.color_encoding) {
->  		case DRM_COLOR_YCBCR_BT709:
-> -			plane_color_ctl |=3D PLANE_COLOR_CSC_MODE_YUV709_TO_RGB709;
-> +			ctl |=3D PLANE_COLOR_CSC_MODE_YUV709_TO_RGB709;
->  			break;
->  		case DRM_COLOR_YCBCR_BT2020:
-> -			plane_color_ctl |=3D
-> -				PLANE_COLOR_CSC_MODE_YUV2020_TO_RGB2020;
-> +			ctl |=3D PLANE_COLOR_CSC_MODE_YUV2020_TO_RGB2020;
->  			break;
->  		default:
-> -			plane_color_ctl |=3D
-> -				PLANE_COLOR_CSC_MODE_YUV601_TO_RGB601;
-> +			ctl |=3D PLANE_COLOR_CSC_MODE_YUV601_TO_RGB601;
->  		}
-> -		if (plane_state->hw.color_range =3D=3D DRM_COLOR_YCBCR_FULL_RANGE)
-> -			plane_color_ctl |=3D PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
-> -	} else if (fb->format->is_yuv) {
-> -		plane_color_ctl |=3D PLANE_COLOR_INPUT_CSC_ENABLE;
-> -		if (plane_state->hw.color_range =3D=3D DRM_COLOR_YCBCR_FULL_RANGE)
-> -			plane_color_ctl |=3D PLANE_COLOR_YUV_RANGE_CORRECTION_DISABLE;
-> +	} else {
-> +		ctl |=3D PLANE_COLOR_INPUT_CSC_ENABLE;
->  	}
-
-[Severity: High]
-Does the introduction of plane_state->hw.csc_ff_enable leave hardware
-coefficients uninitialized in skl_plane_update_noarm()?
-
-When userspace enables the INTEL_PLANE_CB_CSC_FF fixed matrix colorop on
-an RGB framebuffer on an HDR plane, glk_plane_color_ctl_input_csc() sets
-the PLANE_COLOR_INPUT_CSC_ENABLE bit here.
-
-However, skl_plane_update_noarm() evaluates whether to actually program
-the hardware using the framebuffer format:
-
-skl_plane_update_noarm()
-    if (fb->format->is_yuv && icl_is_hdr_plane(display, plane_id))
-        icl_program_input_csc(dsb, plane, plane_state);
-
-Because it is an RGB buffer, the programming is skipped, leaving the hardwa=
-re
-to use uninitialized or stale input CSC coefficient registers.
-
-Should skl_plane_update_noarm() be updated to also check if CSC is enabled
-via the new color pipeline?
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does drm_colorop_cleanup() leave a
-dangling pointer in the DRM object IDR?
-
-Looking at drm_colorop_cleanup() in drivers/gpu/drm/drm_colorop.c:
-
-drm_colorop_cleanup()
-    list_del(&colorop->head);
-    config->num_colorop--;
-
-If drm_plane_colorop_fixed_matrix_init() fails after drm_mode_object_add()
-is called, the error path invokes this function. It removes the colorop
-from the list and frees it, but neglects to call
-drm_mode_object_unregister() to remove the object ID from
-dev->mode_config.object_idr.
-
-Could this lead to a Use-After-Free (UAF) if a lookup is performed on the
-leaked object ID later?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812085908.3159=
-828-1-chaitanya.kumar.borah@intel.com?part=3D1
+--0000000000005fe1230658da807b--
