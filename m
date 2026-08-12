@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3413FC5CFDB
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 22:08:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF48AC5CFDB
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 22:10:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9922B10F127;
-	Wed, 12 Aug 2026 22:08:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E2210F133;
+	Wed, 12 Aug 2026 22:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eufxawFp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fCSrwo95";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EDCC10F127;
- Wed, 12 Aug 2026 22:08:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 138F010F133;
+ Wed, 12 Aug 2026 22:10:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C618D41901;
- Wed, 12 Aug 2026 22:08:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EEF1F000E9;
- Wed, 12 Aug 2026 22:08:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F4028600AD;
+ Wed, 12 Aug 2026 22:10:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B601F000E9;
+ Wed, 12 Aug 2026 22:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786572533;
- bh=a3qGFz47d9tRqfTr/CL2zuwTvComG4Do3HqW+E3BCi4=;
+ s=k20260515; t=1786572624;
+ bh=ubDQc/K/dCguULMbJ5jFzOBaeHiIN2/i0D1kTbdCJPk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eufxawFpsmEiiUaXsCALx7Ki8kf3H7IUYSuZsMRbzmwGRNgPndJrhc6KKHOKhq+T4
- cfkgakzPGwD8kcYnKcXLFWi0Qea1C9KKGlNWhKfh++8VYBfVEMRDsYrqJMWNKTHO5A
- Gvu8fyWvBg/JNQhSK/GRoNW28UsTz19GmHOBaPjMThmFjU6+YnKelY1A0irRIGVso1
- j/KS/0N8EqOSB751AtfOkTdclSJYaKcYRlm3PisxlcQuxJgvIUvzpcTqwqFG1hfD1R
- fp1BSViwj9bQAxfJqVJj7/9xmNRu0V6TScBG6UX+S8kTUkwXTpDDyHdohjkG6OKt5V
- ABjnQiR8kCYbQ==
+ b=fCSrwo95AKvr/Z0wzDni9U6rbGPAxScx0WMFWqm6YQ1dj/3nifuJUhLLoLRz052aZ
+ 3coUI9xL8U5uhKCXJK/sHFu025zTrRnr/lnKX4pIPecYWinfV7ksAQP2AdOrgUdT6Y
+ yeCFwGxFCisTICcEi4NuJMfykwHYHE8NesKLagRTMWFGNzmFTbq8ktyKuoUil/6v/b
+ daF6LAhV4QnHRR1VMMN66sHMMPGUw/yirlP0x0PbP7NK0X7cN3m90bczyWGXuMC1bF
+ XJcunLJzBmiy2oimErvSluekpY3p9PNRXCYn1rEoa859bIalW9YdnuBJp1S/qKOFjz
+ IphBYBQuqDaOQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/i915/fbc: fbc_dirty_rect restrictions and logging
+Subject: Re: [PATCH 2/2] drm/i915/fbc: nuke CFB if Plane setting (except for
+ surf addr) changes
 To: "Austin Hu" <austin.hu@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260812215350.3753102-2-austin.hu@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260812215350.3753102-3-austin.hu@intel.com>
 References: <20260812215350.3753102-1-austin.hu@intel.com>
- <20260812215350.3753102-2-austin.hu@intel.com>
+ <20260812215350.3753102-3-austin.hu@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 12 Aug 2026 22:08:52 +0000
-Message-Id: <20260812220853.73EEF1F000E9@smtp.kernel.org>
+Date: Wed, 12 Aug 2026 22:10:23 +0000
+Message-Id: <20260812221024.67B601F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,94 +60,140 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Incorrect coordinate space math in the 180-degree rotation branch =
-causes the FBC dirty rectangle to collapse, breaking FBC tracking.
-- [Medium] The 'FBC dirty rect out of range' debug warning will trigger spu=
-riously on almost every frame when the plane is rotated 180 degrees.
+
+New issues:
+- [Medium] Strict equality check on `uapi.src` forces a full FBC CFB nuke o=
+n vertical panning (Y-offset changes), defeating dirty rectangle optimizati=
+ons for scrolling.
+
+Pre-existing issues:
+- [High] Incorrect damage coordinate inversion math for 180-degree rotated =
+planes results in 0-height dirty rectangles, freezing screen updates.
 --
 
---- Patch [1]: [PATCH 1/2] drm/i915/fbc: fbc_dirty_rect restrictions and lo=
-gging ---
-commit 234fb7237db4bb8e467458e88cc6ed3f6e850511
-Author: Charlton Lin <charlton.lin@intel.com>
+--- Patch [2]: [PATCH 2/2] drm/i915/fbc: nuke CFB if Plane setting (except =
+for surf addr) changes ---
+commit 50b0481138fde60ac48db330dd972dfba35b3f10
+Author: Austin Hu <austin.hu@intel.com>
 
-drm/i915/fbc: fbc_dirty_rect restrictions and logging
-
-Clamp the FBC dirty rectangle coordinates to the valid frame buffer
-range [y_offset, y_end] to prevent out-of-bounds coordinates, and
-log a debug message when clamping occurs.
+drm/i915/fbc: nuke CFB if Plane setting (except for surf addr) changes
+   =20
+When FBC Dirty Rectangle mode is enabled, any non-PLANE_SURF register
+update requires fetching the full plane frame buffer from memory to
+re-compress and update the CFB in stolen memory. This commit checks
+plane state attributes during atomic commits and forces a full CFB
+nuke if any setting other than the surface address changes.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_fbc.c b/drivers/gpu/drm/i=
 915/display/intel_fbc.c
-> index f61b4a218d6ef..c0fed695af0da 100644
+> index c0fed695af0da..6bf5c09476713 100644
 > --- a/drivers/gpu/drm/i915/display/intel_fbc.c
 > +++ b/drivers/gpu/drm/i915/display/intel_fbc.c
+> @@ -1516,8 +1516,124 @@ static bool intel_fbc_is_ok(const struct intel_pl=
+ane_state *plane_state)
+>  		intel_fbc_is_cfb_ok(plane_state);
+>  }
+> =20
+> +/*
+> + * From BSpec about "FBC Dirty Rectangle", when Dirty Rectangle mode is =
+active,
 
 [ ... ]
 
-> @@ -1535,11 +1538,41 @@ __intel_fbc_prepare_dirty_rect(const struct intel=
-_plane_state *plane_state,
+> +static bool intel_fbc_dirty_rect_needs_nuke(struct intel_atomic_state *s=
+tate,
+> +					    struct intel_plane *plane)
+> +{
+> +	struct intel_display *display =3D to_intel_display(state);
+
+[ ... ]
+
+> +	if (skl_plane_aux_dist(old_plane_state, 0) !=3D
+> +	    skl_plane_aux_dist(new_plane_state, 0)) {
+> +		drm_dbg_kms(display->drm,
+> +			    "[PLANE:%d:%s] AUX_DIST changed in FBC DIRTY RECT\n",
+> +			    plane->base.base.id, plane->base.name);
+> +		return true;
+> +	}
+> +
+> +	if (!drm_rect_equals(&old_plane_state->uapi.src,
+> +			     &new_plane_state->uapi.src) ||
+> +	    !drm_rect_equals(&old_plane_state->uapi.dst,
+> +			     &new_plane_state->uapi.dst)) {
+
+[Severity: Medium]
+Does this strict equality check on uapi.src accidentally force a full CFB
+nuke during vertical panning?
+
+A vertical pan (scrolling) changes uapi.src.y1 to shift the viewport, which
+translates to a surface address update (PLANE_OFFSET / PLANE_SURF registers=
+).
+Because drm_rect_equals() checks the coordinates (x1 and y1), it fails when
+panning, erroneously triggering a full CFB nuke on every frame of the scrol=
+l.
+
+Should this perhaps verify drm_rect_width() and drm_rect_height() instead
+to allow pure viewport shifts?
+
+> +		drm_dbg_kms(display->drm,
+> +			    "[PLANE:%d:%s] Size/coords changed in FBC DIRTY RECT\n",
+> +			    plane->base.base.id, plane->base.name);
+> +		return true;
+> +	}
+> +
+> +	if (old_plane_state->hw.alpha !=3D new_plane_state->hw.alpha) {
+
+[ ... ]
+
+>  static void
+> -__intel_fbc_prepare_dirty_rect(const struct intel_plane_state *plane_sta=
+te,
+> +__intel_fbc_prepare_dirty_rect(struct intel_atomic_state *state,
+> +			       const struct intel_plane_state *plane_state,
+>  			       const struct intel_crtc_state *crtc_state)
+>  {
+>  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
+> @@ -1538,7 +1654,10 @@ __intel_fbc_prepare_dirty_rect(const struct intel_=
+plane_state *plane_state,
 >  		return;
 >  	}
 > =20
-> -	if (drm_rect_visible(damage))
-> -		*fbc_dirty_rect =3D *damage;
-> -	else
-> +	if (drm_rect_visible(damage)) {
-> +		int y1, y2;
-> +
-> +		if (plane_state->hw.rotation & DRM_MODE_ROTATE_180) {
-> +			/* Under 180 degree rotation, coordinate system is inverted */
-> +			int inv_y1 =3D height - damage->y2;
-> +			int inv_y2 =3D height - damage->y1;
-> +
-> +			y1 =3D clamp(y_offset + inv_y1, y_offset, y_end);
-> +			y2 =3D clamp(y_offset + inv_y2, y_offset, y_end);
+> -	if (drm_rect_visible(damage)) {
+> +	if (intel_fbc_dirty_rect_needs_nuke(state, plane)) {
+> +		/* compress the entire region due to non PLANE_SURF updating. */
+> +		*fbc_dirty_rect =3D DRM_RECT_INIT(0, y_offset, width, height);
+> +	} else if (drm_rect_visible(damage)) {
+>  		int y1, y2;
+> =20
+>  		if (plane_state->hw.rotation & DRM_MODE_ROTATE_180) {
+>  			/* Under 180 degree rotation, coordinate system is inverted */
+>  			int inv_y1 =3D height - damage->y2;
+>  			int inv_y2 =3D height - damage->y1;
+> =20
+>  			y1 =3D clamp(y_offset + inv_y1, y_offset, y_end);
+>  			y2 =3D clamp(y_offset + inv_y2, y_offset, y_end);
 
 [Severity: High]
-Can this math result in collapsed dirty rectangles?
+This is a pre-existing issue, but does this math incorrectly treat absolute
+framebuffer coordinates as relative coordinates, resulting in zero-height
+dirty rectangles for 180-degree rotated displays?
 
-Because damage->y2 already includes the absolute y_offset, height - damage-=
->y2
-yields a large negative number. When y_offset is added back, the result fal=
-ls
-well below y_offset, causing both y1 and y2 to unconditionally clamp to
-y_offset.
+The damage clip is already in absolute framebuffer coordinates, meaning
+damage->y2 resides between y_offset and y_end. Subtracting this from the
+plane's height produces a value that, when added to y_offset, is almost
+always less than y_offset.=20
 
-This collapses the FBC dirty rectangle to a 0-height region starting at
-y_offset, entirely missing the actual damaged pixels.
+The clamp() function then pins both y1 and y2 strictly to y_offset,
+programming a zero-height dirty rectangle and freezing screen updates on
+rotated displays.
 
-> +		} else {
-> +			y1 =3D clamp(damage->y1, y_offset, y_end);
-> +			y2 =3D clamp(damage->y2, y_offset, y_end);
-> +		}
-> +
-> +		/*
-> +		 * Clamp dirty rect to the valid FB range [y_offset, y_end].
-> +		 * Per Bspec:
-> +		 *   start_line >=3D y_offset
-> +		 *   end_line <=3D y_offset + plane_height
-> +		 */
-> +		if (y1 !=3D damage->y1 || y2 !=3D damage->y2)
-> +			drm_dbg_kms(display->drm,
-> +				    "[PLANE:%d:%s] FBC dirty rect out of range: y1=3D%d y2=3D%d clam=
-ped to y1=3D%d y2=3D%d (y_offset=3D%d y_end=3D%d)\n",
-> +				    plane->base.base.id, plane->base.name,
-> +				    damage->y1, damage->y2, y1, y2, y_offset, y_end);
+Could this be corrected to account for the absolute offset, perhaps using
+something like y_end - (damage->y2 - y_offset)?
 
-[Severity: Medium]
-Will this warning trigger spuriously on almost every frame when the plane is
-rotated 180 degrees?
-
-For 180-degree planes, the code intentionally alters y1 and y2 to represent
-inverted coordinates. The warning condition compares these new inverted
-coordinates directly against the original, non-inverted coordinates.
-
-Because an inverted coordinate will inherently mismatch a non-inverted one,
-this condition evaluates to true on nearly every atomic update involving da=
-mage
-for rotated planes.
+>  		} else {
+>  			y1 =3D clamp(damage->y1, y_offset, y_end);
+>  			y2 =3D clamp(damage->y2, y_offset, y_end);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260812215350.3753=
-102-1-austin.hu@intel.com?part=3D1
+102-1-austin.hu@intel.com?part=3D2
