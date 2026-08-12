@@ -4,52 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D46EC5CFDB
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 09:49:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72CACC5AD5A
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 10:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBAB810EF37;
-	Wed, 12 Aug 2026 09:49:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14E310EEB8;
+	Wed, 12 Aug 2026 10:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ev1rnlWy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hd9Bwx/E";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 782FF10EF36;
- Wed, 12 Aug 2026 09:49:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC1A10EEB8
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 10:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786528146; x=1818064146;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=fyGa/NyyelrVJpDXAJxEQCxk8Rb6sBKRcchkmoF20Mk=;
- b=Ev1rnlWyjPRUZ5qVnFv6HUBle7AkHVdgOoCf8sYANlyVrDRPEdFNOUQP
- Ujzx/DPHwq9Vkqc3Pguhkx9YFf8Cb8bZ7UcDStOURPB19CrjLLJ5acxCb
- FEMo51GXhJC5YMi6cPmxKrzkq7HGEkw1bDCxbEOhjRKo8j35V3ZY8gZ2Z
- SjTWNrzxeCmnAXUXYzr4l3WT8VPAC0W8tMOcFV7cahzc8mPkds6eQMYHj
- Nc4m0Y8bzfcc8dVtLEfAqatYAI4APht6AgIy4WmXVZ1GTtmgr0cD4CJth
- T3eG+l2WaQEdStEwbXNllJ397owzMxikVBatXZMB7WN9uG3kkNdKSWfYu Q==;
-X-CSE-ConnectionGUID: QDbBasVPRYaa+fqFR28nxg==
-X-CSE-MsgGUID: TMaf0uYUQqu2l85U+axZgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="87098015"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="87098015"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 02:49:06 -0700
-X-CSE-ConnectionGUID: 2Lyx3a6gTgWybHqjZqM0jg==
-X-CSE-MsgGUID: HgVKjYLzRRKu6Bc3Z56F+w==
+ t=1786529093; x=1818065093;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=D2OzqFvOG1zJHL/ro5Npv0lr/uCTAMIBpUpnt0ww/Os=;
+ b=Hd9Bwx/Eoy+qeNmRwEug6vuRjVRwjZ1KGJZRZXfJAOhExfgEp1XEiLEi
+ ernGbv/NMSIgWz1APUg1FYbF3OxBgYu6Z0y9wsRQpb62LrxS4pyqQtxIx
+ VsNgsjNWpFzy3wGnjZTKbSNVw2XCYCZlZQ3Bae3GyWueV+dTnAL2ER4KA
+ RuRR9FAryikHiEJzWfQEmCSBNMikSqx54xdabBDkE5mTQL6ks1kyI1mqv
+ r3UBIchPX8816moen3A1/4xO8pwFAf3AgLwcwp9MwkmZpgL04+FyNuyaA
+ /LMv+sSR3kx/wVr1/nv+wxzev+LCAFV2Dqz+lskIHA7kYf/HQ5WJrlqYI g==;
+X-CSE-ConnectionGUID: 50N5+XA8QIK+sYpAnsuvJg==
+X-CSE-MsgGUID: HaFeZ0AcToa/5GqYMa6yrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86932219"
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="86932219"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2026 03:04:45 -0700
+X-CSE-ConnectionGUID: Ph/flG93S72a4EolwhY6rg==
+X-CSE-MsgGUID: wMyw+fdHSe641vqGfloMhA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="267094276"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by orviesa003.jf.intel.com with ESMTP; 12 Aug 2026 02:49:05 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-Date: Wed, 12 Aug 2026 15:15:47 +0530
-Message-Id: <20260812094547.1808459-1-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="293543877"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.107])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2026 03:04:45 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CACa-pC0Up7xJ_UvDATbxS4WK7mYW_gM4WdSYA_OEkj8nLRO2SA@mail.gmail.com>
+References: <CACa-pC0Up7xJ_UvDATbxS4WK7mYW_gM4WdSYA_OEkj8nLRO2SA@mail.gmail.com>
+Subject: Re: Offering to take a TODO item in i915
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+To: Parth Kamani <parthvipulkamani@gmail.com>
+Date: Wed, 12 Aug 2026 13:04:41 +0300
+Message-ID: <178652908160.52635.398108754427457885@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,42 +69,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
-crtc_state->enable_psr2_sel_fetch was set.  If a plane was disabled after
-selective fetch had been turned off, the guard fired early and left the
-register's enable bit set in hardware.
+Quoting Parth Kamani (2026-08-02 23:45:53)
+> Hi Joonas,
+>=20
+> I was looking through drivers/gpu/drm/i915/TODO.txt and noticed that ther=
+e are
+> still a number of outstanding items. One that caught my attention was "for
+> discrete memory manager, merge enough dg1 to be able to refactor it to ..=
+.". I
+> also saw items such as "Come up with a plan what to do with drm/scheduler=
+ and
+> how to get there" and "Roll out dma_fence critical section annotations", =
+so it
+> looks like there are several areas that still need work.
+>=20
+> From the TODO, some of these items appear more involved than others, so b=
+efore
+> I dive in I wanted to check with you. Is the discrete memory manager item=
+ still
+> something that would be appropriate to work on, or would you recommend a
+> different task for someone making a first contribution to i915?
 
-The bit is harmless until selective fetch is re-enabled.  When it is, the
-hardware resumes fetching for the now-disabled plane and keeps its old DDB
-range reserved.
+The TODO is very much outdated at this point.
 
-Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
-Closes:https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
-Assisted-by: GitHub-Copilot:claude-opus-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
----
- drivers/gpu/drm/i915/display/skl_universal_plane.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Work to enable new platforms has moved to the drm/xe driver, I'm not
+really sure I would recommend ramping up to i915 at this time unless
+you would want to focus mostly on bug fixing.
 
-diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 07a683293352..afc1df1b84a4 100644
---- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-+++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -885,7 +885,13 @@ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
- 	struct intel_display *display = to_intel_display(plane);
- 	enum pipe pipe = plane->pipe;
- 
--	if (!crtc_state->enable_psr2_sel_fetch)
-+	/*
-+	 * Clear this whenever the hardware has selective fetch, not just when
-+	 * the current state uses it. The plane may have been enabled with
-+	 * selective fetch earlier and had its enable bit orphaned when the
-+	 * feature was switched off.
-+	 */
-+	if (!HAS_PSR2_SEL_FETCH(display))
- 		return;
- 
- 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
--- 
-2.25.1
+> My preference is to keep patches small enough to review comfortably, run
+> checkpatch --strict, test against current mainline, and submit them via g=
+it
+> send-email.
+>=20
+> I'm currently in my final year of B.Tech in Computer Engineering at K J S=
+omaiya
+> College of Engineering, Mumbai (graduating mid-2027), and I have a meanin=
+gful
+> amount of time to contribute before graduation. I'd much rather spend tha=
+t time
+> contributing to a live upstream codebase than working only on coursework.=
+ If
+> there's a better first task than the TODO item above, I'd really apprecia=
+te
+> your recommendation and would be happy to work on that instead.
 
+I rather recommend going to the the GitLab and browsing for some issues,
+trying to reproduce them, add better logs and look into fixing them if
+you really want to start contributing specifically to i915 via bug
+fixing.
+
+It's better really to reach out directly to the mailing lists and
+GitLab, directly messaging maintainers doesn't scale so well. That
+applies both for drm/xe and drm/i915 contributions.
+
+Regards, Joonas
+
+>=20
+> Thank you for your time, and I look forward to hearing from you.
+>=20
+> Best regards,
+>=20
+> Parth Kamani
+> Final-year B.Tech Computer Engineering
+> K J Somaiya College of Engineering, Mumbai
+> Email: parthvipulkamani@gmail.com
+> Phone: +91 9820081318
+>
