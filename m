@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AFA4C5CFEB
-	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 09:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D46EC5CFDB
+	for <intel-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 09:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAA1110EF1C;
-	Wed, 12 Aug 2026 09:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBAB810EF37;
+	Wed, 12 Aug 2026 09:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ju6ys+/J";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ev1rnlWy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9F510EF11;
- Wed, 12 Aug 2026 09:22:59 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 782FF10EF36;
+ Wed, 12 Aug 2026 09:49:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786526579; x=1818062579;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=WneP4+mK3b/MgcVxOiyZn6szJwlgEY+Hy/jTG9oTiUk=;
- b=Ju6ys+/JGmh+U9jEpLhWEuRAGW4BMhsYjt8UDAi7zcIEXck8sacLQuyE
- Uyjdb0yLhC0cncktjtMEYbBCxWYaiTpeDVvmi+VWsZ89zFks7p8SNXq3J
- RUMrk9EN7lZ0s5qkya63YeKB1GF267JEsMAGvZ9Br1UtuJ1nCv/Z4Xi3J
- EKJStv5rPDedHgRYMwmPMhBujBla6LAOj45Pyhfdm51s3nH1w52t7d3tu
- ibUwYcuezInQIyKnl2K8J1BWAi0QVL+ZuvxXMmJpWXfDA1F/c68MpY8gr
- keFN57GIICLnXBYnI62kausMLWXn/bmZV678LHutfZhv6SpzcaKQsncb8 w==;
-X-CSE-ConnectionGUID: aKVcoRFaTGip+rzxT6p0rA==
-X-CSE-MsgGUID: 0MPWuGB9T/SUMFsn3CpMkg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="86928544"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="86928544"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2026 02:22:59 -0700
-X-CSE-ConnectionGUID: vcF11Z+fSg6iUnbErJHSZA==
-X-CSE-MsgGUID: D5bYPTRSQCiSJVjqDEbAww==
+ t=1786528146; x=1818064146;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=fyGa/NyyelrVJpDXAJxEQCxk8Rb6sBKRcchkmoF20Mk=;
+ b=Ev1rnlWyjPRUZ5qVnFv6HUBle7AkHVdgOoCf8sYANlyVrDRPEdFNOUQP
+ Ujzx/DPHwq9Vkqc3Pguhkx9YFf8Cb8bZ7UcDStOURPB19CrjLLJ5acxCb
+ FEMo51GXhJC5YMi6cPmxKrzkq7HGEkw1bDCxbEOhjRKo8j35V3ZY8gZ2Z
+ SjTWNrzxeCmnAXUXYzr4l3WT8VPAC0W8tMOcFV7cahzc8mPkds6eQMYHj
+ Nc4m0Y8bzfcc8dVtLEfAqatYAI4APht6AgIy4WmXVZ1GTtmgr0cD4CJth
+ T3eG+l2WaQEdStEwbXNllJ397owzMxikVBatXZMB7WN9uG3kkNdKSWfYu Q==;
+X-CSE-ConnectionGUID: QDbBasVPRYaa+fqFR28nxg==
+X-CSE-MsgGUID: TMaf0uYUQqu2l85U+axZgg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="87098015"
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="87098015"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2026 02:49:06 -0700
+X-CSE-ConnectionGUID: 2Lyx3a6gTgWybHqjZqM0jg==
+X-CSE-MsgGUID: HgVKjYLzRRKu6Bc3Z56F+w==
 X-ExtLoop1: 1
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by fmviesa003.fm.intel.com with ESMTP; 12 Aug 2026 02:22:58 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Subject: [PATCH 2/2] drm/i915/color: Add YUV buffer support on HDR planes
-Date: Wed, 12 Aug 2026 14:29:08 +0530
-Message-ID: <20260812085908.3159828-3-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260812085908.3159828-1-chaitanya.kumar.borah@intel.com>
-References: <20260812085908.3159828-1-chaitanya.kumar.borah@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; d="scan'208";a="267094276"
+Received: from nemesa.iind.intel.com ([10.190.239.22])
+ by orviesa003.jf.intel.com with ESMTP; 12 Aug 2026 02:49:05 -0700
+From: Nemesa Garg <nemesa.garg@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
+Date: Wed, 12 Aug 2026 15:15:47 +0530
+Message-Id: <20260812094547.1808459-1-nemesa.garg@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -66,53 +65,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add the INTEL_PLANE_CB_CSC_FF (fixed function CSC) color block as the
-first stage for the HDR planes. This enables YUV-to-RGB color space
-conversion on HDR planes via the color pipeline.
+icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
+crtc_state->enable_psr2_sel_fetch was set.  If a plane was disabled after
+selective fetch had been turned off, the guard fired early and left the
+register's enable bit set in hardware.
 
-Also in icl_program_input_csc(), account for the color pipeline
-programming, in addition to FB format.
+The bit is harmless until selective fetch is re-enabled.  When it is, the
+hardware resumes fetching for the now-disabled plane and keeps its old DDB
+range reserved.
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
+Closes:https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_color_pipeline.c | 2 ++
- drivers/gpu/drm/i915/display/skl_universal_plane.c  | 3 ++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/skl_universal_plane.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 38cfd6ed585d..3f76b8d80430 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -31,6 +31,7 @@ static const struct drm_colorop_funcs intel_colorop_funcs = {
-  * the pipeline totally unusable.
-  */
- static const enum intel_color_block xe3plpd_primary_plane_pipeline[] = {
-+	INTEL_PLANE_CB_CSC_FF,
- 	INTEL_PLANE_CB_PRE_CSC_LUT,
- 	INTEL_PLANE_CB_CSC,
- 	INTEL_PLANE_CB_3DLUT,
-@@ -38,6 +39,7 @@ static const enum intel_color_block xe3plpd_primary_plane_pipeline[] = {
- };
- 
- static const enum intel_color_block hdr_plane_pipeline[] = {
-+	INTEL_PLANE_CB_CSC_FF,
- 	INTEL_PLANE_CB_PRE_CSC_LUT,
- 	INTEL_PLANE_CB_CSC,
- 	INTEL_PLANE_CB_POST_CSC_LUT,
 diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-index 222c3b6bbe46..9da91d0a00f0 100644
+index 07a683293352..afc1df1b84a4 100644
 --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
 +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-@@ -1621,7 +1621,8 @@ icl_plane_update_noarm(struct intel_dsb *dsb,
- 	intel_de_write_dsb(display, dsb, PLANE_COLOR_CTL(pipe, plane_id),
- 			   plane_color_ctl);
+@@ -885,7 +885,13 @@ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
  
--	if (fb->format->is_yuv && icl_is_hdr_plane(display, plane_id))
-+	if (icl_is_hdr_plane(display, plane_id) &&
-+	    (fb->format->is_yuv || plane_state->hw.csc_ff_enable))
- 		icl_program_input_csc(dsb, plane, plane_state);
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The plane may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
  
- 	skl_write_plane_wm(dsb, plane, crtc_state);
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
 -- 
-2.50.1
+2.25.1
 
