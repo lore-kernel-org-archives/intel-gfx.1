@@ -4,27 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9391C5B572
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F59C5CFDB
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:23:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25BDB10E365;
-	Thu, 13 Aug 2026 19:16:14 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80E3210E01F;
- Thu, 13 Aug 2026 19:16:12 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0604580968881089998=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEB610E05C;
+	Thu, 13 Aug 2026 19:23:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mVVTzc3L";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD45910E01F;
+ Thu, 13 Aug 2026 19:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786649007; x=1818185007;
+ h=date:from:to:cc:subject:message-id:mime-version;
+ bh=CPqhFBdFxtgHNNm5HSu60towjDd5+fAGykrOIhkDhMY=;
+ b=mVVTzc3LW1S7sAR3Uz17/6jknScojZuHe5VLOT8RUeYdlanJ2zvsVZiQ
+ tYD54lbFBWLg0wyTbCId4hQXo2XDfOJ0EYGJh62jijuJ+a9gppAQEzxfx
+ M6wnwi5QhdH/WIBbVEG1X9eAW8a1/1r8M/VtQd6QpAB10qM06kGKIQ8X6
+ Na0Ko3iMPQv6hEsy+nDQRi8WF8SilOGqCJEE9o6EDAFjntkObJ3Gpzzau
+ Sf4ZzcZz4zHOGgA0irxybj1j4qjbGJOBTAAI6FkgX1fJeFajy6FhEoHcD
+ l41T9Z4eYMw/oo2qMatBptYHGBgqz7Sj7kAi6FhVUbq6tmTcnAu5iIT2W w==;
+X-CSE-ConnectionGUID: B3FQpcctT2ytOVGFGwBZww==
+X-CSE-MsgGUID: o7LBE3uBTaKMOa40ifSEoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87306386"
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="87306386"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2026 12:23:26 -0700
+X-CSE-ConnectionGUID: 2WKfQOrqRdGyOpOn7h/J4w==
+X-CSE-MsgGUID: /IVNEmZ0Swqf4wvnOMEgRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="262281616"
+Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.62])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2026 12:23:23 -0700
+Date: Thu, 13 Aug 2026 21:23:14 +0200
+From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-xe-fixes
+Message-ID: <an4ZogmPqP2Xtfx3@fedora>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Vswing_/_Pre-emphasis_Ove?=
- =?utf-8?q?rride_=28rev6=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 13 Aug 2026 19:16:12 -0000
-Message-ID: <178664857252.49494.4009677233919542023@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260813160918.918857-1-michal.grzelak@intel.com>
-In-Reply-To: <20260813160918.918857-1-michal.grzelak@intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +72,90 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0604580968881089998==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Dave, Simona
 
-== Series Details ==
+The drm-xe-fixes pull for -rc8/final. Unfortunately a larger number of fixes
+than I was hoping for due to the low number the previous two weeks.
+Nothing that really stands out.
 
-Series: Vswing / Pre-emphasis Override (rev6)
-URL   : https://patchwork.freedesktop.org/series/167571/
-State : success
+Thanks,
+Thomas
 
-== Summary ==
+drm-xe-fixes-2026-08-13:
+Driver Changes:
+- Fix DPT Allocation paths (Maarten)
+- Fixes around UM queue BO (Jia)
+- Order ring writes before ring tail updates (Matthew Brost)
+- Add termination on resume for PXP (Daniele)
+- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe (Gajendra)
+- Fix sync entry leak on OA config emit failure (Linmao Li)
+- Check managed mutex initilization errors (Linmao Li)
+- Fix min frequency setting (Vinay)
+- Fix xe_device_probe error path (Raag)
+The following changes since commit db2ddb87143519e20a95aa36c60b36107b736a58:
 
-CI Bug Log - changes from CI_DRM_18994 -> Patchwork_167571v6
-====================================================
+  Linux 7.2-rc7 (2026-08-09 14:54:50 -0700)
 
-Summary
--------
+are available in the Git repository at:
 
-  **SUCCESS**
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-08-13
 
-  No regressions found.
+for you to fetch changes up to ef526d122b62af5afa437f095aa6661a953676c4:
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v6/index.html
+  drm/xe: Fix xe_device_probe() failure (2026-08-13 14:56:34 +0200)
 
-Participating hosts (37 -> 35)
-------------------------------
+----------------------------------------------------------------
+Driver Changes:
+- Fix DPT Allocation paths (Maarten)
+- Fixes around UM queue BO (Jia)
+- Order ring writes before ring tail updates (Matthew Brost)
+- Add termination on resume for PXP (Daniele)
+- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe (Gajendra)
+- Fix sync entry leak on OA config emit failure (Linmao Li)
+- Check managed mutex initilization errors (Linmao Li)
+- Fix min frequency setting (Vinay)
+- Fix xe_device_probe error path (Raag)
 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+----------------------------------------------------------------
+Daniele Ceraolo Spurio (1):
+      drm/xe/pxp: add termination on resume
 
+Gajendra Uttamchand (1):
+      drm/xe/lrc: document sentinel and make CTX_TIMESTAMP read TOCTOU-safe
 
-Changes
--------
+Jia Yao (3):
+      drm/xe/guc_ads: allocate UM queues in a separate BO
+      drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
+      drm/xe/guc_ads: use uncached mapping for UM queue BO
 
-  No changes found
+Linmao Li (2):
+      drm/xe/oa: Fix sync entry leak on OA config emit failure
+      drm/xe/oa: Check managed mutex initialization errors
 
+Maarten Lankhorst (1):
+      drm/xe: Fix DPT allocation paths.
 
-Build changes
--------------
+Matthew Brost (1):
+      drm/xe: Order ring writes before ring tail updates
 
-  * Linux: CI_DRM_18994 -> Patchwork_167571v6
+Raag Jadav (1):
+      drm/xe: Fix xe_device_probe() failure
 
-  CI-20190529: 20190529
-  CI_DRM_18994: 12a74df2314c42325731297e95b9aafd9329a20d @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9054: 3d819a8f511b2bcd844647bcf7e433b9407d058e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_167571v6: 12a74df2314c42325731297e95b9aafd9329a20d @ git://anongit.freedesktop.org/gfx-ci/linux
+Vinay Belgaumkar (1):
+      drm/xe: Fix a bug in pc_adjust_freq_bounds()
 
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v6/index.html
-
---===============0604580968881089998==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Vswing / Pre-emphasis Override (rev6)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/167571/">https://patchwork.freedesktop.org/series/167571/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v6/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v6/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18994 -&gt; Patchwork_167571v6</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_167571v6/index.html</p>
-<h2>Participating hosts (37 -&gt; 35)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18994 -&gt; Patchwork_167571v6</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18994: 12a74df2314c42325731297e95b9aafd9329a20d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9054: 3d819a8f511b2bcd844647bcf7e433b9407d058e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_167571v6: 12a74df2314c42325731297e95b9aafd9329a20d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0604580968881089998==--
+ drivers/gpu/drm/xe/display/xe_fb_pin.c |  33 ++-----
+ drivers/gpu/drm/xe/xe_bo.h             |  14 +++
+ drivers/gpu/drm/xe/xe_device.c         |   6 +-
+ drivers/gpu/drm/xe/xe_guc_ads.c        |  93 ++++++++++++-------
+ drivers/gpu/drm/xe/xe_guc_ads_types.h  |   5 +
+ drivers/gpu/drm/xe/xe_guc_pc.c         |  13 ++-
+ drivers/gpu/drm/xe/xe_lrc.c            |  29 ++++--
+ drivers/gpu/drm/xe/xe_lrc.h            |   7 ++
+ drivers/gpu/drm/xe/xe_oa.c             |  13 ++-
+ drivers/gpu/drm/xe/xe_pxp.c            | 162 ++++++++++++++++++++++++---------
+ drivers/gpu/drm/xe/xe_pxp_types.h      |  27 ++++--
+ 11 files changed, 279 insertions(+), 123 deletions(-)
