@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 877CBC5B572
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:34:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19F70C5B572
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:41:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1FE810E021;
-	Thu, 13 Aug 2026 12:34:34 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HrTBh+fz";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BA7B10E021;
- Thu, 13 Aug 2026 12:34:33 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AC46D600AD;
- Thu, 13 Aug 2026 12:34:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B281F00A3A;
- Thu, 13 Aug 2026 12:34:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786624472;
- bh=ySOnfFXGJRTsXQuN5H1QeIV4P7rYYOH9+XT4itum88Y=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HrTBh+fzJ9UjzRJv8pSWKA1XMpF5RlPNq0rp26lZMWOgysPAs016xwW8QV7YM3sPb
- 7KGNSvEoiNYUDCpwyFJbCKetK6BsTVAGHNZ0nj68Thd8nphiNridywl7Dpb4MXL0Cj
- cvbNOkOiYCStWtps4W5VM3EGX0+J++u5QmEhFnJB44tfKQyKJc4a9ofQclq5ee/iZK
- Nt50ppGSa+JwCVzBdIeEhuqEaeYsgN8ORSsFImD6/ZN//oqgbptM0PjClTlRQ5CzRW
- 99ZHZ2+MFHrbqt0N48Tr/44I822vXD5okI/3k3fwi3dLUOzMXEqRRVYnS98m6cHjXm
- tYldjWn2lTt9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [v4 2/2] drm/i915/audio: Prune ELD SADs based on HDMI audio
- bandwidth
-To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260813120016.3444891-3-chaitanya.kumar.borah@intel.com>
-References: <20260813120016.3444891-1-chaitanya.kumar.borah@intel.com>
- <20260813120016.3444891-3-chaitanya.kumar.borah@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 13 Aug 2026 12:34:31 +0000
-Message-Id: <20260813123432.23B281F00A3A@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 812B810E00E;
+	Thu, 13 Aug 2026 12:41:06 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A37310E00E;
+ Thu, 13 Aug 2026 12:41:05 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2710787635285876273=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_Dis?=
+ =?utf-8?q?able_live=5Fpphwsp=5Fruntime_on_graphics_version_12_=28rev4=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Karas" <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 13 Aug 2026 12:41:05 -0000
+Message-ID: <178662486503.48139.6315496100003014217@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260813113852.1699374-1-krzysztof.karas@intel.com>
+In-Reply-To: <20260813113852.1699374-1-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,102 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The bandwidth check incorrectly uses the maximum pixel clock ins=
-tead of the minimum pixel clock to calculate worst-case audio packet accumu=
-lation per line.
---
+--===============2710787635285876273==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---- Patch [2]: [v4 2/2] drm/i915/audio: Prune ELD SADs based on HDMI audio =
-bandwidth ---
-commit fa98484a48f1957f560711682a22233b5a6fa1f5
-Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+== Series Details ==
 
-drm/i915/audio: Prune ELD SADs based on HDMI audio bandwidth
+Series: drm/i915/selftests: Disable live_pphwsp_runtime on graphics version 12 (rev4)
+URL   : https://patchwork.freedesktop.org/series/170801/
+State : success
 
-This commit adds a bandwidth check to determine whether a given audio
-sample rate and channel count can be carried within the hblank period
-for HDMI TMDS mode. It uses this check to prune unsupported sample rates
-from each SAD in the ELD.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_audio.c b/drivers/gpu/drm=
-/i915/display/intel_audio.c
-> index eae76e9611055..9eb6867fa3f3a 100644
-> --- a/drivers/gpu/drm/i915/display/intel_audio.c
-> +++ b/drivers/gpu/drm/i915/display/intel_audio.c
+CI Bug Log - changes from CI_DRM_18989 -> Patchwork_170801v4
+====================================================
 
-[ ... ]
+Summary
+-------
 
-> @@ -697,6 +698,158 @@ static void ibx_audio_codec_enable(struct intel_enc=
-oder *encoder,
+  **SUCCESS**
 
-[ ... ]
+  No regressions found.
 
-> +static bool hdmi_audio_rate_supported(const struct intel_crtc_state *crt=
-c_state,
-> +				      int available_tmds,
-> +				      int audio_rate, int channels)
-> +{
-> +	const struct drm_display_mode *mode =3D &crtc_state->hw.adjusted_mode;
-> +	int pixel_clk_max_hz;
-> +	int audio_pkt_factor;
-> +	u64 audio_pkt_rate_x4_x1000;
-> +	int audio_packets_line;
-> +	int hblank_overhead;
-> +	int required_tmds;
-> +
-> +	/*
-> +	 * Part 2: Calculate TMDS clock cycles required for Audio Bandwidth
-> +	 *
-> +	 * Step 1: pixelclk_max =3D nominal_pixel_rate * (1 + 0.5%)
-> +	 * crtc_clock (kHz) * 1000 * 1.005 =3D crtc_clock * 1005 (Hz)
-> +	 */
-> +	pixel_clk_max_hz =3D mode->crtc_clock * 1005;
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/index.html
 
-[ ... ]
+Participating hosts (38 -> 35)
+------------------------------
 
-> +	/*
-> +	 * Steps 2+5-6: Audio packets per line.
-> +	 *   AudioPackets_Line =3D CEIL[R_AP * htotal / f_pixelclk_max]
-> +	 *
-> +	 * With audio_pkt_rate_x4_x1000 =3D R_AP * 4 * 1000:
-> +	 *   =3D CEIL[audio_pkt_rate_x4_x1000 * htotal / (4 * 1000 * pixel_clk_=
-max_hz)]
-> +	 */
-> +	audio_packets_line =3D DIV64_U64_ROUND_UP(audio_pkt_rate_x4_x1000 * mod=
-e->htotal,
-> +						(u64)4 * 1000 * pixel_clk_max_hz);
+  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
 
-[Severity: Medium]
-To calculate the worst-case (maximum possible) required audio packets per l=
-ine,
-should this logic use the minimum possible pixel clock instead of the maxim=
-um?
+Known issues
+------------
 
-A slower pixel clock means a video line takes longer to transmit in real ti=
-me,
-causing more audio packets to accumulate in the FIFO during that line. These
-accumulated packets then require more TMDS bandwidth to transmit during the
-corresponding blanking period.
+  Here are the changes found in Patchwork_170801v4 that come from known issues:
 
-By multiplying the nominal clock by 1005 (adding 0.5% tolerance) instead of
-995 (subtracting 0.5% tolerance) and using it as a divisor here, the code
-calculates the minimum required packets instead of the maximum. This optimi=
-stic
-calculation could incorrectly allow audio configurations that will overflow
-the HDMI audio FIFO and cause audio dropouts when the pixel clock runs at
-nominal or slower speeds.
+### IGT changes ###
 
-Although this matches the exact naming in the 'f_pixelclk_max' comment
-(suggesting a likely typo in the underlying BSpec/HDMI hardware specificati=
-on),
-is it mathematically flawed for a worst-case capability bounds check?
+#### Issues hit ####
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260813120016.3444=
-891-1-chaitanya.kumar.borah@intel.com?part=3D2
+  * igt@i915_selftest@live@coherency:
+    - bat-mtlp-9:         [PASS][1] -> [INCOMPLETE][2] ([i915#16229]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18989/bat-mtlp-9/igt@i915_selftest@live@coherency.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/bat-mtlp-9/igt@i915_selftest@live@coherency.html
+
+  
+  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_18989 -> Patchwork_170801v4
+
+  CI-20190529: 20190529
+  CI_DRM_18989: ce212c90b6b1f5c50c99d1ad8770d4e45ea19c98 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9054: 3d819a8f511b2bcd844647bcf7e433b9407d058e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_170801v4: ce212c90b6b1f5c50c99d1ad8770d4e45ea19c98 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/index.html
+
+--===============2710787635285876273==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/selftests: Disable live_pphwsp_runtime on graphics version 12 (rev4)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170801/">https://patchwork.freedesktop.org/series/170801/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18989 -&gt; Patchwork_170801v4</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/index.html</p>
+<h2>Participating hosts (38 -&gt; 35)</h2>
+<p>Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_170801v4 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@coherency:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18989/bat-mtlp-9/igt@i915_selftest@live@coherency.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v4/bat-mtlp-9/igt@i915_selftest@live@coherency.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) +1 other test incomplete</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18989 -&gt; Patchwork_170801v4</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18989: ce212c90b6b1f5c50c99d1ad8770d4e45ea19c98 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9054: 3d819a8f511b2bcd844647bcf7e433b9407d058e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_170801v4: ce212c90b6b1f5c50c99d1ad8770d4e45ea19c98 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2710787635285876273==--
