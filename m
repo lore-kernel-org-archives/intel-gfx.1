@@ -4,101 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613C9C5DF66
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 13:37:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F692C5B572
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 13:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F02C710F352;
-	Thu, 13 Aug 2026 13:37:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20CEB10F34F;
+	Thu, 13 Aug 2026 13:37:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CjXM58ID";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BvH+6PSF";
 	dkim-atps=neutral
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com
- [74.125.224.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6854D10E0E1
- for <intel-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 06:49:46 +0000 (UTC)
-Received: by mail-yx1-f43.google.com with SMTP id
- 956f58d0204a3-66b2c08803cso2025806d50.2
- for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 23:49:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786603785; cv=none;
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF0F710E487
+ for <intel-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 01:46:23 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso2897215e9.0
+ for <intel-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 18:46:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786585582; cv=none;
  d=google.com; s=arc-20260327;
- b=Yf1gT8zVS3rPwgjegAihP+xmS5GrYxjPU09DyphGywYusBT4ezAaXQiEYwxbBY4kVC
- khxsUzvOOfbk7yasZZfZfGscx/pWlHgiFNhwFUmpXpENx/xA//H/Ng1246HckIolZHdO
- 3bMyqAh7UFkoIvNhrLJHME2f5XlrVegqnQTSNlTKrFoQXpM3mzjeUbgvY0gqKdC8LqoP
- 4F0Z9WD3dX4YxF86IxGJ8mvgt1VCGe+hrza28m4yd7suSGIzcIENdgMBBEz8eOjaH56X
- neYKDdhs49XQD555mw1OlKhyE6u4zGUgZAOZqqN1vxx8ndzltPFCD9FP8Mx2p5LcQsWb
- dh/A==
+ b=noVz6sMND4nW1VKhEsMeFgvSWhVNV1vDMXGCr8Vm2ppZCiMFP711gRbvqiiruK4dKd
+ t5qgglCzIin+v58VVdP0cZutrh4UbYwWQYHVXUbpEqzdvT3jaCdingjJcB8K+utc+hV5
+ ppr1E7CEK9C0tQJlwhgW9kqwfVJW9Gd/QnRtbW5KiItWO0ym5q/kTt7hkbqDYFOAOdyA
+ RU2HY05SGrqGN1ch4SXENz7SCpSJ6SIolQQMA5UVZJ1qJVQdQb5CoMSjpTegdTQeRSOb
+ eM1XuGChBYBS3fAk73zx50vofZvM2h4fWFZ/+cmgRm1uH1QAnmlyZMwJvONT67qfhU3F
+ GIqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ekGdW2eYO2lOIBBZgTx2MF8tFA1VXLBcZFAQ3KWc9e4=;
- fh=Skm2yGNYwsqkPcy55qCdMUf678IIlwW+8yeux8891Ds=;
- b=Nn7IgRh0fdeHrk7+hF56ttDV7L8Et974DsZIN1gyxOhXxy7GrLFQgu1m+TurREpDrm
- l/MVnFuRJ8yCjAqqkiKB/GTIGJAzMCsNdNQfZyVUuEguEZJ4bmbjG670dJpvJW1ES/Rs
- IQJXPqXwMuPZzDCYjyiOXn5h4Mo4eEy4d0b8PNxsmjgd1pL5/dVCY5CgoEzsJW4sLJpQ
- 8faxRJPkqukGXhCf3KSrU3q5//o3ht7bdmOeYEmNHkxV2OlEOviSg8vcbOUaVtA+9ayc
- OK1gQgyFZNlUPyJZ3tTjI7hxCp5/m3eL4SxX3+bcus678b+Z1grGCT2SMRhmPSJdgHJW
- CC4A==; darn=lists.freedesktop.org
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=8zsVKbd7rZ4kyHv3ec1MwsHX32ckqjo3g74aZna+Cbo=;
+ fh=bB4GA8fQ4Lmni+LufLzfpaeyFcQDb4+6UcXVbDE9Cu4=;
+ b=Di722WHTDqhxANoH20nPntQWEzVuoDwpPw8Gx6H47QCCHv8mTrjoPlplWz4xMpkv3Y
+ rzKtcVt4b8mLLcFDHPtQ8B6tY9AfNaEDMOkyCV5xYjqrRkGz8nbIEJtgmkhEV8YhGj/w
+ becr8ZzDnhZCyA7b3q6MijD8xZqiSa6EPJZAZcubaVEnWph32Epi5LRJRZ2OO16DJxoB
+ p1LdD1OSU8gZqrmMsxhiFxOxgGyYXwE+V24tk/rSohLudTutR5jgBylau5NpRNs3/Lpn
+ WTxFIWLUxMF/NVBWKaDVj4HDC7FefknNRKgypdu70CL2lTBtdu+kHIi96cSXxmZSZ5QU
+ Loaw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786603785; x=1787208585; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ekGdW2eYO2lOIBBZgTx2MF8tFA1VXLBcZFAQ3KWc9e4=;
- b=CjXM58ID4daF0rMFMS/eAGcPGfxEKzZi9uKWVw57UYwwNtJgJ0tAmPriTv2tSREo9l
- r7yE323JpCOo/o85liAm5WC91tlaHjGHJYmsYqy2Bthv459Y+2NgoZR3lMvae3T8csZR
- FWo0vrO+E0HI/4AzG1hdf2c0SJdxlrKiVg2T9L9ElrzXmUjNkHjZAfbv8gibB6dm15PK
- 1Cw8Y2Ihonpyey+atfh95nCruedah3FRQI4/FZNlzZS6rbjBD/thlezrWzxgHJyEt3b7
- GSd4GILwut6XLb2/WIFexmH7SWeckIUKLBoo3ZfOtcRxDRyQt4uRtJmepIFvkDRfb+sf
- 4wWg==
+ d=gmail.com; s=20251104; t=1786585582; x=1787190382; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8zsVKbd7rZ4kyHv3ec1MwsHX32ckqjo3g74aZna+Cbo=;
+ b=BvH+6PSFi1oKCpfaztIcLAhielaCp3GIo1i1LhWOaxXREEQzvCmqqUw1HhDbsDALw0
+ FcUHSDEd4mmwfV8X0TMcjOrdovHN8YQRAu2ROgi9xm37ehwkKx0Nvkz3DwAlTocdxsMu
+ xczwdoJBvoNGUwZbx4/U1J+uFM2BeEGbzj1965VTQQibXNyUJvb763p/UkP4xc1+XGVz
+ IvdFf4HMfzlsM03jSQpf1//K7TbeC5zUaX4rXu1OXpN/0GJ2muDEA2BQeBhXj2OQxVNq
+ Ngir+fIwjeY+gFjuN5IDvdgM3fBeIHj+y2wHESG7BEIaVv0uEbnLG9j9NpmXyZ01YgDh
+ Qnzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786603785; x=1787208585;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ekGdW2eYO2lOIBBZgTx2MF8tFA1VXLBcZFAQ3KWc9e4=;
- b=LnL1xf2dwjg4p3+8grpqxAL7iW3fQcpvj4ibvLqdnxuOBzow0L0Meb4/Yw4aFO98IQ
- PQjTa8jk5Anaee5110C6BZhb+JP3f85kfzDEoz/A+Bq5hzLcXad9zrcBOKN0lIC5TleM
- Pb1q1ouPbsQHXPRq1ERIRpsvjoX5nDmYyxQD+2a7sBZ7lRWkUoitOVwmXdySiHvOV14U
- dAg+NB0WlOOB3COhD91ubG1zWIS/KuT9mYxMDny7Bm7gjdsjMSEiO4xpFjh6/uziOBEA
- ubkHRDfguaDCZG9N4SYg7enUN+B7pSJ69tQnVsyrAoqkl1awt5TzepSLZFwYEGsGJqjm
- g3lg==
+ d=1e100.net; s=20251104; t=1786585582; x=1787190382;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=8zsVKbd7rZ4kyHv3ec1MwsHX32ckqjo3g74aZna+Cbo=;
+ b=fJHOxXdrBhD+ZW4+z2sbASRUVbci+r0sWKM68qM/XzEPiKtIOcTYL4gHRKiiwZXhTn
+ dUlsUX3LoalUByXM+nF+mlMwUWTRrTgEjbRs9g3pCB3cVb5mM7+ruuWWcqW99Ucu9fDW
+ IJ/Mwpy/E4flfdFCPKoW4NjE0vXChiONUu43xpwHn/HqBpXNOy1cdYeSss74HWRnGuzK
+ 3iKHHfhl7hXidcaxaazkq5KdLLc5aEm2aHRnhQ+8xpqD/3Z9uhc1asLu+tCCCDP8Cqdm
+ Dkf0IrgQe13eRt3JmNysiCRNXLe3veH9seO+apHFqXTbQH6mRrO3bdFYXEHDmCZbilAr
+ XtnQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqxeC8rOBhT6Dpc30J9+VRD1DvEP2idNsVZWQDJHKAvg8dam3AUoNBu/7K71kovSOPHhFE7CNP1zzg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwONaJaHtHrWko4JRJm5TARyqzCly/9OsAK3H5J6cy0U4e7DwaU
- GoJSpY2EpTtvJoQWgWIYJuyE18czEBeCyCbEYFc5WLd/Qy5MEw04As7UKMvYReSfunETK3EhtxQ
- TtqJgGLI67tinUSr8UAMkmhNl3Z3Zg2g=
-X-Gm-Gg: AR+sD10FtQSeS1MIBSWpFRrhpX1/VP0oASH5L7AkB00MzJIZ4IU1cRgUklsBDQ/sxf5
- qxbqY0zTWKfMc/4xaAfXfaX+O7OGCbkYs2eghikJEnkY92QLGlD0P1yt4fhPGjiVlepqGsc2OYG
- tKebQif66SUlM1wXt1HaxQm0wEuSqYPas4jLforE9bm3uM4j7dmxs/pvg3gLohc8BMcvHVBjw58
- E1Ky52My/1XsgaXNubFo5aTVUORnZVCwQ0o9S73R5kRO1Os/w9U7V3qTqHa5CTAeGI23wgSizY5
- pWzaTY6l5iOSHkBI5HtEaQebnivNGn1PHQrleBCDcfYeA1L/qKZBsLO9x3ykxRMLrbROu2exuFC
- ZTwoQtO8xIcGvFRfdt9OIS+FC+JXimfzG++igmm0MC24s
-X-Received: by 2002:a05:690e:583:b0:669:9498:3018 with SMTP id
- 956f58d0204a3-66c517922fcmr1279824d50.36.1786603784947; Wed, 12 Aug 2026
- 23:49:44 -0700 (PDT)
+ AHgh+RpAD5yvCgUUKD50ds4o4ywhotRTS9llQefUNs+ExlhhzdwaqyCJ2e4Cw5YTuV1HTF1vHl0PLiq4tY8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzu5QUy9qrsU93Ub3AS/OX6RB/WiZbbXMJg6mVw0WOFkXqxzd15
+ hcHCu/qx61aTJj/u3kTD9bKZGTAqmc+hJbCY5IzsIWP8LrYSAuBc7hYrKX5RMkVkAS2Y8kWDwL/
+ 5Eeopl6tt4bxRLwwBN9NTPelOXO0yuwc=
+X-Gm-Gg: AR+sD11ldVSWg9x36zNjM2ueatoCDrLiee3NmyvdVdzYTytusS1VfOXmzsTDJNs08JI
+ mDN1TqQCHvBlUh+ajBacoDHyrP2xEIpl5IJddz4Cvd7qEBcGy8SH8XaOxQL0aYI36/q/7F+ViEa
+ wrGt9LURylILzi6XOJto5TEQaE+sk5ExJwVBrd0GeO3ozZK6jehZ+MqxVR7S1H4wnQKXkWrdtxl
+ 8Oir0jBuwDoAHNSzMPVvvq+qEHk9Hq9c9MluUN3+s7hYKH4rjFsLScqDtJByio4uX0p1rKW+Lfy
+ 8ZwT8wotL3YmYT2ub4AR9lyK7ZP1JKQJueeOnVw9ACtQ
+X-Received: by 2002:a05:600c:314f:b0:499:59fd:dbfc with SMTP id
+ 5b1f17b1804b1-499821fafebmr15881525e9.1.1786585581976; Wed, 12 Aug 2026
+ 18:46:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260809090430.20577-1-kartikey406@gmail.com>
- <w3p7i7btvl6b7o5puofyxcjm362ni3mtcfmog2plm6h5wxk3an@dflvwud5t6zf>
- <cf0f4111c04ec71ae979b71c95fa1158c5e68a8a@intel.com>
-In-Reply-To: <cf0f4111c04ec71ae979b71c95fa1158c5e68a8a@intel.com>
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Thu, 13 Aug 2026 12:19:32 +0530
-X-Gm-Features: AUfX_mxP6t7tFSfCkk-uHSOc2JdwpZ9HW9cJpOkY0Z8jfMuurlxTQAVf2aDT8NI
-Message-ID: <CADhLXY4wnwAi5mL71s5XSEoqdKF=vDOHmO0uL_=mhdS+Zk4uOA@mail.gmail.com>
-Subject: Re: [PATCH] drm/i915: Guard against NULL driver_data in
- i915_pci_probe()
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
- joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com, 
- simona@ffwll.ch, chris@chris-wilson.co.uk, intel-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+From: =?UTF-8?B?5ZC05rab?= <rpwtsama@gmail.com>
+Date: Thu, 13 Aug 2026 09:46:09 +0800
+X-Gm-Features: AUfX_mwjykauUGRd7p0JKAKBT_PY18R1a8DeaIypAi_vxLHJDca3Oj2G0IKRXMo
+Message-ID: <CAF38RzLOUW1ZB1f+Q2f9mhnYs+t4R2+UQA1PCihz_FKEu-nSew@mail.gmail.com>
+Subject: [REGRESSION] Panther Lake 8086:b082 internal eDP black after xe
+ takeover since 7.1.6, still present in 7.1.8
+To: stable@vger.kernel.org
+Cc: regressions@lists.linux.dev, intel-xe@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 13 Aug 2026 13:37:25 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,74 +102,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 3:01=E2=80=AFPM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
->
-> On Tue, 11 Aug 2026, Krzysztof Karas <krzysztof.karas@intel.com> wrote:
-> > Hi Deepanshu,
-> >
-> > On 2026-08-09 at 14:34:30 +0530, Deepanshu Kartikey wrote:
-> >> pci_match_device() can return the dummy pci_device_id_any entry
-> >> when a device is force-bound via sysfs driver_override, in which
-> >> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
-> >> struct intel_device_info * unconditionally and dereferences
-> >> intel_info->require_force_probe, causing a NULL-ptr-deref.
-> >>
-> >> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> >> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
-> >> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
-> >> Fixes: 42f5551d2769 ("drm/i915: Split out the PCI driver interface to =
-i915_pci.c")
-> > This "Fixes" tag should point to the commit that breaks stuff,
->
-> In general, agreed...
->
-> > I believe, so what you are looking for is
-> > 7ef5ef5cdead ("drm/i915: add force_probe module parameter to replace al=
-pha_support")
-> > since this patch introduced that unconditional dereference.
->
-> ...but that didn't introduce the unconditional reference. I think it was
-> always there. We've always expected .driver_data to point at whatever we
-> have specified in MODULE_DEVICE_TABLE().
->
-> I'd just slap a Cc: stable on it without Fixes.
->
->
-> BR,
-> Jani.
->
-> >
-> >> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> >> ---
-> >>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
-> >>  1 file changed, 3 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i9=
-15_pci.c
-> >> index 82415af47d54..2f03f95945f1 100644
-> >> --- a/drivers/gpu/drm/i915/i915_pci.c
-> >> +++ b/drivers/gpu/drm/i915/i915_pci.c
-> >> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, co=
-nst struct pci_device_id *ent)
-> >>              (struct intel_device_info *) ent->driver_data;
-> >>      int err;
-> >>
-> >> +    if (!intel_info)
-> >> +            return -ENODEV;
-> >> +
-> >>      if (intel_info->require_force_probe && !id_forced(pdev->device)) =
-{
-> >>              dev_info(&pdev->dev,
-> >>                       "Your graphics device %04x is not properly suppo=
-rted by i915 in this\n"
-> >> --
-> >> 2.43.0
-> >>
->
-> --
-> Jani Nikula, Intel
+Hello,
 
-Thanks for the review. I have sent patch v2.
+I am reporting an Intel xe display regression on a Panther Lake
+laptop. The problem started with Linux 7.1.6 and is still reproducible
+with Linux 7.1.8.
 
-Deepanshu
+System:
+
+Laptop: Lenovo ThinkPad T14p Gen 4 (2026)
+CPU: Intel Core Ultra 9 388H, Panther Lake
+GPU: Intel integrated graphics, PCI ID 8086
+Driver: xe
+Display: internal eDP panel
+Distribution: Arch Linux x86_64
+Desktop: KDE Plasma on Wayland
+Regression status:
+
+Known good: 7.1.5-arch1-2
+First known bad: 7.1.6-arch1-1
+Latest tested bad: 7.1.8
+The issue is fully reproducible with both 7.1.6 and 7.1.8. Downgrading
+only the kernel to 7.1.5-arch1-2 makes the problem disappear.
+
+Steps to reproduce:
+
+Disconnect all external displays.
+Cold boot the laptop.
+The Lenovo firmware logo and systemd-boot menu are displayed normally.
+Select the Arch Linux boot entry.
+When the xe driver takes over from the firmware framebuffer, the
+internal panel becomes completely black.
+Close and reopen the laptop lid.
+The internal panel starts working normally.
+The issue occurs on every boot. Connecting an external display changes
+the behavior and may allow the internal panel to initialize.
+
+The failure coincides with the following kernel messages:
+
+fbcon: xedrmfb (fb0) is primary device
+xe 0000:00:02.0: [drm] *ERROR* CPU pipe A FIFO underrun
+xe 0000:00:02.0: [drm] fb0: xedrmfb frame buffer device
+Tests performed:
+
+Adding xe.enable_psr=0 does not help.
+Disabling my custom xe SR-IOV service and booting without creating any
+VF does not help.
+Linux 7.1.5-arch1-2 works with the same firmware and userspace.
+Linux 7.1.6 and Linux 7.1.8 consistently reproduce the problem.
+I have not bisected the exact offending commit.
+Full debug dmesg and system information are available in the linked
+drm/xe issue:
+
+https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8902
+
+#regzbot introduced: v7.1.5..v7.1.6
+
+Regards,
+rpwtsama
