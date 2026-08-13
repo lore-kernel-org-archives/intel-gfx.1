@@ -4,62 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F59C5CFDB
-	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F74C5CFDB
+	for <intel-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 22:51:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEB610E05C;
-	Thu, 13 Aug 2026 19:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6790010F58A;
+	Thu, 13 Aug 2026 22:51:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mVVTzc3L";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O8o86Iav";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD45910E01F;
- Thu, 13 Aug 2026 19:23:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786649007; x=1818185007;
- h=date:from:to:cc:subject:message-id:mime-version;
- bh=CPqhFBdFxtgHNNm5HSu60towjDd5+fAGykrOIhkDhMY=;
- b=mVVTzc3LW1S7sAR3Uz17/6jknScojZuHe5VLOT8RUeYdlanJ2zvsVZiQ
- tYD54lbFBWLg0wyTbCId4hQXo2XDfOJ0EYGJh62jijuJ+a9gppAQEzxfx
- M6wnwi5QhdH/WIBbVEG1X9eAW8a1/1r8M/VtQd6QpAB10qM06kGKIQ8X6
- Na0Ko3iMPQv6hEsy+nDQRi8WF8SilOGqCJEE9o6EDAFjntkObJ3Gpzzau
- Sf4ZzcZz4zHOGgA0irxybj1j4qjbGJOBTAAI6FkgX1fJeFajy6FhEoHcD
- l41T9Z4eYMw/oo2qMatBptYHGBgqz7Sj7kAi6FhVUbq6tmTcnAu5iIT2W w==;
-X-CSE-ConnectionGUID: B3FQpcctT2ytOVGFGwBZww==
-X-CSE-MsgGUID: o7LBE3uBTaKMOa40ifSEoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="87306386"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="87306386"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2026 12:23:26 -0700
-X-CSE-ConnectionGUID: 2WKfQOrqRdGyOpOn7h/J4w==
-X-CSE-MsgGUID: /IVNEmZ0Swqf4wvnOMEgRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; d="scan'208";a="262281616"
-Received: from amilburn-desk.amilburn-desk (HELO fedora) ([10.245.244.62])
- by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2026 12:23:23 -0700
-Date: Thu, 13 Aug 2026 21:23:14 +0200
-From: Thomas Hellstrom <thomas.hellstrom@linux.intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-xe-fixes
-Message-ID: <an4ZogmPqP2Xtfx3@fedora>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 340F310F584;
+ Thu, 13 Aug 2026 22:51:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0B32541781;
+ Thu, 13 Aug 2026 22:51:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6C671F00A3A;
+ Thu, 13 Aug 2026 22:51:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786661495;
+ bh=oJsDCAYWqbgHTBUR1oNr/aekX7t13J8ViafDr85pnv4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=O8o86IavNE5VGQOlPGgs5csqXNx+e+iGc0z9rd+TAgIQlm9boQHyXyVEVxl587Inz
+ lJU2D+qHjMFPyl0VxrbEHuKKC6Ay8JrZnyLOahmXpTlgzBo3dRNMzhxDPVVxUKyghF
+ JpTmvFZ6qe448bysVlSGCCTKjRUy5mFNzq6jgthUuexgVhdDoGSFBzZpTP4dmG7hKk
+ 0jKBq8xojefbR0XL6VtPe8O4OIjVD2eJg+bae6nW5jTX6LJEy3MOrSKSaaxl3WeTGf
+ cmTCgRJVpcYaAwVvxHR+JwqQjVvPgh6i4WD8uhdx2jYK1PChmXQwMZ9+422X+bLAnQ
+ c7NTH/RzgvmHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 02/69] vmlinux.lds.h: move BOUNDED_SECTION_* macros
+ to reuse later
+To: "Jim Cromie" <jim.cromie@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260326185413.1205870-3-jim.cromie@gmail.com>
+References: <20260326185413.1205870-3-jim.cromie@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 13 Aug 2026 22:51:35 +0000
+Message-Id: <20260813225135.B6C671F00A3A@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,90 +53,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The newly created file `include/asm-generic/bounded_sections.lds.h`=
+ is missing an SPDX license identifier.
+--
 
-The drm-xe-fixes pull for -rc8/final. Unfortunately a larger number of fixes
-than I was hoping for due to the low number the previous two weeks.
-Nothing that really stands out.
+--- Patch [2]: [PATCH v12 02/69] vmlinux.lds.h: move BOUNDED_SECTION_* macr=
+os to reuse later ---
+commit 66f82d3de735bc79fa17c5cd892641b6f5cecb8c
+Author: Jim Cromie <jim.cromie@gmail.com>
 
-Thanks,
-Thomas
+vmlinux.lds.h: move BOUNDED_SECTION_* macros to reuse later
 
-drm-xe-fixes-2026-08-13:
-Driver Changes:
-- Fix DPT Allocation paths (Maarten)
-- Fixes around UM queue BO (Jia)
-- Order ring writes before ring tail updates (Matthew Brost)
-- Add termination on resume for PXP (Daniele)
-- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe (Gajendra)
-- Fix sync entry leak on OA config emit failure (Linmao Li)
-- Check managed mutex initilization errors (Linmao Li)
-- Fix min frequency setting (Vinay)
-- Fix xe_device_probe error path (Raag)
-The following changes since commit db2ddb87143519e20a95aa36c60b36107b736a58:
+This commit moves the BOUNDED_SECTION_* macros into a newly created header
+file, include/asm-generic/bounded_sections.lds.h, and includes it back into
+vmlinux.lds.h. This change sets up the macros to be reused later.
 
-  Linux 7.2-rc7 (2026-08-09 14:54:50 -0700)
+> diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-gen=
+eric/bounded_sections.lds.h
+> new file mode 100644
+> index 0000000000000..280a893bbe29f
+> --- /dev/null
+> +++ b/include/asm-generic/bounded_sections.lds.h
+> @@ -0,0 +1,36 @@
+> +#ifndef _ASM_GENERIC_BOUNDED_SECTIONS_H
 
-are available in the Git repository at:
+[Severity: Low]
+Should this newly created file include an SPDX license identifier at the to=
+p?
+Kernel policy generally requires new source files to have one.
 
-  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-08-13
+> +#define _ASM_GENERIC_BOUNDED_SECTIONS_H
+> +
+> +#define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
 
-for you to fetch changes up to ef526d122b62af5afa437f095aa6661a953676c4:
+[ ... ]
 
-  drm/xe: Fix xe_device_probe() failure (2026-08-13 14:56:34 +0200)
-
-----------------------------------------------------------------
-Driver Changes:
-- Fix DPT Allocation paths (Maarten)
-- Fixes around UM queue BO (Jia)
-- Order ring writes before ring tail updates (Matthew Brost)
-- Add termination on resume for PXP (Daniele)
-- Document Sentinel and make CTX_TIMESTAMP read TOCTOU-safe (Gajendra)
-- Fix sync entry leak on OA config emit failure (Linmao Li)
-- Check managed mutex initilization errors (Linmao Li)
-- Fix min frequency setting (Vinay)
-- Fix xe_device_probe error path (Raag)
-
-----------------------------------------------------------------
-Daniele Ceraolo Spurio (1):
-      drm/xe/pxp: add termination on resume
-
-Gajendra Uttamchand (1):
-      drm/xe/lrc: document sentinel and make CTX_TIMESTAMP read TOCTOU-safe
-
-Jia Yao (3):
-      drm/xe/guc_ads: allocate UM queues in a separate BO
-      drm/xe/guc_ads: allocate UM queues in VRAM on dGFX
-      drm/xe/guc_ads: use uncached mapping for UM queue BO
-
-Linmao Li (2):
-      drm/xe/oa: Fix sync entry leak on OA config emit failure
-      drm/xe/oa: Check managed mutex initialization errors
-
-Maarten Lankhorst (1):
-      drm/xe: Fix DPT allocation paths.
-
-Matthew Brost (1):
-      drm/xe: Order ring writes before ring tail updates
-
-Raag Jadav (1):
-      drm/xe: Fix xe_device_probe() failure
-
-Vinay Belgaumkar (1):
-      drm/xe: Fix a bug in pc_adjust_freq_bounds()
-
- drivers/gpu/drm/xe/display/xe_fb_pin.c |  33 ++-----
- drivers/gpu/drm/xe/xe_bo.h             |  14 +++
- drivers/gpu/drm/xe/xe_device.c         |   6 +-
- drivers/gpu/drm/xe/xe_guc_ads.c        |  93 ++++++++++++-------
- drivers/gpu/drm/xe/xe_guc_ads_types.h  |   5 +
- drivers/gpu/drm/xe/xe_guc_pc.c         |  13 ++-
- drivers/gpu/drm/xe/xe_lrc.c            |  29 ++++--
- drivers/gpu/drm/xe/xe_lrc.h            |   7 ++
- drivers/gpu/drm/xe/xe_oa.c             |  13 ++-
- drivers/gpu/drm/xe/xe_pxp.c            | 162 ++++++++++++++++++++++++---------
- drivers/gpu/drm/xe/xe_pxp_types.h      |  27 ++++--
- 11 files changed, 279 insertions(+), 123 deletions(-)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260326185413.1205=
+870-1-jim.cromie@gmail.com?part=3D2
