@@ -4,47 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917EEC5DF6A
-	for <intel-gfx@archiver.kernel.org>; Sat, 15 Aug 2026 02:33:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77272C5DF67
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 Aug 2026 15:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA9B110E176;
-	Sat, 15 Aug 2026 02:33:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F406510E202;
+	Sat, 15 Aug 2026 15:51:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cijBRYoH";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="j3aiKZsw";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7584E10E011;
- Sat, 15 Aug 2026 02:33:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2618043B40;
- Sat, 15 Aug 2026 02:33:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A7F1F00A3A;
- Sat, 15 Aug 2026 02:33:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786761220;
- bh=2FmaatKkMyzUBE64aHQdNqraDzLaDpP/Nw9aqEgQk3k=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=cijBRYoHJPCkz+58rURhfjOb+osKKC3AC0bG2fqH1rdUz1pQvyHmvhV2/rdVG4cxa
- Q062AJVr8X+LZDJwaB5oPG94UKs7a/yEKWQflLKdTNlP2Ojezv43UbEg7lR8I/VlmM
- SA8ZbgxQwcg+AId3c5FWIVDFNbQxBirsAdLeHIM/ir4AyLsN5oLgCEUwG4pNGINima
- 4TeQS10wXnh/sHkRlf+9dqReXw4ifZNoTJWFRzgoLaVmnCcyX1Q8wzbjU9k9oYrUTV
- PnQF/WHzvXzXwEueYOizstf5uh0BBwZAjc46wN0IgzRaOmYMGp0rjDOtf/scB6zdlU
- flfBUTf0Kiipg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>, regressions@lists.linux.dev,
- intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- =?utf-8?b?5ZC05rab?= <rpwtsama@gmail.com>,
- Ville Syrjala <ville.syrjala@linux.intel.com>
-Subject: Re: [REGRESSION] Panther Lake 8086:b082 internal eDP black after xe
- takeover since 7.1.6, still present in 7.1.8
-Date: Fri, 14 Aug 2026 22:33:13 -0400
-Message-ID: <20260814193000.13@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAF38RzLOUW1ZB1f+Q2f9mhnYs+t4R2+UQA1PCihz_FKEu-nSew@mail.gmail.com>
-References: <CAF38RzLOUW1ZB1f+Q2f9mhnYs+t4R2+UQA1PCihz_FKEu-nSew@mail.gmail.com>
+X-Greylist: delayed 436 seconds by postgrey-1.36 at gabe;
+ Sat, 15 Aug 2026 12:33:21 UTC
+Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com
+ [203.205.221.210])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 735D710E1DE;
+ Sat, 15 Aug 2026 12:33:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1786797199; bh=jTXyFKm0R7DY+Za1M9TAqurhFo7QSaZ9AjGQD+n13oM=;
+ h=From:To:Cc:Subject:Date;
+ b=j3aiKZswd5KsP9eiNYnQ4d8A/PRGkrmQn9BHFlRnJ9zJwUJ1nkPlUuq+7Or+W0pZ1
+ UxWOjwG91lIQW+usUygx8agjID6rmWr0kVjdI/IYOfo0Z5vAJ3W/9VoOHGJiS8OYBQ
+ 5TEQcgwIGuvXlVn5/nhzgdGMrP53dEfU43WAMHsE=
+Received: from allen-xiaomibookpro14.lan
+ ([240e:39a:35b:26c0:8997:9440:4da9:9b8a])
+ by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+ id 6741CE0E; Sat, 15 Aug 2026 20:25:52 +0800
+X-QQ-mid: xmsmtpt1786796752tcm8domqh
+Message-ID: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
+X-QQ-XMAILINFO: MzNwb/pqyJTknGIKLCns5qN/q7G0+BxozUGLCzIP+qJXLp0bidUOAA5qR3fYHv
+ EzjJCntptfkA80Ol9kYtlRr23hhb/UiCQ/gb7yp3smONLHaZ0ayKHYOIzWDdUWH9fKh8vyTU+Klt
+ iMjFqkzdAFNKbZZlOURIqJcnRTHZ5A+uuyVvqqeaW5Ob6MIxLW/yGXiFg8uaVBjbSZ0288sLnOvH
+ qwmt99rgPWhs97IYSgmQ45zj7TnLHI8P+OXaEXHuMR72o/9oDrJG5VxhJJqOAJugHSul7b2pXWeq
+ ekj1vET1yg4C0HlpyA9iVex12LD7jHrikYneMbcTu3ZD4hDEx4BHbYDA7xA3tzpOz8t5OgtJ2rbg
+ DpRt+39c6gF4z81eQU6YJXFOYdf8roAQfSqzlCtUodxbk3b5A2VsyA+qEfTi5fa1wLUPrC9FbCHz
+ xkX70kctkvDtJ5oML9QF8q2CEZOLFUvTNyneVZlJGKQnZI5dVHH7um0b0wqS0jSwog1lHaWMUaG+
+ 5BNLPNSKkwvP6R9gu7+6xFrhgIVK0jz0LGp2anviSCUZpw+i74M4QqJxQMJTieANX4qQ09HOTfwU
+ ggvaEA9QmEeVznSTG4rqNA1P2JGwXWwUSCSfO6dkOsWuqF95tJ04zpQ4maQ2ov8O49lSJUC5jfG3
+ yRk419Lev5EnAHVZ8wJaxXtebGfTkMr74w7MhTAJiNpRz+HsQC+EMDTQw3ikwwvL4hiXQQklZr+r
+ fYFsYmqiYwqQzmj8w3hlNIytUgarxti23IP2+4qtAK8fM8DCf7yKzAhjeLV5k5YUyldIjsZ3FWB7
+ r+/hb5IoY4vDCzI/NbaH6+he8WQElQ4mzJV26rzudVbvI4jSa4XB0N69hRML4hlIwLAqBgwwoyQF
+ gmkdj6ESnBEAq9ivqHzHem4eSlO9aBa/4GuQcVvygsYiiVhAWl4wNrEGla66kuDD/NeyFw+s3zpZ
+ Qr1oPlGO/HDm1tzhAka1IaDu7kKrIOBReJ9UY4txNoQXtxasvLL6zwn6OQIBOMvpn58xk3dLG6So
+ 0DTzJgimaj9EzzGsmn8yIpWSKDxcnGaLpzVpXtislnC4sCT3H7EsSUHsb66YKLZVaIRxhTeg==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <304750714@qq.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ ville.syrjala@linux.intel.com, stable@vger.kernel.org,
+ Chang Jiong <304750714@qq.com>
+Subject: [PATCH] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in
+ bxt_sanitize_cdclk()
+Date: Sat, 15 Aug 2026 20:25:49 +0800
+X-OQ-MSGID: <20260815122550.67009-1-304750714@qq.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 15 Aug 2026 15:51:44 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,21 +77,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> Known good: 7.1.5-arch1-2
-> First known bad: 7.1.6-arch1-1
-> Latest tested bad: 7.1.8
->
-> When the xe driver takes over from the firmware framebuffer, the
-> internal panel becomes completely black.
-> Close and reopen the laptop lid.
-> The internal panel starts working normally.
+Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
+without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
+CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
+comparing against the expected value.
 
-Thanks for the report. I believe the culprit is 2ee8dbd880b1 ("drm/i915/cdclk:
-Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable"), which is in 7.1.6.
+However bxt_cdclk_ctl() does not include the CD2X pipe select field
+at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
+readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
+never match the expected value (pipe field 0). The comparison now
+fails on every boot and we always take the full CDCLK PLL
+disable+re-enable path with the BIOS framebuffer actively scanning
+out - exactly what this code was trying to avoid. On a Panther Lake
+laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
+"CPU pipe A FIFO underrun" during probe and persistent full-screen
+scanout corruption for the first KMS client (the SDDM greeter);
+the corruption lasts until the next full modeset.
 
-Mainline is affected in exactly the same way and there is no fix upstream yet,
-so there is nothing for me to pick up.
+Only normalize the CD2X pipe select field on platforms where
+bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
+check.
 
--- 
-Thanks,
-Sasha
+Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chang Jiong(常炯) <304750714@qq.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2364,8 +2364,10 @@ static void bxt_sanitize_cdclk(struct intel_display *display)
+ 	 * dividers both syncing to an active pipe, or asynchronously
+ 	 * (PIPE_NONE).
+ 	 */
+-	cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
+-	cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	if (DISPLAY_VER(display) < 30) {
++		cdctl &= ~bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++		cdctl |= bxt_cdclk_cd2x_pipe(display, INVALID_PIPE);
++	}
+
+ 	if (cdctl != expected) {
+ 		if (DISPLAY_VER(display) < 20) {
+
