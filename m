@@ -4,27 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57715C5B572
-	for <intel-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:43:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 917EEC5DF6A
+	for <intel-gfx@archiver.kernel.org>; Sat, 15 Aug 2026 02:33:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C327A10E5C3;
-	Fri, 14 Aug 2026 21:43:05 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E93110E0FD;
- Fri, 14 Aug 2026 21:43:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA9B110E176;
+	Sat, 15 Aug 2026 02:33:41 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cijBRYoH";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7584E10E011;
+ Sat, 15 Aug 2026 02:33:40 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2618043B40;
+ Sat, 15 Aug 2026 02:33:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A7F1F00A3A;
+ Sat, 15 Aug 2026 02:33:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786761220;
+ bh=2FmaatKkMyzUBE64aHQdNqraDzLaDpP/Nw9aqEgQk3k=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=cijBRYoHJPCkz+58rURhfjOb+osKKC3AC0bG2fqH1rdUz1pQvyHmvhV2/rdVG4cxa
+ Q062AJVr8X+LZDJwaB5oPG94UKs7a/yEKWQflLKdTNlP2Ojezv43UbEg7lR8I/VlmM
+ SA8ZbgxQwcg+AId3c5FWIVDFNbQxBirsAdLeHIM/ir4AyLsN5oLgCEUwG4pNGINima
+ 4TeQS10wXnh/sHkRlf+9dqReXw4ifZNoTJWFRzgoLaVmnCcyX1Q8wzbjU9k9oYrUTV
+ PnQF/WHzvXzXwEueYOizstf5uh0BBwZAjc46wN0IgzRaOmYMGp0rjDOtf/scB6zdlU
+ flfBUTf0Kiipg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, regressions@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ =?utf-8?b?5ZC05rab?= <rpwtsama@gmail.com>,
+ Ville Syrjala <ville.syrjala@linux.intel.com>
+Subject: Re: [REGRESSION] Panther Lake 8086:b082 internal eDP black after xe
+ takeover since 7.1.6, still present in 7.1.8
+Date: Fri, 14 Aug 2026 22:33:13 -0400
+Message-ID: <20260814193000.13@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAF38RzLOUW1ZB1f+Q2f9mhnYs+t4R2+UQA1PCihz_FKEu-nSew@mail.gmail.com>
+References: <CAF38RzLOUW1ZB1f+Q2f9mhnYs+t4R2+UQA1PCihz_FKEu-nSew@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/vblank=3A_Enforce_all?=
- =?utf-8?q?-or-nothing_vblank_support?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Fri, 14 Aug 2026 21:43:05 -0000
-Message-ID: <178674378502.54513.10847034361752734558@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260814203542.1405135-1-lyude@redhat.com>
-In-Reply-To: <20260814203542.1405135-1-lyude@redhat.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,41 +57,24 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+> Known good: 7.1.5-arch1-2
+> First known bad: 7.1.6-arch1-1
+> Latest tested bad: 7.1.8
+>
+> When the xe driver takes over from the firmware framebuffer, the
+> internal panel becomes completely black.
+> Close and reopen the laptop lid.
+> The internal panel starts working normally.
 
-Series: drm/vblank: Enforce all-or-nothing vblank support
-URL   : https://patchwork.freedesktop.org/series/172249/
-State : failure
+Thanks for the report. I believe the culprit is 2ee8dbd880b1 ("drm/i915/cdclk:
+Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable"), which is in 7.1.6.
 
-== Summary ==
+Mainline is affected in exactly the same way and there is no fix upstream yet,
+so there is nothing for me to pick up.
 
-Error: patch https://patchwork.freedesktop.org/api/1.0/series/172249/revisions/1/mbox/ not applied
-Applying: drm/vblank: Add drm_device.has_hw_vblank
-Applying: drm/vblank: Remove drm->num_crtcs
-Applying: drm/vblank: Remove num_crtcs argument from drm_vblank_init()
-Using index info to reconstruct a base tree...
-M	drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-M	drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-M	drivers/gpu/drm/i915/display/intel_display_driver.c
-M	drivers/gpu/drm/virtio/virtgpu_display.c
-M	drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-Falling back to patching base and 3-way merge...
-Auto-merging drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-CONFLICT (content): Merge conflict in drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c
-Auto-merging drivers/gpu/drm/virtio/virtgpu_display.c
-Auto-merging drivers/gpu/drm/i915/display/intel_display_driver.c
-Auto-merging drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-Auto-merging drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
-error: Failed to merge in the changes.
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-Patch failed at 0003 drm/vblank: Remove num_crtcs argument from drm_vblank_init()
-When you have resolved this problem, run "git am --continue".
-If you prefer to skip this patch, run "git am --skip" instead.
-To restore the original branch and stop patching, run "git am --abort".
-Build failed, no error log produced
-
-
+-- 
+Thanks,
+Sasha
