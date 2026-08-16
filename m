@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05712C5DF67
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 01:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E7DBC5CFC1
+	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 02:24:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3944F10E1B9;
-	Sun, 16 Aug 2026 01:46:02 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HUC++z9+";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5758510E23F;
- Sun, 16 Aug 2026 01:46:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786844761; x=1818380761;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=It30WGELctoJSQf1hi57IpECUFR9aIkATg1Jg7hD7nw=;
- b=HUC++z9+C5b7G+0JykFOjs8+RsxTMpFkOxJqCt3GJGYKC6JucF+9TlzS
- e82huse5MrfKMSkQ++Xd/PmtwiydjPPP7qH+OiJcrCCxoDdu0oBuBanbP
- KOrbPVDSvghUSP/cWrJHEQwLOuo5uYQXtagkkUNt3mgGi6iYWPfcf6eBD
- 5j+2ZhVslPM13P6F5uameYNoYl5ahGDZOK+NOFi+qY2g7HWKrBa8CmUZ6
- weW5OdyLOrkysVMsmYKRsSfMlLYgy3oBQ+3sxkgpA9TuOYodF5P816fTH
- YW9SA95hdAHN4RgQjy4Mu5yXdCcOyRLFMTTY9TmTpThH+qxt9maBUuiO9 w==;
-X-CSE-ConnectionGUID: IRkCMf+OTIO5bGDQm7i1OQ==
-X-CSE-MsgGUID: lUW79Mb7TWWxRTcG7Q+AJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="98729442"
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="98729442"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2026 18:46:00 -0700
-X-CSE-ConnectionGUID: Wm91vM66T9qkYSiYchjHDg==
-X-CSE-MsgGUID: kQauwJtHQKemrJyICo5qIA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; d="scan'208";a="269760674"
-Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
- ([10.80.128.218])
- by fmviesa005.fm.intel.com with ESMTP; 15 Aug 2026 18:46:00 -0700
-From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net, matthew.auld@intel.com,
- thomas.hellstrom@linux.intel.com, dri-devel@lists.freedesktop.org,
- Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-Subject: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-Date: Sat, 15 Aug 2026 18:45:52 -0700
-Message-ID: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F38A10E241;
+	Sun, 16 Aug 2026 02:24:57 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25E7810E241;
+ Sun, 16 Aug 2026 02:24:56 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7058202599114992813=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/dmabuf=3A_avoid_?=
+ =?utf-8?q?global_wbinvd_on_dma-buf_import?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 16 Aug 2026 02:24:56 -0000
+Message-ID: <178684709614.56604.9938730989959372064@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+In-Reply-To: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,132 +37,176 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+--===============7058202599114992813==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-When i915 needs to make an imported dma-buf coherent for GPU access on
-non-LLC platforms, or for objects that bypass LLC, it currently calls
-wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-pinned, so this triggers a whole-cache write-back and invalidate,
-broadcast by IPI to every CPU, on every execbuf submission involving an
-imported dma-buf. That stalls the entire machine for milliseconds and
-starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-audio serviced on the VMM's main thread).
+== Series Details ==
 
-Flush only the pages that actually need it instead:
+Series: drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+URL   : https://patchwork.freedesktop.org/series/172276/
+State : success
 
- - If we imported one of our own dma-bufs, the backing object is
-   struct-page backed once migrated to SMEM, so flush it directly with
-   drm_clflush_sg(), exactly as we flush our other objects. This also
-   avoids re-entering the exporter through dma_buf_vmap(), which would
-   recurse into i915_gem_object_pin_map() on the source object we
-   already hold locked (and fails the igt_dmabuf_import_same_driver
-   selftest with -EBUSY).
+== Summary ==
 
- - For a foreign dma-buf the sg_table is not guaranteed to be backed by
-   struct pages, and the importer has no way to tell, so drm_clflush_sg()
-   cannot be used. vmap the buffer and flush that virtual range with
-   drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
-   one virtual alias evicts the cache lines for every alias of the same
-   physical pages. The dma_resv lock required by dma_buf_vmap() is
-   already held here via the imported object.
+CI Bug Log - changes from CI_DRM_19004 -> Patchwork_172276v1
+====================================================
 
-Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-by I/O memory, where there is no CPU-side range to clflush.
+Summary
+-------
 
-Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
----
-v2:
- - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
-   dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
-   object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
-   by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
-   drm_clflush_virt_range(); wbinvd only as fallback.
- - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
+  **SUCCESS**
 
- drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55 ++++++++++++++++++----
- 1 file changed, 47 insertions(+), 8 deletions(-)
+  No regressions found.
 
-diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-index b43d34c7d641..c798a90f1c0f 100644
---- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-+++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-@@ -10,6 +10,8 @@
- 
- #include <asm/smp.h>
- 
-+#include <drm/drm_cache.h>
-+
- #include "gem/i915_gem_dmabuf.h"
- #include "i915_drv.h"
- #include "i915_gem_object.h"
-@@ -249,16 +251,53 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
- 	 * DG1 is special here since it still snoops transactions even with
- 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
- 	 * might need to revisit this as we add new discrete platforms.
--	 *
--	 * XXX: Consider doing a vmap flush or something, where possible.
--	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
--	 * the underlying sg_table might not even point to struct pages, so we
--	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
--	 * the driver.
- 	 */
- 	if (i915_gem_object_can_bypass_llc(obj) ||
--	    (!HAS_LLC(i915) && !IS_DG1(i915)))
--		wbinvd_on_all_cpus();
-+	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-+		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-+
-+		if (dma_buf->ops == &i915_dmabuf_ops) {
-+			struct drm_i915_gem_object *dma_obj =
-+				dma_buf_to_obj(dma_buf);
-+
-+			/*
-+			 * We imported one of our own dma-bufs. The backing
-+			 * object is struct-page backed once migrated to SMEM,
-+			 * so flush it directly, the same way we flush our
-+			 * other objects. This also avoids re-entering the
-+			 * exporter through dma_buf_vmap(), which would recurse
-+			 * into i915_gem_object_pin_map() on the source object
-+			 * we already hold locked.
-+			 */
-+			if (i915_gem_object_has_struct_page(dma_obj))
-+				drm_clflush_sg(dma_obj->mm.pages);
-+			else
-+				wbinvd_on_all_cpus();
-+		} else {
-+			struct iosys_map map;
-+
-+			/*
-+			 * A foreign sg_table is not guaranteed to be backed by
-+			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-+			 * the buffer and flush the virtual range instead; x86
-+			 * uses PIPT caches, so flushing one alias evicts the
-+			 * lines for every alias of the same physical pages.
-+			 *
-+			 * We already hold the dma_resv lock via the imported
-+			 * obj, so use the locked dma_buf_vmap() variant.
-+			 */
-+			if (!dma_buf_vmap(dma_buf, &map)) {
-+				if (!map.is_iomem)
-+					drm_clflush_virt_range(map.vaddr,
-+							       obj->base.size);
-+				else
-+					wbinvd_on_all_cpus();
-+				dma_buf_vunmap(dma_buf, &map);
-+			} else {
-+				wbinvd_on_all_cpus();
-+			}
-+		}
-+	}
- 
- 	__i915_gem_object_set_pages(obj, sgt);
- 
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/index.html
 
-base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
--- 
-2.43.0
+Participating hosts (35 -> 32)
+------------------------------
 
+  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_172276v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@ring_submission:
+    - fi-cfl-8109u:       [DMESG-WARN][1] ([i915#13735]) -> [PASS][2] +80 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
+
+  * igt@i915_selftest@live@sanitycheck:
+    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +79 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-kbl-7567u:       [DMESG-WARN][5] ([i915#13735] / [i915#180]) -> [PASS][6]
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [DMESG-WARN][7] ([i915#13735] / [i915#15673]) -> [PASS][8] +49 other tests pass
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - fi-kbl-7567u:       [DMESG-WARN][9] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][10] +52 other tests pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19004 -> Patchwork_172276v1
+
+  CI-20190529: 20190529
+  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_172276v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/index.html
+
+--===============7058202599114992813==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/dmabuf: avoid global wbinvd on dma-buf import</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172276/">https://patchwork.freedesktop.org/series/172276/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19004 -&gt; Patchwork_172276v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/index.html</p>
+<h2>Participating hosts (35 -&gt; 32)</h2>
+<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172276v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@ring_submission:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">PASS</a> +80 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> +79 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172276v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +52 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19004 -&gt; Patchwork_172276v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_172276v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7058202599114992813==--
