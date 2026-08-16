@@ -4,44 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1389BC5DF66
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 22:52:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE03C5DF66
+	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 23:22:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8CB10E119;
-	Sun, 16 Aug 2026 22:52:07 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="la6KCfmZ";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C01910E023;
- Sun, 16 Aug 2026 22:52:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E343F4069E;
- Sun, 16 Aug 2026 22:52:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B47B1F000E9;
- Sun, 16 Aug 2026 22:52:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786920725;
- bh=+8U1g2RW5gac/JBCrpYMZa2rPTzsW5GA57mtvmaKrDo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=la6KCfmZNsbtAdzQccDRKMVT3VNkd+TfRE1RTfszV8gCm2vFpPK8NhRe1JWPvb9Yp
- k60kkwu+qnG6gNOoEzCyRMZh7FdTM+rcJyk2D8Ru/MhATptqsgYG3yFPIfgnOY2WfJ
- cCR4VJA5z+T8+6V4uwJW2Lrql4Q42Nk3+BsaQmCYEtRTodXQlYAHsILl+4M590H0gU
- 1BaLhSLY6gxcsXz8qhwuFH0Ptvn5emmmzXW8uAJYC3dGHsJ7ep96UBzT16PZbOhm8Z
- tJKwHpuQObkbEwSWwZ8NN6MNl+1utjSt8vsTW4g1L3pRtW/AcdQtzXFgfWVlKIJkJN
- bPPwJaYdHTZLA==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is
- supported
+	by gabe.freedesktop.org (Postfix) with ESMTP id C75CC10E2DB;
+	Sun, 16 Aug 2026 23:22:19 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C58E10E023;
+ Sun, 16 Aug 2026 23:22:19 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7532636591869452001=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_pm=5Fpme_support_on_displ?=
+ =?utf-8?q?ay_hotplug?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260816224005.886035-6-vinod.govindapillai@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 16 Aug 2026 23:22:19 -0000
+Message-ID: <178692253910.57257.16941581379907633655@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260816224005.886035-1-vinod.govindapillai@intel.com>
- <20260816224005.886035-6-vinod.govindapillai@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 16 Aug 2026 22:52:05 +0000
-Message-Id: <20260816225205.8B47B1F000E9@smtp.kernel.org>
+In-Reply-To: <20260816224005.886035-1-vinod.govindapillai@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,88 +37,192 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Skipping `intel_hpd_init()` on runtime resume for PME-capable devi=
-ces leaves hardware HPD interrupts permanently disabled, breaking hotplug d=
-etection while the device is awake.
---
+--===============7532636591869452001==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---- Patch [5]: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is=
- supported ---
-commit f6a80f590c41d181052f2d40a190e9c030e50eb2
-Author: Vinod Govindapillai <vinod.govindapillai@intel.com>
-drm/i915/display: skip HPD polling if PME is supported
+== Series Details ==
 
-This commit prevents the display driver from enabling HPD polling during
-runtime suspend if the device supports PM_PME. It also updates the resume
-path to selectively initialize HPD only if polling was actually enabled.
+Series: pm_pme support on display hotplug
+URL   : https://patchwork.freedesktop.org/series/172306/
+State : success
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
-s/gpu/drm/i915/display/intel_display_driver.c
-> index 70d112fd4287a..b7e25b7ea32ed 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+== Summary ==
 
-[ ... ]
+CI Bug Log - changes from CI_DRM_19004 -> Patchwork_172306v1
+====================================================
 
-> @@ -951,10 +956,20 @@ void intel_display_driver_pm_runtime_resume(struct =
-intel_display *display)
->  	 * power well, so hpd is reinitialized from there. For
->  	 * everyone else do it here.
->  	 */
-> -	if (!display->platform.valleyview && !display->platform.cherryview) {
-> +	if (display->platform.valleyview || display->platform.cherryview)
-> +		goto out;
-> +
-> +	/* For PME capable devices we would not have resorted into HPD polling =
-*/
-> +	if (intel_hpd_polling_enabled(display))
->  		intel_hpd_init(display);
+Summary
+-------
 
-[Severity: High]
-Does skipping intel_hpd_init() here permanently break hardware hotplug
-detection for PME-capable devices?
+  **SUCCESS**
 
-When a PME-capable device enters runtime suspend, it skips
-intel_hpd_poll_enable(), so intel_hpd_polling_enabled() will return false.=
-=20
-On resume, this condition causes intel_hpd_init() to be skipped.
+  No regressions found.
 
-However, looking at intel_hpd_init() in intel_hotplug.c, it does more than
-just polling setup. It also programs the hardware registers to re-enable
-hardware interrupts:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html
 
-void intel_hpd_init(struct intel_display *display)
-{
-    ...
-	spin_lock_irq(&display->irq.lock);
-	intel_hpd_irq_setup(display);
-	spin_unlock_irq(&display->irq.lock);
-}
+Participating hosts (35 -> 32)
+------------------------------
 
-Without calling intel_hpd_irq_setup(), the hardware HPD interrupts will
-remain masked. Will any subsequent monitor hotplugs or unplugs that happen
-while the device is awake be silently ignored?
+  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 
 
-> -		intel_hpd_poll_disable(display);
-> -	}
-> =20
-> +	/*
-> +	 * Regardless of PME capable path, call the HPD polling disable, the
-> +	 * poll_init_work, i915_hpd_poll_detect_connectors reprobe catches the
-> +	 * hotplug that occurred while suspended
-> +	 */
-> +	intel_hpd_poll_disable(display);
-> +
-> +out:
->  	skl_watermark_ipc_update(display);
->  }
+Known issues
+------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816224005.8860=
-35-1-vinod.govindapillai@intel.com?part=3D5
+  Here are the changes found in Patchwork_172306v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@kms_pm_rpm@basic-rte:
+    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
+
+  
+#### Possible fixes ####
+
+  * igt@i915_selftest@live@ring_submission:
+    - fi-cfl-8109u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +80 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
+
+  * igt@i915_selftest@live@sanitycheck:
+    - fi-kbl-7567u:       [DMESG-WARN][5] ([i915#13735]) -> [PASS][6] +79 other tests pass
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
+
+  * igt@kms_busy@basic@flip:
+    - fi-kbl-7567u:       [DMESG-WARN][7] ([i915#13735] / [i915#180]) -> [PASS][8]
+   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
+
+  * igt@kms_pipe_crc_basic@read-crc:
+    - fi-cfl-8109u:       [DMESG-WARN][9] ([i915#13735] / [i915#15673]) -> [PASS][10] +49 other tests pass
+   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
+
+  * igt@kms_pm_rpm@basic-pci-d3-state:
+    - fi-kbl-7567u:       [DMESG-WARN][11] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][12] +52 other tests pass
+   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
+
+  
+  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19004 -> Patchwork_172306v1
+
+  CI-20190529: 20190529
+  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_172306v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html
+
+--===============7532636591869452001==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>pm_pme support on display hotplug</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172306/">https://patchwork.freedesktop.org/series/172306/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19004 -&gt; Patchwork_172306v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html</p>
+<h2>Participating hosts (35 -&gt; 32)</h2>
+<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172306v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@kms_pm_rpm@basic-rte:<ul>
+<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_selftest@live@ring_submission:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">PASS</a> +80 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@sanitycheck:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> +79 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_busy@basic@flip:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a></li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pipe_crc_basic@read-crc:</p>
+<ul>
+<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +52 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19004 -&gt; Patchwork_172306v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_172306v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7532636591869452001==--
