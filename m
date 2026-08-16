@@ -4,59 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D44C5DF74
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 22:40:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1389BC5DF66
+	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 22:52:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9B110E2F4;
-	Sun, 16 Aug 2026 22:40:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F8CB10E119;
+	Sun, 16 Aug 2026 22:52:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MlPwYv01";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="la6KCfmZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A81110E37C;
- Sun, 16 Aug 2026 22:40:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786920038; x=1818456038;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=QrkVCV9zWBoaxcs51WNjopKo2asolU459DOer6D3cW8=;
- b=MlPwYv01dhkw/jjdVv6Tk4l2GtC2J5XL8UvYw8po40vKd5yDLQmh7qjb
- plnzP8ooXGFg49ZC00jI66m1D5NtpfjhmuU82ARvT3NviByIt0i24PxLw
- BH6uuwA37MzhlDrJdFr5hnJPHS4cHmk7vi95OvoFPMouXln0GQ/WrlAbi
- pdAmve4a74JcX1I0S05nakSaD5si35Yr972abaEuHZ6v5DRl2ca7aM1DC
- imqNHFVBNMEC5vl8rxULL/T9VGb94DX1BtPPnr770fVabeHpzBdccl2yF
- MZG2+4Kf6ola75EPIaV/PUmhnpyADZiHgklr26kqvguLAf0G0b9Klk0ol g==;
-X-CSE-ConnectionGUID: BGqhYkr4R22LaemSz5woIw==
-X-CSE-MsgGUID: 4RIwWmWGTFCAJXl0rJtOUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="98761697"
-X-IronPort-AV: E=Sophos;i="6.25,227,1779174000"; d="scan'208";a="98761697"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2026 15:40:37 -0700
-X-CSE-ConnectionGUID: Ylz+gvPqQ4WBwo6HVJcN/Q==
-X-CSE-MsgGUID: 51E7xL0VQwmd0PCoUTRd0Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,227,1779174000"; d="scan'208";a="269948387"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO
- vgovind2-mobl4.intel.com) ([10.245.249.236])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Aug 2026 15:40:35 -0700
-From: Vinod Govindapillai <vinod.govindapillai@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org
-Cc: vinod.govindapillai@intel.com,
-	imre.deak@intel.com
-Subject: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is supported
-Date: Mon, 17 Aug 2026 01:40:04 +0300
-Message-ID: <20260816224005.886035-6-vinod.govindapillai@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260816224005.886035-1-vinod.govindapillai@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C01910E023;
+ Sun, 16 Aug 2026 22:52:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E343F4069E;
+ Sun, 16 Aug 2026 22:52:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B47B1F000E9;
+ Sun, 16 Aug 2026 22:52:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786920725;
+ bh=+8U1g2RW5gac/JBCrpYMZa2rPTzsW5GA57mtvmaKrDo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=la6KCfmZNsbtAdzQccDRKMVT3VNkd+TfRE1RTfszV8gCm2vFpPK8NhRe1JWPvb9Yp
+ k60kkwu+qnG6gNOoEzCyRMZh7FdTM+rcJyk2D8Ru/MhATptqsgYG3yFPIfgnOY2WfJ
+ cCR4VJA5z+T8+6V4uwJW2Lrql4Q42Nk3+BsaQmCYEtRTodXQlYAHsILl+4M590H0gU
+ 1BaLhSLY6gxcsXz8qhwuFH0Ptvn5emmmzXW8uAJYC3dGHsJ7ep96UBzT16PZbOhm8Z
+ tJKwHpuQObkbEwSWwZ8NN6MNl+1utjSt8vsTW4g1L3pRtW/AcdQtzXFgfWVlKIJkJN
+ bPPwJaYdHTZLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is
+ supported
+To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260816224005.886035-6-vinod.govindapillai@intel.com>
 References: <20260816224005.886035-1-vinod.govindapillai@intel.com>
-MIME-Version: 1.0
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo
-Content-Transfer-Encoding: 8bit
+ <20260816224005.886035-6-vinod.govindapillai@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 16 Aug 2026 22:52:05 +0000
+Message-Id: <20260816225205.8B47B1F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,69 +54,88 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-A display hotplug can generate a PM_PME which in turn will
-trigger pm_runtime_resume call on a device. So we don't need
-to resort to HPD polling on pm_runtime_suspend calls. But on
-pm_runtime_resume call we would need to still resort to the
-intel_hpd_poll_disable() as the i915_hpd_poll_detect_connectors()
-catches the hotplugs that occurred during suspend.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Skipping `intel_hpd_init()` on runtime resume for PME-capable devi=
+ces leaves hardware HPD interrupts permanently disabled, breaking hotplug d=
+etection while the device is awake.
+--
 
-Assisted-by: GitHub_Copilot:claude-opus-5
-Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
----
- .../drm/i915/display/intel_display_driver.c   | 21 ++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+--- Patch [5]: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is=
+ supported ---
+commit f6a80f590c41d181052f2d40a190e9c030e50eb2
+Author: Vinod Govindapillai <vinod.govindapillai@intel.com>
+drm/i915/display: skip HPD polling if PME is supported
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
-index 70d112fd4287..b7e25b7ea32e 100644
---- a/drivers/gpu/drm/i915/display/intel_display_driver.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
-@@ -34,6 +34,7 @@
- #include "intel_display_driver.h"
- #include "intel_display_irq.h"
- #include "intel_display_power.h"
-+#include "intel_display_rpm.h"
- #include "intel_display_types.h"
- #include "intel_display_utils.h"
- #include "intel_display_wa.h"
-@@ -931,6 +932,10 @@ void intel_display_driver_pm_runtime_suspend_late(struct intel_display *display)
- 		intel_opregion_notify_adapter(display, PCI_D1);
- 	}
- 
-+	/* No need of HPD polling if the device is PME capable */
-+	if (intel_display_rpm_pme_capable(display))
-+		return;
-+
- 	if (!display->platform.valleyview && !display->platform.cherryview)
- 		intel_hpd_poll_enable(display);
- }
-@@ -951,10 +956,20 @@ void intel_display_driver_pm_runtime_resume(struct intel_display *display)
- 	 * power well, so hpd is reinitialized from there. For
- 	 * everyone else do it here.
- 	 */
--	if (!display->platform.valleyview && !display->platform.cherryview) {
-+	if (display->platform.valleyview || display->platform.cherryview)
-+		goto out;
-+
-+	/* For PME capable devices we would not have resorted into HPD polling */
-+	if (intel_hpd_polling_enabled(display))
- 		intel_hpd_init(display);
--		intel_hpd_poll_disable(display);
--	}
- 
-+	/*
-+	 * Regardless of PME capable path, call the HPD polling disable, the
-+	 * poll_init_work, i915_hpd_poll_detect_connectors reprobe catches the
-+	 * hotplug that occurred while suspended
-+	 */
-+	intel_hpd_poll_disable(display);
-+
-+out:
- 	skl_watermark_ipc_update(display);
- }
--- 
-2.43.0
+This commit prevents the display driver from enabling HPD polling during
+runtime suspend if the device supports PM_PME. It also updates the resume
+path to selectively initialize HPD only if polling was actually enabled.
 
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/driver=
+s/gpu/drm/i915/display/intel_display_driver.c
+> index 70d112fd4287a..b7e25b7ea32ed 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+
+[ ... ]
+
+> @@ -951,10 +956,20 @@ void intel_display_driver_pm_runtime_resume(struct =
+intel_display *display)
+>  	 * power well, so hpd is reinitialized from there. For
+>  	 * everyone else do it here.
+>  	 */
+> -	if (!display->platform.valleyview && !display->platform.cherryview) {
+> +	if (display->platform.valleyview || display->platform.cherryview)
+> +		goto out;
+> +
+> +	/* For PME capable devices we would not have resorted into HPD polling =
+*/
+> +	if (intel_hpd_polling_enabled(display))
+>  		intel_hpd_init(display);
+
+[Severity: High]
+Does skipping intel_hpd_init() here permanently break hardware hotplug
+detection for PME-capable devices?
+
+When a PME-capable device enters runtime suspend, it skips
+intel_hpd_poll_enable(), so intel_hpd_polling_enabled() will return false.=
+=20
+On resume, this condition causes intel_hpd_init() to be skipped.
+
+However, looking at intel_hpd_init() in intel_hotplug.c, it does more than
+just polling setup. It also programs the hardware registers to re-enable
+hardware interrupts:
+
+void intel_hpd_init(struct intel_display *display)
+{
+    ...
+	spin_lock_irq(&display->irq.lock);
+	intel_hpd_irq_setup(display);
+	spin_unlock_irq(&display->irq.lock);
+}
+
+Without calling intel_hpd_irq_setup(), the hardware HPD interrupts will
+remain masked. Will any subsequent monitor hotplugs or unplugs that happen
+while the device is awake be silently ignored?
+
+> -		intel_hpd_poll_disable(display);
+> -	}
+> =20
+> +	/*
+> +	 * Regardless of PME capable path, call the HPD polling disable, the
+> +	 * poll_init_work, i915_hpd_poll_detect_connectors reprobe catches the
+> +	 * hotplug that occurred while suspended
+> +	 */
+> +	intel_hpd_poll_disable(display);
+> +
+> +out:
+>  	skl_watermark_ipc_update(display);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260816224005.8860=
+35-1-vinod.govindapillai@intel.com?part=3D5
