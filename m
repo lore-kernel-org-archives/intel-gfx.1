@@ -4,27 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FE03C5DF66
-	for <intel-gfx@archiver.kernel.org>; Sun, 16 Aug 2026 23:22:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6093DC5DF7D
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 09:29:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C75CC10E2DB;
-	Sun, 16 Aug 2026 23:22:19 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C58E10E023;
- Sun, 16 Aug 2026 23:22:19 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============7532636591869452001=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2DBC10E6E6;
+	Mon, 17 Aug 2026 09:29:26 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="QgfIRtfj";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFCD110E6E5;
+ Mon, 17 Aug 2026 09:29:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786958965; x=1818494965;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=SVrrR93sHtW317ZDhWfpruRYed+Q/MR6kk7SUYNVMrw=;
+ b=QgfIRtfj3lq+VnL4rHW5O17hjvk9Cjahl7XutZkD9ITIU/HoSwLxtkXv
+ 84fTTNb4lhRtp1O+rG3Yk2t8MSz+a/JesIe215FUe0LSRQreJtVvdYWbC
+ DrEETT9g0Cl4eBziWM7RxUL6RevSTMczQHM9dnUAPkLofeJ5RI1JyjDxV
+ clPXZeqOsx0kjqg/mT0XiYc3q5tSFNyMMjfJrnHkVtbZHwvbeB9v99NYd
+ NKKvR1brfhaiXksHIVfy1RffMe3rIEHqo0jFCG4oCMhxqr2IJb6pRVOd2
+ fTMm5CN84J1D3swakRjgFX8VqsxXfVzImrrz/uuOfv8msEBXLH87h6bP4 g==;
+X-CSE-ConnectionGUID: fga2sCznQa+OrVAhcK6gsw==
+X-CSE-MsgGUID: Aic8ZeI/TkWrjMAjIH1qFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87189991"
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="87189991"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2026 02:29:25 -0700
+X-CSE-ConnectionGUID: NHCyV3jgRG+wLYttkllI1Q==
+X-CSE-MsgGUID: l7Zw0yX9QsWFj/ZCd9t7Sg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="268348870"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO hazy.intel.com)
+ ([10.245.245.136])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2026 02:29:23 -0700
+From: Luca Coelho <luciano.coelho@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	jani.nikula@linux.intel.com
+Subject: [PATCH v3 0/5] drm/i915/display: reduce clock_gating interface
+ between core and display
+Date: Mon, 17 Aug 2026 12:26:19 +0300
+Message-ID: <20260817092911.342072-1-luciano.coelho@intel.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_pm=5Fpme_support_on_displ?=
- =?utf-8?q?ay_hotplug?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Sun, 16 Aug 2026 23:22:19 -0000
-Message-ID: <178692253910.57257.16941581379907633655@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260816224005.886035-1-vinod.govindapillai@intel.com>
-In-Reply-To: <20260816224005.886035-1-vinod.govindapillai@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,192 +65,58 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============7532636591869452001==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-== Series Details ==
+As a follow up to my previous clock-gating patches, this series
+reduces the interface between core and display by combining all the
+platform-specific exported functions and letting the display code
+decide what to do for each platform.
 
-Series: pm_pme support on display hotplug
-URL   : https://patchwork.freedesktop.org/series/172306/
-State : success
+In v2:
 
-== Summary ==
+  * Reworked the previous version so we have only one entry point,
+    instead of an _early() and a _late() function.  It turns out that
+    this is not necessary because some platforms were using only
+    _early() and the others were using _late() (not both);
+    
+  * Removed back-dependency from the display code into the core code
+    by avoiding calls to intel_clock_gating_init() (Jani);
 
-CI Bug Log - changes from CI_DRM_19004 -> Patchwork_172306v1
-====================================================
+In v3:
 
-Summary
--------
+   * Added intel_display_clock_gating.o to xe's Makefile to prevent
+     linking breakage;
 
-  **SUCCESS**
+Please review.
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html
-
-Participating hosts (35 -> 32)
-------------------------------
-
-  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172306v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@kms_pm_rpm@basic-rte:
-    - bat-rpls-4:         [PASS][1] -> [DMESG-WARN][2] ([i915#13400])
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@ring_submission:
-    - fi-cfl-8109u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +80 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html
-
-  * igt@i915_selftest@live@sanitycheck:
-    - fi-kbl-7567u:       [DMESG-WARN][5] ([i915#13735]) -> [PASS][6] +79 other tests pass
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html
-
-  * igt@kms_busy@basic@flip:
-    - fi-kbl-7567u:       [DMESG-WARN][7] ([i915#13735] / [i915#180]) -> [PASS][8]
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html
-
-  * igt@kms_pipe_crc_basic@read-crc:
-    - fi-cfl-8109u:       [DMESG-WARN][9] ([i915#13735] / [i915#15673]) -> [PASS][10] +49 other tests pass
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [DMESG-WARN][11] ([i915#13735] / [i915#15673] / [i915#180]) -> [PASS][12] +52 other tests pass
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [12]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-  [i915#13400]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#180]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180
+Cheers,
+Luca.
 
 
-Build changes
--------------
+Luca Coelho (5):
+  drm/i915/display: consolidate Gen9 clock gating initialization
+  drm/i915/display: consolidate remaining clock gating initialization
+  drm/i915/display: remove unnecessary clock_gating include from
+    intel_display.c
+  drm/i915/display: add a way to restore only display/pch registers in
+    clock_gating
+  drm/i915/display: split part of intel_display_reset_finish() to a new
+    function
 
-  * Linux: CI_DRM_19004 -> Patchwork_172306v1
+ drivers/gpu/drm/i915/display/intel_display.c  |  1 -
+ .../i915/display/intel_display_clock_gating.c | 74 +++++++++++++++----
+ .../i915/display/intel_display_clock_gating.h | 17 +----
+ .../drm/i915/display/intel_display_power.c    |  4 +-
+ .../drm/i915/display/intel_display_reset.c    | 19 +++--
+ .../drm/i915/display/intel_display_reset.h    |  1 +
+ drivers/gpu/drm/i915/gt/intel_reset.c         |  5 ++
+ drivers/gpu/drm/i915/intel_clock_gating.c     | 30 +++-----
+ drivers/gpu/drm/xe/Makefile                   |  1 +
+ 9 files changed, 95 insertions(+), 57 deletions(-)
 
-  CI-20190529: 20190529
-  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_172306v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux
+-- 
+2.53.0
 
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html
-
---===============7532636591869452001==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>pm_pme support on display hotplug</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172306/">https://patchwork.freedesktop.org/series/172306/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19004 -&gt; Patchwork_172306v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/index.html</p>
-<h2>Participating hosts (35 -&gt; 32)</h2>
-<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adlp-6 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172306v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@kms_pm_rpm@basic-rte:<ul>
-<li>bat-rpls-4:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/bat-rpls-4/igt@kms_pm_rpm@basic-rte.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13400">i915#13400</a>)</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@ring_submission:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@i915_selftest@live@ring_submission.html">PASS</a> +80 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@sanitycheck:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@i915_selftest@live@sanitycheck.html">PASS</a> +79 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_busy@basic@flip:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_busy@basic@flip.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_busy@basic@flip.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pipe_crc_basic@read-crc:</p>
-<ul>
-<li>fi-cfl-8109u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-cfl-8109u/igt@kms_pipe_crc_basic@read-crc.html">PASS</a> +49 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19004/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/180">i915#180</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v1/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +52 other tests pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19004 -&gt; Patchwork_172306v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19004: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9057: 8f7d5198bdb1c5af7c97b967a0bcbe77b653e8a0 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_172306v1: ceef0899403ceea5643d80a02bfdf9587f3845b8 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============7532636591869452001==--
