@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6363FC5DF7A
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 09:29:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 484A1C5DF66
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 09:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C642E10E702;
-	Mon, 17 Aug 2026 09:29:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3989A10E18A;
+	Mon, 17 Aug 2026 09:49:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="MHNLS378";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AjIMaiZk";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B50E310E702;
- Mon, 17 Aug 2026 09:29:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786958974; x=1818494974;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=IsDZA3ehFShCGEDVvLajl/0MsTXNdnPWU3St2aOplj4=;
- b=MHNLS37870SuBEOO3UQWq9bP1PHws4UQTbBsBBN6pW+yQ7n9QJoil0BY
- OQPVZQ4xkS5pqGsv/b53hWTptL2YWXE5YkM8ayByRYnUhNVP6/c0OkvW5
- h0O/74zAHhVXHA1wVcQz+byD8C0yojJ+wNg+lkUcDuA6UFXQPK/bfbG7b
- WdvM/hfP0Y/tFVWuyeiJqgW7joMeyuD9GPY7Wlr6w3B789sk2RujzVcxM
- gZyMxpwvE2KwwE8EmW3ekQiIZXC2IWBwS3XQNOy+83SRnJfqX/csnc3gi
- 3ZzKunZbWZNuo2wOXzv+QAo9iZj1UgtWPIqBbpqnficqi3LQLWosxpk6x Q==;
-X-CSE-ConnectionGUID: sCXtJTSDRi+Z4BtxYU7eEw==
-X-CSE-MsgGUID: /OAH4GoXS7WjRLKBsplpJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87190000"
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="87190000"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 02:29:34 -0700
-X-CSE-ConnectionGUID: IHFhv0onS0CYKPSR2PlwxQ==
-X-CSE-MsgGUID: MtbvEx8RRy6sUmVgVvTB3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="268348882"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO hazy.intel.com)
- ([10.245.245.136])
- by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 02:29:32 -0700
-From: Luca Coelho <luciano.coelho@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	jani.nikula@linux.intel.com
-Subject: [PATCH v3 5/5] drm/i915/display: split part of
- intel_display_reset_finish() to a new function
-Date: Mon, 17 Aug 2026 12:26:24 +0300
-Message-ID: <20260817092911.342072-6-luciano.coelho@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260817092911.342072-1-luciano.coelho@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1607110E18A;
+ Mon, 17 Aug 2026 09:49:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 72C83410B6;
+ Mon, 17 Aug 2026 09:49:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD271F000E9;
+ Mon, 17 Aug 2026 09:49:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786960148;
+ bh=F6mQKUcnNC5REDC2YDt7brh+DZi+LT2h+3Sxlcw48u0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AjIMaiZkg3iPPRpDMA+3DC8JkwKCHfNjpzA4J9C8tRu0wvb0kIQJRFdaBpIE0luia
+ Wk/5cowMM27VQlyzU5tldCvYqoopJg0e0iLA1jbw/wbhM+KOIEMbAvwYQCDCyGRfFH
+ nG/aY/rU8dD5FAqhRsCnULiq131r2qY26cNd4dMVasG0dKmoKpMaT5sfxLzidBTNUT
+ VG9XbEMUYlCZtZJeJsOSiSdb1HWJU8572S7xUezIhHDWiR5pgduV6MHVI9ocItsOK4
+ 8kkm84zzbBh5iHuQGSmA/lBHmh6zHPWRrXZr+Vol44UaxpFLYk1choYznarOnExBW4
+ CYIjCbKOZ8Pjg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/5] drm/i915/display: add a way to restore only
+ display/pch registers in clock_gating
+To: "Luca Coelho" <luciano.coelho@intel.com>
+Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260817092911.342072-5-luciano.coelho@intel.com>
 References: <20260817092911.342072-1-luciano.coelho@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260817092911.342072-5-luciano.coelho@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 17 Aug 2026 09:49:07 +0000
+Message-Id: <20260817094908.1FD271F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,105 +54,62 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-In the intel_display_reset_finish() function, we are currently calling
-the non-display function intel_clock_gating_init(), creating an
-unnecessary dependency.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Replacing `intel_clock_gating_init()` with `intel_display_restore_=
+clock_gating()` in `hsw_disable_pc8()` causes GT and uncore clock gating wo=
+rkarounds to be permanently lost after runtime suspend on Haswell and Broad=
+well.
+--
 
-In order to avoid this, split out the function calls that happen
-before the call to intel_clock_gating_init() to a new function that
-can be directly called by intel_gt_reset_global(), which then calls
-intel_clock_gating_init() itself, if needed.
+--- Patch [4]: [PATCH v3 4/5] drm/i915/display: add a way to restore only d=
+isplay/pch registers in clock_gating ---
+commit d0464f11c51adf2ddadf337dda54d674de543139
+Author: Luca Coelho <luciano.coelho@intel.com>
+drm/i915/display: add a way to restore only display/pch registers in clock_=
+gating
 
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
----
- .../drm/i915/display/intel_display_reset.c    | 19 +++++++++++++------
- .../drm/i915/display/intel_display_reset.h    |  1 +
- drivers/gpu/drm/i915/gt/intel_reset.c         |  5 +++++
- 3 files changed, 19 insertions(+), 6 deletions(-)
+This commit introduces intel_display_restore_clock_gating() to isolate disp=
+lay
+and PCH register restoration from core i915 clock gating initialization. It
+updates hsw_disable_pc8() to use this new function instead of the broader
+intel_clock_gating_init().
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.c b/drivers/gpu/drm/i915/display/intel_display_reset.c
-index 504ec7043cd9..529dd1c1fa5d 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reset.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_reset.c
-@@ -8,7 +8,6 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_print.h>
- 
--#include "intel_clock_gating.h"
- #include "intel_cx0_phy.h"
- #include "intel_display_core.h"
- #include "intel_display_driver.h"
-@@ -73,6 +72,17 @@ void intel_display_reset_prepare(struct intel_display *display)
- 	state->acquire_ctx = ctx;
- }
- 
-+bool intel_display_reset_reinit(struct intel_display *display)
-+{
-+	if (!display->restore.modeset_state)
-+		return false;
-+
-+	intel_pps_unlock_regs_wa(display);
-+	intel_display_driver_init_hw(display);
-+
-+	return true;
-+}
-+
- void intel_display_reset_finish(struct intel_display *display, bool test_only)
- {
- 	struct drm_modeset_acquire_ctx *ctx = &display->restore.reset_ctx;
-@@ -94,12 +104,9 @@ void intel_display_reset_finish(struct intel_display *display, bool test_only)
- 		}
- 	} else {
- 		/*
--		 * The display has been reset as well,
--		 * so need a full re-initialization.
-+		 * The display has been reset as well, so complete the
-+		 * re-initialization started by intel_display_reset_reinit().
- 		 */
--		intel_pps_unlock_regs_wa(display);
--		intel_display_driver_init_hw(display);
--		intel_clock_gating_init(display->drm);
- 		intel_cx0_pll_power_save_wa(display);
- 		intel_hpd_init(display);
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_reset.h b/drivers/gpu/drm/i915/display/intel_display_reset.h
-index b88c330a3441..e741e969d877 100644
---- a/drivers/gpu/drm/i915/display/intel_display_reset.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_reset.h
-@@ -13,6 +13,7 @@ struct intel_display;
- bool intel_display_reset_supported(struct intel_display *display);
- bool intel_display_reset_test(struct intel_display *display);
- void intel_display_reset_prepare(struct intel_display *display);
-+bool intel_display_reset_reinit(struct intel_display *display);
- void intel_display_reset_finish(struct intel_display *display, bool test_only);
- 
- void intel_display_reset_debugfs_register(struct intel_display *display);
-diff --git a/drivers/gpu/drm/i915/gt/intel_reset.c b/drivers/gpu/drm/i915/gt/intel_reset.c
-index 6053f3e8aa27..be282cfbe615 100644
---- a/drivers/gpu/drm/i915/gt/intel_reset.c
-+++ b/drivers/gpu/drm/i915/gt/intel_reset.c
-@@ -24,6 +24,7 @@
- #include "i915_reg.h"
- #include "i915_wait_util.h"
- #include "intel_breadcrumbs.h"
-+#include "intel_clock_gating.h"
- #include "intel_engine_pm.h"
- #include "intel_engine_regs.h"
- #include "intel_gt.h"
-@@ -1445,6 +1446,10 @@ static void intel_gt_reset_global(struct intel_gt *gt,
- 
- 		intel_gt_reset(gt, engine_mask, reason);
- 
-+		if (need_display_reset &&
-+		    intel_display_reset_reinit(display))
-+			intel_clock_gating_init(&i915->drm);
-+
- 		if (reset_display)
- 			intel_display_reset_finish(display, !need_display_reset);
- 	}
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_power.c b/drivers=
+/gpu/drm/i915/display/intel_display_power.c
+> index 0ebec6e0c2400..aab934f435308 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_power.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_power.c
 
+[ ... ]
+
+> @@ -1588,7 +1588,7 @@ static void hsw_disable_pc8(struct intel_display *d=
+isplay)
+>  	intel_init_pch_refclk(display);
+> =20
+>  	/* Many display registers don't survive PC8+ */
+> -	intel_clock_gating_init(display->drm);
+> +	intel_display_restore_clock_gating(display);
+>  }
+
+[Severity: High]
+Does replacing intel_clock_gating_init() with
+intel_display_restore_clock_gating() here cause GT and uncore clock gating
+workarounds to be permanently lost after runtime suspend on Haswell and
+Broadwell?
+
+When the hardware enters PC8 during runtime suspend, it loses uncore and GT
+register state. Upon system wake, hsw_disable_pc8() is called in the resume
+path. Bypassing the core intel_clock_gating_init() seems to leave the GT
+workarounds unrestored.
+
+Could this lead to subsequent GPU workloads executing with missing
+workarounds, potentially causing GPU hangs or system instability under load?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817092911.3420=
+72-1-luciano.coelho@intel.com?part=3D4
