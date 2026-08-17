@@ -4,27 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09060C5B572
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 12:56:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9ABDC5DF66
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 13:14:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85D9C10E7A4;
-	Mon, 17 Aug 2026 12:56:53 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D995610E7A4;
- Mon, 17 Aug 2026 12:56:52 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1994594183330537907=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0C310E402;
+	Mon, 17 Aug 2026 13:14:32 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="VUIGLWkB";
+	dkim-atps=neutral
+X-Greylist: delayed 516 seconds by postgrey-1.36 at gabe;
+ Mon, 17 Aug 2026 13:14:30 UTC
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [194.59.206.189])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F08E10E402
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 13:14:30 +0000 (UTC)
+Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPD1cTkz48Tc;
+ Mon, 17 Aug 2026 15:05:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1786971952;
+ bh=9Ot99h3gjPJm00MYV6Mi8UoIzhZo274ii7+Oailx8mU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=VUIGLWkBG8gJVupE865rz4e6XWfvuZcklI7mGFhbLRUJYU63vXraS4ccqLdxYmJIO
+ ZzULEXJl0UxvBh/bnoiXTgDTnv5PJPY+dukiyB24jQrS7df7iRF5gqiu3IjLk2xqZ1
+ jKw1dfKfgBZeyVgq1RA3oF6bbYA5e2tZIc4LAFtN3aJG3jLRB0CXhGjx9bXYOo/mxT
+ mw+Mn1W6u5hYPbIkmu5gEDAjD4nLx2UEDULACbbzCvuR4/kNEjCQktuP8YKrDWkbRS
+ SPLT63tRr3zHFvLBzRyXELK4VfKIls5SnE2X7JSYDjtgrIF5afvrIRYOL2uMmsyUp8
+ ykI58OeUT8MYg==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPD0thgz7wjY;
+ Mon, 17 Aug 2026 15:05:52 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPB4rvfz8sb0;
+ Mon, 17 Aug 2026 15:05:50 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id CECDA5FAC7;
+ Mon, 17 Aug 2026 15:05:45 +0200 (CEST)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <61d9c006-aeca-47a6-8863-eed92f15ebea@leemhuis.info>
+Date: Mon, 17 Aug 2026 15:05:45 +0200
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Clear?=
- =?utf-8?q?_SEL=5FFETCH=5FPLANE=5FCTL_on_plane_disable?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Garg, Nemesa" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 17 Aug 2026 12:56:52 -0000
-Message-ID: <178697141288.59130.5546710335793631035@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260812094547.1808459-1-nemesa.garg@intel.com>
-In-Reply-To: <20260812094547.1808459-1-nemesa.garg@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] Dell Latitude 7390 Intel UHD Graphics 620 display
+ becomes extremely dim after kernel 7.x upgrade
+To: nomorsukses@gmail.com
+Cc: regressions@lists.linux.dev, Jani Nikula <jani.nikula@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
+References: <CABHf4aQC__rWLKUJ5XgkCEdzC0dr1TGH1WP=UxOu3JmmU9VjLw@mail.gmail.com>
+ <c37c2d2f7f77f488867e278e412a92cc0e7ad851@intel.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <c37c2d2f7f77f488867e278e412a92cc0e7ad851@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178697194616.796474.7993964972841137865@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: CECDA5FAC7
+X-NC-CID: AQZGOzuBJ+HwzmqEmWuxFn5ZCHAVXjubCJ30FJxjETpv2zPQ7mE=
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,128 +81,22 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1994594183330537907==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 8/17/26 14:55, Jani Nikula wrote:
+> On Thu, 06 Aug 2026, "nomorsukses@gmail.com" <nomorsukses@gmail.com> wrote:
+>> I would like to report a possible kernel regression affecting the
+>> internal display brightness on my Dell Latitude 7390.
+> 
+> Please file a bug as described at [1].
+> 
+> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+Before doing so you might want to try 7.2 vanilla, as there was a
+backlight bug affecting that machine that was fixed long ago:
+https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16015
 
-== Series Details ==
+Maybe Ubuntu just never picked up the fix. So if 7.2 works, you need to
+report it to them.
 
-Series: drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
-URL   : https://patchwork.freedesktop.org/series/172062/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_18982 -> Patchwork_172062v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html
-
-Participating hosts (37 -> 34)
-------------------------------
-
-  Missing    (3): fi-hsw-4770 fi-snb-2520m bat-dg2-13 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172062v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@client:
-    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] ([i915#16822]) +1 other test incomplete
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/bat-arlh-3/igt@i915_selftest@live@client.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/bat-arlh-3/igt@i915_selftest@live@client.html
-
-  
-  [i915#16822]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16822
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_18982 -> Patchwork_172062v1
-
-  CI-20190529: 20190529
-  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9052: 9052
-  Patchwork_172062v1: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html
-
---===============1994594183330537907==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172062/">https://patchwork.freedesktop.org/series/172062/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_18982 -&gt; Patchwork_172062v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html</p>
-<h2>Participating hosts (37 -&gt; 34)</h2>
-<p>Missing    (3): fi-hsw-4770 fi-snb-2520m bat-dg2-13 </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172062v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@client:<ul>
-<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/bat-arlh-3/igt@i915_selftest@live@client.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/bat-arlh-3/igt@i915_selftest@live@client.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16822">i915#16822</a>) +1 other test incomplete</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_18982 -&gt; Patchwork_172062v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9052: 9052<br />
-  Patchwork_172062v1: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1994594183330537907==--
+Ciao, Thorsten
