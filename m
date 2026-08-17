@@ -4,27 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34BF3C5DF7D
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 13:28:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26D8C5DF7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 13:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C148710EB72;
-	Tue, 18 Aug 2026 13:28:06 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A12410EB71;
- Tue, 18 Aug 2026 13:28:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49DE610E295;
+	Tue, 18 Aug 2026 13:46:16 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FeagN1DO";
+	dkim-atps=neutral
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC9A710E477
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 21:59:10 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2caea3f742bso66301495ad.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 14:59:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787003950; x=1787608750; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=x0L46KhTa9nPWpZYUh2/R/sI5c8j4po8w6gNyYy0NNU=;
+ b=FeagN1DO7FcF+xhC+pXGHajDFNUCNHttNrv6si4WTSJgU5B4FbI12SSqohOyiqSXpe
+ Wo9Q4R0e0hycGUrHEJ5G34YnphVwVCQVaEDx5ZZItj6uuYerJKHN864Pa/HPEjmHsPwE
+ u2o9Vno51gP5AcVMtTdWCLnR6mPU6ZxgJ67YTKSlNWZGdbUlEHW/pYqPy5pV+r6j5QHt
+ B3XS8RvN+5IJns4xWZdcpwYhuIU42LlZ28yAXBr0rUxpi9aDLax/4ckbLd4N5ZoTqKIb
+ i9pksSF2e+gIG02MQ3VR1VrqoXpZeiMM2yrT/HX9om4zEDNFR/N7/9H2hH4Uv2+MGXSz
+ 0i5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787003950; x=1787608750;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=x0L46KhTa9nPWpZYUh2/R/sI5c8j4po8w6gNyYy0NNU=;
+ b=lbQRI8gGfatpT+tvB7+rju5fT5cbYIIGeNvnqXKsE7kf1u/lfXDiWwGUeC0WDTETru
+ AbwUfw7bv/Macpq85CWUmz25Q9WoxfLqC6CljSPWjg+o2n6wwVKoRIcH17qnZRbAx2cc
+ 08c3QHGJIAxehO+sMo9MqF1CKgEJMlkak6WCBGhVOOtbiU9YYLuTbvNlocdNYncgR7He
+ OFryjgHt2IjNFjH92J2m1tm2sXZr3mWhGMlp91yxqGjmRGT4zhW7iGBuNYPmZ7JXOS6J
+ SfucpS6DwSfYM6nZCA0mJZFdOsxdYAfTwTlalFMf0C+2V0qR7aQ2sfqaQx8pDsA+cKd4
+ ftJQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrtcK+p7YCBoaUXjvRUGDCdP4H6blEtyLHZBSHrCRzNghTthjNI2U4Q6qm1wGpqJfng/LwHnQh9LFo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDhAHDqkaUZC0KsahmwsIp5jzb6WambkPbZ+umB+Jz1eZ2fuU8
+ wTf2SNZ4Nb6e8RYdCibLMFXX5BfPpzpDDj9FSWjOD684+Z+HXQq82vrZELtZmlTY
+X-Gm-Gg: AR+sD10wvdtiRQEKtMCxOFLrrDDpdHNHMr8Eav1WAmnPR9gSGufNXybXU6oxgX4paEE
+ rS2XhXaZwySjj5wBJd4QB9ImVVnlmmypUt93R+PKJTFww2f4nI6X0erhUlQFi4gLozF341c43CN
+ +Zmzcf+RmcyLLVGUhCULgP9OFMmh6PUbafrCqNBF2iDPdpxU1LFGBjdC4kY5Jkpn9qc5qwoBgEU
+ vToG/wzrobntYEpvD7rdDmSjzPeMVQaiPgAJJsh/VCXcWBa7ZZj74MQNadtw0c5dtIhSvqaQMPU
+ 0BV7R0FQcV4LEQKdqVrD5eChLH8v9RCymgMYMJa+s1LO8BPxJN+FL4LavaLw24NviP+4W1g/AF5
+ itTOpOSC7tXrZ+iDeaNiq+kXye7QKaoaKmNSgyp/+OaY6FPUxMXT17XXmkjuXlO0gMzM7fihZ96
+ +potpTEiV3LqrgCTCJDtxd9wM8JnYYXAWnkMnT4D2mSGjltrebGRGKRpaqy29PjC4p1nrmdZbW8
+ WVG
+X-Received: by 2002:a05:6a20:6a21:b0:3b4:61f:1fec with SMTP id
+ adf61e73a8af0-3ccda6f2f05mr2853996637.2.1787003950290; 
+ Mon, 17 Aug 2026 14:59:10 -0700 (PDT)
+Received: from LAPTOP-TD60H193.localdomain ([149.19.17.31])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3267c897e37sm10657970eec.28.2026.08.17.14.59.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Aug 2026 14:59:09 -0700 (PDT)
+From: Zhefu Zhang <a723356@gmail.com>
+To: Chang Jiong <xspeed1989@gmail.com>,
+	intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Ville Syrjala <ville.syrjala@linux.intel.com>,
+ Gustavo Sousa <gustavo.sousa@intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in
+ bxt_sanitize_cdclk()
+Date: Tue, 18 Aug 2026 09:59:00 +1200
+Message-ID: <20260817215901.459-1-a723356@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260816062344.796615-1-xspeed1989@gmail.com>
+References: <20260816062344.796615-1-xspeed1989@gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/panic=3A_Split_into_c?=
- =?utf-8?q?ore_and_helpers?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Aug 2026 13:28:06 -0000
-Message-ID: <178705968603.63368.3304861395736323933@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260818125012.468092-1-tzimmermann@suse.de>
-In-Reply-To: <20260818125012.468092-1-tzimmermann@suse.de>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 18 Aug 2026 13:46:15 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,46 +94,16 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-== Series Details ==
+I hit the same bug independently on a Panther Lake laptop
+(Xiaomi Book Pro 14 2026, 8086:b080, Xe3_LPD display 30 stepping B0).
 
-Series: drm/panic: Split into core and helpers
-URL   : https://patchwork.freedesktop.org/series/172395/
-State : failure
+Arch linux 7.1.8 stock reproduces the corruption with two
+"CPU pipe A FIFO underrun" errors. With the same change applied on 7.1.8,
+the panel is clean and the boot log has no FIFO underrun. Also verified
+the same change on current drm-tip (b801f94c49ffdb0f65e37baf31d68570356d4983):
+normal panel, no FIFO underrun.
 
-== Summary ==
-
-Error: make failed
-  DESCEND objtool
-  HDRTEST drivers/gpu/drm/xe/generated/xe_wa_oob.h
-  HDRTEST drivers/gpu/drm/xe/generated/xe_device_wa_oob.h
-  UPD     include/generated/utsversion.h
-  CC      init/version-timestamp.o
-  KSYMS   .tmp_vmlinux0.kallsyms.S
-  AS      .tmp_vmlinux0.kallsyms.o
-  LD      .tmp_vmlinux1
-ld: vmlinux.o: in function `drm_panic_helper_fill':
-/home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:347:(.text+0xf7d499): undefined reference to `drm_draw_fill16'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:355:(.text+0xf7d561): undefined reference to `drm_draw_fill32'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:351:(.text+0xf7d582): undefined reference to `drm_draw_fill24'
-ld: vmlinux.o: in function `drm_panic_helper_blit':
-/home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:258:(.text+0xf7da6c): undefined reference to `drm_draw_blit16'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:266:(.text+0xf7dae6): undefined reference to `drm_draw_blit32'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:262:(.text+0xf7db0a): undefined reference to `drm_draw_blit24'
-ld: vmlinux.o: in function `drm_panic_helper_draw_screen_user':
-/home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:446:(.text+0xf7dbc1): undefined reference to `drm_draw_color_from_xrgb8888'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:447:(.text+0xf7dbd3): undefined reference to `drm_draw_color_from_xrgb8888'
-ld: vmlinux.o: in function `drm_panic_helper_draw_screen_kmsg':
-/home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:522:(.text+0xf7de3e): undefined reference to `drm_draw_color_from_xrgb8888'
-ld: /home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:523:(.text+0xf7de50): undefined reference to `drm_draw_color_from_xrgb8888'
-ld: vmlinux.o: in function `drm_panic_helper_format_is_supported':
-/home/kbuild/kernel/drivers/gpu/drm/drm_panic_helper.c:791:(.text+0xf7e1d2): undefined reference to `drm_draw_can_convert_from_xrgb8888'
-make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
-make[1]: *** [/home/kbuild/kernel/Makefile:1370: vmlinux] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
-Build failed, no error log produced
-
-
+Tested-by: Zhefu Zhang <a723356@gmail.com>
