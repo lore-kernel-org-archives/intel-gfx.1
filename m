@@ -4,71 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9ABDC5DF66
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 13:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29851C5DF66
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 13:16:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F0C310E402;
-	Mon, 17 Aug 2026 13:14:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5FAE10E40C;
+	Mon, 17 Aug 2026 13:16:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="VUIGLWkB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eFP2nMPg";
 	dkim-atps=neutral
-X-Greylist: delayed 516 seconds by postgrey-1.36 at gabe;
- Mon, 17 Aug 2026 13:14:30 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [194.59.206.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F08E10E402
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 13:14:30 +0000 (UTC)
-Received: from relay02-mors.netcup.net (localhost [127.0.0.1])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPD1cTkz48Tc;
- Mon, 17 Aug 2026 15:05:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1786971952;
- bh=9Ot99h3gjPJm00MYV6Mi8UoIzhZo274ii7+Oailx8mU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VUIGLWkBG8gJVupE865rz4e6XWfvuZcklI7mGFhbLRUJYU63vXraS4ccqLdxYmJIO
- ZzULEXJl0UxvBh/bnoiXTgDTnv5PJPY+dukiyB24jQrS7df7iRF5gqiu3IjLk2xqZ1
- jKw1dfKfgBZeyVgq1RA3oF6bbYA5e2tZIc4LAFtN3aJG3jLRB0CXhGjx9bXYOo/mxT
- mw+Mn1W6u5hYPbIkmu5gEDAjD4nLx2UEDULACbbzCvuR4/kNEjCQktuP8YKrDWkbRS
- SPLT63tRr3zHFvLBzRyXELK4VfKIls5SnE2X7JSYDjtgrIF5afvrIRYOL2uMmsyUp8
- ykI58OeUT8MYg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by relay02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPD0thgz7wjY;
- Mon, 17 Aug 2026 15:05:52 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hNtPB4rvfz8sb0;
- Mon, 17 Aug 2026 15:05:50 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id CECDA5FAC7;
- Mon, 17 Aug 2026 15:05:45 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <61d9c006-aeca-47a6-8863-eed92f15ebea@leemhuis.info>
-Date: Mon, 17 Aug 2026 15:05:45 +0200
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA06F10E40C
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 13:16:28 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2cacf197759so47285145ad.2
+ for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 06:16:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786972588; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MDgLpnqjxqV7gIpdIHkSyeWopa0AYwfGKSvP3rSOs3QH2zL8JP60w/Xtl8fIkzjeTx
+ WUaM3SNKxxiS0KWXvaRwiPHcmnLqsE3XOrtmhQklgIR6czrcrcXyOvNNUeQIJ2Ew+Y8r
+ 86CWzY7Aw2W2Eb2XvtERBo5rkAgQrI9iOEPAvpIAkc+xzicL61r/ZSjaKSe7DVG6pOcX
+ tmmS0xWQ8Rj1h7Xm4onncXJ3YAvhPAnoY2UoQuWwni6n1ka44/FCq4hSmjs8YeWPZw9a
+ WI8ogFBXU0UQv6ysG1/hAF6J1WbqzjF11yvQsTDDgOtDdQ9Koj/rIv2+VE28BrhwSIiR
+ /NKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=shZn/QdVM/HwuzkF8TqQ8kXOnlsdSL/uGpdvGQQTt0Q=;
+ fh=0yDzyppRxqOQTIKpcroBDHclIeSMSuhMpX3gIwCfRK4=;
+ b=C88HS4C6NqDUlI+1fCvqKovHX4WOdqORJxnsbVIOtnN27YeqixEP0kHB+OF2k3F1GK
+ LBvPA3fiN5I/OK208eSKstVJiIiNH9v0P/rBPBnGWjd3mQ0Rp9T04d21DI9zGvNYTkHB
+ k5prK0r9eNsP5vKzXMPezKjT23ceOOB/f+A1bg91jE4AzBqK3BnhV3yVEatSZJVjgmsx
+ SYZVriqMKPXEDcyE/dC/W+VISQR2fPyC3+tmnALVzFsWXh8peUSixlZITMT4GvFZ8ytb
+ lIqy9WLvc0pY/Sw1wnYRxERHIaGiQ/AMes2hHQW0r8DBG3pzx2d4XaEd+td9TeshU+49
+ kbYg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786972588; x=1787577388; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=shZn/QdVM/HwuzkF8TqQ8kXOnlsdSL/uGpdvGQQTt0Q=;
+ b=eFP2nMPgP+hzTL4gIEEnPcGyt7k+alEpKL/teo4ppY5miQWB36VI7Kb7ZFvPlr6v+G
+ 8KkXlDU9074nhW6zv4sPLMQY5gdAtjvcjiLg0El8gD/iZpfaTY6kZejt6phgjvmvEbpg
+ Z5Wz8ebQNAegYXCFvi8KamxldxI2vY/pe84sU6zL8wMmWapHrXrXOzs1jGKYdSzaf9o/
+ 7Faah5+R9iUw5oENU/AFK7OUp2cxGcnZ4r8U47Yhul8e8GT5LyBYunwfhf9xZzgwf3xe
+ pSoDP2bJlYtOMcq8ogVLKYemJqmm9pdHBZ346lY4yY727pNrJvZjk0q82egkQ0O2gCzs
+ LHOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786972588; x=1787577388;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=shZn/QdVM/HwuzkF8TqQ8kXOnlsdSL/uGpdvGQQTt0Q=;
+ b=V+bWhxk5+HcELe4B4HrbOTAX2gkJ/gdYbc01oMozhZOMrfmMHyd3iMwG5SiFo7s8rc
+ dlToOSBFgV4VmTn31+z7h4JBXoVDKCeu6mrPLp6aW5yTQe7FYLJEXPcAzZ1CZqwyXtwF
+ U1SnLsmOG9Vw66R5dMQFS0hi8t+E91UkjrlXiHKbw+asiDo4QvT9mJCmEPkBdQoRueg+
+ 8kZqY50T2TcV0UuJMpIA7TndxAQQOVTfrMABYKXtAUtPTjFaeYLx53RbH/h/Gza7Hluk
+ 2BQhZNWSQQW1zJsppRvzkqN6VPaTYerEvh54wNTqUjUwVrbQNFrC8YR+cU2Wo51bp3+l
+ yMmA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoBUk3T8/zdXB2HhPMChoM3qV+wgvmx2xYTHaSrSvy62OHBPW8mmshuSpNbmWwTL9/901KTwQ2GWpo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxmFKZOHkwZr8jqAgrcCugVdDsS1yjxWDFSbRukRbO+7sZ5pax
+ 8IZL9F/US7YlRjpkIADr2DTPr48rZzjYPJkV5EyYGxhdNsPurt8fCIAh/6PreDPEB/54QcjClYn
+ knRQVVZtSwAGw7s7NJg7gPwexqv1rkNc=
+X-Gm-Gg: AR+sD11teZvQh4TleEGA2kUKeINsWNOQxKmcfAN/kodpWPG0C+N8XSPfMQcjrraWiAB
+ EVByWpK+Beyqty42tFM5lAuh+ErDv0mIBiPd+hxAuvq6G60WxBEM/otDv7SKxi0W5RFnzOKeCpm
+ TfwwQd3q9DHnlnX5uexF+1U4sOJSbTotfazkgCtR0R7QgeNOGoM4eHFgxSDAIYsMlyVQifNnX9e
+ Ss/tN21dlgAUTcif7tj5Uzdi7/rD/IbyLOLtQzDAl7LWOkFKOgQR+39yQhWtw0McKom4T7YWHbE
+ EZxXnTb8TC/wbCTJLHRPG20xXtLmnWd1DiStFRz/nCQEc+t3Vxma6d+usaX466t8F8/rZm3gz2f
+ 9P7nAnIJgBjyXhi8HvVshlUE/7zPLwnTdghRviAXtVCwHHoeD8S+hXd8EhNKRQ+SaVLN/XnxGf2
+ FMg8kkrxHkiFGCx4TosyC1qfVxq2XxhNeC+vXi0dA0vRqAjfWR8Ko=
+X-Received: by 2002:a17:903:2303:b0:2cf:84bb:1ebc with SMTP id
+ d9443c01a7336-2d3b0c5db18mr277141995ad.15.1786972588243; Mon, 17 Aug 2026
+ 06:16:28 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Dell Latitude 7390 Intel UHD Graphics 620 display
- becomes extremely dim after kernel 7.x upgrade
-To: nomorsukses@gmail.com
-Cc: regressions@lists.linux.dev, Jani Nikula <jani.nikula@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
 References: <CABHf4aQC__rWLKUJ5XgkCEdzC0dr1TGH1WP=UxOu3JmmU9VjLw@mail.gmail.com>
  <c37c2d2f7f77f488867e278e412a92cc0e7ad851@intel.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <c37c2d2f7f77f488867e278e412a92cc0e7ad851@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178697194616.796474.7993964972841137865@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: CECDA5FAC7
-X-NC-CID: AQZGOzuBJ+HwzmqEmWuxFn5ZCHAVXjubCJ30FJxjETpv2zPQ7mE=
+ <61d9c006-aeca-47a6-8863-eed92f15ebea@leemhuis.info>
+In-Reply-To: <61d9c006-aeca-47a6-8863-eed92f15ebea@leemhuis.info>
+From: Luna Jernberg <droidbittin@gmail.com>
+Date: Mon, 17 Aug 2026 15:16:14 +0200
+X-Gm-Features: AcwNN1UaQ-p5PZB9_ytyorEEY2UmlN496Ynqr2adHZEtLQdMz8eLOIpt9bmw4LM
+Message-ID: <CADo9pHhnajqPJi+7o5MK=8_RXTrqUuGJ54cO1B14F-0m7FQ5WA@mail.gmail.com>
+Subject: Re: [REGRESSION] Dell Latitude 7390 Intel UHD Graphics 620 display
+ becomes extremely dim after kernel 7.x upgrade
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: nomorsukses@gmail.com, regressions@lists.linux.dev, 
+ Jani Nikula <jani.nikula@linux.intel.com>, intel-gfx@lists.freedesktop.org, 
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,19 +112,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 8/17/26 14:55, Jani Nikula wrote:
-> On Thu, 06 Aug 2026, "nomorsukses@gmail.com" <nomorsukses@gmail.com> wrote:
->> I would like to report a possible kernel regression affecting the
->> internal display brightness on my Dell Latitude 7390.
-> 
-> Please file a bug as described at [1].
-> 
-> [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
-Before doing so you might want to try 7.2 vanilla, as there was a
-backlight bug affecting that machine that was fixed long ago:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16015
+Not sure if this is the same bug that i found a couple of weeks ago in
+April, if so it should be fixed with 7.1
 
-Maybe Ubuntu just never picked up the fix. So if 7.2 works, you need to
-report it to them.
-
-Ciao, Thorsten
+Den m=C3=A5n 17 aug. 2026 kl 15:14 skrev Thorsten Leemhuis
+<regressions@leemhuis.info>:
+>
+> On 8/17/26 14:55, Jani Nikula wrote:
+> > On Thu, 06 Aug 2026, "nomorsukses@gmail.com" <nomorsukses@gmail.com> wr=
+ote:
+> >> I would like to report a possible kernel regression affecting the
+> >> internal display brightness on my Dell Latitude 7390.
+> >
+> > Please file a bug as described at [1].
+> >
+> > [1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.=
+html
+> Before doing so you might want to try 7.2 vanilla, as there was a
+> backlight bug affecting that machine that was fixed long ago:
+> https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16015
+>
+> Maybe Ubuntu just never picked up the fix. So if 7.2 works, you need to
+> report it to them.
+>
+> Ciao, Thorsten
