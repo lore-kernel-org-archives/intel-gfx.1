@@ -4,43 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BFCCC5DF70
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 10:11:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF7ADC5B572
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 10:15:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A10C710E3ED;
-	Mon, 17 Aug 2026 10:11:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 058A010E3E8;
+	Mon, 17 Aug 2026 10:15:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c6quof9b";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IHYq2TqV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CDE10E3ED;
- Mon, 17 Aug 2026 10:11:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EF4C8600AE;
- Mon, 17 Aug 2026 10:11:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799001F000E9;
- Mon, 17 Aug 2026 10:11:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786961470;
- bh=6Som8vlNfZLuSjF8FYgXhkMJXuB15ZoSkS2/KaXFr2U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c6quof9b14T+iMxgA0QfSufxxzSc0LbSnIe4rLHqBEiAmIB7S5Y0NOM16yBgvxY6A
- NHPgSVxp1A3WcwkoK/jtJd2FReeWSLdZgb+EfDXGEn0NrUj/j17unelgu2IQHV7rh0
- tMofqIExsm6I5kOxfszHi8LkQtWCjjdXzQ1zY4ZkCV1uZOxjjdvTq3XV7nXe4/LCuR
- ZJhMC8sAKT5Yp0gTbQciyv5wEZtDopjCsSt9T22a4O/gV4/4jpmXqMirkGTQkt7BYl
- sJKa1X14mKcppG2MSv6MnY9KhEs/1bV+cvqwWisVTCZ1WoMtuZQ7/3toSyihCKxd5y
- T83aNx9J0GmwA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
-References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
- <20260817095648.2438192-4-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 17 Aug 2026 10:11:10 +0000
-Message-Id: <20260817101110.799001F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D55F10E3E8;
+ Mon, 17 Aug 2026 10:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786961713; x=1818497713;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=0OMIofAuNsvMJS9RfW4fD/q4L5JyaBHovAEqzCrJ0QM=;
+ b=IHYq2TqVnGLkSBxp/uIzDIwNuMxGuSgE7GkQABM9rtsfJ323rMH4pQAo
+ g40KA2AXITJFGgUyh4YIkIXFzzGEupaj2uUMPhPCpskvHoa4LaW6Pb8nU
+ c/vAd5IJIRD/zly/vczK+rpjHQbzWbmPQcSmsM9QzpGh3FyZruGI7Q6Lo
+ 6BoZ2gPUzbZM4vAyqeyqrrWaVRyUticAwlK3UmmGxaeN+ndKf1e7vUyzW
+ GNi1tGvOKn19bgXI3fukk9asArgLSX5MuyTPXpItpPPLAU9J6hxQxwaGp
+ we68U6YcrryKCIaLAclc+rV0M8pL0TFHzRmT03UoboUkK5eizElNK8tLP w==;
+X-CSE-ConnectionGUID: 8FT5SxItTqufzTR4/8nr+Q==
+X-CSE-MsgGUID: fG2fA4YrRkuNTtAcoGo6Qw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="91305863"
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="91305863"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2026 03:15:13 -0700
+X-CSE-ConnectionGUID: 8uqtr4s1Ss6GcQappU4XKg==
+X-CSE-MsgGUID: MSbm+RqcSqqMLigpSlhs4Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="260655935"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.110])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 17 Aug 2026 03:15:11 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Vinod Govindapillai <vinod.govindapillai@intel.com>,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, imre.deak@intel.com
+Subject: Re: [RFC PATCH 5/5] drm/i915/display: skip HPD polling if PME is
+ supported
+In-Reply-To: <20260816224005.886035-6-vinod.govindapillai@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260816224005.886035-1-vinod.govindapillai@intel.com>
+ <20260816224005.886035-6-vinod.govindapillai@intel.com>
+Date: Mon, 17 Aug 2026 13:15:08 +0300
+Message-ID: <3927e15f2e02fd03c8101cf626866a56e13c8d01@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,112 +69,94 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Error path `out_restore_sg` corrupts unprocessed elements of reuse=
-d scatterlists.
-- [High] Accumulator `iova_len` silently overflows on 32-bit systems for ma=
-ppings exceeding 4GB.
---
-
---- Patch [3]: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows=
- ---
-commit 955c8f50877d1e47058e0056fd63e5f20f4d62b9
-Author: Krzysztof Karas <krzysztof.karas@intel.com>
-Subject: iommu/dma: Catch scatterlist length overflows
-
-This commit introduces overflow detection for scatterlist length fields to
-prevent silent wrapping when very large mappings use only one scatterlist.
-It adds check_add_overflow() and overflows_type() checks to
-iommu_dma_map_sg(), failing early if limits are exceeded.
-
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9a07eb39336eb..61cb64bcbd3cc 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-[ ... ]
-> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct sc=
-atterlist *sg, int nents,
->  		sg_dma_address(s) =3D s_iova_off;
->  		sg_dma_len(s) =3D s_length;
->  		s->offset -=3D s_iova_off;
-> -		s_length =3D iova_align(iovad, s_length + s_iova_off);
-> +
-> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
-> +			ret =3D -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but these newly added early retu=
-rn
-paths make it much more likely to trigger a pre-existing issue in
-__invalidate_sg().
-
-If a driver reuses a scatterlist without calling sg_init_table(), and the
-subsequent mapping fails here during element iteration, __invalidate_sg() w=
-ill
-loop over all elements rather than just the processed ones.
-
-For unvisited elements, sg_dma_address(s) retains the stale IOVA from a
-previous mapping. __invalidate_sg() erroneously adds this stale IOVA to
-s->offset:
-
-drivers/iommu/dma-iommu.c:__invalidate_sg() {
-    ...
-    if (sg_dma_address(s) !=3D DMA_MAPPING_ERROR)
-        s->offset +=3D sg_dma_address(s);
-    ...
-}
-
-Will this corrupted offset lead to wild physical address calculations in
-sg_phys() upon retry or buffer access, resulting in arbitrary DMA memory
-corruption?
-
-[ ... ]
-> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct sc=
-atterlist *sg, int nents,
->  		 *   time through here (i.e. before it has a meaningful value).
->  		 */
->  		if (pad_len && pad_len < s_length - 1) {
-> -			prev->length +=3D pad_len;
-> +			unsigned int new_prev_len;
-> +			/*
-> +			 * For large mappings spanning multiple GBs we
-> +			 * may not be able to fit all needed padding into
-> +			 * sg->length.
-> +			 */
-> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-> +				ret =3D -EOVERFLOW;
-> +				goto out_restore_sg;
-> +			}
-> +
-> +			prev->length =3D new_prev_len;
->  			iova_len +=3D pad_len;
-
-[Severity: High]
-This is a pre-existing issue, but since the patch addresses scatterlist len=
-gth
-overflows, could iova_len silently overflow here on 32-bit systems for
-mappings exceeding 4GB?
-
-If the size_t iova_len accumulator wraps around when adding pad_len or
-s_length, it would lead to an undersized IOVA allocation. iommu_map_sg()
-would then map the full physical memory range, overrunning the allocated IO=
-VA
-space and corrupting IOMMU page tables.
-
-Should there be overflow checks for iova_len accumulation as well?
-
->  		}
+On Mon, 17 Aug 2026, Vinod Govindapillai <vinod.govindapillai@intel.com> wrote:
+> A display hotplug can generate a PM_PME which in turn will
+> trigger pm_runtime_resume call on a device. So we don't need
+> to resort to HPD polling on pm_runtime_suspend calls. But on
+> pm_runtime_resume call we would need to still resort to the
+> intel_hpd_poll_disable() as the i915_hpd_poll_detect_connectors()
+> catches the hotplugs that occurred during suspend.
 >
+> Assisted-by: GitHub_Copilot:claude-opus-5
+> Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
+> ---
+>  .../drm/i915/display/intel_display_driver.c   | 21 ++++++++++++++++---
+>  1 file changed, 18 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_driver.c b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> index 70d112fd4287..b7e25b7ea32e 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_driver.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_driver.c
+> @@ -34,6 +34,7 @@
+>  #include "intel_display_driver.h"
+>  #include "intel_display_irq.h"
+>  #include "intel_display_power.h"
+> +#include "intel_display_rpm.h"
+>  #include "intel_display_types.h"
+>  #include "intel_display_utils.h"
+>  #include "intel_display_wa.h"
+> @@ -931,6 +932,10 @@ void intel_display_driver_pm_runtime_suspend_late(struct intel_display *display)
+>  		intel_opregion_notify_adapter(display, PCI_D1);
+>  	}
+>  
+> +	/* No need of HPD polling if the device is PME capable */
+> +	if (intel_display_rpm_pme_capable(display))
+> +		return;
+> +
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260817095648.2438=
-192-1-krzysztof.karas@intel.com?part=3D3
+It's really messy to just return here. We may add more stuff into this
+function, and it will be a PITA.
+
+>  	if (!display->platform.valleyview && !display->platform.cherryview)
+>  		intel_hpd_poll_enable(display);
+>  }
+> @@ -951,10 +956,20 @@ void intel_display_driver_pm_runtime_resume(struct intel_display *display)
+>  	 * power well, so hpd is reinitialized from there. For
+>  	 * everyone else do it here.
+>  	 */
+> -	if (!display->platform.valleyview && !display->platform.cherryview) {
+> +	if (display->platform.valleyview || display->platform.cherryview)
+> +		goto out;
+
+Ditto. The function is about runtime resume. Don't make it about dodging
+hpd poll.
+
+> +
+> +	/* For PME capable devices we would not have resorted into HPD polling */
+
+These comments are a nuisance. This makes you stop for more questions
+than what it answers.
+
+> +	if (intel_hpd_polling_enabled(display))
+>  		intel_hpd_init(display);
+
+Why is this not called unconditionally?
+
+> -		intel_hpd_poll_disable(display);
+> -	}
+
+Maybe PME is an hpd implementation detail that should be hidden inside
+intel_hpd_poll_enable/disable? Maybe it should not be poll
+enable/disable at all, but hpd runtime suspend/resume, and that can do
+whatever needs doing internally?
+
+>  
+> +	/*
+> +	 * Regardless of PME capable path, call the HPD polling disable, the
+> +	 * poll_init_work, i915_hpd_poll_detect_connectors reprobe catches the
+> +	 * hotplug that occurred while suspended
+
+Ditto about the comment. It's nonsensical.
+
+> +	 */
+> +	intel_hpd_poll_disable(display);
+> +
+> +out:
+>  	skl_watermark_ipc_update(display);
+>  }
+
+-- 
+Jani Nikula, Intel
