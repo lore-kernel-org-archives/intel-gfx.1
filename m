@@ -4,57 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5589DC5B572
-	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 12:55:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09060C5B572
+	for <intel-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 12:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E62EA10E7B9;
-	Mon, 17 Aug 2026 12:55:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="G0AKyVVg";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0BD710E7B9
- for <intel-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 12:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786971318; x=1818507318;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=rtxLFkS2w/V59WhKgWCoLv/lA23Z767AvZR5fYDo9eY=;
- b=G0AKyVVgy4wzSgt8flwEF9119rJpxrZlpd6p0etpH8+MLwWwjF+SoGwq
- tYebxLX6jAIgxA/hz6BYiSWxLqbINwRTzPjtUuq8gm2Sz8+JRWlGhuKqh
- 1q1JV7UQSsIDW0ImlClURTIcThzT5o+CMl6gC+0bHwUnOQmrTVcE3vNVW
- iODcTrDGmZ+Je9pft+GMsBpPt1fABKjqCQnxkmj9XMvcUyIntB0pMrAsC
- mLsCwwf9astLe36Uamx+TTPFOMGt1I1deX94ZqvUj9JgkgMdnJBeoliS9
- MFRQFSkoVcNdtirHnDeyCUAbnNg8uktyc5CtpPzMI2kAU0gtUQtaWhuml g==;
-X-CSE-ConnectionGUID: z5NW77D9Sya9yBfyp1nawQ==
-X-CSE-MsgGUID: 9AYsZtrZTtm2MN0h5QBx6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="91123221"
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="91123221"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 05:55:18 -0700
-X-CSE-ConnectionGUID: jEkqh0kSSSKbfTK39PV8Vw==
-X-CSE-MsgGUID: hJg2Pr2lSzO4bJJmu3QWhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; d="scan'208";a="266890224"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.110])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 05:55:15 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: nomorsukses@gmail.com, regressions@lists.linux.dev
-Cc: intel-gfx@lists.freedesktop.org, Suraj Kandpal <suraj.kandpal@intel.com>
-Subject: Re: [REGRESSION] Dell Latitude 7390 Intel UHD Graphics 620 display
- becomes extremely dim after kernel 7.x upgrade
-In-Reply-To: <CABHf4aQC__rWLKUJ5XgkCEdzC0dr1TGH1WP=UxOu3JmmU9VjLw@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <CABHf4aQC__rWLKUJ5XgkCEdzC0dr1TGH1WP=UxOu3JmmU9VjLw@mail.gmail.com>
-Date: Mon, 17 Aug 2026 15:55:13 +0300
-Message-ID: <c37c2d2f7f77f488867e278e412a92cc0e7ad851@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D9C10E7A4;
+	Mon, 17 Aug 2026 12:56:53 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D995610E7A4;
+ Mon, 17 Aug 2026 12:56:52 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============1994594183330537907=="
 MIME-Version: 1.0
-Content-Type: text/plain
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/display=3A_Clear?=
+ =?utf-8?q?_SEL=5FFETCH=5FPLANE=5FCTL_on_plane_disable?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Garg, Nemesa" <nemesa.garg@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 17 Aug 2026 12:56:52 -0000
+Message-ID: <178697141288.59130.5546710335793631035@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260812094547.1808459-1-nemesa.garg@intel.com>
+In-Reply-To: <20260812094547.1808459-1-nemesa.garg@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,21 +37,128 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 06 Aug 2026, "nomorsukses@gmail.com" <nomorsukses@gmail.com> wrote:
-> I would like to report a possible kernel regression affecting the
-> internal display brightness on my Dell Latitude 7390.
+--===============1994594183330537907==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Please file a bug as described at [1].
+== Series Details ==
 
-BR,
-Jani.
+Series: drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
+URL   : https://patchwork.freedesktop.org/series/172062/
+State : success
 
-[1] https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+== Summary ==
+
+CI Bug Log - changes from CI_DRM_18982 -> Patchwork_172062v1
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html
+
+Participating hosts (37 -> 34)
+------------------------------
+
+  Missing    (3): fi-hsw-4770 fi-snb-2520m bat-dg2-13 
+
+Known issues
+------------
+
+  Here are the changes found in Patchwork_172062v1 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@i915_selftest@live@client:
+    - bat-arlh-3:         [PASS][1] -> [INCOMPLETE][2] ([i915#16822]) +1 other test incomplete
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/bat-arlh-3/igt@i915_selftest@live@client.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/bat-arlh-3/igt@i915_selftest@live@client.html
+
+  
+  [i915#16822]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16822
 
 
+Build changes
+-------------
 
--- 
-Jani Nikula, Intel
+  * Linux: CI_DRM_18982 -> Patchwork_172062v1
+
+  CI-20190529: 20190529
+  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9052: 9052
+  Patchwork_172062v1: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html
+
+--===============1994594183330537907==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172062/">https://patchwork.freedesktop.org/series/172062/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_18982 -&gt; Patchwork_172062v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/index.html</p>
+<h2>Participating hosts (37 -&gt; 34)</h2>
+<p>Missing    (3): fi-hsw-4770 fi-snb-2520m bat-dg2-13 </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172062v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@i915_selftest@live@client:<ul>
+<li>bat-arlh-3:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_18982/bat-arlh-3/igt@i915_selftest@live@client.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172062v1/bat-arlh-3/igt@i915_selftest@live@client.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16822">i915#16822</a>) +1 other test incomplete</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_18982 -&gt; Patchwork_172062v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_18982: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9052: 9052<br />
+  Patchwork_172062v1: 96ddbb14986632af742523e68f90d51c138c57f0 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============1994594183330537907==--
