@@ -4,43 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22944C5DF81
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 08:59:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E89DC5DF70
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 09:47:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACFB510EA67;
-	Tue, 18 Aug 2026 08:59:54 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h1cWMudS";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7620610EA65;
- Tue, 18 Aug 2026 08:59:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 06BBC400AA;
- Tue, 18 Aug 2026 08:59:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B697E1F000E9;
- Tue, 18 Aug 2026 08:59:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787043592;
- bh=TyIfhWFUX/L/Vtqhqa0fvxCMqHFwhJJjGmVZ0rL8/fs=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=h1cWMudSdCo9VxWkt+S28Z2SGG2RkfyyIUpnN8XcIf8n+DTTgg9qAQNPb9xFo8W12
- Sg90RSfJCGHMqnf7vNP0PjHsMr9bDaY9vFvEkFigoo7BvUlYuUi31uChEZRqHKiNlu
- 0d220g1l+6ezutKXsCSpPktuuUcO3rwpTd+pXMy1k09YTeg6ubpu4N9Nr7LZJ6SjIZ
- VWVutD/+QPKwSyrTfZMwPFsKwDiPxoy/RBdGC1YU0dNhoS7dNVMDyBgIUfHKBH5obZ
- qGo2LAEBbgPcMltpjUT5fq2CpwV6EwFdQAki7dNbTrBhml9Q5AGT9dN7SrWCyWokmx
- qn6jEMicYRpKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] drm/i915/cursor: Check joiner cursor commit status
+	by gabe.freedesktop.org (Postfix) with ESMTP id E930010E233;
+	Tue, 18 Aug 2026 09:47:36 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93E1010E233;
+ Tue, 18 Aug 2026 09:47:35 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============9195220366880446821=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Enable_joiner_cursor_fast?=
+ =?utf-8?q?_updates_=28rev5=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Nemesa Garg" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260818084236.2168580-2-nemesa.garg@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Aug 2026 09:47:35 -0000
+Message-ID: <178704645559.60987.7806609704590849733@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260818084236.2168580-1-nemesa.garg@intel.com>
- <20260818084236.2168580-2-nemesa.garg@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 18 Aug 2026 08:59:52 +0000
-Message-Id: <20260818085952.B697E1F000E9@smtp.kernel.org>
+In-Reply-To: <20260818084236.2168580-1-nemesa.garg@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,89 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The newly added fast path logic for joined cursor planes is unre=
-achable due to an unremoved fallback, and lacks secondary plane hardware up=
-date logic.
---
+--===============9195220366880446821==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---- Patch [1]: [PATCH 1/6] drm/i915/cursor: Check joiner cursor commit stat=
-us ---
-commit 217b50906b0ee44f4341de677a7c7eeba08394c6
-Author: Nemesa Garg <nemesa.garg@intel.com>
+== Series Details ==
 
-drm/i915/cursor: Check joiner cursor commit status
+Series: Enable joiner cursor fast updates (rev5)
+URL   : https://patchwork.freedesktop.org/series/165273/
+State : success
 
-In joiner mode, secondary cursor commits may still be running
-even when the primary cursor commit is done. Walking the secondary
-pipes also requires holding the secondary planes modeset locks.
-Add intel_cursor_lock_joined_planes() to acquire modeset locks
-for all secondary cursor planes. Check all joined cursor commit
-status before taking the fast path. If any commit is still pending,
-fallback to slow path.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/dr=
-m/i915/display/intel_cursor.c
-> index 0673f16f6fd0d..bc1e58d5c4c5e 100644
-> --- a/drivers/gpu/drm/i915/display/intel_cursor.c
-> +++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-[ ... ]
-> @@ -833,15 +877,6 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
->  	    crtc_state->joiner_pipes)
->  		goto slow;
+CI Bug Log - changes from CI_DRM_19010 -> Patchwork_165273v5
+====================================================
 
-[Severity: Medium]
-Since this existing check unconditionally sends joiner configurations to
-the slow path, doesn't it make the newly added fast path logic below
-unreachable for joiner pipes?
+Summary
+-------
 
-[ ... ]
-> @@ -855,6 +890,21 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
->  	    !old_plane_state->uapi.fb !=3D !fb)
->  		goto slow;
-> =20
-> +	ret =3D intel_cursor_lock_joined_planes(display, crtc_state, ctx);
-> +	if (ret =3D=3D -EDEADLK)
-> +		return ret;
-> +	if (ret)
-> +		goto slow;
-> +
-> +	/*
-> +	 * Don't do an async update if there is an outstanding commit modifying
-> +	 * any of the joined cursor planes. This prevents our async update's
-> +	 * changes from getting overridden by a previous synchronous update's
-> +	 * state.
-> +	 */
-> +	if (!intel_cursor_joiner_commits_idle(display, crtc_state))
-> +		goto slow;
-> +
+  **SUCCESS**
 
-[Severity: Medium]
-If the earlier fallback were removed, would the hardware update logic at the
-end of intel_legacy_cursor_update() also need to be updated?
+  No regressions found.
 
-Currently, it only updates the primary plane:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html
 
-	if (new_plane_state->uapi.visible) {
-		intel_plane_update_noarm(NULL, plane, crtc_state, new_plane_state);
-		intel_plane_update_arm(NULL, plane, crtc_state, new_plane_state);
-	} else {
-		intel_plane_disable_arm(NULL, plane, crtc_state);
-	}
+Participating hosts (40 -> 38)
+------------------------------
 
-It looks like the secondary joined planes won't receive hardware updates if
-the fast path is actually taken.
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
->  	new_plane_state =3D to_intel_plane_state(intel_plane_duplicate_state(&p=
-lane->base));
->  	if (!new_plane_state)
->  		return -ENOMEM;
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260818084236.2168=
-580-1-nemesa.garg@intel.com?part=3D1
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19010 -> Patchwork_165273v5
+
+  CI-20190529: 20190529
+  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_165273v5: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html
+
+--===============9195220366880446821==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>Enable joiner cursor fast updates (rev5)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/165273/">https://patchwork.freedesktop.org/series/165273/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19010 -&gt; Patchwork_165273v5</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19010 -&gt; Patchwork_165273v5</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_165273v5: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============9195220366880446821==--
