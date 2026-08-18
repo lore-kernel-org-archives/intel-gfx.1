@@ -4,49 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F96C5DF7D
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:11:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A7E3C5DF7E
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:25:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BDDD010E4BD;
-	Tue, 18 Aug 2026 12:10:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1B8610EAE8;
+	Tue, 18 Aug 2026 12:25:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="PSzyDs5V";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hkjy9+XY";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3752810E02E;
- Tue, 18 Aug 2026 12:10:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 914E914BF;
- Tue, 18 Aug 2026 05:10:51 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E1963F85F;
- Tue, 18 Aug 2026 05:10:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1787055055; bh=gPQBa9KcGWS0r9ToFsywECZH43XCjCsQKv6COXNFFxw=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PSzyDs5VtnqKSk8EMFuTeQWMCqVF4gvA4k/i4fsxsl25+BxU6Isdi5qvludgV0nYI
- gVkfXsGoptPxJsanWP+W4dqCbSnTp6x5gTGC45UcfmzaukRkvNFlaX4r2bPlpxNUWD
- 3AcOKbLM9G4AOXqKeblyX3Vm9cIZYNbSu8htc5lA=
-Message-ID: <8c9066f6-e460-458b-bad4-26d441a742ab@arm.com>
-Date: Tue, 18 Aug 2026 13:10:52 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9963F10EAE8;
+ Tue, 18 Aug 2026 12:25:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AB690601DE;
+ Tue, 18 Aug 2026 12:25:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19941F000E9;
+ Tue, 18 Aug 2026 12:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787055950;
+ bh=oSl6EIhXyBl5OB1rb4PPjwJI1HWPlb/7gnWzl/u9330=;
+ h=Date:From:To:Cc:Subject;
+ b=Hkjy9+XY6NWKmg2BNshiBe0pJ1hy878/Ry/5AnlqVHKer2B361eagW5JK5v4Zcbas
+ adQBzv5JVz9xb9ES4IFEE5qbMkdp5SnFN127k1VGv9BJviwhpasJI6LHefOY9h18EJ
+ tscAgcB7TjeehDC3v2lrxNyzhfWhCoBBvKderfDx4L0Fjg7baSx97/630spCiPD68V
+ hGh04G7jOYddboqCD20BYmNT4dII1m31tgmjYt087ri1abKBR7IKlILtkHPNfUb5Ti
+ xE0W+6d/HyAB7BzUUMofAIu4I6BVlOwLWkiZimEEZW9ZgGtvSUfHBmwYL7KSYZr/ku
+ GmK9ETUmGFt2w==
+Date: Tue, 18 Aug 2026 13:25:46 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Fixes tags need work in the drm-intel tree
+Message-ID: <aoRPSlTUvPDlZCdy@sirena.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- iommu@lists.linux.dev
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
- <20260817095648.2438192-4-krzysztof.karas@intel.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="8M6BfoD15ssaWBU3"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,105 +60,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 17/08/2026 10:56 am, Krzysztof Karas wrote:
-> It is possible, when a very large mapping uses only one
-> scatterlist, that padding overflows scatterlist's length field.
-> This results in:
->   1) silently wrapping the value
->   2) smaller than desired mappings produced by iommu_map_sg
->   3) leaving mapped bytes in memory (no iommu_unmap)
-> 
-> Address this issue by adding overflow detection for scatterlist
-> length field.
-> 
-> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v5 (sashiko review):
->   * Included overflow checking on addition, previously silently
->   omitted inside iova_align arguments.
->   * Added check for zero-mapping via temporary variable comparison.
->   * Added overflows_type on s->length to satisfy 64 bit systems.
-> 
->   drivers/iommu/dma-iommu.c | 32 ++++++++++++++++++++++++++++++--
->   1 file changed, 30 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-> index 9abaec0703ef..0bd5b13f006f 100644
-> --- a/drivers/iommu/dma-iommu.c
-> +++ b/drivers/iommu/dma-iommu.c
-> @@ -21,6 +21,7 @@
->   #include <linux/iommu-dma.h>
->   #include <linux/iova.h>
->   #include <linux/irq.h>
-> +#include <linux/limits.h>
->   #include <linux/list_sort.h>
->   #include <linux/memremap.h>
->   #include <linux/mm.h>
-> @@ -1445,6 +1446,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   	for_each_sg(sg, s, nents, i) {
->   		size_t s_iova_off = iova_offset(iovad, s->offset);
->   		size_t s_length = s->length;
-> +		size_t s_length_tmp;
->   		size_t pad_len = (mask - iova_len + 1) & mask;
->   
->   		switch (pci_p2pdma_state(&p2pdma_state, dev, sg_page(s))) {
-> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   		sg_dma_address(s) = s_iova_off;
->   		sg_dma_len(s) = s_length;
->   		s->offset -= s_iova_off;
-> -		s_length = iova_align(iovad, s_length + s_iova_off);
-> +
-> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
 
-This is unnecessary - s_iova_off will always be <= sg->offset, and since 
-the maximum possible segment boundary mask is 32 bits, if sg->offset + 
-sg->length would overflow then by definition it must cross a segment 
-boundary, so the segment is malformed to begin with and all bets are off.
+--8M6BfoD15ssaWBU3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +		s_length = iova_align(iovad, s_length_tmp);
-> +
-> +		if (s_length_tmp != 0 && s_length == 0) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
+In commit
 
-Similarly, a 0-length segment wouldn't be valid either (consider in the 
-simple case it would end up with sg_dma_len() == 0 which means "end of 
-mapping")
+  3b1f4d5e47b36 ("drm/amd/display: Fix dangling pointer in connector reset function")
 
-Thanks,
-Robin.
+Fixes tag
 
-> +
-> +		if (overflows_type(s_length, s->length)) {
-> +			ret = -EOVERFLOW;
-> +			goto out_restore_sg;
-> +		}
->   		s->length = s_length;
->   
->   		/*
-> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
->   		 *   time through here (i.e. before it has a meaningful value).
->   		 */
->   		if (pad_len && pad_len < s_length - 1) {
-> -			prev->length += pad_len;
-> +			unsigned int new_prev_len;
-> +			/*
-> +			 * For large mappings spanning multiple GBs we
-> +			 * may not be able to fit all needed padding into
-> +			 * sg->length.
-> +			 */
-> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
-> +				ret = -EOVERFLOW;
-> +				goto out_restore_sg;
-> +			}
-> +
-> +			prev->length = new_prev_len;
->   			iova_len += pad_len;
->   		}
->   
+  Fixes: e7b07ceef2a6 ("drm/amd/display: Merge amdgpu_dm_crtc and dm_crtc_state")
 
+has these problem(s):
+
+  - Subject does not match target commit subject
+    Just use
+	git log -1 --format='Fixes: %h ("%s")'
+
+--8M6BfoD15ssaWBU3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqET0kACgkQJNaLcl1U
+h9CqSQf/cUQPSWEG1xQ83SotvaTR9US+xfOy6ijhZt8D+ohEdOz8uS6e9KPTffaf
+TbNBRHD8iPcQ03CK6hrxWDZFwk5jCo27T6cCXrIWjKb5YNBRWmigbfZe4cTZCOty
+Pg5ItFcSl0zJoVpeMYFt3Tq1/uRt/ibkjCwBSoWHISBut+7TMeJGySgRB9ki5UC8
+KoR4kghWYey1UbevZCjHLDk8jokgOpsoTxEHvXwjSa4B2tj98lHY/tMV6xtinWLV
+dOGrRM6WlVt0JRuvxZ7axE0dJwgrGNbdELrDsPLKqBI+u+tYUSJ6+qr3CxBy4+6n
+p2nwplF8kqOwekFUMnuazBam+BbLIQ==
+=L6mP
+-----END PGP SIGNATURE-----
+
+--8M6BfoD15ssaWBU3--
