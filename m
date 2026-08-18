@@ -4,79 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14BDCC5DF7E
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7FE94C5DF7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:50:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A106D10EB00;
-	Tue, 18 Aug 2026 12:28:47 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="no/oROwZ";
-	dkim-atps=neutral
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F102C10EB00
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 12:28:46 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-8486672f03cso4539813b3a.0
- for <intel-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 05:28:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787056126; x=1787660926; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ALr+Mpu4v+ZXHfpojxbf7r83vEpMpww1PUS2n+qAu2M=;
- b=no/oROwZAgXUN1F4xRbbmM4/fLgjTivVrxA6V1YrG1BnghySwUv30AAlq0eluExg9c
- Ff13Ya7z3ksylI/uTl4TfLAeL3EeIovdqCdYDK4gN7Ptfd/WtLQc7Hz92hQp6DgC815j
- xz2On0BfEdMN1I/BvsAcJui/snOy9qdkAJ0Dnog77DAJ3TglEwHK29R7f6ZzQE0VEDGa
- E0kpcHdGvylzGHamR25GpfHykU4L5LwFR4D5bYIDPrygsL7YmpEOerYY6dBkBPpKwp+u
- pWQSuH5YQ+4ZgY2e+TClV3HiA4B/OB5RkAiPJfLv/K7bOegF8xABYABTqdkNAoPF/WaZ
- P/mA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787056126; x=1787660926;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ALr+Mpu4v+ZXHfpojxbf7r83vEpMpww1PUS2n+qAu2M=;
- b=Qf/nHHtBxXZA+2cWq459Ow6QpMWsCFlHAa2Au4PoV687Ovh7pH4GL72QgvXygqC6co
- Cy3I0q7fTRFL5mi9ejDscxYLo97o69tMlivyplm1io3asmsQK3EuRR4PePSRyqzxni5D
- Yk1SOejj8/5Lhsh/JhuDbSOgYZOKWnIiQ8q+cAyjSgeZtcovv1k9P/vMG5ife1SaSFFa
- RF8kcc2QjuubrPdfW6V0jV7F8u3XGzivrS+ESbV8NdVHx7iY10gg+A5SLdNw4cwmCtCR
- vgpd/YNZGaIOmumo2vR4tpLnb0QedyTKUSAWcsx6L4StVUUsw7a+Nnmk8fyUYqwdNM9j
- djrQ==
-X-Gm-Message-State: AOJu0YzyEHoEzbGSIdTAJUsvNY71AaJUTy2QPJWFQ/igMRqh+TEn/azq
- PUbv2yqZbe7s7zFj52p2ycg2f48dhesk8MRDqLJKPfVAwmfaCsuYZMRuRmCNSY1x4/2CXpAP
-X-Gm-Gg: AR+sD12sn5x6RywHhXn+rnqHShwJI1+VQmm0XOC+ANY7lEkr0xtuqWZpFmtmxOFESeM
- QxYGMzQyKwd7Z6kdwTbjOGtdvUR1pAJi1kugnmWDy0bWIvVnVovkGEOBQ9u8zqzM4B0IsVu4bz9
- 4Uojr1MGAiBKA/eCBT4LOJnsHGFRAJOplGlQqLQIuKRCJCFFmg2LoZL75ofY/HgRRfgLN2xd6W0
- drLY+CVworJWV9B61+pOgdeFbHZnIrRjvaL6xHAw4/Kv8I9wGH7+t+6k3292I4VLMlk7RJvhqYG
- czKFDsdJJ58jqMp66CKr6+dLm713vkGXV9jbA3+sykVQBHFW1WPVAfQZVLnc+0DNXw9RDAf+FkX
- VbH37Hd3m5MbHYxTGyzDbN4eNTOijegPAwCk0sms+Zj8vfNdP6hQhR4U66T0Z5t+CNEz+K1zHg3
- rPvlxY9yq9kOiHjpXaeglYa5vIMXpt2eAoyIcs56PflxzTZs5Ev9VGntjy1kb/lM28heSimJdVF
- vevFQXBQgL7DY/SWnWcFNU=
-X-Received: by 2002:a05:6a00:4f91:b0:84f:37c1:f887 with SMTP id
- d2e1a72fcca58-84fddfdf5b0mr32924597b3a.12.1787056126348; 
- Tue, 18 Aug 2026 05:28:46 -0700 (PDT)
-Received: from allen-xiaomibookpro14.lan ([2600:1900:4030:ad65:0:1::])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-851b401ec8dsm1730869b3a.1.2026.08.18.05.28.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 18 Aug 2026 05:28:45 -0700 (PDT)
-From: =?UTF-8?q?Chang=20Jiong=28=E5=B8=B8=E7=82=AF=29?= <xspeed1989@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: ville.syrjala@linux.intel.com,
-	Chang Jiong <xspeed1989@gmail.com>
-Subject: Re: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in
- bxt_sanitize_cdclk()
-Date: Tue, 18 Aug 2026 20:27:16 +0800
-Message-ID: <20260818122719.2374637-1-xspeed1989@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1336C10EB0B;
+	Tue, 18 Aug 2026 12:50:32 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 576C410EB0B;
+ Tue, 18 Aug 2026 12:50:31 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7E97384591;
+ Tue, 18 Aug 2026 12:50:23 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C06B2367D;
+ Tue, 18 Aug 2026 12:50:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id GCHLLQxVhGojIAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 18 Aug 2026 12:50:20 +0000
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 07/12] drm/panic: Retry in dispatch function if panic output
+ fails
+Date: Tue, 18 Aug 2026 14:28:05 +0200
+Message-ID: <20260818125012.468092-8-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816062344.796615-1-xspeed1989@gmail.com>
-References: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
- <20260816062344.796615-1-xspeed1989@gmail.com>
+In-Reply-To: <20260818125012.468092-1-tzimmermann@suse.de>
+References: <20260818125012.468092-1-tzimmermann@suse.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLqtkr6cif1ebgurukgmwdm7xc)]
+X-Rspamd-Queue-Id: 7E97384591
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,12 +73,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Withdrawing this patch: it is functionally identical to Ville Syrjälä's
-series 170652 ("drm/i915/cdclk: Avoid spurious cdclk sanitization on
-PTL+" / "drm/i915/cdclk: Introduce has_cd2x_pipe_select()"), which is
-already in drm-tip. Sorry for the noise.
+On failed output of QR codes and kmsg buffers, fall back to a user
+message. QR-code output already did this internally, but now formally
+support it in drm_panic_dispatch(). Streamlines the existing logic.
 
-For the record, I validated the equivalent fix on a Panther Lake laptop
-(Arc B390, 8086:b080, eDP 3120x2080@120): it resolves the boot-time
-"CPU pipe A FIFO underrun" and the scanout corruption on the first KMS
-client. Happy to test Ville's series on the same hardware if useful.
+Also pass module parameter drm_panic_type as a parameter to
+drm_panic_dispatch(). This simpifies the implementation. It will later
+allow for moving the function into a helper library.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/drm_panic.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
+index 12c39217cbcb..0960750bfce2 100644
+--- a/drivers/gpu/drm/drm_panic.c
++++ b/drivers/gpu/drm/drm_panic.c
+@@ -746,9 +746,9 @@ static int drm_panic_get_qr_code(u8 **qr_image, unsigned int qr_version)
+ /*
+  * Draw the panic message at the center of the screen, with a QR Code
+  */
+-static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				      u32 fg_color, u32 bg_color,
+-				      unsigned int qr_version)
++static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
++				     u32 fg_color, u32 bg_color,
++				     unsigned int qr_version)
+ {
+ 	const struct font_desc *font = get_default_font(sb->width, sb->height, NULL, NULL);
+ 	struct drm_rect r_screen, r_logo, r_msg, r_qr, r_qr_canvas;
+@@ -816,15 +816,6 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+ 	drm_panic_blit(sb, &r_qr, qr_image, qr_pitch, scale, fg_color);
+ 	return 0;
+ }
+-
+-static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb,
+-				     u32 fg_color, u32 bg_color,
+-				     unsigned int qr_version)
+-{
+-	if (_draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version))
+-		draw_panic_screen_user(sb, fg_color, bg_color);
+-	return 0;
+-}
+ #else
+ static void drm_panic_qr_init(void) {};
+ static void drm_panic_qr_exit(void) {};
+@@ -899,13 +890,22 @@ static int draw_panic_dispatch(struct drm_scanout_buffer *sb, enum drm_panic_typ
+ {
+ 	int ret;
+ 
++retry:
+ 	switch (panic_type) {
+ 	case DRM_PANIC_TYPE_KMSG:
+ 		ret = draw_panic_screen_kmsg(sb, fg_color, bg_color);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
+ 	case DRM_PANIC_TYPE_QR:
+ 		ret = draw_panic_screen_qr_code(sb, fg_color, bg_color, qr_version);
++		if (ret) {
++			panic_type = DRM_PANIC_TYPE_USER;
++			goto retry;
++		}
+ 		break;
+ #endif
+ 	case DRM_PANIC_TYPE_USER:
+-- 
+2.55.0
+
