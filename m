@@ -4,27 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6ACC5DF81
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 15:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6380C5DF7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 15:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76EA410E05F;
-	Tue, 18 Aug 2026 15:45:52 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B94E910EBB7;
- Tue, 18 Aug 2026 15:45:51 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============4427779634936691574=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F13D10EBDD;
+	Tue, 18 Aug 2026 15:55:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Ui5KdUDl";
+	dkim-atps=neutral
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798B710EBDD;
+ Tue, 18 Aug 2026 15:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=Oib1sAGemzHmu6ROtRkEHyhCtwDTicVNKskycatCaao=; b=Ui5KdUDlipNO9Vm4nINkg/+v4R
+ bOUqu7BxrFpPjJPyyxL5/SQNc4/JySqtBdMrb5CyEz/IRILpW8+YnFuGzsaYbvWJv+9e0YtT8uwx/
+ eE0eXe6fRPjm1sfCVSmOReeGwtH7/zEHlNxdnu5tpHNRyMiy4cejksDu81kvbeMEFRTaItbMt/IGi
+ Q61CWpoF2IThZoi159FSHVf/TCVp1AzMzc9ZSRaQVSMkGFqvkSEm1dUtgG8Qvp88FNz5jkcBhNEOs
+ ACjeQ2XWgqHevHSOffjhKrvnRBjt4Y+4cNGXzMxdf7NzZpsvk2bac1B5a/UMTuKt7keKswSiklY2c
+ JG0mN6zA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wwM9g-00000008JC7-1PPo; Tue, 18 Aug 2026 15:55:12 +0000
+Message-ID: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
+Date: Tue, 18 Aug 2026 08:55:11 -0700
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/xe3p=5Flpd=3A_Up?=
- =?utf-8?q?date_CURSOR=5FBUF/WM_masks_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Gustavo Sousa" <gustavo.sousa@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Aug 2026 15:45:51 -0000
-Message-ID: <178706795175.63955.8858341431065089935@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260724-xe3p_lpd-cursor-dbuf-increase-v1-1-42f2faae2fb5@intel.com>
-In-Reply-To: <20260724-xe3p_lpd-cursor-dbuf-increase-v1-1-42f2faae2fb5@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
+ library
+To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
+ javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +64,47 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============4427779634936691574==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi,
 
-== Series Details ==
+On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
+>  M:	Hans de Goede <hansg@kernel.org>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f..cdfd72d9a9c5 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
+>  config DRM_KMS_HELPER
+>  	tristate
+>  	depends on DRM
+> +	select DRM_PANIC_HELPER if DRM_PANIC
 
-Series: drm/i915/xe3p_lpd: Update CURSOR_BUF/WM masks (rev2)
-URL   : https://patchwork.freedesktop.org/series/171087/
-State : success
+but DRM_PANIC_HELPER depends on DRM_TTM so
+DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19010 -> Patchwork_171087v2
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
+  Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
+  Selected by [y]:
+  - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
 
 
-Changes
--------
+>  	select FB_CORE if DRM_FBDEV_EMULATION
+>  	help
+>  	  CRTC helpers for KMS drivers.
+> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
+>  	  Smaller QR code are easier to read, but will contain less debugging
+>  	  data. Default is 40.
+>  
+> +config DRM_PANIC_HELPER
+> +	bool
+> +	depends on DRM_TTM
+> +
+>  config DRM_RAS
+>  	bool "DRM RAS support"
+>  	depends on DRM
 
-  No changes found
+-- 
+~Randy
 
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19010 -> Patchwork_171087v2
-
-  CI-20190529: 20190529
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_171087v2: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html
-
---===============4427779634936691574==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/xe3p_lpd: Update CURSOR_BUF/WM masks (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171087/">https://patchwork.freedesktop.org/series/171087/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19010 -&gt; Patchwork_171087v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19010 -&gt; Patchwork_171087v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_171087v2: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============4427779634936691574==--
