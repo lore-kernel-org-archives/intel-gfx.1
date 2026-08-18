@@ -4,47 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4798AC5DF7D
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 15:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF6ACC5DF81
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 15:45:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD70010EBB4;
-	Tue, 18 Aug 2026 15:42:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ja6mfc4e";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4780B10E4DD;
- Tue, 18 Aug 2026 15:42:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 30B894383F;
- Tue, 18 Aug 2026 15:42:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378E71F000E9;
- Tue, 18 Aug 2026 15:42:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787067777;
- bh=fA0R5j0Us6MV/0tS8iE/q5eXCYL7MfVEZguiEhpCiAQ=;
- h=Date:From:To:Cc:Subject;
- b=Ja6mfc4e69jVjWE0YdBjlnWh5f5CHbqXDIxaGySOJvrCJnfqIro73FMBlIGWtcdp1
- X3GiKsbmBiiEv5k1UStpABa/NUTdWMF7ippP088Tg7oxvSHUssQGK2l7Qv4CaKvJPk
- ll9npF8Znd1Ivz3//3ExaJSXW49rG9Y6J7TwJR44UbQx/lJaiTdoKPVGb1kcxoijCL
- +ZWCHYfdz4IJ3+xbfpZSDQsaczfHFuMnDnTQqBdqHy/+xm01DM7EkfJJNqt8GCC5PH
- nkesI4TAOEruTUfnvs84oaEzx5UNzhBg/hjh0Bf3UWcsHQoD8YqsOsuXyXl7UYNV2A
- E/73m68z7BGpA==
-Date: Tue, 18 Aug 2026 16:42:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Simona Vetter <simona.vetter@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Unexpected files in the drm-intel tree
-Message-ID: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76EA410E05F;
+	Tue, 18 Aug 2026 15:45:52 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B94E910EBB7;
+ Tue, 18 Aug 2026 15:45:51 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============4427779634936691574=="
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="274Teg7tbCdQCE+R"
-Content-Disposition: inline
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/xe3p=5Flpd=3A_Up?=
+ =?utf-8?q?date_CURSOR=5FBUF/WM_masks_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Gustavo Sousa" <gustavo.sousa@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Aug 2026 15:45:51 -0000
+Message-ID: <178706795175.63955.8858341431065089935@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260724-xe3p_lpd-cursor-dbuf-increase-v1-1-42f2faae2fb5@intel.com>
+In-Reply-To: <20260724-xe3p_lpd-cursor-dbuf-increase-v1-1-42f2faae2fb5@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,36 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============4427779634936691574==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---274Teg7tbCdQCE+R
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+== Series Details ==
 
-Commit
+Series: drm/i915/xe3p_lpd: Update CURSOR_BUF/WM masks (rev2)
+URL   : https://patchwork.freedesktop.org/series/171087/
+State : success
 
-  ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
+== Summary ==
 
-added this unexpected file:
+CI Bug Log - changes from CI_DRM_19010 -> Patchwork_171087v2
+====================================================
 
- drivers/gpu/drm/drm_panel.c.orig
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
 
---274Teg7tbCdQCE+R
-Content-Type: application/pgp-signature; name="signature.asc"
+Changes
+-------
 
------BEGIN PGP SIGNATURE-----
+  No changes found
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqEfXsACgkQJNaLcl1U
-h9C1Qgf/fEu8OtJG7s3ubqqM42ynvN5XqaAkk2ymjz4J3c+ufhuvlLSYwr0hN+mo
-T8Atl5H9c5cUmsnlwq8eEFLM1XPAHbpcwt4HpvN6IkOc+Kh17+IVxYnwzmQR58yu
-7/FSu40bQ/JxaI+j5vWYFv28IGomfxOV/myrg24HhOVoQXVOnPktX74fx2DrD3Rq
-bs8C0gMflG3poHG0DXLC/HHaw2PDWPEoCnqHm4k75cBw/LCAhC7BI3QWI0yDK7t5
-5vKAoUiQw6Obb87XNwaZ0G5nYWwr22RMyqqkZNZnA3EveI7GxjmMdm+BNTy7uuNF
-Wvm56nFwLTGVzh5dQXqO8VkxqtfAvw==
-=MYZJ
------END PGP SIGNATURE-----
 
---274Teg7tbCdQCE+R--
+Build changes
+-------------
+
+  * Linux: CI_DRM_19010 -> Patchwork_171087v2
+
+  CI-20190529: 20190529
+  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_171087v2: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html
+
+--===============4427779634936691574==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/xe3p_lpd: Update CURSOR_BUF/WM masks (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171087/">https://patchwork.freedesktop.org/series/171087/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19010 -&gt; Patchwork_171087v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171087v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19010 -&gt; Patchwork_171087v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_171087v2: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============4427779634936691574==--
