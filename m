@@ -4,63 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6253BC5DF70
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 06:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4230CC5DF70
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 06:59:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E530B10E38E;
-	Tue, 18 Aug 2026 06:57:24 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="GIfFy+fa";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 091E210E20C;
- Tue, 18 Aug 2026 06:57:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787036243; x=1818572243;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=yp5oytL22Z4cRl/MvOKRs3ODzeTygL7I7qcs2Lwm7Is=;
- b=GIfFy+faoEu7o9b2O830fe8Nb44jTLzeunDJFZmTbFRl0O05hhTGrSc9
- Odvadx/HCdghLrVJcdbA/v6/L4RDrumt9+auQExDdV0/RzEPxhEBPCJ9O
- csnUyNJpz2OAQlP2KW12XwJFUi9t9GVomQ3w9pItY+3yKhZxC/6Hf3c0b
- +YVcMn7eu+HPk1mg35Vb89tOlPgMZXo2RPE9oIAEeG9a5nMWEXUrxVebe
- YMd/AjOO1VunLuV92fG15ZdDdRG1Tks31kshxnWft36szAiGPr76H3gI6
- eA1RM23dNiGKb8IxEsD1mbJwPdehaVMDRQpoTeVLs9KbBO1yelecpi61M g==;
-X-CSE-ConnectionGUID: ldMRrr/ZRfWKfT6TC+cT6g==
-X-CSE-MsgGUID: LHi6JeWPQhC55V+dtzxqdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="104901998"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="104901998"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 23:57:19 -0700
-X-CSE-ConnectionGUID: QZ6eJEiZQ1O/GQkrrZO1iw==
-X-CSE-MsgGUID: M6Il0K5WQwqxxfGJrYLU+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="263814633"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.243])
- by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Aug 2026 23:57:15 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: "Govindapillai, Vinod" <vinod.govindapillai@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Cc: "Deak, Imre" <imre.deak@intel.com>
-Subject: Re: [RFC PATCH 2/5] drm/i915/display: add pme_capable() to the
- parent interface
-In-Reply-To: <38839928b5b5147989959741068c001ce180eb0b.camel@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260816224005.886035-1-vinod.govindapillai@intel.com>
- <20260816224005.886035-3-vinod.govindapillai@intel.com>
- <bb80200efea31ed150318deaa8622d8efddb2666@intel.com>
- <38839928b5b5147989959741068c001ce180eb0b.camel@intel.com>
-Date: Tue, 18 Aug 2026 09:57:12 +0300
-Message-ID: <4ebf5d30d16433745c38247233178f67a1b8ad93@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0AF010E4D2;
+	Tue, 18 Aug 2026 06:59:43 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DF3E10E20C;
+ Tue, 18 Aug 2026 06:59:42 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_Fi=2ECI=2EBUILD=3A_failure_for_drm/i915/cdclk=3A_Don=27t?=
+ =?utf-8?q?_force_cd2x_pipe_select_on_Xe3_in_bxt=5Fsanitize=5Fcdclk=28=29_?=
+ =?utf-8?q?=28rev3=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: =?utf-8?b?Q2hhbmcgSmlvbmco5bi454KvKQ==?= <304750714@qq.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 18 Aug 2026 06:59:42 -0000
+Message-ID: <178703638244.61185.2376999261360175716@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260815164149.607690-1-xspeed1989@gmail.com>
+In-Reply-To: <20260815164149.607690-1-xspeed1989@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,111 +38,27 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 18 Aug 2026, "Govindapillai, Vinod" <vinod.govindapillai@intel.com>=
- wrote:
-> On Mon, 2026-08-17 at 13:19 +0300, Jani Nikula wrote:
->> On Mon, 17 Aug 2026, Vinod Govindapillai
->> <vinod.govindapillai@intel.com> wrote:
->> > Add a provision to query the optional pme_capability to the parent
->> > interface so that it could be called independently from xe or i915
->> > based on the implementation.
->>=20
->> But do we need this? Display has all the information to call
->> pci_dev_run_wake() directly, without going through the parent
->> interface.
->>=20
->> The only difference is this is not being set up for i915.
->
-> Ok. Yeah pci_dev_run_wake() should handle this properly. But because
-> the platform support for the pme is added from NVL, I thought of this
-> approach.=20
->
-> So you are suggesting something like this?
->
-> if (pci_dev_run_wake()), avoid start HPD polling directly in the=20
-> intel_display_driver::intel_display_driver_pm_runtime_suspend()?
+== Series Details ==
 
-See my other replies: can we hide this inside intel_hotplug.c?
+Series: drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in bxt_sanitize_cdclk() (rev3)
+URL   : https://patchwork.freedesktop.org/series/172269/
+State : failure
 
-BR,
-Jani.
+== Summary ==
+
+Error: patch https://patchwork.freedesktop.org/api/1.0/series/172269/revisions/3/mbox/ not applied
+Applying: drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in bxt_sanitize_cdclk()
+error: sha1 information is lacking or useless (drivers/gpu/drm/i915/display/intel_cdclk.c).
+error: could not build fake ancestor
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+Patch failed at 0001 drm/i915/cdclk: Don't force cd2x pipe select on Xe3 in bxt_sanitize_cdclk()
+When you have resolved this problem, run "git am --continue".
+If you prefer to skip this patch, run "git am --skip" instead.
+To restore the original branch and stop patching, run "git am --abort".
+Build failed, no error log produced
 
 
-
->
-> Or use a wrapper to check the pme_capability.
->
-> BR
-> Vinod=20
->
->> BR,
->> Jani.
->>=20
->> >=20
->> > Assisted-by: GitHub_Copilot:claude-opus-5
->> > Signed-off-by: Vinod Govindapillai <vinod.govindapillai@intel.com>
->> > ---
->> > =C2=A0drivers/gpu/drm/i915/display/intel_display_rpm.c | 7 +++++++
->> > =C2=A0drivers/gpu/drm/i915/display/intel_display_rpm.h | 1 +
->> > =C2=A0include/drm/intel/display_parent_interface.h=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 1 +
->> > =C2=A03 files changed, 9 insertions(+)
->> >=20
->> > diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.c
->> > b/drivers/gpu/drm/i915/display/intel_display_rpm.c
->> > index 0a331f89b4db..73d85384474e 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_display_rpm.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_display_rpm.c
->> > @@ -46,6 +46,13 @@ bool intel_display_rpm_suspended(struct
->> > intel_display *display)
->> > =C2=A0	return display->parent->rpm->suspended(display->drm);
->> > =C2=A0}
->> > =C2=A0
->> > +bool intel_display_rpm_pme_capable(struct intel_display *display)
->> > +{
->> > +	const struct intel_display_rpm_interface *rpm =3D display-
->> > >parent->rpm;
->> > +
->> > +	return rpm->pme_capable && rpm->pme_capable(display->drm);
->> > +}
->> > +
->> > =C2=A0void assert_display_rpm_held(struct intel_display *display)
->> > =C2=A0{
->> > =C2=A0	display->parent->rpm->assert_held(display->drm);
->> > diff --git a/drivers/gpu/drm/i915/display/intel_display_rpm.h
->> > b/drivers/gpu/drm/i915/display/intel_display_rpm.h
->> > index 6ef48515f84b..2d4071fb9282 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_display_rpm.h
->> > +++ b/drivers/gpu/drm/i915/display/intel_display_rpm.h
->> > @@ -21,6 +21,7 @@ void intel_display_rpm_put(struct intel_display
->> > *display, struct ref_tracker *wa
->> > =C2=A0
->> > =C2=A0/* Only for special cases. */
->> > =C2=A0bool intel_display_rpm_suspended(struct intel_display *display);
->> > +bool intel_display_rpm_pme_capable(struct intel_display *display);
->> > =C2=A0
->> > =C2=A0void assert_display_rpm_held(struct intel_display *display);
->> > =C2=A0void intel_display_rpm_assert_block(struct intel_display
->> > *display);
->> > diff --git a/include/drm/intel/display_parent_interface.h
->> > b/include/drm/intel/display_parent_interface.h
->> > index d7d06dcaa699..563de403b102 100644
->> > --- a/include/drm/intel/display_parent_interface.h
->> > +++ b/include/drm/intel/display_parent_interface.h
->> > @@ -196,6 +196,7 @@ struct intel_display_rpm_interface {
->> > =C2=A0	void (*put_unchecked)(const struct drm_device *drm);
->> > =C2=A0
->> > =C2=A0	bool (*suspended)(const struct drm_device *drm);
->> > +	bool (*pme_capable)(const struct drm_device *drm); /*
->> > Optional */
->> > =C2=A0	void (*assert_held)(const struct drm_device *drm);
->> > =C2=A0	void (*assert_block)(const struct drm_device *drm);
->> > =C2=A0	void (*assert_unblock)(const struct drm_device *drm);
->>=20
->
-
---=20
-Jani Nikula, Intel
