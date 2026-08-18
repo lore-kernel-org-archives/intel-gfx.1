@@ -4,27 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E89DC5DF70
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 09:47:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C37AC5DF70
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 09:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E930010E233;
-	Tue, 18 Aug 2026 09:47:36 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E1010E233;
- Tue, 18 Aug 2026 09:47:35 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============9195220366880446821=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CA7010E009;
+	Tue, 18 Aug 2026 09:54:38 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mP9FOvkG";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 997DF10E009;
+ Tue, 18 Aug 2026 09:54:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787046876; x=1818582876;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eQdundHtOY51wdTr7Ni2XtC8nt5oRh+LaXG2U17ENVo=;
+ b=mP9FOvkG//ZnG+sMC6SY8LVvdbCKOUrU/Kt7sRsPtBDYjHmjtCQhn4Ub
+ nZDYl3L4r0/hK8ccIbO+Y/o+V3Jq/djlpGJfFBH46ExY+O3J74I+RGBwz
+ ZFR/1wcW7bvHdklwOc40GMGbvUaZ5U1BECVEwWWvF6NjcrjT/d4wHgtTx
+ yqrv+hnvUZFnoQ8FtDbun5ZjSedc3eTTTOQ4zIkZiscxPDG2/7SgkwEz9
+ 2NLjkv+yMGldPeDNEByA5Yk4y5onZICGtiR2831MLj0TprhjU++fJmlHw
+ pgvxCfHowtbm+TdthoTWd8VggBm2KdznK4/A4lMX40NRssYtGZid86JOY g==;
+X-CSE-ConnectionGUID: 9RfsZ2GnT9WbCU4r1/568g==
+X-CSE-MsgGUID: yNHJT8NTREm+iVyuyH/VAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="99054067"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="99054067"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Aug 2026 02:54:36 -0700
+X-CSE-ConnectionGUID: 3VtCvtQQRzOL5SL5uaojRg==
+X-CSE-MsgGUID: RKlLkF6kSbWTeX/kV1OLUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; d="scan'208";a="261442457"
+Received: from nemesa.iind.intel.com ([10.190.239.22])
+ by fmviesa010.fm.intel.com with ESMTP; 18 Aug 2026 02:54:34 -0700
+From: Nemesa Garg <nemesa.garg@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: animesh.manna@intel.com, jouni.hogander@intel.com,
+ Nemesa Garg <nemesa.garg@intel.com>
+Subject: [PATCH] drm/i915/display: Clear SEL_FETCH_PLANE_CTL on plane disable
+Date: Tue, 18 Aug 2026 15:21:49 +0530
+Message-Id: <20260818095149.2172935-1-nemesa.garg@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_Enable_joiner_cursor_fast?=
- =?utf-8?q?_updates_=28rev5=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Nemesa Garg" <nemesa.garg@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Aug 2026 09:47:35 -0000
-Message-ID: <178704645559.60987.7806609704590849733@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260818084236.2168580-1-nemesa.garg@intel.com>
-In-Reply-To: <20260818084236.2168580-1-nemesa.garg@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +63,120 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============9195220366880446821==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+icl_plane_disable_sel_fetch_arm() wrote SEL_FETCH_PLANE_CTL = 0 only when
+crtc_state->enable_psr2_sel_fetch was set. If a plane was disabled after
+selective fetch had been turned off, the guard fired early and left the
+register's enable bit set in hardware.
 
-== Series Details ==
+The bit is harmless until selective fetch is re-enabled.  When it is, the
+hardware resumes fetching for the now-disabled plane and keeps its old DDB
+range reserved.
 
-Series: Enable joiner cursor fast updates (rev5)
-URL   : https://patchwork.freedesktop.org/series/165273/
-State : success
+i9xx_cursor_disable_sel_fetch_arm() has the same guard on SEL_FETCH_CUR_CTL
+and is fixed the same way.
 
-== Summary ==
+v2: Add same check for cursor also. [sashiko]
 
-CI Bug Log - changes from CI_DRM_19010 -> Patchwork_165273v5
-====================================================
+Fixes: b1f5279b5981 ("drm/i915/psr: Move plane sel fetch configuration into plane source files")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8739
+Assisted-by: GitHub-Copilot:claude-opus-4.6
+Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_cursor.c       | 15 ++++++++++-----
+ .../gpu/drm/i915/display/skl_universal_plane.c    | 15 ++++++++++-----
+ 2 files changed, 20 insertions(+), 10 deletions(-)
 
-Summary
--------
+diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
+index 0673f16f6fd0..86bb96ac449b 100644
+--- a/drivers/gpu/drm/i915/display/intel_cursor.c
++++ b/drivers/gpu/drm/i915/display/intel_cursor.c
+@@ -530,13 +530,18 @@ static int i9xx_check_cursor(struct intel_crtc_state *crtc_state,
+ }
+ 
+ static void i9xx_cursor_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					      struct intel_plane *plane,
+-					      const struct intel_crtc_state *crtc_state)
++					      struct intel_plane *plane)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+ 
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The cursor may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_CUR_CTL(pipe), 0);
+@@ -586,7 +591,7 @@ static void i9xx_cursor_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		if (crtc_state->enable_psr2_su_region_et)
+ 			wa_16021440873(dsb, plane, crtc_state, plane_state);
+ 		else
+-			i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++			i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ 	}
+ }
+ 
+@@ -695,7 +700,7 @@ static void i9xx_cursor_update_arm(struct intel_dsb *dsb,
+ 	if (plane_state)
+ 		i9xx_cursor_update_sel_fetch_arm(dsb, plane, crtc_state, plane_state);
+ 	else
+-		i9xx_cursor_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		i9xx_cursor_disable_sel_fetch_arm(dsb, plane);
+ 
+ 	if (plane->cursor.base != base ||
+ 	    plane->cursor.size != fbc_ctl ||
+diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+index 07a683293352..5cda1ab90e40 100644
+--- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
++++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+@@ -879,13 +879,18 @@ skl_plane_disable_arm(struct intel_dsb *dsb,
+ }
+ 
+ static void icl_plane_disable_sel_fetch_arm(struct intel_dsb *dsb,
+-					    struct intel_plane *plane,
+-					    const struct intel_crtc_state *crtc_state)
++					    struct intel_plane *plane)
+ {
+ 	struct intel_display *display = to_intel_display(plane);
+ 	enum pipe pipe = plane->pipe;
+ 
+-	if (!crtc_state->enable_psr2_sel_fetch)
++	/*
++	 * Clear this whenever the hardware has selective fetch, not just when
++	 * the current state uses it. The plane may have been enabled with
++	 * selective fetch earlier and had its enable bit orphaned when the
++	 * feature was switched off.
++	 */
++	if (!HAS_PSR2_SEL_FETCH(display))
+ 		return;
+ 
+ 	intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id), 0);
+@@ -921,7 +926,7 @@ icl_plane_disable_arm(struct intel_dsb *dsb,
+ 
+ 	skl_write_plane_wm(dsb, plane, crtc_state);
+ 
+-	icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++	icl_plane_disable_sel_fetch_arm(dsb, plane);
+ 
+ 	if (plane_has_normalizer(plane))
+ 		intel_de_write_dsb(display, dsb,
+@@ -1641,7 +1646,7 @@ static void icl_plane_update_sel_fetch_arm(struct intel_dsb *dsb,
+ 		intel_de_write_dsb(display, dsb, SEL_FETCH_PLANE_CTL(pipe, plane->id),
+ 				   SEL_FETCH_PLANE_CTL_ENABLE);
+ 	else
+-		icl_plane_disable_sel_fetch_arm(dsb, plane, crtc_state);
++		icl_plane_disable_sel_fetch_arm(dsb, plane);
+ }
+ 
+ static void
+-- 
+2.25.1
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19010 -> Patchwork_165273v5
-
-  CI-20190529: 20190529
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_165273v5: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html
-
---===============9195220366880446821==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>Enable joiner cursor fast updates (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/165273/">https://patchwork.freedesktop.org/series/165273/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19010 -&gt; Patchwork_165273v5</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_165273v5/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19010 -&gt; Patchwork_165273v5</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_165273v5: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============9195220366880446821==--
