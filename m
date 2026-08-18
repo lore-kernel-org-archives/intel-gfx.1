@@ -4,27 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FF05C5DF7D
-	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 11:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75F96C5DF7D
+	for <intel-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:11:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F2F110EADF;
-	Tue, 18 Aug 2026 11:57:07 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 489FB10E4B8;
- Tue, 18 Aug 2026 11:57:06 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============8927109805927448773=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDD010E4BD;
+	Tue, 18 Aug 2026 12:10:57 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="PSzyDs5V";
+	dkim-atps=neutral
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 3752810E02E;
+ Tue, 18 Aug 2026 12:10:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 914E914BF;
+ Tue, 18 Aug 2026 05:10:51 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3E1963F85F;
+ Tue, 18 Aug 2026 05:10:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1787055055; bh=gPQBa9KcGWS0r9ToFsywECZH43XCjCsQKv6COXNFFxw=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=PSzyDs5VtnqKSk8EMFuTeQWMCqVF4gvA4k/i4fsxsl25+BxU6Isdi5qvludgV0nYI
+ gVkfXsGoptPxJsanWP+W4dqCbSnTp6x5gTGC45UcfmzaukRkvNFlaX4r2bPlpxNUWD
+ 3AcOKbLM9G4AOXqKeblyX3Vm9cIZYNbSu8htc5lA=
+Message-ID: <8c9066f6-e460-458b-bad4-26d441a742ab@arm.com>
+Date: Tue, 18 Aug 2026 13:10:52 +0100
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Guard_against?=
- =?utf-8?q?_NULL_driver=5Fdata_in_i915=5Fpci=5Fprobe=28=29_=28rev3=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Deepanshu Kartikey" <kartikey406@gmail.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 18 Aug 2026 11:57:06 -0000
-Message-ID: <178705422628.62544.7649173766680578793@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260813064902.367504-1-kartikey406@gmail.com>
-In-Reply-To: <20260813064902.367504-1-kartikey406@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] iommu/dma: Catch scatterlist length overflows
+To: Krzysztof Karas <krzysztof.karas@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev
+Cc: Andi Shyti <andi.shyti@linux.intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ =?UTF-8?Q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
+ <20260817095648.2438192-4-krzysztof.karas@intel.com>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260817095648.2438192-4-krzysztof.karas@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +59,108 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============8927109805927448773==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On 17/08/2026 10:56 am, Krzysztof Karas wrote:
+> It is possible, when a very large mapping uses only one
+> scatterlist, that padding overflows scatterlist's length field.
+> This results in:
+>   1) silently wrapping the value
+>   2) smaller than desired mappings produced by iommu_map_sg
+>   3) leaving mapped bytes in memory (no iommu_unmap)
+> 
+> Address this issue by adding overflow detection for scatterlist
+> length field.
+> 
+> Fixes: 809eac54cdd6 ("iommu/dma: Implement scatterlist segment merging")
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> ---
+> v5 (sashiko review):
+>   * Included overflow checking on addition, previously silently
+>   omitted inside iova_align arguments.
+>   * Added check for zero-mapping via temporary variable comparison.
+>   * Added overflows_type on s->length to satisfy 64 bit systems.
+> 
+>   drivers/iommu/dma-iommu.c | 32 ++++++++++++++++++++++++++++++--
+>   1 file changed, 30 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
+> index 9abaec0703ef..0bd5b13f006f 100644
+> --- a/drivers/iommu/dma-iommu.c
+> +++ b/drivers/iommu/dma-iommu.c
+> @@ -21,6 +21,7 @@
+>   #include <linux/iommu-dma.h>
+>   #include <linux/iova.h>
+>   #include <linux/irq.h>
+> +#include <linux/limits.h>
+>   #include <linux/list_sort.h>
+>   #include <linux/memremap.h>
+>   #include <linux/mm.h>
+> @@ -1445,6 +1446,7 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   	for_each_sg(sg, s, nents, i) {
+>   		size_t s_iova_off = iova_offset(iovad, s->offset);
+>   		size_t s_length = s->length;
+> +		size_t s_length_tmp;
+>   		size_t pad_len = (mask - iova_len + 1) & mask;
+>   
+>   		switch (pci_p2pdma_state(&p2pdma_state, dev, sg_page(s))) {
+> @@ -1476,7 +1478,22 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   		sg_dma_address(s) = s_iova_off;
+>   		sg_dma_len(s) = s_length;
+>   		s->offset -= s_iova_off;
+> -		s_length = iova_align(iovad, s_length + s_iova_off);
+> +
+> +		if (check_add_overflow(s_length, s_iova_off, &s_length_tmp)) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
 
-== Series Details ==
+This is unnecessary - s_iova_off will always be <= sg->offset, and since 
+the maximum possible segment boundary mask is 32 bits, if sg->offset + 
+sg->length would overflow then by definition it must cross a segment 
+boundary, so the segment is malformed to begin with and all bets are off.
 
-Series: drm/i915: Guard against NULL driver_data in i915_pci_probe() (rev3)
-URL   : https://patchwork.freedesktop.org/series/171944/
-State : success
+> +		s_length = iova_align(iovad, s_length_tmp);
+> +
+> +		if (s_length_tmp != 0 && s_length == 0) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
 
-== Summary ==
+Similarly, a 0-length segment wouldn't be valid either (consider in the 
+simple case it would end up with sg_dma_len() == 0 which means "end of 
+mapping")
 
-CI Bug Log - changes from CI_DRM_19010 -> Patchwork_171944v3
-====================================================
+Thanks,
+Robin.
 
-Summary
--------
+> +
+> +		if (overflows_type(s_length, s->length)) {
+> +			ret = -EOVERFLOW;
+> +			goto out_restore_sg;
+> +		}
+>   		s->length = s_length;
+>   
+>   		/*
+> @@ -1493,7 +1510,18 @@ int iommu_dma_map_sg(struct device *dev, struct scatterlist *sg, int nents,
+>   		 *   time through here (i.e. before it has a meaningful value).
+>   		 */
+>   		if (pad_len && pad_len < s_length - 1) {
+> -			prev->length += pad_len;
+> +			unsigned int new_prev_len;
+> +			/*
+> +			 * For large mappings spanning multiple GBs we
+> +			 * may not be able to fit all needed padding into
+> +			 * sg->length.
+> +			 */
+> +			if (check_add_overflow(prev->length, pad_len, &new_prev_len)) {
+> +				ret = -EOVERFLOW;
+> +				goto out_restore_sg;
+> +			}
+> +
+> +			prev->length = new_prev_len;
+>   			iova_len += pad_len;
+>   		}
+>   
 
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171944v3/index.html
-
-Participating hosts (40 -> 33)
-------------------------------
-
-  Missing    (7): fi-bsw-n3050 bat-adlp-6 fi-snb-2520m fi-pnv-d510 bat-dg2-13 bat-apl-1 fi-bsw-nick 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19010 -> Patchwork_171944v3
-
-  CI-20190529: 20190529
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_171944v3: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171944v3/index.html
-
---===============8927109805927448773==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Guard against NULL driver_data in i915_pci_probe() (rev3)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171944/">https://patchwork.freedesktop.org/series/171944/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171944v3/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171944v3/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19010 -&gt; Patchwork_171944v3</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171944v3/index.html</p>
-<h2>Participating hosts (40 -&gt; 33)</h2>
-<p>Missing    (7): fi-bsw-n3050 bat-adlp-6 fi-snb-2520m fi-pnv-d510 bat-dg2-13 bat-apl-1 fi-bsw-nick </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19010 -&gt; Patchwork_171944v3</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19010: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9059: f5a4ff79434df36db1d6b13deb37c90a6602565e @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_171944v3: 275df33dcf4c5d018717867a0b29ed1d3b62c1ef @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============8927109805927448773==--
