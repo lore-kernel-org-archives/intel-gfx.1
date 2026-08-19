@@ -4,27 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D93DDC5DF6D
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 11:25:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B82EC5DF6D
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 11:56:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6694910EE00;
-	Wed, 19 Aug 2026 11:25:18 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBF810EE01;
- Wed, 19 Aug 2026 11:25:17 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============5808874485774299101=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE37A10EE0A;
+	Wed, 19 Aug 2026 11:56:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jZGfP4LO";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3584B10E129;
+ Wed, 19 Aug 2026 11:56:17 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C479D43BED;
+ Wed, 19 Aug 2026 11:56:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D861F00A3A;
+ Wed, 19 Aug 2026 11:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787140576;
+ bh=Y9TFlC97/fU5+jsWSUYX/0b4tnqB948mdcrxZc+Z0N8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jZGfP4LOjEgn/xAy8xqqbTtHf3OvevkPjSPvRwpOxQL4yNlXiX16JziQPRZ3ri78N
+ z8QmSHVTA9+sbqPnawJSgwo3wFIK9EWukI5LzffyKU+ctA/C5y5CPxKZqFd0sTyRnA
+ P1nQbILmsQWdudMyVt6o5CSH/TuXu0EKZIe8/j/oZe7Vk3CWBpFwksddF2BmqK7Cdi
+ 04fR/A5yGkXuM7bn5n+/a8JRu7v5ZJlyZ10Wry3pT+0iBLK2eyK3B8mrDi7tmpWR+b
+ Gtmm3F/PuLqHRFVwo8sjeV5sLmDTdhGcYNJv6pu9bwpW6fSZV/GWbyFd50uzC4npnK
+ 8HkeVNs3QDLUA==
+Date: Wed, 19 Aug 2026 13:56:13 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ iommu@lists.linux.dev, Andi Shyti <andi.shyti@linux.intel.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v5 1/6] drm/i915/gem: Count mapped pages in a folio
+Message-ID: <aoWMcLMNCl0cjcLx@zenone.zhora.eu>
+References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
+ <20260817095648.2438192-2-krzysztof.karas@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_PCI=3A_Disable_not_suppor?=
- =?utf-8?q?ted_reset_methods_on_DG1_0x4905?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Janusz Krzysztofik" <janusz.krzysztofik@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Aug 2026 11:25:17 -0000
-Message-ID: <178713871732.66930.2806750011478801564@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260819102509.1662504-2-janusz.krzysztofik@linux.intel.com>
-In-Reply-To: <20260819102509.1662504-2-janusz.krzysztofik@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260817095648.2438192-2-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +60,124 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============5808874485774299101==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Krzysztof,
 
-== Series Details ==
+your patch looks good, but it needs to be polished a bit.
 
-Series: PCI: Disable not supported reset methods on DG1 0x4905
-URL   : https://patchwork.freedesktop.org/series/172446/
-State : success
+...
 
-== Summary ==
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> index 06543ae60706..f338dc39fad1 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
+> @@ -68,10 +68,13 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+>  			 unsigned int max_segment)
+>  {
+>  	unsigned int page_count; /* restricted by sg_alloc_table */
+> -	unsigned long i;
+> +	unsigned long next_pfn = 0; /* suppress gcc warning */
+> +	unsigned long folio_start = 0;
+> +	unsigned long folio_end = 0;
 
-CI Bug Log - changes from CI_DRM_19015 -> Patchwork_172446v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+Can these go inside the for loop? Keep variables in the innermost
+section needed.
 
 
-Changes
--------
+Besides
 
-  No changes found
+> +	struct folio *folio = NULL;
+>  	struct scatterlist *sg;
+> -	unsigned long next_pfn = 0;	/* suppress gcc warning */
+>  	gfp_t noreclaim;
+> +	unsigned long i;
 
+Please, don't reorder variables in this patch, it's out of the
+scope.
 
-Build changes
--------------
+>  	int ret;
+>  
+>  	if (overflows_type(size / PAGE_SIZE, page_count))
+> @@ -85,6 +88,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+>  	if (size > resource_size(&mr->region))
+>  		return -ENOMEM;
+>  
+> +	if (max_segment < PAGE_SIZE)
+> +		return -EINVAL;
+> +
 
-  * Linux: CI_DRM_19015 -> Patchwork_172446v1
+the max_segment validation is out of the scope.
 
-  CI-20190529: 20190529
-  CI_DRM_19015: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9060: 9060
-  Patchwork_172446v1: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux
+>  	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
+>  		return -ENOMEM;
+>  
+> @@ -101,7 +107,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+>  	sg = st->sgl;
+>  	st->nents = 0;
+>  	for (i = 0; i < page_count; i++) {
+> -		struct folio *folio;
 
-== Logs ==
+Why are you moving this out of the for loop?
 
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v1/index.html
+> +		unsigned long folio_page_index = 0;
 
---===============5808874485774299101==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This initialization is not necessary.
 
+>  		unsigned long nr_pages;
+>  		const unsigned int shrink[] = {
+>  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
+...
 
+> +				}
+> +			} while (1);
+> +
+> +			folio_start = folio_pgoff(folio);
+> +			folio_end = folio_start + folio_nr_pages(folio) - 1;
+> +		}
+> +
+> +		folio_page_index = i - folio_start;
+> +		if (WARN_ON_ONCE(folio_page_index >= folio_nr_pages(folio))) {
+> +			ret = -EINVAL;
+> +			folio_put(folio);
 
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>PCI: Disable not supported reset methods on DG1 0x4905</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172446/">https://patchwork.freedesktop.org/series/172446/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
+I think shmem_sg_free_table() drops the folio reference already,
+right?
 
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v1/index.html</a></td></tr>
+> +			goto err_sg;
+> +		}
 
-</table>
+Is this WARN_ON_ONCE() check really necessary?
 
+>  
+>  		nr_pages = min_array(((unsigned long[]) {
+> -					folio_nr_pages(folio),
+> +					folio_nr_pages(folio) - folio_page_index,
+>  					page_count - i,
+>  					max_segment / PAGE_SIZE,
+>  				      }), 3);
 
-    <h1>CI Bug Log - changes from CI_DRM_19015 -&gt; Patchwork_172446v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172446v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19015 -&gt; Patchwork_172446v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19015: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9060: 9060<br />
-  Patchwork_172446v1: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+...
 
-</body>
-</html>
+> @@ -186,6 +216,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
+>  	i915_sg_trim(st);
+>  
+>  	return 0;
+> +
 
---===============5808874485774299101==--
+Drop this change
+
+What I want from this patch is a minimal change, without any
+churn not belonging to the sole scope of the patch.
+
+Thanks, Krzysztof,
+Andi
+
+>  err_sg:
+>  	sg_mark_end(sg);
+>  	if (sg != st->sgl) {
+> -- 
+> 2.34.1
+> 
