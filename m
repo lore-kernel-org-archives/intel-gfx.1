@@ -4,27 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C2DEC5DF85
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 09:06:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AA67C5DF6D
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 09:31:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BEF710E72D;
-	Wed, 19 Aug 2026 09:06:39 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18FA010E72D;
- Wed, 19 Aug 2026 09:06:37 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============3758790838063971533=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 842C710E611;
+	Wed, 19 Aug 2026 09:31:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="U9gn1BeH";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D29910E105;
+ Wed, 19 Aug 2026 09:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787131873; x=1818667873;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=3u3xlMJ5fpbZzxsclW4XVg2U0FbIpBnl65cYigskGc0=;
+ b=U9gn1BeH+xwG+RdIXXnIr4TXLO7zeem0F81QzV5OImFrAF9RhN1iAZzc
+ UNk+6utUjZatrpsrJM8pPk6R4fdWsfti6osMxGIhOXbv3yuE1PrVxElcx
+ jmRJOY91kxr0RJtzq+6Z+lRo0NS0Xm+ioQAlFphU8Z99hGOyu5RF6sdwR
+ oF/Ytsf0OA0dYNIgjmzE9sVbXz513rrNztFQ755vFCeOHsqcceD26JxUL
+ 2iH4jJv4tTLUvHz8TX7x6gfqKYor/EleehWNwhaEVJwpXKJYMAxYJHdGi
+ ZlploTtbqy/tYvQkks3pr720nO2cb3jGPZhKJEEuFqPmCWzmwpFyOrjxQ A==;
+X-CSE-ConnectionGUID: 0h6dj6blQ++kgbIbIrGk6g==
+X-CSE-MsgGUID: /r8IHl+jRyayq39ALpfxBg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="113185481"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="113185481"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 02:31:12 -0700
+X-CSE-ConnectionGUID: 2PuugOzfQAeylrVcZiNS/g==
+X-CSE-MsgGUID: 42QGZO9kSMWCtkqYS0dWAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="262230989"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.152])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 02:31:10 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Intel Graphics
+ <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Unexpected files in the drm-intel tree
+In-Reply-To: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <aoR9fNYRhmWDNJtz@sirena.org.uk>
+Date: Wed, 19 Aug 2026 12:31:07 +0300
+Message-ID: <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_Dis?=
- =?utf-8?q?able_live=5Fpphwsp=5Fruntime_on_graphics_version_12_=28rev5=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Krzysztof Karas" <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 19 Aug 2026 09:06:37 -0000
-Message-ID: <178713039709.66603.16471664315280592802@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260813113852.1699374-1-krzysztof.karas@intel.com>
-In-Reply-To: <20260813113852.1699374-1-krzysztof.karas@intel.com>
+Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +69,34 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============3758790838063971533==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Tue, 18 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
+> Commit
+>
+>   ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
+>
+> added this unexpected file:
+>
+>  drivers/gpu/drm/drm_panel.c.orig
 
-== Series Details ==
+So this has been reported before for drm-misc [1] and drm-xe [2] trees,
+and has been fixed in the drm-misc tree by commit 651b0bd0922b
+("drm/panel: remove accidentally committed .orig file").
 
-Series: drm/i915/selftests: Disable live_pphwsp_runtime on graphics version 12 (rev5)
-URL   : https://patchwork.freedesktop.org/series/170801/
-State : success
-
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19015 -> Patchwork_170801v5
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v5/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+Similar to what Joonas said in [3], this should really only be reported
+once for the tree *and* branch where it originated. There's not a lot of
+value in reporting again whenever something gets merged somewhere else.
 
 
-Changes
--------
-
-  No changes found
+BR,
+Jani.
 
 
-Build changes
--------------
+[1] https://lore.kernel.org/r/al9cE1PAYd9jyCfZ@sirena.org.uk
+[2] https://lore.kernel.org/r/annCRqegoQ9PBClJ@sirena.org.uk
+[3] https://lore.kernel.org/r/178712337932.24680.17671628229026350089@jlahtine-mobl
 
-  * Linux: CI_DRM_19015 -> Patchwork_170801v5
-
-  CI-20190529: 20190529
-  CI_DRM_19015: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9060: 9060
-  Patchwork_170801v5: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v5/index.html
-
---===============3758790838063971533==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: Disable live_pphwsp_runtime on graphics version 12 (rev5)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170801/">https://patchwork.freedesktop.org/series/170801/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v5/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v5/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19015 -&gt; Patchwork_170801v5</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170801v5/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19015 -&gt; Patchwork_170801v5</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19015: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9060: 9060<br />
-  Patchwork_170801v5: 291141d363710c4ac7ef9ab71153459d746ed50c @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============3758790838063971533==--
+-- 
+Jani Nikula, Intel
