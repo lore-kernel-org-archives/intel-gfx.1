@@ -4,51 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7B74C5DF6D
-	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 12:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CAE2C5DF81
+	for <intel-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 14:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3653B10EE0E;
-	Wed, 19 Aug 2026 12:12:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AFDA10E14A;
+	Wed, 19 Aug 2026 14:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UzJHiCbq";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EANw8Em4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8B9510EE04;
- Wed, 19 Aug 2026 12:12:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7883240085;
- Wed, 19 Aug 2026 12:12:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A79AE1F000E9;
- Wed, 19 Aug 2026 12:12:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787141563;
- bh=C/OCnBh2+Bwi09gb9qHRbFFL6oQmAq5hReVyPfFAbCA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=UzJHiCbqOjtKEPHcE/yhg6Mt7X5Hwf2ERYrbg+8xW+xp+ZT9WpKFa0l9OOwaPvbi1
- FbErRLzdHyUBHtHoGeK/20UTYqbzG8+48ZUXHNfvEhGgVvsVy/J56RXdvF0ii2164H
- zNIqfUrsjN5vPR4PNHGwCz/Ef+i3y2vnK5mLZyAqY5/2ll38V0mIp48kHq4HoRpEZ7
- SgJj8qofWxMB0+Br/Om43JSOksEX6hweEN3EmhA/7kQENrHV0qU3IHsiJ1ynI8LG26
- FsA3yW1qiXrAnR9n3TISVHHi3+IbKD8MPp4IcVl27EOjpSCAYpEGBaGrL0pEAdgo89
- jAi/zQwm+TKog==
-Date: Wed, 19 Aug 2026 13:12:38 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org
-Subject: Re: Unexpected files in the drm-intel tree
-Message-ID: <07e2d455-ae76-46aa-821a-a455118c60d4@sirena.org.uk>
-References: <aoR9fNYRhmWDNJtz@sirena.org.uk>
- <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BA4210E14A;
+ Wed, 19 Aug 2026 14:05:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787148319; x=1818684319;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ucjcoGDwzjv4BxbbW2UKeAHcc+/uoJ/ymva2SDCA6+o=;
+ b=EANw8Em4JUM5fw0/01SHeL4P2PyG4D1O+g8MLq4WdtuSpofmFrHY0jGw
+ wH0bQGPWtjRb+noYOM5RsbguM7Q1mHUPWYvLD2MFOVWP9ZgXSacpqICc8
+ O/IJILA+YB5ZwKmKwR1EYH1cZbUMhyRk96rJthbZHxgglfeDwHjzmGEBp
+ Td80WoJ5P+1MuMQ0bglj7uM9pj5aO4g5J+WcBwsRx3/9H3EQ44+Qn0IYZ
+ 9wZGFlIQ7Ux9t99iW1aU9mpV4fmKVDGftdZnmKvNwCdrIyF/eX6qZeSMl
+ 2SQBPtLhNV+1fPB9n/eDBVVGaGkuc6RWi9V3dTmyG+EVjv/qbxRMCJBuM Q==;
+X-CSE-ConnectionGUID: r58yXgByRuGTMYMjIK+Cwg==
+X-CSE-MsgGUID: jVrkq1cjQY+ABmzaevN23g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87582400"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="87582400"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 07:05:18 -0700
+X-CSE-ConnectionGUID: AlAOv4YNQxWB2nZD2b+qeQ==
+X-CSE-MsgGUID: bSgwB1m6TT6itsVIyzJAZg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="259393228"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.152])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 07:05:16 -0700
+From: Jani Nikula <jani.nikula@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@intel.com, maarten.lankhorst@linux.intel.com,
+ ville.syrjala@linux.intel.com
+Subject: [PATCH 0/4] drm/{i915,
+ xe}/display: another stab at i915_fence_timeout() removal
+Date: Wed, 19 Aug 2026 17:05:09 +0300
+Message-ID: <cover.1787148235.git.jani.nikula@intel.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="G3zcZBlb/+C9HnFm"
-Content-Disposition: inline
-In-Reply-To: <cbd77031f484d0c044666c4fc11fd3ef273459bb@intel.com>
-X-Cookie: Allow 6 to 8 weeks for delivery.
+Content-Type: text/plain; charset=UTF-8
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +72,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Another go, with cleanups first.
 
---G3zcZBlb/+C9HnFm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Jani Nikula (4):
+  drm/i915/display: use struct intel_atomic_state *state variable naming
+  drm/i915/display: reduce indent in intel_atomic_commit_fence_wait()
+  drm/i915/display: debug log about fence wait timeouts and other errors
+  drm/i915/display: use fixed 10 second timeout for fence wait
 
-On Wed, Aug 19, 2026 at 12:31:07PM +0300, Jani Nikula wrote:
-> On Tue, 18 Aug 2026, Mark Brown <broonie@kernel.org> wrote:
+ drivers/gpu/drm/i915/display/intel_display.c  | 25 +++++++++++--------
+ .../drm/xe/compat-i915-headers/i915_config.h  | 16 ------------
+ 2 files changed, 15 insertions(+), 26 deletions(-)
+ delete mode 100644 drivers/gpu/drm/xe/compat-i915-headers/i915_config.h
 
-> > Commit
+-- 
+2.47.3
 
-> >   ac3baea883dab ("drm/panel: find_panel_by_fwnode() return a counted reference")
-
-> > added this unexpected file:
-
-> >  drivers/gpu/drm/drm_panel.c.orig
-
-> So this has been reported before for drm-misc [1] and drm-xe [2] trees,
-> and has been fixed in the drm-misc tree by commit 651b0bd0922b
-> ("drm/panel: remove accidentally committed .orig file").
-
-> Similar to what Joonas said in [3], this should really only be reported
-> once for the tree *and* branch where it originated. There's not a lot of
-> value in reporting again whenever something gets merged somewhere else.
-
-There's no database of issues here, the check that's being done is based
-purely on the new commits and diffstat that just appeared when we fetched
-the tree.  Deduplicating things is in general a depresssingly hard
-problem even for basic stuff (eg, is this a new issue or a recurrance of
-an old issue?), and the much more common case is that there's downstream
-trees sending problematic commits to their upstreams which the upstreams
-would like to know about.  DRM is quite unusual in the amount of
-sideways merging that goes on between parallel trees, and can also be on
-the higher side for the length of time issues get left for once they've
-been merged into other trees.
-
-What I would have hoped would have happened here is that whichever tree
-originally had the issue would have fixed it before they sent it to be
-merged elsewhere, then it wouldn't pop up in all the other trees, or if
-the original issue already got merged then a fix would be sent promptly
-before other trees start picking things up.  In this case it looks like
--next first saw this on July 21st and the fix wasn't posted until 10th
-August (then applied on the 11th) so there was unfortunately plenty of
-time for things to propagate around.
-
---G3zcZBlb/+C9HnFm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqFnbYACgkQJNaLcl1U
-h9C7iAf6AgNJhQWTkBsSQw4F+7KObOf+iJAyNGSkX6TUOXpmUvGy4Vr1zUCG1OJV
-NtSctTaq1X8BzQibvSyclAA/oGrVjzs3JfST1D81jqZRqZT4+OwCmnhpMyn6CXYh
-s7hY5FmHRLaREqf4Q8mrAJ+d18YMSg0kYqFIllPGRDX6F7erkAe8hEB0pHL9Q6+/
-Qe3zz78PtU+GZMSF+ySBFVC3i/wmtO+rLEH9n/2YWFT+DMqGMxsLiY7CRUqHxGXY
-SsecaPhoR0Rh5o37Zu1S844oJlKOHYc22DQaeywEEuhG8H+FiqzxzTp/0ym/zQqE
-FvF63lygNB3OwigjdGan5Sm/lRtWPQ==
-=/bmt
------END PGP SIGNATURE-----
-
---G3zcZBlb/+C9HnFm--
