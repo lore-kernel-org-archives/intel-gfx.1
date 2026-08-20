@@ -4,102 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE0E8C5DF81
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2FFC5DF81
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:54:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AC4F10EF09;
-	Thu, 20 Aug 2026 06:52:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D08FF10EF16;
+	Thu, 20 Aug 2026 06:54:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="QUj0JyTy";
-	dkim=pass (2048-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GjM+KCXM";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ea3TBV9a";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mtWC9orN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JyvAL0sl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fqk28GyM";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01FCE10EF1A
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 06:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787208718;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type;
- bh=Ig9PtQUJTBDe//rfjqJRCwlEdyzXe6Qwqvd8zWFMm+o=;
- b=QUj0JyTyxVrhzSBKYkx4BRq+4h7isrZMJZapzNJN5fBRCXeYSfFMIezwgjKyu0z2KC/S1N
- s1wPelAPA57oZ0BNNMtlkQ90qbCwpF1xlQ3rjN+18ClUi5ZnvJRpqA0q+9OzgoqnsXMihL
- jtP/7uqpDk1NHtJaTmp5F16xb6/FlvM=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-640-KiZfmxNpMWqLwGVAVcFyfw-1; Thu, 20 Aug 2026 02:51:56 -0400
-X-MC-Unique: KiZfmxNpMWqLwGVAVcFyfw-1
-X-Mimecast-MFC-AGG-ID: KiZfmxNpMWqLwGVAVcFyfw_1787208715
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-49554715277so18458385e9.1
- for <intel-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 23:51:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=redhat.com; s=google; t=1787208715; x=1787813515; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ig9PtQUJTBDe//rfjqJRCwlEdyzXe6Qwqvd8zWFMm+o=;
- b=GjM+KCXMO4q/YbLCsBnwFaHEMZ3zIOKAtOxir6woBtc9eT0vNWYdva5IbVXdPBux8y
- nDwiw3aDZFBZcDmuZ7vBJ75npB8hCZgvBtT29Fw47SQeryYekS5alQR4L5zQorNCO+BS
- sdkYlra1AzgijmFDUBUgHHncJshJ4UPxuef9SboSI7pdhpeCZyfhbGgQTndb3ujrT73g
- g38p+OeQ4DyjmvSY5jDmCjQM8LN0XbO76xTzfnJ090HyxL+B6arPES6VeHVjvy1posfu
- 61wbKQ/VcBuDnQX9ePKjCr7/ftfgvCLaSouXrHe3X8BvNj/JcHz+HsmpTKFPO0VyLtPx
- LKKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787208715; x=1787813515;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ig9PtQUJTBDe//rfjqJRCwlEdyzXe6Qwqvd8zWFMm+o=;
- b=bCEihxDv5aT9udhcd4CzNJKUnL+GUUCBvU1fbq0bRHuzHcUfA3gT6ygf/+E+18rMpG
- VSDbDIQIiBR/UeO0lsTa3zwAIrQ+XxoZqKyLhezcOA/l2OVUvztGoroKZiSbGvpJrfx2
- rpkI1LebCgNijHwfYw+MsYEifvxHeu8+wFYK2gXR66CSkdNQneoIb2DB7fw8zonVSnTa
- fmXuViPvqZhbx7yN3V44gzoHSyr752s0P8fwYqmi/JF4r8lycnxt2II9RaCmPd9dAZ5m
- qlF5ybaMiz1OFFHjYbV2A3Y0187NWP1L/AprvSDJyBr+bgK2XX3ysXuu6moRFiBSFz1b
- deLg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoIVcg7RLXgiJfWG442/S6clMgf0WWY0PvneD6YbD11dS34hhOmbiEgsPKAq9eQRhFxEuY1dVzHIAg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyI07derlCIaUHWF3JJggAIdu2wP7f80NWFAMGCUs2CJIhKmCta
- fs0kesFfRCeGQwIzGsDyfu1w7S8HfhKv1ldI24n8BlH2bExAdrOzcS1eq6FQBM8ToG9vQ1+LnB2
- 1WCKp4hIxalh3vB+muCaK/Ohq7wZGYaz+x6QoEnlwZgS5estcNcZAc6Lw5gEsLh3BsOO9Hg==
-X-Gm-Gg: AR+sD12MWLLOxsbmu8PzOebbtXvOEzSj+5j12s5u0VpOZ5m/FrhgiVR1ezS5KPQihMg
- cCzXxrxJSRQZivph+F5D/x90skQHZ8SCko5sHHTmiAdFbBb/pgHVQMxjl+dqnVZoUgCYKc3W9iw
- dU5bBRzqmWdV+KUCXnrJ/F4vrwqRNYbWZdANcWFODhWOM4CkbRoPI4xOe0QpSuX81bnXLvs87Gx
- 966AhUBnyRAjQZM0Z4GTdM9z5YO+i1Nguy19SkITaxn/VOMHo/0/ZdgCqdmjiNTRyKaRVRxU+Em
- GH9TQFohmGJF5u/NeDDuAPWjKg5PgDFjdLYEwUqRE+W3bSZNhqat+z7O+CHHF0GqOf36zuZMCA=
- =
-X-Received: by 2002:a05:600c:5291:b0:495:4fd4:619b with SMTP id
- 5b1f17b1804b1-499aa189357mr189153445e9.1.1787208714797; 
- Wed, 19 Aug 2026 23:51:54 -0700 (PDT)
-X-Received: by 2002:a05:600c:5291:b0:495:4fd4:619b with SMTP id
- 5b1f17b1804b1-499aa189357mr189152795e9.1.1787208714345; 
- Wed, 19 Aug 2026 23:51:54 -0700 (PDT)
-Received: from localhost ([2a01:e0a:a99:9822:ca7f:54ff:fe01:374c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499affa25acsm57805055e9.4.2026.08.19.23.51.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 23:51:53 -0700 (PDT)
-Date: Thu, 20 Aug 2026 08:51:52 +0200
-From: Maxime Ripard <mripard@redhat.com>
-To: Dave Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-misc-next-fixes
-Message-ID: <20260820-fabulous-nimble-woodpecker-ffa695@houat>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFD6710EF16
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 06:54:28 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 638CF84F15;
+ Thu, 20 Aug 2026 06:54:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787208856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=Ea3TBV9aJHMQ4nGbhso8lG+QJ0OjfuTfK7IOL11mRsL9VW2IUIOcH50hdNc1xJX2PxNVgB
+ UmXkAkCQnRaDCk/WNtFaamAVdzjwTTkjGsY8uYocPV4RZHhNZlcP5hNEuL0McKqwYQoJ7/
+ 10EPUAGAnxrb5TuD/T6Lcu7rkxPwSuA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787208856;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=mtWC9orNdouFa8DCLWPXTWFpyfzRAzc5mA+ApcZp7qQI6kESaiiC4rfC5cMD7CJkllCTmk
+ 2T/gc7F418D8O+Dg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JyvAL0sl;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fqk28GyM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787208852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=JyvAL0slVAMJ4ZgNEpYmekyQVQL1yRiBbvb86J7CIf20JcNzrfMs8V4+lapVo9JkNFo57m
+ w8zRj9vDJhMHpAadQqieC8GZGnYWSYLS1vpeFobHXFTBfA8lPMQZWN+KaZMJpgGN0qcqoM
+ idlFnJtGBwx3tXl1Nn2+PvhFXExsy2k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787208852;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=fqk28GyMqbm+M6byic1Pp0d8keCsy1LHCZ34KQutnpLNCu6jSMeo54DPAbOPg8GS9mbXF1
+ TBunt1qeiHlZm1CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E675C27A8;
+ Thu, 20 Aug 2026 06:54:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id odyVNpOkhmr4MQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:54:11 +0000
+Message-ID: <fa6953ff-1de3-40c9-8910-549083bb9a88@suse.de>
+Date: Thu, 20 Aug 2026 08:54:11 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="un3bfnjzayikx764"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 638CF84F15
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email, suse.com:url, suse.de:mid,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,54 +159,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+Hi
 
---un3bfnjzayikx764
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: [PULL] drm-misc-next-fixes
-MIME-Version: 1.0
+Am 17.08.26 um 23:05 schrieb Maíra Canal:
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
+>
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
+>
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
+>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
+>   include/drm/drm_utils.h       |  1 +
+>   2 files changed, 35 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> index 78e9f65e5477..18c2719d1fe9 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -9,6 +9,7 @@
+>   #include <linux/export.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>   #include <linux/sched.h>
+>   
+>   #include <drm/drm_utils.h>
+> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>   	return timeout_jiffies64 + 1;
+>   }
+>   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +
+> +/**
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
+> + *
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
+> + * same arguments, so the duration starts counting from zero again. New uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
 
-Hi,
+I would not speak of uAPIs here, as it's unrelated to the function at 
+hand. You might want to mention it in the commit description though.
 
-Here's this week drm-misc-next-fixes PR
+Please also see my comments on the docs of drm_timeout_abs_to_jiffies(). 
+Most of it applies here as well.
 
-Maxime
+Best regards
+Thomas
 
-drm-misc-next-fixes-2026-08-20:
-One patch to remove a WARN in favour of drm_warn.
-The following changes since commit 651b0bd0922b265c6c58d9dc84ef3fd00782a0cd:
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
+> +{
+> +	/* make 0 timeout means poll, as for the absolute variant */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	/* nsecs_to_jiffies64() does not guard against overflow */
+> +	if ((NSEC_PER_SEC % HZ) != 0 &&
+> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
+> +
+> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
+> +}
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 6a46f755daba..8c0cc9835413 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
+>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>   
+>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>   
+>   #endif
+>
 
-  drm/panel: remove accidentally committed .orig file (2026-08-11 09:52:43 +0200)
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-fixes-2026-08-20
-
-for you to fetch changes up to 271e90eb5f9ff34951647e5ed33c1775eebcca50:
-
-  drm: use drm_warn() in validate_blend_mode_for_alpha_formats() (2026-08-14 14:43:23 +0100)
-
-----------------------------------------------------------------
-One patch to remove a WARN in favour of drm_warn.
-
-----------------------------------------------------------------
-Leandro Ribeiro (1):
-      drm: use drm_warn() in validate_blend_mode_for_alpha_formats()
-
- drivers/gpu/drm/drm_mode_config.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
---un3bfnjzayikx764
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaoakCAAKCRAnX84Zoj2+
-dnuUAYCkSDWlQeFu51mDKuUD9WokDbCcf7CFD62DxVJVMlGaFnc2jWxMdlG28vlJ
-SXX80ikBeQFcCZBAYdfiK0iOqdxnwppxb7KekYtNHLKdyzUPLb69cr6jat49bcON
-AjI7NUfQTw==
-=fa/g
------END PGP SIGNATURE-----
-
---un3bfnjzayikx764--
 
