@@ -4,146 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2FFC5DF81
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:54:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB920C5DF81
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 08:18:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D08FF10EF16;
-	Thu, 20 Aug 2026 06:54:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 149A010E180;
+	Thu, 20 Aug 2026 08:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ea3TBV9a";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mtWC9orN";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JyvAL0sl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fqk28GyM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TJsRi27o";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFD6710EF16
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 06:54:28 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 638CF84F15;
- Thu, 20 Aug 2026 06:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=Ea3TBV9aJHMQ4nGbhso8lG+QJ0OjfuTfK7IOL11mRsL9VW2IUIOcH50hdNc1xJX2PxNVgB
- UmXkAkCQnRaDCk/WNtFaamAVdzjwTTkjGsY8uYocPV4RZHhNZlcP5hNEuL0McKqwYQoJ7/
- 10EPUAGAnxrb5TuD/T6Lcu7rkxPwSuA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208856;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=mtWC9orNdouFa8DCLWPXTWFpyfzRAzc5mA+ApcZp7qQI6kESaiiC4rfC5cMD7CJkllCTmk
- 2T/gc7F418D8O+Dg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JyvAL0sl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fqk28GyM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=JyvAL0slVAMJ4ZgNEpYmekyQVQL1yRiBbvb86J7CIf20JcNzrfMs8V4+lapVo9JkNFo57m
- w8zRj9vDJhMHpAadQqieC8GZGnYWSYLS1vpeFobHXFTBfA8lPMQZWN+KaZMJpgGN0qcqoM
- idlFnJtGBwx3tXl1Nn2+PvhFXExsy2k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208852;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=fqk28GyMqbm+M6byic1Pp0d8keCsy1LHCZ34KQutnpLNCu6jSMeo54DPAbOPg8GS9mbXF1
- TBunt1qeiHlZm1CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E675C27A8;
- Thu, 20 Aug 2026 06:54:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id odyVNpOkhmr4MQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:54:11 +0000
-Message-ID: <fa6953ff-1de3-40c9-8910-549083bb9a88@suse.de>
-Date: Thu, 20 Aug 2026 08:54:11 +0200
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7C5110E180
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 08:18:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787213932; x=1818749932;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=ftQawko3ZW5UkHQHoBjRwPg8EyY1tn+bd/wX1CaFsV0=;
+ b=TJsRi27odSH9CcRHe7Zswpl4vWJpzJv2gGEzp7cMldVXYCg9/7x0KX3W
+ vR7IxNvjou94xr2jFpVJluyk4ick6x3WbRbH9RyqgGBFHfJHvPJZBF3K4
+ Ey7Vva6+BO1qOxxlopLA17dNwiZaNzGsbv32CmgJuECa0RwhcLJsV+FDt
+ 3gUbYXFrmDfE81F07VeNnXHRZDsWmWjoYobtvGCKqATc2/sJyE68euyoa
+ 6+Y2fciFlXzGdeBY1O9IvBLxCb1QSS0sSEl8w+rLytQwhK2eh/lzXAmKV
+ 9Cf0ffGbjwnVedfjAx3ISnQ5kq+nsPGQVCEVCTKVonGnw1iqqDDo2RTeI A==;
+X-CSE-ConnectionGUID: YyazgJbnSPSbc+rpRYqCqA==
+X-CSE-MsgGUID: kEdFssSSQdeX24geJjKmNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87863654"
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; d="scan'208";a="87863654"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 01:18:52 -0700
+X-CSE-ConnectionGUID: 2gc2uCdTR/yhtBEYKURfWQ==
+X-CSE-MsgGUID: t0XxwruOTzaNqHlbx/whjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; d="scan'208";a="264584689"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 01:18:52 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 20 Aug 2026 01:18:51 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Thu, 20 Aug 2026 01:18:51 -0700
+Received: from CH5PR02CU005.outbound.protection.outlook.com (40.107.200.46) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 20 Aug 2026 01:18:49 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xoGTvbhW/t6I8t4JHzfT/Ta6Zjcs5UBoOxwisDv7DDLSfacz2iyisRRQjYZ0W+90gsXlWubwHfn4tWKlIdtwOE6qql0PsfJJOsXs4xj97pY7MA28t/9NrQKBQibEoAoVKtrQ4rryBPadGU3zd4pci6OkpVxlb6lt1E/jBv16wS6OkrTxCVhzIwKjT8SGa7SfZm3XokHzB6+RhFaUPQTrjdMBRTl5b6w4Tj2K0va88Rk1wVAYmf+9uyBD1JV6a94+PKMzA0qVCyzVyER+FMP9GRWCIWOaWjr3upZaAqS6Osv4kXdb4Aly4AVA8pc1BzJiu7phLXC24NqISWnxuPaIOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=beFa8GphNp+Crswxd+8EAPVN01PttNg7rET7NRFyJFY=;
+ b=DPfkuj8AaDI19sdaQqUMvZ53y/km6w2rtcZV2j3g6cBxZAem5ilElYMz5kHNmjn6v9gh3XFaJdO1zBTp1G5lbThcgX1KrYIJYKEzfhxUCsneqVBLxkLhZCM8kpkqx/IbyIopcXm95jm//bmcMlt+dBx8wjB6Wg/Pad5g6nTwk+WhRdMnhyb0sb9L0HlyayAKipdHyer3jnVXK36Te3BoXHK01Npu88Ck6XrpWs39Rwd1mONuInLNKYLs9I3THMqeRD8m9xgDYic5kO3xpcEPsld+4CYFgBQQ7zXMN+LEul22JToD1r/kIaKIL/zS6p/xr3aHFz+j3dy9jUUVPgyAoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from LV0PR11MB9792.namprd11.prod.outlook.com (2603:10b6:408:385::5)
+ by CH0PR11MB8141.namprd11.prod.outlook.com (2603:10b6:610:18a::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Thu, 20 Aug
+ 2026 08:18:40 +0000
+Received: from LV0PR11MB9792.namprd11.prod.outlook.com
+ ([fe80::1b1f:d9a8:ce76:e9d8]) by LV0PR11MB9792.namprd11.prod.outlook.com
+ ([fe80::1b1f:d9a8:ce76:e9d8%5]) with mapi id 15.21.0339.008; Thu, 20 Aug 2026
+ 08:18:40 +0000
+Message-ID: <9c06fa6d-9d23-4b78-af68-cc9743bbf5cd@intel.com>
+Date: Thu, 20 Aug 2026 13:48:31 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
+Subject: Re: [PATCH] drm/i915/selftests: Report missing RC0 power as an error
+To: Sk Anirban <sk.anirban@intel.com>, <intel-gfx@lists.freedesktop.org>
+CC: <anshuman.gupta@intel.com>, <riana.tauro@intel.com>,
+ <karthik.poosa@intel.com>, <raag.jadav@intel.com>, <soham.purkait@intel.com>, 
+ <mallesh.koujalagi@intel.com>
+References: <20260729112446.2919206-2-sk.anirban@intel.com>
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 638CF84F15
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email, suse.com:url, suse.de:mid,
- suse.de:dkim, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+From: "Nilawar, Badal" <badal.nilawar@intel.com>
+In-Reply-To: <20260729112446.2919206-2-sk.anirban@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0304.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:220::9) To LV0PR11MB9792.namprd11.prod.outlook.com
+ (2603:10b6:408:385::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV0PR11MB9792:EE_|CH0PR11MB8141:EE_
+X-MS-Office365-Filtering-Correlation-Id: d522327f-0f5d-496d-b46a-08defe93a41d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|23010399003|10067099003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: ziRy1BMB8oFIee8Gfvnf/WWgWhvGCOuBkQUMRKRw6CUaQPuGl4Aliy7VvtZhToePVkVzgNWpvkQKmEldf03xFGJxQwTJIUN0as286E9sB6iDQhpSeDmSkiv1WPNS6eopDndfR9lLhnt35jM/mWe5j/zry99MfBAwHJ9Y/2rPaxAKkNfkA0qmBKqVKbZyeArbIS2RYEuwB24B3SNolhd1tup+X8fDgEPFkF8rN5N3HDFSHOoqrmRdmvZB0g6RkBF7fQQeY/7rAS370lB7kqIuzVZOyIQlc875+Pp/iwCIEbfKOLlPwjxiTeZzmAjY5XwbUQ8jvpgbDWPRaD95Thkh0hqhFShde9v+vBPSSTcoRCm8bTfEvTcd5oO6+FnlqccbuE83Jp22OsrVQ+MHyih04LkiJ5d3vvOYbdy95qhj1OjSPYRz4bGlCXI4su2NUvtfuQhALQx3qbele862lUSuPIzdQ6oCjT/8sCAikWh/IgawZH4hMTHKiUBoMX7lUWS6xFDLFBOnpiPXuWmY7t4X+ySChREcVInpl0F8qP2aCV6GfcsiSPBEG2MI3Z5o0p1P7oOBicw+8G/8JI4xbjm5efTLjbuSKb/lX/rB37omUofEyN1IOJPqYH1tvhP3Oc9YPQWwtP9ML3OrGUemPZ7+b6eiMQOVuygpYhqkUYKcuh8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV0PR11MB9792.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bXR3RTlDazd1S2lRZnFFazRXUS9QcUs5MmhyUmFsQVkyUlFsQTNOMGlEdWFJ?=
+ =?utf-8?B?UXRvOHpBVklKdWNXMEorem5pb2pWMHgzKzA0Vll1S1cyRUxCMi9hT0VyUDhq?=
+ =?utf-8?B?REVtNFVEL3hTLzdZSE5keVVtRitJVjJMeEpkYUpPY0JoSCtKMnZhcW8yYWJL?=
+ =?utf-8?B?NFR2M1V4Y3lNeHJZeDlLVEVoTUxlaUhHUzgzMnJweTNEV2VFb1huSVVtTUlX?=
+ =?utf-8?B?OFBNVjVxWnRrbzVLRGRBN1F6UDBLQlY5aEk5N1ZUVlovdlZyZmdJYUhUQlNp?=
+ =?utf-8?B?L0N0OXNqNis1RldHRzdHOHJyMThPUFJ1amxtM0s2Z1NYTlRFY3loWGhsR01v?=
+ =?utf-8?B?bGVzRnVLYWk3RTRvcVNRRnN2MDZnQ1p1c3REZEh5SWs3Zmt3TDAvaWJIVUIr?=
+ =?utf-8?B?ek5YdTVJWllnY1JzbkxtUlhMSm1JRmtjMDE3eG1FYUV3ODd4cW5zQ2FIWFRD?=
+ =?utf-8?B?Q0VKT2ZSeWtCNERhTElldE42MmNCSFFDZWJFTDZSYlROZ2Qvb3AxSXZRc2tn?=
+ =?utf-8?B?THZ3RkIzb3ZESnhMemFoUnlLbVMwQVZQRUVDNFZnK3RWZHRMZFh2M2FuMXFL?=
+ =?utf-8?B?eFJ3NHNzbjd2akV2UzZDV3RBaFZkb0JYQWJhdkNrWnBCZmdGNzhhT2hFVU5p?=
+ =?utf-8?B?WDV1Z1hpNFZ5c09vUVZTdENDYmFGb1RoY2tTU1U0VHdTQ0VRbXBjVG9GS1lD?=
+ =?utf-8?B?TGx2MTRSN0tOTVBmVnZsUk11cEg1dVB6ZXMrdW9wMmdiVEpmK3hUWTV3RkJz?=
+ =?utf-8?B?MVhVaFNXb3NNTlNRSWlTc0dHcWlrb0EzcE1aSElUbGxnM1pzY1ZCdG5HR0RE?=
+ =?utf-8?B?NEZ1MmtpODNFcnJ1OGE0M3d3NzhudE9RZE1pcitDYk91aUp3VWFScFNiMFo0?=
+ =?utf-8?B?RWpOOXRDd1cyZ3luVU9qSWZlL0VOQSt6blBPdDJldFFlRm92VjkzcTY1WWdv?=
+ =?utf-8?B?SHVaVGRWTkV4R3lBSmdKRDNXVnF6R0ZzajVhWjRxOFRNR2F3UkFpWUpWSDVY?=
+ =?utf-8?B?RmZaNUMvZGQ0UEh2QWJpam8rVml6NGNSd3VkVWdDT0ZaRzhJbFJFZVF4RFNu?=
+ =?utf-8?B?aU9vZTZVRXphV01ZYU1mQUY1S0xWMjB6T3k3cjdSZkNpdUR5bCtVUGIxSGo1?=
+ =?utf-8?B?UWdkeE9LZ250Z1hmR3ZqbEFzK01PODh5N1ArVzZKNnRacExGK2xWajYyQy96?=
+ =?utf-8?B?OUZjZGViY204eTl6a1JDclQ2NHAvV09KQ1FWOG1OcGRna3pENW0yU1JUNzVz?=
+ =?utf-8?B?ZGczb1ljeXEyNmZReDkwZ21hMlRMVUNUZTRTTzJNd3VKOGtUUC83SGFQUXFi?=
+ =?utf-8?B?V2FZK0dtTmtkSnBuSi94Y2MwRG1mVERUdkRodHlaNFJvQS91Z3J0a1VKL291?=
+ =?utf-8?B?MEw3Vkg5RXpMcjJYcmIyQVArSk1RR0xHS1V0RHpsa3NSUDB4ZitUU0VoVTB1?=
+ =?utf-8?B?SDVwUnBLZG1NRC94dnZVdlBuaDRpZS9ScnVWZFhGV0FBQjJpcEFDT0VoSCty?=
+ =?utf-8?B?SXVPREhSRnNROXl2MUtZbFVyYXBaOE5ZSk11RGtGeVN6aTlEcW9nNktIVHR5?=
+ =?utf-8?B?QXZNaWNJVmxlRnFBK0tWK1pXQWxyYlZXVENvRFBEUVZCSzZTMWV5VUxkVHVu?=
+ =?utf-8?B?WmRzNWdCRmVsbWhtVXJlcE9MU0VxY3JFNmJVdkx5Z2srY3lLUjZwVGFxRUhP?=
+ =?utf-8?B?dVY2NTlwQk9SRVRPRDBNU0daK3VaR1RocTkrV2ozM3liUE9WZkJpUmJuSlkr?=
+ =?utf-8?B?ZlU3OXM4Q2hlQ256dWFlbmc0TWtMT1RXdFhCaFRmOS9ySWNqTHlPakJXNm9u?=
+ =?utf-8?B?Wk9CYjkwWlVDMC9uMUhFZHVlVzdhdW9YVUJBdE5JSTJjTjUybGRHRjZLVVEy?=
+ =?utf-8?B?L0xrSyt0aTdnSzI0ZHZrcGdtelBNR2R4SzlDTkVoTFF6NHYxeEVXTkR4MDl3?=
+ =?utf-8?B?d3luTldEM2JHbU5QZTlOK21ac3UvOTVXNUdGWFZ1bHdSNFhpeWhnTmxvL3JN?=
+ =?utf-8?B?cElwLzZGWUQ4RkgzLzB1cWd6TXFCT000R2FPVGQzKzlVOGgzUVNFcmVRQW1S?=
+ =?utf-8?B?RmlPNWNSd0krNE1QTUJtNWRGaXhTY1AyaXhlVElENW5sYkNFcGVndVYxTWRR?=
+ =?utf-8?B?ZHAxU25UclNDbHBLMmppTmJTNUI2TUtPK3liRmpuazBxSHRNRVBnQWhTUmJS?=
+ =?utf-8?B?Qm5KOTVIbEpFeEh2QzBHeXErZ2hwMmhiMlhoQUxGemZVNHZxbVAvWCt5YzdZ?=
+ =?utf-8?B?OXhqcW5kZCszak8rVFNGaFI5SHdncUhJSGk2ckdWbU5MNURCTVhMRDhpOUt0?=
+ =?utf-8?B?NFFsWXl0KzlUaXo3VFlXc3FQczlDc28xMUo2eDlFZ25SdDhEZ1BRdz09?=
+X-Exchange-RoutingPolicyChecked: CJtgg4SufBPaYekpzk4JXyU45Xnu0LqOQZ9iBIYr2dY6tEVNZnH5u2biL66OMFizhueRLnPlfS67CswIl7+y/wd/Fxaj7PDQew6SqHGVH1VZ9gm/S3mUcmETZ7x67TFdsS4S/yb2lBCAAsfeY2V8V//dCt0TuADHmsxwjin2GvXYpQoRRwon1MKlik4ahIUebTyRimt6HMsKYKfj6vaaiMpjMS8SiY9k/mOZ6tnCedkzk+jaQIlub0n4SBlQOX3DtK/FxBpE0IFgPQl3nHUGvkMHIyfy3007lrjBgkGXqZzEq6rifwbp33H3jZVgb3ecRQgKkQ6BqZ8c+nMUwHcqBA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: d522327f-0f5d-496d-b46a-08defe93a41d
+X-MS-Exchange-CrossTenant-AuthSource: LV0PR11MB9792.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 08:18:40.3341 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9oPdHx+0HGCmZNRaeuasEHT/VLH8O0rv1FuMWqM4Qt2DRBUhqH1ZFNqGZnTdipu+P1FjNt/CC33uG1NX50nOvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR11MB8141
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,106 +170,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi
 
-Am 17.08.26 um 23:05 schrieb Maíra Canal:
-> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
-> absolute deadline, but there is no equivalent for the drivers that
-> express a wait as a duration. Drivers such as i915 and v3d convert the
-> value themselves.
+On 29-07-2026 16:54, Sk Anirban wrote:
+> The RC0 no-power case is a hard failure (-EINVAL); log it via pr_err
+> instead of pr_debug so it is captured in default kernel logs.
 >
-> Converting a nanosecond duration to jiffies needs some care.
-> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
-> userspace-supplied timeout overflows its range and is silently truncated.
->
-> i915 already handles both cases in a local helper, which v3d has a copy
-> of. Add the same conversion to the core, so that it is available to any
-> driver and both copies can be dropped.
->
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> Signed-off-by: Sk Anirban <sk.anirban@intel.com>
 > ---
->   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
->   include/drm/drm_utils.h       |  1 +
->   2 files changed, 35 insertions(+)
+>   drivers/gpu/drm/i915/gt/selftest_rc6.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e5477..18c2719d1fe9 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -9,6 +9,7 @@
->   #include <linux/export.h>
->   #include <linux/jiffies.h>
->   #include <linux/ktime.h>
-> +#include <linux/math64.h>
->   #include <linux/sched.h>
+> diff --git a/drivers/gpu/drm/i915/gt/selftest_rc6.c b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+> index 90f30b988d68..68fb1830d411 100644
+> --- a/drivers/gpu/drm/i915/gt/selftest_rc6.c
+> +++ b/drivers/gpu/drm/i915/gt/selftest_rc6.c
+> @@ -92,8 +92,8 @@ int live_rc6_manual(void *arg)
 >   
->   #include <drm/drm_utils.h>
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->   	return timeout_jiffies64 + 1;
->   }
->   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
-> + *
-> + * @timeout_nsec: relative timeout in ns, 0 for poll
-> + *
-> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
-> + * whose UAPI expresses a wait as a duration rather than as a deadline.
-> + *
-> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
-> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
-> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
-> + * that a finite wait is never understood as an infinite one.
-> + *
-> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
-> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
-> + * same arguments, so the duration starts counting from zero again. New uAPIs
-> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+>   		if (!rc0_power) {
+>   			if (rc0_freq)
+> -				pr_debug("No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
+> -					 rc0_freq);
+> +				pr_err("No power measured while in RC0! GPU Freq: %uMHz in RC0\n",
+> +				       rc0_freq);
 
-I would not speak of uAPIs here, as it's unrelated to the function at 
-hand. You might want to mention it in the commit description though.
+Looks good to me.
 
-Please also see my comments on the docs of drm_timeout_abs_to_jiffies(). 
-Most of it applies here as well.
+Reviewed-by: Badal Nilawar <badal.nilawar@intel.com>
 
-Best regards
-Thomas
+Thanks,
+Badal
 
-> + */
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec == 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) != 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba..8c0cc9835413 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
->   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->   
->   #endif
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+>   			else
+>   				pr_err("No power and freq measured while in RC0\n");
+>   			err = -EINVAL;
