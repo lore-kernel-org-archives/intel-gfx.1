@@ -4,61 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD87C5DF87
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00818C5DF88
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:52:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 046C910E1E1;
-	Thu, 20 Aug 2026 10:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8526E10EFE0;
+	Thu, 20 Aug 2026 10:52:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PdE3EhVy";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mDR+C6jO";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1ECD10E033;
- Thu, 20 Aug 2026 10:39:57 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 009E610EFD8;
+ Thu, 20 Aug 2026 10:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787222398; x=1818758398;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=8P0a4BQW7xa8cNYXKS/zF9nVfujMbJNyuwTAbDSZHAg=;
- b=PdE3EhVyWinxgsAZ56bCsMizCEVjid2q5YNng6npZ1WsFgpbeJ8i6y7+
- Np7IxXEk8R6vQ9yjakh1hI6bg4xRNu+afyGtQl0ZY6JspTLQV5fxoYw/C
- XpEKKug5dRXjYfr0vN/MRBQTAgqVPfVMpRKEaQcQzKHB5I1pCYV6Guluo
- kCo97QZnY4+YwqVjjnEFkBS7LQIU/Y0p9fMm6akkeGSZ0X9G2v6sIzIUM
- jrDMxZf5udjG6VSrobgxTgMdMVCBo8jhQIs2unl5cQZIAs4RK2JCzMOWv
- ouzQF6y1ABz0RWuSvg1JnNOYGG3UV2vsH58Y6b/Po8pyxY64rtHTqvh8K w==;
-X-CSE-ConnectionGUID: Ki2NIMZwRUG6p1xWxKOnOA==
-X-CSE-MsgGUID: AynbT7RNTCWlQyZyuR0Vfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87775652"
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="87775652"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 03:39:57 -0700
-X-CSE-ConnectionGUID: GqvfUZDnSHKO1Xp+8NeiAA==
-X-CSE-MsgGUID: 0AXgaS8jRKuThf94mEcQqw==
+ t=1787223165; x=1818759165;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=A+Fh6Eefn4Ofovv4xbjkAV4gZPLUBpiTEznB/RQgR5Q=;
+ b=mDR+C6jOXJ6lu61CPUq/MjXY/VgDdL4X16w3NZIzpIX4pZnzxTenOnir
+ ivET50qkd10Z7i4CvNEig64SKefG9zd7TCMA0+PFw2zUbiNLX/5eIyh/5
+ 2zhLDKpBC992FKvJNoXFf4uvQ6WIcdppMRAJHnVo64lWvlmMbRkLTGMaa
+ Qyewqg+Kypa9O5wfSEvVOwZnvhJYLs0h24h5xgBVfmXBOsa+fd4o33t2W
+ j4LEDC7dYxX1JxiSar7CLLCLEmsU9L4WmxzEwvc779PwTjElI68B+VhIe
+ sRpRaYHpgdGJgZSvODXLdVIHXbpEEMgD4BNe3pzb3nOLXnMM9byFiD1fY A==;
+X-CSE-ConnectionGUID: KakNNvq5SBCQlkDxhC4z0w==
+X-CSE-MsgGUID: KB70L9sBTN+DxQfRWgGjtA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="98088181"
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="98088181"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 03:52:45 -0700
+X-CSE-ConnectionGUID: E5bzvyFzSguL21CeG8i9GA==
+X-CSE-MsgGUID: DVWJumVCRuaIVMnzkVP1pA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="289464278"
-Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.82])
- ([10.245.245.82])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 03:39:55 -0700
-Message-ID: <f4a4d6b6a4b353e2993a0e556b93da8501846d40.camel@linux.intel.com>
-Subject: Re: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Matthew Auld <matthew.auld@intel.com>, "Prabhakaran, Krishna"
- <krishna.prabhakaran@intel.com>, intel-gfx@lists.freedesktop.org
-Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
- rodrigo.vivi@intel.com, tursulin@ursulin.net,
- dri-devel@lists.freedesktop.org
-Date: Thu, 20 Aug 2026 12:39:53 +0200
-In-Reply-To: <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
-References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
- <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Received: from display-adls.igk.intel.com ([10.211.131.198])
+ by fmviesa003.fm.intel.com with ESMTP; 20 Aug 2026 03:52:43 -0700
+From: Mika Kahola <mika.kahola@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: Mika Kahola <mika.kahola@intel.com>
+Subject: [PATCH for CI] drm/i915/xe: Restore plane GGTT mappings after
+ D3cold/suspend
+Date: Thu, 20 Aug 2026 10:52:41 +0000
+Message-ID: <20260820105241.3606793-1-mika.kahola@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,219 +65,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-08-20 at 10:23 +0100, Matthew Auld wrote:
-> On 16/08/2026 02:45, Prabhakaran, Krishna wrote:
-> > From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-> >=20
-> > When i915 needs to make an imported dma-buf coherent for GPU access
-> > on
-> > non-LLC platforms, or for objects that bypass LLC, it currently
-> > calls
-> > wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer
-> > is
-> > pinned, so this triggers a whole-cache write-back and invalidate,
-> > broadcast by IPI to every CPU, on every execbuf submission
-> > involving an
-> > imported dma-buf. That stalls the entire machine for milliseconds
-> > and
-> > starves latency-sensitive work on unrelated cores (e.g. USB
-> > isochronous
-> > audio serviced on the VMM's main thread).
-> >=20
-> > Flush only the pages that actually need it instead:
-> >=20
-> > =C2=A0 - If we imported one of our own dma-bufs, the backing object is
-> > =C2=A0=C2=A0=C2=A0 struct-page backed once migrated to SMEM, so flush i=
-t directly
-> > with
-> > =C2=A0=C2=A0=C2=A0 drm_clflush_sg(), exactly as we flush our other obje=
-cts. This
-> > also
-> > =C2=A0=C2=A0=C2=A0 avoids re-entering the exporter through dma_buf_vmap=
-(), which
-> > would
-> > =C2=A0=C2=A0=C2=A0 recurse into i915_gem_object_pin_map() on the source=
- object we
-> > =C2=A0=C2=A0=C2=A0 already hold locked (and fails the
-> > igt_dmabuf_import_same_driver
-> > =C2=A0=C2=A0=C2=A0 selftest with -EBUSY).
-> >=20
-> > =C2=A0 - For a foreign dma-buf the sg_table is not guaranteed to be
-> > backed by
-> > =C2=A0=C2=A0=C2=A0 struct pages, and the importer has no way to tell, s=
-o
-> > drm_clflush_sg()
-> > =C2=A0=C2=A0=C2=A0 cannot be used. vmap the buffer and flush that virtu=
-al range
-> > with
-> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range() instead: x86 uses PIPT cach=
-es, so
-> > flushing
-> > =C2=A0=C2=A0=C2=A0 one virtual alias evicts the cache lines for every a=
-lias of the
-> > same
-> > =C2=A0=C2=A0=C2=A0 physical pages. The dma_resv lock required by dma_bu=
-f_vmap() is
-> > =C2=A0=C2=A0=C2=A0 already held here via the imported object.
-> >=20
-> > Fall back to wbinvd only when the buffer cannot be vmapped or is
-> > backed
-> > by I/O memory, where there is no CPU-side range to clflush.
-> >=20
-> > Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-
-> > acquire")
-> > Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-> > ---
-> > v2:
-> > =C2=A0 - Flush our own imported dma-bufs directly with drm_clflush_sg()
-> > instead of
-> > =C2=A0=C2=A0=C2=A0 dma_buf_vmap(), which re-entered i915_gem_object_pin=
-_map() on
-> > the source
-> > =C2=A0=C2=A0=C2=A0 object and failed igt_dmabuf_import_same_driver_smem=
- with -
-> > EBUSY (reported
-> > =C2=A0=C2=A0=C2=A0 by Intel CI on v1). Foreign dma-bufs still use dma_b=
-uf_vmap() +
-> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range(); wbinvd only as fallback.
-> > =C2=A0 - Link to v1:
-> > https://patchwork.freedesktop.org/patch/744955/?series=3D171760
-> >=20
-> > =C2=A0 drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55
-> > ++++++++++++++++++----
-> > =C2=A0 1 file changed, 47 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> > b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> > index b43d34c7d641..c798a90f1c0f 100644
-> > --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> > @@ -10,6 +10,8 @@
-> > =C2=A0=20
-> > =C2=A0 #include <asm/smp.h>
-> > =C2=A0=20
-> > +#include <drm/drm_cache.h>
-> > +
-> > =C2=A0 #include "gem/i915_gem_dmabuf.h"
-> > =C2=A0 #include "i915_drv.h"
-> > =C2=A0 #include "i915_gem_object.h"
-> > @@ -249,16 +251,53 @@ static int
-> > i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
-> > =C2=A0=C2=A0	 * DG1 is special here since it still snoops transactions
-> > even with
-> > =C2=A0=C2=A0	 * CACHE_NONE. This is not the case with other HAS_SNOOP
-> > platforms. We
-> > =C2=A0=C2=A0	 * might need to revisit this as we add new discrete
-> > platforms.
-> > -	 *
-> > -	 * XXX: Consider doing a vmap flush or something, where
-> > possible.
-> > -	 * Currently we just do a heavy handed
-> > wbinvd_on_all_cpus() here since
-> > -	 * the underlying sg_table might not even point to struct
-> > pages, so we
-> > -	 * can't just call drm_clflush_sg or similar, like we do
-> > elsewhere in
-> > -	 * the driver.
-> > =C2=A0=C2=A0	 */
-> > =C2=A0=C2=A0	if (i915_gem_object_can_bypass_llc(obj) ||
-> > -	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915)))
-> > -		wbinvd_on_all_cpus();
-> > +	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915))) {
->=20
-> I think we can bump this now for dg2? I think we treat dgfx as always
-> coherent with system memory. So maybe s/IS_DG1/IS_DGFX/ in a separate
-> patch? Pretty sure the rest of the driver is the same.
+D3cold and suspend power down the GGTT translation hardware, but
+nothing tells display about it. Planes that reuse their old ggtt_vma
+instead of re-pinning -- the fast path in xe_fb_pin_reuse_vma(),
+which cursor always takes -- never get new PTEs written. Come back
+from D3cold and the vma points at garbage. Cursor plane throws GGTT/
+ATS faults forever after.
 
-+1
+Add an optional remap_vma hook to the fb_pin interface plus
+intel_plane_resume_ggtt_mappings() to walk every plane's current
+ggtt_vma and call it. Hook it up in xe's D3cold-exit path and in the
+full resume path too, since i915 already does the equivalent
+unconditionally via i915_ggtt_resume().
 
->=20
-> > +		struct dma_buf *dma_buf =3D obj->base.import_attach-
-> > >dmabuf;
-> > +
-> > +		if (dma_buf->ops =3D=3D &i915_dmabuf_ops) {
-> > +			struct drm_i915_gem_object *dma_obj =3D
-> > +				dma_buf_to_obj(dma_buf);
-> > +
-> > +			/*
-> > +			 * We imported one of our own dma-bufs.
-> > The backing
-> > +			 * object is struct-page backed once
-> > migrated to SMEM,
-> > +			 * so flush it directly, the same way we
-> > flush our
-> > +			 * other objects. This also avoids re-
-> > entering the
-> > +			 * exporter through dma_buf_vmap(), which
-> > would recurse
-> > +			 * into i915_gem_object_pin_map() on the
-> > source object
-> > +			 * we already hold locked.
-> > +			 */
-> > +			if
-> > (i915_gem_object_has_struct_page(dma_obj))
-> > +				drm_clflush_sg(dma_obj->mm.pages);
-> > +			else
-> > +				wbinvd_on_all_cpus();
->=20
-> Do we need the flush under the else here? If it's not placed in
-> system=20
-> memory what is this flushing, from i915 pov?
->=20
-> > +		} else {
-> > +			struct iosys_map map;
-> > +
-> > +			/*
-> > +			 * A foreign sg_table is not guaranteed to
-> > be backed by
-> > +			 * struct pages, so we cannot use
-> > drm_clflush_sg(). vmap
-> > +			 * the buffer and flush the virtual range
-> > instead; x86
-> > +			 * uses PIPT caches, so flushing one alias
-> > evicts the
-> > +			 * lines for every alias of the same
-> > physical pages.
-> > +			 *
-> > +			 * We already hold the dma_resv lock via
-> > the imported
-> > +			 * obj, so use the locked dma_buf_vmap()
-> > variant.
-> > +			 */
-> > +			if (!dma_buf_vmap(dma_buf, &map)) {
-> > +				if (!map.is_iomem)
-> > +					drm_clflush_virt_range(map
-> > .vaddr,
-> > +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > obj->base.size);
-> > +				else
-> > +					wbinvd_on_all_cpus();
+xe_ggtt_map_bo_unlocked() always remapped bo->ggtt_node[tile], which
+is flat out wrong for framebuffers: __xe_pin_fb_vma_ggtt()'s slow
+path (rotated views, no preallocated node) hands out a node that
+never ends up in that array. Pass the node in explicitly instead of
+guessing.
 
-The need for this flush is a bit unfortunate. In theory iomem can be
-mapped and wiped write-back, But I'm not sure how common that is...
+Assisted-by: Copilot:claude-sonnet-5
+Signed-off-by: Mika Kahola <mika.kahola@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_parent.c  |  7 +++++++
+ drivers/gpu/drm/i915/display/intel_parent.h  |  2 ++
+ drivers/gpu/drm/i915/display/intel_plane.c   | 19 +++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_plane.h   |  1 +
+ drivers/gpu/drm/xe/display/xe_display.c      |  7 +++++++
+ drivers/gpu/drm/xe/display/xe_fb_pin.c       | 13 +++++++++++++
+ drivers/gpu/drm/xe/xe_bo_evict.c             |  2 +-
+ drivers/gpu/drm/xe/xe_ggtt.c                 |  9 ++++++---
+ drivers/gpu/drm/xe/xe_ggtt.h                 |  2 +-
+ include/drm/intel/display_parent_interface.h |  1 +
+ 10 files changed, 58 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_parent.c b/drivers/gpu/drm/i915/display/intel_parent.c
+index ffc1f5e0518c..7ca950d7a32e 100644
+--- a/drivers/gpu/drm/i915/display/intel_parent.c
++++ b/drivers/gpu/drm/i915/display/intel_parent.c
+@@ -106,6 +106,13 @@ struct i915_vma *intel_parent_fb_pin_reuse_vma(struct intel_display *display,
+ 						  new_obj, new_view, out_offset);
+ }
+ 
++void intel_parent_fb_pin_remap_vma(struct intel_display *display,
++				   struct i915_vma *ggtt_vma)
++{
++	if (display->parent->fb_pin->remap_vma)
++		display->parent->fb_pin->remap_vma(ggtt_vma);
++}
++
+ void intel_parent_fb_pin_get_map(struct intel_display *display,
+ 				 struct i915_vma *vma, struct iosys_map *map)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_parent.h b/drivers/gpu/drm/i915/display/intel_parent.h
+index c817a826169c..b01c32f8150a 100644
+--- a/drivers/gpu/drm/i915/display/intel_parent.h
++++ b/drivers/gpu/drm/i915/display/intel_parent.h
+@@ -57,6 +57,8 @@ struct i915_vma *intel_parent_fb_pin_reuse_vma(struct intel_display *display,
+ 					       struct drm_gem_object *new_obj,
+ 					       const struct i915_gtt_view *new_view,
+ 					       u32 *out_offset);
++void intel_parent_fb_pin_remap_vma(struct intel_display *display,
++				   struct i915_vma *ggtt_vma);
+ void intel_parent_fb_pin_get_map(struct intel_display *display,
+ 				 struct i915_vma *vma, struct iosys_map *map);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm/i915/display/intel_plane.c
+index d0f99a87c42e..78bd6d37294f 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.c
++++ b/drivers/gpu/drm/i915/display/intel_plane.c
+@@ -50,6 +50,7 @@
+ #include "intel_cdclk.h"
+ #include "intel_cursor.h"
+ #include "intel_colorop.h"
++#include "intel_display.h"
+ #include "intel_display_rps.h"
+ #include "intel_display_trace.h"
+ #include "intel_display_types.h"
+@@ -1399,6 +1400,24 @@ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state)
+ 	}
+ }
+ 
++/*
++ * D3cold/S3+ can power down the GGTT translation HW without the display
++ * code ever knowing -- re-validate every plane's cached ggtt_vma PTEs
++ * on resume, before anything tries to scan out through them again.
++ */
++void intel_plane_resume_ggtt_mappings(struct intel_display *display)
++{
++	struct intel_plane *plane;
++
++	for_each_intel_plane(display->drm, plane) {
++		const struct intel_plane_state *plane_state =
++			to_intel_plane_state(plane->base.state);
++
++		if (plane_state->ggtt_vma)
++			intel_parent_fb_pin_remap_vma(display, plane_state->ggtt_vma);
++	}
++}
++
+ static int add_dma_resv_fences(struct dma_resv *resv,
+ 			       struct drm_plane_state *new_plane_state)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_plane.h b/drivers/gpu/drm/i915/display/intel_plane.h
+index dba2be24aae2..7066f8461778 100644
+--- a/drivers/gpu/drm/i915/display/intel_plane.h
++++ b/drivers/gpu/drm/i915/display/intel_plane.h
+@@ -99,5 +99,6 @@ bool intel_plane_format_mod_supported_async(struct drm_plane *plane,
+ int intel_plane_pin_fb(struct intel_plane_state *new_plane_state,
+ 		       const struct intel_plane_state *old_plane_state);
+ void intel_plane_unpin_fb(struct intel_plane_state *old_plane_state);
++void intel_plane_resume_ggtt_mappings(struct intel_display *display);
+ 
+ #endif /* __INTEL_PLANE_H__ */
+diff --git a/drivers/gpu/drm/xe/display/xe_display.c b/drivers/gpu/drm/xe/display/xe_display.c
+index 7b25c0814674..014d00a4942b 100644
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -30,6 +30,7 @@
+ #include "intel_fbdev.h"
+ #include "intel_hotplug.h"
+ #include "intel_opregion.h"
++#include "intel_plane.h"
+ #include "skl_watermark.h"
+ #include "xe_device.h"
+ #include "xe_display_bo.h"
+@@ -295,6 +296,9 @@ void xe_display_pm_resume(struct xe_device *xe)
+ 
+ 	intel_display_driver_init_hw(display);
+ 
++	/* GGTT translation HW may have lost state across suspend; restore plane vmas. */
++	intel_plane_resume_ggtt_mappings(display);
++
+ 	intel_display_driver_pm_resume(display);
+ }
+ 
+@@ -335,6 +339,9 @@ static void xe_display_disable_d3cold(struct xe_device *xe)
+ 
+ 	intel_display_driver_init_hw(display);
+ 
++	/* D3cold power-cycles the GGTT translation HW; restore plane vmas. */
++	intel_plane_resume_ggtt_mappings(display);
++
+ 	intel_hpd_init(display);
+ 
+ 	if (intel_display_device_present(display))
+diff --git a/drivers/gpu/drm/xe/display/xe_fb_pin.c b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+index 73469ea5f333..97de9c9b584a 100644
+--- a/drivers/gpu/drm/xe/display/xe_fb_pin.c
++++ b/drivers/gpu/drm/xe/display/xe_fb_pin.c
+@@ -476,6 +476,18 @@ xe_fb_pin_reuse_vma(struct i915_vma *old_ggtt_vma,
+ 	return NULL;
+ }
+ 
++/* D3cold/S3+ power down the GGTT translation HW; restore this vma's PTEs on resume. */
++static void xe_fb_pin_remap_vma(struct i915_vma *ggtt_vma)
++{
++	struct xe_bo *bo = ggtt_vma->bo;
++	struct xe_tile *tile0 = xe_device_get_root_tile(xe_bo_device(bo));
++
++	if (ggtt_vma->dpt)
++		return;
++
++	xe_ggtt_map_bo_unlocked(tile0->mem.ggtt, ggtt_vma->node, bo);
++}
++
+ static void xe_fb_pin_get_map(struct i915_vma *vma, struct iosys_map *map)
+ {
+ 	*map = vma->bo->vmap;
+@@ -487,5 +499,6 @@ const struct intel_display_fb_pin_interface xe_display_fb_pin_interface = {
+ 	.dpt_pin = xe_fb_pin_dpt_pin,
+ 	.dpt_unpin = xe_fb_pin_dpt_unpin,
+ 	.reuse_vma = xe_fb_pin_reuse_vma,
++	.remap_vma = xe_fb_pin_remap_vma,
+ 	.get_map = xe_fb_pin_get_map,
+ };
+diff --git a/drivers/gpu/drm/xe/xe_bo_evict.c b/drivers/gpu/drm/xe/xe_bo_evict.c
+index 7661fca7f278..a1ea3ab337fe 100644
+--- a/drivers/gpu/drm/xe/xe_bo_evict.c
++++ b/drivers/gpu/drm/xe/xe_bo_evict.c
+@@ -205,7 +205,7 @@ static int xe_bo_restore_and_map_ggtt(struct xe_bo *bo)
+ 			if (tile != bo->tile && !(bo->flags & XE_BO_FLAG_GGTTx(tile)))
+ 				continue;
+ 
+-			xe_ggtt_map_bo_unlocked(tile->mem.ggtt, bo);
++			xe_ggtt_map_bo_unlocked(tile->mem.ggtt, bo->ggtt_node[id], bo);
+ 		}
+ 	}
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.c b/drivers/gpu/drm/xe/xe_ggtt.c
+index 8ec23862477f..7a4af29f84a2 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.c
++++ b/drivers/gpu/drm/xe/xe_ggtt.c
+@@ -717,11 +717,14 @@ static void xe_ggtt_map_bo(struct xe_ggtt *ggtt, struct xe_ggtt_node *node,
+ /**
+  * xe_ggtt_map_bo_unlocked - Restore a mapping of a BO into GGTT
+  * @ggtt: the &xe_ggtt where node will be mapped
++ * @node: the &xe_ggtt_node to restore the mapping for
+  * @bo: the &xe_bo to be mapped
+  *
+- * This is used to restore a GGTT mapping after suspend.
++ * This is used to restore a GGTT mapping after suspend. @node need not be
++ * @bo's own ggtt_node[] entry -- e.g. a display scanout vma may hold a
++ * separate node that was never inserted via xe_ggtt_insert_bo_at().
+  */
+-void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo)
++void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_ggtt_node *node, struct xe_bo *bo)
+ {
+ 	u16 cache_mode = bo->flags & XE_BO_FLAG_NEEDS_UC ? XE_CACHE_NONE : XE_CACHE_WB;
+ 	u16 pat_index = xe_cache_pat_idx(tile_to_xe(ggtt->tile), cache_mode);
+@@ -729,7 +732,7 @@ void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo)
+ 
+ 	mutex_lock(&ggtt->lock);
+ 	pte = ggtt->pt_ops->pte_encode_flags(bo, pat_index);
+-	xe_ggtt_map_bo(ggtt, bo->ggtt_node[ggtt->tile->id], bo, pte);
++	xe_ggtt_map_bo(ggtt, node, bo, pte);
+ 	mutex_unlock(&ggtt->lock);
+ }
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ggtt.h b/drivers/gpu/drm/xe/xe_ggtt.h
+index c864cc975a69..db9be2d92517 100644
+--- a/drivers/gpu/drm/xe/xe_ggtt.h
++++ b/drivers/gpu/drm/xe/xe_ggtt.h
+@@ -31,7 +31,7 @@ xe_ggtt_insert_node_transform(struct xe_ggtt *ggtt,
+ 			      xe_ggtt_transform_cb transform, void *arg);
+ void xe_ggtt_node_remove(struct xe_ggtt_node *node, bool invalidate);
+ size_t xe_ggtt_node_pt_size(const struct xe_ggtt_node *node);
+-void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_bo *bo);
++void xe_ggtt_map_bo_unlocked(struct xe_ggtt *ggtt, struct xe_ggtt_node *node, struct xe_bo *bo);
+ int xe_ggtt_insert_bo(struct xe_ggtt *ggtt, struct xe_bo *bo, struct drm_exec *exec);
+ int xe_ggtt_insert_bo_at(struct xe_ggtt *ggtt, struct xe_bo *bo,
+ 			 u64 start, u64 end, struct drm_exec *exec);
+diff --git a/include/drm/intel/display_parent_interface.h b/include/drm/intel/display_parent_interface.h
+index d7d06dcaa699..8877c0283445 100644
+--- a/include/drm/intel/display_parent_interface.h
++++ b/include/drm/intel/display_parent_interface.h
+@@ -105,6 +105,7 @@ struct intel_display_fb_pin_interface {
+ 				      struct drm_gem_object *new_obj,
+ 				      const struct i915_gtt_view *new_view,
+ 				      u32 *out_offset);
++	void (*remap_vma)(struct i915_vma *ggtt_vma); /* Optional */
+ 	void (*get_map)(struct i915_vma *vma, struct iosys_map *map);
+ };
+ 
+-- 
+2.43.0
 
-
-> > +				dma_buf_vunmap(dma_buf, &map);
-
-
-
-> > +			} else {
-> > +				wbinvd_on_all_cpus();
-
-Random idea, would it make sense to insert a GPU CLFLUSH into the
-pipeline using MI_CLFLUSH (on hardware that supports it) or an
-uncached but coherent MOCS / GPU PAT setting dummy blit?
-
-Thanks,
-Thomas
-
-
-> > +			}
-> > +		}
-> > +	}
-> > =C2=A0=20
-> > =C2=A0=C2=A0	__i915_gem_object_set_pages(obj, sgt);
-> > =C2=A0=20
-> >=20
-> > base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
