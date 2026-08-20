@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB578C5DF85
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:05:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204ACC5DF89
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E47610F124;
-	Thu, 20 Aug 2026 17:05:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E8C10F12F;
+	Thu, 20 Aug 2026 17:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Be3T+p6m";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="ZVblalLC";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5CD210F11F
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:05:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 042EA10F12D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787245503;
+ s=mimecast20190719; t=1787245570;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=TF+roY3oCVB3u96D2m+Kn+7JYFil1XkjxfPcXPVAxaA=;
- b=Be3T+p6mFPfn5YcVDRQG2CTD8jYXC1m/QI14N6v0z2Suy97Ou/5AV8Mlfx+Yz+DuEII7D6
- hs+wBoZ4O4hvmcm27JtziryF4Yq2/xiHoaKlEa7LzaolwrJVDX9R+R3Ku8lQBpe1XyZ8N3
- hdLCWQHgz3whNb0tpqBArAFqfzPNBt4=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=Z4jxRAgmGu6qOONmDUji01BEYH0iTGQlpmgV/kwEyHw=;
+ b=ZVblalLCIuB6Okcf7b4K3D7d0iYUV2VFrI6+kx80zmOooEAjQxVQZsIc4N7aETn4mTWuQy
+ QEjMj7GE+4H5u1udeK2YLarQ9loKWR1QCf2XNfKYRfnaJ/hOLTv91jmgCY7mq9eRZO/O/S
+ VkUJWHEIvjnS30CaDE1X944LVtVnA/Q=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-650-yvXltl_eMhyxUSerfNUMBA-1; Thu, 20 Aug 2026 13:05:00 -0400
-X-MC-Unique: yvXltl_eMhyxUSerfNUMBA-1
-X-Mimecast-MFC-AGG-ID: yvXltl_eMhyxUSerfNUMBA_1787245499
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-496b6f97676so348995e9.2
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:05:00 -0700 (PDT)
+ us-mta-646-G3lpYBirMgKaNZzh9936WA-1; Thu, 20 Aug 2026 13:06:03 -0400
+X-MC-Unique: G3lpYBirMgKaNZzh9936WA-1
+X-Mimecast-MFC-AGG-ID: G3lpYBirMgKaNZzh9936WA_1787245562
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-47f7039fa59so102764f8f.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:06:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787245499; x=1787850299;
+ d=1e100.net; s=20251104; t=1787245562; x=1787850362;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=TF+roY3oCVB3u96D2m+Kn+7JYFil1XkjxfPcXPVAxaA=;
- b=b/GNQB2yr3WBP8r/7WwHchZ5dj1+CpFrnif/0QppDtM4EzlQwGhtx8ImEZNA9dGCAF
- tHrNGicdhmLC1A6CUR0wOc/XSoBVE9tf/UIAJu1uYvt0HD8RTBpNAkLDdZK/+bj5DX+j
- EtQiVT0f1IcP0CiL4x3ox106hYj46aOerZ7SHS0QFPxNQy2dQywj3LBR+N85EV9BYpXV
- /K6UV7RZVbENXCo93KHsKCqbDTkCMEDlUiJFfvrBDh/wwaUnYEY2S10cjIS2CmNCDsi8
- tNxBMHh/GgetUSYsSVsp7+MW0E7Ecwpa/Fg7SSSNNfU8IogKqScf6sPnVr7wOWL9Yx42
- Ycrg==
+ bh=Z4jxRAgmGu6qOONmDUji01BEYH0iTGQlpmgV/kwEyHw=;
+ b=DMuFp4AZR4We+EsS+LefgEg8Mdi5+tnWw47iYMJ8iWVwNS+YXLExYKLeFltOawBk+B
+ InFtHKu2Q4h+sU88m9H8QD0iDA4SDVpD1f8OPG8s+6v9z5/MQb071HMhPXm2e1cgQnV5
+ m90g+jK6RBGROnDzPQWVy/YHVKQ/NEGGSgk01pg84TyZ3F6exK+JBX1hgRFY31xKRhHw
+ 3H6A8DSozRlnx0sGh0jDjJ02TcQJX84L4oYTGBDEyvvtAmIkCpGYUCW8Rgm69v2tE2gB
+ 8cNPMw0j3vT+lsGgSP66KkxuBkK6l8VSHf9duG1gctNyC8odUsxJ+DsaI9jfIvkwXMRU
+ /obQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro71dzO172Xg3WbDs2aR2y7NZwGX2GkgahyVG3n8rosImI/CuxGLqKoWQUng6jpZB8iTqTyJe5U/wM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxy6un6wpa4a3f4kYcBWw3HXSjPSf80mkLSllF7kSFkV1yjpyy6
- 5aJGeYPz0zEKKL/902Aj9cdNMKoZlgkTWv2tneVp7Ny/IJ7KI7u24vDC1+4jfXUe0d/QkCiUOyr
- +vdv+dElV7ItaM42JV5AIJ6gIFx15TNOWbG3b95pNxCGTwJiNe+u0WQhKsRNPj0j4/E+sgg==
-X-Gm-Gg: AR+sD13v3tMj7euIHkKSdPP9zmdQ4btnXDLL2hNdqTEaHjZyxbMiwF1U8e85aEiXx8d
- q8xU54+ETi+kffm7B/3l9ET2EK+tVtGtZk8p1U9/Y3SSTY3Se2aOZsPff95EFR/UQ2zw6VrGayx
- soIf1EEgrCXjnfoG06Cd5QKWwZVHS+r8XWHRRSsgYQiD9dIANBJb/o4exBk98C3n6dBc6SGaDib
- /xjISwaDB/kYRdIZHk0r5fH+CfDGqUqzJblJsYZZjLv8Hl+YIedrThGICG7/tUy3Q2lovHVTlmK
- xiVmxvnZo2+ZzJKb23sug2kwGwPIflS7Fa9zg/woxA4P1JoPktuD4DGLHXDf24+KVlaPqiBNQoC
- CfvOnuEqpra63eoq24ywzd2o9R5ZQc3VhJY65Am7RPxvR7w==
-X-Received: by 2002:a05:600c:6211:b0:495:4d88:e630 with SMTP id
- 5b1f17b1804b1-499b8465f7dmr5016915e9.10.1787245499080; 
- Thu, 20 Aug 2026 10:04:59 -0700 (PDT)
-X-Received: by 2002:a05:600c:6211:b0:495:4d88:e630 with SMTP id
- 5b1f17b1804b1-499b8465f7dmr5015695e9.10.1787245498659; 
- Thu, 20 Aug 2026 10:04:58 -0700 (PDT)
+ AHgh+Rowtee9D99EpYl6DxXYHJUz4Lk8X/injxBuHXo+D9L8W3zLn7twcGYY7dFfI3aaOOHD4f049t5eD0E=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mLKgz+5vDmZ5AY0qf9U5aQqcj0fFp/t+5tchHuNrfdjtXpJU90
+ 2pPmG++4lsM7s2ekdfCwteDjGD7VoIjwM5YfUVMHpbne5/3Ldi8gZazIbenfe7pIrhOoEkOBHfs
+ MimgEvDCU9XIiKawrP7UlPETCCjFkv/bWPds5W8N8Wq2Av2TQ+7/pFtuIK47ov6pCgeSljw==
+X-Gm-Gg: AR+sD124/1s0x7q4Yhm4YMV4ouaoOxJRHPe5py3s26Mu5AsLlLQecPyz2NkBUoLNdHj
+ s7aWQattQvMIH9qmBB8uZnlNvXQubp72IdFX33ILEi7fuhGRBSJGghmiTIwbBmYBPVTW1z4f3Tp
+ a8Gq6Wj1bcFXA3wI2ugDdQbkS/T8hWrpLkjpD47X8XiDylSHpnji6C34E0PD30oqsqg9UKKBRXk
+ k7Ne3rCnMavporAYql6hkEKBrTyHZuTuUikCCoSz0KJqeZq7d6geD4AbKyirKz8/f0/OraNVcr2
+ NqNR8G3aNA8Zn8STKsQJrpZTE9BtBVvyLdMjq79qCGEWbkX8o0U5v8H4M8380WnwMQ4UzY+mbqB
+ 5Og4lEHJ1SF9PgJNGxeiXuhrCgr0v+19ORFxHvMvzmaHfEQ==
+X-Received: by 2002:a05:6000:25fe:b0:47f:86af:8fe7 with SMTP id
+ ffacd0b85a97d-482c0ba220fmr134371f8f.22.1787245562178; 
+ Thu, 20 Aug 2026 10:06:02 -0700 (PDT)
+X-Received: by 2002:a05:6000:25fe:b0:47f:86af:8fe7 with SMTP id
+ ffacd0b85a97d-482c0ba220fmr134240f8f.22.1787245561785; 
+ Thu, 20 Aug 2026 10:06:01 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:11aa:87f0:935:4f8e:b423:64eb?
  ([2a01:e0a:11aa:87f0:935:4f8e:b423:64eb])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482b14c33b3sm13157002f8f.27.2026.08.20.10.04.57
+ ffacd0b85a97d-482b14cf0a3sm13674489f8f.32.2026.08.20.10.06.00
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2026 10:04:58 -0700 (PDT)
-Message-ID: <cb784cf6-f3d8-41aa-9f71-c197a5eba7f2@redhat.com>
-Date: Thu, 20 Aug 2026 19:04:51 +0200
+ Thu, 20 Aug 2026 10:06:01 -0700 (PDT)
+Message-ID: <5e7e0d9c-2fe2-4c0f-a854-1b1a495b1a7f@redhat.com>
+Date: Thu, 20 Aug 2026 19:05:57 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/12] drm/panic: Return -EINVAL if font is not available
+Subject: Re: [PATCH 04/12] drm/panic: Return errno codes if panic output fails
 To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
  airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org
@@ -87,11 +87,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
  sashiko-reviews@lists.linux.dev
 References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-4-tzimmermann@suse.de>
+ <20260818125012.468092-5-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260818125012.468092-4-tzimmermann@suse.de>
+In-Reply-To: <20260818125012.468092-5-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: qfMayplo3pOkimwh9cfxamnKfOLbe23zvEWZHOFst40_1787245499
+X-Mimecast-MFC-PROC-ID: egdSd2kpX3ErGFRALNOVtMhd_afbvqi1GV7WEsnmJLE_1787245562
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -112,8 +112,12 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On 18/08/2026 14:28, Thomas Zimmermann wrote:
-> Font lookup does not allocate memory. Hence reporting ENOMEM on
-> failed lookups is misleading. Report EINVAL instead.
+> Return errno codes from the panic output helpers to detect invalid
+> panic handling. Avoid flushing the display if an error ocured. The
+> unflushed display output might be helpful in debugging.
+> 
+> For now, test the result values in the panic test cases. A later patch
+> will add support for retrying failed panic output.
 
 Thanks, it looks good to me.
 
@@ -121,23 +125,199 @@ Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 > 
 > Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 > ---
->   drivers/gpu/drm/drm_panic.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/drm_panic.c            | 41 +++++++++++++++++---------
+>   drivers/gpu/drm/tests/drm_panic_test.c | 16 ++++++----
+>   2 files changed, 37 insertions(+), 20 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index 705b72bf0d83..96d238bfceee 100644
+> index 96d238bfceee..594235661710 100644
 > --- a/drivers/gpu/drm/drm_panic.c
 > +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -757,8 +757,10 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
->   	int qr_width, qr_canvas_width, qr_pitch, v_margin;
->   	u8 *qr_image;
+> @@ -478,7 +478,7 @@ static void drm_panic_logo_draw(struct drm_scanout_buffer *sb, struct drm_rect *
+>   				   fg_color);
+>   }
 >   
-> -	if (!font || !stream.workspace)
-> +	if (!stream.workspace)
->   		return -ENOMEM;
-> +	if (!font)
+> -static void draw_panic_screen_user(struct drm_scanout_buffer *sb)
+> +static int draw_panic_screen_user(struct drm_scanout_buffer *sb)
+>   {
+>   	u32 fg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_FOREGROUND_COLOR,
+>   						    sb->format->format);
+> @@ -489,7 +489,7 @@ static void draw_panic_screen_user(struct drm_scanout_buffer *sb)
+>   	unsigned int msg_width, msg_height;
+>   
+>   	if (!font)
+> -		return;
 > +		return -EINVAL;
 >   
 >   	r_screen = DRM_RECT_INIT(0, 0, sb->width, sb->height);
+>   	drm_panic_logo_rect(&r_logo, font);
+> @@ -508,6 +508,8 @@ static void draw_panic_screen_user(struct drm_scanout_buffer *sb)
+>   		drm_panic_logo_draw(sb, &r_logo, font, fg_color);
 >   
+>   	draw_txt_rectangle(sb, font, panic_msg, panic_msg_lines, true, &r_msg, fg_color);
+> +
+> +	return 0;
+>   }
+>   
+>   /*
+> @@ -547,7 +549,7 @@ static int draw_line_with_wrap(struct drm_scanout_buffer *sb, const struct font_
+>    * Draw the kmsg buffer to the screen, starting from the youngest message at the bottom,
+>    * and going up until reaching the top of the screen.
+>    */
+> -static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+> +static int draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+>   {
+>   	u32 fg_color = drm_draw_color_from_xrgb8888(CONFIG_DRM_PANIC_FOREGROUND_COLOR,
+>   						    sb->format->format);
+> @@ -562,7 +564,7 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+>   	int yoffset;
+>   
+>   	if (!font || font->width > sb->width)
+> -		return;
+> +		return -EINVAL;
+>   
+>   	yoffset = sb->height - font->height - (sb->height % font->height) / 2;
+>   
+> @@ -589,6 +591,8 @@ static void draw_panic_screen_kmsg(struct drm_scanout_buffer *sb)
+>   			start--;
+>   		}
+>   	}
+> +
+> +	return 0;
+>   }
+>   
+>   #if defined(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
+> @@ -814,10 +818,11 @@ static int _draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
+>   	return 0;
+>   }
+>   
+> -static void draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
+> +static int draw_panic_screen_qr_code(struct drm_scanout_buffer *sb)
+>   {
+>   	if (_draw_panic_screen_qr_code(sb))
+>   		draw_panic_screen_user(sb);
+> +	return 0;
+>   }
+>   #else
+>   static void drm_panic_qr_init(void) {};
+> @@ -888,23 +893,25 @@ static bool drm_panic_is_format_supported(const struct drm_format_info *format)
+>   	return drm_draw_can_convert_from_xrgb8888(format->format);
+>   }
+>   
+> -static void draw_panic_dispatch(struct drm_scanout_buffer *sb)
+> +static int draw_panic_dispatch(struct drm_scanout_buffer *sb)
+>   {
+> +	int ret;
+> +
+>   	switch (drm_panic_type) {
+>   	case DRM_PANIC_TYPE_KMSG:
+> -		draw_panic_screen_kmsg(sb);
+> +		ret = draw_panic_screen_kmsg(sb);
+>   		break;
+> -
+>   #if IS_ENABLED(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
+>   	case DRM_PANIC_TYPE_QR:
+> -		draw_panic_screen_qr_code(sb);
+> +		ret = draw_panic_screen_qr_code(sb);
+>   		break;
+>   #endif
+> -
+>   	case DRM_PANIC_TYPE_USER:
+>   	default:
+> -		draw_panic_screen_user(sb);
+> +		ret = draw_panic_screen_user(sb);
+>   	}
+> +
+> +	return ret;
+>   }
+>   
+>   static void drm_panic_set_description(const char *description)
+> @@ -951,9 +958,15 @@ static void draw_panic_plane(struct drm_plane *plane, const char *description)
+>   
+>   	drm_panic_set_description(description);
+>   
+> -	draw_panic_dispatch(&sb);
+> -	if (plane->helper_private->panic_flush)
+> -		plane->helper_private->panic_flush(plane);
+> +	ret = draw_panic_dispatch(&sb);
+> +	if (!ret) {
+> +		/*
+> +		 * Only flush if we have a panic screen to display. Otherwise
+> +		 * it's probably better to leave the display output as-is.
+> +		 */
+> +		if (plane->helper_private->panic_flush)
+> +			plane->helper_private->panic_flush(plane);
+> +	}
+>   
+>   	drm_panic_clear_description();
+>   
+> diff --git a/drivers/gpu/drm/tests/drm_panic_test.c b/drivers/gpu/drm/tests/drm_panic_test.c
+> index ad2f3a2f93b6..fdd77b0cc54c 100644
+> --- a/drivers/gpu/drm/tests/drm_panic_test.c
+> +++ b/drivers/gpu/drm/tests/drm_panic_test.c
+> @@ -30,7 +30,7 @@ struct drm_test_mode {
+>   	const int width;
+>   	const int height;
+>   	const u32 format;
+> -	void (*draw_screen)(struct drm_scanout_buffer *sb);
+> +	int (*draw_screen)(struct drm_scanout_buffer *sb);
+>   	const char *fname;
+>   };
+>   
+> @@ -87,7 +87,7 @@ static void drm_test_panic_screen_user_map(struct kunit *test)
+>   	const struct drm_test_mode *params = test->param_value;
+>   	char *fb;
+>   	int fb_size;
+> -	int i;
+> +	int i, ret;
+>   
+>   	sb->format = drm_format_info(params->format);
+>   	fb_size = params->width * params->height * sb->format->cpp[0];
+> @@ -102,7 +102,8 @@ static void drm_test_panic_screen_user_map(struct kunit *test)
+>   	sb->height = params->height;
+>   	sb->pitch[0] = params->width * sb->format->cpp[0];
+>   
+> -	params->draw_screen(sb);
+> +	ret = params->draw_screen(sb);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+>   
+>   	for (i = 0; i < fb_size; i++)
+>   		drm_panic_check_color_byte(test, fb[i]);
+> @@ -119,7 +120,7 @@ static void drm_test_panic_screen_user_page(struct kunit *test)
+>   {
+>   	struct drm_scanout_buffer *sb = test->priv;
+>   	const struct drm_test_mode *params = test->param_value;
+> -	int fb_size, p, i, npages;
+> +	int fb_size, p, i, npages, ret;
+>   	struct page **pages;
+>   	u8 *vaddr;
+>   
+> @@ -146,7 +147,8 @@ static void drm_test_panic_screen_user_page(struct kunit *test)
+>   	sb->height = params->height;
+>   	sb->pitch[0] = params->width * sb->format->cpp[0];
+>   
+> -	params->draw_screen(sb);
+> +	ret = params->draw_screen(sb);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+>   
+>   	for (p = 0; p < npages; p++) {
+>   		int bytes_in_page = (p == npages - 1) ? fb_size - p * PAGE_SIZE : PAGE_SIZE;
+> @@ -182,6 +184,7 @@ static void drm_test_panic_screen_user_set_pixel(struct kunit *test)
+>   {
+>   	struct drm_scanout_buffer *sb = test->priv;
+>   	const struct drm_test_mode *params = test->param_value;
+> +	int ret;
+>   
+>   	sb->format = drm_format_info(params->format);
+>   	sb->set_pixel = drm_test_panic_set_pixel;
+> @@ -189,7 +192,8 @@ static void drm_test_panic_screen_user_set_pixel(struct kunit *test)
+>   	sb->height = params->height;
+>   	sb->private = test;
+>   
+> -	params->draw_screen(sb);
+> +	ret = params->draw_screen(sb);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+>   }
+>   
+>   static void drm_test_panic_desc(const struct drm_test_mode *t, char *desc)
 
