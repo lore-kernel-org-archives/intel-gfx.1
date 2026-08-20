@@ -4,160 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD7BCC5DF82
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 09:44:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FD87C5DF87
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:39:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6117410E1AA;
-	Thu, 20 Aug 2026 09:44:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 046C910E1E1;
+	Thu, 20 Aug 2026 10:39:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ElXkFZPQ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="PdE3EhVy";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E59F10E1AA;
- Thu, 20 Aug 2026 09:44:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1ECD10E033;
+ Thu, 20 Aug 2026 10:39:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787219043; x=1818755043;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=18v2T1vircCkdTUtzIhugkBAWPMlzcwZHn7qbDty/kY=;
- b=ElXkFZPQVV2MAzRw7gDSVvYvkoUXoI1LCMDPUKFMMY3OoEi8/WJRDYY1
- By8XhWxTnsklOl0R0moFX+8EVxRU5cnO7Xb/eylWeWuW8KkMVpPXC9hSU
- j6US3eT1FXJCQUc/pZbUFmu0dejM8R+HrPR0YQMNqgKNt2l+oyc1OwPJC
- JyYvl7Ae4YmILSx0Z7c0ltlgZ8kkML8QATb8HBOQdrehVtUMePDKLG+CO
- 95Yq/5a/Y94pui1dWuAwh9ZkxMRBDGkS0El6/CtRlN5cCCXS4FQPeW5vw
- qteRvwJL4aaewQ9qGqCIum6QkZ4GhuGrPdO0A29oRYmclEq7BLUJNQT7X A==;
-X-CSE-ConnectionGUID: QEmEUz0wSnyLjob27bE5pw==
-X-CSE-MsgGUID: kiej67GWR1mSb2kLjMXg0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87619790"
-X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; d="scan'208";a="87619790"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 02:44:02 -0700
-X-CSE-ConnectionGUID: wQAsQdD6ROqGrIOWLoRb8w==
-X-CSE-MsgGUID: r574d9AXRdG8tSYdPelzfw==
+ t=1787222398; x=1818758398;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=8P0a4BQW7xa8cNYXKS/zF9nVfujMbJNyuwTAbDSZHAg=;
+ b=PdE3EhVyWinxgsAZ56bCsMizCEVjid2q5YNng6npZ1WsFgpbeJ8i6y7+
+ Np7IxXEk8R6vQ9yjakh1hI6bg4xRNu+afyGtQl0ZY6JspTLQV5fxoYw/C
+ XpEKKug5dRXjYfr0vN/MRBQTAgqVPfVMpRKEaQcQzKHB5I1pCYV6Guluo
+ kCo97QZnY4+YwqVjjnEFkBS7LQIU/Y0p9fMm6akkeGSZ0X9G2v6sIzIUM
+ jrDMxZf5udjG6VSrobgxTgMdMVCBo8jhQIs2unl5cQZIAs4RK2JCzMOWv
+ ouzQF6y1ABz0RWuSvg1JnNOYGG3UV2vsH58Y6b/Po8pyxY64rtHTqvh8K w==;
+X-CSE-ConnectionGUID: Ki2NIMZwRUG6p1xWxKOnOA==
+X-CSE-MsgGUID: AynbT7RNTCWlQyZyuR0Vfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="87775652"
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="87775652"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 03:39:57 -0700
+X-CSE-ConnectionGUID: GqvfUZDnSHKO1Xp+8NeiAA==
+X-CSE-MsgGUID: 0AXgaS8jRKuThf94mEcQqw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,232,1779174000"; d="scan'208";a="269785264"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2026 02:44:02 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 20 Aug 2026 02:44:00 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Thu, 20 Aug 2026 02:44:00 -0700
-Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.61) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 20 Aug 2026 02:44:00 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vc8NBn7N3xeQizsTsZ77bk9znxzOWz/PyZjoPx0fKP5muCqahkic5J+cB7wiftZM2lwhqkDCi6kBKx0Me5nxSmS3qrvSvTLRr/TDFKeg1UnpAkeNIVYkvv0nLq48P/7ioOYv1H8aForLoQt01Hczgs4788X/I4fiTX5uK6rW3cGU6sOVFzhu819dxxG6BUTJ+Lmot/JwCcD9mDN/KinS0gn5XAvF5J5cSoCw7z9jh9ACJLoTCPwCanbLesCPhoXw/V+TFlRR/lu3gBiKL2tjJRGC86HCFfwlLws2gOo29NQomdbW+NItwjVW9Eu/CTNBrYM7j+Y793jiGSKochd02Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P6qwxz+8d6mbUBnD6BOmCucCCpBxgz8j4BLgSA8AM1A=;
- b=bumvqPlfUnqmP0+rLX1OjtqXCtvqLlRl0+Jcy12lEgRArt8onEahCLFBt351uVxRBgjgV4bXlFtOzN4mTOZrZqlax8rGWIVHGo0XyCgUzO5g5bWDIHv87IDAqtUP6F4oVnUUrKMhao8ZfPzJ3Amy/s9tuzSvWMaGJ61EReG1WZvb4ch7dFBFEmnOS8He1j9ml9zXO1Y5tSCaHWQr90qOtqMKf0/HXMMp/tUYyY3+bwY1Q/sGJdxILR80WzEkIXqY8mWa9wPHp3EoLTD7TRPiS1zP8YGCfBrSKm7WOgOVg0EMoxuUq5CC1Rmt5FNuZrc5NgKuyxumHGi6+lL+/G3N9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by SJ0PR11MB5069.namprd11.prod.outlook.com (2603:10b6:a03:2ad::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Thu, 20 Aug
- 2026 09:43:55 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
- 09:43:55 +0000
-Date: Thu, 20 Aug 2026 09:43:45 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-CC: <igt-dev@lists.freedesktop.org>, Kamil Konieczny
- <kamil.konieczny@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>, <intel-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH i-g-t] tests/device_reset: Cold reset doesn't depend on
- PCI reset
-Message-ID: <s7nrmv4scfmjqscx5vcmyylibm2q34e5hfotp6m37ensgeu2xa@idnpoflkn52a>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260819144224.1808907-2-janusz.krzysztofik@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <20260819144224.1808907-2-janusz.krzysztofik@linux.intel.com>
-X-ClientProxiedBy: VI1PR0202CA0014.eurprd02.prod.outlook.com
- (2603:10a6:803:14::27) To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+X-IronPort-AV: E=Sophos;i="6.25,233,1779174000"; d="scan'208";a="289464278"
+Received: from amilburn-desk.amilburn-desk (HELO [10.245.245.82])
+ ([10.245.245.82])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2026 03:39:55 -0700
+Message-ID: <f4a4d6b6a4b353e2993a0e556b93da8501846d40.camel@linux.intel.com>
+Subject: Re: [PATCH v2] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Matthew Auld <matthew.auld@intel.com>, "Prabhakaran, Krishna"
+ <krishna.prabhakaran@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, 
+ rodrigo.vivi@intel.com, tursulin@ursulin.net,
+ dri-devel@lists.freedesktop.org
+Date: Thu, 20 Aug 2026 12:39:53 +0200
+In-Reply-To: <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
+References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
+ <d3fa2250-3530-44d5-9661-032f195f8ad0@intel.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|SJ0PR11MB5069:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc34f8e0-2ea2-4634-4b78-08defe9f8d21
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: V0SE4Nk0EG2nehqZH0+xEVHZdAFlnnUEIfo9VYR7p7DATlePcFJ5lM1OZGssg/uLH88FcwNK/AzWEJcMrZTSekagBSPDqm3sqUE0jl3HrHLwWZ2Kgehz8bbAB0orkFWewhOd8p0s+9POnOgbmFiJTblT7iHe3BeiN0nC/zAWBzKlp9Cyk7fKojUqFN9ISSFFOZjYK6ULymirPAFTU4XcZvzpkfL/B2yQFKkBznpKCsVR5IdSk3TQTETW1bUPxEWd0a0CSCeXY3cJzc6AvLh11OgaxbAtJ4iBm6yhwoE/EGr70znik1nkJTplxnwswz+MDrOygVgWDqqKgE871FDXcCZzy3B3SwK37DcK7lpyvLvgUyWZjcDK8D2HgJ0l0UUv62Ed01akulqsyASCL9FgBYIPwgZNNcRVvcl4DaFuGxcxOYgRaZRV9PTVHpeTiXBuANRdMn3dLYgK+O0xJpq549PTbF1vOjmmc/iXCGa8mZOCpoBrZEhAP5M/PJfFFF203oP3wtpyXsBLzrUpE3jVtcl/fYc28uGQ5dTVZ58jN7SswrWHvEQM+jmmA4S8Y8xL1iHRctRT8MZZc/Z8uW8vrtYpy9yQYCjw1/bvCLaD8ZmOXNA0qlRx78tbOXZnQ1bwXkpxyIgOA9xdYE/yjQVtJrIEOoRnoYdIcIiPD5xIe8U=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzU5TnI1MFVHZzE0TDg0aElTSHVxMzl6YllKOWwraFNkRVJRcXVOTXZ4T01V?=
- =?utf-8?B?RkY1U0dCU2hoQjFxMEJ5aTU3UDd6bzZ2djZDa2JMNHB5M3M4NC9XVzNTV3pP?=
- =?utf-8?B?aFJWVlFsYUZzL2czUXYxb1p2VDlhb0hMWnlvL2VDVTc1bERHVjE1amlOUC9W?=
- =?utf-8?B?ZmJaOUhoK0F0UWovT25BRklISGlYZkRUc2hYdG84YzhZSkpGamVLa2xxQisw?=
- =?utf-8?B?b0dLS1NIWExIbzhpdTJBRzhYMmUvdDdnYmc5bmtCYkxIY3pIOGFiRzJyUk1a?=
- =?utf-8?B?NWZHT3lMbExsSnlMazRxL3BoQkFPU3EyYnpGU28wYTVUcnR5YkYvVm5kWU9Q?=
- =?utf-8?B?RXVaMjg2RjRKVVgyUG1qcEpzOFEybk5DZEhPRG9oOWlaUGNWMmZKY3ZXd0ps?=
- =?utf-8?B?U29FKzhzc09JTzBKeHMrQnBKK0Q3aTQvcGo3NVQ0eHZqaDhLeW5YWHNCOCtB?=
- =?utf-8?B?MThlbFp6L1E1Mm8xUEc4SjE0MmpmQnlpSGcvZFg0SFIrY1dIdFJRNUNIaTNx?=
- =?utf-8?B?Qm95QkdVUW01dWpaLzFZRncrd3JDUkF6UmNQQzQvTnh1ZENnd3d4dlhlbkNp?=
- =?utf-8?B?ZVovbGNtVWY3RURaZTFlQVcrYnI4QlArcnZHZEo3eFdPMllTK29POGUzMHli?=
- =?utf-8?B?QmJqSXFXc3hPdGx0b1NHWi9uS3lYc0xvbnk0K1VRT3lQOFB6dGFPNi9LMi84?=
- =?utf-8?B?R0hBbEhNd2h4VFB5YUYvZnRxd21TRDlwZzZtYkNCR1lrbXZmZWUvZEMwaVdS?=
- =?utf-8?B?UC9paUovemhSaWkzMVpCUVpUYUVFYldkMnBRWmZyZWYyOTNWK2JiNUl6N0ox?=
- =?utf-8?B?Rmw1am9YaHM2K0RrTXJhWHQ3aWZHM0IrK2lQYjBBKzZ6Znc2OXdKVEtQS0ZL?=
- =?utf-8?B?SGJjUzdadUVVZU05VXowWkZuTlArZi9qSk5ZQTFaMHV5dUR3cTJvWW1QZzVx?=
- =?utf-8?B?WnhJUzVaMXBDeExDYXZmRkEwR2x4NmdpWDVZRWp6SGxIK3J3WTZqcEl5Mno0?=
- =?utf-8?B?YmFlT09mUWd3VGlIR3BnNEpFVGxHUCt3UzVGMUhEQW44QVcwb3FSR254NnJz?=
- =?utf-8?B?QXFIbUlhUUFEcWxQTUorRmlzT1RDYVRQM2YzUVRTaXBKWnJGUTZuMy9nNVFO?=
- =?utf-8?B?UkwxT3JZL29EaXB1Z0pQZkxpWXdOK1RBS2FSSUlVUGFsSVdYZmM1UCtPbUhP?=
- =?utf-8?B?dzZqd1Y4YXZKVUZQL1NnY3JEYm8yRkNaangvSkY3c3pwYWZjdG0xQ2QvZDF3?=
- =?utf-8?B?SGtlWXFYeEFmaFdYZ3NzNnBNUmxoTkFJSS91VkR5RlZHSGhEUnpFOGc3VWN5?=
- =?utf-8?B?emFJT3NWRXJ0eXJWazJ3UmxFWUZRZUFJNEl2YVk0NGRGUzlZa1hQYXZ2VlQw?=
- =?utf-8?B?WkVZWldJTGxrZjJWc08vUW90aVpkS29ma1hST2dQOHhaQU1iV09yUVEvZVhZ?=
- =?utf-8?B?NXh3TThxcmVCaFo5dGpNZHd4ZTQ4bFA3bkhMc0hVOWxtWFpPOXo2WCtOU0Vy?=
- =?utf-8?B?UFVRU3BwM1BkNVQyQzRISjBMNjJrOStHNUQ0UEsveEVlY0VSdmQ4aUtQUDFk?=
- =?utf-8?B?M0RwNmRhWkQyeTk0YmVjNGE5Q1JtK3lKZkVXYlM1SHZoQWkydXJ4cGtXeHRZ?=
- =?utf-8?B?OU91RnBOSGRqMjBWMUcrRVZjTzJ1dWV1aDh0cWxqeE9lUVQzNTl6a3VwRWJs?=
- =?utf-8?B?YnE0OE0vcDI2SU9HRVNYcTVvWUdGQjZ2Z2dWWk5NalV4L2RUMGtMODFOK29r?=
- =?utf-8?B?Nmdjai9TYjQ5L2RUb2RPWGNENXhFUEg2d0Y1NHBGYk5HN2E5WmllV2VZQlFX?=
- =?utf-8?B?aTBPSFJ5ZVJBblF3ZXFhSzJ4YjVIUEt5K3YrZWFGYk05V1Evb09nbjlRa1BZ?=
- =?utf-8?B?dVdLb1NNR0NYYzc0UHd4V0p3amNaY0hIeExBNjkra21vUGpWa05jQzg5ZnpM?=
- =?utf-8?B?eXFxTzFhTnUyMFBWU05QNnJCT0Y5MURFblZYNWxzZHl2QVF6aDVSRDNpcDk3?=
- =?utf-8?B?Tk1qejZQY2huaVJaOGRtamI0VDRiZ3RMZVdKN2wzaDdMaWF1ZlhsY0JCNHBp?=
- =?utf-8?B?M2FTOEE5dXFwZ2RpNHUza1hGMDdvcWVwNnBhY0w0clBFRjZZSUc4bm5Bdm4v?=
- =?utf-8?B?aG9nV0hCVFM4Z0o3THhMYUlmTWZ0THNzNEt1QW5rdGhJYmdzUzc3Q0tFR0xX?=
- =?utf-8?B?NEVMUnVhNDFVYXhqbTBDNU9xVXpmclF2N2Nvd3RidHRmZVlZa1FxNDY5d2p6?=
- =?utf-8?B?Rm1qaGVhNnpuWTAxVExZN0VqTUMyb1NkdUNETnF1ZDc5dEtBbjd1c0NEV2po?=
- =?utf-8?B?Tno2RC9JSUxERWRzNzVXY3JpVzFDT1JvNlM1M2crV2h4TU10WG55WGxTdVY0?=
- =?utf-8?Q?AmWWJU6P0G+4jip0=3D?=
-X-Exchange-RoutingPolicyChecked: dQuObaYxaTnIDnZQiPuYzqKwYESzOaP8P1cyF5YgGU7PMqoK3ITzYQpXdMAgnOkSVgLEJ1h0fu+5Me25XQTOse53BAB/WitZJbZr+b7Ye8QPyVbL54fsftjDVWSqKtR/V0SdsqS/Yg0W7+WXmxPVoXXecdnTho+O8Lfjc/0Bv8p1RtqScsWem170yRBTQxgCzROE5juEC1L9zJsGAul8hR0GO5IUbMFeBLfj6rR9KEXkxZi4DDv4DVmQvmQn6YQnYp/MWLngqYxZ8VRfrQoefhx3F6O102UChSgYF3Wz/a3zZeDQ3FsOglDaIOk+6BwFFYZg/BKd6WpDhtcMCy8mYQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc34f8e0-2ea2-4634-4b78-08defe9f8d21
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 09:43:55.5285 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oIWXk4AqLTJTAw4uzK6zPUDJgQO4I96PW45cxpNDVwUX7cu8b/HkZM7Q7DN5rsKYTCMIj6BL3AZY5jk7m1e2lzX5mNviFpWHgRw8mWXY6Zw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB5069
-X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,29 +74,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
+On Thu, 2026-08-20 at 10:23 +0100, Matthew Auld wrote:
+> On 16/08/2026 02:45, Prabhakaran, Krishna wrote:
+> > From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> >=20
+> > When i915 needs to make an imported dma-buf coherent for GPU access
+> > on
+> > non-LLC platforms, or for objects that bypass LLC, it currently
+> > calls
+> > wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer
+> > is
+> > pinned, so this triggers a whole-cache write-back and invalidate,
+> > broadcast by IPI to every CPU, on every execbuf submission
+> > involving an
+> > imported dma-buf. That stalls the entire machine for milliseconds
+> > and
+> > starves latency-sensitive work on unrelated cores (e.g. USB
+> > isochronous
+> > audio serviced on the VMM's main thread).
+> >=20
+> > Flush only the pages that actually need it instead:
+> >=20
+> > =C2=A0 - If we imported one of our own dma-bufs, the backing object is
+> > =C2=A0=C2=A0=C2=A0 struct-page backed once migrated to SMEM, so flush i=
+t directly
+> > with
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_sg(), exactly as we flush our other obje=
+cts. This
+> > also
+> > =C2=A0=C2=A0=C2=A0 avoids re-entering the exporter through dma_buf_vmap=
+(), which
+> > would
+> > =C2=A0=C2=A0=C2=A0 recurse into i915_gem_object_pin_map() on the source=
+ object we
+> > =C2=A0=C2=A0=C2=A0 already hold locked (and fails the
+> > igt_dmabuf_import_same_driver
+> > =C2=A0=C2=A0=C2=A0 selftest with -EBUSY).
+> >=20
+> > =C2=A0 - For a foreign dma-buf the sg_table is not guaranteed to be
+> > backed by
+> > =C2=A0=C2=A0=C2=A0 struct pages, and the importer has no way to tell, s=
+o
+> > drm_clflush_sg()
+> > =C2=A0=C2=A0=C2=A0 cannot be used. vmap the buffer and flush that virtu=
+al range
+> > with
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range() instead: x86 uses PIPT cach=
+es, so
+> > flushing
+> > =C2=A0=C2=A0=C2=A0 one virtual alias evicts the cache lines for every a=
+lias of the
+> > same
+> > =C2=A0=C2=A0=C2=A0 physical pages. The dma_resv lock required by dma_bu=
+f_vmap() is
+> > =C2=A0=C2=A0=C2=A0 already held here via the imported object.
+> >=20
+> > Fall back to wbinvd only when the buffer cannot be vmapped or is
+> > backed
+> > by I/O memory, where there is no CPU-side range to clflush.
+> >=20
+> > Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-
+> > acquire")
+> > Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+> > ---
+> > v2:
+> > =C2=A0 - Flush our own imported dma-bufs directly with drm_clflush_sg()
+> > instead of
+> > =C2=A0=C2=A0=C2=A0 dma_buf_vmap(), which re-entered i915_gem_object_pin=
+_map() on
+> > the source
+> > =C2=A0=C2=A0=C2=A0 object and failed igt_dmabuf_import_same_driver_smem=
+ with -
+> > EBUSY (reported
+> > =C2=A0=C2=A0=C2=A0 by Intel CI on v1). Foreign dma-bufs still use dma_b=
+uf_vmap() +
+> > =C2=A0=C2=A0=C2=A0 drm_clflush_virt_range(); wbinvd only as fallback.
+> > =C2=A0 - Link to v1:
+> > https://patchwork.freedesktop.org/patch/744955/?series=3D171760
+> >=20
+> > =C2=A0 drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 55
+> > ++++++++++++++++++----
+> > =C2=A0 1 file changed, 47 insertions(+), 8 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > index b43d34c7d641..c798a90f1c0f 100644
+> > --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+> > @@ -10,6 +10,8 @@
+> > =C2=A0=20
+> > =C2=A0 #include <asm/smp.h>
+> > =C2=A0=20
+> > +#include <drm/drm_cache.h>
+> > +
+> > =C2=A0 #include "gem/i915_gem_dmabuf.h"
+> > =C2=A0 #include "i915_drv.h"
+> > =C2=A0 #include "i915_gem_object.h"
+> > @@ -249,16 +251,53 @@ static int
+> > i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+> > =C2=A0=C2=A0	 * DG1 is special here since it still snoops transactions
+> > even with
+> > =C2=A0=C2=A0	 * CACHE_NONE. This is not the case with other HAS_SNOOP
+> > platforms. We
+> > =C2=A0=C2=A0	 * might need to revisit this as we add new discrete
+> > platforms.
+> > -	 *
+> > -	 * XXX: Consider doing a vmap flush or something, where
+> > possible.
+> > -	 * Currently we just do a heavy handed
+> > wbinvd_on_all_cpus() here since
+> > -	 * the underlying sg_table might not even point to struct
+> > pages, so we
+> > -	 * can't just call drm_clflush_sg or similar, like we do
+> > elsewhere in
+> > -	 * the driver.
+> > =C2=A0=C2=A0	 */
+> > =C2=A0=C2=A0	if (i915_gem_object_can_bypass_llc(obj) ||
+> > -	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915)))
+> > -		wbinvd_on_all_cpus();
+> > +	=C2=A0=C2=A0=C2=A0 (!HAS_LLC(i915) && !IS_DG1(i915))) {
+>=20
+> I think we can bump this now for dg2? I think we treat dgfx as always
+> coherent with system memory. So maybe s/IS_DG1/IS_DGFX/ in a separate
+> patch? Pretty sure the rest of the driver is the same.
 
-On 2026-08-19 at 16:41:06 +0200, Janusz Krzysztofik wrote:
-> Before commit 59e3bf83f6bae ("tests/device_reset: Add cold reset IGT
-> test") all subtests required device PCI reset capability, with that
-> dependency placed in an initial igt_fixture section.  New subtests
-> introduced with that commit didn't depend on that capability but that
-> requirement was left untouched.  That was OK as long as all devices
-> being tested supported a PCI reset method, however, that's going to
-> change with an upcoming kernel patch that addresses DG1 SKU 0x4905
-> inability to perform a PCI reset without breaking the device.
-> 
-> Move the requirement from the initial igt_fixture section to the
-> relevant subtest bodies, so cold reset subtest can be run even if PCI
-> reset is not supported.  See commit 4a5fd4e7cb279 ("tests/device_reset:
-> move later skips into subtests") for justification on why not to use
-> an igt_fixture inside an igt_subtest_group for that purpose.
-> 
-> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-> ---
++1
 
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+>=20
+> > +		struct dma_buf *dma_buf =3D obj->base.import_attach-
+> > >dmabuf;
+> > +
+> > +		if (dma_buf->ops =3D=3D &i915_dmabuf_ops) {
+> > +			struct drm_i915_gem_object *dma_obj =3D
+> > +				dma_buf_to_obj(dma_buf);
+> > +
+> > +			/*
+> > +			 * We imported one of our own dma-bufs.
+> > The backing
+> > +			 * object is struct-page backed once
+> > migrated to SMEM,
+> > +			 * so flush it directly, the same way we
+> > flush our
+> > +			 * other objects. This also avoids re-
+> > entering the
+> > +			 * exporter through dma_buf_vmap(), which
+> > would recurse
+> > +			 * into i915_gem_object_pin_map() on the
+> > source object
+> > +			 * we already hold locked.
+> > +			 */
+> > +			if
+> > (i915_gem_object_has_struct_page(dma_obj))
+> > +				drm_clflush_sg(dma_obj->mm.pages);
+> > +			else
+> > +				wbinvd_on_all_cpus();
+>=20
+> Do we need the flush under the else here? If it's not placed in
+> system=20
+> memory what is this flushing, from i915 pov?
+>=20
+> > +		} else {
+> > +			struct iosys_map map;
+> > +
+> > +			/*
+> > +			 * A foreign sg_table is not guaranteed to
+> > be backed by
+> > +			 * struct pages, so we cannot use
+> > drm_clflush_sg(). vmap
+> > +			 * the buffer and flush the virtual range
+> > instead; x86
+> > +			 * uses PIPT caches, so flushing one alias
+> > evicts the
+> > +			 * lines for every alias of the same
+> > physical pages.
+> > +			 *
+> > +			 * We already hold the dma_resv lock via
+> > the imported
+> > +			 * obj, so use the locked dma_buf_vmap()
+> > variant.
+> > +			 */
+> > +			if (!dma_buf_vmap(dma_buf, &map)) {
+> > +				if (!map.is_iomem)
+> > +					drm_clflush_virt_range(map
+> > .vaddr,
+> > +							=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+> > obj->base.size);
+> > +				else
+> > +					wbinvd_on_all_cpus();
 
--- 
-Best Regards,
-Krzysztof
+The need for this flush is a bit unfortunate. In theory iomem can be
+mapped and wiped write-back, But I'm not sure how common that is...
+
+
+
+> > +				dma_buf_vunmap(dma_buf, &map);
+
+
+
+> > +			} else {
+> > +				wbinvd_on_all_cpus();
+
+Random idea, would it make sense to insert a GPU CLFLUSH into the
+pipeline using MI_CLFLUSH (on hardware that supports it) or an
+uncached but coherent MOCS / GPU PAT setting dummy blit?
+
+Thanks,
+Thomas
+
+
+> > +			}
+> > +		}
+> > +	}
+> > =C2=A0=20
+> > =C2=A0=C2=A0	__i915_gem_object_set_pages(obj, sgt);
+> > =C2=A0=20
+> >=20
+> > base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
