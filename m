@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4133C5DF85
-	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:12:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF4C3C5DF85
+	for <intel-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:15:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4136210F13B;
-	Thu, 20 Aug 2026 17:12:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3193510F137;
+	Thu, 20 Aug 2026 17:15:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="MB95tA0k";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Mj02zLOh";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CEFAC10F137
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:12:44 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1D8210F13D
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787245964;
+ s=mimecast20190719; t=1787246133;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
  bh=EM5PkmngzWPW5YVaOcE4doFSUi3DdsSPp8p0edYyrwQ=;
- b=MB95tA0kSm/DzqgLDbcjacsn/i2D4iPtbg3PFM2VLK9WSAP4Ajxo+Cy8MYgkAsfJwZEJ52
- MX5QK0J/SjdCgQShzWcaO6IbVSuxndH1P2ZV/eEEUVEqHqkTDMq+R8IoZvPsdavpjWpR3y
- kETTKZ4McQrkv+W35O6eGcdga+wZ2rg=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ b=Mj02zLOhbOZABOq6NVZ00KGwDRJ+eO6RF62/nltLfvTd5U2PGrXXstR0gdDLm2vjZVg5bc
+ G2PkwOiIBv0oLgyrxvYg8NDGPO2x9ie+W+axNEpKpOGuF424rNa+twDXzbaDhkjmm3QOSi
+ VO6Vt/O5v2eXZ3YduGiWmNHdSklo/R4=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-147-Bs3tLMyKNfa_ySEj2HRQZQ-1; Thu, 20 Aug 2026 13:12:42 -0400
-X-MC-Unique: Bs3tLMyKNfa_ySEj2HRQZQ-1
-X-Mimecast-MFC-AGG-ID: Bs3tLMyKNfa_ySEj2HRQZQ_1787245962
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-495529a93f9so544465e9.3
- for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:12:42 -0700 (PDT)
+ us-mta-518-EWXwuqviPzCcfU-PHMA-dA-1; Thu, 20 Aug 2026 13:15:31 -0400
+X-MC-Unique: EWXwuqviPzCcfU-PHMA-dA-1
+X-Mimecast-MFC-AGG-ID: EWXwuqviPzCcfU-PHMA-dA_1787246131
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-49991beee7aso459165e9.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:15:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787245962; x=1787850762;
+ d=1e100.net; s=20251104; t=1787246130; x=1787850930;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
  bh=EM5PkmngzWPW5YVaOcE4doFSUi3DdsSPp8p0edYyrwQ=;
- b=k01kbRQuLEdAbN0wKRRumxTm+Yfn7PS4LEOcqB2SDf2U8gfUHiKPlGQ4N5L5U2bB4B
- ili26l42+U0wQq0i6R3DN3Wqh3uT36YwkihGfPiKqaFwzZmXyA2iHemYsZAAO7triIgJ
- 7LReo5OHafh9b0diPXsfkCfvIzVAMn9B9j1XbWmCW9yhHSwwFdytYJGyLKfIJgptTKsS
- mo5Y9H5vKM2R6I2nix1SrM0FM10P8A3Gw7oNhBKv33JYCjq/ZhVUsFEqIVekdhLmEApl
- PeyiugENfutIl3jJJLyZiobl3lYJZGojJ5ocnmQUlX1lNBd92ZGgtx7lFSN9SD3t4LJQ
- x87w==
+ b=gqwTsCUwY/R2Z6al1cdRHDQXsJ3Aga5r/OqvKdDw9tSYH7to9Va2QNJ2C5iIDJ9rcY
+ KuPwb+RKIKvBk0qNcWab/P1Wwzs8sRe0ekfpuF8vLP3IXPLH9WDqXXACTCUU40II18am
+ Wkdc3iPk5FKEBqmdhlSWqqSOGl0SvNTFb0IGI59ZjwX1T0CHEsD6yowSeRVZAiIlTvii
+ 1TO/Ns3Hykznh0je2MAtcaRSDDPGSN0+laawaCfiKqwv6Z0wFlvbQUoFFqif4YAFF+5d
+ M0SGunyvqbi8yLN1X1qlzUpmElrC0LhbAvkY1xrEEZ1wILBtjBmfcMcqoxtsybDcbxbb
+ BXEg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr96JiglEvr7aFBS7TX2pXpD3duPXeC2UPyrz+hv8MUSrQ6cKiqvkKY8X3zRocwbcZOEfpU0NN1K5s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyC+TWgLS2pF5Tvb29bQvPRH71j1nUZexSoEERzk2VK199yjzSX
- KUcDgQHJVN3vKZYEZgTlHXmaP6GH1FKqgZteR8bpxuHyVTUQcMcnD/ywv3qbLv36d2E+5p2h678
- DXII/3DQ8pJlaXgEepcdH6pi2mSHwd1c2rvAZXTQZpIf3h/J60DPG+4u1jBPJpatOg3kM3A==
-X-Gm-Gg: AR+sD13z7U6QpryXhxlQhnbWbFKLIYNZoVAA6KSM1KRulhsZOBWasM3s+zhROutmPKc
- kTwJgOMA+uOWQFeqqGtVNQ7XUc8g65BgpiHKKQCA4h5A8xWZREvPMfC9IbaldTyaw5FRyMGRedY
- +jvxJdddLGxMjsSL9uFVDQI1tATq4XTyuj0cq2u+p/AcshOx5op7xkk+K/40TOPE2vJVpJ7omrv
- EUMjBPszPyzWxFStHSpnW9nbSwuWCTji5wZmco7zF6/j71uEujwlBzdZlILGLgVJ0hxF3Qfk6P3
- mPNu+uHpxbjxZNeXzs03M41ooxfOyNmRu/+kfJApFb2ptVxndlWFj5DxKS/0OnYCVXijwMCZTtQ
- 6AuLJnVk99DSxA9j9YtFHEYwLD7EwkkRZJbr9yc192gNQMw==
-X-Received: by 2002:a05:600c:8819:b0:499:8aff:59b6 with SMTP id
- 5b1f17b1804b1-499b8301c54mr7853245e9.14.1787245961737; 
- Thu, 20 Aug 2026 10:12:41 -0700 (PDT)
-X-Received: by 2002:a05:600c:8819:b0:499:8aff:59b6 with SMTP id
- 5b1f17b1804b1-499b8301c54mr7852145e9.14.1787245961316; 
- Thu, 20 Aug 2026 10:12:41 -0700 (PDT)
+ AHgh+Rqq2h+0I11bCs0tPJyPg7i1zznz9/Oz4WqJoNPdYokBL5QP7rUYWgA4762+zDpCCr4cOP8BAv6h6Po=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzopYuF+8LwMbKpduoazFzINz+w9hLcRo0P2TqMqY8NJ3cXS4/Z
+ MuK6NkjEY3qRQRgZFPg5LbGLAan7G1xGwiFpixy6nnzFZlDaXIYABWUEvQTSHz26RndGIiEoxbC
+ 8KwnuukIKq2/CJrmQe7tdvbidzMTa5iMmRwShSZpr6AbCKeopKgJ8y9GnBoUHn0jiB+rotw==
+X-Gm-Gg: AR+sD12jl6SWrFw2nDmyoI/qDrURwCxMD7TywMJRs05pgOE8lYbMQSwaGJ4EthWknPo
+ m/EGa1q1JZGpSYQ/qI/2k4Nijdgm2lHM8LiJ0UCn4taQeV4m5detQNw9GodjFJ4N3mXF8cSzEkS
+ 4xAglwWTJ358QHkviYNnQHv4zffsTrgxMLUgCXCeoZZmx4UmzvB3HpryuTZP+JNX5Ik1ZhTa2YL
+ opq+hm2vFDy3EHK1AgJLrxsgD0I2Hz/4DCbA8TuF76Q4N/+bk4/99tewWEtY1T3nCdt11za7MuS
+ GBXaHRflIg9pvmwMt1R1HyspQHPNwidHa5EkTg3uJo2BSNJNHDi2y0z/Y4IeVkYzQzBC4MCX8Og
+ Ely85XruZPgGT3DoL+ypFJTUt9SJfT14JpqnkIz3OK5f6Ow==
+X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id
+ 5b1f17b1804b1-499b845c184mr6845875e9.15.1787246130470; 
+ Thu, 20 Aug 2026 10:15:30 -0700 (PDT)
+X-Received: by 2002:a05:600c:c493:b0:499:7aa7:eaa7 with SMTP id
+ 5b1f17b1804b1-499b845c184mr6843265e9.15.1787246129216; 
+ Thu, 20 Aug 2026 10:15:29 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:11aa:87f0:935:4f8e:b423:64eb?
  ([2a01:e0a:11aa:87f0:935:4f8e:b423:64eb])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa17fc80sm168153685e9.14.2026.08.20.10.12.40
+ ffacd0b85a97d-482b14514d5sm14505430f8f.10.2026.08.20.10.15.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2026 10:12:40 -0700 (PDT)
-Message-ID: <b332e4f1-30a8-40b1-bdd5-f0c3f816c229@redhat.com>
-Date: Thu, 20 Aug 2026 19:12:37 +0200
+ Thu, 20 Aug 2026 10:15:28 -0700 (PDT)
+Message-ID: <dd1da602-675f-4b63-ace3-a23e55ce549b@redhat.com>
+Date: Thu, 20 Aug 2026 19:15:24 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 07/12] drm/panic: Retry in dispatch function if panic
@@ -92,7 +92,7 @@ References: <20260818125012.468092-1-tzimmermann@suse.de>
 From: Jocelyn Falempe <jfalempe@redhat.com>
 In-Reply-To: <20260818125012.468092-8-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: CZoc4xM6TiBv5Yay5qJcSioBk8RrUlS6GEoEA6ZsVR4_1787245962
+X-Mimecast-MFC-PROC-ID: 4GfDNsdxQgLnjmFCjxkZSTgky3UdPzW4-JMbx7oGg0E_1787246131
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
