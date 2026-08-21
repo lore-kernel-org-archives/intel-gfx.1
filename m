@@ -4,43 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3452C5DF89
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:48:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC8BC5DF89
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 14:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B1FC10E2AE;
-	Fri, 21 Aug 2026 13:48:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0F310E2D0;
+	Fri, 21 Aug 2026 14:19:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EWAWP9Yu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f3fc42g4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE27510E2AE
- for <intel-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 13:48:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D36B160008;
- Fri, 21 Aug 2026 13:48:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FCA21F000E9;
- Fri, 21 Aug 2026 13:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787320101;
- bh=TowqGP+peUPplIRAjSY91g5yP3zde/Ob8Aq5HElGYqA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=EWAWP9YuO8W+5rK8k2Tay5EP+VpUAF/Og8izcsaayCHt7uVTba5fUT6FIGwi62rZd
- WLGXbws/3z/f05qi3zVjnWYI1YUw0ySRkrLYDWvjF/sNNleEVX0slZ9IYtDIFDcTEz
- V0EZOVBnrRTNSJ/ykyo1eFk47xbHERl+2a8pDhA9N+OMvtQcfmTZuMKOHPpmB1skj6
- QY6dH2ipRYIWMQTb7hxfPRviDvXzE0aVDp9Lmb4i856HBmqpDhFz/AlJTTmvN+txwR
- TME3A3hherwfr3EsJEEG6P4iq0Nj07o+YIlQfWlqgRVy+/cy5vidBY9JzBtESpkD08
- OhXtSqgkNSglg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/selftests: Fix unlocked mm.stolen in reset
- selftest
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
-References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BDF510E0A5;
+ Fri, 21 Aug 2026 14:19:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787321981; x=1818857981;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=z8iAxAemn/0JgPj6PTSNSzKHXE5ttv1nlKOgH4UXlm8=;
+ b=f3fc42g4r67o4M5QcIiohc57+sJwF6jeNaxMqW+tEY1Kl3TR8FXX6wNi
+ rnl9Bze2/4MnKIT5JLbsRed7lWxA5rQskgISLX+NsODCD3ehmomhnhG5K
+ Yv9elfLJv4yZox9XLp+0N2We+Xx+u+7Y0s5snUyzfM85PfQ/VfuHTEIlv
+ rqYIE7qskdkfLcrcPPM8pfTk7vuGiDEwKjmuDvFq0v5ffBGbLcmZUbw8p
+ JRIKYxJKtwRwDM47NbAms++KuE5h3xaoI8McHunn0H+IZoK5bPeRCWU8Y
+ LwYTlBe3PvP3qP4eJjSmrgOZvw624PE2lGVNItX4+TgOemLRALrfE+mtE g==;
+X-CSE-ConnectionGUID: hriM9syATUOY+pHFuKuBUg==
+X-CSE-MsgGUID: mDrlPdSoRbyZOW93XcZNwA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="99227883"
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; d="scan'208";a="99227883"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 07:19:41 -0700
+X-CSE-ConnectionGUID: Z41FSKHpRRClrP8NuXTugg==
+X-CSE-MsgGUID: JRl2iDgJTUeeglFRpLcyOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; d="scan'208";a="269840184"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.20])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 07:19:37 -0700
+Date: Fri, 21 Aug 2026 17:19:33 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Chang =?utf-8?B?Smlvbmco5bi454KvKQ==?= <xspeed1989@gmail.com>,
+ intel-gfx@lists.freedesktop.org, stable@vger.kernel.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
+ "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
+ <intel-xe@lists.freedesktop.org>, 
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/i915/cdclk: Don't force cd2x pipe select on Xe3
+ in bxt_sanitize_cdclk()
+Message-ID: <aohedWm6CXXBWf-G@intel.com>
+References: <tencent_6CC00E822A788776C8F6E2D6B24C5FE4A909@qq.com>
+ <20260816062344.796615-1-xspeed1989@gmail.com>
+ <c4dead5d0527e305f44ddb943f95e9967ec1911f@intel.com>
+ <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 21 Aug 2026 13:48:21 +0000
-Message-Id: <20260821134821.6FCA21F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c779c8e8fc78c68aea12c2022b2d8c64541ca173@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,133 +83,52 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Wed, Aug 19, 2026 at 12:33:56PM +0300, Jani Nikula wrote:
+> On Tue, 18 Aug 2026, Jani Nikula <jani.nikula@linux.intel.com> wrote:
+> > On Sun, 16 Aug 2026, Chang Jiong(常炯) <xspeed1989@gmail.com> wrote:
+> >> Since commit 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL
+> >> without a full PLL re-enable") bxt_sanitize_cdclk() normalizes the
+> >> CD2X pipe select field of the CDCLK_CTL readback to PIPE_NONE before
+> >> comparing against the expected value.
+> >>
+> >> However bxt_cdclk_ctl() does not include the CD2X pipe select field
+> >> at all on DISPLAY_VER() >= 30, so on Xe3 (PTL) the normalized
+> >> readback (pipe field forced to the PIPE_NONE encoding, 0b111) can
+> >> never match the expected value (pipe field 0). The comparison now
+> >> fails on every boot and we always take the full CDCLK PLL
+> >> disable+re-enable path with the BIOS framebuffer actively scanning
+> >> out - exactly what this code was trying to avoid. On a Panther Lake
+> >> laptop (Arc B390, 8086:b080, eDP 3120x2080@120) this causes
+> >> "CPU pipe A FIFO underrun" during probe and persistent full-screen
+> >> scanout corruption for the first KMS client (the SDDM greeter);
+> >> the corruption lasts until the next full modeset.
+> >>
+> >> Only normalize the CD2X pipe select field on platforms where
+> >> bxt_cdclk_ctl() actually programs it, mirroring its DISPLAY_VER()
+> >> check.
+> >>
+> >> Fixes: 2ee8dbd880b1 ("drm/i915/cdclk: Fix up CDCLK_FREQ_DECIMAL without a full PLL re-enable")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: Chang Jiong(常炯) <xspeed1989@gmail.com>
+> >
+> > Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8550
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8569
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8901
+> >
+> > The first one has a patch from Ville that is identical to this one.
+> >
+> > I'll try to kick CI to get this tested before merging.
+> 
+> Okay, the patch is against some stable kernel, not against the current
+> development tree. Please rebase on top of the drm-tip branch of the
+> drm-tip repository.
 
-Pre-existing issues:
-- [Medium] The logic to determine if a stolen page is unused evaluates to a=
-lways false, neutralizing the selftest.
-- [Medium] Missing lock protection when accessing the globally shared `ggtt=
-->error_capture` memory, risking arbitrary memory corruption.
-- [Medium] Time-of-Check to Time-of-Use (TOCTOU) race condition between che=
-cking page availability and poisoning it.
---
+I pushed my original fix and closed the other bugs as duplicates.
 
---- Patch [1]: [PATCH] drm/i915/selftests: Fix unlocked mm.stolen in reset =
-selftest ---
-commit eab33f79c43e7ed3d420674fa2faede0152e1b0b
-Author: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-
-drm/i915/selftests: Fix unlocked mm.stolen in reset selftest
-
-This commit fixes an unlocked access to i915->mm.stolen in the reset selfte=
-st
-by wrapping __drm_mm_interval_first() calls with i915->mm.stolen_lock. This
-prevents a NULL pointer dereference observed during igt_reset_device_stolen=
-().
-
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16841
-
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/i=
-915/gt/selftest_reset.c
-> index 2cfc23c58e909..eb6b2261329da 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
-
-[ ... ]
-
-> @@ -95,9 +96,12 @@ __igt_reset_stolen(struct intel_gt *gt,
->  		dma_addr_t dma =3D (dma_addr_t)dsm->start + (page << PAGE_SHIFT);
->  		void __iomem *s;
->  		void *in;
-> =20
->  		ggtt->vm.insert_page(&ggtt->vm, dma,
->  				     ggtt->error_capture.start,
->  				     i915_gem_get_pat_index(gt->i915,
->  							    I915_CACHE_NONE),
->  				     0);
-
-[Severity: Medium]
-This is a pre-existing issue, but does this code modify the globally shared
-ggtt->error_capture memory without serialization?
-
-If a real GPU error occurs or sysfs is accessed concurrently during test
-execution, could the error capture PTE be overwritten, risking arbitrary
-memory corruption?
-
->  		mb();
-> =20
->  		s =3D io_mapping_map_wc(&ggtt->iomap,
->  				      ggtt->error_capture.start,
->  				      PAGE_SIZE);
-> =20
-> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1))
-> +		mutex_lock(&gt->i915->mm.stolen_lock);
-> +		unused =3D !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> +						  page << PAGE_SHIFT,
-> +						  ((page + 1) << PAGE_SHIFT) - 1);
-
-[Severity: Medium]
-This is a pre-existing issue, but does this logic to determine if a stolen
-page is unused evaluate to always false?
-
-Looking at __drm_mm_interval_first(), it returns &mm->head_node when no
-interval is found, which is a non-NULL pointer. This means
-!__drm_mm_interval_first(...) is always false.
-
-Does this neutralize the selftest by preventing it from verifying or
-poisoning unused stolen memory pages?
-
-> +		mutex_unlock(&gt->i915->mm.stolen_lock);
-> +		if (unused)
->  			memset_io(s, STACK_MAGIC, PAGE_SIZE);
-
-[Severity: Medium]
-This is a pre-existing issue, but is there a time-of-check to time-of-use
-(TOCTOU) race condition here?
-
-The lock gt->i915->mm.stolen_lock is released immediately after checking
-the page availability, and before memset_io() poisons it.
-
-Could a concurrent thread allocate this page before memset_io() writes
-STACK_MAGIC to it, leading to unintended memory corruption of legitimate
-stolen memory allocations?
-
-> =20
->  		in =3D (void __force *)s;
-
-[ ... ]
-
-> @@ -143,10 +147,12 @@ __igt_reset_stolen(struct intel_gt *gt,
->  			in =3D tmp;
->  		x =3D crc32_le(0, in, PAGE_SIZE);
-> =20
-> -		if (x !=3D crc[page] &&
-> -		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> -					     page << PAGE_SHIFT,
-> -					     ((page + 1) << PAGE_SHIFT) - 1)) {
-> +		mutex_lock(&gt->i915->mm.stolen_lock);
-> +		unused =3D !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> +						  page << PAGE_SHIFT,
-> +						  ((page + 1) << PAGE_SHIFT) - 1);
-> +		mutex_unlock(&gt->i915->mm.stolen_lock);
-> +		if (x !=3D crc[page] && unused) {
-
-[Severity: Medium]
-This is a pre-existing issue, but this check for clobbered unused pages
-appears to also be neutralized by the always-false condition described
-above since unused will always be false.
-
->  			pr_debug("unused stolen page %pa modified by GPU reset\n",
->  				 &page);
->  			if (count++ =3D=3D 0)
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260821134044.1590=
-8-1-sebastian.brzezinka@intel.com?part=3D1
+-- 
+Ville Syrjälä
+Intel
