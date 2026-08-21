@@ -4,61 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50181C5DF7D
-	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 09:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDC5AC5DF87
+	for <intel-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 09:50:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6A4810E297;
-	Fri, 21 Aug 2026 09:09:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F4AF10F2AA;
+	Fri, 21 Aug 2026 09:50:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YRN3yd6F";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FBQTVUtP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4C3510E297;
- Fri, 21 Aug 2026 09:09:39 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2E9E10F2AA
+ for <intel-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 09:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787303379; x=1818839379;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=d986WdqhlagJUjtBnRxf/TrT6JGOX87qNB56dhaCxCU=;
- b=YRN3yd6FsNRfqPAUvPnxnVhUnq6EeYOlh3sXjIo0Tq5F53JWXZAjT1PN
- uXS0UEDoc4oh7Qzr7sj1U0uwCGWRiK5UoXH9d92V6eL92uACtal/jxqRV
- BuXW8asdkrT7g2QhOk8OJ2fq8qq+tBLDwLaJiXJTEO5CTN6f4krsEV2r+
- 8kHs90plaiyWFJOrePLmo9QPn3M0Zx+u2hhZOnM942ucyk5SaNU/brLlK
- nd/Efd8zI2qVp+EvZWq+x5SYtm3w2erHjXojCOpa8VBny0HB5+84urFbq
- V+0Cxoq1KGOYLexo3rDVR0TRn1pmj5hWkYcLprbw2TXSWzRlKqoeycWPz Q==;
-X-CSE-ConnectionGUID: M2i5f4EsQ4GSZ7gWlr7y1w==
-X-CSE-MsgGUID: osk+iDStQg2t+AtSjofU9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="99004734"
-X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="99004734"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2026 02:09:39 -0700
-X-CSE-ConnectionGUID: yij2+kLOTsaQfFKHHyZZrg==
-X-CSE-MsgGUID: p69U9p4HShyuHfxJDT+PdQ==
+ t=1787305813; x=1818841813;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=SR4DWJiqGghBFTzS3KA9iUFdXu7xAoAxfyqQ3MDAWcc=;
+ b=FBQTVUtPl0P83IluAf/I06E8aHNFN2CmiSLyFVXroGvOZlG3x5aJRowI
+ ENWVXbrnWkZmCUwenmRhs6PsSQKLIlBwnra6z6mTi4TkJl6yTDyxCCK79
+ 1kkCvB4KQg2cz0E7RQPZRJ1qV5PSAEL0qpqHqapnUxiRRe6KJ93wChkfT
+ 7UvdLFIzMhvInHBTqgEGCeF94Z6v3RkYfBYrRtNEarGVoQAEljRaJIawY
+ 1eUZ99r+lhHhorOy0OglevLDUHBoeP4AmgBHR3lmKFmd3QTjMioBQ3C6Y
+ zih3uTZkzQ3Fv6fBAVy5oaa0mje82FXDqkVLmzk8Bc98yuWb5pOgc2f3P w==;
+X-CSE-ConnectionGUID: KKvht5PaQKen/y87lUucAw==
+X-CSE-MsgGUID: 8mM5W4vkQ7KQlQsLJCgYlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="98447516"
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="98447516"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 02:50:12 -0700
+X-CSE-ConnectionGUID: 1PROpwKxT+SxKbHirQrlqA==
+X-CSE-MsgGUID: oIdSvDRGRhSh7sfO/n/mKQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="289808769"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.245.237])
- ([10.245.245.237])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2026 02:09:37 -0700
-Message-ID: <50981231-a975-4ca9-8ad3-df2a34588b06@intel.com>
-Date: Fri, 21 Aug 2026 10:09:34 +0100
+X-IronPort-AV: E=Sophos;i="6.25,234,1779174000"; d="scan'208";a="263643428"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.165])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2026 02:50:09 -0700
+Message-ID: <4bd61f0e5667100e9773e06c8cefe25a9f9c00ad.camel@linux.intel.com>
+Subject: Re: [PATCH] PCI: Disable not supported reset methods on DG1 0x4905
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, Joonas Lahtinen	
+ <joonas.lahtinen@linux.intel.com>, Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, Sebastian Brzezinka
+ <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
+ <krzysztof.niemiec@intel.com>, linux-kernel@vger.kernel.org
+Date: Fri, 21 Aug 2026 11:50:07 +0200
+In-Reply-To: <aogQ4fNchLVm9Pbg@zenone.zhora.eu>
+References: <20260819102509.1662504-2-janusz.krzysztofik@linux.intel.com>
+ <aogQ4fNchLVm9Pbg@zenone.zhora.eu>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
+ 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
-To: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>,
- intel-gfx@lists.freedesktop.org
-Cc: thomas.hellstrom@linux.intel.com, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, dri-devel@lists.freedesktop.org
-References: <20260816014552.14969-1-krishna.prabhakaran@intel.com>
- <20260820205031.344338-1-krishna.prabhakaran@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260820205031.344338-1-krishna.prabhakaran@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,134 +76,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On 20/08/2026 21:50, Prabhakaran, Krishna wrote:
-> From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-> 
-> When i915 needs to make an imported dma-buf coherent for GPU access on
-> non-LLC platforms, or for objects that bypass LLC, it currently calls
-> wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
-> pinned, so this triggers a whole-cache write-back and invalidate,
-> broadcast by IPI to every CPU, on every execbuf submission involving an
-> imported dma-buf. That stalls the entire machine for milliseconds and
-> starves latency-sensitive work on unrelated cores (e.g. USB isochronous
-> audio serviced on the VMM's main thread).
-> 
-> Flush only the pages that actually need it instead:
-> 
->   - If we imported one of our own dma-bufs, the backing object is
->     struct-page backed once migrated to SMEM, so flush it directly with
->     drm_clflush_sg(), exactly as we flush our other objects. This also
->     avoids re-entering the exporter through dma_buf_vmap(), which would
->     recurse into i915_gem_object_pin_map() on the source object we
->     already hold locked (and fails the igt_dmabuf_import_same_driver
->     selftest with -EBUSY).
-> 
->   - For a foreign dma-buf the sg_table is not guaranteed to be backed by
->     struct pages, and the importer has no way to tell, so drm_clflush_sg()
->     cannot be used. vmap the buffer and flush that virtual range with
->     drm_clflush_virt_range() instead: x86 uses PIPT caches, so flushing
->     one virtual alias evicts the cache lines for every alias of the same
->     physical pages. The dma_resv lock required by dma_buf_vmap() is
->     already held here via the imported object.
-> 
-> Fall back to wbinvd only when the buffer cannot be vmapped or is backed
-> by I/O memory, where there is no CPU-side range to clflush.
-> 
-> Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
-> Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
-> ---
-> v3:
->   - Drop the wbinvd fallback in the own-dma-buf branch: the exporter is
->     migrated to SMEM on attach, so it is always struct-page backed here;
->     flushing device memory made no sense from i915's point of view
->     (Matthew Auld).
-> 
-> v2:
->   - Flush our own imported dma-bufs directly with drm_clflush_sg() instead of
->     dma_buf_vmap(), which re-entered i915_gem_object_pin_map() on the source
->     object and failed igt_dmabuf_import_same_driver_smem with -EBUSY (reported
->     by Intel CI on v1). Foreign dma-bufs still use dma_buf_vmap() +
->     drm_clflush_virt_range(); wbinvd only as fallback.
->   - Link to v1: https://patchwork.freedesktop.org/patch/744955/?series=171760
-> 
->   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 52 ++++++++++++++++++----
->   1 file changed, 44 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> index b43d34c7d641..fbf0e0d4b026 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> @@ -10,6 +10,8 @@
->   
->   #include <asm/smp.h>
->   
-> +#include <drm/drm_cache.h>
-> +
->   #include "gem/i915_gem_dmabuf.h"
->   #include "i915_drv.h"
->   #include "i915_gem_object.h"
-> @@ -249,16 +251,50 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
->   	 * DG1 is special here since it still snoops transactions even with
->   	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
->   	 * might need to revisit this as we add new discrete platforms.
-> -	 *
-> -	 * XXX: Consider doing a vmap flush or something, where possible.
-> -	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
-> -	 * the underlying sg_table might not even point to struct pages, so we
-> -	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
-> -	 * the driver.
->   	 */
->   	if (i915_gem_object_can_bypass_llc(obj) ||
-> -	    (!HAS_LLC(i915) && !IS_DG1(i915)))
-> -		wbinvd_on_all_cpus();
-> +	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
-> +		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
-> +
-> +		if (dma_buf->ops == &i915_dmabuf_ops) {
-> +			struct drm_i915_gem_object *dma_obj =
-> +				dma_buf_to_obj(dma_buf);
-> +
-> +			/*
-> +			 * We imported one of our own dma-bufs. The exporter is
-> +			 * migrated to SMEM on attach, so it is struct-page
-> +			 * backed and we can flush it directly, the same way we
-> +			 * flush our other objects. This also avoids re-entering
-> +			 * the exporter through dma_buf_vmap(), which would
-> +			 * recurse into i915_gem_object_pin_map() on the source
-> +			 * object we already hold locked.
-> +			 */
-> +			drm_clflush_sg(dma_obj->mm.pages);
+Hi Andi,
 
-I think we still need to wrap this with has_struct_page()?
+On Fri, 2026-08-21 at 10:51 +0200, Andi Shyti wrote:
+> Hi Janusz,
+>=20
+> On Wed, Aug 19, 2026 at 12:24:53PM +0200, Janusz Krzysztofik wrote:
+> > DRM CI consequently reports failing device reset attempts on Intel DG1
+>=20
+> do you mean "consistently reports"?
 
-> +		} else {
-> +			struct iosys_map map;
-> +
-> +			/*
-> +			 * A foreign sg_table is not guaranteed to be backed by
-> +			 * struct pages, so we cannot use drm_clflush_sg(). vmap
-> +			 * the buffer and flush the virtual range instead; x86
-> +			 * uses PIPT caches, so flushing one alias evicts the
-> +			 * lines for every alias of the same physical pages.
-> +			 *
-> +			 * We already hold the dma_resv lock via the imported
-> +			 * obj, so use the locked dma_buf_vmap() variant.
-> +			 */
-> +			if (!dma_buf_vmap(dma_buf, &map)) {
-> +				if (!map.is_iomem)
-> +					drm_clflush_virt_range(map.vaddr,
-> +							       obj->base.size);
-> +				else
-> +					wbinvd_on_all_cpus();
-> +				dma_buf_vunmap(dma_buf, &map);
-> +			} else {
-> +				wbinvd_on_all_cpus();
-> +			}
-> +		}
-> +	}
->   
->   	__i915_gem_object_set_pages(obj, sgt);
->   
-> 
-> base-commit: 682ea2d28d18bb06f9fc663cb5ab7e80dc0e606a
+Yeah, consistently is the right word.
 
+@Bjorn: should I submit v2, or can you handle that correction?
+
+Thanks,
+Janusz
+
+>=20
+> > discrete graphics adapters.  Manual reproduction attempts allowed to
+> > narrow down the scope of that problem to a specific revision of that
+> > hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+> > claimed by the device, i.e., flr and bus, suffer from that issue.
+> >=20
+> > Since consecutively failing device resets may lead to system hangs,
+> > disable both useless reset methods.  A respective CI test will then be
+> > skipped instead of aborting whole CI jobs.
+> >=20
+> > Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/118=
+14
+> > Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+>=20
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+>=20
+> Thanks,
+> Andi
