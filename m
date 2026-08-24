@@ -4,46 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79AA5C5DF81
-	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 14:11:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 571D6C5DF9C
+	for <intel-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 16:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C24710E443;
-	Mon, 24 Aug 2026 14:11:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z9wr6Sjt";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 264EF10E443;
- Mon, 24 Aug 2026 14:11:28 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D4356011F;
- Mon, 24 Aug 2026 14:11:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817C91F00A3A;
- Mon, 24 Aug 2026 14:11:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787580686;
- bh=NNSqrxhKdKa9IsISn7TuGdTFnKoxHXdqNnZmSpXrJlU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z9wr6SjtyDdFI565fEg5Y7ka2qiBRlRSYHSDE4oTcj68lvrC37ievysH8flpSFsGQ
- V6k0ysaCuZcI0BdQbAeTG2KTgEfCTJeYgYM6VihjJ30FqRkMQIpvXzMlm0jzbbQTKr
- sHma8LyvG8V/1vxLLRmMyH/dsN5gB7UU9vfJX/EZnPfbQV+xjks16B5nx75lndLsLh
- iM7XJCTIll7JU50iUrJ/uihq7UDE12/hUfaCAvWQkut8ja7irSLPeuCpA3VDJ7b/Nx
- j5i2EgWhpiU+dbZVc4xJx3Rq8Dtgg3oNJaje9YQ3Kzsaz1eQhSMUPzMTgu8VW+GmY7
- irzAfulRKrnSw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/13] drm/panic: Compile KUnit tests as module
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE3BB10E7DF;
+	Mon, 24 Aug 2026 16:29:22 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12C2210E7DC;
+ Mon, 24 Aug 2026 16:29:21 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3225663058357260553=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/panic=3A_Split_into_c?=
+ =?utf-8?q?ore_and_helpers_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Thomas Zimmermann" <tzimmermann@suse.de>
-Cc: intel-xe@lists.freedesktop.org, ojeda@kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, Frank.Li@kernel.org, wsa+renesas@sang-engineering.com,
- linux-hyperv@vger.kernel.org
-In-Reply-To: <20260824125201.218863-14-tzimmermann@suse.de>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Mon, 24 Aug 2026 16:29:21 -0000
+Message-ID: <178758896107.79853.16741274228045549347@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260824125201.218863-1-tzimmermann@suse.de>
- <20260824125201.218863-14-tzimmermann@suse.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 24 Aug 2026 14:11:25 +0000
-Message-Id: <20260824141126.817C91F00A3A@smtp.kernel.org>
+In-Reply-To: <20260824125201.218863-1-tzimmermann@suse.de>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,80 +37,143 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--===============3225663058357260553==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Pre-existing issues:
-- [High] Dangling pointer in panic_msg array causes use-after-free during k=
-ernel panic after the test module is unloaded.
---
+== Series Details ==
 
---- Patch [13]: [PATCH v2 13/13] drm/panic: Compile KUnit tests as module -=
---
-commit 9a00d4c3f17fad5dbc6e3335649c2316482a4fad
-Author: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: drm/panic: Compile KUnit tests as module
-   =20
-Fix dependency of the panic-helper KUnit tests on CONFIG_DRM_KUNIT_TEST=3Dy
-and make them build as a module. Export the necessary interfaces from the
-panic helpers iff the KUnit framework has been enabled.
+Series: drm/panic: Split into core and helpers (rev2)
+URL   : https://patchwork.freedesktop.org/series/172395/
+State : success
 
-> diff --git a/drivers/gpu/drm/drm_panic_helper.c b/drivers/gpu/drm/drm_pan=
-ic_helper.c
-> index 669f09225f8ed..253262b7e0d4c 100644
-> --- a/drivers/gpu/drm/drm_panic_helper.c
-> +++ b/drivers/gpu/drm/drm_panic_helper.c
+== Summary ==
 
-[ ... ]
+CI Bug Log - changes from CI_DRM_19038 -> Patchwork_172395v2
+====================================================
 
-> -static void drm_panic_helper_set_description(const char *description)
-> +VISIBLE_IF_KUNIT void drm_panic_helper_set_description(const char *descr=
-iption)
->  {
->  	u32 len;
-> =20
->  	if (description) {
->  		struct drm_panic_line *desc_line =3D &panic_msg[panic_msg_lines - 1];
-> =20
->  		desc_line->txt =3D description;
->  		len =3D strlen(description);
->  		/* ignore the last newline character */
->  		if (len && description[len - 1] =3D=3D '\n')
->  			len -=3D 1;
->  		desc_line->len =3D len;
->  	}
->  }
-> +EXPORT_SYMBOL_IF_KUNIT(drm_panic_helper_set_description);
+Summary
+-------
 
-[Severity: High]
-This is a pre-existing issue, but since the test can now be built as a modu=
-le,
-does unloading it leave a dangling pointer in the global panic_msg array?
+  **SUCCESS**
 
-In drivers/gpu/drm/tests/drm_panic_helper_test.c, drm_test_panic_init()
-calls drm_panic_helper_set_description("Kunit testing"), which stores a
-pointer to the test module's .rodata.
+  No regressions found.
 
-When the drm_panic_helper_test module is unloaded, this memory is freed. Si=
-nce
-the test suite lacks an .exit callback to call
-drm_panic_helper_clear_description(), the dangling pointer remains in the
-global array.
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/index.html
 
-If a real kernel panic occurs later where detail->description is NULL (such=
- as
-via kmsg_dump(KMSG_DUMP_PANIC) on some architectures), this function silent=
-ly
-ignores the NULL input and leaves the dangling pointer intact.
+Participating hosts (40 -> 38)
+------------------------------
 
-Will this cause a use-after-free read when the panic screen rendering
-dereferences desc_line->txt, potentially preventing the panic screen from
-displaying during an actual crash?
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260824125201.2188=
-63-1-tzimmermann@suse.de?part=3D13
+Known issues
+------------
+
+  Here are the changes found in Patchwork_172395v2 that come from known issues:
+
+### IGT changes ###
+
+#### Issues hit ####
+
+  * igt@core_debugfs@read-all-entries:
+    - bat-adlp-6:         [PASS][1] -> [DMESG-WARN][2] ([i915#15673])
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19038/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/bat-adlp-6/igt@core_debugfs@read-all-entries.html
+
+  
+#### Possible fixes ####
+
+  * igt@core_auth@basic-auth:
+    - bat-adlp-6:         [DMESG-WARN][3] ([i915#15673]) -> [PASS][4]
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19038/bat-adlp-6/igt@core_auth@basic-auth.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/bat-adlp-6/igt@core_auth@basic-auth.html
+
+  
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19038 -> Patchwork_172395v2
+
+  CI-20190529: 20190529
+  CI_DRM_19038: 00537470d4dadf8e803a2df45b36940dba096d4b @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9070: 80b6e4c9b9cb853c63a9bcaa4784e0306d1f7fca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_172395v2: 00537470d4dadf8e803a2df45b36940dba096d4b @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/index.html
+
+--===============3225663058357260553==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/panic: Split into core and helpers (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172395/">https://patchwork.freedesktop.org/series/172395/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19038 -&gt; Patchwork_172395v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172395v2 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Issues hit</h4>
+<ul>
+<li>igt@core_debugfs@read-all-entries:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19038/bat-adlp-6/igt@core_debugfs@read-all-entries.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/bat-adlp-6/igt@core_debugfs@read-all-entries.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>)</li>
+</ul>
+</li>
+</ul>
+<h4>Possible fixes</h4>
+<ul>
+<li>igt@core_auth@basic-auth:<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19038/bat-adlp-6/igt@core_auth@basic-auth.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172395v2/bat-adlp-6/igt@core_auth@basic-auth.html">PASS</a></li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19038 -&gt; Patchwork_172395v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19038: 00537470d4dadf8e803a2df45b36940dba096d4b @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9070: 80b6e4c9b9cb853c63a9bcaa4784e0306d1f7fca @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_172395v2: 00537470d4dadf8e803a2df45b36940dba096d4b @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3225663058357260553==--
