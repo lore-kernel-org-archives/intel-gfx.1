@@ -4,42 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03C8BC61DB6
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 09:44:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D491C61CE2
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 10:28:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F38110E9A0;
-	Tue, 25 Aug 2026 09:44:03 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bj11CIik";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC11110E9A0;
- Tue, 25 Aug 2026 09:44:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CE52D6011F;
- Tue, 25 Aug 2026 09:44:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F40A1F000E9;
- Tue, 25 Aug 2026 09:44:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787651040;
- bh=qlDbenrtidB9/Swr/C29SgEfVeLDeeV6QcTyC/WMrlQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bj11CIikUzj8sPmOKTNewYI5GuCqmc8OhljN/X6/fjRZ47zK1hbMFkYGjQvo9gpDY
- jn0sS5HaB7AjIX60LkY1PM0QilyfJ2NVfVh5sKXlYUv7it9HiHJIvriEPoT7IXA+zO
- ZrYCNoJ4UHjTiZgZRlDHkZ7brpEW74lsQD+F4Tcn0FVCl/LcXDs+rV1uJ9vE9dVvj5
- yERH22BC1uvQzIbFnqSJ/5d+6NJnSOGjrrZhG5eZ834MOsX0q3DpgE8YiHMJDXK4H4
- NM5kOQsgFWgwrLTu3NZmuy3aXCjTWYtnEF6ocYn7EmxAr7Fj4ruxPAibN3bczZfA6k
- yl727e/GwbY1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/1] drm/i915/gem: Use simpler versions of min*()
+	by gabe.freedesktop.org (Postfix) with ESMTP id 343C610E9D2;
+	Tue, 25 Aug 2026 10:28:21 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD21110E9CB;
+ Tue, 25 Aug 2026 10:28:19 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7868362106299046977=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_series_starting_with_=5Bv?=
+ =?utf-8?q?1=2C1/1=5D_drm/i915/gem=3A_Use_simpler_versions_of_min*=28=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260825093552.4088094-1-andriy.shevchenko@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 25 Aug 2026 10:28:19 -0000
+Message-ID: <178765369989.82308.12674346023165341078@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260825093552.4088094-1-andriy.shevchenko@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 09:43:59 +0000
-Message-Id: <20260825094400.4F40A1F000E9@smtp.kernel.org>
+In-Reply-To: <20260825093552.4088094-1-andriy.shevchenko@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,90 +37,159 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--===============7868362106299046977==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Pre-existing issues:
-- [High] Data corruption when splitting large folios into multiple scatterl=
-ist segments due to small max_segment size.
---
+== Series Details ==
 
---- Patch [1]: [PATCH v1 1/1] drm/i915/gem: Use simpler versions of min*() =
----
-commit a3571cfa95156ba739dd7334aec0101cdc3aa63e
-Author: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Series: series starting with [v1,1/1] drm/i915/gem: Use simpler versions of min*()
+URL   : https://patchwork.freedesktop.org/series/172719/
+State : success
 
-drm/i915/gem: Use simpler versions of min*()
+== Summary ==
 
-This commit replaces the harder-to-read min_array() and min_t()=20
-with min3() and min() in shmem_sg_alloc_table(). No functional=20
-changes are intended.
+CI Bug Log - changes from CI_DRM_19041 -> Patchwork_172719v1
+====================================================
 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -153,11 +153,8 @@ int shmem_sg_alloc_table(struct drm_i915_private *i9=
-15, struct sg_table *st,
->  			}
->  		} while (1);
-> =20
-> -		nr_pages =3D min_array(((unsigned long[]) {
-> -					folio_nr_pages(folio),
-> -					page_count - i,
-> -					max_segment / PAGE_SIZE,
-> -				      }), 3);
-> +		nr_pages =3D min3(folio_nr_pages(folio),
-> +				page_count - i, max_segment / PAGE_SIZE);
+Summary
+-------
 
-[Severity: High]
-This is a pre-existing issue, but does this correctly calculate the availab=
-le
-pages for a large folio?
+  **SUCCESS**
 
-It looks like folio_nr_pages(folio) uses the total folio size rather than t=
-he
-remaining size from the current offset (e.g. folio_nr_pages(folio) - (i -
-folio->index)).
+  No regressions found.
 
-> =20
->  		if (!i ||
->  		    sg->length >=3D max_segment ||
-> @@ -168,8 +165,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  			st->nents++;
->  			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/index.html
 
-[Severity: High]
-This isn't a bug introduced by this patch, but can this hardcoded offset of=
- 0
-corrupt data when splitting large folios?
+Participating hosts (40 -> 38)
+------------------------------
 
-When a GEM object backed by shmem memory receives a large folio and the
-IOMMU's max_segment is smaller than the large folio size, this restricts
-nr_pages to the segment size.=20
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
-In the next iteration, i advances into the middle of the large folio, and
-shmem_read_folio_gfp() returns the same head folio. The code evaluates
-folio_pfn(folio) !=3D next_pfn as true (since next_pfn advanced but
-folio_pfn still points to the head) and calls sg_set_folio() again.=20
+Known issues
+------------
 
-Because the offset is hardcoded to 0, it appears the GPU will repeatedly map
-the first max_segment bytes of the large folio rather than its subsequent
-pages, causing the GPU and CPU memory views to become desynchronized.
+  Here are the changes found in Patchwork_172719v1 that come from known issues:
 
->  		} else {
-> -			nr_pages =3D min_t(unsigned long, nr_pages,
-> -					 (max_segment - sg->length) / PAGE_SIZE);
-> +			nr_pages =3D min(nr_pages, (max_segment - sg->length) / PAGE_SIZE);
-> =20
->  			sg->length +=3D nr_pages * PAGE_SIZE;
->  		}
+### IGT changes ###
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825093552.4088=
-094-1-andriy.shevchenko@linux.intel.com?part=3D1
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adlp-6:         [DMESG-WARN][1] ([i915#15673]) -> [PASS][2] +78 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@client:
+    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +13 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/fi-kbl-7567u/igt@i915_selftest@live@client.html
+
+  
+#### Warnings ####
+
+  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:
+    - bat-mtlp-9:         [SKIP][5] ([i915#16119] / [i915#4213]) -> [SKIP][6] ([i915#16119]) +1 other test skip
+   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+  [i915#16119]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119
+  [i915#4213]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19041 -> Patchwork_172719v1
+
+  CI-20190529: 20190529
+  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9071: 9071
+  Patchwork_172719v1: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/index.html
+
+--===============7868362106299046977==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>series starting with [v1,1/1] drm/i915/gem: Use simpler versions of min*()</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172719/">https://patchwork.freedesktop.org/series/172719/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19041 -&gt; Patchwork_172719v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172719v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">PASS</a> +78 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@client:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/fi-kbl-7567u/igt@i915_selftest@live@client.html">PASS</a> +13 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h4>Warnings</h4>
+<ul>
+<li>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy:<ul>
+<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119">i915#16119</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/4213">i915#4213</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172719v1/bat-mtlp-9/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-legacy.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16119">i915#16119</a>) +1 other test skip</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19041 -&gt; Patchwork_172719v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9071: 9071<br />
+  Patchwork_172719v1: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7868362106299046977==--
