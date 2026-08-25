@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62C46C61DBD
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 12:30:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22E7CC61DBE
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 12:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF31410EA2A;
-	Tue, 25 Aug 2026 12:30:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F5C510EA2B;
+	Tue, 25 Aug 2026 12:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c6OwFiUy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OSqOS3M3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D80510EA2A;
- Tue, 25 Aug 2026 12:30:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C5F10EA2B;
+ Tue, 25 Aug 2026 12:33:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C6DA4601E9;
- Tue, 25 Aug 2026 12:30:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435571F000E9;
- Tue, 25 Aug 2026 12:30:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 85B1E4132B;
+ Tue, 25 Aug 2026 12:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE741F00A3E;
+ Tue, 25 Aug 2026 12:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787661009;
- bh=Ws4R+1haOE0UdYuSK2jWzuSxPnpsAiaQbbHW8KRpibc=;
+ s=k20260515; t=1787661185;
+ bh=H882hufEUda6hIjGaEaY6wiOhJya9sHR9+qDrXgm9/Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c6OwFiUywUUg7AC05ERB6tBkDNg5WHCnnpgHOlprB2te+NWj20uU/NmCWNhNiVdyT
- ctJMxXY5cu2n5m0AQlhTpJb/tm/RPfeksvCMwePEnNwtgsXOxwI3q26AnWZ1Ew95W2
- atR+062UQJW4QsRblegvVxbmWlh4pyAuA88Jmj62uuuGwXGSlJeLM5zY42OrFqzJYX
- J2s+1MILWlCXMiP9UsIjK40hoA9jKOsTrR1xkHLDa+u90nMttkjDUeQyy6lYcW7FY4
- OJtg98lsCeQft/CpDT3datuYdGOt1i3D+hjFu9ZarpyRSSj9u6rw5f0OL9BogS5HCi
- 1XAuOQHiydpbA==
+ b=OSqOS3M39B1qooUvmlFIiyzByHO9Ko1qgCTEiQfvh3vdnEJ7LJV3UcY/kYfz7/6nH
+ z3gnAhHysQvA1QMVfY55kWONbT5Y8w7sKfFbwqOCdN7wyxtrxKLl4wXRNRU6IpJjy0
+ MuMWGeRsQl3dG2LcVnRcBpAX6WDAUuPofw8q7Igvk0yRYxWOPOKt3in55gSPZSczT9
+ 1sj1khaxzj1Nk1CyQi3ZptK3DDBj2fI5xOzQsP3w7VLsHbw6OcPCBAv+yx6r8x7uNz
+ 1u3ne28R7uID1NMvA+aMrWqhT2QNCqic8+Gzr08WyfuRW/w5D5OKQuaIplPa2PKKJy
+ IKy8AmLZBP04w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent)
+Subject: Re: [PATCH 3/6] rust: hrtimer: use the expiry injecting callback
+ variant
 To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org,
- intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
+Cc: intel-gfx@lists.freedesktop.org, ojeda@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260825-expires-v2-v1-3-90411c6217c7@kernel.org>
 References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-3-90411c6217c7@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 12:30:08 +0000
-Message-Id: <20260825123009.435571F000E9@smtp.kernel.org>
+Date: Tue, 25 Aug 2026 12:33:04 +0000
+Message-Id: <20260825123305.2DE741F00A3E@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,113 +61,119 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The patch adds an inline comment and commit message justifying a=
- layout change based on `HrTimerCallbackContext`, a type that was completel=
-y removed earlier in the patch series, resulting in a stale and confusing s=
-oundness rationale.
-
-Pre-existing issues:
-- [High] The callback implementations for `Pin<&mut T>` and `Pin<Box<T>>` c=
-reate a mutable reference (`&mut T`) while `cancel()` can concurrently acce=
-ss `T.timer` via a raw pointer, causing Undefined Behavior due to aliasing =
-violations.
+- [High] Safe Rust code can trigger a kernel WARN_ON_ONCE (and panic) by re=
+turning a zero interval in `HrTimerRestart::Forward`.
+- [Low] Missing `#[inline]` attribute on small abstraction functions.
 --
 
---- Patch [6]: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent) ---
-commit ed14b61ad275b0efb05d77ed06f7d0d89b06560d
-Author: FUJITA Tomonori <fujita.tomonori@gmail.com>
+--- Patch [3]: [PATCH 3/6] rust: hrtimer: use the expiry injecting callback=
+ variant ---
+commit 237e017d8140a6e80f2fd3f4c1d9d1b8d7532ab6
+Author: Andreas Hindborg <a.hindborg@kernel.org>
 
-rust: hrtimer: Make HrTimer repr(transparent)
+rust: hrtimer: use the expiry injecting callback variant
+   =20
+A timer callback could modify the expiry of its timer with
+HrTimerCallbackContext::forward(). This switches the abstraction to the exp=
+iry
+injecting callback variant provided by hrtimer_setup_ext(). The callback
+receives the expiry by value, snapshotted under the timer base lock, and
+requests a restart by returning HrTimerRestart::Forward { now, interval }.
 
-This commit changes the representation of HrTimer from repr(C) to
-repr(transparent). This prevents adding multiple fields to the struct
-and helps enforce soundness regarding shared and mutable references.
-
-Link: https://msgid.link/20260813134834.1562995-5-tomo@flapping.org
-
-> HrTimerCallbackContext acquires a &HrTimer<T> from a
-> NonNull<HrTimer<T>> while a &mut HrTimer<T> can exist at the same
-> time. This is sound only because HrTimer's sole field is
-
-[Severity: Medium]
-Is this justification accurate? The HrTimerCallbackContext type appears
-to have been removed earlier in this patch series. Should the commit
-message be updated to reflect the current design?
-
-> Opaque<bindings::hrtimer>, which puts every byte behind an UnsafeCell.
-
-[Severity: High]
-This is a pre-existing issue, but does relying on Opaque and UnsafeCell
-to justify aliasing with a mutable reference risk undefined behavior?
-
-The commit message notes that a mutable reference to HrTimer can exist
-at the same time as other accesses. While UnsafeCell relaxes aliasing
-for shared references, creating an exclusive mutable reference asserts
-exclusive access to the entire memory footprint.
-
-When RawHrTimerCallback::run executes for pinned mutable references or
-boxed timers, it creates an exclusive mutable reference. Concurrently, a
-user thread might call cancel, which reads the timer memory via a raw
-pointer. This concurrent read would invalidate the uniqueness tag of the
-active mutable reference, which could cause the compiler to misoptimize.
+Link: https://lore.kernel.org/r/87h5kp88uy.fsf@kernel.org
 
 > diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
-> index 2a9abc9f5d8c8..ab7c568b88553 100644
+> index 2d7f1131a8131..e6570a6162035 100644
 > --- a/rust/kernel/time/hrtimer.rs
 > +++ b/rust/kernel/time/hrtimer.rs
-> @@ -427,8 +427,12 @@
->  /// # Invariants
->  ///
->  /// * `self.timer` is initialized by `bindings::hrtimer_setup_ext`.
-> +// `repr(transparent)` is not merely about layout. `HrTimerCallbackConte=
-xt` acquires a
-> +// `&HrTimer<T>` while a `&mut HrTimer<T>` may exist, which is sound onl=
-y because every byte of
-> +// this type sits inside `Opaque`. Being transparent rejects a second fi=
-eld at compile time,
-> +// but it does not enforce that the remaining field stays `Opaque`.
-
-[Severity: Medium]
-Is this comment still accurate? As mentioned regarding the commit message,
-the HrTimerCallbackContext type seems to no longer exist in the tree.
-Should this inline documentation be updated to use a current example?
-
->  #[pin_data]
-> -#[repr(C)]
-> +#[repr(transparent)]
->  pub struct HrTimer<T> {
 
 [ ... ]
 
-> diff --git a/rust/kernel/time/hrtimer/pin_mut.rs b/rust/kernel/time/hrtim=
-er/pin_mut.rs
-> index 04f9d8cbddcd2..2bba3c41d6e9a 100644
-> --- a/rust/kernel/time/hrtimer/pin_mut.rs
-> +++ b/rust/kernel/time/hrtimer/pin_mut.rs
-> @@ -91,7 +91,7 @@ impl<'a, T> RawHrTimerCallback for Pin<&'a mut T>
->          expires: bindings::ktime_t,
->          fwd: *mut bindings::hrtimer_forward_args,
->      ) -> bindings::hrtimer_restart {
-> -        // `HrTimer` is `repr(C)`
-> +        // `HrTimer` is `repr(transparent)`
->          let timer_ptr =3D ptr.cast::<HrTimer<T>>();
+> @@ -847,19 +847,62 @@ unsafe fn start(this: *const Self, expires: <Self::=
+TimerMode as HrTimerMode>::Ex
+
+[ ... ]
+
+> +impl<T: HasHrTimer<T>> HrTimerRestart<T> {
+> +    /// Request that the timer be forwarded past the current time by `in=
+terval`
+> +    /// and restarted.
+> +    pub fn forward_now(interval: Delta) -> Self {
+
+[Severity: Low]
+This isn't a bug, but should this function be annotated with #[inline]?
+
+The Rust subsystem coding guidelines mandate that small abstraction functio=
+ns
+should have this annotation.
+
+> +        Self::Forward {
+> +            now: HrTimerInstant::<T>::now(),
+> +            interval,
+> +        }
+> +    }
+> +
+> +    /// Convert to the C representation, filling `fwd` with the forward
+> +    /// request.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `fwd` must be valid for writing a `bindings::hrtimer_forward_arg=
+s`.
+> +    pub(crate) unsafe fn into_c(
+
+[Severity: Low]
+This isn't a bug, but should this small conversion function also be annotat=
+ed
+with #[inline]?
+
+> +        self,
+> +        fwd: *mut bindings::hrtimer_forward_args,
+> +    ) -> bindings::hrtimer_restart {
+> +        match self {
+> +            Self::NoRestart =3D> bindings::hrtimer_restart_HRTIMER_NORES=
+TART,
+> +            Self::Forward { now, interval } =3D> {
+> +                // SAFETY: By our safety contract, `fwd` is valid for wr=
+iting.
+> +                unsafe {
+> +                    *fwd =3D bindings::hrtimer_forward_args {
+> +                        now: now.as_nanos(),
+> +                        interval: interval.as_nanos(),
+> +                    }
+> +                };
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the rest of this callba=
-ck
-function violate aliasing rules?
+Does this code allow safe Rust to trigger a kernel panic?
 
-A bit further down in RawHrTimerCallback::run for pinned mutable references
-and boxed timers, the code creates an exclusive mutable reference from the
-pointer. If a user thread concurrently calls cancel while the timer is
-running, that cancellation reads the timer base via a parent raw pointer.
+If a safe Rust module constructs HrTimerRestart::Forward with a zero interv=
+al
+(e.g., via HrTimerRestart::forward_now(Delta::ZERO)) and returns it from the
+timer callback, the zero interval is blindly copied into fwd.interval here.
 
-Because creating the mutable reference asserts exclusive access to the whole
-memory footprint, the concurrent read from cancel would invalidate that
-reference and could lead to undefined behavior.
+The C side execution in __run_hrtimer() will then trigger a WARN_ON_ONCE:
+
+kernel/time/hrtimer.c:__run_hrtimer() {
+    /* An expiry injecting callback requesting a restart must forward. */
+    if (fn_ext && restart =3D=3D HRTIMER_RESTART && WARN_ON_ONCE(!fwd.inter=
+val))
+        restart =3D HRTIMER_NORESTART;
+    ...
+}
+
+If the kernel is configured with panic_on_warn, this could lead to a kernel
+panic.
+
+Should there be a check to validate that the interval is non-zero before
+passing it to C, or should it be enforced when creating
+HrTimerRestart::Forward?
+
+> +                bindings::hrtimer_restart_HRTIMER_RESTART
+> +            }
+> +        }
+> +    }
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825-expires-v2=
--v1-0-90411c6217c7@kernel.org?part=3D6
+-v1-0-90411c6217c7@kernel.org?part=3D3
