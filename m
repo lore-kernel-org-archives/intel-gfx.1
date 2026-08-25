@@ -4,56 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 521F1C5DF94
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31E2BC61CE3
 	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 06:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFF1010E8EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2B4E10E8EE;
 	Tue, 25 Aug 2026 06:19:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HX/9Xq9V";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IEXSV+QR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7987210E8EC;
- Tue, 25 Aug 2026 06:19:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0DF110E8EC;
+ Tue, 25 Aug 2026 06:19:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787638772; x=1819174772;
+ t=1787638769; x=1819174769;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=qiNokZXjGQEKJETXRt5jm3/LrvjPdbbFyptOBGNVyGw=;
- b=HX/9Xq9VOuwIKGak5weD8hBUXSaef/ey5DtWzzsaMZl2hkUu2rPksGCN
- Q5/dix/GHg0QnQ98gtVb4QEFi47DG/3dQRnuimCGIYGewr5kRATot52rQ
- D0LugJjSd4x3E6JCkOCZzCGIqmzCH0yYhCwCV/L2BZ4Z/yjfoNTs8FM6d
- XYx2WqnvmXU8ly99+z27+ioQktf46AckpQl23DNR3BEhN6wUCSD5QURq1
- ZfvMzre2dpr25s5N8iHvSqgxVfUGojbFtf0hH31i2xuOKJMxBRjA1PMCr
- PnZnCaE3SXt184jxBqq+lletPXWPKZq9tb6ZFJeTDsvIUlUP3ZQXbEN2D Q==;
-X-CSE-ConnectionGUID: 8SDH5aSVR222wZ3RjI9yGg==
-X-CSE-MsgGUID: MpoLULLMSeWouRWzpkxtng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88112677"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="88112677"
+ bh=fvY5hqkEpFmvzRqHi3+NARzgl7U93KVNTNTsVMt6FvA=;
+ b=IEXSV+QR9h75M7ixI/79ZbYPqS9WxuZ2/RzqELxYHgOIS1ughTOlLgVR
+ P1E7wEWgIbUaTfCU+XCHyD+9SIiLa6vvyQ+VRiTnkbMdTTsSc21Ko4p+y
+ ZMYQpgJjIrUPdSmQ8u+Oi6l9x5XVULK/WODhiSByjGspr8c6AI7hys4Ha
+ BBnMmGRm8sEz63JnhfXu8fKbEKeTgH6qRl7+mpX5Exqq3B/8uL2rt6rbA
+ IuoaGdF2ZYK9v3CNm09dKQP6r8MZwKRsU/yJrQnc6e0+wSkPErQQt3TE6
+ RXF+ir5htgSWNTo9zSglumIKNXm6AlwuwM0gWn5bPOwQSEzfbovGzOOIt w==;
+X-CSE-ConnectionGUID: TyUkGUrSSueds5kvKvvKRA==
+X-CSE-MsgGUID: uMq0tzIWSmWdxV2abBs0kQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88112674"
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="88112674"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Aug 2026 23:19:32 -0700
-X-CSE-ConnectionGUID: GLXRXvjDTqG1+KoVznPiRA==
-X-CSE-MsgGUID: UOhgK48UTsCm73ZDG8YpRQ==
+ 24 Aug 2026 23:19:29 -0700
+X-CSE-ConnectionGUID: EFSe70zIQ1SjAZ1ERh71xA==
+X-CSE-MsgGUID: aFtr+zjyQhOCNc+mE0fIWQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="263912983"
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="263912971"
 Received: from unknown (HELO SRR4-3-Linux-101-amanna.iind.intel.com)
  ([10.190.238.88])
- by fmviesa007.fm.intel.com with ESMTP; 24 Aug 2026 23:19:30 -0700
+ by fmviesa007.fm.intel.com with ESMTP; 24 Aug 2026 23:19:27 -0700
 From: Animesh Manna <animesh.manna@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: jouni.hogander@intel.com, jani.nikula@intel.com, suraj.kandpal@intel.com,
  Animesh Manna <animesh.manna@intel.com>
-Subject: [PATCH v5 10/15] drm/i915/alpm: Program LTTPR count for DP 2.1 ALPM
-Date: Tue, 25 Aug 2026 11:15:31 +0530
-Message-Id: <20260825054536.3455704-11-animesh.manna@intel.com>
+Subject: [PATCH v5 09/15] drm/i915/alpm: Modify LFPS cycle count for DP ALPM
+Date: Tue, 25 Aug 2026 11:15:30 +0530
+Message-Id: <20260825054536.3455704-10-animesh.manna@intel.com>
 X-Mailer: git-send-email 2.29.0
 In-Reply-To: <20260825054536.3455704-1-animesh.manna@intel.com>
 References: <20260825054536.3455704-1-animesh.manna@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,79 +69,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Issue a AUX write transaction to DPCD DP_TOTAL_LTTPR_CNT (0xf000a)
-with total number of LTTPR before link training.
+For DP minimum LFPS count is set to minimum 16.
 
-v2: Cosmetic changes. [Suraj]
-
-Cc: Jouni Högander <jouni.hogander@intel.com>
 Signed-off-by: Animesh Manna <animesh.manna@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_alpm.c        |  9 ++++++++-
- .../drm/i915/display/intel_dp_link_training.c    | 16 ++++++++++++++++
- 2 files changed, 24 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_alpm.c     | 28 +++++++++++++++++--
+ drivers/gpu/drm/i915/display/intel_psr_regs.h |  2 ++
+ 2 files changed, 27 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 890bf2488554..d23f3bdf1339 100644
+index 98aa418a6ff7..890bf2488554 100644
 --- a/drivers/gpu/drm/i915/display/intel_alpm.c
 +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -563,7 +563,7 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
+@@ -24,7 +24,8 @@
+ 				(SILENCE_PERIOD_MAX_TIME -	\
+ 				 SILENCE_PERIOD_MIN_TIME) / 2)
+ 
+-#define LFPS_CYCLE_COUNT 10
++#define LFPS_CYCLE_COUNT	10
++#define LFPS_CYCLE_COUNT_DP	16
+ 
+ bool intel_alpm_aux_wake_supported(struct intel_dp *intel_dp)
  {
- 	struct intel_display *display = to_intel_display(intel_dp);
- 	enum transcoder cpu_transcoder = crtc_state->cpu_transcoder;
--	u32 alpm_ctl;
-+	u32 alpm_ctl, alpm_ctl2, lttpr_count;
- 
- 	if (DISPLAY_VER(display) < 20 || (!intel_psr_needs_alpm(intel_dp, crtc_state) &&
- 					  !crtc_state->has_lobf))
-@@ -613,6 +613,13 @@ static void lnl_alpm_configure(struct intel_dp *intel_dp,
- 
- 	alpm_ctl |= ALPM_CTL_ALPM_ENTRY_CHECK(crtc_state->alpm_state.check_entry_lines);
- 
-+	lttpr_count = drm_dp_lttpr_count(intel_dp->lttpr_common_caps);
-+
-+	alpm_ctl2 = intel_de_read(display, ALPM_CTL2(display, cpu_transcoder));
-+	alpm_ctl2 &= ~ALPM_CTL2_NUMBER_OF_LTTPR_MASK;
-+	alpm_ctl2 |= ALPM_CTL2_NUMBER_OF_LTTPR(lttpr_count);
-+
-+	intel_de_write(display, ALPM_CTL2(display, cpu_transcoder), alpm_ctl2);
- 	intel_de_write(display, ALPM_CTL(display, cpu_transcoder), alpm_ctl);
- 	mutex_unlock(&intel_dp->alpm.lock);
- }
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-index cb92cff90614..1d5873cb64f5 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
-@@ -2265,6 +2265,20 @@ intel_dp_128b132b_link_train(struct intel_dp *intel_dp,
- 	return passed;
+@@ -105,10 +106,22 @@ static int get_lfps_cycle_time(const struct intel_crtc_state *crtc_state)
+ 	return tlfps_cycle_min +  (tlfps_cycle_max - tlfps_cycle_min) / 2;
  }
  
-+static void intel_dp_update_lttpr_count(struct intel_dp *intel_dp,
-+					int lttpr_count)
++static int get_lfps_cycle_count(const struct intel_crtc_state *crtc_state)
 +{
-+	/*
-+	 * Program only for DP2.1 and return if LTTPR revison is less than 0x20
-+	 * where 0:3 represents minor rev and 4:7 represent major rev
-+	 */
-+	if (!intel_dp_is_edp(intel_dp) ||
-+	    intel_dp->lttpr_common_caps[0] <= 0x20)
-+		return;
++	struct intel_display *display = to_intel_display(crtc_state);
 +
-+	drm_dp_dpcd_writeb(&intel_dp->aux, DP_TOTAL_LTTPR_CNT, lttpr_count);
++	/* External DP on Xe3lpd+ uses a minimum of 16 LFPS cycles. */
++	if (!intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP) &&
++	    DISPLAY_VER(display) >= 35)
++		return LFPS_CYCLE_COUNT_DP;
++
++	return LFPS_CYCLE_COUNT;
 +}
 +
- /**
-  * intel_dp_start_link_train - start link training
-  * @state: Atomic state
-@@ -2304,6 +2318,8 @@ void intel_dp_start_link_train(struct intel_atomic_state *state,
+ static int get_lfps_half_cycle_clocks(const struct intel_crtc_state *crtc_state)
+ {
+ 	return get_lfps_cycle_time(crtc_state) * crtc_state->port_clock / 1000 /
+-		1000 / (2 * LFPS_CYCLE_COUNT);
++		1000 / (2 * get_lfps_cycle_count(crtc_state));
+ }
  
- 	intel_dp_prepare_link_train(intel_dp, crtc_state);
+ #define ML_PHY_LOCK_LEN		252
+@@ -622,12 +635,21 @@ void intel_alpm_port_configure(struct intel_dp *intel_dp,
+ 		return;
  
-+	intel_dp_update_lttpr_count(intel_dp, lttpr_count);
+ 	if (intel_alpm_is_alpm_aux_less(intel_dp, crtc_state)) {
++		int lfps_cycle = get_lfps_cycle_count(crtc_state);
++		u32 lfps_cycle_val;
 +
- 	if (intel_dp_is_uhbr(crtc_state))
- 		passed = intel_dp_128b132b_link_train(intel_dp, crtc_state, lttpr_count);
- 	else
++		if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_EDP))
++			lfps_cycle_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(lfps_cycle);
++		else
++			lfps_cycle_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_XE3LPD(lfps_cycle);
++
+ 		alpm_ctl_val = PORT_ALPM_CTL_ALPM_AUX_LESS_ENABLE |
+ 			PORT_ALPM_CTL_MAX_PHY_SWING_SETUP(15) |
+ 			PORT_ALPM_CTL_MAX_PHY_SWING_HOLD(0) |
+ 			PORT_ALPM_CTL_SILENCE_PERIOD(
+ 				crtc_state->alpm_state.silence_period_sym_clocks);
+-		lfps_ctl_val = PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(LFPS_CYCLE_COUNT) |
++
++		lfps_ctl_val = lfps_cycle_val |
+ 			PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(
+ 				crtc_state->alpm_state.lfps_half_cycle_num_of_syms) |
+ 			PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION(
+diff --git a/drivers/gpu/drm/i915/display/intel_psr_regs.h b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+index 8ec99bbd84b6..d33e9b0a81d7 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr_regs.h
++++ b/drivers/gpu/drm/i915/display/intel_psr_regs.h
+@@ -333,8 +333,10 @@
+ #define PORT_ALPM_LFPS_CTL(port)				_MMIO_PORT(port, _PORT_ALPM_LFPS_CTL_A, _PORT_ALPM_LFPS_CTL_B)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_START_POLARITY			REG_BIT(31)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK		REG_GENMASK(27, 24)
++#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK_XE3LPD	REG_GENMASK(30, 24)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN		7
+ #define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT(val)		REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN)
++#define  PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_XE3LPD(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MASK_XE3LPD, (val) - PORT_ALPM_LFPS_CTL_LFPS_CYCLE_COUNT_MIN)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(20, 16)
+ #define  PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION(val)	REG_FIELD_PREP(PORT_ALPM_LFPS_CTL_LFPS_HALF_CYCLE_DURATION_MASK, val)
+ #define  PORT_ALPM_LFPS_CTL_FIRST_LFPS_HALF_CYCLE_DURATION_MASK	REG_GENMASK(12, 8)
 -- 
 2.29.0
 
