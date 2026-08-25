@@ -4,85 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD587C61DC4
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7796C5DF97
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3F9410EDD5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFDD10EDDB;
 	Wed, 26 Aug 2026 19:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=strategic9-se.20251104.gappssmtp.com header.i=@strategic9-se.20251104.gappssmtp.com header.b="NPTC/VkQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WfwzuDuO";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B78510E32F
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 18:10:53 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6a5f1d0af69so1107291a12.0
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 11:10:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787767851; cv=none;
- d=google.com; s=arc-20260327;
- b=DuEG4ZhOLGGRGFdV/oPYxhK+ToQCcuhYW+Cldak0qqKMnOEnvP05UwqScgr5UQIsgR
- ykpl3Del/pxVsgM6CRk66x4rVQvEFkVtdz8GBue+ytbC9eTNR45yz/jkwM8gAk6j8kIL
- FF6nF4whRSK678qRDznHlrV8dbfK/hQMZioEBSIHmZDnq5GY4vjUrEID+JbExPEu+3xA
- NWohdTAlAA0pvNBhKZz71aZEvejb8k8+D8zTmeJ1R0URERls/EZC/p5cSiO4hoPLhEoj
- 6Pp5FTxx2SINCN7NUVYurKxxvr6WuEwq84clO0C0K+UfLXeWYhF+DiPrj47jLibYZSQh
- At6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=hg0NQa9P5fJYv7Z19wNgbalnfTR4foR0IhUU1pWe+fg=;
- fh=0mq9d1JUrcYsoTTkGHiTtQVhfUtVmM5T3dWmSoFUk5Y=;
- b=L8JGO9rFKuIxkC+MbQrHLsBdxu7VaSyOHkbiiFjKN9sPESEKExhgEkLs8ycE8doGkm
- cPrnWzNBbiPz68zP89nP00kuAMoaSvUbSdyC/zzaz7Ar2NkNA3s3V8JFke+lrKCzrxaD
- bNgnjLaxNV0Awx3kLWG9DjuyBSTpc7Q57bf+lEZ6XgWO87M0zUFJxqJXCEdEzQ4cjL1z
- 9Na+QwWOko/21lY61SHm6Oaywsa0O/60NufQ6ndBfx5qGIBI3pC6qPgjZcYSrZwb8mQA
- WoIkn7BhD7lodEgR+6SnwHjSUoEcFGqWOwEEXnQEUfXfASCfM1d3KbUvkZfrd8TG6uGU
- 2hjQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=strategic9-se.20251104.gappssmtp.com; s=20251104; t=1787767851; x=1788372651;
- darn=lists.freedesktop.org; 
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=hg0NQa9P5fJYv7Z19wNgbalnfTR4foR0IhUU1pWe+fg=;
- b=NPTC/VkQ/OXkpH15M8NzyF5s+/WycHkqRXaJoL2jbhqrK8X7XOfKE5LEaEjh2MiM58
- 805ujKXFSZw8OD/2I0QLiFPvrttcU9Y2HDTu8q081OgrMDiCU7P/+5JsOh4NEycrcGwq
- bV34d7w9oya1ASOsPDwGwnEsXNuJIO58WVqg4jw0YJcbq4JlerkQGStl4ADMtsQBXdI8
- DwYZnZtNTxUz4oB9Al78h2yWO4QIUAQwUO7mIoA3D50GPcRLLC+acqp/Flt7K3DEWpgz
- 3qhpUgd/yW6kOkJv4QlNY5bBJAPVGC7P9pfDzzV45sVoGLo+39PPF5yGPZFNYlJYxXw0
- MNOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787767851; x=1788372651;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=hg0NQa9P5fJYv7Z19wNgbalnfTR4foR0IhUU1pWe+fg=;
- b=FN4j3VI8NWl+6xuk6GRqI2ISsvgZ9+fJUisXd2QGgyO3FrkjWN3EXfYJJc6K/QjTC1
- iIm+RrTuPnnVXO4G+Sr+GXc/goVTFhJ/rpDJsGhLWkITRttgs9Ai28yhQG2uDfhEGJm2
- w7wkzQpYXOxiohtbu9llrYk9oH3nXkMT5i0jId6v226v1Z087G1fssiF3gSSCmbAbtGq
- ruSxS/FBS504kaFPbg4V524TIMQJpy1IGHjhojzfF9VcLzKWZA64vFU+WsqZ+NW0LKej
- uA+RQH3ClRw/YJa/8Qi2+kCjMe7xccNVWVWf16p+XrPKa+kZd+K0OoarpU+Iz39TzmW/
- WbfA==
-X-Gm-Message-State: AFuF++nzeW0cA+vgPUXeT7rRvQ9vjBOnoUKDQQeOCprUFMDbYWi0lyqa
- ImKtX59eT+oJb8PMvNSUqIPOOLy9dd4AZ8GhyKavwRRn276e9nNYqJnaHHsNLzZmUjFPBhd7Jky
- FVDXjXQ1+drbpv+J7LgJaLpiYT1rfaLWz0+N2hebkekpSzHL0Zc1Vn0Q=
-X-Gm-Gg: AR+sD11Yw38BoAl+RpKw2Qe8Ub8yGHANZ7bch6aGsDsIFJuk3VeKFZJvPv/LY249nYw
- PhMyt9XVfybXHJPghQnn0wD3TPvQtDtbodb0s0WILs+MLtEVx1Ax4TDaZ/xrsI4e+P1QNp6JKt3
- SDUXtvELMrHNWvipXOxNs8Q3czkTmfQ+TKOdd6XRf2XIcnwhx+iaBGgGVF7FYeXh9N704iXB1SF
- 4Q/u5NZLAlC/zQywFJsCeUJ9ozSRIo27UTd1jPiF/aVDoay31ea/e42m9+RextTTxf/d3ndtMVJ
- vKLoUUwXxcPtDESNzvq/QPJ6gM/vfjkXKXBttmg+8r9xXxdcX20ay6v5Sg==
-X-Received: by 2002:a05:6402:21db:b0:69c:76c6:9bef with SMTP id
- 4fb4d7f45d1cf-6a5df63428amr11254729a12.10.1787767851252; Wed, 26 Aug 2026
- 11:10:51 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57C6010EA18;
+ Tue, 25 Aug 2026 12:17:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CFF8960A5B;
+ Tue, 25 Aug 2026 12:17:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431DB1F000E9;
+ Tue, 25 Aug 2026 12:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787660268;
+ bh=FaTTTGZ4IVUgyqer7a+OU7NGQiD1FIrE/QXnJiP0MO0=;
+ h=From:Subject:Date:To:Cc;
+ b=WfwzuDuOer4hLyL3DFq50k1zFiwwpM2klg8XVktpIxf4obqiSJ/8mCRDThburSgzv
+ AK8igZEcWnMd96ikUSNnSiK9CjABMqhcIzZb0sOmcgjiymnaWnr6Oa5ct1+8ZVzCeK
+ locXI1hykU6gCg4f6h9YpntBqwuDxFLwpliVu3N2VLgy+xb8fhYdEFeSv13v5tpu2r
+ 3K5SN7GSOMbduV7kvBVy+9kP5csFYvzCDwGyD+clQom7mnTe+WEBgchLuirHGF7OqZ
+ qqf1nkYqTfD6LfHdeH3HZ8sfMQkMiHPC+UVY1D1LUbdNiQ4XE94+bA9L9tq7QPWyRa
+ 0vCnThJGUSfpw==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Subject: [PATCH 0/6] hrtimer: add an expiry injecting callback variant
+Date: Tue, 25 Aug 2026 14:16:31 +0200
+Message-Id: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
 MIME-Version: 1.0
-From: Fredrik Nicol <fredrik.nicol@strategic9.se>
-Date: Wed, 26 Aug 2026 20:10:39 +0200
-X-Gm-Features: AcwNN1Vf1I9_sofNyWGOcSHHns0PjCOqECHvWjuIEFXwR6pVxjaxQAzpfWpWHoU
-Message-ID: <CAE3tsCV8SS0Tb51Wj=nuh9pJ=fLMwc=4qswFec3_dw7dHT6D5Q@mail.gmail.com>
-Subject: Panther Lake (b082) eDP tearing tied to Panel Replay/selective-fetch, 
- Anapass T-Con (OUI ba:41:59)
-To: intel-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000b70f960659f72343"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJ+HjWoC/yXMQQ5AMBBA0as0s9akmipxFbGgBmNB00GaiLsrl
+ m/x/wWMgZChFhcEPIlpWxPyTICbu3VCSUMyaKWtqnQhMXoKyPLUUpXWdMNonLEWUuADjhS/WdP
+ +5qNf0O3vAe77AYsO2jVuAAAA
+X-Change-ID: 20260825-expires-v2-0764adf4c466
+To: Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, 
+ John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4973; i=a.hindborg@kernel.org; 
+ h=from:subject:message-id;
+ bh=uxuF9oDXoslzpNcurK5OPdAxWGIKsbJVkvyei3ZDksU=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqjYelIQSGXA4guzoFlt3Ud75kEFzssOSKUAkqx
+ KUY7gdiZNuJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCao2HpQAKCRD6UCkIqsW9
+ 0BOLD/40BEbL6chx737A0yvpDLQPoNVNHsi4cDMNbnqCEcXKOj7xH9clSjGEepaIgTOXL6Nk/IT
+ Lp+zYR/4b07o8mhS3SKcNcL9gQTzHbcKq1DXalBVYJveemaFdIy7UoqirbYyEQdOKnyVmln3Qc1
+ unk+hIyCKtd1YhNAERM8F63FbXUHSb8VvqNiXa2Npz03nvvccbzG7cf2pnqpmpihJ1G7xjad1h5
+ N9I6GN+bABwtg5mjwLC0+zaYh5u4EZiqmbqlVCF5c547xX3oZ+sQx57xICTFPJp/TTqQkhBfook
+ oPwp84Emq9hk/0nl7zBTMixpWRujXG7rF5ACVdxisakfZ61pzREibL3jALD32UTbLfQkkP+4Lmh
+ FDBflBngzr6jpfhSuZr1Hqgff6ZZAl5VIW/8J3KmxiIzeC7lYs564/72WIdJrozBXPOn2cEIEf6
+ NxhocfgNvMfHyRKZ2eY86W7cAncau90z+pGt/JDzK797Rhe+urBwUfn7TnAwj05iiBgTMOqoNqI
+ PIEkAt+5OAaL4dWBq/A15jdty6G3f86mi1hmQbXX/w76xN02ar5MCof46FFAoHJyibVWKMOkdiI
+ lR31oXS4zXIvZoL8HElfFexNuF1MG0QXsRGRiOduc7UyWzxu1BA21IChipfAEVuH5JMBD/j+4pX
+ 9pXmz6jY6o8769Q==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-Mailman-Approved-At: Wed, 26 Aug 2026 19:47:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,156 +96,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---000000000000b70f960659f72343
-Content-Type: text/plain; charset="UTF-8"
+An hrtimer callback runs after __run_hrtimer() has dropped the
+cpu_base->lock, and a timer can be armed from any CPU at any time,
+including while its callback is running. A callback that adjusts its
+own expiry with hrtimer_forward() therefore races with a concurrent
+hrtimer_start_range_ns():
 
-Hi,
+- The read-modify-write of node.expires in hrtimer_forward() is
+  unsynchronized against the write in the start path, which happens
+  under the base lock.
 
-I'm running into a persistent display bug on a Panther Lake handheld
-(OneXPlayer 3, GPU device ID 8086:b082) that I've traced fairly deep into
-the xe driver's Panel Replay/selective-fetch path, and I wanted to get this
-in front of someone who can actually act on it rather than let it sit
-undocumented. I'm a developer, not a kernel contributor, so apologies if
-some of this is presented a bit sideways from how you'd normally see a bug
-report, but I've tried to keep everything here verifiable.
+- The is_queued check in hrtimer_forward() is a
+  time-of-check-to-time-of-use bug. A concurrent start can enqueue
+  the timer right after the check, and forwarding a queued timer
+  changes the expiry of a node inside the timerqueue without
+  re-sorting it, leaving the tree unordered.
 
-Hardware: internal panel is Samsung Display AMS881KB01-0, 8.8" AMOLED,
-1920x1200 up to 144Hz. The panel controller (confirmed by reading the sink
-IEEE OUI directly off the eDP AUX channel at DPCD 0x400) is Anapass Inc.,
-OUI ba:41:59. EDID reports native 12bpc and BT2020/PQ HDR static metadata.
-Notably this is the exact same panel model used in the Lenovo Legion Go 2,
-which runs AMD hardware and doesn't appear to have this issue, so I don't
-think the panel itself is at fault.
+Users that both forward from the callback and arm the timer from
+other contexts have to serialize the two themselves, as perf does
+with cpc->hrtimer_lock and the hrtimer_active flag, see 4cfafd3082af
+("sched,perf: Fix periodic timers"). The requirement is subtle. i915_pmu
+and taprio do not honor it today.
 
-Symptom: visible tearing and garbled pixel regions on the internal display,
-worse during motion (scrolling, animation, gameplay), still present but
-less frequent when the screen is static. Confirmed independently on two
-separate distros (CachyOS and a stock Bazzite live session), so it isn't
-something specific to my install.
+For the Rust hrtimer abstraction this is a soundness problem rather than
+a documentation problem: safe Rust code can arm a timer whose callback
+is running, because Arc<T> is Clone and Pin<&T> is Copy, so a callback
+context forward() cannot be offered as safe API at all. Making arming
+exclusive in the Rust type system was tried [1] and abandoned. It adds
+complexity to the Arc based API, and it leaves the C interface as the
+same trap for C users.
 
-The dmesg signature, first appearing during early boot and recurring on
-subsequent modesets:
+Gary suggested [2] removing the race structurally instead: snapshot
+the expiry under the base lock, hand it to the callback by value, and
+have the callback request the forward and the requeue instead of
+performing them itself. This series implements that suggestion.
 
-xe 0000:00:02.0: [drm] Port A asks to use VBT vswing/preemph tables
-WARNING: drivers/gpu/drm/i915/display/intel_bios.c:2788 at intel_bios_init
-xe 0000:00:02.0: [drm] Selective fetch area calculation failed in pipe A
-xe 0000:00:02.0: [drm] *ERROR* [CRTC:151:pipe A] mismatch in vsc dp vsc sdp
-expected: BT.2020 RGB, bpc: 10
-found: sRGB, bpc: 0
-pipe state doesn't match!
+Patch 1 adds the expiry injecting callback variant to the hrtimer core.
+Such a callback is installed with hrtimer_setup_ext() and receives
+the expiry snapshotted under the base lock. To restart the timer it
+fills a struct hrtimer_forward_args and returns HRTIMER_RESTART, and
+__run_hrtimer() then applies the forward and the enqueue with the base
+lock held. The callback never touches live timer state. If a concurrent
+start enqueued the timer while the callback ran, the restart request
+is discarded and the start wins, which matches how we already treat a
+restart of a timer that was requeued behind the callback's back. The
+new callback pointer shares storage with the classic one in an anonymous
+union and is discriminated by a flag placed in existing padding, so
+struct hrtimer does not grow and the classic callback path is untouched.
 
-(stack through intel_modeset_verify_crtc / intel_atomic_commit_tail,
-Workqueue: i915_modeset intel_atomic_commit_work)
+Patch 2 converts i915_pmu, which forwards from its sampling callback
+while gt park/unpark can start the timer from another CPU. The
+conversion closes that window without adding locking to the sampling
+path, and demonstrates that the new variant is not Rust-only
+plumbing.
 
-I ran a full bisection across the relevant xe module parameters, each
-tested in isolation and in combination, confirmed via
-/sys/kernel/debug/dri/.../eDP-1/i915_psr_status after each boot rather than
-assumed from the parameter alone:
+Patches 3 to 6 are the Rust side. Patch 3 moves the abstraction to
+the new callback variant: HrTimerCallback::run() receives the expiry
+snapshot and returns HrTimerRestart::Forward { now, interval }, and
+HrTimerCallbackContext with its forward()/forward_now() methods is
+removed. Patch 4 is Tomonori's expires() fix rebased on top, now
+justified by exclusive access rather than by callback context. Patch
+5 documents the pre-existing hazard that starting a timer from within
+its own handler self-deadlocks when the returned handle is dropped
+there.
 
-xe.enable_psr=0 + xe.enable_psr2_sel_fetch=0 + xe.enable_panel_replay=0:
-black screen, no display
-xe.enable_psr2_sel_fetch=0 alone: black screen
-xe.enable_psr=0 + xe.enable_panel_replay=0 (sel_fetch left on): black screen
-xe.enable_panel_replay=0 alone: display works, tearing persists (confirmed
-fallback to PSR1 via psr_status)
-xe.enable_psr=0 alone: display works, tearing persists
+The i915 patch is compile tested only, I have no hardware for it.
 
-So there's no combination of these three flags that gives a working,
-tear-free display. Anything that disables selective-fetch takes the modeset
-down entirely, and anything that leaves it enabled still tears. That felt
-like the most useful concrete result to hand over, since it rules out a
-boot-parameter workaround existing at all on this hardware.
+[1]: https://lore.kernel.org/rust-for-linux/20260813134834.1562995-1-tomo@flapping.org/
+[2]: https://lore.kernel.org/rust-for-linux/DKNVOU9JC15P.3DEBNZ56QK20E@garyguo.net/
 
-One more thing worth flagging: this is intermittent, not deterministic.
-Identical kernel, identical boot parameters, identical hardware has
-produced different outcomes across separate boots, and switching between
-gamescope and a desktop compositor session reliably re-triggers a fresh
-roll of the dice. I also have one report from someone with a
-confirmed-identical OUI (ba:41:59, verified the same way) who says they
-don't see this at all on the same kernel version, so whatever margin this
-is riding on isn't purely software-version-gated.
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+Andreas Hindborg (4):
+      hrtimer: add expiry injecting callback variant
+      drm/i915/pmu: use the expiry injecting hrtimer callback
+      rust: hrtimer: use the expiry injecting callback variant
+      rust: hrtimer: document deadlock when starting a timer in its handler
 
-I'm aware there's already a precedent for handling this class of problem,
-the QUIRK_DISABLE_PANEL_REPLAY / intel_dpcd_quirks[] entry added for the
-Dell XPS 14's panel (OUI 00:22:b9). I haven't found anything in that table
-for ba:41:59, and given how closely this matches (down to the exact same
-"Selective fetch area calculation failed in pipe A" line) what's been
-separately reported on at least one other OEM's Panther Lake machine with a
-different panel entirely, I think this may be a broader selective-fetch
-issue rather than something isolated to my specific panel.
+FUJITA Tomonori (2):
+      rust: hrtimer: restrict expires() to exclusive access
+      rust: hrtimer: Make HrTimer repr(transparent)
 
-Happy to pull more logs, test patches, or run anything else that would help
-narrow this down. I've got full dmesg captures from multiple boots, the raw
-EDID dump, and the psr_status output from each of the bisection runs above
-if useful.
+ drivers/gpu/drm/i915/i915_pmu.c     |   8 +-
+ include/linux/hrtimer.h             |   7 +
+ include/linux/hrtimer_types.h       |  34 ++++-
+ kernel/time/hrtimer.c               | 112 +++++++++++++++-
+ rust/helpers/time.c                 |   6 +
+ rust/kernel/time/hrtimer.rs         | 257 +++++++++++++++++++-----------------
+ rust/kernel/time/hrtimer/arc.rs     |  23 ++--
+ rust/kernel/time/hrtimer/pin.rs     |  23 ++--
+ rust/kernel/time/hrtimer/pin_mut.rs |  26 ++--
+ rust/kernel/time/hrtimer/tbox.rs    |  23 ++--
+ 10 files changed, 352 insertions(+), 167 deletions(-)
+---
+base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+change-id: 20260825-expires-v2-0764adf4c466
 
-Thanks for reading this far.
-Fredrik
+Best regards,
+--  
+Andreas Hindborg <a.hindborg@kernel.org>
 
---000000000000b70f960659f72343
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">Hi,<br><br>I&#39;m running into a persistent display bug =
-on a Panther Lake handheld (OneXPlayer 3, GPU device ID 8086:b082) that I&#=
-39;ve traced fairly deep into the xe driver&#39;s Panel Replay/selective-fe=
-tch path, and I wanted to get this in front of someone who can actually act=
- on it rather than let it sit undocumented. I&#39;m a developer, not a kern=
-el contributor, so apologies if some of this is presented a bit sideways fr=
-om how you&#39;d normally see a bug report, but I&#39;ve tried to keep ever=
-ything here verifiable.<br><br>Hardware: internal panel is Samsung Display =
-AMS881KB01-0, 8.8&quot; AMOLED, 1920x1200 up to 144Hz. The panel controller=
- (confirmed by reading the sink IEEE OUI directly off the eDP AUX channel a=
-t DPCD 0x400) is Anapass Inc., OUI ba:41:59. EDID reports native 12bpc and =
-BT2020/PQ HDR static metadata. Notably this is the exact same panel model u=
-sed in the Lenovo Legion Go 2, which runs AMD hardware and doesn&#39;t appe=
-ar to have this issue, so I don&#39;t think the panel itself is at fault.<b=
-r><br>Symptom: visible tearing and garbled pixel regions on the internal di=
-splay, worse during motion (scrolling, animation, gameplay), still present =
-but less frequent when the screen is static. Confirmed independently on two=
- separate distros (CachyOS and a stock Bazzite live session), so it isn&#39=
-;t something specific to my install.<br><br>The dmesg signature, first appe=
-aring during early boot and recurring on subsequent modesets:<br><br>xe 000=
-0:00:02.0: [drm] Port A asks to use VBT vswing/preemph tables<br>WARNING: d=
-rivers/gpu/drm/i915/display/intel_bios.c:2788 at intel_bios_init<br>xe 0000=
-:00:02.0: [drm] Selective fetch area calculation failed in pipe A<br>xe 000=
-0:00:02.0: [drm] *ERROR* [CRTC:151:pipe A] mismatch in vsc dp vsc sdp<br> e=
-xpected: BT.2020 RGB, bpc: 10<br> found: sRGB, bpc: 0<br>pipe state doesn&#=
-39;t match!<br><br>(stack through intel_modeset_verify_crtc / intel_atomic_=
-commit_tail, Workqueue: i915_modeset intel_atomic_commit_work)<br><br>I ran=
- a full bisection across the relevant xe module parameters, each tested in =
-isolation and in combination, confirmed via /sys/kernel/debug/dri/.../eDP-1=
-/i915_psr_status after each boot rather than assumed from the parameter alo=
-ne:<br><br>xe.enable_psr=3D0 + xe.enable_psr2_sel_fetch=3D0 + xe.enable_pan=
-el_replay=3D0: black screen, no display<br>xe.enable_psr2_sel_fetch=3D0 alo=
-ne: black screen<br>xe.enable_psr=3D0 + xe.enable_panel_replay=3D0 (sel_fet=
-ch left on): black screen<br>xe.enable_panel_replay=3D0 alone: display work=
-s, tearing persists (confirmed fallback to PSR1 via psr_status)<br>xe.enabl=
-e_psr=3D0 alone: display works, tearing persists<br><br>So there&#39;s no c=
-ombination of these three flags that gives a working, tear-free display. An=
-ything that disables selective-fetch takes the modeset down entirely, and a=
-nything that leaves it enabled still tears. That felt like the most useful =
-concrete result to hand over, since it rules out a boot-parameter workaroun=
-d existing at all on this hardware.<br><br>One more thing worth flagging: t=
-his is intermittent, not deterministic. Identical kernel, identical boot pa=
-rameters, identical hardware has produced different outcomes across separat=
-e boots, and switching between gamescope and a desktop compositor session r=
-eliably re-triggers a fresh roll of the dice. I also have one report from s=
-omeone with a confirmed-identical OUI (ba:41:59, verified the same way) who=
- says they don&#39;t see this at all on the same kernel version, so whateve=
-r margin this is riding on isn&#39;t purely software-version-gated.<br><br>=
-I&#39;m aware there&#39;s already a precedent for handling this class of pr=
-oblem, the QUIRK_DISABLE_PANEL_REPLAY / intel_dpcd_quirks[] entry added for=
- the Dell XPS 14&#39;s panel (OUI 00:22:b9). I haven&#39;t found anything i=
-n that table for ba:41:59, and given how closely this matches (down to the =
-exact same &quot;Selective fetch area calculation failed in pipe A&quot; li=
-ne) what&#39;s been separately reported on at least one other OEM&#39;s Pan=
-ther Lake machine with a different panel entirely, I think this may be a br=
-oader selective-fetch issue rather than something isolated to my specific p=
-anel.<br><br>Happy to pull more logs, test patches, or run anything else th=
-at would help narrow this down. I&#39;ve got full dmesg captures from multi=
-ple boots, the raw EDID dump, and the psr_status output from each of the bi=
-section runs above if useful.<br><br>Thanks for reading this far.<div dir=
-=3D"auto">Fredrik<br>=C2=A0</div></div>
-
---000000000000b70f960659f72343--
