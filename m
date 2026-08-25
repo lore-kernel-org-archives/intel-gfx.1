@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C613C61DBE
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54106C61DC4
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D97C610EDE4;
-	Wed, 26 Aug 2026 19:47:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4F110EDD9;
+	Wed, 26 Aug 2026 19:47:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OVaiRKIx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MnbMJqiR";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 283A010EA10;
- Tue, 25 Aug 2026 12:17:36 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A331010EA19;
+ Tue, 25 Aug 2026 12:18:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 61CDD6013A;
- Tue, 25 Aug 2026 12:17:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 336311F000E9;
- Tue, 25 Aug 2026 12:17:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 81BDD42A8E;
+ Tue, 25 Aug 2026 12:18:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E24E1F00A3D;
+ Tue, 25 Aug 2026 12:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787660255;
- bh=E9PSra3VSH6kKr8A0EJHafgZ+AsnDC22yL+Tdqb5Mgo=;
+ s=k20260515; t=1787660282;
+ bh=3Lx00wwuYYyKdP28LMQfLYV9EDYOsQNPdQa6e0MEs4E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=OVaiRKIxGmjjFj0Ei6jtwknX9f4ucUTIjlQPgb5DoFgjceCr/eBLsBBPy7udPs50H
- PrQuM7EC4NILTm4kvvWc6CczOr6JImV8pZ6paUxaRD0otUM+k38Pb3kUr3q/xhOmNL
- lh07GGggtEaDPneYim/zh6kcv2XvFuaMBhT7T+jfNEeSrHpXMDReMhr40Is8nav649
- G9spac7mNIBwqLX9EQEJ2Owrw7PlWFZdG5YZ+9shvHLHTAwtSbW3PNjztDs/3XW7w8
- fwSn8qZNHtQNt4udH6IRNNWYjSqi/0XqZPeyfrwDtPnas+4Mckj4zf4eAB/ACowk6S
- 5Ua9BR8AlZy9g==
+ b=MnbMJqiRKpxq+/ETDNHmmCC5z9s+8x6QULKFS5Ju6cNEVolHW318XlTCzABnzXjIy
+ tVOqKz1rY7potus21Cu/9DRfRzHYyhy4otdmBOX/wuvP/m5O/EObLBuJ/mP4tJLKbf
+ hrIX4yLNqvuILE1NN8gheZt9boMasD51+xf90zqz+nRavGt18ooDugRmcTi2S386Xz
+ ErMsmAxQTmFt34OFTSZ+E7I6lpbVd51qGf1PjFmLyoZNkWjjtzMREyXTpTmsFi6LBa
+ gfnvEl1DwP0VXzEotLnWtHf/HNg+dW4MJ03c6bCkdEXMmj1+vlrLZHQ0CyMeiL4XSc
+ nzx3FBZKCmeNA==
 From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Tue, 25 Aug 2026 14:16:36 +0200
-Subject: [PATCH 5/6] rust: hrtimer: document deadlock when starting a timer
- in its handler
+Date: Tue, 25 Aug 2026 14:16:35 +0200
+Subject: [PATCH 4/6] rust: hrtimer: restrict expires() to exclusive access
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260825-expires-v2-v1-5-90411c6217c7@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-expires-v2-v1-4-90411c6217c7@kernel.org>
 References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
 In-Reply-To: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
 To: Anna-Maria Behnsen <anna-maria@linutronix.de>, 
@@ -62,21 +61,21 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  Andreas Hindborg <a.hindborg@kernel.org>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1387; i=a.hindborg@kernel.org; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4618; i=a.hindborg@kernel.org; 
  h=from:subject:message-id;
- bh=CekYQelBSyoWNUa92eYguGVUWsMvey2D13eG9pkdMn4=; 
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqjYe9N2SwrzZhZP8MZofe4lVbWY9ymG7+C/xM2
- EPwSwuaOleJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCao2HvQAKCRD6UCkIqsW9
- 0B5uD/9/NAJZFlIEF26NrCGOYDblbntX/zdRdEh+a1QQlIMK8G/ZBZitSYfVcnDYOpgRFPIMDfD
- Izsn9Ga7jKGon36Id5z5/wEbvBPaM83cDy4De+7N1fn/WcLM6R+0MXCA6NRbYXzZxOMs7Dy4eDQ
- RM/cuVYev+ARaDgnmbqLtY08K+Kjk0bMWy/dsTv28Ko0izx7YxHhXeruQfstmOa9UeiPlz07Ip9
- YELTAPSJMLBb/F85VHNz97Ul4tHL/y35Pb4gk59FM8OBaDmjabodlIh1xlDEzAXFLnD+9y2RiT/
- Kx715SkEbggcJPp4OvSQyxdfy6BxLBKFhYvxqoJlC+13jkftLVP6+nVox6MDR8WL1t+3JKhGCio
- Sd0cex0RMjoMrXsC8WfaC0vOf55tXYZ9IQypZJeNB2lg/VnF0gDrlwiddGRQPfCPnNlhTweo29t
- l51kvquIIIBgc9wo37H1XYevkLnf+V39FZ+0Z7BaRK8a+nqKh0pJlxy5Wwu8x++M+rrGmtUirVG
- 5GBdME4VI3gwaxtyKBF+Je3Q6EaQyK9e4d8Q/ViDWAavoZS2qhZHBN7i7khIRCcWk37PFaKy8CB
- pVinIDTGgxyGFvtVO7zZCr6ES0tgc7tn/I/WVTsF7lguAorBb0r+471gwwSfCAgL/Yk51AYlBid
- IKgZCGhj1DzhYug==
+ bh=5Is46ps7sgBCYIjJGYZl0Quf/W2LYFDIy/ef6mXE7Hg=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqjYe8jLQULOEI7xxCzta9iHRQ9wzF18FNTX3uR
+ slKqd9LVlyJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCao2HvAAKCRD6UCkIqsW9
+ 0ICPD/45nHQmHvPMhidkLa0pteMJKVUdizssB9qYLx3otZQbOfrwKhOtQ4CA/BX/Dz0x3xRZd71
+ uesTwMi31JgWZjOyFbkj4AWpE/zDsjmyATkaw4T6j95u1FOvHkYEqcR7ft7CPQNSBiKXRriZma3
+ 7FxKPf1DIdAm2pBEPVZg55ANWFVbOpIwRdBnsZ+lIsbbJ1eLjhj7PKqJq145yUw5OR0EBIFX5NG
+ VidWmMUs8tDKT6NT4NqqXE+mmTq54sDwKMslvw0P3sYLQq5N1pNPeGpZDmEBT0CR0BruvwCSpgr
+ fWH3esYnrRam5VskaaCT57XHxtbZCTe3/HAt1E0nDrH00cuYp9yvTIJr3oFytPmaXoSPGAcoD/C
+ mvSL+3LNIJZX3qLdJMg2B8Qky5yGCoz6uh+f/pR43eTWx9Bsc0x1BusODkHtUCyPCInYfRAibwC
+ MAZl4RCuSl6cweEpAYY+sXm9QlG3eMHbN8ISL2E1O+Yo69c+2hDh/YJ0ABp33NksAHQTg4+QCEf
+ t971KPfmtU+/imF0qI30CEIWEOhGF2pxuHlngMAmSzpI5VvonCFx+yxWjnS8pPykn2J8bWv0gfu
+ 7E/cKQer9s7D/7SaAAPROe1DQUbK0QeITsUOkSKbd35L7XkTsI2WrhiMONV/SrOGpOTmD0EG6Ra
+ Bb81TMSCoyzaKag==
 X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
  fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-Mailman-Approved-At: Wed, 26 Aug 2026 19:47:01 +0000
@@ -95,38 +94,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-The state machine documentation states that for pointer types that
-implement `Clone`, the `start` operation may be issued while the timer
-is in the **running** state, and that it is then equivalent to the
-`restart` operation. That only holds when the operation is issued from
-outside the timer handler.
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-The `start` operation returns a `HrTimerHandle`, and dropping the
-handle cancels the timer with `hrtimer_cancel()`, which blocks until a
-running handler has returned. When `start` is issued from within the
-handler, the handle is also dropped within the handler, so the cancel
-waits for the very handler that issues it, and the handler deadlocks.
+HrTimer::expires() read node.expires through a volatile load on a
+shared reference. The read is unsynchronized: a concurrent start
+operation rewrites the expiry under the timer base lock, and the
+64-bit load can tear on 32-bit architectures. The volatile idiom
+narrows the race but does not remove it.
 
-Note this in the state machine documentation.
+Change expires() to take Pin<&mut Self>. Wherever an exclusive
+reference to the timer is reachable, no start operation can run
+concurrently: the timer handles own or borrow the containing object
+exclusively for the box and pinned pointer types, and no exclusive
+reference is reachable through an Arc. Route the read through
+hrtimer_get_expires() via a helper instead of duplicating the field
+access on the Rust side, and provide the unsafe expires_unchecked()
+for contexts that can guarantee exclusive access by other means.
 
+Reading the expiry from within the timer callback is served by the
+expiry snapshot passed to HrTimerCallback::run(), so no callback
+context accessor is needed.
+
+Fixes: 4b0147494275 ("rust: hrtimer: Add HrTimer::expires()")
+Closes: https://lore.kernel.org/rust-for-linux/87ldi7f4o1.fsf@t14s.mail-host-address-is-not-set/
+Signed-off-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+Link: https://lore.kernel.org/r/20260813134834.1562995-4-tomo@flapping.org
+[ Andreas - Reword commit message and rebase on expiry injection patches. ]
 Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
 ---
- rust/kernel/time/hrtimer.rs | 2 ++
- 1 file changed, 2 insertions(+)
+ rust/helpers/time.c         |  6 ++++++
+ rust/kernel/time/hrtimer.rs | 37 +++++++++++++++++++++++--------------
+ 2 files changed, 29 insertions(+), 14 deletions(-)
 
+diff --git a/rust/helpers/time.c b/rust/helpers/time.c
+index 32f4959704939..205a38839532a 100644
+--- a/rust/helpers/time.c
++++ b/rust/helpers/time.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ 
+ #include <linux/delay.h>
++#include <linux/hrtimer.h>
+ #include <linux/ktime.h>
+ #include <linux/timekeeping.h>
+ 
+@@ -38,3 +39,8 @@ __rust_helper void rust_helper_udelay(unsigned long usec)
+ {
+ 	udelay(usec);
+ }
++
++__rust_helper ktime_t rust_helper_hrtimer_get_expires(const struct hrtimer *timer)
++{
++	return hrtimer_get_expires(timer);
++}
 diff --git a/rust/kernel/time/hrtimer.rs b/rust/kernel/time/hrtimer.rs
-index bdb6aaa22839..2a9abc9f5d8c 100644
+index e6570a6162035..bdb6aaa228396 100644
 --- a/rust/kernel/time/hrtimer.rs
 +++ b/rust/kernel/time/hrtimer.rs
-@@ -78,6 +78,8 @@
- //! handler returns, and a restart requested by the return value of the handler is discarded in
- //! favor of the `restart` operation.
- //!
-+//! ⚠️ Issuing the `start` operation from within the timer handler will lead to deadlock.
-+//!
- //! # Examples
- //!
- //! ## Using an intrusive timer living in a [`Box`]
+@@ -567,27 +567,36 @@ pub fn forward_now(self: Pin<&mut Self>, interval: Delta) -> u64
+         self.forward(HrTimerInstant::<T>::now(), interval)
+     }
+ 
++    /// Return the time expiry for this [`HrTimer`].
++    ///
++    /// # Safety
++    ///
++    /// The caller must have exclusive access to `self`.
++    #[inline]
++    unsafe fn expires_unchecked(&self) -> HrTimerInstant<T>
++    where
++        T: HasHrTimer<T>,
++    {
++        // SAFETY:
++        // - The C API requirements for this function are fulfilled by our safety contract.
++        // - Timers cannot have negative `ktime_t` values as their expiration time.
++        unsafe { Instant::from_ktime(bindings::hrtimer_get_expires(Self::raw_get(self))) }
++    }
++
+     /// Return the time expiry for this [`HrTimer`].
+     ///
+     /// This value should only be used as a snapshot, as the actual expiry time could change after
+-    /// this function is called.
+-    pub fn expires(&self) -> HrTimerInstant<T>
++    /// this function is called. To read the expiry from within the timer callback, use the value
++    /// passed to [`HrTimerCallback::run`] instead.
++    pub fn expires(self: Pin<&mut Self>) -> HrTimerInstant<T>
+     where
+         T: HasHrTimer<T>,
+     {
+-        // SAFETY: `self` is an immutable reference and thus always points to a valid `HrTimer`.
+-        let c_timer_ptr = unsafe { HrTimer::raw_get(self) };
++        // SAFETY: `expires_unchecked` does not move `Self`.
++        let this = unsafe { self.get_unchecked_mut() };
+ 
+-        // SAFETY:
+-        // - Timers cannot have negative ktime_t values as their expiration time.
+-        // - There's no actual locking here, a racy read is fine and expected
+-        unsafe {
+-            Instant::from_ktime(
+-                // This `read_volatile` is intended to correspond to a READ_ONCE call.
+-                // FIXME(read_once): Replace with `read_once` when available on the Rust side.
+-                core::ptr::read_volatile(&raw const ((*c_timer_ptr).node.expires)),
+-            )
+-        }
++        // SAFETY: By existence of `Pin<&mut Self>`, we have exclusive access to `Self`.
++        unsafe { this.expires_unchecked() }
+     }
+ }
+ 
 
 -- 
 2.51.2
