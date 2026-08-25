@@ -4,27 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E779FC61DB9
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 16:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0778C61DBD
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 16:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA0910E21E;
-	Tue, 25 Aug 2026 16:29:13 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9596E10E21E;
- Tue, 25 Aug 2026 16:29:12 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1725671575869550319=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A8C10E5F7;
+	Tue, 25 Aug 2026 16:58:25 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Na/MvBuo";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1249410E5F7;
+ Tue, 25 Aug 2026 16:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787677104; x=1819213104;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=DWlPvhgI1tH8jmwXiEjiiQ2I8HActgaQc4tjCQVFJZI=;
+ b=Na/MvBuoTAgXekyS+cuvQ9NBX5HUWJhBpCSORaC3pdqRvzauzmb9zcgw
+ GKN8oiQ7T2LW0Pq2ackeZcjBkNbijxtD2w3aZHtRfwySNeCseqfO8osZ4
+ fdxWgnuShuVXQTTi1duIAhQirtd8dLm1ZNrR92T37v0qidTaNfFV0kmAM
+ +fPSyKSYxs+oSJJMp7ccSCRoAIOslirXW5VGAF0XdvMvYYk7fn9P77lvj
+ zLqgjjRBQQhd1dm45cWKKhKBiwZouTdSO+psWu4CKGHpxTiGtBc2NfwrZ
+ VbuxCHMxQEu4bXyGWv5xRn+3x0k0ohGoDwPi9mT0mqT4T7s6Q45cUpK9j A==;
+X-CSE-ConnectionGUID: LjG33XJWT+OlLv2mdiChkQ==
+X-CSE-MsgGUID: wRtqApwiTaimZFJgrlII1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="88206778"
+X-IronPort-AV: E=Sophos;i="6.25,243,1779174000"; d="scan'208";a="88206778"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2026 09:58:24 -0700
+X-CSE-ConnectionGUID: LddbU/qqSJuG0qFFrsiHnw==
+X-CSE-MsgGUID: cwnKkGL+T1aKBbIW6Eoq3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,243,1779174000"; d="scan'208";a="270819778"
+Received: from chu13-desk.fm.intel.com ([10.80.209.189])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Aug 2026 09:58:23 -0700
+From: Austin Hu <austin.hu@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: ville.syrjala@linux.intel.com, maarten.lankhorst@linux.intel.com,
+ vinod.govindapillai@intel.com
+Subject: [PATCH v2 0/2] drm/i915/fbc: Dirty rectangle bounding and CFB nuke
+ handling
+Date: Tue, 25 Aug 2026 09:56:27 -0700
+Message-Id: <20260825165629.1799744-1-austin.hu@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260812215350.3753102-1-austin.hu@intel.com>
+References: <20260812215350.3753102-1-austin.hu@intel.com>
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/selftests=3A_Fix?=
- =?utf-8?q?_unlocked_mm=2Estolen_in_reset_selftest_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Sebastian Brzezinka" <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 25 Aug 2026 16:29:12 -0000
-Message-ID: <178767535260.84056.7130639574198393151@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
-In-Reply-To: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,142 +67,35 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1725671575869550319==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This series fixes two issue areas in Intel FBC (Framebuffer Compression)
+dirty rectangle handling:
 
-== Series Details ==
+1. Clamps FBC dirty rectangle bounds to valid surface limits [y_offset, y_end]
+   and adds logging for out-of-bounds coordinates, including handling for 
+   180-degree plane rotation.
+2. Tracks plane state attribute changes during atomic commits. When FBC Dirty
+   Rectangle mode is active, partial updates only apply to surface address
+   changes (PLANE_SURF). Modifications to any other plane state parameters
+   require fetching full-plane pixel data from memory to re-compress and
+   update the entire CFB in stolen memory. Once fully re-compressed,
+   subsequent atomic commits can resume selective dirty rectangle updates.
 
-Series: drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev2)
-URL   : https://patchwork.freedesktop.org/series/172573/
-State : success
+v1 -> v2 changes:
+  - Reused intel_fbc_can_flip_nuke() for plane update state checks as suggested.
+  - Added plane Y-coordinate plane view checking (color_plane[0].y) alongside X.
 
-== Summary ==
+Austin Hu (1):
+  drm/i915/fbc: nuke CFB if Plane setting (except for surf addr) changes
 
-CI Bug Log - changes from CI_DRM_19041 -> Patchwork_172573v2
-====================================================
+Charlton Lin (1):
+  drm/i915/fbc: fbc_dirty_rect restrictions and logging
 
-Summary
--------
+ drivers/gpu/drm/i915/display/intel_fbc.c | 192 +++++++++++++++++------
+ 1 file changed, 141 insertions(+), 51 deletions(-)
 
-  **SUCCESS**
+-- 
+2.34.1
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/index.html
-
-Participating hosts (40 -> 36)
-------------------------------
-
-  Missing    (4): bat-dg2-13 fi-glk-j4005 fi-bsw-nick fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172573v2 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_pm_rpm@module-reload:
-    - bat-adlp-6:         [DMESG-WARN][1] ([i915#15673]) -> [PASS][2] +78 other tests pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
-
-  * igt@i915_selftest@live@client:
-    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +13 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/fi-kbl-7567u/igt@i915_selftest@live@client.html
-
-  
-  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19041 -> Patchwork_172573v2
-
-  CI-20190529: 20190529
-  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9071: 9071
-  Patchwork_172573v2: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/index.html
-
---===============1725671575869550319==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/selftests: Fix unlocked mm.stolen in reset selftest (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172573/">https://patchwork.freedesktop.org/series/172573/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19041 -&gt; Patchwork_172573v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 36)</h2>
-<p>Missing    (4): bat-dg2-13 fi-glk-j4005 fi-bsw-nick fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172573v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_pm_rpm@module-reload:</p>
-<ul>
-<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">PASS</a> +78 other tests pass</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@client:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172573v2/fi-kbl-7567u/igt@i915_selftest@live@client.html">PASS</a> +13 other tests pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19041 -&gt; Patchwork_172573v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9071: 9071<br />
-  Patchwork_172573v2: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1725671575869550319==--
