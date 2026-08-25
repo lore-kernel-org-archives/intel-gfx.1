@@ -4,153 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4260C5DF94
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 07:57:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E87A9C5DF94
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 08:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77A9D10E931;
-	Tue, 25 Aug 2026 07:57:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76DFD10E94D;
+	Tue, 25 Aug 2026 08:04:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XqzHHh0f";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="GtZ7A56A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2IOcNjl4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mT02T1rm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rMuFyHjb";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8548310E924;
- Tue, 25 Aug 2026 07:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787644629; x=1819180629;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=817V+EYDLuZsUcJeabBeUeBBgdJ1afUn/3WAiRchZzE=;
- b=XqzHHh0fNOWUKidkfNOTEgtiuDxEA9aAumFUVLz0acNEBGZqlmrBKgu+
- qwrOkf/yFSXNo9nAzV3mtfg+2j1kYdCEMvowr6jV4EGV4i0bA1pO5SfD/
- Wom/cieRLoQo7jgdExiQMEeK4hKSz9t2woG7jEfvkw61zONbdoHWKeGYe
- 4wXMympIJRKN6zQjukqc+v4DCtQ4xjXRCgSDZoIvFx7JIylKGh0ODrT5J
- jOH7NEUycX2RJUasafTbnl6w2/gHLZbdwuO9u5J5QmiA4NckN2TDpgJ6M
- xaKeGRBCpluSrYowrzslZr6r13OAZsPtpug9Lh7df0ty3jDqcar2Erjwe w==;
-X-CSE-ConnectionGUID: sTUzLbjxST2cM2aSvUS9UQ==
-X-CSE-MsgGUID: Y6WtZLFtQNe2DmL5RQi4ng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88232382"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="88232382"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2026 00:57:08 -0700
-X-CSE-ConnectionGUID: S7O8kBbQTu+wZMYHqGMNdQ==
-X-CSE-MsgGUID: msjE66LpRA+3GJRFB5porQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; d="scan'208";a="264597963"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Aug 2026 00:57:08 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 25 Aug 2026 00:57:07 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Tue, 25 Aug 2026 00:57:07 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.51) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 25 Aug 2026 00:57:07 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Zdo0k/dLgsMp0e1sTMBHPb8xlhD9cEVC3PtuMaMMcp/vputV5/tiojLk9hFgqEmOkFJ2Uc6hdcv4aizwpoyCQkNxw149fmbcfCxzXv6Wfgog0QSz7C3SP9YZ+KCj5nT3O1wGA388kvsuvrnhH7ikllyVgf9Te36Gy/xevw65VpcUdg8eYApEhUWXD1UGXhwBagx+LoA5Zmef4eTSpn641MJoNl9PlsMo6dVSHcgcIsrtEKgnczZURic6t2q293Rpz5JuTaWlfbefGUhW/Nw7F12tgBFa82cD5GTQNXn39RXW2OqDL9fFUCmCjVFLBrxndn+wKPGp720bsNbvGDd0sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x3QWTJW2lWXENai3SIyj0cxmzw/Ul86fO5yW7Pkpgd0=;
- b=FdhT8lDxJBu7kdPz4aghAG1Ksn5Ty46pEkR6vqQDBJjrZO5jp9PJvc7g6Z0wO1Y42DHEfeasdW/c3JnoQhFS9FYYzcYvCuICmPz9VMXONpva9x2nbO72QQZQHrY3MOnOwWRF807Sam0F4wJZdbjdOY2CWjbxDYlupZe4BmQ51bHbFLkaiA0AaDDwRu2cUHhu4jq4auX7Fb1DqnZWPWrEyCCuaQUCzYd7tihMk0Md/3AC7itKeatK9eRiJnjfyzVChP6QjcRZ6rrjZlPh532xB9Ne5wgcCUYERZ3QXGE/FKouGX6YK6ruZFA+zHxY0FYJK+yOEm9ZXtDamLf+0c6nkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- (2603:10b6:f:fc02::5b) by LV2PR11MB078058.namprd11.prod.outlook.com
- (2603:10b6:408:423::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 07:57:06 +0000
-Received: from DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334]) by DS4PPFE901A304F.namprd11.prod.outlook.com
- ([fe80::5be7:2ceb:99ef:6334%8]) with mapi id 15.21.0339.010; Tue, 25 Aug 2026
- 07:57:06 +0000
-From: "Kandpal, Suraj" <suraj.kandpal@intel.com>
-To: "Manna, Animesh" <animesh.manna@intel.com>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-CC: "Hogander, Jouni" <jouni.hogander@intel.com>, "Nikula, Jani"
- <jani.nikula@intel.com>
-Subject: RE: [PATCH v5 02/15] drm/i915/alpm: Move alpm sink capabality readout
- in separate function
-Thread-Topic: [PATCH v5 02/15] drm/i915/alpm: Move alpm sink capabality
- readout in separate function
-Thread-Index: AQHdNFmt2x+c7qcn2EKZDV06m2OrHbauZZVQ
-Date: Tue, 25 Aug 2026 07:57:06 +0000
-Message-ID: <DS4PPFE901A304FCAFBDB20533981EAC946E3AF2@DS4PPFE901A304F.namprd11.prod.outlook.com>
-References: <20260825054536.3455704-1-animesh.manna@intel.com>
- <20260825054536.3455704-3-animesh.manna@intel.com>
-In-Reply-To: <20260825054536.3455704-3-animesh.manna@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS4PPFE901A304F:EE_|LV2PR11MB078058:EE_
-x-ms-office365-filtering-correlation-id: 08dfc932-ff06-46a4-a39d-08df027e7509
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|38070700021|11063799006|10067099003|4143699003|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info: z2Szbzx1rmKAl5M8lZ7NaHLcsTe3L/82u4fEvScIHvPU01H7XoPhf8LDPg7MndOFUCWNyG8TnPRs4cU0MMQ9LdfZxyyNbAJ9ldF+SPCiKuX1LcCibnZ58imu679AZbBlQzW/entHXZereRNpc9+exQBFz7xedk9yiOCff71a9bhR+SsoF02znvSJJCiv1Bzm1t4XtPIk3T3CSDpVpsVZOaqD7MBvP/Eu0HkESz+dTautKKuLGt4S5n0D8+OBAgX8k8+9/n5roxO99mkwH+r4ItrJEezhkYM0NXsmgjLXavq/zkust3GZZvxkGg1Hf3SA7+GZWvFfi8rT8DS6X0OR5AMTT1go86e6HIpQtUugTf6KeHU2n67rMpcugUIqObVo9eTz7d2H9fTEiyJ3Cs2fQrFAlWG1VZjGV7iApBygYcRTsGxpzI+Y90LFJOME05ltPfFN3JsY56lsMuIzZzlyGyZOyicgPU6Xz2hKOKQRQpeR2LES4xy9mfU+XRynJLkYNfklNzhSu5M4Jv4kSB3Ah/XFY679Sef+5yE2Yej5An72T673OrKWObfimO95UYw1al33K4a6jMfT4SP0O6Qzq6ftQ7OViETEvoR/sGKaABzvH+JZhEAe8ROza8FQue1h/G5z/0Q7sdITvRVd3ou/+V2qRAZjGsLG6iU1SjvEKaG4tCWbJ70/MkT1hCVmmAuVygC0ufRlcwM3l6xOnjrUtT70aCDNXxeJncMN3WHjS+Q=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS4PPFE901A304F.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(38070700021)(11063799006)(10067099003)(4143699003)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?c6kW/b1795mDY+5XAR98Vz/NH/jGEhOvSNXn8mzNcT+rX3umGVyNkgDmo8pw?=
- =?us-ascii?Q?ErSSBqfzFy/lT8S1FsVX0A7nkTfwVU6lRizJN6YqU3+TJ8xO7StJ2kOtXHJo?=
- =?us-ascii?Q?Oa2HinIW8WGild5mQiaAUwii+0WMKlp6r+2jjOmA+h3VuGHdm7101NYU75WT?=
- =?us-ascii?Q?tDjt37HqJfGroKF0Y/fgwuRNcYW40kJYqp+clHlPYUwB27VJ20sHpjPJGX81?=
- =?us-ascii?Q?Aj4SKbAkyasxJgI3xajRgccGGX/+iVsup9YkiJKWRRaEalpV4+Vdl7gLB1CG?=
- =?us-ascii?Q?IYxGBYfnPQqFPHwNp7uvA2pL4rH/7c0w/t/y+XrrTtB4+BnKQzmy167awAS/?=
- =?us-ascii?Q?jl5GEZUU+sxT6zwWRfbgrRZBrWAFNniC8ut+tgC+8lmSTxjAGPJctoiGg2v6?=
- =?us-ascii?Q?FjYLXA5rk1ClGdc9fJ3y0aY5waV2bd/RkPXKlfW1YMIzwFJAaDSgq/0rxPe9?=
- =?us-ascii?Q?9z4E3uuRdqVLPKq43tsiqxU3AR6qPBBRzLwttrZ3jvbDovcRDY9a0SRysdhS?=
- =?us-ascii?Q?PhByQQvZEG0GraOLYuteJu1MtF6X5A0ljaMwFai0pLLYBAQtKFvL5DaYHoPm?=
- =?us-ascii?Q?/LsCpYiReQUAGyZhw3TtnGJXYsLQplGNYHiWGMz6d2izpgK06qx0aNSNZXPJ?=
- =?us-ascii?Q?TSlPY0uYFNC9lA+b7uZ428IDi5EgneSl2ZPqy+PkhZGnIAUtx9LlIF292vNn?=
- =?us-ascii?Q?+RofApV+ZzXSC3o9wfVzq8NW/33ADj3Nj6eRCTCnm3Th2PXSpnaHxPz86lH0?=
- =?us-ascii?Q?WC7kHAbCTLYzKXOpX1Q+GJlG6sSUhFqFu5y535rLPt/OGpI7XFDudQkkMN0R?=
- =?us-ascii?Q?x+XL7Syzu+Jn2898lO3191M8avigQfpIu7FhDHz15iet0uSNOZXnXkC7NaTT?=
- =?us-ascii?Q?CjNruobh+efW7NCquQC3E7fK4h6GF+dR2a4ffRj3Jn2oxnX0nwPPTvs0QTwh?=
- =?us-ascii?Q?TDIij7DS7OWCcZtqwIGOWcf2sax0jz6GmKul6iOXW/yimpUkHy2byztbpAw7?=
- =?us-ascii?Q?c/qXoOKfZ2xDOBXU3drCuhhsYXCOqCyBlA522vxa6IE77kIvK4XvlRoOotuh?=
- =?us-ascii?Q?UJkm5nA1xU+UtDIf+405eH1LTy/xphl6tBEqN2vv/1xb/fLM7duIOKkE4fmp?=
- =?us-ascii?Q?yabNIEpQfRNCOjkGwTJ9/+voxiBvR5HOh3jxhtT4bLMGpSjnwzmOwCf886oV?=
- =?us-ascii?Q?8SGjvW9oC48fJ2fukPQ9INl/HqYrHO39GZ0+jCgYi/+KGWoTpxrmQDA4MLRk?=
- =?us-ascii?Q?uA9JsAst2JElZQHoyFKpjDc7+rxtEO2C1UOHlIPxbNWBPKkxPdaLpheYC9B1?=
- =?us-ascii?Q?irmdIrhtJXATWvq9jmDlo0d36SAA4G1rDl7+mLbazY6pq7ZO2wy2PBlT2R8A?=
- =?us-ascii?Q?cgChaB1gI3W08E2vrj05pHPImYqrgaYyw36bW9Kj+Xnuw1h6M8HZupAn+QRA?=
- =?us-ascii?Q?mO8fAUJAJVy7FxloWGA7KSSpSDDCt84DGmRe6nvsS75FOcLHFhcNDYsfIoDw?=
- =?us-ascii?Q?2N4WzdOjaqC/nPxi3MN9XzGw3/3TDf59q2P11UOjUsRJIKWB6nHdZtN50A8f?=
- =?us-ascii?Q?/gr4AHRttApeULPidGh2/67MLL/2z6H6noq7GZZInQn9dsjKkZQ1MuCJh5To?=
- =?us-ascii?Q?/prNGDkIegJyd8rLb32E17vwTodxaIC21wSOgCsEnXjqBgA5G6jFiD0Xvfl3?=
- =?us-ascii?Q?Hnj3L+bJQndrS3Kdd5udZJXIT8+9WrgU2SSxkr2NHVrBv3nPAx7DQ74ae5hk?=
- =?us-ascii?Q?/Sf+Y9/B2w=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6110910E948;
+ Tue, 25 Aug 2026 08:04:48 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2054F1F7B4;
+ Tue, 25 Aug 2026 08:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787644989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=GtZ7A56AXk533T7hb0WZlDenwwyYIcxvWDAs0Si4OGZzLL/NIE9PDLF8DUrOoX9Md9ZT2V
+ xKJ6cpoAgsEVneICh41847FlpLbIKHOxxG0uQZaAfrppeR8MqUT797j2o5K4lcE+Kf4s4L
+ 0luN4ESGlQioXnnd+4Oaeh52jryCUUY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787644989;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=2IOcNjl4+1CM/av9PHv7NyYlQiP4vcSZunXERPDaqTmkqOtQFFcW5rh2M3pM7SyJ7/aCUI
+ sYqAZnY5iX/VeZBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mT02T1rm;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rMuFyHjb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787644985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=mT02T1rm6QVnTaCmbaJHQDo/i21HMFLNigdnFOfbbc5UDvKzAFMQPub5OYsbynemTdtjjt
+ p36NnQ7kRzh5hwTQtprrmNirDBqAZNYcA8z1Ddkrh8/bQfQGCH9JSUOEw93VlCTRB/gGoz
+ fQEpYUmmyHJP7KtjK58Rv/sioXk9fYI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787644985;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=rMuFyHjbvzB2V4bhNUn/pQmlitoeC6NY/WoSQ0YVX93NQHd9bYTX98xWN5xY+Ct0IQHLro
+ uCWK2kvlFCVCqaBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 959A713332;
+ Tue, 25 Aug 2026 08:03:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kQfPHThMjWracwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Aug 2026 08:03:04 +0000
+Message-ID: <778c33e1-8391-48d0-bef4-97298e06d43d@suse.de>
+Date: Tue, 25 Aug 2026 10:03:04 +0200
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: tBPdE8Iy/Kf6eZbTDUQ8E3onw+8pJ0+Z6V11cHDgpbnsr4CKLbvEx3+HBmNkRqqSwEPUr/DNZz9HUWl4Gr75u9b9Byk8AdwEr8yCiARZU1nuZYkYF1J+YzfUKXeuLeZJd4ULFDZh+RQCYptNLTQO7KoJRaAxa2h7gzldpqJdkDRT823UjLkwndTv6TefvZ4lkR0wV3ZR0uKbCPw2jnN6XYKtMtrH3rXDY/TDcqnVFodo+GNimJar20HrA2b636WOI2ZpdTjtu/Qyya47ahFfgMlZGtDaRJ8inC1Zto8JccLUZxdGZJ3ZworcLEGaGEPkzAmJbtT0lSA106wJnfagxA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS4PPFE901A304F.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08dfc932-ff06-46a4-a39d-08df027e7509
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Aug 2026 07:57:06.1967 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iOdzC3p2yPRs6PTekkr49Tm6qSRgJsFSo0WApdFkao/ESR6A9HGBO+rAPp0qSNme4PScplW0NA/tNtWIUDbv9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB078058
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] vga_switcheroo, drm: Push fbcon handling into DRM
+ clients
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev
+References: <20260709092215.168172-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[21]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: 2054F1F7B4
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,90 +153,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-> Subject: [PATCH v5 02/15] drm/i915/alpm: Move alpm sink capabality readou=
-t
-> in separate function
->=20
-> Non functional change.
+gentle ping for a review from the DRM side
 
-Please add a definition as to what the patch is doing something like "Abstr=
-act ALPM DPCD initiailization into its own function"
+Am 09.07.26 um 11:15 schrieb Thomas Zimmermann:
+> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
+> about switching of the physical outputs among framebuffer devices. But
+> new DRM clients to not use fbdev/fbcon and might require their own
+> vga_switcheroo support. Let's strictly separate them from each other.
+>
+> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
+> for vga_switcheroo clients to do the fbcon update. Allows for removing
+> all direct interactions between vga_switcheroo and fbdev/fbcon.
+>
+> There are only four drivers that support vga_switcheroo: amdgpu,
+> radeon, i915 and nouveau. Update each of them with the new callback.
+> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
+> to aquire_outputs and lets the DRM clients handle the new outputs.
+>
+> At the same time, push the fbcon update into DRM's client for fbdev
+> emulation. Do this with the new DRM client callback acquire_outputs,
+> so that other clients can have their own handling of vga_switcheroo.
+>
+> Also replace the existing reprobe hook with post_switch for symetry.
+> For nouveau, this is merely a rename of the helper function. The other
+> drivers dor not implement reprobe.
+>
+> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
+>
+> v2:
+> - implement all of pre_switch in a single commit to avoid possible
+>    deadlock in intermediate state (Sashiko)
+> - fix erroneous docs (Sashiko)
+>
+> Thomas Zimmermann (7):
+>    drm/edid: Include <linux/fb.h>
+>    drm/client: Add acquire_outputs callback; implement for fbdev
+>      emulation
+>    vga_switcheroo: Add pre_switch callback to client ops
+>    vga_switcheroo: Add post_switch callback to client ops
+>    drm: Implement struct vga_switcheroo_client_ops.pre_switch
+>    drm: Implement vga_switcheroo_client_ops.post_switch
+>    vga-switcheroo: Remove unused interfaces
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
+>   drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
+>   drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
+>   drivers/gpu/drm/drm_edid.c                 |  1 +
+>   drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
+>   drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
+>   drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
+>   drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
+>   drivers/video/fbdev/core/fbcon.c           |  8 -----
+>   include/drm/drm_client.h                   | 14 ++++++++
+>   include/drm/drm_client_event.h             |  3 ++
+>   include/linux/vga_switcheroo.h             | 29 ++++++++-------
+>   12 files changed, 121 insertions(+), 73 deletions(-)
+>
+>
+> base-commit: 88c6be63ac7e9238c7791977d3f496ce6623afe4
 
-Regards,
-Suraj Kandpal
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
->=20
-> Signed-off-by: Animesh Manna <animesh.manna@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_alpm.c | 10 ++++++++++
-> drivers/gpu/drm/i915/display/intel_alpm.h |  1 +
->  drivers/gpu/drm/i915/display/intel_dp.c   |  7 +------
->  3 files changed, 12 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c
-> b/drivers/gpu/drm/i915/display/intel_alpm.c
-> index f1383764b702..542900e29a01 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-> @@ -43,6 +43,16 @@ bool intel_alpm_is_alpm_aux_less(struct intel_dp
-> *intel_dp,
->  		(crtc_state->has_lobf &&
-> intel_alpm_aux_less_wake_supported(intel_dp));
->  }
->=20
-> +void intel_alpm_init_dpcd(struct intel_dp *intel_dp) {
-> +	u8 dpcd;
-> +
-> +	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_RECEIVER_ALPM_CAP,
-> &dpcd) < 0)
-> +		return;
-> +
-> +	intel_dp->alpm_dpcd =3D dpcd;
-> +}
-> +
->  void intel_alpm_init(struct intel_dp *intel_dp)  {
->  	mutex_init(&intel_dp->alpm.lock);
-> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.h
-> b/drivers/gpu/drm/i915/display/intel_alpm.h
-> index 1cf70668ab1b..fae68d557960 100644
-> --- a/drivers/gpu/drm/i915/display/intel_alpm.h
-> +++ b/drivers/gpu/drm/i915/display/intel_alpm.h
-> @@ -15,6 +15,7 @@ struct intel_connector;  struct intel_atomic_state;  st=
-ruct
-> intel_crtc;
->=20
-> +void intel_alpm_init_dpcd(struct intel_dp *intel_dp);
->  void intel_alpm_init(struct intel_dp *intel_dp);  bool
-> intel_alpm_compute_params(struct intel_dp *intel_dp,
->  			       struct intel_crtc_state *crtc_state); diff --git
-> a/drivers/gpu/drm/i915/display/intel_dp.c
-> b/drivers/gpu/drm/i915/display/intel_dp.c
-> index 6b60e0a1c8ee..77d516f0bd07 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -4764,7 +4764,6 @@ static bool
->  intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector
-> *connector)  {
->  	struct intel_display *display =3D to_intel_display(intel_dp);
-> -	int ret;
->=20
->  	/* this function is meant to be called only once */
->  	drm_WARN_ON(display->drm, intel_dp->dpcd[DP_DPCD_REV] !=3D 0);
-> @@ -4804,11 +4803,7 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp,
-> struct intel_connector *connector
->  	 */
->  	intel_dp_init_source_oui(intel_dp);
->=20
-> -	/* Read the ALPM DPCD caps */
-> -	ret =3D drm_dp_dpcd_read_byte(&intel_dp->aux,
-> DP_RECEIVER_ALPM_CAP,
-> -				    &intel_dp->alpm_dpcd);
-> -	if (ret < 0)
-> -		return false;
-> +	intel_alpm_init_dpcd(intel_dp);
->=20
->  	/*
->  	 * This has to be called after intel_dp->edp_dpcd is filled, PSR checks
-> --
-> 2.29.0
 
