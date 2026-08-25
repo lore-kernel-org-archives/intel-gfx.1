@@ -4,43 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16FB0C61DBC
-	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 07:44:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FF3EC61DB6
+	for <intel-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 07:49:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A239A10E90F;
-	Tue, 25 Aug 2026 07:44:43 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MK1+9ibU";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED8510E907;
- Tue, 25 Aug 2026 07:44:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 11B1E436BE;
- Tue, 25 Aug 2026 07:44:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47721F000E9;
- Tue, 25 Aug 2026 07:44:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787643883;
- bh=UOuDlr0KT2FIAJ4/nBUOHpIn1bQJjCNS57DtvOyUtsQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MK1+9ibUFKJWVwxboK65Lkk7ea+2ZX32GJj0Bt4uZCd2wCBV812fZzxzXgAvuR+Dq
- MAyIp9CGaMeGcBZ9DE49Co2+0NvtoNnXQwq6hF1Bj+L4iGZmDg43A9jJYaN0KFmLKY
- T2sXgh7xncbm1vDA3XyB5bbZRuCuWcZWedf0rW0xd7BWd2S85l/gDrI+veff41Der2
- sfGQjO/X/MKYVPWTLQHzqE9r2O64USrQH+ujQjg7Ds62rZoOUsNU3ziOr25PSAceov
- JnHitpBy2yBCElDxB1CIruE0ewj1oDJxsYL5goP5dzBOPHNneJxy+yoD6bNSg+Em8b
- mufhb6HTmkHgw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/15] drm/i915/alpm: alpm_init() for DP2.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0B110E151;
+	Tue, 25 Aug 2026 07:49:31 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4825F10E14E;
+ Tue, 25 Aug 2026 07:49:30 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============5683097209875213291=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/alpm=3A_Fix_swap?=
+ =?utf-8?q?ped_wake_lines_in_LOBF_late_config?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Animesh Manna" <animesh.manna@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-In-Reply-To: <20260825054536.3455704-4-animesh.manna@intel.com>
-References: <20260825054536.3455704-1-animesh.manna@intel.com>
- <20260825054536.3455704-4-animesh.manna@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 25 Aug 2026 07:44:42 +0000
-Message-Id: <20260825074442.B47721F000E9@smtp.kernel.org>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Tue, 25 Aug 2026 07:49:30 -0000
+Message-ID: <178764417028.81714.6710040354713960583@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260825055239.3455987-1-animesh.manna@intel.com>
+In-Reply-To: <20260825055239.3455987-1-animesh.manna@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,69 +37,142 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Stale ALPM capability retained across hotplugs due to missing st=
-ate cleanup
---
+--===============5683097209875213291==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
---- Patch [3]: [PATCH v5 03/15] drm/i915/alpm: alpm_init() for DP2.1 ---
-commit aaac88b9e7cd98f5bc53a3e1137528cc3fb4f5d2
-Author: Animesh Manna <animesh.manna@intel.com>
+== Series Details ==
 
-drm/i915/alpm: alpm_init() for DP2.1
+Series: drm/i915/alpm: Fix swapped wake lines in LOBF late config
+URL   : https://patchwork.freedesktop.org/series/172708/
+State : success
 
-Initialize ALPM for DP2.1 and separate out ALPM mutex-init from alpm-init.
+== Summary ==
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
-15/display/intel_dp.c
-> index bf626a1e189b1..b63c19589cd21 100644
-> --- a/drivers/gpu/drm/i915/display/intel_dp.c
-> +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-> @@ -6349,6 +6349,9 @@ intel_dp_detect(struct drm_connector *_connector,
->  	if (ret =3D=3D 1)
->  		connector->base.epoch_counter++;
-> =20
-> +	if (intel_alpm_source_supported(connector))
-> +		intel_alpm_init_dpcd(intel_dp);
-> +
+CI Bug Log - changes from CI_DRM_19041 -> Patchwork_172708v1
+====================================================
 
-[Severity: Medium]
-Since this patch now initializes ALPM DPCD capabilities in the hotplug dete=
-ct
-path, does intel_dp->alpm_dpcd need to be cleared when a monitor is
-disconnected?
+Summary
+-------
 
-Looking earlier in intel_dp_detect(), when the status is disconnected,
-capabilities like DSC and panel replay are explicitly cleared:
+  **SUCCESS**
 
-	if (status =3D=3D connector_status_disconnected) {
-		intel_dp_test_reset(intel_dp);
-		...
-		memset(connector->dp.dsc_dpcd, 0, sizeof(connector->dp.dsc_dpcd));
-		memset(connector->dp.panel_replay_caps.dpcd, 0,
-		       sizeof(connector->dp.panel_replay_caps.dpcd));
+  No regressions found.
 
-If an ALPM-capable monitor is replaced with one that does not support ALPM,
-and the DPCD read fails (for example, if the sink NACKs the unsupported
-address), intel_alpm_init_dpcd() returns early without clearing the stale
-value:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/index.html
 
-drivers/gpu/drm/i915/display/intel_alpm.c:intel_alpm_init_dpcd() {
-	...
-	if (drm_dp_dpcd_readb(&intel_dp->aux, DP_RECEIVER_ALPM_CAP, &dpcd) < 0)
-		return;
+Participating hosts (40 -> 38)
+------------------------------
 
-	intel_dp->alpm_dpcd =3D dpcd;
-}
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
-Could this result in the driver incorrectly trying to enable ALPM on a sink
-that doesn't actually support it?
+Known issues
+------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260825054536.3455=
-704-1-animesh.manna@intel.com?part=3D3
+  Here are the changes found in Patchwork_172708v1 that come from known issues:
+
+### IGT changes ###
+
+#### Possible fixes ####
+
+  * igt@i915_pm_rpm@module-reload:
+    - bat-adlp-6:         [DMESG-WARN][1] ([i915#15673]) -> [PASS][2] +78 other tests pass
+   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/bat-adlp-6/igt@i915_pm_rpm@module-reload.html
+
+  * igt@i915_selftest@live@client:
+    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#13735]) -> [PASS][4] +13 other tests pass
+   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html
+   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/fi-kbl-7567u/igt@i915_selftest@live@client.html
+
+  
+  [i915#13735]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735
+  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19041 -> Patchwork_172708v1
+
+  CI-20190529: 20190529
+  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9071: 9071
+  Patchwork_172708v1: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/index.html
+
+--===============5683097209875213291==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/alpm: Fix swapped wake lines in LOBF late config</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172708/">https://patchwork.freedesktop.org/series/172708/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19041 -&gt; Patchwork_172708v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Known issues</h2>
+<p>Here are the changes found in Patchwork_172708v1 that come from known issues:</p>
+<h3>IGT changes</h3>
+<h4>Possible fixes</h4>
+<ul>
+<li>
+<p>igt@i915_pm_rpm@module-reload:</p>
+<ul>
+<li>bat-adlp-6:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/bat-adlp-6/igt@i915_pm_rpm@module-reload.html">PASS</a> +78 other tests pass</li>
+</ul>
+</li>
+<li>
+<p>igt@i915_selftest@live@client:</p>
+<ul>
+<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19041/fi-kbl-7567u/igt@i915_selftest@live@client.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/13735">i915#13735</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172708v1/fi-kbl-7567u/igt@i915_selftest@live@client.html">PASS</a> +13 other tests pass</li>
+</ul>
+</li>
+</ul>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19041 -&gt; Patchwork_172708v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19041: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9071: 9071<br />
+  Patchwork_172708v1: 15e2ba2fb6d25c03d89519aec46f8d5be3e118ad @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============5683097209875213291==--
