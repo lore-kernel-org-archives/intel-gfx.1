@@ -4,61 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84C86C61DC6
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B957FC61DC7
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0218510EDD3;
-	Wed, 26 Aug 2026 19:47:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD57810EDE3;
+	Wed, 26 Aug 2026 19:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GsLs3BzP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GTYn11Zx";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACA6110E273;
- Wed, 26 Aug 2026 09:31:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BB0210EA03;
+ Tue, 25 Aug 2026 12:17:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2155360A59;
- Wed, 26 Aug 2026 09:31:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B3E61F000E9;
- Wed, 26 Aug 2026 09:31:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 55855601E9;
+ Tue, 25 Aug 2026 12:17:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EDF01F000E9;
+ Tue, 25 Aug 2026 12:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787736690;
- bh=5jun+E2eMGR1/N67LbFf2iWsxF74r4ZAeTvmAQz6j8Q=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date;
- b=GsLs3BzPHldXvItdO62wqWRV4PElfaPnzOqiGn8RAyVBp64gPgcq7mCEwSZl8wnVy
- FWA8GQBB2ymMgKRf8Afs+vxRXmT7WLl+fxLWXBu+r6BwQIo+9YZBw2S598jSIRBwbI
- zKFOtGlWXRCW4w9jCBJZ7yRzVITe6DUZfxUG6tOOsa6/EJ9Q46P7MxI9RIDIQ2ak51
- lmgi4kKVav5j7qRBhy7AR0sdWCIpHN0ld1iPC7FyjTLlhyar4cfr0vVqn+SNHNIf0s
- kPQ168qZCz4I6j1fGt0DeffmR1lcpV24uBN2tv9Za96wKgHOOxVSdhHu3C1LkvoSVP
- owWkeBzlmENqw==
+ s=k20260515; t=1787660242;
+ bh=RhUaj2iTct8ZMQqOXLddUC8RzMt7r68jTHovoycnwZM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=GTYn11Zxoqx4nFPnn3iQV/oLsd5wrPztDmvKbpA57GIdK6xQ2ojPYKQ5JRHQ+MMn3
+ ujc3uEV10y5bcgLxvTY2o9I3HsYTcgncZkUn7xHjht7HNcyaln5AlZKbYIRL1uOZAn
+ Y4l1WipNdMUk5nam65Vx0ETJnJN8dnIk01eu8xQSRAdqwxfW39kPBDX6/KG/OH1s8Z
+ BxrR+CIQcKQdz/El0qtQ/BjJ7loSIsXkCc5SMHgErHKGyOOrAXcoVMFJ94k1damQPS
+ 07P5mGVRqXxrZ6zAbWPbyUIz3V4RQKCf+I4qkO+9pGmcFEKNR2aQdhJTCdTGUdyTqs
+ ocNTWZilwp3+g==
 From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Gary Guo <gary@garyguo.net>, Anna-Maria Behnsen
- <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- Jani Nikula <jani.nikula@linux.intel.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lyude
- Paul <lyude@redhat.com>, John Stultz <jstultz@google.com>, Stephen
- Boyd <sboyd@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 5/6] rust: hrtimer: document deadlock when starting a
- timer in its handler
-In-Reply-To: <DKY292V0LWJN.1L3HG02NBW6K5@garyguo.net>
-References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
- <20260825-expires-v2-v1-5-90411c6217c7@kernel.org>
- <DKY292V0LWJN.1L3HG02NBW6K5@garyguo.net>
-Date: Wed, 26 Aug 2026 11:31:17 +0200
-Message-ID: <87se411b4q.fsf@t14s.mail-host-address-is-not-set>
+Date: Tue, 25 Aug 2026 14:16:33 +0200
+Subject: [PATCH 2/6] drm/i915/pmu: use the expiry injecting hrtimer
+ callback
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260825-expires-v2-v1-2-90411c6217c7@kernel.org>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+In-Reply-To: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+To: Anna-Maria Behnsen <anna-maria@linutronix.de>, 
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>, 
+ John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Andreas Hindborg <a.hindborg@kernel.org>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2817; i=a.hindborg@kernel.org; 
+ h=from:subject:message-id;
+ bh=90mGZPWIU/fyS6ZTqqJ088ULnnbMquDKr7jAWdHJqMw=; 
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqjYe6GJ7BAPiTGhlmUhLYcVzfzIAUNIlcz40no
+ gBs5R8JTAuJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCao2HugAKCRD6UCkIqsW9
+ 0P5GD/kBdKSV16YNHwNaRdasWQNQlrPlu/CrDYWDhMd3jpzFnBuNvWToct5CAY0/Zdz7YpbrUid
+ y2IGQbIKK+kvJtexLCu3g8fPb24aHwK+81rJQi/Pexp1r8NdVOWJ1o/0UT0aQeN4TVC9uZr1pxY
+ WOD5LiYN88jjoq9xQUSuia6jiZP47rLBHhBFSOgEXtbp4r1YPZxz2FSyjHH7rubvooD7QQrG7f3
+ D7d4QZeZp7cyEQ4qefhjPvFi/v0yi1YjtRBC13evv5Tx2nrkgd+VRr9SK2XohI7niUjBQeppKv6
+ BAxbWSt/VKjsS/FBiQiFi7j43DSJQPR2g0NlWb7EsOPh/C+7FPALNYqUH/5Tu1Rr/XvRloMuBdu
+ /yI44zbTAVVOtsywjLTrnUC6PniCuoK12VOEb9xvDETBwDE79PI5kY7nuqa+FBhYflpV+HxCTMH
+ CB0anVLjZvCC56ka2E1q+SoE4RpINxdRiRNVyouICREDU+jtMERPomjQ6UPv6tD4EA8JUVUzQp+
+ kuzqv127M1hQqtf8qBPReNltryfv0faSx336V25H84++t7WVT0wcjj3JrwgaabcKaIEIi9UdKH9
+ JXJrHb2YW4P5OEmTojn7Y+02V5ofwPWJvnBnoiWey868o9pLqWikqY/kcorvkyPcUfAcC47ebhg
+ E5C0Rk9kClp7A8w==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 X-Mailman-Approved-At: Wed, 26 Aug 2026 19:47:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,30 +95,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-"Gary Guo" <gary@garyguo.net> writes:
+The sampling timer forwards itself from its callback:
 
-> On Tue Aug 25, 2026 at 1:16 PM BST, Andreas Hindborg wrote:
->> The state machine documentation states that for pointer types that
->> implement `Clone`, the `start` operation may be issued while the timer
->> is in the **running** state, and that it is then equivalent to the
->> `restart` operation. That only holds when the operation is issued from
->> outside the timer handler.
->>
->> The `start` operation returns a `HrTimerHandle`, and dropping the
->> handle cancels the timer with `hrtimer_cancel()`, which blocks until a
->> running handler has returned. When `start` is issued from within the
->> handler, the handle is also dropped within the handler, so the cancel
->> waits for the very handler that issues it, and the handler deadlocks.
->
-> That's not always true, you can start timer and store its handle elsewhere.
->
-> I think the proper wording is that "cancelling a timer from within the timer
-> handler will lead to deadlock".
+  i915_sample()
+    hrtimer_forward(hrtimer, now, ns_to_ktime(PERIOD));
 
-Right, I'll update the wording and comment.
+hrtimer callbacks run with the timer base lock dropped, so this
+read-modify-write of the expiry races with a concurrent restart of
+the timer. Such a restart is possible here: i915_pmu_gt_parked()
+clears pmu->timer_enabled, and a subsequent
+__i915_pmu_maybe_start_timer() from i915_pmu_gt_unparked() or event
+enable on another CPU sees the timer disabled and calls
+hrtimer_start_range_ns() - also while the callback is running, since
+i915_sample() checks timer_enabled only once at entry and takes no
+lock. hrtimer_forward() then operates on an already requeued timer:
+it warns and, in the worst case, rewrites the expiry of an enqueued
+timer without the base lock.
 
+Convert the timer to the expiry injecting callback variant. The
+callback returns the forward request instead of applying it, and the
+hrtimer core applies it under the timer base lock. If a concurrent
+start requeued the timer while the callback ran, the core discards
+the callback's restart request and the start wins, which closes the
+park/unpark race without adding any locking to the sampling path.
 
-Best regards,
-Andreas Hindborg
+No functional change in the common case: the timer still forwards by
+PERIOD past the sampling timestamp.
+
+Assisted-by: claude-code:claude-fable-5
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ drivers/gpu/drm/i915/i915_pmu.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_pmu.c b/drivers/gpu/drm/i915/i915_pmu.c
+index 1c3bafda9c708..c18587e200c9f 100644
+--- a/drivers/gpu/drm/i915/i915_pmu.c
++++ b/drivers/gpu/drm/i915/i915_pmu.c
+@@ -502,7 +502,8 @@ frequency_sample(struct intel_gt *gt, unsigned int period_ns)
+ 	intel_gt_pm_put_async(gt, wakeref);
+ }
+ 
+-static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
++static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer, ktime_t expires,
++					struct hrtimer_forward_args *fwd)
+ {
+ 	struct i915_pmu *pmu = container_of(hrtimer, struct i915_pmu, timer);
+ 	struct drm_i915_private *i915 = pmu_to_i915(pmu);
+@@ -533,7 +534,8 @@ static enum hrtimer_restart i915_sample(struct hrtimer *hrtimer)
+ 		frequency_sample(gt, period_ns);
+ 	}
+ 
+-	hrtimer_forward(hrtimer, now, ns_to_ktime(PERIOD));
++	fwd->now = now;
++	fwd->interval = ns_to_ktime(PERIOD);
+ 
+ 	return HRTIMER_RESTART;
+ }
+@@ -1157,7 +1159,7 @@ void i915_pmu_register(struct drm_i915_private *i915)
+ 	int ret = -ENOMEM;
+ 
+ 	spin_lock_init(&pmu->lock);
+-	hrtimer_setup(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	hrtimer_setup_ext(&pmu->timer, i915_sample, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
+ 	init_rc6(pmu);
+ 
+ 	if (IS_DGFX(i915)) {
+
+-- 
+2.51.2
 
 
