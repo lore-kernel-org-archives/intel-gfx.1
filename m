@@ -4,159 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2561C5DF97
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 09:10:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 550AFC5DF97
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 11:53:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5546610EC5D;
-	Wed, 26 Aug 2026 09:10:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5281A10E1EE;
+	Wed, 26 Aug 2026 11:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KixLS1Xl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c2OGi2cA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 261E710EC5D
- for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 09:10:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787735430; x=1819271430;
- h=content-transfer-encoding:date:message-id:cc:subject:
- from:to:references:in-reply-to:mime-version;
- bh=ugkh1WtGh4D8PO8bPLGu7V0lPLtYuqgV6w89lWEjNOg=;
- b=KixLS1XlNIlhxXBhlkGYlNCKvadAe+a+z+ZOU0qi5uwNGStXrwGpQBq9
- LrAarwzlXcQJ4PoVvZti7EMYbC0AYLmWaw6wcYXwLFSyg+Kp1Vljz08Gv
- G++RgK6t+x7/PRa3s7JCA7A9g5u5Kdr9Lrmv66IJYXLmPGoyfoS51kZSv
- NI1noPYsEuxTSg2lWxHgs/GpvI8GQItN3ceYYr7mJayfoTm3GhdGIQxJq
- 6gLCQNZpxKTgD1XYqkF64xOdeDukc8gnyX/ngrRU6O4btfl4KZcGGT5Ok
- l29vYgYUXJMA9a9YxRE8lJfy3jCasw69dtQlG/SDCsJ95mRiRj4x+mq3d Q==;
-X-CSE-ConnectionGUID: AFRXy6VbSPKTKV2dxTNbvw==
-X-CSE-MsgGUID: x5mKEfsFQziQxtSaRkHDOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="105590665"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; d="scan'208";a="105590665"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 02:10:29 -0700
-X-CSE-ConnectionGUID: Vm0Yl79ZQNqxxeJcORncxg==
-X-CSE-MsgGUID: so0g/+PlTrCL4yZAwVnRTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; d="scan'208";a="291052098"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2026 02:10:28 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 26 Aug 2026 02:10:27 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 26 Aug 2026 02:10:27 -0700
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (52.101.43.38) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 26 Aug 2026 02:10:25 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HuJC72laXW0rHOxRZr+ikCGM8cON2uVCHOMd29x2oRi6jECnqfjSk03XRpWkXAXeULXqZ1ORK+Tc9Fnvac13aIKYV4+JujJCvvv9+6NCfDO1y6HkEgAEJmxjmqjEPofmeGAY/9jhOGlB6oixlAGS/vEP8ZAr7yBae7BXTWX8Dwz0WLMS7L51A+p2kR+c19Ve8eSneV0IE+hY9MNNA4AFyI5gpn37V0odLJ7+L4peFMVqsTnEuvFTetEMastiDoF2T6aqBGzSpxCwUoIOmGjseYT3pX71lHz5pXTG4+QlGy79CcADMHAEnpYiNheo0N0u4mTlkV/q5BZDm8lQGj+wyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=St7c+ZAo40sTHAJYrESuvL1hHj4evj1yCO8aaV4bm+U=;
- b=td3MAnyTGg1USJBInOkixK70ed0VNXGcKzJW7Oa98LznGIOWmMr4r/OTisN36oyz9wzh/4IaPo6FGqOnFPuL3HQMeOaJ5nftkHDFGcTczeb4P7RM8J8dSY9MT3mErsbnx1M4kp76scuo5mlJRr7htyh3f1lZHW5QWL+wktpc+UM9brEBtBMvptcV1dWENID5ykkl4gAycj3w7U1cEyPYFn5+gLlBmPJqnkqHh3keFCtAJmj73cDrugQj3UTUahQfeIx+wnPyljy0beVdch8vaTWW8FeajLy7oArg0xDihXUutzMUwXuZ8qdkuFhoeNOR2JKcwx042LXAEoznTZ2gKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
- by IA3PR11MB9111.namprd11.prod.outlook.com (2603:10b6:208:57d::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Wed, 26 Aug
- 2026 09:10:05 +0000
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
- 09:10:05 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 26 Aug 2026 11:11:53 +0200
-Message-ID: <DKYRCL2JVY3Y.LW8NV6GLHX2O@intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <andi.shyti@linux.intel.com>,
- <krzysztof.niemiec@intel.com>, <chris.p.wilson@intel.com>
-Subject: Re: [PATCH] drm/i915/selftests: Fix unlocked mm.stolen in reset
- selftest
-From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>
-X-Mailer: aerc 0.22.0
-References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
- <gtwlq6zu74cvjm2k3xbs76s64v7ex3srq2umj6ix3mfote4h2r@7rtohsh6hgs5>
-In-Reply-To: <gtwlq6zu74cvjm2k3xbs76s64v7ex3srq2umj6ix3mfote4h2r@7rtohsh6hgs5>
-X-ClientProxiedBy: DUZPR01CA0313.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4ba::11) To MW4PR11MB6909.namprd11.prod.outlook.com
- (2603:10b6:303:224::12)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2BA10E298;
+ Wed, 26 Aug 2026 11:52:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D9D9341A7B;
+ Wed, 26 Aug 2026 11:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED251F000E9;
+ Wed, 26 Aug 2026 11:52:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787745176;
+ bh=iRWRkd0hh7NrpUS5yE2QLfqEtCKKKQGDAZF4IlZG2oE=;
+ h=Date:From:To:Cc:Subject;
+ b=c2OGi2cAPPXOAYKLZsziyiNnAvK8t7iU77VLCW+1A+ypJMoxdPahVJnDq5ucQFllx
+ d+ZiklmUfqdPtXq6IyZ7fpmGheobqfWAZ7Ye77ZDFlsL7OpDMjzlCVF9S71UggV7+B
+ zPsXlcYe8Bch/6FXUCeCd+rbAlsH5nX4MwdFef8Ou5CdzLFOE5m8wBJpamiNaFVjf2
+ F3G2W4wB/6DG444VtZDHSosyA2nlWGmaqbW+M/J3/J3dSc4dj+vANWJQyOdmqqo6JK
+ CxmHGrCaTjmXVL7GCdw/mlLkhyHoDmJeFzVQMR7M+Dki1OH3O+NnaAqEEPlToEK858
+ xLEaw3jNnPqMA==
+Date: Wed, 26 Aug 2026 12:52:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: Dave Airlie <airlied@redhat.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Mohamed Ahmed <mohamedahmedegypt2001@gmail.com>
+Subject: linux-next: manual merge of the drm-misc-fixes tree with the origin
+ tree
+Message-ID: <ao7TlLDCvDc9KS2q@sirena.org.uk>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|IA3PR11MB9111:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0452cd5b-c2fe-4d3f-caa8-08df0351d1b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|56012099006|10067099003|11063799006|22082099003|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info: vEuxRXs+s9c7mFjtiR7ceidCU+onNPCxZ60TgcYFJ9NLsdxp2W0dTs3KQod/kKsAWhhSVGGiEGtc5yGTNc2t+BR4gNsSt7bbUJ5TUQ0Wt8lcQtjbAkh2fuAU6x27rNFfI965oNN4x6Dxdl1Qrd+g39KfanNNlLSNJfgS+ZiA6ImIMj+/FKPmKbOeE+qwb+Iv7eQJekUM15cxvwhjIAlHP4t/20h2OC98SdSu02nFBcMPybn3who3BzcymVWj9hTo2QqdQ/UgYrR1uNWD3J9AJqohKRd+xdbVl/IOgDv+ObL84fFw/skldyi5/FeLUDL1zaFJF/kMSLgY8Gxsxh6NjZX/5rym5jJlBro+6Sy+QoOl5JVknIkRM0qqOViYdfjgep0L/6wYcrBQrCPK00MbjtIaVsFkmESqHGfknFLIpIv2R6FTh8hIEPBPI7CtExikxaGJunuqB69yHTHpWpuyBcGgEjkTI4aDx1bMWN/0qTGRQxhAkomxcPyq0mCom4QQxrEALEEECC75Sz5Kjp+XUDc7TFjzeGwsfD9aSO4Jy5XOkCWOQta8/LVbZyd/U9xSvVDdewLQg41hG4onbGapcHw9P6B7fXMK1WdLU9lHqQ6TrZdLsb0WwUXDI2tqAgdy
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(10067099003)(11063799006)(22082099003)(4143699003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NkZaN2dlVlBacmtkMmdTQ1FSTHROUmdsdHZPNis4VXQ5emVrWUlQaVVOMGNW?=
- =?utf-8?B?c1RNOE9XNWIzeWNGejlvWWxmQXRTY2QvNDQ3UFg2ZitHbFNlK0Q5NUQrTmFZ?=
- =?utf-8?B?YXN6M09XZU5QQkNCOTNOZi9sQktiZW1YekxsV3VNTitMSkM3aW42Vi92SUw0?=
- =?utf-8?B?QWQydEwwWmNmdndvNzEzRWhGenFPcno3RDNJQzBEOTVCb0d3ckc4Tk5DZHk0?=
- =?utf-8?B?TzEzKzlMZGZIMGc4WVBoVEpJRmJLNzRkakhMV2wvVFl1RFA1MGxNSTBBRVpT?=
- =?utf-8?B?TEUvWVVYQnZZMjcrbW9RdkI5aUczZFZIZ0oyTGhqaWcycm9IUnAxenZrNUZY?=
- =?utf-8?B?WVhPMTRZV0ZmRjNOQ3VKYU5nNVN4aXZEMnFnV2pVVGZSRUJJYjBmTFJQKy9Z?=
- =?utf-8?B?WHBQczV2N0RMVUIxVERsOEh1TENEVmE4ZDA0bjhrVlQ0TThwOUlaWEs2WWEv?=
- =?utf-8?B?NDdWODRBV0F4VUJpdXBaL2hGdlFxNkpONklLQXF2cDJzV2lDYm5mQzJUeUZr?=
- =?utf-8?B?dUNELzREVkNDbUt1T1BFek5JM1YrNENzU2luVEtrZlVVOGl1SVFiYXpiUnZH?=
- =?utf-8?B?VGlEWW1uYk5IdnhDb2pyNjRjWDRYZU9kdW1YY2NvU01FZUpjTXIzU1dpRi9M?=
- =?utf-8?B?MlJSTWh4MG5iK1NaTHF2eml2dVZEUlI0TEZUQ2xrenNoZU02dDM4QmFPaVlk?=
- =?utf-8?B?c2NXTjJ5K2RkZjBPb3JacyttbExObEVSOWhJNHNnNlB6cUQwM0ZzZnhlcWdL?=
- =?utf-8?B?bEltZG1ZMU1xMmZXQm01NThDeXY5aXFFSCt5NkxRVFU1ZUVmYzlKL1ZueEN1?=
- =?utf-8?B?cHJPWlNKWTM4RmYvdFEwd2pNRUhyb0VvNDRzVGVMdGlLRnZXaFU3SGVNZVhw?=
- =?utf-8?B?akMxRy9TNnVJbjQ4ZVY1Z3VqZUpFQTFPYUpEUU9oaUwxZzU3WE9IdzRuZUVW?=
- =?utf-8?B?a1VTSEtXRWFzeVFERTJLRVgrbkZoYUdXRjRiVm4xZnMza1Bkbmw0M1VGaUtH?=
- =?utf-8?B?L3dmUjgrZmFyL1ZybWZ0OG16RjRBRjl4dVpCUWNoQzRwSWZIRExLVlJpTGpk?=
- =?utf-8?B?aXNNSklkRFRndkpwaEdMbFhPQVZiMFQ5RkdBUGNuRkF5eklkaWF5bDVyNGN4?=
- =?utf-8?B?SytTaVdxUU1kV2hZd3ZweGhsSzBVSDRaK0lQL0gwVUVUc2hsWWhDQ05RazFO?=
- =?utf-8?B?THVFVm90R2ZIbHYyc1hSL0dBczhhMm5vT2Izd1BTL1V1VnYxVkw2ZkFGK0RW?=
- =?utf-8?B?cS8xWU1LWlBkczZxSkVHWmlUdVRLdmFCMjJVTlZ3TkxUYXZ4OVg5NXJ3TFpH?=
- =?utf-8?B?Mm8xNVZFS1g2bms1OG1EUUpIc1IvZ1N1Y1Q5M3ZNNTNkNkN2c0J2WHZqaFpa?=
- =?utf-8?B?RXE2cmg3VVQxMEtCNklzTGNjRkpqOVNRbDZ4UjBRcUJ0YTFQdWd3NkZpZ3hL?=
- =?utf-8?B?SGpFVlZJZ3JRdkJXVDVwRlNaNktUVzFreCs2UVFCLzFBeVprWU4wWi9MYXc3?=
- =?utf-8?B?N0k2Wkk2OGxuQzBDREpjZ0owdXllZjU3REdwdlI0Z0MvK3JCU0JCWnJmRUJl?=
- =?utf-8?B?RDFOWXIzaEMvTDVuQmk5ZHAzSFhxNG5EZWVIVGN2SkRKNGpZU3MvQlNYRWVQ?=
- =?utf-8?B?Q0ZVOGI4OG1oVmpCRUJNKzQ2TVZoOGFBTDdFTnM5anN3L1dHQlV2OGUweHhL?=
- =?utf-8?B?dXpKZWJrSjQwNWtUZkhEZGFzU2FnRlZFb0NDN0k0Z1VQQUpFZnBXS01FTk9y?=
- =?utf-8?B?U1FiNmtKUzA0SnZ1dUF6dHdjUDlDWlV2bzlKVDNPK3MwWXI3SkpZVEJBR2Qy?=
- =?utf-8?B?cFljeEdjQ1I3VmxWQUd6Wis1NU0vaE1NcWJaZW9uUzRwdms0QkgySnRyTk1V?=
- =?utf-8?B?ZlBUenFVcDJSWkhzOElHakh1eFM4aWdJQVc3WkIrU1R6OUorMDhsZTYxMlhV?=
- =?utf-8?B?UGU0UHFpUEJUSlFGeE1KL3ZwQ3hqK3Q3NG5FdVFiVWJrdEF1MVdBK2Y0UG9n?=
- =?utf-8?B?U2Q5Mk1SN096eVdwS3BISkIzcXhFUjNqNDlvbmIrRGM3OFlVeWYxalhlTnVS?=
- =?utf-8?B?YmxkMXdKZVRSaU5wR3gxUzcxdUlGMER0cWMxeFBHR2JnWUxMUldnZDJkTmN3?=
- =?utf-8?B?ZVZOTE1ocmJxc0lHZTlBL3ZtTzYwSXR3dzAwNmMxRHlUY3lKam1VYW84dGFX?=
- =?utf-8?B?WXVzOC80WmgyREdXNWZOM1N2TWhISVJlWUl1RkFVUzZlckZGR2t3cnFBVTNB?=
- =?utf-8?B?R3RSSXllNTJoRjBiRFVIMjdDeFdnMkIwd0lhQVYxNkdGd3Z6ek1RYlBNd1FD?=
- =?utf-8?B?YXFzTG1GenMyUzZXM2tUWk1lN01UNUJDNWxFMEQ0QlJWaEIvTk9yeWFZaXlZ?=
- =?utf-8?Q?u2kLi5N1dzMB+6RY=3D?=
-X-Exchange-RoutingPolicyChecked: hdUlw1J1XQr/NR2Q7nn/NK4HcNwHMMvitWLQjvrju1z4HX67/1oZ2Ec5V7r37NJfMkLB4LsgC5iIcg2o+aIveEvQkslpULkW806YS1aBmqIJ5oUCikJQyZBANph6Ots4I8P6LDg2MgOl8PH8GYaFVGinZMU3dDC+V+wgw3ny6GbNy9SS4nMs/98smtchJsIKFIho3xT9OJy31iyIu8qfFS2v7mmYX//lf4XKfYlzQKk9TjRqa/54KGUHR+tTUJFVhKreu/PY+HRJ4Ff+N6rq9q5gqcpAPTHI6YCH3XTY5fare+iBVbk6r7yr2sgac8AerhyK2Vt8iKm3n1RZBHYaqA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0452cd5b-c2fe-4d3f-caa8-08df0351d1b0
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 09:10:05.6861 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BDzrlaD5hkSkTWE8yHb8nlGnpdBlyzWiaYd0emCTN1liPHbDkUi2oDE3SaTRLuX25Pl9zJM9UyU1ji66uJYdoLueuG4IfkHnPvLvEFBThQg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9111
-X-OriginatorOrg: intel.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="BcRjPkRg30TfJc73"
+Content-Disposition: inline
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,104 +62,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi,
 
-On Wed Aug 26, 2026 at 10:49 AM CEST, Krzysztof Karas wrote:
-> Hi Sebastian,
->
-> On 2026-08-21 at 15:40:44 +0200, Sebastian Brzezinka wrote:
->> __igt_reset_stolen() use via __drm_mm_interval_first(), but
->> does so without holding i915->mm.stolen_lock. Every writer of this
->> (i915_gem_stolen.c: drm_mm_insert_node_in_range(), drm_mm_reserve_node()=
-,
->> drm_mm_remove_node()) takes stolen_lock, so the selftest's unlocked
->> reader can race.
->>=20
->> This was observed as a NULL pointer dereference in
->> __drm_mm_interval_first() during igt_reset_device_stolen():
->>=20
->> BUG: kernel NULL pointer dereference, address: 0000000000000010
->> ...
->> RIP: 0010:__drm_mm_interval_first+0x2c/0x90
->> ...
->> Call Trace:
->>   __igt_reset_stolen+0x565/0x6a0 [i915]
->>   igt_reset_device_stolen+0x1a/0x30 [i915]
->>   __i915_subtests+0xb8/0x250 [i915]
->> ...
->>=20
->> Fixes: 3da3c5c1c982 ("drm/i915: Exclude low pages (128KiB) of stolen fro=
-m use")
->> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/1684=
-1
->> Signed-off-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
->> ---
->>  drivers/gpu/drm/i915/gt/selftest_reset.c | 20 +++++++++++++-------
->>  1 file changed, 13 insertions(+), 7 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/i915/gt/selftest_reset.c b/drivers/gpu/drm/=
-i915/gt/selftest_reset.c
->> index 2cfc23c58e90..eb6b2261329d 100644
->> --- a/drivers/gpu/drm/i915/gt/selftest_reset.c
->> +++ b/drivers/gpu/drm/i915/gt/selftest_reset.c
->> @@ -30,6 +30,7 @@ __igt_reset_stolen(struct intel_gt *gt,
->>  	void *tmp;
->>  	u32 *crc;
->>  	int err;
->> +	bool unused;
-> You should ensure the mutex is initialized:
->
-> if (!drm_mm_initialized(&gt->i915->mm.stolen))
->     return 0;
-I don't think it's necessary, and even if it were, it would be outside
-the scope of this patch.
+--BcRjPkRg30TfJc73
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
->> =20
->>  	if (!drm_mm_node_allocated(&ggtt->error_capture))
->>  		return 0;
->> @@ -95,9 +96,12 @@ __igt_reset_stolen(struct intel_gt *gt,
->>  				      ggtt->error_capture.start,
->>  				      PAGE_SIZE);
->> =20
->> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
->> -					     page << PAGE_SHIFT,
->> -					     ((page + 1) << PAGE_SHIFT) - 1))
->> +		mutex_lock(&gt->i915->mm.stolen_lock);
->> +		unused =3D !__drm_mm_interval_first(&gt->i915->mm.stolen,
->> +						  page << PAGE_SHIFT,
->> +						  ((page + 1) << PAGE_SHIFT) - 1);
->> +		mutex_unlock(&gt->i915->mm.stolen_lock);
->> +		if (unused)
->>  			memset_io(s, STACK_MAGIC, PAGE_SIZE);
->> =20
->>  		in =3D (void __force *)s;
->> @@ -143,10 +147,12 @@ __igt_reset_stolen(struct intel_gt *gt,
->>  			in =3D tmp;
->>  		x =3D crc32_le(0, in, PAGE_SIZE);
->> =20
->> -		if (x !=3D crc[page] &&
->> -		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
->> -					     page << PAGE_SHIFT,
->> -					     ((page + 1) << PAGE_SHIFT) - 1)) {
->> +		mutex_lock(&gt->i915->mm.stolen_lock);
->> +		unused =3D !__drm_mm_interval_first(&gt->i915->mm.stolen,
->> +						  page << PAGE_SHIFT,
->> +						  ((page + 1) << PAGE_SHIFT) - 1);
->> +		mutex_unlock(&gt->i915->mm.stolen_lock);
->> +		if (x !=3D crc[page] && unused) {
->>  			pr_debug("unused stolen page %pa modified by GPU reset\n",
->>  				 &page);
->>  			if (count++ =3D=3D 0)
->> --=20
->> 2.55.0
->>=20
+Hi all,
 
+Today's linux-next merge of the drm-misc-fixes tree got conflicts in:
 
+  drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+  drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
 
+between commit:
 
+  804cb093b245c ("drm/nouveau/disp/r535: Add scanline position support + he=
+ad state support")
 
---=20
-Best regards,
-Sebastian
+=66rom the origin tree and commits:
 
+  c6659e0ffc19b ("drm/nouveau/disp: move GSP head-timing ISR and vblank hel=
+pers to tu102.c")
+  5bb489b333237 ("drm/nouveau/gsp: fix vblank interrupts on GB20x")
+
+=66rom the drm-misc-fixes tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+index b642729c254fe,5976498da9094..0000000000000
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/head.h
+@@@ -56,6 -56,8 +56,8 @@@ int gv100_head_new(struct nvkm_disp *,=20
+  void gv100_head_state(struct nvkm_head *head, struct nvkm_head_state *sta=
+te);
+  void gv100_head_rgpos(struct nvkm_head *head, u16 *hline, u16 *vline);
+ =20
++ extern const struct nvkm_head_func tu102_gsp_head;
++=20
+  #define HEAD_MSG(h,l,f,a...) do {                                        =
+      \
+  	struct nvkm_head *_h =3D (h);                                           =
+ \
+  	nvkm_##l(&_h->disp->engine.subdev, "head-%d: "f"\n", _h->id, ##a);     \
+diff --combined drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+index e77733a5d9c3c,f5f22173fc2c1..0000000000000
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
+@@@ -400,16 -400,16 +400,16 @@@ r535_sor_dp_audio(struct nvkm_ior *sor
+  		r535_sor_dp_audio_mute(sor, false);
+  }
+ =20
+- static void
+- r535_sor_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16=
+ pbn, u16 aligned_pbn)
++ static int
++ r535_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16 pbn=
+, u16 aligned_pbn)
+  {
+  	struct nvkm_disp *disp =3D sor->disp;
+  	struct NV0073_CTRL_CMD_DP_CONFIG_STREAM_PARAMS *ctrl;
+ =20
+  	ctrl =3D nvkm_gsp_rm_ctrl_get(&disp->rm.objcom,
+  				    NV0073_CTRL_CMD_DP_CONFIG_STREAM, sizeof(*ctrl));
+- 	if (WARN_ON(IS_ERR(ctrl)))
+- 		return;
++ 	if (IS_ERR(ctrl))
++ 		return PTR_ERR(ctrl);
+ =20
+  	ctrl->subDeviceInstance =3D 0;
+  	ctrl->head =3D head;
+@@@ -429,12 -429,20 +429,20 @@@
+  	ctrl->MST.sendACT =3D 0;
+  	ctrl->MST.singleHeadMSTPipeline =3D 0;
+  	ctrl->MST.bEnableAudioOverRightPanel =3D 0;
+- 	WARN_ON(nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl));
++ 	return nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl);
++ }
++=20
++ static void
++ r535_sor_dp_vcpi(struct nvkm_ior *sor, int head, u8 slot, u8 slot_nr, u16=
+ pbn, u16 aligned_pbn)
++ {
++ 	const struct nvkm_rm_api *rmapi =3D sor->disp->engine.subdev.device->gsp=
+->rm->api;
++=20
++ 	WARN_ON(rmapi->disp->dp.vcpi(sor, head, slot, slot_nr, pbn, aligned_pbn)=
+);
+  }
+ =20
+  static int
+- r535_sor_dp_sst(struct nvkm_ior *sor, int head, bool ef,
+- 		u32 watermark, u32 hblanksym, u32 vblanksym)
++ r535_dp_sst(struct nvkm_ior *sor, int head, bool ef,
++ 	    u32 watermark, u32 hblanksym, u32 vblanksym)
+  {
+  	struct nvkm_disp *disp =3D sor->disp;
+  	struct NV0073_CTRL_CMD_DP_CONFIG_STREAM_PARAMS *ctrl;
+@@@ -461,6 -469,15 +469,15 @@@
+  	return nvkm_gsp_rm_ctrl_wr(&disp->rm.objcom, ctrl);
+  }
+ =20
++ static int
++ r535_sor_dp_sst(struct nvkm_ior *sor, int head, bool ef,
++ 		u32 watermark, u32 hblanksym, u32 vblanksym)
++ {
++ 	const struct nvkm_rm_api *rmapi =3D sor->disp->engine.subdev.device->gsp=
+->rm->api;
++=20
++ 	return rmapi->disp->dp.sst(sor, head, ef, watermark, hblanksym, vblanksy=
+m);
++ }
++=20
+  static const struct nvkm_ior_func_dp
+  r535_sor_dp =3D {
+  	.sst =3D r535_sor_dp_sst,
+@@@ -545,16 -562,21 +562,21 @@@ r535_sor_hdmi_ctrl_audio(struct nvkm_ou
+  static void
+  r535_sor_hdmi_audio(struct nvkm_ior *sor, int head, bool enable)
+  {
+- 	struct nvkm_device *device =3D sor->disp->engine.subdev.device;
+- 	const u32 hdmi =3D head * 0x400;
+-=20
+  	r535_sor_hdmi_ctrl_audio(sor->asy.outp, enable);
+  	r535_sor_hdmi_ctrl_audio_mute(sor->asy.outp, !enable);
++ 	sor->disp->func->gsp.hdmi_gcp(sor, head, enable);
++ }
+ =20
+- 	/* General Control (GCP). */
+- 	nvkm_mask(device, 0x6f00c0 + hdmi, 0x00000001, 0x00000000);
+- 	nvkm_wr32(device, 0x6f00cc + hdmi, !enable ? 0x00000001 : 0x00000010);
+- 	nvkm_mask(device, 0x6f00c0 + hdmi, 0x00000001, 0x00000001);
++ static void
++ r535_sor_hdmi_infoframe_avi(struct nvkm_ior *sor, int head, void *data, u=
+32 size)
++ {
++ 	sor->disp->func->gsp.hdmi_infoframe_avi(sor, head, data, size);
++ }
++=20
++ static void
++ r535_sor_hdmi_infoframe_vsi(struct nvkm_ior *sor, int head, void *data, u=
+32 size)
++ {
++ 	sor->disp->func->gsp.hdmi_infoframe_vsi(sor, head, data, size);
+  }
+ =20
+  static void
+@@@ -582,8 -604,8 +604,8 @@@ r535_sor_hdmi =3D=20
+  	.ctrl =3D r535_sor_hdmi_ctrl,
+  	.scdc =3D r535_sor_hdmi_scdc,
+  	/*TODO: SF_USER -> KMS. */
+- 	.infoframe_avi =3D gv100_sor_hdmi_infoframe_avi,
+- 	.infoframe_vsi =3D gv100_sor_hdmi_infoframe_vsi,
++ 	.infoframe_avi =3D r535_sor_hdmi_infoframe_avi,
++ 	.infoframe_vsi =3D r535_sor_hdmi_infoframe_vsi,
+  	.audio =3D r535_sor_hdmi_audio,
+  };
+ =20
+@@@ -608,31 -630,6 +630,6 @@@ r535_sor_cnt(struct nvkm_disp *disp, un
+  	return 4;
+  }
+ =20
+- static void
+- r535_head_vblank_put(struct nvkm_head *head)
+- {
+- 	struct nvkm_device *device =3D head->disp->engine.subdev.device;
+-=20
+- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000000);
+- }
+-=20
+- static void
+- r535_head_vblank_get(struct nvkm_head *head)
+- {
+- 	struct nvkm_device *device =3D head->disp->engine.subdev.device;
+-=20
+- 	nvkm_wr32(device, 0x611800 + (head->id * 4), 0x00000002);
+- 	nvkm_mask(device, 0x611d80 + (head->id * 4), 0x00000002, 0x00000002);
+- }
+-=20
+- static const struct nvkm_head_func
+- r535_head =3D {
+- 	.state =3D gv100_head_state,
+- 	.rgpos =3D gv100_head_rgpos,
+- 	.vblank_get =3D r535_head_vblank_get,
+- 	.vblank_put =3D r535_head_vblank_put,
+- };
+-=20
+  static struct nvkm_conn *
+  r535_conn_new(struct nvkm_disp *disp, u32 id)
+  {
+@@@ -1404,35 -1401,6 +1401,6 @@@ static const struct nvkm_event_fun
+  r535_disp_event =3D {
+  };
+ =20
+- static void
+- r535_disp_intr_head_timing(struct nvkm_disp *disp, int head)
+- {
+- 	struct nvkm_subdev *subdev =3D &disp->engine.subdev;
+- 	struct nvkm_device *device =3D subdev->device;
+- 	u32 stat =3D nvkm_rd32(device, 0x611c00 + (head * 0x04));
+-=20
+- 	if (stat & 0x00000002) {
+- 		nvkm_disp_vblank(disp, head);
+-=20
+- 		nvkm_wr32(device, 0x611800 + (head * 0x04), 0x00000002);
+- 	}
+- }
+-=20
+- static irqreturn_t
+- r535_disp_intr(struct nvkm_inth *inth)
+- {
+- 	struct nvkm_disp *disp =3D container_of(inth, typeof(*disp), engine.subd=
+ev.inth);
+- 	struct nvkm_subdev *subdev =3D &disp->engine.subdev;
+- 	struct nvkm_device *device =3D subdev->device;
+- 	unsigned long mask =3D nvkm_rd32(device, 0x611ec0) & 0x000000ff;
+- 	int head;
+-=20
+- 	for_each_set_bit(head, &mask, 8)
+- 		r535_disp_intr_head_timing(disp, head);
+-=20
+- 	return IRQ_HANDLED;
+- }
+-=20
+  static void
+  r535_disp_fini(struct nvkm_disp *disp, bool suspend)
+  {
+@@@ -1659,7 -1627,7 +1627,7 @@@ r535_disp_oneinit(struct nvkm_disp *dis
+  		nvkm_gsp_rm_ctrl_done(&disp->rm.objcom, ctrl);
+ =20
+  		for_each_set_bit(i, &disp->head.mask, disp->head.nr) {
+- 			ret =3D nvkm_head_new_(&r535_head, disp, i);
++ 			ret =3D nvkm_head_new_(disp->func->gsp.head, disp, i);
+  			if (ret)
+  				return ret;
+  		}
+@@@ -1703,12 -1671,20 +1671,20 @@@
+  	if (ret)
+  		return ret;
+ =20
+- 	ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type, disp->engine.=
+subdev.inst);
++ 	/* Chips that raise head-timing interrupts on a separate low-latency
++ 	 * vector report it as a second DISP interrupt table entry, exposed
++ 	 * as instance 1 by the RM engine-index translation (see
++ 	 * r570_gsp_xlat_mc_engine_idx()). Their high-latency vector
++ 	 * (instance 0) is left unhandled as no event nouveau enables is
++ 	 * routed to it, and without a handler it stays masked.
++ 	 */
++ 	ret =3D nvkm_gsp_intr_stall(gsp, disp->engine.subdev.type,
++ 				  disp->func->gsp.intr_low_latency ? 1 : disp->engine.subdev.inst);
+  	if (ret < 0)
+  		return ret;
+ =20
+  	ret =3D nvkm_inth_add(&device->vfn->intr, ret, NVKM_INTR_PRIO_NORMAL, &d=
+isp->engine.subdev,
+- 			    r535_disp_intr, &disp->engine.subdev.inth);
++ 			    disp->func->gsp.intr, &disp->engine.subdev.inth);
+  	if (ret)
+  		return ret;
+ =20
+@@@ -1741,6 -1717,7 +1717,7 @@@ r535_disp_new(const struct nvkm_disp_fu
+  	rm->uevent =3D hw->uevent;
+  	rm->sor.cnt =3D r535_sor_cnt;
+  	rm->sor.new =3D r535_sor_new;
++ 	rm->gsp =3D hw->gsp;
+  	rm->ramht_size =3D hw->ramht_size;
+ =20
+  	rm->root.oclass =3D gpu->disp.class.root;
+@@@ -1782,6 -1759,8 +1759,8 @@@ r535_disp =3D=20
+  	.dp =3D {
+  		.get_caps =3D r535_dp_get_caps,
+  		.set_indexed_link_rates =3D r535_dp_set_indexed_link_rates,
++ 		.sst =3D r535_dp_sst,
++ 		.vcpi =3D r535_dp_vcpi,
+  	},
+  	.chan =3D {
+  		.set_pushbuf =3D r535_disp_chan_set_pushbuf,
+
+--BcRjPkRg30TfJc73
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqO05MACgkQJNaLcl1U
+h9CATQf/eTmz4L9PldBgbRXKE1nOTca5dubEoc9B+iIZxzIFATgaP38XjuSdnNPC
+24CNMAHj4cKDL1lR6GWBBX/12q4PxJNP5uFuTy51+20ymenrTRlyCSg3YSz7RsmR
+OwucwUXHx5W0Z9MaeDgFV9WDMRdwbzOI60vx5lo36iaXo+j1sxeP2PLbqHUFR1lX
+9GtbdeTPRvNKCv03zEYf98pzZMdN1PDdUACfpOHOTiqRsIiO7wxVAsPI611HEwVj
+63zC4Wo+sYzlkDixyZpbkLc6KlXD6blfIoqfzlxu3ZDUOmluB8in4A8O8l5Y1wUl
+XMz0TJPT9gIfQU1h13EGP4ckOg9Buw==
+=vvaO
+-----END PGP SIGNATURE-----
+
+--BcRjPkRg30TfJc73--
