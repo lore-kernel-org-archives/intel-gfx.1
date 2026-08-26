@@ -4,27 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D8B1C61DBE
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 22:23:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BE30C61DBE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 22:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3694410EDF1;
-	Wed, 26 Aug 2026 22:23:47 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 080FF10EB71;
- Wed, 26 Aug 2026 22:23:46 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============1781573227071026085=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D8A10E500;
+	Wed, 26 Aug 2026 22:54:03 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dWxdkPkk";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28B7810E364;
+ Wed, 26 Aug 2026 22:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787784842; x=1819320842;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=2+GQwlKukb1Bg+wAlbpjGQ4ItDR4rpahcji4s9k6xQo=;
+ b=dWxdkPkkgtorsYRg1bFmClfsdJ4Irg0QA+ugEa0FWbVUzRht6APMXX72
+ qJ/ZcP9P+vddXz5drla/AF7TGOkvG2GkBVbllIfXCERKZMktJcVpBAFOS
+ 1AQpQ/QyMFXTjPvebnRIK9xXM/+p8BRM8xrdyAk1IwyHVU0cfYdwppBKh
+ EMYzuO8qxL0yyKE2cTcEgskudUVntl9liKqMyVxkVI+fpoznrQUP1foaz
+ 6rVRS2KJElNFelQscyDPWA3iOUgOp90DWh2RlyxfYEZlS1iXiNLeIx2EZ
+ 8+YVl+v0Jn7L5RCosirF+eV0/+B77EY70273MM4pbNOm/yLG04UEy44L7 A==;
+X-CSE-ConnectionGUID: FfhGfeUgTGiayDEs4wckAg==
+X-CSE-MsgGUID: BTx0TFMSQq2XJUUEvdfkAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="87223479"
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="87223479"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2026 15:53:56 -0700
+X-CSE-ConnectionGUID: aRcNc5rrSYSCIAEUQVVFGQ==
+X-CSE-MsgGUID: MMn9lTNPRBinU12x6HMexQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,245,1779174000"; d="scan'208";a="272946041"
+Received: from sschumil-mobl2.ger.corp.intel.com (HELO
+ vgovind2-mobl4.intel.com) ([10.245.250.68])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2026 15:53:53 -0700
+From: Vinod Govindapillai <vinod.govindapillai@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: vinod.govindapillai@intel.com, imre.deak@intel.com, pranay.samala@intel.com
+Subject: [PATCH 0/4] PM_PME support on display hotplug
+Date: Thu, 27 Aug 2026 01:53:33 +0300
+Message-ID: <20260826225338.804902-1-vinod.govindapillai@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_hrtimer=3A_add_an_expiry_?=
- =?utf-8?q?injecting_callback_variant?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Andreas Hindborg" <a.hindborg@kernel.org>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2026 22:23:46 -0000
-Message-ID: <178778302602.88649.15257295039904226330@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
-In-Reply-To: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,143 +66,36 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============1781573227071026085==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Introduce PME support for PME capable devices and avoid
+HPD polling on runtime suspend. For PME capable devices
+HPD will trigger PME which will wakeup the system. And
+rest of the runtime resume call is same as before.
 
-== Series Details ==
+Vinod Govindapillai (4):
+  drm/i915/hpd: plumb keep_hpd through irq reset
+  drm/xe/pm: plumb PME capability to runtime suspend handler
+  drm/xe/pm: allow the device to signal PME from D3hot
+  drm/i915/display: Avoid HPD polling if the device is PME capable
 
-Series: hrtimer: add an expiry injecting callback variant
-URL   : https://patchwork.freedesktop.org/series/172822/
-State : success
+ .../drm/i915/display/intel_display_driver.c   |  6 ++-
+ .../drm/i915/display/intel_display_driver.h   |  3 +-
+ .../gpu/drm/i915/display/intel_display_irq.c  | 46 +++++++++++++------
+ .../gpu/drm/i915/display/intel_display_irq.h  |  2 +-
+ drivers/gpu/drm/i915/i915_driver.c            |  2 +-
+ drivers/gpu/drm/i915/i915_irq.c               | 16 +++----
+ drivers/gpu/drm/xe/display/xe_display.c       |  8 ++--
+ drivers/gpu/drm/xe/display/xe_display.h       |  8 ++--
+ drivers/gpu/drm/xe/xe_device.c                |  2 +-
+ drivers/gpu/drm/xe/xe_irq.c                   | 18 +++++---
+ drivers/gpu/drm/xe/xe_irq.h                   |  2 +-
+ drivers/gpu/drm/xe/xe_pci.c                   | 22 ++++++++-
+ drivers/gpu/drm/xe/xe_pm.c                    | 34 ++++++++++++--
+ drivers/gpu/drm/xe/xe_pm.h                    |  3 +-
+ 14 files changed, 120 insertions(+), 52 deletions(-)
 
-== Summary ==
+-- 
+2.43.0
 
-CI Bug Log - changes from CI_DRM_19048 -> Patchwork_172822v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172822v1 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-bsw-n3050:       [ABORT][1] ([i915#16562]) -> [PASS][2]
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/fi-bsw-n3050/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-bsw-n3050:       [ABORT][3] ([i915#16633] / [i915#16666]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-
-  
-  [i915#16562]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562
-  [i915#16633]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633
-  [i915#16666]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16666
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19048 -> Patchwork_172822v1
-
-  CI-20190529: 20190529
-  CI_DRM_19048: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_172822v1: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/index.html
-
---===============1781573227071026085==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>hrtimer: add an expiry injecting callback variant</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172822/">https://patchwork.freedesktop.org/series/172822/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19048 -&gt; Patchwork_172822v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172822v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562">i915#16562</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633">i915#16633</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16666">i915#16666</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172822v1/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19048 -&gt; Patchwork_172822v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19048: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_172822v1: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============1781573227071026085==--
