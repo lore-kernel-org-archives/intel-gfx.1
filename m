@@ -4,56 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02E46C5DF97
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E200C61DBE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 19:47:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 502A510EDBC;
-	Wed, 26 Aug 2026 19:47:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ADDF10EDCF;
+	Wed, 26 Aug 2026 19:47:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="ZjsPXvE9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="We01mxx0";
 	dkim-atps=neutral
-X-Greylist: delayed 1802 seconds by postgrey-1.36 at gabe;
- Sun, 23 Aug 2026 21:26:56 UTC
-Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34C4B10E06F
- for <intel-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 21:26:56 +0000 (UTC)
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-DKIM-Signature: a=rsa-sha256; bh=gxqPYChqK2WZhq2+aWTnLqgJWZH99pipqmeeppQldow=; 
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787520414; v=1; x=1788125214;
- b=ZjsPXvE93rD0jCJhVwblqm0RbPqU4zPHRzEpn0tKyrEMHC09gwY4lkw2gLSfZMC9TMu1Ltzn
- GSG5M8fZ/maOIPKHi4PlUWtFgC5rQQrraUngx13pSBlAeyk0kb4T2nq1pJwWvTm3Epph7dlSPYP
- TvSIiEihNh6ZQPnyyuleYjNs=
-X-Envelope-To: intel-gfx@lists.freedesktop.org
-Received: from fedora.fritz.box (62.216.208.217)
- by smtp.migadu.com with ESMTPS id c201919d757f101a;
- Sun, 23 Aug 2026 20:50:48 +0000
-X-Mizu-Trace-ID: c201919d757f101a
-X-Migadu-Flow: FLOW_OUT
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: Thorsten Blum <thorsten.blum@linux.dev>, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
-Date: Sun, 23 Aug 2026 22:50:28 +0200
-Message-ID: <20260823205028.178597-2-thorsten.blum@linux.dev>
-X-Mailer: git-send-email 2.55.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5780010E297;
+ Wed, 26 Aug 2026 09:30:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 54A36600C4;
+ Wed, 26 Aug 2026 09:30:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 702F41F000E9;
+ Wed, 26 Aug 2026 09:30:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787736628;
+ bh=iMEzDkYcY451+lpGVbq4N303Ki4TMyeDEp9MG7bMHsQ=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date;
+ b=We01mxx09AWtjjIEC7dgcumwsPTlnB+RumUI2X0cDWBcS8vCWRsEp95aPLzwMp3cZ
+ 02Qz7Xa8UziCq4AVb2PuyW+VeMwVHCBn7/Ht9JEsUpbO66PmqRHIYGlGme6/JRYYfF
+ 4hwgZ5jHIH3cKf4LlWBOPWrXAshUGINwiIuCBBZ9A+pg3n8jwT2Cdg0romH8wAoany
+ v6WOn2w8PTxqpz5X76NgihkagKy381C55iE9qZQDsk7OR92r7bc3bFDjNNF2oE+Jba
+ CoADfDyTO9Hogk1Z/rRoipR5eCZMWRtbg0iU6x8zaas/Si3BBz0BOA+XZYR16VH061
+ ai9S/QRmsD/IA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Gary Guo <gary@garyguo.net>, Anna-Maria Behnsen
+ <anna-maria@linutronix.de>, Frederic Weisbecker <frederic@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
+ Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Lyude
+ Paul <lyude@redhat.com>, John Stultz <jstultz@google.com>, Stephen
+ Boyd <sboyd@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 6/6] rust: hrtimer: Make HrTimer repr(transparent)
+In-Reply-To: <DKY2AIA7ELLI.1REFFZGXL78Q5@garyguo.net>
+References: <20260825-expires-v2-v1-0-90411c6217c7@kernel.org>
+ <20260825-expires-v2-v1-6-90411c6217c7@kernel.org>
+ <DKY2AIA7ELLI.1REFFZGXL78Q5@garyguo.net>
+Date: Wed, 26 Aug 2026 11:30:16 +0200
+Message-ID: <87v78x1b6f.fsf@t14s.mail-host-address-is-not-set>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=894; i=thorsten.blum@linux.dev;
- h=from:subject; bh=gxqPYChqK2WZhq2+aWTnLqgJWZH99pipqmeeppQldow=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFndsSKr1zS+fS/dMz9856t9G/wftZhzfpx4UMyBZU/Sw
- rwF/jPTO0pZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiYg8YGTZFrDd3SOTyF2bo
- fSAvvvzrtx8+egHPHZWOB4fdd2ZNkGFkOH+z6cKE0kMeLxoXiajMepv87vVruZUVpqqlJlHes4I
- 7WAA=
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Wed, 26 Aug 2026 19:47:01 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,29 +74,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-When krealloc() fails, free the original oa_config_ids before returning
-to avoid a memory leak.
+"Gary Guo" <gary@garyguo.net> writes:
 
-Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/gpu/drm/i915/i915_query.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> On Tue Aug 25, 2026 at 1:16 PM BST, Andreas Hindborg wrote:
+>> From: FUJITA Tomonori <fujita.tomonori@gmail.com>
+>>
+>> HrTimerCallbackContext acquires a &HrTimer<T> from a
+>> NonNull<HrTimer<T>> while a &mut HrTimer<T> can exist at the same
+>> time. This is sound only because HrTimer's sole field is
+>> Opaque<bindings::hrtimer>, which puts every byte behind an UnsafeCell.
+>> Adding a field to HrTimer that is not Opaque would make acquiring that
+>> shared reference unsound.
+>
+> HrTimerCallbackContext is removed in patch 4, though?
+>
+> Still worh preferring `#[repr(transparent)]` over `#[repr(C)]`, but the
+> motivation should be reworded and the comment on `HrTimer` should be removed.
 
-diff --git a/drivers/gpu/drm/i915/i915_query.c b/drivers/gpu/drm/i915/i915_query.c
-index 0c55fb6e9727..11157fb14db3 100644
---- a/drivers/gpu/drm/i915/i915_query.c
-+++ b/drivers/gpu/drm/i915/i915_query.c
-@@ -403,8 +403,10 @@ static int query_perf_config_list(struct drm_i915_private *i915,
- 		ids = krealloc(oa_config_ids,
- 			       n_configs * sizeof(*oa_config_ids),
- 			       GFP_KERNEL);
--		if (!ids)
-+		if (!ids) {
-+			kfree(oa_config_ids);
- 			return -ENOMEM;
-+		}
- 
- 		alloc = fetch_and_zero(&n_configs);
- 
+Yes, I was a little too fast when I added this patch. I'd like to keep
+it as well, but it needs some edits.
+
+Best regards,
+Andreas Hindborg
+
