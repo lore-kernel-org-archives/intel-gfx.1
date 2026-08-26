@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A8F0C5DF97
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 16:47:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FC53C61DBD
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 17:31:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90BDC10ED8E;
-	Wed, 26 Aug 2026 16:47:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2C4210E2DE;
+	Wed, 26 Aug 2026 17:31:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hmjRSNiQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gyWKNkeW";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA7B410ED8E;
- Wed, 26 Aug 2026 16:47:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1424D10E2DE
+ for <intel-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 17:31:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 858D441975;
- Wed, 26 Aug 2026 16:47:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87E71F000E9;
- Wed, 26 Aug 2026 16:47:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AF358439C2;
+ Wed, 26 Aug 2026 17:31:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0108C1F000E9;
+ Wed, 26 Aug 2026 17:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787762837;
- bh=1DSSzfZy/8TicLVWwNtrldrAFs7EU5V9nHRFHxpXEAI=;
+ s=k20260515; t=1787765511;
+ bh=R2QETYhPvOkKMoNnjxG/pbHN+lDuCwiTNOHlDphWmdY=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=hmjRSNiQdRRu5uBLAFtgQwWWGwsxL+0r6TiQUiLwYR8RY9opCXbTamEK37n/8SB+K
- A+g0mM31Vo50QsnnBktl5ybfnczn5dLEm26BEl9P2oGIDBpJ/sBy3G1eqAjj1Cxizq
- YS8vmXAkAQW8vZVM4u7CmZb0/wc5pU6LCXIgxcfOeMqNwu29j1JjCbcxJy3mwrJiX6
- LQGJh+YPhUOriz45CPDU1H5ZbLRVRtapZAfTWjGQ8P+X1/Jq/XFeF5v/YYVDbeOihC
- P6g4NhnGPQi3rvLOaDf+0MGXbSbHC4qXh8EApXahbIsJEP0dZvPmtN/QzB9SDE6YrB
- 7kw52RLIT6AWw==
-Date: Wed, 26 Aug 2026 18:47:14 +0200
+ b=gyWKNkeWgxc0wmb+3f0YGy4d/OC9W2abR2lEu3C2yXoMb+Q2uvElSwaV1BOi15UIT
+ h6XYlUqp/XTuaTbnXEiEgC/zTPF8/CTz89sq3n/RUAD1Zlw/1LJFwSd+XEyBcs0IeK
+ tbUT0qb+VQH7Ws/pIwM6LDLR5Rr/Y+tcCjwuqbGq7oyD69LoTxPocruEkDt83NDesa
+ c+ulnq6RoP0no6xsoZ4dnuZu5HN0OSGpTTuh4VxSE7Fgzl20I5VRioqD9jfQiJ+1Wa
+ XZciEWJ1ElNMLjaod/TN+3NjJTihi2YbnWGYGZoKExXAFe6xuyZYiH/tDCNSNJ2Oae
+ 4qkbl/AtgliAA==
+Date: Wed, 26 Aug 2026 19:31:48 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Andi Shyti <andi.shyti@linux.intel.com>, 
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH v1 1/1] drm/i915/gem: Use simpler versions of min*()
-Message-ID: <ao8YOAaBsWijMecG@zenone.zhora.eu>
-References: <20260825093552.4088094-1-andriy.shevchenko@linux.intel.com>
- <ao2bfCVRT8LuOJCb@zenone.zhora.eu>
- <ao6lOyo5abFmwpN9@ashevche-desk.local>
+To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com, 
+ krzysztof.karas@intel.com, krzysztof.niemiec@intel.com,
+ chris.p.wilson@intel.com
+Subject: Re: [PATCH] drm/i915/selftests: Fix unlocked mm.stolen in reset
+ selftest
+Message-ID: <ao8a-Y4re7PRKjIr@zenone.zhora.eu>
+References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ao6lOyo5abFmwpN9@ashevche-desk.local>
+In-Reply-To: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,30 +59,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andy,
+Hi Sebastian,
 
-> > > -		nr_pages = min_array(((unsigned long[]) {
-> > > -					folio_nr_pages(folio),
-> > > -					page_count - i,
-> > > -					max_segment / PAGE_SIZE,
-> > > -				      }), 3);
-> > > +		nr_pages = min3(folio_nr_pages(folio),
-> > > +				page_count - i, max_segment / PAGE_SIZE);
-> > 
-> > thanks for your patch, but there is another patch involving (and
-> > fixing) this line of code[*]. You are welcome to join the review.
-> 
-> Thanks for pointing this out! Do you prefer my to be rebased on top?
-> Otherwise one can apply this patch first.
-> 
-> > [*] https://patchwork.freedesktop.org/patch/746877/?series=172332&rev=1
-> 
-> Note, my patch doesn't change existing behaviour.
+Have you checked sashiko's reviews? They look valid to me.
 
-yeah... besides that patch has had some reviews to follow up;
-Krzysztof will have a little conflict easy to fix.
+...
 
-I reviewed and pushed your branch to drm-intel-gt-next.
+> @@ -95,9 +96,12 @@ __igt_reset_stolen(struct intel_gt *gt,
+>  				      ggtt->error_capture.start,
+>  				      PAGE_SIZE);
+>  
+> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
+> -					     page << PAGE_SHIFT,
+> -					     ((page + 1) << PAGE_SHIFT) - 1))
+> +		mutex_lock(&gt->i915->mm.stolen_lock);
+> +		unused = !__drm_mm_interval_first(&gt->i915->mm.stolen,
+> +						  page << PAGE_SHIFT,
+> +						  ((page + 1) << PAGE_SHIFT) - 1);
+> +		mutex_unlock(&gt->i915->mm.stolen_lock);
+> +		if (unused)
+
+this is always false.
+
+>  			memset_io(s, STACK_MAGIC, PAGE_SIZE);
+
+And this needs to be inside the lock.
+
+>  
+>  		in = (void __force *)s;
+> @@ -143,10 +147,12 @@ __igt_reset_stolen(struct intel_gt *gt,
+>  			in = tmp;
+>  		x = crc32_le(0, in, PAGE_SIZE);
+>  
+> -		if (x != crc[page] &&
+> -		    !__drm_mm_interval_first(&gt->i915->mm.stolen,
+> -					     page << PAGE_SHIFT,
+> -					     ((page + 1) << PAGE_SHIFT) - 1)) {
+> +		mutex_lock(&gt->i915->mm.stolen_lock);
+> +		unused = !__drm_mm_interval_first(&gt->i915->mm.stolen,
+> +						  page << PAGE_SHIFT,
+> +						  ((page + 1) << PAGE_SHIFT) - 1);
+> +		mutex_unlock(&gt->i915->mm.stolen_lock);
+> +		if (x != crc[page] && unused) {
+
+this is also always false and besides it needs to be included
+inside the locks.
 
 Thanks,
 Andi
+
+>  			pr_debug("unused stolen page %pa modified by GPU reset\n",
+>  				 &page);
+>  			if (count++ == 0)
+> -- 
+> 2.55.0
+> 
