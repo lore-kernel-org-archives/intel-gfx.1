@@ -4,26 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 224B8C61DBE
-	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 21:13:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A770C61DBE
+	for <intel-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 21:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 81AEC10E17E;
-	Wed, 26 Aug 2026 21:13:01 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8429D89DC0;
- Wed, 26 Aug 2026 21:13:00 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============9026550739442232320=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915=3A_Fix_memory_le?=
- =?utf-8?q?ak_in_query=5Fperf=5Fconfig=5Flist=28=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Thorsten Blum" <thorsten.blum@linux.dev>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Wed, 26 Aug 2026 21:13:00 -0000
-Message-ID: <178777878053.88180.15914699395707004399@61270ab9df2a>
-X-Patchwork-Hint: ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7C3710E33C;
+	Wed, 26 Aug 2026 21:41:40 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rz0x8RQQ";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0AB10E1C1;
+ Wed, 26 Aug 2026 21:41:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E82FE40121;
+ Wed, 26 Aug 2026 21:41:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9EA1F000E9;
+ Wed, 26 Aug 2026 21:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787780498;
+ bh=JQyo0FkTx6wAUb0+0rhsxKTB3sLkP5D0HVkycmLIZsE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Rz0x8RQQ9nINYtsTsbS+zvaJe0y6HEg6PXNKbZugTNP4Dppg0JaoxPtbhxk7KiCB3
+ FD0vQMzWO7Rd3ZCpwoLG42GqzRSfZYcSBFUBLu+8zpffGauw0nnlvbGRo9uFs1Oz8O
+ WPSaYOPVbyJxQhV4KCX/AFYmjNDxrc+aXCfx8b3ET0yAxOR/U2LU9KpmQ9rEzaQ3+w
+ zpfGPaPbbC19LpNdY/GIlZrmWrMQAyh4/8UO9BxoB4rj694xtSo9VDNGGFlew7ymCg
+ BaJ08yiJuDsrzZkTT30E76k8b4RB09KZwnqAiSxC9WVmYpub0k1DgORtzrj8oePT/O
+ dXXtwJfPEO0EA==
+Date: Wed, 26 Aug 2026 23:41:35 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>, 
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/i915: Fix memory leak in query_perf_config_list()
+Message-ID: <ao9ddFWP771y2J-d@zenone.zhora.eu>
 References: <20260823205028.178597-2-thorsten.blum@linux.dev>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 In-Reply-To: <20260823205028.178597-2-thorsten.blum@linux.dev>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -37,245 +60,20 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============9026550739442232320==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Thorsten,
 
-== Series Details ==
+On Sun, Aug 23, 2026 at 10:50:28PM +0200, Thorsten Blum wrote:
+> When krealloc() fails, free the original oa_config_ids before returning
+> to avoid a memory leak.
+> 
+> Fixes: 4f6ccc74a85c ("drm/i915: add support for perf configuration queries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
-Series: drm/i915: Fix memory leak in query_perf_config_list()
-URL   : https://patchwork.freedesktop.org/series/172821/
-State : success
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19046 -> Patchwork_172821v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/index.html
-
-Participating hosts (39 -> 37)
-------------------------------
-
-  Additional (1): bat-twl-2 
-  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172821v1 that come from known issues:
-
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@gem_lmem_swapping@basic:
-    - bat-twl-2:          NOTRUN -> [SKIP][1] ([i915#10213] / [i915#11671]) +3 other tests skip
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@gem_lmem_swapping@basic.html
-
-  * igt@gem_tiled_pread_basic@basic:
-    - bat-twl-2:          NOTRUN -> [SKIP][2] ([i915#15656])
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@gem_tiled_pread_basic@basic.html
-
-  * igt@i915_pm_rps@basic-api:
-    - bat-twl-2:          NOTRUN -> [SKIP][3] ([i915#10209] / [i915#11681])
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@i915_pm_rps@basic-api.html
-
-  * igt@intel_hwmon@hwmon-write:
-    - bat-twl-2:          NOTRUN -> [SKIP][4] ([i915#7707]) +1 other test skip
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@intel_hwmon@hwmon-write.html
-
-  * igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:
-    - bat-twl-2:          NOTRUN -> [SKIP][5] ([i915#11030] / [i915#11731]) +1 other test skip
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html
-
-  * igt@kms_dsc@dsc-basic:
-    - bat-twl-2:          NOTRUN -> [SKIP][6] ([i915#16361])
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_dsc@dsc-basic.html
-
-  * igt@kms_force_connector_basic@force-load-detect:
-    - bat-twl-2:          NOTRUN -> [SKIP][7] ([i915#11032])
-   [7]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_force_connector_basic@force-load-detect.html
-
-  * igt@kms_setmode@basic-clone-single-crtc:
-    - bat-twl-2:          NOTRUN -> [SKIP][8] ([i915#8809])
-   [8]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_setmode@basic-clone-single-crtc.html
-
-  * igt@prime_vgem@basic-fence-read:
-    - bat-twl-2:          NOTRUN -> [SKIP][9] ([i915#10212] / [i915#3708])
-   [9]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-fence-read.html
-
-  * igt@prime_vgem@basic-read:
-    - bat-twl-2:          NOTRUN -> [SKIP][10] ([i915#10214] / [i915#3708])
-   [10]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-read.html
-
-  * igt@prime_vgem@basic-write:
-    - bat-twl-2:          NOTRUN -> [SKIP][11] ([i915#10216] / [i915#3708])
-   [11]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-write.html
-
-  
-  [i915#10209]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10209
-  [i915#10212]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10212
-  [i915#10213]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10213
-  [i915#10214]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10214
-  [i915#10216]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10216
-  [i915#11030]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11030
-  [i915#11032]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11032
-  [i915#11671]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11671
-  [i915#11681]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681
-  [i915#11731]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11731
-  [i915#15656]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656
-  [i915#16361]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361
-  [i915#3708]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708
-  [i915#7707]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707
-  [i915#8809]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/8809
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19046 -> Patchwork_172821v1
-
-  CI-20190529: 20190529
-  CI_DRM_19046: 4a47d4b5bf957bd7e34d8d3ab7096c42161892c6 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9075: 9075
-  Patchwork_172821v1: 4a47d4b5bf957bd7e34d8d3ab7096c42161892c6 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/index.html
-
---===============9026550739442232320==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915: Fix memory leak in query_perf_config_list()</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172821/">https://patchwork.freedesktop.org/series/172821/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19046 -&gt; Patchwork_172821v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/index.html</p>
-<h2>Participating hosts (39 -&gt; 37)</h2>
-<p>Additional (1): bat-twl-2 <br />
-  Missing    (3): bat-dg2-13 fi-glk-j4005 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172821v1 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>
-<p>igt@gem_lmem_swapping@basic:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@gem_lmem_swapping@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10213">i915#10213</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11671">i915#11671</a>) +3 other tests skip</li>
-</ul>
-</li>
-<li>
-<p>igt@gem_tiled_pread_basic@basic:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@gem_tiled_pread_basic@basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15656">i915#15656</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@i915_pm_rps@basic-api:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@i915_pm_rps@basic-api.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10209">i915#10209</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11681">i915#11681</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@intel_hwmon@hwmon-write:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@intel_hwmon@hwmon-write.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/7707">i915#7707</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_cursor_legacy@basic-busy-flip-before-cursor-atomic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11030">i915#11030</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11731">i915#11731</a>) +1 other test skip</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_dsc@dsc-basic:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_dsc@dsc-basic.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16361">i915#16361</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_force_connector_basic@force-load-detect:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_force_connector_basic@force-load-detect.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/11032">i915#11032</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_setmode@basic-clone-single-crtc:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@kms_setmode@basic-clone-single-crtc.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/8809">i915#8809</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-fence-read:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-fence-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10212">i915#10212</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-read:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-read.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10214">i915#10214</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-<li>
-<p>igt@prime_vgem@basic-write:</p>
-<ul>
-<li>bat-twl-2:          NOTRUN -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172821v1/bat-twl-2/igt@prime_vgem@basic-write.html">SKIP</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/10216">i915#10216</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/3708">i915#3708</a>)</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19046 -&gt; Patchwork_172821v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19046: 4a47d4b5bf957bd7e34d8d3ab7096c42161892c6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9075: 9075<br />
-  Patchwork_172821v1: 4a47d4b5bf957bd7e34d8d3ab7096c42161892c6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============9026550739442232320==--
+Thanks,
+Andi
