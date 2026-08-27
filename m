@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C61BC61DC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 23:17:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95021C61DB9
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 23:28:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2481310E429;
-	Thu, 27 Aug 2026 23:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED4410F1DA;
+	Thu, 27 Aug 2026 23:28:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FueCmjX7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QBkfZFzX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7858110E429
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 23:17:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0EB10E35E;
+ Thu, 27 Aug 2026 23:28:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 36DAD4401F;
- Thu, 27 Aug 2026 23:17:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735461F00ACA;
- Thu, 27 Aug 2026 23:17:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EB40341171;
+ Thu, 27 Aug 2026 23:28:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286221F000E9;
+ Thu, 27 Aug 2026 23:28:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787872673;
- bh=hJKINFK6R4Y8CvG1h3zqBAnO161Doi+B+2zDkY9S/Cc=;
+ s=k20260515; t=1787873329;
+ bh=YdS2Sw5IsjHSkFPY05s+h4I817e/CbHGagdiPZ1jlsc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=FueCmjX7yvybSu8MRPkUYZ5jMTMMqNPMm3ov8bDuPaSYB3vqUwC01Hq976BvouXJe
- FB4MpMJFGNt7c3iPrXG7w5Tvqvq5vE+nYE4AodndwndkjX7/1qr5OzQVuo4XIGNmFn
- 70MJSjFzjsLFGKQY3Xa0/xhPjKL0LKOhB+8iqu2/tpSKDnML/xovsSLYywEaRX2npE
- nELJWB0xnJiT+bqf3r7b8FX/Li+zhU4wmsrapKo52fn+gzB1lEjxsliyqLe70wuXiy
- bPIfRIwhMxpOZ6NYudLCFGUqAA6ujUFi0OxKeGc8JqH9skvNMd9yy1m9gjCJhA/Do+
- WdjiXwkHyGgbg==
-Date: Fri, 28 Aug 2026 01:17:49 +0200
+ b=QBkfZFzXyf/sbl95tfywYfjqqeQSL50mOwZFkydPFQ+mSDgq2552MajTUBdTlkOLh
+ GPT11tsmYKmKA3rTyh+LmHOBffF/6QMEgNEzXDUqoHG60SyFkAGaDKR5Nt13nJeCAF
+ d65XBWlkptQdcdNL046bK3FQL9VtDlsSThnkxDsr97UUGCH3ntmuVJitqU/ZGeGom0
+ K1tcCjXFfjoq489Otgzy+fjPviqxne+51Kw1GvG1lhJ251qW4uQJ56CaLemt3St3oU
+ 7Fvh0mnUiWpxRiuU44Y6C3MBvk0rSOELdVW1G5SHthT4vfXMSS1T8NSpG/+N6AmdAJ
+ XA9sgB42kt56A==
+Date: Fri, 28 Aug 2026 01:28:46 +0200
 From: Andi Shyti <andi.shyti@kernel.org>
-To: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, andi.shyti@linux.intel.com, 
- krzysztof.karas@intel.com, krzysztof.niemiec@intel.com,
- chris.p.wilson@intel.com
-Subject: Re: [PATCH] drm/i915/selftests: Fix unlocked mm.stolen in reset
- selftest
-Message-ID: <apDFQTbBkAzFX5uc@zenone.zhora.eu>
-References: <20260821134044.15908-1-sebastian.brzezinka@intel.com>
- <ao8a-Y4re7PRKjIr@zenone.zhora.eu>
- <DKZLAJT619PA.2D39BHW4MUAIT@intel.com>
+To: Krzysztof Karas <krzysztof.karas@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>, 
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: Re: [PATCH v2 2/8] drm/i915/selftest: Fix a typo in alloc_workqueue
+ call
+Message-ID: <apDH6S6JaMQAKzZM@zenone.zhora.eu>
+References: <20260818095624.3254368-1-krzysztof.karas@intel.com>
+ <20260818095624.3254368-3-krzysztof.karas@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <DKZLAJT619PA.2D39BHW4MUAIT@intel.com>
+In-Reply-To: <20260818095624.3254368-3-krzysztof.karas@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,38 +63,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+Hi Krzysztof,
 
-> On Wed Aug 26, 2026 at 7:31 PM CEST, Andi Shyti wrote:
-> > Have you checked sashiko's reviews? They look valid to me.
-> >
-> I checked, and there are already existing issues, probably wrth fixing,
-> but they're outside the scope of this patch.
+On Tue, Aug 18, 2026 at 09:56:18AM +0000, Krzysztof Karas wrote:
+> Replace "i1915-selftest" with "i915-selftest".
+> 
+> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
 
-actually you are in the middle of those issues :-)
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-> > ...
-> >
-> >> @@ -95,9 +96,12 @@ __igt_reset_stolen(struct intel_gt *gt,
-> >>  				      ggtt->error_capture.start,
-> >>  				      PAGE_SIZE);
-> >>  
-> >> -		if (!__drm_mm_interval_first(&gt->i915->mm.stolen,
-> >> -					     page << PAGE_SHIFT,
-> >> -					     ((page + 1) << PAGE_SHIFT) - 1))
-> >> +		mutex_lock(&gt->i915->mm.stolen_lock);
-> >> +		unused = !__drm_mm_interval_first(&gt->i915->mm.stolen,
-> >> +						  page << PAGE_SHIFT,
-> >> +						  ((page + 1) << PAGE_SHIFT) - 1);
-> >> +		mutex_unlock(&gt->i915->mm.stolen_lock);
-> >> +		if (unused)
-> >
-> > this is always false.
-> Nothing really changes here, even if the if statement is always false,
-> we still need to guarantee safe access.
-
-I'm not getting your point. Do you mean that if nothing changes I
-can add things like "if (0) do_whatever_you_want;"?
+This typo fix is out of the scope of the series. It's OK to send
+it separately.
 
 Thanks,
 Andi
