@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60FF1C61DC7
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCE5EC61DC6
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99DC210F017;
-	Thu, 27 Aug 2026 12:49:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94D8210F026;
+	Thu, 27 Aug 2026 12:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Zp/wnP7t";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Du3sDW4n";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 898B510F019
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:21 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so19136075e9.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:21 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A32A310F017
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:22 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-490cf322ed0so19136245e9.1
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787834960; x=1788439760; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787834961; x=1788439761; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=8EdCrSCj77M32Pu3SEBs0Nl7Jw7mm9Bq+OEkpl3c1Aw=;
- b=Zp/wnP7tdp26eTbxQB6mPgt+vTWkS5X4kk3FiJCgplHEg5dBTcx+Fm6jlljox9BdO6
- Vd0GsprV5GSs9J5J63z8jEhIrEqXSI2F/3wQqRiZqz8uZ/TBJ8R5J4ajL6ONp+PXrB8+
- vUvLZzmo1uXte2EXzrs49UYZO6fAQuBx+e0213qatT/sPCpdRfpq8NHKFcP0ZL2poGqe
- XPKWsXLb52JnOEHcIyykecnXLIHRS0ykvgzZ6YgYfKSc8q89LQy+ma4V22pX3V4KJKGh
- R/wnRz6b868Rf6GX4EQ5Xhm5qcjCyH+bmMhDFWYSnf5mP+3IAe5oyRfYeRkBJqBrwd/o
- SIIg==
+ bh=3CHxWs/Md4mrbf4xKUbJKKgRpO4/sfgLi1L7Ppk/eX4=;
+ b=Du3sDW4nEH+nZlbBm1/dnFG3Otmv9JAbOjHCTZt270Xs8FSAQ7YWZQw2NRpe0gt5Xo
+ 88/T5d4OIR72B5ctFfpaUBBnFJIjyJyv2hK/egYUWQKMhpTkc3asGpNCwEzX8WJuCUto
+ iUB/N93yQbYpxpM3466C1n1nVOvjaunWGHEVL9Bt6+BEWcuhcl6Fx7P649v/gv9p6ezO
+ cklflpmh+Zbq5MLFnHSIac9BwI58+9Fo3ZZOf/SJwGK6xzwGf8joZQrPdHAJI7VwA6eD
+ 4Du3Pj/sH2wbTGCv2Yny2L8NkCk8AWGMJP4IJI0aCsXaX9QJOI9C9oUlkUtbYl35uEDc
+ T6eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787834960; x=1788439760;
+ d=1e100.net; s=20251104; t=1787834961; x=1788439761;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8EdCrSCj77M32Pu3SEBs0Nl7Jw7mm9Bq+OEkpl3c1Aw=;
- b=TnOJ5my5eJkbSLblBdWO0ZS8+DqNotZ5poKIx5T9pgzpqARAgggMM2Eyp0KHjKtO+s
- hFU8VW85oYw565uBb//irM7nydUrAcTQVRk1g7xZW3hR2EmBa108M8DtdcVEz6066gTs
- l3Xs60iuhkaw65pM5K0z2veJFLrJs6f1ZpfQy8INryIvwoghDSaBmA/nL61EZJ5EQPQ+
- Sz02SlDoSbn3gJvtuV+2rYLc/BNvEpCehWttiO/4ltCPpCaMcs25biO3DSl1Ufz9eqk2
- QvsIG5sZ6O0Mn5w5L0B/8fQk70oqOnXymyXLQsZSSxpFTtFAH/Jjz+j9zSFymND9HGUo
- 2zlQ==
+ bh=3CHxWs/Md4mrbf4xKUbJKKgRpO4/sfgLi1L7Ppk/eX4=;
+ b=FFEfdqo0MBHJ7IX4+hTfhVaw8opWEJblRwql9RRRATItVX3F87962SGEsOcQ/IdmD2
+ ceeJ/Pd7eRCbk3g7FVKlOZKLSOvrO+8uAT3d1JNlSOEinl5GImJnhMnjFQmSVgibBKiT
+ t4cNkpV9yW103HbqqLJdqnF9ibTcn0BeLlPfU6+xYidB0wp4SeRuETa8qQU2kY3Dskms
+ xn025sKq6a83P8YOHYwzJ9CjFoU3QKVq9bGgrPgy6SQ4vnib0kJKoCcHOhE11X88FFKa
+ yLlrp/Uvo/vv6rQYXcbHk2uw6ziYhsJhKiSrOEP40TeYe+O+I/VHwW8RM7mFIsEC6whk
+ kOfg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpqioBkLi47q/D2uzuDyBWAhdjg3tjzGVyFxRYfX8TF5AN1Zi4YhVUlYRUzPSbJfTbYPt/JwLzYfTY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++knjv9azVO/2GEhPmjdGyKeNDDBe823B+0uJ6kvKQxuq7ik+qmK
- 3gcIt3CmnO92Wy11c7qtnOapsrTJhl1049WS8jXKve4LWKUcaXdO5hNe
-X-Gm-Gg: AR+sD12Sn018SNcRgTftIe8oGFe7TOdtBYtVe1hxjKdcDkfuvEuZaytvpGTBpK0KSYj
- WLpTFDdlbDFEns9PDHYCDJhA/LRyVk7iJ0fBNeyob4RzcezKv1Oz/8Lhi8LQ6eG9XG1s06zylyP
- Df5ZwDx0yYrszk648p1t4eN6rRGE9RaZwXBjOIqIHXCGQ4A19rKFS4HJfg2PJ7BEPZ8iRHQXbTz
- yObBx+R2LL7gYMZ8lyjkcTNHVngjOaB1e1kEbDrFX32HucB6O1vOMXY502xH/yfa6apzzHPHjmb
- UpG5E93JFC/q903DaNM0vIidHzSUC9V/40Hjom9TPAEou3ChB5AfVY9kFLlhwSPMDBR8ljqGO5o
- 09L7H2McKcnvoEjcy/moBUWCQguAhWqzmKreEyW+o9bydBHI8jL/BJo+40d28hLM8K/8SPHiyAP
- 3OAF5hqmTZ42v20vGi1wsF4rY5pbGHKP5naXJmbdMli80DraECiLYKbYCzJ/oUX5ICToxDtHLsu
- A==
-X-Received: by 2002:a05:600c:3e0b:b0:499:adb5:e7b2 with SMTP id
- 5b1f17b1804b1-499dc717dcbmr214934505e9.11.1787834959912; 
- Thu, 27 Aug 2026 05:49:19 -0700 (PDT)
+ AHgh+Rol5AIjeIPMG00tpAONWVFpa11nlpFVNoRlGVzPdMrTafP07d31V9qe1N6oiR0eWCXKYuhNKf2QDrQ=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lfY0DBNx/h5J1LeX8vYxnVGNnpQ0vrTxc+FD6STr9u5VRk20GY
+ gMsVLGHr66+EXju8+7BeiQ7DQvb6hjxfGuPZa0ZZwq+R5ZWGnyIZxo1P
+X-Gm-Gg: AR+sD10I/6xTW4GtzS/wgxJ/Q7TfmX5qSOszbA8yFeoqf/TJlSqmwNNM0Ay40avjx0b
+ vJA3sQKBgG0OcN3Hgpnmb4tIxfId9p9V2sc9DJXbq+Np1JHuMaRWg9YzkCQKzz1PpjVVZHcGECb
+ 2DD1Uvrbb49ZPg8d1G0ogVn5HNElUfibUmc2Z4Avladl99SeoH1eMtDFCmeb/ksHoUkQH3I/QEt
+ 1DskKk3NJZY6EELOwg19hOFA/3GW2VfnOFSQw1Ei3pBl1gXKblHUBAKa3ntfXI2daumlPjTVQon
+ OD5Cabt3olJDgZArPYJUWqPSCl+XSBw0kwYZslISx0Q0xxR/kC5QirvSrJTkQc2Qyoet6tzmH9A
+ BjO8JBhR5Lc3JdP9coit5oW01rhJbwN4Mu0geb6D5bJBPeH0kSsG9waktvPa9vo3QJrARmJ6MPP
+ cTI2wPQj7syUdN+m5y1OSJ6/6vm8YAdnNZaJe/tFv00zb3A8aOtmg4bnkVhwmubQpFar7tfm3N7
+ qmbI2nqNTKkfA==
+X-Received: by 2002:a05:600c:4fc7:b0:499:dbae:86be with SMTP id
+ 5b1f17b1804b1-499dc72675dmr173963305e9.14.1787834960864; 
+ Thu, 27 Aug 2026 05:49:20 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1524:4300:a4b8:720e:f64f:4778])
  by smtp.gmail.com with ESMTPSA id
  5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 05:49:19 -0700 (PDT)
+ Thu, 27 Aug 2026 05:49:20 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +71,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/10] drm/mode_config: Use dma_resv_alloc for lockdep
- annotation
-Date: Thu, 27 Aug 2026 14:38:54 +0200
-Message-ID: <20260827124910.2245-7-christian.koenig@amd.com>
+Subject: [PATCH 07/10] drm/xe: Use dma_resv_alloc for lockdep annotation
+Date: Thu, 27 Aug 2026 14:38:55 +0200
+Message-ID: <20260827124910.2245-8-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827124910.2245-1-christian.koenig@amd.com>
 References: <20260827124910.2245-1-christian.koenig@amd.com>
@@ -97,65 +96,55 @@ Reply-To: christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Replace the stack-allocated dma_resv in the lockdep annotation code
+Replace the stack-allocated dma_resv in xe_pm_runtime_lockdep_prime()
 with a dynamically allocated one using dma_resv_alloc(). This aligns
 with the move away from embedded dma_resv structures and towards
 reference-counted dynamic allocation.
 
-The lockdep annotation block in drmm_mode_config_init() is used to
-establish lock ordering dependencies between modeset locks and dma_resv
-locks. Since this only runs when CONFIG_LOCKDEP is enabled and the resv
-is immediately freed after use, the change is straightforward.
+The lockdep priming function is used to establish lock ordering
+dependencies between runtime PM and dma_resv locks. The resv is only
+used temporarily for lockdep annotation and is immediately freed after
+use with dma_resv_put().
 
-If allocation fails, return -ENOMEM early. The existing dma_resv_put()
-at the end of the block properly handles the cleanup.
+If allocation fails, we silently return since this is optional lockdep
+annotation that only affects dependency checking, not functional
+behavior.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Assisted-by: Claude:Sonnet 4
 ---
- drivers/gpu/drm/drm_mode_config.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/xe/xe_pm.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 312d5e9675f0..de424b755c62 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -658,10 +658,12 @@ int drmm_mode_config_init(struct drm_device *dev)
- 	if (IS_ENABLED(CONFIG_LOCKDEP)) {
- 		struct drm_modeset_acquire_ctx modeset_ctx;
- 		struct ww_acquire_ctx resv_ctx;
--		struct dma_resv resv;
-+		struct dma_resv *resv;
- 		int ret;
+diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
+index 99562f691080..33b19bcb6f71 100644
+--- a/drivers/gpu/drm/xe/xe_pm.c
++++ b/drivers/gpu/drm/xe/xe_pm.c
+@@ -762,15 +762,20 @@ static void xe_rpm_might_enter_cb(const struct xe_device *xe)
+  */
+ static void xe_pm_runtime_lockdep_prime(void)
+ {
+-	struct dma_resv lockdep_resv;
++	struct dma_resv *lockdep_resv;
++
++	lockdep_resv = dma_resv_alloc();
++	if (!lockdep_resv)
++		return;
  
--		dma_resv_init(&resv);
-+		resv = dma_resv_alloc();
-+		if (!resv)
-+			return -ENOMEM;
+-	dma_resv_init(&lockdep_resv);
+ 	lock_map_acquire(&xe_pm_runtime_d3cold_map);
+ 	/* D3Cold takes the dma_resv locks to evict bos */
+-	dma_resv_lock(&lockdep_resv, NULL);
+-	dma_resv_unlock(&lockdep_resv);
++	dma_resv_lock(lockdep_resv, NULL);
++	dma_resv_unlock(lockdep_resv);
+ 	lock_map_release(&xe_pm_runtime_d3cold_map);
  
- 		drm_modeset_acquire_init(&modeset_ctx, 0);
- 		ret = drm_modeset_lock(&dev->mode_config.connection_mutex,
-@@ -672,16 +674,16 @@ int drmm_mode_config_init(struct drm_device *dev)
- 		might_fault();
- 
- 		ww_acquire_init(&resv_ctx, &reservation_ww_class);
--		ret = dma_resv_lock(&resv, &resv_ctx);
-+		ret = dma_resv_lock(resv, &resv_ctx);
- 		if (ret == -EDEADLK)
--			dma_resv_lock_slow(&resv, &resv_ctx);
-+			dma_resv_lock_slow(resv, &resv_ctx);
- 
--		dma_resv_unlock(&resv);
-+		dma_resv_unlock(resv);
- 		ww_acquire_fini(&resv_ctx);
- 
- 		drm_modeset_drop_locks(&modeset_ctx);
- 		drm_modeset_acquire_fini(&modeset_ctx);
--		dma_resv_put(&resv);
-+		dma_resv_put(resv);
- 	}
- 
- 	return drmm_add_action_or_reset(dev, drm_mode_config_init_release,
++	dma_resv_put(lockdep_resv);
++
+ 	/* Shrinkers might like to wake up the device under reclaim. */
+ 	fs_reclaim_acquire(GFP_KERNEL);
+ 	lock_map_acquire(&xe_pm_runtime_nod3cold_map);
 -- 
 2.43.0
 
