@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7ADFC61DB9
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 07:27:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14045C61DCB
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 07:29:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 218EF10EEBC;
-	Thu, 27 Aug 2026 07:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 742C210EEC3;
+	Thu, 27 Aug 2026 07:29:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YkrYdFt1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="flwS58vl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F2B010EEBC;
- Thu, 27 Aug 2026 07:27:55 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C6B310EEC1;
+ Thu, 27 Aug 2026 07:28:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787815675; x=1819351675;
+ t=1787815740; x=1819351740;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=KsjkuVN5NRG/ODVl6nMOgxGgndxzA5aN3/T2SpWo2ho=;
- b=YkrYdFt1K3jaQwF7+5DFVhY3FYAmvttwpaXlnlSkK1j2xdgD2s6EC8I1
- KF+BU3JHwZg9jUsoZ9N/iSH/kyV+VsoQx59HQl5YaDh64kHt9d8ez/DEd
- FIzDcggjWDgykRQYGHdBRdhCDGGeOSxBgctKGRuvU/SRgVNln4GYwLzhJ
- m671g6sg5XD0b1TCy123o95IEQ/jE9acPEO+WdT/BzMTTyIazgn8KEgXI
- fNAcsV8Mf32LhbacrNlAmPoZxsCi/KZX/1/Jn35LzVtPJ3m7pOVl7SQnd
- JOHMFNZ7kTclq/ekdEVe/zboOiRiJ28c2EvFyMCIhtuUIn4k8moLeYsIS w==;
-X-CSE-ConnectionGUID: SVwXhbbmTxiYyS5QpkRcWg==
-X-CSE-MsgGUID: 9h5RWAkiQvSn/rdKEngKPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="92169047"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="92169047"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 00:27:55 -0700
-X-CSE-ConnectionGUID: LYwIcS13QkCtbRa4Wh5Vmg==
-X-CSE-MsgGUID: lWkY4dR9RKCqZtCTv6VWgQ==
+ bh=ulQQXySMLCjS3/27QP9XNls457bI7Io8xSuP6LUglgg=;
+ b=flwS58vl7vIBm7S35FMNbvbTZrVwBwEOoeJ6P6vKQrqw7bryifzcKi2L
+ 1Kk6UGebBkX4+fea3E3C72e3KgourNGE01OOYf9JaZinI76mCiZdPeRbp
+ +8WLoGhVdqdMUOVOPtKly87/XXlAbKQ7BA4LVYrxNRNtrwlwebDi3kVCg
+ 3Z9eiqCsYF5EJZQKP1URaS3teh4ceZamWbJQ/fb/1VU+eQi4UIhil05dz
+ K3LuoFsH20j/85R8NAndJr9Bbw5oRIsP/eYhhToia3N7LBf57KbTGxSHI
+ ez0d8Pl2gHE0Ab0gIHDT3QzDig1KfJ+JkzJXyYSYjyCNT/LBDkFotyHRt g==;
+X-CSE-ConnectionGUID: GoM8m/syTimGGsuPvNpuHA==
+X-CSE-MsgGUID: 53BrSAGjQs24G4TOgoEASA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98907082"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98907082"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 00:28:42 -0700
+X-CSE-ConnectionGUID: 7YtHr0iSQgCAZSpKqKIl+A==
+X-CSE-MsgGUID: BpX7Qek0RS+a60MsyJjhqg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="292636967"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="264553515"
 Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.153])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 00:27:53 -0700
+ by fmviesa007-auth.fm.intel.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 00:28:41 -0700
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Luca Coelho <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
 Cc: intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v3 2/5] drm/i915/display: consolidate remaining clock
- gating initialization
-In-Reply-To: <20260817092911.342072-3-luciano.coelho@intel.com>
+Subject: Re: [PATCH v3 3/5] drm/i915/display: remove unnecessary
+ clock_gating include from intel_display.c
+In-Reply-To: <20260817092911.342072-4-luciano.coelho@intel.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260817092911.342072-1-luciano.coelho@intel.com>
- <20260817092911.342072-3-luciano.coelho@intel.com>
-Date: Thu, 27 Aug 2026 10:27:51 +0300
-Message-ID: <1a4317911980cdd6017b906337f16df11ce35fe9@intel.com>
+ <20260817092911.342072-4-luciano.coelho@intel.com>
+Date: Thu, 27 Aug 2026 10:28:39 +0300
+Message-ID: <61b49de30e824a79667d39e018de18a98dea45c0@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: intel-gfx@lists.freedesktop.org
@@ -71,265 +71,32 @@ Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 On Mon, 17 Aug 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
-> The remaining platform-specific display clock gating functions are
-> still called directly by i915.
->
-> Extend intel_display_init_clock_gating() so that it calls the correct
-> functions for the remaining platforms.
->
-> This groups Broadwell's three display operations into a single
-> function.  This changes the call order slighlty in relation to
+> We don't use any of the functions inclued in intel_clock_gating.h in
 
-*slightly
-
-> non-display workarounds, but it shouldn't be a problem.  For IVB, we
-> move the trickle-feed programming to the display helper and runs with
-> the other display register setup.
-
-In general, I'd prefer not mixing the refactoring and the functional
-changes, e.g. the reordering could've come first as a tiny functional
-change, and the rest could be just movement.
-
-But it's benign.
+inclued?
 
 Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
+
+> the intel_display.c code anymore.  Remove the respective include.
 >
 > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
 > ---
->  .../i915/display/intel_display_clock_gating.c | 43 ++++++++++++++-----
->  .../i915/display/intel_display_clock_gating.h | 10 -----
->  drivers/gpu/drm/i915/intel_clock_gating.c     | 20 +++------
->  3 files changed, 40 insertions(+), 33 deletions(-)
+>  drivers/gpu/drm/i915/display/intel_display.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> index d5ecdaeab421..ef1ee72494df 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.c
-> @@ -134,13 +134,13 @@ static void intel_display_glk_init_clock_gating(struct intel_display *display)
->  		       PWM1_GATING_DIS | PWM2_GATING_DIS);
->  }
->  
-> -void intel_display_bdw_clock_gating_disable_fbcq(struct intel_display *display)
-> +static void intel_display_bdw_clock_gating_disable_fbcq(struct intel_display *display)
->  {
->  	/* WaFbcAsynchFlipDisableFbcQueue:hsw,bdw */
->  	intel_de_rmw(display, CHICKEN_PIPESL_1(PIPE_A), 0, HSW_FBCQ_DIS);
->  }
->  
-> -void intel_display_bdw_clock_gating_vblank_in_srd(struct intel_display *display)
-> +static void intel_display_bdw_clock_gating_vblank_in_srd(struct intel_display *display)
->  {
->  	enum pipe pipe;
->  
-> @@ -154,14 +154,21 @@ void intel_display_bdw_clock_gating_vblank_in_srd(struct intel_display *display)
->  	}
->  }
->  
-> -void intel_display_bdw_clock_gating_kvm_notif(struct intel_display *display)
-> +static void intel_display_bdw_clock_gating_kvm_notif(struct intel_display *display)
->  {
->  	/* WaKVMNotificationOnConfigChange:bdw */
->  	intel_de_rmw(display, CHICKEN_PAR2_1, 0,
->  		     KVM_CONFIG_CHANGE_NOTIFICATION_SELECT);
->  }
->  
-> -void intel_display_hsw_init_clock_gating(struct intel_display *display)
-> +static void intel_display_bdw_init_clock_gating(struct intel_display *display)
-> +{
-> +	intel_display_bdw_clock_gating_disable_fbcq(display);
-> +	intel_display_bdw_clock_gating_vblank_in_srd(display);
-> +	intel_display_bdw_clock_gating_kvm_notif(display);
-> +}
-> +
-> +static void intel_display_hsw_init_clock_gating(struct intel_display *display)
->  {
->  	enum pipe pipe;
->  
-> @@ -178,7 +185,7 @@ void intel_display_hsw_init_clock_gating(struct intel_display *display)
->  	}
->  }
->  
-> -void intel_display_disable_trickle_feed(struct intel_display *display)
-> +static void intel_display_disable_trickle_feed(struct intel_display *display)
->  {
->  	enum pipe pipe;
->  
-> @@ -191,7 +198,7 @@ void intel_display_disable_trickle_feed(struct intel_display *display)
->  	}
->  }
->  
-> -void intel_display_ilk_init_clock_gating(struct intel_display *display)
-> +static void intel_display_ilk_init_clock_gating(struct intel_display *display)
->  {
->  	u32 dspclk_gate = ILK_VRHUNIT_CLOCK_GATE_DISABLE;
->  
-> @@ -223,7 +230,7 @@ void intel_display_ilk_init_clock_gating(struct intel_display *display)
->  	intel_display_disable_trickle_feed(display);
->  }
->  
-> -void intel_display_gen6_init_clock_gating(struct intel_display *display)
-> +static void intel_display_gen6_init_clock_gating(struct intel_display *display)
->  {
->  	u32 dspclk_gate = ILK_VRHUNIT_CLOCK_GATE_DISABLE;
->  
-> @@ -244,13 +251,15 @@ void intel_display_gen6_init_clock_gating(struct intel_display *display)
->  	intel_display_disable_trickle_feed(display);
->  }
->  
-> -void intel_display_ivb_init_clock_gating(struct intel_display *display)
-> +static void intel_display_ivb_init_clock_gating(struct intel_display *display)
->  {
->  	intel_de_write(display, ILK_DSPCLK_GATE_D, ILK_VRHUNIT_CLOCK_GATE_DISABLE);
->  	intel_de_rmw(display, ILK_DISPLAY_CHICKEN1, 0, ILK_FBCQ_DIS);
-> +
-> +	intel_display_disable_trickle_feed(display);
->  }
->  
-> -void intel_display_g4x_init_clock_gating(struct intel_display *display)
-> +static void intel_display_g4x_init_clock_gating(struct intel_display *display)
->  {
->  	u32 dspclk_gate = VRHUNIT_CLOCK_GATE_DISABLE |
->  			  OVRUNIT_CLOCK_GATE_DISABLE |
-> @@ -264,7 +273,7 @@ void intel_display_g4x_init_clock_gating(struct intel_display *display)
->  	intel_display_disable_trickle_feed(display);
->  }
->  
-> -void intel_display_i965gm_init_clock_gating(struct intel_display *display)
-> +static void intel_display_i965gm_init_clock_gating(struct intel_display *display)
->  {
->  	intel_de_write(display, DSPCLK_GATE_D, 0);
->  }
-> @@ -281,4 +290,18 @@ void intel_display_init_clock_gating(struct intel_display *display)
->  		intel_display_bxt_init_clock_gating(display);
->  	else if (display->platform.geminilake)
->  		intel_display_glk_init_clock_gating(display);
-> +	else if (display->platform.broadwell)
-> +		intel_display_bdw_init_clock_gating(display);
-> +	else if (display->platform.haswell)
-> +		intel_display_hsw_init_clock_gating(display);
-> +	else if (display->platform.ivybridge)
-> +		intel_display_ivb_init_clock_gating(display);
-> +	else if (display->platform.sandybridge)
-> +		intel_display_gen6_init_clock_gating(display);
-> +	else if (display->platform.ironlake)
-> +		intel_display_ilk_init_clock_gating(display);
-> +	else if (display->platform.g4x)
-> +		intel_display_g4x_init_clock_gating(display);
-> +	else if (display->platform.i965gm)
-> +		intel_display_i965gm_init_clock_gating(display);
->  }
-> diff --git a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> index 4e50e388656a..dbfa5892cffe 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> +++ b/drivers/gpu/drm/i915/display/intel_display_clock_gating.h
-> @@ -9,15 +9,5 @@
->  struct intel_display;
->  
->  void intel_display_init_clock_gating(struct intel_display *display);
-> -void intel_display_bdw_clock_gating_disable_fbcq(struct intel_display *display);
-> -void intel_display_bdw_clock_gating_vblank_in_srd(struct intel_display *display);
-> -void intel_display_bdw_clock_gating_kvm_notif(struct intel_display *display);
-> -void intel_display_hsw_init_clock_gating(struct intel_display *display);
-> -void intel_display_disable_trickle_feed(struct intel_display *display);
-> -void intel_display_ilk_init_clock_gating(struct intel_display *display);
-> -void intel_display_gen6_init_clock_gating(struct intel_display *display);
-> -void intel_display_ivb_init_clock_gating(struct intel_display *display);
-> -void intel_display_g4x_init_clock_gating(struct intel_display *display);
-> -void intel_display_i965gm_init_clock_gating(struct intel_display *display);
->  
->  #endif /* __INTEL_DISPLAY_CLOCK_GATING_H__ */
-> diff --git a/drivers/gpu/drm/i915/intel_clock_gating.c b/drivers/gpu/drm/i915/intel_clock_gating.c
-> index 84f838c660fd..c5c4441f3a61 100644
-> --- a/drivers/gpu/drm/i915/intel_clock_gating.c
-> +++ b/drivers/gpu/drm/i915/intel_clock_gating.c
-> @@ -73,7 +73,7 @@ static void ilk_init_clock_gating(struct drm_i915_private *i915)
->  	intel_uncore_write(&i915->uncore, PCH_3DCGDIS1,
->  			   VFMUNIT_CLOCK_GATE_DISABLE);
->  
-> -	intel_display_ilk_init_clock_gating(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  	intel_pch_init_clock_gating(i915->display);
->  }
->  
-> @@ -90,7 +90,7 @@ static void gen6_check_mch_setup(struct drm_i915_private *i915)
->  
->  static void gen6_init_clock_gating(struct drm_i915_private *i915)
->  {
-> -	intel_display_gen6_init_clock_gating(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  
->  	intel_uncore_write(&i915->uncore, GEN6_UCGCTL1,
->  			   intel_uncore_read(&i915->uncore, GEN6_UCGCTL1) |
-> @@ -205,13 +205,11 @@ static void skl_init_clock_gating(struct drm_i915_private *i915)
->  
->  static void bdw_init_clock_gating(struct drm_i915_private *i915)
->  {
-> -	intel_display_bdw_clock_gating_disable_fbcq(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  
->  	/* WaSwitchSolVfFArbitrationPriority:bdw */
->  	intel_uncore_rmw(&i915->uncore, GAM_ECOCHK, 0, HSW_ECOCHK_ARB_PRIO_SOL);
->  
-> -	intel_display_bdw_clock_gating_vblank_in_srd(i915->display);
-> -
->  	/* WaVSRefCountFullforceMissDisable:bdw */
->  	/* WaDSRefCountFullforceMissDisable:bdw */
->  	intel_uncore_rmw(&i915->uncore, GEN7_FF_THREAD_MODE,
-> @@ -226,8 +224,6 @@ static void bdw_init_clock_gating(struct drm_i915_private *i915)
->  	/* WaProgramL3SqcReg1Default:bdw */
->  	gen8_set_l3sqc_credits(i915, 30, 2);
->  
-> -	intel_display_bdw_clock_gating_kvm_notif(i915->display);
-> -
->  	intel_pch_init_clock_gating(i915->display);
->  
->  	/* WaDisableDopClockGating:bdw
-> @@ -240,7 +236,7 @@ static void bdw_init_clock_gating(struct drm_i915_private *i915)
->  
->  static void hsw_init_clock_gating(struct drm_i915_private *i915)
->  {
-> -	intel_display_hsw_init_clock_gating(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  
->  	/* This is required by WaCatErrorRejectionIssue:hsw */
->  	intel_uncore_rmw(&i915->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG,
-> @@ -256,7 +252,7 @@ static void ivb_init_clock_gating(struct drm_i915_private *i915)
->  {
->  	struct intel_display *display = i915->display;
->  
-> -	intel_display_ivb_init_clock_gating(display);
-> +	intel_display_init_clock_gating(display);
->  
->  	/* WaDisableBackToBackFlipFix:ivb */
->  	intel_uncore_write(&i915->uncore, IVB_CHICKEN3,
-> @@ -285,8 +281,6 @@ static void ivb_init_clock_gating(struct drm_i915_private *i915)
->  	intel_uncore_rmw(&i915->uncore, GEN7_SQ_CHICKEN_MBCUNIT_CONFIG,
->  			 0, GEN7_SQ_CHICKEN_MBCUNIT_SQINTMOB);
->  
-> -	intel_display_disable_trickle_feed(display);
-> -
->  	intel_uncore_rmw(&i915->uncore, GEN6_MBCUNIT_SNPCR, GEN6_MBC_SNPCR_MASK,
->  			 GEN6_MBC_SNPCR_MED);
->  
-> @@ -362,7 +356,7 @@ static void g4x_init_clock_gating(struct drm_i915_private *i915)
->  			   GS_UNIT_CLOCK_GATE_DISABLE |
->  			   CL_UNIT_CLOCK_GATE_DISABLE);
->  	intel_uncore_write(&i915->uncore, RAMCLK_GATE_D, 0);
-> -	intel_display_g4x_init_clock_gating(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  }
->  
->  static void i965gm_init_clock_gating(struct drm_i915_private *i915)
-> @@ -371,7 +365,7 @@ static void i965gm_init_clock_gating(struct drm_i915_private *i915)
->  
->  	intel_uncore_write(uncore, RENCLK_GATE_D1, I965_RCC_CLOCK_GATE_DISABLE);
->  	intel_uncore_write(uncore, RENCLK_GATE_D2, 0);
-> -	intel_display_i965gm_init_clock_gating(i915->display);
-> +	intel_display_init_clock_gating(i915->display);
->  	intel_uncore_write(uncore, RAMCLK_GATE_D, 0);
->  	intel_uncore_write16(uncore, DEUC, 0);
->  	intel_uncore_write(uncore,
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index 553c60d452dd..fc30a455bed3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -60,7 +60,6 @@
+>  #include "intel_bo.h"
+>  #include "intel_bw.h"
+>  #include "intel_cdclk.h"
+> -#include "intel_clock_gating.h"
+>  #include "intel_cmtg.h"
+>  #include "intel_color.h"
+>  #include "intel_crt.h"
 
 -- 
 Jani Nikula, Intel
