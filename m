@@ -4,55 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8EEBC61DD3
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 16:44:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D37C61DCB
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 16:51:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BA7010F120;
-	Thu, 27 Aug 2026 16:44:57 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bGhUNyJB";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04A0910EFE6;
- Thu, 27 Aug 2026 16:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787849090; x=1819385090;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=rimNtyOzW4QQ67ZWWRoLDQshPz76BJpKtWcBmEiRoAk=;
- b=bGhUNyJBpurlyofg9H2NKU7vkHl0pmQsYQUirDM/McwS0nHCocXnzmPj
- 8TH4xUwwDY+aTXBDbYvyXJRFjveAhu+GN/oeXNTa1iTVb6Who9UYx/hUQ
- OwqqAg+8h1HkM75zyQtn/QGfIh7CW1Nj05VuZofgh8YZjN40c4ZMjtxX5
- 5O6h8ZU+lbS7DJ8FPgK6BgUNFpwBLhmuMypSiGDxOFK0bZg1U26cLoNSY
- PifhSzWi196pFWx4PVaxgattD0wsiEwKwhD7qfycQpGpf+4i3fhi7YUD1
- p6LBzago2I2fFAtH3ASl1Lj94ZUmHiSLlwlixpz74kk/68Wp0hLeFH4Qx A==;
-X-CSE-ConnectionGUID: JWJtati7SM61l6nE/3lHuA==
-X-CSE-MsgGUID: H4f/cHHWS7GB1bfGo90L3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88276135"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="88276135"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 09:44:50 -0700
-X-CSE-ConnectionGUID: QQRFzgbZT1ipo3wBIJvAVA==
-X-CSE-MsgGUID: /4bsUHe4QG+MgtSPIS8GVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="306134075"
-Received: from nemesa.iind.intel.com ([10.190.239.22])
- by orviesa001.jf.intel.com with ESMTP; 27 Aug 2026 09:44:48 -0700
-From: Nemesa Garg <nemesa.garg@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: chaitanya.kumar.borah@intel.com,
-	Nemesa Garg <nemesa.garg@intel.com>
-Subject: [PATCH 4/5] drm/i915/cursor: Program secondary cursor planes
-Date: Thu, 27 Aug 2026 22:12:02 +0530
-Message-Id: <20260827164203.2371794-5-nemesa.garg@intel.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260827164203.2371794-1-nemesa.garg@intel.com>
-References: <20260827164203.2371794-1-nemesa.garg@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9FE910F114;
+	Thu, 27 Aug 2026 16:51:48 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED1E10F114;
+ Thu, 27 Aug 2026 16:51:47 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============6907721919430048626=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_DRM_device_registration_f?=
+ =?utf-8?q?ixes_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Krzysztof Niemiec" <krzysztof.niemiec@intel.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 27 Aug 2026 16:51:47 -0000
+Message-ID: <178784950751.92987.18085754068169239003@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
+In-Reply-To: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,98 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Iterate over all joined pipes when arming/disabling the cursor plane so
-secondary pipes are updated together with the primary. The pin, check
-and state duplication for secondary pipes was already prepared in the
-previous commit; this converts the update_arm pass to a loop over the
-joined_pipe_state[] array.
+--===============6907721919430048626==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Because the whole loop runs inside a single primary vblank-evade,
-sample intel_crtc_get_vblank_counter() per pipe around each arm and
-emit a drm_err() if the counter ticks during that pipe's own
-programming.
+== Series Details ==
 
-v2: Check primary and secondary pipe together. [Ville]
-v3: Use struct intel_cursor_joiner_state. [Ville]
-v4: Add per-pipe vblank straddle detection around the arm loop. [Chaitanya]
-v5: Move straddle check outside the loop to cover all pipes together.
-    Sample vblank counter from primary pipe only.
-    Move drm_err() after local_irq_enable(). [Chaitanya]
+Series: DRM device registration fixes (rev2)
+URL   : https://patchwork.freedesktop.org/series/170568/
+State : success
 
-Assisted-by: Claude:claude-sonnet-4.6
-Signed-off-by: Nemesa Garg <nemesa.garg@intel.com>
-Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
----
- drivers/gpu/drm/i915/display/intel_cursor.c | 35 ++++++++++++++++-----
- 1 file changed, 28 insertions(+), 7 deletions(-)
+== Summary ==
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cursor.c b/drivers/gpu/drm/i915/display/intel_cursor.c
-index e4a7d4d2915a..ec20319834f9 100644
---- a/drivers/gpu/drm/i915/display/intel_cursor.c
-+++ b/drivers/gpu/drm/i915/display/intel_cursor.c
-@@ -13,6 +13,7 @@
- #include <drm/drm_vblank.h>
- 
- #include "intel_atomic.h"
-+#include "intel_crtc.h"
- #include "intel_cursor.h"
- #include "intel_cursor_regs.h"
- #include "intel_de.h"
-@@ -904,6 +905,7 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 	struct intel_cursor_joiner_state joined_pipe_state[I915_MAX_PIPES] = {};
- 	struct intel_crtc *pipe_crtc;
- 	int num_pipes = 0;
-+	u32 start_vbl_count, end_vbl_count;
- 	int ret;
- 
- 	/*
-@@ -1043,17 +1045,36 @@ intel_legacy_cursor_update(struct drm_plane *_plane,
- 		local_irq_disable();
- 	}
- 
--	if (joined_pipe_state[0].new_plane_state->uapi.visible) {
--		intel_plane_update_noarm(NULL, plane, crtc_state,
--					 joined_pipe_state[0].new_plane_state);
--		intel_plane_update_arm(NULL, plane, crtc_state,
--				       joined_pipe_state[0].new_plane_state);
--	} else {
--		intel_plane_disable_arm(NULL, plane, crtc_state);
-+	/*
-+	 * Joiner pipes are vblank-synchronized, so sampling only the primary
-+	 * pipe is sufficient to detect a straddle across all joined pipes.
-+	 * The vblank evasion above also operates on the primary pipe only.
-+	 */
-+	start_vbl_count = intel_crtc_get_vblank_counter(joined_pipe_state[0].crtc);
-+
-+	for (int i = 0; i < num_pipes; i++) {
-+		if (joined_pipe_state[i].new_plane_state->uapi.visible) {
-+			intel_plane_update_noarm(NULL, joined_pipe_state[i].plane,
-+						 joined_pipe_state[i].crtc_state,
-+						 joined_pipe_state[i].new_plane_state);
-+			intel_plane_update_arm(NULL, joined_pipe_state[i].plane,
-+					       joined_pipe_state[i].crtc_state,
-+					       joined_pipe_state[i].new_plane_state);
-+		} else {
-+			intel_plane_disable_arm(NULL, joined_pipe_state[i].plane, joined_pipe_state[i].crtc_state);
-+		}
- 	}
- 
-+	end_vbl_count = intel_crtc_get_vblank_counter(joined_pipe_state[0].crtc);
-+
- 	local_irq_enable();
- 
-+	if (start_vbl_count != end_vbl_count)
-+		drm_err(display->drm,
-+			"Atomic update failure on pipe %c (start=%u end=%u)\n",
-+			pipe_name(joined_pipe_state[0].crtc->pipe),
-+			start_vbl_count, end_vbl_count);
-+
- 	intel_psr_unlock(crtc_state);
- 
- 	/*
--- 
-2.25.1
+CI Bug Log - changes from CI_DRM_19053 -> Patchwork_170568v2
+====================================================
 
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170568v2/index.html
+
+Participating hosts (40 -> 38)
+------------------------------
+
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
+
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19053 -> Patchwork_170568v2
+
+  CI-20190529: 20190529
+  CI_DRM_19053: 98ac27fc649cf3f3f07a56c0d3df839be8bfa95d @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
+  Patchwork_170568v2: 98ac27fc649cf3f3f07a56c0d3df839be8bfa95d @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170568v2/index.html
+
+--===============6907721919430048626==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>DRM device registration fixes (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/170568/">https://patchwork.freedesktop.org/series/170568/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170568v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170568v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19053 -&gt; Patchwork_170568v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_170568v2/index.html</p>
+<h2>Participating hosts (40 -&gt; 38)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19053 -&gt; Patchwork_170568v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19053: 98ac27fc649cf3f3f07a56c0d3df839be8bfa95d @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
+  Patchwork_170568v2: 98ac27fc649cf3f3f07a56c0d3df839be8bfa95d @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============6907721919430048626==--
