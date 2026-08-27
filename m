@@ -4,27 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91920C5DF97
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 00:08:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 499E8C61DBE
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 02:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA72910E2F4;
-	Thu, 27 Aug 2026 00:08:50 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C7A810E2F4;
- Thu, 27 Aug 2026 00:08:49 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============6925289437089348626=="
-MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_pm=5Fpme_support_on_displ?=
- =?utf-8?q?ay_hotplug_=28rev2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Vinod Govindapillai" <vinod.govindapillai@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Aug 2026 00:08:49 -0000
-Message-ID: <178778932963.88746.13164718707831062117@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260826225338.804902-1-vinod.govindapillai@intel.com>
-In-Reply-To: <20260826225338.804902-1-vinod.govindapillai@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C69E10E384;
+	Thu, 27 Aug 2026 02:33:07 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q/Z6WMgq";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF8F10E384;
+ Thu, 27 Aug 2026 02:33:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7DF9660A5C;
+ Thu, 27 Aug 2026 02:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8F7D1F000E9;
+ Thu, 27 Aug 2026 02:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787797985;
+ bh=+jnQfXenNGO8y5soQnQLKjt1mcHf9KLvSk8AgLA7EjE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Q/Z6WMgqCPaO1ABs+sp9TiBdkUYdKYLu6ISGGFlczRG4CbHqJq8GxzFR8VC6ta6tW
+ cGzeQWnIv7mZDZrS9cLG0h9JxJpEthtNVKJKrNmR9XfB/3VXE9kqiqYxiJfUkQVLTT
+ vm31A0piNeFH+hJsJmERy12E5RorTlK1ML2q4tDq0UjNxU+rWPIc6kQu8XCWrRXmqh
+ v21X0AbSZ4OGX0oipogLN/xNXVvDB/UEG5bB4g6c1oaoGC6zG+mw1LdYLhPmQSuu7m
+ bma/OskvwBWhmYLqn9XI0bhwk/zBT/WlPfMNr/HWaHPvjNHfVdteRrZKeoiJ78rxK5
+ hQbFfmG2LiszA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/dp_link_caps: Validate max link rate
+To: tarund18303@gmail.com
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260827022035.3442-1-tarund18303@gmail.com>
+References: <20260827022035.3442-1-tarund18303@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Aug 2026 02:33:04 +0000
+Message-Id: <20260827023304.D8F7D1F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,159 +53,79 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============6925289437089348626==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added validation check in `max_link_limits_valid()` br=
+eaks existing KUnit tests in `intel_dp_link_test.c` because the mock `intel=
+_dp` environment does not initialize `source_rates`.
+--
 
-== Series Details ==
+commit 449b7e18bca4c6d9716f634b5437a3f267bbd539
+Author: tarun-tarun143 <tarund18303@gmail.com>
 
-Series: pm_pme support on display hotplug (rev2)
-URL   : https://patchwork.freedesktop.org/series/172306/
-State : success
+drm/i915/dp_link_caps: Validate max link rate
 
-== Summary ==
+This commit validates the maximum link rate against the source-supported ra=
+tes
+before using the limits to calculate allowed configurations. This prevents
+unsupported link rates from being accepted as a maximum link limit.
 
-CI Bug Log - changes from CI_DRM_19048 -> Patchwork_172306v2
-====================================================
+> diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c b/drivers/=
+gpu/drm/i915/display/intel_dp_link_caps.c
+> index 7b6cc6055da82..0934488153bbc 100644
+> --- a/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+> +++ b/drivers/gpu/drm/i915/display/intel_dp_link_caps.c
+> @@ -710,7 +710,10 @@ static bool max_link_limits_valid(struct intel_dp_li=
+nk_caps *link_caps,
+>  	    !is_power_of_2(max_link_limits->lane_count))
+>  		return false;
+> =20
+> -	/* TODO: Validate max_link_limits->rate against the source supported ra=
+tes. */
+> +	if (intel_dp_rate_index(link_caps->dp->source_rates,
+> +				link_caps->dp->num_source_rates,
+> +				max_link_limits->rate) < 0)
+> +		return false;
 
-Summary
--------
+[Severity: Medium]
+Does this change cause the KUnit tests in intel_dp_link_test.c to fail?
 
-  **SUCCESS**
+Looking at the mock environment initialization in intel_dp_link_test_init():
 
-  No regressions found.
+drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c:intel_dp_link_test_=
+init() {
+	/* Reset the dev state for each test. */
+	memset(&test_ctx.dev, 0, sizeof(test_ctx.dev));
+	...
+	intel_dp->link.caps =3D test_ctx.link_caps_ops->init(intel_dp);
+}
 
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/index.html
+The mock initialization zeroes the memory but does not populate source_rate=
+s=20
+or num_source_rates, leaving them at 0 or NULL. As a result,=20
+intel_dp_rate_index() will evaluate to -1 during the tests.
 
-Participating hosts (40 -> 38)
-------------------------------
+This causes unconditional test failures when setting max limits, for example
+in verify_link_caps_for_order():
 
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
+drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c:verify_link_caps_fo=
+r_order() {
+	...
+	KUNIT_ASSERT_TRUE(test, ops->set_max_limits(link_caps, &old_max_limits));
+}
 
-Known issues
-------------
+Could the mock environment be updated to provide valid source_rates so the
+tests can successfully pass this new validation check?
 
-  Here are the changes found in Patchwork_172306v2 that come from known issues:
+> =20
+>  	intel_dp_link_caps_get_forced_params(link_caps, &forced_params);
+>  	allowed_configs =3D calc_allowed_config_filter(link_caps, link_caps->en=
+abled_configs,
 
-### IGT changes ###
-
-#### Issues hit ####
-
-  * igt@i915_selftest@live@gt_timelines:
-    - bat-dg2-9:          [PASS][1] -> [ABORT][2] ([i915#16830]) +1 other test abort
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/bat-dg2-9/igt@i915_selftest@live@gt_timelines.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/bat-dg2-9/igt@i915_selftest@live@gt_timelines.html
-
-  
-#### Possible fixes ####
-
-  * igt@i915_selftest@live:
-    - fi-bsw-n3050:       [ABORT][3] ([i915#16562]) -> [PASS][4]
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/fi-bsw-n3050/igt@i915_selftest@live.html
-
-  * igt@i915_selftest@live@hangcheck:
-    - fi-bsw-n3050:       [ABORT][5] ([i915#16633] / [i915#16666]) -> [PASS][6]
-   [5]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-   [6]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html
-
-  
-  [i915#16562]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562
-  [i915#16633]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633
-  [i915#16666]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16666
-  [i915#16830]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16830
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19048 -> Patchwork_172306v2
-
-  CI-20190529: 20190529
-  CI_DRM_19048: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_172306v2: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/index.html
-
---===============6925289437089348626==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>pm_pme support on display hotplug (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172306/">https://patchwork.freedesktop.org/series/172306/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19048 -&gt; Patchwork_172306v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172306v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Issues hit</h4>
-<ul>
-<li>igt@i915_selftest@live@gt_timelines:<ul>
-<li>bat-dg2-9:          <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/bat-dg2-9/igt@i915_selftest@live@gt_timelines.html">PASS</a> -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/bat-dg2-9/igt@i915_selftest@live@gt_timelines.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16830">i915#16830</a>) +1 other test abort</li>
-</ul>
-</li>
-</ul>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16562">i915#16562</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/fi-bsw-n3050/igt@i915_selftest@live.html">PASS</a></li>
-</ul>
-</li>
-<li>
-<p>igt@i915_selftest@live@hangcheck:</p>
-<ul>
-<li>fi-bsw-n3050:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19048/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">ABORT</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16633">i915#16633</a> / <a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16666">i915#16666</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172306v2/fi-bsw-n3050/igt@i915_selftest@live@hangcheck.html">PASS</a></li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19048 -&gt; Patchwork_172306v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19048: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_172306v2: 7c56ac46313c75cab25c1e9b7bc4cbf40644b044 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============6925289437089348626==--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260827022035.3442=
+-1-tarund18303@gmail.com?part=3D1
