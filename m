@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0477AC61DC7
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A416C61DCD
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D7C110F009;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 023BE10F015;
 	Thu, 27 Aug 2026 12:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HbuLmQih";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bGk5W3Mf";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3F5710F009
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:17 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49557167508so7060115e9.1
- for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:17 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDB5010F009
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:18 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-49b0eab380eso8451855e9.0
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787834956; x=1788439756; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787834957; x=1788439757; darn=lists.freedesktop.org;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=xG6mQ2QRSpU2x70IBi5oSep3ZvnHE7Nrzjk2RVOwrIk=;
- b=HbuLmQihjmM3dkruWZArA4tXHW+sE0cSZRPfHhJ8Ma3j+8ZJkq9MOvN4NAorUafFHQ
- KPO+TDYHEuKwpwG2NQk+502rUngTtL9T+NCiFAWh8o4BHayMLLUYZDuGwTGyRSO34MUu
- O+oUjO6+VJA9rMv7d0YNibGfK8lyognX1BXKSBaCgOuRaoJpJUgpSxI/VcB3ICO86zT9
- 9N7O7OhjMgt2ug25IHKi3EDzKaYLbsDnQJYeVXPABIFc3k+CJapepFGGzgMUKb+CmXbb
- 2HZK5gOiAZ/9yLGr/QgZB1MbWIv5VGWhBvwgY2puGdaklWRJgCzm5KZbB/l+f+LXa4UJ
- itqA==
+ bh=cwMtyZdX8f3BBoJM15ozQtdf/lDryCW2jt5h1lUmsxg=;
+ b=bGk5W3MfAaqsAUELVFyHLC0lLq1N4c0FNPjtXjE3Utl7p6xGuwTKnqjKAocO9/A/67
+ UmWXMjk8D8H0ScozQqaDM0yMeUhL2mYX9cN4yPPLIv2r9BNeyuPL7b56j3jZBxw31KXG
+ eULivjI4kF84Mug4dKfZOGEFrHw6tBzRV6Qz5j3ee5aXT0HRqnzvOo90rV2Q2aXM1kFb
+ F2f1i9uxDvxd7V9FsCIvI3QqCG3K2538vQRz7GjTMQ2HdppckBHx5FieFZIYRgYaG4e8
+ iKb1qKQ9KksqORKTtav8FNXJPkHhbYafhkJ0ofeU3WldkyFdkx9iv580GFSApv5Cdgg1
+ 0SBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787834956; x=1788439756;
+ d=1e100.net; s=20251104; t=1787834957; x=1788439757;
  h=content-transfer-encoding:reply-to:content-type:mime-version
  :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=xG6mQ2QRSpU2x70IBi5oSep3ZvnHE7Nrzjk2RVOwrIk=;
- b=QTJ96ZN3F2GVqhaD082Akm/w4ZIgafTIlW/492M52xffiXecrmjGx30Cf9LPUf569c
- SIsk4LYfkTYkBdRN5n/dKn3hJfwAf80W7CMirzocd44eK1EGdkizp/KjFbmDasqTTdLk
- RQClDdhT3/yYaMpAfyganYDZZAQpexvPVyIPDVwClSOlSS7Q3ZtChEvOmfDNxatblO5e
- F2Evy++GLkNj0dL2p5EcMDwoQAUoXJ4POr+Vj6a/0mL3ZiKW5nkpk+Cw5JIcAXQWPNwv
- Kdb8zHXIaiyBgsrFX7DSaQ+FCUYP+z1LkmXu2Zm8OtUy5+iMl7qhmY6bPKYL9OIbW7Xa
- E5wA==
+ bh=cwMtyZdX8f3BBoJM15ozQtdf/lDryCW2jt5h1lUmsxg=;
+ b=nmGDjG3f3yl+QaIqP2eHvge8wubNc0+/uFWt9fb+38LHKPbhAIhFHhEnoLPhwK3Ig2
+ Y0UepzIertlQ/vbMLA7CQ9qODbBbr+m62Vzf2696Jy8U7s9FU6xa+hxe9S6BUxDJF4W/
+ zpXurt0PGGZipgwxgAVZa2fEUxdxBfs9KXlQV/+XYjckybMSsCniXirtiRfjp4/YfHmQ
+ w8AAPNLoarCN/+l/AlYutVR0HNu3obXzcM1ZMbf2SIIK0YltS3yG1mR9nQ79g//x8+2z
+ DsK+bVVhLROKS/pXozGAc0E9PM3EDW3SMhcIZuGwFiKMH4qCLTIozYC19rtcdjU6drEp
+ r7EA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpatq7vZjOXxJoh+tXpddzqFhkwgKH2YeBxIEvJG6zdValFDJpGZQc10CFH7nXHQdc+kwSLd/FIyIY=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mzG3RElaQ7VaXX1KB4JvpOvT2XjCknM1OOc/c7AYGwlWr2rRii
- f4vuXPR+2DYovtdzp8fukhP7AL7w/KP0hNESeDo89DVfb4B91C4kukTq
-X-Gm-Gg: AR+sD113y/kG8/pma8c6m3ynOYjOCQ+pcIqyj5ZWlRByIUGtt/6bQOd+BEboFX0/1cl
- Ac3hwjWDW3WtoJcAh2bZ0ryiptTiExlKAGqckXo4X3CJnkRdFXR/qkf9IaRQdLUUDZI4UVzZb+8
- j9OnSRI0m2f6L5dydvT7x4LVwJCPYGj16F8tAlo1Yo/p9GUb93JuBEdRR5mrd1VXU0cfMs61y6w
- 2HrozA40CoRN54jjGOkDl75CRdJgFV27IRF+LgbREyBFzCpcjbVPtLYgtt628WRe7SX+RziVkDB
- icY2g4Ln8Sa9ABMfPybnvQFR5LLoEg4WNJtQdy4xoPBLBqBB1bJnv6GYrrDnbLD8PmFp55V3UlS
- fik5zShsYa19VL5fsHb5Yv4cFz5RgcKNl7JpscPvUX9xzY0ZlOsZDL5aS1Xjg8p5jXxkQ2pEkrP
- RNyBmHmxP0qfrKY5Swi4XPxK3CPW1pN0lOZ52UIIZyHcKuopex+CduW/oWv6hOb4Isf0CQOnLfp
- A==
-X-Received: by 2002:a05:600c:c0da:b0:499:83f1:398 with SMTP id
- 5b1f17b1804b1-499dc820705mr162990835e9.9.1787834955856; 
- Thu, 27 Aug 2026 05:49:15 -0700 (PDT)
+ AHgh+RrJgqOfoYYydkmWyYZiBFkiaD8EWo1B1C0Pp67Gs5hnDTZLqZeRT2WduWViRrvkLFmswRIbwb25fN0=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++k/jdqJCTCZkkD/F9OTnjBLyxzI/TWuv34/P7Suq+oiajsJ8QfY
+ /P+fU8bO+n1K+bd0BuZEa2rJl9DznQApX1zhVpbyUxZB9BmpGif8BAIG
+X-Gm-Gg: AR+sD13Fy+0CbBc87baseWmvVHS1DY6lq4jwxiy/4a3wP+bgJ5wnthfC5IcE3S13XOV
+ 2L3wVVgE6trH+FlohYQbg1iVYoRxorxrQtg//z7XZ0LOKEv26uQxjuiVOotaXCcVJqNoBidsp+u
+ Z/wbRNo+Rl2DmGVHoo7FcrtqjOAObU9lkGbgBenAeiFaUz6OfXb0EieIEc85wZt8xF8S81lDjh/
+ CHX5a0rKdKzLhqdyumgBJ3N04zP7ga4A4WpocfVL/iTa5GF2pBWzz3/5esXnl09xPjfHOMrghlg
+ FF1opCdLT7X9Yqg/OayURZByCIEBUexfUN0VD3il8Y4TaDrh7Qq/yb0AxA6XltQ1TJCMGmQnc8m
+ Tp6BTCmZKfzhGq+DYx6TlXQX4X2gMyG1rDD8wxbQi3WKKiItWMdTLB86sPXUvP5UED2e46NGZ5L
+ F7QOcLlHUjhZNFSxE0MItOiV9L8cE5qt7fmoHmxhN2N8u1A0nxRx/qdjTvmF/VOK5/CeH53w==
+X-Received: by 2002:a05:600c:3b25:b0:493:f783:c46a with SMTP id
+ 5b1f17b1804b1-49b0dfcd4c2mr65895455e9.6.1787834956789; 
+ Thu, 27 Aug 2026 05:49:16 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:1524:4300:a4b8:720e:f64f:4778])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.14
+ 5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 05:49:15 -0700 (PDT)
+ Thu, 27 Aug 2026 05:49:16 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
@@ -71,10 +70,9 @@ To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
  matthew.brost@intel.com, nat@pixelcluster.dev,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 02/10] dma-buf/tests: Convert st-dma-resv tests to use
- dma_resv_alloc
-Date: Thu, 27 Aug 2026 14:38:50 +0200
-Message-ID: <20260827124910.2245-3-christian.koenig@amd.com>
+Subject: [PATCH 03/10] drm/gem: Add helper for drm_gem_object resv assignment
+Date: Thu, 27 Aug 2026 14:38:51 +0200
+Message-ID: <20260827124910.2245-4-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260827124910.2245-1-christian.koenig@amd.com>
 References: <20260827124910.2245-1-christian.koenig@amd.com>
@@ -97,266 +95,256 @@ Reply-To: christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Update all test cases in st-dma-resv.c to use the new dma_resv_alloc()
-API instead of stack-allocating dma_resv objects. This demonstrates the
-proper usage of the new allocation and reference counting interface.
+Introduce drm_gem_object_set_resv() to safely assign reservation objects
+to GEM objects with proper reference counting. This helper replaces all
+direct assignments to drm_gem_object.resv throughout the DRM subsystem.
 
-All five test functions now:
-- Use dma_resv_alloc() to allocate objects
-- Check for allocation failure with KUNIT_ASSERT_NOT_NULL
-- Clean up with dma_resv_put() which handles freeing
+The function:
+- Acquires a reference to the new resv via dma_resv_get()
+- Assigns it to obj->resv
+- Releases the old resv reference via dma_resv_put()
 
-This change also provides better test coverage for the reference
-counting implementation.
+This ensures proper reference counting when sharing reservation objects
+between GEM objects or when importing dma-bufs, preventing reference
+leaks and use-after-free bugs.
+
+Update all drivers to use the new helper:
+- drm_prime: dma-buf import path
+- drm_gem_shmem_helper: shmem prime import
+- i915: dmabuf import
+- msm: MSM_BO_NO_SHARE case
+- panthor: exclusive_vm case
+- virtio: dma-buf import
+- xe: dummy object creation
+- ttm: external resv assignment
+- ttm/tests: test cases
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 Assisted-by: Claude:Sonnet 4
 ---
- drivers/dma-buf/st-dma-resv.c | 90 +++++++++++++++++++----------------
- 1 file changed, 50 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/drm_gem.c                     | 31 ++++++++++++++++++-
+ drivers/gpu/drm/drm_gem_shmem_helper.c        |  2 +-
+ drivers/gpu/drm/drm_prime.c                   |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c    |  2 +-
+ drivers/gpu/drm/msm/msm_gem.c                 |  2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c         |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c |  2 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                  |  7 ++---
+ drivers/gpu/drm/virtio/virtgpu_prime.c        |  2 +-
+ drivers/gpu/drm/xe/xe_dma_buf.c               |  2 +-
+ include/drm/drm_gem.h                         |  2 ++
+ 12 files changed, 43 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
-index 2c43d2d2b016..b843d9041782 100644
---- a/drivers/dma-buf/st-dma-resv.c
-+++ b/drivers/dma-buf/st-dma-resv.c
-@@ -41,7 +41,7 @@ static struct dma_fence *alloc_fence(void)
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 48176a11d552..bbcbd25f014f 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -230,7 +230,7 @@ void drm_gem_private_object_init(struct drm_device *dev,
+ 	mutex_init(&obj->gpuva.lock);
+ 	dma_resv_init(&obj->_resv);
+ 	if (!obj->resv)
+-		obj->resv = &obj->_resv;
++		obj->resv = dma_resv_get(&obj->_resv);
  
- static void test_sanitycheck(struct kunit *test)
+ 	drm_gem_gpuva_init(obj);
+ 
+@@ -249,11 +249,40 @@ void drm_gem_private_object_fini(struct drm_gem_object *obj)
  {
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	struct dma_fence *f;
- 	int r;
+ 	WARN_ON(obj->dma_buf);
  
-@@ -53,20 +53,22 @@ static void test_sanitycheck(struct kunit *test)
- 	dma_fence_signal(f);
- 	dma_fence_put(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r)
- 		KUNIT_FAIL(test, "Resv locking failed\n");
- 	else
--		dma_resv_unlock(&resv);
--	dma_resv_put(&resv);
-+		dma_resv_unlock(resv);
-+	dma_resv_put(resv);
++	dma_resv_put(obj->resv);
+ 	dma_resv_put(&obj->_resv);
+ 	mutex_destroy(&obj->gpuva.lock);
  }
+ EXPORT_SYMBOL(drm_gem_private_object_fini);
  
- static void test_signaling(struct kunit *test)
++/**
++ * drm_gem_object_set_resv - Set the reservation object for a GEM object
++ * @obj: GEM object
++ * @resv: reservation object to assign
++ *
++ * This function safely assigns a new reservation object to a GEM object.
++ * It releases the old reservation object reference (if any) and acquires
++ * a reference to the new one.
++ *
++ * This should be used when changing the reservation object of an already
++ * initialized GEM object, for example when importing a dma-buf or sharing
++ * a reservation object with another object.
++ *
++ * Returns:
++ * The new reservation object pointer for convenience.
++ */
++struct dma_resv *drm_gem_object_set_resv(struct drm_gem_object *obj,
++					  struct dma_resv *resv)
++{
++	struct dma_resv *old_resv = obj->resv;
++
++	obj->resv = dma_resv_get(resv);
++	dma_resv_put(old_resv);
++
++	return obj->resv;
++}
++EXPORT_SYMBOL(drm_gem_object_set_resv);
++
+ static void drm_gem_object_handle_get(struct drm_gem_object *obj)
  {
- 	const struct dma_resv_usage_param *param = test->param_value;
- 	enum dma_resv_usage usage = param->usage;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	struct dma_fence *f;
- 	int r;
+ 	struct drm_device *dev = obj->dev;
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 22ec52e2ffb8..76a8d7f252e0 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -977,7 +977,7 @@ struct drm_gem_object *drm_gem_shmem_prime_import_no_map(struct drm_device *dev,
+ 	drm_dbg_prime(dev, "size = %zu\n", size);
  
-@@ -75,33 +77,35 @@ static void test_signaling(struct kunit *test)
+ 	shmem->base.import_attach = attach;
+-	shmem->base.resv = dma_buf->resv;
++	drm_gem_object_set_resv(&shmem->base, dma_buf->resv);
  
- 	dma_fence_enable_signaling(f);
+ 	return &shmem->base;
  
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..6cfeca347faf 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -1006,7 +1006,7 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
  	}
  
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
+ 	obj->import_attach = attach;
+-	obj->resv = dma_buf->resv;
++	drm_gem_object_set_resv(obj, dma_buf->resv);
+ 
+ 	return obj;
+ 
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index b43d34c7d641..c824606497d2 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -320,7 +320,7 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
+ 	i915_gem_object_init(obj, &i915_gem_object_dmabuf_ops, &lock_class,
+ 			     I915_BO_ALLOC_USER);
+ 	obj->base.import_attach = attach;
+-	obj->base.resv = dma_buf->resv;
++	drm_gem_object_set_resv(&obj->base, dma_buf->resv);
+ 
+ 	/* We use GTT as shorthand for a coherent domain, one that is
+ 	 * neither in the GPU cache nor in the CPU cache, where all
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index efd3d3c9a449..81ebb1e1094c 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1151,7 +1151,7 @@ int msm_gem_new_handle(struct drm_device *dev, struct drm_file *file,
+ 
+ 		drm_gem_object_get(r_obj);
+ 
+-		obj->resv = r_obj->resv;
++		drm_gem_object_set_resv(obj, r_obj->resv);
  	}
  
--	dma_resv_add_fence(&resv, f, usage);
--	if (dma_resv_test_signaled(&resv, usage)) {
-+	dma_resv_add_fence(resv, f, usage);
-+	if (dma_resv_test_signaled(resv, usage)) {
- 		KUNIT_FAIL(test, "Resv unexpectedly signaled");
- 		goto err_unlock;
+ 	ret = drm_gem_handle_create(file, obj, handle);
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 9855df738194..2de24f1b6018 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -1024,7 +1024,7 @@ panthor_gem_create(struct drm_device *dev, size_t size, uint32_t flags,
+ 	if (exclusive_vm) {
+ 		bo->exclusive_vm_root_gem = panthor_vm_root_gem(exclusive_vm);
+ 		drm_gem_object_get(bo->exclusive_vm_root_gem);
+-		bo->base.resv = bo->exclusive_vm_root_gem->resv;
++		drm_gem_object_set_resv(&bo->base, bo->exclusive_vm_root_gem->resv);
  	}
- 	dma_fence_signal(f);
--	if (!dma_resv_test_signaled(&resv, usage)) {
-+	if (!dma_resv_test_signaled(resv, usage)) {
- 		KUNIT_FAIL(test, "Resv not reporting signaled");
- 		goto err_unlock;
- 	}
- err_unlock:
--	dma_resv_unlock(&resv);
-+	dma_resv_unlock(resv);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
+ 
+ 	panthor_gem_debugfs_set_usage_flags(bo, usage_flags);
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index 49b0b48c6c2a..3aff1c427cd1 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -461,7 +461,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
+ 
+ 	bo = ttm_bo_kunit_init(test, test->priv, BO_SIZE, NULL);
+ 	bo->type = ttm_bo_type_device;
+-	bo->base.resv = external_resv;
++	drm_gem_object_set_resv(&bo->base, external_resv);
+ 
+ 	ttm_bo_fini(bo);
  }
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+index 5cfe8f3f80d7..1146cc9ae522 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_kunit_helpers.c
+@@ -181,7 +181,7 @@ struct ttm_buffer_object *ttm_bo_kunit_init(struct kunit *test,
+ 	bo->base = gem_obj;
  
-@@ -111,7 +115,7 @@ static void test_for_each(struct kunit *test)
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r;
+ 	if (obj)
+-		bo->base.resv = obj;
++		drm_gem_object_set_resv(&bo->base, obj);
  
- 	f = alloc_fence();
-@@ -119,23 +123,25 @@ static void test_for_each(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
+ 	err = drm_gem_object_init(devs->drm, &bo->base, size);
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 1b9477381a1d..999c24251fb7 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -209,7 +209,7 @@ static int ttm_bo_individualize_resv(struct ttm_buffer_object *bo)
+ 		 * the resv object while holding the lru_lock.
+ 		 */
+ 		spin_lock(&bo->bdev->lru_lock);
+-		bo->base.resv = &bo->base._resv;
++		drm_gem_object_set_resv(&bo->base, &bo->base._resv);
+ 		spin_unlock(&bo->bdev->lru_lock);
  	}
  
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
- 		goto err_unlock;
- 	}
+@@ -1197,10 +1197,7 @@ int ttm_bo_init_reserved(struct ttm_device *bdev, struct ttm_buffer_object *bo,
+ 	bo->pin_count = 0;
+ 	bo->sg = sg;
+ 	bo->bulk_move = NULL;
+-	if (resv)
+-		bo->base.resv = resv;
+-	else
+-		bo->base.resv = &bo->base._resv;
++	drm_gem_object_set_resv(&bo->base, resv ?: &bo->base._resv);
+ 	atomic_inc(&ttm_glob.bo_count);
  
--	dma_resv_add_fence(&resv, f, usage);
-+	dma_resv_add_fence(resv, f, usage);
+ 	/*
+diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
+index 216c77cd0d21..79964b436243 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_prime.c
++++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+@@ -361,7 +361,7 @@ struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
+ 	INIT_LIST_HEAD(&bo->restore_node);
  
- 	r = -ENOENT;
--	dma_resv_for_each_fence(&cursor, &resv, usage, fence) {
-+	dma_resv_for_each_fence(&cursor, resv, usage, fence) {
- 		if (!r) {
- 			KUNIT_FAIL(test, "More than one fence found");
- 			goto err_unlock;
-@@ -158,9 +164,9 @@ static void test_for_each(struct kunit *test)
- 	}
- 	dma_fence_signal(f);
- err_unlock:
--	dma_resv_unlock(&resv);
-+	dma_resv_unlock(resv);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
+ 	obj = &bo->base.base;
+-	obj->resv = buf->resv;
++	drm_gem_object_set_resv(obj, buf->resv);
+ 	obj->funcs = &virtgpu_gem_dma_buf_funcs;
+ 	drm_gem_private_object_init(dev, obj, buf->size);
  
-@@ -170,7 +176,7 @@ static void test_for_each_unlocked(struct kunit *test)
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_resv_iter cursor;
- 	struct dma_fence *f, *fence;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r;
+diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+index 8a920e58245c..33bebf85ac62 100644
+--- a/drivers/gpu/drm/xe/xe_dma_buf.c
++++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+@@ -293,7 +293,7 @@ xe_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ 	if (!dummy_obj)
+ 		return ERR_PTR(-ENOMEM);
  
- 	f = alloc_fence();
-@@ -178,25 +184,27 @@ static void test_for_each_unlocked(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_free;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
--		dma_resv_unlock(&resv);
-+		dma_resv_unlock(resv);
- 		goto err_free;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
--	dma_resv_unlock(&resv);
-+	dma_resv_add_fence(resv, f, usage);
-+	dma_resv_unlock(resv);
- 
- 	r = -ENOENT;
--	dma_resv_iter_begin(&cursor, &resv, usage);
-+	dma_resv_iter_begin(&cursor, resv, usage);
- 	dma_resv_for_each_fence_unlocked(&cursor, fence) {
- 		if (!r) {
- 			KUNIT_FAIL(test, "More than one fence found");
-@@ -231,7 +239,7 @@ static void test_for_each_unlocked(struct kunit *test)
- 	dma_resv_iter_end(&cursor);
- 	dma_fence_signal(f);
- err_free:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
-@@ -240,7 +248,7 @@ static void test_get_fences(struct kunit *test)
- 	const struct dma_resv_usage_param *param = test->param_value;
- 	enum dma_resv_usage usage = param->usage;
- 	struct dma_fence *f, **fences = NULL;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int r, i;
- 
- 	f = alloc_fence();
-@@ -248,24 +256,26 @@ static void test_get_fences(struct kunit *test)
- 
- 	dma_fence_enable_signaling(f);
- 
--	dma_resv_init(&resv);
--	r = dma_resv_lock(&resv, NULL);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+
-+	r = dma_resv_lock(resv, NULL);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv locking failed");
- 		goto err_resv;
- 	}
- 
--	r = dma_resv_reserve_fences(&resv, 1);
-+	r = dma_resv_reserve_fences(resv, 1);
- 	if (r) {
- 		KUNIT_FAIL(test, "Resv shared slot allocation failed");
--		dma_resv_unlock(&resv);
-+		dma_resv_unlock(resv);
- 		goto err_resv;
- 	}
- 
--	dma_resv_add_fence(&resv, f, usage);
--	dma_resv_unlock(&resv);
-+	dma_resv_add_fence(resv, f, usage);
-+	dma_resv_unlock(resv);
- 
--	r = dma_resv_get_fences(&resv, usage, &i, &fences);
-+	r = dma_resv_get_fences(resv, usage, &i, &fences);
- 	if (r) {
- 		KUNIT_FAIL(test, "get_fences failed");
- 		goto err_free;
-@@ -282,7 +292,7 @@ static void test_get_fences(struct kunit *test)
- 		dma_fence_put(fences[i]);
- 	kfree(fences);
- err_resv:
--	dma_resv_put(&resv);
-+	dma_resv_put(resv);
- 	dma_fence_put(f);
- }
- 
+-	dummy_obj->resv = resv;
++	drm_gem_object_set_resv(dummy_obj, resv);
+ 	xe_validation_guard(&ctx, &xe->val, &exec, (struct xe_val_flags) {}, ret) {
+ 		ret = drm_exec_lock_obj(&exec, dummy_obj);
+ 		drm_exec_retry_on_contention(&exec);
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 885244e375d3..09f5ec28218a 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -529,6 +529,8 @@ int drm_gem_object_init(struct drm_device *dev,
+ void drm_gem_private_object_init(struct drm_device *dev,
+ 				 struct drm_gem_object *obj, size_t size);
+ void drm_gem_private_object_fini(struct drm_gem_object *obj);
++struct dma_resv *drm_gem_object_set_resv(struct drm_gem_object *obj,
++					  struct dma_resv *resv);
+ void drm_gem_vm_open(struct vm_area_struct *vma);
+ void drm_gem_vm_close(struct vm_area_struct *vma);
+ int drm_gem_mmap_obj(struct drm_gem_object *obj, unsigned long obj_size,
 -- 
 2.43.0
 
