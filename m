@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D588C61DC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 14:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B883CC61DB9
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 14:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98C5910F0B0;
-	Thu, 27 Aug 2026 14:35:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34A9B10F0B2;
+	Thu, 27 Aug 2026 14:35:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q0o0kQ8B";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ISabXNFR";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB0C410F0B5;
- Thu, 27 Aug 2026 14:35:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD3510F0B2;
+ Thu, 27 Aug 2026 14:35:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787841306; x=1819377306;
+ t=1787841312; x=1819377312;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=ljAqNZDkMWYboAgdYUObgJSLe5IGhTaMykdmBRGlBh0=;
- b=Q0o0kQ8BNHd4XZD4jXlJKk6XQiRxRuKe5F0RA9i9+aTeUlmG2VbXtUh9
- 1NK7ZjAlo3CFhRi1nBi54baoDoWgIK+W7LKpERue5aetn73JSVj1InkqQ
- XFd2vw8VgeuMOk5B8LYo78L87HE5MRF3fWyqGe8jqcsD+cJgMhWV5KKSr
- GCtKrUSG1W9ZfCBnlVf6y6QU/I3V7H2Eoo6+AfoJ4ER7Lu1cWe8pNAQCl
- oS1XxKGRkv4mUAr55R/uZ/04DHHcclAqX1z1qz2QdKZc1Z7BlMmlxB9mk
- kMnVTYYT1++7jIxNUo/i/ypqM0tXhWRt3D/DEo01eQ/0LO4TyUST7o7/D g==;
-X-CSE-ConnectionGUID: rZozfl5/TfKjqcIz4wBOcg==
-X-CSE-MsgGUID: dYlxi/SfQH6Mr8NAalmHbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98676920"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98676920"
+ bh=myRf8Ob+J2MYjnKqF1QFxQzxTwsEglgyR/JrjIwXCDY=;
+ b=ISabXNFRFXbRisvFcLX2JwgAdxagezTVQ9qMvYegx0QSOndetGJ+VT8K
+ NEM5iQ4HwoIV4jyQzUkY4nG6v5QHTY1dgUhaRVc/L1XJZijnlsfHEI9aA
+ 3wnf4ofCqa0jnD0DItowXzdaySQjdpntOpHkaGNX4SkueO+IupBMgKQya
+ dx+PFNZhbW/SyZgiybxBDNTaqdY6mMfYkV5IjeSO7qjnkzQ2OFBBfizUQ
+ Z0HuqrJYgmB3GnHWFO88kUq502px0Z6EBtDCx0ou7WmNey2JzFO2o92FE
+ MCBrWw/4hGzb4AguqNMc1s9oofiWjq24NDGIqngLQ5D8W1sms00yqvasq g==;
+X-CSE-ConnectionGUID: 0Hv9UxzYTNuTex2agXIpmA==
+X-CSE-MsgGUID: b4EREvE+QIC471sLzIP9nw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98676939"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98676939"
 Received: from orviesa006.jf.intel.com ([10.64.159.146])
  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 07:35:05 -0700
-X-CSE-ConnectionGUID: FdesIBK8Sx6t3B8Twvmxmg==
-X-CSE-MsgGUID: Jfq31xGwQeifBpyUatYhtQ==
+ 27 Aug 2026 07:35:12 -0700
+X-CSE-ConnectionGUID: IU20pY4WQgSajpSj/7nnlg==
+X-CSE-MsgGUID: 3FKR6x8pT9eXODPCFlzFAw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="266096493"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="266096522"
 Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
  ([10.245.244.229])
  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 07:35:02 -0700
+ 27 Aug 2026 07:35:09 -0700
 From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 To: dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org
@@ -53,9 +53,10 @@ Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
  Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
  Andi Shyti <andi.shyti@linux.intel.com>,
  Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [PATCH v3 1/2] drm: Unwind drm device registration upon error
-Date: Thu, 27 Aug 2026 16:34:46 +0200
-Message-ID: <20260827143447.99553-2-krzysztof.niemiec@intel.com>
+Subject: [PATCH v3 2/2] drm/i915: Remove drm_dev_unregister() from the error
+ path during i915_driver_register()
+Date: Thu, 27 Aug 2026 16:34:47 +0200
+Message-ID: <20260827143447.99553-3-krzysztof.niemiec@intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
 References: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
@@ -76,109 +77,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-From: Krzysztof Karas <krzysztof.karas@intel.com>
+During driver probe, in i915_driver_register(), if drm_dev_register()
+fails, the code enters into an error path. In it, a call to
+drm_dev_unregister() is made as part of cleanup in case drm_dev_register()
+returns an error. However, this is unnecessary, as in case of an error
+drm_dev_register() undoes its own setup in its own error path.
 
-The drm device registration is done via drm_dev_register().
-This function attempts to undo some of the initiatlization steps
-under err_unload and err_minors labels, but this process is
-incomplete - debugfs entries remain and the dev->registered flag
-is still set to true.
+Calling drm_dev_unregister() after a failed drm_dev_register() also
+generates a superfluous WARN_ON() from drm_client_sysrq_unregister().
+drm_client_sysrq_register() is only called in drm_dev_register() if
+there was no error in the latter. drm_dev_unregister() calls
+drm_client_sysrq_unregister() as it expects to be called after a successful
+drm_dev_register(), in which case the _sysrq_register() counterpart is
+called. However, if the call to drm_dev_register() failed,
+_sysrq_register() is never called; calling drm_dev_unregister() will
+cause _sysrq_unregister() to be called (unconditionally) with no
+corresponding _sysrq_register() call before it, which is caught in the
+aforementioned WARN_ON().
 
-On the other hand, drm_dev_unregister() tears down everything
-that was initialized during registration step. This is confusing
-when considering a failure in drm_dev_register(), because some
-setup steps will be undone and some settings will remain, so it
-is unclear whether a call to drm_dev_unregister() is a
-requirement or not.
+Remove the redundant call to drm_dev_unregister() in case
+drm_dev_register() returns an error.
 
-This may trigger bugs in the error paths of drivers which rely on
-functions that check for the value of dev->registered flag.
-
-What is more, commit 6915190a50e8 ("drm/client: Support
-emergency restore via sysrq for all clients") introduced a new
-WARN_ON and added drm_client_sysrq_register/unregister() calls
-to the drm device register/unregister paths. Client sysrqs are
-registered only when drm_dev_register() is sure to complete
-without failures, but drm_client_sysrq_unregister() gets called
-every time during drm_dev_unregister() and prints warning
-messages whenever the caller tries to clean up the mess with
-immediate unregistration.
-
-Amend the problem by removing debugfs entries and marking
-registered flag as false upon error in drm_dev_register().
-
-Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-Co-developed-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
 ---
-Changelog:
+ drivers/gpu/drm/i915/i915_driver.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-RFC -> v1:
- * addedd title of commit 6915190a50e8 to commit message;
- * rebased;
-
-v1 -> v2:
- * updated commit log slightly to mention possible bugs;
- * updated authorship - the bug was found and fixed independently by
-   Krzysztof K. and Krzysztof N.; We decided to exchange the findings
-   and our comments and send the patch as co-developed-by.
-
-An instance of a bug caused by this was uncovered in i915 with fault
-injection. During driver probe in the error path, after failing
-drm_dev_register() there is a reasonable expectation of a full proper
-teardown of whatever drm_dev_register() has done. This is, however, not
-the case, as shown in the calls below:
-
-	i915_driver_probe()
-
-	i915_driver_register()
-		calls drm_dev_register()
-
-	drm_dev_register()
-
-	...
-
-	connector .late_register() callback
-		called from drm_dev_register(), and fails, leaving
-		dev->registered as true, propagates the error back up
-
-	...
-
-	drm_dev_register()
-		enters error path, but doesn't fully unwind
-
-	i915_driver_register()
-		enters error path
-
-	i915_driver_probe()
-		enters error path
-
-	intel_display_driver_remove_noirq()
-		called in _probe()'s error path
-
-	intel_mode_config_cleanup()
-
-	drm_mode_config_cleanup()
-		this triggers a WARN_ON(), dev->registered should be false
-
-This is a bug on drm_dev_register()'s side.
-
- drivers/gpu/drm/drm_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index e51ed959da89..b98e8af6f1c1 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -1140,6 +1140,8 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	drm_minor_unregister(dev, DRM_MINOR_ACCEL);
- 	drm_minor_unregister(dev, DRM_MINOR_PRIMARY);
- 	drm_minor_unregister(dev, DRM_MINOR_RENDER);
-+	drm_debugfs_dev_fini(dev);
-+	dev->registered = false;
- out_unlock:
- 	if (drm_dev_needs_global_mutex(dev))
- 		mutex_unlock(&drm_global_mutex);
+diff --git a/drivers/gpu/drm/i915/i915_driver.c b/drivers/gpu/drm/i915/i915_driver.c
+index ce6d20958320..da9be352fc90 100644
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -617,7 +617,6 @@ static int i915_driver_register(struct drm_i915_private *dev_priv)
+ 	if (ret) {
+ 		i915_probe_error(dev_priv,
+ 				 "Failed to register driver for userspace access!\n");
+-		drm_dev_unregister(&dev_priv->drm);
+ 		i915_pmu_unregister(dev_priv);
+ 		i915_gem_driver_unregister(dev_priv);
+ 		return ret;
 -- 
 2.55.0
 
