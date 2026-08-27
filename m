@@ -4,44 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FDDC61DDB
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31B40C61DCD
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A1810F020;
-	Thu, 27 Aug 2026 12:49:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B40D810F02E;
+	Thu, 27 Aug 2026 12:49:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PXCNE/iO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YvwsvSB4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29B9010F017;
- Thu, 27 Aug 2026 12:49:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F37B5600D2;
- Thu, 27 Aug 2026 12:49:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73CC91F00ADB;
- Thu, 27 Aug 2026 12:49:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787834961;
- bh=662b656BEV5NF/IRStRGT2KNuHIApY3qWMfShlJ4PtA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PXCNE/iO03lrta54v3rJYgSs9S+CU/ffwSHa9TF3IPLEN+sy5eIyzZMFAEbGW4YzS
- rUdSUt0xHEX5NzAMI/cnxZ+b1c/5vozEwmgwAN6/P4VrOZ5wIZ3WvJsFd6/++z8NmB
- qbtQMad7p7QWJzHDe4SyENdxMp5ZyP/YzKg6gp/+WnSnrIUim4UqenbZzipHs002Id
- uTMTTz0xYPLocTktDa4hdMFAyQ4w7SRPGV4eFJv+vJ4Mnt+jBkIyPtM3JMh3gOMoTA
- H7NXE+KjJI5V6WKDi5+ox5Nw/dcVP2wDDwmcyOXcihpbpC4X/2U7PN+ZfOYt8QcaGV
- ozXKQ6UiWUZXg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/7] drm/i915: only timeout on fence waits for
- display reset
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-In-Reply-To: <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
-References: <cover.1787833879.git.jani.nikula@intel.com>
- <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 27 Aug 2026 12:49:20 +0000
-Message-Id: <20260827124921.73CC91F00ADB@smtp.kernel.org>
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91AA310F024
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:24 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-49b8e527d63so4678795e9.2
+ for <intel-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787834963; x=1788439763; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=N8mDe5o2IhEvMzlea+bfmuWRPz0ePMPn3R+ho2zQsEc=;
+ b=YvwsvSB4h/L2t5o2tucacfuwFd5v5bACPi70zyLLgyTLNygLcNDxMqO2n81mzBMhI+
+ kRHvxUEzKo7RXpJxuH8VdRHPvIHr0vHy/W5RPPsylEfjwhdcH2zP8V6NujiHoWwuEcLY
+ 8w1ofZDWq3YXhJegEEmFmXirU/MmDwn6h1FT8SVThUvUsYb87/mVnpgYGDtrHDiE5Fji
+ C9aXNoQJWoUNg9GQOViPuHUMtFRCy9+a6NXYNF5GV0aw/hp7GURTX5P4xXWgkhSDYqZa
+ KGi4IqcdnaPRdM/Kl2eO6gWj1uBlD00N7rQnQVU6tunZGy4dJHk0X1snMA9syIGJm5/t
+ L35g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787834963; x=1788439763;
+ h=content-transfer-encoding:reply-to:content-type:mime-version
+ :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=N8mDe5o2IhEvMzlea+bfmuWRPz0ePMPn3R+ho2zQsEc=;
+ b=aA4rO2hTEi3itx7E/zGwLBT46omR/QbjOG2QUovLIQlUyPdxnci1FXWA4n7c/Mo8r9
+ 82EjYfpoLWmKdBsXnkacWnK8dLn+FEswhy0rjUTPgZbkAcAVS9B4+1NdzJjIUO1DLMuD
+ a0LGG/CW6II4oL7LNZCPJ2MHLHAqJMKd5FFrcKaUFx76HX+tOaZ6yI4BUepk20vJk40K
+ 1AaAeKZL7LMmak3gGcWLHrAl6ZO98e86sX7J6KO9dXFxn9Up56MfGAoN/Sh2cynXlPhI
+ QXS/DTUvi37z1hOQjk/6/CvyovTUVkcyn1Yc1QtEGgefu+HUm4FbYMwFdNd2BJR3swFF
+ 8XzQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpLO8MIhOfDxhHSmvD5pDOtIZtDt5+QRbkiGgqWzydM3w3wGKauP06hvBC97p3oc1yVN/R7Fc7rF7k=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kNi2IfG05gwKoJKOp9XCGWCQlMqRCnNp5PrMaSUOiRpphko4sw
+ tovjE09fQaVFDvcsTX8yHLledQ06EAIAYA0lIg3s0WAXXIpFK2gD9U5B
+X-Gm-Gg: AR+sD13l0OoysjHjIibX/lY9PAX9mQUZ5RlK3iIaKLMZ7QTy7zvGh3AW+LRvSihpXsU
+ Nu9oRoZ6++74UwyvB8lqruQ9cRx7FnsIq7fEvvvEE59CqzxtnvMelwC9vidtmo/BPw1qeCA2E6n
+ Qg6hXVqUEXmmSwhbDTbLnft0xne87RqSYwCtNbt0VY8QztmXIOYFqZEPhz4rRtcM5V1V5afN71b
+ /p0TxX2dU7jle/u5JNjqnOZVcv743E2g4Bq/fldaIbJKMOoQzKTOGGF+thHZF0IkG6P4M3DgK7x
+ lfvMCdSlaD7C1X2O1moxtsY13uE0HJk6SD3BOof0aOogALesmK/em4DUY1j363Ni9UJRTnSs0AA
+ q3DMI7Lsq3fHh7bR1E8+DvTpmbmv/q9IhMko04Xh5LvTTq4hFZoo4DRrSiBKTCoDzCJfNK5MM47
+ 8V8MZY40JJ64ySzzMm83nOg3CVsyAQBfg0oWktmFAjCDA9CynrhjNdgS0e61JQtCoTQGoTs4++h
+ 8S+DbDNwfNZ
+X-Received: by 2002:a05:600c:4592:b0:499:b402:6c0 with SMTP id
+ 5b1f17b1804b1-499dc6eac3bmr170763485e9.3.1787834962697; 
+ Thu, 27 Aug 2026 05:49:22 -0700 (PDT)
+Received: from able.fritz.box ([2a00:e180:1524:4300:a4b8:720e:f64f:4778])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 05:49:22 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
+ matthew.brost@intel.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 09/10] drm/ttm/tests: Use dma_resv_alloc in test files
+Date: Thu, 27 Aug 2026 14:38:57 +0200
+Message-ID: <20260827124910.2245-10-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827124910.2245-1-christian.koenig@amd.com>
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,82 +92,114 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: christian.koenig@amd.com
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Replace the remaining dma_resv_init usage in TTM test files with
+dma_resv_alloc(). This completes the migration away from embedded
+dma_resv structures to reference-counted dynamic allocation throughout
+the DRM subsystem.
 
-Pre-existing issues:
-- [High] Calling a sleeping function (dma_fence_wait_timeout) from an atomi=
-c context path (intel_atomic_commit_tail).
---
+Changes in test files:
+- ttm_bo_validate_test.c: Convert stack-allocated resv to pointer and
+  use dma_resv_alloc() with proper cleanup via dma_resv_put()
+- ttm_bo_test.c: Replace kunit_kzalloc + dma_resv_init with direct
+  dma_resv_alloc() calls, add cleanup for external_resv
 
-commit 70671f62d3480e316b53a7ec34d9d047347fa4af
-Author: Jani Nikula <jani.nikula@intel.com>
+All test assertions updated to check for successful allocation. The
+tests now properly exercise the dynamic allocation path that production
+code uses.
 
-drm/i915: only timeout on fence waits for display reset
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Assisted-by: Claude:Sonnet 4
+---
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c          | 11 ++++-------
+ drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c | 13 ++++++++-----
+ 2 files changed, 12 insertions(+), 12 deletions(-)
 
-This commit restricts the timeout on fence waits to older platforms where
-a GPU reset clobbers the display, or when running forced display reset
-tests. For other platforms, it switches the timeout to MAX_SCHEDULE_TIMEOUT.
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index 3aff1c427cd1..853024724af9 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -339,14 +339,12 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
+ 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
+ 
+-	resv = kunit_kzalloc(test, sizeof(*resv), GFP_KERNEL);
+-	KUNIT_ASSERT_NOT_NULL(test, resv);
+-
+ 	err = ttm_device_kunit_init(priv, ttm_dev, 0);
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+-	dma_resv_init(resv);
++	resv = dma_resv_alloc();
++	KUNIT_ASSERT_NOT_NULL(test, resv);
+ 
+ 	bo1 = ttm_bo_kunit_init(test, test->priv, BO_SIZE, resv);
+ 	bo2 = ttm_bo_kunit_init(test, test->priv, BO_SIZE, resv);
+@@ -441,11 +439,9 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 	priv->ttm_dev = ttm_dev;
+ 
+-	external_resv = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
++	external_resv = dma_resv_alloc();
+ 	KUNIT_ASSERT_NOT_NULL(test, external_resv);
+ 
+-	dma_resv_init(external_resv);
+-
+ 	fence = kunit_kzalloc(test, sizeof(*fence), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, fence);
+ 
+@@ -464,6 +460,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
+ 	drm_gem_object_set_resv(&bo->base, external_resv);
+ 
+ 	ttm_bo_fini(bo);
++	dma_resv_put(external_resv);
+ }
+ 
+ static void ttm_bo_pin_basic(struct kunit *test)
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index 6fc381a9d2da..4559352e7115 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -201,7 +201,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
+ 	struct ttm_placement *placement;
+ 	struct ttm_buffer_object *bo;
+ 	struct ttm_place *place;
+-	struct dma_resv resv;
++	struct dma_resv *resv;
+ 	int err;
+ 
+ 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
+@@ -212,19 +212,22 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
+ 
+ 	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+-	dma_resv_init(&resv);
+-	dma_resv_lock(&resv, NULL);
++
++	resv = dma_resv_alloc();
++	KUNIT_ASSERT_NOT_NULL(test, resv);
++	dma_resv_lock(resv, NULL);
+ 
+ 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement,
+-				   PAGE_SIZE, &ctx, NULL, &resv,
++				   PAGE_SIZE, &ctx, NULL, resv,
+ 				   &dummy_ttm_bo_destroy);
+ 	dma_resv_unlock(bo->base.resv);
+ 
+ 	KUNIT_EXPECT_EQ(test, err, 0);
+-	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
++	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, resv);
+ 
+ 	ttm_resource_free(bo, &bo->resource);
+ 	ttm_bo_fini(bo);
++	dma_resv_put(resv);
+ }
+ 
+ static void ttm_bo_validate_basic(struct kunit *test)
+-- 
+2.43.0
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/d=
-rm/i915/display/intel_display.c
-> index 64fa582a64102..42222b930943d 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-
-[ ... ]
-
-> @@ -7228,15 +7229,20 @@ static void intel_atomic_commit_fence_wait(struct=
- intel_atomic_state *state)
->  	struct intel_display *display =3D to_intel_display(state);
->  	struct drm_plane *plane;
->  	struct drm_plane_state *new_plane_state;
-> -	long ret;
-> +	long timeout, ret;
->  	int i;
-> =20
-> +	if (intel_display_reset_needed_after_gpu_reset(display) ||
-> +	    intel_display_reset_test(display))
-> +		timeout =3D i915_fence_timeout();
-> +	else
-> +		timeout =3D MAX_SCHEDULE_TIMEOUT;
-> +
->  	for_each_new_plane_in_state(&state->base, plane, new_plane_state, i) {
->  		if (!new_plane_state->fence)
->  			continue;
-> =20
-> -		ret =3D dma_fence_wait_timeout(new_plane_state->fence, false,
-> -					     i915_fence_timeout());
-> +		ret =3D dma_fence_wait_timeout(new_plane_state->fence, false, timeout);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this result in calling a
-sleeping function from an atomic context?
-
-The DRM subsystem guidelines explicitly define intel_atomic_commit_tail() a=
-nd
-its variants as atomic context paths where sleeping is forbidden. This code
-is reached during an atomic display commit via:
-
-intel_atomic_commit_tail()
-   intel_atomic_commit_fence_wait()
-      dma_fence_wait_timeout() -> might_sleep()
-
-While this patch only modifies the timeout value (which doesn't introduce t=
-he
-bug), the underlying call to a sleeping function from a forbidden atomic
-context remains. Can this cause kernel warnings or potential deadlocks duri=
-ng
-userspace modeset or pageflip requests?
-
->  		if (!ret)
->  			ret =3D -ETIMEDOUT;
->  		if (ret < 0) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1787833879.gi=
-t.jani.nikula@intel.com?part=3D6
