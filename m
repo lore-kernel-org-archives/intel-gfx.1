@@ -4,60 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB3E1C61DC6
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:36:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1E4C61DC6
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 144DA10EFF2;
-	Thu, 27 Aug 2026 12:36:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Hq59AwYR";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D99910EFED;
- Thu, 27 Aug 2026 12:36:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787834199; x=1819370199;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=oDS2QjN9hWxZn7rKosqeUtDU7i5zvkrOkBuyX09xqqo=;
- b=Hq59AwYRKsdzhlpWfcMM5lUwG/jmcrsxeDBihoPhA/cQYDkfs0XSO6Om
- mnMWFdUSOjrBBX7bcOBWwj5QoDyGv/3P/2slHPAW+m9fCUQrFOPnV9Cit
- veKJJUCFoVQN51dJ/k/9Z2x1jKPyJOa4LM2SuvQIEulCTNHJ28gSPoeIL
- s/IqeO+0pTgHEMn/NlYF5gZM86bTA2AUJuILKRDWkrQR77AxKr6PIqsWS
- nkd5smZUdVmCRDYAxr17FWPxa2woi46rfzsW6bmFsx3GxL9Gwmt5t0Iad
- CTaLpBMoSn9q0WNd7Fy8vBt/yQ4JJSS/cTyYtNr/fsFe7stUfsDvcgQER g==;
-X-CSE-ConnectionGUID: 6uuckyRFRHidV6hGG6vOSg==
-X-CSE-MsgGUID: dDoJZ4N4S6CImGn2n55dLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99849846"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="99849846"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 05:36:39 -0700
-X-CSE-ConnectionGUID: QkZNlqDqSGismowkqzYOTQ==
-X-CSE-MsgGUID: S4EgbDBSSYie0ULF8RI9rg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="267902599"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.219])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 05:36:37 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Maarten Lankhorst <maarten.lankhorst@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, ville.syrjala@linux.intel.com
-Subject: Re: [PATCH 4/4] drm/i915/display: use fixed 10 second timeout for
- fence wait
-In-Reply-To: <859cb981-4039-4f0e-801f-c9f8cd630ded@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1787148235.git.jani.nikula@intel.com>
- <f61a3a828b0c0159d63d132f8f557a546a6f9ced.1787148235.git.jani.nikula@intel.com>
- <859cb981-4039-4f0e-801f-c9f8cd630ded@intel.com>
-Date: Thu, 27 Aug 2026 15:36:34 +0300
-Message-ID: <d6d85707e57f06d7980bd46a7e36c26a25450ddf@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 538E210EFF3;
+	Thu, 27 Aug 2026 12:39:44 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F03F10EFF3;
+ Thu, 27 Aug 2026 12:39:43 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/dp=5Fl?=
+ =?utf-8?q?ink=5Fcaps=3A_Validate_max_link_rate?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: tarund18303@gmail.com
+Cc: intel-gfx@lists.freedesktop.org
+Date: Thu, 27 Aug 2026 12:39:43 -0000
+Message-ID: <178783438318.91327.12085473700016451966@61270ab9df2a>
+X-Patchwork-Hint: ignore
+References: <20260827022035.3442-1-tarund18303@gmail.com>
+In-Reply-To: <20260827022035.3442-1-tarund18303@gmail.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,31 +37,21 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 21 Aug 2026, Maarten Lankhorst <maarten.lankhorst@intel.com> wrote:
-> Not waiting on fences until they're signaled is an existing issue in
-> i915, and was added as a workaround for a deadlock when GPU reset has
-> to reset display as well on old platforms. This requires a modeset to
-> disable everything, which may hang since it could wait on a fence that
-> may only be signaled after gpu reset completes.
+== Series Details ==
 
-Thanks, I've used this verbatim in my v2 commit message. ;)
+Series: drm/i915/dp_link_caps: Validate max link rate
+URL   : https://patchwork.freedesktop.org/series/172866/
+State : failure
 
-> Can you test if gpu_reset_clobbers_display and
-> force_reset_modeset_test are set, and if not set the timeout to
-> infinity on i915 as well?
+== Summary ==
 
-v2 at [2], fingers crossed.
-
-BR,
-Jani.
+Series author address 'tarund18303@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
+If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
+Exception occurred during validation, bailing out!
+Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/185676/ (on built-in)
 
 
-[1] https://lore.kernel.org/r/cover.1787833879.git.jani.nikula@intel.com
-
-
-
--- 
-Jani Nikula, Intel
