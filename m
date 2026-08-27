@@ -4,28 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E389C61DC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 14:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87050C61DC4
+	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 14:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D34AF10F07D;
-	Thu, 27 Aug 2026 14:12:04 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4723E10F07D;
- Thu, 27 Aug 2026 14:12:04 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============0008377526828542428=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id E152710F0AC;
+	Thu, 27 Aug 2026 14:34:59 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iKqNaw07";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62A5F10F0AC;
+ Thu, 27 Aug 2026 14:34:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787841298; x=1819377298;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=jeIQwi3vo/oh0OcrQrlGyPLcum+wNWTr4UBVlayndm0=;
+ b=iKqNaw07Czs1Femkiki4/gGxulULavPCqVmk5/+1mz7dltF5sVa5nuRe
+ 6UGOL/zqmSyrHgwY6pW+znYeSPicII4FtoseMmHUe5A0Dm07HX46xxXnc
+ OKYSxh2MLHo5+AoJIqFSPFST7gFlE2PNQzLQaKq9Lxqkt6gykRwi8BhTq
+ nfWtHkZQ5aIOb6j346EC0zdEOMk0Nr3n6PiXJrLVgQ4MjgD5k7dOaYhTH
+ nYVME7UP1VPfv57P2bsSbc09uQf0aDSYnL02l5Sxp4ktl9R+FLewfUfjf
+ hbCcP5qS2YwLLG2qe5EwCuaBpR6U1gerrPTaqhnVyz5rAmwvH3tptU9MT Q==;
+X-CSE-ConnectionGUID: KOoh1i3fTOKSfoeTUQ+hgQ==
+X-CSE-MsgGUID: KXrzjS2UQc2r4wZIO66Nvw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="98676895"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="98676895"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 07:34:58 -0700
+X-CSE-ConnectionGUID: Z0gbXI98SISGcfOB9PTmxg==
+X-CSE-MsgGUID: ak10zBoITpeuwtdSIC0w3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; d="scan'208";a="266096464"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.244.229])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 07:34:54 -0700
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Krzysztof Karas <krzysztof.karas@intel.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [PATCH v3 0/2] DRM device registration fixes
+Date: Thu, 27 Aug 2026 16:34:45 +0200
+Message-ID: <20260827143447.99553-1-krzysztof.niemiec@intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/=7Bi915=2C_xe=7D/disp?=
- =?utf-8?q?lay=3A_another_stab_at_i915=5Ffence=5Ftimeout=28=29_removal_=28re?=
- =?utf-8?q?v2=29?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Jani Nikula" <jani.nikula@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Thu, 27 Aug 2026 14:12:04 -0000
-Message-ID: <178783992428.92196.18383745879887368192@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <cover.1787833879.git.jani.nikula@intel.com>
-In-Reply-To: <cover.1787833879.git.jani.nikula@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,142 +71,38 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============0008377526828542428==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+This series contains patches pertaining the drm_dev_register() and
+drm_dev_unregister() functions. Turns out drm_dev_register() doesn't
+properly unwind its effects in the error path, causing confusion and
+bugs.
 
-== Series Details ==
+Additionally, a related patch for i915 is bundled, as i915 mistakenly
+calls drm_dev_unregister() in the error path triggered by failing
+drm_dev_register(), which on one hand introduced a WARN_ON() in
+drm_client_sysrq_unregister(), caused by calling it without a previous
+_register() (as it was skipped in drm_dev_register()); but on the other
+hand silenced yet another WARN_ON() later on in the error path in
+drm_mode_config_cleanup(). With the other patch, the driver can just
+handle the error from drm_dev_register() cleanly without calling
+drm_dev_unregister(). This is explained in detail in both the patches.
 
-Series: drm/{i915, xe}/display: another stab at i915_fence_timeout() removal (rev2)
-URL   : https://patchwork.freedesktop.org/series/172458/
-State : success
+v2 -> v3:
+ - Reorder the patches (Sebastian, Andi)
 
-== Summary ==
+Krzysztof Karas (1):
+  drm: Unwind drm device registration upon error
 
-CI Bug Log - changes from CI_DRM_19051 -> Patchwork_172458v2
-====================================================
+Krzysztof Niemiec (1):
+  drm/i915: Remove drm_dev_unregister() from the error path during
+    i915_driver_register()
 
-Summary
--------
+ drivers/gpu/drm/drm_drv.c          | 2 ++
+ drivers/gpu/drm/i915/i915_driver.c | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-  **SUCCESS**
+-- 
+2.55.0
 
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/index.html
-
-Participating hosts (40 -> 38)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-Known issues
-------------
-
-  Here are the changes found in Patchwork_172458v2 that come from known issues:
-
-### IGT changes ###
-
-#### Possible fixes ####
-
-  * igt@i915_selftest@live@workarounds:
-    - bat-mtlp-9:         [INCOMPLETE][1] ([i915#16229]) -> [PASS][2] +1 other test pass
-   [1]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19051/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-   [2]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html
-
-  * igt@kms_pm_rpm@basic-pci-d3-state:
-    - fi-kbl-7567u:       [DMESG-WARN][3] ([i915#15673]) -> [PASS][4] +51 other tests pass
-   [3]: https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19051/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-   [4]: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html
-
-  
-  [i915#15673]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673
-  [i915#16229]: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19051 -> Patchwork_172458v2
-
-  CI-20190529: 20190529
-  CI_DRM_19051: c2f7f4803ab7055fa94f87bea53b90257d042c60 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git
-  Patchwork_172458v2: c2f7f4803ab7055fa94f87bea53b90257d042c60 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/index.html
-
---===============0008377526828542428==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/{i915, xe}/display: another stab at i915_fence_timeout() removal (rev2)</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/172458/">https://patchwork.freedesktop.org/series/172458/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19051 -&gt; Patchwork_172458v2</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/index.html</p>
-<h2>Participating hosts (40 -&gt; 38)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Known issues</h2>
-<p>Here are the changes found in Patchwork_172458v2 that come from known issues:</p>
-<h3>IGT changes</h3>
-<h4>Possible fixes</h4>
-<ul>
-<li>
-<p>igt@i915_selftest@live@workarounds:</p>
-<ul>
-<li>bat-mtlp-9:         <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19051/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">INCOMPLETE</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/16229">i915#16229</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/bat-mtlp-9/igt@i915_selftest@live@workarounds.html">PASS</a> +1 other test pass</li>
-</ul>
-</li>
-<li>
-<p>igt@kms_pm_rpm@basic-pci-d3-state:</p>
-<ul>
-<li>fi-kbl-7567u:       <a href="https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19051/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">DMESG-WARN</a> (<a href="https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/15673">i915#15673</a>) -&gt; <a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_172458v2/fi-kbl-7567u/igt@kms_pm_rpm@basic-pci-d3-state.html">PASS</a> +51 other tests pass</li>
-</ul>
-</li>
-</ul>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19051 -&gt; Patchwork_172458v2</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19051: c2f7f4803ab7055fa94f87bea53b90257d042c60 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9076: 8f42b0189d73d9912ad58c99cfaa4ff46c20fcc3 @ https://gitlab.freedesktop.org/drm/igt-gpu-tools.git<br />
-  Patchwork_172458v2: c2f7f4803ab7055fa94f87bea53b90257d042c60 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============0008377526828542428==--
