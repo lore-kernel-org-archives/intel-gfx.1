@@ -4,52 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85419C61DC6
-	for <intel-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 09:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57B79C61DB9
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 09:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F26F910F2FC;
-	Fri, 28 Aug 2026 09:00:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E838C10F306;
+	Fri, 28 Aug 2026 09:07:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FdSOoeNU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nWNaAb8V";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B019C10F2FC;
- Fri, 28 Aug 2026 09:00:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787907631; x=1819443631;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=9haalhvNYYI+D00r5O2IJBlyVdkN2m6Jm5VvOeuu8NY=;
- b=FdSOoeNUGggH1fufX4zNzghUNx9RuEQp1cQ+xH24Edy/TQ593dPibRuz
- AfdWfwHnZU5lqDExQfQKZMX718xmYNDZGkDE2Ajf9Ox7/OBhsZ/E4LTqi
- cfoPFjrmAJS4uruvvjla78YDIIXwYKm4CeKeoWhr2Tifzg9oPcUyVl49s
- ZgECn6BYLs1SXNJAMmqiSntgx8J6cx6TlMg/LDpXBp3myXVgPl5GnQdzL
- fCk4UOIBj71zOgFcc6rL+NK0Ci15zKs9aqv0/dWFI64Uv6Wljbg+IniFO
- 7NBe0nezpNwEL2YGHJsZ4kP10HmMXv/GQ8m310AzzhTgiS0YRoMIiZm0A Q==;
-X-CSE-ConnectionGUID: I+dgsgLLRwmz9bjRAx0w6w==
-X-CSE-MsgGUID: v4IIxkNBTNuWMC7QlGmCTg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="111190558"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="111190558"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Aug 2026 02:00:31 -0700
-X-CSE-ConnectionGUID: E4tsy1fLRlObfTom/gzfvg==
-X-CSE-MsgGUID: /9Rt3sdXSZGAZoADw1DXrA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="271629170"
-Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
- by orviesa003.jf.intel.com with ESMTP; 28 Aug 2026 02:00:29 -0700
-From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org,
-	ankit.k.nautiyal@intel.com
-Subject: [PATCH v1] drm/i915/display: Add command line param for DC balance
-Date: Fri, 28 Aug 2026 14:20:36 +0530
-Message-ID: <20260828085037.1430881-1-mitulkumar.ajitkumar.golani@intel.com>
-X-Mailer: git-send-email 2.48.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71E1910F305;
+ Fri, 28 Aug 2026 09:07:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F276E411B1;
+ Fri, 28 Aug 2026 09:07:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF641F000E9;
+ Fri, 28 Aug 2026 09:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1787908040;
+ bh=EEEy1iOpNZjEFkc9zBP01BftB84fShafMMH9zDjHKt4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nWNaAb8V0RVEjiGsXu099/tfClO4CDKv7qsNM313S6ixel0AyhkH+ehNuRCKr+HDD
+ VHPojzXx1AkVah2Mu2Hx+rychif4S8mpfnU2tnuFGE4iWsCVVS35JwQv3Hsyo86Fiq
+ nfyMdMFeYXMLUmZTYDu8HJ+XKPBC3+gVS6BObz/9Mp4TLKwUkUoJBY2RR2GBuwAMpN
+ PM+k7onvIcB+p2I3OzEdSO5UCjQw5seOEjYZm8KrdoVIKtGjWCBekTtJykUjV6JJyA
+ 7UMFDdW4EcZqZzunguVas11LrqdkbTBFLa1k/RdUL9T5gapdEGv8e93jNLpPEy1cU0
+ jgo6YpWliYaEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1] drm/i915/display: Add command line param for DC balance
+To: "Mitul Golani" <mitulkumar.ajitkumar.golani@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260828085037.1430881-1-mitulkumar.ajitkumar.golani@intel.com>
+References: <20260828085037.1430881-1-mitulkumar.ajitkumar.golani@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 28 Aug 2026 09:07:20 +0000
+Message-Id: <20260828090720.9FF641F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,65 +52,82 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Add a new module parameter 'enable_dc_balance' to allow enabling or
-disabling the VRR DC balance feature at runtime. The DC balance
-computation in intel_vrr_dc_balance_compute_config() now honours this
-parameter, so the feature can be toggled without recompiling.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `enable_dc_balance` module parameter is initialized to `fals=
+e` (0), unintentionally disabling the VRR DC balancing feature by default a=
+nd contradicting the intended default behavior.
+--
 
-Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
----
- drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
- drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
- 3 files changed, 7 insertions(+), 1 deletion(-)
+commit ce08e2bbe0ea201e24fac54e608cc7792b588403
+Author: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 2aed110c5b09..ed3aa84c5d43 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -120,6 +120,9 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
- 	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
- 	"Default: -1 (use per-chip default)");
- 
-+intel_display_param_named_unsafe(enable_dc_balance, int, 0400,
-+	"Enable DC Balance (0=disabled, 1=enable). Default: 1 (use per-chip default)");
-+
- intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
- 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index b95ecf728daa..8c28c27e2c46 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -46,6 +46,7 @@ struct drm_printer;
- 	param(bool, enable_dp_mst, true, 0600) \
- 	param(int, enable_fbc, -1, 0600) \
- 	param(int, enable_psr, -1, 0600) \
-+	param(int, enable_dc_balance, false, 0600) \
- 	param(int, enable_panel_replay, -1, 0600) \
- 	param(bool, psr_safest_params, false, 0400) \
- 	param(bool, enable_psr2_sel_fetch, true, 0400) \
-diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
-index e36db1174440..1698c54e258b 100644
---- a/drivers/gpu/drm/i915/display/intel_vrr.c
-+++ b/drivers/gpu/drm/i915/display/intel_vrr.c
-@@ -439,10 +439,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
- static void
- intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
- {
-+	struct intel_display *display = to_intel_display(crtc_state);
- 	int guardband_usec, adjustment_usec;
- 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
- 
--	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
-+	if (!intel_vrr_dc_balance_possible(crtc_state) ||
-+	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
- 		return;
- 
- 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
--- 
-2.48.1
+drm/i915/display: Add command line param for DC balance
 
+This commit adds a new module parameter enable_dc_balance to allow enabling
+or disabling the VRR DC balance feature at runtime. The DC balance
+computation in intel_vrr_dc_balance_compute_config() is updated to honor
+this parameter.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/driver=
+s/gpu/drm/i915/display/intel_display_params.c
+> index 2aed110c5b090..ed3aa84c5d43d 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+> @@ -120,6 +120,9 @@ intel_display_param_named_unsafe(enable_psr, int, 040=
+0,
+[ ... ]
+> +intel_display_param_named_unsafe(enable_dc_balance, int, 0400,
+> +	"Enable DC Balance (0=3Ddisabled, 1=3Denable). Default: 1 (use per-chip=
+ default)");
+
+[Severity: Medium]
+The parameter documentation in intel_display_param_named_unsafe() states
+that the default value is 1, but the underlying parameter definition sets
+it to false.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/driver=
+s/gpu/drm/i915/display/intel_display_params.h
+> index b95ecf728daab..8c28c27e2c46c 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display_params.h
+> +++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+> @@ -46,6 +46,7 @@ struct drm_printer;
+[ ... ]
+>  	param(int, enable_psr, -1, 0600) \
+> +	param(int, enable_dc_balance, false, 0600) \
+
+[Severity: Medium]
+Does this unintentionally disable the VRR DC balance feature by default?
+The macro initializes enable_dc_balance to false (0), contradicting the
+intended default documented above.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i=
+915/display/intel_vrr.c
+> index 51e4f3309b8b1..cfc0cfbff017a 100644
+> --- a/drivers/gpu/drm/i915/display/intel_vrr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+> @@ -386,10 +386,12 @@ static bool intel_vrr_dc_balance_possible(const str=
+uct intel_crtc_state *crtc_st
+>  static void
+>  intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
+>  {
+[ ... ]
+> -	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enab=
+le)
+> +	if (!intel_vrr_dc_balance_possible(crtc_state) ||
+> +	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
+>  		return;
+
+[Severity: Medium]
+Because the parameter defaults to 0, !display->params.enable_dc_balance
+evaluates to true here. Can this cause intel_vrr_dc_balance_compute_config()
+to silently bail out early, disabling the feature by default on all
+configurations?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260828085037.1430=
+881-1-mitulkumar.ajitkumar.golani@intel.com?part=3D1
