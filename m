@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A307C61DC4
-	for <intel-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 23:44:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85419C61DC6
+	for <intel-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 09:00:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 873BC10F1F4;
-	Thu, 27 Aug 2026 23:44:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F26F910F2FC;
+	Fri, 28 Aug 2026 09:00:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lwsU5v8y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FdSOoeNU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF35D10F1F4;
- Thu, 27 Aug 2026 23:44:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7870A424B5;
- Thu, 27 Aug 2026 23:44:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B605D1F000E9;
- Thu, 27 Aug 2026 23:44:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787874265;
- bh=GK+I+uB8a3r0gHn2Xh5Vw5VczDgj6/e+0zafz1lDjwk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lwsU5v8y5+Vg4AEUp/7Ye32zrfn9YizvPF5ZfSL57IQaEWu9gN6Pb18i9ihwwy+Mu
- 57QWTtpi0By1jpQXIEFdlJnd6+E4FiHB6/+/pR5DCQtD3CrzW0oCQA/dkMPborFTgl
- EyfykI5ajGYLeTrOzECEQwZQIH291mrATzeXC0UGKQWSzn45v/zfX7bSqQIk7DHLlq
- eLPsg2XIf52Z8J1AIGY7qfR5h9V2EjPjS5mauCNSR6Pstd3kb1EHDukq3HWJ70EPY4
- lL2AupiBVXIjTvFbNTt8JSTfAWSXWfrMbybgeiuVjgqSZXsZ0Kfojo404ZzI3ZZXOn
- SyWQt5p8L3LHg==
-Date: Fri, 28 Aug 2026 01:44:22 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v2 7/8] drm/i915/gt/selftests: Use drm_* prints in gt
- selftest helpers
-Message-ID: <apDLMng-T7W2R04z@zenone.zhora.eu>
-References: <20260818095624.3254368-1-krzysztof.karas@intel.com>
- <20260818095624.3254368-8-krzysztof.karas@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B019C10F2FC;
+ Fri, 28 Aug 2026 09:00:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787907631; x=1819443631;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=9haalhvNYYI+D00r5O2IJBlyVdkN2m6Jm5VvOeuu8NY=;
+ b=FdSOoeNUGggH1fufX4zNzghUNx9RuEQp1cQ+xH24Edy/TQ593dPibRuz
+ AfdWfwHnZU5lqDExQfQKZMX718xmYNDZGkDE2Ajf9Ox7/OBhsZ/E4LTqi
+ cfoPFjrmAJS4uruvvjla78YDIIXwYKm4CeKeoWhr2Tifzg9oPcUyVl49s
+ ZgECn6BYLs1SXNJAMmqiSntgx8J6cx6TlMg/LDpXBp3myXVgPl5GnQdzL
+ fCk4UOIBj71zOgFcc6rL+NK0Ci15zKs9aqv0/dWFI64Uv6Wljbg+IniFO
+ 7NBe0nezpNwEL2YGHJsZ4kP10HmMXv/GQ8m310AzzhTgiS0YRoMIiZm0A Q==;
+X-CSE-ConnectionGUID: I+dgsgLLRwmz9bjRAx0w6w==
+X-CSE-MsgGUID: v4IIxkNBTNuWMC7QlGmCTg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="111190558"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="111190558"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 02:00:31 -0700
+X-CSE-ConnectionGUID: E4tsy1fLRlObfTom/gzfvg==
+X-CSE-MsgGUID: /9Rt3sdXSZGAZoADw1DXrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; d="scan'208";a="271629170"
+Received: from mgolanimitul-x299-ud4-pro.iind.intel.com ([10.190.239.114])
+ by orviesa003.jf.intel.com with ESMTP; 28 Aug 2026 02:00:29 -0700
+From: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org,
+	ankit.k.nautiyal@intel.com
+Subject: [PATCH v1] drm/i915/display: Add command line param for DC balance
+Date: Fri, 28 Aug 2026 14:20:36 +0530
+Message-ID: <20260828085037.1430881-1-mitulkumar.ajitkumar.golani@intel.com>
+X-Mailer: git-send-email 2.48.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260818095624.3254368-8-krzysztof.karas@intel.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,29 +65,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Add a new module parameter 'enable_dc_balance' to allow enabling or
+disabling the VRR DC balance feature at runtime. The DC balance
+computation in intel_vrr_dc_balance_compute_config() now honours this
+parameter, so the feature can be toggled without recompiling.
 
-...
+Signed-off-by: Mitul Golani <mitulkumar.ajitkumar.golani@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_display_params.c | 3 +++
+ drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
+ drivers/gpu/drm/i915/display/intel_vrr.c            | 4 +++-
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> index b893a8fde895..6f5962eaca3b 100644
-> --- a/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> +++ b/drivers/gpu/drm/i915/gt/selftest_engine_heartbeat.c
-> @@ -202,8 +202,10 @@ static int __live_heartbeat_off(struct intel_engine_cs *engine)
->  	engine->serial++;
->  	flush_delayed_work(&engine->heartbeat.work);
->  	if (!delayed_work_pending(&engine->heartbeat.work)) {
-> -		pr_err("%s: heartbeat not running\n",
-> -		       engine->name);
-> +		struct drm_printer m = drm_err_printer(&engine->i915->drm, "heartbeat off");
-> +
-> +		drm_printf(&m, "%s: heartbeat not running\n", engine->name);
-> +
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
+index 2aed110c5b09..ed3aa84c5d43 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.c
++++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+@@ -120,6 +120,9 @@ intel_display_param_named_unsafe(enable_psr, int, 0400,
+ 	"(0=disabled, 1=enable up to PSR1, 2=enable up to PSR2) "
+ 	"Default: -1 (use per-chip default)");
+ 
++intel_display_param_named_unsafe(enable_dc_balance, int, 0400,
++	"Enable DC Balance (0=disabled, 1=enable). Default: 1 (use per-chip default)");
++
+ intel_display_param_named_unsafe(enable_panel_replay, int, 0400,
+ 	"Enable Panel Replay (0=disabled, 1=enabled). Default: -1 (use per-chip default)");
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
+index b95ecf728daa..8c28c27e2c46 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_params.h
++++ b/drivers/gpu/drm/i915/display/intel_display_params.h
+@@ -46,6 +46,7 @@ struct drm_printer;
+ 	param(bool, enable_dp_mst, true, 0600) \
+ 	param(int, enable_fbc, -1, 0600) \
+ 	param(int, enable_psr, -1, 0600) \
++	param(int, enable_dc_balance, false, 0600) \
+ 	param(int, enable_panel_replay, -1, 0600) \
+ 	param(bool, psr_safest_params, false, 0400) \
+ 	param(bool, enable_psr2_sel_fetch, true, 0400) \
+diff --git a/drivers/gpu/drm/i915/display/intel_vrr.c b/drivers/gpu/drm/i915/display/intel_vrr.c
+index e36db1174440..1698c54e258b 100644
+--- a/drivers/gpu/drm/i915/display/intel_vrr.c
++++ b/drivers/gpu/drm/i915/display/intel_vrr.c
+@@ -439,10 +439,12 @@ static bool intel_vrr_dc_balance_possible(const struct intel_crtc_state *crtc_st
+ static void
+ intel_vrr_dc_balance_compute_config(struct intel_crtc_state *crtc_state)
+ {
++	struct intel_display *display = to_intel_display(crtc_state);
+ 	int guardband_usec, adjustment_usec;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 
+-	if (!intel_vrr_dc_balance_possible(crtc_state) || !crtc_state->vrr.enable)
++	if (!intel_vrr_dc_balance_possible(crtc_state) ||
++	    !crtc_state->vrr.enable || !display->params.enable_dc_balance)
+ 		return;
+ 
+ 	crtc_state->vrr.dc_balance.vmax = crtc_state->vrr.vmax;
+-- 
+2.48.1
 
-I don't get this change, why don't you just use drm_err()?
-
-Thanks,
-Andi
-
->  		err = -EINVAL;
->  		goto err_pm;
