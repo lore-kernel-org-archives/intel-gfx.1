@@ -4,47 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36CDFC61DD6
-	for <intel-gfx@archiver.kernel.org>; Sat, 29 Aug 2026 07:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A2EC61DCB
+	for <intel-gfx@archiver.kernel.org>; Sat, 29 Aug 2026 08:49:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECD9710E0BF;
-	Sat, 29 Aug 2026 07:30:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C89C10E0B9;
+	Sat, 29 Aug 2026 08:49:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LiOZh3F2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BHH4Pxdu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2976710E0B0;
- Sat, 29 Aug 2026 07:30:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7212D403E5;
- Sat, 29 Aug 2026 07:30:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC88F1F000E9;
- Sat, 29 Aug 2026 07:30:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787988607;
- bh=gdqDEOzw6jPcRqvtQ9jieT2oIslarDO4T+zjOJWu3Q4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LiOZh3F2wVjKEDs018U+42ssdRBbdGZkvasPCrlEZ5tFmXTjpz2ivxxCcQrqh8fV9
- 0YVPnT9vraWoQ1dtRfh9jbP2z4jZxF/iXYlsAH1yOKNjJb/WpohCjZTcMp7Etj7SFj
- erWESzu/uA7uslybiUbeMrZHobTarfH/83lizZ5U=
-Date: Sat, 29 Aug 2026 09:28:24 +0200
-From: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>
-To: nirbhayykumarr@proton.me
-Cc: "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
- "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>,
- "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
- "arnd@arndb.de" <arnd@arndb.de>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
-Subject: Re: [BUG] misc/mei: Race between mei_release() disconnect and
- mei_ioctl_connect_vtag() causes CSME reset storm and i915 freeze
-Message-ID: <2026082929-bath-idiom-06e7@gregkh>
-References: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36BDA10E0B9;
+ Sat, 29 Aug 2026 08:49:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787993373; x=1819529373;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Ve5emK5YIYfKRJXF4xIBHYdAbXRxw0Y0Fjq9iPIMMbo=;
+ b=BHH4PxduAZn4z4l1Zo6nC6sgy+0snbivmxok1cduYMQ1S19cD9P1ffBl
+ eoNPvCDQhRs4Cc0q5BZZ3NM+VNmvQJ3TLAA/jO2LHMZoJ9nPl6ydpktsT
+ 2nUioaqDpUkXHPSrMK4b0WGZCN2IXjX76LMxKl9opcaNveJzGA7WYPg9e
+ jRsOmEDeBbvRvF6/XP+WJkXNCVWIlgCWeWSR90ObRT9UE6Qvhx/dW0hQJ
+ xaXkdCydCyOeKhut/js2MgNnJvK5PbvatnAmy/SneYSAyUIrQHoPkEn5K
+ zfN5q2EjUkxA4hq4OK9Nc/A6D9VslX0Pj3HqPg8RjFZ4gPp6tZZY3Nduy Q==;
+X-CSE-ConnectionGUID: i+qGGe0+RLOXPFJTfRbRCg==
+X-CSE-MsgGUID: xiIaQ7zeSvigbW6NxgP75A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88247233"
+X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; d="scan'208";a="88247233"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2026 01:49:32 -0700
+X-CSE-ConnectionGUID: OwoIS45WTvi/6XDDzsSfhw==
+X-CSE-MsgGUID: FFcdVKRjR/+GyevCIsIKMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; d="scan'208";a="265797758"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.218])
+ ([10.245.245.218])
+ by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2026 01:49:30 -0700
+Message-ID: <3ad607d2-98b4-4f8d-8cf4-ac4e5fb738b8@intel.com>
+Date: Sat, 29 Aug 2026 10:51:12 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] drm/i915: only timeout on fence waits for display
+ reset
+To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com, ville.syrjala@linux.intel.com
+References: <cover.1787833879.git.jani.nikula@intel.com>
+ <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@intel.com>
+In-Reply-To: <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,85 +73,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 29, 2026 at 07:14:10AM +0000, nirbhayykumarr@proton.me wrote:
-> Hi all,
-> 
-> This issue was discovered using a custom multi-threaded C fuzzer
-> designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
-> multiplexing over /dev/mei0. By concurrently racing rapid vtag
-> connections against file descriptor closures and streaming I/O, a
-> race condition is triggered during client teardown.
+For whole series:
 
-But that's not a normal use case, right?
+Acked-by: Maarten Lankhorst <maarten.lankhorst@intel.com>
 
-> System Information & Environment:
-> - Kernel Version: 7.1.8-zen1-3-zen x86_64 (drivers/misc/mei is identical to upstream)
-> - Kernel Taint: 0 (Not tainted)
-> - CPU / Platform: 12th Gen Intel(R) Core(TM) i5-12500H (Alder Lake-P)
-> - MEI Controller: 00:16.0 Intel Alder Lake PCH HECI Controller (/dev/mei0)
-> - Graphics / DRM: Intel Iris Xe Graphics (i915 driver with mei_hdcp and mei_pxp components)
-> - Subsystems:     drivers/misc/mei, drivers/gpu/drm/i915
-> 
-> In mei_release(), closing the last file descriptor holding a virtual tag
-> invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(), dev->device_lock
-> is dropped while awaiting the firmware disconnect ACK on cl->wait.
-> 
-> During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTAG
-> call on the same UUID (e.g. MKHI) scans dev->file_list, matches the tearing-
-> down client 'pos' (in MEI_FILE_DISCONNECTING), repoints file->private_data
-> to pos, and adds its new vtag to pos->vtag_map.
-> 
-> When the disconnect ACK arrives, __mei_cl_disconnect() calls
-> mei_cl_set_disconnected(cl), setting cl->me_cl = NULL and
-> cl->state = MEI_FILE_DISCONNECTED. Because pos->vtag_map now contains the
-> second thread's tag, mei_release() skips unlinking/freeing cl. The second
-> thread then wakes up and attempts to reconnect via mei_ioctl_connect_client().
-> 
-> Additionally, shared clients lack tag based demuxing on cl->rd_pending in
-> drivers/misc/mei/interrupt.c:
->   cb = list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, list);
-> 
-> Incoming packets are matched to the head of the FIFO queue regardless of
-> vtag, causing -EPROTO errors, dropped packets, and out-of-order HBM command
-> sequences. This triggers continuous CSME hardware link resets:
->   mei mei0: FW not ready: resetting: dev_state = 3
->   mei mei0: unexpected reset: dev_state = ENABLED fw status = ...
-> 
-> During each reset, child client drivers (mei_hdcp, mei_pxp) unbind and rebind
-> with i915 DRM. With resets looping at hundreds of cycles per second (>9,800
-> events in 27s), mei_cldev_enable() repeatedly fails with -EFAULT / -ENODEV,
-> deadlocking i915 display worker mutexes in TASK_UNINTERRUPTIBLE and causing
-> an unrecoverable full system freeze.
-> 
-> Journalctl logs:
->   mei mei0: FW not ready: resetting: dev_state = 3
->   mei mei0: unexpected reset: dev_state = ENABLED fw status = 90000245 89110106 00000020 00004000 00021F03 446003CB
->   mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: mei_cldev_enable Failed. -14
->   mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: probe with driver mei_hdcp failed with error -14
->   mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: bound 0000:00:02.0 (ops i915_hdcp_ops [i915])
->   mei_pxp 0000:00:16.0-fbf6fcf1-96cf-4e2e-a6a6-1bab8cbe36b1: bound 0000:00:02.0 (ops i915_pxp_tee_component_ops [i915])
->   mei mei0: FW not ready: resetting: dev_state = 3
->   mei mei0: unexpected reset: dev_state = ENABLED fw status = 90000245 89110106 00000020 00004000 00021F03 446003CB
-> 
-> Proposed Fix:
-> - Prevent vtag reuse during teardown: in mei_ioctl_connect_vtag(),
->    ignore existing clients on dev->file_list if they are in
->    MEI_FILE_DISCONNECTING or MEI_FILE_DISCONNECTED states or undergoing
->    teardown.
-> - Implement proper reference counting / lifecycle synchronization on
->    shared struct mei_cl instances.
-> - In drivers/misc/mei/interrupt.c, demux cl->rd_pending by matching the
->    incoming packet's vtag header to the corresponding callback rather
->    than assuming FIFO order.
-> - Add rate-limiting / backoff to MEI client reprobing during hardware
->    link resets to prevent cascading bus storms into DRM / i915.
+On 8/27/26 14:34, Jani Nikula wrote:
+> As written by Maarten: Not waiting on fences until they're signaled is
+> an existing issue in i915, and was added as a workaround for a deadlock
+> when GPU reset has to reset display as well on old platforms. This
+> requires a modeset to disable everything, which may hang since it could
+> wait on a fence that may only be signaled after GPU reset completes.
+>
+> Limit the timeout on fence waits a) to platforms where GPU reset
+> clobbers display, and b) when we're running forced display reset tests.
+>
+> This change only impacts i915, as xe has MAX_SCHEDULE_TIMEOUT in any
+> case.
+>
+> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> Suggested-by: Maarten Lankhorst <maarten.lankhorst@intel.com>
+> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_display.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+> index aa5d41dac8a9..76ec9161aaa3 100644
+> --- a/drivers/gpu/drm/i915/display/intel_display.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> @@ -74,6 +74,7 @@
+>  #include "intel_display_driver.h"
+>  #include "intel_display_power.h"
+>  #include "intel_display_regs.h"
+> +#include "intel_display_reset.h"
+>  #include "intel_display_rpm.h"
+>  #include "intel_display_types.h"
+>  #include "intel_display_utils.h"
+> @@ -7277,15 +7278,20 @@ static void intel_atomic_commit_fence_wait(struct intel_atomic_state *state)
+>  	struct intel_display *display = to_intel_display(state);
+>  	struct drm_plane *plane;
+>  	struct drm_plane_state *new_plane_state;
+> -	long ret;
+> +	long timeout, ret;
+>  	int i;
+>  
+> +	if (intel_display_reset_needed_after_gpu_reset(display) ||
+> +	    intel_display_reset_test(display))
+> +		timeout = i915_fence_timeout();
+> +	else
+> +		timeout = MAX_SCHEDULE_TIMEOUT;
+> +
+>  	for_each_new_plane_in_state(&state->base, plane, new_plane_state, i) {
+>  		if (!new_plane_state->fence)
+>  			continue;
+>  
+> -		ret = dma_fence_wait_timeout(new_plane_state->fence, false,
+> -					     i915_fence_timeout());
+> +		ret = dma_fence_wait_timeout(new_plane_state->fence, false, timeout);
+>  		if (!ret)
+>  			ret = -ETIMEDOUT;
+>  		if (ret < 0) {
 
-Please send patches for this if you wish to see these issues addressed.
-As you have a reproducer, it should be simple for you to do so.
-
-And how does this differ from the patch you have already sent but has
-not yet been merged?
-
-thanks,
-
-greg k-h
