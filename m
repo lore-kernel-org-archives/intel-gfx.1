@@ -4,77 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8AFFC624CC
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:47:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A1C2C61DD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:47:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C24A10E7FE;
-	Mon, 31 Aug 2026 11:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3EB610E7F5;
+	Mon, 31 Aug 2026 11:47:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dn5A18bO";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="U8PAjo/w";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC87610E563
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2026 16:17:12 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-851cbd64814so1058389b3a.1
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2026 09:17:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788106632; x=1788711432; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=54C0fnQ3Auto948vkBDj75sqdB7k3c+Pc38gSCW7U00=;
- b=Dn5A18bOwJoEwBF+MmdDj73pEHrCra3lSj/O3fO6HkaDojEJuRvLP6SQ+bd0QcTU9l
- bMTT0paVFxkbV6U3pxVXMLy9yVx0abuyF0CgJJ76RgKyUzJITSf2lprK7LCr0e09u994
- oCYxnfhxJfqNt5zTRp+t44Gmglq0bNMW2OldwRoqEGYu62e0qpwf9+p9pmQskTa2vqER
- CZ1+0vLZ86E/DgcrtUF9Su69+2b5+MrV2d03KCK1opf+EJyOWxITSz8r6r9hX7+Sl8XH
- UCJa6z517g3IXC4da/d3datgvODY4jp78Ll91f6kAvJ2sB6+BEjsRw891vwdLyr4vYJQ
- Pglw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788106632; x=1788711432;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=54C0fnQ3Auto948vkBDj75sqdB7k3c+Pc38gSCW7U00=;
- b=HZZbyXA0+9TKhRG0PUyszpcfeoMhAZWdVM4XUwgsW70zw8F7wO6jB671P2XBapesT7
- BDx7Ok1Ms/XfxB8VZe3LHnaJqqsevRZCwbuKwbAk+e/49T0xMILluMDrlILW0CR6TqEx
- na0Of6pgnxS8ukmcxykfI1rj5MsY7UPwOC/KCwfxWQCTa/uhTYJC6K6RvlcOvjeEP8Vs
- 3bjJhilxoSYdOdcsD1LjBPpEkoO73kkorm3FmjC01bpwQpEYoP2lqLfo8Lbdeej/baWW
- BkCKa9riCGcY1Eg45bPD4jgIlPFc438Dza2I/uyjcf9knv3FSBoFHHQV5ESFMarUHyh6
- zoBg==
-X-Gm-Message-State: AFuF++murdwj+/DCiGGqcxQXhaKzB45eheXJyw1pdlShd7WJ7CAbw+2k
- TyMlVfWXz6OxbiqdqqQqUD8E11TlSLSZ9/OWuCct+YVw4mtHNmxgzKU=
-X-Gm-Gg: AR+sD10B2DwZzMfzBoD0hE4vVZ9c8+UBjlKX0xUVybd2Q3fd9wjooso5i67BAhiijcK
- ru6nLHx425MXETOtW+ACqqjss85EMqJzMX6RADaqq9VFfUx/FsCgiEWoUyWa51sr093arWqgyYp
- 0BcHI7GN/NrMoUP3w7vJpSgLG620NZhuMrXH0Q7i8RKQwMJ+jMT4Ap8eJdbqUu7m85TJdWNpK+I
- qCjFN2PN/kRA6RIhjmvFB2HAPg2sk4bSlpq2MGwlenUIWMtcrZrlrW0dF6cRs025TwoNrhCuPx0
- gCNcVQw826xRqyJtuotccqGtKRzdywlz1Id3z4+WyVCsBynECWACFYqhXO57K4b1jJM8PpG6CwM
- UEP6nnPuHmqkqk4uqzmzIyu/AmH0pN37yrGniOqUdwlkpf2YM3AKsqVWW4iRfQ5Fw0DtUF1R4vx
- uFN2UeYm+9fvxHS6mQ0e+/5dtL9vx4Mzete0+r9ENGMzyefiV7p5aixUrT+vvs0G8D
-X-Received: by 2002:a05:6a00:a118:b0:847:8449:2bb6 with SMTP id
- d2e1a72fcca58-8562953d5e9mr34140137b3a.4.1788106632245; 
- Sun, 30 Aug 2026 09:17:12 -0700 (PDT)
-Received: from fedora ([2601:602:867e:54e0::bc1f])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cc1f32f727bsm3008661a12.7.2026.08.30.09.17.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Aug 2026 09:17:11 -0700 (PDT)
-From: Eduardo Diaz <iamedu@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Eduardo Diaz <iamedu@gmail.com>
-Subject: [PATCH] drm/i915/cdclk: Don't trust boot readout for per-pipe
- cdclk/voltage tracking
-Date: Sun, 30 Aug 2026 09:17:03 -0700
-Message-ID: <20260830161703.11570-1-iamedu@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 877DC10E0B0
+ for <intel-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 07:15:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1787987655; x=1788246855;
+ bh=kIk2FnWRFYjt/MDZYqqCEVVosV9asFtRnc86uQg83HE=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=U8PAjo/wBQ1UzYjVgRkZqrFOqOzTX6iFQDOIYTbkEXwUope6eEsU4eTxbJVfSuNkU
+ EOmKWHkKdQ+n5NMeieFPFK50n8eN+Hq4GFzbEdqbvoz5tmQ+l9Lg3TCXldkxhxxFoC
+ asne6BLSX2Pl7HXzQNrWNVHkO+jxfeWMuU5Qm3OFCLM6ZtavX4TwbG3KOgmRlZ+X8g
+ S+oz8aIMzy0ww1lQPxHSNIYtgN9sCfE5PvXryQCqSGjfl5igDMoVr9+0EfJbEMgwq2
+ CBWU0K51ZMT9Ofh7PgMx/0/fJyNb/5lDxrD6ZrSufM1AveldeMu510H7e9b9hKXG7f
+ nZ2aE798KGFNA==
+Date: Sat, 29 Aug 2026 07:14:10 +0000
+To: "rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>,
+ "alexander.usyskin@intel.com" <alexander.usyskin@intel.com>,
+ "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>
+From: nirbhayykumarr@proton.me
+Cc: "arnd@arndb.de" <arnd@arndb.de>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>
+Subject: [BUG] misc/mei: Race between mei_release() disconnect and
+ mei_ioctl_connect_vtag() causes CSME reset storm and i915 freeze
+Message-ID: <HVTY6-E6fK5xolgZqI7bt1JIKctxL4VdcbteGTvPo7PN58iyvU01QXToLr2v9pvJtGTrUHFLuc7xZQtplf6HaZak1JvG3gySDpazMhbHsnE=@proton.me>
+Feedback-ID: 172828574:user:proton
+X-Pm-Message-ID: 8104cc690dd5055df13bcefbadcdbe3ede1aa86a
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 31 Aug 2026 11:47:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,158 +60,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Panther Lake (xe3lpd) laptops, cold boot reliably corrupts the
-internal eDP panel: pipe A gets a "Selective fetch area calculation
-failed in pipe A" warning immediately followed by a CPU pipe A FIFO
-underrun, and the panel stays corrupted for the rest of the session.
-A subsequent suspend/resume cycle (or any other full re-modeset)
-"fixes" it, which pointed at cdclk/voltage-level tracking rather than
-a genuine hardware race.
+Hi all,
 
-intel_modeset_readout_hw_state() runs once at driver probe (and again
-on resume) to figure out what firmware/GOP left the display in. For
-each already-active pipe it calls intel_cdclk_update_hw_state(),
-which seeds cdclk_state->min_cdclk[]/min_voltage_level[] directly
-from the freshly read-out crtc_state. That treats "firmware left this
-pipe active with mode X" as proof that this driver's own cdclk,
-voltage-level and DBUF setup for mode X is already established in
-hardware. It isn't -- only firmware's own, entirely separate code
-path has ever touched those registers.
+This issue was discovered using a custom multi-threaded C fuzzer
+designed to stress-test MEI Virtual Tag (vtag) client lifecycles and
+multiplexing over /dev/mei0. By concurrently racing rapid vtag
+connections against file descriptor closures and streaming I/O, a
+race condition is triggered during client teardown.
 
-The OS driver's first real modeset for an inherited pipe typically
-targets the same native panel mode, so the freshly computed
-crtc_state->min_cdclk/min_voltage_level trivially match this
-readout-seeded baseline. intel_cdclk_update_crtc_min_cdclk() and
-intel_cdclk_update_crtc_min_voltage_level() then conclude nothing
-changed and skip the recalculation, on the one commit where it
-actually matters: taking a pipe from firmware ownership to being
-correctly configured by this driver.
+System Information & Environment:
+- Kernel Version: 7.1.8-zen1-3-zen x86_64 (drivers/misc/mei is identical to=
+ upstream)
+- Kernel Taint: 0 (Not tainted)
+- CPU / Platform: 12th Gen Intel(R) Core(TM) i5-12500H (Alder Lake-P)
+- MEI Controller: 00:16.0 Intel Alder Lake PCH HECI Controller (/dev/mei0)
+- Graphics / DRM: Intel Iris Xe Graphics (i915 driver with mei_hdcp and mei=
+_pxp components)
+- Subsystems:     drivers/misc/mei, drivers/gpu/drm/i915
 
-Fix this in two parts:
+In mei_release(), closing the last file descriptor holding a virtual tag
+invokes mei_cl_disconnect(). Inside __mei_cl_disconnect(), dev->device_lock
+is dropped while awaiting the firmware disconnect ACK on cl->wait.
 
- - Invalidate the per-pipe min_cdclk[]/min_voltage_level[] tracking
-   right after boot-time readout, so the first real atomic commit is
-   guaranteed to see a difference.
-
- - Stop early-returning in intel_cdclk_update_crtc_min_cdclk() and
-   intel_cdclk_update_crtc_min_voltage_level() based on the crtc_state
-   comparison alone. That comparison is unreliable for exactly the
-   same reason (it's derived from the same readout), and skips the
-   real, tracked-state check below it.
-
-Bisected on real hardware (Lenovo Yoga 9i 14IPH11, Panther Lake) down
-to a narrow window between v6.19.10 (clean on every cold boot) and
-v7.1.10 (broken on every cold boot); confirmed via live kernel
-tracing that the skip path fires unconditionally on this platform
-from the very first post-boot atomic commit onward. This fix
-eliminates the FIFO underrun across many consecutive cold boots on
-the same hardware, with no regression observed across suspend/resume.
-
-The investigation and this fix were developed with the assistance of
-Claude (Anthropic), driven and verified end to end on the affected
-hardware by the Signed-off-by below.
-
-Signed-off-by: Eduardo Diaz <iamedu@gmail.com>
----
- drivers/gpu/drm/i915/display/intel_cdclk.c    | 45 ++++++++++++++-----
- drivers/gpu/drm/i915/display/intel_cdclk.h    |  1 +
- .../drm/i915/display/intel_modeset_setup.c    |  1 +
- 3 files changed, 36 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
-index a53d887271..209a2373d1 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.c
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
-@@ -2981,11 +2981,14 @@ static int intel_cdclk_update_crtc_min_cdclk(struct intel_atomic_state *state,
- 	bool allow_cdclk_decrease = intel_any_crtc_needs_modeset(state);
- 	int ret;
- 
--	if (new_min_cdclk == old_min_cdclk)
--		return 0;
+During this lock-drop window, a concurrent IOCTL_MEI_CONNECT_CLIENT_VTAG
+call on the same UUID (e.g. MKHI) scans dev->file_list, matches the tearing=
 -
--	if (!allow_cdclk_decrease && new_min_cdclk < old_min_cdclk)
--		return 0;
-+	/*
-+	 * old_min_cdclk comes from the previous crtc_state, which after
-+	 * boot-time readout reflects whatever firmware/GOP left running,
-+	 * not what this driver has programmed. For an inherited pipe it
-+	 * equals new_min_cdclk by construction (same mode, same formula),
-+	 * so an early return here would skip the recalculation that
-+	 * matters. Always continue on to the cdclk_state check below.
-+	 */
- 
- 	cdclk_state = intel_atomic_get_cdclk_state(state);
- 	if (IS_ERR(cdclk_state))
-@@ -3026,12 +3029,10 @@ static int intel_cdclk_update_crtc_min_voltage_level(struct intel_atomic_state *
- 	bool allow_voltage_level_decrease = intel_any_crtc_needs_modeset(state);
- 	int ret;
- 
--	if (new_min_voltage_level == old_min_voltage_level)
--		return 0;
--
--	if (!allow_voltage_level_decrease &&
--	    new_min_voltage_level < old_min_voltage_level)
--		return 0;
-+	/*
-+	 * old_min_voltage_level is unreliable for the same reason; see
-+	 * intel_cdclk_update_crtc_min_cdclk().
-+	 */
- 
- 	cdclk_state = intel_atomic_get_cdclk_state(state);
- 	if (IS_ERR(cdclk_state))
-@@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct intel_display *display)
- 	cdclk_state->dbuf_bw_min_cdclk = intel_dbuf_bw_min_cdclk(display, dbuf_bw_state);
- }
- 
-+/*
-+ * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[]
-+ * from readout's crtc_state, i.e. from whatever firmware/GOP left
-+ * running, not from anything this driver has programmed. A pipe's
-+ * first real modeset usually targets the same native mode, so the
-+ * freshly computed value matches this seeded baseline and
-+ * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude
-+ * nothing changed, skipping the recalculation that matters. Call
-+ * this after readout so the first real commit sees a difference.
-+ */
-+void intel_cdclk_invalidate_min_tracking(struct intel_display *display)
-+{
-+	struct intel_cdclk_state *cdclk_state =
-+		to_intel_cdclk_state(display->cdclk.obj.state);
-+	enum pipe pipe;
-+
-+	for_each_pipe(display, pipe) {
-+		cdclk_state->min_cdclk[pipe] = 0;
-+		cdclk_state->min_voltage_level[pipe] = 0;
-+	}
-+}
-+
- void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc)
- {
- 	struct intel_display *display = to_intel_display(crtc);
-diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
-index a60cbf745e..1517d3605a 100644
---- a/drivers/gpu/drm/i915/display/intel_cdclk.h
-+++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
-@@ -46,6 +46,7 @@ int intel_cdclk_state_set_joined_mbus(struct intel_atomic_state *state, bool joi
- struct intel_cdclk_state *
- intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
- void intel_cdclk_update_hw_state(struct intel_display *display);
-+void intel_cdclk_invalidate_min_tracking(struct intel_display *display);
- void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc);
- int intel_cdclk_update_dbuf_bw_min_cdclk(struct intel_atomic_state *state,
- 					 int old_min_cdclk, int new_min_cdclk,
-diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-index 6aed881737..c7be6e63e7 100644
---- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-+++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
-@@ -880,6 +880,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
- 	intel_bw_update_hw_state(display);
- 	intel_dbuf_bw_update_hw_state(display);
- 	intel_cdclk_update_hw_state(display);
-+	intel_cdclk_invalidate_min_tracking(display);
- 
- 	intel_pmdemand_init_pmdemand_params(display, pmdemand_state);
- }
--- 
-2.55.0
+down client 'pos' (in MEI_FILE_DISCONNECTING), repoints file->private_data
+to pos, and adds its new vtag to pos->vtag_map.
 
+When the disconnect ACK arrives, __mei_cl_disconnect() calls
+mei_cl_set_disconnected(cl), setting cl->me_cl =3D NULL and
+cl->state =3D MEI_FILE_DISCONNECTED. Because pos->vtag_map now contains the
+second thread's tag, mei_release() skips unlinking/freeing cl. The second
+thread then wakes up and attempts to reconnect via mei_ioctl_connect_client=
+().
+
+Additionally, shared clients lack tag based demuxing on cl->rd_pending in
+drivers/misc/mei/interrupt.c:
+  cb =3D list_first_entry_or_null(&cl->rd_pending, struct mei_cl_cb, list);
+
+Incoming packets are matched to the head of the FIFO queue regardless of
+vtag, causing -EPROTO errors, dropped packets, and out-of-order HBM command
+sequences. This triggers continuous CSME hardware link resets:
+  mei mei0: FW not ready: resetting: dev_state =3D 3
+  mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D ...
+
+During each reset, child client drivers (mei_hdcp, mei_pxp) unbind and rebi=
+nd
+with i915 DRM. With resets looping at hundreds of cycles per second (>9,800
+events in 27s), mei_cldev_enable() repeatedly fails with -EFAULT / -ENODEV,
+deadlocking i915 display worker mutexes in TASK_UNINTERRUPTIBLE and causing
+an unrecoverable full system freeze.
+
+Journalctl logs:
+  mei mei0: FW not ready: resetting: dev_state =3D 3
+  mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D 90000245 =
+89110106 00000020 00004000 00021F03 446003CB
+  mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: mei_cldev_ena=
+ble Failed. -14
+  mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: probe with dr=
+iver mei_hdcp failed with error -14
+  mei_hdcp 0000:00:16.0-b638ab7e-94e2-4ea2-a552-d1c54b627f04: bound 0000:00=
+:02.0 (ops i915_hdcp_ops [i915])
+  mei_pxp 0000:00:16.0-fbf6fcf1-96cf-4e2e-a6a6-1bab8cbe36b1: bound 0000:00:=
+02.0 (ops i915_pxp_tee_component_ops [i915])
+  mei mei0: FW not ready: resetting: dev_state =3D 3
+  mei mei0: unexpected reset: dev_state =3D ENABLED fw status =3D 90000245 =
+89110106 00000020 00004000 00021F03 446003CB
+
+Proposed Fix:
+- Prevent vtag reuse during teardown: in mei_ioctl_connect_vtag(),
+   ignore existing clients on dev->file_list if they are in
+   MEI_FILE_DISCONNECTING or MEI_FILE_DISCONNECTED states or undergoing
+   teardown.
+- Implement proper reference counting / lifecycle synchronization on
+   shared struct mei_cl instances.
+- In drivers/misc/mei/interrupt.c, demux cl->rd_pending by matching the
+   incoming packet's vtag header to the corresponding callback rather
+   than assuming FIFO order.
+- Add rate-limiting / backoff to MEI client reprobing during hardware
+   link resets to prevent cascading bus storms into DRM / i915.
+
+A minimal standalone C reproducer (repro_mei_vtag.c) is attached below.
+
+WARNING: Running this reproducer triggers an unrecoverable hard freeze
+and display deadlock requiring a forced restart.
+
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+Standalone C Reproducer (repro_mei_vtag.c)
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+/*
+ * repro_mei_vtag.c - Minimal Standalone Reproducer for MEI Vtag Reconnect =
+Race
+ * Compilation: gcc -Wall -Wextra -O2 -pthread repro_mei_vtag.c -o repro_me=
+i_vtag
+ * Execution: sudo ./repro_mei_vtag /dev/mei0
+ */
+#define _GNU_SOURCE
+#include <errno.h>
+#include <fcntl.h>
+#include <poll.h>
+#include <pthread.h>
+#include <signal.h>
+#include <stdatomic.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
+#pragma pack(push, 1)
+typedef struct {
+=09uint8_t b[16];
+} uuid_le;
+struct mei_client {
+=09uint32_t max_msg_length;
+=09uint8_t protocol_version;
+=09uint8_t reserved[3];
+};
+struct mei_connect_client_data_vtag {
+=09union {
+=09=09struct {
+=09=09=09uuid_le in_client_uuid;
+=09=09=09uint8_t vtag;
+=09=09=09uint8_t reserved[3];
+=09=09} connect;
+=09=09struct mei_client out_client_properties;
+=09};
+};
+#pragma pack(pop)
+#ifndef IOCTL_MEI_CONNECT_CLIENT_VTAG
+#define IOCTL_MEI_CONNECT_CLIENT_VTAG \
+=09_IOWR('H', 0x04, struct mei_connect_client_data_vtag)
+#endif
+static const uuid_le MKHI_UUID =3D {.b =3D {0x15, 0x67, 0x6a, 0x8e, 0xbc, 0=
+x9a,
+=09=09=09=09=090x43, 0x40, 0x88, 0xef, 0x9e, 0x39,
+=09=09=09=09=090xc6, 0xf6, 0x3e, 0x0f}};
+static volatile sig_atomic_t g_running =3D 1;
+static void sig_handler(int sig) { (void)sig; g_running =3D 0; }
+static atomic_uint_fast64_t g_t1_ops =3D 0;
+static atomic_uint_fast64_t g_t2_ops =3D 0;
+static atomic_uint_fast64_t g_t3_ops =3D 0;
+static int connect_vtag(const char *dev_path, uint8_t vtag) {
+=09int fd =3D open(dev_path, O_RDWR | O_NONBLOCK);
+=09if (fd < 0)
+=09=09return -1;
+=09struct mei_connect_client_data_vtag data;
+=09memset(&data, 0, sizeof(data));
+=09data.connect.in_client_uuid =3D MKHI_UUID;
+=09data.connect.vtag =3D vtag;
+=09if (ioctl(fd, IOCTL_MEI_CONNECT_CLIENT_VTAG, &data) < 0) {
+=09=09close(fd);
+=09=09return -1;
+=09}
+=09return fd;
+}
+static void *thread_vtag1(void *arg) {
+=09const char *dev =3D (const char *)arg;
+=09uint8_t cmd[4] =3D {0x07, 0x01, 0x00, 0x00};
+=09while (g_running) {
+=09=09int fd =3D connect_vtag(dev, 1);
+=09=09if (fd >=3D 0) {
+=09=09=09atomic_fetch_add(&g_t1_ops, 1);
+=09=09=09write(fd, cmd, sizeof(cmd));
+=09=09=09usleep(rand() % 40);
+=09=09=09close(fd);
+=09=09} else {
+=09=09=09usleep(50);
+=09=09}
+=09}
+=09return NULL;
+}
+static void *thread_vtag2(void *arg) {
+=09const char *dev =3D (const char *)arg;
+=09uint8_t cmd[4] =3D {0x07, 0x02, 0x00, 0x00};
+=09while (g_running) {
+=09=09int fd =3D connect_vtag(dev, 2);
+=09=09if (fd >=3D 0) {
+=09=09=09atomic_fetch_add(&g_t2_ops, 1);
+=09=09=09write(fd, cmd, sizeof(cmd));
+=09=09=09usleep(rand() % 60);
+=09=09=09close(fd);
+=09=09} else {
+=09=09=09usleep(50);
+=09=09}
+=09}
+=09return NULL;
+}
+static void *thread_vtag3(void *arg) {
+=09const char *dev =3D (const char *)arg;
+=09uint8_t cmd[4] =3D {0x07, 0x01, 0x00, 0x00};
+=09uint8_t buf[128];
+=09while (g_running) {
+=09=09int fd =3D connect_vtag(dev, 3);
+=09=09if (fd >=3D 0) {
+=09=09=09struct pollfd pfd =3D {.fd =3D fd, .events =3D POLLIN};
+=09=09=09for (int i =3D 0; i < 15 && g_running; i++) {
+=09=09=09=09if (write(fd, cmd, sizeof(cmd)) > 0) {
+=09=09=09=09=09atomic_fetch_add(&g_t3_ops, 1);
+=09=09=09=09=09if (poll(&pfd, 1, 50) > 0)
+=09=09=09=09=09=09read(fd, buf, sizeof(buf));
+=09=09=09=09}
+=09=09=09=09usleep(300);
+=09=09=09}
+=09=09=09close(fd);
+=09=09} else {
+=09=09=09usleep(500);
+=09=09}
+=09}
+=09return NULL;
+}
+int main(int argc, char **argv) {
+=09const char *dev =3D (argc > 1) ? argv[1] : "/dev/mei0";
+=09signal(SIGINT, sig_handler);
+=09signal(SIGTERM, sig_handler);
+=09int test_fd =3D connect_vtag(dev, 1);
+=09if (test_fd < 0) {
+=09=09fprintf(stderr, "[-] Failed to connect with vtag on %s: %s\n", dev, s=
+trerror(errno));
+=09=09return 1;
+=09}
+=09close(test_fd);
+=09pthread_t t1, t2, t3;
+=09pthread_create(&t1, NULL, thread_vtag1, (void *)dev);
+=09pthread_create(&t2, NULL, thread_vtag2, (void *)dev);
+=09pthread_create(&t3, NULL, thread_vtag3, (void *)dev);
+=09while (g_running) {
+=09=09printf("\r[+] T1 (vtag=3D1 close): %lu | T2 (vtag=3D2 race): %lu | T3=
+ (vtag=3D3 io): %lu",
+=09=09       atomic_load(&g_t1_ops), atomic_load(&g_t2_ops), atomic_load(&g=
+_t3_ops));
+=09=09fflush(stdout);
+=09=09usleep(250000);
+=09}
+=09pthread_join(t1, NULL);
+=09pthread_join(t2, NULL);
+=09pthread_join(t3, NULL);
+=09return 0;
+}
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+Best regards,
+Nirbhay Kumar
