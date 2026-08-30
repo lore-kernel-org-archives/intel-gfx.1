@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17A2EC61DCB
-	for <intel-gfx@archiver.kernel.org>; Sat, 29 Aug 2026 08:49:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769DAC61DD9
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2026 16:33:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C89C10E0B9;
-	Sat, 29 Aug 2026 08:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C58C110E0EB;
+	Sun, 30 Aug 2026 16:33:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BHH4Pxdu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JLVL8459";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36BDA10E0B9;
- Sat, 29 Aug 2026 08:49:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787993373; x=1819529373;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=Ve5emK5YIYfKRJXF4xIBHYdAbXRxw0Y0Fjq9iPIMMbo=;
- b=BHH4PxduAZn4z4l1Zo6nC6sgy+0snbivmxok1cduYMQ1S19cD9P1ffBl
- eoNPvCDQhRs4Cc0q5BZZ3NM+VNmvQJ3TLAA/jO2LHMZoJ9nPl6ydpktsT
- 2nUioaqDpUkXHPSrMK4b0WGZCN2IXjX76LMxKl9opcaNveJzGA7WYPg9e
- jRsOmEDeBbvRvF6/XP+WJkXNCVWIlgCWeWSR90ObRT9UE6Qvhx/dW0hQJ
- xaXkdCydCyOeKhut/js2MgNnJvK5PbvatnAmy/SneYSAyUIrQHoPkEn5K
- zfN5q2EjUkxA4hq4OK9Nc/A6D9VslX0Pj3HqPg8RjFZ4gPp6tZZY3Nduy Q==;
-X-CSE-ConnectionGUID: i+qGGe0+RLOXPFJTfRbRCg==
-X-CSE-MsgGUID: xiIaQ7zeSvigbW6NxgP75A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88247233"
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; d="scan'208";a="88247233"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2026 01:49:32 -0700
-X-CSE-ConnectionGUID: OwoIS45WTvi/6XDDzsSfhw==
-X-CSE-MsgGUID: FFcdVKRjR/+GyevCIsIKMw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,250,1779174000"; d="scan'208";a="265797758"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.218])
- ([10.245.245.218])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2026 01:49:30 -0700
-Message-ID: <3ad607d2-98b4-4f8d-8cf4-ac4e5fb738b8@intel.com>
-Date: Sat, 29 Aug 2026 10:51:12 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] drm/i915: only timeout on fence waits for display
- reset
-To: Jani Nikula <jani.nikula@intel.com>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: maarten.lankhorst@linux.intel.com, ville.syrjala@linux.intel.com
-References: <cover.1787833879.git.jani.nikula@intel.com>
- <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@intel.com>
-In-Reply-To: <bae61991e23be3bd8b16b7cab7d623f53c10a984.1787833879.git.jani.nikula@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A839910E0EB;
+ Sun, 30 Aug 2026 16:33:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A6FC600AE;
+ Sun, 30 Aug 2026 16:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0307B1F000E9;
+ Sun, 30 Aug 2026 16:33:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788107585;
+ bh=+0Y7nWWh4etciCtwsIekUWGxfb/32vQ0fTVPeTJID20=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JLVL8459zTJ9oq/7g1Q+8Jj3rrZYXB0c9LINqQcmwloaX0pcsO+Fyiai6KEpFjpge
+ fnPdoHVSXdTOOmMn16k1ZG/vKKdg/Akm/+WkeIFuOKNjyJe82lGGTuCU6Ri7C84Iap
+ 4NWNjx0ot0WwGiQkNkGl1/yvX//rFvQrjlRIbRrRV9BYGCJv3coADAUwaqZVD80BPH
+ FSbsn7EjCrcsaCYOYg7ks6DE5vanXtTK8sOiA+fDXoGiCGdawFEkJwM1GBDFeDCOa+
+ dNbWZeQj8ov98Rb4hvr7HwE7ziy7ZjC9BB2cKIuD9s3QudvxfeocUT/7L3ftyf5nw5
+ RLeZ1qUAK3Z0w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/cdclk: Don't trust boot readout for per-pipe
+ cdclk/voltage tracking
+To: "Eduardo Diaz" <iamedu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260830161703.11570-1-iamedu@gmail.com>
+References: <20260830161703.11570-1-iamedu@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 30 Aug 2026 16:33:04 +0000
+Message-Id: <20260830163305.0307B1F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,67 +54,163 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-For whole series:
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Zeroing `min_cdclk` and `min_voltage_level` during boot readout co=
+rrupts the global state tracking for inherited pipes, leading to FIFO under=
+runs on partial commits.
+- [High] The boot-time invalidation of cdclk/voltage tracking is fragile an=
+d gets silently undone during hardware sanitization, breaking the fix for t=
+he remaining active pipes.
+- [Medium] Moving the early return in the CDCLK update paths forces unneces=
+sary global state duplication and memory allocation on every page flip.
+- [Low] The `old_min_cdclk` and `old_min_voltage_level` parameters are now =
+ignored and immediately overwritten.
+--
 
-Acked-by: Maarten Lankhorst <maarten.lankhorst@intel.com>
+commit edef4e8a0b14b779ca2831158248f1bc907d372c
+Author: Eduardo Diaz <iamedu@gmail.com>
 
-On 8/27/26 14:34, Jani Nikula wrote:
-> As written by Maarten: Not waiting on fences until they're signaled is
-> an existing issue in i915, and was added as a workaround for a deadlock
-> when GPU reset has to reset display as well on old platforms. This
-> requires a modeset to disable everything, which may hang since it could
-> wait on a fence that may only be signaled after GPU reset completes.
->
-> Limit the timeout on fence waits a) to platforms where GPU reset
-> clobbers display, and b) when we're running forced display reset tests.
->
-> This change only impacts i915, as xe has MAX_SCHEDULE_TIMEOUT in any
-> case.
->
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Suggested-by: Maarten Lankhorst <maarten.lankhorst@intel.com>
-> Signed-off-by: Jani Nikula <jani.nikula@intel.com>
-> ---
->  drivers/gpu/drm/i915/display/intel_display.c | 12 +++++++++---
->  1 file changed, 9 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-> index aa5d41dac8a9..76ec9161aaa3 100644
-> --- a/drivers/gpu/drm/i915/display/intel_display.c
-> +++ b/drivers/gpu/drm/i915/display/intel_display.c
-> @@ -74,6 +74,7 @@
->  #include "intel_display_driver.h"
->  #include "intel_display_power.h"
->  #include "intel_display_regs.h"
-> +#include "intel_display_reset.h"
->  #include "intel_display_rpm.h"
->  #include "intel_display_types.h"
->  #include "intel_display_utils.h"
-> @@ -7277,15 +7278,20 @@ static void intel_atomic_commit_fence_wait(struct intel_atomic_state *state)
->  	struct intel_display *display = to_intel_display(state);
->  	struct drm_plane *plane;
->  	struct drm_plane_state *new_plane_state;
-> -	long ret;
-> +	long timeout, ret;
->  	int i;
->  
-> +	if (intel_display_reset_needed_after_gpu_reset(display) ||
-> +	    intel_display_reset_test(display))
-> +		timeout = i915_fence_timeout();
-> +	else
-> +		timeout = MAX_SCHEDULE_TIMEOUT;
+drm/i915/cdclk: Don't trust boot readout for per-pipe cdclk/voltage tracking
+
+This commit addresses a bug where cold boot corrupts the internal eDP panel
+due to cdclk/voltage tracking assuming firmware-programmed state as its own.
+It invalidates the tracking state during readout and forces the cdclk and
+voltage update functions to skip early returns.
+
+> diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm=
+/i915/display/intel_cdclk.c
+> index a53d887271778..209a2373d17aa 100644
+> --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+> +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+> @@ -2981,11 +2981,14 @@ static int intel_cdclk_update_crtc_min_cdclk(stru=
+ct intel_atomic_state *state,
+>  	bool allow_cdclk_decrease =3D intel_any_crtc_needs_modeset(state);
+>  	int ret;
+> =20
+> -	if (new_min_cdclk =3D=3D old_min_cdclk)
+> -		return 0;
+> -
+> -	if (!allow_cdclk_decrease && new_min_cdclk < old_min_cdclk)
+> -		return 0;
+> +	/*
+> +	 * old_min_cdclk comes from the previous crtc_state, which after
+> +	 * boot-time readout reflects whatever firmware/GOP left running,
+> +	 * not what this driver has programmed. For an inherited pipe it
+> +	 * equals new_min_cdclk by construction (same mode, same formula),
+> +	 * so an early return here would skip the recalculation that
+> +	 * matters. Always continue on to the cdclk_state check below.
+> +	 */
+> =20
+>  	cdclk_state =3D intel_atomic_get_cdclk_state(state);
+>  	if (IS_ERR(cdclk_state))
+
+[Severity: Medium]
+Moving this early return causes the state duplication and memory allocations
+in intel_atomic_get_cdclk_state() to occur unconditionally on every commit,
+including every page flip. Does this introduce a performance regression or
+latency spike in this hot path?
+
+[Severity: Low]
+Additionally, since the old_min_cdclk value passed into the function is now
+overwritten right after intel_atomic_get_cdclk_state() returns:
+
+    old_min_cdclk =3D cdclk_state->min_cdclk[crtc->pipe];
+
+Does this make the old_min_cdclk parameter passed by the caller dead code
+that is never actually read?
+
+[ ... ]
+
+> @@ -3026,12 +3029,10 @@ static int intel_cdclk_update_crtc_min_voltage_le=
+vel(struct intel_atomic_state *
+>  	bool allow_voltage_level_decrease =3D intel_any_crtc_needs_modeset(stat=
+e);
+>  	int ret;
+> =20
+> -	if (new_min_voltage_level =3D=3D old_min_voltage_level)
+> -		return 0;
+> -
+> -	if (!allow_voltage_level_decrease &&
+> -	    new_min_voltage_level < old_min_voltage_level)
+> -		return 0;
+> +	/*
+> +	 * old_min_voltage_level is unreliable for the same reason; see
+> +	 * intel_cdclk_update_crtc_min_cdclk().
+> +	 */
+> =20
+>  	cdclk_state =3D intel_atomic_get_cdclk_state(state);
+>  	if (IS_ERR(cdclk_state))
+
+[Severity: Low]
+Similarly to old_min_cdclk, is the old_min_voltage_level parameter now igno=
+red
+and overwritten before it is ever used?
+
+[ ... ]
+
+> @@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct intel_disp=
+lay *display)
+>  	cdclk_state->dbuf_bw_min_cdclk =3D intel_dbuf_bw_min_cdclk(display, dbu=
+f_bw_state);
+>  }
+> =20
+> +/*
+> + * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[]
+> + * from readout's crtc_state, i.e. from whatever firmware/GOP left
+> + * running, not from anything this driver has programmed. A pipe's
+> + * first real modeset usually targets the same native mode, so the
+> + * freshly computed value matches this seeded baseline and
+> + * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude
+> + * nothing changed, skipping the recalculation that matters. Call
+> + * this after readout so the first real commit sees a difference.
+> + */
+> +void intel_cdclk_invalidate_min_tracking(struct intel_display *display)
+> +{
+> +	struct intel_cdclk_state *cdclk_state =3D
+> +		to_intel_cdclk_state(display->cdclk.obj.state);
+> +	enum pipe pipe;
 > +
->  	for_each_new_plane_in_state(&state->base, plane, new_plane_state, i) {
->  		if (!new_plane_state->fence)
->  			continue;
->  
-> -		ret = dma_fence_wait_timeout(new_plane_state->fence, false,
-> -					     i915_fence_timeout());
-> +		ret = dma_fence_wait_timeout(new_plane_state->fence, false, timeout);
->  		if (!ret)
->  			ret = -ETIMEDOUT;
->  		if (ret < 0) {
+> +	for_each_pipe(display, pipe) {
+> +		cdclk_state->min_cdclk[pipe] =3D 0;
+> +		cdclk_state->min_voltage_level[pipe] =3D 0;
+> +	}
+> +}
 
+[Severity: High]
+Does zeroing min_cdclk for all pipes corrupt the state for inherited pipes
+that are not included in the first atomic commit?
+
+If the OS performs a partial commit (e.g., a cursor update on a single pipe)
+on a multi-display setup, intel_cdclk_update_crtc_min_cdclk() will only
+update the tracking for the pipe in the commit.
+
+Because intel_compute_min_cdclk() takes the maximum of all pipes' requireme=
+nts,
+will the untouched active pipes with 0 tracked requirement be starved of th=
+eir
+necessary clock speed, leading to a FIFO underrun?
+
+[Severity: High]
+Can this boot-time invalidation be silently undone during hardware sanitiza=
+tion?
+
+If a CRTC requires sanitization during boot, intel_crtc_disable_noatomic()
+calls intel_cdclk_crtc_disable_noatomic(), which in turn calls
+intel_cdclk_update_hw_state().
+
+intel_cdclk_update_hw_state() loops over all pipes and does:
+
+    cdclk_state->min_cdclk[pipe] =3D crtc_state->min_cdclk;
+
+Since crtc_state->min_cdclk still contains the readout value, does this
+re-seed the tracking values for the remaining active pipes, circumventing
+the fix entirely?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830161703.1157=
+0-1-iamedu@gmail.com?part=3D1
