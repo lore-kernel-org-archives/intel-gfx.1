@@ -4,80 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD76BC624C6
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8AFFC624CC
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29B5C10E7FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C24A10E7FE;
 	Mon, 31 Aug 2026 11:47:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JKAZViYZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dn5A18bO";
 	dkim-atps=neutral
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
- [209.85.222.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75E1410E22B
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 00:14:01 +0000 (UTC)
-Received: by mail-qk1-f174.google.com with SMTP id
- af79cd13be357-9390f8a1c9eso187636285a.3
- for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2026 17:14:01 -0700 (PDT)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC87610E563
+ for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2026 16:17:12 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-851cbd64814so1058389b3a.1
+ for <intel-gfx@lists.freedesktop.org>; Sun, 30 Aug 2026 09:17:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788135240; x=1788740040; darn=lists.freedesktop.org;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=KeqftXhgmq02BoO6G1HLtpAULPLshwJFEBqpXSiTygQ=;
- b=JKAZViYZZaifGI5eCIW2MKjdKa46XyAJ4kNzEcjK8OSg1zhK3HjppakjwBmbSTtOgC
- jT6AyZ4eieHjIRXmEcX+SqnTAuusiChkM5g/J5HKo8lQczu2FeIlJEujJBzVlroT7XtQ
- QE4uBSC+JGq1g5R/MPqbJy/3s4eXNSF4U3OIAZ9/d1pvdLxC/t7oqL//gTYFybFjJkzq
- dEtTQZwM5RPEe/iy2LGt0gAU4ErXPEQZGrposrG/5mPNdh+KQ+kdpGstRd0EVHanFYEg
- 9Asg4in3oklcrefMesGIXndGff2Rqw01nuJlOJqdfiWfbyhdEVHPw1rvXcGGZxFbPQ7S
- +g0w==
+ d=gmail.com; s=20251104; t=1788106632; x=1788711432; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=54C0fnQ3Auto948vkBDj75sqdB7k3c+Pc38gSCW7U00=;
+ b=Dn5A18bOwJoEwBF+MmdDj73pEHrCra3lSj/O3fO6HkaDojEJuRvLP6SQ+bd0QcTU9l
+ bMTT0paVFxkbV6U3pxVXMLy9yVx0abuyF0CgJJ76RgKyUzJITSf2lprK7LCr0e09u994
+ oCYxnfhxJfqNt5zTRp+t44Gmglq0bNMW2OldwRoqEGYu62e0qpwf9+p9pmQskTa2vqER
+ CZ1+0vLZ86E/DgcrtUF9Su69+2b5+MrV2d03KCK1opf+EJyOWxITSz8r6r9hX7+Sl8XH
+ UCJa6z517g3IXC4da/d3datgvODY4jp78Ll91f6kAvJ2sB6+BEjsRw891vwdLyr4vYJQ
+ Pglw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788135240; x=1788740040;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=KeqftXhgmq02BoO6G1HLtpAULPLshwJFEBqpXSiTygQ=;
- b=qkqEtv+t6J/Vz2XhIAHXLatKZvEwNN4Mi595/agTYV2GcOXTjFjfCdNiix1E57EXxl
- 1LVe7rPfBkjX+Wb3Re/Fg1QvtODSgj4b5qw1llBE3KwB7KdqctSHgOZ5oIBlptv2NrU2
- PMRn6oYX4A/hP6OlrFkqetHH+/Aek5LfaJPmibhIaWj7tEczwawGVcnEjZh1jm45nOnG
- 5imhXicupWZ9zZS66MNzaGLpeMhOExACtkIfwigGmyrfNV+RkhZs8pz5HJ2WAfQT1DHh
- vyZIFIuk1zIZR1RbXMnP54/Uvcj7FnYpOgU/OFG40+6vmH6C+kz2KVarjtgQAJc0cNqe
- uOjw==
-X-Gm-Message-State: AFuF++k35tN/tmsuhDjVCJLQIb7OdLHQFcixdQwldkmLwVhpvZeazHhh
- GdLyZ/RVUavE7Q9zGGCBzjcu/5k5RqR+xTOjDbe+YAq53EhuBI0Pyhet
-X-Gm-Gg: AR+sD11RVV32jqRQdK2i6z7yTLdYLLh2mA8lpHHUvy9gHhRVaf6YN1GUHP8I8ZoiteT
- kEYkbOkY3dQWKH3q8rITWi0e1FE1k2iKfBIuL1Tqr9B1JkfzSCW6Je8FaBf+EoKR9y2EnWIBgE2
- yUg+jb31wvkiGpCks8mflpm7Y192pBp/TYlDpnrMzE9HFNc9yZLleINfhhZqzkqz77Kodh1Zz5D
- bnAjV8Bzzfsol7FUyVBncF+k7ahOyZoyq5cETcpq/TsrCATKoy1VT/HUPCmoVxPi8UF9Cw+sw3u
- u9QxXx/wrO2esU5mUIJzx943RvKzYtNIBpJQsRMdadxZjfpL7b/TEw+WvF2adgveEgEN3vBgLRq
- Yi6UWrOjJnF118bFIQtT/z6n1VqCI/QxioVdwaPHda5/S9zn1nssr5O5qBClipqiFugsb8TWnK8
- w12m+JqlZzqpqFsO/4jsV0EfoQzbTjs2LdNN2Cf4SqEPDpBFdrnyWwMZh5/i8N/tTmKGr3YDTLu
- i6yokdOv8F+3YbE6VXFMom2KR0Pgg==
-X-Received: by 2002:a05:620a:4556:b0:939:28ab:e90 with SMTP id
- af79cd13be357-93928ab142emr1090242685a.0.1788135240228; 
- Sun, 30 Aug 2026 17:14:00 -0700 (PDT)
-Received: from smtpclient.apple ([199.30.143.73])
+ d=1e100.net; s=20251104; t=1788106632; x=1788711432;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=54C0fnQ3Auto948vkBDj75sqdB7k3c+Pc38gSCW7U00=;
+ b=HZZbyXA0+9TKhRG0PUyszpcfeoMhAZWdVM4XUwgsW70zw8F7wO6jB671P2XBapesT7
+ BDx7Ok1Ms/XfxB8VZe3LHnaJqqsevRZCwbuKwbAk+e/49T0xMILluMDrlILW0CR6TqEx
+ na0Of6pgnxS8ukmcxykfI1rj5MsY7UPwOC/KCwfxWQCTa/uhTYJC6K6RvlcOvjeEP8Vs
+ 3bjJhilxoSYdOdcsD1LjBPpEkoO73kkorm3FmjC01bpwQpEYoP2lqLfo8Lbdeej/baWW
+ BkCKa9riCGcY1Eg45bPD4jgIlPFc438Dza2I/uyjcf9knv3FSBoFHHQV5ESFMarUHyh6
+ zoBg==
+X-Gm-Message-State: AFuF++murdwj+/DCiGGqcxQXhaKzB45eheXJyw1pdlShd7WJ7CAbw+2k
+ TyMlVfWXz6OxbiqdqqQqUD8E11TlSLSZ9/OWuCct+YVw4mtHNmxgzKU=
+X-Gm-Gg: AR+sD10B2DwZzMfzBoD0hE4vVZ9c8+UBjlKX0xUVybd2Q3fd9wjooso5i67BAhiijcK
+ ru6nLHx425MXETOtW+ACqqjss85EMqJzMX6RADaqq9VFfUx/FsCgiEWoUyWa51sr093arWqgyYp
+ 0BcHI7GN/NrMoUP3w7vJpSgLG620NZhuMrXH0Q7i8RKQwMJ+jMT4Ap8eJdbqUu7m85TJdWNpK+I
+ qCjFN2PN/kRA6RIhjmvFB2HAPg2sk4bSlpq2MGwlenUIWMtcrZrlrW0dF6cRs025TwoNrhCuPx0
+ gCNcVQw826xRqyJtuotccqGtKRzdywlz1Id3z4+WyVCsBynECWACFYqhXO57K4b1jJM8PpG6CwM
+ UEP6nnPuHmqkqk4uqzmzIyu/AmH0pN37yrGniOqUdwlkpf2YM3AKsqVWW4iRfQ5Fw0DtUF1R4vx
+ uFN2UeYm+9fvxHS6mQ0e+/5dtL9vx4Mzete0+r9ENGMzyefiV7p5aixUrT+vvs0G8D
+X-Received: by 2002:a05:6a00:a118:b0:847:8449:2bb6 with SMTP id
+ d2e1a72fcca58-8562953d5e9mr34140137b3a.4.1788106632245; 
+ Sun, 30 Aug 2026 09:17:12 -0700 (PDT)
+Received: from fedora ([2601:602:867e:54e0::bc1f])
  by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9391703a49asm665449285a.11.2026.08.30.17.13.59
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 30 Aug 2026 17:13:59 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH] drm/i915/gt: Fix request use-after-free in heartbeat()
-From: Shuangpeng <shuangpeng.kernel@gmail.com>
-In-Reply-To: <apSwfmDiwsuyQT6I@zenone.zhora.eu>
-Date: Sun, 30 Aug 2026 20:13:28 -0400
-Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <BA6527E9-BF25-4EAC-AD11-7B2F92A3A01F@gmail.com>
-References: <20260808184302.1509585-1-shuangpeng.kernel@gmail.com>
- <apSwfmDiwsuyQT6I@zenone.zhora.eu>
-To: Andi Shyti <andi.shyti@kernel.org>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
+ 41be03b00d2f7-cc1f32f727bsm3008661a12.7.2026.08.30.09.17.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 30 Aug 2026 09:17:11 -0700 (PDT)
+From: Eduardo Diaz <iamedu@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Eduardo Diaz <iamedu@gmail.com>
+Subject: [PATCH] drm/i915/cdclk: Don't trust boot readout for per-pipe
+ cdclk/voltage tracking
+Date: Sun, 30 Aug 2026 09:17:03 -0700
+Message-ID: <20260830161703.11570-1-iamedu@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 11:47:31 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,73 +91,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Andi,
+On Panther Lake (xe3lpd) laptops, cold boot reliably corrupts the
+internal eDP panel: pipe A gets a "Selective fetch area calculation
+failed in pipe A" warning immediately followed by a CPU pipe A FIFO
+underrun, and the panel stays corrupted for the rest of the session.
+A subsequent suspend/resume cycle (or any other full re-modeset)
+"fixes" it, which pointed at cdclk/voltage-level tracking rather than
+a genuine hardware race.
 
+intel_modeset_readout_hw_state() runs once at driver probe (and again
+on resume) to figure out what firmware/GOP left the display in. For
+each already-active pipe it calls intel_cdclk_update_hw_state(),
+which seeds cdclk_state->min_cdclk[]/min_voltage_level[] directly
+from the freshly read-out crtc_state. That treats "firmware left this
+pipe active with mode X" as proof that this driver's own cdclk,
+voltage-level and DBUF setup for mode X is already established in
+hardware. It isn't -- only firmware's own, entirely separate code
+path has ever touched those registers.
 
-> On Aug 30, 2026, at 18:44, Andi Shyti <andi.shyti@kernel.org> wrote:
->=20
-> Hi Shuangpeng,
->=20
-> On Sat, Aug 08, 2026 at 02:43:02PM -0400, Shuangpeng Bai wrote:
->> heartbeat() detaches engine->heartbeat.systole with xchg() before
->> checking whether the request has completed. If the request is =
-complete,
->> dropping the detached systole reference may free it. Concurrently,
->> idle_pulse() can observe the empty slot and publish a newer request.
->>=20
->> The worker then sees a non-NULL engine->heartbeat.systole, but =
-continues
->> to dereference its stale local rq. The newer request can therefore =
-make
->> the shared-slot check succeed after the old request has been freed,
->> causing use-after-free accesses to emitted_jiffies, submit, and =
-sched.
->>=20
->> If the detached request is incomplete, heartbeat() can also overwrite =
-a
->> newer request published by idle_pulse() when it unconditionally =
-restores
->> the old pointer.
->>=20
->> Use cmpxchg() both when idle_pulse() publishes a request and when
->> heartbeat() restores the detached request. Drop the detached =
-reference
->> when restoration loses the race, and reload rq from the shared slot
->> before dereferencing it.
->>=20
->> A KASAN-enabled i915 mock selftest reproduces the use-after-free =
-before
->> this change and completes without a report after the fix.
->>=20
->> Fixes: bf9bd6a5128a ("drm/i915/gt: Track the most recent pulse for =
-the heartbeat")
->> Cc: stable@vger.kernel.org # v5.11+
->=20
-> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
->=20
+The OS driver's first real modeset for an inherited pipe typically
+targets the same native panel mode, so the freshly computed
+crtc_state->min_cdclk/min_voltage_level trivially match this
+readout-seeded baseline. intel_cdclk_update_crtc_min_cdclk() and
+intel_cdclk_update_crtc_min_voltage_level() then conclude nothing
+changed and skip the recalculation, on the one commit where it
+actually matters: taking a pipe from firmware ownership to being
+correctly configured by this driver.
 
-> Your patch looks correct, although I don't think the Fixes tag
-> is.  I believe the actual fix is:
->=20
-> Fixes: 4c71fd099513 ("drm/i915/gt: fix refcount underflow in =
-intel_engine_park_heartbeat")
-> Cc: <stable@vger.kernel.org> # v7.0+
->=20
-> That commit introduced the early xchg() which hides the old
-> request from idle_pulse() and replaces it with a new one.
->=20
+Fix this in two parts:
 
-Thanks for the review and for correcting the Fixes tag.=20
+ - Invalidate the per-pipe min_cdclk[]/min_voltage_level[] tracking
+   right after boot-time readout, so the first real atomic commit is
+   guaranteed to see a difference.
 
-> I'm going to resend the patch so that it can be picked up by our
-> CI.
->=20
+ - Stop early-returning in intel_cdclk_update_crtc_min_cdclk() and
+   intel_cdclk_update_crtc_min_voltage_level() based on the crtc_state
+   comparison alone. That comparison is unreliable for exactly the
+   same reason (it's derived from the same readout), and skips the
+   real, tracked-state check below it.
 
-Thanks for resending it.
+Bisected on real hardware (Lenovo Yoga 9i 14IPH11, Panther Lake) down
+to a narrow window between v6.19.10 (clean on every cold boot) and
+v7.1.10 (broken on every cold boot); confirmed via live kernel
+tracing that the skip path fires unconditionally on this platform
+from the very first post-boot atomic commit onward. This fix
+eliminates the FIFO underrun across many consecutive cold boots on
+the same hardware, with no regression observed across suspend/resume.
 
-> Thanks,
-> Andi
+The investigation and this fix were developed with the assistance of
+Claude (Anthropic), driven and verified end to end on the affected
+hardware by the Signed-off-by below.
 
+Signed-off-by: Eduardo Diaz <iamedu@gmail.com>
+---
+ drivers/gpu/drm/i915/display/intel_cdclk.c    | 45 ++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_cdclk.h    |  1 +
+ .../drm/i915/display/intel_modeset_setup.c    |  1 +
+ 3 files changed, 36 insertions(+), 11 deletions(-)
 
-Best,
-Shuangpeng=
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/drm/i915/display/intel_cdclk.c
+index a53d887271..209a2373d1 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.c
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+@@ -2981,11 +2981,14 @@ static int intel_cdclk_update_crtc_min_cdclk(struct intel_atomic_state *state,
+ 	bool allow_cdclk_decrease = intel_any_crtc_needs_modeset(state);
+ 	int ret;
+ 
+-	if (new_min_cdclk == old_min_cdclk)
+-		return 0;
+-
+-	if (!allow_cdclk_decrease && new_min_cdclk < old_min_cdclk)
+-		return 0;
++	/*
++	 * old_min_cdclk comes from the previous crtc_state, which after
++	 * boot-time readout reflects whatever firmware/GOP left running,
++	 * not what this driver has programmed. For an inherited pipe it
++	 * equals new_min_cdclk by construction (same mode, same formula),
++	 * so an early return here would skip the recalculation that
++	 * matters. Always continue on to the cdclk_state check below.
++	 */
+ 
+ 	cdclk_state = intel_atomic_get_cdclk_state(state);
+ 	if (IS_ERR(cdclk_state))
+@@ -3026,12 +3029,10 @@ static int intel_cdclk_update_crtc_min_voltage_level(struct intel_atomic_state *
+ 	bool allow_voltage_level_decrease = intel_any_crtc_needs_modeset(state);
+ 	int ret;
+ 
+-	if (new_min_voltage_level == old_min_voltage_level)
+-		return 0;
+-
+-	if (!allow_voltage_level_decrease &&
+-	    new_min_voltage_level < old_min_voltage_level)
+-		return 0;
++	/*
++	 * old_min_voltage_level is unreliable for the same reason; see
++	 * intel_cdclk_update_crtc_min_cdclk().
++	 */
+ 
+ 	cdclk_state = intel_atomic_get_cdclk_state(state);
+ 	if (IS_ERR(cdclk_state))
+@@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct intel_display *display)
+ 	cdclk_state->dbuf_bw_min_cdclk = intel_dbuf_bw_min_cdclk(display, dbuf_bw_state);
+ }
+ 
++/*
++ * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[]
++ * from readout's crtc_state, i.e. from whatever firmware/GOP left
++ * running, not from anything this driver has programmed. A pipe's
++ * first real modeset usually targets the same native mode, so the
++ * freshly computed value matches this seeded baseline and
++ * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude
++ * nothing changed, skipping the recalculation that matters. Call
++ * this after readout so the first real commit sees a difference.
++ */
++void intel_cdclk_invalidate_min_tracking(struct intel_display *display)
++{
++	struct intel_cdclk_state *cdclk_state =
++		to_intel_cdclk_state(display->cdclk.obj.state);
++	enum pipe pipe;
++
++	for_each_pipe(display, pipe) {
++		cdclk_state->min_cdclk[pipe] = 0;
++		cdclk_state->min_voltage_level[pipe] = 0;
++	}
++}
++
+ void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc)
+ {
+ 	struct intel_display *display = to_intel_display(crtc);
+diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/drm/i915/display/intel_cdclk.h
+index a60cbf745e..1517d3605a 100644
+--- a/drivers/gpu/drm/i915/display/intel_cdclk.h
++++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
+@@ -46,6 +46,7 @@ int intel_cdclk_state_set_joined_mbus(struct intel_atomic_state *state, bool joi
+ struct intel_cdclk_state *
+ intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
+ void intel_cdclk_update_hw_state(struct intel_display *display);
++void intel_cdclk_invalidate_min_tracking(struct intel_display *display);
+ void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc);
+ int intel_cdclk_update_dbuf_bw_min_cdclk(struct intel_atomic_state *state,
+ 					 int old_min_cdclk, int new_min_cdclk,
+diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+index 6aed881737..c7be6e63e7 100644
+--- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
++++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+@@ -880,6 +880,7 @@ static void intel_modeset_readout_hw_state(struct intel_display *display)
+ 	intel_bw_update_hw_state(display);
+ 	intel_dbuf_bw_update_hw_state(display);
+ 	intel_cdclk_update_hw_state(display);
++	intel_cdclk_invalidate_min_tracking(display);
+ 
+ 	intel_pmdemand_init_pmdemand_params(display, pmdemand_state);
+ }
+-- 
+2.55.0
+
