@@ -4,42 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 739D4C61DE8
-	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2026 23:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1F8AC61DD9
+	for <intel-gfx@archiver.kernel.org>; Sun, 30 Aug 2026 23:37:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D850910E23C;
-	Sun, 30 Aug 2026 23:08:11 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eMLqMvBw";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 832E810E23C;
- Sun, 30 Aug 2026 23:08:10 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7077560120;
- Sun, 30 Aug 2026 23:08:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D88131F000E9;
- Sun, 30 Aug 2026 23:08:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788131289;
- bh=b1onlhSrnGqb0z7H3cY4B805Mh41bOrQ9tT2MDdJoJ0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eMLqMvBw5Ujp/wT3C7EIGTt1Exe/pW81jpWcis9erLzM4Skoc2gUvZ9Yaa0XcUUaZ
- ywjGn2r+BoZU8m26mCkQD8RhfT9EMnBsYfKomEA+WpyGJu9aIRQx+ZIDE/o26RFUIn
- 258RmMyZMSgRiNrJEFxi2xDTcLRAsQJrRZ68hRQmfMg5LOYn23j54flPMDHKp6TLdz
- nUybwy38lPhEf+a1frXG5If8TQfPM9HEWCUV4xGiWOCSD0bLopmqQYrJ/OC+wYck82
- YHl0s79lP3nxHfirChToomZrM+EfrRlTVUNT1tM2RTimm3u68h6hrehRkJx0rb/Rw1
- V+igCGboLbzDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/i915/gt: Fix request use-after-free in heartbeat()
-To: "Andi Shyti" <andi.shyti@linux.intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A15710E457;
+	Sun, 30 Aug 2026 23:37:40 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E976710E457;
+ Sun, 30 Aug 2026 23:37:38 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============7028953675970334921=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/gt=3A_Fix_reques?=
+ =?utf-8?q?t_use-after-free_in_heartbeat=28=29_=28rev2=29?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
+To: "Shuangpeng" <shuangpeng.kernel@gmail.com>
+Cc: intel-gfx@lists.freedesktop.org
+Date: Sun, 30 Aug 2026 23:37:38 -0000
+Message-ID: <178813305893.98565.5683579834756970831@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 30 Aug 2026 23:08:08 +0000
-Message-Id: <20260830230808.D88131F000E9@smtp.kernel.org>
+In-Reply-To: <20260830225708.3959691-1-andi.shyti@linux.intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,72 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--===============7028953675970334921==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Pre-existing issues:
-- [High] heartbeat() dereferences the local pointer `rq` without holding a =
-strong reference, making it vulnerable to a Use-After-Free if intel_engine_=
-park_heartbeat() concurrently clears the shared pointer.
---
+== Series Details ==
 
-commit aa7ae2412e3834bb064c9442f0f96ffd0058a8ae
-Author: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Series: drm/i915/gt: Fix request use-after-free in heartbeat() (rev2)
+URL   : https://patchwork.freedesktop.org/series/171942/
+State : success
 
-drm/i915/gt: Fix request use-after-free in heartbeat()
+== Summary ==
 
-This commit addresses a request use-after-free in heartbeat() by using cmpx=
-chg=20
-to manage the detached systole reference and replacing direct struct access=
-es=20
-with a local pointer.
+CI Bug Log - changes from CI_DRM_19058 -> Patchwork_171942v2
+====================================================
 
-Link: https://patch.msgid.link/20260808184302.1509585-1-shuangpeng.kernel@g=
-mail.com
+Summary
+-------
 
-> diff --git a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c b/drivers/g=
-pu/drm/i915/gt/intel_engine_heartbeat.c
-> index 6424ecce8bcbe..fc6c53c93cf57 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_engine_heartbeat.c
-[ ... ]
-> @@ -152,9 +160,11 @@ static void heartbeat(struct work_struct *wrk)
->  	if (rq) {
->  		if (i915_request_completed(rq))
->  			i915_request_put(rq);
-> -		else
-> -			engine->heartbeat.systole =3D rq;
-> +		/* Keep a newer pulse that raced with the detached systole. */
-> +		else if (cmpxchg(&engine->heartbeat.systole, NULL, rq))
-> +			i915_request_put(rq);
->  	}
-> +	rq =3D READ_ONCE(engine->heartbeat.systole);
+  **SUCCESS**
 
-[Severity: High]
-This is a pre-existing issue, but does heartbeat() safely dereference rq
-without holding a strong reference?
+  No regressions found.
 
-If userspace toggles sysfs heartbeat intervals, intel_engine_park_heartbeat=
-()
-can execute concurrently, clearing the shared pointer and dropping the
-reference:
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171942v2/index.html
 
-intel_engine_park_heartbeat() {
-    ...
-    rq =3D xchg(&engine->heartbeat.systole, NULL);
-    if (rq)
-        i915_request_put(rq);
-    ...
-}
+Participating hosts (41 -> 39)
+------------------------------
 
-Since rq is loaded locklessly here without a reference bump, could this
-result in a Use-After-Free later in heartbeat() when accessing
-rq->emitted_jiffies?
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260830225708.3959=
-691-1-andi.shyti@linux.intel.com?part=3D1
+
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19058 -> Patchwork_171942v2
+
+  CI-20190529: 20190529
+  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9078: 9078
+  Patchwork_171942v2: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171942v2/index.html
+
+--===============7028953675970334921==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/gt: Fix request use-after-free in heartbeat() (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/171942/">https://patchwork.freedesktop.org/series/171942/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171942v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171942v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19058 -&gt; Patchwork_171942v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_171942v2/index.html</p>
+<h2>Participating hosts (41 -&gt; 39)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19058 -&gt; Patchwork_171942v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9078: 9078<br />
+  Patchwork_171942v2: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============7028953675970334921==--
