@@ -4,73 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FDC4C61DD3
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D8EC624D4
 	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:43:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B41710ECF4;
-	Tue,  1 Sep 2026 13:43:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05C7C10ED06;
+	Tue,  1 Sep 2026 13:43:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qnlJIsdp";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wvr4TpYc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QMjHVEmz";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEF4110E16C
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 05:02:49 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-39682983a0fso5467665a91.3
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 22:02:49 -0700 (PDT)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D433510E598
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (UTC)
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67VIXw4V3851252
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=; b=Wvr4TpYcqqNSNW/c
+ 7MbI/noBMgaCUGPiX4RNjBSbAAlI6cOG626h8HzDCimzMCq5DR6dyRBuef3EKvWJ
+ pmyeItpWbagjmktj0sQR6TmfTyhz4Dz29ufjJuG9MXRO+8V2/zrD4bGQCfC3APBw
+ hwOiP1+IW8UwARVGAPJMqbMy2QKLnpPNKMrcQVuTLITjDisdbqmvph7Fm3vAyImW
+ e9Vxp5snkUtEuHev9TE+JQA+XS6pKAnAsKEegcI+Hzf/cHJElkii+UrFnGPWRrOh
+ gCXzQJj3Zg5Cx7jUdlKC11q5LIuyIRQ7DYidKoga5yvTGmSj/rYaFXi0krGH/xVc
+ IKwn2w==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6aykb89-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:33 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id
+ af79cd13be357-9390a2c895bso875254685a.0
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788238969; x=1788843769; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=9yUuR/WSkjmDZYldjCLyDwNxnmnt2IjU3AxaHKK9h1A=;
- b=qnlJIsdpEVmJhI+OmNasyOxhH/JSsHxvclJbqdMc7e8iJ4d6iNhXZ+dIcYJtn0XZew
- ye+0pjLpXzOVsg9DJ2gDOoupfXzV1xnODVi64Xq5Z4Cr/+7jQjeVXoI2W0uX1GvQcJjq
- vV6h1c0lpwAdLXDtRxlz308Ff34CIqTwNzkrnRwoxPiESarECC8yY9HPXLZVcHgtrN7x
- dEHNbGzCQfypcozx4XvfMVL4Q7wEOpCPGd6NbLcOs1CYdDtqH91SSuOKu6mKa7D18edz
- Rms3OEDT7Tzp4i8cI1KmmJYmJGBBxtHfCVqA1SqQqTz8cNEMfeUk+onSyzIQQJliUL3m
- hliA==
+ d=oss.qualcomm.com; s=google; t=1788209973; x=1788814773;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=QMjHVEmzllHG9ePlZJkwEtyUGkuj2tv8ltNjxwD5V0oQP9BUUckI9Ewj58fiq2iTwW
+ ujcZPRk/tsl31thKuBW1QQE9rsQIdPbeEadQtt5288EaZCFrRBD9qS06NYRHPdad6XIR
+ y571glQUWGmwEucdnT3F13vHGz90eY249kMBOxff7/ojFmRYauYgDoixT5ZGeDNzsYRs
+ 8otHrUwfslkTFbMXNSNf9PDtRMILUHZwvqw235E0sVHS4AWYMQYeCu2KOFHFyQDOnca1
+ yiV4rwvSi4wXCasleG7JFnSDE27LZ+JDwaKK9yKUBvPPE0ObsLHhz/Eyz7GFhkqjGAD6
+ k2mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788238969; x=1788843769;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1788209973; x=1788814773;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=9yUuR/WSkjmDZYldjCLyDwNxnmnt2IjU3AxaHKK9h1A=;
- b=kUmFPY6yYDgdf0F6Snxq/HpTFC+VDqbPDqqMurCYx9id573JceHwaTcYkaJmZ/khrK
- CUh8HrVi3LV0XLzb/NA3nP6y/LC1TyootGgim79CYx2t6ELGgwRu2r9ZqJAPbe0sO9bO
- KXlG5t5sAtZ8q7MNeQEaLrNDepTjK1t4376m9y7WRCX4ufgI5guX5bX8LItR9V7oVJI2
- zhDenAo0rm0g+Pk0nzKhEICVseqzr/bDlEdXkyRGkC8kLiBO1WWyKZ2hv/Bq4SmfqfXD
- 5qqqTFbo60je8ZBAHCaxUqFwpalZ5Zje3mImIm4CaNxCEHAtqD5Lva/Hb9myYxajkveG
- Ismw==
-X-Gm-Message-State: AFuF++l+JHSPy8qhQnGyAwcBKQ276FqF4gZZhhwUiuLZr3YJCwu4dTrs
- Wg9hRio5UajATJAopni3O7u/dBc5mjw4IFacEVEAdtRUnTg8LbD0FTzy
-X-Gm-Gg: AYBFou2Aso8f4Z6oEjiAC1aBXD+h04Br4PFg6eBqfnXstxP2iYGplABpAcb57Y5Jhar
- LHPbV4HqXykAmPTyuEYTe63bLIHxPiYwgUu1A0YXCUx12gdyYBp18bzs1iwNqJ96JrDpL6TsLP5
- e2894sMsnkoxFj9zrp8B9FdmiK/oeoAXzCJLxjYwGmBfbRGIhmpurwSAcRxvVF4c4T3IfnYWERf
- LAgCLTnTIoT4H+bYifFdeaUX0E4AdLw9ngnNUpSlg4vMXQnZ62RWEExfiqs3KL5JsmMzyh3tJou
- 5sP10oDclMB+xzg4onnBgSHV7VPx3EfHRo6FOh8b4Mz079ha18fd4VXPkptaoNvoAXXi96gNzqB
- rPxQ4YBgUefoDSv21PnZbwV2h0lLBIayjlILScc/rcOkLgtjew3CiggYW78pvQE/P0PnLvx3hjL
- Zr+XN/K6Wslm1u7FrjQQDiSx7jYwZHoZnFYi38yQhqeejVxuyeD8MZG6jUEoXTnZKZc0k2
-X-Received: by 2002:a17:90b:3c83:b0:398:9bd5:490b with SMTP id
- 98e67ed59e1d1-3989bd54c84mr34387219a91.18.1788238969089; 
- Mon, 31 Aug 2026 22:02:49 -0700 (PDT)
-Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=SGHXO+O0H0i2dh8/WcVuOwGQ4eO0M66ktE9bULWXkME2hBZzrllzufLq/EbR3Yddu7
+ FP5vZgabZsq9POVliwMKbIRJ6EfFmTJiq43V/YUmgE0z1uKaDtmfozmdqy3Cq+U9L9lI
+ 8Y4t/pyKDPCRgjbMiR+kqqRctpAVXGtl/wLuii/7eGGgxSyXn/QszriBCtMrXweSIcVC
+ vxmHzkOUhjwA6SjWxYK+OLlr83ib/RBAdyOYyrUXngkQNtbsCqpqEC0nd1i0yEkTyvJH
+ 2Bv4zV+ETPUXWhuVV3sRkcKoZGCb430KYPgqcKjRiXy5UjpXFPrk9c8/K48MT+mlazAf
+ 4o9A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpzjRyV9BpUhMMHfqH5Q5q/khKn2NYbHqJX999HMfm51uKaqAEXR4hH8WcJ73sQevU/FrWxeaLhCPc=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mPA7TyzKkSlo1L2UBWXsoSWnRsplUqrA7QOQMkDLcmK9cLLNwj
+ 5hXWsCyiUE9V7XkGCZRB+h3jaT7URitqfm+9FEm9pW3scW1ni0t/MQRlVUTZGHTOrLN4eu9SUQK
+ BgJkPguPtCfwr7PS6wBcsM3AoFy3Ku4qkVFybHmzBuR+YTXgBc2T2QFWVJ8rJ4awOCXzgMhk=
+X-Gm-Gg: AR+sD13GMsef3+NmV5vWWRnql4FaS3Q0Qqg8f5x8iwqxyVJyZLHUGwRSnVUolwBRT6e
+ b8FB2lv0AwTcHE58/UAYbGb7KfLCWHMMkMaJTkK7H5mbOwsqMGTg7PgWV2pQIMV6JUTnFBZn1vi
+ Q4M7SicBH66WNjUcQvDVsJ7+d8druS2DbHXOXg2RxFG2HeHO1r2GeIngzi4Fx7ucchB/TzDCuvi
+ 18TED0z+hOrM231d7ak5YwCAZagSVPHZ84xxgWnMo/rrB/GjtihEo4EqxL0q45N/JxwTxuvciaB
+ +JruSL4dBF8QabFzQRH7cH1wfuwNlRhC1tuq3ZNkjOlmmvtPu1ugY3O0pwmTPbgcxWkt7zjjWf/
+ SZvmNNqC45L6c43OGfIgBLhUXjuXcUexudeqqZQ==
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175555285a.32.1788209973189; 
+ Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175550185a.32.1788209972753; 
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Received: from [192.168.0.183] ([80.233.33.41])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-142e0bf8a13sm49404128c88.0.2026.08.31.22.02.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 22:02:48 -0700 (PDT)
-From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
- rodrigo.vivi@intel.com, tursulin@ursulin.net
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH] drm/i915/gvt: use strscpy() instead of strcpy() in
- virt_vbt_generation()
-Date: Tue,  1 Sep 2026 10:32:41 +0530
-Message-ID: <20260901050241.359490-1-hrushirajg23@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ ffacd0b85a97d-48442d6eafesm277031f8f.24.2026.08.31.13.59.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Message-ID: <da6868f1-1f9c-47a2-ac48-88dd160ae3e3@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 21:59:30 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH 04/10] drm/gem: Convert drm_gem_private_object_init to
+ return error code
+To: christian.koenig@amd.com
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ ecourtney@nvidia.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX469PVatSHAjg
+ 1Av8/2pMXxmzFmiAd/kWCDY6+7V8VDhgpWYEkBrPeielJiwluM+tutHF9QwLqLgtUy5/waA55Nv
+ tdb2PPUbuKgjZYd9GA+qsTtw7R+YnCg=
+X-Proofpoint-GUID: HZWJCMdivFqCPZO75dq19awahpyYXnAy
+X-Authority-Analysis: v=2.4 cv=CYE4Irrl c=1 sm=1 tr=0 ts=6a95eb35 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=le/gl0x2G5+ma5yo0zCuxQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=KEyuISjlM5fmf-MbB58A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: HZWJCMdivFqCPZO75dq19awahpyYXnAy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfXy1/6AEfJptER
+ PFwOIkgYSjCIywOy0WtZEcqR/dM6R/Mt6YUai80J3dl0xnEUaeXPTUpFVaJkac40PHtc2CTJQTB
+ 6/EpZqAcFFMOB5I70W3Z2graY9bXJYGSsoanBh7xORg1UDvHEKz1ddcf6XmBa2FJ4acXY639Bw0
+ FNWCIJ8AFQkzMMP58EKIGRmcn9eauDsnatBwKbQwfj6oUwKFJMetj+87opSztTJz0F3lqojUykv
+ Fe849UIh5QtOOW9xELjnfHgb4OM8Hqn6H5mXml9ZT6e0sH+MHDlGTRciHfpzMdDWVwWWFie0sD1
+ G42eq4/d4CTTxnQahzRGMohI0MKE4EbE9X5/FkDaeJfNlFi4gakONgnmceBBiJgvarNQza5gVHN
+ PoeBdHNzgYafnEw19TlekyGpkjwsM0xMRVKNgEIy4fL5JmYH4y4mKwmPJFo8HfjRiAaQHDx9PQ7
+ Wae7L958LP86JxxuvUQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 impostorscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310181
 X-Mailman-Approved-At: Tue, 01 Sep 2026 13:43:42 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,29 +147,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-strcpy() has no bound on the destination buffer, so convert this to
-the bounded, always-NUL-terminating strscpy() instead. The literal
-"BIOS_DATA_BLOCK" (15 chars + NUL) fits the 16-byte signature field
-exactly, so this is a no-op change in behaviour.
-
-No functional change.
-
-Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
----
- drivers/gpu/drm/i915/gvt/opregion.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
-index d6e76ba31d60..f2527e26cd1e 100644
---- a/drivers/gpu/drm/i915/gvt/opregion.c
-+++ b/drivers/gpu/drm/i915/gvt/opregion.c
-@@ -151,7 +151,8 @@ static void virt_vbt_generation(struct vbt *v)
- 	v->header.vbt_size = sizeof(struct vbt);
- 	v->header.bdb_offset = offsetof(struct vbt, bdb_header);
- 
--	strcpy(&v->bdb_header.signature[0], "BIOS_DATA_BLOCK");
-+	strscpy(v->bdb_header.signature, "BIOS_DATA_BLOCK",
-+		sizeof(v->bdb_header.signature));
- 	v->bdb_header.version = 186; /* child_dev_size = 33 */
- 	v->bdb_header.header_size = sizeof(v->bdb_header);
- 
+> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> index 8a1d6c5636c2..5b198162c588 100644
+> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> @@ -202,13 +202,19 @@ static struct drm_i915_gem_object *vgpu_create_gem(struct drm_device *dev,
+>  	static struct lock_class_key lock_class;
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	struct drm_i915_gem_object *obj;
+> +	int ret;
+>  
+>  	obj = i915_gem_object_alloc();
+>  	if (obj == NULL)
+>  		return NULL;
+>  
+> -	drm_gem_private_object_init(dev, &obj->base,
+> +	ret = drm_gem_private_object_init(dev, &obj->base,
+>  		roundup(info->size, PAGE_SIZE));
+> +	if (ret) {
+> +		i915_gem_object_free(obj);
+Building on v7.2 with DRM_I915_GVT enabled will result in modpost undefined symbol error.
+Exporting i915_gem_object_free() in I915_GVT namespace (drivers/gpu/drm/i915/intel_gvt.c)
+should fix it.
+> +		return NULL;
+> +	}
+> +
+>  	i915_gem_object_init(obj, &intel_vgpu_gem_ops, &lock_class, 0);
+>  	i915_gem_object_set_readonly(obj);
+Thanks,
+Youssef
