@@ -4,28 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95494C624A5
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23A01C624A5
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:26:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08AE510E850;
-	Mon, 31 Aug 2026 15:23:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C67810E2DF;
+	Mon, 31 Aug 2026 15:26:52 +0000 (UTC)
 Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF74A10E850;
- Mon, 31 Aug 2026 15:23:50 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A00F210E2DF;
+ Mon, 31 Aug 2026 15:26:51 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============3960581278069095596=="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: =?utf-8?q?=E2=9C=97_LGCI=2EVerificationFailed=3A_failure_for_drm/i915/cdclk?=
- =?utf-8?q?=3A_Don=27t_trust_boot_readout_for_per-pipe_cdclk/voltage_trackin?=
- =?utf-8?q?g?=
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pps=3A_don=27t_o?=
+ =?utf-8?q?rphan_the_VDD_wakeref_when_the_HW_force_bit_is_reset_=28rev2=29?=
 From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Eduardo Diaz" <iamedu@gmail.com>
+To: "Arun R Murthy" <arun.r.murthy@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 31 Aug 2026 15:23:50 -0000
-Message-ID: <178818983097.101634.11072355060689897248@61270ab9df2a>
+Date: Mon, 31 Aug 2026 15:26:51 -0000
+Message-ID: <178819001164.101572.8314654642889430733@61270ab9df2a>
 X-Patchwork-Hint: ignore
-References: <20260830161703.11570-1-iamedu@gmail.com>
-In-Reply-To: <20260830161703.11570-1-iamedu@gmail.com>
+References: <20260831044036.1236136-1-arun.r.murthy@intel.com>
+In-Reply-To: <20260831044036.1236136-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,17 +41,105 @@ Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--===============3960581278069095596==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
 == Series Details ==
 
-Series: drm/i915/cdclk: Don't trust boot readout for per-pipe cdclk/voltage tracking
-URL   : https://patchwork.freedesktop.org/series/173056/
-State : failure
+Series: drm/i915/pps: don't orphan the VDD wakeref when the HW force bit is reset (rev2)
+URL   : https://patchwork.freedesktop.org/series/173013/
+State : success
 
 == Summary ==
 
-Series author address 'iamedu@gmail.com' is not on the allowlist, which prevents CI from being automatically triggered.
-If you want CI to run for this series, ask Patchwork project owners to click 'retest' on the series in Patchwork.
-Exception occurred during validation, bailing out!
-Build URL: http://gfx-ci.igk.intel.com:8080/job/CI_PW_kernel/186485/ (on built-in)
+CI Bug Log - changes from CI_DRM_19062 -> Patchwork_173013v2
+====================================================
+
+Summary
+-------
+
+  **SUCCESS**
+
+  No regressions found.
+
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v2/index.html
+
+Participating hosts (41 -> 38)
+------------------------------
+
+  Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 
 
 
+Changes
+-------
+
+  No changes found
+
+
+Build changes
+-------------
+
+  * Linux: CI_DRM_19062 -> Patchwork_173013v2
+
+  CI-20190529: 20190529
+  CI_DRM_19062: 37b6bb1186b8170c2031b312e82205caa05e19d6 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9078: 9078
+  Patchwork_173013v2: 37b6bb1186b8170c2031b312e82205caa05e19d6 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v2/index.html
+
+--===============3960581278069095596==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pps: don&#x27;t orphan the VDD wakeref when the HW force bit is reset (rev2)</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173013/">https://patchwork.freedesktop.org/series/173013/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v2/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v2/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19062 -&gt; Patchwork_173013v2</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v2/index.html</p>
+<h2>Participating hosts (41 -&gt; 38)</h2>
+<p>Missing    (3): bat-dg2-13 fi-snb-2520m bat-adls-6 </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19062 -&gt; Patchwork_173013v2</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19062: 37b6bb1186b8170c2031b312e82205caa05e19d6 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9078: 9078<br />
+  Patchwork_173013v2: 37b6bb1186b8170c2031b312e82205caa05e19d6 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============3960581278069095596==--
