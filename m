@@ -4,58 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D52C61DD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 09:07:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12AEEC61DD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 09:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AE9A10E783;
-	Mon, 31 Aug 2026 09:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B3F10E7AF;
+	Mon, 31 Aug 2026 09:37:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l047AtHG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OJT8C7FA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA5510E782;
- Mon, 31 Aug 2026 09:07:28 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B4FE10E7AE;
+ Mon, 31 Aug 2026 09:37:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788167248; x=1819703248;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=9eSWmw09i6MwBaJCOQUo+go1cUHCpkxRUSGheAucYBQ=;
- b=l047AtHGaS+Sn8MZZ5LamtcfATMARIh4KZsP1PGacNKtQd9i0K3u/tgR
- xQrAEgrRgzwUynEClx0jmtcHiBB9VvMuYrOVwHx6VXDFaknj7HzuOrUFj
- r9ytJWv/PbWAThp9o3p6TztPUlvJ2IZ+ugrmuQW55+aZH75ZScbPFzqgZ
- +P4CK3YjsnS0+eW8gypXe6dXAuIiXNgt/cAzz8Kvc3T1jJnmhvi/ZVpi7
- j3gxUu+xkPDzKM5l2Jrcrz4xz14FF+TukTTgZdtCJIMQMqKnkNl6y9T2l
- hWfFFEVge7zCpsJO/FdXnK00UD9PNpdVeAXUxPFczJ6GfbbAPiqm1eQXc Q==;
-X-CSE-ConnectionGUID: /swJQ5r2SEuKWfkkO1niiQ==
-X-CSE-MsgGUID: DQPZOqbYRims3vrlqO7B8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="87517599"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="87517599"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 02:07:28 -0700
-X-CSE-ConnectionGUID: 23BlEtc0RvOisqLpQDOgSw==
-X-CSE-MsgGUID: vuJ3PmefRu+at0MatDXtDQ==
+ t=1788169067; x=1819705067;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=I+FH7vqNavd3MMiUI7IDPF6tBinkk656Y/7Kc1TpIHk=;
+ b=OJT8C7FAMLk8vtWjDZr0XKe/l8jymGsooSI/z+gYhvywB22FNaC0MutY
+ L2lT4rmBwoI3P5anXX3AUTZMXqBn9Oh0r3j7MJb0jwBF5/K+GyxYDZ2ak
+ oCN5s4aDVGIe/7ZsCITipSObbMrNhkHUs5Z17L+wesZMNhyzBvIE72xCJ
+ 4Anv3/2KuxzsTabmbkTLGb03zJEkq0kJVzJYjOZQ9T54vIDI+sXVkQu+q
+ GOKwf8vkAHue0JYE3tMy7Izbwjhke2vfCmo/V4tsMc7ItEjEQ1CA+sRCf
+ tymPi9AvHnQ7WofqTBHez+HtGm5nxCPStiPU/Osg9ptUxM7ooDeKEDk1c w==;
+X-CSE-ConnectionGUID: 0j2hD9xjQhCM8H7Wd7qi+A==
+X-CSE-MsgGUID: pDSf4GaOStaGfORaKsrvIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88621249"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="88621249"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 02:37:47 -0700
+X-CSE-ConnectionGUID: py/k+RLOT6ivbSh98SeaPw==
+X-CSE-MsgGUID: j9fuiToFQQOuIdcmmLaYNQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="266163872"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 02:07:27 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
-Cc: =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>
-Subject: Re: [PATCH v5 0/2] match *_PCODE_DATA naming with spec
-In-Reply-To: <20260828190956.2622350-1-michal.grzelak@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260828190956.2622350-1-michal.grzelak@intel.com>
-Date: Mon, 31 Aug 2026 12:07:24 +0300
-Message-ID: <ec589248a09fcdc58dae59b1c87f0cb7313bfa0f@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="267410674"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.148])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 02:37:44 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, igt-dev@lists.freedesktop.org
+Subject: [PATCH] drm/i915/selftests: Wait longer for request to start
+Date: Mon, 31 Aug 2026 11:33:08 +0200
+Message-ID: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,58 +74,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 28 Aug 2026, Micha=C5=82 Grzelak <michal.grzelak@intel.com> wrote:
-> Resend of [1]. Last time I messed up versioning in the changelog:
-> mentioned change done from v4 to v5, while series was at v4.
->
-> BR,
-> Micha=C5=82
->
-> [1] https://lore.kernel.org/intel-gfx/20260602223640.1375933-1-michal.grz=
-elak@intel.com
->
-> ---
-> Changelog:
-> v4->v5
-> - clean changelog's versioning
->
-> v3->v4
-> - apply the rename to the read()'s signature as well (Sashiko)
-> - split i915 changes from xe (Jani)
->
-> v2->v3
-> - resolve conflict from rebase
->
-> v1->v2
-> - rebase onto drm-tip (Jani)
->
-> Micha=C5=82 Grzelak (2):
->   drm/i915/pcode: rename GEN6_PCODE_DATA to match spec
+CI extreamly sporadically (five times over last six mohths) reported
+failures of igt@i915_selftest@live@hangcheck on ARL-S machines.  The
+selftest was timing out while waiting up to 1 second for a request
+supposed to trigger a GPU hang to be started.  It occurred possible to
+reproduce this issue manually by running the selftest in a loop for a
+few hours.
 
-Pushed this one to drm-intel-next...
+Among results from 5 occurrences reported by CI so far, and two manual
+reproductions, two of them contained messages that suggested a
+posssibility of the awaited request to actually start soon after
+timeout.  With the timeout extended from 1 to 2 seconds, it occurred no
+longer possible to trigger the failure, even when running the test in a
+loop for 10, then for 12 hours, on the same machine where it was failing
+before in 2-3 hours.
 
->   drm/xe/pcode: match argument naming with PCODE_DATAx
+Assume the conditions that prevented the hang requests to start within 1
+second were always transient, and 2 seconds is sufficient for those
+requests to start effectively on machines in the CI environment.  Fix
+the issue by using that value as the timeout.
 
-...and this one to drm-xe-next.
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16624
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+ drivers/gpu/drm/i915/gt/selftest_hangcheck.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for the patches.
+diff --git a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+index 00dfc37221fac..53f3ce5c33a47 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
++++ b/drivers/gpu/drm/i915/gt/selftest_hangcheck.c
+@@ -278,7 +278,7 @@ static bool wait_until_running(struct hang *h, struct i915_request *rq)
+ 			     10) &&
+ 		 wait_for(i915_seqno_passed(hws_seqno(h, rq),
+ 					    rq->fence.seqno),
+-			  1000));
++			  2000));
+ }
+ 
+ static int igt_hang_sanitycheck(void *arg)
+-- 
+2.54.0
 
-BR,
-Jani.
-
->
->  drivers/gpu/drm/i915/display/intel_parent.c   |  4 ++--
->  drivers/gpu/drm/i915/display/intel_parent.h   |  2 +-
->  drivers/gpu/drm/i915/gvt/handlers.c           |  2 +-
->  drivers/gpu/drm/i915/i915_reg.h               |  2 +-
->  drivers/gpu/drm/i915/intel_gvt_mmio_table.c   |  2 +-
->  drivers/gpu/drm/i915/intel_pcode.c            | 14 +++++++-------
->  drivers/gpu/drm/i915/intel_pcode.h            |  2 +-
->  drivers/gpu/drm/xe/display/xe_display_pcode.c |  4 ++--
->  drivers/gpu/drm/xe/xe_pcode.c                 |  4 ++--
->  drivers/gpu/drm/xe/xe_pcode.h                 |  2 +-
->  include/drm/intel/display_parent_interface.h  |  2 +-
->  11 files changed, 20 insertions(+), 20 deletions(-)
-
---=20
-Jani Nikula, Intel
