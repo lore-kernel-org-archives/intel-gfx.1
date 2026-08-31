@@ -4,163 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6077C61DE2
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 10:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC346C61DE2
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:16:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88EFB10E6B8;
-	Mon, 31 Aug 2026 10:58:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AB2010E6B2;
+	Mon, 31 Aug 2026 11:16:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dP/7Z/+7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CgJJgvlq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9652510E277;
- Mon, 31 Aug 2026 10:58:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4860910E195
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:16:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788173900; x=1819709900;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=rMLtwkUg+rvoP3Xos2Km2pzjJC7PnPsNaHTe/4/XQlU=;
- b=dP/7Z/+7stVlOvZ0WEl3DntQEMMcISj0TAQKHVRapORXyOEe6u1Sqow9
- r0gVj1/LNhX+cUoCBFfxYWkqQokUf/H6GwmzCh8BKGoak4VWw6VXOX6KE
- MRVWR9HzPbXQKBSQXNAP20s331bwJmGMn9FE3fNnuNgnr2TfAp+23jAXm
- NOm28UHQWsuGALZ7MdFfMmXnvvRGmMsSJxkbOYdFz4SWWrCOiuSgyUQmG
- 6UsliWxmB32r28m6Jn85P9EtlnfXDluSJBzCFu9XXweujGyMIlhqNIgH1
- kFCbada2303GWJgcFadDM9Aln8wFxmVM7AXh5EN+S8MwfA14fQjK5f27z w==;
-X-CSE-ConnectionGUID: zkOKY1BUT7G0imbqT5nIzw==
-X-CSE-MsgGUID: KnmGVSroS16XCR24zGqw/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="105953653"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="105953653"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 03:58:20 -0700
-X-CSE-ConnectionGUID: CVFiaIU7Q96qQP1/u0G7XA==
-X-CSE-MsgGUID: 5zooxKbLT4ugIdskvcArqA==
+ t=1788174963; x=1819710963;
+ h=message-id:date:subject:to:references:from:in-reply-to:
+ content-transfer-encoding:mime-version;
+ bh=CmvskQIUQmdYCRjUSVChWmMM1G1PKVRCrKkoQxLmw7k=;
+ b=CgJJgvlqgDeyQFNpg28xW1L/fbiUM7vxbVCw3dBmNxE7GgKu2KpPzXMJ
+ IAffscyLOWRB2caIhJ8f1Ccd/sWPu8pRc18TafNoYyG6QUYEUMxK/XylI
+ DS5v5QjpxuWlX93sK7/G2SAz5loz1aFX2j0wty5OUbxy1gilXzW7lAznl
+ uNiQLWK9dXr+n5LABc0eBrQr9Ibtpe+qAdonNGj3NqCQEYXiJjn0fbMs+
+ itPZg/SviBjR1pTvGGfRwCOkVSwD/lLAhptDIGJfmMsxMWYSBy2ZtU2Oe
+ 0s7YN5QTeLjLxxke+8M27FdJIkIDRYub/Y4Fv3Eubk4OKXcOwLRISSJxh A==;
+X-CSE-ConnectionGUID: TDxENeQ7QZGoPf4Kp4WPWA==
+X-CSE-MsgGUID: xXiJa8DYQ/O32hOzkTPoog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="111352454"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="111352454"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 04:16:03 -0700
+X-CSE-ConnectionGUID: WI6S9IKdRNqfdV04Hbw8Rg==
+X-CSE-MsgGUID: QumKB0dfQEOqdx4vr/bYwQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="266185035"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 03:58:19 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="272567479"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 04:16:03 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 03:58:18 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ 15.2.2562.46; Mon, 31 Aug 2026 04:16:02 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 03:58:18 -0700
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.4) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 04:16:02 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.64) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 03:58:16 -0700
+ 15.2.2562.46; Mon, 31 Aug 2026 04:16:02 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uKfkFcsGNKewsWdWdddwGPs7NStPhbXpy0hvXyGSpa1JaBT4DWuhxO4d/PPbYctwlu6zmIwYHJiK1fIjT+tLRg7NUstztjaIgQoipd6NrECbNc2Wrl6wj8EI03mdhy0xW8PINYvU1bUDbbv2Xc3BJqca8gNmzZZjo5aiBBOX9GFJqopdi0rZJ0bR8tzV5meybiVd04k71mjSYK44GBetJkORaQJ8RWG1sDomf3bZ4KKNhaTDPTufzQfAI2yy2hr6g4YkWWVhFdA36e7pgWgDeLYckYkGzn0BpgTB8rpjU4I7oOfMr2fX5nqiVEpeV42z6rp40TwnE5iyYn/iUMSGcQ==
+ b=FWzZ/jW6OrT3ttlYoDNUWiT/wUlS1MOv6vA3C66V3NEhusgvbwTsHnDbBTp3uKN7zGduP6WWIXqb+lvdLAM8PtR8ttJw/oIptUuGpKrcS9ntTOZvzvV5m0lgb1KEWBur4GxhnFaoeLowII5H7eckNq3HwBJvmb4wbe0HyX804OVKTDEPLBmZIvoBVnooReui7CT7cbrJml+Qr0WaQQ6pO5mFdrAS8pWjmsMt4O2gSyPywtC1wH65zo+B8xE3m+8TOcecq7Ce6qqbS8eNOhOUxWfNp5o8lz4R6bLSl89QxrOoZ59OlJXCS6Vf3wiJ6JTFMg7VjTC6mFaCAa1b7hZk+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WQD3C4qHdzuBANJ0PtZJbtJqTirY0kmuEM9ZznTMi/g=;
- b=pF8+CPaXdn5Xz4vr19kc1R0rP6oi9dFxCYQkm0p10i/UA4KMK1C0Z/SRIbY2WLKsiVz9jMloNdmYOH/a+5Y6ZpVcCIghVsddwCu2Q8SUuBRVWnlnOegh7SR5KrvUGvOZ6rShZu4ZycBGuU8gRs4paGMM99/bAd+TvAIpVB27IHnHql26RPGvc1VR0WRFn3Bm/2L4EV+BUGd7+ae79RTDEw44d8Bd8CbWhjRWwM3NCuAuPdyPtssgnzxLvKemvcK/ZdhDBaGf42SxrI8Q/YneTA4hbnXeMXLiGmNB4ABLNuY5+OnSbiG/rMtqi41EtHQIcMB07sbUL+PiIHYNuAcIZg==
+ bh=Qj4ajLVPMAZgpU24SBP1vGZTrROxllLMR3lSpiLxyHo=;
+ b=jMc/nzxW1P7hXUh6curR5YdlTDZBtwKia67nEhKiyfzPtg57zjXm6XllpLTR8Ydr1BMglFdwiC9GY0xp4k7oMCls9JhTGcwitiQDuy0LU6vnhlHA1hCcWFFDVFZ8jyJdnT8CoEm/zkHuMyDd2I2tDKF7BxMzb3QoGVg2B5tOa/KGNMA/40QoqfaXrwye6uPIOqIoVl6NuE3mhr3OwoBD2+14vQIe0FexqHMy0iV4cYAua+j6yYrzCD7L7Nb4tmWzLd41a0dmR3i+UhKr7LYx/8MEdMenr64OPF70NZmKVHYs4guG6IPjGSDavcCrIO7n9Q/DnvWW/Cqj0uZ/QCdMUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com (2603:10b6:510:287::7)
- by MN2PR11MB4693.namprd11.prod.outlook.com (2603:10b6:208:261::18)
+Received: from SA3PR11MB7554.namprd11.prod.outlook.com (2603:10b6:806:315::9)
+ by SJ2PR11MB8516.namprd11.prod.outlook.com (2603:10b6:a03:56c::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Mon, 31 Aug
- 2026 10:58:13 +0000
-Received: from PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2]) by PH0PR11MB7424.namprd11.prod.outlook.com
- ([fe80::c448:1138:6981:52e2%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 10:58:13 +0000
-Date: Mon, 31 Aug 2026 10:58:02 +0000
-From: Krzysztof Karas <krzysztof.karas@intel.com>
-To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-CC: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <iommu@lists.linux.dev>, Andi Shyti <andi.shyti@linux.intel.com>, "Robin
- Murphy" <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>, "Sebastian
- Brzezinka" <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v5 1/6] drm/i915/gem: Count mapped pages in a folio
-Message-ID: <t5cgmjiaofeady463oknoxpkjhivtbgfc4i7yvy6gcbpvxncqj@37oqcxl6oa4l>
-"Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316"
-References: <20260817095648.2438192-1-krzysztof.karas@intel.com>
- <20260817095648.2438192-2-krzysztof.karas@intel.com>
- <ddc172c331091e326e1d913cc2a5147efd4d8173.camel@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 11:15:55 +0000
+Received: from SA3PR11MB7554.namprd11.prod.outlook.com
+ ([fe80::3ec0:2280:db82:d67b]) by SA3PR11MB7554.namprd11.prod.outlook.com
+ ([fe80::3ec0:2280:db82:d67b%5]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 11:15:55 +0000
+Message-ID: <ce6b59a5-e029-4c24-802e-7c1665f00687@intel.com>
+Date: Mon, 31 Aug 2026 16:45:49 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] drm/i915/hdmi: Read EDID over GPIO when the
+ debugfs flag is set
+To: Naladala Ramanaidu <ramanaidu.naladala@intel.com>,
+ <intel-gfx@lists.freedesktop.org>
+References: <20260826152444.2822821-1-ramanaidu.naladala@intel.com>
+ <20260826152444.2822821-3-ramanaidu.naladala@intel.com>
+Content-Language: en-US
+From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
+In-Reply-To: <20260826152444.2822821-3-ramanaidu.naladala@intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ddc172c331091e326e1d913cc2a5147efd4d8173.camel@linux.intel.com>
-X-ClientProxiedBy: TL0P290CA0015.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:5::7)
- To PH0PR11MB7424.namprd11.prod.outlook.com
- (2603:10b6:510:287::7)
+X-ClientProxiedBy: MA5P287CA0315.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21a::16) To SA3PR11MB7554.namprd11.prod.outlook.com
+ (2603:10b6:806:315::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR11MB7424:EE_|MN2PR11MB4693:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f2fed3e-f88d-4b78-e548-08df074ec0fc
+X-MS-TrafficTypeDiagnostic: SA3PR11MB7554:EE_|SJ2PR11MB8516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 546b8c9e-65cc-4915-dad3-08df0751398c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|10067099003|6133799003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ntiNyIjMwiXn3m0FiK57Fe7FT9RY5xEuaSPJWogrgSH5r2Bqbc9Cw2tr1zHSapnQMsstZ/KKauH+eNbO6wPIahEYiVk8AurTqAqnO7NQIs4CTClOqpF/Zik5xP/CyCqtx+gqohMvzmoT7pHA/uObFuH9ytw/16z6mvooEvTeZGPL4TKuu8hsWhvBdYtX3y5XxE4RTSWXpHyP3v/t6zfyUhD8CuFgWSm3q+BYN1EUguKxr+wpRRY6/gZsazsoQnAFJPOZWsSaqmm5vZSG6E2I70zW5D4OXNgGkJGmEzde6Rrq1u0RHf/OLMYNWzNbzzzMPYmMILL+ywlSXgivfQgeZJnfO7exosnilJOxh/vg7Ti4xQ+3pP9KFC7CARpVcP0jJwe48emD0ztnpkriMod5nADRM7l1H6C5MZbre7xIdT1nsH+Ckqdxzrm3hCP6YGVP+PmIWhXj4UORhKuaD4UrvW6TM0qW8TYIywguszNMyPsoa5GxFy8KQy4VYtOF2K2XRUEoxsDf10YR5x7/TKLlWraFTtvPVfzJUZVAjIULud94/3yjg4bcRZ+zyzKMpActCGUfx/MTL650/S0CGwtMX6jRDr0U8YqtCC4aAV79X524UoyvyXm0ct6IzWtwAn77n6ouMmhKdDVGpJf+IeT28eh+uFRsdpjCahpHxIOdlas=
+ ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: eCUcSmd+/kKMCF8SpZaGx2bQV2h4+D3Pu7irMAKQ0y+LPrkvlK9E6gLXXHcDFccogDqjWtlfKCCafflrFwqq2P+w+89rdstDk2oFR1SSE5NMQ+u5MjXnH0bkB9xtX/iH4RAjBJdD1h3RAyvbyE0EFHit68+z4QOpeeJPe+2uSKWXR0R0KyjeA2WHC5/dcKnvld6SWO5oFZ1h2Ri59tMlz2rOVGBihXr9iSQC78D+oZvRcnZWf3+gV2cPkSYYnPnm5HO/1LL8nhIlskMxyNFShWn3nr6Mx5qZc8ZWzaykKbBGKIyYKUVifIEPm4j9w5s0IptI7QcNOlQmxpCLfYDncLLNviIS+64luekO88PVWWJFFYV8TmBevRv494/+C5l6B4fFUD+dS/Xz5AIQv6z6xPy7cRO2oOsvIbWTyyU6A2QkuDNhzyLhQfX1tdQ/WLUhi8aB57GocyXQO/5aXW5OTxIe3NbbXT/oyNaee/KvRckhBkBD1Yzqm70UQj9X9E0C37+2B1iglXl2IJw1BX1ZZcgE0pcxN32JeY4RfWMKA/wIcFnhbJ59DFx7dDtCJgfNH9BLFlxR2bUxVl4ZyogR6UXd29h5GG5bxP1dxxMHo4V790kWdxVLzsmy4246OZUzS7FPMDIPtyB3UOylLz1a2XJWBCCc9PkmajfEI8qFnRA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR11MB7424.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(6133799003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:SA3PR11MB7554.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NEZwWkJ2RG83RmhTYlM4S29RYk1qM1JIYzVFZnlTQ3hTNjBTYWNTVXdLMy9z?=
- =?utf-8?B?RzlmZVZKUENXVkROYVlobHlWRWU2aDNBMlZaNjVXei9MNktmRVo2RitsSUF1?=
- =?utf-8?B?S1dQTEhSWFFCU21vcVNwZCttMDBBZW9mbzZYZXdoQy9EUjNyQkhKRVMrbE9j?=
- =?utf-8?B?eE4zaWVXT3FXQWt0bkl6ejkrOFNibkgxLzJUNXdpOUhlYlFhanVpN0NwZ2No?=
- =?utf-8?B?QTNoUFBRb29ucnlEUFI0QVBxcHU3Y0lPbzB3cFErejBibFFUS1hTRnkzZ2hT?=
- =?utf-8?B?blFCME56Zk5BZFpGLzlTZWZIazJpNm56cEZkRnQ2VjRhcUdTamhHM00zSGlO?=
- =?utf-8?B?R0RVbWZpUStxQ1ZUTytPQUoyS1luNUpRaThRcWJ1aWQ4dmRUTmE4Q21NNXFZ?=
- =?utf-8?B?RjRlMXg1bjdBMzI4TExoQkhCdTc2SlJnRVhYRjlDRHF5b1ZqMCt5a1J2UU5a?=
- =?utf-8?B?bzFTdUY1K0VsZTJLY0VNQkxHbUd3UTF0ZEFTZFJqNXlIcmFpL2xnWlZBbFMy?=
- =?utf-8?B?UkdjcWRRWlZnNndnMVVWbWVQSkRKUUhieWpBeHViNXliMDlCUVVWdDB6Wm1u?=
- =?utf-8?B?K3FZUzQ4OFo4V0dtb29YcWFWQWlUUDZVbDRKT1YwUkQwS05kUkkvU3dvVUEv?=
- =?utf-8?B?YWJndnZDZkZYWmV3czBFaCtkRVM2ZjREUVp2VDA3WTI2cWczYmYvejRnbURX?=
- =?utf-8?B?ZEg5TGtvQ1U1bDRDZGE4ZCtjcUVqcm4xWjVvVUtNZU9US0dHR3U0c3lSU1Fn?=
- =?utf-8?B?b0dmbnVCNDRPenhCaHNKZ1YxWGpmdWgvejNEK2F1VlZ1TVN5aFQ2T3FiZzQw?=
- =?utf-8?B?ZEd4TjFsNVRqUjRoZkZrbFNsZFhrc1R1emRHV2NtTHdaL21jZ24yL0p4WFEr?=
- =?utf-8?B?ZnFNd0VKMXZMUTdJWmlDZDlvZXVFeHJ6WElnYUtyT1VlTHNORlFpTnVFdVdG?=
- =?utf-8?B?SjBBWVlrbmNHanJ6OGQ1UlErdk9uWm84dndzeWFTb0NaZmw1aXdjM092VU13?=
- =?utf-8?B?NFcvMjh6QmNpMjdFMlNKUENlYitzYVU4WXNDQWJEN3pTNXY3SXRjSVVVTTBy?=
- =?utf-8?B?SkNPUEhhNVF3MCsrWEozZTdYUnB5dE0wTzdPdlJENXkzQmh5WW05Mi9Kc3dO?=
- =?utf-8?B?M0dTazZuUzhKR2lnUHE0YW9PU2x3TUg4d1VCRU9DQUtBT2swajRiejYvZkVI?=
- =?utf-8?B?SitrOHM3VzJKUHlaMmkvakx2Q0M2VVlVSnFlcUZxa3l1d3BDcnlEMWRaYVhH?=
- =?utf-8?B?OUw3V0M5aUpBWGdSZFJSVXZaTjZUZm14elIrcXJIQXlQRkhWLy9ScjdBbFZu?=
- =?utf-8?B?ZHZvWjJXRS9YVzB4Y0IwbzhQVXlBVG1JRFNJRHlPdmdmWlJYTWN2bFRyT0dY?=
- =?utf-8?B?clpaK1BuRkFaRDYxbGdoRjZkcDNYdi9EdU42U04vbmNpYUs3RlNBc0k4OE01?=
- =?utf-8?B?d3R4OTRjSzZoNXo4ZzRSUGFldWZZR0JzNmFUa3ZBU01FeUlWRTlaMUhhdkJ1?=
- =?utf-8?B?SHArbWtnc3FpTWVxaGU5ZWZDVXZ3OXZNdmY3dEhITkR2YzIxZ0NZa2dKWFFM?=
- =?utf-8?B?Z1ZvdkJBT3QxUHk3dWZiOG5XSGxJTlFqL1BpY3dVMEUxUXNKb1VWdjl2UXRO?=
- =?utf-8?B?bDA3RFhKSTgzSjZnY0pjOWl0K2d2YkZEWE9EZUZGZ1BJblVnUjc5azVhUWpZ?=
- =?utf-8?B?T1loRVJrYWpWUlYxV0pwek9JZE04dnNtY1JZMXFYTnlNRXc5THl4U1NyWTZZ?=
- =?utf-8?B?OWNEdVRUbU5HZEltWkp2QjgvUENyemoxK1RIU0NGS0lXNUN0RnIrV3Q4QTBv?=
- =?utf-8?B?RUpwUFhWV1EvZC9EaWxnL3VmQXdIR2ZWdFlmNjBMUnNqa3E1cjF0MHFGbWky?=
- =?utf-8?B?bnc1dFkwRmlXYk51SFF6b0p5RFpVZ2owZHhzaW5zSEVKTlQwY3VEWWREdDZa?=
- =?utf-8?B?Ui9qYzF3WXRybWQ0dVh6Sm84TWpBTVNUTnZqZU5RSWZBZ3lYeUxyZXY3ZWxt?=
- =?utf-8?B?SFJDdVBUU00yNUJJVk5HbmpQSGZBZGkwZHlvTG95WVhTY3dMRmVpWmg5UExq?=
- =?utf-8?B?N0tVYWM3dnRqa24wN2c4RzZaVmd4KzFpVTBFcnJoeDdtMjVZU0dwM3hsRnRq?=
- =?utf-8?B?TGZrQUt4bXV6V1k1R0RVa3o3dFBLVzN3dDVMZCtROWwrK3dLWFZsMXdRN2NN?=
- =?utf-8?B?VXhtQzlKTVBmQ29YWkdEUHRJTTRoV2d5d3JwS2ZBWFByV3FMcDlHM3hIeGpj?=
- =?utf-8?B?eENrSHdOZkdhZXgwd00zS2toeGs1a2ZKSDNiRlV4WGZTZHpaRCtncytIK0VH?=
- =?utf-8?B?MkdMclNTc2JOeE51Tkw2dFc3bjBQUmxqT3dIU3V0TE92cjRXcEpVWlBJc2dn?=
- =?utf-8?Q?lt6H0PY0aKgwgOSo=3D?=
-X-Exchange-RoutingPolicyChecked: qG2Ew5RTOPYNY8ykEKytZU7rp6wTCLfuwcZWdwIsdtad0nDWrr6Fsr3PVCCVHA17RjjyWzNo8MeZhfF6XTeQXELzZ6fWShIPvEwDQwOi8w69oFjXcSmJc3O+z6WgRXtuSgfoN5z+ICiW6skAhm1ar24x83zcS/0L/MEpR7+i6/LXkjkQTmQe+/LD9gh8nGTKFJgClzvmt/zQ3JWk1PwVbGl1nQADXq0DQmeBnmgQ4ezVGzx3uv/wlehxrj+t0Op/C/6JeLrehvuosnhQQUZqTD3Ge4PbgTz79ELxXO3PWbPMFn4O+IbMRDz8g2Wfkw96p9oqO7gSFCMmKGcL9jzOoQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f2fed3e-f88d-4b78-e548-08df074ec0fc
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7424.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M0xwQy9vZktrOVlmQ2xobzhVTSs3RFcvTDBwZnNJakMzV0M3QXJPT05zazBI?=
+ =?utf-8?B?NWVtcVFXSGgyYmxjdXVTdU9pNjhyYkliU1V6TnF1NzE5VlJSbUV2NkRjK0hN?=
+ =?utf-8?B?SGJUcE01SDFaWjVIZGo3UXhuQmdkdyswZXlJdEtpTzRSYnhha1hzai83cG1F?=
+ =?utf-8?B?THliTUxqYy9JOHZ3SGFuMXZlc0ZWQ2Q2TWg2ZDZGb0FiWkE3alp5RDQrOG9B?=
+ =?utf-8?B?ZHQvUU9LVTVZQVNtd2RuRGFCei9iZUhtTS8rYzJWYmlPUUlxS3lQZHQrd2E2?=
+ =?utf-8?B?L0VxYTBuOGlqN2tQWnhhWGVFRjJsbzVmOVdhcVd1S1RxMFdoMGlOYlAxMlpB?=
+ =?utf-8?B?SkNsdGdYQmFoZTVqZ2plQWduTnhmc2R5VXJXbEU2OXQ0UEpybXU5aWtVMEdX?=
+ =?utf-8?B?SitVaVMxV3NPWUxWQmtSSVNxVnZEKzZyaUFYWGRZaUZRZHIzWkxUNHFBUUZX?=
+ =?utf-8?B?aTdVd1BoN0o3alE0STMyRTUzK3cyKzU4R09ieDd0Mjk2VmZINkhUci9wKy82?=
+ =?utf-8?B?aU1ZWmkzY0pSK2JjTjF1aGcvUlgzWlE1R1puclVqbCtCVHVkakV1UVliSEFR?=
+ =?utf-8?B?WTc2OGltTUZmbHBLV1QySEdKeTc2R01jSDNOUVhGQmVJZlp3U3VDbGlTekF4?=
+ =?utf-8?B?QWc3VUhrU0JTd1BuSGd3Q21RSlpyem1vaWpIUGxCRHNiazdtVlFPNlp4Y1hC?=
+ =?utf-8?B?Y3R5cVYxRlhvQVpPa2FSY3p1cytaNWNuQlYzd2hBN1VrS2pmQUNXRVpTaEt1?=
+ =?utf-8?B?b2NNSU53VnlZWWEya2F0UFZGWkZWM1ZoTFBsRWdZWGNjSUtLK0EyNGphKzBj?=
+ =?utf-8?B?cE5rQXdxRGM4YWtFRmd2MGNEVlRDaHJlcDJTMFZaVHdhNkhFY3RpK2c5OTBY?=
+ =?utf-8?B?MUFoM2ZNY245NFpTeVN6SEJXMnliOTdZdGNGQStkZ2U4ZGJRKzR5TXFET3Jn?=
+ =?utf-8?B?aGlxSmZ6L3MyZ3ZZaFFoYWFRR25YMktaV3BHQUFrRG9BZmdNeVVmclNqSkx4?=
+ =?utf-8?B?M0tsaDZlZ0RvUjJpVEEwcSs4dzVRVU43clRlMmpPeUNEV1k3dGVpOU1BOEky?=
+ =?utf-8?B?N3BUVUVDWTR1RDVQMlNLWmY5SlhKV2JDTFBSM1FVS255V3dXWTZTYWk5a3Za?=
+ =?utf-8?B?U2ZkVUNjVTBqdk1XdWtoWE1mblhwL1BpU3NDVmQvZ2N1b2Z1VmsxR2dsekVw?=
+ =?utf-8?B?SXkreFJ0TEt0ckd1ZkpKZW9RK2RXREJkZ043T2xZWlh5SW1pN1RYZTFIWWpL?=
+ =?utf-8?B?SzRLZWt4RGV3cU5XVGpqYlRLYTJKdzVvbFJDYkg5Tjg2aGxiSGZ4WWpuOStL?=
+ =?utf-8?B?ckhGdmQ4aEJGbmgvYUtZQ2ZpL3BMNEJhbE9UV2FlL2NxZUhOZlNaUkdBbldB?=
+ =?utf-8?B?d0xRSUcva295VVFOcUgvT0U0d2NNTXFaald3a3hlWUZ4Mnd1UjBvZVRnT2JN?=
+ =?utf-8?B?TXJXZEZ3YVVHVTdhMjZuZ1gwOGxxR2pJcUIvL3ZKT0dHdGlzQmVCbU1yaGxa?=
+ =?utf-8?B?TzJCa3RSTmRzUXk2cTVma0t0TXFpOElKazF6YkwyeUFNd0k0ZUJaNzROOHgw?=
+ =?utf-8?B?TnFjaUR5UnhURU1VaVNWWXNmTjJlaXgyanhYSUNGSWRGQW0xZFJGR1p4Ry8x?=
+ =?utf-8?B?Y0E0VXRFNmM4SlYxdXYyb20yY0dIbkhvQkorOGtDeFJoTWcyMHRTQWdNTE44?=
+ =?utf-8?B?bnpnU2ZmRGJMSEJYcmRCWXA4M3FsSjBDK0FtS2RzbElrKzZmQVpRQk5vN2tE?=
+ =?utf-8?B?QjIzcGszbFEzRHZZTE5KMVZFSVorbFRWL0NCTllZNGNWVWhTQ2RiaWttcWds?=
+ =?utf-8?B?SVhreUdjaGZsbVlMK3dHbUoxNFdhSTVudzJOMU9MK05VRzB4SllzVk50MjM3?=
+ =?utf-8?B?dk5EckFvRG91TEVYRWV0NGlxZTUyN2hBeWFtdjBPeXlHcFJtQVg4cWhhZ1gx?=
+ =?utf-8?B?STdqTjdKbi94S2pWMzdJL1lJTURuLzF5S3dFcnlxQklVQWdCNGxJWjM3cEZ6?=
+ =?utf-8?B?UEJ3UEZrZnZQNG1URVlreld3UVZJU0E4N1gvaVJHMXFsZy9QazZKU2hWRDdo?=
+ =?utf-8?B?NVV2Ryt0dTFXNWdLeEdzL1BDSnhvdEUrYXlQVEkxTDd1RHNZYjNCS2VlNU4x?=
+ =?utf-8?B?WUM0a0N0UmJ2WnoydVRoTjhHZ2xLbHVJUXQxcUNlSUE4OW9EWWlLWUdHd2dJ?=
+ =?utf-8?B?dGdtR3p1TU9JWkVLL1MrU0hqd2F4WDk1aVY3MkJlNW4xR0JjODc1alA0TXR6?=
+ =?utf-8?B?YVBZcHZScC9LSHZTUDRsUWJQWGwvbXdtK01qR0NNRXpiR2diRlhLR2ttQ0ty?=
+ =?utf-8?B?bGtkZTROMjRpU3pNK0Q0bnhzS0p5TElUd0ozUnFaVk1LelpGNklESTdEa3VQ?=
+ =?utf-8?Q?U94QjbMdd2E7cLhw=3D?=
+X-Exchange-RoutingPolicyChecked: Apyn84zdY/0stwIX5HyrQfgcbtNdtPGZIUDGHY2i+ISThJZ8rojyIuRjnSG3hefjzRlyIOA0AvM7H7Dk3FY8ZJxeF8sLPUUAR4Tp02lOoLyX7gg6Zg3pSDmZ/37wAOiXqxRwurL/FvghHs/D7/G600HDN4Yk/p7ahwHDc9F1r3iabyBs4VNduYeIwWHZJZNWcWjFlS1+AwN3DyjVwObK2tP8Av7I0GatcuBjnLdk66ksISPlIJsQaQ14HB3W7xd+jMQAnd5DA92/PfS95jzDliE+JTYQVKLFu+yrz8ZV26mbL4dBNT0hsGfS2i0acqFsBOx86UxYNqdH4fPuq92z/w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 546b8c9e-65cc-4915-dad3-08df0751398c
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR11MB7554.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 10:58:13.7729 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:15:55.3302 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0pa7Hzv5X6/398ZjG+8p/mqf/Y7yr+rzRC/A5e0gMYws8j3+wotg7RaZGsc5DIYptg/TlwO1vz9CumnT+GOxyDI2mh1fObjPDotgFPQdaqU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR11MB4693
+X-MS-Exchange-CrossTenant-UserPrincipalName: daVxws6hGVpEKEZBbqixFYK3iNCPEm7cHyy9YwhHZlgTsjv3YvAnDWMPs44WRBewSYgiur9NrihEtP9RYsiWehKbB0B5o0F4UwQcV+U+/sw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR11MB8516
 X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -177,208 +171,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hi Janusz,
 
-[...]
+On 8/26/2026 8:54 PM, Naladala Ramanaidu wrote:
+> Normally the EDID is read over GMBUS, and GPIO bit-banging is only used
+> if that read fails. Now the debugfs flag is checked first. If it is set,
+> the DDC adapter is put in bit-banging mode before the read and put back
+> after it.
+>
+> The flag is read once with READ_ONCE(), so the enable and the restore
+> always match even if the flag changes at the same time. The GMBUS retry
+> is not needed in this case, because the read already used GPIO.
+>
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Naladala Ramanaidu <ramanaidu.naladala@intel.com>
+> ---
+>   drivers/gpu/drm/i915/display/intel_hdmi.c | 12 +++++++++++-
+>   1 file changed, 11 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> index 38915f19d3e5..462ccfc840d4 100644
+> --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
+> +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+> @@ -2555,13 +2555,23 @@ intel_hdmi_set_edid(struct drm_connector *_connector)
+>   	struct i2c_adapter *ddc = connector->base.ddc;
+>   	struct ref_tracker *wakeref;
+>   	const struct drm_edid *drm_edid;
+> +	bool force_bit_banging = READ_ONCE(intel_hdmi->force_bit_banging);
 
-> >  
-> > -		do {
-> > -			cond_resched();
-> > -			folio = shmem_read_folio_gfp(mapping, i, gfp);
-> > -			if (!IS_ERR(folio))
-> > -				break;
-> > +		/* Grab the next folio if we exhausted the current one. */
-> 
-> I think that even with folio_start < i < folio_end, 
-> shmem_read_folio_gfp(..., i, ...) should always return the right folio, so 
-> we shouldn't worry about getting the same folio again in a relatively rare 
-> case of the folio size exceeding a scatterlist capacity, we only need to 
-> take care of tracking an offset within that folio.  Then, ...
-> 
-> > +		if (!i || i > folio_end) {
-> > +			do {
-> > +				cond_resched();
-> > +				folio = shmem_read_folio_gfp(mapping, i, gfp);
-> > +				if (!IS_ERR(folio))
-> > +					break;
-> >  
-> > -			if (!*s) {
-> > -				ret = PTR_ERR(folio);
-> > -				goto err_sg;
-> > -			}
-> > +				if (!*s) {
-> > +					ret = PTR_ERR(folio);
-> > +					goto err_sg;
-> > +				}
-> >  
-> > -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> > -
-> > -			/*
-> > -			 * We've tried hard to allocate the memory by reaping
-> > -			 * our own buffer, now let the real VM do its job and
-> > -			 * go down in flames if truly OOM.
-> > -			 *
-> > -			 * However, since graphics tend to be disposable,
-> > -			 * defer the oom here by reporting the ENOMEM back
-> > -			 * to userspace.
-> > -			 */
-> > -			if (!*s) {
-> > -				/* reclaim and warn, but no oom */
-> > -				gfp = mapping_gfp_mask(mapping);
-> > +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> >  
-> >  				/*
-> > -				 * Our bo are always dirty and so we require
-> > -				 * kswapd to reclaim our pages (direct reclaim
-> > -				 * does not effectively begin pageout of our
-> > -				 * buffers on its own). However, direct reclaim
-> > -				 * only waits for kswapd when under allocation
-> > -				 * congestion. So as a result __GFP_RECLAIM is
-> > -				 * unreliable and fails to actually reclaim our
-> > -				 * dirty pages -- unless you try over and over
-> > -				 * again with !__GFP_NORETRY. However, we still
-> > -				 * want to fail this allocation rather than
-> > -				 * trigger the out-of-memory killer and for
-> > -				 * this we want __GFP_RETRY_MAYFAIL.
-> > +				 * We've tried hard to allocate the memory by reaping
-> > +				 * our own buffer, now let the real VM do its job and
-> > +				 * go down in flames if truly OOM.
-> > +				 *
-> > +				 * However, since graphics tend to be disposable,
-> > +				 * defer the oom here by reporting the ENOMEM back
-> > +				 * to userspace.
-> >  				 */
-> > -				gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> > -			}
-> > -		} while (1);
-> > +				if (!*s) {
-> > +					/* reclaim and warn, but no oom */
-> > +					gfp = mapping_gfp_mask(mapping);
-> > +
-> > +					/*
-> > +					 * Our bo are always dirty and so we require
-> > +					 * kswapd to reclaim our pages (direct reclaim
-> > +					 * does not effectively begin pageout of our
-> > +					 * buffers on its own). However, direct reclaim
-> > +					 * only waits for kswapd when under allocation
-> > +					 * congestion. So as a result __GFP_RECLAIM is
-> > +					 * unreliable and fails to actually reclaim our
-> > +					 * dirty pages -- unless you try over and over
-> > +					 * again with !__GFP_NORETRY. However, we still
-> > +					 * want to fail this allocation rather than
-> > +					 * trigger the out-of-memory killer and for
-> > +					 * this we want __GFP_RETRY_MAYFAIL.
-> > +					 */
-> > +					gfp |= __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> > +				}
-> > +			} while (1);
-> > +
-> > +			folio_start = folio_pgoff(folio);
-> > +			folio_end = folio_start + folio_nr_pages(folio) - 1;
-> > +		}
-> > +
-> > +		folio_page_index = i - folio_start;
-> > +		if (WARN_ON_ONCE(folio_page_index >= folio_nr_pages(folio))) {
-> > +			ret = -EINVAL;
-> > +			folio_put(folio);
-> > +			goto err_sg;
-> > +		}
-> 
-> ... the existing code above, including the existing 'do' loop, may be left 
-> untouched, I believe, an your folio_page_index can easily be calculated 
-> from an already maintained next_pfn as:
-> 
-> +		folio_page_index = next_pfn - folio_pfn(folio);
-> +		if (folio_page_index < 0 || folio_page_index >= folio_nr_pages(folio))
-> +			folio_page_index = 0;
-> 
-> IOW, we need to calculate and apply an offset within the folio only if 
-> next_pfn is still within the folio's PFN range, otherwise that must be a 
-> new folio and the offset we apply must be 0.
-> 
-> Then, unless I'm missing something, I believe the patch could be much more 
-> compact while still correct with my approach.  However, if other reviewers 
-> are more OK with your proposed changes rather than what I suggest then I 
-> won't oppose.
-Leaving the current do/while loop as is means we get multiple
-references to a folio per folio with shmem_read_folio_gfp(), but
-only one put in i915_gem_object_put_pages_shmem().
+Please drop the READ_ONCE(). No other display debugfs knob uses it.
 
-Looking at this again, it should be addressed explicitly in
-commit message.
+force_dsc_en and family all are plain reads. Also, we can re-structure 
+the below calls to avoid using the local variable altogther.
 
-> 
-> >  
-> >  		nr_pages = min_array(((unsigned long[]) {
-> > -					folio_nr_pages(folio),
-> > +					folio_nr_pages(folio) - folio_page_index,
-> >  					page_count - i,
-> >  					max_segment / PAGE_SIZE,
-> >  				      }), 3);
-> >  
-> >  		if (!i ||
-> >  		    sg->length >= max_segment ||
-> > -		    folio_pfn(folio) != next_pfn) {
-> > +		    folio_pfn(folio) + folio_page_index != next_pfn) {
-> 
-> I think the existing condition was correct, and still applicable even when 
-> tracking potential offsets within folios: when there is still some room in 
-> the current scatterlist, enter the else part that fills up the scatterlist 
-> with more data only if we've got a new folio that starts exactly where 
-> the previous one ended to have contiguity of pages preserved, otherwise 
-> switch to a new scatterlist.
-You are right.
+>   	bool connected = false;
+>   
+>   	wakeref = intel_display_power_get(display, POWER_DOMAIN_GMBUS);
+>   
+> +	if (force_bit_banging) {
+> +		drm_dbg_kms(display->drm,
+> +			    "[CONNECTOR:%d:%s] HDMI EDID read forced to GPIO bit-banging\n",
+> +			    connector->base.base.id, connector->base.name);
+> +		intel_gmbus_force_bit(ddc, true);
 
-> 
-> >  			if (i)
-> >  				sg = sg_next(sg);
-> >  
-> >  			st->nents++;
-> > -			sg_set_folio(sg, folio, nr_pages * PAGE_SIZE, 0);
-> > +			sg_set_page(sg, folio_page(folio, folio_page_index),
-> > +				    nr_pages * PAGE_SIZE, 0);
-> >  		} else {
-> > +			/*
-> > +			 * If our prediction about folio placement is true and
-> > +			 * scatterlist still has space left for more pages,
-> > +			 * then we land here.
-> > +			 */
-> >  			nr_pages = min_t(unsigned long, nr_pages,
-> >  					 (max_segment - sg->length) / PAGE_SIZE);
-> >  
-> >  			sg->length += nr_pages * PAGE_SIZE;
-> >  		}
-> > -		next_pfn = folio_pfn(folio) + nr_pages;
-> > +
-> > +		/*
-> > +		 * We assume folios are placed one after the other in memory
-> > +		 * and predict where the next folio begins.
-> > +		 */
-> > +		next_pfn = folio_pfn(folio) + folio_page_index + nr_pages;
-> 
-> 
-> >  		i += nr_pages - 1;
-> >  
-> >  		/* Check that the i965g/gm workaround works. */
-> > @@ -186,6 +216,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915, struct sg_table *st,
-> >  	i915_sg_trim(st);
-> >  
-> >  	return 0;
-> > +
-> 
-> Not related, I wouldn't mix it in, unless you have a good justification.
-Yes, Andi also mentioned this in his review, so I'll remove this
-diff.
+We can perhaps pull the force_bit/read/force_bit sequence into a helper:
 
-Thank you for looking at this!
-> 
-> Thanks,
-> Janusz
-> 
-> >  err_sg:
-> >  	sg_mark_end(sg);
-> >  	if (sg != st->sgl) {
+static const struct drm_edid *
+read_edid_with_gpio_bit_banging(struct intel_connector *connector)
+{
+         struct i2c_adapter *ddc = connector->base.ddc;
+         const struct drm_edid *drm_edid;
 
--- 
-Best Regards,
-Krzysztof
+         intel_gmbus_force_bit(ddc, true);
+         drm_edid = drm_edid_read_ddc(&connector->base, ddc);
+         intel_gmbus_force_bit(ddc, false);
+
+         return drm_edid;
+}
+
+
+This part will then become:
+
+if (intel_hdmi->force_bit_banging) {
+         drm_dbg_kms(...);
+         drm_edid = read_edid_with_gpio_bit_banging(connector);
+} else {
+         drm_edid = drm_edid_read_ddc(&connector->base, ddc);
+         if (!drm_edid && !intel_gmbus_is_forced_bit(ddc)) {
+                 drm_dbg_kms(...);
+                 drm_edid = read_edid_with_gpio_bit_banging(connector);
+         }
+}
+
+This keeps force_bit(true) -> read edid -> force_bit(false) together in 
+one place, which is easier to follow.
+
+It also covers the existing fallback below, which open-codes the same 
+three lines.
+
+This also takes care of the concern in the commit message. The enable 
+and the restore sit in the same helper and no longer depend on the flag, 
+so they always
+
+match on their own. We don't need READ_ONCE() to keep them in sync.
+
+
+
+
+> +	}
+> +
+>   	drm_edid = drm_edid_read_ddc(&connector->base, ddc);
+>   
+> -	if (!drm_edid && !intel_gmbus_is_forced_bit(ddc)) {
+> +	if (force_bit_banging)
+> +		intel_gmbus_force_bit(ddc, false);
+
+In case of force bit-banging failure, I was earlier thinking of falling 
+back to the original path.
+
+However, on second thought it makes sense to let the case fail.
+
+I think this should be documented in the commit message, and we can drop 
+the READ_ONCE() paragraph from it.
+
+Since we are not falling back here, please also add a drm_dbg_kms() when 
+the forced read returns NULL. Otherwise the failure is silent.
+
+Regards,
+
+Ankit
+
+
+
+> +	else if (!drm_edid && !intel_gmbus_is_forced_bit(ddc)) {
+>   		drm_dbg_kms(display->drm,
+>   			    "HDMI GMBUS EDID read failed, retry using GPIO bit-banging\n");
+>   		intel_gmbus_force_bit(ddc, true);
