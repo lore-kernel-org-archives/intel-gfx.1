@@ -4,43 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 191ABC61DF0
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 04:57:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADC2C61DD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 05:22:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D8A210E1D4;
-	Mon, 31 Aug 2026 04:57:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YOEWl+ii";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70EF210E1D4
- for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 04:57:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EA0334017A;
- Mon, 31 Aug 2026 04:57:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64771F000E9;
- Mon, 31 Aug 2026 04:57:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788152249;
- bh=Grw+cpUxCNp9f3is3AJEszm6bdWrs/LKm++S/WXwVcM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YOEWl+ii8dC+IroTNM+2w7nnWvUaF3UnJH7pLCIwLMr7xs/cC0YURGiTeWRx/o102
- Hd9F3nP42am30MxT8gihSGVW6W4ugtgadPmKfmX7b0OnljwFcPE2LNRQtY14Gs7vOq
- OAVqmCO4a8KkNa1DuloQrCY5iTE685uZVp/Brggw675MsfLOWeHD/JnnApVGNOYCHB
- xENulAE01vpKUxoGbU+ojPnUF/8hEO4yxGRdkYRb6HBQAFgFqV7NqcrICNDZ7cAZGP
- SwSr0Xb0TJpAHbC7rlNI2pOVvRAxal+tN6SNXF3Dp/aMoW6e35QTrXNaAJxO+oOtOF
- RK8rdl9NLNijQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/i915/pps: don't orphan the VDD wakeref when the HW
- force bit is reset
+	by gabe.freedesktop.org (Postfix) with ESMTP id 869A710E5D6;
+	Mon, 31 Aug 2026 05:22:10 +0000 (UTC)
+Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFDC710E251;
+ Mon, 31 Aug 2026 05:22:09 +0000 (UTC)
+Content-Type: multipart/alternative;
+ boundary="===============2076817669228913934=="
+MIME-Version: 1.0
+Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pps=3A_don=27t_o?=
+ =?utf-8?q?rphan_the_VDD_wakeref_when_the_HW_force_bit_is_reset?=
+From: Patchwork <patchwork@emeril.freedesktop.org>
 To: "Arun R Murthy" <arun.r.murthy@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260831044036.1236136-1-arun.r.murthy@intel.com>
+Date: Mon, 31 Aug 2026 05:22:09 -0000
+Message-ID: <178815372988.98703.2713457693843278826@61270ab9df2a>
+X-Patchwork-Hint: ignore
 References: <20260831044036.1236136-1-arun.r.murthy@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 04:57:29 +0000
-Message-Id: <20260831045729.A64771F000E9@smtp.kernel.org>
+In-Reply-To: <20260831044036.1236136-1-arun.r.murthy@intel.com>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,84 +37,109 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--===============2076817669228913934==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch incomp=
-letely fixes the wakeref leak by failing to update the VDD off-paths to use=
- the software wakeref as the authoritative record, leaving them vulnerable =
-to the exact same asynchronous hardware state reset.
---
+== Series Details ==
 
-commit 18ac414fc1cf2489e00ff31b05c939f81f2c6a00
-Author: Arun R Murthy <arun.r.murthy@intel.com>
-drm/i915/pps: don't orphan the VDD wakeref when the HW force bit is reset
+Series: drm/i915/pps: don't orphan the VDD wakeref when the HW force bit is reset
+URL   : https://patchwork.freedesktop.org/series/173013/
+State : success
 
-This patch attempts to fix a wakeref leak by ensuring the software wakeref
-is not overwritten if the volatile hardware bit clears while we still hold
-a reference. It updates intel_pps_vdd_on_unlocked to track the wakeref
-authoritatively.
+== Summary ==
 
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/8477
+CI Bug Log - changes from CI_DRM_19058 -> Patchwork_173013v1
+====================================================
 
-> diff --git a/drivers/gpu/drm/i915/display/intel_pps.c b/drivers/gpu/drm/i=
-915/display/intel_pps.c
-> index d4c98b150fa2b..43e89aaf419f6 100644
-> --- a/drivers/gpu/drm/i915/display/intel_pps.c
-> +++ b/drivers/gpu/drm/i915/display/intel_pps.c
-> @@ -758,9 +758,10 @@ bool intel_pps_vdd_on_unlocked(struct intel_dp *inte=
-l_dp)
->  	if (edp_have_panel_vdd(intel_dp))
->  		return need_to_disable;
+Summary
+-------
 
-[Severity: High]
-This is a pre-existing issue, but does relying on edp_have_panel_vdd()
-here leave vdd_wakeref unbalanced if the hardware bit is spuriously set?
+  **SUCCESS**
 
-If the hardware EDP_FORCE_VDD bit is set asynchronously (e.g., by DMC, DC
-states, or BIOS), edp_have_panel_vdd() will return true and bypass
-acquiring the wakeref into intel_dp->pps.vdd_wakeref. When the panel is
-later turned off, the off-paths might unconditionally drop a reference we
-never took.
+  No regressions found.
 
-Additionally, does this fix leave the VDD off-paths vulnerable to the
-exact same race with volatile hardware state?
+  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html
 
-For example, in intel_pps_vdd_off_sync_unlocked():
+Participating hosts (41 -> 39)
+------------------------------
 
-    if (!edp_have_panel_vdd(intel_dp))
-        return;
-       =20
-If the hardware bit was reset asynchronously, this early return completely
-skips calling intel_display_power_put(), permanently leaking vdd_wakeref.
+  Missing    (2): bat-dg2-13 fi-snb-2520m 
 
-Similarly, in intel_pps_init_late():
 
-    if (edp_have_panel_vdd(intel_dp))
-        edp_panel_vdd_schedule_off(intel_dp);
+Changes
+-------
 
-If the hardware bit cleared, this fails to schedule the delayed wakeref
-cleanup, causing another leak.
+  No changes found
 
-Should the VDD off-paths also be updated to use vdd_wakeref as the
-authoritative record rather than the volatile hardware bit?
 
-> -	drm_WARN_ON(display->drm, intel_dp->pps.vdd_wakeref);
-> -	intel_dp->pps.vdd_wakeref =3D intel_display_power_get(display,
-> -							    intel_aux_power_domain(dig_port));
-> +	if (!intel_dp->pps.vdd_wakeref)
-> +		intel_dp->pps.vdd_wakeref =3D
-> +			intel_display_power_get(display,
-> +						intel_aux_power_domain(dig_port));
-> =20
->  	pp_stat_reg =3D _pp_stat_reg(intel_dp);
->  	pp_ctrl_reg =3D _pp_ctrl_reg(intel_dp);
+Build changes
+-------------
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831044036.1236=
-136-1-arun.r.murthy@intel.com?part=3D1
+  * Linux: CI_DRM_19058 -> Patchwork_173013v1
+
+  CI-20190529: 20190529
+  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
+  IGT_9078: 9078
+  Patchwork_173013v1: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
+
+== Logs ==
+
+For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html
+
+--===============2076817669228913934==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Project List - Patchwork</title>
+  <style id="css-table-select" type="text/css">
+   td { padding: 2pt; }
+  </style>
+</head>
+<body>
+
+
+<b>Patch Details</b>
+<table>
+<tr><td><b>Series:</b></td><td>drm/i915/pps: don&#x27;t orphan the VDD wakeref when the HW force bit is reset</td></tr>
+<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173013/">https://patchwork.freedesktop.org/series/173013/</a></td></tr>
+<tr><td><b>State:</b></td><td>success</td></tr>
+
+    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html</a></td></tr>
+
+</table>
+
+
+    <h1>CI Bug Log - changes from CI_DRM_19058 -&gt; Patchwork_173013v1</h1>
+<h2>Summary</h2>
+<p><strong>SUCCESS</strong></p>
+<p>No regressions found.</p>
+<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html</p>
+<h2>Participating hosts (41 -&gt; 39)</h2>
+<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
+<h2>Changes</h2>
+<p>No changes found</p>
+<h2>Build changes</h2>
+<ul>
+<li>Linux: CI_DRM_19058 -&gt; Patchwork_173013v1</li>
+</ul>
+<p>CI-20190529: 20190529<br />
+  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
+  IGT_9078: 9078<br />
+  Patchwork_173013v1: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
+
+</body>
+</html>
+
+--===============2076817669228913934==--
