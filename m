@@ -4,65 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 200E1C61DD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 08:04:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3E75C61DD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 08:13:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 962D610E6DB;
-	Mon, 31 Aug 2026 08:04:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="egHvMJhs";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46F5A10E6DB;
- Mon, 31 Aug 2026 08:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788163480; x=1819699480;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=Cl5NpPOdLVHO5bVj8nYOLe43QlryP/1zjbbrcAoNYp0=;
- b=egHvMJhsaPUTUCfsGpl4BSkpKNXqAnze1Z10phc2EsNIFQEpQI9coEOy
- UoCwOKtW1hHm0qol6sYVWajBZ7m8cJDiZy+Uy3J46Tre71any+mMbE42s
- /k9pvJ94IFKZratDJkCFux0k+tHOL34YkFpx8LwQrpAKVdPt8vmTpjqng
- xXf7nWqeaJjHa+HNXicdZYD32LqEYv00hjcMw2bhuG491tDwyhjlYHIE+
- 8IRCVN8kr6nyGAZfOeWjp/OMbtYyS8/ZlmaAL6Jc+YM5QCSGdfEfXYiAF
- sjMniRelrR2YT/+jZVlzZ94fgOoN8CpmG+1BrqaxYjCglvnMuFvgGGszh g==;
-X-CSE-ConnectionGUID: BfJEniWISIqBZlIVmVoa0Q==
-X-CSE-MsgGUID: BX0a+lpkQrK5lFhR7bUNCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92251007"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="92251007"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:04:39 -0700
-X-CSE-ConnectionGUID: VH6q6OATRrSq7aC9al69eg==
-X-CSE-MsgGUID: mAIosUkXSSavDVXXFTNttQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="268171932"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.22])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 01:04:36 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Deepanshu Kartikey <kartikey406@gmail.com>,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, airlied@gmail.com, simona@ffwll.ch,
- krzysztof.karas@intel.com
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com,
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] drm/i915: Guard against NULL driver_data in
- i915_pci_probe()
-In-Reply-To: <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260813064902.367504-1-kartikey406@gmail.com>
- <CADhLXY4YXGWUi8JcfdYMJ4HhKMKS2RLg2WvnZnku_XK45m4-fQ@mail.gmail.com>
-Date: Mon, 31 Aug 2026 11:04:33 +0300
-Message-ID: <79e8a3d71ca0e2cb7274aa1e5e053f934bc88333@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E98310E6DD;
+	Mon, 31 Aug 2026 08:13:32 +0000 (UTC)
+Received: from coelho.fi (coelho.fi [88.99.146.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72A9410E262;
+ Mon, 31 Aug 2026 08:13:30 +0000 (UTC)
+Received: from 37-33-54-222.bb.dnainternet.fi ([37.33.54.222]
+ helo=[192.168.101.111])
+ by coelho.fi with esmtpsa (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <luca@coelho.fi>)
+ id 1x0x8p-000000031Ey-09xl; Mon, 31 Aug 2026 11:13:28 +0300
+Message-ID: <2a31365ad6fda73c7da01c3dbabeee8e06725a62.camel@coelho.fi>
+From: Luca Coelho <luca@coelho.fi>
+To: Jani Nikula <jani.nikula@linux.intel.com>, Luca Coelho
+ <luciano.coelho@intel.com>, intel-gfx@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Date: Mon, 31 Aug 2026 11:13:17 +0300
+In-Reply-To: <61b49de30e824a79667d39e018de18a98dea45c0@intel.com>
+References: <20260817092911.342072-1-luciano.coelho@intel.com>
+ <20260817092911.342072-4-luciano.coelho@intel.com>
+ <61b49de30e824a79667d39e018de18a98dea45c0@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10 
+MIME-Version: 1.0
+Subject: Re: [PATCH v3 3/5] drm/i915/display: remove unnecessary
+ clock_gating include from intel_display.c
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,64 +48,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 30 Aug 2026, Deepanshu Kartikey <kartikey406@gmail.com> wrote:
-> On Thu, Aug 13, 2026 at 12:19=E2=80=AFPM Deepanshu Kartikey
-> <kartikey406@gmail.com> wrote:
->>
->> pci_match_device() can return the dummy pci_device_id_any entry
->> when a device is force-bound via sysfs driver_override, in which
->> case ->driver_data is unset (NULL). i915_pci_probe() casts it to
->> struct intel_device_info * unconditionally and dereferences
->> intel_info->require_force_probe, causing a NULL-ptr-deref.
->>
->> Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=3Ddb96c5ff032f4292a8dc
->> Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
->> ---
->> v2: Drop Fixes tag, this isn't a regression from a single commit -
->>     the unconditional dereference of ->driver_data has always assumed
->>     it points into a MODULE_DEVICE_TABLE()-backed entry, an assumption
->>     broken by the generic driver_override fallback path, not by any
->>     i915-specific change. Add Cc: stable instead. (Krzysztof, Jani)
->> ---
->>  drivers/gpu/drm/i915/i915_pci.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915=
-_pci.c
->> index 82415af47d54..2f03f95945f1 100644
->> --- a/drivers/gpu/drm/i915/i915_pci.c
->> +++ b/drivers/gpu/drm/i915/i915_pci.c
->> @@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, cons=
-t struct pci_device_id *ent)
->>                 (struct intel_device_info *) ent->driver_data;
->>         int err;
->>
->> +       if (!intel_info)
->> +               return -ENODEV;
->> +
->>         if (intel_info->require_force_probe && !id_forced(pdev->device))=
- {
->>                 dev_info(&pdev->dev,
->>                          "Your graphics device %04x is not properly supp=
-orted by i915 in this\n"
->> --
->> 2.43.0
->>
->
-> Gente Reminder. Let me know the status of this patch .
+On Thu, 2026-08-27 at 10:28 +0300, Jani Nikula wrote:
+> On Mon, 17 Aug 2026, Luca Coelho <luciano.coelho@intel.com> wrote:
+> > We don't use any of the functions inclued in intel_clock_gating.h in
+>=20
+> inclued?
+>=20
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+>=20
+>=20
+> > the intel_display.c code anymore.  Remove the respective include.
+> >=20
+> > Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_display.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu=
+/drm/i915/display/intel_display.c
+> > index 553c60d452dd..fc30a455bed3 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_display.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_display.c
+> > @@ -60,7 +60,6 @@
+> >  #include "intel_bo.h"
+> >  #include "intel_bw.h"
+> >  #include "intel_cdclk.h"
+> > -#include "intel_clock_gating.h"
+> >  #include "intel_cmtg.h"
+> >  #include "intel_color.h"
+> >  #include "intel_crt.h"
 
-Sorry about the delay. Thanks for the patch, pushed to drm-intel-next.
+Thanks for the review!
 
-BR,
-Jani.
+I have now pushed patches 1-3 to drm-intel-next.
 
->
-> Thanks
->
-> Deepanshu
-
---=20
-Jani Nikula, Intel
+--
+Cheers,
+Luca.
