@@ -4,108 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 142D4C624D3
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62ADCC624CE
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:09:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D61A10EB42;
-	Mon, 31 Aug 2026 21:06:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1320810EB53;
+	Mon, 31 Aug 2026 21:09:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SsTexeg6";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TEk7NQxB";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013033.outbound.protection.outlook.com
- [40.107.201.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73FCA10EB19;
- Mon, 31 Aug 2026 21:06:09 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B6210EB47;
+ Mon, 31 Aug 2026 21:09:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788210590; x=1819746590;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=OQzQgvtZ76SMKd1fnj8DhnM163b6l/1U/MCYtC+hLkc=;
+ b=TEk7NQxBnHVCXaSRk+YJzyUdZvtAoznRODS0JJGUG6Kc2/PBqGWaGScA
+ jiGsY1jKIEXtdcffRXm0yxjQNrwy+EZrMwj8GNNe5UjFxICrmLTOU0/6W
+ Rt6EidhJle6bSyNU6h5SH5ewDzIdP2Vl3weD5xk5+bVf/fMJ4wg1JUhXj
+ YHomyobbkzIEnBbEFp8hOcM0E6qwA62eFR4vyYoNSRdcdXBfY3kSaX4jt
+ VuoWSRGLgK1MUgVWjO7TSDm+ndCRFzyuCJIEktLwUYGIEt6lOfxDX+KGH
+ kfBW+F7U8R8WHpicd95dPbY1zYzKhDne7BGrce+9uWpQSxDIKjPoAZ9s7 A==;
+X-CSE-ConnectionGUID: C8sLR/2QRgOUA3fkkrS8oQ==
+X-CSE-MsgGUID: l2xMwJ+fQPKAfcIhT8twdQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106149281"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="106149281"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 14:09:50 -0700
+X-CSE-ConnectionGUID: uOvyEgQsRSukz11PbYiSWQ==
+X-CSE-MsgGUID: pphgl9E1Ry2lGSsI4yWGbg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="270815761"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+ by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 14:09:49 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 14:09:49 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 14:09:49 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.24) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 31 Aug 2026 14:09:49 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CkWqf5NxV3/bA3CKCV6NYTYZ9nULoVCk7qE0xHMuyMbc/Js44i9Erl9ry5BcaqKz55bQyVs+IYrrQv/VdY2i62vaYUsZy9pVryKrRq8ZOMN2fgvg5OPoB7LgVw69+IPTJotcbTZ3LZ/GI++PgBMQC+XaxU8UfvmiS+EpxkzsXmxNpUxKlQRGjhazkV3wdn/+FivBN4eMN0kcL+XmxdeHOcCD0BpzMI8g3Vs3Ekl+opKS71D3je/oy4JoSLyrmvCpppufNwh9VsB+gnOG/U3/7ghuRcubZHh12n+Wc/2W38SNOA9Q7IeioaJ7D8tyWfGr7NXOrLID3xs9C0rEKWaUng==
+ b=kHFsgIC7plZkZGs+mNp/Nk/MIUZK/geIQtPsRD3DX85LyPx7zt3a/ygBXwULI3PfeaOfsYvkuJEgCLWM8ezc5fAeIqwwYpRNPV5NmJlKPwpsi7p0LZyv30NmE74CkrvF9edrfUFF11q05gMx6qLbbvqhyY8BlmTUF6gbatQ9+TZaFlsJk8pwEhD90Ff3wQeMRQvKjXTaQj3oaGhVGUqPSzJd3dihoaqisHF8lb1gNAqRJoiEi5u1Z8w+2G7XqiOpLwb5Kzg72hpbGQ3UEcC8xjAaK2ZLoYjsHWrzTrQ1jWxx1si346izj7H+KDgA/kYQkAgKYOGmE/j2u6Oxl9Gwew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tuR39l//eSsUelrdRamkE6Ec+i1NxAFb8MiN1pXdcYY=;
- b=D5lVG+Nuv8GRWOnqiBUkQfNy3C/Lnp16+yXo7yjJJ4RZ/3WrzL49alNt4xf/eiOmrP2HhD0YEh5B0xe4eI/RJB/nYghwb2KHXeicu9Xe+J2wMQ66KUZAOBHcbme4/TLgiOdYIK3bTilX44soNjGJmEvTvZFw2Kp6RL0ACK1+veRLSco6aHuMah3pCQgZFYKw4zDbE04mp2qEsaux8isF+kEGuTNTNwRNIUZ//hc3K3a+HylfNEdmUxsahqVauBn20tdgK3z/6CSkWZtgIH4FWreoHJm1gouLJtjhl4Kie2FjfF8/iTwwWCwb0xWt48F6Z2T14XUIGXzmbZc8j63C8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tuR39l//eSsUelrdRamkE6Ec+i1NxAFb8MiN1pXdcYY=;
- b=SsTexeg6vjKovwFlK1l41U7ZcTvsvUDyx4vNAOLseg4E041fcao9j0l+oLQDWIF6TmRink16X3nFer85X77y+0cJYao2QnaSlypHzO3bjxeBYR08x2k4DcMIe6n0e8IYPdYE+oC7KDeaK2dYk8T0qtQviFvvvCECOOC68M4mwC8=
-Received: from BN9P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::32)
- by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22)
+ bh=S4d8rCwFWTLbX6qWk0Ye8/jMeldbDvLBO0dFgRWV+W0=;
+ b=jHdc3OI8neX8XMuoKrI0uE0mKiAe6sHPgE7ECf1TNuvVGgR2FvV5+48216ZY2tcCASNCCRG0N3sOGYDrubLfuYUx220lpRyGCCxrWW3oDcfW/K8ClUGMwHdjejC1uKMA23gjtx0D/c009QbJQTDAZwt5Kmk5RHh7/L6RpaQEtdnmvkSh4vEFctHqXSBDm3Kk3fjHFOJJvo9DyzuSy7evkQoAbII8lRGDFutSrUZwPoT+f4NZS2QeoPEH+SRXosOnh1+5sVKaSTC83kNAOPAgnslwLTmU0cq7p9x4fSpW1n/VWOJrTbl17ci93zxX+KlN6K1GGvG2vufo/fCcpy/kBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by SABPR11MB9938.namprd11.prod.outlook.com (2603:10b6:806:4ee::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 21:06:04 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:408:10c:cafe::4b) by BN9P222CA0027.outlook.office365.com
- (2603:10b6:408:10c::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 21:06:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 21:06:04 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 16:06:03 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
- <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>
-CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
- list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>, "open list:INTEL DRM DISPLAY FOR XE AND
- I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
- <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "Mario
- Limonciello" <superm1@kernel.org>
-Subject: [PATCH v7 09/12] drm/bridge: auto-link panel backlight in bridge
- connector
-Date: Mon, 31 Aug 2026 16:05:28 -0500
-Message-ID: <20260831210531.2334221-10-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831210531.2334221-1-mario.limonciello@amd.com>
-References: <20260831210531.2334221-1-mario.limonciello@amd.com>
-MIME-Version: 1.0
+ 2026 21:09:47 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 21:09:47 +0000
+Date: Mon, 31 Aug 2026 14:09:45 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+CC: Danilo Krummrich <dakr@kernel.org>, <thomas.hellstrom@linux.intel.com>,
+ <ecourtney@nvidia.com>, <nat@pixelcluster.dev>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 01/10] dma-buf: Add reference counting to dma_resv
+Message-ID: <apXtmV+O3Hmns4Fd@gsse-cloud1.jf.intel.com>
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-2-christian.koenig@amd.com>
+ <DL0SABOU2QO9.20AA8OP9CXXA5@kernel.org>
+ <apHe5YcWWiZF4i2Z@gsse-cloud1.jf.intel.com>
+ <apHiw91fFbKuogDJ@gsse-cloud1.jf.intel.com>
+ <c359b608-c6af-4cb8-a750-a29b5b26180e@amd.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+In-Reply-To: <c359b608-c6af-4cb8-a750-a29b5b26180e@amd.com>
+X-ClientProxiedBy: SJ2P221CA0002.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5db::12) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|MN2PR12MB4301:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00e12b95-7e71-4d88-a02b-08df07a3ab67
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|SABPR11MB9938:EE_
+X-MS-Office365-Filtering-Correlation-Id: 411c6184-b431-43ad-0105-08df07a4302d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|7416014|1800799024|36860700016|23010399003|376014|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: rEl9nMhvvTgDbEnNp7FuOyXXcbAVyxzmx+gdh2jF+d6S+c/MO9nRyQGY1az02YDjeqP46QgB3c266VRmU85SLQSdDhLLnlA6MSauyXOGHG8NZbeR0u7TkukIU91eZ9n2OvteQCs/sqbj6Id0WeK4yHgJk/KX8xscjmdy93HBYqBF4eCmge/ZoHCQ6A+jYudC7PI7P3Aq3d0g6w8d3a/fs+23fR9kLBxFi/RVs6UMQNTkQmhIUIfEA8JQe5UJaAb8ililFZoQzlw946+wUeaMBTwoxxYWoCniKEtwvov3aa5mlDnf6XNvb+xOpHxI5bFIgHA6hrxi/+ujDknLxL/PQiBulBmEHRnjH8yng3jC7VbWlVncaYuwAaCW+PogYcjyZ+OYZRYfaTVkBPrOyXRBCddexYJ9SXxVlvBOa1/0XZ18O57fKfU6IRfOZnNXA+G9qn2CNMQ8pTfaZOBkD707LcWC1H1AF5zIx64K0BZFnBRbmfND5dGpOZzW92Y51kJcBOaIyjUnPeUObE5YhaJ7tzBHZd3jLNQ9UevL7U8k+3+bh4+cv8xDMrI1/8EeSwWQp0xjVgt/OoYviuuY/LshtiM85LAg4bOukmkOom5bWOtnbg/HoDdq/kaXG89aYSVkmZ+IjNbT1t2JbSSv4Bs14JpwiqsvToh1VSaDYXDvVzkK5kxVNzbf3GqzJH5T+AClXKFDwSUTFTctVYLrHTi6gg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(7416014)(1800799024)(36860700016)(23010399003)(376014)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|376014|366016|23010399003|4143699003|56012099006|10067099003|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ej8H98IBcfGlQQERPx2y1vC+mhyDFlguWSPbHTiAqO1ERHOAoRr30tClxjPwVJh0aAGPxyhdkLBepTZXuF20xWXxCaE7doZzPbD1C4nGs/5uBM3F+1VaqJ/VrypbCi0M41QkJnwkqH7AsbEFXk7RlfpYDvlgBKbXm0lT+sucf7wY0K038laUllzQPuc44dHubo4QCYTmYv4tCJB6b9aA0ki5047NfOrya4/4rp2QgHaqn99xnFTJ7UWzKZh3Kw9SQB1I7AxGJHuHZDeZ5mVl1l74BDXn+vHVwFkwoxzH5914mLSnrixxyrBMALMG4hA9/HjsSRuK9Emme+4sIcFM/BqlHp/Cv/SHlFrCoZFLehJbFNd9yTu4CFVmnlBBY9lx4EiwA1UctIs51pceaAqb6X7Asx2s/iF/6/mJNT7Sjnty3je0KrgyokLtVHnZ93O4UTMvpKBhYqE1j5wiYq2gj0xBDjNTxIL3a9sZHqx0AB9XZ/DSqSvCuOvnOCP274u/bj3v86ziVD3Zj1v4zhLl6Q7FTWJEO9gLkmAWbHKD9OJFlwoYH9P2jWcZTFwA/ebA9hQ78gJpdVoqfbP/S1wnj9cVccw35q249993yb7sgzaDT07DCj0WRERmMD830Jvu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(4143699003)(56012099006)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 57IIszCenkOIC82pIuctqJ2IeWK6P7f/t4gRCAh7QJj0M3LnIyO+xVZ4zx/46UG/U8rbnzv/PY6y4jFG/z4AoY3/dixEdvzBtfJ4AxzH6aO5BP97w5VcQ257YX1ymO3W+leMKA9m1AIx/YbIqoh5IcsXJWGpZvXu0ir233NfvBLoQk1yCSyLO9h5uPiI6JZ+231RVM+1tcBXtMXgpgEcX0Fv9jmV9YP8uyX2hnYvZNPHiPsOT8yAPmkZ6EALvPVSOxwAHNrbkDkLsZcBFJG/8E2F5uiL4KWkB4uPuppI2xW9IPIFG27aHYGgmZeJBTTX5zySG3DsTin8iX/eSkX+EWmcShy20DbFI/Y7pkcqWMF/jUH5rtGVu4SIxYsZTm19+p0BryGcs4TtYdETqKX/64sBaxFRtbGDt/kwxGlLrqYcUlLOqucGa4+J9ql1qqnw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:06:04.6232 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00e12b95-7e71-4d88-a02b-08df07a3ab67
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?z75BO6gm2EwXuKQTq12z2VIqmVEMpb96fAm3tBaRNmam3NLjrAgKwgM8fu?=
+ =?iso-8859-1?Q?rKj7CeTCOVz1y1FOr3om0InSB/GDzspMO1u1zX5cSGKDIlIqWUJfZU4AeC?=
+ =?iso-8859-1?Q?NKPpHfovqOM+9qjeLL7wGOpRrs6+CI77uJv0WvMyhjTq0chQtUW6NDoKzu?=
+ =?iso-8859-1?Q?y7fztR2qXtEwJ7EF7v6P+9thR6fcuvE0aLP/tVO4JpFUbn5kZBV52saE3B?=
+ =?iso-8859-1?Q?3OJkbsBB0gjEg0SE+oaA+cqcdtNuoBh1kj9iNw23+XJC56PE1GQBSVW/go?=
+ =?iso-8859-1?Q?b8D9NX9aDn8HiyPXOkC0P47dJYJbmHqiwIZSs6PV2U9KQaE+ZIqrxpVl0q?=
+ =?iso-8859-1?Q?mOT2IfekVqqfEeeU+6xBlpOKeGQgH2Y0i3GFng7619TyXR7qA+DFAwfHKn?=
+ =?iso-8859-1?Q?lzAa+ynKX+mC13dM5aEDa8epBMt8nVL/0GpdZDqEJyoBTG4skTGcq1KVco?=
+ =?iso-8859-1?Q?rEgWS1bq7CMxKTs4up6mUgAY8sHgnA8WrfFibPzKZLmPsjQBIQ+AFl88Sa?=
+ =?iso-8859-1?Q?HsdIszNTK8Bq4CJC0rjFd+4WCqLeIfmx9oy5ZgKfuYU5t4vmSHqGRWXH++?=
+ =?iso-8859-1?Q?rMiVLaqtdTBqt/XblIInOBH6CVY3ceKp3jvxZgWgGRYGvjFB/47rS/8gSr?=
+ =?iso-8859-1?Q?P0P97i/tr2ybytUKXxSdlAdoddHG8/dOqVYnNvOkDpjaVM0h5V4gmdw9bq?=
+ =?iso-8859-1?Q?x/jGZowecBlNzZMpku/6OZdkkkzeDcJqWp5yNxEm9WAyoPSmfujGPDpuT3?=
+ =?iso-8859-1?Q?LWkP6NGJz+SJN1W2LVbzHiXpvqVKERjf6hTSpD96vu8TtYyPRf2qbp0zhB?=
+ =?iso-8859-1?Q?CMWmmqmrg9WH+aNLa7BwC0VyKgM/NHGPJ3sW/8LgnePeMN89cVnWmVtmLf?=
+ =?iso-8859-1?Q?p98uy2Jw8QIOTVyJA4anBo3wpH2LFNUzvvcbTwBtsAvkxGaDRGgUeaCp8/?=
+ =?iso-8859-1?Q?KsSysgBAxoFn44TO1HpZI4rOOPU3cZpiASrinvSNDLfg1i774ldq42LmJM?=
+ =?iso-8859-1?Q?Rh+cmXbGTrUs6yPtb8UxQ8udj0wsikSSE5+hGnnpAoQyJ5iTKBwFOJRGDr?=
+ =?iso-8859-1?Q?u+ZbJr4S/rDjdFn4JQUoUP2SgSUpdIRaNTd0IvBm/nJt5BDEWzp058SucW?=
+ =?iso-8859-1?Q?vs8YZgnxi2RyBVz/Yf97GMA5yQCzDUoVIH0qX9839ee4ZJaBl/ELKn5DP5?=
+ =?iso-8859-1?Q?hMUQIfOSRS36DBs9HKomthawlH6AoImaxdSLKDJWMg4TmGGvJ5YVhiTqqk?=
+ =?iso-8859-1?Q?tb2v7Uxrz9P60mxdMeMkrepb1QccZH+NwTZG2XHnqh8npCjeQhOqSKMj4V?=
+ =?iso-8859-1?Q?0jOYLOVGVkRhbI/jqtoKEQUOzpaONOABJnq0LMNFGHL4MIXGL3sGMKVbZE?=
+ =?iso-8859-1?Q?dIhORaib5BahYSbiGx97vhG09/czE+tUeV4vwvVBFKtHKCphat1ccxTYoE?=
+ =?iso-8859-1?Q?QeD8GK6IimYSHJ4xPPA3H/XSVKI9bhqaizLLKgr7yEBPNVQ4s91FA/hTzB?=
+ =?iso-8859-1?Q?iNnfs76SefaOQBJEPom1fgVAmYPYbTPjFmqpnV2/K4+Iz9yd7xhgEKogAS?=
+ =?iso-8859-1?Q?vYgEPtZ0sLY55Vdnc/368x3b8IJOnjXg0nQwZ5XCmMPK83P96aFEuDTvMn?=
+ =?iso-8859-1?Q?Mk0JrM2HS67BajMNTH+Eps7T/IO1KdQJaaGoPVVsU7PTYMks5kaLQ4OXxm?=
+ =?iso-8859-1?Q?mStoZ9SpVJH4aSv0qXuHob/2Z8c7af5hJj9czCWg8MBfAzx0TuZuOZiv94?=
+ =?iso-8859-1?Q?hw8Euzq7O3h5ymiC5IW0j7santNvRjO24IidS0ZPTkO2PtloW38wnkEkDK?=
+ =?iso-8859-1?Q?94Fe7jOjM3QqEkZ/nKNsThKFTmEj0TU=3D?=
+X-Exchange-RoutingPolicyChecked: 0jeiKI9L/Mx+jzi9aYTadc88UL8cOsNdcRZLHn3quDlPrAR7o7xMFU8MCI1h5jef9txwHfEHcWtjb+71equkn7g8UW81jeDRFqZ45O9kv1BjR82o72jXwnjkO7ki06YO674A8zVJHIhnd8f/1RRETjIFvHuQ2SDre7XobWqWovOtZSYXD1zbh52ep6rVgtE6PxnhhO1cD4USONdxV57FMz7X2lQfkrCyYOMVbhtqmPBF/H3kMqjANMQoAVFwGEHqBrpMeqvnCKVGsvoH5b0Fk71aKGhjRFXLVlZjiMYYDEJSh551y942bpoKIokJWNoWQobpCY8TSceE3AA8vSLuKg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 411c6184-b431-43ad-0105-08df07a4302d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:09:47.6445 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9mSRaGO2qDfDbkzhFw6HhFKRu6M04WT4sOBXIYZxE4C//OKp7gM+DXy9o25YAEGr2YjTFI/AmhANS0A10fSDYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR11MB9938
+X-OriginatorOrg: intel.com
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,86 +167,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Link a panel's backlight_device to the bridge connector so
-luminance-aware clients can drive it through the LUMINANCE property.
+On Mon, Aug 31, 2026 at 09:37:10AM +0200, Christian König wrote:
+> On 8/28/26 21:34, Matthew Brost wrote:
+> > On Fri, Aug 28, 2026 at 12:17:57PM -0700, Matthew Brost wrote:
+> >> On Fri, Aug 28, 2026 at 08:21:17PM +0200, Danilo Krummrich wrote:
+> >>> On Thu Aug 27, 2026 at 2:38 PM CEST, =?UTF-8?q?Christian=20K=C3=B6nig?= wrote:
+> >>>> This provides clearer ownership semantics and makes the code more
+> >>>> maintainable by removing the embedded allocation hack.
+> >>>
+> >>> Again, fundamentally disagree; please see [1] for details and reasons.
+> >>>
+> >>
+> >> I think Christian is doing this incrementally rather than as a single
+> >> change across the tree. The last patch [2] in the series removes
+> >> `dma_resv_init` and the `allocated` flag. I believe that was the main
+> >> concern, and it appears to be addressed now.
+> >>
+> >> I'm taking the series for a spin now, as our CI [3] had trouble applying
+> >> this patch. I'll let you know what my testing shows.
+> >>
+> > 
+> > I ran our basic CI suite and didn't see any regressions. I also ran some
+> > eviction and shrinker tests that stress interactions with active fences
+> > and exercise individualization paths, and those passed as well.
+> 
+> Thanks, that is exactly what I wanted to know. The whole patch set was AI generated and I still distrust its quality.
+>
 
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
----
- drivers/gpu/drm/bridge/panel.c                 | 15 +++++++++++++++
- drivers/gpu/drm/display/drm_bridge_connector.c | 11 ++++++++++-
- include/drm/drm_bridge.h                       |  1 +
- 3 files changed, 26 insertions(+), 1 deletion(-)
+For sure, AI is generally yes good at getting most of boilerplate stuff
+coded, then a human needs to jump in and tweak it.
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 02388a3de626e..36005e10494d3 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -233,6 +233,21 @@ bool drm_bridge_is_panel(const struct drm_bridge *bridge)
- }
- EXPORT_SYMBOL(drm_bridge_is_panel);
- 
-+/**
-+ * drm_panel_bridge_to_panel - get the drm_panel wrapped by a panel bridge
-+ * @bridge: the panel bridge
-+ *
-+ * Returns the &drm_panel wrapped by @bridge, or NULL if @bridge is not a
-+ * panel bridge.
-+ */
-+struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge)
-+{
-+	if (!drm_bridge_is_panel(bridge))
-+		return NULL;
-+	return drm_bridge_to_panel_bridge(bridge)->panel;
-+}
-+EXPORT_SYMBOL(drm_panel_bridge_to_panel);
-+
- /**
-  * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
-  * just calls the appropriate functions from &drm_panel.
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a4..d4b4e59cea51c 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -11,7 +11,9 @@
- #include <linux/slab.h>
- 
- #include <drm/drm_atomic_state_helper.h>
-+#include <drm/drm_backlight.h>
- #include <drm/drm_bridge.h>
-+#include <drm/drm_panel.h>
- #include <drm/drm_bridge_connector.h>
- #include <drm/drm_connector.h>
- #include <drm/drm_device.h>
-@@ -1082,9 +1084,16 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
- 				  | DRM_CONNECTOR_POLL_DISCONNECT;
- 
--	if (panel_bridge)
-+	if (panel_bridge) {
-+		struct drm_panel *panel;
-+
- 		drm_panel_bridge_set_orientation(connector, panel_bridge);
- 
-+		panel = drm_panel_bridge_to_panel(panel_bridge);
-+		if (panel && panel->backlight)
-+			drm_backlight_link(connector, panel->backlight);
-+	}
-+
- 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
- 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
- 		drm_connector_attach_content_protection_property(connector, true);
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 58fff047f43b6..ce1fc8695b455 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1475,6 +1475,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
- 
- #ifdef CONFIG_DRM_PANEL_BRIDGE
- bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-+struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge);
- struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
- struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
- 					      u32 connector_type);
--- 
-2.43.0
+> The interesting thing is that most comments come from Sashiko-bot, so AI is now criticizing the quality of AI generated code ^^.
+> 
 
+Yes, Sashiko tends to find bug in other AI generated code with its prompts.
+
+A brief look, some of Sashiko comments are definitely correct. I didn't
+run with a full debug Kconfig + plus run tools to check for memory
+leaks, etc.. but I suspect if I had if would have backed up a few of
+Sashiko comments.
+
+You can just feed the Sashiko comments back into your AI coding session
+too... But general I'd advise against that, or at least scrub the
+Sashiko comments for valid or not valid first.
+
+Matt
+
+> > 
+> > Matt
+> > 
+> >> [2] https://patchwork.freedesktop.org/patch/748868/?series=172875&rev=1
+> >> [3] https://patchwork.freedesktop.org/series/172873/
+> >>
+> >>> Besides that, I don't really know what to expect from the series. The cover
+> >>> letter says "Refcounting dma_resv v2", yet there's no changelog telling people
+> >>> what has changed since v1. On the other hand, none of the patches has a v2
+> >>> prefix, so what is it?
+> >>
+> >> Yes, change logs / cover-letter would help as Danilo likely could have
+> >> spotted the above change.
+> 
+> Mhm, I though I added that in the cover letter.
+> 
+> Regards,
+> Christian.
+> 
+> >>
+> >> Matt
+> >>
+> >>>
+> >>> [1] https://lore.kernel.org/all/DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org/
+> 
