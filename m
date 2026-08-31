@@ -4,27 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADC2C61DD3
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 05:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D9E3C61DE8
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 05:50:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869A710E5D6;
-	Mon, 31 Aug 2026 05:22:10 +0000 (UTC)
-Received: from 61270ab9df2a (emeril.freedesktop.org [131.252.210.167])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFDC710E251;
- Mon, 31 Aug 2026 05:22:09 +0000 (UTC)
-Content-Type: multipart/alternative;
- boundary="===============2076817669228913934=="
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C8EB10E5F7;
+	Mon, 31 Aug 2026 05:50:49 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Kmz6VrTc";
+	dkim-atps=neutral
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 890BB10E5F7
+ for <intel-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 05:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788155448; x=1819691448;
+ h=mime-version:content-transfer-encoding:in-reply-to:
+ references:subject:from:cc:to:date:message-id;
+ bh=4+1AjoOEMcdtmG5GS4EjWm9+KjN0DN8Rjkp+5jnZUoU=;
+ b=Kmz6VrTct1VjCHJiKbJ/o1wrFkN63Pq47nGovuGjSY/xyJ+r4m/QkUwA
+ mrn5wiF/9xbpIQS1jUR++R97I5F78CUz2U7x3d4StgFkMhNJ3h6vD+7cD
+ HDqyzlmXRYGIHL53lRZ2ocI11CulvrONbbm73wRYSRfzlHLjQzUkIHuXE
+ Wzr6DDht/bIEA7csLWLAwCDimwKY48/rOXy+WZ6eQ/oBLalMuUYMk7L2x
+ VtJ/9+dY6cT4JcULdZ9jm6p/PwuSKcgN8uYkbAu+zIVcSPGLY5YUkmn+b
+ smeKc3JKMsa/NeWS5jhqDg6+ost9WCQ4S66EbSHIfokDSwgHlLei1Xwcm w==;
+X-CSE-ConnectionGUID: HXUvU0MUQTWEGx3C2zKq+A==
+X-CSE-MsgGUID: XuayiGctQ1CXR7IWPbPjXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88574912"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="88574912"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2026 22:50:47 -0700
+X-CSE-ConnectionGUID: CA7ykUwzR6ynHc0RLuwRoA==
+X-CSE-MsgGUID: oD+mN2joST+26lHQs6m7Ng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; d="scan'208";a="265465160"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.31])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Aug 2026 22:50:44 -0700
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Subject: =?utf-8?q?=E2=9C=93_i915=2ECI=2EBAT=3A_success_for_drm/i915/pps=3A_don=27t_o?=
- =?utf-8?q?rphan_the_VDD_wakeref_when_the_HW_force_bit_is_reset?=
-From: Patchwork <patchwork@emeril.freedesktop.org>
-To: "Arun R Murthy" <arun.r.murthy@intel.com>
-Cc: intel-gfx@lists.freedesktop.org
-Date: Mon, 31 Aug 2026 05:22:09 -0000
-Message-ID: <178815372988.98703.2713457693843278826@61270ab9df2a>
-X-Patchwork-Hint: ignore
-References: <20260831044036.1236136-1-arun.r.murthy@intel.com>
-In-Reply-To: <20260831044036.1236136-1-arun.r.murthy@intel.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <BA6527E9-BF25-4EAC-AD11-7B2F92A3A01F@gmail.com>
+References: <20260808184302.1509585-1-shuangpeng.kernel@gmail.com>
+ <apSwfmDiwsuyQT6I@zenone.zhora.eu>
+ <BA6527E9-BF25-4EAC-AD11-7B2F92A3A01F@gmail.com>
+Subject: Re: [PATCH] drm/i915/gt: Fix request use-after-free in heartbeat()
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, stable@vger.kernel.org
+To: Andi Shyti <andi.shyti@kernel.org>,
+ Shuangpeng <shuangpeng.kernel@gmail.com>
+Date: Mon, 31 Aug 2026 08:50:42 +0300
+Message-ID: <178815544216.17173.15017693568712093310@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -37,109 +70,49 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: intel-gfx@lists.freedesktop.org
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---===============2076817669228913934==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Quoting Shuangpeng (2026-08-31 03:13:28)
+> Hi Andi,
+>=20
+>=20
+> > On Aug 30, 2026, at 18:44, Andi Shyti <andi.shyti@kernel.org> wrote:
+> >=20
+> > Hi Shuangpeng,
+> >=20
+> > On Sat, Aug 08, 2026 at 02:43:02PM -0400, Shuangpeng Bai wrote:
+> >> heartbeat() detaches engine->heartbeat.systole with xchg() before
+> >> checking whether the request has completed. If the request is complete,
+> >> dropping the detached systole reference may free it. Concurrently,
+> >> idle_pulse() can observe the empty slot and publish a newer request.
+> >>=20
+> >> The worker then sees a non-NULL engine->heartbeat.systole, but continu=
+es
+> >> to dereference its stale local rq. The newer request can therefore make
+> >> the shared-slot check succeed after the old request has been freed,
+> >> causing use-after-free accesses to emitted_jiffies, submit, and sched.
+> >>=20
+> >> If the detached request is incomplete, heartbeat() can also overwrite a
+> >> newer request published by idle_pulse() when it unconditionally restor=
+es
+> >> the old pointer.
+> >>=20
+> >> Use cmpxchg() both when idle_pulse() publishes a request and when
+> >> heartbeat() restores the detached request. Drop the detached reference
+> >> when restoration loses the race, and reload rq from the shared slot
+> >> before dereferencing it.
+> >>=20
+> >> A KASAN-enabled i915 mock selftest reproduces the use-after-free before
+> >> this change and completes without a report after the fix.
 
-== Series Details ==
+The test should be properly submitted and reviewed first before we even
+consider merging this, especially with such bad commit message. The commit
+message doesn't mention a word about real world usage scenario that
+could lead to this.
 
-Series: drm/i915/pps: don't orphan the VDD wakeref when the HW force bit is reset
-URL   : https://patchwork.freedesktop.org/series/173013/
-State : success
+There are probably hundreds of ways to cause kernel to crash by crafting
+selftests, and if they don't map to any real real hardware usage behavior,
+that's just noise.
 
-== Summary ==
-
-CI Bug Log - changes from CI_DRM_19058 -> Patchwork_173013v1
-====================================================
-
-Summary
--------
-
-  **SUCCESS**
-
-  No regressions found.
-
-  External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html
-
-Participating hosts (41 -> 39)
-------------------------------
-
-  Missing    (2): bat-dg2-13 fi-snb-2520m 
-
-
-Changes
--------
-
-  No changes found
-
-
-Build changes
--------------
-
-  * Linux: CI_DRM_19058 -> Patchwork_173013v1
-
-  CI-20190529: 20190529
-  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
-  IGT_9078: 9078
-  Patchwork_173013v1: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux
-
-== Logs ==
-
-For more details see: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html
-
---===============2076817669228913934==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title>Project List - Patchwork</title>
-  <style id="css-table-select" type="text/css">
-   td { padding: 2pt; }
-  </style>
-</head>
-<body>
-
-
-<b>Patch Details</b>
-<table>
-<tr><td><b>Series:</b></td><td>drm/i915/pps: don&#x27;t orphan the VDD wakeref when the HW force bit is reset</td></tr>
-<tr><td><b>URL:</b></td><td><a href="https://patchwork.freedesktop.org/series/173013/">https://patchwork.freedesktop.org/series/173013/</a></td></tr>
-<tr><td><b>State:</b></td><td>success</td></tr>
-
-    <tr><td><b>Details:</b></td><td><a href="https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html</a></td></tr>
-
-</table>
-
-
-    <h1>CI Bug Log - changes from CI_DRM_19058 -&gt; Patchwork_173013v1</h1>
-<h2>Summary</h2>
-<p><strong>SUCCESS</strong></p>
-<p>No regressions found.</p>
-<p>External URL: https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173013v1/index.html</p>
-<h2>Participating hosts (41 -&gt; 39)</h2>
-<p>Missing    (2): bat-dg2-13 fi-snb-2520m </p>
-<h2>Changes</h2>
-<p>No changes found</p>
-<h2>Build changes</h2>
-<ul>
-<li>Linux: CI_DRM_19058 -&gt; Patchwork_173013v1</li>
-</ul>
-<p>CI-20190529: 20190529<br />
-  CI_DRM_19058: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux<br />
-  IGT_9078: 9078<br />
-  Patchwork_173013v1: 046bcac5ed22b09812cec3b0aef678195f1eae71 @ git://anongit.freedesktop.org/gfx-ci/linux</p>
-
-</body>
-</html>
-
---===============2076817669228913934==--
+Regards, Joonas
