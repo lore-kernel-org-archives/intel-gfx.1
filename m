@@ -4,56 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E903AC624C6
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 12:39:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FDD0C624A4
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 12:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 510DB10E81B;
-	Mon, 31 Aug 2026 12:39:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B101C10E7EB;
+	Mon, 31 Aug 2026 12:52:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZqV/Ngb/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M8JOYpm5";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 483D010E80F;
- Mon, 31 Aug 2026 12:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788179970; x=1819715970;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=SZY3BKrYsic+Ph+hlDYuSQ3sgI6BtxKZ9eKrkMs6vzM=;
- b=ZqV/Ngb/gspSuVA2m+7chepvEhBmIKxe7Guox8HQj49CGACs8hNcmfLh
- nTl8f61QKD0mROmeT/Py9HK7CDMlDIU/Vl31ppPjD15SO0L/obwP3mVkS
- b9VPsykN1dGiY324+0zrs21CvdSxncx7XyiKhsHbucs6+HWPBTcKZWiQe
- F/UJADKArp/ZnUlLJkKTdIj/+XHxNkWn67y5E6BpVjrdmSUPbIro61XDS
- LKxJL+y2lTqAj39h4HoQiXTe4VipmeOgaIyT8PmHhn2y/bTPV2eQsiWQp
- FVK+zBNLNLKRuog/3df5NlA9S+F+RwUVHNuSwiIdNpiYyQZEpGoFLOq7/ A==;
-X-CSE-ConnectionGUID: wdVaU4klQFGx6Ttn/rJUqw==
-X-CSE-MsgGUID: Fzb+anGsSPq37SqirlOPtw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88513963"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88513963"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 05:39:30 -0700
-X-CSE-ConnectionGUID: wvxIjU5sT1uibb69HxWnrg==
-X-CSE-MsgGUID: JbumNj8tSX2Gr5UFXfuDaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="292289553"
-Received: from cfl-desktop.iind.intel.com ([10.190.239.20])
- by fmviesa002.fm.intel.com with ESMTP; 31 Aug 2026 05:39:27 -0700
-From: Uma Shankar <uma.shankar@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dibin.moolakadan.subrahmanian@intel.com,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [v3 4/4] drm/i915/display: Gate periodic AS SDP skip frames behind a
- module parameter
-Date: Mon, 31 Aug 2026 18:29:13 +0530
-Message-ID: <20260831125914.1736501-5-uma.shankar@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260831125914.1736501-1-uma.shankar@intel.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 084EF10E279;
+ Mon, 31 Aug 2026 12:52:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id C90D843D76;
+ Mon, 31 Aug 2026 12:52:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF4C1F000E9;
+ Mon, 31 Aug 2026 12:52:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788180760;
+ bh=EnAG3PY1YyLtLuqbjX0xy1wQZbgJpKf8yP1hh99Xgz0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=M8JOYpm5JbyEflnprIuctiAnaOY0U2uHV3M+h87kun18/MUSzlMYNEhZ6a433pkXW
+ tm7LlkATlfHeIvjo9p9cXVnhB6q5ZJy//smFs8xnnD4OV7zI+O63JFHegHSvvKUIIv
+ yCXHOXNuwDzXs4SCqbMo8aUziTNsQweZiftw/2i/TR4r/vvL+w6NlVt9xPaJgOOjNK
+ 2mrxErE3MyhT/xOYkPGLInYlFMdjd1YtBfjR8xCRmu2+E3mqmQoGc8qgT+i1KP2Vkm
+ uSAoY7qD0TynSJ99yCpQaYTHEYfzJiSOmt8UtqXPydPTT9e5wNb4FDiPyE0N4oE1iD
+ iQDN+x6s9S20g==
+From: sashiko-bot@kernel.org
+Subject: Re: [v3 4/4] drm/i915/display: Gate periodic AS SDP skip frames
+ behind a module parameter
+To: "Uma Shankar" <uma.shankar@intel.com>
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+In-Reply-To: <20260831125914.1736501-5-uma.shankar@intel.com>
 References: <20260831125914.1736501-1-uma.shankar@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260831125914.1736501-5-uma.shankar@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 31 Aug 2026 12:52:39 +0000
+Message-Id: <20260831125240.8DF4C1F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,81 +54,99 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Periodic AS SDP (skip frames) drives a Panel Replay panel down toward its
-minimum refresh rate. It is a new, panel- and platform-sensitive behaviour,
-so keep it opt-in rather than enabling it unconditionally.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Time-Of-Check to Time-Of-Use (TOCTOU) race condition due to eval=
+uating a writable module parameter (`periodic_assdp_enable`) dynamically du=
+ring both the `atomic_check` and `atomic_commit` phases.
+--
 
-Add a display module parameter, periodic_assdp_enable, shared by both the
-i915 and xe drivers via the intel_display_params infrastructure. It defaults
-to false (feature disabled); set it to true to enable periodic AS SDP.
+commit c6beee35e1043bf1a9c47428a8b14e66a470f378
+Author: Uma Shankar <uma.shankar@intel.com>
 
-Gate the feature at its single choke point, intel_pr_as_sdp_skip_frames():
-returning a zero skip count when the parameter is off makes both the
-PR_ALPM_CTL programming (intel_alpm_configure_pr_as_sdp()) and the DC3co
-force-disable predicate (intel_alpm_pr_as_sdp_skip_frames_enabled()) a no-op,
-so AS SDP continues to be sent on every frame as before.
+drm/i915/display: Gate periodic AS SDP skip frames behind a module parameter
 
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_alpm.c           | 5 +++++
- drivers/gpu/drm/i915/display/intel_display_params.c | 6 ++++++
- drivers/gpu/drm/i915/display/intel_display_params.h | 1 +
- 3 files changed, 12 insertions(+)
+This commit adds a periodic_assdp_enable module parameter to optionally ena=
+ble
+periodic AS SDP (skip frames) for Panel Replay. The feature is disabled by
+default and gated dynamically inside intel_pr_as_sdp_skip_frames().
 
-diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/i915/display/intel_alpm.c
-index 03d5bf5c526f..e723fa56e4d4 100644
---- a/drivers/gpu/drm/i915/display/intel_alpm.c
-+++ b/drivers/gpu/drm/i915/display/intel_alpm.c
-@@ -392,11 +392,16 @@ static u32 get_pr_alpm_as_sdp_transmission_time(const struct intel_crtc_state *c
-  */
- static u32 intel_pr_as_sdp_skip_frames(struct intel_dp *intel_dp)
- {
-+	struct intel_display *display = to_intel_display(intel_dp);
- 	const struct drm_display_info *info =
- 		&intel_dp->attached_connector->base.display_info;
- 	int max_vrefresh = info->monitor_range.max_vfreq;
- 	int min_vrefresh = info->monitor_range.min_vfreq;
- 
-+	/* Off by default; gated by the periodic_assdp_enable module parameter. */
-+	if (!display->params.periodic_assdp_enable)
-+		return 0;
-+
- 	if (min_vrefresh <= 0 || max_vrefresh <= min_vrefresh)
- 		return 0;
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/drivers/gpu/drm/i915/display/intel_display_params.c
-index 2aed110c5b09..a845d29610cf 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.c
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.c
-@@ -139,6 +139,12 @@ intel_display_param_named_unsafe(enable_dmc_wl, int, 0400,
- 	"(-1=use per-chip default, 0=disabled, 1=enabled, 2=match any register, 3=always locked) "
- 	"Default: -1");
- 
-+intel_display_param_named_unsafe(periodic_assdp_enable, bool, 0600,
-+	"Enable periodic Adaptive-Sync SDP (AS SDP skip frames) for Panel Replay "
-+	"to drive the panel down to its minimum refresh rate "
-+	"(0=disabled, 1=enabled) "
-+	"Default: 0");
-+
- __maybe_unused
- static void _param_print_bool(struct drm_printer *p, const char *driver_name,
- 			      const char *name, bool val)
-diff --git a/drivers/gpu/drm/i915/display/intel_display_params.h b/drivers/gpu/drm/i915/display/intel_display_params.h
-index b95ecf728daa..4d912aab4811 100644
---- a/drivers/gpu/drm/i915/display/intel_display_params.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_params.h
-@@ -50,6 +50,7 @@ struct drm_printer;
- 	param(bool, psr_safest_params, false, 0400) \
- 	param(bool, enable_psr2_sel_fetch, true, 0400) \
- 	param(int, enable_dmc_wl, -1, 0400) \
-+	param(bool, periodic_assdp_enable, false, 0600) \
- 
- #define MEMBER(T, member, ...) T member;
- struct intel_display_params {
--- 
-2.50.1
+> diff --git a/drivers/gpu/drm/i915/display/intel_alpm.c b/drivers/gpu/drm/=
+i915/display/intel_alpm.c
+> --- a/drivers/gpu/drm/i915/display/intel_alpm.c
+> +++ b/drivers/gpu/drm/i915/display/intel_alpm.c
 
+[ ... ]
+
+> @@ -392,11 +392,16 @@ static u32 get_pr_alpm_as_sdp_transmission_time(con=
+st struct intel_crtc_state *c
+>   */
+>  static u32 intel_pr_as_sdp_skip_frames(struct intel_dp *intel_dp)
+>  {
+> +	struct intel_display *display =3D to_intel_display(intel_dp);
+>  	const struct drm_display_info *info =3D
+>  		&intel_dp->attached_connector->base.display_info;
+>  	int max_vrefresh =3D info->monitor_range.max_vfreq;
+>  	int min_vrefresh =3D info->monitor_range.min_vfreq;
+> =20
+> +	/* Off by default; gated by the periodic_assdp_enable module parameter.=
+ */
+> +	if (!display->params.periodic_assdp_enable)
+> +		return 0;
+
+[Severity: Medium]
+Since the module parameter is writable at runtime (0600), could reading it
+dynamically here introduce a race condition between the atomic_check and
+atomic_commit phases?
+
+The commit message notes this function serves as a choke point for both the
+DC3co force-disable predicate (evaluated during check phase in=20
+intel_display_power_dc3co_compute()) and PR_ALPM_CTL programming (evaluated
+during commit phase in intel_alpm_configure_pr_as_sdp()).
+
+If a user with root privileges changes the sysfs parameter from 0 to 1 after
+the check phase completes but before hardware programming begins, could
+the driver program the hardware inconsistently? For example, by keeping DC3=
+co
+enabled but also enabling AS SDP skip frames, which are documented as
+incompatible?
+
+Should this parameter be read once during the atomic check phase and cached
+in the crtc_state to guarantee consistency across the DRM atomic pipeline?
+
+> +
+>  	if (min_vrefresh <=3D 0 || max_vrefresh <=3D min_vrefresh)
+>  		return 0;
+> =20
+> diff --git a/drivers/gpu/drm/i915/display/intel_display_params.c b/driver=
+s/gpu/drm/i915/display/intel_display_params.c
+> --- a/drivers/gpu/drm/i915/display/intel_display_params.c
+> +++ b/drivers/gpu/drm/i915/display/intel_display_params.c
+
+[ ... ]
+
+> @@ -139,6 +139,12 @@ intel_display_param_named_unsafe(enable_dmc_wl, int,=
+ 0400,
+>  	"(-1=3Duse per-chip default, 0=3Ddisabled, 1=3Denabled, 2=3Dmatch any r=
+egister, 3=3Dalways locked) "
+>  	"Default: -1");
+> =20
+> +intel_display_param_named_unsafe(periodic_assdp_enable, bool, 0600,
+> +	"Enable periodic Adaptive-Sync SDP (AS SDP skip frames) for Panel Repla=
+y "
+> +	"to drive the panel down to its minimum refresh rate "
+> +	"(0=3Ddisabled, 1=3Denabled) "
+> +	"Default: 0");
+
+[Severity: Medium]
+Is it intentional to expose this as a writable parameter with 0600=20
+permissions given the potential time-of-check to time-of-use issues=20
+mentioned above?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831125914.1736=
+501-1-uma.shankar@intel.com?part=3D4
