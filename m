@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23AD3C61DFD
-	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 22:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D40F5C61DD3
+	for <intel-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 22:11:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85BF110E235;
-	Mon, 31 Aug 2026 22:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48AF110E121;
+	Mon, 31 Aug 2026 22:11:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="POGI8c8E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gSCnD4qu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED39110E1C1;
- Mon, 31 Aug 2026 22:02:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1407E10E121;
+ Mon, 31 Aug 2026 22:11:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B791601DE;
- Mon, 31 Aug 2026 22:02:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 828DC1F000E9;
- Mon, 31 Aug 2026 22:02:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7C6C6400A7;
+ Mon, 31 Aug 2026 22:11:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C61D1F00A3D;
+ Mon, 31 Aug 2026 22:11:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788213724;
- bh=evn7OQKD+lUQL0qPNw9K4hFFAkMKzc7AUGrtcUyzXos=;
+ s=k20260515; t=1788214306;
+ bh=3QufebDidnA9U50oPH1NtaCbyYrcC46sFufrAikcyf8=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=POGI8c8EVs8YvQotEOwnDnz51jY7IPac2PbP9bwL6WFpMylJdYO+v5rLj6fXQleHm
- zjAkj8qr1qu+ci7guPbYlPvEOI1XzWBGYkGh2SLrZwWbE+7tAfbKK+rAhSZRmPcMge
- 1mF6wfE1QuovVYtX9s7gM8Zscqropdgi6lv8gZzfNpoYQ6raeh3yaB+YHpqEKV9Mzf
- 9HERruAPh9IP6DXsz5hlnasFDdKcFImiTOvjek4ecisBR98NEt19NN4cP6mGKVFoo2
- euidvt9JR6ADwouPQBfzEHLQPcySmV07RRDA6sCtbBBDAMu4h7N7t+CyMpuwSots1M
- /THJ0KpefkTzg==
+ b=gSCnD4quGrkLIQ0iWa84t2Q7xcG6Uty7tXI32Ed6MXm5vr4jXAQXWAA5ayFypynLz
+ NO0XVCJStFnS1wiNj2aKBolvU3X3JPQmlpfkYizx7h3HGkeD9O9SgmNo4mS4n07ptc
+ uekqSUi0DEJzrWVUEOvvnWoYvj+3xJw5MQz/Ox9pss9oT9wEJIKSPueyV2Mfx2qujr
+ r2uFJ8Ho/ClA4G3y4D4qvojT0fHaWYVPEZZ47a6UFgZuidnud+J6Iwr7qZapQbFA2P
+ oThPqX+E4/IrKdQh1e7APPLX/NW3D2y+UqyQCeMK8Wg1LEgFY6iZNz3MUyKL+18MZo
+ 90+tsJb9uFTdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/12] Revert "backlight: Remove notifier"
+Subject: Re: [PATCH v7 02/12] backlight: add kernel-internal backlight API
 To: "Mario Limonciello" <mario.limonciello@amd.com>
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260831210531.2334221-2-mario.limonciello@amd.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+In-Reply-To: <20260831210531.2334221-3-mario.limonciello@amd.com>
 References: <20260831210531.2334221-1-mario.limonciello@amd.com>
- <20260831210531.2334221-2-mario.limonciello@amd.com>
+ <20260831210531.2334221-3-mario.limonciello@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Aug 2026 22:02:03 +0000
-Message-Id: <20260831220204.828DC1F000E9@smtp.kernel.org>
+Date: Mon, 31 Aug 2026 22:11:45 +0000
+Message-Id: <20260831221146.1C61D1F00A3D@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,79 +58,146 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] `backlight_device_get_by_type()` does not take a reference on the =
-returned device pointer, leading to Use-After-Free vulnerabilities in calle=
-rs.
+- [High] DRM takeover protection is missing from bl_power_store(), allowing=
+ userspace to bypass DRM exclusivity and toggle the backlight power state.
+- [Medium] backlight_set_brightness() incorrectly returns success (0) and g=
+enerates a spurious event when the backlight device is unregistered or unbo=
+und (bd->ops is NULL).
+- [Medium] guard(mutex)(&bd->ops_lock) unintentionally extends the lock sco=
+pe over backlight_generate_event(), violating intended lock lifetime and ri=
+sking lock contention.
+- [Medium] backlight_notify_brightness() is called from inconsistent lockin=
+g contexts, exposing registered notifier chains to AB-BA deadlocks or lockd=
+ep splats.
 --
 
-commit 910d8ccf8b36f6154658d6c354c95ebb55830e1d
+commit bb82de7554b837e30f99cb722d8f1a608b68529b
 Author: Mario Limonciello <mario.limonciello@amd.com>
+Subject: backlight: add kernel-internal backlight API
 
-Revert "backlight: Remove notifier"
+This commit adds kernel-internal backlight helpers to allow modifying
+backlights from within DRM. It introduces a brightness-changed notification
+and a per-device takeover count to inhibit legacy sysfs writes while a DRM
+client is in control.
 
-This reverts commit 5461f3fd74a89757f95f351eb0bc26aafc2a2e91. The
-backlight notifier support is needed in order to add backlight control
-support into DRM connectors.
+> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backligh=
+t/backlight.c
+> index 51d8c3501768b..eec2aeadcc4b9 100644
+> --- a/drivers/video/backlight/backlight.c
+> +++ b/drivers/video/backlight/backlight.c
+[ ... ]
+> @@ -214,6 +217,13 @@ static ssize_t brightness_store(struct device *dev,
+>  	struct backlight_device *bd =3D to_backlight_device(dev);
+>  	unsigned long brightness;
+> =20
+> +	/* A luminance-aware DRM client has taken over this backlight; the
+> +	 * legacy sysfs interface is disabled until the last such client
+> +	 * goes away.
+> +	 */
+> +	if (atomic_read(&bd->drm_takeover) > 0)
+> +		return -EBUSY;
+> +
 
+[Severity: High]
+Since drm_takeover prevents legacy sysfs writes here, does bl_power_store()
+also need this check?
+
+Without it, could userspace write to the legacy bl_power sysfs attribute to
+toggle the backlight power state, completely bypassing the DRM exclusivity
+constraint?
+
+[ ... ]
+> @@ -514,6 +524,39 @@ static int devm_backlight_device_match(struct device=
+ *dev, void *res,
+>  	return *r =3D=3D data;
+>  }
+> =20
+> +/**
+> + * backlight_set_brightness - set brightness on a backlight device
+> + * @bd: backlight device to operate on
+> + * @value: brightness value to set on the device
+> + * @reason: backlight-change reason to use for notifications
+> + *
+> + * This is the in-kernel API equivalent of writing into the 'brightness'=
+ sysfs
+> + * file. It calls into the underlying backlight driver to change the bri=
+ghtness
+> + * value.
+> + * A uevent notification is sent with the reason set to @reason.
+> + * Return: 0 if successfully notified, -EINVAL for invalid values
+> + */
+> +int backlight_set_brightness(struct backlight_device *bd, unsigned int v=
+alue,
+> +			      enum backlight_update_reason reason)
+> +{
+> +	int rc =3D 0;
+> +
+> +	guard(mutex)(&bd->ops_lock);
+> +	if (bd->ops) {
+
+[Severity: Medium]
+If the backlight device is unregistered or unbound and bd->ops is NULL, this
+skips the if block, but rc remains 0.
+
+Could this falsely signal success to the caller and generate a spurious
+uevent even though no brightness change actually occurred?
+
+> +		if (value > bd->props.max_brightness)
+> +			return -EINVAL;
+> +
+> +		dev_dbg(&bd->dev, "set brightness to %u\n", value);
+> +		bd->props.brightness =3D value;
+> +		rc =3D backlight_update_status(bd);
+> +	}
+> +	if (rc =3D=3D 0)
+> +		backlight_generate_event(bd, reason);
+
+[Severity: Medium]
+The function-scoped guard causes ops_lock to remain held during the call to
+backlight_generate_event(), which in turn calls sysfs_notify() and
+kobject_uevent_env().
+
+Does this unintentionally extend the lock scope over the event generation,
+departing from the convention of releasing the lock before emitting events
+and potentially increasing lock contention?
+
+> +
+> +	return rc;
+> +}
+> +EXPORT_SYMBOL_GPL(backlight_set_brightness);
+[ ... ]
 > diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-> index f29a9ef1052e7..015183d129f96 100644
+> index 015183d129f96..18d9145198b5f 100644
 > --- a/include/linux/backlight.h
 > +++ b/include/linux/backlight.h
 [ ... ]
-> @@ -388,6 +408,8 @@ void devm_backlight_device_unregister(struct device *=
-dev,
->  				      struct backlight_device *bd);
->  void backlight_force_update(struct backlight_device *bd,
->  			    enum backlight_update_reason reason);
-> +int backlight_register_notifier(struct notifier_block *nb);
-> +int backlight_unregister_notifier(struct notifier_block *nb);
->  struct backlight_device *backlight_device_get_by_name(const char *name);
->  struct backlight_device *backlight_device_get_by_type(enum backlight_typ=
-e type);
+> @@ -325,6 +347,10 @@ static inline int backlight_update_status(struct bac=
+klight_device *bd)
+>  		ret =3D bd->ops->update_status(bd);
+>  	mutex_unlock(&bd->update_lock);
+> =20
+> +	/* Notify DRM and other listeners that brightness changed */
+> +	if (ret =3D=3D 0)
+> +		backlight_notify_brightness(bd);
 
-[Severity: High]
-This is a pre-existing issue, but does backlight_device_get_by_type() need =
-to
-increment the reference count of the returned device pointer?
+[Severity: Medium]
+This emits the notifier call without guaranteeing a consistent state of
+ops_lock across all call paths.
 
-Currently, backlight_device_get_by_type() in
-drivers/video/backlight/backlight.c returns a pointer to the backlight
-device without taking a reference:
+When backlight_update_status() is called from the sysfs path via
+backlight_device_set_brightness(), bd->ops_lock is held. However, when
+triggered by driver hotkeys, ops_lock might not be held. Does this expose
+registered notifier chains to inconsistent locking contexts, risking lockdep
+splats or AB-BA deadlocks if listeners acquire locks that nest with ops_loc=
+k?
 
-drivers/video/backlight/backlight.c:backlight_device_get_by_type() {
-    ...
-    mutex_unlock(&backlight_dev_list_mutex);
-    return found ? bd : NULL;
-}
-
-Callers like int3406_thermal_probe() in
-drivers/thermal/intel/int340x_thermal/int3406_thermal.c call this and
-permanently cache the returned pointer:
-
-    bd =3D backlight_device_get_by_type(BACKLIGHT_RAW);
-    if (!bd)
-        return -ENODEV;
-    d->raw_bd =3D bd;
-
-Because the reference count is not incremented (for example, via
-get_device(&bd->dev)), a concurrent unbind of the raw backlight driver
-will unregister and free the backlight device.
-
-The thermal driver remains unaware, and subsequent reads or writes to the
-thermal sysfs attributes (such as
-/sys/class/thermal/cooling_deviceX/cur_state) will call
-int3406_thermal_get_cur_state(), which dereferences the freed pointer
-(d->raw_bd->props.brightness).
-
-Could we add get_device() to backlight_device_get_by_type() and update
-callers to drop the reference when done?
-
->  int backlight_device_set_brightness(struct backlight_device *bd,
+> +
+>  	return ret;
+>  }
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260831210531.2334=
-221-1-mario.limonciello@amd.com?part=3D1
+221-1-mario.limonciello@amd.com?part=3D2
