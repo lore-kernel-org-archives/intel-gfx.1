@@ -4,84 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A3B7C624D3
-	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 13:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52D03C624D6
+	for <intel-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 13:10:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FD6A10F1E1;
-	Wed,  2 Sep 2026 13:10:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CB5010F1DF;
+	Wed,  2 Sep 2026 13:10:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R0smeIz6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DRRPwrza";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CED3B10E474
- for <intel-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 06:52:27 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-495437bb891so4948665e9.1
- for <intel-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 23:52:27 -0700 (PDT)
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
+ [74.125.224.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ECCC10E0AC
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 23:48:23 +0000 (UTC)
+Received: by mail-yx1-f45.google.com with SMTP id
+ 956f58d0204a3-66e55430869so449710d50.0
+ for <intel-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 16:48:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788306502; cv=none;
+ d=google.com; s=arc-20260327;
+ b=NKc5HATBkFXx0hUgCpHGOq+45nYzkz4wObuKBg6uZj70GwPozUOVFdW1iNgoria0gW
+ 6s6dB0sb9bS7OAlVUMi75t1COWIvgJUze0hTQ8RyNHXL41R8OnNz0p6MgldLwxVl2yGG
+ 9WZtJ/u6f8SBPlnu1crWV5F2m2CLPE2hC/fY3tuoUQ0EfHaM8R3WNA0a9imGmClOpbet
+ MyA4BN/cC75oiiaXdxzTr5nidyo0BJutUNUgcKhRZysucpHFM+CsmgbcVzL9I1+09O/w
+ +9adh88XpYqtwbl7iyozArEBVrElSiorxTYkZYWMSk4YH6k526k2EXc97g6O7Ec+OJoh
+ PrDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=6rj1WG5w9092EDpKl9YtsCKqmoFQ4+iBJFF22wWoC/U=;
+ fh=RRPtC6FwDGYxH8xKvRJ5f2r5HwWbNNZXhdNVIBqOfQo=;
+ b=kzlfCQFvbWU6HxTt0UmBFV4ckPwNE1uSk6+T9iwD7BB3IDmiqzpe1NKmND0M4/9vdY
+ XsDXti7/zrSQPAdohoYoBBZMSQpEcNMwn61WkdkQQFVl4VaFV86DPLVm3s2ySMuR/EyW
+ 3Im+NnenzxJwMkwsPLOUjULumzd6tq7XRaAEWgdcng+XTg/nrlNnzD5dFEskU8jLS5CH
+ eTNA2Xov9Lzkh6Tfzo95pKOI+KLEHR12U6CvfANmidBEOApCPFxpz+IU78cIKuRwMzVg
+ 44ONno5eP5RmAvIu2R5r95u0pWP1UgvSjO6++dbI8uVcUxruxcmBKEbcP1eCeurG/hDi
+ AFRg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788331946; x=1788936746; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
- b=R0smeIz6KqtMseP2T/k2FDr0pwg2x4pow9JK8FUQSQxvMjP0gnS1PpqXhOESX5k96G
- ympm7JsH3YpZjKRHd2JFG2WgcQF5/NGYO1v5FMA8eOonZOfACn1zTX6WFi4CVD0Bvovh
- n+DLUEZgndwsvuSEVtoZQGsklXE2bZRrVp2cSrc9UYFh49sn9lIaJSGuDWO+OkJ/oQ2A
- nVQUKpXmRdFlzJs7gk/OM/vX2qUMEJyzwcRnWEvuRDOv/oYOA4ylT3Scqvc5c1qpQSv3
- 7rd6NsEu4jDUmqBLEse/ofXgTX7QSXq4rUjRPfxDTCl+puL/BrifcvEXde32jAyMf58k
- Wt/g==
+ d=gmail.com; s=20251104; t=1788306502; x=1788911302; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=6rj1WG5w9092EDpKl9YtsCKqmoFQ4+iBJFF22wWoC/U=;
+ b=DRRPwrza+awvV16lip220Pu1khx2W65APh+u5+GGJ0sRG1Fzg9zRUqH0ybsiUQ/5s3
+ LFdwIfEasRrOCPMLVzX44685pgj4qKBJLp2vUcv2+nGJOHmu1NLJP2O98Y0tSiLVkmLY
+ UPt9laV4IYj3wamYcUhKt0UgR147nYQMdyu0zOkaa9hxifYAI/3H2eHXAKjthw8C/IVU
+ BsYxZb+Rs1VZX+xx0Ikcv4mC/gEq3z9fZxXFGPMk26IelhWBVBPSrEdMsZOSsM4dA/6z
+ 5NrWN7l2N0plmNYgw2nRv7+DLHKJjaRyZcpyHwJhWs81gKqmnqIW8nJEbwJRYUjosm2E
+ /llg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788331946; x=1788936746;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xn4PAkw0tahIVVTtwzVrKulou125O66ZpuD5FdtR8Zg=;
- b=sQIWL/CnuYfp73bTm80EcLCpfZ+1ADehFBw9usSx0cMSTkJClDzuE48p1nV3c2/Klf
- xS+dCU35B24ZAagyV4T+8iz30GJdyoxhEo79iUSVesPhC+ssx3FEnUC1XVuEvCnytQ6Y
- WmbUdjmaR7zRad8cjjlEwgsJlD/G9noAj6Ui4/gRRjcNQULPAN08V0+JrMraMIJNqxFw
- b4DobxcuZhbL2acxdhWO9LBCqCLdnLkwIqlDlas7pCzAGBwFOWDFGzlMZGxGl9AVcH2y
- iv0Gb7+EMbSiGHmQGl8CnZTHpH1x4ZHVz85sIxgRxTjUejf4WeyLTQAu+bIechYUgC19
- bPPg==
+ d=1e100.net; s=20251104; t=1788306502; x=1788911302;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=6rj1WG5w9092EDpKl9YtsCKqmoFQ4+iBJFF22wWoC/U=;
+ b=PMeUWm4ZIywQjl03HORFHK/ImuPQ46Vw61Up8xQb6EMZSJ9SvmyBJOijE1UZPxx1IM
+ lBJ4kR1cZcrev0kjlHOwnZnstbO2jxQGianvnsRuJfdEAXqLfB6MJtSbgEUjoC0GDbg3
+ d1uUV1yauyeIPzMjkcNbGcGbMlE4yBL4RNgj4SPzXtZVQPz01wGXBN8zCXYM2efT2EWA
+ QuK8iApviD+RqUGeH/g0sbaOJTVjvOyggKIfM5AWo1bWQVnL2MIOrFmxr6OQeT+eoud/
+ vxXaVFeaBQkfDQozbLjwDNeIKsasHDMKcum1PW3tAJjbszRi5O3nAJ+jjl6VZ8GcKe9b
+ rxjA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrn29YSFF+wOLczuVmntTiE/hC0WmcUrMU/IJwDuIA9NxNWf/pqoFe08S/jKj5GwpBzY0xIiHwleJQ=@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mDqJytJksvDqFtJg79kP1rM/D27yTZnBiZis+4LuuU/+BfFaQr
- R/2E4msU4lVBWBe/3OCELBgVZFHKHxGUVh/CeGqN5QsGSt9kU+KZqQtt
-X-Gm-Gg: AR+sD11yxPQM4yb76LvXWCBrUe900ZwDj0lHFxJ9Ocmg1N9+qFqDOOY1JK51S84dHcV
- KM23Am+dJW+zcPgS9HHrdt/R65hXFbHX3sIMLZCvYqgL2KrJqGOLzLHxa/ZMYTDy61Q2dHPwhlj
- Sp01kH0tDeXdlcJztfoU+R9mFsFLenyfTcG6kl0F9b1hRqrB16ka1lve++9ZtWGfCU73vDXF2dU
- VPqZWA9aYzc0RvaXeYNscDSooDXcZNgQK7TQbAEOe5C26seGTvmNN+a7QuzDfp0a5JiBZreI+V8
- 7rabTkE8UetRnQnZFDx1nAw1E/6vxuFqeERZqDoF596Zw3LaLm+7jXt8ov6x0dv4F/QL5mBxEVa
- lh0r51HcOdRTWtvdvdrtFnWRVEqYrP40c6u/zkJRtEFTNH/FEaKcxs/iRqyki3x+lgkbhBlj0Ep
- oq233odiy7TIHwnNrUx5w3iIZpOK4ijbsIJVpMB6qXj7FLqsgcLciUBUNFxFgPPtsDksWjxrCP1
- Q==
-X-Received: by 2002:a05:600c:3f0b:b0:49c:ced9:ab7f with SMTP id
- 5b1f17b1804b1-49ce7c316aemr13532185e9.8.1788331945999; 
- Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Received: from [192.168.1.10] ([95.43.220.235])
- by smtp.googlemail.com with ESMTPSA id
- 5b1f17b1804b1-49cdce10148sm123486195e9.5.2026.09.01.23.52.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Sep 2026 23:52:25 -0700 (PDT)
-Message-ID: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
-Date: Wed, 2 Sep 2026 09:52:24 +0300
+ AKwUvByjgpLW8a47oslmzmbD+bZ4UVAXR+I/F3V76sfV4TkBpE8isZHcKw8mAb8dMyOuQEAkUBvTnUPHSTs=@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kZmZ+SPYW+0JbQvDN7fMTnbGebIPz11oZ15d834iCxivBm+D29
+ 9YewwWpkFRL/C33cmC9xD7hNMwIaQEqyctO+ve/vCNvDS1VSukRLUkHJbZQlOKylktQTxEDWJns
+ MT0yS2ECbpBp1krVIa5Flj+OrybTtNg==
+X-Gm-Gg: AYBFou3BXLQ/9ZKoPhQEEYF+2PYD9jGf+Bikyi82/gNr+1OEm362Yy7/lf6Jqm36DVC
+ W74oBrGVQa/udMC/vvRp3IdNg8NmLkLpLNPbAKAnhmN0OKK1xEU/GrEsYpLR1LOdHYhyHuFLZHf
+ TkqZ8wd8b5HN/cNBeCpExunF0W1BvqIDMJ9X8MfYxK1x3mxgjkLUBkYQCZrC4ighVQa52oBKvLu
+ UUO9HOMeOZAFAmGNhQJfEEM1oz3y8KA/s47/Sc2TqfJ9NmsPcZP6E84hXwyBDg8o4q6kIYs5ugv
+ qlHzuwL8fP2rFHEIH3LE8ax2cNTWmidSC5t6lWsKuIlsaToHszGRekvIgnupbCpWaJTt+31Mqvg
+ zSsiKMtZZJBbo58yf8oM8vs+LKQ==
+X-Received: by 2002:a05:690e:13c7:b0:668:9ea4:774b with SMTP id
+ 956f58d0204a3-66f9bc25746mr273094d50.41.1788306501919; Tue, 01 Sep 2026
+ 16:48:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Language: en-GB
-From: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-In-Reply-To: <apbbvQSfUbzYRFaw@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260830161703.11570-1-iamedu@gmail.com>
+ <c2603413d2af50854a620c5966149495b36dc851@intel.com>
+ <CAH0s7rY7+ZDgxhA-6mUVLHT2msVzcXA=cOFPpmo0669qP2P1gQ@mail.gmail.com>
+In-Reply-To: <CAH0s7rY7+ZDgxhA-6mUVLHT2msVzcXA=cOFPpmo0669qP2P1gQ@mail.gmail.com>
+From: =?UTF-8?Q?Eduardo_D=C3=ADaz?= <iamedu@gmail.com>
+Date: Tue, 1 Sep 2026 16:48:10 -0700
+X-Gm-Features: AcwNN1U0ERtU-8B0FPZfMu8nQ8QV92-HLhAAyhy6XWidRBwI8hhEyf8QxXXdOzk
+Message-ID: <CAH0s7rY=eWPHAB+w+NF64T5WR3L5hpVEHCxzqVjrnaroojE6zQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/i915/cdclk: Don't trust boot readout for per-pipe
+ cdclk/voltage tracking
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="000000000000cbe8be065a748d17"
 X-Mailman-Approved-At: Wed, 02 Sep 2026 13:10:12 +0000
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,46 +113,497 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
+--000000000000cbe8be065a748d17
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+OK, confirmed. That patch fixes the issue
+
+Thanks!
 
 
-On 1.09.26 г. 17:05 ч., Mark Brown wrote:
-> Hi all,
-> 
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
-> 
-> /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named 'card' in 'struct hdmi_audio_data'
->    408 |         ad->card = card;
->        |         ~~  ^
-> 
-> Caused by commit
-> 
->     699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI codec)
-> 
-> I have used the tree from next-20260831 instead.
 
-This seems to be due to an interaction between two patches:
-1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 
-875e906efdc4 (ASoC: ti: preparation for Card capsuling)
-2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI 
-codec)
+On Mon, Aug 31, 2026 at 7:52=E2=80=AFAM Eduardo D=C3=ADaz <iamedu@gmail.com=
+> wrote:
 
-Both (1) patches are in the tree and remove the 'card' member from 
-struct hdmi_audio_data, while (2) was already in transit. Patch (2) only 
-reorders the existing ad->card = card assignment, so it still contains 
-that reference:
-
-+	ad->card = card;
-+
-+	snd_soc_card_set_drvdata(card, ad);
-  	ret = devm_snd_soc_register_card(dev, card);
-  	if (ret) {
-  		dev_err(dev, "snd_soc_register_card failed (%d)\n", ret);
-  		return ret;
-  	}
-
--	ad->card = card;
--	snd_soc_card_set_drvdata(card, ad);
+> I filed a report here:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9074 debug logs
+> weren't enabled though.
+>
+> I don't believe I've tried 1786d2688781 ("drm/i915/cdclk: Avoid spurious
+> cdclk
+> sanitization on PTL+"), will do so later today.
+>
+> On Mon, Aug 31, 2026 at 12:39=E2=80=AFAM Jani Nikula <jani.nikula@linux.i=
+ntel.com>
+> wrote:
+>
+>> On Sun, 30 Aug 2026, Eduardo Diaz <iamedu@gmail.com> wrote:
+>> > On Panther Lake (xe3lpd) laptops, cold boot reliably corrupts the
+>> > internal eDP panel: pipe A gets a "Selective fetch area calculation
+>> > failed in pipe A" warning immediately followed by a CPU pipe A FIFO
+>> > underrun, and the panel stays corrupted for the rest of the session.
+>> > A subsequent suspend/resume cycle (or any other full re-modeset)
+>> > "fixes" it, which pointed at cdclk/voltage-level tracking rather than
+>> > a genuine hardware race.
+>> >
+>> > intel_modeset_readout_hw_state() runs once at driver probe (and again
+>> > on resume) to figure out what firmware/GOP left the display in. For
+>> > each already-active pipe it calls intel_cdclk_update_hw_state(),
+>> > which seeds cdclk_state->min_cdclk[]/min_voltage_level[] directly
+>> > from the freshly read-out crtc_state. That treats "firmware left this
+>> > pipe active with mode X" as proof that this driver's own cdclk,
+>> > voltage-level and DBUF setup for mode X is already established in
+>> > hardware. It isn't -- only firmware's own, entirely separate code
+>> > path has ever touched those registers.
+>> >
+>> > The OS driver's first real modeset for an inherited pipe typically
+>> > targets the same native panel mode, so the freshly computed
+>> > crtc_state->min_cdclk/min_voltage_level trivially match this
+>> > readout-seeded baseline. intel_cdclk_update_crtc_min_cdclk() and
+>> > intel_cdclk_update_crtc_min_voltage_level() then conclude nothing
+>> > changed and skip the recalculation, on the one commit where it
+>> > actually matters: taking a pipe from firmware ownership to being
+>> > correctly configured by this driver.
+>> >
+>> > Fix this in two parts:
+>> >
+>> >  - Invalidate the per-pipe min_cdclk[]/min_voltage_level[] tracking
+>> >    right after boot-time readout, so the first real atomic commit is
+>> >    guaranteed to see a difference.
+>> >
+>> >  - Stop early-returning in intel_cdclk_update_crtc_min_cdclk() and
+>> >    intel_cdclk_update_crtc_min_voltage_level() based on the crtc_state
+>> >    comparison alone. That comparison is unreliable for exactly the
+>> >    same reason (it's derived from the same readout), and skips the
+>> >    real, tracked-state check below it.
+>> >
+>> > Bisected on real hardware (Lenovo Yoga 9i 14IPH11, Panther Lake) down
+>> > to a narrow window between v6.19.10 (clean on every cold boot) and
+>> > v7.1.10 (broken on every cold boot); confirmed via live kernel
+>> > tracing that the skip path fires unconditionally on this platform
+>> > from the very first post-boot atomic commit onward. This fix
+>> > eliminates the FIFO underrun across many consecutive cold boots on
+>> > the same hardware, with no regression observed across suspend/resume.
+>>
+>> Do you have a regressing commit? Nearly 600 commits were merged to i915
+>> display alone between 6.19 and 7.1 so it's not really a narrow window.
+>>
+>> Have you filed a bug as described at [1]? With debugs, logs, and
+>> everything.
+>>
+>> Have you tried with 1786d2688781 ("drm/i915/cdclk: Avoid spurious cdclk
+>> sanitization on PTL+")?
+>>
+>>
+>> BR,
+>> Jani.
+>>
+>>
+>> [1]
+>> https://drm.pages.freedesktop.org/intel-docs/how-to-file-i915-bugs.html
+>>
+>>
+>> > The investigation and this fix were developed with the assistance of
+>> > Claude (Anthropic), driven and verified end to end on the affected
+>> > hardware by the Signed-off-by below.
+>> >
+>> > Signed-off-by: Eduardo Diaz <iamedu@gmail.com>
+>> > ---
+>> >  drivers/gpu/drm/i915/display/intel_cdclk.c    | 45 ++++++++++++++----=
 -
-  	dev_set_drvdata(dev, ad);
+>> >  drivers/gpu/drm/i915/display/intel_cdclk.h    |  1 +
+>> >  .../drm/i915/display/intel_modeset_setup.c    |  1 +
+>> >  3 files changed, 36 insertions(+), 11 deletions(-)
+>> >
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> b/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> > index a53d887271..209a2373d1 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> > +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c
+>> > @@ -2981,11 +2981,14 @@ static int
+>> intel_cdclk_update_crtc_min_cdclk(struct intel_atomic_state *state,
+>> >       bool allow_cdclk_decrease =3D intel_any_crtc_needs_modeset(state=
+);
+>> >       int ret;
+>> >
+>> > -     if (new_min_cdclk =3D=3D old_min_cdclk)
+>> > -             return 0;
+>> > -
+>> > -     if (!allow_cdclk_decrease && new_min_cdclk < old_min_cdclk)
+>> > -             return 0;
+>> > +     /*
+>> > +      * old_min_cdclk comes from the previous crtc_state, which after
+>> > +      * boot-time readout reflects whatever firmware/GOP left running=
+,
+>> > +      * not what this driver has programmed. For an inherited pipe it
+>> > +      * equals new_min_cdclk by construction (same mode, same formula=
+),
+>> > +      * so an early return here would skip the recalculation that
+>> > +      * matters. Always continue on to the cdclk_state check below.
+>> > +      */
+>> >
+>> >       cdclk_state =3D intel_atomic_get_cdclk_state(state);
+>> >       if (IS_ERR(cdclk_state))
+>> > @@ -3026,12 +3029,10 @@ static int
+>> intel_cdclk_update_crtc_min_voltage_level(struct intel_atomic_state *
+>> >       bool allow_voltage_level_decrease =3D
+>> intel_any_crtc_needs_modeset(state);
+>> >       int ret;
+>> >
+>> > -     if (new_min_voltage_level =3D=3D old_min_voltage_level)
+>> > -             return 0;
+>> > -
+>> > -     if (!allow_voltage_level_decrease &&
+>> > -         new_min_voltage_level < old_min_voltage_level)
+>> > -             return 0;
+>> > +     /*
+>> > +      * old_min_voltage_level is unreliable for the same reason; see
+>> > +      * intel_cdclk_update_crtc_min_cdclk().
+>> > +      */
+>> >
+>> >       cdclk_state =3D intel_atomic_get_cdclk_state(state);
+>> >       if (IS_ERR(cdclk_state))
+>> > @@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct
+>> intel_display *display)
+>> >       cdclk_state->dbuf_bw_min_cdclk =3D intel_dbuf_bw_min_cdclk(displ=
+ay,
+>> dbuf_bw_state);
+>> >  }
+>> >
+>> > +/*
+>> > + * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[=
+]
+>> > + * from readout's crtc_state, i.e. from whatever firmware/GOP left
+>> > + * running, not from anything this driver has programmed. A pipe's
+>> > + * first real modeset usually targets the same native mode, so the
+>> > + * freshly computed value matches this seeded baseline and
+>> > + * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude
+>> > + * nothing changed, skipping the recalculation that matters. Call
+>> > + * this after readout so the first real commit sees a difference.
+>> > + */
+>> > +void intel_cdclk_invalidate_min_tracking(struct intel_display *displa=
+y)
+>> > +{
+>> > +     struct intel_cdclk_state *cdclk_state =3D
+>> > +             to_intel_cdclk_state(display->cdclk.obj.state);
+>> > +     enum pipe pipe;
+>> > +
+>> > +     for_each_pipe(display, pipe) {
+>> > +             cdclk_state->min_cdclk[pipe] =3D 0;
+>> > +             cdclk_state->min_voltage_level[pipe] =3D 0;
+>> > +     }
+>> > +}
+>> > +
+>> >  void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc)
+>> >  {
+>> >       struct intel_display *display =3D to_intel_display(crtc);
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h
+>> b/drivers/gpu/drm/i915/display/intel_cdclk.h
+>> > index a60cbf745e..1517d3605a 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_cdclk.h
+>> > +++ b/drivers/gpu/drm/i915/display/intel_cdclk.h
+>> > @@ -46,6 +46,7 @@ int intel_cdclk_state_set_joined_mbus(struct
+>> intel_atomic_state *state, bool joi
+>> >  struct intel_cdclk_state *
+>> >  intel_atomic_get_cdclk_state(struct intel_atomic_state *state);
+>> >  void intel_cdclk_update_hw_state(struct intel_display *display);
+>> > +void intel_cdclk_invalidate_min_tracking(struct intel_display
+>> *display);
+>> >  void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc);
+>> >  int intel_cdclk_update_dbuf_bw_min_cdclk(struct intel_atomic_state
+>> *state,
+>> >                                        int old_min_cdclk, int
+>> new_min_cdclk,
+>> > diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> > index 6aed881737..c7be6e63e7 100644
+>> > --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> > +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c
+>> > @@ -880,6 +880,7 @@ static void intel_modeset_readout_hw_state(struct
+>> intel_display *display)
+>> >       intel_bw_update_hw_state(display);
+>> >       intel_dbuf_bw_update_hw_state(display);
+>> >       intel_cdclk_update_hw_state(display);
+>> > +     intel_cdclk_invalidate_min_tracking(display);
+>> >
+>> >       intel_pmdemand_init_pmdemand_params(display, pmdemand_state);
+>> >  }
+>>
+>> --
+>> Jani Nikula, Intel
+>>
+>
 
+--000000000000cbe8be065a748d17
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><br clear=3D"all"></div><div><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">OK=
+, confirmed. That patch fixes the issue<br><br></div><div dir=3D"ltr">Thank=
+s!<div><br></div></div></div></div><br></div><br><div class=3D"gmail_quote =
+gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Aug 31=
+, 2026 at 7:52=E2=80=AFAM Eduardo D=C3=ADaz &lt;<a href=3D"mailto:iamedu@gm=
+ail.com">iamedu@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex"><div dir=3D"ltr"><div>I filed a report here:=C2=A0=
+<a href=3D"https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9074" =
+target=3D"_blank">https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items=
+/9074</a> debug logs weren&#39;t enabled though.<br><br>I don&#39;t believe=
+ I&#39;ve tried=C2=A0<span style=3D"background-color:transparent">1786d2688=
+781 (&quot;drm/i915/cdclk: Avoid spurious cdclk</span></div>sanitization on=
+ PTL+&quot;), will do so later today.<br></div><br><div class=3D"gmail_quot=
+e"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Aug 31, 2026 at 12:39=E2=
+=80=AFAM Jani Nikula &lt;<a href=3D"mailto:jani.nikula@linux.intel.com" tar=
+get=3D"_blank">jani.nikula@linux.intel.com</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">On Sun, 30 Aug 2026, Eduardo Diaz=
+ &lt;<a href=3D"mailto:iamedu@gmail.com" target=3D"_blank">iamedu@gmail.com=
+</a>&gt; wrote:<br>
+&gt; On Panther Lake (xe3lpd) laptops, cold boot reliably corrupts the<br>
+&gt; internal eDP panel: pipe A gets a &quot;Selective fetch area calculati=
+on<br>
+&gt; failed in pipe A&quot; warning immediately followed by a CPU pipe A FI=
+FO<br>
+&gt; underrun, and the panel stays corrupted for the rest of the session.<b=
+r>
+&gt; A subsequent suspend/resume cycle (or any other full re-modeset)<br>
+&gt; &quot;fixes&quot; it, which pointed at cdclk/voltage-level tracking ra=
+ther than<br>
+&gt; a genuine hardware race.<br>
+&gt;<br>
+&gt; intel_modeset_readout_hw_state() runs once at driver probe (and again<=
+br>
+&gt; on resume) to figure out what firmware/GOP left the display in. For<br=
+>
+&gt; each already-active pipe it calls intel_cdclk_update_hw_state(),<br>
+&gt; which seeds cdclk_state-&gt;min_cdclk[]/min_voltage_level[] directly<b=
+r>
+&gt; from the freshly read-out crtc_state. That treats &quot;firmware left =
+this<br>
+&gt; pipe active with mode X&quot; as proof that this driver&#39;s own cdcl=
+k,<br>
+&gt; voltage-level and DBUF setup for mode X is already established in<br>
+&gt; hardware. It isn&#39;t -- only firmware&#39;s own, entirely separate c=
+ode<br>
+&gt; path has ever touched those registers.<br>
+&gt;<br>
+&gt; The OS driver&#39;s first real modeset for an inherited pipe typically=
+<br>
+&gt; targets the same native panel mode, so the freshly computed<br>
+&gt; crtc_state-&gt;min_cdclk/min_voltage_level trivially match this<br>
+&gt; readout-seeded baseline. intel_cdclk_update_crtc_min_cdclk() and<br>
+&gt; intel_cdclk_update_crtc_min_voltage_level() then conclude nothing<br>
+&gt; changed and skip the recalculation, on the one commit where it<br>
+&gt; actually matters: taking a pipe from firmware ownership to being<br>
+&gt; correctly configured by this driver.<br>
+&gt;<br>
+&gt; Fix this in two parts:<br>
+&gt;<br>
+&gt;=C2=A0 - Invalidate the per-pipe min_cdclk[]/min_voltage_level[] tracki=
+ng<br>
+&gt;=C2=A0 =C2=A0 right after boot-time readout, so the first real atomic c=
+ommit is<br>
+&gt;=C2=A0 =C2=A0 guaranteed to see a difference.<br>
+&gt;<br>
+&gt;=C2=A0 - Stop early-returning in intel_cdclk_update_crtc_min_cdclk() an=
+d<br>
+&gt;=C2=A0 =C2=A0 intel_cdclk_update_crtc_min_voltage_level() based on the =
+crtc_state<br>
+&gt;=C2=A0 =C2=A0 comparison alone. That comparison is unreliable for exact=
+ly the<br>
+&gt;=C2=A0 =C2=A0 same reason (it&#39;s derived from the same readout), and=
+ skips the<br>
+&gt;=C2=A0 =C2=A0 real, tracked-state check below it.<br>
+&gt;<br>
+&gt; Bisected on real hardware (Lenovo Yoga 9i 14IPH11, Panther Lake) down<=
+br>
+&gt; to a narrow window between v6.19.10 (clean on every cold boot) and<br>
+&gt; v7.1.10 (broken on every cold boot); confirmed via live kernel<br>
+&gt; tracing that the skip path fires unconditionally on this platform<br>
+&gt; from the very first post-boot atomic commit onward. This fix<br>
+&gt; eliminates the FIFO underrun across many consecutive cold boots on<br>
+&gt; the same hardware, with no regression observed across suspend/resume.<=
+br>
+<br>
+Do you have a regressing commit? Nearly 600 commits were merged to i915<br>
+display alone between 6.19 and 7.1 so it&#39;s not really a narrow window.<=
+br>
+<br>
+Have you filed a bug as described at [1]? With debugs, logs, and<br>
+everything.<br>
+<br>
+Have you tried with 1786d2688781 (&quot;drm/i915/cdclk: Avoid spurious cdcl=
+k<br>
+sanitization on PTL+&quot;)?<br>
+<br>
+<br>
+BR,<br>
+Jani.<br>
+<br>
+<br>
+[1] <a href=3D"https://drm.pages.freedesktop.org/intel-docs/how-to-file-i91=
+5-bugs.html" rel=3D"noreferrer" target=3D"_blank">https://drm.pages.freedes=
+ktop.org/intel-docs/how-to-file-i915-bugs.html</a><br>
+<br>
+<br>
+&gt; The investigation and this fix were developed with the assistance of<b=
+r>
+&gt; Claude (Anthropic), driven and verified end to end on the affected<br>
+&gt; hardware by the Signed-off-by below.<br>
+&gt;<br>
+&gt; Signed-off-by: Eduardo Diaz &lt;<a href=3D"mailto:iamedu@gmail.com" ta=
+rget=3D"_blank">iamedu@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_cdclk.c=C2=A0 =C2=A0 | 45 +++=
++++++++++++-----<br>
+&gt;=C2=A0 drivers/gpu/drm/i915/display/intel_cdclk.h=C2=A0 =C2=A0 |=C2=A0 =
+1 +<br>
+&gt;=C2=A0 .../drm/i915/display/intel_modeset_setup.c=C2=A0 =C2=A0 |=C2=A0 =
+1 +<br>
+&gt;=C2=A0 3 files changed, 36 insertions(+), 11 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.c b/drivers/gpu/=
+drm/i915/display/intel_cdclk.c<br>
+&gt; index a53d887271..209a2373d1 100644<br>
+&gt; --- a/drivers/gpu/drm/i915/display/intel_cdclk.c<br>
+&gt; +++ b/drivers/gpu/drm/i915/display/intel_cdclk.c<br>
+&gt; @@ -2981,11 +2981,14 @@ static int intel_cdclk_update_crtc_min_cdclk(s=
+truct intel_atomic_state *state,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bool allow_cdclk_decrease =3D intel_any_crtc=
+_needs_modeset(state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (new_min_cdclk =3D=3D old_min_cdclk)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (!allow_cdclk_decrease &amp;&amp; new_min_cdcl=
+k &lt; old_min_cdclk)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * old_min_cdclk comes from the previous crtc_sta=
+te, which after<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * boot-time readout reflects whatever firmware/G=
+OP left running,<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * not what this driver has programmed. For an in=
+herited pipe it<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * equals new_min_cdclk by construction (same mod=
+e, same formula),<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * so an early return here would skip the recalcu=
+lation that<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * matters. Always continue on to the cdclk_state=
+ check below.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0cdclk_state =3D intel_atomic_get_cdclk_state=
+(state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(cdclk_state))<br>
+&gt; @@ -3026,12 +3029,10 @@ static int intel_cdclk_update_crtc_min_voltage=
+_level(struct intel_atomic_state *<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bool allow_voltage_level_decrease =3D intel_=
+any_crtc_needs_modeset(state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (new_min_voltage_level =3D=3D old_min_voltage_=
+level)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; -<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0if (!allow_voltage_level_decrease &amp;&amp;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0new_min_voltage_level &lt; old_min_=
+voltage_level)<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/*<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * old_min_voltage_level is unreliable for the sa=
+me reason; see<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * intel_cdclk_update_crtc_min_cdclk().<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0cdclk_state =3D intel_atomic_get_cdclk_state=
+(state);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(cdclk_state))<br>
+&gt; @@ -3705,6 +3706,28 @@ void intel_cdclk_update_hw_state(struct intel_d=
+isplay *display)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0cdclk_state-&gt;dbuf_bw_min_cdclk =3D intel_=
+dbuf_bw_min_cdclk(display, dbuf_bw_state);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; +/*<br>
+&gt; + * intel_cdclk_update_hw_state() seeds min_cdclk[]/min_voltage_level[=
+]<br>
+&gt; + * from readout&#39;s crtc_state, i.e. from whatever firmware/GOP lef=
+t<br>
+&gt; + * running, not from anything this driver has programmed. A pipe&#39;=
+s<br>
+&gt; + * first real modeset usually targets the same native mode, so the<br=
+>
+&gt; + * freshly computed value matches this seeded baseline and<br>
+&gt; + * intel_cdclk_update_crtc_min_cdclk()/_min_voltage_level() conclude<=
+br>
+&gt; + * nothing changed, skipping the recalculation that matters. Call<br>
+&gt; + * this after readout so the first real commit sees a difference.<br>
+&gt; + */<br>
+&gt; +void intel_cdclk_invalidate_min_tracking(struct intel_display *displa=
+y)<br>
+&gt; +{<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0struct intel_cdclk_state *cdclk_state =3D<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0to_intel_cdclk_state(=
+display-&gt;cdclk.obj.state);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0enum pipe pipe;<br>
+&gt; +<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0for_each_pipe(display, pipe) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cdclk_state-&gt;min_c=
+dclk[pipe] =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cdclk_state-&gt;min_v=
+oltage_level[pipe] =3D 0;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;=C2=A0 void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc)<=
+br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct intel_display *display =3D to_intel_d=
+isplay(crtc);<br>
+&gt; diff --git a/drivers/gpu/drm/i915/display/intel_cdclk.h b/drivers/gpu/=
+drm/i915/display/intel_cdclk.h<br>
+&gt; index a60cbf745e..1517d3605a 100644<br>
+&gt; --- a/drivers/gpu/drm/i915/display/intel_cdclk.h<br>
+&gt; +++ b/drivers/gpu/drm/i915/display/intel_cdclk.h<br>
+&gt; @@ -46,6 +46,7 @@ int intel_cdclk_state_set_joined_mbus(struct intel_a=
+tomic_state *state, bool joi<br>
+&gt;=C2=A0 struct intel_cdclk_state *<br>
+&gt;=C2=A0 intel_atomic_get_cdclk_state(struct intel_atomic_state *state);<=
+br>
+&gt;=C2=A0 void intel_cdclk_update_hw_state(struct intel_display *display);=
+<br>
+&gt; +void intel_cdclk_invalidate_min_tracking(struct intel_display *displa=
+y);<br>
+&gt;=C2=A0 void intel_cdclk_crtc_disable_noatomic(struct intel_crtc *crtc);=
+<br>
+&gt;=C2=A0 int intel_cdclk_update_dbuf_bw_min_cdclk(struct intel_atomic_sta=
+te *state,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int o=
+ld_min_cdclk, int new_min_cdclk,<br>
+&gt; diff --git a/drivers/gpu/drm/i915/display/intel_modeset_setup.c b/driv=
+ers/gpu/drm/i915/display/intel_modeset_setup.c<br>
+&gt; index 6aed881737..c7be6e63e7 100644<br>
+&gt; --- a/drivers/gpu/drm/i915/display/intel_modeset_setup.c<br>
+&gt; +++ b/drivers/gpu/drm/i915/display/intel_modeset_setup.c<br>
+&gt; @@ -880,6 +880,7 @@ static void intel_modeset_readout_hw_state(struct =
+intel_display *display)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0intel_bw_update_hw_state(display);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0intel_dbuf_bw_update_hw_state(display);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0intel_cdclk_update_hw_state(display);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0intel_cdclk_invalidate_min_tracking(display);<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0intel_pmdemand_init_pmdemand_params(display,=
+ pmdemand_state);<br>
+&gt;=C2=A0 }<br>
+<br>
+-- <br>
+Jani Nikula, Intel<br>
+</blockquote></div>
+</blockquote></div>
+
+--000000000000cbe8be065a748d17--
