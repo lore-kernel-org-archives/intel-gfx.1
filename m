@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FD2C61DD3
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 20:42:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54FCC624D3
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 20:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 083B410E3C3;
-	Tue,  1 Sep 2026 20:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E5D210E810;
+	Tue,  1 Sep 2026 20:48:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="I40DR/9q";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zoud6/QI";
 	dkim-atps=neutral
-X-Greylist: delayed 2703 seconds by postgrey-1.36 at gabe;
- Tue, 01 Sep 2026 20:41:59 UTC
-Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
- [136.143.188.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A081C10E3C3
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 20:41:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1788292614; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=S9/mJ7KmVn977jPDDdzsFr5LRfpW/Y1dO3VMTG0mnXcY5yH09pbwGKXbKE/syfD4/JrlPXQdGFZsbVQE/aa6YnUEqF82QvmL7kNULOzyba++8n2n1G82hW1j9zRZ3VkaoKtXiJdSauMSe58vOGh92+Rsd5YQ/uUArod+OAMXyFY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1788292614;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=/qHEHJKZk4x+utXQVy6Oy+Uc44nyD4jHGrqzfQUFDl4=; 
- b=SrTQmYDG+WUZblInwkPO9rV3LJ7M6WDbL3+VozWxqEWldU9ugzgJgjm8SRIz1Yj8x581dpJOTLvxq9kujB0NtD0LAbZp1mR1sONxw4GsBTA+raj+N5DscyOCNJs1+jRvMfy4gDSf3WQZmE4s/nRe87YWOKTANQV/0Y8Wa3KNpDE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=mark.filion@collabora.com;
- dmarc=pass header.from=<mark.filion@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788292614; 
- s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
- h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
- bh=/qHEHJKZk4x+utXQVy6Oy+Uc44nyD4jHGrqzfQUFDl4=;
- b=I40DR/9q1pjeSuGReyLEANxWXGyDEOEBqHLpNqSJwSr922nDtsRHL9epBX6r7c+D
- JAD7QoZnlFIDcV+l2SqVmPvbcEyWe93v7PuZ1Di3zUNiP3QG8RpqCMxKQ2aSUQk6Aon
- bqOEzl78vS5K8+HXK6uHI5uqsCEBR4Ki4ukUdHdc=
-Received: by mx.zohomail.com with SMTPS id 1788292612334323.7871735947235;
- Tue, 1 Sep 2026 12:56:52 -0700 (PDT)
-Message-ID: <fc3f14c969e72d79ab59efd64e795b8dce3e4e61.camel@collabora.com>
-Subject: XDC 2026: Full schedule now available
-From: Mark Filion <mark.filion@collabora.com>
-To: intel-gfx@lists.freedesktop.org
-Date: Tue, 01 Sep 2026 15:56:51 -0400
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 943B110E65E;
+ Tue,  1 Sep 2026 20:48:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6D01E600D9;
+ Tue,  1 Sep 2026 20:48:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5ED11F000E9;
+ Tue,  1 Sep 2026 20:48:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788295710;
+ bh=FhCklhuhjBYALNQ61jeRR8SR37l2RaEJpAjPuo2Wn+I=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Zoud6/QIfjp+bAKAe1vbDqAwO8duJdtLyjMK3g9U78EfGXtUeh4nk9A8HnAs1SkII
+ Hhlk2xnDjxYQLRUPCFjk2UkLiVhou4rEVOYa8WRFJRdGKykoN/A3+tdVMLF4OjnpSr
+ y3uNmq49tdXIwWIHAapmf7PovK9g7WBSMVCyPlTGZF5OfsDa7sIZbloZa3QmHh7o1F
+ bbyF3I9BSgbNt6YB6h2HzwZhKwKO9kwydGDoFPsAEMZW7DMUB396z2OrSBREzhYByC
+ JuK5FqdhkyPGfJptHi07sPBHveT8u2JMuh1Nw05L4MY4fk6XYlXO19q3KQeiaxMXkz
+ M8glaRyYQ/PVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/psr: clear the Panel Replay error status register
+To: "Jake Steinman" <j@metarealtyinc.ca>
+Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+In-Reply-To: <20260901203633.92628-1-j@metarealtyinc.ca>
+References: <20260901203633.92628-1-j@metarealtyinc.ca>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
-MIME-Version: 1.0
-X-ZohoMailClient: External
+Date: Tue, 01 Sep 2026 20:48:29 +0000
+Message-Id: <20260901204829.D5ED11F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,30 +53,89 @@ List-Post: <mailto:intel-gfx@lists.freedesktop.org>
 List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
  <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
-Hello everyone,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Only a few weeks to go before XDC 2026 kicks off in Toronto, Canada!
+New issues:
+- [High] The patch fails to clear the Panel Replay error status because it =
+evaluates a state variable (`psr->panel_replay_enabled`) that has already b=
+een cleared upon error detection.
 
-The full schedule of talks is now available! Check out the schedule to
-start planning which talks you don't want to miss.
+Pre-existing issues:
+- [High] If `drm_dp_dpcd_readb` reads 0 bytes, the driver falsely assumes s=
+uccess and uses uninitialized stack variables.
+--
 
-https://xdc2026.x.org
+commit 1da2d4e9ad55e4f8b758998afbe0f6630bae226f
+Author: Jake Steinman <j@metarealtyinc.ca>
+drm/i915/psr: clear the Panel Replay error status register
 
-The CfP has also reopened for Lightning Talks, Workshops, Meetings &
-Hacking Sessions. Submissions are welcome, though acceptance is subject
-to available time in the schedule.
+This commit aims to fix an issue where the Panel Replay error status regist=
+er
+is never cleared on the sink. It updates intel_psr_short_pulse() to use
+the same conditional offset for clearing the error as is used for reading i=
+t.
 
-https://indico.freedesktop.org/event/12/abstracts/
+> diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i=
+915/display/intel_psr.c
+> index 52836496040ff..1d0372c5f895f 100644
+> --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> @@ -3891,7 +3891,10 @@ void intel_psr_short_pulse(struct intel_dp *intel_=
+dp)
+>  			"PSR_ERROR_STATUS unhandled errors %x\n",
+>  			error_status & ~errors);
 
-If you are planning to attend, please make sure to register.
-Registration is free, and helps us plan for catering, evening events,
-and nametags.
+[Severity: High]
+This is a pre-existing issue, but if drm_dp_dpcd_readb() reads 0 bytes, it
+returns 0.
 
-https://indico.freedesktop.org/event/12/registrations/
+In psr_get_status_and_error_status(), the check if (ret !=3D 1) return ret;=
+ will
+then return 0.
 
-Best,
+Does this cause intel_psr_short_pulse() to wrongly treat the read as a succ=
+ess
+and proceed to use uninitialized stack variables status and error_status?
 
-Mark
+>  	/* clear status register */
+> -	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
+> +	drm_dp_dpcd_writeb(&intel_dp->aux,
+> +			   psr->panel_replay_enabled ?
+> +			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
+> +			   error_status);
+
+[Severity: High]
+Does this code still write to the wrong register during an error condition?
+
+If an error is detected, the earlier check in intel_psr_short_pulse() calls
+intel_psr_disable_locked():
+
+intel_psr_short_pulse()
+  if ((!psr->panel_replay_enabled && status =3D=3D DP_PSR_SINK_INTERNAL_ERR=
+OR) ||
+      (error_status & errors)) {
+      intel_psr_disable_locked(intel_dp);
+      ...
+  }
+
+intel_psr_disable_locked() unconditionally clears the flag:
+  intel_dp->psr.panel_replay_enabled =3D false;
+
+When we later attempt to clear the status register, psr->panel_replay_enabl=
+ed
+will evaluate to false, causing the error status to be incorrectly written =
+to
+DP_PSR_ERROR_STATUS instead of DP_PANEL_REPLAY_ERROR_STATUS.
+
+> =20
+>  	if (!psr->panel_replay_enabled) {
+>  		psr_alpm_check(intel_dp);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901203633.9262=
+8-1-j@metarealtyinc.ca?part=3D1
