@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45846C624D6
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6E39C624D5
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 13:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A572610ECE7;
-	Tue,  1 Sep 2026 13:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28E5310ECE6;
+	Tue,  1 Sep 2026 13:26:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZPOnM/rh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BNNEXbS9";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6882610ECE6
- for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 13:25:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A888C10ECE6
+ for <intel-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 13:26:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 02507401BB;
- Tue,  1 Sep 2026 13:25:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B790E1F00ADB;
- Tue,  1 Sep 2026 13:25:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B80686020D;
+ Tue,  1 Sep 2026 13:26:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BFA21F000E9;
+ Tue,  1 Sep 2026 13:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788269101;
- bh=Eih4Dlf0c3Vnk4LN34AkAKfqFKD4PcFmmm59Nuhqw4M=;
+ s=k20260515; t=1788269194;
+ bh=pr/g3oSbtsDKpgE+XeXDM/1xq80FFVN4EbLNMxFFpKs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZPOnM/rhmMiGaNz/SG09421ToSxor6HL1GmfB/NfnB10U0/Vuf/ilsOnW+FvG62dO
- qA5wWV/jnAMqChOOEzZuItcekyhFU7ScZh3xDqoe3J4tJUj6z/FonK0s2OrJX2KlXq
- zPjzRANoisxpPdjm4UohqyAoimVRIlt5MHeKGaWSjgm1Rtq580OeMmT6ErQBpCBiHl
- s6ugfRXvoiae0dK2TNkaOkqUxbMYG+c+WhTDP04ffDvZxa8GOhazfhgkIST7PFJQVa
- K25OLtxk7a58Zozg6xVKqAsPS7eXw+W6bVLSk9pBCE66eTctqm33sIzDZARMIWoAjY
- ECuViMzPG68XA==
+ b=BNNEXbS9sRQfJTbONcFLIUZ+v7lHY9GVwJAqoopbWhy7WJZHUo5VJWdOGij+Tdaw9
+ o53J18GgMasWIK04Ey1HHHBjnYa+nHfdwB3trgAEZGRWKPwfhtlCYXHX5I4yMfE9Lo
+ TCNPBRAzgqZFS9wjL3Gsand+KdQxGZSgKGfFOPj5Rrs3T0uoL0S3fHZ0BGjLD6llmU
+ MLr7GbvI+eaX+15VoBsbMptoRi/pLvFLi1sGV76ShKVK3zwfrc19Ouf9vvmRGYK7dT
+ X1Dz4YPrA7sKymY4x6DKWZWCvFWo97H0ufxos1fI09ArzJr59TlbPSFGhnBrQ2y0w3
+ 8WwuSgRv6g9TQ==
 From: sashiko-bot@kernel.org
 Subject: Re: [PATCH] drm/i915/display: send null DRM infoframe when ending
  HDR transmission
 To: "Xiao Lu" <xiaolu.xie@intel.com>
 Cc: intel-gfx@lists.freedesktop.org
-In-Reply-To: <20260901130415.236800-1-xiaolu.xie@intel.com>
-References: <20260901130415.236800-1-xiaolu.xie@intel.com>
+In-Reply-To: <20260901130649.237080-1-xiaolu.xie@intel.com>
+References: <20260901130649.237080-1-xiaolu.xie@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 13:25:01 +0000
-Message-Id: <20260901132501.B790E1F00ADB@smtp.kernel.org>
+Date: Tue, 01 Sep 2026 13:26:33 +0000
+Message-Id: <20260901132634.4BFA21F000E9@smtp.kernel.org>
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,27 +59,26 @@ Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Stateless implementation of the CTA-861-H 2-second requirement c=
-auses indefinite transmission, premature termination, and spurious state mi=
-smatches.
+- [Medium] The implementation fails to enforce the CTA-861-H 2-second minim=
+um duration for zero-filled DRM infoframes and leaves them enabled indefini=
+tely during normal SDR operation.
 --
 
-commit 78df3126b776d1f0e5455dd977f44bfe09013697
-Author: xiaolu <xiaolu@intel.com>
+commit 36a317ecec2b669b256a0c4c50d72b83f1882ac8
+Author: Xiao Lu <xiaolu.xie@intel.com>
+Subject: drm/i915/display: send null DRM infoframe when ending HDR transmis=
+sion
 
-drm/i915/display: send null DRM infoframe when ending HDR transmission
-
-This commit aims to fix color errors on SDR content when transitioning from
-HDR to SDR by sending a null DRM infoframe for at least 2 seconds as requir=
-ed
-by CTA-861-H.
+This commit aims to fix color errors on DP-to-HDMI converters during the
+HDR-to-SDR transition. It implements the CTA-861-H requirement to send a
+null DRM infoframe for at least 2 seconds before stopping the transmission
+entirely.
 
 > diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i9=
 15/display/intel_dp.c
 > index 6b60e0a1c8eef..7680594ae6702 100644
 > --- a/drivers/gpu/drm/i915/display/intel_dp.c
 > +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-[ ... ]
 > @@ -3231,14 +3231,29 @@ intel_dp_in_hdr_mode(const struct drm_connector_s=
 tate *conn_state)
 >  static void
@@ -111,33 +110,33 @@ m.drm;
 > +		}
 
 [Severity: Medium]
-Could this introduce a regression where the zeroed DRM infoframe is either
-transmitted indefinitely or terminated prematurely depending on subsequent
-commits?
+How is the 2-second minimum duration enforced here?
 
-This logic in intel_dp_compute_hdr_metadata_infoframe_sdp() enables the
-zeroed infoframe during the HDR to SDR modeset, but does not provide a
-mechanism to disable it after 2 seconds. If the compositor does not perform
-another commit, the infoframe transmission appears to continue indefinitely.
+The infoframe transmission is tied to the transient atomic state transition
+where old_conn_state->hdr_output_metadata is true. Since the crtc_state
+persists until the next commit, wouldn't the null infoframe transmit
+indefinitely during normal SDR operation, rather than stopping after 2 seco=
+nds?
 
-Conversely, if the compositor performs an unrelated atomic commit (for
-example, updating a cursor plane) within 2 seconds of the HDR transition,
-won't this immediately disable the infoframe? The recalculation of the state
-would see no HDR metadata in the old state and skip setting the enable bit,
-terminating the infoframe prematurely and violating the CTA-861-H requireme=
-nt.
+Additionally, if a subsequent userspace commit (like a page flip or resolut=
+ion
+change) occurs within 2 seconds, old_conn_state->hdr_output_metadata will be
+false for that new commit. Doesn't this mean the infoframe will abruptly st=
+op,
+violating the 2-second minimum requirement?
 
 >  		return;
 > +	}
 > =20
 >  	ret =3D drm_hdmi_infoframe_set_hdr_metadata(drm_infoframe, conn_state);
+
 [ ... ]
+
 > diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/=
 i915/display/intel_hdmi.c
 > index 9b637e38a1a51..bdacad8ea30a3 100644
 > --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 > +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-[ ... ]
 > @@ -856,8 +856,25 @@ intel_hdmi_compute_drm_infoframe(struct intel_encode=
 r *encoder,
 >  	if (!crtc_state->has_infoframe)
@@ -163,16 +162,19 @@ r *encoder,
 > +		}
 
 [Severity: Medium]
-Does this face the same stateless implementation regression as the DP path?
+This appears to have the same issue for the native HDMI path. Tying the
+transmission requirement to an event-based atomic commit means the 2-second
+minimum duration isn't guaranteed by a timer or delayed worker.=20
 
-Like in intel_dp_compute_hdr_metadata_infoframe_sdp(), this logic in
-intel_hdmi_compute_drm_infoframe() indefinitely prolongs the transmission if
-there are no further commits, or truncates it if rapid modesets occur within
-the 2-second window.
+Could this result in the null infoframe either being disabled too early (if
+another commit happens quickly) or remaining enabled forever?
 
 >  		return true;
 > +	}
+> =20
+>  	crtc_state->infoframes.enable |=3D
+>  		intel_hdmi_infoframe_enable(HDMI_INFOFRAME_TYPE_DRM);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901130415.2368=
-00-1-xiaolu.xie@intel.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260901130649.2370=
+80-1-xiaolu.xie@intel.com?part=3D1
