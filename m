@@ -4,57 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6CFCC624CF
-	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 10:43:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E74C624CF
+	for <intel-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 11:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5580610E3DE;
-	Tue,  1 Sep 2026 10:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD48D10E3DA;
+	Tue,  1 Sep 2026 11:00:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Sd5gPQ2A";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BhdUa0Q+";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED53C10E3DE;
- Tue,  1 Sep 2026 10:43:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABB8110E3D0;
+ Tue,  1 Sep 2026 11:00:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788259427; x=1819795427;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:mime-version;
- bh=2iLoIDqoIBVrSn934gNDnWml0IVZCp1Lw/1+Ksgy7NQ=;
- b=Sd5gPQ2Ab6FLfYJHrBKrn6ltaR56t5zxOnsj69usptz9JZNNnN63qo05
- MNpMUV5gHBuNBPu+j+PcA3aERFdRzG9rkVOM3fq3AG+9PhtcLzsD4Iay9
- ZzkpNTzeAwTAfZeaHI6uSRVREqLOSO/SJ6e98Nbh99r5rDtwUPxMP0U1/
- EM2JzIHQ7gVb4Ufe5gbBvtyVfmpuDpGtswPR9TjdT9Egs1EDEj1wH0hB5
- WHF33ew5Pnf7ueYlBzD98rb/y5pmmfgT5BazxBr3pI0CPovDZxHsW8wFp
- ehKfc2Xm8m0wKFvrKuLvzJU65sSgMvHC1XFqc4rM4xMVRovR3M+NjHI4n w==;
-X-CSE-ConnectionGUID: zOR7dgK0SkKpmi7VQrPpGw==
-X-CSE-MsgGUID: b4jPnuLmSn+usLUYCBkkCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88536537"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208,217";a="88536537"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 03:43:35 -0700
-X-CSE-ConnectionGUID: bcuEpVxxSzOjWIYzwTAVcw==
-X-CSE-MsgGUID: GezzfMHgSQ+uQIfP8/P1HQ==
+ t=1788260416; x=1819796416;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=G1b9fngnftfY6lUQzwCc5m80e4+/Y3ufVU2ikPIqaXY=;
+ b=BhdUa0Q+ryCQgMyyj2vuxxwUEjCE9Rrl1wJhDNR+gjscRefQq4N9UpjZ
+ 79FEhuK9rmmW/YMOyuC4G07YRDgchUpqpkqc2/7BFj+daWnXK496v3+iR
+ +IcIEB/8/lbVF3qM9y5z/EG5qSaFBoUjXuCbg4G219wu+Z/5W/LVYa1AC
+ yHZOmJWBPmQiY7gFSpQ/sVbLl6QAqU8W6GceXV9uuQDQYCcA6CB6wlAX3
+ 2qZay6X4SBOb0Vvwy7te71zW5/tnRi17+x2JI6Nnnn4PWh4YAt4NNJIpg
+ sIH2jE+Q56Yk+2JDVsJRnIrN37pVG99wsA5Qz8c6zclf9sYTivcBWhsVT A==;
+X-CSE-ConnectionGUID: xxC4qUytSluxKJm9EiM0LA==
+X-CSE-MsgGUID: GpE/cRVORdqSIiJgMmQH8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88561545"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="88561545"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Sep 2026 04:00:16 -0700
+X-CSE-ConnectionGUID: hw/D/r65SQWejawVNVDBaA==
+X-CSE-MsgGUID: 9Qv49OhgQ6q6HcS09KDDMw==
 X-ExtLoop1: 1
-Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.167])
- by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Sep 2026 03:43:33 -0700
-Message-ID: <2bfacf4518d0a914ef984dbf7dc2c6f6114100b3.camel@linux.intel.com>
-Subject: Re: =?UTF-8?Q?=E2=9C=97?= i915.CI.Full: failure for
- drm/i915/selftests: Wait longer for request to start
-From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
-To: I915-ci-infra@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org
-Date: Tue, 01 Sep 2026 12:43:31 +0200
-In-Reply-To: <178820767489.104222.16189714489178134155@61270ab9df2a>
-References: <20260831093510.3496388-2-janusz.krzysztofik@linux.intel.com>
- <178820767489.104222.16189714489178134155@61270ab9df2a>
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173,
- 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
-Content-Type: multipart/alternative; boundary="=-JVIB0sRUh/AyrlgacjsT"
-User-Agent: Evolution 3.60.2 
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="298955029"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa002.jf.intel.com with ESMTP; 01 Sep 2026 04:00:14 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Subject: [v5 0/2] drm/i915/audio: Add HDMI TMDS audio bandwidth check
+Date: Tue,  1 Sep 2026 16:06:37 +0530
+Message-ID: <20260901103639.617757-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: intel-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,154 +66,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
 Errors-To: intel-gfx-bounces@lists.freedesktop.org
 Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
 
---=-JVIB0sRUh/AyrlgacjsT
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series adds audio bandwidth validation for HDMI TMDS mode.
+When the available hblank period cannot carry the required
+audio packets for a given sample rate and channel count, the
+corresponding frequencies are pruned from the ELD SADs before they reach
+the audio driver.
 
-Hi=C2=A0I915-ci-infra@lists.freedesktop.org,
+Sample rates are pruned rather than channel counts because compressed
+audio formats like Dolby Digital (AC-3) and DTS require a fixed channel
+configuration to decode.
 
-On Mon, 2026-08-31 at 20:21 +0000, Patchwork wrote:
-> Patch Details
->=20
-> Series:drm/i915/selftests: Wait longer for request to start
->=20
-> URL:https://patchwork.freedesktop.org/series/173048/
->=20
-> State:failure
-> Details:
-> https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/index.html
-> CI Bug Log - changes from CI_DRM_19062_full -> Patchwork_173048v1_fullSum=
-maryFAILURE
-> Serious unknown changes coming with Patchwork_173048v1_full absolutely
-> need to be
-> verified manually.
-> If you think the reported changes have nothing to do with the changes
-> introduced in Patchwork_173048v1_full, please notify your bug team (I915-
-> ci-infra@lists.freedesktop.org) to allow them
-> to document this new failure mode, which will reduce false positives in
-> CI.
-> Participating hosts (10 -> 10)No changes in participating hosts
-> Possible new issuesHere are the unknown changes that may have been introd=
-uced in
-> Patchwork_173048v1_full:
-> IGT changesPossible regressions *=20
->    igt@gem_linear_blits@normal:shard-dg1: PASS [5] -> FAIL [4]
->  *=20
->    igt@i915_pm_rpm@sysfs-read:shard-dg2: PASS [3] -> SKIP [2]
->  *=20
->    igt@runner@aborted:
->     - shard-mtlp:         NOTRUN -> (FAIL [1], FAIL [1])
+This improves on an earlier attempt which can be seen in [1]
 
-The patch under this pre-merge testing only touches one specific selftest,
-then the above failures are not related. =C2=A0Please update CBL filters an=
-d re-
-report.
+[1] https://lore.kernel.org/intel-gfx/20230615063137.2219870-3-mitulkumar.ajitkumar.golani@intel.com/
 
-Thanks,
-Janusz
+v2:
+ - Use DIV64_U64_ROUND_UP() instead of DIV_ROUND_UP_ULL() to avoid
+   do_div() truncating the 64-bit divisor to 32-bit, which caused
+   audio_packets_line to be wildly inflated and all SADs to be pruned.
+ - Guard intel_audio_hdmi_eld_compute_config() against HDMI FRL modes.
 
-> Known issuesHere are the changes found in Patchwork_173048v1_full that co=
-me from
-> known issues:
-...
+v3:
+ - Rebase
 
+v4:
+ - Simply SAD Removal logic (Jani)
 
-[1] FAIL
-    https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/shard-mtlp-=
-6/igt@runner@aborted.html
-[2] SKIP
-    https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/shard-dg2-1=
-/igt@i915_pm_rpm@sysfs-read.html
-[3] PASS
-    https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19062/shard-dg2-5/igt@i=
-915_pm_rpm@sysfs-read.html
-[4] FAIL
-    https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/shard-dg1-1=
-4/igt@gem_linear_blits@normal.html
-[5] PASS
-    https://intel-gfx-ci.01.org/tree/drm-tip/CI_DRM_19062/shard-dg1-17/igt@=
-gem_linear_blits@normal.html
+v5:
+ - Drop the FRL guard, i915 doesn't support FRL yet. (Ankit)
+ - s/required_tmds/hblank_audio_min (Ankit)
+ - Add HDMI_TMDS_AUDIO_PACKETS_LINE_MAX macro
+   instead of a magic number 18. (Ankit)
+ - Use drm_eld_sad_get()/drm_eld_sad_set() instead of
+   raw ELD byte access. (Ankit)
+ - Drop extra blank line. (Ankit)
 
---=-JVIB0sRUh/AyrlgacjsT
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Chaitanya Kumar Borah (2):
+  drm/i915/hdmi: Move audio compute config after format selection
+  drm/i915/audio: Prune ELD SADs based on HDMI audio bandwidth
 
-<html><head>
- =20
-  <title>Project List - Patchwork</title>
-  <style id=3D"css-table-select" type=3D"text/css">
-   td { padding: 2pt; }
-  </style>
-<style>pre,code,address {
-  margin: 0px;
-}
-h1,h2,h3,h4,h5,h6 {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-}
-ol,ul {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-blockquote {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-</style></head>
-<body><div>Hi&nbsp;I915-ci-infra@lists.freedesktop.org,</div><div><br></div=
-><div>On Mon, 2026-08-31 at 20:21 +0000, Patchwork wrote:</div><blockquote =
-type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;pad=
-ding-left:1ex"><div><b>Patch Details</b></div>
-<div><table>
-<tbody><tr><td><b>Series:</b></td><td>drm/i915/selftests: Wait longer for r=
-equest to start</td></tr>
-<tr><td><b>URL:</b></td><td><a href=3D"https://patchwork.freedesktop.org/se=
-ries/173048/">https://patchwork.freedesktop.org/series/173048/</a></td></tr=
->
-<tr><td><b>State:</b></td><td>failure</td></tr> <tr><td><b>Details:</b></td=
-><td><a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1=
-/index.html">https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/in=
-dex.html</a></td></tr></tbody></table> </div><h1>CI Bug Log - changes from =
-CI_DRM_19062_full -&gt; Patchwork_173048v1_full</h1><h2>Summary</h2><p><str=
-ong>FAILURE</strong></p><p>Serious unknown changes coming with Patchwork_17=
-3048v1_full absolutely need to be<br> verified manually.</p><p>If you think=
- the reported changes have nothing to do with the changes<br> introduced in=
- Patchwork_173048v1_full, please notify your bug team (I915-ci-infra@lists.=
-freedesktop.org) to allow them<br> to document this new failure mode, which=
- will reduce false positives in CI.</p><h2>Participating hosts (10 -&gt; 10=
-)</h2><p>No changes in participating hosts</p><h2>Possible new issues</h2><=
-p>Here are the unknown changes that may have been introduced in Patchwork_1=
-73048v1_full:</p><h3>IGT changes</h3><h4>Possible regressions</h4><ul>
-<li>
-<p>igt@gem_linear_blits@normal:</p><ul>
-<li>shard-dg1:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_19062/shard-dg1-17/igt@gem_linear_blits@normal.html">PASS</a> -&gt;=
- <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/sha=
-rd-dg1-14/igt@gem_linear_blits@normal.html">FAIL</a></li>
-</ul></li>
-<li>
-<p>igt@i915_pm_rpm@sysfs-read:</p><ul>
-<li>shard-dg2:          <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip=
-/CI_DRM_19062/shard-dg2-5/igt@i915_pm_rpm@sysfs-read.html">PASS</a> -&gt; <=
-a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048v1/shard=
--dg2-1/igt@i915_pm_rpm@sysfs-read.html">SKIP</a></li>
-</ul></li>
-<li>
-<p>igt@runner@aborted:</p></li><ul>
-<li>shard-mtlp:         NOTRUN -&gt; (<a href=3D"https://intel-gfx-ci.01.or=
-g/tree/drm-tip/Patchwork_173048v1/shard-mtlp-6/igt@runner@aborted.html">FAI=
-L</a>, <a href=3D"https://intel-gfx-ci.01.org/tree/drm-tip/Patchwork_173048=
-v1/shard-mtlp-6/igt@runner@aborted.html">FAIL</a>)</li>
-</ul>
-</ul></blockquote><div><br></div><div>The patch under this pre-merge testin=
-g only touches one specific selftest, then the above failures are not relat=
-ed. &nbsp;Please update CBL filters and re-report.</div><div><br></div><div=
->Thanks,</div><div>Janusz</div><div><br></div><blockquote type=3D"cite" sty=
-le=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;padding-left:1ex"><h=
-2>Known issues</h2><p>Here are the changes found in Patchwork_173048v1_full=
- that come from known issues:<br></p></blockquote><div>...</div><blockquote=
- type=3D"cite" style=3D"margin:0 0 0 .8ex; border-left:2px #729fcf solid;pa=
-dding-left:1ex"></blockquote><div><br></div><div><span></span></div></body>=
-</html>
+ drivers/gpu/drm/i915/display/intel_audio.c | 153 +++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.c  |   8 +-
+ 2 files changed, 157 insertions(+), 4 deletions(-)
 
---=-JVIB0sRUh/AyrlgacjsT--
+-- 
+2.50.1
+
